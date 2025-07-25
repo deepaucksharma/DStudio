@@ -78,7 +78,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Decision Trees
+## Decision Trees
 
 ### Consistency Model Selection
 
@@ -116,7 +116,7 @@ graph TD
 
 ---
 
-## 📊 Performance Baselines
+## Performance Baselines
 
 ### Latency Reference
 
@@ -136,7 +136,7 @@ graph TD
 
 ---
 
-## 🛠️ Configuration Templates
+## 🛠 Configuration Templates
 
 ### Circuit Breaker Settings
 
@@ -158,7 +158,7 @@ graph TD
 
 ---
 
-## 📈 Monitoring Thresholds
+## Monitoring Thresholds
 
 ### Golden Signals
 
@@ -180,7 +180,7 @@ graph TD
 
 ---
 
-## 🔄 Incident Response
+## Incident Response
 
 ### Incident Response
 
@@ -192,7 +192,7 @@ graph TD
 
 ---
 
-## 🎯 Testing Strategies
+## Testing Strategies
 
 ### Testing Strategies
 

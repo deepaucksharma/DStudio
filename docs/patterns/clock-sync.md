@@ -93,22 +93,22 @@ sequenceDiagram
 ```python
 def cristians_algorithm(time_server):
     """Simple time synchronization"""
-    # Record local time before request
+# Record local time before request
     t0 = get_local_time()
     
-    # Request time from server
+# Request time from server
     server_time = request_time_from(time_server)
     
-    # Record local time after response
+# Record local time after response
     t1 = get_local_time()
     
-    # Calculate round-trip time
+# Calculate round-trip time
     rtt = t1 - t0
     
-    # Estimate current time (assuming symmetric delays)
+# Estimate current time (assuming symmetric delays)
     estimated_time = server_time + rtt / 2
     
-    # Accuracy bounded by RTT/2
+# Accuracy bounded by RTT/2
     accuracy = rtt / 2
     
     return estimated_time, accuracy
@@ -151,7 +151,7 @@ class BerkeleyAlgorithm:
         
     def synchronize_as_master(self):
         """Master coordinates synchronization"""
-        # 1. Poll all slaves for their time
+# 1. Poll all slaves for their time
         times = []
         for node in self.nodes:
             t0 = time.time()
@@ -159,24 +159,24 @@ class BerkeleyAlgorithm:
             t1 = time.time()
             rtt = t1 - t0
             
-            # Adjust for network delay
+# Adjust for network delay
             adjusted_time = slave_time + rtt/2
             times.append(adjusted_time)
         
-        # 2. Add master's time
+# 2. Add master's time
         times.append(time.time())
         
-        # 3. Calculate average (excluding outliers)
+# 3. Calculate average (excluding outliers)
         avg_time = self.fault_tolerant_average(times)
         
-        # 4. Send adjustments to all nodes
+# 4. Send adjustments to all nodes
         for i, node in enumerate(self.nodes):
             adjustment = avg_time - times[i]
             node.adjust_clock(adjustment)
             
     def fault_tolerant_average(self, times):
         """Remove outliers before averaging"""
-        # Remove times that differ > 3σ from median
+# Remove times that differ > 3σ from median
         median = statistics.median(times)
         std_dev = statistics.stdev(times)
         
@@ -220,34 +220,34 @@ class NTPClient:
         
     def synchronize(self, server):
         """NTP synchronization with server"""
-        # Record timestamps
+# Record timestamps
         t1 = self.get_time()  # Client request time
         
-        # Send request and get response
+# Send request and get response
         t2, t3 = server.handle_time_request(t1)
         
         t4 = self.get_time()  # Client receive time
         
-        # Calculate offset and delay
-        # Offset = ((T2-T1) + (T3-T4)) / 2
-        # Delay = (T4-T1) - (T3-T2)
+# Calculate offset and delay
+# Offset = ((T2-T1) + (T3-T4)) / 2
+# Delay = (T4-T1) - (T3-T2)
         
         offset = ((t2 - t1) + (t3 - t4)) / 2
         delay = (t4 - t1) - (t3 - t2)
         
-        # Sanity checks
+# Sanity checks
         if delay < 0:
             return  # Impossible, clock moved backwards
             
-        # Apply clock filter (keep best 8 samples)
+# Apply clock filter (keep best 8 samples)
         self.offset_history.append((offset, delay))
         self.offset_history.sort(key=lambda x: x[1])  # Sort by delay
         self.offset_history = self.offset_history[:8]
         
-        # Use sample with minimum delay
+# Use sample with minimum delay
         best_offset = self.offset_history[0][0]
         
-        # Adjust clock gradually
+# Adjust clock gradually
         self.adjust_clock_rate(best_offset)
 ```
 
@@ -283,11 +283,11 @@ class TrueTime:
     
     def now(self):
         """Returns interval [earliest, latest]"""
-        # GPS and atomic clock references
+# GPS and atomic clock references
         gps_time = self.get_gps_time()
         atomic_time = self.get_atomic_time()
         
-        # Account for uncertainty
+# Account for uncertainty
         uncertainty = self.calculate_uncertainty()
         
         earliest = min(gps_time, atomic_time) - uncertainty
@@ -306,14 +306,14 @@ class TrueTime:
 class SpannerTransaction:
     def commit(self):
         """Commit with TrueTime guarantees"""
-        # Get commit timestamp
+# Get commit timestamp
         commit_ts = TrueTime.now().latest
         
-        # Wait until timestamp is definitely in past
+# Wait until timestamp is definitely in past
         while not TrueTime.after(commit_ts):
             time.sleep(0.001)  # Wait ~7ms on average
             
-        # Now safe to commit
+# Now safe to commit
         return self.do_commit(commit_ts)
 ```
 
@@ -343,10 +343,10 @@ class HybridLogicalClock:
         """Receive message - update clock"""
         now = time.time()
         
-        # Take maximum of all physical times
+# Take maximum of all physical times
         new_physical = max(now, self.physical, remote_physical)
         
-        # Calculate logical component
+# Calculate logical component
         if new_physical == now and new_physical > max(self.physical, remote_physical):
             new_logical = 0
         elif new_physical == self.physical and new_physical == remote_physical:
@@ -379,21 +379,21 @@ class MonotonicClock:
     def adjust_time(self, correction):
         """Safely adjust clock"""
         if correction > 0:
-            # Jump forward is safe
+# Jump forward is safe
             self.offset += correction
         else:
-            # Slow down clock instead of jumping back
+# Slow down clock instead of jumping back
             self.slew_rate = correction / 3600  # Spread over 1 hour
             
     def get_time(self):
         """Get monotonic time"""
         raw_time = time.time() + self.offset
         
-        # Apply slew if needed
+# Apply slew if needed
         if hasattr(self, 'slew_rate'):
             raw_time += self.slew_rate * time_since_slew_start()
             
-        # Ensure monotonic
+# Ensure monotonic
         if raw_time <= self.last_time:
             raw_time = self.last_time + 0.000001
             
@@ -406,15 +406,15 @@ class MonotonicClock:
 ```python
 def handle_leap_second(timestamp):
     """Handle positive leap second (23:59:60)"""
-    # Option 1: Smear (Google's approach)
-    # Spread leap second over 24 hours
+# Option 1: Smear (Google's approach)
+# Spread leap second over 24 hours
     if is_leap_second_day(timestamp):
-        # Slow down by 11.6 ppm
+# Slow down by 11.6 ppm
         adjustment = (timestamp % 86400) * 0.0000116
         return timestamp - adjustment
     
-    # Option 2: Step (Traditional)
-    # Actually have 23:59:60
+# Option 2: Step (Traditional)
+# Actually have 23:59:60
     if is_leap_second_moment(timestamp):
         return "23:59:60"
     

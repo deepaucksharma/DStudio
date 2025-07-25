@@ -97,10 +97,10 @@ graph TB
 ```python
 class AdServingPipeline:
     def serve_ad(self, request):
-        # 1. Parse request context
+# 1. Parse request context
         context = self.parse_context(request)
         
-        # 2. Find eligible ads
+# 2. Find eligible ads
         eligible_ads = self.matcher.find_eligible_ads(
             keywords=context.keywords,
             location=context.location,
@@ -108,26 +108,26 @@ class AdServingPipeline:
             user_id=context.user_id
         )
         
-        # 3. Filter by targeting
+# 3. Filter by targeting
         targeted_ads = self.targeting_service.filter_ads(
             ads=eligible_ads,
             user_profile=context.user_profile,
             page_content=context.page_content
         )
         
-        # 4. Check budgets
+# 4. Check budgets
         active_ads = self.budget_service.filter_active_ads(
             ads=targeted_ads,
             timestamp=context.timestamp
         )
         
-        # 5. Run auction
+# 5. Run auction
         auction_result = self.auction_engine.run_auction(
             ads=active_ads,
             context=context
         )
         
-        # 6. Return winning ads
+# 6. Return winning ads
         return self.format_response(auction_result)
 ```
 
@@ -136,11 +136,11 @@ class AdServingPipeline:
 ```python
 class AuctionEngine:
     def run_auction(self, ads, context):
-        # 1. Calculate quality scores
+# 1. Calculate quality scores
         for ad in ads:
             ad.quality_score = self.calculate_quality_score(ad, context)
         
-        # 2. Get bids
+# 2. Get bids
         bids = []
         for ad in ads:
             bid = self.get_bid(ad, context)
@@ -151,13 +151,13 @@ class AuctionEngine:
                 'effective_bid': effective_bid
             })
         
-        # 3. Sort by effective bid
+# 3. Sort by effective bid
         bids.sort(key=lambda x: x['effective_bid'], reverse=True)
         
-        # 4. Determine winners (GSP auction)
+# 4. Determine winners (GSP auction)
         winners = []
         for i, bid_info in enumerate(bids[:context.num_slots]):
-            # Winner pays next highest bid
+# Winner pays next highest bid
             price = bids[i+1]['effective_bid'] if i+1 < len(bids) else bid_info['bid'] * 0.01
             winners.append({
                 'ad': bid_info['ad'],
@@ -168,7 +168,7 @@ class AuctionEngine:
         return winners
     
     def calculate_quality_score(self, ad, context):
-        # Factors: CTR, relevance, landing page quality
+# Factors: CTR, relevance, landing page quality
         predicted_ctr = self.ml_model.predict_ctr(ad, context)
         relevance = self.calculate_relevance(ad.keywords, context.keywords)
         landing_quality = self.get_landing_page_score(ad.landing_url)
@@ -185,31 +185,31 @@ class BudgetService:
         self.budget_db = BudgetDB()  # For persistent storage
         
     def check_budget(self, campaign_id, cost):
-        # Get current spend
+# Get current spend
         daily_key = f"spend:daily:{campaign_id}:{today()}"
         current_spend = self.redis_client.get(daily_key) or 0
         
-        # Get budget limits
+# Get budget limits
         campaign = self.get_campaign(campaign_id)
         daily_budget = campaign.daily_budget
         
-        # Check if budget allows
+# Check if budget allows
         if current_spend + cost <= daily_budget:
             return True
         
-        # Check if we can partially serve
+# Check if we can partially serve
         remaining = daily_budget - current_spend
         return remaining > 0
     
     def record_spend(self, campaign_id, cost):
-        # Update Redis counter
+# Update Redis counter
         daily_key = f"spend:daily:{campaign_id}:{today()}"
         self.redis_client.incrbyfloat(daily_key, cost)
         
-        # Async update to persistent storage
+# Async update to persistent storage
         self.queue_persistent_update(campaign_id, cost)
         
-        # Check for budget alerts
+# Check for budget alerts
         self.check_budget_alerts(campaign_id)
 ```
 
@@ -218,23 +218,23 @@ class BudgetService:
 ```python
 class ClickTracker:
     def track_click(self, click_event):
-        # 1. Validate click
+# 1. Validate click
         if not self.is_valid_click(click_event):
             return False
         
-        # 2. Check for fraud
+# 2. Check for fraud
         fraud_score = self.fraud_detector.analyze(click_event)
         if fraud_score > FRAUD_THRESHOLD:
             self.flag_suspicious_click(click_event)
             return False
         
-        # 3. Record click
+# 3. Record click
         self.record_valid_click(click_event)
         
-        # 4. Update real-time metrics
+# 4. Update real-time metrics
         self.update_metrics(click_event)
         
-        # 5. Bill advertiser
+# 5. Bill advertiser
         self.billing_service.record_charge(
             campaign_id=click_event.campaign_id,
             amount=click_event.cost_per_click
@@ -246,7 +246,7 @@ class FraudDetector:
     def analyze(self, click_event):
         features = self.extract_features(click_event)
         
-        # Check patterns
+# Check patterns
         checks = [
             self.check_click_rate(features),      # Abnormal CTR
             self.check_ip_pattern(features),      # Suspicious IPs
@@ -255,7 +255,7 @@ class FraudDetector:
             self.check_referrer(features)         # Invalid referrers
         ]
         
-        # ML model for comprehensive analysis
+# ML model for comprehensive analysis
         ml_score = self.ml_model.predict_fraud(features)
         
         return max(checks + [ml_score])
@@ -269,7 +269,7 @@ class TargetingService:
         targeted_ads = []
         
         for ad in ads:
-            # Check each targeting criterion
+# Check each targeting criterion
             if self.matches_demographics(ad, user_profile):
                 if self.matches_interests(ad, user_profile):
                     if self.matches_keywords(ad, page_content):
@@ -285,7 +285,7 @@ class TargetingService:
         user_interests = self.get_user_interests(user_profile)
         required_interests = ad.interest_targeting
         
-        # Check for overlap
+# Check for overlap
         return bool(user_interests.intersection(required_interests))
 ```
 
@@ -348,22 +348,22 @@ class AdCache:
         self.redis_cache = Redis()       # Distributed cache
         
     def get_eligible_ads(self, keywords):
-        # Check local cache first
+# Check local cache first
         cache_key = self.generate_key(keywords)
         ads = self.local_cache.get(cache_key)
         if ads:
             return ads
         
-        # Check Redis
+# Check Redis
         ads = self.redis_cache.get(cache_key)
         if ads:
             self.local_cache.set(cache_key, ads)
             return ads
         
-        # Fetch from database
+# Fetch from database
         ads = self.fetch_from_db(keywords)
         
-        # Update caches
+# Update caches
         self.redis_cache.setex(cache_key, 300, ads)  # 5 min TTL
         self.local_cache.set(cache_key, ads)
         
@@ -373,7 +373,7 @@ class AdCache:
 ### 2. Parallel Processing
 ```python
 async def serve_ads_parallel(request):
-    # Run independent operations in parallel
+# Run independent operations in parallel
     tasks = [
         fetch_user_profile(request.user_id),
         fetch_page_context(request.url),
@@ -387,7 +387,7 @@ async def serve_ads_parallel(request):
     if fraud_score > THRESHOLD:
         return empty_response()
     
-    # Continue with ad selection
+# Continue with ad selection
     return run_auction(campaigns, user_profile, page_context)
 ```
 
@@ -403,16 +403,16 @@ async def serve_ads_parallel(request):
 ```python
 class HotCampaignHandler:
     def handle_hot_campaign(self, campaign_id):
-        # 1. Dedicated infrastructure
+# 1. Dedicated infrastructure
         self.allocate_dedicated_servers(campaign_id)
         
-        # 2. Pre-warm caches
+# 2. Pre-warm caches
         self.prewarm_campaign_data(campaign_id)
         
-        # 3. Increase budget check frequency
+# 3. Increase budget check frequency
         self.increase_budget_sync_rate(campaign_id)
         
-        # 4. Enable traffic shaping
+# 4. Enable traffic shaping
         self.enable_rate_limiting(campaign_id)
 ```
 

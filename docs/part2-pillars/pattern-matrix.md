@@ -98,9 +98,9 @@ Legend:
 **Next**: [Trade-off Calculus →](tradeoff-calculus.md)
 ---
 
-## 💡 Knowledge Application
+## Knowledge Application
 
-### Exercise 1: Concept Exploration ⭐⭐
+### Exercise 1: Concept Exploration
 **Time**: ~15 minutes
 **Objective**: Deepen understanding of Pattern Interconnection Matrix v2
 
@@ -112,7 +112,7 @@ Legend:
 
 **Application**: Choose one concept and explain it to someone else in your own words.
 
-### Exercise 2: Real-World Connection ⭐⭐⭐
+### Exercise 2: Real-World Connection
 **Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
@@ -127,7 +127,7 @@ Legend:
 - Systems you use daily
 - Historical technology decisions
 
-### Exercise 3: Critical Thinking ⭐⭐⭐⭐
+### Exercise 3: Critical Thinking
 **Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
@@ -154,7 +154,7 @@ Legend:
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
 **Immediate Actions**:
 1. One thing you'll research further

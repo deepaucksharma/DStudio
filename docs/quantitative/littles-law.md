@@ -684,7 +684,7 @@ Decompose into subsystems, apply to each
 
 ## Law Connections
 
-### Law 2: Asynchronous Reality ⏳
+### Law 2: Asynchronous Reality
 ```mermaid
 graph LR
     A[Arrival λ] --> B[System]
@@ -696,7 +696,7 @@ graph LR
 
 **Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/).
 
-### Law 4: Trade-offs ⚖️
+### Law 4: Trade-offs
 <div class="failure-vignette">
 <h4>⚠️ Capacity Overflow Scenario</h4>
 
@@ -733,12 +733,12 @@ graph LR
 </div>
 </div>
 
-### Law 4: Trade-offs ⚖️ (Coordination Aspect)
+### Law 4: Trade-offs (Coordination Aspect)
 - Little's Law assumes FIFO (First In, First Out) for average calculations
 - Different queueing disciplines (LIFO, Priority) change individual wait times
 - But the law still holds for averages
 
-### Law 5: Epistemology 🧠
+### Law 5: Epistemology
 <div class="truth-box">
 <h4>📊 Observability Challenge</h4>
 

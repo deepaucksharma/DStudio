@@ -4,7 +4,7 @@
 
 This comprehensive evaluation framework helps candidates assess their performance in Google system design interviews using a structured 1-4 scoring scale across eight key competency areas.
 
-## 📊 Scoring Scale
+## Scoring Scale
 
 ### Level 1: Needs Improvement (1.0 - 1.9)
 **"Struggling with fundamentals"**
@@ -34,7 +34,7 @@ This comprehensive evaluation framework helps candidates assess their performanc
 - Masterful communication
 - Teaches while designing
 
-## 🎯 Assessment Categories
+## Assessment Categories
 
 ### 1. Problem Analysis & Requirements (25%)
 
@@ -340,7 +340,7 @@ This comprehensive evaluation framework helps candidates assess their performanc
 - **Example:** "This reminds me of how Google evolved Spanner. Let me show you the parallel..."
 - **Mastery:** Inspiring communication
 
-## 📋 Self-Assessment Checklists
+## Self-Assessment Checklists
 
 ### Pre-Interview Readiness
 
@@ -395,7 +395,7 @@ This comprehensive evaluation framework helps candidates assess their performanc
 - [ ] Mock interviews needed
 - [ ] Resources to review
 
-## 📝 Mock Interview Evaluation Form
+## Mock Interview Evaluation Form
 
 ### Candidate Information
 - **Name:** ________________________
@@ -483,7 +483,7 @@ This comprehensive evaluation framework helps candidates assess their performanc
 4. **Build pattern library**
 5. **Study exemplar solutions**
 
-## 🎯 Action Planning Template
+## Action Planning Template
 
 ### Immediate Actions (This Week)
 1. **Concept to Master:** ____________
@@ -513,7 +513,7 @@ This comprehensive evaluation framework helps candidates assess their performanc
    - [ ] ______________________
    - [ ] ______________________
 
-## 📈 Progress Tracking
+## Progress Tracking
 
 ### Weekly Review Template
 
@@ -547,7 +547,7 @@ Track your scores over time:
     | M1  M2  M3
 ```
 
-## 🚀 Using This Rubric Effectively
+## Using This Rubric Effectively
 
 ### For Self-Study
 1. **Score yourself honestly** after each practice

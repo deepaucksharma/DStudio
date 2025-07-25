@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The API Orchestra
 
@@ -86,7 +86,7 @@ const DASHBOARD_QUERY = `
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -251,7 +251,7 @@ class FederationGateway:
     
     def build_federated_schema(self):
         """Compose schemas from all services"""
-        # Apollo Federation handles the complexity
+# Apollo Federation handles the complexity
         return make_federated_schema(
             self.service_endpoints,
             self.resolve_references
@@ -259,13 +259,13 @@ class FederationGateway:
     
     async def execute_query(self, query, variables=None):
         """Execute federated query with optimal planning"""
-        # Parse query
+# Parse query
         document = parse(query)
         
-        # Create execution plan
+# Create execution plan
         plan = self.create_query_plan(document)
         
-        # Execute plan with batching
+# Execute plan with batching
         result = await self.execute_plan(plan, variables)
         
         return result
@@ -274,12 +274,12 @@ class FederationGateway:
         """Create optimal execution plan"""
         plan = QueryPlan()
         
-        # Analyze query to determine required services
+# Analyze query to determine required services
         for selection in document.selections:
             service = self.identify_service(selection)
             plan.add_step(service, selection)
         
-        # Optimize for parallel execution
+# Optimize for parallel execution
         plan.optimize_for_parallelism()
         
         return plan
@@ -319,7 +319,7 @@ const server = new ApolloServer({
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Federation Patterns
 
@@ -336,20 +336,20 @@ class OptimizedEntityResolver:
     
     async def resolve_reference(self, typename, representation):
         """Resolve entity reference with caching"""
-        # Generate cache key
+# Generate cache key
         cache_key = f"{typename}:{representation['id']}"
         
-        # Check cache
+# Check cache
         cached = self.cache.get(cache_key)
         if cached and not self._is_expired(cached):
             return cached['data']
         
-        # Use DataLoader for batching
+# Use DataLoader for batching
         entity = await self.batch_loader.load(
             (typename, representation['id'])
         )
         
-        # Cache result
+# Cache result
         self.cache.set(cache_key, {
             'data': entity,
             'timestamp': time.time()
@@ -359,18 +359,18 @@ class OptimizedEntityResolver:
     
     async def _batch_load_entities(self, keys):
         """Batch load multiple entities"""
-        # Group by type
+# Group by type
         by_type = defaultdict(list)
         for typename, id in keys:
             by_type[typename].append(id)
         
-        # Parallel fetch by type
+# Parallel fetch by type
         results = await asyncio.gather(*[
             self._fetch_entities(typename, ids)
             for typename, ids in by_type.items()
         ])
         
-        # Map back to original order
+# Map back to original order
         entity_map = {}
         for result_set in results:
             for entity in result_set:
@@ -455,13 +455,13 @@ class SmartQueryPlanner:
         """Create optimized execution plan"""
         document = parse(query)
         
-        # Build dependency graph
+# Build dependency graph
         dep_graph = self._build_dependency_graph(document, schema)
         
-        # Identify parallel opportunities
+# Identify parallel opportunities
         parallel_groups = self._find_parallel_groups(dep_graph)
         
-        # Optimize based on historical performance
+# Optimize based on historical performance
         optimized_groups = self._optimize_by_performance(parallel_groups)
         
         return ExecutionPlan(optimized_groups)
@@ -515,27 +515,27 @@ class ProductionFederationGateway:
         request_id = str(uuid.uuid4())
         
         try:
-            # Extract query and variables
+# Extract query and variables
             query = request.json.get('query')
             variables = request.json.get('variables', {})
             operation_name = request.json.get('operationName')
             
-            # Validate query
+# Validate query
             validation_errors = validate(self.schema, parse(query))
             if validation_errors:
                 return self._error_response(validation_errors)
             
-            # Check query complexity
+# Check query complexity
             complexity = self.complexity_analyzer.analyze(query, self.schema)
             
-            # Rate limiting by complexity
+# Rate limiting by complexity
             if not await self.rate_limiter.check(
                 request.user_id, 
                 cost=complexity
             ):
                 return self._error_response("Rate limit exceeded")
             
-            # Create context
+# Create context
             context = {
                 'request_id': request_id,
                 'user': request.user,
@@ -543,7 +543,7 @@ class ProductionFederationGateway:
                 'services': self._create_service_clients()
             }
             
-            # Execute query
+# Execute query
             result = await self.executor.execute(
                 query,
                 variables=variables,
@@ -551,7 +551,7 @@ class ProductionFederationGateway:
                 operation_name=operation_name
             )
             
-            # Record metrics
+# Record metrics
             self.metrics.record_request(
                 duration=time.time() - start_time,
                 complexity=complexity,
@@ -567,7 +567,7 @@ class ProductionFederationGateway:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Netflix's Architecture
 
@@ -635,7 +635,7 @@ class GitHubFederationStrategy:
         return """
         query RepositoryOverview($owner: String!, $name: String!) {
           repository(owner: $owner, name: $name) {
-            # From core service
+# From core service
             id, name, description
             defaultBranch {
               target {
@@ -646,14 +646,14 @@ class GitHubFederationStrategy:
                 }
               }
             }
-            # From issues service  
+# From issues service
             issues(states: OPEN) { totalCount }
             pullRequests(states: OPEN) { totalCount }
-            # From actions service
+# From actions service
             workflowRuns(first: 5) {
               nodes { status, conclusion, workflow { name } }
             }
-            # From packages service
+# From packages service
             packages(first: 10) {
               nodes {
                 name, packageType
@@ -718,13 +718,13 @@ class AdvancedOptimizations:
     
     async def automatic_persisted_queries(self, query_hash):
         """APQ - Send query hash instead of full query"""
-        # Check if query is registered
+# Check if query is registered
         query = await self.query_registry.get(query_hash)
         if not query:
-            # Client sends full query to register
+# Client sends full query to register
             return {'persistedQuery': {'notFound': True}}
         
-        # Execute pre-validated query
+# Execute pre-validated query
         return await self.execute(query)
     
     def query_cost_analysis(self, query):
@@ -766,7 +766,7 @@ class AdvancedOptimizations:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -804,27 +804,27 @@ class InformationTheoreticOptimizer:
     
     def calculate_information_content(self, field):
         """Shannon entropy of field data"""
-        # Probability of field being accessed
+# Probability of field being accessed
         p_access = self.access_stats[field] / self.total_accesses
         
-        # Information content
+# Information content
         if p_access > 0:
             return -math.log2(p_access)
         return float('inf')
     
     def optimize_field_order(self, fields):
         """Order fields by information gain"""
-        # Calculate mutual information between fields
+# Calculate mutual information between fields
         mi_matrix = self.calculate_mutual_information(fields)
         
-        # Use graph algorithms to find optimal ordering
+# Use graph algorithms to find optimal ordering
         G = nx.Graph()
         for i, field1 in enumerate(fields):
             for j, field2 in enumerate(fields[i+1:], i+1):
                 weight = mi_matrix[i][j]
                 G.add_edge(field1, field2, weight=weight)
         
-        # Maximum spanning tree for optimal ordering
+# Maximum spanning tree for optimal ordering
         mst = nx.maximum_spanning_tree(G)
         return list(nx.dfs_preorder_nodes(mst))
 ```
@@ -839,18 +839,18 @@ class DistributedQueryPlanner:
         """Use LP to minimize query cost"""
         from scipy.optimize import linprog
         
-        # Decision variables: x[i,j] = 1 if field i resolved by service j
+# Decision variables: x[i,j] = 1 if field i resolved by service j
         num_fields = len(query.fields)
         num_services = len(services)
         
-        # Objective: minimize total cost
+# Objective: minimize total cost
         c = []
         for field in query.fields:
             for service in services:
                 cost = self.estimate_cost(field, service)
                 c.append(cost)
         
-        # Constraints: each field must be resolved exactly once
+# Constraints: each field must be resolved exactly once
         A_eq = []
         b_eq = []
         
@@ -861,7 +861,7 @@ class DistributedQueryPlanner:
             A_eq.append(constraint)
             b_eq.append(1)
         
-        # Solve
+# Solve
         result = linprog(c, A_eq=A_eq, b_eq=b_eq, method='highs')
         
         return self.extract_plan(result.x, query.fields, services)

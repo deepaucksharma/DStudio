@@ -107,32 +107,32 @@ class SpeechRecognitionPipeline:
         self.feature_extractor = FeatureExtractor()
         
     async def process_audio_stream(self, audio_stream, user_context):
-        # Step 1: Voice Activity Detection
+# Step 1: Voice Activity Detection
         speech_segments = []
         async for chunk in audio_stream:
             if self.voice_activity_detector.is_speech(chunk):
                 speech_segments.append(chunk)
             elif speech_segments:
-                # End of utterance detected
+# End of utterance detected
                 break
         
-        # Step 2: Feature extraction
+# Step 2: Feature extraction
         features = self.feature_extractor.extract_features(
             audio_data=speech_segments,
             sample_rate=16000
         )
         
-        # Step 3: Acoustic modeling
+# Step 3: Acoustic modeling
         phoneme_probabilities = await self.acoustic_model.decode(features)
         
-        # Step 4: Language modeling with beam search
+# Step 4: Language modeling with beam search
         hypotheses = await self.beam_search_decode(
             phoneme_probs=phoneme_probabilities,
             language_model=self.get_personalized_lm(user_context),
             beam_width=10
         )
         
-        # Step 5: Contextual reranking
+# Step 5: Contextual reranking
         best_hypothesis = await self.rerank_hypotheses(
             hypotheses=hypotheses,
             user_context=user_context
@@ -152,7 +152,7 @@ class SpeechRecognitionPipeline:
             new_beams = []
             
             for beam in beams:
-                # Extend each beam with possible next words
+# Extend each beam with possible next words
                 for word, acoustic_score in self.get_word_candidates(time_step):
                     lm_score = language_model.score_sequence(
                         beam.text + " " + word
@@ -164,7 +164,7 @@ class SpeechRecognitionPipeline:
                     )
                     new_beams.append(new_beam)
             
-            # Keep top beams
+# Keep top beams
             beams = sorted(new_beams, key=lambda b: b.score, reverse=True)[:beam_width]
         
         return beams
@@ -179,17 +179,17 @@ class StreamingASR:
         async for chunk in audio_stream:
             self.buffer.add(chunk)
             
-            # Process when we have enough audio
+# Process when we have enough audio
             if self.buffer.duration_ms >= 100:  # 100ms chunks
                 features = self.extract_streaming_features(self.buffer)
                 
-                # Streaming encode
+# Streaming encode
                 encoder_state = await self.encoder.encode_chunk(
                     features=features,
                     previous_state=self.encoder.get_state()
                 )
                 
-                # Streaming decode
+# Streaming decode
                 partial_result = await self.decoder.decode_partial(
                     encoder_output=encoder_state,
                     previous_hypothesis=self.decoder.get_hypothesis()
@@ -216,36 +216,36 @@ class NLUPipeline:
         self.coreference_resolver = CoreferenceResolver()
         
     async def understand(self, utterance, conversation_context):
-        # Step 1: Tokenization and preprocessing
+# Step 1: Tokenization and preprocessing
         tokens = self.tokenize(utterance)
         
-        # Step 2: Multi-task prediction
+# Step 2: Multi-task prediction
         nlu_features = await self.extract_features(
             tokens=tokens,
             context=conversation_context
         )
         
-        # Step 3: Intent classification
+# Step 3: Intent classification
         intent_results = await self.intent_classifier.classify(
             features=nlu_features,
             previous_intents=conversation_context.intent_history
         )
         
-        # Step 4: Entity extraction
+# Step 4: Entity extraction
         entities = await self.entity_extractor.extract(
             tokens=tokens,
             features=nlu_features,
             intent=intent_results.top_intent
         )
         
-        # Step 5: Coreference resolution
+# Step 5: Coreference resolution
         resolved_entities = await self.coreference_resolver.resolve(
             entities=entities,
             context=conversation_context,
             utterance=utterance
         )
         
-        # Step 6: Semantic parsing
+# Step 6: Semantic parsing
         semantic_frame = await self.parse_semantics(
             intent=intent_results.top_intent,
             entities=resolved_entities,
@@ -267,27 +267,27 @@ class IntentClassifier:
         self.hierarchical_classifier = HierarchicalIntentClassifier()
         
     async def classify(self, features, previous_intents):
-        # BERT encoding
+# BERT encoding
         embeddings = await self.bert_encoder.encode(features.tokens)
         
-        # Hierarchical classification
-        # First, broad category (e.g., "media", "productivity", "smart_home")
+# Hierarchical classification
+# First, broad category (e.g., "media", "productivity", "smart_home")
         category = await self.hierarchical_classifier.classify_category(
             embeddings=embeddings,
             context_features=features.context_embedding
         )
         
-        # Then, specific intent within category
+# Then, specific intent within category
         intent_logits = await self.intent_heads[category].predict(embeddings)
         
-        # Apply conversational context
+# Apply conversational context
         context_adjusted_logits = self.apply_context_bias(
             logits=intent_logits,
             previous_intents=previous_intents,
             transition_model=self.intent_transition_model
         )
         
-        # Get top intents with scores
+# Get top intents with scores
         top_intents = self.get_top_k_intents(
             logits=context_adjusted_logits,
             k=5
@@ -310,13 +310,13 @@ class ContextManager:
         self.relevance_scorer = RelevanceScorer()
         
     async def get_context(self, user_id, session_id):
-        # Retrieve conversation history
+# Retrieve conversation history
         conversation = await self.conversation_store.get_conversation(
             user_id=user_id,
             session_id=session_id
         )
         
-        # Extract relevant context
+# Extract relevant context
         context = ConversationContext(
             turns=conversation.recent_turns[-10:],  # Last 10 turns
             entities=self.extract_salient_entities(conversation),
@@ -326,13 +326,13 @@ class ContextManager:
             location_context=await self.get_location_context(user_id)
         )
         
-        # Encode context for downstream use
+# Encode context for downstream use
         context.embedding = await self.context_encoder.encode(context)
         
         return context
     
     async def update_context(self, context, nlu_result, response):
-        # Add new turn to conversation
+# Add new turn to conversation
         new_turn = ConversationTurn(
             utterance=nlu_result.original_text,
             intent=nlu_result.intent,
@@ -343,15 +343,15 @@ class ContextManager:
         
         context.turns.append(new_turn)
         
-        # Update entity tracking
+# Update entity tracking
         for entity in nlu_result.entities:
             self.update_entity_salience(context, entity)
         
-        # Detect topic shifts
+# Detect topic shifts
         if self.detect_topic_shift(context.turns):
             context.mark_topic_boundary()
         
-        # Persist updated context
+# Persist updated context
         await self.conversation_store.update_conversation(
             user_id=context.user_id,
             session_id=context.session_id,
@@ -366,18 +366,18 @@ class EntitySalienceTracker:
         self.decay_factor = 0.9
         
     def update_salience(self, entities, mentioned_entities):
-        # Decay existing scores
+# Decay existing scores
         for entity_id in self.salience_scores:
             self.salience_scores[entity_id] *= self.decay_factor
         
-        # Boost mentioned entities
+# Boost mentioned entities
         for entity in mentioned_entities:
             entity_id = self.get_entity_id(entity)
             self.salience_scores[entity_id] = (
                 self.salience_scores.get(entity_id, 0) + 1.0
             )
         
-        # Remove low salience entities
+# Remove low salience entities
         self.salience_scores = {
             k: v for k, v in self.salience_scores.items() 
             if v > 0.1
@@ -401,14 +401,14 @@ class DialogManager:
         self.clarification_detector = ClarificationDetector()
         
     async def manage_dialog(self, nlu_result, context):
-        # Check if clarification needed
+# Check if clarification needed
         if self.clarification_detector.needs_clarification(nlu_result):
             return await self.generate_clarification_request(
                 ambiguities=nlu_result.ambiguities,
                 context=context
             )
         
-        # Determine dialog act
+# Determine dialog act
         dialog_act = await self.policy_network.predict_act(
             intent=nlu_result.intent,
             entities=nlu_result.entities,
@@ -416,14 +416,14 @@ class DialogManager:
             fulfillment_constraints=await self.get_constraints(nlu_result)
         )
         
-        # Handle multi-turn scenarios
+# Handle multi-turn scenarios
         if dialog_act.requires_followup:
             return await self.handle_multi_turn(
                 dialog_act=dialog_act,
                 context=context
             )
         
-        # Generate response frame
+# Generate response frame
         response_frame = await self.generate_response_frame(
             dialog_act=dialog_act,
             nlu_result=nlu_result,
@@ -434,27 +434,27 @@ class DialogManager:
     
     async def handle_multi_turn(self, dialog_act, context):
         if dialog_act.type == 'slot_filling':
-            # Identify missing required slots
+# Identify missing required slots
             missing_slots = self.identify_missing_slots(
                 required_slots=dialog_act.required_slots,
                 filled_slots=dialog_act.filled_slots
             )
             
-            # Generate prompt for next required slot
+# Generate prompt for next required slot
             return self.generate_slot_prompt(
                 slot=missing_slots[0],
                 context=context
             )
             
         elif dialog_act.type == 'confirmation':
-            # Generate confirmation request
+# Generate confirmation request
             return self.generate_confirmation(
                 action=dialog_act.action_to_confirm,
                 entities=dialog_act.entities_to_confirm
             )
             
         elif dialog_act.type == 'disambiguation':
-            # Present options to user
+# Present options to user
             return self.generate_disambiguation(
                 options=dialog_act.ambiguous_options,
                 context=context
@@ -467,28 +467,28 @@ class ResponseGenerator:
         self.personality_model = PersonalityModel()
         
     async def generate_response(self, response_frame, user_profile):
-        # Determine generation strategy
+# Determine generation strategy
         if response_frame.use_template:
             base_response = await self.template_engine.fill_template(
                 template_id=response_frame.template_id,
                 slots=response_frame.slots
             )
         else:
-            # Neural generation for open-ended responses
+# Neural generation for open-ended responses
             base_response = await self.neural_generator.generate(
                 intent=response_frame.intent,
                 context=response_frame.context,
                 constraints=response_frame.constraints
             )
         
-        # Apply personality and user preferences
+# Apply personality and user preferences
         personalized_response = await self.personality_model.adapt_response(
             response=base_response,
             user_preferences=user_profile.communication_style,
             formality_level=user_profile.formality_preference
         )
         
-        # Add contextual markers (e.g., "By the way", "Also")
+# Add contextual markers (e.g., "By the way", "Also")
         final_response = self.add_discourse_markers(
             response=personalized_response,
             context=response_frame.context
@@ -507,24 +507,24 @@ class ActionRouter:
         self.auth_manager = AuthManager()
         
     async def route_request(self, intent, entities, user_context):
-        # Find capable providers
+# Find capable providers
         providers = await self.capability_matcher.find_providers(
             intent=intent,
             required_entities=entities,
             user_location=user_context.location
         )
         
-        # Rank providers
+# Rank providers
         ranked_providers = await self.rank_providers(
             providers=providers,
             user_preferences=user_context.preferences,
             quality_scores=await self.get_provider_quality_scores(providers)
         )
         
-        # Try providers in order
+# Try providers in order
         for provider in ranked_providers:
             try:
-                # Check authentication
+# Check authentication
                 if provider.requires_auth:
                     auth_token = await self.auth_manager.get_token(
                         user_id=user_context.user_id,
@@ -533,7 +533,7 @@ class ActionRouter:
                     if not auth_token:
                         continue
                 
-                # Execute action
+# Execute action
                 result = await self.execute_action(
                     provider=provider,
                     intent=intent,
@@ -545,11 +545,11 @@ class ActionRouter:
                     return result
                     
             except ProviderException as e:
-                # Log and try next provider
+# Log and try next provider
                 await self.log_provider_error(provider.id, e)
                 continue
         
-        # Fallback response
+# Fallback response
         return self.generate_fallback_response(intent, entities)
 
 class ThirdPartyActionExecutor:
@@ -558,12 +558,12 @@ class ThirdPartyActionExecutor:
         self.circuit_breaker = CircuitBreaker()
         
     async def execute(self, provider, request):
-        # Check circuit breaker
+# Check circuit breaker
         if self.circuit_breaker.is_open(provider.id):
             raise ProviderUnavailableError(f"Provider {provider.id} circuit open")
         
         try:
-            # Build provider-specific request
+# Build provider-specific request
             provider_request = await self.build_provider_request(
                 provider=provider,
                 intent=request.intent,
@@ -571,19 +571,19 @@ class ThirdPartyActionExecutor:
                 session_id=request.session_id
             )
             
-            # Execute with timeout
+# Execute with timeout
             response = await asyncio.wait_for(
                 self.call_provider_api(provider, provider_request),
                 timeout=self.timeout_ms / 1000
             )
             
-            # Validate response
+# Validate response
             validated_response = await self.validate_response(
                 provider=provider,
                 response=response
             )
             
-            # Update circuit breaker
+# Update circuit breaker
             self.circuit_breaker.record_success(provider.id)
             
             return ActionResult(
@@ -611,7 +611,7 @@ class TextToSpeechPipeline:
         self.vocoder = WaveGlowVocoder()
         
     async def synthesize_speech(self, text, voice_settings, context):
-        # Step 1: Text analysis and normalization
+# Step 1: Text analysis and normalization
         analyzed_text = await self.text_analyzer.analyze(
             text=text,
             language=voice_settings.language,
@@ -619,27 +619,27 @@ class TextToSpeechPipeline:
             convert_numbers=True
         )
         
-        # Step 2: Predict prosody (pitch, duration, emphasis)
+# Step 2: Predict prosody (pitch, duration, emphasis)
         prosody_features = await self.prosody_predictor.predict(
             text=analyzed_text,
             emotion=context.desired_emotion,
             speaking_rate=voice_settings.speed
         )
         
-        # Step 3: Generate mel-spectrogram
+# Step 3: Generate mel-spectrogram
         mel_spectrogram = await self.acoustic_model.generate_mel(
             phonemes=analyzed_text.phonemes,
             prosody=prosody_features,
             speaker_embedding=voice_settings.speaker_embedding
         )
         
-        # Step 4: Neural vocoding
+# Step 4: Neural vocoding
         audio_waveform = await self.vocoder.generate_audio(
             mel_spectrogram=mel_spectrogram,
             sample_rate=24000
         )
         
-        # Step 5: Post-processing
+# Step 5: Post-processing
         processed_audio = await self.post_process_audio(
             audio=audio_waveform,
             target_loudness=voice_settings.loudness,
@@ -664,11 +664,11 @@ class StreamingTTS:
             buffer.extend(text_chunk.split())
             
             while len(buffer) >= self.chunk_size + self.lookahead:
-                # Process chunk with lookahead for better prosody
+# Process chunk with lookahead for better prosody
                 synthesis_chunk = ' '.join(buffer[:self.chunk_size])
                 lookahead_context = ' '.join(buffer[self.chunk_size:self.chunk_size + self.lookahead])
                 
-                # Generate audio for chunk
+# Generate audio for chunk
                 audio_chunk = await self.synthesize_chunk(
                     text=synthesis_chunk,
                     following_context=lookahead_context
@@ -676,10 +676,10 @@ class StreamingTTS:
                 
                 yield audio_chunk
                 
-                # Remove processed words
+# Remove processed words
                 buffer = buffer[self.chunk_size:]
         
-        # Process remaining buffer
+# Process remaining buffer
         if buffer:
             final_audio = await self.synthesize_chunk(' '.join(buffer), "")
             yield final_audio
@@ -697,7 +697,7 @@ class GlobalRequestRouter:
         self.latency_predictor = LatencyPredictor()
         
     async def route_request(self, request, user_location):
-        # Find optimal edge location
+# Find optimal edge location
         edge_scores = []
         for edge in self.edge_locations:
             score = await self.calculate_edge_score(
@@ -708,26 +708,26 @@ class GlobalRequestRouter:
             )
             edge_scores.append((edge, score))
         
-        # Select best edge
+# Select best edge
         best_edge = max(edge_scores, key=lambda x: x[1])[0]
         
-        # Route to edge
+# Route to edge
         return await self.route_to_edge(request, best_edge)
     
     async def calculate_edge_score(self, edge, user_location, current_load, capabilities):
-        # Network latency
+# Network latency
         network_latency = self.latency_predictor.predict(
             source=user_location,
             destination=edge.location
         )
         
-        # Processing capacity
+# Processing capacity
         capacity_score = 1.0 - (current_load / edge.max_capacity)
         
-        # Model availability
+# Model availability
         model_score = 1.0 if request.required_models.issubset(capabilities) else 0.5
         
-        # Combined score
+# Combined score
         return (
             0.5 * (100 / network_latency) +  # Lower latency is better
             0.3 * capacity_score +
@@ -745,17 +745,17 @@ class ModelServingCluster:
         self.model_cache = ModelCache()
         
     async def serve_prediction(self, model_name, input_data, priority='normal'):
-        # Get or load model
+# Get or load model
         model = await self.get_model_instance(model_name)
         
-        # Allocate GPU resources
+# Allocate GPU resources
         gpu_allocation = await self.gpu_pool.allocate(
             model_requirements=model.gpu_requirements,
             priority=priority
         )
         
         try:
-            # Run inference
+# Run inference
             with gpu_allocation:
                 result = await model.predict(
                     input_data=input_data,
@@ -765,17 +765,17 @@ class ModelServingCluster:
             return result
             
         finally:
-            # Release GPU resources
+# Release GPU resources
             await self.gpu_pool.release(gpu_allocation)
     
     async def get_model_instance(self, model_name):
         if model_name not in self.model_instances:
-            # Check cache
+# Check cache
             cached_model = await self.model_cache.get(model_name)
             if cached_model:
                 self.model_instances[model_name] = cached_model
             else:
-                # Load from storage
+# Load from storage
                 model = await self.load_model_from_storage(model_name)
                 self.model_instances[model_name] = model
                 await self.model_cache.put(model_name, model)
@@ -788,7 +788,7 @@ class ModelVersionManager:
         self.canary_rollout = CanaryRollout()
         
     async def get_model_version(self, model_name, user_id):
-        # Check if user is in canary
+# Check if user is in canary
         if self.canary_rollout.is_user_in_canary(user_id, model_name):
             return self.version_map[model_name]['canary']
         else:
@@ -863,28 +863,28 @@ class EdgeInference:
         }
         
     async def process_on_edge(self, audio_data):
-        # Hotword detection always on edge
+# Hotword detection always on edge
         if not await self.detect_hotword(audio_data):
             return None
         
-        # Try common intent matching on edge
+# Try common intent matching on edge
         edge_result = await self.try_edge_inference(audio_data)
         
         if edge_result and edge_result.confidence > 0.95:
-            # High confidence edge result
+# High confidence edge result
             return edge_result
         else:
-            # Fall back to cloud
+# Fall back to cloud
             return await self.forward_to_cloud(audio_data, edge_result)
     
     async def try_edge_inference(self, audio_data):
-        # Limited ASR on edge
+# Limited ASR on edge
         transcript = await self.edge_models['common_intents'].transcribe(
             audio_data,
             vocabulary_limit=1000  # Common words only
         )
         
-        # Match against common patterns
+# Match against common patterns
         for pattern in self.common_patterns:
             if match := pattern.match(transcript):
                 return EdgeInferenceResult(
@@ -906,13 +906,13 @@ class AssistantCache:
         self.nlu_cache = NLUCache()
         
     async def get_cached_response(self, query, context):
-        # Generate cache key
+# Generate cache key
         cache_key = self.generate_cache_key(
             query=query,
             relevant_context=self.extract_cache_relevant_context(context)
         )
         
-        # Check response cache
+# Check response cache
         cached = await self.response_cache.get(cache_key)
         if cached and not self.is_stale(cached, context):
             return cached
@@ -920,10 +920,10 @@ class AssistantCache:
         return None
     
     def generate_cache_key(self, query, relevant_context):
-        # Normalize query
+# Normalize query
         normalized_query = self.normalize_query(query)
         
-        # Include relevant context
+# Include relevant context
         context_features = {
             'language': relevant_context.language,
             'location_type': self.generalize_location(relevant_context.location),
@@ -950,7 +950,7 @@ class InferenceBatcher:
             batch = []
             deadline = time.time() + self.max_wait_ms / 1000
             
-            # Collect requests until batch full or timeout
+# Collect requests until batch full or timeout
             while len(batch) < self.batch_size and time.time() < deadline:
                 try:
                     timeout = deadline - time.time()
@@ -963,10 +963,10 @@ class InferenceBatcher:
                     break
             
             if batch:
-                # Process batch
+# Process batch
                 results = await self.process_batch(batch)
                 
-                # Return results to waiters
+# Return results to waiters
                 for request, result in zip(batch, results):
                     request.future.set_result(result)
 ```
@@ -982,26 +982,26 @@ class VoiceAuthentication:
         self.anti_spoofing = AntiSpoofingDetector()
         
     async def verify_speaker(self, audio_data, claimed_user_id):
-        # Anti-spoofing check
+# Anti-spoofing check
         spoofing_score = await self.anti_spoofing.detect(audio_data)
         if spoofing_score > 0.5:
             return AuthResult(authenticated=False, reason="potential_spoofing")
         
-        # Extract speaker embedding
+# Extract speaker embedding
         speaker_embedding = await self.speaker_encoder.encode(audio_data)
         
-        # Compare with enrolled voice
+# Compare with enrolled voice
         enrolled_embedding = await self.get_enrolled_embedding(claimed_user_id)
         if not enrolled_embedding:
             return AuthResult(authenticated=False, reason="not_enrolled")
         
-        # Calculate similarity
+# Calculate similarity
         similarity = self.calculate_cosine_similarity(
             speaker_embedding,
             enrolled_embedding
         )
         
-        # Dynamic threshold based on security requirements
+# Dynamic threshold based on security requirements
         threshold = await self.get_security_threshold(claimed_user_id)
         
         return AuthResult(
@@ -1020,18 +1020,18 @@ class PrivacyAnalytics:
         self.k_anonymity = KAnonymity(k=100)
         
     async def log_query_analytics(self, query_data):
-        # Remove PII
+# Remove PII
         sanitized_data = self.sanitize_query_data(query_data)
         
-        # Apply k-anonymity
+# Apply k-anonymity
         if not self.k_anonymity.is_k_anonymous(sanitized_data):
-            # Generalize data until k-anonymous
+# Generalize data until k-anonymous
             sanitized_data = self.k_anonymity.generalize(sanitized_data)
         
-        # Add noise for differential privacy
+# Add noise for differential privacy
         noisy_data = self.differential_privacy.add_noise(sanitized_data)
         
-        # Log sanitized data
+# Log sanitized data
         await self.analytics_logger.log(noisy_data)
 ```
 
@@ -1077,10 +1077,10 @@ class ConversationDebugger:
         self.trace_store = TraceStore()
         
     async def trace_conversation(self, session_id):
-        # Collect all events for session
+# Collect all events for session
         events = await self.trace_store.get_session_events(session_id)
         
-        # Build conversation flow
+# Build conversation flow
         trace = ConversationTrace(
             session_id=session_id,
             events=[
@@ -1097,7 +1097,7 @@ class ConversationDebugger:
             ]
         )
         
-        # Identify issues
+# Identify issues
         issues = self.diagnose_issues(trace)
         
         return ConversationDebugReport(
@@ -1118,17 +1118,17 @@ class MultiRegionAssistant:
         self.health_checker = HealthChecker()
         
     async def handle_request_with_failover(self, request):
-        # Determine primary region
+# Determine primary region
         primary_region = self.get_closest_region(request.location)
         
-        # Try primary region
+# Try primary region
         try:
             if await self.health_checker.is_healthy(primary_region):
                 return await self.process_in_region(request, primary_region)
         except RegionUnavailableError:
             pass
         
-        # Failover to next closest healthy region
+# Failover to next closest healthy region
         for region in self.get_failover_regions(primary_region):
             try:
                 if await self.health_checker.is_healthy(region):
@@ -1136,7 +1136,7 @@ class MultiRegionAssistant:
             except RegionUnavailableError:
                 continue
         
-        # All regions failed
+# All regions failed
         return self.generate_offline_response()
 ```
 

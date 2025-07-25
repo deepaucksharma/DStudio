@@ -171,7 +171,7 @@ graph TD
 
 ## Start Here: The 20% That Gives 80% Value
 
-### 🎯 Must-Know Numbers (Memorize These)
+### Must-Know Numbers (Memorize These)
 
 | Operation | Latency | Relative | Real Impact |
 |-----------|---------|----------|-------------|
@@ -182,13 +182,13 @@ graph TD
 | Network (cross-region) | 50 ms | 50,000,000x | Geo-replicate |
 | Disk seek | 10 ms | 10,000,000x | Use SSDs |
 
-### 💡 Three Rules That Prevent 90% of Problems
+### Three Rules That Prevent 90% of Problems
 
 1. **Never exceed 80% utilization** (queues explode exponentially after)
 2. **Every 10x scale = new architecture** (what works at 100 QPS fails at 1K)
 3. **Measure p99, not average** (average hides disasters)
 
-### 🚀 15-Minute Quick Start
+### 15-Minute Quick Start
 
 ```mermaid
 graph LR
@@ -215,24 +215,24 @@ Below is the complete catalog of all quantitative tools and mathematical models 
 #### 📏 Fundamental Metrics & Laws
 
 **Core Performance Laws:**
-- **[Amdahl & Gustafson Laws](amdahl-gustafson.md)** ⭐ - Parallel speedup limits
-- **[Latency Ladder](latency-ladder.md)** ⭐ - Operation cost hierarchy 
-- **[Little's Law](littles-law.md)** ⭐ - Fundamental queueing relationship
-- **[Universal Scalability Law](universal-scalability.md)** ⭐ - Scaling limitations model
+- **[Amdahl & Gustafson Laws](amdahl-gustafson.md)** - Parallel speedup limits
+- **[Latency Ladder](latency-ladder.md)** - Operation cost hierarchy
+- **[Little's Law](littles-law.md)** - Fundamental queueing relationship
+- **[Universal Scalability Law](universal-scalability.md)** - Scaling limitations model
 
 **Reliability & Availability:**
 - **[Availability](availability.md)** - System uptime calculations
-- **[Availability Math](availability-math.md)** ⭐ - Building reliability from components
+- **[Availability Math](availability-math.md)** - Building reliability from components
 - **[Blast Radius](blast-radius.md)** - Failure impact analysis
 - **[Failure Models](failure-models.md)** - Types and patterns of failures
 - **[MTBF & MTTR](mtbf-mttr.md)** - Mean time metrics
 - **[Reliability Engineering](reliability-engineering.md)** - Systematic reliability approach
 - **[Reliability Theory](reliability-theory.md)** - Mathematical foundations
 
-#### 🔄 Queueing & Performance Theory
+#### Queueing & Performance Theory
 
 **Queueing Models:**
-- **[Queueing Models](queueing-models.md)** ⭐ - M/M/1, M/M/c analysis
+- **[Queueing Models](queueing-models.md)** - M/M/1, M/M/c analysis
 - **[Queuing Networks](queuing-networks.md)** - Multi-stage queue systems
 - **[Backpressure Math](backpressure-math.md)** - Flow control mathematics
 
@@ -248,15 +248,15 @@ Below is the complete catalog of all quantitative tools and mathematical models 
 - **[Compression](compression.md)** - Data compression theory
 - **[Storage Economics](storage-economics.md)** - Cost optimization models
 - **[Storage Engines](storage-engines.md)** - Database internals math
-- **[Cache Economics](cache-economics.md)** ⭐ - Cache cost-benefit analysis
+- **[Cache Economics](cache-economics.md)** - Cache cost-benefit analysis
 - **[Collision Probability](collision-probability.md)** - Hash collision mathematics
 
 **Consistency & Coordination:**
-- **CAP Theorem (Coming Soon)** ⭐ - Fundamental distributed systems theorem
-- **[Consistency Models](consistency-models.md)** ⭐ - Mathematical consistency guarantees
-- **[Coordination Costs](coordination-costs.md)** ⭐ - Synchronization overhead
+- **CAP Theorem (Coming Soon)** - Fundamental distributed systems theorem
+- **[Consistency Models](consistency-models.md)** - Mathematical consistency guarantees
+- **[Coordination Costs](coordination-costs.md)** - Synchronization overhead
 
-#### 📊 Statistical & Probabilistic Models
+#### Statistical & Probabilistic Models
 
 **Core Statistics:**
 - **[Bayesian Reasoning](bayesian-reasoning.md)** - Probabilistic inference
@@ -271,7 +271,7 @@ Below is the complete catalog of all quantitative tools and mathematical models 
 - **[Social Networks](social-networks.md)** - Network effect mathematics
 - **[Privacy Metrics](privacy-metrics.md)** - Privacy quantification
 
-#### 🗺️ Spatial & Geometric Computing
+#### 🗺 Spatial & Geometric Computing
 
 - **[Comp Geometry](comp-geometry.md)** - Computational geometry basics
 - **[Computational Geometry](computational-geometry.md)** - Advanced spatial algorithms
@@ -279,7 +279,7 @@ Below is the complete catalog of all quantitative tools and mathematical models 
 - **[Haversine](haversine.md)** - Distance calculations on sphere
 - **[Spatial Stats](spatial-stats.md)** - Geographic data analysis
 
-#### 📈 Graph & Network Theory
+#### Graph & Network Theory
 
 - **[Graph Models](graph-models.md)** - Graph representation and algorithms
 - **[Graph Theory](graph-theory.md)** - Mathematical graph foundations
@@ -288,22 +288,22 @@ Below is the complete catalog of all quantitative tools and mathematical models 
 
 - **[Battery Models](battery-models.md)** - Mobile device power modeling
 
-#### ⏱️ Complexity Analysis
+#### Complexity Analysis
 
 - **[Space Complexity](space-complexity.md)** - Memory usage analysis
 - **[Time Complexity](time-complexity.md)** - Algorithm runtime analysis
 
-#### 📐 Planning & Optimization
+#### Planning & Optimization
 
-- **[Capacity Planning](capacity-planning.md)** ⭐ - Resource requirement forecasting
+- **[Capacity Planning](capacity-planning.md)** - Resource requirement forecasting
 
-#### 📝 Practice & Application
+#### Practice & Application
 
-- **[Problem Set](problem-set.md)** ⭐ - Hands-on practice problems
+- **[Problem Set](problem-set.md)** - Hands-on practice problems
 
 ---
 
-### 📊 Tool Maturity Levels
+### Tool Maturity Levels
 
 **⭐ Featured Tools (11):** Complete with:
 - Detailed mathematical derivations
@@ -323,7 +323,7 @@ Below is the complete catalog of all quantitative tools and mathematical models 
 
 ---
 
-### 🔍 Finding the Right Tool
+### Finding the Right Tool
 
 **By Problem Type:**
 - **Performance Issues** → Latency Ladder, Little's Law, Queueing Models

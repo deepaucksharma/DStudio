@@ -9,7 +9,7 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-# Law 7: The Law of Economic Reality 💰
+# Law 7: The Law of Economic Reality
 
 > Every architectural decision is ultimately a financial decision.
 
@@ -32,7 +32,7 @@ class TotalCostOfOwnership:
         True cost includes visible and hidden components
         """
         
-        # Direct Infrastructure Costs
+# Direct Infrastructure Costs
         infrastructure = {
             'compute': self.calculate_compute_cost(system_design),
             'storage': self.calculate_storage_cost(system_design),
@@ -40,14 +40,14 @@ class TotalCostOfOwnership:
             'licenses': self.calculate_license_cost(system_design)
         }
         
-        # Development Costs
+# Development Costs
         development = {
             'initial_build': self.estimate_dev_hours() * self.dev_hourly_rate,
             'complexity_tax': self.calculate_complexity_cost(system_design),
             'technical_debt_interest': self.calculate_tech_debt(system_design)
         }
         
-        # Operational Costs
+# Operational Costs
         operations = {
             'oncall_burden': self.calculate_oncall_cost(system_design),
             'incident_cost': self.estimate_incident_frequency() * self.incident_cost,
@@ -55,14 +55,14 @@ class TotalCostOfOwnership:
             'tooling': self.calculate_tooling_cost(system_design)
         }
         
-        # Opportunity Costs
+# Opportunity Costs
         opportunity = {
             'delayed_features': self.calculate_velocity_impact(system_design),
             'lost_revenue': self.calculate_downtime_cost(system_design),
             'competitive_disadvantage': self.calculate_market_impact(system_design)
         }
         
-        # The real total
+# The real total
         total = sum([
             sum(infrastructure.values()),
             sum(development.values()),
@@ -119,7 +119,7 @@ class BuildVsBuyAnalysis:
         Comprehensive build vs buy analysis
         """
         
-        # Build costs
+# Build costs
         build_costs = {
             'initial_development': self.estimate_dev_cost(component),
             'ongoing_maintenance': self.estimate_maintenance(component),
@@ -127,7 +127,7 @@ class BuildVsBuyAnalysis:
             'risk_cost': self.calculate_risk_cost(component)
         }
         
-        # Buy costs
+# Buy costs
         buy_costs = {
             'licensing': self.calculate_license_cost(component),
             'integration': self.estimate_integration_cost(component),
@@ -135,11 +135,11 @@ class BuildVsBuyAnalysis:
             'limitations_cost': self.calculate_limitation_impact(component)
         }
         
-        # NPV calculation
+# NPV calculation
         build_npv = self.calculate_npv(build_costs, self.time_horizon)
         buy_npv = self.calculate_npv(buy_costs, self.time_horizon)
         
-        # Strategic factors
+# Strategic factors
         strategic_value = {
             'core_competency': component in self.core_competencies,
             'competitive_advantage': self.provides_differentiation(component),
@@ -164,14 +164,14 @@ def calculate_complexity_cost(system_architecture):
     Complexity has compounding costs
     """
     
-    # Direct complexity metrics
+# Direct complexity metrics
     components = count_components(system_architecture)
     interactions = count_interactions(system_architecture)
     
-    # Complexity grows super-linearly
+# Complexity grows super-linearly
     complexity_score = components + (interactions ** 1.5)
     
-    # Cost implications
+# Cost implications
     costs = {
         'debugging_time': complexity_score * 2,  # hours per incident
         'onboarding_time': complexity_score * 10,  # hours per new hire
@@ -180,7 +180,7 @@ def calculate_complexity_cost(system_architecture):
         'documentation_burden': complexity_score * 5  # pages needed
     }
     
-    # Convert to dollars
+# Convert to dollars
     annual_cost = (
         costs['debugging_time'] * incidents_per_year * hourly_rate +
         costs['onboarding_time'] * new_hires_per_year * hourly_rate +
@@ -212,13 +212,13 @@ class CostAwareArchitect:
                 'value_score': self.evaluate_business_value(option)
             }
             
-            # Calculate ROI
+# Calculate ROI
             evaluation['roi'] = (
                 evaluation['value_score'] / 
                 evaluation['cost_score']
             )
             
-            # Risk-adjusted ROI
+# Risk-adjusted ROI
             evaluation['risk_adjusted_roi'] = (
                 evaluation['roi'] * 
                 (1 - self.calculate_risk(option))
@@ -226,7 +226,7 @@ class CostAwareArchitect:
             
             evaluations.append(evaluation)
             
-        # Sort by risk-adjusted ROI, not technical merit
+# Sort by risk-adjusted ROI, not technical merit
         return sorted(evaluations, 
                      key=lambda x: x['risk_adjusted_roi'], 
                      reverse=True)
@@ -248,10 +248,10 @@ class DynamicCostOptimizer:
         """
         
         if current_metrics['cost'] > self.cost_targets['infrastructure']:
-            # Over budget - need to optimize
+# Over budget - need to optimize
             optimizations = []
             
-            # Option 1: Reduce redundancy
+# Option 1: Reduce redundancy
             if current_metrics['availability'] > 0.999:
                 optimizations.append({
                     'action': 'reduce_replication_factor',
@@ -261,7 +261,7 @@ class DynamicCostOptimizer:
                     'impact': 'availability: 99.95% -> 99.9%'
                 })
             
-            # Option 2: Use spot instances
+# Option 2: Use spot instances
             if current_metrics['workload_type'] == 'batch':
                 optimizations.append({
                     'action': 'migrate_to_spot',
@@ -269,7 +269,7 @@ class DynamicCostOptimizer:
                     'impact': 'job completion variance +20%'
                 })
             
-            # Option 3: Compress data
+# Option 3: Compress data
             if current_metrics['storage_cost'] > 20000:
                 optimizations.append({
                     'action': 'enable_compression',
@@ -306,7 +306,7 @@ class FinOpsFramework:
         
         self.cost_allocation[team] = costs
         
-        # Alert if over budget
+# Alert if over budget
         if sum(costs.values()) > self.budgets.get(team, float('inf')):
             self.alert_team(team, costs)
             
@@ -378,8 +378,8 @@ class SlackArchitectureDecisions:
             }
         }
         
-        # Slack chose custom: Higher initial investment, 
-        # lower long-term cost
+# Slack chose custom: Higher initial investment,
+# lower long-term cost
         return 'custom_solution'
 ```
 
@@ -406,7 +406,7 @@ def calculate_economic_queue_length():
     arrival_rate = 1000  # requests/second
     service_time = 0.1   # seconds
     
-    # Utilization vs cost trade-off
+# Utilization vs cost trade-off
     utilizations = [0.5, 0.7, 0.9, 0.95, 0.99]
     
     for u in utilizations:
@@ -446,7 +446,7 @@ class CostAwareMonitoring:
             'cost_per_user': operation.cost / operation.users_served
         }
         
-        # Alert on cost spikes like performance spikes
+# Alert on cost spikes like performance spikes
         if metrics['cost_dollars'] > self.cost_threshold:
             self.alert_cost_anomaly(operation)
 ```
@@ -492,7 +492,7 @@ def find_economic_optimum(performance_curve, cost_curve, revenue_curve):
             best_profit = profit
             optimal_point = performance_level
             
-    # Often 80% performance at 20% cost
+# Often 80% performance at 20% cost
     return optimal_point
 ```
 

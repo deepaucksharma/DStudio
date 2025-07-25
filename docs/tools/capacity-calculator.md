@@ -1057,7 +1057,7 @@ document.addEventListener('DOMContentLoaded', function() {
     color: var(--md-primary-fg-color);
 }
 
-#capacityChart, #costChart {
+# capacityChart, #costChart {
     max-width: 100%;
     height: auto;
 }

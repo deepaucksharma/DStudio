@@ -70,7 +70,7 @@ graph TD
 
 ---
 
-## 📋 Questions This Pillar Answers
+## Questions This Pillar Answers
 
 ---
 
@@ -111,7 +111,7 @@ graph TB
     style Note fill:#fffacd,stroke:#333,stroke-width:1px
 ```
 
-### 🎬 Failure Vignette: The Bitcoin Double-Spend Attack
+### Failure Vignette: The Bitcoin Double-Spend Attack
 
 **Date**: March 2013 - The Fork Incident
 **Impact**: 6-hour network split, $1.5M at risk
@@ -563,7 +563,7 @@ sequenceDiagram
 
 ---
 
-## 🔄 Consistency as Distributed Truth
+## Consistency as Distributed Truth
 
 ### The Consistency Spectrum as Truth Levels
 
@@ -890,7 +890,7 @@ sequenceDiagram
     end
 ```
 
-### 🎯 Decision Framework: Choosing Your Truth
+### Decision Framework: Choosing Your Truth
 
 ```mermaid
 graph TD

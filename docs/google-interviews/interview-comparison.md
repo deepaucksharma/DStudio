@@ -1,6 +1,6 @@
 # System Design Interview Comparison Guide
 
-## 🎯 Company Comparison Matrix
+## Company Comparison Matrix
 
 <div class="company-comparison">
 <table>
@@ -65,7 +65,7 @@
 </table>
 </div>
 
-## 📊 Role-Level Expectations
+## Role-Level Expectations
 
 ```mermaid
 graph TD
@@ -158,7 +158,7 @@ graph TD
 </table>
 </div>
 
-## 🎯 Preparation Strategy Selector
+## Preparation Strategy Selector
 
 ```mermaid
 flowchart TD
@@ -186,7 +186,7 @@ flowchart TD
     MS_Level -->|Staff+| MS_Staff[Focus: Platform + Integration]
 ```
 
-## 📈 Difficulty Progression by Topic
+## Difficulty Progression by Topic
 
 ```mermaid
 graph LR
@@ -232,7 +232,7 @@ graph LR
     style E3 fill:#FFB6C1
 ```
 
-## 🛠️ Skill Requirements Matrix
+## 🛠 Skill Requirements Matrix
 
 <div class="skill-matrix">
 <table>
@@ -278,7 +278,7 @@ graph LR
 </table>
 </div>
 
-## 📊 Success Metrics by Company
+## Success Metrics by Company
 
 <div class="metrics-comparison">
 <table>
@@ -347,7 +347,7 @@ graph LR
 <div id="custom-plan" class="plan-output"></div>
 </div>
 
-## 🏆 Interview Success Formula
+## Interview Success Formula
 
 ```mermaid
 graph TD
@@ -373,7 +373,7 @@ graph TD
     style Culture fill:#DDA0DD
 ```
 
-## 📌 Quick Reference Cards
+## Quick Reference Cards
 
 <div class="reference-grid">
 <div class="ref-card">

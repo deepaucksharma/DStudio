@@ -1,6 +1,6 @@
 # Visual Cheat Sheets for System Design Interviews
 
-## 🎯 The Ultimate System Design Canvas
+## The Ultimate System Design Canvas
 
 ```mermaid
 graph TB
@@ -49,7 +49,7 @@ graph TB
     end
 ```
 
-## 📊 Quick Reference: Scale Numbers
+## Quick Reference: Scale Numbers
 
 <div class="scale-reference">
 <table>
@@ -109,7 +109,7 @@ graph TB
 </table>
 </div>
 
-## 🚀 Latency Numbers Every Engineer Should Know
+## Latency Numbers Every Engineer Should Know
 
 ```mermaid
 gantt
@@ -142,7 +142,7 @@ gantt
 - **Network Cross-Coast**: 150 ms
 - **HDD Seek**: 10 ms
 
-## 🏗️ Common Architecture Patterns
+## Common Architecture Patterns
 
 <div class="pattern-grid">
 <div class="pattern-visual">
@@ -192,7 +192,7 @@ gantt
 </div>
 </div>
 
-## 📐 Capacity Planning Formulas
+## Capacity Planning Formulas
 
 <div class="formula-cards">
 <div class="formula-card">
@@ -244,7 +244,7 @@ Bandwidth = 70K × 11 KB
 </div>
 </div>
 
-## 🎨 Database Decision Tree
+## Database Decision Tree
 
 ```mermaid
 flowchart TD
@@ -268,7 +268,7 @@ flowchart TD
     Eventually --> Dynamo[DynamoDB/Cassandra]
 ```
 
-## 🔄 Caching Strategy Selector
+## Caching Strategy Selector
 
 <div class="caching-strategies">
 <table>
@@ -309,7 +309,7 @@ flowchart TD
 </table>
 </div>
 
-## 🌐 API Design Patterns
+## API Design Patterns
 
 <div class="api-patterns">
 <div class="api-card">
@@ -378,7 +378,7 @@ graph LR
     end
 ```
 
-## 📱 Mobile App Architecture
+## Mobile App Architecture
 
 <div class="mobile-arch">
 <h3>Offline-First Architecture</h3>
@@ -403,7 +403,7 @@ graph LR
 </pre>
 </div>
 
-## 🎯 Interview Time Management
+## Interview Time Management
 
 <div class="time-management">
 <svg viewBox="0 0 400 400" style="max-width: 400px;">
@@ -442,7 +442,7 @@ graph LR
 </svg>
 </div>
 
-## 🔍 Common Bottlenecks & Solutions
+## Common Bottlenecks & Solutions
 
 <div class="bottleneck-solutions">
 <table>
@@ -483,7 +483,7 @@ graph LR
 </table>
 </div>
 
-## 📊 Monitoring & Metrics Cheat Sheet
+## Monitoring & Metrics Cheat Sheet
 
 <div class="metrics-grid">
 <div class="metric-category">

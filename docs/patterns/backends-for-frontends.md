@@ -19,7 +19,7 @@ last_updated: 2025-01-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Restaurant Menu Analogy
 
@@ -73,14 +73,14 @@ class UniversalAPI:
     """One API trying to serve all clients"""
     
     def get_product(self, product_id: str, client_type: str = None):
-        # Fetch everything
+# Fetch everything
         product = db.get_product(product_id)
         reviews = db.get_reviews(product_id)
         recommendations = db.get_recommendations(product_id)
         inventory = db.get_inventory(product_id)
         shipping = db.get_shipping_options(product_id)
         
-        # Client tries to filter (but gets everything)
+# Client tries to filter (but gets everything)
         return {
             'product': product,
             'reviews': reviews[:100],  # Mobile doesn't need all
@@ -90,7 +90,7 @@ class UniversalAPI:
             'related_products': self.get_related(product_id),
             'seller_info': self.get_seller(product.seller_id),
             'questions': self.get_questions(product_id),
-            # ... 20 more fields mobile doesn't use
+# ... 20 more fields mobile doesn't use
         }
 
 # BFF Pattern - Mobile-specific backend
@@ -104,15 +104,15 @@ class MobileBFF:
     def get_product_mobile(self, product_id: str, screen_size: str):
         """Optimized for mobile constraints"""
         
-        # Check cache first (mobile needs speed)
+# Check cache first (mobile needs speed)
         cached = self.cache.get(f"mobile:product:{product_id}")
         if cached:
             return cached
         
-        # Fetch only what mobile needs
+# Fetch only what mobile needs
         product = self.product_service.get_basic_info(product_id)
         
-        # Mobile-optimized response
+# Mobile-optimized response
         response = {
             'id': product_id,
             'title': self._truncate_title(product.title, screen_size),
@@ -121,9 +121,9 @@ class MobileBFF:
             'in_stock': product.inventory > 0,
             'rating': product.rating,
             'review_count': product.review_count,
-            # Only 2 reviews for preview
+# Only 2 reviews for preview
             'top_reviews': self._get_top_reviews(product_id, limit=2),
-            # Simplified shipping
+# Simplified shipping
             'delivery': self._calculate_delivery_estimate(product_id)
         }
         
@@ -146,7 +146,7 @@ class WebBFF:
     def get_product_web(self, product_id: str):
         """Rich experience for desktop users"""
         
-        # Parallel fetching for performance
+# Parallel fetching for performance
         with concurrent.futures.ThreadPoolExecutor() as executor:
             product_future = executor.submit(
                 self.product_service.get_full_details, product_id
@@ -181,10 +181,10 @@ class SmartTVBFF:
             'id': product_id,
             'title': product.title,
             'price': self._format_price_for_tv(product.price),
-            # Large images for TV
+# Large images for TV
             'hero_image': self._get_tv_optimized_image(product.images),
             'gallery': self._create_tv_gallery(product.images[:5]),
-            # Simplified navigation
+# Simplified navigation
             'actions': [
                 {'label': 'Buy Now', 'action': 'purchase', 'button': 'OK'},
                 {'label': 'Add to Cart', 'action': 'cart', 'button': 'GREEN'},
@@ -193,7 +193,7 @@ class SmartTVBFF:
         }
         
         if voice_command:
-            # Add voice-friendly descriptions
+# Add voice-friendly descriptions
             response['voice_description'] = self._generate_voice_description(product)
             response['voice_actions'] = ['buy', 'add to cart', 'show reviews']
         
@@ -202,7 +202,7 @@ class SmartTVBFF:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -278,7 +278,7 @@ class MobileBFFService:
     async def get_home_feed(self, user_id: str, connection_type: str):
         """Adapt response based on network conditions"""
         
-        # Network-aware data fetching
+# Network-aware data fetching
         if connection_type == '2G':
             return await self._get_lite_feed(user_id)
         elif connection_type == '3G':
@@ -289,7 +289,7 @@ class MobileBFFService:
     async def _get_lite_feed(self, user_id: str):
         """Ultra-light feed for slow connections"""
         
-        # Only essential data
+# Only essential data
         posts = await self.post_service.get_latest(user_id, limit=10)
         
         return {
@@ -298,7 +298,7 @@ class MobileBFFService:
                     'id': p.id,
                     'text': p.text[:100],  # Truncated
                     'author': p.author_name,
-                    # No images on 2G
+# No images on 2G
                     'has_image': bool(p.images)
                 }
                 for p in posts
@@ -309,7 +309,7 @@ class MobileBFFService:
     async def _get_rich_feed(self, user_id: str):
         """Full experience for fast connections"""
         
-        # Parallel fetching
+# Parallel fetching
         posts, stories, notifications = await asyncio.gather(
             self.post_service.get_latest(user_id, limit=50),
             self.story_service.get_active_stories(user_id),
@@ -326,11 +326,11 @@ class MobileBFFService:
     def _generate_prefetch_hints(self, posts: list):
         """Tell mobile app what to cache"""
         
-        # Images likely to be viewed
+# Images likely to be viewed
         image_urls = []
         for post in posts[:10]:  # First 10 posts
             if post.images:
-                # Mobile-optimized sizes
+# Mobile-optimized sizes
                 image_urls.append(
                     self._get_cdn_url(post.images[0], size='mobile')
                 )
@@ -344,14 +344,14 @@ class MobileBFFService:
     def handle_offline_action(self, action: dict):
         """Queue actions taken while offline"""
         
-        # Store in local queue
+# Store in local queue
         self.offline_queue.add({
             'action': action,
             'timestamp': time.time(),
             'retry_count': 0
         })
         
-        # Sync when online
+# Sync when online
         if self.is_online():
             return self.sync_offline_queue()
         
@@ -378,16 +378,16 @@ class WebBFFService:
     async def get_product_page(self, product_id: str, request_context: dict):
         """Rich product page with SEO and interactivity"""
         
-        # Check if crawler for SEO
+# Check if crawler for SEO
         is_crawler = self._is_search_crawler(request_context['user_agent'])
         
         if is_crawler:
             return await self._get_seo_optimized_page(product_id)
         
-        # Regular user - rich experience
+# Regular user - rich experience
         product_data = await self._get_full_product_data(product_id)
         
-        # Server-side rendering for fast initial paint
+# Server-side rendering for fast initial paint
         initial_html = self.ssr_renderer.render_product(product_data)
         
         return {
@@ -447,7 +447,7 @@ class WebBFFService:
                     'timestamp': time.time()
                 }
                 
-                # Send to all subscribers
+# Send to all subscribers
                 disconnected = set()
                 for ws in self.subscribers:
                     try:
@@ -455,7 +455,7 @@ class WebBFFService:
                     except:
                         disconnected.add(ws)
                 
-                # Clean up disconnected
+# Clean up disconnected
                 self.subscribers -= disconnected
         
         return RealtimeChannel(channel_id)
@@ -493,10 +493,10 @@ class GraphQLBFF:
         )
         
         def resolve_product(self, info, id, include_reviews, review_limit):
-            # Get base product
+# Get base product
             product = ProductService.get_by_id(id)
             
-            # Only fetch reviews if requested
+# Only fetch reviews if requested
             if include_reviews:
                 product.reviews = ReviewService.get_reviews(
                     id, 
@@ -505,11 +505,11 @@ class GraphQLBFF:
             
             return product
         
-        # Mobile-optimized query
+# Mobile-optimized query
         mobile_home = graphene.Field(MobileHome)
         
         def resolve_mobile_home(self, info):
-            # Optimized single query for mobile home screen
+# Optimized single query for mobile home screen
             return {
                 'featured_products': ProductService.get_featured(limit=5),
                 'categories': CategoryService.get_top(limit=8),
@@ -523,17 +523,17 @@ class GraphQLBFF:
         name = graphene.String()
         price = graphene.Float()
         
-        # Expensive fields resolved only if requested
+# Expensive fields resolved only if requested
         reviews = graphene.List(Review)
         recommendations = graphene.List(lambda: Product)
         
-        # Device-specific image URLs
+# Device-specific image URLs
         image_url = graphene.String(
             size=graphene.String(default_value='medium')
         )
         
         def resolve_image_url(self, info, size):
-            # Return appropriate image based on requested size
+# Return appropriate image based on requested size
             return ImageService.get_optimized_url(self.images[0], size)
 ```
 
@@ -557,13 +557,13 @@ class BFFAggregator:
         results = {}
         errors = {}
         
-        # Execute all requests in parallel
+# Execute all requests in parallel
         tasks = {
             name: self._execute_with_fallback(name, func)
             for name, func in requests
         }
         
-        # Gather results
+# Gather results
         for name, task in tasks.items():
             try:
                 results[name] = await task
@@ -585,17 +585,17 @@ class BFFAggregator:
         context = {}
         
         for operation in operations:
-            # Check if dependencies are met
+# Check if dependencies are met
             if not self._check_dependencies(operation, context):
                 continue
             
-            # Execute operation with context
+# Execute operation with context
             result = await operation['func'](context)
             
-            # Update context for next operations
+# Update context for next operations
             context[operation['name']] = result
             
-            # Early exit conditions
+# Early exit conditions
             if operation.get('stop_on_failure') and not result:
                 break
         
@@ -611,10 +611,10 @@ class BFFAggregator:
                 self.loaders = loaders
                 
             async def resolve(self, requested_fields: set):
-                # Only load requested fields
+# Only load requested fields
                 results = {}
                 
-                # Batch similar operations
+# Batch similar operations
                 batch_operations = defaultdict(list)
                 
                 for field in requested_fields:
@@ -622,7 +622,7 @@ class BFFAggregator:
                         loader_name = self.loaders[field]['loader']
                         batch_operations[loader_name].append(field)
                 
-                # Execute batched operations
+# Execute batched operations
                 for loader_name, fields in batch_operations.items():
                     loader = self.get_loader(loader_name)
                     data = await loader.load_many(fields)
@@ -637,7 +637,7 @@ class BFFAggregator:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced BFF Patterns
 
@@ -670,21 +670,21 @@ class NetflixBFFArchitecture:
                 Tailored home screen for specific device
                 """
                 
-                # Base data
+# Base data
                 user_profile = await self._get_user_profile(user_id)
                 
-                # Device-specific optimizations
+# Device-specific optimizations
                 if self.capabilities['screen_size'] == 'small':
-                    # Mobile optimization
+# Mobile optimization
                     return await self._build_mobile_home(user_profile)
                 elif self.capabilities['input_method'] == 'remote':
-                    # TV optimization
+# TV optimization
                     return await self._build_tv_home(user_profile)
                 elif self.capabilities['bandwidth'] == 'limited':
-                    # Low bandwidth optimization
+# Low bandwidth optimization
                     return await self._build_lite_home(user_profile)
                 else:
-                    # Standard experience
+# Standard experience
                     return await self._build_standard_home(user_profile)
             
             async def _build_tv_home(self, user_profile):
@@ -694,7 +694,7 @@ class NetflixBFFArchitecture:
                 
                 rows = []
                 
-                # Continue watching row
+# Continue watching row
                 if user_profile.watching:
                     rows.append({
                         'id': 'continue_watching',
@@ -706,7 +706,7 @@ class NetflixBFFArchitecture:
                         )
                     })
                 
-                # Recommendations
+# Recommendations
                 recommendations = await self._get_tv_recommendations(user_profile)
                 for category in recommendations:
                     rows.append({
@@ -737,7 +737,7 @@ class NetflixBFFArchitecture:
                 formatted = []
                 
                 for item in items:
-                    # Get TV-optimized artwork
+# Get TV-optimized artwork
                     artwork = await self._get_artwork(
                         item.id,
                         format='tv',
@@ -750,7 +750,7 @@ class NetflixBFFArchitecture:
                         'artwork': artwork,
                         'duration': item.duration,
                         'progress': item.user_progress,
-                        # TV-specific actions
+# TV-specific actions
                         'actions': {
                             'primary': 'play',
                             'secondary': 'add_to_list',
@@ -770,7 +770,7 @@ class NetflixBFFArchitecture:
                     'profiles': []
                 }
                 
-                # Add profiles based on device capabilities
+# Add profiles based on device capabilities
                 if self.capabilities['max_resolution'] >= 2160:
                     manifest['profiles'].append({
                         'name': '4K HDR',
@@ -786,7 +786,7 @@ class NetflixBFFArchitecture:
                         'resolution': '1920x1080'
                     })
                 
-                # Always include low quality for adaptive streaming
+# Always include low quality for adaptive streaming
                 manifest['profiles'].append({
                     'name': 'Low',
                     'bitrate': 300,
@@ -820,7 +820,7 @@ class SpotifyBFFPlatform:
             Web discover page with rich interactions
             """
             
-            # Get all data in parallel
+# Get all data in parallel
             user_data, playlists, podcasts, concerts = await asyncio.gather(
                 self.user_service.get_profile(user_id),
                 self.playlist_service.get_discover_weekly(user_id),
@@ -871,7 +871,7 @@ class SpotifyBFFPlatform:
             Context-aware mobile home
             """
             
-            # Determine context
+# Determine context
             is_commuting = context.get('activity') == 'commuting'
             is_offline = context.get('connection') == 'offline'
             battery_low = context.get('battery_level', 100) < 20
@@ -879,7 +879,7 @@ class SpotifyBFFPlatform:
             if is_offline:
                 return self._get_offline_home(user_id)
             
-            # Optimize for context
+# Optimize for context
             home_config = {
                 'quick_picks': await self._get_quick_picks(
                     user_id,
@@ -889,14 +889,14 @@ class SpotifyBFFPlatform:
             }
             
             if is_commuting:
-                # Commute-friendly content
+# Commute-friendly content
                 home_config['commute_playlist'] = await self._generate_commute_playlist(
                     user_id,
                     duration=context.get('commute_duration', 30)
                 )
             
             if battery_low:
-                # Disable animations and background refresh
+# Disable animations and background refresh
                 home_config['low_power_mode'] = True
                 home_config['background_refresh'] = False
             
@@ -911,7 +911,7 @@ class SpotifyBFFPlatform:
             location = context.get('location_type')
             weather = context.get('weather')
             
-            # Generate contextual recommendations
+# Generate contextual recommendations
             picks = await self.ai_service.generate_picks({
                 'user_id': user_id,
                 'time': time_of_day,
@@ -982,31 +982,31 @@ class AggregationGateway:
         Intelligent query execution with optimization
         """
         
-        # Parse and analyze query
+# Parse and analyze query
         query_plan = self.query_planner.create_plan(query)
         
-        # Check cache first
+# Check cache first
         cached_parts = await self._check_cache(query_plan)
         
-        # Determine what needs to be fetched
+# Determine what needs to be fetched
         missing_data = query_plan.get_missing(cached_parts)
         
         if missing_data:
-            # Optimize service calls
+# Optimize service calls
             execution_plan = self._optimize_execution(missing_data)
             
-            # Execute with circuit breakers
+# Execute with circuit breakers
             fresh_data = await self._execute_plan(execution_plan)
             
-            # Cache results
+# Cache results
             await self._cache_results(fresh_data)
             
-            # Merge with cached data
+# Merge with cached data
             complete_data = {**cached_parts, **fresh_data}
         else:
             complete_data = cached_parts
         
-        # Apply transformations
+# Apply transformations
         return self._transform_response(complete_data, context)
     
     def _optimize_execution(self, queries: list):
@@ -1016,24 +1016,24 @@ class AggregationGateway:
         
         optimizer = QueryOptimizer()
         
-        # Group by service
+# Group by service
         by_service = defaultdict(list)
         for query in queries:
             by_service[query.service].append(query)
         
-        # Find opportunities for batching
+# Find opportunities for batching
         execution_plan = []
         
         for service, service_queries in by_service.items():
             if self._can_batch(service_queries):
-                # Batch compatible queries
+# Batch compatible queries
                 batched = self._create_batch_query(service_queries)
                 execution_plan.append(batched)
             else:
-                # Execute individually
+# Execute individually
                 execution_plan.extend(service_queries)
         
-        # Order by dependencies
+# Order by dependencies
         return optimizer.order_by_dependencies(execution_plan)
     
     async def _execute_plan(self, plan: list):
@@ -1045,7 +1045,7 @@ class AggregationGateway:
         
         for step in plan:
             try:
-                # Execute with circuit breaker
+# Execute with circuit breaker
                 data = await self.circuit_breaker.call(
                     step.service,
                     step.method,
@@ -1054,7 +1054,7 @@ class AggregationGateway:
                 results[step.id] = data
                 
             except ServiceUnavailable:
-                # Try fallback
+# Try fallback
                 if step.fallback:
                     results[step.id] = await step.fallback()
                 else:
@@ -1062,7 +1062,7 @@ class AggregationGateway:
                     results[f"{step.id}_error"] = "Service unavailable"
                     
             except Timeout:
-                # Return partial data
+# Return partial data
                 results[step.id] = None
                 results[f"{step.id}_error"] = "Timeout"
         
@@ -1071,7 +1071,7 @@ class AggregationGateway:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Netflix's Federated BFF
 
@@ -1104,7 +1104,7 @@ class NetflixFederatedBFF:
             
             adapted = {}
             
-            # Adapt based on device type
+# Adapt based on device type
             if self.device.type == 'mobile':
                 adapted = self._adapt_for_mobile(data)
             elif self.device.type == 'tv':
@@ -1114,10 +1114,10 @@ class NetflixFederatedBFF:
             elif self.device.type == 'game_console':
                 adapted = self._adapt_for_gaming(data)
             
-            # Apply device-specific constraints
+# Apply device-specific constraints
             adapted = self._apply_constraints(adapted)
             
-            # Add device-specific features
+# Add device-specific features
             adapted = self._add_device_features(adapted)
             
             return adapted
@@ -1154,7 +1154,7 @@ class NetflixFederatedBFF:
             
             lolomo = []
             
-            # Priority rows based on device
+# Priority rows based on device
             priority_order = self._get_row_priority()
             
             for row_type in priority_order:
@@ -1177,7 +1177,7 @@ class NetflixFederatedBFF:
             Determine optimal artwork quality
             """
             
-            # Consider multiple factors
+# Consider multiple factors
             factors = {
                 'resolution': self.capabilities.get('resolution', 720),
                 'bandwidth': self.capabilities.get('bandwidth_mbps', 5),
@@ -1209,13 +1209,13 @@ class NetflixFederatedBFF:
             
             router = FalcorRouter()
             
-            # Route for fetching multiple videos by ID
+# Route for fetching multiple videos by ID
             @router.route('videos[{integers:videoIds}]["title", "rating", "artwork"]')
             def get_video_basics(video_ids, fields):
-                # Batch fetch from video service
+# Batch fetch from video service
                 videos = VideoService.get_many(video_ids, fields)
                 
-                # Return in Falcor format
+# Return in Falcor format
                 result = []
                 for video_id in video_ids:
                     if video_id in videos:
@@ -1227,10 +1227,10 @@ class NetflixFederatedBFF:
                 
                 return result
             
-            # Route for personalized rows
+# Route for personalized rows
             @router.route('lolomo[{integers:indices}]')
             def get_lolomo_rows(indices):
-                # Get user's personalized rows
+# Get user's personalized rows
                 user_id = request.user_id
                 rows = PersonalizationService.get_rows(user_id, indices)
                 
@@ -1251,7 +1251,7 @@ class NetflixFederatedBFF:
             Execute Falcor query with optimizations
             """
             
-            # Check cache
+# Check cache
             cached_paths = []
             missing_paths = []
             
@@ -1262,24 +1262,24 @@ class NetflixFederatedBFF:
                 else:
                     missing_paths.append(path)
             
-            # Fetch missing data
+# Fetch missing data
             if missing_paths:
-                # Optimize query
+# Optimize query
                 optimized = self._optimize_paths(missing_paths)
                 
-                # Execute
+# Execute
                 results = await self.router.get(optimized)
                 
-                # Cache results
+# Cache results
                 for result in results:
                     self.model_cache.set(result['path'], result['value'])
                 
-                # Combine with cached
+# Combine with cached
                 all_results = cached_paths + results
             else:
                 all_results = cached_paths
             
-            # Build JSON graph response
+# Build JSON graph response
             return self._build_json_graph(all_results)
     
     class EdgeOptimizedBFF:
@@ -1297,26 +1297,26 @@ class NetflixFederatedBFF:
             Handle request at edge with minimal latency
             """
             
-            # Device detection at edge
+# Device detection at edge
             device = self._detect_device(request['user_agent'])
             
-            # Check edge cache
+# Check edge cache
             cache_key = self._generate_cache_key(request, device)
             cached = await self.edge_cache.get(cache_key)
             
             if cached and self._is_fresh(cached):
                 return cached['data']
             
-            # Partial cache hit?
+# Partial cache hit?
             if cached:
-                # Fetch only missing/stale data
+# Fetch only missing/stale data
                 fresh_data = await self._fetch_delta(cached, request)
                 merged = self._merge_data(cached['data'], fresh_data)
             else:
-                # Full fetch from origin
+# Full fetch from origin
                 merged = await self._fetch_from_origin(request, device)
             
-            # Cache at edge
+# Cache at edge
             await self.edge_cache.set(cache_key, {
                 'data': merged,
                 'timestamp': time.time(),
@@ -1330,7 +1330,7 @@ class NetflixFederatedBFF:
             Generate cache key considering device and personalization
             """
             
-            # Base key components
+# Base key components
             components = [
                 request['path'],
                 device.category,  # mobile, tv, web
@@ -1338,7 +1338,7 @@ class NetflixFederatedBFF:
                 request.get('language', 'en')
             ]
             
-            # Add user segment for personalization
+# Add user segment for personalization
             if request.get('user_id'):
                 segment = self._get_user_segment(request['user_id'])
                 components.append(f"seg_{segment}")
@@ -1363,19 +1363,19 @@ class BFFPerformanceOptimizer:
         Multi-stage request optimization
         """
         
-        # Stage 1: Request deduplication
+# Stage 1: Request deduplication
         deduped = self._deduplicate_requests(request)
         
-        # Stage 2: Query planning
+# Stage 2: Query planning
         plan = self._create_execution_plan(deduped)
         
-        # Stage 3: Predictive prefetching
+# Stage 3: Predictive prefetching
         with_prefetch = await self._add_prefetch_hints(plan)
         
-        # Stage 4: Adaptive batching
+# Stage 4: Adaptive batching
         batched = self._adaptive_batch(with_prefetch)
         
-        # Stage 5: Priority execution
+# Stage 5: Priority execution
         return await self._priority_execute(batched)
     
     def _deduplicate_requests(self, request: dict):
@@ -1392,7 +1392,7 @@ class BFFPerformanceOptimizer:
                 seen_queries.add(query_hash)
                 deduped.append(query)
             else:
-                # Map to existing query result
+# Map to existing query result
                 query['duplicate_of'] = query_hash
         
         return deduped
@@ -1402,17 +1402,17 @@ class BFFPerformanceOptimizer:
         Add predictive prefetching based on patterns
         """
         
-        # Analyze user behavior
+# Analyze user behavior
         user_pattern = await self._analyze_user_pattern(plan['user_id'])
         
-        # Predict next likely requests
+# Predict next likely requests
         predictions = self.ml_model.predict_next_requests(
             current_request=plan,
             user_pattern=user_pattern,
             confidence_threshold=0.8
         )
         
-        # Add as low-priority prefetch
+# Add as low-priority prefetch
         for prediction in predictions:
             plan['prefetch'].append({
                 'query': prediction['query'],
@@ -1430,15 +1430,15 @@ class BFFPerformanceOptimizer:
         current_load = self._get_system_load()
         
         if current_load > 0.8:
-            # High load - aggressive batching
+# High load - aggressive batching
             batch_size = 50
             delay_ms = 10
         elif current_load > 0.5:
-            # Medium load - moderate batching
+# Medium load - moderate batching
             batch_size = 20
             delay_ms = 5
         else:
-            # Low load - minimal batching
+# Low load - minimal batching
             batch_size = 5
             delay_ms = 1
         
@@ -1453,7 +1453,7 @@ class BFFPerformanceOptimizer:
                     batches.append(current_batch)
                     current_batch = []
             else:
-                # Can't batch - finish current and start new
+# Can't batch - finish current and start new
                 if current_batch:
                     batches.append(current_batch)
                 current_batch = [query]
@@ -1469,7 +1469,7 @@ class BFFPerformanceOptimizer:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1486,18 +1486,18 @@ class BFFDesignPrinciples:
         Each BFF serves one client type well
         """
         
-        # Bad: Generic BFF trying to serve all
+# Bad: Generic BFF trying to serve all
         class GenericBFF:
             def get_data(self, client_type):
                 if client_type == 'mobile':
-                    # Mobile logic mixed with others
+# Mobile logic mixed with others
                     pass
                 elif client_type == 'web':
-                    # Web logic mixed
+# Web logic mixed
                     pass
-                # Becomes unmaintainable
+# Becomes unmaintainable
         
-        # Good: Dedicated BFFs
+# Good: Dedicated BFFs
         class MobileBFF:
             """Only mobile concerns"""
             def get_data(self):
@@ -1550,15 +1550,15 @@ class BFFDesignPrinciples:
                 }
             
             def handle_v1(self, request):
-                # Legacy mobile apps
+# Legacy mobile apps
                 return {'data': 'v1 format'}
             
             def handle_v2(self, request):
-                # Current mobile apps
+# Current mobile apps
                 return {'data': 'v2 format', 'new_field': 'value'}
             
             def handle_v3(self, request):
-                # Beta mobile apps
+# Beta mobile apps
                 return {'data': 'v3 format', 'experimental': True}
 ```
 
@@ -1584,14 +1584,14 @@ class BFFOptimizationModels:
         
         total_requests = num_clients * requests_per_client
         
-        # Without BFF - each client makes multiple backend calls
+# Without BFF - each client makes multiple backend calls
         without_bff = {
             'backend_requests': total_requests * 5,  # Average 5 services per request
             'network_overhead': total_requests * 5 * 0.001,  # 1ms per call
             'client_complexity': 'high'
         }
         
-        # With BFF
+# With BFF
         with_bff = {
             'backend_requests': total_requests * (1 - cache_hit_rate) * 3,  # Better batching
             'network_overhead': total_requests * 0.002,  # 2ms to BFF
@@ -1617,8 +1617,8 @@ class BFFOptimizationModels:
         Optimization model for client-specific features
         """
         
-        # Response time model
-        # T_total = T_network + T_processing + T_rendering
+# Response time model
+# T_total = T_network + T_processing + T_rendering
         
         mobile_model = {
             't_network': lambda bandwidth: 1000 / bandwidth,  # ms
@@ -1642,7 +1642,7 @@ class BFFOptimizationModels:
             }
         }
         
-        # Optimize payload size
+# Optimize payload size
         def optimize_payload(model, target_time_ms):
             """Find optimal payload size for target response time"""
             
@@ -1684,24 +1684,24 @@ class AIOptimizedBFF:
         AI optimizes every aspect of the request
         """
         
-        # Predict what fields client will actually use
+# Predict what fields client will actually use
         predicted_fields = self.ml_models['field_selector'].predict(
             client_type=context['client_type'],
             user_segment=context['user_segment'],
             request_pattern=context['history']
         )
         
-        # Fetch only predicted fields
+# Fetch only predicted fields
         data = await self._fetch_predicted_fields(predicted_fields)
         
-        # AI-driven response transformation
+# AI-driven response transformation
         optimized_response = self.ml_models['response_predictor'].transform(
             data=data,
             client_context=context,
             network_conditions=context['network']
         )
         
-        # Predictive caching
+# Predictive caching
         cache_strategy = self.ml_models['cache_optimizer'].determine_strategy(
             request_pattern=context['history'],
             data_volatility=self._analyze_volatility(data),
@@ -1717,7 +1717,7 @@ class AIOptimizedBFF:
         Train ML model to predict field usage
         """
         
-        # Extract features
+# Extract features
         features = []
         labels = []
         
@@ -1730,13 +1730,13 @@ class AIOptimizedBFF:
                 'request_path': request['path']
             })
             
-            # Label: which fields were actually rendered
+# Label: which fields were actually rendered
             labels.append(request['fields_used'])
         
-        # Train model
+# Train model
         self.ml_models['field_selector'].train(features, labels)
         
-        # Validate accuracy
+# Validate accuracy
         accuracy = self.ml_models['field_selector'].validate()
         
         return {
@@ -1764,19 +1764,19 @@ class EdgeNativeBFF:
         Process entirely at edge when possible
         """
         
-        # Determine if can handle at edge
+# Determine if can handle at edge
         edge_capable = self._analyze_request_complexity(request)
         
         if edge_capable:
-            # Full edge processing
+# Full edge processing
             response = await self._process_at_edge(request)
         else:
-            # Hybrid: edge preprocessing + origin call
+# Hybrid: edge preprocessing + origin call
             preprocessed = await self._edge_preprocess(request)
             origin_data = await self._call_origin(preprocessed)
             response = await self._edge_postprocess(origin_data)
         
-        # Edge-specific optimizations
+# Edge-specific optimizations
         response = self._apply_edge_optimizations(response, {
             'user_location': request['geo'],
             'network_latency': request['ping_ms'],
@@ -1792,19 +1792,19 @@ class EdgeNativeBFF:
         
         optimized = response.copy()
         
-        # CDN URL rewriting for nearest edge
+# CDN URL rewriting for nearest edge
         optimized['assets'] = self._rewrite_cdn_urls(
             response.get('assets', []),
             self.location
         )
         
-        # Locale-specific content
+# Locale-specific content
         optimized['content'] = self._localize_content(
             response['content'],
             context['user_location']
         )
         
-        # Network-aware quality
+# Network-aware quality
         if context['network_latency'] > 100:
             optimized['media_quality'] = 'adaptive_low'
         
@@ -1813,7 +1813,7 @@ class EdgeNativeBFF:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### BFF Decision Matrix
 

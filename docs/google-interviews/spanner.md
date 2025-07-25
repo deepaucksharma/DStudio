@@ -131,21 +131,21 @@ class TrueTimeImpl:
         self.uncertainty = 7  # ms typical
     
     def now(self):
-        # Get time from multiple sources
+# Get time from multiple sources
         gps_time = self.gps_source.get_time()
         atomic_time = self.atomic_source.get_time()
         
-        # Compute consensus time
+# Compute consensus time
         consensus = self.compute_consensus(gps_time, atomic_time)
         
-        # Return interval with uncertainty
+# Return interval with uncertainty
         return TTInterval(
             earliest=consensus - self.uncertainty,
             latest=consensus + self.uncertainty
         )
     
     def after(self, t):
-        # Wait until we're definitely after time t
+# Wait until we're definitely after time t
         while self.now().earliest <= t:
             time.sleep(0.001)  # 1ms
 ```
@@ -200,7 +200,7 @@ Directory 2: Users[1001-2000] + Orders + OrderItems
 ### Read-Write Transactions
 ```python
 def read_write_transaction(operations):
-    # 1. Acquire locks
+# 1. Acquire locks
     tx_id = begin_transaction()
     locks = []
     
@@ -209,25 +209,25 @@ def read_write_transaction(operations):
             lock = acquire_lock(op.key, tx_id)
             locks.append(lock)
     
-    # 2. Pick timestamp
+# 2. Pick timestamp
     prepare_ts = TrueTime.now().latest
     
-    # 3. Prepare phase (2PC)
+# 3. Prepare phase (2PC)
     for participant in get_participants(operations):
         vote = participant.prepare(tx_id, prepare_ts)
         if vote == ABORT:
             abort_transaction(tx_id)
             return ABORTED
     
-    # 4. Wait for safe time
+# 4. Wait for safe time
     commit_ts = TrueTime.now().latest
     TrueTime.after(commit_ts)
     
-    # 5. Commit phase
+# 5. Commit phase
     for participant in get_participants(operations):
         participant.commit(tx_id, commit_ts)
     
-    # 6. Release locks
+# 6. Release locks
     for lock in locks:
         release_lock(lock)
     
@@ -237,12 +237,12 @@ def read_write_transaction(operations):
 ### Read-Only Transactions
 ```python
 def read_only_transaction(read_operations):
-    # Pick read timestamp
+# Pick read timestamp
     read_ts = TrueTime.now().latest
     
     results = []
     for op in read_operations:
-        # Read at timestamp without locks
+# Read at timestamp without locks
         data = read_at_timestamp(op.key, read_ts)
         results.append(data)
     
@@ -311,17 +311,17 @@ GlobalAggregate → Having → Sort
 ```python
 class QueryExecutor:
     def execute_query(self, sql):
-        # 1. Parse and optimize
+# 1. Parse and optimize
         ast = parse_sql(sql)
         logical_plan = optimize_logical(ast)
         
-        # 2. Generate distributed plan
+# 2. Generate distributed plan
         physical_plan = generate_physical_plan(logical_plan)
         
-        # 3. Determine timestamp
+# 3. Determine timestamp
         read_ts = self.get_read_timestamp()
         
-        # 4. Execute distributed
+# 4. Execute distributed
         results = []
         for shard_plan in physical_plan.shard_plans:
             shard_result = self.execute_remotely(
@@ -330,7 +330,7 @@ class QueryExecutor:
             )
             results.append(shard_result)
         
-        # 5. Merge results
+# 5. Merge results
         return self.merge_results(results, physical_plan.merge_plan)
 ```
 
@@ -339,22 +339,22 @@ class QueryExecutor:
 ### Online DDL
 ```python
 def alter_table_add_column(table, column):
-    # 1. Create schema version
+# 1. Create schema version
     new_version = current_version + 1
     
-    # 2. Distributed schema change
+# 2. Distributed schema change
     for directory in get_directories(table):
-        # Non-blocking schema update
+# Non-blocking schema update
         directory.add_pending_schema(new_version, column)
     
-    # 3. Wait for propagation
+# 3. Wait for propagation
     wait_for_schema_propagation(new_version)
     
-    # 4. Activate new schema
+# 4. Activate new schema
     for directory in get_directories(table):
         directory.activate_schema(new_version)
     
-    # 5. Backfill if needed
+# 5. Backfill if needed
     if column.has_default:
         backfill_column(table, column)
 ```
@@ -368,7 +368,7 @@ result = spanner.read(
     table='Users',
     columns=['Username', 'Email'],
     key_set=key_set,
-    # Read from 15 seconds ago
+# Read from 15 seconds ago
     timestamp=time.time() - 15
 )
 
@@ -377,7 +377,7 @@ result = spanner.read(
     table='Orders',
     columns=['OrderId', 'Total'],
     key_set=key_set,
-    # At most 10 seconds old
+# At most 10 seconds old
     max_staleness=timedelta(seconds=10)
 )
 ```

@@ -20,7 +20,7 @@ last_updated: 2025-07-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Sealed Letter Analogy
 
@@ -81,7 +81,7 @@ class SimpleE2E:
     """Basic E2E encryption demonstration"""
     
     def __init__(self):
-        # Generate key pair for this user
+# Generate key pair for this user
         self.private_key = rsa.generate_private_key(
             public_exponent=65537,
             key_size=2048
@@ -98,28 +98,28 @@ class SimpleE2E:
     def encrypt_for_recipient(self, message: str, recipient_public_key: bytes) -> dict:
         """Encrypt message that only recipient can decrypt"""
         
-        # Load recipient's public key
+# Load recipient's public key
         recipient_key = serialization.load_pem_public_key(recipient_public_key)
         
-        # Generate AES key for this message
+# Generate AES key for this message
         aes_key = os.urandom(32)  # 256-bit key
         iv = os.urandom(16)       # 128-bit IV
         
-        # Encrypt message with AES
+# Encrypt message with AES
         cipher = Cipher(
             algorithms.AES(aes_key),
             modes.CBC(iv)
         )
         encryptor = cipher.encryptor()
         
-        # Pad message to AES block size
+# Pad message to AES block size
         message_bytes = message.encode('utf-8')
         padding_length = 16 - (len(message_bytes) % 16)
         padded_message = message_bytes + bytes([padding_length]) * padding_length
         
         ciphertext = encryptor.update(padded_message) + encryptor.finalize()
         
-        # Encrypt AES key with recipient's public key
+# Encrypt AES key with recipient's public key
         encrypted_key = recipient_key.encrypt(
             aes_key,
             padding.OAEP(
@@ -138,12 +138,12 @@ class SimpleE2E:
     def decrypt_message(self, encrypted_data: dict) -> str:
         """Decrypt message using private key"""
         
-        # Decode from base64
+# Decode from base64
         ciphertext = base64.b64decode(encrypted_data['ciphertext'])
         encrypted_key = base64.b64decode(encrypted_data['encrypted_key'])
         iv = base64.b64decode(encrypted_data['iv'])
         
-        # Decrypt AES key with private key
+# Decrypt AES key with private key
         aes_key = self.private_key.decrypt(
             encrypted_key,
             padding.OAEP(
@@ -153,7 +153,7 @@ class SimpleE2E:
             )
         )
         
-        # Decrypt message with AES
+# Decrypt message with AES
         cipher = Cipher(
             algorithms.AES(aes_key),
             modes.CBC(iv)
@@ -161,7 +161,7 @@ class SimpleE2E:
         decryptor = cipher.decryptor()
         padded_plaintext = decryptor.update(ciphertext) + decryptor.finalize()
         
-        # Remove padding
+# Remove padding
         padding_length = padded_plaintext[-1]
         message = padded_plaintext[:-padding_length].decode('utf-8')
         
@@ -191,7 +191,7 @@ except Exception:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -229,15 +229,15 @@ class E2EKeyManager:
         self.user_id = user_id
         self.keys = {}
         
-        # Generate identity key pair (long-term)
+# Generate identity key pair (long-term)
         self.identity_key = self.generate_key_pair()
         
-        # Generate signed pre-keys (medium-term)
+# Generate signed pre-keys (medium-term)
         self.signed_pre_keys = []
         for i in range(5):
             self.signed_pre_keys.append(self.generate_signed_pre_key(i))
         
-        # Generate one-time pre-keys (ephemeral)
+# Generate one-time pre-keys (ephemeral)
         self.one_time_keys = []
         for i in range(100):
             self.one_time_keys.append(self.generate_key_pair())
@@ -258,7 +258,7 @@ class E2EKeyManager:
         """Generate signed pre-key for async communication"""
         pre_key = self.generate_key_pair()
         
-        # Sign with identity key
+# Sign with identity key
         from cryptography.hazmat.primitives import hashes
         from cryptography.hazmat.primitives.asymmetric import utils
         
@@ -311,33 +311,33 @@ class DoubleRatchet:
         self.root_key = shared_secret
         self.is_alice = is_alice
         
-        # Diffie-Hellman ratchet
+# Diffie-Hellman ratchet
         self.dh_ratchet_key_pair = None
         self.dh_remote_public_key = None
         
-        # Symmetric key ratchet
+# Symmetric key ratchet
         self.sending_chain_key = None
         self.receiving_chain_key = None
         self.send_message_number = 0
         self.receive_message_number = 0
         
-        # Skipped message keys for out-of-order delivery
+# Skipped message keys for out-of-order delivery
         self.skipped_messages = {}
         
     def ratchet_encrypt(self, plaintext: bytes) -> dict:
         """Encrypt with ratcheting for forward secrecy"""
         
-        # Perform DH ratchet if needed
+# Perform DH ratchet if needed
         if self.send_message_number == 0:
             self.dh_ratchet_step()
         
-        # Derive message key from chain key
+# Derive message key from chain key
         message_key = self.kdf(self.sending_chain_key, b"MessageKey")
         
-        # Ratchet chain key forward
+# Ratchet chain key forward
         self.sending_chain_key = self.kdf(self.sending_chain_key, b"ChainKey")
         
-        # Encrypt message
+# Encrypt message
         iv = os.urandom(16)
         cipher = Cipher(
             algorithms.AES(message_key[:32]),
@@ -345,11 +345,11 @@ class DoubleRatchet:
         )
         encryptor = cipher.encryptor()
         
-        # Pad and encrypt
+# Pad and encrypt
         padded = self.pad(plaintext)
         ciphertext = encryptor.update(padded) + encryptor.finalize()
         
-        # Create header with DH public key
+# Create header with DH public key
         header = {
             'dh_public_key': self.serialize_public_key(self.dh_ratchet_key_pair['public']),
             'message_number': self.send_message_number,
@@ -371,18 +371,18 @@ class DoubleRatchet:
         ciphertext = base64.b64decode(message['ciphertext'])
         iv = base64.b64decode(message['iv'])
         
-        # Check if we need to perform DH ratchet
+# Check if we need to perform DH ratchet
         remote_public = self.deserialize_public_key(header['dh_public_key'])
         if remote_public != self.dh_remote_public_key:
             self.skip_missed_messages(header['message_number'])
             self.dh_ratchet_receive(remote_public)
         
-        # Check skipped messages
+# Check skipped messages
         skipped_key = (header['dh_public_key'], header['message_number'])
         if skipped_key in self.skipped_messages:
             message_key = self.skipped_messages.pop(skipped_key)
         else:
-            # Skip to correct message number
+# Skip to correct message number
             while self.receive_message_number < header['message_number']:
                 skipped_key = (header['dh_public_key'], self.receive_message_number)
                 self.skipped_messages[skipped_key] = self.kdf(
@@ -393,12 +393,12 @@ class DoubleRatchet:
                 )
                 self.receive_message_number += 1
             
-            # Derive message key
+# Derive message key
             message_key = self.kdf(self.receiving_chain_key, b"MessageKey")
             self.receiving_chain_key = self.kdf(self.receiving_chain_key, b"ChainKey")
             self.receive_message_number += 1
         
-        # Decrypt
+# Decrypt
         cipher = Cipher(
             algorithms.AES(message_key[:32]),
             modes.CBC(iv)
@@ -410,17 +410,17 @@ class DoubleRatchet:
     
     def dh_ratchet_step(self):
         """Perform Diffie-Hellman ratchet step"""
-        # Generate new DH key pair
+# Generate new DH key pair
         self.dh_ratchet_key_pair = self.generate_dh_key_pair()
         
         if self.dh_remote_public_key:
-            # Compute shared secret
+# Compute shared secret
             shared_secret = self.dh(
                 self.dh_ratchet_key_pair['private'],
                 self.dh_remote_public_key
             )
             
-            # Update root key and derive new chain keys
+# Update root key and derive new chain keys
             self.root_key, self.sending_chain_key = self.kdf_root_key(
                 self.root_key, shared_secret
             )
@@ -449,10 +449,10 @@ class E2EGroupChat:
     def create_sender_key(self, user_id: str) -> bytes:
         """Create sender key for group encryption"""
         
-        # Generate random 256-bit sender key
+# Generate random 256-bit sender key
         sender_key = os.urandom(32)
         
-        # Create sender key message
+# Create sender key message
         sender_key_message = {
             'iteration': 0,
             'chain_key': sender_key,
@@ -461,7 +461,7 @@ class E2EGroupChat:
         
         self.sender_keys[user_id] = sender_key_message
         
-        # Distribute to all members via pairwise E2E
+# Distribute to all members via pairwise E2E
         distribution_messages = []
         for member_id, member_data in self.members.items():
             if member_id != user_id:
@@ -481,20 +481,20 @@ class E2EGroupChat:
         
         sender_key = self.sender_keys[sender_id]
         
-        # Derive message key from chain
+# Derive message key from chain
         message_key = self.kdf(
             sender_key['chain_key'],
             f"MessageKey_{sender_key['iteration']}".encode()
         )
         
-        # Advance chain
+# Advance chain
         sender_key['chain_key'] = self.kdf(
             sender_key['chain_key'],
             b"ChainKey"
         )
         sender_key['iteration'] += 1
         
-        # Encrypt message
+# Encrypt message
         iv = os.urandom(16)
         cipher = Cipher(
             algorithms.AES(message_key[:32]),
@@ -506,7 +506,7 @@ class E2EGroupChat:
         padded = self.pad(plaintext)
         ciphertext = encryptor.update(padded) + encryptor.finalize()
         
-        # Sign with sender's signing key
+# Sign with sender's signing key
         signature = self.sign_message(
             ciphertext,
             sender_key['signing_key']
@@ -535,7 +535,7 @@ class E2EGroupChat:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Production Implementation: Signal Protocol
 
@@ -550,27 +550,27 @@ class SignalProtocol:
         self.user_id = user_id
         self.store = SignalProtocolStore(db_path)
         
-        # Initialize if new user
+# Initialize if new user
         if not self.store.get_identity_key_pair():
             self.initialize_user()
     
     def initialize_user(self):
         """One-time setup for new user"""
         
-        # Generate identity key
+# Generate identity key
         identity_key_pair = signal_protocol.KeyHelper.generateIdentityKeyPair()
         self.store.save_identity_key_pair(identity_key_pair)
         
-        # Generate registration ID
+# Generate registration ID
         registration_id = signal_protocol.KeyHelper.generateRegistrationId()
         self.store.save_registration_id(registration_id)
         
-        # Generate pre-keys
+# Generate pre-keys
         pre_keys = signal_protocol.KeyHelper.generatePreKeys(0, 100)
         for pre_key in pre_keys:
             self.store.save_pre_key(pre_key.id, pre_key)
         
-        # Generate signed pre-key
+# Generate signed pre-key
         signed_pre_key = signal_protocol.KeyHelper.generateSignedPreKey(
             identity_key_pair, 0
         )
@@ -584,7 +584,7 @@ class SignalProtocol:
             signal_protocol.SignalProtocolAddress(recipient_id, 1)
         )
         
-        # Process pre-key bundle from recipient
+# Process pre-key bundle from recipient
         bundle = signal_protocol.PreKeyBundle(
             pre_key_bundle['registration_id'],
             1,  # device ID
@@ -614,15 +614,15 @@ class SignalProtocol:
         
         plaintext = message.encode('utf-8')
         
-        # Check if we have established session
+# Check if we have established session
         if not self.store.contains_session(recipient_id, 1):
-            # Need to fetch pre-key bundle first
+# Need to fetch pre-key bundle first
             raise Exception("No session established. Fetch pre-key bundle first.")
         
-        # Encrypt
+# Encrypt
         ciphertext = session_cipher.encrypt(plaintext)
         
-        # Determine message type
+# Determine message type
         if ciphertext.getType() == signal_protocol.CiphertextMessage.PREKEY_TYPE:
             message_type = 'prekey'
             serialized = ciphertext.serialize()
@@ -646,7 +646,7 @@ class SignalProtocol:
         
         ciphertext_bytes = base64.b64decode(ciphertext_message['ciphertext'])
         
-        # Decrypt based on type
+# Decrypt based on type
         if ciphertext_message['type'] == 'prekey':
             prekey_message = signal_protocol.PreKeySignalMessage(ciphertext_bytes)
             plaintext = session_cipher.decrypt_pre_key_signal_message(prekey_message)
@@ -669,7 +669,7 @@ class SignalProtocolStore:
         
         cursor = self.conn.cursor()
         
-        # Identity store
+# Identity store
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS identities (
                 name TEXT PRIMARY KEY,
@@ -678,7 +678,7 @@ class SignalProtocolStore:
             )
         ''')
         
-        # Session store
+# Session store
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS sessions (
                 name TEXT,
@@ -688,7 +688,7 @@ class SignalProtocolStore:
             )
         ''')
         
-        # Pre-key store
+# Pre-key store
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS prekeys (
                 key_id INTEGER PRIMARY KEY,
@@ -696,7 +696,7 @@ class SignalProtocolStore:
             )
         ''')
         
-        # Signed pre-key store
+# Signed pre-key store
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS signed_prekeys (
                 key_id INTEGER PRIMARY KEY,
@@ -706,7 +706,7 @@ class SignalProtocolStore:
             )
         ''')
         
-        # Local registration data
+# Local registration data
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS registration (
                 key TEXT PRIMARY KEY,
@@ -735,7 +735,7 @@ class SealedSender:
     def create_unidentified_sender_certificate(self) -> dict:
         """Create certificate for anonymous sending"""
         
-        # Server signs certificate (in practice)
+# Server signs certificate (in practice)
         certificate = {
             'sender_uuid': self.generate_anonymous_id(),
             'sender_device_id': 1,
@@ -743,7 +743,7 @@ class SealedSender:
             'expiration': int(time.time()) + 86400,  # 24 hours
         }
         
-        # In practice, server signs this
+# In practice, server signs this
         certificate['signature'] = self.mock_server_sign(certificate)
         
         return certificate
@@ -751,23 +751,23 @@ class SealedSender:
     def encrypt_sealed_sender(self, recipient_id: str, message: str) -> dict:
         """Encrypt with sealed sender"""
         
-        # First, normal Signal encryption
+# First, normal Signal encryption
         encrypted = self.protocol.encrypt_message(recipient_id, message)
         
-        # Get recipient's unidentified access key
+# Get recipient's unidentified access key
         access_key = self.get_unidentified_access_key(recipient_id)
         
-        # Create sender certificate
+# Create sender certificate
         certificate = self.create_unidentified_sender_certificate()
         
-        # Create UnidentifiedSenderMessage
+# Create UnidentifiedSenderMessage
         content = {
             'type': encrypted['type'],
             'sender_certificate': certificate,
             'content': encrypted['ciphertext']
         }
         
-        # Encrypt content with shared secret
+# Encrypt content with shared secret
         sealed = self.seal_message(content, access_key)
         
         return {
@@ -779,25 +779,25 @@ class SealedSender:
     def decrypt_sealed_sender(self, sealed_message: dict) -> tuple:
         """Decrypt sealed sender message"""
         
-        # Derive shared secret from ephemeral key
+# Derive shared secret from ephemeral key
         shared_secret = self.derive_shared_secret(
             sealed_message['ephemeral_public']
         )
         
-        # Decrypt outer layer
+# Decrypt outer layer
         content = self.unseal_message(
             sealed_message['sealed_sender_message'],
             shared_secret
         )
         
-        # Verify sender certificate
+# Verify sender certificate
         if not self.verify_certificate(content['sender_certificate']):
             raise Exception("Invalid sender certificate")
         
-        # Extract sender identity
+# Extract sender identity
         sender_id = content['sender_certificate']['sender_uuid']
         
-        # Decrypt inner message
+# Decrypt inner message
         decrypted = self.protocol.decrypt_message(
             sender_id,
             {'type': content['type'], 'ciphertext': content['content']}
@@ -829,7 +829,7 @@ class MultiDeviceE2E:
         
         self.devices[device_id] = device
         
-        # Share existing sessions with new device
+# Share existing sessions with new device
         if len(self.devices) > 1:
             self.sync_sessions_to_device(device_id)
     
@@ -838,10 +838,10 @@ class MultiDeviceE2E:
         
         results = []
         
-        # Get recipient's devices
+# Get recipient's devices
         recipient_devices = self.get_recipient_devices(recipient_id)
         
-        # Encrypt for each recipient device
+# Encrypt for each recipient device
         for device_id in recipient_devices:
             encrypted = self.devices[from_device]['protocol'].encrypt_message(
                 f"{recipient_id}:{device_id}",
@@ -852,7 +852,7 @@ class MultiDeviceE2E:
                 'message': encrypted
             })
         
-        # Also encrypt for own other devices
+# Also encrypt for own other devices
         for device_id, device in self.devices.items():
             if device_id != from_device:
                 sync_message = {
@@ -867,7 +867,7 @@ class MultiDeviceE2E:
                     json.dumps(sync_message)
                 )
                 
-                # Queue for device sync
+# Queue for device sync
                 asyncio.create_task(
                     self.device_messages.put({
                         'device_id': device_id,
@@ -884,10 +884,10 @@ class MultiDeviceE2E:
             while True:
                 sync_data = await self.device_messages.get()
                 
-                # Deliver to device
+# Deliver to device
                 device = self.devices[sync_data['device_id']]
                 
-                # Decrypt sync message
+# Decrypt sync message
                 decrypted = device['protocol'].decrypt_message(
                     f"{self.user_id}:{sync_data['from_device']}",
                     sync_data['sync_message']
@@ -895,21 +895,21 @@ class MultiDeviceE2E:
                 
                 sync_content = json.loads(decrypted)
                 
-                # Process based on type
+# Process based on type
                 if sync_content['type'] == 'sent_message':
-                    # Update UI to show sent message
+# Update UI to show sent message
                     self.update_device_ui(
                         sync_data['device_id'],
                         sync_content
                     )
                 elif sync_content['type'] == 'read_receipt':
-                    # Sync read status
+# Sync read status
                     self.sync_read_status(
                         sync_data['device_id'],
                         sync_content
                     )
         
-        # Start sync worker
+# Start sync worker
         asyncio.create_task(sync_worker())
 ```
 
@@ -923,10 +923,10 @@ class PostQuantumE2E:
     """
     
     def __init__(self):
-        # Use CRYSTALS-Kyber for key exchange
+# Use CRYSTALS-Kyber for key exchange
         self.kem = self.init_kyber()
         
-        # Use Dilithium for signatures
+# Use Dilithium for signatures
         self.sig = self.init_dilithium()
     
     def init_kyber(self):
@@ -952,10 +952,10 @@ class PostQuantumE2E:
     def generate_pq_keys(self):
         """Generate post-quantum key pairs"""
         
-        # KEM keys for encryption
+# KEM keys for encryption
         kem_public, kem_secret = self.kem['generate_keypair']()
         
-        # Signature keys for authentication
+# Signature keys for authentication
         sig_public, sig_secret = self.sig['generate_keypair']()
         
         return {
@@ -966,13 +966,13 @@ class PostQuantumE2E:
     def pq_key_exchange(self, recipient_public_key: bytes) -> dict:
         """Post-quantum key exchange"""
         
-        # Encapsulate shared secret
+# Encapsulate shared secret
         ciphertext, shared_secret = self.kem['encrypt'](recipient_public_key)
         
-        # Also include classical ECDH for hybrid security
+# Also include classical ECDH for hybrid security
         classical_public, classical_shared = self.classical_ecdh(recipient_public_key)
         
-        # Combine both shared secrets
+# Combine both shared secrets
         combined_secret = self.kdf(
             shared_secret + classical_shared,
             b"PQ-Hybrid-Secret"
@@ -987,13 +987,13 @@ class PostQuantumE2E:
     def encrypt_pq_message(self, message: str, shared_secret: bytes) -> dict:
         """Encrypt using post-quantum algorithms"""
         
-        # Use AES-256-GCM (still quantum-safe for symmetric)
+# Use AES-256-GCM (still quantum-safe for symmetric)
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
         
-        # Derive encryption key
+# Derive encryption key
         key = self.kdf(shared_secret, b"Encryption-Key")[:32]
         
-        # Encrypt
+# Encrypt
         aesgcm = AESGCM(key)
         nonce = os.urandom(12)
         ciphertext = aesgcm.encrypt(
@@ -1011,7 +1011,7 @@ class PostQuantumE2E:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Case Study: WhatsApp's E2E Implementation
 
@@ -1037,16 +1037,16 @@ class WhatsAppE2E:
         
         start_time = time.time()
         
-        # 1. Check rate limits
+# 1. Check rate limits
         if not self.check_rate_limit(sender['id']):
             return {'error': 'RATE_LIMITED', 'retry_after': 60}
         
-        # 2. Validate message
+# 2. Validate message
         validation = self.validate_message(message)
         if not validation['valid']:
             return {'error': validation['error']}
         
-        # 3. Determine recipients and fanout
+# 3. Determine recipients and fanout
         if message['type'] == 'individual':
             recipients = [message['recipient_id']]
         elif message['type'] == 'group':
@@ -1056,7 +1056,7 @@ class WhatsAppE2E:
         elif message['type'] == 'broadcast':
             recipients = message['broadcast_list']
         
-        # 4. Encrypt for each recipient device
+# 4. Encrypt for each recipient device
         encrypted_messages = []
         encryption_time = 0
         
@@ -1066,13 +1066,13 @@ class WhatsAppE2E:
             for device in devices:
                 enc_start = time.time()
                 
-                # Check if we have session
+# Check if we have session
                 if not self.has_session(sender['device_id'], device['id']):
-                    # Fetch pre-key bundle
+# Fetch pre-key bundle
                     bundle = self.fetch_prekey_bundle(device['id'])
                     self.create_session(sender['device_id'], device['id'], bundle)
                 
-                # Encrypt message
+# Encrypt message
                 encrypted = self.encrypt_for_device(
                     sender['device_id'],
                     device['id'],
@@ -1086,18 +1086,18 @@ class WhatsAppE2E:
                     'payload': encrypted
                 })
         
-        # 5. Handle media if present
+# 5. Handle media if present
         if 'media' in message:
             media_encrypted = self.encrypt_media(message['media'], recipients)
             message['media_reference'] = media_encrypted['reference']
         
-        # 6. Queue for delivery
+# 6. Queue for delivery
         delivery_jobs = []
         for enc_msg in encrypted_messages:
             job_id = self.queue_delivery(enc_msg)
             delivery_jobs.append(job_id)
         
-        # 7. Send delivery receipts
+# 7. Send delivery receipts
         self.send_delivery_receipt(sender['id'], message['id'])
         
         total_time = time.time() - start_time
@@ -1114,21 +1114,21 @@ class WhatsAppE2E:
     def encrypt_media(self, media: dict, recipients: list) -> dict:
         """Encrypt media with symmetric key, share key via E2E"""
         
-        # Generate random key for media
+# Generate random key for media
         media_key = os.urandom(32)
         media_iv = os.urandom(16)
         
-        # Encrypt media file
+# Encrypt media file
         encrypted_media = self.aes_encrypt_file(
             media['data'],
             media_key,
             media_iv
         )
         
-        # Upload encrypted media to CDN
+# Upload encrypted media to CDN
         media_url = self.upload_to_cdn(encrypted_media)
         
-        # Create media reference
+# Create media reference
         media_ref = {
             'url': media_url,
             'key': base64.b64encode(media_key).decode(),
@@ -1138,7 +1138,7 @@ class WhatsAppE2E:
             'size': len(media['data'])
         }
         
-        # Media key will be sent via E2E in message
+# Media key will be sent via E2E in message
         return {
             'reference': media_ref,
             'cdn_url': media_url
@@ -1153,7 +1153,7 @@ class WhatsAppE2E:
             if device['id'] == primary_device:
                 continue
             
-            # Create device sync message
+# Create device sync message
             sync_msg = {
                 'type': 'device_sync',
                 'sync_data': {
@@ -1163,23 +1163,23 @@ class WhatsAppE2E:
                 }
             }
             
-            # Encrypt for companion device
+# Encrypt for companion device
             encrypted_sync = self.encrypt_for_device(
                 primary_device,
                 device['id'],
                 json.dumps(sync_msg)
             )
             
-            # Queue sync delivery
+# Queue sync delivery
             self.queue_sync_delivery(device['id'], encrypted_sync)
             
-            # Update last sync time
+# Update last sync time
             self.update_device_sync_time(device['id'])
     
     def implement_disappearing_messages(self, conversation_id: str, timer: int):
         """Implement disappearing messages with E2E encryption"""
         
-        # Timer is shared via E2E protocol
+# Timer is shared via E2E protocol
         timer_message = {
             'type': 'disappearing_timer_update',
             'conversation_id': conversation_id,
@@ -1187,14 +1187,14 @@ class WhatsAppE2E:
             'timestamp': datetime.utcnow().isoformat()
         }
         
-        # Encrypt and send to all participants
+# Encrypt and send to all participants
         participants = self.get_conversation_participants(conversation_id)
         
         for participant in participants:
             encrypted = self.encrypt_for_user(participant, json.dumps(timer_message))
             self.send_protocol_message(participant, encrypted)
         
-        # Set local timer
+# Set local timer
         self.set_disappearing_timer(conversation_id, timer)
 ```
 
@@ -1212,7 +1212,7 @@ class E2EPerformanceOptimizer:
     def batch_encrypt(self, messages: list) -> list:
         """Encrypt multiple messages in parallel"""
         
-        # Group by recipient for session reuse
+# Group by recipient for session reuse
         grouped = {}
         for msg in messages:
             key = (msg['sender_id'], msg['recipient_id'])
@@ -1220,7 +1220,7 @@ class E2EPerformanceOptimizer:
                 grouped[key] = []
             grouped[key].append(msg)
         
-        # Parallel encryption
+# Parallel encryption
         futures = []
         
         for (sender, recipient), msgs in grouped.items():
@@ -1230,7 +1230,7 @@ class E2EPerformanceOptimizer:
             )
             futures.append(future)
         
-        # Collect results
+# Collect results
         results = []
         for future in concurrent.futures.as_completed(futures):
             results.extend(future.result())
@@ -1240,7 +1240,7 @@ class E2EPerformanceOptimizer:
     def _encrypt_batch_for_recipient(self, sender: str, recipient: str, messages: list):
         """Encrypt multiple messages to same recipient"""
         
-        # Get or create session
+# Get or create session
         session = self.get_cached_session(sender, recipient)
         if not session:
             session = self.create_session(sender, recipient)
@@ -1248,7 +1248,7 @@ class E2EPerformanceOptimizer:
         
         results = []
         
-        # Use same session for all messages
+# Use same session for all messages
         for msg in messages:
             encrypted = session.encrypt(msg['content'])
             results.append({
@@ -1264,7 +1264,7 @@ class E2EPerformanceOptimizer:
         
         keys = []
         
-        # Generate in parallel
+# Generate in parallel
         def generate_batch(batch_size):
             batch = []
             for _ in range(batch_size):
@@ -1272,7 +1272,7 @@ class E2EPerformanceOptimizer:
                 batch.append(key_pair)
             return batch
         
-        # Split into batches
+# Split into batches
         batch_size = 100
         futures = []
         
@@ -1283,11 +1283,11 @@ class E2EPerformanceOptimizer:
             )
             futures.append(future)
         
-        # Collect results
+# Collect results
         for future in concurrent.futures.as_completed(futures):
             keys.extend(future.result())
         
-        # Store in pool
+# Store in pool
         self.ephemeral_key_pool = keys
         
         return len(keys)
@@ -1295,14 +1295,14 @@ class E2EPerformanceOptimizer:
     def optimize_group_encryption(self, group_id: str, message: str) -> dict:
         """Optimized group message encryption"""
         
-        # Use sender keys for groups > 10 members
+# Use sender keys for groups > 10 members
         group_size = self.get_group_size(group_id)
         
         if group_size > 10:
-            # Sender key encryption (one encryption, multiple recipients)
+# Sender key encryption (one encryption, multiple recipients)
             return self.sender_key_encrypt(group_id, message)
         else:
-            # Pairwise encryption for small groups
+# Pairwise encryption for small groups
             return self.pairwise_group_encrypt(group_id, message)
     
     def implement_message_franking(self, message: dict) -> dict:
@@ -1311,28 +1311,28 @@ class E2EPerformanceOptimizer:
         while maintaining E2E encryption
         """
         
-        # Generate franking key
+# Generate franking key
         franking_key = os.urandom(32)
         
-        # Create commitment
+# Create commitment
         commitment = hmac.new(
             franking_key,
             message['content'].encode(),
             hashlib.sha256
         ).digest()
         
-        # Include commitment in encrypted message
+# Include commitment in encrypted message
         message['franking'] = {
             'commitment': base64.b64encode(commitment).decode(),
             'timestamp': datetime.utcnow().isoformat(),
             'version': 1
         }
         
-        # Encrypt message normally
+# Encrypt message normally
         encrypted = self.e2e_encrypt(message)
         
-        # Store franking key encrypted to Facebook
-        # (revealed only if user reports message)
+# Store franking key encrypted to Facebook
+# (revealed only if user reports message)
         encrypted['franking_key'] = self.encrypt_to_service(franking_key)
         
         return encrypted
@@ -1354,10 +1354,10 @@ class E2ESecurityAnalyzer:
             'tests': []
         }
         
-        # Test 1: Key rotation
+# Test 1: Key rotation
         old_keys = protocol.get_current_keys()
         
-        # Send messages
+# Send messages
         for i in range(10):
             protocol.send_message(f"Message {i}")
         
@@ -1371,11 +1371,11 @@ class E2ESecurityAnalyzer:
                 'details': 'Keys rotate with each message'
             })
         
-        # Test 2: Past message security
-        # Compromise current keys
+# Test 2: Past message security
+# Compromise current keys
         compromised_keys = protocol.get_current_keys()
         
-        # Try to decrypt past messages
+# Try to decrypt past messages
         past_messages = protocol.get_message_history()
         decryptable = 0
         
@@ -1409,11 +1409,11 @@ class E2ESecurityAnalyzer:
             'online_status': False
         }
         
-        # Intercept network traffic
+# Intercept network traffic
         traffic = self.capture_traffic(implementation)
         
         for packet in traffic:
-            # Check for identifiable information
+# Check for identifiable information
             if 'sender_id' in packet or 'from' in packet:
                 metadata_exposed['sender_identity'] = True
             
@@ -1426,7 +1426,7 @@ class E2ESecurityAnalyzer:
             if 'timestamp' in packet:
                 metadata_exposed['message_timing'] = True
         
-        # Check for sealed sender support
+# Check for sealed sender support
         if hasattr(implementation, 'sealed_sender_enabled'):
             if implementation.sealed_sender_enabled:
                 metadata_exposed['sender_identity'] = False
@@ -1440,7 +1440,7 @@ class E2ESecurityAnalyzer:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1462,7 +1462,7 @@ class InformationTheoreticE2E:
         if len(shared_randomness) < len(message):
             raise ValueError("Insufficient randomness for OTP")
         
-        # XOR message with random pad
+# XOR message with random pad
         encrypted = bytes(
             m ^ r for m, r in zip(message.encode(), shared_randomness)
         )
@@ -1475,7 +1475,7 @@ class InformationTheoreticE2E:
         Provably secure key exchange
         """
         
-        # Alice prepares qubits in random bases
+# Alice prepares qubits in random bases
         alice_bases = [random.choice(['+', 'x']) for _ in alice_qubits]
         alice_bits = []
         
@@ -1485,7 +1485,7 @@ class InformationTheoreticE2E:
             else:
                 alice_bits.append(qubit.measure_hadamard())
         
-        # Bob measures in random bases
+# Bob measures in random bases
         bob_bits = []
         
         for i, qubit in enumerate(alice_qubits):
@@ -1494,18 +1494,18 @@ class InformationTheoreticE2E:
             else:
                 bob_bits.append(qubit.measure_hadamard())
         
-        # Classical channel: share bases
+# Classical channel: share bases
         matching_indices = [
             i for i in range(len(alice_bases))
             if alice_bases[i] == bob_bases[i]
         ]
         
-        # Extract matching bits as key
+# Extract matching bits as key
         key = bytes([
             alice_bits[i] for i in matching_indices[:len(matching_indices)//2]
         ])
         
-        # Use remaining for eavesdropper detection
+# Use remaining for eavesdropper detection
         check_bits = [
             (alice_bits[i], bob_bits[i])
             for i in matching_indices[len(matching_indices)//2:]
@@ -1534,29 +1534,29 @@ class ZeroKnowledgeE2E:
         Using Pedersen commitments
         """
         
-        # Public parameters
+# Public parameters
         p = self.get_large_prime()
         g = self.get_generator()
         h = self.get_secondary_generator()
         
-        # Create commitment: C = g^m * h^r mod p
+# Create commitment: C = g^m * h^r mod p
         m = int.from_bytes(message.encode(), 'big')
         r = random.randint(1, p-1)  # Blinding factor
         C = pow(g, m, p) * pow(h, r, p) % p
         
-        # Interactive proof (Schnorr-like)
+# Interactive proof (Schnorr-like)
         def prove():
-            # Prover chooses random values
+# Prover chooses random values
             v = random.randint(1, p-1)
             w = random.randint(1, p-1)
             
-            # First message: commitment to randomness
+# First message: commitment to randomness
             T = pow(g, v, p) * pow(h, w, p) % p
             
-            # Verifier challenge (Fiat-Shamir for non-interactive)
+# Verifier challenge (Fiat-Shamir for non-interactive)
             c = int(hashlib.sha256(f"{C}{T}".encode()).hexdigest(), 16) % p
             
-            # Response
+# Response
             z_m = (v + c * m) % (p - 1)
             z_r = (w + c * r) % (p - 1)
             
@@ -1582,7 +1582,7 @@ class ZeroKnowledgeE2E:
         z_r = proof['response']['z_r']
         T = proof['proof_data']
         
-        # Verify: g^z_m * h^z_r = T * C^c mod p
+# Verify: g^z_m * h^z_r = T * C^c mod p
         left = pow(g, z_m, p) * pow(h, z_r, p) % p
         right = T * pow(C, c, p) % p
         
@@ -1601,7 +1601,7 @@ class HomomorphicE2E:
     """
     
     def __init__(self):
-        # Use Microsoft SEAL or IBM HElib
+# Use Microsoft SEAL or IBM HElib
         import tenseal as ts
         self.context = ts.context(
             ts.SCHEME_TYPE.CKKS,
@@ -1614,7 +1614,7 @@ class HomomorphicE2E:
     def encrypt_computable(self, value: float, public_key: bytes) -> bytes:
         """Encrypt value for homomorphic computation"""
         
-        # Create ciphertext
+# Create ciphertext
         encrypted = ts.ckks_tensor(self.context, [value])
         
         return encrypted.serialize()
@@ -1622,11 +1622,11 @@ class HomomorphicE2E:
     def compute_on_encrypted(self, encrypted_a: bytes, encrypted_b: bytes, operation: str) -> bytes:
         """Perform computation on encrypted values"""
         
-        # Deserialize
+# Deserialize
         a = ts.ckks_tensor_from(self.context, encrypted_a)
         b = ts.ckks_tensor_from(self.context, encrypted_b)
         
-        # Compute without decryption
+# Compute without decryption
         if operation == 'add':
             result = a + b
         elif operation == 'multiply':
@@ -1644,23 +1644,23 @@ class HomomorphicE2E:
         Server never sees plaintext data or results
         """
         
-        # Load encrypted input
+# Load encrypted input
         x = ts.ckks_tensor_from(self.context, encrypted_input)
         
-        # Neural network forward pass (encrypted)
+# Neural network forward pass (encrypted)
         for i, (weights, bias) in enumerate(model_weights):
-            # Linear layer: y = Wx + b
+# Linear layer: y = Wx + b
             w = ts.ckks_tensor(self.context, weights)
             b = ts.ckks_tensor(self.context, [bias])
             
             x = x.mm(w) + b
             
-            # Polynomial activation (ReLU approximation)
-            # ReLU(x) ≈ 0.5 * (x + sqrt(x^2 + 0.01))
+# Polynomial activation (ReLU approximation)
+# ReLU(x) ≈ 0.5 * (x + sqrt(x^2 + 0.01))
             x_squared = x * x
             x = 0.5 * (x + (x_squared + 0.01).sqrt())
         
-        # Return encrypted result
+# Return encrypted result
         return x.serialize()
 ```
 
@@ -1689,11 +1689,11 @@ class DistributedE2E:
             'revocation_height': None  # Can be set to revoke after N blocks
         }
         
-        # Sign transaction
+# Sign transaction
         signature = self.sign_transaction(key_transaction)
         key_transaction['signature'] = signature
         
-        # Submit to blockchain
+# Submit to blockchain
         tx_hash = self.blockchain.submit_transaction(key_transaction)
         
         return tx_hash
@@ -1701,10 +1701,10 @@ class DistributedE2E:
     def get_key_from_blockchain(self, user_id: str) -> bytes:
         """Retrieve and verify key from blockchain"""
         
-        # Query blockchain for user's key transactions
+# Query blockchain for user's key transactions
         key_txs = self.blockchain.query_by_user(user_id)
         
-        # Get latest non-revoked key
+# Get latest non-revoked key
         valid_keys = [
             tx for tx in key_txs
             if tx['revocation_height'] is None or
@@ -1716,7 +1716,7 @@ class DistributedE2E:
         
         latest_key = max(valid_keys, key=lambda tx: tx['timestamp'])
         
-        # Verify signature
+# Verify signature
         if not self.verify_transaction_signature(latest_key):
             raise SecurityError("Invalid key signature")
         
@@ -1727,22 +1727,22 @@ class DistributedE2E:
         
         recipient_domain = message['recipient'].split('@')[1]
         
-        # Discover recipient's server
+# Discover recipient's server
         server_info = self.discover_server(recipient_domain)
         
-        # Get recipient's key from their server
+# Get recipient's key from their server
         recipient_key = self.fetch_federated_key(
             server_info['key_server'],
             message['recipient']
         )
         
-        # Encrypt message
+# Encrypt message
         encrypted = self.e2e_encrypt(message['content'], recipient_key)
         
-        # Sign for sender authentication
+# Sign for sender authentication
         signature = self.sign_message(encrypted)
         
-        # Route through federation
+# Route through federation
         return {
             'from': f"{self.node_id}@{self.domain}",
             'to': message['recipient'],
@@ -1762,7 +1762,7 @@ class LightweightE2E:
     """
     
     def __init__(self):
-        # Use lightweight primitives
+# Use lightweight primitives
         self.cipher = 'ChaCha20-Poly1305'  # Fast, low memory
         self.kex = 'X25519'  # Small keys, fast
         self.hash = 'BLAKE2s'  # Faster than SHA-256
@@ -1770,11 +1770,11 @@ class LightweightE2E:
     def generate_device_identity(self, device_id: str) -> dict:
         """Generate lightweight identity for IoT device"""
         
-        # Small key sizes for constrained devices
+# Small key sizes for constrained devices
         private_key = nacl.utils.random(32)  # 256-bit
         public_key = nacl.bindings.crypto_scalarmult_base(private_key)
         
-        # Deterministic key derivation for low memory
+# Deterministic key derivation for low memory
         device_secret = self.pbkdf2_lite(
             device_id.encode(),
             b'E2E-IoT-v1',
@@ -1795,9 +1795,9 @@ class LightweightE2E:
         Minimal handshake, forward secrecy
         """
         
-        # Noise_NK pattern (most lightweight)
-        # N = No static key for initiator (saves memory)
-        # K = Known static key for responder
+# Noise_NK pattern (most lightweight)
+# N = No static key for initiator (saves memory)
+# K = Known static key for responder
         
         handshake = NoiseHandshake(
             pattern='NK',
@@ -1805,10 +1805,10 @@ class LightweightE2E:
             prologue=b'IoT-E2E-v1'
         )
         
-        # Single round trip handshake
+# Single round trip handshake
         message_buffer = bytearray(1024)  # Fixed buffer for embedded
         
-        # -> e, es (32 + 16 bytes overhead)
+# -> e, es (32 + 16 bytes overhead)
         handshake.write_message(message, message_buffer)
         
         return {
@@ -1828,21 +1828,21 @@ class E2EImpactAnalysis:
     def calculate_privacy_value(self, user_base: int, message_volume: int) -> dict:
         """Quantify economic value of privacy"""
         
-        # Based on revealed preference studies
+# Based on revealed preference studies
         privacy_value_per_user = 50  # USD/year
         
-        # Data breach costs
+# Data breach costs
         avg_breach_cost_per_record = 164  # USD (IBM study)
         breach_probability_without_e2e = 0.05  # 5% annual
         breach_probability_with_e2e = 0.001  # 0.1% with E2E
         
-        # Calculate prevented losses
+# Calculate prevented losses
         expected_loss_without = user_base * breach_probability_without_e2e * avg_breach_cost_per_record
         expected_loss_with = user_base * breach_probability_with_e2e * avg_breach_cost_per_record
         
         prevented_losses = expected_loss_without - expected_loss_with
         
-        # Compliance benefits
+# Compliance benefits
         gdpr_max_fine = 0.04 * self.annual_revenue  # 4% of global revenue
         compliance_risk_reduction = 0.9  # 90% reduction with E2E
         
@@ -1887,7 +1887,7 @@ class E2EImpactAnalysis:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### E2E Decision Framework
 

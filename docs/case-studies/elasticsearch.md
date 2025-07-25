@@ -11,7 +11,7 @@ last_updated: 2025-07-23
 ---
 
 
-# 🔍 Elasticsearch: Distributed Search and Analytics Engine
+# Elasticsearch: Distributed Search and Analytics Engine
 
 **The Challenge**: Build a search engine that can index billions of documents and return relevant results in milliseconds while scaling horizontally across hundreds of nodes.
 
@@ -243,10 +243,10 @@ class InvertedIndex:
         for field_name, field_value in fields.items():
             tokens = self.analyze_text(field_value)
             
-            # Calculate field norm (document length normalization)
+# Calculate field norm (document length normalization)
             self.field_norms[doc_id] = math.sqrt(len(tokens))
             
-            # Build posting lists
+# Build posting lists
             for position, token in enumerate(tokens):
                 if token not in self.term_dictionary:
                     self.term_dictionary[token] = PostingList()
@@ -259,13 +259,13 @@ class InvertedIndex:
         """Boolean search with TF-IDF scoring."""
         candidate_docs = set()
         
-        # Find documents containing any query term
+# Find documents containing any query term
         for term in query_terms:
             if term in self.term_dictionary:
                 posting_list = self.term_dictionary[term]
                 candidate_docs.update(posting_list.doc_ids)
         
-        # Score and rank documents
+# Score and rank documents
         scored_docs = []
         for doc_id in candidate_docs:
             score = self.calculate_tfidf_score(doc_id, query_terms)
@@ -316,7 +316,7 @@ graph TB
 ```python
 def route_document(doc_id, number_of_shards):
     """Determine which shard should store a document."""
-    # Elasticsearch uses murmur3 hash
+# Elasticsearch uses murmur3 hash
     hash_value = murmur3_hash(doc_id)
     shard_id = hash_value % number_of_shards
     return shard_id
@@ -324,12 +324,12 @@ def route_document(doc_id, number_of_shards):
 def route_search_query(index_name, query):
     """Route search query to appropriate shards."""
     if 'routing' in query:
-        # Custom routing - go to specific shard
+# Custom routing - go to specific shard
         routing_value = query['routing']
         target_shard = route_document(routing_value, get_shard_count(index_name))
         return [target_shard]
     else:
-        # No routing - query all shards
+# No routing - query all shards
         return list(range(get_shard_count(index_name)))
 ```
 
@@ -424,20 +424,20 @@ import math
 def bm25_score(term, document, corpus, k1=1.2, b=0.75):
     """Calculate BM25 score for a term in a document."""
     
-    # Term frequency in document
+# Term frequency in document
     tf = document.count(term)
     
-    # Document frequency (how many docs contain the term)
+# Document frequency (how many docs contain the term)
     df = sum(1 for doc in corpus if term in doc)
     
-    # Inverse document frequency
+# Inverse document frequency
     idf = math.log((len(corpus) - df + 0.5) / (df + 0.5))
     
-    # Document length normalization
+# Document length normalization
     doc_length = len(document)
     avg_doc_length = sum(len(doc) for doc in corpus) / len(corpus)
     
-    # BM25 formula
+# BM25 formula
     numerator = tf * (k1 + 1)
     denominator = tf + k1 * (1 - b + b * (doc_length / avg_doc_length))
     
@@ -458,7 +458,7 @@ def search_query(query_terms, corpus):
         if total_score > 0:
             doc_scores[doc_id] = total_score
     
-    # Sort by score descending
+# Sort by score descending
     return sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
 ```
 
@@ -940,7 +940,7 @@ from elasticsearch.helpers import bulk
 def optimize_bulk_indexing(es_client, documents):
     """Optimize bulk indexing performance."""
     
-    # Prepare bulk actions
+# Prepare bulk actions
     actions = []
     for doc in documents:
         action = {
@@ -950,7 +950,7 @@ def optimize_bulk_indexing(es_client, documents):
         }
         actions.append(action)
     
-    # Bulk index with optimizations
+# Bulk index with optimizations
     bulk(
         es_client,
         actions,

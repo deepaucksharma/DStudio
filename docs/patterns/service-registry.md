@@ -19,7 +19,7 @@ last_updated: 2025-01-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -77,7 +77,7 @@ class SimpleServiceRegistry:
         if version:
             return self.services[name].get(version)
         
-        # Return latest version if not specified
+# Return latest version if not specified
         versions = sorted(self.services[name].keys(), reverse=True)
         return self.services[name][versions[0]] if versions else None
     
@@ -155,7 +155,7 @@ graph TB
 
 ---
 
-## 🔧 Level 2: Implementation
+## Level 2: Implementation
 
 ### Advanced Registry Features
 
@@ -177,10 +177,10 @@ class SchemaRegistry:
         if service not in self.schemas:
             self.schemas[service] = {}
         
-        # Validate schema format
+# Validate schema format
         self._validate_schema_format(schema)
         
-        # Check compatibility with previous versions
+# Check compatibility with previous versions
         if validate_compatibility and service in self.schemas:
             previous_versions = sorted(self.schemas[service].keys())
             if previous_versions:
@@ -197,34 +197,34 @@ class SchemaRegistry:
     def _validate_schema_format(self, schema: dict):
         """Validate schema follows OpenAPI/JSON Schema format"""
         if 'openapi' in schema:
-            # Validate OpenAPI schema
+# Validate OpenAPI schema
             required_fields = ['openapi', 'info', 'paths']
             for field in required_fields:
                 if field not in schema:
                     raise ValueError(f"Missing required field: {field}")
         elif '$schema' in schema:
-            # Validate JSON Schema
+# Validate JSON Schema
             jsonschema.Draft7Validator.check_schema(schema)
         else:
             raise ValueError("Unknown schema format")
     
     def _check_compatibility(self, old_schema: dict, new_schema: dict) -> bool:
         """Check backward compatibility between schemas"""
-        # Check that all old endpoints still exist
+# Check that all old endpoints still exist
         if 'paths' in old_schema and 'paths' in new_schema:
             old_paths = set(old_schema['paths'].keys())
             new_paths = set(new_schema['paths'].keys())
             
-            # Removed paths break compatibility
+# Removed paths break compatibility
             if old_paths - new_paths:
                 return False
             
-            # Check each path for compatibility
+# Check each path for compatibility
             for path in old_paths:
                 old_methods = set(old_schema['paths'][path].keys())
                 new_methods = set(new_schema['paths'][path].keys())
                 
-                # Removed methods break compatibility
+# Removed methods break compatibility
                 if old_methods - new_methods:
                     return False
         
@@ -252,7 +252,7 @@ class SchemaRegistry:
                 prev_version = versions[i-1]
                 prev_schema = self.schemas[service][prev_version]
                 
-                # Calculate changes
+# Calculate changes
                 old_paths = set(prev_schema.get('paths', {}).keys())
                 new_paths = set(schema.get('paths', {}).keys())
                 
@@ -311,12 +311,12 @@ class DependencyRegistry:
         """Register service dependencies"""
         service_id = f"{service}:{version}"
         
-        # Add service node
+# Add service node
         self.dependency_graph.add_node(service_id, 
                                      service=service, 
                                      version=version)
         
-        # Add dependency edges
+# Add dependency edges
         for dep_service, dep_version in dependencies:
             dep_id = f"{dep_service}:{dep_version}"
             self.dependency_graph.add_edge(service_id, dep_id)
@@ -362,7 +362,7 @@ class DependencyRegistry:
         """Calculate which services would be impacted by changes"""
         service_id = f"{service}:{version}"
         
-        # Find all services that depend on this service
+# Find all services that depend on this service
         impacted = set()
         
         for node in self.dependency_graph.nodes():
@@ -377,7 +377,7 @@ class DependencyRegistry:
         """Validate version upgrade compatibility"""
         old_id = f"{service}:{old_version}"
         
-        # Find all services depending on the old version
+# Find all services depending on the old version
         dependents = [
             node for node in self.dependency_graph.predecessors(old_id)
         ]
@@ -390,7 +390,7 @@ class DependencyRegistry:
             "compatibility_checks": []
         }
         
-        # Check semantic versioning rules
+# Check semantic versioning rules
         old_v = semver.VersionInfo.parse(old_version)
         new_v = semver.VersionInfo.parse(new_version)
         
@@ -504,11 +504,11 @@ class ServiceLifecycleRegistry:
         service_info = self.services[key]
         old_stage = service_info.get("current_stage")
         
-        # Validate transition
+# Validate transition
         if not self._is_valid_transition(old_stage, new_stage):
             raise ValueError(f"Invalid transition from {old_stage} to {new_stage}")
         
-        # Record transition
+# Record transition
         service_info["stage_history"].append({
             "from_stage": old_stage,
             "to_stage": new_stage,
@@ -517,7 +517,7 @@ class ServiceLifecycleRegistry:
         
         service_info["current_stage"] = new_stage
         
-        # Set deprecation timeline
+# Set deprecation timeline
         if new_stage == ServiceLifecycleStage.DEPRECATED:
             sunset_date = datetime.now() + self.lifecycle_policies[new_stage]
             service_info["sunset_date"] = sunset_date
@@ -638,10 +638,10 @@ class ConsulServiceRegistry:
         key = f"services/{service_name}/{version}/metadata"
         value = json.dumps(metadata)
         
-        # Store metadata
+# Store metadata
         self.kv.put(key, value)
         
-        # Store version index
+# Store version index
         version_key = f"services/{service_name}/versions"
         _, versions = self.kv.get(version_key)
         
@@ -654,7 +654,7 @@ class ConsulServiceRegistry:
         
         self.kv.put(version_key, json.dumps(version_list))
         
-        # Update latest version pointer
+# Update latest version pointer
         latest_key = f"services/{service_name}/latest"
         self.kv.put(latest_key, version)
     
@@ -662,7 +662,7 @@ class ConsulServiceRegistry:
                            version: str = None) -> Optional[Dict]:
         """Get service metadata from Consul"""
         if not version:
-            # Get latest version
+# Get latest version
             latest_key = f"services/{service_name}/latest"
             _, latest = self.kv.get(latest_key)
             if not latest:
@@ -684,7 +684,7 @@ class ConsulServiceRegistry:
         while True:
             index, data = self.kv.get(key, index=index, recurse=True)
             if data:
-                # Process changes
+# Process changes
                 changes = {}
                 for item in data:
                     changes[item['Key']] = json.loads(item['Value'])
@@ -692,7 +692,7 @@ class ConsulServiceRegistry:
     
     def health_check_integration(self, service_name: str, version: str):
         """Integrate with Consul health checks"""
-        # Register health check for service version
+# Register health check for service version
         check = {
             "id": f"{service_name}-{version}-health",
             "name": f"Health check for {service_name} v{version}",
@@ -761,15 +761,15 @@ class EurekaServiceRegistry:
             }
         }
         
-        # Register with Eureka
+# Register with Eureka
         url = f"{self.eureka_url}/eureka/apps/{app_name}"
         response = requests.post(url, json=instance)
         
         if response.status_code == 204:
-            # Start heartbeat thread
+# Start heartbeat thread
             self._start_heartbeat(app_name, instance_id)
             
-            # Update local cache
+# Update local cache
             with self.cache_lock:
                 if app_name not in self.local_cache:
                     self.local_cache[app_name] = {}
@@ -804,7 +804,7 @@ class EurekaServiceRegistry:
                 data = response.json()
                 instances = data.get("application", {}).get("instance", [])
                 
-                # Update local cache
+# Update local cache
                 with self.cache_lock:
                     self.local_cache[app_name] = {
                         inst["instanceId"]: inst.get("metadata", {})
@@ -815,7 +815,7 @@ class EurekaServiceRegistry:
         except Exception as e:
             print(f"Failed to get instances: {e}")
             
-        # Return from cache if available
+# Return from cache if available
         return list(self.local_cache.get(app_name, {}).values())
     
     def deregister(self, app_name: str, instance_id: str):
@@ -825,13 +825,13 @@ class EurekaServiceRegistry:
         try:
             response = requests.delete(url)
             if response.status_code == 200:
-                # Stop heartbeat
+# Stop heartbeat
                 thread_key = f"{app_name}:{instance_id}"
                 if thread_key in self.heartbeat_threads:
-                    # Note: In production, use proper thread termination
+# Note: In production, use proper thread termination
                     del self.heartbeat_threads[thread_key]
                 
-                # Remove from cache
+# Remove from cache
                 with self.cache_lock:
                     if app_name in self.local_cache:
                         self.local_cache[app_name].pop(instance_id, None)
@@ -905,13 +905,13 @@ class FederatedServiceRegistry:
         """Get service from federated registries"""
         cache_key = f"{name}:{version or 'latest'}"
         
-        # Check cache
+# Check cache
         if cache_key in self.cache:
             cached = self.cache[cache_key]
             if time.time() - cached['timestamp'] < self.cache_ttl:
                 return cached['data']
         
-        # Try primary registry first
+# Try primary registry first
         if self.primary_registry:
             result = self.registries[self.primary_registry].get_service(
                 name, version
@@ -920,7 +920,7 @@ class FederatedServiceRegistry:
                 self._update_cache(cache_key, result)
                 return result
         
-        # Try other registries
+# Try other registries
         for reg_name, registry in self.registries.items():
             if reg_name != self.primary_registry:
                 result = registry.get_service(name, version)
@@ -947,7 +947,7 @@ class FederatedServiceRegistry:
                 print(f"Failed to register to {reg_name}: {e}")
                 results[reg_name] = False
         
-        # Register in parallel
+# Register in parallel
         for reg_name in target_registries:
             if reg_name in self.registries:
                 thread = threading.Thread(
@@ -957,7 +957,7 @@ class FederatedServiceRegistry:
                 threads.append(thread)
                 thread.start()
         
-        # Wait for all registrations
+# Wait for all registrations
         for thread in threads:
             thread.join()
         
@@ -972,7 +972,7 @@ class FederatedServiceRegistry:
             results = registry.search_services(criteria)
             
             for result in results:
-                # Deduplicate by service name and version
+# Deduplicate by service name and version
                 service_key = f"{result.get('name')}:{result.get('version')}"
                 if service_key not in seen_services:
                     seen_services.add(service_key)
@@ -989,14 +989,14 @@ class FederatedServiceRegistry:
     
     def sync_registries(self):
         """Synchronize data between registries"""
-        # Get all services from primary registry
+# Get all services from primary registry
         if not self.primary_registry:
             return
         
         primary = self.registries[self.primary_registry]
         all_services = primary.search_services({})
         
-        # Sync to other registries
+# Sync to other registries
         for reg_name, registry in self.registries.items():
             if reg_name != self.primary_registry:
                 for service in all_services:
@@ -1011,15 +1011,15 @@ class ConsulAdapter(RegistryAdapter):
         self.consul = consul_client
     
     def get_service(self, name: str, version: str) -> Optional[Dict]:
-        # Implementation for Consul
+# Implementation for Consul
         pass
     
     def register_service(self, metadata: Dict) -> bool:
-        # Implementation for Consul
+# Implementation for Consul
         pass
     
     def search_services(self, criteria: Dict) -> List[Dict]:
-        # Implementation for Consul
+# Implementation for Consul
         pass
 
 class EurekaAdapter(RegistryAdapter):
@@ -1027,15 +1027,15 @@ class EurekaAdapter(RegistryAdapter):
         self.eureka = eureka_client
     
     def get_service(self, name: str, version: str) -> Optional[Dict]:
-        # Implementation for Eureka
+# Implementation for Eureka
         pass
     
     def register_service(self, metadata: Dict) -> bool:
-        # Implementation for Eureka
+# Implementation for Eureka
         pass
     
     def search_services(self, criteria: Dict) -> List[Dict]:
-        # Implementation for Eureka
+# Implementation for Eureka
         pass
 
 # Usage
@@ -1085,7 +1085,7 @@ class ContractRegistry:
         """Validate contract between consumer and provider"""
         key = f"{provider}:{provider_version}"
         
-        # Find contract
+# Find contract
         contract_entry = None
         for entry in self.contracts.get(key, []):
             if entry["consumer"] == consumer:
@@ -1095,19 +1095,19 @@ class ContractRegistry:
         if not contract_entry:
             return {"valid": False, "error": "Contract not found"}
         
-        # Generate Pact file for testing
+# Generate Pact file for testing
         pact_content = self._generate_pact(
             provider, provider_version, 
             consumer, contract_entry["contract"]
         )
         
-        # Run Pact verification
+# Run Pact verification
         with tempfile.NamedTemporaryFile(mode='w', suffix='.json') as f:
             json.dump(pact_content, f)
             f.flush()
             
             try:
-                # Run pact verifier (simplified)
+# Run pact verifier (simplified)
                 result = subprocess.run([
                     "pact-verifier",
                     "--pact-url", f.name,
@@ -1222,7 +1222,7 @@ print(f"Contract validation: {validation_result}")
 
 ---
 
-## 🔄 Real-World Applications
+## Real-World Applications
 
 ### 1. Netflix Eureka Integration
 
@@ -1237,7 +1237,7 @@ class NetflixStyleRegistry:
         """Register service instance with Netflix-style metadata"""
         instance_id = instance['instanceId']
         
-        # Netflix-specific metadata
+# Netflix-specific metadata
         metadata = {
             "instanceId": instance_id,
             "app": service_name.upper(),
@@ -1339,7 +1339,7 @@ k8s_registry.register_k8s_service({
 
 ---
 
-## ⚡ Performance Optimization
+## Performance Optimization
 
 ### Caching and Indexing
 
@@ -1367,41 +1367,41 @@ class OptimizedRegistry:
         with self.write_lock:
             key = f"{service['name']}:{service['version']}"
             
-            # Store primary data
+# Store primary data
             self.storage[key] = service
             
-            # Update indexes
+# Update indexes
             self._update_indexes(key, service)
             
-            # Invalidate related caches
+# Invalidate related caches
             self._invalidate_cache(service['name'])
             
             return True
     
     def _update_indexes(self, key: str, service: Dict):
         """Update all indexes"""
-        # Team index
+# Team index
         team = service.get('team')
         if team:
             if team not in self.indexes['by_team']:
                 self.indexes['by_team'][team] = set()
             self.indexes['by_team'][team].add(key)
         
-        # Status index
+# Status index
         status = service.get('status')
         if status:
             if status not in self.indexes['by_status']:
                 self.indexes['by_status'][status] = set()
             self.indexes['by_status'][status].add(key)
         
-        # Version index
+# Version index
         version = service.get('version')
         if version:
             if version not in self.indexes['by_version']:
                 self.indexes['by_version'][version] = set()
             self.indexes['by_version'][version].add(key)
         
-        # Dependency index
+# Dependency index
         for dep in service.get('dependencies', []):
             if dep not in self.indexes['by_dependency']:
                 self.indexes['by_dependency'][dep] = set()
@@ -1411,21 +1411,21 @@ class OptimizedRegistry:
         """Fast search using team index"""
         cache_key = f"team:{team}"
         
-        # Check cache
+# Check cache
         if cache_key in self.cache:
             self.cache_stats['hits'] += 1
             return self.cache[cache_key]
         
         self.cache_stats['misses'] += 1
         
-        # Use index for fast lookup
+# Use index for fast lookup
         service_keys = self.indexes['by_team'].get(team, set())
         results = [
             self.storage[key] for key in service_keys 
             if key in self.storage
         ]
         
-        # Cache results
+# Cache results
         self.cache[cache_key] = results
         return results
     
@@ -1439,7 +1439,7 @@ class OptimizedRegistry:
         
         self.cache_stats['misses'] += 1
         
-        # Use dependency index
+# Use dependency index
         dependent_keys = self.indexes['by_dependency'].get(service_name, set())
         results = [
             self.storage[key] for key in dependent_keys 
@@ -1518,7 +1518,7 @@ print(f"Cache hit rate: {stats['hit_rate']:.2%}")
 
 ---
 
-## 🏛️ Architecture Integration
+## 🏛 Architecture Integration
 
 ### Service Registry in Different Architectures
 

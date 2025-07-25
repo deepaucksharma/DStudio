@@ -100,19 +100,19 @@ graph TB
 # Simplified map data processing pipeline
 class MapDataPipeline:
     def process_osm_data(self, raw_data):
-        # Extract road network
+# Extract road network
         roads = self.extract_roads(raw_data)
         
-        # Add Uber-specific attributes
+# Add Uber-specific attributes
         roads = self.add_pickup_zones(roads)
         roads = self.add_turn_restrictions(roads)
         roads = self.add_speed_profiles(roads)
         
-        # Build spatial indices
+# Build spatial indices
         h3_index = self.build_h3_index(roads)
         rtree_index = self.build_rtree(roads)
         
-        # Generate pre-computed data
+# Generate pre-computed data
         contraction_hierarchy = self.build_ch(roads)
         
         return MapData(
@@ -128,13 +128,13 @@ class MapDataPipeline:
 # Location update processing with accuracy enhancement
 class LocationProcessor:
     def process_location_update(self, driver_id, raw_gps):
-        # Map matching - snap to road network
+# Map matching - snap to road network
         matched_location = self.map_match(
             raw_gps,
             self.get_driver_history(driver_id)
         )
         
-        # Accuracy enhancement
+# Accuracy enhancement
         if raw_gps.accuracy > 50:  # meters
             matched_location = self.enhance_accuracy(
                 matched_location,
@@ -142,11 +142,11 @@ class LocationProcessor:
                 self.get_wifi_signals(raw_gps)
             )
         
-        # Update indices
+# Update indices
         self.update_h3_index(driver_id, matched_location)
         self.update_supply_heat_map(matched_location)
         
-        # Stream to consumers
+# Stream to consumers
         self.publish_location_event(
             driver_id=driver_id,
             location=matched_location,

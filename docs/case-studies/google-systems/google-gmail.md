@@ -263,7 +263,7 @@ class EmailMessage:
     folder: str  # inbox|sent|drafts|spam|trash
     labels: List[str]
     
-    # Headers
+# Headers
     from_address: str
     to_addresses: List[str]
     cc_addresses: List[str]
@@ -271,13 +271,13 @@ class EmailMessage:
     subject: str
     date: datetime
     
-    # Content
+# Content
     body_text: str
     body_html: str
     headers: dict  # All MIME headers
     raw_size: int
     
-    # Metadata
+# Metadata
     is_read: bool
     is_starred: bool
     importance: str  # high|normal|low
@@ -430,35 +430,35 @@ class EmailReceiver:
         
     async def receive_email(self, smtp_envelope: SMTPEnvelope) -> str:
         """Process incoming email through the pipeline"""
-        # 1. Parse email
+# 1. Parse email
         message = self._parse_email(smtp_envelope.data)
         
-        # 2. Generate message ID
+# 2. Generate message ID
         message_id = self._generate_message_id()
         message.message_id = message_id
         
-        # 3. Spam check
+# 3. Spam check
         spam_result = await self.spam_filter.check(message)
         if spam_result.is_spam and spam_result.confidence > 0.99:
-            # Reject obvious spam
+# Reject obvious spam
             await self._reject_spam(message, spam_result)
             return None
             
-        # 4. Virus scan
+# 4. Virus scan
         if message.has_attachments:
             virus_result = await self.virus_scanner.scan(message)
             if virus_result.has_virus:
                 await self._quarantine(message, virus_result)
                 return None
                 
-        # 5. Determine recipients
+# 5. Determine recipients
         recipients = await self._resolve_recipients(message)
         
-        # 6. Store message for each recipient
+# 6. Store message for each recipient
         for recipient in recipients:
             await self._deliver_to_user(message, recipient, spam_result)
             
-        # 7. Send delivery confirmation
+# 7. Send delivery confirmation
         await self._send_smtp_response(smtp_envelope, "250 OK")
         
         return message_id
@@ -466,12 +466,12 @@ class EmailReceiver:
     async def _deliver_to_user(self, message: EmailMessage, 
                               user_id: str, spam_result: SpamResult):
         """Deliver email to specific user's mailbox"""
-        # Determine folder based on spam score and filters
+# Determine folder based on spam score and filters
         folder = "inbox"
         if spam_result.confidence > 0.5:
             folder = "spam"
         
-        # Apply user filters
+# Apply user filters
         filters = await self.filter_service.get_user_filters(user_id)
         for filter in filters:
             if filter.matches(message):
@@ -479,17 +479,17 @@ class EmailReceiver:
                 message.labels.extend(filter.get_labels())
                 break
                 
-        # Store message
+# Store message
         stored_message = await self.message_store.store(
             user_id=user_id,
             message=message,
             folder=folder
         )
         
-        # Index for search
+# Index for search
         await self.indexer.index_message(stored_message)
         
-        # Send push notification
+# Send push notification
         if folder == "inbox":
             await self.notification_service.notify_new_email(
                 user_id, 
@@ -508,25 +508,25 @@ class SpamFilter:
         
     async def check(self, message: EmailMessage) -> SpamResult:
         """Multi-layer spam detection"""
-        # 1. Quick checks
+# 1. Quick checks
         if await self._is_blacklisted(message.from_address):
             return SpamResult(is_spam=True, confidence=1.0, reason="blacklisted")
             
-        # 2. Extract features
+# 2. Extract features
         features = await self._extract_features(message)
         
-        # 3. ML prediction
+# 3. ML prediction
         ml_score = self.ml_model.predict_proba([features])[0][1]
         
-        # 4. Reputation check
+# 4. Reputation check
         sender_reputation = await self.reputation.get_score(
             message.from_address
         )
         
-        # 5. Content analysis
+# 5. Content analysis
         content_score = self._analyze_content(message)
         
-        # 6. Combine scores
+# 6. Combine scores
         final_score = (
             0.5 * ml_score + 
             0.3 * (1 - sender_reputation) + 
@@ -544,24 +544,24 @@ class SpamFilter:
         text = message.subject + " " + message.body_text
         
         features = {
-            # Header features
+# Header features
             'has_suspicious_headers': self._check_headers(message.headers),
             'from_domain_age': await self._get_domain_age(message.from_address),
             'spf_pass': await self._check_spf(message),
             'dkim_pass': await self._check_dkim(message),
             
-            # Content features  
+# Content features
             'caps_ratio': sum(1 for c in text if c.isupper()) / len(text),
             'exclamation_count': text.count('!'),
             'url_count': len(self._extract_urls(text)),
             'suspicious_phrases': self._count_spam_phrases(text),
             
-            # Behavioral features
+# Behavioral features
             'sender_volume': await self._get_sender_volume(message.from_address),
             'recipient_count': len(message.to_addresses) + len(message.cc_addresses),
             'has_unsubscribe': 'unsubscribe' in text.lower(),
             
-            # Attachment features
+# Attachment features
             'has_executable': any(a.filename.endswith('.exe') 
                                 for a in message.attachments),
             'attachment_count': len(message.attachments)
@@ -578,7 +578,7 @@ class SpamFilter:
             features.append(self._extract_features(email))
             labels.append(is_spam)
             
-        # Train ensemble model
+# Train ensemble model
         self.ml_model = VotingClassifier([
             ('rf', RandomForestClassifier(n_estimators=100)),
             ('gb', GradientBoostingClassifier()),
@@ -587,7 +587,7 @@ class SpamFilter:
         
         self.ml_model.fit(features, labels)
         
-        # Save model
+# Save model
         self._save_model(self.ml_model)
 ```
 
@@ -603,21 +603,21 @@ class EmailSearchService:
     async def search(self, user_id: str, query: str, 
                     limit: int = 50) -> List[SearchResult]:
         """Full-text email search with Gmail operators"""
-        # 1. Parse query
+# 1. Parse query
         parsed_query = self.query_parser.parse(query)
-        # Handles: from:x to:x subject:x has:attachment larger:5M etc
+# Handles: from:x to:x subject:x has:attachment larger:5M etc
         
-        # 2. Build index query
+# 2. Build index query
         index_query = self._build_index_query(user_id, parsed_query)
         
-        # 3. Search across shards
+# 3. Search across shards
         shard_results = await self._search_shards(index_query)
         
-        # 4. Merge and rank results
+# 4. Merge and rank results
         merged_results = self._merge_results(shard_results)
         ranked_results = self.ranker.rank(merged_results, parsed_query)
         
-        # 5. Fetch email snippets
+# 5. Fetch email snippets
         final_results = []
         for result in ranked_results[:limit]:
             email = await self._fetch_email_snippet(result.message_id)
@@ -634,10 +634,10 @@ class EmailSearchService:
     
     async def _search_shards(self, query: IndexQuery) -> List[ShardResult]:
         """Parallel search across index shards"""
-        # Determine relevant shards based on date range
+# Determine relevant shards based on date range
         shards = self._get_relevant_shards(query.user_id, query.date_range)
         
-        # Parallel shard queries
+# Parallel shard queries
         tasks = []
         for shard in shards:
             task = self._query_shard(shard, query)
@@ -654,13 +654,13 @@ class DistributedEmailIndex:
         
     async def index_email(self, email: EmailMessage):
         """Add email to search index"""
-        # Tokenize email content
+# Tokenize email content
         tokens = self._tokenize(email)
         
-        # Determine shard based on date
+# Determine shard based on date
         shard = self._get_shard_for_date(email.date)
         
-        # Update inverted index
+# Update inverted index
         for token in tokens:
             await shard.add_posting(
                 term=token.term,
@@ -673,7 +673,7 @@ class DistributedEmailIndex:
                 )
             )
             
-        # Update auxiliary indexes
+# Update auxiliary indexes
         await self._update_date_index(email)
         await self._update_sender_index(email)
         await self._update_attachment_index(email)
@@ -682,7 +682,7 @@ class DistributedEmailIndex:
         """Tokenize email for indexing"""
         tokens = []
         
-        # Tokenize subject (higher weight)
+# Tokenize subject (higher weight)
         subject_tokens = self._tokenize_text(email.subject)
         for pos, term in enumerate(subject_tokens):
             tokens.append(Token(
@@ -692,7 +692,7 @@ class DistributedEmailIndex:
                 weight=2.0  # Higher weight for subject
             ))
             
-        # Tokenize body
+# Tokenize body
         body_tokens = self._tokenize_text(email.body_text)
         for pos, term in enumerate(body_tokens):
             tokens.append(Token(
@@ -702,7 +702,7 @@ class DistributedEmailIndex:
                 weight=1.0
             ))
             
-        # Add metadata tokens
+# Add metadata tokens
         tokens.extend([
             Token(f"from:{email.from_address}", 'meta', 0, 1.0),
             Token(f"to:{addr}", 'meta', 0, 1.0) for addr in email.to_addresses
@@ -722,19 +722,19 @@ class EmailStorageService:
         
     async def store_email(self, user_id: str, email: EmailMessage) -> str:
         """Store email with deduplication"""
-        # 1. Check for duplicates (same message to multiple users)
+# 1. Check for duplicates (same message to multiple users)
         content_hash = self._calculate_content_hash(email)
         existing_blob = await self.dedup_service.find_by_hash(content_hash)
         
         if existing_blob:
-            # Just create metadata entry pointing to existing blob
+# Just create metadata entry pointing to existing blob
             blob_ref = existing_blob.blob_ref
         else:
-            # Store new email body
+# Store new email body
             blob_ref = await self._store_email_body(email)
             await self.dedup_service.register(content_hash, blob_ref)
             
-        # 2. Store metadata
+# 2. Store metadata
         metadata = {
             'message_id': email.message_id,
             'user_id': user_id,
@@ -753,27 +753,27 @@ class EmailStorageService:
         
         await self.metadata_db.insert('emails', metadata)
         
-        # 3. Update user quota
+# 3. Update user quota
         await self._update_user_quota(user_id, email.raw_size)
         
         return email.message_id
     
     async def _store_email_body(self, email: EmailMessage) -> str:
         """Store email body in blob storage"""
-        # Compress email body
+# Compress email body
         compressed_body = zlib.compress(
             email.raw_message.encode('utf-8'),
             level=6  # Balanced compression
         )
         
-        # Store in blob storage with replication
+# Store in blob storage with replication
         blob_ref = await self.blob_store.put(
             data=compressed_body,
             replication_factor=3,
             storage_class='STANDARD'
         )
         
-        # Store attachments separately
+# Store attachments separately
         for attachment in email.attachments:
             att_ref = await self.blob_store.put(
                 data=attachment.data,
@@ -796,7 +796,7 @@ class RealtimeEmailService:
         
     async def notify_new_email(self, user_id: str, email: EmailMessage):
         """Send real-time notifications for new email"""
-        # 1. Create notification payload
+# 1. Create notification payload
         notification = {
             'type': 'new_email',
             'email': {
@@ -808,11 +808,11 @@ class RealtimeEmailService:
             }
         }
         
-        # 2. Send via WebSocket if connected
+# 2. Send via WebSocket if connected
         if await self.websocket_manager.is_connected(user_id):
             await self.websocket_manager.send(user_id, notification)
             
-        # 3. Send push notification to mobile
+# 3. Send push notification to mobile
         devices = await self._get_user_devices(user_id)
         for device in devices:
             await self.push_service.send(
@@ -822,7 +822,7 @@ class RealtimeEmailService:
                 data=notification
             )
             
-        # 4. Publish to pubsub for other services
+# 4. Publish to pubsub for other services
         await self.pubsub.publish(f"user.{user_id}.emails", notification)
 ```
 
@@ -837,7 +837,7 @@ class EmailSender:
         
     async def send_email(self, email: OutgoingEmail) -> SendResult:
         """Send email with retry logic"""
-        # 1. Validate recipients
+# 1. Validate recipients
         valid_recipients = await self._validate_recipients(
             email.to + email.cc + email.bcc
         )
@@ -845,18 +845,18 @@ class EmailSender:
         if not valid_recipients:
             return SendResult(success=False, error="No valid recipients")
             
-        # 2. Build MIME message
+# 2. Build MIME message
         mime_message = self._build_mime_message(email)
         
-        # 3. Send to each recipient domain
+# 3. Send to each recipient domain
         results = []
         recipient_domains = self._group_by_domain(valid_recipients)
         
         for domain, recipients in recipient_domains.items():
-            # Look up MX records
+# Look up MX records
             mx_records = await self.dns_resolver.get_mx_records(domain)
             
-            # Try each MX server in priority order
+# Try each MX server in priority order
             sent = False
             for mx_server in mx_records:
                 try:
@@ -872,7 +872,7 @@ class EmailSender:
                     continue
                     
             if not sent:
-                # Queue for retry
+# Queue for retry
                 await self.retry_queue.add(
                     email_id=email.id,
                     recipients=recipients,
@@ -881,7 +881,7 @@ class EmailSender:
                 
             results.append((recipients, sent))
             
-        # 4. Store in sent folder
+# 4. Store in sent folder
         await self._store_sent_email(email, mime_message)
         
         return SendResult(
@@ -938,21 +938,21 @@ class EmailCacheStrategy:
         """Multi-level cache for email retrieval"""
         cache_key = f"email:{user_id}:{email_id}"
         
-        # L1: Process cache
+# L1: Process cache
         if cache_key in self.l1_cache:
             return self.l1_cache[cache_key]
             
-        # L2: Redis
+# L2: Redis
         cached = await self.l2_cache.get(cache_key)
         if cached:
             email = self._deserialize(cached)
             self.l1_cache[cache_key] = email
             return email
             
-        # Load from storage
+# Load from storage
         email = await self.storage.get_email(user_id, email_id)
         
-        # Cache for future
+# Cache for future
         await self._cache_email(email)
         
         return email
@@ -1047,22 +1047,22 @@ graph TB
 class GmailMetrics:
     def __init__(self):
         self.metrics = {
-            # Delivery metrics
+# Delivery metrics
             'email_delivery_time': Histogram('gmail_delivery_seconds'),
             'email_bounce_rate': Gauge('gmail_bounce_percent'),
             'spam_accuracy': Gauge('gmail_spam_accuracy'),
             
-            # Performance metrics
+# Performance metrics
             'search_latency': Histogram('gmail_search_ms'),
             'api_latency': Histogram('gmail_api_ms'),
             'smtp_connections': Gauge('gmail_smtp_active'),
             
-            # Storage metrics
+# Storage metrics
             'total_storage_used': Gauge('gmail_storage_bytes'),
             'daily_email_volume': Counter('gmail_emails_daily'),
             'attachment_size_avg': Gauge('gmail_attachment_bytes'),
             
-            # User metrics
+# User metrics
             'active_users': Gauge('gmail_active_users'),
             'search_queries': Counter('gmail_searches'),
             'spam_reports': Counter('gmail_spam_reports')
@@ -1100,16 +1100,16 @@ class EmailSecurity:
         
     async def encrypt_email(self, email: EmailMessage) -> EncryptedEmail:
         """End-to-end encryption for confidential mode"""
-        # Generate ephemeral key
+# Generate ephemeral key
         key = self.encryption.generate_key()
         
-        # Encrypt email content
+# Encrypt email content
         encrypted_body = self.encryption.encrypt(
             email.body_text,
             key
         )
         
-        # Encrypt attachments
+# Encrypt attachments
         encrypted_attachments = []
         for attachment in email.attachments:
             enc_att = self.encryption.encrypt(
@@ -1118,7 +1118,7 @@ class EmailSecurity:
             )
             encrypted_attachments.append(enc_att)
             
-        # Store key in secure key service
+# Store key in secure key service
         key_id = await self.key_service.store_key(
             key,
             expiry=email.confidential_expiry

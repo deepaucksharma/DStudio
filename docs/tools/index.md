@@ -110,10 +110,10 @@ Each calculator is based on solid mathematical foundations:
 
 ## Coming Soon
 
-- **🌍 Geo-Distribution Planner** - Optimize placement of services across regions
-- **🔍 Observability Cost Calculator** - Balance monitoring coverage vs cost
-- **🎮 Interactive System Simulator** - Play with distributed system behaviors
-- **📱 Mobile-Optimized Versions** - All tools accessible on mobile devices
+- ** Geo-Distribution Planner** - Optimize placement of services across regions
+- ** Observability Cost Calculator** - Balance monitoring coverage vs cost
+- ** Interactive System Simulator** - Play with distributed system behaviors
+- ** Mobile-Optimized Versions** - All tools accessible on mobile devices
 
 ## Contribute
 

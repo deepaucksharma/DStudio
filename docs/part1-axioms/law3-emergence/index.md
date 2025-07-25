@@ -9,7 +9,7 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-# Law 3: The Law of Emergent Chaos 🌪️
+# Law 3: The Law of Emergent Chaos
 
 > At scale, systems exhibit behaviors that cannot be predicted from their components.
 
@@ -62,10 +62,10 @@ graph LR
 ```python
 def thread_pool_phase_transition(utilization):
     if utilization < 0.7:
-        # Linear region: response time increases slowly
+# Linear region: response time increases slowly
         response_time = 50 + (utilization * 20)  # 50-64ms
     else:
-        # Phase transition: exponential degradation
+# Phase transition: exponential degradation
         overflow = utilization - 0.7
         response_time = 64 * (2 ** (overflow * 10))  # Explosive growth
     
@@ -118,13 +118,13 @@ def calculate_state_space(components):
     total_states = 1
     
     for component in components:
-        # Each component's states multiply the total
+# Each component's states multiply the total
         total_states *= component['states']
         
-        # But interactions create additional states
+# But interactions create additional states
         for other in components:
             if component != other:
-                # Pairwise interactions
+# Pairwise interactions
                 total_states *= 2  # Can interact or not
     
     return total_states
@@ -193,16 +193,16 @@ class ChaosExperiment:
             self.run_experiment(experiment)
     
     def run_experiment(self, experiment):
-        # Hypothesis
+# Hypothesis
         hypothesis = experiment.hypothesis
         
-        # Inject fault
+# Inject fault
         experiment.inject()
         
-        # Measure impact
+# Measure impact
         impact = self.measure_steady_state()
         
-        # Learn
+# Learn
         if impact.degrades_beyond_threshold(self.baseline):
             self.document_emergent_behavior(experiment, impact)
             self.design_mitigation(experiment, impact)
@@ -248,7 +248,7 @@ class EmergentBehaviorHandler:
         self.anomaly_detector = AnomalyDetector()
     
     def handle_emergence(self, system_state):
-        # Detect emergent behavior
+# Detect emergent behavior
         if self.anomaly_detector.is_anomalous(system_state):
             pattern = self.classify_emergence(system_state)
             
@@ -259,7 +259,7 @@ class EmergentBehaviorHandler:
             elif pattern == EmergencePattern.PHASE_TRANSITION:
                 self.activate_load_shedding()
             else:
-                # Unknown emergence - fail safe
+# Unknown emergence - fail safe
                 self.activate_defensive_mode()
 ```
 

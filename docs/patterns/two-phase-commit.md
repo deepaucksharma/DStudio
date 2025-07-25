@@ -228,11 +228,11 @@ class Participant(ABC):
     async def prepare(self, request: PrepareRequest) -> VoteResponse:
         """Handle prepare request from coordinator"""
         try:
-            # Check if we can commit
+# Check if we can commit
             can_commit = await self.can_commit(request.transaction_data)
             
             if can_commit:
-                # Save transaction data for later commit
+# Save transaction data for later commit
                 self.prepared_transactions[request.transaction_id] = {
                     'data': request.transaction_data,
                     'coordinator': request.coordinator_id,
@@ -240,7 +240,7 @@ class Participant(ABC):
                 }
                 self.state = ParticipantState.PREPARED
                 
-                # Write prepare record to log (for recovery)
+# Write prepare record to log (for recovery)
                 await self._write_prepare_log(request.transaction_id)
                 
                 self.logger.info(f"Prepared transaction {request.transaction_id}")
@@ -273,13 +273,13 @@ class Participant(ABC):
             raise Exception(f"Transaction {transaction_id} not prepared")
             
         try:
-            # Perform actual commit
+# Perform actual commit
             await self.do_commit(transaction_id)
             
-            # Write commit record to log
+# Write commit record to log
             await self._write_commit_log(transaction_id)
             
-            # Clean up
+# Clean up
             del self.prepared_transactions[transaction_id]
             self.state = ParticipantState.COMMITTED
             
@@ -294,13 +294,13 @@ class Participant(ABC):
         transaction_id = request.transaction_id
         
         try:
-            # Perform rollback
+# Perform rollback
             await self.do_abort(transaction_id)
             
-            # Write abort record to log
+# Write abort record to log
             await self._write_abort_log(transaction_id)
             
-            # Clean up
+# Clean up
             if transaction_id in self.prepared_transactions:
                 del self.prepared_transactions[transaction_id]
             self.state = ParticipantState.ABORTED
@@ -313,17 +313,17 @@ class Participant(ABC):
             
     async def _write_prepare_log(self, transaction_id: str):
         """Write prepare record for recovery"""
-        # In production, write to durable storage
+# In production, write to durable storage
         pass
         
     async def _write_commit_log(self, transaction_id: str):
         """Write commit record for recovery"""
-        # In production, write to durable storage
+# In production, write to durable storage
         pass
         
     async def _write_abort_log(self, transaction_id: str):
         """Write abort record for recovery"""
-        # In production, write to durable storage
+# In production, write to durable storage
         pass
 
 # Coordinator Implementation
@@ -349,23 +349,23 @@ class TwoPhaseCoordinator:
         self.logger.info(f"Starting 2PC for transaction {transaction_id}")
         
         try:
-            # Phase 1: Prepare
+# Phase 1: Prepare
             prepare_success = await self._prepare_phase(
                 transaction_id, participants, transaction_data
             )
             
             if prepare_success:
-                # Phase 2: Commit
+# Phase 2: Commit
                 await self._commit_phase(transaction_id, participants)
                 return True
             else:
-                # Phase 2: Abort
+# Phase 2: Abort
                 await self._abort_phase(transaction_id, participants)
                 return False
                 
         except Exception as e:
             self.logger.error(f"Transaction failed: {e}")
-            # Try to abort on any error
+# Try to abort on any error
             await self._abort_phase(transaction_id, participants)
             return False
             
@@ -378,10 +378,10 @@ class TwoPhaseCoordinator:
         """Execute prepare phase"""
         self.state = CoordinatorState.PREPARING
         
-        # Log decision to prepare
+# Log decision to prepare
         await self._log_decision("PREPARE", transaction_id)
         
-        # Send prepare requests to all participants
+# Send prepare requests to all participants
         prepare_request = PrepareRequest(
             transaction_id=transaction_id,
             coordinator_id=self.coordinator_id,
@@ -389,7 +389,7 @@ class TwoPhaseCoordinator:
             transaction_data=transaction_data
         )
         
-        # Collect votes with timeout
+# Collect votes with timeout
         votes = []
         prepare_tasks = [
             self._prepare_with_timeout(p, prepare_request) 
@@ -402,7 +402,7 @@ class TwoPhaseCoordinator:
             self.logger.error("Prepare phase timeout")
             return False
             
-        # Check if all voted YES
+# Check if all voted YES
         all_yes = all(vote.vote for vote in votes if vote is not None)
         
         if all_yes and len(votes) == len(participants):
@@ -436,10 +436,10 @@ class TwoPhaseCoordinator:
         """Execute commit phase"""
         self.state = CoordinatorState.COMMITTING
         
-        # Log commit decision
+# Log commit decision
         await self._log_decision("COMMIT", transaction_id)
         
-        # Send commit to all participants
+# Send commit to all participants
         decision = DecisionRequest(
             transaction_id=transaction_id,
             decision="COMMIT"
@@ -464,10 +464,10 @@ class TwoPhaseCoordinator:
         """Execute abort phase"""
         self.state = CoordinatorState.ABORTING
         
-        # Log abort decision
+# Log abort decision
         await self._log_decision("ABORT", transaction_id)
         
-        # Send abort to all participants
+# Send abort to all participants
         decision = DecisionRequest(
             transaction_id=transaction_id,
             decision="ABORT"
@@ -505,7 +505,7 @@ class TwoPhaseCoordinator:
                 if attempt < max_retries - 1:
                     await asyncio.sleep(retry_delay * (2 ** attempt))
                     
-        # Log persistent failure
+# Log persistent failure
         self.logger.error(
             f"Could not deliver decision to {participant.participant_id}"
         )
@@ -519,7 +519,7 @@ class TwoPhaseCoordinator:
             'coordinator_id': self.coordinator_id
         }
         self.transaction_log.append(log_entry)
-        # In production, persist to durable storage
+# In production, persist to durable storage
 
 # Example Implementation
 class DatabaseParticipant(Participant):
@@ -533,11 +533,11 @@ class DatabaseParticipant(Participant):
     async def can_commit(self, transaction_data: Dict) -> bool:
         """Validate transaction and acquire locks"""
         try:
-            # Begin local transaction
+# Begin local transaction
             tx = await self.db.begin()
             self.active_transactions[transaction_data['id']] = tx
             
-            # Validate constraints
+# Validate constraints
             if 'debit' in transaction_data:
                 balance = await self._check_balance(
                     transaction_data['account'],
@@ -547,10 +547,10 @@ class DatabaseParticipant(Participant):
                     await tx.rollback()
                     return False
                     
-            # Acquire necessary locks
+# Acquire necessary locks
             await self._acquire_locks(transaction_data)
             
-            # Ready to commit
+# Ready to commit
             return True
             
         except Exception as e:
@@ -583,7 +583,7 @@ class RecoveryManager:
         
     async def recover_coordinator(self, coordinator_id: str):
         """Recover coordinator after crash"""
-        # Read transaction log
+# Read transaction log
         log = await self.log_storage.read_coordinator_log(coordinator_id)
         
         for entry in log:
@@ -591,32 +591,32 @@ class RecoveryManager:
             last_decision = entry['decision']
             
             if last_decision == "PREPARED":
-                # Crashed after prepare, before decision
-                # Must poll participants for their state
+# Crashed after prepare, before decision
+# Must poll participants for their state
                 participants_state = await self._poll_participants(transaction_id)
                 
                 if all(s == "COMMITTED" for s in participants_state):
-                    # Some participant saw commit, must have committed
+# Some participant saw commit, must have committed
                     await self._complete_commit(transaction_id)
                 elif any(s == "ABORTED" for s in participants_state):
-                    # Some participant aborted
+# Some participant aborted
                     await self._complete_abort(transaction_id)
                 else:
-                    # All still prepared, make decision
-                    # Conservative: abort to ensure termination
+# All still prepared, make decision
+# Conservative: abort to ensure termination
                     await self._initiate_abort(transaction_id)
                     
             elif last_decision == "COMMIT":
-                # Crashed during commit phase
+# Crashed during commit phase
                 await self._complete_commit(transaction_id)
                 
             elif last_decision == "ABORT":
-                # Crashed during abort phase
+# Crashed during abort phase
                 await self._complete_abort(transaction_id)
                 
     async def recover_participant(self, participant_id: str):
         """Recover participant after crash"""
-        # Read transaction log
+# Read transaction log
         log = await self.log_storage.read_participant_log(participant_id)
         
         for entry in log:
@@ -624,8 +624,8 @@ class RecoveryManager:
             state = entry['state']
             
             if state == "PREPARED":
-                # Crashed after prepare, waiting for decision
-                # Must wait for coordinator or timeout
+# Crashed after prepare, waiting for decision
+# Must wait for coordinator or timeout
                 await self._wait_for_decision(transaction_id)
 ```
 
@@ -710,7 +710,7 @@ Single coordinator crashes → All participants blocked indefinitely.
 
 ```yaml
 metrics:
-  # Transaction Metrics
+# Transaction Metrics
   - name: 2pc_transaction_duration
     description: End-to-end transaction time
     alert_threshold: p99 > 5s
@@ -723,7 +723,7 @@ metrics:
     description: Percentage of aborted transactions
     alert_threshold: > 5%
     
-  # Phase Metrics  
+# Phase Metrics
   - name: prepare_phase_duration
     description: Time to collect all votes
     alert_threshold: p99 > 2s
@@ -732,7 +732,7 @@ metrics:
     description: Time to commit all participants
     alert_threshold: p99 > 3s
     
-  # Failure Metrics
+# Failure Metrics
   - name: coordinator_failures
     description: Coordinator crash/restart events
     alert_threshold: > 0
@@ -817,7 +817,7 @@ def calculate_2pc_cost(
 ) -> dict:
     """Calculate economic impact of 2PC"""
     
-    # Direct costs
+# Direct costs
     coordinator_instances = max(1, transactions_per_day // 100000)
     
     costs = {
@@ -826,14 +826,14 @@ def calculate_2pc_cost(
         'storage': transactions_per_day * 0.001,  # Log storage
     }
     
-    # Opportunity costs
+# Opportunity costs
     lock_duration_hours = (lock_hold_time_ms / 1000 / 3600)
     locked_capital = transactions_per_day * 10000 * lock_duration_hours / 24
     opportunity_cost = locked_capital * 0.05 / 365  # 5% annual rate
     
     costs['opportunity'] = opportunity_cost
     
-    # Failure costs
+# Failure costs
     failure_rate = 0.0001  # 0.01%
     manual_resolution_cost = 50  # $ per incident
     costs['failures'] = transactions_per_day * failure_rate * manual_resolution_cost

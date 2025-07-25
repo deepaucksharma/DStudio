@@ -56,7 +56,7 @@ last_updated: 2025-07-20
   </a>
 </div>
 
-## 📊 Reference by Category
+## Reference by Category
 
 ### [Glossary](glossary.md)
 Definitions of all distributed systems terms. From "Law" to "Vector Clock". Updated for the 7-law framework.
@@ -75,9 +75,9 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 ---
 
-## 🔍 Quick Access
+## Quick Access
 
-### 🔍 Fundamental Concepts
+### Fundamental Concepts
 <div class="term-grid">
   <div class="term-category">
     <h4>Consistency Models</h4>
@@ -165,7 +165,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
   </table>
 </div>
 
-### 🛠️ Common Procedures
+### 🛠 Common Procedures
 <div class="procedure-grid">
   <div class="procedure-category">
     <h4>Implementation Guides</h4>
@@ -208,7 +208,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
   </div>
 </div>
 
-## 🎯 Quick Decision Trees
+## Quick Decision Trees
 
 <div class="decision-trees">
   <div class="decision-box">
@@ -268,7 +268,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
   </div>
 </div>
 
-## 💡 Pro Tips
+## Pro Tips
 
 <div class="tips-grid">
   <div class="tip-card">

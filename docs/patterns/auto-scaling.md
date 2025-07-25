@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -57,7 +57,7 @@ class SimpleAutoScaler:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 | Strategy | Trigger | Use Case | Response Time |
 |----------|---------|----------|---------------|
@@ -97,7 +97,7 @@ class MetricBasedAutoScaler:
             elif metric_avg < policy['scale_down']:
                 votes['scale_down'] += 1
 
-        # Majority vote decides
+# Majority vote decides
         if votes['scale_up'] > len(self.scaling_policies) / 2:
             self.last_scaling_time = time.time()
             return "scale_up"
@@ -110,7 +110,7 @@ class MetricBasedAutoScaler:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Auto-scaling Patterns
 
@@ -193,7 +193,7 @@ def multi_dimensional_scaling(metrics: dict) -> dict:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Auto-scaling Systems
 
@@ -212,7 +212,7 @@ def scryer_predict(historical_data: np.array) -> dict:
     for name, predictor in predictors.items():
         predictions[name] = predictor.predict(historical_data, horizon=3600)
     
-    # Ensemble average
+# Ensemble average
     ensemble_pred = np.mean(list(predictions.values()), axis=0)
     
     return {
@@ -234,10 +234,10 @@ def hpa_calculate_replicas(current: int, metrics: list) -> int:
         desired = int(np.ceil(current * ratio))
         desired_replicas.append(desired)
     
-    # Take max to satisfy all metrics
+# Take max to satisfy all metrics
     desired = max(desired_replicas)
     
-    # Apply bounds and scale-down limit
+# Apply bounds and scale-down limit
     desired = max(min_replicas, min(max_replicas, desired))
     if desired < current:
         desired = max(desired, current - current // 2)  # Max 50% scale-down
@@ -282,7 +282,7 @@ def combine_scaling_decisions(policies: list) -> dict:
 ```
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Optimal Auto-scaling
 
@@ -291,33 +291,33 @@ def optimal_control_scaling(predicted_load: np.array, constraints: dict) -> np.a
     """Model Predictive Control for auto-scaling"""
     n_steps = len(predicted_load)
     
-    # Decision variables
+# Decision variables
     instances = cp.Variable(n_steps, integer=True)
     
-    # Objective: minimize cost + SLA penalties
+# Objective: minimize cost + SLA penalties
     cost = 0
     for t in range(n_steps):
         instance_cost = constraints['instance_cost'] * instances[t]
         
-        # Simple response time model
+# Simple response time model
         response_time = predicted_load[t] / (instances[t] * constraints['capacity_per_instance'])
         sla_violation = cp.maximum(0, response_time - constraints['sla_target'])
         
         cost += instance_cost + constraints['sla_penalty'] * sla_violation
     
-    # Constraints
+# Constraints
     constraints_list = [
         instances >= constraints['min_instances'],
         instances <= constraints['max_instances'],
     ]
     
-    # Rate limiting
+# Rate limiting
     for t in range(1, n_steps):
         constraints_list.append(
             cp.abs(instances[t] - instances[t-1]) <= constraints['max_change']
         )
     
-    # Solve
+# Solve
     problem = cp.Problem(cp.Minimize(cost), constraints_list)
     problem.solve()
     
@@ -333,7 +333,7 @@ def optimal_control_scaling(predicted_load: np.array, constraints: dict) -> np.a
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 | Workload Type | Strategy | Key Metrics |
 |---------------|----------|-------------|

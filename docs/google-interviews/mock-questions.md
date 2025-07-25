@@ -1,6 +1,6 @@
 # Mock Interview Questions for Google
 
-## 📝 System Design Questions by Category
+## System Design Questions by Category
 
 ### Search & Discovery Systems
 
@@ -274,7 +274,7 @@
 - Latency optimization
 - Privacy considerations
 
-## 🎯 Practice Framework
+## Practice Framework
 
 ### For Each Question, Address:
 
@@ -314,7 +314,7 @@
    - Cost considerations
    - Operational complexity
 
-## 📊 Difficulty Levels
+## Difficulty Levels
 
 ### Beginner (L3/L4)
 Focus on core functionality and basic scale:
@@ -337,7 +337,7 @@ Google-scale systems with multiple constraints:
 - Design Gmail
 - Design Google Maps
 
-## 🔄 Follow-up Questions Bank
+## Follow-up Questions Bank
 
 ### Scale-Related
 1. "How would this handle 10x growth?"
@@ -369,7 +369,7 @@ Google-scale systems with multiple constraints:
 3. "How do we implement search?"
 4. "Can we add machine learning?"
 
-## 💡 Tips for Practice
+## Tips for Practice
 
 1. **Time yourself** - Stick to 45 minutes
 2. **Draw everything** - Practice whiteboarding

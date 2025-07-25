@@ -2,7 +2,7 @@
 
 ## When to Use What: Google Interview Edition
 
-### 🗄️ Storage Systems Decision Tree
+### 🗄 Storage Systems Decision Tree
 
 ```mermaid
 graph TD
@@ -27,7 +27,7 @@ graph TD
     style GCS fill:#e8f5e9
 ```
 
-### 📊 Database Selection Matrix
+### Database Selection Matrix
 
 | Use Case | Best Choice | Why | Trade-offs |
 |----------|-------------|-----|------------|
@@ -41,7 +41,7 @@ graph TD
 | **Graph Data** | Custom graph DB | Optimized traversals | Limited tooling |
 | **Blob Storage** | GCS/Colossus | Cost effective, durable | Higher latency |
 
-### 🚀 Compute Platform Selection
+### Compute Platform Selection
 
 ```mermaid
 graph LR
@@ -56,7 +56,7 @@ graph LR
     end
 ```
 
-### 🌐 Caching Strategy by Use Case
+### Caching Strategy by Use Case
 
 | Data Type | Cache Level | Technology | TTL | Hit Rate Target |
 |-----------|-------------|------------|-----|-----------------|
@@ -67,7 +67,7 @@ graph LR
 | **Computed results** | Distributed | Hazelcast | 1-24h | >60% |
 | **Media thumbnails** | Multi-tier | CDN + Local | 7-30d | >90% |
 
-### 🔄 Message Queue Selection
+### Message Queue Selection
 
 ```mermaid
 graph TD
@@ -87,7 +87,7 @@ graph TD
     Reliability -->|Best Effort| Redis[Redis Pub/Sub<br/>Fast]
 ```
 
-### 🛡️ Pattern to Technology Mapping
+### Pattern to Technology Mapping
 
 | Pattern | Google Technology | Open Source Alternative | When to Use |
 |---------|------------------|------------------------|-------------|
@@ -101,7 +101,7 @@ graph TD
 | **CQRS** | Spanner + Bigtable | PostgreSQL + Elasticsearch | Read/write split |
 | **Saga Pattern** | Workflow engine | Temporal, Airflow | Distributed transactions |
 
-### 📈 Scale Thresholds for Technology Changes
+### Scale Thresholds for Technology Changes
 
 ```mermaid
 graph LR
@@ -117,7 +117,7 @@ graph LR
     Large -->|Growth| Huge
 ```
 
-### 🔧 Common Technology Combinations
+### Common Technology Combinations
 
 #### Real-time Chat System
 ```
@@ -155,7 +155,7 @@ graph LR
 - Pub/Sub: Real-time updates
 ```
 
-### 🎯 Decision Framework
+### Decision Framework
 
 #### Step 1: Identify Requirements
 - [ ] Data consistency needs
@@ -181,7 +181,7 @@ graph LR
 - [ ] Cost at scale?
 - [ ] Operational complexity?
 
-### 📋 Quick Reference Table
+### Quick Reference Table
 
 | If you need... | Consider using... | But watch out for... |
 |----------------|-------------------|---------------------|
@@ -194,7 +194,7 @@ graph LR
 | ML inference | Cloud ML | Prediction latency |
 | Graph queries | Custom solution | Build complexity |
 
-### 🚨 Red Flags in Technology Choices
+### Red Flags in Technology Choices
 
 1. **Using Spanner for everything** - It's expensive and has latency
 2. **No caching strategy** - You'll hit scaling walls
@@ -204,7 +204,7 @@ graph LR
 6. **Not considering failure modes** - Everything fails at scale
 7. **Forgetting about cost** - Some solutions are prohibitively expensive
 
-### 💡 Pro Tips
+### Pro Tips
 
 1. **Cache aggressively** - It solves many problems
 2. **Shard early** - It's harder to add later

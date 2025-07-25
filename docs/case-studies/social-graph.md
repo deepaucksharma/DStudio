@@ -10,7 +10,7 @@ last_updated: 2025-07-23
 ---
 
 
-# 🕸️ Social Graph Architecture
+# 🕸 Social Graph Architecture
 
 **The Challenge**: Build a distributed social graph system serving billions of users with real-time friend recommendations and graph queries
 
@@ -199,7 +199,7 @@ class CompressedSocialGraph:
     
     def add_edge(self, from_user, to_user):
         """O(n) insertion - requires rebuilding"""
-        # Expensive operation, typically done in batch
+# Expensive operation, typically done in batch
         pass
 
 # Memory-efficient edge representation
@@ -321,18 +321,18 @@ graph TB
 class TAOQueries:
     def assoc_range(self, id1, atype, pos, limit):
         """Get edges of type atype from id1, paginated"""
-        # Example: Get friends of user 12345, limit 50
+# Example: Get friends of user 12345, limit 50
         return self.get_edges(user_id=12345, edge_type="friend", 
                             offset=pos, limit=limit)
     
     def assoc_count(self, id1, atype):
         """Count edges of type atype from id1"""
-        # Example: Count followers of user 67890
+# Example: Count followers of user 67890
         return self.count_edges(user_id=67890, edge_type="follower")
     
     def assoc_get(self, id1, atype, id2set):
         """Check if edges exist between id1 and id2set"""
-        # Example: Check if user 12345 is friends with [67890, 11111]
+# Example: Check if user 12345 is friends with [67890, 11111]
         return self.check_edges(from_user=12345, to_users=[67890, 11111], 
                               edge_type="friend")
 ```
@@ -374,17 +374,17 @@ class FriendRecommendationEngine:
         
         candidate_scores = defaultdict(int)
         
-        # For each friend, look at their friends
+# For each friend, look at their friends
         for friend_id in user_friends:
             friend_friends = set(self.graph.get_friends(friend_id))
             
-            # Find mutual connections (excluding user and existing friends)
+# Find mutual connections (excluding user and existing friends)
             candidates = friend_friends - user_friends - {user_id}
             
             for candidate in candidates:
                 candidate_scores[candidate] += 1  # Weight by mutual friends
         
-        # Sort by score and return top recommendations
+# Sort by score and return top recommendations
         recommendations = sorted(candidate_scores.items(), 
                                key=lambda x: x[1], reverse=True)
         return recommendations[:limit]
@@ -397,14 +397,14 @@ class FriendRecommendationEngine:
         for candidate_id, mutual_count in base_recs:
             score = mutual_count * 2.0  # Base mutual friends score
             
-            # Add additional signals
+# Add additional signals
             score += self.get_interest_similarity(user_id, candidate_id) * 1.0
             score += self.get_geographic_proximity(user_id, candidate_id) * 0.5
             score += self.get_interaction_history(user_id, candidate_id) * 3.0
             
             enhanced_recs.append((candidate_id, score))
         
-        # Re-sort and return top results
+# Re-sort and return top results
         enhanced_recs.sort(key=lambda x: x[1], reverse=True)
         return enhanced_recs[:limit]
 ```
@@ -460,7 +460,7 @@ class GraphEmbeddingRecommender:
                 if not neighbors:
                     break
                     
-                # Random walk with restart probability
+# Random walk with restart probability
                 if np.random.random() < 0.15:  # 15% restart chance
                     current = user_id
                 else:
@@ -475,16 +475,16 @@ class GraphEmbeddingRecommender:
         """Train Node2Vec embeddings using Word2Vec"""
         from gensim.models import Word2Vec
         
-        # Generate walks for all users
+# Generate walks for all users
         all_walks = []
         for user_id in all_users:
             walks = self.generate_random_walks(graph, user_id)
             all_walks.extend(walks)
         
-        # Convert to string sequences for Word2Vec
+# Convert to string sequences for Word2Vec
         walk_sequences = [[str(node) for node in walk] for walk in all_walks]
         
-        # Train Word2Vec model
+# Train Word2Vec model
         model = Word2Vec(walk_sequences, 
                         vector_size=self.embedding_dim,
                         window=10, 
@@ -492,7 +492,7 @@ class GraphEmbeddingRecommender:
                         workers=4,
                         sg=1)  # Skip-gram
         
-        # Extract embeddings
+# Extract embeddings
         for user_id in all_users:
             if str(user_id) in model.wv:
                 self.user_embeddings[user_id] = model.wv[str(user_id)]
@@ -513,7 +513,7 @@ class GraphEmbeddingRecommender:
             similarity = cosine_similarity(user_vector, other_vector)[0][0]
             similarities.append((other_user, similarity))
         
-        # Sort by similarity and return top k
+# Sort by similarity and return top k
         similarities.sort(key=lambda x: x[1], reverse=True)
         return similarities[:top_k]
 ```
@@ -578,23 +578,23 @@ class AsyncGraphUpdater:
     async def process_follow_event(self, event: GraphEvent):
         """Process a single follow event with rate limiting"""
         
-        # Check if target user is a celebrity (>1M followers)
+# Check if target user is a celebrity (>1M followers)
         follower_count = await self.get_follower_count(event.to_user)
         
         if follower_count > 1_000_000:
-            # Use special handling for celebrity accounts
+# Use special handling for celebrity accounts
             await self.process_celebrity_follow(event)
         else:
-            # Normal processing
+# Normal processing
             await self.process_normal_follow(event)
     
     async def process_celebrity_follow(self, event: GraphEvent):
         """Special handling for celebrity follows with batching"""
         
-        # Add to celebrity batch queue
+# Add to celebrity batch queue
         await self.celebrity_queue.put(event)
         
-        # Process in larger batches with rate limiting
+# Process in larger batches with rate limiting
         if self.celebrity_queue.qsize() >= 1000:
             batch = []
             for _ in range(1000):
@@ -606,7 +606,7 @@ class AsyncGraphUpdater:
     async def batch_update_edges(self, events: List[GraphEvent]):
         """Batch update graph edges for efficiency"""
         
-        # Prepare batch insert
+# Prepare batch insert
         edge_inserts = []
         cache_invalidations = []
         
@@ -624,7 +624,7 @@ class AsyncGraphUpdater:
                 f"user:{event.from_user}:recommendations"
             ])
         
-        # Execute batch operations
+# Execute batch operations
         async with aiomysql.connect(**db_config) as conn:
             async with conn.cursor() as cursor:
                 await cursor.executemany(
@@ -634,7 +634,7 @@ class AsyncGraphUpdater:
                 )
                 await conn.commit()
         
-        # Batch invalidate caches
+# Batch invalidate caches
         redis = await aioredis.from_url("redis://localhost")
         if cache_invalidations:
             await redis.delete(*cache_invalidations)
@@ -683,7 +683,7 @@ class PrivacyAwareGraphTraversal:
     def find_mutual_friends(self, user_a, user_b, requesting_user):
         """Find mutual friends with privacy filtering"""
         
-        # Check if requesting user can see both profiles
+# Check if requesting user can see both profiles
         if not (self.privacy.can_view_friends(requesting_user, user_a) and
                 self.privacy.can_view_friends(requesting_user, user_b)):
             return []
@@ -693,7 +693,7 @@ class PrivacyAwareGraphTraversal:
         
         mutual_friends = friends_a & friends_b
         
-        # Filter out friends who don't want to be discoverable
+# Filter out friends who don't want to be discoverable
         visible_mutual = []
         for friend_id in mutual_friends:
             if self.privacy.allow_mutual_friend_discovery(friend_id, requesting_user):
@@ -708,7 +708,7 @@ class PrivacyAwareGraphTraversal:
         candidate_scores = defaultdict(int)
         
         for friend_id in user_friends:
-            # Check privacy: can this friend's network be used for recommendations?
+# Check privacy: can this friend's network be used for recommendations?
             if not self.privacy.allow_network_suggestions(friend_id, user_id):
                 continue
             
@@ -716,11 +716,11 @@ class PrivacyAwareGraphTraversal:
             candidates = friend_friends - user_friends - {user_id}
             
             for candidate in candidates:
-                # Check if candidate allows discovery through mutual friends
+# Check if candidate allows discovery through mutual friends
                 if self.privacy.allow_discoverability(candidate, user_id, friend_id):
                     candidate_scores[candidate] += 1
         
-        # Sort and return recommendations
+# Sort and return recommendations
         recommendations = sorted(candidate_scores.items(), 
                                key=lambda x: x[1], reverse=True)
         return recommendations[:limit]
@@ -820,24 +820,24 @@ class GraphCacheManager:
         """Multi-level cache lookup for user friends"""
         cache_key = f"friends:{user_id}"
         
-        # L1: Application memory cache
+# L1: Application memory cache
         if cache_key in self.l1_cache:
             self.cache_stats.record_hit('l1')
             return self.l1_cache[cache_key]
         
-        # L2: Redis cache
+# L2: Redis cache
         friends_data = await self.l2_cache.get(cache_key)
         if friends_data:
             self.cache_stats.record_hit('l2')
-            # Populate L1 cache
+# Populate L1 cache
             self.l1_cache[cache_key] = friends_data
             return friends_data
         
-        # L3: Database lookup
+# L3: Database lookup
         self.cache_stats.record_miss()
         friends = await self.graph_db.get_friends(user_id)
         
-        # Populate caches
+# Populate caches
         await self.l2_cache.setex(cache_key, 3600, friends)  # 1 hour TTL
         self.l1_cache[cache_key] = friends
         
@@ -852,12 +852,12 @@ class GraphCacheManager:
             f"mutual_friends:{user_id}:*"
         ]
         
-        # Clear L1 cache
+# Clear L1 cache
         for pattern in patterns_to_invalidate:
             if pattern in self.l1_cache:
                 del self.l1_cache[pattern]
         
-        # Clear L2 cache
+# Clear L2 cache
         for pattern in patterns_to_invalidate:
             if '*' in pattern:
                 keys = await self.l2_cache.keys(pattern)
@@ -934,10 +934,10 @@ class GraphMonitor:
         if not success:
             self.current_metrics.error_count += 1
         
-        # Track hot users
+# Track hot users
         self.current_metrics.hot_users[user_id] += 1
         
-        # Check for immediate alerts
+# Check for immediate alerts
         if self.current_metrics.hot_users[user_id] > self.alert_thresholds['hot_user_qps']:
             self.trigger_hotspot_alert(user_id, self.current_metrics.hot_users[user_id])
     
@@ -954,14 +954,14 @@ class GraphMonitor:
         if self.current_metrics.query_count == 0:
             return
         
-        # Calculate rates
+# Calculate rates
         error_rate = self.current_metrics.error_count / self.current_metrics.query_count
         avg_latency = self.current_metrics.total_latency / self.current_metrics.query_count
         total_cache_queries = self.current_metrics.cache_hits + self.current_metrics.cache_misses
         cache_hit_rate = (self.current_metrics.cache_hits / total_cache_queries 
                          if total_cache_queries > 0 else 0)
         
-        # Check thresholds
+# Check thresholds
         if error_rate > self.alert_thresholds['error_rate']:
             self.trigger_error_rate_alert(error_rate)
         
@@ -974,7 +974,7 @@ class GraphMonitor:
     def trigger_hotspot_alert(self, user_id: int, qps: int):
         """Alert on user hotspot detection"""
         logging.warning(f"HOTSPOT ALERT: User {user_id} receiving {qps} QPS")
-        # Could trigger auto-scaling, additional caching, rate limiting
+# Could trigger auto-scaling, additional caching, rate limiting
     
     def get_performance_summary(self) -> Dict:
         """Get current performance summary"""
@@ -1033,7 +1033,7 @@ class CommunityDetector:
     def detect_communities_louvain(self, user_subset, max_iterations=100):
         """Implement Louvain community detection algorithm"""
         
-        # Build NetworkX graph from user subset
+# Build NetworkX graph from user subset
         G = nx.Graph()
         
         for user_id in user_subset:
@@ -1042,14 +1042,14 @@ class CommunityDetector:
                 if friend_id in user_subset:  # Only include edges within subset
                     G.add_edge(user_id, friend_id)
         
-        # Initialize: each node in its own community
+# Initialize: each node in its own community
         communities = {node: i for i, node in enumerate(G.nodes())}
         
         for iteration in range(max_iterations):
             improved = False
             
             for node in G.nodes():
-                # Calculate modularity gain for moving to neighbor communities
+# Calculate modularity gain for moving to neighbor communities
                 best_community = communities[node]
                 best_gain = 0
                 
@@ -1070,7 +1070,7 @@ class CommunityDetector:
             if not improved:
                 break
         
-        # Group users by community
+# Group users by community
         community_groups = defaultdict(list)
         for user_id, community_id in communities.items():
             community_groups[community_id].append(user_id)
@@ -1079,30 +1079,30 @@ class CommunityDetector:
     
     def calculate_modularity_gain(self, G, node, target_community, communities):
         """Calculate modularity gain from moving node to target community"""
-        # Simplified modularity calculation
+# Simplified modularity calculation
         m = G.number_of_edges()
         
-        # Edges from node to target community
+# Edges from node to target community
         edges_to_community = 0
         for neighbor in G.neighbors(node):
             if communities[neighbor] == target_community:
                 edges_to_community += 1
         
-        # Degree of node
+# Degree of node
         node_degree = G.degree(node)
         
-        # Total degree of target community
+# Total degree of target community
         community_degree = sum(G.degree(n) for n in G.nodes() 
                              if communities[n] == target_community)
         
-        # Modularity gain approximation
+# Modularity gain approximation
         gain = edges_to_community / m - (node_degree * community_degree) / (2 * m * m)
         return gain
     
     def suggest_groups(self, user_id, min_community_size=10):
         """Suggest groups based on community detection"""
         
-        # Get user's extended network (2-hop neighbors)
+# Get user's extended network (2-hop neighbors)
         user_friends = set(self.graph.get_friends(user_id))
         extended_network = set(user_friends)
         
@@ -1110,17 +1110,17 @@ class CommunityDetector:
             friend_friends = self.graph.get_friends(friend_id)
             extended_network.update(friend_friends[:50])  # Limit to avoid explosion
         
-        # Detect communities in extended network
+# Detect communities in extended network
         communities = self.detect_communities_louvain(list(extended_network))
         
-        # Find communities that contain user's friends but not the user
+# Find communities that contain user's friends but not the user
         suggested_groups = []
         
         for community_id, members in communities.items():
             if len(members) < min_community_size:
                 continue
                 
-            # Check if community contains user's friends but not user
+# Check if community contains user's friends but not user
             friend_overlap = len(set(members) & user_friends)
             if friend_overlap >= 3 and user_id not in members:
                 suggested_groups.append({
@@ -1130,7 +1130,7 @@ class CommunityDetector:
                     'relevance_score': friend_overlap / len(members)
                 })
         
-        # Sort by relevance and return top suggestions
+# Sort by relevance and return top suggestions
         suggested_groups.sort(key=lambda x: x['relevance_score'], reverse=True)
         return suggested_groups[:5]
 ```
@@ -1152,14 +1152,14 @@ class GraphSAGE(nn.Module):
         self.num_layers = num_layers
         self.convs = nn.ModuleList()
         
-        # First layer
+# First layer
         self.convs.append(SAGEConv(input_dim, hidden_dim))
         
-        # Hidden layers
+# Hidden layers
         for _ in range(num_layers - 2):
             self.convs.append(SAGEConv(hidden_dim, hidden_dim))
         
-        # Output layer
+# Output layer
         self.convs.append(SAGEConv(hidden_dim, output_dim))
         
         self.dropout = nn.Dropout(0.2)
@@ -1182,7 +1182,7 @@ class GNNRecommendationSystem:
         self.feature_dim = feature_dim
         self.embedding_dim = embedding_dim
         
-        # Initialize GraphSAGE model
+# Initialize GraphSAGE model
         self.model = GraphSAGE(
             input_dim=feature_dim,
             hidden_dim=128,
@@ -1195,10 +1195,10 @@ class GNNRecommendationSystem:
     def prepare_training_data(self, user_ids, positive_edges, negative_edges):
         """Prepare training data for link prediction"""
         
-        # Create user features (profile data, activity patterns, etc.)
+# Create user features (profile data, activity patterns, etc.)
         user_features = self.extract_user_features(user_ids)
         
-        # Create edge index for graph structure
+# Create edge index for graph structure
         edge_index = self.create_edge_index(positive_edges)
         
         return {
@@ -1216,20 +1216,20 @@ class GNNRecommendationSystem:
         for epoch in range(epochs):
             self.optimizer.zero_grad()
             
-            # Forward pass: get node embeddings
+# Forward pass: get node embeddings
             embeddings = self.model(
                 training_data['user_features'],
                 training_data['edge_index']
             )
             
-            # Calculate link prediction loss
+# Calculate link prediction loss
             loss = self.link_prediction_loss(
                 embeddings,
                 training_data['positive_edges'],
                 training_data['negative_edges']
             )
             
-            # Backward pass
+# Backward pass
             loss.backward()
             self.optimizer.step()
             
@@ -1239,7 +1239,7 @@ class GNNRecommendationSystem:
     def link_prediction_loss(self, embeddings, positive_edges, negative_edges):
         """Calculate loss for link prediction task"""
         
-        # Positive edge scores
+# Positive edge scores
         pos_scores = []
         for edge in positive_edges:
             user1_emb = embeddings[edge[0]]
@@ -1247,7 +1247,7 @@ class GNNRecommendationSystem:
             score = torch.dot(user1_emb, user2_emb)
             pos_scores.append(score)
         
-        # Negative edge scores  
+# Negative edge scores
         neg_scores = []
         for edge in negative_edges:
             user1_emb = embeddings[edge[0]]
@@ -1258,7 +1258,7 @@ class GNNRecommendationSystem:
         pos_scores = torch.stack(pos_scores)
         neg_scores = torch.stack(neg_scores)
         
-        # Binary cross-entropy loss
+# Binary cross-entropy loss
         pos_loss = -torch.log(torch.sigmoid(pos_scores)).mean()
         neg_loss = -torch.log(1 - torch.sigmoid(neg_scores)).mean()
         
@@ -1270,7 +1270,7 @@ class GNNRecommendationSystem:
         self.model.eval()
         
         with torch.no_grad():
-            # Get all user embeddings
+# Get all user embeddings
             all_features = self.extract_user_features(self.all_user_ids)
             edge_index = self.get_current_edge_index()
             
@@ -1279,7 +1279,7 @@ class GNNRecommendationSystem:
                 torch.LongTensor(edge_index)
             )
             
-            # Calculate similarity scores with target user
+# Calculate similarity scores with target user
             target_embedding = embeddings[user_id]
             
             similarity_scores = []
@@ -1291,7 +1291,7 @@ class GNNRecommendationSystem:
                 similarity = torch.dot(target_embedding, other_embedding).item()
                 similarity_scores.append((other_user_id, similarity))
             
-            # Sort by similarity and return top-k
+# Sort by similarity and return top-k
             similarity_scores.sort(key=lambda x: x[1], reverse=True)
             return similarity_scores[:top_k]
 ```

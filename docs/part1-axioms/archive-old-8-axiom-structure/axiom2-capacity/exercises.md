@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🧪 Lab 1: Queue Simulation Visualizer
+## Lab 1: Queue Simulation Visualizer
 
 ### Objective
 Build a visual queue simulator to understand how utilization affects response time.
@@ -94,7 +94,7 @@ Add multiple queue disciplines (FIFO, LIFO, Priority) and compare their impact o
 
 ---
 
-## 🧪 Lab 2: Little's Law Calculator
+## Lab 2: Little's Law Calculator
 
 ### Objective
 Build a capacity planning tool using Little's Law.
@@ -134,11 +134,11 @@ class CapacityPlanner:
             'cost_estimate_monthly': 5000
         }
         """
-        # Hint: Account for:
-        # - Peak vs average load
-        # - Growth over time
-        # - Failure scenarios (n+1, n+2)
-        # - Cascade effects
+# Hint: Account for:
+# - Peak vs average load
+# - Growth over time
+# - Failure scenarios (n+1, n+2)
+# - Cascade effects
         pass
     
     def simulate_failure_scenarios(self, current_capacity, failure_mode):
@@ -170,7 +170,7 @@ scenarios = [
 
 ---
 
-## 🧪 Lab 3: Load Testing Workshop
+## Lab 3: Load Testing Workshop
 
 ### Objective
 Find the breaking point of a system through systematic load testing.
@@ -218,7 +218,7 @@ class LoadTester:
         """
         results = []
         
-        # Your implementation here
+# Your implementation here
         
         return results
     
@@ -274,7 +274,7 @@ class MockService:
         self.connection_pool = []
         
     async def handle_request(self):
-        # Simulate realistic degradation
+# Simulate realistic degradation
         utilization = self.current_load / self.capacity
         
         if utilization > 0.95:
@@ -289,7 +289,7 @@ class MockService:
 
 ---
 
-## 🧪 Lab 4: Backpressure Implementation
+## Lab 4: Backpressure Implementation
 
 ### Objective
 Implement a production-grade backpressure system.
@@ -366,7 +366,7 @@ scenarios = [
 
 ---
 
-## 📊 Challenge Problems
+## Challenge Problems
 
 ### Challenge 1: The Connection Pool Puzzle
 
@@ -427,7 +427,7 @@ Consider:
 - How do timeouts cascade?
 - When is dropping better than queueing?
 
-### 2. The Utilization Dilemma  
+### 2. The Utilization Dilemma
 "Running at 50% utilization wastes half my resources. Running at 95% risks collapse."
 
 Explore:
@@ -453,7 +453,7 @@ Investigate:
 
 ---
 
-## 🎯 Mini-Project: Build Your Own Autoscaler
+## Mini-Project: Build Your Own Autoscaler
 
 ### Requirements
 Build an autoscaler that:
@@ -512,7 +512,7 @@ class IntelligentAutoscaler:
 
 ---
 
-## 📝 Reflection Questions
+## Reflection Questions
 
 After completing these exercises, consider:
 

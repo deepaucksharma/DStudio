@@ -21,7 +21,7 @@ last_updated: 2025-01-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Restaurant Chain Analogy
 
@@ -61,7 +61,7 @@ graph TB
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### The Three Properties Explained
 
@@ -140,9 +140,9 @@ graph TB
 
 ---
 
-## 📊 Interactive Decision Support Tools
+## Interactive Decision Support Tools
 
-### 🎯 CAP Trade-off Decision Tree
+### CAP Trade-off Decision Tree
 
 ```mermaid
 flowchart TD
@@ -163,7 +163,7 @@ flowchart TD
     style CA fill:#fc6,stroke:#333,stroke-width:2px
 ```
 
-### 💰 CAP Trade-off Calculator
+### CAP Trade-off Calculator
 
 | System Characteristic | CP Choice | AP Choice | Your Priority (1-10) |
 |----------------------|-----------|-----------|---------------------|
@@ -180,7 +180,7 @@ flowchart TD
 - CP Score = (Consistency × 10) + (Data Loss × 8) - (Availability × 5)
 - AP Score = (Availability × 10) + (Latency × 7) - (Consistency × 5)
 
-### 🔄 Consistency Model Selector
+### Consistency Model Selector
 
 ```mermaid
 graph TD
@@ -202,7 +202,7 @@ graph TD
     EC -.->|Analytics| B3[Eventually accurate<br/>counts OK]
 ```
 
-### 📈 Availability vs Consistency Trade-off Visualizer
+### Availability vs Consistency Trade-off Visualizer
 
 ```mermaid
 graph LR
@@ -228,7 +228,7 @@ graph LR
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Real-World CAP Implementations
 
@@ -323,7 +323,7 @@ graph TB
 
 ---
 
-## 🚀 Level 4: Expert Considerations
+## Level 4: Expert Considerations
 
 ### Beyond CAP: PACELC
 
@@ -393,7 +393,7 @@ graph TB
 
 ## 🎴 Quick Reference Cards
 
-### 🚀 CAP Choice Cheat Sheet
+### CAP Choice Cheat Sheet
 
 <div style="border: 2px solid #5448C8; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f8f9fa;">
 
@@ -413,11 +413,11 @@ graph TB
 - ✅ Single datacenter deployment
 - ✅ No network partitions expected
 - ✅ Traditional monolithic architecture
-- ⚠️ Not truly distributed!
+- ⚠ Not truly distributed!
 
 </div>
 
-### 🔍 Implementation Checklist
+### Implementation Checklist
 
 <div style="border: 2px solid #059669; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f0fdf4;">
 
@@ -433,7 +433,7 @@ graph TB
 
 </div>
 
-### 📊 Common Patterns by Industry
+### Common Patterns by Industry
 
 | Industry | Typical Choice | Reasoning | Example Systems |
 |----------|---------------|-----------|-----------------|

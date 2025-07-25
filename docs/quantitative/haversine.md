@@ -30,13 +30,13 @@ import math
 def haversine(lat1, lon1, lat2, lon2):
     R = 6371  # Earth radius in kilometers
     
-    # Convert to radians
+# Convert to radians
     φ1 = math.radians(lat1)
     φ2 = math.radians(lat2)
     Δφ = math.radians(lat2 - lat1)
     Δλ = math.radians(lon2 - lon1)
     
-    # Haversine formula
+# Haversine formula
     a = math.sin(Δφ/2)**2 + \
         math.cos(φ1) * math.cos(φ2) * \
         math.sin(Δλ/2)**2
@@ -105,7 +105,7 @@ SET cos_lat = COS(lat_rad),
 **Quick rejection test:**
 ```python
 def bounding_box(center_lat, center_lon, radius_km):
-    # Degrees per km (approximate)
+# Degrees per km (approximate)
     lat_degree = radius_km / 111.0
     lon_degree = radius_km / (111.0 * math.cos(math.radians(center_lat)))
     
@@ -246,7 +246,7 @@ def haversine_vectorized(lat1, lon1, lat2_array, lon2_array):
 **Grid-based index:**
 ```python
 def get_grid_cell(lat, lon, cell_size_km=10):
-    # Approximate degrees per km
+# Approximate degrees per km
     lat_per_km = 1 / 111.0
     lon_per_km = 1 / (111.0 * math.cos(math.radians(lat)))
     
@@ -259,15 +259,15 @@ def get_grid_cell(lat, lon, cell_size_km=10):
 **Query optimization:**
 ```python
 def find_nearby(center_lat, center_lon, radius_km, locations):
-    # 1. Find relevant grid cells
+# 1. Find relevant grid cells
     cells = get_affected_cells(center_lat, center_lon, radius_km)
     
-    # 2. Get candidates from those cells
+# 2. Get candidates from those cells
     candidates = []
     for cell in cells:
         candidates.extend(grid_index[cell])
     
-    # 3. Exact distance filter
+# 3. Exact distance filter
     results = []
     for loc in candidates:
         dist = haversine(center_lat, center_lon, loc.lat, loc.lon)
@@ -284,14 +284,14 @@ def find_nearby(center_lat, center_lon, radius_km, locations):
 **More accurate for ellipsoid:**
 ```python
 def vincenty(lat1, lon1, lat2, lon2):
-    # WGS-84 ellipsoid parameters
+# WGS-84 ellipsoid parameters
     a = 6378137.0  # Semi-major axis
     f = 1/298.257223563  # Flattening
     b = (1 - f) * a  # Semi-minor axis
     
-    # ... (complex iterative calculation)
-    # Error: ~0.5mm
-    # 10-100x slower than Haversine
+# ... (complex iterative calculation)
+# Error: ~0.5mm
+# 10-100x slower than Haversine
 ```
 
 ### Spherical Law of Cosines
@@ -356,15 +356,15 @@ def parallel_haversine(center, locations, num_workers=4):
 
 ```python
 def find_nearby_drivers(rider_lat, rider_lon, max_distance_km=5):
-    # Use geohash for initial filter
+# Use geohash for initial filter
     geohash_precision = distance_to_geohash_precision(max_distance_km)
     rider_geohash = geohash.encode(rider_lat, rider_lon, geohash_precision)
     
-    # Query nearby geohashes
+# Query nearby geohashes
     nearby_hashes = geohash.neighbors(rider_geohash)
     nearby_hashes.append(rider_geohash)
     
-    # Get drivers and calculate exact distances
+# Get drivers and calculate exact distances
     drivers = []
     for gh in nearby_hashes:
         for driver in drivers_by_geohash[gh]:
@@ -422,15 +422,15 @@ def safe_haversine(lat1, lon1, lat2, lon2, unit='km'):
 
 ```python
 def adaptive_distance(lat1, lon1, lat2, lon2, max_error_km=0.1):
-    # Quick check: are points close?
+# Quick check: are points close?
     dlat = abs(lat2 - lat1)
     dlon = abs(lon2 - lon1)
     
     if dlat < 0.1 and dlon < 0.1:
-        # Use fast approximation for nearby points
+# Use fast approximation for nearby points
         return equirectangular(lat1, lon1, lat2, lon2)
     else:
-        # Use Haversine for longer distances
+# Use Haversine for longer distances
         return haversine(lat1, lon1, lat2, lon2)
 ```
 

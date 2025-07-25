@@ -19,7 +19,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🧪 Hands-On Labs
+## Hands-On Labs
 
 ### Lab 1: Chaos Engineering Workshop
 
@@ -72,7 +72,7 @@ class ChaosNetwork:
             if random.random() < self.corruption_rate:
                 return {"error": "corrupted_data", "original": data}
                 
-        # Simulate normal processing time
+# Simulate normal processing time
         await asyncio.sleep(0.01)
         return {"response": f"OK from {to_service}", "data": data}
 
@@ -92,7 +92,7 @@ class ResilientService:
         3. Timeout handling
         4. Fallback mechanism
         """
-        # Your implementation here
+# Your implementation here
         pass
 
 # Test scenarios
@@ -101,19 +101,19 @@ async def chaos_test_suite():
     service_a = ResilientService("ServiceA", network)
     service_b = ResilientService("ServiceB", network)
     
-    # Scenario 1: Normal operation
+# Scenario 1: Normal operation
     print("\n📊 Scenario 1: Normal operation")
     result = await service_a.call_service("ServiceB", {"test": 1})
     print(f"Result: {result}")
     
-    # Scenario 2: High latency
+# Scenario 2: High latency
     print("\n📊 Scenario 2: High latency")
     network.inject_failure("ServiceB", FailureMode.LATENCY)
     network.latency_ms = 2000
     result = await service_a.call_service("ServiceB", {"test": 2})
     print(f"Result: {result}")
     
-    # Scenario 3: Network partition
+# Scenario 3: Network partition
     print("\n📊 Scenario 3: Network partition")
     network.inject_failure("ServiceB", FailureMode.PARTITION)
     result = await service_a.call_service("ServiceB", {"test": 3})
@@ -159,7 +159,7 @@ class PercentageRule:
         return True  # Applies to all requests
         
     def should_trigger(self):
-        # TODO: Implement percentage-based triggering
+# TODO: Implement percentage-based triggering
         pass
 
 class TimeWindowRule:
@@ -170,7 +170,7 @@ class TimeWindowRule:
         self.failure_type = failure_type
         
     def matches(self, context):
-        # TODO: Check if current time is within window
+# TODO: Check if current time is within window
         pass
         
     def should_trigger(self):
@@ -183,7 +183,7 @@ class PatternRule:
         self.failure_type = failure_type
         
     def matches(self, context):
-        # TODO: Match request against pattern
+# TODO: Match request against pattern
         pass
 ```
 
@@ -219,7 +219,7 @@ class CircuitBreaker:
         self.state = CircuitState.CLOSED
         self._lock = threading.Lock()
         
-        # Metrics
+# Metrics
         self.metrics = {
             'total_calls': 0,
             'successful_calls': 0,
@@ -298,7 +298,7 @@ class AdvancedCircuitBreaker(CircuitBreaker):
 
 # Test harness
 def test_circuit_breaker():
-    # Flaky service simulation
+# Flaky service simulation
     failure_count = 0
     
     def flaky_service(fail_times=0):
@@ -310,10 +310,10 @@ def test_circuit_breaker():
     
     cb = CircuitBreaker(failure_threshold=3, recovery_timeout=5)
     
-    # Test sequence
+# Test sequence
     print("Testing circuit breaker behavior...")
     
-    # Should work initially
+# Should work initially
     for i in range(2):
         try:
             result = cb.call(flaky_service, 0)
@@ -321,7 +321,7 @@ def test_circuit_breaker():
         except Exception as e:
             print(f"Call {i+1}: Failed - {e}")
     
-    # Trigger failures
+# Trigger failures
     for i in range(5):
         try:
             result = cb.call(flaky_service, 10)
@@ -382,11 +382,11 @@ class ServiceCallChain:
         results = []
         
         for i, service in enumerate(services):
-            # TODO: Implement timeout allocation strategy
-            # Consider:
-            # - Equal distribution
-            # - Priority-based allocation
-            # - Dynamic based on historical latency
+# TODO: Implement timeout allocation strategy
+# Consider:
+# - Equal distribution
+# - Priority-based allocation
+# - Dynamic based on historical latency
             pass
             
         return results
@@ -402,7 +402,7 @@ async def test_timeout_coordination():
     
     chain = ServiceCallChain()
     
-    # Test with different timeout budgets
+# Test with different timeout budgets
     for total_timeout in [100, 300, 500, 1000]:
         print(f"\nTesting with {total_timeout}ms budget:")
         results = await chain.call_chain(services, total_timeout)
@@ -516,7 +516,7 @@ class SmartRetryStrategy:
         
         Returns: (should_retry, delay_ms)
         """
-        # TODO: Implement smart retry logic
+# TODO: Implement smart retry logic
         pass
 
 class RetryBudget:
@@ -528,7 +528,7 @@ class RetryBudget:
         
     def try_acquire(self) -> bool:
         """Try to acquire retry permit"""
-        # TODO: Implement sliding window retry budget
+# TODO: Implement sliding window retry budget
         pass
 
 class LoadMonitor:
@@ -540,18 +540,18 @@ class LoadMonitor:
         
     def get_retry_multiplier(self) -> float:
         """Get retry delay multiplier based on system load"""
-        # TODO: Implement adaptive retry based on:
-        # - CPU usage
-        # - Error rate
-        # - Queue depth
-        # - Time of day
+# TODO: Implement adaptive retry based on:
+# - CPU usage
+# - Error rate
+# - Queue depth
+# - Time of day
         pass
 
 # Test scenario: Simulate retry storm
 def simulate_retry_storm():
     """Simulate what happens when backend fails"""
-    # 1000 clients, backend fails, everyone retries
-    # Show how smart retry prevents storm
+# 1000 clients, backend fails, everyone retries
+# Show how smart retry prevents storm
     pass
 ```
 
@@ -577,12 +577,12 @@ class HealthChecker:
             'last_check': 0
         }
         
-    # TODO: Implement these features
-    # 1. Adaptive check intervals (check less when healthy, more when flaky)
-    # 2. Deep vs shallow checks based on system state
-    # 3. Dependency-aware checking (don't check DB if network is down)
-    # 4. Circuit breaker for health checks themselves
-    # 5. Health check budget to prevent overload
+# TODO: Implement these features
+# 1. Adaptive check intervals (check less when healthy, more when flaky)
+# 2. Deep vs shallow checks based on system state
+# 3. Dependency-aware checking (don't check DB if network is down)
+# 4. Circuit breaker for health checks themselves
+# 5. Health check budget to prevent overload
 
 # Exercise: Design health check strategies for:
 health_scenarios = [
@@ -606,7 +606,7 @@ health_scenarios = [
 
 ---
 
-## 🔬 Research Projects
+## Research Projects
 
 ### Project 1: Failure Pattern Analysis
 
@@ -626,7 +626,7 @@ class FailurePatternDetector:
         
     def analyze_metrics(self, metrics_stream):
         """Analyze metrics stream for failure patterns"""
-        # TODO: Implement pattern detection
+# TODO: Implement pattern detection
         pass
 
 # Research task: Implement detection for these patterns
@@ -667,11 +667,11 @@ class ChaosGame:
         
     def design_phase(self):
         """Players design their system"""
-        # Choose components:
-        # - Load balancers ($1000/month, 99.99% uptime)
-        # - Servers ($500/month, 99.9% uptime)
-        # - Databases ($2000/month, 99.95% uptime)
-        # - Regions ($5000/month base cost)
+# Choose components:
+# - Load balancers ($1000/month, 99.99% uptime)
+# - Servers ($500/month, 99.9% uptime)
+# - Databases ($2000/month, 99.95% uptime)
+# - Regions ($5000/month base cost)
         pass
         
     def chaos_phase(self):
@@ -683,7 +683,7 @@ class ChaosGame:
             "Cascading service failures",
             "Security breach attempt"
         ]
-        # Score based on system resilience
+# Score based on system resilience
         pass
 
 # Challenge: Create scoring system that rewards:
@@ -695,7 +695,7 @@ class ChaosGame:
 
 ---
 
-## 📊 Failure Metrics Dashboard
+## Failure Metrics Dashboard
 
 **Build monitoring for failure patterns**
 
@@ -730,7 +730,7 @@ Key Metrics to Track:
 
 ---
 
-## 🎯 Capstone Project: Build a Resilient Service
+## Capstone Project: Build a Resilient Service
 
 **Combine all concepts into a production-ready service**
 
@@ -747,23 +747,23 @@ class ResilientWebService:
     """Production-ready web service with all resilience patterns"""
     
     def __init__(self):
-        # TODO: Initialize all resilience components
+# TODO: Initialize all resilience components
         pass
         
     async def handle_request(self, request):
         """Handle incoming request with full resilience"""
-        # TODO: Implement request handling with:
-        # - Circuit breakers
-        # - Retries
-        # - Timeouts  
-        # - Fallbacks
-        # - Load shedding
-        # - Graceful degradation
+# TODO: Implement request handling with:
+# - Circuit breakers
+# - Retries
+# - Timeouts
+# - Fallbacks
+# - Load shedding
+# - Graceful degradation
         pass
 
 # Test harness will throw everything at your service:
 # - Network failures
-# - Dependency failures  
+# - Dependency failures
 # - Traffic spikes
 # - Malformed requests
 # - Coordinated failures
@@ -771,7 +771,7 @@ class ResilientWebService:
 
 ---
 
-## 🏆 Skills Assessment
+## Skills Assessment
 
 Rate your understanding (1-5):
 - [ ] Can implement circuit breakers

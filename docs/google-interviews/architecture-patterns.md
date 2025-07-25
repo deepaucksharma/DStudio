@@ -242,7 +242,7 @@ class ShardPerUser:
     Used in Gmail, Google Drive, etc.
     """
     def shard_strategy(self, user_id):
-        # All user data on same shard
+# All user data on same shard
         shard_id = hash(user_id) % num_shards
         return {
             "shard": shard_id,
@@ -358,7 +358,7 @@ class GoogleCircuitBreaker:
         self.timeout = self.adaptive_timeout()
     
     def adaptive_threshold(self):
-        # Adjust based on time of day, historical data
+# Adjust based on time of day, historical data
         return calculate_threshold(
             time_of_day=now(),
             historical_error_rate=get_baseline(),
@@ -430,7 +430,7 @@ class AdaptiveBatching:
         )
     
     def adaptive_trigger(self, batch):
-        # Flush early if throughput is low
+# Flush early if throughput is low
         current_qps = self.get_current_qps()
         expected_wait = self.max_batch_size / current_qps
         return expected_wait > self.max_latency
@@ -448,10 +448,10 @@ class RequestCoalescing:
         
     async def get(self, key):
         if key in self.inflight:
-            # Return existing request's future
+# Return existing request's future
             return await self.inflight[key]
         
-        # Create new request
+# Create new request
         future = asyncio.create_task(self.fetch(key))
         self.inflight[key] = future
         
@@ -479,7 +479,7 @@ class LoadShedding:
             return self.reject_with_backoff(request)
     
     def get_backoff_time(self):
-        # Exponential backoff with jitter
+# Exponential backoff with jitter
         base = 2 ** self.retry_count
         jitter = random.uniform(0, base * 0.1)
         return base + jitter
@@ -639,7 +639,7 @@ def design_google_scale_service(requirements):
         "Evolution": plan_migration_path(requirements)
     }
     
-    # Validate coherent design
+# Validate coherent design
     validate_pattern_compatibility(design)
     estimate_cost_at_scale(design)
     verify_performance_targets(design)

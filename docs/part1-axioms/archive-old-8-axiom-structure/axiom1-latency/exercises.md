@@ -14,7 +14,7 @@ last_updated: 2025-07-20
 
 # Latency Exercises
 
-## 🧪 Hands-On Labs
+## Hands-On Labs
 
 ### Lab 1: Measure Your Physics Tax
 Use ping and traceroute to understand real-world latency.
@@ -30,14 +30,14 @@ def calculate_min_latency(distance_km):
     """Calculate minimum theoretical latency"""
     speed_of_light_km_ms = 300  # km/millisecond
 
-    # One-way latency
+# One-way latency
     one_way = distance_km / speed_of_light_km_ms
 
-    # Round-trip time
+# Round-trip time
     rtt = one_way * 2
 
-    # Add realistic overhead (routers, processing)
-    # Typically 1.5-2x theoretical minimum
+# Add realistic overhead (routers, processing)
+# Typically 1.5-2x theoretical minimum
     realistic_rtt = rtt * 1.5
 
     return {
@@ -112,14 +112,14 @@ class NetworkSimulator:
 
     async def simulate_request(self, data):
         """Simulate network request with latency and loss"""
-        # Simulate packet loss
+# Simulate packet loss
         if random.random() < self.packet_loss_rate:
             raise Exception("Packet lost")
 
-        # Calculate latency with jitter
+# Calculate latency with jitter
         latency = self.base_latency + random.uniform(-self.jitter, self.jitter)
 
-        # Simulate network delay
+# Simulate network delay
         await asyncio.sleep(latency)
 
         return f"Response for: {data}"
@@ -167,7 +167,7 @@ async def test_networks():
 # asyncio.run(test_networks())
 ```
 
-## 💻 Implementation Challenges
+## Implementation Challenges
 
 ### Challenge 1: Multi-Region Load Balancer
 Build a latency-aware load balancer that routes requests to the nearest healthy region.
@@ -296,7 +296,7 @@ N5   35     25     15     10      0
     Design a system that provides good user experience despite these constraints.
     Consider: Caching strategy, Update mechanism, Failure handling, Content prioritization
 
-## 🔬 Research Projects
+## Research Projects
 
 ### 1. The Great Latency Hunt
 **Project**: Profile a real distributed application
@@ -330,13 +330,13 @@ class MicroCDN:
 
     def route_request(self, client_location, content_id):
         """Find optimal edge for client"""
-        # TODO: Implement latency-aware routing
-        # Consider: Cache hits, Server load, Network distance
+# TODO: Implement latency-aware routing
+# Consider: Cache hits, Server load, Network distance
         pass
 
     def simulate_day(self, request_pattern):
         """Simulate 24 hours of traffic"""
-        # TODO: Calculate cache hit rates, Average latency, Cost
+# TODO: Calculate cache hit rates, Average latency, Cost
         pass
 ```
 

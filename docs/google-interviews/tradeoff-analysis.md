@@ -223,7 +223,7 @@ class CachingGradient:
     ]
     
     def recommend(self, budget, latency_sla):
-        # Find optimal level based on constraints
+# Find optimal level based on constraints
         return self.find_sweet_spot(budget, latency_sla)
 ```
 

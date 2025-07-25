@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Security Camera Analogy
 
@@ -95,7 +95,7 @@ sequenceDiagram
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### CDC Implementation Strategies
 
@@ -227,7 +227,7 @@ graph TB
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced CDC Patterns
 
@@ -453,7 +453,7 @@ class CDCOrderingBuffer:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Airbnb's SpinalTap
 
@@ -696,7 +696,7 @@ class CDCEconomicsAnalyzer:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -724,13 +724,13 @@ class TheoreticalCDCModel:
         processing_model: str  # synchronous, asynchronous
     ) -> ConsistencyLevel:
         """Determine achievable consistency level"""
-        # Strict: total ordering + exactly-once + synchronous
+# Strict: total ordering + exactly-once + synchronous
         if (source_ordering == "total" and 
             delivery_semantics == "exactly-once" and
             processing_model == "synchronous"):
             return ConsistencyLevel.STRICT
         
-        # Causal: partial ordering preserved
+# Causal: partial ordering preserved
         elif source_ordering in ["total", "partial"]:
             return ConsistencyLevel.CAUSAL
         
@@ -747,11 +747,11 @@ class TheoreticalCDCModel:
     
     def _happens_before(self, e1: ChangeEvent, e2: ChangeEvent) -> bool:
         """Lamport's happens-before relation"""
-        # Same transaction
+# Same transaction
         if e1.transaction_id == e2.transaction_id:
             return e1.timestamp < e2.timestamp
         
-        # Causal dependency
+# Causal dependency
         if self.causal_graph.has_path(e1, e2):
             return True
         
@@ -783,12 +783,12 @@ class CDCOptimizer:
             if utilization >= 1:
                 return float('inf')
             
-            # M/M/1 queue waiting time
+# M/M/1 queue waiting time
             avg_wait = utilization / (processing_rate * (1 - utilization))
             avg_batch_delay = batch_size / (2 * arrival_rate)
             total_latency = avg_wait + avg_batch_delay
             
-            # Penalties
+# Penalties
             slo_penalty = max(0, total_latency - latency_slo) ** 2
             memory_usage = buffer_size * avg_event_size
             memory_penalty = max(0, memory_usage - memory_budget) ** 2
@@ -825,7 +825,7 @@ class CDCOptimizer:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### CDC Strategy Selection
 

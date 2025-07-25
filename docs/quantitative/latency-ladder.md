@@ -427,7 +427,7 @@ Total: 30ms (constant!)
 
 ## Law Connections
 
-### Law 2: Asynchronous Reality ⏳
+### Law 2: Asynchronous Reality
 ```mermaid
 graph LR
     A[Speed of Light] --> B[Physical Distance]
@@ -440,7 +440,7 @@ graph LR
 
 Every operation proves [Law 1](/part1-axioms/law1-failure/) - even L1 cache (0.5ns) > 0.
 
-### Law 4: Trade-offs ⚖️
+### Law 4: Trade-offs
 <div class="failure-vignette">
 <h4>📈 Latency Under Load</h4>
 
@@ -500,10 +500,10 @@ Every operation proves [Law 1](/part1-axioms/law1-failure/) - even L1 cache (0.5
 
 See [Queueing Theory](queueing-models.md): utilization → 100% = latency → ∞
 
-### Law 1: Failure 💥
+### Law 1: Failure
 Timeouts, cascading failures, retry storms from high latency.
 
-### Law 4: Trade-offs ⚖️ (Consistency Trade-off)
+### Law 4: Trade-offs (Consistency Trade-off)
 Consensus = multiple RTTs. Strong consistency = more hops.
 
 ## Visual Latency Comparison

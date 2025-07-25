@@ -921,7 +921,7 @@ document.addEventListener('DOMContentLoaded', function() {
     margin-top: 0;
 }
 
-#latencyChart {
+# latencyChart {
     max-width: 100%;
     height: auto;
 }

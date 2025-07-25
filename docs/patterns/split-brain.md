@@ -37,7 +37,7 @@ class NaiveCluster:
         self.data = {}
     
     def elect_leader(self):
-        # Dangerous: each partition will elect its own leader
+# Dangerous: each partition will elect its own leader
         reachable_peers = self.get_reachable_peers()
         if len(reachable_peers) > 0:
             self.is_leader = (self.node_id == min([self.node_id] + reachable_peers))
@@ -47,7 +47,7 @@ class NaiveCluster:
     def write_data(self, key, value):
         if self.is_leader:
             self.data[key] = value
-            # ❌ Multiple leaders can write conflicting data
+# ❌ Multiple leaders can write conflicting data
             return True
         return False
 
@@ -104,29 +104,29 @@ class QuorumBasedCluster:
         self.cluster_size = len(cluster_nodes)
         self.quorum_size = (self.cluster_size // 2) + 1
         
-        # Node state
+# Node state
         self.state = NodeState.FOLLOWER
         self.current_term = 0
         self.voted_for = None
         
-        # Cluster state
+# Cluster state
         self.leader_id = None
         self.last_heartbeat = time.time()
         self.reachable_nodes: Set[str] = set()
         
-        # Data storage
+# Data storage
         self.data = {}
         self.pending_writes = []
         
-        # Configuration
+# Configuration
         self.heartbeat_interval = 1.0
         self.election_timeout = random.uniform(3.0, 5.0)
         
-        # Threading
+# Threading
         self._running = True
         self._lock = threading.RLock()
         
-        # Start background processes
+# Start background processes
         self._start_background_tasks()
     
     def _start_background_tasks(self):
@@ -164,7 +164,7 @@ class QuorumBasedCluster:
                 if self._send_heartbeat_to_node(node):
                     self.reachable_nodes.add(node)
         
-        # Check if we still have quorum
+# Check if we still have quorum
         total_reachable = len(self.reachable_nodes) + 1  # +1 for self
         if total_reachable < self.quorum_size:
             print(f"Leader {self.node_id} lost quorum ({total_reachable}/{self.quorum_size})")
@@ -173,7 +173,7 @@ class QuorumBasedCluster:
     def _send_heartbeat_to_node(self, node_id: str) -> bool:
         """Send heartbeat to specific node"""
         try:
-            # Simulate network call
+# Simulate network call
             success = self._simulate_network_call(node_id, {
                 'type': 'heartbeat',
                 'term': self.current_term,
@@ -193,16 +193,16 @@ class QuorumBasedCluster:
         """Start leader election with quorum requirement"""
         print(f"Node {self.node_id} starting election for term {self.current_term + 1}")
         
-        # Become candidate
+# Become candidate
         self.state = NodeState.CANDIDATE
         self.current_term += 1
         self.voted_for = self.node_id
         self.last_heartbeat = time.time()
         
-        # Count votes (start with self)
+# Count votes (start with self)
         votes = 1
         
-        # Request votes from other nodes
+# Request votes from other nodes
         for node in self.cluster_nodes:
             if node != self.node_id:
                 if self._request_vote(node):
@@ -210,7 +210,7 @@ class QuorumBasedCluster:
         
         print(f"Node {self.node_id} received {votes}/{self.cluster_size} votes")
         
-        # Check if we have majority (quorum)
+# Check if we have majority (quorum)
         if votes >= self.quorum_size:
             self._become_leader()
         else:
@@ -236,7 +236,7 @@ class QuorumBasedCluster:
         self.state = NodeState.LEADER
         self.leader_id = self.node_id
         
-        # Process any pending writes
+# Process any pending writes
         self._process_pending_writes()
     
     def _step_down(self):
@@ -251,13 +251,13 @@ class QuorumBasedCluster:
             if self.state != NodeState.LEADER:
                 return False
             
-            # Check if we have quorum
+# Check if we have quorum
             reachable_count = len(self.reachable_nodes) + 1  # +1 for self
             if reachable_count < self.quorum_size:
                 print(f"Write rejected: insufficient quorum ({reachable_count}/{self.quorum_size})")
                 return False
             
-            # Replicate to quorum
+# Replicate to quorum
             replicas = 1  # Count self
             for node in self.reachable_nodes:
                 if self._replicate_write(node, key, value):
@@ -267,7 +267,7 @@ class QuorumBasedCluster:
                     break
             
             if replicas >= self.quorum_size:
-                # Commit write locally
+# Commit write locally
                 self.data[key] = value
                 print(f"Write committed: {key}={value} (replicas: {replicas})")
                 return True
@@ -296,14 +296,14 @@ class QuorumBasedCluster:
     
     def _simulate_network_call(self, node_id: str, message: dict) -> dict:
         """Simulate network call to another node"""
-        # Simulate network partition (some nodes unreachable)
+# Simulate network partition (some nodes unreachable)
         if random.random() < 0.1:  # 10% failure rate
             raise Exception("Network timeout")
         
-        # Simulate processing delay
+# Simulate processing delay
         time.sleep(0.01)
         
-        # Mock response based on message type
+# Mock response based on message type
         if message['type'] == 'heartbeat':
             return {'success': True}
         elif message['type'] == 'vote_request':
@@ -334,14 +334,14 @@ def simulate_cluster():
     cluster_nodes = ['node_1', 'node_2', 'node_3', 'node_4', 'node_5']
     nodes = {}
     
-    # Create cluster nodes
+# Create cluster nodes
     for node_id in cluster_nodes:
         nodes[node_id] = QuorumBasedCluster(node_id, cluster_nodes)
     
-    # Let cluster stabilize
+# Let cluster stabilize
     time.sleep(2)
     
-    # Find current leader
+# Find current leader
     leader = None
     for node in nodes.values():
         status = node.get_cluster_status()
@@ -352,7 +352,7 @@ def simulate_cluster():
     if leader:
         print(f"\nLeader: {leader.node_id}")
         
-        # Try some writes
+# Try some writes
         leader.write_data('key1', 'value1')
         leader.write_data('key2', 'value2')
     
@@ -378,7 +378,7 @@ class WitnessNode:
     def handle_vote_request(self, candidate_id: str, term: int) -> bool:
         """Vote in leader election"""
         
-        # Only vote once per term
+# Only vote once per term
         if term > self.current_term:
             self.current_term = term
             self.voted_for = candidate_id
@@ -407,7 +407,7 @@ class WitnessEnabledCluster(QuorumBasedCluster):
         
         super().__init__(node_id, all_nodes)
         
-        # Witness nodes for quorum calculation
+# Witness nodes for quorum calculation
         self.witnesses = {}
         if node_id in witness_nodes:
             self.is_witness = True
@@ -455,7 +455,7 @@ class DiskBasedQuorum:
         self.lock_file = self.quorum_disk_path / f"quorum.lock"
         self.node_file = self.quorum_disk_path / f"node_{node_id}.heartbeat"
         
-        # Ensure quorum directory exists
+# Ensure quorum directory exists
         self.quorum_disk_path.mkdir(parents=True, exist_ok=True)
         
         self.is_active = False
@@ -466,10 +466,10 @@ class DiskBasedQuorum:
         try:
             self.lock_fd = open(self.lock_file, 'w')
             
-            # Try to acquire exclusive lock (non-blocking)
+# Try to acquire exclusive lock (non-blocking)
             fcntl.flock(self.lock_fd.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
             
-            # Write our node ID to lock file
+# Write our node ID to lock file
             self.lock_fd.write(f"{self.node_id}:{time.time()}\\n")
             self.lock_fd.flush()
             
@@ -518,7 +518,7 @@ class DiskBasedQuorum:
                 with open(heartbeat_file, 'r') as f:
                     timestamp = float(f.read().strip())
                     
-                # Consider node active if heartbeat is less than 30 seconds old
+# Consider node active if heartbeat is less than 30 seconds old
                 if current_time - timestamp < 30:
                     node_id = heartbeat_file.stem.replace('node_', '')
                     active_nodes.append(node_id)
@@ -532,12 +532,12 @@ class DiskBasedQuorum:
         """Fence other nodes (in real implementation, would power them off)"""
         print(f"Node {self.node_id} would fence other nodes (STONITH)")
         
-        # In production, this would:
-        # 1. Send power-off commands to other nodes
-        # 2. Disable their network access
-        # 3. Force them to stop processing
+# In production, this would:
+# 1. Send power-off commands to other nodes
+# 2. Disable their network access
+# 3. Force them to stop processing
         
-        # For simulation, just remove their heartbeat files
+# For simulation, just remove their heartbeat files
         for heartbeat_file in self.quorum_disk_path.glob("node_*.heartbeat"):
             if heartbeat_file.name != f"node_{self.node_id}.heartbeat":
                 try:
@@ -556,23 +556,23 @@ class STONITHCluster:
         self.data = {}
         self._running = True
         
-        # Start monitoring thread
+# Start monitoring thread
         threading.Thread(target=self._monitor_loop, daemon=True).start()
     
     def _monitor_loop(self):
         """Monitor cluster state and handle split-brain"""
         while self._running:
-            # Update our heartbeat
+# Update our heartbeat
             self.quorum.update_heartbeat()
             
-            # Check if we have quorum lock
+# Check if we have quorum lock
             if not self.quorum.is_active:
                 if self.quorum.acquire_quorum_lock():
                     self._become_active()
                 else:
                     self._become_standby()
             
-            # If we're active, check for split-brain
+# If we're active, check for split-brain
             if self.is_leader:
                 other_nodes = self.quorum.check_other_nodes()
                 if len(other_nodes) > 0:
@@ -629,7 +629,7 @@ class StateHashMonitor:
         
         self.state_history.append((timestamp, state_hash))
         
-        # Keep only recent history (last 100 entries)
+# Keep only recent history (last 100 entries)
         if len(self.state_history) > 100:
             self.state_history = self.state_history[-100:]
     
@@ -640,7 +640,7 @@ class StateHashMonitor:
         
         self.peer_states[peer_id].append((timestamp, state_hash))
         
-        # Keep only recent peer history
+# Keep only recent peer history
         if len(self.peer_states[peer_id]) > 100:
             self.peer_states[peer_id] = self.peer_states[peer_id][-100:]
     
@@ -649,7 +649,7 @@ class StateHashMonitor:
         current_time = time.time()
         cutoff_time = current_time - time_window
         
-        # Get our recent states
+# Get our recent states
         our_recent_states = [
             (ts, hash_val) for ts, hash_val in self.state_history
             if ts >= cutoff_time
@@ -658,7 +658,7 @@ class StateHashMonitor:
         if not our_recent_states:
             return {}
         
-        # Compare with each peer
+# Compare with each peer
         conflicts = {}
         
         for peer_id, peer_history in self.peer_states.items():
@@ -670,7 +670,7 @@ class StateHashMonitor:
             if not peer_recent_states:
                 continue
             
-            # Find overlapping time periods
+# Find overlapping time periods
             conflicts[peer_id] = self._find_conflicts(
                 our_recent_states,
                 peer_recent_states
@@ -680,7 +680,7 @@ class StateHashMonitor:
     
     def _hash_state(self, state_data: dict) -> str:
         """Create hash of system state"""
-        # Sort keys for consistent hashing
+# Sort keys for consistent hashing
         sorted_state = json.dumps(state_data, sort_keys=True)
         return hashlib.sha256(sorted_state.encode()).hexdigest()[:16]
     
@@ -689,9 +689,9 @@ class StateHashMonitor:
         """Find conflicting states between nodes"""
         conflicts = []
         
-        # Create time-based windows for comparison
+# Create time-based windows for comparison
         for our_time, our_hash in our_states:
-            # Find peer states in similar time window (±10 seconds)
+# Find peer states in similar time window (±10 seconds)
             matching_peer_states = [
                 (peer_time, peer_hash) for peer_time, peer_hash in peer_states
                 if abs(peer_time - our_time) <= 10
@@ -715,7 +715,7 @@ class SplitBrainDetector:
     def update_system_state(self, data: dict, metadata: dict):
         """Update system state and check for split-brain"""
         
-        # Record our state
+# Record our state
         full_state = {
             'data': data,
             'metadata': metadata,
@@ -725,7 +725,7 @@ class SplitBrainDetector:
         
         self.state_monitor.record_state(full_state)
         
-        # Check for split-brain
+# Check for split-brain
         conflicts = self.state_monitor.detect_split_brain()
         
         if conflicts:
@@ -747,7 +747,7 @@ class SplitBrainDetector:
             
             self.split_brain_detected = True
             
-            # Take corrective action
+# Take corrective action
             self._initiate_split_brain_recovery()
     
     def _initiate_split_brain_recovery(self):
@@ -755,24 +755,24 @@ class SplitBrainDetector:
         
         print(f"Node {self.node_id} initiating split-brain recovery...")
         
-        # Strategy 1: Stop processing new requests
+# Strategy 1: Stop processing new requests
         self._stop_new_requests()
         
-        # Strategy 2: Initiate cluster reconciliation
+# Strategy 2: Initiate cluster reconciliation
         self._request_cluster_reconciliation()
         
-        # Strategy 3: If configured, fence other nodes
-        # self._fence_conflicting_nodes()
+# Strategy 3: If configured, fence other nodes
+# self._fence_conflicting_nodes()
     
     def _stop_new_requests(self):
         """Stop processing new requests until split-brain is resolved"""
         print(f"Node {self.node_id} stopping new request processing")
-        # Implementation would set a flag to reject new writes
+# Implementation would set a flag to reject new writes
     
     def _request_cluster_reconciliation(self):
         """Request cluster-wide reconciliation"""
         print(f"Node {self.node_id} requesting cluster reconciliation")
-        # Implementation would trigger consensus protocol restart
+# Implementation would trigger consensus protocol restart
 
 # Usage example
 detector = SplitBrainDetector('node_1')
@@ -816,7 +816,7 @@ class SplitBrainReconciler:
         all_states = {'our_node': our_state}
         all_states.update(peer_states)
         
-        # Try each resolution strategy
+# Try each resolution strategy
         for strategy in self.resolution_strategies:
             try:
                 resolved_state = strategy(all_states)
@@ -850,7 +850,7 @@ class SplitBrainReconciler:
     def _resolve_by_node_priority(self, states: Dict[str, dict]) -> Optional[dict]:
         """Resolve by node priority (alphabetically first node wins)"""
         
-        # Sort nodes by priority (could be configured)
+# Sort nodes by priority (could be configured)
         sorted_nodes = sorted(states.keys())
         priority_node = sorted_nodes[0]
         
@@ -884,12 +884,12 @@ class SplitBrainReconciler:
         for node_id, state in states.items():
             print(f"  {node_id}: {json.dumps(state, indent=2)[:200]}...")
         
-        # In production, this would:
-        # 1. Send alerts to operators
-        # 2. Provide UI for manual resolution
-        # 3. Wait for admin decision
+# In production, this would:
+# 1. Send alerts to operators
+# 2. Provide UI for manual resolution
+# 3. Wait for admin decision
         
-        # For demo, just choose first state
+# For demo, just choose first state
         return list(states.values())[0]
 
 # Integration with cluster
@@ -904,7 +904,7 @@ class ReconciliationEnabledCluster(QuorumBasedCluster):
     def detect_and_resolve_split_brain(self):
         """Detect and automatically resolve split-brain"""
         
-        # Gather states from all reachable nodes
+# Gather states from all reachable nodes
         peer_states = {}
         
         for node in self.reachable_nodes:
@@ -918,7 +918,7 @@ class ReconciliationEnabledCluster(QuorumBasedCluster):
         if not peer_states:
             return  # No peers to compare with
         
-        # Check for conflicts
+# Check for conflicts
         our_state = {
             'data': self.data,
             'term': self.current_term,
@@ -926,7 +926,7 @@ class ReconciliationEnabledCluster(QuorumBasedCluster):
             'node_id': self.node_id
         }
         
-        # Simple conflict detection (in practice, would be more sophisticated)
+# Simple conflict detection (in practice, would be more sophisticated)
         conflicts_detected = False
         for peer_id, peer_state in peer_states.items():
             if (peer_state.get('term') == our_state['term'] and
@@ -942,7 +942,7 @@ class ReconciliationEnabledCluster(QuorumBasedCluster):
                     our_state, peer_states
                 )
                 
-                # Apply resolved state
+# Apply resolved state
                 self.data = resolved_state.get('data', {})
                 self.current_term = resolved_state.get('term', self.current_term)
                 
@@ -950,7 +950,7 @@ class ReconciliationEnabledCluster(QuorumBasedCluster):
                 
             except Exception as e:
                 print(f"Split-brain reconciliation failed: {e}")
-                # Could trigger manual intervention or cluster restart
+# Could trigger manual intervention or cluster restart
     
     def _get_peer_state(self, peer_id: str) -> Optional[dict]:
         """Get state from peer node"""
@@ -988,7 +988,7 @@ class DatabaseSplitBrainPrevention:
         self.is_primary = False
         self.read_only_mode = False
         
-        # Track replica health
+# Track replica health
         self.healthy_replicas = set()
         self.min_replicas_for_writes = len(replica_nodes) // 2 + 1
     
@@ -1003,7 +1003,7 @@ class DatabaseSplitBrainPrevention:
             else:
                 self.healthy_replicas.discard(replica)
         
-        # Enter read-only mode if we don't have enough replicas
+# Enter read-only mode if we don't have enough replicas
         if healthy_count < self.min_replicas_for_writes:
             if not self.read_only_mode:
                 print(f"DB {self.db_node_id} entering read-only mode")
@@ -1022,19 +1022,19 @@ class DatabaseSplitBrainPrevention:
         if not self.is_primary:
             raise Exception("Only primary can execute writes")
         
-        # Ensure we can replicate to majority
+# Ensure we can replicate to majority
         if len(self.healthy_replicas) < self.min_replicas_for_writes:
             raise Exception("Insufficient healthy replicas for safe write")
         
-        # Execute write on primary
+# Execute write on primary
         success_count = 1  # Count primary
         
-        # Replicate to replicas
+# Replicate to replicas
         for replica in self.healthy_replicas:
             if self._replicate_to_replica(replica, query):
                 success_count += 1
                 
-                # Stop when we have majority
+# Stop when we have majority
                 if success_count >= self.min_replicas_for_writes:
                     break
         
@@ -1046,12 +1046,12 @@ class DatabaseSplitBrainPrevention:
     
     def _ping_replica(self, replica_id: str) -> bool:
         """Check if replica is healthy"""
-        # Simulate health check
+# Simulate health check
         return random.random() > 0.1  # 90% success rate
     
     def _replicate_to_replica(self, replica_id: str, query: str) -> bool:
         """Replicate write to specific replica"""
-        # Simulate replication
+# Simulate replication
         return random.random() > 0.05  # 95% success rate
 
 # Usage
@@ -1093,23 +1093,23 @@ class SplitBrainMonitor:
             'details': details
         }
         
-        # Send alert if not already sent
+# Send alert if not already sent
         alert_key = f"{severity}_{hash(str(details))}"
         if alert_key not in self.alerts_sent:
             self._send_alert(event)
             self.alerts_sent.add(alert_key)
         
-        # Log event
+# Log event
         print(f"SPLIT-BRAIN EVENT: {json.dumps(event, indent=2)}")
     
     def _send_alert(self, event: dict):
         """Send alert to monitoring system"""
         
-        # In production, would send to:
-        # - PagerDuty/OpsGenie
-        # - Slack/Teams
-        # - Email
-        # - Prometheus/Grafana
+# In production, would send to:
+# - PagerDuty/OpsGenie
+# - Slack/Teams
+# - Email
+# - Prometheus/Grafana
         
         print(f"ALERT: Split-brain detected on {event['node_id']}")
         print(f"Severity: {event['severity']}")

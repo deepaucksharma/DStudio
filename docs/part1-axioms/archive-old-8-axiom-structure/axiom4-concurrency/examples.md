@@ -59,24 +59,24 @@ class TradingSystem:
         self.positions = {}
         
     def process_order(self, symbol, quantity, server_id):
-        # RACE CONDITION: Feature flag checked at different times
+# RACE CONDITION: Feature flag checked at different times
         if self.feature_flags.get('power_peg_enabled', False):
-            # New logic (Server 8)
+# New logic (Server 8)
             self.new_trading_logic(symbol, quantity)
         else:
-            # Old logic (Servers 1-7) 
+# Old logic (Servers 1-7)
             self.old_trading_logic(symbol, quantity)
             
     def old_trading_logic(self, symbol, quantity):
-        # Old code repurposed flag to mean "buy aggressively"
+# Old code repurposed flag to mean "buy aggressively"
         if symbol in self.positions:
-            # BUG: Doesn't actually cancel, just adds more!
+# BUG: Doesn't actually cancel, just adds more!
             self.place_order('BUY', symbol, quantity)
             
     def new_trading_logic(self, symbol, quantity):
-        # New code uses flag correctly
+# New code uses flag correctly
         if symbol in self.positions:
-            # Properly cancels by placing opposite order
+# Properly cancels by placing opposite order
             self.place_order('SELL', symbol, quantity)
 ```
 
@@ -136,12 +136,12 @@ class SeatReservationSystem:
         self.replica_lag = 0.5  # 500ms typical replication lag
         
     async def reserve_seat(self, flight_id, seat_id, passenger, source_db):
-        # Check availability (on potentially stale replica)
+# Check availability (on potentially stale replica)
         if self.is_seat_available(flight_id, seat_id, source_db):
-            # RACE WINDOW: Between check and reservation
+# RACE WINDOW: Between check and reservation
             await asyncio.sleep(0.1)  # Network + processing time
             
-            # Reserve the seat
+# Reserve the seat
             self.seats[flight_id][seat_id] = passenger
             await self.replicate_to_others(flight_id, seat_id, passenger)
             return True
@@ -153,13 +153,13 @@ class SeatReservationSystem:
         seat_count = self.get_seat_count(flight_id)
         
         if len(bookings) > seat_count:
-            # Overbooking detected!
+# Overbooking detected!
             overbooked_count = len(bookings) - seat_count
             
-            # Strategies:
-            # 1. Voluntary bumping (offer compensation)
-            # 2. Involuntary bumping (last to check in)
-            # 3. THE INCIDENT: Physical removal
+# Strategies:
+# 1. Voluntary bumping (offer compensation)
+# 2. Involuntary bumping (last to check in)
+# 3. THE INCIDENT: Physical removal
 ```
 
 #### Concurrent Booking Timeline
@@ -221,16 +221,16 @@ class BlockchainNode:
         
     def validate_transaction(self, tx):
         """Prevent double-spending at transaction level"""
-        # Check 1: Are the inputs unspent?
+# Check 1: Are the inputs unspent?
         for input in tx.inputs:
             if input.txid not in self.utxo_set:
                 return False, "Input already spent or doesn't exist"
                 
-        # Check 2: Verify signatures
+# Check 2: Verify signatures
         if not self.verify_signatures(tx):
             return False, "Invalid signature"
             
-        # Check 3: Input amount >= Output amount
+# Check 3: Input amount >= Output amount
         if self.sum_inputs(tx) < self.sum_outputs(tx):
             return False, "Insufficient funds"
             
@@ -238,16 +238,16 @@ class BlockchainNode:
         
     def handle_concurrent_spends(self, tx1, tx2):
         """When two transactions spend same output"""
-        # Both transactions might be valid independently
+# Both transactions might be valid independently
         valid1, _ = self.validate_transaction(tx1)
         valid2, _ = self.validate_transaction(tx2)
         
         if valid1 and valid2 and self.shares_inputs(tx1, tx2):
-            # RACE CONDITION: Both spends propagating through network
-            # Solution: Wait for blockchain consensus
+# RACE CONDITION: Both spends propagating through network
+# Solution: Wait for blockchain consensus
             
-            # Miners will include only one in a block
-            # 6 confirmations (~1 hour) makes reversal probability negligible
+# Miners will include only one in a block
+# 6 confirmations (~1 hour) makes reversal probability negligible
             return "Wait for confirmations"
 ```
 
@@ -290,7 +290,7 @@ class OptimisticDataStore:
         if current_version != read_version:
             raise ConflictError(f"Version mismatch: read {read_version}, current {current_version}")
             
-        # No conflict - proceed with write
+# No conflict - proceed with write
         self.data[key] = value
         self.versions[key] = current_version + 1
         return current_version + 1
@@ -301,15 +301,15 @@ async def transfer_money(store, from_account, to_account, amount):
     
     for attempt in range(max_retries):
         try:
-            # Read both accounts
+# Read both accounts
             from_data = store.read(from_account)
             to_data = store.read(to_account)
             
-            # Compute new balances
+# Compute new balances
             new_from_balance = from_data['value'] - amount
             new_to_balance = to_data['value'] + amount
             
-            # Try to commit both writes
+# Try to commit both writes
             store.write(from_account, new_from_balance, from_data['version'])
             store.write(to_account, new_to_balance, to_data['version'])
             
@@ -364,11 +364,11 @@ class MVCCDatabase:
         """Read the version visible to this transaction"""
         tx = self.active_transactions[tx_id]
         
-        # Check transaction's own writes first
+# Check transaction's own writes first
         if key in tx['writes']:
             return tx['writes'][key]
             
-        # Find latest version before transaction started
+# Find latest version before transaction started
         versions = self.versions[key]
         for version, value, timestamp in reversed(versions):
             if timestamp < tx['start_time']:
@@ -411,16 +411,16 @@ class AtomicCounter:
             current = self.get()
             if self.compare_and_swap(current, current + 1):
                 return current + 1
-            # CAS failed - retry with new value
+# CAS failed - retry with new value
 
 # Benchmark: CAS vs Lock
 import time
 
 def benchmark_cas_vs_lock(num_threads=10, operations_per_thread=100000):
-    # CAS-based counter
+# CAS-based counter
     cas_counter = AtomicCounter()
     
-    # Lock-based counter
+# Lock-based counter
     lock_counter = 0
     lock = threading.Lock()
     
@@ -434,7 +434,7 @@ def benchmark_cas_vs_lock(num_threads=10, operations_per_thread=100000):
             with lock:
                 lock_counter += 1
                 
-    # Benchmark CAS
+# Benchmark CAS
     start = time.time()
     threads = [threading.Thread(target=cas_worker) for _ in range(num_threads)]
     for t in threads:
@@ -499,7 +499,7 @@ class DistributedChat:
         """Receive and order message"""
         self.clock.update(message['timestamp'])
         
-        # Insert message in causal order
+# Insert message in causal order
         insertion_point = len(self.messages)
         for i, (existing_clock, _) in enumerate(self.messages):
             if message['timestamp'].happens_before(existing_clock):
@@ -511,7 +511,7 @@ class DistributedChat:
 
 ---
 
-## 🔍 Common Concurrency Bugs
+## Common Concurrency Bugs
 
 ### Bug Pattern 1: Lost Updates
 
@@ -522,14 +522,14 @@ class BuggyCounter:
         self.count = 0
         
     def increment(self):
-        # Race condition window!
+# Race condition window!
         temp = self.count      # Thread 1 reads: 0
-        # Context switch here  # Thread 2 reads: 0  
+# Context switch here # Thread 2 reads: 0
         temp = temp + 1        # Thread 1: temp = 1
-        # Context switch       # Thread 2: temp = 1
+# Context switch # Thread 2: temp = 1
         self.count = temp      # Thread 1 writes: 1
-        # Final write          # Thread 2 writes: 1
-        # LOST UPDATE: Should be 2, but is 1
+# Final write # Thread 2 writes: 1
+# LOST UPDATE: Should be 2, but is 1
 
 # FIXED CODE - Atomic Operation
 import threading
@@ -555,8 +555,8 @@ class BuggyBank:
     def transfer(self, from_acc, to_acc, amount):
         if self.accounts[from_acc] >= amount:
             self.accounts[from_acc] -= amount
-            # CRASH HERE: Money vanished!
-            # Other thread might read inconsistent state
+# CRASH HERE: Money vanished!
+# Other thread might read inconsistent state
             time.sleep(0.001)  # Simulate network delay
             self.accounts[to_acc] += amount
 
@@ -581,26 +581,26 @@ class FixedBank:
 # BUGGY CODE - Classic Deadlock
 def transfer_deadlock(bank, from_acc, to_acc, amount):
     bank.locks[from_acc].acquire()
-    # Thread 1: locked 'alice', waiting for 'bob'
-    # Thread 2: locked 'bob', waiting for 'alice'
-    # DEADLOCK!
+# Thread 1: locked 'alice', waiting for 'bob'
+# Thread 2: locked 'bob', waiting for 'alice'
+# DEADLOCK!
     bank.locks[to_acc].acquire()
     
-    # Transfer logic here
+# Transfer logic here
     
     bank.locks[to_acc].release()
     bank.locks[from_acc].release()
 
 # FIXED CODE - Ordered Locking
 def transfer_fixed(bank, from_acc, to_acc, amount):
-    # Always acquire locks in consistent order
+# Always acquire locks in consistent order
     first, second = sorted([from_acc, to_acc])
     
     bank.locks[first].acquire()
     bank.locks[second].acquire()
     
     try:
-        # Transfer logic here
+# Transfer logic here
         pass
     finally:
         bank.locks[second].release()
@@ -609,7 +609,7 @@ def transfer_fixed(bank, from_acc, to_acc, amount):
 
 ---
 
-## 🛠️ Production-Ready Implementations
+## 🛠 Production-Ready Implementations
 
 ### Example 1: Distributed Rate Limiter
 
@@ -631,19 +631,19 @@ class DistributedRateLimiter:
         now = time.time()
         window_start = now - self.window
         
-        # Use Redis sorted set for sliding window
+# Use Redis sorted set for sliding window
         pipe = self.redis.pipeline()
         
-        # Remove old entries
+# Remove old entries
         pipe.zremrangebyscore(key, 0, window_start)
         
-        # Count requests in current window
+# Count requests in current window
         pipe.zcard(key)
         
-        # Add current request
+# Add current request
         pipe.zadd(key, {str(now): now})
         
-        # Set expiry
+# Set expiry
         pipe.expire(key, self.window + 1)
         
         results = pipe.execute()
@@ -659,7 +659,7 @@ async def make_rate_limited_request(limiter, user_id, func):
     if limiter.is_allowed(key):
         return await func()
     else:
-        # Return cached response or error
+# Return cached response or error
         return {"error": "Rate limit exceeded", "retry_after": 60}
 ```
 
@@ -681,7 +681,7 @@ class RedisDistributedLock:
         end_time = time.time() + (timeout or self.timeout)
         
         while time.time() < end_time:
-            # SET NX EX - atomic set-if-not-exists with expiry
+# SET NX EX - atomic set-if-not-exists with expiry
             if self.redis.set(self.key, identifier, nx=True, ex=self.timeout):
                 self.identifier = identifier
                 return True
@@ -698,7 +698,7 @@ class RedisDistributedLock:
         if self.identifier is None:
             return
             
-        # Lua script for atomic check-and-delete
+# Lua script for atomic check-and-delete
         lua_script = """
         if redis.call('get', KEYS[1]) == ARGV[1] then
             return redis.call('del', KEYS[1])
@@ -723,13 +723,13 @@ async def critical_section(redis_client):
     lock = RedisDistributedLock(redis_client, "resource_1")
     
     with lock:
-        # Only one process executes this at a time
+# Only one process executes this at a time
         await perform_critical_operation()
 ```
 
 ---
 
-## 🎯 Key Takeaways
+## Key Takeaways
 
 ### The Fundamental Rules
 

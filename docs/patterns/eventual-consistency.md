@@ -120,7 +120,7 @@ class DistributedCounter:
         self.value += amount
         self.vector_clock.increment()
         
-        # Broadcast update
+# Broadcast update
         update = {
             'node': self.node_id,
             'amount': amount,
@@ -133,20 +133,20 @@ class DistributedCounter:
         remote_clock = VectorClock(update['node'], self.nodes)
         remote_clock.clock = update['vector_clock']
         
-        # Check if we can apply this update
+# Check if we can apply this update
         if self._can_apply_update(remote_clock):
             self.value += update['amount']
             self.vector_clock.update(update['vector_clock'])
             
-            # Check pending updates
+# Check pending updates
             self._process_pending_updates()
         else:
-            # Store for later
+# Store for later
             self.pending_updates.append(update)
     
     def _can_apply_update(self, remote_clock: VectorClock) -> bool:
         """Check if update can be applied based on causality"""
-        # Simple check: apply if not from future
+# Simple check: apply if not from future
         for node, timestamp in remote_clock.clock.items():
             if node != remote_clock.node_id:
                 if timestamp > self.vector_clock.clock.get(node, 0) + 1:
@@ -196,7 +196,7 @@ class MultiValueRegister(ConflictResolver):
     
     def resolve(self, conflicts: List[Tuple[Any, Dict]]) -> List[Any]:
         """Return all concurrent values for client resolution"""
-        # Group by vector clock to find concurrent values
+# Group by vector clock to find concurrent values
         concurrent_values = []
         for value, metadata in conflicts:
             vc = metadata.get('vector_clock', {})
@@ -250,7 +250,7 @@ class ShoppingCart:
         else:
             self.items[item_id] = quantity
         
-        # Update vector clock
+# Update vector clock
         if self.node_id not in self.vector_clock:
             self.vector_clock[self.node_id] = 0
         self.vector_clock[self.node_id] += 1
@@ -279,7 +279,7 @@ class ShoppingCart:
         other_items = other_state['items']
         other_vc = other_state['vector_clock']
         
-        # Semantic merge: take maximum quantity for each item
+# Semantic merge: take maximum quantity for each item
         merged_items = {}
         
         all_items = set(self.items.keys()) | set(other_items.keys())
@@ -290,7 +290,7 @@ class ShoppingCart:
         
         self.items = merged_items
         
-        # Merge vector clocks
+# Merge vector clocks
         for node, timestamp in other_vc.items():
             self.vector_clock[node] = max(
                 self.vector_clock.get(node, 0), 
@@ -337,15 +337,15 @@ class AntiEntropyProtocol:
         
         peer = random.choice(list(self.peers))
         
-        # Exchange digests
+# Exchange digests
         my_digest = self.compute_digest()
         peer_digest = await self.request_digest(peer)
         
-        # Compute differences
+# Compute differences
         missing_from_peer = self.compute_missing(my_digest, peer_digest)
         missing_from_me = self.compute_missing(peer_digest, my_digest)
         
-        # Exchange missing data
+# Exchange missing data
         if missing_from_peer:
             await self.send_updates(peer, missing_from_peer)
         
@@ -375,7 +375,7 @@ class AntiEntropyProtocol:
             elif peer_info['version'] < my_info['version']:
                 missing.append(key)
             elif peer_info['checksum'] != my_info['checksum']:
-                # Same version but different content (conflict)
+# Same version but different content (conflict)
                 missing.append(key)
         
         return missing
@@ -390,17 +390,17 @@ class AntiEntropyProtocol:
             existing = self.data_store.get(key)
             
             if not existing:
-                # New key
+# New key
                 self.data_store[key] = value
             else:
-                # Resolve conflict
+# Resolve conflict
                 resolved = self.resolve_conflict(existing, value, metadata)
                 self.data_store[key] = resolved
     
     def resolve_conflict(self, local_value: Any, remote_value: Any, 
                         metadata: Dict) -> Any:
         """Resolve conflicts between local and remote values"""
-        # Example: Last Write Wins
+# Example: Last Write Wins
         local_ts = local_value.get('timestamp', 0)
         remote_ts = remote_value.get('timestamp', 0)
         
@@ -426,10 +426,10 @@ class MerkleTree:
     
     def _update_tree(self, key: str):
         """Update merkle tree hashes"""
-        # Compute leaf hash
+# Compute leaf hash
         leaf_hash = self._hash_node(key, self.data[key])
         
-        # Update parent hashes up to root
+# Update parent hashes up to root
         path = self._get_path(key)
         current_hash = leaf_hash
         
@@ -437,7 +437,7 @@ class MerkleTree:
             node_key = '/'.join(path[:i+1])
             self.tree[node_key] = current_hash
             
-            # Combine with sibling if exists
+# Combine with sibling if exists
             sibling_key = self._get_sibling(node_key)
             if sibling_key in self.tree:
                 combined = self._hash_combine(current_hash, self.tree[sibling_key])
@@ -447,9 +447,9 @@ class MerkleTree:
         """Compare with another tree and find differences"""
         differences = []
         
-        # Start from root
+# Start from root
         if self.tree.get('root') != other_tree.tree.get('root'):
-            # Trees differ, traverse to find differences
+# Trees differ, traverse to find differences
             differences = self._find_differences('root', other_tree)
         
         return differences
@@ -462,11 +462,11 @@ class MerkleTree:
         if self.tree[node] == other_tree.tree.get(node):
             return []  # Subtrees are identical
         
-        # Check if leaf node
+# Check if leaf node
         if self._is_leaf(node):
             return [node]
         
-        # Recurse on children
+# Recurse on children
         differences = []
         left_child = self._get_left_child(node)
         right_child = self._get_right_child(node)
@@ -504,20 +504,20 @@ class ReadRepair:
     async def read_with_repair(self, key: str) -> Any:
         """Read value and repair inconsistencies"""
         
-        # Read from all replicas
+# Read from all replicas
         responses = await self._read_from_replicas(key)
         
-        # Find the most recent value
+# Find the most recent value
         latest_value, latest_metadata = self._find_latest(responses)
         
-        # Repair out-of-date replicas
+# Repair out-of-date replicas
         repair_tasks = []
         for replica, (value, metadata) in responses.items():
             if self._is_older(metadata, latest_metadata):
                 task = self._repair_replica(replica, key, latest_value, latest_metadata)
                 repair_tasks.append(task)
         
-        # Fire and forget repairs
+# Fire and forget repairs
         if repair_tasks:
             asyncio.create_task(self._execute_repairs(repair_tasks))
         
@@ -532,13 +532,13 @@ class ReadRepair:
             task = self._read_from_replica(replica, key)
             tasks.append((replica, task))
         
-        # Wait for responses
+# Wait for responses
         for replica, task in tasks:
             try:
                 value, metadata = await asyncio.wait_for(task, timeout=1.0)
                 responses[replica] = (value, metadata)
             except asyncio.TimeoutError:
-                # Skip unresponsive replicas
+# Skip unresponsive replicas
                 pass
         
         return responses
@@ -560,13 +560,13 @@ class ReadRepair:
     
     def _is_older(self, metadata1: Dict, metadata2: Dict) -> bool:
         """Check if metadata1 is older than metadata2"""
-        # Simple timestamp comparison
+# Simple timestamp comparison
         return metadata1.get('timestamp', 0) < metadata2.get('timestamp', 0)
     
     async def _repair_replica(self, replica: str, key: str, 
                             value: Any, metadata: Dict):
         """Repair a single replica"""
-        # Send update to replica
+# Send update to replica
         await self._write_to_replica(replica, key, value, metadata)
     
     async def _execute_repairs(self, repair_tasks: List):
@@ -603,12 +603,12 @@ class HintedHandoff:
             
             for target_node, node_hints in list(self.hints.items()):
                 if await self._is_node_available(target_node):
-                    # Deliver hints
+# Deliver hints
                     delivered = []
                     
                     for hint in node_hints:
                         if time.time() - hint['timestamp'] > self.max_hint_age:
-                            # Hint too old, discard
+# Hint too old, discard
                             delivered.append(hint)
                             continue
                         
@@ -616,10 +616,10 @@ class HintedHandoff:
                             await self._deliver_hint(target_node, hint)
                             delivered.append(hint)
                         except Exception:
-                            # Keep hint for next attempt
+# Keep hint for next attempt
                             pass
                     
-                    # Remove delivered hints
+# Remove delivered hints
                     for hint in delivered:
                         node_hints.remove(hint)
                     
@@ -628,12 +628,12 @@ class HintedHandoff:
     
     async def _is_node_available(self, node: str) -> bool:
         """Check if node is available"""
-        # Implementation depends on failure detection mechanism
+# Implementation depends on failure detection mechanism
         pass
     
     async def _deliver_hint(self, node: str, hint: Dict):
         """Deliver a single hint"""
-        # Send write request to node
+# Send write request to node
         pass
 ```
 
@@ -676,11 +676,11 @@ class SessionReadYourWrites:
         
     async def write(self, key: str, value: Any) -> bool:
         """Write with session tracking"""
-        # Generate write timestamp
+# Generate write timestamp
         timestamp = time.time()
         self.session.write_timestamp = timestamp
         
-        # Write to replicas
+# Write to replicas
         success = await self.replica_manager.write(
             key, value, 
             metadata={'session': self.session.session_id, 'timestamp': timestamp}
@@ -690,15 +690,15 @@ class SessionReadYourWrites:
     
     async def read(self, key: str) -> Any:
         """Read ensuring we see our writes"""
-        # Find replicas that have seen our writes
+# Find replicas that have seen our writes
         valid_replicas = await self._find_up_to_date_replicas()
         
         if not valid_replicas:
-            # Wait for propagation
+# Wait for propagation
             await asyncio.sleep(0.1)
             valid_replicas = await self._find_up_to_date_replicas()
         
-        # Read from valid replica
+# Read from valid replica
         return await self.replica_manager.read_from_replicas(key, valid_replicas)
     
     async def _find_up_to_date_replicas(self) -> List[str]:
@@ -714,7 +714,7 @@ class SessionReadYourWrites:
     
     async def _get_replica_timestamp(self, replica: str) -> float:
         """Get latest timestamp from replica"""
-        # Implementation depends on replica protocol
+# Implementation depends on replica protocol
         pass
 
 class SessionMonotonicReads:
@@ -728,17 +728,17 @@ class SessionMonotonicReads:
     async def read(self, key: str) -> Any:
         """Read ensuring monotonic progress"""
         if self.last_read_replica:
-            # Try to read from same replica
+# Try to read from same replica
             try:
                 value = await self.replica_manager.read_from_replica(
                     key, self.last_read_replica
                 )
                 return value
             except Exception:
-                # Replica unavailable, find alternative
+# Replica unavailable, find alternative
                 pass
         
-        # Find replica with sufficient progress
+# Find replica with sufficient progress
         for replica in self.replica_manager.replicas:
             replica_state = await self._get_replica_state(replica)
             if replica_state >= self.session.read_timestamp:
@@ -751,7 +751,7 @@ class SessionMonotonicReads:
     
     async def _get_replica_state(self, replica: str) -> float:
         """Get state/timestamp of replica"""
-        # Implementation specific
+# Implementation specific
         pass
 ```
 
@@ -775,30 +775,30 @@ class DynamoDBStyle:
                   consistency_level: str = "ONE") -> bool:
         """Put with configurable consistency"""
         
-        # Find preference list
+# Find preference list
         preference_list = self.hash_ring.get_nodes(key, self.replication_factor)
         
-        # Update vector clock
+# Update vector clock
         if key not in self.vector_clocks:
             self.vector_clocks[key] = VectorClock(self.node_id, self.nodes)
         self.vector_clocks[key].increment()
         
-        # Prepare write
+# Prepare write
         write_data = {
             'value': value,
             'vector_clock': self.vector_clocks[key].clock,
             'timestamp': time.time()
         }
         
-        # Write based on consistency level
+# Write based on consistency level
         if consistency_level == "ONE":
-            # Write to at least one node
+# Write to at least one node
             return await self._write_one(preference_list, key, write_data)
         elif consistency_level == "QUORUM":
-            # Write to majority
+# Write to majority
             return await self._write_quorum(preference_list, key, write_data)
         elif consistency_level == "ALL":
-            # Write to all nodes
+# Write to all nodes
             return await self._write_all(preference_list, key, write_data)
     
     async def get(self, key: str, consistency_level: str = "ONE") -> Any:
@@ -807,13 +807,13 @@ class DynamoDBStyle:
         preference_list = self.hash_ring.get_nodes(key, self.replication_factor)
         
         if consistency_level == "ONE":
-            # Read from any node
+# Read from any node
             return await self._read_one(preference_list, key)
         elif consistency_level == "QUORUM":
-            # Read from majority and reconcile
+# Read from majority and reconcile
             return await self._read_quorum(preference_list, key)
         elif consistency_level == "ALL":
-            # Read from all nodes
+# Read from all nodes
             return await self._read_all(preference_list, key)
     
     async def _write_quorum(self, nodes: List[str], key: str, data: Dict) -> bool:
@@ -825,7 +825,7 @@ class DynamoDBStyle:
             task = self._write_to_node(node, key, data)
             write_tasks.append(task)
         
-        # Wait for quorum
+# Wait for quorum
         results = await asyncio.gather(*write_tasks, return_exceptions=True)
         successful_writes = sum(1 for r in results if r is True)
         
@@ -840,14 +840,14 @@ class DynamoDBStyle:
             task = self._read_from_node(node, key)
             read_tasks.append(task)
         
-        # Collect responses
+# Collect responses
         responses = await asyncio.gather(*read_tasks, return_exceptions=True)
         valid_responses = [r for r in responses if not isinstance(r, Exception)]
         
         if len(valid_responses) < quorum_size:
             raise Exception("Failed to reach quorum")
         
-        # Reconcile using vector clocks
+# Reconcile using vector clocks
         return self._reconcile_responses(valid_responses)
     
     def _reconcile_responses(self, responses: List[Dict]) -> Any:
@@ -858,7 +858,7 @@ class DynamoDBStyle:
         if len(responses) == 1:
             return responses[0]['value']
         
-        # Find concurrent values
+# Find concurrent values
         concurrent_values = []
         
         for response in responses:
@@ -880,11 +880,11 @@ class DynamoDBStyle:
             if is_concurrent:
                 concurrent_values.append(response)
         
-        # If multiple concurrent values, return all (like Riak siblings)
+# If multiple concurrent values, return all (like Riak siblings)
         if len(concurrent_values) > 1:
             return [cv['value'] for cv in concurrent_values]
         
-        # Return the single concurrent value
+# Return the single concurrent value
         return concurrent_values[0]['value'] if concurrent_values else None
 
 # Consistent hashing for data distribution
@@ -915,10 +915,10 @@ class ConsistentHashRing:
         hash_value = self._hash(key)
         nodes = []
         
-        # Find starting position
+# Find starting position
         start_idx = bisect.bisect_right(self.sorted_keys, hash_value)
         
-        # Collect unique nodes
+# Collect unique nodes
         seen = set()
         idx = start_idx
         
@@ -984,13 +984,13 @@ class CassandraStyle:
         replicas = self._get_replicas_for_query(query)
         quorum_size = len(replicas) // 2 + 1
         
-        # Send writes
+# Send writes
         write_promises = []
         for replica in replicas:
             promise = self._send_write(replica, query)
             write_promises.append(promise)
         
-        # Wait for quorum
+# Wait for quorum
         completed = 0
         errors = []
         
@@ -999,12 +999,12 @@ class CassandraStyle:
                 await promise
                 completed += 1
                 if completed >= quorum_size:
-                    # Quorum reached, return success
+# Quorum reached, return success
                     return True
             except Exception as e:
                 errors.append(e)
         
-        # Failed to reach quorum
+# Failed to reach quorum
         raise Exception(f"Failed to reach quorum: {errors}")
     
     async def _write_local_quorum(self, query: str):
@@ -1016,7 +1016,7 @@ class CassandraStyle:
             raise Exception("No local replicas available")
         
         quorum_size = len(local_replicas) // 2 + 1
-        # Similar implementation to _write_quorum but only for local replicas
+# Similar implementation to _write_quorum but only for local replicas
         pass
 
 # Read repair and hinted handoff
@@ -1031,10 +1031,10 @@ class ReadRepairManager:
                                       consistency_level: str):
         """Read with probabilistic read repair"""
         
-        # Perform normal read
+# Perform normal read
         result = await self.consistency_manager.read(query, consistency_level)
         
-        # Probabilistic read repair
+# Probabilistic read repair
         if random.random() < self.repair_chance:
             asyncio.create_task(self._background_repair(query))
         
@@ -1043,13 +1043,13 @@ class ReadRepairManager:
     async def _background_repair(self, query: str):
         """Perform read repair in background"""
         try:
-            # Read from all replicas
+# Read from all replicas
             all_responses = await self._read_all_replicas(query)
             
-            # Find latest version
+# Find latest version
             latest = self._find_latest_version(all_responses)
             
-            # Repair out-of-date replicas
+# Repair out-of-date replicas
             repair_tasks = []
             for replica, response in all_responses.items():
                 if self._is_outdated(response, latest):
@@ -1060,7 +1060,7 @@ class ReadRepairManager:
                 await asyncio.gather(*repair_tasks, return_exceptions=True)
                 
         except Exception as e:
-            # Log but don't fail the read
+# Log but don't fail the read
             logging.warning(f"Read repair failed: {e}")
 ```
 
@@ -1083,13 +1083,13 @@ class BoundedStaleness:
         """Write with timestamp tracking"""
         timestamp = time.time()
         
-        # Update all replicas
+# Update all replicas
         write_tasks = []
         for replica in self.replicas:
             task = self._write_to_replica(replica, key, value, timestamp)
             write_tasks.append(task)
         
-        # Wait for at least one write
+# Wait for at least one write
         results = await asyncio.gather(*write_tasks, return_exceptions=True)
         successful = any(r is True for r in results)
         
@@ -1102,13 +1102,13 @@ class BoundedStaleness:
         """Read ensuring bounded staleness"""
         current_time = time.time()
         
-        # Check if we need fresh data
+# Check if we need fresh data
         last_write = self.write_timestamps.get(key, 0)
         if current_time - last_write > self.max_staleness:
-            # Force read from primary/leader
+# Force read from primary/leader
             return await self._read_from_primary(key)
         
-        # Can read from any replica
+# Can read from any replica
         return await self._read_from_any_replica(key)
     
     def get_staleness_metrics(self) -> Dict:
@@ -1153,22 +1153,22 @@ class AdaptiveConsistency:
     async def execute_with_adaptive_consistency(self, operation: Callable) -> Any:
         """Execute operation with adaptive consistency"""
         
-        # Analyze recent performance
+# Analyze recent performance
         avg_latency = self._calculate_average_latency()
         current_failure_rate = self._calculate_failure_rate()
         
-        # Adapt consistency level
+# Adapt consistency level
         if current_failure_rate > 0.1:  # High failure rate
-            # Reduce consistency for availability
+# Reduce consistency for availability
             self.consistency_level = "ONE"
         elif avg_latency > 100:  # High latency
-            # Reduce consistency for performance
+# Reduce consistency for performance
             self.consistency_level = "ONE"
         elif current_failure_rate < 0.01 and avg_latency < 20:
-            # System healthy, increase consistency
+# System healthy, increase consistency
             self.consistency_level = "QUORUM"
         
-        # Execute with chosen consistency
+# Execute with chosen consistency
         start_time = time.time()
         try:
             result = await operation(self.consistency_level)
@@ -1189,7 +1189,7 @@ class AdaptiveConsistency:
     
     def _calculate_failure_rate(self) -> float:
         """Calculate current failure rate"""
-        # Decay failure rate over time
+# Decay failure rate over time
         self.failure_rate *= 0.99
         return self.failure_rate
 ```
@@ -1253,9 +1253,9 @@ class ConsistencyMonitor:
         return metrics
 ```
 
-## 📊 Interactive Decision Support Tools
+## Interactive Decision Support Tools
 
-### 🎯 Consistency Model Decision Tree
+### Consistency Model Decision Tree
 
 ```mermaid
 flowchart TD
@@ -1286,7 +1286,7 @@ flowchart TD
     style EC fill:#9f6,stroke:#333,stroke-width:2px
 ```
 
-### 💰 Consistency Trade-off Calculator
+### Consistency Trade-off Calculator
 
 | Factor | Strong Consistency | Eventual Consistency | Your Score (1-10) |
 |--------|-------------------|---------------------|-------------------|
@@ -1303,7 +1303,7 @@ flowchart TD
 - Strong Consistency Score = (Latency×2) + (Complexity×3) + (UX×3) - (Cost×2)
 - Eventual Consistency Score = (Availability×3) + (Throughput×2) + (Scale×3) - (Complexity×2)
 
-### 🔄 Conflict Resolution Strategy Selector
+### Conflict Resolution Strategy Selector
 
 ```mermaid
 graph TD
@@ -1332,7 +1332,7 @@ graph TD
     style SEM1 fill:#fc6,stroke:#333,stroke-width:2px
 ```
 
-### 📈 Convergence Time Estimator
+### Convergence Time Estimator
 
 | Parameter | Value | Impact on Convergence |
 |-----------|-------|----------------------|

@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The News Broadcasting Analogy
 
@@ -194,7 +194,7 @@ asyncio.run(main())
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -293,7 +293,7 @@ class InMemoryEventStore(EventStore):
         if stream_id not in self.streams:
             self.streams[stream_id] = []
         
-        # Add version numbers
+# Add version numbers
         current_version = len(self.streams[stream_id])
         for i, event in enumerate(events):
             event.metadata = event.metadata or {}
@@ -324,14 +324,14 @@ class EventProcessor:
         events = await self.event_store.read_stream(stream_id, checkpoint)
         
         for event in events:
-            # Idempotency check
+# Idempotency check
             if event.event_id in self.processed_events:
                 continue
             
-            # Process event
+# Process event
             await self._process_event(event)
             
-            # Mark as processed
+# Mark as processed
             self.processed_events.add(event.event_id)
             checkpoint = event.metadata.get('version', checkpoint + 1)
         
@@ -345,7 +345,7 @@ class EventProcessor:
             try:
                 await handler(event)
             except Exception as e:
-                # In production: retry logic, dead letter queue
+# In production: retry logic, dead letter queue
                 print(f"Handler failed: {e}")
 
 class EventDrivenAggregate(ABC):
@@ -377,10 +377,10 @@ class EventDrivenAggregate(ABC):
             timestamp=time.time()
         )
         
-        # Apply to self
+# Apply to self
         self.apply_event(event)
         
-        # Queue for persistence
+# Queue for persistence
         self.pending_events.append(event)
         
         return event
@@ -469,20 +469,20 @@ class EventDrivenSaga:
         try:
             self.state = SagaState.PROCESSING
             
-            # Step 1: Reserve inventory
+# Step 1: Reserve inventory
             await self._publish_command("ReserveInventory", {
                 "saga_id": self.saga_id,
                 "items": self.context['items']
             })
             
-            # Wait for response event
+# Wait for response event
             response = await self._wait_for_event("InventoryReserved")
             if not response:
                 raise Exception("Inventory reservation failed")
             
             self.completed_steps.append("inventory_reserved")
             
-            # Step 2: Process payment
+# Step 2: Process payment
             await self._publish_command("ProcessPayment", {
                 "saga_id": self.saga_id,
                 "amount": self.context['total']
@@ -494,7 +494,7 @@ class EventDrivenSaga:
             
             self.completed_steps.append("payment_processed")
             
-            # Step 3: Confirm order
+# Step 3: Confirm order
             await self._publish_command("ConfirmOrder", {
                 "saga_id": self.saga_id,
                 "order_id": self.context['order_id']
@@ -523,7 +523,7 @@ class EventDrivenSaga:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Event Patterns
 
@@ -584,7 +584,7 @@ class OrderProjection:
         order_id = event.aggregate_id
         customer_id = event.payload['customer_id']
         
-        # Update various views
+# Update various views
         self.orders_by_customer[customer_id].append(order_id)
         self.order_details[order_id] = {
             'customer_id': customer_id,
@@ -593,7 +593,7 @@ class OrderProjection:
             'placed_at': event.timestamp
         }
         
-        # Update daily totals
+# Update daily totals
         date = datetime.fromtimestamp(event.timestamp).date()
         self.daily_totals[date] += event.payload['total']
     
@@ -638,13 +638,13 @@ class ComplexEventProcessor:
     
     async def process_event(self, event: Event):
         """Process event and check patterns"""
-        # Add to buffer
+# Add to buffer
         self.event_buffer.append(event)
         
-        # Remove old events outside time windows
+# Remove old events outside time windows
         self._clean_buffer()
         
-        # Check all patterns
+# Check all patterns
         for name, (pattern, action) in self.patterns.items():
             if self._matches_pattern(pattern):
                 await action(self.event_buffer)
@@ -678,7 +678,7 @@ fraud_pattern = EventPattern("potential_fraud") \
 async def handle_fraud_detection(events: List[Event]):
     """Alert on potential fraud"""
     print(f"FRAUD ALERT: Multiple payment attempts detected")
-    # Send alerts, block transactions, etc.
+# Send alerts, block transactions, etc.
 ```
 
 #### Event Stream Processing
@@ -745,7 +745,7 @@ order_analytics = EventStreamProcessor() \
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: LinkedIn's Kafka-Based Event Platform
 
@@ -768,7 +768,7 @@ class LinkedInEventPlatform:
     def setup_multi_tier_architecture(self):
         """LinkedIn's tiered event architecture"""
         
-        # Tier 1: Local Kafka (per data center)
+# Tier 1: Local Kafka (per data center)
         local_config = {
             'retention_hours': 6,
             'replication_factor': 3,
@@ -777,7 +777,7 @@ class LinkedInEventPlatform:
             'batch_size': 64 * 1024  # 64KB
         }
         
-        # Tier 2: Aggregate Kafka (regional)
+# Tier 2: Aggregate Kafka (regional)
         regional_config = {
             'retention_days': 3,
             'replication_factor': 4,
@@ -785,7 +785,7 @@ class LinkedInEventPlatform:
             'batch_size': 1024 * 1024  # 1MB
         }
         
-        # Tier 3: Hadoop (long-term storage)
+# Tier 3: Hadoop (long-term storage)
         hadoop_config = {
             'retention_days': 365,
             'format': 'avro',
@@ -806,11 +806,11 @@ class LinkedInEventPlatform:
             """ETL for profile view events"""
             
             async def process(self, event: dict) -> dict:
-                # 1. Enrich with member data
+# 1. Enrich with member data
                 viewer = await self.get_member_data(event['viewer_id'])
                 viewed = await self.get_member_data(event['viewed_id'])
                 
-                # 2. Extract features
+# 2. Extract features
                 features = {
                     'viewer_seniority': viewer.get('seniority'),
                     'viewed_seniority': viewed.get('seniority'),
@@ -821,7 +821,7 @@ class LinkedInEventPlatform:
                     )
                 }
                 
-                # 3. Emit to multiple streams
+# 3. Emit to multiple streams
                 return {
                     'analytics_stream': {
                         **event,
@@ -848,28 +848,28 @@ class LinkedInEventPlatform:
             def partition_key(self, event: dict) -> str:
                 """Determine partition key for ordering"""
                 
-                # Member-centric events
+# Member-centric events
                 if event['type'] in ['profile_view', 'connection_request']:
                     return f"member:{event['actor_id']}"
                 
-                # Job-centric events
+# Job-centric events
                 elif event['type'] in ['job_view', 'job_apply']:
                     return f"job:{event['job_id']}"
                 
-                # Company-centric events
+# Company-centric events
                 elif event['type'] in ['company_follow', 'company_view']:
                     return f"company:{event['company_id']}"
                 
-                # Default: random partitioning
+# Default: random partitioning
                 return str(uuid.uuid4())
             
             def handle_out_of_order(self, events: List[dict]) -> List[dict]:
                 """Handle out-of-order events"""
                 
-                # Sort by event timestamp
+# Sort by event timestamp
                 sorted_events = sorted(events, key=lambda e: e['timestamp'])
                 
-                # Detect and handle duplicates
+# Detect and handle duplicates
                 seen = set()
                 deduped = []
                 for event in sorted_events:
@@ -894,7 +894,7 @@ class ProductionEventStore:
     def _setup_schema(self):
         """Create event store schema"""
         
-        # Events table (write-optimized)
+# Events table (write-optimized)
         self.session.execute("""
             CREATE TABLE IF NOT EXISTS events (
                 stream_id text,
@@ -913,7 +913,7 @@ class ProductionEventStore:
             }
         """)
         
-        # Snapshots table
+# Snapshots table
         self.session.execute("""
             CREATE TABLE IF NOT EXISTS snapshots (
                 stream_id text,
@@ -924,7 +924,7 @@ class ProductionEventStore:
             ) WITH CLUSTERING ORDER BY (version DESC)
         """)
         
-        # Global event log (for projections)
+# Global event log (for projections)
         self.session.execute("""
             CREATE TABLE IF NOT EXISTS global_events (
                 date_bucket text,
@@ -944,22 +944,22 @@ class ProductionEventStore:
     ):
         """Append events with optimistic concurrency control"""
         
-        # Get current version
+# Get current version
         current_version = await self._get_stream_version(stream_id)
         
-        # Check expected version
+# Check expected version
         if expected_version is not None and current_version != expected_version:
             raise ConcurrencyException(
                 f"Expected version {expected_version}, but was {current_version}"
             )
         
-        # Prepare batch
+# Prepare batch
         batch = BatchStatement()
         
         for i, event in enumerate(events):
             new_version = current_version + i + 1
             
-            # Insert into events table
+# Insert into events table
             batch.add(SimpleStatement(
                 """
                 INSERT INTO events 
@@ -977,7 +977,7 @@ class ProductionEventStore:
                 datetime.fromtimestamp(event.timestamp)
             ))
             
-            # Insert into global log
+# Insert into global log
             date_bucket = datetime.fromtimestamp(event.timestamp).strftime('%Y-%m-%d')
             batch.add(SimpleStatement(
                 """
@@ -993,10 +993,10 @@ class ProductionEventStore:
                 json.dumps(event.payload)
             ))
         
-        # Execute batch
+# Execute batch
         await self.session.execute_async(batch)
         
-        # Check if snapshot needed
+# Check if snapshot needed
         if (current_version + len(events)) % 100 == 0:
             await self._create_snapshot(stream_id, current_version + len(events))
 ```
@@ -1014,32 +1014,32 @@ class EventDrivenMonitoring:
     def setup_event_metrics(self):
         """Essential metrics for event-driven systems"""
         
-        # Event publishing metrics
+# Event publishing metrics
         self.metrics.counter(
             'events.published.total',
             labels=['event_type', 'service']
         )
         
-        # Event processing metrics
+# Event processing metrics
         self.metrics.histogram(
             'events.processing.duration',
             buckets=[0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1, 5],
             labels=['event_type', 'handler']
         )
         
-        # Event lag metrics
+# Event lag metrics
         self.metrics.gauge(
             'events.consumer.lag',
             labels=['consumer_group', 'topic', 'partition']
         )
         
-        # Error metrics
+# Error metrics
         self.metrics.counter(
             'events.processing.errors',
             labels=['event_type', 'handler', 'error_type']
         )
         
-        # Dead letter queue
+# Dead letter queue
         self.metrics.gauge(
             'events.dlq.size',
             labels=['queue_name']
@@ -1048,7 +1048,7 @@ class EventDrivenMonitoring:
     def setup_slo_monitoring(self):
         """Monitor Service Level Objectives"""
         
-        # Event processing latency SLO
+# Event processing latency SLO
         self.alerts.add_rule(
             name='EventProcessingLatencySLO',
             expr='''
@@ -1063,7 +1063,7 @@ class EventDrivenMonitoring:
             }
         )
         
-        # Consumer lag SLO
+# Consumer lag SLO
         self.alerts.add_rule(
             name='ConsumerLagSLO',
             expr='events_consumer_lag > 100000',
@@ -1087,7 +1087,7 @@ class EventDebugger:
             'errors': []
         }
         
-        # Query all services for this event
+# Query all services for this event
         for service in self.get_services():
             logs = service.query_logs(f'event_id={event_id}')
             
@@ -1106,7 +1106,7 @@ class EventDebugger:
                         'timestamp': log.timestamp
                     })
         
-        # Calculate total processing time
+# Calculate total processing time
         if trace['path']:
             trace['total_duration'] = (
                 trace['path'][-1]['timestamp'] - 
@@ -1118,7 +1118,7 @@ class EventDebugger:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1135,21 +1135,21 @@ class EventCausalityTracker:
     def track_event(self, event: Event, source_node: str):
         """Track event with vector clock"""
         
-        # Initialize vector clock for node
+# Initialize vector clock for node
         if source_node not in self.vector_clocks:
             self.vector_clocks[source_node] = defaultdict(int)
         
-        # Increment own clock
+# Increment own clock
         self.vector_clocks[source_node][source_node] += 1
         
-        # Attach vector clock to event
+# Attach vector clock to event
         event.metadata = event.metadata or {}
         event.metadata['vector_clock'] = dict(self.vector_clocks[source_node])
         
-        # Update causal graph
+# Update causal graph
         self.causal_graph.add_node(event.event_id, event=event)
         
-        # Add edges for causal dependencies
+# Add edges for causal dependencies
         if 'caused_by' in event.metadata:
             for cause_id in event.metadata['caused_by']:
                 self.causal_graph.add_edge(cause_id, event.event_id)
@@ -1157,7 +1157,7 @@ class EventCausalityTracker:
     def get_causal_order(self, events: List[Event]) -> List[Event]:
         """Sort events in causal order"""
         
-        # Build temporary graph
+# Build temporary graph
         temp_graph = nx.DiGraph()
         event_map = {e.event_id: e for e in events}
         
@@ -1168,12 +1168,12 @@ class EventCausalityTracker:
                     if cause_id in event_map:
                         temp_graph.add_edge(cause_id, event.event_id)
         
-        # Topological sort
+# Topological sort
         try:
             sorted_ids = list(nx.topological_sort(temp_graph))
             return [event_map[eid] for eid in sorted_ids]
         except nx.NetworkXUnfeasible:
-            # Cycle detected - fall back to timestamp ordering
+# Cycle detected - fall back to timestamp ordering
             return sorted(events, key=lambda e: e.timestamp)
 ```
 
@@ -1189,28 +1189,28 @@ class EventSystemModel:
     def model_event_flow(self, params: dict) -> dict:
         """Model event flow using queuing theory"""
         
-        # Parameters
+# Parameters
         λ = params['arrival_rate']  # events/second
         μ = params['processing_rate']  # events/second/handler
         n = params['num_handlers']
         
-        # M/M/n queue model
+# M/M/n queue model
         ρ = λ / (n * μ)  # Utilization
         
         if ρ >= 1:
             return {'status': 'unstable', 'message': 'Arrival rate exceeds capacity'}
         
-        # Calculate metrics
-        # Average queue length (Erlang C formula)
+# Calculate metrics
+# Average queue length (Erlang C formula)
         p0 = 1 / sum([(n*ρ)**k / np.math.factorial(k) for k in range(n)] + 
                     [(n*ρ)**n / (np.math.factorial(n) * (1-ρ))])
         
         Lq = (ρ * (n*ρ)**n * p0) / (np.math.factorial(n) * (1-ρ)**2)
         
-        # Average wait time (Little's Law)
+# Average wait time (Little's Law)
         Wq = Lq / λ
         
-        # Total time in system
+# Total time in system
         W = Wq + 1/μ
         
         return {
@@ -1227,22 +1227,22 @@ class EventSystemModel:
         
         from scipy.optimize import linprog
         
-        # Objective: minimize total processing time
-        # Variables: handler allocation for each service
+# Objective: minimize total processing time
+# Variables: handler allocation for each service
         
         n_services = len(services)
         
-        # Coefficients (inverse of processing rate)
+# Coefficients (inverse of processing rate)
         c = [1/s['processing_rate'] for s in services]
         
-        # Constraints: total handlers <= available
+# Constraints: total handlers <= available
         A_ub = [[1] * n_services]
         b_ub = [params['total_handlers']]
         
-        # Bounds: at least 1 handler per service
+# Bounds: at least 1 handler per service
         bounds = [(1, None) for _ in range(n_services)]
         
-        # Solve
+# Solve
         result = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=bounds)
         
         return {
@@ -1271,7 +1271,7 @@ class EventMesh:
     def setup_hierarchical_mesh(self):
         """Setup hierarchical event mesh"""
         
-        # Level 1: Edge nodes (IoT devices, mobile apps)
+# Level 1: Edge nodes (IoT devices, mobile apps)
         edge_config = {
             'buffer_size': 1000,
             'batch_interval': 100,  # ms
@@ -1279,7 +1279,7 @@ class EventMesh:
             'compression': 'aggressive'
         }
         
-        # Level 2: Edge gateways (5G towers, CDN PoPs)
+# Level 2: Edge gateways (5G towers, CDN PoPs)
         gateway_config = {
             'buffer_size': 100000,
             'aggregation': True,
@@ -1287,14 +1287,14 @@ class EventMesh:
             'local_storage': '1GB'
         }
         
-        # Level 3: Regional processors
+# Level 3: Regional processors
         regional_config = {
             'stream_processing': True,
             'ml_inference': True,
             'cross_region_replication': True
         }
         
-        # Level 4: Global cloud
+# Level 4: Global cloud
         cloud_config = {
             'unlimited_storage': True,
             'batch_processing': True,
@@ -1323,13 +1323,13 @@ class AIEventProcessor:
     def detect_anomalous_events(self, event_stream: List[Event]) -> List[Event]:
         """Detect anomalous events using ML"""
         
-        # Extract features
+# Extract features
         features = self.extract_features(event_stream)
         
-        # Detect anomalies
+# Detect anomalies
         anomaly_scores = self.anomaly_detector.decision_function(features)
         
-        # Flag anomalous events
+# Flag anomalous events
         anomalous = []
         for i, score in enumerate(anomaly_scores):
             if score < -0.5:  # Threshold
@@ -1342,10 +1342,10 @@ class AIEventProcessor:
     def predict_event_patterns(self, historical_events: List[Event]) -> dict:
         """Predict future event patterns"""
         
-        # Prepare time series data
+# Prepare time series data
         time_series = self.events_to_time_series(historical_events)
         
-        # Predict next window
+# Predict next window
         predictions = self.pattern_predictor.predict(time_series)
         
         return {
@@ -1365,7 +1365,7 @@ class EventDrivenEconomics:
     def calculate_roi(self, current_state: dict, event_driven_state: dict) -> dict:
         """Calculate ROI of event-driven transformation"""
         
-        # Cost factors
+# Cost factors
         current_costs = {
             'coupling_incidents': current_state['incidents_per_year'] * 50000,
             'scaling_inefficiency': current_state['over_provisioning_cost'],
@@ -1380,7 +1380,7 @@ class EventDrivenEconomics:
             'operational': event_driven_state['ops_hours_per_week'] * 150 * 52
         }
         
-        # Benefit factors
+# Benefit factors
         benefits = {
             'reduced_coupling': current_costs['coupling_incidents'] * 0.8,
             'elastic_scaling': current_costs['scaling_inefficiency'] * 0.6,
@@ -1411,7 +1411,7 @@ class EventDrivenEconomics:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

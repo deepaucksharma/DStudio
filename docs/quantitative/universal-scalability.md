@@ -321,7 +321,7 @@ tN = time_operation(nodes=N)
 messages_2 = count_messages(nodes=2)
 messages_N = count_messages(nodes=N)
 if messages_N ≈ messages_2 * (N/2)²:
-    # Strong coherency overhead
+# Strong coherency overhead
 ```
 
 ## Optimization Strategies

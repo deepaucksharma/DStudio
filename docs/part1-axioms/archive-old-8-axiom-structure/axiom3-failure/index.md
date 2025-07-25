@@ -17,7 +17,7 @@ last_updated: 2025-07-20
 ---
 
 
-## 🔥 The Constraint
+## The Constraint
 
 ### The Fundamental Limit
 
@@ -46,7 +46,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 ---
 
-## 💡 Why It Matters
+## Why It Matters
 
 Failure is not an exception case—it's the normal operating condition
 
@@ -95,7 +95,7 @@ The constraint is absolute—these misconceptions arise from:
 
 ---
 
-## ⚙️ Practical Implications
+## Practical Implications
 
 How this constraint shapes real system design:
 
@@ -137,8 +137,8 @@ Remember playing "telephone" as a kid? One person whispers to the next, and by t
 
 Imagine a city where:
 - Some traffic lights work perfectly ✅
-- Some are stuck on red 🔴
-- Some flash yellow ⚠️
+- Some are stuck on red
+- Some flash yellow ⚠
 - Some are completely dead ⚫
 
 The city doesn't "stop working"—it partially works with degraded performance. That's your distributed system!
@@ -161,18 +161,18 @@ class FlakyService:
         self.slow_rate = 0.1  # 10% chance of being slow
 
     def call(self, request: str) -> str:
-        # Simulate different failure modes
+# Simulate different failure modes
         dice_roll = random.random()
 
         if dice_roll < self.failure_rate:
-            # Complete failure
+# Complete failure
             raise Exception(f"{self.name} is down!")
         elif dice_roll < (self.failure_rate + self.slow_rate):
-            # Slow failure (works but painfully slow)
+# Slow failure (works but painfully slow)
             time.sleep(5)  # 5 second delay
             return f"{self.name}: {request} (slow)"
         else:
-            # Success
+# Success
             time.sleep(0.1)  # Normal 100ms response
             return f"{self.name}: {request} (ok)"
 
@@ -238,7 +238,7 @@ def safe_call_with_timeout(func, timeout=1.0, default=None):
     def timeout_handler(signum, frame):
         raise TimeoutError()
 
-    # Set alarm
+# Set alarm
     signal.signal(signal.SIGALRM, timeout_handler)
     signal.alarm(int(timeout))
 
@@ -275,7 +275,7 @@ During network partition (a type of partial failure):
 
 You can't avoid partial failure; you can only choose how to handle it.
 
-### 🎬 Failure Vignette: The Retry Storm of 2022
+### Failure Vignette: The Retry Storm of 2022
 
 **Company**: Major social media platform
 **Scale**: 100M daily active users
@@ -332,14 +332,14 @@ def system_reliability(components, mode='series'):
     Parallel (OR): At least one component must work
     """
     if mode == 'series':
-        # P(system) = P1 × P2 × P3 × ...
+# P(system) = P1 × P2 × P3 × ...
         reliability = 1.0
         for comp in components:
             reliability *= comp
         return reliability
 
     elif mode == 'parallel':
-        # P(system) = 1 - (1-P1) × (1-P2) × (1-P3) × ...
+# P(system) = 1 - (1-P1) × (1-P2) × (1-P3) × ...
         unreliability = 1.0
         for comp in components:
             unreliability *= (1 - comp)
@@ -376,7 +376,7 @@ class SlowFailureDetector:
         self.response_times.append(duration_ms)
 
         if len(self.response_times) == self.response_times.maxlen:
-            # Calculate baseline if we have enough data
+# Calculate baseline if we have enough data
             if self.baseline_p99 is None:
                 sorted_times = sorted(self.response_times)
                 self.baseline_p99 = sorted_times[int(len(sorted_times) * 0.99)]
@@ -388,7 +388,7 @@ class SlowFailureDetector:
         recent_10 = list(self.response_times)[-10:]
         recent_p50 = sorted(recent_10)[len(recent_10)//2]
 
-        # If median of recent requests > historical P99
+# If median of recent requests > historical P99
         return recent_p50 > self.baseline_p99 * 1.5
 ```
 
@@ -417,7 +417,7 @@ class GrayFailureDetector:
         health_success_rate = sum(self.health_check_results) / len(self.health_check_results)
         user_success_rate = sum(self.user_request_results) / len(self.user_request_results)
 
-        # Health checks mostly pass but users mostly fail
+# Health checks mostly pass but users mostly fail
         return health_success_rate > 0.9 and user_success_rate < 0.5
 ```
 
@@ -439,15 +439,15 @@ class SplitBrainResolver:
 
     def check_quorum(self):
         """Determine if we have quorum to make decisions"""
-        # Include self in count
+# Include self in count
         visible_count = len(self.visible_nodes) + 1
         majority = (self.total_nodes // 2) + 1
 
         if visible_count >= majority:
-            # We have quorum, can elect leader
+# We have quorum, can elect leader
             self.elect_leader()
         else:
-            # Minority partition, step down
+# Minority partition, step down
             self.is_leader = False
             raise NoQuorumError(f"Only see {visible_count}/{self.total_nodes} nodes")
 
@@ -492,12 +492,12 @@ class AdaptiveFailureHandler:
         self.timeout_ms = timeout_ms
         self.failure_threshold = failure_threshold
 
-        # Adaptive parameters
+# Adaptive parameters
         self.circuit_breaker = CircuitBreaker(failure_threshold)
         self.timeout_adjuster = TimeoutAdjuster(timeout_ms)
         self.retry_policy = AdaptiveRetryPolicy()
 
-        # Metrics
+# Metrics
         self.request_log = deque(maxlen=1000)
         self.health_status = HealthStatus(
             mode=FailureMode.HEALTHY,
@@ -512,16 +512,16 @@ class AdaptiveFailureHandler:
                    fallback_func: Optional[Callable] = None):
         """Make a resilient call with all protections"""
 
-        # Check circuit breaker first
+# Check circuit breaker first
         if not self.circuit_breaker.allow_request():
             if fallback_func:
                 return await fallback_func()
             raise CircuitOpenError(f"{self.service_name} circuit open")
 
-        # Adjust timeout based on recent performance
+# Adjust timeout based on recent performance
         timeout = self.timeout_adjuster.get_timeout()
 
-        # Attempt with retries
+# Attempt with retries
         last_error = None
         retry_delays = self.retry_policy.get_retry_delays()
 
@@ -530,7 +530,7 @@ class AdaptiveFailureHandler:
                 await asyncio.sleep(delay)
 
             try:
-                # Make the actual call
+# Make the actual call
                 start_time = time.time()
 
                 result = await asyncio.wait_for(
@@ -538,7 +538,7 @@ class AdaptiveFailureHandler:
                     timeout=timeout/1000.0
                 )
 
-                # Record success
+# Record success
                 duration = (time.time() - start_time) * 1000
                 self._record_success(duration)
 
@@ -552,7 +552,7 @@ class AdaptiveFailureHandler:
                 last_error = e
                 self._record_failure('error', 0)
 
-        # All retries failed
+# All retries failed
         if fallback_func:
             return await fallback_func()
 
@@ -593,7 +593,7 @@ class AdaptiveFailureHandler:
 
         recent_100 = list(self.request_log)[-100:]
 
-        # Calculate metrics
+# Calculate metrics
         successes = sum(1 for r in recent_100 if r['success'])
         success_rate = successes / len(recent_100)
 
@@ -603,7 +603,7 @@ class AdaptiveFailureHandler:
         else:
             latency_p99 = float('inf')
 
-        # Determine failure mode
+# Determine failure mode
         if success_rate > 0.95 and latency_p99 < self.timeout_ms:
             mode = FailureMode.HEALTHY
         elif success_rate > 0.8:
@@ -635,14 +635,14 @@ class TimeoutAdjuster:
         if len(self.observations) < 10:
             return self.base_timeout
 
-        # Use P95 of recent observations
+# Use P95 of recent observations
         sorted_obs = sorted(self.observations)
         p95 = sorted_obs[int(len(sorted_obs) * 0.95)]
 
-        # Timeout = P95 * safety factor, bounded
+# Timeout = P95 * safety factor, bounded
         timeout = int(p95 * 1.5)
 
-        # Keep within reasonable bounds
+# Keep within reasonable bounds
         min_timeout = self.base_timeout // 2
         max_timeout = self.base_timeout * 3
 
@@ -651,7 +651,7 @@ class TimeoutAdjuster:
 
 ---
 
-## 🔄 Consistency During Failures
+## Consistency During Failures
 
 ### The CAP Theorem in Practice
 
@@ -1162,13 +1162,13 @@ class ShuffleShardingPool:
         self.shard_size = shard_size
         self.overlap_factor = overlap_factor
 
-        # All available nodes
+# All available nodes
         self.all_nodes = [f"node-{i}" for i in range(total_nodes)]
 
-        # Customer to shard mapping
+# Customer to shard mapping
         self.customer_shards = {}
 
-        # Track node health
+# Track node health
         self.node_health = {node: True for node in self.all_nodes}
 
     def assign_shard(self, customer_id: str) -> List[str]:
@@ -1176,10 +1176,10 @@ class ShuffleShardingPool:
         if customer_id in self.customer_shards:
             return self.customer_shards[customer_id]
 
-        # Use customer ID as seed for reproducible assignment
+# Use customer ID as seed for reproducible assignment
         random.seed(hash(customer_id))
 
-        # Select random subset of nodes
+# Select random subset of nodes
         shard = random.sample(self.all_nodes, self.shard_size)
 
         self.customer_shards[customer_id] = shard
@@ -1211,10 +1211,10 @@ class ShuffleShardingPool:
 
     def compare_with_traditional(self, failed_nodes: List[str]) -> dict:
         """Compare with traditional random load balancing"""
-        # Traditional: all customers affected if any node fails
+# Traditional: all customers affected if any node fails
         traditional_affected = len(self.customer_shards) if failed_nodes else 0
 
-        # Shuffle sharding
+# Shuffle sharding
         shuffle_stats = self.calculate_blast_radius(failed_nodes)
 
         improvement = ((traditional_affected - shuffle_stats['affected_customers'])
@@ -1232,18 +1232,18 @@ class ShuffleShardingPool:
 def simulate_shuffle_sharding():
     pool = ShuffleShardingPool(total_nodes=100, shard_size=8)
 
-    # Assign shards to 10,000 customers
+# Assign shards to 10,000 customers
     for i in range(10000):
         pool.assign_shard(f"customer-{i}")
 
-    # Simulate single node failure
+# Simulate single node failure
     failed_nodes = ["node-42"]
     impact = pool.calculate_blast_radius(failed_nodes)
 
     print(f"Single node failure impact:")
     print(f"- Affected customers: {impact['affected_customers']} ({impact['blast_radius_pct']:.1f}%)")
 
-    # Compare with traditional
+# Compare with traditional
     comparison = pool.compare_with_traditional(failed_nodes)
     print(f"\nTraditional approach: {comparison['traditional_affected']} customers affected")
     print(f"Shuffle sharding: {comparison['shuffle_affected']} customers affected")
@@ -1281,7 +1281,7 @@ class ChaosMonkey:
         self.probability = probability
         self.excluded = excluded_services or set()
 
-        # Chaos schedule (business hours only)
+# Chaos schedule (business hours only)
         self.active_hours = range(9, 17)  # 9 AM to 5 PM
         self.active_days = range(1, 6)   # Monday to Friday
 
@@ -1289,15 +1289,15 @@ class ChaosMonkey:
         """Only run during business hours when engineers are available"""
         now = datetime.now()
 
-        # Check if business hours
+# Check if business hours
         if now.hour not in self.active_hours:
             return False
 
-        # Check if weekday
+# Check if weekday
         if now.weekday() not in self.active_days:
             return False
 
-        # Random probability
+# Random probability
         return random.random() < self.probability
 
     def select_victim(self) -> Optional[Instance]:
@@ -1305,11 +1305,11 @@ class ChaosMonkey:
         eligible_services = []
 
         for service in self.cluster.get_services():
-            # Skip excluded services
+# Skip excluded services
             if service.name in self.excluded:
                 continue
 
-            # Only target services with redundancy
+# Only target services with redundancy
             instances = self.cluster.get_instances(service)
             if len(instances) > self.min_instances:
                 eligible_services.append(service)
@@ -1317,11 +1317,11 @@ class ChaosMonkey:
         if not eligible_services:
             return None
 
-        # Random service
+# Random service
         target_service = random.choice(eligible_services)
         instances = self.cluster.get_instances(target_service)
 
-        # Don't kill the newest instance (might be recovering)
+# Don't kill the newest instance (might be recovering)
         instances.sort(key=lambda i: i.start_time)
         eligible_instances = instances[:-1]  # Exclude newest
 
@@ -1337,7 +1337,7 @@ class ChaosMonkey:
             logger.info("No eligible victims for chaos")
             return
 
-        # Record the experiment
+# Record the experiment
         experiment = {
             'timestamp': datetime.now(),
             'service': victim.service,
@@ -1346,18 +1346,18 @@ class ChaosMonkey:
             'steady_state_before': self.measure_steady_state(victim.service)
         }
 
-        # Inject failure
+# Inject failure
         logger.warning(f"Chaos Monkey terminating {victim.id} in {victim.service}")
         self.cluster.terminate_instance(victim)
 
-        # Wait for system to react
+# Wait for system to react
         time.sleep(30)
 
-        # Measure impact
+# Measure impact
         experiment['steady_state_after'] = self.measure_steady_state(victim.service)
         experiment['recovery_time'] = self.measure_recovery_time(victim.service)
 
-        # Analyze results
+# Analyze results
         self.analyze_experiment(experiment)
 
     def measure_steady_state(self, service_name: str) -> dict:
@@ -1377,7 +1377,7 @@ class ChaosMonkey:
         before = experiment['steady_state_before']
         after = experiment['steady_state_after']
 
-        # Define acceptable degradation
+# Define acceptable degradation
         thresholds = {
             'availability_drop': 0.01,      # 1% drop acceptable
             'latency_increase': 1.5,        # 50% increase acceptable
@@ -1423,11 +1423,11 @@ class ChaosExperiments:
         if len(zones) < 2:
             raise ValueError("Need at least 2 AZs for partition experiment")
 
-        # Partition zones into two groups
+# Partition zones into two groups
         partition_a = zones[:len(zones)//2]
         partition_b = zones[len(zones)//2:]
 
-        # Block network traffic between partitions
+# Block network traffic between partitions
         for zone_a in partition_a:
             for zone_b in partition_b:
                 cluster.block_traffic(zone_a, zone_b)
@@ -1435,10 +1435,10 @@ class ChaosExperiments:
 
         logger.warning(f"Created network partition: {partition_a} <X> {partition_b}")
 
-        # Let chaos ensue
+# Let chaos ensue
         time.sleep(duration_seconds)
 
-        # Heal partition
+# Heal partition
         for zone_a in partition_a:
             for zone_b in partition_b:
                 cluster.unblock_traffic(zone_a, zone_b)
@@ -1454,20 +1454,20 @@ class ChaosExperiments:
         """
         services = cluster.get_service_dependency_graph()
 
-        # Find service with most dependencies (likely to cascade)
+# Find service with most dependencies (likely to cascade)
         target_service = max(services, key=lambda s: len(s.dependencies))
 
         instances = cluster.get_instances(target_service)
         kill_count = max(1, int(len(instances) * initial_failure_pct))
 
-        # Kill instances gradually
+# Kill instances gradually
         for i in range(kill_count):
             if instances:
                 victim = instances.pop()
                 cluster.terminate_instance(victim)
                 time.sleep(5)  # Gradual failure
 
-        # Monitor cascade
+# Monitor cascade
         cascade_detected = False
         for _ in range(60):  # Monitor for 5 minutes
             unhealthy_services = []
@@ -1494,34 +1494,34 @@ class ChaosExperiments:
         """
         nodes = cluster.get_all_nodes()
 
-        # Affect 10% of nodes
+# Affect 10% of nodes
         affected_count = max(1, len(nodes) // 10)
         affected_nodes = random.sample(nodes, affected_count)
 
         for node in affected_nodes:
-            # Advance clock
+# Advance clock
             node.adjust_clock(clock_skew_seconds)
             logger.warning(f"Advanced clock on {node.id} by {clock_skew_seconds}s")
 
-        # Check for issues
+# Check for issues
         issues = []
 
-        # Check SSL/TLS cert validation
+# Check SSL/TLS cert validation
         for node in affected_nodes:
             if not node.can_establish_tls():
                 issues.append(f"{node.id}: TLS validation failed")
 
-        # Check distributed cache consistency
+# Check distributed cache consistency
         cache_inconsistencies = cluster.check_cache_consistency()
         if cache_inconsistencies:
             issues.append(f"Cache inconsistencies: {len(cache_inconsistencies)}")
 
-        # Check token expiration handling
+# Check token expiration handling
         expired_sessions = cluster.count_expired_sessions()
         if expired_sessions > 0:
             issues.append(f"Unexpected session expirations: {expired_sessions}")
 
-        # Restore clocks
+# Restore clocks
         for node in affected_nodes:
             node.adjust_clock(-clock_skew_seconds)
 
@@ -1553,7 +1553,7 @@ class GameDay:
     def run_game_day(self):
         """Execute all scenarios with proper communication"""
 
-        # Pre-game day notification
+# Pre-game day notification
         self.notifier.announce(
             "🎮 Game Day Starting in 30 minutes! "
             "Expect controlled failures in production."
@@ -1568,24 +1568,24 @@ class GameDay:
             logger.info(f"Starting scenario: {scenario['name']}")
             logger.info(f"Description: {scenario['description']}")
 
-            # Announce scenario
+# Announce scenario
             self.notifier.announce(
                 f"🧪 Starting chaos scenario: {scenario['name']}"
             )
 
-            # Capture steady state
+# Capture steady state
             steady_state_before = self.capture_system_state()
 
-            # Run experiment
+# Run experiment
             try:
                 scenario_start = datetime.now()
                 result = scenario['experiment'](self.cluster)
                 scenario_duration = (datetime.now() - scenario_start).seconds
 
-                # Capture post state
+# Capture post state
                 steady_state_after = self.capture_system_state()
 
-                # Analyze impact
+# Analyze impact
                 impact = self.analyze_impact(
                     steady_state_before,
                     steady_state_after
@@ -1607,14 +1607,14 @@ class GameDay:
                     'passed': False
                 })
 
-            # Cool down between scenarios
+# Cool down between scenarios
             logger.info("Cooling down for 5 minutes...")
             time.sleep(300)
 
-        # Generate report
+# Generate report
         self.generate_report()
 
-        # Post-game day notification
+# Post-game day notification
         total_duration = (datetime.now() - start_time).seconds // 60
         passed = sum(1 for r in self.results if r.get('passed', False))
 
@@ -1644,13 +1644,13 @@ class RegionEvacuation:
         """
         plan = EvacuationPlan()
 
-        # 1. Analyze current state
+# 1. Analyze current state
         services = self.infra.get_services_in_region(source_region)
 
         for service in services:
             workload = self.analyze_service_workload(service)
 
-            # Determine evacuation strategy based on service type
+# Determine evacuation strategy based on service type
             if workload['stateless']:
                 strategy = self.plan_stateless_migration(service, target_regions)
             elif workload['cache']:
@@ -1662,10 +1662,10 @@ class RegionEvacuation:
 
             plan.add_service_strategy(service, strategy)
 
-        # 2. Order migrations by dependency
+# 2. Order migrations by dependency
         plan.order_by_dependencies()
 
-        # 3. Add verification steps
+# 3. Add verification steps
         plan.add_verification_steps()
 
         return plan
@@ -1678,29 +1678,29 @@ class RegionEvacuation:
         for phase in plan.phases:
             logger.info(f"Phase {phase.number}: {phase.description}")
 
-            # Pre-phase validation
+# Pre-phase validation
             if not self.validate_ready_for_phase(phase):
                 raise EvacuationError(f"Not ready for phase {phase.number}")
 
-            # Execute phase migrations
+# Execute phase migrations
             for service_migration in phase.migrations:
                 self.migrate_service(service_migration)
 
-                # Continuous validation
+# Continuous validation
                 if not self.validate_service_health(service_migration.service):
-                    # Rollback this service
+# Rollback this service
                     self.rollback_service(service_migration)
                     raise EvacuationError(
                         f"Service {service_migration.service} unhealthy after migration"
                     )
 
-            # Post-phase validation
+# Post-phase validation
             self.validate_phase_complete(phase)
 
-            # Cool down
+# Cool down
             time.sleep(phase.cooldown_seconds)
 
-        # Final validation
+# Final validation
         self.validate_evacuation_complete(plan)
 
         logger.info("Region evacuation completed successfully!")
@@ -1724,7 +1724,7 @@ class RegionEvacuation:
         """
         service = migration.service
 
-        # 1. Deploy green (new) environment in target region
+# 1. Deploy green (new) environment in target region
         green_deployment = self.infra.deploy_service(
             service,
             migration.target_region,
@@ -1732,15 +1732,15 @@ class RegionEvacuation:
             capacity=service.current_capacity
         )
 
-        # 2. Warm up green environment
+# 2. Warm up green environment
         self.warm_up_deployment(green_deployment)
 
-        # 3. Validate green environment
+# 3. Validate green environment
         if not self.validate_deployment(green_deployment):
             self.infra.terminate_deployment(green_deployment)
             raise MigrationError("Green deployment validation failed")
 
-        # 4. Switch traffic gradually
+# 4. Switch traffic gradually
         for percentage in [5, 25, 50, 75, 95, 100]:
             self.infra.adjust_traffic_split(
                 service,
@@ -1749,12 +1749,12 @@ class RegionEvacuation:
                 green_percentage=percentage
             )
 
-            # Monitor error rates
+# Monitor error rates
             time.sleep(30)
 
             metrics = self.get_service_metrics(service)
             if metrics.error_rate > 0.01:  # 1% threshold
-                # Rollback traffic
+# Rollback traffic
                 self.infra.adjust_traffic_split(
                     service,
                     blue=migration.source_region,
@@ -1763,7 +1763,7 @@ class RegionEvacuation:
                 )
                 raise MigrationError(f"High error rate at {percentage}% traffic")
 
-        # 5. Decommission blue (old) environment
+# 5. Decommission blue (old) environment
         time.sleep(300)  # 5 minute grace period
         self.infra.terminate_deployment(
             service,

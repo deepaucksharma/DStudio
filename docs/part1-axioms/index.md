@@ -65,7 +65,7 @@ graph TD
 
 These laws represent the most fundamental, irreducible principles governing distributed systems. They are not analogies; they are direct consequences of physics, mathematics, and logic.
 
-### Law 1: The Law of Correlated Failure ⛓️
+### Law 1: The Law of Correlated Failure
 > Components fail. Most catastrophically, they fail together.
 
 !!! danger "Beyond Fail-Stop vs Byzantine"
@@ -81,7 +81,7 @@ These laws represent the most fundamental, irreducible principles governing dist
 
 [**→ Deep Dive into Failure Models**](law1-failure/index.md) | [**→ Failure Injection Lab**](law1-failure/exercises.md)
 
-### Law 2: The Law of Asynchronous Reality ⏳
+### Law 2: The Law of Asynchronous Reality
 > Information travels at finite speed. Therefore, the present is unknowable.
 
 !!! info "Latency is Not a Single Number"
@@ -96,7 +96,7 @@ These laws represent the most fundamental, irreducible principles governing dist
 
 [**→ Master Asynchrony & Time**](law2-asynchrony/index.md) | [**→ Temporal Logic Exercises**](law2-asynchrony/exercises.md)
 
-### Law 3: The Law of Emergent Chaos 🌪️
+### Law 3: The Law of Emergent Chaos
 > At scale, systems exhibit behaviors that cannot be predicted from their components.
 
 !!! warning "Complexity Theory in Action"
@@ -115,7 +115,7 @@ These laws represent the most fundamental, irreducible principles governing dist
 
 Given the foundational constraints, we must design systems according to rules that govern coordination, trade-offs, and knowledge itself.
 
-### Law 4: The Law of Multidimensional Optimization ⚖️
+### Law 4: The Law of Multidimensional Optimization
 > System design is not choosing two of three. It's finding acceptable points in an n-dimensional space of trade-offs.
 
 !!! example "Beyond CAP and PACELC"
@@ -135,7 +135,7 @@ Given the foundational constraints, we must design systems according to rules th
 
 [**→ Navigate Trade-off Space**](law4-tradeoffs/index.md) | [**→ Trade-off Analysis Tools**](law4-tradeoffs/exercises.md)
 
-### Law 5: The Law of Distributed Knowledge 🧠
+### Law 5: The Law of Distributed Knowledge
 > In distributed systems, truth is local, knowledge is partial, and certainty is expensive.
 
 !!! info "Levels of Distributed Knowledge"
@@ -154,7 +154,7 @@ Given the foundational constraints, we must design systems according to rules th
 
 These laws ground the framework in the pragmatic concerns of building, running, and paying for these systems.
 
-### Law 6: The Law of Cognitive Load 🤯
+### Law 6: The Law of Cognitive Load
 > A system's complexity must fit within human cognitive limits, or it will fail through misoperation.
 
 !!! success "Beyond Generic Human Fallibility"
@@ -169,7 +169,7 @@ These laws ground the framework in the pragmatic concerns of building, running, 
 
 [**→ Design Human Interfaces**](law6-human-api/index.md) | [**→ Operator Experience Lab**](law6-human-api/exercises.md)
 
-### Law 7: The Law of Economic Reality 💰
+### Law 7: The Law of Economic Reality
 > Every architectural decision is ultimately a financial decision.
 
 !!! quote "The Ultimate Constraint"

@@ -132,7 +132,7 @@ class CircuitBreaker:
         self._last_failure_time = None
         self._lock = threading.RLock()
 
-        # Metrics
+# Metrics
         self._success_count = 0
         self._total_calls = 0
 
@@ -169,7 +169,7 @@ class CircuitBreaker:
             self._success_count += 1
 
             if self._state == State.HALF_OPEN:
-                # Success in half-open state, close the circuit
+# Success in half-open state, close the circuit
                 self._state = State.CLOSED
                 self._failure_count = 0
                 self._last_failure_time = None
@@ -182,12 +182,12 @@ class CircuitBreaker:
             self._last_failure_time = time.time()
 
             if self._state == State.HALF_OPEN:
-                # Failure in half-open state, re-open the circuit
+# Failure in half-open state, re-open the circuit
                 self._state = State.OPEN
                 print(f"Circuit breaker RE-OPENED after recovery failure")
 
             elif self._failure_count >= self.failure_threshold:
-                # Too many failures, open the circuit
+# Too many failures, open the circuit
                 self._state = State.OPEN
                 print(f"Circuit breaker OPENED after {self._failure_count} failures")
 
@@ -236,7 +236,7 @@ class AdvancedCircuitBreaker(CircuitBreaker):
         self.expected_exceptions = expected_exceptions or [Exception]
         self.exclude_exceptions = exclude_exceptions or []
 
-        # Per-exception tracking
+# Per-exception tracking
         self._exception_counts = {}
 
     def call(self, func, *args, **kwargs):
@@ -255,7 +255,7 @@ class AdvancedCircuitBreaker(CircuitBreaker):
             return result
 
         except Exception as e:
-            # Check if we should count this exception
+# Check if we should count this exception
             if self._should_count_exception(e):
                 self.record_failure()
                 self._track_exception(e)
@@ -263,12 +263,12 @@ class AdvancedCircuitBreaker(CircuitBreaker):
 
     def _should_count_exception(self, exception):
         """Determine if exception should trigger circuit breaker"""
-        # Exclude specific exceptions
+# Exclude specific exceptions
         for exclude_type in self.exclude_exceptions:
             if isinstance(exception, exclude_type):
                 return False
 
-        # Include specific exceptions
+# Include specific exceptions
         for expected_type in self.expected_exceptions:
             if isinstance(exception, expected_type):
                 return True
@@ -289,14 +289,14 @@ def test_circuit_breaker():
             raise ConnectionError("Service unavailable")
         return "Success!"
 
-    # Create circuit breaker
+# Create circuit breaker
     cb = CircuitBreaker(
         failure_threshold=3,
         recovery_timeout=5,
         expected_exception=ConnectionError
     )
 
-    # Test normal operation
+# Test normal operation
     print("Testing normal operation...")
     for i in range(5):
         try:
@@ -307,7 +307,7 @@ def test_circuit_breaker():
 
     print(f"\nStats: {cb.get_stats()}")
 
-    # Test circuit opening
+# Test circuit opening
     print("\nTesting circuit opening...")
     for i in range(5):
         try:
@@ -320,11 +320,11 @@ def test_circuit_breaker():
 
     print(f"\nStats: {cb.get_stats()}")
 
-    # Wait for recovery
+# Wait for recovery
     print("\nWaiting for recovery timeout...")
     time.sleep(6)
 
-    # Test half-open state
+# Test half-open state
     print("\nTesting half-open state...")
     try:
         result = cb.call(flaky_service, should_fail=False)
@@ -460,13 +460,13 @@ class TokenBucketLimiter(RateLimiter):
             bucket = self.buckets[key]
             now = time.time()
 
-            # Refill tokens
+# Refill tokens
             elapsed = now - bucket['last_update']
             tokens_to_add = elapsed * self.rate
             bucket['tokens'] = min(self.capacity, bucket['tokens'] + tokens_to_add)
             bucket['last_update'] = now
 
-            # Check if request allowed
+# Check if request allowed
             if bucket['tokens'] >= 1:
                 bucket['tokens'] -= 1
                 return True
@@ -497,12 +497,12 @@ class SlidingWindowLimiter(RateLimiter):
             now = time.time()
             window_start = now - self.window_size
 
-            # Remove old requests outside window
+# Remove old requests outside window
             request_times = self.requests[key]
             while request_times and request_times[0] < window_start:
                 request_times.popleft()
 
-            # Check if under limit
+# Check if under limit
             if len(request_times) < self.requests_per_window:
                 request_times.append(now)
                 return True
@@ -515,7 +515,7 @@ class SlidingWindowLimiter(RateLimiter):
             now = time.time()
             window_start = now - self.window_size
 
-            # Clean old requests
+# Clean old requests
             request_times = self.requests[key]
             while request_times and request_times[0] < window_start:
                 request_times.popleft()
@@ -538,17 +538,17 @@ class LeakyBucketLimiter(RateLimiter):
             bucket = self.queues[key]
             now = time.time()
 
-            # Process leaked requests
+# Process leaked requests
             elapsed = now - bucket['last_leak']
             leaked = int(elapsed * self.rate)
 
             if leaked > 0:
-                # Remove leaked requests
+# Remove leaked requests
                 for _ in range(min(leaked, len(bucket['queue']))):
                     bucket['queue'].popleft()
                 bucket['last_leak'] = now
 
-            # Check if we can add request
+# Check if we can add request
             if len(bucket['queue']) < self.capacity:
                 bucket['queue'].append(now)
                 return True
@@ -569,16 +569,16 @@ class DistributedRateLimiter:
 
         pipe = self.redis.pipeline()
 
-        # Remove old entries
+# Remove old entries
         pipe.zremrangebyscore(key, 0, window_start)
 
-        # Count requests in window
+# Count requests in window
         pipe.zcard(key)
 
-        # Add current request
+# Add current request
         pipe.zadd(key, {str(now): now})
 
-        # Set expiry
+# Set expiry
         pipe.expire(key, self.window_size + 1)
 
         results = pipe.execute()
@@ -588,26 +588,26 @@ class DistributedRateLimiter:
         if current_requests < self.rate:
             return True
         else:
-            # Remove the request we just added
+# Remove the request we just added
             self.redis.zrem(key, str(now))
             return False
 
 # Hybrid rate limiter with multiple strategies
 class HybridRateLimiter:
     def __init__(self):
-        # Short-term burst protection
+# Short-term burst protection
         self.burst_limiter = TokenBucketLimiter(
             rate=100,      # 100 requests/second refill
             capacity=200   # Allow burst of 200
         )
 
-        # Long-term rate limit
+# Long-term rate limit
         self.sustained_limiter = SlidingWindowLimiter(
             requests_per_window=1000,  # 1000 requests
             window_size=60            # per minute
         )
 
-        # Per-IP limits
+# Per-IP limits
         self.ip_limiter = SlidingWindowLimiter(
             requests_per_window=100,
             window_size=60
@@ -615,15 +615,15 @@ class HybridRateLimiter:
 
     def allow_request(self, user_id, ip_address):
         """Check all rate limits"""
-        # Check burst limit
+# Check burst limit
         if not self.burst_limiter.allow_request(user_id):
             return False, "Burst limit exceeded"
 
-        # Check sustained limit
+# Check sustained limit
         if not self.sustained_limiter.allow_request(user_id):
             return False, "Sustained rate limit exceeded"
 
-        # Check IP limit
+# Check IP limit
         if not self.ip_limiter.allow_request(ip_address):
             return False, "IP rate limit exceeded"
 
@@ -634,14 +634,14 @@ def test_rate_limiters():
     print("Testing Token Bucket...")
     tb = TokenBucketLimiter(rate=10, capacity=20)
 
-    # Use up initial capacity
+# Use up initial capacity
     successes = 0
     for i in range(25):
         if tb.allow_request("user1"):
             successes += 1
     print(f"Initial burst: {successes}/25 requests allowed")
 
-    # Wait for refill
+# Wait for refill
     time.sleep(1)
     successes = 0
     for i in range(15):
@@ -652,12 +652,12 @@ def test_rate_limiters():
     print("\nTesting Sliding Window...")
     sw = SlidingWindowLimiter(requests_per_window=10, window_size=5)
 
-    # Fill window
+# Fill window
     for i in range(10):
         result = sw.allow_request("user1")
         print(f"Request {i+1}: {'Allowed' if result else 'Denied'}")
 
-    # Try one more
+# Try one more
     result = sw.allow_request("user1")
     print(f"Request 11: {'Allowed' if result else 'Denied'}")
 

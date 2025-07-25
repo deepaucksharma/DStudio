@@ -15,7 +15,7 @@ last_updated: 2025-01-23
   <p class="hero-quote">"If laws are the physics constraints, pillars are the engineering challenges they create"</p>
 </div>
 
-## 🏛️ From Laws to Architecture
+## 🏛 From Laws to Architecture
 
 The 7 laws don't exist in isolation - they interact and compound to create five fundamental challenges that every distributed system must address:
 
@@ -51,7 +51,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
   </div>
 </div>
 
-## 🔍 The 5 Pillars Overview
+## The 5 Pillars Overview
 
 <div class="pillars-grid">
   <a href="../part2-pillars/work/index.md" class="pillar-card pillar-work">
@@ -155,7 +155,7 @@ graph TB
 - **Control ↔ Intelligence**: Monitoring enables adaptation
 - **Intelligence ↔ Work**: Learning optimizes distribution
 
-## 📊 Pillar Trade-offs Matrix
+## Pillar Trade-offs Matrix
 
 <div class="tradeoff-matrix">
   <table>
@@ -202,7 +202,7 @@ graph TB
   </table>
 </div>
 
-## 🎯 Which Pillar Should You Focus On?
+## Which Pillar Should You Focus On?
 
 <div class="focus-guide">
   <div class="focus-scenario">
@@ -264,7 +264,7 @@ graph TB
   </div>
 </div>
 
-## 🛠️ Practical Exercises
+## 🛠 Practical Exercises
 
 Each pillar includes hands-on labs:
 
@@ -300,7 +300,7 @@ Each pillar includes hands-on labs:
   </div>
 </div>
 
-## 💡 Key Insights
+## Key Insights
 
 <div class="insights">
   <div class="insight">
@@ -319,7 +319,7 @@ Each pillar includes hands-on labs:
   </div>
 </div>
 
-## 🚀 Next Steps
+## Next Steps
 
 <div class="next-steps">
   <a href="../part2-pillars/work/index.md" class="primary-cta">

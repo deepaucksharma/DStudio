@@ -38,7 +38,7 @@ urls_to_crawl = deque(['https://example.com'])
 while urls_to_crawl:
     url = urls_to_crawl.popleft()
     response = requests.get(url)  # No rate limiting!
-    # Extract and queue new URLs...
+# Extract and queue new URLs...
 
 # Problems:
 # - No politeness (rapid-fire requests)
@@ -85,24 +85,24 @@ class URLItem:
 
 class URLFrontier:
     def __init__(self, max_host_queues: int = 1000):
-        # Front queues (priority-based)
+# Front queues (priority-based)
         self.front_queues = []  # List of priority queues
         self.num_front_queues = 8
         
-        # Back queues (host-based for politeness)
+# Back queues (host-based for politeness)
         self.back_queues = {}  # hostname -> deque of URLs
         self.max_host_queues = max_host_queues
         
-        # Host management
+# Host management
         self.host_last_access = {}  # hostname -> last access time
         self.host_crawl_delay = {}  # hostname -> crawl delay in seconds
         self.host_queue_assignments = {}  # hostname -> back queue index
         
-        # Duplicate detection
+# Duplicate detection
         self.seen_urls = set()  # Simple duplicate detection
         self.url_hashes = {}   # URL -> hash mapping
         
-        # Statistics
+# Statistics
         self.stats = {
             'urls_added': 0,
             'urls_crawled': 0,
@@ -110,29 +110,29 @@ class URLFrontier:
             'politeness_delays': 0
         }
         
-        # Initialize front queues
+# Initialize front queues
         for i in range(self.num_front_queues):
             heapq.heappush(self.front_queues, [])
     
     def add_url(self, url_item: URLItem) -> bool:
         """Add URL to frontier with duplicate detection"""
         
-        # Normalize URL for duplicate detection
+# Normalize URL for duplicate detection
         normalized_url = self._normalize_url(url_item.url)
         url_hash = self._hash_url(normalized_url)
         
-        # Check for duplicates
+# Check for duplicates
         if url_hash in self.url_hashes:
             return False  # Duplicate
         
-        # Store URL hash
+# Store URL hash
         self.url_hashes[url_hash] = normalized_url
         self.seen_urls.add(normalized_url)
         
-        # Determine priority queue (front queue)
+# Determine priority queue (front queue)
         priority_level = self._calculate_priority_level(url_item.priority)
         
-        # Add to appropriate front queue
+# Add to appropriate front queue
         heapq.heappush(self.front_queues[priority_level], url_item)
         
         self.stats['urls_added'] += 1
@@ -141,7 +141,7 @@ class URLFrontier:
     def get_next_url(self) -> Optional[URLItem]:
         """Get next URL to crawl, respecting politeness"""
         
-        # Try to find a crawlable URL from front queues
+# Try to find a crawlable URL from front queues
         for _ in range(100):  # Avoid infinite loops
             url_item = self._get_from_front_queues()
             if not url_item:
@@ -149,18 +149,18 @@ class URLFrontier:
             
             hostname = urlparse(url_item.url).netloc
             
-            # Check if we can crawl this host now
+# Check if we can crawl this host now
             if self._can_crawl_host(hostname):
-                # Update host access time
+# Update host access time
                 self.host_last_access[hostname] = time.time()
                 self.stats['urls_crawled'] += 1
                 return url_item
             else:
-                # Add to back queue for later
+# Add to back queue for later
                 self._add_to_back_queue(url_item, hostname)
                 self.stats['politeness_delays'] += 1
         
-        # Try back queues for hosts that are ready
+# Try back queues for hosts that are ready
         return self._get_from_back_queues()
     
     def _get_from_front_queues(self) -> Optional[URLItem]:
@@ -178,7 +178,7 @@ class URLFrontier:
             if not queue:
                 continue
                 
-            # Check if enough time has passed since last crawl
+# Check if enough time has passed since last crawl
             last_access = self.host_last_access.get(hostname, 0)
             crawl_delay = self.host_crawl_delay.get(hostname, 1.0)
             
@@ -187,7 +187,7 @@ class URLFrontier:
                 self.host_last_access[hostname] = current_time
                 self.stats['urls_crawled'] += 1
                 
-                # Clean up empty queues
+# Clean up empty queues
                 if not queue:
                     del self.back_queues[hostname]
                 
@@ -210,13 +210,13 @@ class URLFrontier:
         
         self.back_queues[hostname].append(url_item)
         
-        # Limit queue size per host
+# Limit queue size per host
         if len(self.back_queues[hostname]) > 1000:
             self.back_queues[hostname].popleft()  # Remove oldest
     
     def _calculate_priority_level(self, priority: float) -> int:
         """Map priority score to front queue index"""
-        # Higher priority = lower index (processed first)
+# Higher priority = lower index (processed first)
         if priority >= 10.0:
             return 0  # Highest priority
         elif priority >= 8.0:
@@ -240,7 +240,7 @@ class URLFrontier:
         
         parsed = urlparse(url.lower())
         
-        # Remove fragment and normalize query
+# Remove fragment and normalize query
         normalized = urlunparse((
             parsed.scheme,
             parsed.netloc,
@@ -297,7 +297,7 @@ while True:
     
     print(f"Crawling: {url_item.url} (priority: {url_item.priority})")
     
-    # Simulate crawling delay
+# Simulate crawling delay
     time.sleep(0.1)
 
 print(f"Frontier stats: {frontier.get_stats()}")
@@ -333,32 +333,32 @@ class FreshnessAwareFrontier(URLFrontier):
         if not last_crawled:
             return 10.0  # Never crawled - highest priority
         
-        # Calculate staleness in hours
+# Calculate staleness in hours
         staleness_hours = (now - last_crawled).total_seconds() / 3600
         
-        # Get expected freshness interval
+# Get expected freshness interval
         freshness_interval = self.freshness_weights.get(content_type, 1.0) * 24
         
-        # Calculate freshness score (exponential decay)
+# Calculate freshness score (exponential decay)
         if staleness_hours >= freshness_interval:
-            # Stale content - high priority
+# Stale content - high priority
             return 8.0 + min(2.0, staleness_hours / freshness_interval)
         else:
-            # Fresh content - lower priority
+# Fresh content - lower priority
             return 1.0 * (staleness_hours / freshness_interval)
     
     def update_page_freshness(self, url: str, content_hash: str):
         """Update page freshness information"""
         now = datetime.now()
         
-        # Check if content actually changed
+# Check if content actually changed
         if url in self.content_hashes:
             if self.content_hashes[url] == content_hash:
-                # Content unchanged - just update access time
+# Content unchanged - just update access time
                 self.page_freshness[url] = now
                 return False  # No change
         
-        # Content changed or new page
+# Content changed or new page
         self.page_freshness[url] = now
         self.content_hashes[url] = content_hash
         return True  # Changed
@@ -401,7 +401,7 @@ class DistributedURLFrontier:
         self.local_buffer = deque(maxlen=1000)  # Local buffer for performance
         self.buffer_lock = threading.Lock()
         
-        # Redis keys
+# Redis keys
         self.priority_queue_key = "crawler:priority_queue"
         self.host_queues_key = "crawler:host_queues"
         self.seen_urls_key = "crawler:seen_urls"
@@ -411,25 +411,25 @@ class DistributedURLFrontier:
     def add_url(self, url_item: URLItem) -> bool:
         """Add URL to distributed frontier"""
         
-        # Check for duplicates using Redis set
+# Check for duplicates using Redis set
         url_hash = hashlib.sha256(url_item.url.encode()).hexdigest()
         
         if self.redis.sismember(self.seen_urls_key, url_hash):
             return False  # Duplicate
         
-        # Add to seen set
+# Add to seen set
         self.redis.sadd(self.seen_urls_key, url_hash)
         
-        # Serialize URL item
+# Serialize URL item
         serialized_item = pickle.dumps(url_item)
         
-        # Add to priority queue with score
+# Add to priority queue with score
         self.redis.zadd(
             self.priority_queue_key,
             {serialized_item: url_item.priority}
         )
         
-        # Update statistics
+# Update statistics
         self.redis.hincrby(self.stats_key, 'urls_added', 1)
         
         return True
@@ -437,12 +437,12 @@ class DistributedURLFrontier:
     def get_next_url(self) -> Optional[URLItem]:
         """Get next URL from distributed frontier"""
         
-        # Try local buffer first
+# Try local buffer first
         with self.buffer_lock:
             if self.local_buffer:
                 return self.local_buffer.popleft()
         
-        # Fetch batch from Redis for efficiency
+# Fetch batch from Redis for efficiency
         self._fill_local_buffer()
         
         with self.buffer_lock:
@@ -455,7 +455,7 @@ class DistributedURLFrontier:
         """Fill local buffer from distributed queue"""
         pipeline = self.redis.pipeline()
         
-        # Get high-priority URLs (batch of 50)
+# Get high-priority URLs (batch of 50)
         pipeline.zrevrange(
             self.priority_queue_key, 0, 49, withscores=True
         )
@@ -469,13 +469,13 @@ class DistributedURLFrontier:
                 try:
                     url_item = pickle.loads(serialized_item)
                     
-                    # Check politeness
+# Check politeness
                     hostname = urlparse(url_item.url).netloc
                     if self._can_crawl_host_distributed(hostname):
                         self.local_buffer.append(url_item)
                         self._update_host_access_time(hostname)
                     else:
-                        # Re-add to queue with lower priority for later
+# Re-add to queue with lower priority for later
                         reduced_priority = max(0.1, priority - 1.0)
                         self.redis.zadd(
                             self.priority_queue_key,
@@ -483,21 +483,21 @@ class DistributedURLFrontier:
                         )
                         
                 except Exception as e:
-                    # Skip corrupted items
+# Skip corrupted items
                     continue
     
     def _can_crawl_host_distributed(self, hostname: str) -> bool:
         """Check host politeness using distributed state"""
         current_time = time.time()
         
-        # Get last access time from Redis
+# Get last access time from Redis
         last_access_key = f"host_access:{hostname}"
         last_access = self.redis.get(last_access_key)
         
         if last_access:
             last_access = float(last_access)
             
-            # Get crawl delay
+# Get crawl delay
             delay = self.redis.hget(self.host_delays_key, hostname)
             delay = float(delay) if delay else 1.0
             
@@ -510,7 +510,7 @@ class DistributedURLFrontier:
         current_time = time.time()
         last_access_key = f"host_access:{hostname}"
         
-        # Set with expiration (cleanup old entries)
+# Set with expiration (cleanup old entries)
         self.redis.setex(last_access_key, 86400, current_time)  # 24 hour TTL
     
     def set_crawl_delay(self, hostname: str, delay: float):
@@ -521,12 +521,12 @@ class DistributedURLFrontier:
         """Get distributed frontier statistics"""
         stats = {}
         
-        # Get basic stats
+# Get basic stats
         redis_stats = self.redis.hgetall(self.stats_key)
         for key, value in redis_stats.items():
             stats[key.decode()] = int(value)
         
-        # Get queue sizes
+# Get queue sizes
         stats['priority_queue_size'] = self.redis.zcard(self.priority_queue_key)
         stats['seen_urls_count'] = self.redis.scard(self.seen_urls_key)
         stats['local_buffer_size'] = len(self.local_buffer)
@@ -568,16 +568,16 @@ class RobotsAwareFrontier(URLFrontier):
         parsed_url = urlparse(url)
         hostname = parsed_url.netloc
         
-        # Get robots.txt parser for this host
+# Get robots.txt parser for this host
         robots_parser = self._get_robots_parser(hostname)
         
         if not robots_parser:
             return True, 1.0  # Allow if robots.txt unavailable
         
-        # Check if URL is allowed
+# Check if URL is allowed
         allowed = robots_parser.can_fetch(self.user_agent, url)
         
-        # Get crawl delay from robots.txt
+# Get crawl delay from robots.txt
         crawl_delay = robots_parser.crawl_delay(self.user_agent)
         if crawl_delay is None:
             crawl_delay = 1.0  # Default delay
@@ -589,19 +589,19 @@ class RobotsAwareFrontier(URLFrontier):
         
         current_time = time.time()
         
-        # Check cache expiration
+# Check cache expiration
         if hostname in self.robots_cache_ttl:
             if current_time > self.robots_cache_ttl[hostname]:
-                # Cache expired, remove
+# Cache expired, remove
                 if hostname in self.robots_cache:
                     del self.robots_cache[hostname]
                 del self.robots_cache_ttl[hostname]
         
-        # Return cached parser if available
+# Return cached parser if available
         if hostname in self.robots_cache:
             return self.robots_cache[hostname]
         
-        # Fetch and parse robots.txt
+# Fetch and parse robots.txt
         try:
             robots_url = f"https://{hostname}/robots.txt"
             
@@ -611,14 +611,14 @@ class RobotsAwareFrontier(URLFrontier):
                 parser.set_url(robots_url)
                 parser.read()
                 
-                # Cache parser
+# Cache parser
                 self.robots_cache[hostname] = parser
                 self.robots_cache_ttl[hostname] = current_time + 3600  # 1 hour TTL
                 
                 return parser
                 
         except Exception as e:
-            # If robots.txt fetch fails, allow crawling
+# If robots.txt fetch fails, allow crawling
             pass
         
         return None
@@ -626,14 +626,14 @@ class RobotsAwareFrontier(URLFrontier):
     def add_url(self, url_item: URLItem) -> bool:
         """Add URL with robots.txt checking"""
         
-        # Check robots.txt
+# Check robots.txt
         allowed, robots_delay = self.is_allowed(url_item.url)
         
         if not allowed:
             self.stats['urls_blocked'] += 1
             return False
         
-        # Update crawl delay based on robots.txt
+# Update crawl delay based on robots.txt
         hostname = urlparse(url_item.url).netloc
         url_item.crawl_delay = max(url_item.crawl_delay, robots_delay)
         self.set_crawl_delay(hostname, url_item.crawl_delay)
@@ -662,14 +662,14 @@ class HighPerformanceFrontier:
         self.max_workers = max_workers
         self.executor = ThreadPoolExecutor(max_workers=max_workers)
         
-        # Use uvloop for better performance
+# Use uvloop for better performance
         asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
         
-        # Connection pool for Redis
+# Connection pool for Redis
         self.redis_pool = None
         self.redis_url = redis_url
         
-        # Local buffers for batch operations
+# Local buffers for batch operations
         self.add_buffer = []
         self.add_buffer_lock = asyncio.Lock()
         self.buffer_size = 1000
@@ -688,15 +688,15 @@ class HighPerformanceFrontier:
         
         redis = aioredis.Redis(connection_pool=self.redis_pool)
         
-        # Batch operations
+# Batch operations
         pipeline = redis.pipeline()
         added_count = 0
         
         for url_item in url_items:
-            # Check duplicates
+# Check duplicates
             url_hash = hashlib.sha256(url_item.url.encode()).hexdigest()
             
-            # Add to pipeline
+# Add to pipeline
             pipeline.sadd("seen_urls", url_hash)
             pipeline.zadd(
                 "priority_queue",
@@ -704,7 +704,7 @@ class HighPerformanceFrontier:
             )
             added_count += 1
         
-        # Execute batch
+# Execute batch
         await pipeline.execute()
         
         await redis.close()
@@ -715,16 +715,16 @@ class HighPerformanceFrontier:
         
         redis = aioredis.Redis(connection_pool=self.redis_pool)
         
-        # Get high-priority URLs
+# Get high-priority URLs
         items = await redis.zrevrange(
             "priority_queue", 0, count-1, withscores=True
         )
         
-        # Remove from queue
+# Remove from queue
         if items:
             await redis.zremrangebyrank("priority_queue", -count, -1)
         
-        # Deserialize items
+# Deserialize items
         url_items = []
         for serialized_item, priority in items:
             try:
@@ -740,11 +740,11 @@ class HighPerformanceFrontier:
         """Process URLs in parallel"""
         
         async def process_url(url_item):
-            # Simulate URL processing
+# Simulate URL processing
             await asyncio.sleep(0.01)  # I/O simulation
             return f"Processed: {url_item.url}"
         
-        # Process URLs concurrently
+# Process URLs concurrently
         tasks = [process_url(item) for item in url_items]
         results = await asyncio.gather(*tasks, return_exceptions=True)
         
@@ -755,27 +755,27 @@ async def benchmark_frontier():
     frontier = HighPerformanceFrontier("redis://localhost:6379")
     await frontier.initialize()
     
-    # Generate test URLs
+# Generate test URLs
     test_urls = [
         URLItem(f"https://example{i}.com/page", priority=float(i % 10))
         for i in range(10000)
     ]
     
-    # Benchmark batch add
+# Benchmark batch add
     start_time = time.time()
     added = await frontier.batch_add_urls(test_urls)
     add_time = time.time() - start_time
     
     print(f"Added {added} URLs in {add_time:.2f}s ({added/add_time:.0f} URLs/sec)")
     
-    # Benchmark batch get
+# Benchmark batch get
     start_time = time.time()
     retrieved_urls = await frontier.batch_get_urls(1000)
     get_time = time.time() - start_time
     
     print(f"Retrieved {len(retrieved_urls)} URLs in {get_time:.2f}s")
     
-    # Benchmark parallel processing
+# Benchmark parallel processing
     start_time = time.time()
     results = await frontier.parallel_url_processing(retrieved_urls)
     process_time = time.time() - start_time

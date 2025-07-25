@@ -21,7 +21,7 @@ last_updated: 2025-07-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Bank Teller Analogy
 
@@ -71,7 +71,7 @@ sequenceDiagram
 
 ---
 
-## 🔬 Level 2: Deep Dive
+## Level 2: Deep Dive
 
 ### Implementation Architecture
 
@@ -163,23 +163,23 @@ class WriteThroughCache:
         write_successful = False
         
         try:
-            # Prepare data
+# Prepare data
             cache_value = self._serialize(value)
             db_record = self._prepare_db_record(value)
             
-            # Start database transaction
+# Start database transaction
             async with self.transaction() as tx:
-                # Step 1: Write to database first (source of truth)
+# Step 1: Write to database first (source of truth)
                 await self._write_to_db(tx, table, db_record, id_field)
                 
-                # Step 2: Write to cache
+# Step 2: Write to cache
                 cache_written = await self._write_to_cache(
                     key, cache_value, ttl or self.default_ttl
                 )
                 
                 if not cache_written:
-                    # Cache write failed, but we can proceed
-                    # Log warning and continue
+# Cache write failed, but we can proceed
+# Log warning and continue
                     self.logger.warning(
                         f"Cache write failed for key {key}, "
                         "but database write succeeded"
@@ -187,7 +187,7 @@ class WriteThroughCache:
                 
                 write_successful = True
                 
-            # Record metrics
+# Record metrics
             duration = (datetime.now() - start_time).total_seconds()
             self.metrics.record_write_through(key, duration, write_successful)
             
@@ -197,7 +197,7 @@ class WriteThroughCache:
             self.logger.error(f"Write-through failed for key {key}: {e}")
             self.metrics.record_error(key, "write_through")
             
-            # Ensure cache is invalidated on database error
+# Ensure cache is invalidated on database error
             await self._invalidate_cache(key)
             raise
     
@@ -215,13 +215,13 @@ class WriteThroughCache:
         
         async with self.transaction() as tx:
             try:
-                # Write all to database in one transaction
+# Write all to database in one transaction
                 for item in items:
                     await self._write_to_db(
                         tx, table, item, item.get('id_field', 'id')
                     )
                 
-                # If database writes succeed, update cache
+# If database writes succeed, update cache
                 cache_pipeline = self.cache.pipeline()
                 
                 for item in items:
@@ -232,12 +232,12 @@ class WriteThroughCache:
                     )
                     results[key] = True
                 
-                # Execute cache pipeline
+# Execute cache pipeline
                 await cache_pipeline.execute()
                 
             except Exception as e:
                 self.logger.error(f"Batch write-through failed: {e}")
-                # Invalidate any partially written cache entries
+# Invalidate any partially written cache entries
                 for item in items:
                     key = key_pattern.format(**item)
                     await self._invalidate_cache(key)
@@ -250,20 +250,20 @@ class WriteThroughCache:
         """
         Read with write-through semantics
         """
-        # Try cache first
+# Try cache first
         cached_value = await self._read_from_cache(key)
         if cached_value is not None:
             self.metrics.record_hit(key)
             return cached_value
         
-        # Cache miss
+# Cache miss
         self.metrics.record_miss(key)
         
         if fetch_func:
-            # Fetch from database
+# Fetch from database
             data = await fetch_func()
             if data:
-                # Write through to cache
+# Write through to cache
                 await self._write_to_cache(
                     key, self._serialize(data), self.default_ttl
                 )
@@ -285,25 +285,25 @@ class WriteThroughCache:
         """
         try:
             async with self.transaction() as tx:
-                # Update database
+# Update database
                 await self._update_db(
                     tx, table, updates, where_clause, where_params
                 )
                 
-                # Fetch updated record
+# Fetch updated record
                 updated_record = await self._fetch_from_db(
                     tx, table, where_clause, where_params
                 )
                 
                 if updated_record:
-                    # Update cache with new data
+# Update cache with new data
                     await self._write_to_cache(
                         key,
                         self._serialize(updated_record),
                         ttl or self.default_ttl
                     )
                 else:
-                    # Record not found, invalidate cache
+# Record not found, invalidate cache
                     await self._invalidate_cache(key)
                 
                 return True
@@ -325,12 +325,12 @@ class WriteThroughCache:
         """
         try:
             async with self.transaction() as tx:
-                # Delete from database
+# Delete from database
                 deleted = await self._delete_from_db(
                     tx, table, where_clause, where_params
                 )
                 
-                # Delete from cache
+# Delete from cache
                 await self._invalidate_cache(key)
                 
                 return deleted > 0
@@ -339,7 +339,7 @@ class WriteThroughCache:
             self.logger.error(f"Delete write-through failed for key {key}: {e}")
             raise
     
-    # Helper methods
+# Helper methods
     async def _write_to_cache(self, key: str, value: str, ttl: int) -> bool:
         """Write to cache with error handling"""
         try:
@@ -381,7 +381,7 @@ class ProductService:
         product_id = product_data['id']
         cache_key = f"product:{product_id}"
         
-        # Write through cache and database
+# Write through cache and database
         success = await self.cache.write(
             key=cache_key,
             value=product_data,
@@ -442,12 +442,12 @@ class AdvancedWriteThroughCache(WriteThroughCache):
         """
         Write-through with pre-write validation
         """
-        # Validate before writing
+# Validate before writing
         is_valid = await validation_func(value)
         if not is_valid:
             raise ValueError(f"Validation failed for key {key}")
         
-        # Proceed with write-through
+# Proceed with write-through
         return await self.write(key, value, table, 'id', ttl)
     
     async def conditional_write_through(
@@ -461,14 +461,14 @@ class AdvancedWriteThroughCache(WriteThroughCache):
         """
         Conditional write-through based on business logic
         """
-        # Check if we should write through
+# Check if we should write through
         should_cache = await condition_func(value)
         
-        # Always write to database
+# Always write to database
         async with self.transaction() as tx:
             await self._write_to_db(tx, table, value, 'id')
             
-            # Conditionally write to cache
+# Conditionally write to cache
             if should_cache:
                 await self._write_to_cache(
                     key, self._serialize(value), ttl or self.default_ttl
@@ -486,7 +486,7 @@ class AdvancedWriteThroughCache(WriteThroughCache):
         """
         Dynamic TTL based on data characteristics
         """
-        # Calculate TTL based on value
+# Calculate TTL based on value
         dynamic_ttl = ttl_strategy_func(value)
         
         return await self.write(key, value, table, 'id', dynamic_ttl)
@@ -494,7 +494,7 @@ class AdvancedWriteThroughCache(WriteThroughCache):
 
 ---
 
-## 🏗️ Level 3: Production Patterns
+## Level 3: Production Patterns
 
 ### Performance Optimization
 
@@ -525,17 +525,17 @@ class AdvancedWriteThroughCache(WriteThroughCache):
 class WriteThroughPitfalls:
     """Common issues and their solutions"""
     
-    # PITFALL 1: Partial Failures
+# PITFALL 1: Partial Failures
     async def handle_partial_failure(self, key: str, value: Any):
         """Handle when database succeeds but cache fails"""
         max_retries = 3
         retry_delay = 0.1
         
-        # Write to database first
+# Write to database first
         db_success = await self.write_to_database(value)
         
         if db_success:
-            # Retry cache write with exponential backoff
+# Retry cache write with exponential backoff
             for attempt in range(max_retries):
                 try:
                     await self.write_to_cache(key, value)
@@ -544,19 +544,19 @@ class WriteThroughPitfalls:
                     if attempt < max_retries - 1:
                         await asyncio.sleep(retry_delay * (2 ** attempt))
                     else:
-                        # Log failure but don't fail the operation
+# Log failure but don't fail the operation
                         self.logger.error(
                             f"Cache write failed after {max_retries} attempts: {e}"
                         )
-                        # Mark key for background sync
+# Mark key for background sync
                         await self.mark_for_sync(key)
         
         return db_success
     
-    # PITFALL 2: Write Amplification
+# PITFALL 2: Write Amplification
     async def batch_writes_optimization(self, updates: List[Dict]):
         """Reduce write amplification with batching"""
-        # Group updates by table
+# Group updates by table
         grouped = {}
         for update in updates:
             table = update['table']
@@ -564,22 +564,22 @@ class WriteThroughPitfalls:
                 grouped[table] = []
             grouped[table].append(update)
         
-        # Execute batched writes per table
+# Execute batched writes per table
         async with self.db.transaction() as tx:
             for table, items in grouped.items():
                 await self.bulk_upsert(tx, table, items)
             
-            # Update cache in pipeline
+# Update cache in pipeline
             pipe = self.cache.pipeline()
             for update in updates:
                 pipe.setex(update['key'], update['ttl'], update['value'])
             await pipe.execute()
     
-    # PITFALL 3: Thundering Herd on Cache Failure
+# PITFALL 3: Thundering Herd on Cache Failure
     async def write_with_circuit_breaker(self, key: str, value: Any):
         """Prevent cascade failures with circuit breaker"""
         if self.cache_circuit_breaker.is_open():
-            # Skip cache write if circuit is open
+# Skip cache write if circuit is open
             self.logger.warning("Cache circuit breaker open, skipping cache write")
             await self.write_to_database(value)
             return
@@ -589,7 +589,7 @@ class WriteThroughPitfalls:
             self.cache_circuit_breaker.record_success()
         except CacheException:
             self.cache_circuit_breaker.record_failure()
-            # Fall back to database-only write
+# Fall back to database-only write
             await self.write_to_database(value)
 ```
 
@@ -618,7 +618,7 @@ class WriteThroughMonitoring:
             f'success:{success}'
         ]
         
-        # Total operation time
+# Total operation time
         total_duration = db_duration + cache_duration
         self.metrics.histogram(
             'write_through.duration.total',
@@ -626,7 +626,7 @@ class WriteThroughMonitoring:
             tags=tags
         )
         
-        # Component times
+# Component times
         self.metrics.histogram(
             'write_through.duration.database',
             db_duration,
@@ -639,7 +639,7 @@ class WriteThroughMonitoring:
             tags=tags
         )
         
-        # Success rate
+# Success rate
         self.metrics.increment(
             'write_through.operations',
             tags=tags
@@ -658,7 +658,7 @@ class WriteThroughMonitoring:
 
 ---
 
-## 📊 Comparison with Other Patterns
+## Comparison with Other Patterns
 
 ### Write-Through vs Other Caching Patterns
 
@@ -696,7 +696,7 @@ flowchart TD
 
 ---
 
-## 🎯 Best Practices
+## Best Practices
 
 <div class="truth-box">
 
@@ -742,16 +742,16 @@ class FinancialTransactionService:
         tx_id = transaction['id']
         cache_key = f"transaction:{tx_id}"
         
-        # Validate transaction
+# Validate transaction
         if not await self.validate_transaction(transaction):
             raise ValueError("Invalid transaction")
         
-        # Calculate derived fields
+# Calculate derived fields
         transaction['processed_at'] = datetime.now()
         transaction['status'] = 'completed'
         
         try:
-            # Write through with audit trail
+# Write through with audit trail
             success = await self.cache.write(
                 key=cache_key,
                 value=transaction,
@@ -761,18 +761,18 @@ class FinancialTransactionService:
             )
             
             if success:
-                # Audit log (async, non-blocking)
+# Audit log (async, non-blocking)
                 asyncio.create_task(
                     self.audit_log.log_transaction(transaction)
                 )
                 
-                # Update related caches
+# Update related caches
                 await self._update_account_balance_cache(transaction)
                 
                 return transaction
             
         except Exception as e:
-            # Compensating action
+# Compensating action
             await self._handle_transaction_failure(transaction, e)
             raise
     
@@ -781,18 +781,18 @@ class FinancialTransactionService:
         account_id = transaction['account_id']
         amount = transaction['amount']
         
-        # Get current balance
+# Get current balance
         balance_key = f"balance:{account_id}"
         current_balance = await self.cache.read(balance_key)
         
         if current_balance is None:
-            # Fetch from database
+# Fetch from database
             current_balance = await self.fetch_balance_from_db(account_id)
         
-        # Calculate new balance
+# Calculate new balance
         new_balance = current_balance + amount
         
-        # Write through
+# Write through
         await self.cache.update(
             key=balance_key,
             updates={'balance': new_balance, 'last_updated': datetime.now()},

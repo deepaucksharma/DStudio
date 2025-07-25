@@ -20,7 +20,7 @@ last_updated: 2025-07-24
 
 ---
 
-## 🎯 Problem Statement
+## Problem Statement
 
 <div class="problem-box">
 <h3>The Request-Response Limitation</h3>
@@ -152,7 +152,7 @@ class WebSocketServer:
     async def unregister(self, websocket):
         """Clean up disconnected client"""
         self.clients.remove(websocket)
-        # Remove from all rooms
+# Remove from all rooms
         for room_clients in self.rooms.values():
             room_clients.discard(websocket)
         logging.info(f"Client {websocket.remote_address} disconnected")
@@ -174,11 +174,11 @@ class WebSocketServer:
                 }))
                 
             elif message_type == 'broadcast':
-                # Send to all clients
+# Send to all clients
                 await self.broadcast(data.get('content'))
                 
             elif message_type == 'room_message':
-                # Send to specific room
+# Send to specific room
                 room_id = data.get('room_id')
                 await self.room_broadcast(room_id, data.get('content'))
                 
@@ -302,19 +302,19 @@ class ScalableWebSocketServer:
         """Handle individual WebSocket connection"""
         client_id = f"{self.server_id}:{id(websocket)}"
         
-        # Store client info
+# Store client info
         self.local_clients[client_id] = {
             'websocket': websocket,
             'last_heartbeat': time.time(),
             'subscriptions': set()
         }
         
-        # Start heartbeat task
+# Start heartbeat task
         heartbeat_task = asyncio.create_task(
             self.heartbeat_handler(client_id)
         )
         
-        # Start Redis subscription task
+# Start Redis subscription task
         sub_task = asyncio.create_task(
             self.redis_subscription_handler(client_id)
         )
@@ -325,7 +325,7 @@ class ScalableWebSocketServer:
         except websockets.ConnectionClosed:
             pass
         finally:
-            # Cleanup
+# Cleanup
             heartbeat_task.cancel()
             sub_task.cancel()
             await self.cleanup_client(client_id)
@@ -336,7 +336,7 @@ class ScalableWebSocketServer:
             data = json.loads(message)
             message_type = data.get('type')
             
-            # Update heartbeat
+# Update heartbeat
             self.local_clients[client_id]['last_heartbeat'] = time.time()
             
             if message_type == 'subscribe':
@@ -349,7 +349,7 @@ class ScalableWebSocketServer:
                 await self.publish_message(channel, content)
                 
             elif message_type == 'ping':
-                # Respond to ping
+# Respond to ping
                 await self.send_to_client(client_id, {
                     'type': 'pong',
                     'timestamp': time.time()
@@ -365,7 +365,7 @@ class ScalableWebSocketServer:
         """Subscribe client to a channel"""
         self.local_clients[client_id]['subscriptions'].add(channel)
         
-        # Subscribe to Redis channel
+# Subscribe to Redis channel
         async with self.redis_client() as redis:
             await redis.subscribe(channel)
             
@@ -391,7 +391,7 @@ class ScalableWebSocketServer:
         async with self.redis_client() as redis:
             while client_id in self.local_clients:
                 try:
-                    # Get messages from subscribed channels
+# Get messages from subscribed channels
                     channel, message = await redis.blpop(
                         *self.local_clients[client_id]['subscriptions'],
                         timeout=1
@@ -399,7 +399,7 @@ class ScalableWebSocketServer:
                     
                     if message:
                         data = json.loads(message)
-                        # Don't echo back to the same server
+# Don't echo back to the same server
                         if data['server_id'] != self.server_id:
                             await self.send_to_client(client_id, data)
                             
@@ -414,14 +414,14 @@ class ScalableWebSocketServer:
             try:
                 client = self.local_clients[client_id]
                 
-                # Check if client is still responsive
+# Check if client is still responsive
                 last_heartbeat = client['last_heartbeat']
                 if time.time() - last_heartbeat > self.connection_timeout:
-                    # Client timeout - close connection
+# Client timeout - close connection
                     await client['websocket'].close()
                     break
                     
-                # Send heartbeat
+# Send heartbeat
                 await self.send_to_client(client_id, {
                     'type': 'heartbeat',
                     'timestamp': time.time()
@@ -448,7 +448,7 @@ class ScalableWebSocketServer:
     async def cleanup_client(self, client_id: str):
         """Clean up disconnected client"""
         if client_id in self.local_clients:
-            # Unsubscribe from all channels
+# Unsubscribe from all channels
             async with self.redis_client() as redis:
                 for channel in self.local_clients[client_id]['subscriptions']:
                     await redis.unsubscribe(channel)
@@ -480,7 +480,7 @@ class ConnectionManager:
         if token in self.reconnect_tokens:
             token_data = self.reconnect_tokens[token]
             if time.time() < token_data['expires']:
-                # Valid reconnection
+# Valid reconnection
                 client_id = token_data['client_id']
                 await self.restore_client_state(client_id, websocket)
                 del self.reconnect_tokens[token]
@@ -501,7 +501,7 @@ class CompressedWebSocket:
     async def send(self, message: str):
         """Send message with optional compression"""
         if len(message) > self.compression_threshold:
-            # Compress large messages
+# Compress large messages
             compressed = zlib.compress(message.encode())
             await self.websocket.send(compressed)
         else:
@@ -529,15 +529,15 @@ class RateLimiter:
             
         history = self.client_history[client_id]
         
-        # Remove old entries
+# Remove old entries
         while history and history[0] < now - self.window_seconds:
             history.popleft()
             
-        # Check limit
+# Check limit
         if len(history) >= self.max_messages:
             return False
             
-        # Add current request
+# Add current request
         history.append(now)
         return True
 ```
@@ -596,14 +596,14 @@ class SecureWebSocketServer:
         
     async def authenticate_connection(self, websocket, path):
         """Authenticate WebSocket connection"""
-        # Extract token from query string or headers
+# Extract token from query string or headers
         token = self.extract_token(path)
         
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=['HS256'])
             user_id = payload['user_id']
             
-            # Store authenticated user
+# Store authenticated user
             websocket.user_id = user_id
             return True
             
@@ -703,14 +703,14 @@ class OrderedMessageHandler:
         if seq == self.expected_seq:
             await self.process_message(message)
             self.expected_seq += 1
-            # Process buffered messages
+# Process buffered messages
             while self.expected_seq in self.message_buffer:
                 await self.process_message(
                     self.message_buffer.pop(self.expected_seq)
                 )
                 self.expected_seq += 1
         else:
-            # Buffer out-of-order message
+# Buffer out-of-order message
             self.message_buffer[seq] = message
 ```
 </div>

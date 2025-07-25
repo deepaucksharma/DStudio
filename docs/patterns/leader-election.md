@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -117,7 +117,7 @@ sequenceDiagram
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -365,25 +365,25 @@ sequenceDiagram
 
         self.logger.info(f"Became candidate for term {self.current_term.number}")
 
-        # Request votes from all peers
+# Request votes from all peers
         vote_tasks = []
         for peer_id in self.peers:
             if peer_id != self.node_id:
                 vote_tasks.append(self._request_vote(peer_id))
 
-        # Wait for votes
+# Wait for votes
         results = await asyncio.gather(*vote_tasks, return_exceptions=True)
 
-        # Count votes
+# Count votes
         for i, peer_id in enumerate(self.peers):
             if peer_id != self.node_id and results[i-1] is True:
                 self.votes_received.add(peer_id)
 
-        # Check if won election
+# Check if won election
         if len(self.votes_received) > len(self.peers) / 2:
             await self._become_leader()
         else:
-            # Lost election, revert to follower
+# Lost election, revert to follower
             self.logger.info(f"Lost election with {len(self.votes_received)} votes")
             self.state = NodeState.FOLLOWER
             self.last_heartbeat = time.time() * 1000
@@ -391,18 +391,18 @@ sequenceDiagram
     async def _request_vote(self, peer_id: str) -> bool:
         """Request vote from a peer"""
         try:
-            # Use Redis for communication
+# Use Redis for communication
             vote_key = f"vote_request:{peer_id}:{self.current_term.number}"
             response_key = f"vote_response:{self.node_id}:{self.current_term.number}"
 
-            # Send vote request
+# Send vote request
             await self.redis.setex(
                 vote_key,
                 int(self.election_timeout / 1000),
                 self.node_id
             )
 
-            # Wait for response
+# Wait for response
             start_time = time.time()
             while time.time() - start_time < (self.election_timeout / 1000):
                 response = await self.redis.get(response_key)
@@ -419,7 +419,7 @@ sequenceDiagram
 
     async def _handle_vote_request(self, candidate_id: str, term: int) -> bool:
         """Handle incoming vote request"""
-        # Grant vote if haven't voted in this term
+# Grant vote if haven't voted in this term
         if term > self.current_term.number:
             self.current_term = Term(term)
             self.state = NodeState.FOLLOWER
@@ -440,11 +440,11 @@ sequenceDiagram
 
         self.logger.info(f"Became leader for term {self.current_term.number}")
 
-        # Notify via callback
+# Notify via callback
         if self.leader_callback:
             await self.leader_callback()
 
-        # Send initial heartbeats
+# Send initial heartbeats
         await self._send_heartbeats()
 
     async def _send_heartbeats(self):
@@ -520,7 +520,7 @@ class DistributedLock:
 
         try:
             while time.time() - start_time < timeout:
-                # Try to acquire lock
+# Try to acquire lock
                 acquired = await self.redis.set(
                     self._lock_key,
                     self.node_id,
@@ -529,7 +529,7 @@ class DistributedLock:
                 )
 
                 if acquired:
-                    # Store owner info
+# Store owner info
                     await self.redis.setex(
                         self._owner_key,
                         self.ttl,
@@ -537,10 +537,10 @@ class DistributedLock:
                     )
                     break
 
-                # Check if we already own it
+# Check if we already own it
                 current_owner = await self.redis.get(self._lock_key)
                 if current_owner and current_owner.decode() == self.node_id:
-                    # Refresh TTL
+# Refresh TTL
                     await self.redis.expire(self._lock_key, self.ttl)
                     acquired = True
                     break
@@ -554,7 +554,7 @@ class DistributedLock:
 
         finally:
             if acquired:
-                # Release lock only if we own it
+# Release lock only if we own it
                 await self._release()
 
     async def _release(self):
@@ -619,17 +619,17 @@ class DistributedScheduler(LeaderElectedService):
         """Leader scheduling loop"""
         while self.election.is_leader():
             try:
-                # Get pending jobs from Redis
+# Get pending jobs from Redis
                 jobs = await self._get_pending_jobs()
 
                 for job in jobs:
                     if job['id'] not in self.scheduled_jobs:
-                        # Schedule new job
+# Schedule new job
                         task = asyncio.create_task(self._execute_job(job))
                         self.scheduled_jobs[job['id']] = task
                         self.logger.info(f"Scheduled job {job['id']}")
 
-                # Cleanup completed jobs
+# Cleanup completed jobs
                 completed = []
                 for job_id, task in self.scheduled_jobs.items():
                     if task.done():
@@ -646,13 +646,13 @@ class DistributedScheduler(LeaderElectedService):
 
     async def _get_pending_jobs(self) -> List[Dict]:
         """Get jobs from queue"""
-        # Implementation depends on job storage
+# Implementation depends on job storage
         return []
 
     async def _execute_job(self, job: Dict):
         """Execute a scheduled job"""
         self.logger.info(f"Executing job {job['id']}")
-        # Job execution logic here
+# Job execution logic here
         await asyncio.sleep(job.get('duration', 1))
 
 # Example: Shard Manager
@@ -668,10 +668,10 @@ class ShardManager(LeaderElectedService):
         """Leader shard management loop"""
         while self.election.is_leader():
             try:
-                # Get active nodes
+# Get active nodes
                 active_nodes = await self._get_active_nodes()
 
-                # Check if rebalancing needed
+# Check if rebalancing needed
                 if self._needs_rebalancing(active_nodes):
                     new_assignments = self._calculate_assignments(active_nodes)
                     await self._apply_assignments(new_assignments)
@@ -685,7 +685,7 @@ class ShardManager(LeaderElectedService):
 
     async def _get_active_nodes(self) -> List[str]:
         """Get list of active nodes"""
-        # Check heartbeats in Redis
+# Check heartbeats in Redis
         pattern = "heartbeat:*"
         active = []
 
@@ -707,7 +707,7 @@ class ShardManager(LeaderElectedService):
         if not self.shard_assignments:
             return True
 
-        # Check if nodes changed
+# Check if nodes changed
         current_nodes = set(self.shard_assignments.values())
         active_set = set(active_nodes)
 
@@ -728,7 +728,7 @@ class ShardManager(LeaderElectedService):
 
     async def _apply_assignments(self, assignments: Dict[int, str]):
         """Apply new shard assignments"""
-        # Store in Redis for all nodes to see
+# Store in Redis for all nodes to see
         pipe = self.redis.pipeline()
 
         for shard, node in assignments.items():
@@ -791,7 +791,7 @@ stateDiagram-v2
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Election Scenarios
 
@@ -1017,25 +1017,25 @@ class MembershipChange:
     
     def add_node(self, new_node: str):
         """Add node using joint consensus"""
-        # Phase 1: Joint configuration
-        # Old AND new majority required
+# Phase 1: Joint configuration
+# Old AND new majority required
         self.config = JointConfig(
             old_nodes=self.current_nodes,
             new_nodes=self.current_nodes + [new_node]
         )
         
-        # Phase 2: Replicate joint config
+# Phase 2: Replicate joint config
         self.replicate_config(self.config)
         
-        # Phase 3: Transition to new config
-        # Only new majority required
+# Phase 3: Transition to new config
+# Only new majority required
         self.config = NewConfig(self.current_nodes + [new_node])
         self.replicate_config(self.config)
 ```
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Apache Kafka
 
@@ -1245,7 +1245,7 @@ ALERTS = [
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1435,7 +1435,7 @@ graph LR
 
 ---
 
-## 📊 Analysis & Trade-offs
+## Analysis & Trade-offs
 
 ### Law Relationships
 
@@ -1483,7 +1483,7 @@ graph LR
 
 ---
 
-## 🔧 Practical Considerations
+## Practical Considerations
 
 ### Configuration Guidelines
 
@@ -1513,7 +1513,7 @@ How leader election works with other patterns:
 
 ---
 
-## 🚀 Real-World Examples
+## Real-World Examples
 
 ### Example 1: Apache Kafka Controller
 - **Challenge**: Manage partition leaders across brokers
@@ -1658,7 +1658,7 @@ graph TB
 ---
 
 **Previous**: ← Idempotent Receiver Pattern (Coming Soon) | **Next**: [Load Balancing Pattern →](load-balancing.md)
-## 📋 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

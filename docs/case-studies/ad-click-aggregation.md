@@ -193,11 +193,11 @@ graph TD
 ```python
 # Stage 1: Validation and Enrichment
 def validate_and_enrich(event):
-    # Validate required fields
+# Validate required fields
     if not all(k in event for k in ['event_id', 'ad_id', 'timestamp']):
         return None
     
-    # Enrich with additional data
+# Enrich with additional data
     event['advertiser'] = lookup_advertiser(event['ad_id'])
     event['campaign'] = lookup_campaign(event['ad_id'])
     event['fraud_score'] = calculate_fraud_score(event)
@@ -423,7 +423,7 @@ class HyperLogLogAggregator:
     def estimate_cardinality(self):
         raw_estimate = self.m * self.m / sum(2**(-x) for x in self.buckets)
         
-        # Apply bias correction
+# Apply bias correction
         if raw_estimate <= 2.5 * self.m:
             zeros = self.buckets.count(0)
             if zeros != 0:
@@ -447,15 +447,15 @@ class OptimizedClickWriter:
         self.compression = 'snappy'
         
     def write_batch(self, events):
-        # Convert to columnar format
+# Convert to columnar format
         df = pd.DataFrame(events)
         
-        # Optimize data types
+# Optimize data types
         df['timestamp'] = pd.to_datetime(df['timestamp'])
         df['advertiser_id'] = df['advertiser_id'].astype('category')
         df['publisher_id'] = df['publisher_id'].astype('category')
         
-        # Write as Parquet with compression
+# Write as Parquet with compression
         table = pa.Table.from_pandas(df)
         pq.write_table(
             table,
@@ -537,7 +537,7 @@ class ClickPatternDetector:
             interval = clicks[i].timestamp - clicks[i-1].timestamp
             intervals.append(interval.total_seconds())
         
-        # Suspicious if many clicks < 1 second apart
+# Suspicious if many clicks < 1 second apart
         rapid_clicks = sum(1 for i in intervals if i < 1.0)
         return rapid_clicks / len(intervals)
     
@@ -548,11 +548,11 @@ class ClickPatternDetector:
         intervals = [clicks[i].timestamp - clicks[i-1].timestamp 
                      for i in range(1, len(clicks))]
         
-        # Check for regular intervals (bot behavior)
+# Check for regular intervals (bot behavior)
         interval_variance = statistics.variance([i.total_seconds() 
                                                for i in intervals])
         
-        # Low variance suggests bot
+# Low variance suggests bot
         return 1.0 if interval_variance < 0.1 else 0.0
 ```
 

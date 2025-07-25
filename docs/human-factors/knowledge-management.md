@@ -165,13 +165,13 @@ class IncidentKnowledgeExtractor:
             'prevention': self.generate_prevention_steps(incident)
         }
 
-        # Create runbook entries
+# Create runbook entries
         runbook_updates = self.generate_runbook_updates(learnings)
 
-        # Create monitoring rules
+# Create monitoring rules
         monitoring_rules = self.generate_alert_rules(learnings)
 
-        # Update documentation
+# Update documentation
         doc_updates = self.generate_doc_updates(learnings)
 
         return {
@@ -260,8 +260,8 @@ class KnowledgeGraph:
 
     def suggest_missing_links(self):
         """ML-based link prediction"""
-        # Use graph embedding techniques
-        # to suggest potential connections
+# Use graph embedding techniques
+# to suggest potential connections
         pass
 ```
 

@@ -147,13 +147,13 @@ class ChunkedUploadService:
         self.upload_sessions = {}
         
     def initiate_upload(self, file_metadata, user_id):
-        # Generate upload session
+# Generate upload session
         session_id = generate_uuid()
         
-        # Calculate chunks
+# Calculate chunks
         total_chunks = math.ceil(file_metadata['size'] / self.chunk_size)
         
-        # Create session
+# Create session
         session = {
             'session_id': session_id,
             'user_id': user_id,
@@ -179,7 +179,7 @@ class ChunkedUploadService:
         if not session:
             raise SessionNotFound()
         
-        # Validate chunk
+# Validate chunk
         chunk_checksum = calculate_md5(chunk_data)
         expected_size = min(
             self.chunk_size,
@@ -189,15 +189,15 @@ class ChunkedUploadService:
         if len(chunk_data) != expected_size:
             raise InvalidChunkSize()
         
-        # Store chunk
+# Store chunk
         chunk_id = f"{session_id}_{chunk_number}"
         self.block_storage.store(chunk_id, chunk_data)
         
-        # Update session
+# Update session
         session['uploaded_chunks'].add(chunk_number)
         session['chunk_checksums'][chunk_number] = chunk_checksum
         
-        # Check if upload complete
+# Check if upload complete
         if len(session['uploaded_chunks']) == session['total_chunks']:
             return self.finalize_upload(session_id)
         
@@ -210,14 +210,14 @@ class ChunkedUploadService:
     def finalize_upload(self, session_id):
         session = self.upload_sessions[session_id]
         
-        # Assemble file from chunks
+# Assemble file from chunks
         file_blocks = []
         for i in range(session['total_chunks']):
             chunk_id = f"{session_id}_{i}"
             block_ref = self.block_storage.get_reference(chunk_id)
             file_blocks.append(block_ref)
         
-        # Create file entry
+# Create file entry
         file_id = generate_uuid()
         file_entry = {
             'file_id': file_id,
@@ -232,13 +232,13 @@ class ChunkedUploadService:
             'version': 1
         }
         
-        # Store metadata
+# Store metadata
         self.metadata_service.create_file(file_entry)
         
-        # Clean up session
+# Clean up session
         del self.upload_sessions[session_id]
         
-        # Trigger post-upload processing
+# Trigger post-upload processing
         self.queue_post_processing(file_id)
         
         return {'file_id': file_id, 'status': 'completed'}
@@ -258,7 +258,7 @@ class DeduplicationService:
             checksum = block['checksum']
             
             if checksum in self.block_index:
-                # Block already exists, reference it
+# Block already exists, reference it
                 existing_ref = self.block_index[checksum]
                 unique_blocks.append({
                     'type': 'reference',
@@ -266,7 +266,7 @@ class DeduplicationService:
                 })
                 saved_space += block['size']
             else:
-                # New block, store it
+# New block, store it
                 block_ref = self.store_unique_block(block)
                 self.block_index[checksum] = block_ref
                 unique_blocks.append({
@@ -289,15 +289,15 @@ class SyncEngine:
         self.conflict_resolver = ConflictResolver()
         
     def detect_changes(self):
-        # Get remote state
+# Get remote state
         remote_state = self.get_remote_state()
         
-        # Compare with local state
+# Compare with local state
         local_changes = []
         remote_changes = []
         conflicts = []
         
-        # Check each file
+# Check each file
         all_files = set(self.local_state.keys()) | set(remote_state.keys())
         
         for file_path in all_files:
@@ -305,21 +305,21 @@ class SyncEngine:
             remote_file = remote_state.get(file_path)
             
             if not remote_file:
-                # Local only - need to upload
+# Local only - need to upload
                 local_changes.append(('create', file_path, local_file))
             elif not local_file:
-                # Remote only - need to download
+# Remote only - need to download
                 remote_changes.append(('create', file_path, remote_file))
             elif local_file['modified'] > remote_file['modified']:
-                # Local is newer
+# Local is newer
                 if local_file['parent_version'] == remote_file['version']:
-                    # No conflict - local changed
+# No conflict - local changed
                     local_changes.append(('update', file_path, local_file))
                 else:
-                    # Conflict - both changed
+# Conflict - both changed
                     conflicts.append((file_path, local_file, remote_file))
             elif remote_file['modified'] > local_file['modified']:
-                # Remote is newer
+# Remote is newer
                 remote_changes.append(('update', file_path, remote_file))
         
         return local_changes, remote_changes, conflicts
@@ -327,7 +327,7 @@ class SyncEngine:
     def sync(self):
         local_changes, remote_changes, conflicts = self.detect_changes()
         
-        # Handle conflicts
+# Handle conflicts
         for conflict in conflicts:
             resolution = self.conflict_resolver.resolve(conflict)
             if resolution['action'] == 'keep_local':
@@ -335,26 +335,26 @@ class SyncEngine:
             elif resolution['action'] == 'keep_remote':
                 remote_changes.append(('update', conflict[0], conflict[2]))
             elif resolution['action'] == 'keep_both':
-                # Rename local version
+# Rename local version
                 new_name = f"{conflict[0]}_conflict_{timestamp()}"
                 local_changes.append(('create', new_name, conflict[1]))
                 remote_changes.append(('update', conflict[0], conflict[2]))
         
-        # Apply remote changes
+# Apply remote changes
         for action, file_path, file_data in remote_changes:
             if action == 'create' or action == 'update':
                 self.download_file(file_path, file_data)
             elif action == 'delete':
                 self.delete_local_file(file_path)
         
-        # Upload local changes
+# Upload local changes
         for action, file_path, file_data in local_changes:
             if action == 'create' or action == 'update':
                 self.upload_file(file_path, file_data)
             elif action == 'delete':
                 self.delete_remote_file(file_path)
         
-        # Update local state
+# Update local state
         self.local_state = self.get_current_state()
         self.save_local_state()
 ```
@@ -367,10 +367,10 @@ class SyncNotificationService:
         self.pubsub = PubSubService()
         
     def handle_file_change(self, user_id, change_event):
-        # Publish to user's channel
+# Publish to user's channel
         self.pubsub.publish(f"user:{user_id}:changes", change_event)
         
-        # Send to connected clients
+# Send to connected clients
         if user_id in self.connections:
             for connection in self.connections[user_id]:
                 try:
@@ -379,7 +379,7 @@ class SyncNotificationService:
                         'change': change_event
                     })
                 except:
-                    # Remove dead connections
+# Remove dead connections
                     self.connections[user_id].remove(connection)
     
     def subscribe_client(self, user_id, websocket):
@@ -387,7 +387,7 @@ class SyncNotificationService:
             self.connections[user_id] = []
         self.connections[user_id].append(websocket)
         
-        # Subscribe to user's channel
+# Subscribe to user's channel
         self.pubsub.subscribe(
             f"user:{user_id}:changes",
             lambda msg: websocket.send_json(msg)
@@ -522,11 +522,11 @@ class SearchService:
             'extension': self.extract_extension(file_metadata['name'])
         }
         
-        # Add content if available (for text files)
+# Add content if available (for text files)
         if content and self.is_indexable_content(file_metadata['mime_type']):
             doc['content'] = self.extract_text_content(content)
         
-        # Index document
+# Index document
         self.elasticsearch.index(
             index=self.index_name,
             id=file_metadata['file_id'],
@@ -534,7 +534,7 @@ class SearchService:
         )
     
     def search(self, user_id, query, filters=None):
-        # Build search query
+# Build search query
         search_body = {
             'query': {
                 'bool': {
@@ -559,7 +559,7 @@ class SearchService:
             }
         }
         
-        # Apply filters
+# Apply filters
         if filters:
             if 'mime_type' in filters:
                 search_body['query']['bool']['filter'].append({
@@ -575,7 +575,7 @@ class SearchService:
                     }
                 })
         
-        # Execute search
+# Execute search
         results = self.elasticsearch.search(
             index=self.index_name,
             body=search_body,
@@ -595,17 +595,17 @@ class SharingService:
         self.notification_service = NotificationService()
         
     def share_file(self, file_id, owner_id, share_with, permission='view'):
-        # Validate permission
+# Validate permission
         if not self.validate_ownership(file_id, owner_id):
             raise PermissionDenied()
         
-        # Check if already shared
+# Check if already shared
         existing_share = self.get_share(file_id, share_with)
         if existing_share:
-            # Update permission
+# Update permission
             self.update_share_permission(existing_share['share_id'], permission)
         else:
-            # Create new share
+# Create new share
             share_id = generate_uuid()
             self.metadata_db.create_share({
                 'share_id': share_id,
@@ -617,21 +617,21 @@ class SharingService:
                 'created_at': timestamp()
             })
         
-        # Send notification
+# Send notification
         self.notification_service.notify_share(share_with, file_id, owner_id)
         
         return {'status': 'shared', 'share_id': share_id}
     
     def create_public_link(self, file_id, owner_id, expiry=None):
-        # Validate ownership
+# Validate ownership
         if not self.validate_ownership(file_id, owner_id):
             raise PermissionDenied()
         
-        # Generate secure link
+# Generate secure link
         link_token = generate_secure_token()
         public_url = f"https://drive.google.com/file/d/{link_token}/view"
         
-        # Store link mapping
+# Store link mapping
         self.metadata_db.create_public_link({
             'token': link_token,
             'file_id': file_id,
@@ -657,28 +657,28 @@ class BlockStorage:
     def store_block(self, block_data):
         block_id = calculate_sha256(block_data)
         
-        # Check if block exists
+# Check if block exists
         if self.block_exists(block_id):
             return block_id
         
-        # Compress block
+# Compress block
         compressed_data = self.compress(block_data)
         
-        # Erasure coding for large blocks
+# Erasure coding for large blocks
         if len(compressed_data) > 1024 * 1024:  # 1MB
             chunks = self.erasure_coding.encode(compressed_data)
             self.store_erasure_coded(block_id, chunks)
         else:
-            # Simple replication for small blocks
+# Simple replication for small blocks
             self.store_replicated(block_id, compressed_data)
         
         return block_id
     
     def store_replicated(self, block_id, data):
-        # Select storage nodes
+# Select storage nodes
         nodes = self.select_storage_nodes(block_id, self.replication_factor)
         
-        # Store on each node
+# Store on each node
         success_count = 0
         for node in nodes:
             try:
@@ -691,7 +691,7 @@ class BlockStorage:
             raise InsufficientReplicas()
     
     def retrieve_block(self, block_id):
-        # Try primary replicas first
+# Try primary replicas first
         nodes = self.select_storage_nodes(block_id, self.replication_factor)
         
         for node in nodes:
@@ -701,7 +701,7 @@ class BlockStorage:
             except:
                 continue
         
-        # Try erasure coding recovery
+# Try erasure coding recovery
         return self.recover_from_erasure_coding(block_id)
 ```
 
@@ -715,12 +715,12 @@ class CDNService:
         self.cache_strategy = CacheStrategy()
         
     def optimize_delivery(self, file_id, user_location):
-        # Get file metadata
+# Get file metadata
         file_meta = self.get_file_metadata(file_id)
         
-        # Check if file should be cached
+# Check if file should be cached
         if self.cache_strategy.should_cache(file_meta):
-            # Push to nearest edge location
+# Push to nearest edge location
             edge_location = self.get_nearest_edge(user_location)
             cdn_url = self.cdn_provider.cache_file(
                 file_id,
@@ -729,7 +729,7 @@ class CDNService:
             )
             return cdn_url
         
-        # Direct download from origin
+# Direct download from origin
         return self.get_origin_url(file_id)
 ```
 
@@ -740,10 +740,10 @@ class DeltaSync:
         self.chunk_size = 4096  # 4KB chunks
         
     def compute_delta(self, old_file, new_file):
-        # Compute rolling checksums
+# Compute rolling checksums
         old_checksums = self.compute_checksums(old_file)
         
-        # Find matching blocks
+# Find matching blocks
         delta_ops = []
         new_pos = 0
         
@@ -752,7 +752,7 @@ class DeltaSync:
             chunk_checksum = self.rolling_checksum(chunk)
             
             if chunk_checksum in old_checksums:
-                # Found matching block
+# Found matching block
                 old_pos = old_checksums[chunk_checksum]
                 delta_ops.append({
                     'op': 'copy',
@@ -761,7 +761,7 @@ class DeltaSync:
                 })
                 new_pos += self.chunk_size
             else:
-                # New data
+# New data
                 data_start = new_pos
                 while new_pos < len(new_file) and \
                       self.rolling_checksum(new_file[new_pos:new_pos + self.chunk_size]) not in old_checksums:
@@ -783,7 +783,7 @@ class PrefetchService:
         self.cache = FileCache()
         
     def prefetch_files(self, user_id, current_file_id):
-        # Predict next files user might access
+# Predict next files user might access
         predictions = self.ml_model.predict_next_files(
             user_id,
             current_file_id,
@@ -794,7 +794,7 @@ class PrefetchService:
             }
         )
         
-        # Prefetch top predictions
+# Prefetch top predictions
         for file_id, probability in predictions[:5]:
             if probability > 0.7:
                 self.cache.warm(user_id, file_id)
@@ -886,24 +886,24 @@ class DriveMonitoring:
 ```python
 class EncryptionService:
     def encrypt_file(self, file_data, user_id):
-        # Generate file encryption key
+# Generate file encryption key
         file_key = generate_aes_key()
         
-        # Encrypt file
+# Encrypt file
         encrypted_data = aes_encrypt(file_data, file_key)
         
-        # Encrypt file key with user's key
+# Encrypt file key with user's key
         user_key = self.get_user_key(user_id)
         encrypted_file_key = rsa_encrypt(file_key, user_key)
         
         return encrypted_data, encrypted_file_key
     
     def decrypt_file(self, encrypted_data, encrypted_file_key, user_id):
-        # Decrypt file key
+# Decrypt file key
         user_key = self.get_user_key(user_id)
         file_key = rsa_decrypt(encrypted_file_key, user_key)
         
-        # Decrypt file
+# Decrypt file
         return aes_decrypt(encrypted_data, file_key)
 ```
 

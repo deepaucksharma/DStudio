@@ -21,7 +21,7 @@ last_updated: 2025-07-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Personal Assistant Analogy
 
@@ -71,7 +71,7 @@ sequenceDiagram
 
 ---
 
-## 🔬 Level 2: Deep Dive
+## Level 2: Deep Dive
 
 ### Implementation Architecture
 
@@ -161,7 +161,7 @@ class CacheAsidePattern:
         start_time = datetime.now()
         
         try:
-            # Step 1: Check cache
+# Step 1: Check cache
             cached_data = await self._get_from_cache(key)
             
             if cached_data is not None:
@@ -169,29 +169,29 @@ class CacheAsidePattern:
                 self.logger.debug(f"Cache hit for key: {key}")
                 return cached_data
             
-            # Step 2: Cache miss - fetch from source
+# Step 2: Cache miss - fetch from source
             self.metrics.record_miss(key)
             self.logger.debug(f"Cache miss for key: {key}")
             
-            # Optional: Implement cache stampede protection
+# Optional: Implement cache stampede protection
             if cache_stampede_protection:
                 lock_key = f"lock:{key}"
                 lock_acquired = await self._acquire_lock(lock_key, ttl=30)
                 
                 if not lock_acquired:
-                    # Another process is fetching, wait and retry
+# Another process is fetching, wait and retry
                     await asyncio.sleep(0.1)
                     cached_data = await self._get_from_cache(key)
                     if cached_data:
                         return cached_data
             
-            # Step 3: Fetch fresh data
+# Step 3: Fetch fresh data
             fresh_data = await fetch_func()
             
-            # Step 4: Update cache
+# Step 4: Update cache
             await self._set_in_cache(key, fresh_data, ttl or self.default_ttl)
             
-            # Record metrics
+# Record metrics
             fetch_time = (datetime.now() - start_time).total_seconds()
             self.metrics.record_fetch_time(key, fetch_time)
             
@@ -201,7 +201,7 @@ class CacheAsidePattern:
             self.logger.error(f"Error in cache-aside pattern for key {key}: {e}")
             self.metrics.record_error(key)
             
-            # Fallback: Try to fetch without cache
+# Fallback: Try to fetch without cache
             try:
                 return await fetch_func()
             except Exception as fallback_error:
@@ -264,7 +264,7 @@ class UserService:
         cache_key = f"user:{user_id}"
         
         async def fetch_from_db():
-            # Expensive database query
+# Expensive database query
             query = "SELECT * FROM users WHERE id = %s"
             result = await self.db.fetch_one(query, [user_id])
             return dict(result) if result else None
@@ -277,11 +277,11 @@ class UserService:
     
     async def update_user(self, user_id: str, updates: Dict) -> bool:
         """Update user and invalidate cache"""
-        # Update database first
+# Update database first
         query = "UPDATE users SET ... WHERE id = %s"
         await self.db.execute(query, [..., user_id])
         
-        # Then invalidate cache
+# Then invalidate cache
         cache_key = f"user:{user_id}"
         await self.cache_pattern.invalidate(cache_key)
         
@@ -307,15 +307,15 @@ class AdvancedCacheAside(CacheAsidePattern):
         cached_data = await self._get_from_cache(key)
         
         if cached_data:
-            # Check remaining TTL
+# Check remaining TTL
             remaining_ttl = await self.cache.ttl(key)
             if remaining_ttl < (ttl * refresh_threshold):
-                # Refresh cache in background
+# Refresh cache in background
                 asyncio.create_task(self._background_refresh(key, fetch_func, ttl))
             
             return cached_data
         
-        # Standard cache-aside flow for cache miss
+# Standard cache-aside flow for cache miss
         return await self.get_with_cache(key, fetch_func, ttl)
     
     async def get_with_fallback(
@@ -328,31 +328,31 @@ class AdvancedCacheAside(CacheAsidePattern):
         """
         Multi-tier cache with fallback
         """
-        # Try primary cache
+# Try primary cache
         data = await self._get_from_cache(primary_key)
         if data:
             return data
         
-        # Try fallback cache (e.g., stale data)
+# Try fallback cache (e.g., stale data)
         fallback_data = await self._get_from_cache(fallback_key)
         
-        # Fetch fresh data in background
+# Fetch fresh data in background
         asyncio.create_task(
             self._update_caches(primary_key, fallback_key, fetch_func, ttl)
         )
         
-        # Return stale data if available
+# Return stale data if available
         if fallback_data:
             self.logger.info(f"Serving stale data for key: {primary_key}")
             return fallback_data
         
-        # No fallback available, fetch synchronously
+# No fallback available, fetch synchronously
         return await fetch_func()
 ```
 
 ---
 
-## 🏗️ Level 3: Production Patterns
+## Level 3: Production Patterns
 
 ### Performance Optimization
 
@@ -383,26 +383,26 @@ class AdvancedCacheAside(CacheAsidePattern):
 class CacheAsidePitfalls:
     """Common issues and their solutions"""
     
-    # PITFALL 1: Cache Stampede
+# PITFALL 1: Cache Stampede
     async def prevent_cache_stampede(self, key: str, fetch_func):
         """Use distributed lock to prevent multiple fetches"""
         lock = self.cache.lock(f"lock:{key}", timeout=30)
         
         try:
             if await lock.acquire(blocking=False):
-                # We got the lock, fetch and cache
+# We got the lock, fetch and cache
                 data = await fetch_func()
                 await self.cache.setex(key, 3600, data)
                 return data
             else:
-                # Someone else is fetching, wait for result
+# Someone else is fetching, wait for result
                 for _ in range(50):  # 5 seconds max wait
                     await asyncio.sleep(0.1)
                     cached = await self.cache.get(key)
                     if cached:
                         return cached
                 
-                # Timeout - fetch anyway
+# Timeout - fetch anyway
                 return await fetch_func()
         finally:
             try:
@@ -410,7 +410,7 @@ class CacheAsidePitfalls:
             except:
                 pass
     
-    # PITFALL 2: Inconsistent Invalidation
+# PITFALL 2: Inconsistent Invalidation
     async def consistent_invalidation(self, entity_type: str, entity_id: str):
         """Invalidate all related cache entries"""
         patterns = [
@@ -422,7 +422,7 @@ class CacheAsidePitfalls:
         for pattern in patterns:
             await self.cache.delete_pattern(pattern)
     
-    # PITFALL 3: Memory Bloat
+# PITFALL 3: Memory Bloat
     async def cache_with_compression(self, key: str, data: Any, ttl: int):
         """Compress large values before caching"""
         import zlib
@@ -474,7 +474,7 @@ class CacheAsideMonitoring:
 
 ---
 
-## 📊 Comparison with Other Patterns
+## Comparison with Other Patterns
 
 ### Cache-Aside vs Other Caching Patterns
 
@@ -509,7 +509,7 @@ flowchart TD
 
 ---
 
-## 🎯 Best Practices
+## Best Practices
 
 <div class="truth-box">
 
@@ -548,11 +548,11 @@ class ProductCacheService:
     
     async def get_product(self, product_id: str, user_region: str) -> Dict:
         """Get product with region-specific pricing"""
-        # Region-specific cache key
+# Region-specific cache key
         cache_key = f"product:{product_id}:region:{user_region}"
         
         async def fetch_product():
-            # Complex query with joins
+# Complex query with joins
             product = await self.db.fetch_one("""
                 SELECT p.*, pr.price, pr.currency, i.quantity
                 FROM products p
@@ -571,17 +571,17 @@ class ProductCacheService:
     
     async def update_product_price(self, product_id: str, region: str, new_price: float):
         """Update price and invalidate all related caches"""
-        # Update database
+# Update database
         await self.db.execute("""
             UPDATE pricing 
             SET price = %s, updated_at = NOW() 
             WHERE product_id = %s AND region = %s
         """, [new_price, product_id, region])
         
-        # Invalidate specific region cache
+# Invalidate specific region cache
         await self.cache.invalidate(f"product:{product_id}:region:{region}")
         
-        # Invalidate any aggregate caches
+# Invalidate any aggregate caches
         await self.cache.invalidate_pattern(f"category:*:products:*")
         await self.cache.invalidate_pattern(f"search:*")
 ```

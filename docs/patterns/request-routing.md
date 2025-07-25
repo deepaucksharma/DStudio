@@ -21,7 +21,7 @@ last_updated: 2025-01-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -79,7 +79,7 @@ graph LR
 
 ---
 
-## 🔧 Level 2: Implementation
+## Level 2: Implementation
 
 ### Types of Request Routing
 
@@ -98,16 +98,16 @@ class PathBasedRouter:
     def add_prefix_route(self, prefix: str, service: str):
         """Prefix-based matching"""
         self.prefix_routes.append((prefix, service))
-        # Sort by length (longest first) for proper matching
+# Sort by length (longest first) for proper matching
         self.prefix_routes.sort(key=lambda x: len(x[0]), reverse=True)
     
     def route(self, request_path: str) -> Optional[str]:
         """Route based on path"""
-        # Check exact match first
+# Check exact match first
         if request_path in self.path_map:
             return self.path_map[request_path]
         
-        # Check prefix matches
+# Check prefix matches
         for prefix, service in self.prefix_routes:
             if request_path.startswith(prefix):
                 return service
@@ -326,10 +326,10 @@ class ConsistentHashRouter:
         
         hash_value = self._hash(key)
         
-        # Find the first node with hash >= key hash
+# Find the first node with hash >= key hash
         idx = bisect_left(self.sorted_keys, hash_value)
         
-        # Wrap around if necessary
+# Wrap around if necessary
         if idx == len(self.sorted_keys):
             idx = 0
         
@@ -372,7 +372,7 @@ class GeoBasedRouter:
     def _calculate_distance(self, lat1: float, lon1: float, 
                           lat2: float, lon2: float) -> float:
         """Calculate distance between two points (simplified)"""
-        # Haversine formula for distance
+# Haversine formula for distance
         R = 6371  # Earth's radius in km
         
         lat1_rad = math.radians(lat1)
@@ -408,7 +408,7 @@ class GeoBasedRouter:
             if service.region == client_region:
                 return service.service
         
-        # Fallback to any service
+# Fallback to any service
         return self.services[0].service if self.services else None
 
 # Example usage
@@ -457,7 +457,7 @@ class APIGateway:
     def add_route(self, route: Route):
         """Add a route to the gateway"""
         self.routes.append(route)
-        # Sort routes by specificity (more specific first)
+# Sort routes by specificity (more specific first)
         self.routes.sort(key=lambda r: len(r.pattern), reverse=True)
     
     def add_middleware(self, middleware_func):
@@ -468,24 +468,24 @@ class APIGateway:
         """Process incoming request through gateway"""
         start_time = time.time()
         
-        # Apply middleware
+# Apply middleware
         for mw in self.middleware:
             request = mw(request)
             if request.get('blocked'):
                 return {'status': 403, 'body': 'Request blocked'}
         
-        # Find matching route
+# Find matching route
         service = self._find_route(request)
         if not service:
             self.metrics['route_not_found'] += 1
             return {'status': 404, 'body': 'Route not found'}
         
-        # Check circuit breaker
+# Check circuit breaker
         if self._is_circuit_open(service):
             self.metrics['circuit_breaker_open'] += 1
             return {'status': 503, 'body': 'Service unavailable'}
         
-        # Forward request
+# Forward request
         try:
             response = self._forward_request(service, request)
             self.metrics[f'{service}_success'] += 1
@@ -496,7 +496,7 @@ class APIGateway:
             logging.error(f"Error forwarding to {service}: {e}")
             return {'status': 500, 'body': 'Internal server error'}
         finally:
-            # Record latency
+# Record latency
             latency = time.time() - start_time
             self.metrics[f'{service}_latency_sum'] += latency
             self.metrics[f'{service}_request_count'] += 1
@@ -532,7 +532,7 @@ class APIGateway:
         cb = self.circuit_breakers[service]
         cb['failures'] += 1
         
-        # Open circuit after 5 failures
+# Open circuit after 5 failures
         if cb['failures'] >= 5:
             cb['state'] = 'open'
             cb['reset_time'] = time.time() + 30  # 30 second timeout
@@ -540,8 +540,8 @@ class APIGateway:
     
     def _forward_request(self, service: str, request: dict) -> dict:
         """Forward request to target service (simplified)"""
-        # In real implementation, this would make HTTP request
-        # to the actual service
+# In real implementation, this would make HTTP request
+# to the actual service
         return {
             'status': 200,
             'body': f"Response from {service}",
@@ -557,9 +557,9 @@ def auth_middleware(request):
 
 def rate_limit_middleware(request):
     """Rate limiting middleware"""
-    # Simplified rate limiting logic
+# Simplified rate limiting logic
     client_ip = request.get('client_ip')
-    # Check rate limits...
+# Check rate limits...
     return request
 
 # Setup gateway
@@ -615,11 +615,11 @@ class ServiceMeshRouter:
         
         policy = self.traffic_policies.get(service_name, {})
         
-        # Apply traffic splitting
+# Apply traffic splitting
         if 'split' in policy:
             return self._apply_traffic_split(service_name, policy['split'])
         
-        # Apply fault injection (for testing)
+# Apply fault injection (for testing)
         if 'fault' in policy:
             if random.random() < policy['fault']['percentage']:
                 if policy['fault']['type'] == 'delay':
@@ -627,12 +627,12 @@ class ServiceMeshRouter:
                 elif policy['fault']['type'] == 'abort':
                     return {'error': 'Fault injection abort'}
         
-        # Apply outlier detection
+# Apply outlier detection
         healthy_instances = self._get_healthy_instances(service_name)
         if not healthy_instances:
             return None
         
-        # Route to healthy instance
+# Route to healthy instance
         return random.choice(healthy_instances)
     
     def _apply_traffic_split(self, service_name: str, 
@@ -644,7 +644,7 @@ class ServiceMeshRouter:
         for split in splits:
             cumulative += split['percentage']
             if rand_val <= cumulative:
-                # Route to specific version
+# Route to specific version
                 instances = [
                     i for i in self.services[service_name]
                     if i.get('version') == split['version']
@@ -660,11 +660,11 @@ class ServiceMeshRouter:
         healthy = []
         
         for instance in instances:
-            # Check health based on recent metrics
+# Check health based on recent metrics
             failure_rate = instance.get('failure_rate', 0)
             latency_p99 = instance.get('latency_p99', 0)
             
-            # Outlier detection thresholds
+# Outlier detection thresholds
             if failure_rate < 0.5 and latency_p99 < 1000:  # ms
                 healthy.append(instance)
         
@@ -725,7 +725,7 @@ class MLRouter:
             'latency': latency
         })
         
-        # Retrain periodically
+# Retrain periodically
         if len(self.history) >= 100 and len(self.history) % 50 == 0:
             self._train_model()
     
@@ -734,7 +734,7 @@ class MLRouter:
         if len(self.history) < 100:
             return
         
-        # Prepare training data
+# Prepare training data
         X = []
         y = []
         
@@ -747,7 +747,7 @@ class MLRouter:
             ]
             X.append(features)
             
-            # Label: 1 if successful and fast, 0 otherwise
+# Label: 1 if successful and fast, 0 otherwise
             label = 1 if record['success'] and record['latency'] < 100 else 0
             y.append(label)
         
@@ -760,7 +760,7 @@ class MLRouter:
         if not self.is_trained or not available_services:
             return random.choice(available_services)
         
-        # Score each service
+# Score each service
         scores = {}
         for service in available_services:
             X = [[
@@ -770,11 +770,11 @@ class MLRouter:
                 features.get('day_of_week', 0)
             ]]
             
-            # Predict success probability
+# Predict success probability
             prob = self.model.predict_proba(X)[0][1]
             scores[service] = prob
         
-        # Return service with highest score
+# Return service with highest score
         return max(scores, key=scores.get)
 
 # Example usage
@@ -810,7 +810,7 @@ print(f"ML Router recommends: {best_service}")
 
 ---
 
-## 🔄 Real-World Applications
+## Real-World Applications
 
 ### 1. Kong API Gateway Configuration
 
@@ -888,7 +888,7 @@ upstream order_service {
 server {
     listen 80;
     
-    # Path-based routing
+# Path-based routing
     location /api/users {
         proxy_pass http://user_service;
         proxy_set_header Host $host;
@@ -899,7 +899,7 @@ server {
         proxy_pass http://order_service;
     }
     
-    # Header-based routing
+# Header-based routing
     location /api {
         if ($http_x_api_version = "2") {
             proxy_pass http://api-v2;
@@ -911,7 +911,7 @@ server {
 
 ---
 
-## ⚡ Performance Considerations
+## Performance Considerations
 
 ### 1. Route Matching Performance
 
@@ -920,9 +920,9 @@ class OptimizedRouter:
     """High-performance routing implementation"""
     
     def __init__(self):
-        # Use trie for efficient prefix matching
+# Use trie for efficient prefix matching
         self.route_trie = {}
-        # Cache for frequently accessed routes
+# Cache for frequently accessed routes
         self.cache = {}
         self.cache_hits = 0
         self.cache_misses = 0
@@ -939,22 +939,22 @@ class OptimizedRouter:
     
     def route(self, path: str) -> Optional[Callable]:
         """Route with caching"""
-        # Check cache first
+# Check cache first
         if path in self.cache:
             self.cache_hits += 1
             return self.cache[path]
         
         self.cache_misses += 1
         
-        # Traverse trie
+# Traverse trie
         handler = self._trie_lookup(path)
         
-        # Cache result
+# Cache result
         if handler:
             self.cache[path] = handler
-            # Limit cache size
+# Limit cache size
             if len(self.cache) > 10000:
-                # Remove oldest entries (simple LRU)
+# Remove oldest entries (simple LRU)
                 for key in list(self.cache.keys())[:1000]:
                     del self.cache[key]
         
@@ -1005,14 +1005,14 @@ class ConnectionPoolRouter:
         
         pool = self.pools[service]
         
-        # Find available connection
+# Find available connection
         for conn in pool:
             if not conn['in_use']:
                 conn['in_use'] = True
                 conn['last_used'] = time.time()
                 return conn['connection']
         
-        # All connections busy, wait or create new one
+# All connections busy, wait or create new one
         if len(pool) < self.pool_size:
             conn = self._create_connection(service)
             pool.append({
@@ -1022,7 +1022,7 @@ class ConnectionPoolRouter:
             })
             return conn
         
-        # Wait for available connection
+# Wait for available connection
         return self._wait_for_connection(service)
     
     def release_connection(self, service: str, connection):
@@ -1047,13 +1047,13 @@ class ConnectionPoolRouter:
     
     def _create_connection(self, service: str):
         """Create new connection to service"""
-        # Simplified - in reality would create HTTP/gRPC connection
+# Simplified - in reality would create HTTP/gRPC connection
         return {'service': service, 'id': str(uuid.uuid4())}
 ```
 
 ---
 
-## 🏛️ Architecture Patterns
+## 🏛 Architecture Patterns
 
 ### Request Routing in Different Architectures
 
@@ -1100,14 +1100,14 @@ class DiscoveryAwareRouter:
         if not instances:
             return None
         
-        # Apply routing strategy
+# Apply routing strategy
         if request.get('sticky_session'):
-            # Route based on session ID
+# Route based on session ID
             session_id = request.get('session_id', '')
             index = hash(session_id) % len(instances)
             return instances[index]
         else:
-            # Round-robin or random
+# Round-robin or random
             return random.choice(instances)
     
     def _get_service_instances(self, service_name: str) -> List[str]:
@@ -1118,10 +1118,10 @@ class DiscoveryAwareRouter:
         if cached and time.time() - cached['timestamp'] < self.cache_ttl:
             return cached['instances']
         
-        # Fetch from discovery service
+# Fetch from discovery service
         instances = self.discovery.get_instances(service_name)
         
-        # Update cache
+# Update cache
         self.service_cache[cache_key] = {
             'instances': instances,
             'timestamp': time.time()

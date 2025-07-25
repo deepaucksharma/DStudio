@@ -93,27 +93,27 @@ class CatalogService:
         self.cache = ElastiCache()
         
     def get_product(self, product_id):
-        # Check cache first
+# Check cache first
         product = self.cache.get(f"product:{product_id}")
         if product:
             return product
             
-        # Read from DynamoDB
+# Read from DynamoDB
         product = self.dynamodb.get_item(
             TableName='Products',
             Key={'product_id': product_id}
         )
         
-        # Enrich with S3 data (images, videos)
+# Enrich with S3 data (images, videos)
         product['media'] = self.s3.get_media_urls(product_id)
         
-        # Cache for future requests
+# Cache for future requests
         self.cache.set(f"product:{product_id}", product, ttl=3600)
         
         return product
     
     def update_product(self, product_id, updates):
-        # Update DynamoDB with conditional checks
+# Update DynamoDB with conditional checks
         try:
             response = self.dynamodb.update_item(
                 TableName='Products',
@@ -128,10 +128,10 @@ class CatalogService:
                 ConditionExpression='version = :expected_version'
             )
             
-            # Invalidate cache
+# Invalidate cache
             self.cache.delete(f"product:{product_id}")
             
-            # Publish change event
+# Publish change event
             self.publish_product_change(product_id, updates)
             
         except ConditionalCheckFailedException:
@@ -152,17 +152,17 @@ class CartService:
     def add_to_cart(self, user_id, product_id, quantity):
         cart_key = f"cart:{user_id}"
         
-        # Check inventory first
+# Check inventory first
         available = self.check_inventory(product_id, quantity)
         if not available:
             raise OutOfStockError()
         
-        # Add to Redis for fast access
+# Add to Redis for fast access
         cart = self.redis.hgetall(cart_key)
         if not cart:
             cart = self.load_cart_from_db(user_id)
         
-        # Update cart
+# Update cart
         if product_id in cart:
             cart[product_id]['quantity'] += quantity
         else:
@@ -172,20 +172,20 @@ class CartService:
                 'price': self.get_current_price(product_id)
             }
         
-        # Save to Redis with TTL
+# Save to Redis with TTL
         self.redis.hset(cart_key, mapping=cart)
         self.redis.expire(cart_key, 7200)  # 2 hours
         
-        # Async save to DynamoDB for persistence
+# Async save to DynamoDB for persistence
         self.async_save_to_db(user_id, cart)
         
         return self.calculate_cart_total(cart)
     
     def checkout(self, user_id):
-        # Move cart to order processing
+# Move cart to order processing
         cart = self.get_cart(user_id)
         
-        # Reserve inventory
+# Reserve inventory
         reservations = []
         for product_id, item in cart.items():
             reservation = self.reserve_inventory(
@@ -195,10 +195,10 @@ class CartService:
             )
             reservations.append(reservation)
         
-        # Create order
+# Create order
         order = self.create_order(user_id, cart, reservations)
         
-        # Clear cart
+# Clear cart
         self.clear_cart(user_id)
         
         return order
@@ -214,11 +214,11 @@ class OrderService:
         self.sns = SNS()
         
     def create_order(self, user_id, cart_items, payment_info):
-        # Begin distributed transaction
+# Begin distributed transaction
         order_id = self.generate_order_id()
         
         try:
-            # 1. Create order record
+# 1. Create order record
             order = {
                 'order_id': order_id,
                 'user_id': user_id,
@@ -231,7 +231,7 @@ class OrderService:
             self.aurora.begin_transaction()
             self.aurora.insert('orders', order)
             
-            # 2. Process payment
+# 2. Process payment
             payment_result = self.process_payment(
                 payment_info,
                 order['total']
@@ -241,7 +241,7 @@ class OrderService:
                 order['status'] = 'PAID'
                 order['payment_id'] = payment_result.transaction_id
                 
-                # 3. Commit inventory
+# 3. Commit inventory
                 for item in cart_items:
                     self.commit_inventory_reservation(
                         item['product_id'],
@@ -249,7 +249,7 @@ class OrderService:
                         order_id
                     )
                 
-                # 4. Trigger fulfillment
+# 4. Trigger fulfillment
                 self.sqs.send_message(
                     QueueUrl=FULFILLMENT_QUEUE,
                     MessageBody=json.dumps({
@@ -260,11 +260,11 @@ class OrderService:
                 
                 self.aurora.commit()
                 
-                # 5. Send notifications
+# 5. Send notifications
                 self.send_order_confirmation(user_id, order)
                 
             else:
-                # Rollback on payment failure
+# Rollback on payment failure
                 self.aurora.rollback()
                 self.release_inventory_reservations(cart_items)
                 order['status'] = 'PAYMENT_FAILED'
@@ -287,13 +287,13 @@ class SearchService:
         self.cache = ElastiCache()
         
     def search(self, query, filters=None, user_id=None):
-        # Check cache for common queries
+# Check cache for common queries
         cache_key = self.generate_cache_key(query, filters)
         cached_results = self.cache.get(cache_key)
         if cached_results:
             return self.personalize_results(cached_results, user_id)
         
-        # Build ES query
+# Build ES query
         es_query = {
             'multi_match': {
                 'query': query,
@@ -307,17 +307,17 @@ class SearchService:
             }
         }
         
-        # Apply filters
+# Apply filters
         if filters:
             es_query = self.apply_filters(es_query, filters)
         
-        # Execute search
+# Execute search
         results = self.elasticsearch.search(
             index='products',
             body={'query': es_query, 'size': 1000}
         )
         
-        # ML-based ranking
+# ML-based ranking
         if user_id:
             results = self.ml_ranking.rank_results(
                 results,
@@ -325,7 +325,7 @@ class SearchService:
                 context=self.get_search_context()
             )
         
-        # Cache popular queries
+# Cache popular queries
         if self.is_popular_query(query):
             self.cache.set(cache_key, results, ttl=300)
         
@@ -345,26 +345,26 @@ class InventoryService:
         self.kinesis = Kinesis()
         
     def check_availability(self, product_id, quantity, warehouse_id=None):
-        # Try hot cache first
+# Try hot cache first
         cache_key = f"inv:{product_id}:{warehouse_id or 'all'}"
         cached = self.redis.get(cache_key)
         
         if cached:
             return cached >= quantity
         
-        # Query DynamoDB
+# Query DynamoDB
         if warehouse_id:
             inventory = self.get_warehouse_inventory(product_id, warehouse_id)
         else:
             inventory = self.get_total_inventory(product_id)
         
-        # Update cache
+# Update cache
         self.redis.setex(cache_key, 60, inventory)
         
         return inventory >= quantity
     
     def reserve_inventory(self, product_id, quantity, order_id, duration=900):
-        # Optimistic locking with DynamoDB
+# Optimistic locking with DynamoDB
         for attempt in range(3):
             try:
                 current = self.dynamodb.get_item(
@@ -375,7 +375,7 @@ class InventoryService:
                 if current['available'] < quantity:
                     raise InsufficientInventoryError()
                 
-                # Reserve with conditional update
+# Reserve with conditional update
                 self.dynamodb.update_item(
                     TableName='Inventory',
                     Key={'product_id': product_id},
@@ -392,10 +392,10 @@ class InventoryService:
                     ConditionExpression='version = :expected'
                 )
                 
-                # Track reservation
+# Track reservation
                 self.track_reservation(product_id, quantity, order_id, duration)
                 
-                # Publish event
+# Publish event
                 self.kinesis.put_record(
                     StreamName='inventory-events',
                     Data=json.dumps({
@@ -490,25 +490,25 @@ class MultiLevelCache:
     L3: Application Cache (Local)
     """
     def get_product(self, product_id):
-        # L1: Check CloudFront
-        # Handled by CDN automatically
+# L1: Check CloudFront
+# Handled by CDN automatically
         
-        # L2: Check ElastiCache
+# L2: Check ElastiCache
         product = self.elasticache.get(f"product:{product_id}")
         if product:
             return product
         
-        # L3: Check local cache
+# L3: Check local cache
         product = self.local_cache.get(product_id)
         if product:
-            # Refresh L2
+# Refresh L2
             self.elasticache.set(f"product:{product_id}", product)
             return product
         
-        # Load from database
+# Load from database
         product = self.load_from_db(product_id)
         
-        # Update all cache levels
+# Update all cache levels
         self.update_all_caches(product_id, product)
         
         return product
@@ -520,14 +520,14 @@ class MultiLevelCache:
 class ShardingStrategy:
     def get_shard(self, key, shard_type):
         if shard_type == "USER":
-            # User data sharded by user_id
+# User data sharded by user_id
             return hash(key) % NUM_USER_SHARDS
         elif shard_type == "PRODUCT":
-            # Product data sharded by category + brand
+# Product data sharded by category + brand
             category = extract_category(key)
             return hash(category) % NUM_PRODUCT_SHARDS
         elif shard_type == "ORDER":
-            # Orders sharded by date + region
+# Orders sharded by date + region
             date = extract_date(key)
             region = extract_region(key)
             return hash(f"{date}:{region}") % NUM_ORDER_SHARDS
@@ -564,7 +564,7 @@ class AutoScalingPolicy:
         self.metrics = CloudWatch()
         
     def scale_decision(self):
-        # Scale based on multiple metrics
+# Scale based on multiple metrics
         cpu = self.metrics.get_average_cpu()
         response_time = self.metrics.get_response_time_p99()
         queue_depth = self.metrics.get_sqs_queue_depth()

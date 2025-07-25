@@ -86,7 +86,7 @@ def health_check():
     return "OK"  # Passes!
 
 def process_request():
-    # Takes 30 seconds instead of 30ms due to disk contention
+# Takes 30 seconds instead of 30ms due to disk contention
     with open('/full/disk/file.log', 'a') as f:
         f.write(data)  # Extremely slow but eventually succeeds
 ```
@@ -204,7 +204,7 @@ def analyze_failure_correlation(services):
     correlation_matrix = {}
     for s1, s2 in combinations(services, 2):
         shared = shared_deps.get((s1, s2), [])
-        # Correlation increases with shared dependencies
+# Correlation increases with shared dependencies
         correlation = len(shared) / max(
             len(dependency_graph[s1]), 
             len(dependency_graph[s2])
@@ -307,8 +307,8 @@ Borrowed from safety engineering:
 ```python
 # Chaos engineering experiment
 def test_correlated_failure():
-    # Don't just fail random instances
-    # Fail entire racks, AZs, or regions
+# Don't just fail random instances
+# Fail entire racks, AZs, or regions
     failure_scenarios = [
         fail_entire_rack("rack-42"),
         fail_availability_zone("us-east-1a"),

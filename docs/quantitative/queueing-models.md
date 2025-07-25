@@ -576,7 +576,7 @@ Options: 2x servers | Optimize service | Add cache
 
 ## Law Connections
 
-### Law 4: Trade-offs ⚖️
+### Law 4: Trade-offs
 ```mermaid
 graph LR
     A[Arrival Rate λ] --> B{Queue}
@@ -592,12 +592,12 @@ graph LR
 
 **Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
 
-### Law 1: Failure 💥
+### Law 1: Failure
 - At high utilization (>90%), small disruptions cause catastrophic queue growth
 - Variance in service times creates unpredictable failure modes
 - Queue overflow leads to dropped requests and cascading failures
 
-### Law 4: Trade-offs ⚖️ (Ordering Constraints)
+### Law 4: Trade-offs (Ordering Constraints)
 ```python
 # FIFO Queue Ordering
 Customer 1 arrives at t=0, waits 0ms
@@ -606,7 +606,7 @@ Customer 3 arrives at t=2, waits 20ms
 # Order preserved, but wait times compound
 ```
 
-### Law 5: Epistemology 🧠
+### Law 5: Epistemology
 - Queue depth is observable, but individual wait times require tracking
 - Utilization is measurable, but doesn't capture variance effects
 - True service time distribution often unknown

@@ -8,7 +8,7 @@ last_updated: 2025-07-23
 ---
 
 
-# 🎬 Design YouTube
+# Design YouTube
 
 ## Problem Statement
 
@@ -352,10 +352,10 @@ class VideoUploadService:
         
     async def initiate_upload(self, request: UploadRequest) -> UploadSession:
         """Initialize resumable upload session"""
-        # Generate unique upload ID
+# Generate unique upload ID
         upload_id = self._generate_upload_id()
         
-        # Create upload session
+# Create upload session
         session = UploadSession(
             upload_id=upload_id,
             user_id=request.user_id,
@@ -365,10 +365,10 @@ class VideoUploadService:
             uploaded_chunks=set()
         )
         
-        # Store session
+# Store session
         await self.session_store.save(session)
         
-        # Generate signed upload URL
+# Generate signed upload URL
         upload_url = self._generate_signed_url(upload_id)
         
         return session
@@ -376,25 +376,25 @@ class VideoUploadService:
     async def upload_chunk(self, upload_id: str, chunk_number: int, 
                           data: bytes) -> ChunkStatus:
         """Handle chunk upload with deduplication"""
-        # Verify session
+# Verify session
         session = await self.session_store.get(upload_id)
         if not session:
             raise UploadSessionNotFound()
             
-        # Calculate chunk hash for deduplication
+# Calculate chunk hash for deduplication
         chunk_hash = hashlib.sha256(data).hexdigest()
         
-        # Check if chunk already exists (deduplication)
+# Check if chunk already exists (deduplication)
         existing = await self.chunk_store.exists(chunk_hash)
         if existing:
-            # Just reference existing chunk
+# Just reference existing chunk
             await self._reference_chunk(session, chunk_number, chunk_hash)
         else:
-            # Store new chunk
+# Store new chunk
             await self.chunk_store.put(chunk_hash, data)
             await self._reference_chunk(session, chunk_number, chunk_hash)
             
-        # Update session
+# Update session
         session.uploaded_chunks.add(chunk_number)
         await self.session_store.save(session)
         
@@ -407,14 +407,14 @@ class VideoUploadService:
         """Finalize upload and trigger processing"""
         session = await self.session_store.get(upload_id)
         
-        # Verify all chunks uploaded
+# Verify all chunks uploaded
         if len(session.uploaded_chunks) != session.total_chunks:
             raise IncompleteUpload()
             
-        # Generate video ID
+# Generate video ID
         video_id = self._generate_video_id()
         
-        # Create processing job
+# Create processing job
         job = ProcessingJob(
             video_id=video_id,
             upload_id=upload_id,
@@ -423,7 +423,7 @@ class VideoUploadService:
             metadata=session.metadata
         )
         
-        # Queue for processing
+# Queue for processing
         await self.queue.enqueue(job, priority=self._calculate_priority(session))
         
         return video_id
@@ -447,16 +447,16 @@ class TranscodingPipeline:
     async def process_video(self, job: ProcessingJob):
         """Process video through transcoding pipeline"""
         try:
-            # 1. Reconstruct original video from chunks
+# 1. Reconstruct original video from chunks
             original_path = await self._reconstruct_video(job.chunk_hashes)
             
-            # 2. Analyze video characteristics
+# 2. Analyze video characteristics
             analysis = await self._analyze_video(original_path)
             
-            # 3. Determine optimal encoding ladder
+# 3. Determine optimal encoding ladder
             encoding_ladder = self._optimize_ladder(analysis, self.quality_ladder)
             
-            # 4. Parallel transcoding
+# 4. Parallel transcoding
             transcode_tasks = []
             for quality_profile in encoding_ladder:
                 task = self._transcode_quality(
@@ -468,7 +468,7 @@ class TranscodingPipeline:
                 
             transcode_results = await asyncio.gather(*transcode_tasks)
             
-            # 5. Generate adaptive streaming manifests
+# 5. Generate adaptive streaming manifests
             dash_manifest = await self._generate_dash_manifest(
                 job.video_id,
                 transcode_results
@@ -478,11 +478,11 @@ class TranscodingPipeline:
                 transcode_results
             )
             
-            # 6. Extract additional metadata
+# 6. Extract additional metadata
             thumbnails = await self._generate_thumbnails(original_path)
             subtitles = await self._extract_subtitles(original_path)
             
-            # 7. Update video status
+# 7. Update video status
             await self._update_video_status(
                 job.video_id,
                 status='ready',
@@ -496,10 +496,10 @@ class TranscodingPipeline:
     async def _transcode_quality(self, input_path: str, video_id: str,
                                 quality: dict) -> TranscodeResult:
         """Transcode video to specific quality"""
-        # Use hardware acceleration when available
+# Use hardware acceleration when available
         encoder = 'h264_nvenc' if quality['codec'] == 'h264' else quality['codec']
         
-        # FFmpeg command for segmented output (DASH/HLS compatible)
+# FFmpeg command for segmented output (DASH/HLS compatible)
         output_pattern = f"{video_id}_{quality['resolution']}_%05d.m4s"
         
         cmd = [
@@ -518,10 +518,10 @@ class TranscodingPipeline:
             output_pattern
         ]
         
-        # Execute transcoding
+# Execute transcoding
         await self._execute_ffmpeg(cmd)
         
-        # Upload segments to storage
+# Upload segments to storage
         segments = await self._upload_segments(video_id, quality['resolution'])
         
         return TranscodeResult(
@@ -544,13 +544,13 @@ class VideoServingService:
     async def get_video_manifest(self, video_id: str, 
                                 format: str = 'dash') -> str:
         """Get adaptive streaming manifest"""
-        # Check cache first
+# Check cache first
         cache_key = f"manifest:{video_id}:{format}"
         cached = await self.cache.get(cache_key)
         if cached:
             return cached
             
-        # Generate manifest
+# Generate manifest
         video_meta = await self._get_video_metadata(video_id)
         
         if format == 'dash':
@@ -558,7 +558,7 @@ class VideoServingService:
         else:  # HLS
             manifest = self._generate_hls_manifest(video_meta)
             
-        # Cache manifest
+# Cache manifest
         await self.cache.set(cache_key, manifest, ttl=3600)
         
         return manifest
@@ -603,11 +603,11 @@ class VideoServingService:
         """Serve individual video segment with CDN optimization"""
         segment_key = f"{video_id}/{quality}/segment_{segment}.m4s"
         
-        # Try CDN cache first
+# Try CDN cache first
         cdn_url = self.cdn_manager.get_edge_url(segment_key)
         
-        # For this design, we'll return the CDN URL
-        # In practice, the CDN would handle the actual serving
+# For this design, we'll return the CDN URL
+# In practice, the CDN would handle the actual serving
         return cdn_url
 ```
 
@@ -624,59 +624,59 @@ class RecommendationEngine:
     async def get_recommendations(self, user_id: str, 
                                  context: dict) -> List[VideoRecommendation]:
         """Generate personalized video recommendations"""
-        # 1. Get user features
+# 1. Get user features
         user_features = await self._get_user_features(user_id)
         
-        # 2. Get candidate videos from multiple sources
+# 2. Get candidate videos from multiple sources
         candidates = []
         
-        # Recent uploads from subscriptions
+# Recent uploads from subscriptions
         subscription_videos = await self._get_subscription_videos(user_id, limit=100)
         candidates.extend(subscription_videos)
         
-        # Collaborative filtering candidates
+# Collaborative filtering candidates
         cf_videos = await self.collaborative_filter.get_similar_users_videos(
             user_id, 
             limit=200
         )
         candidates.extend(cf_videos)
         
-        # Content-based candidates (based on watch history)
+# Content-based candidates (based on watch history)
         cb_videos = await self.content_based.get_similar_videos(
             user_features.watch_history[-10:],  # Last 10 videos
             limit=200
         )
         candidates.extend(cb_videos)
         
-        # Trending videos
+# Trending videos
         trending = await self._get_trending_videos(
             region=context.get('region'),
             limit=50
         )
         candidates.extend(trending)
         
-        # 3. Remove duplicates and already watched
+# 3. Remove duplicates and already watched
         candidates = self._deduplicate(candidates)
         candidates = await self._filter_watched(candidates, user_id)
         
-        # 4. Feature extraction for ranking
+# 4. Feature extraction for ranking
         features = await self._extract_ranking_features(
             user_id,
             candidates,
             context
         )
         
-        # 5. Score with deep learning model
+# 5. Score with deep learning model
         scores = await self.deep_model.predict(features)
         
-        # 6. Re-rank with business rules
+# 6. Re-rank with business rules
         final_rankings = self._apply_business_rules(
             candidates,
             scores,
             user_features
         )
         
-        # 7. Diversify results
+# 7. Diversify results
         diversified = self._diversify_results(final_rankings)
         
         return diversified[:20]
@@ -689,27 +689,27 @@ class RecommendationEngine:
         
         for video in videos:
             video_features = {
-                # Video features
+# Video features
                 'video_age_hours': (datetime.now() - video.upload_time).total_seconds() / 3600,
                 'video_duration': video.duration,
                 'video_views': video.views,
                 'video_likes_ratio': video.likes / (video.likes + video.dislikes + 1),
                 'channel_subscribers': video.channel.subscribers,
                 
-                # User-video interaction features
+# User-video interaction features
                 'user_channel_affinity': await self._get_channel_affinity(user_id, video.channel_id),
                 'category_match_score': await self._get_category_preference(user_id, video.category),
                 'language_match': video.language == context.get('language'),
                 
-                # Contextual features
+# Contextual features
                 'time_of_day': context.get('hour', 0),
                 'day_of_week': context.get('day_of_week', 0),
                 'device_type': context.get('device', 'unknown'),
                 
-                # Collaborative signals
+# Collaborative signals
                 'co_view_score': await self._get_coview_score(user_id, video.video_id),
                 
-                # Freshness
+# Freshness
                 'is_new_upload': video.upload_time > datetime.now() - timedelta(hours=24),
                 'from_subscription': video.channel_id in user_features.subscriptions
             }
@@ -730,42 +730,42 @@ class VideoAnalyticsPipeline:
         
     async def track_view(self, view_event: ViewEvent):
         """Process video view event"""
-        # 1. Send to Kafka for stream processing
+# 1. Send to Kafka for stream processing
         await self.kafka_producer.send(
             'video-views',
             key=view_event.video_id,
             value=view_event.to_json()
         )
         
-        # 2. Update real-time counters
+# 2. Update real-time counters
         await self.view_aggregator.increment(
             video_id=view_event.video_id,
             timestamp=view_event.timestamp
         )
         
-        # 3. Update user history (for recommendations)
+# 3. Update user history (for recommendations)
         await self._update_user_history(
             user_id=view_event.user_id,
             video_id=view_event.video_id,
             watch_time=view_event.watch_duration
         )
         
-        # 4. Check for trending signals
+# 4. Check for trending signals
         if await self.trending_detector.is_spike(view_event.video_id):
             await self._mark_as_trending(view_event.video_id)
     
     async def get_video_analytics(self, video_id: str) -> VideoAnalytics:
         """Get comprehensive analytics for a video"""
-        # Real-time metrics
+# Real-time metrics
         realtime = await self.view_aggregator.get_realtime_stats(video_id)
         
-        # Historical data from Bigtable
+# Historical data from Bigtable
         historical = await self._get_historical_stats(video_id)
         
-        # Demographics from aggregated data
+# Demographics from aggregated data
         demographics = await self._get_viewer_demographics(video_id)
         
-        # Traffic sources
+# Traffic sources
         sources = await self._get_traffic_sources(video_id)
         
         return VideoAnalytics(
@@ -792,13 +792,13 @@ class LiveStreamingService:
         
     async def start_stream(self, channel_id: str) -> StreamSession:
         """Initialize live streaming session"""
-        # Allocate RTMP ingestion server
+# Allocate RTMP ingestion server
         rtmp_server = self.rtmp_servers.allocate()
         
-        # Generate stream key
+# Generate stream key
         stream_key = self._generate_stream_key()
         
-        # Create session
+# Create session
         session = StreamSession(
             session_id=str(uuid.uuid4()),
             channel_id=channel_id,
@@ -807,7 +807,7 @@ class LiveStreamingService:
             status='waiting_for_stream'
         )
         
-        # Setup transcoding pipeline
+# Setup transcoding pipeline
         await self.transcoder.setup_pipeline(
             session_id=session.session_id,
             qualities=['360p', '720p', '1080p', 'source']
@@ -818,15 +818,15 @@ class LiveStreamingService:
     async def process_live_stream(self, session_id: str):
         """Process incoming live stream"""
         while True:
-            # Get chunk from RTMP
+# Get chunk from RTMP
             chunk = await self.rtmp_servers.get_chunk(session_id)
             if not chunk:
                 break
                 
-            # Transcode to multiple qualities
+# Transcode to multiple qualities
             transcoded = await self.transcoder.transcode_chunk(chunk)
             
-            # Package as HLS segments
+# Package as HLS segments
             for quality, data in transcoded.items():
                 segment = await self.hls_packager.create_segment(
                     session_id,
@@ -834,10 +834,10 @@ class LiveStreamingService:
                     data
                 )
                 
-                # Push to CDN
+# Push to CDN
                 await self._push_to_cdn(segment)
                 
-            # Update manifest
+# Update manifest
             await self._update_live_manifest(session_id)
 ```
 
@@ -900,7 +900,7 @@ class DatabaseSharding:
     def get_comment_shards(self, video_id: str) -> List[int]:
         """Comments sharded by video_id with replication"""
         primary = self.get_video_shard(video_id)
-        # Return primary and replica shards
+# Return primary and replica shards
         return [primary, (primary + 1) % self.shard_count]
 ```
 
@@ -916,15 +916,15 @@ class MultiLayerCache:
         self.app_cache_ttl = 300  # 5 minutes
         
     async def get_video_metadata(self, video_id: str):
-        # L1: Application cache (Redis)
+# L1: Application cache (Redis)
         cached = await self.redis.get(f"meta:{video_id}")
         if cached:
             return cached
             
-        # L2: Database with caching
+# L2: Database with caching
         metadata = await self.db.get_video(video_id)
         
-        # Cache in Redis
+# Cache in Redis
         await self.redis.set(
             f"meta:{video_id}", 
             metadata,
@@ -994,17 +994,17 @@ graph TB
 class YouTubeMetrics:
     def __init__(self):
         self.metrics = {
-            # User Experience
+# User Experience
             'video_start_time': Histogram('video_start_seconds'),
             'rebuffering_ratio': Gauge('rebuffer_percentage'),
             'video_quality': Histogram('bitrate_bps'),
             
-            # System Health
+# System Health
             'upload_success_rate': Gauge('upload_success_percent'),
             'transcoding_queue_depth': Gauge('transcode_queue_size'),
             'cdn_hit_ratio': Gauge('cdn_cache_hit_percent'),
             
-            # Business Metrics
+# Business Metrics
             'daily_active_users': Counter('dau'),
             'watch_time_hours': Counter('watch_hours'),
             'ad_revenue': Counter('revenue_usd')

@@ -155,13 +155,13 @@ Database: 5,000 servers
 ```python
 class VideoUploadService:
     def upload_video(self, video_file, metadata):
-        # 1. Generate unique video_id
+# 1. Generate unique video_id
         video_id = generate_uuid()
         
-        # 2. Upload to temporary storage
+# 2. Upload to temporary storage
         temp_location = upload_to_gcs(video_file, 'temp-bucket')
         
-        # 3. Create metadata entry
+# 3. Create metadata entry
         video_metadata = {
             'video_id': video_id,
             'user_id': metadata['user_id'],
@@ -172,7 +172,7 @@ class VideoUploadService:
         }
         save_to_bigtable(video_metadata)
         
-        # 4. Queue for processing
+# 4. Queue for processing
         publish_to_queue({
             'video_id': video_id,
             'location': temp_location,
@@ -189,21 +189,21 @@ class VideoProcessor:
         video_id = message['video_id']
         input_path = message['location']
         
-        # 1. Download from temp storage
+# 1. Download from temp storage
         local_file = download_from_gcs(input_path)
         
-        # 2. Extract metadata
+# 2. Extract metadata
         video_info = extract_video_info(local_file)
         
-        # 3. Generate multiple resolutions
+# 3. Generate multiple resolutions
         resolutions = ['144p', '240p', '360p', '480p', '720p', '1080p', '4K']
         encoded_files = []
         
         for resolution in resolutions:
             output_file = encode_video(local_file, resolution)
-            # Segment for HLS/DASH
+# Segment for HLS/DASH
             segments = segment_video(output_file)
-            # Upload to storage
+# Upload to storage
             cdn_path = upload_segments_to_cdn(segments, video_id, resolution)
             encoded_files.append({
                 'resolution': resolution,
@@ -211,11 +211,11 @@ class VideoProcessor:
                 'bitrate': calculate_bitrate(output_file)
             })
         
-        # 4. Generate thumbnails
+# 4. Generate thumbnails
         thumbnails = generate_thumbnails(local_file)
         thumbnail_urls = upload_thumbnails(thumbnails)
         
-        # 5. Update metadata
+# 5. Update metadata
         update_video_metadata(video_id, {
             'status': 'ready',
             'resolutions': encoded_files,
@@ -224,7 +224,7 @@ class VideoProcessor:
             'processing_time': time.now()
         })
         
-        # 6. Clean up temp files
+# 6. Clean up temp files
         delete_temp_files(input_path, local_file)
 ```
 
@@ -249,15 +249,15 @@ Client                     CDN                      Origin
 
 **Video Manifest (HLS)**
 ```
-#EXTM3U
-#EXT-X-VERSION:3
-#EXT-X-STREAM-INF:BANDWIDTH=800000,RESOLUTION=640x360
+# EXTM3U
+# EXT-X-VERSION:3
+# EXT-X-STREAM-INF:BANDWIDTH=800000,RESOLUTION=640x360
 360p/playlist.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=1400000,RESOLUTION=842x480
+# EXT-X-STREAM-INF:BANDWIDTH=1400000,RESOLUTION=842x480
 480p/playlist.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=2800000,RESOLUTION=1280x720
+# EXT-X-STREAM-INF:BANDWIDTH=2800000,RESOLUTION=1280x720
 720p/playlist.m3u8
-#EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080
+# EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080
 1080p/playlist.m3u8
 ```
 
@@ -265,29 +265,29 @@ Client                     CDN                      Origin
 ```python
 class StreamingService:
     def get_video_manifest(self, video_id, client_info):
-        # Get video metadata
+# Get video metadata
         video = get_video_metadata(video_id)
         
-        # Determine available resolutions based on client
+# Determine available resolutions based on client
         available_resolutions = self.filter_resolutions(
             video['resolutions'],
             client_info['device_type'],
             client_info['network_speed']
         )
         
-        # Generate manifest
+# Generate manifest
         manifest = self.generate_hls_manifest(
             video_id,
             available_resolutions
         )
         
-        # Return with CDN URL
+# Return with CDN URL
         cdn_url = self.get_nearest_cdn(client_info['location'])
         return f"{cdn_url}/{video_id}/manifest.m3u8"
     
     def get_video_segment(self, video_id, resolution, segment_num):
-        # This is typically handled by CDN
-        # Origin only serves on cache miss
+# This is typically handled by CDN
+# Origin only serves on cache miss
         segment_path = f"{video_id}/{resolution}/segment{segment_num}.ts"
         return redirect_to_cdn(segment_path)
 ```
@@ -328,16 +328,16 @@ class VideoSearchIndex:
         self.video_features = {}  # video_id -> features
     
     def index_video(self, video):
-        # Extract searchable terms
+# Extract searchable terms
         terms = self.extract_terms(video.title, video.description, video.tags)
         
-        # Update inverted index
+# Update inverted index
         for term in terms:
             if term not in self.inverted_index:
                 self.inverted_index[term] = []
             self.inverted_index[term].append(video.video_id)
         
-        # Store features for ranking
+# Store features for ranking
         self.video_features[video.video_id] = {
             'upload_time': video.upload_timestamp,
             'view_count': video.view_count,
@@ -346,16 +346,16 @@ class VideoSearchIndex:
         }
     
     def search(self, query, limit=20):
-        # Parse query
+# Parse query
         terms = self.parse_query(query)
         
-        # Find candidate videos
+# Find candidate videos
         candidates = set()
         for term in terms:
             if term in self.inverted_index:
                 candidates.update(self.inverted_index[term])
         
-        # Rank results
+# Rank results
         ranked = self.rank_videos(candidates, query)
         
         return ranked[:limit]
@@ -382,38 +382,38 @@ User Interactions ─────▶ Feature Extraction ─────▶ Model
 ```python
 class RecommendationService:
     def get_recommendations(self, user_id, context):
-        # Get user features
+# Get user features
         user_features = self.get_user_features(user_id)
         
-        # Get candidate videos
+# Get candidate videos
         candidates = self.get_candidates(user_features, context)
         
-        # Score and rank
+# Score and rank
         scores = self.model.predict({
             'user_features': user_features,
             'video_features': [self.get_video_features(v) for v in candidates],
             'context': context
         })
         
-        # Apply business rules
+# Apply business rules
         filtered = self.apply_filters(candidates, scores, user_id)
         
-        # Return top recommendations
+# Return top recommendations
         return filtered[:20]
     
     def get_candidates(self, user_features, context):
         candidates = []
         
-        # Recent uploads from subscriptions
+# Recent uploads from subscriptions
         candidates.extend(self.get_subscription_videos(user_features['user_id']))
         
-        # Similar videos to watch history
+# Similar videos to watch history
         candidates.extend(self.get_similar_videos(user_features['watch_history']))
         
-        # Trending videos
+# Trending videos
         candidates.extend(self.get_trending_videos(context['location']))
         
-        # Collaborative filtering
+# Collaborative filtering
         candidates.extend(self.get_cf_recommendations(user_features))
         
         return list(set(candidates))
@@ -449,15 +449,15 @@ class RecommendationService:
 ```python
 class CacheWarmer:
     def warm_caches(self):
-        # Predict popular videos
+# Predict popular videos
         trending = self.predict_trending_videos()
         
-        # Pre-load to edge locations
+# Pre-load to edge locations
         for video in trending:
             for location in self.edge_locations:
                 self.preload_video(video, location)
         
-        # Geographic optimization
+# Geographic optimization
         for region in self.regions:
             regional_popular = self.get_regional_popular(region)
             self.preload_to_region(regional_popular, region)
@@ -602,7 +602,7 @@ class YouTubeMonitoring:
             'processing_queue': self.get_queue_depth()
         }
         
-        # Alert on anomalies
+# Alert on anomalies
         if metrics['qps'] > self.qps_threshold:
             self.alert('High QPS detected')
         

@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -71,7 +71,7 @@ graph TB
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Load Balancing Algorithms
 
@@ -130,7 +130,7 @@ def power_of_two_choices(servers: list, connections: dict) -> Server:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Layer 4 vs Layer 7 Load Balancing
 
@@ -144,17 +144,17 @@ class Layer4LoadBalancer:
     """
 
     def handle_connection(self, client_socket):
-        # Select backend server
+# Select backend server
         server = self.select_server()
         if not server:
             client_socket.close()
             return
 
-        # Create connection to backend
+# Create connection to backend
         backend_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         backend_socket.connect((server.address, server.port))
 
-        # Bi-directional proxy
+# Bi-directional proxy
         self.proxy_data(client_socket, backend_socket)
 
 class Layer7LoadBalancer:
@@ -166,10 +166,10 @@ class Layer7LoadBalancer:
     """
 
     def handle_http_request(self, request):
-        # Parse HTTP request
+# Parse HTTP request
         parsed = self.parse_http_request(request)
 
-        # Content-based routing
+# Content-based routing
         if parsed.path.startswith('/api/'):
             server = self.select_api_server()
         elif parsed.path.startswith('/static/'):
@@ -177,14 +177,14 @@ class Layer7LoadBalancer:
         else:
             server = self.select_web_server()
 
-        # Can modify headers
+# Can modify headers
         request.headers['X-Forwarded-For'] = request.client_ip
         request.headers['X-Real-IP'] = request.client_ip
 
-        # Forward to selected server
+# Forward to selected server
         response = self.forward_request(server, request)
 
-        # Can modify response
+# Can modify response
         response.headers['X-Served-By'] = server.id
 
         return response
@@ -240,16 +240,16 @@ from math import radians, sin, cos, sqrt, atan2
 
 def geographic_load_balance(client_ip: str, datacenters: list, geoip_reader) -> Server:
     """Route to nearest datacenter"""
-    # Get client location
+# Get client location
     try:
         response = geoip_reader.city(client_ip)
         client_lat = response.location.latitude
         client_lon = response.location.longitude
     except:
-        # Use first datacenter as fallback
+# Use first datacenter as fallback
         return select_server_from_dc(datacenters[0]) if datacenters else None
     
-    # Calculate distances using Haversine formula
+# Calculate distances using Haversine formula
     def haversine_distance(lat1, lon1, lat2, lon2):
         R = 6371  # Earth radius in km
         lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
@@ -257,7 +257,7 @@ def geographic_load_balance(client_ip: str, datacenters: list, geoip_reader) -> 
         a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
         return R * 2 * atan2(sqrt(a), sqrt(1-a))
     
-    # Find nearest datacenter
+# Find nearest datacenter
     nearest_dc = min(datacenters, 
                      key=lambda dc: haversine_distance(client_lat, client_lon, dc['lat'], dc['lon']))
     
@@ -271,7 +271,7 @@ def select_server_from_dc(datacenter: dict) -> Server:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Load Balancing Systems
 
@@ -294,7 +294,7 @@ frontend web_frontend
     bind *:80
     bind *:443 ssl crt /etc/ssl/cert.pem
     
-    # Rate limiting
+# Rate limiting
     stick-table type ip size 100k expire 30s store http_req_rate(10s)
     http-request track-sc0 src
     http-request deny if {{ sc_http_req_rate(0) gt 100 }}
@@ -346,7 +346,7 @@ def netflix_weighted_response_time_selection(servers: list, response_times: dict
     if len(servers) == 1:
         return servers[0]
     
-    # Calculate weights based on response time
+# Calculate weights based on response time
     weights = []
     total_response_time = 0
     
@@ -355,13 +355,13 @@ def netflix_weighted_response_time_selection(servers: list, response_times: dict
         total_response_time += avg_time
         weights.append(avg_time)
     
-    # Invert weights (lower response time = higher weight)
+# Invert weights (lower response time = higher weight)
     if total_response_time > 0:
         weights = [total_response_time - w for w in weights]
     else:
         weights = [1] * len(servers)
     
-    # Weighted random selection
+# Weighted random selection
     total_weight = sum(weights)
     if total_weight == 0:
         return random.choice(servers)
@@ -377,7 +377,7 @@ def netflix_weighted_response_time_selection(servers: list, response_times: dict
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Optimal Load Balancing
 
@@ -390,13 +390,13 @@ def optimal_load_assignment(requests: list, servers: list) -> dict:
     if not requests or not servers:
         return {}
     
-    # Calculate cost matrix
+# Calculate cost matrix
     n_requests, n_servers = len(requests), len(servers)
     costs = np.zeros((n_requests, n_servers))
     
     for i, request in enumerate(requests):
         for j, server in enumerate(servers):
-            # Simple cost function: latency + load^2
+# Simple cost function: latency + load^2
             latency = estimate_latency(request, server)
             load_cost = (server.current_connections + 1) ** 2
             costs[i][j] = 0.5 * latency + 0.3 * load_cost
@@ -404,10 +404,10 @@ def optimal_load_assignment(requests: list, servers: list) -> dict:
             if not can_handle(request, server):
                 costs[i][j] = np.inf
     
-    # Solve assignment problem
+# Solve assignment problem
     row_indices, col_indices = linear_sum_assignment(costs)
     
-    # Build assignment map
+# Build assignment map
     assignments = {}
     for i, j in zip(row_indices, col_indices):
         server_idx = j % n_servers if n_requests > n_servers else j
@@ -417,14 +417,14 @@ def optimal_load_assignment(requests: list, servers: list) -> dict:
 
 def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
     """Handle power-law distributed request sizes"""
-    # Sort requests by size (largest first)
+# Sort requests by size (largest first)
     indexed_sizes = sorted(enumerate(request_sizes), key=lambda x: x[1], reverse=True)
     
     assignments = {}
     server_loads = [0] * len(servers)
     
     for idx, size in indexed_sizes:
-        # Find server with best score (capacity + balance)
+# Find server with best score (capacity + balance)
         best_server = None
         best_score = float('inf')
         
@@ -456,7 +456,7 @@ def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Load Balancing Algorithm Selection
 

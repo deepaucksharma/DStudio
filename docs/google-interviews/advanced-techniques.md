@@ -136,13 +136,13 @@ class SmartAssumptions:
     def make_assumption(self, unknown):
         assumption = self.reasonable_default(unknown)
         
-        # Always state it explicitly
+# Always state it explicitly
         print(f"I'll assume {unknown} = {assumption}")
         
-        # Show flexibility
+# Show flexibility
         print(f"This would change if {self.variation(unknown)}")
         
-        # Demonstrate depth
+# Demonstrate depth
         print(f"In production, we'd measure {self.metric(unknown)}")
         
         return assumption
@@ -394,10 +394,10 @@ class SREThinking:
 
 ```python
 def handle_interruption(question):
-    # Acknowledge
+# Acknowledge
     response = "Great question! "
     
-    # Categorize
+# Categorize
     if is_clarification(question):
         response += "Let me clarify that..."
     elif is_challenge(question):
@@ -405,7 +405,7 @@ def handle_interruption(question):
     elif is_redirect(question):
         response += "I'll address that when I cover..."
     
-    # Stay on track
+# Stay on track
     response += " Continuing with the current component..."
     
     return response

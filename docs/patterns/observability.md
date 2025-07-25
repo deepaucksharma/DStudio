@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Medical Diagnosis Analogy
 
@@ -95,7 +95,7 @@ graph TB
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -175,7 +175,7 @@ class MetricsCollector:
         
         self.metrics[key]["sum"] += value
         self.metrics[key]["count"] += 1
-        # Update histogram buckets
+# Update histogram buckets
         for bucket in [0.01, 0.05, 0.1, 0.5, 1, 5, 10]:
             if value <= bucket:
                 bucket_key = f"{key}_bucket_{bucket}"
@@ -198,7 +198,7 @@ class StructuredLogger:
             **kwargs
         }
         
-        # In production, this would go to log aggregation
+# In production, this would go to log aggregation
         print(json.dumps(log_entry))
     
     def info(self, message: str, **kwargs):
@@ -261,7 +261,7 @@ class Tracer:
         """Complete a span"""
         span.end_time = time.time()
         
-        # In production, send to tracing backend
+# In production, send to tracing backend
         duration = span.end_time - span.start_time
         print(f"Span: {span.operation_name} took {duration:.3f}s")
 ```
@@ -278,35 +278,35 @@ class ObservableService:
         self.logger = StructuredLogger(service_name)
         self.tracer = Tracer()
         
-        # Define standard metrics
+# Define standard metrics
         self._setup_metrics()
     
     def _setup_metrics(self):
         """Initialize standard service metrics"""
-        # The Four Golden Signals
+# The Four Golden Signals
         self.metrics.set_gauge("service_up", 1, {"service": self.service_name})
     
     async def handle_request(self, request):
         """Observable request handling"""
-        # Start trace
+# Start trace
         span = self.tracer.start_span("handle_request")
         span.tags["request.method"] = request.method
         span.tags["request.path"] = request.path
         
-        # Create request-scoped logger
+# Create request-scoped logger
         request_logger = self.logger.with_context(
             request_id=request.id,
             user_id=request.user_id,
             trace_id=span.trace_id
         )
         
-        # Increment request counter
+# Increment request counter
         self.metrics.increment_counter(
             "requests_total",
             {"method": request.method, "endpoint": request.path}
         )
         
-        # Track concurrent requests
+# Track concurrent requests
         self.metrics.set_gauge("requests_active", 
             self.metrics.metrics.get("requests_active", Metric("", 0, 0, {}, "")).value + 1
         )
@@ -315,16 +315,16 @@ class ObservableService:
         request_logger.info("Request started")
         
         try:
-            # Process request with observability
+# Process request with observability
             result = await self._process_with_monitoring(request, span, request_logger)
             
-            # Log success
+# Log success
             request_logger.info("Request completed", 
                 status_code=result.status_code,
                 duration=time.time() - start_time
             )
             
-            # Record success metric
+# Record success metric
             self.metrics.increment_counter(
                 "requests_success",
                 {"method": request.method, "endpoint": request.path}
@@ -333,19 +333,19 @@ class ObservableService:
             return result
             
         except Exception as e:
-            # Log error with full context
+# Log error with full context
             request_logger.error("Request failed",
                 error=e,
                 duration=time.time() - start_time
             )
             
-            # Record error metric
+# Record error metric
             self.metrics.increment_counter(
                 "requests_errors",
                 {"method": request.method, "endpoint": request.path, "error": type(e).__name__}
             )
             
-            # Add error to trace
+# Add error to trace
             span.logs.append({
                 "timestamp": time.time(),
                 "level": "ERROR",
@@ -355,7 +355,7 @@ class ObservableService:
             raise
             
         finally:
-            # Record request duration
+# Record request duration
             duration = time.time() - start_time
             self.metrics.record_histogram(
                 "request_duration_seconds",
@@ -363,17 +363,17 @@ class ObservableService:
                 {"method": request.method, "endpoint": request.path}
             )
             
-            # Decrement active requests
+# Decrement active requests
             self.metrics.set_gauge("requests_active",
                 max(0, self.metrics.metrics.get("requests_active", Metric("", 1, 0, {}, "")).value - 1)
             )
             
-            # Finish trace
+# Finish trace
             self.tracer.finish_span(span)
     
     async def _process_with_monitoring(self, request, parent_span, logger):
         """Process request with detailed monitoring"""
-        # Database operation
+# Database operation
         db_span = self.tracer.start_span("database_query", parent_span.span_id)
         try:
             logger.info("Querying database")
@@ -453,7 +453,7 @@ class GoldenSignals:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Observability Patterns
 
@@ -473,17 +473,17 @@ class DistributedTracing:
         from opentelemetry.sdk.trace import TracerProvider
         from opentelemetry.sdk.trace.export import BatchSpanProcessor
         
-        # Setup tracer provider
+# Setup tracer provider
         trace.set_tracer_provider(TracerProvider())
         tracer_provider = trace.get_tracer_provider()
         
-        # Configure OTLP exporter
+# Configure OTLP exporter
         otlp_exporter = trace_exporter.OTLPSpanExporter(
             endpoint="localhost:4317",
             insecure=True
         )
         
-        # Add batch processor
+# Add batch processor
         span_processor = BatchSpanProcessor(otlp_exporter)
         tracer_provider.add_span_processor(span_processor)
         
@@ -494,16 +494,16 @@ class DistributedTracing:
         from opentelemetry.propagate import inject
         
         with self.tracer.start_as_current_span("http_call") as span:
-            # Set span attributes
+# Set span attributes
             span.set_attribute("http.method", "GET")
             span.set_attribute("http.url", url)
             
-            # Inject trace context into headers
+# Inject trace context into headers
             headers = headers or {}
             inject(headers)
             
             try:
-                # Make HTTP call with trace headers
+# Make HTTP call with trace headers
                 response = await http_client.get(url, headers=headers)
                 
                 span.set_attribute("http.status_code", response.status_code)
@@ -537,28 +537,28 @@ class BusinessMetrics:
     
     def _setup_business_metrics(self):
         """Initialize business metric tracking"""
-        # Revenue metrics
+# Revenue metrics
         self.metrics.set_gauge("revenue_total_usd", 0)
         self.metrics.set_gauge("active_subscriptions", 0)
         
-        # User engagement
+# User engagement
         self.metrics.set_gauge("daily_active_users", 0)
         self.metrics.set_gauge("user_sessions_active", 0)
         
-        # Business operations
+# Business operations
         self.metrics.set_gauge("inventory_items", 0)
         self.metrics.set_gauge("orders_pending", 0)
     
     def track_purchase(self, amount: float, item_type: str, user_segment: str):
         """Track purchase with business context"""
-        # Revenue metric
+# Revenue metric
         current_revenue = self.metrics.metrics.get(
             "revenue_total_usd", 
             Metric("", 0, 0, {}, "gauge")
         ).value
         self.metrics.set_gauge("revenue_total_usd", current_revenue + amount)
         
-        # Detailed purchase metrics
+# Detailed purchase metrics
         self.metrics.increment_counter(
             "purchases_total",
             {
@@ -568,7 +568,7 @@ class BusinessMetrics:
             }
         )
         
-        # Track revenue by category
+# Track revenue by category
         self.metrics.record_histogram(
             f"revenue_by_category_{item_type}",
             amount
@@ -585,7 +585,7 @@ class BusinessMetrics:
             }
         )
         
-        # Track funnel metrics
+# Track funnel metrics
         if event in ["signup", "first_purchase", "subscription", "churn"]:
             self.metrics.increment_counter(f"funnel_{event}")
 ```
@@ -612,14 +612,14 @@ class IntelligentAlerting:
         baseline = self.baselines[metric_name]
         baseline["values"].append((timestamp, value))
         
-        # Keep last 7 days
+# Keep last 7 days
         cutoff = timestamp - (7 * 24 * 3600)
         baseline["values"] = [
             (ts, val) for ts, val in baseline["values"] 
             if ts > cutoff
         ]
         
-        # Calculate statistics
+# Calculate statistics
         if len(baseline["values"]) > 10:
             values = [val for _, val in baseline["values"]]
             baseline["mean"] = np.mean(values)
@@ -634,7 +634,7 @@ class IntelligentAlerting:
         if baseline["std"] == 0:
             return None
         
-        # Calculate z-score
+# Calculate z-score
         z_score = abs((current_value - baseline["mean"]) / baseline["std"])
         
         if z_score > 3:  # 3 standard deviations
@@ -653,7 +653,7 @@ class IntelligentAlerting:
         grouped = {}
         
         for alert in alerts:
-            # Group by service and time window
+# Group by service and time window
             service = alert.get("service", "unknown")
             time_bucket = int(alert["timestamp"] / 300) * 300  # 5-minute buckets
             
@@ -668,7 +668,7 @@ class IntelligentAlerting:
             
             grouped[key]["alerts"].append(alert)
         
-        # Analyze grouped alerts for root cause
+# Analyze grouped alerts for root cause
         for group in grouped.values():
             group["root_cause_hypothesis"] = self._hypothesize_root_cause(
                 group["alerts"]
@@ -696,7 +696,7 @@ class ProductionObservability:
         
         registry = CollectorRegistry()
         
-        # Standard HTTP metrics
+# Standard HTTP metrics
         self.request_count = Counter(
             'http_requests_total',
             'Total HTTP requests',
@@ -748,7 +748,7 @@ class ProductionObservability:
         from opentelemetry import trace
         from opentelemetry.instrumentation.requests import RequestsInstrumentor
         
-        # Auto-instrument libraries
+# Auto-instrument libraries
         RequestsInstrumentor().instrument()
         
         return trace.get_tracer(__name__)
@@ -778,7 +778,7 @@ class ProductionObservability:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Uber's Observability Platform
 
@@ -789,13 +789,13 @@ class UberObservabilityPlatform:
     """Uber's approach to observability at scale"""
     
     def __init__(self):
-        # M3 - Metrics infrastructure
+# M3 - Metrics infrastructure
         self.metrics_backend = "M3DB"  # Distributed metrics database
         
-        # Jaeger - Distributed tracing (created by Uber)
+# Jaeger - Distributed tracing (created by Uber)
         self.tracing_backend = "Jaeger"
         
-        # Custom logging pipeline
+# Custom logging pipeline
         self.logging_pipeline = "Uber Logging Platform"
     
     def trace_ride_request(self, ride_id: str):
@@ -858,13 +858,13 @@ class NetflixTelemetrySystem:
     """Netflix's approach to observability"""
     
     def __init__(self):
-        # Atlas - Time series database
+# Atlas - Time series database
         self.metrics = "Atlas"
         
-        # Edgar - Distributed tracing
+# Edgar - Distributed tracing
         self.tracing = "Edgar"
         
-        # Real-time stream processing
+# Real-time stream processing
         self.stream_processing = "Mantis"
     
     def monitor_streaming_quality(self, session_id: str):
@@ -888,7 +888,7 @@ class NetflixTelemetrySystem:
             }
         }
         
-        # Calculate QoE (Quality of Experience) score
+# Calculate QoE (Quality of Experience) score
         metrics["qoe_score"] = self._calculate_qoe(metrics)
         
         return metrics
@@ -903,7 +903,7 @@ class NetflixTelemetrySystem:
         for region in self.get_regions():
             metrics = self.get_region_metrics(region)
             
-            # Statistical anomaly detection
+# Statistical anomaly detection
             z_score = stats.zscore(metrics["error_rates"])
             
             if abs(z_score) > 3:
@@ -990,7 +990,7 @@ class AdvancedObservabilityTechniques:
                     await asyncio.sleep(10)
                     self.profiler.disable()
                     
-                    # Send profile to analysis service
+# Send profile to analysis service
                     stats = pstats.Stats(self.profiler)
                     profile_data = self._serialize_profile(stats)
                     await self._send_profile(profile_data)
@@ -1041,7 +1041,7 @@ class AdvancedObservabilityTechniques:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1056,28 +1056,28 @@ class InformationTheoreticObservability:
     
     def calculate_metric_entropy(self, metric_values: List[float]) -> float:
         """Calculate Shannon entropy of metric"""
-        # Discretize continuous values
+# Discretize continuous values
         hist, _ = np.histogram(metric_values, bins=50)
         
-        # Normalize to probability distribution
+# Normalize to probability distribution
         prob_dist = hist / np.sum(hist)
         
-        # Calculate entropy
+# Calculate entropy
         return entropy(prob_dist)
     
     def mutual_information(self, metric_a: List[float], metric_b: List[float]) -> float:
         """Calculate mutual information between metrics"""
-        # This tells us how much knowing one metric reduces uncertainty about another
+# This tells us how much knowing one metric reduces uncertainty about another
         
-        # Joint probability distribution
+# Joint probability distribution
         hist_2d, _, _ = np.histogram2d(metric_a, metric_b, bins=30)
         joint_prob = hist_2d / np.sum(hist_2d)
         
-        # Marginal distributions
+# Marginal distributions
         prob_a = np.sum(joint_prob, axis=1)
         prob_b = np.sum(joint_prob, axis=0)
         
-        # Mutual information
+# Mutual information
         mi = 0
         for i in range(len(prob_a)):
             for j in range(len(prob_b)):
@@ -1090,12 +1090,12 @@ class InformationTheoreticObservability:
     
     def optimal_metric_selection(self, all_metrics: Dict[str, List[float]], max_metrics: int = 10):
         """Select most informative metrics using information theory"""
-        # Goal: Maximize information while minimizing redundancy
+# Goal: Maximize information while minimizing redundancy
         
         selected = []
         remaining = list(all_metrics.keys())
         
-        # Select metric with highest entropy first
+# Select metric with highest entropy first
         entropies = {
             name: self.calculate_metric_entropy(values)
             for name, values in all_metrics.items()
@@ -1105,13 +1105,13 @@ class InformationTheoreticObservability:
         selected.append(first_metric)
         remaining.remove(first_metric)
         
-        # Greedily select metrics that add most information
+# Greedily select metrics that add most information
         while len(selected) < max_metrics and remaining:
             best_metric = None
             best_score = -float('inf')
             
             for candidate in remaining:
-                # Calculate information gain
+# Calculate information gain
                 redundancy = sum(
                     self.mutual_information(
                         all_metrics[candidate],
@@ -1144,11 +1144,11 @@ class ControlTheoreticObservability:
     
     def _define_state_space(self):
         """Define system as state space model"""
-        # State vector: [request_rate, error_rate, latency, cpu_usage]
-        # Input vector: [traffic, deployments]
-        # Output vector: [slo_metrics]
+# State vector: [request_rate, error_rate, latency, cpu_usage]
+# Input vector: [traffic, deployments]
+# Output vector: [slo_metrics]
         
-        # State transition matrix
+# State transition matrix
         A = np.array([
             [0.9, 0.1, 0.0, 0.0],  # request_rate dynamics
             [0.1, 0.8, 0.1, 0.0],  # error_rate dynamics
@@ -1156,7 +1156,7 @@ class ControlTheoreticObservability:
             [0.2, 0.0, 0.1, 0.7]   # cpu_usage dynamics
         ])
         
-        # Input matrix
+# Input matrix
         B = np.array([
             [1.0, 0.0],
             [0.0, 0.2],
@@ -1164,7 +1164,7 @@ class ControlTheoreticObservability:
             [0.5, 0.0]
         ])
         
-        # Output matrix
+# Output matrix
         C = np.array([
             [1.0, 0.0, 0.0, 0.0],  # Observe request_rate
             [0.0, 1.0, 0.0, 0.0],  # Observe error_rate
@@ -1179,7 +1179,7 @@ class ControlTheoreticObservability:
         C = self.state_space["C"]
         n = len(A)
         
-        # Observability matrix O = [C; CA; CA²; ...; CA^(n-1)]
+# Observability matrix O = [C; CA; CA²; ...; CA^(n-1)]
         O = C
         for i in range(1, n):
             O = np.vstack([O, C @ np.linalg.matrix_power(A, i)])
@@ -1195,7 +1195,7 @@ class ControlTheoreticObservability:
     
     def design_kalman_filter(self):
         """Design Kalman filter for state estimation"""
-        # This allows us to estimate hidden system states from observations
+# This allows us to estimate hidden system states from observations
         
         class KalmanFilter:
             def __init__(self, A, B, C, Q, R):
@@ -1205,7 +1205,7 @@ class ControlTheoreticObservability:
                 self.Q = Q  # Process noise covariance
                 self.R = R  # Measurement noise covariance
                 
-                # Initialize state estimate
+# Initialize state estimate
                 self.x = np.zeros(A.shape[0])
                 self.P = np.eye(A.shape[0])
             
@@ -1220,12 +1220,12 @@ class ControlTheoreticObservability:
             
             def update(self, z):
                 """Update with measurement"""
-                # Kalman gain
+# Kalman gain
                 K = self.P @ self.C.T @ np.linalg.inv(
                     self.C @ self.P @ self.C.T + self.R
                 )
                 
-                # Update estimate
+# Update estimate
                 self.x = self.x + K @ (z - self.C @ self.x)
                 self.P = (np.eye(len(self.x)) - K @ self.C) @ self.P
                 
@@ -1250,7 +1250,7 @@ class eBPFObservability:
     
     def __init__(self):
         self.bpf_program = """
-        #include <linux/ptrace.h>
+# include <linux/ptrace.h>
         
         BPF_HASH(latency_hist, u64);
         BPF_HASH(syscall_count, u32);
@@ -1297,22 +1297,22 @@ class QuantumLogAnalysis:
     
     def quantum_pattern_matching(self, logs: List[str], pattern: str):
         """Use Grover's algorithm for log search"""
-        # In classical computing: O(n)
-        # With quantum: O(√n)
+# In classical computing: O(n)
+# With quantum: O(√n)
         
-        # This is conceptual - real quantum computers aren't ready yet
+# This is conceptual - real quantum computers aren't ready yet
         from qiskit import QuantumCircuit, execute, Aer
         
-        # Encode logs into quantum states
+# Encode logs into quantum states
         n_qubits = int(np.log2(len(logs))) + 1
         qc = QuantumCircuit(n_qubits)
         
-        # Apply Hadamard to create superposition
+# Apply Hadamard to create superposition
         qc.h(range(n_qubits))
         
-        # Oracle function marks matching patterns
-        # Grover operator amplifies marked states
-        # Measurement gives matching log indices
+# Oracle function marks matching patterns
+# Grover operator amplifies marked states
+# Measurement gives matching log indices
         
         return "Quantum advantage for massive log analysis"
 ```
@@ -1323,7 +1323,7 @@ class QuantumLogAnalysis:
 def calculate_observability_economics():
     """Economic impact of observability"""
     
-    # Cost of incidents without observability
+# Cost of incidents without observability
     incidents_per_year = 120
     avg_incident_duration = 4  # hours
     revenue_per_hour = 100_000  # dollars
@@ -1334,7 +1334,7 @@ def calculate_observability_economics():
         revenue_per_hour
     )  # $48M
     
-    # With observability
+# With observability
     incident_reduction = 0.8  # 80% fewer incidents
     mttr_reduction = 0.75     # 75% faster resolution
     
@@ -1347,7 +1347,7 @@ def calculate_observability_economics():
         revenue_per_hour
     )  # $2.4M
     
-    # Observability costs
+# Observability costs
     observability_costs = {
         "infrastructure": 500_000,  # annually
         "licensing": 300_000,

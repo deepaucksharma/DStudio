@@ -118,7 +118,7 @@ class URLFrontier:
         self.robots_cache = {}      # domain -> robots.txt rules
     
     def get_next_url(self):
-        # Respect politeness and priorities
+# Respect politeness and priorities
         for domain, queue in self.priority_queues.items():
             if self.can_crawl(domain):
                 return queue.pop()
@@ -263,16 +263,16 @@ User Query
 ```python
 class QueryRewriter:
     def rewrite(self, query):
-        # Spell correction
+# Spell correction
         query = self.spell_correct(query)
         
-        # Synonym expansion
+# Synonym expansion
         query = self.expand_synonyms(query)
         
-        # Entity recognition
+# Entity recognition
         entities = self.extract_entities(query)
         
-        # Intent classification
+# Intent classification
         intent = self.classify_intent(query)
         
         return RewrittenQuery(query, entities, intent)
@@ -353,7 +353,7 @@ message Posting {
 ### 1. Index Compression
 ```python
 def compress_posting_list(postings):
-    # Delta encoding for doc_ids
+# Delta encoding for doc_ids
     prev_id = 0
     compressed = []
     for doc_id, positions in postings:
@@ -361,7 +361,7 @@ def compress_posting_list(postings):
         compressed.append((delta, positions))
         prev_id = doc_id
     
-    # Variable byte encoding
+# Variable byte encoding
     return variable_byte_encode(compressed)
 ```
 

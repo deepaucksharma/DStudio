@@ -168,7 +168,7 @@ class DistributedProcess:
             )
             self.event_log.append(event)
             
-        # Simulate network delay
+# Simulate network delay
         recipient.receive_message(self.process_id, message)
         return event
     
@@ -206,13 +206,13 @@ class TotallyOrderedLamportClock(LamportClock):
         Compare two events for total ordering
         Returns: -1 if e1 < e2, 0 if equal, 1 if e1 > e2
         """
-        # First compare logical timestamps
+# First compare logical timestamps
         if e1.timestamp < e2.timestamp:
             return -1
         elif e1.timestamp > e2.timestamp:
             return 1
         else:
-            # Break ties with process ID
+# Break ties with process ID
             if e1.process_id < e2.process_id:
                 return -1
             elif e1.process_id > e2.process_id:
@@ -238,7 +238,7 @@ class LamportMutex:
         
     def request_critical_section(self):
         """Request access to critical section"""
-        # 1. Send timestamped request to all processes
+# 1. Send timestamped request to all processes
         timestamp = self.clock.local_event()
         request = {
             'type': 'REQUEST',
@@ -249,25 +249,25 @@ class LamportMutex:
         self.request_queue.append(request)
         self.request_queue.sort(key=lambda r: (r['timestamp'], r['process_id']))
         
-        # Broadcast request to all other processes
+# Broadcast request to all other processes
         self.broadcast(request)
         
-        # 2. Wait for replies from all processes
+# 2. Wait for replies from all processes
         while len(self.replies_received) < self.num_processes - 1:
             time.sleep(0.01)
             
-        # 3. Enter CS when request is at head of queue
+# 3. Enter CS when request is at head of queue
         while (self.request_queue[0]['process_id'] != self.process_id or
                not self.all_replies_received()):
             time.sleep(0.01)
             
     def release_critical_section(self):
         """Release critical section"""
-        # Remove own request from queue
+# Remove own request from queue
         self.request_queue = [r for r in self.request_queue 
                             if r['process_id'] != self.process_id]
         
-        # Send RELEASE to all processes
+# Send RELEASE to all processes
         release_msg = {
             'type': 'RELEASE',
             'process_id': self.process_id,
@@ -296,7 +296,7 @@ class SnapshotProcess:
         self.snapshot_clock = self.clock.clock
         self.recorded_state = self.state.copy()
         
-        # Send marker messages to all neighbors
+# Send marker messages to all neighbors
         marker = {
             'type': 'MARKER',
             'snapshot_id': f"{self.process_id}:{self.snapshot_clock}"
@@ -306,14 +306,14 @@ class SnapshotProcess:
     def receive_marker(self, marker, sender_id):
         """Handle snapshot marker"""
         if self.snapshot_clock is None:
-            # First marker: record local state
+# First marker: record local state
             self.snapshot_clock = self.clock.clock
             self.recorded_state = self.state.copy()
             
-            # Forward marker to all other neighbors
+# Forward marker to all other neighbors
             self.broadcast_marker(marker)
         
-        # Record channel state (messages in transit)
+# Record channel state (messages in transit)
         self.record_channel_state(sender_id)
 ```
 
@@ -354,7 +354,7 @@ class BoundedLamportClock(LamportClock):
         self.clock += 1
         
         if self.clock >= self.epoch_size:
-            # Start new epoch
+# Start new epoch
             self.epoch += 1
             self.clock = 0
             
@@ -479,7 +479,7 @@ class DistributedTransaction:
         elif self.timestamp > other_txn.timestamp:
             return 1   # Other transaction first
         else:
-            # Use transaction ID to break ties
+# Use transaction ID to break ties
             return -1 if self.transaction_id < other_txn.transaction_id else 1
 ```
 

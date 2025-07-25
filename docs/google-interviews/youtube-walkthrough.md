@@ -302,10 +302,10 @@ CREATE TABLE video_analytics (
 1. **Predictive Caching**
    ```python
    def predict_next_videos(user_id, current_video_id):
-       # ML model predicts likely next videos
+# ML model predicts likely next videos
        predictions = ml_model.predict(user_id, current_video_id)
        
-       # Pre-warm CDN edge for top predictions
+# Pre-warm CDN edge for top predictions
        for video_id, probability in predictions[:5]:
            if probability > 0.3:
                cdn.pre_warm(video_id, user_location)

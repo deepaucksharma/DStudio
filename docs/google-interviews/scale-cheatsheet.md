@@ -2,7 +2,7 @@
 
 ## Quick Reference Numbers
 
-### 🌍 Google Services Scale
+### Google Services Scale
 
 | Service | Users | Daily Volume | Peak QPS | Storage |
 |---------|-------|--------------|----------|---------|
@@ -37,7 +37,7 @@ graph TD
     HDD --> Tape
 ```
 
-### ⚡ Latency Numbers
+### Latency Numbers
 
 | Operation | Latency | Notes |
 |-----------|---------|-------|
@@ -54,7 +54,7 @@ graph TD
 | California to Netherlands | 150 ms | Speed of light limit |
 | Tape archive retrieval | 10-60 min | Cold storage |
 
-### 🌐 Network Capacity
+### Network Capacity
 
 | Type | Bandwidth | Latency | Use Case |
 |------|-----------|---------|----------|
@@ -66,7 +66,7 @@ graph TD
 | 5G mobile | 1-10 Gbps | 5-10 ms | Mobile users |
 | Home broadband | 100-1000 Mbps | 10-50 ms | End users |
 
-## 📊 Capacity Planning Quick Math
+## Capacity Planning Quick Math
 
 ### Storage Conversions
 ```
@@ -111,7 +111,7 @@ Peak bandwidth = Average × 3
 | Server utilization | 50-70% | 80-90% |
 | Datacenter PUE | 1.5-2.0 | 1.1 |
 
-## 🏗️ System Design Targets
+## System Design Targets
 
 ### Availability Tiers
 
@@ -133,7 +133,7 @@ Peak bandwidth = Average × 3
 | p99 | <1s | Annoying |
 | p99.9 | <2s | Abandonment risk |
 
-## 🎯 Google-Specific Architectures
+## Google-Specific Architectures
 
 ### Typical Stack
 
@@ -176,7 +176,7 @@ Network PoPs: 1000+
 Submarine cables: 16 owned/leased
 ```
 
-## 📝 Quick Estimation Template
+## Quick Estimation Template
 
 ```python
 # Users and Usage
@@ -204,7 +204,7 @@ print(f"Storage: {total_storage/1e15:.1f} PB/year")
 print(f"Bandwidth: {bandwidth_peak/1e9:.1f} Gbps peak")
 ```
 
-## 🔥 Hot Tips for Interviews
+## Hot Tips for Interviews
 
 1. **Always clarify scale first** - It drives all decisions
 2. **Use powers of 2** for rough calculations (1K ≈ 1024)

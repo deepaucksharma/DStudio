@@ -70,11 +70,11 @@ class FailureAsynchronyCompound:
     """
     
     def detect_failure(self, node, timeout):
-        # The fundamental impossibility
+# The fundamental impossibility
         response = wait_for_response(node, timeout)
         
         if not response:
-            # What do we actually know?
+# What do we actually know?
             return {
                 'node_dead': 'maybe',  # Could have failed
                 'node_slow': 'maybe',  # Could be processing
@@ -84,11 +84,11 @@ class FailureAsynchronyCompound:
     
     def compound_effect(self):
         """The cascade begins"""
-        # Uncertain detection leads to:
-        # - Split brain (two leaders)
-        # - Data inconsistency
-        # - Cascading timeouts
-        # - Human confusion
+# Uncertain detection leads to:
+# - Split brain (two leaders)
+# - Data inconsistency
+# - Cascading timeouts
+# - Human confusion
 ```
 
 ### 2. Emergence × Trade-offs = Optimization Cliffs
@@ -99,14 +99,14 @@ def emergence_tradeoff_cliff():
     Trade-offs aren't smooth - emergence creates cliffs
     """
     
-    # You think you're optimizing linearly
+# You think you're optimizing linearly
     for utilization in range(0, 100, 5):
         if utilization < 70:
-            # Linear region - predictable trade-offs
+# Linear region - predictable trade-offs
             latency = 50 + utilization * 0.5
             cost = utilization * 10
         else:
-            # Emergence! Phase transition
+# Emergence! Phase transition
             latency = 50 * (2 ** ((utilization - 70) / 10))
             cost = cost * 1.5  # Need more resources to maintain stability
             
@@ -139,11 +139,11 @@ class KnowledgeHumanGap:
         }
         
     def incident_occurs(self):
-        # The gap becomes critical
+# The gap becomes critical
         reality = "Causal consistency with 15s staleness window"
         expectation = "Should be immediately consistent"
         
-        # Result: Wrong debugging path, extended outage
+# Result: Wrong debugging path, extended outage
         return {
             'mttr_increase': '4x',
             'wrong_remediation_attempts': 3,
@@ -276,23 +276,23 @@ def choose_framework(context):
     """
     
     if context.type == 'blockchain':
-        # Byzantine failures are primary concern
+# Byzantine failures are primary concern
         return 'Byzantine Fault Tolerance frameworks'
         
     elif context.type == 'embedded':
-        # Real-time constraints dominate
+# Real-time constraints dominate
         return 'Real-time systems theory'
         
     elif context.type == 'quantum':
-        # Quantum effects matter
+# Quantum effects matter
         return 'Quantum information theory'
         
     elif context.type == 'ml_systems':
-        # Non-determinism is feature, not bug
+# Non-determinism is feature, not bug
         return 'Probabilistic systems frameworks'
         
     else:
-        # Traditional distributed systems
+# Traditional distributed systems
         return 'This seven-law framework'
 ```
 
@@ -333,17 +333,17 @@ class DistributedSystemsIntuition:
         
         danger_signals = []
         
-        # Failure + Asynchrony smell
+# Failure + Asynchrony smell
         if (system_state.timeout_frequency > normal and 
             system_state.retry_rate > normal):
             danger_signals.append('Possible cascading failure brewing')
             
-        # Emergence + Economics smell  
+# Emergence + Economics smell
         if (system_state.utilization > 0.7 and
             system_state.cost_trend == 'exponential'):
             danger_signals.append('Approaching phase transition')
             
-        # Knowledge + Human smell
+# Knowledge + Human smell
         if (system_state.consistency_model == 'complex' and
             system_state.new_oncall_engineers > 0):
             danger_signals.append('Incident risk from mental model mismatch')

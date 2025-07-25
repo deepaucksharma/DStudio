@@ -8,7 +8,7 @@ last_updated: 2025-07-23
 ---
 
 
-# 🗺️ Design Google Maps
+# 🗺 Design Google Maps
 
 ## Problem Statement
 
@@ -388,22 +388,22 @@ class TileService:
         """Get or generate map tile"""
         tile_key = f"{style}/{z}/{x}/{y}"
         
-        # Check CDN cache
+# Check CDN cache
         cdn_url = self.cdn.get_tile_url(tile_key)
         if cdn_url:
             return cdn_url  # Client fetches from CDN
             
-        # Check local cache
+# Check local cache
         cached_tile = await self.tile_cache.get(tile_key)
         if cached_tile:
-            # Push to CDN for future requests
+# Push to CDN for future requests
             await self.cdn.push(tile_key, cached_tile)
             return cached_tile
             
-        # Generate tile
+# Generate tile
         tile_data = await self.renderer.render_tile(z, x, y, style)
         
-        # Cache locally and in CDN
+# Cache locally and in CDN
         await self.tile_cache.set(tile_key, tile_data)
         await self.cdn.push(tile_key, tile_data)
         
@@ -433,17 +433,17 @@ class MapRenderer:
         """Render map tile from vector data"""
         bounds = self.get_tile_bounds(z, x, y)
         
-        # Fetch vector data for bounds
+# Fetch vector data for bounds
         features = await self.vector_db.query_bbox(bounds, z)
         
-        # Apply styling rules
+# Apply styling rules
         styled_features = self.style_engine.apply_style(
             features, 
             style, 
             zoom_level=z
         )
         
-        # Render to image
+# Render to image
         img = Image.new('RGBA', (256, 256))
         draw = ImageDraw.Draw(img)
         
@@ -455,7 +455,7 @@ class MapRenderer:
             elif feature.geometry_type == 'Point':
                 self._draw_point(draw, feature, bounds)
                 
-        # Convert to WebP for smaller size
+# Convert to WebP for smaller size
         return self._image_to_webp(img)
 ```
 
@@ -471,17 +471,17 @@ class RoutingEngine:
     async def calculate_route(self, origin: Point, destination: Point,
                             options: RouteOptions) -> List[Route]:
         """Calculate optimal routes using A* with traffic"""
-        # Check cache
+# Check cache
         cache_key = self._get_cache_key(origin, destination, options)
         cached = await self.route_cache.get(cache_key)
         if cached and not options.departure_time:  # Don't cache time-dependent
             return cached
             
-        # Find nearest road nodes
+# Find nearest road nodes
         origin_node = await self.graph.find_nearest_node(origin)
         dest_node = await self.graph.find_nearest_node(destination)
         
-        # Get current traffic if needed
+# Get current traffic if needed
         edge_weights = {}
         if options.use_traffic:
             traffic_data = await self.traffic_service.get_current_speeds()
@@ -490,7 +490,7 @@ class RoutingEngine:
                 options.departure_time
             )
         
-        # Run routing algorithm
+# Run routing algorithm
         if options.alternatives:
             routes = await self._find_alternative_routes(
                 origin_node, 
@@ -507,13 +507,13 @@ class RoutingEngine:
             )
             routes = [route] if route else []
             
-        # Post-process routes
+# Post-process routes
         for route in routes:
             route.polyline = self._encode_polyline(route.path)
             route.steps = self._generate_turn_instructions(route.path)
             route.traffic_info = await self._get_traffic_segments(route.path)
             
-        # Cache result
+# Cache result
         if routes and not options.departure_time:
             await self.route_cache.set(cache_key, routes, ttl=300)
             
@@ -546,11 +546,11 @@ class RoutingEngine:
                 if neighbor in closed_set:
                     continue
                     
-                # Check restrictions
+# Check restrictions
                 if not self._is_edge_allowed(edge, options):
                     continue
                     
-                # Calculate tentative g score
+# Calculate tentative g score
                 edge_cost = edge_weights.get(
                     edge.id, 
                     edge.length / edge.speed_limit
@@ -590,38 +590,38 @@ class TrafficProcessingPipeline:
     async def process_location_stream(self):
         """Process real-time location updates from users"""
         async for batch in self.kafka_consumer.consume_batch(size=10000):
-            # Group by road segment
+# Group by road segment
             segment_updates = defaultdict(list)
             
             for update in batch:
-                # Map GPS location to road segment
+# Map GPS location to road segment
                 segment_id = await self._map_to_segment(update.location)
                 if segment_id:
                     segment_updates[segment_id].append(update)
                     
-            # Calculate segment speeds
+# Calculate segment speeds
             segment_speeds = {}
             for segment_id, updates in segment_updates.items():
                 speeds = [u.speed for u in updates if u.speed > 0]
                 if len(speeds) >= 5:  # Minimum samples
-                    # Use harmonic mean for traffic speed
+# Use harmonic mean for traffic speed
                     avg_speed = len(speeds) / sum(1/s for s in speeds)
                     segment_speeds[segment_id] = avg_speed
                     
-            # Update current traffic state
+# Update current traffic state
             await self.aggregator.update_speeds(segment_speeds)
             
-            # Detect incidents
+# Detect incidents
             incidents = self.anomaly_detector.detect_incidents(segment_speeds)
             for incident in incidents:
                 await self._broadcast_incident(incident)
                 
-            # Update predictions
+# Update predictions
             await self.predictor.update_model(segment_speeds)
     
     async def _map_to_segment(self, location: Point) -> str:
         """Map GPS coordinate to road segment"""
-        # Use spatial index to find nearby segments
+# Use spatial index to find nearby segments
         nearby_segments = await self.spatial_index.query_radius(
             location, 
             radius=50  # meters
@@ -630,7 +630,7 @@ class TrafficProcessingPipeline:
         if not nearby_segments:
             return None
             
-        # Find closest segment considering heading
+# Find closest segment considering heading
         best_segment = None
         best_distance = float('inf')
         
@@ -650,17 +650,17 @@ class TrafficPredictor:
     async def predict_traffic(self, segment_id: str, 
                             future_time: datetime) -> float:
         """Predict traffic speed at future time"""
-        # Get historical patterns
+# Get historical patterns
         historical = await self.historical_data.get_patterns(
             segment_id,
             hour=future_time.hour,
             day_of_week=future_time.weekday()
         )
         
-        # Get current conditions
+# Get current conditions
         current = await self.aggregator.get_current_speed(segment_id)
         
-        # Features for ML model
+# Features for ML model
         features = {
             'segment_id': segment_id,
             'hour': future_time.hour,
@@ -673,7 +673,7 @@ class TrafficPredictor:
             'events_nearby': await self._check_events(segment_id)
         }
         
-        # Predict
+# Predict
         predicted_speed = self.ml_model.predict([features])[0]
         
         return predicted_speed
@@ -692,7 +692,7 @@ class GeocodingService:
                           location: Point = None,
                           radius: int = 50000) -> List[Place]:
         """Search for places by name or category"""
-        # Parse query intent
+# Parse query intent
         query_type = self._classify_query(query)
         
         if query_type == 'address':
@@ -705,10 +705,10 @@ class GeocodingService:
     async def _search_addresses(self, query: str, 
                               location: Point) -> List[Place]:
         """Search for addresses with fuzzy matching"""
-        # Tokenize address components
+# Tokenize address components
         tokens = self._tokenize_address(query)
         
-        # Build Elasticsearch query
+# Build Elasticsearch query
         es_query = {
             "bool": {
                 "must": [
@@ -722,7 +722,7 @@ class GeocodingService:
             }
         }
         
-        # Add location bias if provided
+# Add location bias if provided
         if location:
             es_query["bool"]["should"].append({
                 "geo_distance": {
@@ -736,7 +736,7 @@ class GeocodingService:
             
         results = await self.address_index.search(es_query)
         
-        # Fuzzy match and rank
+# Fuzzy match and rank
         ranked = []
         for result in results:
             score = self.fuzzy_matcher.score(query, result.full_address)
@@ -760,24 +760,24 @@ class OfflineMapService:
         """Prepare downloadable offline map package"""
         package = OfflinePackage()
         
-        # Calculate tiles needed
+# Calculate tiles needed
         tiles_needed = []
         for z in range(10, max_zoom + 1):  # Start from zoom 10
             tiles = self._get_tiles_in_bounds(bounds, z)
             tiles_needed.extend(tiles)
             
-        # Fetch and compress tiles
+# Fetch and compress tiles
         compressed_tiles = []
         for tile_batch in self._batch(tiles_needed, 1000):
             tiles_data = await self._fetch_tiles_batch(tile_batch)
             compressed = self.compressor.compress_tiles(tiles_data)
             compressed_tiles.append(compressed)
             
-        # Include vector data for routing
+# Include vector data for routing
         vector_data = await self._extract_vector_data(bounds)
         compressed_vector = self.compressor.compress_vector(vector_data)
         
-        # Package everything
+# Package everything
         package.tiles = compressed_tiles
         package.vector_data = compressed_vector
         package.metadata = {
@@ -828,7 +828,7 @@ class NavigationService:
             started_at=datetime.now()
         )
         
-        # Generate voice instructions
+# Generate voice instructions
         for step in route.steps:
             step.voice_instruction = await self.voice_generator.generate(
                 step.instruction,
@@ -844,14 +844,14 @@ class NavigationService:
         """Update navigation with current position"""
         session = await self.session_store.get(session_id)
         
-        # Check if on route
+# Check if on route
         distance_from_route = self._distance_from_route(
             position, 
             session.route
         )
         
         if distance_from_route > 50:  # meters
-            # Need reroute
+# Need reroute
             new_route = await self.routing_engine.calculate_route(
                 origin=position,
                 destination=session.route.destination,
@@ -868,14 +868,14 @@ class NavigationService:
                     instruction=new_route[0].steps[0].voice_instruction
                 )
         
-        # Find current step
+# Find current step
         current_step_idx = self._find_current_step(
             position, 
             session.route
         )
         
         if current_step_idx > session.current_step:
-            # Advanced to next step
+# Advanced to next step
             session.current_step = current_step_idx
             
             if current_step_idx < len(session.route.steps):
@@ -892,13 +892,13 @@ class NavigationService:
                     )
                 )
             else:
-                # Arrived at destination
+# Arrived at destination
                 return NavigationUpdate(
                     type='arrival',
                     instruction="You have arrived at your destination"
                 )
         
-        # Normal update
+# Normal update
         return NavigationUpdate(
             type='position',
             distance_to_turn=self._distance_to_next_turn(
@@ -989,17 +989,17 @@ class MultiLevelMapCache:
         self.l3_cache = CDN()  # Global edge cache
         
     async def get_tile(self, tile_key: str) -> bytes:
-        # L1: Memory cache (0ms)
+# L1: Memory cache (0ms)
         if tile_key in self.l1_cache:
             return self.l1_cache[tile_key]
             
-        # L2: Redis (5ms)
+# L2: Redis (5ms)
         tile_data = await self.l2_cache.get(tile_key)
         if tile_data:
             self._promote_to_l1(tile_key, tile_data)
             return tile_data
             
-        # L3: CDN (20-50ms)
+# L3: CDN (20-50ms)
         tile_data = await self.l3_cache.get(tile_key)
         if tile_data:
             await self._promote_to_l2(tile_key, tile_data)
@@ -1010,7 +1010,7 @@ class MultiLevelMapCache:
     def _promote_to_l1(self, key: str, data: bytes):
         """LRU eviction for memory cache"""
         if len(self.l1_cache) >= 10000:  # Max 10K tiles
-            # Evict LRU
+# Evict LRU
             oldest = min(self.l1_cache.items(), 
                         key=lambda x: x[1].last_accessed)
             del self.l1_cache[oldest[0]]
@@ -1068,22 +1068,22 @@ graph TB
 class MapsMonitoring:
     def __init__(self):
         self.metrics = {
-            # Performance metrics
+# Performance metrics
             'tile_latency_ms': Histogram('maps_tile_latency'),
             'routing_latency_ms': Histogram('maps_routing_latency'),
             'search_latency_ms': Histogram('maps_search_latency'),
             
-            # Traffic metrics
+# Traffic metrics
             'qps_tiles': Counter('maps_tile_requests'),
             'qps_routing': Counter('maps_routing_requests'),
             'cache_hit_rate': Gauge('maps_cache_hit_ratio'),
             
-            # Accuracy metrics
+# Accuracy metrics
             'routing_accuracy': Gauge('maps_route_accuracy'),
             'traffic_accuracy': Gauge('maps_traffic_accuracy'),
             'geocoding_accuracy': Gauge('maps_geocoding_accuracy'),
             
-            # Business metrics
+# Business metrics
             'active_navigations': Gauge('maps_active_nav_sessions'),
             'offline_downloads': Counter('maps_offline_downloads')
         }

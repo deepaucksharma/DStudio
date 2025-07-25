@@ -85,14 +85,14 @@ def checkout(user_id, product_id):
 
 # After: Local read replicas + async validation
 def checkout_v2(user_id, product_id):
-    # Read from local replicas (5ms each)
+# Read from local replicas (5ms each)
     inventory_snapshot = local_cache.get_inventory(product_id)
     price_snapshot = local_cache.get_price(product_id)
     
-    # Optimistic checkout
+# Optimistic checkout
     order = create_provisional_order(user_id, price_snapshot)
     
-    # Async validation (user doesn't wait)
+# Async validation (user doesn't wait)
     queue.push(validate_order, order.id)
     
     return order  # Total: 25ms
@@ -148,12 +148,12 @@ class LatencyArbitrage:
     def calculate_capture_rate(self, competitor_latency):
         """Probability of winning the trade"""
         if self.latency < competitor_latency:
-            # Winner takes all in HFT
+# Winner takes all in HFT
             advantage = competitor_latency - self.latency
             capture_rate = min(0.95, advantage / competitor_latency)
             return capture_rate
         else:
-            # You lose most trades
+# You lose most trades
             return 0.05
     
     def daily_profit(self, competitor_latency):
@@ -167,7 +167,7 @@ microwave_trader = LatencyArbitrage(4.25)
 
 print(f"Fiber daily profit vs microwave: ${fiber_trader.daily_profit(4.25):,.0f}")
 print(f"Microwave daily profit vs fiber: ${microwave_trader.daily_profit(6.55):,.0f}")
-# Output: 
+# Output:
 # Fiber daily profit vs microwave: $50
 # Microwave daily profit vs fiber: $47,500
 ```
@@ -235,30 +235,30 @@ class MessageOrdering:
         seq_num = message['sequence_number']
         
         if seq_num == self.next_expected:
-            # In order, deliver immediately
+# In order, deliver immediately
             self.deliver(message)
             self.next_expected += 1
             
-            # Check if we can deliver buffered messages
+# Check if we can deliver buffered messages
             while self.next_expected in self.pending_messages:
                 buffered = self.pending_messages.pop(self.next_expected)
                 self.deliver(buffered)
                 self.next_expected += 1
         
         elif seq_num > self.next_expected:
-            # Out of order, buffer it
+# Out of order, buffer it
             self.pending_messages[seq_num] = {
                 'message': message,
                 'received_at': current_time
             }
             
-            # Set timeout for forced delivery
+# Set timeout for forced delivery
             self.schedule_timeout(seq_num, self.buffer_window_ms)
     
     def on_timeout(self, seq_num):
         """Force delivery after buffer window"""
         if seq_num in self.pending_messages:
-            # Deliver what we have, accept the gap
+# Deliver what we have, accept the gap
             self.mark_missing(self.next_expected, seq_num - 1)
             self.deliver_from(seq_num)
 ```
@@ -267,7 +267,7 @@ class MessageOrdering:
 
 ---
 
-## 📊 Latency Patterns Gallery
+## Latency Patterns Gallery
 
 ### Pattern 1: Edge Computing
 
@@ -308,7 +308,7 @@ class PredictiveCDN:
         """Predict what user will request next"""
         pattern = self.user_patterns.get(user_id, [])
         
-        # Common patterns
+# Common patterns
         predictions = {
             'video_episode': self.predict_next_episode,
             'photo_album': self.predict_nearby_photos,
@@ -329,7 +329,7 @@ class PredictiveCDN:
             current_latency = self.measure_latency(edge, content_id)
             
             if current_latency > 100:  # 100ms threshold
-                # Prefetch to edge
+# Prefetch to edge
                 self.schedule_prefetch(edge, content_id)
 ```
 
@@ -361,7 +361,7 @@ Real-Time Routing Decision Tree:
 
 ---
 
-## 🛠️ Implementation Examples
+## 🛠 Implementation Examples
 
 ### Example 1: Adaptive Timeout System
 
@@ -390,23 +390,23 @@ class AdaptiveTimeout:
             
         latencies = np.array(self.latency_history)
         
-        # Calculate percentiles
+# Calculate percentiles
         p50 = np.percentile(latencies, 50)
         p95 = np.percentile(latencies, 95)
         p99 = np.percentile(latencies, 99)
         
-        # Adaptive timeout based on distribution
+# Adaptive timeout based on distribution
         if p99 / p50 > 10:
-            # High variance - use conservative timeout
+# High variance - use conservative timeout
             timeout = p99 * 2
         elif p95 / p50 > 5:
-            # Moderate variance
+# Moderate variance
             timeout = p99 * 1.5
         else:
-            # Low variance - tight timeout
+# Low variance - tight timeout
             timeout = p99 * 1.2
             
-        # Apply bounds
+# Apply bounds
         return max(100, min(timeout, 30000))  # 100ms - 30s
 
 # Usage example
@@ -422,7 +422,7 @@ def make_request(url):
         adaptive.record_latency(latency)
         return response
     except requests.Timeout:
-        # Timeout occurred - system is slower than expected
+# Timeout occurred - system is slower than expected
         adaptive.record_latency(timeout * 1000)
         raise
 ```
@@ -460,10 +460,10 @@ class GeographicLoadBalancer:
         dc = self.datacenters[dc_name]
         distance = self.calculate_distance(user_lat, user_lon, dc['lat'], dc['lon'])
         
-        # Theoretical minimum
+# Theoretical minimum
         min_latency = distance / self.speed_of_light_km_ms
         
-        # Add realistic overhead (routing, processing)
+# Add realistic overhead (routing, processing)
         overhead_factor = 1.5
         estimated_rtt = min_latency * 2 * overhead_factor
         
@@ -480,7 +480,7 @@ class GeographicLoadBalancer:
             latency = self.estimate_latency(user_lat, user_lon, dc_name)
             load = self.get_current_load(dc_name)
             
-            # Score based on latency and available capacity
+# Score based on latency and available capacity
             score = 1000 / latency * (1 - load / dc_info['capacity'])
             
             candidates.append({
@@ -489,7 +489,7 @@ class GeographicLoadBalancer:
                 'score': score
             })
         
-        # Return best option
+# Return best option
         return max(candidates, key=lambda x: x['score'])
 
 # Example usage
@@ -581,7 +581,7 @@ class OptimisticUI {
 
 ---
 
-## 📈 Latency Measurement Tools
+## Latency Measurement Tools
 
 ### Building a Latency Dashboard
 
@@ -640,7 +640,7 @@ sum by (component) (
 
 ---
 
-## 🎯 Key Takeaways
+## Key Takeaways
 
 ### The Laws of Latency
 

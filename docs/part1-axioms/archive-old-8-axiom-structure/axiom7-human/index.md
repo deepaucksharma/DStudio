@@ -17,7 +17,7 @@ last_updated: 2025-07-20
 ---
 
 
-## 🔥 The Constraint
+## The Constraint
 
 ### The Fundamental Limit
 
@@ -46,7 +46,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 ---
 
-## 💡 Why It Matters
+## Why It Matters
 
 System complexity must match human cognitive capacity
 
@@ -95,7 +95,7 @@ The constraint is absolute—these misconceptions arise from:
 
 ---
 
-## ⚙️ Practical Implications
+## Practical Implications
 
 How this constraint shapes real system design:
 
@@ -195,7 +195,7 @@ graph LR
 
 **Key Insight**: No single defense is perfect - layer multiple protections.
 
-### 🎬 Failure Vignette: Amazon S3 Outage 2017
+### Failure Vignette: Amazon S3 Outage 2017
 
 ```yaml
 The Typo That Broke the Internet:
@@ -256,7 +256,7 @@ Level 1 - Dashboard (Overview):
 
 Level 2 - Service View (Click warning):
   Payment Service:
-    - Latency: 245ms (⚠️ above 200ms threshold)
+    - Latency: 245ms (⚠ above 200ms threshold)
     - Error rate: 0.12%
     - Recent deploys: v2.3.1 (2 hours ago)
     
@@ -360,18 +360,18 @@ Automation Priorities:
 ```markdown
 # [RUNBOOK] Service Name: Specific Scenario
 
-## ⚡ Quick Actions (First 2 minutes)
+## Quick Actions (First 2 minutes)
 1. Verify alert is real: [dashboard link]
 2. Check current impact: [metrics link]  
 3. Page backup if severity > 2
 
-## 📋 Pre-Flight Checklist
+## Pre-Flight Checklist
 - [ ] Confirmed alert is not false positive
 - [ ] Noted start time for incident
 - [ ] Opened incident channel/ticket
 - [ ] Status page updated
 
-## 🔍 Diagnosis Steps
+## Diagnosis Steps
 
 ### Step 1: Check Dependencies
 ```bash
@@ -385,7 +385,7 @@ kubectl rollout history deployment/service-name
 git log --oneline -10 -- configs/
 ```
 
-## 🚨 Mitigation Paths
+## Mitigation Paths
 
 ### Path A: High CPU (if CPU > 80%)
 1. Enable rate limiting:
@@ -409,7 +409,7 @@ git log --oneline -10 -- configs/
    WHERE query_time > interval '5 minutes';
    ```
 
-## ↩️ Rollback Procedure
+## ↩ Rollback Procedure
 Only if mitigation fails:
 ```bash
 ./scripts/emergency-rollback.sh service-name
@@ -421,7 +421,7 @@ Only if mitigation fails:
 - [ ] Synthetic tests passing
 - [ ] No customer complaints in last 10min
 
-## 📝 Follow-Up Actions
+## Follow-Up Actions
 - [ ] Update incident ticket with resolution
 - [ ] Schedule postmortem (if SEV1/2)
 - [ ] Update runbook with learnings
@@ -549,17 +549,17 @@ class ToilTracker:
     """Track and prioritize toil elimination"""
     
     def calculate_toil_score(self, task):
-        # Weekly time spent
+# Weekly time spent
         time_impact = task.frequency * task.duration_minutes
         
-        # Automation difficulty (1-5 scale)
+# Automation difficulty (1-5 scale)
         automation_cost = task.complexity * 100  # hours estimate
         
-        # ROI calculation
+# ROI calculation
         weekly_savings = time_impact
         payback_weeks = automation_cost / weekly_savings
         
-        # Priority score (higher = automate first)
+# Priority score (higher = automate first)
         score = {
             'task': task.name,
             'weekly_minutes': time_impact,
@@ -574,7 +574,7 @@ class ToilTracker:
 # Example output:
 # Task: Certificate Renewal
 # Weekly time: 30 minutes
-# Automation effort: 8 hours  
+# Automation effort: 8 hours
 # Payback: 16 weeks
 # Priority: HIGH (due to high error impact)
 ```
@@ -800,7 +800,7 @@ Error Prevention:
 $ delete-database production
 > Database deleted.
 
-# Good CLI design  
+# Good CLI design
 $ delete-database production
 > WARNING: This will delete the PRODUCTION database
 > This action cannot be undone

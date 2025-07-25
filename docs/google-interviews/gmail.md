@@ -153,13 +153,13 @@ class SMTPServer:
     def handle_data(self, client_socket):
         self.send_response(client_socket, "354 End data with <CR><LF>.<CR><LF>")
         
-        # Receive email content
+# Receive email content
         email_data = self.read_until_terminator(client_socket)
         
-        # Parse email
+# Parse email
         email = self.parse_email(email_data)
         
-        # Queue for processing
+# Queue for processing
         message_id = generate_message_id()
         self.queue_service.enqueue({
             'message_id': message_id,
@@ -176,20 +176,20 @@ class SMTPServer:
 ```python
 class EmailProcessor:
     def process_email(self, email_message):
-        # 1. Spam Check
+# 1. Spam Check
         spam_score = self.spam_filter.check(email_message)
         if spam_score > SPAM_THRESHOLD:
             email_message.labels.append('SPAM')
             email_message.folder = 'Spam'
         
-        # 2. Virus Scan
+# 2. Virus Scan
         if self.has_attachments(email_message):
             scan_result = self.virus_scanner.scan(email_message.attachments)
             if scan_result.is_infected:
                 self.quarantine_email(email_message)
                 return
         
-        # 3. Process Attachments
+# 3. Process Attachments
         if email_message.attachments:
             attachment_urls = []
             for attachment in email_message.attachments:
@@ -197,13 +197,13 @@ class EmailProcessor:
                 attachment_urls.append(url)
             email_message.attachment_urls = attachment_urls
         
-        # 4. Store Email
+# 4. Store Email
         self.store_email(email_message)
         
-        # 5. Update Indexes
+# 5. Update Indexes
         self.index_email(email_message)
         
-        # 6. Send Notifications
+# 6. Send Notifications
         self.notify_recipients(email_message)
 ```
 
@@ -217,23 +217,23 @@ class EmailStorage:
         self.replica_manager = ReplicaManager()
     
     def store_email(self, email):
-        # Determine shard based on user_id
+# Determine shard based on user_id
         user_id = email.recipient_id
         shard_id = self.shard_manager.get_shard(user_id)
         
-        # Serialize email
+# Serialize email
         email_data = self.serialize_email(email)
         
-        # Store with replication
+# Store with replication
         primary_node = self.get_primary_node(shard_id)
         email_id = primary_node.store(email_data)
         
-        # Async replication
+# Async replication
         replicas = self.replica_manager.get_replicas(shard_id)
         for replica in replicas:
             self.async_replicate(replica, email_id, email_data)
         
-        # Update metadata
+# Update metadata
         self.update_metadata(user_id, email_id, email.metadata)
         
         return email_id
@@ -241,12 +241,12 @@ class EmailStorage:
     def retrieve_email(self, user_id, email_id):
         shard_id = self.shard_manager.get_shard(user_id)
         
-        # Try primary first
+# Try primary first
         try:
             primary_node = self.get_primary_node(shard_id)
             return primary_node.retrieve(email_id)
         except NodeUnavailable:
-            # Fallback to replicas
+# Fallback to replicas
             replicas = self.replica_manager.get_replicas(shard_id)
             for replica in replicas:
                 try:
@@ -301,7 +301,7 @@ class EmailSearchIndex:
         self.user_index_shards = {}
     
     def index_email(self, email):
-        # Extract searchable content
+# Extract searchable content
         tokens = self.tokenize(
             email.subject,
             email.body_text,
@@ -309,7 +309,7 @@ class EmailSearchIndex:
             email.to_addresses
         )
         
-        # Update user-specific index
+# Update user-specific index
         user_shard = self.get_user_shard(email.user_id)
         
         for token in tokens:
@@ -320,17 +320,17 @@ class EmailSearchIndex:
                 self.calculate_relevance(token, email)
             )
         
-        # Update global index for admin/compliance
+# Update global index for admin/compliance
         self.global_index.add(email.message_id, tokens)
     
     def search(self, user_id, query, filters=None):
-        # Parse query
+# Parse query
         parsed_query = self.parse_query(query)
         
-        # Get user's index shard
+# Get user's index shard
         user_shard = self.get_user_shard(user_id)
         
-        # Search with filters
+# Search with filters
         results = user_shard.search(
             parsed_query.terms,
             date_range=filters.get('date_range'),
@@ -338,7 +338,7 @@ class EmailSearchIndex:
             labels=filters.get('labels')
         )
         
-        # Rank results
+# Rank results
         ranked = self.rank_results(results, parsed_query)
         
         return ranked[:50]  # Return top 50
@@ -348,7 +348,7 @@ class EmailSearchIndex:
 ```python
 class QueryOptimizer:
     def optimize_query(self, query):
-        # Handle special operators
+# Handle special operators
         if "from:" in query:
             from_addr = self.extract_operator(query, "from:")
             query = query.replace(f"from:{from_addr}", "")
@@ -358,10 +358,10 @@ class QueryOptimizer:
             filters['has_attachment'] = True
             query = query.replace("has:attachment", "")
         
-        # Spell correction
+# Spell correction
         corrected = self.spell_correct(query)
         
-        # Synonym expansion
+# Synonym expansion
         expanded = self.expand_synonyms(corrected)
         
         return expanded, filters
@@ -378,7 +378,7 @@ class SpamFilter:
         self.reputation_db = ReputationDB()
     
     def check_spam(self, email):
-        # Extract features
+# Extract features
         features = self.feature_extractor.extract({
             'subject': email.subject,
             'body': email.body,
@@ -386,21 +386,21 @@ class SpamFilter:
             'headers': email.headers
         })
         
-        # Check sender reputation
+# Check sender reputation
         sender_reputation = self.reputation_db.get_score(
             email.from_address,
             email.sender_ip
         )
         features['sender_reputation'] = sender_reputation
         
-        # Check for known spam patterns
+# Check for known spam patterns
         pattern_score = self.check_patterns(email)
         features['pattern_score'] = pattern_score
         
-        # ML prediction
+# ML prediction
         spam_probability = self.model.predict(features)
         
-        # Update reputation based on user feedback
+# Update reputation based on user feedback
         self.update_reputation(email.from_address, spam_probability)
         
         return spam_probability
@@ -427,21 +427,21 @@ class SpamFilter:
 ```python
 class EmailSender:
     def send_email(self, email_request):
-        # Validate recipients
+# Validate recipients
         valid_recipients = self.validate_recipients(email_request.to)
         
-        # Check sending limits
+# Check sending limits
         if not self.check_rate_limit(email_request.from_user):
             raise RateLimitExceeded()
         
-        # Process attachments
+# Process attachments
         if email_request.attachments:
             self.process_attachments(email_request)
         
-        # Build MIME message
+# Build MIME message
         mime_message = self.build_mime_message(email_request)
         
-        # Queue for delivery
+# Queue for delivery
         for recipient in valid_recipients:
             self.delivery_queue.enqueue({
                 'recipient': recipient,
@@ -450,7 +450,7 @@ class EmailSender:
                 'retry_count': 0
             })
         
-        # Store in sent folder
+# Store in sent folder
         self.store_sent_email(email_request.from_user, mime_message)
         
         return {'status': 'queued', 'message_id': mime_message.id}
@@ -464,10 +464,10 @@ class DeliveryWorker:
         message = delivery_task['message']
         
         try:
-            # Get MX records
+# Get MX records
             mx_records = self.get_mx_records(recipient.domain)
             
-            # Try each MX server
+# Try each MX server
             for mx_server in mx_records:
                 try:
                     self.deliver_to_server(mx_server, recipient, message)
@@ -476,7 +476,7 @@ class DeliveryWorker:
                 except TemporaryFailure:
                     continue
             
-            # All MX servers failed
+# All MX servers failed
             self.handle_delivery_failure(delivery_task)
             
         except PermanentFailure as e:
@@ -489,20 +489,20 @@ class DeliveryWorker:
 ```python
 class ThreadManager:
     def assign_thread(self, email):
-        # Check In-Reply-To header
+# Check In-Reply-To header
         if email.in_reply_to:
             parent_thread = self.get_thread_by_message_id(email.in_reply_to)
             if parent_thread:
                 return parent_thread.thread_id
         
-        # Check References header
+# Check References header
         if email.references:
             for ref_id in email.references:
                 thread = self.get_thread_by_message_id(ref_id)
                 if thread:
                     return thread.thread_id
         
-        # Check subject similarity
+# Check subject similarity
         similar_thread = self.find_similar_thread(
             email.subject,
             email.participants,
@@ -511,20 +511,20 @@ class ThreadManager:
         if similar_thread:
             return similar_thread.thread_id
         
-        # Create new thread
+# Create new thread
         return self.create_new_thread(email)
     
     def get_thread_view(self, thread_id, user_id):
-        # Get all messages in thread
+# Get all messages in thread
         messages = self.get_thread_messages(thread_id)
         
-        # Filter by user access
+# Filter by user access
         accessible = [m for m in messages if self.can_access(user_id, m)]
         
-        # Sort by timestamp
+# Sort by timestamp
         sorted_messages = sorted(accessible, key=lambda m: m.timestamp)
         
-        # Build conversation tree
+# Build conversation tree
         return self.build_conversation_tree(sorted_messages)
 ```
 
@@ -568,21 +568,21 @@ class EmailCache:
         self.redis_cache = RedisCluster()
         
     def get_email(self, user_id, email_id):
-        # L1: Memory cache
+# L1: Memory cache
         cached = self.memory_cache.get(f"{user_id}:{email_id}")
         if cached:
             return cached
         
-        # L2: Redis cache
+# L2: Redis cache
         cached = self.redis_cache.get(f"{user_id}:{email_id}")
         if cached:
             self.memory_cache.put(f"{user_id}:{email_id}", cached)
             return cached
         
-        # L3: Storage
+# L3: Storage
         email = self.storage.get_email(user_id, email_id)
         
-        # Update caches
+# Update caches
         self.redis_cache.setex(f"{user_id}:{email_id}", email, ttl=3600)
         self.memory_cache.put(f"{user_id}:{email_id}", email)
         
@@ -593,7 +593,7 @@ class EmailCache:
 ```python
 class BatchProcessor:
     def mark_as_read(self, user_id, email_ids):
-        # Batch update in storage
+# Batch update in storage
         updates = []
         for email_id in email_ids:
             updates.append({
@@ -603,7 +603,7 @@ class BatchProcessor:
         
         self.storage.batch_mutate(updates)
         
-        # Update cache
+# Update cache
         for email_id in email_ids:
             self.cache.invalidate(f"{user_id}:{email_id}")
 ```
@@ -612,13 +612,13 @@ class BatchProcessor:
 ```python
 class PrefetchService:
     def prefetch_emails(self, user_id, current_email_id):
-        # Predict next emails user might read
+# Predict next emails user might read
         predictions = self.ml_model.predict_next_emails(
             user_id,
             current_email_id
         )
         
-        # Prefetch top predictions
+# Prefetch top predictions
         for email_id, probability in predictions[:5]:
             if probability > 0.7:
                 self.cache.warm(user_id, email_id)
@@ -693,7 +693,7 @@ class GmailMonitoring:
             'active_smtp_connections': self.get_connection_count('smtp')
         }
         
-        # Alert on anomalies
+# Alert on anomalies
         if metrics['delivery_queue_depth'] > 1000000:
             self.alert('High delivery queue depth')
         

@@ -109,7 +109,7 @@ class PhotoUploadPipeline:
         self.metadata_db = MetadataService()
         
     async def upload_photo(self, photo_data, user_id, client_metadata):
-        # Step 1: Client-side deduplication check
+# Step 1: Client-side deduplication check
         content_hash = self.calculate_hash(photo_data)
         existing_photo = await self.dedup_service.check_duplicate(
             user_id=user_id,
@@ -117,34 +117,34 @@ class PhotoUploadPipeline:
         )
         
         if existing_photo:
-            # Photo already exists, just link to user's library
+# Photo already exists, just link to user's library
             await self.link_existing_photo(user_id, existing_photo.photo_id)
             return UploadResult(
                 photo_id=existing_photo.photo_id,
                 was_duplicate=True
             )
         
-        # Step 2: Extract metadata
+# Step 2: Extract metadata
         metadata = self.extract_metadata(photo_data, client_metadata)
         
-        # Step 3: Compression based on user settings
+# Step 3: Compression based on user settings
         compressed_data = await self.compress_photo(
             photo_data=photo_data,
             user_settings=await self.get_user_settings(user_id),
             metadata=metadata
         )
         
-        # Step 4: Generate multiple resolutions
+# Step 4: Generate multiple resolutions
         variants = await self.generate_variants(compressed_data)
         
-        # Step 5: Store in distributed blob storage
+# Step 5: Store in distributed blob storage
         storage_result = await self.store_photo_variants(
             original=compressed_data,
             variants=variants,
             replication_factor=3
         )
         
-        # Step 6: Save metadata
+# Step 6: Save metadata
         photo_id = await self.save_metadata(
             user_id=user_id,
             metadata=metadata,
@@ -152,7 +152,7 @@ class PhotoUploadPipeline:
             content_hash=content_hash
         )
         
-        # Step 7: Trigger async ML processing
+# Step 7: Trigger async ML processing
         await self.trigger_ml_pipeline(photo_id)
         
         return UploadResult(photo_id=photo_id, was_duplicate=False)
@@ -161,7 +161,7 @@ class PhotoUploadPipeline:
         if user_settings.quality == 'original':
             return photo_data
         
-        # Adaptive compression based on content
+# Adaptive compression based on content
         compression_params = self.determine_compression_params(
             image_type=metadata.mime_type,
             dimensions=metadata.dimensions,
@@ -176,19 +176,19 @@ class PhotoUploadPipeline:
 
 class AdaptiveCompressor:
     def compress(self, data, params):
-        # Use different algorithms based on content
+# Use different algorithms based on content
         if params.content_type == 'photo_with_faces':
-            # Preserve face regions with higher quality
+# Preserve face regions with higher quality
             return self.compress_with_roi_preservation(
                 data=data,
                 regions_of_interest=params.face_regions,
                 quality=params.face_quality
             )
         elif params.content_type == 'screenshot':
-            # Use PNG for screenshots to preserve text
+# Use PNG for screenshots to preserve text
             return self.compress_png(data, params.png_level)
         else:
-            # Standard JPEG compression with WebP fallback
+# Standard JPEG compression with WebP fallback
             return self.compress_jpeg_or_webp(
                 data=data,
                 quality=params.quality,
@@ -205,7 +205,7 @@ class DeduplicationService:
         self.user_index = UserPhotoIndex()
         
     async def check_duplicate(self, user_id, content_hash):
-        # Check user's own photos first
+# Check user's own photos first
         user_duplicate = await self.user_index.find_by_hash(
             user_id=user_id,
             content_hash=content_hash
@@ -214,11 +214,11 @@ class DeduplicationService:
         if user_duplicate:
             return user_duplicate
         
-        # Check global index for cross-user deduplication
+# Check global index for cross-user deduplication
         global_entry = await self.global_index.find_by_hash(content_hash)
         
         if global_entry and global_entry.is_shareable:
-            # Can reuse storage if photo is shareable
+# Can reuse storage if photo is shareable
             return PhotoReference(
                 photo_id=global_entry.photo_id,
                 storage_id=global_entry.storage_id
@@ -227,7 +227,7 @@ class DeduplicationService:
         return None
     
     def calculate_hash(self, photo_data):
-        # Multi-level hashing for better deduplication
+# Multi-level hashing for better deduplication
         return {
             'content_hash': self.calculate_content_hash(photo_data),
             'perceptual_hash': self.calculate_perceptual_hash(photo_data),
@@ -235,7 +235,7 @@ class DeduplicationService:
         }
     
     def calculate_perceptual_hash(self, photo_data):
-        # Use pHash for finding similar images
+# Use pHash for finding similar images
         image = self.decode_image(photo_data)
         return imagehash.phash(image)
 ```
@@ -251,29 +251,29 @@ class FaceRecognitionPipeline:
         self.privacy_filter = PrivacyFilter()
         
     async def process_photo(self, photo_id, photo_data):
-        # Step 1: Detect faces
+# Step 1: Detect faces
         faces = await self.face_detector.detect_faces(photo_data)
         
         if not faces:
             return
         
-        # Step 2: Extract face embeddings
+# Step 2: Extract face embeddings
         face_embeddings = []
         for face in faces:
-            # Apply privacy-preserving transformations
+# Apply privacy-preserving transformations
             private_embedding = self.privacy_filter.transform(
                 await self.face_encoder.encode(face)
             )
             face_embeddings.append(private_embedding)
         
-        # Step 3: Cluster faces for this user
+# Step 3: Cluster faces for this user
         user_id = await self.get_photo_owner(photo_id)
         clusters = await self.face_clusterer.assign_to_clusters(
             user_id=user_id,
             face_embeddings=face_embeddings
         )
         
-        # Step 4: Store face metadata
+# Step 4: Store face metadata
         await self.store_face_data(
             photo_id=photo_id,
             faces=[{
@@ -290,7 +290,7 @@ class FaceClusterer:
         self.min_cluster_size = 3
         
     async def assign_to_clusters(self, user_id, face_embeddings):
-        # Get existing clusters for user
+# Get existing clusters for user
         user_clusters = await self.get_user_clusters(user_id)
         
         assignments = []
@@ -298,7 +298,7 @@ class FaceClusterer:
             best_cluster = None
             best_similarity = 0
             
-            # Find best matching cluster
+# Find best matching cluster
             for cluster in user_clusters:
                 similarity = self.calculate_similarity(
                     embedding,
@@ -310,14 +310,14 @@ class FaceClusterer:
                     best_cluster = cluster
             
             if best_cluster:
-                # Update existing cluster
+# Update existing cluster
                 await self.update_cluster(best_cluster, embedding)
                 assignments.append(ClusterAssignment(
                     cluster_id=best_cluster.id,
                     confidence=best_similarity
                 ))
             else:
-                # Create new cluster if enough similar faces
+# Create new cluster if enough similar faces
                 new_cluster = await self.try_create_cluster(
                     user_id=user_id,
                     embedding=embedding
@@ -341,10 +341,10 @@ class PhotoSearchService:
         self.query_parser = QueryParser()
         
     async def search(self, user_id, query, filters=None):
-        # Parse query to understand intent
+# Parse query to understand intent
         parsed_query = self.query_parser.parse(query)
         
-        # Determine search strategy
+# Determine search strategy
         if parsed_query.has_visual_component:
             return await self.visual_search(
                 user_id=user_id,
@@ -359,10 +359,10 @@ class PhotoSearchService:
             )
     
     async def text_search(self, user_id, parsed_query, filters):
-        # Multi-index search
+# Multi-index search
         results = []
         
-        # Search in OCR text
+# Search in OCR text
         if parsed_query.has_text:
             ocr_results = await self.text_index.search(
                 user_id=user_id,
@@ -371,7 +371,7 @@ class PhotoSearchService:
             )
             results.extend(ocr_results)
         
-        # Search in object labels
+# Search in object labels
         if parsed_query.has_objects:
             object_results = await self.search_by_objects(
                 user_id=user_id,
@@ -379,7 +379,7 @@ class PhotoSearchService:
             )
             results.extend(object_results)
         
-        # Search in scene classifications
+# Search in scene classifications
         if parsed_query.has_scenes:
             scene_results = await self.search_by_scenes(
                 user_id=user_id,
@@ -387,7 +387,7 @@ class PhotoSearchService:
             )
             results.extend(scene_results)
         
-        # Search by people
+# Search by people
         if parsed_query.has_people:
             people_results = await self.search_by_people(
                 user_id=user_id,
@@ -395,29 +395,29 @@ class PhotoSearchService:
             )
             results.extend(people_results)
         
-        # Merge and rank results
+# Merge and rank results
         return self.rank_results(results, parsed_query)
     
     async def visual_search(self, user_id, parsed_query, filters):
-        # Extract visual features from query
+# Extract visual features from query
         if parsed_query.reference_image:
             query_features = await self.extract_visual_features(
                 parsed_query.reference_image
             )
         else:
-            # Convert text description to visual features
+# Convert text description to visual features
             query_features = await self.text_to_visual_features(
                 parsed_query.visual_description
             )
         
-        # Approximate nearest neighbor search
+# Approximate nearest neighbor search
         similar_photos = await self.visual_index.search_similar(
             user_id=user_id,
             features=query_features,
             k=100
         )
         
-        # Re-rank with additional signals
+# Re-rank with additional signals
         return self.rerank_visual_results(
             results=similar_photos,
             query=parsed_query,
@@ -426,7 +426,7 @@ class PhotoSearchService:
 
 class QueryParser:
     def parse(self, query):
-        # Use NLP to understand query intent
+# Use NLP to understand query intent
         tokens = self.tokenize(query)
         
         return ParsedQuery(
@@ -450,21 +450,21 @@ class SharingService:
         self.link_generator = SecureLinkGenerator()
         
     async def create_album(self, user_id, album_data):
-        # Create album with privacy settings
+# Create album with privacy settings
         album = await self.create_album_entry(
             owner_id=user_id,
             title=album_data.title,
             privacy=album_data.privacy_setting
         )
         
-        # Add photos to album
+# Add photos to album
         await self.add_photos_to_album(
             album_id=album.id,
             photo_ids=album_data.photo_ids,
             user_id=user_id
         )
         
-        # Set up sharing if specified
+# Set up sharing if specified
         if album_data.shared_with:
             await self.share_album(
                 album_id=album.id,
@@ -476,7 +476,7 @@ class SharingService:
         return album
     
     async def share_album(self, album_id, owner_id, recipients, permissions):
-        # Generate sharing link
+# Generate sharing link
         share_link = await self.link_generator.generate_secure_link(
             resource_type='album',
             resource_id=album_id,
@@ -484,7 +484,7 @@ class SharingService:
             expiry=permissions.link_expiry
         )
         
-        # Set up access control
+# Set up access control
         for recipient in recipients:
             await self.access_control.grant_access(
                 resource_id=album_id,
@@ -493,7 +493,7 @@ class SharingService:
                 granted_by=owner_id
             )
             
-            # Send notification
+# Send notification
             await self.notification.send_share_notification(
                 recipient=recipient,
                 sharer=owner_id,
@@ -505,18 +505,18 @@ class SharingService:
 
 class CollaborativeAlbum:
     async def add_contributor_photo(self, album_id, photo_id, contributor_id):
-        # Verify contributor has permission
+# Verify contributor has permission
         if not await self.can_contribute(album_id, contributor_id):
             raise PermissionError("User cannot contribute to this album")
         
-        # Copy photo to album namespace
+# Copy photo to album namespace
         album_photo = await self.copy_photo_to_album(
             source_photo_id=photo_id,
             album_id=album_id,
             contributor_id=contributor_id
         )
         
-        # Notify album members
+# Notify album members
         await self.notify_new_contribution(
             album_id=album_id,
             photo_id=album_photo.id,
@@ -536,18 +536,18 @@ class SyncService:
         self.conflict_resolver = ConflictResolver()
         
     async def sync_device(self, device_id, last_sync_token):
-        # Get device info
+# Get device info
         device = await self.device_registry.get_device(device_id)
         user_id = device.user_id
         
-        # Get changes since last sync
+# Get changes since last sync
         changes = await self.get_changes_since(
             user_id=user_id,
             since_token=last_sync_token,
             device_id=device_id
         )
         
-        # Handle conflicts
+# Handle conflicts
         resolved_changes = []
         for change in changes:
             if change.has_conflict:
@@ -560,14 +560,14 @@ class SyncService:
             else:
                 resolved_changes.append(change)
         
-        # Generate sync response
+# Generate sync response
         sync_response = SyncResponse(
             changes=resolved_changes,
             new_sync_token=self.generate_sync_token(),
             deleted_items=await self.get_deletions(user_id, last_sync_token)
         )
         
-        # Update device sync state
+# Update device sync state
         await self.update_device_sync_state(
             device_id=device_id,
             sync_token=sync_response.new_sync_token
@@ -578,16 +578,16 @@ class SyncService:
 class ConflictResolver:
     async def resolve(self, change, device_id, resolution_strategy):
         if resolution_strategy == 'last_write_wins':
-            # Use timestamp to determine winner
+# Use timestamp to determine winner
             return self.resolve_by_timestamp(change)
         elif resolution_strategy == 'device_priority':
-            # Give priority to specific device
+# Give priority to specific device
             return self.resolve_by_device_priority(change, device_id)
         elif resolution_strategy == 'keep_both':
-            # Create duplicate with different name
+# Create duplicate with different name
             return self.create_conflict_copy(change)
         else:
-            # Manual resolution required
+# Manual resolution required
             return self.mark_for_manual_resolution(change)
 ```
 
@@ -603,21 +603,21 @@ class DistributedBlobStorage:
         self.erasure_coder = ErasureCoding(k=10, m=4)  # 10 data, 4 parity
         
     async def store_photo(self, photo_data, replication_factor=3):
-        # Choose storage strategy based on size
+# Choose storage strategy based on size
         if len(photo_data) < 1_000_000:  # < 1MB
             return await self.store_with_replication(
                 photo_data, 
                 replication_factor
             )
         else:
-            # Use erasure coding for large files
+# Use erasure coding for large files
             return await self.store_with_erasure_coding(photo_data)
     
     async def store_with_erasure_coding(self, photo_data):
-        # Split into chunks and generate parity
+# Split into chunks and generate parity
         chunks = self.erasure_coder.encode(photo_data)
         
-        # Distribute chunks across nodes
+# Distribute chunks across nodes
         storage_map = {}
         for i, chunk in enumerate(chunks):
             node = self.select_storage_node(
@@ -727,7 +727,7 @@ class MLFeatureExtraction:
         }
         
     async def extract_features(self, photo_id, photo_data):
-        # Run models in parallel
+# Run models in parallel
         results = await asyncio.gather(
             self.detect_faces(photo_data),
             self.detect_objects(photo_data),
@@ -737,7 +737,7 @@ class MLFeatureExtraction:
             return_exceptions=True
         )
         
-        # Combine results
+# Combine results
         features = {
             'faces': results[0] if not isinstance(results[0], Exception) else [],
             'objects': results[1] if not isinstance(results[1], Exception) else [],
@@ -746,10 +746,10 @@ class MLFeatureExtraction:
             'quality': results[4] if not isinstance(results[4], Exception) else {}
         }
         
-        # Store extracted features
+# Store extracted features
         await self.store_features(photo_id, features)
         
-        # Update search indices
+# Update search indices
         await self.update_search_indices(photo_id, features)
         
         return features
@@ -767,27 +767,27 @@ class PhotoCacheManager:
         self.cdn_cache = CDNCache()
         
     async def get_photo(self, photo_id, resolution='thumbnail'):
-        # Try memory cache first
+# Try memory cache first
         cached = self.memory_cache.get(f"{photo_id}:{resolution}")
         if cached:
             return cached
         
-        # Try SSD cache
+# Try SSD cache
         cached = await self.ssd_cache.get(f"{photo_id}:{resolution}")
         if cached:
             self.memory_cache.put(f"{photo_id}:{resolution}", cached)
             return cached
         
-        # Check CDN for popular content
+# Check CDN for popular content
         if await self.is_popular_content(photo_id):
             cdn_url = await self.cdn_cache.get_url(photo_id, resolution)
             if cdn_url:
                 return RedirectResponse(cdn_url)
         
-        # Fetch from storage
+# Fetch from storage
         photo_data = await self.fetch_from_storage(photo_id, resolution)
         
-        # Update caches
+# Update caches
         await self.update_caches(photo_id, resolution, photo_data)
         
         return photo_data
@@ -802,30 +802,30 @@ class PredictivePreloader:
         self.preload_queue = PriorityQueue()
         
     async def predict_next_photos(self, user_id, current_photo_id):
-        # Get user's viewing patterns
+# Get user's viewing patterns
         patterns = await self.user_model.get_patterns(user_id)
         
         predictions = []
         
-        # Timeline-based prediction
+# Timeline-based prediction
         if patterns.views_chronologically:
             predictions.extend(
                 await self.get_adjacent_photos(current_photo_id, count=5)
             )
         
-        # Album-based prediction
+# Album-based prediction
         if patterns.views_by_album:
             predictions.extend(
                 await self.get_album_photos(current_photo_id, count=5)
             )
         
-        # Similar content prediction
+# Similar content prediction
         if patterns.views_similar_content:
             predictions.extend(
                 await self.get_similar_photos(current_photo_id, count=3)
             )
         
-        # Queue for preloading
+# Queue for preloading
         for photo_id, priority in predictions:
             await self.preload_queue.put(
                 PreloadTask(photo_id=photo_id, priority=priority)
@@ -843,17 +843,17 @@ class PrivacyPreservingML:
         self.secure_aggregation = SecureAggregation()
         
     async def train_on_user_data(self, user_photos):
-        # Local training on device
+# Local training on device
         local_model_updates = []
         
         for batch in self.batch_photos(user_photos):
-            # Add noise for differential privacy
+# Add noise for differential privacy
             noisy_gradients = self.differential_privacy.add_noise(
                 self.compute_gradients(batch)
             )
             local_model_updates.append(noisy_gradients)
         
-        # Secure aggregation
+# Secure aggregation
         aggregated_update = await self.secure_aggregation.aggregate(
             local_updates=local_model_updates,
             min_participants=1000  # Wait for enough users
@@ -870,19 +870,19 @@ class EncryptedSharing:
         self.key_manager = KeyManager()
         
     async def create_encrypted_album(self, user_id, album_data):
-        # Generate album encryption key
+# Generate album encryption key
         album_key = self.key_manager.generate_album_key()
         
-        # Encrypt album metadata
+# Encrypt album metadata
         encrypted_metadata = self.encrypt_metadata(album_data, album_key)
         
-        # Store encrypted album
+# Store encrypted album
         album_id = await self.store_encrypted_album(
             owner_id=user_id,
             encrypted_metadata=encrypted_metadata
         )
         
-        # Distribute keys to authorized users
+# Distribute keys to authorized users
         for recipient in album_data.recipients:
             wrapped_key = self.key_manager.wrap_key_for_user(
                 album_key=album_key,
@@ -947,13 +947,13 @@ class StorageTiering:
         access_pattern = await self.analyze_access_pattern(photo_id)
         
         if access_pattern.last_access_days > 365:
-            # Move to archive
+# Move to archive
             await self.move_to_tier(photo_id, 'archive')
         elif access_pattern.access_frequency < 0.1:
-            # Move to cool storage
+# Move to cool storage
             await self.move_to_tier(photo_id, 'cool')
         else:
-            # Keep in hot storage
+# Keep in hot storage
             await self.move_to_tier(photo_id, 'hot')
 ```
 
@@ -965,15 +965,15 @@ class SmartCompression:
         if user_settings.has_unlimited_original_quality:
             return 'original'
         
-        # Compress more aggressively for rarely accessed photos
+# Compress more aggressively for rarely accessed photos
         if photo_metadata.predicted_access_frequency < 0.01:
             return 'aggressive'
         
-        # Preserve quality for photos with faces
+# Preserve quality for photos with faces
         if photo_metadata.has_faces:
             return 'high_quality'
         
-        # Standard compression for everything else
+# Standard compression for everything else
         return 'standard'
 ```
 

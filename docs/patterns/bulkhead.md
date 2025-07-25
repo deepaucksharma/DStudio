@@ -16,7 +16,7 @@ last_updated: 2025-01-21
 
 **Isolate system resources to prevent cascading failures**
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ## Core Concept
 
@@ -42,7 +42,7 @@ With Bulkheads (Isolated Pools):
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ## Bulkhead Strategies
 
@@ -173,16 +173,16 @@ class BulkheadConfig:
     queue_size: int = 0  # 0 = no queueing
     timeout: float = 30.0  # seconds
     
-    # Circuit breaker integration
+# Circuit breaker integration
     failure_threshold: int = 5
     recovery_timeout: float = 60.0
     
-    # Adaptive sizing
+# Adaptive sizing
     adaptive_enabled: bool = False
     min_size: int = 5
     max_size: int = 100
     
-    # Monitoring
+# Monitoring
     track_latency: bool = True
     alert_on_rejection: bool = True
 
@@ -225,34 +225,34 @@ class ThreadPoolBulkhead:
         self.state = BulkheadState.CLOSED
         self.logger = logging.getLogger(f"bulkhead.{config.name}")
         
-        # Thread pool with queue
+# Thread pool with queue
         self.pool = ThreadPoolExecutor(
             max_workers=config.size,
             thread_name_prefix=f"bulkhead-{config.name}-"
         )
         
-        # Tracking
+# Tracking
         self._active_futures: weakref.WeakSet[Future] = weakref.WeakSet()
         self._lock = threading.RLock()
         self._semaphore = threading.Semaphore(config.size + config.queue_size)
         
-        # Circuit breaker state
+# Circuit breaker state
         self._consecutive_failures = 0
         self._circuit_opened_at = None
         
-        # Adaptive sizing
+# Adaptive sizing
         if config.adaptive_enabled:
             self._start_adaptive_sizing()
     
     def execute(self, func: Callable[..., T], *args, **kwargs) -> T:
         """Execute function with bulkhead protection"""
         
-        # Check circuit breaker
+# Check circuit breaker
         if not self._is_accepting_requests():
             self.metrics.rejected_calls += 1
             raise BulkheadFullError(f"Bulkhead {self.config.name} is open")
         
-        # Try to acquire permit
+# Try to acquire permit
         acquired = self._semaphore.acquire(blocking=False)
         if not acquired:
             with self._lock:
@@ -267,7 +267,7 @@ class ThreadPoolBulkhead:
             
             raise BulkheadFullError(f"Bulkhead {self.config.name} is full")
         
-        # Track metrics
+# Track metrics
         with self._lock:
             self.metrics.total_calls += 1
             self.metrics.active_calls += 1
@@ -275,25 +275,25 @@ class ThreadPoolBulkhead:
         start_time = time.time()
         
         try:
-            # Submit to thread pool
+# Submit to thread pool
             future = self.pool.submit(func, *args, **kwargs)
             self._active_futures.add(future)
             
-            # Wait with timeout
+# Wait with timeout
             result = future.result(timeout=self.config.timeout)
             
-            # Record success
+# Record success
             self._record_success(time.time() - start_time)
             
             return result
             
         except Exception as e:
-            # Record failure
+# Record failure
             self._record_failure(time.time() - start_time)
             raise
             
         finally:
-            # Release resources
+# Release resources
             with self._lock:
                 self.metrics.active_calls -= 1
             self._semaphore.release()
@@ -343,7 +343,7 @@ class SemaphoreBulkhead:
         acquired = False
         try:
             if timeout:
-                # Try to acquire with timeout
+# Try to acquire with timeout
                 try:
                     await asyncio.wait_for(
                         self.semaphore.acquire(),
@@ -356,7 +356,7 @@ class SemaphoreBulkhead:
                         f"Timeout acquiring permit for '{self.name}'"
                     )
             else:
-                # Try to acquire without blocking
+# Try to acquire without blocking
                 acquired = self.semaphore.locked() == False
                 if acquired:
                     await self.semaphore.acquire()
@@ -460,15 +460,15 @@ class BulkheadHTTPClient:
     async def request(self, method: str, url: str, **kwargs):
         """Make request with appropriate bulkhead"""
 
-        # Find matching bulkhead
+# Find matching bulkhead
         bulkhead = self._find_bulkhead(url)
 
         if not bulkhead:
             raise ValueError(f"No bulkhead configured for {url}")
 
-        # Acquire semaphore
+# Acquire semaphore
         async with bulkhead['semaphore']:
-            # Create session with bulkhead connector
+# Create session with bulkhead connector
             async with aiohttp.ClientSession(
                 connector=bulkhead['connector'],
                 timeout=bulkhead['timeout']
@@ -501,7 +501,7 @@ class ContainerBulkhead:
     ):
         """Execute command in isolated container"""
 
-        # Default resource limits
+# Default resource limits
         if not resources:
             resources = {
                 'mem_limit': '512m',
@@ -509,7 +509,7 @@ class ContainerBulkhead:
                 'cpu_period': 100000
             }
 
-        # Run container with resource limits
+# Run container with resource limits
         container = self.docker.containers.run(
             image=image,
             command=command,
@@ -519,7 +519,7 @@ class ContainerBulkhead:
             **resources
         )
 
-        # Wait for completion
+# Wait for completion
         result = container.wait()
         logs = container.logs().decode('utf-8')
 
@@ -550,11 +550,11 @@ class AdaptiveBulkhead:
         self.semaphore = asyncio.Semaphore(min_size)
         self.active_count = 0
 
-        # Metrics for adaptation
+# Metrics for adaptation
         self.utilization_history = []
         self.rejection_count = 0
 
-        # Start adaptation loop
+# Start adaptation loop
         asyncio.create_task(self._adapt_loop())
 
     async def _adapt_loop(self):
@@ -563,24 +563,24 @@ class AdaptiveBulkhead:
         while True:
             await asyncio.sleep(10)  # Adjust every 10 seconds
 
-            # Calculate average utilization
+# Calculate average utilization
             if self.utilization_history:
                 avg_utilization = sum(self.utilization_history) / len(self.utilization_history)
 
                 if avg_utilization > self.target_utilization + 0.1:
-                    # Increase size
+# Increase size
                     await self._resize(min(
                         self.max_size,
                         int(self.current_size * 1.5)
                     ))
                 elif avg_utilization < self.target_utilization - 0.1:
-                    # Decrease size
+# Decrease size
                     await self._resize(max(
                         self.min_size,
                         int(self.current_size * 0.8)
                     ))
 
-            # Reset history
+# Reset history
             self.utilization_history = []
 
     async def _resize(self, new_size: int):
@@ -591,10 +591,10 @@ class AdaptiveBulkhead:
 
         print(f"Resizing bulkhead '{self.name}' from {self.current_size} to {new_size}")
 
-        # Create new semaphore
+# Create new semaphore
         new_semaphore = asyncio.Semaphore(new_size)
 
-        # Copy current permits
+# Copy current permits
         for _ in range(self.current_size - self.active_count):
             await self.semaphore.acquire()
 
@@ -609,7 +609,7 @@ class AdaptiveBulkhead:
                 self.metrics.total_latency += latency
                 self.metrics.max_latency = max(self.metrics.max_latency, latency)
         
-        # Check if circuit should close
+# Check if circuit should close
         if self.state == BulkheadState.HALF_OPEN:
             self.state = BulkheadState.CLOSED
             self.logger.info(f"Bulkhead {self.config.name} circuit closed")
@@ -620,7 +620,7 @@ class AdaptiveBulkhead:
             self.metrics.failed_calls += 1
             self._consecutive_failures += 1
             
-            # Check if circuit should open
+# Check if circuit should open
             if self._consecutive_failures >= self.config.failure_threshold:
                 self.state = BulkheadState.OPEN
                 self._circuit_opened_at = time.time()
@@ -635,20 +635,20 @@ class AdaptiveBulkhead:
             return True
         
         if self.state == BulkheadState.OPEN:
-            # Check if recovery timeout passed
+# Check if recovery timeout passed
             if time.time() - self._circuit_opened_at > self.config.recovery_timeout:
                 self.state = BulkheadState.HALF_OPEN
                 self.logger.info(f"Bulkhead {self.config.name} entering half-open state")
                 return True
             return False
         
-        # HALF_OPEN - accept limited requests
+# HALF_OPEN - accept limited requests
         return True
 ```
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ## Advanced Bulkhead Patterns
 
@@ -702,14 +702,14 @@ class HierarchicalBulkhead:
     """
     
     def __init__(self):
-        # Top-level bulkheads
+# Top-level bulkheads
         self.service_bulkheads = {
             'api': BulkheadConfig(name='api', size=1000),
             'batch': BulkheadConfig(name='batch', size=200),
             'admin': BulkheadConfig(name='admin', size=50)
         }
         
-        # Sub-bulkheads per service
+# Sub-bulkheads per service
         self.endpoint_bulkheads = {
             'api': {
                 '/search': BulkheadConfig(name='api-search', size=300),
@@ -722,7 +722,7 @@ class HierarchicalBulkhead:
             }
         }
         
-        # User-level bulkheads
+# User-level bulkheads
         self.user_bulkheads = {}  # Created dynamically
     
     async def acquire_nested(self, service: str, endpoint: str, 
@@ -730,29 +730,29 @@ class HierarchicalBulkhead:
         """
         Acquire permits from all levels of hierarchy
         """
-        # Acquire in order: service → endpoint → user
+# Acquire in order: service → endpoint → user
         permits = []
         
         try:
-            # Service level
+# Service level
             service_permit = await self.service_bulkheads[service].acquire()
             permits.append(service_permit)
             
-            # Endpoint level
+# Endpoint level
             if endpoint in self.endpoint_bulkheads[service]:
                 endpoint_permit = await self.endpoint_bulkheads[service][endpoint].acquire()
                 permits.append(endpoint_permit)
             
-            # User level (with dynamic creation)
+# User level (with dynamic creation)
             user_bulkhead = self._get_or_create_user_bulkhead(user_id)
             user_permit = await user_bulkhead.acquire()
             permits.append(user_permit)
             
-            # Return composite context manager
+# Return composite context manager
             return CompositeContext(permits)
             
         except Exception:
-            # Release any acquired permits
+# Release any acquired permits
             for permit in reversed(permits):
                 await permit.release()
             raise
@@ -762,7 +762,7 @@ class HierarchicalBulkhead:
         Create user-specific bulkheads with rate limiting
         """
         if user_id not in self.user_bulkheads:
-            # Determine user tier
+# Determine user tier
             user_tier = self._get_user_tier(user_id)
             
             size = {
@@ -877,7 +877,7 @@ public class NetflixBulkheadExample {
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ## Real-World Case Study: Amazon's Cell-Based Architecture
 
@@ -894,10 +894,10 @@ graph TD
 ```
 
 **Impact of Shared Fate**:
-- 🌍 **Global outages**: One issue affects all regions
+- **Global outages**: One issue affects all regions
 - 💣 **Blast radius**: Bad deployments impact everyone
-- 🎯 **Single points of failure**: Shared components = shared risk
-- 💰 **Revenue impact**: $66M per hour of downtime
+- **Single points of failure**: Shared components = shared risk
+- **Revenue impact**: $66M per hour of downtime
 
 #### The Solution: Cellular Architecture
 
@@ -913,10 +913,10 @@ class AmazonCellArchitecture:
             'us-east-1b': Cell(capacity=1000000),
             'us-west-2a': Cell(capacity=1000000),
             'eu-west-1a': Cell(capacity=1000000),
-            # ... 100+ cells globally
+# ... 100+ cells globally
         }
         
-        # Each cell is completely isolated
+# Each cell is completely isolated
         self.cell_components = {
             'load_balancer': 'Dedicated ALB per cell',
             'compute': 'Isolated EC2 instances',
@@ -930,11 +930,11 @@ class AmazonCellArchitecture:
         """
         Deterministic routing to cells
         """
-        # Hash-based cell assignment
+# Hash-based cell assignment
         cell_index = hash(customer_id) % len(self.cells)
         cell_name = list(self.cells.keys())[cell_index]
         
-        # Customer always goes to same cell
+# Customer always goes to same cell
         return cell_name
     
     def deploy_to_cell(self, cell_name: str, version: str):
@@ -943,15 +943,15 @@ class AmazonCellArchitecture:
         """
         cell = self.cells[cell_name]
         
-        # Deploy to single cell first
+# Deploy to single cell first
         cell.deploy(version)
         
-        # Monitor for issues
+# Monitor for issues
         if cell.health_check():
             self.logger.info(f"Cell {cell_name} healthy with {version}")
             return True
         else:
-            # Rollback just this cell
+# Rollback just this cell
             cell.rollback()
             self.logger.error(f"Cell {cell_name} unhealthy, rolled back")
             return False
@@ -985,7 +985,7 @@ for cell in cells_ordered_by_criticality():
         print(f"Only {deployed_cells}/{total_cells} affected")
         break
     
-    # Bake time between cells
+# Bake time between cells
     time.sleep(300)  # 5 minutes
 
 ```
@@ -1033,7 +1033,7 @@ class SpotifySquadBulkheads:
     """
     
     def __init__(self):
-        # Each squad owns isolated services
+# Each squad owns isolated services
         self.squad_ownership = {
             'discover_weekly': {
                 'services': ['recommendation-engine', 'playlist-generator'],
@@ -1058,13 +1058,13 @@ class SpotifySquadBulkheads:
         """
         Ensure squads can't affect each other
         """
-        # Get squad's resource limits
+# Get squad's resource limits
         limits = self.get_squad_limits(squad)
         
-        # Check current usage
+# Check current usage
         usage = self.get_squad_usage(squad)
         
-        # Enforce bulkheads
+# Enforce bulkheads
         if usage['cpu'] >= limits['cpu']:
             return Response(429, "Squad CPU limit exceeded")
         
@@ -1074,7 +1074,7 @@ class SpotifySquadBulkheads:
         if usage['requests_per_second'] >= limits['rps']:
             return Response(429, "Squad RPS limit exceeded")
         
-        # Process within squad's isolated environment
+# Process within squad's isolated environment
         with self.squad_context(squad):
             return process_request(request)
     
@@ -1172,14 +1172,14 @@ class AzureDeploymentStamps:
                 'health': 'healthy',
                 'version': 'v2.3.1'
             },
-            # ... 50+ stamps globally
+# ... 50+ stamps globally
         }
     
     def stamp_allocation_strategy(self, tenant: Dict) -> str:
         """
         Intelligent stamp assignment
         """
-        # Consider multiple factors
+# Consider multiple factors
         factors = {
             'data_residency': tenant['country'],
             'size': tenant['expected_users'],
@@ -1187,13 +1187,13 @@ class AzureDeploymentStamps:
             'features': tenant['required_features']
         }
         
-        # Find best stamp
+# Find best stamp
         scores = {}
         for stamp_id, stamp in self.stamps.items():
             score = self._calculate_stamp_score(stamp, factors)
             scores[stamp_id] = score
         
-        # Return highest scoring stamp with capacity
+# Return highest scoring stamp with capacity
         return max(scores, key=scores.get)
 
 # Configuration used by Office 365
@@ -1216,7 +1216,7 @@ office365_bulkheads = {
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ## Theoretical Foundations of Isolation
 
@@ -1240,7 +1240,7 @@ class BulkheadOptimizer:
         """
         Use M/M/c/K queue model for bulkhead sizing
         """
-        # Traffic intensity
+# Traffic intensity
         rho = arrival_rate / service_rate
         
         def erlang_c_formula(c: int, a: float) -> float:
@@ -1256,16 +1256,16 @@ class BulkheadOptimizer:
             """
             Calculate performance metrics for M/M/c/K queue
             """
-            # Effective arrival rate (considering rejections)
+# Effective arrival rate (considering rejections)
             lambda_eff = arrival_rate * (1 - self.blocking_probability(servers, queue_size, rho))
             
-            # Average number in system (Little's Law)
+# Average number in system (Little's Law)
             L = lambda_eff / service_rate
             
-            # Average wait time
+# Average wait time
             W = L / lambda_eff
             
-            # Rejection rate
+# Rejection rate
             rejection_rate = 1 - (lambda_eff / arrival_rate)
             
             return {
@@ -1276,7 +1276,7 @@ class BulkheadOptimizer:
                 'utilization': lambda_eff / (servers * service_rate)
             }
         
-        # Optimize for target metrics
+# Optimize for target metrics
         best_config = None
         min_cost = float('inf')
         
@@ -1284,11 +1284,11 @@ class BulkheadOptimizer:
             for queue_size in range(0, 50):
                 metrics = calculate_metrics(servers, queue_size)
                 
-                # Check constraints
+# Check constraints
                 if (metrics['avg_wait_time'] <= target_wait_time and
                     metrics['rejection_rate'] <= target_rejection_rate):
                     
-                    # Cost function (servers + queue memory)
+# Cost function (servers + queue memory)
                     cost = servers + 0.1 * queue_size
                     
                     if cost < min_cost:
@@ -1302,11 +1302,11 @@ class BulkheadOptimizer:
         """
         Calculate blocking probability for M/M/c/K queue
         """
-        # Simplified calculation for demonstration
+# Simplified calculation for demonstration
         if K == 0:
             return self.erlang_b(c, rho)
         
-        # Full M/M/c/K calculation
+# Full M/M/c/K calculation
         p0_inv = sum(rho**n / np.math.factorial(n) for n in range(c))
         p0_inv += sum(
             rho**c * rho**(n-c) / (np.math.factorial(c) * c**(n-c))
@@ -1315,7 +1315,7 @@ class BulkheadOptimizer:
         
         p0 = 1 / p0_inv
         
-        # Blocking occurs when all servers busy and queue full
+# Blocking occurs when all servers busy and queue full
         pK = rho**c * rho**K / (np.math.factorial(c) * c**K) * p0
         
         return pK
@@ -1378,32 +1378,32 @@ class BulkheadChaosEngineer:
         """
         self.logger.warning(f"Starting chaos experiment: {experiment.name}")
         
-        # Record baseline metrics
+# Record baseline metrics
         baseline = await self.system.get_metrics()
         
-        # Inject failure
+# Inject failure
         affected_bulkheads = self._select_targets(experiment.blast_radius)
         
-        # Apply chaos
+# Apply chaos
         chaos_tasks = []
         for bulkhead in affected_bulkheads:
             if experiment.name == "bulkhead_overflow":
                 task = self._flood_bulkhead(bulkhead, experiment.duration)
             elif experiment.name == "resource_starvation":
                 task = self._starve_resources(bulkhead, experiment.duration)
-            # ... other experiments
+# ... other experiments
             
             chaos_tasks.append(task)
         
-        # Run chaos
+# Run chaos
         start_time = time.time()
         await asyncio.gather(*chaos_tasks)
         
-        # Measure impact
+# Measure impact
         impact_metrics = await self.system.get_metrics()
         recovery_start = time.time()
         
-        # Wait for recovery
+# Wait for recovery
         while not self._system_recovered(baseline, await self.system.get_metrics()):
             await asyncio.sleep(1)
             if time.time() - recovery_start > 300:  # 5 min timeout
@@ -1431,7 +1431,7 @@ class BulkheadChaosEngineer:
         request_count = 0
         
         while time.time() < end_time:
-            # Fire requests as fast as possible
+# Fire requests as fast as possible
             tasks = []
             for _ in range(1000):  # 1000 concurrent requests
                 task = bulkhead.handle_request(
@@ -1440,10 +1440,10 @@ class BulkheadChaosEngineer:
                 tasks.append(task)
                 request_count += 1
             
-            # Don't wait for completion, just fire
+# Don't wait for completion, just fire
             asyncio.gather(*tasks, return_exceptions=True)
             
-            # Small delay to prevent total system crash
+# Small delay to prevent total system crash
             await asyncio.sleep(0.01)
         
         self.logger.info(f"Flooded {bulkhead.name} with {request_count} requests")
@@ -1466,12 +1466,12 @@ class QuantumBulkhead:
         """
         Bulkhead exists in multiple configuration states simultaneously
         """
-        # In quantum computing future, this would use actual qubits
-        # For now, we simulate probabilistic resource allocation
+# In quantum computing future, this would use actual qubits
+# For now, we simulate probabilistic resource allocation
         
         superposition = SuperpositionBulkhead()
         
-        # Each configuration has a probability amplitude
+# Each configuration has a probability amplitude
         total_weight = sum(c.priority for c in configs)
         
         for config in configs:
@@ -1485,14 +1485,14 @@ class QuantumBulkhead:
         Create quantum entanglement between bulkheads
         When one fails, the other instantly knows
         """
-        # Simulated entanglement for instant state propagation
+# Simulated entanglement for instant state propagation
         self.entangled_bulkheads[bulkhead1.id] = bulkhead2.id
         self.entangled_bulkheads[bulkhead2.id] = bulkhead1.id
         
-        # In theory, this would allow:
-        # 1. Instant failure detection (faster than network)
-        # 2. Coordinated resource reallocation
-        # 3. Quantum tunneling for request routing
+# In theory, this would allow:
+# 1. Instant failure detection (faster than network)
+# 2. Coordinated resource reallocation
+# 3. Quantum tunneling for request routing
 
 #### AI-Driven Autonomous Bulkheads
 
@@ -1540,20 +1540,20 @@ class AutonomousBulkheadSystem:
         Continuously optimize bulkhead configuration
         """
         while True:
-            # Observe current state
+# Observe current state
             state = await self._observe_system_state()
             
-            # Agent decides action
+# Agent decides action
             action = self.rl_agent.select_action(state)
             
-            # Execute action
+# Execute action
             reward = await self._execute_action(action)
             
-            # Learn from outcome
+# Learn from outcome
             next_state = await self._observe_system_state()
             self.rl_agent.learn(state, action, reward, next_state)
             
-            # Log decision
+# Log decision
             self.logger.info(
                 f"AI Decision: {action} | "
                 f"Reward: {reward:.2f} | "
@@ -1571,7 +1571,7 @@ class BulkheadEconomics:
     """
     
     def calculate_total_value(self, metrics: Dict) -> Dict:
-        # Amazon's actual numbers
+# Amazon's actual numbers
         amazon_case = {
             'revenue_per_minute': 837_500,  # $837.5K
             'outage_minutes_before': 873,    # Per year
@@ -1580,7 +1580,7 @@ class BulkheadEconomics:
             'blast_radius_after': 0.01       # 1% affected
         }
         
-        # Calculate prevented losses
+# Calculate prevented losses
         prevented_outage_minutes = (
             amazon_case['outage_minutes_before'] - 
             amazon_case['outage_minutes_after']
@@ -1592,7 +1592,7 @@ class BulkheadEconomics:
             (amazon_case['blast_radius_before'] - amazon_case['blast_radius_after'])
         )
         
-        # Additional benefits
+# Additional benefits
         faster_deployments = {
             'deployments_per_year_before': 52,   # Weekly
             'deployments_per_year_after': 5000,  # Multiple daily
@@ -1605,7 +1605,7 @@ class BulkheadEconomics:
             faster_deployments['value_per_deployment']
         )
         
-        # Implementation costs
+# Implementation costs
         costs = {
             'initial_implementation': 2_000_000,
             'additional_infrastructure': 500_000,  # 8% overhead
@@ -1632,7 +1632,7 @@ print(f"Payback period: {roi['payback_period_days']:.0f} days")
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ## Decision Matrix: Choosing Bulkhead Strategy
 
@@ -1740,7 +1740,7 @@ def calculate_bulkhead_value(your_metrics: Dict) -> Dict:
     """
     Quick calculator for bulkhead pattern value
     """
-    # Typical improvements
+# Typical improvements
     availability_gain = 0.99999 / 0.999  # 100x fewer outage minutes
     blast_radius_reduction = 0.99  # 99% smaller impact
     deployment_confidence = 10  # 10x more deployments
@@ -1805,7 +1805,7 @@ def calculate_bulkhead_value(your_metrics: Dict) -> Dict:
 
 async def handle_checkout_request(cart_id: str):
     async with checkout_bulkhead.acquire(timeout=5.0):
-        # Checkout operations isolated
+# Checkout operations isolated
         return await checkout_service.process(cart_id)
 
 # Example 2: Database connection isolation
@@ -1849,7 +1849,7 @@ await db_bulkheads.execute('analytics',
 • Mixed workload types
 • Protecting critical paths
 
-## ⚠️ BEWARE OF:
+## ⚠ BEWARE OF:
 • Resource overhead
 • Configuration complexity
 • Bulkhead sizing
@@ -1912,7 +1912,7 @@ await db_bulkheads.execute('analytics',
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
 
-## ⚖️ Trade-offs
+## Trade-offs
 
 ## Benefits vs Costs
 
@@ -1941,7 +1941,7 @@ await db_bulkheads.execute('analytics',
 - **Testing**: Complex failure scenarios to validate
 - **Documentation**: More concepts for team to understand
 
-## 💻 Code Sample
+## Code Sample
 
 ## Basic Implementation
 
@@ -1971,7 +1971,7 @@ class BulkheadPattern:
 
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
-        # Implementation depends on specific use case
+# Implementation depends on specific use case
         pass
 
     def _fallback(self, request):
@@ -2015,23 +2015,23 @@ bulkhead:
 def test_bulkhead_behavior():
     pattern = BulkheadPattern(test_config)
 
-    # Test normal operation
+# Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 
-    # Test failure handling
+# Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
 
-    # Test recovery
+# Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
 
 ## 💪 Hands-On Exercises
 
-## Exercise 1: Pattern Recognition ⭐⭐
+## Exercise 1: Pattern Recognition
 **Time**: ~15 minutes
 **Objective**: Identify Bulkhead in existing systems
 
@@ -2045,7 +2045,7 @@ For each example:
 - What problems it solves in that context
 - What alternatives could have been used
 
-## Exercise 2: Implementation Planning ⭐⭐⭐
+## Exercise 2: Implementation Planning
 **Time**: ~25 minutes
 **Objective**: Design an implementation of Bulkhead
 
@@ -2064,7 +2064,7 @@ For each example:
 
 **Deliverable**: Architecture diagram + 1-page implementation plan
 
-## Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+## Exercise 3: Trade-off Analysis
 **Time**: ~20 minutes
 **Objective**: Evaluate when NOT to use Bulkhead
 
@@ -2080,7 +2080,7 @@ For each example:
 
 ---
 
-## 🛠️ Code Challenge
+## 🛠 Code Challenge
 
 ## Beginner: Basic Implementation
 Implement a minimal version of Bulkhead in your preferred language.
@@ -2104,7 +2104,7 @@ Optimize for production use:
 
 ---
 
-## 🎯 Real-World Application
+## Real-World Application
 
 **Project Integration**:
 - How would you introduce Bulkhead to an existing system?

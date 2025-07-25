@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Airplane Analogy
 
@@ -72,11 +72,11 @@ class RecommendationService:
     def get_recommendations(self, user_id: str) -> List[Item]:
         """Get recommendations with graceful fallbacks"""
         try:
-            # Primary: Personalized ML recommendations
+# Primary: Personalized ML recommendations
             return self.ml_service.get_personalized(user_id)
         except ServiceUnavailableError:
             try:
-                # Fallback 1: Cached recommendations
+# Fallback 1: Cached recommendations
                 cached = self.cache_service.get(f"recs:{user_id}")
                 if cached:
                     return cached
@@ -84,13 +84,13 @@ class RecommendationService:
                 pass
 
             try:
-                # Fallback 2: Popular items
+# Fallback 2: Popular items
                 if self.popular_items_cache:
                     return self.popular_items_cache[:10]
             except:
                 pass
 
-            # Fallback 3: Static defaults
+# Fallback 3: Static defaults
             return self.get_static_defaults()
 
     def get_static_defaults(self) -> List[Item]:
@@ -98,13 +98,13 @@ class RecommendationService:
         return [
             Item(id="default1", name="Featured Product"),
             Item(id="default2", name="Best Seller"),
-            # ... more defaults
+# ... more defaults
         ]
 ```
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Degradation Strategies
 
@@ -247,7 +247,7 @@ class GracefulDegradationManager:
         """Get degraded configuration for service"""
         base_config = self.feature_flags.copy()
 
-        # Service-specific overrides
+# Service-specific overrides
         if service == 'image_service':
             return {
                 'quality': base_config['image_quality'],
@@ -266,7 +266,7 @@ class GracefulDegradationManager:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Degradation Patterns
 
@@ -300,7 +300,7 @@ class ProgressiveEnhancementService:
                 enhancement(request, response)
                 available_time -= (time.time() - start)
             except Exception as e:
-                # Log but continue with what we have
+# Log but continue with what we have
                 self.log_enhancement_failure(enhancement.__name__, e)
 
         return response
@@ -429,19 +429,19 @@ class ContentDegradationService:
         qualities = video_manifest['qualities'].copy()
 
         if level >= DegradationLevel.MINOR:
-            # Remove 4K
+# Remove 4K
             qualities = [q for q in qualities if q['resolution'] <= 1080]
 
         if level >= DegradationLevel.MODERATE:
-            # Remove 1080p
+# Remove 1080p
             qualities = [q for q in qualities if q['resolution'] <= 720]
 
         if level >= DegradationLevel.SEVERE:
-            # Only lowest quality
+# Only lowest quality
             qualities = qualities[:1] if qualities else []
 
         if level == DegradationLevel.EMERGENCY:
-            # No video at all
+# No video at all
             return {'error': 'Video temporarily unavailable'}
 
         return {'qualities': qualities}
@@ -453,17 +453,17 @@ class ContentDegradationService:
         params = query_params.copy()
 
         if level >= DegradationLevel.MINOR:
-            # Reduce time range
+# Reduce time range
             if 'days' in params:
                 params['days'] = min(params['days'], 30)
 
         if level >= DegradationLevel.MODERATE:
-            # Increase aggregation
+# Increase aggregation
             params['aggregation'] = 'hourly'
             params['days'] = min(params.get('days', 7), 7)
 
         if level >= DegradationLevel.SEVERE:
-            # Daily aggregation only
+# Daily aggregation only
             params['aggregation'] = 'daily'
             params['days'] = 1
 
@@ -474,7 +474,7 @@ class ContentDegradationService:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Graceful Degradation Systems
 
@@ -511,7 +511,7 @@ class NetflixDegradationManager:
                           user_context: dict,
                           system_health: dict) -> dict:
         """Determine playback configuration"""
-        # Check various health indicators
+# Check various health indicators
         cdn_health = system_health.get('cdn_availability', 1.0)
         api_health = system_health.get('api_latency_ms', 0)
         bandwidth = user_context.get('bandwidth_mbps', 0)
@@ -523,7 +523,7 @@ class NetflixDegradationManager:
         else:
             config = self.playback_configurations['minimal']
 
-        # Apply user-specific adjustments
+# Apply user-specific adjustments
         return self.apply_user_preferences(config, user_context)
 
     def apply_fallback_strategies(self, failed_service: str) -> dict:
@@ -581,22 +581,22 @@ class TwitterDegradation:
         """Enable features based on load"""
         enabled_features = set()
 
-        # Always include essential
+# Always include essential
         enabled_features.update(self.feature_tiers['essential'])
 
         if current_load < 0.7:
-            # Normal operation
+# Normal operation
             enabled_features.update(self.feature_tiers['important'])
             enabled_features.update(self.feature_tiers['nice_to_have'])
             enabled_features.update(self.feature_tiers['luxury'])
         elif current_load < 0.85:
-            # Minor degradation
+# Minor degradation
             enabled_features.update(self.feature_tiers['important'])
             enabled_features.update(self.feature_tiers['nice_to_have'])
         elif current_load < 0.95:
-            # Significant degradation
+# Significant degradation
             enabled_features.update(self.feature_tiers['important'])
-        # Else: Only essential features
+# Else: Only essential features
 
         return enabled_features
 ```bash
@@ -632,7 +632,7 @@ class GitHubDegradationStrategy:
         }
 
         if incident_severity == 'critical':
-            # Disable everything except git operations
+# Disable everything except git operations
             degradation_plan['disabled_features'] = [
                 'actions', 'api_search', 'webhooks',
                 'integrations', 'web_extras'
@@ -644,7 +644,7 @@ class GitHubDegradationStrategy:
             )
 
         elif incident_severity == 'major':
-            # Disable non-essential features
+# Disable non-essential features
             degradation_plan['disabled_features'] = [
                 'webhooks', 'integrations'
             ]
@@ -654,7 +654,7 @@ class GitHubDegradationStrategy:
             degradation_plan['cached_features'] = ['web_extras']
 
         elif incident_severity == 'minor':
-            # Cache heavy features
+# Cache heavy features
             degradation_plan['cached_features'] = [
                 'api_search', 'web_extras'
             ]
@@ -694,7 +694,7 @@ class GitHubDegradationStrategy:
 ```yaml
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Optimal Degradation
 
@@ -728,17 +728,17 @@ class OptimalDegradationStrategy:
         """
         Find configuration that maximizes user value within resource constraints
         """
-        # Decision variables: which option for each feature
+# Decision variables: which option for each feature
         n_features = len(self.features)
         n_variables = sum(len(f['options']) for f in self.features.values())
 
-        # Objective: maximize total user value
+# Objective: maximize total user value
         def objective(x):
             total_value = 0
             idx = 0
 
             for feature in self.features.values():
-                # Sum of option selections must be 1 (one option selected)
+# Sum of option selections must be 1 (one option selected)
                 for i, option in enumerate(feature['options']):
                     if x[idx + i] > 0.5:  # Binary decision
                         total_value += feature['value'] * option['value_multiplier']
@@ -746,7 +746,7 @@ class OptimalDegradationStrategy:
 
             return -total_value  # Negative for minimization
 
-        # Constraint: total resource usage <= available
+# Constraint: total resource usage <= available
         def resource_constraint(x):
             total_cost = 0
             idx = 0
@@ -759,10 +759,10 @@ class OptimalDegradationStrategy:
 
             return available_resources - total_cost
 
-        # Constraint: exactly one option per feature
+# Constraint: exactly one option per feature
         constraints = [{'type': 'ineq', 'fun': resource_constraint}]
 
-        # Add selection constraints
+# Add selection constraints
         idx = 0
         for feature in self.features.values():
             n_options = len(feature['options'])
@@ -776,17 +776,17 @@ class OptimalDegradationStrategy:
             })
             idx += n_options
 
-        # Binary bounds
+# Binary bounds
         bounds = [(0, 1) for _ in range(n_variables)]
 
-        # Initial guess: first option for each feature
+# Initial guess: first option for each feature
         x0 = np.zeros(n_variables)
         idx = 0
         for feature in self.features.values():
             x0[idx] = 1
             idx += len(feature['options'])
 
-        # Solve
+# Solve
         result = minimize(
             objective,
             x0,
@@ -795,7 +795,7 @@ class OptimalDegradationStrategy:
             constraints=constraints
         )
 
-        # Extract configuration
+# Extract configuration
         configuration = {}
         idx = 0
         for name, feature in self.features.items():
@@ -819,8 +819,8 @@ class AdaptiveDegradation:
 
     def build_model(self):
         """Build ML model to predict optimal degradation"""
-        # Features: system metrics, time of day, day of week, special events
-        # Target: user satisfaction score
+# Features: system metrics, time of day, day of week, special events
+# Target: user satisfaction score
 
         from sklearn.ensemble import RandomForestRegressor
         return RandomForestRegressor(n_estimators=100)
@@ -831,20 +831,20 @@ class AdaptiveDegradation:
         """Predict optimal degradation level"""
         features = self.extract_features(system_metrics, context)
 
-        # Predict user satisfaction for each level
+# Predict user satisfaction for each level
         predictions = {}
         for level in DegradationLevel:
             level_features = features + [level.value]
             satisfaction = self.model.predict([level_features])[0]
 
-            # Penalize based on resource usage
+# Penalize based on resource usage
             resource_usage = self.estimate_resource_usage(level)
             if resource_usage > system_metrics['available_capacity']:
                 satisfaction *= 0.1  # Heavy penalty
 
             predictions[level] = satisfaction
 
-        # Choose level with highest predicted satisfaction
+# Choose level with highest predicted satisfaction
         return max(predictions.items(), key=lambda x: x[1])[0]
 ```
 
@@ -857,7 +857,7 @@ class AdaptiveDegradation:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Degradation Decision Matrix
 

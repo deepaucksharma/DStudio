@@ -17,7 +17,7 @@ last_updated: 2025-07-20
 !!! info "Note on Metrics"
     The specific metrics and figures in this case study are estimates based on public information, industry standards, and typical patterns for payment systems at scale. Actual proprietary data is not disclosed.
 
-## 🏗️ Architecture Evolution
+## Architecture Evolution
 
 ### Phase 1: Monolithic (1998-2005)
 ```text
@@ -111,7 +111,7 @@ graph LR
     AS --> RG
 ```
 
-## 🔬 Distributed Transaction Processing
+## Distributed Transaction Processing
 
 ### SAGA Pattern Implementation
 
@@ -124,7 +124,7 @@ class PaymentSaga:
 
     async def execute_payment(self, payment_request):
         try:
-            # Step 1: Validate and Lock Funds
+# Step 1: Validate and Lock Funds
             validation_result = await self.validate_and_lock(
                 payment_request
             )
@@ -132,13 +132,13 @@ class PaymentSaga:
                 lambda: self.unlock_funds(payment_request.sender)
             )
 
-            # Step 2: Fraud Check
+# Step 2: Fraud Check
             fraud_result = await self.check_fraud(payment_request)
             if fraud_result.is_suspicious:
                 await self.compensate()
                 return PaymentResult.REJECTED
 
-            # Step 3: Compliance Check
+# Step 3: Compliance Check
             compliance_result = await self.check_compliance(
                 payment_request
             )
@@ -146,7 +146,7 @@ class PaymentSaga:
                 await self.compensate()
                 return PaymentResult.COMPLIANCE_FAILED
 
-            # Step 4: Execute Transfer
+# Step 4: Execute Transfer
             transfer_result = await self.execute_transfer(
                 payment_request
             )
@@ -154,20 +154,20 @@ class PaymentSaga:
                 lambda: self.reverse_transfer(transfer_result.id)
             )
 
-            # Step 5: Update Balances
+# Step 5: Update Balances
             await self.update_balances(payment_request)
 
-            # Step 6: Send Notifications
+# Step 6: Send Notifications
             await self.send_notifications(payment_request)
 
-            # Success - Clear compensations
+# Success - Clear compensations
             self.state = "COMPLETED"
             self.compensations.clear()
 
             return PaymentResult.SUCCESS
 
         except Exception as e:
-            # Failure - Run compensations
+# Failure - Run compensations
             await self.compensate()
             self.state = "FAILED"
             raise
@@ -178,7 +178,7 @@ class PaymentSaga:
             try:
                 await compensation()
             except Exception as e:
-                # Log but continue compensating
+# Log but continue compensating
                 log.error(f"Compensation failed: {e}")
 ```
 
@@ -190,28 +190,28 @@ class IdempotentPaymentProcessor:
         self.processed_requests = {}  # In practice, distributed cache
 
     async def process_payment(self, request):
-        # Generate idempotency key
+# Generate idempotency key
         idempotency_key = self.generate_key(request)
 
-        # Check if already processed
+# Check if already processed
         if idempotency_key in self.processed_requests:
             return self.processed_requests[idempotency_key]
 
-        # Acquire distributed lock
+# Acquire distributed lock
         lock = await self.acquire_lock(idempotency_key)
         if not lock:
-            # Another instance is processing
+# Another instance is processing
             return await self.wait_for_result(idempotency_key)
 
         try:
-            # Double-check after acquiring lock
+# Double-check after acquiring lock
             if idempotency_key in self.processed_requests:
                 return self.processed_requests[idempotency_key]
 
-            # Process payment
+# Process payment
             result = await self.execute_payment(request)
 
-            # Store result
+# Store result
             self.processed_requests[idempotency_key] = result
             await self.persist_result(idempotency_key, result)
 
@@ -229,9 +229,9 @@ class IdempotentPaymentProcessor:
         ).hexdigest()
 ```
 
-## 📊 Law Analysis
+## Law Analysis
 
-### Law 4: Trade-offs ⚖️ (Truth Through Event Sourcing)
+### Law 4: Trade-offs (Truth Through Event Sourcing)
 
 ```python
 @dataclass
@@ -244,14 +244,14 @@ class PaymentEvent:
 
 class EventStore:
     async def append_event(self, event: PaymentEvent):
-        # Atomic append with ordering guarantee
+# Atomic append with ordering guarantee
         await self.storage.append(
             partition_key=event.saga_id,
             event=event,
             expected_version=self.get_version(event.saga_id)
         )
 
-        # Publish to event bus
+# Publish to event bus
         await self.event_bus.publish(event)
 
     async def get_payment_history(self, payment_id: str):
@@ -267,7 +267,7 @@ class EventStore:
 
 **Audit Requirements:** Who (user/system/API), What (amount/status/metadata), When (microsecond precision), Why (business rule/user action), Where (IP/device/location)
 
-### Law 4: Trade-offs ⚖️ (Control Through Orchestration)
+### Law 4: Trade-offs (Control Through Orchestration)
 
 ```python
 class PaymentOrchestrator:
@@ -276,33 +276,33 @@ class PaymentOrchestrator:
         self.timeout_manager = TimeoutManager()
 
     async def orchestrate_payment(self, payment_id: str):
-        # Load current state
+# Load current state
         state = await self.load_state(payment_id)
 
-        # Determine next actions
+# Determine next actions
         actions = self.state_machine.get_next_actions(state)
 
-        # Execute actions in parallel where possible
+# Execute actions in parallel where possible
         results = await asyncio.gather(*[
             self.execute_action(action) for action in actions
             if action.can_run_parallel
         ])
 
-        # Execute sequential actions
+# Execute sequential actions
         for action in actions:
             if not action.can_run_parallel:
                 result = await self.execute_action(action)
                 if not result.success:
                     await self.handle_failure(action, result)
 
-        # Update state
+# Update state
         new_state = self.state_machine.transition(
             state,
             results
         )
         await self.save_state(payment_id, new_state)
 
-        # Set timeout for next step
+# Set timeout for next step
         if not new_state.is_terminal:
             await self.timeout_manager.set_timeout(
                 payment_id,
@@ -310,7 +310,7 @@ class PaymentOrchestrator:
             )
 ```
 
-### Law 1: Failure ⛓️
+### Law 1: Failure
 
 ```python
 class PaymentFailureHandler:
@@ -334,15 +334,15 @@ class PaymentFailureHandler:
         error_type = self.classify_error(error)
 
         if error_type == 'business_error':
-            # No retry for business logic errors
+# No retry for business logic errors
             return FailureResult.ABORT
 
         if error_type == 'insufficient_funds':
-            # Specific handling for common cases
+# Specific handling for common cases
             await self.notify_user_insufficient_funds(context)
             return FailureResult.USER_ACTION_REQUIRED
 
-        # Get retry policy
+# Get retry policy
         retry_policy = self.retry_policies.get(
             error_type,
             self.default_retry_policy
@@ -353,7 +353,7 @@ class PaymentFailureHandler:
             await asyncio.sleep(delay / 1000)  # Convert to seconds
             return FailureResult.RETRY
 
-        # Max retries exceeded
+# Max retries exceeded
         await self.escalate_to_manual_review(context)
         return FailureResult.MANUAL_REVIEW
 ```
@@ -373,12 +373,12 @@ class PaymentFailureHandler:
 | **Stateless Services** | No session affinity needed | Horizontal scaling | Any instance can serve | No shared state | External state stores | Service health checks | Simple deployment model | Auto-scaling efficiency |
 
 **Key Law Applications:**
-- **Law 4 (Multidimensional Optimization ⚖️)**: Immutable event sourcing for perfect audit trails and time-travel debugging
-- **Law 4 (Multidimensional Optimization ⚖️)**: SAGA patterns with compensation logic avoiding 2PC penalties
-- **Law 4 (Multidimensional Optimization ⚖️)**: Async events reduce coupling while maintaining integrity
-- **Law 5 (Distributed Knowledge 🧠)**: End-to-end distributed tracing across payment flow
+- **Law 4 (Multidimensional Optimization )**: Immutable event sourcing for perfect audit trails and time-travel debugging
+- **Law 4 (Multidimensional Optimization )**: SAGA patterns with compensation logic avoiding 2PC penalties
+- **Law 4 (Multidimensional Optimization )**: Async events reduce coupling while maintaining integrity
+- **Law 5 (Distributed Knowledge )**: End-to-end distributed tracing across payment flow
 
-## 🏛️ Architecture Alternatives
+## 🏛 Architecture Alternatives
 
 ### Alternative 1: Traditional Two-Phase Commit
 
@@ -562,7 +562,7 @@ graph TB
     PP --> CN
 ```
 
-## 📊 Architecture Trade-off Analysis
+## Architecture Trade-off Analysis
 
 ### Comprehensive Comparison Matrix
 
@@ -600,7 +600,7 @@ graph TB
 | Blockchain | 💵💵💵💵 | 💵💵💵💵 | $0.50+ | ⭐ | ⭐⭐⭐⭐⭐ |
 | PayPal SAGA | 💵💵💵 | 💵💵 | $0.01 | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
 
-## 💡 Key Design Decisions
+## Key Design Decisions
 
 ### 1. Eventual Consistency with Compensations
 **Decision**: SAGA pattern over distributed transactions
@@ -614,7 +614,7 @@ graph TB
 ### 3. Idempotency Everywhere
 **Levels**: API (Request IDs), Service (Operation tokens), Database (Unique constraints), Network (TCP sequences)
 
-## 📈 Production Metrics
+## Production Metrics
 
 **Performance**: Processes trillions in payment volume annually, handles tens of millions of transactions daily at peak times, maintains high success rates with sub-second average latency
 **Reliability**: Industry-leading availability with minimal downtime, zero data loss architecture, extremely low duplicate transaction rates
@@ -646,18 +646,18 @@ graph TB
 - [Square's Transaction Processing](https://developer.squareup.com/blog/payment-reliability)
 - [Adyen's Global Payment Platform](https://www.adyen.com/knowledge-hub/platform-architecture)
 
-## 🔍 Related Concepts & Deep Dives
+## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - SAGA compensations handle partial failures in distributed transactions
-- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - 234ms average latency balances fraud checks with user experience
-- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Optimistic locking prevents double-spending without blocking
-- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Cell architecture and event-driven choreography balance multiple trade-offs
-- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Distributed tracing tracks payments across 20+ services
-- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Clear error messages and status updates reduce support calls
-- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Processing costs optimized through batching and routing
+- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Processing costs optimized through batching and routing
 
-### 🏛️ Related Patterns (Part III)
+### 🏛 Related Patterns (Part III)
 - **[SAGA Pattern](/patterns/saga)** - Orchestrates distributed transactions with compensation logic
 - **[Event Sourcing](/patterns/event-sourcing)** - Immutable event log provides perfect audit trail
 - **Idempotent Receiver (Coming Soon)** - Prevents duplicate payments at every layer
@@ -666,7 +666,7 @@ graph TB
 - **[Bulkhead](/patterns/bulkhead)** - Isolates payment types and regions for fault containment
 - **[Retry & Backoff](/patterns/retry-backoff)** - Handles transient failures in external integrations
 
-### 📊 Quantitative Models
+### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Chooses AP with eventual consistency through compensations
 - **[Little's Law](/quantitative/littles-law)** - Queue depth = arrival rate × processing time for fraud checks
 - **[Queueing Theory](/quantitative/queueing-models)** - M/M/c model for payment processor pool sizing
@@ -678,7 +678,7 @@ graph TB
 - **[Post-Mortem Culture](/human-factors/blameless-postmortems)** - Every payment failure analyzed for systemic improvements
 - **[Security Considerations](/reference/security)** - PCI compliance and fraud prevention are paramount
 
-### 🔄 Similar Case Studies
+### Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Similar high-availability requirements for financial data
 - **[Uber's Location System](uber-location.md)** - Real-time processing at similar scale
 - **[Rate Limiter Design](rate-limiter.md)** - Prevents payment fraud through intelligent throttling

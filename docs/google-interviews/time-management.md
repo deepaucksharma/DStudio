@@ -1,6 +1,6 @@
 # Time Management Template for Google Interviews
 
-## ⏱️ 45-Minute Interview Timeline
+## 45-Minute Interview Timeline
 
 ```mermaid
 gantt
@@ -25,7 +25,7 @@ gantt
     Questions & Wrap-up            :qa, after trade, 2m
 ```
 
-## 📋 Phase-by-Phase Checklist
+## Phase-by-Phase Checklist
 
 ### Phase 1: Requirements (0-8 minutes)
 
@@ -135,7 +135,7 @@ graph TB
 □ Show interest in the problem
 ```
 
-## 🎯 Time Allocation Strategies
+## Time Allocation Strategies
 
 ### For Different Problem Types
 
@@ -166,7 +166,7 @@ Deep Dive:         20 min  ████████████████
 Scale & Trade-offs: 5 min  ████
 ```
 
-## ⚡ Quick Decision Templates
+## Quick Decision Templates
 
 ### When You're Running Short on Time
 
@@ -200,7 +200,7 @@ else:
     return "CloudSQL with sharding"
 ```
 
-## 📊 Time Tracking Worksheet
+## Time Tracking Worksheet
 
 Print and use during practice:
 
@@ -233,7 +233,7 @@ Notes: _________________________________
 _______________________________________
 ```
 
-## 🚨 Warning Signs & Recovery
+## Warning Signs & Recovery
 
 ### You're Behind Schedule
 
@@ -260,7 +260,7 @@ _______________________________________
 - Explore edge cases
 - Ask about real-world constraints
 
-## 💡 Speed Techniques
+## Speed Techniques
 
 ### Drawing Shortcuts
 
@@ -297,7 +297,7 @@ Peak = QPS × 3
 Storage = users × size × retention
 ```
 
-## 📝 Practice Scripts
+## Practice Scripts
 
 ### Opening (30 seconds)
 "Thanks for the problem. Before I dive into the design, I'd like to clarify a few requirements. I'll spend about 5 minutes on requirements, then move to high-level design."

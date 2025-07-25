@@ -366,7 +366,7 @@ class InMemoryQueue(Queue):
         
         while len(messages) < max_messages and time.time() < deadline:
             with self.lock:
-                # Skip messages with future timestamps (delayed)
+# Skip messages with future timestamps (delayed)
                 now = datetime.utcnow()
                 available_messages = [
                     msg for msg in self.queue 
@@ -384,7 +384,7 @@ class InMemoryQueue(Queue):
                     if not self.queue:
                         self.not_empty.clear()
                 else:
-                    # Wait for messages
+# Wait for messages
                     remaining = deadline - time.time()
                     if remaining > 0:
                         self.not_empty.wait(min(remaining, 1))
@@ -406,7 +406,7 @@ class InMemoryQueue(Queue):
             expired = []
             
             for msg_id, msg in self.in_flight.items():
-                # 30 second visibility timeout
+# 30 second visibility timeout
                 if (now - msg.timestamp).seconds > 30:
                     expired.append(msg_id)
             
@@ -414,10 +414,10 @@ class InMemoryQueue(Queue):
                 msg = self.in_flight.pop(msg_id)
                 
                 if msg.attempt_count >= self.max_attempts:
-                    # Move to DLQ
+# Move to DLQ
                     self.dead_letter_queue.append(msg)
                 else:
-                    # Requeue with exponential backoff
+# Requeue with exponential backoff
                     delay = 2 ** (msg.attempt_count - 1)
                     msg.timestamp = now + timedelta(seconds=delay)
                     self.queue.append(msg)
@@ -522,7 +522,7 @@ class EventStream:
         
     def produce(self, topic: str, key: str, value: Any) -> tuple:
         """Produce event to stream"""
-        # Partition by key for ordering
+# Partition by key for ordering
         partition_id = hash(key) % len(self.partitions)
         partition = self.partitions[partition_id]
         
@@ -562,7 +562,7 @@ class EventStream:
             
             if partition_events:
                 events.extend(partition_events)
-                # Update consumer group offset
+# Update consumer group offset
                 new_offset = partition_events[-1]['offset'] + 1
                 self.consumer_groups[consumer_group][partition_id] = new_offset
         
@@ -619,7 +619,7 @@ class KafkaStreamProcessor:
         
     async def start(self):
         """Start the stream processor"""
-        # Initialize producer
+# Initialize producer
         self.producer = AIOKafkaProducer(
             bootstrap_servers=self.bootstrap_servers,
             value_serializer=lambda v: json.dumps(v).encode(),
@@ -629,7 +629,7 @@ class KafkaStreamProcessor:
         )
         await self.producer.start()
         
-        # Initialize consumer
+# Initialize consumer
         self.consumer = AIOKafkaConsumer(
             *self.topics,
             bootstrap_servers=self.bootstrap_servers,
@@ -664,16 +664,16 @@ class KafkaStreamProcessor:
                     break
                     
                 try:
-                    # Get processor for topic
+# Get processor for topic
                     processor = self.processors.get(msg.topic)
                     if not processor:
                         self.logger.warning(f"No processor for topic {msg.topic}")
                         continue
                     
-                    # Process message
+# Process message
                     result = await processor(msg.value)
                     
-                    # Produce result if needed
+# Produce result if needed
                     if result and isinstance(result, dict):
                         output_topic = result.get('topic')
                         if output_topic:
@@ -683,12 +683,12 @@ class KafkaStreamProcessor:
                                 key=result.get('key', msg.key)
                             )
                     
-                    # Commit offset after successful processing
+# Commit offset after successful processing
                     await self.consumer.commit()
                     
                 except Exception as e:
                     self.logger.error(f"Error processing message: {e}")
-                    # Could implement retry logic or DLQ here
+# Could implement retry logic or DLQ here
                     
         except Exception as e:
             self.logger.error(f"Stream processing error: {e}")
@@ -705,14 +705,14 @@ class SQSQueue(Queue):
         self.visibility_timeout = visibility_timeout
         self.sqs = boto3.client('sqs')
         
-        # Get queue attributes
+# Get queue attributes
         response = self.sqs.get_queue_attributes(
             QueueUrl=queue_url,
             AttributeNames=['All']
         )
         self.queue_arn = response['Attributes']['QueueArn']
         
-        # Setup DLQ if not exists
+# Setup DLQ if not exists
         self._setup_dlq(max_receive_count)
         
     def _setup_dlq(self, max_receive_count: int):
@@ -720,7 +720,7 @@ class SQSQueue(Queue):
         dlq_name = f"{self.queue_url.split('/')[-1]}-dlq"
         
         try:
-            # Create DLQ
+# Create DLQ
             response = self.sqs.create_queue(
                 QueueName=dlq_name,
                 Attributes={
@@ -729,14 +729,14 @@ class SQSQueue(Queue):
             )
             dlq_url = response['QueueUrl']
             
-            # Get DLQ ARN
+# Get DLQ ARN
             dlq_attrs = self.sqs.get_queue_attributes(
                 QueueUrl=dlq_url,
                 AttributeNames=['QueueArn']
             )
             dlq_arn = dlq_attrs['Attributes']['QueueArn']
             
-            # Configure main queue redrive policy
+# Configure main queue redrive policy
             self.sqs.set_queue_attributes(
                 QueueUrl=self.queue_url,
                 Attributes={
@@ -815,7 +815,7 @@ class StreamAggregator:
         timestamp = event['timestamp']
         window_start = self._get_window_start(timestamp)
         
-        # Initialize window if needed
+# Initialize window if needed
         if window_start not in self.windows:
             self.windows[window_start] = {
                 'count': 0,
@@ -823,7 +823,7 @@ class StreamAggregator:
                 'values': []
             }
         
-        # Update aggregates
+# Update aggregates
         window = self.windows[window_start]
         window['count'] += 1
         
@@ -832,9 +832,9 @@ class StreamAggregator:
             window['sum'] += value
             window['values'].append(value)
         
-        # Check if window is complete
+# Check if window is complete
         if timestamp >= window_start + self.window_size:
-            # Emit aggregate
+# Emit aggregate
             result = {
                 'window_start': window_start,
                 'window_end': window_start + self.window_size,
@@ -845,7 +845,7 @@ class StreamAggregator:
                 'max': max(window['values']) if window['values'] else None
             }
             
-            # Clean up old window
+# Clean up old window
             del self.windows[window_start]
             
             return result
@@ -935,19 +935,19 @@ class ExactlyOnceProcessor:
         
     async def process_message(self, message: Message) -> Any:
         """Process with idempotency"""
-        # Check if already processed
+# Check if already processed
         process_key = f"processed:{message.id}"
         
         async with self.state_store.transaction() as tx:
-            # Check idempotency
+# Check idempotency
             already_processed = await tx.get(process_key)
             if already_processed:
                 return json.loads(already_processed)
             
-            # Process message
+# Process message
             result = await self.processor(message)
             
-            # Store result atomically
+# Store result atomically
             await tx.set(process_key, json.dumps(result))
             await tx.commit()
             
@@ -995,17 +995,17 @@ class StreamJoiner:
         key = event['key']
         timestamp = event['timestamp']
         
-        # Add to buffer
+# Add to buffer
         self.left_buffer[key].append(event)
         
-        # Clean old events
+# Clean old events
         cutoff = timestamp - self.join_window
         self.left_buffer[key] = [
             e for e in self.left_buffer[key]
             if e['timestamp'] > cutoff
         ]
         
-        # Join with right stream
+# Join with right stream
         results = []
         for right_event in self.right_buffer.get(key, []):
             if abs((right_event['timestamp'] - timestamp).total_seconds()) < \
@@ -1041,7 +1041,7 @@ Key metrics to track:
 
 ```yaml
 metrics:
-  # Queue Metrics
+# Queue Metrics
   - name: queue_depth
     description: Number of messages in queue
     alert_threshold: > 10000
@@ -1058,7 +1058,7 @@ metrics:
     description: Messages received per second
     alert_threshold: < 100/s
     
-  # Processing Metrics
+# Processing Metrics
   - name: processing_time
     description: Time to process message
     alert_threshold: p99 > 1s
@@ -1071,7 +1071,7 @@ metrics:
     description: Dead letter queue size
     alert_threshold: > 100
     
-  # Stream Metrics
+# Stream Metrics
   - name: consumer_lag
     description: Offset lag per partition
     alert_threshold: > 10000
@@ -1154,7 +1154,7 @@ def calculate_queue_roi(
 ) -> dict:
     """Calculate ROI for implementing queues"""
     
-    # Direct service-to-service costs
+# Direct service-to-service costs
     direct_costs = {
         'server_capacity': messages_per_day * peak_to_avg_ratio * 0.0001,
         'failure_handling': messages_per_day * direct_call_failure_rate * 0.01,
@@ -1162,7 +1162,7 @@ def calculate_queue_roi(
         'cascading_failures': direct_call_failure_rate * 10000  # Outage cost
     }
     
-    # Queue infrastructure costs
+# Queue infrastructure costs
     queue_costs = {
         'queue_service': messages_per_day * avg_message_size_kb * 0.000001,
         'storage': messages_per_day * avg_message_size_kb * 0.0000001,
@@ -1170,7 +1170,7 @@ def calculate_queue_roi(
         'monitoring': 500
     }
     
-    # Benefits
+# Benefits
     benefits = {
         'reduced_server_capacity': direct_costs['server_capacity'] * 0.6,
         'eliminated_failures': direct_costs['cascading_failures'] * 0.95,
@@ -1374,9 +1374,9 @@ messaging:
 - [Circuit Breaker](/patterns/circuit-breaker) - Protect consumers
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/) - Why buffering matters
-- [Law 2 (Asynchronous Reality ⏳)](/part1-axioms/law2-asynchrony/) - Async vs sync trade-offs
-- [Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/) - Message durability
+- [Law 4 (Multidimensional Optimization )](/part1-axioms/law4-tradeoffs/) - Why buffering matters
+- [Law 2 (Asynchronous Reality )](/part1-axioms/law2-asynchrony/) - Async vs sync trade-offs
+- [Law 1 (Correlated Failure )](/part1-axioms/law1-failure/) - Message durability
 
 ### Further Reading
 - [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly

@@ -15,19 +15,19 @@ last_updated: 2025-07-20
 
 # Distributed Web Crawler
 
-## 🎯 Challenge Statement
+## Challenge Statement
 Design a web crawler for 10B+ pages/month with robots.txt compliance, rate limiting, dynamic content handling, deduplication, and freshness maintenance at internet scale.
 
 ## Part 1: Concept Map
 
-### 🗺️ System Overview
+### 🗺 System Overview
 Systematic web browsing for discovering and fetching pages, balancing aggressive crawling with server politeness.
 
 **Requirements:** 10B+ pages/month, robots.txt compliance, JavaScript handling, deduplication, 100B+ URL frontier, focused/broad crawling, failure handling, freshness maintenance
 
-### 📐 Law Analysis
+### Law Analysis
 
-#### 🚀 Law 1 (Latency): Crawl Speed Optimization
+#### Law 1 (Latency): Crawl Speed Optimization
 ```text
 Latency: DNS 10-50ms, TCP 10-100ms, TLS 20-200ms, HTTP 50-500ms, Download 100-5000ms, Processing 10-100ms
 Optimizations: DNS caching/prefetch, connection pooling, HTTP/2, parallel crawling, geo-distribution, async I/O
@@ -401,7 +401,7 @@ graph LR
 | **Shingles** | Text similarity | O(n) | Variable | ~1KB/doc |
 | **MinHash** | Set similarity | O(k) | 90%+ | 128 bytes/URL |
 
-#### 🔥 Law 3 (Failure): Robust Crawling
+#### Law 3 (Failure): Robust Crawling
 ```text
 Failures: Network timeouts, DNS failures, server errors, malformed HTML, infinite redirects, spider/crawler traps, rate limits
 Mitigations: Exponential backoff, circuit breakers, redirect limits, pattern detection, checkpointing, distributed coordination
@@ -556,7 +556,7 @@ graph TB
     end
 ```
 
-    # Trap detection and recovery implementation details...
+# Trap detection and recovery implementation details...
 ```
 
 #### 🔀 Law 4 (Concurrency): Parallel Crawling
@@ -955,7 +955,7 @@ graph TB
                     time.sleep(1)
 ```
 
-#### 👁️ Law 6 (Observability): Crawl Monitoring
+#### 👁 Law 6 (Observability): Crawl Monitoring
 ```text
 Monitoring Requirements:
 - Crawl rate and coverage
@@ -1352,7 +1352,7 @@ graph LR
     BG -.-> QD
 ```
 
-#### 💰 Law 8 (Economics): Cost Optimization
+#### Law 8 (Economics): Cost Optimization
 ```text
 Cost Components:
 - Bandwidth: $0.05/GB
@@ -1552,7 +1552,7 @@ graph TB
     end
 ```
 
-### 🔍 Comprehensive Law Mapping
+### Comprehensive Law Mapping
 
 | Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
 |-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
@@ -1567,7 +1567,7 @@ graph TB
 | **Checkpointing** | ⚖️ Periodic I/O<br>for snapshots | ✅ Incremental saves<br>bounded size | ✅ Recovery point<br>for restarts | ⚠️ Checkpoint consistency<br>across workers | 🔄 Checkpoint coordination<br>via ZK | 📊 Checkpoint lag<br>recovery time | ✅ Restart capability<br>operational tool | ✅ Prevents recrawl<br>saves resources |
 | **Smart Scheduling** | ⚖️ ML inference<br>overhead | ✅ Prioritizes valuable<br>content | ✅ Adapts to site<br>reliability | ✅ Parallel scoring<br>and scheduling | 🔄 Global priority<br>agreement | 📊 Scheduling efficiency<br>metrics | ⚠️ Complex tuning<br>parameters | ✅ Crawls high-value<br>pages first |
 
-### 🏛️ Pillar Mapping
+### 🏛 Pillar Mapping
 
 #### Work Distribution
 - **URL Assignment**: Consistent hashing by domain
@@ -1599,7 +1599,7 @@ graph TB
 - **Content Quality**: Relevance scoring
 - **Adaptive Crawling**: Freshness prediction
 
-### 🔧 Pattern Application
+### Pattern Application
 
 **Primary Patterns:**
 - **Producer-Consumer**: URL frontier feeding workers
@@ -1613,7 +1613,7 @@ graph TB
 - **Rate Limiting**: Politeness enforcement
 - **Checkpointing**: State recovery
 
-### 🏗️ Architecture Alternatives
+### Architecture Alternatives
 
 #### Alternative 1: Focused Vertical Crawler
 ```mermaid
@@ -1815,7 +1815,7 @@ graph TB
 - Complex synchronization
 - Higher infrastructure cost
 
-### ⚖️ Trade-off Analysis
+### Trade-off Analysis
 
 | Architecture | Scale | Complexity | Cost | JS Support | Latency | Fault Tolerance | Ops Overhead |
 |--------------|-------|------------|------|------------|---------|-----------------|---------------|
@@ -1825,7 +1825,7 @@ graph TB
 | **Stream Processing** | High | Very High | High | None | Low | Excellent | Very High |
 | **Edge-Distributed** | High | High | High | Partial | Very Low | High | High |
 
-### 📊 Performance & Scale Comparison
+### Performance & Scale Comparison
 
 ```mermaid
 graph LR
@@ -1861,7 +1861,7 @@ graph TB
 
 ## Part 2: Architecture & Trade-offs
 
-### 🏗️ Core Architecture
+### Core Architecture
 
 ```mermaid
 graph TB
@@ -1939,7 +1939,7 @@ graph TB
     style PS fill:#fff9c4
 ```
 
-### ⚖️ Key Design Trade-offs
+### Key Design Trade-offs
 
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
@@ -1949,7 +1949,7 @@ graph TB
 | **Content Storage** | Store everything | Store selectively | **Selective** - Store based on quality score to manage costs |
 | **Architecture** | Monolithic | Distributed | **Distributed** - Required for web-scale crawling |
 
-### 🔄 Alternative Architectures
+### Alternative Architectures
 
 #### Option 1: Single-Machine Crawler
 ```mermaid
@@ -2003,7 +2003,7 @@ graph LR
 **Cons**: Operational complexity, latency
 **When to use**: Large scale, need replay/audit
 
-### 📊 Performance Characteristics
+### Performance Characteristics
 
 **Crawling Performance:**
 ```text
@@ -2038,8 +2038,8 @@ Storage Node      32GB      8 cores  10TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/) - Massive parallelism patterns
-- [Law 6: Human-API 🤯](/part1-axioms/law6-human-api/) - Crawler ethics and robots.txt
+- [Law 3: Emergence ](/part1-axioms/law3-emergence/) - Massive parallelism patterns
+- [Law 6: Human-API ](/part1-axioms/law6-human-api/) - Crawler ethics and robots.txt
 - [Queue Patterns](/patterns/queues-streaming) - Priority queue implementations
 - [Bulkhead Pattern](/patterns/bulkhead) - Domain isolation strategies
 

@@ -27,7 +27,7 @@ class General:
         """Commander sends initial order to all lieutenants"""
         for recipient in recipients:
             if self.is_traitor:
-                # Traitor sends conflicting orders
+# Traitor sends conflicting orders
                 conflicting_order = "retreat" if order == "attack" else "attack"
                 order_to_send = random.choice([order, conflicting_order])
             else:
@@ -45,7 +45,7 @@ class General:
                 if recipient.id != self.id and recipient.id != sender_id:
                     for order in orders:
                         if self.is_traitor:
-                            # Traitor may corrupt the message
+# Traitor may corrupt the message
                             order_to_relay = random.choice(["attack", "retreat"])
                         else:
                             order_to_relay = order
@@ -60,7 +60,7 @@ class General:
         if not all_orders:
             return "retreat"  # Default to safe option
         
-        # Use majority voting
+# Use majority voting
         attack_count = all_orders.count("attack")
         retreat_count = all_orders.count("retreat")
         
@@ -77,21 +77,21 @@ def byzantine_generals_protocol(num_generals: int, num_traitors: int) -> Dict[in
     4. Each lieutenant makes a decision
     5. Return the decisions of all loyal generals
     """
-    # Your implementation here
+# Your implementation here
     pass
 
 # Test your implementation
 def test_byzantine_generals():
-    # Test case 1: 4 generals, 1 traitor
+# Test case 1: 4 generals, 1 traitor
     decisions = byzantine_generals_protocol(4, 1)
     print(f"4 generals, 1 traitor: {decisions}")
     
-    # Test case 2: 7 generals, 2 traitors
+# Test case 2: 7 generals, 2 traitors
     decisions = byzantine_generals_protocol(7, 2)
     print(f"7 generals, 2 traitors: {decisions}")
     
-    # Verify consensus among loyal generals
-    # TODO: Add assertions to verify correctness
+# Verify consensus among loyal generals
+# TODO: Add assertions to verify correctness
 
 if __name__ == "__main__":
     test_byzantine_generals()
@@ -130,8 +130,8 @@ class GCounter:
     
     def merge(self, other: 'GCounter'):
         """Merge another G-Counter into this one"""
-        # TODO: Implement merge operation
-        # Hint: Take the maximum count for each node
+# TODO: Implement merge operation
+# Hint: Take the maximum count for each node
         pass
     
     def __repr__(self):
@@ -139,18 +139,18 @@ class GCounter:
 
 # Test your G-Counter implementation
 def test_g_counter():
-    # Create counters for different nodes
+# Create counters for different nodes
     counter_a = GCounter("A")
     counter_b = GCounter("B")
     counter_c = GCounter("C")
     
-    # Simulate concurrent increments
+# Simulate concurrent increments
     counter_a.increment(5)
     counter_b.increment(3)
     counter_c.increment(2)
     
-    # Simulate network partitions and merges
-    # TODO: Test merge operations and verify convergence
+# Simulate network partitions and merges
+# TODO: Test merge operations and verify convergence
     
     print(f"Counter A: {counter_a.value()}")
     print(f"Counter B: {counter_b.value()}")
@@ -173,40 +173,40 @@ class PNCounter:
         """Increment the counter"""
         if value < 0:
             raise ValueError("Use decrement for negative values")
-        # TODO: Implement increment
+# TODO: Implement increment
         pass
     
     def decrement(self, value: int = 1):
         """Decrement the counter"""
         if value < 0:
             raise ValueError("Use increment for negative values")
-        # TODO: Implement decrement
+# TODO: Implement decrement
         pass
     
     def value(self) -> int:
         """Get the current value of the counter"""
-        # TODO: Calculate value from p_counter and n_counter
+# TODO: Calculate value from p_counter and n_counter
         pass
     
     def merge(self, other: 'PNCounter'):
         """Merge another PN-Counter into this one"""
-        # TODO: Implement merge operation
+# TODO: Implement merge operation
         pass
 
 # Test your PN-Counter implementation
 def test_pn_counter():
-    # Create counters for different nodes
+# Create counters for different nodes
     counter_a = PNCounter("A")
     counter_b = PNCounter("B")
     
-    # Test increment and decrement
+# Test increment and decrement
     counter_a.increment(10)
     counter_a.decrement(3)
     counter_b.increment(5)
     counter_b.decrement(7)
     
-    # Test merge and convergence
-    # TODO: Complete the test
+# Test merge and convergence
+# TODO: Complete the test
 ```
 
 ### Task C: Implement an OR-Set (Observed-Remove Set)
@@ -227,29 +227,29 @@ class ORSet:
     def add(self, element: Any):
         """Add an element to the set"""
         unique_id = f"{self.node_id}:{uuid.uuid4()}"
-        # TODO: Implement add operation
+# TODO: Implement add operation
         pass
     
     def remove(self, element: Any):
         """Remove an element from the set"""
-        # TODO: Implement remove operation
-        # Hint: Move all instances of element to tombstones
+# TODO: Implement remove operation
+# Hint: Move all instances of element to tombstones
         pass
     
     def contains(self, element: Any) -> bool:
         """Check if element is in the set"""
-        # TODO: Implement contains check
+# TODO: Implement contains check
         pass
     
     def values(self) -> Set[Any]:
         """Get all elements currently in the set"""
-        # TODO: Return unique elements not in tombstones
+# TODO: Return unique elements not in tombstones
         pass
     
     def merge(self, other: 'ORSet'):
         """Merge another OR-Set into this one"""
-        # TODO: Implement merge operation
-        # Hint: Union elements, union tombstones, then apply tombstones
+# TODO: Implement merge operation
+# Hint: Union elements, union tombstones, then apply tombstones
         pass
 
 # Test your OR-Set implementation
@@ -257,17 +257,17 @@ def test_or_set():
     set_a = ORSet("A")
     set_b = ORSet("B")
     
-    # Concurrent adds
+# Concurrent adds
     set_a.add("apple")
     set_b.add("apple")
     set_b.add("banana")
     
-    # Concurrent add/remove
+# Concurrent add/remove
     set_a.remove("apple")
     set_b.add("apple")  # This should win (add-wins semantics)
     
-    # Test merge and convergence
-    # TODO: Complete the test
+# Test merge and convergence
+# TODO: Complete the test
 ```
 
 ## Exercise 3: Distributed Consensus Simulator
@@ -313,28 +313,28 @@ class RaftNode:
         self.voted_for = self.node_id
         self.votes_received = 1  # Vote for self
         
-        # TODO: Request votes from peers
+# TODO: Request votes from peers
         print(f"Node {self.node_id}: Starting election for term {self.current_term}")
     
     def request_vote(self, candidate_id: int, term: int, 
                     last_log_index: int, last_log_term: int) -> Tuple[int, bool]:
         """Handle vote request from candidate"""
-        # TODO: Implement vote request handling
-        # Consider:
-        # 1. Is the term valid?
-        # 2. Have we already voted in this term?
-        # 3. Is the candidate's log at least as up-to-date as ours?
+# TODO: Implement vote request handling
+# Consider:
+# 1. Is the term valid?
+# 2. Have we already voted in this term?
+# 3. Is the candidate's log at least as up-to-date as ours?
         pass
     
     def append_entries(self, term: int, leader_id: int, prev_log_index: int,
                       prev_log_term: int, entries: List[LogEntry], 
                       leader_commit: int) -> Tuple[int, bool]:
         """Handle append entries RPC from leader"""
-        # TODO: Implement log replication
-        # Consider:
-        # 1. Is the term valid?
-        # 2. Does our log match at prev_log_index?
-        # 3. How to handle conflicts?
+# TODO: Implement log replication
+# Consider:
+# 1. Is the term valid?
+# 2. Does our log match at prev_log_index?
+# 3. How to handle conflicts?
         pass
     
     def tick(self):
@@ -342,16 +342,16 @@ class RaftNode:
         current_time = time.time()
         
         if self.state == NodeState.FOLLOWER:
-            # Check for election timeout
+# Check for election timeout
             if current_time - self.last_heartbeat > self.election_timeout:
                 self.start_election()
         
         elif self.state == NodeState.CANDIDATE:
-            # TODO: Handle election timeout and retry
+# TODO: Handle election timeout and retry
             pass
         
         elif self.state == NodeState.LEADER:
-            # TODO: Send periodic heartbeats
+# TODO: Send periodic heartbeats
             pass
 
 def simulate_raft_cluster(num_nodes: int, duration: float):
@@ -370,15 +370,15 @@ def simulate_raft_cluster(num_nodes: int, duration: float):
         peers = [j for j in range(num_nodes) if j != i]
         nodes.append(RaftNode(i, peers))
     
-    # Run simulation
+# Run simulation
     start_time = time.time()
     while time.time() - start_time < duration:
         for node in nodes:
             node.tick()
         time.sleep(0.01)  # Small delay
     
-    # Analyze results
-    # TODO: Print statistics about elections, leaders, etc.
+# Analyze results
+# TODO: Print statistics about elections, leaders, etc.
 
 # Test your implementation
 if __name__ == "__main__":
@@ -424,29 +424,29 @@ class GossipNode:
     
     def select_gossip_targets(self) -> List[str]:
         """Select random peers for gossip"""
-        # TODO: Implement peer selection
-        # Consider: random selection, round-robin, or weighted by staleness
+# TODO: Implement peer selection
+# Consider: random selection, round-robin, or weighted by staleness
         pass
     
     def create_gossip_payload(self) -> Dict[str, Any]:
         """Create payload to send to peers"""
-        # TODO: Create efficient gossip payload
-        # Include: state updates, version vector
+# TODO: Create efficient gossip payload
+# Include: state updates, version vector
         pass
     
     def receive_gossip(self, sender_id: str, payload: Dict[str, Any]):
         """Process received gossip message"""
-        # TODO: Implement gossip reception
-        # Consider:
-        # 1. How to detect and handle newer information?
-        # 2. How to merge version vectors?
-        # 3. How to handle conflicts?
+# TODO: Implement gossip reception
+# Consider:
+# 1. How to detect and handle newer information?
+# 2. How to merge version vectors?
+# 3. How to handle conflicts?
         pass
     
     def anti_entropy(self, peer_id: str):
         """Perform anti-entropy with a specific peer"""
-        # TODO: Implement anti-entropy protocol
-        # Exchange version vectors and sync missing updates
+# TODO: Implement anti-entropy protocol
+# Exchange version vectors and sync missing updates
         pass
 
 def simulate_gossip_protocol():
@@ -459,7 +459,7 @@ def simulate_gossip_protocol():
     3. Measure convergence time
     4. Simulate network partitions and healing
     """
-    # Create nodes
+# Create nodes
     num_nodes = 10
     nodes = {}
     node_ids = [f"node_{i}" for i in range(num_nodes)]
@@ -468,15 +468,15 @@ def simulate_gossip_protocol():
         peers = [id for id in node_ids if id != node_id]
         nodes[node_id] = GossipNode(node_id, peers)
     
-    # Inject some data
+# Inject some data
     nodes["node_0"].update_local_state("config", {"replicas": 3})
     nodes["node_5"].update_local_state("status", "healthy")
     
-    # Run gossip rounds
-    # TODO: Implement gossip rounds and measure convergence
+# Run gossip rounds
+# TODO: Implement gossip rounds and measure convergence
     
-    # Verify eventual consistency
-    # TODO: Check that all nodes eventually have the same state
+# Verify eventual consistency
+# TODO: Check that all nodes eventually have the same state
 
 # Test your implementation
 if __name__ == "__main__":
@@ -525,8 +525,8 @@ class Block:
     
     def mine(self, difficulty: int):
         """Mine the block with proof-of-work"""
-        # TODO: Implement mining algorithm
-        # Find nonce such that hash starts with 'difficulty' zeros
+# TODO: Implement mining algorithm
+# Find nonce such that hash starts with 'difficulty' zeros
         pass
 
 class Blockchain:
@@ -536,7 +536,7 @@ class Blockchain:
         self.pending_transactions: List[Transaction] = []
         self.mining_reward = 100.0
         
-        # Create genesis block
+# Create genesis block
         self.create_genesis_block()
     
     def create_genesis_block(self):
@@ -556,30 +556,30 @@ class Blockchain:
     
     def add_transaction(self, transaction: Transaction):
         """Add a transaction to pending transactions"""
-        # TODO: Validate transaction before adding
+# TODO: Validate transaction before adding
         self.pending_transactions.append(transaction)
     
     def mine_pending_transactions(self, mining_reward_address: str):
         """Mine a new block with pending transactions"""
-        # TODO: Implement mining process
-        # 1. Create reward transaction
-        # 2. Create new block with pending transactions
-        # 3. Mine the block
-        # 4. Add to chain and clear pending transactions
+# TODO: Implement mining process
+# 1. Create reward transaction
+# 2. Create new block with pending transactions
+# 3. Mine the block
+# 4. Add to chain and clear pending transactions
         pass
     
     def validate_chain(self) -> bool:
         """Validate the entire blockchain"""
-        # TODO: Implement chain validation
-        # Check:
-        # 1. Each block's hash is correct
-        # 2. Previous hash links are valid
-        # 3. Proof-of-work is valid
+# TODO: Implement chain validation
+# Check:
+# 1. Each block's hash is correct
+# 2. Previous hash links are valid
+# 3. Proof-of-work is valid
         pass
     
     def get_balance(self, address: str) -> float:
         """Calculate balance for an address"""
-        # TODO: Scan all transactions to calculate balance
+# TODO: Scan all transactions to calculate balance
         pass
 
 class DistributedBlockchain(Blockchain):
@@ -596,45 +596,45 @@ class DistributedBlockchain(Blockchain):
     
     def broadcast_block(self, block: Block):
         """Broadcast a new block to all peers"""
-        # TODO: Implement block broadcasting
+# TODO: Implement block broadcasting
         pass
     
     def receive_block(self, block: Block, sender_id: str):
         """Receive a block from a peer"""
-        # TODO: Validate and add block
-        # Handle fork resolution if necessary
+# TODO: Validate and add block
+# Handle fork resolution if necessary
         pass
     
     def consensus(self):
         """Achieve consensus with peers (longest chain rule)"""
-        # TODO: Implement consensus algorithm
-        # 1. Query all peers for their chains
-        # 2. Validate received chains
-        # 3. Replace chain if a longer valid chain is found
+# TODO: Implement consensus algorithm
+# 1. Query all peers for their chains
+# 2. Validate received chains
+# 3. Replace chain if a longer valid chain is found
         pass
 
 # Test your implementation
 def test_blockchain():
-    # Create a simple blockchain
+# Create a simple blockchain
     blockchain = Blockchain(difficulty=4)
     
-    # Add some transactions
+# Add some transactions
     blockchain.add_transaction(Transaction("Alice", "Bob", 50, time.time()))
     blockchain.add_transaction(Transaction("Bob", "Charlie", 25, time.time()))
     
-    # Mine a block
+# Mine a block
     print("Mining block...")
     blockchain.mine_pending_transactions("Miner1")
     
-    # Validate the chain
+# Validate the chain
     print(f"Is chain valid? {blockchain.validate_chain()}")
     
-    # Test distributed blockchain
+# Test distributed blockchain
     node1 = DistributedBlockchain("Node1", difficulty=4)
     node2 = DistributedBlockchain("Node2", difficulty=4)
     node3 = DistributedBlockchain("Node3", difficulty=4)
     
-    # Connect nodes
+# Connect nodes
     node1.add_peer(node2)
     node1.add_peer(node3)
     node2.add_peer(node1)
@@ -642,8 +642,8 @@ def test_blockchain():
     node3.add_peer(node1)
     node3.add_peer(node2)
     
-    # Simulate concurrent mining and consensus
-    # TODO: Complete the distributed test
+# Simulate concurrent mining and consensus
+# TODO: Complete the distributed test
 
 if __name__ == "__main__":
     test_blockchain()

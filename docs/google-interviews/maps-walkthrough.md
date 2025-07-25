@@ -193,10 +193,10 @@ graph TB
 class ContractionHierarchy:
     def preprocess_graph(self, graph):
         """Precompute shortcuts for faster routing"""
-        # Order nodes by importance
+# Order nodes by importance
         node_order = self.compute_node_ordering(graph)
         
-        # Contract nodes and add shortcuts
+# Contract nodes and add shortcuts
         for node in node_order:
             shortcuts = self.find_shortcuts(node, graph)
             graph.add_shortcuts(shortcuts)
@@ -209,7 +209,7 @@ class ContractionHierarchy:
         forward_search = AStar(start, graph.forward_graph)
         backward_search = AStar(end, graph.backward_graph)
         
-        # Meet in the middle
+# Meet in the middle
         while not forward_search.meets(backward_search):
             forward_search.expand_next()
             backward_search.expand_next()
@@ -355,11 +355,11 @@ graph TD
 **Cache Key Design:**
 ```python
 def get_cache_key(tile_type, zoom, x, y, style, language):
-    # Include all parameters that affect rendering
+# Include all parameters that affect rendering
     return f"{tile_type}:{zoom}:{x}:{y}:{style}:{language}"
 
 def get_traffic_cache_key(segment_id, timestamp):
-    # Round to 5-minute windows for traffic
+# Round to 5-minute windows for traffic
     window = timestamp // 300 * 300
     return f"traffic:{segment_id}:{window}"
 ```
@@ -436,11 +436,11 @@ Option 2: Eventual consistency
 class LocationPrivacy:
     def anonymize_location(self, lat, lng, precision_meters=100):
         """Reduce location precision for privacy"""
-        # Add random noise
+# Add random noise
         noise_lat = random.gauss(0, precision_meters / 111000)
         noise_lng = random.gauss(0, precision_meters / (111000 * cos(lat)))
         
-        # Snap to grid
+# Snap to grid
         grid_size = precision_meters / 111000
         snapped_lat = round(lat / grid_size) * grid_size
         snapped_lng = round(lng / grid_size) * grid_size

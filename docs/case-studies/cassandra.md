@@ -11,7 +11,7 @@ last_updated: 2025-07-23
 ---
 
 
-# 🗂️ Apache Cassandra: Masterless Distributed Database
+# Apache Cassandra: Masterless Distributed Database
 
 **The Challenge**: Build a database that can scale linearly to thousands of nodes while surviving data center failures with no single point of failure.
 
@@ -136,14 +136,14 @@ def find_replicas(key, ring_nodes, replication_factor=3):
     """Find which nodes store replicas of a key."""
     token = cassandra_hash(key)
     
-    # Sort nodes by their token values
+# Sort nodes by their token values
     sorted_nodes = sorted(ring_nodes, key=lambda n: n.token)
     
-    # Find first node with token >= key's token
+# Find first node with token >= key's token
     replicas = []
     for i, node in enumerate(sorted_nodes):
         if node.token >= token:
-            # Take RF consecutive nodes starting from this position
+# Take RF consecutive nodes starting from this position
             for j in range(replication_factor):
                 replica_index = (i + j) % len(sorted_nodes)
                 replicas.append(sorted_nodes[replica_index])
@@ -676,7 +676,7 @@ graph LR
 **Backup Script Example:**
 
 ```bash
-#!/bin/bash
+# !/bin/bash
 # Cassandra backup automation
 
 KEYSPACE="user_data"

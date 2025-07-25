@@ -159,7 +159,7 @@ graph TB
 ```python
 def erlang_c(servers, offered_load):
     """Probability that arriving request must queue"""
-    # offered_load = arrival_rate / service_rate
+# offered_load = arrival_rate / service_rate
     
     numerator = (offered_load**servers / factorial(servers)) * \
                 (servers / (servers - offered_load))
@@ -254,7 +254,7 @@ import numpy as np
 
 def response_time_curve(utilization):
     """Classic hockey stick response time curve"""
-    # Response time = S / (1 - U) for M/M/1
+# Response time = S / (1 - U) for M/M/1
     service_time = 10  # ms
     return service_time / (1 - utilization)
 
@@ -264,7 +264,7 @@ r = [response_time_curve(x) for x in u]
 
 # Key points:
 # U=0.5: R=20ms (2x service time)
-# U=0.8: R=50ms (5x service time)  
+# U=0.8: R=50ms (5x service time)
 # U=0.9: R=100ms (10x service time)
 # U=0.95: R=200ms (20x service time)
 ```
@@ -419,14 +419,14 @@ class EcommerceModel:
         self.search_capacity = 200
         
     def calculate_response_time(self, arrival_rate):
-        # CDN handles 70% of requests
+# CDN handles 70% of requests
         backend_rate = arrival_rate * (1 - self.cdn_hit_rate)
         
-        # Web tier utilization
+# Web tier utilization
         web_util = backend_rate / self.web_capacity
         web_response = 10 / (1 - web_util)  # M/M/c approximation
         
-        # Cache misses go to DB
+# Cache misses go to DB
         db_rate = backend_rate * (1 - self.cache_hit_rate)
         db_util = db_rate / self.db_capacity
         
@@ -435,7 +435,7 @@ class EcommerceModel:
             
         db_response = 50 / (1 - db_util)
         
-        # Total response time
+# Total response time
         total = web_response + \
                 self.cache_hit_rate * 1 + \  # Cache hit: 1ms
                 (1 - self.cache_hit_rate) * db_response
@@ -444,7 +444,7 @@ class EcommerceModel:
 
 # Analysis:
 # 200 req/s: 13ms response time
-# 300 req/s: 18ms response time  
+# 300 req/s: 18ms response time
 # 330 req/s: 35ms response time (knee)
 # 340 req/s: ∞ (DB saturated)
 ```
@@ -492,7 +492,7 @@ def percentile_response_time(mean, cv, percentile):
     """
     import scipy.stats as stats
     
-    # Log-normal parameters
+# Log-normal parameters
     sigma = np.sqrt(np.log(1 + cv**2))
     mu = np.log(mean) - sigma**2/2
     

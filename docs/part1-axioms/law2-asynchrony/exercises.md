@@ -53,16 +53,16 @@ def test_lamport_clocks():
     clock_b = LamportClock("B")
     clock_c = LamportClock("C")
     
-    # Simulate distributed events
-    # A sends to B
+# Simulate distributed events
+# A sends to B
     sender, ts = clock_a.send_event()
     clock_b.receive_event(sender, ts)
     
-    # B sends to C
+# B sends to C
     sender, ts = clock_b.send_event()
     clock_c.receive_event(sender, ts)
     
-    # Verify causality is preserved
+# Verify causality is preserved
     print(f"Clock A: {clock_a.time}")  # Should be 1
     print(f"Clock B: {clock_b.time}")  # Should be 2
     print(f"Clock C: {clock_c.time}")  # Should be 3
@@ -92,10 +92,10 @@ class VectorClock:
     def receive_event(self, sender_vector: Dict[str, int]) -> Dict[str, int]:
         """Update vector clock on receive"""
         with self.lock:
-            # Merge: take max of each component
+# Merge: take max of each component
             for node in self.clock:
                 self.clock[node] = max(self.clock[node], sender_vector.get(node, 0))
-            # Increment local counter
+# Increment local counter
             self.clock[self.node_id] += 1
             return self.clock.copy()
     
@@ -109,7 +109,7 @@ class VectorClock:
     
     def concurrent_with(self, other: Dict[str, int]) -> bool:
         """Check if events are concurrent"""
-        # TODO: Events are concurrent if neither happens-before the other
+# TODO: Events are concurrent if neither happens-before the other
         pass
 
 # Test concurrent event detection
@@ -118,16 +118,16 @@ def detect_concurrent_events():
     clock_a = VectorClock("A", nodes)
     clock_b = VectorClock("B", nodes)
     
-    # Create concurrent events
-    # A performs local events
+# Create concurrent events
+# A performs local events
     vec_a1 = clock_a.local_event()
     vec_a2 = clock_a.local_event()
     
-    # B performs local events (concurrent with A)
+# B performs local events (concurrent with A)
     vec_b1 = clock_b.local_event()
     vec_b2 = clock_b.local_event()
     
-    # TODO: Verify these are concurrent
+# TODO: Verify these are concurrent
     assert clock_a.concurrent_with(vec_b1)
 ```
 
@@ -147,28 +147,28 @@ class HybridLogicalClock:
             physical_now = int(time.time() * 1000)  # milliseconds
             
             if physical_now > self.logical_time:
-                # Physical time has advanced
+# Physical time has advanced
                 self.logical_time = physical_now
                 self.logical_counter = 0
             else:
-                # Physical time hasn't advanced, increment counter
+# Physical time hasn't advanced, increment counter
                 self.logical_counter += 1
             
             return (self.logical_time, self.logical_counter, self.node_id)
     
     def update(self, remote_time: int, remote_counter: int) -> Tuple[int, int, str]:
         """Update HLC with remote timestamp"""
-        # TODO: Implement HLC update algorithm
-        # - If remote_time > max(local_time, physical_now): use remote_time, counter=0
-        # - If remote_time = max(...): use max counter + 1
-        # - Otherwise: use max(...), counter + 1
+# TODO: Implement HLC update algorithm
+# - If remote_time > max(local_time, physical_now): use remote_time, counter=0
+# - If remote_time = max(...): use max counter + 1
+# - Otherwise: use max(...), counter + 1
         pass
 
 # Compare clock drift
 def measure_clock_skew():
     """Measure how HLC handles clock skew between nodes"""
-    # TODO: Simulate nodes with different clock speeds
-    # Show that HLC converges despite skew
+# TODO: Simulate nodes with different clock speeds
+# Show that HLC converges despite skew
     pass
 ```
 
@@ -189,19 +189,19 @@ class DistributedCounter:
         
     async def increment(self, node: str):
         """Increment counter with network delay"""
-        # Read current value
+# Read current value
         current = self.values[node]
         
-        # Simulate network delay for read
+# Simulate network delay for read
         await asyncio.sleep(random.uniform(0.01, 0.1))
         
-        # Increment
+# Increment
         new_value = current + 1
         
-        # Simulate network delay for write
+# Simulate network delay for write
         await asyncio.sleep(random.uniform(0.01, 0.1))
         
-        # Write back (RACE CONDITION HERE!)
+# Write back (RACE CONDITION HERE!)
         self.values[node] = new_value
         
         return new_value
@@ -210,7 +210,7 @@ class DistributedCounter:
 async def detect_lost_updates():
     counter = DistributedCounter(["A", "B", "C"])
     
-    # Run 100 concurrent increments
+# Run 100 concurrent increments
     tasks = []
     for i in range(100):
         node = random.choice(["A", "B", "C"])
@@ -218,7 +218,7 @@ async def detect_lost_updates():
     
     await asyncio.gather(*tasks)
     
-    # TODO: Check if sum equals 100 (it won't!)
+# TODO: Check if sum equals 100 (it won't!)
     total = sum(counter.values.values())
     print(f"Expected: 100, Actual: {total}")
     print(f"Lost updates: {100 - total}")
@@ -245,25 +245,25 @@ class RaceDetector:
         """Detect potential race conditions"""
         races = []
         
-        # TODO: Implement race detection algorithm
-        # 1. Group accesses by resource
-        # 2. For each resource, find overlapping read/write or write/write
-        # 3. Check if operations are concurrent (using vector clocks)
-        # 4. Flag concurrent conflicting operations as races
+# TODO: Implement race detection algorithm
+# 1. Group accesses by resource
+# 2. For each resource, find overlapping read/write or write/write
+# 3. Check if operations are concurrent (using vector clocks)
+# 4. Flag concurrent conflicting operations as races
         
-        # Hint: Two operations race if:
-        # - They access the same resource
-        # - At least one is a write
-        # - They are concurrent (neither happens-before the other)
+# Hint: Two operations race if:
+# - They access the same resource
+# - At least one is a write
+# - They are concurrent (neither happens-before the other)
         
         return races
     
     def visualize_races(self):
         """Create a timeline visualization of races"""
-        # TODO: Generate timeline showing:
-        # - Each node's operations over time
-        # - Highlight racing operations in red
-        # - Show happens-before arrows
+# TODO: Generate timeline showing:
+# - Each node's operations over time
+# - Highlight racing operations in red
+# - Show happens-before arrows
         pass
 ```
 
@@ -286,73 +286,73 @@ class DistributedNode:
         
     def initiate_snapshot(self):
         """Node initiates global snapshot"""
-        # 1. Save local state
+# 1. Save local state
         self.snapshot = self.state.copy()
         self.recording = True
         
-        # 2. Send marker to all neighbors
+# 2. Send marker to all neighbors
         marker = {"type": "MARKER", "from": self.node_id}
         for neighbor in self.neighbors:
-            # In real system, this would be network send
+# In real system, this would be network send
             self.send_marker_to(neighbor, marker)
         
-        # 3. Start recording incoming channels
+# 3. Start recording incoming channels
         self.channel_states = {n: [] for n in self.neighbors}
     
     def receive_marker(self, from_node: str):
         """Receive snapshot marker from neighbor"""
         if not self.recording:
-            # First marker received
-            # 1. Save local state
+# First marker received
+# 1. Save local state
             self.snapshot = self.state.copy()
             self.recording = True
             
-            # 2. Send marker to all OTHER neighbors
+# 2. Send marker to all OTHER neighbors
             marker = {"type": "MARKER", "from": self.node_id}
             for neighbor in self.neighbors:
                 if neighbor != from_node:
                     self.send_marker_to(neighbor, marker)
             
-            # 3. Start recording all channels except from_node
+# 3. Start recording all channels except from_node
             self.channel_states = {n: [] for n in self.neighbors if n != from_node}
-            # Channel from from_node is empty (marker arrived first)
+# Channel from from_node is empty (marker arrived first)
             self.channel_states[from_node] = []
         else:
-            # Already recording
-            # Stop recording channel from from_node
-            # Channel state is whatever we recorded
+# Already recording
+# Stop recording channel from from_node
+# Channel state is whatever we recorded
             if from_node not in self.channel_states:
                 self.channel_states[from_node] = []
     
     def receive_message(self, from_node: str, message: Dict):
         """Receive regular message"""
-        # If recording this channel, save message
+# If recording this channel, save message
         if self.recording and from_node in self.channel_states:
             if isinstance(self.channel_states[from_node], list):
                 self.channel_states[from_node].append(message)
         
-        # Process message normally (update state, etc.)
+# Process message normally (update state, etc.)
         self.process_message(message)
     
     def is_snapshot_complete(self) -> bool:
         """Check if snapshot is complete"""
-        # Complete when received marker from all neighbors
+# Complete when received marker from all neighbors
         if not self.recording:
             return False
         return len(self.channel_states) == len(self.neighbors)
 
 # Test snapshot consistency
 def test_distributed_snapshot():
-    # Create a ring of nodes
+# Create a ring of nodes
     nodes = {
         "A": DistributedNode("A", ["B", "C"]),
         "B": DistributedNode("B", ["A", "C"]),
         "C": DistributedNode("C", ["A", "B"])
     }
     
-    # TODO: Simulate money transfers during snapshot
-    # Verify: Total money in system remains constant
-    # (No money created or destroyed during snapshot)
+# TODO: Simulate money transfers during snapshot
+# Verify: Total money in system remains constant
+# (No money created or destroyed during snapshot)
 ```
 
 ### Task 2: Snapshot with In-Flight Messages
@@ -367,22 +367,22 @@ class BankingSystem:
         """Transfer money between nodes"""
         sender = self.nodes[from_node]
         
-        # Deduct from sender
+# Deduct from sender
         if sender.balance >= amount:
             sender.balance -= amount
             
-            # Simulate network delay
+# Simulate network delay
             await asyncio.sleep(random.uniform(0.05, 0.2))
             
-            # Add to receiver (money is "in flight" during delay)
+# Add to receiver (money is "in flight" during delay)
             self.nodes[to_node].balance += amount
     
     def verify_snapshot_consistency(self, snapshot):
         """Verify snapshot captures all money"""
-        # TODO: Calculate total from:
-        # 1. Node balances in snapshot
-        # 2. In-flight messages in channel states
-        # Should equal initial total_money
+# TODO: Calculate total from:
+# 1. Node balances in snapshot
+# 2. In-flight messages in channel states
+# Should equal initial total_money
         pass
 
 class BankNode:
@@ -414,15 +414,15 @@ class AdaptiveTimeout:
         
     def update(self, measured_rtt: float):
         """Update timeout based on new RTT measurement"""
-        # TODO: Implement TCP-style RTO calculation
-        # SRTT = (1-α) * SRTT + α * RTT
-        # RTTVAR = (1-β) * RTTVAR + β * |SRTT - RTT|
-        # RTO = SRTT + 4 * RTTVAR
+# TODO: Implement TCP-style RTO calculation
+# SRTT = (1-α) * SRTT + α * RTT
+# RTTVAR = (1-β) * RTTVAR + β * |SRTT - RTT|
+# RTO = SRTT + 4 * RTTVAR
         
         alpha = 0.125  # 1/8
         beta = 0.25   # 1/4
         
-        # Your implementation here
+# Your implementation here
         pass
     
     def get_timeout(self) -> float:
@@ -431,28 +431,28 @@ class AdaptiveTimeout:
     
     def should_use_exponential_backoff(self, consecutive_timeouts: int) -> float:
         """Calculate timeout with exponential backoff"""
-        # TODO: Double timeout for each consecutive timeout
-        # Cap at maximum (e.g., 60 seconds)
+# TODO: Double timeout for each consecutive timeout
+# Cap at maximum (e.g., 60 seconds)
         pass
 
 # Test timeout adaptation
 def simulate_variable_network():
     timeout = AdaptiveTimeout()
     
-    # Simulate network with variable latency
+# Simulate network with variable latency
     latencies = []
     
-    # Normal conditions (50-100ms)
+# Normal conditions (50-100ms)
     latencies.extend(np.random.normal(75, 10, 50))
     
-    # Congestion spike (200-500ms)
+# Congestion spike (200-500ms)
     latencies.extend(np.random.normal(350, 50, 20))
     
-    # Return to normal
+# Return to normal
     latencies.extend(np.random.normal(75, 10, 30))
     
-    # TODO: Feed latencies to timeout algorithm
-    # Plot how timeout adapts to conditions
+# TODO: Feed latencies to timeout algorithm
+# Plot how timeout adapts to conditions
 ```
 
 ### Task 2: Timeout vs Retry Strategy
@@ -472,10 +472,10 @@ class RetryStrategy:
             try:
                 timeout = self.timeout_calculator.get_timeout()
                 if attempts > 0:
-                    # Exponential backoff on retries
+# Exponential backoff on retries
                     timeout *= (2 ** attempts)
                 
-                # TODO: Execute with timeout
+# TODO: Execute with timeout
                 result = await asyncio.wait_for(
                     operation(*args), 
                     timeout=timeout
@@ -490,11 +490,11 @@ class RetryStrategy:
     
     async def execute_with_hedging(self, replicas: List, operation, *args):
         """Execute with hedge requests to multiple replicas"""
-        # TODO: Implement hedged requests
-        # 1. Send to first replica
-        # 2. After hedge_delay, send to second replica
-        # 3. Return first successful response
-        # 4. Cancel other pending requests
+# TODO: Implement hedged requests
+# 1. Send to first replica
+# 2. After hedge_delay, send to second replica
+# 3. Return first successful response
+# 4. Cancel other pending requests
         pass
 ```
 
@@ -515,7 +515,7 @@ class FIFOChannel:
         
     def send(self, message: Any) -> Dict:
         """Send message with FIFO guarantee"""
-        # TODO: Add sequence number
+# TODO: Add sequence number
         envelope = {
             'seq': self.send_seq,
             'sender': self.sender_id,
@@ -526,10 +526,10 @@ class FIFOChannel:
     
     def receive(self, envelope: Dict) -> Optional[Any]:
         """Receive message preserving FIFO order"""
-        # TODO: Implement FIFO delivery
-        # 1. If seq == expected, deliver and check buffer
-        # 2. If seq > expected, buffer for later
-        # 3. If seq < expected, duplicate (ignore)
+# TODO: Implement FIFO delivery
+# 1. If seq == expected, deliver and check buffer
+# 2. If seq > expected, buffer for later
+# 3. If seq < expected, duplicate (ignore)
         pass
 ```
 
@@ -544,7 +544,7 @@ class CausalBroadcast:
         
     def broadcast(self, message: Any) -> Dict:
         """Broadcast with causal ordering"""
-        # TODO: Attach vector clock to message
+# TODO: Attach vector clock to message
         pass
     
     def receive(self, envelope: Dict):
@@ -554,10 +554,10 @@ class CausalBroadcast:
     
     def try_deliver(self):
         """Deliver messages that are causally ready"""
-        # TODO: Implement causal delivery condition
-        # Message m from j is deliverable if:
-        # 1. m.clock[j] = local.clock[j] + 1
-        # 2. For all k != j: m.clock[k] <= local.clock[k]
+# TODO: Implement causal delivery condition
+# Message m from j is deliverable if:
+# 1. m.clock[j] = local.clock[j] + 1
+# 2. For all k != j: m.clock[k] <= local.clock[k]
         pass
 ```
 
@@ -574,18 +574,18 @@ class TotalOrderBroadcast:
     async def broadcast(self, message: Any):
         """Broadcast with total ordering via sequencer"""
         if self.node_id == self.sequencer:
-            # Sequencer assigns sequence number
+# Sequencer assigns sequence number
             seq = self.seq_num
             self.seq_num += 1
-            # TODO: Broadcast (message, seq) to all
+# TODO: Broadcast (message, seq) to all
         else:
-            # TODO: Send to sequencer for ordering
+# TODO: Send to sequencer for ordering
             pass
     
     def handle_ordered_message(self, message: Any, seq: int):
         """Handle message with sequence number"""
-        # TODO: Deliver in sequence number order
-        # Buffer out-of-order messages
+# TODO: Deliver in sequence number order
+# Buffer out-of-order messages
         pass
 ```
 
@@ -610,15 +610,15 @@ class NTPClient:
     
     def sync_with_server(self, server_time_func) -> float:
         """Perform NTP-style time sync"""
-        # TODO: Implement NTP algorithm
-        # 1. Record local time T1
-        # 2. Request server time
-        # 3. Server records T2 (receive) and T3 (send)
-        # 4. Record local time T4
-        # 5. Calculate offset and round-trip delay
+# TODO: Implement NTP algorithm
+# 1. Record local time T1
+# 2. Request server time
+# 3. Server records T2 (receive) and T3 (send)
+# 4. Record local time T4
+# 5. Calculate offset and round-trip delay
         
         t1 = self.local_time()
-        # Simulate network delay
+# Simulate network delay
         time.sleep(random.uniform(0.01, 0.05))
         
         t2, t3 = server_time_func()
@@ -626,9 +626,9 @@ class NTPClient:
         time.sleep(random.uniform(0.01, 0.05))
         t4 = self.local_time()
         
-        # TODO: Calculate clock offset
-        # offset = ((t2 - t1) + (t3 - t4)) / 2
-        # delay = (t4 - t1) - (t3 - t2)
+# TODO: Calculate clock offset
+# offset = ((t2 - t1) + (t3 - t4)) / 2
+# delay = (t4 - t1) - (t3 - t2)
         
         return offset
 ```
@@ -641,19 +641,19 @@ class BerkeleyMaster:
         
     async def synchronize_clocks(self):
         """Coordinate clock synchronization"""
-        # TODO: Implement Berkeley algorithm
-        # 1. Poll all nodes for their time
-        # 2. Calculate average (excluding outliers)
-        # 3. Send adjustment to each node
+# TODO: Implement Berkeley algorithm
+# 1. Poll all nodes for their time
+# 2. Calculate average (excluding outliers)
+# 3. Send adjustment to each node
         
         times = {}
         for node in self.nodes:
             times[node] = await self.get_node_time(node)
         
-        # TODO: Calculate fault-tolerant average
-        # Exclude times that differ too much
+# TODO: Calculate fault-tolerant average
+# Exclude times that differ too much
         
-        # TODO: Send adjustments
+# TODO: Send adjustments
         pass
 ```
 
@@ -677,18 +677,18 @@ class TimeoutConsensus:
         leader = self.nodes[self.view % len(self.nodes)]
         
         if self.node_id == leader:
-            # Leader broadcasts proposal
+# Leader broadcasts proposal
             await self.broadcast_proposal(value)
         else:
-            # Follower waits for proposal
+# Follower waits for proposal
             try:
                 proposal = await asyncio.wait_for(
                     self.wait_for_proposal(),
                     timeout=self.timeout.get_timeout()
                 )
-                # TODO: Validate and vote
+# TODO: Validate and vote
             except asyncio.TimeoutError:
-                # TODO: Trigger view change
+# TODO: Trigger view change
                 self.view += 1
 ```
 
@@ -709,10 +709,10 @@ class RandomizedConsensus:
         while True:
             self.round += 1
             
-            # Phase 1: Broadcast estimate
+# Phase 1: Broadcast estimate
             votes = await self.collect_votes(self.estimate)
             
-            # TODO: Count votes
+# TODO: Count votes
             if votes[True] > len(self.nodes) / 2:
                 self.estimate = True
                 if votes[True] > 2 * len(self.nodes) / 3:
@@ -722,7 +722,7 @@ class RandomizedConsensus:
                 if votes[False] > 2 * len(self.nodes) / 3:
                     return False  # Decide False
             else:
-                # No majority - use randomization
+# No majority - use randomization
                 self.estimate = random.choice([True, False])
 ```
 

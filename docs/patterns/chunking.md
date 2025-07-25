@@ -94,12 +94,12 @@ class FileChunker:
             chunk_id = 0
             
             while offset < file_size:
-                # Read chunk
+# Read chunk
                 chunk_data = f.read(self.chunk_size)
                 if not chunk_data:
                     break
                 
-                # Generate metadata
+# Generate metadata
                 checksum = hashlib.md5(chunk_data).hexdigest()
                 metadata = ChunkMetadata(
                     chunk_id=f"chunk_{chunk_id:06d}",
@@ -124,7 +124,7 @@ class FileChunker:
         
         for chunk_data, metadata in self.chunk_file(filename):
             try:
-                # Process chunk
+# Process chunk
                 result = processor(chunk_data)
                 results.append({
                     'chunk_id': metadata.chunk_id,
@@ -132,11 +132,11 @@ class FileChunker:
                     'metadata': metadata
                 })
                 
-                # Mark as processed
+# Mark as processed
                 self.processed_chunks.add(metadata.chunk_id)
                 metadata.processed = True
                 
-                # Update progress
+# Update progress
                 bytes_processed += metadata.size
                 progress = (bytes_processed / file_size) * 100
                 
@@ -145,7 +145,7 @@ class FileChunker:
                     
             except Exception as e:
                 print(f"Failed to process chunk {metadata.chunk_id}: {e}")
-                # Continue with other chunks instead of failing entirely
+# Continue with other chunks instead of failing entirely
                 
         return results
     
@@ -159,17 +159,17 @@ class FileChunker:
         bytes_processed = 0
         results = []
         
-        # Prepare chunks
+# Prepare chunks
         chunks = list(self.chunk_file(filename))
         
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            # Submit all chunks for processing
+# Submit all chunks for processing
             future_to_chunk = {
                 executor.submit(processor, chunk_data): (chunk_data, metadata)
                 for chunk_data, metadata in chunks
             }
             
-            # Process completed chunks
+# Process completed chunks
             for future in as_completed(future_to_chunk):
                 chunk_data, metadata = future_to_chunk[future]
                 
@@ -184,7 +184,7 @@ class FileChunker:
                     self.processed_chunks.add(metadata.chunk_id)
                     bytes_processed += metadata.size
                     
-                    # Update progress
+# Update progress
                     progress = (bytes_processed / file_size) * 100
                     if progress_callback:
                         progress_callback(progress, metadata.chunk_id, bytes_processed, file_size)
@@ -192,7 +192,7 @@ class FileChunker:
                 except Exception as e:
                     print(f"Failed to process chunk {metadata.chunk_id}: {e}")
         
-        # Sort results by chunk order
+# Sort results by chunk order
         results.sort(key=lambda x: x['chunk_id'])
         return results
 
@@ -200,7 +200,7 @@ class FileChunker:
 def process_chunk(chunk_data: bytes) -> dict:
     """Example chunk processor - count lines and characters"""
     
-    # Simulate expensive processing
+# Simulate expensive processing
     import time
     time.sleep(0.1)
     
@@ -252,16 +252,16 @@ class StreamChunker:
             chunk.append(item)
             
             if len(chunk) >= self.chunk_size:
-                # Yield complete chunk
+# Yield complete chunk
                 yield chunk.copy()
                 
-                # Handle overlap for sliding window
+# Handle overlap for sliding window
                 if self.overlap > 0:
                     chunk = chunk[-self.overlap:]
                 else:
                     chunk = []
         
-        # Yield final partial chunk if any
+# Yield final partial chunk if any
         if chunk:
             yield chunk
     
@@ -276,7 +276,7 @@ class StreamChunker:
                 yield result
             except Exception as e:
                 print(f"Error processing chunk: {e}")
-                # Continue with next chunk
+# Continue with next chunk
 
 # Example: Time-series data processing
 async def data_stream():
@@ -338,7 +338,7 @@ class DatabaseChunker:
             offset = 0
             
             while True:
-                # Add LIMIT/OFFSET to query
+# Add LIMIT/OFFSET to query
                 chunked_query = f"{query} LIMIT {self.chunk_size} OFFSET {offset}"
                 
                 cursor.execute(chunked_query, params)
@@ -365,7 +365,7 @@ class DatabaseChunker:
             last_key = None
             
             while True:
-                # Build query with keyset pagination
+# Build query with keyset pagination
                 if last_key is None:
                     if where_clause:
                         query = f"SELECT * FROM {table} WHERE {where_clause} ORDER BY {key_column} {order_by} LIMIT {self.chunk_size}"
@@ -389,7 +389,7 @@ class DatabaseChunker:
                 
                 yield chunk
                 
-                # Update last_key for next iteration
+# Update last_key for next iteration
                 last_key = chunk[-1][0]  # Assuming key_column is first column
                 
         finally:
@@ -404,7 +404,7 @@ class DatabaseChunker:
         results = []
         total_processed = 0
         
-        # Get total count for progress tracking
+# Get total count for progress tracking
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         cursor.execute(f"SELECT COUNT(*) FROM {table}")
@@ -476,14 +476,14 @@ class AdaptiveChunker:
         
         self.processing_times.append(processing_time)
         
-        # Keep only recent measurements
+# Keep only recent measurements
         if len(self.processing_times) > 10:
             self.processing_times = self.processing_times[-10:]
         
-        # Calculate average processing time
+# Calculate average processing time
         avg_time = statistics.mean(self.processing_times)
         
-        # Adjust chunk size
+# Adjust chunk size
         if avg_time > self.target_time * 1.2:  # Too slow
             self.chunk_size = max(self.min_chunk_size, int(self.chunk_size * 0.8))
         elif avg_time < self.target_time * 0.8:  # Too fast
@@ -515,7 +515,7 @@ class AdaptiveChunker:
 def variable_complexity_processor(chunk: List[int]) -> dict:
     """Simulate processor with variable complexity"""
     
-    # Simulate complex processing for large numbers
+# Simulate complex processing for large numbers
     total_work = sum(x * 0.001 for x in chunk if x > 5000)
     time.sleep(total_work)  # Simulated work
     
@@ -574,7 +574,7 @@ class DependencyAwareChunker:
         active_tasks = set()
         
         while len(self.completed_tasks) < len(self.tasks):
-            # Find ready tasks (dependencies satisfied)
+# Find ready tasks (dependencies satisfied)
             ready_tasks = [
                 task for task in self.tasks.values()
                 if (not task.completed and 
@@ -582,15 +582,15 @@ class DependencyAwareChunker:
                     task.chunk_id not in active_tasks)
             ]
             
-            # Start new tasks up to parallel limit
+# Start new tasks up to parallel limit
             while len(active_tasks) < self.max_parallel and ready_tasks:
                 task = ready_tasks.pop(0)
                 active_tasks.add(task.chunk_id)
                 
-                # Start processing
+# Start processing
                 asyncio.create_task(self._process_task(task, processor))
             
-            # Check for completed tasks
+# Check for completed tasks
             completed_this_round = []
             for task_id in active_tasks:
                 task = self.tasks[task_id]
@@ -599,11 +599,11 @@ class DependencyAwareChunker:
                     results[task_id] = task.result
                     self.completed_tasks.add(task_id)
             
-            # Remove completed tasks from active set
+# Remove completed tasks from active set
             for task_id in completed_this_round:
                 active_tasks.remove(task_id)
             
-            # Wait a bit before checking again
+# Wait a bit before checking again
             await asyncio.sleep(0.1)
         
         return results
@@ -640,7 +640,7 @@ async def process_step(data: dict) -> dict:
 async def run_dependency_example():
     chunker = DependencyAwareChunker(max_parallel=3)
     
-    # Build dependency chain: A -> B -> C, D (independent), E depends on B and D
+# Build dependency chain: A -> B -> C, D (independent), E depends on B and D
     chunker.add_chunk('A', {'step': 'A', 'value': 10, 'complexity': 1})
     chunker.add_chunk('B', {'step': 'B', 'value': 20, 'complexity': 2}, {'A'})
     chunker.add_chunk('C', {'step': 'C', 'value': 30, 'complexity': 1}, {'B'})
@@ -705,17 +705,17 @@ class MemoryEfficientChunker:
                                processor: Callable) -> str:
         """Process data too large for memory by using temp files"""
         
-        # Write to temporary file
+# Write to temporary file
         with tempfile.NamedTemporaryFile(delete=False) as temp_file:
             temp_file.write(large_data)
             temp_filename = temp_file.name
         
         try:
-            # Process using memory mapping
+# Process using memory mapping
             results = self.process_large_file_mmap(temp_filename, processor)
             return results
         finally:
-            # Cleanup
+# Cleanup
             import os
             os.unlink(temp_filename)
 
@@ -757,19 +757,19 @@ def optimize_chunk_size(data_size: int, memory_limit: int,
                        processing_overhead: float = 0.1) -> int:
     """Calculate optimal chunk size based on constraints"""
     
-    # Consider memory limit
+# Consider memory limit
     max_chunk_by_memory = int(memory_limit * 0.8)  # Leave 20% buffer
     
-    # Consider processing overhead (smaller chunks = more overhead)
+# Consider processing overhead (smaller chunks = more overhead)
     min_chunk_for_efficiency = int(data_size * processing_overhead)
     
-    # Consider parallelism (want multiple chunks for parallel processing)
+# Consider parallelism (want multiple chunks for parallel processing)
     import multiprocessing
     cpu_count = multiprocessing.cpu_count()
     chunk_count_target = cpu_count * 4  # 4 chunks per CPU
     chunk_by_parallelism = max(1024, data_size // chunk_count_target)
     
-    # Choose optimal size
+# Choose optimal size
     optimal_size = min(
         max_chunk_by_memory,
         max(min_chunk_for_efficiency, chunk_by_parallelism)
@@ -833,7 +833,7 @@ metrics = ChunkingMetrics()
 def monitored_chunk_processor(chunk_data: bytes, chunk_id: str) -> dict:
     metrics.start_chunk(chunk_id)
     
-    # Process chunk
+# Process chunk
     result = process_chunk(chunk_data)
     
     metrics.end_chunk(chunk_id, len(chunk_data), len(str(result)))

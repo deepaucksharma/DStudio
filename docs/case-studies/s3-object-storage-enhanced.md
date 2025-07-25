@@ -204,7 +204,7 @@ class DistributedMetadataService:
     async def put_object_metadata(self, metadata: ObjectMetadata) -> bool:
         """Store object metadata with replication"""
         
-        # Determine primary and replica nodes
+# Determine primary and replica nodes
         primary_node = self.consistent_hash.get_node(
             f"{metadata.bucket}/{metadata.key}"
         )
@@ -213,7 +213,7 @@ class DistributedMetadataService:
             num_replicas=2
         )
         
-        # Store in primary with strong consistency
+# Store in primary with strong consistency
         primary_cluster = self.clusters[primary_node]
         success = await primary_cluster.put(
             key=self._get_metadata_key(metadata),
@@ -224,7 +224,7 @@ class DistributedMetadataService:
         if not success:
             return False
         
-        # Async replication to replicas
+# Async replication to replicas
         replication_tasks = []
         for replica_node in replica_nodes:
             replica_cluster = self.clusters[replica_node]
@@ -237,10 +237,10 @@ class DistributedMetadataService:
             )
             replication_tasks.append(task)
         
-        # Fire and forget replications
+# Fire and forget replications
         asyncio.gather(*replication_tasks, return_exceptions=True)
         
-        # Update cache
+# Update cache
         await self.cache.set(
             self._get_cache_key(metadata),
             metadata,
@@ -254,16 +254,16 @@ class DistributedMetadataService:
                                  version_id: Optional[str] = None) -> Optional[ObjectMetadata]:
         """Retrieve object metadata with caching"""
         
-        # Check cache first
+# Check cache first
         cache_key = f"{bucket}:{key}:{version_id or 'latest'}"
         cached = await self.cache.get(cache_key)
         if cached:
             return cached
         
-        # Determine nodes to query
+# Determine nodes to query
         primary_node = self.consistent_hash.get_node(f"{bucket}/{key}")
         
-        # Try primary first
+# Try primary first
         primary_cluster = self.clusters[primary_node]
         metadata_dict = await primary_cluster.get(
             key=f"{bucket}:{key}:{version_id or 'latest'}",
@@ -275,7 +275,7 @@ class DistributedMetadataService:
             await self.cache.set(cache_key, metadata, ttl=3600)
             return metadata
         
-        # Fallback to replicas if primary fails
+# Fallback to replicas if primary fails
         replica_nodes = self.consistent_hash.get_replicas(
             f"{bucket}/{key}",
             num_replicas=2
@@ -307,10 +307,10 @@ class DistributedMetadataService:
                           continuation_token: Optional[str] = None) -> ListObjectsResult:
         """List objects with prefix and pagination"""
         
-        # Determine which metadata partitions to query
+# Determine which metadata partitions to query
         partitions = self._get_partitions_for_prefix(bucket, prefix)
         
-        # Query partitions in parallel
+# Query partitions in parallel
         query_tasks = []
         for partition in partitions:
             cluster = self.clusters[partition]
@@ -322,18 +322,18 @@ class DistributedMetadataService:
             )
             query_tasks.append(task)
         
-        # Gather results
+# Gather results
         results = await asyncio.gather(*query_tasks)
         
-        # Merge and sort results
+# Merge and sort results
         all_objects = []
         for result in results:
             all_objects.extend(result.objects)
         
-        # Sort by key
+# Sort by key
         all_objects.sort(key=lambda x: x.key)
         
-        # Apply delimiter logic for common prefixes
+# Apply delimiter logic for common prefixes
         if delimiter:
             objects, common_prefixes = self._apply_delimiter(
                 all_objects,
@@ -344,7 +344,7 @@ class DistributedMetadataService:
             objects = all_objects
             common_prefixes = []
         
-        # Pagination
+# Pagination
         if len(objects) > max_keys:
             objects = objects[:max_keys]
             next_token = self._generate_continuation_token(
@@ -375,19 +375,19 @@ class ErasureCodingEngine:
         self.parity_shards = parity_shards
         self.total_shards = data_shards + parity_shards
         
-        # Initialize Galois Field for RS coding
+# Initialize Galois Field for RS coding
         self.gf = galois.GF(2**8)
         self.rs_matrix = self._create_encoding_matrix()
         
     def encode_object(self, data: bytes) -> List[DataShard]:
         """Encode object into erasure coded shards"""
         
-        # Pad data to multiple of data_shards
+# Pad data to multiple of data_shards
         padded_data = self._pad_data(data)
         data_size = len(padded_data)
         shard_size = data_size // self.data_shards
         
-        # Split into data shards
+# Split into data shards
         data_shards = []
         for i in range(self.data_shards):
             start = i * shard_size
@@ -395,13 +395,13 @@ class ErasureCodingEngine:
             shard_data = padded_data[start:end]
             data_shards.append(shard_data)
         
-        # Generate parity shards
+# Generate parity shards
         parity_shards = self._generate_parity_shards(data_shards)
         
-        # Create shard objects
+# Create shard objects
         all_shards = []
         
-        # Data shards
+# Data shards
         for i, shard_data in enumerate(data_shards):
             shard = DataShard(
                 shard_id=i,
@@ -414,7 +414,7 @@ class ErasureCodingEngine:
             )
             all_shards.append(shard)
         
-        # Parity shards
+# Parity shards
         for i, shard_data in enumerate(parity_shards):
             shard = DataShard(
                 shard_id=self.data_shards + i,
@@ -432,38 +432,38 @@ class ErasureCodingEngine:
     def decode_object(self, available_shards: List[DataShard]) -> bytes:
         """Reconstruct object from available shards"""
         
-        # Need at least data_shards to reconstruct
+# Need at least data_shards to reconstruct
         if len(available_shards) < self.data_shards:
             raise InsufficientShardsError(
                 f"Need {self.data_shards} shards, have {len(available_shards)}"
             )
         
-        # Verify shard integrity
+# Verify shard integrity
         for shard in available_shards:
             if not self._verify_shard_integrity(shard):
                 raise CorruptedShardError(f"Shard {shard.shard_id} corrupted")
         
-        # Sort shards by ID
+# Sort shards by ID
         available_shards.sort(key=lambda x: x.shard_id)
         
-        # Check if we have all data shards
+# Check if we have all data shards
         data_shard_ids = [s.shard_id for s in available_shards 
                          if s.shard_type == "data"]
         
         if len(data_shard_ids) == self.data_shards:
-            # Simple case: all data shards available
+# Simple case: all data shards available
             data_shards = [s for s in available_shards 
                           if s.shard_type == "data"]
             data_shards.sort(key=lambda x: x.shard_id)
             
-            # Concatenate data shards
+# Concatenate data shards
             reconstructed = b''.join(s.data for s in data_shards)
             
         else:
-            # Need to reconstruct using parity
+# Need to reconstruct using parity
             reconstructed = self._reconstruct_with_parity(available_shards)
         
-        # Remove padding
+# Remove padding
         original_size = available_shards[0].original_size
         return reconstructed[:original_size]
     
@@ -473,15 +473,15 @@ class ErasureCodingEngine:
         shard_size = len(data_shards[0])
         parity_shards = []
         
-        # Process byte by byte across all shards
+# Process byte by byte across all shards
         for byte_idx in range(shard_size):
-            # Get bytes at current position from all data shards
+# Get bytes at current position from all data shards
             data_bytes = [shard[byte_idx] for shard in data_shards]
             
-            # Calculate parity bytes
+# Calculate parity bytes
             parity_bytes = self._rs_encode_position(data_bytes)
             
-            # Add to parity shards
+# Add to parity shards
             for i, parity_byte in enumerate(parity_bytes):
                 if byte_idx == 0:
                     parity_shards.append(bytearray())
@@ -492,15 +492,15 @@ class ErasureCodingEngine:
     def _rs_encode_position(self, data_bytes: List[int]) -> List[int]:
         """Reed-Solomon encode bytes at a specific position"""
         
-        # Convert to Galois field
+# Convert to Galois field
         data_vector = self.gf(data_bytes)
         
-        # Generate parity using encoding matrix
+# Generate parity using encoding matrix
         parity_rows = self.rs_matrix[self.data_shards:]
         parity_bytes = []
         
         for parity_row in parity_rows:
-            # Dot product in Galois field
+# Dot product in Galois field
             parity_byte = self.gf(0)
             for i, coeff in enumerate(parity_row[:self.data_shards]):
                 parity_byte += coeff * data_vector[i]
@@ -511,14 +511,14 @@ class ErasureCodingEngine:
     def _create_encoding_matrix(self) -> np.ndarray:
         """Create Reed-Solomon encoding matrix"""
         
-        # Vandermonde matrix for systematic RS coding
+# Vandermonde matrix for systematic RS coding
         matrix = np.zeros((self.total_shards, self.data_shards), dtype=int)
         
-        # Identity matrix for data shards (systematic)
+# Identity matrix for data shards (systematic)
         for i in range(self.data_shards):
             matrix[i][i] = 1
         
-        # Vandermonde for parity shards
+# Vandermonde for parity shards
         for i in range(self.data_shards, self.total_shards):
             for j in range(self.data_shards):
                 matrix[i][j] = pow(i - self.data_shards + 1, j, 257)
@@ -543,18 +543,18 @@ class StorageNode:
                          object_id: str) -> StorageResult:
         """Store a data shard on this node"""
         
-        # Calculate storage location
+# Calculate storage location
         shard_path = self._calculate_shard_path(object_id, shard.shard_id)
         
         try:
-            # Write shard data
+# Write shard data
             bytes_written = await self.disk_manager.write_file(
                 path=shard_path,
                 data=shard.data,
                 sync=True  # Ensure durability
             )
             
-            # Write shard metadata
+# Write shard metadata
             metadata_path = f"{shard_path}.meta"
             await self.disk_manager.write_file(
                 path=metadata_path,
@@ -562,10 +562,10 @@ class StorageNode:
                 sync=True
             )
             
-            # Update local index
+# Update local index
             await self._update_shard_index(object_id, shard)
             
-            # Record metrics
+# Record metrics
             self.metrics.record_write(
                 bytes=bytes_written,
                 latency=time.time() - start_time
@@ -580,7 +580,7 @@ class StorageNode:
             )
             
         except DiskFullError:
-            # Handle disk full gracefully
+# Handle disk full gracefully
             logger.error(f"Disk full on node {self.node_id}")
             return StorageResult(
                 success=False,
@@ -603,21 +603,21 @@ class StorageNode:
         metadata_path = f"{shard_path}.meta"
         
         try:
-            # Read shard metadata first
+# Read shard metadata first
             metadata_data = await self.disk_manager.read_file(metadata_path)
             shard_metadata = json.loads(metadata_data)
             
-            # Read shard data
+# Read shard data
             shard_data = await self.disk_manager.read_file(shard_path)
             
-            # Verify integrity
+# Verify integrity
             calculated_checksum = self._calculate_checksum(shard_data)
             if calculated_checksum != shard_metadata['checksum']:
                 raise CorruptedShardError(
                     f"Checksum mismatch for shard {shard_id}"
                 )
             
-            # Reconstruct shard object
+# Reconstruct shard object
             shard = DataShard(
                 shard_id=shard_metadata['shard_id'],
                 shard_type=shard_metadata['shard_type'],
@@ -628,7 +628,7 @@ class StorageNode:
                 original_size=shard_metadata['original_size']
             )
             
-            # Record metrics
+# Record metrics
             self.metrics.record_read(
                 bytes=len(shard_data),
                 latency=time.time() - start_time
@@ -639,7 +639,7 @@ class StorageNode:
         except FileNotFoundError:
             return None
         except CorruptedShardError:
-            # Attempt repair from parity
+# Attempt repair from parity
             await self._initiate_shard_repair(object_id, shard_id)
             raise
     
@@ -650,13 +650,13 @@ class StorageNode:
         metadata_path = f"{shard_path}.meta"
         
         try:
-            # Delete data file
+# Delete data file
             await self.disk_manager.delete_file(shard_path)
             
-            # Delete metadata
+# Delete metadata
             await self.disk_manager.delete_file(metadata_path)
             
-            # Update index
+# Update index
             await self._remove_from_shard_index(object_id, shard_id)
             
             return True
@@ -670,11 +670,11 @@ class StorageNode:
         
         while True:
             try:
-                # Get random sample of shards
+# Get random sample of shards
                 shard_samples = await self._get_random_shard_sample(1000)
                 
                 for shard_info in shard_samples:
-                    # Read and verify
+# Read and verify
                     shard = await self.retrieve_shard(
                         shard_info['object_id'],
                         shard_info['shard_id']
@@ -713,7 +713,7 @@ class MultipartUploadManager:
         
         upload_id = str(uuid.uuid4())
         
-        # Create upload record
+# Create upload record
         upload_record = MultipartUpload(
             upload_id=upload_id,
             bucket=bucket,
@@ -723,10 +723,10 @@ class MultipartUploadManager:
             parts={}
         )
         
-        # Store in metadata service
+# Store in metadata service
         await self.metadata_service.put_multipart_upload(upload_record)
         
-        # Track active upload
+# Track active upload
         self.active_uploads[upload_id] = upload_record
         
         return upload_id
@@ -736,34 +736,34 @@ class MultipartUploadManager:
                          data: bytes) -> PartUploadResult:
         """Upload a single part of multipart upload"""
         
-        # Validate upload
+# Validate upload
         upload = await self._get_upload(upload_id)
         if not upload:
             raise NoSuchUploadError(f"Upload {upload_id} not found")
         
-        # Validate part size
+# Validate part size
         if len(data) < self.part_size_min and part_number < 10000:
             raise PartTooSmallError(
                 f"Part size {len(data)} below minimum {self.part_size_min}"
             )
         
-        # Calculate part ETag
+# Calculate part ETag
         part_etag = hashlib.md5(data).hexdigest()
         
-        # Store part with temporary key
+# Store part with temporary key
         part_key = f"{upload.bucket}/.multipart/{upload_id}/{part_number}"
         
-        # Apply erasure coding to part
+# Apply erasure coding to part
         ec_engine = ErasureCodingEngine()
         shards = ec_engine.encode_object(data)
         
-        # Distribute shards
+# Distribute shards
         storage_results = await self.storage.store_shards(
             object_id=part_key,
             shards=shards
         )
         
-        # Record part info
+# Record part info
         part_info = PartInfo(
             part_number=part_number,
             etag=part_etag,
@@ -772,7 +772,7 @@ class MultipartUploadManager:
             storage_locations=storage_results.shard_locations
         )
         
-        # Update upload record
+# Update upload record
         upload.parts[part_number] = part_info
         await self.metadata_service.update_multipart_upload(upload)
         
@@ -785,12 +785,12 @@ class MultipartUploadManager:
                                        parts: List[Dict]) -> CompleteUploadResult:
         """Complete multipart upload by combining parts"""
         
-        # Get upload record
+# Get upload record
         upload = await self._get_upload(upload_id)
         if not upload:
             raise NoSuchUploadError(f"Upload {upload_id} not found")
         
-        # Validate all parts present
+# Validate all parts present
         for part in parts:
             part_num = part['part_number']
             expected_etag = part['etag']
@@ -803,14 +803,14 @@ class MultipartUploadManager:
                     f"Part {part_num} ETag mismatch"
                 )
         
-        # Sort parts by number
+# Sort parts by number
         parts.sort(key=lambda x: x['part_number'])
         
-        # Calculate final object ETag
+# Calculate final object ETag
         part_etags = [p['etag'] for p in parts]
         final_etag = self._calculate_multipart_etag(part_etags)
         
-        # Create final object metadata
+# Create final object metadata
         total_size = sum(upload.parts[p['part_number']].size for p in parts)
         
         object_metadata = ObjectMetadata(
@@ -828,13 +828,13 @@ class MultipartUploadManager:
             storage_locations=[]
         )
         
-        # Move parts to final location
+# Move parts to final location
         await self._assemble_final_object(upload, parts, object_metadata)
         
-        # Store final metadata
+# Store final metadata
         await self.metadata_service.put_object_metadata(object_metadata)
         
-        # Cleanup multipart upload
+# Cleanup multipart upload
         await self._cleanup_multipart_upload(upload_id)
         
         return CompleteUploadResult(
@@ -849,8 +849,8 @@ class MultipartUploadManager:
                                     metadata: ObjectMetadata):
         """Assemble parts into final object"""
         
-        # For large objects, we don't physically concatenate
-        # Instead, we create a manifest pointing to parts
+# For large objects, we don't physically concatenate
+# Instead, we create a manifest pointing to parts
         
         manifest = ObjectManifest(
             object_id=f"{metadata.bucket}/{metadata.key}",
@@ -870,10 +870,10 @@ class MultipartUploadManager:
                 'storage_locations': part_info.storage_locations
             })
         
-        # Store manifest
+# Store manifest
         await self.metadata_service.put_object_manifest(manifest)
         
-        # Update metadata with manifest location
+# Update metadata with manifest location
         metadata.storage_locations = [f"manifest:{manifest.object_id}"]
 ```
 
@@ -896,30 +896,30 @@ class StorageClassManager:
                                to_class: str) -> TransitionResult:
         """Transition object between storage classes"""
         
-        # Get object metadata
+# Get object metadata
         metadata = await self.metadata_service.get_object_metadata_by_id(object_id)
         if not metadata:
             raise ObjectNotFoundError(f"Object {object_id} not found")
         
-        # Validate transition
+# Validate transition
         if not self._is_valid_transition(from_class, to_class):
             raise InvalidTransitionError(
                 f"Cannot transition from {from_class} to {to_class}"
             )
         
-        # Get storage handlers
+# Get storage handlers
         source_storage = self.storage_classes[from_class]
         target_storage = self.storage_classes[to_class]
         
-        # Retrieve object from source
+# Retrieve object from source
         logger.info(f"Retrieving object {object_id} from {from_class}")
         object_data = await source_storage.retrieve_object(object_id)
         
-        # Store in target class
+# Store in target class
         logger.info(f"Storing object {object_id} in {to_class}")
         
         if to_class in ['GLACIER', 'DEEP_ARCHIVE']:
-            # Archive storage requires special handling
+# Archive storage requires special handling
             archive_result = await self._archive_object(
                 object_data,
                 metadata,
@@ -927,24 +927,24 @@ class StorageClassManager:
             )
             new_locations = archive_result.archive_locations
         else:
-            # Regular storage transition
+# Regular storage transition
             storage_result = await target_storage.store_object(
                 object_id,
                 object_data
             )
             new_locations = storage_result.storage_locations
         
-        # Update metadata
+# Update metadata
         metadata.storage_class = to_class
         metadata.storage_locations = new_locations
         metadata.modified_at = datetime.utcnow()
         
         await self.metadata_service.update_object_metadata(metadata)
         
-        # Delete from source (after successful transition)
+# Delete from source (after successful transition)
         await source_storage.delete_object(object_id)
         
-        # Record transition
+# Record transition
         await self._record_transition(object_id, from_class, to_class)
         
         return TransitionResult(
@@ -959,11 +959,11 @@ class StorageClassManager:
                              archive_class: str) -> ArchiveResult:
         """Archive object to cold storage"""
         
-        # Compress before archiving
+# Compress before archiving
         compressed_data = await self._compress_for_archive(object_data)
         compression_ratio = len(compressed_data) / len(object_data)
         
-        # Split into archive chunks
+# Split into archive chunks
         chunk_size = 1024 * 1024 * 1024  # 1GB chunks
         chunks = []
         
@@ -971,11 +971,11 @@ class StorageClassManager:
             chunk = compressed_data[i:i + chunk_size]
             chunks.append(chunk)
         
-        # Store chunks in archive
+# Store chunks in archive
         archive_locations = []
         
         if archive_class == 'GLACIER':
-            # Glacier storage (retrieval in minutes to hours)
+# Glacier storage (retrieval in minutes to hours)
             for i, chunk in enumerate(chunks):
                 location = await self._store_in_glacier(
                     f"{metadata.bucket}/{metadata.key}/chunk_{i}",
@@ -984,7 +984,7 @@ class StorageClassManager:
                 archive_locations.append(location)
                 
         elif archive_class == 'DEEP_ARCHIVE':
-            # Deep archive (retrieval in hours to days)
+# Deep archive (retrieval in hours to days)
             for i, chunk in enumerate(chunks):
                 location = await self._store_in_deep_archive(
                     f"{metadata.bucket}/{metadata.key}/chunk_{i}",
@@ -992,7 +992,7 @@ class StorageClassManager:
                 )
                 archive_locations.append(location)
         
-        # Create archive manifest
+# Create archive manifest
         manifest = ArchiveManifest(
             object_id=f"{metadata.bucket}/{metadata.key}",
             compression_type="zstd",
@@ -1029,7 +1029,7 @@ class GeoReplicationEngine:
         
         replication_id = str(uuid.uuid4())
         
-        # Create replication tasks
+# Create replication tasks
         tasks = []
         for target_region in target_regions:
             task = ReplicationTask(
@@ -1042,10 +1042,10 @@ class GeoReplicationEngine:
             )
             tasks.append(task)
             
-            # Queue for processing
+# Queue for processing
             await self.replication_queues[target_region].put(task)
         
-        # Process replications asynchronously
+# Process replications asynchronously
         asyncio.gather(*[
             self._process_replication_task(task) for task in tasks
         ])
@@ -1056,20 +1056,20 @@ class GeoReplicationEngine:
         """Process a single replication task"""
         
         try:
-            # Get bandwidth allocation
+# Get bandwidth allocation
             bandwidth = await self.bandwidth_manager.allocate(
                 source=task.source_region,
                 target=task.target_region,
                 priority=task.priority
             )
             
-            # Retrieve object shards from source
+# Retrieve object shards from source
             shards = await self._retrieve_shards_from_region(
                 task.object_id,
                 task.source_region
             )
             
-            # Transfer shards with bandwidth limiting
+# Transfer shards with bandwidth limiting
             transferred_shards = []
             for shard in shards:
                 transferred = await self._transfer_shard(
@@ -1079,14 +1079,14 @@ class GeoReplicationEngine:
                 )
                 transferred_shards.append(transferred)
             
-            # Update metadata in target region
+# Update metadata in target region
             await self._update_target_metadata(
                 task.object_id,
                 task.target_region,
                 transferred_shards
             )
             
-            # Mark replication complete
+# Mark replication complete
             task.status = "completed"
             task.completed_at = datetime.utcnow()
             
@@ -1095,7 +1095,7 @@ class GeoReplicationEngine:
             task.status = "failed"
             task.error = str(e)
             
-            # Retry logic
+# Retry logic
             if task.retry_count < 3:
                 task.retry_count += 1
                 await self.replication_queues[task.target_region].put(task)
@@ -1115,24 +1115,24 @@ class IntelligentTieringEngine:
                                         object_id: str) -> TieringRecommendation:
         """Analyze object access patterns and recommend tiering"""
         
-        # Get access history
+# Get access history
         access_history = await self.access_tracker.get_history(
             object_id,
             days=90
         )
         
-        # Get current storage info
+# Get current storage info
         metadata = await self.metadata_service.get_object_metadata_by_id(object_id)
         current_class = metadata.storage_class
         object_size = metadata.size
         
-        # Predict future access pattern
+# Predict future access pattern
         predicted_accesses = self.ml_predictor.predict_access_pattern(
             access_history,
             horizon_days=30
         )
         
-        # Calculate costs for each storage class
+# Calculate costs for each storage class
         costs = {}
         for storage_class in ['STANDARD', 'STANDARD_IA', 'GLACIER']:
             cost = self.cost_calculator.calculate_cost(
@@ -1143,10 +1143,10 @@ class IntelligentTieringEngine:
             )
             costs[storage_class] = cost
         
-        # Find optimal storage class
+# Find optimal storage class
         optimal_class = min(costs.items(), key=lambda x: x[1])[0]
         
-        # Calculate savings
+# Calculate savings
         current_cost = costs[current_class]
         optimal_cost = costs[optimal_class]
         savings = current_cost - optimal_cost
@@ -1169,7 +1169,7 @@ class IntelligentTieringEngine:
         
         while True:
             try:
-                # Get objects eligible for tiering
+# Get objects eligible for tiering
                 eligible_objects = await self._get_eligible_objects(
                     min_age_days=30,
                     min_size_bytes=1024 * 1024  # 1MB
@@ -1181,13 +1181,13 @@ class IntelligentTieringEngine:
                     if rec.monthly_savings > 0.01:  # $0.01 threshold
                         recommendations.append(rec)
                 
-                # Sort by savings
+# Sort by savings
                 recommendations.sort(
                     key=lambda x: x.monthly_savings,
                     reverse=True
                 )
                 
-                # Execute top recommendations
+# Execute top recommendations
                 for rec in recommendations[:1000]:  # Limit batch size
                     if rec.current_class != rec.recommended_class:
                         await self.storage_class_manager.transition_object(
@@ -1224,10 +1224,10 @@ class S3PerformanceOptimizer:
         """Optimize LIST operations for large directories"""
         
         if expected_results > 10000:
-            # Use parallel LIST for large results
+# Use parallel LIST for large results
             prefixes = self._generate_sharding_prefixes(prefix)
             
-            # Query in parallel
+# Query in parallel
             tasks = []
             for shard_prefix in prefixes:
                 task = self.metadata_service.list_objects(
@@ -1239,14 +1239,14 @@ class S3PerformanceOptimizer:
             
             results = await asyncio.gather(*tasks)
             
-            # Merge results
+# Merge results
             all_objects = []
             for result in results:
                 all_objects.extend(result.objects)
                 
             return sorted(all_objects, key=lambda x: x.key)
         else:
-            # Regular LIST for small results
+# Regular LIST for small results
             return await self.metadata_service.list_objects(
                 bucket=bucket,
                 prefix=prefix,
@@ -1257,23 +1257,23 @@ class S3PerformanceOptimizer:
                                        network_bandwidth: int) -> MultipartStrategy:
         """Determine optimal multipart upload strategy"""
         
-        # Calculate optimal part size
+# Calculate optimal part size
         if object_size < 100 * 1024 * 1024:  # <100MB
-            # Single PUT is more efficient
+# Single PUT is more efficient
             return MultipartStrategy(
                 use_multipart=False
             )
         
-        # For larger objects, calculate optimal part size
-        # Target 10,000 parts max, 100 parts optimal
+# For larger objects, calculate optimal part size
+# Target 10,000 parts max, 100 parts optimal
         optimal_part_count = min(100, max(10, object_size // (100 * 1024 * 1024)))
         part_size = object_size // optimal_part_count
         
-        # Align to 1MB boundary
+# Align to 1MB boundary
         part_size = (part_size // (1024 * 1024)) * (1024 * 1024)
         part_size = max(5 * 1024 * 1024, part_size)  # Min 5MB
         
-        # Calculate parallelism based on bandwidth
+# Calculate parallelism based on bandwidth
         parallel_uploads = min(
             10,  # Max 10 parallel
             network_bandwidth // (part_size // 1024 // 1024)  # MB/s
@@ -1302,7 +1302,7 @@ class S3MetricsCollector:
                            response: S3Response):
         """Record request metrics"""
         
-        # Basic metrics
+# Basic metrics
         await self.metrics_pipeline.increment(
             'requests.total',
             tags={
@@ -1313,7 +1313,7 @@ class S3MetricsCollector:
             }
         )
         
-        # Latency metrics
+# Latency metrics
         await self.metrics_pipeline.histogram(
             'request.latency',
             response.latency_ms,
@@ -1323,7 +1323,7 @@ class S3MetricsCollector:
             }
         )
         
-        # Bandwidth metrics
+# Bandwidth metrics
         if request.operation in ['PUT', 'GET']:
             await self.metrics_pipeline.counter(
                 'bandwidth.bytes',
@@ -1334,7 +1334,7 @@ class S3MetricsCollector:
                 }
             )
         
-        # Cost tracking
+# Cost tracking
         cost = self.cost_tracker.calculate_request_cost(request, response)
         await self.metrics_pipeline.counter(
             'cost.usd',
@@ -1346,7 +1346,7 @@ class S3MetricsCollector:
             }
         )
         
-        # Access logging
+# Access logging
         await self.request_logger.log(request, response)
 ```
 
@@ -1360,23 +1360,23 @@ class StorageAnalytics:
         
         analytics = BucketAnalytics(bucket=bucket)
         
-        # Storage breakdown by class
+# Storage breakdown by class
         storage_stats = await self._get_storage_by_class(bucket)
         analytics.storage_by_class = storage_stats
         
-        # Object count and size distribution
+# Object count and size distribution
         size_distribution = await self._get_size_distribution(bucket)
         analytics.size_distribution = size_distribution
         
-        # Access patterns
+# Access patterns
         access_patterns = await self._analyze_access_patterns(bucket)
         analytics.access_patterns = access_patterns
         
-        # Cost analysis
+# Cost analysis
         cost_breakdown = await self._calculate_cost_breakdown(bucket)
         analytics.cost_breakdown = cost_breakdown
         
-        # Lifecycle recommendations
+# Lifecycle recommendations
         lifecycle_recs = await self._generate_lifecycle_recommendations(bucket)
         analytics.lifecycle_recommendations = lifecycle_recs
         
@@ -1399,18 +1399,18 @@ class S3EncryptionService:
         """Encrypt object data before storage"""
         
         if encryption_config.type == "SSE-S3":
-            # S3-managed encryption
+# S3-managed encryption
             key = await self.kms_client.get_s3_master_key()
             data_key = self.crypto_engine.generate_data_key()
             
-            # Encrypt data key with master key
+# Encrypt data key with master key
             encrypted_data_key = await self.kms_client.encrypt(
                 data_key,
                 key_id=key.id
             )
             
         elif encryption_config.type == "SSE-KMS":
-            # KMS-managed encryption
+# KMS-managed encryption
             data_key_result = await self.kms_client.generate_data_key(
                 key_id=encryption_config.kms_key_id
             )
@@ -1418,11 +1418,11 @@ class S3EncryptionService:
             encrypted_data_key = data_key_result.ciphertext
             
         elif encryption_config.type == "SSE-C":
-            # Customer-provided encryption
+# Customer-provided encryption
             data_key = encryption_config.customer_key
             encrypted_data_key = None  # Customer manages the key
         
-        # Encrypt object data
+# Encrypt object data
         iv = os.urandom(16)
         encrypted_data = self.crypto_engine.encrypt_aes_gcm(
             plaintext=data,
@@ -1453,27 +1453,27 @@ class S3AccessControl:
                           resource: str) -> AccessDecision:
         """Check if principal has access to perform action on resource"""
         
-        # Get all applicable policies
+# Get all applicable policies
         policies = []
         
-        # User/Role policies
+# User/Role policies
         identity_policies = await self.iam_service.get_policies_for_principal(
             principal
         )
         policies.extend(identity_policies)
         
-        # Bucket policies
+# Bucket policies
         bucket = resource.split('/')[0]
         bucket_policy = await self._get_bucket_policy(bucket)
         if bucket_policy:
             policies.append(bucket_policy)
         
-        # ACLs (legacy)
+# ACLs (legacy)
         acls = await self._get_resource_acls(resource)
         if acls:
             policies.extend(self._acls_to_policies(acls))
         
-        # Evaluate policies
+# Evaluate policies
         decision = self.policy_engine.evaluate(
             principal=principal,
             action=action,
@@ -1496,17 +1496,17 @@ class NodeFailureHandler:
         
         logger.critical(f"Node {failed_node_id} failed")
         
-        # Get all shards on failed node
+# Get all shards on failed node
         affected_shards = await self._get_shards_on_node(failed_node_id)
         
-        # Group by object
+# Group by object
         objects_to_repair = {}
         for shard in affected_shards:
             if shard.object_id not in objects_to_repair:
                 objects_to_repair[shard.object_id] = []
             objects_to_repair[shard.object_id].append(shard)
         
-        # Initiate repairs
+# Initiate repairs
         repair_tasks = []
         for object_id, failed_shards in objects_to_repair.items():
             task = self._repair_object_shards(
@@ -1516,7 +1516,7 @@ class NodeFailureHandler:
             )
             repair_tasks.append(task)
         
-        # Process repairs with concurrency limit
+# Process repairs with concurrency limit
         semaphore = asyncio.Semaphore(100)
         
         async def bounded_repair(task):
@@ -1527,7 +1527,7 @@ class NodeFailureHandler:
             bounded_repair(task) for task in repair_tasks
         ])
         
-        # Report repair status
+# Report repair status
         successful = sum(1 for r in results if r.success)
         failed = len(results) - successful
         
@@ -1544,12 +1544,12 @@ class CorruptionRecovery:
     async def recover_corrupted_object(self, object_id: str) -> RecoveryResult:
         """Attempt to recover corrupted object"""
         
-        # Get object metadata
+# Get object metadata
         metadata = await self.metadata_service.get_object_metadata_by_id(
             object_id
         )
         
-        # Try to retrieve all shards
+# Try to retrieve all shards
         shard_results = []
         for shard_id in range(metadata.total_shards):
             try:
@@ -1561,17 +1561,17 @@ class CorruptionRecovery:
             except Exception as e:
                 shard_results.append((shard_id, None, e))
         
-        # Count available shards
+# Count available shards
         available_shards = [s[1] for s in shard_results if s[1] is not None]
         
         if len(available_shards) >= metadata.data_shards:
-            # Enough shards to reconstruct
+# Enough shards to reconstruct
             try:
                 reconstructed = self.erasure_coding.decode_object(
                     available_shards
                 )
                 
-                # Re-encode and store
+# Re-encode and store
                 new_shards = self.erasure_coding.encode_object(reconstructed)
                 await self.storage.store_shards(object_id, new_shards)
                 
@@ -1589,7 +1589,7 @@ class CorruptionRecovery:
                     error=str(e)
                 )
         else:
-            # Not enough shards
+# Not enough shards
             return RecoveryResult(
                 success=False,
                 object_id=object_id,

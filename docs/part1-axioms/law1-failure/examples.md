@@ -208,7 +208,7 @@ servers = ['srv1', 'srv2', 'srv3', 'srv4', 'srv5', 'srv6', 'srv7', 'srv8']
 # Deployment script
 for server in servers:
     deploy_new_code(server)
-    # Manual process, srv8 was missed
+# Manual process, srv8 was missed
     
 # Result: 7 servers with new code, 1 with old code
 # Old code reused a flag that meant something different in new code

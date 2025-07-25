@@ -129,19 +129,19 @@ class RunbookValidator:
     def test_runbook(self, runbook_path):
         checks = []
 
-        # Commands must be copy-pasteable
+# Commands must be copy-pasteable
         commands = extract_code_blocks(runbook_path)
         for cmd in commands:
             if has_placeholder(cmd):
                 checks.append(f"Command has placeholder: {cmd}")
 
-        # Links must work
+# Links must work
         links = extract_links(runbook_path)
         for link in links:
             if not is_reachable(link):
                 checks.append(f"Dead link: {link}")
 
-        # Conditions must be measurable
+# Conditions must be measurable
         if_thens = extract_conditionals(runbook_path)
         for condition in if_thens:
             if not is_measurable(condition):
@@ -171,13 +171,13 @@ spec:
             - python
             - -c
             - |
-              # Check all runbooks for staleness
+# Check all runbooks for staleness
               for runbook in /runbooks/*.md:
                   last_modified = get_last_modified(runbook)
                   if days_ago(last_modified) > 90:
                       alert_team(f"{runbook} not updated in 90+ days")
 
-                  # Verify all commands still valid
+# Verify all commands still valid
                   test_runbook_commands(runbook)
 ```
 
@@ -187,21 +187,21 @@ Write runbook first:
 
 ```python
 def implement_feature(feature_name):
-    # 1. Write runbook
+# 1. Write runbook
     runbook = write_operational_guide(feature_name)
 
-    # 2. Implement monitoring from runbook
+# 2. Implement monitoring from runbook
     for alert in runbook.alerts_needed:
         implement_alert(alert)
 
-    # 3. Build dashboards
+# 3. Build dashboards
     for metric in runbook.key_metrics:
         add_to_dashboard(metric)
 
-    # 4. Implement feature
+# 4. Implement feature
     implement_actual_feature(feature_name)
 
-    # 5. Verify runbook
+# 5. Verify runbook
     chaos_test_with_runbook(feature_name, runbook)
 ```
 

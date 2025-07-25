@@ -86,11 +86,11 @@ class PriorityMessage:
     expires_at: Optional[datetime] = None
     
     def __lt__(self, other):
-        # Primary sort: priority (lower number = higher priority)
+# Primary sort: priority (lower number = higher priority)
         if self.priority.value != other.priority.value:
             return self.priority.value < other.priority.value
         
-        # Secondary sort: creation time (older first for same priority)
+# Secondary sort: creation time (older first for same priority)
         return self.created_at < other.created_at
     
     def is_expired(self) -> bool:
@@ -106,11 +106,11 @@ class DistributedPriorityQueue:
         self._lock = threading.RLock()
         self._condition = threading.Condition(self._lock)
         
-        # Anti-starvation mechanism
+# Anti-starvation mechanism
         self._age_boost_threshold = timedelta(minutes=10)
         self._age_boost_factor = 0.5  # Boost priority by half a level
         
-        # Statistics
+# Statistics
         self.stats = {
             'enqueued': 0,
             'dequeued': 0,
@@ -119,7 +119,7 @@ class DistributedPriorityQueue:
             'priority_counts': {p: 0 for p in Priority}
         }
         
-        # Start background maintenance
+# Start background maintenance
         self._maintenance_thread = threading.Thread(
             target=self._maintenance_loop, daemon=True
         )
@@ -131,10 +131,10 @@ class DistributedPriorityQueue:
         
         with self._condition:
             if len(self._heap) >= self.max_size:
-                # Queue full - could implement overflow strategies here
+# Queue full - could implement overflow strategies here
                 return False
             
-            # Create priority message
+# Create priority message
             expires_at = None
             if expires_in:
                 expires_at = datetime.now() + expires_in
@@ -145,14 +145,14 @@ class DistributedPriorityQueue:
                 expires_at=expires_at
             )
             
-            # Add to heap
+# Add to heap
             heapq.heappush(self._heap, priority_msg)
             
-            # Update statistics
+# Update statistics
             self.stats['enqueued'] += 1
             self.stats['priority_counts'][priority] += 1
             
-            # Notify waiting consumers
+# Notify waiting consumers
             self._condition.notify()
             
             return True
@@ -164,19 +164,19 @@ class DistributedPriorityQueue:
             start_time = time.time()
             
             while True:
-                # Clean expired messages
+# Clean expired messages
                 self._clean_expired_messages()
                 
                 if self._heap:
-                    # Get highest priority message
+# Get highest priority message
                     priority_msg = heapq.heappop(self._heap)
                     
-                    # Check if message is expired
+# Check if message is expired
                     if priority_msg.is_expired():
                         self.stats['expired'] += 1
                         continue
                     
-                    # Apply age-based priority boost
+# Apply age-based priority boost
                     self._apply_age_boost(priority_msg)
                     
                     self.stats['dequeued'] += 1
@@ -184,12 +184,12 @@ class DistributedPriorityQueue:
                     
                     return priority_msg
                 
-                # No messages available
+# No messages available
                 if timeout is None:
-                    # Block until message available
+# Block until message available
                     self._condition.wait()
                 else:
-                    # Wait with timeout
+# Wait with timeout
                     elapsed = time.time() - start_time
                     remaining = timeout - elapsed
                     
@@ -206,20 +206,20 @@ class DistributedPriorityQueue:
             return False
         
         with self._condition:
-            # Increment retry count
+# Increment retry count
             priority_msg.retry_count += 1
             
-            # Lower priority for retries to prevent failed messages
-            # from blocking new high-priority messages
+# Lower priority for retries to prevent failed messages
+# from blocking new high-priority messages
             if priority_msg.priority.value < 5:  # Don't lower BULK further
                 retry_priority = Priority(priority_msg.priority.value + 1)
                 priority_msg.priority = retry_priority
             
-            # Add exponential backoff delay
+# Add exponential backoff delay
             delay_seconds = 2 ** priority_msg.retry_count
             priority_msg.created_at = datetime.now() + timedelta(seconds=delay_seconds)
             
-            # Re-add to heap
+# Re-add to heap
             heapq.heappush(self._heap, priority_msg)
             
             self.stats['retries'] += 1
@@ -246,7 +246,7 @@ class DistributedPriorityQueue:
         age = datetime.now() - priority_msg.created_at
         
         if age > self._age_boost_threshold:
-            # Boost priority for old messages
+# Boost priority for old messages
             if priority_msg.priority.value > 1:  # Don't boost CRITICAL further
                 boosted_value = max(1, int(priority_msg.priority.value - self._age_boost_factor))
                 priority_msg.priority = Priority(boosted_value)
@@ -257,13 +257,13 @@ class DistributedPriorityQueue:
             time.sleep(60)  # Run every minute
             
             with self._condition:
-                # Clean expired messages
+# Clean expired messages
                 self._clean_expired_messages()
                 
-                # Could add other maintenance tasks here:
-                # - Rebalance heap
-                # - Update metrics
-                # - Log statistics
+# Could add other maintenance tasks here:
+# - Rebalance heap
+# - Update metrics
+# - Log statistics
     
     def size(self) -> int:
         """Get current queue size"""
@@ -295,7 +295,7 @@ while priority_queue.size() > 0:
     if msg:
         print(f"Processing {msg.priority.name}: {msg.message}")
         
-        # Simulate processing failure and retry
+# Simulate processing failure and retry
         if "login failed" in str(msg.message) and msg.retry_count == 0:
             print(f"  Failed, retrying...")
             priority_queue.requeue_failed(msg)
@@ -323,8 +323,8 @@ class RedisPriorityQueue:
         self.data_key = f"{queue_name}:data"
         self.stats_key = f"{queue_name}:stats"
         
-        # Use Redis sorted set for priority ordering
-        # Score = priority + (timestamp / 1e10) for tie-breaking
+# Use Redis sorted set for priority ordering
+# Score = priority + (timestamp / 1e10) for tie-breaking
     
     def enqueue(self, message: Any, priority: int, 
                 message_id: Optional[str] = None) -> str:
@@ -333,17 +333,17 @@ class RedisPriorityQueue:
         if message_id is None:
             message_id = f"{int(time.time() * 1000000)}"  # Microsecond precision
         
-        # Calculate score: priority + small timestamp component
+# Calculate score: priority + small timestamp component
         timestamp_factor = time.time() / 1e10  # Very small for tie-breaking  
         score = priority + timestamp_factor
         
-        # Use Redis pipeline for atomicity
+# Use Redis pipeline for atomicity
         pipe = self.redis.pipeline()
         
-        # Add to sorted set with priority score
+# Add to sorted set with priority score
         pipe.zadd(self.priority_key, {message_id: score})
         
-        # Store message data
+# Store message data
         message_data = {
             'id': message_id,
             'data': message,
@@ -353,7 +353,7 @@ class RedisPriorityQueue:
         }
         pipe.hset(self.data_key, message_id, json.dumps(message_data))
         
-        # Update statistics
+# Update statistics
         pipe.hincrby(self.stats_key, 'enqueued', 1)
         pipe.hincrby(self.stats_key, f'priority_{priority}', 1)
         
@@ -365,7 +365,7 @@ class RedisPriorityQueue:
         """Remove highest priority message (lowest score)"""
         
         if timeout > 0:
-            # Blocking pop with timeout
+# Blocking pop with timeout
             result = self.redis.bzpopmin(self.priority_key, timeout=timeout)
             if not result:
                 return None
@@ -373,7 +373,7 @@ class RedisPriorityQueue:
             _, message_id, score = result
             message_id = message_id.decode()
         else:
-            # Non-blocking pop
+# Non-blocking pop
             result = self.redis.zpopmin(self.priority_key)
             if not result:
                 return None
@@ -381,17 +381,17 @@ class RedisPriorityQueue:
             message_id, score = result[0]
             message_id = message_id.decode()
         
-        # Get message data
+# Get message data
         message_json = self.redis.hget(self.data_key, message_id)
         if not message_json:
             return None
         
         message_data = json.loads(message_json)
         
-        # Clean up message data
+# Clean up message data
         self.redis.hdel(self.data_key, message_id)
         
-        # Update statistics
+# Update statistics
         self.redis.hincrby(self.stats_key, 'dequeued', 1)
         self.redis.hincrby(self.stats_key, f'priority_{message_data["priority"]}', -1)
         
@@ -403,15 +403,15 @@ class RedisPriorityQueue:
         message_data['retry_count'] += 1
         
         if message_data['retry_count'] > 3:  # Max retries
-            # Move to dead letter queue
+# Move to dead letter queue
             self.redis.lpush(f"{self.queue_name}:dlq", json.dumps(message_data))
             return False
         
-        # Calculate new priority (lower = higher priority number)
+# Calculate new priority (lower = higher priority number)
         backoff_delay = 2 ** message_data['retry_count']
         new_priority = message_data['priority'] + backoff_delay
         
-        # Re-enqueue with new priority
+# Re-enqueue with new priority
         self.enqueue(
             message_data['data'], 
             new_priority, 
@@ -425,7 +425,7 @@ class RedisPriorityQueue:
     def peek_top(self, count: int = 1) -> List[Dict[str, Any]]:
         """Peek at top priority messages without removing them"""
         
-        # Get top message IDs
+# Get top message IDs
         message_ids = self.redis.zrange(self.priority_key, 0, count-1)
         
         messages = []
@@ -484,7 +484,7 @@ class MultilevelFeedbackQueue:
         self.time_slices = [2**i for i in range(num_levels)]  # [1, 2, 4, 8]
         self.current_level = 0
         
-        # Round-robin tracking
+# Round-robin tracking
         self.level_counters = [0] * num_levels
         self.max_counts = [2**i for i in range(num_levels)]  # [1, 2, 4, 8]
     
@@ -504,19 +504,19 @@ class MultilevelFeedbackQueue:
     def dequeue(self) -> Optional[Dict[str, Any]]:
         """Get next message using multilevel feedback algorithm"""
         
-        # Try higher priority levels first
+# Try higher priority levels first
         for level in range(self.num_levels):
             if self.queues[level] and self.level_counters[level] < self.max_counts[level]:
                 message = self.queues[level].popleft()
                 self.level_counters[level] += 1
                 
-                # Reset lower level counters when processing higher priority
+# Reset lower level counters when processing higher priority
                 for lower_level in range(level):
                     self.level_counters[lower_level] = 0
                 
                 return message
         
-        # Reset all counters if no messages processed
+# Reset all counters if no messages processed
         self.level_counters = [0] * self.num_levels
         return None
     
@@ -530,13 +530,13 @@ class MultilevelFeedbackQueue:
         message['time_used'] += time_used
         current_level = message['level']
         
-        # If message used full time slice, demote to lower priority
+# If message used full time slice, demote to lower priority
         if time_used >= self.time_slices[current_level]:
             new_level = min(current_level + 1, self.num_levels - 1)
             message['level'] = new_level
             self.queues[new_level].append(message)
         else:
-            # Message completed early, keep at same level
+# Message completed early, keep at same level
             self.queues[current_level].append(message)
 
 # Usage example
@@ -555,11 +555,11 @@ while True:
         
     print(f"Processing level {message['level']}: {message['message']}")
     
-    # Simulate processing time
+# Simulate processing time
     processing_time = 1.5
     time.sleep(0.1)  # Simulate work
     
-    # Provide feedback (message took longer than time slice)
+# Provide feedback (message took longer than time slice)
     completed = processing_time < mlfq.time_slices[message['level']]
     mlfq.feedback(message, processing_time, completed)
 ```
@@ -579,10 +579,10 @@ class DeadlineMessage:
     created_at: datetime = field(default_factory=datetime.now)
     
     def __lt__(self, other):
-        # Calculate urgency score: combines priority and time to deadline
+# Calculate urgency score: combines priority and time to deadline
         now = datetime.now()
         
-        # Time pressure (0-1, higher = more urgent)
+# Time pressure (0-1, higher = more urgent)
         self_time_pressure = max(0, min(1, 
             (self.deadline - now).total_seconds() / 
             (self.deadline - self.created_at).total_seconds()
@@ -593,7 +593,7 @@ class DeadlineMessage:
             (other.deadline - other.created_at).total_seconds()
         ))
         
-        # Combined urgency score (lower = more urgent)
+# Combined urgency score (lower = more urgent)
         self_urgency = self.priority * (2 - self_time_pressure)
         other_urgency = other.priority * (2 - other_time_pressure)
         
@@ -616,7 +616,7 @@ class DeadlineAwarePriorityQueue:
     def dequeue(self) -> Optional[DeadlineMessage]:
         """Get most urgent message considering deadline"""
         with self._lock:
-            # Clean overdue messages first
+# Clean overdue messages first
             self._clean_overdue()
             
             if self._heap:
@@ -668,7 +668,7 @@ deadline_queue.enqueue("Batch job", 4, now + timedelta(minutes=2))
 ### Age-Based Priority Boost
 ```python
 def calculate_aged_priority(original_priority: int, age_seconds: int) -> int:
-    # Boost priority based on age
+# Boost priority based on age
     age_boost = min(2, age_seconds / 3600)  # Max 2 level boost per hour
     return max(1, original_priority - age_boost)
 ```
@@ -688,7 +688,7 @@ class FairPriorityQueue:
         }
     
     def dequeue_fair(self) -> Optional[PriorityMessage]:
-        # Calculate which priority level deserves next service
+# Calculate which priority level deserves next service
         now = time.time()
         
         best_priority = None
@@ -696,11 +696,11 @@ class FairPriorityQueue:
         
         for priority in Priority:
             if self.priority_queues[priority]:
-                # Time since last served this priority
+# Time since last served this priority
                 time_since = now - self.last_served[priority]
                 expected_ratio = self.service_ratios[priority]
                 
-                # Deficit: how underserved is this priority?
+# Deficit: how underserved is this priority?
                 deficit = time_since * expected_ratio
                 
                 if deficit < best_ratio:
@@ -738,25 +738,25 @@ class BatchPriorityQueue:
     
     def process_batch(self, batch: List[PriorityMessage]):
         """Process messages in batch for efficiency"""
-        # Group by priority for efficient processing
+# Group by priority for efficient processing
         priority_groups = {}
         for msg in batch:
             if msg.priority not in priority_groups:
                 priority_groups[msg.priority] = []
             priority_groups[msg.priority].append(msg)
         
-        # Process each priority group
+# Process each priority group
         for priority in sorted(priority_groups.keys()):
             messages = priority_groups[priority]
             print(f"Batch processing {len(messages)} {priority.name} messages")
             
-            # Process all messages of same priority together
+# Process all messages of same priority together
             self._process_priority_batch(messages)
     
     def _process_priority_batch(self, messages: List[PriorityMessage]):
         """Process messages of same priority efficiently"""
         for msg in messages:
-            # Simulate processing
+# Simulate processing
             print(f"  Processing: {msg.message}")
 ```
 

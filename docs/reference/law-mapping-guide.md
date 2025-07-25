@@ -26,7 +26,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 ## Detailed Mapping and Evolution
 
-### 🔄 Old Law 1: Latency → New Law 2: Asynchronous Reality
+### Old Law 1: Latency → New Law 2: Asynchronous Reality
 
 **What changed:**
 - **Scope**: Expanded from just communication delays to the fundamental impossibility of knowing "now"
@@ -40,7 +40,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 **Find it here:** [Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/)
 
-### 🔄 Old Law 2: Finite Capacity → Distributed Across Multiple Laws
+### Old Law 2: Finite Capacity → Distributed Across Multiple Laws
 
 **What changed:**
 - **Integration**: Capacity constraints now appear as aspects of other laws rather than standalone
@@ -51,7 +51,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - **In Law 4 (Trade-offs)**: Capacity as one dimension in optimization space
 - **In Law 7 (Economics)**: Capacity planning as economic decision
 
-### 🔄 Old Law 3: Failure → New Law 1: Failure
+### Old Law 3: Failure → New Law 1: Failure
 
 **What changed:**
 - **Priority**: Elevated to first position as the most fundamental constraint
@@ -66,7 +66,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 **Find it here:** [Law of Correlated Failure](/part1-axioms/law1-failure/)
 
-### 🔄 Old Law 4: Concurrency → New Law 3: Emergence
+### Old Law 4: Concurrency → New Law 3: Emergence
 
 **What changed:**
 - **Scope**: Concurrency is now one source of emergent complexity
@@ -80,7 +80,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 **Find it here:** [Law of Emergent Chaos](/part1-axioms/law3-emergence/)
 
-### 🔄 Old Law 5: Coordination → New Law 4: Trade-offs
+### Old Law 5: Coordination → New Law 4: Trade-offs
 
 **What changed:**
 - **Perspective**: Coordination cost is one dimension in a larger trade-off space
@@ -94,7 +94,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 **Find it here:** [Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)
 
-### 🔄 Old Law 6: Observability → New Law 5: Epistemology
+### Old Law 6: Observability → New Law 5: Epistemology
 
 **What changed:**
 - **Philosophy**: Reframed as epistemology - what can be known
@@ -108,7 +108,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 **Find it here:** [Law of Distributed Knowledge](/part1-axioms/law5-epistemology/)
 
-### 🔄 Old Law 7: Human Interface → New Law 6: Human-API
+### Old Law 7: Human Interface → New Law 6: Human-API
 
 **What changed:**
 - **Focus**: From generic human factors to specific cognitive constraints
@@ -122,7 +122,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 **Find it here:** [Law of Cognitive Load](/part1-axioms/law6-human-api/)
 
-### 🔄 Old Law 7: Economics → New Law 7: Economics
+### Old Law 7: Economics → New Law 7: Economics
 
 **What changed:**
 - **Depth**: Enhanced with TCO, opportunity cost, build vs buy analysis

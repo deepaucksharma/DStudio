@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Lifeboat Analogy
 
@@ -85,7 +85,7 @@ class SimpleLoadShedder:
         """Simple threshold-based load shedding"""
         load_percentage = (self.current_load / self.capacity) * 100
 
-        # Define thresholds for each priority
+# Define thresholds for each priority
         thresholds = {
             Priority.CRITICAL: 95,   # Accept until 95% capacity
             Priority.HIGH: 80,       # Accept until 80% capacity
@@ -103,7 +103,7 @@ class SimpleLoadShedder:
 
         self.current_load += 1
         try:
-            # Process the request
+# Process the request
             result = handle_request(request)
             return result
         finally:
@@ -112,7 +112,7 @@ class SimpleLoadShedder:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Load Shedding Strategies
 
@@ -197,12 +197,12 @@ class AdvancedLoadShedder:
 
     def evaluate_system_load(self) -> float:
         """Calculate current system load (0-1)"""
-        # Consider multiple factors
+# Consider multiple factors
         queue_load = len(self.current_requests) / self.max_capacity
         cpu_load = self.get_cpu_usage() / 100
         memory_load = self.get_memory_usage() / 100
 
-        # Weighted average
+# Weighted average
         return (queue_load * 0.5 +
                 cpu_load * 0.3 +
                 memory_load * 0.2)
@@ -223,7 +223,7 @@ class AdvancedLoadShedder:
         current_load = self.evaluate_system_load()
         threshold = self.calculate_shedding_threshold(current_load)
 
-        # Priority boost
+# Priority boost
         priority_boost = {
             1: 0.3,  # Critical gets 30% boost
             2: 0.2,  # High gets 20% boost
@@ -231,7 +231,7 @@ class AdvancedLoadShedder:
             4: -0.2  # Low gets negative boost
         }
 
-        # User tier boost
+# User tier boost
         tier_boost = {
             'premium': 0.2,
             'standard': 0.0,
@@ -244,7 +244,7 @@ class AdvancedLoadShedder:
             tier_boost.get(request.user_tier, 0)
         )
 
-        # Ensure probability is in [0, 1]
+# Ensure probability is in [0, 1]
         accept_probability = max(0, min(1, accept_probability))
 
         return random.random() < accept_probability
@@ -254,13 +254,13 @@ class AdvancedLoadShedder:
         if not self.current_requests:
             return
 
-        # Sort by priority (ascending) and age
+# Sort by priority (ascending) and age
         candidates = sorted(
             self.current_requests.values(),
             key=lambda r: (r.priority, -r.timestamp)
         )
 
-        # Shed bottom percentage
+# Shed bottom percentage
         num_to_shed = int(len(candidates) * self.shed_percentage)
 
         for request in candidates[:num_to_shed]:
@@ -270,7 +270,7 @@ class AdvancedLoadShedder:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Load Shedding Patterns
 
@@ -328,7 +328,7 @@ class AdaptiveLoadShedder:
             'response_time': response_time
         })
 
-        # Retrain model periodically
+# Retrain model periodically
         if len(self.history) % 100 == 0:
             self.retrain_model()
 
@@ -348,8 +348,8 @@ class AdaptiveLoadShedder:
         """ML-based acceptance decision"""
         success_prob = self.predict_success_probability(request)
 
-        # Accept if likely to succeed
-        # Higher threshold for lower priority
+# Accept if likely to succeed
+# Higher threshold for lower priority
         thresholds = {
             1: 0.6,  # Critical: accept if 60% success chance
             2: 0.7,  # High: accept if 70% success chance
@@ -374,7 +374,7 @@ class CostBasedLoadShedder:
 
     def estimate_request_cost(self, request: Request) -> float:
         """Estimate computational cost of request"""
-        # Base cost by operation type
+# Base cost by operation type
         base_costs = {
             'simple_read': 1.0,
             'complex_query': 10.0,
@@ -384,10 +384,10 @@ class CostBasedLoadShedder:
 
         base = base_costs.get(request.operation_type, 5.0)
 
-        # Adjust for data size
+# Adjust for data size
         size_multiplier = 1 + (request.data_size / 1000)  # KB
 
-        # Adjust for user history
+# Adjust for user history
         user_multiplier = self.get_user_cost_multiplier(request.user_id)
 
         return base * size_multiplier * user_multiplier
@@ -399,7 +399,7 @@ class CostBasedLoadShedder:
         estimated_cost = self.estimate_request_cost(request)
         current_rate = self.get_current_cost_rate()
 
-        # Would accepting this request exceed our budget?
+# Would accepting this request exceed our budget?
         projected_rate = current_rate + estimated_cost
 
         return projected_rate <= self.budget
@@ -418,7 +418,7 @@ class CostBasedLoadShedder:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Load Shedding Systems
 
@@ -445,7 +445,7 @@ class AdaptiveConcurrencyLimiter:
     def record_response(self, rtt: float, success: bool):
         """Update limit based on response time"""
         if not success:
-            # Failed request, reduce limit
+# Failed request, reduce limit
             self.limit = max(self.min_limit, self.limit * 0.9)
             return
 
@@ -453,19 +453,19 @@ class AdaptiveConcurrencyLimiter:
             self.last_rtt = rtt
             return
 
-        # Calculate gradient
+# Calculate gradient
         gradient = (rtt - self.last_rtt) / self.last_rtt
         self.gradient = 0.9 * self.gradient + 0.1 * gradient
 
-        # Update limit based on gradient
+# Update limit based on gradient
         if self.gradient > 0.1:
-            # Response times increasing, reduce limit
+# Response times increasing, reduce limit
             self.limit *= 0.95
         elif self.gradient < -0.1:
-            # Response times decreasing, increase limit
+# Response times decreasing, increase limit
             self.limit *= 1.05
 
-        # Apply bounds
+# Apply bounds
         self.limit = max(self.min_limit, min(self.max_limit, self.limit))
         self.last_rtt = rtt
 ```bash
@@ -482,7 +482,7 @@ class PriorityTokenBucket:
         self.tokens = capacity
         self.last_update = time.time()
 
-        # Reserve percentages for each priority
+# Reserve percentages for each priority
         self.reservations = {
             Priority.CRITICAL: 0.4,   # 40% reserved
             Priority.HIGH: 0.3,       # 30% reserved
@@ -494,7 +494,7 @@ class PriorityTokenBucket:
         """Try to consume tokens with priority consideration"""
         self._refill()
 
-        # Calculate available tokens for this priority
+# Calculate available tokens for this priority
         available = self._get_available_tokens(priority)
 
         if tokens <= available:
@@ -505,11 +505,11 @@ class PriorityTokenBucket:
 
     def _get_available_tokens(self, priority: Priority) -> int:
         """Calculate tokens available for given priority"""
-        # Critical can use all tokens
+# Critical can use all tokens
         if priority == Priority.CRITICAL:
             return self.tokens
 
-        # Others can only use unreserved + their reservation
+# Others can only use unreserved + their reservation
         reserved_tokens = 0
         for p, reservation in self.reservations.items():
             if p.value < priority.value:  # Higher priority
@@ -557,7 +557,7 @@ class TwitterLoadShedder:
         """
 
         if load_level == 0:
-            # Normal operation
+# Normal operation
             self.feature_flags = {
                 'timeline_size': 800,
                 'image_quality': 'high',
@@ -567,24 +567,24 @@ class TwitterLoadShedder:
             }
 
         elif load_level == 1:
-            # Reduce timeline size
+# Reduce timeline size
             self.feature_flags['timeline_size'] = 400
             self.feature_flags['video_autoplay'] = False
 
         elif load_level == 2:
-            # Reduce image quality
+# Reduce image quality
             self.feature_flags['timeline_size'] = 200
             self.feature_flags['image_quality'] = 'medium'
             self.feature_flags['suggestions_enabled'] = False
 
         elif load_level == 3:
-            # Disable non-essential features
+# Disable non-essential features
             self.feature_flags['timeline_size'] = 100
             self.feature_flags['image_quality'] = 'low'
             self.feature_flags['trending_enabled'] = False
 
         elif load_level >= 4:
-            # Emergency mode - text only
+# Emergency mode - text only
             self.feature_flags = {
                 'timeline_size': 50,
                 'image_quality': 'none',  # Text only
@@ -602,14 +602,14 @@ class TwitterLoadShedder:
             'new': 50
         }
 
-        # Reduce limits based on load level
+# Reduce limits based on load level
         reduction_factor = 1 - (load_level * 0.2)  # 20% reduction per level
 
         return int(base_limits[user_tier] * reduction_factor)
 ```yaml
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Optimal Load Shedding
 
@@ -642,18 +642,18 @@ class OptimalLoadShedder:
             for i, (req_type, arrival_rate) in enumerate(request_distribution.items()):
                 accept_rate = accept_rates[i]
 
-                # Value from accepted requests
+# Value from accepted requests
                 value = (arrival_rate * accept_rate *
                         self.value_functions[req_type](current_load))
 
-                # Cost of processing
+# Cost of processing
                 cost = (arrival_rate * accept_rate *
                        self.cost_functions[req_type](current_load))
 
                 total_value += value
                 total_cost += cost
 
-            # Penalty for exceeding capacity
+# Penalty for exceeding capacity
             if total_cost > capacity:
                 penalty = 1000 * (total_cost - capacity) ** 2
             else:
@@ -661,17 +661,17 @@ class OptimalLoadShedder:
 
             return -(total_value - total_cost) + penalty
 
-        # Constraints: accept rates between 0 and 1
+# Constraints: accept rates between 0 and 1
         n_types = len(request_distribution)
         bounds = [(0, 1) for _ in range(n_types)]
 
-        # Initial guess: proportional shedding
+# Initial guess: proportional shedding
         x0 = [0.5] * n_types
 
-        # Optimize
+# Optimize
         result = minimize(objective, x0, bounds=bounds, method='SLSQP')
 
-        # Return optimal accept rates
+# Return optimal accept rates
         optimal_rates = {}
         for i, req_type in enumerate(request_distribution.keys()):
             optimal_rates[req_type] = result.x[i]
@@ -682,7 +682,7 @@ class OptimalLoadShedder:
         """
         Shed requests based on economic value
         """
-        # Calculate value per resource unit for each request
+# Calculate value per resource unit for each request
         request_values = []
 
         for request in requests:
@@ -692,10 +692,10 @@ class OptimalLoadShedder:
 
             request_values.append((efficiency, request))
 
-        # Sort by efficiency (highest first)
+# Sort by efficiency (highest first)
         request_values.sort(reverse=True, key=lambda x: x[0])
 
-        # Accept requests until capacity
+# Accept requests until capacity
         accepted = []
         total_cost = 0
 
@@ -705,7 +705,7 @@ class OptimalLoadShedder:
                 accepted.append(request)
                 total_cost += cost
             else:
-                # Shed this and all remaining requests
+# Shed this and all remaining requests
                 break
 
         return accepted
@@ -720,7 +720,7 @@ class OptimalLoadShedder:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Load Shedding Decision Matrix
 
@@ -753,7 +753,7 @@ class OptimalLoadShedder:
 **Previous**: [← Load Balancing Pattern](load-balancing.md) | **Next**: [Observability Patterns →](observability.md)
 ---
 
-## 🛠️ Code Challenge
+## 🛠 Code Challenge
 
 ### Beginner: Basic Implementation
 Implement a minimal version of Load Shedding in your preferred language.
@@ -777,7 +777,7 @@ Optimize for production use:
 
 ---
 
-## 🎯 Real-World Application
+## Real-World Application
 
 **Project Integration**:
 - How would you introduce Load Shedding to an existing system?

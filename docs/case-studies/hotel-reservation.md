@@ -91,14 +91,14 @@ Hotel reservation systems must handle massive search volumes while maintaining a
 - **Accuracy**: Real-time inventory across all channels
 
 ### Law Mapping
-- **Law 2 (Asynchronous Reality ⏳)**: Fast search results improve conversion
-- **Law 4 (Multidimensional Optimization ⚖️)**: Finite room inventory requires careful management
-- **Law 1 (Correlated Failure ⛓️)**: Booking must succeed despite component failures
-- **Law 3 (Emergent Chaos 🌪️)**: Distributed locking prevents double-booking
-- **Law 4 (Multidimensional Optimization ⚖️)**: Channel synchronization critical
-- **Law 5 (Distributed Knowledge 🧠)**: Track every search and booking
-- **Law 6 (Cognitive Load 🤯)**: Intuitive search and booking flow
-- **Law 7 (Economic Reality 💰)**: Optimize for booking conversion rate
+- **Law 2 (Asynchronous Reality )**: Fast search results improve conversion
+- **Law 4 (Multidimensional Optimization )**: Finite room inventory requires careful management
+- **Law 1 (Correlated Failure )**: Booking must succeed despite component failures
+- **Law 3 (Emergent Chaos )**: Distributed locking prevents double-booking
+- **Law 4 (Multidimensional Optimization )**: Channel synchronization critical
+- **Law 5 (Distributed Knowledge )**: Track every search and booking
+- **Law 6 (Cognitive Load )**: Intuitive search and booking flow
+- **Law 7 (Economic Reality )**: Optimize for booking conversion rate
 
 ## Architecture Evolution
 
@@ -236,7 +236,7 @@ class InventoryManager:
         self.lock_timeout = 30  # seconds
         
     def check_and_reserve_room(self, hotel_id, room_type, check_in, check_out, rooms_needed):
-        # Generate lock key for date range
+# Generate lock key for date range
         lock_keys = []
         current_date = check_in
         while current_date < check_out:
@@ -244,10 +244,10 @@ class InventoryManager:
             lock_keys.append(lock_key)
             current_date += timedelta(days=1)
         
-        # Try to acquire all locks atomically
+# Try to acquire all locks atomically
         locks_acquired = []
         try:
-            # Sort keys to prevent deadlock
+# Sort keys to prevent deadlock
             for lock_key in sorted(lock_keys):
                 lock = self.redis_cluster.lock(lock_key, timeout=self.lock_timeout)
                 if lock.acquire(blocking=True, blocking_timeout=5):
@@ -255,20 +255,20 @@ class InventoryManager:
                 else:
                     raise LockAcquisitionFailed()
             
-            # Check availability for all dates
+# Check availability for all dates
             if not self._check_availability_locked(hotel_id, room_type, check_in, check_out, rooms_needed):
                 return ReservationResult(success=False, reason="No availability")
             
-            # Reserve inventory
+# Reserve inventory
             reservation_id = self._create_reservation(hotel_id, room_type, check_in, check_out, rooms_needed)
             
-            # Update inventory
+# Update inventory
             self._decrement_inventory(hotel_id, room_type, check_in, check_out, rooms_needed)
             
             return ReservationResult(success=True, reservation_id=reservation_id)
             
         finally:
-            # Release all locks in reverse order
+# Release all locks in reverse order
             for lock in reversed(locks_acquired):
                 lock.release()
     
@@ -294,25 +294,25 @@ class HotelSearchService:
         self.elasticsearch = ElasticsearchCluster()
         
     def search_hotels(self, criteria):
-        # Generate cache key
+# Generate cache key
         cache_key = self._generate_cache_key(criteria)
         
-        # L1: Local memory cache (1ms)
+# L1: Local memory cache (1ms)
         result = self.local_cache.get(cache_key)
         if result:
             return result
         
-        # L2: Redis cache (10ms)
+# L2: Redis cache (10ms)
         result = self.redis_cache.get(cache_key)
         if result:
             result = json.loads(result)
             self.local_cache[cache_key] = result
             return result
         
-        # L3: Elasticsearch (100ms)
+# L3: Elasticsearch (100ms)
         result = self._search_elasticsearch(criteria)
         
-        # Populate caches
+# Populate caches
         self.redis_cache.setex(cache_key, 300, json.dumps(result))  # 5 min TTL
         self.local_cache[cache_key] = result
         
@@ -339,7 +339,7 @@ class HotelSearchService:
             }
         }
         
-        # Add availability filter if dates provided
+# Add availability filter if dates provided
         if criteria.check_in and criteria.check_out:
             query["bool"]["must"].append({
                 "nested": {
@@ -445,13 +445,13 @@ class DynamicPricingEngine:
         self.demand_forecaster = DemandForecaster()
         
     def calculate_optimal_price(self, hotel_id, room_type, date):
-        # Gather features
+# Gather features
         features = self._extract_features(hotel_id, room_type, date)
         
-        # Base price from hotel
+# Base price from hotel
         base_price = self.get_base_price(hotel_id, room_type)
         
-        # Apply dynamic adjustments
+# Apply dynamic adjustments
         adjustments = {
             'seasonality': self._seasonal_adjustment(date),
             'demand': self._demand_adjustment(hotel_id, date),
@@ -461,16 +461,16 @@ class DynamicPricingEngine:
             'booking_window': self._booking_window_adjustment(date)
         }
         
-        # Calculate final multiplier
+# Calculate final multiplier
         total_multiplier = 1.0
         for adjustment in adjustments.values():
             total_multiplier *= adjustment
         
-        # Apply ML model for fine-tuning
+# Apply ML model for fine-tuning
         ml_multiplier = self.ml_model.predict(features)[0]
         total_multiplier *= ml_multiplier
         
-        # Calculate final price with bounds
+# Calculate final price with bounds
         final_price = base_price * total_multiplier
         final_price = max(final_price, base_price * 0.7)  # Floor at 70%
         final_price = min(final_price, base_price * 3.0)  # Ceiling at 300%
@@ -483,13 +483,13 @@ class DynamicPricingEngine:
         )
     
     def _demand_adjustment(self, hotel_id, date):
-        # Forecast demand
+# Forecast demand
         predicted_demand = self.demand_forecaster.predict(hotel_id, date)
         historical_avg = self.get_historical_average_demand(hotel_id, date)
         
         demand_ratio = predicted_demand / historical_avg
         
-        # Convert to price multiplier
+# Convert to price multiplier
         if demand_ratio > 1.5:
             return 1.3  # High demand: +30%
         elif demand_ratio > 1.2:
@@ -516,7 +516,7 @@ class ChannelManager:
         self.sync_queue = Queue()
         
     def update_inventory(self, hotel_id, changes):
-        # Record change event
+# Record change event
         event = InventoryChangeEvent(
             hotel_id=hotel_id,
             changes=changes,
@@ -524,10 +524,10 @@ class ChannelManager:
             source='pms'
         )
         
-        # Store event
+# Store event
         self.event_store.append(event)
         
-        # Queue for sync
+# Queue for sync
         for channel in self.channels:
             self.sync_queue.put({
                 'channel': channel,
@@ -535,7 +535,7 @@ class ChannelManager:
                 'retry_count': 0
             })
         
-        # Process synchronously for critical channels
+# Process synchronously for critical channels
         critical_channels = ['ota', 'direct']
         for channel in critical_channels:
             self._sync_channel(channel, event)
@@ -544,24 +544,24 @@ class ChannelManager:
         channel = self.channels[channel_name]
         
         try:
-            # Transform to channel format
+# Transform to channel format
             channel_data = self._transform_for_channel(channel_name, event)
             
-            # Send update
+# Send update
             response = channel.update_availability(channel_data)
             
-            # Verify sync
+# Verify sync
             if not response.success:
                 raise ChannelSyncError(response.error)
             
-            # Record success
+# Record success
             self.record_sync_success(channel_name, event)
             
         except Exception as e:
-            # Record failure for retry
+# Record failure for retry
             self.record_sync_failure(channel_name, event, e)
             
-            # Critical channels need immediate retry
+# Critical channels need immediate retry
             if channel_name in ['ota', 'direct']:
                 self.immediate_retry(channel_name, event)
 ```
@@ -659,13 +659,13 @@ class GuestProfileService:
         self.ml_recommender = RecommendationEngine()
         
     def get_personalized_results(self, guest_id, search_results):
-        # Get guest profile
+# Get guest profile
         profile = self.profile_db.get_profile(guest_id)
         
         if not profile:
             return search_results
         
-        # Extract preferences
+# Extract preferences
         preferences = {
             'preferred_chains': profile.get('preferred_hotel_chains', []),
             'room_preferences': profile.get('room_preferences', {}),
@@ -674,16 +674,16 @@ class GuestProfileService:
             'past_destinations': profile.get('booking_history', [])
         }
         
-        # Score each hotel
+# Score each hotel
         scored_results = []
         for hotel in search_results:
             score = self._calculate_personalization_score(hotel, preferences)
             scored_results.append((score, hotel))
         
-        # Sort by personalization score
+# Sort by personalization score
         scored_results.sort(reverse=True, key=lambda x: x[0])
         
-        # Add personalization metadata
+# Add personalization metadata
         personalized_results = []
         for score, hotel in scored_results:
             hotel['personalization_score'] = score
@@ -697,29 +697,29 @@ class GuestProfileService:
     def _calculate_personalization_score(self, hotel, preferences):
         score = 0.0
         
-        # Chain preference
+# Chain preference
         if hotel['chain_code'] in preferences['preferred_chains']:
             score += 0.3
         
-        # Room type match
+# Room type match
         room_match = self._calculate_room_match(
             hotel['available_rooms'], 
             preferences['room_preferences']
         )
         score += room_match * 0.2
         
-        # Price alignment
+# Price alignment
         price_score = self._calculate_price_alignment(
             hotel['price'], 
             preferences['price_sensitivity']
         )
         score += price_score * 0.2
         
-        # Loyalty program
+# Loyalty program
         if hotel['chain_code'] in preferences['loyalty_programs']:
             score += 0.2
         
-        # ML-based score
+# ML-based score
         ml_features = self._extract_ml_features(hotel, preferences)
         ml_score = self.ml_recommender.predict_preference(ml_features)
         score += ml_score * 0.1
@@ -797,10 +797,10 @@ class OptimizedSearchEngine:
         self.query_cache = TTLCache(maxsize=10000, ttl=300)
         
     async def parallel_search(self, criteria):
-        # Split search across shards
+# Split search across shards
         shards = self.get_shards_for_location(criteria.location)
         
-        # Parallel search tasks
+# Parallel search tasks
         tasks = []
         for shard in shards:
             task = asyncio.create_task(
@@ -808,13 +808,13 @@ class OptimizedSearchEngine:
             )
             tasks.append(task)
         
-        # Wait for all results
+# Wait for all results
         shard_results = await asyncio.gather(*tasks)
         
-        # Merge and rank results
+# Merge and rank results
         merged_results = self.merge_results(shard_results)
         
-        # Apply business rules
+# Apply business rules
         filtered_results = self.apply_business_rules(
             merged_results, 
             criteria
@@ -823,10 +823,10 @@ class OptimizedSearchEngine:
         return filtered_results
     
     def optimize_query(self, criteria):
-        # Query optimization based on selectivity
+# Query optimization based on selectivity
         filters = []
         
-        # Most selective filters first
+# Most selective filters first
         if criteria.dates:
             filters.append(self.build_date_filter(criteria.dates))
         
@@ -836,7 +836,7 @@ class OptimizedSearchEngine:
         if criteria.price_range:
             filters.append(self.build_price_filter(criteria.price_range))
         
-        # Less selective filters
+# Less selective filters
         if criteria.amenities:
             filters.append(self.build_amenity_filter(criteria.amenities))
         
@@ -849,21 +849,21 @@ class OptimizedSearchEngine:
 ```python
 def handle_payment_timeout(booking_id, payment_attempt):
     try:
-        # Check payment status with provider
+# Check payment status with provider
         status = payment_gateway.check_status(payment_attempt.transaction_id)
         
         if status == 'SUCCESS':
-            # Payment went through
+# Payment went through
             confirm_booking(booking_id)
         elif status == 'PENDING':
-            # Still processing - wait and retry
+# Still processing - wait and retry
             schedule_payment_check(booking_id, delay_seconds=60)
         else:
-            # Payment failed - release inventory
+# Payment failed - release inventory
             release_inventory(booking_id)
             notify_customer_payment_failed(booking_id)
     except Exception as e:
-        # Can't determine status - manual intervention needed
+# Can't determine status - manual intervention needed
         escalate_to_support(booking_id, payment_attempt, e)
 ```
 
@@ -871,20 +871,20 @@ def handle_payment_timeout(booking_id, payment_attempt):
 ```python
 class InventorySyncRecovery:
     def handle_sync_failure(self, hotel_id, channel, error):
-        # Log the failure
+# Log the failure
         self.log_sync_failure(hotel_id, channel, error)
         
-        # Check criticality
+# Check criticality
         if channel in ['ota', 'direct']:
-            # Critical channel - immediate action
+# Critical channel - immediate action
             self.trigger_immediate_resync(hotel_id, channel)
             
-            # If still failing, reduce availability
+# If still failing, reduce availability
             if self.is_still_failing(hotel_id, channel):
                 self.apply_safety_buffer(hotel_id, buffer_percentage=10)
                 self.alert_revenue_management(hotel_id, channel)
         else:
-            # Non-critical - queue for retry
+# Non-critical - queue for retry
             self.queue_for_retry(hotel_id, channel)
 ```
 

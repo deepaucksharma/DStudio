@@ -16,7 +16,7 @@ last_updated: 2025-07-23
 
 **Build compliant consent systems with granular permissions and complete audit trails**
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ## Core Concept
 
@@ -44,7 +44,7 @@ Digital System:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ## Consent Lifecycle
 
@@ -87,7 +87,7 @@ stateDiagram-v2
 
 ---
 
-## 💻 Level 3: Implementation
+## Level 3: Implementation
 
 ## Consent Service Architecture
 
@@ -223,12 +223,12 @@ class ConsentManager:
         """
         Record explicit consent with full context
         """
-        # Validate purposes against current policy
+# Validate purposes against current policy
         valid_purposes = await self._validate_purposes(purposes)
         if not valid_purposes:
             raise ValueError("Invalid consent purposes")
             
-        # Check age verification
+# Check age verification
         user_age = await self._check_user_age(user_id)
         if user_age < 16:  # GDPR child age
             return {
@@ -236,7 +236,7 @@ class ConsentManager:
                 "reason": "User under 16 requires parental consent"
             }
             
-        # Create consent record
+# Create consent record
         consent_id = self._generate_consent_id(user_id)
         consent_record = {
             "id": consent_id,
@@ -260,12 +260,12 @@ class ConsentManager:
             "expires_at": datetime.utcnow() + timedelta(days=365)
         }
         
-        # Store with transaction
+# Store with transaction
         async with self.db.transaction() as tx:
-            # Save consent
+# Save consent
             await tx.insert("consents", consent_record)
             
-            # Create audit entry
+# Create audit entry
             await self.audit.log({
                 "event": "consent_granted",
                 "user_id": user_id,
@@ -275,17 +275,17 @@ class ConsentManager:
                 "ip_address": self._hash_ip(ip_address)
             })
             
-            # Update user profile
+# Update user profile
             await tx.update(
                 "users",
                 {"id": user_id},
                 {"consent_status": "active", "last_consent_update": datetime.utcnow()}
             )
             
-        # Cache for quick lookups
+# Cache for quick lookups
         await self._update_consent_cache(user_id, consent_record)
         
-        # Notify downstream services
+# Notify downstream services
         await self._broadcast_consent_update(user_id, purposes, "granted")
         
         return {
@@ -303,18 +303,18 @@ class ConsentManager:
         """
         Handle consent withdrawal with immediate effect
         """
-        # Get current consent
+# Get current consent
         current = await self.get_active_consent(user_id)
         if not current:
             return {"status": "no_active_consent"}
             
-        # Determine which purposes to revoke
+# Determine which purposes to revoke
         if purposes is None:
-            # Revoke all
+# Revoke all
             revoked_purposes = [p["id"] for p in current["purposes"]]
             remaining_purposes = []
         else:
-            # Partial revocation
+# Partial revocation
             revoked_purposes = purposes
             remaining_purposes = [
                 p for p in current["purposes"] 
@@ -323,7 +323,7 @@ class ConsentManager:
             
         async with self.db.transaction() as tx:
             if not remaining_purposes:
-                # Full revocation
+# Full revocation
                 await tx.update(
                     "consents",
                     {"id": current["id"]},
@@ -334,7 +334,7 @@ class ConsentManager:
                     }
                 )
             else:
-                # Create new consent with remaining purposes
+# Create new consent with remaining purposes
                 new_consent = current.copy()
                 new_consent["id"] = self._generate_consent_id(user_id)
                 new_consent["purposes"] = remaining_purposes
@@ -348,7 +348,7 @@ class ConsentManager:
                     {"status": "superseded"}
                 )
                 
-            # Audit the revocation
+# Audit the revocation
             await self.audit.log({
                 "event": "consent_revoked",
                 "user_id": user_id,
@@ -359,13 +359,13 @@ class ConsentManager:
                 "timestamp": datetime.utcnow()
             })
             
-        # Clear cache
+# Clear cache
         await self.cache.delete(f"consent:{user_id}")
         
-        # Notify services immediately
+# Notify services immediately
         await self._broadcast_consent_update(user_id, revoked_purposes, "revoked")
         
-        # Trigger data deletion workflows if needed
+# Trigger data deletion workflows if needed
         if not remaining_purposes:
             await self._initiate_data_deletion(user_id, revoked_purposes)
             
@@ -384,31 +384,31 @@ class ConsentManager:
         """
         Fast consent verification with caching
         """
-        # Check cache first
+# Check cache first
         cache_key = f"consent:{user_id}:{purpose}"
         cached = await self.cache.get(cache_key)
         if cached is not None:
             return cached == "granted"
             
-        # Load active consent
+# Load active consent
         consent = await self.get_active_consent(user_id)
         if not consent:
             await self.cache.set(cache_key, "denied", ttl=300)
             return False
             
-        # Check expiry
+# Check expiry
         if enforce_expiry and consent.get("expires_at"):
             if datetime.utcnow() > consent["expires_at"]:
                 await self.cache.set(cache_key, "expired", ttl=300)
                 return False
                 
-        # Check specific purpose
+# Check specific purpose
         granted = any(
             p["id"] == purpose and p["granted"] 
             for p in consent["purposes"]
         )
         
-        # Cache result
+# Cache result
         await self.cache.set(
             cache_key,
             "granted" if granted else "denied",
@@ -421,18 +421,18 @@ class ConsentManager:
         """
         GDPR data portability - export all consent history
         """
-        # Get all consent records
+# Get all consent records
         consents = await self.db.query(
             "SELECT * FROM consents WHERE user_id = ? ORDER BY timestamp DESC",
             [user_id]
         )
         
-        # Get all audit logs
+# Get all audit logs
         audit_logs = await self.audit.query(
             {"user_id": user_id, "event_type": "consent_*"}
         )
         
-        # Format for export
+# Format for export
         export_data = {
             "export_date": datetime.utcnow().isoformat(),
             "user_id": user_id,
@@ -459,7 +459,7 @@ class ConsentManager:
             ]
         }
         
-        # Log the export
+# Log the export
         await self.audit.log({
             "event": "consent_data_exported",
             "user_id": user_id,
@@ -482,10 +482,10 @@ class ConsentManager:
             "timestamp": datetime.utcnow().isoformat()
         }
         
-        # Send to message queue for downstream services
+# Send to message queue for downstream services
         await self.queue.publish("consent.updates", message)
         
-        # Direct API calls for critical services
+# Direct API calls for critical services
         if "marketing" in purposes:
             await self.marketing_api.update_consent(user_id, action == "granted")
         if "analytics" in purposes:
@@ -685,7 +685,7 @@ const ConsentBanner: React.FC<ConsentBannerProps> = ({ userId, onConsentUpdate }
 
 ---
 
-## 🔍 Level 4: Deep Dive
+## Level 4: Deep Dive
 
 ## Compliance Considerations
 
@@ -882,7 +882,7 @@ class BatchConsentChecker {
 
 ---
 
-## 🚨 Level 5: Production
+## Level 5: Production
 
 ## Security Best Practices
 
@@ -892,16 +892,16 @@ class ConsentValidator:
     def validate_consent_request(self, request: ConsentRequest) -> ValidationResult:
         errors = []
         
-        # Verify user identity
+# Verify user identity
         if not self.verify_user_token(request.auth_token):
             errors.append("Invalid authentication")
             
-        # Check for consent bombing
+# Check for consent bombing
         recent_requests = self.get_recent_requests(request.user_id)
         if len(recent_requests) > 10:
             errors.append("Too many consent requests")
             
-        # Validate purposes
+# Validate purposes
         invalid_purposes = [
             p for p in request.purposes 
             if p not in self.valid_purposes
@@ -909,7 +909,7 @@ class ConsentValidator:
         if invalid_purposes:
             errors.append(f"Invalid purposes: {invalid_purposes}")
             
-        # Check for suspicious patterns
+# Check for suspicious patterns
         if self.is_suspicious_pattern(request):
             errors.append("Suspicious consent pattern detected")
             self.alert_security_team(request)
@@ -921,7 +921,7 @@ class ConsentValidator:
 ```python
 class SecureAuditLogger:
     def log_consent_event(self, event: ConsentEvent):
-        # Create tamper-proof record
+# Create tamper-proof record
         record = {
             "event_id": str(uuid.uuid4()),
             "timestamp": datetime.utcnow().isoformat(),
@@ -935,20 +935,20 @@ class SecureAuditLogger:
             }
         }
         
-        # Add cryptographic signature
+# Add cryptographic signature
         record["signature"] = self.sign_record(record)
         
-        # Store in append-only log
+# Store in append-only log
         self.append_only_store.append(record)
         
-        # Replicate to backup locations
+# Replicate to backup locations
         self.replicate_to_backups(record)
         
     def sign_record(self, record: dict) -> str:
-        # Create canonical representation
+# Create canonical representation
         canonical = json.dumps(record, sort_keys=True)
         
-        # Sign with service key
+# Sign with service key
         signature = hmac.new(
             self.signing_key.encode(),
             canonical.encode(),
@@ -971,11 +971,11 @@ def check_consent_vulnerable(user_id, purpose):
 
 # SECURE: Validate and check active consent only
 def check_consent_secure(user_id, purpose):
-    # Validate inputs
+# Validate inputs
     if not validate_user_id(user_id) or purpose not in VALID_PURPOSES:
         return False
         
-    # Check only active, non-expired consents
+# Check only active, non-expired consents
     result = db.query("""
         SELECT granted FROM consents 
         WHERE user_id = ? 
@@ -1032,13 +1032,13 @@ class ConsentComplianceMonitor:
         self.alerts = AlertManager()
         
     def monitor_consent_health(self):
-        # Track consent metrics
+# Track consent metrics
         self.metrics.gauge('consent.active_users', self.count_active_consents())
         self.metrics.gauge('consent.coverage_rate', self.calculate_coverage())
         self.metrics.counter('consent.grants', tags=['purpose'])
         self.metrics.counter('consent.revocations', tags=['purpose'])
         
-        # Check for anomalies
+# Check for anomalies
         if self.detect_consent_anomaly():
             self.alerts.send(
                 severity='high',
@@ -1046,7 +1046,7 @@ class ConsentComplianceMonitor:
                 description='Unusual consent patterns observed'
             )
             
-        # Compliance checks
+# Compliance checks
         self.check_expired_consents()
         self.check_missing_audits()
         self.verify_retention_compliance()
@@ -1069,10 +1069,10 @@ class ConsentComplianceMonitor:
 ```python
 # Test consent lifecycle
 def test_consent_lifecycle():
-    # Setup
+# Setup
     user_id = create_test_user()
     
-    # Test: Initial consent request
+# Test: Initial consent request
     consent_result = consent_manager.request_consent(
         user_id=user_id,
         purposes=['analytics', 'marketing'],
@@ -1080,12 +1080,12 @@ def test_consent_lifecycle():
     )
     assert consent_result['status'] == 'success'
     
-    # Test: Verify consent is active
+# Test: Verify consent is active
     assert consent_manager.check_consent(user_id, 'analytics') == True
     assert consent_manager.check_consent(user_id, 'marketing') == True
     assert consent_manager.check_consent(user_id, 'targeting') == False
     
-    # Test: Partial revocation
+# Test: Partial revocation
     revoke_result = consent_manager.revoke_consent(
         user_id=user_id,
         purposes=['marketing']
@@ -1094,13 +1094,13 @@ def test_consent_lifecycle():
     assert consent_manager.check_consent(user_id, 'analytics') == True
     assert consent_manager.check_consent(user_id, 'marketing') == False
     
-    # Test: Audit trail exists
+# Test: Audit trail exists
     audit_logs = audit_logger.get_user_logs(user_id)
     assert len(audit_logs) >= 2
     assert audit_logs[0]['event'] == 'consent_granted'
     assert audit_logs[1]['event'] == 'consent_revoked'
     
-    # Test: Data export
+# Test: Data export
     export = consent_manager.export_user_consents(user_id)
     assert len(export['consent_history']) == 2
     assert export['audit_trail'] is not None

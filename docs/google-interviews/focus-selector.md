@@ -1,6 +1,6 @@
 # Interview Focus Selector & Decision Trees
 
-## 🎯 Master Decision Tree: What Should I Focus On?
+## Master Decision Tree: What Should I Focus On?
 
 ```mermaid
 flowchart TD
@@ -33,7 +33,7 @@ flowchart TD
     style Comprehensive fill:#95E1D3
 ```
 
-## 📊 Role-Based Focus Areas
+## Role-Based Focus Areas
 
 <div class="role-focus-matrix">
 <table>
@@ -107,7 +107,7 @@ flowchart TD
     A1 --> Next3[Next: ML Platform]
 ```
 
-## 🎯 Topic Priority Calculator
+## Topic Priority Calculator
 
 <div class="priority-calculator">
 <h3>What Should You Study First?</h3>
@@ -138,7 +138,7 @@ flowchart TD
 <div id="priority-results"></div>
 </div>
 
-## 📈 Skill Gap Analysis
+## Skill Gap Analysis
 
 ```mermaid
 radar
@@ -153,7 +153,7 @@ radar
     "Communication": 3
 ```
 
-## 🗺️ Learning Path Visualizer
+## 🗺 Learning Path Visualizer
 
 <div class="learning-paths">
 <h3>Choose Your Learning Path</h3>
@@ -192,7 +192,7 @@ radar
 <div id="path-details"></div>
 </div>
 
-## 🎲 Daily Focus Randomizer
+## Daily Focus Randomizer
 
 <div class="daily-focus">
 <h3>What Should I Practice Today?</h3>
@@ -206,7 +206,7 @@ radar
 <div id="daily-focus-result"></div>
 </div>
 
-## 📊 Time Investment ROI Matrix
+## Time Investment ROI Matrix
 
 <div class="roi-matrix">
 <table>
@@ -280,7 +280,7 @@ radar
 </table>
 </div>
 
-## 🎯 Quick Decision Flowcharts
+## Quick Decision Flowcharts
 
 ### Should I Read This Paper?
 
@@ -325,7 +325,7 @@ flowchart TD
     style Paid fill:#FFE66D
 ```
 
-## 📱 Mobile-Friendly Quick Reference
+## Mobile-Friendly Quick Reference
 
 <div class="quick-ref-cards">
 <div class="qr-card">
@@ -620,9 +620,9 @@ button:hover {
     background: #3367D6;
 }
 
-#priority-results,
-#path-details,
-#daily-focus-result {
+# priority-results,
+# path-details,
+# daily-focus-result {
     margin-top: 20px;
     padding: 16px;
     background: white;

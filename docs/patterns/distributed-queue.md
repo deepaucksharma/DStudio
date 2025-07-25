@@ -129,21 +129,21 @@ class DistributedQueue:
         self.cluster_nodes = cluster_nodes
         self.is_leader = False
         
-        # Message storage
+# Message storage
         self.messages = {}  # message_id -> QueueMessage
         self.topics = {}    # topic -> List[message_id]
         self.partitions = {} # partition -> List[message_id]
         
-        # Consensus state
+# Consensus state
         self.term = 0
         self.voted_for = None
         self.log = []  # Raft log for replication
         
-        # Processing state
+# Processing state
         self.consumers = {}  # consumer_id -> consumer_info
         self.processing_messages = {}  # message_id -> (consumer_id, timeout)
         
-        # Metrics
+# Metrics
         self.stats = {
             'messages_enqueued': 0,
             'messages_processed': 0,
@@ -151,7 +151,7 @@ class DistributedQueue:
             'avg_processing_time': 0.0
         }
         
-        # Start background tasks
+# Start background tasks
         asyncio.create_task(self._heartbeat_loop())
         asyncio.create_task(self._timeout_monitor())
         asyncio.create_task(self._replication_loop())
@@ -170,14 +170,14 @@ class DistributedQueue:
                 })
             raise Exception("No leader available")
         
-        # Create message
+# Create message
         message = QueueMessage(
             topic=topic,
             data=data,
             partition_key=partition_key
         )
         
-        # Replicate to cluster via Raft
+# Replicate to cluster via Raft
         log_entry = {
             'term': self.term,
             'operation': 'enqueue',
@@ -195,26 +195,26 @@ class DistributedQueue:
                      timeout: float = 30.0) -> Optional[QueueMessage]:
         """Get next message for processing"""
         
-        # Register consumer
+# Register consumer
         self.consumers[consumer_id] = {
             'last_seen': datetime.utcnow(),
             'topics': [topic]
         }
         
-        # Find partition for this consumer
+# Find partition for this consumer
         partition = self._get_consumer_partition(consumer_id, topic)
         
-        # Get next message from partition
+# Get next message from partition
         message = await self._get_next_message(partition, topic)
         
         if message:
-            # Mark as processing
+# Mark as processing
             message.status = MessageStatus.PROCESSING
             message.processing_timeout = datetime.utcnow() + timedelta(seconds=timeout)
             
             self.processing_messages[message.id] = (consumer_id, message.processing_timeout)
             
-            # Replicate state change
+# Replicate state change
             await self._replicate_status_change(message.id, MessageStatus.PROCESSING)
             
             return message
@@ -228,20 +228,20 @@ class DistributedQueue:
         if not message:
             return False
         
-        # Verify consumer owns this message
+# Verify consumer owns this message
         processing_info = self.processing_messages.get(message_id)
         if not processing_info or processing_info[0] != consumer_id:
             return False
         
-        # Mark as completed
+# Mark as completed
         message.status = MessageStatus.COMPLETED
         del self.processing_messages[message_id]
         
-        # Update stats
+# Update stats
         processing_time = (datetime.utcnow() - message.created_at).total_seconds()
         self._update_processing_stats(processing_time)
         
-        # Replicate completion
+# Replicate completion
         await self._replicate_status_change(message_id, MessageStatus.COMPLETED)
         
         self.stats['messages_processed'] += 1
@@ -255,7 +255,7 @@ class DistributedQueue:
         if not message:
             return False
         
-        # Verify consumer owns this message
+# Verify consumer owns this message
         processing_info = self.processing_messages.get(message_id)
         if not processing_info or processing_info[0] != consumer_id:
             return False
@@ -263,17 +263,17 @@ class DistributedQueue:
         del self.processing_messages[message_id]
         
         if retry and message.can_retry():
-            # Retry with exponential backoff
+# Retry with exponential backoff
             message.retry_count += 1
             message.status = MessageStatus.PENDING
             
-            # Add delay before retry
+# Add delay before retry
             delay = min(300, 2 ** message.retry_count)  # Max 5 minute delay
             message.created_at = datetime.utcnow() + timedelta(seconds=delay)
             
             await self._replicate_status_change(message_id, MessageStatus.PENDING)
         else:
-            # Move to dead letter queue
+# Move to dead letter queue
             message.status = MessageStatus.DEAD_LETTER
             await self._replicate_status_change(message_id, MessageStatus.DEAD_LETTER)
             self.stats['messages_failed'] += 1
@@ -282,7 +282,7 @@ class DistributedQueue:
     
     def _get_consumer_partition(self, consumer_id: str, topic: str) -> str:
         """Assign consumer to consistent partition"""
-        # Use consistent hashing to assign consumers to partitions
+# Use consistent hashing to assign consumers to partitions
         hash_input = f"{consumer_id}:{topic}"
         hash_value = int(hashlib.md5(hash_input.encode()).hexdigest(), 16)
         partition_count = len(self.cluster_nodes)  # One partition per node
@@ -294,11 +294,11 @@ class DistributedQueue:
         if partition not in self.partitions:
             return None
         
-        # Find first pending message in partition
+# Find first pending message in partition
         for message_id in self.partitions[partition]:
             message = self.messages.get(message_id)
             if message and message.status == MessageStatus.PENDING:
-                # Check if retry delay has passed
+# Check if retry delay has passed
                 if datetime.utcnow() >= message.created_at:
                     return message
         
@@ -307,15 +307,15 @@ class DistributedQueue:
     async def _apply_enqueue(self, message: QueueMessage):
         """Apply enqueue operation to local state"""
         
-        # Store message
+# Store message
         self.messages[message.id] = message
         
-        # Add to topic
+# Add to topic
         if message.topic not in self.topics:
             self.topics[message.topic] = []
         self.topics[message.topic].append(message.id)
         
-        # Add to partition
+# Add to partition
         partition = self._calculate_partition(message.partition_key, message.topic)
         if partition not in self.partitions:
             self.partitions[partition] = []
@@ -331,14 +331,14 @@ class DistributedQueue:
     async def _replicate_log_entry(self, log_entry: Dict[str, Any]) -> bool:
         """Replicate log entry to majority of nodes (Raft)"""
         
-        # Add to local log
+# Add to local log
         self.log.append(log_entry)
         
-        # Send to followers
+# Send to followers
         successful_replicas = 1  # Count self
         required_replicas = (len(self.cluster_nodes) // 2) + 1
         
-        # Simulate replication (in real implementation, send over network)
+# Simulate replication (in real implementation, send over network)
         tasks = []
         for node in self.cluster_nodes:
             if node != self.node_id:
@@ -354,9 +354,9 @@ class DistributedQueue:
     async def _send_append_entries(self, node: str, log_entry: Dict[str, Any]) -> bool:
         """Send append entries RPC to follower node"""
         try:
-            # Simulate network call
+# Simulate network call
             await asyncio.sleep(0.01)  # Network latency
-            # In real implementation: send HTTP/gRPC request
+# In real implementation: send HTTP/gRPC request
             return True
         except Exception:
             return False
@@ -383,7 +383,7 @@ class DistributedQueue:
                 if now > timeout:
                     expired_messages.append((message_id, consumer_id))
             
-            # Handle expired messages
+# Handle expired messages
             for message_id, consumer_id in expired_messages:
                 await self.nack(message_id, consumer_id, retry=True)
     
@@ -391,11 +391,11 @@ class DistributedQueue:
         """Leader election and heartbeat"""
         while True:
             if self.is_leader:
-                # Send heartbeats to maintain leadership
+# Send heartbeats to maintain leadership
                 await self._send_heartbeats()
                 await asyncio.sleep(1)
             else:
-                # Try to become leader if no heartbeat received
+# Try to become leader if no heartbeat received
                 await asyncio.sleep(3)
                 if not await self._received_recent_heartbeat():
                     await self._start_election()
@@ -404,7 +404,7 @@ class DistributedQueue:
         """Background replication for followers"""
         while True:
             if not self.is_leader:
-                # Followers sync from leader
+# Followers sync from leader
                 await self._sync_from_leader()
             await asyncio.sleep(5)
     
@@ -413,7 +413,7 @@ class DistributedQueue:
         current_avg = self.stats['avg_processing_time']
         processed_count = self.stats['messages_processed']
         
-        # Exponential moving average
+# Exponential moving average
         alpha = 0.1
         self.stats['avg_processing_time'] = (
             alpha * processing_time + (1 - alpha) * current_avg
@@ -433,7 +433,7 @@ class DistributedQueue:
 
 # Usage example
 async def main():
-    # Create distributed queue cluster
+# Create distributed queue cluster
     nodes = ['node1', 'node2', 'node3']
     queues = {}
     
@@ -441,10 +441,10 @@ async def main():
         queue = DistributedQueue(node, nodes)
         queues[node] = queue
     
-    # Elect leader (simplified)
+# Elect leader (simplified)
     queues['node1'].is_leader = True
     
-    # Producer: enqueue messages
+# Producer: enqueue messages
     leader_queue = queues['node1']
     
     for i in range(10):
@@ -455,7 +455,7 @@ async def main():
         )
         print(f"Enqueued message {message_id}")
     
-    # Consumer: process messages
+# Consumer: process messages
     consumer_id = 'consumer_1'
     
     for _ in range(5):
@@ -463,14 +463,14 @@ async def main():
         if message:
             print(f"Processing message {message.id}: {message.data}")
             
-            # Simulate processing
+# Simulate processing
             await asyncio.sleep(0.1)
             
-            # Acknowledge completion
+# Acknowledge completion
             await leader_queue.ack(message.id, consumer_id)
             print(f"Completed message {message.id}")
     
-    # Print stats
+# Print stats
     stats = leader_queue.get_stats()
     print(f"Queue stats: {json.dumps(stats, indent=2)}")
 
@@ -496,7 +496,7 @@ class KafkaDistributedQueue:
         self.bootstrap_servers = bootstrap_servers
         self.security_protocol = security_protocol
         
-        # Configure producer for high throughput
+# Configure producer for high throughput
         self.producer = KafkaProducer(
             bootstrap_servers=bootstrap_servers,
             security_protocol=security_protocol,
@@ -545,7 +545,7 @@ class KafkaDistributedQueue:
                 key=key
             )
             
-            # Get record metadata
+# Get record metadata
             record_metadata = future.get(timeout=10)
             
             return f"{record_metadata.topic}:{record_metadata.partition}:{record_metadata.offset}"
@@ -582,7 +582,7 @@ class KafkaDistributedQueue:
             for message in consumer:
                 message_batch.append(message)
                 
-                # Process batch when full
+# Process batch when full
                 if len(message_batch) >= batch_size:
                     self._process_batch(message_batch, processor_func, consumer)
                     message_batch = []
@@ -590,7 +590,7 @@ class KafkaDistributedQueue:
         except KeyboardInterrupt:
             logging.info("Consumer interrupted")
         finally:
-            # Process remaining messages
+# Process remaining messages
             if message_batch:
                 self._process_batch(message_batch, processor_func, consumer)
             consumer.close()
@@ -598,25 +598,25 @@ class KafkaDistributedQueue:
     def _process_batch(self, messages, processor_func, consumer):
         """Process message batch with error handling"""
         try:
-            # Process all messages in batch
+# Process all messages in batch
             for message in messages:
                 processor_func(message.value, message.key)
             
-            # Commit after successful batch processing
+# Commit after successful batch processing
             consumer.commit()
             
             logging.info(f"Successfully processed batch of {len(messages)} messages")
             
         except Exception as e:
             logging.error(f"Batch processing failed: {e}")
-            # Don't commit - messages will be redelivered
+# Don't commit - messages will be redelivered
             raise
 
 # Usage example
 def message_processor(data, key):
     """Example message processor"""
     print(f"Processing message with key {key}: {data}")
-    # Simulate processing
+# Simulate processing
     time.sleep(0.1)
 
 # Setup
@@ -654,7 +654,7 @@ class BatchedDistributedQueue:
         self.last_flush = time.time()
         self._lock = asyncio.Lock()
         
-        # Start background flush task
+# Start background flush task
         asyncio.create_task(self._periodic_flush())
     
     async def enqueue(self, topic: str, data: Any, key: Optional[str] = None):
@@ -662,7 +662,7 @@ class BatchedDistributedQueue:
         async with self._lock:
             self.pending_messages.append((topic, data, key))
             
-            # Flush if batch is full
+# Flush if batch is full
             if len(self.pending_messages) >= self.batch_size:
                 await self._flush_batch()
     
@@ -675,7 +675,7 @@ class BatchedDistributedQueue:
         self.pending_messages.clear()
         self.last_flush = time.time()
         
-        # Send batch in parallel
+# Send batch in parallel
         tasks = []
         for topic, data, key in batch:
             task = asyncio.create_task(
@@ -712,7 +712,7 @@ class LoadBalancedConsumer:
     
     async def start_consuming(self, processor_func):
         """Start multiple consumer workers"""
-        # Create worker tasks
+# Create worker tasks
         for worker_id in range(self.num_workers):
             consumer_id = f"worker_{worker_id}"
             task = asyncio.create_task(
@@ -720,38 +720,38 @@ class LoadBalancedConsumer:
             )
             self.workers.append(task)
         
-        # Wait for all workers
+# Wait for all workers
         await asyncio.gather(*self.workers)
     
     async def _worker_loop(self, worker_id: int, consumer_id: str, processor_func):
         """Individual worker consumer loop"""
         while True:
             try:
-                # Get next message
+# Get next message
                 message = await self.queue.dequeue(self.topic, consumer_id, timeout=30)
                 
                 if message:
                     start_time = time.time()
                     
                     try:
-                        # Process message
+# Process message
                         result = await processor_func(message.data)
                         
-                        # Acknowledge success
+# Acknowledge success
                         await self.queue.ack(message.id, consumer_id)
                         
-                        # Update stats
+# Update stats
                         processing_time = time.time() - start_time
                         self.message_counts[worker_id] += 1
                         self.processing_times[worker_id] += processing_time
                         
                     except Exception as e:
-                        # Negative acknowledge with retry
+# Negative acknowledge with retry
                         await self.queue.nack(message.id, consumer_id, retry=True)
                         logging.error(f"Worker {worker_id} failed to process message: {e}")
                 
                 else:
-                    # No messages available, short sleep
+# No messages available, short sleep
                     await asyncio.sleep(0.1)
                     
             except Exception as e:
@@ -800,11 +800,11 @@ class PartitionTolerantQueue:
         self.available_nodes.discard(failed_node)
         
         if len(self.available_nodes) < self.quorum_size:
-            # Enter read-only mode
+# Enter read-only mode
             self.read_only = True
             logging.warning("Insufficient nodes for quorum - entering read-only mode")
         
-        # Redistribute partitions
+# Redistribute partitions
         await self._rebalance_partitions()
     
     async def handle_node_recovery(self, recovered_node: str):
@@ -815,7 +815,7 @@ class PartitionTolerantQueue:
             self.read_only = False
             logging.info("Quorum restored - resuming normal operations")
         
-        # Sync recovered node
+# Sync recovered node
         await self._sync_node(recovered_node)
         await self._rebalance_partitions()
 ```

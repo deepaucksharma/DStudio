@@ -16,7 +16,7 @@ last_updated: 2025-07-23
 
 **Protect users from malicious links while maintaining performance and usability**
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ## Core Concept
 
@@ -47,7 +47,7 @@ Digital Implementation:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ## Threat Model
 
@@ -114,7 +114,7 @@ graph TB
 
 ---
 
-## 💻 Level 3: Implementation
+## Level 3: Implementation
 
 ## Security Architecture
 
@@ -203,7 +203,7 @@ class URLSecurityEngine:
         """
         Complete security validation pipeline
         """
-        # Stage 1: Input validation
+# Stage 1: Input validation
         validation = self._validate_format(url)
         if not validation.is_valid:
             return SecurityResult(
@@ -212,7 +212,7 @@ class URLSecurityEngine:
                 risk_level='blocked'
             )
             
-        # Stage 2: Rate limiting
+# Stage 2: Rate limiting
         if not await self.rate_limiter.check_limit(user_id):
             return SecurityResult(
                 allowed=False,
@@ -220,39 +220,39 @@ class URLSecurityEngine:
                 risk_level='rate_limited'
             )
             
-        # Stage 3: Quick checks (blacklist, whitelist)
+# Stage 3: Quick checks (blacklist, whitelist)
         quick_check = await self._quick_security_check(url)
         if quick_check:
             return quick_check
             
-        # Stage 4: Deep analysis
+# Stage 4: Deep analysis
         analysis = await self.scanner.analyze_url(url)
         
-        # Stage 5: Classification
+# Stage 5: Classification
         risk_assessment = self.classifier.assess_risk(analysis)
         
-        # Stage 6: Decision
+# Stage 6: Decision
         return self._make_security_decision(url, risk_assessment, user_id)
         
     def _validate_format(self, url: str) -> ValidationResult:
         """
         Validate URL format and structure
         """
-        # Check basic format
+# Check basic format
         if not url or len(url) > 2048:
             return ValidationResult(False, "Invalid URL length")
             
-        # Parse URL
+# Parse URL
         try:
             parsed = urlparse(url)
         except:
             return ValidationResult(False, "Malformed URL")
             
-        # Check scheme
+# Check scheme
         if parsed.scheme not in ['http', 'https']:
             return ValidationResult(False, f"Invalid scheme: {parsed.scheme}")
             
-        # Check for suspicious patterns
+# Check for suspicious patterns
         suspicious_patterns = [
             r'@',  # Username in URL
             r'\\x[0-9a-fA-F]{2}',  # Hex encoding
@@ -267,11 +267,11 @@ class URLSecurityEngine:
             if re.search(pattern, decoded_url, re.IGNORECASE):
                 return ValidationResult(False, f"Suspicious pattern: {pattern}")
                 
-        # Check for homograph attacks
+# Check for homograph attacks
         if self._has_homograph_attack(parsed.netloc):
             return ValidationResult(False, "Possible homograph attack")
             
-        # Check for URL shortener chains
+# Check for URL shortener chains
         if self._is_shortener_chain(parsed.netloc):
             return ValidationResult(False, "URL shortener chain detected")
             
@@ -281,11 +281,11 @@ class URLSecurityEngine:
         """
         Detect IDN homograph attacks
         """
-        # Check for mixed scripts
+# Check for mixed scripts
         scripts = set()
         for char in domain:
             if char.isalpha():
-                # Simplified script detection
+# Simplified script detection
                 if ord(char) < 128:
                     scripts.add('latin')
                 elif 0x0400 <= ord(char) <= 0x04FF:
@@ -302,7 +302,7 @@ class URLSecurityEngine:
         parsed = urlparse(url)
         domain = parsed.netloc.lower()
         
-        # Check whitelist first (trusted domains)
+# Check whitelist first (trusted domains)
         if await self.whitelist.contains(domain):
             return SecurityResult(
                 allowed=True,
@@ -310,7 +310,7 @@ class URLSecurityEngine:
                 risk_level='safe'
             )
             
-        # Check blacklist
+# Check blacklist
         if await self.blacklist.contains(url) or await self.blacklist.contains(domain):
             return SecurityResult(
                 allowed=False,
@@ -318,7 +318,7 @@ class URLSecurityEngine:
                 risk_level='malicious'
             )
             
-        # Check URL hash against known threats
+# Check URL hash against known threats
         url_hash = hashlib.sha256(url.encode()).hexdigest()
         if await self.blacklist.contains_hash(url_hash):
             return SecurityResult(
@@ -347,23 +347,23 @@ class SecurityScanner:
         """
         analysis = SecurityAnalysis(url=url)
         
-        # DNS analysis
+# DNS analysis
         dns_result = await self._analyze_dns(url)
         analysis.dns = dns_result
         
-        # Content analysis
+# Content analysis
         content_result = await self._analyze_content(url)
         analysis.content = content_result
         
-        # SSL/TLS analysis
+# SSL/TLS analysis
         ssl_result = await self._analyze_ssl(url)
         analysis.ssl = ssl_result
         
-        # External reputation checks
+# External reputation checks
         reputation_result = await self._check_external_reputation(url)
         analysis.reputation = reputation_result
         
-        # Calculate overall risk score
+# Calculate overall risk score
         analysis.risk_score = self._calculate_risk_score(analysis)
         
         return analysis
@@ -378,12 +378,12 @@ class SecurityScanner:
         result = DNSAnalysis()
         
         try:
-            # Check DNS resolution
+# Check DNS resolution
             answers = dns.resolver.resolve(domain, 'A')
             result.resolves = True
             result.ip_addresses = [str(rdata) for rdata in answers]
             
-            # Check if newly registered
+# Check if newly registered
             try:
                 whois_info = await self._get_whois_info(domain)
                 domain_age = (datetime.now() - whois_info['creation_date']).days
@@ -392,7 +392,7 @@ class SecurityScanner:
             except:
                 result.is_new = True  # Assume new if can't determine
                 
-            # Check for fast flux
+# Check for fast flux
             result.is_fast_flux = await self._detect_fast_flux(domain)
             
         except dns.resolver.NXDOMAIN:
@@ -408,7 +408,7 @@ class SecurityScanner:
         result = ContentAnalysis()
         
         try:
-            # Fetch with timeout and size limit
+# Fetch with timeout and size limit
             response = await asyncio.to_thread(
                 self.session.get,
                 url,
@@ -417,33 +417,33 @@ class SecurityScanner:
                 stream=True
             )
             
-            # Check redirects
+# Check redirects
             if len(response.history) > 0:
                 result.redirects = [
                     {'url': r.url, 'status': r.status_code}
                     for r in response.history
                 ]
                 
-                # Check for suspicious redirect patterns
+# Check for suspicious redirect patterns
                 if len(response.history) > 3:
                     result.risk_indicators.append('Excessive redirects')
                     
-                # Check for open redirect
+# Check for open redirect
                 final_domain = urlparse(response.url).netloc
                 if self._is_suspicious_redirect(url, response.url):
                     result.risk_indicators.append('Suspicious redirect')
                     
-            # Analyze content (first 1MB)
+# Analyze content (first 1MB)
             content = b''
             for chunk in response.iter_content(chunk_size=1024):
                 content += chunk
                 if len(content) > 1024 * 1024:  # 1MB limit
                     break
                     
-            # Check for malicious patterns
+# Check for malicious patterns
             content_text = content.decode('utf-8', errors='ignore')
             
-            # Phishing indicators
+# Phishing indicators
             phishing_patterns = [
                 r'<input[^>]*type=["\']password["\']',  # Password field
                 r'verify your account',
@@ -456,7 +456,7 @@ class SecurityScanner:
                 if re.search(pattern, content_text, re.IGNORECASE):
                     result.phishing_score += 0.2
                     
-            # Malware indicators  
+# Malware indicators
             malware_patterns = [
                 r'<iframe[^>]*src=["\'][^"^\']*\.(exe|zip|rar)',
                 r'document\.write\(unescape',
@@ -480,19 +480,19 @@ class SecurityScanner:
         """
         result = ReputationResult()
         
-        # Check Google Safe Browsing
+# Check Google Safe Browsing
         safe_browsing = await self._check_google_safe_browsing(url)
         if safe_browsing['is_malicious']:
             result.is_malicious = True
             result.threat_types.extend(safe_browsing['threats'])
             
-        # Check VirusTotal
+# Check VirusTotal
         virustotal = await self._check_virustotal(url)
         if virustotal['detections'] > 0:
             result.is_malicious = True
             result.detection_ratio = virustotal['detection_ratio']
             
-        # Check PhishTank
+# Check PhishTank
         phishtank = await self._check_phishtank(url)
         if phishtank['is_phish']:
             result.is_malicious = True
@@ -515,16 +515,16 @@ class ReputationEngine:
         """
         Calculate composite reputation score
         """
-        # Get user reputation
+# Get user reputation
         user_score = self.user_scores.get(user_id, 100)  # Start at 100
         
-        # Get IP reputation
+# Get IP reputation
         ip_score = self.ip_scores.get(ip_address, 100)
         
-        # Check behavior patterns
+# Check behavior patterns
         behavior_score = await self.behavior_tracker.get_score(user_id)
         
-        # Weighted average
+# Weighted average
         composite_score = (
             user_score * 0.5 +
             ip_score * 0.3 +
@@ -548,7 +548,7 @@ class ReputationEngine:
         """
         Update reputation based on events
         """
-        # Define score impacts
+# Define score impacts
         score_impacts = {
             'malicious_url_submitted': -20,
             'phishing_attempt': -30,
@@ -561,7 +561,7 @@ class ReputationEngine:
         
         impact = score_impacts.get(event.type, 0)
         
-        # Update user score
+# Update user score
         if user_id in self.user_scores:
             self.user_scores[user_id] = max(0, min(100, 
                 self.user_scores[user_id] + impact
@@ -569,7 +569,7 @@ class ReputationEngine:
         else:
             self.user_scores[user_id] = 100 + impact
             
-        # Update IP score
+# Update IP score
         if ip_address in self.ip_scores:
             self.ip_scores[ip_address] = max(0, min(100,
                 self.ip_scores[ip_address] + impact
@@ -577,10 +577,10 @@ class ReputationEngine:
         else:
             self.ip_scores[ip_address] = 100 + impact
             
-        # Track behavior
+# Track behavior
         await self.behavior_tracker.record_event(user_id, event)
         
-        # Check for automatic blocking
+# Check for automatic blocking
         if self.user_scores[user_id] < 20 or self.ip_scores[ip_address] < 20:
             await self._trigger_blocking(user_id, ip_address)
 
@@ -613,33 +613,33 @@ class BehaviorTracker:
             'domain': urlparse(url).netloc
         })
         
-        # Keep only recent history (last 24 hours)
+# Keep only recent history (last 24 hours)
         cutoff = datetime.now() - timedelta(hours=24)
         pattern.submissions = [
             s for s in pattern.submissions
             if s['timestamp'] > cutoff
         ]
         
-        # Analyze patterns
+# Analyze patterns
         analysis = BehaviorAnalysis()
         
-        # Check submission rate
+# Check submission rate
         if len(pattern.submissions) > 100:  # More than 100 in 24h
             analysis.is_suspicious = True
             analysis.reasons.append('High submission rate')
             
-        # Check domain diversity
+# Check domain diversity
         domains = set(s['domain'] for s in pattern.submissions)
         if len(domains) == 1 and len(pattern.submissions) > 10:
             analysis.is_suspicious = True
             analysis.reasons.append('Single domain pattern')
             
-        # Check for URL patterns
+# Check for URL patterns
         if self._has_sequential_pattern(pattern.submissions):
             analysis.is_suspicious = True
             analysis.reasons.append('Sequential URL pattern')
             
-        # Check time patterns
+# Check time patterns
         if self._has_automated_timing(pattern.submissions):
             analysis.is_suspicious = True
             analysis.reasons.append('Automated timing pattern')
@@ -653,10 +653,10 @@ class BehaviorTracker:
         if len(submissions) < 5:
             return False
             
-        # Extract URL paths
+# Extract URL paths
         paths = [urlparse(s['url']).path for s in submissions[-10:]]
         
-        # Check for numeric sequences
+# Check for numeric sequences
         numbers = []
         for path in paths:
             match = re.search(r'(\d+)', path)
@@ -664,7 +664,7 @@ class BehaviorTracker:
                 numbers.append(int(match.group(1)))
                 
         if len(numbers) >= 5:
-            # Check if sequential
+# Check if sequential
             diffs = [numbers[i+1] - numbers[i] for i in range(len(numbers)-1)]
             if all(d == diffs[0] for d in diffs):  # Constant difference
                 return True
@@ -678,18 +678,18 @@ class BehaviorTracker:
         if len(submissions) < 10:
             return False
             
-        # Calculate time intervals
+# Calculate time intervals
         times = [s['timestamp'] for s in submissions[-10:]]
         intervals = [
             (times[i+1] - times[i]).total_seconds()
             for i in range(len(times)-1)
         ]
         
-        # Check for regular intervals (within 10% variance)
+# Check for regular intervals (within 10% variance)
         avg_interval = sum(intervals) / len(intervals)
         variance = sum((i - avg_interval)**2 for i in intervals) / len(intervals)
         
-        # Low variance suggests automation
+# Low variance suggests automation
         return variance < (avg_interval * 0.1)**2
 ```
 
@@ -810,7 +810,7 @@ class ClickTimeProtection {
 
 ---
 
-## 🔍 Level 4: Deep Dive
+## Level 4: Deep Dive
 
 ## Machine Learning for Threat Detection
 
@@ -835,7 +835,7 @@ class MLThreatDetector:
         """
         features = []
         
-        # URL structure features
+# URL structure features
         parsed = urlparse(url)
         features.extend([
             len(url),                          # URL length
@@ -853,7 +853,7 @@ class MLThreatDetector:
             1 if parsed.port else 0,           # Non-standard port
         ])
         
-        # Domain features
+# Domain features
         domain_parts = parsed.netloc.split('.')
         features.extend([
             len(domain_parts),                 # Subdomain levels
@@ -862,7 +862,7 @@ class MLThreatDetector:
             self._has_punycode(parsed.netloc),            # Has punycode
         ])
         
-        # Content features (if available)
+# Content features (if available)
         content_features = self._extract_content_features(url)
         features.extend(content_features)
         
@@ -880,14 +880,14 @@ class MLThreatDetector:
         """
         Predict if URL is malicious
         """
-        # Extract features
+# Extract features
         features = self.extract_features(url)
         
-        # Get prediction
+# Get prediction
         prediction = self.model.predict_proba([features])[0]
         threat_probability = prediction[1]  # Probability of being malicious
         
-        # Classify threat type if malicious
+# Classify threat type if malicious
         threat_type = None
         if threat_probability > self.threshold:
             threat_type = self._classify_threat_type(features)
@@ -904,7 +904,7 @@ class MLThreatDetector:
         """
         Classify specific threat type
         """
-        # Use secondary classifier for threat type
+# Use secondary classifier for threat type
         threat_types = ['phishing', 'malware', 'spam', 'scam']
         type_predictions = self.type_classifier.predict_proba([features])[0]
         
@@ -931,7 +931,7 @@ class DistributedBloomFilter:
         self.capacity = capacity
         self.error_rate = error_rate
         
-        # Calculate optimal parameters
+# Calculate optimal parameters
         self.size = self._optimal_size(capacity, error_rate)
         self.hash_count = self._optimal_hash_count(self.size, capacity)
         
@@ -942,12 +942,12 @@ class DistributedBloomFilter:
         Add item to blacklist
         """
         for i in range(self.hash_count):
-            # Use different hash seeds
+# Use different hash seeds
             hash_val = mmh3.hash(item, i) % self.size
             bit_key = f"{self.key_prefix}{hash_val // 8}"
             bit_offset = hash_val % 8
             
-            # Set bit in Redis
+# Set bit in Redis
             self.redis.setbit(bit_key, bit_offset, 1)
             
     def contains(self, item: str) -> bool:
@@ -959,7 +959,7 @@ class DistributedBloomFilter:
             bit_key = f"{self.key_prefix}{hash_val // 8}"
             bit_offset = hash_val % 8
             
-            # Check bit in Redis
+# Check bit in Redis
             if not self.redis.getbit(bit_key, bit_offset):
                 return False  # Definitely not in set
                 
@@ -980,7 +980,7 @@ class DistributedBloomFilter:
         pipeline = self.redis.pipeline()
         bit_checks = []
         
-        # Queue all bit checks
+# Queue all bit checks
         for item in items:
             item_checks = []
             for i in range(self.hash_count):
@@ -992,10 +992,10 @@ class DistributedBloomFilter:
                 item_checks.append((item, i))
             bit_checks.extend(item_checks)
             
-        # Execute pipeline
+# Execute pipeline
         results = pipeline.execute()
         
-        # Process results
+# Process results
         item_results = {}
         result_idx = 0
         
@@ -1135,7 +1135,7 @@ class AdaptiveRateLimiter {
 
 ---
 
-## 🚨 Level 5: Production
+## Level 5: Production
 
 ## High-Performance Security Pipeline
 
@@ -1161,7 +1161,7 @@ class ProductionSecurityPipeline:
         """
         start_time = time.time()
         
-        # Check cache first
+# Check cache first
         cache_key = self._generate_cache_key(url)
         cached_result = await self.cache.get(cache_key)
         
@@ -1169,7 +1169,7 @@ class ProductionSecurityPipeline:
             self.metrics.record('cache_hit', 1)
             return cached_result['decision']
             
-        # Parallel security checks
+# Parallel security checks
         checks = await asyncio.gather(
             self._check_format(url),
             self._check_blacklist(url),
@@ -1178,11 +1178,11 @@ class ProductionSecurityPipeline:
             return_exceptions=True
         )
         
-        # Process results
+# Process results
         for idx, check in enumerate(checks):
             if isinstance(check, Exception):
                 self.metrics.record('check_error', 1, {'check': idx})
-                # Fail closed on errors
+# Fail closed on errors
                 return SecurityDecision(
                     allowed=False,
                     reason='Security check failed',
@@ -1196,7 +1196,7 @@ class ProductionSecurityPipeline:
                     check_failed=check.name
                 )
                 
-                # Cache negative results for short time
+# Cache negative results for short time
                 await self.cache.set(
                     cache_key,
                     {'decision': decision},
@@ -1205,7 +1205,7 @@ class ProductionSecurityPipeline:
                 
                 return decision
                 
-        # Deep analysis for URLs that pass initial checks
+# Deep analysis for URLs that pass initial checks
         if self._needs_deep_analysis(url, user_context):
             analysis_result = await self.batch_processor.queue_for_analysis(
                 url,
@@ -1219,7 +1219,7 @@ class ProductionSecurityPipeline:
                     risk_score=analysis_result.risk_score
                 )
                 
-        # Allow and cache positive result
+# Allow and cache positive result
         decision = SecurityDecision(
             allowed=True,
             risk_score=0.1,  # Low risk
@@ -1281,7 +1281,7 @@ class BatchSecurityProcessor:
             batch = []
             deadline = time.time() + self.batch_timeout
             
-            # Collect batch
+# Collect batch
             while len(batch) < self.batch_size and time.time() < deadline:
                 try:
                     timeout = max(0, deadline - time.time())
@@ -1294,15 +1294,15 @@ class BatchSecurityProcessor:
                     break
                     
             if batch:
-                # Process batch
+# Process batch
                 try:
                     results = await self._analyze_batch(batch)
                     
-                    # Deliver results
+# Deliver results
                     for item, result in zip(batch, results):
                         item['future'].set_result(result)
                 except Exception as e:
-                    # Fail all items in batch
+# Fail all items in batch
                     for item in batch:
                         item['future'].set_exception(e)
 ```
@@ -1324,7 +1324,7 @@ class SecurityMonitoringSystem:
         """
         Collect comprehensive security metrics
         """
-        # Threat metrics
+# Threat metrics
         self.metrics.gauge(
             'security.threats.detected',
             self.count_detected_threats(),
@@ -1336,19 +1336,19 @@ class SecurityMonitoringSystem:
             tags=['reason']
         )
         
-        # Performance metrics
+# Performance metrics
         self.metrics.histogram(
             'security.check.latency',
             tags=['check_type']
         )
         
-        # User behavior
+# User behavior
         self.metrics.gauge(
             'security.suspicious.users',
             self.count_suspicious_users()
         )
         
-        # System health
+# System health
         self.metrics.gauge(
             'security.blacklist.size',
             self.get_blacklist_size()
@@ -1359,10 +1359,10 @@ class SecurityMonitoringSystem:
         Continuous threat monitoring
         """
         while True:
-            # Check threat levels
+# Check threat levels
             current_threats = await self.analyze_current_threats()
             
-            # Alert on significant changes
+# Alert on significant changes
             if current_threats.phishing_rate > 0.05:  # 5% phishing
                 await self.alerts.send(
                     level='warning',
@@ -1380,7 +1380,7 @@ class SecurityMonitoringSystem:
                     details=current_threats.new_campaigns
                 )
                 
-            # Update dashboard
+# Update dashboard
             await self.dashboard.update(
                 'security_overview',
                 {
@@ -1424,7 +1424,7 @@ class TestURLSecurity:
         """Test rate limiting effectiveness"""
         security = URLSecurityEngine(config={'rate_limit': 10})
         
-        # Submit 10 URLs (should work)
+# Submit 10 URLs (should work)
         for i in range(10):
             result = await security.validate_url(
                 f"https://example.com/{i}",
@@ -1432,7 +1432,7 @@ class TestURLSecurity:
             )
             assert result.allowed
             
-        # 11th should fail
+# 11th should fail
         result = await security.validate_url(
             "https://example.com/11",
             "test_user"
@@ -1445,7 +1445,7 @@ class TestURLSecurity:
         """Test automated behavior detection"""
         tracker = BehaviorTracker()
         
-        # Simulate automated pattern
+# Simulate automated pattern
         base_time = datetime.now()
         for i in range(10):
             await tracker.analyze_submission_pattern(
@@ -1471,13 +1471,13 @@ def validate_url_bad(url):
 def validate_url_good(url):
     try:
         parsed = urlparse(url)
-        # Check scheme
+# Check scheme
         if parsed.scheme not in ['http', 'https']:
             return False
-        # Check for suspicious patterns
+# Check for suspicious patterns
         if '@' in url or '..' in url:
             return False
-        # Validate domain
+# Validate domain
         if not is_valid_domain(parsed.netloc):
             return False
         return True

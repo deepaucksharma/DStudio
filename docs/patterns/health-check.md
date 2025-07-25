@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Medical Checkup Analogy
 
@@ -85,7 +85,7 @@ stateDiagram-v2
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Types of Health Checks
 
@@ -161,7 +161,7 @@ class HealthChecker:
         results = []
         overall_status = HealthStatus.HEALTHY
 
-        # Run checks in parallel with timeout
+# Run checks in parallel with timeout
         tasks = []
         for check in self.checks:
             task = self._run_single_check(check, timeout)
@@ -169,10 +169,10 @@ class HealthChecker:
 
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
-        # Determine overall status
+# Determine overall status
         for i, result in enumerate(results):
             if isinstance(result, Exception):
-                # Check timed out or failed
+# Check timed out or failed
                 result = HealthCheckResult(
                     name=self.checks[i]['name'],
                     status=HealthStatus.UNHEALTHY,
@@ -229,7 +229,7 @@ class HealthChecker:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Health Check Patterns
 
@@ -301,7 +301,7 @@ class DependencyHealthChecker:
                 if result['healthy']:
                     healthy_weight += self.weights[name]
                 elif self.dependencies[name]['required']:
-                    # Required dependency is down
+# Required dependency is down
                     return {
                         'status': 'unhealthy',
                         'score': 0,
@@ -310,7 +310,7 @@ class DependencyHealthChecker:
 
                 total_weight += self.weights[name]
 
-        # Calculate health score
+# Calculate health score
         health_score = healthy_weight / total_weight if total_weight > 0 else 0
 
         if health_score >= 0.9:
@@ -340,18 +340,18 @@ class CircuitBreakerHealthCheck:
     async def health_check_with_circuit_breaker(self):
         """Health check that can trip circuit breaker"""
         try:
-            # Perform health check
+# Perform health check
             result = await self.perform_health_check()
 
             if result['status'] == 'healthy':
                 self.consecutive_failures = 0
-                # If circuit is open, consider closing it
+# If circuit is open, consider closing it
                 if self.circuit_breaker.state == 'open':
                     self.circuit_breaker.transition_to_half_open()
             else:
                 self.consecutive_failures += 1
 
-                # Trip circuit breaker if threshold exceeded
+# Trip circuit breaker if threshold exceeded
                 if self.consecutive_failures >= self.failure_threshold:
                     self.circuit_breaker.trip()
 
@@ -368,7 +368,7 @@ class CircuitBreakerHealthCheck:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Health Check Strategies
 
@@ -386,17 +386,17 @@ class AdaptiveHealthCheck:
 
     def should_run_deep_check(self) -> bool:
         """Determine if deep health check is needed"""
-        # More deep checks if recent failures
+# More deep checks if recent failures
         failure_rate = sum(1 for r in self.recent_results if not r) / len(self.recent_results) if self.recent_results else 0
 
         if failure_rate > 0.1:
-            # System unstable, increase deep checks
+# System unstable, increase deep checks
             return random.random() < 0.5
         elif failure_rate > 0.05:
-            # Some instability
+# Some instability
             return random.random() < 0.2
         else:
-            # System stable
+# System stable
             return random.random() < self.deep_check_probability
 
     async def adaptive_health_check(self):
@@ -414,10 +414,10 @@ class AdaptiveHealthCheck:
     def adjust_check_interval(self, result):
         """Adjust how frequently health checks run"""
         if not result['healthy']:
-            # Check more frequently when unhealthy
+# Check more frequently when unhealthy
             self.check_interval = max(5, self.check_interval * 0.8)
         else:
-            # Check less frequently when stable
+# Check less frequently when stable
             self.check_interval = min(60, self.check_interval * 1.1)
 
 #### Kubernetes-Style Health Probes
@@ -437,7 +437,7 @@ class KubernetesHealthProbes:
         if self.startup_complete:
             return {"status": "started", "ready": True}
 
-        # Check startup tasks
+# Check startup tasks
         completed = sum(1 for task in self.startup_tasks if task.done())
         total = len(self.startup_tasks)
 
@@ -455,10 +455,10 @@ class KubernetesHealthProbes:
     async def liveness_probe(self) -> Dict:
         """Check if application is alive and should not be restarted"""
         try:
-            # Basic checks that should always work
-            # Avoid checking external dependencies here
+# Basic checks that should always work
+# Avoid checking external dependencies here
 
-            # Check event loop responsiveness
+# Check event loop responsiveness
             start = time.time()
             await asyncio.sleep(0)
             event_loop_delay = time.time() - start
@@ -470,7 +470,7 @@ class KubernetesHealthProbes:
                     "event_loop_delay_ms": event_loop_delay * 1000
                 }
 
-            # Check critical internal components
+# Check critical internal components
             if not self.app.critical_component_healthy():
                 return {
                     "status": "unhealthy",
@@ -490,7 +490,7 @@ class KubernetesHealthProbes:
         if not self.startup_complete:
             return {"status": "not_ready", "reason": "Still starting up"}
 
-        # Check all dependencies needed to serve traffic
+# Check all dependencies needed to serve traffic
         checks = {
             "database": await self.check_database_ready(),
             "cache": await self.check_cache_ready(),
@@ -520,12 +520,12 @@ class NetflixDeepHealthCheck:
         """
         Zuul (API Gateway) health check strategy
         """
-        # Level 1: Basic process health
+# Level 1: Basic process health
         basic_health = await self.basic_process_check()
         if not basic_health['healthy']:
             return basic_health
 
-        # Level 2: Critical path validation
+# Level 2: Critical path validation
         critical_path = await self.validate_critical_path()
         if not critical_path['healthy']:
             return {
@@ -534,10 +534,10 @@ class NetflixDeepHealthCheck:
                 'serving_traffic': True  # Still serve with degradation
             }
 
-        # Level 3: Capacity checks
+# Level 3: Capacity checks
         capacity = await self.check_capacity_health()
 
-        # Level 4: Predictive health
+# Level 4: Predictive health
         predicted_issues = await self.ml_health_prediction()
 
         return {
@@ -563,19 +563,19 @@ class NetflixDeepHealthCheck:
     async def validate_critical_path(self):
         """Test actual user-facing functionality"""
         try:
-            # Simulate real user request
+# Simulate real user request
             test_user_id = "health_check_user"
 
-            # Can we authenticate?
+# Can we authenticate?
             auth_token = await self.auth_service.get_token(test_user_id)
 
-            # Can we fetch user data?
+# Can we fetch user data?
             user_data = await self.user_service.get_profile(
                 test_user_id,
                 auth_token
             )
 
-            # Can we get recommendations?
+# Can we get recommendations?
             recommendations = await self.recommendation_service.get_titles(
                 test_user_id,
                 limit=1
@@ -595,7 +595,7 @@ class NetflixDeepHealthCheck:
 ```yaml
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Optimal Health Checking
 
@@ -615,18 +615,18 @@ class OptimalHealthChecker:
         Find optimal sequence of health checks given time budget
         Using information theory and dynamic programming
         """
-        # Calculate information gain per unit time for each check
+# Calculate information gain per unit time for each check
         check_efficiency = {}
         for check_name, cost_ms in self.check_costs.items():
             info_gain = self.information_gains[check_name]
             efficiency = info_gain / cost_ms  # Bits per millisecond
             check_efficiency[check_name] = efficiency
 
-        # Dynamic programming to find optimal subset
+# Dynamic programming to find optimal subset
         checks = list(self.check_costs.keys())
         n = len(checks)
 
-        # dp[i][t] = max information gain using first i checks with time budget t
+# dp[i][t] = max information gain using first i checks with time budget t
         dp = [[0.0 for _ in range(int(time_budget_ms) + 1)] for _ in range(n + 1)]
 
         for i in range(1, n + 1):
@@ -635,14 +635,14 @@ class OptimalHealthChecker:
             gain = self.information_gains[check]
 
             for t in range(int(time_budget_ms) + 1):
-                # Don't include this check
+# Don't include this check
                 dp[i][t] = dp[i-1][t]
 
-                # Include this check if we have time
+# Include this check if we have time
                 if t >= cost:
                     dp[i][t] = max(dp[i][t], dp[i-1][t-cost] + gain)
 
-        # Backtrack to find which checks to run
+# Backtrack to find which checks to run
         selected_checks = []
         t = int(time_budget_ms)
         for i in range(n, 0, -1):
@@ -650,7 +650,7 @@ class OptimalHealthChecker:
                 selected_checks.append(checks[i-1])
                 t -= int(self.check_costs[checks[i-1]])
 
-        # Sort by efficiency for execution order
+# Sort by efficiency for execution order
         selected_checks.sort(
             key=lambda x: check_efficiency[x],
             reverse=True
@@ -662,22 +662,22 @@ class OptimalHealthChecker:
         """
         Calculate information gain (entropy reduction) from a health check
         """
-        # P(system_healthy | check_passes)
+# P(system_healthy | check_passes)
         p_healthy_given_pass = self.get_conditional_probability(
             check_name,
             'pass'
         )
 
-        # P(system_healthy | check_fails)
+# P(system_healthy | check_fails)
         p_healthy_given_fail = self.get_conditional_probability(
             check_name,
             'fail'
         )
 
-        # P(check_passes)
+# P(check_passes)
         p_check_passes = self.get_check_success_rate(check_name)
 
-        # Calculate entropy before and after check
+# Calculate entropy before and after check
         h_before = self.binary_entropy(self.get_system_health_rate())
 
         h_after = (
@@ -706,7 +706,7 @@ class OptimalHealthChecker:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Health Check Design Principles
 

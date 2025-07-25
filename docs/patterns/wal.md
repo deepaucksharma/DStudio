@@ -153,7 +153,7 @@ class WriteAheadLog:
         record.lsn = self.next_lsn()
         self.buffer.append(record)
         
-        # Force flush if buffer full
+# Force flush if buffer full
         if self.buffer_size_bytes() >= self.buffer_size:
             self.flush()
             
@@ -164,12 +164,12 @@ class WriteAheadLog:
         if not self.buffer:
             return
             
-        # Write all records
+# Write all records
         with open(self.current_log_file(), 'ab') as f:
             for record in self.buffer:
                 f.write(record.serialize())
             
-            # Force to disk
+# Force to disk
             f.flush()
             os.fsync(f.fileno())
             
@@ -195,11 +195,11 @@ class GroupCommitManager:
         """Add transaction to commit group"""
         self.pending_commits.append(transaction)
         
-        # Flush if group is full
+# Flush if group is full
         if len(self.pending_commits) >= self.group_size:
             self._flush_group()
         else:
-            # Wait for more commits or timeout
+# Wait for more commits or timeout
             self._schedule_flush()
     
     def _flush_group(self):
@@ -207,11 +207,11 @@ class GroupCommitManager:
         if not self.pending_commits:
             return
             
-        # Single fsync for entire group
+# Single fsync for entire group
         max_lsn = max(t.commit_lsn for t in self.pending_commits)
         self.wal.force_up_to(max_lsn)
         
-        # Notify all transactions
+# Notify all transactions
         for txn in self.pending_commits:
             txn.commit_complete()
             
@@ -265,17 +265,17 @@ class ParallelWAL:
         self.current_stream = 0
         
     def append(self, record):
-        # Distribute across streams
+# Distribute across streams
         stream_id = hash(record.table_id) % len(self.streams)
         return self.streams[stream_id].append(record)
     
     def recover(self):
-        # Merge streams during recovery
+# Merge streams during recovery
         all_records = []
         for stream in self.streams:
             all_records.extend(stream.read_all())
         
-        # Sort by LSN for correct ordering
+# Sort by LSN for correct ordering
         all_records.sort(key=lambda r: r.lsn)
         return all_records
 ```

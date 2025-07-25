@@ -394,7 +394,7 @@ class OptimisticLockRecord:
     
     def update(self, new_data, db_connection):
         """Update with optimistic concurrency control."""
-        # This simulates a CAS operation at the database level
+# This simulates a CAS operation at the database level
         result = db_connection.execute(
             """
             UPDATE records 
@@ -415,16 +415,16 @@ class OptimisticLockRecord:
 def update_with_retry(record, new_data, db_conn, max_retries=3):
     for attempt in range(max_retries):
         try:
-            # Read current version
+# Read current version
             current = db_conn.fetch_one(
                 "SELECT data, version FROM records WHERE id = %s",
                 (record.id,)
             )
             
-            # Apply business logic
+# Apply business logic
             updated_data = transform_data(current.data, new_data)
             
-            # Try to update
+# Try to update
             record.version = current.version
             record.update(updated_data, db_conn)
             return True

@@ -215,7 +215,7 @@ Costs: 2 ops on miss, 1 on hit, infrastructure
 Benefits: Reduced backend load, lower latency
 Break-even hit rate: 60-70%
 
-# Write-Through ROI  
+# Write-Through ROI
 Costs: Double writes, consistency management
 Benefits: Always fresh, no misses
 Break-even: read/write > 3:1
@@ -310,15 +310,15 @@ Tag-Based:
     <pre style="margin: 0; overflow-x: auto;"><code>def calculate_ttl(key, access_pattern):
     base_ttl = 3600  # 1 hour
 
-    # High-value keys: Longer TTL
+# High-value keys: Longer TTL
     if is_expensive_query(key):
         ttl = base_ttl * 4
 
-    # Frequently changing: Shorter TTL
+# Frequently changing: Shorter TTL
     elif high_update_frequency(key):
         ttl = base_ttl / 4
 
-    # Access pattern based
+# Access pattern based
     elif access_pattern.is_periodic():
         ttl = access_pattern.period * 1.5
 
@@ -472,17 +472,17 @@ Pareto: 20% of keys = 80% of requests
 ### Multi-Level Cache Sizing
 ```python
 def optimize_cache_sizes(budget, access_pattern):
-    # L1: CPU cache (free but tiny)
+# L1: CPU cache (free but tiny)
     l1_size = min(cpu_cache_available, hot_working_set)
 
-    # L2: Application memory
+# L2: Application memory
     l2_cost_per_gb = $5
     l2_size = optimize_for_hit_rate(
         budget * 0.3,  # 30% of budget
         l2_cost_per_gb
     )
 
-    # L3: Redis
+# L3: Redis
     l3_cost_per_gb = $50
     l3_size = optimize_for_hit_rate(
         budget * 0.7,  # 70% of budget

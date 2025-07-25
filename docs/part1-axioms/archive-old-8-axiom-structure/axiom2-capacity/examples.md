@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Real-World Failures
+## Real-World Failures
 
 ### The Great Reddit Hug of Death (2023)
 
@@ -92,14 +92,14 @@ class SurgeCapacityManager:
         pool = self.surge_pool if self.surge_active else self.normal_pool
         
         if pool.utilization() > 0.8:
-            # Start shedding non-critical load
+# Start shedding non-critical load
             if not request.is_critical():
                 return self.reject_with_retry(request)
         
         return pool.process(request)
     
     def should_activate_surge(self):
-        # Predictive activation based on historical patterns
+# Predictive activation based on historical patterns
         return (
             self.current_load() > self.baseline * 3 or
             self.time_until_expected_peak() < timedelta(minutes=30)
@@ -150,10 +150,10 @@ class SmartConnectionPool:
         
     def acquire(self, timeout=5.0):
         try:
-            # Try to get existing connection
+# Try to get existing connection
             conn = self.available.get(timeout=timeout)
             
-            # Health check before returning
+# Health check before returning
             if self.is_healthy(conn):
                 return conn
             else:
@@ -161,12 +161,12 @@ class SmartConnectionPool:
                 return self.create_new_connection()
                 
         except Empty:
-            # Pool exhausted
+# Pool exhausted
             if len(self.connections) < self.max_size:
-                # Room to grow
+# Room to grow
                 return self.create_new_connection()
             else:
-                # At capacity - apply backpressure
+# At capacity - apply backpressure
                 self.metrics.record_pool_exhaustion()
                 raise PoolExhausted("Connection pool at capacity")
     
@@ -178,7 +178,7 @@ class SmartConnectionPool:
             self.available.put(conn)
     
     def should_close_connection(self, conn):
-        # Reduce pool size if underutilized
+# Reduce pool size if underutilized
         return (
             len(self.connections) > self.min_size and
             self.available.qsize() > self.min_size and
@@ -188,7 +188,7 @@ class SmartConnectionPool:
 
 ---
 
-## 💻 Code Examples
+## Code Examples
 
 ### Understanding Queue Saturation
 
@@ -219,7 +219,7 @@ class CapacitySimulator:
         
     def arrival_rate_for_utilization(self, target_util):
         """Calculate arrival rate for target utilization"""
-        # Utilization = arrival_rate * service_time
+# Utilization = arrival_rate * service_time
         return target_util * self.capacity / self.service_time
     
     def simulate(self, utilization, duration=60):
@@ -231,33 +231,33 @@ class CapacitySimulator:
         print(f"  Arrival rate: {arrival_rate:.1f} req/sec")
         print(f"  Service rate: {1/self.service_time:.1f} req/sec")
         
-        # Reset metrics
+# Reset metrics
         self.metrics = QueueMetrics([], [], [], [])
         
-        # Generate arrivals
+# Generate arrivals
         start_time = time.time()
         next_arrival = start_time
         
         while time.time() - start_time < duration:
             current_time = time.time()
             
-            # Add new arrivals
+# Add new arrivals
             while current_time >= next_arrival:
                 self.queue.append(next_arrival)
                 next_arrival += inter_arrival_time
             
-            # Process requests
+# Process requests
             if self.queue and not self.processing:
                 arrival_time = self.queue.popleft()
                 wait_time = current_time - arrival_time
                 
-                # Record metrics
+# Record metrics
                 self.metrics.timestamps.append(current_time - start_time)
                 self.metrics.queue_depths.append(len(self.queue))
                 self.metrics.response_times.append(wait_time + self.service_time)
                 self.metrics.utilizations.append(utilization)
                 
-                # Simulate processing
+# Simulate processing
                 self.processing = True
                 threading.Timer(self.service_time, self.complete_processing).start()
             
@@ -270,13 +270,13 @@ class CapacitySimulator:
         """Visualize queue behavior"""
         fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
         
-        # Queue depth over time
+# Queue depth over time
         ax1.plot(self.metrics.timestamps, self.metrics.queue_depths)
         ax1.set_ylabel('Queue Depth')
         ax1.set_title('Queue Depth Over Time')
         ax1.grid(True)
         
-        # Response time over time
+# Response time over time
         ax2.plot(self.metrics.timestamps, self.metrics.response_times)
         ax2.set_xlabel('Time (seconds)')
         ax2.set_ylabel('Response Time (seconds)')
@@ -327,9 +327,9 @@ class LittlesLawCalculator:
         """
         Calculate required capacity to meet response time target
         """
-        # For M/M/1 queue: W = 1/(μ-λ)
-        # Where μ is service rate (capacity)
-        # Rearranging: μ = λ + 1/W
+# For M/M/1 queue: W = 1/(μ-λ)
+# Where μ is service rate (capacity)
+# Rearranging: μ = λ + 1/W
         
         service_time = target_response_time * (1 - utilization_target)
         required_service_rate = arrival_rate / utilization_target
@@ -368,18 +368,18 @@ def plan_api_gateway_capacity():
     
     calculator = LittlesLawCalculator()
     
-    # Current state
+# Current state
     current_rps = 1000  # requests per second
     current_capacity = 1500  # max requests per second
     
-    # Analyze current state
+# Analyze current state
     current = calculator.predict_response_time(current_rps, current_capacity)
     print("Current State:")
     print(f"  Utilization: {current['utilization']*100:.1f}%")
     print(f"  Response Time: {current['response_time']*1000:.1f}ms")
     print(f"  Queue Length: {current['queue_length']:.1f}")
     
-    # Plan for 2x growth
+# Plan for 2x growth
     future_rps = 2000
     target_response_time = 0.1  # 100ms
     
@@ -423,7 +423,7 @@ class BackpressureController:
             LoadLevel.CRITICAL: 1.0
         }
         
-        # Different strategies for different load levels
+# Different strategies for different load levels
         self.strategies = {
             LoadLevel.NORMAL: self.accept_all,
             LoadLevel.ELEVATED: self.apply_rate_limiting,
@@ -461,7 +461,7 @@ class BackpressureController:
     
     async def apply_rate_limiting(self, request):
         """Elevated load - apply rate limiting"""
-        # Implement token bucket
+# Implement token bucket
         if self.token_bucket.try_acquire():
             return await self.accept_all(request)
         else:
@@ -472,7 +472,7 @@ class BackpressureController:
         if request.priority == "critical":
             return await self.accept_all(request)
         else:
-            # Probabilistic rejection based on priority
+# Probabilistic rejection based on priority
             acceptance_prob = {
                 "high": 0.5,
                 "normal": 0.2,
@@ -487,10 +487,10 @@ class BackpressureController:
     async def emergency_mode(self, request):
         """Critical load - accept only essential requests"""
         if request.is_health_check():
-            # Always respond to health checks
+# Always respond to health checks
             return {"status": "overloaded"}
         elif request.is_essential():
-            # Queue essential requests with timeout
+# Queue essential requests with timeout
             try:
                 return await asyncio.wait_for(
                     self.accept_all(request),
@@ -525,7 +525,7 @@ class BackpressureController:
 
 ---
 
-## 📊 Capacity Patterns in Production
+## Capacity Patterns in Production
 
 ### Netflix's Adaptive Capacity Management
 
@@ -549,7 +549,7 @@ class NetflixCapacityManager:
         failed_load = self.regions[failed_region].current_load
         healthy_regions = [r for r in self.regions if r != failed_region]
         
-        # Calculate spare capacity in each region
+# Calculate spare capacity in each region
         spare_capacity = {}
         for region in healthy_regions:
             spare = self.regions[region].capacity - self.regions[region].current_load
@@ -558,10 +558,10 @@ class NetflixCapacityManager:
         total_spare = sum(spare_capacity.values())
         
         if total_spare < failed_load:
-            # Not enough spare capacity - activate surge mode
+# Not enough spare capacity - activate surge mode
             self.activate_global_surge_mode()
         
-        # Distribute load proportionally
+# Distribute load proportionally
         for region, spare in spare_capacity.items():
             additional_load = failed_load * (spare / total_spare)
             self.regions[region].add_load(additional_load)
@@ -571,16 +571,16 @@ class NetflixCapacityManager:
         Scale based on predicted demand
         """
         for region in self.regions:
-            # Predict load for next hour
+# Predict load for next hour
             predicted_load = self.predictive_scaler.predict(
                 region=region,
                 lookahead=timedelta(hours=1)
             )
             
-            # Calculate required capacity (target 70% utilization)
+# Calculate required capacity (target 70% utilization)
             required_capacity = predicted_load / 0.7
             
-            # Scale if needed (with 10% buffer)
+# Scale if needed (with 10% buffer)
             if required_capacity > self.regions[region].capacity * 0.9:
                 self.scale_region(region, required_capacity * 1.1)
 ```
@@ -604,7 +604,7 @@ class ProductionConnectionPool:
         self.max_overflow = max_overflow
         self.timeout = timeout
         
-        # Metrics
+# Metrics
         self.metrics = {
             'acquisitions': 0,
             'timeouts': 0,
@@ -619,13 +619,13 @@ class ProductionConnectionPool:
         """
         Calculate optimal pool size using Little's Law
         """
-        # Average connections in use = concurrent_requests * avg_query_time
+# Average connections in use = concurrent_requests * avg_query_time
         avg_connections_needed = concurrent_requests * avg_query_time
         
-        # Add buffer for variance (30%)
+# Add buffer for variance (30%)
         with_buffer = avg_connections_needed * 1.3
         
-        # Round up and enforce limits
+# Round up and enforce limits
         optimal = int(math.ceil(with_buffer))
         return max(self.min_size, min(optimal, self.max_size))
     
@@ -634,12 +634,12 @@ class ProductionConnectionPool:
         Automatically adjust pool size based on metrics
         """
         if self.metrics['timeouts'] > 0:
-            # Experienced timeouts - need more connections
+# Experienced timeouts - need more connections
             new_size = min(self.max_size, self.current_size + 2)
             self.resize(new_size)
             
         elif self.metrics['high_water_mark'] < self.current_size * 0.5:
-            # Underutilized - can reduce
+# Underutilized - can reduce
             new_size = max(self.min_size, self.current_size - 1)
             self.resize(new_size)
 ```

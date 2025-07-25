@@ -396,7 +396,7 @@ kubectl scale deployment/service-name --replicas=+2
 # Memory leak analysis runbook: [link]
 ```
 
-### Issue 2: Database Connection Exhaustion  
+### Issue 2: Database Connection Exhaustion
 **Symptoms** (Recognition cues): "connection refused", timeout errors
 **Diagnosis** (Simple check):
 - Dashboard link #2 

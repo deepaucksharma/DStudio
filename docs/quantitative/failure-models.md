@@ -295,17 +295,17 @@ def phi_accrual_detector(heartbeat_history):
     current_time = time.now()
     last_heartbeat = heartbeat_history[-1]
     
-    # Calculate expected interval
+# Calculate expected interval
     intervals = calculate_intervals(heartbeat_history)
     mean = np.mean(intervals)
     std = np.std(intervals)
     
-    # Time since last heartbeat
+# Time since last heartbeat
     elapsed = current_time - last_heartbeat
     
-    # Calculate φ
+# Calculate φ
     phi = -log10(1 - F(elapsed))
-    # where F is CDF of normal distribution
+# where F is CDF of normal distribution
     
     return phi
 
@@ -389,10 +389,10 @@ def cascade_probability(initial_load, capacity, failed_nodes, total_nodes):
     new_load_per_node = (initial_load * total_nodes) / remaining_nodes
     
     if new_load_per_node > capacity:
-        # Cascade likely
+# Cascade likely
         return 1.0
     else:
-        # Probability increases with load
+# Probability increases with load
         return (new_load_per_node / capacity) ** 2
 ```
 

@@ -16,7 +16,7 @@ last_updated: 2025-01-21
 
 **Control request flow to protect systems and ensure fair resource allocation**
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ## Core Concept
 
@@ -43,7 +43,7 @@ Real System:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ## Rate Limiting Algorithms
 
@@ -155,7 +155,7 @@ class TokenBucket(RateLimiter):
         with self.lock:
             now = time.time()
             
-            # Initialize bucket if needed
+# Initialize bucket if needed
             if key not in self.buckets:
                 self.buckets[key] = {
                     'tokens': self.capacity,
@@ -167,24 +167,24 @@ class TokenBucket(RateLimiter):
             bucket = self.buckets[key]
             bucket['total_requests'] += 1
 
-            # Refill tokens based on elapsed time
+# Refill tokens based on elapsed time
             elapsed = now - bucket['last_refill']
             new_tokens = elapsed * self.refill_rate
             
-            # Cap at burst capacity instead of normal capacity
+# Cap at burst capacity instead of normal capacity
             bucket['tokens'] = min(
                 self.burst_capacity,
                 bucket['tokens'] + new_tokens
             )
             bucket['last_refill'] = now
 
-            # Check if enough tokens available
+# Check if enough tokens available
             allowed = bucket['tokens'] >= tokens
             if allowed:
                 bucket['tokens'] -= tokens
                 bucket['total_allowed'] += 1
             
-            # Calculate metadata
+# Calculate metadata
             metadata = {
                 'remaining_tokens': int(bucket['tokens']),
                 'capacity': self.capacity,
@@ -205,7 +205,7 @@ class TokenBucket(RateLimiter):
             if bucket['tokens'] >= 1:
                 return None
             
-            # Calculate time needed to accumulate 1 token
+# Calculate time needed to accumulate 1 token
             tokens_needed = 1 - bucket['tokens']
             seconds_needed = tokens_needed / self.refill_rate
             return max(0.1, seconds_needed)  # Minimum 100ms
@@ -227,29 +227,29 @@ class SlidingWindowLog(RateLimiter):
             now = time.time()
             cutoff = now - self.window_seconds
 
-            # Periodic cleanup to prevent memory bloat
+# Periodic cleanup to prevent memory bloat
             if now - self._last_cleanup > 60:  # Every minute
                 self._cleanup_old_entries()
                 self._last_cleanup = now
 
-            # Remove expired entries for this key
+# Remove expired entries for this key
             self.requests[key] = [
                 (timestamp, weight) for timestamp, weight in self.requests[key]
                 if timestamp > cutoff
             ]
 
-            # Calculate current usage
+# Calculate current usage
             current_usage = sum(weight for _, weight in self.requests[key])
             
-            # Check if we can add new request
+# Check if we can add new request
             allowed = current_usage + tokens <= self.max_requests
             
             if allowed:
-                # Round timestamp to precision
+# Round timestamp to precision
                 rounded_time = round(now * 1000 / self.precision_ms) * self.precision_ms / 1000
                 self.requests[key].append((rounded_time, tokens))
             
-            # Calculate metadata
+# Calculate metadata
             requests_in_window = len(self.requests[key])
             oldest_request = min((t for t, _ in self.requests[key]), default=now)
             
@@ -269,7 +269,7 @@ class SlidingWindowLog(RateLimiter):
             if key not in self.requests or not self.requests[key]:
                 return None
             
-            # Find the oldest request that would need to expire
+# Find the oldest request that would need to expire
             now = time.time()
             cutoff = now - self.window_seconds
             
@@ -312,38 +312,38 @@ class SlidingWindowCounter(RateLimiter):
             
             window_data = self.windows[key]
 
-            # Check if we've moved to a new window
+# Check if we've moved to a new window
             if window_start != window_data.get('window_start', 0):
-                # Shift windows
+# Shift windows
                 if window_start - window_data.get('window_start', 0) >= self.window_seconds * 2:
-                    # If we skipped windows, reset
+# If we skipped windows, reset
                     window_data['previous'] = 0
                     window_data['current'] = 0
                 else:
-                    # Normal progression
+# Normal progression
                     window_data['previous'] = window_data.get('current', 0)
                     window_data['current'] = 0
                 window_data['window_start'] = window_start
 
-            # Calculate position in current window (0.0 to 1.0)
+# Calculate position in current window (0.0 to 1.0)
             window_position = (now - window_start) / self.window_seconds
             
-            # Weight previous window's contribution
+# Weight previous window's contribution
             previous_weight = 1.0 - window_position
             
-            # Calculate effective request count
+# Calculate effective request count
             weighted_count = (
                 window_data['current'] +
                 window_data['previous'] * previous_weight
             )
 
-            # Check if request would exceed limit
+# Check if request would exceed limit
             allowed = weighted_count + tokens <= self.max_requests
             
             if allowed:
                 window_data['current'] += tokens
             
-            # Calculate detailed metadata
+# Calculate detailed metadata
             metadata = {
                 'current_window_requests': window_data['current'],
                 'previous_window_requests': window_data['previous'],
@@ -376,14 +376,14 @@ class SlidingWindowCounter(RateLimiter):
             if weighted_count < self.max_requests:
                 return None
             
-            # Calculate when enough of previous window will have expired
-            # This is an approximation
+# Calculate when enough of previous window will have expired
+# This is an approximation
             excess = weighted_count - self.max_requests + 1
             if window_data['previous'] > 0:
                 time_needed = (excess / window_data['previous']) * self.window_seconds
                 return max(0.1, time_needed)
             
-            # If all requests are in current window, wait for next window
+# If all requests are in current window, wait for next window
             return window_start + self.window_seconds - now
 ```
 
@@ -410,7 +410,7 @@ graph TD
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ## Distributed Rate Limiting at Scale
 
@@ -532,7 +532,7 @@ class DistributedRateLimiter:
 
     def _init_lua_scripts(self):
         """Load Lua scripts for atomic operations"""
-        # Enhanced token bucket with metadata
+# Enhanced token bucket with metadata
         self.token_bucket_script = """
         local key = KEYS[1]
         local capacity = tonumber(ARGV[1])
@@ -608,7 +608,7 @@ class DistributedRateLimiter:
         }
         """
 
-        # Sliding window with request log
+# Sliding window with request log
         self.sliding_window_script = """
         local key = KEYS[1]
         local max_requests = tonumber(ARGV[1])
@@ -636,7 +636,7 @@ class DistributedRateLimiter:
         end
         """
 
-        # Load scripts to all Redis instances
+# Load scripts to all Redis instances
         self.script_shas = {}
         for i, client in enumerate(self.redis_clients):
             self.script_shas[i] = {
@@ -660,15 +660,15 @@ class DistributedRateLimiter:
                               metadata: Optional[Dict] = None) -> Dict[str, any]:
         """Check rate limit with automatic strategy selection"""
         
-        # Get tier configuration
+# Get tier configuration
         tier_config = self.config.limits.get(tier, self.config.limits['default'])
         max_requests = tier_config['requests']
         window = tier_config['window']
         
-        # Build rate limit key
+# Build rate limit key
         key = f"rl:{tier}:{identifier}"
         
-        # Select strategy
+# Select strategy
         if self.config.strategy == RateLimitStrategy.LOCAL_THEN_GLOBAL:
             return await self._check_hybrid(key, max_requests, window, requested)
         elif self.config.strategy == RateLimitStrategy.SHARDED:
@@ -682,7 +682,7 @@ class DistributedRateLimiter:
         client = self.redis_clients[0]
         
         try:
-            # Use token bucket for centralized
+# Use token bucket for centralized
             result = await asyncio.get_event_loop().run_in_executor(
                 None,
                 client.evalsha,
@@ -708,7 +708,7 @@ class DistributedRateLimiter:
             }
             
         except redis.RedisError as e:
-            # Fallback decision
+# Fallback decision
             return self._fallback_decision(key, e)
     
     async def _check_sharded(self, key: str, limit: int,
@@ -717,7 +717,7 @@ class DistributedRateLimiter:
         client, shard_idx = self._get_redis_shard(key)
         
         try:
-            # Use sliding window for sharded
+# Use sliding window for sharded
             result = await asyncio.get_event_loop().run_in_executor(
                 None,
                 client.evalsha,
@@ -747,11 +747,11 @@ class DistributedRateLimiter:
         """Local cache with periodic global sync"""
         now = time.time()
         
-        # Check local cache first
+# Check local cache first
         if key in self.local_cache:
             cache_entry = self.local_cache[key]
             if now - cache_entry['last_sync'] < self.config.sync_interval:
-                # Use local decision
+# Use local decision
                 local_used = cache_entry['local_used']
                 global_quota = cache_entry['global_quota']
                 
@@ -765,12 +765,12 @@ class DistributedRateLimiter:
                         'cache': 'local'
                     }
         
-        # Need to sync with global state
+# Need to sync with global state
         return await self._sync_and_check(key, limit, window, requested)
     
     def _fallback_decision(self, key: str, error: Exception) -> Dict[str, any]:
         """Fallback strategy when Redis is unavailable"""
-        # Could implement local fallback, fail open/closed, etc.
+# Could implement local fallback, fail open/closed, etc.
         return {
             'allowed': True,  # Fail open
             'remaining': -1,
@@ -828,7 +828,7 @@ class HierarchicalRateLimiter:
         results = []
         blocked_at_level = None
         
-        # Check from most specific to least specific
+# Check from most specific to least specific
         levels = sorted(self.hierarchy.items(), 
                        key=lambda x: x[1]['priority'], 
                        reverse=True)
@@ -837,16 +837,16 @@ class HierarchicalRateLimiter:
             if level_name not in context:
                 continue
             
-            # Check parent limits first
+# Check parent limits first
             if 'parent' in level_config:
                 parent_key = context.get(level_config['parent'])
                 if not parent_key:
                     continue
             
-            # Build key for this level
+# Build key for this level
             key = f"rl:{level_name}:{context[level_name]}"
             
-            # Check limit
+# Check limit
             result = await self._check_level_limit(
                 key, 
                 level_config['limit'],
@@ -935,20 +935,20 @@ class CostBasedRateLimiter:
                                params: Dict) -> Dict[str, any]:
         """Check if user has budget for operation"""
         
-        # Calculate dynamic cost based on parameters
+# Calculate dynamic cost based on parameters
         base_cost = self.operation_costs.get(operation, 10)
         
-        # Adjust cost based on operation parameters
+# Adjust cost based on operation parameters
         if operation == 'query':
-            # More results = higher cost
+# More results = higher cost
             result_limit = params.get('limit', 10)
             base_cost *= (result_limit / 10)
         elif operation == 'aggregate':
-            # More dimensions = higher cost
+# More dimensions = higher cost
             dimensions = params.get('group_by', [])
             base_cost *= max(1, len(dimensions))
         
-        # Check budget
+# Check budget
         current_usage = await self._get_current_usage(user_id)
         
         if current_usage + base_cost <= self.budget:
@@ -983,7 +983,7 @@ class GeographicRateLimiter:
             'global': {'limit': 1000, 'burst': 1.0}
         }
         
-        # Compliance requirements by region
+# Compliance requirements by region
         self.compliance_rules = {
             'eu-west': {
                 'gdpr_mode': True,
@@ -1002,25 +1002,25 @@ class GeographicRateLimiter:
                                   user_region: Optional[str] = None) -> Dict:
         """Apply region-specific rate limits"""
         
-        # Determine region from IP or user data
+# Determine region from IP or user data
         region = user_region or await self._geolocate_ip(client_ip)
         config = self.region_configs.get(region, self.region_configs['global'])
         
-        # Apply compliance rules
+# Apply compliance rules
         compliance = self.compliance_rules.get(region, {})
         
-        # Check rate limit with regional config
+# Check rate limit with regional config
         result = await self._check_limit(
             key=f"rl:region:{region}:{client_ip}",
             limit=config['limit'],
             burst_multiplier=config['burst']
         )
         
-        # Add compliance metadata
+# Add compliance metadata
         result['region'] = region
         result['compliance'] = compliance
         
-        # Audit if required
+# Audit if required
         if compliance.get('audit_required'):
             await self._audit_rate_limit_check(client_ip, region, result)
         
@@ -1063,7 +1063,7 @@ class MLRateLimiter:
         if len(history) < 2:
             return [0.0, 0.0, 0.0]
         
-        # Inter-request intervals
+# Inter-request intervals
         intervals = []
         for i in range(1, len(history)):
             intervals.append(history[i]['timestamp'] - history[i-1]['timestamp'])
@@ -1079,22 +1079,22 @@ class MLRateLimiter:
                                  request_metadata: Dict) -> Dict:
         """Check if request pattern is anomalous"""
         
-        # Get recent request history
+# Get recent request history
         history = await self._get_request_history(client_id, limit=100)
         
         if len(history) < 10:
-            # Not enough data for ML
+# Not enough data for ML
             return {'anomaly_score': 0.0, 'is_anomaly': False}
         
-        # Extract features
+# Extract features
         features = self.extract_features(history)
         
-        # Predict anomaly
+# Predict anomaly
         if self.is_trained:
             anomaly_score = self.anomaly_detector.decision_function([features])[0]
             is_anomaly = self.anomaly_detector.predict([features])[0] == -1
             
-            # Adaptive rate limit based on anomaly score
+# Adaptive rate limit based on anomaly score
             if is_anomaly:
                 suggested_limit = max(10, 100 * (1 + anomaly_score))
             else:
@@ -1112,7 +1112,7 @@ class MLRateLimiter:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ## Real-World Case Study: GitHub's Rate Limiting Evolution
 
@@ -1129,7 +1129,7 @@ graph TD
 ```
 
 **Impact**:
-- 🔥 **23% of API capacity** consumed by abusive clients
+- **23% of API capacity** consumed by abusive clients
 - 😤 **P99 latency increased 5x** during attacks
 - 💸 **$2.3M annual cost** from abuse traffic
 - 📉 **Developer satisfaction dropped 15%**
@@ -1143,7 +1143,7 @@ class GitHubRateLimitingSystem:
     """
     
     def __init__(self):
-        # Tiered limits by authentication type
+# Tiered limits by authentication type
         self.auth_tiers = {
             'unauthenticated': {
                 'core': 60,          # per hour
@@ -1172,7 +1172,7 @@ class GitHubRateLimitingSystem:
             }
         }
         
-        # GraphQL complexity scoring
+# GraphQL complexity scoring
         self.graphql_weights = {
             'node': 1,
             'edge': 1,
@@ -1189,20 +1189,20 @@ class GitHubRateLimitingSystem:
         """
         import graphql
         
-        # Parse query
+# Parse query
         parsed = graphql.parse(query)
         
-        # Calculate node count
+# Calculate node count
         total_cost = 0
         
         def visit_field(field, depth=0):
             nonlocal total_cost
             
-            # Base cost for field
+# Base cost for field
             field_name = field.name.value
             base_cost = self.graphql_weights.get(field_name, 1)
             
-            # Multiply by requested count
+# Multiply by requested count
             args = {arg.name.value: arg.value.value for arg in field.arguments}
             multiplier = 1
             
@@ -1211,17 +1211,17 @@ class GitHubRateLimitingSystem:
             elif 'last' in args:
                 multiplier = min(int(args['last']), 100)
             
-            # Exponential cost for depth
+# Exponential cost for depth
             depth_multiplier = 2 ** max(0, depth - 2)
             
             total_cost += base_cost * multiplier * depth_multiplier
             
-            # Recurse into selections
+# Recurse into selections
             if hasattr(field, 'selection_set') and field.selection_set:
                 for selection in field.selection_set.selections:
                     visit_field(selection, depth + 1)
         
-        # Visit all top-level fields
+# Visit all top-level fields
         for definition in parsed.definitions:
             if hasattr(definition, 'selection_set'):
                 for selection in definition.selection_set.selections:
@@ -1234,25 +1234,25 @@ class GitHubRateLimitingSystem:
         Generate comprehensive rate limit headers
         """
         headers = {
-            # Standard headers
+# Standard headers
             'X-RateLimit-Limit': str(context['limit']),
             'X-RateLimit-Remaining': str(context['remaining']),
             'X-RateLimit-Reset': str(context['reset_epoch']),
             'X-RateLimit-Used': str(context['used']),
             
-            # GitHub-specific headers
+# GitHub-specific headers
             'X-RateLimit-Resource': context['resource'],
             'X-GitHub-Media-Type': 'github.v3',
             
-            # Retry guidance
+# Retry guidance
             'Retry-After': str(context.get('retry_after', 0)),
             
-            # Rate limit scope
+# Rate limit scope
             'X-OAuth-Scopes': ','.join(context.get('scopes', [])),
             'X-Accepted-OAuth-Scopes': ','.join(context.get('required_scopes', []))
         }
         
-        # Add GraphQL-specific headers if applicable
+# Add GraphQL-specific headers if applicable
         if context.get('graphql_cost'):
             headers.update({
                 'X-RateLimit-NodeCount-Limit': str(context['node_limit']),
@@ -1266,12 +1266,12 @@ class GitHubRateLimitingSystem:
         """
         Generate helpful rate limit error response
         """
-        # Calculate wait time
+# Calculate wait time
         now = time.time()
         reset_time = context['reset_epoch']
         wait_seconds = max(0, reset_time - now)
         
-        # Format wait time for humans
+# Format wait time for humans
         if wait_seconds < 60:
             wait_human = f"{int(wait_seconds)} seconds"
         elif wait_seconds < 3600:
@@ -1298,7 +1298,7 @@ class GitHubRateLimitingSystem:
             }
         }
         
-        # Add suggestions based on auth type
+# Add suggestions based on auth type
         if context['auth_type'] == 'unauthenticated':
             response['suggestions'] = [
                 'Authenticate to increase your rate limit',
@@ -1377,7 +1377,7 @@ class StripeIdempotentRateLimiter:
         """
         idempotency_key = request.headers.get('Idempotency-Key')
         
-        # Check idempotency first (doesn't count against rate limit)
+# Check idempotency first (doesn't count against rate limit)
         if idempotency_key:
             cached = await self._get_idempotent_response(idempotency_key)
             if cached:
@@ -1390,7 +1390,7 @@ class StripeIdempotentRateLimiter:
                     }
                 }
         
-        # Now check rate limit
+# Now check rate limit
         resource = request['resource']
         operation = request['operation']
         customer_id = request['customer_id']
@@ -1398,7 +1398,7 @@ class StripeIdempotentRateLimiter:
         rate_config = self.rate_limits[resource][operation]
         rate_key = f"rl:{customer_id}:{resource}:{operation}"
         
-        # Use token bucket for Stripe
+# Use token bucket for Stripe
         allowed, metadata = await self._check_token_bucket(
             rate_key,
             rate_config['rate'],
@@ -1406,7 +1406,7 @@ class StripeIdempotentRateLimiter:
         )
         
         if not allowed:
-            # Even rate limited requests are idempotent
+# Even rate limited requests are idempotent
             if idempotency_key:
                 await self._store_idempotent_response(
                     idempotency_key,
@@ -1426,10 +1426,10 @@ class StripeIdempotentRateLimiter:
                 'headers': self._generate_headers(metadata)
             }
         
-        # Process the request
+# Process the request
         response = await self._process_business_logic(request)
         
-        # Store for idempotency
+# Store for idempotency
         if idempotency_key:
             await self._store_idempotent_response(idempotency_key, response)
         
@@ -1442,7 +1442,7 @@ class StripeIdempotentRateLimiter:
         """
         Calculate economic impact of rate limiting
         """
-        # Stripe's actual numbers (approximated)
+# Stripe's actual numbers (approximated)
         metrics = {
             'requests_per_second': 10000,
             'abusive_percentage_before': 0.15,  # 15%
@@ -1451,7 +1451,7 @@ class StripeIdempotentRateLimiter:
             'seconds_per_year': 31536000
         }
         
-        # Calculate savings
+# Calculate savings
         total_requests_per_year = (
             metrics['requests_per_second'] * 
             metrics['seconds_per_year']
@@ -1598,7 +1598,7 @@ class MultiTenantRateLimiter:
         tenant = await self._get_tenant_info(tenant_id)
         tier_config = self.tenant_tiers[tenant['tier']]
         
-        # Feature access check
+# Feature access check
         if feature not in tier_config['features'] and 'all' not in tier_config['features']:
             return {
                 'allowed': False,
@@ -1606,7 +1606,7 @@ class MultiTenantRateLimiter:
                 'upgrade_suggestion': self._suggest_upgrade_tier(feature)
             }
         
-        # Concurrent request check
+# Concurrent request check
         concurrent = await self._get_concurrent_requests(tenant_id)
         if concurrent >= tier_config['max_concurrent']:
             return {
@@ -1616,7 +1616,7 @@ class MultiTenantRateLimiter:
                 'limit': tier_config['max_concurrent']
             }
         
-        # Rate limit check
+# Rate limit check
         rate_result = await self._check_rate_limit(
             f"tenant:{tenant_id}",
             tier_config['requests_per_minute'],
@@ -1631,7 +1631,7 @@ class MultiTenantRateLimiter:
                 'current_usage': rate_result['current_usage']
             }
         
-        # Track usage for billing
+# Track usage for billing
         await self._track_usage_for_billing(tenant_id, feature, request_metadata)
         
         return {
@@ -1670,22 +1670,22 @@ class APIGatewayRateLimiter:
             'timestamp': time.time()
         }
         
-        # Check each strategy
+# Check each strategy
         for strategy in self.strategies:
             result = await strategy(context)
             
             if not result['allowed']:
-                # Log for analysis
+# Log for analysis
                 await self._log_rate_limit_event({
                     'strategy': strategy.__name__,
                     'context': context,
                     'result': result
                 })
                 
-                # Return appropriate response
+# Return appropriate response
                 return self._format_rate_limit_response(result, context)
         
-        # All checks passed
+# All checks passed
         return {'allowed': True, 'context': context}
     
     async def _check_ip_reputation(self, context: Dict) -> Dict:
@@ -1694,21 +1694,21 @@ class APIGatewayRateLimiter:
         """
         reputation = await self._get_ip_reputation(context['ip'])
         
-        # Dynamic limits based on reputation
+# Dynamic limits based on reputation
         if reputation['score'] < 0.3:
-            # Bad reputation: strict limits
+# Bad reputation: strict limits
             limit = 10
             window = 3600  # per hour
         elif reputation['score'] < 0.7:
-            # Unknown: moderate limits  
+# Unknown: moderate limits
             limit = 100
             window = 3600
         else:
-            # Good reputation: relaxed limits
+# Good reputation: relaxed limits
             limit = 1000
             window = 3600
         
-        # Add country-specific rules
+# Add country-specific rules
         if reputation.get('country') in self.high_risk_countries:
             limit = int(limit * 0.5)
         
@@ -1821,7 +1821,7 @@ class RateLimitingBestPractices:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ## Next-Generation Rate Limiting
 
@@ -1850,14 +1850,14 @@ class QuantumResistantRateLimiter:
         """
         Generate rate limit token resistant to quantum attacks
         """
-        # Use lattice-based cryptography concepts
-        # This is a simplified example - real implementation would use
-        # actual post-quantum algorithms
+# Use lattice-based cryptography concepts
+# This is a simplified example - real implementation would use
+# actual post-quantum algorithms
         
-        # Multiple rounds of hashing for quantum resistance
+# Multiple rounds of hashing for quantum resistance
         rounds = 100000
         
-        # Derive key using quantum-resistant KDF
+# Derive key using quantum-resistant KDF
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA3_512(),
             length=64,
@@ -1868,7 +1868,7 @@ class QuantumResistantRateLimiter:
         key_material = f"{client_id}:{timestamp}".encode()
         key = kdf.derive(key_material)
         
-        # Generate HMAC with SHA-3 (quantum-resistant)
+# Generate HMAC with SHA-3 (quantum-resistant)
         h = hmac.new(key, digestmod=hashlib.sha3_512)
         h.update(f"rl:{client_id}:{timestamp}".encode())
         
@@ -1878,11 +1878,11 @@ class QuantumResistantRateLimiter:
         """
         Verify request using quantum-resistant methods
         """
-        # In a quantum computing era, traditional signatures
-        # could be forged. Use post-quantum verification.
+# In a quantum computing era, traditional signatures
+# could be forged. Use post-quantum verification.
         
-        # This would integrate with post-quantum signature schemes
-        # like CRYSTALS-Dilithium or FALCON
+# This would integrate with post-quantum signature schemes
+# like CRYSTALS-Dilithium or FALCON
         
         return True  # Simplified for example
 
@@ -1900,7 +1900,7 @@ class NeuralRateLimiter(nn.Module):
     def __init__(self, input_features: int = 20):
         super().__init__()
         
-        # Neural network for predicting optimal rate limits
+# Neural network for predicting optimal rate limits
         self.feature_extractor = nn.Sequential(
             nn.Linear(input_features, 128),
             nn.ReLU(),
@@ -1912,7 +1912,7 @@ class NeuralRateLimiter(nn.Module):
             nn.ReLU()
         )
         
-        # Separate heads for different predictions
+# Separate heads for different predictions
         self.rate_limit_head = nn.Linear(32, 1)  # Optimal rate limit
         self.burst_head = nn.Linear(32, 1)       # Burst multiplier
         self.anomaly_head = nn.Linear(32, 1)     # Anomaly score
@@ -1941,32 +1941,32 @@ class AIRateLimitingSystem:
         Extract features for ML model
         """
         features = [
-            # Temporal features
+# Temporal features
             context['hour_of_day'] / 24,
             context['day_of_week'] / 7,
             context['is_weekend'],
             
-            # Historical features
+# Historical features
             context['avg_requests_per_minute'],
             context['request_variance'],
             context['burst_frequency'],
             
-            # Client features
+# Client features
             context['account_age_days'] / 365,
             context['historical_violation_rate'],
             context['payment_tier_numeric'],
             
-            # System features
+# System features
             context['current_cpu_usage'],
             context['current_memory_usage'],
             context['current_latency_p99'],
             
-            # Pattern features
+# Pattern features
             context['request_regularity_score'],
             context['endpoint_diversity_score'],
             context['geographic_distribution_score'],
             
-            # Recent behavior (last 5 minutes)
+# Recent behavior (last 5 minutes)
             context['recent_error_rate'],
             context['recent_request_rate'],
             context['recent_unique_endpoints'],
@@ -1981,21 +1981,21 @@ class AIRateLimitingSystem:
         """
         Use AI to predict optimal rate limits
         """
-        # Check cache
+# Check cache
         cache_key = f"{client_id}:{context['hour_of_day']}"
         if cache_key in self.prediction_cache:
             cached = self.prediction_cache[cache_key]
             if time.time() - cached['timestamp'] < 300:  # 5 min cache
                 return cached['prediction']
         
-        # Extract features
+# Extract features
         features = self.extract_features(context)
         
-        # Run model inference
+# Run model inference
         with torch.no_grad():
             rate_limit, burst, anomaly = self.model(features.unsqueeze(0))
         
-        # Convert to actual limits
+# Convert to actual limits
         prediction = {
             'rate_limit': int(rate_limit.item() * 1000),  # Scale to realistic range
             'burst_multiplier': float(burst.item()),
@@ -2004,7 +2004,7 @@ class AIRateLimitingSystem:
             'reasoning': self._explain_prediction(features, rate_limit, anomaly)
         }
         
-        # Cache prediction
+# Cache prediction
         self.prediction_cache[cache_key] = {
             'prediction': prediction,
             'timestamp': time.time()
@@ -2061,7 +2061,7 @@ class BlockchainRateLimiter:
         """
         Consensus mechanism for rate limit decisions
         """
-        # Simplified proof-of-work for rate limiting
+# Simplified proof-of-work for rate limiting
         proof = 0
         
         while not self.valid_proof(transactions, proof):
@@ -2073,14 +2073,14 @@ class BlockchainRateLimiter:
         """
         Check rate limits across distributed nodes
         """
-        # Query multiple nodes for consensus
+# Query multiple nodes for consensus
         votes = []
         
         for node in self.nodes:
             vote = self.query_node_rate_limit(node, request)
             votes.append(vote)
         
-        # Require majority consensus
+# Require majority consensus
         allowed_votes = sum(1 for v in votes if v['allowed'])
         consensus_threshold = len(votes) // 2 + 1
         
@@ -2168,7 +2168,7 @@ class FutureRateLimitingConcepts:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ## Decision Matrix: Choosing Your Rate Limiting Strategy
 
@@ -2292,15 +2292,15 @@ def calculate_rate_limiting_value(metrics: Dict) -> Dict:
     """
     Calculate the business value of rate limiting
     """
-    # Prevented outages
+# Prevented outages
     outage_cost_per_hour = metrics['revenue_per_hour'] * 2  # 2x for reputation
     outages_prevented = metrics['ddos_attempts_per_year'] * 0.3  # 30% would succeed
     outage_savings = outages_prevented * metrics['avg_outage_hours'] * outage_cost_per_hour
     
-    # Infrastructure savings
+# Infrastructure savings
     infra_savings = metrics['current_infra_cost'] * 0.25  # 25% reduction typical
     
-    # Performance improvements
+# Performance improvements
     performance_value = metrics['users'] * 0.02 * metrics['revenue_per_user']  # 2% retention improvement
     
     return {

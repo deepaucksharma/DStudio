@@ -19,7 +19,7 @@ last_updated: 2025-01-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Motorcycle Sidecar Analogy
 
@@ -90,15 +90,15 @@ def get_user(user_id):
     """
     Simple business logic - sidecar handles infrastructure
     """
-    # Business logic only
+# Business logic only
     user = fetch_user_from_db(user_id)
     
-    # Sidecar handles:
-    # - Authentication (already validated)
-    # - Rate limiting (already applied)
-    # - Metrics collection (automatic)
-    # - Distributed tracing (automatic)
-    # - Circuit breaking (transparent)
+# Sidecar handles:
+# - Authentication (already validated)
+# - Rate limiting (already applied)
+# - Metrics collection (automatic)
+# - Distributed tracing (automatic)
+# - Circuit breaking (transparent)
     
     return {'user': user}
 
@@ -127,7 +127,7 @@ static_resources:
                 route:
                   cluster: app_service
           http_filters:
-          # Authentication filter
+# Authentication filter
           - name: envoy.filters.http.jwt_authn
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.filters.http.jwt_authn.v3.JwtAuthentication
@@ -140,7 +140,7 @@ static_resources:
                     http_uri:
                       uri: "https://auth.example.com/.well-known/jwks.json"
           
-          # Rate limiting
+# Rate limiting
           - name: envoy.filters.http.ratelimit
             typed_config:
               "@type": type.googleapis.com/envoy.extensions.filters.http.ratelimit.v3.RateLimit
@@ -150,13 +150,13 @@ static_resources:
                   envoy_grpc:
                     cluster_name: rate_limit_service
           
-          # Metrics collection
+# Metrics collection
           - name: envoy.filters.http.prometheus_stats
             typed_config:
               "@type": type.googleapis.com/udpa.type.v1.TypedStruct
               type_url: type.googleapis.com/envoy.extensions.filters.http.prometheus_stats.v3alpha.PrometheusStats
           
-          # Router
+# Router
           - name: envoy.filters.http.router
 
   clusters:
@@ -194,7 +194,7 @@ services:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -259,25 +259,25 @@ class ProxySidecar:
         Intercept and enhance all requests
         """
         
-        # 1. Authentication
+# 1. Authentication
         if not await self._authenticate(request):
             return Response(status=401)
         
-        # 2. Rate limiting
+# 2. Rate limiting
         if not await self._check_rate_limit(request):
             return Response(status=429)
         
-        # 3. Circuit breaking
+# 3. Circuit breaking
         if self._is_circuit_open(request.destination):
             return Response(status=503)
         
-        # 4. Load balancing
+# 4. Load balancing
         endpoint = self._select_endpoint(request.destination)
         
-        # 5. Retry with backoff
+# 5. Retry with backoff
         response = await self._execute_with_retry(endpoint, request)
         
-        # 6. Metrics and tracing
+# 6. Metrics and tracing
         self._record_metrics(request, response)
         
         return response
@@ -303,7 +303,7 @@ class ProxySidecar:
                 if attempt == retry_policy['max_attempts'] - 1:
                     raise
                 
-                # Exponential backoff
+# Exponential backoff
                 wait_time = (2 ** attempt) * 0.1
                 await asyncio.sleep(wait_time)
         
@@ -337,7 +337,7 @@ spec:
         app: myapp
     spec:
       containers:
-      # Main application
+# Main application
       - name: app
         image: myapp:latest
         ports:
@@ -346,7 +346,7 @@ spec:
         - name: PORT
           value: "5000"
       
-      # Envoy sidecar
+# Envoy sidecar
       - name: envoy-sidecar
         image: envoyproxy/envoy:v1.22.0
         ports:
@@ -383,25 +383,25 @@ class AmbassadorSidecar:
         Convert REST/gRPC to legacy format
         """
         
-        # Parse modern request
+# Parse modern request
         service_name = request.headers.get('X-Service')
         method = request.headers.get('X-Method')
         payload = await request.json()
         
-        # Determine legacy protocol
+# Determine legacy protocol
         legacy_service = self.service_registry.get(service_name)
         adapter = self.protocol_adapters[legacy_service.protocol]
         
-        # Transform request
+# Transform request
         legacy_request = adapter.transform_request(method, payload)
         
-        # Call legacy service
+# Call legacy service
         legacy_response = await self._call_legacy_service(
             legacy_service,
             legacy_request
         )
         
-        # Transform response
+# Transform response
         modern_response = adapter.transform_response(legacy_response)
         
         return JSONResponse(modern_response)
@@ -412,7 +412,7 @@ class AmbassadorSidecar:
         """
         
         if service.protocol == 'soap':
-            # SOAP over HTTP
+# SOAP over HTTP
             headers = {
                 'Content-Type': 'text/xml',
                 'SOAPAction': request.action
@@ -425,7 +425,7 @@ class AmbassadorSidecar:
             return response.text
             
         elif service.protocol == 'custom-binary':
-            # Custom TCP protocol
+# Custom TCP protocol
             reader, writer = await asyncio.open_connection(
                 service.host,
                 service.port
@@ -442,7 +442,7 @@ class AmbassadorSidecar:
 # Example: Modern app using legacy SOAP service via sidecar
 class ModernApp:
     def __init__(self):
-        # Talk to sidecar instead of legacy service
+# Talk to sidecar instead of legacy service
         self.api_client = httpx.AsyncClient(
             base_url="http://localhost:8080"  # Sidecar
         )
@@ -485,16 +485,16 @@ class ConfigurationSidecar:
         Initialize configuration watching
         """
         
-        # Load initial config
+# Load initial config
         await self._load_all_configs()
         
-        # Start watchers for changes
+# Start watchers for changes
         for source_name, source in self.config_sources.items():
             self.watchers[source_name] = asyncio.create_task(
                 self._watch_config_changes(source_name, source)
             )
         
-        # Serve config to application
+# Serve config to application
         await self._start_config_server()
     
     async def _watch_config_changes(self, source_name, source):
@@ -503,13 +503,13 @@ class ConfigurationSidecar:
         """
         
         async for change in source.watch():
-            # Update local cache
+# Update local cache
             self.local_cache[change.key] = change.value
             
-            # Notify application
+# Notify application
             await self._notify_app(change)
             
-            # Hot reload if needed
+# Hot reload if needed
             if change.requires_reload:
                 await self._trigger_graceful_reload()
     
@@ -518,7 +518,7 @@ class ConfigurationSidecar:
         Notify application of config changes
         """
         
-        # Push notification
+# Push notification
         if self.app_websocket:
             await self.app_websocket.send_json({
                 'type': 'config_change',
@@ -527,7 +527,7 @@ class ConfigurationSidecar:
                 'timestamp': time.time()
             })
         
-        # Or use shared memory
+# Or use shared memory
         with self.shared_memory.get_lock():
             config_dict = self.shared_memory.get_dict()
             config_dict[change.key] = change.value
@@ -543,16 +543,16 @@ class ConfigurationSidecar:
             if key:
                 value = self.local_cache.get(key)
                 if value is None:
-                    # Fetch from source
+# Fetch from source
                     value = await self._fetch_from_sources(key)
                 
                 return JSONResponse({'key': key, 'value': value})
             else:
-                # Return all config
+# Return all config
                 return JSONResponse(self.local_cache)
         
         elif request.method == 'POST':
-            # Allow local overrides (for testing)
+# Allow local overrides (for testing)
             data = await request.json()
             self.local_cache[data['key']] = data['value']
             return JSONResponse({'status': 'updated'})
@@ -564,11 +564,11 @@ class Application:
         self.config_cache = {}
         
     async def start(self):
-        # Subscribe to config changes
+# Subscribe to config changes
         async for update in self.config_client.subscribe():
             self.config_cache[update.key] = update.value
             
-            # React to specific changes
+# React to specific changes
             if update.key == 'feature_flags':
                 self._update_feature_flags(update.value)
             elif update.key == 'database_url':
@@ -582,7 +582,7 @@ class Application:
         if key in self.config_cache:
             return self.config_cache[key]
         
-        # Fallback to sidecar
+# Fallback to sidecar
         try:
             value = self.config_client.get(key)
             self.config_cache[key] = value
@@ -609,16 +609,16 @@ class ObservabilitySidecar:
         Start all observability components
         """
         
-        # Tail application logs
+# Tail application logs
         asyncio.create_task(self._tail_logs())
         
-        # Scrape metrics endpoint
+# Scrape metrics endpoint
         asyncio.create_task(self._scrape_metrics())
         
-        # Collect traces
+# Collect traces
         asyncio.create_task(self._collect_traces())
         
-        # Health checking
+# Health checking
         asyncio.create_task(self._monitor_health())
     
     async def _tail_logs(self):
@@ -626,7 +626,7 @@ class ObservabilitySidecar:
         Tail and ship application logs
         """
         
-        # Multiple log sources
+# Multiple log sources
         log_sources = [
             '/var/log/app/application.log',
             '/proc/1/fd/1',  # stdout
@@ -642,20 +642,20 @@ class ObservabilitySidecar:
         """
         
         async with aiofiles.open(source, 'r') as f:
-            # Seek to end for tailing
+# Seek to end for tailing
             await f.seek(0, 2)
             
             while True:
                 line = await f.readline()
                 
                 if line:
-                    # Parse and enrich
+# Parse and enrich
                     log_entry = self._parse_log_line(line)
                     log_entry['source'] = source
                     log_entry['host'] = socket.gethostname()
                     log_entry['container_id'] = os.environ.get('CONTAINER_ID')
                     
-                    # Ship to backend
+# Ship to backend
                     await self.log_shipper.ship(log_entry)
                 else:
                     await asyncio.sleep(0.1)
@@ -665,19 +665,19 @@ class ObservabilitySidecar:
         Parse various log formats
         """
         
-        # Try JSON logs first
+# Try JSON logs first
         try:
             return json.loads(line)
         except:
             pass
         
-        # Try common patterns
+# Try common patterns
         patterns = [
-            # ISO timestamp pattern
+# ISO timestamp pattern
             r'^(?P<timestamp>\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+Z?)\s+'
             r'(?P<level>\w+)\s+(?P<message>.*)',
             
-            # Apache/Nginx style
+# Apache/Nginx style
             r'^(?P<ip>\d+\.\d+\.\d+\.\d+).*?"(?P<method>\w+)\s+'
             r'(?P<path>.*?)\s+HTTP/[\d.]+"?\s+(?P<status>\d+)',
         ]
@@ -687,7 +687,7 @@ class ObservabilitySidecar:
             if match:
                 return match.groupdict()
         
-        # Fallback
+# Fallback
         return {'message': line.strip(), 'timestamp': datetime.now().isoformat()}
     
     async def _scrape_metrics(self):
@@ -697,17 +697,17 @@ class ObservabilitySidecar:
         
         while True:
             try:
-                # Scrape application metrics endpoint
+# Scrape application metrics endpoint
                 response = await self.http_client.get('http://localhost:5000/metrics')
                 metrics_text = response.text
                 
-                # Parse Prometheus format
+# Parse Prometheus format
                 metrics = self._parse_prometheus_metrics(metrics_text)
                 
-                # Add system metrics
+# Add system metrics
                 metrics.extend(self._collect_system_metrics())
                 
-                # Send to backend
+# Send to backend
                 await self.metrics_aggregator.send(metrics)
                 
             except Exception as e:
@@ -760,9 +760,9 @@ class SidecarCommunication:
         Most common: HTTP proxy on localhost
         """
         
-        # Sidecar listens on localhost:8080
-        # App connects to localhost:8080
-        # Sidecar forwards to actual services
+# Sidecar listens on localhost:8080
+# App connects to localhost:8080
+# Sidecar forwards to actual services
         
         return {
             'app_config': {
@@ -780,10 +780,10 @@ class SidecarCommunication:
         High-performance local communication
         """
         
-        # Create Unix domain socket
+# Create Unix domain socket
         socket_path = '/tmp/sidecar.sock'
         
-        # Sidecar server
+# Sidecar server
         async def sidecar_server():
             server = await asyncio.start_unix_server(
                 handle_connection,
@@ -791,7 +791,7 @@ class SidecarCommunication:
             )
             await server.serve_forever()
         
-        # App client
+# App client
         async def app_client():
             reader, writer = await asyncio.open_unix_connection(socket_path)
             writer.write(b'REQUEST')
@@ -809,14 +809,14 @@ class SidecarCommunication:
         Ultra-low latency communication
         """
         
-        # Create shared memory segment
+# Create shared memory segment
         shm = shared_memory.SharedMemory(create=True, size=1024*1024)
         
-        # Sidecar writes
+# Sidecar writes
         def sidecar_write(data):
             shm.buf[:len(data)] = data.encode()
         
-        # App reads
+# App reads
         def app_read():
             return bytes(shm.buf).decode().rstrip('\x00')
         
@@ -829,7 +829,7 @@ class SidecarCommunication:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Sidecar Patterns
 
@@ -895,21 +895,21 @@ class IstioSidecarImplementation:
             },
             'filter_chains': [{
                 'filters': [
-                    # mTLS termination
+# mTLS termination
                     {
                         'name': 'envoy.filters.network.tls_inspector',
                         'typed_config': {
                             '@type': 'type.googleapis.com/envoy.extensions.filters.listener.tls_inspector.v3.TlsInspector'
                         }
                     },
-                    # HTTP connection manager
+# HTTP connection manager
                     {
                         'name': 'envoy.filters.network.http_connection_manager',
                         'typed_config': {
                             '@type': 'type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager',
                             'stat_prefix': 'inbound_http',
                             'http_filters': [
-                                # Istio authentication
+# Istio authentication
                                 {
                                     'name': 'istio_authn',
                                     'typed_config': {
@@ -917,7 +917,7 @@ class IstioSidecarImplementation:
                                         'type_url': 'type.googleapis.com/istio.envoy.config.filter.http.authn.v2alpha1.FilterConfig'
                                     }
                                 },
-                                # Distributed tracing
+# Distributed tracing
                                 {
                                     'name': 'envoy.filters.http.opentelemetry',
                                     'typed_config': {
@@ -930,7 +930,7 @@ class IstioSidecarImplementation:
                                         }
                                     }
                                 },
-                                # Circuit breaking
+# Circuit breaking
                                 {
                                     'name': 'envoy.filters.http.circuit_breakers',
                                     'typed_config': {
@@ -944,7 +944,7 @@ class IstioSidecarImplementation:
                                         }
                                     }
                                 },
-                                # Router
+# Router
                                 {
                                     'name': 'envoy.filters.http.router'
                                 }
@@ -981,7 +981,7 @@ class IstioSidecarImplementation:
         Inject Istio sidecar into Kubernetes deployment
         """
         
-        # Add Istio annotations
+# Add Istio annotations
         if 'annotations' not in deployment_yaml['metadata']:
             deployment_yaml['metadata']['annotations'] = {}
         
@@ -993,7 +993,7 @@ class IstioSidecarImplementation:
             'sidecar.istio.io/proxyMemoryLimit': '256Mi'
         })
         
-        # Add init container for iptables
+# Add init container for iptables
         pod_spec = deployment_yaml['spec']['template']['spec']
         
         if 'initContainers' not in pod_spec:
@@ -1022,7 +1022,7 @@ class IstioSidecarImplementation:
             }
         })
         
-        # Add Envoy sidecar container
+# Add Envoy sidecar container
         if 'containers' not in pod_spec:
             pod_spec['containers'] = []
         
@@ -1117,7 +1117,7 @@ class IstioEnabledService:
             - Metrics collection
             """
             
-            # Extract tracing headers propagated by Istio
+# Extract tracing headers propagated by Istio
             trace_headers = {
                 'x-request-id': request.headers.get('x-request-id'),
                 'x-b3-traceid': request.headers.get('x-b3-traceid'),
@@ -1126,15 +1126,15 @@ class IstioEnabledService:
                 'x-b3-sampled': request.headers.get('x-b3-sampled')
             }
             
-            # Call downstream service - Istio handles everything
+# Call downstream service - Istio handles everything
             async with httpx.AsyncClient() as client:
-                # Service discovery via Istio
+# Service discovery via Istio
                 inventory_response = await client.get(
                     f"http://inventory-service/api/inventory/{order_id}",
                     headers=trace_headers  # Propagate tracing
                 )
                 
-                # Another service call
+# Another service call
                 pricing_response = await client.get(
                     f"http://pricing-service/api/price/{order_id}",
                     headers=trace_headers
@@ -1240,14 +1240,14 @@ class PortableApplication:
         Portable application logic using Dapr building blocks
         """
         
-        # 1. Save order state (works with Redis, Cosmos DB, DynamoDB, etc.)
+# 1. Save order state (works with Redis, Cosmos DB, DynamoDB, etc.)
         await self.dapr.save_state(
             store_name='statestore',
             key=f'order-{order.id}',
             value=order.dict()
         )
         
-        # 2. Publish event (works with Kafka, RabbitMQ, Azure Service Bus, etc.)
+# 2. Publish event (works with Kafka, RabbitMQ, Azure Service Bus, etc.)
         await self.dapr.publish_event(
             pubsub_name='pubsub',
             topic='order-created',
@@ -1259,7 +1259,7 @@ class PortableApplication:
             }
         )
         
-        # 3. Call inventory service (works with HTTP, gRPC)
+# 3. Call inventory service (works with HTTP, gRPC)
         inventory_result = await self.dapr.invoke_service(
             app_id='inventory-service',
             method='reserve',
@@ -1268,13 +1268,13 @@ class PortableApplication:
             }
         )
         
-        # 4. Get secret (works with K8s secrets, Azure Key Vault, AWS Secrets Manager)
+# 4. Get secret (works with K8s secrets, Azure Key Vault, AWS Secrets Manager)
         payment_key = await self.dapr.get_secret(
             store_name='secretstore',
             key='payment-api-key'
         )
         
-        # 5. Process payment
+# 5. Process payment
         payment_result = await self._process_payment(order, payment_key)
         
         return {
@@ -1302,10 +1302,10 @@ class PortableApplication:
         Handle events from Dapr
         """
         
-        # Process the event
+# Process the event
         inventory_data = event.data
         
-        # Update local state
+# Update local state
         await self.dapr.save_state(
             store_name='statestore',
             key=f'inventory-{inventory_data["product_id"]}',
@@ -1350,7 +1350,7 @@ spec:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Sidecar Case Studies
 
@@ -1372,16 +1372,16 @@ class NetflixPranaSidecar:
         Initialize Prana sidecar
         """
         
-        # 1. Register with Eureka
+# 1. Register with Eureka
         await self._register_with_eureka()
         
-        # 2. Start health check endpoint
+# 2. Start health check endpoint
         asyncio.create_task(self._health_check_server())
         
-        # 3. Start proxy server
+# 3. Start proxy server
         asyncio.create_task(self._proxy_server())
         
-        # 4. Start metrics collection
+# 4. Start metrics collection
         asyncio.create_task(self._metrics_server())
     
     async def _register_with_eureka(self):
@@ -1407,10 +1407,10 @@ class NetflixPranaSidecar:
             'lastUpdatedTimestamp': str(int(time.time() * 1000))
         }
         
-        # Register with Eureka
+# Register with Eureka
         await self.eureka_client.register(instance)
         
-        # Start heartbeat
+# Start heartbeat
         asyncio.create_task(self._eureka_heartbeat())
     
     async def _eureka_heartbeat(self):
@@ -1426,7 +1426,7 @@ class NetflixPranaSidecar:
                 )
             except Exception as e:
                 logging.error(f"Eureka heartbeat failed: {e}")
-                # Re-register if heartbeat fails
+# Re-register if heartbeat fails
                 await self._register_with_eureka()
             
             await asyncio.sleep(30)  # Netflix default
@@ -1437,34 +1437,34 @@ class NetflixPranaSidecar:
         """
         
         async def handle_request(request):
-            # Extract target service
+# Extract target service
             service_name = request.match_info.get('service')
             path = request.match_info.get('path')
             
-            # Get instances from Eureka via Ribbon
+# Get instances from Eureka via Ribbon
             instances = await self.ribbon_lb.get_instances(service_name)
             
             if not instances:
                 return web.Response(status=503, text="No instances available")
             
-            # Hystrix circuit breaker
+# Hystrix circuit breaker
             async with self.hystrix.command(
                 service_name,
                 fallback=self._fallback_response
             ) as cmd:
-                # Ribbon load balancing
+# Ribbon load balancing
                 instance = self.ribbon_lb.choose(instances)
                 
-                # Forward request
+# Forward request
                 target_url = f"http://{instance.host}:{instance.port}/{path}"
                 
                 async with httpx.AsyncClient() as client:
-                    # Copy headers
+# Copy headers
                     headers = dict(request.headers)
                     headers['X-Forwarded-For'] = request.remote
                     headers['X-Forwarded-Proto'] = request.scheme
                     
-                    # Make request
+# Make request
                     response = await client.request(
                         method=request.method,
                         url=target_url,
@@ -1473,7 +1473,7 @@ class NetflixPranaSidecar:
                         timeout=cmd.timeout
                     )
                     
-                    # Return response
+# Return response
                     return web.Response(
                         body=response.content,
                         status=response.status_code,
@@ -1546,7 +1546,7 @@ class NonJVMService:
     """
     
     def __init__(self):
-        # Talk to local Prana instead of Netflix services directly
+# Talk to local Prana instead of Netflix services directly
         self.prana_client = httpx.AsyncClient(
             base_url="http://localhost:8078"  # Prana proxy port
         )
@@ -1564,11 +1564,11 @@ class NonJVMService:
         Example service call
         """
         
-        # Prana handles:
-        # - Service discovery (Eureka)
-        # - Load balancing (Ribbon)  
-        # - Circuit breaking (Hystrix)
-        # - Metrics collection
+# Prana handles:
+# - Service discovery (Eureka)
+# - Load balancing (Ribbon)
+# - Circuit breaking (Hystrix)
+# - Metrics collection
         
         return await self.call_service(
             'recommendation-service',
@@ -1623,7 +1623,7 @@ class EnvoyMobileSidecar:
                           cluster: lyft_production
                           timeout: 30s
                   http_filters:
-                  # Gzip compression
+# Gzip compression
                   - name: envoy.filters.http.decompressor
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.decompressor.v3.Decompressor
@@ -1632,17 +1632,17 @@ class EnvoyMobileSidecar:
                         typed_config:
                           "@type": type.googleapis.com/envoy.extensions.compression.gzip.decompressor.v3.Gzip
                   
-                  # Stats for mobile
+# Stats for mobile
                   - name: envoy.filters.http.mobile_stats
                     typed_config:
                       "@type": type.googleapis.com/envoymobile.extensions.filters.http.mobile_stats.MobileStats
                   
-                  # Network condition detection
+# Network condition detection
                   - name: envoy.filters.http.network_condition
                     typed_config:
                       "@type": type.googleapis.com/envoymobile.extensions.filters.http.network_condition.NetworkCondition
                   
-                  # Adaptive concurrency for mobile
+# Adaptive concurrency for mobile
                   - name: envoy.filters.http.adaptive_concurrency
                     typed_config:
                       "@type": type.googleapis.com/envoy.extensions.filters.http.adaptive_concurrency.v3.AdaptiveConcurrency
@@ -1703,13 +1703,13 @@ class EnvoyMobileSidecar:
             Optimized request handling for mobile
             """
             
-            # Detect network conditions
+# Detect network conditions
             network_type = self.network_monitor.get_network_type()
             signal_strength = self.network_monitor.get_signal_strength()
             
-            # Configure based on conditions
+# Configure based on conditions
             if network_type == '2G' or signal_strength < -100:
-                # Poor network
+# Poor network
                 config = {
                     'timeout': 60,
                     'retries': 1,
@@ -1717,7 +1717,7 @@ class EnvoyMobileSidecar:
                     'prefetch': False
                 }
             elif network_type in ['3G', '4G'] and signal_strength > -85:
-                # Good network
+# Good network
                 config = {
                     'timeout': 30,
                     'retries': 3,
@@ -1725,7 +1725,7 @@ class EnvoyMobileSidecar:
                     'prefetch': True
                 }
             else:
-                # WiFi or 5G
+# WiFi or 5G
                 config = {
                     'timeout': 15,
                     'retries': 3,
@@ -1733,7 +1733,7 @@ class EnvoyMobileSidecar:
                     'prefetch': True
                 }
             
-            # Make request through Envoy Mobile
+# Make request through Envoy Mobile
             response = await self.envoy.request(
                 method=request.method,
                 url=request.url,
@@ -1742,9 +1742,9 @@ class EnvoyMobileSidecar:
                 config=config
             )
             
-            # Handle offline/online transitions
+# Handle offline/online transitions
             if response.failed and self.network_monitor.is_offline():
-                # Queue for retry when online
+# Queue for retry when online
                 await self.offline_queue.add(request)
                 return OfflineResponse(request_queued=True)
             
@@ -1773,7 +1773,7 @@ class EnvoyMobileSidecar:
             """
             
             if self.network_monitor.get_network_type() == 'WiFi':
-                # Prefetch critical data
+# Prefetch critical data
                 critical_endpoints = [
                     '/api/user/profile',
                     '/api/ride/active',
@@ -1821,32 +1821,32 @@ class SidecarPerformanceOptimization:
         Dynamic resource optimization
         """
         
-        # Profile current usage
+# Profile current usage
         profile = await self.profiler.collect_profile()
         
-        # CPU optimization
+# CPU optimization
         if profile.cpu_usage < 20 and profile.response_time_p99 < 10:
-            # Reduce CPU allocation
+# Reduce CPU allocation
             await self.optimizer.adjust_cpu_limit(
                 current=profile.cpu_limit,
                 target=profile.cpu_limit * 0.8
             )
         elif profile.cpu_usage > 80:
-            # Increase CPU allocation
+# Increase CPU allocation
             await self.optimizer.adjust_cpu_limit(
                 current=profile.cpu_limit,
                 target=profile.cpu_limit * 1.5
             )
         
-        # Memory optimization
+# Memory optimization
         if profile.memory_usage < profile.memory_limit * 0.3:
-            # Reduce memory
+# Reduce memory
             await self.optimizer.adjust_memory_limit(
                 current=profile.memory_limit,
                 target=profile.memory_limit * 0.7
             )
         
-        # Connection pool optimization
+# Connection pool optimization
         await self._optimize_connection_pools(profile)
     
     async def _optimize_connection_pools(self, profile):
@@ -1858,10 +1858,10 @@ class SidecarPerformanceOptimization:
             utilization = stats.active_connections / stats.pool_size
             
             if utilization < 0.3:
-                # Shrink pool
+# Shrink pool
                 new_size = max(5, int(stats.pool_size * 0.7))
             elif utilization > 0.8 and stats.wait_time_p99 > 100:
-                # Grow pool
+# Grow pool
                 new_size = min(100, int(stats.pool_size * 1.5))
             else:
                 continue
@@ -1874,35 +1874,35 @@ class SidecarPerformanceOptimization:
         """
         
         optimizations = {
-            # Use Unix domain sockets instead of TCP
+# Use Unix domain sockets instead of TCP
             'communication': {
                 'type': 'unix_socket',
                 'path': '/tmp/sidecar.sock',
                 'overhead': '~0.1ms'
             },
             
-            # Shared memory for high-frequency data
+# Shared memory for high-frequency data
             'shared_memory': {
                 'config_cache': '/dev/shm/sidecar_config',
                 'metrics_buffer': '/dev/shm/sidecar_metrics',
                 'overhead': '~10μs'
             },
             
-            # Zero-copy techniques
+# Zero-copy techniques
             'zero_copy': {
                 'sendfile': True,
                 'splice': True,
                 'overhead': 'minimal'
             },
             
-            # CPU affinity
+# CPU affinity
             'cpu_affinity': {
                 'app_cores': [0, 1],
                 'sidecar_cores': [2, 3],
                 'overhead': 'prevents context switches'
             },
             
-            # Memory-mapped files for large data
+# Memory-mapped files for large data
             'mmap': {
                 'large_configs': True,
                 'cache_data': True,
@@ -1915,7 +1915,7 @@ class SidecarPerformanceOptimization:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1932,7 +1932,7 @@ class SidecarDesignPrinciples:
         Each sidecar should have a single, well-defined purpose
         """
         
-        # Good: Focused sidecars
+# Good: Focused sidecars
         good_examples = {
             'envoy': 'Network proxy and load balancing',
             'jaeger-agent': 'Trace collection and batching',
@@ -1940,7 +1940,7 @@ class SidecarDesignPrinciples:
             'prometheus-exporter': 'Metrics exposition'
         }
         
-        # Bad: Multi-purpose sidecar
+# Bad: Multi-purpose sidecar
         bad_example = {
             'kitchen-sink-sidecar': [
                 'proxy',
@@ -1967,16 +1967,16 @@ class SidecarDesignPrinciples:
         Sidecars should be transparent to application logic
         """
         
-        # Application code should not know about sidecar
+# Application code should not know about sidecar
         class Application:
             def make_request(self, url):
-                # Just make normal HTTP request
+# Just make normal HTTP request
                 return requests.get(url)  # Sidecar intercepts transparently
         
-        # Not this:
+# Not this:
         class BadApplication:
             def make_request(self, url):
-                # Application knows about sidecar
+# Application knows about sidecar
                 sidecar_url = f"http://localhost:8080/proxy?url={url}"
                 return requests.get(sidecar_url)  # Tight coupling!
         
@@ -2044,13 +2044,13 @@ class SidecarOverheadModel:
         Total_latency = Base_latency + 2 * Network_hop + Sidecar_processing
         """
         
-        # Without sidecar
+# Without sidecar
         direct_latency = base_latency_ms
         
-        # With sidecar
+# With sidecar
         with_sidecar = base_latency_ms + (2 * network_hop_ms) + sidecar_processing_ms
         
-        # Overhead percentage
+# Overhead percentage
         overhead_pct = ((with_sidecar - direct_latency) / direct_latency) * 100
         
         return {
@@ -2071,7 +2071,7 @@ class SidecarOverheadModel:
         Total_resources = App_resources + Σ(Sidecar_resources)
         """
         
-        # Typical sidecar resources
+# Typical sidecar resources
         sidecar_profiles = {
             'envoy': {'cpu': 0.1, 'memory': 0.128},
             'jaeger': {'cpu': 0.05, 'memory': 0.064},
@@ -2106,15 +2106,15 @@ class SidecarOverheadModel:
         Total_containers = Pods * (1 + Sidecars_per_pod)
         """
         
-        # Container overhead
+# Container overhead
         containers_without = pods_count
         containers_with = pods_count * (1 + sidecars_per_pod)
         
-        # Network connections
+# Network connections
         connections_without = pods_count * 10  # Assume 10 connections per pod
         connections_with = containers_with * 10  # Each container has connections
         
-        # Resource multiplication
+# Resource multiplication
         resource_multiplier = containers_with / containers_without
         
         return {
@@ -2155,10 +2155,10 @@ class EBPFSidecar:
         """
         
         program = """
-        #include <linux/bpf.h>
-        #include <linux/if_ether.h>
-        #include <linux/ip.h>
-        #include <linux/tcp.h>
+# include <linux/bpf.h>
+# include <linux/if_ether.h>
+# include <linux/ip.h>
+# include <linux/tcp.h>
         
         SEC("tc/ingress")
         int handle_ingress(struct __sk_buff *skb) {
@@ -2250,7 +2250,7 @@ class WASMSidecar:
         Load WASM module as sidecar filter
         """
         
-        # Example: Rate limiting filter in WASM
+# Example: Rate limiting filter in WASM
         filter_code = """
         (module
           (import "env" "log" (func $log (param i32 i32)))
@@ -2292,7 +2292,7 @@ class WASMSidecar:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Sidecar Selection Matrix
 

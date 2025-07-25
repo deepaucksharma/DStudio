@@ -27,7 +27,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 - **Predict emergent behaviors** before they manifest
 - **Design for reality** not idealized models
 
-## 🔍 The 7 Laws Overview
+## The 7 Laws Overview
 
 <div class="laws-structure">
   <h3>Physical Laws (1-3)</h3>
@@ -186,7 +186,7 @@ graph TD
 - Emergent complexity
 - For critical system design
 
-## 💡 Key Insights
+## Key Insights
 
 <div class="insights-grid">
   <div class="insight-box">
@@ -205,7 +205,7 @@ graph TD
   </div>
 </div>
 
-## 🚀 Next Steps
+## Next Steps
 
 <div class="next-steps">
   <a href="../part1-axioms/index.md" class="primary-cta">

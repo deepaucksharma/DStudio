@@ -37,7 +37,7 @@ def crawl_aggressively():
     urls = [f"https://example.com/page{i}" for i in range(1000)]
     
     with ThreadPoolExecutor(max_workers=50) as executor:
-        # 50 concurrent requests to same server!
+# 50 concurrent requests to same server!
         futures = [executor.submit(requests.get, url) for url in urls]
         
         for future in futures:
@@ -88,18 +88,18 @@ class PoliteCrawler:
     def __init__(self, policy: CrawlPolicy):
         self.policy = policy
         
-        # Per-host state management
+# Per-host state management
         self.host_delays = defaultdict(lambda: policy.base_delay)
         self.host_last_request = defaultdict(float)
         self.host_active_requests = defaultdict(int)
         self.host_error_counts = defaultdict(int)
         self.host_consecutive_errors = defaultdict(int)
         
-        # Robots.txt cache
+# Robots.txt cache
         self.robots_cache = {}
         self.robots_cache_expiry = {}
         
-        # Request session with configuration
+# Request session with configuration
         self.session = requests.Session()
         self.session.headers.update({
             'User-Agent': policy.user_agent,
@@ -110,10 +110,10 @@ class PoliteCrawler:
             'Upgrade-Insecure-Requests': '1'
         })
         
-        # Thread safety
+# Thread safety
         self.lock = threading.Lock()
         
-        # Statistics
+# Statistics
         self.stats = {
             'requests_made': 0,
             'requests_blocked': 0,
@@ -127,18 +127,18 @@ class PoliteCrawler:
         parsed_url = urlparse(url)
         hostname = parsed_url.netloc
         
-        # Check robots.txt
+# Check robots.txt
         if self.policy.respect_robots:
             allowed, reason = self._check_robots_txt(url, hostname)
             if not allowed:
                 return False, reason
         
-        # Check concurrent request limit
+# Check concurrent request limit
         with self.lock:
             if self.host_active_requests[hostname] >= self.policy.concurrent_limit:
                 return False, f"Concurrent limit exceeded ({self.policy.concurrent_limit})"
         
-        # Check if we need to wait for rate limiting
+# Check if we need to wait for rate limiting
         time_since_last = time.time() - self.host_last_request[hostname]
         required_delay = self.host_delays[hostname]
         
@@ -150,7 +150,7 @@ class PoliteCrawler:
     def crawl_url(self, url: str) -> Optional[requests.Response]:
         """Crawl a single URL with full politeness compliance"""
         
-        # Pre-crawl checks
+# Pre-crawl checks
         can_crawl, reason = self.can_crawl(url)
         if not can_crawl:
             print(f"Blocked crawling {url}: {reason}")
@@ -159,55 +159,55 @@ class PoliteCrawler:
         
         hostname = urlparse(url).netloc
         
-        # Wait for required delay
+# Wait for required delay
         self._wait_for_politeness(hostname)
         
-        # Update active request count
+# Update active request count
         with self.lock:
             self.host_active_requests[hostname] += 1
             self.host_last_request[hostname] = time.time()
         
         try:
-            # Make the request
+# Make the request
             response = self.session.get(
                 url, 
                 timeout=self.policy.timeout,
                 allow_redirects=True
             )
             
-            # Update statistics and state based on response
+# Update statistics and state based on response
             self._handle_response(hostname, response)
             
             self.stats['requests_made'] += 1
             return response
             
         except requests.exceptions.RequestException as e:
-            # Handle errors and update politeness parameters
+# Handle errors and update politeness parameters
             self._handle_error(hostname, e)
             self.stats['errors_encountered'] += 1
             return None
             
         finally:
-            # Always decrement active request count
+# Always decrement active request count
             with self.lock:
                 self.host_active_requests[hostname] -= 1
     
     def _check_robots_txt(self, url: str, hostname: str) -> Tuple[bool, str]:
         """Check robots.txt compliance"""
         
-        # Get robots.txt parser
+# Get robots.txt parser
         robots_parser = self._get_robots_parser(hostname)
         
         if robots_parser is None:
             return True, "No robots.txt"  # Allow if robots.txt unavailable
         
-        # Check if URL is allowed
+# Check if URL is allowed
         allowed = robots_parser.can_fetch(self.policy.user_agent, url)
         
         if not allowed:
             return False, "Blocked by robots.txt"
         
-        # Update crawl delay based on robots.txt
+# Update crawl delay based on robots.txt
         robots_delay = robots_parser.crawl_delay(self.policy.user_agent)
         if robots_delay:
             with self.lock:
@@ -223,18 +223,18 @@ class PoliteCrawler:
         
         current_time = time.time()
         
-        # Check cache expiration
+# Check cache expiration
         if hostname in self.robots_cache_expiry:
             if current_time > self.robots_cache_expiry[hostname]:
-                # Remove expired entry
+# Remove expired entry
                 self.robots_cache.pop(hostname, None)
                 self.robots_cache_expiry.pop(hostname, None)
         
-        # Return cached parser if available
+# Return cached parser if available
         if hostname in self.robots_cache:
             return self.robots_cache[hostname]
         
-        # Fetch and parse robots.txt
+# Fetch and parse robots.txt
         try:
             robots_url = f"https://{hostname}/robots.txt"
             
@@ -244,17 +244,17 @@ class PoliteCrawler:
                 parser = RobotFileParser()
                 parser.set_url(robots_url)
                 
-                # Parse from string content
+# Parse from string content
                 parser.read()
                 
-                # Cache the parser (1 hour TTL)
+# Cache the parser (1 hour TTL)
                 self.robots_cache[hostname] = parser
                 self.robots_cache_expiry[hostname] = current_time + 3600
                 
                 return parser
                 
         except Exception:
-            # If robots.txt fetch fails, cache None to avoid repeated attempts
+# If robots.txt fetch fails, cache None to avoid repeated attempts
             self.robots_cache[hostname] = None
             self.robots_cache_expiry[hostname] = current_time + 1800  # 30 min TTL
         
@@ -277,11 +277,11 @@ class PoliteCrawler:
         """Update crawler state based on response"""
         
         with self.lock:
-            # Reset error counts on successful response
+# Reset error counts on successful response
             if response.status_code < 400:
                 self.host_consecutive_errors[hostname] = 0
                 
-                # Gradually reduce delay for well-behaved servers
+# Gradually reduce delay for well-behaved servers
                 if self.host_delays[hostname] > self.policy.base_delay:
                     self.host_delays[hostname] *= 0.9  # Reduce by 10%
                     self.host_delays[hostname] = max(
@@ -289,7 +289,7 @@ class PoliteCrawler:
                         self.policy.base_delay
                     )
             
-            # Handle specific HTTP status codes
+# Handle specific HTTP status codes
             elif response.status_code == 429:  # Too Many Requests
                 self._handle_rate_limit(hostname, response)
                 
@@ -297,7 +297,7 @@ class PoliteCrawler:
                 self._handle_server_error(hostname)
                 
             elif response.status_code == 403:  # Forbidden
-                # Increase delay significantly
+# Increase delay significantly
                 self.host_delays[hostname] = min(
                     self.host_delays[hostname] * 3.0,
                     self.policy.max_delay
@@ -306,30 +306,30 @@ class PoliteCrawler:
     def _handle_rate_limit(self, hostname: str, response: requests.Response):
         """Handle 429 Too Many Requests response"""
         
-        # Check for Retry-After header
+# Check for Retry-After header
         retry_after = response.headers.get('Retry-After')
         
         with self.lock:
             if retry_after:
                 try:
-                    # Retry-After can be in seconds or HTTP date
+# Retry-After can be in seconds or HTTP date
                     if retry_after.isdigit():
                         delay = min(int(retry_after), self.policy.max_delay)
                     else:
-                        # Parse HTTP date (simplified)
+# Parse HTTP date (simplified)
                         delay = 60  # Default to 1 minute if can't parse
                     
                     self.host_delays[hostname] = delay
                     print(f"Rate limited by {hostname}, waiting {delay}s")
                     
                 except ValueError:
-                    # Double the delay if can't parse Retry-After
+# Double the delay if can't parse Retry-After
                     self.host_delays[hostname] = min(
                         self.host_delays[hostname] * 2.0,
                         self.policy.max_delay
                     )
             else:
-                # No Retry-After header, exponentially back off
+# No Retry-After header, exponentially back off
                 self.host_delays[hostname] = min(
                     self.host_delays[hostname] * self.policy.backoff_factor,
                     self.policy.max_delay
@@ -341,7 +341,7 @@ class PoliteCrawler:
         with self.lock:
             self.host_consecutive_errors[hostname] += 1
             
-            # Increase delay based on consecutive errors
+# Increase delay based on consecutive errors
             error_multiplier = min(2 ** self.host_consecutive_errors[hostname], 16)
             self.host_delays[hostname] = min(
                 self.policy.base_delay * error_multiplier,
@@ -355,23 +355,23 @@ class PoliteCrawler:
             self.host_error_counts[hostname] += 1
             self.host_consecutive_errors[hostname] += 1
             
-            # Increase delay based on error type
+# Increase delay based on error type
             if isinstance(error, requests.exceptions.Timeout):
-                # Timeout - increase delay moderately
+# Timeout - increase delay moderately
                 self.host_delays[hostname] = min(
                     self.host_delays[hostname] * 1.5,
                     self.policy.max_delay
                 )
             
             elif isinstance(error, requests.exceptions.ConnectionError):
-                # Connection error - increase delay significantly
+# Connection error - increase delay significantly
                 self.host_delays[hostname] = min(
                     self.host_delays[hostname] * 3.0,
                     self.policy.max_delay
                 )
             
             else:
-                # Other errors - moderate increase
+# Other errors - moderate increase
                 self.host_delays[hostname] = min(
                     self.host_delays[hostname] * 2.0,
                     self.policy.max_delay
@@ -428,7 +428,7 @@ class AdaptivePoliteCrawler(PoliteCrawler):
     def __init__(self, policy: CrawlPolicy):
         super().__init__(policy)
         
-        # Adaptive behavior tracking
+# Adaptive behavior tracking
         self.host_response_times = defaultdict(lambda: deque(maxlen=10))
         self.host_success_rates = defaultdict(lambda: deque(maxlen=20))
         self.host_server_load_indicators = defaultdict(list)
@@ -436,21 +436,21 @@ class AdaptivePoliteCrawler(PoliteCrawler):
     def _handle_response(self, hostname: str, response: requests.Response):
         """Enhanced response handling with adaptive behavior"""
         
-        # Record response time
+# Record response time
         response_time = response.elapsed.total_seconds()
         self.host_response_times[hostname].append(response_time)
         
-        # Record success/failure
+# Record success/failure
         success = response.status_code < 400
         self.host_success_rates[hostname].append(success)
         
-        # Analyze server load indicators
+# Analyze server load indicators
         self._analyze_server_load(hostname, response)
         
-        # Call parent handler
+# Call parent handler
         super()._handle_response(hostname, response)
         
-        # Apply adaptive adjustments
+# Apply adaptive adjustments
         self._adaptive_delay_adjustment(hostname)
     
     def _analyze_server_load(self, hostname: str, response: requests.Response):
@@ -458,31 +458,31 @@ class AdaptivePoliteCrawler(PoliteCrawler):
         
         indicators = []
         
-        # Response time indicates load
+# Response time indicates load
         response_time = response.elapsed.total_seconds()
         if response_time > 5.0:
             indicators.append('slow_response')
         
-        # Check for server load headers
+# Check for server load headers
         server_timing = response.headers.get('Server-Timing', '')
         if 'cpu' in server_timing.lower():
-            # Parse server timing if available
+# Parse server timing if available
             indicators.append('cpu_timing')
         
-        # X-RateLimit headers indicate approaching limits
+# X-RateLimit headers indicate approaching limits
         if 'X-RateLimit-Remaining' in response.headers:
             remaining = int(response.headers.get('X-RateLimit-Remaining', 1000))
             if remaining < 10:
                 indicators.append('rate_limit_approaching')
         
-        # Check for cache headers
+# Check for cache headers
         cache_control = response.headers.get('Cache-Control', '')
         if 'no-cache' in cache_control or 'must-revalidate' in cache_control:
             indicators.append('dynamic_content')
         
         self.host_server_load_indicators[hostname].extend(indicators)
         
-        # Keep only recent indicators
+# Keep only recent indicators
         if len(self.host_server_load_indicators[hostname]) > 50:
             self.host_server_load_indicators[hostname] = \
                 self.host_server_load_indicators[hostname][-50:]
@@ -491,19 +491,19 @@ class AdaptivePoliteCrawler(PoliteCrawler):
         """Adjust crawl delay based on server behavior patterns"""
         
         with self.lock:
-            # Calculate recent success rate
+# Calculate recent success rate
             recent_successes = list(self.host_success_rates[hostname])
             if len(recent_successes) >= 5:
                 success_rate = sum(recent_successes) / len(recent_successes)
                 
                 if success_rate < 0.7:  # Less than 70% success
-                    # Increase delay for struggling servers
+# Increase delay for struggling servers
                     self.host_delays[hostname] *= 1.3
                 elif success_rate > 0.95:  # More than 95% success
-                    # Slightly decrease delay for healthy servers
+# Slightly decrease delay for healthy servers
                     self.host_delays[hostname] *= 0.95
             
-            # Adjust based on response times
+# Adjust based on response times
             recent_times = list(self.host_response_times[hostname])
             if len(recent_times) >= 5:
                 avg_response_time = np.mean(recent_times)
@@ -513,7 +513,7 @@ class AdaptivePoliteCrawler(PoliteCrawler):
                 elif avg_response_time < 0.5:  # Fast responses
                     self.host_delays[hostname] *= 0.9
             
-            # Adjust based on server load indicators
+# Adjust based on server load indicators
             recent_indicators = self.host_server_load_indicators[hostname][-20:]
             load_score = len(recent_indicators)
             
@@ -522,7 +522,7 @@ class AdaptivePoliteCrawler(PoliteCrawler):
             elif load_score == 0:  # No load indicators
                 self.host_delays[hostname] *= 0.9
             
-            # Ensure delay stays within bounds
+# Ensure delay stays within bounds
             self.host_delays[hostname] = max(
                 min(self.host_delays[hostname], self.policy.max_delay),
                 self.policy.base_delay
@@ -551,13 +551,13 @@ class DistributedPoliteCrawler:
         self.crawler_id = crawler_id
         self.local_crawler = PoliteCrawler(policy)
         
-        # Redis key prefixes
+# Redis key prefixes
         self.host_delay_key = "crawler:host_delays"
         self.host_requests_key = "crawler:host_requests"
         self.host_errors_key = "crawler:host_errors"
         self.crawler_heartbeat_key = "crawler:heartbeat"
         
-        # Distributed state sync interval
+# Distributed state sync interval
         self.sync_interval = 30.0  # 30 seconds
         self.last_sync = 0.0
     
@@ -566,18 +566,18 @@ class DistributedPoliteCrawler:
         
         hostname = urlparse(url).netloc
         
-        # Sync with distributed state if needed
+# Sync with distributed state if needed
         current_time = time.time()
         if current_time - self.last_sync > self.sync_interval:
             self._sync_distributed_state()
             self.last_sync = current_time
         
-        # Check local politeness first
+# Check local politeness first
         can_crawl_local, reason = self.local_crawler.can_crawl(url)
         if not can_crawl_local:
             return False, reason
         
-        # Check distributed concurrent limits
+# Check distributed concurrent limits
         active_crawlers = self._get_active_crawlers_for_host(hostname)
         if len(active_crawlers) >= self.policy.concurrent_limit:
             return False, f"Distributed concurrent limit exceeded"
@@ -589,45 +589,45 @@ class DistributedPoliteCrawler:
         
         hostname = urlparse(url).netloc
         
-        # Check distributed politeness
+# Check distributed politeness
         can_crawl, reason = self.can_crawl_distributed(url)
         if not can_crawl:
             return None
         
-        # Register this crawler as active for the host
+# Register this crawler as active for the host
         self._register_crawler_activity(hostname)
         
         try:
-            # Use local crawler for actual request
+# Use local crawler for actual request
             response = self.local_crawler.crawl_url(url)
             
-            # Share response data with other crawlers
+# Share response data with other crawlers
             if response:
                 self._share_response_data(hostname, response)
             
             return response
             
         finally:
-            # Unregister crawler activity
+# Unregister crawler activity
             self._unregister_crawler_activity(hostname)
     
     def _sync_distributed_state(self):
         """Synchronize local state with distributed state"""
         
-        # Get distributed delay information
+# Get distributed delay information
         distributed_delays = self.redis.hgetall(self.host_delay_key)
         
         for hostname_bytes, delay_bytes in distributed_delays.items():
             hostname = hostname_bytes.decode()
             delay = float(delay_bytes)
             
-            # Update local delay if distributed delay is higher
+# Update local delay if distributed delay is higher
             with self.local_crawler.lock:
                 current_delay = self.local_crawler.host_delays[hostname]
                 if delay > current_delay:
                     self.local_crawler.host_delays[hostname] = delay
         
-        # Share local state with distributed store
+# Share local state with distributed store
         for hostname, delay in self.local_crawler.host_delays.items():
             existing_delay = self.redis.hget(self.host_delay_key, hostname)
             if existing_delay is None or float(existing_delay) < delay:
@@ -636,7 +636,7 @@ class DistributedPoliteCrawler:
     def _get_active_crawlers_for_host(self, hostname: str) -> List[str]:
         """Get list of active crawlers for a host"""
         
-        # Get all crawler heartbeats for this host
+# Get all crawler heartbeats for this host
         pattern = f"{self.host_requests_key}:{hostname}:*"
         keys = self.redis.keys(pattern)
         
@@ -646,7 +646,7 @@ class DistributedPoliteCrawler:
         for key in keys:
             last_activity = self.redis.get(key)
             if last_activity and current_time - float(last_activity) < 60:
-                # Extract crawler ID from key
+# Extract crawler ID from key
                 crawler_id = key.decode().split(':')[-1]
                 active_crawlers.append(crawler_id)
         
@@ -667,7 +667,7 @@ class DistributedPoliteCrawler:
     def _share_response_data(self, hostname: str, response: requests.Response):
         """Share response data with other crawlers"""
         
-        # Share useful response data for collective learning
+# Share useful response data for collective learning
         response_data = {
             'status_code': response.status_code,
             'response_time': response.elapsed.total_seconds(),
@@ -675,13 +675,13 @@ class DistributedPoliteCrawler:
             'crawler_id': self.crawler_id
         }
         
-        # Store recent responses (keep last 10)
+# Store recent responses (keep last 10)
         key = f"crawler:responses:{hostname}"
         self.redis.lpush(key, json.dumps(response_data))
         self.redis.ltrim(key, 0, 9)  # Keep only last 10
         self.redis.expire(key, 3600)  # 1 hour expiry
 
-# Usage with distributed coordination  
+# Usage with distributed coordination
 redis_client = redis.Redis(host='localhost', port=6379, db=0)
 distributed_crawler = DistributedPoliteCrawler(
     policy, redis_client, "crawler-1"
@@ -702,7 +702,7 @@ class PolitenessMonitor:
         self.crawler = crawler
         self.logger = logging.getLogger('politeness_monitor')
         
-        # Set up detailed logging
+# Set up detailed logging
         handler = logging.FileHandler('crawler_politeness.log')
         formatter = logging.Formatter(
             '%(asctime)s - %(levelname)s - %(message)s'
@@ -771,7 +771,7 @@ class PolitenessMonitor:
         
         score = 100.0
         
-        # Penalize for high error rates
+# Penalize for high error rates
         total_requests = self.crawler.stats['requests_made']
         total_errors = self.crawler.stats['errors_encountered']
         
@@ -779,17 +779,17 @@ class PolitenessMonitor:
             error_rate = total_errors / total_requests
             score -= error_rate * 30  # Max 30 point penalty
         
-        # Penalize for blocked requests
+# Penalize for blocked requests
         total_attempts = total_requests + self.crawler.stats['requests_blocked']
         if total_attempts > 0:
             block_rate = self.crawler.stats['requests_blocked'] / total_attempts
             score -= block_rate * 20  # Max 20 point penalty
         
-        # Bonus for respecting robots.txt
+# Bonus for respecting robots.txt
         if self.crawler.policy.respect_robots:
             score += 10
         
-        # Bonus for reasonable delays
+# Bonus for reasonable delays
         avg_delay = sum(self.crawler.host_delays.values()) / max(len(self.crawler.host_delays), 1)
         if avg_delay >= 1.0:
             score += 10
@@ -840,29 +840,29 @@ print(f"Politeness Score: {report['politeness_score']:.1f}/100")
 
 1. **Excessive Parallelism**
    ```python
-   # ❌ Don't do this
+# ❌ Don't do this
    with ThreadPoolExecutor(max_workers=100) as executor:
        futures = [executor.submit(requests.get, url) for url in urls]
    ```
 
 2. **Ignoring robots.txt**
    ```python
-   # ❌ Don't do this
+# ❌ Don't do this
    def crawl_everything(base_url):
-       # Completely ignore robots.txt restrictions
+# Completely ignore robots.txt restrictions
        pass
    ```
 
 3. **No Rate Limiting**
    ```python
-   # ❌ Don't do this
+# ❌ Don't do this
    for url in urls:
        requests.get(url)  # Immediate requests
    ```
 
 4. **Aggressive Retries**
    ```python
-   # ❌ Don't do this
+# ❌ Don't do this
    for _ in range(10):  # 10 immediate retries
        try:
            response = requests.get(url, timeout=1)

@@ -100,18 +100,18 @@ class Participant:
         """Phase 1: Prepare to commit"""
         with self.lock:
             try:
-                # Validate operations
+# Validate operations
                 for op_type, data in operations.items():
                     if not self._validate_operation(op_type, data):
                         self.state = TransactionState.ABORTED
                         return False
                 
-                # Store prepared state
+# Store prepared state
                 self.prepared_data[transaction_id] = operations
                 self.state = TransactionState.PREPARED
                 self._log(f"PREPARED: {transaction_id}")
                 
-                # Simulate prepare work
+# Simulate prepare work
                 time.sleep(0.1)
                 
                 return True
@@ -128,7 +128,7 @@ class Participant:
                 return False
                 
             try:
-                # Apply prepared operations
+# Apply prepared operations
                 operations = self.prepared_data.get(transaction_id)
                 if operations:
                     for op_type, data in operations.items():
@@ -137,7 +137,7 @@ class Participant:
                 self.state = TransactionState.COMMITTED
                 self._log(f"COMMITTED: {transaction_id}")
                 
-                # Clean up prepared data
+# Clean up prepared data
                 del self.prepared_data[transaction_id]
                 
                 return True
@@ -152,14 +152,14 @@ class Participant:
             self.state = TransactionState.ABORTED
             self._log(f"ABORTED: {transaction_id}")
             
-            # Clean up prepared data
+# Clean up prepared data
             self.prepared_data.pop(transaction_id, None)
             
             return True
     
     def _validate_operation(self, op_type: str, data: Dict) -> bool:
         """Validate if operation can be performed"""
-        # Implement validation logic
+# Implement validation logic
         return True
     
     def _apply_operation(self, op_type: str, data: Dict):
@@ -197,15 +197,15 @@ class TwoPhaseCommitCoordinator:
         self._log(f"Starting transaction: {transaction_id}")
         self.state = TransactionState.PREPARING
         
-        # Phase 1: Prepare
+# Phase 1: Prepare
         prepare_votes = []
         prepare_threads = []
         
         for participant in self.participants:
-            # Get operations for this participant
+# Get operations for this participant
             participant_ops = operations.get(participant.id, {})
             
-            # Create thread for parallel prepare
+# Create thread for parallel prepare
             thread = threading.Thread(
                 target=lambda p, ops: prepare_votes.append(
                     (p.id, p.prepare(transaction_id, ops))
@@ -215,21 +215,21 @@ class TwoPhaseCommitCoordinator:
             prepare_threads.append(thread)
             thread.start()
         
-        # Wait for all prepare responses
+# Wait for all prepare responses
         for thread in prepare_threads:
             thread.join(timeout=5.0)  # 5 second timeout
         
-        # Check votes
+# Check votes
         all_prepared = all(vote[1] for vote in prepare_votes)
         
         if not all_prepared or len(prepare_votes) < len(self.participants):
-            # Abort if any participant voted no or timed out
+# Abort if any participant voted no or timed out
             self._log(f"Prepare phase failed, aborting: {transaction_id}")
             self.state = TransactionState.ABORTING
             self._abort_all(transaction_id)
             return False
         
-        # Phase 2: Commit
+# Phase 2: Commit
         self._log(f"All participants prepared, committing: {transaction_id}")
         self.state = TransactionState.COMMITTING
         
@@ -246,11 +246,11 @@ class TwoPhaseCommitCoordinator:
             commit_threads.append(thread)
             thread.start()
         
-        # Wait for all commits
+# Wait for all commits
         for thread in commit_threads:
             thread.join(timeout=5.0)
         
-        # Check commit results
+# Check commit results
         all_committed = all(result[1] for result in commit_results)
         
         if all_committed:
@@ -258,7 +258,7 @@ class TwoPhaseCommitCoordinator:
             self._log(f"Transaction committed: {transaction_id}")
             return True
         else:
-            # Handle partial commits (requires recovery)
+# Handle partial commits (requires recovery)
             self._log(f"Partial commit detected: {transaction_id}")
             self._handle_partial_commit(transaction_id, commit_results)
             return False
@@ -274,12 +274,12 @@ class TwoPhaseCommitCoordinator:
     def _handle_partial_commit(self, transaction_id: str, 
                              commit_results: List[tuple]):
         """Handle situation where some nodes committed"""
-        # In practice, this requires persistent logging and recovery
+# In practice, this requires persistent logging and recovery
         committed = [r[0] for r in commit_results if r[1]]
         failed = [r[0] for r in commit_results if not r[1]]
         
         self._log(f"Partial commit - Committed: {committed}, Failed: {failed}")
-        # Recovery protocol would go here
+# Recovery protocol would go here
     
     def _log(self, message: str):
         """Write to coordinator log"""
@@ -293,7 +293,7 @@ class TwoPhaseCommitCoordinator:
 def demo_2pc():
     """Demonstrate 2PC protocol"""
     
-    # Create coordinator and participants
+# Create coordinator and participants
     coordinator = TwoPhaseCommitCoordinator("coord-1")
     participant1 = Participant("node-1")
     participant2 = Participant("node-2")
@@ -303,19 +303,19 @@ def demo_2pc():
     coordinator.add_participant(participant2)
     coordinator.add_participant(participant3)
     
-    # Define distributed transaction
+# Define distributed transaction
     operations = {
         "node-1": {"UPDATE": {"balance": 1000}},
         "node-2": {"UPDATE": {"balance": -500}},
         "node-3": {"UPDATE": {"audit_log": "Transfer recorded"}}
     }
     
-    # Execute transaction
+# Execute transaction
     success = coordinator.execute_transaction("txn-001", operations)
     
     print(f"Transaction {'succeeded' if success else 'failed'}")
     
-    # Check final states
+# Check final states
     for participant in coordinator.participants:
         print(f"{participant.id}: {participant.state.value}, Data: {participant.data}")
 ```
@@ -332,35 +332,35 @@ class ThreePhaseCommitCoordinator(TwoPhaseCommitCoordinator):
                           operations: Dict[str, Dict]) -> bool:
         """Execute 3PC transaction"""
         
-        # Phase 1: Can-Commit (similar to 2PC prepare)
+# Phase 1: Can-Commit (similar to 2PC prepare)
         if not self._phase_can_commit(transaction_id, operations):
             return False
         
-        # Phase 2: Pre-Commit
+# Phase 2: Pre-Commit
         if not self._phase_pre_commit(transaction_id):
             self._abort_all(transaction_id)
             return False
         
-        # Phase 3: Do-Commit
+# Phase 3: Do-Commit
         return self._phase_do_commit(transaction_id)
     
     def _phase_can_commit(self, transaction_id: str,
                          operations: Dict[str, Dict]) -> bool:
         """Phase 1: Check if all participants can commit"""
         self._log(f"Phase 1 - Can-Commit: {transaction_id}")
-        # Similar to 2PC prepare phase
-        # Implementation details...
+# Similar to 2PC prepare phase
+# Implementation details...
         return True
     
     def _phase_pre_commit(self, transaction_id: str) -> bool:
         """Phase 2: Prepare to commit"""
         self._log(f"Phase 2 - Pre-Commit: {transaction_id}")
         
-        # Send pre-commit to all participants
+# Send pre-commit to all participants
         pre_commit_acks = []
         
         for participant in self.participants:
-            # In real implementation, this would be async
+# In real implementation, this would be async
             ack = self._send_pre_commit(participant, transaction_id)
             pre_commit_acks.append(ack)
         
@@ -370,15 +370,15 @@ class ThreePhaseCommitCoordinator(TwoPhaseCommitCoordinator):
         """Phase 3: Final commit"""
         self._log(f"Phase 3 - Do-Commit: {transaction_id}")
         
-        # Similar to 2PC commit phase
-        # But with timeout handling for coordinator failure
+# Similar to 2PC commit phase
+# But with timeout handling for coordinator failure
         return True
     
     def _send_pre_commit(self, participant: Participant,
                         transaction_id: str) -> bool:
         """Send pre-commit message"""
-        # In 3PC, participants can timeout and commit
-        # if they don't hear from coordinator
+# In 3PC, participants can timeout and commit
+# if they don't hear from coordinator
         return True
 ```
 
@@ -424,7 +424,7 @@ class SagaTransaction:
         self.state = "EXECUTING"
         
         try:
-            # Execute each step
+# Execute each step
             for step in self.steps:
                 try:
                     self.context = step.execute(self.context)
@@ -453,7 +453,7 @@ class SagaTransaction:
                 self._log(f"Compensated step: {step.__class__.__name__}")
             except Exception as e:
                 self._log(f"Compensation failed: {step.__class__.__name__}, {e}")
-                # In practice, would need manual intervention
+# In practice, would need manual intervention
     
     def _log(self, message: str):
         """Log saga events"""
@@ -535,15 +535,15 @@ class OrderSaga:
         
         saga = SagaTransaction(f"order-{order_data['order_id']}")
         
-        # Build saga steps
+# Build saga steps
         saga.add_step(ReserveInventoryStep(self.services['inventory'])) \
             .add_step(ProcessPaymentStep(self.services['payment'])) \
             .add_step(CreateShipmentStep(self.services['shipping']))
         
-        # Set initial context
+# Set initial context
         saga.context = order_data
         
-        # Execute saga
+# Execute saga
         return saga.execute()
 
 # Choreography-based saga using events
@@ -572,10 +572,10 @@ class EventDrivenSaga:
         if event_type in self.handlers:
             for handler in self.handlers[event_type]:
                 try:
-                    # Handler may publish new events
+# Handler may publish new events
                     handler(event, self.event_bus)
                 except Exception as e:
-                    # Publish compensation event
+# Publish compensation event
                     self._publish_compensation(event, str(e))
     
     def _publish_compensation(self, failed_event: Dict, 
@@ -625,7 +625,7 @@ class RedisDistributedLock:
         lock_id = str(uuid.uuid4())
         lock_key = f"lock:{resource_id}"
         
-        # Try to acquire lock
+# Try to acquire lock
         acquired = False
         retries = 0
         
@@ -645,7 +645,7 @@ class RedisDistributedLock:
         try:
             yield lock_id
         finally:
-            # Release lock only if we still own it
+# Release lock only if we still own it
             self.lua_unlock(keys=[lock_key], args=[lock_id])
 
 class ZookeeperDistributedLock:
@@ -657,7 +657,7 @@ class ZookeeperDistributedLock:
     def acquire_lock(self, path: str) -> str:
         """Acquire lock using ZooKeeper's sequential znodes"""
         
-        # Create sequential ephemeral node
+# Create sequential ephemeral node
         lock_path = self.zk.create(
             f"{path}/lock-", 
             ephemeral=True,
@@ -665,14 +665,14 @@ class ZookeeperDistributedLock:
         )
         
         while True:
-            # Get all lock nodes
+# Get all lock nodes
             children = sorted(self.zk.get_children(path))
             
-            # Check if we have the lowest sequence number
+# Check if we have the lowest sequence number
             if lock_path.endswith(children[0]):
                 return lock_path
             
-            # Watch the node with next lower sequence
+# Watch the node with next lower sequence
             lower_nodes = [
                 n for n in children 
                 if n < lock_path.split('/')[-1]
@@ -681,7 +681,7 @@ class ZookeeperDistributedLock:
             if lower_nodes:
                 watch_path = f"{path}/{lower_nodes[-1]}"
                 
-                # Wait for predecessor to be deleted
+# Wait for predecessor to be deleted
                 event = threading.Event()
                 
                 def watch_callback(event_type, state, path):
@@ -717,24 +717,24 @@ class OptimisticTransaction:
     def commit(self) -> bool:
         """Validate and commit transaction"""
         
-        # Validation phase
+# Validation phase
         for key, read_version in self.read_set.items():
             current_version = self.data_store.get_version(key)
             
             if current_version != read_version:
-                # Conflict detected
+# Conflict detected
                 return False
         
-        # Write phase
+# Write phase
         try:
-            # Apply all writes atomically
+# Apply all writes atomically
             for key, value in self.write_set.items():
                 self.data_store.write_versioned(key, value)
             
             return True
             
         except Exception:
-            # Rollback on error
+# Rollback on error
             return False
 
 class MVCCDataStore:
@@ -768,10 +768,10 @@ class MVCCDataStore:
         versions = self.data[key]
         
         if as_of_version is None:
-            # Return latest version
+# Return latest version
             return versions[-1]['value'] if versions else None
         
-        # Find version as of specified version
+# Find version as of specified version
         for v in reversed(versions):
             if v['version'] <= as_of_version:
                 return v['value']
@@ -808,22 +808,22 @@ class BankingTransactionManager:
         
         transaction_id = f"transfer-{uuid.uuid4()}"
         
-        # Determine shards
+# Determine shards
         from_shard = self._get_shard(from_account)
         to_shard = self._get_shard(to_account)
         
-        # Create 2PC coordinator
+# Create 2PC coordinator
         coordinator = TwoPhaseCommitCoordinator(transaction_id)
         
-        # Add participants
+# Add participants
         if from_shard == to_shard:
-            # Same shard optimization
+# Same shard optimization
             coordinator.add_participant(from_shard)
         else:
             coordinator.add_participant(from_shard)
             coordinator.add_participant(to_shard)
         
-        # Define operations
+# Define operations
         operations = {
             from_shard.id: {
                 "DEBIT": {
@@ -839,12 +839,12 @@ class BankingTransactionManager:
             }
         }
         
-        # Execute transaction
+# Execute transaction
         success = coordinator.execute_transaction(
             transaction_id, operations
         )
         
-        # Log result
+# Log result
         self.transaction_log.append({
             'transaction_id': transaction_id,
             'type': 'transfer',
@@ -871,7 +871,7 @@ class BankingOperationsSaga:
         
         saga = SagaTransaction("open-account")
         
-        # Add saga steps
+# Add saga steps
         saga.add_step(KYCVerificationStep(self.kyc_service)) \
             .add_step(CreateAccountStep(self.account_service)) \
             .add_step(InitialDepositStep(self.payment_service)) \
@@ -913,11 +913,11 @@ class OrderProcessingSystem:
         
         coordinator = TwoPhaseCommitCoordinator("order-2pc")
         
-        # Add all services as participants
+# Add all services as participants
         for service in self.services.values():
             coordinator.add_participant(service)
         
-        # Define distributed operations
+# Define distributed operations
         operations = {
             'inventory': {
                 'RESERVE': order['items']
@@ -951,32 +951,32 @@ class EventSourcedOrderSystem:
     def process_order_with_events(self, order: Dict):
         """Process order with event sourcing"""
         
-        # Start distributed transaction
+# Start distributed transaction
         transaction_id = f"order-{order['id']}"
         
         events = []
         
         try:
-            # Generate events
+# Generate events
             events.append(OrderCreatedEvent(order))
             events.append(PaymentProcessedEvent(order))
             events.append(InventoryReservedEvent(order))
             
-            # Store events in distributed transaction
+# Store events in distributed transaction
             with self.event_store.transaction(transaction_id):
                 for event in events:
                     self.event_store.append(event)
                 
-                # Update projections
+# Update projections
                 for projection in self.projections:
                     projection.handle_events(events)
             
-            # Publish events after commit
+# Publish events after commit
             for event in events:
                 self.publish_event(event)
                 
         except Exception as e:
-            # Compensate by publishing failure events
+# Compensate by publishing failure events
             self.publish_event(OrderFailedEvent(order, str(e)))
             raise
 ```
@@ -1000,7 +1000,7 @@ class TransactionLatencyAnalyzer:
                            network_latency_ms: float) -> Dict:
         """Calculate 2PC latency"""
         
-        # 2PC requires 2 round trips
+# 2PC requires 2 round trips
         prepare_latency = num_participants * network_latency_ms
         commit_latency = num_participants * network_latency_ms
         
@@ -1025,16 +1025,16 @@ class TransactionLatencyAnalyzer:
             participants = scenario['participants']
             latency = scenario['network_latency']
             
-            # 2PC
+# 2PC
             results.append(self.analyze_2pc_latency(participants, latency))
             
-            # 3PC (additional round)
+# 3PC (additional round)
             three_pc = self.analyze_2pc_latency(participants, latency)
             three_pc['protocol'] = '3PC'
             three_pc['total_latency'] *= 1.5
             results.append(three_pc)
             
-            # Saga (parallel execution)
+# Saga (parallel execution)
             saga_latency = latency * 2  # Single service round trip
             results.append({
                 'protocol': 'Saga',
@@ -1060,10 +1060,10 @@ class ScalableTransactionManager:
     def partition_transactions(self, transaction: Dict) -> str:
         """Partition transactions by key"""
         
-        # Extract partition key
+# Extract partition key
         partition_key = self._extract_partition_key(transaction)
         
-        # Route to appropriate shard
+# Route to appropriate shard
         shard_id = hash(partition_key) % len(self.shard_managers)
         
         return f"shard-{shard_id}"
@@ -1081,7 +1081,7 @@ class ScalableTransactionManager:
             
             batches[shard].append(txn)
         
-        # Process batches in parallel
+# Process batches in parallel
         results = {}
         threads = []
         

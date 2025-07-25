@@ -30,7 +30,7 @@ Real systems face multiple challenges simultaneously: Performance AND Reliabilit
 
 ---
 
-## 🗺️ Visual Pattern Relationship Map
+## 🗺 Visual Pattern Relationship Map
 
 ```mermaid
 graph TB
@@ -139,7 +139,7 @@ graph TB
 
 ---
 
-## 🏗️ Foundational Combinations
+## Foundational Combinations
 
 ### The Classic Trio: CQRS + Event Sourcing + Saga
 
@@ -182,18 +182,18 @@ class OrderSystem:
         self.saga_manager = SagaManager()
         
     async def handle_create_order(self, command: CreateOrderCommand):
-        # 1. Command handling (Write side)
+# 1. Command handling (Write side)
         order = Order(command.order_id)
         events = order.create(command.items, command.customer_id)
         
-        # 2. Event Sourcing
+# 2. Event Sourcing
         await self.event_store.append(order.id, events)
         
-        # 3. Update read models (CQRS)
+# 3. Update read models (CQRS)
         for event in events:
             await self.read_store.project(event)
         
-        # 4. Start saga for order fulfillment
+# 4. Start saga for order fulfillment
         if isinstance(event, OrderCreatedEvent):
             await self.saga_manager.start_saga(
                 OrderFulfillmentSaga(order.id)
@@ -227,26 +227,26 @@ class ResilientServiceClient:
     def __init__(self, service_url: str):
         self.service_url = service_url
         
-        # Layer 1: Bulkhead (resource isolation)
+# Layer 1: Bulkhead (resource isolation)
         self.bulkhead = Bulkhead(
             max_concurrent_calls=100,
             max_wait_duration=timedelta(seconds=1)
         )
         
-        # Layer 2: Circuit Breaker (failure detection)
+# Layer 2: Circuit Breaker (failure detection)
         self.circuit_breaker = CircuitBreaker(
             failure_threshold=5,
             recovery_timeout=timedelta(seconds=30),
             expected_exception=ServiceException
         )
         
-        # Layer 3: Retry (transient failure handling)
+# Layer 3: Retry (transient failure handling)
         self.retry_policy = RetryPolicy(
             max_attempts=3,
             backoff=ExponentialBackoff(base=2, max=10)
         )
         
-        # Layer 4: Timeout (latency control)
+# Layer 4: Timeout (latency control)
         self.timeout = timedelta(seconds=5)
     
     @resilient  # Combines all patterns
@@ -261,7 +261,7 @@ class ResilientServiceClient:
 
 ---
 
-## 🌍 Global Scale Combinations
+## Global Scale Combinations
 
 ### The Geographic Trinity: Geo-Replication + Edge Computing + CDN
 
@@ -313,25 +313,25 @@ class GlobalArchitecture:
             'ap-south': Region('ap-south-1')
         }
         
-        # Configure geo-replication
+# Configure geo-replication
         self.setup_geo_replication()
         
-        # Deploy edge functions
+# Deploy edge functions
         self.deploy_edge_compute()
         
-        # Configure CDN
+# Configure CDN
         self.setup_cdn()
     
     async def handle_request(self, request: Request) -> Response:
-        # 1. CDN handles static content
+# 1. CDN handles static content
         if self.is_cacheable(request):
             return await self.cdn.serve(request)
         
-        # 2. Edge compute for dynamic but stateless
+# 2. Edge compute for dynamic but stateless
         if self.is_edge_compatible(request):
             return await self.edge.process(request)
         
-        # 3. Route to nearest region for data operations
+# 3. Route to nearest region for data operations
         region = self.get_nearest_region(request.client_location)
         return await region.handle(request)
 ```
@@ -365,7 +365,7 @@ graph LR
 
 ---
 
-## 🔄 Event-Driven Combinations
+## Event-Driven Combinations
 
 ### The Reliable Event Bus: Outbox + Idempotent Receiver + Dead Letter Queue
 
@@ -382,13 +382,13 @@ class ReliableEventBus:
     
     async def publish_event(self, event: Event, tx: Transaction):
         """Publish with transactional guarantee"""
-        # Save to outbox in same transaction
+# Save to outbox in same transaction
         await self.outbox.save(event, tx)
     
     async def process_event(self, event: Event):
         """Process with idempotency guarantee"""
         try:
-            # Check if already processed
+# Check if already processed
             result = await self.receiver.process(
                 event.id,
                 self._handle_event,
@@ -397,11 +397,11 @@ class ReliableEventBus:
             return result
             
         except Exception as e:
-            # Send to DLQ after retries exhausted
+# Send to DLQ after retries exhausted
             if event.retry_count >= MAX_RETRIES:
                 await self.dlq.send(event, error=str(e))
             else:
-                # Retry with exponential backoff
+# Retry with exponential backoff
                 await self.schedule_retry(event)
 ```
 
@@ -454,7 +454,7 @@ graph TB
 
 ---
 
-## 🎯 Domain-Specific Combinations
+## Domain-Specific Combinations
 
 ### E-Commerce Platform
 
@@ -492,7 +492,7 @@ graph TB
 
 ---
 
-## ⚠️ Anti-Pattern Combinations
+## ⚠ Anti-Pattern Combinations
 
 ### Dangerous Combinations to Avoid
 
@@ -502,8 +502,8 @@ graph TB
 # DON'T DO THIS
 class BadSaga:
     async def execute_step(self):
-        # Saga should be eventually consistent
-        # 2PC defeats the purpose
+# Saga should be eventually consistent
+# 2PC defeats the purpose
         with TwoPhaseCommit() as tpc:  # ❌ Wrong!
             await service1.update()
             await service2.update()
@@ -520,7 +520,7 @@ class BadSaga:
 # DON'T DO THIS
 class BadCache:
     async def read(self, key):
-        # Can't have cache AND strong consistency
+# Can't have cache AND strong consistency
         value = await cache.get(key)  # ❌ Might be stale!
         if not value:
             value = await db.read_with_lock(key)  # Strong consistency
@@ -539,7 +539,7 @@ class BadCache:
 class BadEventSourcing:
     async def save_event(self, event):
         await event_store.append(event)
-        # Synchronous projection defeats ES benefits
+# Synchronous projection defeats ES benefits
         await update_all_read_models(event)  # ❌ Wrong!
         return "success"
 ```
@@ -551,7 +551,7 @@ class BadEventSourcing:
 
 ---
 
-## 🏆 Best Practice Combinations
+## Best Practice Combinations
 
 ### The Reliability Sandwich
 
@@ -577,7 +577,7 @@ async def call_service(self):
 
 ---
 
-## 📈 Evolution Patterns
+## Evolution Patterns
 
 ### Growing from Monolith to Microservices
 
@@ -599,7 +599,7 @@ async def call_service(self):
 
 ---
 
-## 🔧 Implementation Strategies
+## Implementation Strategies
 
 ### The Strangler Fig Pattern
 
@@ -615,14 +615,14 @@ class StranglerFigMigration:
         self.router = TrafficRouter()
     
     async def handle_request(self, request):
-        # Route based on migration progress
+# Route based on migration progress
         if self.is_migrated(request.feature):
             return await self.new.handle(request)
         else:
-            # Still use legacy
+# Still use legacy
             response = await self.legacy.handle(request)
             
-            # But capture events for new system
+# But capture events for new system
             await self.capture_legacy_events(request, response)
             
             return response
@@ -640,7 +640,7 @@ class StranglerFigMigration:
 
 ---
 
-## 📊 Combination Metrics
+## Combination Metrics
 
 ### Measuring Pattern Effectiveness
 
@@ -652,17 +652,17 @@ class PatternCombinationMetrics:
     
     def __init__(self):
         self.metrics = {
-            # Reliability combination metrics
+# Reliability combination metrics
             'circuit_breaker_opens': Counter(),
             'retry_success_rate': Gauge(),
             'bulkhead_rejections': Counter(),
             
-            # Performance combination metrics
+# Performance combination metrics
             'cache_hit_rate': Gauge(),
             'cqrs_lag': Histogram(),
             'event_processing_time': Histogram(),
             
-            # Scale combination metrics
+# Scale combination metrics
             'shard_distribution': Gauge(),
             'cross_region_latency': Histogram(),
             'edge_cache_hits': Counter()
@@ -671,14 +671,14 @@ class PatternCombinationMetrics:
     def calculate_combination_effectiveness(self):
         """Measure how well patterns work together"""
         
-        # Resilience score (CB + Retry + Bulkhead)
+# Resilience score (CB + Retry + Bulkhead)
         resilience = (
             self.get_availability() * 0.4 +
             self.get_recovery_time() * 0.3 +
             self.get_isolation_effectiveness() * 0.3
         )
         
-        # Performance score (CQRS + Cache + CDN)
+# Performance score (CQRS + Cache + CDN)
         performance = (
             self.get_response_time_improvement() * 0.5 +
             self.get_throughput_increase() * 0.5
@@ -693,7 +693,7 @@ class PatternCombinationMetrics:
 
 ---
 
-## 🏛️ Layered Architecture Pattern Integration
+## 🏛 Layered Architecture Pattern Integration
 
 ### Complete System Architecture with Patterns
 
@@ -811,7 +811,7 @@ graph TB
 
 ---
 
-## 🔄 Migration Paths Between Patterns
+## Migration Paths Between Patterns
 
 ### Progressive Pattern Evolution
 
@@ -866,7 +866,7 @@ graph LR
 
 ---
 
-## ⚠️ Anti-Pattern Combinations Deep Dive
+## ⚠ Anti-Pattern Combinations Deep Dive
 
 ### Detailed Anti-Pattern Analysis
 
@@ -908,7 +908,7 @@ graph TB
 
 ---
 
-## 🎯 Problem-to-Pattern Quick Reference
+## Problem-to-Pattern Quick Reference
 
 ### Common Scenarios and Pattern Solutions
 

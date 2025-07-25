@@ -85,7 +85,7 @@ class StripePaymentFlow:
         self.cache = Cache(ttl=300)
 
     def process_payment(self, payment):
-        # 1. Quick risk check (cached)
+# 1. Quick risk check (cached)
         risk_score = self.cache.get(f"risk:{payment.merchant_id}")
         if not risk_score:
             risk_score = self.compute_risk(payment.merchant_id)
@@ -94,23 +94,23 @@ class StripePaymentFlow:
         if risk_score > 0.8:
             return self.decline_high_risk(payment)
 
-        # 2. Idempotency check (both regions)
+# 2. Idempotency check (both regions)
         if self.is_duplicate(payment.idempotency_key):
             return self.get_previous_result(payment.idempotency_key)
 
-        # 3. Payment processing (primary region)
+# 3. Payment processing (primary region)
         try:
             result = self.primary_db.transaction(
                 lambda tx: self.execute_payment(tx, payment)
             )
 
-            # 4. Async replicate to secondary
+# 4. Async replicate to secondary
             self.replicate_async(payment, result)
 
             return result
 
         except NetworkPartition:
-            # 5. Fallback to secondary (degraded mode)
+# 5. Fallback to secondary (degraded mode)
             if payment.amount < 10000:  # Small payments only
                 return self.secondary_db.transaction(
                     lambda tx: self.execute_payment_degraded(tx, payment)
@@ -122,15 +122,15 @@ class StripePaymentFlow:
                 )
 
     def execute_payment(self, tx, payment):
-        # Strong consistency path
+# Strong consistency path
         tx.debit(payment.source, payment.amount)
         tx.credit(payment.destination, payment.amount)
         tx.log_transaction(payment)
         return PaymentResult(status="success")
 
     def execute_payment_degraded(self, tx, payment):
-        # Eventual consistency path
-        # Log intent, process async
+# Eventual consistency path
+# Log intent, process async
         tx.log_intent(payment)
         self.queue_for_reconciliation(payment)
         return PaymentResult(

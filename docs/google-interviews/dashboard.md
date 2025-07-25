@@ -1,6 +1,6 @@
 # Google Interview Dashboard
 
-## 📊 Section Overview
+## Section Overview
 
 <div class="dashboard-stats">
 <div class="stat-box">
@@ -23,7 +23,7 @@
 
 *Based on candidates who completed full preparation
 
-## 🗺️ Quick Navigation Map
+## 🗺 Quick Navigation Map
 
 ```mermaid
 graph TD
@@ -56,14 +56,14 @@ graph TD
     style E fill:#673ab7,stroke:#5e35b1,color:#fff
 ```
 
-### 🎯 Quick Links
+### Quick Links
 - [Complete Study Guide](/preparation-guide) - Start here for comprehensive preparation
 - [Pattern Library](../../patterns/index.md) - Essential Google design patterns
 - [Practice Problems](practice-problems.md) - Real interview scenarios
 - [Evaluation Framework] (Framework Coming Soon) - How you'll be assessed
 - [Common Pitfalls](/common-mistakes) - Mistakes to avoid
 
-## 📊 Google Systems Coverage Matrix
+## Google Systems Coverage Matrix
 
 | System | Difficulty | Prep Time | Key Focus Areas | Resources |
 |--------|------------|-----------|-----------------|-----------|
@@ -79,11 +79,11 @@ graph TD
 | **Android** | ⭐⭐⭐⭐ | 6-8 hrs | OS Updates, App Framework, Play Services | [Guide](patterns/infrastructure/mobile-platforms.md) |
 
 ### Difficulty Levels
-- ⭐⭐⭐ = Mid-level (L4-L5)
-- ⭐⭐⭐⭐ = Senior (L5-L6) 
-- ⭐⭐⭐⭐⭐ = Staff+ (L6+)
+- = Mid-level (L4-L5)
+- = Senior (L5-L6)
+- = Staff+ (L6+)
 
-## 🎯 Key Takeaways Summary
+## Key Takeaways Summary
 
 ### Top 10 Google Design Principles
 
@@ -169,21 +169,21 @@ graph TD
 - [ ] [Google Papers Collection](references.md#google-papers)
 - [ ] [Architecture Diagrams](references.md#architecture-diagrams)
 
-### 💻 Practice Resources
+### Practice Resources
 - [ ] [20 Mock Problems](practice-problems.md)
 - [ ] [Design Templates](design-template.md)
 - [ ] [Evaluation Rubric] (Framework Coming Soon)
 - [ ] [Time Management Guide](time-management.md)
 - [ ] [Common Pitfalls Guide](/common-mistakes)
 
-### 🛠️ Tools & References
+### 🛠 Tools & References
 - [ ] [Capacity Calculator](/tools/capacity-calculator)
 - [ ] [Latency Cheat Sheet](cheat-sheets.md#latency-numbers)
 - [ ] [Technology Comparison](cheat-sheets.md#technology-choices)
 - [ ] [Design Checklist](checklists.md)
 - [ ] [Quick Reference Cards](quick-reference.md)
 
-### 📊 Assessment Tools
+### Assessment Tools
 - [ ] [Self-Evaluation Rubric](evaluation-framework.md#self-assessment)
 - [ ] [Mock Interview Scorecard](evaluation-framework.md#scorecard)
 - [ ] [Progress Tracker](study-plans.md#progress-tracking)
@@ -191,7 +191,7 @@ graph TD
 
 ## 📅 Study Plan Options
 
-### 🚀 2-Week Crash Course (40 hours)
+### 2-Week Crash Course (40 hours)
 **For:** Experienced engineers with solid distributed systems knowledge
 
 | Week | Focus | Hours | Key Activities |
@@ -223,7 +223,7 @@ graph TD
 
 [Detailed Plan →](study-plans.md#mastery)
 
-## 🎯 Next Steps
+## Next Steps
 
 <div class="action-cards">
 <div class="action-card">
@@ -244,7 +244,7 @@ graph TD
 </div>
 </div>
 
-## 📈 Success Metrics
+## Success Metrics
 
 Track your progress with these benchmarks:
 

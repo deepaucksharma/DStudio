@@ -20,7 +20,7 @@ last_updated: 2025-07-24
 
 ---
 
-## 🎯 Problem Statement
+## Problem Statement
 
 <div class="problem-box">
 <h3>The Cloud Cost Crisis</h3>
@@ -32,7 +32,7 @@ last_updated: 2025-07-24
 - **Lack of ownership**: "Not my budget" mentality
 </div>
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Cloud Cost Reality
 
@@ -126,7 +126,7 @@ graph TB
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -332,7 +332,7 @@ class TaggingStrategy:
         """Enforce tagging compliance"""
         import boto3
         
-        # Create tagging policy
+# Create tagging policy
         policy = {
             "Version": "2012-10-17",
             "Statement": [{
@@ -349,7 +349,7 @@ class TaggingStrategy:
             }]
         }
         
-        # Apply via AWS Organizations or IAM
+# Apply via AWS Organizations or IAM
         return policy
 ```
 
@@ -421,7 +421,7 @@ class CostOptimizationEngine:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Cost Optimization Patterns
 
@@ -595,23 +595,23 @@ class AutomatedCostRemediator:
         instance_id = issue['resource_id']
         tags = issue['tags']
         
-        # Check environment
+# Check environment
         if tags.get('Environment') == 'prod':
-            # Production: alert only
+# Production: alert only
             await self._send_alert(
                 f"Production instance {instance_id} is idle",
                 severity='high'
             )
         
         elif tags.get('Environment') == 'dev':
-            # Development: stop instance
+# Development: stop instance
             await self._stop_instance(instance_id)
             await self._send_notification(
                 f"Stopped idle dev instance {instance_id}"
             )
         
         else:
-            # Unknown: terminate after grace period
+# Unknown: terminate after grace period
             if issue['idle_days'] > 7:
                 await self._terminate_instance(instance_id)
                 await self._send_notification(
@@ -634,21 +634,21 @@ class ProductionFinOpsSystem:
         
     async def run_daily_optimization(self):
         """Daily FinOps workflow"""
-        # 1. Collect cost data
+# 1. Collect cost data
         costs = await self.cost_tracker.get_daily_costs()
         
-        # 2. Detect anomalies
+# 2. Detect anomalies
         anomalies = await self.detect_cost_anomalies(costs)
         if anomalies:
             await self.alert_on_anomalies(anomalies)
         
-        # 3. Find optimization opportunities
+# 3. Find optimization opportunities
         opportunities = await self.optimizer.find_opportunities()
         
-        # 4. Auto-remediate safe issues
+# 4. Auto-remediate safe issues
         await self.remediator.remediate_safe_issues(opportunities)
         
-        # 5. Generate reports
+# 5. Generate reports
         report = await self.reporter.generate_daily_report({
             'costs': costs,
             'anomalies': anomalies,
@@ -656,7 +656,7 @@ class ProductionFinOpsSystem:
             'actions_taken': self.remediator.get_actions()
         })
         
-        # 6. Send to stakeholders
+# 6. Send to stakeholders
         await self.distribute_report(report)
     
     def create_cost_dashboard(self):
@@ -664,7 +664,7 @@ class ProductionFinOpsSystem:
         import plotly.graph_objects as go
         from plotly.subplots import make_subplots
         
-        # Create dashboard layout
+# Create dashboard layout
         fig = make_subplots(
             rows=2, cols=2,
             subplot_titles=(
@@ -675,7 +675,7 @@ class ProductionFinOpsSystem:
             )
         )
         
-        # Add visualizations
+# Add visualizations
         fig.add_trace(
             go.Scatter(x=self.cost_data['date'], y=self.cost_data['cost']),
             row=1, col=1
@@ -691,7 +691,7 @@ class ProductionFinOpsSystem:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Spotify's FinOps Journey
 
@@ -800,7 +800,7 @@ graph TB
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -819,16 +819,16 @@ class CloudEconomicsOptimizer:
     def optimize_resource_allocation(self, budget: float, services: List[Dict]):
         """Optimal resource allocation using Lagrangian optimization"""
         
-        # Define utility function (performance gain from resources)
+# Define utility function (performance gain from resources)
         def utility_function(allocations):
             total_utility = 0
             for i, allocation in enumerate(allocations):
-                # Diminishing returns: U = α * log(1 + allocation)
+# Diminishing returns: U = α * log(1 + allocation)
                 alpha = services[i]['performance_weight']
                 total_utility += alpha * np.log(1 + allocation)
             return -total_utility  # Negative for minimization
         
-        # Budget constraint
+# Budget constraint
         def budget_constraint(allocations):
             total_cost = sum(
                 allocations[i] * services[i]['unit_cost']
@@ -836,11 +836,11 @@ class CloudEconomicsOptimizer:
             )
             return budget - total_cost
         
-        # Initial guess (equal allocation)
+# Initial guess (equal allocation)
         x0 = [budget / len(services) / services[i]['unit_cost'] 
               for i in range(len(services))]
         
-        # Optimize
+# Optimize
         constraints = {'type': 'eq', 'fun': budget_constraint}
         bounds = [(0, None) for _ in services]
         
@@ -852,7 +852,7 @@ class CloudEconomicsOptimizer:
             constraints=constraints
         )
         
-        # Return optimal allocations
+# Return optimal allocations
         optimal_allocations = {}
         for i, service in enumerate(services):
             optimal_allocations[service['name']] = {
@@ -870,12 +870,12 @@ class CloudEconomicsOptimizer:
                                    price_history: List[float], 
                                    demand_history: List[float]) -> float:
         """Calculate price elasticity of demand for cloud resources"""
-        # Elasticity = (% change in demand) / (% change in price)
+# Elasticity = (% change in demand) / (% change in price)
         
         price_changes = np.diff(price_history) / price_history[:-1]
         demand_changes = np.diff(demand_history) / demand_history[:-1]
         
-        # Remove zero price changes
+# Remove zero price changes
         valid_indices = price_changes != 0
         
         elasticities = demand_changes[valid_indices] / price_changes[valid_indices]
@@ -953,13 +953,13 @@ class QuantumCostOptimizer:
     
     def quantum_annealing_optimization(self, cost_matrix: np.ndarray):
         """Use quantum annealing for resource allocation"""
-        # This is conceptual - real quantum computers coming soon
+# This is conceptual - real quantum computers coming soon
         
-        # Convert to QUBO (Quadratic Unconstrained Binary Optimization)
+# Convert to QUBO (Quadratic Unconstrained Binary Optimization)
         Q = self._create_qubo_matrix(cost_matrix)
         
-        # In the future, this would run on actual quantum hardware
-        # For now, we simulate
+# In the future, this would run on actual quantum hardware
+# For now, we simulate
         optimal_allocation = self._simulate_quantum_annealing(Q)
         
         return {

@@ -25,10 +25,10 @@ class ErrorMessageDesigner:
     def transform_error(self, technical_error, context=None):
         """Transform technical error into human-friendly message"""
         
-        # Parse technical error
+# Parse technical error
         error_type = self._identify_error_type(technical_error)
         
-        # Build human-friendly message
+# Build human-friendly message
         message = {
             'what': self._explain_what_happened(error_type, technical_error),
             'impact': self._assess_impact(error_type, context),
@@ -234,7 +234,7 @@ class ProgressiveDisclosureDashboard:
                     'quick_action': self._suggest_quick_action(metric)
                 })
                 
-        # Sort by severity and value
+# Sort by severity and value
         problems.sort(key=lambda x: (
             0 if x['severity'] == 'critical' else 1,
             -float(x['value'].split()[0])
@@ -282,7 +282,7 @@ class ProgressiveDisclosureDashboard:
     def _predict_threshold_breach(self, metric: Metric) -> Dict:
         """Predict when metric might breach threshold"""
         if metric.trend == 'up':
-            # Simplified linear prediction
+# Simplified linear prediction
             rate = metric.value * 0.1  # 10% growth rate
             time_to_warning = max(0, (metric.threshold_warning - metric.value) / rate)
             time_to_critical = max(0, (metric.threshold_critical - metric.value) / rate)
@@ -305,7 +305,7 @@ class ProgressiveDisclosureDashboard:
     
     def _get_historical_context(self, metric_name: str) -> Dict:
         """Provide historical context for the metric"""
-        # Simulated historical data
+# Simulated historical data
         return {
             'usual_range': f"{70}-{85}%",
             'last_incident': "2 days ago (resolved by scaling)",
@@ -334,7 +334,7 @@ class ProgressiveDisclosureDashboard:
     
     def render_cli_dashboard(self):
         """Render dashboard in CLI with progressive disclosure"""
-        # Level 1: Overview
+# Level 1: Overview
         overview = self.get_overview()
         print("\n" + "="*60)
         print(f"SYSTEM STATUS: {overview['status'].upper()}")
@@ -344,7 +344,7 @@ class ProgressiveDisclosureDashboard:
             print("✅ All systems operational")
             return
             
-        # Level 2: Problem Summary (shown when issues exist)
+# Level 2: Problem Summary (shown when issues exist)
         print("\n⚠️  ISSUES REQUIRING ATTENTION:")
         problems = self.get_problem_summary()
         for i, problem in enumerate(problems, 1):
@@ -352,7 +352,7 @@ class ProgressiveDisclosureDashboard:
             print(f"\n{icon} {i}. {problem['metric']}: {problem['value']}")
             print(f"   Trend: {problem['trend']} | Action: {problem['quick_action']}")
             
-        # Level 3: Prompt for details
+# Level 3: Prompt for details
         print("\n" + "-"*60)
         choice = input("\nEnter number for details (or 'q' to quit): ")
         
@@ -426,7 +426,7 @@ class Alert:
     related_alerts: List[str] = field(default_factory=list)
     
     def __lt__(self, other):
-        # For priority queue comparison
+# For priority queue comparison
         return self.priority_score > other.priority_score
 
 class AlertPrioritizationSystem:
@@ -440,19 +440,19 @@ class AlertPrioritizationSystem:
         
     def add_alert(self, alert: Alert) -> bool:
         """Add alert if not suppressed"""
-        # Check suppression rules
+# Check suppression rules
         if self._should_suppress(alert):
             return False
             
-        # Check for deduplication
+# Check for deduplication
         if self._is_duplicate(alert):
             self._merge_with_existing(alert)
             return False
             
-        # Calculate priority score
+# Calculate priority score
         alert.priority_score = self._calculate_priority(alert)
         
-        # Store alert
+# Store alert
         self.alerts[alert.id] = alert
         self.alert_history.append(alert)
         
@@ -462,7 +462,7 @@ class AlertPrioritizationSystem:
         """Calculate priority score based on multiple factors"""
         score = 0.0
         
-        # Base severity score
+# Base severity score
         severity_scores = {
             'critical': 100,
             'high': 70,
@@ -471,7 +471,7 @@ class AlertPrioritizationSystem:
         }
         score += severity_scores.get(alert.severity, 0)
         
-        # Business impact multiplier
+# Business impact multiplier
         if alert.business_impact:
             impact_multipliers = {
                 'revenue_loss': 3.0,
@@ -481,26 +481,26 @@ class AlertPrioritizationSystem:
             }
             score *= impact_multipliers.get(alert.business_impact, 1.0)
         
-        # User impact factor
+# User impact factor
         if alert.affected_users > 0:
-            # Logarithmic scale for user impact
+# Logarithmic scale for user impact
             import math
             user_factor = 1 + math.log10(max(1, alert.affected_users))
             score *= user_factor
         
-        # Time decay (recent alerts are more important)
+# Time decay (recent alerts are more important)
         age = datetime.now() - alert.timestamp
         if age < timedelta(minutes=5):
             score *= 1.5  # Boost for very recent
         elif age > timedelta(hours=1):
             score *= 0.7  # Decay for older alerts
             
-        # Alert storm detection (reduce score if many similar alerts)
+# Alert storm detection (reduce score if many similar alerts)
         similar_count = self._count_similar_recent_alerts(alert)
         if similar_count > 5:
             score *= 0.5  # Reduce priority in alert storms
             
-        # Known false positive patterns
+# Known false positive patterns
         if self._matches_false_positive_pattern(alert):
             score *= 0.3
             
@@ -508,15 +508,15 @@ class AlertPrioritizationSystem:
     
     def _should_suppress(self, alert: Alert) -> bool:
         """Check if alert should be suppressed"""
-        # Maintenance window suppression
+# Maintenance window suppression
         if self._in_maintenance_window(alert.source):
             return True
             
-        # Rate limiting
+# Rate limiting
         if self._exceeds_rate_limit(alert):
             return True
             
-        # Business hours suppression for low priority
+# Business hours suppression for low priority
         if alert.severity == 'low' and not self._is_business_hours():
             return True
             
@@ -530,12 +530,12 @@ class AlertPrioritizationSystem:
             if existing_alert.timestamp < recent_window:
                 continue
                 
-            # Similar title and source
+# Similar title and source
             if (existing_alert.title == alert.title and 
                 existing_alert.source == alert.source):
                 return True
                 
-            # Fuzzy matching for similar alerts
+# Fuzzy matching for similar alerts
             if self._similarity_score(existing_alert, alert) > 0.8:
                 return True
                 
@@ -545,13 +545,13 @@ class AlertPrioritizationSystem:
         """Merge new alert with existing similar alert"""
         for alert_id, existing in self.alerts.items():
             if self._similarity_score(existing, new_alert) > 0.8:
-                # Update affected users
+# Update affected users
                 existing.affected_users += new_alert.affected_users
-                # Add to related alerts
+# Add to related alerts
                 existing.related_alerts.append(new_alert.id)
-                # Update timestamp to keep it fresh
+# Update timestamp to keep it fresh
                 existing.timestamp = new_alert.timestamp
-                # Recalculate priority
+# Recalculate priority
                 existing.priority_score = self._calculate_priority(existing)
                 break
     
@@ -587,22 +587,22 @@ class AlertPrioritizationSystem:
         """Calculate similarity between two alerts"""
         score = 0.0
         
-        # Same source
+# Same source
         if alert1.source == alert2.source:
             score += 0.3
             
-        # Same severity
+# Same severity
         if alert1.severity == alert2.severity:
             score += 0.2
             
-        # Title similarity (simple word overlap)
+# Title similarity (simple word overlap)
         words1 = set(alert1.title.lower().split())
         words2 = set(alert2.title.lower().split())
         if words1 and words2:
             overlap = len(words1 & words2) / len(words1 | words2)
             score += 0.3 * overlap
             
-        # Tag overlap
+# Tag overlap
         if alert1.tags and alert2.tags:
             tag_overlap = len(alert1.tags & alert2.tags) / len(alert1.tags | alert2.tags)
             score += 0.2 * tag_overlap
@@ -611,7 +611,7 @@ class AlertPrioritizationSystem:
     
     def _in_maintenance_window(self, source: str) -> bool:
         """Check if source is in maintenance window"""
-        # Simulate maintenance windows
+# Simulate maintenance windows
         maintenance_windows = {
             'database-backup': (2, 4),  # 2 AM - 4 AM
             'batch-processing': (1, 5),  # 1 AM - 5 AM
@@ -627,12 +627,12 @@ class AlertPrioritizationSystem:
     
     def _exceeds_rate_limit(self, alert: Alert) -> bool:
         """Check if alert exceeds rate limit"""
-        # Count alerts from same source in last hour
+# Count alerts from same source in last hour
         one_hour_ago = datetime.now() - timedelta(hours=1)
         recent_count = sum(1 for a in self.alert_history 
                          if a.source == alert.source and a.timestamp > one_hour_ago)
         
-        # Rate limits by severity
+# Rate limits by severity
         rate_limits = {
             'critical': 999,  # No limit for critical
             'high': 20,
@@ -645,15 +645,15 @@ class AlertPrioritizationSystem:
     def _is_business_hours(self) -> bool:
         """Check if current time is business hours"""
         now = datetime.now()
-        # Monday = 0, Sunday = 6
+# Monday = 0, Sunday = 6
         if now.weekday() >= 5:  # Weekend
             return False
-        # 9 AM - 6 PM
+# 9 AM - 6 PM
         return 9 <= now.hour < 18
     
     def get_prioritized_alerts(self, limit: int = 5) -> List[Alert]:
         """Get top priority alerts for operator attention"""
-        # Filter active alerts
+# Filter active alerts
         active_alerts = []
         stale_threshold = datetime.now() - timedelta(hours=4)
         
@@ -661,7 +661,7 @@ class AlertPrioritizationSystem:
             if alert.timestamp > stale_threshold:
                 heapq.heappush(active_alerts, alert)
         
-        # Return top N
+# Return top N
         return heapq.nsmallest(limit, active_alerts)
     
     def get_alert_summary(self) -> Dict:
@@ -684,7 +684,7 @@ class AlertPrioritizationSystem:
             'top_issues': []
         }
         
-        # Group by source for easier understanding
+# Group by source for easier understanding
         by_source = {}
         for alert in active_alerts[:5]:  # Top 5 only
             if alert.source not in by_source:
@@ -714,13 +714,13 @@ class AlertPrioritizationSystem:
             print("\n✅ " + summary['message'])
             return
         
-        # High-level summary
+# High-level summary
         status_icon = "🔴" if summary['status'] == 'critical' else "🟡"
         print(f"\n{status_icon} Status: {summary['status'].upper()}")
         print(f"Active Alerts: {summary['total_active']}")
         print(f"Immediate Action Required: {summary['requires_immediate_action']}")
         
-        # Top issues grouped by source
+# Top issues grouped by source
         print("\n📊 TOP ISSUES BY SERVICE:")
         print("-"*40)
         
@@ -732,7 +732,7 @@ class AlertPrioritizationSystem:
             if issue['affected_users'] > 0:
                 print(f"  Affected Users: {issue['affected_users']:,}")
         
-        # Detailed view of top alerts
+# Detailed view of top alerts
         print("\n\n🚨 PRIORITY ALERTS:")
         print("-"*40)
         
@@ -773,7 +773,7 @@ test_alerts = [
           'critical', 'payment-service', datetime.now() - timedelta(minutes=1),
           {'errors', 'payment'}, 'revenue_loss', 10000),
     
-    # Duplicate alert (should be merged)
+# Duplicate alert (should be merged)
     Alert('6', 'Database connection pool exhausted', 'No connections available', 
           'critical', 'user-service', datetime.now() + timedelta(seconds=30), 
           {'database', 'capacity'}, 'revenue_loss', 2000),
@@ -850,12 +850,12 @@ class RunbookAutomation:
         print(f"{'='*60}")
         print(f"Description: {self.description}\n")
         
-        # Pre-flight checks
+# Pre-flight checks
         if not self._preflight_check():
             print("❌ Pre-flight checks failed. Aborting runbook.")
             return False
             
-        # Execute steps
+# Execute steps
         for i, step in enumerate(self.steps):
             print(f"\n{'─'*40}")
             print(f"Step {i+1}/{len(self.steps)}: {step.name}")
@@ -898,14 +898,14 @@ class RunbookAutomation:
         """Execute a single step with appropriate handling"""
         print(f"\n📋 {step.description}")
         
-        # Check required context
+# Check required context
         missing_context = [ctx for ctx in step.required_context 
                           if ctx not in self.context]
         if missing_context:
             print(f"⚠️  Missing required context: {missing_context}")
             return False
         
-        # Execute based on step type
+# Execute based on step type
         start_time = time.time()
         
         try:
@@ -925,7 +925,7 @@ class RunbookAutomation:
                 print(f"❌ Unknown step type: {step.step_type}")
                 result = False
                 
-            # Log execution
+# Log execution
             execution_time = time.time() - start_time
             self.execution_log.append({
                 'step': step.name,
@@ -948,14 +948,14 @@ class RunbookAutomation:
             print("❌ No action defined for automated step")
             return False
             
-        # Show what will be done
+# Show what will be done
         print(f"   Action: {step.action.__name__}")
         
-        # Execute with timeout
+# Execute with timeout
         try:
             result = step.action(self.context)
             
-            # Validate if validation function provided
+# Validate if validation function provided
             if step.validation:
                 print("   Validating result...")
                 if not step.validation(result, self.context):
@@ -964,7 +964,7 @@ class RunbookAutomation:
                     
             print("   ✅ Step completed successfully")
             
-            # Update context with result
+# Update context with result
             if isinstance(result, dict):
                 self.context.update(result)
                 
@@ -978,20 +978,20 @@ class RunbookAutomation:
         """Execute step requiring human decision"""
         print("👤 Human decision required:")
         
-        # Present context and options
+# Present context and options
         print("\n   Current context:")
         for key, value in self.context.items():
             if not key.startswith('_'):  # Skip internal keys
                 print(f"     • {key}: {value}")
         
-        # Get decision
+# Get decision
         print(f"\n   Question: {step.description}")
         
         if step.action:
-            # Custom decision handler
+# Custom decision handler
             decision = step.action(self.context)
         else:
-            # Default yes/no decision
+# Default yes/no decision
             decision = input("   Proceed? (yes/no): ").lower().strip() == 'yes'
             
         self.context[f'{step.id}_decision'] = decision
@@ -1007,12 +1007,12 @@ class RunbookAutomation:
         """Execute step requiring human validation"""
         print("👁️  Human validation required:")
         
-        # Execute action if provided
+# Execute action if provided
         if step.action:
             print("   Performing action...")
             result = step.action(self.context)
             
-            # Display result for validation
+# Display result for validation
             print("\n   Result:")
             if isinstance(result, dict):
                 for key, value in result.items():
@@ -1020,7 +1020,7 @@ class RunbookAutomation:
             else:
                 print(f"     {result}")
         
-        # Get validation
+# Get validation
         print(f"\n   Please validate: {step.description}")
         validation = input("   Is the result correct? (yes/no): ").lower().strip() == 'yes'
         
@@ -1030,7 +1030,7 @@ class RunbookAutomation:
         else:
             print("   ❌ Validation failed")
             
-            # Offer to provide details
+# Offer to provide details
             details = input("   Provide details (optional): ")
             if details:
                 self.context[f'{step.id}_validation_details'] = details
@@ -1063,7 +1063,7 @@ class RunbookAutomation:
         """Rollback executed steps"""
         print("\n🔄 Starting rollback...")
         
-        # Rollback in reverse order
+# Rollback in reverse order
         for i in range(failed_step_index, -1, -1):
             step = self.steps[i]
             
@@ -1093,7 +1093,7 @@ class RunbookAutomation:
             status = "✅" if log['success'] else "❌"
             print(f"  {status} {log['step']} ({log['execution_time']:.2f}s)")
         
-        # Key decisions made
+# Key decisions made
         print("\nKey decisions:")
         for key, value in self.context.items():
             if '_decision' in key:
@@ -1101,22 +1101,22 @@ class RunbookAutomation:
     
     def _check_permissions(self) -> bool:
         """Simulate permission check"""
-        # In real implementation, check actual permissions
+# In real implementation, check actual permissions
         return True
     
     def _check_dependencies(self) -> bool:
         """Check system dependencies"""
-        # In real implementation, check actual dependencies
+# In real implementation, check actual dependencies
         return True
     
     def _validate_context(self) -> bool:
         """Validate required context is present"""
-        # In real implementation, validate context thoroughly
+# In real implementation, validate context thoroughly
         return True
     
     def _verify_rollback_capability(self) -> bool:
         """Verify rollback is possible"""
-        # Check that critical steps have rollback defined
+# Check that critical steps have rollback defined
         critical_steps = [s for s in self.steps 
                          if s.step_type in [StepType.AUTOMATED, StepType.HUMAN_VALIDATION]]
         
@@ -1136,10 +1136,10 @@ def create_database_failover_runbook() -> RunbookAutomation:
         "Failover primary database to standby with validation"
     )
     
-    # Step 1: Check current state
+# Step 1: Check current state
     def check_database_health(context):
         print("   Checking primary database health...")
-        # Simulate health check
+# Simulate health check
         time.sleep(2)
         return {
             'primary_status': 'degraded',
@@ -1156,7 +1156,7 @@ def create_database_failover_runbook() -> RunbookAutomation:
         action=check_database_health
     ))
     
-    # Step 2: Human decision on failover
+# Step 2: Human decision on failover
     def failover_decision(context):
         print(f"\n   Primary status: {context['primary_status']}")
         print(f"   Standby status: {context['standby_status']}")
@@ -1172,7 +1172,7 @@ def create_database_failover_runbook() -> RunbookAutomation:
         action=failover_decision
     ))
     
-    # Step 3: Stop writes to primary
+# Step 3: Stop writes to primary
     def stop_writes(context):
         print("   Setting primary to read-only mode...")
         time.sleep(2)
@@ -1195,12 +1195,12 @@ def create_database_failover_runbook() -> RunbookAutomation:
         required_context=['primary_status']
     ))
     
-    # Step 4: Verify replication caught up
+# Step 4: Verify replication caught up
     def verify_replication(context):
         print("   Checking replication status...")
         time.sleep(2)
         
-        # Simulate checking
+# Simulate checking
         lag_seconds = 2
         for i in range(3):
             print(f"   Replication lag: {lag_seconds} seconds")
@@ -1221,7 +1221,7 @@ def create_database_failover_runbook() -> RunbookAutomation:
         validation=validate_replication
     ))
     
-    # Step 5: Promote standby
+# Step 5: Promote standby
     def promote_standby(context):
         print("   Promoting standby to primary...")
         time.sleep(3)
@@ -1242,7 +1242,7 @@ def create_database_failover_runbook() -> RunbookAutomation:
         required_context=['replication_caught_up']
     ))
     
-    # Step 6: Update application configuration
+# Step 6: Update application configuration
     def update_app_config(context):
         print("   Updating application database endpoints...")
         time.sleep(2)
@@ -1263,7 +1263,7 @@ def create_database_failover_runbook() -> RunbookAutomation:
         required_context=['new_primary']
     ))
     
-    # Step 7: Validate failover
+# Step 7: Validate failover
     def validate_failover(context):
         print("   Running validation checks...")
         
@@ -1292,7 +1292,7 @@ def create_database_failover_runbook() -> RunbookAutomation:
         action=validate_failover
     ))
     
-    # Step 8: Send notifications
+# Step 8: Send notifications
     def send_notifications(context):
         print("   Notifying stakeholders...")
         
@@ -1386,7 +1386,7 @@ class IncidentSimulator:
         
         self.simulation_running = True
         
-        # Start incident generator thread
+# Start incident generator thread
         generator = threading.Thread(
             target=self._generate_incidents,
             args=(difficulty,),
@@ -1394,23 +1394,23 @@ class IncidentSimulator:
         )
         generator.start()
         
-        # Start stress factor thread
+# Start stress factor thread
         stressor = threading.Thread(
             target=self._apply_stress_factors,
             daemon=True
         )
         stressor.start()
         
-        # Main command loop
+# Main command loop
         self._command_loop()
         
-        # Show results
+# Show results
         self._show_results()
     
     def _generate_incidents(self, difficulty: str):
         """Generate incidents based on difficulty"""
         
-        # Incident templates
+# Incident templates
         incident_types = [
             {
                 'type': 'high_latency',
@@ -1454,7 +1454,7 @@ class IncidentSimulator:
             }
         ]
         
-        # Difficulty settings
+# Difficulty settings
         settings = {
             'easy': {'interval': 30, 'simultaneous': 1, 'noise': 0.1},
             'medium': {'interval': 20, 'simultaneous': 2, 'noise': 0.3},
@@ -1468,7 +1468,7 @@ class IncidentSimulator:
         time.sleep(3)  # Initial delay
         
         while self.simulation_running:
-            # Generate incident
+# Generate incident
             if len(self.active_incidents) < config['simultaneous']:
                 incident_template = random.choice(incident_types)
                 
@@ -1488,14 +1488,14 @@ class IncidentSimulator:
                 self.active_incidents[incident['id']] = incident
                 incident_id += 1
                 
-                # Alert operator
+# Alert operator
                 self._alert_operator(incident)
                 
-                # Add noise (false alarms)
+# Add noise (false alarms)
                 if random.random() < config['noise']:
                     self._generate_noise_alert()
             
-            # Wait before next incident
+# Wait before next incident
             time.sleep(config['interval'] + random.randint(-5, 5))
     
     def _apply_stress_factors(self):
@@ -1614,11 +1614,11 @@ class IncidentSimulator:
         print(f"   Finding: {incident['investigation_result']}")
         incident['investigated'] = True
         
-        # Log response time
+# Log response time
         response_time = time.time() - start_time
         self.metrics['response_times'].append(response_time)
         
-        # Suggest actions based on type
+# Suggest actions based on type
         suggestions = {
             'high_latency': ['scale - Add more instances', 'restart - Restart services', 'cache - Enable caching'],
             'error_rate': ['rollback - Revert deployment', 'disable - Disable feature', 'restart - Restart services'],
@@ -1642,13 +1642,13 @@ class IncidentSimulator:
         print(f"\n⚡ Applying mitigation: {action} to {incident_id}")
         time.sleep(3)  # Simulate action time
         
-        # Check if correct action
+# Check if correct action
         if action == incident['correct_action']:
             print(f"✅ Mitigation successful! {incident['title']} improving.")
             incident['status'] = 'mitigated'
             self.metrics['correct_actions'] += 1
             
-            # Auto-resolve after successful mitigation
+# Auto-resolve after successful mitigation
             time.sleep(2)
             print(f"✅ {incident_id} auto-resolved after successful mitigation")
             incident['status'] = 'resolved'
@@ -1657,7 +1657,7 @@ class IncidentSimulator:
             print(f"   Impact: {incident['wrong_action_impact']}")
             self.metrics['errors'] += 1
             
-            # Increase stress
+# Increase stress
             self.metrics['stress_level'] += 2
             
         self.metrics['decisions_made'].append({
@@ -1680,7 +1680,7 @@ class IncidentSimulator:
         print(f"✅ Incident escalated. Senior engineer taking over.")
         incident['status'] = 'escalated'
         
-        # Neutral outcome - neither correct nor wrong
+# Neutral outcome - neither correct nor wrong
         self.metrics['decisions_made'].append({
             'incident': incident_id,
             'action': 'escalate',
@@ -1707,7 +1707,7 @@ class IncidentSimulator:
         print("SIMULATION RESULTS")
         print(f"{'='*60}")
         
-        # Calculate metrics
+# Calculate metrics
         total_incidents = len(self.active_incidents)
         resolved = sum(1 for i in self.active_incidents.values() 
                       if i['status'] in ['resolved', 'mitigated'])
@@ -1724,7 +1724,7 @@ class IncidentSimulator:
         total_decisions = len([d for d in self.metrics['decisions_made'] 
                               if d['correct'] is not None])
         
-        # Display results
+# Display results
         print(f"\nIncident Handling:")
         print(f"  Total incidents: {total_incidents}")
         print(f"  Resolved/Mitigated: {resolved}")
@@ -1741,7 +1741,7 @@ class IncidentSimulator:
             accuracy = (correct_decisions / total_decisions) * 100
             print(f"  Decision accuracy: {accuracy:.1f}%")
         
-        # Performance rating
+# Performance rating
         score = 0
         score += min(30, resolved * 10)  # Up to 30 points for resolution
         score += min(20, (5 - self.metrics['errors']) * 4)  # Up to 20 for few errors
@@ -1752,7 +1752,7 @@ class IncidentSimulator:
         
         print(f"\nOverall Rating: {rating} ({score}/100)")
         
-        # Recommendations
+# Recommendations
         print("\nRecommendations:")
         if avg_response > 10:
             print("  • Practice quick incident triage")

@@ -19,7 +19,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🧪 Hands-On Labs
+## Hands-On Labs
 
 ### Lab 1: Production-Grade Structured Logging
 
@@ -55,13 +55,13 @@ class StructuredLogger:
         
     def log(self, level: str, message: str, **fields):
         """Core logging method"""
-        # TODO: Implement structured logging with:
-        # 1. Automatic timestamp in ISO format
-        # 2. Correlation ID from context
-        # 3. User ID from context
-        # 4. Automatic error serialization
-        # 5. Performance metrics (execution time)
-        # 6. Sampling for high-volume logs
+# TODO: Implement structured logging with:
+# 1. Automatic timestamp in ISO format
+# 2. Correlation ID from context
+# 3. User ID from context
+# 4. Automatic error serialization
+# 5. Performance metrics (execution time)
+# 6. Sampling for high-volume logs
         
         log_entry = {
             'timestamp': datetime.utcnow().isoformat(),
@@ -73,22 +73,22 @@ class StructuredLogger:
             **fields
         }
         
-        # Your implementation here
+# Your implementation here
         pass
         
     def with_context(self, **context_fields):
         """Create child logger with additional context"""
-        # TODO: Implement context propagation
+# TODO: Implement context propagation
         pass
         
     def error(self, message: str, error: Optional[Exception] = None, **fields):
         """Log error with automatic exception handling"""
-        # TODO: Extract stack trace, error type, etc.
+# TODO: Extract stack trace, error type, etc.
         pass
         
     def performance(self, operation: str):
         """Context manager for performance logging"""
-        # TODO: Implement timing decorator/context manager
+# TODO: Implement timing decorator/context manager
         pass
 
 # Exercise: Complete the logger implementation
@@ -96,13 +96,13 @@ logger = StructuredLogger("payment-service", "production")
 
 # Test scenarios
 def test_structured_logging():
-    # Scenario 1: Basic logging
+# Scenario 1: Basic logging
     logger.info("Processing payment", 
                amount=99.99, 
                currency="USD",
                payment_method="credit_card")
     
-    # Scenario 2: Error logging with context
+# Scenario 2: Error logging with context
     try:
         process_payment()
     except Exception as e:
@@ -111,9 +111,9 @@ def test_structured_logging():
                     amount=99.99,
                     retry_count=3)
     
-    # Scenario 3: Performance logging
+# Scenario 3: Performance logging
     with logger.performance("database_query"):
-        # Simulate slow query
+# Simulate slow query
         time.sleep(0.1)
 ```
 
@@ -132,26 +132,26 @@ class LogAggregator:
                            window_seconds: int,
                            threshold: int):
         """Define when to alert on log patterns"""
-        # TODO: Implement pattern matching rules
-        # Example: Alert if >100 errors in 60 seconds
+# TODO: Implement pattern matching rules
+# Example: Alert if >100 errors in 60 seconds
         pass
         
     def process_log(self, log_entry: Dict[str, Any]):
         """Process incoming log entry"""
-        # TODO: 
-        # 1. Buffer logs for time window
-        # 2. Check against aggregation rules
-        # 3. Trigger alerts if thresholds exceeded
-        # 4. Calculate statistics
+# TODO:
+# 1. Buffer logs for time window
+# 2. Check against aggregation rules
+# 3. Trigger alerts if thresholds exceeded
+# 4. Calculate statistics
         pass
         
     def get_statistics(self, time_window_minutes: int = 5):
         """Get log statistics for monitoring"""
-        # TODO: Return stats like:
-        # - Log volume by level
-        # - Error rate
-        # - Top error messages
-        # - Performance percentiles
+# TODO: Return stats like:
+# - Log volume by level
+# - Error rate
+# - Top error messages
+# - Performance percentiles
         pass
 
 # Exercise: Build log aggregation system
@@ -219,26 +219,26 @@ class Tracer:
     def start_span(self, operation_name: str, 
                    parent_span: Optional[Span] = None) -> Span:
         """Start a new span"""
-        # TODO: Implement span creation with:
-        # 1. Unique trace_id (or inherit from parent)
-        # 2. Unique span_id
-        # 3. Parent relationship tracking
-        # 4. Automatic service name tagging
+# TODO: Implement span creation with:
+# 1. Unique trace_id (or inherit from parent)
+# 2. Unique span_id
+# 3. Parent relationship tracking
+# 4. Automatic service name tagging
         pass
         
     def finish_span(self, span: Span):
         """Complete a span"""
-        # TODO: 
-        # 1. Set end time
-        # 2. Calculate duration
-        # 3. Send to backend (or buffer)
-        # 4. Remove from active spans
+# TODO:
+# 1. Set end time
+# 2. Calculate duration
+# 3. Send to backend (or buffer)
+# 4. Remove from active spans
         pass
         
     @contextmanager
     def trace(self, operation_name: str, **tags):
         """Context manager for tracing"""
-        # TODO: Implement automatic span lifecycle
+# TODO: Implement automatic span lifecycle
         span = self.start_span(operation_name)
         try:
             yield span
@@ -255,7 +255,7 @@ class Tracer:
             
     def inject_headers(self, span: Span) -> Dict[str, str]:
         """Inject trace context into HTTP headers"""
-        # TODO: Implement W3C Trace Context or similar
+# TODO: Implement W3C Trace Context or similar
         return {
             'X-Trace-Id': span.trace_id,
             'X-Parent-Span-Id': span.span_id,
@@ -264,7 +264,7 @@ class Tracer:
         
     def extract_headers(self, headers: Dict[str, str]) -> Optional[Span]:
         """Extract trace context from HTTP headers"""
-        # TODO: Parse incoming trace context
+# TODO: Parse incoming trace context
         pass
 
 # Exercise: Complete tracer and test with mock services
@@ -274,11 +274,11 @@ class MockService:
         self.tracer = tracer
         
     async def handle_request(self, headers: Dict[str, str]):
-        # Extract parent context
+# Extract parent context
         parent_span = self.tracer.extract_headers(headers)
         
         with self.tracer.trace(f"{self.name}.handle_request") as span:
-            # Simulate work
+# Simulate work
             await self.database_query()
             await self.call_downstream_service()
             
@@ -286,7 +286,7 @@ class MockService:
         with self.tracer.trace("database.query", 
                               db_type="postgres",
                               query="SELECT * FROM users"):
-            # Simulate query time
+# Simulate query time
             await asyncio.sleep(random.uniform(0.01, 0.1))
 ```
 
@@ -307,26 +307,26 @@ class TraceAnalyzer:
         
     def analyze_trace(self, trace_id: str) -> Dict[str, Any]:
         """Analyze a single trace"""
-        # TODO: Calculate:
-        # 1. Total duration
-        # 2. Critical path (longest chain)
-        # 3. Service breakdown (time per service)
-        # 4. Operation breakdown (time per operation type)
-        # 5. Error analysis
+# TODO: Calculate:
+# 1. Total duration
+# 2. Critical path (longest chain)
+# 3. Service breakdown (time per service)
+# 4. Operation breakdown (time per operation type)
+# 5. Error analysis
         pass
         
     def find_bottlenecks(self, percentile: float = 0.95) -> List[Dict]:
         """Find slowest operations across all traces"""
-        # TODO: Identify operations that:
-        # 1. Take longest time (p95)
-        # 2. Are called most frequently
-        # 3. Have highest error rate
-        # 4. Have most variability
+# TODO: Identify operations that:
+# 1. Take longest time (p95)
+# 2. Are called most frequently
+# 3. Have highest error rate
+# 4. Have most variability
         pass
         
     def generate_service_map(self) -> Dict[str, List[str]]:
         """Generate service dependency map from traces"""
-        # TODO: Build graph of service dependencies
+# TODO: Build graph of service dependencies
         pass
 
 # Exercise: Analyze trace data
@@ -362,7 +362,7 @@ class TimeSeriesDB:
     """Simple time series database for metrics"""
     
     def __init__(self):
-        # metric_name -> [(timestamp, value)]
+# metric_name -> [(timestamp, value)]
         self.data = defaultdict(list)
         self.retention_seconds = 3600  # 1 hour
         
@@ -370,11 +370,11 @@ class TimeSeriesDB:
               timestamp: Optional[float] = None,
               tags: Optional[Dict[str, str]] = None):
         """Write a data point"""
-        # TODO: Implement:
-        # 1. Tag handling (convert to metric name)
-        # 2. Sorted insertion for efficiency
-        # 3. Automatic old data cleanup
-        # 4. Downsampling for older data
+# TODO: Implement:
+# 1. Tag handling (convert to metric name)
+# 2. Sorted insertion for efficiency
+# 3. Automatic old data cleanup
+# 4. Downsampling for older data
         pass
         
     def query(self, metric: str, 
@@ -382,17 +382,17 @@ class TimeSeriesDB:
               end_time: float,
               aggregation: str = 'avg') -> List[Tuple[float, float]]:
         """Query time series data"""
-        # TODO: Implement:
-        # 1. Binary search for time range
-        # 2. Aggregation functions (avg, sum, max, min, p95)
-        # 3. Downsampling for large ranges
-        # 4. Interpolation for missing data
+# TODO: Implement:
+# 1. Binary search for time range
+# 2. Aggregation functions (avg, sum, max, min, p95)
+# 3. Downsampling for large ranges
+# 4. Interpolation for missing data
         pass
         
     def downsample(self, data: List[Tuple[float, float]], 
                    target_points: int = 1000) -> List[Tuple[float, float]]:
         """Downsample data for visualization"""
-        # TODO: Implement LTTB algorithm or similar
+# TODO: Implement LTTB algorithm or similar
         pass
 
 # Exercise: Build a complete metrics pipeline
@@ -405,23 +405,23 @@ class MetricsCollector:
         
     def increment_counter(self, name: str, value: int = 1, **tags):
         """Increment a counter metric"""
-        # TODO: Handle counter metrics
+# TODO: Handle counter metrics
         pass
         
     def set_gauge(self, name: str, value: float, **tags):
         """Set a gauge metric"""
-        # TODO: Handle gauge metrics
+# TODO: Handle gauge metrics
         pass
         
     def record_histogram(self, name: str, value: float, **tags):
         """Record a histogram value"""
-        # TODO: Calculate percentiles efficiently
+# TODO: Calculate percentiles efficiently
         pass
         
     def flush(self):
         """Flush metrics to database"""
-        # TODO: Write all metrics to DB
-        # Reset counters, keep gauges, rotate histograms
+# TODO: Write all metrics to DB
+# Reset counters, keep gauges, rotate histograms
         pass
 ```
 
@@ -456,18 +456,18 @@ class AlertEngine:
         
     def evaluate_rules(self):
         """Check all rules against current metrics"""
-        # TODO: Implement:
-        # 1. Query metrics for each rule
-        # 2. Check if condition met for duration
-        # 3. Handle state transitions (pending -> firing -> resolved)
-        # 4. Deduplication and flap detection
-        # 5. Alert notification routing
+# TODO: Implement:
+# 1. Query metrics for each rule
+# 2. Check if condition met for duration
+# 3. Handle state transitions (pending -> firing -> resolved)
+# 4. Deduplication and flap detection
+# 5. Alert notification routing
         pass
         
     def predict_alerts(self, hours_ahead: int = 1) -> List[Dict]:
         """Predict future alerts based on trends"""
-        # TODO: Use linear regression or similar
-        # to predict when thresholds will be crossed
+# TODO: Use linear regression or similar
+# to predict when thresholds will be crossed
         pass
 
 # Exercise: Create intelligent alerting
@@ -511,23 +511,23 @@ class AdaptiveSampler:
         
     def should_sample(self, trace_attributes: Dict[str, Any]) -> bool:
         """Decide whether to sample this trace"""
-        # TODO: Implement adaptive sampling:
-        # 1. Always sample errors
-        # 2. Sample slow requests (>p95)
-        # 3. Sample new endpoints
-        # 4. Sample based on business importance
-        # 5. Adjust rate to meet target
+# TODO: Implement adaptive sampling:
+# 1. Always sample errors
+# 2. Sample slow requests (>p95)
+# 3. Sample new endpoints
+# 4. Sample based on business importance
+# 5. Adjust rate to meet target
         
-        # Priority sampling
+# Priority sampling
         for rule in self.priority_rules:
             if rule.matches(trace_attributes):
                 return True
                 
-        # Rate-based sampling
+# Rate-based sampling
         if self.current_rate >= self.target_rate:
             return False
             
-        # Probabilistic sampling for the rest
+# Probabilistic sampling for the rest
         sample_probability = self.calculate_probability(trace_attributes)
         return random.random() < sample_probability
         
@@ -535,16 +535,16 @@ class AdaptiveSampler:
                          condition: Callable[[Dict], bool],
                          reason: str):
         """Add rule for priority sampling"""
-        # TODO: Implement priority rules
+# TODO: Implement priority rules
         pass
         
     def calculate_cost_savings(self) -> Dict[str, float]:
         """Estimate cost savings from sampling"""
-        # TODO: Calculate:
-        # 1. Data ingestion savings
-        # 2. Storage savings
-        # 3. Query cost savings
-        # 4. Value of traces kept vs discarded
+# TODO: Calculate:
+# 1. Data ingestion savings
+# 2. Storage savings
+# 3. Query cost savings
+# 4. Value of traces kept vs discarded
         pass
 
 # Exercise: Design cost-effective sampling
@@ -586,28 +586,28 @@ class RetentionOptimizer:
                            query_frequency: str,  # 'high', 'medium', 'low'
                            business_value: str):  # 'critical', 'important', 'nice'
         """Define a category of observability data"""
-        # TODO: Track data categories for optimization
+# TODO: Track data categories for optimization
         pass
         
     def optimize_retention(self) -> Dict[str, Dict]:
         """Recommend optimal retention per category"""
-        # TODO: For each category, recommend:
-        # 1. Hot storage duration (fast, expensive)
-        # 2. Warm storage duration (slower, cheaper)
-        # 3. Cold storage duration (slow, cheap)
-        # 4. Aggregation strategy (raw vs rollups)
-        # 5. Deletion timeline
-        #
-        # Consider:
-        # - Query patterns
-        # - Compliance requirements
-        # - Storage costs
-        # - Business value
+# TODO: For each category, recommend:
+# 1. Hot storage duration (fast, expensive)
+# 2. Warm storage duration (slower, cheaper)
+# 3. Cold storage duration (slow, cheap)
+# 4. Aggregation strategy (raw vs rollups)
+# 5. Deletion timeline
+# 
+# Consider:
+# - Query patterns
+# - Compliance requirements
+# - Storage costs
+# - Business value
         pass
         
     def calculate_monthly_cost(self, retention_policy: Dict) -> float:
         """Calculate cost of retention policy"""
-        # TODO: Sum up storage costs across tiers
+# TODO: Sum up storage costs across tiers
         pass
 
 # Exercise: Design retention strategy
@@ -665,29 +665,29 @@ class DistributedDebugger:
         
     def investigate_issue(self, error_trace_id: str) -> Dict:
         """Automatically investigate an error"""
-        # TODO: Implement investigation that:
-        # 1. Collects the full trace
-        # 2. Gathers logs from all involved services
-        # 3. Correlates with metrics anomalies
-        # 4. Identifies root cause service
-        # 5. Suggests fix based on patterns
-        #
-        # Return investigation report with:
-        # - Timeline of events
-        # - Service interaction diagram
-        # - Error propagation path
-        # - Similar past incidents
-        # - Recommended actions
+# TODO: Implement investigation that:
+# 1. Collects the full trace
+# 2. Gathers logs from all involved services
+# 3. Correlates with metrics anomalies
+# 4. Identifies root cause service
+# 5. Suggests fix based on patterns
+# 
+# Return investigation report with:
+# - Timeline of events
+# - Service interaction diagram
+# - Error propagation path
+# - Similar past incidents
+# - Recommended actions
         pass
         
     def find_cascade_failures(self, time_window: Tuple[float, float]) -> List[Dict]:
         """Identify cascade failure patterns"""
-        # TODO: Analyze how failures propagate
+# TODO: Analyze how failures propagate
         pass
         
     def generate_debug_notebook(self, incident_id: str):
         """Generate Jupyter notebook for incident"""
-        # TODO: Create interactive debugging session
+# TODO: Create interactive debugging session
         pass
 
 # Challenge: Debug a complex distributed system failure
@@ -715,7 +715,7 @@ Design an observability solution that:
 """
 
 class LegacyObservability:
-    # Design your solution
+# Design your solution
     pass
 ```
 
@@ -738,13 +738,13 @@ Design a meta-observability system that:
 """
 
 class MetaObservability:
-    # Your implementation
+# Your implementation
     pass
 ```
 
 ---
 
-## 🔬 Research Projects
+## Research Projects
 
 ### Project 1: ML-Powered Anomaly Detection
 
@@ -759,26 +759,26 @@ class AnomalyDetector:
     def train(self, metric_name: str, 
               historical_data: List[Tuple[float, float]]):
         """Train anomaly detection model"""
-        # TODO: Implement using:
-        # 1. Seasonal decomposition
-        # 2. LSTM for time series
-        # 3. Isolation forests
-        # 4. Auto-encoders
-        #
-        # Handle:
-        # - Seasonal patterns
-        # - Trend changes
-        # - Known events (deployments)
+# TODO: Implement using:
+# 1. Seasonal decomposition
+# 2. LSTM for time series
+# 3. Isolation forests
+# 4. Auto-encoders
+# 
+# Handle:
+# - Seasonal patterns
+# - Trend changes
+# - Known events (deployments)
         pass
         
     def detect_anomalies(self, metric_name: str,
                         recent_data: List[Tuple[float, float]]) -> List[Dict]:
         """Detect anomalies in recent data"""
-        # TODO: Return anomalies with:
-        # - Confidence score
-        # - Likely cause
-        # - Business impact
-        # - Similar past anomalies
+# TODO: Return anomalies with:
+# - Confidence score
+# - Likely cause
+# - Business impact
+# - Similar past anomalies
         pass
 
 # Research: Compare different algorithms on production data
@@ -801,7 +801,7 @@ Bonus: Make it streamable (compress as traces arrive)
 """
 
 class TraceCompressor:
-    # Your research implementation
+# Your research implementation
     pass
 ```
 
@@ -817,24 +817,24 @@ class CostAwareObservability:
         
     def calculate_insight_value(self, insight_type: str) -> float:
         """Calculate $ value of an insight"""
-        # TODO: Model based on:
-        # - Incidents prevented
-        # - MTTR reduction
-        # - Performance improvements
-        # - Customer satisfaction
+# TODO: Model based on:
+# - Incidents prevented
+# - MTTR reduction
+# - Performance improvements
+# - Customer satisfaction
         pass
         
     def optimize_observability_mix(self) -> Dict:
         """Optimize what to observe given budget"""
-        # TODO: Solve optimization problem:
-        # Maximize: insight_value
-        # Subject to: cost <= budget
-        #
-        # Consider:
-        # - Sampling rates
-        # - Retention periods
-        # - Aggregation levels
-        # - Which services to monitor
+# TODO: Solve optimization problem:
+# Maximize: insight_value
+# Subject to: cost <= budget
+# 
+# Consider:
+# - Sampling rates
+# - Retention periods
+# - Aggregation levels
+# - Which services to monitor
         pass
 
 # Research: Quantify observability ROI
@@ -851,7 +851,7 @@ def choose_observability_strategy(system_attributes: Dict) -> Dict:
     """Quick decision tree for observability"""
     
     if system_attributes['requests_per_day'] < 1_000_000:
-        # Small scale
+# Small scale
         return {
             'logging': 'application_logs_only',
             'tracing': 'sample_errors_only',
@@ -859,7 +859,7 @@ def choose_observability_strategy(system_attributes: Dict) -> Dict:
             'cost': '$100-500/month'
         }
     elif system_attributes['requests_per_day'] < 100_000_000:
-        # Medium scale
+# Medium scale
         return {
             'logging': 'structured_with_sampling',
             'tracing': '1%_sampling',
@@ -867,7 +867,7 @@ def choose_observability_strategy(system_attributes: Dict) -> Dict:
             'cost': '$5K-20K/month'
         }
     else:
-        # Large scale
+# Large scale
         return {
             'logging': 'edge_sampling_with_aggregation',
             'tracing': 'adaptive_sampling',
@@ -895,7 +895,7 @@ observability_cost_checklist = [
 
 ---
 
-## 🏆 Skills Assessment
+## Skills Assessment
 
 Rate your understanding (1-5):
 - [ ] Can implement structured logging
@@ -911,7 +911,7 @@ Rate your understanding (1-5):
 
 ---
 
-## 🎯 Final Challenge: Production Observability System
+## Final Challenge: Production Observability System
 
 ```python
 """
@@ -940,7 +940,7 @@ Extra credit:
 """
 
 class BankingObservability:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 

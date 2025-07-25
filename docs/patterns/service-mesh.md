@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -55,23 +55,23 @@ Each service handles:                  Proxies handle:
 class ServiceProxy:
     """Sidecar proxy that intercepts all service traffic"""
     def intercept_request(self, target: str, request: dict) -> dict:
-        # 1. Service discovery
+# 1. Service discovery
         endpoint = self.control_plane.discover_service(target)
         
-        # 2. Apply policies
+# 2. Apply policies
         policy = self.control_plane.get_policy(self.service_name, target)
         
-        # 3. Add security (mTLS)
+# 3. Add security (mTLS)
         secure_request = self.add_security(request)
         
-        # 4. Execute with resilience
+# 4. Execute with resilience
         response = self.call_with_retry(
             endpoint, secure_request,
             retries=policy.get('retries', 3),
             timeout=policy.get('timeout', 5)
         )
         
-        # 5. Record telemetry
+# 5. Record telemetry
         self.control_plane.record_metrics(
             source=self.service_name, target=target,
             latency=response.latency, status=response.status
@@ -85,7 +85,7 @@ class OrderService:
         self.proxy = ServiceProxy("order-service")
     
     def create_order(self, order_data: dict) -> dict:
-        # Proxy handles all networking concerns
+# Proxy handles all networking concerns
         inventory = self.proxy.intercept_request(
             "inventory-service",
             {"action": "reserve", "items": order_data['items']}
@@ -95,7 +95,7 @@ class OrderService:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Architecture Components
 
@@ -212,7 +212,7 @@ def create_authorization_policy(service: str, rules: list) -> dict:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Traffic Management
 
@@ -298,7 +298,7 @@ def trace_request(request_id: str, spans: list) -> dict:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Uber's Service Mesh
 
@@ -425,7 +425,7 @@ def smart_retry_policy() -> dict:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -455,7 +455,7 @@ def model_sidecar_latency(request_rate: float, service_time: float) -> dict:
     if utilization >= 1:
         return {'error': 'System overloaded'}
     
-    # Latency components (ms)
+# Latency components (ms)
     components = {
         'serialization': 0.1,
         'policy_evaluation': 0.2,
@@ -500,7 +500,7 @@ def model_sidecar_latency(request_rate: float, service_time: float) -> dict:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

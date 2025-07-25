@@ -154,7 +154,7 @@ class ConsistentHashing:
         """Remove node from ring"""
         self.nodes.remove(node)
         
-        # Remove all virtual nodes
+# Remove all virtual nodes
         keys_to_remove = [k for k, v in self.ring.items() if v == node]
         for key in keys_to_remove:
             del self.ring[key]
@@ -168,7 +168,7 @@ class ConsistentHashing:
         
         hash_value = self._hash(key)
         
-        # Find first node clockwise from hash
+# Find first node clockwise from hash
         idx = bisect.bisect_right(self.sorted_keys, hash_value)
         
         if idx == len(self.sorted_keys):
@@ -234,10 +234,10 @@ class PrimaryBackupNode:
     async def write(self, key: str, value: Any) -> bool:
         """Handle write request"""
         if self.role != ReplicaRole.PRIMARY:
-            # Forward to primary
+# Forward to primary
             return await self._forward_to_primary(key, value)
         
-        # Primary handles write
+# Primary handles write
         self.version += 1
         operation = {
             'op': 'write',
@@ -247,18 +247,18 @@ class PrimaryBackupNode:
             'timestamp': time.time()
         }
         
-        # Apply locally
+# Apply locally
         self.data[key] = value
         self.replication_log.append(operation)
         
-        # Replicate to backups
+# Replicate to backups
         success = await self._replicate_to_backups(operation)
         
         return success
     
     async def read(self, key: str) -> Any:
         """Handle read request"""
-        # Can read from any replica
+# Can read from any replica
         return self.data.get(key)
     
     async def _replicate_to_backups(self, operation: Dict) -> bool:
@@ -266,27 +266,27 @@ class PrimaryBackupNode:
         if not self.backups:
             return True
         
-        # Send to all backups in parallel
+# Send to all backups in parallel
         tasks = []
         for backup_id in self.backups:
             task = self._send_to_backup(backup_id, operation)
             tasks.append(task)
         
-        # Wait for acknowledgments
+# Wait for acknowledgments
         results = await asyncio.gather(*tasks, return_exceptions=True)
         
-        # Count successes
+# Count successes
         successes = sum(1 for r in results if r is True)
         
-        # Require majority for success
+# Require majority for success
         return successes >= len(self.backups) // 2 + 1
     
     async def _send_to_backup(self, backup_id: str, operation: Dict) -> bool:
         """Send operation to specific backup"""
-        # Simulate network call
+# Simulate network call
         await asyncio.sleep(0.01)
         
-        # In real implementation, would use RPC/HTTP
+# In real implementation, would use RPC/HTTP
         return True
     
     def apply_operation(self, operation: Dict):
@@ -301,10 +301,10 @@ class PrimaryBackupNode:
         self.role = ReplicaRole.PRIMARY
         self.primary = None
         
-        # In real system, would need to:
-        # 1. Ensure no split-brain
-        # 2. Sync with other replicas
-        # 3. Update cluster metadata
+# In real system, would need to:
+# 1. Ensure no split-brain
+# 2. Sync with other replicas
+# 3. Update cluster metadata
     
     def get_replication_lag(self, primary_version: int) -> int:
         """Calculate replication lag"""
@@ -325,52 +325,52 @@ class ChainReplicationNode:
     async def write(self, request_id: str, key: str, value: Any) -> bool:
         """Handle write in chain"""
         if self.position == 0:  # Head of chain
-            # Apply write locally
+# Apply write locally
             self.data[key] = value
             
             if self.successor:
-                # Forward down the chain
+# Forward down the chain
                 self.pending_writes[request_id] = (key, value)
                 return await self._forward_write(request_id, key, value)
             else:
-                # Single node chain
+# Single node chain
                 return True
         else:
-            # Should not receive client writes
+# Should not receive client writes
             raise Exception("Only head accepts writes")
     
     async def read(self, key: str) -> Any:
         """Handle read request"""
         if self.successor is None:  # Tail of chain
-            # Read from tail for strong consistency
+# Read from tail for strong consistency
             return self.data.get(key)
         else:
-            # Forward to tail
+# Forward to tail
             return await self._forward_read_to_tail(key)
     
     async def _forward_write(self, request_id: str, key: str, value: Any) -> bool:
         """Forward write to successor"""
-        # Send to successor
+# Send to successor
         await self._send_to_successor({
             'request_id': request_id,
             'key': key,
             'value': value
         })
         
-        # Wait for acknowledgment from tail
-        # In real system, would use callbacks/futures
+# Wait for acknowledgment from tail
+# In real system, would use callbacks/futures
         return True
     
     def receive_write(self, request_id: str, key: str, value: Any):
         """Receive write from predecessor"""
-        # Apply write
+# Apply write
         self.data[key] = value
         
         if self.successor:
-            # Forward down chain
+# Forward down chain
             self._forward_write(request_id, key, value)
         else:
-            # We are tail, send acknowledgment up chain
+# We are tail, send acknowledgment up chain
             self._send_ack_to_predecessor(request_id)
     
     def receive_ack(self, request_id: str):
@@ -379,10 +379,10 @@ class ChainReplicationNode:
             del self.pending_writes[request_id]
             
             if self.predecessor:
-                # Forward ack up chain
+# Forward ack up chain
                 self._send_ack_to_predecessor(request_id)
             else:
-                # We are head, write is committed
+# We are head, write is committed
                 pass
 ```
 
@@ -401,13 +401,13 @@ class QuorumReplication:
         """Calculate read and write quorum sizes"""
         n = self.replication_factor
         
-        # Various quorum configurations:
-        # R + W > N for strong consistency
-        # R = 1, W = N for read-optimized
-        # R = N, W = 1 for write-optimized
-        # R = W = (N + 1) / 2 for balanced
+# Various quorum configurations:
+# R + W > N for strong consistency
+# R = 1, W = N for read-optimized
+# R = N, W = 1 for write-optimized
+# R = W = (N + 1) / 2 for balanced
         
-        # Balanced configuration
+# Balanced configuration
         w = n // 2 + 1  # Write quorum
         r = n // 2 + 1  # Read quorum
         
@@ -416,10 +416,10 @@ class QuorumReplication:
     async def write(self, key: str, value: Any, 
                    consistency_level: str = "QUORUM") -> bool:
         """Write with quorum"""
-        # Get replica nodes
+# Get replica nodes
         replicas = self._get_replicas(key)
         
-        # Determine write quorum size
+# Determine write quorum size
         if consistency_level == "ONE":
             required_acks = 1
         elif consistency_level == "QUORUM":
@@ -429,11 +429,11 @@ class QuorumReplication:
         else:
             raise ValueError(f"Unknown consistency level: {consistency_level}")
         
-        # Increment version
+# Increment version
         version = self.data_versions.get(key, 0) + 1
         self.data_versions[key] = version
         
-        # Send writes in parallel
+# Send writes in parallel
         write_data = {
             'key': key,
             'value': value,
@@ -446,7 +446,7 @@ class QuorumReplication:
             task = self._write_to_replica(replica, write_data)
             tasks.append(task)
         
-        # Wait for required acknowledgments
+# Wait for required acknowledgments
         results = []
         for task in asyncio.as_completed(tasks):
             try:
@@ -454,22 +454,22 @@ class QuorumReplication:
                 results.append(result)
                 
                 if len(results) >= required_acks:
-                    # Quorum reached, can return
+# Quorum reached, can return
                     return True
             except Exception:
-                # Continue waiting for other replicas
+# Continue waiting for other replicas
                 pass
         
-        # Failed to reach quorum
+# Failed to reach quorum
         return False
     
     async def read(self, key: str, 
                   consistency_level: str = "QUORUM") -> Any:
         """Read with quorum"""
-        # Get replica nodes
+# Get replica nodes
         replicas = self._get_replicas(key)
         
-        # Determine read quorum size
+# Determine read quorum size
         if consistency_level == "ONE":
             required_responses = 1
         elif consistency_level == "QUORUM":
@@ -477,13 +477,13 @@ class QuorumReplication:
         elif consistency_level == "ALL":
             required_responses = len(replicas)
         
-        # Read from replicas
+# Read from replicas
         tasks = []
         for replica in replicas:
             task = self._read_from_replica(replica, key)
             tasks.append(task)
         
-        # Collect responses
+# Collect responses
         responses = []
         for task in asyncio.as_completed(tasks):
             try:
@@ -491,12 +491,12 @@ class QuorumReplication:
                 responses.append(response)
                 
                 if len(responses) >= required_responses:
-                    # Quorum reached, reconcile and return
+# Quorum reached, reconcile and return
                     return self._reconcile_responses(responses)
             except Exception:
                 pass
         
-        # Failed to reach quorum
+# Failed to reach quorum
         raise Exception("Failed to reach read quorum")
     
     def _reconcile_responses(self, responses: List[Dict]) -> Any:
@@ -504,10 +504,10 @@ class QuorumReplication:
         if not responses:
             return None
         
-        # Find response with highest version
+# Find response with highest version
         latest = max(responses, key=lambda r: (r['version'], r['timestamp']))
         
-        # Read repair if needed
+# Read repair if needed
         if any(r['version'] < latest['version'] for r in responses):
             asyncio.create_task(self._read_repair(responses, latest))
         
@@ -527,7 +527,7 @@ class QuorumReplication:
     
     def _get_replicas(self, key: str) -> List[str]:
         """Get replica nodes for key"""
-        # Use consistent hashing or similar
+# Use consistent hashing or similar
         consistent_hash = ConsistentHashing(self.nodes)
         return consistent_hash.get_nodes(key, self.replication_factor)
 ```
@@ -548,15 +548,15 @@ class ReedSolomonCoding:
         self.parity_shards = parity_shards
         self.total_shards = data_shards + parity_shards
         
-        # Generate Vandermonde matrix for encoding
+# Generate Vandermonde matrix for encoding
         self.encode_matrix = self._generate_matrix()
     
     def encode(self, data: bytes) -> List[bytes]:
         """Encode data into shards with parity"""
-        # Pad data to multiple of data_shards
+# Pad data to multiple of data_shards
         padded_data = self._pad_data(data)
         
-        # Split into data shards
+# Split into data shards
         shard_size = len(padded_data) // self.data_shards
         data_shards = []
         
@@ -565,7 +565,7 @@ class ReedSolomonCoding:
             end = (i + 1) * shard_size
             data_shards.append(padded_data[start:end])
         
-        # Generate parity shards
+# Generate parity shards
         parity_shards = self._generate_parity(data_shards)
         
         return data_shards + parity_shards
@@ -576,7 +576,7 @@ class ReedSolomonCoding:
         if len([s for s in shards if s is not None]) < self.data_shards:
             raise ValueError("Insufficient shards for decoding")
         
-        # Select available shards
+# Select available shards
         available_shards = []
         available_indices = []
         
@@ -588,17 +588,17 @@ class ReedSolomonCoding:
                 if len(available_shards) == self.data_shards:
                     break
         
-        # Reconstruct data
+# Reconstruct data
         if all(i < self.data_shards for i in available_indices):
-            # All data shards available
+# All data shards available
             reconstructed = b''.join(available_shards)
         else:
-            # Need to use parity for reconstruction
+# Need to use parity for reconstruction
             reconstructed = self._reconstruct_data(
                 available_shards, available_indices
             )
         
-        # Remove padding
+# Remove padding
         return self._unpad_data(reconstructed)
     
     def _generate_matrix(self) -> np.ndarray:
@@ -615,14 +615,14 @@ class ReedSolomonCoding:
         """Generate parity shards"""
         parity_shards = []
         
-        # Convert data shards to matrix
+# Convert data shards to matrix
         shard_size = len(data_shards[0])
         data_matrix = np.zeros((self.data_shards, shard_size), dtype=np.uint8)
         
         for i, shard in enumerate(data_shards):
             data_matrix[i] = np.frombuffer(shard, dtype=np.uint8)
         
-        # Generate parity using encoding matrix
+# Generate parity using encoding matrix
         for i in range(self.data_shards, self.total_shards):
             parity_row = self.encode_matrix[i]
             parity_data = np.zeros(shard_size, dtype=np.uint8)
@@ -639,21 +639,21 @@ class ReedSolomonCoding:
     def _reconstruct_data(self, shards: List[bytes], 
                          indices: List[int]) -> bytes:
         """Reconstruct data from mixed data/parity shards"""
-        # Create decoding matrix
+# Create decoding matrix
         decode_matrix = self._create_decode_matrix(indices)
         
-        # Apply matrix to recover data
-        # Implementation simplified for clarity
+# Apply matrix to recover data
+# Implementation simplified for clarity
         return b''.join(shards[:self.data_shards])
     
     def _galois_multiply(self, a: int, b: np.ndarray) -> np.ndarray:
         """Galois field multiplication"""
-        # Simplified - real implementation uses log tables
+# Simplified - real implementation uses log tables
         return (a * b) % 256
     
     def _galois_pow(self, base: int, exp: int) -> int:
         """Galois field exponentiation"""
-        # Simplified - real implementation uses log tables
+# Simplified - real implementation uses log tables
         return pow(base, exp) % 256
     
     def _pad_data(self, data: bytes) -> bytes:
@@ -710,7 +710,7 @@ class StorageEfficiencyCalculator:
         """Compare different schemes for same fault tolerance"""
         results = []
         
-        # Replication
+# Replication
         rep_factor = fault_tolerance + 1
         results.append(
             StorageEfficiencyCalculator.replication_efficiency(
@@ -718,7 +718,7 @@ class StorageEfficiencyCalculator:
             )
         )
         
-        # Common erasure coding configurations
+# Common erasure coding configurations
         ec_configs = [
             (6, 3),   # 6+3 (tolerate 3 failures)
             (10, 4),  # 10+4 (tolerate 4 failures)
@@ -758,16 +758,16 @@ class CompressionManager:
         """Compress data and return metadata"""
         uncompressed_size = len(data)
         
-        # Try different algorithms
+# Try different algorithms
         compressed_zlib = zlib.compress(data, self.compression_level)
         
-        # Choose best compression
+# Choose best compression
         compressed = compressed_zlib
         algorithm = 'zlib'
         
         compressed_size = len(compressed)
         
-        # Update stats
+# Update stats
         self.compression_stats['total_uncompressed'] += uncompressed_size
         self.compression_stats['total_compressed'] += compressed_size
         self.compression_stats['compression_ratio'] = (
@@ -815,11 +815,11 @@ class DeduplicationManager:
             chunk_hashes.append(chunk_hash)
             
             if chunk_hash in self.chunk_store:
-                # Chunk already exists, increment reference
+# Chunk already exists, increment reference
                 self.chunk_refs[chunk_hash] += 1
                 reused_chunks += 1
             else:
-                # New chunk, store it
+# New chunk, store it
                 self.chunk_store[chunk_hash] = chunk
                 self.chunk_refs[chunk_hash] = 1
                 new_chunks += 1
@@ -853,11 +853,11 @@ class DeduplicationManager:
         if filename not in self.file_chunks:
             return
         
-        # Decrement reference counts
+# Decrement reference counts
         for chunk_hash in self.file_chunks[filename]:
             self.chunk_refs[chunk_hash] -= 1
             
-            # Remove chunk if no more references
+# Remove chunk if no more references
             if self.chunk_refs[chunk_hash] == 0:
                 del self.chunk_store[chunk_hash]
                 del self.chunk_refs[chunk_hash]
@@ -935,7 +935,7 @@ class GFSMaster:
         for i in range(chunks_needed):
             chunk_id = str(uuid.uuid4())
             
-            # Select chunkservers for replicas
+# Select chunkservers for replicas
             servers = self._select_chunkservers(3)  # 3 replicas
             
             chunk_info = {
@@ -972,17 +972,17 @@ class GFSMaster:
         chunk_id = file_meta['chunks'][chunk_index]
         chunk_info = self.chunk_metadata[chunk_id]
         
-        # Return only alive replicas
+# Return only alive replicas
         return [s for s in chunk_info['replicas'] 
                 if self._is_chunkserver_alive(s)]
     
     def _select_chunkservers(self, count: int) -> List[str]:
         """Select chunkservers for new chunk"""
-        # Consider factors:
-        # 1. Available disk space
-        # 2. Current load
-        # 3. Network topology (rack awareness)
-        # 4. Recent failures
+# Consider factors:
+# 1. Available disk space
+# 2. Current load
+# 3. Network topology (rack awareness)
+# 4. Recent failures
         
         available_servers = [
             server_id for server_id, info in self.chunkserver_info.items()
@@ -992,7 +992,7 @@ class GFSMaster:
         if len(available_servers) < count:
             raise Exception("Insufficient chunkservers available")
         
-        # Simple selection - in practice use sophisticated algorithm
+# Simple selection - in practice use sophisticated algorithm
         import random
         return random.sample(available_servers, count)
     
@@ -1003,7 +1003,7 @@ class GFSMaster:
         
         info = self.chunkserver_info[server_id]
         
-        # Check heartbeat
+# Check heartbeat
         heartbeat_timeout = 60  # seconds
         return (time.time() - info['last_heartbeat'] < heartbeat_timeout and
                 info['status'] == 'active')
@@ -1015,14 +1015,14 @@ class GFSMaster:
         
         self.chunkserver_info[server_id]['status'] = 'failed'
         
-        # Find all chunks on failed server
+# Find all chunks on failed server
         affected_chunks = []
         
         for chunk_id, chunk_info in self.chunk_metadata.items():
             if server_id in chunk_info['replicas']:
                 affected_chunks.append(chunk_id)
         
-        # Re-replicate affected chunks
+# Re-replicate affected chunks
         for chunk_id in affected_chunks:
             self._re_replicate_chunk(chunk_id, server_id)
     
@@ -1030,20 +1030,20 @@ class GFSMaster:
         """Re-replicate chunk after server failure"""
         chunk_info = self.chunk_metadata[chunk_id]
         
-        # Remove failed server from replicas
+# Remove failed server from replicas
         chunk_info['replicas'].remove(failed_server)
         
-        # Check if we need more replicas
+# Check if we need more replicas
         current_replicas = len([s for s in chunk_info['replicas']
                                if self._is_chunkserver_alive(s)])
         
         if current_replicas < 3:
-            # Select new server for replica
+# Select new server for replica
             new_servers = self._select_chunkservers(3 - current_replicas)
             chunk_info['replicas'].extend(new_servers)
             
-            # Trigger re-replication
-            # In practice, would send copy command to chunkserver
+# Trigger re-replication
+# In practice, would send copy command to chunkserver
 
 class GFSChunkServer:
     """GFS-style chunk server"""
@@ -1058,16 +1058,16 @@ class GFSChunkServer:
     def store_chunk(self, chunk_id: str, data: bytes, 
                    checksum: str) -> bool:
         """Store chunk data"""
-        # Verify checksum
+# Verify checksum
         calculated_checksum = hashlib.md5(data).hexdigest()
         if calculated_checksum != checksum:
             raise ValueError("Checksum mismatch")
         
-        # Check space
+# Check space
         if len(data) > self.available_space:
             raise IOError("Insufficient space")
         
-        # Store chunk
+# Store chunk
         self.chunks[chunk_id] = data
         self.chunk_metadata[chunk_id] = {
             'size': len(data),
@@ -1118,8 +1118,8 @@ class GFSChunkServer:
         data = self.chunks[chunk_id]
         metadata = self.chunk_metadata[chunk_id]
         
-        # In practice, would send over network
-        # Here we simulate the replication
+# In practice, would send over network
+# Here we simulate the replication
         return {
             'chunk_id': chunk_id,
             'data': data,
@@ -1148,13 +1148,13 @@ class HDFSNameNode:
         if self.namespace.exists(path):
             return False
         
-        # Create file entry
+# Create file entry
         file_inode = INode(path, is_file=True)
         file_inode.replication = replication
         
         self.namespace.add_inode(file_inode)
         
-        # Acquire lease for writing
+# Acquire lease for writing
         self.lease_manager.add_lease(path, client_id=self._get_client_id())
         
         return True
@@ -1164,23 +1164,23 @@ class HDFSNameNode:
         if not self.namespace.exists(path):
             return None
         
-        # Check lease
+# Check lease
         if not self.lease_manager.has_lease(path, self._get_client_id()):
             raise Exception("No lease for file")
         
-        # Allocate block
+# Allocate block
         block = self.block_manager.allocate_block()
         
-        # Choose datanodes
+# Choose datanodes
         file_inode = self.namespace.get_inode(path)
         targets = self.datanode_manager.choose_targets(
             file_inode.replication
         )
         
-        # Create located block
+# Create located block
         located_block = LocatedBlock(block, targets)
         
-        # Update file
+# Update file
         file_inode.add_block(located_block)
         
         return located_block
@@ -1190,14 +1190,14 @@ class HDFSNameNode:
         if not self.namespace.exists(path):
             return False
         
-        # Release lease
+# Release lease
         self.lease_manager.remove_lease(path)
         
-        # Mark file as complete
+# Mark file as complete
         file_inode = self.namespace.get_inode(path)
         file_inode.complete()
         
-        # Check replication
+# Check replication
         self.replication_monitor.check_file(file_inode)
         
         return True
@@ -1210,7 +1210,7 @@ class HDFSNameNode:
         
         file_inode = self.namespace.get_inode(path)
         
-        # Find relevant blocks
+# Find relevant blocks
         blocks = []
         current_offset = 0
         
@@ -1218,7 +1218,7 @@ class HDFSNameNode:
             block_end = current_offset + block_info.block.num_bytes
             
             if current_offset < offset + length and block_end > offset:
-                # This block is needed
+# This block is needed
                 locations = self.block_manager.get_locations(
                     block_info.block.block_id
                 )
@@ -1242,17 +1242,17 @@ class HDFSNameNode:
         """Process heartbeat from DataNode"""
         commands = []
         
-        # Update datanode info
+# Update datanode info
         self.datanode_manager.update_heartbeat(datanode_id, report)
         
-        # Check if any blocks need replication
+# Check if any blocks need replication
         if 'blocks' in report:
             for block_id in report['blocks']:
                 replication_factor = self.block_manager.get_replication(block_id)
                 current_replicas = self.block_manager.get_replica_count(block_id)
                 
                 if current_replicas < replication_factor:
-                    # Need more replicas
+# Need more replicas
                     source = self.block_manager.get_replica_location(block_id)
                     targets = self.datanode_manager.choose_targets(
                         replication_factor - current_replicas,
@@ -1262,7 +1262,7 @@ class HDFSNameNode:
                     cmd = ReplicationCommand(block_id, source, targets)
                     commands.append(cmd)
         
-        # Check for over-replicated blocks
+# Check for over-replicated blocks
         over_replicated = self.block_manager.get_over_replicated_blocks()
         for block_id in over_replicated:
             excess = self.block_manager.get_excess_replicas(block_id)
@@ -1285,28 +1285,28 @@ class HDFSDataNode:
     def write_block(self, block_id: str, data: bytes, 
                    targets: List[str]) -> bool:
         """Write block and replicate to targets"""
-        # Write locally
+# Write locally
         block_file = self._get_block_file(block_id)
         meta_file = self._get_meta_file(block_id)
         
-        # Write data
+# Write data
         with open(block_file, 'wb') as f:
             f.write(data)
         
-        # Calculate and write checksum
+# Calculate and write checksum
         checksum = self._calculate_checksum(data)
         with open(meta_file, 'w') as f:
             f.write(checksum)
         
-        # Update block pool
+# Update block pool
         self.block_pool.add_block(block_id, len(data))
         
-        # Replicate to other datanodes
+# Replicate to other datanodes
         if targets:
             next_target = targets[0]
             remaining_targets = targets[1:]
             
-            # Pipeline replication
+# Pipeline replication
             self._replicate_block(
                 block_id, data, checksum, 
                 next_target, remaining_targets
@@ -1322,7 +1322,7 @@ class HDFSDataNode:
         if not os.path.exists(block_file):
             raise FileNotFoundError(f"Block not found: {block_id}")
         
-        # Verify checksum before reading
+# Verify checksum before reading
         if not self._verify_block_checksum(block_id):
             raise ValueError(f"Checksum verification failed: {block_id}")
         
@@ -1340,10 +1340,10 @@ class HDFSDataNode:
                         checksum: str, target: str, 
                         remaining: List[str]):
         """Replicate block to target datanode"""
-        # In practice, establish TCP connection to target
-        # Send block data in pipeline fashion
+# In practice, establish TCP connection to target
+# Send block data in pipeline fashion
         
-        # Simulate network transfer
+# Simulate network transfer
         transfer_request = {
             'block_id': block_id,
             'data': data,
@@ -1351,7 +1351,7 @@ class HDFSDataNode:
             'targets': remaining
         }
         
-        # Target datanode will continue the pipeline
+# Target datanode will continue the pipeline
         self._send_to_datanode(target, transfer_request)
 ```
 
@@ -1369,24 +1369,24 @@ class CephMonitor:
         
     def handle_osd_boot(self, osd_id: int, metadata: Dict):
         """Handle OSD boot/registration"""
-        # Add OSD to maps
+# Add OSD to maps
         self.osd_map.add_osd(osd_id, metadata)
         
-        # Update CRUSH map
+# Update CRUSH map
         self.crush_map.add_device(
             osd_id,
             metadata['weight'],
             metadata['location']
         )
         
-        # Trigger rebalancing if needed
+# Trigger rebalancing if needed
         self._maybe_rebalance()
     
     def calculate_pg_placement(self, pg_id: str) -> List[int]:
         """Calculate OSD placement for PG using CRUSH"""
         pool = self._get_pool_for_pg(pg_id)
         
-        # Use CRUSH to determine placement
+# Use CRUSH to determine placement
         osds = self.crush_map.map(
             pg_id,
             pool.replication_factor,
@@ -1397,20 +1397,20 @@ class CephMonitor:
     
     def handle_osd_failure(self, osd_id: int):
         """Handle OSD failure"""
-        # Mark OSD as down
+# Mark OSD as down
         self.osd_map.mark_down(osd_id)
         
-        # Find affected PGs
+# Find affected PGs
         affected_pgs = self.pg_map.get_pgs_on_osd(osd_id)
         
         for pg_id in affected_pgs:
-            # Recalculate placement without failed OSD
+# Recalculate placement without failed OSD
             new_osds = self.calculate_pg_placement(pg_id)
             
-            # Update PG mapping
+# Update PG mapping
             self.pg_map.update_mapping(pg_id, new_osds)
             
-            # Mark PG for recovery
+# Mark PG for recovery
             self.pg_map.mark_degraded(pg_id)
 
 class CephOSD:
@@ -1424,7 +1424,7 @@ class CephOSD:
         
     def handle_write(self, object_name: str, data: bytes) -> bool:
         """Handle object write"""
-        # Calculate PG for object
+# Calculate PG for object
         pg_id = self._calculate_pg(object_name)
         
         if pg_id not in self.pg_map:
@@ -1432,16 +1432,16 @@ class CephOSD:
         
         pg = self.pg_map[pg_id]
         
-        # Write to journal first
+# Write to journal first
         transaction = Transaction()
         transaction.write(object_name, data)
         
         self.journal.append(transaction)
         
-        # Apply to object store
+# Apply to object store
         pg.write_object(object_name, data)
         
-        # Replicate to other OSDs
+# Replicate to other OSDs
         replica_osds = pg.get_replica_osds()
         for replica_osd in replica_osds:
             self._replicate_write(replica_osd, pg_id, object_name, data)
@@ -1466,7 +1466,7 @@ class CephOSD:
         pg = self.pg_map[pg_id]
         missing_objects = pg.get_missing_objects()
         
-        # Request missing objects from peers
+# Request missing objects from peers
         peer_osds = pg.get_peer_osds()
         
         for obj_name in missing_objects:
@@ -1487,11 +1487,11 @@ class CephOSD:
         inconsistencies = []
         
         for obj_name in objects:
-            # Calculate checksum
+# Calculate checksum
             local_data = pg.read_object(obj_name)
             local_checksum = hashlib.sha256(local_data).hexdigest()
             
-            # Compare with replicas
+# Compare with replicas
             peer_osds = pg.get_peer_osds()
             
             for peer in peer_osds:
@@ -1527,19 +1527,19 @@ class DistributedCache:
         
     async def get(self, key: str) -> Optional[Any]:
         """Get value from cache"""
-        # Check local cache first
+# Check local cache first
         value = self.local_cache.get(key)
         if value is not None:
             self.cache_stats.record_hit('local')
             return value
         
-        # Check distributed cache
+# Check distributed cache
         cache_node = self.consistent_hash.get_node(key)
         
         try:
             value = await self._get_from_node(cache_node, key)
             if value is not None:
-                # Store in local cache
+# Store in local cache
                 self.local_cache.put(key, value)
                 self.cache_stats.record_hit('distributed')
                 return value
@@ -1551,31 +1551,31 @@ class DistributedCache:
     
     async def put(self, key: str, value: Any, ttl: int = 3600):
         """Put value in cache"""
-        # Store in local cache
+# Store in local cache
         self.local_cache.put(key, value)
         
-        # Store in distributed cache
+# Store in distributed cache
         cache_node = self.consistent_hash.get_node(key)
         
         try:
             await self._put_to_node(cache_node, key, value, ttl)
             
-            # Optionally replicate to other nodes
+# Optionally replicate to other nodes
             replica_nodes = self.consistent_hash.get_nodes(key, count=2)
             for node in replica_nodes[1:]:
                 asyncio.create_task(
                     self._put_to_node(node, key, value, ttl)
                 )
         except Exception as e:
-            # Log but don't fail
+# Log but don't fail
             pass
     
     def invalidate(self, key: str):
         """Invalidate cache entry"""
-        # Remove from local cache
+# Remove from local cache
         self.local_cache.remove(key)
         
-        # Remove from distributed cache
+# Remove from distributed cache
         all_nodes = self.consistent_hash.get_nodes(key, count=3)
         
         for node in all_nodes:
@@ -1619,53 +1619,53 @@ class IOOptimizer:
     async def optimized_read(self, storage_client, path: str,
                            offset: int, length: int) -> bytes:
         """Read with prefetching and caching"""
-        # Align read to block boundaries
+# Align read to block boundaries
         block_size = 64 * 1024  # 64KB
         
         aligned_offset = (offset // block_size) * block_size
         aligned_end = ((offset + length + block_size - 1) // 
                       block_size) * block_size
         
-        # Prefetch if sequential access detected
+# Prefetch if sequential access detected
         if self._is_sequential_access(path, offset):
             prefetch_end = min(
                 aligned_end + self.prefetch_size,
                 await storage_client.get_file_size(path)
             )
             
-            # Async prefetch
+# Async prefetch
             asyncio.create_task(
                 storage_client.read(path, aligned_end, 
                                   prefetch_end - aligned_end)
             )
         
-        # Read aligned data
+# Read aligned data
         data = await storage_client.read(
             path, aligned_offset, 
             aligned_end - aligned_offset
         )
         
-        # Return requested portion
+# Return requested portion
         start = offset - aligned_offset
         return data[start:start + length]
     
     async def optimized_write(self, storage_client, path: str,
                             data: bytes) -> bool:
         """Write with buffering and compression"""
-        # Compress if beneficial
+# Compress if beneficial
         if len(data) > 1024:  # Only compress larger data
             compressed, metadata = self.compression.compress(data)
             
             if metadata['compression_ratio'] > 0.2:  # 20% savings
-                # Use compressed version
+# Use compressed version
                 data = compressed
                 
-                # Store compression metadata
+# Store compression metadata
                 await storage_client.set_metadata(
                     path, 'compression', metadata
                 )
         
-        # Buffer small writes
+# Buffer small writes
         if len(data) < self.write_buffer_size // 4:
             return await self._buffered_write(storage_client, path, data)
         else:
@@ -1673,8 +1673,8 @@ class IOOptimizer:
     
     def _is_sequential_access(self, path: str, offset: int) -> bool:
         """Detect sequential access pattern"""
-        # Track access patterns per file
-        # Simplified implementation
+# Track access patterns per file
+# Simplified implementation
         return True
 ```
 
@@ -1704,7 +1704,7 @@ class StorageHealthMonitor:
             'metrics': metrics
         }
         
-        # Check for alerts
+# Check for alerts
         self._check_alerts(node_id, metrics)
     
     def _calculate_health_status(self, metrics: Dict) -> str:

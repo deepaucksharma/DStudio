@@ -35,19 +35,19 @@ class StripeArchitecture:
         }
         
     def process_payment(self, payment):
-        # Critical path: Optimize for correctness + availability
+# Critical path: Optimize for correctness + availability
         with distributed_lock(timeout=500):  # ms
-            # Synchronous replication to 3 regions
+# Synchronous replication to 3 regions
             auth = self.authorize_payment(payment, consistency='strong')
             
-        # Non-critical: Optimize for performance
+# Non-critical: Optimize for performance
         async_tasks = [
             self.update_analytics(payment),      # Eventually consistent
             self.send_webhooks(payment),         # At-least-once delivery
             self.fraud_analysis(payment)         # Can use stale data
         ]
         
-        # Return fast, process async tasks in background
+# Return fast, process async tasks in background
         asyncio.create_task(asyncio.gather(*async_tasks))
         return auth
 ```
@@ -97,7 +97,7 @@ class NetflixStreamingOptimizer:
         """Dynamic optimization based on current conditions"""
         
         if context.network_speed < 1000:  # kbps
-            # Optimize for availability over quality
+# Optimize for availability over quality
             return {
                 'strategy': 'minimum_buffer',
                 'initial_bitrate': 375,
@@ -106,7 +106,7 @@ class NetflixStreamingOptimizer:
             }
             
         elif context.device == 'mobile' and context.data_plan == 'metered':
-            # Optimize for cost (user's data)
+# Optimize for cost (user's data)
             return {
                 'strategy': 'data_saver',
                 'max_bitrate': 750,
@@ -115,7 +115,7 @@ class NetflixStreamingOptimizer:
             }
             
         elif context.device == '4k_tv' and context.network_speed > 25000:
-            # Optimize for quality
+# Optimize for quality
             return {
                 'strategy': 'maximum_quality',
                 'initial_bitrate': 8100,
@@ -124,7 +124,7 @@ class NetflixStreamingOptimizer:
             }
             
         else:
-            # Balanced approach
+# Balanced approach
             return self.calculate_optimal_point(context)
 ```
 
@@ -188,7 +188,7 @@ class UberMarketplaceOptimizer:
         supply = self.get_available_drivers(zone)
         demand = self.get_ride_requests(zone)
         
-        # Multiple competing objectives
+# Multiple competing objectives
         objectives = {
             'clear_market': demand / supply,  # Balance supply/demand
             'driver_earnings': self.target_hourly_earnings(zone),
@@ -197,10 +197,10 @@ class UberMarketplaceOptimizer:
             'long_term_retention': self.churn_prediction(zone)
         }
         
-        # Find Pareto optimal price
+# Find Pareto optimal price
         surge_multiplier = self.pareto_optimization(objectives)
         
-        # Apply constraints
+# Apply constraints
         surge_multiplier = max(1.0, min(surge_multiplier, 5.0))  # Legal limits
         
         return surge_multiplier
@@ -266,7 +266,7 @@ class CloudflareAnycastRouter:
         
         client_ip = request.client_ip
         
-        # Calculate scores for each PoP
+# Calculate scores for each PoP
         scores = {}
         for pop in self.pops:
             scores[pop] = self.calculate_pop_score(
@@ -281,7 +281,7 @@ class CloudflareAnycastRouter:
                 }
             )
             
-        # Don't always pick the "best" - that creates hot spots
+# Don't always pick the "best" - that creates hot spots
         return self.weighted_random_selection(scores, temperature=0.1)
         
     def calculate_pop_score(self, pop, client, factors):
@@ -289,20 +289,20 @@ class CloudflareAnycastRouter:
         
         score = 0
         
-        # Latency: Exponential penalty for distance
+# Latency: Exponential penalty for distance
         score -= (factors['latency'] ** 2) * 0.01
         
-        # Capacity: Prefer underutilized PoPs
+# Capacity: Prefer underutilized PoPs
         score += (1 - factors['capacity']) * 10
         
-        # Cost: Some PoPs are expensive
+# Cost: Some PoPs are expensive
         score -= factors['cost'] * 5
         
-        # Compliance: Hard constraint
+# Compliance: Hard constraint
         if not factors['compliance']:
             score = -float('inf')
             
-        # Under attack: Avoid unless necessary
+# Under attack: Avoid unless necessary
         if factors['attack_status'] > 0.5:
             score -= 50
             
@@ -347,7 +347,7 @@ class KubernetesScheduler:
     def schedule_pod(self, pod, nodes):
         """Multi-dimensional optimization for pod placement"""
         
-        # First, filter feasible nodes
+# First, filter feasible nodes
         feasible_nodes = []
         for node in nodes:
             if self.fits(pod, node):
@@ -356,7 +356,7 @@ class KubernetesScheduler:
         if not feasible_nodes:
             return None  # Unschedulable
             
-        # Score each feasible node
+# Score each feasible node
         scores = {}
         for node in feasible_nodes:
             scores[node] = 0
@@ -365,12 +365,12 @@ class KubernetesScheduler:
                 weighted_score = plugin_score * plugin.weight
                 scores[node] += weighted_score
                 
-        # Normalize scores
+# Normalize scores
         max_score = max(scores.values())
         for node in scores:
             scores[node] = scores[node] / max_score * 100
             
-        # Pick highest scoring node
+# Pick highest scoring node
         return max(scores, key=scores.get)
 ```
 

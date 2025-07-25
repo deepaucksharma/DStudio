@@ -1,6 +1,6 @@
 # Visual Interview Preparation Roadmap
 
-## 🗺️ Master Preparation Timeline
+## 🗺 Master Preparation Timeline
 
 ```mermaid
 gantt
@@ -37,7 +37,7 @@ gantt
     Mock Interviews                 :d3, after p1, 35d
 ```
 
-## 📊 Preparation Strategy Matrix
+## Preparation Strategy Matrix
 
 <div class="strategy-matrix">
 <table>
@@ -83,7 +83,7 @@ gantt
 </table>
 </div>
 
-## 🎯 Personalized Path Selector
+## Personalized Path Selector
 
 ```mermaid
 flowchart TD
@@ -120,7 +120,7 @@ flowchart TD
 
 ## 📅 Week-by-Week Breakdown
 
-### 🗓️ Phase 1: Foundation (Weeks 1-3)
+### 🗓 Phase 1: Foundation (Weeks 1-3)
 
 <div class="week-cards">
 <div class="week-card">
@@ -187,7 +187,7 @@ flowchart TD
 </div>
 </div>
 
-### 🗓️ Phase 2: Deep Learning (Weeks 4-6)
+### 🗓 Phase 2: Deep Learning (Weeks 4-6)
 
 <div class="phase-overview">
 <h4>Focus: Company-Specific Technologies</h4>
@@ -227,7 +227,7 @@ flowchart TD
 </div>
 </div>
 
-### 🗓️ Phase 3: Intensive Practice (Weeks 7-9)
+### 🗓 Phase 3: Intensive Practice (Weeks 7-9)
 
 ```mermaid
 graph LR
@@ -263,7 +263,7 @@ graph LR
     style C1 fill:#FF6B6B
 ```
 
-### 🗓️ Phase 4: Mock Interviews (Weeks 10-11)
+### 🗓 Phase 4: Mock Interviews (Weeks 10-11)
 
 <div class="mock-schedule">
 <table>
@@ -298,7 +298,7 @@ graph LR
 </table>
 </div>
 
-## 📈 Progress Tracking Dashboard
+## Progress Tracking Dashboard
 
 <div class="progress-dashboard">
 <h3>Track Your Preparation Progress</h3>
@@ -350,7 +350,7 @@ graph LR
 </div>
 </div>
 
-## 🎯 Daily Study Scheduler
+## Daily Study Scheduler
 
 <div class="daily-scheduler">
 <h3>Optimize Your Daily Study Time</h3>
@@ -394,7 +394,7 @@ graph LR
 </div>
 </div>
 
-## 📊 Resource Allocation Guide
+## Resource Allocation Guide
 
 ```mermaid
 pie title Time Allocation by Experience Level
@@ -442,7 +442,7 @@ pie title Time Allocation by Experience Level
 </div>
 </div>
 
-## 🚀 Accelerated Paths
+## Accelerated Paths
 
 ### 2-Week Crash Course
 
@@ -507,7 +507,7 @@ gantt
 </table>
 </div>
 
-## 🎯 Success Metrics
+## Success Metrics
 
 <div class="success-metrics">
 <h3>Are You Ready? Check Your Scores</h3>
@@ -824,7 +824,7 @@ button:hover {
     background: #3367D6;
 }
 
-#readiness-score {
+# readiness-score {
     margin-top: 20px;
     padding: 20px;
     border-radius: 8px;

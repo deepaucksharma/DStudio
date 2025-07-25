@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Elevator Button Analogy
 
@@ -85,7 +85,7 @@ def charge_credit_card_idempotent(amount, card_number, transaction_id):
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Architecture
 
@@ -266,18 +266,18 @@ class IdempotentReceiver:
                      *args, **kwargs) -> Dict[str, Any]:
         """Process request idempotently"""
         
-        # Check for previous result
+# Check for previous result
         result = await self.store.get_result(key)
         if result is not None:
             self.metrics.increment('duplicate_requests')
             return result
         
-        # Try to acquire processing lock
+# Try to acquire processing lock
         if not await self.store.acquire_lock(key, self.lock_timeout):
-            # Another process is handling this
+# Another process is handling this
             self.metrics.increment('concurrent_attempts')
             
-            # Wait and retry getting result
+# Wait and retry getting result
             await asyncio.sleep(0.1)
             result = await self.store.get_result(key)
             if result:
@@ -286,17 +286,17 @@ class IdempotentReceiver:
                 raise ConcurrentProcessingError(f"Failed to process: {key}")
         
         try:
-            # Process the request
+# Process the request
             self.metrics.increment('unique_requests')
             result = await handler(*args, **kwargs)
             
-            # Store result
+# Store result
             await self.store.save_result(key, result, self.ttl)
             
             return result
             
         finally:
-            # Always release lock
+# Always release lock
             await self.store.release_lock(key)
 ```
 
@@ -313,14 +313,14 @@ def idempotent(ttl_hours: int = 24,
         receiver = IdempotentReceiver(store, ttl_hours * 3600)
         
         async def wrapper(*args, **kwargs):
-            # Extract key
+# Extract key
             if key_extractor:
                 key = key_extractor(*args, **kwargs)
             else:
-                # Default: hash function name + args
+# Default: hash function name + args
                 key = f"{func.__name__}:{hash((args, tuple(kwargs.items())))}"
             
-            # Process idempotently
+# Process idempotently
             return await receiver.process(key, func, *args, **kwargs)
         
         return wrapper
@@ -329,7 +329,7 @@ def idempotent(ttl_hours: int = 24,
 # Usage
 @idempotent(ttl_hours=24, key_extractor=lambda order: order['id'])
 async def create_order(order: dict) -> dict:
-    # This function is now idempotent!
+# This function is now idempotent!
     order_id = await db.insert_order(order)
     await payment_service.charge(order['payment'])
     await inventory_service.reserve(order['items'])
@@ -367,19 +367,19 @@ class IdempotentAPIHandler:
     """Handle HTTP requests with idempotency"""
     
     async def handle_request(self, request):
-        # Check for idempotency key header
+# Check for idempotency key header
         idempotency_key = request.headers.get('Idempotency-Key')
         
         if not idempotency_key:
-            # Generate from request body for POSTs
+# Generate from request body for POSTs
             if request.method == 'POST':
                 body = await request.json()
                 idempotency_key = IdempotencyKey.from_request(body)
             else:
-                # GET requests are naturally idempotent
+# GET requests are naturally idempotent
                 return await self.process_request(request)
         
-        # Process with idempotency
+# Process with idempotency
         return await self.receiver.process(
             idempotency_key,
             self.process_request,
@@ -389,7 +389,7 @@ class IdempotentAPIHandler:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Processing State Machine
 
@@ -531,7 +531,7 @@ class ProductionIdempotentReceiver:
         """Process with timeout and full state tracking"""
         
         async with self.semaphore:
-            # Check existing request
+# Check existing request
             request = await self.store.get_request(key)
             
             if request:
@@ -540,20 +540,20 @@ class ProductionIdempotentReceiver:
                 elif request.status == ProcessingStatus.FAILED:
                     raise IdempotencyError(f"Previous attempt failed: {request.error}")
                 elif request.status == ProcessingStatus.PROCESSING:
-                    # Check if processing timeout exceeded
+# Check if processing timeout exceeded
                     if time.time() - request.created_at > timeout:
-                        # Take over processing
+# Take over processing
                         if not await self.store.atomic_status_update(
                             key,
                             ProcessingStatus.PROCESSING,
                             ProcessingStatus.FAILED
                         ):
-                            # Someone else took over
+# Someone else took over
                             return await self._wait_for_result(key, timeout)
                     else:
                         return await self._wait_for_result(key, timeout)
             
-            # Create new request
+# Create new request
             request = IdempotentRequest(
                 key=key,
                 status=ProcessingStatus.PROCESSING
@@ -561,13 +561,13 @@ class ProductionIdempotentReceiver:
             await self.store.save_request(request)
             
             try:
-                # Process with timeout
+# Process with timeout
                 result = await asyncio.wait_for(
                     handler(*args, **kwargs),
                     timeout=timeout
                 )
                 
-                # Update success
+# Update success
                 request.status = ProcessingStatus.COMPLETED
                 request.result = result
                 request.completed_at = time.time()
@@ -636,11 +636,11 @@ class BatchIdempotentProcessor:
                         'duplicate': False
                     }
         
-        # Process all items concurrently
+# Process all items concurrently
         tasks = [process_item(item) for item in items]
         results = await asyncio.gather(*tasks)
         
-        # Update metrics
+# Update metrics
         self.metrics.record_batch(results)
         
         return results
@@ -664,12 +664,12 @@ class DistributedIdempotencyManager:
                                   *args, **kwargs):
         """Process with distributed coordination"""
         
-        # Try local cache first
+# Try local cache first
         result = await self.local_store.get_result(key)
         if result:
             return result
         
-        # Acquire distributed lock
+# Acquire distributed lock
         lease = await self.consensus.acquire_lease(
             f"idempotent:{key}",
             self.node_id,
@@ -677,19 +677,19 @@ class DistributedIdempotencyManager:
         )
         
         if not lease:
-            # Another node is processing
+# Another node is processing
             return await self._wait_for_distributed_result(key)
         
         try:
-            # Double-check after acquiring lock
+# Double-check after acquiring lock
             result = await self._get_distributed_result(key)
             if result:
                 return result
             
-            # Process
+# Process
             result = await handler(*args, **kwargs)
             
-            # Store in distributed cache
+# Store in distributed cache
             await self._store_distributed_result(key, result)
             
             return result
@@ -707,7 +707,7 @@ class IdempotencyMetrics:
     def __init__(self, metrics_backend):
         self.backend = metrics_backend
         
-        # Define metrics
+# Define metrics
         self.requests_total = Counter(
             'idempotency_requests_total',
             'Total requests processed',
@@ -749,7 +749,7 @@ class IdempotencyHealthCheck:
             'metrics': {}
         }
         
-        # Check store connectivity
+# Check store connectivity
         try:
             await self.store.backend.ping()
             health['checks']['store'] = 'healthy'
@@ -757,7 +757,7 @@ class IdempotencyHealthCheck:
             health['status'] = 'unhealthy'
             health['checks']['store'] = f'failed: {e}'
         
-        # Check duplicate rate
+# Check duplicate rate
         duplicate_rate = await self.get_duplicate_rate()
         health['metrics']['duplicate_rate'] = duplicate_rate
         
@@ -765,7 +765,7 @@ class IdempotencyHealthCheck:
             health['status'] = 'degraded'
             health['checks']['duplicate_rate'] = 'high'
         
-        # Check processing delays
+# Check processing delays
         p99_latency = await self.get_p99_latency()
         health['metrics']['p99_latency_ms'] = p99_latency
         
@@ -778,7 +778,7 @@ class IdempotencyHealthCheck:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Stripe's Idempotency Implementation
 
@@ -812,32 +812,32 @@ class StripeIdempotencySystem:
         4. Work across regional failovers
         """
         
-        # Validate idempotency key format
+# Validate idempotency key format
         if not self.validate_idempotency_key(idempotency_key):
             raise InvalidIdempotencyKeyError(
                 "Key must be 36-200 characters, unique per account"
             )
         
-        # Create composite key with account context
+# Create composite key with account context
         account_id = request['account_id']
         composite_key = f"{account_id}:{idempotency_key}"
         
-        # Check if we're already processing this request
+# Check if we're already processing this request
         processing_lock = await self.acquire_processing_lock(
             composite_key,
             timeout_seconds=30
         )
         
         if not processing_lock:
-            # Another request is in progress
+# Another request is in progress
             return await self.wait_for_in_progress_request(composite_key)
         
         try:
-            # Check for previous response
+# Check for previous response
             cached_response = await self.get_cached_response(composite_key)
             
             if cached_response:
-                # Validate request matches
+# Validate request matches
                 if not self.request_matches(request, cached_response['request']):
                     raise IdempotencyKeyReuseError(
                         "Different request body for same idempotency key"
@@ -845,10 +845,10 @@ class StripeIdempotencySystem:
                 
                 return cached_response['response']
             
-            # Process the payment
+# Process the payment
             response = await self.process_payment_internal(request)
             
-            # Store response atomically
+# Store response atomically
             await self.store_response(
                 composite_key,
                 request,
@@ -864,17 +864,17 @@ class StripeIdempotencySystem:
     async def process_payment_internal(self, request: dict):
         """Actually process the payment"""
         
-        # Validate request
+# Validate request
         validation_result = await self.validate_payment_request(request)
         if not validation_result.is_valid:
             raise PaymentValidationError(validation_result.errors)
         
-        # Risk checks
+# Risk checks
         risk_score = await self.assess_risk(request)
         if risk_score > request.get('risk_threshold', 0.9):
             raise HighRiskPaymentError(f"Risk score: {risk_score}")
         
-        # Process payment with payment network
+# Process payment with payment network
         network_response = await self.payment_network.process(
             amount=request['amount'],
             currency=request['currency'],
@@ -885,7 +885,7 @@ class StripeIdempotencySystem:
             }
         )
         
-        # Record transaction
+# Record transaction
         await self.record_transaction(request, network_response)
         
         return {
@@ -899,7 +899,7 @@ class StripeIdempotencySystem:
     def request_matches(self, new_request: dict, stored_request: dict) -> bool:
         """Check if requests are functionally identical"""
         
-        # Ignore non-functional fields
+# Ignore non-functional fields
         ignore_fields = {'idempotency_key', 'request_id', 'timestamp'}
         
         new_clean = {k: v for k, v in new_request.items() if k not in ignore_fields}
@@ -910,10 +910,10 @@ class StripeIdempotencySystem:
     async def handle_regional_failover(self, primary_region: str, backup_region: str):
         """Handle idempotency during regional failover"""
         
-        # Sync idempotency state between regions
+# Sync idempotency state between regions
         await self.sync_idempotency_state(primary_region, backup_region)
         
-        # Update routing to use backup
+# Update routing to use backup
         await self.update_routing_rules({
             'primary': backup_region,
             'secondary': primary_region,
@@ -935,18 +935,18 @@ class EventSourcingIdempotency:
                                       expected_version: Optional[int] = None):
         """Append event to stream idempotently"""
         
-        # Generate deterministic event ID
+# Generate deterministic event ID
         event_id = self.generate_event_id(stream_id, event)
         
-        # Check if event already exists
+# Check if event already exists
         existing_event = await self.event_store.get_event(event_id)
         if existing_event:
-            # Verify it's the same event
+# Verify it's the same event
             if existing_event['data'] != event['data']:
                 raise EventConflictError("Different event with same ID")
             return existing_event
         
-        # Append with optimistic concurrency control
+# Append with optimistic concurrency control
         try:
             stored_event = await self.event_store.append(
                 stream_id=stream_id,
@@ -959,7 +959,7 @@ class EventSourcingIdempotency:
             return stored_event
             
         except OptimisticConcurrencyError:
-            # Someone else appended, check if it was our event
+# Someone else appended, check if it was our event
             existing = await self.event_store.get_event(event_id)
             if existing and existing['data'] == event['data']:
                 return existing
@@ -980,7 +980,7 @@ class IdempotentSagaManager:
         
         step_key = f"{saga_id}:{step_id}"
         
-        # Check if step already executed
+# Check if step already executed
         step_result = await self.get_step_result(step_key)
         if step_result:
             if step_result['status'] == 'completed':
@@ -988,7 +988,7 @@ class IdempotentSagaManager:
             elif step_result['status'] == 'compensated':
                 raise SagaStepCompensatedError(f"Step {step_id} was compensated")
         
-        # Execute step
+# Execute step
         try:
             result = await handler()
             await self.save_step_result(step_key, {
@@ -999,7 +999,7 @@ class IdempotentSagaManager:
             return result
             
         except Exception as e:
-            # Save failure state
+# Save failure state
             await self.save_step_result(step_key, {
                 'status': 'failed',
                 'error': str(e)
@@ -1009,7 +1009,7 @@ class IdempotentSagaManager:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1030,31 +1030,31 @@ class IdempotencyFormalModel:
         Using property-based testing
         """
         
-        # Property 1: Repeated application doesn't change result
-        # ∀x: f(f(x)) = f(x)
+# Property 1: Repeated application doesn't change result
+# ∀x: f(f(x)) = f(x)
         
-        # Property 2: Order independence for same message
-        # ∀x: f(x) at time t1 = f(x) at time t2
+# Property 2: Order independence for same message
+# ∀x: f(x) at time t1 = f(x) at time t2
         
-        # Property 3: Deterministic output
-        # ∀x: f(x) always produces same output
+# Property 3: Deterministic output
+# ∀x: f(x) always produces same output
         
         test_cases = self.generate_test_cases()
         
         for test_input in test_cases:
-            # First application
+# First application
             result1 = operation(test_input)
             state1 = self.capture_system_state()
             
-            # Second application  
+# Second application
             result2 = operation(test_input)
             state2 = self.capture_system_state()
             
-            # Verify idempotency
+# Verify idempotency
             assert result1 == result2, f"Results differ: {result1} != {result2}"
             assert state1 == state2, f"States differ after reapplication"
             
-            # Third application (transitivity check)
+# Third application (transitivity check)
             result3 = operation(test_input)
             assert result2 == result3, f"Transitivity failed"
         
@@ -1079,13 +1079,13 @@ class DeduplicationMathModel:
         P(duplicate) = P(retry) + P(network_duplicate) - P(retry ∩ network_duplicate)
         """
         
-        # Retry probability (exponential backoff model)
+# Retry probability (exponential backoff model)
         p_retry = 1 - np.exp(-retry_probability * message_rate)
         
-        # Network duplication (packet-level)
+# Network duplication (packet-level)
         p_network = network_failure_rate * 0.1  # ~10% of failures cause duplicates
         
-        # Combined probability
+# Combined probability
         p_duplicate = p_retry + p_network - (p_retry * p_network)
         
         return p_duplicate
@@ -1104,13 +1104,13 @@ class DeduplicationMathModel:
         
         costs = []
         for ttl in ttl_hours:
-            # Storage cost increases with TTL
+# Storage cost increases with TTL
             storage_cost = self.calculate_storage_cost(
                 ttl, 
                 storage_cost_per_gb_hour
             )
             
-            # Duplicate processing cost decreases with TTL
+# Duplicate processing cost decreases with TTL
             dup_cost = self.calculate_duplicate_cost(
                 ttl,
                 duplicate_rate,
@@ -1120,7 +1120,7 @@ class DeduplicationMathModel:
             total_cost = storage_cost + dup_cost
             costs.append(total_cost)
         
-        # Find minimum cost TTL
+# Find minimum cost TTL
         optimal_ttl = ttl_hours[np.argmin(costs)]
         
         return optimal_ttl
@@ -1131,13 +1131,13 @@ class DeduplicationMathModel:
                                       bytes_per_key: int = 64) -> dict:
         """Calculate storage requirements for deduplication"""
         
-        # Total unique keys stored
+# Total unique keys stored
         total_keys = messages_per_second * 3600 * ttl_hours
         
-        # Storage in GB
+# Storage in GB
         storage_gb = (total_keys * bytes_per_key) / (1024**3)
         
-        # Memory requirements for hot partition (last hour)
+# Memory requirements for hot partition (last hour)
         hot_memory_gb = (messages_per_second * 3600 * bytes_per_key) / (1024**3)
         
         return {
@@ -1164,17 +1164,17 @@ class QuantumResistantIdempotency:
         Using lattice-based cryptography
         """
         
-        # Use post-quantum hash function (e.g., SPHINCS+)
-        # This is a simplified example
+# Use post-quantum hash function (e.g., SPHINCS+)
+# This is a simplified example
         
-        # Add timestamp for ordering
+# Add timestamp for ordering
         timestamp = struct.pack('>Q', int(time.time() * 1000000))
         
-        # Combine with message
+# Combine with message
         combined = timestamp + message
         
-        # Apply quantum-resistant hash
-        # In practice, use a proper post-quantum library
+# Apply quantum-resistant hash
+# In practice, use a proper post-quantum library
         key = self.sphincs_hash(combined)
         
         return base64.urlsafe_b64encode(key).decode()
@@ -1197,26 +1197,26 @@ class AIIdempotencyDetector:
         even if structurally different
         """
         
-        # Extract features
+# Extract features
         features1 = self.extract_features(message1)
         features2 = self.extract_features(message2)
         
-        # Calculate semantic similarity
+# Calculate semantic similarity
         similarity = self.model.similarity(features1, features2)
         
-        # Check if above threshold
+# Check if above threshold
         return similarity > self.threshold
     
     def extract_features(self, message: dict) -> np.ndarray:
         """Extract semantic features from message"""
         
-        # Combine relevant fields
+# Combine relevant fields
         text = ' '.join([
             str(v) for k, v in message.items()
             if k not in ['timestamp', 'request_id', 'trace_id']
         ])
         
-        # Get embedding
+# Get embedding
         return self.model.encode(text)
 ```
 
@@ -1231,7 +1231,7 @@ class IdempotencyEconomics:
         Calculate return on investment for idempotency
         """
         
-        # Cost of duplicate processing without idempotency
+# Cost of duplicate processing without idempotency
         duplicate_rate = business_metrics['duplicate_message_rate']  # e.g., 0.1 (10%)
         messages_per_day = business_metrics['daily_message_volume']
         cost_per_duplicate = business_metrics['duplicate_processing_cost']
@@ -1239,24 +1239,24 @@ class IdempotencyEconomics:
         daily_duplicate_cost = messages_per_day * duplicate_rate * cost_per_duplicate
         annual_duplicate_cost = daily_duplicate_cost * 365
         
-        # Cost of customer issues from duplicates
+# Cost of customer issues from duplicates
         duplicate_incidents_per_month = business_metrics['duplicate_incidents']
         incident_resolution_cost = business_metrics['incident_cost']
         
         annual_incident_cost = duplicate_incidents_per_month * 12 * incident_resolution_cost
         
-        # Implementation cost
+# Implementation cost
         implementation_hours = 320  # 2 developers for 1 month
         hourly_rate = business_metrics['developer_hourly_rate']
         infrastructure_cost = 50000  # Redis cluster, monitoring
         
         total_implementation_cost = implementation_hours * hourly_rate + infrastructure_cost
         
-        # Ongoing costs
+# Ongoing costs
         storage_cost_monthly = business_metrics['dedup_storage_gb'] * 0.10 * 30  # $0.10/GB/day
         annual_storage_cost = storage_cost_monthly * 12
         
-        # Calculate savings
+# Calculate savings
         annual_savings = annual_duplicate_cost + annual_incident_cost - annual_storage_cost
         
         return {
@@ -1270,7 +1270,7 @@ class IdempotencyEconomics:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

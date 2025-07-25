@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Jury Deliberation Analogy
 
@@ -103,7 +103,7 @@ sequenceDiagram
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Consensus Properties
 
@@ -262,9 +262,9 @@ graph TB
     style L4 fill:#e0e7ff,stroke:#6366f1
 ```
 
-## 📊 Interactive Decision Support Tools
+## Interactive Decision Support Tools
 
-### 🎯 Consensus Algorithm Decision Tree
+### Consensus Algorithm Decision Tree
 
 ```mermaid
 flowchart TD
@@ -292,7 +292,7 @@ flowchart TD
     style HBFT fill:#fc6,stroke:#333,stroke-width:2px
 ```
 
-### 💰 Consensus Trade-off Calculator
+### Consensus Trade-off Calculator
 
 | Factor | Raft | Multi-Paxos | PBFT | Your Priority (1-10) |
 |--------|------|-------------|------|---------------------|
@@ -309,7 +309,7 @@ flowchart TD
 - Paxos Score = Robustness×3 + Flexibility×2 + History×1
 - PBFT Score = Byzantine×5 + Security×3 - Complexity×2
 
-### 🔄 Leader Election Strategy Selector
+### Leader Election Strategy Selector
 
 ```mermaid
 graph TD
@@ -336,7 +336,7 @@ graph TD
     style BEF fill:#69f,stroke:#333,stroke-width:2px
 ```
 
-### 📈 Consensus Performance Estimator
+### Consensus Performance Estimator
 
 | Parameter | Value | Impact |
 |-----------|-------|--------|
@@ -428,7 +428,7 @@ PBFT:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Raft Consensus Algorithm
 
@@ -773,7 +773,7 @@ graph LR
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Consensus Systems
 
@@ -1131,7 +1131,7 @@ sequenceDiagram
 | **Parallel Commits** | Write intents + async resolve | Higher throughput |
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1325,7 +1325,7 @@ gantt
 | **Large** | Hierarchical | 9 | O(log n) | 20-50ms | ~$3,000 |
 | **Global** | Spanner-like | 15+ | O(n²) | 50-200ms | ~$10,000+ |
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Consensus Algorithm Selection
 

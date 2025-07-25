@@ -20,7 +20,7 @@ last_updated: 2025-01-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Ship Analogy
 
@@ -78,7 +78,7 @@ flowchart TB
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Types of Faults
 
@@ -161,7 +161,7 @@ class FaultTolerantComponent:
         self.fault_history: List[FaultContext] = []
         self.recovery_strategies: Dict[FaultType, Callable] = {}
         
-        # Register default recovery strategies
+# Register default recovery strategies
         self.recovery_strategies[FaultType.TRANSIENT] = self._handle_transient_fault
         self.recovery_strategies[FaultType.INTERMITTENT] = self._handle_intermittent_fault
         self.recovery_strategies[FaultType.PERMANENT] = self._handle_permanent_fault
@@ -174,13 +174,13 @@ class FaultTolerantComponent:
         
         while retry_count <= self.max_retries:
             try:
-                # Execute with timeout
+# Execute with timeout
                 result = await asyncio.wait_for(
                     operation(*args, **kwargs),
                     timeout=self.timeout_seconds
                 )
                 
-                # Success - reset health status if needed
+# Success - reset health status if needed
                 if self.health_status != HealthStatus.HEALTHY:
                     await self._recover_health()
                 
@@ -205,7 +205,7 @@ class FaultTolerantComponent:
                 last_exception = e
                 
             except Exception as e:
-                # Determine fault type based on exception
+# Determine fault type based on exception
                 fault_type = self._classify_fault(e)
                 fault = FaultContext(
                     fault_type=fault_type,
@@ -215,10 +215,10 @@ class FaultTolerantComponent:
                 )
                 last_exception = e
             
-            # Record fault
+# Record fault
             self.fault_history.append(fault)
             
-            # Apply recovery strategy
+# Apply recovery strategy
             should_retry = await self._apply_recovery_strategy(fault)
             
             if not should_retry or retry_count >= self.max_retries:
@@ -226,10 +226,10 @@ class FaultTolerantComponent:
                 
             retry_count += 1
             
-            # Exponential backoff
+# Exponential backoff
             await asyncio.sleep(min(2 ** retry_count, 30))
         
-        # All retries exhausted
+# All retries exhausted
         self.health_status = HealthStatus.FAILED
         raise last_exception
     
@@ -259,7 +259,7 @@ class FaultTolerantComponent:
         """Handle intermittent faults (retry with caution)"""
         logging.warning(f"Intermittent fault in {self.name}: {fault.error_message}")
         
-        # Check fault frequency
+# Check fault frequency
         recent_faults = [f for f in self.fault_history 
                         if datetime.utcnow() - f.timestamp < timedelta(minutes=5)]
         
@@ -286,12 +286,12 @@ class FaultTolerantComponent:
     async def _escalate_fault(self, fault: FaultContext):
         """Escalate permanent faults to operations team"""
         logging.critical(f"ESCALATION: Permanent fault in {self.name} - {fault.error_message}")
-        # In production: Send alerts, create tickets, etc.
+# In production: Send alerts, create tickets, etc.
 ```
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Fault Tolerance Patterns
 
@@ -312,14 +312,14 @@ class AdaptiveCircuitBreaker:
         self.min_requests = min_requests
         self.failure_threshold = initial_threshold
         
-        # State tracking
+# State tracking
         self.state = "CLOSED"  # CLOSED, OPEN, HALF_OPEN
         self.failure_count = 0
         self.success_count = 0
         self.last_failure_time = None
         self.open_timeout = 60  # seconds
         
-        # Adaptive components
+# Adaptive components
         self.recent_results = deque(maxlen=window_size)
         self.performance_history = deque(maxlen=1000)
         
@@ -338,7 +338,7 @@ class AdaptiveCircuitBreaker:
         try:
             result = await operation()
             
-            # Record success
+# Record success
             duration = time.time() - start_time
             self._record_success(duration)
             
@@ -348,7 +348,7 @@ class AdaptiveCircuitBreaker:
             return result
             
         except Exception as e:
-            # Record failure
+# Record failure
             duration = time.time() - start_time
             self._record_failure(duration)
             
@@ -367,7 +367,7 @@ class AdaptiveCircuitBreaker:
             'timestamp': time.time()
         })
         
-        # Adapt threshold based on recent performance
+# Adapt threshold based on recent performance
         self._adapt_threshold()
     
     def _record_failure(self, duration: float):
@@ -381,7 +381,7 @@ class AdaptiveCircuitBreaker:
             'timestamp': time.time()
         })
         
-        # Adapt threshold based on recent performance
+# Adapt threshold based on recent performance
         self._adapt_threshold()
     
     def _adapt_threshold(self):
@@ -389,17 +389,17 @@ class AdaptiveCircuitBreaker:
         if len(self.recent_results) < self.min_requests:
             return
         
-        # Calculate current failure rate
+# Calculate current failure rate
         current_failure_rate = 1 - (sum(self.recent_results) / len(self.recent_results))
         
-        # Analyze historical performance
+# Analyze historical performance
         if len(self.performance_history) >= 100:
             recent_performance = list(self.performance_history)[-100:]
             historical_failure_rate = 1 - (
                 sum(1 for p in recent_performance if p['success']) / len(recent_performance)
             )
             
-            # Adapt threshold based on normal vs abnormal failure rates
+# Adapt threshold based on normal vs abnormal failure rates
             if historical_failure_rate < 0.1:  # System normally healthy
                 self.failure_threshold = max(0.2, historical_failure_rate * 2)
             else:  # System normally unstable
@@ -477,10 +477,10 @@ class FaultTolerantStateMachine:
         context = context or {}
         
         try:
-            # Check for state timeout
+# Check for state timeout
             await self._check_state_timeout()
             
-            # Find transition
+# Find transition
             if self.current_state not in self.transitions:
                 logging.warning(f"No transitions defined for state {self.current_state}")
                 return False
@@ -491,17 +491,17 @@ class FaultTolerantStateMachine:
             
             transition = self.transitions[self.current_state][event]
             
-            # Check guard condition
+# Check guard condition
             if transition['guard'] and not await transition['guard'](context):
                 logging.debug(f"Guard condition failed for transition {self.current_state} -> {transition['to_state']}")
                 return False
             
-            # Execute transition
+# Execute transition
             await self._execute_transition(transition['to_state'], event, context)
             return True
             
         except Exception as e:
-            # Handle fault
+# Handle fault
             await self._handle_fault(e, event, context)
             return False
     
@@ -514,26 +514,26 @@ class FaultTolerantStateMachine:
         
         logging.info(f"State transition: {old_state} -> {new_state} (event: {event})")
         
-        # Execute exit actions for old state
+# Execute exit actions for old state
         await self._execute_exit_actions(old_state)
         
-        # Execute entry actions for new state
+# Execute entry actions for new state
         await self._execute_entry_actions(new_state)
     
     async def _handle_fault(self, exception: Exception, event: str, context: Dict[str, Any]):
         """Handle fault during state transition"""
         logging.error(f"Fault in state {self.current_state} during event {event}: {exception}")
         
-        # Use fault handler if available
+# Use fault handler if available
         if self.current_state in self.fault_handlers:
             try:
                 await self.fault_handlers[self.current_state](exception, event, context)
             except Exception as handler_error:
                 logging.critical(f"Fault handler failed: {handler_error}")
-                # Fall back to safe state
+# Fall back to safe state
                 await self._recover_to_safe_state()
         else:
-            # No specific handler, try to recover
+# No specific handler, try to recover
             await self._recover_to_safe_state()
     
     async def _check_state_timeout(self):
@@ -548,24 +548,24 @@ class FaultTolerantStateMachine:
     
     async def _recover_to_safe_state(self):
         """Recover to a safe state"""
-        # Try to return to previous state
+# Try to return to previous state
         if self.previous_state:
             logging.info(f"Recovering to previous state: {self.previous_state}")
             self.current_state = self.previous_state
             self.last_transition = time.time()
         else:
-            # Fall back to initial state
+# Fall back to initial state
             logging.info("Recovering to initial state")
-            # Implementation would reset to known good state
+# Implementation would reset to known good state
     
     async def _execute_exit_actions(self, state: str):
         """Execute actions when exiting a state"""
-        # Implementation: Cleanup, save state, etc.
+# Implementation: Cleanup, save state, etc.
         pass
     
     async def _execute_entry_actions(self, state: str):
         """Execute actions when entering a state"""
-        # Implementation: Initialize, load data, etc.
+# Implementation: Initialize, load data, etc.
         pass
 ```
 
@@ -598,7 +598,7 @@ class HierarchicalFaultDetector:
         """Run fault detection at all levels"""
         all_faults = {}
         
-        # Run detectors at each level
+# Run detectors at each level
         for level, detectors in self.detectors.items():
             level_faults = []
             
@@ -608,7 +608,7 @@ class HierarchicalFaultDetector:
                     if faults:
                         level_faults.extend(faults)
                 except Exception as e:
-                    # Detector itself failed
+# Detector itself failed
                     fault = FaultContext(
                         fault_type=FaultType.PERMANENT,
                         component=f"detector_{level}",
@@ -619,10 +619,10 @@ class HierarchicalFaultDetector:
             
             all_faults[level] = level_faults
         
-        # Correlate faults across levels
+# Correlate faults across levels
         correlated_faults = await self._correlate_faults(all_faults)
         
-        # Apply escalation rules
+# Apply escalation rules
         await self._apply_escalation(correlated_faults)
         
         return correlated_faults
@@ -630,15 +630,15 @@ class HierarchicalFaultDetector:
     async def _correlate_faults(self, faults: Dict[str, List[FaultContext]]) -> Dict[str, List[FaultContext]]:
         """Correlate related faults to identify root causes"""
         
-        # Simple correlation: group faults by time window
+# Simple correlation: group faults by time window
         all_faults_flat = []
         for level_faults in faults.values():
             all_faults_flat.extend(level_faults)
         
-        # Sort by timestamp
+# Sort by timestamp
         all_faults_flat.sort(key=lambda f: f.timestamp)
         
-        # Group faults within 5-minute windows
+# Group faults within 5-minute windows
         correlated_groups = []
         current_group = []
         
@@ -654,11 +654,11 @@ class HierarchicalFaultDetector:
                         correlated_groups.append(current_group)
                     current_group = [fault]
         
-        # Add final group if it has correlations
+# Add final group if it has correlations
         if len(current_group) > 1:
             correlated_groups.append(current_group)
         
-        # Analyze correlations
+# Analyze correlations
         for group in correlated_groups:
             await self._analyze_fault_correlation(group)
         
@@ -667,16 +667,16 @@ class HierarchicalFaultDetector:
     async def _analyze_fault_correlation(self, fault_group: List[FaultContext]):
         """Analyze a group of correlated faults"""
         
-        # Look for patterns
+# Look for patterns
         components = [f.component for f in fault_group]
         error_messages = [f.error_message for f in fault_group]
         
-        # Check for cascading failures
+# Check for cascading failures
         if len(set(components)) == len(components):
-            # Different components failing - likely cascading
+# Different components failing - likely cascading
             logging.warning(f"Detected cascading failure across components: {components}")
             
-        # Check for common root cause
+# Check for common root cause
         common_errors = set(error_messages)
         if len(common_errors) == 1:
             logging.warning(f"Multiple components with same error - potential root cause: {list(common_errors)[0]}")
@@ -684,23 +684,23 @@ class HierarchicalFaultDetector:
     async def _apply_escalation(self, faults: Dict[str, List[FaultContext]]):
         """Apply escalation rules based on fault patterns"""
         
-        # Count total faults
+# Count total faults
         total_faults = sum(len(level_faults) for level_faults in faults.values())
         
-        # Escalate based on fault count and severity
+# Escalate based on fault count and severity
         if total_faults > 10:
             logging.critical(f"HIGH FAULT RATE: {total_faults} faults detected")
-            # Trigger incident response
+# Trigger incident response
             
-        # Check for system-wide failures
+# Check for system-wide failures
         if faults.get('system') or faults.get('infrastructure'):
             logging.critical("SYSTEM-LEVEL FAULT DETECTED - escalating to on-call")
-            # Page on-call engineer
+# Page on-call engineer
 ```
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Netflix's Fault Tolerance
 
@@ -731,7 +731,7 @@ class NetflixFaultTolerance:
             'status': 'partial'  # Assume partial until proven complete
         }
         
-        # Parallel execution with fault tolerance
+# Parallel execution with fault tolerance
         tasks = {
             'user_profile': self._get_user_profile_safe(user_id),
             'recommendations': self._get_recommendations_safe(user_id),
@@ -740,20 +740,20 @@ class NetflixFaultTolerance:
             'billing_status': self._get_billing_status_safe(user_id)
         }
         
-        # Execute all tasks with timeouts
+# Execute all tasks with timeouts
         results = await asyncio.gather(*tasks.values(), return_exceptions=True)
         
-        # Process results with fallbacks
+# Process results with fallbacks
         for i, (task_name, result) in enumerate(zip(tasks.keys(), results)):
             if isinstance(result, Exception):
                 logging.warning(f"Task {task_name} failed: {result}")
-                # Use fallback data
+# Use fallback data
                 homepage[task_name] = await self._get_fallback_data(task_name, user_id)
                 homepage[f'{task_name}_degraded'] = True
             else:
                 homepage[task_name] = result
         
-        # Determine overall status
+# Determine overall status
         failed_tasks = sum(1 for result in results if isinstance(result, Exception))
         if failed_tasks == 0:
             homepage['status'] = 'complete'
@@ -780,17 +780,17 @@ class NetflixFaultTolerance:
         service = self.services['recommendation']
         
         try:
-            # Try personalized recommendations
+# Try personalized recommendations
             return await service['circuit_breaker'].call(
                 lambda: self._call_recommendation_service(user_id)
             )
         except:
-            # Fallback to cached recommendations
+# Fallback to cached recommendations
             cached = await self._get_cached_recommendations(user_id)
             if cached:
                 return cached
             
-            # Fallback to popular content
+# Fallback to popular content
             return await service['fallback'](user_id)
     
     async def _user_fallback(self, user_id: str) -> Dict[str, Any]:
@@ -825,7 +825,7 @@ class NetflixFaultTolerance:
             return await fallback_func()
         return {}
     
-    # Chaos Engineering Integration
+# Chaos Engineering Integration
     async def inject_chaos(self, service: str, fault_type: str, duration: int = 60):
         """Inject controlled failures for testing"""
         if not self.chaos_engineering:
@@ -842,12 +842,12 @@ class NetflixFaultTolerance:
     
     async def _inject_latency(self, service: str, duration: int):
         """Inject artificial latency"""
-        # Implementation would add delays to service calls
+# Implementation would add delays to service calls
         pass
     
     async def _inject_failures(self, service: str, duration: int):
         """Inject artificial failures"""
-        # Implementation would cause service calls to fail
+# Implementation would cause service calls to fail
         pass
 ```
 
@@ -885,8 +885,8 @@ class FaultToleranceMetrics:
     
     def calculate_availability(self, time_period: int = 86400) -> float:
         """Calculate system availability over time period"""
-        # Implementation would calculate actual uptime/total time
-        # This is simplified
+# Implementation would calculate actual uptime/total time
+# This is simplified
         total_downtime = sum(self.metrics['recovery_time'][-10:])  # Recent recoveries
         availability = max(0, (time_period - total_downtime) / time_period)
         return availability
@@ -895,16 +895,16 @@ class FaultToleranceMetrics:
         """Check if system meets SLOs"""
         compliance = {}
         
-        # Availability SLO
+# Availability SLO
         current_availability = self.calculate_availability()
         compliance['availability'] = current_availability >= self.slos['availability']
         
-        # Error rate SLO
+# Error rate SLO
         recent_errors = self.metrics['error_rate'][-100:]  # Recent error rates
         avg_error_rate = sum(recent_errors) / len(recent_errors) if recent_errors else 0
         compliance['error_rate'] = avg_error_rate <= self.slos['error_rate']
         
-        # Recovery time SLO
+# Recovery time SLO
         recent_recoveries = self.metrics['recovery_time'][-10:]
         avg_recovery = sum(recent_recoveries) / len(recent_recoveries) if recent_recoveries else 0
         compliance['recovery_time'] = avg_recovery <= self.slos['recovery_time']
@@ -949,7 +949,7 @@ class FaultToleranceMetrics:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -967,15 +967,15 @@ class FaultToleranceTheory:
         """Calculate system reliability based on component reliabilities"""
         
         if topology == "series":
-            # All components must work (worst case)
+# All components must work (worst case)
             return np.prod(component_reliabilities)
         elif topology == "parallel":
-            # At least one component must work (best case)
+# At least one component must work (best case)
             failure_probs = [1 - r for r in component_reliabilities]
             system_failure_prob = np.prod(failure_probs)
             return 1 - system_failure_prob
         elif topology == "k_out_of_n":
-            # At least k out of n components must work
+# At least k out of n components must work
             n = len(component_reliabilities)
             k = n // 2 + 1  # Majority
             return self._k_out_of_n_reliability(component_reliabilities, k)
@@ -987,10 +987,10 @@ class FaultToleranceTheory:
         n = len(reliabilities)
         total_reliability = 0.0
         
-        # Sum over all combinations where at least k components work
+# Sum over all combinations where at least k components work
         for num_working in range(k, n + 1):
-            # Binomial coefficient calculation would go here
-            # Simplified for illustration
+# Binomial coefficient calculation would go here
+# Simplified for illustration
             prob = stats.binom.pmf(num_working, n, np.mean(reliabilities))
             total_reliability += prob
         
@@ -999,10 +999,10 @@ class FaultToleranceTheory:
     def calculate_mtbf_with_redundancy(self, component_mtbf: float, 
                                      redundancy_factor: int) -> float:
         """Calculate MTBF with redundancy"""
-        # For exponential failure distribution
+# For exponential failure distribution
         component_failure_rate = 1 / component_mtbf
         
-        # System fails when all redundant components fail
+# System fails when all redundant components fail
         system_failure_rate = component_failure_rate / redundancy_factor
         
         return 1 / system_failure_rate
@@ -1010,10 +1010,10 @@ class FaultToleranceTheory:
     def optimal_timeout_calculation(self, response_time_dist: List[float],
                                   availability_target: float = 0.99) -> float:
         """Calculate optimal timeout value"""
-        # Sort response times
+# Sort response times
         sorted_times = sorted(response_time_dist)
         
-        # Find percentile that meets availability target
+# Find percentile that meets availability target
         percentile_index = int(len(sorted_times) * availability_target)
         optimal_timeout = sorted_times[percentile_index]
         
@@ -1022,7 +1022,7 @@ class FaultToleranceTheory:
     def fault_correlation_analysis(self, fault_data: List[Dict]) -> Dict[str, float]:
         """Analyze correlations between different types of faults"""
         
-        # Extract fault types and timestamps
+# Extract fault types and timestamps
         fault_types = {}
         for fault in fault_data:
             fault_type = fault['type']
@@ -1032,13 +1032,13 @@ class FaultToleranceTheory:
                 fault_types[fault_type] = []
             fault_types[fault_type].append(timestamp)
         
-        # Calculate correlation coefficients
+# Calculate correlation coefficients
         correlations = {}
         type_names = list(fault_types.keys())
         
         for i, type1 in enumerate(type_names):
             for type2 in type_names[i+1:]:
-                # Create time series for correlation analysis
+# Create time series for correlation analysis
                 correlation = self._calculate_time_series_correlation(
                     fault_types[type1], fault_types[type2]
                 )
@@ -1049,13 +1049,13 @@ class FaultToleranceTheory:
     def _calculate_time_series_correlation(self, timestamps1: List[float], 
                                          timestamps2: List[float]) -> float:
         """Calculate correlation between two fault time series"""
-        # Simplified correlation calculation
-        # In practice, would use proper time series analysis
+# Simplified correlation calculation
+# In practice, would use proper time series analysis
         
-        # Count faults in overlapping time windows
+# Count faults in overlapping time windows
         window_size = 3600  # 1 hour windows
         
-        # Find common time range
+# Find common time range
         all_times = sorted(timestamps1 + timestamps2)
         if not all_times:
             return 0.0
@@ -1063,7 +1063,7 @@ class FaultToleranceTheory:
         start_time = all_times[0]
         end_time = all_times[-1]
         
-        # Create time series
+# Create time series
         series1 = []
         series2 = []
         
@@ -1081,7 +1081,7 @@ class FaultToleranceTheory:
             
             current_time = window_end
         
-        # Calculate correlation coefficient
+# Calculate correlation coefficient
         if len(series1) < 2:
             return 0.0
         
@@ -1126,30 +1126,30 @@ class FaultToleranceEconomics:
                                     target_mtbf: float) -> Dict[str, float]:
         """Calculate ROI of fault tolerance investment"""
         
-        # Calculate failure rates
+# Calculate failure rates
         current_failure_rate = 8760 / current_mtbf  # Failures per year
         target_failure_rate = 8760 / target_mtbf    # Failures per year
         
-        # Calculate annual costs without investment
+# Calculate annual costs without investment
         current_annual_cost = (
             current_failure_rate * 
             self.cost_model['downtime_per_hour'] * 4  # Assume 4 hours downtime per incident
         )
         
-        # Calculate annual costs with investment
+# Calculate annual costs with investment
         target_annual_cost = (
             target_failure_rate * 
             self.cost_model['downtime_per_hour'] * 2  # Reduced downtime with better tolerance
         )
         
-        # Calculate investment costs
+# Calculate investment costs
         total_investment = sum(investment.values())
         annual_operating_cost = investment.get('operating_annual', 0)
         
-        # Annual savings
+# Annual savings
         annual_savings = current_annual_cost - target_annual_cost - annual_operating_cost
         
-        # ROI calculation
+# ROI calculation
         if total_investment > 0:
             roi = (annual_savings * 3 - total_investment) / total_investment * 100  # 3-year ROI
             payback_period = total_investment / annual_savings if annual_savings > 0 else float('inf')
@@ -1200,7 +1200,7 @@ for key, value in roi_analysis.items():
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Fault Tolerance Decision Matrix
 

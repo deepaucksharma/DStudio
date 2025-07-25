@@ -9,7 +9,7 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-## 🟢 Intuition: The Restaurant Kitchen Problem (5 min read)
+## Intuition: The Restaurant Kitchen Problem (5 min read)
 
 Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, salads, desserts. One chef trying to cook everything would create a massive bottleneck. Instead, they organize:
 
@@ -34,11 +34,11 @@ You're solving the same fundamental problem: how to split work efficiently acros
 
 ---
 
-## 📋 Questions This Pillar Answers
+## Questions This Pillar Answers
 
 ---
 
-## 🟡 Foundation: Understanding Work Distribution (15 min read)
+## Foundation: Understanding Work Distribution (15 min read)
 
 ## The Central Question
 
@@ -272,7 +272,7 @@ If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of
 
 ---
 
-## 🔴 Deep Dive: Engineering Work Distribution (30 min read)
+## Deep Dive: Engineering Work Distribution (30 min read)
 
 ## Real Failure: The Netflix Encoding Disaster
 

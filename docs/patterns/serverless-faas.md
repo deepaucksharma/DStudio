@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Restaurant Kitchen Analogy
 
@@ -115,7 +115,7 @@ def create_thumbnail(event, context):
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -192,18 +192,18 @@ class ServerlessAPI:
     def handle(self, event, context):
         """Main Lambda handler"""
         
-        # Extract HTTP info
+# Extract HTTP info
         method = event['httpMethod']
         path = event['path']
         route_key = f"{method} {path}"
         
-        # Run middleware
+# Run middleware
         for mw in self.middleware:
             event = mw(event, context)
             if event is None:
                 return {'statusCode': 401, 'body': 'Unauthorized'}
         
-        # Find and execute handler
+# Find and execute handler
         if route_key in self.routes:
             try:
                 result = self.routes[route_key](event, context)
@@ -228,8 +228,8 @@ api = ServerlessAPI()
 
 @api.route('/users', 'GET')
 def list_users(event, context):
-    # This only runs when someone calls GET /users
-    # No server running 24/7
+# This only runs when someone calls GET /users
+# No server running 24/7
     return {'users': fetch_users_from_db()}
 
 @api.route('/users', 'POST')
@@ -261,7 +261,7 @@ class EventDrivenProcessor:
     def process(self, event, context):
         """Route events to handlers"""
         
-        # Identify event source
+# Identify event source
         if 'Records' in event:
             record = event['Records'][0]
             
@@ -276,11 +276,11 @@ class EventDrivenProcessor:
                 elif source == 'aws:sqs':
                     return self.handlers['sqs'](event, context)
         
-        # API Gateway event
+# API Gateway event
         if 'httpMethod' in event:
             return self.handlers['http'](event, context)
         
-        # CloudWatch scheduled event
+# CloudWatch scheduled event
         if 'source' in event and event['source'] == 'aws.events':
             return self.handlers['schedule'](event, context)
 
@@ -294,7 +294,7 @@ def handle_file_upload(event, context):
         bucket = record['s3']['bucket']['name']
         key = record['s3']['object']['key']
         
-        # Process file (resize image, scan virus, etc.)
+# Process file (resize image, scan virus, etc.)
         process_file(bucket, key)
     
     return {'processed': len(event['Records'])}
@@ -304,16 +304,16 @@ def handle_db_change(event, context):
     """Triggered by DynamoDB streams"""
     for record in event['Records']:
         if record['eventName'] == 'INSERT':
-            # New item added
+# New item added
             send_welcome_email(record['dynamodb']['NewImage'])
         elif record['eventName'] == 'MODIFY':
-            # Item updated
+# Item updated
             sync_to_elasticsearch(record['dynamodb']['NewImage'])
 
 @processor.on('schedule')
 def handle_cron(event, context):
     """Runs on schedule (cron)"""
-    # Only pay when it runs!
+# Only pay when it runs!
     cleanup_old_data()
     send_daily_reports()
 ```
@@ -335,25 +335,25 @@ class StreamProcessor:
         
         for record in event['Records']:
             try:
-                # Decode data
+# Decode data
                 data = json.loads(
                     base64.b64decode(record['kinesis']['data']).decode('utf-8')
                 )
                 
-                # Process based on data type
+# Process based on data type
                 if data['type'] == 'click':
                     self.process_click(data)
                 elif data['type'] == 'purchase':
                     self.process_purchase(data)
                 
-                # Checkpoint progress
+# Checkpoint progress
                 self.save_checkpoint(
                     record['kinesis']['sequenceNumber'],
                     record['eventSourceARN']
                 )
                 
             except Exception as e:
-                # Report batch item failure
+# Report batch item failure
                 batch_failures.append({
                     'itemIdentifier': record['kinesis']['sequenceNumber']
                 })
@@ -362,10 +362,10 @@ class StreamProcessor:
     
     def process_click(self, click_data: dict):
         """Process click events"""
-        # Update real-time analytics
+# Update real-time analytics
         self.update_metrics('clicks', click_data)
         
-        # Trigger personalization
+# Trigger personalization
         if click_data.get('user_id'):
             self.update_user_profile(click_data)
     
@@ -385,7 +385,7 @@ class StreamProcessor:
 class ColdStartOptimizer:
     """Minimize cold start impact"""
     
-    # Global scope - reused across invocations
+# Global scope - reused across invocations
     _connections = {}
     _initialized = False
     _models = {}
@@ -416,22 +416,22 @@ class ColdStartOptimizer:
 
 # Optimized handler
 def optimized_handler(event, context):
-    # Reuse database connection
+# Reuse database connection
     db = ColdStartOptimizer.get_connection(
         'postgres',
         lambda: psycopg2.connect(os.environ['DATABASE_URL'])
     )
     
-    # Initialize once
+# Initialize once
     ColdStartOptimizer.initialize_once(lambda: {
-        # Warm up libraries
+# Warm up libraries
         import numpy as np
         import pandas as pd
-        # Pre-compile regex
+# Pre-compile regex
         globals()['email_regex'] = re.compile(r'^[\w\.-]+@[\w\.-]+\.\w+$')
     })
     
-    # Lazy load model
+# Lazy load model
     if 'predict' in event:
         model = ColdStartOptimizer.lazy_load_model(
             'sentiment',
@@ -440,13 +440,13 @@ def optimized_handler(event, context):
         prediction = model.predict([event['text']])
         return {'sentiment': prediction[0]}
     
-    # Regular processing with warm resources
+# Regular processing with warm resources
     return process_request(event, db)
 ```
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Patterns
 
@@ -480,7 +480,7 @@ class ServerlessWorkflow:
         if retry:
             task['Retry'] = retry
         else:
-            # Default retry configuration
+# Default retry configuration
             task['Retry'] = [{
                 'ErrorEquals': ['States.TaskFailed'],
                 'IntervalSeconds': 2,
@@ -529,14 +529,14 @@ class ServerlessWorkflow:
 def create_order_workflow():
     workflow = ServerlessWorkflow('OrderProcessing')
     
-    # Step 1: Validate order
+# Step 1: Validate order
     workflow.add_lambda_task(
         'ValidateOrder',
         'arn:aws:lambda:region:account:function:validate-order',
         next_state='CheckInventory'
     )
     
-    # Step 2: Check inventory (parallel checks)
+# Step 2: Check inventory (parallel checks)
     workflow.add_parallel('CheckInventory', [
         {
             'StartAt': 'CheckWarehouse1',
@@ -562,7 +562,7 @@ def create_order_workflow():
         }
     ], next_state='ProcessPayment')
     
-    # Step 3: Process payment with choice
+# Step 3: Process payment with choice
     workflow.add_lambda_task(
         'ProcessPayment',
         'arn:aws:lambda:region:account:function:process-payment',
@@ -582,13 +582,13 @@ def create_order_workflow():
         }
     ], default='HandleError')
     
-    # Success path
+# Success path
     workflow.add_lambda_task(
         'FulfillOrder',
         'arn:aws:lambda:region:account:function:fulfill-order'
     )
     
-    # Failure paths
+# Failure paths
     workflow.add_lambda_task(
         'HandleDecline',
         'arn:aws:lambda:region:account:function:handle-decline'
@@ -627,7 +627,7 @@ class ServerlessEventStore:
         }
         
         try:
-            # Conditional put for optimistic concurrency
+# Conditional put for optimistic concurrency
             self.table.put_item(
                 Item=event,
                 ConditionExpression='attribute_not_exists(aggregate_id) AND attribute_not_exists(version)'
@@ -637,7 +637,7 @@ class ServerlessEventStore:
                 raise ConcurrencyError('Version conflict')
             raise
         
-        # Trigger projections via DynamoDB Streams
+# Trigger projections via DynamoDB Streams
         return event
     
     def get_events(self, aggregate_id: str, from_version: int = 0):
@@ -670,12 +670,12 @@ class ProjectionHandler:
             if record['eventName'] != 'INSERT':
                 continue
                 
-            # New event added
+# New event added
             event_data = record['dynamodb']['NewImage']
             event_type = event_data['event_type']['S']
             
             if event_type in self.projections:
-                # Unmarshal DynamoDB format
+# Unmarshal DynamoDB format
                 clean_event = {
                     'aggregate_id': event_data['aggregate_id']['S'],
                     'version': int(event_data['version']['N']),
@@ -684,7 +684,7 @@ class ProjectionHandler:
                     'timestamp': int(event_data['timestamp']['N'])
                 }
                 
-                # Update projection
+# Update projection
                 self.projections[event_type](clean_event)
 
 # Example projections
@@ -692,7 +692,7 @@ projections = ProjectionHandler()
 
 @projections.register('OrderCreated')
 def project_order_created(event):
-    # Update read model in DynamoDB
+# Update read model in DynamoDB
     table = boto3.resource('dynamodb').Table('OrderProjections')
     table.put_item(Item={
         'order_id': event['aggregate_id'],
@@ -703,7 +703,7 @@ def project_order_created(event):
 
 @projections.register('PaymentProcessed')
 def project_payment(event):
-    # Update order status
+# Update order status
     table = boto3.resource('dynamodb').Table('OrderProjections')
     table.update_item(
         Key={'order_id': event['aggregate_id']},
@@ -732,7 +732,7 @@ class ServerlessWebSocket:
         
         connection_id = event['requestContext']['connectionId']
         
-        # Store connection
+# Store connection
         self.table.put_item(Item={
             'connection_id': connection_id,
             'connected_at': int(time.time()),
@@ -746,7 +746,7 @@ class ServerlessWebSocket:
         
         connection_id = event['requestContext']['connectionId']
         
-        # Remove connection
+# Remove connection
         self.table.delete_item(Key={'connection_id': connection_id})
         
         return {'statusCode': 200}
@@ -757,7 +757,7 @@ class ServerlessWebSocket:
         connection_id = event['requestContext']['connectionId']
         message = json.loads(event['body'])
         
-        # Process message based on type
+# Process message based on type
         if message['type'] == 'broadcast':
             return self.broadcast_message(
                 message['data'],
@@ -774,10 +774,10 @@ class ServerlessWebSocket:
     def broadcast_message(self, data: dict, exclude: str = None):
         """Broadcast to all connections"""
         
-        # Get all connections
+# Get all connections
         connections = self.table.scan()['Items']
         
-        # Send to each connection
+# Send to each connection
         api_client = boto3.client('apigatewaymanagementapi',
             endpoint_url=f"https://{event['requestContext']['domainName']}/{event['requestContext']['stage']}"
         )
@@ -795,10 +795,10 @@ class ServerlessWebSocket:
                 )
             except ClientError as e:
                 if e.response['Error']['Code'] == 'GoneException':
-                    # Connection no longer exists
+# Connection no longer exists
                     failed_connections.append(connection['connection_id'])
         
-        # Clean up failed connections
+# Clean up failed connections
         for conn_id in failed_connections:
             self.table.delete_item(Key={'connection_id': conn_id})
         
@@ -807,7 +807,7 @@ class ServerlessWebSocket:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Netflix's Serverless Encoding
 
@@ -832,17 +832,17 @@ class NetflixVideoEncoding:
         Triggered by S3 upload of source video
         """
         
-        # Extract video metadata
+# Extract video metadata
         bucket = event['Records'][0]['s3']['bucket']['name']
         key = event['Records'][0]['s3']['object']['key']
         
-        # Analyze video characteristics
+# Analyze video characteristics
         video_info = self.analyze_video(bucket, key)
         
-        # Determine encoding requirements
+# Determine encoding requirements
         encoding_jobs = self.create_encoding_plan(video_info)
         
-        # Start Step Functions workflow
+# Start Step Functions workflow
         execution = self.step_functions.start_execution(
             stateMachineArn=os.environ['ENCODING_WORKFLOW_ARN'],
             input=json.dumps({
@@ -868,10 +868,10 @@ class NetflixVideoEncoding:
         
         jobs = []
         
-        # Determine required formats
+# Determine required formats
         formats = self.get_required_formats(video_info)
         
-        # Split video into chunks for parallel processing
+# Split video into chunks for parallel processing
         chunk_duration = 10  # seconds
         total_duration = video_info['duration']
         chunks = math.ceil(total_duration / chunk_duration)
@@ -897,7 +897,7 @@ class NetflixVideoEncoding:
         
         job = event['job']
         
-        # Download chunk from S3
+# Download chunk from S3
         input_path = f"/tmp/input_{job['job_id']}.mp4"
         self.download_chunk(
             event['source_bucket'],
@@ -907,7 +907,7 @@ class NetflixVideoEncoding:
             job['duration']
         )
         
-        # Encode using FFmpeg layer
+# Encode using FFmpeg layer
         output_path = f"/tmp/output_{job['job_id']}.mp4"
         self.run_ffmpeg_encoding(
             input_path,
@@ -915,7 +915,7 @@ class NetflixVideoEncoding:
             job['format']
         )
         
-        # Upload encoded chunk
+# Upload encoded chunk
         output_key = f"encoded/{event['execution_id']}/{job['job_id']}.mp4"
         self.s3.upload_file(
             output_path,
@@ -923,7 +923,7 @@ class NetflixVideoEncoding:
             output_key
         )
         
-        # Clean up
+# Clean up
         os.remove(input_path)
         os.remove(output_path)
         
@@ -942,11 +942,11 @@ class NetflixVideoEncoding:
         chunks = sorted(event['chunks'], key=lambda x: x['chunk_index'])
         format_name = event['format']['name']
         
-        # Create concat file
+# Create concat file
         concat_file = f"/tmp/concat_{format_name}.txt"
         with open(concat_file, 'w') as f:
             for chunk in chunks:
-                # Download chunk
+# Download chunk
                 local_path = f"/tmp/chunk_{chunk['chunk_index']}.mp4"
                 self.s3.download_file(
                     event['output_bucket'],
@@ -955,14 +955,14 @@ class NetflixVideoEncoding:
                 )
                 f.write(f"file '{local_path}'\n")
         
-        # Merge with FFmpeg
+# Merge with FFmpeg
         output_path = f"/tmp/final_{format_name}.mp4"
         subprocess.run([
             'ffmpeg', '-f', 'concat', '-safe', '0',
             '-i', concat_file, '-c', 'copy', output_path
         ], check=True)
         
-        # Upload final output
+# Upload final output
         final_key = f"final/{event['video_id']}/{format_name}.mp4"
         self.s3.upload_file(
             output_path,
@@ -970,7 +970,7 @@ class NetflixVideoEncoding:
             final_key
         )
         
-        # Cleanup chunks
+# Cleanup chunks
         for chunk in chunks:
             self.s3.delete_object(
                 Bucket=event['output_bucket'],
@@ -1113,35 +1113,35 @@ class ServerlessPerformance:
         
         class ServerlessCache:
             def __init__(self):
-                # In-memory cache (survives warm starts)
+# In-memory cache (survives warm starts)
                 self._memory_cache = {}
                 
-                # ElastiCache for cross-function cache
+# ElastiCache for cross-function cache
                 self.redis = redis.Redis(
                     host=os.environ['REDIS_HOST'],
                     decode_responses=True
                 )
                 
-                # S3 for large objects
+# S3 for large objects
                 self.s3 = boto3.client('s3')
                 self.cache_bucket = os.environ['CACHE_BUCKET']
             
             def get(self, key: str, cache_level: str = 'all'):
                 """Get from cache with fallback"""
                 
-                # Level 1: Memory
+# Level 1: Memory
                 if cache_level in ['memory', 'all']:
                     if key in self._memory_cache:
                         return self._memory_cache[key]
                 
-                # Level 2: Redis
+# Level 2: Redis
                 if cache_level in ['redis', 'all']:
                     value = self.redis.get(key)
                     if value:
                         self._memory_cache[key] = value
                         return value
                 
-                # Level 3: S3
+# Level 3: S3
                 if cache_level in ['s3', 'all']:
                     try:
                         response = self.s3.get_object(
@@ -1150,7 +1150,7 @@ class ServerlessPerformance:
                         )
                         value = response['Body'].read().decode('utf-8')
                         
-                        # Backfill other caches
+# Backfill other caches
                         self._memory_cache[key] = value
                         self.redis.setex(key, 3600, value)
                         
@@ -1163,13 +1163,13 @@ class ServerlessPerformance:
             def set(self, key: str, value: any, ttl: int = 3600):
                 """Set in all cache levels"""
                 
-                # Memory
+# Memory
                 self._memory_cache[key] = value
                 
-                # Redis
+# Redis
                 self.redis.setex(key, ttl, value)
                 
-                # S3 for large values
+# S3 for large values
                 if len(str(value)) > 1024:  # 1KB threshold
                     self.s3.put_object(
                         Bucket=self.cache_bucket,
@@ -1200,16 +1200,16 @@ class ServerlessPerformance:
                     return self._futures[name].result()
                 return None
         
-        # Usage
+# Usage
         initializer = AsyncInitializer()
         
-        # Start loading in parallel during cold start
+# Start loading in parallel during cold start
         initializer.initialize_async('db', lambda: psycopg2.connect(DB_URL))
         initializer.initialize_async('ml_model', lambda: joblib.load(MODEL_PATH))
         initializer.initialize_async('config', lambda: load_config_from_s3())
         
         def handler(event, context):
-            # Resources load in parallel, retrieved when needed
+# Resources load in parallel, retrieved when needed
             db = initializer.get_resource('db')
             model = initializer.get_resource('ml_model')
             config = initializer.get_resource('config')
@@ -1219,7 +1219,7 @@ class ServerlessPerformance:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1242,36 +1242,36 @@ class ServerlessEconomics:
         Cost_lambda = Requests * Duration * Memory * Price
         """
         
-        # Lambda pricing model
-        # $0.20 per 1M requests
-        # $0.0000166667 per GB-second
+# Lambda pricing model
+# $0.20 per 1M requests
+# $0.0000166667 per GB-second
         
         request_cost = lambda_cost_per_million / 1_000_000
         compute_cost_per_ms = (lambda_memory_gb * 0.0000166667) / 1000
         
-        # Server assumptions
+# Server assumptions
         server_requests_per_second = 1000  # Typical server capacity
         server_uptime_seconds = 30 * 24 * 3600  # Monthly seconds
         
-        # Breakeven calculation
-        # server_cost = lambda_requests * request_cost + lambda_compute_time * compute_cost
+# Breakeven calculation
+# server_cost = lambda_requests * request_cost + lambda_compute_time * compute_cost
         
-        # Assuming average execution time
+# Assuming average execution time
         avg_execution_times = [10, 50, 100, 500, 1000]  # ms
         
         breakeven_points = {}
         
         for exec_time in avg_execution_times:
-            # Total lambda cost = request cost + compute cost
+# Total lambda cost = request cost + compute cost
             lambda_cost_per_request = request_cost + (exec_time * compute_cost_per_ms)
             
-            # Breakeven requests per month
+# Breakeven requests per month
             breakeven_requests = server_cost_monthly / lambda_cost_per_request
             
-            # Convert to requests per second
+# Convert to requests per second
             breakeven_rps = breakeven_requests / server_uptime_seconds
             
-            # Utilization at breakeven
+# Utilization at breakeven
             utilization = (breakeven_rps / server_requests_per_second) * 100
             
             breakeven_points[f'{exec_time}ms'] = {
@@ -1301,14 +1301,14 @@ class ServerlessEconomics:
         results = []
         
         for memory in memory_sizes:
-            # CPU scales linearly with memory
+# CPU scales linearly with memory
             cpu_multiplier = memory / 1769  # 1769MB = 1 vCPU
             
-            # Estimate execution time (inverse relationship)
+# Estimate execution time (inverse relationship)
             base_time = execution_profiles[0]['duration_ms']
             estimated_time = base_time / cpu_multiplier
             
-            # Calculate cost
+# Calculate cost
             gb_seconds = (memory / 1024) * (estimated_time / 1000)
             compute_cost = gb_seconds * 0.0000166667
             request_cost = 0.0000002  # $0.20 per million
@@ -1321,7 +1321,7 @@ class ServerlessEconomics:
                 'cost_performance_ratio': round(total_cost * estimated_time, 8)
             })
         
-        # Find optimal configuration
+# Find optimal configuration
         optimal = min(results, key=lambda x: x['cost_performance_ratio'])
         
         return {
@@ -1353,25 +1353,25 @@ class ServerlessQueueingTheory:
         but with startup delay (cold start)
         """
         
-        # Average number of warm containers (Little's Law)
-        # L = λ * W
+# Average number of warm containers (Little's Law)
+# L = λ * W
         avg_warm_containers = arrival_rate * warm_duration
         
-        # Probability of cold start
-        # Using Poisson distribution for container lifecycle
+# Probability of cold start
+# Using Poisson distribution for container lifecycle
         import math
         
-        # Inter-arrival time between requests to same container
+# Inter-arrival time between requests to same container
         inter_arrival_time = 1 / arrival_rate if avg_warm_containers < 1 else avg_warm_containers / arrival_rate
         
-        # Probability container is still warm
+# Probability container is still warm
         p_warm = 1 - math.exp(-warm_duration / inter_arrival_time)
         p_cold = 1 - p_warm
         
-        # Average latency
+# Average latency
         avg_latency = p_cold * cold_start_time
         
-        # Percentile calculations
+# Percentile calculations
         percentiles = {}
         for p in [50, 90, 95, 99]:
             if p/100 <= p_warm:
@@ -1421,10 +1421,10 @@ class EdgeServerless:
         Deploy function to all edge locations
         """
         
-        # Compile to WebAssembly for portability
+# Compile to WebAssembly for portability
         wasm_module = self.compile_to_wasm(function_code)
         
-        # Deploy globally
+# Deploy globally
         deployment = {
             'function_id': str(uuid4()),
             'locations': [],
@@ -1446,13 +1446,13 @@ class EdgeServerless:
         Process at nearest edge location
         """
         
-        # Determine user location
+# Determine user location
         user_location = self.geolocate_ip(request['ip'])
         
-        # Find nearest edge
+# Find nearest edge
         nearest_edge = self.find_nearest_edge(user_location)
         
-        # Execute with microsecond billing
+# Execute with microsecond billing
         start_time = time.perf_counter_ns()
         
         result = self.execute_wasm(
@@ -1485,10 +1485,10 @@ class ServerlessContainers:
         Package any application as serverless
         """
         
-        # Build container
+# Build container
         image = self.build_container(dockerfile)
         
-        # Optimize for serverless
+# Optimize for serverless
         optimized = self.optimize_container(image, {
             'strip_unnecessary': True,
             'use_slim_base': True,
@@ -1496,7 +1496,7 @@ class ServerlessContainers:
             'max_image_size_mb': 10240  # 10GB limit
         })
         
-        # Create serverless configuration
+# Create serverless configuration
         return {
             'image_uri': optimized['uri'],
             'memory_mb': 10240,  # Up to 10GB
@@ -1545,21 +1545,21 @@ class ServerlessROI:
         Comprehensive ROI analysis
         """
         
-        # Current costs
+# Current costs
         current_monthly = (
             current_state['server_costs'] +
             current_state['ops_team_cost'] * 0.5 +  # 50% time on servers
             current_state['downtime_cost']
         )
         
-        # Projected serverless costs
+# Projected serverless costs
         serverless_monthly = (
             self.estimate_lambda_costs(current_state['requests_per_month']) +
             current_state['ops_team_cost'] * 0.1 +  # 90% reduction in ops
             current_state['downtime_cost'] * 0.1  # 90% reduction in downtime
         )
         
-        # Migration costs
+# Migration costs
         migration_cost = (
             current_state['developer_count'] * 
             160 *  # hours per month
@@ -1567,7 +1567,7 @@ class ServerlessROI:
             150    # $/hour fully loaded
         )
         
-        # Calculate ROI
+# Calculate ROI
         monthly_savings = current_monthly - serverless_monthly
         payback_months = migration_cost / monthly_savings
         five_year_roi = (monthly_savings * 60 - migration_cost) / migration_cost * 100
@@ -1592,7 +1592,7 @@ class ServerlessROI:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

@@ -221,7 +221,7 @@ class PostmortemAutomation:
         """Auto-generate timeline from various sources"""
         events = []
 
-        # Add alerts
+# Add alerts
         for alert in incident_data['alerts']:
             events.append({
                 'time': alert['timestamp'],
@@ -229,7 +229,7 @@ class PostmortemAutomation:
                 'source': 'monitoring'
             })
 
-        # Add deployments
+# Add deployments
         for deploy in incident_data['deployments']:
             events.append({
                 'time': deploy['timestamp'],
@@ -237,7 +237,7 @@ class PostmortemAutomation:
                 'source': 'ci/cd'
             })
 
-        # Sort by time
+# Sort by time
         return sorted(events, key=lambda x: x['time'])
 ```
 
@@ -376,7 +376,7 @@ We found: "Config validation was manual, no automated checks for common errors"
 
 ## 👥 Practical Application
 
-### Exercise 1: Current State Assessment ⭐⭐
+### Exercise 1: Current State Assessment
 **Time**: ~15 minutes
 **Objective**: Evaluate your team's current practices related to Blameless Postmortems
 
@@ -388,7 +388,7 @@ We found: "Config validation was manual, no automated checks for common errors"
 
 **Scoring**: Rate each area 1-5 and identify the top 2 areas for improvement.
 
-### Exercise 2: Implementation Planning ⭐⭐⭐
+### Exercise 2: Implementation Planning
 **Time**: ~25 minutes
 **Objective**: Create an actionable improvement plan
 
@@ -403,7 +403,7 @@ We found: "Config validation was manual, no automated checks for common errors"
 - Potential obstacles
 - Required resources/support
 
-### Exercise 3: Simulation Exercise ⭐⭐⭐⭐
+### Exercise 3: Simulation Exercise
 **Time**: ~30 minutes
 **Objective**: Practice the concepts in a realistic scenario
 
@@ -423,7 +423,7 @@ We found: "Config validation was manual, no automated checks for common errors"
 
 ---
 
-## 🔄 Process Development
+## Process Development
 
 ### Team Workshop Design
 **Goal**: Create a workshop to share these concepts with your team
@@ -453,7 +453,7 @@ We found: "Config validation was manual, no automated checks for common errors"
 
 ---
 
-## 🎯 Leadership Application
+## Leadership Application
 
 **For Individual Contributors**:
 - How can you influence positive change without formal authority?

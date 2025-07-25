@@ -67,7 +67,7 @@ def interview_opening():
         "Take notes while listening"
     ]
     
-    # What interviewers notice
+# What interviewers notice
     positive_signals = [
         "Confident but humble demeanor",
         "Active listening",

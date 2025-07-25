@@ -63,19 +63,19 @@ Business impact:
 ```python
 class ConsistencyManager:
     def select_consistency(self, operation, context):
-        # User-based
+# User-based
         if context.user.is_premium:
             return upgrade_consistency(operation.default)
 
-        # Time-based
+# Time-based
         if is_peak_hours():
             return downgrade_consistency(operation.default)
 
-        # Health-based
+# Health-based
         if replica_lag > threshold:
             return LOCAL_ONE  # Degrade gracefully
 
-        # SLO-based
+# SLO-based
         if error_budget_remaining < 10%:
             return strongest_available()
 
@@ -97,7 +97,7 @@ session.last_write_timestamp = write_result.timestamp
 
 # On subsequent read:
 if session.last_write_timestamp:
-    # Ensure we read from up-to-date replica
+# Ensure we read from up-to-date replica
     consistency = LOCAL_QUORUM
     min_timestamp = session.last_write_timestamp
 else:
@@ -122,7 +122,7 @@ async def read_with_degradation(key):
         except TimeoutError:
             continue
 
-    # Last resort: return cached or default
+# Last resort: return cached or default
     return get_cached_or_default(key)
 ```
 

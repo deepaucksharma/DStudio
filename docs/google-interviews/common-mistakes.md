@@ -1,6 +1,6 @@
 # Common Mistakes in Google System Design Interviews
 
-## 🚨 Mistake Severity Dashboard
+## Mistake Severity Dashboard
 
 <div class="severity-dashboard">
 <div class="severity-card critical">
@@ -20,7 +20,7 @@
 </div>
 </div>
 
-## 🎯 Mistake Impact Matrix
+## Mistake Impact Matrix
 
 ```mermaid
 graph TD
@@ -65,9 +65,9 @@ graph TD
     style Mi2 fill:#95E1D3
 ```
 
-## 🔴 Critical Mistakes (Interview Killers)
+## Critical Mistakes (Interview Killers)
 
-### 1. Not Thinking at Google Scale 🌍
+### 1. Not Thinking at Google Scale
 
 <div class="mistake-comparison">
 <table>
@@ -98,7 +98,7 @@ graph TD
 </table>
 </div>
 
-#### 📊 Scale Comparison Visual
+#### Scale Comparison Visual
 
 ```mermaid
 graph LR
@@ -130,7 +130,7 @@ graph LR
 - Consider global distribution
 - Plan for 100x growth
 
-### 2. Poor Time Management ⏰
+### 2. Poor Time Management
 
 <div class="time-breakdown">
 <svg viewBox="0 0 400 200" style="width: 100%; max-width: 600px;">
@@ -158,7 +158,7 @@ graph LR
 </svg>
 </div>
 
-#### ⏱️ Time Management Rules
+#### Time Management Rules
 
 <div class="time-rules">
 <div class="rule-card">
@@ -175,7 +175,7 @@ graph LR
 </div>
 </div>
 
-### 3. Ignoring Failure Scenarios 💥
+### 3. Ignoring Failure Scenarios
 
 #### Failure Scenario Checklist
 
@@ -312,7 +312,7 @@ flowchart LR
 </div>
 </div>
 
-### 5. Missing the Big Picture 🖼️
+### 5. Missing the Big Picture 🖼
 
 #### System Completeness Checklist
 
@@ -367,9 +367,9 @@ flowchart LR
 - Use the "breadth-first" approach
 - Save details for deep dive
 
-## 🟡 Major Mistakes (Significant Impact)
+## Major Mistakes (Significant Impact)
 
-### 6. Neglecting Data Consistency 🔄
+### 6. Neglecting Data Consistency
 
 #### Consistency Decision Matrix
 
@@ -447,7 +447,7 @@ graph TD
 - Know when to use different consistency models
 - Consider business impact
 
-### 7. Forgetting About Costs 💰
+### 7. Forgetting About Costs
 
 #### Cost Breakdown Calculator
 
@@ -556,7 +556,7 @@ graph LR
 - Discuss storage tiers
 - Mention optimization strategies
 
-### 8. Over-Engineering Too Early 🏗️
+### 8. Over-Engineering Too Early
 
 #### Evolution Path Visualization
 
@@ -725,7 +725,7 @@ flowchart TD
 - Consider pagination
 - Plan for versioning
 
-### 10. Insufficient Monitoring Discussion 📊
+### 10. Insufficient Monitoring Discussion
 
 #### Comprehensive Monitoring Stack
 
@@ -832,7 +832,7 @@ graph TB
 - Business metrics
 - SLA monitoring
 
-## 🟢 Minor Mistakes (Room for Improvement)
+## Minor Mistakes (Room for Improvement)
 
 ### Communication & Behavioral Mistakes
 
@@ -959,7 +959,7 @@ graph TB
 - Check understanding
 - Invite questions
 
-## 🎮 System-Specific Mistake Patterns
+## System-Specific Mistake Patterns
 
 ### Common Mistakes by System Type
 
@@ -1028,7 +1028,7 @@ graph TB
 - Missing adaptive bitrate
 - Ignoring storage costs
 
-## 🏋️ Practice Strategies to Avoid Mistakes
+## 🏋 Practice Strategies to Avoid Mistakes
 
 ### Daily Practice Routine
 
@@ -1130,7 +1130,7 @@ gantt
 4. What are the bottlenecks?
 5. How much would this cost?
 
-## 🚨 Real-Time Recovery Strategies
+## Real-Time Recovery Strategies
 
 ### Mistake Recovery Flowchart
 
@@ -1194,7 +1194,7 @@ flowchart TD
 3. **Make a decision**: Choose and explain
 4. **Mark for revisit**: "We can optimize this later"
 
-## 🎯 Mistake Prevention Checklist
+## Mistake Prevention Checklist
 
 ### Pre-Interview Preparation
 
@@ -1222,7 +1222,7 @@ flowchart TD
 </div>
 </div>
 
-## 💡 Remember: The Goal
+## Remember: The Goal
 
 <div class="final-reminder">
 <p>Google values:</p>

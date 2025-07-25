@@ -16,7 +16,7 @@ last_updated: 2025-07-21
 
 **Protection against indefinite waits and resource exhaustion**
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -99,7 +99,7 @@ async def slow_database_query():
 
 async def main():
     try:
-        # This will timeout after 3 seconds
+# This will timeout after 3 seconds
         result = await SimpleTimeout.with_timeout(
             slow_database_query, 
             timeout_seconds=3
@@ -107,13 +107,13 @@ async def main():
         print(f"Result: {result}")
     except TimeoutError as e:
         print(f"Failed: {e}")
-        # Use cached data or default response
+# Use cached data or default response
         print("Using cached response instead")
 ```
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Timeout Types
 
@@ -176,7 +176,7 @@ class TimeoutCalculator:
     ) -> float:
         """Calculate timeout based on historical performance"""
         
-        # Choose percentile based on target success rate
+# Choose percentile based on target success rate
         if target_success_rate >= 0.999:
             baseline = metrics.p999
         elif target_success_rate >= 0.99:
@@ -186,11 +186,11 @@ class TimeoutCalculator:
         else:
             baseline = metrics.p50
         
-        # Apply safety factor
+# Apply safety factor
         safety_factor = self.safety_factors.get(operation_type, 2.0)
         timeout = baseline * safety_factor
         
-        # Apply bounds
+# Apply bounds
         min_timeout = 1.0   # Never less than 1 second
         max_timeout = 300.0 # Never more than 5 minutes
         
@@ -230,7 +230,7 @@ print(f"Background operation timeout: {background_timeout}ms")
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Timeout Patterns
 
@@ -305,32 +305,32 @@ class CascadingTimeout:
 
 # Example: E-commerce checkout with cascading timeouts
 async def checkout_with_cascading_timeout(order_id: str):
-    # Total checkout must complete in 30 seconds
+# Total checkout must complete in 30 seconds
     cascade = CascadingTimeout(total_timeout=30.0)
     
     try:
-        # Validate inventory (max 5s)
+# Validate inventory (max 5s)
         inventory = await cascade.execute_with_timeout(
             lambda: validate_inventory(order_id),
             timeout=5.0,
             operation_name="inventory_check"
         )
         
-        # Process payment (max 10s, but respects remaining time)
+# Process payment (max 10s, but respects remaining time)
         payment = await cascade.execute_with_timeout(
             lambda: process_payment(order_id),
             timeout=10.0,
             operation_name="payment_processing"
         )
         
-        # Update inventory (max 5s)
+# Update inventory (max 5s)
         await cascade.execute_with_timeout(
             lambda: update_inventory(order_id),
             timeout=5.0,
             operation_name="inventory_update"
         )
         
-        # Send confirmation (max 3s)
+# Send confirmation (max 3s)
         await cascade.execute_with_timeout(
             lambda: send_confirmation(order_id),
             timeout=3.0,
@@ -340,10 +340,10 @@ async def checkout_with_cascading_timeout(order_id: str):
         return {"status": "success", "order_id": order_id}
         
     except TimeoutError as e:
-        # Log which operation failed
+# Log which operation failed
         print(f"Checkout failed: {e}")
         print(f"Operations log: {cascade.operations_log}")
-        # Implement compensation logic here
+# Implement compensation logic here
         raise
 ```
 
@@ -377,7 +377,7 @@ class AdaptiveTimeout:
             'timestamp': time.time()
         })
         
-        # Adjust timeout every N observations
+# Adjust timeout every N observations
         if len(self.observations) == self.window_size:
             self._adjust_timeout()
     
@@ -389,22 +389,22 @@ class AdaptiveTimeout:
         ]
         
         if not successful_durations:
-            # All operations failed, increase timeout
+# All operations failed, increase timeout
             self.current_timeout *= (1 + self.adjustment_factor)
         else:
-            # Calculate P95 of successful operations
+# Calculate P95 of successful operations
             p95 = statistics.quantiles(successful_durations, n=20)[18]  # 95th percentile
             
-            # Set timeout to P95 + 50% buffer
+# Set timeout to P95 + 50% buffer
             new_timeout = p95 * 1.5
             
-            # Smooth adjustment to avoid drastic changes
+# Smooth adjustment to avoid drastic changes
             self.current_timeout = (
                 0.7 * self.current_timeout + 
                 0.3 * new_timeout
             )
         
-        # Apply bounds
+# Apply bounds
         self.current_timeout = max(
             self.min_timeout, 
             min(self.current_timeout, self.max_timeout)
@@ -476,13 +476,13 @@ async def hedged_request_with_timeout(
             async with session.post(service_url, json=request_data) as resp:
                 return await resp.json()
     
-    # Start primary request
+# Start primary request
     primary_task = asyncio.create_task(
         call_service(primary_service)
     )
     
     try:
-        # Wait for hedge delay
+# Wait for hedge delay
         result = await asyncio.wait_for(
             primary_task, 
             timeout=hedge_delay
@@ -490,12 +490,12 @@ async def hedged_request_with_timeout(
         return {'result': result, 'source': 'primary', 'hedged': False}
         
     except asyncio.TimeoutError:
-        # Primary is slow, start backup
+# Primary is slow, start backup
         backup_task = asyncio.create_task(
             call_service(backup_service)
         )
         
-        # Race both requests
+# Race both requests
         pending = {primary_task, backup_task}
         
         while pending:
@@ -506,11 +506,11 @@ async def hedged_request_with_timeout(
             )
             
             if done:
-                # Get first successful result
+# Get first successful result
                 winner = done.pop()
                 result = await winner
                 
-                # Cancel the other request
+# Cancel the other request
                 for task in pending:
                     task.cancel()
                 
@@ -521,7 +521,7 @@ async def hedged_request_with_timeout(
                     'hedged': True
                 }
         
-        # Both timed out
+# Both timed out
         raise TimeoutError(
             f"Both services timed out after {total_timeout}s"
         )
@@ -529,7 +529,7 @@ async def hedged_request_with_timeout(
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Stripe's Payment Processing Timeouts
 
@@ -542,7 +542,7 @@ class StripeTimeoutStrategy:
     """
     
     def __init__(self):
-        # Different timeouts for different payment methods
+# Different timeouts for different payment methods
         self.timeout_config = {
             'card': {
                 'tokenization': 5.0,      # Creating card token
@@ -564,10 +564,10 @@ class StripeTimeoutStrategy:
             }
         }
         
-        # Circuit breaker integration
+# Circuit breaker integration
         self.circuit_breakers = {}
         
-        # Timeout telemetry
+# Timeout telemetry
         self.timeout_metrics = defaultdict(lambda: {
             'total': 0,
             'timeouts': 0,
@@ -592,11 +592,11 @@ class StripeTimeoutStrategy:
         config = self.timeout_config[payment_method]
         start_time = time.time()
         
-        # Create timeout cascade
+# Create timeout cascade
         cascade = CascadingTimeout(config['total'])
         
         try:
-            # Step 1: Validate and tokenize payment method
+# Step 1: Validate and tokenize payment method
             token = await cascade.execute_with_timeout(
                 lambda: self._tokenize_payment_method(
                     payment_method, customer_id
@@ -605,7 +605,7 @@ class StripeTimeoutStrategy:
                 operation_name='tokenization'
             )
             
-            # Step 2: Create payment intent
+# Step 2: Create payment intent
             intent = await cascade.execute_with_timeout(
                 lambda: self._create_payment_intent(
                     amount, currency, token, metadata
@@ -614,7 +614,7 @@ class StripeTimeoutStrategy:
                 operation_name='payment_intent'
             )
             
-            # Step 3: Process payment based on method
+# Step 3: Process payment based on method
             if payment_method == 'card':
                 result = await self._process_card_payment(
                     intent, cascade, config
@@ -628,7 +628,7 @@ class StripeTimeoutStrategy:
                     intent, cascade, config
                 )
             
-            # Record success
+# Record success
             self._record_metrics(
                 payment_method, 
                 time.time() - start_time, 
@@ -638,14 +638,14 @@ class StripeTimeoutStrategy:
             return result
             
         except asyncio.TimeoutError as e:
-            # Record timeout
+# Record timeout
             self._record_metrics(
                 payment_method, 
                 time.time() - start_time, 
                 success=False
             )
             
-            # Attempt recovery
+# Attempt recovery
             return await self._handle_timeout_recovery(
                 payment_method, intent, cascade.operations_log
             )
@@ -658,9 +658,9 @@ class StripeTimeoutStrategy:
     ) -> Dict:
         """Process card payment with 3DS handling"""
         
-        # Check if 3DS required
+# Check if 3DS required
         if intent.get('requires_action'):
-            # Allow more time for 3DS
+# Allow more time for 3DS
             auth_result = await cascade.execute_with_timeout(
                 lambda: self._handle_3ds_authentication(intent),
                 timeout=config['3ds_auth'],
@@ -670,7 +670,7 @@ class StripeTimeoutStrategy:
             if not auth_result['authenticated']:
                 raise PaymentError("3DS authentication failed")
         
-        # Confirm payment
+# Confirm payment
         confirmation = await cascade.execute_with_timeout(
             lambda: self._confirm_payment(intent),
             timeout=config['confirmation'],
@@ -691,18 +691,18 @@ class StripeTimeoutStrategy:
     ) -> Dict:
         """Implement timeout recovery strategies"""
         
-        # Check which operation timed out
+# Check which operation timed out
         last_operation = operations_log[-1] if operations_log else None
         
         if not intent:
-            # Failed before creating intent
+# Failed before creating intent
             return {
                 'status': 'failed',
                 'error': 'timeout_before_intent',
                 'recoverable': True
             }
         
-        # Check payment status asynchronously
+# Check payment status asynchronously
         try:
             status = await self._check_payment_status(
                 intent['id'], 
@@ -710,7 +710,7 @@ class StripeTimeoutStrategy:
             )
             
             if status['status'] == 'succeeded':
-                # Payment actually succeeded
+# Payment actually succeeded
                 return {
                     'status': 'succeeded',
                     'payment_intent_id': intent['id'],
@@ -720,7 +720,7 @@ class StripeTimeoutStrategy:
         except:
             pass
         
-        # Mark for manual review
+# Mark for manual review
         await self._queue_for_reconciliation(intent, operations_log)
         
         return {
@@ -745,11 +745,11 @@ class StripeTimeoutStrategy:
         
         metrics['durations'].append(duration)
         
-        # Keep only recent durations
+# Keep only recent durations
         if len(metrics['durations']) > 1000:
             metrics['durations'] = metrics['durations'][-1000:]
         
-        # Alert if timeout rate exceeds threshold
+# Alert if timeout rate exceeds threshold
         timeout_rate = metrics['timeouts'] / metrics['total']
         if timeout_rate > 0.01:  # 1% timeout rate
             self._trigger_timeout_alert(payment_method, timeout_rate)
@@ -786,10 +786,10 @@ class TimeoutMonitoringDashboard:
             'context': context
         }
         
-        # Store metrics
+# Store metrics
         self.metrics_store.record(event)
         
-        # Real-time analysis
+# Real-time analysis
         self._analyze_timeout_patterns(service, operation)
         
     def _analyze_timeout_patterns(self, service: str, operation: str):
@@ -804,12 +804,12 @@ class TimeoutMonitoringDashboard:
         if not recent_events:
             return
         
-        # Calculate timeout rate
+# Calculate timeout rate
         timeout_rate = sum(
             1 for e in recent_events if e['timed_out']
         ) / len(recent_events)
         
-        # Check for timeout storms
+# Check for timeout storms
         if timeout_rate > 0.1:  # 10% timeouts
             self.alerting.trigger({
                 'severity': 'critical',
@@ -819,7 +819,7 @@ class TimeoutMonitoringDashboard:
                 'runbook': 'https://runbooks.internal/timeout-storm'
             })
         
-        # Analyze timeout values vs actual durations
+# Analyze timeout values vs actual durations
         timeout_values = [e['timeout_value'] for e in recent_events]
         actual_durations = [
             e['actual_duration'] for e in recent_events 
@@ -831,7 +831,7 @@ class TimeoutMonitoringDashboard:
             min_timeout = min(timeout_values)
             
             if p99_duration > min_timeout * 0.8:
-                # Timeouts are too aggressive
+# Timeouts are too aggressive
                 self.alerting.suggest({
                     'service': service,
                     'operation': operation,
@@ -863,25 +863,25 @@ class TimeoutEconomicAnalyzer:
     ) -> Dict[str, Any]:
         """Calculate economic impact of timeout settings"""
         
-        # Calculate timeout rate
+# Calculate timeout rate
         timeout_count = sum(
             1 for duration in request_distribution 
             if duration > current_timeout
         )
         timeout_rate = timeout_count / len(request_distribution)
         
-        # Daily costs
+# Daily costs
         daily_timeouts = daily_volume * timeout_rate
         
-        # Direct costs
+# Direct costs
         timeout_cost = daily_timeouts * self.cost_model['timeout_user_impact']
         retry_cost = daily_timeouts * 0.5 * self.cost_model['retry_cost']  # 50% retry
         
-        # Indirect costs (engineering time for investigation)
+# Indirect costs (engineering time for investigation)
         investigation_hours = daily_timeouts / 1000  # 1 hour per 1000 timeouts
         investigation_cost = investigation_hours * self.cost_model['engineer_hour']
         
-        # Server resource savings from timeouts
+# Server resource savings from timeouts
         avg_saved_time = np.mean([
             current_timeout - d for d in request_distribution 
             if d > current_timeout
@@ -889,11 +889,11 @@ class TimeoutEconomicAnalyzer:
         daily_saved_seconds = daily_timeouts * avg_saved_time
         resource_savings = daily_saved_seconds * self.cost_model['server_time_per_second']
         
-        # Total impact
+# Total impact
         total_cost = timeout_cost + retry_cost + investigation_cost - resource_savings
         annual_cost = total_cost * 365
         
-        # Optimization suggestions
+# Optimization suggestions
         optimal_timeout = self._find_optimal_timeout(
             request_distribution, 
             daily_volume
@@ -922,7 +922,7 @@ class TimeoutEconomicAnalyzer:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -954,38 +954,38 @@ class TheoreticalTimeoutOptimizer:
         Calculate theoretically optimal timeout using M/G/1 queue model
         """
         
-        # Traffic intensity
+# Traffic intensity
         rho = arrival_rate / service_rate
         
         if rho >= 1:
             raise ValueError("System is unstable (ρ >= 1)")
         
-        # Expected service time
+# Expected service time
         expected_service = 1 / service_rate
         
-        # Variance coefficient
+# Variance coefficient
         cv_squared = variance / (expected_service ** 2)
         
-        # Pollaczek-Khinchin formula for wait time
+# Pollaczek-Khinchin formula for wait time
         expected_wait = (rho / (2 * (1 - rho))) * expected_service * (1 + cv_squared)
         
-        # Total expected response time
+# Total expected response time
         expected_response = expected_wait + expected_service
         
-        # Cost function to minimize
+# Cost function to minimize
         def cost_function(timeout):
-            # Probability of timeout (assuming exponential tail)
+# Probability of timeout (assuming exponential tail)
             p_timeout = np.exp(-timeout / expected_response)
             
-            # Expected wait cost
+# Expected wait cost
             wait_cost = min(timeout, expected_response) * cost_wait
             
-            # Expected timeout cost
+# Expected timeout cost
             timeout_cost = p_timeout * cost_timeout
             
             return wait_cost + timeout_cost
         
-        # Find optimal timeout
+# Find optimal timeout
         result = opt.minimize_scalar(
             cost_function,
             bounds=(expected_service, expected_response * 10),
@@ -1005,29 +1005,29 @@ class TheoreticalTimeoutOptimizer:
         
         from sklearn.ensemble import GradientBoostingRegressor
         
-        # Feature engineering
+# Feature engineering
         features = self._engineer_features(context_features)
         
-        # Train model on historical data
+# Train model on historical data
         model = GradientBoostingRegressor(
             n_estimators=100,
             learning_rate=0.1,
             max_depth=5
         )
         
-        # Target: optimal timeout for each observation
+# Target: optimal timeout for each observation
         targets = self._calculate_optimal_timeouts(observations)
         
         model.fit(features, targets)
         
-        # Predict timeout for current context
+# Predict timeout for current context
         current_features = self._engineer_features(
             np.array([context_features[-1]])
         )
         
         predicted_timeout = model.predict(current_features)[0]
         
-        # Add safety margin based on prediction uncertainty
+# Add safety margin based on prediction uncertainty
         if hasattr(model, 'predict_std'):
             std = model.predict_std(current_features)[0]
             predicted_timeout += 2 * std  # 95% confidence
@@ -1063,7 +1063,7 @@ class TimeoutChaosExperiments:
             result = await experiment()
             results.append(result)
             
-            # Allow system to recover
+# Allow system to recover
             await asyncio.sleep(30)
         
         return self._analyze_results(results)
@@ -1073,12 +1073,12 @@ class TimeoutChaosExperiments:
         
         start_metrics = await self.system.get_metrics()
         
-        # Inject timeouts for 5 minutes
+# Inject timeouts for 5 minutes
         injection_task = asyncio.create_task(
             self._inject_random_timeouts(duration=300)
         )
         
-        # Monitor system behavior
+# Monitor system behavior
         observations = []
         for _ in range(60):  # 5 minutes
             await asyncio.sleep(5)
@@ -1096,7 +1096,7 @@ class TimeoutChaosExperiments:
     async def cascading_timeout_failure(self) -> Dict:
         """Test cascading timeout failures through the system"""
         
-        # Configure aggressive timeouts at edge
+# Configure aggressive timeouts at edge
         original_timeouts = await self.system.get_timeout_config()
         
         await self.system.set_timeout_config({
@@ -1105,15 +1105,15 @@ class TimeoutChaosExperiments:
             'database': 10.0
         })
         
-        # Generate load
+# Generate load
         load_task = asyncio.create_task(
             self._generate_steady_load(qps=100, duration=60)
         )
         
-        # Observe cascade effects
+# Observe cascade effects
         cascade_metrics = await self._observe_cascade_effects()
         
-        # Restore original timeouts
+# Restore original timeouts
         await self.system.set_timeout_config(original_timeouts)
         
         await load_task
@@ -1150,7 +1150,7 @@ class TimeoutChaosExperiments:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

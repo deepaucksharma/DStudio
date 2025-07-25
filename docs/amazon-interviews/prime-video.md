@@ -97,17 +97,17 @@ import boto3
 from dataclasses import dataclass
 
 class VideoQuality(Enum):
-    # Resolution, Bitrate (Mbps), Codec
+# Resolution, Bitrate (Mbps), Codec
     HD_1080P = ("1920x1080", 5.0, "h264")
     HD_720P = ("1280x720", 3.0, "h264")
     SD_480P = ("854x480", 1.5, "h264")
     SD_360P = ("640x360", 0.8, "h264")
     
-    # 4K/HDR Profiles
+# 4K/HDR Profiles
     UHD_4K_HDR = ("3840x2160", 15.0, "h265")
     UHD_4K_SDR = ("3840x2160", 12.0, "h265")
     
-    # Mobile optimized
+# Mobile optimized
     MOBILE_HIGH = ("1280x720", 2.0, "h264")
     MOBILE_MED = ("854x480", 1.0, "h264")
     MOBILE_LOW = ("640x360", 0.5, "h264")
@@ -132,10 +132,10 @@ class VideoTranscodingPipeline:
                            content_type: str = "movie") -> Dict:
         """Ingest new content into the platform"""
         
-        # Determine required profiles based on content type
+# Determine required profiles based on content type
         profiles = self._determine_encoding_profiles(content_type)
         
-        # Create transcoding job
+# Create transcoding job
         job = TranscodingJob(
             job_id=f"{content_id}-{int(asyncio.get_event_loop().time())}",
             source_file=source_path,
@@ -143,10 +143,10 @@ class VideoTranscodingPipeline:
             priority=self._calculate_priority(content_type)
         )
         
-        # Queue for processing
+# Queue for processing
         await self.job_queue.put(job)
         
-        # Start transcoding workers if not running
+# Start transcoding workers if not running
         if not self.workers:
             for i in range(10):  # 10 parallel workers
                 worker = asyncio.create_task(self._transcoding_worker())
@@ -173,7 +173,7 @@ class VideoTranscodingPipeline:
                 VideoQuality.MOBILE_LOW
             ]
         elif content_type == "live":
-            # Reduced set for live streaming
+# Reduced set for live streaming
             return [
                 VideoQuality.HD_1080P,
                 VideoQuality.HD_720P,
@@ -208,7 +208,7 @@ class VideoTranscodingPipeline:
                 await self._process_transcoding_job(job)
             except Exception as e:
                 print(f"Error processing job: {e}")
-                # Re-queue failed job with lower priority
+# Re-queue failed job with lower priority
                 job.priority -= 1
                 if job.priority > 0:
                     await self.job_queue.put(job)
@@ -291,11 +291,11 @@ class VideoTranscodingPipeline:
             
             outputs.append(output_config)
             
-        # Add DRM if enabled
+# Add DRM if enabled
         if job.drm_enabled:
             outputs = self._add_drm_protection(outputs)
             
-        # Submit to MediaConvert
+# Submit to MediaConvert
         response = await self._submit_mediaconvert_job(job, outputs)
         
         return response
@@ -311,7 +311,7 @@ class PrimeVideoCDN:
         self.cloudfront_client = boto3.client('cloudfront')
         self.route53_client = boto3.client('route53')
         
-        # CDN tiers
+# CDN tiers
         self.origin_shields = [
             'us-east-1',  # Primary
             'eu-west-1',  # Europe
@@ -418,8 +418,8 @@ class PrimeVideoCDN:
         
     def _select_origin_shield(self, content_id: str) -> str:
         """Select optimal origin shield based on content popularity"""
-        # In production, this would analyze viewing patterns
-        # For now, simple hash-based selection
+# In production, this would analyze viewing patterns
+# For now, simple hash-based selection
         index = hash(content_id) % len(self.origin_shields)
         return self.origin_shields[index]
         
@@ -445,7 +445,7 @@ class EdgeComputeOptimizer:
                                  function_code: str) -> Dict:
         """Deploy Lambda@Edge function for request/response manipulation"""
         
-        # Package function code
+# Package function code
         import zipfile
         import io
         
@@ -455,7 +455,7 @@ class EdgeComputeOptimizer:
             
         zip_buffer.seek(0)
         
-        # Create Lambda function
+# Create Lambda function
         response = self.lambda_client.create_function(
             FunctionName=function_name,
             Runtime='nodejs18.x',
@@ -568,7 +568,7 @@ class AdaptiveBitrateController:
         self.startup_threshold = 2.0  # seconds
         self.panic_threshold = 1.0    # seconds
         
-        # Quality levels (bitrate in Mbps)
+# Quality levels (bitrate in Mbps)
         self.quality_levels = [
             {'level': 0, 'bitrate': 0.5, 'resolution': '360p'},
             {'level': 1, 'bitrate': 0.8, 'resolution': '360p'},
@@ -582,7 +582,7 @@ class AdaptiveBitrateController:
             {'level': 9, 'bitrate': 15.0, 'resolution': '4K HDR'}
         ]
         
-        # State tracking
+# State tracking
         self.current_level = 2  # Start with conservative quality
         self.buffer_level = 0.0
         self.bandwidth_samples = deque(maxlen=10)
@@ -596,19 +596,19 @@ class AdaptiveBitrateController:
                       last_segment_size: int) -> int:
         """Select optimal quality level based on current conditions"""
         
-        # Update state
+# Update state
         self.buffer_level = buffer_level
         
-        # Calculate bandwidth estimate
+# Calculate bandwidth estimate
         if last_download_time > 0:
             bandwidth_mbps = (last_segment_size * 8) / (last_download_time * 1000000)
             self.bandwidth_samples.append(bandwidth_mbps)
             self.download_times.append(last_download_time)
             
-        # Get bandwidth estimate
+# Get bandwidth estimate
         estimated_bandwidth = self._estimate_bandwidth()
         
-        # Determine mode
+# Determine mode
         if buffer_level < self.panic_threshold:
             return self._panic_mode(estimated_bandwidth)
         elif buffer_level < self.startup_threshold:
@@ -621,13 +621,13 @@ class AdaptiveBitrateController:
         if not self.bandwidth_samples:
             return 1.0  # Default conservative estimate
             
-        # Use Exponentially Weighted Moving Average
+# Use Exponentially Weighted Moving Average
         weights = np.exp(np.linspace(-1, 0, len(self.bandwidth_samples)))
         weights /= weights.sum()
         
         weighted_avg = np.average(self.bandwidth_samples, weights=weights)
         
-        # Apply safety margin based on variance
+# Apply safety margin based on variance
         if len(self.bandwidth_samples) > 3:
             std_dev = np.std(self.bandwidth_samples)
             safety_factor = max(0.7, 1 - (std_dev / weighted_avg))
@@ -638,13 +638,13 @@ class AdaptiveBitrateController:
         
     def _panic_mode(self, bandwidth: float) -> int:
         """Panic mode: minimize rebuffering risk"""
-        # Drop to lowest quality immediately
+# Drop to lowest quality immediately
         self.current_level = 0
         return 0
         
     def _startup_mode(self, bandwidth: float) -> int:
         """Startup mode: quick start with conservative quality"""
-        # Find highest quality that's 50% of bandwidth
+# Find highest quality that's 50% of bandwidth
         for i, level in enumerate(self.quality_levels):
             if level['bitrate'] > bandwidth * 0.5:
                 self.current_level = max(0, i - 1)
@@ -656,25 +656,25 @@ class AdaptiveBitrateController:
     def _steady_state_mode(self, bandwidth: float, buffer_level: float) -> int:
         """Steady state: optimize for quality while maintaining buffer"""
         
-        # Buffer-based approach with bandwidth constraint
+# Buffer-based approach with bandwidth constraint
         buffer_ratio = buffer_level / self.buffer_threshold
         
-        # Calculate quality score for each level
+# Calculate quality score for each level
         best_level = self.current_level
         best_score = float('-inf')
         
         for i, level in enumerate(self.quality_levels):
-            # Skip if bandwidth insufficient
+# Skip if bandwidth insufficient
             if level['bitrate'] > bandwidth * 0.9:
                 continue
                 
-            # Quality score
+# Quality score
             quality_score = self._calculate_quality_score(level['bitrate'])
             
-            # Switching penalty
+# Switching penalty
             switch_penalty = abs(i - self.current_level) * 0.1
             
-            # Buffer impact
+# Buffer impact
             download_time = 4.0 * level['bitrate'] / bandwidth  # 4s segment
             buffer_delta = 4.0 - download_time
             future_buffer = buffer_level + buffer_delta
@@ -684,16 +684,16 @@ class AdaptiveBitrateController:
             else:
                 buffer_penalty = max(0, self.buffer_threshold - future_buffer) * 0.5
                 
-            # Total score
+# Total score
             total_score = quality_score - switch_penalty - buffer_penalty
             
             if total_score > best_score:
                 best_score = total_score
                 best_level = i
                 
-        # Limit quality changes
+# Limit quality changes
         if abs(best_level - self.current_level) > 2:
-            # Don't jump more than 2 levels at once
+# Don't jump more than 2 levels at once
             if best_level > self.current_level:
                 best_level = self.current_level + 2
             else:
@@ -704,7 +704,7 @@ class AdaptiveBitrateController:
         
     def _calculate_quality_score(self, bitrate: float) -> float:
         """Calculate perceptual quality score"""
-        # Logarithmic utility function
+# Logarithmic utility function
         return np.log(bitrate + 1)
         
     def report_rebuffer(self, duration: float):
@@ -715,14 +715,14 @@ class AdaptiveBitrateController:
             'quality_level': self.current_level
         })
         
-        # Adjust algorithm aggressiveness based on rebuffer frequency
+# Adjust algorithm aggressiveness based on rebuffer frequency
         recent_rebuffers = sum(
             1 for event in self.rebuffer_events 
             if asyncio.get_event_loop().time() - event['timestamp'] < 60
         )
         
         if recent_rebuffers > 3:
-            # Too many rebuffers, become more conservative
+# Too many rebuffers, become more conservative
             self.current_level = max(0, self.current_level - 2)
 ```
 
@@ -741,16 +741,16 @@ class PrimeVideoPlayer:
         
     async def start_playback(self):
         """Start video playback with ABR"""
-        # Parse manifest
+# Parse manifest
         manifest = await self._fetch_manifest(self.video_url)
         
-        # Start buffer filling
+# Start buffer filling
         buffer_task = asyncio.create_task(self._buffer_segments(manifest))
         
-        # Start playback
+# Start playback
         playback_task = asyncio.create_task(self._playback_loop())
         
-        # Start metrics reporting
+# Start metrics reporting
         metrics_task = asyncio.create_task(self._report_metrics())
         
         await asyncio.gather(buffer_task, playback_task, metrics_task)
@@ -760,17 +760,17 @@ class PrimeVideoPlayer:
         segment_duration = manifest['segment_duration']
         
         while True:
-            # Check buffer health
+# Check buffer health
             buffer_seconds = self.buffer_size / segment_duration
             
             if buffer_seconds >= 30:  # Max 30s buffer
                 await asyncio.sleep(1)
                 continue
                 
-            # Get next segment to download
+# Get next segment to download
             next_segment_index = self.playback_position + self.buffer_size
             
-            # ABR decision
+# ABR decision
             start_time = asyncio.get_event_loop().time()
             
             quality_level = self.abr_controller.select_quality(
@@ -780,18 +780,18 @@ class PrimeVideoPlayer:
                 last_segment_size=getattr(self, 'last_segment_size', 0)
             )
             
-            # Download segment
+# Download segment
             segment_url = self._get_segment_url(
                 manifest, next_segment_index, quality_level
             )
             
             segment_data = await self._download_segment(segment_url)
             
-            # Update metrics
+# Update metrics
             self.last_download_time = asyncio.get_event_loop().time() - start_time
             self.last_segment_size = len(segment_data)
             
-            # Add to buffer
+# Add to buffer
             self.buffer.append({
                 'index': next_segment_index,
                 'data': segment_data,
@@ -800,7 +800,7 @@ class PrimeVideoPlayer:
             })
             self.buffer_size += 1
             
-            # Report download completion
+# Report download completion
             self.metrics_collector.record_segment_download(
                 quality_level=quality_level,
                 download_time=self.last_download_time,
@@ -829,13 +829,13 @@ class DRMManager:
                             content_path: str) -> Dict:
         """Encrypt content with multiple DRM systems"""
         
-        # Generate content encryption key
+# Generate content encryption key
         cek = self._generate_content_key()
         
-        # Encrypt content using CENC (Common Encryption)
+# Encrypt content using CENC (Common Encryption)
         encrypted_path = await self._cenc_encrypt(content_path, cek)
         
-        # Generate DRM licenses
+# Generate DRM licenses
         licenses = {}
         for drm_name, drm_system in self.drm_systems.items():
             license_data = await drm_system.create_license(
@@ -844,7 +844,7 @@ class DRMManager:
             )
             licenses[drm_name] = license_data
             
-        # Store keys in secure key management service
+# Store keys in secure key management service
         await self._store_keys(content_id, cek, licenses)
         
         return {
@@ -864,7 +864,7 @@ class DRMManager:
         
         output_path = input_path.replace('.mp4', '_encrypted.mp4')
         
-        # Initialize AES-CTR cipher
+# Initialize AES-CTR cipher
         iv = b'\x00' * 8 + struct.pack('>Q', 0)  # 64-bit IV + 64-bit counter
         cipher = Cipher(
             algorithms.AES(content_key),
@@ -872,7 +872,7 @@ class DRMManager:
             backend=default_backend()
         )
         
-        # Encrypt video segments
+# Encrypt video segments
         with open(input_path, 'rb') as infile, open(output_path, 'wb') as outfile:
             encryptor = cipher.encryptor()
             
@@ -896,10 +896,10 @@ class WidevineeDRM:
                            content_key: bytes) -> Dict:
         """Create Widevine license"""
         
-        # Create PSSH (Protection System Specific Header)
+# Create PSSH (Protection System Specific Header)
         pssh = self._create_pssh(content_id, content_key)
         
-        # License policy
+# License policy
         policy = {
             'can_play': True,
             'can_persist': False,
@@ -925,7 +925,7 @@ class WidevineeDRM:
         """Create Widevine PSSH box"""
         import base64
         
-        # Simplified PSSH creation
+# Simplified PSSH creation
         pssh_data = {
             'algorithm': 'AESCTR',
             'key_id': base64.b64encode(
@@ -936,7 +936,7 @@ class WidevineeDRM:
             'policy': 'default'
         }
         
-        # In production, this would create proper Widevine PSSH
+# In production, this would create proper Widevine PSSH
         return base64.b64encode(
             json.dumps(pssh_data).encode()
         ).decode()
@@ -970,7 +970,7 @@ class PrimeVideoRecommendationEngine:
                                 num_recommendations: int = 20) -> List[Dict]:
         """Get personalized recommendations for user"""
         
-        # Get candidate items from different algorithms
+# Get candidate items from different algorithms
         collab_candidates = await self.collaborative_filter.get_candidates(
             user_id, num_candidates=100
         )
@@ -979,26 +979,26 @@ class PrimeVideoRecommendationEngine:
             user_id, num_candidates=100
         )
         
-        # Deep learning model predictions
+# Deep learning model predictions
         deep_candidates = await self.deep_model.predict(
             user_id, num_candidates=100
         )
         
-        # Merge candidates
+# Merge candidates
         all_candidates = self._merge_candidates([
             (collab_candidates, 0.4),
             (content_candidates, 0.3),
             (deep_candidates, 0.3)
         ])
         
-        # Real-time ranking based on context
+# Real-time ranking based on context
         ranked_items = await self.real_time_ranker.rank(
             user_id=user_id,
             candidates=all_candidates,
             context=context
         )
         
-        # Post-processing
+# Post-processing
         final_recommendations = self._post_process(
             ranked_items[:num_recommendations],
             user_id,
@@ -1018,7 +1018,7 @@ class PrimeVideoRecommendationEngine:
                     scores[item['content_id']] = 0
                 scores[item['content_id']] += item['score'] * weight
                 
-        # Sort by combined score
+# Sort by combined score
         merged = [
             {'content_id': content_id, 'score': score}
             for content_id, score in scores.items()
@@ -1035,7 +1035,7 @@ class CollaborativeFiltering:
         
     async def train(self, interaction_matrix: np.ndarray):
         """Train collaborative filtering model"""
-        # Apply SVD
+# Apply SVD
         self.user_factors = self.model.fit_transform(interaction_matrix)
         self.item_factors = self.model.components_.T
         
@@ -1043,17 +1043,17 @@ class CollaborativeFiltering:
                            num_candidates: int) -> List[Dict]:
         """Get candidate items for user"""
         
-        # Get user embedding
+# Get user embedding
         user_idx = self._get_user_index(user_id)
         if user_idx is None:
             return []  # Cold start user
             
         user_vector = self.user_factors[user_idx]
         
-        # Calculate scores for all items
+# Calculate scores for all items
         scores = np.dot(self.item_factors, user_vector)
         
-        # Get top candidates
+# Get top candidates
         top_indices = np.argsort(scores)[::-1][:num_candidates]
         
         candidates = []
@@ -1073,16 +1073,16 @@ class DeepRecommendationModel(nn.Module):
                  embedding_dim: int = 128):
         super().__init__()
         
-        # Embeddings
+# Embeddings
         self.user_embedding = nn.Embedding(num_users, embedding_dim)
         self.item_embedding = nn.Embedding(num_items, embedding_dim)
         
-        # Context features
+# Context features
         self.time_embedding = nn.Embedding(24, 16)  # Hour of day
         self.day_embedding = nn.Embedding(7, 8)     # Day of week
         self.device_embedding = nn.Embedding(5, 8)  # Device type
         
-        # Deep network
+# Deep network
         self.fc_layers = nn.Sequential(
             nn.Linear(embedding_dim * 2 + 32, 512),
             nn.ReLU(),
@@ -1095,7 +1095,7 @@ class DeepRecommendationModel(nn.Module):
             nn.Linear(128, 1)
         )
         
-        # Multi-head attention for sequence modeling
+# Multi-head attention for sequence modeling
         self.attention = nn.MultiheadAttention(
             embed_dim=embedding_dim,
             num_heads=8,
@@ -1107,20 +1107,20 @@ class DeepRecommendationModel(nn.Module):
                 context: Dict) -> torch.Tensor:
         """Forward pass for recommendation scoring"""
         
-        # Get embeddings
+# Get embeddings
         user_emb = self.user_embedding(user_ids)
         item_emb = self.item_embedding(item_ids)
         
-        # Context embeddings
+# Context embeddings
         time_emb = self.time_embedding(context['hour'])
         day_emb = self.day_embedding(context['day_of_week'])
         device_emb = self.device_embedding(context['device_type'])
         
-        # Concatenate all features
+# Concatenate all features
         context_features = torch.cat([time_emb, day_emb, device_emb], dim=1)
         combined = torch.cat([user_emb, item_emb, context_features], dim=1)
         
-        # Pass through network
+# Pass through network
         output = self.fc_layers(combined)
         
         return torch.sigmoid(output)
@@ -1139,33 +1139,33 @@ class RealTimeRanker:
                   context: Dict) -> List[Dict]:
         """Real-time ranking with business rules and context"""
         
-        # Calculate features for each candidate
+# Calculate features for each candidate
         for candidate in candidates:
             content_id = candidate['content_id']
             
-            # Freshness score (newer content scores higher)
+# Freshness score (newer content scores higher)
             candidate['freshness'] = await self._calculate_freshness(content_id)
             
-            # Trending score
+# Trending score
             candidate['trending'] = await self._calculate_trending_score(
                 content_id
             )
             
-            # Watch probability based on context
+# Watch probability based on context
             candidate['watch_probability'] = await self._predict_watch_probability(
                 user_id, content_id, context
             )
             
-            # Diversity score (genre, actor, director diversity)
+# Diversity score (genre, actor, director diversity)
             candidate['diversity'] = 0.5  # Placeholder
             
-            # Combined score
+# Combined score
             candidate['final_score'] = sum(
                 candidate.get(feature, 0) * weight
                 for feature, weight in self.feature_weights.items()
             )
             
-        # Apply business rules
+# Apply business rules
         ranked = self._apply_business_rules(candidates, context)
         
         return sorted(ranked, key=lambda x: x['final_score'], reverse=True)
@@ -1174,21 +1174,21 @@ class RealTimeRanker:
                              context: Dict) -> List[Dict]:
         """Apply business rules for ranking"""
         
-        # Boost Amazon Originals
+# Boost Amazon Originals
         for candidate in candidates:
             if candidate.get('is_amazon_original'):
                 candidate['final_score'] *= 1.2
                 
-        # Time-based boosting (e.g., kids content in morning)
+# Time-based boosting (e.g., kids content in morning)
         hour = context.get('hour', 12)
         if 6 <= hour <= 10:  # Morning hours
             for candidate in candidates:
                 if candidate.get('genre') == 'kids':
                     candidate['final_score'] *= 1.3
                     
-        # Device-based filtering
+# Device-based filtering
         if context.get('device_type') == 'mobile':
-            # Boost shorter content for mobile
+# Boost shorter content for mobile
             for candidate in candidates:
                 if candidate.get('duration_minutes', 120) < 30:
                     candidate['final_score'] *= 1.1
@@ -1211,10 +1211,10 @@ class LiveStreamingPlatform:
                                 config: Dict) -> Dict:
         """Create a new live streaming channel"""
         
-        # Allocate origin servers across regions
+# Allocate origin servers across regions
         origins = await self._allocate_origin_servers(channel_id, config)
         
-        # Configure ingest endpoints
+# Configure ingest endpoints
         ingest_urls = []
         for region, server in origins.items():
             ingest_url = await server.configure_ingest(
@@ -1234,12 +1234,12 @@ class LiveStreamingPlatform:
                 'backup': ingest_url['srt']
             })
             
-        # Set up transcoding ladder for ABR
+# Set up transcoding ladder for ABR
         transcode_profiles = await self._configure_live_transcoding(
             channel_id, config
         )
         
-        # Configure DVR/time-shifting
+# Configure DVR/time-shifting
         dvr_config = await self._setup_dvr(
             channel_id,
             window_minutes=config.get('dvr_window', 120)  # 2 hour DVR
@@ -1258,10 +1258,10 @@ class LiveStreamingPlatform:
                                stream_data: bytes) -> None:
         """Process incoming live stream data"""
         
-        # Parse stream metadata
+# Parse stream metadata
         metadata = self._parse_stream_metadata(stream_data)
         
-        # Health check
+# Health check
         health_status = await self.stream_health_monitor.check_stream(
             channel_id, metadata
         )
@@ -1269,13 +1269,13 @@ class LiveStreamingPlatform:
         if health_status['issues']:
             await self._handle_stream_issues(channel_id, health_status['issues'])
             
-        # Segment the stream
+# Segment the stream
         segments = self._segment_stream(
             stream_data,
             segment_duration=4.0  # 4 second segments for low latency
         )
         
-        # Process each segment
+# Process each segment
         tasks = []
         for segment in segments:
             task = asyncio.create_task(
@@ -1289,22 +1289,22 @@ class LiveStreamingPlatform:
                                   segment: Dict) -> None:
         """Process individual live segment"""
         
-        # Transcode to multiple bitrates
+# Transcode to multiple bitrates
         transcoded = await self._transcode_live_segment(
             segment['data'],
             self.get_channel_profiles(channel_id)
         )
         
-        # Package for HLS/DASH
+# Package for HLS/DASH
         packaged = await self._package_segment(transcoded)
         
-        # Upload to CDN origin
+# Upload to CDN origin
         await self._upload_to_cdn(channel_id, packaged)
         
-        # Update manifest
+# Update manifest
         await self._update_live_manifest(channel_id, segment['index'])
         
-        # Archive for DVR
+# Archive for DVR
         await self._archive_segment(channel_id, packaged)
 
 class StreamHealthMonitor:
@@ -1322,7 +1322,7 @@ class StreamHealthMonitor:
         
         issues = []
         
-        # Check bitrate stability
+# Check bitrate stability
         current_bitrate = metadata['bitrate']
         self.metrics['bitrate_variance'].append(current_bitrate)
         
@@ -1337,7 +1337,7 @@ class StreamHealthMonitor:
                     'message': f'Bitrate variance: {variance:.0f} kbps'
                 })
                 
-        # Check for frame drops
+# Check for frame drops
         if metadata.get('dropped_frames', 0) > 0:
             self.metrics['frame_drops'].append(metadata['dropped_frames'])
             
@@ -1349,7 +1349,7 @@ class StreamHealthMonitor:
                     'message': f'Dropped {recent_drops} frames in last minute'
                 })
                 
-        # Audio sync check
+# Audio sync check
         audio_drift = metadata.get('audio_video_drift_ms', 0)
         if abs(audio_drift) > 40:  # 40ms drift threshold
             issues.append({
@@ -1397,10 +1397,10 @@ class LowLatencyLiveStreaming:
             ]
         }
         
-        # Configure edge servers for LL
+# Configure edge servers for LL
         await self._configure_edge_for_low_latency(stream_id)
         
-        # Set up WebRTC fallback for ultra-low latency
+# Set up WebRTC fallback for ultra-low latency
         webrtc_config = await self._setup_webrtc_distribution(stream_id)
         
         return {
@@ -1428,7 +1428,7 @@ class LowLatencyLiveStreaming:
         ]
         
         for segment in segments:
-            # Add parts for partial segments
+# Add parts for partial segments
             if 'parts' in segment:
                 for part in segment['parts']:
                     playlist.append(
@@ -1436,11 +1436,11 @@ class LowLatencyLiveStreaming:
                         f'URI="{part["uri"]}"'
                     )
                     
-            # Add segment
+# Add segment
             playlist.append(f'#EXTINF:{segment["duration"]:.3f},")')
             playlist.append(segment['uri'])
             
-        # Add preload hint for next part
+# Add preload hint for next part
         if segments:
             last_segment = segments[-1]
             next_part_uri = f'{stream_id}/part-{last_segment["sequence"]}-{len(last_segment.get("parts", [])) + 1}.ts'
@@ -1468,7 +1468,7 @@ class PrimeVideoCacheManager:
                          user_location: str) -> bytes:
         """Get content with multi-layer caching"""
         
-        # Try edge cache first
+# Try edge cache first
         edge_node = self._find_nearest_edge(user_location)
         content = await self.cache_layers['edge'].get(
             edge_node, content_id, segment_id
@@ -1478,7 +1478,7 @@ class PrimeVideoCacheManager:
             self.cache_stats.record_hit('edge')
             return content
             
-        # Try regional cache
+# Try regional cache
         regional_node = self._find_regional_cache(user_location)
         content = await self.cache_layers['regional'].get(
             regional_node, content_id, segment_id
@@ -1486,20 +1486,20 @@ class PrimeVideoCacheManager:
         
         if content:
             self.cache_stats.record_hit('regional')
-            # Populate edge cache
+# Populate edge cache
             await self.cache_layers['edge'].set(
                 edge_node, content_id, segment_id, content
             )
             return content
             
-        # Get from origin
+# Get from origin
         content = await self.cache_layers['origin'].get(
             content_id, segment_id
         )
         
         if content:
             self.cache_stats.record_hit('origin')
-            # Populate caches
+# Populate caches
             await self._populate_caches(
                 content_id, segment_id, content,
                 [edge_node, regional_node]
@@ -1513,16 +1513,16 @@ class PrimeVideoCacheManager:
                                     predicted_viewers: List[str]):
         """Pre-warm caches for anticipated demand"""
         
-        # Analyze viewer locations
+# Analyze viewer locations
         location_clusters = self._cluster_viewer_locations(predicted_viewers)
         
-        # Determine which segments to pre-cache
+# Determine which segments to pre-cache
         segments_to_cache = self._predict_segments(
             content_id,
             initial_segments=10  # Cache first 10 segments
         )
         
-        # Warm caches in parallel
+# Warm caches in parallel
         tasks = []
         for location, viewers in location_clusters.items():
             if len(viewers) > 100:  # Threshold for pre-warming
@@ -1572,7 +1572,7 @@ class QualityOfExperienceMonitor:
     async def process_client_metrics(self, metrics: Dict) -> None:
         """Process real-time metrics from client players"""
         
-        # Extract key QoE metrics
+# Extract key QoE metrics
         qoe_data = {
             'user_id': metrics['user_id'],
             'session_id': metrics['session_id'],
@@ -1586,14 +1586,14 @@ class QualityOfExperienceMonitor:
             'playback_failures': metrics.get('playback_failures', 0)
         }
         
-        # Calculate QoE score
+# Calculate QoE score
         qoe_score = self._calculate_qoe_score(qoe_data)
         qoe_data['qoe_score'] = qoe_score
         
-        # Stream to analytics pipeline
+# Stream to analytics pipeline
         await self.metrics_pipeline.ingest(qoe_data)
         
-        # Check for alerts
+# Check for alerts
         if qoe_score < 3.0:  # Poor experience threshold
             await self.alert_manager.trigger_alert(
                 'poor_qoe',
@@ -1601,7 +1601,7 @@ class QualityOfExperienceMonitor:
                 details=qoe_data
             )
             
-        # ML analysis for pattern detection
+# ML analysis for pattern detection
         anomaly = await self.ml_analyzer.detect_anomaly(qoe_data)
         if anomaly:
             await self._investigate_anomaly(anomaly, qoe_data)
@@ -1609,29 +1609,29 @@ class QualityOfExperienceMonitor:
     def _calculate_qoe_score(self, metrics: Dict) -> float:
         """Calculate QoE score (1-5 scale)"""
         
-        # Base score
+# Base score
         score = 5.0
         
-        # Penalize rebuffering (most impactful)
+# Penalize rebuffering (most impactful)
         rebuffer_penalty = min(2.0, metrics['rebuffer_count'] * 0.5 + 
                               metrics['rebuffer_duration'] / 1000 * 0.1)
         score -= rebuffer_penalty
         
-        # Penalize startup time
+# Penalize startup time
         if metrics['startup_time'] > 2000:  # >2 seconds
             startup_penalty = min(1.0, (metrics['startup_time'] - 2000) / 5000)
             score -= startup_penalty
             
-        # Penalize quality switches
+# Penalize quality switches
         switch_penalty = min(0.5, metrics['bitrate_switches'] * 0.05)
         score -= switch_penalty
         
-        # Penalize low bitrate
+# Penalize low bitrate
         if metrics['average_bitrate'] < 1000:  # <1 Mbps
             quality_penalty = min(0.5, (1000 - metrics['average_bitrate']) / 1000)
             score -= quality_penalty
             
-        # Penalize errors
+# Penalize errors
         error_penalty = min(1.5, metrics['error_count'] * 0.3 + 
                            metrics['playback_failures'] * 1.0)
         score -= error_penalty
@@ -1646,7 +1646,7 @@ class QoEMLAnalyzer:
     async def detect_anomaly(self, metrics: Dict) -> Optional[Dict]:
         """Detect QoE anomalies using ML"""
         
-        # Feature extraction
+# Feature extraction
         features = np.array([
             metrics['rebuffer_count'],
             metrics['rebuffer_duration'],
@@ -1657,11 +1657,11 @@ class QoEMLAnalyzer:
             metrics['qoe_score']
         ]).reshape(1, -1)
         
-        # Predict anomaly score
+# Predict anomaly score
         anomaly_score = self.model.predict(features)[0]
         
         if anomaly_score > 0.8:  # High anomaly threshold
-            # Analyze pattern
+# Analyze pattern
             pattern = await self._analyze_pattern(metrics)
             
             return {

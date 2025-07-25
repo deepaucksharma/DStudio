@@ -15,19 +15,19 @@ last_updated: 2025-07-20
 
 # Distributed Notification System
 
-## 🎯 Challenge Statement
+## Challenge Statement
 Design a notification system for 10B+ daily notifications across push/email/SMS/in-app with delivery guarantees, preferences, rate limiting, analytics, and failure handling.
 
 ## Part 1: Concept Map
 
-### 🗺️ System Overview
+### 🗺 System Overview
 Distributed system orchestrating message delivery across channels with preferences, priorities, rate limiting, templates, reliable delivery, and tracking.
 
 **Requirements:** 10B+ daily volume, <1s critical latency, at-least-once delivery, templates/personalization, preferences, rate limiting, analytics, multi-channel
 
-### 📐 Law Analysis
+### Law Analysis
 
-#### 🚀 Law 1 (Latency): Speed of Notification
+#### Law 1 (Latency): Speed of Notification
 ```text
 Latency: Critical <1s, Push <5s, Email <30s, SMS <10s, In-app <100ms
 Optimizations: Priority queues, regional deployment, connection pooling, batching, WebSocket, edge servers
@@ -71,7 +71,7 @@ class Notification:
 
 class HighPerformanceNotificationSystem:
     def __init__(self):
-        # Multi-level queue system
+# Multi-level queue system
         self.priority_queues = {
             NotificationPriority.CRITICAL: asyncio.Queue(maxsize=10000),
             NotificationPriority.HIGH: asyncio.Queue(maxsize=50000),
@@ -79,7 +79,7 @@ class HighPerformanceNotificationSystem:
             NotificationPriority.LOW: asyncio.Queue(maxsize=200000)
         }
         
-        # Channel-specific handlers
+# Channel-specific handlers
         self.channel_handlers = {
             Channel.PUSH: PushNotificationHandler(),
             Channel.EMAIL: EmailHandler(),
@@ -88,32 +88,32 @@ class HighPerformanceNotificationSystem:
             Channel.WEBHOOK: WebhookHandler()
         }
         
-        # Connection pools
+# Connection pools
         self.redis_pool = None
         self.kafka_producer = None
         
-        # WebSocket connections for real-time
+# WebSocket connections for real-time
         self.websocket_connections = {}
         
-        # Performance tracking
+# Performance tracking
         self.latency_tracker = LatencyTracker()
         
     async def send_notification(self, notification: Notification) -> str:
         """Send notification with minimal latency"""
         start_time = time.perf_counter()
         
-        # Validate and enrich notification
+# Validate and enrich notification
         notification = await self._enrich_notification(notification)
         
-        # Check if immediate delivery needed
+# Check if immediate delivery needed
         if notification.priority == NotificationPriority.CRITICAL:
-            # Bypass queue for critical notifications
+# Bypass queue for critical notifications
             await self._send_immediate(notification)
         else:
-            # Queue for batch processing
+# Queue for batch processing
             await self._queue_notification(notification)
         
-        # Track latency
+# Track latency
         latency_ms = (time.perf_counter() - start_time) * 1000
         self.latency_tracker.record(notification.priority, latency_ms)
         
@@ -121,25 +121,25 @@ class HighPerformanceNotificationSystem:
     
     async def _send_immediate(self, notification: Notification):
         """Send critical notification immediately"""
-        # Parallel sending across channels
+# Parallel sending across channels
         tasks = []
         
         for channel in notification.channels:
             handler = self.channel_handlers[channel]
             
             if channel == Channel.IN_APP:
-                # Real-time delivery via WebSocket
+# Real-time delivery via WebSocket
                 task = self._send_realtime(notification)
             else:
-                # Direct send through handler
+# Direct send through handler
                 task = handler.send_immediate(notification)
             
             tasks.append(task)
         
-        # Wait for all channels
+# Wait for all channels
         results = await asyncio.gather(*tasks, return_exceptions=True)
         
-        # Record results
+# Record results
         for i, result in enumerate(results):
             if isinstance(result, Exception):
                 await self._handle_send_failure(
@@ -165,7 +165,7 @@ class HighPerformanceNotificationSystem:
             try:
                 await ws.send(json.dumps(message))
                 
-                # Record delivery
+# Record delivery
                 await self._record_delivery(
                     notification.id,
                     Channel.IN_APP,
@@ -173,7 +173,7 @@ class HighPerformanceNotificationSystem:
                     latency_ms=1
                 )
             except websockets.exceptions.ConnectionClosed:
-                # Connection lost - queue for later
+# Connection lost - queue for later
                 await self._queue_for_retry(notification, Channel.IN_APP)
     
     async def _queue_notification(self, notification: Notification):
@@ -181,23 +181,23 @@ class HighPerformanceNotificationSystem:
         queue = self.priority_queues[notification.priority]
         
         try:
-            # Non-blocking put with timeout
+# Non-blocking put with timeout
             await asyncio.wait_for(
                 queue.put(notification),
                 timeout=0.1
             )
         except asyncio.TimeoutError:
-            # Queue full - send to overflow handling
+# Queue full - send to overflow handling
             await self._handle_overflow(notification)
     
     async def process_queues(self):
         """Process notification queues with priority"""
         while True:
-            # Process each priority level
+# Process each priority level
             for priority in NotificationPriority:
                 queue = self.priority_queues[priority]
                 
-                # Batch size based on priority
+# Batch size based on priority
                 batch_size = {
                     NotificationPriority.CRITICAL: 1,
                     NotificationPriority.HIGH: 10,
@@ -205,7 +205,7 @@ class HighPerformanceNotificationSystem:
                     NotificationPriority.LOW: 1000
                 }[priority]
                 
-                # Collect batch
+# Collect batch
                 batch = []
                 for _ in range(batch_size):
                     try:
@@ -217,16 +217,16 @@ class HighPerformanceNotificationSystem:
                 if batch:
                     await self._process_batch(batch)
             
-            # Small delay to prevent CPU spinning
+# Small delay to prevent CPU spinning
             await asyncio.sleep(0.01)
     
     async def _process_batch(self, notifications: List[Notification]):
         """Process batch of notifications efficiently"""
-        # Group by channel for efficient sending
+# Group by channel for efficient sending
         by_channel = defaultdict(list)
         
         for notification in notifications:
-            # Check expiration
+# Check expiration
             if notification.expires_at and time.time() > notification.expires_at:
                 await self._record_expired(notification)
                 continue
@@ -234,7 +234,7 @@ class HighPerformanceNotificationSystem:
             for channel in notification.channels:
                 by_channel[channel].append(notification)
         
-        # Process each channel in parallel
+# Process each channel in parallel
         tasks = []
         for channel, channel_notifications in by_channel.items():
             handler = self.channel_handlers[channel]
@@ -250,22 +250,22 @@ class PushNotificationHandler:
         self.fcm_client = FCMClient()
         self.apns_client = APNSClient()
         
-        # Connection pools
+# Connection pools
         self.fcm_pool = ConnectionPool(max_connections=1000)
         self.apns_pool = ConnectionPool(max_connections=500)
         
     async def send_immediate(self, notification: Notification) -> dict:
         """Send single push notification immediately"""
-        # Get user's device tokens
+# Get user's device tokens
         tokens = await self._get_device_tokens(notification.user_id)
         
         if not tokens:
             return {'status': 'no_devices'}
         
-        # Prepare message
+# Prepare message
         message = self._prepare_push_message(notification)
         
-        # Send to all devices in parallel
+# Send to all devices in parallel
         tasks = []
         for token in tokens:
             if token['platform'] == 'android':
@@ -284,16 +284,16 @@ class PushNotificationHandler:
     
     async def send_batch(self, notifications: List[Notification]):
         """Send batch of push notifications"""
-        # Group by user for token lookup efficiency
+# Group by user for token lookup efficiency
         by_user = defaultdict(list)
         for notification in notifications:
             by_user[notification.user_id].append(notification)
         
-        # Batch fetch device tokens
+# Batch fetch device tokens
         all_user_ids = list(by_user.keys())
         tokens_map = await self._batch_get_device_tokens(all_user_ids)
         
-        # Prepare all messages
+# Prepare all messages
         fcm_messages = []
         apns_messages = []
         
@@ -317,7 +317,7 @@ class PushNotificationHandler:
                             'notification_id': notification.id
                         })
         
-        # Send in batches
+# Send in batches
         await asyncio.gather(
             self._batch_send_fcm(fcm_messages),
             self._batch_send_apns(apns_messages)
@@ -325,13 +325,13 @@ class PushNotificationHandler:
     
     async def _batch_send_fcm(self, messages: List[dict]):
         """Batch send to FCM"""
-        # FCM supports up to 1000 messages per batch
+# FCM supports up to 1000 messages per batch
         batch_size = 1000
         
         for i in range(0, len(messages), batch_size):
             batch = messages[i:i + batch_size]
             
-            # Prepare multicast message
+# Prepare multicast message
             tokens = [msg['token'] for msg in batch]
             
             try:
@@ -340,7 +340,7 @@ class PushNotificationHandler:
                     data=batch[0]['message']  # Same message for batch
                 )
                 
-                # Process results
+# Process results
                 for j, result in enumerate(response.results):
                     notification_id = batch[j]['notification_id']
                     
@@ -389,22 +389,22 @@ import rocksdb
 
 class NotificationCapacityManager:
     def __init__(self):
-        # Sharding configuration
+# Sharding configuration
         self.num_shards = 100
         self.shards = []
         
-        # Initialize sharded storage
+# Initialize sharded storage
         for i in range(self.num_shards):
             shard = NotificationShard(i)
             self.shards.append(shard)
         
-        # User preference cache
+# User preference cache
         self.preference_cache = LRUCache(maxsize=1_000_000)
         
-        # Template cache
+# Template cache
         self.template_cache = {}
         
-        # Capacity tracking
+# Capacity tracking
         self.capacity_monitor = CapacityMonitor()
         
     def get_shard(self, user_id: str) -> 'NotificationShard':
@@ -417,19 +417,19 @@ class NotificationCapacityManager:
         """Store notification in appropriate shard"""
         shard = self.get_shard(notification.user_id)
         
-        # Check shard capacity
+# Check shard capacity
         if not shard.has_capacity():
-            # Try overflow shard
+# Try overflow shard
             overflow_shard = self._get_overflow_shard()
             if overflow_shard and overflow_shard.has_capacity():
                 shard = overflow_shard
             else:
                 raise CapacityExceededException("No available capacity")
         
-        # Store notification
+# Store notification
         stored = await shard.store(notification)
         
-        # Update capacity metrics
+# Update capacity metrics
         if stored:
             self.capacity_monitor.record_write(shard.shard_id)
         
@@ -437,16 +437,16 @@ class NotificationCapacityManager:
     
     async def get_user_preferences(self, user_id: str) -> dict:
         """Get user notification preferences with caching"""
-        # Check cache first
+# Check cache first
         preferences = self.preference_cache.get(user_id)
         if preferences:
             return preferences
         
-        # Get from shard
+# Get from shard
         shard = self.get_shard(user_id)
         preferences = await shard.get_user_preferences(user_id)
         
-        # Cache for future use
+# Cache for future use
         if preferences:
             self.preference_cache.put(user_id, preferences)
         
@@ -466,7 +466,7 @@ class NotificationCapacityManager:
             }
             total_size += shard_stats['size_bytes']
         
-        # Find hot shards
+# Find hot shards
         avg_size = total_size / self.num_shards
         hot_shards = []
         cold_shards = []
@@ -493,44 +493,44 @@ class NotificationShard:
         self.shard_id = shard_id
         self.max_size = 100 * 1024 * 1024 * 1024  # 100GB per shard
         
-        # RocksDB for persistent storage
+# RocksDB for persistent storage
         opts = rocksdb.Options()
         opts.create_if_missing = True
         opts.compression = rocksdb.CompressionType.zstd_compression
         
         self.db = rocksdb.DB(f"notifications_shard_{shard_id}.db", opts)
         
-        # In-memory indices
+# In-memory indices
         self.user_index = defaultdict(list)  # user_id -> notification_ids
         self.time_index = []  # Sorted by timestamp
         
-        # Capacity tracking
+# Capacity tracking
         self.current_size = 0
         self.notification_count = 0
     
     async def store(self, notification: Notification) -> bool:
         """Store notification in shard"""
-        # Serialize notification
+# Serialize notification
         serialized = self._serialize_notification(notification)
         size = len(serialized)
         
-        # Check capacity
+# Check capacity
         if self.current_size + size > self.max_size:
             return False
         
-        # Store in RocksDB
+# Store in RocksDB
         key = f"notif:{notification.id}".encode()
         self.db.put(key, serialized)
         
-        # Update indices
+# Update indices
         self.user_index[notification.user_id].append(notification.id)
         self.time_index.append((notification.created_at, notification.id))
         
-        # Update capacity
+# Update capacity
         self.current_size += size
         self.notification_count += 1
         
-        # Trigger compaction if needed
+# Trigger compaction if needed
         if self.notification_count % 10000 == 0:
             asyncio.create_task(self._compact())
         
@@ -559,7 +559,7 @@ class NotificationShard:
         """Clean up old notifications"""
         cutoff_time = time.time() - (retention_days * 86400)
         
-        # Find old notifications using time index
+# Find old notifications using time index
         to_delete = []
         new_time_index = []
         
@@ -569,28 +569,28 @@ class NotificationShard:
             else:
                 new_time_index.append((timestamp, notif_id))
         
-        # Delete in batches
+# Delete in batches
         batch = rocksdb.WriteBatch()
         deleted_size = 0
         
         for notif_id in to_delete:
             key = f"notif:{notif_id}".encode()
             
-            # Get size before deletion
+# Get size before deletion
             data = self.db.get(key)
             if data:
                 deleted_size += len(data)
                 batch.delete(key)
             
-            # Remove from user index
+# Remove from user index
             for user_id, notif_ids in self.user_index.items():
                 if notif_id in notif_ids:
                     notif_ids.remove(notif_id)
         
-        # Apply batch delete
+# Apply batch delete
         self.db.write(batch)
         
-        # Update indices and capacity
+# Update indices and capacity
         self.time_index = new_time_index
         self.current_size -= deleted_size
         self.notification_count -= len(to_delete)
@@ -617,11 +617,11 @@ class TemplateManager:
             'active': True
         }
         
-        # Store template
+# Store template
         self.templates[f"{template_id}:v{version}"] = template_data
         self.template_versions[template_id].append(version)
         
-        # Compile template for performance
+# Compile template for performance
         self._compile_template(template_id, version, template)
         
         return version
@@ -629,7 +629,7 @@ class TemplateManager:
     def render_notification(self, template_id: str, data: dict, 
                           channels: List[Channel]) -> dict:
         """Render notification for multiple channels"""
-        # Get active template version
+# Get active template version
         active_version = self._get_active_version(template_id)
         template_key = f"{template_id}:v{active_version}"
         
@@ -639,7 +639,7 @@ class TemplateManager:
         template = self.templates[template_key]['template']
         rendered = {}
         
-        # Render for each channel
+# Render for each channel
         for channel in channels:
             channel_template = template.get(channel.value, {})
             
@@ -679,13 +679,13 @@ class TemplateManager:
     
     def _render_string(self, template: str, data: dict) -> str:
         """Render template string with data"""
-        # Use cached compiled template if available
+# Use cached compiled template if available
         compiled = self.compiled_templates.get(template)
         
         if compiled:
             return compiled.render(**data)
         
-        # Simple replacement for now
+# Simple replacement for now
         result = template
         for key, value in data.items():
             result = result.replace(f"{{ '{' }}{key}{{ '}' }}", str(value))
@@ -693,7 +693,7 @@ class TemplateManager:
         return result
 ```
 
-#### 🔥 Law 3 (Failure): Reliable Delivery
+#### Law 3 (Failure): Reliable Delivery
 ```text
 Failure Modes:
 1. Channel provider outages (FCM, APNS, SendGrid)
@@ -833,11 +833,11 @@ graph LR
 ```
         age = time.time() - dlq_message['timestamp']
         
-        # Don't retry old messages
+# Don't retry old messages
         if age > 86400:  # 24 hours
             return False
         
-        # Don't retry permanent errors
+# Don't retry permanent errors
         permanent_errors = [
             'invalid_recipient',
             'unsubscribed',
@@ -870,7 +870,7 @@ class CircuitBreaker:
             return False
         
         if self.state == 'open':
-            # Check if should transition to half-open
+# Check if should transition to half-open
             if time.time() - self.last_failure_time > self.recovery_timeout:
                 self.state = 'half_open'
                 self.half_open_count = 0
@@ -878,7 +878,7 @@ class CircuitBreaker:
             return True
         
         if self.state == 'half_open':
-            # Allow limited requests in half-open state
+# Allow limited requests in half-open state
             return self.half_open_count >= self.half_open_requests
     
     def record_success(self):
@@ -886,13 +886,13 @@ class CircuitBreaker:
         if self.state == 'half_open':
             self.half_open_count += 1
             
-            # Transition to closed after successful requests
+# Transition to closed after successful requests
             if self.half_open_count >= self.half_open_requests:
                 self.state = 'closed'
                 self.failure_count = 0
         
         elif self.state == 'closed':
-            # Reset failure count on success
+# Reset failure count on success
             self.failure_count = 0
     
     def record_failure(self):
@@ -901,12 +901,12 @@ class CircuitBreaker:
         self.last_failure_time = time.time()
         
         if self.state == 'closed' and self.failure_count >= self.failure_threshold:
-            # Open circuit breaker
+# Open circuit breaker
             self.state = 'open'
             logger.warning(f"Circuit breaker opened after {self.failure_count} failures")
         
         elif self.state == 'half_open':
-            # Failure in half-open state - reopen
+# Failure in half-open state - reopen
             self.state = 'open'
             logger.warning("Circuit breaker reopened after failure in half-open state")
 ```
@@ -1249,10 +1249,10 @@ graph TB
         LE --> BS[Backup Scheduler]
     end
 ```
-    # Rules engine implementation details...
+# Rules engine implementation details...
 ```
 
-#### 👁️ Law 6 (Observability): Analytics & Monitoring
+#### 👁 Law 6 (Observability): Analytics & Monitoring
 ```text
 Monitoring: Delivery rates, latency percentiles, failures, engagement, provider performance, costs, abuse
 Analytics: Real-time dashboards, receipts, click/open tracking, unsubscribes, A/B testing
@@ -1447,7 +1447,7 @@ graph LR
     end
 ```
     
-    # Analytics engine implementation details...
+# Analytics engine implementation details...
 ```
 
 #### 👤 Law 7 (Human Interface): User Control
@@ -1620,7 +1620,7 @@ graph TB
     end
 ```
 
-#### 💰 Law 8 (Economics): Cost Optimization
+#### Law 8 (Economics): Cost Optimization
 ```text
 Cost Components:
 - Push notifications: $0.001/notification (FCM/APNS)
@@ -1833,7 +1833,7 @@ graph LR
     ES --> PR
 ```
 
-### 📊 Comprehensive Law Mapping
+### Comprehensive Law Mapping
 
 | Design Decision | Latency | Capacity | Failure | Concurrency | Coordination | Observability | Human Interface | Economics |
 |-----------------|---------|----------|---------|-------------|--------------|---------------|-----------------|-----------|
@@ -1848,7 +1848,7 @@ graph LR
 | **Rate Limiting** | Immediate rejection | Per-user/channel limits | Graceful degradation | Token bucket algorithm | Distributed rate limits | Rate limit metrics | Limit notifications | Prevent abuse costs |
 | **Circuit Breakers** | Fast failure detection | Prevent cascading failures | Auto-recovery | Per-provider isolation | State synchronization | Circuit state monitoring | Provider status alerts | Cost protection |
 
-### 🏗️ Architecture Alternatives
+### Architecture Alternatives
 
 #### 1. Traditional Monolithic Queue Architecture
 ```mermaid
@@ -2108,7 +2108,7 @@ graph TB
 - Data sovereignty
 - Complex consistency
 
-### 📈 Trade-off Analysis
+### Trade-off Analysis
 
 | Architecture | Latency | Throughput | Reliability | Complexity | Cost | Flexibility |
 |--------------|---------|------------|-------------|------------|------|-------------|
@@ -2118,7 +2118,7 @@ graph TB
 | **Serverless** | Variable (1-30s) | Auto-scaling | Managed reliability | Medium | Usage-based ($10-50K) | Good |
 | **Edge-First** | Ultra Low (<500ms) | Region-limited | Regional failover | Very High | Very High ($50K/mo) | Excellent |
 
-### 🎯 Architecture Selection Criteria
+### Architecture Selection Criteria
 
 ```mermaid
 graph LR
@@ -2142,7 +2142,7 @@ graph LR
     style Streaming fill:#cc99ff
 ```
 
-### 💰 Cost Comparison
+### Cost Comparison
 
 ```mermaid
 graph LR
@@ -2168,7 +2168,7 @@ graph LR
     E --> Infra
 ```
 
-### 🔄 Migration Strategy
+### Migration Strategy
 
 ```mermaid
 graph TB
@@ -2201,7 +2201,7 @@ graph TB
     style E2 fill:#cc99ff
 ```
 
-### 🏛️ Pillar Mapping
+### 🏛 Pillar Mapping
 
 #### Work Distribution
 - **Channel Routing**: Notifications distributed by channel type
@@ -2233,7 +2233,7 @@ graph TB
 - **Anomaly Detection**: Pattern recognition
 - **A/B Testing**: Continuous improvement
 
-### 🔧 Pattern Application
+### Pattern Application
 
 **Primary Patterns:**
 - **Pub-Sub**: Event-driven architecture
@@ -2249,7 +2249,7 @@ graph TB
 
 ## Part 2: Architecture & Trade-offs
 
-### 🏗️ Core Architecture
+### Core Architecture
 
 ```mermaid
 graph TB
@@ -2329,7 +2329,7 @@ graph TB
     style DLQ fill:#ffccbc
 ```
 
-### ⚖️ Key Design Trade-offs
+### Key Design Trade-offs
 
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
@@ -2339,7 +2339,7 @@ graph TB
 | **Storage** | SQL | NoSQL | **Hybrid** - SQL for preferences/config, NoSQL for history/analytics |
 | **Real-time** | Polling | WebSocket/SSE | **WebSocket** - True real-time for in-app, efficient connection reuse |
 
-### 🔄 Alternative Architectures
+### Alternative Architectures
 
 #### Option 1: Simple Queue-Based
 ```mermaid
@@ -2393,7 +2393,7 @@ graph TB
 **Cons**: Operational complexity, overhead
 **When to use**: Large microservices deployment
 
-### 📊 Performance Characteristics
+### Performance Characteristics
 
 **Throughput:**
 ```text
@@ -2430,10 +2430,10 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Foundation for reliable delivery
-- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - Real-time delivery constraints
-- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Cost optimization strategies
+- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Foundation for reliable delivery
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - Real-time delivery constraints
+- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Cost optimization strategies
 
 #### Advanced Topics
 - **[Event-Driven Architecture](/patterns/event-driven)** - Asynchronous notification processing

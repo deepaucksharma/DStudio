@@ -213,7 +213,7 @@ class GCounter:
         """Merge with another G-Counter"""
         merged = GCounter(self.node_id)
         
-        # Take maximum count for each node
+# Take maximum count for each node
         all_nodes = set(self.counts.keys()) | set(other.counts.keys())
         
         for node in all_nodes:
@@ -229,12 +229,12 @@ class GCounter:
 
 # Example usage
 def demo_gcounter():
-    # Three replicas
+# Three replicas
     counter_a = GCounter("A")
     counter_b = GCounter("B")
     counter_c = GCounter("C")
     
-    # Concurrent increments
+# Concurrent increments
     counter_a.increment(5)
     counter_b.increment(3)
     counter_c.increment(2)
@@ -244,7 +244,7 @@ def demo_gcounter():
     print(f"B: {counter_b}")
     print(f"C: {counter_c}")
     
-    # Merge all replicas
+# Merge all replicas
     merged = counter_a.merge(counter_b).merge(counter_c)
     print(f"\nAfter merge: {merged}")
 ```
@@ -337,7 +337,7 @@ class ORSet:
     """Observed-Remove Set CRDT"""
     
     def __init__(self):
-        # Elements are stored as (element, unique_id) pairs
+# Elements are stored as (element, unique_id) pairs
         self.elements: Set[Tuple[Any, str]] = set()
         self.tombstones: Set[Tuple[Any, str]] = set()
     
@@ -349,7 +349,7 @@ class ORSet:
     
     def remove(self, element: Any):
         """Remove all instances of element"""
-        # Move all pairs with this element to tombstones
+# Move all pairs with this element to tombstones
         to_remove = {(e, uid) for e, uid in self.elements if e == element}
         self.tombstones.update(to_remove)
         self.elements -= to_remove
@@ -366,11 +366,11 @@ class ORSet:
         """Merge with another OR-Set"""
         merged = ORSet()
         
-        # Union of all elements and tombstones
+# Union of all elements and tombstones
         all_elements = self.elements | other.elements
         all_tombstones = self.tombstones | other.tombstones
         
-        # Remove tombstoned elements
+# Remove tombstoned elements
         merged.elements = all_elements - all_tombstones
         merged.tombstones = all_tombstones
         
@@ -430,7 +430,7 @@ class LWWRegister:
         """Merge with another LWW-Register"""
         merged = LWWRegister(self.node_id)
         
-        # Choose value with highest timestamp
+# Choose value with highest timestamp
         if self.timestamp > other.timestamp:
             merged.value = self.value
             merged.timestamp = self.timestamp
@@ -438,7 +438,7 @@ class LWWRegister:
             merged.value = other.value
             merged.timestamp = other.timestamp
         else:
-            # Tie-breaker: use node_id
+# Tie-breaker: use node_id
             if self.node_id > other.node_id:
                 merged.value = self.value
             else:
@@ -527,30 +527,30 @@ class PartitionTolerantCounter:
     """Example showing CRDT behavior during partition"""
     
     def simulate_partition():
-        # Three nodes start synchronized
+# Three nodes start synchronized
         node1 = GCounter("node1")
         node2 = GCounter("node2")
         node3 = GCounter("node3")
         
-        # Initial increments
+# Initial increments
         node1.increment(10)
         
-        # Sync before partition
+# Sync before partition
         node2 = node2.merge(node1)
         node3 = node3.merge(node1)
         
         print("Before partition:", node1.value())
         
-        # PARTITION OCCURS
-        # Nodes 1,2 can communicate
-        # Node 3 is isolated
+# PARTITION OCCURS
+# Nodes 1,2 can communicate
+# Node 3 is isolated
         
-        # Operations during partition
+# Operations during partition
         node1.increment(5)  # Only seen by node1,2
         node2.increment(3)  # Only seen by node1,2
         node3.increment(7)  # Only seen by node3
         
-        # Partial sync (1 and 2 only)
+# Partial sync (1 and 2 only)
         node1 = node1.merge(node2)
         node2 = node2.merge(node1)
         
@@ -558,8 +558,8 @@ class PartitionTolerantCounter:
         print(f"Nodes 1,2: {node1.value()}")
         print(f"Node 3: {node3.value()}")
         
-        # PARTITION HEALS
-        # Full sync
+# PARTITION HEALS
+# Full sync
         merged = node1.merge(node3)
         node1 = node2 = node3 = merged
         
@@ -654,7 +654,7 @@ class ShoppingCartCRDT:
     def remove_item(self, item: str):
         """Remove item from cart"""
         self.items.remove(item)
-        # Quantity counter remains for history
+# Quantity counter remains for history
     
     def update_quantity(self, item: str, delta: int):
         """Change item quantity"""
@@ -679,7 +679,7 @@ class ShoppingCartCRDT:
         merged = ShoppingCartCRDT(self.user_id)
         merged.items = self.items.merge(other.items)
         
-        # Merge quantities
+# Merge quantities
         all_items = set(self.quantities.keys()) | set(other.quantities.keys())
         for item in all_items:
             if item in self.quantities and item in other.quantities:
@@ -733,7 +733,7 @@ class TTLMap:
         for key in all_keys:
             if key in self.data and key in other.data:
                 merged.data[key] = self.data[key].merge(other.data[key])
-                # Take TTL from the register with higher timestamp
+# Take TTL from the register with higher timestamp
                 if self.data[key].timestamp > other.data[key].timestamp:
                     merged.ttls[key] = self.ttls.get(key, 0)
                 else:
@@ -829,11 +829,11 @@ class GarbageCollectedORSet(ORSet):
         if current_time - self.last_gc < self.gc_interval:
             return
         
-        # Remove tombstones older than 2 * gc_interval
+# Remove tombstones older than 2 * gc_interval
         cutoff = current_time - (2 * self.gc_interval)
         
-        # In practice, need consensus on what's safe to remove
-        # This is simplified for illustration
+# In practice, need consensus on what's safe to remove
+# This is simplified for illustration
         self.tombstones = {
             t for t in self.tombstones 
             if self._get_timestamp(t) > cutoff
@@ -858,7 +858,7 @@ class HybridCounter:
         """Buffer increments locally"""
         self.local_delta += value
         
-        # Flush to CRDT when threshold reached
+# Flush to CRDT when threshold reached
         if self.local_delta >= self.sync_threshold:
             self.flush()
     

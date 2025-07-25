@@ -18,7 +18,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Pattern Categories Overview
+## Pattern Categories Overview
 
 **Core**: CQRS, Queues & Streaming  
 **Data**: Event Sourcing, CDC, Sharding, Tunable Consistency, Caching, Geo-Replication, Outbox  
@@ -29,7 +29,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 📊 Master Comparison Matrix
+## Master Comparison Matrix
 
 ### Pattern Selection by Problem Domain
 
@@ -48,7 +48,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🔄 Pattern Interaction Matrix
+## Pattern Interaction Matrix
 
 ### How Patterns Work Together
 
@@ -89,7 +89,7 @@ Legend:
 - No code changes needed in services
 - Consistent policy enforcement
 
-#### 🟡 Good Combinations
+#### Good Combinations
 
 **CQRS + Sharding**
 - Shard write model by aggregate
@@ -101,7 +101,7 @@ Legend:
 - Reduce cross-shard queries
 - Improve read performance
 
-#### ⚠️ Complex Combinations
+#### ⚠ Complex Combinations
 
 **Event Sourcing + Caching**
 - Events are immutable, good for caching
@@ -115,7 +115,7 @@ Legend:
 
 ---
 
-## 🎚️ Pattern Trade-off Analysis
+## Pattern Trade-off Analysis
 
 ### Performance vs Complexity
 
@@ -139,7 +139,7 @@ Caching → Rate Limiting → Timeout → Retry & Backoff → Circuit Breaker �
 
 ---
 
-## 🔍 Pattern Selection Decision Tree
+## Pattern Selection Decision Tree
 
 ### Start Here: What's Your Primary Challenge?
 
@@ -175,7 +175,7 @@ graph TD
 
 ---
 
-## 💰 Cost Comparison
+## Cost Comparison
 
 ### Pattern Implementation & Operational Costs
 
@@ -196,7 +196,7 @@ graph TD
 
 ---
 
-## 🎯 Pattern Capability Matrix
+## Pattern Capability Matrix
 
 ### What Each Pattern Provides
 
@@ -267,7 +267,7 @@ graph BT
 
 ---
 
-## 📈 Pattern Maturity Model
+## Pattern Maturity Model
 
 ### Evolution Path for Organizations
 
@@ -303,7 +303,7 @@ graph BT
 
 ---
 
-## 🚀 Real-World Pattern Combinations
+## Real-World Pattern Combinations
 
 ### Proven Architectures
 
@@ -343,7 +343,7 @@ Trading Apps → API Gateway (Rate Limiting + Auth)
 
 ---
 
-## 📊 Quick Reference Cards
+## Quick Reference Cards
 
 ### Pattern Selection Cheat Sheet
 

@@ -286,7 +286,7 @@ def should_sample(series_id, cardinality):
     if cardinality < 1_000_000:
         return True  # Keep all low-cardinality series
     
-    # Progressively sample high-cardinality series
+# Progressively sample high-cardinality series
     sample_rate = 1_000_000 / cardinality
     return random.random() < sample_rate
 ```
@@ -376,14 +376,14 @@ groups:
   - name: aggregations
     interval: 30s
     rules:
-      # Service-level aggregation
+# Service-level aggregation
       - record: service:http_requests:rate5m
         expr: |
           sum by (service, method, status) (
             rate(http_requests_total[5m])
           )
       
-      # Regional rollup
+# Regional rollup
       - record: region:service:http_requests:rate5m
         expr: |
           sum by (region, service) (

@@ -17,7 +17,7 @@ last_updated: 2025-07-20
 > **Learning Objective**: Every resource has a breaking point; find it before production does.
 
 
-## 🔥 The Constraint
+## The Constraint
 
 ### The Fundamental Limit
 
@@ -46,7 +46,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 ---
 
-## 💡 Why It Matters
+## Why It Matters
 
 Systems hit hard limits and degrade non-linearly beyond 70-80% utilization
 
@@ -95,7 +95,7 @@ The constraint is absolute—these misconceptions arise from:
 
 ---
 
-## ⚙️ Practical Implications
+## Practical Implications
 
 How this constraint shapes real system design:
 
@@ -235,7 +235,7 @@ Capacity follows conservation laws:
 3. **Distribution**: Spread load across machines
 4. **Limits**: Speed of light constrains coordination
 
-### 🎬 Failure Vignette: Black Friday Database Meltdown
+### Failure Vignette: Black Friday Database Meltdown
 
 **Company**: Major Retailer, $2B Revenue
 **Date**: Black Friday 2021, 6:00 AM EST
@@ -316,7 +316,7 @@ def calculate_capacity_needs(avg_request_rate, avg_response_time):
     """
     concurrent_requests = avg_request_rate * avg_response_time
     
-    # Add safety margins
+# Add safety margins
     peak_factor = 2.0  # Handle 2x average
     variance_factor = 1.5  # Handle variance
     
@@ -329,7 +329,7 @@ def calculate_capacity_needs(avg_request_rate, avg_response_time):
     }
 ```
 
-## 🔧 Try This: Find Your Breaking Point (DO NOT RUN IN PROD!)
+## Try This: Find Your Breaking Point (DO NOT RUN IN PROD!)
 
 ```bash
 # Terminal 1: Start a simple server
@@ -407,13 +407,13 @@ def video_streaming_capacity(users, quality_distribution):
         bandwidth = users_at_quality * bitrates[quality]
         total_bandwidth += bandwidth
     
-    # Add overhead
+# Add overhead
     protocol_overhead = 1.2  # TCP/IP headers, retransmits
     peak_factor = 1.5       # Evening peak
     
     required_bandwidth = total_bandwidth * protocol_overhead * peak_factor
     
-    # Calculate infrastructure needs
+# Calculate infrastructure needs
     cdn_node_capacity = 40_000_000_000  # 40 Gbps per node
     nodes_needed = math.ceil(required_bandwidth / cdn_node_capacity)
     
@@ -468,12 +468,12 @@ class BackpressureQueue:
 
     async def put(self, item, timeout: Optional[float] = None):
         """Add item with backpressure"""
-        # Fast path: immediate reject if over capacity
+# Fast path: immediate reject if over capacity
         if not self.is_accepting and len(self.queue) > self.max_size:
             self.metrics['rejected'] += 1
             raise QueueFullError(f"Queue full: {len(self.queue)}/{self.max_size}")
 
-        # Slow path: wait for space
+# Slow path: wait for space
         start_time = time.time()
         while len(self.queue) >= self.max_size:
             if timeout and (time.time() - start_time) > timeout:
@@ -486,17 +486,17 @@ class BackpressureQueue:
         self.metrics['accepted'] += 1
         self.metrics['current_size'] = len(self.queue)
 
-        # Update acceptance state
+# Update acceptance state
         self._update_acceptance_state()
 
-        # Wake up waiters
+# Wake up waiters
         if self.waiters:
             self.waiters.pop(0).set()
 
     async def get(self) -> Optional[any]:
         """Get item from queue"""
         if not self.queue:
-            # Wait for item
+# Wait for item
             event = asyncio.Event()
             self.waiters.append(event)
             await event.wait()
@@ -518,7 +518,7 @@ class BackpressureQueue:
             self.is_accepting = False
         elif queue_ratio <= self.low_watermark:
             self.is_accepting = True
-        # Between watermarks: maintain current state
+# Between watermarks: maintain current state
 
     def get_pressure(self) -> float:
         """Get current backpressure level (0-1)"""
@@ -532,7 +532,7 @@ class AdaptiveBackpressureQueue(BackpressureQueue):
         self.last_get_time = time.time()
 
     async def get(self):
-        # Track consumer rate
+# Track consumer rate
         now = time.time()
         if self.last_get_time:
             interval = now - self.last_get_time
@@ -547,12 +547,12 @@ class AdaptiveBackpressureQueue(BackpressureQueue):
         if not self.consumer_rates:
             return float('inf')
 
-        # Use P50 of consumer rate as sustainable rate
+# Use P50 of consumer rate as sustainable rate
         rates = sorted(self.consumer_rates)
         p50_index = len(rates) // 2
         consumer_p50 = rates[p50_index]
 
-        # Apply safety margin
+# Apply safety margin
         return consumer_p50 * 0.8
 ```
 
@@ -668,7 +668,7 @@ def adaptive_load_shed(request, system_load):
     """
     Intelligently drop load based on request value
     """
-    # Prioritize by business value
+# Prioritize by business value
     priorities = {
         'payment': 1.0,      # Never drop
         'login': 0.9,        # Rarely drop
@@ -695,24 +695,24 @@ class ResourcePoolWithStealing:
         self.steal_after_idle = 30  # seconds
 
     def get_connection(self, service):
-        # Try local pool first
+# Try local pool first
         if service in self.pools:
             conn = self.pools[service].try_get()
             if conn:
                 return conn
 
-        # Try stealing from other services
+# Try stealing from other services
         for other_service, pool in self.pools.items():
             if other_service == service:
                 continue
 
             idle_conn = pool.steal_idle_connection(self.steal_after_idle)
             if idle_conn:
-                # Reconfigure for new service
+# Reconfigure for new service
                 idle_conn.reconfigure(service)
                 return idle_conn
 
-        # Last resort: create new if under global limit
+# Last resort: create new if under global limit
         if self.total_connections() < self.global_max:
             return self.create_new_connection(service)
 
@@ -737,13 +737,13 @@ class CapacityMonitor:
         alerts = []
 
         for resource, usage in self.get_current_usage().items():
-            # Current state
+# Current state
             if usage > self.thresholds[resource]['critical']:
                 alerts.append(CriticalAlert(f"{resource} at {usage}%"))
             elif usage > self.thresholds[resource]['warning']:
                 alerts.append(WarningAlert(f"{resource} at {usage}%"))
 
-            # Predictive (ML model output)
+# Predictive (ML model output)
             predicted = self.predictions.get(resource, {})
             if predicted.get('hits_critical_in_minutes', float('inf')) < 30:
                 alerts.append(PredictiveAlert(
@@ -797,10 +797,10 @@ class InfiniteScaleVideoSystem:
         ]
 
     def handle_upload(self, video_stream, metadata):
-        # Step 1: Determine handling tier based on creator stats
+# Step 1: Determine handling tier based on creator stats
         creator_tier = self.classify_creator(metadata['creator_id'])
 
-        # Step 2: Distributed upload with early termination
+# Step 2: Distributed upload with early termination
         closest_cluster = self.find_closest_cluster(metadata['source_ip'])
         upload_id = self.start_distributed_upload(
             video_stream,
@@ -808,7 +808,7 @@ class InfiniteScaleVideoSystem:
             replica_count=self.get_replica_count(creator_tier)
         )
 
-        # Step 3: Predictive encoding
+# Step 3: Predictive encoding
         predicted_views = self.ml_predict_popularity(
             metadata['title'],
             metadata['creator_id'],
@@ -820,14 +820,14 @@ class InfiniteScaleVideoSystem:
             creator_tier
         )
 
-        # Step 4: Adaptive quality ladder
+# Step 4: Adaptive quality ladder
         quality_ladder = self.generate_quality_ladder(
             predicted_views,
             metadata['source_resolution']
         )
 
-        # Example: Unpopular video might only get 360p, 720p
-        # Popular video gets full ladder: 144p to 4K
+# Example: Unpopular video might only get 360p, 720p
+# Popular video gets full ladder: 144p to 4K
 
         self.queue_encoding_job(
             upload_id,
@@ -838,27 +838,27 @@ class InfiniteScaleVideoSystem:
         return upload_id
 
     def serve_video(self, video_id, user_context):
-        # Multi-tier serving strategy
+# Multi-tier serving strategy
 
-        # 1. Edge cache (city-level)
+# 1. Edge cache (city-level)
         edge_url = self.check_edge_cache(video_id, user_context['city'])
         if edge_url:
             return edge_url
 
-        # 2. Regional cache (country-level)
+# 2. Regional cache (country-level)
         regional_url = self.check_regional_cache(
             video_id,
             user_context['country']
         )
         if regional_url:
-            # Async populate edge for next time
+# Async populate edge for next time
             self.async_populate_edge(video_id, user_context['city'])
             return regional_url
 
-        # 3. Origin fetch (last resort)
+# 3. Origin fetch (last resort)
         origin_url = self.fetch_from_origin(video_id)
 
-        # Async populate caches based on access pattern
+# Async populate caches based on access pattern
         self.ml_decide_cache_population(
             video_id,
             user_context,
@@ -880,22 +880,22 @@ class CapacityPlanningML:
     def predict_capacity_needs(self, timeframe_hours=24):
         features = self.extract_features()
 
-        # Features include:
-        # - Time of day/week/year
-        # - Recent viral videos
-        # - Major events calendar
-        # - Geographic activity patterns
-        # - Network capacity utilization
+# Features include:
+# - Time of day/week/year
+# - Recent viral videos
+# - Major events calendar
+# - Geographic activity patterns
+# - Network capacity utilization
 
         predictions = {}
 
         for resource in ['bandwidth', 'storage', 'compute']:
             model = self.models[resource]
 
-            # Predict capacity needs
+# Predict capacity needs
             predicted_usage = model.predict(features)
 
-            # Add safety margins based on prediction confidence
+# Add safety margins based on prediction confidence
             confidence = model.predict_confidence(features)
             safety_margin = 1 + (1 - confidence) * 0.5  # Up to 50% margin
 
@@ -939,22 +939,22 @@ class TheoreticalCapacityLimits:
         """
         Theoretical maximum throughput given physics constraints
         """
-        # Single node throughput (packets/sec)
+# Single node throughput (packets/sec)
         single_node = 10_000_000  # 10M pps for modern NICs
 
-        # Coordination overhead
+# Coordination overhead
         if consistency_model == 'strong':
-            # Consensus requires majority coordination
+# Consensus requires majority coordination
             overhead = 0.5 + (0.5 / nodes)  # Approaches 50% as n→∞
             return nodes * single_node * (1 - overhead)
 
         elif consistency_model == 'eventual':
-            # Gossip/anti-entropy overhead
+# Gossip/anti-entropy overhead
             overhead = math.log(nodes) / nodes  # Logarithmic
             return nodes * single_node * (1 - overhead)
 
         elif consistency_model == 'none':
-            # Perfect parallelism (cache, CDN)
+# Perfect parallelism (cache, CDN)
             return nodes * single_node
 ```
 ### War Story: Stack Overflow's 9 Servers
@@ -1058,17 +1058,17 @@ class CapacityOptimizationPatterns:
         """
         Right-size connection pools mathematically
         """
-        # Little's Law: L = λW
-        # L = number of connections needed
-        # λ = arrival rate (QPS)
-        # W = time in system (query time)
+# Little's Law: L = λW
+# L = number of connections needed
+# λ = arrival rate (QPS)
+# W = time in system (query time)
 
         connections_needed = expected_qps * (query_time_ms / 1000.0)
 
-        # Add safety margin for variance
+# Add safety margin for variance
         variance_factor = 1.5
 
-        # Add burst capacity
+# Add burst capacity
         burst_factor = 2.0
 
         recommended_pool_size = int(
@@ -1088,25 +1088,25 @@ class CapacityOptimizationPatterns:
         Reduce memory usage by 10x with these patterns
         """
         return [
-            # Data structure optimization
+# Data structure optimization
             "Use arrays instead of objects when possible",
             "Intern strings (Java) or use string pools",
             "Pack booleans into bitfields",
             "Use primitive types, not boxed types",
 
-            # Caching optimization
+# Caching optimization
             "Use off-heap caches (memory-mapped files)",
             "Implement cache admission policies (TinyLFU)",
             "Use compressed caches (Snappy, LZ4)",
             "Share immutable objects across requests",
 
-            # GC optimization
+# GC optimization
             "Use object pools for high-frequency allocations",
             "Prefer stack allocation (value types)",
             "Implement zero-copy patterns",
             "Use memory regions/arenas",
 
-            # Protocol optimization
+# Protocol optimization
             "Use binary protocols, not text (protobuf)",
             "Enable compression (gzip, brotli)",
             "Batch operations to amortize overhead",
@@ -1179,7 +1179,7 @@ class CapacityOptimizationPatterns:
 - Disk: IOPS, throughput, latency
 - Network: bandwidth, packet loss, errors
 
-# Application Metrics  
+# Application Metrics
 - Request rate (QPS)
 - Response time (P50, P95, P99)
 - Error rate

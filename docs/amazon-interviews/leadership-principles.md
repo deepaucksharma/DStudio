@@ -57,7 +57,7 @@ class OrderService:
         self.runbook = RunbookGenerator()
     
     def place_order(self, order):
-        # Not just the happy path
+# Not just the happy path
         try:
             result = self._process_order(order)
             self.metrics.record_success()
@@ -70,7 +70,7 @@ class OrderService:
 
 # Bad: Just solving the immediate problem
 def place_order(order):
-    # What about monitoring? Scaling? Error handling?
+# What about monitoring? Scaling? Error handling?
     return database.insert(order)
 ```
 
@@ -275,18 +275,18 @@ class OrderService:
         self.event_stream = Kinesis()
         
     async def get_user_orders(self, user_id, pagination_token=None):
-        # Shard by user_id for horizontal scaling
+# Shard by user_id for horizontal scaling
         shard = self.get_shard(user_id)
         
-        # Multi-tier caching strategy
+# Multi-tier caching strategy
         l1_cache = self.cache_cluster.get_l1(user_id)
         if l1_cache:
             return l1_cache
             
-        # Async replication lag handling
+# Async replication lag handling
         consistency_level = self.determine_consistency_needs(user_id)
         
-        # Paginated results for large customers
+# Paginated results for large customers
         orders = await self.db_shards.query_paginated(
             shard=shard,
             query="SELECT * FROM orders WHERE user_id = ?",
@@ -295,7 +295,7 @@ class OrderService:
             consistency=consistency_level
         )
         
-        # Stream changes for real-time updates
+# Stream changes for real-time updates
         self.event_stream.publish("order_accessed", {
             "user_id": user_id,
             "timestamp": time.now()
@@ -345,22 +345,22 @@ graph LR
 
 class FrugalCacheStrategy:
     def __init__(self):
-        # Use local memory for hot data (free)
+# Use local memory for hot data (free)
         self.l1_cache = LRUCache(max_size=1000)
         
-        # Use Redis for warm data (low cost)
+# Use Redis for warm data (low cost)
         self.l2_cache = RedisCache(
             max_memory="1gb",
             eviction_policy="allkeys-lru"
         )
         
-        # Use S3 for cold data (lowest cost)
+# Use S3 for cold data (lowest cost)
         self.l3_cache = S3Cache(
             storage_class="INFREQUENT_ACCESS"
         )
     
     def get(self, key):
-        # Check caches in order of cost
+# Check caches in order of cost
         value = self.l1_cache.get(key)
         if value:
             return value
@@ -458,28 +458,28 @@ class LatencyInvestigator:
         
         timeline = []
         
-        # Network layer
+# Network layer
         timeline.append({
             'phase': 'tcp_handshake',
             'duration_ms': self.measure_tcp_handshake(),
             'details': 'Including TLS negotiation'
         })
         
-        # Load balancer
+# Load balancer
         timeline.append({
             'phase': 'load_balancer',
             'duration_ms': self.measure_lb_overhead(),
             'details': f'Chosen backend: {self.get_backend_id()}'
         })
         
-        # Application server
+# Application server
         timeline.append({
             'phase': 'request_parsing',
             'duration_ms': self.measure_parsing_time(),
             'details': f'Payload size: {self.get_payload_size()}'
         })
         
-        # Business logic
+# Business logic
         timeline.append({
             'phase': 'business_logic',
             'duration_ms': self.measure_processing_time(),
@@ -490,7 +490,7 @@ class LatencyInvestigator:
             }
         })
         
-        # Database
+# Database
         timeline.append({
             'phase': 'database',
             'duration_ms': self.measure_db_time(),
@@ -501,7 +501,7 @@ class LatencyInvestigator:
             }
         })
         
-        # Response
+# Response
         timeline.append({
             'phase': 'response_serialization',
             'duration_ms': self.measure_response_time(),
@@ -562,7 +562,7 @@ graph TD
 
 class ResultsFocusedDesign:
     def __init__(self):
-        # Define success metrics upfront
+# Define success metrics upfront
         self.success_metrics = {
             'conversion_rate': {
                 'current': 0.02,
@@ -600,7 +600,7 @@ class ResultsFocusedDesign:
                 'roi': score / feature.estimated_effort
             })
         
-        # Sort by ROI for maximum business impact
+# Sort by ROI for maximum business impact
         return sorted(scored_features, key=lambda x: x['roi'], reverse=True)
 ```
 
@@ -664,12 +664,12 @@ class ResponsibleSystemDesign:
         return impact_score
     
     def calculate_environmental_impact(self, design):
-        # Calculate carbon footprint
+# Calculate carbon footprint
         compute_carbon = design.compute_hours * 0.4  # kg CO2 per hour
         storage_carbon = design.storage_gb * 0.01   # kg CO2 per GB/year
         network_carbon = design.bandwidth_gb * 0.05  # kg CO2 per GB
         
-        # Consider renewable energy usage
+# Consider renewable energy usage
         if design.uses_renewable_energy:
             carbon_multiplier = 0.1
         else:
@@ -757,10 +757,10 @@ class PredictiveCacheManager:
         self.ml_model = ViewingPatternPredictor()
         
     def pre_cache_content(self, user_id):
-        # Predict what user will watch next
+# Predict what user will watch next
         predictions = self.ml_model.predict_next_episodes(user_id)
         
-        # Pre-cache the first 30 seconds of likely content
+# Pre-cache the first 30 seconds of likely content
         for content_id, probability in predictions:
             if probability > 0.7:
                 self.edge_cache.pre_warm(
@@ -792,7 +792,7 @@ def select_cdn_strategy(content_metadata, user_location, network_conditions):
         }
     }
     
-    # Decision based on data
+# Decision based on data
     return max(strategies.items(), 
                key=lambda x: calculate_weighted_score(x[1]))
 ```
@@ -802,23 +802,23 @@ def select_cdn_strategy(content_metadata, user_location, network_conditions):
 # Cost-optimized encoding strategy
 class FrugalEncodingStrategy:
     def encode_content(self, video_file):
-        # Analyze content complexity
+# Analyze content complexity
         complexity = self.analyze_complexity(video_file)
         
         if complexity < 0.3:  # Simple content (e.g., animations)
-            # Use lower bitrate without quality loss
+# Use lower bitrate without quality loss
             return self.encode_simple(video_file, bitrate='low')
         elif complexity < 0.7:  # Medium complexity
-            # Standard encoding
+# Standard encoding
             return self.encode_standard(video_file)
         else:  # High complexity (e.g., action scenes)
-            # Higher bitrate for quality
+# Higher bitrate for quality
             return self.encode_complex(video_file, bitrate='high')
     
     def optimize_storage(self):
-        # Store popular content in multiple qualities
-        # Store long-tail content in single quality
-        # Use cheaper storage for rarely accessed content
+# Store popular content in multiple qualities
+# Store long-tail content in single quality
+# Use cheaper storage for rarely accessed content
         pass
 ```
 
@@ -856,7 +856,7 @@ class VideoStreamingPipeline:
 **Wrong**: "This uses the latest distributed consensus algorithm"
 **Right**: "This ensures customers never lose their viewing position, even during failures"
 
-### 2. Ignoring Cost Implications  
+### 2. Ignoring Cost Implications
 **Wrong**: "We'll use the highest quality encoding for everything"
 **Right**: "We'll adapt encoding based on content type and popularity to optimize cost while maintaining quality"
 

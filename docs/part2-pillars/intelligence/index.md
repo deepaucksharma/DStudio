@@ -89,7 +89,7 @@ graph TD
 
 ---
 
-## 📋 Questions This Pillar Answers
+## Questions This Pillar Answers
 
 ---
 
@@ -141,7 +141,7 @@ graph LR
     style OL fill:#fff0e6,stroke:#333,stroke-width:2px
 ```
 
-### 🎬 Failure Vignette: The Flash Crash of 2010
+### Failure Vignette: The Flash Crash of 2010
 
 **Date**: May 6, 2010, 2:45 PM  
 **Loss**: $1 trillion in minutes (recovered)  
@@ -613,7 +613,7 @@ graph TD
     style HL3 fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
-### 🎯 Decision Framework: ML Strategy
+### Decision Framework: ML Strategy
 
 ```mermaid
 graph TD

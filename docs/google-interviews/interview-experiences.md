@@ -270,7 +270,7 @@ Views Table               |
 
 **Fix**: Slow down, add more detail, check understanding
 
-#### Too Slow  
+#### Too Slow
 - Still on requirements at 10 minutes
 - Only have 2-3 components drawn at 20 minutes
 - Interviewer says "Let's move on..."

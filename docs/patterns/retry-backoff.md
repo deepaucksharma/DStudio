@@ -16,7 +16,7 @@ last_updated: 2025-01-21
 
 **Intelligent failure recovery with exponential backoff, jitter, and adaptive policies**
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -61,7 +61,7 @@ graph LR
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Retry Strategies
 
@@ -174,12 +174,12 @@ class RetryConfig:
     retry_on_status_codes: List[int] = field(default_factory=lambda: [429, 502, 503, 504])
     backoff_strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL
     
-    # Advanced configuration
+# Advanced configuration
     circuit_breaker_enabled: bool = False
     circuit_breaker_threshold: int = 5
     circuit_breaker_timeout: float = 60.0
     
-    # Adaptive retry configuration
+# Adaptive retry configuration
     adaptive_retry_enabled: bool = False
     success_rate_threshold: float = 0.5
     
@@ -254,36 +254,36 @@ class BackoffCalculator:
             base_delay = config.initial_delay * attempt
             
         elif strategy == BackoffStrategy.EXPONENTIAL:
-            # Standard exponential backoff
+# Standard exponential backoff
             base_delay = config.initial_delay * (config.exponential_base ** (attempt - 1))
             
         elif strategy == BackoffStrategy.DECORRELATED:
-            # AWS-recommended decorrelated jitter
+# AWS-recommended decorrelated jitter
             if previous_delay == 0:
                 base_delay = config.initial_delay
             else:
                 base_delay = random.uniform(config.initial_delay, previous_delay * 3)
                 
         elif strategy == BackoffStrategy.FIBONACCI:
-            # Fibonacci sequence backoff for gradual increase
+# Fibonacci sequence backoff for gradual increase
             fib_value = self._fibonacci(attempt)
             base_delay = config.initial_delay * fib_value
             
         elif strategy == BackoffStrategy.POLYNOMIAL:
-            # Polynomial growth for specific patterns
+# Polynomial growth for specific patterns
             base_delay = config.initial_delay * (attempt ** 1.5)
             
         else:
             raise ValueError(f"Unknown backoff strategy: {strategy}")
         
-        # Apply maximum delay cap
+# Apply maximum delay cap
         base_delay = min(base_delay, config.max_delay)
         
-        # Apply jitter strategies
+# Apply jitter strategies
         if config.jitter and strategy != BackoffStrategy.DECORRELATED:
             base_delay = self._apply_jitter(base_delay, config, context)
         
-        # Apply adaptive adjustments if enabled
+# Apply adaptive adjustments if enabled
         if config.adaptive_retry_enabled and context:
             base_delay = self._apply_adaptive_adjustment(base_delay, context)
         
@@ -301,13 +301,13 @@ class BackoffCalculator:
                      context: Optional[Dict]) -> float:
         """Apply various jitter strategies"""
         if context and context.get('jitter_type') == 'full':
-            # Full jitter: random between 0 and delay
+# Full jitter: random between 0 and delay
             return random.uniform(0, delay)
         elif context and context.get('jitter_type') == 'equal':
-            # Equal jitter: half fixed, half random
+# Equal jitter: half fixed, half random
             return delay / 2 + random.uniform(0, delay / 2)
         else:
-            # Default: proportional jitter
+# Default: proportional jitter
             jitter_amount = delay * config.jitter_range
             return delay + random.uniform(-jitter_amount, jitter_amount)
     
@@ -316,7 +316,7 @@ class BackoffCalculator:
         success_rate = context.get('success_rate', 1.0)
         load_factor = context.get('system_load', 0.5)
         
-        # Increase delay if success rate is low or system load is high
+# Increase delay if success rate is low or system load is high
         if success_rate < 0.3:
             delay *= 2.0
         elif success_rate < 0.5:
@@ -368,13 +368,13 @@ class Retrier:
         self.name = name
         self.calculator = BackoffCalculator()
         
-        # Circuit breaker state
+# Circuit breaker state
         self.circuit_state = "closed"  # closed, open, half-open
         self.consecutive_failures = 0
         self.circuit_opened_at = None
         self.half_open_successes = 0
         
-        # Adaptive retry state
+# Adaptive retry state
         self.recent_attempts = []  # Track recent success/failure
         self.adaptive_multiplier = 1.0
 
@@ -384,7 +384,7 @@ class Retrier:
                            **kwargs) -> T:
         """Execute async function with advanced retry logic"""
         
-        # Check circuit breaker first
+# Check circuit breaker first
         self._check_circuit_breaker()
         
         context = RetryContext(self.config, self.stats)
@@ -395,7 +395,7 @@ class Retrier:
             attempt_start = time.time()
             
             try:
-                # Add timeout if configured
+# Add timeout if configured
                 if self.config.timeout:
                     remaining_time = self.config.timeout - (time.time() - start_time)
                     if remaining_time <= 0:
@@ -408,7 +408,7 @@ class Retrier:
                 else:
                     result = await func(*args, **kwargs)
                 
-                # Record success
+# Record success
                 duration = time.time() - attempt_start
                 context.stats.record_attempt(context.attempt, True, duration)
                 self._record_success()
@@ -425,7 +425,7 @@ class Retrier:
                 duration = time.time() - attempt_start
                 context.errors.append(e)
                 
-                # Check if error is retryable
+# Check if error is retryable
                 if not self._should_retry(e, context):
                     context.stats.record_attempt(context.attempt, False, duration)
                     self._record_failure()
@@ -436,7 +436,7 @@ class Retrier:
                     )
                     raise
                 
-                # Check if we have budget
+# Check if we have budget
                 if not context.has_budget():
                     context.stats.record_attempt(context.attempt, False, duration)
                     self._record_failure()
@@ -446,10 +446,10 @@ class Retrier:
                         f"Total elapsed: {time.time() - start_time:.2f}s"
                     )
                     
-                    # Create a composite exception with all errors
+# Create a composite exception with all errors
                     raise self._create_retry_exception(context.errors)
                 
-                # Calculate backoff delay with context
+# Calculate backoff delay with context
                 retry_context = {
                     'success_rate': self._calculate_recent_success_rate(),
                     'system_load': self._estimate_system_load(),
@@ -472,7 +472,7 @@ class Retrier:
                     f"{type(e).__name__}: {e}. Retrying in {delay:.2f}s..."
                 )
                 
-                # Wait before retry with cancellation support
+# Wait before retry with cancellation support
                 try:
                     await asyncio.sleep(delay)
                 except asyncio.CancelledError:
@@ -492,10 +492,10 @@ class Retrier:
             attempt_start = time.time()
 
             try:
-                # Execute the function
+# Execute the function
                 result = func(*args, **kwargs)
 
-                # Record success
+# Record success
                 duration = time.time() - attempt_start
                 context.stats.record_attempt(context.attempt, True, duration)
 
@@ -510,7 +510,7 @@ class Retrier:
                 duration = time.time() - attempt_start
                 context.errors.append(e)
 
-                # Check if we should retry
+# Check if we should retry
                 if not context.should_retry(e) or not context.has_budget():
                     context.stats.record_attempt(context.attempt, False, duration)
 
@@ -518,10 +518,10 @@ class Retrier:
                         f"Retry failed after {context.attempt} attempts: {e}"
                     )
 
-                    # Raise the last error
+# Raise the last error
                     raise
 
-                # Calculate backoff delay
+# Calculate backoff delay
                 delay = BackoffCalculator.calculate_delay(
                     context.attempt,
                     self.strategy,
@@ -537,7 +537,7 @@ class Retrier:
                     f"Retrying in {delay:.2f}s..."
                 )
 
-                # Wait before retry
+# Wait before retry
                 time.sleep(delay)
 
 def retry(strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL,
@@ -589,7 +589,7 @@ class APIClient:
     )
     async def fetch_data(self, endpoint: str) -> dict:
         """Fetch data from API with automatic retry"""
-        # Simulate API call
+# Simulate API call
         if random.random() < 0.3:  # 30% failure rate
             raise ConnectionError("Network error")
 
@@ -602,7 +602,7 @@ class APIClient:
     )
     async def post_data(self, endpoint: str, data: dict) -> dict:
         """Post data to API with decorrelated jitter retry"""
-        # Simulate API call
+# Simulate API call
         if random.random() < 0.2:  # 20% failure rate
             raise TimeoutError("Request timeout")
 
@@ -621,7 +621,7 @@ class CircuitBreakerRetrier(Retrier):
 
     async def execute_async(self, func: Callable[..., T], *args, **kwargs) -> T:
         """Execute with circuit breaker check"""
-        # Check if circuit is open
+# Check if circuit is open
         if time.time() < self.circuit_open_until:
             raise RuntimeError("Circuit breaker is open")
 
@@ -645,7 +645,7 @@ class CircuitBreakerRetrier(Retrier):
 async def example_advanced_usage():
     """Demonstrate advanced retry patterns"""
 
-    # Create client with circuit breaker
+# Create client with circuit breaker
     retrier = CircuitBreakerRetrier(
         strategy=BackoffStrategy.EXPONENTIAL,
         config=RetryConfig(max_attempts=3, initial_delay=1.0),
@@ -659,21 +659,21 @@ async def example_advanced_usage():
             raise ConnectionError("Service unavailable")
         return "Success!"
 
-    # Try operation with circuit breaker
+# Try operation with circuit breaker
     try:
         result = await retrier.execute_async(flaky_operation)
         print(f"Operation succeeded: {result}")
     except Exception as e:
         print(f"Operation failed: {e}")
 
-    # Get retry statistics
+# Get retry statistics
     metrics = retrier.stats.get_metrics()
     print(f"Retry metrics: {metrics}")
 ```
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Retry Patterns
 
@@ -703,9 +703,9 @@ sequenceDiagram
 ```
 
 **Hedged Request Benefits**:
-- 🎯 **Reduced P99 latency**: Tail latency cut by 50%+
-- 🔄 **Automatic failover**: Built-in redundancy
-- 📊 **Cost**: Only ~5% extra load for major gains
+- **Reduced P99 latency**: Tail latency cut by 50%+
+- **Automatic failover**: Built-in redundancy
+- **Cost**: Only ~5% extra load for major gains
 - 🏢 **Used by**: Google, Amazon, Facebook
 
 #### Adaptive Retry with Machine Learning
@@ -743,23 +743,23 @@ class MLRetrier:
         Use ML to decide if retry is likely to succeed
         """
         if not self.is_trained and len(self.feature_history) < 100:
-            # Not enough data, use default logic
+# Not enough data, use default logic
             return isinstance(error, (ConnectionError, TimeoutError))
         
         if not self.is_trained and len(self.feature_history) >= 100:
-            # Train the model
+# Train the model
             self._train_model()
         
-        # Extract features
+# Extract features
         features = self.extract_features(context)
         
-        # Predict success probability
+# Predict success probability
         success_prob = self.model.predict_proba([features])[0][1]
         
-        # Record for future training
+# Record for future training
         self.feature_history.append(features)
         
-        # Retry if success probability > threshold
+# Retry if success probability > threshold
         threshold = 0.3  # Retry if >30% chance of success
         
         self.logger.info(
@@ -836,7 +836,7 @@ class CircuitBreakerRetrier(Retrier):
         self.recovery_timeout = kwargs.get('recovery_timeout', 60.0)
         self.half_open_max_requests = kwargs.get('half_open_max_requests', 3)
         
-        # Circuit state
+# Circuit state
         self.circuit_state = "closed"
         self.consecutive_failures = 0
         self.circuit_opened_at = None
@@ -848,7 +848,7 @@ class CircuitBreakerRetrier(Retrier):
         Determine current circuit state
         """
         if self.circuit_state == "open":
-            # Check if recovery timeout has passed
+# Check if recovery timeout has passed
             if time.time() - self.circuit_opened_at > self.recovery_timeout:
                 self.circuit_state = "half-open"
                 self.half_open_requests = 0
@@ -871,7 +871,7 @@ class CircuitBreakerRetrier(Retrier):
         
         if state == "half-open":
             if self.half_open_requests >= self.half_open_max_requests:
-                # Evaluate half-open results
+# Evaluate half-open results
                 success_rate = (
                     self.half_open_successes / self.half_open_requests
                     if self.half_open_requests > 0 else 0
@@ -912,7 +912,7 @@ class CircuitBreakerRetrier(Retrier):
         if self.circuit_state == "half-open":
             self.half_open_requests += 1
         
-        # Check if we should open the circuit
+# Check if we should open the circuit
         if self.consecutive_failures >= self.failure_threshold:
             self.circuit_state = "open"
             self.circuit_opened_at = time.time()
@@ -939,24 +939,24 @@ class AWSRetryStrategy:
         """
         AWS's sophisticated delay calculation
         """
-        # Base delay with exponential backoff
+# Base delay with exponential backoff
         base = 0.1  # 100ms
         max_backoff = 20.0  # 20 seconds
         
-        # Check if throttling error
+# Check if throttling error
         if self.throttle_detector.is_throttling_error(error):
-            # Use larger base for throttling
+# Use larger base for throttling
             base = 0.5
         
-        # Calculate exponential delay
+# Calculate exponential delay
         delay = min(base * (2 ** attempt), max_backoff)
         
-        # Apply full jitter
+# Apply full jitter
         delay = random.uniform(0, delay)
         
-        # Consume from token bucket
+# Consume from token bucket
         if not self.token_bucket.consume(1):
-            # No tokens available, add penalty
+# No tokens available, add penalty
             delay += 1.0
         
         return delay
@@ -979,23 +979,23 @@ class GoogleCloudRetry:
         """
         Calculate next retry interval
         """
-        # Apply multiplier
+# Apply multiplier
         next_interval = current_interval * self.multiplier
         
-        # Apply randomization
+# Apply randomization
         delta = self.randomization_factor * next_interval
         min_interval = next_interval - delta
         max_interval = next_interval + delta
         
-        # Random value in range
+# Random value in range
         randomized = random.uniform(min_interval, max_interval)
         
-        # Apply cap
+# Apply cap
         return min(randomized, self.max_interval)
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Real-World Case Study: Netflix's Hystrix
 
@@ -1013,7 +1013,7 @@ graph TD
 ```
 
 **Impact**:
-- 🔥 **Single service failure** took down entire Netflix
+- **Single service failure** took down entire Netflix
 - 💸 **$1M+ per hour** in lost revenue during outages
 - 😤 **Customer complaints** flooded social media
 - 📉 **Stock price impact** from reliability concerns
@@ -1092,7 +1092,7 @@ class NetflixRetryStrategy:
             }
         }
         
-        # Track success rates per service
+# Track success rates per service
         self.service_health = defaultdict(lambda: {
             'success_count': 0,
             'failure_count': 0,
@@ -1107,29 +1107,29 @@ class NetflixRetryStrategy:
         """
         config = self.retry_configs[priority]
         
-        # Don't retry if circuit is open
+# Don't retry if circuit is open
         if self.is_circuit_open(service):
             return False
         
-        # Check attempt budget
+# Check attempt budget
         if attempt >= config['max_attempts']:
             return False
         
-        # Analyze error type
+# Analyze error type
         if isinstance(error, (ValueError, AuthenticationError)):
             return False  # Don't retry client errors
         
         if isinstance(error, ThrottlingException):
-            # Use longer delays for throttling
+# Use longer delays for throttling
             return True
         
-        # Check service health trends
+# Check service health trends
         health = self.service_health[service]
         failure_rate = health['failure_count'] / max(
             health['success_count'] + health['failure_count'], 1
         )
         
-        # Don't retry if service is clearly broken
+# Don't retry if service is clearly broken
         if failure_rate > 0.9 and health['failure_count'] > 10:
             return False
         
@@ -1142,27 +1142,27 @@ class NetflixRetryStrategy:
         """
         config = self.retry_configs[priority]
         
-        # Base exponential backoff
+# Base exponential backoff
         base_delay = min(
             config['initial_delay'] * (2 ** (attempt - 1)),
             config['max_delay']
         )
         
-        # Adjust for error type
+# Adjust for error type
         if isinstance(error, ThrottlingException):
-            # Respect rate limit headers if available
+# Respect rate limit headers if available
             if hasattr(error, 'retry_after'):
                 return float(error.retry_after)
-            # Otherwise use longer delay
+# Otherwise use longer delay
             base_delay *= 2.0
         
-        # Adjust based on service health
+# Adjust based on service health
         health = self.service_health[service]
         if health['consecutive_failures'] > 5:
-            # Service is struggling, back off more
+# Service is struggling, back off more
             base_delay *= 1.5
         
-        # Apply decorrelated jitter
+# Apply decorrelated jitter
         return random.uniform(base_delay * 0.5, base_delay * 1.5)
 
 #### Results
@@ -1227,19 +1227,19 @@ class StripeIdempotentRetry:
         """
         Create payment with idempotent retry
         """
-        # Check cache first
+# Check cache first
         if idempotency_key in self.idempotency_cache:
             cached = self.idempotency_cache[idempotency_key]
             
-            # Return cached success
+# Return cached success
             if cached['status'] == 'success':
                 return cached['response']
             
-            # Don't retry recent failures
+# Don't retry recent failures
             if time.time() - cached['timestamp'] < 60:
                 raise cached['error']
         
-        # Perform retryable operation
+# Perform retryable operation
         retrier = Retrier(
             strategy=BackoffStrategy.EXPONENTIAL,
             config=RetryConfig(**self.retry_config)
@@ -1253,7 +1253,7 @@ class StripeIdempotentRetry:
                 idempotency_key
             )
             
-            # Cache success
+# Cache success
             self.idempotency_cache[idempotency_key] = {
                 'status': 'success',
                 'response': result,
@@ -1263,7 +1263,7 @@ class StripeIdempotentRetry:
             return result
             
         except Exception as e:
-            # Cache failure
+# Cache failure
             self.idempotency_cache[idempotency_key] = {
                 'status': 'failure',
                 'error': e,
@@ -1278,8 +1278,8 @@ class StripeIdempotentRetry:
         """
         Actual payment creation logic
         """
-        # This would call Stripe's payment processor
-        # Simulated here for example
+# This would call Stripe's payment processor
+# Simulated here for example
         if random.random() < 0.1:  # 10% failure rate
             raise NetworkError("Connection timeout")
         
@@ -1350,7 +1350,7 @@ class RetryMonitoringDashboard:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1375,7 +1375,7 @@ class OptimalRetryCalculator:
         """
         Use dynamic programming to find optimal retry policy
         """
-        # Model recovery time as exponential distribution
+# Model recovery time as exponential distribution
         recovery_rate = 1.0 / recovery_time_distribution['mean']
         
         def expected_value(attempts: int, delays: List[float]) -> float:
@@ -1386,11 +1386,11 @@ class OptimalRetryCalculator:
             if total_time > deadline:
                 return -cost_per_attempt * attempts
             
-            # Probability of success by attempt n
+# Probability of success by attempt n
             p_success = 0
             for i in range(attempts):
                 delay = delays[i] if i < len(delays) else delays[-1]
-                # Probability system recovers during delay
+# Probability system recovers during delay
                 p_recover = 1 - np.exp(-recovery_rate * delay)
                 p_attempt_success = p_recover * (1 - failure_probability)
                 p_success += p_attempt_success * ((1 - p_success))
@@ -1400,12 +1400,12 @@ class OptimalRetryCalculator:
             
             return expected_reward - expected_cost
         
-        # Optimize retry count and delays
+# Optimize retry count and delays
         best_value = -float('inf')
         best_strategy = None
         
         for n_attempts in range(1, 10):
-            # Optimize delays for this number of attempts
+# Optimize delays for this number of attempts
             initial_delays = [1.0] * n_attempts
             
             result = minimize(
@@ -1451,7 +1451,7 @@ class RetryPolicyNetwork(nn.Module):
             nn.ReLU()
         )
         
-        # Actor: outputs retry action (retry/no-retry, delay)
+# Actor: outputs retry action (retry/no-retry, delay)
         self.actor = nn.Sequential(
             nn.Linear(32, 16),
             nn.ReLU(),
@@ -1459,7 +1459,7 @@ class RetryPolicyNetwork(nn.Module):
             nn.Softmax(dim=-1)
         )
         
-        # Critic: estimates value of state
+# Critic: estimates value of state
         self.critic = nn.Sequential(
             nn.Linear(32, 16),
             nn.ReLU(),
@@ -1482,7 +1482,7 @@ class AdaptiveRetryAgent:
         self.optimizer = optim.Adam(self.policy_net.parameters(), lr=0.001)
         self.memory = []  # Experience replay buffer
         
-        # Action space: [no_retry, retry_0.5s, retry_1s, retry_2s, retry_4s]
+# Action space: [no_retry, retry_0.5s, retry_1s, retry_2s, retry_4s]
         self.action_delays = [0, 0.5, 1.0, 2.0, 4.0]
     
     def get_state_vector(self, context: Dict) -> torch.Tensor:
@@ -1509,7 +1509,7 @@ class AdaptiveRetryAgent:
         with torch.no_grad():
             action_probs, _ = self.policy_net(state)
             
-            # Sample action from probability distribution
+# Sample action from probability distribution
             action = torch.multinomial(action_probs, 1).item()
             
             return action, self.action_delays[action]
@@ -1521,7 +1521,7 @@ class AdaptiveRetryAgent:
         if len(self.memory) < batch_size:
             return
         
-        # Sample batch from memory
+# Sample batch from memory
         batch = random.sample(self.memory, batch_size)
         
         states = torch.stack([exp['state'] for exp in batch])
@@ -1529,24 +1529,24 @@ class AdaptiveRetryAgent:
         rewards = torch.tensor([exp['reward'] for exp in batch])
         next_states = torch.stack([exp['next_state'] for exp in batch])
         
-        # Calculate loss
+# Calculate loss
         action_probs, state_values = self.policy_net(states)
         _, next_state_values = self.policy_net(next_states)
         
-        # Advantage = reward + gamma * V(s') - V(s)
+# Advantage = reward + gamma * V(s') - V(s)
         advantages = rewards + 0.99 * next_state_values.squeeze() - state_values.squeeze()
         
-        # Policy gradient loss
+# Policy gradient loss
         action_log_probs = torch.log(action_probs.gather(1, actions.unsqueeze(1)))
         policy_loss = -(action_log_probs.squeeze() * advantages.detach()).mean()
         
-        # Value loss
+# Value loss
         value_loss = advantages.pow(2).mean()
         
-        # Total loss
+# Total loss
         loss = policy_loss + 0.5 * value_loss
         
-        # Update network
+# Update network
         self.optimizer.zero_grad()
         loss.backward()
         self.optimizer.step()
@@ -1569,15 +1569,15 @@ class QuantumRetryStrategy:
         """
         Create quantum superposition of retry strategies
         """
-        # In quantum computing future, this would use actual qubits
-        # For now, we simulate probabilistic superposition
+# In quantum computing future, this would use actual qubits
+# For now, we simulate probabilistic superposition
         
         superposition = {
             'states': [],
             'amplitudes': []
         }
         
-        # Normalize probabilities
+# Normalize probabilities
         total_weight = sum(opt['weight'] for opt in retry_options)
         
         for option in retry_options:
@@ -1591,7 +1591,7 @@ class QuantumRetryStrategy:
         """
         Collapse superposition to single strategy
         """
-        # Quantum measurement collapses to single state
+# Quantum measurement collapses to single state
         probabilities = [amp**2 for amp in superposition['amplitudes']]
         
         chosen_idx = np.random.choice(
@@ -1620,12 +1620,12 @@ class ImmuneSystemRetry:
         """
         error_signature = self._compute_error_signature(error)
         
-        # Check if we've seen this before
+# Check if we've seen this before
         if error_signature in self.memory_cells:
-            # Quick secondary response
+# Quick secondary response
             return self.memory_cells[error_signature]
         
-        # Primary response - slower but adaptive
+# Primary response - slower but adaptive
         return self._generate_primary_response(error_signature)
     
     def _compute_error_signature(self, error: Exception) -> str:
@@ -1645,14 +1645,14 @@ class ImmuneSystemRetry:
         Learn from retry outcome like immune memory
         """
         if outcome:  # Success
-            # Create memory cell for fast future response
+# Create memory cell for fast future response
             self.memory_cells[error_signature] = {
                 'strategy': self.t_cells.get(error_signature),
                 'success_count': self.memory_cells.get(error_signature, {}).get('success_count', 0) + 1,
                 'last_seen': time.time()
             }
         else:
-            # Mutate strategy for better response
+# Mutate strategy for better response
             self._evolve_strategy(error_signature)
 
 ### Economic Impact Analysis
@@ -1667,7 +1667,7 @@ class RetryEconomicsCalculator:
         """
         Full economic analysis of retry implementation
         """
-        # Direct costs
+# Direct costs
         retry_compute_cost = (
             metrics['total_retries_per_day'] * 
             metrics['avg_retry_duration_seconds'] * 
@@ -1680,7 +1680,7 @@ class RetryEconomicsCalculator:
             metrics['cost_per_gb'] / 1024
         )
         
-        # Direct benefits  
+# Direct benefits
         prevented_failures = (
             metrics['retry_success_rate'] * 
             metrics['total_retries_per_day']
@@ -1692,7 +1692,7 @@ class RetryEconomicsCalculator:
             metrics['conversion_rate']
         )
         
-        # Indirect benefits
+# Indirect benefits
         customer_lifetime_value_impact = (
             prevented_failures * 
             metrics['churn_reduction_per_failure'] * 
@@ -1711,7 +1711,7 @@ class RetryEconomicsCalculator:
             metrics['engineering_hourly_cost']
         )
         
-        # Total impact
+# Total impact
         total_cost = retry_compute_cost + retry_network_cost
         total_benefit = (
             revenue_protected + 
@@ -1748,7 +1748,7 @@ print(f"Five-year value: ${impact['five_year_value']:,.0f}")
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Decision Matrix: When to Use Retry Strategies
 
@@ -1928,7 +1928,7 @@ def calculate_retry_value(your_metrics: Dict) -> Dict:
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
 
-## 🌟 Real Examples
+## Real Examples
 
 ### Production Implementations
 
@@ -1962,7 +1962,7 @@ A major e-commerce platform implemented Retry & Backoff Strategies to handle pay
 - Have clear runbooks for when the pattern activates
 - Test failure scenarios regularly in production
 
-## 💻 Code Sample
+## Code Sample
 
 ### Basic Implementation
 
@@ -1982,7 +1982,7 @@ def retry_with_backoff(max_retries=3, base_delay=1, max_delay=60):
                     if attempt == max_retries:
                         raise
 
-                    # Exponential backoff with jitter
+# Exponential backoff with jitter
                     delay = min(base_delay * (2 ** attempt), max_delay)
                     jitter = random.uniform(0, delay * 0.1)
                     time.sleep(delay + jitter)
@@ -2054,16 +2054,16 @@ app.use('/retrybackoff', retrybackoff({
 def test_retry_backoff_behavior():
     pattern = Retry&BackoffStrategies(test_config)
 
-    # Test normal operation
+# Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 
-    # Test failure handling
+# Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
 
-    # Test recovery
+# Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```

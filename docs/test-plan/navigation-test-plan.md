@@ -348,7 +348,7 @@ This comprehensive test plan verifies that all navigation improvements are worki
 Save this as `test_navigation.py` for automated testing:
 
 ```python
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
 Automated navigation tests for DStudio documentation
 """
@@ -434,19 +434,19 @@ def run_all_tests():
     """Run all automated tests"""
     print("Starting DStudio Navigation Tests\n")
     
-    # Test 1: File count
+# Test 1: File count
     print("Test 1: Markdown File Count")
     file_count = test_markdown_files_count()
     
-    # Test 2: Specific files
+# Test 2: Specific files
     print("\nTest 2: Required Files")
     missing_files = test_specific_files()
     
-    # Test 3: Navigation accessibility
+# Test 3: Navigation accessibility
     print("\nTest 3: Navigation Accessibility")
     failed_pages = test_all_pages_accessible()
     
-    # Summary
+# Summary
     print("\n" + "="*50)
     print("TEST SUMMARY")
     print("="*50)
@@ -462,7 +462,7 @@ def run_all_tests():
     return len(missing_files) == 0 and len(failed_pages) == 0
 
 if __name__ == "__main__":
-    # Ensure MkDocs is running
+# Ensure MkDocs is running
     try:
         response = requests.get(BASE_URL)
     except:

@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Hospital Network Analogy
 
@@ -148,7 +148,7 @@ print(f"Processed at: {result['processed_at']}, Latency: {result['latency_ms']}m
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Edge Architecture Components
 
@@ -239,25 +239,25 @@ class HierarchicalProcessor:
     def process(self, data: dict) -> dict:
         """Route to appropriate processing level"""
         
-        # Determine urgency and complexity
+# Determine urgency and complexity
         urgency = self.calculate_urgency(data)
         complexity = self.calculate_complexity(data)
         
-        # Decision matrix
+# Decision matrix
         if urgency > 0.9 and complexity < 0.3:
-            # Urgent + Simple = Device level
+# Urgent + Simple = Device level
             return self.levels['device'].process(data)
             
         elif urgency > 0.7 and complexity < 0.6:
-            # Moderate urgency + Moderate complexity = Edge
+# Moderate urgency + Moderate complexity = Edge
             return self.levels['edge'].process(data)
             
         elif urgency < 0.5 and complexity > 0.8:
-            # Low urgency + High complexity = Cloud
+# Low urgency + High complexity = Cloud
             return self.levels['cloud'].process(data)
             
         else:
-            # Default to fog layer
+# Default to fog layer
             return self.levels['fog'].process(data)
 ```
 
@@ -275,7 +275,7 @@ class StoreAndForward:
     async def send(self, data: dict, priority: str = 'normal'):
         """Store locally and forward when possible"""
         
-        # Always persist first
+# Always persist first
         entry = {
             'id': str(uuid.uuid4()),
             'data': data,
@@ -286,17 +286,17 @@ class StoreAndForward:
         
         await self.storage.put(entry)
         
-        # Try immediate send if connected
+# Try immediate send if connected
         if self.uplink.is_connected():
             await self.forward_queued_data()
         else:
-            # Schedule for later
+# Schedule for later
             self.schedule_retry()
     
     async def forward_queued_data(self):
         """Forward data with priority and retry logic"""
         
-        # Process by priority
+# Process by priority
         for priority in ['critical', 'high', 'normal', 'low']:
             while True:
                 entry = await self.storage.get_by_priority(priority)
@@ -304,29 +304,29 @@ class StoreAndForward:
                     break
                     
                 try:
-                    # Adaptive compression based on bandwidth
+# Adaptive compression based on bandwidth
                     bandwidth = self.metrics.get_bandwidth()
                     if bandwidth < 100:  # KB/s
                         entry['data'] = self.compress(entry['data'])
                     
-                    # Send with timeout
+# Send with timeout
                     await self.uplink.send(
                         entry['data'],
                         timeout=self.calculate_timeout(entry)
                     )
                     
-                    # Success - remove from queue
+# Success - remove from queue
                     await self.storage.remove(entry['id'])
                     
                 except Exception as e:
-                    # Failure - update retry count
+# Failure - update retry count
                     entry['attempts'] += 1
                     
                     if entry['attempts'] > self.max_retries(entry['priority']):
-                        # Move to dead letter queue
+# Move to dead letter queue
                         await self.storage.move_to_dlq(entry)
                     else:
-                        # Return to queue with backoff
+# Return to queue with backoff
                         await self.storage.update(entry)
                         break  # Try next priority
 ```
@@ -341,28 +341,28 @@ class EdgeMLOptimizer:
     def prepare_for_edge(cloud_model, target_device: str):
         """Convert cloud model to edge-optimized version"""
         
-        # 1. Model Quantization (FP32 → INT8)
+# 1. Model Quantization (FP32 → INT8)
         quantized_model = quantize_model(
             cloud_model,
             calibration_data=get_calibration_data(),
             target_dtype='int8'
         )
         
-        # 2. Model Pruning (remove small weights)
+# 2. Model Pruning (remove small weights)
         pruned_model = prune_model(
             quantized_model,
             sparsity=0.7,  # 70% sparsity
             structured=True  # Hardware-friendly pruning
         )
         
-        # 3. Knowledge Distillation (teacher-student)
+# 3. Knowledge Distillation (teacher-student)
         edge_model = distill_model(
             teacher=cloud_model,
             student_architecture=get_edge_architecture(target_device),
             temperature=5.0
         )
         
-        # 4. Hardware-specific compilation
+# 4. Hardware-specific compilation
         if target_device == 'nvidia_jetson':
             compiled = tensorrt_optimize(edge_model)
         elif target_device == 'google_coral':
@@ -372,7 +372,7 @@ class EdgeMLOptimizer:
         else:
             compiled = onnx_optimize(edge_model)
         
-        # 5. Benchmark and validate
+# 5. Benchmark and validate
         metrics = {
             'original_size_mb': get_model_size(cloud_model),
             'edge_size_mb': get_model_size(compiled),
@@ -409,28 +409,28 @@ class EdgeDataManager:
     def ingest(self, data: dict):
         """Smart data tiering based on value and age"""
         
-        # Classify data importance
+# Classify data importance
         importance = self.classify_importance(data)
         
         if importance > 0.8:
-            # High importance - keep hot
+# High importance - keep hot
             self.hot_storage.store(data)
             
-            # Replicate to cloud immediately
+# Replicate to cloud immediately
             self.replicate_to_cloud(data, priority='high')
             
         elif importance > 0.5:
-            # Medium importance - warm storage
+# Medium importance - warm storage
             self.warm_storage.store(
                 self.compress(data),
                 ttl=3600 * 24  # 1 day
             )
             
-            # Batch upload to cloud
+# Batch upload to cloud
             self.schedule_batch_upload(data)
             
         else:
-            # Low importance - aggregate only
+# Low importance - aggregate only
             self.aggregate_and_discard(data)
     
     def query(self, query: dict) -> list:
@@ -438,19 +438,19 @@ class EdgeDataManager:
         
         results = []
         
-        # 1. Check hot storage (fastest)
+# 1. Check hot storage (fastest)
         hot_results = self.hot_storage.query(query)
         if hot_results and len(hot_results) >= query.get('limit', 100):
             return hot_results
         
         results.extend(hot_results)
         
-        # 2. Check warm storage if needed
+# 2. Check warm storage if needed
         if len(results) < query.get('limit', 100):
             warm_results = self.warm_storage.query(query)
             results.extend(self.decompress(warm_results))
         
-        # 3. Fetch from cloud if still needed
+# 3. Fetch from cloud if still needed
         if len(results) < query.get('limit', 100) and query.get('include_cloud', False):
             cloud_results = self.cold_storage.query(query)
             results.extend(cloud_results)
@@ -460,7 +460,7 @@ class EdgeDataManager:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Edge Patterns
 
@@ -703,27 +703,27 @@ class EdgeSecurityManager:
     def handle_compromised_node(self, node_id: str):
         """Incident response for compromised edge node"""
         
-        # 1. Immediate isolation
+# 1. Immediate isolation
         self.network_isolate_node(node_id)
         
-        # 2. Workload migration
+# 2. Workload migration
         affected_workloads = self.get_node_workloads(node_id)
         for workload in affected_workloads:
             self.emergency_migrate(workload)
         
-        # 3. Evidence collection
+# 3. Evidence collection
         self.collect_forensic_data(node_id)
         
-        # 4. Node remediation
+# 4. Node remediation
         self.quarantine_and_reimage(node_id)
         
-        # 5. Re-attestation before rejoining
+# 5. Re-attestation before rejoining
         self.require_attestation(node_id)
 ```
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Tesla's Edge AI for Autopilot
 
@@ -756,22 +756,22 @@ class TeslaAutopilotEdge:
         
         start_time = time.perf_counter()
         
-        # 1. Camera processing (8 cameras, 36fps each)
+# 1. Camera processing (8 cameras, 36fps each)
         camera_features = self.process_cameras_parallel(
             sensor_data['cameras']  # 8x1280x960 @ 36fps
         )
         
-        # 2. Radar processing (redundant with vision)
+# 2. Radar processing (redundant with vision)
         radar_features = self.process_radar(
             sensor_data['radar']  # 160m range
         )
         
-        # 3. Ultrasonic for close range
+# 3. Ultrasonic for close range
         ultrasonic_features = self.process_ultrasonic(
             sensor_data['ultrasonic']  # 12 sensors, 8m range
         )
         
-        # 4. Sensor fusion neural network
+# 4. Sensor fusion neural network
         fused_perception = self.fusion_network.predict({
             'vision': camera_features,
             'radar': radar_features,
@@ -779,11 +779,11 @@ class TeslaAutopilotEdge:
             'vehicle_state': sensor_data['vehicle_state']
         })
         
-        # 5. Planning and control
+# 5. Planning and control
         trajectory = self.planning_network.predict(fused_perception)
         control_commands = self.control_network.predict(trajectory)
         
-        # 6. Safety validation
+# 6. Safety validation
         validated_commands = self.safety_monitor.validate(
             control_commands,
             sensor_data,
@@ -792,10 +792,10 @@ class TeslaAutopilotEdge:
         
         processing_time = (time.perf_counter() - start_time) * 1000
         
-        # Ensure we meet timing requirements
+# Ensure we meet timing requirements
         if processing_time > 10:
             self.log_timing_violation(processing_time)
-            # Fall back to conservative behavior
+# Fall back to conservative behavior
             validated_commands = self.safe_fallback(validated_commands)
         
         return {
@@ -810,10 +810,10 @@ class TeslaAutopilotEdge:
         Over-the-air model updates with safety validation
         """
         
-        # 1. Download update package (can be slow)
+# 1. Download update package (can be slow)
         new_models = self.download_models(update_package)
         
-        # 2. Validate on test scenarios
+# 2. Validate on test scenarios
         validation_results = self.validate_models(
             new_models,
             test_scenarios=self.get_safety_critical_scenarios()
@@ -823,10 +823,10 @@ class TeslaAutopilotEdge:
             self.reject_update('Safety validation failed')
             return
         
-        # 3. A/B test deployment
+# 3. A/B test deployment
         self.shadow_mode_deployment(new_models, duration_hours=24)
         
-        # 4. Gradual rollout
+# 4. Gradual rollout
         self.phased_deployment(new_models, phases=[
             {'percentage': 1, 'duration_hours': 24},
             {'percentage': 10, 'duration_hours': 72},
@@ -854,13 +854,13 @@ class CloudflareEdgeNetwork:
     def deploy_edge_worker(self, worker_code: str) -> dict:
         """Deploy JavaScript worker to all edge locations"""
         
-        # 1. Validate and compile worker
+# 1. Validate and compile worker
         compiled_worker = self.compile_worker(worker_code)
         
-        # 2. Security sandbox
+# 2. Security sandbox
         sandboxed_worker = self.create_v8_isolate(compiled_worker)
         
-        # 3. Resource limits
+# 3. Resource limits
         resource_limits = {
             'cpu_ms': 10,  # 10ms CPU time per request
             'memory_mb': 128,  # 128MB memory
@@ -868,7 +868,7 @@ class CloudflareEdgeNetwork:
             'duration_ms': 30  # 30ms wall time
         }
         
-        # 4. Deploy globally
+# 4. Deploy globally
         deployment_result = {}
         
         for location in self.edge_locations:
@@ -879,7 +879,7 @@ class CloudflareEdgeNetwork:
             )
             deployment_result[location] = result
         
-        # 5. Configure routing
+# 5. Configure routing
         self.anycast_network.update_routing({
             'worker_id': sandboxed_worker.id,
             'routes': ['example.com/*'],
@@ -896,26 +896,26 @@ class CloudflareEdgeNetwork:
     def handle_request_at_edge(self, request: Request) -> Response:
         """Process HTTP request at nearest edge location"""
         
-        # 1. Determine closest edge location
+# 1. Determine closest edge location
         edge_location = self.anycast_network.get_location(request.ip)
         
-        # 2. Load balancing within location
+# 2. Load balancing within location
         edge_server = self.select_edge_server(edge_location)
         
-        # 3. Cache lookup
+# 3. Cache lookup
         cache_key = self.generate_cache_key(request)
         cached_response = edge_server.cache.get(cache_key)
         
         if cached_response and not cached_response.is_stale():
             return cached_response
         
-        # 4. Execute edge worker
+# 4. Execute edge worker
         worker = self.workers.get(request.hostname)
         if worker:
             try:
                 response = worker.handle_request(request)
                 
-                # Cache if appropriate
+# Cache if appropriate
                 if response.cache_control.is_public():
                     edge_server.cache.set(
                         cache_key,
@@ -926,13 +926,13 @@ class CloudflareEdgeNetwork:
                 return response
                 
             except WorkerTimeout:
-                # Fall back to origin
+# Fall back to origin
                 pass
         
-        # 5. Origin request with connection pooling
+# 5. Origin request with connection pooling
         origin_response = edge_server.fetch_from_origin(request)
         
-        # 6. Cache at edge
+# 6. Cache at edge
         if origin_response.is_cacheable():
             edge_server.cache.set(cache_key, origin_response)
         
@@ -960,23 +960,23 @@ class EdgeVideoAnalytics:
     def process_video_stream(self, camera_id: str, frame: np.ndarray) -> dict:
         """Process single video frame at edge"""
         
-        # 1. Multi-scale detection
+# 1. Multi-scale detection
         detections = self.run_detection_cascade(frame)
         
-        # 2. Object tracking
+# 2. Object tracking
         if camera_id not in self.trackers:
             self.trackers[camera_id] = MultiObjectTracker()
         
         tracked_objects = self.trackers[camera_id].update(detections)
         
-        # 3. Event detection
+# 3. Event detection
         events = self.detect_events(tracked_objects)
         
-        # 4. Privacy preservation
+# 4. Privacy preservation
         if self.privacy_mode_enabled():
             frame = self.apply_privacy_filters(frame, detections)
         
-        # 5. Selective upload
+# 5. Selective upload
         upload_decision = self.decide_upload(events, tracked_objects)
         
         results = {
@@ -988,7 +988,7 @@ class EdgeVideoAnalytics:
             'metadata_only': not upload_decision['include_video']
         }
         
-        # 6. Compression for upload
+# 6. Compression for upload
         if upload_decision['upload']:
             if upload_decision['include_video']:
                 results['compressed_frame'] = self.compress_frame(frame)
@@ -1001,23 +1001,23 @@ class EdgeVideoAnalytics:
         
         detections = []
         
-        # 1. Fast person detection
+# 1. Fast person detection
         person_detector = self.detection_models['person']
         persons = person_detector.detect(frame, conf_threshold=0.5)
         detections.extend(persons)
         
-        # 2. If persons detected, run face detection
+# 2. If persons detected, run face detection
         if persons:
             for person_bbox in persons:
                 person_crop = crop_image(frame, person_bbox)
                 faces = self.detection_models['face'].detect(person_crop)
                 detections.extend(adjust_bbox(faces, person_bbox))
         
-        # 3. Vehicle detection in parallel
+# 3. Vehicle detection in parallel
         vehicles = self.detection_models['vehicle'].detect(frame)
         detections.extend(vehicles)
         
-        # 4. Anomaly detection on full scene
+# 4. Anomaly detection on full scene
         anomaly_score = self.detection_models['anomaly'].predict(frame)
         if anomaly_score > 0.8:
             detections.append({
@@ -1044,34 +1044,34 @@ class EdgeDataPipeline:
         max_buffer_size = 1024 * 1024  # 1MB
         
         async for data_point in data_stream:
-            # 1. Local processing
+# 1. Local processing
             processed = self.process_locally(data_point)
             
-            # 2. Filtering
+# 2. Filtering
             if not self.should_upload(processed):
                 continue
             
-            # 3. Batching
+# 3. Batching
             buffer.append(processed)
             buffer_size += len(processed)
             
-            # 4. Adaptive upload
+# 4. Adaptive upload
             if buffer_size >= max_buffer_size or self.is_critical(processed):
                 await self.upload_batch(buffer)
                 buffer = []
                 buffer_size = 0
         
-        # Upload remaining data
+# Upload remaining data
         if buffer:
             await self.upload_batch(buffer)
     
     async def upload_batch(self, batch: list) -> None:
         """Smart batch upload with compression"""
         
-        # 1. Measure available bandwidth
+# 1. Measure available bandwidth
         bandwidth = await self.bandwidth_monitor.get_current()
         
-        # 2. Choose compression level
+# 2. Choose compression level
         if bandwidth < 100:  # KB/s
             compression_level = 9  # Maximum compression
         elif bandwidth < 1000:
@@ -1079,20 +1079,20 @@ class EdgeDataPipeline:
         else:
             compression_level = 1  # Fast compression
         
-        # 3. Compress batch
+# 3. Compress batch
         compressed = self.compression.compress(
             batch,
             level=compression_level,
             algorithm='zstd'  # Better than gzip for IoT data
         )
         
-        # 4. Upload with retry
+# 4. Upload with retry
         await self.upload_with_retry(compressed)
 ```
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1114,7 +1114,7 @@ class EdgeComputingTheory:
         L_total = L_network + L_compute + L_queue
         """
         
-        # Network latency (ms)
+# Network latency (ms)
         c = 3e8  # Speed of light m/s
         propagation_delay = (network_distance / c) * 1000  # ms
         transmission_delay = (data_size * 8) / (bandwidth * 1e6) * 1000  # ms
@@ -1122,11 +1122,11 @@ class EdgeComputingTheory:
         edge_network_latency = propagation_delay * 0.1 + transmission_delay  # 10% distance
         cloud_network_latency = propagation_delay + transmission_delay
         
-        # Compute latency (ms)
+# Compute latency (ms)
         edge_compute_latency = computation_complexity / edge_compute_power
         cloud_compute_latency = computation_complexity / cloud_compute_power
         
-        # Queuing latency (M/M/1 queue)
+# Queuing latency (M/M/1 queue)
         edge_utilization = arrival_rate / edge_service_rate
         cloud_utilization = arrival_rate / cloud_service_rate
         
@@ -1151,41 +1151,41 @@ class EdgeComputingTheory:
         Subject to: Capacity constraints, QoS requirements
         """
         
-        # Decision variables
-        # x[i,j] = 1 if workload i placed on node j
+# Decision variables
+# x[i,j] = 1 if workload i placed on node j
         
-        # Objective function
-        # min sum(latency[i,j] * x[i,j]) + sum(cost[j] * y[j])
+# Objective function
+# min sum(latency[i,j] * x[i,j]) + sum(cost[j] * y[j])
         
         model = OptimizationModel()
         
-        # Variables
+# Variables
         x = {}
         for i, workload in enumerate(workloads):
             for j, node in enumerate(nodes):
                 x[i,j] = model.add_binary_variable(f'x_{i}_{j}')
         
-        # Constraints
-        # Each workload placed exactly once
+# Constraints
+# Each workload placed exactly once
         for i in range(len(workloads)):
             model.add_constraint(
                 sum(x[i,j] for j in range(len(nodes))) == 1
             )
         
-        # Node capacity constraints
+# Node capacity constraints
         for j in range(len(nodes)):
             model.add_constraint(
                 sum(workloads[i].resource_demand * x[i,j] 
                     for i in range(len(workloads))) <= nodes[j].capacity
             )
         
-        # QoS constraints
+# QoS constraints
         for i, workload in enumerate(workloads):
             for j, node in enumerate(nodes):
                 if self.calculate_latency(workload, node) > workload.max_latency:
                     model.add_constraint(x[i,j] == 0)
         
-        # Solve
+# Solve
         solution = model.solve()
         
         return self.extract_placement(solution, x, workloads, nodes)
@@ -1203,14 +1203,14 @@ class EdgeInformationTheory:
         Using Shannon entropy
         """
         
-        # Entropy H(X) = -sum(p(x) * log(p(x)))
+# Entropy H(X) = -sum(p(x) * log(p(x)))
         hist, _ = np.histogram(data, bins=256)
         prob = hist / hist.sum()
         prob = prob[prob > 0]  # Remove zeros
         
         entropy = -np.sum(prob * np.log2(prob))
         
-        # Normalized entropy (0-1)
+# Normalized entropy (0-1)
         max_entropy = np.log2(len(hist))
         normalized_entropy = entropy / max_entropy
         
@@ -1224,17 +1224,17 @@ class EdgeInformationTheory:
         Determine optimal data reduction for edge upload
         """
         
-        # Rate-distortion theory
-        # R(D) = minimum bits needed for distortion D
+# Rate-distortion theory
+# R(D) = minimum bits needed for distortion D
         
         original_size = raw_data.nbytes * 8  # bits
         upload_time_ms = (original_size / bandwidth_bps) * 1000
         
         if upload_time_ms <= latency_requirement_ms:
-            # No compression needed
+# No compression needed
             return {'method': 'raw', 'size': original_size}
         
-        # Try different compression methods
+# Try different compression methods
         methods = {
             'sampling': self.downsample_data,
             'quantization': self.quantize_data,
@@ -1286,21 +1286,21 @@ class SixGEdgeComputing:
         URLLC with 99.9999% reliability and <1ms latency
         """
         
-        # 1. Predictive processing
-        # Start processing before request arrives
+# 1. Predictive processing
+# Start processing before request arrives
         predicted_request = self.ai_processor.predict_next_request()
         pre_computed = self.pre_compute(predicted_request)
         
-        # 2. Parallel multipath
+# 2. Parallel multipath
         paths = self.terahertz_radio.establish_paths(count=3)
         
-        # 3. Send on all paths
+# 3. Send on all paths
         responses = []
         for path in paths:
             response = path.send(request, pre_computed)
             responses.append(response)
         
-        # 4. Use first valid response
+# 4. Use first valid response
         return self.first_valid_response(responses)
     
     def holographic_edge_rendering(self, user_position: dict) -> dict:
@@ -1308,10 +1308,10 @@ class SixGEdgeComputing:
         Real-time holographic rendering at edge
         """
         
-        # 1. Capture from multiple angles
+# 1. Capture from multiple angles
         captures = self.capture_volumetric_data(user_position)
         
-        # 2. Edge AI processing
+# 2. Edge AI processing
         hologram = self.ai_processor.generate_hologram(
             captures,
             quality='16K',  # 16K per eye
@@ -1319,13 +1319,13 @@ class SixGEdgeComputing:
             latency_budget_ms=5
         )
         
-        # 3. Compress using neural codec
+# 3. Compress using neural codec
         compressed = self.neural_compress(
             hologram,
             target_bitrate_gbps=10
         )
         
-        # 4. Stream with guaranteed QoS
+# 4. Stream with guaranteed QoS
         return self.stream_hologram(compressed)
 ```
 
@@ -1350,18 +1350,18 @@ class NeuromorphicEdge:
         """
         
         for event in event_stream:
-            # Events only on change (no redundant data)
+# Events only on change (no redundant data)
             if event.type == 'pixel_change':
-                # Spike-based processing
+# Spike-based processing
                 spikes = self.encode_to_spikes(event)
                 
-                # Asynchronous neural computation
+# Asynchronous neural computation
                 result = self.spiking_processor.process(
                     spikes,
                     power_budget_mw=100  # 100mW
                 )
                 
-                # Only act on significant patterns
+# Only act on significant patterns
                 if result.confidence > 0.8:
                     self.trigger_action(result)
     
@@ -1370,14 +1370,14 @@ class NeuromorphicEdge:
         Learn new patterns without forgetting old ones
         """
         
-        # Hebbian learning: "Neurons that fire together wire together"
+# Hebbian learning: "Neurons that fire together wire together"
         self.spiking_processor.hebbian_update(
             pattern=new_pattern,
             learning_rate=0.01,
             homeostasis=True  # Prevent runaway excitation
         )
         
-        # Consolidate important patterns
+# Consolidate important patterns
         self.memory_consolidation()
 ```
 
@@ -1392,12 +1392,12 @@ class EdgeEconomics:
         ROI calculation for edge deployment
         """
         
-        # Costs
+# Costs
         edge_infrastructure = deployment['edge_nodes'] * 50000  # $50K per edge node
         bandwidth_savings = deployment['data_reduction'] * 0.10  # $0.10 per GB
         cloud_compute_savings = deployment['edge_compute_hours'] * 0.05  # $0.05 per hour
         
-        # Benefits
+# Benefits
         latency_value = self.calculate_latency_value(
             deployment['latency_reduction_ms'],
             deployment['use_case']
@@ -1405,7 +1405,7 @@ class EdgeEconomics:
         
         downtime_reduction = deployment['availability_improvement'] * 100000  # $100K per 1%
         
-        # 5-year projection
+# 5-year projection
         five_year_savings = (bandwidth_savings + cloud_compute_savings) * 5 * 365
         five_year_benefits = (latency_value + downtime_reduction) * 5
         
@@ -1437,7 +1437,7 @@ class EdgeEconomics:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

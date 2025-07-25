@@ -36,7 +36,7 @@ That's distributed state in a nutshell! This challenge arises from [Law 4: Law o
 
 ---
 
-## 📋 Questions This Pillar Answers
+## Questions This Pillar Answers
 
 ---
 
@@ -173,7 +173,7 @@ Think of distributed state like:
 
 ### Core Principle: State Has Memory
 
-### 🎬 Failure Vignette: The GitHub Database Outage
+### Failure Vignette: The GitHub Database Outage
 
 **Company**: GitHub
 **Date**: October 21, 2018
@@ -266,7 +266,7 @@ graph TB
 
 ### State Replication Strategies
 
-### 🔄 Consistency Models for Distributed State
+### Consistency Models for Distributed State
 
 #### State Consistency Spectrum
 

@@ -101,15 +101,15 @@ class DistributedKVStore:
         self.nodes = nodes
         self.replication_factor = replication_factor
         self.hash_ring = ConsistentHashRing(nodes)
-        # Each node has its own storage
+# Each node has its own storage
         self.node_storage = {node: {} for node in nodes}
         self.node_versions = {node: defaultdict(dict) for node in nodes}
 
     def put(self, key, value, consistency_level='QUORUM'):
-        # Find replica nodes
+# Find replica nodes
         replicas = self.hash_ring.get_nodes(key, self.replication_factor)
 
-        # Create versioned value
+# Create versioned value
         timestamp = time.time()
         versioned_value = {
             'value': value,
@@ -117,17 +117,17 @@ class DistributedKVStore:
             'version': self._generate_version()
         }
 
-        # Calculate required acks
+# Calculate required acks
         required_acks = self._get_required_acks(consistency_level, len(replicas))
 
-        # Send writes to all replicas
+# Send writes to all replicas
         write_results = []
         threads = []
         results_lock = threading.Lock()
 
         def write_to_node(node, key, value):
             try:
-                # Simulate network call
+# Simulate network call
                 self.node_storage[node][key] = value
                 self.node_versions[node][key] = value['version']
 
@@ -137,7 +137,7 @@ class DistributedKVStore:
                 with results_lock:
                     write_results.append((node, False))
 
-        # Start parallel writes
+# Start parallel writes
         for replica in replicas:
             t = threading.Thread(
                 target=write_to_node,
@@ -146,7 +146,7 @@ class DistributedKVStore:
             t.start()
             threads.append(t)
 
-        # Wait for required acknowledgments
+# Wait for required acknowledgments
         timeout = 5.0  # 5 second timeout
         start_time = time.time()
 
@@ -155,7 +155,7 @@ class DistributedKVStore:
                 raise TimeoutError(f"Could not achieve {consistency_level} consistency")
             time.sleep(0.01)
 
-        # Wait for all threads to complete (best effort)
+# Wait for all threads to complete (best effort)
         for t in threads:
             t.join(timeout=0.1)
 
@@ -168,13 +168,13 @@ class DistributedKVStore:
         return True
 
     def get(self, key, consistency_level='QUORUM'):
-        # Find replica nodes
+# Find replica nodes
         replicas = self.hash_ring.get_nodes(key, self.replication_factor)
 
-        # Calculate required responses
+# Calculate required responses
         required_responses = self._get_required_responses(consistency_level, len(replicas))
 
-        # Read from replicas
+# Read from replicas
         read_results = []
         threads = []
         results_lock = threading.Lock()
@@ -192,13 +192,13 @@ class DistributedKVStore:
                 with results_lock:
                     read_results.append((node, None))
 
-        # Start parallel reads
+# Start parallel reads
         for replica in replicas:
             t = threading.Thread(target=read_from_node, args=(replica, key))
             t.start()
             threads.append(t)
 
-        # Wait for required responses
+# Wait for required responses
         timeout = 5.0
         start_time = time.time()
 
@@ -207,7 +207,7 @@ class DistributedKVStore:
                 raise TimeoutError(f"Could not achieve {consistency_level} consistency")
 
             if len(read_results) >= len(replicas):
-                # All nodes responded, check if we have enough non-None values
+# All nodes responded, check if we have enough non-None values
                 non_none_results = [r for r in read_results if r[1] is not None]
                 if len(non_none_results) < required_responses:
                     raise KeyNotFoundError(f"Key {key} not found")
@@ -215,16 +215,16 @@ class DistributedKVStore:
 
             time.sleep(0.01)
 
-        # Collect all non-None results
+# Collect all non-None results
         valid_results = [(node, value) for node, value in read_results if value is not None]
 
         if not valid_results:
             raise KeyNotFoundError(f"Key {key} not found")
 
-        # Resolve conflicts (last-write-wins)
+# Resolve conflicts (last-write-wins)
         latest_value = max(valid_results, key=lambda x: x[1]['timestamp'])
 
-        # Trigger read repair if inconsistency detected
+# Trigger read repair if inconsistency detected
         if self._has_inconsistency(valid_results):
             self._async_read_repair(key, latest_value[1], replicas)
 
@@ -234,20 +234,20 @@ class DistributedKVStore:
         """Handle node failure and trigger repairs"""
         print(f"Handling failure of node {failed_node}")
 
-        # Remove failed node from ring
+# Remove failed node from ring
         self.hash_ring.remove_node(failed_node)
         self.nodes.remove(failed_node)
 
-        # Find all keys that need re-replication
+# Find all keys that need re-replication
         keys_to_replicate = set()
 
-        # Check all keys stored on remaining nodes
+# Check all keys stored on remaining nodes
         for node in self.nodes:
             for key in self.node_storage[node].keys():
-                # Check if this key has lost replicas
+# Check if this key has lost replicas
                 current_replicas = self.hash_ring.get_nodes(key, self.replication_factor)
 
-                # Count how many replicas actually have the key
+# Count how many replicas actually have the key
                 actual_replicas = sum(
                     1 for replica in current_replicas
                     if replica in self.node_storage and key in self.node_storage[replica]
@@ -256,7 +256,7 @@ class DistributedKVStore:
                 if actual_replicas < self.replication_factor:
                     keys_to_replicate.add(key)
 
-        # Re-replicate keys
+# Re-replicate keys
         for key in keys_to_replicate:
             self._rereplicate_key(key)
 
@@ -264,7 +264,7 @@ class DistributedKVStore:
         """Ensure key has sufficient replicas"""
         target_replicas = self.hash_ring.get_nodes(key, self.replication_factor)
 
-        # Find nodes that have the key
+# Find nodes that have the key
         source_nodes = [
             node for node in self.nodes
             if node in self.node_storage and key in self.node_storage[node]
@@ -273,13 +273,13 @@ class DistributedKVStore:
         if not source_nodes:
             return  # Key is lost
 
-        # Get latest version
+# Get latest version
         latest_version = max(
             [self.node_storage[node][key] for node in source_nodes],
             key=lambda x: x['timestamp']
         )
 
-        # Copy to nodes that should have it but don't
+# Copy to nodes that should have it but don't
         for target in target_replicas:
             if target not in self.node_storage or key not in self.node_storage[target]:
                 self.node_storage[target][key] = latest_version
@@ -318,26 +318,26 @@ class DistributedKVStore:
                         self.node_storage[replica][key] = correct_value
                         print(f"Read repair: updated {key} on {replica}")
 
-        # In production, this would be truly async
+# In production, this would be truly async
         repair_thread = threading.Thread(target=repair)
         repair_thread.daemon = True
         repair_thread.start()
 
 # Test the implementation
 if __name__ == "__main__":
-    # Create a 5-node cluster
+# Create a 5-node cluster
     nodes = [f"node{i}" for i in range(5)]
     kv_store = DistributedKVStore(nodes, replication_factor=3)
 
-    # Test writes and reads
+# Test writes and reads
     kv_store.put("user:123", {"name": "Alice", "age": 30}, 'QUORUM')
     value = kv_store.get("user:123", 'QUORUM')
     print(f"Retrieved value: {value}")
 
-    # Simulate node failure
+# Simulate node failure
     kv_store.handle_node_failure("node2")
 
-    # Verify data is still accessible
+# Verify data is still accessible
     value = kv_store.get("user:123", 'QUORUM')
     print(f"After failure: {value}")
 ```
@@ -431,27 +431,27 @@ class VectorClock:
 
     def update(self, other_clock):
         """Update clock after receiving message"""
-        # Take maximum of each component
+# Take maximum of each component
         for node_id, timestamp in other_clock.items():
             if node_id not in self.clock:
                 self.clock[node_id] = timestamp
             else:
                 self.clock[node_id] = max(self.clock[node_id], timestamp)
 
-        # Increment own component
+# Increment own component
         self.increment()
         return self
 
     def happens_before(self, other):
         """Check if this clock happens-before other"""
-        # A happens-before B if:
-        # 1. All components of A <= corresponding components of B
-        # 2. At least one component of A < corresponding component of B
+# A happens-before B if:
+# 1. All components of A <= corresponding components of B
+# 2. At least one component of A < corresponding component of B
 
         all_less_equal = True
         at_least_one_less = False
 
-        # Check all nodes that appear in either clock
+# Check all nodes that appear in either clock
         all_nodes = set(self.clock.keys()) | set(other.clock.keys())
 
         for node_id in all_nodes:
@@ -468,7 +468,7 @@ class VectorClock:
 
     def are_concurrent(self, other):
         """Check if two clocks are concurrent"""
-        # Two events are concurrent if neither happens-before the other
+# Two events are concurrent if neither happens-before the other
         return not self.happens_before(other) and not other.happens_before(self)
 
     def merge(self, other):
@@ -499,39 +499,39 @@ class VectorClock:
 
 # Example usage demonstrating causality
 def test_vector_clocks():
-    # Three nodes: A, B, C
+# Three nodes: A, B, C
     clock_a = VectorClock("A")
     clock_b = VectorClock("B")
     clock_c = VectorClock("C")
 
-    # A performs local operation
+# A performs local operation
     clock_a.increment()
     print(f"A after local op: {clock_a}")  # {A: 1}
 
-    # A sends message to B
+# A sends message to B
     message_clock = VectorClock("A", clock_a.clock)
     clock_b.update(message_clock.clock)
     print(f"B after receiving from A: {clock_b}")  # {A: 1, B: 1}
 
-    # B performs local operation
+# B performs local operation
     clock_b.increment()
     print(f"B after local op: {clock_b}")  # {A: 1, B: 2}
 
-    # Meanwhile, C performs independent operation
+# Meanwhile, C performs independent operation
     clock_c.increment()
     print(f"C independent op: {clock_c}")  # {C: 1}
 
-    # Check relationships
+# Check relationships
     print(f"\nA happens-before B? {clock_a.happens_before(clock_b)}")  # True
     print(f"B happens-before A? {clock_b.happens_before(clock_a)}")  # False
     print(f"B concurrent with C? {clock_b.are_concurrent(clock_c)}")  # True
 
-    # B sends to C
+# B sends to C
     message_clock = VectorClock("B", clock_b.clock)
     clock_c.update(message_clock.clock)
     print(f"\nC after receiving from B: {clock_c}")  # {A: 1, B: 2, C: 2}
 
-    # Now C knows about A transitively
+# Now C knows about A transitively
     print(f"A happens-before C? {clock_a.happens_before(clock_c)}")  # True
 
 if __name__ == "__main__":

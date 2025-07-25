@@ -54,7 +54,7 @@ class TradingSystemObservability:
     """What they had vs what they needed"""
     
     def __init__(self):
-        # What they had: Technical metrics only
+# What they had: Technical metrics only
         self.basic_metrics = {
             'cpu_usage': Gauge('cpu_usage_percent'),
             'memory_usage': Gauge('memory_usage_bytes'),
@@ -62,7 +62,7 @@ class TradingSystemObservability:
             'error_rate': Counter('errors_total')
         }
         
-        # What they NEEDED: Business-aware observability
+# What they NEEDED: Business-aware observability
         self.business_metrics = {
             'order_volume': Counter('orders_placed_total', ['symbol', 'side', 'order_type']),
             'position_delta': Gauge('position_change_shares', ['symbol']),
@@ -71,7 +71,7 @@ class TradingSystemObservability:
             'market_impact': Histogram('market_impact_basis_points')
         }
         
-        # Critical: Anomaly detection
+# Critical: Anomaly detection
         self.anomaly_detectors = {
             'volume_spike': self.detect_volume_anomaly,
             'position_drift': self.detect_position_drift,
@@ -80,7 +80,7 @@ class TradingSystemObservability:
         
     def detect_volume_anomaly(self, current_volume):
         """Detect unusual trading volume"""
-        # Simple example - reality needs ML
+# Simple example - reality needs ML
         historical_avg = self.get_historical_average('volume', lookback_days=30)
         historical_std = self.get_historical_stddev('volume', lookback_days=30)
         
@@ -98,7 +98,7 @@ class TradingSystemObservability:
             
     def instrument_order_flow(self, order):
         """Rich instrumentation for every order"""
-        # Create trace span
+# Create trace span
         with tracer.start_span('place_order') as span:
             span.set_tag('order.symbol', order.symbol)
             span.set_tag('order.side', order.side)
@@ -106,24 +106,24 @@ class TradingSystemObservability:
             span.set_tag('order.price', order.price)
             span.set_tag('order.type', order.type)
             
-            # Business context
+# Business context
             span.set_tag('position.before', self.get_position(order.symbol))
             span.set_tag('pnl.before', self.get_pnl(order.symbol))
             span.set_tag('market.spread', self.get_spread(order.symbol))
             
-            # Risk metrics
+# Risk metrics
             span.set_tag('risk.var', self.calculate_var())
             span.set_tag('risk.exposure', self.calculate_exposure())
             
             try:
                 result = self.place_order_internal(order)
                 
-                # Post-execution metrics
+# Post-execution metrics
                 span.set_tag('execution.price', result.fill_price)
                 span.set_tag('execution.slippage', result.slippage)
                 span.set_tag('position.after', self.get_position(order.symbol))
                 
-                # Critical: Business impact
+# Critical: Business impact
                 self.business_metrics['order_volume'].inc({
                     'symbol': order.symbol,
                     'side': order.side,
@@ -235,14 +235,14 @@ class DataFreshnessMonitor:
                 'hash': hashlib.sha256(canary_id.encode()).hexdigest()
             }
             
-            # Write to primary
+# Write to primary
             self.write_to_primary(canary_id, canary_data)
             self.synthetic_writes[canary_id] = canary_data
             
-            # Track for monitoring
+# Track for monitoring
             self.canary_keys.add(canary_id)
             
-            # Keep last 100 canaries
+# Keep last 100 canaries
             if len(self.canary_keys) > 100:
                 oldest = min(self.canary_keys)
                 self.canary_keys.remove(oldest)
@@ -257,12 +257,12 @@ class DataFreshnessMonitor:
         for canary_id in self.canary_keys:
             original = self.synthetic_writes[canary_id]
             
-            # Read from each cache region
+# Read from each cache region
             for region in self.regions:
                 cached_data = self.read_from_cache(region, canary_id)
                 
                 if cached_data:
-                    # Calculate staleness
+# Calculate staleness
                     original_time = datetime.fromisoformat(original['timestamp'])
                     cached_time = datetime.fromisoformat(cached_data['timestamp'])
                     lag_seconds = (original_time - cached_time).total_seconds()
@@ -273,7 +273,7 @@ class DataFreshnessMonitor:
                         'canary_id': canary_id
                     })
                     
-                    # Alert if too stale
+# Alert if too stale
                     if lag_seconds > 300:  # 5 minutes
                         self.alert({
                             'severity': 'WARNING',
@@ -283,7 +283,7 @@ class DataFreshnessMonitor:
                         })
                         
                 else:
-                    # Data missing entirely!
+# Data missing entirely!
                     self.alert({
                         'severity': 'CRITICAL',
                         'region': region,
@@ -320,11 +320,11 @@ class EndToEndMonitor:
                         result = await scenario(test_account)
                         duration = time.time() - start_time
                         
-                        # Verify result
+# Verify result
                         if not self.verify_scenario_result(result):
                             raise Exception("Scenario verification failed")
                             
-                        # Record success
+# Record success
                         span.set_tag('duration_ms', duration * 1000)
                         span.set_tag('success', True)
                         
@@ -346,7 +346,7 @@ class EndToEndMonitor:
                             'success': False
                         })
                         
-                        # Page on-call for user-visible failures
+# Page on-call for user-visible failures
                         if scenario.__name__ in ['test_photo_upload', 'test_status_update']:
                             self.page_oncall({
                                 'severity': 'CRITICAL',
@@ -359,22 +359,22 @@ class EndToEndMonitor:
         
     async def test_photo_upload(self, account):
         """Test complete photo upload flow"""
-        # 1. Upload photo
+# 1. Upload photo
         photo_id = await self.upload_photo(account, 'test_photo.jpg')
         
-        # 2. Verify it's accessible
+# 2. Verify it's accessible
         photo_url = await self.get_photo_url(photo_id)
         photo_data = await self.fetch_url(photo_url)
         
         if not photo_data:
             raise Exception("Uploaded photo not accessible")
             
-        # 3. Verify it appears in timeline
+# 3. Verify it appears in timeline
         timeline = await self.get_timeline(account)
         if photo_id not in [p['id'] for p in timeline['photos']]:
             raise Exception("Photo not in timeline")
             
-        # 4. Verify friends can see it
+# 4. Verify friends can see it
         friend_account = self.test_accounts[1]
         friend_timeline = await self.get_friend_timeline(friend_account, account['id'])
         if photo_id not in [p['id'] for p in friend_timeline['photos']]:
@@ -398,14 +398,14 @@ class SurgePricingObservability:
     """What went wrong and how to fix it"""
     
     def __init__(self):
-        # The problematic metric
+# The problematic metric
         self.bad_metric = Histogram(
             'surge_multiplier',
             'Surge pricing multiplier',
             buckets=[1, 1.5, 2, 2.5, 3]  # Missed the 10x outliers!
         )
         
-        # Better observability
+# Better observability
         self.good_metrics = {
             'surge_distribution': Histogram(
                 'surge_multiplier_full',
@@ -437,7 +437,7 @@ class SurgePricingObservability:
         
         anomalies = []
         
-        # Check 1: Rider/Driver mismatch
+# Check 1: Rider/Driver mismatch
         if abs(rider_surge - driver_surge) > 0.5:
             anomalies.append({
                 'type': 'surge_mismatch',
@@ -446,7 +446,7 @@ class SurgePricingObservability:
                 'severity': 'HIGH'
             })
             
-        # Check 2: Extreme surge
+# Check 2: Extreme surge
         if rider_surge > 5:
             anomalies.append({
                 'type': 'extreme_surge',
@@ -454,13 +454,13 @@ class SurgePricingObservability:
                 'severity': 'CRITICAL'
             })
             
-            # Track in metrics
+# Track in metrics
             self.good_metrics['surge_outliers'].inc({
                 'region': region,
                 'magnitude': '5x-10x' if rider_surge <= 10 else '10x+'
             })
             
-        # Check 3: Regional anomaly
+# Check 3: Regional anomaly
         regional_avg = self.get_regional_average(region)
         if rider_surge > regional_avg * 3:
             anomalies.append({
@@ -521,15 +521,15 @@ class BimodalDetector:
         import numpy as np
         from sklearn.mixture import GaussianMixture
         
-        # Fit mixture model
+# Fit mixture model
         gmm = GaussianMixture(n_components=2)
         gmm.fit(np.array(values).reshape(-1, 1))
         
-        # Get the two modes
+# Get the two modes
         means = gmm.means_.flatten()
         weights = gmm.weights_
         
-        # Check if truly bimodal
+# Check if truly bimodal
         if len(means) == 2 and min(weights) > 0.1:
             separation = abs(means[1] - means[0])
             avg_std = np.sqrt(gmm.covariances_).mean()
@@ -548,7 +548,7 @@ class BimodalDetector:
 
 ---
 
-## 📊 The Four Golden Signals in Practice
+## The Four Golden Signals in Practice
 
 ### Complete Implementation with Real Examples
 
@@ -564,7 +564,7 @@ class GoldenSignals:
     def __init__(self, service_name: str):
         self.service_name = service_name
         
-        # 1. LATENCY - Distribution of request durations
+# 1. LATENCY - Distribution of request durations
         self.latency = Histogram(
             f'{service_name}_request_duration_seconds',
             'Request latency distribution',
@@ -572,21 +572,21 @@ class GoldenSignals:
             buckets=[0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0]
         )
         
-        # 2. TRAFFIC - Request rate
+# 2. TRAFFIC - Request rate
         self.traffic = Counter(
             f'{service_name}_requests_total',
             'Total request count',
             ['method', 'endpoint', 'status_code']
         )
         
-        # 3. ERRORS - Failed requests
+# 3. ERRORS - Failed requests
         self.errors = Counter(
             f'{service_name}_errors_total',
             'Total error count',
             ['method', 'endpoint', 'error_type']
         )
         
-        # 4. SATURATION - Resource utilization
+# 4. SATURATION - Resource utilization
         self.saturation = {
             'cpu': Gauge(f'{service_name}_cpu_usage_percent', 'CPU usage percentage'),
             'memory': Gauge(f'{service_name}_memory_usage_percent', 'Memory usage percentage'),
@@ -604,7 +604,7 @@ class GoldenSignals:
             )
         }
         
-        # Start background saturation monitoring
+# Start background saturation monitoring
         self.start_saturation_monitoring()
         
     def track_request(self, method: str, endpoint: str):
@@ -625,19 +625,19 @@ class GoldenSignals:
             def __exit__(self, exc_type, exc_val, exc_tb):
                 duration = time.time() - self.start_time
                 
-                # Determine status
+# Determine status
                 if exc_val:
                     self.status_code = 500
                     error_type = type(exc_val).__name__
                     
-                    # Track error
+# Track error
                     self.signals.errors.labels(
                         method=self.method,
                         endpoint=self.endpoint,
                         error_type=error_type
                     ).inc()
                     
-                # Track latency and traffic
+# Track latency and traffic
                 self.signals.latency.labels(
                     method=self.method,
                     endpoint=self.endpoint,
@@ -650,7 +650,7 @@ class GoldenSignals:
                     status_code=self.status_code or 200
                 ).inc()
                 
-                # Don't suppress the exception
+# Don't suppress the exception
                 return False
                 
         return RequestTracker(self, method, endpoint)
@@ -659,28 +659,28 @@ class GoldenSignals:
         """Background task to monitor resource saturation"""
         async def monitor():
             while True:
-                # CPU
+# CPU
                 cpu_percent = psutil.cpu_percent(interval=1)
                 self.saturation['cpu'].set(cpu_percent)
                 
-                # Memory
+# Memory
                 memory = psutil.virtual_memory()
                 self.saturation['memory'].set(memory.percent)
                 
-                # Disk I/O
+# Disk I/O
                 disk_io = psutil.disk_io_counters()
-                # Calculate I/O percentage (simplified)
+# Calculate I/O percentage (simplified)
                 io_percent = min(100, (disk_io.read_bytes + disk_io.write_bytes) / 1e9 * 100)
                 self.saturation['disk_io'].set(io_percent)
                 
-                # Network I/O
+# Network I/O
                 net_io = psutil.net_io_counters()
                 mbps = (net_io.bytes_sent + net_io.bytes_recv) / 1e6
                 self.saturation['network_io'].set(mbps)
                 
                 await asyncio.sleep(10)  # Update every 10 seconds
                 
-        # Start in background
+# Start in background
         asyncio.create_task(monitor())
         
     def track_connection_pool(self, pool_name: str, active: int, max_size: int):
@@ -698,10 +698,10 @@ signals = GoldenSignals('api_service')
 @app.route('/api/users/<user_id>')
 async def get_user(user_id):
     with signals.track_request('GET', '/api/users/{id}') as tracker:
-        # Your business logic here
+# Your business logic here
         user = await db.get_user(user_id)
         
-        # Track additional saturation metrics
+# Track additional saturation metrics
         signals.track_connection_pool(
             'main_db',
             active=db.pool.active_connections,
@@ -743,7 +743,7 @@ dashboard_queries = {
 
 ---
 
-## 🔍 Distributed Tracing Implementation
+## Distributed Tracing Implementation
 
 ### Building Correlation Across Services
 
@@ -759,11 +759,11 @@ class DistributedTracing:
     """Production distributed tracing setup"""
     
     def __init__(self, service_name: str):
-        # Set up tracer
+# Set up tracer
         trace.set_tracer_provider(TracerProvider())
         self.tracer = trace.get_tracer(service_name)
         
-        # Configure exporter
+# Configure exporter
         jaeger_exporter = JaegerExporter(
             agent_host_name="localhost",
             agent_port=6831,
@@ -789,12 +789,12 @@ class DistributedTracing:
     async def trace_database_query(self, query: str, params: dict):
         """Trace database operations with rich context"""
         with self.tracer.start_as_current_span("db.query") as span:
-            # Add semantic conventions
+# Add semantic conventions
             span.set_attribute("db.system", "postgresql")
             span.set_attribute("db.statement", query)
             span.set_attribute("db.operation", self.extract_operation(query))
             
-            # Add custom attributes
+# Add custom attributes
             span.set_attribute("db.table", self.extract_table(query))
             span.set_attribute("db.row_count", len(params) if isinstance(params, list) else 1)
             
@@ -812,7 +812,7 @@ class DistributedTracing:
         """Trace external API calls"""
         span = self.tracer.start_span(f"http.{method.lower()}")
         
-        # Standard HTTP attributes
+# Standard HTTP attributes
         span.set_attribute("http.method", method)
         span.set_attribute("http.url", url)
         span.set_attribute("http.target", self.extract_path(url))
@@ -827,24 +827,24 @@ class OrderService:
         
     async def create_order(self, order_data):
         with self.tracing.tracer.start_as_current_span("create_order") as span:
-            # Add business context
+# Add business context
             span.set_attribute("order.user_id", order_data['user_id'])
             span.set_attribute("order.total", order_data['total'])
             span.set_attribute("order.items_count", len(order_data['items']))
             
-            # Step 1: Validate inventory
+# Step 1: Validate inventory
             with self.tracing.tracer.start_as_current_span("validate_inventory"):
                 inventory_result = await self.call_inventory_service(
                     order_data['items']
                 )
                 
-            # Step 2: Process payment
+# Step 2: Process payment
             with self.tracing.tracer.start_as_current_span("process_payment"):
                 payment_result = await self.call_payment_service(
                     order_data['payment_info']
                 )
                 
-            # Step 3: Send confirmation
+# Step 3: Send confirmation
             with self.tracing.tracer.start_as_current_span("send_confirmation"):
                 await self.send_order_confirmation(order_data['user_id'])
                 
@@ -854,7 +854,7 @@ class OrderService:
 
 ---
 
-## 📋 Structured Logging Best Practices
+## Structured Logging Best Practices
 
 ### From Log Soup to Queryable Data
 
@@ -868,7 +868,7 @@ class StructuredLogging:
     """Production structured logging configuration"""
     
     def __init__(self, service_name: str):
-        # Configure structlog
+# Configure structlog
         structlog.configure(
             processors=[
                 structlog.stdlib.filter_by_level,
@@ -988,7 +988,7 @@ except PaymentError as e:
 
 ---
 
-## 📈 Custom Business Metrics
+## Custom Business Metrics
 
 ### Connecting Technical Metrics to Business Outcomes
 
@@ -997,7 +997,7 @@ class BusinessMetrics:
     """Track what actually matters to the business"""
     
     def __init__(self):
-        # Revenue metrics
+# Revenue metrics
         self.revenue = Counter(
             'business_revenue_total',
             'Total revenue in cents',
@@ -1010,7 +1010,7 @@ class BusinessMetrics:
             ['product_category']
         )
         
-        # User engagement
+# User engagement
         self.active_users = Gauge(
             'business_active_users',
             'Currently active users',
@@ -1024,14 +1024,14 @@ class BusinessMetrics:
             buckets=[10, 30, 60, 120, 300, 600, 1800, 3600]
         )
         
-        # Feature adoption
+# Feature adoption
         self.feature_usage = Counter(
             'business_feature_usage_total',
             'Feature usage by users',
             ['feature_name', 'user_segment']
         )
         
-        # Customer satisfaction
+# Customer satisfaction
         self.nps_score = Histogram(
             'business_nps_score',
             'Net Promoter Score distribution',
@@ -1040,19 +1040,19 @@ class BusinessMetrics:
         
     def track_purchase(self, order):
         """Track purchase with business context"""
-        # Revenue
+# Revenue
         self.revenue.labels(
             product=order['product_type'],
             payment_method=order['payment_method'],
             region=order['user_region']
         ).inc(order['total_cents'])
         
-        # AOV
+# AOV
         self.average_order_value.labels(
             product_category=order['category']
         ).observe(order['total_cents'] / 100)
         
-        # Feature adoption (did they use discount?)
+# Feature adoption (did they use discount?)
         if order.get('discount_code'):
             self.feature_usage.labels(
                 feature_name='discount_codes',
@@ -1106,7 +1106,7 @@ class BusinessMetrics:
 
 ---
 
-## 🎯 Key Takeaways
+## Key Takeaways
 
 ### The Observability Maturity Model
 

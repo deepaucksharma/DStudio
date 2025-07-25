@@ -174,13 +174,13 @@ class OperationalTransform:
     @staticmethod
     def transform_insert_insert(ins1, ins2):
         if ins1.position < ins2.position:
-            # ins1 happens before ins2
+# ins1 happens before ins2
             return ins1, Insert(ins2.position + ins1.length, ins2.text, ins2.client_id)
         elif ins1.position > ins2.position:
-            # ins2 happens before ins1
+# ins2 happens before ins1
             return Insert(ins1.position + ins2.length, ins1.text, ins1.client_id), ins2
         else:
-            # Same position - use client_id for deterministic ordering
+# Same position - use client_id for deterministic ordering
             if ins1.client_id < ins2.client_id:
                 return ins1, Insert(ins2.position + ins1.length, ins2.text, ins2.client_id)
             else:
@@ -189,38 +189,38 @@ class OperationalTransform:
     @staticmethod
     def transform_insert_delete(ins, delete):
         if ins.position <= delete.position:
-            # Insert happens before delete
+# Insert happens before delete
             return ins, Delete(delete.position + ins.length, delete.length, delete.client_id)
         elif ins.position >= delete.position + delete.length:
-            # Insert happens after delete
+# Insert happens after delete
             return Insert(ins.position - delete.length, ins.text, ins.client_id), delete
         else:
-            # Insert happens in middle of delete
+# Insert happens in middle of delete
             return Insert(delete.position, ins.text, ins.client_id), \
                    Delete(delete.position + ins.length, delete.length, delete.client_id)
     
     @staticmethod
     def transform_delete_delete(del1, del2):
         if del1.position + del1.length <= del2.position:
-            # del1 happens before del2
+# del1 happens before del2
             return del1, Delete(del2.position - del1.length, del2.length, del2.client_id)
         elif del2.position + del2.length <= del1.position:
-            # del2 happens before del1
+# del2 happens before del1
             return Delete(del1.position - del2.length, del1.length, del1.client_id), del2
         else:
-            # Overlapping deletes
+# Overlapping deletes
             if del1.position <= del2.position:
                 if del1.position + del1.length >= del2.position + del2.length:
-                    # del1 contains del2
+# del1 contains del2
                     return Delete(del1.position, del1.length - del2.length, del1.client_id), \
                            Delete(del1.position, 0, del2.client_id)
                 else:
-                    # Partial overlap
+# Partial overlap
                     overlap = del1.position + del1.length - del2.position
                     return Delete(del1.position, del1.length - overlap, del1.client_id), \
                            Delete(del1.position + del1.length - overlap, del2.length - overlap, del2.client_id)
             else:
-                # Mirror case
+# Mirror case
                 del2_prime, del1_prime = OperationalTransform.transform_delete_delete(del2, del1)
                 return del1_prime, del2_prime
 ```
@@ -372,36 +372,36 @@ class DocumentSession:
                 version=self.version
             )
             
-            # Send current document state
+# Send current document state
             self.send_document_state(client_id)
     
     def handle_operation(self, client_id, operation):
         with self.lock:
             client = self.clients[client_id]
             
-            # Transform operation against operations the client hasn't seen
+# Transform operation against operations the client hasn't seen
             transformed_op = operation
             for i in range(client.version, self.version):
                 history_op = self.operation_history[i]
                 transformed_op, _ = transform(transformed_op, history_op)
             
-            # Apply operation
+# Apply operation
             self.document.apply_operation(transformed_op)
             
-            # Add to history
+# Add to history
             self.operation_history.append(transformed_op)
             self.version += 1
             
-            # Broadcast to other clients
+# Broadcast to other clients
             self.broadcast_operation(transformed_op, exclude_client=client_id)
             
-            # Acknowledge to sender
+# Acknowledge to sender
             self.acknowledge_operation(client_id, operation.id)
             
-            # Update client version
+# Update client version
             client.version = self.version
             
-            # Persist operation
+# Persist operation
             self.persist_operation(transformed_op)
     
     def broadcast_operation(self, operation, exclude_client=None):
@@ -414,7 +414,7 @@ class DocumentSession:
                         'version': self.version
                     })
                 except:
-                    # Handle disconnected client
+# Handle disconnected client
                     self.remove_client(client_id)
 ```
 
@@ -431,14 +431,14 @@ class ConflictResolver:
         if len(operations) <= 1:
             return operations
         
-        # Sort by timestamp and client_id for deterministic ordering
+# Sort by timestamp and client_id for deterministic ordering
         sorted_ops = sorted(operations, key=lambda op: (op.timestamp, op.client_id))
         
-        # Apply operational transformation
+# Apply operational transformation
         resolved = []
         for i, op in enumerate(sorted_ops):
             transformed_op = op
-            # Transform against all previously resolved operations
+# Transform against all previously resolved operations
             for prev_op in resolved:
                 transformed_op, _ = transform(transformed_op, prev_op)
             resolved.append(transformed_op)
@@ -457,7 +457,7 @@ class DocumentModel:
     def save_document(self, document):
         """Save document with ACID guarantees"""
         with self.storage.transaction() as txn:
-            # Save document metadata
+# Save document metadata
             txn.insert('documents', {
                 'document_id': document.id,
                 'title': document.title,
@@ -467,14 +467,14 @@ class DocumentModel:
                 'version': document.version
             })
             
-            # Save document content
+# Save document content
             txn.insert('document_content', {
                 'document_id': document.id,
                 'content': document.get_content(),
                 'content_hash': document.calculate_hash()
             })
             
-            # Save access control
+# Save access control
             for user_id, permission in document.permissions.items():
                 txn.insert('document_permissions', {
                     'document_id': document.id,
@@ -507,14 +507,14 @@ class VersionManager:
         
     def create_version(self, document_id, trigger='auto'):
         """Create a new version snapshot"""
-        # Get current document state
+# Get current document state
         document = self.get_document(document_id)
         
-        # Get operations since last version
+# Get operations since last version
         last_version = self.get_latest_version(document_id)
         operations = self.get_operations_since(document_id, last_version.version)
         
-        # Create version snapshot
+# Create version snapshot
         version = {
             'version_id': generate_uuid(),
             'document_id': document_id,
@@ -527,10 +527,10 @@ class VersionManager:
             'size_bytes': len(document.content)
         }
         
-        # Store version
+# Store version
         self.storage.save_version(version)
         
-        # Clean up old operations if needed
+# Clean up old operations if needed
         if len(operations) > 10000:
             self.compact_operations(document_id, version)
         
@@ -538,23 +538,23 @@ class VersionManager:
     
     def restore_version(self, document_id, version_id):
         """Restore document to a specific version"""
-        # Get target version
+# Get target version
         version = self.get_version(version_id)
         
-        # Get all operations from target version to current
+# Get all operations from target version to current
         current_ops = self.get_operations_since(document_id, version.version_number)
         
-        # Create reverse operations
+# Create reverse operations
         reverse_ops = []
         for op in reversed(current_ops):
             if isinstance(op, Insert):
                 reverse_ops.append(Delete(op.position, op.length, 'system'))
             elif isinstance(op, Delete):
-                # Need to get deleted text from document history
+# Need to get deleted text from document history
                 deleted_text = self.get_deleted_text(op)
                 reverse_ops.append(Insert(op.position, deleted_text, 'system'))
         
-        # Apply reverse operations
+# Apply reverse operations
         return reverse_ops
 ```
 
@@ -643,10 +643,10 @@ class CommentSystem:
             'resolved': False
         }
         
-        # Save comment
+# Save comment
         self.comment_store.save(comment)
         
-        # Notify participants
+# Notify participants
         self.notify_comment_participants(comment)
         
         return comment
@@ -668,11 +668,11 @@ class CommentSystem:
                     start -= op.length
                     end -= op.length
                 elif op.position < end:
-                    # Comment partially or fully deleted
+# Comment partially or fully deleted
                     if op.position <= start and op.position + op.length >= end:
-                        # Comment fully deleted
+# Comment fully deleted
                         return None
-                    # Adjust for partial deletion
+# Adjust for partial deletion
                     if op.position <= start:
                         deleted_before_start = start - op.position
                         start = op.position
@@ -696,11 +696,11 @@ class OperationBatcher:
     def add_operation(self, operation):
         self.operation_buffer.append(operation)
         
-        # Reset timer
+# Reset timer
         if self.timer:
             self.timer.cancel()
         
-        # Set new timer
+# Set new timer
         self.timer = threading.Timer(
             self.flush_interval / 1000.0,
             self.flush_operations
@@ -711,13 +711,13 @@ class OperationBatcher:
         if not self.operation_buffer:
             return
         
-        # Merge consecutive operations where possible
+# Merge consecutive operations where possible
         merged = self.merge_operations(self.operation_buffer)
         
-        # Send batch
+# Send batch
         self.send_batch(merged)
         
-        # Clear buffer
+# Clear buffer
         self.operation_buffer = []
 ```
 
@@ -758,7 +758,7 @@ class DeltaCompression:
         for op in operations:
             if isinstance(op, Insert):
                 if current_insert and current_insert.position + current_insert.length == op.position:
-                    # Merge consecutive inserts
+# Merge consecutive inserts
                     current_insert.text += op.text
                     current_insert.length += op.length
                 else:
@@ -844,10 +844,10 @@ class DocsMetrics:
 ```python
 class AccessControl:
     def check_permission(self, user_id, document_id, action):
-        # Get user's permission level
+# Get user's permission level
         permission = self.get_user_permission(user_id, document_id)
         
-        # Check action allowed
+# Check action allowed
         if action == 'read':
             return permission in ['viewer', 'commenter', 'editor', 'owner']
         elif action == 'comment':

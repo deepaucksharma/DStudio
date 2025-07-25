@@ -54,13 +54,13 @@ class TCOCalculator:
             'cost_breakdown': []
         }
         
-        # Calculate costs for each component
+# Calculate costs for each component
         for component in self.cost_components:
             total_cost = self._calculate_component_cost(component)
             results['total'] += total_cost
             results['by_category'][component.category] += total_cost
             
-            # Track breakdown
+# Track breakdown
             results['cost_breakdown'].append({
                 'name': component.name,
                 'category': component.category,
@@ -68,17 +68,17 @@ class TCOCalculator:
                 'percentage': 0  # Will calculate after
             })
             
-            # Distribute costs by year
+# Distribute costs by year
             self._distribute_by_year(component, results['by_year'])
         
-        # Calculate percentages
+# Calculate percentages
         for item in results['cost_breakdown']:
             item['percentage'] = (item['total'] / results['total']) * 100
             
-        # Sort by total cost
+# Sort by total cost
         results['cost_breakdown'].sort(key=lambda x: x['total'], reverse=True)
         
-        # Calculate monthly run rate (operational costs only)
+# Calculate monthly run rate (operational costs only)
         monthly_operational = sum(
             self._get_monthly_cost(c) for c in self.cost_components
             if c.category == 'operational'
@@ -93,7 +93,7 @@ class TCOCalculator:
             return component.amount
             
         elif component.frequency == 'hourly':
-            # Hours in time horizon
+# Hours in time horizon
             hours = self.time_horizon_years * 365 * 24
             return self._apply_growth(component.amount * hours, component.growth_rate)
             
@@ -115,7 +115,7 @@ class TCOCalculator:
         if period_rate == 0:
             return amount * periods
         
-        # Sum of geometric series: a * (1 - r^n) / (1 - r)
+# Sum of geometric series: a * (1 - r^n) / (1 - r)
         return amount * ((1 + period_rate) ** periods - 1) / period_rate
     
     def _get_monthly_cost(self, component: CostComponent) -> float:
@@ -199,20 +199,20 @@ Key Assumptions:
         fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
         fig.suptitle(f'TCO Analysis: {self.project_name}', fontsize=16)
         
-        # 1. Cost by Category (Pie Chart)
+# 1. Cost by Category (Pie Chart)
         categories = list(results['by_category'].keys())
         values = list(results['by_category'].values())
         ax1.pie(values, labels=categories, autopct='%1.1f%%')
         ax1.set_title('Cost Distribution by Category')
         
-        # 2. Cost by Year (Bar Chart)
+# 2. Cost by Year (Bar Chart)
         years = [f'Year {y+1}' for y in sorted(results['by_year'].keys())]
         yearly_costs = [results['by_year'][y] for y in sorted(results['by_year'].keys())]
         ax2.bar(years, yearly_costs)
         ax2.set_title('Annual Costs')
         ax2.set_ylabel('Cost ($)')
         
-        # 3. Top Cost Drivers (Horizontal Bar)
+# 3. Top Cost Drivers (Horizontal Bar)
         top_items = results['cost_breakdown'][:8]
         names = [item['name'] for item in top_items]
         costs = [item['total'] for item in top_items]
@@ -220,17 +220,17 @@ Key Assumptions:
         ax3.set_title('Top Cost Drivers')
         ax3.set_xlabel('Total Cost ($)')
         
-        # 4. Cumulative Cost Over Time
+# 4. Cumulative Cost Over Time
         months = range(self.time_horizon_years * 12)
         cumulative = []
         monthly_cost = results['monthly_run_rate']
         
         for month in months:
             if month == 0:
-                # Include capital costs in first month
+# Include capital costs in first month
                 cumulative.append(results['by_category']['capital'] + monthly_cost)
             else:
-                # Just add monthly operational costs
+# Just add monthly operational costs
                 growth = (1 + 0.05 / 12) ** month  # Assume 5% annual growth
                 cumulative.append(cumulative[-1] + monthly_cost * growth)
         
@@ -247,40 +247,40 @@ Key Assumptions:
 def compare_deployment_options():
     """Compare TCO of different deployment options"""
     
-    # Option 1: On-Premise Deployment
+# Option 1: On-Premise Deployment
     on_premise = TCOCalculator("On-Premise Deployment", time_horizon_years=5)
     
-    # Capital costs
+# Capital costs
     on_premise.add_cost(CostComponent("Server Hardware", "capital", 150000, "one-time"))
     on_premise.add_cost(CostComponent("Network Equipment", "capital", 30000, "one-time"))
     on_premise.add_cost(CostComponent("Storage Arrays", "capital", 80000, "one-time"))
     on_premise.add_cost(CostComponent("Software Licenses", "capital", 50000, "one-time"))
     
-    # Operational costs
+# Operational costs
     on_premise.add_cost(CostComponent("Data Center Space", "operational", 5000, "monthly", 0.03))
     on_premise.add_cost(CostComponent("Power & Cooling", "operational", 3000, "monthly", 0.05))
     on_premise.add_cost(CostComponent("Internet Bandwidth", "operational", 2000, "monthly", 0.02))
     on_premise.add_cost(CostComponent("Hardware Maintenance", "operational", 15000, "yearly", 0.05))
     
-    # Hidden costs
+# Hidden costs
     on_premise.add_cost(CostComponent("IT Staff (2 FTE)", "hidden", 200000, "yearly", 0.04))
     on_premise.add_cost(CostComponent("Downtime Impact", "hidden", 5000, "monthly", 0.0))
     on_premise.add_cost(CostComponent("Security Audits", "hidden", 20000, "yearly", 0.03))
     on_premise.add_cost(CostComponent("Disaster Recovery", "hidden", 30000, "yearly", 0.02))
     
-    # Assumptions
+# Assumptions
     on_premise.add_assumption("Hardware refresh cycle", "5 years")
     on_premise.add_assumption("Availability SLA", "99.5%")
     on_premise.add_assumption("Peak capacity utilization", "60%")
     
-    # Option 2: Cloud Deployment
+# Option 2: Cloud Deployment
     cloud = TCOCalculator("Cloud Deployment (AWS)", time_horizon_years=5)
     
-    # Capital costs (minimal)
+# Capital costs (minimal)
     cloud.add_cost(CostComponent("Migration Costs", "capital", 50000, "one-time"))
     cloud.add_cost(CostComponent("Training", "capital", 20000, "one-time"))
     
-    # Operational costs
+# Operational costs
     cloud.add_cost(CostComponent("EC2 Instances", "operational", 0.50, "hourly", 0.0))  # ~20 instances
     cloud.add_cost(CostComponent("RDS Database", "operational", 0.30, "hourly", 0.0))  # Multi-AZ
     cloud.add_cost(CostComponent("S3 Storage", "operational", 2000, "monthly", 0.10))
@@ -288,27 +288,27 @@ def compare_deployment_options():
     cloud.add_cost(CostComponent("CloudWatch/Monitoring", "operational", 500, "monthly", 0.05))
     cloud.add_cost(CostComponent("Support Plan", "operational", 5000, "monthly", 0.0))
     
-    # Hidden costs
+# Hidden costs
     cloud.add_cost(CostComponent("Cloud Engineers (1 FTE)", "hidden", 120000, "yearly", 0.04))
     cloud.add_cost(CostComponent("Cost Optimization", "hidden", 1000, "monthly", 0.0))
     cloud.add_cost(CostComponent("Compliance Tools", "hidden", 15000, "yearly", 0.05))
     cloud.add_cost(CostComponent("Multi-Region DR", "hidden", 2000, "monthly", 0.10))
     
-    # Assumptions
+# Assumptions
     cloud.add_assumption("Reserved Instance discount", "30%")
     cloud.add_assumption("Availability SLA", "99.95%")
     cloud.add_assumption("Auto-scaling enabled", "Yes")
     
-    # Generate reports
+# Generate reports
     print(on_premise.generate_report())
     print("\n" + "="*70 + "\n")
     print(cloud.generate_report())
     
-    # Visualize both
+# Visualize both
     on_premise.visualize_costs()
     cloud.visualize_costs()
     
-    # Direct comparison
+# Direct comparison
     on_premise_tco = on_premise.calculate_tco()['total']
     cloud_tco = cloud.calculate_tco()['total']
     
@@ -419,28 +419,28 @@ class BuildVsBuyAnalyzer:
             'decision_matrix': []
         }
         
-        # Analyze build option
+# Analyze build option
         build_analysis = self._analyze_build_option(time_horizon_years)
         results['build_score'] = build_analysis['total_score']
         results['detailed_analysis']['build'] = build_analysis
         
-        # Analyze each buy option
+# Analyze each buy option
         for option in self.buy_options:
             buy_analysis = self._analyze_buy_option(option, time_horizon_years)
             vendor = option['vendor']
             results['buy_scores'][vendor] = buy_analysis['total_score']
             results['detailed_analysis'][vendor] = buy_analysis
         
-        # Make recommendation
+# Make recommendation
         all_scores = {'build': results['build_score']}
         all_scores.update(results['buy_scores'])
         best_option = max(all_scores, key=all_scores.get)
         results['recommendation'] = best_option
         
-        # Build decision matrix
+# Build decision matrix
         results['decision_matrix'] = self._build_decision_matrix(results['detailed_analysis'])
         
-        # Identify risk factors
+# Identify risk factors
         results['risk_factors'] = self._identify_risks(best_option, results['detailed_analysis'])
         
         return results
@@ -455,7 +455,7 @@ class BuildVsBuyAnalyzer:
             'total_score': 0
         }
         
-        # Calculate costs
+# Calculate costs
         build_cost = (self.build_factors['team_size'] * 
                      self.build_factors['avg_salary'] * 
                      self.build_factors['months_to_build'] / 12)
@@ -466,7 +466,7 @@ class BuildVsBuyAnalyzer:
         analysis['time_to_market'] = self.build_factors['months_to_build']
         analysis['feature_fit'] = 1.0  # Perfect fit when building
         
-        # Score each factor (0-100 scale)
+# Score each factor (0-100 scale)
         analysis['scores'] = {
             'cost': self._score_cost(analysis['total_cost'], years),
             'time': self._score_time(analysis['time_to_market']),
@@ -476,7 +476,7 @@ class BuildVsBuyAnalyzer:
             'expertise': self._score_expertise_requirement('build')
         }
         
-        # Calculate weighted total
+# Calculate weighted total
         analysis['total_score'] = sum(
             score * self.weights[factor]
             for factor, score in analysis['scores'].items()
@@ -494,12 +494,12 @@ class BuildVsBuyAnalyzer:
             'total_score': 0
         }
         
-        # Calculate costs
+# Calculate costs
         total_cost = option['license_cost'] + (option['annual_support'] * years)
         analysis['total_cost'] = total_cost
         analysis['time_to_market'] = option['implementation_months']
         
-        # Calculate feature fit
+# Calculate feature fit
         total_importance = sum(req.importance for req in self.requirements)
         covered_importance = sum(
             req.importance * option['feature_coverage'].get(req.name, 0)
@@ -507,7 +507,7 @@ class BuildVsBuyAnalyzer:
         )
         analysis['feature_fit'] = covered_importance / total_importance if total_importance > 0 else 0
         
-        # Score each factor
+# Score each factor
         analysis['scores'] = {
             'cost': self._score_cost(analysis['total_cost'], years),
             'time': self._score_time(analysis['time_to_market']),
@@ -517,7 +517,7 @@ class BuildVsBuyAnalyzer:
             'expertise': self._score_expertise_requirement('buy')
         }
         
-        # Calculate weighted total
+# Calculate weighted total
         analysis['total_score'] = sum(
             score * self.weights[factor]
             for factor, score in analysis['scores'].items()
@@ -527,11 +527,11 @@ class BuildVsBuyAnalyzer:
     
     def _score_cost(self, cost: float, years: int) -> float:
         """Score cost factor (lower is better)"""
-        # Normalize against a baseline (e.g., $1M over time horizon)
+# Normalize against a baseline (e.g., $1M over time horizon)
         baseline = 1000000
         normalized = cost / baseline
         
-        # Inverse scoring - lower cost gets higher score
+# Inverse scoring - lower cost gets higher score
         if normalized <= 0.5:
             return 100
         elif normalized <= 1.0:
@@ -558,14 +558,14 @@ class BuildVsBuyAnalyzer:
     
     def _score_build_risk(self) -> float:
         """Score risk of building in-house"""
-        # Consider team size, complexity, and track record
+# Consider team size, complexity, and track record
         base_score = 50
         
-        # Larger teams = more risk
+# Larger teams = more risk
         if self.build_factors['team_size'] > 10:
             base_score -= 10
         
-        # High complexity = more risk
+# High complexity = more risk
         avg_complexity = np.mean([req.complexity for req in self.requirements])
         if avg_complexity > 0.7:
             base_score -= 20
@@ -576,7 +576,7 @@ class BuildVsBuyAnalyzer:
         """Score vendor risk"""
         base_score = 70  # Vendors generally lower risk
         
-        # Adjust based on feature coverage
+# Adjust based on feature coverage
         coverage = sum(option['feature_coverage'].values()) / len(self.requirements)
         if coverage < 0.8:
             base_score -= 20
@@ -586,7 +586,7 @@ class BuildVsBuyAnalyzer:
     def _score_expertise_requirement(self, approach: str) -> float:
         """Score based on expertise requirements"""
         if approach == 'build':
-            # Need specialized expertise
+# Need specialized expertise
             avg_complexity = np.mean([req.complexity for req in self.requirements])
             if avg_complexity > 0.7:
                 return 40  # Hard to find expertise
@@ -650,7 +650,7 @@ Overall Score: {results['detailed_analysis'][results['recommendation']]['total_s
 EXECUTIVE SUMMARY
 -----------------
 """
-        # Summary comparison
+# Summary comparison
         for option, score in [('build', results['build_score'])] + list(results['buy_scores'].items()):
             analysis = results['detailed_analysis'][option]
             report += f"\n{option.upper()}:"
@@ -667,7 +667,7 @@ DETAILED SCORING
 Factor Weights: {', '.join(f'{k}={v:.0%}' for k,v in self.weights.items())}
 
 """
-        # Decision matrix
+# Decision matrix
         report += f"{'Option':<15} {'Cost':<8} {'Time':<8} {'Risk':<8} {'Control':<10} {'Flex':<8} {'Expert':<8} {'TOTAL':<8}\n"
         report += "-" * 75 + "\n"
         
@@ -711,7 +711,7 @@ def analyze_auth_system():
     
     analyzer = BuildVsBuyAnalyzer("Authentication System")
     
-    # Define requirements (name, importance 0-1, complexity 0-1)
+# Define requirements (name, importance 0-1, complexity 0-1)
     analyzer.add_requirement("User Registration", 1.0, 0.3)
     analyzer.add_requirement("Login/Logout", 1.0, 0.2)
     analyzer.add_requirement("Password Reset", 0.9, 0.3)
@@ -723,7 +723,7 @@ def analyze_auth_system():
     analyzer.add_requirement("Audit Logging", 0.7, 0.3)
     analyzer.add_requirement("SAML/SSO", 0.5, 0.8)
     
-    # Build option parameters
+# Build option parameters
     analyzer.set_build_factors(
         team_size=3,
         avg_salary=150000,
@@ -731,7 +731,7 @@ def analyze_auth_system():
         maintenance_percentage=0.25
     )
     
-    # Buy option 1: Auth0
+# Buy option 1: Auth0
     analyzer.add_buy_option(
         vendor="Auth0",
         license_cost=24000,  # Annual
@@ -751,7 +751,7 @@ def analyze_auth_system():
         }
     )
     
-    # Buy option 2: Okta
+# Buy option 2: Okta
     analyzer.add_buy_option(
         vendor="Okta",
         license_cost=36000,  # Annual
@@ -771,7 +771,7 @@ def analyze_auth_system():
         }
     )
     
-    # Buy option 3: AWS Cognito
+# Buy option 3: AWS Cognito
     analyzer.add_buy_option(
         vendor="AWS Cognito",
         license_cost=12000,  # Estimated annual
@@ -791,10 +791,10 @@ def analyze_auth_system():
         }
     )
     
-    # Generate analysis
+# Generate analysis
     print(analyzer.generate_report(time_horizon_years=3))
     
-    # Sensitivity analysis - what if we need it faster?
+# Sensitivity analysis - what if we need it faster?
     analyzer.weights['time'] = 0.40  # Double the weight of time
     analyzer.weights['cost'] = 0.15  # Reduce cost weight
     
@@ -847,7 +847,7 @@ class EC2Instance(CloudResource):
         self.network_in = []
         self.network_out = []
         
-        # Simplified pricing model
+# Simplified pricing model
         self.on_demand_pricing = {
             't3.micro': 0.0104,
             't3.small': 0.0208,
@@ -890,7 +890,7 @@ class CloudCostOptimizer:
             'long_term_optimizations': []
         }
         
-        # Calculate current costs
+# Calculate current costs
         for resource in self.resources:
             monthly_cost = resource.cost_per_hour * 24 * 30
             results['current_monthly_cost'] += monthly_cost
@@ -900,7 +900,7 @@ class CloudCostOptimizer:
                 results['cost_breakdown'][resource_type] = 0
             results['cost_breakdown'][resource_type] += monthly_cost
         
-        # Run optimization strategies
+# Run optimization strategies
         self._optimize_ec2_instances(results)
         self._optimize_reserved_instances(results)
         self._optimize_spot_instances(results)
@@ -910,11 +910,11 @@ class CloudCostOptimizer:
         self._identify_unused_resources(results)
         self._optimize_instance_families(results)
         
-        # Calculate savings
+# Calculate savings
         results['optimized_monthly_cost'] = results['current_monthly_cost'] - results['monthly_savings']
         results['savings_percentage'] = (results['monthly_savings'] / results['current_monthly_cost'] * 100) if results['current_monthly_cost'] > 0 else 0
         
-        # Categorize recommendations
+# Categorize recommendations
         for rec in results['recommendations']:
             if rec['implementation_effort'] == 'low' and rec['savings'] > 100:
                 results['quick_wins'].append(rec)
@@ -928,14 +928,14 @@ class CloudCostOptimizer:
         ec2_instances = [r for r in self.resources if isinstance(r, EC2Instance)]
         
         for instance in ec2_instances:
-            # Check for rightsizing opportunities
+# Check for rightsizing opportunities
             if hasattr(instance, 'cpu_utilization') and instance.cpu_utilization:
                 avg_cpu = np.mean(instance.cpu_utilization)
                 
                 if avg_cpu < 20:  # Underutilized
                     current_cost = instance.cost_per_hour * 24 * 30
                     
-                    # Recommend smaller instance
+# Recommend smaller instance
                     if instance.instance_type.endswith('xlarge'):
                         new_type = instance.instance_type.replace('xlarge', 'large')
                         new_cost = instance.on_demand_pricing.get(new_type, 0) * 24 * 30
@@ -973,7 +973,7 @@ class CloudCostOptimizer:
         """Recommend reserved instance purchases"""
         ec2_instances = [r for r in self.resources if isinstance(r, EC2Instance)]
         
-        # Group by instance type and calculate steady-state usage
+# Group by instance type and calculate steady-state usage
         instance_hours = {}
         for instance in ec2_instances:
             if instance.state == 'running':
@@ -984,7 +984,7 @@ class CloudCostOptimizer:
                         instance_hours[key] = 0
                     instance_hours[key] += 1
         
-        # Recommend RIs for steady-state workloads
+# Recommend RIs for steady-state workloads
         for (instance_type, region), count in instance_hours.items():
             if count >= 1:  # At least one long-running instance
                 on_demand_cost = self._get_on_demand_price(instance_type) * 24 * 30 * count
@@ -1010,7 +1010,7 @@ class CloudCostOptimizer:
         ec2_instances = [r for r in self.resources if isinstance(r, EC2Instance)]
         
         for instance in ec2_instances:
-            # Check if workload is spot-suitable (based on tags)
+# Check if workload is spot-suitable (based on tags)
             if instance.tags.get('workload-type') in ['batch', 'development', 'testing']:
                 on_demand_cost = instance.cost_per_hour * 24 * 30
                 spot_cost = on_demand_cost * 0.3  # Assume 70% discount
@@ -1032,7 +1032,7 @@ class CloudCostOptimizer:
         """Recommend auto-scaling configurations"""
         ec2_instances = [r for r in self.resources if isinstance(r, EC2Instance)]
         
-        # Group instances by application
+# Group instances by application
         app_groups = {}
         for instance in ec2_instances:
             app = instance.tags.get('application', 'unknown')
@@ -1040,16 +1040,16 @@ class CloudCostOptimizer:
                 app_groups[app] = []
             app_groups[app].append(instance)
         
-        # Check for scaling opportunities
+# Check for scaling opportunities
         for app, instances in app_groups.items():
             if len(instances) > 2:  # Multiple instances of same app
-                # Simulate time-based usage pattern
+# Simulate time-based usage pattern
                 peak_hours = 8  # Business hours
                 off_peak_hours = 16
                 
                 total_cost = sum(i.cost_per_hour * 24 * 30 for i in instances)
                 
-                # With auto-scaling: run 50% capacity during off-peak
+# With auto-scaling: run 50% capacity during off-peak
                 auto_scale_cost = (
                     len(instances) * instances[0].cost_per_hour * peak_hours * 30 +
                     len(instances) * 0.5 * instances[0].cost_per_hour * off_peak_hours * 30
@@ -1073,11 +1073,11 @@ class CloudCostOptimizer:
         """Find and flag unused resources"""
         for resource in self.resources:
             if isinstance(resource, EC2Instance):
-                # Check if instance is stopped
+# Check if instance is stopped
                 if resource.state == 'stopped':
                     stopped_days = (datetime.now() - resource.launch_time).days
                     if stopped_days > 7:
-                        # EBS cost for stopped instance
+# EBS cost for stopped instance
                         ebs_cost = 0.10 * 100 / 30  # Assume 100GB EBS at $0.10/GB/month
                         daily_cost = ebs_cost
                         monthly_cost = daily_cost * 30
@@ -1093,7 +1093,7 @@ class CloudCostOptimizer:
                             'implementation_effort': 'low'
                         })
                 
-                # Check for low network activity (potential zombie)
+# Check for low network activity (potential zombie)
                 elif hasattr(resource, 'network_in') and resource.network_in:
                     avg_network = np.mean(resource.network_in + resource.network_out)
                     if avg_network < 1000:  # Less than 1KB/s average
@@ -1110,7 +1110,7 @@ class CloudCostOptimizer:
     
     def _optimize_storage(self, results: Dict):
         """Optimize storage costs"""
-        # Simulate storage optimization
+# Simulate storage optimization
         storage_recommendations = [
             {
                 'type': 'storage_tiering',
@@ -1139,7 +1139,7 @@ class CloudCostOptimizer:
     
     def _optimize_data_transfer(self, results: Dict):
         """Optimize data transfer costs"""
-        # Simulate data transfer optimization
+# Simulate data transfer optimization
         transfer_optimization = {
             'type': 'data_transfer',
             'current_pattern': 'Cross-region replication',
@@ -1157,7 +1157,7 @@ class CloudCostOptimizer:
         """Recommend newer instance families"""
         ec2_instances = [r for r in self.resources if isinstance(r, EC2Instance)]
         
-        # Map old to new instance families
+# Map old to new instance families
         family_upgrades = {
             'm4': 'm5',
             'c4': 'c5',
@@ -1172,7 +1172,7 @@ class CloudCostOptimizer:
                 size = instance.instance_type.split('.')[1]
                 new_type = f"{new_family}.{size}"
                 
-                # Newer families are often 10-20% cheaper with better performance
+# Newer families are often 10-20% cheaper with better performance
                 current_cost = instance.cost_per_hour * 24 * 30
                 new_cost = current_cost * 0.85
                 savings = current_cost - new_cost
@@ -1190,7 +1190,7 @@ class CloudCostOptimizer:
     
     def _get_on_demand_price(self, instance_type: str) -> float:
         """Get on-demand price for instance type"""
-        # Simplified pricing lookup
+# Simplified pricing lookup
         prices = {
             't3.micro': 0.0104,
             't3.small': 0.0208,
@@ -1243,7 +1243,7 @@ QUICK WINS (Low effort, immediate savings)
 OPTIMIZATION RECOMMENDATIONS
 ----------------------------
 """
-        # Group by type
+# Group by type
         by_type = {}
         for rec in results['recommendations']:
             rec_type = rec['type']
@@ -1251,7 +1251,7 @@ OPTIMIZATION RECOMMENDATIONS
                 by_type[rec_type] = []
             by_type[rec_type].append(rec)
         
-        # Sort by total savings per type
+# Sort by total savings per type
         type_savings = {
             rec_type: sum(r['savings'] for r in recs)
             for rec_type, recs in by_type.items()
@@ -1293,7 +1293,7 @@ def analyze_sample_infrastructure():
     
     optimizer = CloudCostOptimizer()
     
-    # Add production web servers
+# Add production web servers
     for i in range(5):
         instance = EC2Instance(
             f"i-prod-web-{i}",
@@ -1306,7 +1306,7 @@ def analyze_sample_infrastructure():
         instance.network_in = np.random.normal(5000, 1000, 100).tolist()
         optimizer.add_resource(instance)
     
-    # Add API servers
+# Add API servers
     for i in range(3):
         instance = EC2Instance(
             f"i-prod-api-{i}",
@@ -1319,7 +1319,7 @@ def analyze_sample_infrastructure():
         instance.network_in = np.random.normal(50000, 10000, 100).tolist()
         optimizer.add_resource(instance)
     
-    # Add batch processing (spot-eligible)
+# Add batch processing (spot-eligible)
     for i in range(10):
         instance = EC2Instance(
             f"i-batch-{i}",
@@ -1331,7 +1331,7 @@ def analyze_sample_infrastructure():
         instance.cpu_utilization = np.random.normal(70, 15, 100).tolist()
         optimizer.add_resource(instance)
     
-    # Add development instances (some stopped)
+# Add development instances (some stopped)
     for i in range(8):
         instance = EC2Instance(
             f"i-dev-{i}",
@@ -1346,7 +1346,7 @@ def analyze_sample_infrastructure():
             instance.network_in = np.random.normal(100, 50, 100).tolist()  # Minimal network
         optimizer.add_resource(instance)
     
-    # Add database instances (previous generation)
+# Add database instances (previous generation)
     for i in range(2):
         instance = EC2Instance(
             f"i-db-{i}",
@@ -1358,10 +1358,10 @@ def analyze_sample_infrastructure():
         instance.cpu_utilization = np.random.normal(40, 10, 100).tolist()
         optimizer.add_resource(instance)
     
-    # Generate and display report
+# Generate and display report
     print(optimizer.generate_optimization_report())
     
-    # Calculate ROI
+# Calculate ROI
     results = optimizer.analyze_costs()
     implementation_cost = 10000  # Estimated cost to implement optimizations
     monthly_savings = results['monthly_savings']
@@ -1468,7 +1468,7 @@ class MultiRegionAnalyzer:
             analysis = self._analyze_strategy(strategy)
             results[strategy.value] = analysis
             
-        # Add comparison
+# Add comparison
         results['comparison'] = self._compare_strategies(results)
         
         return results
@@ -1490,11 +1490,11 @@ class MultiRegionAnalyzer:
         }
         
         if strategy == DeploymentStrategy.SINGLE_REGION:
-            # Pick optimal single region
+# Pick optimal single region
             best_region = self._find_best_single_region()
             analysis['regions_used'] = [best_region]
             
-            # Calculate costs
+# Calculate costs
             region = self.regions[best_region]
             base_cost = self._calculate_region_cost(region, 1.0)
             analysis['monthly_cost'] = base_cost
@@ -1502,12 +1502,12 @@ class MultiRegionAnalyzer:
                 best_region: base_cost
             }
             
-            # Calculate metrics
+# Calculate metrics
             analysis['availability'] = 99.5  # Single region
             analysis['average_latency'] = self._calculate_average_latency([best_region])
             analysis['complexity_score'] = 1  # Simplest
             
-            # Pros/Cons
+# Pros/Cons
             analysis['pros'] = [
                 "Lowest cost",
                 "Simple architecture",
@@ -1520,12 +1520,12 @@ class MultiRegionAnalyzer:
             ]
             
         elif strategy == DeploymentStrategy.ACTIVE_PASSIVE:
-            # Primary + DR region
+# Primary + DR region
             primary = self._find_best_single_region()
             dr_region = self._find_dr_region(primary)
             analysis['regions_used'] = [primary, dr_region]
             
-            # Costs: Full in primary, 30% in DR
+# Costs: Full in primary, 30% in DR
             primary_cost = self._calculate_region_cost(self.regions[primary], 1.0)
             dr_cost = self._calculate_region_cost(self.regions[dr_region], 0.3)
             replication_cost = self._calculate_replication_cost(primary, dr_region)
@@ -1538,12 +1538,12 @@ class MultiRegionAnalyzer:
                 'replication': replication_cost
             }
             
-            # Metrics
+# Metrics
             analysis['availability'] = 99.95  # With failover
             analysis['average_latency'] = self._calculate_average_latency([primary])
             analysis['complexity_score'] = 3
             
-            # Pros/Cons
+# Pros/Cons
             analysis['pros'] = [
                 "Disaster recovery capability",
                 "Improved availability",
@@ -1556,11 +1556,11 @@ class MultiRegionAnalyzer:
             ]
             
         elif strategy == DeploymentStrategy.ACTIVE_ACTIVE:
-            # Multiple active regions
+# Multiple active regions
             active_regions = self._select_active_regions()
             analysis['regions_used'] = active_regions
             
-            # Costs: Full deployment in each region
+# Costs: Full deployment in each region
             total_cost = 0
             for region_code in active_regions:
                 region = self.regions[region_code]
@@ -1568,7 +1568,7 @@ class MultiRegionAnalyzer:
                 analysis['cost_breakdown'][region_code] = region_cost
                 total_cost += region_cost
             
-            # Add inter-region replication
+# Add inter-region replication
             replication_cost = self._calculate_mesh_replication_cost(active_regions)
             analysis['cost_breakdown']['replication'] = replication_cost
             total_cost += replication_cost
@@ -1576,12 +1576,12 @@ class MultiRegionAnalyzer:
             analysis['monthly_cost'] = total_cost
             analysis['data_transfer_cost'] = replication_cost
             
-            # Metrics
+# Metrics
             analysis['availability'] = 99.99  # High availability
             analysis['average_latency'] = self._calculate_average_latency(active_regions)
             analysis['complexity_score'] = 8
             
-            # Pros/Cons
+# Pros/Cons
             analysis['pros'] = [
                 "Lowest latency globally",
                 "Highest availability",
@@ -1596,21 +1596,21 @@ class MultiRegionAnalyzer:
             ]
             
         elif strategy == DeploymentStrategy.FOLLOW_THE_SUN:
-            # Dynamic scaling by timezone
+# Dynamic scaling by timezone
             all_regions = list(self.regions.keys())
             analysis['regions_used'] = all_regions
             
-            # Costs: Weighted by usage patterns
+# Costs: Weighted by usage patterns
             total_cost = 0
             for region_code in all_regions:
                 region = self.regions[region_code]
-                # Assume 8 hours peak per region
+# Assume 8 hours peak per region
                 usage_factor = 8/24
                 region_cost = self._calculate_region_cost(region, usage_factor)
                 analysis['cost_breakdown'][region_code] = region_cost
                 total_cost += region_cost
             
-            # Minimal replication (config only)
+# Minimal replication (config only)
             replication_cost = len(all_regions) * 100  # Nominal
             analysis['cost_breakdown']['replication'] = replication_cost
             total_cost += replication_cost
@@ -1618,12 +1618,12 @@ class MultiRegionAnalyzer:
             analysis['monthly_cost'] = total_cost
             analysis['data_transfer_cost'] = replication_cost
             
-            # Metrics
+# Metrics
             analysis['availability'] = 99.9
             analysis['average_latency'] = self._calculate_average_latency(all_regions)
             analysis['complexity_score'] = 6
             
-            # Pros/Cons
+# Pros/Cons
             analysis['pros'] = [
                 "Cost efficient for global users",
                 "Good latency during business hours",
@@ -1635,7 +1635,7 @@ class MultiRegionAnalyzer:
                 "Requires stateless design"
             ]
         
-        # Check SLA compliance
+# Check SLA compliance
         analysis['meets_sla'] = (
             analysis['availability'] >= self.sla_requirements['availability'] and
             analysis['average_latency'] <= self.sla_requirements['max_latency']
@@ -1654,7 +1654,7 @@ class MultiRegionAnalyzer:
                 latency = region.latency_to_users.get(user_region, 200)
                 weighted_latency += latency * user_pct
                 
-            # Consider cost as well
+# Consider cost as well
             cost_factor = region.cost_multiplier
             score = weighted_latency * cost_factor
             
@@ -1668,20 +1668,20 @@ class MultiRegionAnalyzer:
         """Find best DR region (different from primary)"""
         candidates = [r for r in self.regions.keys() if r != primary]
         
-        # Pick geographically diverse region with reasonable cost
-        # Simplified: just pick cheapest different region
+# Pick geographically diverse region with reasonable cost
+# Simplified: just pick cheapest different region
         return min(candidates, 
                   key=lambda r: self.regions[r].cost_multiplier)
     
     def _select_active_regions(self) -> List[str]:
         """Select regions for active-active deployment"""
-        # Simple strategy: regions with >20% users
+# Simple strategy: regions with >20% users
         selected = []
         for region_code in self.regions.keys():
             if self.user_distribution.get(region_code, 0) > 0.2:
                 selected.append(region_code)
                 
-        # Ensure at least 2 regions
+# Ensure at least 2 regions
         if len(selected) < 2:
             selected = list(self.regions.keys())[:2]
             
@@ -1691,24 +1691,24 @@ class MultiRegionAnalyzer:
         """Calculate monthly cost for a region"""
         base = self.baseline_infrastructure
         
-        # Compute cost (simplified)
+# Compute cost (simplified)
         compute_cost = base['compute_units'] * 100 * region.cost_multiplier * usage_factor
         
-        # Storage cost
+# Storage cost
         storage_cost = base['storage_gb'] * 0.1 * region.cost_multiplier
         
-        # Bandwidth cost
+# Bandwidth cost
         bandwidth_cost = base['bandwidth_gb_month'] * region.data_transfer_cost
         
         return compute_cost + storage_cost + bandwidth_cost
     
     def _calculate_replication_cost(self, source: str, dest: str) -> float:
         """Calculate replication cost between two regions"""
-        # Assume 10% of storage changes monthly
+# Assume 10% of storage changes monthly
         change_rate = 0.1
         data_gb = self.baseline_infrastructure['storage_gb'] * change_rate
         
-        # Use source region's data transfer cost
+# Use source region's data transfer cost
         transfer_cost = self.regions[source].data_transfer_cost
         
         return data_gb * transfer_cost
@@ -1729,7 +1729,7 @@ class MultiRegionAnalyzer:
         total_weighted_latency = 0
         
         for user_region, user_pct in self.user_distribution.items():
-            # Find closest deployed region
+# Find closest deployed region
             min_latency = float('inf')
             for deployed in deployed_regions:
                 latency = self.regions[deployed].latency_to_users.get(user_region, 200)
@@ -1750,10 +1750,10 @@ class MultiRegionAnalyzer:
             'recommendations': []
         }
         
-        # Extract strategies (skip 'comparison' key)
+# Extract strategies (skip 'comparison' key)
         strategies = [k for k in results.keys() if k != 'comparison']
         
-        # Rank by different metrics
+# Rank by different metrics
         comparison['cost_ranking'] = sorted(
             strategies,
             key=lambda s: results[s]['monthly_cost']
@@ -1775,14 +1775,14 @@ class MultiRegionAnalyzer:
             key=lambda s: results[s]['complexity_score']
         )
         
-        # SLA compliant strategies
+# SLA compliant strategies
         comparison['sla_compliant'] = [
             s for s in strategies if results[s]['meets_sla']
         ]
         
-        # Recommendations based on different priorities
+# Recommendations based on different priorities
         if comparison['sla_compliant']:
-            # If SLA is priority, pick cheapest compliant option
+# If SLA is priority, pick cheapest compliant option
             comparison['recommendations'].append({
                 'priority': 'SLA Compliance + Cost',
                 'recommendation': min(
@@ -1819,7 +1819,7 @@ class MultiRegionAnalyzer:
         fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
         fig.suptitle(f'Multi-Region Deployment Analysis: {self.application_name}', fontsize=16)
         
-        # 1. Cost comparison
+# 1. Cost comparison
         costs = [results[s]['monthly_cost'] for s in strategies]
         strategy_names = [s.replace('_', ' ').title() for s in strategies]
         
@@ -1828,7 +1828,7 @@ class MultiRegionAnalyzer:
         ax1.set_ylabel('Cost ($)')
         ax1.tick_params(axis='x', rotation=45)
         
-        # 2. Latency vs Cost scatter
+# 2. Latency vs Cost scatter
         latencies = [results[s]['average_latency'] for s in strategies]
         
         ax2.scatter(costs, latencies, s=100)
@@ -1838,7 +1838,7 @@ class MultiRegionAnalyzer:
         ax2.set_ylabel('Average Latency (ms)')
         ax2.set_title('Cost vs Performance Trade-off')
         
-        # 3. Availability comparison
+# 3. Availability comparison
         availabilities = [results[s]['availability'] for s in strategies]
         
         ax3.barh(strategy_names, availabilities)
@@ -1846,7 +1846,7 @@ class MultiRegionAnalyzer:
         ax3.set_title('Availability by Strategy')
         ax3.set_xlim(99, 100)
         
-        # 4. Cost breakdown for most expensive strategy
+# 4. Cost breakdown for most expensive strategy
         most_expensive = max(strategies, key=lambda s: results[s]['monthly_cost'])
         breakdown = results[most_expensive]['cost_breakdown']
         
@@ -1929,7 +1929,7 @@ RECOMMENDATIONS
             report += f"\n  Latency: {strategy['average_latency']:.0f} ms"
             report += f"\n  Availability: {strategy['availability']}%"
         
-        # ROI calculation for moving from single to multi-region
+# ROI calculation for moving from single to multi-region
         single_cost = results['single_region']['monthly_cost']
         
         report += f"""
@@ -1947,7 +1947,7 @@ ROI ANALYSIS
                 report += f"\n  Additional Cost: ${additional_cost:,.2f}/month ({(additional_cost/single_cost*100):.0f}% increase)"
                 report += f"\n  Availability Gain: {availability_gain:.2f}%"
                 
-                # Estimate downtime cost (simplified)
+# Estimate downtime cost (simplified)
                 downtime_hours_saved = (availability_gain / 100) * 24 * 30
                 downtime_cost_per_hour = 10000  # Example
                 savings = downtime_hours_saved * downtime_cost_per_hour
@@ -1963,7 +1963,7 @@ def analyze_ecommerce_deployment():
     
     analyzer = MultiRegionAnalyzer("Global E-commerce Platform")
     
-    # Define regions with costs and latencies
+# Define regions with costs and latencies
     regions = [
         Region("US East", "us-east-1", 1.0, {
             "us-east-1": 10, "us-west-1": 60, "eu-west-1": 80, 
@@ -1994,7 +1994,7 @@ def analyze_ecommerce_deployment():
     for region in regions:
         analyzer.add_region(region)
     
-    # User distribution
+# User distribution
     analyzer.set_user_distribution({
         "us-east-1": 0.25,
         "us-west-1": 0.15,
@@ -2003,14 +2003,14 @@ def analyze_ecommerce_deployment():
         "ap-northeast-1": 0.15
     })
     
-    # Infrastructure baseline
+# Infrastructure baseline
     analyzer.set_baseline_infrastructure(
         compute_units=50,  # Number of servers
         storage_gb=10000,  # 10TB
         bandwidth_gb_month=50000  # 50TB
     )
     
-    # SLA requirements
+# SLA requirements
     analyzer.set_sla_requirements(
         availability_target=99.95,
         max_latency_ms=100,
@@ -2018,10 +2018,10 @@ def analyze_ecommerce_deployment():
         rto_minutes=30
     )
     
-    # Generate analysis
+# Generate analysis
     print(analyzer.generate_deployment_report())
     
-    # Visualize results
+# Visualize results
     results = analyzer.analyze_deployment_strategies()
     analyzer.visualize_deployment_costs(results)
 
@@ -2110,7 +2110,7 @@ class HiddenCostAnalyzer:
         """Run all discovery methods"""
         self.discovered_costs = []
         
-        # Run all analyzers
+# Run all analyzers
         self._analyze_human_capital_costs()
         self._analyze_technical_debt_costs()
         self._analyze_operational_overhead()
@@ -2124,9 +2124,9 @@ class HiddenCostAnalyzer:
     def _analyze_human_capital_costs(self):
         """Analyze hidden human capital costs"""
         
-        # 1. On-call burnout cost
+# 1. On-call burnout cost
         if self.team_data.get('on_call_hours', 0) > 40:
-            # Excessive on-call leads to turnover
+# Excessive on-call leads to turnover
             turnover_risk = min((self.team_data['on_call_hours'] - 40) / 100, 0.5)
             replacement_cost = self.team_data['avg_salary'] * 1.5  # 150% to replace
             monthly_impact = (replacement_cost * turnover_risk) / 12
@@ -2141,12 +2141,12 @@ class HiddenCostAnalyzer:
                 "medium"
             ))
         
-        # 2. Context switching cost
+# 2. Context switching cost
         if self.system_data.get('services', 0) > self.team_data.get('size', 1) * 2:
-            # Too many services per person
+# Too many services per person
             services_per_person = self.system_data['services'] / self.team_data['size']
             
-            # Estimate 15% productivity loss per service over 2
+# Estimate 15% productivity loss per service over 2
             productivity_loss = min((services_per_person - 2) * 0.15, 0.5)
             monthly_impact = (self.team_data['avg_salary'] * self.team_data['size'] / 12) * productivity_loss
             
@@ -2160,10 +2160,10 @@ class HiddenCostAnalyzer:
                 "high"
             ))
         
-        # 3. Incident fatigue cost
+# 3. Incident fatigue cost
         incident_hours = self.team_data.get('incidents', 0) * self.team_data.get('incident_duration', 2)
         if incident_hours > 20:
-            # High incident load reduces productivity
+# High incident load reduces productivity
             productivity_loss = min(incident_hours / 160, 0.3)  # Work hours in month
             monthly_impact = (self.team_data['avg_salary'] * self.team_data['size'] / 12) * productivity_loss
             
@@ -2177,9 +2177,9 @@ class HiddenCostAnalyzer:
                 "medium"
             ))
         
-        # 4. Knowledge silo cost
+# 4. Knowledge silo cost
         if self.team_data.get('size', 0) < self.system_data.get('tech_diversity', 0):
-            # More technologies than people = knowledge silos
+# More technologies than people = knowledge silos
             risk_factor = 0.3  # 30% productivity hit
             monthly_impact = (self.team_data['avg_salary'] * self.team_data['size'] / 12) * risk_factor
             
@@ -2196,9 +2196,9 @@ class HiddenCostAnalyzer:
     def _analyze_technical_debt_costs(self):
         """Analyze technical debt related costs"""
         
-        # 1. Legacy system maintenance
+# 1. Legacy system maintenance
         if self.system_data.get('avg_age', 0) > 3:
-            # Older systems cost more to maintain
+# Older systems cost more to maintain
             age_factor = (self.system_data['avg_age'] - 3) * 0.2
             base_maintenance = self.team_data['avg_salary'] * self.team_data['size'] * 0.3 / 12
             monthly_impact = base_maintenance * age_factor
@@ -2213,9 +2213,9 @@ class HiddenCostAnalyzer:
                 "high"
             ))
         
-        # 2. High rollback rate cost
+# 2. High rollback rate cost
         if self.system_data.get('rollback_rate', 0) > 0.1:
-            # Each rollback costs time and credibility
+# Each rollback costs time and credibility
             rollback_cost = 5000  # Per rollback
             rollbacks_month = self.system_data['deployments'] * self.system_data['rollback_rate']
             monthly_impact = rollback_cost * rollbacks_month
@@ -2230,13 +2230,13 @@ class HiddenCostAnalyzer:
                 "medium"
             ))
         
-        # 3. Dependency update debt
-        # Assume 20% of services have outdated dependencies
+# 3. Dependency update debt
+# Assume 20% of services have outdated dependencies
         outdated_services = self.system_data.get('services', 0) * 0.2
         update_hours_per_service = 40
         hourly_rate = self.team_data.get('avg_salary', 100000) / 2080
         
-        # Spread over 6 months
+# Spread over 6 months
         monthly_impact = (outdated_services * update_hours_per_service * hourly_rate) / 6
         
         self.discovered_costs.append(HiddenCost(
@@ -2252,8 +2252,8 @@ class HiddenCostAnalyzer:
     def _analyze_operational_overhead(self):
         """Analyze operational overhead costs"""
         
-        # 1. Manual processes cost
-        # Estimate based on deployment frequency
+# 1. Manual processes cost
+# Estimate based on deployment frequency
         if self.system_data.get('deployments', 0) > 20:
             manual_hours_per_deploy = 2
             deploys = self.system_data['deployments']
@@ -2271,8 +2271,8 @@ class HiddenCostAnalyzer:
                 "medium"
             ))
         
-        # 2. Monitoring blind spots
-        # Assume 30% of issues are discovered by users
+# 2. Monitoring blind spots
+# Assume 30% of issues are discovered by users
         user_discovered_incidents = self.team_data.get('incidents', 0) * 0.3
         reputation_cost_per_incident = 2000
         
@@ -2288,9 +2288,9 @@ class HiddenCostAnalyzer:
             "low"
         ))
         
-        # 3. Communication overhead
+# 3. Communication overhead
         if self.team_data.get('size', 0) > 10:
-            # Communication overhead grows with team size
+# Communication overhead grows with team size
             overhead_factor = (self.team_data['size'] - 10) * 0.02
             base_salary = self.team_data['avg_salary'] * self.team_data['size'] / 12
             monthly_impact = base_salary * overhead_factor
@@ -2308,8 +2308,8 @@ class HiddenCostAnalyzer:
     def _analyze_opportunity_costs(self):
         """Analyze opportunity costs"""
         
-        # 1. Feature velocity impact
-        # Time spent on operations vs features
+# 1. Feature velocity impact
+# Time spent on operations vs features
         ops_percentage = 0.4  # Assume 40% on ops
         potential_feature_value = 50000  # Per month of eng time
         
@@ -2325,9 +2325,9 @@ class HiddenCostAnalyzer:
             "high"
         ))
         
-        # 2. Scaling limitations
+# 2. Scaling limitations
         if self.system_data.get('services', 0) > 0:
-            # Monolithic architectures limit scaling
+# Monolithic architectures limit scaling
             monolith_factor = max(0, 1 - (self.system_data['services'] / 20))
             scaling_opportunity_loss = 20000 * monolith_factor
             
@@ -2345,8 +2345,8 @@ class HiddenCostAnalyzer:
     def _analyze_risk_costs(self):
         """Analyze risk-related costs"""
         
-        # 1. Single points of failure
-        # Estimate based on system count
+# 1. Single points of failure
+# Estimate based on system count
         spof_count = max(1, self.system_data.get('services', 0) / 5)
         downtime_cost_hour = 10000
         failure_probability = 0.01  # 1% per month
@@ -2364,8 +2364,8 @@ class HiddenCostAnalyzer:
             "medium"
         ))
         
-        # 2. Security breach risk
-        # Based on age and complexity
+# 2. Security breach risk
+# Based on age and complexity
         breach_probability = min(0.001 * self.system_data.get('avg_age', 1), 0.01)
         breach_cost = 500000
         
@@ -2381,8 +2381,8 @@ class HiddenCostAnalyzer:
             "high"
         ))
         
-        # 3. Data loss risk
-        # Assume inadequate backups
+# 3. Data loss risk
+# Assume inadequate backups
         data_loss_probability = 0.001
         data_value = 1000000
         
@@ -2401,7 +2401,7 @@ class HiddenCostAnalyzer:
     def _analyze_compliance_costs(self):
         """Analyze compliance-related costs"""
         
-        # 1. Audit preparation
+# 1. Audit preparation
         audit_hours_month = 40
         hourly_rate = self.team_data.get('avg_salary', 100000) / 2080
         
@@ -2417,7 +2417,7 @@ class HiddenCostAnalyzer:
             "medium"
         ))
         
-        # 2. GDPR/Privacy compliance
+# 2. GDPR/Privacy compliance
         privacy_engineer_allocation = 0.5  # Half an engineer
         monthly_impact = (self.team_data.get('avg_salary', 100000) / 12) * privacy_engineer_allocation
         
@@ -2434,10 +2434,10 @@ class HiddenCostAnalyzer:
     def _analyze_vendor_lock_in_costs(self):
         """Analyze vendor lock-in costs"""
         
-        # 1. Switching cost risk
-        # Assume 30% premium due to lock-in
+# 1. Switching cost risk
+# Assume 30% premium due to lock-in
         vendor_premium = 0.3
-        # Estimate current vendor costs
+# Estimate current vendor costs
         estimated_vendor_costs = 20000  # Monthly
         
         monthly_impact = estimated_vendor_costs * vendor_premium
@@ -2452,8 +2452,8 @@ class HiddenCostAnalyzer:
             "high"
         ))
         
-        # 2. Migration complexity cost
-        # Future migration would be expensive
+# 2. Migration complexity cost
+# Future migration would be expensive
         migration_cost = 500000
         amortized_monthly = migration_cost / 60  # Over 5 years
         
@@ -2503,14 +2503,14 @@ HIDDEN COSTS BY CATEGORY
 ------------------------
 """
         
-        # Group by category
+# Group by category
         by_category = {}
         for cost in self.discovered_costs:
             if cost.category not in by_category:
                 by_category[cost.category] = []
             by_category[cost.category].append(cost)
         
-        # Sort categories by total impact
+# Sort categories by total impact
         category_totals = {
             cat: sum(c.monthly_impact for c in costs)
             for cat, costs in by_category.items()
@@ -2534,7 +2534,7 @@ HIDDEN COSTS BY CATEGORY
                 report += f"\n    Fix Effort: {cost.effort_to_fix}"
                 report += f"\n    Remediation: {cost.remediation}\n"
         
-        # Prioritized action plan
+# Prioritized action plan
         report += f"""
 
 PRIORITIZED ACTION PLAN
@@ -2554,7 +2554,7 @@ Quick Wins (Low effort, high impact):
         
         report += f"\n\nTotal Quick Win Savings: ${total_quick_win_savings:,.2f}/month"
         
-        # Long-term initiatives
+# Long-term initiatives
         report += f"""
 
 Strategic Initiatives (High effort, high impact):
@@ -2568,13 +2568,13 @@ Strategic Initiatives (High effort, high impact):
             report += f"\n   Savings: ${cost.monthly_impact:,.2f}/month"
             report += f"\n   Investment Required: {cost.remediation}"
         
-        # ROI calculations
+# ROI calculations
         report += f"""
 
 RETURN ON INVESTMENT
 --------------------
 """
-        # Assume implementation costs
+# Assume implementation costs
         quick_win_cost = 20000
         strategic_cost = 200000
         
@@ -2594,7 +2594,7 @@ RETURN ON INVESTMENT
         fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
         fig.suptitle(f'Hidden Cost Analysis: {self.organization_name}', fontsize=16)
         
-        # 1. Costs by category (pie)
+# 1. Costs by category (pie)
         by_category = {}
         for cost in self.discovered_costs:
             cat = cost.category.value
@@ -2605,7 +2605,7 @@ RETURN ON INVESTMENT
         ax1.pie(by_category.values(), labels=by_category.keys(), autopct='%1.1f%%')
         ax1.set_title('Hidden Costs by Category')
         
-        # 2. Top 10 hidden costs (bar)
+# 2. Top 10 hidden costs (bar)
         top_costs = sorted(self.discovered_costs, 
                           key=lambda x: x.monthly_impact, 
                           reverse=True)[:10]
@@ -2618,7 +2618,7 @@ RETURN ON INVESTMENT
         ax2.set_xlabel('Monthly Impact ($)')
         ax2.set_title('Top 10 Hidden Costs')
         
-        # 3. Confidence vs Impact scatter
+# 3. Confidence vs Impact scatter
         impacts = [c.monthly_impact for c in self.discovered_costs]
         confidences = [c.confidence for c in self.discovered_costs]
         colors = [c.category.value for c in self.discovered_costs]
@@ -2629,7 +2629,7 @@ RETURN ON INVESTMENT
         ax3.set_title('Cost Impact vs Confidence')
         ax3.grid(True, alpha=0.3)
         
-        # 4. Effort vs Savings
+# 4. Effort vs Savings
         effort_map = {'low': 1, 'medium': 2, 'high': 3}
         efforts = [effort_map[c.effort_to_fix] for c in self.discovered_costs]
         
@@ -2641,7 +2641,7 @@ RETURN ON INVESTMENT
         ax4.set_title('Effort vs Potential Savings')
         ax4.grid(True, alpha=0.3)
         
-        # Annotate quick wins
+# Annotate quick wins
         for cost in self.discovered_costs:
             if cost.effort_to_fix == 'low' and cost.monthly_impact > 5000:
                 effort = effort_map[cost.effort_to_fix]
@@ -2658,7 +2658,7 @@ def analyze_saas_hidden_costs():
     
     analyzer = HiddenCostAnalyzer("FastGrow SaaS Inc.")
     
-    # Set team metrics
+# Set team metrics
     analyzer.set_team_metrics(
         team_size=15,
         avg_salary=120000,
@@ -2667,7 +2667,7 @@ def analyze_saas_hidden_costs():
         avg_incident_duration_hours=2.5
     )
     
-    # Set system metrics
+# Set system metrics
     analyzer.set_system_metrics(
         services_count=45,  # Many microservices
         avg_service_age_years=4.5,  # Aging systems
@@ -2676,13 +2676,13 @@ def analyze_saas_hidden_costs():
         rollback_rate=0.15  # High rollback rate
     )
     
-    # Discover and report hidden costs
+# Discover and report hidden costs
     print(analyzer.generate_hidden_cost_report())
     
-    # Visualize findings
+# Visualize findings
     analyzer.visualize_hidden_costs()
     
-    # Calculate total IT spend visibility
+# Calculate total IT spend visibility
     visible_costs = 500000  # Monthly visible IT costs
     hidden_costs = sum(c.monthly_impact for c in analyzer.discovered_costs)
     

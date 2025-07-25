@@ -186,10 +186,10 @@ class OnCallAutomation:
             'similar_incidents': self.find_similar_incidents(alert)
         }
 
-        # Post to incident channel
+# Post to incident channel
         self.post_diagnostics(alert.incident_channel, diagnostics)
 
-        # Suggest likely causes
+# Suggest likely causes
         causes = self.analyze_diagnostics(diagnostics)
         return causes
 
@@ -362,9 +362,9 @@ class OnCallSurvey:
     ]
 
     def analyze_responses(self, responses):
-        # Track trends over time
-        # Identify problem areas
-        # Generate action items
+# Track trends over time
+# Identify problem areas
+# Generate action items
         pass
 ```
 

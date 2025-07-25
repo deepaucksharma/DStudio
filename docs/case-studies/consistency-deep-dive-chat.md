@@ -17,14 +17,14 @@ class MultiDeviceConsistencyManager:
     async def handle_message_delivery(self, message: Message, user_id: str):
         """Deliver message to all user's devices consistently"""
         
-        # Get all active devices for user
+# Get all active devices for user
         devices = await self.device_registry.get_active_devices(user_id)
         
-        # Generate monotonic timestamp for ordering
+# Generate monotonic timestamp for ordering
         logical_timestamp = await self.generate_logical_timestamp(user_id)
         message.logical_timestamp = logical_timestamp
         
-        # Deliver to all devices with retry logic
+# Deliver to all devices with retry logic
         delivery_futures = []
         for device in devices:
             future = self._deliver_to_device_with_consistency(
@@ -32,10 +32,10 @@ class MultiDeviceConsistencyManager:
             )
             delivery_futures.append(future)
         
-        # Wait for majority acknowledgment (quorum)
+# Wait for majority acknowledgment (quorum)
         results = await self._wait_for_quorum(delivery_futures, len(devices))
         
-        # Handle devices that didn't acknowledge
+# Handle devices that didn't acknowledge
         failed_devices = self._identify_failed_deliveries(results, devices)
         if failed_devices:
             await self._queue_for_eventual_delivery(message, failed_devices)
@@ -57,26 +57,26 @@ class MessageOrderingSystem:
         """Order messages based on consistency requirements"""
         
         if self.ordering_mode == OrderingMode.TOTAL_ORDER:
-            # Use Lamport timestamps for total ordering
+# Use Lamport timestamps for total ordering
             return self._total_order_messages(messages)
             
         elif self.ordering_mode == OrderingMode.CAUSAL_ORDER:
-            # Use vector clocks for causal ordering
+# Use vector clocks for causal ordering
             return self._causal_order_messages(messages)
             
         elif self.ordering_mode == OrderingMode.FIFO_ORDER:
-            # Per-sender FIFO ordering only
+# Per-sender FIFO ordering only
             return self._fifo_order_messages(messages)
     
     def _causal_order_messages(self, messages: List[Message]) -> List[Message]:
         """Order messages respecting causality"""
         
-        # Build dependency graph
+# Build dependency graph
         dependency_graph = {}
         for msg in messages:
             dependency_graph[msg.id] = []
             
-            # Check if this message causally depends on others
+# Check if this message causally depends on others
             for other_msg in messages:
                 if self.vector_clock.happens_before(
                     other_msg.vector_timestamp, 
@@ -84,7 +84,7 @@ class MessageOrderingSystem:
                 ):
                     dependency_graph[msg.id].append(other_msg.id)
         
-        # Topological sort respecting causality
+# Topological sort respecting causality
         return self._topological_sort(messages, dependency_graph)
 ```
 
@@ -106,7 +106,7 @@ class EventualConsistencyEngine:
                                      remote_history: List[Message]) -> List[Message]:
         """Merge message histories from different replicas"""
         
-        # Use OR-Set CRDT for message collection
+# Use OR-Set CRDT for message collection
         local_set = ORSet()
         remote_set = ORSet()
         
@@ -116,30 +116,30 @@ class EventualConsistencyEngine:
         for msg in remote_history:
             remote_set.add(msg.id, msg)
         
-        # Merge CRDTs
+# Merge CRDTs
         merged_set = local_set.merge(remote_set)
         
-        # Detect conflicts (same timestamp, different content)
+# Detect conflicts (same timestamp, different content)
         conflicts = self.conflict_detector.find_conflicts(merged_set)
         
-        # Resolve conflicts
+# Resolve conflicts
         for conflict in conflicts:
             resolved = await self._resolve_conflict(conflict)
             merged_set.update(resolved)
         
-        # Convert back to ordered list
+# Convert back to ordered list
         return self._order_merged_messages(merged_set)
     
     async def _resolve_conflict(self, conflict: MessageConflict) -> Message:
         """Resolve conflicting messages using Last-Write-Wins with tie-breaking"""
         
-        # Compare physical timestamps
+# Compare physical timestamps
         if conflict.message1.physical_timestamp != conflict.message2.physical_timestamp:
             return max(conflict.message1, conflict.message2, 
                       key=lambda m: m.physical_timestamp)
         
-        # Timestamps equal - use deterministic tie-breaker
-        # (e.g., lexicographic order of message IDs)
+# Timestamps equal - use deterministic tie-breaker
+# (e.g., lexicographic order of message IDs)
         return max(conflict.message1, conflict.message2, 
                   key=lambda m: m.id)
 ```
@@ -157,21 +157,21 @@ class StrongConsistencyManager:
     async def create_group_atomically(self, group_config: GroupConfig) -> Group:
         """Create group with strong consistency using consensus"""
         
-        # Propose group creation to consensus
+# Propose group creation to consensus
         proposal = GroupCreationProposal(
             group_id=generate_uuid(),
             config=group_config,
             timestamp=time.time()
         )
         
-        # Wait for consensus
+# Wait for consensus
         result = await self.consensus.propose(proposal)
         
         if result.status == ConsensusStatus.COMMITTED:
-            # Apply to state machine
+# Apply to state machine
             group = self.state_machine.apply_group_creation(proposal)
             
-            # Replicate to all nodes
+# Replicate to all nodes
             await self._replicate_committed_state(group)
             
             return group
@@ -182,16 +182,16 @@ class StrongConsistencyManager:
                                      changes: MembershipChanges) -> bool:
         """Update group membership with linearizable consistency"""
         
-        # Read current state with linearizable read
+# Read current state with linearizable read
         current_state = await self.consensus.linearizable_read(
             f"group:{group_id}:members"
         )
         
-        # Validate changes
+# Validate changes
         if not self._validate_membership_changes(current_state, changes):
             return False
         
-        # Propose atomic update
+# Propose atomic update
         proposal = MembershipUpdateProposal(
             group_id=group_id,
             additions=changes.additions,
@@ -255,21 +255,21 @@ class ReadYourWritesConsistency:
     async def write_message(self, user_id: str, message: Message) -> WriteToken:
         """Write message with tracking for read-your-writes"""
         
-        # Generate write token
+# Generate write token
         write_token = WriteToken(
             timestamp=time.time(),
             logical_clock=self.get_logical_clock(),
             replica_id=self.get_replica_id()
         )
         
-        # Write to local cache immediately
+# Write to local cache immediately
         await self.write_cache.set(
             key=f"msg:{message.id}",
             value=message,
             token=write_token
         )
         
-        # Async replication to other replicas
+# Async replication to other replicas
         asyncio.create_task(
             self._replicate_to_replicas(message, write_token)
         )
@@ -283,19 +283,19 @@ class ReadYourWritesConsistency:
         messages = []
         
         for token in write_tokens:
-            # First check local cache
+# First check local cache
             cached = await self.write_cache.get_by_token(token)
             if cached:
                 messages.append(cached)
                 continue
             
-            # Check if replicated
+# Check if replicated
             if await self.replication_tracker.is_replicated(token):
-                # Safe to read from any replica
+# Safe to read from any replica
                 msg = await self._read_from_any_replica(token)
                 messages.append(msg)
             else:
-                # Must read from specific replica that has the write
+# Must read from specific replica that has the write
                 msg = await self._read_from_replica(token.replica_id, token)
                 messages.append(msg)
         
@@ -317,11 +317,11 @@ class GroupChatStateMachine:
     def apply_operation(self, operation: GroupOperation) -> Result:
         """Apply operation to state machine"""
         
-        # Validate operation against current state
+# Validate operation against current state
         if not self._validate_operation(operation):
             return Result(success=False, error="Invalid operation")
         
-        # Apply based on operation type
+# Apply based on operation type
         if operation.type == OperationType.ADD_MEMBER:
             return self._apply_add_member(operation)
             
@@ -337,19 +337,19 @@ class GroupChatStateMachine:
     def _apply_send_message(self, operation: GroupOperation) -> Result:
         """Apply message send with total order"""
         
-        # Check member permissions
+# Check member permissions
         if not self.state.is_member(operation.sender_id):
             return Result(success=False, error="Not a member")
         
-        # Assign total order
+# Assign total order
         message = operation.payload
         message.sequence_number = self.state.next_sequence_number
         self.state.next_sequence_number += 1
         
-        # Add to message history
+# Add to message history
         self.state.messages.append(message)
         
-        # Log operation
+# Log operation
         self.operation_log.append(operation)
         
         return Result(success=True, data=message)
@@ -369,16 +369,16 @@ class CausalBroadcastProtocol:
     async def broadcast_message(self, sender_id: str, message: Message):
         """Broadcast message with causal ordering"""
         
-        # Increment sender's clock
+# Increment sender's clock
         self.vector_clock.increment(sender_id)
         
-        # Attach vector timestamp
+# Attach vector timestamp
         message.vector_timestamp = self.vector_clock.get_timestamp()
         
-        # Get group members
+# Get group members
         members = await self.get_group_members(self.group_id)
         
-        # Send to all members
+# Send to all members
         for member_id in members:
             if member_id != sender_id:
                 await self._send_to_member(member_id, message)
@@ -386,14 +386,14 @@ class CausalBroadcastProtocol:
     async def receive_message(self, message: Message):
         """Receive and deliver message respecting causal order"""
         
-        # Check if we can deliver immediately
+# Check if we can deliver immediately
         if self._can_deliver(message):
             await self._deliver_message(message)
             
-            # Check pending messages
+# Check pending messages
             await self._check_pending_deliveries()
         else:
-            # Queue for later delivery
+# Queue for later delivery
             sender_id = message.sender_id
             self.pending_messages[sender_id].append(message)
     
@@ -403,14 +403,14 @@ class CausalBroadcastProtocol:
         msg_vc = message.vector_timestamp
         local_vc = self.vector_clock.get_timestamp()
         
-        # For each process
+# For each process
         for process_id in msg_vc:
             if process_id == message.sender_id:
-                # Sender's clock should be exactly one more
+# Sender's clock should be exactly one more
                 if msg_vc[process_id] != local_vc.get(process_id, 0) + 1:
                     return False
             else:
-                # Other clocks should not be ahead
+# Other clocks should not be ahead
                 if msg_vc[process_id] > local_vc.get(process_id, 0):
                     return False
         
@@ -445,13 +445,13 @@ class TunableConsistencyManager:
             len(replicas)
         )
         
-        # Send write to all replicas
+# Send write to all replicas
         write_futures = []
         for replica in replicas:
             future = self._write_to_replica(replica, data)
             write_futures.append(future)
         
-        # Wait for required acknowledgments
+# Wait for required acknowledgments
         acks = 0
         errors = []
         
@@ -463,7 +463,7 @@ class TunableConsistencyManager:
                     if result.success:
                         acks += 1
                         if acks >= required_acks:
-                            # Sufficient acknowledgments received
+# Sufficient acknowledgments received
                             return WriteResult(
                                 success=True,
                                 consistency_achieved=consistency_level,
@@ -473,10 +473,10 @@ class TunableConsistencyManager:
                     errors.append(e)
                     
         except asyncio.TimeoutError:
-            # Timeout waiting for acknowledgments
+# Timeout waiting for acknowledgments
             pass
         
-        # Not enough acknowledgments
+# Not enough acknowledgments
         return WriteResult(
             success=False,
             consistency_achieved=self._achieved_consistency(acks, len(replicas)),
@@ -518,20 +518,20 @@ class ConsistencyMonitor:
         lag_measurements = {}
         
         for replica in replicas:
-            # Get latest write timestamp from primary
+# Get latest write timestamp from primary
             primary_timestamp = await primary.get_latest_write_timestamp()
             
-            # Get latest applied timestamp from replica
+# Get latest applied timestamp from replica
             replica_timestamp = await replica.get_latest_applied_timestamp()
             
-            # Calculate lag
+# Calculate lag
             lag_seconds = primary_timestamp - replica_timestamp
             lag_measurements[replica.id] = lag_seconds
             
-            # Record metric
+# Record metric
             self.metrics.record_replication_lag(replica.id, lag_seconds)
             
-            # Check for anomalies
+# Check for anomalies
             if lag_seconds > self.get_lag_threshold():
                 await self.anomaly_detector.report_high_lag(
                     replica.id, 
@@ -543,24 +543,24 @@ class ConsistencyMonitor:
     async def detect_consistency_violations(self):
         """Detect consistency violations in the system"""
         
-        # Sample read operations from different replicas
+# Sample read operations from different replicas
         sampled_reads = await self._sample_reads_from_replicas()
         
-        # Group by key
+# Group by key
         reads_by_key = defaultdict(list)
         for read in sampled_reads:
             reads_by_key[read.key].append(read)
         
         violations = []
         
-        # Check for inconsistencies
+# Check for inconsistencies
         for key, reads in reads_by_key.items():
             values = [r.value for r in reads]
             timestamps = [r.timestamp for r in reads]
             
-            # Check if all values are identical
+# Check if all values are identical
             if len(set(values)) > 1:
-                # Inconsistency detected
+# Inconsistency detected
                 violation = ConsistencyViolation(
                     key=key,
                     values=values,
@@ -569,7 +569,7 @@ class ConsistencyMonitor:
                 )
                 violations.append(violation)
                 
-                # Analyze violation type
+# Analyze violation type
                 if self._is_stale_read(timestamps):
                     violation.type = ViolationType.STALE_READ
                 elif self._is_write_conflict(values, timestamps):
@@ -597,16 +597,16 @@ class ChatCRDT:
     def add_message(self, message: Message) -> None:
         """Add message to CRDT"""
         
-        # Add to grow-only set
+# Add to grow-only set
         self.message_set.add(message)
         
-        # Initialize edit history
+# Initialize edit history
         self.edit_history.set(message.id, message.content)
         
     def edit_message(self, message_id: str, new_content: str) -> None:
         """Edit message using CRDT"""
         
-        # Add new version to multi-value register
+# Add new version to multi-value register
         self.edit_history.set(
             message_id, 
             new_content,
@@ -617,20 +617,20 @@ class ChatCRDT:
     def delete_message(self, message_id: str) -> None:
         """Mark message as deleted"""
         
-        # Add to deleted set
+# Add to deleted set
         self.deleted_set.add(message_id, self.replica_id)
         
     def add_reaction(self, message_id: str, reaction: str, user_id: str) -> None:
         """Add reaction to message"""
         
-        # Increment reaction counter
+# Increment reaction counter
         reaction_key = f"{message_id}:{reaction}:{user_id}"
         self.reaction_counter.increment(reaction_key, self.replica_id)
         
     def merge(self, other: 'ChatCRDT') -> None:
         """Merge with another replica's state"""
         
-        # Merge all CRDT components
+# Merge all CRDT components
         self.message_set.merge(other.message_set)
         self.deleted_set.merge(other.deleted_set)
         self.edit_history.merge(other.edit_history)
@@ -642,18 +642,18 @@ class ChatCRDT:
         messages = []
         
         for message in self.message_set.values():
-            # Check if deleted
+# Check if deleted
             if message.id in self.deleted_set:
                 continue
                 
-            # Get latest edit
+# Get latest edit
             latest_content = self.edit_history.get(message.id)
             if latest_content != message.content:
                 message = message.copy()
                 message.content = latest_content
                 message.edited = True
                 
-            # Get reactions
+# Get reactions
             message.reactions = self._get_message_reactions(message.id)
             
             messages.append(message)
@@ -674,21 +674,21 @@ class ConsensusTotalOrderBroadcast:
     async def broadcast(self, message: Message) -> int:
         """Broadcast message with total order guarantee"""
         
-        # Create proposal for consensus
+# Create proposal for consensus
         proposal = MessageProposal(
             message=message,
             proposed_sequence=self.get_next_sequence_hint()
         )
         
-        # Submit to consensus
+# Submit to consensus
         result = await self.consensus.propose(proposal)
         
         if result.committed:
-            # Message gets total order from consensus
+# Message gets total order from consensus
             sequence_number = result.commit_index
             message.sequence_number = sequence_number
             
-            # Deliver in order
+# Deliver in order
             await self._deliver_in_order(message)
             
             return sequence_number
@@ -698,17 +698,17 @@ class ConsensusTotalOrderBroadcast:
     async def _deliver_in_order(self, message: Message):
         """Deliver messages respecting total order"""
         
-        # Add to pending
+# Add to pending
         self.pending_proposals[message.sequence_number] = message
         
-        # Deliver all consecutive messages
+# Deliver all consecutive messages
         next_to_deliver = len(self.delivered_messages)
         
         while next_to_deliver in self.pending_proposals:
             msg = self.pending_proposals.pop(next_to_deliver)
             self.delivered_messages.append(msg)
             
-            # Notify application
+# Notify application
             await self.on_deliver(msg)
             
             next_to_deliver += 1
@@ -730,7 +730,7 @@ class GeoDistributedChatConsistency:
                                      sender_region: str) -> WriteResult:
         """Write message with geo-aware consistency"""
         
-        # Local region write (low latency)
+# Local region write (low latency)
         local_result = await self._write_to_local_region(
             message, 
             sender_region
@@ -739,35 +739,35 @@ class GeoDistributedChatConsistency:
         if not local_result.success:
             return local_result
             
-        # Async cross-region replication
+# Async cross-region replication
         replication_task = asyncio.create_task(
             self._replicate_cross_region(message, sender_region)
         )
         
-        # For same-region recipients, return immediately
+# For same-region recipients, return immediately
         same_region_recipients = self._filter_same_region_recipients(
             message.recipients, 
             sender_region
         )
         
         if len(same_region_recipients) == len(message.recipients):
-            # All recipients in same region
+# All recipients in same region
             return WriteResult(
                 success=True,
                 consistency_level='LOCAL',
                 replication_task=replication_task
             )
         
-        # Some recipients in other regions - need cross-region consistency
+# Some recipients in other regions - need cross-region consistency
         if message.priority == Priority.HIGH:
-            # Wait for quorum across regions
+# Wait for quorum across regions
             await self._wait_for_cross_region_quorum(replication_task)
             return WriteResult(
                 success=True,
                 consistency_level='CROSS_REGION_QUORUM'
             )
         else:
-            # Best effort for low priority
+# Best effort for low priority
             return WriteResult(
                 success=True,
                 consistency_level='EVENTUAL_CROSS_REGION',
@@ -780,10 +780,10 @@ class GeoDistributedChatConsistency:
         
         other_regions = [r for r in self.regions if r != source_region]
         
-        # Use vector clocks for cross-region causality
+# Use vector clocks for cross-region causality
         message.vector_clock = self.get_region_vector_clock(source_region)
         
-        # Replicate to each region
+# Replicate to each region
         replication_futures = []
         
         for region in other_regions:
@@ -794,11 +794,11 @@ class GeoDistributedChatConsistency:
             )
             replication_futures.append(future)
         
-        # Track replication status
+# Track replication status
         results = await asyncio.gather(*replication_futures, 
                                       return_exceptions=True)
         
-        # Handle failures with retry
+# Handle failures with retry
         for i, result in enumerate(results):
             if isinstance(result, Exception):
                 region = other_regions[i]
@@ -822,19 +822,19 @@ class PartitionTolerantChatSystem:
     async def handle_partition_recovery(self, partition_info: PartitionInfo):
         """Recover consistency after network partition heals"""
         
-        # Identify divergent states
+# Identify divergent states
         divergence = await self._identify_divergence(
             partition_info.partition_a,
             partition_info.partition_b
         )
         
-        # Merge message histories
+# Merge message histories
         merged_messages = await self._merge_message_histories(
             divergence.messages_a,
             divergence.messages_b
         )
         
-        # Resolve conflicts
+# Resolve conflicts
         conflicts = self._detect_conflicts(merged_messages)
         resolved_messages = []
         
@@ -842,14 +842,14 @@ class PartitionTolerantChatSystem:
             resolution = await self.conflict_resolver.resolve(conflict)
             resolved_messages.append(resolution)
         
-        # Synchronize state across partitions
+# Synchronize state across partitions
         await self._synchronize_partitions(
             partition_info,
             merged_messages,
             resolved_messages
         )
         
-        # Notify users of any message reordering
+# Notify users of any message reordering
         reordered = self._detect_reordered_messages(
             divergence,
             merged_messages
@@ -862,21 +862,21 @@ class PartitionTolerantChatSystem:
                                   partition_b: Partition) -> Divergence:
         """Use Merkle trees to efficiently identify divergent messages"""
         
-        # Get Merkle tree roots
+# Get Merkle tree roots
         root_a = await partition_a.get_merkle_root()
         root_b = await partition_b.get_merkle_root()
         
         if root_a == root_b:
-            # No divergence
+# No divergence
             return Divergence(messages_a=[], messages_b=[])
         
-        # Find divergent subtrees
+# Find divergent subtrees
         divergent_ranges = await self._compare_merkle_trees(
             partition_a,
             partition_b
         )
         
-        # Fetch only divergent messages
+# Fetch only divergent messages
         messages_a = []
         messages_b = []
         

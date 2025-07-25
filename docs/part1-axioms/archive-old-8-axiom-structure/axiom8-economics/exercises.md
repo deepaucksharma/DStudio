@@ -19,7 +19,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🧪 Hands-On Labs
+## Hands-On Labs
 
 ### Lab 1: True Cost Calculator
 
@@ -62,7 +62,7 @@ class TransactionCostCalculator:
     """Calculate the true cost of distributed transactions"""
     
     def __init__(self):
-        # AWS Pricing (us-east-1, simplified)
+# AWS Pricing (us-east-1, simplified)
         self.pricing = {
             AWSService.EC2: {
                 'm5.large': 0.096 / 3600,  # per second
@@ -97,25 +97,25 @@ class TransactionCostCalculator:
     def calculate_transaction_cost(self, transaction: Dict) -> Dict[str, float]:
         """Calculate cost breakdown for a single transaction"""
         
-        # TODO: Implement cost calculation that includes:
-        # 1. Direct service costs (compute, storage, requests)
-        # 2. Network transfer costs
-        # 3. Hidden costs (retries, timeouts, coordination)
-        # 4. Indirect costs (logging, monitoring, backups)
-        # 5. Operational costs (deployment, maintenance)
+# TODO: Implement cost calculation that includes:
+# 1. Direct service costs (compute, storage, requests)
+# 2. Network transfer costs
+# 3. Hidden costs (retries, timeouts, coordination)
+# 4. Indirect costs (logging, monitoring, backups)
+# 5. Operational costs (deployment, maintenance)
         
         costs = {}
         
-        # Example: E-commerce checkout transaction
-        # 1. API Gateway receives request
-        # 2. Lambda validates input
-        # 3. DynamoDB reads user data
-        # 4. Lambda calculates pricing
-        # 5. External payment API call
-        # 6. DynamoDB writes order
-        # 7. S3 stores receipt
-        # 8. SQS queues fulfillment
-        # 9. Lambda sends confirmation
+# Example: E-commerce checkout transaction
+# 1. API Gateway receives request
+# 2. Lambda validates input
+# 3. DynamoDB reads user data
+# 4. Lambda calculates pricing
+# 5. External payment API call
+# 6. DynamoDB writes order
+# 7. S3 stores receipt
+# 8. SQS queues fulfillment
+# 9. Lambda sends confirmation
         
         return costs
         
@@ -124,12 +124,12 @@ class TransactionCostCalculator:
                             transaction_profile: Dict) -> ServiceCost:
         """Calculate hourly cost for transaction volume"""
         
-        # TODO: Scale single transaction cost by volume
-        # Consider:
-        # - Economies of scale (reserved capacity)
-        # - Dis-economies of scale (higher tier pricing)
-        # - Peak vs average pricing
-        # - Burst capacity costs
+# TODO: Scale single transaction cost by volume
+# Consider:
+# - Economies of scale (reserved capacity)
+# - Dis-economies of scale (higher tier pricing)
+# - Peak vs average pricing
+# - Burst capacity costs
         pass
         
     def optimize_architecture(self, 
@@ -137,12 +137,12 @@ class TransactionCostCalculator:
                             constraints: Dict) -> Dict:
         """Suggest architecture optimizations"""
         
-        # TODO: Analyze costs and suggest:
-        # 1. Service substitutions (Lambda -> ECS)
-        # 2. Caching opportunities
-        # 3. Data locality improvements
-        # 4. Batch processing opportunities
-        # 5. Reserved capacity recommendations
+# TODO: Analyze costs and suggest:
+# 1. Service substitutions (Lambda -> ECS)
+# 2. Caching opportunities
+# 3. Data locality improvements
+# 4. Batch processing opportunities
+# 5. Reserved capacity recommendations
         pass
 
 # Exercise: Calculate transaction costs
@@ -215,13 +215,13 @@ class HiddenCostDetector:
         
         hidden_costs = []
         
-        # TODO: Implement detection for:
-        # 1. Retry amplification
-        # 2. Unnecessary data movement
-        # 3. Inefficient caching
-        # 4. Suboptimal service choices
-        # 5. Missing autoscaling
-        # 6. Expensive consistency guarantees
+# TODO: Implement detection for:
+# 1. Retry amplification
+# 2. Unnecessary data movement
+# 3. Inefficient caching
+# 4. Suboptimal service choices
+# 5. Missing autoscaling
+# 6. Expensive consistency guarantees
         
         return hidden_costs
         
@@ -245,12 +245,12 @@ class HiddenCostDetector:
     def generate_optimization_report(self, hidden_costs: List[Dict]) -> str:
         """Generate actionable optimization report"""
         
-        # TODO: Create report with:
-        # 1. Ranked list of cost savings
-        # 2. Implementation difficulty
-        # 3. Risk assessment
-        # 4. Step-by-step fixes
-        # 5. Expected ROI
+# TODO: Create report with:
+# 1. Ranked list of cost savings
+# 2. Implementation difficulty
+# 3. Risk assessment
+# 4. Step-by-step fixes
+# 5. Expected ROI
         pass
 
 # Exercise: Find hidden costs
@@ -296,7 +296,7 @@ class MultiCloudOptimizer:
     """Optimize costs across AWS, GCP, and Azure"""
     
     def __init__(self):
-        # Simplified pricing for comparison
+# Simplified pricing for comparison
         self.cloud_pricing = {
             'aws': {
                 'compute': {
@@ -356,26 +356,26 @@ class MultiCloudOptimizer:
     def analyze_workload(self, workload: Dict) -> Dict[str, float]:
         """Analyze workload costs across clouds"""
         
-        # TODO: Calculate total cost for workload on each cloud
-        # Consider:
-        # 1. Compute costs (including sustained use discounts)
-        # 2. Storage costs (including snapshots, backups)
-        # 3. Network costs (including CDN)
-        # 4. Service-specific costs
-        # 5. Support costs
+# TODO: Calculate total cost for workload on each cloud
+# Consider:
+# 1. Compute costs (including sustained use discounts)
+# 2. Storage costs (including snapshots, backups)
+# 3. Network costs (including CDN)
+# 4. Service-specific costs
+# 5. Support costs
         pass
         
     def optimize_placement(self, workloads: List[Dict], 
                          constraints: Dict) -> Dict:
         """Optimize workload placement across clouds"""
         
-        # TODO: Implement multi-cloud optimization
-        # Constraints might include:
-        # - Data residency requirements
-        # - Service availability  
-        # - Egress costs
-        # - Existing commitments
-        # - Migration costs
+# TODO: Implement multi-cloud optimization
+# Constraints might include:
+# - Data residency requirements
+# - Service availability
+# - Egress costs
+# - Existing commitments
+# - Migration costs
         pass
         
     def calculate_migration_roi(self, 
@@ -477,19 +477,19 @@ class FinOpsPlatform:
         
         opportunities = []
         
-        # TODO: Implement scanners for:
-        # 1. Unused resources (EC2, EBS, EIPs)
-        # 2. Oversized instances
-        # 3. Old snapshots and AMIs
-        # 4. Unattached volumes
-        # 5. Idle load balancers
-        # 6. Non-optimized S3 storage classes
-        # 7. Missing reserved instances
-        # 8. Inefficient auto-scaling
+# TODO: Implement scanners for:
+# 1. Unused resources (EC2, EBS, EIPs)
+# 2. Oversized instances
+# 3. Old snapshots and AMIs
+# 4. Unattached volumes
+# 5. Idle load balancers
+# 6. Non-optimized S3 storage classes
+# 7. Missing reserved instances
+# 8. Inefficient auto-scaling
         
-        # Example scanner
+# Example scanner
         for account in cloud_accounts:
-            # Check for idle instances
+# Check for idle instances
             idle_instances = self.find_idle_instances(account)
             for instance in idle_instances:
                 opportunities.append({
@@ -506,13 +506,13 @@ class FinOpsPlatform:
     def execute_optimization(self, optimization: Dict) -> Dict:
         """Execute an optimization with safety checks"""
         
-        # TODO: Implement safe execution:
-        # 1. Validate optimization still valid
-        # 2. Take backup/snapshot if needed
-        # 3. Execute change
-        # 4. Verify no service impact
-        # 5. Track actual savings
-        # 6. Rollback if needed
+# TODO: Implement safe execution:
+# 1. Validate optimization still valid
+# 2. Take backup/snapshot if needed
+# 3. Execute change
+# 4. Verify no service impact
+# 5. Track actual savings
+# 6. Rollback if needed
         pass
         
     def generate_executive_report(self) -> str:
@@ -598,7 +598,7 @@ class ServerlessVsContainerCalculator:
     """Determine optimal compute strategy based on usage patterns"""
     
     def __init__(self):
-        # Pricing models
+# Pricing models
         self.serverless_pricing = {
             'lambda': {
                 'request': 0.0000002,
@@ -637,12 +637,12 @@ class ServerlessVsContainerCalculator:
                                 avg_memory_mb: float) -> Dict[str, float]:
         """Calculate monthly cost for serverless"""
         
-        # TODO: Calculate considering:
-        # 1. Free tier
-        # 2. Cold start overhead
-        # 3. API Gateway costs
-        # 4. Additional services (DynamoDB, S3)
-        # 5. Monitoring costs
+# TODO: Calculate considering:
+# 1. Free tier
+# 2. Cold start overhead
+# 3. API Gateway costs
+# 4. Additional services (DynamoDB, S3)
+# 5. Monitoring costs
         pass
         
     def calculate_container_cost(self,
@@ -652,12 +652,12 @@ class ServerlessVsContainerCalculator:
                                container_cpu: float) -> Dict[str, float]:
         """Calculate monthly cost for containers"""
         
-        # TODO: Calculate considering:
-        # 1. Always-on costs
-        # 2. Auto-scaling efficiency
-        # 3. Load balancer costs
-        # 4. Container registry
-        # 5. Orchestration overhead
+# TODO: Calculate considering:
+# 1. Always-on costs
+# 2. Auto-scaling efficiency
+# 3. Load balancer costs
+# 4. Container registry
+# 5. Orchestration overhead
         pass
         
     def find_break_even_point(self,
@@ -665,20 +665,20 @@ class ServerlessVsContainerCalculator:
                             duration_ms: float) -> int:
         """Find requests/month where costs are equal"""
         
-        # TODO: Binary search to find break-even
-        # Return requests per month where serverless = containers
+# TODO: Binary search to find break-even
+# Return requests per month where serverless = containers
         pass
         
     def generate_recommendation(self,
                               usage_pattern: Dict) -> Dict:
         """Recommend compute strategy based on usage"""
         
-        # TODO: Consider:
-        # 1. Request patterns (steady vs spiky)
-        # 2. Predictability
-        # 3. Scaling requirements
-        # 4. Cold start tolerance
-        # 5. Complexity requirements
+# TODO: Consider:
+# 1. Request patterns (steady vs spiky)
+# 2. Predictability
+# 3. Scaling requirements
+# 4. Cold start tolerance
+# 5. Complexity requirements
         pass
 
 # Exercise: Find optimal compute strategy
@@ -755,12 +755,12 @@ class CostAwareAutoScaler:
                                  slo_target: float) -> int:
         """Calculate optimal instance count"""
         
-        # TODO: Implement optimization that balances:
-        # 1. Meeting SLO targets
-        # 2. Staying within budget
-        # 3. Handling predicted load
-        # 4. Minimizing waste
-        # 5. Smooth scaling (avoid thrashing)
+# TODO: Implement optimization that balances:
+# 1. Meeting SLO targets
+# 2. Staying within budget
+# 3. Handling predicted load
+# 4. Minimizing waste
+# 5. Smooth scaling (avoid thrashing)
         pass
         
     def predict_cost_impact(self,
@@ -781,12 +781,12 @@ class CostAwareAutoScaler:
                               interruption_tolerance: float) -> Dict:
         """Design spot instance strategy"""
         
-        # TODO: Implement strategy considering:
-        # 1. Interruption rate by instance type
-        # 2. Price volatility
-        # 3. Diversification across types/AZs
-        # 4. Fallback to on-demand
-        # 5. State checkpointing
+# TODO: Implement strategy considering:
+# 1. Interruption rate by instance type
+# 2. Price volatility
+# 3. Diversification across types/AZs
+# 4. Fallback to on-demand
+# 5. State checkpointing
         pass
 
 # Exercise: Cost-aware scaling
@@ -848,9 +848,9 @@ class DataLocalityOptimizer:
                          data_flows: List[Dict]) -> Dict:
         """Analyze current data transfer costs"""
         
-        # TODO: Build graph of data flows
-        # Calculate monthly transfer costs
-        # Identify expensive paths
+# TODO: Build graph of data flows
+# Calculate monthly transfer costs
+# Identify expensive paths
         pass
         
     def optimize_placement(self,
@@ -858,12 +858,12 @@ class DataLocalityOptimizer:
                          constraints: Dict) -> Dict:
         """Optimize service placement for minimal transfer costs"""
         
-        # TODO: Implement optimization considering:
-        # 1. Data gravity (where is most data?)
-        # 2. User proximity requirements
-        # 3. Compliance constraints
-        # 4. Service dependencies
-        # 5. Migration costs
+# TODO: Implement optimization considering:
+# 1. Data gravity (where is most data?)
+# 2. User proximity requirements
+# 3. Compliance constraints
+# 4. Service dependencies
+# 5. Migration costs
         pass
         
     def calculate_savings(self,
@@ -871,7 +871,7 @@ class DataLocalityOptimizer:
                         optimal_placement: Dict) -> float:
         """Calculate monthly savings from optimization"""
         
-        # TODO: Compare transfer costs
+# TODO: Compare transfer costs
         pass
 
 # Exercise: Optimize data locality
@@ -928,11 +928,11 @@ class ReservedCapacityOptimizer:
                              historical_usage: pd.DataFrame) -> Dict:
         """Analyze usage to find reservation opportunities"""
         
-        # TODO: Analyze usage patterns to find:
-        # 1. Baseline usage (always on)
-        # 2. Predictable patterns
-        # 3. Growth trends
-        # 4. Seasonal variations
+# TODO: Analyze usage patterns to find:
+# 1. Baseline usage (always on)
+# 2. Predictable patterns
+# 3. Growth trends
+# 4. Seasonal variations
         pass
         
     def optimize_reservations(self,
@@ -940,24 +940,24 @@ class ReservedCapacityOptimizer:
                             cash_constraints: Dict) -> Dict:
         """Optimize reservation purchases"""
         
-        # TODO: Implement optimization considering:
-        # 1. Cash flow constraints
-        # 2. Risk tolerance
-        # 3. Expected growth
-        # 4. Flexibility needs
-        # 5. Break-even analysis
+# TODO: Implement optimization considering:
+# 1. Cash flow constraints
+# 2. Risk tolerance
+# 3. Expected growth
+# 4. Flexibility needs
+# 5. Break-even analysis
         pass
         
     def calculate_commitment_impact(self,
                                   reservation_plan: Dict) -> Dict:
         """Calculate financial impact of reservations"""
         
-        # TODO: Calculate:
-        # 1. Upfront payment required
-        # 2. Monthly savings
-        # 3. Break-even point
-        # 4. Risk if usage decreases
-        # 5. Total 3-year savings
+# TODO: Calculate:
+# 1. Upfront payment required
+# 2. Monthly savings
+# 3. Break-even point
+# 4. Risk if usage decreases
+# 5. Total 3-year savings
         pass
 
 # Exercise: Optimize reserved capacity
@@ -1026,7 +1026,7 @@ Provide:
 """
 
 class GlobalSystemOptimizer:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 
@@ -1054,7 +1054,7 @@ Show month-by-month growth plan from $1K to $10K budget.
 """
 
 class StartupArchitecture:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 
@@ -1085,13 +1085,13 @@ Handle:
 """
 
 class CostAttributionSystem:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 
 ---
 
-## 🔬 Research Projects
+## Research Projects
 
 ### Project 1: Predictive Cost Optimization
 
@@ -1106,23 +1106,23 @@ class PredictiveCostOptimizer:
     def train_cost_predictor(self, 
                            historical_data: pd.DataFrame):
         """Train model to predict future costs"""
-        # TODO: Implement using:
-        # - Time series analysis
-        # - Seasonality detection
-        # - Growth trend modeling
-        # - External factor correlation
+# TODO: Implement using:
+# - Time series analysis
+# - Seasonality detection
+# - Growth trend modeling
+# - External factor correlation
         pass
         
     def predict_cost_anomalies(self,
                              real_time_metrics: Dict) -> List[Dict]:
         """Predict cost spikes before they happen"""
-        # TODO: Real-time anomaly detection
+# TODO: Real-time anomaly detection
         pass
         
     def recommend_preventive_actions(self,
                                    predicted_anomaly: Dict) -> List[Dict]:
         """Suggest actions to prevent cost spikes"""
-        # TODO: Generate actionable recommendations
+# TODO: Generate actionable recommendations
         pass
 
 # Research: Build and validate predictor
@@ -1149,7 +1149,7 @@ Deliver:
 """
 
 class DistributedSystemsEconomics:
-    # Your research here
+# Your research here
     pass
 ```
 
@@ -1190,7 +1190,7 @@ cost_optimization_checklist = {
 
 def calculate_potential_savings(account_data: Dict) -> float:
     """Estimate savings from optimization checklist"""
-    # Typical savings percentages
+# Typical savings percentages
     savings_potential = {
         'immediate_wins': 0.05,  # 5% of bill
         'quick_wins': 0.15,      # 15% of bill  
@@ -1206,7 +1206,7 @@ def calculate_potential_savings(account_data: Dict) -> float:
 
 ---
 
-## 🏆 Skills Assessment
+## Skills Assessment
 
 Rate your understanding (1-5):
 - [ ] Can calculate true transaction costs
@@ -1222,7 +1222,7 @@ Rate your understanding (1-5):
 
 ---
 
-## 🎯 Final Challenge: The Unicorn Optimizer
+## Final Challenge: The Unicorn Optimizer
 
 ```python
 """
@@ -1251,7 +1251,7 @@ Show how to grow 1000x while keeping costs linear (not exponential).
 """
 
 class UnicornCostStrategy:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 

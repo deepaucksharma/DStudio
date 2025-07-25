@@ -32,7 +32,7 @@ last_updated: 2025-07-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Bank Vault Analogy
 
@@ -105,7 +105,7 @@ class SimpleKeyManager:
     """Basic key management demonstration"""
     
     def __init__(self, master_password: str):
-        # Derive master key from password
+# Derive master key from password
         self.master_key = self._derive_master_key(master_password)
         self.keys = {}
         self.key_metadata = {}
@@ -113,7 +113,7 @@ class SimpleKeyManager:
     def _derive_master_key(self, password: str) -> bytes:
         """Derive master key from password using PBKDF2"""
         
-        # In production, load salt from secure storage
+# In production, load salt from secure storage
         salt = b'stable_salt_for_demo'  # Use random salt in production
         
         kdf = PBKDF2HMAC(
@@ -129,16 +129,16 @@ class SimpleKeyManager:
         """Generate a new encryption key"""
         
         if key_type == 'symmetric':
-            # Generate Fernet key (AES-128 + HMAC)
+# Generate Fernet key (AES-128 + HMAC)
             key = Fernet.generate_key()
         else:
             raise ValueError(f"Unsupported key type: {key_type}")
         
-        # Encrypt key with master key for storage
+# Encrypt key with master key for storage
         f = Fernet(self.master_key)
         encrypted_key = f.encrypt(key)
         
-        # Store encrypted key and metadata
+# Store encrypted key and metadata
         self.keys[key_id] = encrypted_key
         self.key_metadata[key_id] = {
             'created': datetime.utcnow().isoformat(),
@@ -160,16 +160,16 @@ class SimpleKeyManager:
         if key_id not in self.keys:
             raise KeyError(f"Key {key_id} not found")
         
-        # Check if key is active
+# Check if key is active
         metadata = self.key_metadata[key_id]
         if metadata['status'] != 'active':
             raise ValueError(f"Key {key_id} is {metadata['status']}")
         
-        # Check expiration
+# Check expiration
         if datetime.fromisoformat(metadata['expires']) < datetime.utcnow():
             raise ValueError(f"Key {key_id} has expired")
         
-        # Decrypt key
+# Decrypt key
         f = Fernet(self.master_key)
         return f.decrypt(self.keys[key_id])
     
@@ -179,10 +179,10 @@ class SimpleKeyManager:
         if key_id not in self.keys:
             raise KeyError(f"Key {key_id} not found")
         
-        # Generate new key
+# Generate new key
         new_key_data = self.generate_key(f"{key_id}_v{self.key_metadata[key_id]['version'] + 1}")
         
-        # Update metadata
+# Update metadata
         self.key_metadata[key_id]['status'] = 'rotated'
         self.key_metadata[key_id]['rotated_to'] = new_key_data['key_id']
         self.key_metadata[key_id]['rotated_at'] = datetime.utcnow().isoformat()
@@ -199,7 +199,7 @@ class SimpleKeyManager:
         self.key_metadata[key_id]['revoked_at'] = datetime.utcnow().isoformat()
         self.key_metadata[key_id]['revocation_reason'] = reason
         
-        # In production, also update CRL (Certificate Revocation List)
+# In production, also update CRL (Certificate Revocation List)
 
 # Usage example
 km = SimpleKeyManager("super-secret-master-password")
@@ -226,7 +226,7 @@ print(f"Rotated to: {new_key['key_id']}")
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Concepts
 
@@ -338,7 +338,7 @@ class HSMKeyStore(KeyStore):
     def store_key(self, key_id: str, key_material: bytes, metadata: dict) -> bool:
         """Store key in HSM"""
         
-        # Generate key inside HSM (never expose key material)
+# Generate key inside HSM (never expose key material)
         if metadata.get('generate_in_hsm', True):
             key_handle = self.hsm.generate_key(
                 algorithm=metadata['algorithm'],
@@ -346,13 +346,13 @@ class HSMKeyStore(KeyStore):
                 exportable=metadata.get('exportable', False)
             )
             
-            # Store handle reference
+# Store handle reference
             self.key_cache[key_id] = {
                 'handle': key_handle,
                 'metadata': metadata
             }
         else:
-            # Import external key (less secure)
+# Import external key (less secure)
             key_handle = self.hsm.import_key(
                 key_material,
                 algorithm=metadata['algorithm']
@@ -368,11 +368,11 @@ class HSMKeyStore(KeyStore):
         """Retrieve key from HSM"""
         
         if key_id not in self.key_cache:
-            # Load from HSM
+# Load from HSM
             key_info = self.hsm.get_key_info(key_id)
             self.key_cache[key_id] = key_info
         
-        # For HSM, we return a handle, not the actual key
+# For HSM, we return a handle, not the actual key
         return self.key_cache[key_id]['handle'], self.key_cache[key_id]['metadata']
 
 class CloudKMSStore(KeyStore):
@@ -416,17 +416,17 @@ class KeyManagementSystem:
         key_id = str(uuid.uuid4())
         key = Key(key_id, key_type, algorithm)
         
-        # Apply policies
+# Apply policies
         policy = self.policies.get(key_type, {})
         key.expires_at = datetime.utcnow() + timedelta(
             days=policy.get('max_age_days', 365)
         )
         
-        # Generate key material based on algorithm
+# Generate key material based on algorithm
         if algorithm == KeyAlgorithm.AES_256_GCM:
             key_material = os.urandom(32)  # 256 bits
         elif algorithm in [KeyAlgorithm.RSA_2048, KeyAlgorithm.RSA_4096]:
-            # Generate RSA key pair
+# Generate RSA key pair
             from cryptography.hazmat.primitives.asymmetric import rsa
             key_size = 2048 if algorithm == KeyAlgorithm.RSA_2048 else 4096
             private_key = rsa.generate_private_key(65537, key_size)
@@ -436,7 +436,7 @@ class KeyManagementSystem:
                 encryption_algorithm=serialization.NoEncryption()
             )
         
-        # Store key
+# Store key
         store_metadata = {
             'key_type': key_type.value,
             'algorithm': algorithm.value,
@@ -451,7 +451,7 @@ class KeyManagementSystem:
         
         self.key_store.store_key(key_id, key_material, store_metadata)
         
-        # Audit log
+# Audit log
         self.audit.log('key_created', {
             'key_id': key_id,
             'key_type': key_type.value,
@@ -464,25 +464,25 @@ class KeyManagementSystem:
     def rotate_key(self, key_id: str) -> Key:
         """Rotate a key by creating a new version"""
         
-        # Retrieve current key
+# Retrieve current key
         _, metadata = self.key_store.retrieve_key(key_id)
         
-        # Create new key
+# Create new key
         new_key = self.create_key(
             KeyType(metadata['key_type']),
             KeyAlgorithm(metadata['algorithm']),
             {'rotated_from': key_id}
         )
         
-        # Update old key metadata
+# Update old key metadata
         metadata['status'] = KeyStatus.ROTATED.value
         metadata['rotated_to'] = new_key.key_id
         metadata['rotated_at'] = datetime.utcnow().isoformat()
         
-        # Re-encrypt data encrypted with old key
+# Re-encrypt data encrypted with old key
         self._initiate_reencryption(key_id, new_key.key_id)
         
-        # Audit log
+# Audit log
         self.audit.log('key_rotated', {
             'old_key_id': key_id,
             'new_key_id': new_key.key_id
@@ -499,10 +499,10 @@ class KeyManagementSystem:
         metadata['revoked_at'] = datetime.utcnow().isoformat()
         metadata['revocation_reason'] = reason
         
-        # Add to revocation list
+# Add to revocation list
         self._add_to_revocation_list(key_id, reason)
         
-        # Audit log
+# Audit log
         self.audit.log('key_revoked', {
             'key_id': key_id,
             'reason': reason
@@ -511,26 +511,26 @@ class KeyManagementSystem:
     def get_key_for_operation(self, operation: str, context: dict) -> bytes:
         """Get appropriate key for an operation with access control"""
         
-        # Determine required key type
+# Determine required key type
         key_type = self._determine_key_type(operation)
         
-        # Check access control
+# Check access control
         if not self._check_access(context.get('user'), operation, key_type):
             raise PermissionError(f"Access denied for operation {operation}")
         
-        # Get active key of required type
+# Get active key of required type
         active_keys = self.key_store.list_keys(key_type)
         
         for key_id in active_keys:
             key_material, metadata = self.key_store.retrieve_key(key_id)
             
             if metadata['status'] == KeyStatus.ACTIVE.value:
-                # Check expiration
+# Check expiration
                 if datetime.fromisoformat(metadata['expires_at']) > datetime.utcnow():
-                    # Update usage statistics
+# Update usage statistics
                     self._update_usage_stats(key_id)
                     
-                    # Audit log
+# Audit log
                     self.audit.log('key_accessed', {
                         'key_id': key_id,
                         'operation': operation,
@@ -593,7 +593,7 @@ class KeyLifecycleManager:
             for key_id in keys:
                 _, metadata = self.kms.key_store.retrieve_key(key_id)
                 
-                # Check age
+# Check age
                 created = datetime.fromisoformat(metadata['created_at'])
                 age_days = (datetime.utcnow() - created).days
                 
@@ -606,7 +606,7 @@ class KeyLifecycleManager:
                 elif age_days > (policy['max_age_days'] - policy['rotation_warning_days']):
                     self._send_rotation_warning(key_id, policy['max_age_days'] - age_days)
                 
-                # Check usage limits
+# Check usage limits
                 if 'usage_count' in metadata and 'usage_limit' in policy:
                     if metadata['usage_count'] > policy['usage_limit']:
                         self.kms.rotate_key(key_id)
@@ -624,37 +624,37 @@ class KeyLifecycleManager:
         
         self.scheduled_tasks.append(task)
         
-        # In production, use a proper task scheduler
+# In production, use a proper task scheduler
         self._schedule_task(task)
     
     def destroy_key(self, key_id: str, confirmation_code: str):
         """Securely destroy a key"""
         
-        # Verify confirmation code (prevent accidental deletion)
+# Verify confirmation code (prevent accidental deletion)
         expected_code = hashlib.sha256(f"{key_id}:destroy".encode()).hexdigest()[:8]
         
         if confirmation_code != expected_code:
             raise ValueError("Invalid confirmation code")
         
-        # Check if key can be destroyed
+# Check if key can be destroyed
         _, metadata = self.kms.key_store.retrieve_key(key_id)
         
         if metadata['status'] not in [KeyStatus.REVOKED.value, KeyStatus.EXPIRED.value]:
             raise ValueError("Key must be revoked or expired before destruction")
         
-        # Check for dependencies
+# Check for dependencies
         if self._has_encrypted_data(key_id):
             raise ValueError("Cannot destroy key with existing encrypted data")
         
-        # Overwrite key material multiple times
+# Overwrite key material multiple times
         self._secure_delete(key_id)
         
-        # Update metadata
+# Update metadata
         metadata['status'] = KeyStatus.DESTROYED.value
         metadata['destroyed_at'] = datetime.utcnow().isoformat()
         metadata['destroyed_by'] = confirmation_code  # In production, use actual user ID
         
-        # Audit log
+# Audit log
         self.kms.audit.log('key_destroyed', {
             'key_id': key_id,
             'confirmed_by': confirmation_code
@@ -663,12 +663,12 @@ class KeyLifecycleManager:
     def _secure_delete(self, key_id: str):
         """Securely overwrite key material"""
         
-        # For software keys, overwrite with random data
+# For software keys, overwrite with random data
         for _ in range(3):  # DoD 5220.22-M standard
             random_data = os.urandom(32)
-            # Overwrite key storage location
+# Overwrite key storage location
             
-        # For HSM keys, use HSM's secure delete
+# For HSM keys, use HSM's secure delete
         if hasattr(self.kms.key_store, 'hsm'):
             self.kms.key_store.hsm.destroy_key(key_id)
 ```
@@ -690,20 +690,20 @@ class KeyDistributionSystem:
         from cryptography.hazmat.primitives import hashes
         from cryptography.hazmat.primitives.kdf.hkdf import HKDF
         
-        # Generate ephemeral key pair
+# Generate ephemeral key pair
         private_key = ec.generate_private_key(ec.SECP256R1())
         public_key = private_key.public_key()
         
-        # Load recipient's public key
+# Load recipient's public key
         recipient_key = ec.EllipticCurvePublicKey.from_encoded_point(
             ec.SECP256R1(),
             recipient_public_key
         )
         
-        # Perform ECDH
+# Perform ECDH
         shared_secret = private_key.exchange(ec.ECDH(), recipient_key)
         
-        # Derive encryption key
+# Derive encryption key
         kdf = HKDF(
             algorithm=hashes.SHA256(),
             length=32,
@@ -725,10 +725,10 @@ class KeyDistributionSystem:
         
         from cryptography.hazmat.primitives.keywrap import aes_key_wrap
         
-        # Generate IV for key wrapping
+# Generate IV for key wrapping
         iv = os.urandom(8)
         
-        # Wrap the key
+# Wrap the key
         wrapped = aes_key_wrap(
             wrapping_key=wrapping_key,
             key_to_wrap=key_to_wrap,
@@ -744,13 +744,13 @@ class KeyDistributionSystem:
     def distribute_key_shares(self, key_id: str, threshold: int, shares: int) -> list:
         """Distribute key using Shamir's Secret Sharing"""
         
-        # Retrieve key
+# Retrieve key
         key_material, _ = self.kms.key_store.retrieve_key(key_id)
         
-        # Generate shares
+# Generate shares
         shares_list = self._shamirs_split(key_material, threshold, shares)
         
-        # Distribute to shareholders
+# Distribute to shareholders
         distributions = []
         for i, share in enumerate(shares_list):
             distribution = {
@@ -770,10 +770,10 @@ class KeyDistributionSystem:
         
         from secretsharing import SecretSharer
         
-        # Convert secret to hex
+# Convert secret to hex
         secret_hex = secret.hex()
         
-        # Generate shares
+# Generate shares
         shares_list = SecretSharer.split_secret(secret_hex, threshold, shares)
         
         return [share.encode() for share in shares_list]
@@ -781,7 +781,7 @@ class KeyDistributionSystem:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Production-Grade Key Management
 
@@ -817,7 +817,7 @@ class EnterpriseKeyManagementSystem:
         
         ceremony_id = str(uuid.uuid4())
         
-        # Verify all participants
+# Verify all participants
         verified_participants = []
         for participant in key_ceremony_participants:
             if self._verify_participant(participant):
@@ -825,7 +825,7 @@ class EnterpriseKeyManagementSystem:
             else:
                 raise SecurityError(f"Failed to verify participant {participant['id']}")
         
-        # Initialize ceremony log
+# Initialize ceremony log
         ceremony_log = {
             'ceremony_id': ceremony_id,
             'timestamp': datetime.utcnow().isoformat(),
@@ -834,10 +834,10 @@ class EnterpriseKeyManagementSystem:
             'firmware_version': self.hsm.get_firmware_version()
         }
         
-        # Generate master key components
+# Generate master key components
         key_components = []
         for participant in verified_participants:
-            # Each participant generates a component
+# Each participant generates a component
             component = self.hsm.generate_key_component(
                 participant_auth=participant['auth_token']
             )
@@ -848,7 +848,7 @@ class EnterpriseKeyManagementSystem:
                 'checksum': hashlib.sha256(component).hexdigest()
             }
         
-        # Combine components in HSM
+# Combine components in HSM
         master_key_handle = self.hsm.combine_key_components(
             components=key_components,
             key_type='AES-256',
@@ -856,10 +856,10 @@ class EnterpriseKeyManagementSystem:
             exportable=False
         )
         
-        # Generate key check value (KCV)
+# Generate key check value (KCV)
         kcv = self.hsm.calculate_kcv(master_key_handle)
         
-        # Store master key metadata
+# Store master key metadata
         master_key_id = f"master-{ceremony_id}"
         self.key_stores['metadata'].store({
             'key_id': master_key_id,
@@ -871,7 +871,7 @@ class EnterpriseKeyManagementSystem:
             'participants': [p['id'] for p in verified_participants]
         })
         
-        # Securely destroy components
+# Securely destroy components
         for component in key_components:
             self._secure_overwrite(component)
         
@@ -880,10 +880,10 @@ class EnterpriseKeyManagementSystem:
     def implement_key_escrow(self, key_id: str, escrow_agents: list):
         """Implement key escrow with m-of-n recovery"""
         
-        # Retrieve key
+# Retrieve key
         key_data = self.retrieve_key(key_id)
         
-        # Split key using Shamir's Secret Sharing
+# Split key using Shamir's Secret Sharing
         threshold = len(escrow_agents) // 2 + 1  # Majority required
         shares = self._create_escrow_shares(
             key_data['key_material'],
@@ -891,7 +891,7 @@ class EnterpriseKeyManagementSystem:
             len(escrow_agents)
         )
         
-        # Encrypt each share for respective agent
+# Encrypt each share for respective agent
         escrow_records = []
         for i, agent in enumerate(escrow_agents):
             encrypted_share = self._encrypt_for_agent(
@@ -909,11 +909,11 @@ class EnterpriseKeyManagementSystem:
                 'created_at': datetime.utcnow().isoformat()
             }
             
-            # Store escrow record
+# Store escrow record
             self.key_stores['escrow'].store(escrow_record)
             escrow_records.append(escrow_record)
         
-        # Audit log
+# Audit log
         self.audit.log('key_escrowed', {
             'key_id': key_id,
             'escrow_agents': [a['id'] for a in escrow_agents],
@@ -935,10 +935,10 @@ class EnterpriseKeyManagementSystem:
         
         for key_id in keys_to_rotate:
             try:
-                # Create new key version
+# Create new key version
                 new_key = self.create_key_version(key_id)
                 
-                # Parallel re-encryption
+# Parallel re-encryption
                 reencryption_job = self._start_reencryption_job(
                     old_key_id=key_id,
                     new_key_id=new_key['key_id']
@@ -962,7 +962,7 @@ class EnterpriseKeyManagementSystem:
                     'error': str(e)
                 })
         
-        # Monitor rotation progress
+# Monitor rotation progress
         self.monitoring.track_rotation(rotation_plan)
         
         return rotation_plan
@@ -995,7 +995,7 @@ class CryptoAgility:
             'recommendations': []
         }
         
-        # Check all keys
+# Check all keys
         for key_id in self.kms.list_all_keys():
             key_info = self.kms.get_key_info(key_id)
             algorithm = key_info['algorithm']
@@ -1016,7 +1016,7 @@ class CryptoAgility:
                     'action_required': 'PLANNED_MIGRATION'
                 })
         
-        # Generate recommendations
+# Generate recommendations
         if assessment['deprecated_keys']:
             assessment['recommendations'].append({
                 'priority': 'CRITICAL',
@@ -1031,7 +1031,7 @@ class CryptoAgility:
         
         current_key = self.kms.retrieve_key(key_id)
         
-        # Determine quantum-safe replacement
+# Determine quantum-safe replacement
         if current_key['algorithm'].startswith('RSA'):
             new_algorithm = 'CRYSTALS-Dilithium'  # For signatures
         elif current_key['algorithm'].startswith('ECDH'):
@@ -1039,7 +1039,7 @@ class CryptoAgility:
         else:
             new_algorithm = 'AES-256-GCM'  # Symmetric crypto is quantum-safe
         
-        # Create new quantum-safe key
+# Create new quantum-safe key
         new_key = self.kms.create_key(
             key_type=current_key['key_type'],
             algorithm=new_algorithm,
@@ -1050,7 +1050,7 @@ class CryptoAgility:
             }
         )
         
-        # Implement hybrid approach during transition
+# Implement hybrid approach during transition
         hybrid_config = {
             'mode': 'hybrid',
             'classical_key': key_id,
@@ -1077,7 +1077,7 @@ class KeyMonitoring:
     def track_key_usage(self, key_id: str, operation: str, context: dict):
         """Track key usage metrics"""
         
-        # Record metric
+# Record metric
         self.metrics_client.increment(
             'key.usage',
             tags={
@@ -1088,7 +1088,7 @@ class KeyMonitoring:
             }
         )
         
-        # Check for anomalies
+# Check for anomalies
         if self.anomaly_detector.is_anomalous(key_id, operation, context):
             self.alert_manager.send_alert({
                 'severity': 'HIGH',
@@ -1117,7 +1117,7 @@ class KeyMonitoring:
             key_info = self.kms.get_key_info(key_id)
             health_metrics['total_keys'] += 1
             
-            # Check expiration
+# Check expiration
             days_until_expiry = (
                 datetime.fromisoformat(key_info['expires_at']) - datetime.utcnow()
             ).days
@@ -1125,15 +1125,15 @@ class KeyMonitoring:
             if days_until_expiry < 30:
                 health_metrics['expiring_soon'] += 1
                 
-            # Check usage
+# Check usage
             if key_info.get('usage_count', 0) > 1000000:
                 health_metrics['high_usage'] += 1
             
-            # Check algorithm
+# Check algorithm
             if key_info['algorithm'] in ['3DES', 'SHA1']:
                 health_metrics['deprecated_algorithms'] += 1
         
-        # Send metrics to monitoring system
+# Send metrics to monitoring system
         for metric, value in health_metrics.items():
             if metric != 'timestamp':
                 self.metrics_client.gauge(f'key_health.{metric}', value)
@@ -1199,7 +1199,7 @@ class ComplianceManager:
             'warnings': []
         }
         
-        # Check each requirement
+# Check each requirement
         for requirement, expected in requirements.items():
             actual = self._check_requirement(requirement, expected)
             
@@ -1217,7 +1217,7 @@ class ComplianceManager:
                     'severity': actual['severity']
                 })
         
-        # Generate recommendations
+# Generate recommendations
         if audit_report['violations']:
             audit_report['recommendations'] = self._generate_recommendations(
                 audit_report['violations']
@@ -1253,7 +1253,7 @@ class ComplianceManager:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Case Study: Netflix's Confidant
 
@@ -1280,20 +1280,20 @@ class NetflixConfidantSystem:
         
         credential_id = f"{service}:{credential['name']}:{uuid.uuid4()}"
         
-        # Generate data key for this credential
+# Generate data key for this credential
         data_key_response = self.kms.generate_data_key(
             KeyId=self._get_service_kms_key(service),
             KeySpec='AES_256'
         )
         
-        # Encrypt credential with data key
+# Encrypt credential with data key
         plaintext_key = data_key_response['Plaintext']
         encrypted_credential = self._encrypt_credential(
             credential,
             plaintext_key
         )
         
-        # Store in DynamoDB
+# Store in DynamoDB
         item = {
             'id': credential_id,
             'service': service,
@@ -1313,10 +1313,10 @@ class NetflixConfidantSystem:
             ConditionExpression='attribute_not_exists(id)'
         )
         
-        # Grant service IAM role access
+# Grant service IAM role access
         self._grant_service_access(service, credential_id)
         
-        # Emit metrics
+# Emit metrics
         self.stats.incr('credential.created', tags=[f'service:{service}'])
         
         return {
@@ -1328,11 +1328,11 @@ class NetflixConfidantSystem:
     def get_service_credentials(self, service: str, context: dict) -> list:
         """Get all credentials for a service with authentication"""
         
-        # Verify caller is authorized service
+# Verify caller is authorized service
         if not self._verify_service_identity(service, context):
             raise AuthorizationError(f"Service {service} not authorized")
         
-        # Query credentials for service
+# Query credentials for service
         response = self.dynamodb.query(
             TableName='confidant-credentials',
             IndexName='service-index',
@@ -1343,12 +1343,12 @@ class NetflixConfidantSystem:
         credentials = []
         for item in response['Items']:
             if item['enabled']:
-                # Decrypt data key
+# Decrypt data key
                 data_key = self.kms.decrypt(
                     CiphertextBlob=base64.b64decode(item['data_key'])
                 )['Plaintext']
                 
-                # Decrypt credential
+# Decrypt credential
                 credential = self._decrypt_credential(
                     item['credential'],
                     data_key
@@ -1361,7 +1361,7 @@ class NetflixConfidantSystem:
                     'metadata': item.get('metadata', {})
                 })
         
-        # Emit metrics
+# Emit metrics
         self.stats.incr(
             'credential.fetched',
             value=len(credentials),
@@ -1373,17 +1373,17 @@ class NetflixConfidantSystem:
     def rotate_credential(self, credential_id: str, new_credential: dict) -> dict:
         """Rotate credential with zero downtime"""
         
-        # Get current credential
+# Get current credential
         current = self.dynamodb.get_item(
             TableName='confidant-credentials',
             Key={'id': credential_id}
         )['Item']
         
-        # Create new version
+# Create new version
         new_version = current['version'] + 1
         new_credential_id = f"{current['service']}:{current['name']}:v{new_version}"
         
-        # Store new version
+# Store new version
         new_item = {
             **current,
             'id': new_credential_id,
@@ -1401,14 +1401,14 @@ class NetflixConfidantSystem:
             Item=new_item
         )
         
-        # Update service to use new version (blue-green deployment)
+# Update service to use new version (blue-green deployment)
         self._update_service_credential_version(
             current['service'],
             current['name'],
             new_version
         )
         
-        # Mark old version for deletion after grace period
+# Mark old version for deletion after grace period
         self._schedule_credential_deletion(
             credential_id,
             delay_hours=24
@@ -1432,13 +1432,13 @@ class NetflixConfidantSystem:
             'created_at': datetime.utcnow().isoformat()
         }
         
-        # Store workflow
+# Store workflow
         self.dynamodb.put_item(
             TableName='confidant-workflows',
             Item=workflow
         )
         
-        # Notify approvers
+# Notify approvers
         for approver in workflow['approvers']:
             self._notify_approver(approver, workflow)
         
@@ -1447,20 +1447,20 @@ class NetflixConfidantSystem:
     def blind_credential_sharing(self, credential_id: str, recipient_service: str):
         """Share credential with another service without exposing it"""
         
-        # Get credential
+# Get credential
         credential_item = self.dynamodb.get_item(
             TableName='confidant-credentials',
             Key={'id': credential_id}
         )['Item']
         
-        # Re-encrypt for recipient service
-        # Original service can't decrypt recipient's copy
+# Re-encrypt for recipient service
+# Original service can't decrypt recipient's copy
         recipient_data_key = self.kms.generate_data_key(
             KeyId=self._get_service_kms_key(recipient_service),
             KeySpec='AES_256'
         )
         
-        # Create blind copy
+# Create blind copy
         blind_copy = {
             'id': f"{credential_id}:shared:{recipient_service}",
             'service': recipient_service,
@@ -1483,7 +1483,7 @@ class NetflixConfidantSystem:
             Item=blind_copy
         )
         
-        # Audit log
+# Audit log
         self._audit_log('credential_shared', {
             'credential_id': credential_id,
             'shared_with': recipient_service,
@@ -1507,21 +1507,21 @@ class AdvancedKeyProtection:
     def create_threshold_key(self, threshold: int, shares: int) -> dict:
         """Create threshold key requiring m-of-n to use"""
         
-        # Generate key in HSM
+# Generate key in HSM
         key_handle = self.hsm.generate_key(
             key_type='RSA-4096',
             key_usage=['SIGN'],
             exportable=False
         )
         
-        # Create threshold scheme
+# Create threshold scheme
         threshold_config = self.hsm.create_threshold_scheme(
             key_handle=key_handle,
             threshold=threshold,
             total_shares=shares
         )
         
-        # Generate authorization cards
+# Generate authorization cards
         auth_cards = []
         for i in range(shares):
             card = {
@@ -1547,7 +1547,7 @@ class AdvancedKeyProtection:
                          auth_shares: list) -> bytes:
         """Use threshold key with multiple authorizations"""
         
-        # Verify we have enough shares
+# Verify we have enough shares
         threshold_info = self.hsm.get_threshold_info(key_id)
         
         if len(auth_shares) < threshold_info['threshold']:
@@ -1555,7 +1555,7 @@ class AdvancedKeyProtection:
                 f"Insufficient shares: {len(auth_shares)} < {threshold_info['threshold']}"
             )
         
-        # Combine shares in HSM
+# Combine shares in HSM
         session = self.hsm.start_threshold_operation(
             key_id=key_id,
             operation=operation
@@ -1567,7 +1567,7 @@ class AdvancedKeyProtection:
                 share_data=share['auth_data']
             )
         
-        # Execute operation
+# Execute operation
         if operation == 'sign':
             result = self.hsm.threshold_sign(
                 session_id=session['session_id'],
@@ -1576,7 +1576,7 @@ class AdvancedKeyProtection:
         else:
             raise ValueError(f"Unsupported operation: {operation}")
         
-        # Audit log with all participants
+# Audit log with all participants
         self._audit_threshold_operation(key_id, operation, auth_shares)
         
         return result
@@ -1585,7 +1585,7 @@ class AdvancedKeyProtection:
         """Implement key attestation for hardware-backed keys"""
         
         if self.tpm.is_available():
-            # TPM attestation
+# TPM attestation
             attestation = self.tpm.create_attestation(
                 key_handle=key_id,
                 nonce=os.urandom(32)
@@ -1601,7 +1601,7 @@ class AdvancedKeyProtection:
             }
             
         elif self.sgx.is_available():
-            # Intel SGX attestation
+# Intel SGX attestation
             quote = self.sgx.generate_quote(
                 report_data=hashlib.sha256(key_id.encode()).digest()
             )
@@ -1620,13 +1620,13 @@ class AdvancedKeyProtection:
     def implement_time_locked_keys(self, key_id: str, unlock_time: datetime):
         """Create time-locked keys that can't be used until specific time"""
         
-        # Create time-lock puzzle
+# Create time-lock puzzle
         puzzle = self._create_time_lock_puzzle(
             key_id=key_id,
             unlock_time=unlock_time
         )
         
-        # Store encrypted key
+# Store encrypted key
         locked_key = {
             'key_id': f"{key_id}:locked",
             'unlock_time': unlock_time.isoformat(),
@@ -1636,7 +1636,7 @@ class AdvancedKeyProtection:
             'created_at': datetime.utcnow().isoformat()
         }
         
-        # Remove original key from accessible storage
+# Remove original key from accessible storage
         self._move_to_time_locked_storage(key_id, locked_key)
         
         return locked_key
@@ -1644,21 +1644,21 @@ class AdvancedKeyProtection:
     def _create_time_lock_puzzle(self, key_id: str, unlock_time: datetime):
         """Create computational puzzle that takes specific time to solve"""
         
-        # Calculate required iterations based on time
+# Calculate required iterations based on time
         time_until_unlock = (unlock_time - datetime.utcnow()).total_seconds()
         
-        # Assume 1 million SHA256 per second on modern CPU
+# Assume 1 million SHA256 per second on modern CPU
         iterations = int(time_until_unlock * 1_000_000)
         
-        # Create puzzle
+# Create puzzle
         initial_value = os.urandom(32)
         target = initial_value
         
-        # Pre-compute solution
+# Pre-compute solution
         for _ in range(iterations):
             target = hashlib.sha256(target).digest()
         
-        # Encrypt key with final value
+# Encrypt key with final value
         key_data = self.retrieve_key(key_id)
         encrypted_key = self._encrypt_with_key(key_data, target)
         
@@ -1687,14 +1687,14 @@ class ScalableKeyManagement:
         
         return KeyCache(
             levels=[
-                # L1: Process memory (microseconds)
+# L1: Process memory (microseconds)
                 {
                     'name': 'memory',
                     'backend': InMemoryCache(max_size=1000),
                     'ttl': 300,  # 5 minutes
                     'encrypt_at_rest': False
                 },
-                # L2: Redis (milliseconds)
+# L2: Redis (milliseconds)
                 {
                     'name': 'redis',
                     'backend': RedisCache(
@@ -1704,7 +1704,7 @@ class ScalableKeyManagement:
                     'ttl': 3600,  # 1 hour
                     'encrypt_at_rest': True
                 },
-                # L3: Local HSM cache (milliseconds)
+# L3: Local HSM cache (milliseconds)
                 {
                     'name': 'hsm_cache',
                     'backend': HSMCache(self.pool),
@@ -1749,7 +1749,7 @@ class ScalableKeyManagement:
                         'future': task
                     })
                 
-                # Wait for all operations
+# Wait for all operations
                 results = []
                 for task in tasks:
                     try:
@@ -1779,7 +1779,7 @@ class ScalableKeyManagement:
             'shards': []
         }
         
-        # Configure shards
+# Configure shards
         for i in range(shard_config['total_shards']):
             shard = {
                 'shard_id': i,
@@ -1800,7 +1800,7 @@ class ScalableKeyManagement:
     def optimize_batch_operations(self, operations: list) -> dict:
         """Optimize batch key operations"""
         
-        # Group by operation type and key
+# Group by operation type and key
         grouped = {}
         for op in operations:
             key = (op['key_id'], op['type'])
@@ -1808,12 +1808,12 @@ class ScalableKeyManagement:
                 grouped[key] = []
             grouped[key].append(op)
         
-        # Execute batches
+# Execute batches
         results = []
         
         for (key_id, op_type), ops in grouped.items():
             if op_type == 'encrypt':
-                # Batch encrypt
+# Batch encrypt
                 plaintext_list = [op['data'] for op in ops]
                 ciphertext_list = self._batch_encrypt(key_id, plaintext_list)
                 
@@ -1824,7 +1824,7 @@ class ScalableKeyManagement:
                     })
             
             elif op_type == 'verify':
-                # Batch signature verification
+# Batch signature verification
                 data_list = [(op['data'], op['signature']) for op in ops]
                 verification_results = self._batch_verify(key_id, data_list)
                 
@@ -1843,7 +1843,7 @@ class ScalableKeyManagement:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1870,47 +1870,47 @@ class DistributedKeyManagement:
         n = len(self.nodes)
         t = self.threshold
         
-        # Phase 1: Each node generates polynomial
+# Phase 1: Each node generates polynomial
         commitments = []
         for i, node in enumerate(self.nodes):
-            # Generate random polynomial of degree t-1
+# Generate random polynomial of degree t-1
             polynomial = node.generate_polynomial(degree=t-1)
             
-            # Broadcast commitments
+# Broadcast commitments
             commitment = node.commit_polynomial(polynomial)
             commitments.append(commitment)
             
-            # Send secret shares to other nodes
+# Send secret shares to other nodes
             for j, recipient in enumerate(self.nodes):
                 if i != j:
                     share = polynomial.evaluate(j+1)
                     node.send_encrypted_share(recipient, share)
         
-        # Phase 2: Verify shares and commitments
+# Phase 2: Verify shares and commitments
         for node in self.nodes:
             received_shares = node.get_received_shares()
             
             for sender_id, share in received_shares.items():
-                # Verify share against commitment
+# Verify share against commitment
                 if not node.verify_share(
                     share,
                     commitments[sender_id],
                     node.id
                 ):
-                    # Complaint protocol
+# Complaint protocol
                     node.broadcast_complaint(sender_id)
         
-        # Phase 3: Resolve complaints
+# Phase 3: Resolve complaints
         complaints = self._collect_complaints()
         if complaints:
             self._resolve_complaints(complaints)
         
-        # Phase 4: Compute final key shares
+# Phase 4: Compute final key shares
         public_key = None
         shares = []
         
         for node in self.nodes:
-            # Combine shares from all parties
+# Combine shares from all parties
             final_share = node.combine_shares()
             shares.append({
                 'node_id': node.id,
@@ -1918,7 +1918,7 @@ class DistributedKeyManagement:
                 'verification_key': node.compute_verification_key()
             })
             
-            # Compute public key (same for all nodes)
+# Compute public key (same for all nodes)
             if public_key is None:
                 public_key = node.compute_public_key(commitments)
         
@@ -1939,7 +1939,7 @@ class DistributedKeyManagement:
         if len(signing_nodes) < self.threshold:
             raise ValueError(f"Need at least {self.threshold} nodes to sign")
         
-        # Phase 1: Preprocessing (can be done offline)
+# Phase 1: Preprocessing (can be done offline)
         nonces = []
         for node in signing_nodes[:self.threshold]:
             nonce = node.generate_signing_nonce()
@@ -1948,11 +1948,11 @@ class DistributedKeyManagement:
                 'commitment': node.commit_nonce(nonce)
             })
         
-        # Phase 2: Signing round
+# Phase 2: Signing round
         partial_signatures = []
         
         for i, node in enumerate(signing_nodes[:self.threshold]):
-            # Compute partial signature
+# Compute partial signature
             partial_sig = node.create_partial_signature(
                 message=message,
                 nonce=nonces[i],
@@ -1965,7 +1965,7 @@ class DistributedKeyManagement:
                 'verification_key': node.verification_key
             })
         
-        # Phase 3: Combine signatures
+# Phase 3: Combine signatures
         final_signature = self.mpc_protocol.combine_signatures(
             partial_signatures,
             self.threshold
@@ -1979,16 +1979,16 @@ class DistributedKeyManagement:
         Protects against gradual compromise
         """
         
-        # Generate refresh polynomials
+# Generate refresh polynomials
         refresh_data = []
         
         for node in self.nodes:
-            # Generate polynomial with zero constant term
+# Generate polynomial with zero constant term
             refresh_poly = node.generate_refresh_polynomial(
                 degree=self.threshold - 1
             )
             
-            # Distribute refresh shares
+# Distribute refresh shares
             for j, recipient in enumerate(self.nodes):
                 refresh_share = refresh_poly.evaluate(j + 1)
                 node.send_refresh_share(recipient, refresh_share)
@@ -1998,11 +1998,11 @@ class DistributedKeyManagement:
                 'commitment': node.commit_polynomial(refresh_poly)
             })
         
-        # Apply refresh
+# Apply refresh
         for node in self.nodes:
             refresh_shares = node.get_refresh_shares()
             
-            # Verify refresh shares
+# Verify refresh shares
             for sender_id, share in refresh_shares.items():
                 commitment = next(
                     r['commitment'] for r in refresh_data
@@ -2012,7 +2012,7 @@ class DistributedKeyManagement:
                 if not node.verify_share(share, commitment, node.id):
                     raise SecurityError(f"Invalid refresh share from {sender_id}")
             
-            # Update share
+# Update share
             node.apply_share_refresh(refresh_shares)
         
         return {
@@ -2052,15 +2052,15 @@ class QuantumSafeKeyManagement:
         Secure against both classical and quantum attacks
         """
         
-        # Classical ECDH
+# Classical ECDH
         classical_private = ec.generate_private_key(ec.SECP256R1())
         classical_public = classical_private.public_key()
         
-        # Post-quantum KEM
+# Post-quantum KEM
         pqc_kem = self.pqc_algorithms['kem'][pqc_algorithm]
         pqc_public, pqc_private = pqc_kem.generate_keypair()
         
-        # Create hybrid public key
+# Create hybrid public key
         hybrid_public = {
             'classical': classical_public.public_bytes(
                 encoding=serialization.Encoding.PEM,
@@ -2085,21 +2085,21 @@ class QuantumSafeKeyManagement:
         Using quantum-safe hash functions
         """
         
-        # Use SHA-3 (quantum-safe) for key derivation
+# Use SHA-3 (quantum-safe) for key derivation
         hasher = hashlib.sha3_512()
         
-        # Mix classical and post-quantum shared secrets
+# Mix classical and post-quantum shared secrets
         hasher.update(shared_secrets['classical'])
         hasher.update(shared_secrets['post_quantum'])
         
-        # Add additional entropy
+# Add additional entropy
         hasher.update(os.urandom(32))
         
-        # Derive key using SHAKE256 (extensible output)
+# Derive key using SHAKE256 (extensible output)
         shake = hashlib.shake_256()
         shake.update(hasher.digest())
         
-        # Generate 256-bit key
+# Generate 256-bit key
         return shake.digest(32)
     
     def migrate_to_quantum_safe(self, current_keys: list) -> dict:
@@ -2114,7 +2114,7 @@ class QuantumSafeKeyManagement:
         }
         
         for key in current_keys:
-            # Determine appropriate PQC algorithm
+# Determine appropriate PQC algorithm
             if key['type'] == 'encryption':
                 pqc_algorithm = 'Kyber'
                 key_type = 'kem'
@@ -2124,10 +2124,10 @@ class QuantumSafeKeyManagement:
             else:
                 continue
             
-            # Generate quantum-safe replacement
+# Generate quantum-safe replacement
             pqc_key = self.pqc_algorithms[key_type][pqc_algorithm].generate_keypair()
             
-            # Create hybrid key during transition
+# Create hybrid key during transition
             hybrid_key = {
                 'key_id': f"{key['id']}-pqc",
                 'classical_key': key['id'],
@@ -2179,28 +2179,28 @@ class HomomorphicKeyManagement:
         Without ever decrypting the master key
         """
         
-        # Load encrypted master key
+# Load encrypted master key
         master = ts.ckks_tensor_from(
             self.he_context,
             encrypted_master_key
         )
         
-        # Convert derivation path to numbers
+# Convert derivation path to numbers
         path_vector = [ord(c) for c in derivation_path]
         path_tensor = ts.ckks_tensor(self.he_context, path_vector)
         
-        # Homomorphic key derivation function
-        # derived = HMAC(master, path) computed homomorphically
+# Homomorphic key derivation function
+# derived = HMAC(master, path) computed homomorphically
         
-        # Step 1: Pad keys
+# Step 1: Pad keys
         ipad = ts.ckks_tensor(self.he_context, [0x36] * 64)
         opad = ts.ckks_tensor(self.he_context, [0x5c] * 64)
         
-        # Step 2: Inner hash (simplified for demonstration)
+# Step 2: Inner hash (simplified for demonstration)
         inner = master + ipad  # XOR approximated as addition
         inner = inner * path_tensor  # Simplified hash
         
-        # Step 3: Outer hash
+# Step 3: Outer hash
         outer = master + opad
         result = outer * inner
         
@@ -2211,22 +2211,22 @@ class HomomorphicKeyManagement:
         Rotate key while it remains encrypted
         """
         
-        # Load encrypted key
+# Load encrypted key
         current_key = ts.ckks_tensor_from(
             self.he_context,
             encrypted_key
         )
         
-        # Generate rotation constant (encrypted)
+# Generate rotation constant (encrypted)
         rotation_constant = ts.ckks_tensor(
             self.he_context,
             [random.random() for _ in range(32)]
         )
         
-        # Perform rotation (homomorphic operation)
+# Perform rotation (homomorphic operation)
         rotated_key = current_key + rotation_constant
         
-        # Normalize (keep in valid range)
+# Normalize (keep in valid range)
         rotated_key = rotated_key * 0.5 + 0.5
         
         return rotated_key.serialize()
@@ -2242,11 +2242,11 @@ class KeyManagementEconomics:
                                    compliance_requirements: list) -> dict:
         """Calculate Total Cost of Ownership for key management"""
         
-        # Hardware costs
+# Hardware costs
         hsm_cost = 25000  # Per HSM
         hsm_count = max(3, organization_size // 1000)  # Minimum 3 for HA
         
-        # Software/service costs
+# Software/service costs
         if organization_size < 100:
             kms_cost = 500  # Monthly
         elif organization_size < 1000:
@@ -2254,11 +2254,11 @@ class KeyManagementEconomics:
         else:
             kms_cost = 5000 + (organization_size - 1000) * 2  # Monthly
         
-        # Operations costs
+# Operations costs
         key_admin_salary = 120000  # Annual
         key_admins_needed = max(2, organization_size // 500)
         
-        # Compliance costs
+# Compliance costs
         compliance_cost = 0
         if 'PCI-DSS' in compliance_requirements:
             compliance_cost += 50000  # Annual audit
@@ -2267,7 +2267,7 @@ class KeyManagementEconomics:
         if 'Common-Criteria' in compliance_requirements:
             compliance_cost += 200000  # Evaluation
         
-        # Calculate 3-year TCO
+# Calculate 3-year TCO
         tco = {
             'hardware': {
                 'hsm_units': hsm_count,
@@ -2296,7 +2296,7 @@ class KeyManagementEconomics:
             )
         }
         
-        # ROI from preventing breaches
+# ROI from preventing breaches
         avg_breach_cost = 4240000  # IBM 2021 report
         breach_probability_without_km = 0.30  # 30% over 3 years
         breach_probability_with_km = 0.05   # 5% with proper KM
@@ -2318,7 +2318,7 @@ class KeyManagementEconomics:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Key Management Decision Framework
 

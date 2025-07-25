@@ -71,7 +71,7 @@ class TSIDGenerator:
         self.counter = 0
         self.lock = threading.Lock()
         
-        # Custom epoch to extend timestamp range
+# Custom epoch to extend timestamp range
         self.epoch = 946684800000  # 2000-01-01 00:00:00 UTC
     
     def _generate_node_id(self) -> int:
@@ -91,7 +91,7 @@ class TSIDGenerator:
             if timestamp == self.last_timestamp:
                 self.counter = (self.counter + 1) & 0xFFFF
                 if self.counter == 0:
-                    # Counter overflow, wait for next millisecond
+# Counter overflow, wait for next millisecond
                     while timestamp <= self.last_timestamp:
                         timestamp = int(time.time() * 1000) - self.epoch
             else:
@@ -99,7 +99,7 @@ class TSIDGenerator:
             
             self.last_timestamp = timestamp
             
-            # 64-bit TSID: 48-bit timestamp + 16-bit counter/random
+# 64-bit TSID: 48-bit timestamp + 16-bit counter/random
             tsid = (timestamp << 16) | self.counter
             return tsid
     
@@ -146,7 +146,7 @@ class InfluxTSID:
     
     def _generate_series_key(self) -> bytes:
         """Generate deterministic series key from measurement+tags"""
-        # Sort tags for consistent ordering
+# Sort tags for consistent ordering
         sorted_tags = sorted(self.tags.items())
         key_parts = [self.measurement] + [f"{k}={v}" for k, v in sorted_tags]
         key_string = ",".join(key_parts)
@@ -155,7 +155,7 @@ class InfluxTSID:
     
     def generate_point_id(self, timestamp_ns: int, field_key: str) -> bytes:
         """Generate unique point ID"""
-        # Series key (8 bytes) + timestamp (8 bytes) + field hash (8 bytes)
+# Series key (8 bytes) + timestamp (8 bytes) + field hash (8 bytes)
         field_hash = hashlib.sha256(field_key.encode()).digest()[:8]
         
         point_id = struct.pack('>QQQ', 
@@ -188,16 +188,16 @@ class PrometheusSeriesID:
     
     def generate_series_id(self, metric_name: str, labels: Dict[str, str]) -> int:
         """Generate deterministic series ID from metric name and labels"""
-        # Create deterministic key
+# Create deterministic key
         key_parts = [metric_name]
         key_parts.extend([f"{k}={v}" for k, v in sorted(labels.items())])
         series_key = "\n".join(key_parts)
         
-        # Use consistent hashing for series ID
+# Use consistent hashing for series ID
         hash_bytes = hashlib.sha256(series_key.encode()).digest()
         series_id = struct.unpack('>Q', hash_bytes[:8])[0]
         
-        # Cache the mapping
+# Cache the mapping
         self.series_cache[series_id] = (metric_name, labels)
         
         return series_id
@@ -207,8 +207,8 @@ class PrometheusSeriesID:
         """Generate sample references for time-based storage"""
         refs = []
         for ts in timestamps:
-            # Encode series ID and timestamp for efficient lookup
-            # High bits: series_id, Low bits: timestamp bucket
+# Encode series ID and timestamp for efficient lookup
+# High bits: series_id, Low bits: timestamp bucket
             bucket = ts // 1000  # 1-second buckets
             ref = (series_id, bucket)
             refs.append(ref)
@@ -247,24 +247,24 @@ class OpenTSDBRowKey:
                         tags: Dict[str, str]) -> bytes:
         """Generate OpenTSDB-style row key"""
         
-        # 1. Generate metric UID (3 bytes)
+# 1. Generate metric UID (3 bytes)
         metric_uid = self._get_metric_uid(metric)
         
-        # 2. Timestamp (4 bytes, hour precision for hot data)
+# 2. Timestamp (4 bytes, hour precision for hot data)
         ts_hour = timestamp // 3600  # Hour-level bucketing
         ts_bytes = struct.pack('>I', ts_hour)
         
-        # 3. Generate tag UIDs
+# 3. Generate tag UIDs
         tag_uids = []
         for tag_name, tag_value in sorted(tags.items()):
             name_uid = self._get_tag_uid(tag_name)
             value_uid = self._get_tag_uid(tag_value)
             tag_uids.extend([name_uid, value_uid])
         
-        # 4. Optional salt for better distribution
+# 4. Optional salt for better distribution
         salt = self._generate_salt(metric_uid + ts_bytes) if self.salt_width > 0 else b''
         
-        # Combine: salt + metric_uid + timestamp + tag_uids
+# Combine: salt + metric_uid + timestamp + tag_uids
         row_key = salt + metric_uid + ts_bytes + b''.join(tag_uids)
         
         return row_key
@@ -291,20 +291,20 @@ class OpenTSDBRowKey:
         """Parse components from row key"""
         offset = 0
         
-        # Salt
+# Salt
         if self.salt_width > 0:
             salt = row_key[offset:offset + self.salt_width]
             offset += self.salt_width
         
-        # Metric UID
+# Metric UID
         metric_uid = row_key[offset:offset + 3]
         offset += 3
         
-        # Timestamp
+# Timestamp
         timestamp = struct.unpack('>I', row_key[offset:offset + 4])[0]
         offset += 4
         
-        # Tag UIDs (remaining bytes, in pairs)
+# Tag UIDs (remaining bytes, in pairs)
         tag_uids = []
         while offset < len(row_key):
             name_uid = row_key[offset:offset + 3]
@@ -353,7 +353,7 @@ class TimeSeriesSharder:
     def get_shard_assignment(self, series_id: int, timestamp: int) -> Tuple[int, str]:
         """Get shard and partition for a time series point"""
         
-        # Temporal partitioning
+# Temporal partitioning
         dt = datetime.fromtimestamp(timestamp)
         partition_start = dt.replace(
             hour=(dt.hour // self.time_partition_hours) * self.time_partition_hours,
@@ -361,7 +361,7 @@ class TimeSeriesSharder:
         )
         partition_key = partition_start.strftime("%Y%m%d_%H")
         
-        # Hash-based sharding within partition
+# Hash-based sharding within partition
         shard_hash = hashlib.sha256(
             struct.pack('>QQ', series_id, int(partition_start.timestamp()))
         ).digest()
@@ -375,7 +375,7 @@ class TimeSeriesSharder:
         """Get all shards and partitions needed for a query"""
         shard_partitions = {}
         
-        # Generate all time partitions in range
+# Generate all time partitions in range
         start_dt = datetime.fromtimestamp(start_time)
         end_dt = datetime.fromtimestamp(end_time)
         
@@ -389,7 +389,7 @@ class TimeSeriesSharder:
             partitions.append(current.strftime("%Y%m%d_%H"))
             current += timedelta(hours=self.time_partition_hours)
         
-        # Map series to shards for each partition
+# Map series to shards for each partition
         for series_id in series_ids:
             for partition in partitions:
                 partition_ts = int(datetime.strptime(partition, "%Y%m%d_%H").timestamp())
@@ -399,7 +399,7 @@ class TimeSeriesSharder:
                     shard_partitions[shard_id] = set()
                 shard_partitions[shard_id].add(partition)
         
-        # Convert sets to lists
+# Convert sets to lists
         return {shard: list(parts) for shard, parts in shard_partitions.items()}
 
 # Usage for distributed time series query
@@ -431,7 +431,7 @@ class BatchTSIDGenerator:
         base_timestamp = int(time.time() * 1000)
         
         for i in range(self.batch_size):
-            # Add microsecond precision within millisecond
+# Add microsecond precision within millisecond
             timestamp_offset = i * 1000  # microseconds
             tsid = self.generator.generate()
             batch.append(tsid)
@@ -474,19 +474,19 @@ class CompressedTSID:
         if not tsids:
             return b''
         
-        # Extract timestamps
+# Extract timestamps
         timestamps = [(tsid >> 16) for tsid in tsids]
         
-        # Delta encode timestamps
+# Delta encode timestamps
         self.base_timestamp = timestamps[0]
         deltas = [timestamps[i] - timestamps[i-1] 
                  for i in range(1, len(timestamps))]
         
-        # Pack efficiently
+# Pack efficiently
         compressed = struct.pack('>Q', self.base_timestamp)  # Base timestamp
         compressed += struct.pack('>H', len(deltas))         # Count
         
-        # Variable-length encoding for deltas
+# Variable-length encoding for deltas
         for delta in deltas:
             if delta < 256:
                 compressed += struct.pack('>BB', 1, delta)    # 1-byte delta
@@ -501,15 +501,15 @@ class CompressedTSID:
         """Decompress TSID sequence"""
         offset = 0
         
-        # Read base timestamp
+# Read base timestamp
         base_timestamp = struct.unpack('>Q', compressed[offset:offset+8])[0]
         offset += 8
         
-        # Read count
+# Read count
         count = struct.unpack('>H', compressed[offset:offset+2])[0]
         offset += 2
         
-        # Reconstruct timestamps
+# Reconstruct timestamps
         timestamps = [base_timestamp]
         current = base_timestamp
         
@@ -528,7 +528,7 @@ class CompressedTSID:
             current += delta
             timestamps.append(current)
         
-        # Convert back to TSIDs (simplified - assumes random parts)
+# Convert back to TSIDs (simplified - assumes random parts)
         tsids = [(ts << 16) for ts in timestamps]
         return tsids
 

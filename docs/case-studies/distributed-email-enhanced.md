@@ -219,14 +219,14 @@ class DistributedEmailRouter:
                                    source_ip: str) -> ProcessingResult:
         """Process incoming email through the pipeline"""
         
-        # Parse email
+# Parse email
         message = await self._parse_email(raw_email)
         
-        # Generate message ID if not present
+# Generate message ID if not present
         if not message.message_id:
             message.message_id = self._generate_message_id()
         
-        # Security checks
+# Security checks
         security_result = await self._security_checks(message, source_ip)
         if security_result.action == "REJECT":
             return ProcessingResult(
@@ -235,7 +235,7 @@ class DistributedEmailRouter:
                 message_id=message.message_id
             )
         
-        # Spam filtering
+# Spam filtering
         spam_score = await self.spam_filter.analyze(message)
         if spam_score.is_spam:
             await self._handle_spam(message, spam_score)
@@ -245,10 +245,10 @@ class DistributedEmailRouter:
                 message_id=message.message_id
             )
         
-        # Route to recipients
+# Route to recipients
         routing_plan = await self._create_routing_plan(message)
         
-        # Queue for delivery
+# Queue for delivery
         for route in routing_plan:
             await self.delivery_queue.enqueue(
                 queue=f"delivery.{route.region}",
@@ -273,15 +273,15 @@ class DistributedEmailRouter:
                          (message.cc_addresses or []) + 
                          (message.bcc_addresses or []))
         
-        # Group recipients by destination
+# Group recipients by destination
         recipient_groups = {}
         
         for recipient in all_recipients:
             domain = recipient.split('@')[1]
             
-            # Check if internal user
+# Check if internal user
             if await self._is_internal_domain(domain):
-                # Find user's shard
+# Find user's shard
                 shard = await self.shard_manager.get_user_shard(recipient)
                 region = shard.region
                 
@@ -289,14 +289,14 @@ class DistributedEmailRouter:
                     recipient_groups[region] = []
                 recipient_groups[region].append(recipient)
             else:
-                # External recipient - group by MX record
+# External recipient - group by MX record
                 mx_region = await self._get_mx_region(domain)
                 
                 if mx_region not in recipient_groups:
                     recipient_groups[mx_region] = []
                 recipient_groups[mx_region].append(recipient)
         
-        # Create routes
+# Create routes
         for region, recipients in recipient_groups.items():
             route = Route(
                 region=region,
@@ -311,26 +311,26 @@ class DistributedEmailRouter:
     async def _get_mx_region(self, domain: str) -> str:
         """Determine best region for external delivery"""
         
-        # Check cache
+# Check cache
         cached_region = await self.routing_cache.get(f"mx:{domain}")
         if cached_region:
             return cached_region
         
         try:
-            # Resolve MX records
+# Resolve MX records
             mx_records = dns.resolver.resolve(domain, 'MX')
             
-            # Get geographic location of MX servers
+# Get geographic location of MX servers
             mx_locations = []
             for mx in mx_records:
                 ip = await self._resolve_hostname(str(mx.exchange))
                 location = await self._get_ip_location(ip)
                 mx_locations.append(location)
             
-            # Choose nearest region
+# Choose nearest region
             best_region = self._find_nearest_region(mx_locations)
             
-            # Cache result
+# Cache result
             await self.routing_cache.set(
                 f"mx:{domain}",
                 best_region,
@@ -370,10 +370,10 @@ class DistributedEmailStorage:
                          folder: str = "INBOX") -> StorageResult:
         """Store email with intelligent tiering"""
         
-        # Calculate storage location
+# Calculate storage location
         shard = self._get_user_shard(user_id)
         
-        # Deduplicate attachments
+# Deduplicate attachments
         deduped_attachments = []
         if message.attachments:
             for attachment in message.attachments:
@@ -388,7 +388,7 @@ class DistributedEmailStorage:
                     'content_type': attachment['content_type']
                 })
         
-        # Store email body
+# Store email body
         email_data = {
             'message_id': message.message_id,
             'user_id': user_id,
@@ -406,11 +406,11 @@ class DistributedEmailStorage:
             'size': self._calculate_size(message)
         }
         
-        # Store in hot storage initially
+# Store in hot storage initially
         storage_key = f"{shard.id}/{user_id}/{message.message_id}"
         await self.hot_storage.put(storage_key, email_data)
         
-        # Update metadata
+# Update metadata
         await self.metadata_db.insert_email_metadata({
             'user_id': user_id,
             'message_id': message.message_id,
@@ -421,10 +421,10 @@ class DistributedEmailStorage:
             'received_at': email_data['received_at']
         })
         
-        # Update user quota
+# Update user quota
         await self._update_user_quota(user_id, email_data['size'])
         
-        # Schedule for indexing
+# Schedule for indexing
         await self._queue_for_indexing(user_id, message.message_id)
         
         return StorageResult(
@@ -438,7 +438,7 @@ class DistributedEmailStorage:
                            message_id: str) -> Optional[EmailMessage]:
         """Retrieve email from appropriate storage tier"""
         
-        # Get metadata
+# Get metadata
         metadata = await self.metadata_db.get_email_metadata(
             user_id,
             message_id
@@ -447,7 +447,7 @@ class DistributedEmailStorage:
         if not metadata:
             return None
         
-        # Retrieve from appropriate tier
+# Retrieve from appropriate tier
         email_data = None
         
         if metadata['storage_tier'] == 'hot':
@@ -455,19 +455,19 @@ class DistributedEmailStorage:
         elif metadata['storage_tier'] == 'warm':
             email_data = await self.warm_storage.get(metadata['storage_key'])
             
-            # Promote to hot storage if accessed frequently
+# Promote to hot storage if accessed frequently
             if await self._should_promote_to_hot(user_id, message_id):
                 await self._promote_to_hot_storage(metadata, email_data)
         else:  # cold storage
             email_data = await self.cold_storage.get(metadata['storage_key'])
             
-            # This is expensive, track it
+# This is expensive, track it
             await self._track_cold_storage_access(user_id, message_id)
         
         if not email_data:
             return None
         
-        # Reconstruct attachments
+# Reconstruct attachments
         if email_data.get('attachments'):
             full_attachments = []
             for attachment in email_data['attachments']:
@@ -488,7 +488,7 @@ class DistributedEmailStorage:
         
         while True:
             try:
-                # Find emails to migrate from hot to warm
+# Find emails to migrate from hot to warm
                 hot_emails = await self.metadata_db.find_emails_for_migration(
                     from_tier='hot',
                     older_than_days=7
@@ -501,7 +501,7 @@ class DistributedEmailStorage:
                         to_tier='warm'
                     )
                 
-                # Find emails to migrate from warm to cold
+# Find emails to migrate from warm to cold
                 warm_emails = await self.metadata_db.find_emails_for_migration(
                     from_tier='warm',
                     older_than_days=90
@@ -540,27 +540,27 @@ class MLSpamDetector:
     async def analyze(self, message: EmailMessage) -> SpamScore:
         """Analyze email for spam using multiple models"""
         
-        # Extract features
+# Extract features
         text_features = self.feature_extractor.extract_text_features(message)
         header_features = self.feature_extractor.extract_header_features(message)
         
-        # Get sender reputation
+# Get sender reputation
         sender_reputation = await self.reputation_service.get_reputation(
             message.from_address
         )
         
-        # Text analysis
+# Text analysis
         text_spam_prob = self.text_model.predict_proba(
             text_features.reshape(1, -1)
         )[0][1]
         
-        # Behavioral analysis
+# Behavioral analysis
         behavior_features = await self._extract_behavior_features(message)
         behavior_spam_prob = self.behavior_model.predict_proba(
             behavior_features.reshape(1, -1)
         )[0][1]
         
-        # Image analysis if images present
+# Image analysis if images present
         image_spam_prob = 0.0
         if self._has_images(message):
             image_features = await self._extract_image_features(message)
@@ -568,7 +568,7 @@ class MLSpamDetector:
                 image_features
             )[0][0]
         
-        # Combine scores
+# Combine scores
         weights = {
             'text': 0.4,
             'behavior': 0.3,
@@ -583,7 +583,7 @@ class MLSpamDetector:
             weights['image'] * image_spam_prob
         )
         
-        # Apply rules-based adjustments
+# Apply rules-based adjustments
         final_score = await self._apply_rule_adjustments(
             message,
             final_score
@@ -610,18 +610,18 @@ class MLSpamDetector:
         
         features = []
         
-        # Sender patterns
+# Sender patterns
         sender_domain = message.from_address.split('@')[1]
         features.append(1.0 if sender_domain in SUSPICIOUS_DOMAINS else 0.0)
         features.append(1.0 if self._is_spoofed_sender(message) else 0.0)
         
-        # Recipient patterns
+# Recipient patterns
         features.append(len(message.to_addresses) / 100.0)  # Normalized
         features.append(
             1.0 if len(message.to_addresses) > 50 else 0.0
         )  # Mass mailing
         
-        # Content patterns
+# Content patterns
         features.append(
             len(re.findall(r'https?://\S+', message.body_text)) / 10.0
         )  # URL count
@@ -632,13 +632,13 @@ class MLSpamDetector:
             1.0 if self._has_suspicious_attachments(message) else 0.0
         )
         
-        # Timing patterns
+# Timing patterns
         hour = datetime.utcnow().hour
         features.append(
             1.0 if hour >= 0 and hour <= 6 else 0.0
         )  # Sent at odd hours
         
-        # Header anomalies
+# Header anomalies
         features.append(
             1.0 if self._has_header_anomalies(message) else 0.0
         )
@@ -648,8 +648,8 @@ class MLSpamDetector:
     def _load_text_model(self):
         """Load pre-trained text classification model"""
         
-        # In production, this would load a sophisticated model
-        # For demo, using a simple TF-IDF + Random Forest
+# In production, this would load a sophisticated model
+# For demo, using a simple TF-IDF + Random Forest
         return RandomForestClassifier(
             n_estimators=100,
             max_depth=50,
@@ -662,15 +662,15 @@ class MLSpamDetector:
         
         adjusted_score = ml_score
         
-        # Whitelist check
+# Whitelist check
         if await self._is_whitelisted(message.from_address):
             adjusted_score *= 0.1
         
-        # Blacklist check
+# Blacklist check
         if await self._is_blacklisted(message.from_address):
             adjusted_score = max(0.95, adjusted_score)
         
-        # SPF/DKIM pass reduces spam probability
+# SPF/DKIM pass reduces spam probability
         if message.headers.get('Authentication-Results'):
             auth_results = message.headers['Authentication-Results']
             if 'spf=pass' in auth_results:
@@ -678,7 +678,7 @@ class MLSpamDetector:
             if 'dkim=pass' in auth_results:
                 adjusted_score *= 0.8
         
-        # Known phishing patterns
+# Known phishing patterns
         if self._contains_phishing_patterns(message):
             adjusted_score = max(0.9, adjusted_score)
         
@@ -701,29 +701,29 @@ class DistributedEmailSearch:
                     options: SearchOptions = None) -> SearchResults:
         """Execute distributed search query"""
         
-        # Check cache
+# Check cache
         cache_key = self._get_cache_key(user_id, query, options)
         cached_results = await self.query_cache.get(cache_key)
         if cached_results:
             return cached_results
         
-        # Parse query
+# Parse query
         parsed_query = self.query_parser.parse(query)
         
-        # Determine shards to query
+# Determine shards to query
         user_shards = await self._get_user_shards(user_id)
         
-        # Execute distributed search
+# Execute distributed search
         shard_results = await self._distributed_search(
             user_shards,
             parsed_query,
             options
         )
         
-        # Merge and rank results
+# Merge and rank results
         merged_results = self._merge_shard_results(shard_results)
         
-        # Apply ML ranking
+# Apply ML ranking
         if len(merged_results) > 0:
             ranked_results = await self._apply_ml_ranking(
                 merged_results,
@@ -733,14 +733,14 @@ class DistributedEmailSearch:
         else:
             ranked_results = merged_results
         
-        # Apply pagination
+# Apply pagination
         paginated_results = self._paginate(
             ranked_results,
             options.offset,
             options.limit
         )
         
-        # Build final results
+# Build final results
         search_results = SearchResults(
             query=query,
             total_count=len(merged_results),
@@ -752,7 +752,7 @@ class DistributedEmailSearch:
             )
         )
         
-        # Cache results
+# Cache results
         await self.query_cache.set(
             cache_key,
             search_results,
@@ -766,10 +766,10 @@ class DistributedEmailSearch:
                                  options: SearchOptions) -> List[ShardResult]:
         """Execute search across multiple shards"""
         
-        # Build Lucene query
+# Build Lucene query
         lucene_query = self._build_lucene_query(query)
         
-        # Search each shard in parallel
+# Search each shard in parallel
         tasks = []
         for shard in shards:
             task = self._search_shard(
@@ -779,14 +779,14 @@ class DistributedEmailSearch:
             )
             tasks.append(task)
         
-        # Gather results with timeout
+# Gather results with timeout
         try:
             shard_results = await asyncio.wait_for(
                 asyncio.gather(*tasks, return_exceptions=True),
                 timeout=options.timeout_ms / 1000.0
             )
         except asyncio.TimeoutError:
-            # Return partial results on timeout
+# Return partial results on timeout
             shard_results = []
             for task in tasks:
                 if task.done():
@@ -803,7 +803,7 @@ class DistributedEmailSearch:
         
         clauses = []
         
-        # Text search
+# Text search
         if parsed_query.text:
             text_fields = ['subject', 'body', 'from', 'to']
             text_clause = ' OR '.join([
@@ -812,10 +812,10 @@ class DistributedEmailSearch:
             ])
             clauses.append(f'({text_clause})')
         
-        # Field filters
+# Field filters
         for field, value in parsed_query.filters.items():
             if isinstance(value, list):
-                # OR within field
+# OR within field
                 field_clause = ' OR '.join([
                     f'{field}:"{v}"' for v in value
                 ])
@@ -823,17 +823,17 @@ class DistributedEmailSearch:
             else:
                 clauses.append(f'{field}:"{value}"')
         
-        # Date range
+# Date range
         if parsed_query.date_from or parsed_query.date_to:
             date_from = parsed_query.date_from or '*'
             date_to = parsed_query.date_to or '*'
             clauses.append(f'received_date:[{date_from} TO {date_to}]')
         
-        # Size filter
+# Size filter
         if parsed_query.has_attachment:
             clauses.append('attachment_count:[1 TO *]')
         
-        # Combine with AND
+# Combine with AND
         return ' AND '.join(clauses) if clauses else '*:*'
     
     async def _apply_ml_ranking(self, results: List[EmailResult],
@@ -841,10 +841,10 @@ class DistributedEmailSearch:
                                user_id: str) -> List[EmailResult]:
         """Apply ML-based result ranking"""
         
-        # Get user features
+# Get user features
         user_profile = await self._get_user_search_profile(user_id)
         
-        # Extract ranking features for each result
+# Extract ranking features for each result
         feature_vectors = []
         for result in results:
             features = self._extract_ranking_features(
@@ -854,18 +854,18 @@ class DistributedEmailSearch:
             )
             feature_vectors.append(features)
         
-        # Get ranking scores
+# Get ranking scores
         scores = self.ranking_model.predict(np.array(feature_vectors))
         
-        # Combine with original scores
+# Combine with original scores
         for i, result in enumerate(results):
-            # Blend ML score with search relevance score
+# Blend ML score with search relevance score
             result.final_score = (
                 0.7 * result.relevance_score +
                 0.3 * scores[i]
             )
         
-        # Sort by final score
+# Sort by final score
         results.sort(key=lambda x: x.final_score, reverse=True)
         
         return results
@@ -888,7 +888,7 @@ class EmailCollaborationEngine:
                                          user_id: str) -> CollaborationSession:
         """Start collaborative editing session"""
         
-        # Create or join session
+# Create or join session
         if draft_id in self.collaboration_sessions:
             session = self.collaboration_sessions[draft_id]
             await session.add_participant(user_id)
@@ -901,16 +901,16 @@ class EmailCollaborationEngine:
             await session.add_participant(user_id)
             self.collaboration_sessions[draft_id] = session
         
-        # Set up WebSocket connection
+# Set up WebSocket connection
         ws_connection = await self.ws_manager.create_connection(
             user_id,
             f"collab:{draft_id}"
         )
         
-        # Send initial state
+# Send initial state
         await self._send_initial_state(ws_connection, session)
         
-        # Subscribe to changes
+# Subscribe to changes
         await self._subscribe_to_changes(draft_id, user_id)
         
         return session
@@ -924,16 +924,16 @@ class EmailCollaborationEngine:
         if not session:
             return
         
-        # Apply operational transformation
+# Apply operational transformation
         transformed_change = await self.draft_sync_engine.transform(
             change,
             session.pending_changes
         )
         
-        # Apply change to draft
+# Apply change to draft
         await self._apply_change_to_draft(draft_id, transformed_change)
         
-        # Broadcast to other participants
+# Broadcast to other participants
         for participant_id in session.participants:
             if participant_id != user_id:
                 await self.ws_manager.send_message(
@@ -947,7 +947,7 @@ class EmailCollaborationEngine:
                     }
                 )
         
-        # Update presence
+# Update presence
         await self.presence.update_activity(
             user_id,
             f"editing_draft:{draft_id}"
@@ -962,10 +962,10 @@ class EmailCollaborationEngine:
         if not session:
             return
         
-        # Update user's cursor position
+# Update user's cursor position
         session.cursor_positions[user_id] = cursor_position
         
-        # Broadcast to others
+# Broadcast to others
         for participant_id in session.participants:
             if participant_id != user_id:
                 await self.ws_manager.send_message(
@@ -996,39 +996,39 @@ class SmartEmailAssistant:
                                     user_context: UserContext) -> List[SmartReply]:
         """Generate contextual reply suggestions"""
         
-        # Analyze email context
+# Analyze email context
         context = await self.context_analyzer.analyze(email)
         
-        # Extract key information
+# Extract key information
         sentiment = context.sentiment
         intent = context.intent
         entities = context.entities
         
-        # Generate appropriate replies based on intent
+# Generate appropriate replies based on intent
         replies = []
         
         if intent == "question":
-            # Generate answer-focused replies
+# Generate answer-focused replies
             replies.extend(await self._generate_answer_replies(
                 email,
                 entities,
                 user_context
             ))
         elif intent == "request":
-            # Generate action-focused replies
+# Generate action-focused replies
             replies.extend(await self._generate_action_replies(
                 email,
                 entities,
                 user_context
             ))
         elif intent == "information":
-            # Generate acknowledgment replies
+# Generate acknowledgment replies
             replies.extend(await self._generate_ack_replies(
                 email,
                 sentiment
             ))
         
-        # Personalize based on user style
+# Personalize based on user style
         personalized_replies = await self._personalize_replies(
             replies,
             user_context.writing_style
@@ -1041,13 +1041,13 @@ class SmartEmailAssistant:
                                  context: EmailContext) -> List[Completion]:
         """Provide intelligent email completions"""
         
-        # Prepare prompt with context
+# Prepare prompt with context
         prompt = self._build_completion_prompt(
             partial_draft,
             context
         )
         
-        # Generate completions
+# Generate completions
         completions = await self.model.generate_completions(
             prompt,
             max_tokens=100,
@@ -1055,11 +1055,11 @@ class SmartEmailAssistant:
             num_completions=5
         )
         
-        # Filter and rank completions
+# Filter and rank completions
         filtered_completions = []
         
         for completion in completions:
-            # Check appropriateness
+# Check appropriateness
             if self._is_appropriate(completion, context):
                 score = self._score_completion(
                     completion,
@@ -1074,7 +1074,7 @@ class SmartEmailAssistant:
                     )
                 )
         
-        # Sort by score
+# Sort by score
         filtered_completions.sort(key=lambda x: x.score, reverse=True)
         
         return filtered_completions[:3]
@@ -1096,7 +1096,7 @@ class EmailSecurityEngine:
         
         scan_result = SecurityScan()
         
-        # Check for phishing
+# Check for phishing
         phishing_result = await self.phishing_detector.analyze(email)
         if phishing_result.is_phishing:
             scan_result.add_threat(
@@ -1105,7 +1105,7 @@ class EmailSecurityEngine:
                 phishing_result.indicators
             )
         
-        # Scan attachments for malware
+# Scan attachments for malware
         if email.attachments:
             for attachment in email.attachments:
                 malware_result = await self.malware_scanner.scan(
@@ -1123,7 +1123,7 @@ class EmailSecurityEngine:
                         }
                     )
         
-        # Check URLs
+# Check URLs
         urls = self._extract_urls(email)
         for url in urls:
             url_result = await self._check_url_reputation(url)
@@ -1134,7 +1134,7 @@ class EmailSecurityEngine:
                     {'url': url}
                 )
         
-        # Sandbox suspicious content
+# Sandbox suspicious content
         if scan_result.risk_score > 0.5:
             sandbox_result = await self.sandbox.analyze(email)
             scan_result.sandbox_analysis = sandbox_result
@@ -1146,22 +1146,22 @@ class EmailSecurityEngine:
                                    message: EmailMessage) -> EncryptedEmail:
         """Enable end-to-end encryption"""
         
-        # Get recipient's public key
+# Get recipient's public key
         recipient_key = await self._get_public_key(recipient)
         if not recipient_key:
             raise NoPublicKeyError(f"No public key for {recipient}")
         
-        # Get sender's key pair
+# Get sender's key pair
         sender_keys = await self._get_user_keys(user_id)
         
-        # Encrypt message
+# Encrypt message
         encrypted_content = await self.encryption_service.encrypt(
             plaintext=message.to_json(),
             recipient_public_key=recipient_key,
             sender_private_key=sender_keys.private_key
         )
         
-        # Create encrypted email
+# Create encrypted email
         encrypted_email = EncryptedEmail(
             message_id=message.message_id,
             from_address=message.from_address,
@@ -1188,24 +1188,24 @@ class IntelligentOrganizer:
                               user_id: str) -> EmailCategory:
         """Categorize email using ML"""
         
-        # Extract features
+# Extract features
         features = await self._extract_categorization_features(
             email,
             user_id
         )
         
-        # Get ML prediction
+# Get ML prediction
         category_probs = self.model.predict_proba(features)
         
-        # Get top category
+# Get top category
         top_category_idx = np.argmax(category_probs)
         top_category = self.model.categories[top_category_idx]
         confidence = category_probs[top_category_idx]
         
-        # Check user rules
+# Check user rules
         rule_category = self.rule_engine.apply_rules(email, user_id)
         
-        # Prefer rule if high confidence
+# Prefer rule if high confidence
         if rule_category and rule_category.priority > confidence:
             return rule_category
         
@@ -1224,29 +1224,29 @@ class IntelligentOrganizer:
         
         factors = []
         
-        # Sender importance
+# Sender importance
         sender_importance = await self._get_sender_importance(
             email.from_address,
             user_id
         )
         factors.append(('sender', sender_importance, 0.3))
         
-        # Content urgency
+# Content urgency
         urgency_score = self._analyze_urgency(email)
         factors.append(('urgency', urgency_score, 0.25))
         
-        # User interaction likelihood
+# User interaction likelihood
         interaction_prob = await self._predict_interaction(
             email,
             user_id
         )
         factors.append(('interaction', interaction_prob, 0.25))
         
-        # Time sensitivity
+# Time sensitivity
         time_score = self._analyze_time_sensitivity(email)
         factors.append(('time', time_score, 0.2))
         
-        # Calculate weighted score
+# Calculate weighted score
         total_score = sum(score * weight for _, score, weight in factors)
         
         return ImportanceScore(
@@ -1275,17 +1275,17 @@ class OptimizedSMTPServer:
         connection = SMTPConnection(reader, writer)
         
         try:
-            # Send greeting
+# Send greeting
             await connection.send_response(220, "SMTP Server Ready")
             
-            # Enable pipelining if supported
+# Enable pipelining if supported
             supports_pipelining = False
             
             while not connection.closed:
                 command = await connection.read_command()
                 
                 if command.verb == "EHLO":
-                    # Advertise capabilities
+# Advertise capabilities
                     await connection.send_multiline_response(250, [
                         "Hello",
                         "PIPELINING",
@@ -1297,19 +1297,19 @@ class OptimizedSMTPServer:
                     supports_pipelining = True
                     
                 elif command.verb == "STARTTLS":
-                    # Upgrade to TLS
+# Upgrade to TLS
                     await connection.send_response(220, "Go ahead")
                     await connection.start_tls()
                     
                 elif command.verb == "COMPRESS":
-                    # Enable compression
+# Enable compression
                     await connection.send_response(220, "Compression enabled")
                     connection.enable_compression()
                     
                 elif command.verb == "DATA":
-                    # Receive message data
+# Receive message data
                     if supports_pipelining:
-                        # Process pipelined commands
+# Process pipelined commands
                         await self._handle_pipelined_data(connection)
                     else:
                         await self._handle_data(connection)
@@ -1324,7 +1324,7 @@ class OptimizedSMTPServer:
     async def _handle_pipelined_data(self, connection: SMTPConnection):
         """Handle pipelined SMTP commands for efficiency"""
         
-        # Read all pipelined commands
+# Read all pipelined commands
         commands = []
         while True:
             command = await connection.read_command_nowait()
@@ -1332,13 +1332,13 @@ class OptimizedSMTPServer:
                 break
             commands.append(command)
         
-        # Process in batch
+# Process in batch
         responses = []
         for cmd in commands:
             response = await self._process_command(cmd)
             responses.append(response)
         
-        # Send all responses
+# Send all responses
         for response in responses:
             await connection.send_response(
                 response.code,
@@ -1362,31 +1362,31 @@ class EmailCacheManager:
         
         cache_key = f"email:{user_id}:{message_id}"
         
-        # L1 - Process local (nanoseconds)
+# L1 - Process local (nanoseconds)
         email = self.l1_cache.get(cache_key)
         if email:
             return email
         
-        # L2 - Redis (microseconds)
+# L2 - Redis (microseconds)
         email_data = await self.l2_cache.get(cache_key)
         if email_data:
             email = EmailMessage.from_dict(email_data)
             self.l1_cache.set(cache_key, email, ttl=60)
             return email
         
-        # L3 - Memcached (milliseconds)
+# L3 - Memcached (milliseconds)
         email_data = await self.l3_cache.get(cache_key)
         if email_data:
             email = EmailMessage.from_dict(email_data)
-            # Populate lower caches
+# Populate lower caches
             await self.l2_cache.set(cache_key, email_data, ttl=300)
             self.l1_cache.set(cache_key, email, ttl=60)
             return email
         
-        # Cache miss - fetch from storage
+# Cache miss - fetch from storage
         email = await self._fetch_from_storage(user_id, message_id)
         if email:
-            # Populate all cache layers
+# Populate all cache layers
             await self._populate_caches(cache_key, email)
         
         return email
@@ -1407,7 +1407,7 @@ class EmailAnalyticsPipeline:
     async def process_email_event(self, event: EmailEvent):
         """Process email event for analytics"""
         
-        # Update real-time metrics
+# Update real-time metrics
         await self.metrics_collector.increment(
             f"emails.{event.type}",
             tags={
@@ -1416,7 +1416,7 @@ class EmailAnalyticsPipeline:
             }
         )
         
-        # Stream processing for aggregations
+# Stream processing for aggregations
         await self.stream_processor.process({
             'event_type': event.type,
             'timestamp': event.timestamp,
@@ -1425,7 +1425,7 @@ class EmailAnalyticsPipeline:
             'processing_time': event.processing_time
         })
         
-        # Anomaly detection
+# Anomaly detection
         if event.type == 'send':
             is_anomaly = await self.anomaly_detector.check_sending_pattern(
                 event.user_id,
@@ -1441,7 +1441,7 @@ class EmailAnalyticsPipeline:
         
         stats = UserEmailStats()
         
-        # Email volume
+# Email volume
         stats.total_sent = await self._get_count(
             f"user:{user_id}:sent"
         )
@@ -1449,15 +1449,15 @@ class EmailAnalyticsPipeline:
             f"user:{user_id}:received"
         )
         
-        # Time patterns
+# Time patterns
         stats.hourly_pattern = await self._get_hourly_pattern(user_id)
         stats.daily_pattern = await self._get_daily_pattern(user_id)
         
-        # Communication network
+# Communication network
         stats.top_contacts = await self._get_top_contacts(user_id)
         stats.communication_graph = await self._build_comm_graph(user_id)
         
-        # Storage usage
+# Storage usage
         stats.storage_used = await self._get_storage_usage(user_id)
         stats.storage_trend = await self._get_storage_trend(user_id)
         
@@ -1476,25 +1476,25 @@ class RegionalFailoverManager:
         
         logger.critical(f"Region {failed_region} failure detected")
         
-        # Stop accepting new connections in failed region
+# Stop accepting new connections in failed region
         await self._drain_region_traffic(failed_region)
         
-        # Redirect DNS to healthy regions
+# Redirect DNS to healthy regions
         await self._update_dns_routing(failed_region)
         
-        # Migrate in-flight operations
+# Migrate in-flight operations
         in_flight = await self._get_in_flight_operations(failed_region)
         
         for operation in in_flight:
             if operation.type == "email_delivery":
-                # Re-queue in nearest healthy region
+# Re-queue in nearest healthy region
                 nearest_region = self._find_nearest_region(failed_region)
                 await self._requeue_delivery(operation, nearest_region)
             elif operation.type == "search_query":
-                # Queries can be retried by client
+# Queries can be retried by client
                 pass
         
-        # Start data recovery
+# Start data recovery
         await self._initiate_data_recovery(failed_region)
 ```
 
@@ -1507,32 +1507,32 @@ class EmailIntegrityChecker:
                                     message_id: str) -> IntegrityStatus:
         """Verify email data integrity"""
         
-        # Fetch email from primary and replica
+# Fetch email from primary and replica
         primary = await self._fetch_from_primary(user_id, message_id)
         replica = await self._fetch_from_replica(user_id, message_id)
         
-        # Compare checksums
+# Compare checksums
         primary_checksum = self._calculate_checksum(primary)
         replica_checksum = self._calculate_checksum(replica)
         
         if primary_checksum != replica_checksum:
-            # Corruption detected
+# Corruption detected
             logger.error(f"Corruption detected for {message_id}")
             
-            # Try to determine correct version
+# Try to determine correct version
             backup = await self._fetch_from_backup(user_id, message_id)
             backup_checksum = self._calculate_checksum(backup)
             
             if backup_checksum == primary_checksum:
-                # Replica is corrupted
+# Replica is corrupted
                 await self._repair_replica(user_id, message_id, primary)
                 return IntegrityStatus.REPAIRED
             elif backup_checksum == replica_checksum:
-                # Primary is corrupted  
+# Primary is corrupted
                 await self._repair_primary(user_id, message_id, replica)
                 return IntegrityStatus.REPAIRED
             else:
-                # Multiple corruption
+# Multiple corruption
                 return IntegrityStatus.UNRECOVERABLE
         
         return IntegrityStatus.VALID

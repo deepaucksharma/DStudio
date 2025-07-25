@@ -65,7 +65,7 @@ class SplitBrainDetector:
                 if witness.vote_for_primary(node_id):
                     votes += 1
             except NetworkError:
-                # Can't reach witness - no vote
+# Can't reach witness - no vote
                 pass
         
         return votes >= self.quorum_size
@@ -124,7 +124,7 @@ class PBFTNode:
         
         responses = self.broadcast(prepare_msg)
         
-        # Need 2f + 1 matching prepares
+# Need 2f + 1 matching prepares
         if self.count_matching(responses) >= 2 * self.f + 1:
             return self.commit_phase(prepare_msg)
         return False
@@ -139,7 +139,7 @@ class PBFTNode:
         
         responses = self.broadcast(commit_msg)
         
-        # Need 2f + 1 matching commits
+# Need 2f + 1 matching commits
         if self.count_matching(responses) >= 2 * self.f + 1:
             self.log.append(prepare_msg['request'])
             return True
@@ -182,13 +182,13 @@ class DNSCache:
         self.ttl_default = ttl_default
         
     def resolve(self, domain):
-        # Check local knowledge
+# Check local knowledge
         if domain in self.cache:
             entry = self.cache[domain]
             if time.time() < entry['expires']:
                 return entry['ip']  # Return cached knowledge
         
-        # Local knowledge expired/missing - query upstream
+# Local knowledge expired/missing - query upstream
         try:
             result = self.query_upstream(domain)
             self.cache[domain] = {
@@ -197,7 +197,7 @@ class DNSCache:
             }
             return result['ip']
         except Exception as e:
-            # Can't update knowledge - use stale if available
+# Can't update knowledge - use stale if available
             if domain in self.cache:
                 return self.cache[domain]['ip']  # Stale knowledge
             raise
@@ -281,7 +281,7 @@ class DistributedRecord:
         elif other_record.clock.happens_before(self.clock):
             return self
         else:
-            # Concurrent updates - need resolution
+# Concurrent updates - need resolution
             return self.resolve_conflict(other_record)
 ```
 
@@ -324,21 +324,21 @@ class BlockchainNode:
         
     def handle_new_block(self, block):
         """Handle knowledge of new block"""
-        # Validate block
+# Validate block
         if not self.validate_block(block):
             return False
             
-        # Check if we already know this block
+# Check if we already know this block
         if block.hash in self.pending_blocks:
             return True
             
-        # Store pending until we have parent
+# Store pending until we have parent
         if block.previous_hash != self.chain[-1].hash:
             self.pending_blocks[block.hash] = block
             self.request_missing_blocks(block.previous_hash)
             return False
             
-        # Add to our chain
+# Add to our chain
         self.chain.append(block)
         self.process_pending_blocks()
         return True
@@ -347,17 +347,17 @@ class BlockchainNode:
         """Resolve knowledge conflicts with peers"""
         chains = [self.chain]
         
-        # Gather knowledge from all peers
+# Gather knowledge from all peers
         for peer in self.peers:
             try:
                 peer_chain = peer.get_chain()
                 if self.validate_chain(peer_chain):
                     chains.append(peer_chain)
             except NetworkError:
-                # Partial knowledge - peer unreachable
+# Partial knowledge - peer unreachable
                 pass
         
-        # Choose longest valid chain (Nakamoto consensus)
+# Choose longest valid chain (Nakamoto consensus)
         longest_chain = max(chains, key=lambda c: sum(b.difficulty for b in c))
         
         if longest_chain != self.chain:
@@ -407,29 +407,29 @@ class CDNEdgeServer:
         
     def get_content(self, key):
         """Serve content with partial knowledge"""
-        # Check if we know content is invalid
+# Check if we know content is invalid
         if self.is_invalidated(key):
             return self.fetch_from_origin(key)
             
-        # Check local cache
+# Check local cache
         if key in self.cache:
             entry = self.cache[key]
             if time.time() < entry['expires']:
                 return entry['content']
         
-        # Knowledge expired - fetch fresh
+# Knowledge expired - fetch fresh
         return self.fetch_from_origin(key)
     
     def handle_invalidation(self, message):
         """Process cache invalidation message"""
-        # Record invalidation (even if we don't have the content)
+# Record invalidation (even if we don't have the content)
         self.invalidation_log.append({
             'key': message['key'],
             'timestamp': message['timestamp'],
             'version': message.get('version')
         })
         
-        # Remove from cache if present
+# Remove from cache if present
         if message['key'] in self.cache:
             del self.cache[message['key']]
     
@@ -437,7 +437,7 @@ class CDNEdgeServer:
         """Sync invalidation knowledge with peer"""
         peer_log = peer.get_invalidation_log()
         
-        # Merge knowledge - keep all invalidations
+# Merge knowledge - keep all invalidations
         for entry in peer_log:
             if not self.has_invalidation(entry):
                 self.handle_invalidation(entry)
@@ -466,7 +466,7 @@ class CRDTDocument:
         self.counter += 1
         char_id = (self.replica_id, self.counter)
         
-        # Find position in CRDT
+# Find position in CRDT
         crdt_position = self.find_position(position)
         
         self.characters.insert(crdt_position, {
@@ -487,10 +487,10 @@ class CRDTDocument:
     
     def merge(self, remote_doc):
         """Merge remote document state"""
-        # Merge vector clocks for causality
+# Merge vector clocks for causality
         self.vector_clock.update(remote_doc.vector_clock)
         
-        # Merge characters
+# Merge characters
         merged = []
         i, j = 0, 0
         
@@ -502,7 +502,7 @@ class CRDTDocument:
                 merged.append(self.characters[i])
                 i += 1
             else:
-                # Compare character IDs for deterministic ordering
+# Compare character IDs for deterministic ordering
                 if self.characters[i]['id'] < remote_doc.characters[j]['id']:
                     merged.append(self.characters[i])
                     i += 1
@@ -510,7 +510,7 @@ class CRDTDocument:
                     merged.append(remote_doc.characters[j])
                     j += 1
                 else:
-                    # Same character - keep one
+# Same character - keep one
                     merged.append(self.characters[i])
                     i += 1
                     j += 1
@@ -547,15 +547,15 @@ class GossipNode:
         
     def gossip_round(self):
         """Spread knowledge to random peers"""
-        # Select random subset of peers
+# Select random subset of peers
         targets = random.sample(self.peers, min(3, len(self.peers)))
         
         for peer in targets:
             try:
-                # Exchange version vectors
+# Exchange version vectors
                 peer_versions = peer.get_version_vector()
                 
-                # Send updates peer doesn't have
+# Send updates peer doesn't have
                 updates = {}
                 for key, version in self.version_vector.items():
                     if peer_versions.get(key, 0) < version:
@@ -565,7 +565,7 @@ class GossipNode:
                     peer.receive_gossip(updates)
                     
             except NetworkError:
-                # Peer unreachable - knowledge remains partial
+# Peer unreachable - knowledge remains partial
                 pass
 ```
 
@@ -599,7 +599,7 @@ class QuorumStorage:
                     return True  # Write quorum achieved
                     
             except Exception:
-                # Replica unreachable
+# Replica unreachable
                 pass
         
         raise Exception(f"Failed to achieve write quorum: {success_count}/{self.w}")
@@ -614,11 +614,11 @@ class QuorumStorage:
                 responses.append((value, timestamp))
                 
                 if len(responses) >= self.r:
-                    # Read quorum achieved - return latest
+# Read quorum achieved - return latest
                     return max(responses, key=lambda x: x[1])[0]
                     
             except Exception:
-                # Replica unreachable
+# Replica unreachable
                 pass
         
         raise Exception(f"Failed to achieve read quorum: {len(responses)}/{self.r}")

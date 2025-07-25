@@ -112,7 +112,7 @@ Concurrency: Optimistic for views
 Exchange: HTTP for delivery
 ```
 
-## 🔧 Try This: Model Your System
+## Try This: Model Your System
 
 ```python
 class SystemModel:
@@ -125,7 +125,7 @@ class SystemModel:
         """CAST model analysis"""
         print(f"\n=== CAST Analysis for {self.name} ===")
 
-        # Control
+# Control
         control_score = 0
         if self.cast.get('master_node'):
             control_score = 1  # Centralized
@@ -134,14 +134,14 @@ class SystemModel:
         else:
             control_score = 3  # Hybrid
 
-        # Availability
+# Availability
         nines = self.cast.get('sla', 99.0)
         avail_score = min(5, (nines - 95) / 0.9)
 
-        # State
+# State
         state_score = 1 if self.cast.get('stateless') else 4
 
-        # Time
+# Time
         time_score = 1 if self.cast.get('sync') else 4
 
         print(f"Control: {'█' * control_score}{'░' * (5-control_score)} "
@@ -194,9 +194,9 @@ netflix.analyze_space()
 **Next**: [When Models Collide →](models-collide.md)
 ---
 
-## 💡 Knowledge Application
+## Knowledge Application
 
-### Exercise 1: Concept Exploration ⭐⭐
+### Exercise 1: Concept Exploration
 **Time**: ~15 minutes
 **Objective**: Deepen understanding of CAST vs SPACE Models
 
@@ -208,7 +208,7 @@ netflix.analyze_space()
 
 **Application**: Choose one concept and explain it to someone else in your own words.
 
-### Exercise 2: Real-World Connection ⭐⭐⭐
+### Exercise 2: Real-World Connection
 **Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
@@ -223,7 +223,7 @@ netflix.analyze_space()
 - Systems you use daily
 - Historical technology decisions
 
-### Exercise 3: Critical Thinking ⭐⭐⭐⭐
+### Exercise 3: Critical Thinking
 **Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
@@ -250,7 +250,7 @@ netflix.analyze_space()
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
 **Immediate Actions**:
 1. One thing you'll research further

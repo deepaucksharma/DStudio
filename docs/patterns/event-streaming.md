@@ -169,21 +169,21 @@ class WindowedAggregator(StreamProcessor):
         self.windows = {}  # window_start -> accumulated_value
         
     def process(self, event: Event) -> List[Event]:
-        # Determine window
+# Determine window
         window_start = (event.timestamp // self.window_size) * self.window_size
         
-        # Update window state
+# Update window state
         if window_start not in self.windows:
             self.windows[window_start] = []
         self.windows[window_start].append(event.value)
         
-        # Check for complete windows
+# Check for complete windows
         current_time = time.time()
         completed = []
         
         for ws, values in list(self.windows.items()):
             if ws + self.window_size <= current_time:
-                # Window is complete
+# Window is complete
                 result = self.aggregator(values)
                 completed.append(Event(
                     key=f"window_{ws}",
@@ -228,7 +228,7 @@ class Watermark:
         
     def update(self, event_time: float) -> float:
         """Update watermark based on event time"""
-        # Watermark = max_event_time - allowed_lateness
+# Watermark = max_event_time - allowed_lateness
         potential_watermark = event_time - self.max_out_of_orderness
         
         if potential_watermark > self.current_watermark:
@@ -247,17 +247,17 @@ class WatermarkProcessor:
         self.late_data_handler = []
         
     def process_event(self, event: Event):
-        # Update watermark
+# Update watermark
         current_watermark = self.watermark.update(event.event_time)
         
         if self.watermark.is_late(event.event_time):
-            # Handle late data
+# Handle late data
             self.late_data_handler.append(event)
         else:
-            # Normal processing
+# Normal processing
             self.add_to_window(event)
             
-        # Trigger windows based on watermark
+# Trigger windows based on watermark
         self.trigger_windows(current_watermark)
 ```
 
@@ -317,10 +317,10 @@ class WindowManager:
             
         elif self.window_type == WindowType.SLIDING:
             windows = []
-            # Find all windows this event belongs to
+# Find all windows this event belongs to
             first_window = (event.timestamp // self.slide) * self.slide
             
-            # Check previous windows that might still contain this event
+# Check previous windows that might still contain this event
             current = first_window
             while current >= 0 and event.timestamp < current + self.size:
                 windows.append(f"{current}_{current + self.size}")
@@ -329,7 +329,7 @@ class WindowManager:
             return windows
             
         elif self.window_type == WindowType.SESSION:
-            # Find or create session
+# Find or create session
             session_key = self.find_session(event)
             if session_key:
                 self.extend_session(session_key, event)
@@ -364,17 +364,17 @@ class StatefulProcessor:
         self.state_backend = {}  # In production: RocksDB, Redis, etc.
         
     def process_with_state(self, event: Event):
-        # Example: Count events per key
+# Example: Count events per key
         key = event.key
         
-        # Get current state
+# Get current state
         current_count = self.state_backend.get(key, 0)
         
-        # Update state
+# Update state
         new_count = current_count + 1
         self.state_backend[key] = new_count
         
-        # Emit result
+# Emit result
         return Event(
             key=key,
             value={'count': new_count},
@@ -423,7 +423,7 @@ class CheckpointManager:
             'state': processor_state
         }
         
-        # Atomic write with temporary file
+# Atomic write with temporary file
         temp_path = os.path.join(self.checkpoint_dir, 'checkpoint.tmp')
         final_path = os.path.join(self.checkpoint_dir, 'checkpoint.pkl')
         
@@ -472,11 +472,11 @@ class EventPattern:
         
         for pattern in self.patterns:
             if pattern['type'] == 'followed_by':
-                # Find all events matching first condition
+# Find all events matching first condition
                 first_matches = [e for e in events if pattern['conditions'][0](e)]
                 
                 for first in first_matches:
-                    # Find following events within time window
+# Find following events within time window
                     second_matches = [
                         e for e in events
                         if pattern['conditions'][1](e)
@@ -551,13 +551,13 @@ pattern = EventPattern().followed_by(
 # Pseudo-code for Kafka Streams style processing
 class KafkaStreamsExample:
     def word_count_topology(self):
-        # Define topology
+# Define topology
         builder = StreamsBuilder()
         
-        # Source: Read from topic
+# Source: Read from topic
         text_lines = builder.stream("text-input")
         
-        # Processing: Split and count
+# Processing: Split and count
         word_counts = (
             text_lines
             .flatmap(lambda line: line.split())
@@ -566,7 +566,7 @@ class KafkaStreamsExample:
             .to_stream()
         )
         
-        # Sink: Write to topic
+# Sink: Write to topic
         word_counts.to("word-counts")
         
         return builder.build()
@@ -623,11 +623,11 @@ class StreamMetrics:
         """Record event processing metrics"""
         self.metrics['events_processed'] += 1
         
-        # Latency
+# Latency
         latency = time.time() - event.timestamp
         self.metrics['processing_latency'].append(latency)
         
-        # Throughput (events per second)
+# Throughput (events per second)
         if not hasattr(self, 'last_throughput_calc'):
             self.last_throughput_calc = time.time()
             self.events_in_window = 0

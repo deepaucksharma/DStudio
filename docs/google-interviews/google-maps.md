@@ -245,12 +245,12 @@ class RoutingEngine:
         self.shortcuts = self.preprocess_network()
     
     def preprocess_network(self):
-        # Build contraction hierarchies
+# Build contraction hierarchies
         shortcuts = {}
         node_order = self.compute_node_ordering()
         
         for node in node_order:
-            # Contract node and add shortcuts
+# Contract node and add shortcuts
             neighbors = self.network.adjacency[node]
             for n1, e1 in neighbors:
                 for n2, e2 in neighbors:
@@ -262,7 +262,7 @@ class RoutingEngine:
         return shortcuts
     
     def find_route(self, start, end):
-        # Bidirectional Dijkstra with shortcuts
+# Bidirectional Dijkstra with shortcuts
         forward_dist = {start: 0}
         backward_dist = {end: 0}
         forward_heap = [(0, start)]
@@ -271,7 +271,7 @@ class RoutingEngine:
         best_distance = float('inf')
         
         while forward_heap and backward_heap:
-            # Forward search
+# Forward search
             if forward_heap:
                 dist, node = heappop(forward_heap)
                 if node in backward_dist:
@@ -286,7 +286,7 @@ class RoutingEngine:
                         forward_dist[neighbor] = new_dist
                         heappush(forward_heap, (new_dist, neighbor))
             
-            # Similar for backward search...
+# Similar for backward search...
         
         return self.reconstruct_path(start, end, meeting_node)
 ```
@@ -306,7 +306,7 @@ class MultiModalRouter:
             routes.append(self.road_network.find_route(start, end))
         
         if 'transit' in modes:
-            # Find nearby transit stops
+# Find nearby transit stops
             start_stops = self.find_nearby_stops(start)
             end_stops = self.find_nearby_stops(end)
             
@@ -314,7 +314,7 @@ class MultiModalRouter:
                 for e_stop in end_stops:
                     transit_route = self.transit_network.find_route(s_stop, e_stop)
                     if transit_route:
-                        # Add walking segments
+# Add walking segments
                         walk_to = self.walking_network.find_route(start, s_stop)
                         walk_from = self.walking_network.find_route(e_stop, end)
                         routes.append(walk_to + transit_route + walk_from)
@@ -333,27 +333,27 @@ class GeocodingService:
         self.fuzzy_matcher = FuzzyMatcher()
     
     def geocode(self, query):
-        # Parse query
+# Parse query
         parsed = self.parse_address(query)
         
-        # Try exact match
+# Try exact match
         exact_match = self.exact_match(parsed)
         if exact_match:
             return exact_match
         
-        # Try fuzzy match
+# Try fuzzy match
         candidates = self.fuzzy_search(query)
         
-        # Rank candidates
+# Rank candidates
         ranked = self.rank_results(candidates, parsed)
         
         return ranked[0] if ranked else None
     
     def reverse_geocode(self, lat, lon):
-        # Find nearest address points
+# Find nearest address points
         nearby = self.spatial_index.nearest(lat, lon, k=10)
         
-        # Build address from components
+# Build address from components
         return self.build_address(nearby[0])
 ```
 
@@ -366,18 +366,18 @@ class POISearch:
         self.category_tree = CategoryTree()
     
     def search(self, query, location, radius):
-        # Text search
+# Text search
         text_matches = self.inverted_index.search(query)
         
-        # Spatial filter
+# Spatial filter
         spatial_matches = self.spatial_index.search_radius(
             location.lat, location.lon, radius
         )
         
-        # Intersect results
+# Intersect results
         results = text_matches.intersection(spatial_matches)
         
-        # Rank by relevance and distance
+# Rank by relevance and distance
         ranked = self.rank_results(results, query, location)
         
         return ranked[:20]
@@ -405,15 +405,15 @@ class TrafficProcessor:
         self.traffic_model = TrafficPredictionModel()
     
     def process_gps_probe(self, probe):
-        # Map match to road segment
+# Map match to road segment
         segment = self.map_match(probe.lat, probe.lon)
         
-        # Calculate speed
+# Calculate speed
         if probe.device_id in self.last_position:
             last = self.last_position[probe.device_id]
             speed = self.calculate_speed(last, probe)
             
-            # Update segment speed
+# Update segment speed
             self.update_segment_speed(segment, speed)
         
         self.last_position[probe.device_id] = probe
@@ -425,7 +425,7 @@ class TrafficProcessor:
         segment = self.road_segments[segment_id]
         segment.add_speed_sample(speed)
         
-        # Update traffic color
+# Update traffic color
         avg_speed = segment.get_average_speed()
         free_flow_speed = segment.free_flow_speed
         
@@ -441,17 +441,17 @@ class TrafficProcessor:
 ```python
 class TrafficPredictionModel:
     def predict_traffic(self, segment_id, future_time):
-        # Get historical patterns
+# Get historical patterns
         historical = self.get_historical_pattern(
             segment_id,
             future_time.weekday(),
             future_time.hour
         )
         
-        # Get current conditions
+# Get current conditions
         current = self.get_current_traffic(segment_id)
         
-        # Apply ML model
+# Apply ML model
         features = self.extract_features(historical, current, future_time)
         prediction = self.model.predict(features)
         
@@ -469,24 +469,24 @@ class TileGenerator:
         self.cache = TileCache()
     
     def generate_tile(self, z, x, y):
-        # Check cache
+# Check cache
         cached = self.cache.get(z, x, y)
         if cached:
             return cached
         
-        # Get tile bounds
+# Get tile bounds
         bounds = self.get_tile_bounds(z, x, y)
         
-        # Query vector data
+# Query vector data
         features = self.vector_data.query(bounds, z)
         
-        # Apply styling
+# Apply styling
         styled_features = self.apply_styles(features, z)
         
-        # Render to image
+# Render to image
         image = self.render_features(styled_features, z)
         
-        # Cache result
+# Cache result
         self.cache.put(z, x, y, image)
         
         return image
@@ -632,13 +632,13 @@ Server Cache:
 ### 2. Data Compression
 ```python
 def compress_route(route):
-    # Polyline encoding for coordinates
+# Polyline encoding for coordinates
     encoded_path = polyline.encode(route.path)
     
-    # Delta encoding for timestamps
+# Delta encoding for timestamps
     compressed_times = delta_encode(route.times)
     
-    # Dictionary compression for instructions
+# Dictionary compression for instructions
     instruction_dict = build_instruction_dictionary()
     compressed_instructions = compress_with_dict(
         route.instructions,
@@ -718,13 +718,13 @@ Usage:
 ```python
 class MapAnalytics:
     def track_event(self, event):
-        # Real-time processing
+# Real-time processing
         self.stream_processor.process(event)
         
-        # Batch analytics
+# Batch analytics
         self.event_store.append(event)
         
-        # Update dashboards
+# Update dashboards
         if event.type == 'route_request':
             self.update_routing_metrics(event)
         elif event.type == 'search':

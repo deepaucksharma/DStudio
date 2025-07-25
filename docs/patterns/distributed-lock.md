@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Bathroom Stall Analogy
 
@@ -108,7 +108,7 @@ stateDiagram-v2
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Distributed Lock Properties
 
@@ -280,7 +280,7 @@ graph TB
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### The Redlock Algorithm
 
@@ -458,7 +458,7 @@ graph LR
 ```
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Distributed Lock Systems
 
@@ -719,7 +719,7 @@ graph TB
 | **Deadlock graph** | Circular dependencies | Custom tooling |
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -885,7 +885,7 @@ graph LR
 | **Level 4** | etcd with fencing | Critical sections | Safe but slower |
 | **Level 5** | Byzantine consensus | Financial systems | Maximum safety, high cost |
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Lock Selection Guide
 

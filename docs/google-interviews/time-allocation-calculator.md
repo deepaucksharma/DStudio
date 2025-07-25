@@ -142,7 +142,7 @@
 </div>
 </div>
 
-## 📊 Time Allocation Strategies
+## Time Allocation Strategies
 
 ### By Experience Level
 
@@ -230,7 +230,7 @@ graph LR
 </table>
 </div>
 
-## 🎯 Quick Allocation Templates
+## Quick Allocation Templates
 
 ### 2-Week Sprint (Emergency Prep)
 
@@ -320,7 +320,7 @@ gantt
     Final Polish          :d2, after c1, 14d
 ```
 
-## 📈 Efficiency Maximization Tips
+## Efficiency Maximization Tips
 
 <div class="efficiency-grid">
 <div class="tip-card">
@@ -372,7 +372,7 @@ gantt
 </div>
 </div>
 
-## 🔄 Dynamic Adjustment Framework
+## Dynamic Adjustment Framework
 
 ### Weekly Progress Checkpoints
 
@@ -779,7 +779,7 @@ function drawAllocationChart(allocations) {
     margin-top: 10px;
 }
 
-#prep-level-display {
+# prep-level-display {
     display: inline-block;
     margin-left: 10px;
     font-weight: bold;

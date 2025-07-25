@@ -20,13 +20,13 @@ Google faced a fundamental challenge: how to maintain consistency across globall
 ```python
 # What developers assume
 def transfer_money(from_account, to_account, amount):
-    # This looks atomic but isn't in a distributed system
+# This looks atomic but isn't in a distributed system
     from_balance = read_balance(from_account)  # Time T1
     to_balance = read_balance(to_account)      # Time T2
     
     write_balance(from_account, from_balance - amount)  # Time T3
     write_balance(to_account, to_balance + amount)      # Time T4
-    # Times T1-T4 could be seconds apart across continents!
+# Times T1-T4 could be seconds apart across continents!
 ```
 
 ### The TrueTime Solution
@@ -136,7 +136,7 @@ class VectorClock:
         self.clock[node_id] = self.clock.get(node_id, 0) + 1
     
     def merge(self, other):
-        # Take maximum of each node's clock
+# Take maximum of each node's clock
         for node, time in other.clock.items():
             self.clock[node] = max(self.clock.get(node, 0), time)
 
@@ -217,7 +217,7 @@ class DoubleSpendAttack:
         self.tx_hash = hashlib.sha256(str(bitcoin_amount).encode()).hexdigest()
     
     async def execute_attack(self):
-        # Create two conflicting transactions
+# Create two conflicting transactions
         tx_merchant = self.create_transaction(
             recipient="merchant_address",
             amount=self.amount,
@@ -230,16 +230,16 @@ class DoubleSpendAttack:
             fee=0.001   # Higher fee = higher priority
         )
         
-        # Send to merchant with direct connection
+# Send to merchant with direct connection
         await self.send_direct(tx_merchant, "merchant_ip", delay=0)
         
-        # Broadcast to mining pools slightly later
+# Broadcast to mining pools slightly later
         mining_pools = ["pool1.com", "pool2.com", "pool3.com"]
         for pool in mining_pools:
             await self.send_direct(tx_self, pool, delay=0.1)
         
-        # Merchant sees confirmation in mempool, releases goods
-        # But miners include tx_self in block instead!
+# Merchant sees confirmation in mempool, releases goods
+# But miners include tx_self in block instead!
 ```
 
 ### Why Bitcoin's Solution Works (Mostly)
@@ -258,8 +258,8 @@ def wait_for_confirmations(tx_hash, required_confirmations=6):
             confirmations += 1
             print(f"Confirmation {confirmations}/6")
             
-            # Probability of reversal after n confirmations
-            # P(reversal) ≈ (attacker_hashrate / network_hashrate)^n
+# Probability of reversal after n confirmations
+# P(reversal) ≈ (attacker_hashrate / network_hashrate)^n
             reversal_probability = (0.1) ** confirmations  # Assuming 10% hashrate
             print(f"Reversal probability: {reversal_probability:.8f}")
         

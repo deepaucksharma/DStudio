@@ -63,17 +63,17 @@ from typing import Optional, Dict, List, Tuple
 
 class URLNormalizer:
     def __init__(self):
-        # Common parameters to remove (tracking, session, etc.)
+# Common parameters to remove (tracking, session, etc.)
         self.ignore_params = {
             'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
             'fbclid', 'gclid', 'msclkid', 'ref', 'source', 'campaign',
             'PHPSESSID', 'JSESSIONID', 'ASPSESSIONID', 'sid', 'sessionid'
         }
         
-        # Default ports to remove
+# Default ports to remove
         self.default_ports = {'http': 80, 'https': 443, 'ftp': 21}
         
-        # Common index files
+# Common index files
         self.index_files = {
             'index.html', 'index.htm', 'index.php', 'index.asp',
             'index.aspx', 'index.jsp', 'default.html', 'default.htm'
@@ -82,10 +82,10 @@ class URLNormalizer:
     def normalize(self, url: str) -> str:
         """Comprehensive URL normalization"""
         try:
-            # Parse URL
+# Parse URL
             parsed = urllib.parse.urlparse(url)
             
-            # Apply normalization steps
+# Apply normalization steps
             scheme = self._normalize_scheme(parsed.scheme)
             netloc = self._normalize_netloc(parsed.netloc, scheme)
             path = self._normalize_path(parsed.path)
@@ -93,7 +93,7 @@ class URLNormalizer:
             query = self._normalize_query(parsed.query)
             fragment = self._normalize_fragment(parsed.fragment)
             
-            # Reconstruct normalized URL
+# Reconstruct normalized URL
             normalized = urllib.parse.urlunparse((
                 scheme, netloc, path, params, query, fragment
             ))
@@ -101,7 +101,7 @@ class URLNormalizer:
             return normalized
             
         except Exception as e:
-            # Return original URL if normalization fails
+# Return original URL if normalization fails
             return url
     
     def _normalize_scheme(self, scheme: str) -> str:
@@ -113,34 +113,34 @@ class URLNormalizer:
         if not netloc:
             return netloc
         
-        # Parse host and port
+# Parse host and port
         if ':' in netloc:
             host, port = netloc.rsplit(':', 1)
             try:
                 port_num = int(port)
-                # Remove default ports
+# Remove default ports
                 if port_num == self.default_ports.get(scheme):
                     netloc = host
             except ValueError:
                 pass  # Keep original if port is not numeric
         
-        # Normalize host
+# Normalize host
         host = netloc.split(':')[0]
         
-        # Convert to lowercase
+# Convert to lowercase
         host = host.lower()
         
-        # Remove www. prefix (configurable)
+# Remove www. prefix (configurable)
         if host.startswith('www.') and len(host) > 4:
             host = host[4:]
         
-        # Handle internationalized domain names
+# Handle internationalized domain names
         try:
             host = host.encode('ascii').decode('ascii')
         except UnicodeError:
             host = host.encode('idna').decode('ascii')
         
-        # Reconstruct netloc
+# Reconstruct netloc
         if ':' in netloc and not netloc.endswith(':' + str(self.default_ports.get(scheme, ''))):
             port = netloc.split(':', 1)[1]
             return f"{host}:{port}"
@@ -152,26 +152,26 @@ class URLNormalizer:
         if not path:
             return '/'
         
-        # Resolve . and .. components
+# Resolve . and .. components
         path = urllib.parse.quote(
             urllib.parse.unquote(path, errors='ignore'),
             safe='/:@!$&\'()*+,;='
         )
         
-        # Remove duplicate slashes
+# Remove duplicate slashes
         path = re.sub(r'/+', '/', path)
         
-        # Remove index files
+# Remove index files
         for index_file in self.index_files:
             if path.endswith('/' + index_file):
                 path = path[:-len(index_file)]
                 break
         
-        # Ensure path starts with /
+# Ensure path starts with /
         if not path.startswith('/'):
             path = '/' + path
         
-        # Remove trailing slash for non-root paths
+# Remove trailing slash for non-root paths
         if len(path) > 1 and path.endswith('/'):
             path = path[:-1]
         
@@ -186,10 +186,10 @@ class URLNormalizer:
         if not query:
             return ''
         
-        # Parse query parameters
+# Parse query parameters
         params = urllib.parse.parse_qsl(query, keep_blank_values=True)
         
-        # Filter out ignored parameters
+# Filter out ignored parameters
         filtered_params = [
             (k, v) for k, v in params 
             if k not in self.ignore_params
@@ -198,15 +198,15 @@ class URLNormalizer:
         if not filtered_params:
             return ''
         
-        # Sort parameters for consistent ordering
+# Sort parameters for consistent ordering
         filtered_params.sort(key=lambda x: x[0])
         
-        # Rebuild query string
+# Rebuild query string
         return urllib.parse.urlencode(filtered_params, quote_via=urllib.parse.quote)
     
     def _normalize_fragment(self, fragment: str) -> str:
         """Normalize fragment (usually removed)"""
-        # Most crawlers ignore fragments as they're client-side
+# Most crawlers ignore fragments as they're client-side
         return ''
 
 # Usage examples
@@ -248,22 +248,22 @@ class SemanticURLNormalizer(URLNormalizer):
         """Normalize URL following redirect chains"""
         canonical_url = self.normalize(url)
         
-        # Check redirect cache
+# Check redirect cache
         if canonical_url in self.redirect_cache:
             return self.redirect_cache[canonical_url]
         
         try:
-            # Follow redirects to find final URL
+# Follow redirects to find final URL
             response = self.session.head(canonical_url, allow_redirects=True, timeout=5)
             final_url = self.normalize(response.url)
             
-            # Cache the mapping
+# Cache the mapping
             self.redirect_cache[canonical_url] = final_url
             
             return final_url
             
         except Exception:
-            # Return normalized URL if redirect check fails
+# Return normalized URL if redirect check fails
             return canonical_url
     
     def is_crawlable(self, url: str, user_agent: str = '*') -> bool:
@@ -272,7 +272,7 @@ class SemanticURLNormalizer(URLNormalizer):
             parsed = urllib.parse.urlparse(url)
             robots_url = f"{parsed.scheme}://{parsed.netloc}/robots.txt"
             
-            # Check cache
+# Check cache
             if robots_url not in self.robots_cache:
                 rp = RobotFileParser()
                 rp.set_url(robots_url)
@@ -282,7 +282,7 @@ class SemanticURLNormalizer(URLNormalizer):
             return self.robots_cache[robots_url].can_fetch(user_agent, url)
             
         except Exception:
-            # Allow crawling if robots.txt check fails
+# Allow crawling if robots.txt check fails
             return True
     
     def extract_canonical_url(self, url: str, html_content: str) -> str:
@@ -297,7 +297,7 @@ class SemanticURLNormalizer(URLNormalizer):
             match = re.search(pattern, html_content, re.IGNORECASE)
             if match:
                 canonical_url = match.group(1)
-                # Resolve relative URLs
+# Resolve relative URLs
                 return urllib.parse.urljoin(url, canonical_url)
         
         return self.normalize(url)
@@ -329,20 +329,20 @@ class ContentURLNormalizer:
                                          content: Optional[str] = None) -> Tuple[str, str]:
         """Normalize URL and generate content fingerprint"""
         
-        # Normalize URL
+# Normalize URL
         normalized_url = self.url_normalizer.normalize(url)
         
-        # Generate content fingerprint if content provided
+# Generate content fingerprint if content provided
         if content:
             content_hash = self._generate_content_hash(content)
             
-            # Check for duplicate content with different URLs
+# Check for duplicate content with different URLs
             for existing_url, existing_hash in self.content_hashes.items():
                 if existing_hash == content_hash and existing_url != normalized_url:
-                    # Found duplicate content - return canonical URL
+# Found duplicate content - return canonical URL
                     return existing_url, content_hash
             
-            # Store new content mapping
+# Store new content mapping
             self.content_hashes[normalized_url] = content_hash
             
             return normalized_url, content_hash
@@ -352,10 +352,10 @@ class ContentURLNormalizer:
     def _generate_content_hash(self, content: str) -> str:
         """Generate content fingerprint using multiple methods"""
         
-        # Clean content for hashing
+# Clean content for hashing
         cleaned_content = self._clean_content_for_hashing(content)
         
-        # Use multiple hash functions for robustness
+# Use multiple hash functions for robustness
         sha256_hash = hashlib.sha256(cleaned_content.encode()).hexdigest()[:16]
         murmur_hash = f"{mmh3.hash(cleaned_content):08x}"
         
@@ -364,13 +364,13 @@ class ContentURLNormalizer:
     def _clean_content_for_hashing(self, content: str) -> str:
         """Clean HTML content for consistent hashing"""
         
-        # Remove HTML tags
+# Remove HTML tags
         clean_content = re.sub(r'<[^>]+>', ' ', content)
         
-        # Remove extra whitespace
+# Remove extra whitespace
         clean_content = re.sub(r'\s+', ' ', clean_content)
         
-        # Remove common dynamic content
+# Remove common dynamic content
         dynamic_patterns = [
             r'Posted on \d{4}-\d{2}-\d{2}',  # Timestamps
             r'Last updated: [^.]+',          # Update times
@@ -387,18 +387,18 @@ class ContentURLNormalizer:
     def find_near_duplicates(self, content: str, threshold: float = 0.8) -> List[str]:
         """Find URLs with similar content using shingling"""
         
-        # Generate shingles (k-grams) from content
+# Generate shingles (k-grams) from content
         shingles = self._generate_shingles(content, k=3)
         
         similar_urls = []
         
         for url, stored_hash in self.content_hashes.items():
-            # Get stored content (simplified - would need content store)
+# Get stored content (simplified - would need content store)
             stored_content = self._get_stored_content(url)
             if stored_content:
                 stored_shingles = self._generate_shingles(stored_content, k=3)
                 
-                # Calculate Jaccard similarity
+# Calculate Jaccard similarity
                 similarity = len(shingles & stored_shingles) / len(shingles | stored_shingles)
                 
                 if similarity >= threshold:
@@ -420,7 +420,7 @@ class ContentURLNormalizer:
     
     def _get_stored_content(self, url: str) -> Optional[str]:
         """Retrieve stored content for URL (placeholder)"""
-        # In real implementation, would query content database
+# In real implementation, would query content database
         return None
 
 # Usage with content fingerprinting
@@ -450,21 +450,21 @@ class ShortenerURLNormalizer(URLNormalizer):
     def normalize_for_shortening(self, url: str) -> Tuple[str, str]:
         """Normalize URL and generate/retrieve short code"""
         
-        # Apply comprehensive normalization
+# Apply comprehensive normalization
         canonical_url = self.normalize(url)
         
-        # Check if we already have a short code for this URL
+# Check if we already have a short code for this URL
         if canonical_url in self.url_mappings:
             return canonical_url, self.url_mappings[canonical_url]
         
-        # Generate new short code
+# Generate new short code
         short_code = self._generate_short_code(canonical_url)
         
-        # Handle collisions
+# Handle collisions
         while short_code in self.short_codes:
             short_code = self._generate_short_code(canonical_url, salt=short_code)
         
-        # Store mappings
+# Store mappings
         self.url_mappings[canonical_url] = short_code
         self.short_codes[short_code] = canonical_url
         
@@ -473,16 +473,16 @@ class ShortenerURLNormalizer(URLNormalizer):
     def _generate_short_code(self, url: str, salt: str = "") -> str:
         """Generate short code from normalized URL"""
         
-        # Create hash input
+# Create hash input
         hash_input = url + salt
         
-        # Generate hash
+# Generate hash
         hash_bytes = hashlib.sha256(hash_input.encode()).digest()
         
-        # Convert to base62 for URL-safe short code
+# Convert to base62 for URL-safe short code
         short_code = self._base62_encode(int.from_bytes(hash_bytes[:8], 'big'))
         
-        # Ensure minimum length
+# Ensure minimum length
         return short_code[:7].ljust(7, '0')
     
     def _base62_encode(self, num: int) -> str:
@@ -507,13 +507,13 @@ class ShortenerURLNormalizer(URLNormalizer):
         """Generate consistent analytics key from URL"""
         canonical_url = self.normalize(url)
         
-        # Remove query parameters for analytics grouping
+# Remove query parameters for analytics grouping
         parsed = urllib.parse.urlparse(canonical_url)
         analytics_url = urllib.parse.urlunparse((
             parsed.scheme, parsed.netloc, parsed.path, '', '', ''
         ))
         
-        # Generate stable hash for analytics
+# Generate stable hash for analytics
         return hashlib.sha256(analytics_url.encode()).hexdigest()[:16]
 
 # Usage for URL shortener service
@@ -566,7 +566,7 @@ class HighPerformanceURLNormalizer:
         def normalize_single(url):
             return (url, self.normalize_cached(url))
         
-        # Process URLs in parallel
+# Process URLs in parallel
         with ThreadPoolExecutor(max_workers=8) as executor:
             results = list(executor.map(normalize_single, urls))
         

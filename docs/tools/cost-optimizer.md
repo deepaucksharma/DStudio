@@ -817,7 +817,7 @@ function drawCostChart(providerCosts) {
     border-radius: 8px;
 }
 
-#costChart {
+# costChart {
     max-width: 100%;
     height: auto;
 }

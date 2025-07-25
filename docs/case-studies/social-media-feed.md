@@ -10,7 +10,7 @@ last_updated: 2025-07-24
 ---
 
 
-# 📱 Social Media Feed Architecture
+# Social Media Feed Architecture
 
 **The Challenge**: Generate personalized, relevant feeds for 3+ billion users with sub-second latency and real-time updates
 
@@ -162,7 +162,7 @@ class FanoutService:
         """Fan-out post to all followers."""
         followers = self.social_graph.get_followers(user_id)
         
-        # Batch fan-out to avoid overwhelming systems
+# Batch fan-out to avoid overwhelming systems
         batch_size = 1000
         for i in range(0, len(followers), batch_size):
             batch = followers[i:i + batch_size]
@@ -249,11 +249,11 @@ class HybridFeedGenerator:
         """Generate feed using hybrid strategy."""
         timeline_posts = self._get_timeline_cache(user_id)
         
-        # Get posts from high-follower accounts (not pre-computed)
+# Get posts from high-follower accounts (not pre-computed)
         celebrity_follows = self._get_celebrity_follows(user_id)
         celebrity_posts = self._fetch_celebrity_posts(celebrity_follows)
         
-        # Merge and rank all content
+# Merge and rank all content
         all_posts = timeline_posts + celebrity_posts
         ranked_posts = self.ranking_service.rank(
             user_id=user_id,
@@ -350,23 +350,23 @@ class FeedRankingPipeline:
     def rank_posts(self, user_id: str, candidate_posts: List[Post]) -> List[RankedPost]:
         """Multi-stage ranking pipeline."""
         
-        # Stage 1: Fast feature computation
+# Stage 1: Fast feature computation
         lightweight_features = []
         for post in candidate_posts:
             features = self._compute_lightweight_features(user_id, post)
             lightweight_features.append(features)
         
-        # Stage 2: Lightweight model scoring
+# Stage 2: Lightweight model scoring
         light_scores = self.lightweight_model.predict(lightweight_features)
         top_candidates = self._select_top_k(candidate_posts, light_scores, k=200)
         
-        # Stage 3: Deep feature computation (expensive)
+# Stage 3: Deep feature computation (expensive)
         deep_features = []
         for post in top_candidates:
             features = self._compute_deep_features(user_id, post)
             deep_features.append(features)
         
-        # Stage 4: Deep model final ranking
+# Stage 4: Deep model final ranking
         final_scores = self.deep_model.predict(deep_features)
         
         return self._create_ranked_results(top_candidates, final_scores)
@@ -479,21 +479,21 @@ class FeedCacheManager:
         """Multi-level cache lookup with fallback."""
         cache_key = f"feed:{user_id}:page:{page}"
         
-        # L1: In-memory cache (10ms)
+# L1: In-memory cache (10ms)
         if cache_key in self.l1_cache:
             return self.l1_cache[cache_key]
         
-        # L2: Redis cache (50ms)
+# L2: Redis cache (50ms)
         cached_feed = self.l2_cache.get(cache_key)
         if cached_feed:
-            # Promote to L1
+# Promote to L1
             self.l1_cache[cache_key] = cached_feed
             return cached_feed
         
-        # L3: SSD cache (100ms)
+# L3: SSD cache (100ms)
         ssd_feed = self.l3_cache.get(cache_key)
         if ssd_feed:
-            # Promote to L2 and L1
+# Promote to L2 and L1
             self.l2_cache.set(cache_key, ssd_feed, ttl=3600)
             self.l1_cache[cache_key] = ssd_feed
             return ssd_feed
@@ -504,7 +504,7 @@ class FeedCacheManager:
         """Update all cache levels."""
         cache_key = f"feed:{user_id}:page:{page}"
         
-        # Write-through to all levels
+# Write-through to all levels
         self.l1_cache[cache_key] = feed
         self.l2_cache.set(cache_key, feed, ttl=3600)
         self.l3_cache.set(cache_key, feed, ttl=86400)
@@ -513,7 +513,7 @@ class FeedCacheManager:
         """Invalidate all cached feeds for user."""
         pattern = f"feed:{user_id}:*"
         
-        # Clear from all cache levels
+# Clear from all cache levels
         keys_to_delete = [k for k in self.l1_cache.keys() if k.startswith(f"feed:{user_id}:")]
         for key in keys_to_delete:
             del self.l1_cache[key]
@@ -667,7 +667,7 @@ class FeedUpdateProcessor:
                 await self._process_event(event)
             except Exception as e:
                 logger.error(f"Error processing event {event}: {e}")
-                # Send to dead letter queue
+# Send to dead letter queue
                 self.producer.send('dead-letter-queue', event)
     
     async def _process_event(self, event: Dict[str, Any]):
@@ -688,18 +688,18 @@ class FeedUpdateProcessor:
         post_id = event['post_id']
         author_id = event['author_id']
         
-        # Get author's followers
+# Get author's followers
         followers = await self.social_graph.get_followers(author_id)
         
-        # Determine fan-out strategy based on follower count
+# Determine fan-out strategy based on follower count
         if len(followers) < 10000:
-            # Push model: Fan-out to all followers
+# Push model: Fan-out to all followers
             await self._fanout_to_followers(post_id, followers)
         else:
-            # Pull model: Mark for on-demand generation
+# Pull model: Mark for on-demand generation
             await self._mark_for_pull_generation(post_id, author_id)
         
-        # Update trending topics
+# Update trending topics
         await self._update_trending_analysis(event)
     
     async def _handle_engagement(self, event: Dict[str, Any]):
@@ -707,13 +707,13 @@ class FeedUpdateProcessor:
         post_id = event['post_id']
         user_id = event['user_id']
         
-        # Update engagement counters
+# Update engagement counters
         await self._update_engagement_counters(post_id, event['engagement_type'])
         
-        # Update ML features for real-time ranking
+# Update ML features for real-time ranking
         await self._update_ranking_features(post_id, user_id, event)
         
-        # Potentially boost post in feeds (viral content)
+# Potentially boost post in feeds (viral content)
         engagement_velocity = await self._calculate_engagement_velocity(post_id)
         if engagement_velocity > VIRAL_THRESHOLD:
             await self._boost_viral_content(post_id)
@@ -840,23 +840,23 @@ class EdgeFeedService:
     async def get_feed(self, user_id: str, page: int = 0) -> Feed:
         """Generate feed with regional optimizations."""
         
-        # Check regional cache first
+# Check regional cache first
         cache_key = f"feed:{user_id}:page:{page}:region:{self.region}"
         cached_feed = await self.local_cache.get(cache_key)
         
         if cached_feed:
             return self._deserialize_feed(cached_feed)
         
-        # Generate feed with regional preferences
+# Generate feed with regional preferences
         user_profile = await self._get_user_profile(user_id)
         regional_trends = await self._get_regional_trends()
         
-        # Mix global and regional content
+# Mix global and regional content
         global_posts = await self._get_global_trending_posts()
         regional_posts = await self._get_regional_posts(user_profile)
         user_network_posts = await self._get_user_network_posts(user_id)
         
-        # Combine with regional weighting
+# Combine with regional weighting
         all_posts = self._combine_post_sources(
             global_posts,
             regional_posts,
@@ -864,14 +864,14 @@ class EdgeFeedService:
             regional_weights=self._get_regional_weights()
         )
         
-        # Rank with regional ML model
+# Rank with regional ML model
         ranked_posts = await self.ml_models.rank_posts(
             user_profile, all_posts, regional_trends
         )
         
         feed = Feed(posts=ranked_posts[:50])
         
-        # Cache for 10 minutes (balance freshness vs performance)
+# Cache for 10 minutes (balance freshness vs performance)
         await self.local_cache.set(
             cache_key, 
             self._serialize_feed(feed), 
@@ -958,27 +958,27 @@ class FeedCapacityPlanner:
     def calculate_infrastructure_needs(self, total_users: int) -> Dict[str, int]:
         """Calculate required infrastructure for user count."""
         
-        # Database sharding
+# Database sharding
         db_shards = math.ceil(total_users / self.users_per_shard)
         
-        # Daily post volume
+# Daily post volume
         daily_posts = total_users * self.posts_per_user_per_day
         
-        # Fan-out operations (posts × average followers)
+# Fan-out operations (posts × average followers)
         daily_fanout_ops = daily_posts * self.follows_per_user
         
-        # Feed requests per second
+# Feed requests per second
         daily_feed_requests = total_users * self.feed_requests_per_user_per_day
         peak_qps = daily_feed_requests / (24 * 3600) * 3  # 3x peak factor
         
-        # API servers (assume 1k QPS per server)
+# API servers (assume 1k QPS per server)
         api_servers = math.ceil(peak_qps / 1000)
         
-        # Cache storage (50MB per active user)
+# Cache storage (50MB per active user)
         active_users = total_users * 0.4  # 40% DAU rate
         cache_storage_gb = active_users * 50 / 1024  # Convert MB to GB
         
-        # Timeline storage (1GB per 10k users)
+# Timeline storage (1GB per 10k users)
         timeline_storage_gb = total_users * 1024 / 10000
         
         return {
@@ -994,7 +994,7 @@ class FeedCapacityPlanner:
     def estimate_costs(self, infrastructure: Dict[str, int]) -> Dict[str, float]:
         """Estimate monthly infrastructure costs."""
         
-        # AWS pricing estimates (simplified)
+# AWS pricing estimates (simplified)
         db_cost_per_shard = 2000  # RDS Multi-AZ
         api_cost_per_server = 500  # EC2 c5.2xlarge
         cache_cost_per_gb = 0.05  # ElastiCache
@@ -1051,8 +1051,8 @@ class NewRankingModel:
         scored_posts = []
         
         for post in posts:
-            # BUG: Synchronous API call inside tight loop
-            # This was changed from async batch processing
+# BUG: Synchronous API call inside tight loop
+# This was changed from async batch processing
             user_embedding = self.embedding_service.get_user_embedding(user_id)  # 50ms each
             post_embedding = self.embedding_service.get_post_embedding(post.id)   # 50ms each
             
@@ -1112,34 +1112,34 @@ class EmergencyScalingService:
     
     async def emergency_scale_out(self, metrics: Dict[str, float]):
         """Emergency scaling for traffic spikes."""
-        # Scale API servers
+# Scale API servers
         await self.autoscaling_client.set_desired_capacity(
             'feed-api-servers',
             min(current_capacity * 3, 1000)  # Triple capacity, max 1000
         )
         
-        # Scale ranking workers  
+# Scale ranking workers
         await self.autoscaling_client.set_desired_capacity(
             'ranking-workers',
             min(current_capacity * 5, 500)  # 5x workers for compute-heavy tasks
         )
         
-        # Enable emergency features
+# Enable emergency features
         await self.enable_degraded_mode()
     
     async def enable_degraded_mode(self):
         """Reduce quality to maintain availability."""
-        # Simpler ranking algorithm
+# Simpler ranking algorithm
         await self.feature_flags.enable('simple_ranking_mode')
         
-        # Reduce feed size
+# Reduce feed size
         await self.feature_flags.set('feed_size', 20)  # Down from 50
         
-        # Disable expensive features
+# Disable expensive features
         await self.feature_flags.disable('content_embedding')
         await self.feature_flags.disable('personalized_ads')
         
-        # Cache everything aggressively
+# Cache everything aggressively
         await self.feature_flags.set('cache_ttl_seconds', 3600)  # Up from 300
 ```
 
@@ -1213,9 +1213,9 @@ class PrivacyProtectionService:
         filtered_posts = []
         
         for post in posts:
-            # Check if user can see this post
+# Check if user can see this post
             if self.can_user_see_post(user_id, post, user_privacy):
-                # Anonymize sensitive data
+# Anonymize sensitive data
                 anonymized_post = self.anonymize_post(post, user_privacy)
                 filtered_posts.append(anonymized_post)
         
@@ -1224,20 +1224,20 @@ class PrivacyProtectionService:
     def can_user_see_post(self, user_id: str, post: Post, privacy_settings: Dict) -> bool:
         """Determine if user should see this post."""
         
-        # Blocked users
+# Blocked users
         if post.author_id in privacy_settings.get('blocked_users', []):
             return False
         
-        # Content type restrictions
+# Content type restrictions
         if post.content_type in privacy_settings.get('hidden_content_types', []):
             return False
         
-        # Geographic restrictions
+# Geographic restrictions
         user_location = self.get_user_location(user_id)
         if not self.is_content_available_in_region(post, user_location):
             return False
         
-        # Age-appropriate content
+# Age-appropriate content
         user_age = self.get_user_age(user_id)
         if post.age_rating > user_age:
             return False
@@ -1248,19 +1248,19 @@ class PrivacyProtectionService:
         """Remove/obscure sensitive information."""
         anonymized_post = post.copy()
         
-        # Remove location data if privacy setting enabled
+# Remove location data if privacy setting enabled
         if privacy_settings.get('hide_locations', False):
             anonymized_post.location = None
             anonymized_post.location_tags = []
         
-        # Blur faces in photos if requested
+# Blur faces in photos if requested
         if privacy_settings.get('blur_faces', False):
             anonymized_post.media_urls = [
                 self.blur_faces_in_image(url) 
                 for url in post.media_urls
             ]
         
-        # Remove user mentions in sensitive contexts
+# Remove user mentions in sensitive contexts
         if privacy_settings.get('private_mentions', False):
             anonymized_post.text = self.anonymization_service.remove_mentions(
                 post.text, 

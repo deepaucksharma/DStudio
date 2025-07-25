@@ -14,7 +14,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🛡️ Core Security Principles
+## Core Security Principles
 
 ### Defense in Depth
 Multiple security layers prevent single-point failures.
@@ -55,7 +55,7 @@ class SecureCircuitBreaker:
 
     def can_trip(self):
         now = time.time()
-        # Remove trips older than 1 hour
+# Remove trips older than 1 hour
         self.trip_times = [t for t in self.trip_times if now - t < 3600]
         return len(self.trip_times) < self.max_trips_per_hour
 ```
@@ -84,7 +84,7 @@ def secure_retry(func, max_attempts=3, base_delay=1.0):
         except Exception as e:
             if attempt == max_attempts - 1:
                 raise
-            # Add jitter to prevent synchronized retries
+# Add jitter to prevent synchronized retries
             delay = base_delay * (2 ** attempt) * (0.5 + random.random() * 0.5)
             time.sleep(min(delay, 60))  # Cap maximum delay
 ```
@@ -98,14 +98,14 @@ def secure_retry(func, max_attempts=3, base_delay=1.0):
 # Security considerations for saga compensation
 class SecureSaga:
     def execute_compensation(self, action, original_user):
-        # Verify the user still has permission to perform compensation
+# Verify the user still has permission to perform compensation
         if not self.auth_service.can_compensate(original_user, action):
             raise SecurityError("User no longer authorized for compensation")
 
-        # Log compensation for audit trail
+# Log compensation for audit trail
         self.audit_log.log_compensation(action, original_user)
 
-        # Execute with additional validation
+# Execute with additional validation
         return action.compensate()
 ```
 
@@ -117,11 +117,11 @@ class SecureSaga:
 ```python
 class SecureEventStore:
     def store_event(self, event, user_context):
-        # Encrypt sensitive data in events
+# Encrypt sensitive data in events
         if event.contains_pii():
             event = self.crypto.encrypt_pii_fields(event)
 
-        # Add security metadata
+# Add security metadata
         event.metadata.update({
             'user_id': user_context.user_id,
             'timestamp': time.time(),
@@ -132,12 +132,12 @@ class SecureEventStore:
         return self.event_store.append(event)
 
     def read_events(self, stream_id, user_context):
-        # Check read permissions
+# Check read permissions
         if not self.auth.can_read_stream(user_context, stream_id):
             raise AuthorizationError()
 
         events = self.event_store.read(stream_id)
-        # Decrypt events for authorized users
+# Decrypt events for authorized users
         return [self.decrypt_if_authorized(e, user_context) for e in events]
 ```
 
@@ -174,7 +174,7 @@ class SecureJWTManager:
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
 
-            # Check if token is blacklisted
+# Check if token is blacklisted
             if payload['jti'] in self.blacklist:
                 raise jwt.InvalidTokenError("Token is blacklisted")
 
@@ -225,7 +225,7 @@ class OAuth2Handler:
         self.auth_server_url = auth_server_url
 
     def exchange_code_for_token(self, authorization_code, redirect_uri):
-        # Use PKCE for additional security
+# Use PKCE for additional security
         token_request = {
             'grant_type': 'authorization_code',
             'code': authorization_code,
@@ -249,7 +249,7 @@ class OAuth2Handler:
 
 ---
 
-## 🌐 Network Security
+## Network Security
 
 ### TLS/SSL Configuration
 
@@ -261,14 +261,14 @@ import socket
 def create_secure_context():
     context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
 
-    # Require strong TLS versions
+# Require strong TLS versions
     context.minimum_version = ssl.TLSVersion.TLSv1_2
 
-    # Require certificate verification
+# Require certificate verification
     context.check_hostname = True
     context.verify_mode = ssl.CERT_REQUIRED
 
-    # Strong cipher suites
+# Strong cipher suites
     context.set_ciphers('ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS')
 
     return context
@@ -316,7 +316,7 @@ spec:
 
 ---
 
-## 📊 Data Security
+## Data Security
 
 ### Encryption at Rest
 
@@ -382,7 +382,7 @@ class DataMasker:
 
 ---
 
-## 🚨 Security Monitoring
+## Security Monitoring
 
 ### Threat Detection
 
@@ -400,7 +400,7 @@ class SecurityMonitor:
     def detect_anomalies(self, current_metrics):
         alerts = []
 
-        # Check for brute force attacks
+# Check for brute force attacks
         if current_metrics.get('failed_logins', 0) > self.alert_thresholds['failed_logins']:
             alerts.append({
                 'type': 'BRUTE_FORCE_ATTACK',
@@ -408,7 +408,7 @@ class SecurityMonitor:
                 'details': f"High failed login rate: {current_metrics['failed_logins']}/min"
             })
 
-        # Check for unusual access patterns
+# Check for unusual access patterns
         access_pattern_score = self.calculate_access_pattern_score(current_metrics)
         if access_pattern_score > self.alert_thresholds['unusual_access_patterns']:
             alerts.append({
@@ -429,7 +429,7 @@ class SecurityMonitor:
             'user_agent': self.get_user_agent()
         }
 
-        # Send to security information and event management (SIEM)
+# Send to security information and event management (SIEM)
         self.siem_client.send(security_log)
 ```
 
@@ -442,7 +442,7 @@ class AuditLogger:
         self.logger = logging.getLogger(logger_name)
         self.logger.setLevel(logging.INFO)
 
-        # Ensure logs are tamper-evident
+# Ensure logs are tamper-evident
         handler = RotatingFileHandler(
             'security_audit.log',
             maxBytes=100*1024*1024,  # 100MB
@@ -470,13 +470,13 @@ class AuditLogger:
         self.logger.info(json.dumps(audit_entry))
 
     def hash_user_id(self, user_id):
-        # Hash user ID for privacy while maintaining auditability
+# Hash user ID for privacy while maintaining auditability
         return hashlib.sha256(f"{user_id}{self.salt}".encode()).hexdigest()[:16]
 ```
 
 ---
 
-## 🔧 Security Best Practices Checklist
+## Security Best Practices Checklist
 
 ### Development Security
 
@@ -513,7 +513,7 @@ class AuditLogger:
 
 ---
 
-## 🚨 Common Security Vulnerabilities
+## Common Security Vulnerabilities
 
 ### OWASP Top 10 for Distributed Systems
 

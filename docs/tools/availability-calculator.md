@@ -777,7 +777,7 @@ th {
     border-radius: 8px;
 }
 
-#availChart {
+# availChart {
     max-width: 100%;
     height: auto;
     margin-top: 1rem;

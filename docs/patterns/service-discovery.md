@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -53,7 +53,7 @@ class SimpleServiceRegistry:
         """Get single instance with round-robin"""
         instances = self.discover(service_name)
         if instances:
-            # Rotate for round-robin
+# Rotate for round-robin
             self.services[service_name].append(
                 self.services[service_name].pop(0)
             )
@@ -63,7 +63,7 @@ class SimpleServiceRegistry:
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 | Pattern | Description | Trade-offs |
 |---------|-------------|------------|
@@ -97,17 +97,17 @@ class ServiceDiscoveryClient:
 
     def get_service_instances(self, service_name: str) -> List[dict]:
         """Get instances with caching"""
-        # Check cache first
+# Check cache first
         if service_name in self.cache:
             entry = self.cache[service_name]
             if time.time() - entry['cached_at'] < self.cache_ttl:
                 return entry['instances']
 
-        # Fetch from registry
+# Fetch from registry
         response = requests.get(f"{self.registry_url}/services/{service_name}")
         instances = response.json()['instances']
         
-        # Cache results
+# Cache results
         self.cache[service_name] = {
             'instances': instances,
             'cached_at': time.time()
@@ -118,7 +118,7 @@ class ServiceDiscoveryClient:
         """Call service with auto-discovery and retry"""
         instances = self.get_service_instances(service_name)
         
-        # Try up to 3 instances
+# Try up to 3 instances
         for attempt in range(min(3, len(instances))):
             instance = random.choice(instances)
             try:
@@ -152,7 +152,7 @@ class HealthAwareRegistry:
         healthy = []
         
         for instance in self.services.get(service, []):
-            # Check health if stale
+# Check health if stale
             if time.time() - instance['last_check'] > self.health_check_interval:
                 self._check_health(instance)
             
@@ -173,7 +173,7 @@ class HealthAwareRegistry:
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Discovery Patterns
 
@@ -182,15 +182,15 @@ class HealthAwareRegistry:
 ```python
 def mesh_discovery(service_name: str, request_headers: dict) -> dict:
     """Service discovery in mesh with routing rules"""
-    # Virtual service routing
+# Virtual service routing
     virtual_service = get_virtual_service(service_name)
     if virtual_service:
-        # Apply header-based routing
+# Apply header-based routing
         for route in virtual_service['routes']:
             if matches_headers(request_headers, route['match']):
                 return route['destination']
     
-    # Fall back to standard discovery
+# Fall back to standard discovery
     return discover_service(service_name)
 
 def create_destination_rule(service: str, policy: dict) -> dict:
@@ -222,7 +222,7 @@ def discover_multi_region(service: str, client_region: str) -> List[dict]:
         except:
             continue  # Skip failed regions
     
-    # Sort by latency, then health
+# Sort by latency, then health
     return sorted(all_instances, key=lambda x: (
         x['latency'],
         0 if x.get('health') == 'healthy' else 1
@@ -232,7 +232,7 @@ def geo_routing(service: str, client_location: dict) -> dict:
     """Route to nearest healthy instance"""
     instances = discover_multi_region(service, get_region(client_location))
     
-    # Find nearest healthy instance with capacity
+# Find nearest healthy instance with capacity
     for instance in instances:
         if (instance.get('health') == 'healthy' and 
             instance.get('capacity', 100) > 10):
@@ -259,7 +259,7 @@ def geo_routing(service: str, client_location: dict) -> dict:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Systems
 
@@ -366,7 +366,7 @@ def eureka_discover(app_name: str, eureka_url: str) -> List[dict]:
 ```
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -375,11 +375,11 @@ def eureka_discover(app_name: str, eureka_url: str) -> List[dict]:
 ```python
 def calculate_discovery_overhead(num_services: int, num_instances: int) -> dict:
     """Calculate theoretical overhead"""
-    # Protocol overheads
+# Protocol overheads
     gossip_bandwidth = num_services * num_instances * math.log(num_instances) * 64  # bytes/sec
     consensus_bandwidth = num_services * num_instances * (num_instances - 1) * 128
     
-    # Caching reduces load by ~90%
+# Caching reduces load by ~90%
     cache_hit_rate = 0.9
     effective_query_rate = query_rate * (1 - cache_hit_rate)
     
@@ -420,7 +420,7 @@ def bloom_filter_discovery(services: dict) -> dict:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Discovery Method Selection
 

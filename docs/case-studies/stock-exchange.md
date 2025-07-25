@@ -339,14 +339,14 @@ class DeterministicMatchingEngine:
         self.random_seed = 12345  # Fixed seed for determinism
         
     def process_order(self, order):
-        # Assign deterministic sequence number
+# Assign deterministic sequence number
         order.sequence = self.sequence_number
         self.sequence_number += 1
         
-        # Record input for replay
+# Record input for replay
         self.audit_log.record_input(order)
         
-        # Process based on order type
+# Process based on order type
         if order.type == OrderType.LIMIT:
             return self.process_limit_order(order)
         elif order.type == OrderType.MARKET:
@@ -357,12 +357,12 @@ class DeterministicMatchingEngine:
     def process_limit_order(self, order):
         book = self.order_books[order.symbol]
         
-        # Try immediate match
+# Try immediate match
         fills = []
         remaining_qty = order.quantity
         
         if order.side == Side.BUY:
-            # Match against asks
+# Match against asks
             while remaining_qty > 0 and book.has_asks():
                 best_ask = book.best_ask()
                 if best_ask.price <= order.price:
@@ -374,7 +374,7 @@ class DeterministicMatchingEngine:
                 else:
                     break
         
-        # Add remainder to book
+# Add remainder to book
         if remaining_qty > 0:
             book.add_order(order, remaining_qty)
         
@@ -391,17 +391,17 @@ class FairAccessManager:
         self.participant_queues = {}
         
     def handle_order(self, order, participant_id):
-        # Apply speed bump to prevent latency arbitrage
+# Apply speed bump to prevent latency arbitrage
         arrival_time = self.get_hardware_timestamp()
         process_time = arrival_time + self.speed_bump_us
         
-        # Queue order with deterministic processing time
+# Queue order with deterministic processing time
         self.participant_queues[participant_id].put(
             (process_time, order)
         )
     
     def process_queued_orders(self):
-        # Process orders in strict time order
+# Process orders in strict time order
         all_orders = []
         for queue in self.participant_queues.values():
             while not queue.empty():
@@ -412,7 +412,7 @@ class FairAccessManager:
                     queue.put((process_time, order))
                     break
         
-        # Sort by process time for fairness
+# Sort by process time for fairness
         all_orders.sort(key=lambda x: x[0])
         
         for _, order in all_orders:
@@ -524,7 +524,7 @@ class PreTradeRiskChecker:
         self.banned_symbols = set()
         
     def check_order(self, order, participant):
-        # Parallel risk checks
+# Parallel risk checks
         checks = [
             self.check_position_limits(order, participant),
             self.check_order_rate(order, participant),
@@ -534,7 +534,7 @@ class PreTradeRiskChecker:
             self.check_regulatory_restrictions(order, participant)
         ]
         
-        # All checks must pass
+# All checks must pass
         for check_result in checks:
             if not check_result.passed:
                 return RiskReject(order, check_result.reason)
@@ -542,18 +542,18 @@ class PreTradeRiskChecker:
         return RiskPass(order)
     
     def check_fat_finger(self, order):
-        # Detect potential erroneous orders
+# Detect potential erroneous orders
         if order.type == OrderType.MARKET:
             return CheckResult(False, "Market orders not allowed")
         
-        # Check if order is >5% away from last trade
+# Check if order is >5% away from last trade
         last_price = self.get_last_trade_price(order.symbol)
         price_diff = abs(order.price - last_price) / last_price
         
         if price_diff > 0.05:
             return CheckResult(False, f"Price {price_diff*100:.1f}% from market")
         
-        # Check order value
+# Check order value
         order_value = order.price * order.quantity
         if order_value > self.get_max_order_value(order.symbol):
             return CheckResult(False, f"Order value ${order_value:,.0f} exceeds limit")
@@ -561,7 +561,7 @@ class PreTradeRiskChecker:
         return CheckResult(True)
     
     def check_market_impact(self, order):
-        # Estimate market impact
+# Estimate market impact
         adv = self.get_average_daily_volume(order.symbol)
         order_pct = (order.quantity / adv) * 100
         
@@ -596,7 +596,7 @@ class MarketProtectionSystem:
         return False
     
     def check_volatility_halt(self, symbol, trade):
-        # Check if price moved >10% in 5 minutes
+# Check if price moved >10% in 5 minutes
         five_min_ago = self.current_time() - timedelta(minutes=5)
         price_5min = self.get_price_at(symbol, five_min_ago)
         
@@ -612,17 +612,17 @@ class MarketProtectionSystem:
         halt_until = self.current_time() + timedelta(minutes=minutes)
         self.volatility_halts[symbol] = halt_until
         
-        # Cancel all open orders
+# Cancel all open orders
         self.matching_engine.cancel_all_orders(symbol)
         
-        # Notify market
+# Notify market
         self.market_data.publish_halt(
             symbol=symbol,
             reason="VOLATILITY",
             halt_until=halt_until
         )
         
-        # Schedule auction for restart
+# Schedule auction for restart
         self.schedule_opening_auction(symbol, halt_until)
 ```
 
@@ -796,7 +796,7 @@ class DisasterRecoverySystem:
         self.replay_engine = ReplayEngine()
         
     def record_input(self, message):
-        # Record all inputs with nanosecond timestamp
+# Record all inputs with nanosecond timestamp
         entry = JournalEntry(
             sequence=self.next_sequence(),
             timestamp=self.get_hardware_timestamp(),
@@ -804,27 +804,27 @@ class DisasterRecoverySystem:
             payload=message.serialize()
         )
         
-        # Write to multiple locations
+# Write to multiple locations
         self.journal_writer.write_local(entry)
         self.journal_writer.write_remote(entry)
         self.journal_writer.write_backup(entry)
     
     def replay_from_checkpoint(self, checkpoint_time):
-        # Load system state at checkpoint
+# Load system state at checkpoint
         state = self.load_checkpoint(checkpoint_time)
         
-        # Create new matching engine with checkpoint state
+# Create new matching engine with checkpoint state
         engine = MatchingEngine()
         engine.restore_state(state)
         
-        # Replay all messages since checkpoint
+# Replay all messages since checkpoint
         messages = self.journal_reader.read_since(checkpoint_time)
         
         for msg in messages:
-            # Replay in exact same order
+# Replay in exact same order
             result = engine.process(msg)
             
-            # Verify determinism
+# Verify determinism
             original_result = self.get_original_result(msg.sequence)
             assert result == original_result, "Non-deterministic behavior detected"
         
@@ -858,17 +858,17 @@ class MarketSurveillanceSystem:
                     self.handle_alert(alert)
     
     def detect_spoofing(self, order):
-        # Detect large orders that are quickly cancelled
+# Detect large orders that are quickly cancelled
         participant = order.participant_id
         symbol = order.symbol
         
-        # Get recent order history
+# Get recent order history
         history = self.get_order_history(participant, symbol, minutes=5)
         
-        # Calculate cancellation rate
+# Calculate cancellation rate
         cancel_rate = sum(1 for o in history if o.cancelled) / len(history)
         
-        # Check for pattern
+# Check for pattern
         if cancel_rate > 0.9 and order.quantity > self.get_avg_order_size(symbol) * 10:
             return Alert(
                 type="SPOOFING",
@@ -881,11 +881,11 @@ class MarketSurveillanceSystem:
         return None
     
     def detect_wash_trading(self, trade):
-        # Detect trades between related accounts
+# Detect trades between related accounts
         buyer = trade.buyer_id
         seller = trade.seller_id
         
-        # Check if accounts are related
+# Check if accounts are related
         if self.are_accounts_related(buyer, seller):
             return Alert(
                 type="WASH_TRADE",
@@ -894,7 +894,7 @@ class MarketSurveillanceSystem:
                 severity="CRITICAL"
             )
         
-        # Check for suspicious pattern
+# Check for suspicious pattern
         recent_trades = self.get_recent_trades(buyer, seller, hours=1)
         if len(recent_trades) > 10:
             return Alert(
@@ -1017,23 +1017,23 @@ class ProductionSafeguards:
         """Big red button - shut down all trading"""
         logging.critical("EMERGENCY MARKET CLOSE INITIATED")
         
-        # 1. Reject all new orders
+# 1. Reject all new orders
         self.matching_engine.set_mode(EngineMode.REJECT_ALL)
         
-        # 2. Cancel all open orders
+# 2. Cancel all open orders
         for symbol in self.get_all_symbols():
             self.matching_engine.cancel_all_orders(symbol)
         
-        # 3. Disable all sessions
+# 3. Disable all sessions
         self.session_manager.disable_all_sessions()
         
-        # 4. Publish market close message
+# 4. Publish market close message
         self.market_data.publish_emergency_close()
         
-        # 5. Dump state for investigation
+# 5. Dump state for investigation
         self.dump_full_system_state()
         
-        # 6. Notify regulators
+# 6. Notify regulators
         self.notify_regulatory_emergency()
 ```
 

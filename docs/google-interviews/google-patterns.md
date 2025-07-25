@@ -45,13 +45,13 @@ class ShardRouter:
         self.virtual_nodes = 150  # For consistent hashing
         
     def get_shard(self, key):
-        # Consistent hashing with virtual nodes
+# Consistent hashing with virtual nodes
         hash_value = hashlib.md5(key.encode()).hexdigest()
         shard_id = int(hash_value, 16) % self.num_shards
         return f"shard_{shard_id}"
     
     def get_multiple_shards(self, keys):
-        # Batch operations by shard
+# Batch operations by shard
         shard_map = defaultdict(list)
         for key in keys:
             shard = self.get_shard(key)
@@ -97,23 +97,23 @@ class MultiLayerCache:
         self.l3_cache = CDNCache()  # Edge cache
         
     async def get(self, key, compute_fn):
-        # L1: Check in-process cache
+# L1: Check in-process cache
         if key in self.l1_cache:
             return self.l1_cache[key]
         
-        # L2: Check distributed cache
+# L2: Check distributed cache
         value = await self.l2_cache.get(key)
         if value:
             self.l1_cache[key] = value
             return value
         
-        # L3: Check CDN cache
+# L3: Check CDN cache
         value = await self.l3_cache.get(key)
         if value:
             await self.populate_lower_caches(key, value)
             return value
         
-        # Compute and populate all layers
+# Compute and populate all layers
         value = await compute_fn()
         await self.populate_all_caches(key, value)
         return value
@@ -151,7 +151,7 @@ class GracefulService:
         self.circuit_breaker = CircuitBreaker()
         
     async def get_recommendations(self, user_id):
-        # Try primary ML-based recommendations
+# Try primary ML-based recommendations
         if self.circuit_breaker.is_open('ml_service'):
             return await self.get_fallback_recommendations(user_id)
         
@@ -162,11 +162,11 @@ class GracefulService:
         except Exception as e:
             self.circuit_breaker.record_failure('ml_service')
             
-            # Fallback to simpler algorithm
+# Fallback to simpler algorithm
             return await self.get_fallback_recommendations(user_id)
     
     async def get_fallback_recommendations(self, user_id):
-        # Simple popularity-based recommendations
+# Simple popularity-based recommendations
         return await self.cache.get_popular_items(category=user_id % 10)
 ```
 
@@ -254,7 +254,7 @@ class CanaryDeployment:
         if self.rollout_percentage == 0:
             return False
         
-        # Consistent assignment based on user ID
+# Consistent assignment based on user ID
         user_hash = hash(user_id) % 100
         return user_hash < self.rollout_percentage
     
@@ -311,16 +311,16 @@ class FeatureFlagService:
         self.cohort_rules = {}
         
     def is_enabled(self, flag_name, user_context):
-        # Check user-specific override
+# Check user-specific override
         if user_context.user_id in self.user_overrides.get(flag_name, {}):
             return self.user_overrides[flag_name][user_context.user_id]
         
-        # Check cohort rules
+# Check cohort rules
         for rule in self.cohort_rules.get(flag_name, []):
             if self.evaluate_rule(rule, user_context):
                 return rule.enabled
         
-        # Default flag value
+# Default flag value
         return self.flags.get(flag_name, False)
     
     def evaluate_rule(self, rule, context):
@@ -377,7 +377,7 @@ class DataPipeline:
                 for stage in self.stages:
                     result = await stage.process(result)
                     
-                    # Checkpoint after each stage
+# Checkpoint after each stage
                     await self.checkpoint(stage.name, result)
                 
                 await self.output(result)
@@ -386,7 +386,7 @@ class DataPipeline:
                 await self.error_handler.handle(e, batch)
     
     async def checkpoint(self, stage_name, data):
-        # Enable restart from any stage
+# Enable restart from any stage
         await self.state_store.save(f"checkpoint_{stage_name}", data)
 ```
 
@@ -421,30 +421,30 @@ class MLServiceIntegration:
         self.monitor = ModelMonitor()
         
     async def predict(self, request):
-        # Feature engineering with caching
+# Feature engineering with caching
         features = await self.get_features(request)
         
-        # Model versioning
+# Model versioning
         model = await self.get_model(request.model_version)
         
-        # Prediction with timeout
+# Prediction with timeout
         try:
             prediction = await asyncio.wait_for(
                 model.predict(features),
                 timeout=0.050  # 50ms SLA
             )
             
-            # Monitor prediction
+# Monitor prediction
             await self.monitor.record(features, prediction)
             
             return prediction
             
         except asyncio.TimeoutError:
-            # Fallback to simple rules
+# Fallback to simple rules
             return self.rule_based_prediction(features)
     
     async def get_features(self, request):
-        # Parallel feature fetching
+# Parallel feature fetching
         features = await asyncio.gather(
             self.feature_store.get_user_features(request.user_id),
             self.feature_store.get_context_features(request.context),
@@ -490,7 +490,7 @@ graph TB
 ```python
 # ❌ Bad: Synchronous chain
 def process_order(order):
-    # Each step blocks the next
+# Each step blocks the next
     user = get_user(order.user_id)  # 50ms
     payment = process_payment(order)  # 200ms
     inventory = update_inventory(order)  # 100ms
@@ -499,16 +499,16 @@ def process_order(order):
 
 # ✅ Good: Asynchronous where possible
 async def process_order(order):
-    # Parallel operations
+# Parallel operations
     user_future = get_user_async(order.user_id)
     payment_future = process_payment_async(order)
     inventory_future = update_inventory_async(order)
     
-    # Wait for critical path only
+# Wait for critical path only
     payment = await payment_future
     inventory = await inventory_future
     
-    # Fire and forget for non-critical
+# Fire and forget for non-critical
     asyncio.create_task(send_notification_async(await user_future))
     
     return create_response(payment, inventory)  # Total: 200ms
@@ -617,7 +617,7 @@ class PaymentService:
         self.api_key = self.get_secret('payment_api_key')
         
     def get_secret(self, key):
-        # Use secret management service
+# Use secret management service
         return SecretManager.get_secret(key)
     
     @property
@@ -696,7 +696,7 @@ class ConsistentHighlyAvailable:
         self.quorum_size = len(self.regions) // 2 + 1
         
     async def write(self, key, value):
-        # Write to quorum of regions
+# Write to quorum of regions
         write_tasks = [
             self.write_to_region(region, key, value)
             for region in self.regions
@@ -711,7 +711,7 @@ class ConsistentHighlyAvailable:
             raise QuorumNotAchieved()
     
     async def read(self, key):
-        # Read from quorum for consistency
+# Read from quorum for consistency
         read_tasks = [
             self.read_from_region(region, key)
             for region in self.regions
@@ -719,7 +719,7 @@ class ConsistentHighlyAvailable:
         
         results = await asyncio.gather(*read_tasks, return_exceptions=True)
         
-        # Return most recent value from quorum
+# Return most recent value from quorum
         valid_results = [r for r in results if not isinstance(r, Exception)]
         if len(valid_results) >= self.quorum_size:
             return max(valid_results, key=lambda x: x.timestamp).value
@@ -769,12 +769,12 @@ class StorageVsComputeOptimizer:
                          computation_time_seconds,
                          result_size_mb,
                          access_frequency_per_month):
-        # Cost of computing on-demand
+# Cost of computing on-demand
         compute_cost = (computation_time_seconds / 3600) * \
                       self.compute_cost_per_hour * \
                       access_frequency_per_month
         
-        # Cost of storing precomputed results
+# Cost of storing precomputed results
         storage_cost = (result_size_mb / 1024) * self.storage_cost_per_gb
         
         return storage_cost < compute_cost
@@ -889,7 +889,7 @@ class CostAnalyzer:
         return self.calculate_tco(costs[pattern], scale)
     
     def calculate_tco(self, cost_profile, scale):
-        # Total Cost of Ownership calculation
+# Total Cost of Ownership calculation
         dev_cost = self.dev_cost_map[cost_profile['development']]
         ops_cost = self.ops_cost_map[cost_profile['operational']] * 12  # Annual
         scale_cost = self.scale_cost(cost_profile['scaling'], scale)

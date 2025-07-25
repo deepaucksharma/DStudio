@@ -173,16 +173,16 @@ sequenceDiagram
 ```python
 class SynchronousLeader:
     def write(self, key, value):
-        # Write to leader's log
+# Write to leader's log
         self.log.append((key, value))
         
-        # Replicate to all followers
+# Replicate to all followers
         acks = 0
         for follower in self.followers:
             if follower.replicate(key, value):
                 acks += 1
         
-        # Wait for majority
+# Wait for majority
         if acks >= len(self.followers) // 2:
             self.commit(key, value)
             return True
@@ -196,10 +196,10 @@ class SynchronousLeader:
 ```python
 class AsynchronousLeader:
     def write(self, key, value):
-        # Write locally first
+# Write locally first
         self.commit(key, value)
         
-        # Replicate in background
+# Replicate in background
         for follower in self.followers:
             self.replication_queue.put({
                 'follower': follower,

@@ -166,18 +166,18 @@ Disk (in GFS):
 ### Write Path
 ```python
 def write(row_key, column, value):
-    # 1. Check permissions
+# 1. Check permissions
     if not has_permission(user, table, column_family):
         raise PermissionError()
     
-    # 2. Write to commit log
+# 2. Write to commit log
     log_entry = LogEntry(row_key, column, value, timestamp)
     append_to_commit_log(log_entry)
     
-    # 3. Write to MemTable
+# 3. Write to MemTable
     memtable.insert(row_key, column, timestamp, value)
     
-    # 4. Check if MemTable is full
+# 4. Check if MemTable is full
     if memtable.size() > MEMTABLE_THRESHOLD:
         trigger_minor_compaction()
 ```
@@ -185,17 +185,17 @@ def write(row_key, column, value):
 ### Read Path
 ```python
 def read(row_key, column):
-    # 1. Check MemTable
+# 1. Check MemTable
     value = memtable.get(row_key, column)
     if value:
         return value
     
-    # 2. Check block cache
+# 2. Check block cache
     value = block_cache.get(row_key, column)
     if value:
         return value
     
-    # 3. Check SSTables (newest first)
+# 3. Check SSTables (newest first)
     for sstable in sorted(sstables, key=lambda x: x.timestamp, reverse=True):
         if sstable.might_contain(row_key):  # Bloom filter
             value = sstable.get(row_key, column)
@@ -338,10 +338,10 @@ index_table: email → user_id
 def update_user(user_id, email, data):
     old_email = get_user_email(user_id)
     
-    # Update main table
+# Update main table
     write_to_bigtable(main_table, user_id, data)
     
-    # Update index
+# Update index
     if old_email != email:
         delete_from_bigtable(index_table, old_email)
         write_to_bigtable(index_table, email, user_id)

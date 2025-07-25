@@ -201,7 +201,7 @@ Steady? → Load balancer
 
 **Example**: Netflix Cassandra - 200M users, chose AP over C³
 
-### 3. 🤝 Truth Distribution  
+### 3. 🤝 Truth Distribution
 
 !!! success "One-Line Summary"
     Get distributed nodes to agree on facts.
@@ -220,7 +220,7 @@ Steady? → Load balancer
 
 **Example**: Google Spanner - TrueTime for global consistency⁷
 
-### 4. 🎮 Control Distribution
+### 4. Control Distribution
 
 !!! success "One-Line Summary" 
     Keep the circus running without a ringmaster.
@@ -237,7 +237,7 @@ Steady? → Load balancer
 
 **Example**: Kubernetes manages 5.6M developers' apps⁸
 
-### 5. 🧠 Intelligence Distribution
+### 5. Intelligence Distribution
 
 !!! success "One-Line Summary"
     Systems that learn, adapt, and heal themselves.

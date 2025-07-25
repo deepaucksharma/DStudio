@@ -64,12 +64,12 @@ graph TD
 
 | Pattern | Problem Solved | Success Rate | Overhead | Team Size | Learning Curve |
 |---------|---------------|--------------|----------|-----------|----------------|
-| **Caching** | Latency | 90% | Low | 1-2 | 🟢 Easy |
-| **Circuit Breaker** | Cascades | 95% | Low | 2-3 | 🟡 Medium |
-| **CQRS** | Read/Write Scale | 85% | Medium | 3-5 | 🟡 Medium |
-| **Event Sourcing** | Audit Trail | 95% | High | 4-6 | 🔴 Hard |
-| **Service Mesh** | Observability | 90% | High | 5-10 | 🔴 Hard |
-| **Sharding** | Data Scale | 80% | High | 4-8 | 🔴 Hard |
+| **Caching** | Latency | 90% | Low | 1-2 | Easy |
+| **Circuit Breaker** | Cascades | 95% | Low | 2-3 | Medium |
+| **CQRS** | Read/Write Scale | 85% | Medium | 3-5 | Medium |
+| **Event Sourcing** | Audit Trail | 95% | High | 4-6 | Hard |
+| **Service Mesh** | Observability | 90% | High | 5-10 | Hard |
+| **Sharding** | Data Scale | 80% | High | 4-8 | Hard |
 
 ## Pattern Selection by Constraints
 
@@ -117,7 +117,7 @@ graph LR
     style ES1 fill:#e0e7ff
 ```
 
-## 🎯 Quick Pattern Finder
+## Quick Pattern Finder
 
 | Your Situation | Recommended Pattern Stack | Expected Results |
 |----------------|--------------------------|------------------|
@@ -127,7 +127,7 @@ graph LR
 | **Enterprise Scale** | + Service Mesh + Multi-region + Event Sourcing | 1M+ concurrent users |
 | **Unicorn Scale** | + Edge Computing + Cell-Based + Chaos Engineering | 100M+ concurrent users |
 
-## 🗂️ Pattern Categories
+## Pattern Categories
 
 ### Pattern Complexity & Prerequisites
 
@@ -139,7 +139,7 @@ graph LR
 | **🤝 Coordination** | 🔴 High | Consensus algorithms | Leader Election | 4-8 weeks |
 | **⚙️ Operational** | 🟡 Medium | DevOps basics | Observability | 2-3 weeks |
 
-### 📊 Pattern Catalog
+### Pattern Catalog
 
 | Pattern | Category | Problem Solved | When to Use | Complexity | Link |
 |---------|----------|----------------|-------------|------------|------|
@@ -165,7 +165,7 @@ graph LR
 | **Auto-scaling** | ⚙️ Operational | Variable load | Cloud deployments | 🟡 Medium | [📈](auto-scaling.md) |
 | **Load Balancing** | ⚙️ Operational | Request distribution | > 1 server | 🟢 Low | [⚖️](load-balancing.md) |
 
-### 🎯 Pattern Combinations That Work
+### Pattern Combinations That Work
 
 ```mermaid
 graph LR
@@ -244,7 +244,7 @@ graph TD
     style A1 fill:#fee2e2
 ```
 
-## ⚠️ Anti-Patterns to Avoid
+## ⚠ Anti-Patterns to Avoid
 
 | Anti-Pattern | Red Flag | Cost | Fix |
 |--------------|-----------|------|-----|
@@ -254,7 +254,7 @@ graph TD
 | **Resume-Driven** | K8s for 3 services | $10K/month | Right-size |
 | **Infinite Scale** | No capacity plan | $100K surprise | Model growth |
 
-## 📊 Pattern Success Metrics
+## Pattern Success Metrics
 
 | Pattern | Metric | 🟢 Good | 🟡 Great | 🔴 Elite |
 |---------|--------|---------|----------|----------|
@@ -264,7 +264,7 @@ graph TD
 | **Auto-scaling** | Response during spike | < 2x | < 1.5x | < 1.1x |
 | **CQRS** | Read/write ratio | 10:1 | 100:1 | 1000:1 |
 
-## 🎯 Implementation Checklist
+## Implementation Checklist
 
 | Step | Question | Action | Common Mistake |
 |------|----------|--------|----------------|

@@ -19,7 +19,7 @@ last_updated: 2025-01-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### Core Concept
 
@@ -58,23 +58,23 @@ class SimpleGossipNode:
     
     def gossip_round(self):
         """Perform one round of gossiping"""
-        # Select random peers
+# Select random peers
         selected_peers = random.sample(
             self.peers, 
             min(self.fanout, len(self.peers))
         )
         
-        # Exchange state with each peer
+# Exchange state with each peer
         for peer in selected_peers:
             self._exchange_with_peer(peer)
     
     def _exchange_with_peer(self, peer_id: str):
         """Exchange state information with a peer"""
-        # In real implementation, this would be a network call
-        # For simulation, we'll just print
+# In real implementation, this would be a network call
+# For simulation, we'll just print
         print(f"Node {self.node_id} gossiping with {peer_id}")
         
-        # Send our state
+# Send our state
         for key, (value, version) in self.state.items():
             message = GossipMessage(
                 node_id=self.node_id,
@@ -82,20 +82,20 @@ class SimpleGossipNode:
                 data={key: value},
                 timestamp=time.time()
             )
-            # Peer would receive and merge this
+# Peer would receive and merge this
     
     def receive_gossip(self, message: GossipMessage):
         """Receive and process gossip from another node"""
         for key, value in message.data.items():
             if key not in self.state:
-                # New key, accept it
+# New key, accept it
                 self.state[key] = (value, message.version)
                 print(f"Node {self.node_id}: Learned {key} = {value}")
             else:
-                # Compare versions
+# Compare versions
                 _, current_version = self.state[key]
                 if message.version > current_version:
-                    # Accept newer version
+# Accept newer version
                     self.state[key] = (value, message.version)
                     print(f"Node {self.node_id}: Updated {key} = {value}")
 
@@ -145,7 +145,7 @@ graph TB
 
 ---
 
-## 🔧 Level 2: Implementation
+## Level 2: Implementation
 
 ### Advanced Gossip Protocol Features
 
@@ -173,7 +173,7 @@ class AntiEntropyGossip:
     def update(self, key: str, value: Any, version: int = None):
         """Update local data"""
         if version is None:
-            # Auto-increment version
+# Auto-increment version
             current_version = self.data.get(key, (None, 0, 0))[1]
             version = current_version + 1
         
@@ -190,7 +190,7 @@ class AntiEntropyGossip:
         """Compare digests and determine what needs to be synced"""
         sync_needed = {}
         
-        # Check what remote has that we need
+# Check what remote has that we need
         for key, (remote_version, _) in remote_digest.items():
             if key not in local_digest:
                 sync_needed[key] = 'pull'
@@ -201,7 +201,7 @@ class AntiEntropyGossip:
                 elif remote_version < local_version:
                     sync_needed[key] = 'push'
         
-        # Check what we have that remote needs
+# Check what we have that remote needs
         for key in local_digest:
             if key not in remote_digest:
                 sync_needed[key] = 'push'
@@ -210,45 +210,45 @@ class AntiEntropyGossip:
     
     def anti_entropy_round(self):
         """Perform anti-entropy gossip round"""
-        # Select random peers
+# Select random peers
         selected_peers = random.sample(
             list(self.peers),
             min(self.fanout, len(self.peers))
         )
         
         for peer_id in selected_peers:
-            # Phase 1: Exchange digests
+# Phase 1: Exchange digests
             local_digest = self.create_digest()
-            # In real implementation, get remote digest via RPC
+# In real implementation, get remote digest via RPC
             remote_digest = self._get_remote_digest(peer_id)
             
-            # Phase 2: Compare and sync
+# Phase 2: Compare and sync
             sync_needed = self.compare_digests(local_digest, remote_digest)
             
-            # Phase 3: Exchange actual data
+# Phase 3: Exchange actual data
             for key, action in sync_needed.items():
                 if action == 'pull':
-                    # Request data from peer
+# Request data from peer
                     self._pull_data(peer_id, key)
                 elif action == 'push':
-                    # Send data to peer
+# Send data to peer
                     self._push_data(peer_id, key)
     
     def _get_remote_digest(self, peer_id: str) -> Dict:
         """Get digest from remote peer (simulated)"""
-        # In real implementation, this would be an RPC call
+# In real implementation, this would be an RPC call
         return {}
     
     def _pull_data(self, peer_id: str, key: str):
         """Pull data from peer"""
-        # In real implementation, request specific key from peer
+# In real implementation, request specific key from peer
         pass
     
     def _push_data(self, peer_id: str, key: str):
         """Push data to peer"""
         if key in self.data:
             value, version, timestamp = self.data[key]
-            # Send to peer
+# Send to peer
             print(f"Node {self.node_id}: Pushing {key}={value} to {peer_id}")
 
 # Example usage
@@ -288,10 +288,10 @@ class RumorMongeringNode:
                      from_node: str) -> bool:
         """Receive a rumor from another node"""
         if rumor_id in self.rumors:
-            # Already have this rumor
+# Already have this rumor
             return False
         
-        # New rumor - become infected
+# New rumor - become infected
         self.rumors[rumor_id] = rumor_data
         self.state = NodeState.INFECTED
         self.rounds_as_infected[rumor_id] = 0
@@ -309,38 +309,38 @@ class RumorMongeringNode:
             if rumor_id not in self.rounds_as_infected:
                 continue
                 
-            # Select random peer
+# Select random peer
             if self.peers:
                 peer = random.choice(list(self.peers))
                 
-                # Try to spread rumor
+# Try to spread rumor
                 if self._spread_rumor(peer, rumor_id):
                     print(f"Node {self.node_id}: Spread rumor {rumor_id} to {peer}")
                 else:
-                    # Peer already has it, consider stopping
+# Peer already has it, consider stopping
                     if random.random() < self.loss_probability:
                         rumors_to_remove.append(rumor_id)
             
-            # Increment round counter
+# Increment round counter
             self.rounds_as_infected[rumor_id] += 1
             
-            # Stop spreading old rumors
+# Stop spreading old rumors
             if self.rounds_as_infected[rumor_id] >= self.max_rounds:
                 rumors_to_remove.append(rumor_id)
         
-        # Remove old rumors from active spreading
+# Remove old rumors from active spreading
         for rumor_id in rumors_to_remove:
             del self.rounds_as_infected[rumor_id]
         
-        # Check if still infected
+# Check if still infected
         if not self.rounds_as_infected:
             self.state = NodeState.REMOVED
             print(f"Node {self.node_id}: Stopped spreading (removed state)")
     
     def _spread_rumor(self, peer_id: str, rumor_id: str) -> bool:
         """Attempt to spread rumor to peer"""
-        # In real implementation, this would be a network call
-        # Returns True if peer accepted (was susceptible)
+# In real implementation, this would be a network call
+# Returns True if peer accepted (was susceptible)
         return random.random() > 0.3  # Simulate 70% success rate
 
 class RumorMongeringSimulation:
@@ -350,12 +350,12 @@ class RumorMongeringSimulation:
         self.nodes = {}
         self.fanout = fanout
         
-        # Create nodes
+# Create nodes
         for i in range(num_nodes):
             node_id = f"node{i}"
             self.nodes[node_id] = RumorMongeringNode(node_id)
         
-        # Create random topology
+# Create random topology
         self._create_random_topology()
     
     def _create_random_topology(self):
@@ -363,7 +363,7 @@ class RumorMongeringSimulation:
         node_ids = list(self.nodes.keys())
         
         for node_id in node_ids:
-            # Each node connected to random peers
+# Each node connected to random peers
             num_peers = min(self.fanout, len(node_ids) - 1)
             peers = random.sample(
                 [n for n in node_ids if n != node_id],
@@ -390,7 +390,7 @@ class RumorMongeringSimulation:
         for round_num in range(max_rounds):
             print(f"\n--- Round {round_num + 1} ---")
             
-            # All infected nodes gossip
+# All infected nodes gossip
             infected_nodes = [
                 node for node in self.nodes.values()
                 if node.state == NodeState.INFECTED
@@ -399,7 +399,7 @@ class RumorMongeringSimulation:
             for node in infected_nodes:
                 node.gossip_round()
             
-            # Calculate coverage
+# Calculate coverage
             nodes_with_rumor = sum(
                 1 for node in self.nodes.values()
                 if node.rumors
@@ -409,7 +409,7 @@ class RumorMongeringSimulation:
             
             print(f"Coverage: {coverage:.2%} ({nodes_with_rumor}/{len(self.nodes)})")
             
-            # Stop if all nodes have the rumor
+# Stop if all nodes have the rumor
             if coverage >= 1.0:
                 break
         
@@ -448,7 +448,7 @@ class SWIMProtocol:
         self.protocol_period = protocol_period
         self.suspect_timeout = suspect_timeout
         
-        # Membership list
+# Membership list
         self.members: Dict[str, Member] = {
             node_id: Member(
                 id=node_id,
@@ -459,14 +459,14 @@ class SWIMProtocol:
             )
         }
         
-        # Dissemination queue
+# Dissemination queue
         self.updates_queue: List[Tuple[str, str, int]] = []
         self.max_queue_size = 100
         
     def join(self, known_member_address: str):
         """Join cluster through a known member"""
-        # In real implementation, contact known member
-        # to get membership list
+# In real implementation, contact known member
+# to get membership list
         print(f"Node {self.node_id}: Joining through {known_member_address}")
     
     def add_member(self, member_id: str, address: str):
@@ -479,30 +479,30 @@ class SWIMProtocol:
                 status='alive',
                 last_update=time.time()
             )
-            # Queue update for dissemination
+# Queue update for dissemination
             self._queue_update(member_id, 'alive', 0)
     
     def protocol_round(self):
         """Execute one round of SWIM protocol"""
-        # 1. Select random member to ping
+# 1. Select random member to ping
         target = self._select_ping_target()
         if not target:
             return
         
-        # 2. Direct ping
+# 2. Direct ping
         if self._ping(target):
-            # Success - target is alive
+# Success - target is alive
             self._update_member_status(target, 'alive')
         else:
-            # 3. Indirect ping through k random members
+# 3. Indirect ping through k random members
             if not self._indirect_ping(target):
-                # 4. Mark as suspect
+# 4. Mark as suspect
                 self._update_member_status(target, 'suspect')
         
-        # 5. Check for expired suspects
+# 5. Check for expired suspects
         self._check_suspects()
         
-        # 6. Gossip updates
+# 6. Gossip updates
         self._gossip_updates()
     
     def _select_ping_target(self) -> Optional[str]:
@@ -518,8 +518,8 @@ class SWIMProtocol:
     
     def _ping(self, target_id: str) -> bool:
         """Direct ping to target"""
-        # In real implementation, send ping message
-        # For simulation, return random result
+# In real implementation, send ping message
+# For simulation, return random result
         success = random.random() > 0.1  # 90% success rate
         
         if success:
@@ -531,7 +531,7 @@ class SWIMProtocol:
     
     def _indirect_ping(self, target_id: str, k: int = 3) -> bool:
         """Indirect ping through k intermediaries"""
-        # Select k random members
+# Select k random members
         candidates = [
             m_id for m_id in self.members
             if m_id not in [self.node_id, target_id] 
@@ -548,8 +548,8 @@ class SWIMProtocol:
         
         print(f"Node {self.node_id}: Indirect ping to {target_id} via {intermediaries}")
         
-        # In real implementation, ask intermediaries to ping target
-        # For simulation, if any succeeds, target is alive
+# In real implementation, ask intermediaries to ping target
+# For simulation, if any succeeds, target is alive
         for intermediary in intermediaries:
             if random.random() > 0.2:  # 80% success via intermediary
                 print(f"  Via {intermediary}: SUCCESS")
@@ -568,11 +568,11 @@ class SWIMProtocol:
             member.status = new_status
             member.last_update = time.time()
             
-            # If updating our own status, increment incarnation
+# If updating our own status, increment incarnation
             if member_id == self.node_id and new_status == 'alive':
                 member.incarnation += 1
             
-            # Queue update
+# Queue update
             self._queue_update(member_id, new_status, member.incarnation)
             
             print(f"Node {self.node_id}: Member {member_id} is now {new_status}")
@@ -590,16 +590,16 @@ class SWIMProtocol:
         """Queue update for dissemination"""
         update = (member_id, status, incarnation)
         
-        # Remove old updates for same member
+# Remove old updates for same member
         self.updates_queue = [
             u for u in self.updates_queue
             if u[0] != member_id
         ]
         
-        # Add new update
+# Add new update
         self.updates_queue.append(update)
         
-        # Limit queue size
+# Limit queue size
         if len(self.updates_queue) > self.max_queue_size:
             self.updates_queue = self.updates_queue[-self.max_queue_size:]
     
@@ -608,33 +608,33 @@ class SWIMProtocol:
         if not self.updates_queue:
             return
         
-        # Select updates to gossip (up to 3)
+# Select updates to gossip (up to 3)
         num_updates = min(3, len(self.updates_queue))
         updates_to_send = self.updates_queue[:num_updates]
         
         print(f"Node {self.node_id}: Gossiping {len(updates_to_send)} updates")
         
-        # In real implementation, these would be piggybacked
-        # on ping/ack messages
+# In real implementation, these would be piggybacked
+# on ping/ack messages
     
     def receive_update(self, member_id: str, status: str, incarnation: int):
         """Receive and process membership update"""
         if member_id not in self.members:
-            # New member
+# New member
             self.add_member(member_id, "unknown")
         
         member = self.members[member_id]
         
-        # Apply update if incarnation is newer
+# Apply update if incarnation is newer
         if incarnation > member.incarnation:
             member.status = status
             member.incarnation = incarnation
             member.last_update = time.time()
             
-            # Re-disseminate
+# Re-disseminate
             self._queue_update(member_id, status, incarnation)
         elif incarnation == member.incarnation and member_id == self.node_id:
-            # Someone else thinks we're dead/suspect, refute it
+# Someone else thinks we're dead/suspect, refute it
             if status in ['suspect', 'dead'] and member.status == 'alive':
                 member.incarnation += 1
                 self._queue_update(self.node_id, 'alive', member.incarnation)
@@ -669,12 +669,12 @@ class GossipConvergenceAnalysis:
     
     def calculate_rounds_to_convergence(self) -> float:
         """Calculate expected rounds for all nodes to receive message"""
-        # Using epidemic theory: O(log N) rounds
+# Using epidemic theory: O(log N) rounds
         return np.log2(self.num_nodes) + np.log2(np.log2(self.num_nodes))
     
     def infection_probability(self, round: int) -> float:
         """Probability that a node is infected by round k"""
-        # Approximation: 1 - e^(-2^k / n)
+# Approximation: 1 - e^(-2^k / n)
         if round == 0:
             return 1.0 / self.num_nodes
         
@@ -693,9 +693,9 @@ class GossipConvergenceAnalysis:
         for round in range(1, rounds):
             newly_infected = set()
             
-            # Each infected node gossips
+# Each infected node gossips
             for node in infected:
-                # Select random peers
+# Select random peers
                 targets = np.random.choice(
                     self.num_nodes,
                     size=min(self.fanout, self.num_nodes - 1),
@@ -710,7 +710,7 @@ class GossipConvergenceAnalysis:
             history.append(len(infected))
             
             if len(infected) == self.num_nodes:
-                # All nodes infected
+# All nodes infected
                 history.extend([self.num_nodes] * (rounds - round - 1))
                 break
         
@@ -718,15 +718,15 @@ class GossipConvergenceAnalysis:
     
     def analyze_fault_tolerance(self, message_loss_rate: float) -> Dict[str, float]:
         """Analyze protocol behavior with message loss"""
-        # Expected additional rounds due to message loss
+# Expected additional rounds due to message loss
         base_rounds = self.calculate_rounds_to_convergence()
         
-        # With message loss, convergence is slower
-        # E[rounds] ≈ base_rounds / (1 - loss_rate)
+# With message loss, convergence is slower
+# E[rounds] ≈ base_rounds / (1 - loss_rate)
         expected_rounds = base_rounds / (1 - message_loss_rate)
         
-        # Probability of non-convergence
-        # P[not converged after k rounds] ≈ n * loss_rate^(k * fanout)
+# Probability of non-convergence
+# P[not converged after k rounds] ≈ n * loss_rate^(k * fanout)
         k = int(expected_rounds * 2)  # 2x expected rounds
         prob_not_converged = self.num_nodes * (message_loss_rate ** (k * self.fanout))
         
@@ -741,25 +741,25 @@ class GossipConvergenceAnalysis:
         """Plot convergence characteristics"""
         rounds = int(self.calculate_rounds_to_convergence() * 3)
         
-        # Run multiple simulations
+# Run multiple simulations
         all_histories = []
         for _ in range(simulations):
             history = self.simulate_spread(rounds)
             all_histories.append(history)
         
-        # Calculate average and percentiles
+# Calculate average and percentiles
         all_histories = np.array(all_histories)
         avg_infected = np.mean(all_histories, axis=0)
         p10_infected = np.percentile(all_histories, 10, axis=0)
         p90_infected = np.percentile(all_histories, 90, axis=0)
         
-        # Theoretical expectation
+# Theoretical expectation
         theoretical = [
             self.expected_infected_nodes(r) 
             for r in range(rounds)
         ]
         
-        # Plot
+# Plot
         plt.figure(figsize=(10, 6))
         plt.plot(avg_infected, 'b-', label='Average (simulated)', linewidth=2)
         plt.fill_between(
@@ -835,7 +835,7 @@ class AverageState:
     
     def merge(self, other: 'AverageState') -> 'AverageState':
         """Merge with another node's state"""
-        # Average of averages
+# Average of averages
         new_state = AverageState(0)
         new_state.sum = (self.sum + other.sum) / 2
         new_state.weight = (self.weight + other.weight) / 2
@@ -855,11 +855,11 @@ class SumState:
         """Merge with another node's state"""
         new_state = SumState("", 0)
         
-        # Union of partial sums
+# Union of partial sums
         new_state.partial_sums = self.partial_sums.copy()
         for node_id, value in other.partial_sums.items():
             if node_id in new_state.partial_sums:
-                # Take maximum (latest) value for each node
+# Take maximum (latest) value for each node
                 new_state.partial_sums[node_id] = max(
                     new_state.partial_sums[node_id], value
                 )
@@ -898,7 +898,7 @@ class DistributedAggregationNode:
         self.local_value = local_value
         self.peers = []
         
-        # Aggregation states
+# Aggregation states
         self.avg_state = AverageState(local_value)
         self.sum_state = SumState(node_id, local_value)
         self.max_state = MaxState(local_value)
@@ -910,15 +910,15 @@ class DistributedAggregationNode:
         if not self.peers:
             return
         
-        # Select random peer
+# Select random peer
         peer = random.choice(self.peers)
         
-        # Exchange and merge states
+# Exchange and merge states
         self._exchange_with_peer(peer)
         
         self.round += 1
         
-        # Print current estimates
+# Print current estimates
         if self.round % 5 == 0:
             print(f"Node {self.node_id} (round {self.round}):")
             print(f"  Average estimate: {self.avg_state.get_estimate():.2f}")
@@ -927,17 +927,17 @@ class DistributedAggregationNode:
     
     def _exchange_with_peer(self, peer: 'DistributedAggregationNode'):
         """Exchange state with peer and update both"""
-        # Get peer's states
+# Get peer's states
         peer_avg = peer.avg_state
         peer_sum = peer.sum_state
         peer_max = peer.max_state
         
-        # Update both nodes' states
+# Update both nodes' states
         new_avg = self.avg_state.merge(peer_avg)
         new_sum = self.sum_state.merge(peer_sum)
         new_max = self.max_state.merge(peer_max)
         
-        # Apply updates
+# Apply updates
         self.avg_state = new_avg
         self.sum_state = new_sum
         self.max_state = new_max
@@ -956,7 +956,7 @@ for i, temp in enumerate(temperatures):
 
 # Create mesh topology
 for i, node in enumerate(nodes):
-    # Each node connected to 3 others
+# Each node connected to 3 others
     for j in range(3):
         peer_idx = (i + j + 1) % len(nodes)
         node.peers.append(nodes[peer_idx])
@@ -997,17 +997,17 @@ class GossipConsensus:
     
     def gossip_exchange(self, peer: 'GossipConsensus'):
         """Exchange values with peer"""
-        # Exchange all known values
+# Exchange all known values
         for node_id, value in peer.values.items():
             if node_id not in self.values:
                 self.values[node_id] = value
                 self.versions[node_id] = peer.versions.get(node_id, 0)
             elif peer.versions.get(node_id, 0) > self.versions.get(node_id, 0):
-                # Accept newer version
+# Accept newer version
                 self.values[node_id] = value
                 self.versions[node_id] = peer.versions[node_id]
         
-        # Check for consensus
+# Check for consensus
         self._check_consensus()
     
     def _check_consensus(self):
@@ -1015,13 +1015,13 @@ class GossipConsensus:
         if self.decided:
             return
         
-        # Simple majority consensus
+# Simple majority consensus
         value_counts = {}
         for value in self.values.values():
             value_str = str(value)
             value_counts[value_str] = value_counts.get(value_str, 0) + 1
         
-        # Check if any value has majority
+# Check if any value has majority
         total_nodes = len(self.values)
         for value_str, count in value_counts.items():
             if count > total_nodes / 2:
@@ -1045,10 +1045,10 @@ class ByzantineGossip:
     def broadcast(self, value: Any):
         """Reliable broadcast with Byzantine fault tolerance"""
         if self.byzantine:
-            # Byzantine node might send different values
+# Byzantine node might send different values
             return self._byzantine_broadcast(value)
         
-        # Honest node broadcasts same value to all
+# Honest node broadcasts same value to all
         message = {
             'type': 'init',
             'sender': self.node_id,
@@ -1075,14 +1075,14 @@ class ByzantineGossip:
         if sender not in self.received_values:
             self.received_values[sender] = value
             
-            # Echo the value
+# Echo the value
             echo_msg = {
                 'type': 'echo',
                 'sender': self.node_id,
                 'value': value,
                 'original_sender': sender
             }
-            # Send echo to all nodes
+# Send echo to all nodes
             print(f"Node {self.node_id}: Echoing value from {sender}")
     
     def _handle_echo(self, sender: str, value: Any):
@@ -1093,10 +1093,10 @@ class ByzantineGossip:
         
         self.echo_messages[value_str].add(sender)
         
-        # Check if enough echoes (> n/2)
+# Check if enough echoes (> n/2)
         if len(self.echo_messages[value_str]) > self._total_nodes() / 2:
             if value_str not in self.ready_messages:
-                # Send ready message
+# Send ready message
                 ready_msg = {
                     'type': 'ready',
                     'sender': self.node_id,
@@ -1112,7 +1112,7 @@ class ByzantineGossip:
         
         self.ready_messages[value_str].add(sender)
         
-        # Check if enough ready messages (> 2f)
+# Check if enough ready messages (> 2f)
         f = self._max_byzantine_nodes()
         if len(self.ready_messages[value_str]) > 2 * f:
             if not self.delivered:
@@ -1134,7 +1134,7 @@ class ByzantineGossip:
     
     def _byzantine_broadcast(self, value: Any):
         """Byzantine node might send different values"""
-        # Send correct value to some, incorrect to others
+# Send correct value to some, incorrect to others
         values = [value, f"fake_{value}"]
         return random.choice(values)
 ```
@@ -1151,7 +1151,7 @@ class HybridGossipNode:
         self.metadata = {}  # Tracks data freshness
         self.peers = []
         
-        # Adaptive parameters
+# Adaptive parameters
         self.push_probability = 0.5
         self.pull_probability = 0.5
         self.history_window = 100
@@ -1162,10 +1162,10 @@ class HybridGossipNode:
         if not self.peers:
             return
         
-        # Select gossip mode based on effectiveness
+# Select gossip mode based on effectiveness
         mode = self._select_mode()
         
-        # Select peers
+# Select peers
         num_peers = self._adaptive_fanout()
         selected_peers = random.sample(
             self.peers,
@@ -1183,12 +1183,12 @@ class HybridGossipNode:
                 received = self._pull_from_peer(peer)
                 effectiveness += received
         
-        # Update effectiveness history
+# Update effectiveness history
         self.effectiveness_history.append(effectiveness)
         if len(self.effectiveness_history) > self.history_window:
             self.effectiveness_history.pop(0)
         
-        # Adapt parameters
+# Adapt parameters
         self._adapt_parameters()
     
     def _select_mode(self) -> str:
@@ -1211,7 +1211,7 @@ class HybridGossipNode:
         if not self.effectiveness_history:
             return base_fanout
         
-        # Increase fanout if effectiveness is low
+# Increase fanout if effectiveness is low
         avg_effectiveness = sum(self.effectiveness_history) / len(self.effectiveness_history)
         
         if avg_effectiveness < 0.3:
@@ -1260,20 +1260,20 @@ class HybridGossipNode:
         recent = self.effectiveness_history[-10:]
         avg_recent = sum(recent) / len(recent)
         
-        # Adjust probabilities
+# Adjust probabilities
         if avg_recent < 0.3:
-            # Low effectiveness, increase both
+# Low effectiveness, increase both
             self.push_probability = min(0.8, self.push_probability + 0.1)
             self.pull_probability = min(0.8, self.pull_probability + 0.1)
         elif avg_recent > 0.7:
-            # High effectiveness, can reduce
+# High effectiveness, can reduce
             self.push_probability = max(0.3, self.push_probability - 0.05)
             self.pull_probability = max(0.3, self.pull_probability - 0.05)
 ```
 
 ---
 
-## 🔄 Real-World Applications
+## Real-World Applications
 
 ### 1. Cassandra's Gossip Protocol
 
@@ -1290,7 +1290,7 @@ class CassandraGossiper:
         
     def start_gossiping(self):
         """Initialize gossip state"""
-        # Add self to endpoint state
+# Add self to endpoint state
         self.endpoint_state_map[self.node_id] = {
             'generation': self.generation,
             'version': self.version,
@@ -1306,19 +1306,19 @@ class CassandraGossiper:
     
     def do_gossip_round(self):
         """Perform Cassandra-style gossip round"""
-        # 1. Increment heartbeat
+# 1. Increment heartbeat
         self.endpoint_state_map[self.node_id]['heartbeat'] += 1
         
-        # 2. Select random live endpoint
+# 2. Select random live endpoint
         live_endpoints = self._get_live_endpoints()
         if not live_endpoints:
             return
         
-        # 3. Send gossip to random endpoint
+# 3. Send gossip to random endpoint
         gossip_to = random.choice(live_endpoints)
         self._send_gossip_digest_syn(gossip_to)
         
-        # 4. Possibly gossip to seed or dead endpoint
+# 4. Possibly gossip to seed or dead endpoint
         if random.random() < 0.1:  # 10% chance
             unreachable = self._get_unreachable_endpoints()
             if unreachable:
@@ -1336,7 +1336,7 @@ class CassandraGossiper:
             }
             digests.append(digest)
         
-        # Sort by endpoint for consistency
+# Sort by endpoint for consistency
         digests.sort(key=lambda x: x['endpoint'])
         
         message = {
@@ -1350,7 +1350,7 @@ class CassandraGossiper:
     
     def handle_gossip_digest_syn(self, syn_message: Dict) -> Dict:
         """Handle incoming gossip digest sync"""
-        # Compare digests and prepare ACK
+# Compare digests and prepare ACK
         delta_digests = []
         delta_endpoint_states = []
         
@@ -1362,19 +1362,19 @@ class CassandraGossiper:
             local_state = self.endpoint_state_map.get(endpoint)
             
             if not local_state:
-                # Request all state for unknown endpoint
+# Request all state for unknown endpoint
                 delta_digests.append(digest)
             elif local_state['generation'] != remote_generation:
-                # Generation mismatch - handle node restart
+# Generation mismatch - handle node restart
                 if remote_generation > local_state['generation']:
                     delta_digests.append(digest)
                 else:
                     delta_endpoint_states.append((endpoint, local_state))
             elif remote_version > local_state['version']:
-                # Remote has newer version
+# Remote has newer version
                 delta_digests.append(digest)
             elif remote_version < local_state['version']:
-                # We have newer version
+# We have newer version
                 delta_endpoint_states.append((endpoint, local_state))
         
         ack_message = {
@@ -1387,7 +1387,7 @@ class CassandraGossiper:
     
     def _get_live_endpoints(self) -> List[str]:
         """Get list of live endpoints"""
-        # In real implementation, check failure detector
+# In real implementation, check failure detector
         return [
             node for node in self.endpoint_state_map.keys()
             if node != self.node_id
@@ -1395,7 +1395,7 @@ class CassandraGossiper:
     
     def _get_unreachable_endpoints(self) -> List[str]:
         """Get list of unreachable endpoints"""
-        # In real implementation, get from failure detector
+# In real implementation, get from failure detector
         return []
 
 # Example usage
@@ -1425,7 +1425,7 @@ class ConsulSWIM:
         self.members = {}
         self.incarnation = 0
         
-        # Consul-specific features
+# Consul-specific features
         self.suspicion_mult = 4
         self.probe_interval = 1.0
         self.probe_timeout = 0.5
@@ -1433,7 +1433,7 @@ class ConsulSWIM:
         
     def probe_node(self, target: str) -> bool:
         """Probe a node following Consul's implementation"""
-        # 1. Direct probe
+# 1. Direct probe
         start_time = time.time()
         
         if self._send_ping(target):
@@ -1441,7 +1441,7 @@ class ConsulSWIM:
             self._update_rtt(target, rtt)
             return True
         
-        # 2. Indirect probes
+# 2. Indirect probes
         k_nodes = self._get_k_random_nodes(self.indirect_checks, exclude=[target])
         
         indirect_acks = []
@@ -1453,7 +1453,7 @@ class ConsulSWIM:
             print(f"Consul {self.node_name}: Indirect ACKs from {indirect_acks}")
             return True
         
-        # 3. No response - mark suspect
+# 3. No response - mark suspect
         self._mark_suspect(target)
         return False
     
@@ -1465,14 +1465,14 @@ class ConsulSWIM:
         self.members[node]['status'] = 'suspect'
         self.members[node]['suspect_timeout'] = self._calculate_suspicion_timeout()
         
-        # Broadcast suspect message
+# Broadcast suspect message
         self._broadcast_suspect(node)
     
     def _calculate_suspicion_timeout(self) -> float:
         """Calculate suspicion timeout based on Consul's algorithm"""
         n = len(self.members)
         
-        # timeout = suspicion_mult * log10(n+1) * probe_interval
+# timeout = suspicion_mult * log10(n+1) * probe_interval
         timeout = self.suspicion_mult * math.log10(n + 1) * self.probe_interval
         
         return time.time() + timeout
@@ -1480,13 +1480,13 @@ class ConsulSWIM:
     def handle_alive_message(self, node: str, incarnation: int):
         """Handle alive message (refutation of suspect/dead status)"""
         if node == self.node_name:
-            # Someone thinks we're suspect/dead
+# Someone thinks we're suspect/dead
             if incarnation >= self.incarnation:
                 self.incarnation = incarnation + 1
                 self._broadcast_alive(self.node_name, self.incarnation)
                 print(f"Consul {self.node_name}: Refuting with incarnation {self.incarnation}")
         else:
-            # Update other node's status
+# Update other node's status
             if node in self.members:
                 member = self.members[node]
                 if incarnation > member.get('incarnation', 0):
@@ -1503,19 +1503,19 @@ class ConsulSWIM:
             and self.members[n]['status'] == 'alive'
         ]
         
-        # Shuffle using deterministic random for consistency
+# Shuffle using deterministic random for consistency
         random.shuffle(candidates)
         
         return candidates[:k]
     
     def _send_ping(self, target: str) -> bool:
         """Send ping message to target"""
-        # Simulate network call
+# Simulate network call
         return random.random() > 0.1
     
     def _send_indirect_ping(self, intermediate: str, target: str) -> bool:
         """Send indirect ping request"""
-        # Simulate network call
+# Simulate network call
         return random.random() > 0.2
     
     def _broadcast_suspect(self, node: str):
@@ -1550,7 +1550,7 @@ class AkkaClusterGossip:
                 'node': self.self_address,
                 'roles': ['worker']
             }
-            # Send join to seed
+# Send join to seed
             print(f"Akka {self.self_address}: Joining through {seed}")
     
     def gossip_tick(self):
@@ -1558,19 +1558,19 @@ class AkkaClusterGossip:
         if self.cluster_state != 'up':
             return
         
-        # Select gossip target
+# Select gossip target
         target = self._select_gossip_target()
         if not target:
             return
         
-        # Create gossip message
+# Create gossip message
         gossip = {
             'type': 'Gossip',
             'from': self.self_address,
             'state': self._create_gossip_envelope()
         }
         
-        # Send to target
+# Send to target
         print(f"Akka {self.self_address}: Gossiping to {target}")
     
     def _create_gossip_envelope(self) -> Dict:
@@ -1587,28 +1587,28 @@ class AkkaClusterGossip:
         remote_seen = set(gossip['state']['seen'])
         remote_version = VectorClock.from_dict(gossip['state']['version'])
         
-        # Merge cluster state
+# Merge cluster state
         updated = False
         
         for address, member_info in remote_members.items():
             if address not in self.gossip_state['members']:
-                # New member
+# New member
                 self.gossip_state['members'][address] = member_info
                 updated = True
                 print(f"Akka {self.self_address}: Discovered new member {address}")
             else:
-                # Compare states
+# Compare states
                 local_member = self.gossip_state['members'][address]
                 if member_info['status'] != local_member['status']:
-                    # Status change
+# Status change
                     if self._is_newer_state(member_info, local_member):
                         self.gossip_state['members'][address] = member_info
                         updated = True
         
-        # Update seen set
+# Update seen set
         self.gossip_state['seen'].update(remote_seen)
         
-        # Update vector clock
+# Update vector clock
         if updated:
             self.gossip_state['version'].increment(self.self_address)
     
@@ -1620,13 +1620,13 @@ class AkkaClusterGossip:
         if not members:
             return None
         
-        # Prefer nodes we haven't seen recently
-        # Simplified version of Akka's selection
+# Prefer nodes we haven't seen recently
+# Simplified version of Akka's selection
         return random.choice(members)
     
     def _is_newer_state(self, state1: Dict, state2: Dict) -> bool:
         """Compare member states to determine which is newer"""
-        # In real Akka, uses vector clocks
+# In real Akka, uses vector clocks
         return state1.get('timestamp', 0) > state2.get('timestamp', 0)
 
 class VectorClock:
@@ -1656,7 +1656,7 @@ class VectorClock:
 
 ---
 
-## ⚡ Performance Characteristics
+## Performance Characteristics
 
 ### Gossip Protocol Performance Analysis
 
@@ -1673,13 +1673,13 @@ class GossipPerformanceAnalyzer:
     
     def analyze_convergence_time(self, n: int, fanout: int) -> Dict[str, float]:
         """Analyze convergence time for different network sizes"""
-        # Theoretical: O(log N) rounds
+# Theoretical: O(log N) rounds
         rounds_theory = math.log2(n)
         
-        # With fanout f: O(log_f N) rounds
+# With fanout f: O(log_f N) rounds
         rounds_fanout = math.log(n) / math.log(fanout)
         
-        # Time = rounds * gossip_interval
+# Time = rounds * gossip_interval
         gossip_interval = 1.0  # seconds
         
         return {
@@ -1693,11 +1693,11 @@ class GossipPerformanceAnalyzer:
     def analyze_message_complexity(self, n: int, fanout: int, 
                                  rounds: int) -> Dict[str, int]:
         """Analyze message complexity"""
-        # Each node sends fanout messages per round
+# Each node sends fanout messages per round
         messages_per_round = n * fanout
         total_messages = messages_per_round * rounds
         
-        # With optimization (avoid duplicate sends)
+# With optimization (avoid duplicate sends)
         optimized_messages = n * fanout * math.log2(n)
         
         return {
@@ -1711,13 +1711,13 @@ class GossipPerformanceAnalyzer:
     def analyze_fault_tolerance(self, n: int, fanout: int, 
                               failure_rate: float) -> Dict[str, float]:
         """Analyze behavior under failures"""
-        # Probability of successful dissemination
+# Probability of successful dissemination
         p_success_per_hop = 1 - failure_rate
         
-        # With fanout f, probability at least one succeeds
+# With fanout f, probability at least one succeeds
         p_at_least_one = 1 - (failure_rate ** fanout)
         
-        # Expected infected after k rounds with failures
+# Expected infected after k rounds with failures
         expected_coverage = 1 - math.exp(-p_at_least_one * fanout * math.log2(n))
         
         return {
@@ -1782,7 +1782,7 @@ for n in [10, 100, 1000, 10000]:
 
 ---
 
-## 🏛️ Architecture Integration
+## 🏛 Architecture Integration
 
 ### Gossip in Different System Architectures
 

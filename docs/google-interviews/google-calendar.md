@@ -144,40 +144,40 @@ class EventStorage:
         self.cache = Redis()       # For performance
         
     def create_event(self, event):
-        # 1. Validate event
+# 1. Validate event
         if not self.validate_event(event):
             raise ValidationError()
         
-        # 2. Check conflicts
+# 2. Check conflicts
         conflicts = self.check_conflicts(event)
         if conflicts and not event.force_create:
             return {'error': 'conflicts', 'conflicts': conflicts}
         
-        # 3. Store event
+# 3. Store event
         with self.event_db.transaction() as txn:
-            # Store main event
+# Store main event
             txn.insert('events', event.to_dict())
             
-            # Update attendee calendars
+# Update attendee calendars
             for attendee in event.attendees:
                 self.add_to_attendee_calendar(txn, attendee, event)
             
-            # Store recurrence expansion
+# Store recurrence expansion
             if event.recurrence:
                 self.store_recurrence_instances(txn, event)
             
             txn.commit()
         
-        # 4. Invalidate caches
+# 4. Invalidate caches
         self.invalidate_caches(event)
         
-        # 5. Trigger notifications
+# 5. Trigger notifications
         self.queue_notifications(event)
         
         return {'event_id': event.event_id, 'status': 'created'}
     
     def store_recurrence_instances(self, txn, event):
-        # Pre-compute instances for efficient querying
+# Pre-compute instances for efficient querying
         instances = self.expand_recurrence(
             event.recurrence,
             event.time_info,
@@ -198,7 +198,7 @@ class EventStorage:
 ```python
 class ConflictDetector:
     def check_conflicts(self, new_event, user_id):
-        # 1. Get user's events in time range
+# 1. Get user's events in time range
         existing_events = self.get_events_in_range(
             user_id,
             new_event.start_time,
@@ -208,7 +208,7 @@ class ConflictDetector:
         conflicts = []
         for event in existing_events:
             if self.events_overlap(new_event, event):
-                # Check if it's a real conflict
+# Check if it's a real conflict
                 if not self.is_ignorable_conflict(new_event, event):
                     conflicts.append({
                         'event_id': event.event_id,
@@ -219,7 +219,7 @@ class ConflictDetector:
         return conflicts
     
     def events_overlap(self, event1, event2):
-        # Handle timezone conversion
+# Handle timezone conversion
         e1_start = self.to_utc(event1.start_time, event1.timezone)
         e1_end = self.to_utc(event1.end_time, event1.timezone)
         e2_start = self.to_utc(event2.start_time, event2.timezone)
@@ -228,7 +228,7 @@ class ConflictDetector:
         return not (e1_end <= e2_start or e1_start >= e2_end)
     
     def is_ignorable_conflict(self, event1, event2):
-        # Some conflicts are okay
+# Some conflicts are okay
         return (
             event1.is_tentative or event2.is_tentative or
             event1.is_free_time or event2.is_free_time or
@@ -245,11 +245,11 @@ class RecurrenceHandler:
         current_date = base_event.start_time
         
         while current_date <= end_date and len(instances) < rule.count:
-            # Check if this instance is valid
+# Check if this instance is valid
             if self.matches_rule(current_date, rule):
-                # Check if not in exceptions
+# Check if not in exceptions
                 if current_date not in rule.exceptions:
-                    # Check for modifications
+# Check for modifications
                     modified = self.get_modification(rule, current_date)
                     if modified:
                         instances.append(modified)
@@ -258,7 +258,7 @@ class RecurrenceHandler:
                             base_event, current_date
                         ))
             
-            # Move to next potential instance
+# Move to next potential instance
             current_date = self.next_occurrence(current_date, rule)
             
             if rule.until and current_date > rule.until:
@@ -284,7 +284,7 @@ class FreeBusyService:
     def get_free_busy(self, user_ids, start_time, end_time):
         free_busy_map = {}
         
-        # Parallel fetch for all users
+# Parallel fetch for all users
         with ThreadPoolExecutor(max_workers=10) as executor:
             futures = {}
             for user_id in user_ids:
@@ -302,25 +302,25 @@ class FreeBusyService:
         return free_busy_map
     
     def find_common_free_time(self, user_ids, duration, constraints):
-        # Get all busy times
+# Get all busy times
         free_busy = self.get_free_busy(
             user_ids,
             constraints.start_date,
             constraints.end_date
         )
         
-        # Find common free slots
+# Find common free slots
         free_slots = []
         current_time = constraints.start_date
         
         while current_time < constraints.end_date:
             slot_end = current_time + duration
             
-            # Check if slot works for all users
+# Check if slot works for all users
             if self.is_slot_free_for_all(
                 free_busy, current_time, slot_end
             ):
-                # Check additional constraints
+# Check additional constraints
                 if self.meets_constraints(current_time, slot_end, constraints):
                     free_slots.append({
                         'start': current_time,
@@ -330,7 +330,7 @@ class FreeBusyService:
             
             current_time += timedelta(minutes=30)  # 30-min granularity
         
-        # Sort by score (preference)
+# Sort by score (preference)
         return sorted(free_slots, key=lambda x: x['score'], reverse=True)
 ```
 
@@ -346,7 +346,7 @@ class NotificationService:
         for reminder in event.reminders:
             notification_time = event.start_time - reminder.minutes_before * 60
             
-            # Schedule notification
+# Schedule notification
             job = {
                 'type': 'event_reminder',
                 'event_id': event.event_id,
@@ -359,11 +359,11 @@ class NotificationService:
             if notification_time > time.now():
                 self.scheduler.schedule(job, notification_time)
             else:
-                # Send immediately if in the past
+# Send immediately if in the past
                 self.send_notification(job)
     
     def send_notification(self, job):
-        # Route to appropriate channel
+# Route to appropriate channel
         if job['reminder_type'] == 'EMAIL':
             self.send_email_reminder(job)
         elif job['reminder_type'] == 'PUSH':
@@ -383,22 +383,22 @@ class CalendarCache:
         self.local_cache = LRU(1000)
         
     def get_calendar_view(self, user_id, start_date, end_date):
-        # Try local cache first
+# Try local cache first
         cache_key = f"cal:{user_id}:{start_date}:{end_date}"
         cached = self.local_cache.get(cache_key)
         if cached:
             return cached
         
-        # Try Redis
+# Try Redis
         cached = self.redis.get(cache_key)
         if cached:
             self.local_cache.put(cache_key, cached)
             return cached
         
-        # Fetch from database
+# Fetch from database
         events = self.fetch_events(user_id, start_date, end_date)
         
-        # Cache with appropriate TTL
+# Cache with appropriate TTL
         ttl = self.calculate_ttl(start_date, end_date)
         self.redis.setex(cache_key, ttl, events)
         self.local_cache.put(cache_key, events)
@@ -411,20 +411,20 @@ class CalendarCache:
 ```python
 class TimeZoneService:
     def __init__(self):
-        # Pre-load common timezone data
+# Pre-load common timezone data
         self.tz_cache = self.load_timezone_data()
         self.dst_cache = {}  # Daylight saving time cache
         
     def convert_to_user_timezone(self, utc_time, user_timezone):
-        # Fast path for common conversions
+# Fast path for common conversions
         if user_timezone in self.tz_cache:
             return self.fast_convert(utc_time, user_timezone)
         
-        # Slow path for complex conversions
+# Slow path for complex conversions
         return self.full_convert(utc_time, user_timezone)
     
     def bulk_convert(self, events, target_timezone):
-        # Optimize bulk conversions
+# Optimize bulk conversions
         converted = []
         tz_offset = self.get_offset(target_timezone)
         
@@ -444,15 +444,15 @@ class TimeZoneService:
 ```python
 class EventSharding:
     def get_shard(self, user_id):
-        # Shard by user for better locality
+# Shard by user for better locality
         return hash(user_id) % self.num_shards
     
     def store_event(self, event):
-        # Primary shard for organizer
+# Primary shard for organizer
         primary_shard = self.get_shard(event.organizer_id)
         self.shards[primary_shard].store(event)
         
-        # Secondary indexes for attendees
+# Secondary indexes for attendees
         for attendee in event.attendees:
             attendee_shard = self.get_shard(attendee.id)
             if attendee_shard != primary_shard:
@@ -468,10 +468,10 @@ class SyncEngine:
         self.change_stream = ChangeStream()
         
     def sync_calendar_changes(self, user_id, changes):
-        # Get all user's devices
+# Get all user's devices
         devices = self.get_user_devices(user_id)
         
-        # Push changes to all devices
+# Push changes to all devices
         for device in devices:
             if self.websocket_server.is_connected(device.id):
                 self.websocket_server.send(device.id, {
@@ -479,7 +479,7 @@ class SyncEngine:
                     'changes': changes
                 })
             else:
-                # Queue for later delivery
+# Queue for later delivery
                 self.queue_offline_sync(device.id, changes)
 ```
 

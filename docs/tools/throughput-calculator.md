@@ -589,7 +589,7 @@ function drawPerformanceChart(configs, optimal) {
     border-radius: 8px;
 }
 
-#perfChart {
+# perfChart {
     max-width: 100%;
     height: auto;
 }

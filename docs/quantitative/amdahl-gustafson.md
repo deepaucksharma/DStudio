@@ -182,7 +182,7 @@ last_updated: 2025-07-20
 # Web request: 10ms auth + 90ms queries + 10ms format
 Serial = 20/110 = 18% → Max speedup = 5.5x
 
-# Data pipeline: 5% read + 80% transform + 10% aggregate + 5% write  
+# Data pipeline: 5% read + 80% transform + 10% aggregate + 5% write
 Serial = 10% → Max speedup = 10x (even with 1000 cores!)
 ```
 
@@ -255,7 +255,7 @@ Serial = 10% → Max speedup = 10x (even with 1000 cores!)
 Small: 10ms setup + 100ms process = 9% serial
 Large: 10ms setup + 10,000ms process = 0.1% serial
 
-# Database: 1GB vs 1TB  
+# Database: 1GB vs 1TB
 Small: 17% serial (100+100 of 1200ms)
 Large: 0.01% serial (bigger data scales better!)
 ```

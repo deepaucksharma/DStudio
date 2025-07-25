@@ -809,9 +809,9 @@ last_updated: 2025-07-20
 Remember: Good control systems are invisible when working and obvious when broken. Design for both states.
 ---
 
-## 💡 Knowledge Application
+## Knowledge Application
 
-### Exercise 1: Concept Exploration ⭐⭐
+### Exercise 1: Concept Exploration
 **Time**: ~15 minutes
 **Objective**: Deepen understanding of Control & Coordination Examples
 
@@ -823,7 +823,7 @@ Remember: Good control systems are invisible when working and obvious when broke
 
 **Application**: Choose one concept and explain it to someone else in your own words.
 
-### Exercise 2: Real-World Connection ⭐⭐⭐
+### Exercise 2: Real-World Connection
 **Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
@@ -838,7 +838,7 @@ Remember: Good control systems are invisible when working and obvious when broke
 - Systems you use daily
 - Historical technology decisions
 
-### Exercise 3: Critical Thinking ⭐⭐⭐⭐
+### Exercise 3: Critical Thinking
 **Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
@@ -865,7 +865,7 @@ Remember: Good control systems are invisible when working and obvious when broke
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
 **Immediate Actions**:
 1. One thing you'll research further

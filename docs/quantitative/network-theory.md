@@ -117,13 +117,13 @@ def small_world_network(n, k, p):
     k: initial neighbors
     p: rewiring probability
     """
-    # Start with ring lattice
+# Start with ring lattice
     G = nx.watts_strogatz_graph(n, k, p)
     
-    # Properties:
-    # p=0: Regular lattice (high clustering, long paths)
-    # p=1: Random graph (low clustering, short paths)
-    # 0<p<1: Small world (high clustering, short paths)
+# Properties:
+# p=0: Regular lattice (high clustering, long paths)
+# p=1: Random graph (low clustering, short paths)
+# 0<p<1: Small world (high clustering, short paths)
     return G
 ```
 
@@ -139,9 +139,9 @@ def scale_free_growth(initial_nodes=3, total_nodes=1000, m=2):
     """Generate scale-free network via preferential attachment"""
     G = nx.barabasi_albert_graph(total_nodes, m)
     
-    # Power-law degree distribution
-    # P(k) ~ k^(-3) for BA model
-    # Few hubs, many low-degree nodes
+# Power-law degree distribution
+# P(k) ~ k^(-3) for BA model
+# Few hubs, many low-degree nodes
     return G
 ```
 
@@ -200,12 +200,12 @@ def epidemic_spread(graph, infection_prob=0.1, recovery_prob=0.05):
         
         for node in graph.nodes():
             if states[node] == 'I':
-                # Try to infect neighbors
+# Try to infect neighbors
                 for neighbor in graph.neighbors(node):
                     if states[neighbor] == 'S' and random.random() < infection_prob:
                         new_states[neighbor] = 'I'
                 
-                # Try to recover
+# Try to recover
                 if random.random() < recovery_prob:
                     new_states[node] = 'R'  # Recovered
         
@@ -257,13 +257,13 @@ For random failures with probability p:
 ```python
 def max_flow_analysis(graph, source, sink):
     """Analyze maximum flow in network"""
-    # Ford-Fulkerson algorithm
+# Ford-Fulkerson algorithm
     flow_value, flow_dict = nx.maximum_flow(graph, source, sink)
     
-    # Find bottlenecks (min cut)
+# Find bottlenecks (min cut)
     cut_value, (reachable, non_reachable) = nx.minimum_cut(graph, source, sink)
     
-    # Identify critical edges
+# Identify critical edges
     critical_edges = []
     for u, v in graph.edges():
         if u in reachable and v in non_reachable:
@@ -389,14 +389,14 @@ def byzantine_generals(n, f):
     n: total nodes
     f: byzantine nodes
     """
-    # Requirement: n > 3f
+# Requirement: n > 3f
     if n <= 3 * f:
         return "No consensus possible"
     
-    # Rounds needed: f + 1
+# Rounds needed: f + 1
     rounds = f + 1
     
-    # Message complexity: O(n²) per round
+# Message complexity: O(n²) per round
     messages = rounds * n * (n - 1)
     
     return {
@@ -442,10 +442,10 @@ graph TB
 ```python
 def network_latency(distance_km, processing_ms=1, queuing_ms=0):
     """Total latency calculation"""
-    # Speed of light in fiber: ~200,000 km/s
+# Speed of light in fiber: ~200,000 km/s
     propagation_ms = distance_km / 200
     
-    # Total latency
+# Total latency
     total_ms = propagation_ms + processing_ms + queuing_ms
     
     return {

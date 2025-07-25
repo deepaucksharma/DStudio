@@ -65,18 +65,18 @@ gantt
 class DatabaseOrchestrator:
     def check_primary_health(self):
         try:
-            # This timeout was too aggressive
+# This timeout was too aggressive
             response = self.ping_primary(timeout=5)  # 5 seconds
             return response.status == "healthy"
         except TimeoutError:
-            # DANGER: Assuming primary is dead!
+# DANGER: Assuming primary is dead!
             return False
     
     def handle_primary_failure(self):
         if not self.check_primary_health():
-            # This happened after just 43 seconds of network issues
+# This happened after just 43 seconds of network issues
             self.promote_secondary_to_primary()
-            # Now we have two primaries!
+# Now we have two primaries!
 ```
 
 #### Lessons Learned
@@ -105,8 +105,8 @@ $ aws s3api delete-objects --bucket debug-bucket --delete "Objects=[{Key=debug-l
 
 # What was actually typed (simplified):
 $ aws s3api delete-objects --bucket prod-index --delete "Objects=[{Key=*}]"
-#                                      ^^^^
-#                          Wrong bucket!
+# ^^^^
+# Wrong bucket!
 ```
 
 #### Cascading Failure Analysis
@@ -156,10 +156,10 @@ class TradingSystem:
     
     def process_order(self, order):
         if self.feature_flags["SMARS"]:  # This flag was accidentally reused!
-            # Old test code from 2003 that generated child orders
+# Old test code from 2003 that generated child orders
             return self.generate_test_orders(order) * 1000  # Disaster!
         elif self.feature_flags["RLP"]:
-            # New production code
+# New production code
             return self.process_retail_liquidity(order)
 ```
 
@@ -210,7 +210,7 @@ class CircuitBreaker:
         self.state = CircuitState.CLOSED
         self._lock = threading.Lock()
         
-        # Ring buffer for tracking success rate
+# Ring buffer for tracking success rate
         self.results = deque(maxlen=100)
         
     def call(self, func, *args, **kwargs):
@@ -269,7 +269,7 @@ class CircuitBreaker:
 breaker = CircuitBreaker(failure_threshold=3, recovery_timeout=30)
 
 def risky_network_call():
-    # Simulate API call that might fail
+# Simulate API call that might fail
     import random
     if random.random() < 0.3:  # 30% failure rate
         raise requests.exceptions.Timeout("Service timeout")
@@ -298,13 +298,13 @@ class Bulkhead:
         self.pool_size = pool_size
         self.queue_size = queue_size
         
-        # Separate thread pool for this bulkhead
+# Separate thread pool for this bulkhead
         self.executor = concurrent.futures.ThreadPoolExecutor(
             max_workers=pool_size,
             thread_name_prefix=f"bulkhead-{name}-"
         )
         
-        # Bounded queue to prevent memory exhaustion
+# Bounded queue to prevent memory exhaustion
         self.pending_tasks = queue.Queue(maxsize=queue_size)
         self.rejected_count = 0
         self.completed_count = 0
@@ -349,17 +349,17 @@ payment_bulkhead = Bulkhead("payment-service", pool_size=10)
 analytics_bulkhead = Bulkhead("analytics", pool_size=5)
 
 def handle_request(user_id):
-    # User service gets more resources
+# User service gets more resources
     user_future = user_service_bulkhead.execute(
         fetch_user_data, user_id
     )
     
-    # Payment service is critical but limited
+# Payment service is critical but limited
     payment_future = payment_bulkhead.execute(
         check_payment_status, user_id
     )
     
-    # Analytics can fail without affecting the request
+# Analytics can fail without affecting the request
     try:
         analytics_bulkhead.execute(track_event, "page_view")
     except Exception:
@@ -382,7 +382,7 @@ class TimeoutHierarchy:
     """Coordinate timeouts across service layers"""
     
     def __init__(self):
-        # Define timeout hierarchy (in seconds)
+# Define timeout hierarchy (in seconds)
         self.timeouts = {
             "user_request": 30.0,      # Total user request timeout
             "api_gateway": 28.0,       # Gateway timeout (less than user)
@@ -392,7 +392,7 @@ class TimeoutHierarchy:
             "circuit_breaker": 1.0     # Quick fail for circuit breaker
         }
         
-        # Validate hierarchy
+# Validate hierarchy
         self._validate_hierarchy()
     
     def _validate_hierarchy(self):
@@ -419,20 +419,20 @@ class TimeoutHierarchy:
 timeout_hierarchy = TimeoutHierarchy()
 
 async def fetch_user_data(user_id):
-    # API Gateway level
+# API Gateway level
     async with timeout_hierarchy.timeout_context("api_gateway"):
         
-        # Try cache first (very fast)
+# Try cache first (very fast)
         async with timeout_hierarchy.timeout_context("cache_lookup"):
             cached = await check_cache(user_id)
             if cached:
                 return cached
         
-        # Database query (slower)
+# Database query (slower)
         async with timeout_hierarchy.timeout_context("database_query"):
             user_data = await query_database(user_id)
         
-        # External service call (slowest)
+# External service call (slowest)
         async with timeout_hierarchy.timeout_context("service_call"):
             enriched_data = await call_enrichment_service(user_data)
         
@@ -444,7 +444,7 @@ async def handle_user_request(user_id):
         async with timeout_hierarchy.timeout_context("user_request"):
             return await fetch_user_data(user_id)
     except TimeoutError as e:
-        # Log which layer timed out
+# Log which layer timed out
         logger.error(f"Request failed: {e}")
         return {"error": "Request timeout", "details": str(e)}
 ```
@@ -509,7 +509,7 @@ class HealthChecker:
         start_time = time.time()
         
         try:
-            # Simulate database health check
+# Simulate database health check
             async with get_db_connection() as conn:
                 result = await conn.execute("SELECT 1")
                 response_time = (time.time() - start_time) * 1000
@@ -547,7 +547,7 @@ class HealthChecker:
                     "details": details
                 }
                 
-                # If critical check fails, overall status is unhealthy
+# If critical check fails, overall status is unhealthy
                 if not healthy and check["critical"]:
                     results["overall_status"] = "unhealthy"
                 elif not healthy and results["overall_status"] == "healthy":
@@ -574,7 +574,7 @@ class KubernetesProbes:
     
     async def liveness_probe(self) -> Tuple[int, Dict]:
         """Is the service alive? (Should Kubernetes restart it?)"""
-        # Only check critical components for liveness
+# Only check critical components for liveness
         critical_checks = ["cpu", "memory", "database"]
         
         for check_name in critical_checks:
@@ -593,7 +593,7 @@ class KubernetesProbes:
     
     async def readiness_probe(self) -> Tuple[int, Dict]:
         """Is the service ready to accept traffic?"""
-        # Check if service has been up for at least 10 seconds
+# Check if service has been up for at least 10 seconds
         uptime = (datetime.utcnow() - self.startup_time).total_seconds()
         if uptime < 10:
             return 503, {
@@ -601,7 +601,7 @@ class KubernetesProbes:
                 "uptime_seconds": uptime
             }
         
-        # Run all health checks for readiness
+# Run all health checks for readiness
         health_results = await self.health_checker.run_all_checks()
         
         if health_results["overall_status"] == "healthy":
@@ -636,13 +636,13 @@ class HystrixCommand:
         self.fallback_func = fallback_func
         self.timeout = timeout / 1000.0  # Convert to seconds
         
-        # Circuit breaker per command
+# Circuit breaker per command
         self.circuit_breaker = CircuitBreaker(
             failure_threshold=circuit_breaker_threshold,
             recovery_timeout=circuit_breaker_sleep_window / 1000.0
         )
         
-        # Metrics
+# Metrics
         self.metrics = {
             "success": 0,
             "failure": 0,
@@ -655,12 +655,12 @@ class HystrixCommand:
     async def execute(self):
         """Execute command with all protections"""
         try:
-            # Check circuit breaker first
+# Check circuit breaker first
             if self.circuit_breaker.state == CircuitState.OPEN:
                 self.metrics["circuit_open"] += 1
                 return await self._fallback("Circuit breaker open")
             
-            # Execute with timeout
+# Execute with timeout
             result = await asyncio.wait_for(
                 self.circuit_breaker.call(self.run_func),
                 timeout=self.timeout

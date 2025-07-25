@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Hospital Records Analogy
 
@@ -122,7 +122,7 @@ graph TB
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Architecture
 
@@ -299,7 +299,7 @@ graph TB
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Production-Grade Implementation
 
@@ -527,14 +527,14 @@ class SmartOutboxPublisher:
                     await asyncio.sleep(self.config.poll_interval)
                     continue
                 
-                # Process messages in parallel
+# Process messages in parallel
                 tasks = [
                     self._publish_message(msg) 
                     for msg in messages
                 ]
                 results = await asyncio.gather(*tasks, return_exceptions=True)
                 
-                # Update metrics
+# Update metrics
                 success_count = sum(1 for r in results if r is True)
                 self.metrics.record_batch(
                     worker_id=worker_id,
@@ -608,7 +608,7 @@ class OutboxMetrics:
     def __init__(self):
         self.prometheus = PrometheusClient()
         
-        # Define metrics
+# Define metrics
         self.messages_published = Counter(
             'outbox_messages_published_total',
             'Total messages published',
@@ -677,7 +677,7 @@ class OutboxHealthCheck:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Uber's Event Pipeline
 
@@ -906,7 +906,7 @@ class CDCOutbox:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -1132,7 +1132,7 @@ class OutboxEconomics:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

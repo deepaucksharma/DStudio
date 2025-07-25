@@ -5,7 +5,7 @@
 <p>Comprehensive guide to Google's unique approach to system design interviews</p>
 </div>
 
-## 🎯 Quick Decision Guide
+## Quick Decision Guide
 
 ```mermaid
 graph TD
@@ -44,7 +44,7 @@ graph TD
     Deep3 --> Plan9["✅ Research Papers<br/>✅ Novel Solutions<br/>✅ Mentor Others"]
 ```
 
-## 📋 Interview Types Comparison
+## Interview Types Comparison
 
 <div class="comparison-table">
 <table>
@@ -90,7 +90,7 @@ graph TD
 </table>
 </div>
 
-## 📊 Success Metrics Dashboard
+## Success Metrics Dashboard
 
 <div class="metrics-dashboard">
 <div class="metric-card">
@@ -120,7 +120,7 @@ graph TD
 <p>Google values candidates who can think at planetary scale while keeping designs simple and maintainable. The best solutions often leverage Google's existing infrastructure patterns.</p>
 </div>
 
-## 🏗️ Google's Infrastructure Philosophy
+## Google's Infrastructure Philosophy
 
 ### Core Design Principles
 
@@ -160,7 +160,7 @@ graph TD
 </ul>
 </div>
 
-## 📊 Scale Requirements at Google
+## Scale Requirements at Google
 
 <div class="failure-vignette">
 <h3>🌍 Typical Google Scale</h3>
@@ -175,7 +175,7 @@ graph TD
 </ul>
 </div>
 
-## 🗺️ Visual Preparation Roadmap
+## 🗺 Visual Preparation Roadmap
 
 ```mermaid
 gantt
@@ -229,9 +229,9 @@ gantt
 <div id="plan-results" class="plan-output"></div>
 </div>
 
-## 🔧 Google's Technology Stack
+## Google's Technology Stack
 
-### 📊 Technology Selection Matrix
+### Technology Selection Matrix
 
 <div class="tech-matrix">
 <table>
@@ -330,7 +330,7 @@ gantt
 | **Andromeda** | SDN | - Virtual networking<br>- Global load balancing<br>- DDoS protection |
 | **Maglev** | Load balancing | - Consistent hashing<br>- Connection draining<br>- Health checking |
 
-## 🎯 Interview Focus Areas by Role
+## Interview Focus Areas by Role
 
 ```mermaid
 graph LR
@@ -362,7 +362,7 @@ graph LR
     end
 ```
 
-## 📈 Common Interview Topics
+## Common Interview Topics
 
 ### Most Frequently Asked Systems
 
@@ -445,7 +445,7 @@ graph LR
    - Circuit breaking
    - Request routing
 
-## 📊 Detailed Scoring Rubric
+## Detailed Scoring Rubric
 
 <div class="scoring-matrix">
 <table>
@@ -498,7 +498,7 @@ graph LR
 </table>
 </div>
 
-## 🎯 Evaluation Criteria
+## Evaluation Criteria
 
 ### What Google Interviewers Look For
 
@@ -553,7 +553,7 @@ graph LR
 </ol>
 </div>
 
-## 🗺️ Interview Process & Timeline
+## 🗺 Interview Process & Timeline
 
 ### Typical Interview Structure
 
@@ -576,7 +576,7 @@ graph LR
 | 35-40 min | **Scale & Optimize** | Discuss bottlenecks, propose improvements |
 | 40-45 min | **Wrap Up** | Summarize, answer questions |
 
-## 🛠️ Interactive Design Checklist
+## 🛠 Interactive Design Checklist
 
 <div class="checklist-container">
 <h3>Pre-Interview Checklist</h3>
@@ -606,7 +606,7 @@ graph LR
 </div>
 </div>
 
-## 🔄 Design Process Flowchart
+## Design Process Flowchart
 
 ```mermaid
 flowchart TD
@@ -643,7 +643,7 @@ flowchart TD
     style DeepDive fill:#87CEEB
 ```
 
-## 💡 Pro Tips
+## Pro Tips
 
 <div class="decision-box">
 <h3>✅ Do's</h3>
@@ -729,7 +729,7 @@ flowchart TD
 
 </div>
 
-### ⚡ Quick References
+### Quick References
 <div class="pattern-grid">
 
 <a href="scale-cheatsheet.md" class="pattern-card">
@@ -775,7 +775,7 @@ flowchart TD
 
 </div>
 
-## 📌 Quick Reference Card
+## Quick Reference Card
 
 <div class="truth-box">
 <h3>Interview Day Checklist</h3>
@@ -795,7 +795,7 @@ flowchart TD
 
 ---
 
-## 📈 Performance Tracking Tool
+## Performance Tracking Tool
 
 <div class="performance-tracker">
 <h3>Track Your Interview Performance</h3>

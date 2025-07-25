@@ -464,7 +464,7 @@ def transfer_money(from_account, to_account, amount):
 
 # Better: Account-level coordination
 def transfer_money(from_account, to_account, amount):
-    # Only coordinate affected accounts
+# Only coordinate affected accounts
     with multi_lock([from_account, to_account]):
         debit(from_account, amount)
         credit(to_account, amount)
@@ -483,7 +483,7 @@ def update_all_replicas(data):
 def update_all_replicas(data):
     for replica in replicas:
         async_send(replica, data)
-    # Return immediately
+# Return immediately
 ```
 
 ### Batch Coordination

@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Global Library Analogy
 
@@ -136,7 +136,7 @@ flowchart LR
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Replication Topologies
 
@@ -294,10 +294,10 @@ class GeoPartitioning:
         """Determine partition for key"""
         
         if hint:
-            # Use hint (e.g., user's home region)
+# Use hint (e.g., user's home region)
             return self.find_partition(hint)
         
-        # Hash-based partitioning
+# Hash-based partitioning
         hash_value = hash(key)
         partition_index = hash_value % len(self.partitions)
         
@@ -308,14 +308,14 @@ class GeoPartitioning:
         
         partition = self.partition_key(key, hint)
         
-        # Write to primary region in partition
+# Write to primary region in partition
         primary = self.get_primary_for_partition(partition)
         primary.write(key, value)
         
-        # Replicate within partition (fast)
+# Replicate within partition (fast)
         self.replicate_within_partition(partition, key, value)
         
-        # Optionally replicate globally (slow)
+# Optionally replicate globally (slow)
         if self.requires_global_access(key):
             self.replicate_globally(key, value)
 
@@ -342,10 +342,10 @@ class FollowTheSun:
             start, end = config['active_hours']
             
             if start <= hour < end:
-                # In business hours
+# In business hours
                 score = 1.0
             else:
-                # Calculate proximity to business hours
+# Calculate proximity to business hours
                 if hour < start:
                     distance = start - hour
                 else:
@@ -360,23 +360,23 @@ class FollowTheSun:
     def migrate_primary(self, from_region: str, to_region: str):
         """Migrate primary role between regions"""
         
-        # Start dual-primary mode
+# Start dual-primary mode
         self.regions[to_region].set_mode('dual_primary')
         
-        # Wait for replication to catch up
+# Wait for replication to catch up
         self.wait_for_sync(from_region, to_region)
         
-        # Switch primary
+# Switch primary
         self.regions[from_region].set_mode('replica')
         self.regions[to_region].set_mode('primary')
         
-        # Update routing
+# Update routing
         self.update_global_routing(to_region)
 ```
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Replication Techniques
 
@@ -398,13 +398,13 @@ class GeoDistributedRaft:
     def append_entries(self, entries: list, leader_id: str) -> bool:
         """Handle append entries with geo-awareness"""
         
-        # Check if we should accept this leader
+# Check if we should accept this leader
         if not self.validate_leader_location(leader_id):
-            # Leader too far away, trigger re-election
+# Leader too far away, trigger re-election
             self.start_election()
             return False
         
-        # Normal Raft append
+# Normal Raft append
         return super().append_entries(entries, leader_id)
     
     def start_election(self):
@@ -416,11 +416,11 @@ class GeoDistributedRaft:
         
         votes = 1  # Vote for self
         
-        # Request votes with latency consideration
+# Request votes with latency consideration
         for peer in self.peers:
             latency = self.measure_latency(peer)
             
-            # Adjust timeout based on latency
+# Adjust timeout based on latency
             timeout = max(150, latency * 3)  # At least 150ms
             
             vote = self.request_vote(
@@ -430,28 +430,28 @@ class GeoDistributedRaft:
             )
             
             if vote:
-                # Weight vote by proximity
+# Weight vote by proximity
                 weight = 1.0 / (latency / 50 + 1)  # Closer = higher weight
                 votes += weight
         
-        # Need weighted majority
+# Need weighted majority
         if votes > len(self.peers) / 2:
             self.become_leader()
     
     def replicate_across_regions(self, entry: dict):
         """Replicate with region-aware optimizations"""
         
-        # Group peers by region
+# Group peers by region
         regions = self.group_by_region(self.peers)
         
-        # Replicate to local region first (fast)
+# Replicate to local region first (fast)
         local_region = self.get_region(self.node_id)
         local_peers = regions[local_region]
         
         local_success = self.replicate_to_peers(local_peers, entry)
         
         if local_success >= len(local_peers) / 2:
-            # Local quorum achieved, replicate async to other regions
+# Local quorum achieved, replicate async to other regions
             for region, peers in regions.items():
                 if region != local_region:
                     self.async_replicate_to_region(peers, entry)
@@ -532,7 +532,7 @@ class ORSet:
     def remove(self, element: any):
         """Remove element from set"""
         if element in self.elements:
-            # Move all tags to tombstones
+# Move all tags to tombstones
             if element not in self.tombstones:
                 self.tombstones[element] = set()
             
@@ -541,19 +541,19 @@ class ORSet:
     def merge(self, other: 'ORSet'):
         """Merge with another set"""
         
-        # Merge elements
+# Merge elements
         for elem, tags in other.elements.items():
             if elem not in self.elements:
                 self.elements[elem] = set()
             self.elements[elem].update(tags)
         
-        # Merge tombstones
+# Merge tombstones
         for elem, tags in other.tombstones.items():
             if elem not in self.tombstones:
                 self.tombstones[elem] = set()
             self.tombstones[elem].update(tags)
         
-        # Remove tombstoned tags
+# Remove tombstoned tags
         for elem, removed_tags in self.tombstones.items():
             if elem in self.elements:
                 self.elements[elem] -= removed_tags
@@ -583,7 +583,7 @@ class LWWRegister:
             self.value = other.value
             self.timestamp = other.timestamp
         elif other.timestamp == self.timestamp:
-            # Tie-breaker: use node_id
+# Tie-breaker: use node_id
             if other.node_id > self.node_id:
                 self.value = other.value
 ```
@@ -604,25 +604,25 @@ class HybridLogicalClock:
         current_physical = time.time_ns()
         
         if received_hlc:
-            # Receiving message
+# Receiving message
             recv_physical, recv_logical = received_hlc
             
             if current_physical > self.physical_time and \
                current_physical > recv_physical:
-                # Current physical time is latest
+# Current physical time is latest
                 self.physical_time = current_physical
                 self.logical_time = 0
             elif recv_physical > self.physical_time and \
                  recv_physical > current_physical:
-                # Received time is latest
+# Received time is latest
                 self.physical_time = recv_physical
                 self.logical_time = recv_logical + 1
             elif self.physical_time > current_physical and \
                  self.physical_time > recv_physical:
-                # Our time is latest
+# Our time is latest
                 self.logical_time += 1
             else:
-                # Tie - use maximum logical
+# Tie - use maximum logical
                 self.physical_time = max(
                     current_physical,
                     recv_physical,
@@ -633,7 +633,7 @@ class HybridLogicalClock:
                     recv_logical
                 ) + 1
         else:
-            # Sending message
+# Sending message
             if current_physical > self.physical_time:
                 self.physical_time = current_physical
                 self.logical_time = 0
@@ -659,7 +659,7 @@ class HybridLogicalClock:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Google Spanner
 
@@ -694,7 +694,7 @@ class SpannerArchitecture:
         
         db = Database()
         
-        # Create Paxos groups for each partition
+# Create Paxos groups for each partition
         for partition_id in range(config['partition_count']):
             paxos_group = self.create_paxos_group(
                 partition_id,
@@ -709,7 +709,7 @@ class SpannerArchitecture:
         Execute globally consistent transaction
         """
         
-        # 1. Acquire read locks at timestamp
+# 1. Acquire read locks at timestamp
         read_timestamp = self.true_time.now()
         
         for read in txn.reads:
@@ -720,26 +720,26 @@ class SpannerArchitecture:
             )
             txn.read_set[read.key] = value
         
-        # 2. If read-only, we're done
+# 2. If read-only, we're done
         if not txn.writes:
             return Result(txn.read_set, read_timestamp)
         
-        # 3. Acquire write locks
+# 3. Acquire write locks
         write_timestamp = self.true_time.now()
         
-        # Ensure write_timestamp > read_timestamp
+# Ensure write_timestamp > read_timestamp
         if write_timestamp <= read_timestamp:
             write_timestamp = self.true_time.wait_until_after(
                 read_timestamp
             )
         
-        # 4. Two-phase commit across partitions
+# 4. Two-phase commit across partitions
         participants = set()
         for write in txn.writes:
             partition = self.find_partition(write.key)
             participants.add(partition)
         
-        # Phase 1: Prepare
+# Phase 1: Prepare
         prepare_timestamp = write_timestamp
         prepared = []
         
@@ -747,15 +747,15 @@ class SpannerArchitecture:
             if participant.prepare(txn, prepare_timestamp):
                 prepared.append(participant)
             else:
-                # Abort
+# Abort
                 for p in prepared:
                     p.abort(txn)
                 return Result(error="Transaction aborted")
         
-        # Phase 2: Commit
+# Phase 2: Commit
         commit_timestamp = self.true_time.now()
         
-        # Wait for timestamp to be in the past
+# Wait for timestamp to be in the past
         self.true_time.wait_until_past(commit_timestamp)
         
         for participant in participants:
@@ -782,7 +782,7 @@ class SpannerArchitecture:
                 Return time interval [earliest, latest]
                 """
                 
-                # Get time from multiple sources
+# Get time from multiple sources
                 times = []
                 
                 for gps in self.gps_receivers:
@@ -791,7 +791,7 @@ class SpannerArchitecture:
                 for clock in self.atomic_clocks:
                     times.append(clock.get_time())
                 
-                # Calculate bounds
+# Calculate bounds
                 median_time = statistics.median(times)
                 
                 return TimeInterval(
@@ -809,7 +809,7 @@ class SpannerArchitecture:
                     if interval.earliest > timestamp:
                         return
                     
-                    # Wait for uncertainty window
+# Wait for uncertainty window
                     time.sleep(self.uncertainty_us / 1_000_000)
 ```
 
@@ -829,10 +829,10 @@ class CausallyConsistentGeoReplication:
     def write(self, key: str, value: any, session: Session):
         """Write with causal consistency"""
         
-        # Track dependencies from session
+# Track dependencies from session
         dependencies = session.get_dependencies()
         
-        # Create write operation
+# Create write operation
         operation = WriteOperation(
             key=key,
             value=value,
@@ -841,35 +841,35 @@ class CausallyConsistentGeoReplication:
             region=self.get_local_region()
         )
         
-        # Write locally
+# Write locally
         self.local_write(operation)
         
-        # Update session dependencies
+# Update session dependencies
         session.add_dependency(operation.id)
         
-        # Replicate with dependency info
+# Replicate with dependency info
         self.replicate_with_dependencies(operation)
     
     def read(self, key: str, session: Session):
         """Read with causal consistency"""
         
-        # Get session dependencies
+# Get session dependencies
         dependencies = session.get_dependencies()
         
-        # Find replica that has seen all dependencies
+# Find replica that has seen all dependencies
         replica = self.find_causally_consistent_replica(
             dependencies
         )
         
         if not replica:
-            # No replica has all dependencies yet
-            # Wait or read from primary
+# No replica has all dependencies yet
+# Wait or read from primary
             replica = self.wait_for_dependencies(dependencies)
         
-        # Read from chosen replica
+# Read from chosen replica
         value = replica.read(key)
         
-        # Update session with new dependencies
+# Update session with new dependencies
         if value.dependencies:
             session.add_dependencies(value.dependencies)
         
@@ -888,7 +888,7 @@ class AdaptiveGeoReplication:
         """Monitor and adapt replication strategy"""
         
         while True:
-            # Analyze access patterns
+# Analyze access patterns
             patterns = self.access_tracker.analyze_window(
                 duration_minutes=60
             )
@@ -910,26 +910,26 @@ class AdaptiveGeoReplication:
         """Choose replication strategy based on access pattern"""
         
         if pattern.write_ratio > 0.5:
-            # Write-heavy: use primary-replica
+# Write-heavy: use primary-replica
             return 'primary_replica'
             
         elif pattern.concurrent_writers > 1:
-            # Multiple writers: use CRDT or multi-master
+# Multiple writers: use CRDT or multi-master
             if pattern.conflict_tolerance == 'high':
                 return 'crdt'
             else:
                 return 'multi_master_consensus'
                 
         elif pattern.read_locations == 'global':
-            # Global reads: aggressive caching
+# Global reads: aggressive caching
             return 'geo_cached'
             
         elif pattern.consistency_requirement == 'strong':
-            # Strong consistency: use consensus
+# Strong consistency: use consensus
             return 'consensus_based'
             
         else:
-            # Default: eventual consistency
+# Default: eventual consistency
             return 'eventual'
     
     def migrate_replication_strategy(self, key: str, from_strategy: str, to_strategy: str):
@@ -937,34 +937,34 @@ class AdaptiveGeoReplication:
         Live migration between replication strategies
         """
         
-        # Start dual-mode replication
+# Start dual-mode replication
         self.replication_manager.enable_dual_mode(
             key,
             from_strategy,
             to_strategy
         )
         
-        # Wait for new strategy to catch up
+# Wait for new strategy to catch up
         self.wait_for_convergence(key, to_strategy)
         
-        # Switch reads to new strategy
+# Switch reads to new strategy
         self.switch_reads(key, to_strategy)
         
-        # Monitor for issues
+# Monitor for issues
         if self.monitor_health(key, to_strategy, duration=300):
-            # Success - complete migration
+# Success - complete migration
             self.replication_manager.disable_old_strategy(
                 key,
                 from_strategy
             )
         else:
-            # Rollback
+# Rollback
             self.rollback_migration(key, from_strategy)
 ```
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -981,7 +981,7 @@ class GeoCAP:
         Analyze CAP tradeoffs for geo-replicated system
         """
         
-        # Network partition probability increases with distance
+# Network partition probability increases with distance
         partition_probability = self.calculate_partition_probability(
             system_config['regions']
         )
@@ -1010,7 +1010,7 @@ class GeoCAP:
             }
         }
         
-        # Real-world: PACELC
+# Real-world: PACELC
         pacelc_analysis = {
             'partition': {
                 'choice': 'AP or CP based on requirements'
@@ -1033,11 +1033,11 @@ class GeoCAP:
         Estimate network partition probability
         """
         
-        # Factors affecting partition probability
-        # - Physical distance
-        # - Number of network hops
-        # - Undersea cables
-        # - Political boundaries
+# Factors affecting partition probability
+# - Physical distance
+# - Number of network hops
+# - Undersea cables
+# - Political boundaries
         
         max_distance = 0
         for i, r1 in enumerate(regions):
@@ -1045,11 +1045,11 @@ class GeoCAP:
                 distance = self.geographic_distance(r1, r2)
                 max_distance = max(max_distance, distance)
         
-        # Empirical formula (simplified)
-        # ~0.1% per 1000km per year
+# Empirical formula (simplified)
+# ~0.1% per 1000km per year
         base_probability = (max_distance / 1000) * 0.001
         
-        # Adjust for redundancy
+# Adjust for redundancy
         redundancy_factor = 1 / len(regions)
         
         return base_probability * redundancy_factor
@@ -1069,16 +1069,16 @@ class GeoReplicationInformationTheory:
         Higher entropy = more uncertainty = harder consistency
         """
         
-        # Factors contributing to entropy
-        # - Network latency variance
-        # - Clock drift
-        # - Failure rates
-        # - Update rates
+# Factors contributing to entropy
+# - Network latency variance
+# - Clock drift
+# - Failure rates
+# - Update rates
         
         total_entropy = 0
         
         for region in regions:
-            # Shannon entropy for each region
+# Shannon entropy for each region
             p_failure = region.failure_rate
             p_success = 1 - p_failure
             
@@ -1090,11 +1090,11 @@ class GeoReplicationInformationTheory:
             else:
                 region_entropy = 0
             
-            # Weight by region's update rate
+# Weight by region's update rate
             weight = region.update_rate / sum(r.update_rate for r in regions)
             total_entropy += weight * region_entropy
         
-        # Add network entropy
+# Add network entropy
         network_entropy = self.calculate_network_entropy(regions)
         
         return total_entropy + network_entropy
@@ -1140,9 +1140,9 @@ class QuantumGeoReplication:
         Use quantum entanglement for instant state sync
         """
         
-        # Theoretical: Quantum entangled qubits
-        # could provide instant state synchronization
-        # across any distance
+# Theoretical: Quantum entangled qubits
+# could provide instant state synchronization
+# across any distance
         
         class QuantumReplicatedState:
             def __init__(self):
@@ -1153,8 +1153,8 @@ class QuantumGeoReplication:
                 Create quantum entangled states
                 """
                 
-                # In theory, measuring one qubit
-                # instantly affects its entangled pair
+# In theory, measuring one qubit
+# instantly affects its entangled pair
                 for i in range(num_regions):
                     qubit_pair = self.create_bell_pair()
                     self.entangled_pairs.append(qubit_pair)
@@ -1164,8 +1164,8 @@ class QuantumGeoReplication:
                 Update would instantly reflect everywhere
                 """
                 
-                # Quantum state collapse
-                # All entangled copies instantly update
+# Quantum state collapse
+# All entangled copies instantly update
                 pass
         
         return QuantumReplicatedState()
@@ -1187,19 +1187,19 @@ class MLGeoReplication:
         Train model to predict optimal replication strategy
         """
         
-        # Features:
-        # - Access patterns
-        # - Geographic distribution
-        # - Network conditions
-        # - Data characteristics
+# Features:
+# - Access patterns
+# - Geographic distribution
+# - Network conditions
+# - Data characteristics
         
-        # Labels:
-        # - Optimal consistency level
-        # - Replication topology
-        # - Sync vs async
+# Labels:
+# - Optimal consistency level
+# - Replication topology
+# - Sync vs async
         
         model = RandomForestClassifier()
-        # Training code...
+# Training code...
         return model
     
     def predict_optimal_strategy(self, workload: dict) -> dict:
@@ -1231,7 +1231,7 @@ class GeoReplicationEconomics:
         ROI of geo-replication deployment
         """
         
-        # Costs
+# Costs
         infrastructure_cost = (
             deployment['regions'] * 50000 +  # Per region setup
             deployment['cross_region_bandwidth_gb'] * 0.02  # Transfer costs
@@ -1239,16 +1239,16 @@ class GeoReplicationEconomics:
         
         operational_cost = deployment['regions'] * 10000  # Per region/month
         
-        # Benefits
+# Benefits
         latency_reduction = deployment['avg_latency_reduction_ms']
         
-        # Every 100ms reduction = 1% revenue increase (Amazon study)
+# Every 100ms reduction = 1% revenue increase (Amazon study)
         revenue_increase = (latency_reduction / 100) * 0.01 * deployment['annual_revenue']
         
-        # Availability improvement
+# Availability improvement
         downtime_reduction = deployment['availability_improvement'] * deployment['downtime_cost_per_hour'] * 8760
         
-        # Compliance
+# Compliance
         compliance_value = deployment['data_sovereignty_regions'] * 100000
         
         total_benefit = revenue_increase + downtime_reduction + compliance_value
@@ -1263,7 +1263,7 @@ class GeoReplicationEconomics:
 
 ---
 
-## 📊 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

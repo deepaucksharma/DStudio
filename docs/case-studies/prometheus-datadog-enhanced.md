@@ -187,13 +187,13 @@ class TimeSeriesBlock:
     def append(self, timestamp: int, value: float):
         """Add a data point using delta encoding"""
         if self.timestamps:
-            # Delta of delta encoding for timestamps
+# Delta of delta encoding for timestamps
             delta = timestamp - self.timestamps[-1]
             self.timestamps.append(delta)
         else:
             self.timestamps.append(timestamp)
             
-        # XOR encoding for floating point values
+# XOR encoding for floating point values
         if self.values:
             prev_bits = struct.unpack('>Q', struct.pack('>d', self.values[-1]))[0]
             curr_bits = struct.unpack('>Q', struct.pack('>d', value))[0]
@@ -204,11 +204,11 @@ class TimeSeriesBlock:
     
     def compress(self) -> bytes:
         """Compress block using Gorilla-style compression"""
-        # Convert to byte arrays
+# Convert to byte arrays
         timestamp_bytes = self._encode_timestamps()
         value_bytes = self._encode_values()
         
-        # Combine and compress with Zstandard
+# Combine and compress with Zstandard
         raw_data = timestamp_bytes + value_bytes
         self.compressed_data = zstd.compress(raw_data, level=3)
         return self.compressed_data
@@ -217,7 +217,7 @@ class TimeSeriesBlock:
         """Variable-length encoding for timestamp deltas"""
         encoded = bytearray()
         for ts in self.timestamps:
-            # Variable byte encoding
+# Variable byte encoding
             while ts >= 0x80:
                 encoded.append((ts & 0x7F) | 0x80)
                 ts >>= 7
@@ -229,14 +229,14 @@ class TimeSeriesBlock:
         bit_stream = BitStream()
         for i, val in enumerate(self.values):
             if i == 0:
-                # First value stored as-is
+# First value stored as-is
                 bit_stream.write_bits(val, 64)
             else:
-                # XOR'd values with leading/trailing zero compression
+# XOR'd values with leading/trailing zero compression
                 leading_zeros = self._count_leading_zeros(val)
                 trailing_zeros = self._count_trailing_zeros(val)
                 
-                # Control bits for compression type
+# Control bits for compression type
                 if val == 0:
                     bit_stream.write_bits(0, 1)  # Single zero bit
                 else:
@@ -256,35 +256,35 @@ class ShardedTSDB:
         self.shards: Dict[int, TSDBShard] = {}
         self.hash_ring = ConsistentHashRing(num_shards)
         
-        # Initialize shards
+# Initialize shards
         for i in range(num_shards):
             self.shards[i] = TSDBShard(shard_id=i)
     
     def write(self, metric_id: str, timestamp: int, value: float, tags: Dict[str, str]):
         """Write metric to appropriate shard"""
-        # Create series ID from metric + tags
+# Create series ID from metric + tags
         series_id = self._create_series_id(metric_id, tags)
         
-        # Determine shard using consistent hashing
+# Determine shard using consistent hashing
         shard_id = self.hash_ring.get_node(series_id)
         shard = self.shards[shard_id]
         
-        # Write to shard
+# Write to shard
         shard.write(series_id, timestamp, value, tags)
     
     def query(self, query: TSQuery) -> TimeSeriesResult:
         """Execute distributed query across shards"""
-        # Parse query to determine affected shards
+# Parse query to determine affected shards
         affected_shards = self._get_affected_shards(query)
         
-        # Parallel query execution
+# Parallel query execution
         futures = []
         with ThreadPoolExecutor(max_workers=len(affected_shards)) as executor:
             for shard_id in affected_shards:
                 future = executor.submit(self.shards[shard_id].query, query)
                 futures.append(future)
         
-        # Merge results
+# Merge results
         results = []
         for future in futures:
             shard_result = future.result()
@@ -349,22 +349,22 @@ class QueryEngine:
     
     async def execute_query(self, query_string: str) -> TimeSeriesResult:
         """Execute PromQL-style query"""
-        # Check cache first
+# Check cache first
         cache_key = self._get_cache_key(query_string)
         cached_result = await self.cache.get(cache_key)
         if cached_result:
             return cached_result
         
-        # Parse query into AST
+# Parse query into AST
         ast = self.query_parser.parse(query_string)
         
-        # Optimize query plan
+# Optimize query plan
         optimized_ast = self.optimizer.optimize(ast)
         
-        # Execute query
+# Execute query
         result = await self._execute_node(optimized_ast)
         
-        # Cache result with TTL based on time range
+# Cache result with TTL based on time range
         ttl = self._calculate_cache_ttl(ast)
         await self.cache.set(cache_key, result, ttl)
         
@@ -383,7 +383,7 @@ class QueryEngine:
     
     async def _execute_metric_query(self, node: MetricNode) -> TimeSeriesResult:
         """Execute basic metric query"""
-        # Build storage query
+# Build storage query
         storage_query = TSQuery(
             metric=node.metric,
             labels=node.labels,
@@ -391,17 +391,17 @@ class QueryEngine:
             end_time=node.time_range[1]
         )
         
-        # Execute in parallel across shards
+# Execute in parallel across shards
         return await self.storage.query_async(storage_query)
     
     async def _execute_aggregate(self, node: AggregateNode) -> TimeSeriesResult:
         """Execute aggregation function"""
-        # Get child results
+# Get child results
         child_results = await self._execute_node(node.child)
         
-        # Apply aggregation
+# Apply aggregation
         if node.window:
-            # Rolling window aggregation
+# Rolling window aggregation
             return self._apply_rolling_aggregate(
                 child_results, 
                 node.function, 
@@ -409,7 +409,7 @@ class QueryEngine:
                 node.group_by
             )
         else:
-            # Point-wise aggregation
+# Point-wise aggregation
             return self._apply_instant_aggregate(
                 child_results,
                 node.function,
@@ -426,21 +426,21 @@ class QueryEngine:
         """Apply rolling window aggregation"""
         aggregated = TimeSeriesResult()
         
-        # Group series by labels
+# Group series by labels
         grouped = self._group_by_labels(data, group_by)
         
         for group_key, series_list in grouped.items():
-            # Merge series in group
+# Merge series in group
             merged = self._merge_series(series_list)
             
-            # Apply rolling function
+# Apply rolling function
             if func == AggregationType.AVG:
                 result = self._rolling_average(merged, window)
             elif func == AggregationType.SUM:
                 result = self._rolling_sum(merged, window)
             elif func == AggregationType.MAX:
                 result = self._rolling_max(merged, window)
-            # ... other aggregation functions
+# ... other aggregation functions
             
             aggregated.add_series(result)
         
@@ -472,13 +472,13 @@ class AlertRule:
         
         if value > 0:  # Expression evaluated to true
             if series_id not in self.for_state:
-                # Start tracking
+# Start tracking
                 self.for_state[series_id] = datetime.utcnow()
             else:
-                # Check if duration exceeded
+# Check if duration exceeded
                 start_time = self.for_state[series_id]
                 if datetime.utcnow() - start_time >= timedelta(seconds=self.duration):
-                    # Fire alert
+# Fire alert
                     return Alert(
                         rule_id=self.rule_id,
                         name=self.name,
@@ -487,7 +487,7 @@ class AlertRule:
                         fired_at=datetime.utcnow()
                     )
         else:
-            # Clear pending state
+# Clear pending state
             if series_id in self.for_state:
                 del self.for_state[series_id]
         
@@ -507,7 +507,7 @@ class AlertingEngine:
         """Start alert evaluation loop"""
         self.redis = await aioredis.create_redis_pool(self.redis_url)
         
-        # Start evaluation tasks
+# Start evaluation tasks
         tasks = []
         for i in range(4):  # 4 parallel evaluators
             task = asyncio.create_task(self._evaluation_loop(i))
@@ -519,10 +519,10 @@ class AlertingEngine:
         """Main evaluation loop for a worker"""
         while True:
             try:
-                # Get rules assigned to this worker
+# Get rules assigned to this worker
                 assigned_rules = self._get_assigned_rules(worker_id)
                 
-                # Evaluate rules in parallel
+# Evaluate rules in parallel
                 tasks = []
                 for rule in assigned_rules:
                     task = asyncio.create_task(self._evaluate_rule(rule))
@@ -530,7 +530,7 @@ class AlertingEngine:
                 
                 alerts = await asyncio.gather(*tasks)
                 
-                # Process generated alerts
+# Process generated alerts
                 for alert in alerts:
                     if alert:
                         await self._process_alert(alert)
@@ -543,12 +543,12 @@ class AlertingEngine:
     async def _evaluate_rule(self, rule: AlertRule) -> Optional[Alert]:
         """Evaluate single alert rule"""
         try:
-            # Execute rule expression
+# Execute rule expression
             result = await self.query_engine.execute_query(rule.expression)
             
-            # Check each series
+# Check each series
             for series in result.series:
-                # Get latest value
+# Get latest value
                 if series.values:
                     latest_value = series.values[-1]
                     alert = rule.evaluate(latest_value, series.labels)
@@ -563,21 +563,21 @@ class AlertingEngine:
     
     async def _process_alert(self, alert: Alert):
         """Process alert with deduplication and routing"""
-        # Generate alert fingerprint for deduplication
+# Generate alert fingerprint for deduplication
         fingerprint = alert.get_fingerprint()
         
-        # Check if alert already fired recently
+# Check if alert already fired recently
         dedup_key = f"alert:dedup:{fingerprint}"
         if await self.redis.exists(dedup_key):
             return  # Skip duplicate
         
-        # Mark as processed
+# Mark as processed
         await self.redis.setex(dedup_key, 3600, "1")  # 1 hour dedup
         
-        # Store alert in database
+# Store alert in database
         await self._store_alert(alert)
         
-        # Route to handlers
+# Route to handlers
         for handler in self.alert_handlers:
             asyncio.create_task(handler.handle(alert))
     
@@ -595,36 +595,36 @@ class AlertManager:
     
     async def handle_alert(self, alert: Alert):
         """Route alert to appropriate receivers"""
-        # Check silences
+# Check silences
         if self._is_silenced(alert):
             return
         
-        # Check inhibitions
+# Check inhibitions
         if self._is_inhibited(alert):
             return
         
-        # Find matching routes
+# Find matching routes
         matching_routes = self._match_routes(alert)
         
-        # Send notifications
+# Send notifications
         for route in matching_routes:
             await self._send_notification(alert, route)
     
     async def _send_notification(self, alert: Alert, route: Route):
         """Send alert via configured channel"""
-        # Apply notification throttling
+# Apply notification throttling
         throttle_key = f"throttle:{route.receiver}:{alert.get_fingerprint()}"
         if await self._is_throttled(throttle_key, route.repeat_interval):
             return
         
-        # Send based on receiver type
+# Send based on receiver type
         if route.receiver_type == "email":
             await self._send_email(alert, route.config)
         elif route.receiver_type == "slack":
             await self._send_slack(alert, route.config)
         elif route.receiver_type == "pagerduty":
             await self._send_pagerduty(alert, route.config)
-        # ... other notification channels
+# ... other notification channels
 ```
 
 ### 4.4 Distributed Aggregation Pipeline
@@ -643,7 +643,7 @@ class MetricAggregationPipeline:
         
     def create_streaming_pipeline(self):
         """Create real-time aggregation pipeline"""
-        # Read from Kafka
+# Read from Kafka
         raw_metrics = self.spark \
             .readStream \
             .format("kafka") \
@@ -652,7 +652,7 @@ class MetricAggregationPipeline:
             .option("startingOffsets", "latest") \
             .load()
         
-        # Parse metrics
+# Parse metrics
         parsed_metrics = raw_metrics \
             .select(
                 get_json_object(col("value").cast("string"), "$.metric").alias("metric"),
@@ -664,7 +664,7 @@ class MetricAggregationPipeline:
                 ).alias("tags")
             )
         
-        # 1-minute aggregations
+# 1-minute aggregations
         one_min_agg = parsed_metrics \
             .withWatermark("timestamp", "1 minute") \
             .groupBy(
@@ -683,7 +683,7 @@ class MetricAggregationPipeline:
                 percentile_approx("value", 0.99).alias("p99")
             )
         
-        # Write 1-minute aggregations
+# Write 1-minute aggregations
         query_1min = one_min_agg \
             .writeStream \
             .outputMode("append") \
@@ -694,7 +694,7 @@ class MetricAggregationPipeline:
             .trigger(processingTime="30 seconds") \
             .start()
         
-        # 5-minute aggregations from 1-minute data
+# 5-minute aggregations from 1-minute data
         five_min_agg = self.spark \
             .readStream \
             .format("parquet") \
@@ -713,7 +713,7 @@ class MetricAggregationPipeline:
                 sum("count").alias("count")
             )
         
-        # Write 5-minute aggregations
+# Write 5-minute aggregations
         query_5min = five_min_agg \
             .writeStream \
             .outputMode("append") \
@@ -728,14 +728,14 @@ class MetricAggregationPipeline:
     
     def create_anomaly_detection_pipeline(self):
         """Real-time anomaly detection using statistical methods"""
-        # Read real-time metrics
+# Read real-time metrics
         metrics_stream = self.spark \
             .readStream \
             .format("parquet") \
             .option("path", "s3://metrics/aggregated/1min") \
             .load()
         
-        # Calculate baseline statistics using historical data
+# Calculate baseline statistics using historical data
         baseline_stats = self.spark \
             .read \
             .format("parquet") \
@@ -748,7 +748,7 @@ class MetricAggregationPipeline:
                 stddev("avg").alias("baseline_stddev")
             )
         
-        # Join with real-time data and detect anomalies
+# Join with real-time data and detect anomalies
         anomalies = metrics_stream \
             .join(
                 broadcast(baseline_stats),
@@ -765,7 +765,7 @@ class MetricAggregationPipeline:
             ) \
             .filter(col("is_anomaly"))
         
-        # Write anomalies to alert stream
+# Write anomalies to alert stream
         query_anomalies = anomalies \
             .selectExpr(
                 "metric",
@@ -798,7 +798,7 @@ class TracingMetricsCollector:
     
     async def process_span(self, span: Span):
         """Extract metrics from trace span"""
-        # Service-level metrics
+# Service-level metrics
         self.metrics_buffer.record_histogram(
             f"trace.duration.{span.service_name}",
             span.duration_ms,
@@ -809,7 +809,7 @@ class TracingMetricsCollector:
             }
         )
         
-        # Error rate
+# Error rate
         if span.error:
             self.metrics_buffer.increment(
                 f"trace.errors.{span.service_name}",
@@ -820,7 +820,7 @@ class TracingMetricsCollector:
                 }
             )
         
-        # Dependency metrics
+# Dependency metrics
         for child_span in span.children:
             self.metrics_buffer.record_histogram(
                 "trace.dependency.duration",
@@ -844,23 +844,23 @@ class MetricForecasting:
     
     def train_forecast_model(self, historical_data: pd.DataFrame):
         """Train Prophet model on historical metrics"""
-        # Prepare data for Prophet
+# Prepare data for Prophet
         df = historical_data.rename(columns={
             'timestamp': 'ds',
             'value': 'y'
         })
         
-        # Add seasonality components
+# Add seasonality components
         self.prophet_model.add_seasonality(
             name='hourly',
             period=1,
             fourier_order=10
         )
         
-        # Fit model
+# Fit model
         self.prophet_model.fit(df)
         
-        # Generate forecast
+# Generate forecast
         future = self.prophet_model.make_future_dataframe(
             periods=self.forecast_horizon,
             freq='H'
@@ -874,7 +874,7 @@ class MetricForecasting:
         """Detect future capacity issues from forecast"""
         alerts = []
         
-        # Check where forecast exceeds threshold
+# Check where forecast exceeds threshold
         breaches = forecast[forecast['yhat_upper'] > capacity_threshold]
         
         if not breaches.empty:
@@ -902,16 +902,16 @@ class QueryOptimizer:
     
     def optimize(self, ast: QueryNode) -> QueryNode:
         """Apply optimization rules to query AST"""
-        # Pushdown predicates
+# Pushdown predicates
         ast = self._pushdown_predicates(ast)
         
-        # Merge adjacent aggregations
+# Merge adjacent aggregations
         ast = self._merge_aggregations(ast)
         
-        # Parallelize independent branches
+# Parallelize independent branches
         ast = self._identify_parallelism(ast)
         
-        # Pre-aggregate where possible
+# Pre-aggregate where possible
         ast = self._apply_pre_aggregation(ast)
         
         return ast
@@ -919,14 +919,14 @@ class QueryOptimizer:
     def _pushdown_predicates(self, node: QueryNode) -> QueryNode:
         """Push filters down to data source"""
         if isinstance(node, BinaryOpNode):
-            # Recursively optimize children
+# Recursively optimize children
             node.left = self._pushdown_predicates(node.left)
             node.right = self._pushdown_predicates(node.right)
             
-            # Check if we can push down
+# Check if we can push down
             if node.operator == "AND" and isinstance(node.left, FilterNode):
                 if isinstance(node.right, MetricNode):
-                    # Push filter into metric query
+# Push filter into metric query
                     node.right.labels.update(node.left.labels)
                     return node.right
         
@@ -940,18 +940,18 @@ class AdaptiveCompression:
     
     def select_compression(self, data: np.array) -> CompressionMethod:
         """Select optimal compression method"""
-        # Analyze data characteristics
+# Analyze data characteristics
         variance = np.var(data)
         unique_ratio = len(np.unique(data)) / len(data)
         
         if variance < 0.01:
-            # Low variance - use RLE
+# Low variance - use RLE
             return RunLengthEncoding()
         elif unique_ratio < 0.1:
-            # Few unique values - use dictionary
+# Few unique values - use dictionary
             return DictionaryCompression()
         else:
-            # High variance - use Gorilla
+# High variance - use Gorilla
             return GorillaCompression()
 ```
 
@@ -972,15 +972,15 @@ class ResilientIngestion:
     async def ingest_with_fallback(self, metrics: List[Metric]):
         """Ingest with local buffering on failure"""
         if self.circuit_breaker.is_open():
-            # Write to local buffer
+# Write to local buffer
             await self.local_buffer.enqueue(metrics)
             return
         
         try:
-            # Try remote ingestion
+# Try remote ingestion
             await self.remote_ingest(metrics)
             
-            # Drain local buffer if successful
+# Drain local buffer if successful
             if not self.local_buffer.is_empty():
                 buffered = await self.local_buffer.dequeue_batch(1000)
                 await self.remote_ingest(buffered)
@@ -998,14 +998,14 @@ class QueryResilience:
     async def execute_with_degradation(self, query: Query) -> Result:
         """Execute query with graceful degradation"""
         try:
-            # Try full precision query
+# Try full precision query
             return await self.execute_full_query(query)
         except TimeoutError:
-            # Fall back to sampled data
+# Fall back to sampled data
             logger.warning("Query timeout, falling back to sampling")
             return await self.execute_sampled_query(query, sample_rate=0.1)
         except StorageError:
-            # Fall back to cache-only
+# Fall back to cache-only
             logger.error("Storage error, using cache only")
             return await self.execute_cache_only_query(query)
 ```

@@ -19,7 +19,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🧪 Hands-On Labs
+## Hands-On Labs
 
 ### Lab 1: Production-Safe CLI Design
 
@@ -68,25 +68,25 @@ class SafeCLI:
         
     def detect_context(self) -> CommandContext:
         """Automatically detect execution context"""
-        # TODO: Implement context detection
-        # 1. Check environment variables
-        # 2. Check hostname patterns
-        # 3. Check user permissions
-        # 4. Check for production indicators
+# TODO: Implement context detection
+# 1. Check environment variables
+# 2. Check hostname patterns
+# 3. Check user permissions
+# 4. Check for production indicators
         pass
         
     def execute_command(self, command: str, **kwargs) -> Dict:
         """Safe command execution with multiple checks"""
         
-        # Step 1: Parse and validate command
+# Step 1: Parse and validate command
         parsed = self.parse_command(command)
         if not parsed['valid']:
             return {'error': parsed['error']}
             
-        # Step 2: Assess risk
+# Step 2: Assess risk
         risk = self.risk_assessor.assess(parsed['command'], self.context)
         
-        # Step 3: Apply safety checks based on risk
+# Step 3: Apply safety checks based on risk
         safety_checks = self.get_safety_checks(risk.level)
         
         for check in safety_checks:
@@ -94,12 +94,12 @@ class SafeCLI:
             if not result['passed']:
                 return {'error': result['message'], 'check': check.__name__}
                 
-        # Step 4: Get confirmation if needed
+# Step 4: Get confirmation if needed
         if self.needs_confirmation(risk):
             if not self.get_confirmation(parsed['command'], risk):
                 return {'status': 'cancelled', 'reason': 'user_cancelled'}
                 
-        # Step 5: Execute with audit trail
+# Step 5: Execute with audit trail
         return self.execute_with_audit(parsed['command'], risk)
         
     def get_safety_checks(self, risk_level: RiskLevel) -> List[Callable]:
@@ -198,12 +198,12 @@ class RiskAssessor:
         
     def assess(self, command: Dict, context: CommandContext) -> 'RiskAssessment':
         """Assess command risk"""
-        # TODO: Implement risk assessment based on:
-        # 1. Command pattern matching
-        # 2. Target environment
-        # 3. User permissions
-        # 4. Time of day
-        # 5. Recent incidents
+# TODO: Implement risk assessment based on:
+# 1. Command pattern matching
+# 2. Target environment
+# 3. User permissions
+# 4. Time of day
+# 5. Recent incidents
         pass
 
 # Test the safe CLI
@@ -239,14 +239,14 @@ class ProductionShell:
     def setup_environment(self):
         """Configure production-safe environment"""
         
-        # Visual indicators
+# Visual indicators
         os.environ['PS1'] = '\[\033[41m\]PRODUCTION\[\033[0m\] \u@\h:\w\$ '
         
-        # Safe defaults
+# Safe defaults
         os.environ['PAGER'] = 'less -S'  # Prevent line wrap confusion
         os.environ['EDITOR'] = 'vim -R'  # Read-only by default
         
-        # Command aliases for safety
+# Command aliases for safety
         self.create_safe_aliases()
         
     def create_safe_aliases(self):
@@ -267,11 +267,11 @@ class ProductionShell:
         """Create a safety wrapper for a command"""
         
         def wrapper(*args, **kwargs):
-            # Check if this is actually dangerous
+# Check if this is actually dangerous
             if self.is_dangerous_invocation(safe_command, args):
                 return self.handle_dangerous_command(safe_command, args)
             else:
-                # Execute safely
+# Execute safely
                 return self.execute_safe(safe_command, args)
                 
         return wrapper
@@ -288,11 +288,11 @@ class ProductionShell:
             'tty': os.ttyname(0) if os.isatty(0) else None
         }
         
-        # Local logging
+# Local logging
         with open('/var/log/production_commands.jsonl', 'a') as f:
             f.write(json.dumps(log_entry) + '\n')
             
-        # Remote logging for critical commands
+# Remote logging for critical commands
         if self.is_critical(command):
             self.send_to_audit_service(log_entry)
             
@@ -312,11 +312,11 @@ class ProductionShell:
         
         while True:
             try:
-                # Show context in prompt
+# Show context in prompt
                 prompt = self.build_context_prompt()
                 command = input(prompt)
                 
-                # Process command
+# Process command
                 self.process_command(command)
                 
             except KeyboardInterrupt:
@@ -375,11 +375,11 @@ class IntelligentRunbook:
         
     def load_runbook(self, path: str) -> Dict:
         """Load and validate runbook"""
-        # TODO: Implement runbook loading with:
-        # 1. YAML/JSON parsing
-        # 2. Schema validation
-        # 3. Command safety checks
-        # 4. Prerequisite verification
+# TODO: Implement runbook loading with:
+# 1. YAML/JSON parsing
+# 2. Schema validation
+# 3. Command safety checks
+# 4. Prerequisite verification
         pass
         
     def execute_interactive(self):
@@ -396,11 +396,11 @@ class IntelligentRunbook:
 ╚══════════════════════════════════════════════════════╝
         """)
         
-        # Check prerequisites
+# Check prerequisites
         if not self.check_prerequisites():
             return self.abort("Prerequisites not met")
             
-        # Execute steps
+# Execute steps
         for i, step in enumerate(self.runbook['steps']):
             if not self.execute_step(i + 1, step):
                 if step.get('can_fail', False):
@@ -408,13 +408,13 @@ class IntelligentRunbook:
                 else:
                     return self.handle_failure(i + 1, step)
                     
-        # Success!
+# Success!
         self.complete_runbook()
         
     def execute_step(self, step_num: int, step: Dict) -> bool:
         """Execute a single runbook step"""
         
-        # Show step info
+# Show step info
         print(f"""
 ┌─────────────────────────────────────────────────────┐
 │ Step {step_num}/{len(self.runbook['steps'])}: {step['title']:<40}│
@@ -423,24 +423,24 @@ class IntelligentRunbook:
 └─────────────────────────────────────────────────────┘
         """)
         
-        # TODO: Implement step execution with:
-        # 1. Command execution with timeout
-        # 2. Output validation
-        # 3. Error handling
-        # 4. Progress tracking
-        # 5. Rollback capability
+# TODO: Implement step execution with:
+# 1. Command execution with timeout
+# 2. Output validation
+# 3. Error handling
+# 4. Progress tracking
+# 5. Rollback capability
         
-        # Execute commands
+# Execute commands
         for cmd in step.get('commands', []):
             if not self.execute_command(cmd, step.get('timeout_seconds', 30)):
                 return False
                 
-        # Validate output if specified
+# Validate output if specified
         if 'expected_output' in step:
             if not self.validate_output(step['expected_output']):
                 return False
                 
-        # Human verification if needed
+# Human verification if needed
         if step.get('requires_verification', False):
             if not self.get_operator_verification(step):
                 return False
@@ -450,11 +450,11 @@ class IntelligentRunbook:
     def adaptive_guidance(self, error: Exception, step: Dict) -> Dict:
         """Provide intelligent guidance based on error"""
         
-        # TODO: Implement smart error handling:
-        # 1. Pattern match against known errors
-        # 2. Suggest alternative commands
-        # 3. Offer to search documentation
-        # 4. Connect to on-call if needed
+# TODO: Implement smart error handling:
+# 1. Pattern match against known errors
+# 2. Suggest alternative commands
+# 3. Offer to search documentation
+# 4. Connect to on-call if needed
         
         guidance = {
             'error_type': type(error).__name__,
@@ -463,7 +463,7 @@ class IntelligentRunbook:
             'similar_incidents': []
         }
         
-        # Pattern matching for common issues
+# Pattern matching for common issues
         error_patterns = {
             'Connection refused': {
                 'suggestions': [
@@ -562,23 +562,23 @@ class RunbookTester:
     def test_all_runbooks(self) -> Dict:
         """Test all runbooks in directory"""
         
-        # TODO: Implement comprehensive testing:
-        # 1. Syntax validation
-        # 2. Command safety checks
-        # 3. Dry-run execution
-        # 4. Output validation
-        # 5. Time estimation accuracy
-        # 6. Rollback procedures
+# TODO: Implement comprehensive testing:
+# 1. Syntax validation
+# 2. Command safety checks
+# 3. Dry-run execution
+# 4. Output validation
+# 5. Time estimation accuracy
+# 6. Rollback procedures
         pass
         
     def simulate_incident(self, runbook_name: str, 
                          failure_injection: Optional[Dict] = None) -> Dict:
         """Simulate incident and test runbook response"""
         
-        # TODO: Create realistic test scenarios
-        # Inject failures at different steps
-        # Measure operator decision time
-        # Track recovery success rate
+# TODO: Create realistic test scenarios
+# Inject failures at different steps
+# Measure operator decision time
+# Track recovery success rate
         pass
         
     def chaos_test_runbook(self, runbook_name: str) -> List[Dict]:
@@ -664,8 +664,8 @@ class AdaptiveUI:
             'time_of_day': self.get_circadian_factor()
         }
         
-        # TODO: Implement cognitive load calculation
-        # Range: 0.0 (fresh) to 1.0 (exhausted)
+# TODO: Implement cognitive load calculation
+# Range: 0.0 (fresh) to 1.0 (exhausted)
         pass
         
     def render_dashboard(self, user_id: str) -> Dict:
@@ -715,7 +715,7 @@ class AdaptiveUI:
         """Adapt error messages to cognitive state"""
         
         if cognitive_load > 0.7:
-            # Simple, actionable message
+# Simple, actionable message
             return {
                 'title': 'Something went wrong',
                 'message': self.get_simple_explanation(error),
@@ -723,7 +723,7 @@ class AdaptiveUI:
                 'details_available': True  # But hidden
             }
         else:
-            # Detailed technical message
+# Detailed technical message
             return {
                 'title': f'{type(error).__name__}',
                 'message': str(error),
@@ -768,19 +768,19 @@ class ProgressiveAutomation:
         level = self.get_automation_level()
         
         if level == 0:
-            # Full manual
+# Full manual
             return self.execute_manual(context)
         elif level < 30:
-            # Assisted - suggestions only
+# Assisted - suggestions only
             return self.execute_assisted(context)
         elif level < 70:
-            # Supervised - auto with confirmation
+# Supervised - auto with confirmation
             return self.execute_supervised(context)
         elif level < 95:
-            # Automated with alerts
+# Automated with alerts
             return self.execute_automated_alert(context)
         else:
-            # Fully automated
+# Fully automated
             return self.execute_fully_automated(context)
             
     def execute_assisted(self, context: Dict) -> Dict:
@@ -802,7 +802,7 @@ class ProgressiveAutomation:
             
         print("└─────────────────────────────────────────────────────┘")
         
-        # Human selects and executes
+# Human selects and executes
         choice = input("Select action (or 'manual' for custom): ")
         return self.execute_human_choice(choice, suggestions)
         
@@ -815,25 +815,25 @@ class ProgressiveAutomation:
             'automation_level': self.automation_level
         })
         
-        # Update confidence based on success
+# Update confidence based on success
         if result['status'] == 'success':
             self.confidence_score = min(100, self.confidence_score + 2)
         else:
             self.confidence_score = max(0, self.confidence_score - 10)
             
-        # Adjust automation level
+# Adjust automation level
         self.update_automation_level()
         
     def update_automation_level(self):
         """Gradually increase automation as confidence grows"""
         
-        # TODO: Implement smart automation progression
-        # Consider:
-        # 1. Success rate over time
-        # 2. Consistency of context
-        # 3. Impact of failures
-        # 4. Time since last failure
-        # 5. Operator feedback
+# TODO: Implement smart automation progression
+# Consider:
+# 1. Success rate over time
+# 2. Consistency of context
+# 3. Impact of failures
+# 4. Time since last failure
+# 5. Operator feedback
         pass
 
 # Exercise: Build progressive automation
@@ -927,29 +927,29 @@ class IncidentCommand:
             'communicated_to': []
         }
         
-        # Record decision
+# Record decision
         self.decisions.append(decision)
         self.timeline.append({
             'type': 'decision',
             'decision': decision
         })
         
-        # Communicate to relevant parties
+# Communicate to relevant parties
         self.communicate_decision(decision)
         
-        # Update dashboard
+# Update dashboard
         self.refresh_dashboard()
         
     def generate_sitrep(self) -> str:
         """Generate situation report"""
         
-        # TODO: Create concise situation report
-        # Include:
-        # - Current status
-        # - Impact assessment  
-        # - Actions taken
-        # - Next steps
-        # - Resource needs
+# TODO: Create concise situation report
+# Include:
+# - Current status
+# - Impact assessment
+# - Actions taken
+# - Next steps
+# - Resource needs
         pass
         
     def handoff_command(self, new_commander: str):
@@ -964,10 +964,10 @@ class IncidentCommand:
             'key_contacts': self.get_key_contacts()
         }
         
-        # Generate handoff briefing
+# Generate handoff briefing
         briefing = self.generate_handoff_briefing(handoff_package)
         
-        # Notify all responders
+# Notify all responders
         self.notify_handoff(new_commander)
         
         return briefing
@@ -1021,11 +1021,11 @@ class CommunicationTemplates:
                        update_type: str) -> str:
         """Generate audience-appropriate update"""
         
-        # TODO: Create different messages for different audiences
-        # Technical: Full details, logs, metrics
-        # Management: Impact, timeline, resources
-        # Customers: Apology, timeline, workaround
-        # Legal: Compliance, data impact, remediation
+# TODO: Create different messages for different audiences
+# Technical: Full details, logs, metrics
+# Management: Impact, timeline, resources
+# Customers: Apology, timeline, workaround
+# Legal: Compliance, data impact, remediation
         pass
         
     def status_page_update(self, incident: 'Incident') -> Dict:
@@ -1095,7 +1095,7 @@ Constraints:
 """
 
 class ResilientInterface:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 
@@ -1120,7 +1120,7 @@ Bonus: Make it work via SMS when all else fails
 """
 
 class PerfectRunbook:
-    # Your design here
+# Your design here
     pass
 ```
 
@@ -1145,13 +1145,13 @@ can operators take over effectively?
 """
 
 class HumanCentricAutomation:
-    # Your implementation
+# Your implementation
     pass
 ```
 
 ---
 
-## 🔬 Research Projects
+## Research Projects
 
 ### Project 1: Cognitive Load Measurement
 
@@ -1170,20 +1170,20 @@ class CognitiveLoadMonitor:
         
     def assess_load(self) -> float:
         """Calculate current cognitive load"""
-        # TODO: Implement algorithm combining:
-        # - Response time degradation
-        # - Increase in errors
-        # - Help-seeking behavior
-        # - Decision paralysis indicators
+# TODO: Implement algorithm combining:
+# - Response time degradation
+# - Increase in errors
+# - Help-seeking behavior
+# - Decision paralysis indicators
         pass
         
     def recommend_intervention(self, load: float) -> str:
         """Suggest interventions based on load"""
-        # TODO: Recommendations like:
-        # - Simplify interface
-        # - Suggest break
-        # - Call for backup
-        # - Activate assisted mode
+# TODO: Recommendations like:
+# - Simplify interface
+# - Suggest break
+# - Call for backup
+# - Activate assisted mode
         pass
 
 # Research: Validate against actual incident data
@@ -1204,7 +1204,7 @@ Build NLP model that improves incident communication
 """
 
 class IncidentLanguageAnalyzer:
-    # Your research implementation
+# Your research implementation
     pass
 ```
 
@@ -1255,7 +1255,7 @@ cognitive_principles = [
 
 ---
 
-## 🏆 Skills Assessment
+## Skills Assessment
 
 Rate your understanding (1-5):
 - [ ] Can design safe command interfaces
@@ -1271,7 +1271,7 @@ Rate your understanding (1-5):
 
 ---
 
-## 🎯 Final Challenge: Mission Control System
+## Final Challenge: Mission Control System
 
 ```python
 """
@@ -1298,7 +1298,7 @@ Design the complete human interface system.
 """
 
 class MissionControlInterface:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 

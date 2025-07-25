@@ -21,7 +21,7 @@ last_updated: 2025-01-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Toolbox Analogy
 
@@ -73,7 +73,7 @@ graph TB
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Database Categories and Use Cases
 
@@ -116,9 +116,9 @@ graph LR
 
 ---
 
-## 📊 Interactive Decision Support Tools
+## Interactive Decision Support Tools
 
-### 🎯 Data Storage Decision Tree
+### Data Storage Decision Tree
 
 ```mermaid
 flowchart TD
@@ -151,7 +151,7 @@ flowchart TD
     style CF fill:#c9f,stroke:#333,stroke-width:2px
 ```
 
-### 💰 Database Selection Calculator
+### Database Selection Calculator
 
 | Factor | Your Requirements | Best Fit Score |
 |--------|------------------|----------------|
@@ -175,7 +175,7 @@ flowchart TD
 | Sub-millisecond reads | ___ (0-10) | Cache: +3, KV Store: +2 |
 | High write throughput | ___ (0-10) | Column-Family: +3, Time-Series: +2 |
 
-### 🔄 Migration Strategy Selector
+### Migration Strategy Selector
 
 ```mermaid
 graph TD
@@ -201,7 +201,7 @@ graph TD
     style CDC fill:#fc6,stroke:#333,stroke-width:2px
 ```
 
-### 📈 Cost Comparison Matrix
+### Cost Comparison Matrix
 
 | Database Type | Storage Cost | Compute Cost | Operational Complexity | Total TCO |
 |--------------|--------------|--------------|----------------------|-----------|
@@ -299,7 +299,7 @@ Where N = number of different databases
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Real-World Polyglot Architecture: Netflix
 
@@ -437,7 +437,7 @@ stateDiagram-v2
 
 ---
 
-## 🚀 Level 4: Expert Implementation
+## Level 4: Expert Implementation
 
 ### Production-Ready Polyglot Architecture
 
@@ -558,10 +558,10 @@ class DataSyncService:
         
     async def sync_write(self, entity_type: str, entity: Dict[str, Any]):
         """Write to primary and async to secondaries"""
-        # Write to primary
+# Write to primary
         primary_result = await self._write_primary(entity_type, entity)
         
-        # Async write to secondaries
+# Async write to secondaries
         if self.cdc_enabled:
             await self._cdc_replicate(entity_type, entity)
         else:
@@ -589,13 +589,13 @@ class ProductService:
     async def create_product(self, product: Dict[str, Any]) -> str:
         """Create product with all related data"""
         
-        # Store core product data in MongoDB
+# Store core product data in MongoDB
         product_id = await self.data_layer.repositories["mongodb"].create({
             "collection": "products",
             "document": product
         })
         
-        # Index for search in Elasticsearch
+# Index for search in Elasticsearch
         await self.data_layer.repositories["elasticsearch"].create({
             "index": "products",
             "id": product_id,
@@ -607,7 +607,7 @@ class ProductService:
             }
         })
         
-        # Cache frequently accessed fields in Redis
+# Cache frequently accessed fields in Redis
         await self.data_layer.repositories["redis"].create({
             "key": f"product:{product_id}:summary",
             "value": {
@@ -618,7 +618,7 @@ class ProductService:
             "ttl": 3600  # 1 hour
         })
         
-        # Create nodes for recommendation graph
+# Create nodes for recommendation graph
         await self.data_layer.repositories["neo4j"].create({
             "label": "Product",
             "properties": {
@@ -633,7 +633,7 @@ class ProductService:
     async def search_products(self, query: str, filters: Dict[str, Any]) -> List[Dict]:
         """Search products using Elasticsearch"""
         
-        # Perform search
+# Perform search
         results = await self.data_layer.repositories["elasticsearch"].search({
             "index": "products",
             "query": {
@@ -646,12 +646,12 @@ class ProductService:
             }
         })
         
-        # Enrich with cached data
+# Enrich with cached data
         enriched_results = []
         for hit in results["hits"]:
             product_id = hit["_id"]
             
-            # Try cache first
+# Try cache first
             cached = await self.data_layer.repositories["redis"].read(
                 f"product:{product_id}:summary"
             )
@@ -659,13 +659,13 @@ class ProductService:
             if cached:
                 enriched_results.append(cached)
             else:
-                # Fallback to source database
+# Fallback to source database
                 full_product = await self.data_layer.repositories["mongodb"].read(
                     product_id
                 )
                 enriched_results.append(full_product)
                 
-                # Update cache
+# Update cache
                 await self._update_cache(product_id, full_product)
         
         return enriched_results
@@ -673,7 +673,7 @@ class ProductService:
     async def get_recommendations(self, user_id: str, limit: int = 10) -> List[Dict]:
         """Get product recommendations using graph database"""
         
-        # Query Neo4j for recommendations
+# Query Neo4j for recommendations
         query = """
         MATCH (u:User {id: $user_id})-[:PURCHASED]->(p:Product)
         -[:IN_CATEGORY]->(c:Category)<-[:IN_CATEGORY]-(rec:Product)
@@ -688,7 +688,7 @@ class ProductService:
             {"user_id": user_id, "limit": limit}
         )
         
-        # Enrich with full product data
+# Enrich with full product data
         products = []
         for rec in recommendations:
             product_id = rec["rec"]["id"]
@@ -771,7 +771,7 @@ monitoring:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Advanced Patterns
 
@@ -825,7 +825,7 @@ Based on access patterns, automatically move data to optimal stores:
 
 ---
 
-## 📋 Quick Implementation Guide
+## Quick Implementation Guide
 
 ### Starting Your Polyglot Journey
 

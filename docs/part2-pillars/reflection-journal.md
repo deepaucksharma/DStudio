@@ -55,9 +55,9 @@ ________________________________
 **Next**: [Pattern Catalog Intro →](pattern-catalog-intro.md)
 ---
 
-## 💡 Knowledge Application
+## Knowledge Application
 
-### Exercise 1: Concept Exploration ⭐⭐
+### Exercise 1: Concept Exploration
 **Time**: ~15 minutes
 **Objective**: Deepen understanding of Micro-Reflection Journal
 
@@ -69,7 +69,7 @@ ________________________________
 
 **Application**: Choose one concept and explain it to someone else in your own words.
 
-### Exercise 2: Real-World Connection ⭐⭐⭐
+### Exercise 2: Real-World Connection
 **Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
@@ -84,7 +84,7 @@ ________________________________
 - Systems you use daily
 - Historical technology decisions
 
-### Exercise 3: Critical Thinking ⭐⭐⭐⭐
+### Exercise 3: Critical Thinking
 **Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
@@ -111,7 +111,7 @@ ________________________________
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
 **Immediate Actions**:
 1. One thing you'll research further

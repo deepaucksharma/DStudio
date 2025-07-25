@@ -274,10 +274,10 @@ class EmailSearchIndex:
         self.email_features = {}  # email_id -> features
         
     def index_email(self, email):
-        # Extract searchable fields
+# Extract searchable fields
         tokens = self.tokenize(email.subject + email.body)
         
-        # Add to inverted index with positions
+# Add to inverted index with positions
         for position, token in enumerate(tokens):
             if token not in self.inverted_index:
                 self.inverted_index[token] = []
@@ -289,7 +289,7 @@ class EmailSearchIndex:
                 'weight': self.calculate_weight(token, email)
             })
         
-        # Store email features for ranking
+# Store email features for ranking
         self.email_features[email.id] = {
             'sender_importance': self.get_sender_score(email.sender),
             'recency': email.timestamp,
@@ -298,13 +298,13 @@ class EmailSearchIndex:
         }
     
     def search(self, query, user_id):
-        # Parse query
+# Parse query
         query_terms = self.parse_query(query)
         
-        # Get candidate emails
+# Get candidate emails
         candidates = self.get_candidates(query_terms, user_id)
         
-        # Rank results
+# Rank results
         ranked = self.rank_results(candidates, query_terms)
         
         return ranked[:100]  # Top 100 results
@@ -406,18 +406,18 @@ graph TB
 **Deduplication Strategy:**
 ```python
 def store_attachment(file_data, user_id):
-    # Calculate content hash
+# Calculate content hash
     content_hash = sha256(file_data)
     
-    # Check if already exists
+# Check if already exists
     existing = blob_store.find_by_hash(content_hash)
     
     if existing:
-        # Just add reference
+# Just add reference
         add_reference(existing.blob_id, user_id)
         return existing.blob_id
     else:
-        # Store new blob
+# Store new blob
         blob_id = blob_store.store(file_data)
         blob_store.index_hash(content_hash, blob_id)
         return blob_id
@@ -428,13 +428,13 @@ def store_attachment(file_data, user_id):
 1. **User Sharding Strategy**
    ```python
    def get_shard(user_id):
-       # Consistent hashing for user distribution
+# Consistent hashing for user distribution
        hash_value = consistent_hash(user_id)
        shard_id = hash_value % NUM_SHARDS
        
-       # Handle hot users (celebrities, mailing lists)
+# Handle hot users (celebrities, mailing lists)
        if is_hot_user(user_id):
-           # Dedicated shards for hot users
+# Dedicated shards for hot users
            return get_hot_user_shard(user_id)
        
        return shard_id
@@ -497,7 +497,7 @@ def store_attachment(file_data, user_id):
 ```python
 class ThreadManager:
     def group_into_thread(self, email):
-        # Check References and In-Reply-To headers
+# Check References and In-Reply-To headers
         thread_id = self.find_thread_id(
             email.references,
             email.in_reply_to,
@@ -505,10 +505,10 @@ class ThreadManager:
         )
         
         if not thread_id:
-            # New thread
+# New thread
             thread_id = generate_uuid()
             
-        # Update thread metadata
+# Update thread metadata
         self.update_thread_metadata(thread_id, email)
         
         return thread_id

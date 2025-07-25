@@ -112,15 +112,15 @@ DynamoDB automatically partitions data based on:
 ```python
 # Partition calculation
 def calculate_partitions(table_config):
-    # Based on throughput
+# Based on throughput
     read_partitions = ceil(provisioned_RCU / 3000)
     write_partitions = ceil(provisioned_WCU / 1000)
     throughput_partitions = max(read_partitions, write_partitions)
     
-    # Based on storage
+# Based on storage
     storage_partitions = ceil(table_size_gb / 10)
     
-    # Total partitions
+# Total partitions
     return max(throughput_partitions, storage_partitions)
 ```
 
@@ -169,7 +169,7 @@ class ConsistentHashRing:
                 hash_value = self._hash(virtual_key)
                 self.ring[hash_value] = node
         
-        # Sort for binary search
+# Sort for binary search
         self.sorted_keys = sorted(self.ring.keys())
     
     def get_node(self, key):
@@ -179,7 +179,7 @@ class ConsistentHashRing:
             
         hash_value = self._hash(key)
         
-        # Binary search for next node
+# Binary search for next node
         idx = bisect_right(self.sorted_keys, hash_value)
         if idx == len(self.sorted_keys):
             idx = 0
@@ -192,10 +192,10 @@ class ConsistentHashRing:
 ```python
 def calculate_partition(partition_key, num_partitions):
     """Calculate which partition an item belongs to"""
-    # DynamoDB uses internal hash function
+# DynamoDB uses internal hash function
     hash_value = internal_hash(partition_key)
     
-    # Map to partition
+# Map to partition
     partition = hash_value % num_partitions
     
     return partition
@@ -246,7 +246,7 @@ class DynamoDBPatterns:
     def __init__(self, table):
         self.table = table
     
-    # Pattern 1: Get user by ID
+# Pattern 1: Get user by ID
     def get_user(self, user_id):
         return self.table.get_item(
             Key={
@@ -255,7 +255,7 @@ class DynamoDBPatterns:
             }
         )
     
-    # Pattern 2: Get user orders
+# Pattern 2: Get user orders
     def get_user_orders(self, user_id):
         return self.table.query(
             KeyConditionExpression='PK = :pk AND begins_with(SK, :sk)',
@@ -265,7 +265,7 @@ class DynamoDBPatterns:
             }
         )
     
-    # Pattern 3: Get order by ID
+# Pattern 3: Get order by ID
     def get_order(self, order_id):
         return self.table.query(
             IndexName='GSI1',
@@ -281,7 +281,7 @@ class DynamoDBPatterns:
 ```python
 # Core API operations
 class DynamoDBAPI:
-    # Item operations
+# Item operations
     def put_item(self, item, condition_expression=None):
         """Create or replace an item"""
         params = {'Item': item}
@@ -300,14 +300,14 @@ class DynamoDBAPI:
             params['ConditionExpression'] = condition_expression
         return self.table.update_item(**params)
     
-    # Batch operations
+# Batch operations
     def batch_write(self, items, batch_size=25):
         """Write multiple items efficiently"""
         with self.table.batch_writer() as batch:
             for item in items:
                 batch.put_item(Item=item)
     
-    # Transaction operations
+# Transaction operations
     def transact_write(self, actions):
         """ACID transactions across items"""
         return self.client.transact_write_items(
@@ -429,7 +429,7 @@ class WriteOptimizer:
 ```python
 class DynamoDBCostCalculator:
     def __init__(self):
-        # Pricing per region (us-east-1 example)
+# Pricing per region (us-east-1 example)
         self.pricing = {
             'on_demand': {
                 'write_request': 1.25e-6,  # per request
@@ -459,7 +459,7 @@ class DynamoDBCostCalculator:
                 config['storage_gb'] * self.pricing['provisioned']['storage_gb']
             )
         
-        # Add costs for GSIs, backups, etc.
+# Add costs for GSIs, backups, etc.
         return cost
 ```
 
@@ -467,7 +467,7 @@ class DynamoDBCostCalculator:
 
 1. **Use On-Demand for Variable Workloads**
    ```python
-   # Switch between billing modes based on usage patterns
+# Switch between billing modes based on usage patterns
    def optimize_billing_mode(usage_pattern):
        if usage_pattern.is_predictable and usage_pattern.baseline_high:
            return "PROVISIONED"
@@ -477,7 +477,7 @@ class DynamoDBCostCalculator:
 
 2. **Optimize Data Storage**
    ```python
-   # Compress large attributes
+# Compress large attributes
    def compress_item(item):
        for key, value in item.items():
            if isinstance(value, str) and len(value) > 1000:
@@ -487,7 +487,7 @@ class DynamoDBCostCalculator:
 
 3. **Efficient TTL Usage**
    ```python
-   # Automatic data expiration
+# Automatic data expiration
    def set_ttl(item, days_to_live=30):
        ttl_timestamp = int(time.time() + (days_to_live * 86400))
        item['ttl'] = ttl_timestamp
@@ -500,10 +500,10 @@ class DynamoDBCostCalculator:
 
 1. **Design a shopping cart system using DynamoDB**
    ```python
-   # Key design decisions:
-   # - Single table design
-   # - Session-based carts with TTL
-   # - Optimistic locking for concurrent updates
+# Key design decisions:
+# - Single table design
+# - Session-based carts with TTL
+# - Optimistic locking for concurrent updates
    
    cart_schema = {
        'PK': 'USER#userId',
@@ -518,10 +518,10 @@ class DynamoDBCostCalculator:
 
 2. **Design a real-time leaderboard**
    ```python
-   # Challenges:
-   # - Hot partition on popular games
-   # - Real-time updates
-   # - Global and friend leaderboards
+# Challenges:
+# - Hot partition on popular games
+# - Real-time updates
+# - Global and friend leaderboards
    
    leaderboard_patterns = {
        'global_score': {
@@ -570,7 +570,7 @@ class DynamoDBCostCalculator:
 
 1. **Handling traffic spikes**
    ```python
-   # Auto-scaling configuration
+# Auto-scaling configuration
    auto_scaling_config = {
        'target_tracking': {
            'metric': 'ConsumedReadCapacityUnits',
@@ -585,8 +585,8 @@ class DynamoDBCostCalculator:
 
 2. **Optimizing for large item collections**
    ```python
-   # Item collection size limit: 10GB
-   # Solution: Distribute across multiple partitions
+# Item collection size limit: 10GB
+# Solution: Distribute across multiple partitions
    
    def shard_large_collection(user_id, shard_count=10):
        shard = hash(user_id) % shard_count

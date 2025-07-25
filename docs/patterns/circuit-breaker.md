@@ -23,7 +23,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The House Circuit Breaker Analogy
 
@@ -84,7 +84,7 @@ stateDiagram-v2
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Core Principles
 
@@ -174,7 +174,7 @@ flowchart TD
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Circuit Breaker Types
 
@@ -284,7 +284,7 @@ Key Metrics to Track:
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Implementation Examples
 
@@ -512,17 +512,17 @@ flowchart LR
 **Smart Threshold Configuration**:
 ```yaml
 error_thresholds:
-  # Network errors - more tolerant
+# Network errors - more tolerant
   connection_timeout:
     threshold: 10 failures
     window: 30 seconds
     
-  # Application errors - less tolerant  
+# Application errors - less tolerant
   http_5xx:
     threshold: 5 failures
     window: 10 seconds
     
-  # Critical errors - immediate
+# Critical errors - immediate
   out_of_memory:
     threshold: 1 failure
     window: immediate
@@ -635,7 +635,7 @@ sequenceDiagram
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Next-Generation Patterns
 
@@ -732,7 +732,7 @@ Continuous Validation:
 
 ---
 
-## 📊 Real-World Case Studies
+## Real-World Case Studies
 
 ### Case Study 1: Amazon Prime Day 2018
 
@@ -763,7 +763,7 @@ Continuous Validation:
 
 ---
 
-## 🏆 Best Practices
+## Best Practices
 
 ### 1. Start with Sensible Defaults
 
@@ -799,7 +799,7 @@ Clear runbooks for when circuits open:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Decision Framework
 

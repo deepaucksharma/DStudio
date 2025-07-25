@@ -109,23 +109,23 @@ graph TB
 ```python
 class SpeechRecognitionPipeline:
     def process_audio(self, audio_stream):
-        # 1. Audio preprocessing
+# 1. Audio preprocessing
         processed_audio = self.preprocess_audio(
             audio_stream,
             noise_reduction=True,
             normalization=True
         )
         
-        # 2. Feature extraction
+# 2. Feature extraction
         features = self.extract_features(processed_audio)
         
-        # 3. Acoustic model
+# 3. Acoustic model
         phonemes = self.acoustic_model.predict(features)
         
-        # 4. Language model
+# 4. Language model
         text_candidates = self.language_model.decode(phonemes)
         
-        # 5. Contextual rescoring
+# 5. Contextual rescoring
         best_transcript = self.rescore_with_context(
             text_candidates,
             user_context=self.get_user_context()
@@ -143,20 +143,20 @@ class SpeechRecognitionPipeline:
 ```python
 class NLUPipeline:
     def understand(self, text, context):
-        # 1. Tokenization and normalization
+# 1. Tokenization and normalization
         tokens = self.tokenize(text)
         
-        # 2. Intent classification
+# 2. Intent classification
         intent_scores = self.intent_classifier.predict(tokens)
         intent = self.select_intent(intent_scores, context)
         
-        # 3. Entity extraction
+# 3. Entity extraction
         entities = self.entity_extractor.extract(tokens, intent)
         
-        # 4. Slot filling
+# 4. Slot filling
         slots = self.fill_slots(intent, entities, context)
         
-        # 5. Disambiguation
+# 5. Disambiguation
         if self.needs_disambiguation(slots):
             clarification = self.generate_clarification(slots)
             return {'needs_clarification': True, 'question': clarification}
@@ -174,10 +174,10 @@ class IntentClassifier:
         self.intent_head = IntentClassificationHead()
         
     def predict(self, tokens):
-        # BERT embeddings
+# BERT embeddings
         embeddings = self.bert_model(tokens)
         
-        # Intent classification
+# Intent classification
         intent_logits = self.intent_head(embeddings)
         
         return softmax(intent_logits)
@@ -192,20 +192,20 @@ class DialogManager:
         self.policy_network = DialogPolicyNetwork()
         
     def manage_dialog(self, nlu_output, user_id):
-        # 1. Load conversation context
+# 1. Load conversation context
         context = self.context_store.get(user_id)
         
-        # 2. Update context with new turn
+# 2. Update context with new turn
         context.add_turn(nlu_output)
         
-        # 3. Determine dialog act
+# 3. Determine dialog act
         dialog_act = self.policy_network.predict(
             current_intent=nlu_output['intent'],
             context=context,
             slots=nlu_output['slots']
         )
         
-        # 4. Execute action
+# 4. Execute action
         if dialog_act.type == 'FULFILL':
             result = self.fulfill_action(dialog_act, context)
         elif dialog_act.type == 'CLARIFY':
@@ -213,7 +213,7 @@ class DialogManager:
         elif dialog_act.type == 'CONFIRM':
             result = self.request_confirmation(dialog_act)
         
-        # 5. Update context
+# 5. Update context
         context.add_system_turn(result)
         self.context_store.save(user_id, context)
         
@@ -245,18 +245,18 @@ class ActionFulfillment:
         self.service_client = ServiceClient()
         
     def fulfill(self, intent, slots, context):
-        # 1. Find appropriate action
+# 1. Find appropriate action
         action = self.action_registry.find_action(intent)
         
-        # 2. Validate parameters
+# 2. Validate parameters
         if not self.validate_slots(action, slots):
             return self.request_missing_slots(action, slots)
         
-        # 3. Check permissions
+# 3. Check permissions
         if not self.check_permissions(action, context.user_id):
             return self.request_permission(action)
         
-        # 4. Execute action
+# 4. Execute action
         try:
             if action.is_internal:
                 result = self.execute_internal(action, slots)
@@ -269,7 +269,7 @@ class ActionFulfillment:
             return self.handle_error(e, action)
     
     def execute_external(self, action, slots):
-        # Call third-party service
+# Call third-party service
         request = self.build_request(action, slots)
         response = self.service_client.call(
             action.endpoint,
@@ -288,18 +288,18 @@ class DeviceSyncManager:
         self.sync_queue = Queue()
         
     def handle_request(self, request, device_id):
-        # 1. Check device capabilities
+# 1. Check device capabilities
         device = self.device_registry.get(device_id)
         
-        # 2. Route to appropriate device if needed
+# 2. Route to appropriate device if needed
         if self.should_handoff(request, device):
             target_device = self.find_best_device(request)
             return self.handoff_to_device(request, target_device)
         
-        # 3. Process on current device
+# 3. Process on current device
         response = self.process_request(request)
         
-        # 4. Sync state across devices
+# 4. Sync state across devices
         self.sync_state({
             'user_id': request.user_id,
             'context': request.context,
@@ -309,7 +309,7 @@ class DeviceSyncManager:
         return response
     
     def sync_state(self, state):
-        # Push to all user's devices
+# Push to all user's devices
         devices = self.device_registry.get_user_devices(state['user_id'])
         for device in devices:
             self.sync_queue.push({
@@ -350,11 +350,11 @@ message ConversationTurn {
 ```python
 class KnowledgeGraphConnector:
     def enrich_query(self, query, entities):
-        # Connect to Google's Knowledge Graph
+# Connect to Google's Knowledge Graph
         kg_entities = []
         
         for entity in entities:
-            # Lookup entity in KG
+# Lookup entity in KG
             kg_result = self.kg_client.search(
                 query=entity.value,
                 types=entity.possible_types,
@@ -385,13 +385,13 @@ class EdgeProcessor:
         }
         
     def process_locally(self, audio):
-        # Try local processing first
+# Try local processing first
         if self.can_process_locally(audio):
             result = self.local_models['common_commands'].process(audio)
             if result.confidence > 0.9:
                 return result
         
-        # Fall back to cloud
+# Fall back to cloud
         return self.send_to_cloud(audio)
 ```
 
@@ -403,27 +403,27 @@ class ResponseCache:
         self.personal_cache = {}  # Per-user caches
         
     def get_response(self, intent, slots, user_id):
-        # Check if response can be cached
+# Check if response can be cached
         if not self.is_cacheable(intent):
             return None
             
-        # Generate cache key
+# Generate cache key
         cache_key = self.generate_key(intent, slots)
         
-        # Check personal cache first
+# Check personal cache first
         if user_id in self.personal_cache:
             response = self.personal_cache[user_id].get(cache_key)
             if response and not response.is_expired():
                 return response
         
-        # Check global cache
+# Check global cache
         return self.cache.get(cache_key)
 ```
 
 ### 3. Parallel Processing
 ```python
 async def process_request_parallel(request):
-    # Run independent components in parallel
+# Run independent components in parallel
     tasks = [
         speech_recognition(request.audio),
         fetch_user_context(request.user_id),
@@ -434,7 +434,7 @@ async def process_request_parallel(request):
     results = await asyncio.gather(*tasks)
     transcript, context, capabilities, likely_actions = results
     
-    # Continue with NLU using all information
+# Continue with NLU using all information
     return await process_nlu(transcript, context, capabilities)
 ```
 
@@ -457,7 +457,7 @@ class PrivacyPreservingAssistant:
         )
     
     def federated_learning_update(self):
-        # Contribute to model improvement without sending data
+# Contribute to model improvement without sending data
         local_gradients = self.compute_local_gradients()
         encrypted_gradients = self.encrypt_gradients(local_gradients)
         self.send_encrypted_update(encrypted_gradients)

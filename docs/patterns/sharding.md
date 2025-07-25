@@ -20,7 +20,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Library Analogy
 
@@ -90,7 +90,7 @@ flowchart LR
 
 ---
 
-## 🏗️ Level 2: Foundation
+## Level 2: Foundation
 
 ### Sharding Strategies Comparison
 
@@ -247,7 +247,7 @@ graph TB
 
 ---
 
-## 🔧 Level 3: Deep Dive
+## Level 3: Deep Dive
 
 ### Advanced Sharding Patterns
 
@@ -267,22 +267,22 @@ class DynamicResharding:
     ):
         """Split one shard into multiple shards"""
         async with self.migration_lock:
-            # Phase 1: Prepare
+# Phase 1: Prepare
             migration_id = self._create_migration_record(
                 source_shard_id, target_shard_ids
             )
             
-            # Phase 2: Dual writes
+# Phase 2: Dual writes
             await self._enable_dual_writes(
                 source_shard_id, target_shard_ids
             )
             
-            # Phase 3: Backfill historical data
+# Phase 3: Backfill historical data
             await self._backfill_data(
                 source_shard_id, target_shard_ids, migration_id
             )
             
-            # Phase 4: Verify consistency
+# Phase 4: Verify consistency
             consistent = await self._verify_consistency(
                 source_shard_id, target_shard_ids
             )
@@ -291,7 +291,7 @@ class DynamicResharding:
                 await self._rollback_migration(migration_id)
                 raise Exception("Migration consistency check failed")
             
-            # Phase 5-7: Switch, disable, cleanup
+# Phase 5-7: Switch, disable, cleanup
             await self._switch_reads(target_shard_ids)
             await self._disable_shard(source_shard_id)
             await self._cleanup_old_shard(source_shard_id)
@@ -331,12 +331,12 @@ class DynamicResharding:
     async def _write_batch(self, batch: List[tuple], migration_id: str):
         """Write batch of records to target shards"""
         
-        # Group by target shard
+# Group by target shard
         by_shard = defaultdict(list)
         for target_id, row in batch:
             by_shard[target_id].append(row)
         
-        # Write to each shard in parallel
+# Write to each shard in parallel
         tasks = []
         for target_id, rows in by_shard.items():
             task = self._write_to_shard(target_id, rows, migration_id)
@@ -360,17 +360,17 @@ class ShardAwareCache:
         shard_id = self.router.get_shard_id(key)
         cache_key = f"shard:{shard_id}:key:{key}"
         
-        # Check L1 cache
+# Check L1 cache
         if cache_key in self.local_cache:
             return self.local_cache[cache_key]
         
-        # Check L2 cache
+# Check L2 cache
         value = await self.cache.get(cache_key)
         if value is not None:
             self.local_cache[cache_key] = value
             return value
         
-        # Cache miss - fetch from shard
+# Cache miss - fetch from shard
         shard_conn = self.router.get_connection(key)
         value = await self._fetch_from_shard(shard_conn, key)
         
@@ -383,7 +383,7 @@ class ShardAwareCache:
     async def invalidate_shard(self, shard_id: int):
         """Invalidate all cache entries for a shard"""
         
-        # Clear L1 cache for this shard
+# Clear L1 cache for this shard
         keys_to_remove = [
             k for k in self.local_cache 
             if k.startswith(f"shard:{shard_id}:")
@@ -391,7 +391,7 @@ class ShardAwareCache:
         for key in keys_to_remove:
             del self.local_cache[key]
         
-        # Clear L2 cache
+# Clear L2 cache
         await self.cache.delete_pattern(f"shard:{shard_id}:*")
 ```
 
@@ -413,10 +413,10 @@ class GlobalSecondaryIndex:
     ):
         """Update global secondary index"""
         
-        # Determine which index shard handles this value
+# Determine which index shard handles this value
         index_shard_id = self._get_index_shard(indexed_value)
         
-        # Store mapping: indexed_value -> (primary_key, data_shard_id)
+# Store mapping: indexed_value -> (primary_key, data_shard_id)
         index_conn = self.get_index_connection(index_shard_id)
         
         await index_conn.execute("""
@@ -435,7 +435,7 @@ class GlobalSecondaryIndex:
     ) -> List[Dict]:
         """Query using global secondary index"""
         
-        # Step 1: Look up in index to find which shards have data
+# Step 1: Look up in index to find which shards have data
         index_shard_id = self._get_index_shard(indexed_value)
         index_conn = self.get_index_connection(index_shard_id)
         
@@ -445,12 +445,12 @@ class GlobalSecondaryIndex:
             WHERE indexed_value = %s
         """.format(index_name=self.index_name), (indexed_value,))
         
-        # Step 2: Group by data shard
+# Step 2: Group by data shard
         by_shard = defaultdict(list)
         for row in rows:
             by_shard[row['data_shard_id']].append(row['primary_key'])
         
-        # Step 3: Fetch from data shards in parallel
+# Step 3: Fetch from data shards in parallel
         tasks = []
         for shard_id, keys in by_shard.items():
             task = self._fetch_from_data_shard(shard_id, keys)
@@ -458,13 +458,13 @@ class GlobalSecondaryIndex:
         
         results = await asyncio.gather(*tasks)
         
-        # Flatten results
+# Flatten results
         return [item for sublist in results for item in sublist]
 ```
 
 ---
 
-## 🚀 Level 4: Expert
+## Level 4: Expert
 
 ### Production Case Study: Discord's Sharding Architecture
 
@@ -602,7 +602,7 @@ class VitessShardingManager:
             'shard_count': config['shard_count']
         }
         
-        # Create vindex based on type
+# Create vindex based on type
         if config['vindex_type'] == 'hash':
             self.vindex_map[table] = HashVindex(config['shard_count'])
         elif config['vindex_type'] == 'range':
@@ -621,24 +621,24 @@ class VitessShardingManager:
         4. Merge results
         """
         
-        # Parse query
+# Parse query
         parsed = self.parse_query(query)
         table = parsed['table']
         conditions = parsed['conditions']
         
-        # Determine target shards
+# Determine target shards
         target_shards = self.get_target_shards(table, conditions)
         
-        # Scatter query to shards
+# Scatter query to shards
         shard_queries = []
         for shard_id in target_shards:
             shard_query = self.rewrite_query_for_shard(query, shard_id)
             shard_queries.append((shard_id, shard_query))
         
-        # Execute in parallel
+# Execute in parallel
         results = self.execute_scatter_gather(shard_queries)
         
-        # Merge results based on query type
+# Merge results based on query type
         if parsed['query_type'] == 'SELECT':
             return self.merge_select_results(results, parsed)
         elif parsed['query_type'] == 'AGGREGATE':
@@ -654,16 +654,16 @@ class VitessShardingManager:
         3. Rollback if any failed
         """
         
-        # Group operations by shard
+# Group operations by shard
         ops_by_shard = defaultdict(list)
         for op in operations:
             shard_id = self.get_shard_for_operation(op)
             ops_by_shard[shard_id].append(op)
         
-        # Start distributed transaction
+# Start distributed transaction
         dtx_id = self.generate_dtx_id()
         
-        # Phase 1: Prepare
+# Phase 1: Prepare
         prepare_results = {}
         for shard_id, shard_ops in ops_by_shard.items():
             try:
@@ -674,11 +674,11 @@ class VitessShardingManager:
                 )
                 prepare_results[shard_id] = prepared
             except Exception as e:
-                # Prepare failed, abort
+# Prepare failed, abort
                 self.abort_transaction(dtx_id, prepare_results)
                 raise
         
-        # Phase 2: Commit
+# Phase 2: Commit
         for shard_id in prepare_results:
             self.commit_on_shard(shard_id, dtx_id)
         
@@ -698,7 +698,7 @@ class ShardingEconomicsAnalyzer:
     ) -> Dict:
         """Calculate ROI of implementing sharding"""
         
-        # Current costs (single large database)
+# Current costs (single large database)
         current_costs = {
             'hardware': self._calculate_vertical_scaling_cost(
                 current_state['data_size_tb'],
@@ -710,7 +710,7 @@ class ShardingEconomicsAnalyzer:
                        current_state['revenue_per_hour']
         }
         
-        # Projected costs with sharding
+# Projected costs with sharding
         shard_count = sharding_proposal['shard_count']
         sharded_costs = {
             'hardware': self._calculate_horizontal_scaling_cost(
@@ -724,7 +724,7 @@ class ShardingEconomicsAnalyzer:
             'migration': sharding_proposal['migration_hours'] * 150
         }
         
-        # Benefits
+# Benefits
         benefits = {
             'improved_performance': self._calculate_performance_value(
                 current_state['avg_latency_ms'],
@@ -740,7 +740,7 @@ class ShardingEconomicsAnalyzer:
             ) * current_state['revenue_per_hour']
         }
         
-        # Calculate ROI
+# Calculate ROI
         annual_savings = (
             sum(current_costs.values()) - 
             sum(sharded_costs.values()) + 
@@ -763,7 +763,7 @@ class ShardingEconomicsAnalyzer:
 
 ---
 
-## 🎯 Level 5: Mastery
+## Level 5: Mastery
 
 ### Theoretical Foundations
 
@@ -793,22 +793,22 @@ class OptimalShardingCalculator:
         """
         
         def cost_function(shard_count):
-            # Hardware cost (decreases with more shards due to smaller instances)
+# Hardware cost (decreases with more shards due to smaller instances)
             hw_cost = self._hardware_cost(
                 total_data_size / shard_count,
                 query_rate / shard_count
             ) * shard_count
             
-            # Operational cost (increases with more shards)
+# Operational cost (increases with more shards)
             ops_cost = self._operational_cost(shard_count)
             
-            # Performance penalty (decreases with more shards)
+# Performance penalty (decreases with more shards)
             perf_penalty = self._performance_penalty(
                 query_rate / shard_count,
                 constraints['max_latency_ms']
             )
             
-            # Cross-shard query penalty (increases with more shards)
+# Cross-shard query penalty (increases with more shards)
             cross_shard_penalty = self._cross_shard_penalty(
                 shard_count,
                 constraints['cross_shard_query_ratio']
@@ -816,7 +816,7 @@ class OptimalShardingCalculator:
             
             return hw_cost + ops_cost + perf_penalty + cross_shard_penalty
         
-        # Find optimal shard count
+# Find optimal shard count
         result = minimize_scalar(
             cost_function,
             bounds=(1, 100),
@@ -825,11 +825,11 @@ class OptimalShardingCalculator:
         
         optimal_shards = int(result.x)
         
-        # Calculate characteristics at optimal point
+# Calculate characteristics at optimal point
         shard_size = total_data_size / optimal_shards
         shard_qps = query_rate / optimal_shards
         
-        # Project growth
+# Project growth
         years_until_reshard = self._calculate_reshard_timeline(
             shard_size,
             shard_qps,
@@ -852,8 +852,8 @@ class OptimalShardingCalculator:
     
     def _hardware_cost(self, size_tb: float, qps: float) -> float:
         """Estimate hardware cost for given size and QPS"""
-        # Based on cloud provider pricing
-        # Larger instances have worse $/GB ratio
+# Based on cloud provider pricing
+# Larger instances have worse $/GB ratio
         storage_cost = size_tb * 100 * (1 + 0.1 * np.log(size_tb))
         compute_cost = qps * 0.01 * (1 + 0.05 * np.log(qps))
         return storage_cost + compute_cost
@@ -864,8 +864,8 @@ class OptimalShardingCalculator:
         cross_shard_ratio: float
     ) -> float:
         """Calculate penalty for cross-shard operations"""
-        # More shards = more cross-shard queries
-        # Penalty grows super-linearly
+# More shards = more cross-shard queries
+# Penalty grows super-linearly
         return cross_shard_ratio * (shard_count ** 1.5) * 1000
 ```
 
@@ -910,7 +910,7 @@ class AdvancedShardingAlgorithms:
         n = len(backends)
         lookup = [-1] * table_size
         
-        # Build permutation for each backend
+# Build permutation for each backend
         permutations = []
         for backend in backends:
             offset = hash_1(backend)
@@ -922,7 +922,7 @@ class AdvancedShardingAlgorithms:
             
             permutations.append(permutation)
         
-        # Build lookup table
+# Build lookup table
         next_pos = [0] * n
         for i in range(table_size):
             for j in range(n):
@@ -949,13 +949,13 @@ class AdvancedShardingAlgorithms:
         Ensures no node gets overloaded
         """
         
-        # Calculate capacity for each node
+# Calculate capacity for each node
         avg_load = 1.0 / len(nodes)
         max_load = avg_load * load_factor
         
         node_loads = {node: 0.0 for node in nodes}
         
-        # Try nodes in consistent hash order
+# Try nodes in consistent hash order
         for i in range(len(nodes)):
             node = self._consistent_hash_node(key, nodes, i)
             
@@ -963,7 +963,7 @@ class AdvancedShardingAlgorithms:
                 node_loads[node] += 1.0 / len(nodes)
                 return node
         
-        # Fallback to least loaded
+# Fallback to least loaded
         return min(node_loads.items(), key=lambda x: x[1])[0]
 ```
 
@@ -991,7 +991,7 @@ class AdvancedShardingAlgorithms:
 
 ---
 
-## 📋 Quick Reference
+## Quick Reference
 
 ### Sharding Strategy Selection
 

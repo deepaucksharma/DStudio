@@ -56,7 +56,7 @@ Legend: ███ Strong fit  ██ Good fit  █ Some fit  ░ Minimal
 
 ## 💪 Hands-On Exercises
 
-### Exercise 1: Pattern Recognition ⭐⭐
+### Exercise 1: Pattern Recognition
 **Time**: ~15 minutes
 **Objective**: Identify Pillars ↔ s Mini-Map in existing systems
 
@@ -70,7 +70,7 @@ For each example:
 - What problems it solves in that context
 - What alternatives could have been used
 
-### Exercise 2: Implementation Planning ⭐⭐⭐
+### Exercise 2: Implementation Planning
 **Time**: ~25 minutes
 **Objective**: Design an implementation of Pillars ↔ s Mini-Map
 
@@ -89,7 +89,7 @@ For each example:
 
 **Deliverable**: Architecture diagram + 1-page implementation plan
 
-### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+### Exercise 3: Trade-off Analysis
 **Time**: ~20 minutes
 **Objective**: Evaluate when NOT to use Pillars ↔ s Mini-Map
 
@@ -105,7 +105,7 @@ For each example:
 
 ---
 
-## 🛠️ Code Challenge
+## 🛠 Code Challenge
 
 ### Beginner: Basic Implementation
 Implement a minimal version of Pillars ↔ s Mini-Map in your preferred language.
@@ -129,7 +129,7 @@ Optimize for production use:
 
 ---
 
-## 🎯 Real-World Application
+## Real-World Application
 
 **Project Integration**:
 - How would you introduce Pillars ↔ s Mini-Map to an existing system?

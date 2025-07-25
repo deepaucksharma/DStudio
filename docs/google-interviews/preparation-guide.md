@@ -1,6 +1,6 @@
 # Google System Design Interview Preparation Guide
 
-## 🎯 Preparation Strategy Selector
+## Preparation Strategy Selector
 
 ```mermaid
 flowchart TD
@@ -32,7 +32,7 @@ flowchart TD
     style JDeep fill:#34A853
 ```
 
-## 📈 Preparation Intensity Calculator
+## Preparation Intensity Calculator
 
 <div class="prep-calculator">
 <h3>Calculate Your Study Hours</h3>
@@ -128,7 +128,7 @@ gantt
     Review & Reflect           :crit, d3, 2024-01-01, 56d
 ```
 
-### 📊 Week 1-2: Foundations Dashboard
+### Week 1-2: Foundations Dashboard
 
 <div class="week-dashboard">
 <div class="week-metrics">
@@ -178,7 +178,7 @@ gantt
 </div>
 </div>
 
-### 📊 Week 3-4: Google Technologies Dashboard
+### Week 3-4: Google Technologies Dashboard
 
 <div class="week-dashboard">
 <div class="week-metrics">
@@ -371,7 +371,7 @@ graph LR
 - "On Designing and Deploying Internet-Scale Services" - James Hamilton
 - High Scalability blog - Google architecture posts
 
-## 🎯 Practice Problem Progression
+## Practice Problem Progression
 
 ```mermaid
 graph TD
@@ -407,7 +407,7 @@ graph TD
     style G4 fill:#EA4335
 ```
 
-## 📊 Difficulty & Time Matrix
+## Difficulty & Time Matrix
 
 <div class="problem-matrix">
 <table>
@@ -453,7 +453,7 @@ graph TD
 </table>
 </div>
 
-## 🎯 Practice Problem Sets
+## Practice Problem Sets
 
 ### Beginner Level
 1. URL Shortener - [Reference](../../case-studies/url-shortener.md)
@@ -477,9 +477,9 @@ graph TD
 4. Design Google Photos - ML at scale
 5. Design Google Calendar - Distributed scheduling
 
-## 🧠 Mental Models & Decision Trees
+## Mental Models & Decision Trees
 
-### 🎯 System Design Decision Tree
+### System Design Decision Tree
 
 ```mermaid
 graph TD
@@ -540,7 +540,7 @@ graph TD
 4. **Is it simple?** - Complexity kills
 5. **How do we monitor?** - Observability first
 
-## 🏋️ Optimized Daily Practice Schedule
+## 🏋 Optimized Daily Practice Schedule
 
 <div class="practice-schedule">
 <table>
@@ -581,7 +581,7 @@ graph TD
 </table>
 </div>
 
-### 🎯 Weekly Practice Targets
+### Weekly Practice Targets
 
 ```mermaid
 graph LR
@@ -611,7 +611,7 @@ graph LR
 - Identify improvements
 - Note patterns used
 
-## 📊 Interactive Progress Tracker
+## Interactive Progress Tracker
 
 <div class="progress-tracker">
 <h3>Your Preparation Progress</h3>
@@ -692,9 +692,9 @@ graph LR
 - [ ] Comfortable with ambiguity
 - [ ] Can handle any topic
 
-## 💡 Interview Day Strategy Guide
+## Interview Day Strategy Guide
 
-### 🕰️ Time Management Matrix
+### 🕰 Time Management Matrix
 
 <div class="time-matrix">
 <table>
@@ -792,7 +792,7 @@ graph LR
 - [Latency Calculator](/tools/latency-calculator)
 - [Availability Calculator](/tools/availability-calculator)
 
-## 🎯 Final Success Checklist
+## Final Success Checklist
 
 <div class="final-checklist">
 <h3>Pre-Interview Readiness Assessment</h3>

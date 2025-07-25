@@ -76,11 +76,11 @@ class FinTechLedger:
         self.read_store = ReadStore()
 
     def transfer(self, from_account, to_account, amount):
-        # 1. Validate (read path)
+# 1. Validate (read path)
         if not self.validate_balance(from_account, amount):
             raise InsufficientFunds()
 
-        # 2. Create events (write path)
+# 2. Create events (write path)
         events = [
             DebitEvent(
                 id=uuid4(),
@@ -98,11 +98,11 @@ class FinTechLedger:
             )
         ]
 
-        # 3. Persist events (immutable)
+# 3. Persist events (immutable)
         for event in events:
             self.event_store.append(event)
 
-        # 4. Update read models (async)
+# 4. Update read models (async)
         self.update_projections_async(events)
 
         return TransferResult(
@@ -112,14 +112,14 @@ class FinTechLedger:
 
     def get_balance(self, account, as_of=None):
         if as_of:
-            # Historical query - replay events
+# Historical query - replay events
             return self.replay_events_until(account, as_of)
         else:
-            # Current query - use projection
+# Current query - use projection
             return self.read_store.get_balance(account)
 
     def audit_trail(self, account, start_date, end_date):
-        # Immutable events provide perfect audit
+# Immutable events provide perfect audit
         events = self.event_store.query(
             account=account,
             date_range=(start_date, end_date)

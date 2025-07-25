@@ -126,22 +126,22 @@ class ThunderingHerdSimulation:
     def simulate_reddit_hug(self, spike_multiplier=100):
         timeline = []
         
-        # Sudden traffic spike
+# Sudden traffic spike
         self.requests_per_second *= spike_multiplier
         
         for minute in range(30):
-            # Cache effectiveness degrades under load
+# Cache effectiveness degrades under load
             cache_misses = self.requests_per_second * (1 - self.cache_hit_rate)
             
-            # Database load increases non-linearly
+# Database load increases non-linearly
             db_load = cache_misses * (1 + minute * 0.1)  # Retry amplification
             
-            # System degradation
+# System degradation
             if db_load > self.db_capacity:
                 self.cache_hit_rate *= 0.9  # Cache becomes less effective
                 failed_requests = db_load - self.db_capacity
                 
-                # Retry storm amplification
+# Retry storm amplification
                 self.requests_per_second += failed_requests * 0.5
                 
             timeline.append({
@@ -209,20 +209,20 @@ class MetastableDetector:
         }
         
     def calculate_metastability_risk(self):
-        # Look for hidden accumulation patterns
+# Look for hidden accumulation patterns
         risk_factors = []
         
-        # Retry accumulation
+# Retry accumulation
         retry_trend = self.calculate_trend(self.metrics['retry_rate'])
         if retry_trend > 0.05:  # 5% increase per hour
             risk_factors.append(('retry_accumulation', retry_trend))
             
-        # GC pressure building
+# GC pressure building
         gc_variance = self.calculate_variance(self.metrics['gc_pause_time'])
         if gc_variance > 2.0:  # High variability indicates pressure
             risk_factors.append(('gc_pressure', gc_variance))
             
-        # Connection pool saturation
+# Connection pool saturation
         pool_p99 = self.calculate_percentile(self.metrics['connection_pool_usage'], 99)
         if pool_p99 > 0.8:  # 80% usage at p99
             risk_factors.append(('connection_pressure', pool_p99))
@@ -279,14 +279,14 @@ def routing_performance(utilization, routing_strategy='random'):
     """
     if routing_strategy == 'random':
         if utilization < 0.8:
-            # Below critical threshold - linear degradation
+# Below critical threshold - linear degradation
             avg_wait = utilization / (1 - utilization)
         else:
-            # Above threshold - non-linear explosion
+# Above threshold - non-linear explosion
             avg_wait = (utilization ** 3) / (1 - utilization)
             
     elif routing_strategy == 'least_connections':
-        # More gradual degradation
+# More gradual degradation
         avg_wait = utilization / (1 - utilization)
         
     return avg_wait
@@ -349,7 +349,7 @@ class PowerLawFailures:
         self.stress_level += amount
         
         if self.stress_level > self.failure_threshold:
-            # Avalanche size follows power law
+# Avalanche size follows power law
             avalanche_size = self.calculate_avalanche()
             self.failure_history.append(avalanche_size)
             self.stress_level = 0
@@ -357,11 +357,11 @@ class PowerLawFailures:
         return 0
         
     def calculate_avalanche(self):
-        # Power law: P(size) ~ size^(-alpha)
+# Power law: P(size) ~ size^(-alpha)
         alpha = 1.5  # Typical for critical systems
         base_size = self.stress_level - self.failure_threshold
         
-        # Add randomness following power law
+# Add randomness following power law
         import random
         multiplier = random.paretovariate(alpha)
         
@@ -406,16 +406,16 @@ def system_complexity(components, interactions):
     """
     Calculate emergent complexity as system grows
     """
-    # Base complexity: O(n) for components
+# Base complexity: O(n) for components
     base = components
     
-    # Interaction complexity: O(n²) for potential interactions
+# Interaction complexity: O(n²) for potential interactions
     interaction = interactions ** 2
     
-    # Emergent complexity: O(2^n) for state space
+# Emergent complexity: O(2^n) for state space
     emergent = 2 ** (components / 10)  # Scaled for reasonable numbers
     
-    # Total complexity grows non-linearly
+# Total complexity grows non-linearly
     total = base + interaction + emergent
     
     return {

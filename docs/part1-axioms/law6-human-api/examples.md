@@ -82,20 +82,20 @@ On August 1, 2012, Knight Capital lost $440 million in 45 minutes due to a deplo
 
 2. **Missing Safeguards**
    ```python
-   # What they had
+# What they had
    def deploy_to_servers(servers, version):
        for server in servers:
            deploy(server, version)  # No verification
    
-   # What they needed
+# What they needed
    def deploy_to_servers(servers, version):
-       # Pre-deployment checks
+# Pre-deployment checks
        current_versions = get_current_versions(servers)
        if not all_versions_match(current_versions):
            show_warning_dialog(current_versions)
            require_explicit_confirmation()
        
-       # Deploy with verification
+# Deploy with verification
        for server in servers:
            deploy(server, version)
            verify_deployment(server, version)
@@ -357,12 +357,12 @@ Alert Timeline:
            self.related = []         # Group related alerts
    
    def display_alerts(alerts):
-       # Group by severity and service
+# Group by severity and service
        critical = [a for a in alerts if a.severity == 'CRITICAL']
        if critical:
            show_modal("CRITICAL ALERTS REQUIRE ATTENTION", critical)
        
-       # Aggregate related alerts
+# Aggregate related alerts
        grouped = group_by_service(alerts)
        return render_grouped_view(grouped)
    ```

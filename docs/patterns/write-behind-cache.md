@@ -21,7 +21,7 @@ last_updated: 2025-07-23
 
 ---
 
-## 🎯 Level 1: Intuition
+## Level 1: Intuition
 
 ### The Restaurant Order System Analogy
 
@@ -73,7 +73,7 @@ sequenceDiagram
 
 ---
 
-## 🔬 Level 2: Deep Dive
+## Level 2: Deep Dive
 
 ### Implementation Architecture
 
@@ -170,7 +170,7 @@ class WriteBehindCache:
         self.logger = logging.getLogger(__name__)
         self.metrics = CacheMetrics()
         
-        # Write queue and processing state
+# Write queue and processing state
         self.write_queue = asyncio.Queue()
         self.pending_writes = defaultdict(list)
         self.processing = False
@@ -203,11 +203,11 @@ class WriteBehindCache:
         start_time = datetime.now()
         
         try:
-            # Step 1: Write to cache immediately
+# Step 1: Write to cache immediately
             cache_value = self._serialize(value)
             await self.cache.set(key, cache_value)
             
-            # Step 2: Queue for database write
+# Step 2: Queue for database write
             write_op = WriteOperation(
                 key=key,
                 value=value,
@@ -218,7 +218,7 @@ class WriteBehindCache:
             
             await self.write_queue.put(write_op)
             
-            # Record metrics
+# Record metrics
             duration = (datetime.now() - start_time).total_seconds()
             self.metrics.record_write_behind(key, duration, True)
             
@@ -239,14 +239,14 @@ class WriteBehindCache:
         """
         results = {}
         
-        # Use pipeline for cache writes
+# Use pipeline for cache writes
         pipe = self.cache.pipeline()
         
         for item in items:
             key = f"{table}:{item['id']}"
             pipe.set(key, self._serialize(item))
             
-            # Queue for database
+# Queue for database
             write_op = WriteOperation(
                 key=key,
                 value=item,
@@ -257,7 +257,7 @@ class WriteBehindCache:
             await self.write_queue.put(write_op)
             results[key] = True
         
-        # Execute pipeline
+# Execute pipeline
         await pipe.execute()
         
         return results
@@ -266,7 +266,7 @@ class WriteBehindCache:
         """
         Read from cache (may return stale data during write-behind)
         """
-        # Always read from cache in write-behind pattern
+# Always read from cache in write-behind pattern
         cached_value = await self.cache.get(key)
         
         if cached_value:
@@ -275,11 +275,11 @@ class WriteBehindCache:
         
         self.metrics.record_miss(key)
         
-        # Optional: fetch from database if not in cache
+# Optional: fetch from database if not in cache
         if fetch_func:
             data = await fetch_func()
             if data:
-                # Cache for future reads
+# Cache for future reads
                 await self.cache.set(key, self._serialize(data))
             return data
         
@@ -289,10 +289,10 @@ class WriteBehindCache:
         """
         Delete with write-behind
         """
-        # Remove from cache immediately
+# Remove from cache immediately
         await self.cache.delete(key)
         
-        # Queue delete operation
+# Queue delete operation
         write_op = WriteOperation(
             key=key,
             value=where_clause,
@@ -310,7 +310,7 @@ class WriteBehindCache:
         """
         while self.processing:
             try:
-                # Collect batch of writes
+# Collect batch of writes
                 batch = await self._collect_batch()
                 
                 if batch:
@@ -344,7 +344,7 @@ class WriteBehindCache:
         """
         Process a batch of write operations
         """
-        # Group by table and operation
+# Group by table and operation
         grouped = self._group_operations(batch)
         
         for (table, operation), ops in grouped.items():
@@ -354,7 +354,7 @@ class WriteBehindCache:
                 elif operation == "delete":
                     await self._batch_delete(table, ops)
                     
-                # Mark as completed
+# Mark as completed
                 for op in ops:
                     op.status = WriteStatus.COMPLETED
                     self.metrics.record_write_completed(op.key)
@@ -372,15 +372,15 @@ class WriteBehindCache:
         if not operations:
             return
         
-        # Prepare batch data
+# Prepare batch data
         values = [op.value for op in operations]
         
-        # Use database-specific batch insert/update
+# Use database-specific batch insert/update
         async with self.db.transaction() as tx:
-            # PostgreSQL example with ON CONFLICT
+# PostgreSQL example with ON CONFLICT
             columns = list(values[0].keys())
             
-            # Build query
+# Build query
             query = f"""
                 INSERT INTO {table} ({', '.join(columns)})
                 VALUES %s
@@ -388,7 +388,7 @@ class WriteBehindCache:
                 {', '.join([f"{col} = EXCLUDED.{col}" for col in columns if col != 'id'])}
             """
             
-            # Execute batch
+# Execute batch
             await tx.execute_values(query, values)
     
     async def _handle_failed_batch(
@@ -403,7 +403,7 @@ class WriteBehindCache:
             op.retry_count += 1
             
             if op.retry_count <= self.max_retries:
-                # Re-queue for retry
+# Re-queue for retry
                 op.status = WriteStatus.PENDING
                 await self.write_queue.put(op)
                 self.logger.warning(
@@ -411,7 +411,7 @@ class WriteBehindCache:
                     f"retry {op.retry_count}/{self.max_retries}"
                 )
             else:
-                # Move to dead letter queue
+# Move to dead letter queue
                 op.status = WriteStatus.FAILED
                 await self._move_to_dlq(op, error)
     
@@ -425,7 +425,7 @@ class WriteBehindCache:
             'timestamp': datetime.now().isoformat()
         }
         
-        # Store in DLQ (Redis list)
+# Store in DLQ (Redis list)
         await self.cache.lpush(
             'write_behind:dlq',
             json.dumps(dlq_entry)
@@ -493,16 +493,16 @@ class AdvancedWriteBehindCache(WriteBehindCache):
         """
         Coalesce multiple writes to same key
         """
-        # Check if key has pending write
+# Check if key has pending write
         pending_key = f"pending:{key}"
         existing = await self.cache.get(pending_key)
         
         if existing:
-            # Update only the cache, skip queuing
+# Update only the cache, skip queuing
             await self.cache.set(key, self._serialize(value))
             return True
         
-        # Mark as pending and queue
+# Mark as pending and queue
         await self.cache.setex(pending_key, coalesce_window, "1")
         return await self.write(key, value, table)
     
@@ -516,7 +516,7 @@ class AdvancedWriteBehindCache(WriteBehindCache):
         """
         Priority-based write queuing
         """
-        # Use priority queue for important writes
+# Use priority queue for important writes
         write_op = WriteOperation(
             key=key,
             value=value,
@@ -526,10 +526,10 @@ class AdvancedWriteBehindCache(WriteBehindCache):
         )
         
         if priority > 0:
-            # High priority: process immediately
+# High priority: process immediately
             await self._process_batch([write_op])
         else:
-            # Normal priority: use regular queue
+# Normal priority: use regular queue
             await self.write_queue.put(write_op)
         
         return True
@@ -544,14 +544,14 @@ class AdvancedWriteBehindCache(WriteBehindCache):
         """
         Conditional write-behind based on data characteristics
         """
-        # Determine write strategy
+# Determine write strategy
         use_write_behind = await condition_func(value)
         
         if use_write_behind:
-            # Use write-behind for non-critical data
+# Use write-behind for non-critical data
             return await self.write(key, value, table)
         else:
-            # Use synchronous write for critical data
+# Use synchronous write for critical data
             async with self.db.transaction() as tx:
                 await self._write_to_db_sync(tx, table, value)
                 await self.cache.set(key, self._serialize(value))
@@ -578,7 +578,7 @@ class DurableWriteBehindCache(WriteBehindCache):
         """
         Write with Write-Ahead Logging for durability
         """
-        # Write to WAL first
+# Write to WAL first
         wal_entry = {
             'key': key,
             'value': value,
@@ -589,7 +589,7 @@ class DurableWriteBehindCache(WriteBehindCache):
         
         await self._append_to_wal(wal_entry)
         
-        # Then proceed with normal write-behind
+# Then proceed with normal write-behind
         return await self.write(key, value, table)
     
     async def recover_from_wal(self):
@@ -599,9 +599,9 @@ class DurableWriteBehindCache(WriteBehindCache):
         wal_entries = await self._read_wal()
         
         for entry in wal_entries:
-            # Check if already processed
+# Check if already processed
             if not await self._is_processed(entry['sequence']):
-                # Re-queue for processing
+# Re-queue for processing
                 write_op = WriteOperation(
                     key=entry['key'],
                     value=entry['value'],
@@ -617,10 +617,10 @@ class DurableWriteBehindCache(WriteBehindCache):
         """
         Create checkpoint and truncate WAL
         """
-        # Ensure all pending writes are flushed
+# Ensure all pending writes are flushed
         await self._flush_all_pending()
         
-        # Create checkpoint
+# Create checkpoint
         checkpoint = {
             'timestamp': datetime.now().isoformat(),
             'last_sequence': await self._get_current_sequence()
@@ -628,13 +628,13 @@ class DurableWriteBehindCache(WriteBehindCache):
         
         await self._write_checkpoint(checkpoint)
         
-        # Truncate WAL
+# Truncate WAL
         await self._truncate_wal(checkpoint['last_sequence'])
 ```
 
 ---
 
-## 🏗️ Level 3: Production Patterns
+## Level 3: Production Patterns
 
 ### Performance Optimization
 
@@ -665,52 +665,52 @@ class DurableWriteBehindCache(WriteBehindCache):
 class WriteBehindPitfalls:
     """Common issues and their solutions"""
     
-    # PITFALL 1: Queue Overflow
+# PITFALL 1: Queue Overflow
     async def handle_queue_overflow(self, write_op: WriteOperation):
         """Handle when queue is full"""
         max_queue_size = 10000
         
         if self.write_queue.qsize() >= max_queue_size:
-            # Apply back-pressure
+# Apply back-pressure
             self.metrics.record_backpressure()
             
-            # Option 1: Block until space available
+# Option 1: Block until space available
             await asyncio.wait_for(
                 self.write_queue.put(write_op),
                 timeout=5.0
             )
             
-            # Option 2: Spill to disk
+# Option 2: Spill to disk
             if self.write_queue.qsize() >= max_queue_size:
                 await self._spill_to_disk(write_op)
     
-    # PITFALL 2: Data Loss on Crash
+# PITFALL 2: Data Loss on Crash
     async def ensure_durability(self, operations: List[WriteOperation]):
         """Ensure durability before acknowledging writes"""
-        # Use Redis persistence
+# Use Redis persistence
         if self.redis_persistence_enabled:
-            # Force BGSAVE after critical writes
+# Force BGSAVE after critical writes
             await self.cache.bgsave()
         
-        # Or use external durability
+# Or use external durability
         await self._persist_to_durable_queue(operations)
     
-    # PITFALL 3: Stale Reads During Lag
+# PITFALL 3: Stale Reads During Lag
     async def handle_read_after_write(self, key: str):
         """Ensure read-after-write consistency"""
-        # Check if key has pending writes
+# Check if key has pending writes
         pending = await self._has_pending_writes(key)
         
         if pending:
-            # Option 1: Wait for write to complete
+# Option 1: Wait for write to complete
             await self._wait_for_write_completion(key, timeout=1.0)
             
-            # Option 2: Read from write queue
+# Option 2: Read from write queue
             pending_value = await self._read_from_queue(key)
             if pending_value:
                 return pending_value
         
-        # Normal read from cache
+# Normal read from cache
         return await self.read(key)
 ```
 
@@ -765,7 +765,7 @@ class WriteBehindMonitoring:
 
 ---
 
-## 📊 Comparison with Other Patterns
+## Comparison with Other Patterns
 
 ### Write-Behind vs Other Caching Patterns
 
@@ -803,7 +803,7 @@ flowchart TD
 
 ---
 
-## 🎯 Best Practices
+## Best Practices
 
 <div class="truth-box">
 
@@ -851,11 +851,11 @@ class MetricsCollectionService:
         """Record metric with write-behind for performance"""
         timestamp = timestamp or datetime.now()
         
-        # Create metric key
+# Create metric key
         tag_str = ','.join([f"{k}={v}" for k, v in sorted(tags.items())])
         key = f"metric:{metric_name}:{tag_str}:{timestamp.minute}"
         
-        # Aggregate in cache (increment counter, update stats)
+# Aggregate in cache (increment counter, update stats)
         metric_data = await self.cache.read(key) or {
             'count': 0,
             'sum': 0,
@@ -869,16 +869,16 @@ class MetricsCollectionService:
         metric_data['min'] = min(metric_data['min'], value)
         metric_data['max'] = max(metric_data['max'], value)
         
-        # Keep reservoir sample for percentiles
+# Keep reservoir sample for percentiles
         if len(metric_data['values']) < 100:
             metric_data['values'].append(value)
         else:
-            # Reservoir sampling
+# Reservoir sampling
             idx = random.randint(0, metric_data['count'])
             if idx < 100:
                 metric_data['values'][idx] = value
         
-        # Write-behind with coalescing
+# Write-behind with coalescing
         await self.cache.write_with_coalescing(
             key=key,
             value=metric_data,
@@ -891,7 +891,7 @@ class MetricsCollectionService:
         metrics: List[Dict]
     ):
         """High-performance bulk metric import"""
-        # Group by minute for aggregation
+# Group by minute for aggregation
         grouped = defaultdict(list)
         
         for metric in metrics:
@@ -900,11 +900,11 @@ class MetricsCollectionService:
             )
             grouped[minute_key].append(metric)
         
-        # Process each minute batch
+# Process each minute batch
         for minute, minute_metrics in grouped.items():
             aggregated = self.aggregator.aggregate_metrics(minute_metrics)
             
-            # Write aggregated data
+# Write aggregated data
             await self.cache.write_batch(
                 items=aggregated,
                 table='metrics_aggregated'
@@ -920,17 +920,17 @@ class MetricsCollectionService:
         """Query metrics (may include pending writes)"""
         results = []
         
-        # Generate time buckets
+# Generate time buckets
         current = start_time.replace(second=0, microsecond=0)
         while current <= end_time:
-            # Build key pattern
+# Build key pattern
             if tags:
                 tag_str = ','.join([f"{k}={v}" for k, v in sorted(tags.items())])
                 pattern = f"metric:{metric_name}:{tag_str}:{current.minute}"
             else:
                 pattern = f"metric:{metric_name}:*:{current.minute}"
             
-            # Read from cache (includes pending writes)
+# Read from cache (includes pending writes)
             keys = await self.cache.keys(pattern)
             for key in keys:
                 data = await self.cache.read(key)

@@ -109,10 +109,10 @@ class PhotoUploadService:
         self.storage_service = StorageService()
         
     def upload_photo(self, photo_data, user_id, metadata):
-        # 1. Chunk the photo
+# 1. Chunk the photo
         chunks = self.create_chunks(photo_data)
         
-        # 2. Deduplicate chunks
+# 2. Deduplicate chunks
         unique_chunks = []
         chunk_refs = []
         
@@ -126,7 +126,7 @@ class PhotoUploadService:
                 })
             chunk_refs.append(chunk_hash)
         
-        # 3. Upload unique chunks
+# 3. Upload unique chunks
         for chunk in unique_chunks:
             self.storage_service.store_chunk(
                 chunk['hash'],
@@ -134,7 +134,7 @@ class PhotoUploadService:
             )
             self.dedup_service.mark_stored(chunk['hash'])
         
-        # 4. Create photo record
+# 4. Create photo record
         photo_id = generate_uuid()
         photo_record = {
             'photo_id': photo_id,
@@ -146,10 +146,10 @@ class PhotoUploadService:
             'stored_size': sum(len(c['data']) for c in unique_chunks)
         }
         
-        # 5. Store metadata
+# 5. Store metadata
         self.store_photo_metadata(photo_record)
         
-        # 6. Queue for processing
+# 6. Queue for processing
         self.queue_for_processing(photo_id)
         
         return photo_id
@@ -160,11 +160,11 @@ class DedupService:
         self.hash_db = HashDatabase()
         
     def exists(self, chunk_hash):
-        # Fast check with Bloom filter
+# Fast check with Bloom filter
         if chunk_hash not in self.bloom_filter:
             return False
         
-        # Accurate check in database
+# Accurate check in database
         return self.hash_db.exists(chunk_hash)
     
     def mark_stored(self, chunk_hash):
@@ -187,27 +187,27 @@ class ImageProcessingPipeline:
         ]
         
     def process_photo(self, photo_id):
-        # 1. Load photo
+# 1. Load photo
         photo_data = self.load_photo(photo_id)
         photo = Image.open(photo_data)
         
-        # 2. Generate versions
+# 2. Generate versions
         versions = self.generate_versions(photo)
         
-        # 3. Run ML pipeline
+# 3. Run ML pipeline
         ml_results = {}
         for processor in self.processors:
             result = processor.process(photo)
             ml_results[processor.name] = result
         
-        # 4. Store results
+# 4. Store results
         self.store_processing_results(photo_id, {
             'versions': versions,
             'ml_results': ml_results,
             'processing_time': time.now()
         })
         
-        # 5. Update search index
+# 5. Update search index
         self.update_search_index(photo_id, ml_results)
         
         return ml_results
@@ -215,7 +215,7 @@ class ImageProcessingPipeline:
     def generate_versions(self, photo):
         versions = {}
         
-        # Multiple resolutions for different devices
+# Multiple resolutions for different devices
         resolutions = [
             ('thumbnail', 256),
             ('small', 512),
@@ -246,7 +246,7 @@ class FaceClusteringService:
     def process_faces(self, photo_id, detected_faces):
         face_embeddings = []
         
-        # 1. Generate embeddings for each face
+# 1. Generate embeddings for each face
         for face in detected_faces:
             embedding = self.face_model.get_embedding(face.image)
             face_embeddings.append({
@@ -257,7 +257,7 @@ class FaceClusteringService:
                 'quality_score': face.quality_score
             })
         
-        # 2. Find or create clusters
+# 2. Find or create clusters
         for face_emb in face_embeddings:
             cluster_id = self.find_matching_cluster(
                 face_emb['embedding'],
@@ -265,18 +265,18 @@ class FaceClusteringService:
             )
             
             if not cluster_id:
-                # Create new cluster
+# Create new cluster
                 cluster_id = self.create_new_cluster(face_emb)
             else:
-                # Add to existing cluster
+# Add to existing cluster
                 self.add_to_cluster(cluster_id, face_emb)
         
-        # 3. Periodic re-clustering
+# 3. Periodic re-clustering
         if self.should_recluster():
             self.recluster_faces()
     
     def find_matching_cluster(self, embedding, user_id):
-        # Get user's face clusters
+# Get user's face clusters
         clusters = self.face_db.get_user_clusters(user_id)
         
         best_match = None
@@ -306,21 +306,21 @@ class PhotoSearchService:
         self.index = FAISSIndex(dimension=512)
         
     def search_by_text(self, query, user_id, filters=None):
-        # 1. Encode query
+# 1. Encode query
         query_embedding = self.text_encoder.encode(query)
         
-        # 2. Search in user's photos
+# 2. Search in user's photos
         candidates = self.index.search(
             query_embedding,
             user_id=user_id,
             k=1000  # Get top 1000 candidates
         )
         
-        # 3. Apply filters
+# 3. Apply filters
         if filters:
             candidates = self.apply_filters(candidates, filters)
         
-        # 4. Re-rank with additional signals
+# 4. Re-rank with additional signals
         ranked_results = self.rerank_results(
             candidates,
             query,
@@ -330,36 +330,36 @@ class PhotoSearchService:
         return ranked_results[:100]  # Return top 100
     
     def search_by_image(self, image_data, user_id):
-        # 1. Extract image features
+# 1. Extract image features
         image_embedding = self.image_encoder.encode(image_data)
         
-        # 2. Find similar images
+# 2. Find similar images
         similar_images = self.index.search(
             image_embedding,
             user_id=user_id,
             k=100
         )
         
-        # 3. Deduplicate near-duplicates
+# 3. Deduplicate near-duplicates
         deduplicated = self.deduplicate_similar(similar_images)
         
         return deduplicated
     
     def build_search_query(self, ml_results):
-        # Combine multiple signals for indexing
+# Combine multiple signals for indexing
         features = []
         
-        # Visual features
+# Visual features
         features.append(ml_results['visual_embedding'])
         
-        # Semantic features from detected objects
+# Semantic features from detected objects
         for obj in ml_results['objects']:
             features.append(self.text_encoder.encode(obj['label']))
         
-        # Scene understanding
+# Scene understanding
         features.append(self.text_encoder.encode(ml_results['scene']))
         
-        # Combine features
+# Combine features
         combined = self.combine_features(features)
         
         return combined
@@ -376,7 +376,7 @@ class StorageOptimizer:
     def optimize_storage(self, photo_id):
         photo_metadata = self.get_photo_metadata(photo_id)
         
-        # 1. Compression decision
+# 1. Compression decision
         if self.should_compress(photo_metadata):
             compressed = self.compression_service.compress(
                 photo_data=self.load_photo(photo_id),
@@ -387,7 +387,7 @@ class StorageOptimizer:
             if compressed.size < photo_metadata.size * 0.8:
                 self.replace_with_compressed(photo_id, compressed)
         
-        # 2. Storage tiering
+# 2. Storage tiering
         access_pattern = self.analyze_access_pattern(photo_id)
         
         if access_pattern.is_cold():
@@ -396,17 +396,17 @@ class StorageOptimizer:
             self.tier_manager.move_to_archive(photo_id)
     
     def smart_compression(self, image_data):
-        # Content-aware compression
+# Content-aware compression
         image_analysis = self.analyze_image_content(image_data)
         
         if image_analysis.has_text:
-            # Less aggressive compression for text
+# Less aggressive compression for text
             return self.compress_for_text(image_data)
         elif image_analysis.is_portrait:
-            # Preserve face quality
+# Preserve face quality
             return self.compress_portrait(image_data)
         else:
-            # Standard compression
+# Standard compression
             return self.compress_standard(image_data)
 ```
 
@@ -422,18 +422,18 @@ class PrivacyManager:
         user_settings = self.get_privacy_settings(user_id)
         
         if user_settings.face_grouping_enabled:
-            # Process faces with user consent
+# Process faces with user consent
             return self.process_with_consent(user_id)
         else:
-            # Skip face processing
+# Skip face processing
             return self.skip_face_processing(user_id)
     
     def share_album(self, album_id, owner_id, recipient_ids):
-        # 1. Check sharing permissions
+# 1. Check sharing permissions
         if not self.can_share(album_id, owner_id):
             raise PermissionError()
         
-        # 2. Create sharing tokens
+# 2. Create sharing tokens
         sharing_tokens = {}
         for recipient_id in recipient_ids:
             token = self.create_sharing_token(
@@ -443,7 +443,7 @@ class PrivacyManager:
             )
             sharing_tokens[recipient_id] = token
         
-        # 3. Notify recipients
+# 3. Notify recipients
         self.notify_recipients(sharing_tokens)
         
         return sharing_tokens
@@ -487,19 +487,19 @@ message MLResults {
 ```python
 class PhotoCDN:
     def serve_photo(self, photo_id, version, device_info):
-        # 1. Determine optimal version
+# 1. Determine optimal version
         optimal_version = self.select_version(
             requested_version=version,
             device_info=device_info,
             network_info=self.get_network_info()
         )
         
-        # 2. Get nearest edge location
+# 2. Get nearest edge location
         edge_location = self.get_nearest_edge(
             user_location=device_info.location
         )
         
-        # 3. Check edge cache
+# 3. Check edge cache
         cached_url = self.check_edge_cache(
             edge_location,
             photo_id,
@@ -509,7 +509,7 @@ class PhotoCDN:
         if cached_url:
             return cached_url
         
-        # 4. Fetch and cache
+# 4. Fetch and cache
         return self.fetch_and_cache(
             photo_id,
             optimal_version,
@@ -521,13 +521,13 @@ class PhotoCDN:
 ```python
 class PredictiveCache:
     def prefetch_photos(self, user_id):
-        # Predict which photos user will view
+# Predict which photos user will view
         predictions = self.ml_model.predict_next_views(
             user_id=user_id,
             context=self.get_user_context(user_id)
         )
         
-        # Prefetch top predictions
+# Prefetch top predictions
         for photo_id, probability in predictions[:20]:
             if probability > 0.7:
                 self.cache_photo(photo_id)

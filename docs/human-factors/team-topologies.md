@@ -226,7 +226,7 @@ class ConwayAnalyzer:
     def analyze_alignment(self, teams, services):
         misalignments = []
 
-        # Check service ownership
+# Check service ownership
         for service in services:
             owners = self.find_service_owners(service, teams)
 
@@ -244,7 +244,7 @@ class ConwayAnalyzer:
                     'impact': 'Coordination overhead'
                 })
 
-        # Check team dependencies
+# Check team dependencies
         for team in teams:
             dependencies = self.analyze_team_dependencies(team)
 
@@ -283,7 +283,7 @@ class CognitiveLoadCalculator:
 
         total_load = sum(load_factors.values())
 
-        # Threshold based on team size
+# Threshold based on team size
         capacity = team.size * 50  # 50 points per person
 
         return {
@@ -348,8 +348,8 @@ class PlatformProduct:
         }
 
     def prioritize_features(self):
-        # Use same product management techniques
-        # as external products
+# Use same product management techniques
+# as external products
         return sorted(self.features,
                      key=lambda f: f.user_value / f.effort,
                      reverse=True)
@@ -442,13 +442,13 @@ class OrganizationalScaling:
         }
 
         if sum(indicators.values()) >= 3:
-            # Recommend split
+# Recommend split
             return self.suggest_split_strategy(team)
 
         return None
 
     def suggest_split_strategy(self, team):
-        # Analyze service dependencies
+# Analyze service dependencies
         clusters = self.find_service_clusters(team.services)
 
         return {
@@ -632,7 +632,7 @@ Search Team (owns search functionality)
 
 ## 👥 Practical Application
 
-### Exercise 1: Current State Assessment ⭐⭐
+### Exercise 1: Current State Assessment
 **Time**: ~15 minutes
 **Objective**: Evaluate your team's current practices related to Team Topologies for Distributed Systems
 
@@ -644,7 +644,7 @@ Search Team (owns search functionality)
 
 **Scoring**: Rate each area 1-5 and identify the top 2 areas for improvement.
 
-### Exercise 2: Implementation Planning ⭐⭐⭐
+### Exercise 2: Implementation Planning
 **Time**: ~25 minutes
 **Objective**: Create an actionable improvement plan
 
@@ -659,7 +659,7 @@ Search Team (owns search functionality)
 - Potential obstacles
 - Required resources/support
 
-### Exercise 3: Simulation Exercise ⭐⭐⭐⭐
+### Exercise 3: Simulation Exercise
 **Time**: ~30 minutes
 **Objective**: Practice the concepts in a realistic scenario
 
@@ -679,7 +679,7 @@ Search Team (owns search functionality)
 
 ---
 
-## 🔄 Process Development
+## Process Development
 
 ### Team Workshop Design
 **Goal**: Create a workshop to share these concepts with your team
@@ -709,7 +709,7 @@ Search Team (owns search functionality)
 
 ---
 
-## 🎯 Leadership Application
+## Leadership Application
 
 **For Individual Contributors**:
 - How can you influence positive change without formal authority?

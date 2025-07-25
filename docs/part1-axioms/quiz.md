@@ -195,7 +195,7 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 
 ## Study Resources by Learning Style
 
-### 🎯 Visual Learners
+### Visual Learners
 - Review law diagrams
 - Trace through architecture diagrams
 - Watch latency animations

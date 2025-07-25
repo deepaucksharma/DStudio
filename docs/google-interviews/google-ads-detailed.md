@@ -91,30 +91,30 @@ graph TB
 ```python
 class AdServingPipeline:
     def serve_ad(self, request):
-        # Step 1: User targeting
+# Step 1: User targeting
         user_profile = self.get_user_profile(request.user_id)
         
-        # Step 2: Ad retrieval
+# Step 2: Ad retrieval
         candidate_ads = self.retrieve_candidates(
             targeting_criteria=request.context,
             user_profile=user_profile,
             limit=1000
         )
         
-        # Step 3: ML scoring
+# Step 3: ML scoring
         scored_ads = self.score_ads(
             ads=candidate_ads,
             user_features=user_profile,
             context_features=request.context
         )
         
-        # Step 4: Run auction
+# Step 4: Run auction
         auction_result = self.run_auction(
             scored_ads=scored_ads,
             auction_type="second_price"
         )
         
-        # Step 5: Budget check
+# Step 5: Budget check
         final_ads = self.apply_budget_pacing(
             auction_winners=auction_result.winners,
             current_time=request.timestamp
@@ -124,7 +124,7 @@ class AdServingPipeline:
 
 class AuctionEngine:
     def run_auction(self, bids, auction_type="second_price"):
-        # Sort by effective CPM (bid * CTR * CVR)
+# Sort by effective CPM (bid * CTR * CVR)
         sorted_bids = sorted(
             bids, 
             key=lambda x: x.bid * x.ctr * x.cvr,
@@ -134,7 +134,7 @@ class AuctionEngine:
         winners = []
         for i, bid in enumerate(sorted_bids[:10]):
             if auction_type == "second_price":
-                # Winner pays second highest bid
+# Winner pays second highest bid
                 winning_price = sorted_bids[i+1].bid if i+1 < len(sorted_bids) else bid.reserve_price
             else:
                 winning_price = bid.bid
@@ -159,15 +159,15 @@ class BudgetPacer:
     def should_serve_ad(self, campaign_id, current_time):
         campaign = self.get_campaign(campaign_id)
         
-        # Check hard budget limit
+# Check hard budget limit
         if self.spend_tracker.get_spend(campaign_id) >= campaign.budget:
             return False
         
-        # Calculate pacing rate
+# Calculate pacing rate
         time_remaining = campaign.end_time - current_time
         budget_remaining = campaign.budget - self.spend_tracker.get_spend(campaign_id)
         
-        # Use probabilistic pacing
+# Use probabilistic pacing
         pacing_rate = self.calculate_pacing_rate(
             budget_remaining=budget_remaining,
             time_remaining=time_remaining,
@@ -177,15 +177,15 @@ class BudgetPacer:
         return random.random() < pacing_rate
     
     def calculate_pacing_rate(self, budget_remaining, time_remaining, historical_performance):
-        # Smooth pacing throughout the day
+# Smooth pacing throughout the day
         expected_spend_rate = budget_remaining / time_remaining
         current_spend_rate = historical_performance.recent_spend_rate
         
         if current_spend_rate > expected_spend_rate * 1.2:
-            # Spending too fast, slow down
+# Spending too fast, slow down
             return 0.8
         elif current_spend_rate < expected_spend_rate * 0.8:
-            # Spending too slow, speed up
+# Spending too slow, speed up
             return 1.2
         else:
             return 1.0
@@ -201,23 +201,23 @@ class FraudDetectionPipeline:
         self.pattern_detector = PatternDetector()
     
     def detect_fraud(self, click_event):
-        # Real-time features
+# Real-time features
         features = self.extract_features(click_event)
         
-        # ML-based detection
+# ML-based detection
         ml_score = self.ml_model.predict_proba(features)
         
-        # Rule-based checks
+# Rule-based checks
         rule_violations = self.rule_engine.check(click_event)
         
-        # Pattern detection
+# Pattern detection
         pattern_score = self.pattern_detector.analyze(
             user_id=click_event.user_id,
             ip_address=click_event.ip,
             time_window=3600  # 1 hour
         )
         
-        # Combine signals
+# Combine signals
         fraud_score = self.combine_signals(
             ml_score=ml_score,
             rule_violations=rule_violations,
@@ -232,19 +232,19 @@ class FraudDetectionPipeline:
     
     def extract_features(self, click_event):
         return {
-            # User behavior
+# User behavior
             'clicks_last_hour': self.get_user_clicks(click_event.user_id, 3600),
             'unique_ads_clicked': self.get_unique_ads_clicked(click_event.user_id),
             
-            # Device/Network
+# Device/Network
             'ip_reputation': self.get_ip_reputation(click_event.ip),
             'user_agent_entropy': self.calculate_ua_entropy(click_event.user_agent),
             
-            # Timing patterns
+# Timing patterns
             'click_interval_variance': self.get_click_interval_stats(click_event.user_id),
             'time_of_day_deviation': self.get_tod_deviation(click_event.timestamp),
             
-            # Geographic
+# Geographic
             'location_velocity': self.calculate_location_velocity(click_event),
             'vpn_probability': self.detect_vpn(click_event.ip)
         }
@@ -264,20 +264,20 @@ class AttributionEngine:
         }
     
     def attribute_conversion(self, conversion_event, attribution_model='data_driven'):
-        # Get user's ad interaction history
+# Get user's ad interaction history
         touchpoints = self.get_touchpoints(
             user_id=conversion_event.user_id,
             lookback_window=30 * 24 * 3600  # 30 days
         )
         
-        # Apply attribution model
+# Apply attribution model
         model = self.models[attribution_model]
         attribution_weights = model.calculate_weights(
             touchpoints=touchpoints,
             conversion=conversion_event
         )
         
-        # Distribute credit
+# Distribute credit
         attributed_conversions = []
         for touchpoint, weight in zip(touchpoints, attribution_weights):
             attributed_conversions.append(
@@ -293,23 +293,23 @@ class AttributionEngine:
 
 class DataDrivenAttribution:
     def calculate_weights(self, touchpoints, conversion):
-        # Use Shapley values for fair credit assignment
+# Use Shapley values for fair credit assignment
         n_touchpoints = len(touchpoints)
         weights = np.zeros(n_touchpoints)
         
-        # Calculate marginal contribution of each touchpoint
+# Calculate marginal contribution of each touchpoint
         for i, touchpoint in enumerate(touchpoints):
-            # Get conversion probability with this touchpoint
+# Get conversion probability with this touchpoint
             p_with = self.get_conversion_probability(touchpoints)
             
-            # Get conversion probability without this touchpoint
+# Get conversion probability without this touchpoint
             touchpoints_without = touchpoints[:i] + touchpoints[i+1:]
             p_without = self.get_conversion_probability(touchpoints_without)
             
-            # Marginal contribution
+# Marginal contribution
             weights[i] = p_with - p_without
         
-        # Normalize weights
+# Normalize weights
         return weights / weights.sum()
 ```
 
@@ -323,10 +323,10 @@ class RealtimeReportingPipeline:
         self.cache = DistributedCache()
     
     def process_event(self, event):
-        # Stream processing for real-time metrics
+# Stream processing for real-time metrics
         enriched_event = self.enrich_event(event)
         
-        # Update real-time aggregations
+# Update real-time aggregations
         self.aggregator.update(
             dimensions={
                 'campaign_id': event.campaign_id,
@@ -344,22 +344,22 @@ class RealtimeReportingPipeline:
             timestamp=event.timestamp
         )
         
-        # Update cache for dashboard
+# Update cache for dashboard
         self.update_dashboard_cache(event)
     
     def get_campaign_metrics(self, campaign_id, time_range):
-        # Try cache first
+# Try cache first
         cached_metrics = self.cache.get(f"metrics:{campaign_id}:{time_range}")
         if cached_metrics:
             return cached_metrics
         
-        # Aggregate from multiple sources
+# Aggregate from multiple sources
         metrics = self.aggregate_metrics(
             realtime=self.aggregator.get_metrics(campaign_id, time_range),
             historical=self.get_historical_metrics(campaign_id, time_range)
         )
         
-        # Cache for 1 minute
+# Cache for 1 minute
         self.cache.set(f"metrics:{campaign_id}:{time_range}", metrics, ttl=60)
         
         return metrics
@@ -468,28 +468,28 @@ class AdServingCache:
         self.l2_cache = RedisCache(nodes=100)     # Distributed
         
     def get_ad_metadata(self, ad_ids):
-        # L1 cache check
+# L1 cache check
         l1_results = self.l1_cache.multi_get(ad_ids)
         missing_ids = [id for id in ad_ids if id not in l1_results]
         
         if not missing_ids:
             return l1_results
         
-        # L2 cache check
+# L2 cache check
         l2_results = self.l2_cache.multi_get(missing_ids)
         still_missing = [id for id in missing_ids if id not in l2_results]
         
-        # Database fetch for remaining
+# Database fetch for remaining
         if still_missing:
             db_results = self.fetch_from_database(still_missing)
-            # Populate caches
+# Populate caches
             self.l2_cache.multi_set(db_results, ttl=3600)
             l2_results.update(db_results)
         
-        # Update L1 cache
+# Update L1 cache
         self.l1_cache.multi_set(l2_results, ttl=300)
         
-        # Combine all results
+# Combine all results
         return {**l1_results, **l2_results}
 ```
 
@@ -536,7 +536,7 @@ class MLServingPipeline:
         self.models = {}
         
     def predict_ctr_cvr(self, ad, user, context):
-        # Feature assembly
+# Feature assembly
         features = self.assemble_features(
             ad_features=self.feature_store.get_ad_features(ad.ad_id),
             user_features=self.feature_store.get_user_features(user.user_id),
@@ -544,7 +544,7 @@ class MLServingPipeline:
             cross_features=self.compute_cross_features(ad, user, context)
         )
         
-        # Model inference
+# Model inference
         ctr = self.models['ctr'].predict(features)
         cvr = self.models['cvr'].predict(features)
         
@@ -569,7 +569,7 @@ class MLServingPipeline:
 ### 1. Request Sampling
 ```python
 def should_process_request(request):
-    # Sample low-value requests
+# Sample low-value requests
     if request.estimated_value < 0.001:
         return random.random() < 0.1  # Process 10%
     return True
@@ -631,7 +631,7 @@ class MultiRegionAdServer:
         try:
             return self.serve_from_region(self.primary_region, request)
         except RegionUnavailable:
-            # Failover to closest available region
+# Failover to closest available region
             backup_region = self.get_closest_available_region(
                 request.user_location
             )
