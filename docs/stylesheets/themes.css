@@ -1,0 +1,318 @@
+/* ============================================
+   SECTION-SPECIFIC COLOR THEMES
+   Different visual identities for different content areas
+   ============================================ */
+
+/* === Default Theme Variables === */
+:root {
+  /* Laws Section - Deep Purple */
+  --laws-primary: #5E35B1;
+  --laws-accent: #7E57C2;
+  --laws-bg: #F3E5F5;
+  --laws-text: #4A148C;
+  
+  /* Pillars Section - Teal */
+  --pillars-primary: #00897B;
+  --pillars-accent: #26A69A;
+  --pillars-bg: #E0F2F1;
+  --pillars-text: #004D40;
+  
+  /* Patterns Section - Blue */
+  --patterns-primary: #1976D2;
+  --patterns-accent: #42A5F5;
+  --patterns-bg: #E3F2FD;
+  --patterns-text: #0D47A1;
+  
+  /* Case Studies - Orange */
+  --cases-primary: #F57C00;
+  --cases-accent: #FFB300;
+  --cases-bg: #FFF3E0;
+  --cases-text: #E65100;
+  
+  /* Quantitative - Green */
+  --quant-primary: #388E3C;
+  --quant-accent: #66BB6A;
+  --quant-bg: #E8F5E9;
+  --quant-text: #1B5E20;
+  
+  /* Reference - Gray */
+  --ref-primary: #616161;
+  --ref-accent: #9E9E9E;
+  --ref-bg: #FAFAFA;
+  --ref-text: #212121;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] {
+  --laws-primary: #9575CD;
+  --laws-accent: #B39DDB;
+  --laws-bg: #311B92;
+  --laws-text: #E1BEE7;
+  
+  --pillars-primary: #4DB6AC;
+  --pillars-accent: #80CBC4;
+  --pillars-bg: #00695C;
+  --pillars-text: #B2DFDB;
+  
+  --patterns-primary: #64B5F6;
+  --patterns-accent: #90CAF9;
+  --patterns-bg: #1565C0;
+  --patterns-text: #BBDEFB;
+  
+  --cases-primary: #FFB74D;
+  --cases-accent: #FFCC80;
+  --cases-bg: #EF6C00;
+  --cases-text: #FFE0B2;
+  
+  --quant-primary: #81C784;
+  --quant-accent: #A5D6A7;
+  --quant-bg: #2E7D32;
+  --quant-text: #C8E6C9;
+  
+  --ref-primary: #BDBDBD;
+  --ref-accent: #E0E0E0;
+  --ref-bg: #424242;
+  --ref-text: #F5F5F5;
+}
+
+/* === Section-Specific Styling === */
+
+/* Laws Section (Part 1) */
+[data-section="laws"] .md-header,
+.md-nav__item--active[href*="part1-axioms"] ~ .md-header {
+  background-color: var(--laws-primary) !important;
+}
+
+[data-section="laws"] .md-tabs,
+.md-content__inner [href*="part1-axioms"] {
+  border-bottom-color: var(--laws-accent);
+}
+
+[data-section="laws"] .admonition,
+.md-content__inner [href*="part1-axioms"] .admonition.axiom {
+  background-color: var(--laws-bg);
+  border-left-color: var(--laws-primary);
+}
+
+/* Pillars Section (Part 2) */
+[data-section="pillars"] .md-header,
+.md-nav__item--active[href*="part2-pillars"] ~ .md-header {
+  background-color: var(--pillars-primary) !important;
+}
+
+[data-section="pillars"] .md-tabs,
+.md-content__inner [href*="part2-pillars"] {
+  border-bottom-color: var(--pillars-accent);
+}
+
+[data-section="pillars"] .admonition,
+.md-content__inner [href*="part2-pillars"] .admonition.pillar {
+  background-color: var(--pillars-bg);
+  border-left-color: var(--pillars-primary);
+}
+
+/* Patterns Section */
+[data-section="patterns"] .md-header,
+.md-nav__item--active[href*="patterns/"] ~ .md-header {
+  background-color: var(--patterns-primary) !important;
+}
+
+[data-section="patterns"] .admonition.pattern {
+  background-color: var(--patterns-bg);
+  border-left-color: var(--patterns-primary);
+}
+
+/* Case Studies Section */
+[data-section="cases"] .md-header,
+.md-nav__item--active[href*="case-studies/"] ~ .md-header {
+  background-color: var(--cases-primary) !important;
+}
+
+[data-section="cases"] .admonition.case-study {
+  background-color: var(--cases-bg);
+  border-left-color: var(--cases-primary);
+}
+
+/* Quantitative Section */
+[data-section="quantitative"] .md-header,
+.md-nav__item--active[href*="quantitative/"] ~ .md-header {
+  background-color: var(--quant-primary) !important;
+}
+
+[data-section="quantitative"] .admonition.formula {
+  background-color: var(--quant-bg);
+  border-left-color: var(--quant-primary);
+}
+
+/* === Enhanced Admonition Types === */
+
+/* Axiom Box - Laws */
+.md-typeset .admonition.axiom,
+.md-typeset details.axiom {
+  border-left-color: var(--laws-primary);
+}
+
+.md-typeset .axiom > .admonition-title,
+.md-typeset .axiom > summary {
+  background-color: var(--laws-primary);
+  color: white;
+}
+
+.md-typeset .axiom > .admonition-title::before,
+.md-typeset .axiom > summary::before {
+  background-color: white;
+  -webkit-mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2z"/></svg>');
+  mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2z"/></svg>');
+}
+
+/* Pillar Box */
+.md-typeset .admonition.pillar,
+.md-typeset details.pillar {
+  border-left-color: var(--pillars-primary);
+}
+
+.md-typeset .pillar > .admonition-title,
+.md-typeset .pillar > summary {
+  background-color: var(--pillars-primary);
+  color: white;
+}
+
+.md-typeset .pillar > .admonition-title::before,
+.md-typeset .pillar > summary::before {
+  background-color: white;
+  -webkit-mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h2v8H3zm6-6h2v14H9zm6-4h2v18h-2z"/></svg>');
+  mask-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 13h2v8H3zm6-6h2v14H9zm6-4h2v18h-2z"/></svg>');
+}
+
+/* Pattern Box */
+.md-typeset .admonition.pattern,
+.md-typeset details.pattern {
+  border-left-color: var(--patterns-primary);
+}
+
+.md-typeset .pattern > .admonition-title,
+.md-typeset .pattern > summary {
+  background-color: var(--patterns-primary);
+  color: white;
+}
+
+/* === Progressive Disclosure === */
+
+/* Collapsible sections with smooth animation */
+.md-typeset details {
+  margin: 1.5em 0;
+  transition: all 0.3s ease;
+}
+
+.md-typeset details[open] {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.md-typeset details > summary {
+  cursor: pointer;
+  padding-left: 2.5rem;
+  position: relative;
+}
+
+.md-typeset details > summary::after {
+  content: "▶";
+  position: absolute;
+  left: 1rem;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.md-typeset details[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+/* Progressive disclosure for complex content */
+.md-typeset details.progressive {
+  border: 2px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.md-typeset details.progressive > summary {
+  background-color: var(--md-code-bg-color);
+  margin: 0;
+  padding: 1rem 2.5rem 1rem 2.5rem;
+}
+
+.md-typeset details.progressive > :not(summary) {
+  padding: 1rem;
+}
+
+/* === Section Headers with Icons === */
+
+/* Add section-specific icons */
+[data-section="laws"] .md-header-nav__title::before {
+  content: "⚛️";
+  margin-right: 0.5rem;
+}
+
+[data-section="pillars"] .md-header-nav__title::before {
+  content: "🏛️";
+  margin-right: 0.5rem;
+}
+
+[data-section="patterns"] .md-header-nav__title::before {
+  content: "🔧";
+  margin-right: 0.5rem;
+}
+
+[data-section="cases"] .md-header-nav__title::before {
+  content: "📊";
+  margin-right: 0.5rem;
+}
+
+[data-section="quantitative"] .md-header-nav__title::before {
+  content: "📐";
+  margin-right: 0.5rem;
+}
+
+/* === Tag Styling === */
+
+/* Enhanced tag appearance */
+.md-typeset .md-tag {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  margin: 0.125rem;
+  border-radius: 1rem;
+  background-color: var(--md-accent-fg-color--transparent);
+  color: var(--md-accent-fg-color);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.md-typeset .md-tag:hover {
+  background-color: var(--md-accent-fg-color);
+  color: var(--md-primary-bg-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Category-specific tag colors */
+.md-tag[href*="axiom"] { background-color: var(--laws-bg); color: var(--laws-text); }
+.md-tag[href*="pillar"] { background-color: var(--pillars-bg); color: var(--pillars-text); }
+.md-tag[href*="pattern"] { background-color: var(--patterns-bg); color: var(--patterns-text); }
+.md-tag[href*="case-study"] { background-color: var(--cases-bg); color: var(--cases-text); }
+.md-tag[href*="math"] { background-color: var(--quant-bg); color: var(--quant-text); }
+
+/* === Responsive Adjustments === */
+
+/* Mobile section indicators */
+@media screen and (max-width: 76.1875em) {
+  [data-section] .md-header-nav__topic::after {
+    content: attr(data-section);
+    display: inline-block;
+    margin-left: 0.5rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.25rem;
+    background-color: rgba(255,255,255,0.2);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+}

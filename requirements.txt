@@ -5,7 +5,12 @@ mkdocs-macros-plugin>=1.0.0
 mkdocs-mermaid2-plugin>=1.1.1
 markdown-exec[ansi]>=1.8.0
 
-# Optional Performance Enhancements (install when available)
-# mkdocs-minify-plugin>=0.7.1
+# Performance & SEO Enhancements
+mkdocs-minify-plugin>=0.7.1
+mkdocs-git-revision-date-localized-plugin>=1.2.0
+
+# Optional Features (uncomment as needed)
 # mkdocs-exclude-search>=0.6.5
 # markdown-include>=0.8.1
+# mkdocs-redirects>=1.2.0
+# mkdocs-awesome-pages-plugin>=2.9.0

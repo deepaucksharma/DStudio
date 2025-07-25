@@ -115,6 +115,22 @@ plugins:
           tertiaryColor: "#f3f4f6"
   - tags
   - markdown-exec
+  - social:
+      cards: true
+      cards_dir: assets/images/social
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: iso_datetime
+      timezone: UTC
+      locale: en
+      fallback_to_build_date: true
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+      cache_safe: true
 
 # Markdown Extensions
 markdown_extensions:
@@ -205,8 +221,10 @@ markdown_extensions:
 # Extra CSS
 extra_css:
   - stylesheets/layout.css
+  - stylesheets/content-boundaries.css  # Ensures content respects TOC
   - stylesheets/custom.css
   - stylesheets/navigation.css
+  - stylesheets/themes.css
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:
@@ -219,6 +237,7 @@ extra_javascript:
   # Custom Scripts
   - javascripts/custom.js
   - javascripts/navigation.js
+  - javascripts/keyboard-shortcuts.js
 
 # Extra Configuration
 extra:
@@ -509,7 +528,8 @@ nav:
       - Object Storage (S3): case-studies/s3-object-storage-enhanced.md
       - Apache Spark: case-studies/apache-spark.md
       - Netflix Streaming: case-studies/netflix-streaming.md
-      - Uber Systems: case-studies/uber-systems.md
+      - Uber Location: case-studies/uber-location.md
+      - Uber Maps: case-studies/uber-maps.md
       - ZooKeeper: case-studies/zookeeper.md
     
     - Social Systems:
@@ -572,6 +592,7 @@ nav:
       - Cheat Sheets: reference/cheat-sheets.md
       - Recipe Cards: reference/recipe-cards.md
       - Law Mapping Guide: reference/law-mapping-guide.md
+      - Keyboard Shortcuts: reference/keyboard-shortcuts.md
     - Security:
       - Security Patterns: reference/security.md
     - Contributing: reference/contributing.md

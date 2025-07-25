@@ -1,0 +1,104 @@
+/* === CONTENT BOUNDARY ENFORCEMENT === */
+/* Ensure content never extends under the TOC (right sidebar) */
+
+/* Reset any conflicting styles */
+.md-content,
+.md-content__inner {
+  /* Let Material handle the layout */
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Main content area when TOC is visible */
+@media screen and (min-width: 60em) {
+  /* Material's default behavior with explicit boundaries */
+  .md-content {
+    /* Content takes available space between sidebars */
+    flex: 1;
+    min-width: 0; /* Prevent flex items from overflowing */
+  }
+  
+  /* Inner content with proper padding */
+  .md-content__inner {
+    margin: 0 !important;
+    padding: 0 1rem !important;
+    max-width: 100% !important;
+  }
+  
+  /* All content elements must respect boundaries */
+  .md-typeset > * {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  /* Specific elements that might overflow */
+  .md-typeset table,
+  .md-typeset pre,
+  .md-typeset .highlight,
+  .md-typeset .mermaid,
+  .md-typeset .responsive-table,
+  .md-typeset .tabbed-set,
+  .md-typeset .admonition,
+  .md-typeset .grid {
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Ensure long code lines scroll, not overflow */
+  .md-typeset pre {
+    overflow-x: auto !important;
+  }
+  
+  /* When secondary sidebar (TOC) exists */
+  .md-sidebar--secondary:not([hidden]) ~ .md-content .md-content__inner {
+    /* Extra padding to ensure separation from TOC */
+    padding-right: 2rem !important;
+  }
+}
+
+/* For very wide screens, limit content width for readability */
+@media screen and (min-width: 88em) {
+  .md-content__inner {
+    max-width: 65rem !important; /* Reasonable reading width */
+    margin: 0 auto !important;
+    padding: 0 2rem !important;
+  }
+}
+
+/* Mobile: full width when no sidebars */
+@media screen and (max-width: 59.9em) {
+  .md-content__inner {
+    margin: 0 !important;
+    padding: 0 1rem !important;
+  }
+}
+
+/* Ensure grids and cards don't break layout */
+.md-typeset .grid {
+  display: grid !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Full-width class should respect content boundaries */
+.md-typeset .full-width {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Prevent any absolute positioning from breaking layout */
+.md-typeset {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ensure images scale properly */
+.md-typeset img {
+  max-width: 100% !important;
+  height: auto !important;
+}

@@ -83,46 +83,115 @@ graph TD
 
 ## Learning Path Details
 
-### Path 1: Foundation Builder (New Graduates)
-**Duration**: 6-8 weeks | **Time**: 5-10 hours/week
+=== "Foundation Builder"
 
-| Week | Focus | Key Activities |
-|------|-------|----------------|
-| **1-2** | Core Laws | Read Laws 1-4, work examples |
-| **3-4** | First Patterns | Circuit Breaker, Retry Logic, Load Balancing |
-| **5-6** | Quantitative Tools | Little's Law, Availability Math, calculators |
-| **7-8** | Real Systems | Case studies, synthesis exercises |
+ **For: New Graduates**  
+ **Duration**: 6-8 weeks | **Time**: 5-10 hours/week
 
+ ```mermaid
+ graph LR
+ A[Weeks 1-2<br/>Core Laws] --> B[Weeks 3-4<br/>First Patterns]
+ B --> C[Weeks 5-6<br/>Quant Tools]
+ C --> D[Weeks 7-8<br/>Real Systems]
+ 
+ style A fill:#e3f2fd
+ style B fill:#e8f5e9
+ style C fill:#fff3e0
+ style D fill:#f3e5f5
+ ```
 
-### Path 2: Practical Problem Solver (Mid-Level Engineers)
-**Duration**: 4-6 weeks | **Time**: 5-10 hours/week
+ | Week | Focus | Key Activities | Deliverables |
+ |------|-------|----------------|-------------|
+ | **1-2** | Core Laws | Read Laws 1-4, work examples | Notes on each law |
+ | **3-4** | First Patterns | Circuit Breaker, Retry Logic, Load Balancing | Implement 1 pattern |
+ | **5-6** | Quantitative Tools | Little's Law, Availability Math, calculators | Capacity plan for toy system |
+ | **7-8** | Real Systems | Case studies, synthesis exercises | System design document |
 
-| Week | Focus | Key Activities |
-|------|-------|----------------|
-| **1** | Laws Speed Run | All 7 laws, trade-offs, system mapping |
-| **2-3** | Pattern Deep Dives | Your patterns, implementation, failure analysis |
-| **4-5** | Quantitative Analysis | Capacity planning, performance models |
-| **6** | Case Studies | Compare systems, extract principles |
+ **Success Criteria:**
+ - Can explain all 7 laws in your own words
+ - Have implemented at least 3 patterns
+ - Can analyze a system using the framework
 
+=== "Problem Solver"
 
-### Path 3: System Designer (Senior Engineers)
-**Duration**: 2-4 weeks | **Time**: 10-15 hours/week
+ **For: Mid-Level Engineers**  
+ **Duration**: 4-6 weeks | **Time**: 5-10 hours/week
 
-| Week | Focus | Key Activities |
-|------|-------|----------------|
-| **1** | Advanced Framework | Law interactions, edge cases, assumptions |
-| **2** | Complex Patterns | Consensus, distributed transactions, multi-region |
-| **3-4** | Design Practice | System design, trade-off analysis |
+ ```mermaid
+ graph LR
+ A[Week 1<br/>Laws Speed Run] --> B[Weeks 2-3<br/>Pattern Deep Dives]
+ B --> C[Weeks 4-5<br/>Quant Analysis]
+ C --> D[Week 6<br/>Case Studies]
+ 
+ style A fill:#e3f2fd
+ style B fill:#e8f5e9
+ style C fill:#fff3e0
+ style D fill:#f3e5f5
+ ```
 
+ | Week | Focus | Key Activities | Deliverables |
+ |------|-------|----------------|-------------|
+ | **1** | Laws Speed Run | All 7 laws, trade-offs, system mapping | Law interaction diagram |
+ | **2-3** | Pattern Deep Dives | Your patterns, implementation, failure analysis | Pattern comparison matrix |
+ | **4-5** | Quantitative Analysis | Capacity planning, performance models | Performance model for your system |
+ | **6** | Case Studies | Compare systems, extract principles | Architectural decision records |
 
-### Path 4: Technical Leader (Managers/Architects)
-**Duration**: 2-3 weeks | **Time**: 5 hours/week
+ **Success Criteria:**
+ - Can identify law violations in production systems
+ - Have refactored code to follow patterns
+ - Created capacity model for real system
 
-| Week | Focus | Key Activities |
-|------|-------|----------------|
-| **1** | Strategic Overview | Executive summaries, economics, human factors |
-| **2** | Decision Frameworks | Pattern selection, trade-off analysis, cost models |
-| **3** | Organization | Team topologies, SRE practices, culture |
+=== "System Designer"
+
+ **For: Senior Engineers**  
+ **Duration**: 2-4 weeks | **Time**: 10-15 hours/week
+
+ ```mermaid
+ graph LR
+ A[Week 1<br/>Advanced Framework] --> B[Week 2<br/>Complex Patterns]
+ B --> C[Weeks 3-4<br/>Design Practice]
+ 
+ style A fill:#e3f2fd
+ style B fill:#e8f5e9
+ style C fill:#f3e5f5
+ ```
+
+ | Week | Focus | Key Activities | Deliverables |
+ |------|-------|----------------|-------------|
+ | **1** | Advanced Framework | Law interactions, edge cases, assumptions | Framework extensions document |
+ | **2** | Complex Patterns | Consensus, distributed transactions, multi-region | Pattern selection framework |
+ | **3-4** | Design Practice | System design, trade-off analysis | Complete system design with trade-offs |
+
+ **Success Criteria:**
+ - Can teach the framework to others
+ - Have designed multi-region system
+ - Created reusable design patterns
+
+=== "Technical Leader"
+
+ **For: Managers/Architects**  
+ **Duration**: 2-3 weeks | **Time**: 5 hours/week
+
+ ```mermaid
+ graph LR
+ A[Week 1<br/>Strategic Overview] --> B[Week 2<br/>Decision Frameworks]
+ B --> C[Week 3<br/>Organization]
+ 
+ style A fill:#e3f2fd
+ style B fill:#e8f5e9
+ style C fill:#f3e5f5
+ ```
+
+ | Week | Focus | Key Activities | Deliverables |
+ |------|-------|----------------|-------------|
+ | **1** | Strategic Overview | Executive summaries, economics, human factors | Cost model for distributed system |
+ | **2** | Decision Frameworks | Pattern selection, trade-off analysis, cost models | Decision matrix template |
+ | **3** | Organization | Team topologies, SRE practices, culture | Team structure proposal |
+
+ **Success Criteria:**
+ - Can justify architectural decisions economically
+ - Have created decision frameworks for team
+ - Implemented SRE practices
 
 
 ## What You'll Find in This Compendium
@@ -188,11 +257,78 @@ graph TD
 
 ### Reading Order Options
 
-| Goal | Recommended Order |
-|------|------------------|
-| **Maximum Understanding** | Laws 1-7 → Synthesis → Patterns → Case Studies |
-| **Practical Application** | Relevant Pattern → Underlying Laws → Case Studies |
-| **Quick Reference** | Pattern Selector → Cheat Sheets → Glossary |
+=== "Maximum Understanding"
+
+ ```mermaid
+ graph TB
+ A[Start: Laws 1-7] --> B[Synthesis Chapter]
+ B --> C[Core Patterns]
+ C --> D[Advanced Patterns]
+ D --> E[Case Studies]
+ E --> F[Build Your Own]
+ 
+ style A fill:#5448C8,color:#fff
+ style F fill:#00BCD4,color:#fff
+ ```
+
+ **Best For:** Those who want deep, lasting understanding
+ 
+ **Time Investment:** 6-8 weeks
+ 
+ **Learning Approach:**
+ 1. Read each law with examples
+ 2. Work through synthesis exercises
+ 3. Map patterns to laws
+ 4. Analyze case studies through law lens
+ 5. Design your own system
+
+=== "Practical Application"
+
+ ```mermaid
+ graph TB
+ A[Start: Your Problem] --> B[Find Relevant Pattern]
+ B --> C[Understand Underlying Laws]
+ C --> D[Study Similar Cases]
+ D --> E[Implement Solution]
+ E --> F[Iterate & Improve]
+ 
+ style A fill:#5448C8,color:#fff
+ style F fill:#00BCD4,color:#fff
+ ```
+
+ **Best For:** Engineers with immediate problems to solve
+ 
+ **Time Investment:** 1-2 weeks per problem
+ 
+ **Learning Approach:**
+ 1. Identify your specific challenge
+ 2. Find matching patterns
+ 3. Understand why pattern works (laws)
+ 4. Learn from others' implementations
+ 5. Apply and adapt to your context
+
+=== "Quick Reference"
+
+ ```mermaid
+ graph TB
+ A[Pattern Selector] --> B{Your Scenario}
+ B -->|Reliability| C[Circuit Breaker<br/>Retry Patterns]
+ B -->|Scale| D[Sharding<br/>Load Balancing]
+ B -->|Consistency| E[Consensus<br/>CRDT]
+ B -->|Performance| F[Caching<br/>Batching]
+ 
+ style A fill:#5448C8,color:#fff
+ ```
+
+ **Best For:** Experienced engineers needing quick answers
+ 
+ **Time Investment:** 15-30 minutes
+ 
+ **Quick Links:**
+ - [Pattern Selector Tool](../patterns/pattern-selector/)
+ - [Cheat Sheets](../reference/cheat-sheets/)
+ - [Glossary](../reference/glossary/)
+ - [Recipe Cards](../reference/recipe-cards/)
 
 
 ## Common Learning Pitfalls

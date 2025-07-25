@@ -1,15 +1,16 @@
 ---
 title: Auto-scaling Pattern
-description: Pattern for distributed systems coordination and reliability
+description: Dynamically adjust computing resources based on real-time demand to optimize performance and cost
 type: pattern
 category: performance
 difficulty: beginner
 reading_time: 25 min
-prerequisites: []
-when_to_use: When dealing with performance challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [monitoring, metrics, cloud-infrastructure, load-balancing]
+when_to_use: Variable workloads, traffic spikes, cost optimization needs, seasonal patterns, unpredictable demand, multi-region deployments, microservices architecture
+when_not_to_use: Stateful applications without proper session handling, legacy monoliths, fixed resource requirements, real-time systems with strict latency, applications with slow startup times
 status: complete
 last_updated: 2025-07-20
+tags: [elasticity, resource-management, cost-optimization, cloud-native, scalability, performance-optimization]
 ---
 
 # Auto-scaling Pattern

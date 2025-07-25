@@ -141,6 +141,35 @@
     });
   }
 
+  // === Fix TOC for Instant Navigation ===
+  
+  function fixInstantNavigationTOC() {
+    // Listen for navigation changes
+    if (window.location$ && window.location$.subscribe) {
+      window.location$.subscribe(() => {
+        // Small delay to ensure DOM is updated
+        setTimeout(() => {
+          // Re-initialize TOC enhancement
+          enhanceTOC();
+          
+          // Force Material theme to update TOC
+          const tocElement = document.querySelector('[data-md-component="toc"]');
+          if (tocElement) {
+            // Trigger re-render of TOC component
+            const event = new CustomEvent('DOMContentLoaded');
+            document.dispatchEvent(event);
+          }
+          
+          // Update active TOC items
+          const activeNavItem = document.querySelector('.md-nav__item--active');
+          if (activeNavItem) {
+            activeNavItem.scrollIntoView({ block: 'center' });
+          }
+        }, 100);
+      });
+    }
+  }
+
   // === Lazy Loading for Images ===
   
   function setupLazyLoading() {
@@ -197,6 +226,7 @@
     enhanceSearch();
     enhanceCodeBlocks();
     enhanceTOC();
+    fixInstantNavigationTOC();
     setupLazyLoading();
     enhanceExternalLinks();
     setupKeyboardNav();

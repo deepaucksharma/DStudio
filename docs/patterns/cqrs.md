@@ -23,7 +23,7 @@ last_updated: 2025-07-25
 
 **How can we optimize both complex business operations and high-performance queries when they have fundamentally different requirements?**
 
-!!! tip "When to Use This Pattern"
+??? tip "When to Use This Pattern (Click to expand)"
 | Scenario | Use CQRS | Alternative |
  |----------|----------|-------------|
  | Read/write ratio > 10:1 | ✅ Yes | Consider read replicas |

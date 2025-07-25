@@ -3,24 +3,68 @@
    Leverages Material's built-in features with enhancements
    ============================================ */
 
-/* === FULL-WIDTH LAYOUT === */
-/* Remove Material's default max-width constraints for full viewport usage */
-.md-content,
-.md-content__inner,
-.md-main__inner,
-.md-grid {
-  max-width: initial !important;
-  width: 100% !important;
+/* === CONTENT LAYOUT WITH PROPER BOUNDARIES === */
+/* Ensure content respects the right sidebar (TOC) */
+.md-content {
+  /* Use default Material behavior - do not override width */
+  max-width: initial;
 }
 
-/* Constrain text content for readability while allowing full-width layouts */
-.md-typeset > *:not(.full-width):not(.grid):not(.cards):not(table):not(.tabbed-set):not(.admonition):not(.highlight) {
-  max-width: 80ch;
-  margin-left: auto;
-  margin-right: auto;
+.md-content__inner {
+  /* Keep content within boundaries, accounting for TOC */
+  margin-right: 0;
+  padding-right: 1rem;
+}
+
+/* Align all content to the left with consistent padding */
+.md-typeset {
+  /* Remove any center alignment */
+  text-align: left;
+}
+
+/* Standard content width - respects TOC on right */
+.md-typeset > * {
+  /* Remove auto margins that center content */
+  margin-left: 0;
+  margin-right: 0;
+  /* Ensure content doesn't overflow */
+  max-width: 100%;
+}
+
+/* Special handling for content that needs more width */
+.md-typeset > .full-width {
+  /* Full width within content area (not viewport) */
+  max-width: 100%;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Ensure proper spacing when TOC is present */
+@media screen and (min-width: 60em) {
+  .md-sidebar--secondary:not([hidden]) ~ .md-content .md-typeset {
+    /* Add padding to prevent overlap with TOC */
+    padding-right: 1rem;
+  }
+}
+
+/* When TOC is hidden on smaller screens */
+@media screen and (max-width: 59.9em) {
+  .md-content__inner {
+    /* Use full width when no TOC */
+    margin-right: 0;
+  }
 }
 
 /* === MATERIAL'S RESPONSIVE GRID ENHANCEMENTS === */
+/* Grids should stay within content boundaries */
+.md-typeset .grid {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 /* Enhanced grid for ultra-wide screens (4K+) */
 @media screen and (min-width: 100em) {
   .md-typeset .grid {
@@ -72,18 +116,18 @@
 }
 
 /* === FULL-WIDTH UTILITIES === */
-/* Force elements to use full viewport width */
+/* Full width within content area (respects TOC) */
 .full-width {
-  max-width: 100vw !important;
-  width: 100vw !important;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
-/* Wide layout - uses container width but allows overflow */
+/* Wide layout - uses container width */
 .wide-layout {
-  max-width: initial !important;
   width: 100% !important;
+  max-width: 100% !important;
   margin-left: 0;
   margin-right: 0;
 }
@@ -101,16 +145,19 @@
 }
 
 /* === RESPONSIVE TABLES === */
-/* Make tables full-width and responsive */
+/* Make tables full-width within content area */
 .md-typeset table {
   width: 100%;
-  max-width: none;
+  max-width: 100%;
   border-collapse: collapse;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* Responsive table wrapper */
 .md-typeset .responsive-table {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   margin: 1rem 0;
@@ -153,12 +200,45 @@
   }
 }
 
-/* === MERMAID DIAGRAMS FULL-WIDTH === */
-/* Allow diagrams to use full available width */
+/* === MERMAID DIAGRAMS === */
+/* Diagrams use available width within content area */
 .md-typeset .mermaid {
-  max-width: initial !important;
+  max-width: 100% !important;
   width: 100% !important;
   overflow-x: auto;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* === CODE BLOCKS === */
+/* Ensure code blocks stay within boundaries */
+.md-typeset pre {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  overflow-x: auto;
+}
+
+.md-typeset .highlight {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* === ADMONITIONS === */
+/* Keep admonitions within content area */
+.md-typeset .admonition {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* === CONTENT TABS === */
+/* Ensure tabs stay within boundaries */
+.md-typeset .tabbed-set {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* === NAVIGATION OPTIMIZATIONS === */
@@ -169,11 +249,91 @@
   }
   
   .md-sidebar--secondary {
-    width: 220px;
+    width: 260px; /* Slightly wider for better TOC */
   }
   
+  /* Don't override margins - let Material handle the layout */
   .md-content {
-    margin-left: 280px;
-    margin-right: 220px;
+    /* Material will automatically adjust based on sidebar visibility */
   }
+  
+  /* Ensure content stays within bounds */
+  .md-content__inner {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+}
+
+/* Handle different screen sizes */
+@media screen and (min-width: 60em) {
+  /* When right sidebar (TOC) is visible */
+  .md-sidebar--secondary:not([hidden]) ~ .md-content {
+    /* Material handles this automatically, but ensure padding */
+    padding-right: 0;
+  }
+  
+  .md-sidebar--secondary:not([hidden]) ~ .md-content .md-content__inner {
+    /* Add right padding to prevent content from going under TOC */
+    padding-right: 2rem;
+  }
+}
+
+/* Ultra-wide screens need special handling */
+@media screen and (min-width: 100em) {
+  .md-content__inner {
+    /* Limit content width for readability on very wide screens */
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+}
+
+/* === IMAGES AND MEDIA === */
+/* Ensure images stay within content boundaries */
+.md-typeset img {
+  max-width: 100%;
+  height: auto;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.md-typeset figure {
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* === LISTS AND BLOCKQUOTES === */
+/* Ensure proper alignment for lists */
+.md-typeset ul,
+.md-typeset ol {
+  margin-left: 0;
+  padding-left: 2rem;
+}
+
+.md-typeset blockquote {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* === ENSURE ALL CONTENT RESPECTS BOUNDARIES === */
+/* Global rule to prevent any content from extending beyond the content area */
+.md-typeset > * {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Prevent horizontal scrolling on the main content */
+.md-content__inner {
+  overflow-x: hidden;
+}
+
+/* But allow scrolling within specific elements */
+.md-typeset pre,
+.md-typeset .responsive-table,
+.md-typeset .mermaid,
+.md-typeset .highlight {
+  overflow-x: auto;
 }

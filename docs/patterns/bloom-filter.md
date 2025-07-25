@@ -1,15 +1,16 @@
 ---
 title: Bloom Filter Pattern
-description: Probabilistic data structure for efficient set membership testing
+description: Space-efficient probabilistic data structure for fast set membership testing with controlled false positive rates
 type: pattern
 category: distributed-data
 difficulty: intermediate
 reading_time: 25 min
-prerequisites: [hashing, probability]
-when_to_use: When dealing with distributed-data challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [hashing, probability, bit-arrays]
+when_to_use: Large-scale deduplication, cache lookups, distributed system membership checks, spam filtering, database query optimization, preventing expensive lookups
+when_not_to_use: When false positives are unacceptable, small datasets that fit in memory, when deletion is required, when exact counts are needed
 status: complete
 last_updated: 2025-01-23
+tags: [probabilistic-data-structures, space-optimization, membership-testing, deduplication, caching]
 ---
 
 # Bloom Filter Pattern

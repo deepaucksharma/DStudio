@@ -5,6 +5,8 @@ description: "A physics-first approach to understanding distributed systems"
 
 # About This Compendium
 
+[Home](/) > [Introduction](/introduction/) > About This Compendium
+
 !!! quote "Our Philosophy"
  This compendium teaches distributed systems from first principles—starting with physics and mathematics rather than specific technologies.
 
@@ -12,60 +14,62 @@ description: "A physics-first approach to understanding distributed systems"
 
 ## What You'll Learn
 
-<div class="grid" markdown>
- <div class="card">
- <h3 class="card__title">7 Fundamental Laws</h3>
- <p class="card__description">
- Advanced framework from physics, mathematics, and complexity theory that governs all distributed systems.
- </p>
- </div>
- 
- <div class="card">
- <h3 class="card__title">5 Core Pillars</h3>
- <p class="card__description">
- How the fundamental laws combine to create architectural challenges and solution patterns.
- </p>
- </div>
- 
- <div class="card">
- <h3 class="card__title">Battle-tested Patterns</h3>
- <p class="card__description">
- Solutions derived from first principles, not fashion - patterns that work across any technology.
- </p>
- </div>
- 
- <div class="card">
- <h3 class="card__title">Quantitative Tools</h3>
- <p class="card__description">
- Mathematical frameworks and calculators to make decisions with data, not opinions.
- </p>
- </div>
+<div class="grid cards" markdown>
+
+- :material-atom:{ .lg .middle } **7 Fundamental Laws**
+
+    ---
+
+    Advanced framework from physics, mathematics, and complexity theory that governs all distributed systems.
+
+- :material-pillar:{ .lg .middle } **5 Core Pillars**
+
+    ---
+
+    How the fundamental laws combine to create architectural challenges and solution patterns.
+
+- :material-shield-check:{ .lg .middle } **Battle-tested Patterns**
+
+    ---
+
+    Solutions derived from first principles, not fashion - patterns that work across any technology.
+
+- :material-calculator-variant:{ .lg .middle } **Quantitative Tools**
+
+    ---
+
+    Mathematical frameworks and calculators to make decisions with data, not opinions.
+
 </div>
 
 ## Who This Is For
 
-<div class="grid" markdown>
- <div class="feature-card">
- <h3 class="feature-card__title">Engineers</h3>
- <p class="feature-card__description">
- Building distributed systems and need deep understanding of fundamental constraints.
- </p>
- </div>
- 
- <h3 class="feature-card__title">Architects</h3>
- <p class="feature-card__description">
- Designing systems at scale and making informed trade-off decisions.
- </p>
- 
- <h3 class="feature-card__title">Technical Leaders</h3>
- <p class="feature-card__description">
- Making strategic technology decisions and building high-performing teams.
- </p>
- 
- <h3 class="feature-card__title">Students</h3>
- <p class="feature-card__description">
- Learning distributed systems fundamentals that will serve them throughout their career.
- </p>
+<div class="grid cards" markdown>
+
+- :material-code-tags:{ .lg .middle } **Engineers**
+
+    ---
+
+    Building distributed systems and need deep understanding of fundamental constraints.
+
+- :material-architecture:{ .lg .middle } **Architects**
+
+    ---
+
+    Designing systems at scale and making informed trade-off decisions.
+
+- :material-account-group:{ .lg .middle } **Technical Leaders**
+
+    ---
+
+    Making strategic technology decisions and building high-performing teams.
+
+- :material-school:{ .lg .middle } **Students**
+
+    ---
+
+    Learning distributed systems fundamentals that will serve them throughout their career.
+
 </div>
 
 ## How to Use This Resource
@@ -79,6 +83,38 @@ description: "A physics-first approach to understanding distributed systems"
  | **Learn from Failures** | [Case Studies](../case-studies/) | Real-world examples |
 
 
+## Next Steps
+
+<div class="grid cards" markdown>
+
+- :material-rocket-launch:{ .lg .middle } **New to Distributed Systems?**
+
+    ---
+
+    Start with our getting started guide to understand the fundamentals.
+
+    [:octicons-arrow-right-24: Getting Started](getting-started.md)
+
+- :material-map-legend:{ .lg .middle } **Choose Your Learning Path**
+
+    ---
+
+    Select a tailored learning path based on your experience and goals.
+
+    [:octicons-arrow-right-24: Learning Paths](learning-paths.md)
+
+- :material-compass:{ .lg .middle } **Explore the 7 Laws**
+
+    ---
+
+    Dive into the fundamental laws that govern all distributed systems.
+
+    [:octicons-arrow-right-24: The 7 Laws](/part1-axioms/)
+
+</div>
+
 ---
 
-Ready to begin? [Start Your Journey →](getting-started.md)
+<div class="nav-footer" markdown>
+[:octicons-arrow-left-24: Previous](/) | [Next :octicons-arrow-right-24:](getting-started.md)
+</div>

@@ -5,11 +5,12 @@ type: pattern
 category: distributed-data
 difficulty: advanced
 reading_time: 30 min
-prerequisites: []
-when_to_use: When dealing with distributed-data challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [database-design, distributed-systems, consistency-models, hashing]
+when_to_use: Dataset exceeds single server capacity, need horizontal scaling, multi-tenant applications, geographic data distribution, high write throughput requirements, isolation between data subsets
+when_not_to_use: Complex cross-shard queries needed, strong consistency requirements across shards, small datasets, high operational complexity not justified, frequent resharding expected
 status: complete
 last_updated: 2025-07-21
+tags: [scalability, partitioning, horizontal-scaling, data-distribution, multi-tenancy, sharding-strategies]
 ---
 
 # Sharding (Data Partitioning)

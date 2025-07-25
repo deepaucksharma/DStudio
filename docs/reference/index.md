@@ -12,44 +12,59 @@ last_updated: 2025-07-20
 
 # Reference Materials
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../index.md">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Reference</li>
+  </ol>
+</nav>
+
 <p class="hero-quote">"Your comprehensive guide to distributed systems knowledge - from fundamental concepts to practical implementation"</p>
 
 ## 📚 Quick Navigation
 
-<a href="glossary.md" class="ref-card glossary-card">
- <div class="ref-icon">📖
- <h3>Glossary</h3>
- <p>400+ terms defined</p>
- <span class="ref-tag">Comprehensive definitions</span>
- </a>
- 
- <a href="cheat-sheets.md" class="ref-card cheat-card">
- 📋
- <h3>Cheat Sheets</h3>
- <p>Quick reference guides</p>
- <span class="ref-tag">Formulas & decisions</span>
- </a>
- 
- <a href="recipe-cards.md" class="ref-card recipe-card">
- 🍳
- <h3>Recipe Cards</h3>
- <p>Step-by-step guides</p>
- <span class="ref-tag">Implementation patterns</span>
- </a>
- 
- <a href="security.md" class="ref-card security-card">
- 🔒
- <h3>Security Guide</h3>
- <p>Security patterns</p>
- <span class="ref-tag">Vulnerabilities & defenses</span>
- </a>
- 
- <a href="law-mapping-guide.md" class="ref-card mapping-card">
- 🗺️
- <h3>Law Mapping</h3>
- <p>Framework evolution</p>
- <span class="ref-tag">7-law structure guide</span>
- </a>
+<div class="grid cards" markdown>
+
+- :material-book:{ .lg .middle } **Glossary**
+    
+    ---
+    
+    400+ terms defined with comprehensive definitions
+    
+    [Learn more →](glossary.md)
+
+- :material-clipboard-text:{ .lg .middle } **Cheat Sheets**
+    
+    ---
+    
+    Quick reference guides for formulas & decisions
+    
+    [Learn more →](cheat-sheets.md)
+
+- :material-chef-hat:{ .lg .middle } **Recipe Cards**
+    
+    ---
+    
+    Step-by-step guides for implementation patterns
+    
+    [Learn more →](recipe-cards.md)
+
+- :material-lock:{ .lg .middle } **Security Guide**
+    
+    ---
+    
+    Security patterns, vulnerabilities & defenses
+    
+    [Learn more →](security.md)
+
+- :material-map:{ .lg .middle } **Law Mapping**
+    
+    ---
+    
+    Framework evolution and 7-law structure guide
+    
+    [Learn more →](law-mapping-guide.md)
+
 </div>
 
 ## Reference by Category
@@ -245,5 +260,18 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
  <p>Create personal notes linking concepts to your system's specifics</p>
  <span class="tip-icon">🔄</span>
  <p>Review glossary monthly to reinforce terminology and concepts</p>
+</div>
+
+---
+
+## Navigation
+
+<div class="navigation-footer">
+    <div class="navigation-prev">
+        ← [Human Factors](../human-factors/index.md)
+    </div>
+    <div class="navigation-next">
+        [Glossary](glossary.md) →
+    </div>
 </div>
 
