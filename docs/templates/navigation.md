@@ -98,20 +98,14 @@ Place after the page introduction:
 {% endif %}
 ```
 
-### 3. In-Page Navigation Helper
+### 3. Quick Actions
 
-For long pages, add a floating navigation helper:
+For long pages, add quick action buttons:
 
 ```markdown
-<div class="nav-title">On This Page
- <nav class="quick-nav">
- <a href="#section1" class="nav-item">Introduction</a>
- <a href="#section2" class="nav-item">Core Concepts</a>
- <a href="#section3" class="nav-item">Implementation</a>
- <a href="#section4" class="nav-item">Best Practices</a>
- </nav>
- <button class="nav-btn" onclick="window.scrollTo(0,0)">↑ Top</button>
- <button class="nav-btn" onclick="window.print()">🖨️ Print</button>
+<div class="quick-actions">
+ <button class="nav-btn" onclick="window.scrollTo(0,0)">↑ Back to Top</button>
+ <button class="nav-btn" onclick="history.back()">← Back</button>
 </div>
 ```
 

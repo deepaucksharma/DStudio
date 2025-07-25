@@ -2,7 +2,9 @@
 
 This document provides comprehensive solution guides for key exercises throughout the Compendium of Distributed Systems.
 
-## Table of Contents
+## Overview
+
+This guide provides comprehensive solutions to exercises throughout the Compendium, organized by topic area:
 
 1. [State Management Solutions](#state-management-solutions)
 2. [Axiom Exercise Solutions](#axiom-exercise-solutions)

@@ -105,7 +105,7 @@ Content is now organized with a comprehensive tagging system:
 - Visual tag indicators with hover effects
 - Cross-content discovery through tags
 
-Tags on this page: #documentation #features #showcase
+Tags: #documentation #features #showcase
 
 ## 🎯 Instant Navigation Features
 

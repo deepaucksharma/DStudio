@@ -25,7 +25,7 @@ prerequisites:
 related:
   - /patterns/circuit-breaker/
   - /case-studies/#netflix
-toc: true
+hide: false
 draft: false
 weight: 10
 ---
@@ -49,7 +49,7 @@ weight: 10
 - **reading_time**: Estimated reading time
 - **prerequisites**: Links to required prior knowledge
 - **related**: Links to related content
-- **toc**: Whether to show table of contents (default: true)
+- **hide**: Whether to hide the page from navigation (default: false)
 - **draft**: Whether this is draft content (default: false)
 - **weight**: Sort order within category (lower numbers first)
 
@@ -160,7 +160,7 @@ related:
   - /patterns/retry-backoff/
   - /patterns/bulkhead/
   - /case-studies/#netflix-hystrix
-toc: true
+hide: false
 weight: 10
 ---
 ```
@@ -187,7 +187,7 @@ related:
   - /patterns/caching-strategies/
   - /patterns/edge-computing/
   - /quantitative/latency-calculations/
-toc: true
+hide: false
 weight: 1
 ---
 ```

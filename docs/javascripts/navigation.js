@@ -14,40 +14,15 @@
     }
 
     initPageNavHelper() {
-      const headings = document.querySelectorAll('h2, h3');
-      if (headings.length < 3) return; // Don't show for short pages
-
+      // Create simple quick actions bar
       const navHelper = document.createElement('div');
       navHelper.className = 'page-nav-helper';
       navHelper.innerHTML = `
-        <div class="nav-title">On This Page</div>
-        <nav class="quick-nav"></nav>
         <div class="nav-actions">
-          <button class="nav-btn" data-action="top" title="Back to top">↑</button>
-          <button class="nav-btn" data-action="print" title="Print page">🖨️</button>
-          <button class="nav-btn" data-action="share" title="Share page">📤</button>
+          <button class="nav-btn" data-action="top" title="Back to top">↑ Top</button>
+          <button class="nav-btn" data-action="share" title="Share page">📤 Share</button>
         </div>
       `;
-
-      const quickNav = navHelper.querySelector('.quick-nav');
-      
-      headings.forEach((heading, index) => {
-        const id = heading.id || `section-${index}`;
-        if (!heading.id) heading.id = id;
-        
-        const link = document.createElement('a');
-        link.href = `#${id}`;
-        link.className = 'nav-item';
-        link.textContent = heading.textContent;
-        link.dataset.level = heading.tagName.toLowerCase();
-        
-        if (heading.tagName === 'H3') {
-          link.style.paddingLeft = '1.5rem';
-          link.style.fontSize = '0.8rem';
-        }
-        
-        quickNav.appendChild(link);
-      });
 
       document.body.appendChild(navHelper);
 
