@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 7](index.md) → **Human Interface Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 7](index.md) → **Human Interface Exercises**
 
 # Human Interface Exercises
 
@@ -1304,6 +1304,6 @@ class MissionControlInterface:
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 8: Economics](../axiom8-economics/index.md)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 8: Economics](/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/)
 
-**Related**: [SRE Practices](../../human-factors/sre-practices.md) • [Chaos Engineering](../../human-factors/chaos-engineering.md) • [Observability](../axiom6-observability/index.md)
+**Related**: [SRE Practices](/part1-axioms/human-factors/sre-practices) • [Chaos Engineering](/part1-axioms/human-factors/chaos-engineering) • [Observability](/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/)

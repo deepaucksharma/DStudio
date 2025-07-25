@@ -14,16 +14,10 @@ last_updated: 2025-07-23
 # Delta Sync
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Delta Sync**
-
-> 🚧 This pattern documentation is under construction.
-
-Delta sync is a synchronization technique that transfers only the changes (deltas) between versions rather than entire files, reducing bandwidth and improving performance.
 
 ## Related Patterns
-- [Event Sourcing](../patterns/event-sourcing.md)
-- [CRDT](../patterns/crdt.md)
+- [Event Sourcing](/patterns/event-sourcing)
+- [CRDT](/patterns/crdt)
 
 ## References
-- [Google Drive Case Study](../case-studies/google-drive.md)
+- [Google Drive Case Study](/case-studies/google-drive)

@@ -14,19 +14,13 @@ last_updated: 2025-07-23
 # Real-Time Processing
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Real-Time Processing**
-
-> 🚧 This pattern documentation is under construction.
-
-Real-time processing patterns enable systems to process and respond to data streams with minimal latency, typically in milliseconds to seconds.
 
 ## Related Patterns
 - [Event Streaming](event-streaming.md)
-- [WebSocket](websocket.md)
-- [Kappa Architecture](kappa-architecture.md)
-- [Lambda Architecture](lambda-architecture.md)
+- WebSocket (Coming Soon)
+- Kappa Architecture (Coming Soon)
+- Lambda Architecture (Coming Soon)
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md) - Real-time traffic updates
-- [Chat System](../case-studies/chat-system.md) - Real-time messaging
+- [Google Maps Case Study](/case-studies/google-maps) - Real-time traffic updates
+- [Chat System](/case-studies/chat-system) - Real-time messaging

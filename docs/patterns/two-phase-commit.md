@@ -14,15 +14,6 @@ last_updated: 2025-07-21
 # Two-Phase Commit (2PC)
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Two-Phase Commit (2PC)**
-
-<div class="navigation-breadcrumb">
-<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Two-Phase Commit
-</div>
-
-> "Two-phase commit is the protocol that refuses to die"
-> — Pat Helland
 
 ## The Essential Question
 

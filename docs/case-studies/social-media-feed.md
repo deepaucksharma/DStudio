@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-24
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Social Media Feed Architecture**
 
 # 📱 Social Media Feed Architecture
 

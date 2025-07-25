@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-20
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Graceful Degradation Pattern**
 
 # Graceful Degradation Pattern
 
@@ -890,5 +888,5 @@ class AdaptiveDegradation:
 
 ---
 
-**Previous**: [← Geo-Replication Patterns](geo-replication.md) | **Next**: [GraphQL Federation →](graphql-federation.md)
+**Previous**: ← Geo-Replication Patterns (Coming Soon) | **Next**: GraphQL Federation → (Coming Soon)
 ---

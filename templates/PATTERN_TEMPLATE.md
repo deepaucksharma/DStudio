@@ -1,338 +1,164 @@
----
-title: [Pattern Name]
-description: [One-line description of what this pattern solves]
-type: pattern
-difficulty: [beginner|intermediate|advanced]
-reading_time: [X] min
-prerequisites: 
-  - "[Prerequisite 1]"
-  - "[Prerequisite 2]"
-pattern_type: "[core|resilience|data|coordination|operational]"
-when_to_use: "[Primary use cases - 2-3 sentences]"
-when_not_to_use: "[Anti-patterns - 2-3 sentences]"
-related_axioms:
-  - latency
-  - failure
-  - [other relevant axioms]
-related_patterns:
-  - "[Pattern 1]"
-  - "[Pattern 2]"
-status: complete
-last_updated: 2025-07-21
----
+# [Pattern Name] Pattern
 
-# [Pattern Name]
-
-<div class="navigation-breadcrumb">
-<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > [Pattern Name]
+<div class="axiom-box">
+<h3>⚡ Quick Reference</h3>
+<ul>
+<li><strong>Problem:</strong> [One sentence problem statement]</li>
+<li><strong>Solution:</strong> [One sentence solution summary]</li>
+<li><strong>Trade-offs:</strong> [Key compromise in 5-7 words]</li>
+<li><strong>Use when:</strong> [Primary use case in 5-7 words]</li>
+</ul>
 </div>
 
-> "[Memorable quote about this pattern or its philosophy]"
-> — [Attribution]
+## The Problem
 
-## The Essential Question
+[2-3 paragraphs explaining the distributed systems challenge this pattern addresses. Start with a concrete scenario, then generalize to the broader problem. Include why naive solutions fail.]
 
-[Frame the core problem this pattern solves in one compelling question that resonates with practitioners]
+### Why This Problem Is Hard
 
----
+[Explain which fundamental laws make this challenging - reference at least one law from Part 1]
 
-## Level 1: Intuition (5 minutes)
-
-### The Story
-
-[Tell a relatable story or analogy that explains the pattern concept without technical jargon]
-
-### Visual Metaphor
-
-```
-[ASCII art or simple diagram showing the concept]
-```
-
-### In One Sentence
-
-**[Pattern Name]**: [Complete definition in one clear sentence]
-
-### Real-World Parallel
-
-[Everyday example that everyone can understand]
-
----
-
-## Level 2: Foundation (10 minutes)
-
-### The Problem Space
-
-<div class="failure-vignette">
-<h4>🔥 When [Pattern] Isn't Used</h4>
-[Real failure story showing what happens without this pattern]
-</div>
+## The Solution
 
 ### Core Concept
 
-[Explain the fundamental mechanism in 2-3 paragraphs]
-
-### Basic Architecture
+[1-2 paragraphs explaining the key insight that makes this pattern work]
 
 ```mermaid
-graph TD
-    [Basic architecture diagram]
+graph LR
+    %% Add your architecture diagram here
+    Client[Client] --> Component1[Component 1]
+    Component1 --> Component2[Component 2]
+    
+    style Client fill:#e1f5fe
+    style Component1 fill:#dcfce7
 ```
 
-### Key Benefits
+### How It Works
 
-1. **[Benefit 1]**: [Explanation]
-2. **[Benefit 2]**: [Explanation]
-3. **[Benefit 3]**: [Explanation]
+1. **Step 1**: [Action and purpose]
+2. **Step 2**: [Action and purpose]
+3. **Step 3**: [Action and purpose]
+4. **Step 4**: [Action and purpose]
 
-### Trade-offs
+### Key Properties
 
-| Aspect | Gain | Cost |
-|--------|------|------|
-| [Aspect 1] | [What you gain] | [What you pay] |
-| [Aspect 2] | [What you gain] | [What you pay] |
-| [Aspect 3] | [What you gain] | [What you pay] |
+| Property | Description | Guarantee |
+|----------|-------------|-----------|
+| [Property 1] | [What it means] | [Strong/Weak/None] |
+| [Property 2] | [What it means] | [Strong/Weak/None] |
+| [Property 3] | [What it means] | [Strong/Weak/None] |
 
----
+## Implementation
 
-## Level 3: Deep Dive (20 minutes)
-
-### Detailed Architecture
-
-```mermaid
-graph TB
-    [Comprehensive architecture diagram with components and flow]
-```
-
-### Implementation Patterns
-
-#### Basic Implementation
+### Basic Implementation
 
 ```python
-# Example implementation in Python
-[Code example with comments explaining key concepts]
+# Choose appropriate language for the pattern
+class PatternName:
+    def __init__(self, config):
+        """Initialize with configuration."""
+        self.threshold = config.get('threshold', 5)
+        self.timeout = config.get('timeout', 60)
+    
+    def handle_request(self, request):
+        """Core pattern logic - keep it conceptual."""
+        # Focus on demonstrating the concept
+        # Not production-ready code
+        pass
 ```
 
-#### Production-Ready Implementation
+### Configuration Options
 
-```python
-# More sophisticated implementation
-[Code with error handling, monitoring, configuration]
-```
+| Parameter | Default | Range | Impact |
+|-----------|---------|-------|---------|
+| `threshold` | 5 | 1-100 | Higher = more tolerance |
+| `timeout` | 60s | 1-300s | Higher = slower recovery |
+| `[param]` | [default] | [range] | [impact description] |
 
-### State Management
+## Trade-offs
 
-[Explain how state is managed in this pattern]
+| Aspect | Benefit | Cost |
+|--------|---------|------|
+| **Performance** | [Specific improvement] | [Specific overhead] |
+| **Complexity** | [What becomes simpler] | [What becomes complex] |
+| **Reliability** | [Failure handling improvement] | [New failure modes] |
+| **Scalability** | [How it helps scale] | [Scaling limitations] |
+| **Operational** | [Ops improvement] | [Ops overhead] |
 
-```mermaid
-stateDiagram-v2
-    [State diagram if applicable]
-```
+## Real-World Examples
 
-### Common Variations
+### Example 1: [Company/System]
+- **Scale**: [Users/QPS/Data volume]
+- **Implementation**: [Key details]
+- **Results**: [Specific improvements]
+- **Lessons**: [What they learned]
 
-1. **[Variation 1]**
-   - Use case: [When to use]
-   - Trade-off: [What changes]
+### Example 2: [Company/System]
+- **Scale**: [Users/QPS/Data volume]
+- **Implementation**: [Key details]
+- **Results**: [Specific improvements]
+- **Lessons**: [What they learned]
 
-2. **[Variation 2]**
-   - Use case: [When to use]
-   - Trade-off: [What changes]
-
-### Integration Points
-
-- **With [Pattern X]**: [How they work together]
-- **With [Pattern Y]**: [Synergies and conflicts]
-
----
-
-## Level 4: Expert Practitioner (30 minutes)
-
-### Advanced Techniques
-
-#### [Technique 1]
-
-[Detailed explanation with code]
-
-```python
-# Advanced implementation
-[Sophisticated code example]
-```
-
-#### [Technique 2]
-
-[Detailed explanation with code]
-
-### Performance Optimization
+## When to Use
 
 <div class="decision-box">
-<h4>🎯 Performance Tuning Checklist</h4>
-
-- [ ] [Optimization 1]
-- [ ] [Optimization 2]
-- [ ] [Optimization 3]
-- [ ] [Optimization 4]
+<h3>✅ Use This Pattern When:</h3>
+<ul>
+<li>[Specific condition 1]</li>
+<li>[Specific condition 2]</li>
+<li>[Specific condition 3]</li>
+</ul>
 </div>
-
-### Monitoring & Observability
-
-Key metrics to track:
-
-```yaml
-metrics:
-  - name: [metric_1]
-    description: [What it measures]
-    alert_threshold: [Value]
-  - name: [metric_2]
-    description: [What it measures]
-    alert_threshold: [Value]
-```
-
-### Common Pitfalls
 
 <div class="failure-vignette">
-<h4>⚠️ Pitfall: [Common Mistake]</h4>
-[Description of the mistake and its consequences]
-
-**Solution**: [How to avoid or fix it]
+<h3>❌ Don't Use When:</h3>
+<ul>
+<li>[Anti-pattern scenario 1]</li>
+<li>[Anti-pattern scenario 2]</li>
+<li>[Anti-pattern scenario 3]</li>
+</ul>
 </div>
 
-### Production Checklist
+## Common Pitfalls
 
-- [ ] [Requirement 1]
-- [ ] [Requirement 2]
-- [ ] [Requirement 3]
-- [ ] [Requirement 4]
-- [ ] [Requirement 5]
+1. **[Pitfall Name]**: [Description and how to avoid]
+2. **[Pitfall Name]**: [Description and how to avoid]
+3. **[Pitfall Name]**: [Description and how to avoid]
+
+## Monitoring & Debugging
+
+### Key Metrics
+
+| Metric | What It Tells You | Alert Threshold |
+|--------|-------------------|-----------------|
+| [Metric 1] | [Interpretation] | [Value] |
+| [Metric 2] | [Interpretation] | [Value] |
+| [Metric 3] | [Interpretation] | [Value] |
+
+### Debug Checklist
+
+- [ ] Check [specific thing 1]
+- [ ] Verify [specific thing 2]
+- [ ] Examine [specific thing 3]
+- [ ] Review [specific thing 4]
+
+## Related Patterns
+
+- **[Pattern 1]**: [How they work together - 1 sentence]
+- **[Pattern 2]**: [When to use instead - 1 sentence]
+- **[Pattern 3]**: [Complementary usage - 1 sentence]
+
+## References
+
+1. [Author, Year. "Paper Title"](URL) - Academic foundation
+2. [Company Engineering Blog: "Title"](URL) - Production usage
+3. [Book or Article Title](URL) - Further reading
 
 ---
 
-## Level 5: Mastery (45 minutes)
+**Laws Applied**: [Law 1: Correlated Failure](/part1-axioms/law1-failure/) • [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)
 
-### Case Study: [Company] Implementation
+**Pillars**: [State Distribution](/part2-pillars/state/) • [Truth Distribution](/part2-pillars/truth/)
 
-<div class="truth-box">
-<h4>🏢 Real-World Implementation</h4>
-
-**Company**: [Company Name]  
-**Scale**: [Metrics - requests/sec, data volume, etc.]  
-**Challenge**: [What problem they solved]
-
-[Detailed case study with architecture diagrams and lessons learned]
-</div>
-
-### Economic Analysis
-
-#### Cost Model
-
-```python
-def calculate_pattern_roi(
-    request_volume: int,
-    failure_rate: float,
-    implementation_cost: float
-) -> dict:
-    """Calculate ROI for implementing this pattern"""
-    [ROI calculation code]
-```
-
-#### When It Pays Off
-
-- **Break-even point**: [Conditions]
-- **High ROI scenarios**: [List scenarios]
-- **Low ROI scenarios**: [List scenarios]
-
-### Pattern Evolution
-
-```mermaid
-timeline
-    title Evolution of [Pattern Name]
-    
-    [Year] : [Version/Milestone 1]
-    [Year] : [Version/Milestone 2]
-    [Year] : [Version/Milestone 3]
-    [Year] : Current State
-```
-
-### Law Connections
-
-<div class="axiom-box">
-<h4>🔗 Fundamental Laws</h4>
-
-This pattern directly addresses:
-
-1. **[Law Name]**: [How it relates]
-2. **[Law Name]**: [How it relates]
-3. **[Law Name]**: [How it relates]
-</div>
-
-### Future Directions
-
-[Emerging trends and how this pattern might evolve]
-
----
-
-## Quick Reference
-
-### Decision Matrix
-
-```mermaid
-graph TD
-    Start[Need Pattern?] --> Q1{[Question 1]}
-    Q1 -->|Yes| Q2{[Question 2]}
-    Q1 -->|No| NotNeeded[Use Alternative]
-    Q2 -->|Yes| UsePattern[Implement Pattern]
-    Q2 -->|No| Q3{[Question 3]}
-    Q3 -->|Yes| UseVariant[Use Variant X]
-    Q3 -->|No| NotNeeded
-```
-
-### Command Cheat Sheet
-
-```bash
-# Common operations
-[command 1]  # Description
-[command 2]  # Description
-[command 3]  # Description
-```
-
-### Configuration Template
-
-```yaml
-# Production configuration template
-pattern_name:
-  [setting_1]: [recommended_value]
-  [setting_2]: [recommended_value]
-  [setting_3]: [recommended_value]
-```
-
----
-
-## Related Resources
-
-### Patterns
-- [Related Pattern 1](/patterns/[pattern-1]/) - [How they work together]
-- [Related Pattern 2](/patterns/[pattern-2]/) - [Complementary aspects]
-
-### Axioms
-- [Axiom 1](/part1-axioms/[axiom]/) - [Connection]
-- [Axiom 2](/part1-axioms/[axiom]/) - [Connection]
-
-### Further Reading
-- [Paper/Article 1] - [Why it's relevant]
-- [Paper/Article 2] - [Key insights]
-- [Implementation Guide] - [Practical details]
-
-### Tools & Libraries
-- **[Language]**: [Library] - [Purpose]
-- **[Language]**: [Library] - [Purpose]
-- **Monitoring**: [Tool] - [What it provides]
-
----
-
-<div class="navigation-links">
-<div class="prev-link">
-<a href="/patterns/[previous-pattern]/">← Previous: [Pattern Name]</a>
-</div>
-<div class="next-link">
-<a href="/patterns/[next-pattern]/">Next: [Pattern Name] →</a>
-</div>
-</div>
+**Next**: [Related Pattern Name](/patterns/related-pattern) | **Previous**: [Previous Pattern](/patterns/previous-pattern)

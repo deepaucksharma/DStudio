@@ -14,18 +14,12 @@ last_updated: 2025-07-23
 # Client Library Design
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Client Library Design**
-
-> 🚧 This pattern documentation is under construction.
-
-Well-designed client libraries abstract distributed system complexity while providing flexibility and good defaults.
 
 ## Related Patterns
-- [Service Mesh](service-mesh.md)
+- Service Mesh (Coming Soon)
 - [Circuit Breaker](circuit-breaker.md)
 - [Retry with Backoff](retry-backoff.md)
-- [SDK Design](../patterns/api-gateway.md)
+- [SDK Design](/patterns/api-gateway)
 
 ## References
-- [Unique ID Generator](../case-studies/unique-id-generator.md) - Client library considerations
+- [Unique ID Generator](/case-studies/unique-id-generator) - Client library considerations

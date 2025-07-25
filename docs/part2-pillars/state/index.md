@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../../introduction/index.md) → [Part II: Pillars](../index.md) → [State](index.md) → **Pillar 2: Distribution of State**
 
 # Pillar 2: Distribution of State
 
@@ -34,7 +32,7 @@ Imagine a massive library with millions of books. How do you organize the catalo
 - Con: What about books covering multiple topics?
 - Con: How do you keep them synchronized?
 
-That's distributed state in a nutshell! This challenge arises from [Law 4: Law of Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/index.md) (finite resources require distribution) and [Law 1: Law of Correlated Failure](../../part1-axioms/law1-failure/index.md) (replicas for fault tolerance).
+That's distributed state in a nutshell! This challenge arises from [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) (finite resources require distribution) and [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure/) (replicas for fault tolerance).
 
 ---
 
@@ -86,7 +84,7 @@ sequenceDiagram
 | Problem | Description | Real-World Impact |
 |---------|-------------|-------------------|
 | **Stale Cache** | ATMs see outdated balance | Double-spending attacks |
-| **Race Condition** | Concurrent operations conflict | Data corruption (see [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md)) |
+| **Race Condition** | Concurrent operations conflict | Data corruption (see [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/)) |
 | **Lost Update** | One update overwrites another | Missing transactions |
 | **Version Mismatch** | Cache version != source version | Inconsistent state |
 
@@ -181,7 +179,7 @@ Think of distributed state like:
 **Date**: October 21, 2018
 **Impact**: 24 hours of degraded service
 
-This incident perfectly illustrates [Law 1: Law of Correlated Failure](../../part1-axioms/law1-failure/index.md) and the challenges of maintaining [Pillar 3: Truth](../truth/index.md) across distributed state.
+This incident perfectly illustrates [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure/) and the challenges of maintaining [Pillar 3: Truth](/part2-pillars/truth/) across distributed state.
 
 ```mermaid
 graph TB
@@ -237,7 +235,7 @@ graph LR
 
 ### The CAP Theorem Visualized
 
-The CAP theorem directly connects to [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md) - you can't have perfect coordination (consistency) and availability during network partitions.
+The CAP theorem directly connects to [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/) - you can't have perfect coordination (consistency) and availability during network partitions.
 
 ```mermaid
 graph TB
@@ -310,7 +308,7 @@ graph TB
 | Pattern | State Distribution | Consistency | Use Case |
 |---------|-------------------|-------------|----------|
 | **Single Master** | All writes to one node | Strong | MySQL primary |
-| **Multi-Master** | Any node can accept writes | Eventual/Conflict | Cassandra (requires [Pillar 3: Truth](../truth/index.md) resolution) |
+| **Multi-Master** | Any node can accept writes | Eventual/Conflict | Cassandra (requires [Pillar 3: Truth](/part2-pillars/truth/) resolution) |
 | **Partitioned** | Each partition has master | Strong per partition | MongoDB sharding |
 | **Replicated State Machine** | All nodes execute same ops | Strong | etcd/Raft |
 | **CRDT** | Merge concurrent updates | Strong eventual | Redis CRDT (see CRDT section below) |
@@ -427,7 +425,7 @@ graph LR
 
 ### Advanced Replication: Chain Replication Architecture
 
-Chain replication leverages [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) trade-offs - higher write latency for stronger consistency and simpler failure handling.
+Chain replication leverages [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) trade-offs - higher write latency for stronger consistency and simpler failure handling.
 
 ```mermaid
 graph LR
@@ -547,7 +545,7 @@ graph TB
 
 ### Vector Clocks: Tracking Causality
 
-Vector clocks implement the ordering requirements from [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md), enabling distributed systems to reason about happened-before relationships.
+Vector clocks implement the ordering requirements from [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/), enabling distributed systems to reason about happened-before relationships.
 
 ```mermaid
 sequenceDiagram
@@ -613,7 +611,7 @@ graph TB
 
 ### CRDTs: Conflict-Free Replicated Data Types
 
-CRDTs bypass [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md) overhead by ensuring all operations commute - achieving consistency without consensus (see [Pillar 3: Truth](../truth/index.md) for consensus alternatives).
+CRDTs bypass [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/) overhead by ensuring all operations commute - achieving consistency without consensus (see [Pillar 3: Truth](/part2-pillars/truth/) for consensus alternatives).
 
 ```mermaid
 graph TB
@@ -709,7 +707,7 @@ sequenceDiagram
 
 ### DynamoDB: Eventually Consistent at Scale
 
-DynamoDB exemplifies the [Law 7: Law of Economic Reality](../../part1-axioms/law7-economics/index.md) trade-offs - offering tunable consistency levels that balance cost, performance, and correctness.
+DynamoDB exemplifies the [Law 7: Law of Economic Reality](/part1-axioms/law7-economics/) trade-offs - offering tunable consistency levels that balance cost, performance, and correctness.
 
 ```mermaid
 graph TB
@@ -814,7 +812,7 @@ graph LR
 
 ### Google Spanner: Globally Consistent Database
 
-Spanner represents the pinnacle of distributed state management, using atomic clocks to tame [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) and achieve global consistency (detailed in [Pillar 3: Truth](../truth/index.md)).
+Spanner represents the pinnacle of distributed state management, using atomic clocks to tame [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) and achieve global consistency (detailed in [Pillar 3: Truth](/part2-pillars/truth/)).
 
 ```mermaid
 graph TB
@@ -1547,34 +1545,34 @@ graph TD
 
 ---
 
-**Next**: [Pillar 3: Consensus →](../truth/index.md)
+**Next**: [Pillar 3: Consensus →](/part2-pillars/truth/)
 
 *"State is the hardest problem in distributed systems. Everything else is just moving bytes around."*
 
 ## Related Resources
 
 ### Foundational Laws
-- [Law 1: Law of Correlated Failure](../../part1-axioms/law1-failure/index.md) - Replication for fault tolerance
-- [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) - How network delays affect state consistency
-- [Law 3: Law of Emergent Chaos](../../part1-axioms/law3-emergence/index.md) - Unpredictable state mutations
-- [Law 4: Law of Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/index.md) - Why we must distribute state
-- [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md) - Synchronizing state updates
-- [Law 7: Law of Economic Reality](../../part1-axioms/law7-economics/index.md) - Cost of consistency levels
+- [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure/) - Replication for fault tolerance
+- [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) - How network delays affect state consistency
+- [Law 3: Law of Emergent Chaos](/part1-axioms/law3-emergence/) - Unpredictable state mutations
+- [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - Why we must distribute state
+- [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/) - Synchronizing state updates
+- [Law 7: Law of Economic Reality](/part1-axioms/law7-economics/) - Cost of consistency levels
 
 ### Related Pillars
-- [Pillar 1: Work](../work/index.md) - Stateless vs stateful computation
-- [Pillar 3: Truth](../truth/index.md) - Consensus on state values
-- [Pillar 4: Control](../control/index.md) - Orchestrating state changes
-- [Pillar 5: Intelligence](../intelligence/index.md) - Smart state placement
+- [Pillar 1: Work](/part2-pillars/work/) - Stateless vs stateful computation
+- [Pillar 3: Truth](/part2-pillars/truth/) - Consensus on state values
+- [Pillar 4: Control](/part2-pillars/control/) - Orchestrating state changes
+- [Pillar 5: Intelligence](/part2-pillars/intelligence/) - Smart state placement
 
 ### Implementation Patterns
-- [Event Sourcing](../../patterns/event-sourcing.md) - State as event log
-- [CQRS](../../patterns/cqrs.md) - Separate read/write state models
-- [Sharding](../../patterns/sharding.md) - Horizontal state partitioning
-- [Replication](../../patterns/geo-replication.md) - State redundancy patterns
+- [Event Sourcing](/patterns/event-sourcing) - State as event log
+- [CQRS](/patterns/cqrs) - Separate read/write state models
+- [Sharding](/patterns/sharding) - Horizontal state partitioning
+- Replication (Coming Soon) - State redundancy patterns
 
 ### Real-World Case Studies
-- [DynamoDB](../../case-studies/amazon-dynamo.md) - Amazon's distributed database
-- [Cassandra](../../case-studies/cassandra.md) - Wide-column distributed store
-- [Redis Cluster](../../case-studies/redis.md) - In-memory distributed state
-- [MongoDB](../../case-studies/mongodb.md) - Document database sharding
+- [DynamoDB](/case-studies/amazon-dynamo) - Amazon's distributed database
+- [Cassandra](/case-studies/cassandra) - Wide-column distributed store
+- [Redis Cluster](/case-studies/redis) - In-memory distributed state
+- [MongoDB](/case-studies/mongodb) - Document database sharding

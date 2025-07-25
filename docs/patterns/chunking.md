@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # Chunking
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Chunking**
 
 ## Overview
 

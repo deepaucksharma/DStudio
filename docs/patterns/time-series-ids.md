@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # Time Series IDs
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Time Series IDs**
 
 ## Overview
 

@@ -12,8 +12,6 @@ status: [stub|partial|complete]
 last_updated: YYYY-MM-DD
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **[Pattern Name]**
 
 # [Pattern Name]
 
@@ -205,8 +203,8 @@ metrics = {
 - [Related Pattern 3](related-pattern-3.md) - [How they relate]
 
 ### Case Studies
-- [Case Study 1](../case-studies/case-1.md) - [Brief description]
-- [Case Study 2](../case-studies/case-2.md) - [Brief description]
+- [Case Study 1](/case-studies/case-1) - [Brief description]
+- [Case Study 2](/case-studies/case-2) - [Brief description]
 
 ---
 

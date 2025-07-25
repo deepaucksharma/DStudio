@@ -999,42 +999,42 @@ graph TD
 - [Gubernator](https://github.com/mailgun/gubernator) - High-performance distributed rate limiting
 
 **Related Patterns:**
-- [Token Bucket Algorithm](../patterns/rate-limiting.md#token-bucket)
-- [Circuit Breaker](../patterns/circuit-breaker.md)
-- [Consistent Hashing](../patterns/sharding.md#consistent-hashing)
-- [Gossip Protocol](../patterns/gossip-protocol.md)
+- [Token Bucket Algorithm](/patterns/rate-limiting)
+- [Circuit Breaker](/patterns/circuit-breaker)
+- [Consistent Hashing](/patterns/consistent-hashing)
+- Gossip Protocol (Coming Soon)
 
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Rate limiting protects backend capacity from overload
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Clear error messages with retry-after headers
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Local caching reduces infrastructure costs by 80%
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Rate limiting protects backend capacity from overload
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Clear error messages with retry-after headers
+- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛️ Related Patterns (Part III)
-- **[Rate Limiting](../patterns/rate-limiting.md)** - Core pattern implemented with token bucket algorithm
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects rate limiter from Redis failures
-- **[Bulkhead](../patterns/bulkhead.md)** - Isolates rate limit pools per tenant/API
-- **[Consistent Hashing](../patterns/sharding.md)** - Distributes users across rate limiter nodes
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Local cache with TTL for performance
-- **[Health Check](../patterns/health-check.md)** - Monitors Redis connectivity and accuracy
-- **[Load Shedding](../patterns/load-shedding.md)** - Drops low-priority requests under extreme load
+- **[Rate Limiting](/patterns/rate-limiting)** - Core pattern implemented with token bucket algorithm
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Protects rate limiter from Redis failures
+- **[Bulkhead](/patterns/bulkhead)** - Isolates rate limit pools per tenant/API
+- **[Consistent Hashing](/patterns/sharding)** - Distributes users across rate limiter nodes
+- **[Caching Strategies](/patterns/caching-strategies)** - Local cache with TTL for performance
+- **[Health Check](/patterns/health-check)** - Monitors Redis connectivity and accuracy
+- **[Load Shedding](/patterns/load-shedding)** - Drops low-priority requests under extreme load
 
 ### 📊 Quantitative Models
-- **[Little's Law](../quantitative/littles-law.md)** - Queue depth = arrival rate × processing time for pending checks
-- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for rate limiter node sizing
-- **[CAP Theorem](../patterns/cap-theorem.md)** - AP choice: available during partitions with approximate counts
-- **[Bloom Filters](../quantitative/probabilistic-structures.md)** - Space-efficient first-time user detection
+- **[Little's Law](/quantitative/littles-law)** - Queue depth = arrival rate × processing time for pending checks
+- **[Queueing Theory](/quantitative/queueing-models)** - M/M/c model for rate limiter node sizing
+- **CAP Theorem (Coming Soon)** - AP choice: available during partitions with approximate counts
+- **[Bloom Filters](/quantitative/probabilistic-structures)** - Space-efficient first-time user detection
 
 ### 👥 Human Factors Considerations
-- **[On-Call Culture](../human-factors/oncall-culture.md)** - Rate limiter failures directly impact users
-- **[Incident Response](../human-factors/incident-response.md)** - Runbooks for common scenarios (Redis failure, DDoS)
-- **[Observability Tools](../human-factors/observability-stacks.md)** - Dashboards show rate limit utilization per API/user
-- **[Capacity Planning](../quantitative/capacity-planning.md)** - Predicting rate limit needs based on growth
+- **[On-Call Culture](/human-factors/oncall-culture)** - Rate limiter failures directly impact users
+- **[Incident Response](/human-factors/incident-response)** - Runbooks for common scenarios (Redis failure, DDoS)
+- **[Observability Tools](/human-factors/observability-stacks)** - Dashboards show rate limit utilization per API/user
+- **[Capacity Planning](/quantitative/capacity-planning)** - Predicting rate limit needs based on growth
 
 ### 🔄 Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Similar distributed counting challenges

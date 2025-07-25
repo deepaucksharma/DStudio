@@ -11,8 +11,6 @@ when_not_to_use: Low-criticality systems, cost-sensitive deployments, simple app
 status: complete
 last_updated: 2025-01-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Failover Pattern**
 
 # Failover Pattern
 

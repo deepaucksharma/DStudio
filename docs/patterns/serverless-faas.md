@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Serverless/FaaS (Function-as-a-Service)**
 
 # Serverless/FaaS (Function-as-a-Service)
 

@@ -69,7 +69,11 @@
 <h3>🎯 Decision Support</h3>
 <div class="tools-grid">
 
-<!-- Coming Soon: Consistency Level Explorer -->
+<a href="consistency-calculator.md" class="tool-card">
+<div class="tool-icon">🔄</div>
+<div class="tool-name">Consistency Calculator</div>
+<div class="tool-desc">Explore CAP theorem trade-offs, calculate consistency guarantees, and compare consistency models.</div>
+</a>
 
 <!-- Coming Soon: Partition Strategy Simulator -->
 
@@ -83,11 +87,11 @@
 
 Each calculator is based on solid mathematical foundations:
 
-- **[Little's Law](../quantitative/littles-law.md)** - Foundation for latency and throughput calculations
-- **[Queueing Theory](../quantitative/queueing-models.md)** - Models for performance analysis
-- **[Availability Math](../quantitative/availability-math.md)** - Reliability calculations
-- **[CAP Theorem](../quantitative/cap-theorem.md)** - Consistency trade-offs
-- **[Universal Scalability Law](../quantitative/universal-scalability.md)** - Scaling predictions
+- **[Little's Law](/quantitative/littles-law)** - Foundation for latency and throughput calculations
+- **[Queueing Theory](/quantitative/queueing-models)** - Models for performance analysis
+- **[Availability Math](/quantitative/availability-math)** - Reliability calculations
+- **[CAP Theorem](/part1-axioms/distributed-knowledge)** - Consistency trade-offs
+- **[Universal Scalability Law](/quantitative/universal-scalability)** - Scaling predictions
 
 ## How to Use These Tools
 

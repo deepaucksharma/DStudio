@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part II: Pillars](index.md) → **Part II: Foundational Pillars**
 
 # Part II: Foundational Pillars
 
@@ -173,7 +171,7 @@ Use this checklist for any distributed system:
 
 **Theory**: Load balancing, queueing theory (M/M/c)
 **Patterns**: MapReduce, Load Balancing, Serverless
-**Laws**: [Asynchrony](../part1-axioms/law2-asynchrony/index.md), [Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
+**Laws**: [Asynchrony](/part1-axioms/law2-asynchrony/), [Trade-offs](/part1-axioms/law4-tradeoffs/)
 
 **Quick Decision Guide**:
 ```
@@ -192,7 +190,7 @@ Steady? → Load balancer
 
 **Theory**: CAP theorem², consistent hashing
 **Patterns**: Sharding, Replication, CDC
-**Laws**: [Failure](../part1-axioms/law1-failure/index.md), [Chaos](../part1-axioms/law3-emergence/index.md)
+**Laws**: [Failure](/part1-axioms/law1-failure/), [Chaos](/part1-axioms/law3-emergence/)
 
 **CAP Trade-offs**:
 | Choose 2 | Sacrifice | Example |
@@ -210,7 +208,7 @@ Steady? → Load balancer
 
 **Theory**: FLP impossibility⁴, Paxos⁵, Raft⁶
 **Patterns**: Event Sourcing, Saga, 2PC
-**Laws**: [Asynchrony](../part1-axioms/law2-asynchrony/index.md), [Knowledge](../part1-axioms/law5-epistemology/index.md)
+**Laws**: [Asynchrony](/part1-axioms/law2-asynchrony/), [Knowledge](/part1-axioms/law5-epistemology/)
 
 **Consensus Comparison**:
 | Algorithm | Fault Tolerance | Complexity | Use Case |
@@ -229,7 +227,7 @@ Steady? → Load balancer
 
 **Theory**: Control theory, observability
 **Patterns**: Service Mesh, Circuit Breakers, Blue-Green
-**Laws**: [Knowledge](../part1-axioms/law5-epistemology/index.md), [Human API](../part1-axioms/law6-human-api/index.md)
+**Laws**: [Knowledge](/part1-axioms/law5-epistemology/), [Human API](/part1-axioms/law6-human-api/)
 
 **Orchestration vs Choreography**:
 | Approach | Control | Flexibility | Debugging | Example |
@@ -246,7 +244,7 @@ Steady? → Load balancer
 
 **Theory**: ML systems, chaos engineering
 **Patterns**: Auto-scaling, Self-healing, Chaos testing  
-**Laws**: [All 7 Laws](../part1-axioms/index.md) combined
+**Laws**: [All 7 Laws](/part1-axioms/) combined
 
 **Intelligence Maturity Levels**:
 | Level | Capability | Example |
@@ -325,14 +323,14 @@ graph LR
 
 ## 🔗 Quick Links
 
-**Foundations**: [7 Laws](../part1-axioms/index.md) | [Patterns](../patterns/index.md) | [Case Studies](../case-studies/index.md)
+**Foundations**: [7 Laws](/part1-axioms/) | [Patterns](/patterns/) | [Case Studies](/case-studies/)
 
 **By Problem**:
-- **Scale**: [Load Balancing](../patterns/load-balancing.md) | [Sharding](../patterns/sharding.md) | [Caching](../patterns/caching-strategies.md)
-- **Reliability**: [Geo-Replication](../patterns/geo-replication.md) | [Circuit Breaker](../patterns/circuit-breaker.md)
-- **Consistency**: [Event Sourcing](../patterns/event-sourcing.md) | [Saga](../patterns/saga.md) | [CQRS](../patterns/cqrs.md)
-- **Operations**: [Service Mesh](../patterns/service-mesh.md) | [Health Check](../patterns/health-check.md)
-- **Intelligence**: [Auto-scaling](../patterns/auto-scaling.md) | [Chaos Engineering](../human-factors/chaos-engineering.md)
+- **Scale**: [Load Balancing](/patterns/load-balancing) | [Sharding](/patterns/sharding) | [Caching](/patterns/caching-strategies)
+- **Reliability**: Geo-Replication (Coming Soon) | [Circuit Breaker](/patterns/circuit-breaker)
+- **Consistency**: [Event Sourcing](/patterns/event-sourcing) | [Saga](/patterns/saga) | [CQRS](/patterns/cqrs)
+- **Operations**: Service Mesh (Coming Soon) | [Health Check](/patterns/health-check)
+- **Intelligence**: [Auto-scaling](/patterns/auto-scaling) | [Chaos Engineering](/human-factors/chaos-engineering)
 
 ---
 

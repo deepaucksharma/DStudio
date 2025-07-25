@@ -4,7 +4,7 @@ description: Hands-on exercises to understand and test for correlated failures
 type: exercise
 difficulty: expert
 reading_time: 45 min
-prerequisites: ["axiom1-failure/index.md"]
+prerequisites: ["law1-failure/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -326,4 +326,4 @@ After completing these exercises, you should be able to answer:
 2. **Design a Game Day**: Plan a full correlation-focused game day for your organization
 3. **Cost Model**: Build a model that quantifies the cost of correlation vs the cost of preventing it
 
-[**← Back to Law of Failure**](index.md) | [**→ Next: Law of Asynchrony Exercises**](../axiom2-asynchrony/exercises.md)
+[**← Back to Law of Failure**](index.md) | [**→ Next: Law of Asynchrony Exercises**](/part1-axioms/law2-asynchrony/exercises)

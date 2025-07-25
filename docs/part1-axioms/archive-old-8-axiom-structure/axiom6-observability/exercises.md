@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 6](index.md) → **Observability Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 6](index.md) → **Observability Exercises**
 
 # Observability Exercises
 
@@ -946,6 +946,6 @@ class BankingObservability:
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 7: Human Interface](../axiom7-human/index.md)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 7: Human Interface](/part1-axioms/archive-old-8-axiom-structure/axiom7-human/)
 
-**Related**: [Service Mesh](../../patterns/service-mesh.md) • [API Gateway](../../patterns/api-gateway.md) • [Circuit Breaker](../../patterns/circuit-breaker.md) • [Bulkhead](../../patterns/bulkhead.md)
+**Related**: [Service Mesh](/patterns/service-mesh) • [API Gateway](/patterns/api-gateway) • [Circuit Breaker](/patterns/circuit-breaker) • [Bulkhead](/patterns/bulkhead)

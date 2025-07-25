@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-01-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Vector Clocks Pattern**
 
 # Vector Clocks Pattern
 
@@ -790,7 +788,7 @@ graph TD
 - [CRDT](crdt.md) - Uses vector clocks for convergence
 - [Eventual Consistency](eventual-consistency.md) - Primary use case
 - [Consensus](consensus.md) - Alternative for strong consistency
-- [Merkle Trees](merkle-trees.md) - Another verification structure
+- Merkle Trees (Coming Soon) - Another verification structure
 - [Bloom Filter](bloom-filter.md) - Another space-efficient data structure
 
 ## References

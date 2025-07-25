@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Ambassador Pattern**
 
 # Ambassador Pattern
 
@@ -925,4 +923,4 @@ graph TB
 
 ---
 
-**Previous**: [← Backends for Frontends](backends-for-frontends.md) | **Next**: [Anti-Corruption Layer →](anti-corruption-layer.md)
+**Previous**: [← Backends for Frontends](backends-for-frontends.md) | **Next**: Anti-Corruption Layer → (Coming Soon)

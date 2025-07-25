@@ -10,8 +10,6 @@ completion_percentage: 100
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Reference](index.md) → **Reference Materials**
 
 # Reference Materials
 

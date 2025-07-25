@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: partial
 last_updated: 2025-07-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Comparison Guide**
 
 # Pattern Comparison Guide
 
@@ -365,4 +363,4 @@ Trading Apps → API Gateway (Rate Limiting + Auth)
 
 ---
 
-**Previous**: [← FinOps Pattern](finops.md) | **Next**: [Pattern Selection Tool →](pattern-selector.md)
+**Previous**: ← FinOps Pattern (Coming Soon) | **Next**: [Pattern Selection Tool →](pattern-selector.md)

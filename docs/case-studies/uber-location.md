@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Uber's Real-Time Location System**
 
 # 🚗 Uber's Real-Time Location System
 
@@ -866,34 +864,34 @@ sequenceDiagram
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Multi-region replication and graceful degradation handle infrastructure failures
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Lock-free data structures handle millions of concurrent location updates
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - H3 hexagonal grid partitioning and Ringpop gossip protocol balance multiple trade-offs
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Real-time dashboards track driver density and system health per region
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Driver app design optimizes for one-handed operation while driving
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Efficient matching algorithms reduce driver idle time and fuel costs
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Multi-region replication and graceful degradation handle infrastructure failures
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Lock-free data structures handle millions of concurrent location updates
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - H3 hexagonal grid partitioning and Ringpop gossip protocol balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Real-time dashboards track driver density and system health per region
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Driver app design optimizes for one-handed operation while driving
+- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Efficient matching algorithms reduce driver idle time and fuel costs
 
 ### 🏛️ Related Patterns (Part III)
-- **[Sharding & Partitioning](../patterns/sharding.md)** - H3 hexagonal grid provides natural geographic sharding boundaries
-- **[Event-Driven Architecture](../patterns/event-driven.md)** - Location updates flow through Kafka event streams
-- **[CQRS](../patterns/cqrs.md)** - Separate write path (location updates) from read path (driver queries)
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects dispatch service from location service failures
-- **[Edge Computing](../patterns/edge-computing.md)** - Regional data centers reduce location update latency
-- **[Service Mesh](../patterns/service-mesh.md)** - Envoy proxies handle service-to-service communication
-- **[Load Balancing](../patterns/load-balancing.md)** - Geo-aware routing directs requests to nearest data center
+- **[Sharding & Partitioning](/patterns/sharding)** - H3 hexagonal grid provides natural geographic sharding boundaries
+- **[Event-Driven Architecture](/patterns/event-driven)** - Location updates flow through Kafka event streams
+- **[CQRS](/patterns/cqrs)** - Separate write path (location updates) from read path (driver queries)
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Protects dispatch service from location service failures
+- **[Edge Computing](/patterns/edge-computing)** - Regional data centers reduce location update latency
+- **Service Mesh (Coming Soon)** - Envoy proxies handle service-to-service communication
+- **[Load Balancing](/patterns/load-balancing)** - Geo-aware routing directs requests to nearest data center
 
 ### 📊 Quantitative Models
-- **[Little's Law](../quantitative/littles-law.md)** - Driver utilization: L = λW (active drivers = arrival rate × trip duration)
-- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for driver dispatch optimization
-- **[Scaling Laws](../quantitative/scaling-laws.md)** - Square root scaling: doubling drivers reduces wait time by √2
-- **[CAP Theorem](../patterns/cap-theorem.md)** - Chooses AP: available during network partitions with eventual consistency
+- **[Little's Law](/quantitative/littles-law)** - Driver utilization: L = λW (active drivers = arrival rate × trip duration)
+- **[Queueing Theory](/quantitative/queueing-models)** - M/M/c model for driver dispatch optimization
+- **[Scaling Laws](/quantitative/universal-scalability)** - Square root scaling: doubling drivers reduces wait time by √2
+- **CAP Theorem (Coming Soon)** - Chooses AP: available during network partitions with eventual consistency
 
 ### 👥 Human Factors Considerations
-- **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 global operations require follow-the-sun support model
-- **[Incident Response](../human-factors/incident-response.md)** - Playbooks for common scenarios (region failures, GPS outages)
-- **[Observability Tools](../human-factors/observability-stacks.md)** - Heat maps show driver density and demand patterns
-- **[SRE Practices](../human-factors/sre-practices.md)** - Error budgets balance innovation with reliability
+- **[On-Call Culture](/human-factors/oncall-culture)** - 24/7 global operations require follow-the-sun support model
+- **[Incident Response](/human-factors/incident-response)** - Playbooks for common scenarios (region failures, GPS outages)
+- **[Observability Tools](/human-factors/observability-stacks)** - Heat maps show driver density and demand patterns
+- **[SRE Practices](/human-factors/sre-practices)** - Error budgets balance innovation with reliability
 
 ### 🔄 Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Similar challenges with global distribution and availability

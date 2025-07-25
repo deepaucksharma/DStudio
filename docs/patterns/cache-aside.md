@@ -12,11 +12,6 @@ status: partial
 last_updated: 2025-07-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Cache-Aside Pattern**
-
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Patterns](index.md) → [Caching Strategies](caching-strategies.md) → **Cache-Aside**
 
 # Cache-Aside Pattern
 

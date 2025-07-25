@@ -11,8 +11,6 @@ when_not_to_use: When strong consistency is required or simpler solutions suffic
 status: complete
 last_updated: 2025-01-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **CRDT (Conflict-free Replicated Data Types)**
 
 # CRDT (Conflict-free Replicated Data Types)
 
@@ -919,8 +917,8 @@ class HybridCounter:
 
 - [Eventual Consistency](eventual-consistency.md) - The consistency model CRDTs provide
 - [Vector Clocks](vector-clocks.md) - Used in some CRDT implementations
-- [Gossip Protocol](gossip-protocol.md) - Common dissemination method
-- [Anti-Entropy](anti-entropy.md) - Synchronization mechanism
+- Gossip Protocol (Coming Soon) - Common dissemination method
+- Anti-Entropy (Coming Soon) - Synchronization mechanism
 
 ## References
 

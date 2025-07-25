@@ -14,17 +14,11 @@ last_updated: 2025-07-23
 # Graph Algorithms
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Graph Algorithms**
-
-> 🚧 This pattern documentation is under construction.
-
-Graph algorithms are computational procedures for solving problems on graph structures, essential for routing, social networks, and relationship analysis in distributed systems.
 
 ## Related Patterns
-- [Sharding](../patterns/sharding.md) - Graph partitioning
-- [Caching Strategies](../patterns/caching-strategies.md) - Caching graph computations
+- [Sharding](/patterns/sharding) - Graph partitioning
+- [Caching Strategies](/patterns/caching-strategies) - Caching graph computations
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md) - Routing algorithms
-- [Social Graph Case Study](../case-studies/social-graph.md) - Friend recommendations
+- [Google Maps Case Study](/case-studies/google-maps) - Routing algorithms
+- [Social Graph Case Study](/case-studies/social-graph) - Friend recommendations

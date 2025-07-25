@@ -12,11 +12,6 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Write-Behind Cache Pattern**
-
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Patterns](index.md) → [Caching Strategies](caching-strategies.md) → **Write-Behind**
 
 # Write-Behind Cache Pattern
 

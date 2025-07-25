@@ -253,10 +253,10 @@ GROUP BY h3_cell, service_type;
    - Solution: Hierarchical routing with border node replication
 
 ## Related Patterns
-- [Geohashing](../patterns/geohashing.md) - Spatial indexing techniques
-- [Real-Time Processing](../patterns/real-time.md) - Stream processing for location updates
-- [ML Pipeline](../patterns/ml-pipeline.md) - ETA prediction models
-- [Cell-Based Architecture](../patterns/cell-based.md) - Regional service isolation
+- Geohashing (Coming Soon) - Spatial indexing techniques
+- Real-Time Processing (Coming Soon) - Stream processing for location updates
+- ML Pipeline (Coming Soon) - ETA prediction models
+- Cell-Based Architecture (Coming Soon) - Regional service isolation
 
 ## References
 - [Uber Engineering: H3 Hexagonal Hierarchical Spatial Index](https://eng.uber.com/h3/)

@@ -14,17 +14,11 @@ last_updated: 2025-07-23
 # Spatial Indexing
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Spatial Indexing**
-
-> 🚧 This pattern documentation is under construction.
-
-Spatial indexing is a technique for organizing and accessing spatial data efficiently using data structures like R-trees, QuadTrees, and KD-trees.
 
 ## Related Patterns
-- [Sharding](../patterns/sharding.md)
-- [Caching Strategies](../patterns/caching-strategies.md)
+- [Sharding](/patterns/sharding)
+- [Caching Strategies](/patterns/caching-strategies)
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md)
-- [Uber Location Case Study](../case-studies/uber-location.md)
+- [Google Maps Case Study](/case-studies/google-maps)
+- [Uber Location Case Study](/case-studies/uber-location)

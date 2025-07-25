@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-21
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Nearby Friends System Design**
 
 # 👥 Nearby Friends System Design
 
@@ -104,10 +102,10 @@ graph TB
 - Grid-based quantization
 
 **Patterns & Pillars Applied**:
-- 🔧 Pattern: [Location Privacy](../patterns/location-privacy.md) - K-anonymity
-- 🔧 Pattern: [Consent Management](../patterns/consent-management.md) - Mutual opt-in
-- 🏛️ Pillar: [Control Distribution](../part2-pillars/control/index.md) - Privacy UX
-- 🏛️ Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Location accuracy
+- 🔧 Pattern: [Location Privacy](/patterns/location-privacy) - K-anonymity
+- 🔧 Pattern: [Consent Management](/patterns/consent-management) - Mutual opt-in
+- 🏛️ Pillar: [Control Distribution](/part2-pillars/control/) - Privacy UX
+- 🏛️ Pillar: [Truth Distribution](/part2-pillars/truth/) - Location accuracy
 
 ### Phase 4: Modern Distributed Architecture (2018-Present)
 
@@ -1673,28 +1671,28 @@ class PrivacyDashboard:
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Real-time location updates
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Battery and bandwidth limits
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Privacy fail-safes
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Parallel proximity checks
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Consent synchronization and privacy analytics
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Privacy UX, battery life
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - Real-time location updates
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Battery and bandwidth limits
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Privacy fail-safes
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Parallel proximity checks
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Consent synchronization and privacy analytics
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Privacy UX, battery life
+- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Infrastructure costs
 
 ### 🏛️ Related Patterns
-- **[Location Privacy](../patterns/location-privacy.md)** - K-anonymity, fuzzing
-- **[Consent Management](../patterns/consent-management.md)** - GDPR compliance
-- **[Stream Processing](../patterns/queues-streaming.md)** - Real-time events
-- **[Edge Computing](../patterns/edge-computing.md)** - Regional processing
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
-- **[Geofencing](../patterns/geofencing.md)** - Location triggers
-- **[Battery Optimization](../patterns/battery-optimization.md)** - Mobile efficiency
+- **[Location Privacy](/patterns/location-privacy)** - K-anonymity, fuzzing
+- **[Consent Management](/patterns/consent-management)** - GDPR compliance
+- **[Stream Processing](/patterns/queues-streaming)** - Real-time events
+- **[Edge Computing](/patterns/edge-computing)** - Regional processing
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
+- **Geofencing (Coming Soon)** - Location triggers
+- **Battery Optimization (Coming Soon)** - Mobile efficiency
 
 ### 📊 Quantitative Models
-- **[Privacy Metrics](../quantitative/privacy-metrics.md)** - K-anonymity, l-diversity
-- **[Battery Models](../quantitative/battery-models.md)** - Power consumption
-- **[Social Networks](../quantitative/social-networks.md)** - Friend graphs
-- **[Spatial Statistics](../quantitative/spatial-stats.md)** - Location clustering
+- **[Privacy Metrics](/quantitative/privacy-metrics)** - K-anonymity, l-diversity
+- **[Battery Models](/quantitative/battery-models)** - Power consumption
+- **[Social Networks](/quantitative/social-networks)** - Friend graphs
+- **[Spatial Statistics](/quantitative/spatial-stats)** - Location clustering
 
 ### 🔄 Similar Case Studies
 - **[Find My Device](find-my-device.md)** - Apple/Google location

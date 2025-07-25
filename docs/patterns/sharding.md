@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Sharding (Data Partitioning)**
 
 # Sharding (Data Partitioning)
 
@@ -1043,4 +1041,4 @@ class AdvancedShardingAlgorithms:
 
 ---
 
-**Previous**: [← Service Mesh](service-mesh.md) | **Next**: [Timeout Pattern →](timeout.md)
+**Previous**: ← Service Mesh (Coming Soon) | **Next**: [Timeout Pattern →](timeout.md)

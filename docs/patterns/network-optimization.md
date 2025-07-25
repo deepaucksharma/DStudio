@@ -14,18 +14,12 @@ last_updated: 2025-07-23
 # Network Optimization
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Network Optimization**
-
-> 🚧 This pattern documentation is under construction.
-
-Network optimization patterns reduce latency, minimize bandwidth usage, and improve throughput in distributed systems.
 
 ## Related Patterns
 - [CDN/Edge Computing](edge-computing.md)
-- [Compression](../quantitative/compression.md)
+- [Compression](/quantitative/compression)
 - [Connection Pooling](bulkhead.md)
-- [Protocol Buffers](../patterns/api-gateway.md)
+- [Protocol Buffers](/patterns/api-gateway)
 
 ## References
-- [Key-Value Store](../case-studies/key-value-store.md) - Network protocol optimization
+- [Key-Value Store](/case-studies/key-value-store) - Network protocol optimization

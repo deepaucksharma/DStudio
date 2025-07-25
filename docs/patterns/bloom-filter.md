@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-01-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Bloom Filter Pattern**
 
 # Bloom Filter Pattern
 
@@ -768,7 +766,7 @@ graph TD
 - [Caching Strategies](caching-strategies.md) - Often used together
 - [Rate Limiting](rate-limiting.md) - Similar space-time trade-offs
 - [Vector Clocks](vector-clocks.md) - Another distributed data structure
-- [Merkle Trees](merkle-trees.md) - Verification structures
+- Merkle Trees (Coming Soon) - Verification structures
 - [Count-Min Sketch](count-min-sketch.md) - Frequency estimation
 
 ## References

@@ -2038,16 +2038,16 @@ Storage Node      32GB      8 cores  10TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md) - Massive parallelism patterns
-- [Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md) - Crawler ethics and robots.txt
-- [Queue Patterns](../patterns/queues-streaming.md) - Priority queue implementations
-- [Bulkhead Pattern](../patterns/bulkhead.md) - Domain isolation strategies
+- [Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/) - Massive parallelism patterns
+- [Law 6: Human-API 🤯](/part1-axioms/law6-human-api/) - Crawler ethics and robots.txt
+- [Queue Patterns](/patterns/queues-streaming) - Priority queue implementations
+- [Bulkhead Pattern](/patterns/bulkhead) - Domain isolation strategies
 
 **Advanced Topics:**
-- [JavaScript Crawling](../patterns/js-crawling.md) - Headless browser techniques
-- [Trap Detection](../patterns/crawler-traps.md) - Identifying infinite spaces
-- [Distributed Deduplication](../patterns/distributed-dedup.md) - At-scale duplicate detection
-- [Adaptive Scheduling](../patterns/adaptive-scheduling.md) - ML-based crawl prioritization
+- JavaScript Crawling (Coming Soon) - Headless browser techniques
+- Trap Detection (Coming Soon) - Identifying infinite spaces
+- Distributed Deduplication (Coming Soon) - At-scale duplicate detection
+- Adaptive Scheduling (Coming Soon) - ML-based crawl prioritization
 
 **Related Case Studies:**
 <!-- TODO: Add search engine case study -->
@@ -2055,10 +2055,10 @@ Storage Node      32GB      8 cores  10TB
 <!-- TODO: Add price monitor case study -->
 
 **Implementation Patterns:**
-- [Politeness Policies](../patterns/politeness.md) - Respectful crawling
-- [URL Normalization](../patterns/url-normalization.md) - Canonical URLs
-- [Content Extraction](../patterns/content-extraction.md) - Parsing strategies
-- [Frontier Management](../patterns/url-frontier.md) - Scalable queue design
+- [Politeness Policies](/patterns/politeness) - Respectful crawling
+- [URL Normalization](/patterns/url-normalization) - Canonical URLs
+- Content Extraction (Coming Soon) - Parsing strategies
+- [Frontier Management](/patterns/url-frontier) - Scalable queue design
 
 ### 📚 References
 
@@ -2074,7 +2074,7 @@ Storage Node      32GB      8 cores  10TB
 - [Heritrix](https://github.com/internetarchive/heritrix3)
 
 **Related Patterns:**
-- [URL Frontier Management](../patterns/priority-queue.md)
-- [Politeness Policy](../patterns/rate-limiting.md)
-- [Duplicate Detection](../patterns/bloom-filter.md)
-- [Distributed Coordination](../patterns/leader-election.md)
+- URL Frontier Management (Coming Soon)
+- [Politeness Policy](/patterns/rate-limiting)
+- [Duplicate Detection](/patterns/bloom-filter)
+- [Distributed Coordination](/patterns/leader-election)

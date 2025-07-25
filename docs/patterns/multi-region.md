@@ -14,15 +14,6 @@ last_updated: 2025-07-21
 # Multi-Region Architecture
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Multi-Region Architecture**
-
-<div class="navigation-breadcrumb">
-<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Multi-Region Architecture
-</div>
-
-> "Think globally, fail locally"
-> — Werner Vogels, AWS CTO
 
 ## The Essential Question
 
@@ -1004,21 +995,21 @@ failover test --dry-run
 ## Related Resources
 
 ### Patterns
-- [Geo-Replication](../patterns/geo-replication.md) - Data replication strategies
-- [Edge Computing](../patterns/edge-computing.md) - Processing at network edge
-- [Tunable Consistency](../patterns/tunable-consistency.md) - Consistency models
-- [CQRS](../patterns/cqrs.md) - Separate read/write paths
+- Geo-Replication (Coming Soon) - Data replication strategies
+- [Edge Computing](/patterns/edge-computing) - Processing at network edge
+- [Tunable Consistency](/patterns/tunable-consistency) - Consistency models
+- [CQRS](/patterns/cqrs) - Separate read/write paths
 
 ### Laws
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md) - Speed of light constraints
-- [Law 7 (Economic Reality 💰)](../part1-axioms/law7-economics/index.md) - Cost implications
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Regional failure modes
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Regional capacity planning
+- [Law 2 (Asynchronous Reality ⏳)](/part1-axioms/law2-asynchrony/) - Speed of light constraints
+- [Law 7 (Economic Reality 💰)](/part1-axioms/law7-economics/) - Cost implications
+- [Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/) - Regional failure modes
+- [Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/) - Regional capacity planning
 
 ### Case Studies
-- [Video Streaming Platform](../case-studies/video-streaming.md) - Netflix's approach
-- [Social Media Feed](../case-studies/social-media-feed.md) - Facebook's architecture
-- [E-commerce Platform](../case-studies/ecommerce-platform.md) - Amazon's strategy
+- [Video Streaming Platform](/case-studies/video-streaming) - Netflix's approach
+- [Social Media Feed](/case-studies/social-media-feed) - Facebook's architecture
+- [E-commerce Platform](/case-studies/ecommerce-platform) - Amazon's strategy
 
 ### Tools & Technologies
 - **Cloud Providers**: AWS Global Infrastructure, Azure Regions, GCP Regions

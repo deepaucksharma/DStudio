@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Reference](index.md) → **Security Considerations in Distributed Systems**
 
 # Security Considerations in Distributed Systems
 

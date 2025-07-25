@@ -14,16 +14,10 @@ last_updated: 2025-07-23
 # Vector Tiles
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Vector Tiles**
-
-> 🚧 This pattern documentation is under construction.
-
-Vector tiles are a method of delivering geographic data in small chunks (tiles) that contain vector geometry and attribute data instead of pre-rendered images.
 
 ## Related Patterns
-- [Edge Computing](../patterns/edge-computing.md)
-- [Caching Strategies](../patterns/caching-strategies.md)
+- [Edge Computing](/patterns/edge-computing)
+- [Caching Strategies](/patterns/caching-strategies)
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md)
+- [Google Maps Case Study](/case-studies/google-maps)

@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Queueing Models (M/M/1)**
 
 # Queueing Models (M/M/1)
 
@@ -592,7 +590,7 @@ graph LR
     style F fill:#ff0000
 ```
 
-**Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
+**Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
 
 ### Law 1: Failure 💥
 - At high utilization (>90%), small disruptions cause catastrophic queue growth
@@ -759,4 +757,4 @@ Queues are everywhere. Understand them before they break.
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Latency Ladder](latency-ladder.md) | [Availability Math](availability-math.md)
-- **Patterns**: [Circuit Breaker](../patterns/circuit-breaker.md) | [Backpressure](../patterns/backpressure.md) | [Rate Limiting](../patterns/rate-limiting.md)
+- **Patterns**: [Circuit Breaker](/patterns/circuit-breaker) | [Backpressure](/patterns/backpressure) | [Rate Limiting](/patterns/rate-limiting)

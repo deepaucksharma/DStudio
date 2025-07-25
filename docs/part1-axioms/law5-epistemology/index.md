@@ -4,7 +4,7 @@ description: In distributed systems, truth is local, knowledge is partial, and c
 type: law
 difficulty: expert
 reading_time: 12 min
-prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md"]
+prerequisites: ["part1-axioms/index.md", "law1-failure/index.md", "law2-asynchrony/index.md", "law3-emergence/index.md", "law4-tradeoffs/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -507,7 +507,7 @@ def get_balance():
 
 ## Exercises
 
-[**→ Distributed Knowledge Lab**](exercises.md) - Build systems that reason about partial knowledge
+[**→ Distributed Knowledge Lab**](./exercises.md) - Build systems that reason about partial knowledge
 
 ## The Ultimate Insight
 
@@ -526,4 +526,4 @@ Perfect knowledge is impossible in distributed systems. The art lies in:
 - "CRDTs: Consistency without Concurrency Control" - Shapiro et al.
 - "Epistemology of Distributed Systems" - Fagin et al.
 
-[**← Previous: Law of Multidimensional Optimization**](../axiom4-tradeoffs/index.md) | [**→ Next: Law of Cognitive Load**](../axiom6-human-api/index.md)
+[**← Previous: Law of Multidimensional Optimization**](/part1-axioms/law4-tradeoffs/) | [**→ Next: Law of Cognitive Load**](/part1-axioms/law6-human-api/)

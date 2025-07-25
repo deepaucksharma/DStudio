@@ -11,8 +11,6 @@ when_not_to_use: Internal links only, trusted environments, static content
 status: complete
 last_updated: 2025-07-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **URL Shortener Security Pattern**
 
 # URL Shortener Security Pattern
 

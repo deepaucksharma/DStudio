@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Reference](index.md) → **Distributed Systems Cheat Sheets**
 
 # Distributed Systems Cheat Sheets
 
@@ -26,7 +24,7 @@ last_updated: 2025-07-20
 
 **Example**: 100 req/s × 0.5s = 50 concurrent requests
 
-**Learn More**: [Little's Law in Detail](../quantitative/littles-law.md)
+**Learn More**: [Little's Law in Detail](/quantitative/littles-law)
 
 ---
 
@@ -76,7 +74,7 @@ last_updated: 2025-07-20
 
 **Scaling**: Linear O(n), Database O(n log n), Coordination O(n²)
 
-**Learn More**: [Queueing Theory](../quantitative/queueing-models.md), [Scaling Laws](../quantitative/universal-scalability.md)
+**Learn More**: [Queueing Theory](/quantitative/queueing-models), [Scaling Laws](/quantitative/universal-scalability)
 
 ---
 

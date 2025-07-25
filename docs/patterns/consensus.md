@@ -11,8 +11,6 @@ when_not_to_use: High-throughput data processing, eventually consistent systems
 status: complete
 last_updated: 2025-07-20
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Consensus Pattern**
 
 # Consensus Pattern
 

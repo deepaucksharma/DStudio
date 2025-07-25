@@ -12,8 +12,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Event Streaming**
 
 # Event Streaming Pattern
 
@@ -730,7 +728,7 @@ class StreamMetrics:
 - [Event Sourcing](event-sourcing.md) - Store events as source of truth
 - [CQRS](cqrs.md) - Separate read/write models
 - [Saga Pattern](saga.md) - Distributed transactions
-- [Message Queue](../case-studies/distributed-message-queue.md) - Async messaging
+- [Message Queue](/case-studies/distributed-message-queue) - Async messaging
 
 ## References
 

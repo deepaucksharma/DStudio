@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # Distributed Queue
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Distributed Queue**
 
 ## Overview
 
@@ -862,7 +860,7 @@ class QueueMetrics:
 ```
 
 ## Related Patterns
-- [Priority Queue](priority-queue.md) - Message prioritization
+- Priority Queue (Coming Soon) - Message prioritization
 - [Message Broker](message-broker.md) - Publish-subscribe messaging
 - [Event Sourcing](event-sourcing.md) - Event-driven architecture
 - [Circuit Breaker](circuit-breaker.md) - Fault tolerance

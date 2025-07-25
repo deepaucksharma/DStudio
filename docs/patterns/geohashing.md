@@ -13,10 +13,6 @@ last_updated: 2025-07-23
 ---
 # Geohashing
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Geohashing**
-
-> 🚧 This pattern documentation is planned for future development.
 
 ## Overview
 
@@ -422,15 +418,15 @@ cache_levels:
    - Use appropriate cache eviction
 
 ## Related Patterns
-- [Spatial Indexing](spatial-indexing.md) - Other spatial data structures
+- Spatial Indexing (Coming Soon) - Other spatial data structures
 - [Sharding](sharding.md) - Geographic sharding strategies
-- [Tile Pyramid](tile-pyramid.md) - Map tile organization
-- [Cell-Based Architecture](cell-based.md) - Regional service isolation
+- Tile Pyramid (Coming Soon) - Map tile organization
+- Cell-Based Architecture (Coming Soon) - Regional service isolation
 
 ## References
 - [Original Geohash Implementation](https://github.com/vinsci/geohash)
 - [Redis Geo Commands](https://redis.io/commands/geoadd)
 - [PostGIS Spatial Indexing](https://postgis.net/docs/using_postgis_dbmanagement.html)
-- [Proximity Service Case Study](../case-studies/proximity-service.md)
+- [Proximity Service Case Study](/case-studies/proximity-service)
 
 > **Note**: This pattern documentation is planned for future development with more advanced examples and production considerations.

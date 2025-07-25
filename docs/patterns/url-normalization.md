@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # URL Normalization
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **URL Normalization**
 
 ## Overview
 
@@ -668,9 +666,9 @@ asyncio.run(test_async())
 13. **Canonicalize based on HTML meta tags**
 
 ## Related Patterns
-- [Deduplication](deduplication.md) - Content deduplication strategies
-- [URL Shortener](../case-studies/url-shortener.md) - Complete shortener implementation
-- [Content Extraction](content-extraction.md) - Extracting canonical URLs
+- Deduplication (Coming Soon) - Content deduplication strategies
+- [URL Shortener](/case-studies/url-shortener) - Complete shortener implementation
+- Content Extraction (Coming Soon) - Extracting canonical URLs
 - [Caching Strategies](caching-strategies.md) - URL-based caching
 
 ## References

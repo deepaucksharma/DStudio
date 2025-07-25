@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 4](index.md) → **Axiom 4: Concurrency**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 4](index.md) → **Axiom 4: Concurrency**
 
 # Axiom 4: Concurrency
 
@@ -1059,10 +1059,10 @@ public:
                 // Version mismatch - retry with backoff
                 return folly::futures::retrying(
                     std::chrono::milliseconds(100),
-                    [this, new_assoc](../../patterns/retry-backoff.md) {
+                    [this, new_assoc](/patterns/retry-backoff) {
                         return exponentialBackoff(retry_count);
                     },
-                    [this, new_assoc](../../patterns/retry-backoff.md) {
+                    [this, new_assoc](/patterns/retry-backoff) {
                         // Re-read and retry
                         return this->AssocGet(new_assoc.id1, new_assoc.atype, new_assoc.id2)
                             .thenValue([this, new_data](Association current) {
@@ -1825,7 +1825,7 @@ class PaddedAtomicLong extends AtomicLong {
 
 ---
 
-**Next**: [Axiom 5: Coordination →](../axiom5-coordination/index.md)
+**Next**: [Axiom 5: Coordination →](/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/)
 
 *"Shared mutable state is the root of all evil. The history of computing is the history of avoiding shared mutable state."*
 
@@ -1833,4 +1833,4 @@ class PaddedAtomicLong extends AtomicLong {
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga](../../patterns/saga.md)
+**Related**: [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Saga](/patterns/saga)

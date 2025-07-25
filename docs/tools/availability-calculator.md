@@ -213,11 +213,11 @@ A_total = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
 
 ## Related Resources
 
-- [Availability Math Deep Dive](../quantitative/availability-math.md)
-- [MTBF and MTTR Explained](../quantitative/mtbf-mttr.md)
-- [Failover Pattern](../patterns/failover.md)
-- [Multi-Region Architecture](../patterns/multi-region.md)
-- [Chaos Engineering](../human-factors/chaos-engineering.md)
+- [Availability Math Deep Dive](/quantitative/availability-math)
+- [MTBF and MTTR Explained](/quantitative/mtbf-mttr)
+- [Failover Pattern](/patterns/failover)
+- Multi-Region Architecture (Coming Soon)
+- [Chaos Engineering](/human-factors/chaos-engineering)
 
 <script>
 // Enhanced availability calculator with validation and visualizations

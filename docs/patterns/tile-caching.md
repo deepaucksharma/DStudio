@@ -11,8 +11,6 @@ when_not_to_use: Non-spatial data, dynamic content that changes frequently
 status: stub
 last_updated: 2025-01-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Tile Caching**
 
 # Tile Caching
 
@@ -31,10 +29,10 @@ Tile caching optimizes the storage and delivery of map tiles by pre-rendering an
 - **Invalidation Strategy**: Updating tiles when data changes
 
 ## Related Patterns
-- [CDN Pattern](../patterns/edge-computing.md)
+- [CDN Pattern](/patterns/edge-computing)
 - [Cache-Aside](cache-aside.md)
-- [Spatial Indexing](spatial-indexing.md)
-- [Vector Maps](vector-maps.md)
+- Spatial Indexing (Coming Soon)
+- Vector Maps (Coming Soon)
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md) - Implements multi-level tile caching
+- [Google Maps Case Study](/case-studies/google-maps) - Implements multi-level tile caching

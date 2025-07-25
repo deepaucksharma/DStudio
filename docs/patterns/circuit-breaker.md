@@ -11,8 +11,6 @@ when_not_to_use: Internal method calls, non-network operations, CPU-bound tasks
 status: complete
 last_updated: 2025-07-20
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Circuit Breaker Pattern**
 
 # Circuit Breaker Pattern
 
@@ -980,6 +978,6 @@ circuit_breaker:
 
 ---
 
-**Previous**: [← Change Data Capture (CDC)](cdc.md) | **Next**: [Consensus Pattern →](consensus.md)
+**Previous**: ← Change Data Capture (CDC) (Coming Soon) | **Next**: [Consensus Pattern →](consensus.md)
 
 **Related**: [Retry Backoff](retry-backoff.md) • [Bulkhead](bulkhead.md) • [Timeout](timeout.md)

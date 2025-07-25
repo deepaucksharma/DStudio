@@ -4,7 +4,7 @@ description: Hands-on exercises to uncover and handle emergent chaos in distribu
 type: exercise
 difficulty: expert
 reading_time: 45 min
-prerequisites: ["axiom3-emergence/index.md"]
+prerequisites: ["law3-emergence/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -512,4 +512,4 @@ After completing these exercises, you should understand:
 
 Remember: The goal isn't to eliminate emergence—it's to survive it.
 
-[**← Back to Law of Emergent Chaos**](index.md) | [**→ Next: Law of Multidimensional Optimization**](../axiom4-tradeoffs/index.md)
+[**← Back to Law of Emergent Chaos**](index.md) | [**→ Next: Law of Multidimensional Optimization**](/part1-axioms/law4-tradeoffs/)

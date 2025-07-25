@@ -14,17 +14,11 @@ last_updated: 2025-07-23
 # Client-Side Rendering
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Client-Side Rendering**
-
-> 🚧 This pattern documentation is under construction.
-
-Client-side rendering moves computational work from servers to clients, reducing server load and improving responsiveness.
 
 ## Related Patterns
 - [Edge Computing](edge-computing.md)
-- [Progressive Web Apps](../patterns/serverless-faas.md)
-- [Vector Maps](vector-maps.md)
+- [Progressive Web Apps](/patterns/serverless-faas)
+- Vector Maps (Coming Soon)
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md) - Client-side map rendering
+- [Google Maps Case Study](/case-studies/google-maps) - Client-side map rendering

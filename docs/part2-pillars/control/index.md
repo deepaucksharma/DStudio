@@ -1495,6 +1495,6 @@ graph TB
 
 ---
 
-**Next**: [Pillar 5: Intelligence →](../intelligence/index.md)
+**Next**: [Pillar 5: Intelligence →](/part2-pillars/intelligence/)
 
 *"The best control system is one you never notice—until you need it."*

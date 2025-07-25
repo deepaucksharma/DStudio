@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Quantitative](index.md) → **Reliability Theory**
 
 # Reliability Theory for Distributed Systems
 
@@ -521,5 +519,5 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
 ## Related Topics
 
 - **Theory**: [Failure Models](failure-models.md) | [MTBF/MTTR](mtbf-mttr.md) | [Availability Math](availability-math.md)
-- **Practice**: [Fault Tolerance](../patterns/fault-tolerance.md) | [Chaos Engineering](../human-factors/chaos-engineering.md)
-- **Laws**: [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) | [Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
+- **Practice**: [Fault Tolerance](/patterns/fault-tolerance) | [Chaos Engineering](/human-factors/chaos-engineering)
+- **Laws**: [Law 1: Correlated Failure](/part1-axioms/law1-failure/) | [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/)

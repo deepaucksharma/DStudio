@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 5](index.md) → **Coordination Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 5](index.md) → **Coordination Exercises**
 
 # Coordination Exercises
 
@@ -1030,9 +1030,9 @@ class SurgePricingSystem:
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 6: Observability](../axiom6-observability/index.md)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 6: Observability](/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/)
 
-**Related**: [Consensus](../../patterns/consensus.md) • [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga Pattern](../../patterns/saga.md) • [CQRS](../../patterns/cqrs.md)
+**Related**: [Consensus](/patterns/consensus) • [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Saga Pattern](/patterns/saga) • [CQRS](/patterns/cqrs)
 
 ## References
 

@@ -11,8 +11,6 @@ when_not_to_use: Non-location data, stationary IoT devices, indoor positioning o
 status: complete
 last_updated: 2025-07-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Location Privacy Pattern**
 
 # Location Privacy Pattern
 

@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Patterns](index.md) → **Service Registry**
 
 # Service Registry Pattern
 
@@ -1556,9 +1554,9 @@ graph TB
 ## 🤝 Related Patterns
 
 1. **[Service Discovery](service-discovery.md)**: Runtime instance location (registry stores the metadata)
-2. **[Request Routing](request-routing.md)**: Uses registry data for routing decisions
+2. **Request Routing (Coming Soon)**: Uses registry data for routing decisions
 3. **[API Gateway](api-gateway.md)**: Consumes registry for service information
-4. **[Configuration Management](service-registry.md)**: Registry often stores configuration
+4. **Configuration Management (Coming Soon)**: Registry often stores configuration
 5. **[Health Check](health-check.md)**: Registry tracks service health status
 
 ---

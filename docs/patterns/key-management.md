@@ -23,8 +23,6 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Key Management**
 
 # Key Management
 
@@ -2405,4 +2403,4 @@ class KeyManagementEconomics:
 
 ---
 
-**Previous**: [← End-to-End Encryption](e2e-encryption.md) | **Next**: [GraphQL →] (Pattern: Graphql - Coming Soon)
+**Previous**: ← End-to-End Encryption (Coming Soon) | **Next**: [GraphQL →] (Pattern: Graphql - Coming Soon)

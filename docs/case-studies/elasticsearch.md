@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Elasticsearch**
 
 # 🔍 Elasticsearch: Distributed Search and Analytics Engine
 

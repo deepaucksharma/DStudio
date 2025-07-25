@@ -353,4 +353,4 @@ Robust distributed systems aren't built by assuming independence—they're built
 - "The Network is Reliable" - Peter Bailis and Kyle Kingsbury
 - "Metastable Failures in Distributed Systems" - Bronson et al.
 
-[**← Back to Framework**](../index.md) | [**→ Next: Law of Asynchrony**](../axiom2-asynchrony/index.md)
+[**← Back to Framework**](/part1-axioms/index.md/) | [**→ Next: Law of Asynchrony**](/part1-axioms/law2-asynchrony/)

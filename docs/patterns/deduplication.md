@@ -14,16 +14,10 @@ last_updated: 2025-07-23
 # Deduplication
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Deduplication**
-
-> 🚧 This pattern documentation is under construction.
-
-Deduplication is a technique for eliminating duplicate copies of data to reduce storage space and improve efficiency.
 
 ## Related Patterns
-- [Content-Addressed Storage](../patterns/cas.md)
-- [Caching Strategies](../patterns/caching-strategies.md)
+- [Content-Addressed Storage](/patterns/cas)
+- [Caching Strategies](/patterns/caching-strategies)
 
 ## References
-- [Google Drive Case Study](../case-studies/google-drive.md)
+- [Google Drive Case Study](/case-studies/google-drive)

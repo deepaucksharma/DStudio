@@ -14,17 +14,11 @@ last_updated: 2025-07-23
 # JavaScript Crawling
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **JavaScript Crawling**
-
-> 🚧 This pattern documentation is under construction.
-
-JavaScript crawling handles modern web applications that render content dynamically using client-side JavaScript.
 
 ## Related Patterns
-- [Headless Browsers](../patterns/content-extraction.md)
-- [Client Rendering](client-rendering.md)
+- Headless Browsers (Coming Soon)
+- Client Rendering (Coming Soon)
 - [Rate Limiting](rate-limiting.md)
 
 ## References
-- [Web Crawler](../case-studies/web-crawler.md) - JavaScript rendering strategies
+- [Web Crawler](/case-studies/web-crawler) - JavaScript rendering strategies

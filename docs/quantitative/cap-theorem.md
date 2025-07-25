@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **CAP Theorem Deep-Dive**
 
 # CAP Theorem Deep-Dive
 
@@ -418,6 +416,6 @@ It means you must explicitly choose what to sacrifice when things go wrong."
 ## Related Topics
 
 - [Consistency Models](consistency-models.md) - Deep dive into consistency levels
-- [Consensus Algorithms](../patterns/consensus-algorithms.md) - Achieving agreement
-- [Network Partitions](../part1-axioms/law1-failure/index.md) - Understanding failure modes
-- [Eventual Consistency](../patterns/eventual-consistency.md) - AP system patterns
+- [Consensus Algorithms](/patterns/consensus-algorithms) - Achieving agreement
+- [Network Partitions](/part1-axioms/law1-failure/) - Understanding failure modes
+- [Eventual Consistency](/patterns/eventual-consistency) - AP system patterns

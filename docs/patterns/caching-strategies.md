@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Caching Strategies**
 
 # Caching Strategies
 
@@ -1053,4 +1051,4 @@ cost_per_request = (cache_cost + (miss_rate * db_cost)) / total_requests
 
 ---
 
-**Previous**: [← Bulkhead Pattern](bulkhead.md) | **Next**: [Change Data Capture (CDC) →](cdc.md)
+**Previous**: [← Bulkhead Pattern](bulkhead.md) | **Next**: Change Data Capture (CDC) → (Coming Soon)

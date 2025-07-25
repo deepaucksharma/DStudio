@@ -11,8 +11,6 @@ when_not_to_use: Internal trusted services, batch processing, event streams
 status: complete
 last_updated: 2025-01-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Rate Limiting Pattern**
 
 # Rate Limiting Pattern
 

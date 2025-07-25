@@ -14,17 +14,11 @@ last_updated: 2025-07-23
 # Content Extraction
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Content Extraction**
-
-> 🚧 This pattern documentation is under construction.
-
-Content extraction patterns for parsing and extracting structured information from unstructured web content.
 
 ## Related Patterns
-- [Web Scraping](../patterns/politeness.md)
-- [Natural Language Processing](../patterns/ml-pipeline.md)
-- [Data Pipeline](../patterns/event-streaming.md)
+- [Web Scraping](/patterns/politeness)
+- Natural Language Processing (Coming Soon)
+- [Data Pipeline](/patterns/event-streaming)
 
 ## References
-- [Web Crawler](../case-studies/web-crawler.md) - Content extraction strategies
+- [Web Crawler](/case-studies/web-crawler) - Content extraction strategies

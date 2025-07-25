@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Redis Architecture Deep Dive**
 
 # 🗃️ Redis Architecture Deep Dive
 

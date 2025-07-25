@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-20
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Service Discovery Pattern**
 
 # Service Discovery Pattern
 
@@ -467,4 +465,4 @@ US-East:                    EU-West:
 
 ---
 
-**Previous**: [← Serverless/FaaS (Function-as-a-Service)](serverless-faas.md) | **Next**: [Service Mesh →](service-mesh.md)
+**Previous**: [← Serverless/FaaS (Function-as-a-Service)](serverless-faas.md) | **Next**: Service Mesh → (Coming Soon)

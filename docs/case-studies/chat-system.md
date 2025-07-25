@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-21
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Real-Time Chat System Architecture**
 
 # 💬 Real-Time Chat System Architecture
 
@@ -122,10 +120,10 @@ graph TB
 - Deniable Authentication
 
 **Patterns & Pillars Applied**:
-- 🔧 Pattern: [End-to-End Encryption](../patterns/e2e-encryption.md)
-- 🔧 Pattern: [Key Management](../patterns/key-management.md)
-- 🏛️ Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Cryptographic guarantees
-- 🏛️ Pillar: [Control Distribution](../part2-pillars/control/index.md) - Secure message routing
+- 🔧 Pattern: End-to-End Encryption (Coming Soon)
+- 🔧 Pattern: Key Management (Coming Soon)
+- 🏛️ Pillar: [Truth Distribution](/part2-pillars/truth/) - Cryptographic guarantees
+- 🏛️ Pillar: [Control Distribution](/part2-pillars/control/) - Secure message routing
 
 ### Phase 4: Global Scale Architecture (2016-Present)
 
@@ -2265,36 +2263,36 @@ Regional servers reduce latency; cross-region replication; compliance ready
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - WebSocket for real-time, regional servers
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Connection pooling, message queuing
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Offline queue, retry mechanisms
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Actor model, parallel delivery
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Group state sync, message ordering, and monitoring
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Connection pooling, message queuing
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Actor model, parallel delivery
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Typing indicators, read receipts
 
 ### 🏛️ Related Patterns
-- **[WebSocket](../patterns/websocket.md)** - Persistent connections
-- **[Distributed Queue](../patterns/distributed-queue.md)** - Reliable delivery
-- **[Actor Model](../patterns/actor-model.md)** - Concurrent message handling
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
-- **[Event Sourcing](../patterns/event-sourcing.md)** - Message history
-- **[CRDT](../patterns/crdt.md)** - Distributed state sync
-- **[Saga Pattern](../patterns/saga.md)** - Group operations
+- **WebSocket (Coming Soon)** - Persistent connections
+- **Distributed Queue (Coming Soon)** - Reliable delivery
+- **Actor Model (Coming Soon)** - Concurrent message handling
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
+- **[Event Sourcing](/patterns/event-sourcing)** - Message history
+- **[CRDT](/patterns/crdt)** - Distributed state sync
+- **[Saga Pattern](/patterns/saga)** - Group operations
 
 ### 📊 Quantitative Models
-- **[Little's Law](../quantitative/littles-law.md)** - Connection pool sizing
-- **[Queueing Theory](../quantitative/queueing-models.md)** - Message queue capacity
-- **[CAP Theorem](../quantitative/cap-theorem.md)** - Consistency vs availability
-- **[Network Theory](../quantitative/network-theory.md)** - Optimal server placement
+- **[Little's Law](/quantitative/littles-law)** - Connection pool sizing
+- **[Queueing Theory](/quantitative/queueing-models)** - Message queue capacity
+- **CAP Theorem (Coming Soon)** - Consistency vs availability
+- **[Network Theory](/quantitative/network-theory)** - Optimal server placement
 
 ### 🔄 Similar Case Studies
 <!-- TODO: Add when available
-- **[Discord Architecture](discord-architecture.md)** - Gaming chat at scale
-- **[Slack's Infrastructure](slack-infrastructure.md)** - Enterprise messaging
-- **[Telegram's MTProto](telegram-protocol.md)** - Custom protocol design
+- **Discord Architecture** - Gaming chat at scale
+- **Slack's Infrastructure** - Enterprise messaging
+- **Telegram's MTProto** - Custom protocol design
 -->
 <!-- TODO: Add when available
-- **[Signal's Architecture](signal-architecture.md)** - Privacy-first messaging
+- **Signal's Architecture** - Privacy-first messaging
 -->
 
 ## Conclusion

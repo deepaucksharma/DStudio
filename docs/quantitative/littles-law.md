@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Little's Law Deep-Dive**
 
 # Little's Law Deep-Dive
 
@@ -696,7 +694,7 @@ graph LR
     style C fill:#ff6b6b
 ```
 
-**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md).
+**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/).
 
 ### Law 4: Trade-offs ⚖️
 <div class="failure-vignette">
@@ -945,5 +943,5 @@ Remember: Little's Law is like gravity - always there!
 ## Related Concepts
 
 - **Quantitative**: [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md) | [Availability Math](availability-math.md)
-- **Patterns**: [Rate Limiting](../patterns/rate-limiting.md) | [Bulkhead](../patterns/bulkhead.md) | [Backpressure](../patterns/backpressure.md)
-- **Operations**: [SRE Practices](../human-factors/sre-practices.md) | [Performance Monitoring](../human-factors/observability-stacks.md)
+- **Patterns**: [Rate Limiting](/patterns/rate-limiting) | [Bulkhead](/patterns/bulkhead) | [Backpressure](/patterns/backpressure)
+- **Operations**: [SRE Practices](/human-factors/sre-practices) | [Performance Monitoring](/human-factors/observability-stacks)

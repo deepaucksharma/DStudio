@@ -4,7 +4,7 @@ description: At scale, systems exhibit behaviors that cannot be predicted from t
 type: law
 difficulty: expert
 reading_time: 10 min
-prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md"]
+prerequisites: ["part1-axioms/index.md", "law1-failure/index.md", "law2-asynchrony/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -350,7 +350,7 @@ More efficient systems are often closer to critical transitions:
 
 ## Exercises
 
-[**→ Chaos Engineering Lab**](exercises.md) - Design and run experiments to discover emergent behaviors in your system
+[**→ Chaos Engineering Lab**](./exercises.md) - Design and run experiments to discover emergent behaviors in your system
 
 ## The Ultimate Insight
 
@@ -369,4 +369,4 @@ We cannot eliminate emergence, only prepare for it. The goal is not to prevent a
 - "Drift into Failure" - Sidney Dekker
 - "The Black Swan" - Nassim Taleb
 
-[**← Previous: Law of Asynchrony**](../axiom2-asynchrony/index.md) | [**→ Next: Law of Multidimensional Optimization**](../axiom4-tradeoffs/index.md)
+[**← Previous: Law of Asynchrony**](/part1-axioms/law2-asynchrony/) | [**→ Next: Law of Multidimensional Optimization**](/part1-axioms/law4-tradeoffs/)

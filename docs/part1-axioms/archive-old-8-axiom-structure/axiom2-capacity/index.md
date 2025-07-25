@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 2](index.md) → **Axiom 2: Finite Capacity**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](index.md) → **Axiom 2: Finite Capacity**
 
 # Axiom 2: Finite Capacity
 
@@ -127,9 +127,9 @@ Teams that respect this constraint:
 ## Quick Links
 
 - **Navigation**: [Examples](examples.md) • [Exercises](exercises.md)
-- **Related Patterns**: [Bulkhead](../../patterns/bulkhead.md) • [Load Shedding](../../patterns/load-shedding.md) • [Auto-scaling](../../patterns/auto-scaling.md)
-- **Case Studies**: [Amazon DynamoDB](../../case-studies/amazon-dynamo.md)
-- **Quantitative**: [Capacity Planning](../../quantitative/capacity-planning.md) • [Queueing Theory](../../quantitative/queueing-models.md)
+- **Related Patterns**: [Bulkhead](/patterns/bulkhead) • [Load Shedding](/patterns/load-shedding) • [Auto-scaling](/patterns/auto-scaling)
+- **Case Studies**: [Amazon DynamoDB](/case-studies/amazon-dynamo)
+- **Quantitative**: [Capacity Planning](/quantitative/capacity-planning) • [Queueing Theory](/quantitative/queueing-models)
 
 ---
 
@@ -1210,7 +1210,7 @@ Required Capacity =
 
 ---
 
-**Next**: [Axiom 3: Failure →](../axiom3-failure/index.md)
+**Next**: [Axiom 3: Failure →](/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/)
 
 *"The question is not IF you'll hit capacity limits, but WHEN."*
 
@@ -1219,45 +1219,45 @@ Required Capacity =
 ## Related Concepts
 
 ### Pillars Building on This Axiom
-- [Work Distribution](../../part2-pillars/work/index.md) - Distributing work across finite resources efficiently
-- [State Management](../../part2-pillars/state/index.md) - Managing state within memory and storage constraints
-- [Control & Ordering](../../part2-pillars/control/index.md) - Controlling flow to prevent resource exhaustion
-- [Intelligence & Learning](../../part2-pillars/intelligence/index.md) - ML-based capacity prediction and optimization
+- [Work Distribution](/part2-pillars/work/) - Distributing work across finite resources efficiently
+- [State Management](/part2-pillars/state/) - Managing state within memory and storage constraints
+- [Control & Ordering](/part2-pillars/control/) - Controlling flow to prevent resource exhaustion
+- [Intelligence & Learning](/part2-pillars/intelligence/) - ML-based capacity prediction and optimization
 
 ### Patterns Addressing Capacity Challenges
-- [Auto-scaling](../../patterns/auto-scaling.md) - Dynamically adjust resources based on demand
-- [Load Balancing](../../patterns/load-balancing.md) - Distribute load across available capacity
-- [Sharding](../../patterns/sharding.md) - Partition data to scale beyond single node limits
-- [Bulkhead](../../patterns/bulkhead.md) - Isolate resources to prevent total exhaustion
-- [Load Shedding](../../patterns/load-shedding.md) - Gracefully drop load when at capacity
-- [Backpressure](../../patterns/backpressure.md) - Signal upstream when approaching limits
-- [Circuit Breaker](../../patterns/circuit-breaker.md) - Stop overwhelming already-saturated resources
+- [Auto-scaling](/patterns/auto-scaling) - Dynamically adjust resources based on demand
+- [Load Balancing](/patterns/load-balancing) - Distribute load across available capacity
+- [Sharding](/patterns/sharding) - Partition data to scale beyond single node limits
+- [Bulkhead](/patterns/bulkhead) - Isolate resources to prevent total exhaustion
+- [Load Shedding](/patterns/load-shedding) - Gracefully drop load when at capacity
+- [Backpressure](/patterns/backpressure) - Signal upstream when approaching limits
+- [Circuit Breaker](/patterns/circuit-breaker) - Stop overwhelming already-saturated resources
 
 ### Case Studies Demonstrating Capacity Management
-- [Amazon DynamoDB](../../case-studies/amazon-dynamo.md) - Predictable performance at scale through capacity management
-- [Twitter Timeline](../../case-studies/twitter-timeline.md) - Handling massive write amplification
-- [Netflix Streaming](../../case-studies/netflix-streaming.md) - Global capacity planning for video delivery
+- [Amazon DynamoDB](/case-studies/amazon-dynamo) - Predictable performance at scale through capacity management
+- [Twitter Timeline](/case-studies/twitter-timeline) - Handling massive write amplification
+- [Netflix Streaming](/case-studies/netflix-streaming) - Global capacity planning for video delivery
 
 ### Other Axioms That Interact
-- [Axiom 1: Latency](../axiom1-latency/index.md) - Performance degrades as capacity limits are approached
-- [Axiom 3: Partial Failure](../axiom3-failure/index.md) - Capacity exhaustion causes cascading failures
-- [Axiom 4: Concurrency](../axiom4-concurrency/index.md) - Concurrent access to limited resources
-- [Axiom 8: Economics](../axiom8-economics/index.md) - Cost optimization within capacity constraints
+- [Axiom 1: Latency](/part1-axioms/archive-old-8-axiom-structure/axiom1-latency/) - Performance degrades as capacity limits are approached
+- [Axiom 3: Partial Failure](/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/) - Capacity exhaustion causes cascading failures
+- [Axiom 4: Concurrency](/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/) - Concurrent access to limited resources
+- [Axiom 8: Economics](/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/) - Cost optimization within capacity constraints
 
 ### Quantitative Tools
-- [Capacity Planning Calculator](../../quantitative/capacity-planning.md) - Interactive capacity estimation
-- [Little's Law](../../quantitative/littles-law.md) - Relationship between capacity, latency, and throughput
-- [Queueing Theory](../../quantitative/queueing-models.md) - Mathematical models for capacity and utilization
-- [Scaling Laws](../../quantitative/amdahl-gustafson.md) - How capacity scales with system size
-- [Performance Testing](../../quantitative/performance-testing.md) - Finding actual capacity limits
+- [Capacity Planning Calculator](/quantitative/capacity-planning) - Interactive capacity estimation
+- [Little's Law](/quantitative/littles-law) - Relationship between capacity, latency, and throughput
+- [Queueing Theory](/quantitative/queueing-models) - Mathematical models for capacity and utilization
+- [Scaling Laws](/quantitative/amdahl-gustafson) - How capacity scales with system size
+- [Performance Testing](/quantitative/performance-testing) - Finding actual capacity limits
 
 ### Human Factors
-- [SRE Practices](../../human-factors/sre-practices.md) - Managing capacity through SLOs and error budgets
-- [Capacity Planning](../../quantitative/capacity-planning.md) - Human aspects of predicting future needs
-- [Incident Response](../../human-factors/incident-response.md) - Handling capacity-related outages
+- [SRE Practices](/part1-axioms/human-factors/sre-practices) - Managing capacity through SLOs and error budgets
+- [Capacity Planning](/quantitative/capacity-planning) - Human aspects of predicting future needs
+- [Incident Response](/part1-axioms/human-factors/incident-response) - Handling capacity-related outages
 
 ---
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Auto Scaling](../../patterns/auto-scaling.md) • [Load Balancing](../../patterns/load-balancing.md) • [Sharding](../../patterns/sharding.md)
+**Related**: [Auto Scaling](/patterns/auto-scaling) • [Load Balancing](/patterns/load-balancing) • [Sharding](/patterns/sharding)

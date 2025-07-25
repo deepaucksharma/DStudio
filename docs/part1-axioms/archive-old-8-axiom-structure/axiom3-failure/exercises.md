@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 3](index.md) → **Partial Failure Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](index.md) → **Partial Failure Exercises**
 
 # Partial Failure Exercises
 
@@ -787,9 +787,9 @@ Rate your understanding (1-5):
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 4: Concurrency](../axiom4-concurrency/index.md)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 4: Concurrency](/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/)
 
-**Related**: [Circuit Breaker](../../patterns/circuit-breaker.md) • [Retry Backoff](../../patterns/retry-backoff.md) • [Bulkhead](../../patterns/bulkhead.md) • [Health Check](../../patterns/health-check.md) • [Timeout](../../patterns/timeout.md)
+**Related**: [Circuit Breaker](/patterns/circuit-breaker) • [Retry Backoff](/patterns/retry-backoff) • [Bulkhead](/patterns/bulkhead) • [Health Check](/patterns/health-check) • [Timeout](/patterns/timeout)
 
 ## References
 

@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Incident Response**
 
 # Incident Response
 

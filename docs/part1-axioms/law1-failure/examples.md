@@ -4,7 +4,7 @@ description: Analysis of actual correlated failures in production systems
 type: example
 difficulty: expert
 reading_time: 10 min
-prerequisites: ["axiom1-failure/index.md"]
+prerequisites: ["law1-failure/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -316,4 +316,4 @@ These cases teach us that:
 3. Human systems and technical systems correlate
 4. Testing for correlation requires imagination beyond traditional failure scenarios
 
-[**← Back to Law of Failure**](index.md) | [**→ To Exercises**](exercises.md)
+[**← Back to Law of Failure**](index.md) | [**→ To Exercises**](./exercises.md)

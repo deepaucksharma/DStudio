@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Amazon's DynamoDB: Building a Database That Never Goes Down**
 
 # 🛒 Amazon's DynamoDB: Building a Database That Never Goes Down
 
@@ -470,7 +468,7 @@ Level 4: Correlated Failures
 - [Life Beyond Distributed Transactions](https://queue.acm.org/detail.cfm?id=3025012)
 
 ### Related Patterns
-- [Consistent Hashing](../patterns/sharding.md#consistent-hashing)
+- [Consistent Hashing](/patterns/consistent-hashing)
 - Vector Clocks (distributed state tracking)
 - Quorum Consensus (W+R>N guarantees)
 - Gossip Protocol (membership and failure detection)
@@ -483,34 +481,34 @@ Level 4: Correlated Failures
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Vector clocks track causality and enable conflict resolution for concurrent updates
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Automatic partition splits, gossip protocol, and quorum consensus balance multiple trade-offs
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Simple put/get API and clear error handling reduce cognitive load
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Vector clocks track causality and enable conflict resolution for concurrent updates
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Automatic partition splits, gossip protocol, and quorum consensus balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Simple put/get API and clear error handling reduce cognitive load
+- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
 
 ### 🏛️ Related Patterns (Part III)
-- **[Sharding & Partitioning](../patterns/sharding.md)** - Consistent hashing minimizes data movement during scaling
-- **[Tunable Consistency](../patterns/tunable-consistency.md)** - Quorum reads/writes (R+W>N) let applications choose consistency levels
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Request routers prevent cascading failures during overload
-- **[Health Check](../patterns/health-check.md)** - Gossip-based failure detection identifies unhealthy nodes
-- **[Retry & Backoff](../patterns/retry-backoff.md)** - SDK implements exponential backoff for throttled requests
-- **[Load Shedding](../patterns/load-shedding.md)** - Admission control protects system during extreme load
-- **[Event-Driven Architecture](../patterns/event-driven.md)** - DynamoDB Streams enable change data capture
+- **[Sharding & Partitioning](/patterns/sharding)** - Consistent hashing minimizes data movement during scaling
+- **[Tunable Consistency](/patterns/tunable-consistency)** - Quorum reads/writes (R+W>N) let applications choose consistency levels
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Request routers prevent cascading failures during overload
+- **[Health Check](/patterns/health-check)** - Gossip-based failure detection identifies unhealthy nodes
+- **[Retry & Backoff](/patterns/retry-backoff)** - SDK implements exponential backoff for throttled requests
+- **[Load Shedding](/patterns/load-shedding)** - Admission control protects system during extreme load
+- **[Event-Driven Architecture](/patterns/event-driven)** - DynamoDB Streams enable change data capture
 
 ### 📊 Quantitative Models
 - **CAP Theorem** - DynamoDB chooses AP (availability + partition tolerance) with tunable consistency
-- **[Little's Law](../quantitative/littles-law.md)** - Helps size connection pools: L = λW (20ms latency × 1000 req/s = 20 concurrent connections)
-- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for request router capacity planning
-- **[Scaling Laws](../quantitative/universal-scalability.md)** - Linear scaling through consistent hashing partitioning
+- **[Little's Law](/quantitative/littles-law)** - Helps size connection pools: L = λW (20ms latency × 1000 req/s = 20 concurrent connections)
+- **[Queueing Theory](/quantitative/queueing-models)** - M/M/c model for request router capacity planning
+- **[Scaling Laws](/quantitative/universal-scalability)** - Linear scaling through consistent hashing partitioning
 
 ### 👥 Human Factors Considerations
-- **[On-Call Culture](../human-factors/oncall-culture.md)** - DynamoDB's managed service reduces operational burden
-- **[Incident Response](../human-factors/incident-response.md)** - Automated recovery (hinted handoff, Merkle trees) minimizes manual intervention
-- **[Observability Tools](../human-factors/observability-stacks.md)** - Contributor Insights identifies hot keys and performance bottlenecks
-- **[Capacity Planning](../quantitative/capacity-planning.md)** - Auto-scaling eliminates manual capacity management
+- **[On-Call Culture](/human-factors/oncall-culture)** - DynamoDB's managed service reduces operational burden
+- **[Incident Response](/human-factors/incident-response)** - Automated recovery (hinted handoff, Merkle trees) minimizes manual intervention
+- **[Observability Tools](/human-factors/observability-stacks)** - Contributor Insights identifies hot keys and performance bottlenecks
+- **[Capacity Planning](/quantitative/capacity-planning)** - Auto-scaling eliminates manual capacity management
 
 ### 🔄 Similar Case Studies
 - **[Consistent Hashing Deep Dive](consistent-hashing.md)** - Detailed exploration of DynamoDB's core distribution mechanism

@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Latency Ladder 2025**
 
 # Latency Ladder 2025
 
@@ -440,7 +438,7 @@ graph LR
     style D fill:#ffcccc
 ```
 
-Every operation proves [Law 1](../part1-axioms/law1-failure/index.md) - even L1 cache (0.5ns) > 0.
+Every operation proves [Law 1](/part1-axioms/law1-failure/) - even L1 cache (0.5ns) > 0.
 
 ### Law 4: Trade-offs ⚖️
 <div class="failure-vignette">
@@ -649,5 +647,5 @@ You can't beat physics, but you can work with it.
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Availability Math](availability-math.md)
-- **Patterns**: [Caching Strategies](../patterns/caching-strategies.md) | [Edge Computing](../patterns/edge-computing.md)
+- **Patterns**: [Caching Strategies](/patterns/caching-strategies) | [Edge Computing](/patterns/edge-computing)
 ---

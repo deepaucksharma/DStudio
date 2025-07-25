@@ -22,7 +22,7 @@ This case study would analyze Life360's architecture for continuous family locat
 - [Nearby Friends](./nearby-friends.md) - Location sharing patterns
 - [Snap Map](./snap-map.md) - Social location features
 - [Find My Device](./find-my-device.md) - Device tracking
-- [Geofencing](../patterns/geofencing.md) - Location-based notifications
+- Geofencing (Coming Soon) - Location-based notifications
 
 ## External Resources
 - [Life360 Engineering Blog](https://life360.engineering/)

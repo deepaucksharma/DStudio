@@ -13,8 +13,6 @@ status: complete
 last_updated: 2025-01-21
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Metrics Monitoring and Alerting System**
 
 # Design a Metrics Monitoring and Alerting System
 

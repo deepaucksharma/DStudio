@@ -179,11 +179,11 @@ Throughput = Concurrency / Response Time
 
 ## Related Resources
 
-- [Universal Scalability Law](../quantitative/universal-scalability.md)
-- [Little's Law](../quantitative/littles-law.md)
-- [Performance Modeling](../quantitative/performance-modeling.md)
-- [Load Balancing Pattern](../patterns/load-balancing.md)
-- [Queue Performance](../patterns/distributed-queue.md)
+- [Universal Scalability Law](/quantitative/universal-scalability)
+- [Little's Law](/quantitative/littles-law)
+- [Performance Modeling](/quantitative/performance-modeling)
+- [Load Balancing Pattern](/patterns/load-balancing)
+- Queue Performance (Coming Soon)
 
 <script>
 function calculateThroughput() {

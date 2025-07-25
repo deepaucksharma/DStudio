@@ -174,10 +174,10 @@ Total = Network + Queueing + Processing + Serialization + I/O
 
 ## Related Resources
 
-- [Little's Law in Practice](../quantitative/littles-law.md)
-- [Latency Numbers Every Programmer Should Know](../quantitative/latency-ladder.md)
-- [Performance Patterns](../patterns/index.md#performance-scaling)
-- [Network Optimization Pattern](../patterns/network-optimization.md)
+- [Little's Law in Practice](/quantitative/littles-law)
+- [Latency Numbers Every Programmer Should Know](/quantitative/latency-ladder)
+- [Performance Patterns](/patterns/#performance-scaling)
+- Network Optimization Pattern (Coming Soon)
 
 <script>
 // Global variables for chart

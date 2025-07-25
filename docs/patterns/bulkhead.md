@@ -11,8 +11,6 @@ when_not_to_use: Simple applications, single-purpose services, when isolation ov
 status: complete
 last_updated: 2025-01-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Bulkhead Pattern**
 
 # Bulkhead Pattern
 
@@ -1786,7 +1784,7 @@ def calculate_bulkhead_value(your_metrics: Dict) -> Dict:
 - **[Retry & Backoff](retry-backoff.md)**: Handle bulkhead rejections gracefully
 - **[Rate Limiting](rate-limiting.md)**: Complement bulkheads with rate limits
 - **[Load Shedding](load-shedding.md)**: Drop requests when bulkheads full
-- **[Service Mesh](service-mesh.md)**: Implement bulkheads at infrastructure level
+- **Service Mesh (Coming Soon)**: Implement bulkheads at infrastructure level
 
 ---
 

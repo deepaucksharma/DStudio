@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Patterns](index.md) → **Gossip Protocol**
 
 # Gossip Protocol Pattern
 

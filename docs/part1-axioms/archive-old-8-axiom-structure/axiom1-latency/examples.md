@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 1](index.md) → **Latency Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](index.md) → **Latency Examples**
 
 # Latency Examples
 
@@ -668,4 +668,4 @@ sum by (component) (
 
 **Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
 
-**Related**: [Timeout](../../patterns/timeout.md) • [Circuit Breaker](../../patterns/circuit-breaker.md) • [Caching Strategies](../../patterns/caching-strategies.md)
+**Related**: [Timeout](/patterns/timeout) • [Circuit Breaker](/patterns/circuit-breaker) • [Caching Strategies](/patterns/caching-strategies)

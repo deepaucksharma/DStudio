@@ -48,7 +48,7 @@ hide:
 
     Battle-tested architectural patterns derived from the laws and pillars
 
-    [:octicons-arrow-right-24: Browse Patterns](patterns/index.md)
+    [:octicons-arrow-right-24: Browse Patterns](../../patterns/index.md)
 
 -   :material-calculator:{ .lg .middle } __Quantitative Toolkit__
 
@@ -80,7 +80,7 @@ hide:
 - **[Debugging a distributed system?](patterns/observability.md)** → Observability patterns
 - **[System keeps failing?](patterns/circuit-breaker.md)** → Resilience patterns
 - **[Need to scale?](patterns/sharding.md)** → Scaling patterns
-- **[Consistency issues?](patterns/consistency-models.md)** → Consistency patterns
+- **[Consistency issues?](/quantitative/consistency-models)** → Consistency patterns
 
 ## 📚 What Makes This Different?
 
@@ -111,7 +111,7 @@ This approach provides deep understanding that transcends specific technologies.
 
 -   __Apply Knowledge__
 
-    Explore [Patterns](patterns/index.md) and [Case Studies](case-studies/index.md)
+    Explore [Patterns](../../patterns/index.md) and [Case Studies](case-studies/index.md)
 
 -   __Go Deeper__
 

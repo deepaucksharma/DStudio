@@ -12,8 +12,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Eventual Consistency**
 
 # Eventual Consistency
 
@@ -1482,10 +1480,10 @@ Where:
 
 ## Related Patterns
 
-- [CAP Theorem](../quantitative/cap-theorem.md) - Fundamental trade-offs
+- CAP Theorem (Coming Soon) - Fundamental trade-offs
 - [Vector Clocks](vector-clocks.md) - Tracking causality
 - [CRDT](crdt.md) - Conflict-free data types
-- [Gossip Protocol](gossip-protocol.md) - Dissemination mechanism
+- Gossip Protocol (Coming Soon) - Dissemination mechanism
 - [Read Repair] (Pattern: Read Repair - Coming Soon) - Fixing inconsistencies
 
 ## References

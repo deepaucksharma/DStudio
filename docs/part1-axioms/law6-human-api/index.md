@@ -457,7 +457,7 @@ $ k8s-admin delete-pod payment-service
 
 ## Exercises
 
-[**→ Human Interface Design Lab**](exercises.md) - Build interfaces that respect cognitive limits
+[**→ Human Interface Design Lab**](./exercises.md) - Build interfaces that respect cognitive limits
 
 ## The Ultimate Insight
 
@@ -476,4 +476,4 @@ Great systems succeed not by eliminating human involvement but by designing for 
 - "The Humane Interface" - Jef Raskin
 - "Normal Accidents" - Charles Perrow
 
-[**← Previous: Law of Distributed Knowledge**](../axiom5-epistemology/index.md) | [**→ Next: Law of Economic Reality**](../axiom7-economics/index.md)
+[**← Previous: Law of Distributed Knowledge**](/part1-axioms/law5-epistemology/) | [**→ Next: Law of Economic Reality**](/part1-axioms/law7-economics/)

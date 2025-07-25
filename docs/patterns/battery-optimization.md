@@ -12,11 +12,6 @@ status: stub
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Battery Optimization**
-
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Patterns](index.md) → **Battery Optimization**
 
 # Battery Optimization
 

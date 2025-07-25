@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part II: Pillars](index.md) → **Trade-off Calculus Radar**
 
 # Trade-off Calculus Radar
 
@@ -144,7 +142,7 @@ Security ██████ 6
 
 ---
 
-**Next**: [Decision Tree Walk-Through →](decision-tree.md)
+**Next**: [Decision Tree Walk-Through →](law-mapping-guide.md)
 ---
 
 ## 💡 Knowledge Application

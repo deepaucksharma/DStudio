@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-<!-- Navigation -->
-[Home](../../introduction/index.md) → [Case Studies](../index.md) → **Google System Design Interview Guide**
 
 # 🌐 Google System Design Interview Guide
 
@@ -31,7 +29,7 @@ last_updated: 2025-07-23
 
 ## 📚 Core Google System Design Problems
 
-### 1. [🔍 Design Google Search](google-search.md)
+### 1. [🔍 Design Google Search](/case-studies/google-systems/google-search)
 Build a web-scale search engine handling 100B+ pages with sub-100ms latency.
 - **Key challenges**: Web crawling, indexing, PageRank, query processing
 - **Scale**: 8.5B searches/day, 100B+ pages, <100ms latency
@@ -156,9 +154,9 @@ Google interviewers typically evaluate candidates on:
 ## 📚 Additional Resources
 
 ### Related Concepts
-- [The 7 Laws](../../axioms/index.md) - Fundamental principles
-- [Pattern Library](../../patterns/index.md) - Reusable solutions
-- [Quantitative Tools](../../quantitative/index.md) - Capacity planning
+- [The 7 Laws](/axioms/) - Fundamental principles
+- [Pattern Library](/patterns/) - Reusable solutions
+- [Quantitative Tools](/quantitative/) - Capacity planning
 
 ### Practice Problems
 - Design a distributed cache (Redis-like)

@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-20
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Health Check Pattern**
 
 # Health Check Pattern
 
@@ -736,4 +734,4 @@ class OptimalHealthChecker:
 
 ---
 
-**Previous**: [← GraphQL Federation](graphql-federation.md) | **Next**: [Idempotent Receiver Pattern →](idempotent-receiver.md)
+**Previous**: ← GraphQL Federation (Coming Soon) | **Next**: Idempotent Receiver Pattern → (Coming Soon)

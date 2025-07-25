@@ -12,8 +12,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Logical Clocks**
 
 # Logical Clocks (Lamport Clocks) Pattern
 
@@ -517,7 +515,7 @@ class DistributedTransaction:
 
 - [Vector Clocks](vector-clocks.md) - Detect concurrent events
 - [Clock Synchronization](clock-sync.md) - Physical time sync
-- [Hybrid Logical Clocks](hlc.md) - Combine physical and logical
+- Hybrid Logical Clocks (Coming Soon) - Combine physical and logical
 - [Event Sourcing](event-sourcing.md) - Ordered event streams
 
 ## References

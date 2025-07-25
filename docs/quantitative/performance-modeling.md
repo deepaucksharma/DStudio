@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Quantitative](index.md) → **Performance Modeling**
 
 # Performance Modeling for Distributed Systems
 
@@ -539,5 +537,5 @@ graph LR
 ## Related Topics
 
 - **Theory**: [Little's Law](littles-law.md) | [Queueing Models](queueing-models.md) | [Universal Scalability](universal-scalability.md)
-- **Practice**: [Capacity Planning](capacity-planning.md) | [Load Testing](load-testing.md) | [Monitoring](../patterns/observability.md)
-- **Laws**: [Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md) | [Law 7: Economics](../part1-axioms/law7-economics/index.md)
+- **Practice**: [Capacity Planning](capacity-planning.md) | [Load Testing](load-testing.md) | [Monitoring](/patterns/observability)
+- **Laws**: [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/) | [Law 7: Economics](/part1-axioms/law7-economics/)

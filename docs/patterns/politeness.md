@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # Crawler Politeness
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Crawler Politeness**
 
 ## Overview
 

@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-21
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Search Autocomplete System Design**
 
 # 🔍 Search Autocomplete System Design
 
@@ -1061,10 +1059,10 @@ graph TB
 - Personalized suggestions
 
 **Patterns & Pillars Applied**:
-- 🔧 Pattern: [Sharding](../patterns/sharding.md) - Prefix-based partitioning
-- 🔧 Pattern: [Cache-Aside](../patterns/caching-strategies.md) - Redis for hot queries
-- 🏛️ Pillar: [Work Distribution](../part2-pillars/work/index.md) - Parallel prefix search
-- 🏛️ Pillar: [Intelligence](../part2-pillars/intelligence/index.md) - ML ranking
+- 🔧 Pattern: [Sharding](/patterns/sharding) - Prefix-based partitioning
+- 🔧 Pattern: [Cache-Aside](/patterns/caching-strategies) - Redis for hot queries
+- 🏛️ Pillar: [Work Distribution](/part2-pillars/work/) - Parallel prefix search
+- 🏛️ Pillar: [Intelligence](/part2-pillars/intelligence/) - ML ranking
 
 ### Phase 4: Modern Multi-Model Architecture (2015-Present)
 
@@ -1663,34 +1661,34 @@ class DistributedAutocomplete:
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - Sub-100ms response critical for UX
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Memory limits drive sharding
-- **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Graceful degradation strategies
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Lock-free trie operations
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Distributed trie updates
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Query performance tracking
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - Typo tolerance, personalization
-- **[Law 7: Economics](../part1-axioms/law7-economics/index.md)** - Memory cost vs latency
+- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)** - Sub-100ms response critical for UX
+- **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/)** - Memory limits drive sharding
+- **[Law 1: Failure](/part1-axioms/law1-failure/)** - Graceful degradation strategies
+- **[Law 3: Emergence](/part1-axioms/law3-emergence/)** - Lock-free trie operations
+- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Distributed trie updates
+- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Query performance tracking
+- **[Law 6: Human-API](/part1-axioms/law6-human-api/)** - Typo tolerance, personalization
+- **[Law 7: Economics](/part1-axioms/law7-economics/)** - Memory cost vs latency
 
 ### 🏛️ Related Patterns
-- **[Trie Data Structure](../patterns/trie.md)** - Core search structure
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-level caching
-- **[Sharding](../patterns/sharding.md)** - Distribute by prefix
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
-- **[Load Balancing](../patterns/load-balancing.md)** - Distribute queries
-- **[Event Streaming](../patterns/event-streaming.md)** - Real-time updates
-- **[Edge Computing](../patterns/edge-computing.md)** - Global latency optimization
+- **Trie Data Structure (Coming Soon)** - Core search structure
+- **[Caching Strategies](/patterns/caching-strategies)** - Multi-level caching
+- **[Sharding](/patterns/sharding)** - Distribute by prefix
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
+- **[Load Balancing](/patterns/load-balancing)** - Distribute queries
+- **[Event Streaming](/patterns/event-streaming)** - Real-time updates
+- **[Edge Computing](/patterns/edge-computing)** - Global latency optimization
 
 ### 📊 Quantitative Models
-- **[Information Theory](../quantitative/information-theory.md)** - Entropy in prefix trees
-- **[Queueing Theory](../quantitative/queueing-models.md)** - Server capacity planning
-- **[Probability Theory](../quantitative/probability.md)** - Bloom filter false positives
-- **[Machine Learning](../quantitative/ml-ranking.md)** - Learning to rank
+- **[Information Theory](/quantitative/information-theory)** - Entropy in prefix trees
+- **[Queueing Theory](/quantitative/queueing-models)** - Server capacity planning
+- **[Probability Theory] (Probability Theory Coming Soon)** - Bloom filter false positives
+- **[Machine Learning] (ML Ranking Coming Soon)** - Learning to rank
 
 ### 🔄 Similar Case Studies
-- **[Google Search](google-search.md)** - Full search architecture
-- **[Elasticsearch](elasticsearch-internals.md)** - Search engine internals
-- **[Facebook Typeahead](facebook-typeahead.md)** - Social search
+- **[Google Search](/google-systems/google-search)** - Full search architecture
+- **[Elasticsearch] (Deep Dive Coming Soon)** - Search engine internals
+- **[Facebook Typeahead] (Case Study Coming Soon)** - Social search
 - **[Amazon Product Search](amazon-search.md)** - E-commerce search
 
 ---

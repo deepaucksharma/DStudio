@@ -1,0 +1,24 @@
+---
+title: Vector Maps
+description: TODO: Add description - Dynamic, data-driven map rendering using vector tiles
+type: pattern
+category: specialized
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
+---
+# Vector Maps
+
+
+
+## Related Patterns
+- [Tile Caching](tile-caching.md)
+- Client Rendering (Coming Soon)
+- Spatial Indexing (Coming Soon)
+
+## References
+- [Google Maps Case Study](../case-studies/google-maps.md) - Transition from raster to vector maps

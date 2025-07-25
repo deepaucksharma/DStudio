@@ -4,7 +4,7 @@ description: Hands-on exercises for mastering multidimensional optimization in d
 type: exercise
 difficulty: expert
 reading_time: 60 min
-prerequisites: ["axiom4-tradeoffs/index.md"]
+prerequisites: ["law4-tradeoffs/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -577,4 +577,4 @@ After completing these exercises, answer:
 
 Remember: The goal isn't to eliminate trade-offs—it's to make them conscious, visible, and aligned with business objectives.
 
-[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ Next: Law of Distributed Knowledge**](../axiom5-epistemology/index.md)
+[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ Next: Law of Distributed Knowledge**](/part1-axioms/law5-epistemology/)

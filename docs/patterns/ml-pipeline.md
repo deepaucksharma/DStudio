@@ -14,17 +14,11 @@ last_updated: 2025-07-23
 # ML Pipeline
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **ML Pipeline**
-
-> 🚧 This pattern documentation is under construction.
-
-ML pipelines are automated workflows for machine learning that handle data ingestion, preprocessing, model training, validation, and deployment at scale.
 
 ## Related Patterns
-- [Event-Driven Architecture](../patterns/event-driven.md) - Pipeline orchestration
-- [Distributed Queue](../patterns/distributed-queue.md) - Task distribution
+- [Event-Driven Architecture](/patterns/event-driven) - Pipeline orchestration
+- Distributed Queue (Coming Soon) - Task distribution
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md)
-- [Spotify ML Recommendations Case Study](../case-studies/spotify-recommendations.md)
+- [Google Maps Case Study](/case-studies/google-maps)
+- [Spotify ML Recommendations Case Study](/case-studies/spotify-recommendations)

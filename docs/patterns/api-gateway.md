@@ -14,15 +14,6 @@ last_updated: 2025-07-21
 # API Gateway Pattern
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **API Gateway Pattern**
-
-<div class="navigation-breadcrumb">
-<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > API Gateway
-</div>
-
-> "The API Gateway is the front door to your microservices"
-> — Chris Richardson
 
 ## The Essential Question
 
@@ -1053,15 +1044,15 @@ POST /circuit-breakers/{service}/reset
 ## Related Resources
 
 ### Patterns
-- [Service Mesh](../patterns/service-mesh.md) - Service-to-service communication
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Handling downstream failures
-- [Rate Limiting](../patterns/rate-limiting.md) - Protecting backend services
-- [Saga Pattern](../patterns/saga.md) - Distributed transactions through gateway
+- Service Mesh (Coming Soon) - Service-to-service communication
+- [Circuit Breaker](/patterns/circuit-breaker) - Handling downstream failures
+- [Rate Limiting](/patterns/rate-limiting) - Protecting backend services
+- [Saga Pattern](/patterns/saga) - Distributed transactions through gateway
 
 ### Laws
-- [Law 6 (Cognitive Load 🤯)](../part1-axioms/law6-human-api/index.md) - API design principles
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md) - Performance implications
-- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md) - Monitoring and tracing
+- [Law 6 (Cognitive Load 🤯)](/part1-axioms/law6-human-api/) - API design principles
+- [Law 2 (Asynchronous Reality ⏳)](/part1-axioms/law2-asynchrony/) - Performance implications
+- [Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/) - Monitoring and tracing
 
 ### Tools & Technologies
 - **Open Source**: Kong, Zuul, Tyk, Express Gateway

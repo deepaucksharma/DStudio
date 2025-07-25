@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 2](index.md) → **Capacity Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](index.md) → **Capacity Exercises**
 
 # Capacity Exercises
 
@@ -538,9 +538,9 @@ These skills are fundamental to building reliable distributed systems that grace
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 3](../axiom3-failure/)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 3](/part1-axioms/archive-old-8-axiom-structure/axiom3-failure)
 
 **Related Patterns**: 
-- [Auto Scaling](../../patterns/auto-scaling.md) - Implement what you learned
-- [Circuit Breaker](../../patterns/circuit-breaker.md) - Backpressure in practice
-- [Bulkhead](../../patterns/bulkhead.md) - Isolate capacity failures
+- [Auto Scaling](/patterns/auto-scaling) - Implement what you learned
+- [Circuit Breaker](/patterns/circuit-breaker) - Backpressure in practice
+- [Bulkhead](/patterns/bulkhead) - Isolate capacity failures

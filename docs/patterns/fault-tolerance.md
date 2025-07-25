@@ -11,8 +11,6 @@ when_not_to_use: Simple applications, cost-sensitive deployments, temporary prot
 status: complete
 last_updated: 2025-01-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Fault Tolerance Pattern**
 
 # Fault Tolerance Pattern
 
@@ -1252,4 +1250,4 @@ for key, value in roi_analysis.items():
 
 ---
 
-**Previous**: [← Failover](failover.md) | **Next**: [Split Brain →](split-brain.md)
+**Previous**: [← Failover](failover.md) | **Next**: Split Brain → (Coming Soon)

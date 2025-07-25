@@ -4,7 +4,7 @@ description: Understanding how the seven laws interact, compound, and define the
 type: synthesis
 difficulty: expert
 reading_time: 15 min
-prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md", "axiom5-epistemology/index.md", "axiom6-human-api/index.md", "axiom7-economics/index.md"]
+prerequisites: ["part1-axioms/index.md", "law1-failure/index.md", "law2-asynchrony/index.md", "law3-emergence/index.md", "law4-tradeoffs/index.md", "law5-epistemology/index.md", "law6-human-api/index.md", "law7-economics/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -447,4 +447,4 @@ Master these seven laws, and you master not just distributed systems, but the ar
 
 ---
 
-[**← Back to Framework Overview**](index.md) | [**→ Start Your Journey**](axiom1-failure/index.md)
+[**← Back to Framework Overview**](index.md) | [**→ Start Your Journey**](law1-failure/index.md)

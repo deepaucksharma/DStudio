@@ -1313,26 +1313,26 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 4: Trade-offs](../part1-axioms/law5-epistemology/index.md) - Node ID assignment and consensus
-- [Law 6: Human-API](../part1-axioms/law6-human-api/index.md) - Developer experience considerations
-- [Clock Synchronization](../patterns/clock-sync.md) - NTP and time coordination
-- [Logical Clocks](../patterns/logical-clocks.md) - Alternative to wall-clock time
+- [Law 4: Trade-offs](/part1-axioms/law5-epistemology/) - Node ID assignment and consensus
+- [Law 6: Human-API](/part1-axioms/law6-human-api/) - Developer experience considerations
+- [Clock Synchronization](/patterns/clock-sync) - NTP and time coordination
+- [Logical Clocks](/patterns/logical-clocks) - Alternative to wall-clock time
 
 **Advanced Topics:**
-- [Jepsen Analysis of ID Generators](../reference/jepsen-id-generators.md) - Correctness testing
-- [ID Generation at Scale](../patterns/id-generation-scale.md) - Billion+ IDs/second
-- [Time-Series IDs](../patterns/time-series-ids.md) - Optimized for time-series data
-- [Collision Probability Math](../quantitative/collision-probability.md) - Birthday paradox applied
+- [Jepsen Analysis of ID Generators] (Jepsen Analysis Coming Soon) - Correctness testing
+- [ID Generation at Scale](/patterns/id-generation-scale) - Billion+ IDs/second
+- [Time-Series IDs](/patterns/time-series-ids) - Optimized for time-series data
+- [Collision Probability Math](/quantitative/collision-probability) - Birthday paradox applied
 
 **Related Case Studies:**
 - [URL Shortener](./url-shortener.md) - Uses ID generation for short codes
 <!-- TODO: Add distributed tracing case study -->
-- [Event Sourcing](../patterns/event-sourcing.md) - Event ID generation patterns
+- [Event Sourcing](/patterns/event-sourcing) - Event ID generation patterns
 
 **Implementation Patterns:**
-- [Client Library Design](../patterns/client-library-design.md) - SDK best practices
-- [Service Discovery](../patterns/service-discovery.md) - For ticket server architectures
-- [Graceful Degradation](../patterns/graceful-degradation.md) - Fallback strategies
+- Client Library Design (Coming Soon) - SDK best practices
+- [Service Discovery](/patterns/service-discovery) - For ticket server architectures
+- [Graceful Degradation](/patterns/graceful-degradation) - Fallback strategies
 
 ### 📚 References
 
@@ -1349,7 +1349,7 @@ Database:
 - [Discord's Snowflake](https://discord.com/developers/docs/reference#snowflakes)
 
 **Related Patterns:**
-- [Lamport Timestamps](../patterns/logical-clocks.md)
-- [Vector Clocks](../patterns/vector-clocks.md)
-- [Consistent Hashing](../case-studies/consistent-hashing.md)
-- [Leader Election](../patterns/leader-election.md)
+- [Lamport Timestamps](/patterns/logical-clocks)
+- [Vector Clocks](/patterns/vector-clocks)
+- [Consistent Hashing](/case-studies/consistent-hashing)
+- [Leader Election](/patterns/leader-election)

@@ -14,12 +14,6 @@ last_updated: 2025-07-23
 # Crawler Trap Detection
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Crawler Trap Detection**
-
-> 🚧 This pattern documentation is under construction.
-
-Crawler traps are website structures that can cause web crawlers to get stuck in infinite loops or download endless content.
 
 ## Related Patterns
 - [URL Normalization](url-normalization.md)
@@ -27,4 +21,4 @@ Crawler traps are website structures that can cause web crawlers to get stuck in
 - [Bloom Filter](bloom-filter.md)
 
 ## References
-- [Web Crawler](../case-studies/web-crawler.md) - Trap detection implementation
+- [Web Crawler](/case-studies/web-crawler) - Trap detection implementation

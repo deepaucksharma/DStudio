@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-21
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Distributed Message Queue Design**
 
 # 📨 Distributed Message Queue Design (Kafka/RabbitMQ)
 
@@ -117,10 +115,10 @@ graph TB
 - Pagecache usage
 
 **Patterns & Pillars Applied**:
-- 🔧 Pattern: [Leader-Follower Replication](../patterns/leader-follower.md)
-- 🔧 Pattern: [Partitioning](../patterns/sharding.md) - Topic partitions
-- 🏛️ Pillar: [State Distribution](../part2-pillars/state/index.md) - Distributed logs
-- 🏛️ Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Ordered delivery
+- 🔧 Pattern: [Leader-Follower Replication](/patterns/leader-follower)
+- 🔧 Pattern: [Partitioning](/patterns/sharding) - Topic partitions
+- 🏛️ Pillar: [State Distribution](/part2-pillars/state/) - Distributed logs
+- 🏛️ Pillar: [Truth Distribution](/part2-pillars/truth/) - Ordered delivery
 
 ### Phase 4: Modern Streaming Platform (2014-Present)
 
@@ -1283,29 +1281,29 @@ Separating hot and cold storage enables infinite retention at reasonable cost.
 ## 🔗 Related Concepts & Deep Dives
 
 ### Laws Applied
-- ⏳ **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - Network RTT dominates replication latency
-- ⚖️ **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Partitioning for horizontal scaling
-- ⛓️ **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Replication for fault tolerance
-- 🌪️ **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Producer and consumer parallelism
-- 🧠 **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Consumer group coordination and monitoring
-- 🤯 **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - Simple producer/consumer API
-- 💰 **[Law 7: Economics](../part1-axioms/law7-economics/index.md)** - Cost-effective storage with compression
+- ⏳ **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)** - Network RTT dominates replication latency
+- ⚖️ **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/)** - Partitioning for horizontal scaling
+- ⛓️ **[Law 1: Failure](/part1-axioms/law1-failure/)** - Replication for fault tolerance
+- 🌪️ **[Law 3: Emergence](/part1-axioms/law3-emergence/)** - Producer and consumer parallelism
+- 🧠 **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Consumer group coordination and monitoring
+- 🤯 **[Law 6: Human-API](/part1-axioms/law6-human-api/)** - Simple producer/consumer API
+- 💰 **[Law 7: Economics](/part1-axioms/law7-economics/)** - Cost-effective storage with compression
 
 ### Related Patterns
-- 📨 **[Event-Driven Architecture](../patterns/event-driven.md)** - Kafka as event backbone
-- 📚 **[Event Sourcing](../patterns/event-sourcing.md)** - Log as source of truth
-- 🔄 **[Saga Pattern](../patterns/saga.md)** - Distributed transactions over messaging
-- 🎯 **[CQRS](../patterns/cqrs.md)** - Separate read/write paths with Kafka
+- 📨 **[Event-Driven Architecture](/patterns/event-driven)** - Kafka as event backbone
+- 📚 **[Event Sourcing](/patterns/event-sourcing)** - Log as source of truth
+- 🔄 **[Saga Pattern](/patterns/saga)** - Distributed transactions over messaging
+- 🎯 **[CQRS](/patterns/cqrs)** - Separate read/write paths with Kafka
 
 ### Quantitative Models
-- 📊 **[Little's Law](../quantitative/littles-law.md)** - Queue depth and latency relationship
-- 📈 **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for brokers
-- 🚀 **[Universal Scalability Law](../quantitative/universal-scalability.md)** - Coordination overhead in consumer groups
+- 📊 **[Little's Law](/quantitative/littles-law)** - Queue depth and latency relationship
+- 📈 **[Queueing Theory](/quantitative/queueing-models)** - M/M/c model for brokers
+- 🚀 **[Universal Scalability Law](/quantitative/universal-scalability)** - Coordination overhead in consumer groups
 
 ### Similar Case Studies
-- 🔄 **[Event Sourcing System](../patterns/event-sourcing.md)** - Using Kafka for event store
-- 📊 **[Real-time Analytics](./real-time-analytics/)** - Stream processing with Kafka Streams
-- 🌍 **[Multi-Region Replication](./multi-region-replication/)** - Cross-DC messaging
+- 🔄 **[Event Sourcing System](/patterns/event-sourcing)** - Using Kafka for event store
+- 📊 **Real-time Analytics (Coming Soon)** - Stream processing with Kafka Streams
+- 🌍 **Multi-Region Replication (Coming Soon)** - Cross-DC messaging
 
 ## References
 

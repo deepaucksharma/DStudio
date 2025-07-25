@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-21
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Proximity Service Design**
 
 # 📍 Proximity Service Design (Yelp/Google Places)
 
@@ -1378,35 +1376,35 @@ class SpatialCacheWarmer:
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - Sub-100ms spatial queries
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Index memory limits
-- **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Redundant indices
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Parallel spatial queries
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Index consistency
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Query pattern analysis
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - Intuitive results
-- **[Law 7: Economics](../part1-axioms/law7-economics/index.md)** - Index storage costs
+- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)** - Sub-100ms spatial queries
+- **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/)** - Index memory limits
+- **[Law 1: Failure](/part1-axioms/law1-failure/)** - Redundant indices
+- **[Law 3: Emergence](/part1-axioms/law3-emergence/)** - Parallel spatial queries
+- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Index consistency
+- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Query pattern analysis
+- **[Law 6: Human-API](/part1-axioms/law6-human-api/)** - Intuitive results
+- **[Law 7: Economics](/part1-axioms/law7-economics/)** - Index storage costs
 
 ### 🏛️ Related Patterns
-- **[Spatial Indexing](../patterns/spatial-indexing.md)** - R-tree, QuadTree, KD-tree
-- **[Geohashing](../patterns/geohashing.md)** - Location encoding
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-level caches
-- **[Sharding](../patterns/sharding.md)** - Geographic partitioning
-- **[Load Balancing](../patterns/load-balancing.md)** - Query distribution
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
-- **[Edge Computing](../patterns/edge-computing.md)** - Regional processing
+- **Spatial Indexing (Coming Soon)** - R-tree, QuadTree, KD-tree
+- **Geohashing (Coming Soon)** - Location encoding
+- **[Caching Strategies](/patterns/caching-strategies)** - Multi-level caches
+- **[Sharding](/patterns/sharding)** - Geographic partitioning
+- **[Load Balancing](/patterns/load-balancing)** - Query distribution
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
+- **[Edge Computing](/patterns/edge-computing)** - Regional processing
 
 ### 📊 Quantitative Models
-- **[Haversine Distance](../quantitative/haversine.md)** - Accurate Earth distances
-- **[Spatial Statistics](../quantitative/spatial-stats.md)** - Clustering, hot spots
-- **[Computational Geometry](../quantitative/comp-geometry.md)** - Polygon operations
-- **[Graph Theory](../quantitative/graph-theory.md)** - Network analysis
+- **[Haversine Distance](/quantitative/haversine)** - Accurate Earth distances
+- **[Spatial Statistics](/quantitative/spatial-stats)** - Clustering, hot spots
+- **[Computational Geometry](/quantitative/comp-geometry)** - Polygon operations
+- **[Graph Theory](/quantitative/graph-theory)** - Network analysis
 
 ### 🔄 Similar Case Studies
-- **[Uber's H3 System](uber-h3.md)** - Hexagonal spatial indexing
+- **[Uber's H3 System] (Case Study Coming Soon)** - Hexagonal spatial indexing
 - **[Google Maps](google-maps.md)** - Global mapping infrastructure
-- **[Foursquare Venues](foursquare-venues.md)** - Location recommendations
-- **[Pokemon Go](pokemon-go-spatial.md)** - Real-time AR locations
+- **[Foursquare Venues] (Case Study Coming Soon)** - Location recommendations
+- **[Pokemon Go] (Case Study Coming Soon)** - Real-time AR locations
 
 ## Part 3: Architecture Alternatives - Exploring the Design Space
 

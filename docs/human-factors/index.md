@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Part V: Human & Operational Factors**
 
 # Part V: Human & Operational Factors
 
@@ -168,13 +166,13 @@ Technical Excellence + Human Factors = Operational Success
 ### 📚 Prerequisites
 
 **Required**: 
-- Understanding of [Law 6: Human-API](../part1-axioms/law6-human-api/index.md)
+- Understanding of [Law 6: Human-API](/part1-axioms/law6-human-api/)
 - 1-2 years operating production systems
 - Distributed systems basics
 - Process improvement mindset
 
 **Helpful**: 
-- Understanding of [Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)
+- Understanding of [Law 5: Epistemology](/part1-axioms/law5-epistemology/)
 - Incident response experience
 - Team leadership
 - Cognitive science background

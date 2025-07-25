@@ -79,7 +79,7 @@ These laws represent the most fundamental, irreducible principles governing dist
 
 **Theoretical Foundation**: Dependency graph analysis and shared fate modeling, not simple probabilistic independence.
 
-[**→ Deep Dive into Failure Models**](axiom1-failure/index.md) | [**→ Failure Injection Lab**](axiom1-failure/exercises.md)
+[**→ Deep Dive into Failure Models**](law1-failure/index.md) | [**→ Failure Injection Lab**](law1-failure/exercises.md)
 
 ### Law 2: The Law of Asynchronous Reality ⏳
 > Information travels at finite speed. Therefore, the present is unknowable.
@@ -94,7 +94,7 @@ These laws represent the most fundamental, irreducible principles governing dist
 
 **Theoretical Foundation**: FLP Impossibility is a direct mathematical consequence of asynchrony.
 
-[**→ Master Asynchrony & Time**](axiom2-asynchrony/index.md) | [**→ Temporal Logic Exercises**](axiom2-asynchrony/exercises.md)
+[**→ Master Asynchrony & Time**](law2-asynchrony/index.md) | [**→ Temporal Logic Exercises**](law2-asynchrony/exercises.md)
 
 ### Law 3: The Law of Emergent Chaos 🌪️
 > At scale, systems exhibit behaviors that cannot be predicted from their components.
@@ -109,7 +109,7 @@ These laws represent the most fundamental, irreducible principles governing dist
 
 **Theoretical Foundation**: Complex adaptive systems theory and non-linear dynamics.
 
-[**→ Navigate Emergent Behavior**](axiom3-emergence/index.md) | [**→ Chaos Engineering Lab**](axiom3-emergence/exercises.md)
+[**→ Navigate Emergent Behavior**](law3-emergence/index.md) | [**→ Chaos Engineering Lab**](law3-emergence/exercises.md)
 
 ## Part 2: The Rules of Engagement
 
@@ -133,7 +133,7 @@ Given the foundational constraints, we must design systems according to rules th
 
 **Theoretical Foundation**: Multi-objective optimization and game theory for multi-tenant systems.
 
-[**→ Navigate Trade-off Space**](axiom4-tradeoffs/index.md) | [**→ Trade-off Analysis Tools**](axiom4-tradeoffs/exercises.md)
+[**→ Navigate Trade-off Space**](law4-tradeoffs/index.md) | [**→ Trade-off Analysis Tools**](law4-tradeoffs/exercises.md)
 
 ### Law 5: The Law of Distributed Knowledge 🧠
 > In distributed systems, truth is local, knowledge is partial, and certainty is expensive.
@@ -148,7 +148,7 @@ Given the foundational constraints, we must design systems according to rules th
 
 **Theoretical Foundation**: Byzantine Generals' Problem as epistemological puzzle; formal logics of knowledge and belief.
 
-[**→ Reason About Knowledge**](axiom5-epistemology/index.md) | [**→ Consensus Protocols Lab**](axiom5-epistemology/exercises.md)
+[**→ Reason About Knowledge**](law5-epistemology/index.md) | [**→ Consensus Protocols Lab**](law5-epistemology/exercises.md)
 
 ## Part 3: The Operational Realities
 
@@ -167,7 +167,7 @@ These laws ground the framework in the pragmatic concerns of building, running, 
 
 **Practical Impact**: Elevates UX principles to architectural imperatives for internal tooling.
 
-[**→ Design Human Interfaces**](axiom6-human-api/index.md) | [**→ Operator Experience Lab**](axiom6-human-api/exercises.md)
+[**→ Design Human Interfaces**](law6-human-api/index.md) | [**→ Operator Experience Lab**](law6-human-api/exercises.md)
 
 ### Law 7: The Law of Economic Reality 💰
 > Every architectural decision is ultimately a financial decision.
@@ -183,7 +183,7 @@ These laws ground the framework in the pragmatic concerns of building, running, 
 
 **Core Implication**: Every joule, cycle, byte, and hour has a cost that must be justified.
 
-[**→ Economic Architecture**](axiom7-economics/index.md) | [**→ Cost Modeling Tools**](axiom7-economics/exercises.md)
+[**→ Economic Architecture**](law7-economics/index.md) | [**→ Cost Modeling Tools**](law7-economics/exercises.md)
 
 ## Hidden Assumptions and Biases
 
@@ -271,7 +271,7 @@ graph LR
 
 Ready to move beyond simplifications and engage with the full complexity of distributed systems?
 
-[**→ Begin with the Law of Failure**](axiom1-failure/index.md)
+[**→ Begin with the Law of Failure**](law1-failure/index.md)
 
 ---
 

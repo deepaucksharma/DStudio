@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Outbox Pattern**
 
 # Outbox Pattern
 
@@ -1183,4 +1181,4 @@ class OutboxEconomics:
 
 ---
 
-**Previous**: [← FinOps Pattern](finops.md) | **Next**: [Idempotent Receiver Pattern →](idempotent-receiver.md)
+**Previous**: ← FinOps Pattern (Coming Soon) | **Next**: Idempotent Receiver Pattern → (Coming Soon)

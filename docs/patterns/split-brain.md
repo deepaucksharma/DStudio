@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # Split Brain
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Split Brain**
 
 ## Overview
 

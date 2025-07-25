@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Leader Election Pattern**
 
 # Leader Election Pattern
 
@@ -1659,7 +1657,7 @@ graph TB
 
 ---
 
-**Previous**: [← Idempotent Receiver Pattern](idempotent-receiver.md) | **Next**: [Load Balancing Pattern →](load-balancing.md)
+**Previous**: ← Idempotent Receiver Pattern (Coming Soon) | **Next**: [Load Balancing Pattern →](load-balancing.md)
 ## 📋 Quick Reference
 
 ### Decision Framework

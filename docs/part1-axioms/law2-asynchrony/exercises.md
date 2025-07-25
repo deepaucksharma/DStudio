@@ -4,7 +4,7 @@ description: Hands-on exercises to understand and implement asynchronous distrib
 type: exercise
 difficulty: expert
 reading_time: 45 min
-prerequisites: ["axiom2-asynchrony/index.md"]
+prerequisites: ["law2-asynchrony/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -744,4 +744,4 @@ After completing these exercises, you should be able to answer:
 
 3. **Design a Chaos Test**: Create chaos engineering tests that specifically target timing assumptions in your system
 
-[**← Back to Law of Asynchrony**](index.md) | [**→ Next: Law of Emergence Exercises**](../axiom3-emergence/exercises.md)
+[**← Back to Law of Asynchrony**](index.md) | [**→ Next: Law of Emergence Exercises**](/part1-axioms/law3-emergence/exercises)

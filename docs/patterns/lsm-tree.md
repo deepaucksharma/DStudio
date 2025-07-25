@@ -12,8 +12,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **LSM Tree**
 
 # LSM Tree (Log-Structured Merge Tree)
 
@@ -577,10 +575,10 @@ def handle_tombstones(self):
 
 ## Related Patterns
 
-- [Write-Ahead Log (WAL)](wal.md) - Durability mechanism
+- Write-Ahead Log (WAL) (Coming Soon) - Durability mechanism
 - [Bloom Filter](bloom-filter.md) - Read optimization for LSM trees
 - [Sharding](sharding.md) - Distributing LSM trees across nodes
-- [Consistent Hashing](../case-studies/consistent-hashing.md) - Key distribution
+- [Consistent Hashing](/case-studies/consistent-hashing) - Key distribution
 
 ## References
 

@@ -57,17 +57,17 @@ graph TD
 ```
 
 ### 🎯 Quick Links
-- [Complete Study Guide](study-guide.md) - Start here for comprehensive preparation
-- [Pattern Library](patterns/index.md) - Essential Google design patterns
+- [Complete Study Guide](/preparation-guide) - Start here for comprehensive preparation
+- [Pattern Library](../../patterns/index.md) - Essential Google design patterns
 - [Practice Problems](practice-problems.md) - Real interview scenarios
-- [Evaluation Framework](evaluation-framework.md) - How you'll be assessed
-- [Common Pitfalls](common-pitfalls.md) - Mistakes to avoid
+- [Evaluation Framework] (Framework Coming Soon) - How you'll be assessed
+- [Common Pitfalls](/common-mistakes) - Mistakes to avoid
 
 ## 📊 Google Systems Coverage Matrix
 
 | System | Difficulty | Prep Time | Key Focus Areas | Resources |
 |--------|------------|-----------|-----------------|-----------|
-| **Search** | ⭐⭐⭐⭐⭐ | 8-10 hrs | PageRank, Indexing, Query Processing | [Guide](patterns/infrastructure/search-infrastructure.md) |
+| **Search** | ⭐⭐⭐⭐⭐ | 8-10 hrs | PageRank, Indexing, Query Processing | [Guide](/google-search) |
 | **Ads** | ⭐⭐⭐⭐⭐ | 8-10 hrs | RTB, CTR Prediction, Auction | [Guide](patterns/application/ads-systems.md) |
 | **YouTube** | ⭐⭐⭐⭐ | 6-8 hrs | Video Processing, CDN, Recommendations | [Guide](patterns/application/media-platforms.md) |
 | **Maps** | ⭐⭐⭐⭐ | 6-8 hrs | Geospatial, Routing, Real-time Updates | [Guide](patterns/infrastructure/geo-systems.md) |
@@ -163,8 +163,8 @@ graph TD
 ## ✅ Resource Checklist
 
 ### 📚 Preparation Materials
-- [ ] [Complete Study Guide](study-guide.md)
-- [ ] [Pattern Library](patterns/index.md) (25 patterns)
+- [ ] [Complete Study Guide](/preparation-guide)
+- [ ] [Pattern Library](../../patterns/index.md) (25 patterns)
 - [ ] [Technical Deep Dives](technical-deep-dives.md)
 - [ ] [Google Papers Collection](references.md#google-papers)
 - [ ] [Architecture Diagrams](references.md#architecture-diagrams)
@@ -172,12 +172,12 @@ graph TD
 ### 💻 Practice Resources
 - [ ] [20 Mock Problems](practice-problems.md)
 - [ ] [Design Templates](design-template.md)
-- [ ] [Evaluation Rubric](evaluation-framework.md)
+- [ ] [Evaluation Rubric] (Framework Coming Soon)
 - [ ] [Time Management Guide](time-management.md)
-- [ ] [Common Pitfalls Guide](common-pitfalls.md)
+- [ ] [Common Pitfalls Guide](/common-mistakes)
 
 ### 🛠️ Tools & References
-- [ ] [Capacity Calculator](../tools/capacity-calculator.md)
+- [ ] [Capacity Calculator](/tools/capacity-calculator)
 - [ ] [Latency Cheat Sheet](cheat-sheets.md#latency-numbers)
 - [ ] [Technology Comparison](cheat-sheets.md#technology-choices)
 - [ ] [Design Checklist](checklists.md)

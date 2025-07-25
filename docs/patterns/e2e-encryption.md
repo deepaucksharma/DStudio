@@ -11,8 +11,6 @@ when_not_to_use: Public content, caching requirements, content moderation needs,
 status: complete
 last_updated: 2025-07-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **End-to-End Encryption (E2E)**
 
 # End-to-End Encryption (E2E)
 
@@ -1941,4 +1939,4 @@ class E2EImpactAnalysis:
 
 ---
 
-**Previous**: [← WebRTC] (Pattern: Webrtc - Coming Soon) | **Next**: [Key Management →](key-management.md)
+**Previous**: [← WebRTC] (Pattern: Webrtc - Coming Soon) | **Next**: Key Management → (Coming Soon)

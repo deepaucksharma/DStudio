@@ -14,15 +14,6 @@ last_updated: 2025-07-21
 # Saga Pattern
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Saga Pattern**
-
-<div class="navigation-breadcrumb">
-<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Saga Pattern
-</div>
-
-> "A distributed system is one in which the failure of a computer you didn't even know existed can render your own computer unusable"
-> — Leslie Lamport
 
 ## The Essential Question
 
@@ -919,11 +910,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md)**: Manages distributed consensus without locks
-2. **[Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md)**: Explicit handling of partial failures
-3. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md)**: Handles concurrent saga executions
-4. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Full audit trail of all steps
-5. **[Law 7 (Economic Reality 💰)](../part1-axioms/law7-economics/index.md)**: Balances consistency costs with business needs
+1. **[Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/)**: Manages distributed consensus without locks
+2. **[Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/)**: Explicit handling of partial failures
+3. **[Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/)**: Handles concurrent saga executions
+4. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Full audit trail of all steps
+5. **[Law 7 (Economic Reality 💰)](/part1-axioms/law7-economics/)**: Balances consistency costs with business needs
 </div>
 
 ### Future Directions
@@ -1044,15 +1035,15 @@ saga:
 ## Related Resources
 
 ### Patterns
-- [Event Sourcing](../patterns/event-sourcing.md) - Natural event log for sagas
-- [CQRS](../patterns/cqrs.md) - Separate saga execution from queries
-- [Outbox Pattern](../patterns/outbox.md) - Reliable event publishing
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Protect saga steps
+- [Event Sourcing](/patterns/event-sourcing) - Natural event log for sagas
+- [CQRS](/patterns/cqrs) - Separate saga execution from queries
+- [Outbox Pattern](/patterns/outbox) - Reliable event publishing
+- [Circuit Breaker](/patterns/circuit-breaker) - Protect saga steps
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Why distributed consensus is hard
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Handling partial failures
-- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md) - Managing parallel execution
+- [Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/) - Why distributed consensus is hard
+- [Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/) - Handling partial failures
+- [Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/) - Managing parallel execution
 
 ### Further Reading
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem

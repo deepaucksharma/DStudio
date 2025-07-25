@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../../introduction/index.md) → [Part II: Pillars](../index.md) → [Work](index.md) → **Work Distribution Exercises**
 
 # Work Distribution Exercises
 

@@ -12,11 +12,6 @@ status: partial
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Request Routing Pattern**
-
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Patterns](index.md) → **Request Routing**
 
 # Request Routing Pattern
 
@@ -1143,7 +1138,7 @@ class DiscoveryAwareRouter:
 2. **[Service Discovery](service-discovery.md)**: Finding services to route to
 3. **[Circuit Breaker](circuit-breaker.md)**: Handling failures in routing
 4. **[API Gateway](api-gateway.md)**: Common implementation of request routing
-5. **[Service Mesh](service-mesh.md)**: Advanced routing capabilities
+5. **Service Mesh (Coming Soon)**: Advanced routing capabilities
 
 ---
 

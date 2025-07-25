@@ -4,7 +4,7 @@ description: The time required for information to propagate between nodes is var
 type: law
 difficulty: expert
 reading_time: 10 min
-prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md"]
+prerequisites: ["part1-axioms/index.md", "law1-failure/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -520,4 +520,4 @@ In distributed systems, there is no "now". There are only events and their causa
 - "There Is No Now" - Justin Sheehy
 - "Living Without Atomic Clocks" - Cockroach Labs
 
-[**← Previous: Law of Failure**](../axiom1-failure/index.md) | [**→ Next: Law of Emergence**](../axiom3-emergence/index.md)
+[**← Previous: Law of Failure**](/part1-axioms/law1-failure/) | [**→ Next: Law of Emergence**](/part1-axioms/law3-emergence/)

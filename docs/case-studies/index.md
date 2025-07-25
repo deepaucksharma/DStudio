@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Case Studies: Laws in Action**
 
 # Case Studies: Laws in Action
 
@@ -39,26 +37,26 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 ### [Uber: Real-Time Location System](uber-location.md)
 **Scale**: 40M concurrent users | **Challenge**: Sub-100ms global location updates  
 **Key Insights**: H3 hexagonal grid system, edge computing, eventual consistency trade-offs  
-**Laws in Focus**: [Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/law4-tradeoffs/index.md), [State Distribution](../part2-pillars/state/index.md)  
-**Related Patterns**: [Edge Computing](../patterns/edge-computing.md) | [Geo-Replication](../patterns/geo-replication.md) | [Load Balancing](../patterns/load-balancing.md)
+**Laws in Focus**: [Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/), [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/), [State Distribution](/part2-pillars/state/)  
+**Related Patterns**: [Edge Computing](/patterns/edge-computing) | Geo-Replication (Coming Soon) | [Load Balancing](/patterns/load-balancing)
 
 ### [Amazon DynamoDB: Eventually Consistent by Design](amazon-dynamo.md)
 **Scale**: 105M requests/second | **Challenge**: 99.999% availability globally  
 **Key Insights**: Masterless architecture, vector clocks, consistent hashing, anti-entropy  
-**Laws in Focus**: [Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/law4-tradeoffs/index.md), Availability Trade-offs  
-**Related Patterns**: [Tunable Consistency](../patterns/tunable-consistency.md) | [Sharding](../patterns/sharding.md) | [Circuit Breaker](../patterns/circuit-breaker.md)
+**Laws in Focus**: [Correlated Failure ⛓️](/part1-axioms/law1-failure/), [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/), Availability Trade-offs  
+**Related Patterns**: [Tunable Consistency](/patterns/tunable-consistency) | [Sharding](/patterns/sharding) | [Circuit Breaker](/patterns/circuit-breaker)
 
 ### [Spotify: ML-Powered Recommendations](spotify-recommendations.md)
 **Scale**: 5B recommendations/day | **Challenge**: Personalization at scale  
 **Key Insights**: Hybrid online/offline processing, feature stores, A/B testing infrastructure  
-**Laws in Focus**: [State Distribution](../part2-pillars/state/index.md), [Intelligence Distribution](../part2-pillars/intelligence/index.md), [Work Distribution](../part2-pillars/work/index.md)  
-**Related Patterns**: [CQRS](../patterns/cqrs.md) | [Event-Driven Architecture](../patterns/event-driven.md) | [Caching Strategies](../patterns/caching-strategies.md)
+**Laws in Focus**: [State Distribution](/part2-pillars/state/), [Intelligence Distribution](/part2-pillars/intelligence/), [Work Distribution](/part2-pillars/work/)  
+**Related Patterns**: [CQRS](/patterns/cqrs) | [Event-Driven Architecture](/patterns/event-driven) | [Caching Strategies](/patterns/caching-strategies)
 
 ### [PayPal: Distributed Payment Processing](paypal-payments.md)
 **Scale**: $1.36T/year | **Challenge**: Zero transaction loss with global scale  
 **Key Insights**: Distributed sagas, idempotency, compensating transactions  
-**Laws in Focus**: [Truth Distribution](../part2-pillars/truth/index.md), [Control Distribution](../part2-pillars/control/index.md), [Economic Reality 💰](../part1-axioms/law7-economics/index.md)  
-**Related Patterns**: [Saga Pattern](../patterns/saga.md) | [Idempotent Receiver](../patterns/idempotent-receiver.md) | [Event Sourcing](../patterns/event-sourcing.md)
+**Laws in Focus**: [Truth Distribution](/part2-pillars/truth/), [Control Distribution](/part2-pillars/control/), [Economic Reality 💰](/part1-axioms/law7-economics/)  
+**Related Patterns**: [Saga Pattern](/patterns/saga) | Idempotent Receiver (Coming Soon) | [Event Sourcing](/patterns/event-sourcing)
 
 ---
 
@@ -148,9 +146,9 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 ## 🔗 Quick Navigation
 
 ### Understanding the Theory
-- [7 Fundamental Laws](../part1-axioms/index.md) - The constraints these systems navigate
-- [5 Foundational Pillars](../part2-pillars/index.md) - How these systems organize solutions
-- [Modern Patterns](../patterns/index.md) - The patterns these systems implement
+- [7 Fundamental Laws](/part1-axioms/) - The constraints these systems navigate
+- [5 Foundational Pillars](/part2-pillars/) - How these systems organize solutions
+- [Modern Patterns](/patterns/) - The patterns these systems implement
 
 ### Case Studies by Primary Focus
 **Latency & Performance**
@@ -166,10 +164,10 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 - [PayPal Payments](paypal-payments.md) - $1.36T/year processing
 
 ### Patterns Demonstrated
-- **[Edge Computing](../patterns/edge-computing.md)**: Uber's location system
-- **[Tunable Consistency](../patterns/tunable-consistency.md)**: DynamoDB's approach
-- **[Saga Pattern](../patterns/saga.md)**: PayPal's distributed transactions
-- **[CQRS](../patterns/cqrs.md)**: Spotify's ML pipeline
+- **[Edge Computing](/patterns/edge-computing)**: Uber's location system
+- **[Tunable Consistency](/patterns/tunable-consistency)**: DynamoDB's approach
+- **[Saga Pattern](/patterns/saga)**: PayPal's distributed transactions
+- **[CQRS](/patterns/cqrs)**: Spotify's ML pipeline
 
 ---
 

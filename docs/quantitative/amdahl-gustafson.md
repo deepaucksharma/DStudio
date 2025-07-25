@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Amdahl & Gustafson Laws**
 
 # Amdahl & Gustafson Laws
 

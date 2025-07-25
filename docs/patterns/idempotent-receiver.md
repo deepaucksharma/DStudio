@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Idempotent Receiver Pattern**
 
 # Idempotent Receiver Pattern
 
@@ -1321,4 +1319,4 @@ class IdempotencyEconomics:
 
 ---
 
-**Previous**: [← Outbox Pattern](outbox.md) | **Next**: [GraphQL Federation Pattern →](graphql-federation.md)
+**Previous**: [← Outbox Pattern](outbox.md) | **Next**: GraphQL Federation Pattern → (Coming Soon)

@@ -1,0 +1,411 @@
+/* ============================================
+   STYLE OVERRIDES & FIXES
+   Overrides problematic styles and ensures consistency
+   ============================================ */
+
+/* ==========================================
+   NAVIGATION FIXES
+   ========================================== */
+
+/* Remove emojis from navigation */
+.md-nav__link .twemoji,
+.md-tabs__link .twemoji,
+.md-header__topic .twemoji {
+  display: none !important;
+}
+
+/* Clean up navigation text */
+.md-nav__link {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+}
+
+/* Active navigation item */
+.md-nav__link--active {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+}
+
+/* Mobile navigation improvements */
+@media screen and (max-width: 76.1875em) {
+  /* Hide desktop navigation */
+  .md-tabs {
+    display: none;
+  }
+  
+  /* Improve mobile drawer */
+  .md-nav--primary .md-nav__title {
+    padding: 1rem;
+    font-size: var(--font-size-lg);
+  }
+  
+  /* Better touch targets */
+  .md-nav__link {
+    padding: 0.75rem 1rem;
+    min-height: 44px;
+  }
+  
+  /* Collapsible sections */
+  .md-nav__toggle ~ .md-nav {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal);
+  }
+  
+  .md-nav__toggle:checked ~ .md-nav {
+    max-height: 100vh;
+  }
+}
+
+/* ==========================================
+   CONTENT FIXES
+   ========================================== */
+
+/* Remove excessive emojis from content */
+.md-typeset .twemoji:first-child {
+  margin-right: 0.25rem;
+  width: 1.2em;
+  height: 1.2em;
+  vertical-align: text-bottom;
+}
+
+/* Hide emojis in certain contexts */
+.md-typeset h1 .twemoji,
+.md-typeset h2 .twemoji,
+.md-typeset h3 .twemoji,
+.md-typeset h4 .twemoji,
+.md-typeset li > .twemoji:first-child,
+.md-typeset td > .twemoji:first-child {
+  display: none !important;
+}
+
+/* Fix overly colorful boxes */
+.axiom-box,
+.decision-box,
+.failure-vignette,
+.truth-box {
+  border-width: 2px;
+  background-color: var(--color-gray-50);
+  position: relative;
+  padding-left: 3rem;
+}
+
+/* Add subtle accent stripe */
+.axiom-box::before,
+.decision-box::before,
+.failure-vignette::before,
+.truth-box::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.axiom-box::before {
+  background-color: var(--color-primary);
+}
+
+.decision-box::before {
+  background-color: var(--color-success);
+}
+
+.failure-vignette::before {
+  background-color: var(--color-error);
+}
+
+.truth-box::before {
+  background-color: var(--color-info);
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .axiom-box,
+[data-md-color-scheme="slate"] .decision-box,
+[data-md-color-scheme="slate"] .failure-vignette,
+[data-md-color-scheme="slate"] .truth-box {
+  background-color: var(--color-gray-800);
+}
+
+/* ==========================================
+   TABLE IMPROVEMENTS
+   ========================================== */
+
+/* Responsive table wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: var(--space-lg) 0;
+}
+
+/* Better table styling */
+.md-typeset table {
+  min-width: 100%;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.md-typeset table thead {
+  background-color: var(--color-gray-100);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Mobile table transformation */
+@media screen and (max-width: 640px) {
+  .md-typeset table.responsive-table,
+  .md-typeset table.responsive-table thead,
+  .md-typeset table.responsive-table tbody,
+  .md-typeset table.responsive-table th,
+  .md-typeset table.responsive-table td,
+  .md-typeset table.responsive-table tr {
+    display: block;
+  }
+  
+  .md-typeset table.responsive-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .md-typeset table.responsive-table tr {
+    border: 1px solid var(--color-gray-200);
+    margin-bottom: var(--space-md);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  
+  .md-typeset table.responsive-table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+  
+  .md-typeset table.responsive-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: var(--space-md);
+    width: 45%;
+    font-weight: var(--font-weight-semibold);
+    text-align: left;
+  }
+}
+
+/* ==========================================
+   HOMEPAGE IMPROVEMENTS
+   ========================================== */
+
+/* Simplify hero section */
+.hero-banner {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  padding: var(--space-3xl) var(--space-xl);
+  text-align: center;
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-2xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Remove excessive animations */
+.hero-banner::before {
+  display: none;
+}
+
+/* Feature cards grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin: var(--space-2xl) 0;
+}
+
+.feature-card {
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  text-align: center;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  color: inherit;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.feature-card__icon {
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+}
+
+.feature-card__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-sm);
+}
+
+.feature-card__description {
+  color: var(--color-gray-600);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ==========================================
+   PATTERN & LAW PAGES
+   ========================================== */
+
+/* Pattern cards */
+.pattern-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-lg);
+  margin: var(--space-xl) 0;
+}
+
+.pattern-card {
+  background: white;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.pattern-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.pattern-card__category {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: 0 0 0 var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.pattern-card__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-sm);
+}
+
+.pattern-card__description {
+  color: var(--color-gray-600);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-md);
+}
+
+.pattern-card__laws {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.pattern-card__law-badge {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+}
+
+/* ==========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ========================================== */
+
+/* Better focus indicators */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip navigation link */
+.skip-nav {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: var(--space-sm) var(--space-md);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  z-index: 1000;
+}
+
+.skip-nav:focus {
+  top: var(--space-sm);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .md-typeset a {
+    text-decoration: underline;
+  }
+  
+  .card,
+  .pattern-card,
+  .feature-card {
+    border-width: 2px;
+  }
+}
+
+/* ==========================================
+   PERFORMANCE OPTIMIZATIONS
+   ========================================== */
+
+/* Lazy load images */
+img[loading="lazy"] {
+  background: var(--color-gray-100);
+}
+
+/* Reduce animations for performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================
+   DARK MODE SPECIFIC FIXES
+   ========================================== */
+
+[data-md-color-scheme="slate"] {
+  /* Better contrast for cards */
+  .card,
+  .pattern-card,
+  .feature-card {
+    background: var(--color-gray-800);
+    border-color: var(--color-gray-700);
+  }
+  
+  /* Code block improvements */
+  .md-typeset pre {
+    background: var(--color-gray-900);
+  }
+  
+  /* Table contrast */
+  .md-typeset table thead {
+    background-color: var(--color-gray-800);
+  }
+  
+  .md-typeset table tr:nth-child(even) {
+    background-color: var(--color-gray-850);
+  }
+}

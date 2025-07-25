@@ -110,20 +110,82 @@ The site uses custom-styled components defined in `extra.css`:
 - Manual deploy: `mkdocs gh-deploy` (requires permissions)
 - Build artifacts in `site/` directory (gitignored)
 
+## Content Quality Standards
+
+### Comprehensive Content Updates
+**CRITICAL**: When making any change to a page, think comprehensively:
+1. Update the ENTIRE page for consistency and flow
+2. Review and update ALL related content across the site
+3. Ensure changes align with the overall pedagogical approach
+4. Verify cross-references and internal links remain accurate
+5. Check related pages in same section AND cross-cutting concerns
+
+### Content Density & Quality Requirements
+- **Dense, focused content**: Every sentence must add value
+- **Tables over text**: Use comparison tables for feature comparisons, trade-offs, and structured information
+- **Diagrams over descriptions**: Prefer Mermaid diagrams, flowcharts, and visual representations over lengthy explanations
+- **Minimal verbose text**: Eliminate unnecessary words, redundant explanations, and filler content
+- **No unnecessary code**: Only include code when it directly illustrates a concept; prefer architectural diagrams and decision trees
+
+### Visual Content Hierarchy
+1. **Mermaid diagrams** for system architectures, decision flows, and complex relationships
+2. **Comparison tables** for trade-offs, feature matrices, and structured comparisons  
+3. **Custom component boxes** (axiom-box, decision-box, failure-vignette, truth-box) for key insights
+4. **Bullet points and numbered lists** for processes and hierarchical information
+5. **Minimal prose** only when necessary for context or transitions
+
+### Distributed Systems Specific Quality Standards
+
+#### For Axioms (Part 1)
+- **Physics derivation**: Start with fundamental physics constraint (speed of light, thermodynamics)
+- **Mathematical foundation**: Include relevant formulas and proofs
+- **Failure cascade**: Show how violating the axiom leads to system failure
+- **Pattern connections**: Link to patterns that address this axiom
+
+#### For Pillars (Part 2)
+- **Distribution strategies table**: Compare centralized vs distributed approaches
+- **Trade-off matrix**: Show CAP/PACELC implications
+- **Architecture diagrams**: Visual representation of distribution patterns
+- **Real-world examples**: Production systems implementing the pillar
+
+#### For Patterns
+- **Problem-Solution format**: Clear problem statement → solution approach
+- **Architecture diagram**: Visual representation using Mermaid
+- **Decision criteria table**: When to use vs when not to use
+- **Implementation considerations**: Key technical challenges and solutions
+
+#### For Quantitative Topics
+- **Interactive calculators**: Embed calculation tools where applicable
+- **Formula derivations**: Show mathematical proofs concisely
+- **Visual representations**: Graphs, charts for scaling laws and distributions
+- **Real-world benchmarks**: Actual performance numbers from production systems
+
+### Content Update Checklist
+Before committing any content change, verify:
+- [ ] Entire page reviewed for consistency
+- [ ] Related pages updated (same pillar/axiom, cross-references)
+- [ ] All examples use consistent scenario/domain
+- [ ] Diagrams and tables prioritized over text
+- [ ] No redundant explanations or verbose descriptions
+- [ ] Visual components (boxes) used appropriately
+- [ ] Cross-links to axioms/pillars verified
+- [ ] Failure stories integrated where relevant
+- [ ] Multiple audience perspectives considered
+
 ## Content Guidelines
 
 ### When Writing Documentation
-1. Use Mermaid diagrams for complex concepts
-2. Include practical examples with each theoretical concept
-3. Add failure stories to illustrate real-world implications
-4. Use appropriate visual component boxes for different content types
-5. Keep the physics-first approach - derive patterns from constraints
+1. **Start with visuals**: Lead with diagrams, tables, or structured layouts
+2. **Physics-first derivation**: Derive patterns from fundamental constraints
+3. **Real failure integration**: Include production disaster case studies with each concept
+4. **Cross-reference ruthlessly**: Link to related axioms, pillars, and patterns
+5. **Multiple perspectives**: Address different audience needs (new grads, seniors, managers)
 
-### Code Examples
-- Use language-specific syntax highlighting
-- Include both correct and incorrect approaches
-- Show trade-offs explicitly
-- Reference specific axioms/pillars when applicable
+### Content Structure Standards
+- **Scannable format**: Headers, bullets, tables, diagrams
+- **Layered depth**: Summary → Details → Examples → Exercises
+- **Interactive elements**: Decision trees, calculators, interactive diagrams where possible
+- **Consistent terminology**: Use established glossary terms and maintain consistency
 
 ## Project Roadmap (from IMPROVEMENTS.md)
 

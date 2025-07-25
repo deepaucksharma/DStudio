@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-22
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Google Drive Cloud Storage Architecture**
 
 # ☁️ Google Drive Cloud Storage Architecture
 
@@ -831,9 +829,9 @@ Web Browser → Web Server → File System → Database
 - No versioning support
 
 **Patterns Violated**: 
-- ❌ No [Deduplication](../patterns/deduplication.md)
-- ❌ No [Delta Sync](../patterns/delta-sync.md)
-- ❌ No [Distributed Storage](../patterns/distributed-storage.md)
+- ❌ No Deduplication (Coming Soon)
+- ❌ No Delta Sync (Coming Soon)
+- ❌ No [Distributed Storage](/patterns/distributed-storage)
 
 ### Phase 2: Basic Sync Architecture (2008-2010)
 
@@ -865,10 +863,10 @@ graph TB
 ```
 
 **Key Design Decision: Metadata/Data Separation**
-- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](../part2-pillars/state/index.md))
+- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](/part2-pillars/state/))
 - **Choice**: Store metadata in DB, files in object storage
 - **Result**: Independent scaling of metadata and storage
-- **Pattern Applied**: [Metadata Service](../patterns/metadata-service.md)
+- **Pattern Applied**: Metadata Service (Coming Soon)
 
 According to early reports¹, this enabled handling 10x more files with same database resources.
 
@@ -923,10 +921,10 @@ graph TB
 - Immutable storage simplifies replication
 
 **Patterns & Pillars Applied**:
-- 🔧 Pattern: [Content-Addressed Storage](../patterns/cas.md) - Deduplication
-- 🔧 Pattern: [Chunking](../patterns/chunking.md) - Large file handling
-- 🏛️ Pillar: [State Distribution](../part2-pillars/state/index.md) - Sharded metadata
-- 🏛️ Pillar: [Work Distribution](../part2-pillars/work/index.md) - Parallel uploads
+- 🔧 Pattern: [Content-Addressed Storage](/patterns/cas) - Deduplication
+- 🔧 Pattern: Chunking (Coming Soon) - Large file handling
+- 🏛️ Pillar: [State Distribution](/part2-pillars/state/) - Sharded metadata
+- 🏛️ Pillar: [Work Distribution](/part2-pillars/work/) - Parallel uploads
 
 ### Phase 4: Modern Cloud-Native Architecture (2014-Present)
 
@@ -1500,38 +1498,38 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Sync speed, cache placement
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Storage tiering, deduplication
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Replication, conflict resolution
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Parallel uploads, collaborative editing
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Distributed sync, consistency
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Sync tracking, storage metrics
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Selective sync, offline mode
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Storage costs, tiering strategy
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - Sync speed, cache placement
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Storage tiering, deduplication
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Replication, conflict resolution
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Parallel uploads, collaborative editing
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Distributed sync, consistency
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Sync tracking, storage metrics
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Selective sync, offline mode
+- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Storage costs, tiering strategy
 
 ### 🏛️ Related Patterns
-- **[Content-Addressed Storage](../patterns/cas.md)** - Deduplication foundation
-- **[Delta Sync](../patterns/delta-sync.md)** - Efficient synchronization
-- **[Merkle Trees](../patterns/merkle-trees.md)** - File verification
-- **[CRDT](../patterns/crdt.md)** - Conflict-free collaboration
-- **[Event Sourcing](../patterns/event-sourcing.md)** - File history
-- **[Saga Pattern](../patterns/saga.md)** - Multi-step operations
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service resilience
+- **[Content-Addressed Storage](/patterns/cas)** - Deduplication foundation
+- **Delta Sync (Coming Soon)** - Efficient synchronization
+- **Merkle Trees (Coming Soon)** - File verification
+- **[CRDT](/patterns/crdt)** - Conflict-free collaboration
+- **[Event Sourcing](/patterns/event-sourcing)** - File history
+- **[Saga Pattern](/patterns/saga)** - Multi-step operations
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Service resilience
 
 ### 📊 Quantitative Models
-- **[CAP Theorem](../quantitative/cap-theorem.md)** - Sync consistency trade-offs
-- **[Information Theory](../quantitative/information-theory.md)** - Compression limits
-- **[Queueing Theory](../quantitative/queueing-models.md)** - Upload/download capacity
-- **[Storage Economics](../quantitative/storage-economics.md)** - Cost optimization
+- **CAP Theorem (Coming Soon)** - Sync consistency trade-offs
+- **[Information Theory](/quantitative/information-theory)** - Compression limits
+- **[Queueing Theory](/quantitative/queueing-models)** - Upload/download capacity
+- **[Storage Economics](/quantitative/storage-economics)** - Cost optimization
 
 ### 🔄 Similar Case Studies
 <!-- TODO: Add when available
-- **[Dropbox Architecture](dropbox-architecture.md)** - Pioneer in cloud sync
+- **Dropbox Architecture** - Pioneer in cloud sync
 -->
 <!-- TODO: Add when available
-- **[Box Platform](box-platform.md)** - Enterprise file sharing
-- **[OneDrive Sync](onedrive-sync.md)** - Microsoft's approach
-- **[iCloud Design](icloud-design.md)** - Apple's ecosystem integration
+- **Box Platform** - Enterprise file sharing
+- **OneDrive Sync** - Microsoft's approach
+- **iCloud Design** - Apple's ecosystem integration
 -->
 
 ---

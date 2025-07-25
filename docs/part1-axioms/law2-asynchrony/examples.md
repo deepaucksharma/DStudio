@@ -4,7 +4,7 @@ description: Analysis of actual timing, ordering, and synchronization failures i
 type: example
 difficulty: expert
 reading_time: 12 min
-prerequisites: ["axiom2-asynchrony/index.md"]
+prerequisites: ["law2-asynchrony/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -638,4 +638,4 @@ These cases teach us that:
 3. **Conflicts are inevitable**: Design for resolution, not prevention
 4. **Human intuition fails**: Our brains aren't built for distributed thinking
 
-[**← Back to Law of Asynchronous Reality**](index.md) | [**→ To Exercises**](exercises.md)
+[**← Back to Law of Asynchronous Reality**](index.md) | [**→ To Exercises**](./exercises.md)

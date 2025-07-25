@@ -535,9 +535,9 @@ GROUP BY label;
 ### Q: How do you ensure security?
 
 Link to patterns:
-- [E2E Encryption](../patterns/e2e-encryption.md) for message security
-- [Key Management](../patterns/key-management.md) for encryption keys
-- [Consent Management](../patterns/consent-management.md) for privacy
+- E2E Encryption (Coming Soon) for message security
+- Key Management (Coming Soon) for encryption keys
+- [Consent Management](../../patterns/consent-management.md) for privacy
 
 ## Key Metrics
 
@@ -575,8 +575,8 @@ Link to patterns:
 
 ## Related Patterns & Resources
 
-- [Distributed Storage](../patterns/distributed-storage.md) - For email blob storage
-- [Event Sourcing](../patterns/event-sourcing.md) - For email state changes
-- [CQRS](../patterns/cqrs.md) - Separate read/write paths
-- [Sharding](../patterns/sharding.md) - User-based partitioning
+- [Distributed Storage](../../patterns/distributed-storage.md) - For email blob storage
+- [Event Sourcing](../../patterns/event-sourcing.md) - For email state changes
+- [CQRS](../../patterns/cqrs.md) - Separate read/write paths
+- [Sharding](../../patterns/sharding.md) - User-based partitioning
 - [The Anatomy of a Large-Scale Email System](https://research.google/pubs/pub123456/) - Google's paper

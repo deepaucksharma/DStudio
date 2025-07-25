@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 5](index.md) → **Axiom 5: Cost of Coordination**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 5](index.md) → **Axiom 5: Cost of Coordination**
 
 # Axiom 5: Cost of Coordination
 
@@ -1675,7 +1675,7 @@ Emerging Trends:
 
 ---
 
-**Next**: [Axiom 6: Observability →](../axiom6-observability/index.md)
+**Next**: [Axiom 6: Observability →](/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/)
 
 *"The best coordination is no coordination."*
 
@@ -1683,4 +1683,4 @@ Emerging Trends:
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Consensus](../../patterns/consensus.md) • [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Coordination Costs](../../quantitative/coordination-costs.md)
+**Related**: [Consensus](/patterns/consensus) • [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Coordination Costs](/quantitative/coordination-costs)

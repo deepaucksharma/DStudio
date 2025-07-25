@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-22
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **Google Maps Architecture Design**
 
 # 🗺️ Google Maps Architecture Design
 
@@ -801,9 +799,9 @@ Browser → Web Server → Map Tiles → Static Images
 - Limited coverage
 
 **Patterns Violated**: 
-- ❌ No [Tile Caching](../patterns/tile-caching.md)
-- ❌ No [Vector Maps](../patterns/vector-maps.md)
-- ❌ No [Real-time Updates](../patterns/real-time.md)
+- ❌ No [Tile Caching](/patterns/tile-caching)
+- ❌ No Vector Maps (Coming Soon)
+- ❌ No Real-time Updates (Coming Soon)
 
 ### Phase 2: AJAX and Tile-Based Maps (2007-2010)
 
@@ -835,10 +833,10 @@ graph TB
 ```
 
 **Key Design Decision: Tile Pyramid System**
-- **Trade-off**: Storage vs Computation (Pillar: [State Distribution](../part2-pillars/state/index.md))
+- **Trade-off**: Storage vs Computation (Pillar: [State Distribution](/part2-pillars/state/))
 - **Choice**: Pre-render popular zoom levels
 - **Result**: 100x faster map loads
-- **Pattern Applied**: [Tile Pyramid](../patterns/tile-pyramid.md)
+- **Pattern Applied**: Tile Pyramid (Coming Soon)
 
 According to Google¹, this reduced map load time from 10s to 100ms.
 
@@ -887,10 +885,10 @@ graph TB
 - Smaller downloads
 
 **Patterns & Pillars Applied**:
-- 🔧 Pattern: [Vector Tiles](../patterns/vector-tiles.md) - Resolution independence
-- 🔧 Pattern: [Client Rendering](../patterns/client-rendering.md) - GPU acceleration
-- 🏛️ Pillar: [Work Distribution](../part2-pillars/work/index.md) - Client computation
-- 🏛️ Pillar: [Intelligence](../part2-pillars/intelligence/index.md) - ML map generation
+- 🔧 Pattern: Vector Tiles (Coming Soon) - Resolution independence
+- 🔧 Pattern: Client Rendering (Coming Soon) - GPU acceleration
+- 🏛️ Pillar: [Work Distribution](/part2-pillars/work/) - Client computation
+- 🏛️ Pillar: [Intelligence](/part2-pillars/intelligence/) - ML map generation
 
 ### Phase 4: Modern Real-time Platform (2015-Present)
 
@@ -1807,28 +1805,28 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Tile serving, routing speed
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Petabyte-scale storage
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Multi-region redundancy
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Parallel tile generation
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Global data consistency and traffic accuracy metrics
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Intuitive navigation
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - Tile serving, routing speed
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Petabyte-scale storage
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Multi-region redundancy
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Parallel tile generation
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Global data consistency and traffic accuracy metrics
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Intuitive navigation
+- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Infrastructure costs
 
 ### 🏛️ Related Patterns
-- **[Tile Pyramid](../patterns/tile-pyramid.md)** - Multi-zoom tiles
-- **[Vector Tiles](../patterns/vector-tiles.md)** - Efficient map data
-- **[Spatial Indexing](../patterns/spatial-indexing.md)** - R-tree, QuadTree
-- **[Graph Algorithms](../patterns/graph-algorithms.md)** - Routing algorithms
-- **[Stream Processing](../patterns/queues-streaming.md)** - Traffic updates
-- **[Edge Computing](../patterns/edge-computing.md)** - Global CDN
-- **[ML Pipeline](../patterns/ml-pipeline.md)** - Map generation
+- **Tile Pyramid (Coming Soon)** - Multi-zoom tiles
+- **Vector Tiles (Coming Soon)** - Efficient map data
+- **Spatial Indexing (Coming Soon)** - R-tree, QuadTree
+- **Graph Algorithms (Coming Soon)** - Routing algorithms
+- **[Stream Processing](/patterns/queues-streaming)** - Traffic updates
+- **[Edge Computing](/patterns/edge-computing)** - Global CDN
+- **ML Pipeline (Coming Soon)** - Map generation
 
 ### 📊 Quantitative Models
-- **[Graph Theory](../quantitative/graph-theory.md)** - Road networks
-- **[Computational Geometry](../quantitative/computational-geometry.md)** - Map projections
-- **[Time-Series Analysis](../quantitative/time-series.md)** - Traffic patterns
-- **[Computer Vision](../quantitative/computer-vision.md)** - Image processing
+- **[Graph Theory](/quantitative/graph-theory)** - Road networks
+- **[Computational Geometry](/quantitative/computational-geometry)** - Map projections
+- **[Time-Series Analysis](/quantitative/time-series)** - Traffic patterns
+- **[Computer Vision](/quantitative/computer-vision)** - Image processing
 
 ### 🔄 Similar Case Studies
 - **[Uber Maps](uber-maps.md)** - Ride-hailing focused maps

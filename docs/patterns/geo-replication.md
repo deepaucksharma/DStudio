@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Geo-Replication Patterns**
 
 # Geo-Replication Patterns
 
@@ -1316,4 +1314,4 @@ class GeoReplicationEconomics:
 
 ---
 
-**Previous**: [← FinOps Patterns](finops.md) | **Next**: [Graceful Degradation Pattern →](graceful-degradation.md)
+**Previous**: ← FinOps Patterns (Coming Soon) | **Next**: [Graceful Degradation Pattern →](graceful-degradation.md)

@@ -12,8 +12,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Distributed Storage**
 
 # Distributed Storage
 
@@ -1788,7 +1786,7 @@ class StorageHealthMonitor:
 - [Sharding](sharding.md) - Data partitioning strategies
 - [Replication](leader-follower.md) - Data replication patterns
 - [Consistent Hashing](sharding.md#consistent-hashing) - Distributed data placement
-- [CAP Theorem](../quantitative/cap-theorem.md) - Fundamental trade-offs
+- CAP Theorem (Coming Soon) - Fundamental trade-offs
 - [Eventual Consistency](eventual-consistency.md) - Consistency models
 
 ## References

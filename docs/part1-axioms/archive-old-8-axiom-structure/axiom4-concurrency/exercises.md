@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 4](index.md) → **Concurrency Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 4](index.md) → **Concurrency Exercises**
 
 # Concurrency Exercises
 
@@ -907,9 +907,9 @@ Rate your mastery (1-5):
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 5: Coordination](../axiom5-coordination/index.md)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 5: Coordination](/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/)
 
-**Related**: [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga](../../patterns/saga.md) • [Consensus](../../patterns/consensus.md)
+**Related**: [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Saga](/patterns/saga) • [Consensus](/patterns/consensus)
 
 ## References
 

@@ -12,8 +12,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Write-Ahead Log (WAL)**
 
 # Write-Ahead Log (WAL) Pattern
 
@@ -508,4 +506,4 @@ Latency vs Throughput trade-off
 - [Two-Phase Commit](two-phase-commit.md)
 
 ## References
-- [Key-Value Store Design](../case-studies/key-value-store.md) - WAL for crash recovery
+- [Key-Value Store Design](/case-studies/key-value-store) - WAL for crash recovery

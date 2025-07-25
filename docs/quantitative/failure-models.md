@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Quantitative](index.md) → **Failure Models**
 
 # Failure Models in Distributed Systems
 
@@ -449,7 +447,7 @@ budgets = {
 
 ## Related Concepts
 
-- **Laws**: [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) | [Law 3: Emergent Chaos](../part1-axioms/law3-emergence/index.md)
-- **Patterns**: [Circuit Breaker](../patterns/circuit-breaker.md) | [Bulkhead](../patterns/bulkhead.md) | [Timeout](../patterns/timeout.md)
+- **Laws**: [Law 1: Correlated Failure](/part1-axioms/law1-failure/) | [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/)
+- **Patterns**: [Circuit Breaker](/patterns/circuit-breaker) | [Bulkhead](/patterns/bulkhead) | [Timeout](/patterns/timeout)
 - **Quantitative**: [Availability Math](availability-math.md) | [Reliability Theory](reliability-theory.md)
-- **Case Studies**: [Netflix Chaos](../case-studies/netflix-chaos.md) | [AWS Outages](../case-studies/aws-outages.md)
+- **Case Studies**: [Netflix Chaos](/case-studies/netflix-chaos) | [AWS Outages](/case-studies/aws-outages)

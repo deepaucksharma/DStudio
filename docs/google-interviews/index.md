@@ -5,14 +5,115 @@
 <p>Comprehensive guide to Google's unique approach to system design interviews</p>
 </div>
 
-## 📋 Overview
+## 🎯 Quick Decision Guide
 
-Google system design interviews are known for their emphasis on:
-- **Scale**: Designing for billions of users globally
-- **Simplicity**: Preferring elegant solutions over complex ones
-- **Reliability**: Building systems that never go down
-- **Performance**: Meeting strict latency requirements
-- **Cost**: Optimizing for efficiency at scale
+```mermaid
+graph TD
+    Start["Starting Your Prep Journey"] --> Level{What's Your Level?}
+    
+    Level -->|New Grad| NG[Focus on Fundamentals]
+    Level -->|Mid-Level| ML[Balance Theory & Practice]
+    Level -->|Senior+| SR[Deep Dive & Leadership]
+    
+    NG --> Time1{Time Available?}
+    ML --> Time2{Time Available?}
+    SR --> Time3{Time Available?}
+    
+    Time1 -->|< 4 weeks| Express1[Express Track]
+    Time1 -->|4-8 weeks| Standard1[Standard Track]
+    Time1 -->|> 8 weeks| Deep1[Deep Track]
+    
+    Time2 -->|< 4 weeks| Express2[Express Track]
+    Time2 -->|4-8 weeks| Standard2[Standard Track]
+    Time2 -->|> 8 weeks| Deep2[Deep Track]
+    
+    Time3 -->|< 4 weeks| Express3[Express Track]
+    Time3 -->|4-8 weeks| Standard3[Standard Track]
+    Time3 -->|> 8 weeks| Deep3[Deep Track]
+    
+    Express1 --> Plan1["✅ Core Systems Only<br/>✅ 3 Mock Interviews<br/>✅ Cheat Sheets"]
+    Standard1 --> Plan2["✅ All Fundamentals<br/>✅ 5 System Designs<br/>✅ 5 Mock Interviews"]
+    Deep1 --> Plan3["✅ Read Papers<br/>✅ 10+ Designs<br/>✅ Daily Practice"]
+    
+    Express2 --> Plan4["✅ Pattern Review<br/>✅ 5 Mock Interviews<br/>✅ Scale Focus"]
+    Standard2 --> Plan5["✅ Google Tech Deep Dive<br/>✅ 8 System Designs<br/>✅ Weekly Mocks"]
+    Deep2 --> Plan6["✅ Master All Patterns<br/>✅ 15+ Designs<br/>✅ Teach Others"]
+    
+    Express3 --> Plan7["✅ Leadership Scenarios<br/>✅ Complex Systems<br/>✅ Cost Optimization"]
+    Standard3 --> Plan8["✅ Architecture Patterns<br/>✅ Trade-off Analysis<br/>✅ Operational Excellence"]
+    Deep3 --> Plan9["✅ Research Papers<br/>✅ Novel Solutions<br/>✅ Mentor Others"]
+```
+
+## 📋 Interview Types Comparison
+
+<div class="comparison-table">
+<table>
+<thead>
+<tr>
+<th>Interview Type</th>
+<th>Focus Areas</th>
+<th>Duration</th>
+<th>Key Expectations</th>
+<th>Common Topics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Phone Screen</strong></td>
+<td>• High-level design<br/>• Basic scale awareness<br/>• Communication skills</td>
+<td>45 min</td>
+<td>• Clear thinking<br/>• Basic patterns<br/>• Ask good questions</td>
+<td>• URL shortener<br/>• Chat system<br/>• Basic storage</td>
+</tr>
+<tr>
+<td><strong>Onsite - Junior</strong></td>
+<td>• Fundamentals<br/>• Common patterns<br/>• Learning ability</td>
+<td>45 min × 2</td>
+<td>• Solid basics<br/>• Growth potential<br/>• Coachability</td>
+<td>• Social media feed<br/>• File storage<br/>• Messaging</td>
+</tr>
+<tr>
+<td><strong>Onsite - Senior</strong></td>
+<td>• Complex systems<br/>• Trade-offs<br/>• Leadership</td>
+<td>45 min × 2-3</td>
+<td>• Deep expertise<br/>• Novel solutions<br/>• Mentorship</td>
+<td>• YouTube<br/>• Google Search<br/>• AdWords</td>
+</tr>
+<tr>
+<td><strong>Onsite - Staff+</strong></td>
+<td>• Architecture<br/>• Cross-system design<br/>• Organizational impact</td>
+<td>60 min × 2-3</td>
+<td>• Vision<br/>• Innovation<br/>• Business sense</td>
+<td>• Platform design<br/>• Infrastructure<br/>• ML systems</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+## 📊 Success Metrics Dashboard
+
+<div class="metrics-dashboard">
+<div class="metric-card">
+<h4>Scale Requirements</h4>
+<div class="metric-value">1B+ Users</div>
+<div class="metric-detail">Global reach expected</div>
+</div>
+<div class="metric-card">
+<h4>Latency Target</h4>
+<div class="metric-value"><100ms</div>
+<div class="metric-detail">P99 for user-facing</div>
+</div>
+<div class="metric-card">
+<h4>Availability</h4>
+<div class="metric-value">99.99%</div>
+<div class="metric-detail">4 nines minimum</div>
+</div>
+<div class="metric-card">
+<h4>Design Time</h4>
+<div class="metric-value">45 min</div>
+<div class="metric-detail">Complete solution</div>
+</div>
+</div>
 
 <div class="law-box">
 <h3>🎯 Key Insight</h3>
@@ -74,12 +175,139 @@ Google system design interviews are known for their emphasis on:
 </ul>
 </div>
 
+## 🗺️ Visual Preparation Roadmap
+
+```mermaid
+gantt
+    title Google Interview Prep Timeline
+    dateFormat  YYYY-MM-DD
+    section Foundation
+    Distributed Systems Basics    :a1, 2024-01-01, 7d
+    7 Laws & 5 Pillars           :a2, after a1, 7d
+    Basic Patterns               :a3, after a2, 5d
+    
+    section Google Tech
+    Read Core Papers             :b1, after a2, 5d
+    Study Infrastructure         :b2, after b1, 7d
+    Practice with Tools          :b3, after b2, 5d
+    
+    section System Design
+    Simple Systems               :c1, after a3, 5d
+    Medium Complexity            :c2, after c1, 7d
+    Google-Scale Systems         :c3, after c2, 10d
+    
+    section Mock Practice
+    Self Assessment              :d1, after c2, 2d
+    Peer Mocks                   :d2, after d1, 5d
+    Expert Mocks                 :d3, after d2, 5d
+    
+    section Final Prep
+    Review & Polish              :e1, after d3, 3d
+    Mental Preparation           :e2, after e1, 2d
+```
+
+## 🧮 Time Allocation Calculator
+
+<div class="calculator-box">
+<h3>Personalized Study Plan Calculator</h3>
+<div class="calculator-inputs">
+<label>Current Level:
+<select id="level">
+<option value="junior">Junior (0-3 years)</option>
+<option value="mid">Mid-level (3-6 years)</option>
+<option value="senior">Senior (6+ years)</option>
+</select>
+</label>
+<label>Available Hours/Week:
+<input type="number" id="hours" min="5" max="40" value="10">
+</label>
+<label>Target Date:
+<input type="date" id="target-date">
+</label>
+<button onclick="calculatePlan()">Generate Plan</button>
+</div>
+<div id="plan-results" class="plan-output"></div>
+</div>
+
 ## 🔧 Google's Technology Stack
+
+### 📊 Technology Selection Matrix
+
+<div class="tech-matrix">
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Best Choice</th>
+<th>Alternative</th>
+<th>When to Use</th>
+<th>Scale Limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Structured Data</strong></td>
+<td>Spanner</td>
+<td>Cloud SQL</td>
+<td>Global consistency needed</td>
+<td>Unlimited</td>
+</tr>
+<tr>
+<td><strong>NoSQL</strong></td>
+<td>Bigtable</td>
+<td>Firestore</td>
+<td>Time-series, high throughput</td>
+<td>Petabytes</td>
+</tr>
+<tr>
+<td><strong>Object Storage</strong></td>
+<td>Cloud Storage</td>
+<td>Persistent Disk</td>
+<td>Unstructured data, media</td>
+<td>Exabytes</td>
+</tr>
+<tr>
+<td><strong>Caching</strong></td>
+<td>Memcached</td>
+<td>Redis</td>
+<td>Session data, hot data</td>
+<td>TB in memory</td>
+</tr>
+<tr>
+<td><strong>Message Queue</strong></td>
+<td>Pub/Sub</td>
+<td>Cloud Tasks</td>
+<td>Async processing</td>
+<td>1M msgs/sec</td>
+</tr>
+<tr>
+<td><strong>Stream Processing</strong></td>
+<td>Dataflow</td>
+<td>Dataproc</td>
+<td>Real-time analytics</td>
+<td>Unlimited</td>
+</tr>
+<tr>
+<td><strong>Batch Processing</strong></td>
+<td>Dataflow</td>
+<td>Dataproc</td>
+<td>ETL, ML training</td>
+<td>Unlimited</td>
+</tr>
+<tr>
+<td><strong>ML Serving</strong></td>
+<td>Vertex AI</td>
+<td>Cloud Run</td>
+<td>Model inference</td>
+<td>10K QPS</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 ### Storage Systems
 
 | Technology | Use Case | Key Features |
-|------------|----------|--------------|
 | **Bigtable** | NoSQL at scale | - Petabyte scale<br>- Wide column store<br>- Strong consistency per row |
 | **Spanner** | Global RDBMS | - Globally distributed<br>- ACID transactions<br>- External consistency |
 | **Colossus** | File storage | - Successor to GFS<br>- Exabyte scale<br>- Powers all Google storage |
@@ -101,6 +329,38 @@ Google system design interviews are known for their emphasis on:
 | **Stubby/gRPC** | RPC framework | - Binary protocol<br>- Streaming support<br>- Multi-language |
 | **Andromeda** | SDN | - Virtual networking<br>- Global load balancing<br>- DDoS protection |
 | **Maglev** | Load balancing | - Consistent hashing<br>- Connection draining<br>- Health checking |
+
+## 🎯 Interview Focus Areas by Role
+
+```mermaid
+graph LR
+    subgraph "L3/L4 (Junior)"
+        A[Basic Patterns]
+        B[Simple Systems]
+        C[Code Quality]
+        A --> D[URL Shortener]
+        B --> E[Chat App]
+        C --> F[KV Store]
+    end
+    
+    subgraph "L5 (Senior)"
+        G[Complex Systems]
+        H[Scale Challenges]
+        I[Trade-offs]
+        G --> J[YouTube]
+        H --> K[Gmail]
+        I --> L[Maps]
+    end
+    
+    subgraph "L6+ (Staff+)"
+        M[Platform Design]
+        N[Cross-cutting]
+        O[Innovation]
+        M --> P[Infrastructure]
+        N --> Q[ML Platform]
+        O --> R[Next-gen]
+    end
+```
 
 ## 📈 Common Interview Topics
 
@@ -185,6 +445,59 @@ Google system design interviews are known for their emphasis on:
    - Circuit breaking
    - Request routing
 
+## 📊 Detailed Scoring Rubric
+
+<div class="scoring-matrix">
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>1 - Strong No Hire</th>
+<th>2 - No Hire</th>
+<th>3 - Hire</th>
+<th>4 - Strong Hire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Problem Analysis</strong></td>
+<td>• Misunderstands problem<br/>• No clarifying questions<br/>• Wrong assumptions</td>
+<td>• Basic understanding<br/>• Few questions<br/>• Some assumptions stated</td>
+<td>• Good understanding<br/>• Good questions<br/>• Clear assumptions</td>
+<td>• Deep insight<br/>• Excellent questions<br/>• Challenges assumptions</td>
+</tr>
+<tr>
+<td><strong>System Design</strong></td>
+<td>• No coherent design<br/>• Major components missing<br/>• Doesn't work</td>
+<td>• Basic design<br/>• Some gaps<br/>• Would work poorly</td>
+<td>• Solid design<br/>• All components present<br/>• Would work well</td>
+<td>• Elegant design<br/>• Optimal choices<br/>• Production-ready</td>
+</tr>
+<tr>
+<td><strong>Scale Thinking</strong></td>
+<td>• Ignores scale<br/>• No calculations<br/>• Single-server mindset</td>
+<td>• Mentions scale<br/>• Basic calculations<br/>• Some distribution</td>
+<td>• Plans for scale<br/>• Good calculations<br/>• Proper sharding</td>
+<td>• Masters scale<br/>• Precise calculations<br/>• Optimal partitioning</td>
+</tr>
+<tr>
+<td><strong>Trade-offs</strong></td>
+<td>• No trade-offs discussed<br/>• One-size-fits-all<br/>• Inflexible</td>
+<td>• Few trade-offs<br/>• Basic analysis<br/>• Some flexibility</td>
+<td>• Good trade-offs<br/>• Clear reasoning<br/>• Adaptable design</td>
+<td>• Excellent analysis<br/>• Multiple options<br/>• Future-proof</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>• Unclear explanation<br/>• No diagrams<br/>• Hard to follow</td>
+<td>• Basic clarity<br/>• Simple diagrams<br/>• Some confusion</td>
+<td>• Clear communication<br/>• Good diagrams<br/>• Easy to follow</td>
+<td>• Crystal clear<br/>• Professional diagrams<br/>• Teaches interviewer</td>
+</tr>
+</tbody>
+</table>
+</div>
+
 ## 🎯 Evaluation Criteria
 
 ### What Google Interviewers Look For
@@ -262,6 +575,73 @@ graph LR
 | 25-35 min | **Deep Dive** | Detail 1-2 components, handle edge cases |
 | 35-40 min | **Scale & Optimize** | Discuss bottlenecks, propose improvements |
 | 40-45 min | **Wrap Up** | Summarize, answer questions |
+
+## 🛠️ Interactive Design Checklist
+
+<div class="checklist-container">
+<h3>Pre-Interview Checklist</h3>
+<div class="checklist-section">
+<h4>Technical Preparation</h4>
+<label><input type="checkbox"> Reviewed 7 Laws and 5 Pillars</label>
+<label><input type="checkbox"> Read 5+ Google papers</label>
+<label><input type="checkbox"> Practiced 10+ system designs</label>
+<label><input type="checkbox"> Memorized latency numbers</label>
+<label><input type="checkbox"> Understood CAP theorem deeply</label>
+</div>
+<div class="checklist-section">
+<h4>Practice & Skills</h4>
+<label><input type="checkbox"> Can draw clear architecture diagrams</label>
+<label><input type="checkbox"> Comfortable with back-of-envelope math</label>
+<label><input type="checkbox"> Practiced time management (45 min)</label>
+<label><input type="checkbox"> Done 5+ mock interviews</label>
+<label><input type="checkbox"> Received and incorporated feedback</label>
+</div>
+<div class="checklist-section">
+<h4>Interview Day</h4>
+<label><input type="checkbox"> Good night's sleep</label>
+<label><input type="checkbox"> Quiet environment setup</label>
+<label><input type="checkbox"> Drawing tools ready</label>
+<label><input type="checkbox"> Water bottle nearby</label>
+<label><input type="checkbox"> Positive mindset</label>
+</div>
+</div>
+
+## 🔄 Design Process Flowchart
+
+```mermaid
+flowchart TD
+    Start([Interview Starts]) --> Clarify[Clarify Requirements]
+    Clarify --> FR[Functional Requirements]
+    Clarify --> NFR[Non-Functional Requirements]
+    
+    FR --> API[Design API]
+    NFR --> Scale[Estimate Scale]
+    
+    API --> HLD[High-Level Design]
+    Scale --> HLD
+    
+    HLD --> Components[Identify Components]
+    Components --> Draw[Draw Architecture]
+    
+    Draw --> DeepDive{Deep Dive Area?}
+    DeepDive -->|Data| DataModel[Data Model & Storage]
+    DeepDive -->|Scale| Scaling[Scaling Strategy]
+    DeepDive -->|Performance| Perf[Performance Optimization]
+    
+    DataModel --> Optimize[Optimizations]
+    Scaling --> Optimize
+    Perf --> Optimize
+    
+    Optimize --> EdgeCases[Handle Edge Cases]
+    EdgeCases --> Monitor[Monitoring & Alerts]
+    Monitor --> Summary[Summarize Design]
+    Summary --> QA[Q&A]
+    QA --> End([Interview Ends])
+    
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style DeepDive fill:#87CEEB
+```
 
 ## 💡 Pro Tips
 
@@ -415,6 +795,48 @@ graph LR
 
 ---
 
+## 📈 Performance Tracking Tool
+
+<div class="performance-tracker">
+<h3>Track Your Interview Performance</h3>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>System</th>
+<th>Time Taken</th>
+<th>Self Score (1-4)</th>
+<th>Areas to Improve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><input type="date"></td>
+<td><input type="text" placeholder="e.g., YouTube"></td>
+<td><input type="text" placeholder="e.g., 45 min"></td>
+<td><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
+<td><input type="text" placeholder="e.g., Scale calculations"></td>
+</tr>
+<tr>
+<td><input type="date"></td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
+<td><input type="text"></td>
+</tr>
+<tr>
+<td><input type="date"></td>
+<td><input type="text"></td>
+<td><input type="text"></td>
+<td><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
+<td><input type="text"></td>
+</tr>
+</tbody>
+</table>
+<button onclick="analyzeProgress()">Analyze Progress</button>
+<div id="progress-analysis"></div>
+</div>
+
 <div class="navigation-grid">
 <a href="../index.md" class="nav-card">
 <div class="nav-icon">🏠</div>
@@ -428,3 +850,42 @@ graph LR
 <p>Structured study guide</p>
 </a>
 </div>
+
+<script>
+function calculatePlan() {
+    const level = document.getElementById('level').value;
+    const hours = parseInt(document.getElementById('hours').value);
+    const targetDate = new Date(document.getElementById('target-date').value);
+    const today = new Date();
+    const weeks = Math.floor((targetDate - today) / (7 * 24 * 60 * 60 * 1000));
+    
+    let plan = '<h4>Your Personalized Study Plan</h4>';
+    
+    if (weeks < 4) {
+        plan += '<p class="warning">⚠️ Limited time! Focus on essentials only.</p>';
+    }
+    
+    const totalHours = weeks * hours;
+    const distribution = {
+        fundamentals: level === 'junior' ? 0.4 : 0.2,
+        patterns: 0.3,
+        practice: level === 'senior' ? 0.4 : 0.3,
+        mocks: 0.1
+    };
+    
+    plan += '<ul>';
+    plan += `<li>Fundamentals: ${Math.round(totalHours * distribution.fundamentals)} hours</li>`;
+    plan += `<li>Design Patterns: ${Math.round(totalHours * distribution.patterns)} hours</li>`;
+    plan += `<li>Practice Problems: ${Math.round(totalHours * distribution.practice)} hours</li>`;
+    plan += `<li>Mock Interviews: ${Math.round(totalHours * distribution.mocks)} hours</li>`;
+    plan += '</ul>';
+    
+    document.getElementById('plan-results').innerHTML = plan;
+}
+
+function analyzeProgress() {
+    // Simple progress analysis
+    const analysis = document.getElementById('progress-analysis');
+    analysis.innerHTML = '<h4>Progress Analysis</h4><p>Track at least 5 designs to see trends!</p>';
+}
+</script>

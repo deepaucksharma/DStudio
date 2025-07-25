@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # ID Generation at Scale
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **ID Generation at Scale**
 
 ## Overview
 
@@ -598,8 +596,8 @@ class TimeBucketedID:
 ## Related Patterns
 - [Time Series IDs](time-series-ids.md) - Time-based ID variations
 - [Sharding](sharding.md) - ID-based data partitioning
-- [Consistent Hashing](../case-studies/consistent-hashing.md) - ID distribution
-- [URL Shortener](../case-studies/url-shortener.md) - Complete implementation
+- [Consistent Hashing](/case-studies/consistent-hashing) - ID distribution
+- [URL Shortener](/case-studies/url-shortener) - Complete implementation
 
 ## References
 - [Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)

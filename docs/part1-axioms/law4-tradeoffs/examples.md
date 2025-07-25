@@ -4,7 +4,7 @@ description: Analysis of how real systems navigate complex trade-off spaces
 type: example
 difficulty: expert
 reading_time: 12 min
-prerequisites: ["axiom4-tradeoffs/index.md"]
+prerequisites: ["law4-tradeoffs/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -440,4 +440,4 @@ Each of these systems succeeded by:
 3. **Making different trade-offs for different use cases**
 4. **Adapting based on real-time conditions**
 
-[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ To Exercises**](exercises.md)
+[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ To Exercises**](./exercises.md)

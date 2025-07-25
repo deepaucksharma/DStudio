@@ -13,8 +13,6 @@ status: complete
 last_updated: 2025-01-21
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case Studies](index.md) → **S3-like Object Storage System**
 
 # Design an S3-like Object Storage System
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 6](index.md) → **Axiom 6: Observability**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 6](index.md) → **Axiom 6: Observability**
 
 # Axiom 6: Observability
 
@@ -1510,7 +1510,7 @@ Commercial:
 
 ---
 
-**Next**: [Axiom 7: Human Interface →](../axiom7-human/index.md)
+**Next**: [Axiom 7: Human Interface →](/part1-axioms/archive-old-8-axiom-structure/axiom7-human/)
 
 *"In distributed systems, the truth is out there... scattered across 1000 log files."*
 
@@ -1518,4 +1518,4 @@ Commercial:
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Observability Stacks](../../human-factors/observability-stacks.md) • [SRE Practices](../../human-factors/sre-practices.md) • [Monitoring Patterns](../../patterns/observability.md)
+**Related**: [Observability Stacks](/part1-axioms/human-factors/observability-stacks) • [SRE Practices](/part1-axioms/human-factors/sre-practices) • [Monitoring Patterns](/patterns/observability)

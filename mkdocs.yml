@@ -12,6 +12,7 @@ theme:
   name: material
   
   features:
+    # Navigation
     - navigation.instant
     - navigation.instant.prefetch
     - navigation.instant.progress
@@ -20,15 +21,28 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.path
+    - navigation.prune        # Remove inactive sections from sidebar
     - navigation.indexes
+    - navigation.top          # Back to top button
+    - navigation.footer       # Previous/Next navigation
+    
+    # Table of Contents
     - toc.follow
     - toc.integrate
+    
+    # Search
     - search.suggest
     - search.highlight
     - search.share
+    
+    # Content
     - content.code.copy
     - content.code.annotate
     - content.action.edit
+    - content.tooltips        # Better tooltips
+    
+    # Header
+    - header.autohide         # Hide header on scroll
     
   palette:
     - media: "(prefers-color-scheme)"
@@ -53,6 +67,13 @@ theme:
   font:
     text: Inter
     code: JetBrains Mono
+    
+  icon:
+    logo: material/book-open-variant
+    repo: fontawesome/brands/github
+    
+  # Mobile navigation improvements
+  custom_dir: overrides
 
 # Plugins
 plugins:
@@ -105,6 +126,8 @@ markdown_extensions:
 
 # Extra CSS
 extra_css:
+  - stylesheets/design-system.css
+  - stylesheets/overrides.css
   - stylesheets/colors.css
   - stylesheets/modular.css
   - stylesheets/laws.css
@@ -142,13 +165,13 @@ nav:
     - "The 5 Pillars": pillars/index.md
     - "Laws (Detailed)":
       - "Overview": part1-axioms/index.md
-      - "Law 1: Correlated Failure ⛓️": part1-axioms/axiom1-failure/index.md
-      - "Law 2: Asynchronous Reality ⏳": part1-axioms/axiom2-asynchrony/index.md
-      - "Law 3: Emergent Chaos 🌪️": part1-axioms/axiom3-emergence/index.md
-      - "Law 4: Multidimensional Optimization ⚖️": part1-axioms/axiom4-tradeoffs/index.md
-      - "Law 5: Distributed Knowledge 🧠": part1-axioms/axiom5-epistemology/index.md
-      - "Law 6: Cognitive Load 🤯": part1-axioms/axiom6-human-api/index.md
-      - "Law 7: Economic Reality 💰": part1-axioms/axiom7-economics/index.md
+      - "Law 1: Correlated Failure ⛓️": part1-axioms/law1-failure/index.md
+      - "Law 2: Asynchronous Reality ⏳": part1-axioms/law2-asynchrony/index.md
+      - "Law 3: Emergent Chaos 🌪️": part1-axioms/law3-emergence/index.md
+      - "Law 4: Multidimensional Optimization ⚖️": part1-axioms/law4-tradeoffs/index.md
+      - "Law 5: Distributed Knowledge 🧠": part1-axioms/law5-epistemology/index.md
+      - "Law 6: Cognitive Load 🤯": part1-axioms/law6-human-api/index.md
+      - "Law 7: Economic Reality 💰": part1-axioms/law7-economics/index.md
       - "Synthesis": part1-axioms/synthesis.md
       - "Quiz": part1-axioms/quiz.md
     - "Pillars (Detailed)":
@@ -361,6 +384,18 @@ nav:
       - "S3 Object Storage (Enhanced)": case-studies/s3-object-storage-enhanced.md
       - "Consistency Deep Dive Chat": case-studies/consistency-deep-dive-chat.md
       - "Prometheus & Datadog (Enhanced)": case-studies/prometheus-datadog-enhanced.md
+    - "Database Systems":
+      - "Apache Kafka": case-studies/kafka.md
+      - "Apache Cassandra": case-studies/cassandra.md
+      - "Redis Architecture": case-studies/redis.md
+      - "MongoDB": case-studies/mongodb.md
+      - "etcd": case-studies/etcd.md
+      - "Amazon Aurora": case-studies/amazon-aurora.md
+    - "Big Data & Analytics":
+      - "Apache Spark": case-studies/apache-spark.md
+    - "Streaming & Media":
+      - "Netflix Streaming": case-studies/netflix-streaming.md
+      - "Netflix Chaos Engineering": case-studies/netflix-chaos.md
   
   - "🛠️ Tools":
     - "🛠️ All Calculators": tools/index.md
@@ -370,10 +405,17 @@ nav:
       - "Availability Calculator": tools/availability-calculator.md
       - "Throughput Optimizer": tools/throughput-calculator.md
       - "Cost Optimizer": tools/cost-optimizer.md
+      - "Consistency Calculator": tools/consistency-calculator.md
   
   - "🎯 Interview Prep":
+    - "🎭 Behavioral Interview Guide": introduction/interview-prep/behavioral.md
     - "🎯 Google System Design Guide": google-interviews/index.md
     - "Preparation Guide": google-interviews/preparation-guide.md
+    - "Visual Roadmap": google-interviews/preparation-roadmap.md
+    - "Interview Comparison": google-interviews/interview-comparison.md
+    - "Focus Selector": google-interviews/focus-selector.md
+    - "Time Allocation Calculator": google-interviews/time-allocation-calculator.md
+    - "Visual Cheat Sheets": google-interviews/visual-cheatsheets.md
     - "Common Mistakes": google-interviews/common-mistakes.md
     - "Interview Experiences & Tips": google-interviews/interview-experiences.md
     - "Core Google Services":

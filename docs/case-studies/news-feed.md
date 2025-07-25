@@ -1218,34 +1218,34 @@ The hybrid architecture balances the trade-offs between different approaches, us
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Pre-computed feeds and edge caching achieve <100ms load times
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Multiple fallback strategies ensure feed availability
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Async fanout and parallel timeline merging handle scale
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Eventually consistent timelines with causal ordering and engagement metrics
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Personalization and pacing optimize for human attention
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Ad placement and infrastructure costs drive architectural decisions
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - Pre-computed feeds and edge caching achieve <100ms load times
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Multiple fallback strategies ensure feed availability
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Async fanout and parallel timeline merging handle scale
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Eventually consistent timelines with causal ordering and engagement metrics
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Personalization and pacing optimize for human attention
+- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Ad placement and infrastructure costs drive architectural decisions
 
 ### 🏛️ Related Patterns (Part III)
-- **[Event-Driven Architecture](../patterns/event-driven.md)** - Post creation triggers fanout pipeline
-- **[CQRS](../patterns/cqrs.md)** - Separate write (fanout) and read (feed generation) paths
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-tier caching from edge to application layer
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects against celebrity storm cascading failures
-- **[Bulkhead](../patterns/bulkhead.md)** - Isolates celebrity fanout from normal users
-- **[Load Balancing](../patterns/load-balancing.md)** - Distributes feed generation across worker pools
-- **[Sharding](../patterns/sharding.md)** - User-based sharding for timeline storage
+- **[Event-Driven Architecture](/patterns/event-driven)** - Post creation triggers fanout pipeline
+- **[CQRS](/patterns/cqrs)** - Separate write (fanout) and read (feed generation) paths
+- **[Caching Strategies](/patterns/caching-strategies)** - Multi-tier caching from edge to application layer
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Protects against celebrity storm cascading failures
+- **[Bulkhead](/patterns/bulkhead)** - Isolates celebrity fanout from normal users
+- **[Load Balancing](/patterns/load-balancing)** - Distributes feed generation across worker pools
+- **[Sharding](/patterns/sharding)** - User-based sharding for timeline storage
 
 ### 📊 Quantitative Models
-- **[Little's Law](../quantitative/littles-law.md)** - Feed generation capacity: concurrent requests = arrival rate × processing time
-- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for fanout worker pools
-- **[Power Laws](../quantitative/power-laws.md)** - Celebrity follower distribution drives hybrid architecture
-- **[Information Theory](../quantitative/information-theory.md)** - Relevance scoring and diversity optimization
+- **[Little's Law](/quantitative/littles-law)** - Feed generation capacity: concurrent requests = arrival rate × processing time
+- **[Queueing Theory](/quantitative/queueing-models)** - M/M/c model for fanout worker pools
+- **[Power Laws](/quantitative/power-laws)** - Celebrity follower distribution drives hybrid architecture
+- **[Information Theory](/quantitative/information-theory)** - Relevance scoring and diversity optimization
 
 ### 👥 Human Factors Considerations
-- **[SRE Practices](../human-factors/sre-practices.md)** - Managing feed generation SLOs and error budgets
-- **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 monitoring for feed availability
-- **[Capacity Planning](../quantitative/capacity-planning.md)** - Predicting growth and viral content spikes
-- **[Post-Mortem Culture](../human-factors/blameless-postmortems.md)** - Learning from feed outages and relevance drops
+- **[SRE Practices](/human-factors/sre-practices)** - Managing feed generation SLOs and error budgets
+- **[On-Call Culture](/human-factors/oncall-culture)** - 24/7 monitoring for feed availability
+- **[Capacity Planning](/quantitative/capacity-planning)** - Predicting growth and viral content spikes
+- **[Post-Mortem Culture](/human-factors/blameless-postmortems)** - Learning from feed outages and relevance drops
 
 ### 🔄 Similar Case Studies
 - **[Spotify Recommendations](spotify-recommendations.md)** - Similar ML personalization challenges

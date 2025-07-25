@@ -14,15 +14,6 @@ last_updated: 2025-07-21
 # Backpressure Pattern
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Backpressure Pattern**
-
-<div class="navigation-breadcrumb">
-<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Backpressure
-</div>
-
-> "Backpressure is not about saying no, it's about saying 'not right now'"
-> — Jonas Bonér, Akka Creator
 
 ## The Essential Question
 
@@ -1040,16 +1031,16 @@ subscriber.request(10)  # Request 10 items
 ## Related Resources
 
 ### Patterns
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Fail fast under overload
-- [Bulkhead](../patterns/bulkhead.md) - Resource isolation
-- [Rate Limiting](../patterns/rate-limiting.md) - Request throttling
-- [Queues & Streaming](../patterns/queues-streaming.md) - Message patterns
+- [Circuit Breaker](/patterns/circuit-breaker) - Fail fast under overload
+- [Bulkhead](/patterns/bulkhead) - Resource isolation
+- [Rate Limiting](/patterns/rate-limiting) - Request throttling
+- [Queues & Streaming](/patterns/queues-streaming) - Message patterns
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Finite resources
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Cascade prevention
-- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md) - Parallel flows
-- [Law 7 (Economic Reality 💰)](../part1-axioms/law7-economics/index.md) - Cost of dropping
+- [Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/) - Finite resources
+- [Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/) - Cascade prevention
+- [Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/) - Parallel flows
+- [Law 7 (Economic Reality 💰)](/part1-axioms/law7-economics/) - Cost of dropping
 
 ### Quantitative Analysis
 - [Queueing Theory](/quantitative/queueing-models.md) - Mathematical models

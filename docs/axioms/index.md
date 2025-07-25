@@ -16,7 +16,7 @@ last_updated: 2025-01-23
 </div>
 
 !!! tip "Quick Overview"
-    This page provides a high-level overview of the 7 fundamental laws. For the complete framework with theoretical foundations, examples, and exercises, visit the **[detailed laws section](../part1-axioms/index.md)**.
+    This page provides a high-level overview of the 7 fundamental laws. For the complete framework with theoretical foundations, examples, and exercises, visit the **[detailed laws section](/part1-axioms/)**.
 
 ## 🌌 Why These Are Laws
 

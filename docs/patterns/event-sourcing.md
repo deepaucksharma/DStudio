@@ -14,15 +14,6 @@ last_updated: 2025-07-21
 # Event Sourcing
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Event Sourcing**
-
-<div class="navigation-breadcrumb">
-<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Event Sourcing
-</div>
-
-> "The database is a cache; the log is the truth"
-> — Pat Helland, Database Pioneer
 
 ## The Essential Question
 
@@ -814,11 +805,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Events capture exact time of state changes
-2. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md)**: Event sequence provides total ordering
-3. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Complete history enables perfect knowledge
-4. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Every change is observable
-5. **[Law 6 (Cognitive Load 🤯)](../part1-axioms/law6-human-api/index.md)**: Natural audit trail for compliance
+1. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Events capture exact time of state changes
+2. **[Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/)**: Event sequence provides total ordering
+3. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Complete history enables perfect knowledge
+4. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Every change is observable
+5. **[Law 6 (Cognitive Load 🤯)](/part1-axioms/law6-human-api/)**: Natural audit trail for compliance
 </div>
 
 ### Future Directions
@@ -940,14 +931,14 @@ event_sourcing:
 ## Related Resources
 
 ### Patterns
-- [CQRS](../patterns/cqrs.md) - Natural companion for read model separation
-- [Saga Pattern](../patterns/saga.md) - Distributed transactions with events
-- [Event-Driven Architecture](../patterns/event-driven.md) - Events as first-class citizens
+- [CQRS](/patterns/cqrs) - Natural companion for read model separation
+- [Saga Pattern](/patterns/saga) - Distributed transactions with events
+- [Event-Driven Architecture](/patterns/event-driven) - Events as first-class citizens
 
 ### Laws
-- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md) - Why event timing matters
-- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md) - Event sequence guarantees
-- [Law 6 (Cognitive Load 🤯)](../part1-axioms/law6-human-api/index.md) - Complete system knowledge
+- [Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/) - Why event timing matters
+- [Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/) - Event sequence guarantees
+- [Law 6 (Cognitive Load 🤯)](/part1-axioms/law6-human-api/) - Complete system knowledge
 
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database

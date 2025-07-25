@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Anti-Corruption Layer**
 
 # Anti-Corruption Layer (ACL)
 
@@ -907,4 +905,4 @@ graph TB
 
 ---
 
-**Previous**: [← Sidecar](sidecar.md) | **Next**: [GraphQL Federation →](graphql-federation.md)
+**Previous**: [← Sidecar](sidecar.md) | **Next**: GraphQL Federation → (Coming Soon)

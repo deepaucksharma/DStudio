@@ -11,8 +11,6 @@ when_not_to_use: When simpler solutions suffice
 status: stub
 last_updated: 2025-01-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Cell-Based Architecture Pattern**
 
 # Cell-Based Architecture Pattern
 
@@ -42,7 +40,7 @@ Cell-based architecture divides a system into multiple isolated cells, each capa
 
 - [Bulkhead Pattern](bulkhead.md)
 - [Sharding](sharding.md)
-- [Multi-Region](multi-region.md)
+- Multi-Region (Coming Soon)
 
 ---
 

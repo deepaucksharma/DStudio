@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Consistency Models Deep-Dive**
 
 # Consistency Models Deep-Dive
 
@@ -616,8 +614,8 @@ but which consistency model fits your use case and SLA."
 
 ## Related Topics
 
-- [CAP Theorem](cap-theorem.md) - The fundamental trade-off
-- [Vector Clocks](../patterns/vector-clocks.md) - Implementing causal consistency
-- [Consensus Algorithms](../patterns/consensus-algorithms.md) - Achieving strong consistency
-- [Eventual Consistency](../patterns/eventual-consistency.md) - Design patterns
-- [CRDT](../patterns/crdt.md) - Conflict-free replicated data types
+- CAP Theorem (Coming Soon) - The fundamental trade-off
+- [Vector Clocks](/patterns/vector-clocks) - Implementing causal consistency
+- [Consensus Algorithms](/patterns/consensus-algorithms) - Achieving strong consistency
+- [Eventual Consistency](/patterns/eventual-consistency) - Design patterns
+- [CRDT](/patterns/crdt) - Conflict-free replicated data types

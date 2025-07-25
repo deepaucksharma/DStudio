@@ -11,8 +11,6 @@ when_not_to_use: Anonymous data, aggregated analytics, public information, requi
 status: complete
 last_updated: 2025-07-23
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Consent Management Pattern**
 
 # Consent Management Pattern
 

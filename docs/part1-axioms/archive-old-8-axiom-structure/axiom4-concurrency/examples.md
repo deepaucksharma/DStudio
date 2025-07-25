@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 4](index.md) → **Concurrency Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 4](index.md) → **Concurrency Examples**
 
 # Concurrency Examples
 
@@ -769,7 +769,7 @@ async def critical_section(redis_client):
 
 **Previous**: [Overview](index.md) | **Next**: [Exercises](exercises.md)
 
-**Related**: [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga](../../patterns/saga.md) • [Consensus](../../patterns/consensus.md)
+**Related**: [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Saga](/patterns/saga) • [Consensus](/patterns/consensus)
 
 ## References
 

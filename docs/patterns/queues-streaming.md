@@ -14,15 +14,6 @@ last_updated: 2025-07-21
 # Queues & Stream Processing
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Queues & Stream Processing**
-
-<div class="navigation-breadcrumb">
-<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Queues & Stream Processing
-</div>
-
-> "The queue is the most powerful tool we have for decoupling our architecture"
-> — Tyler Treat, NATS Creator
 
 ## The Essential Question
 
@@ -1252,11 +1243,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md)**: Buffers handle capacity mismatches
-2. **[Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md)**: Decoupling reduces blocking
-3. **[Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md)**: Messages survive consumer failures
-4. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md)**: Async coordination via messages
-5. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Message flow visibility
+1. **[Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/)**: Buffers handle capacity mismatches
+2. **[Law 2 (Asynchronous Reality ⏳)](/part1-axioms/law2-asynchrony/)**: Decoupling reduces blocking
+3. **[Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/)**: Messages survive consumer failures
+4. **[Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/)**: Async coordination via messages
+5. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Message flow visibility
 </div>
 
 ### Future Directions
@@ -1377,15 +1368,15 @@ messaging:
 ## Related Resources
 
 ### Patterns
-- [Event-Driven Architecture](../patterns/event-driven.md) - Built on queues/streams
-- [CQRS](../patterns/cqrs.md) - Commands via queues
-- [Saga Pattern](../patterns/saga.md) - Orchestration via queues
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Protect consumers
+- [Event-Driven Architecture](/patterns/event-driven) - Built on queues/streams
+- [CQRS](/patterns/cqrs) - Commands via queues
+- [Saga Pattern](/patterns/saga) - Orchestration via queues
+- [Circuit Breaker](/patterns/circuit-breaker) - Protect consumers
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Why buffering matters
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md) - Async vs sync trade-offs
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Message durability
+- [Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/) - Why buffering matters
+- [Law 2 (Asynchronous Reality ⏳)](/part1-axioms/law2-asynchrony/) - Async vs sync trade-offs
+- [Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/) - Message durability
 
 ### Further Reading
 - [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly

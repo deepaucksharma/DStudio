@@ -1354,27 +1354,27 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md) - CDN and caching strategies
-- [Law 7: Economics 💰](../part1-axioms/law7-economics/index.md) - Cost optimization techniques
-- [Caching Strategies](../patterns/caching-strategies.md) - Multi-level cache design
-- [Rate Limiting](../patterns/rate-limiting.md) - Protecting against abuse
+- [Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/) - CDN and caching strategies
+- [Law 7: Economics 💰](/part1-axioms/law7-economics/) - Cost optimization techniques
+- [Caching Strategies](/patterns/caching-strategies) - Multi-level cache design
+- [Rate Limiting](/patterns/rate-limiting) - Protecting against abuse
 
 **Advanced Topics:**
-- [Edge Computing Patterns](../patterns/edge-computing.md) - Building at the edge
-- [Analytics at Scale](../patterns/analytics-scale.md) - Handling billions of events
-- [Geo-Distribution](../patterns/geo-distribution.md) - Global service deployment
-- [Security Patterns](../patterns/security-shortener.md) - Preventing abuse and attacks
+- [Edge Computing Patterns](/patterns/edge-computing) - Building at the edge
+- Analytics at Scale (Coming Soon) - Handling billions of events
+- Geo-Distribution (Coming Soon) - Global service deployment
+- [Security Patterns](/patterns/security-shortener) - Preventing abuse and attacks
 
 **Related Case Studies:**
 <!-- TODO: Add CDN design case study -->
 <!-- TODO: Add analytics pipeline case study -->
-- [API Gateway](../patterns/api-gateway.md) - Rate limiting and routing
+- [API Gateway](/patterns/api-gateway) - Rate limiting and routing
 
 **Implementation Patterns:**
-- [Database Sharding](../patterns/sharding.md) - Horizontal scaling
-- [Bloom Filters](../patterns/bloom-filter.md) - Space-efficient lookups
-- [Circuit Breakers](../patterns/circuit-breaker.md) - Handling failures
-- [CQRS](../patterns/cqrs.md) - Read/write separation
+- [Database Sharding](/patterns/sharding) - Horizontal scaling
+- [Bloom Filters](/patterns/bloom-filter) - Space-efficient lookups
+- [Circuit Breakers](/patterns/circuit-breaker) - Handling failures
+- [CQRS](/patterns/cqrs) - Read/write separation
 
 ### 📚 References
 
@@ -1389,7 +1389,7 @@ Analytics     10M events/s    Kafka throughput
 - [Polr](https://github.com/cydrobolt/polr)
 
 **Related Patterns:**
-- [Caching Strategies](../patterns/caching-strategies.md)
-- [Sharding](../patterns/sharding.md)
-- [Rate Limiting](../patterns/rate-limiting.md)
-- [CDN](../patterns/edge-computing.md)
+- [Caching Strategies](/patterns/caching-strategies)
+- [Sharding](/patterns/sharding)
+- [Rate Limiting](/patterns/rate-limiting)
+- [CDN](/patterns/edge-computing)

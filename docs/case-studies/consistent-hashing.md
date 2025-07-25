@@ -1311,42 +1311,42 @@ class ConsistentHashRing:
 - [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages)
 
 **Related Patterns:**
-- [Virtual Nodes](../patterns/sharding.md#virtual-nodes)
+- [Virtual Nodes](/patterns/sharding)
 - Gossip Protocol
 - Vector Clocks
-- [Replication](../patterns/geo-replication.md)
+- Replication (Coming Soon)
 
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - O(log n) lookup time with client-side caching reduces routing latency
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Even distribution prevents capacity hot spots across nodes
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Ring lookups are lock-free read operations
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Visual ring representation aids debugging and operations
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Efficient scaling without full data redistribution saves bandwidth
+- **[Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/)** - O(log n) lookup time with client-side caching reduces routing latency
+- **[Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 1: Failure ⛓️](/part1-axioms/law1-failure/)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 3: Emergence 🌪️](/part1-axioms/law3-emergence/)** - Ring lookups are lock-free read operations
+- **[Law 5: Epistemology 🧠](/part1-axioms/law5-epistemology/)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Human-API 🤯](/part1-axioms/law6-human-api/)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economics 💰](/part1-axioms/law7-economics/)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛️ Related Patterns (Part III)
-- **[Sharding & Partitioning](../patterns/sharding.md)** - Consistent hashing is the foundation for data sharding
-- **[Load Balancing](../patterns/load-balancing.md)** - Ring-based routing distributes requests evenly
-- **[Service Discovery](../patterns/service-discovery.md)** - Ring topology changes propagate via gossip
-- **[Replication](../patterns/geo-replication.md)** - Successor lists define replica placement
-- **[Health Check](../patterns/health-check.md)** - Node failures trigger ring rebalancing
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Client-side topology caching reduces lookups
-- **[Leader Election](../patterns/leader-election.md)** - Ring position can determine partition ownership
+- **[Sharding & Partitioning](/patterns/sharding)** - Consistent hashing is the foundation for data sharding
+- **[Load Balancing](/patterns/load-balancing)** - Ring-based routing distributes requests evenly
+- **[Service Discovery](/patterns/service-discovery)** - Ring topology changes propagate via gossip
+- **Replication (Coming Soon)** - Successor lists define replica placement
+- **[Health Check](/patterns/health-check)** - Node failures trigger ring rebalancing
+- **[Caching Strategies](/patterns/caching-strategies)** - Client-side topology caching reduces lookups
+- **[Leader Election](/patterns/leader-election)** - Ring position can determine partition ownership
 
 ### 📊 Quantitative Models
 - **Ring Theory** - Mathematical foundation for hash rings
 - **Load Distribution** - Standard deviation measures balance quality
-- **[Little's Law](../quantitative/littles-law.md)** - Rebalancing rate impacts system capacity
+- **[Little's Law](/quantitative/littles-law)** - Rebalancing rate impacts system capacity
 - **Probability Theory** - Virtual node count affects distribution variance
 
 ### 👥 Human Factors Considerations
-- **[Capacity Planning](../quantitative/capacity-planning.md)** - Node weights must match actual capacity
-- **[Observability Tools](../human-factors/observability-stacks.md)** - Ring visualizers essential for operations
-- **[Incident Response](../human-factors/incident-response.md)** - Hot spot detection and mitigation procedures
-- **[On-Call Culture](../human-factors/oncall-culture.md)** - Understanding ring rebalancing critical for operators
+- **[Capacity Planning](/quantitative/capacity-planning)** - Node weights must match actual capacity
+- **[Observability Tools](/human-factors/observability-stacks)** - Ring visualizers essential for operations
+- **[Incident Response](/human-factors/incident-response)** - Hot spot detection and mitigation procedures
+- **[On-Call Culture](/human-factors/oncall-culture)** - Understanding ring rebalancing critical for operators
 
 ### 🔄 Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Production implementation of consistent hashing at scale

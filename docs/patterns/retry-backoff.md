@@ -11,8 +11,6 @@ when_not_to_use: Permanent failures, business logic errors, data validation fail
 status: complete
 last_updated: 2025-01-21
 ---
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Retry & Backoff Strategies**
 
 # Retry & Backoff Strategies
 

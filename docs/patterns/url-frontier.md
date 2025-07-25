@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # URL Frontier
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **URL Frontier**
 
 ## Overview
 
@@ -832,8 +830,8 @@ async def benchmark_frontier():
 - **Cons**: Complex architecture
 
 ## Related Patterns
-- [Priority Queue](priority-queue.md) - Queue management strategies
-- [Distributed Queue](distributed-queue.md) - Scaling queue systems
+- Priority Queue (Coming Soon) - Queue management strategies
+- Distributed Queue (Coming Soon) - Scaling queue systems
 - [Rate Limiting](rate-limiting.md) - Politeness implementation
 - [Bloom Filter](bloom-filter.md) - Efficient duplicate detection
 

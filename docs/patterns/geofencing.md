@@ -14,17 +14,11 @@ last_updated: 2025-07-23
 # Geofencing
 
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Geofencing**
-
-> 🚧 This pattern documentation is under construction.
-
-Geofencing is a location-based service that triggers actions when a device enters or exits a defined geographical boundary.
 
 ## Related Patterns
-- [Location Privacy](../patterns/location-privacy.md)
-- [Edge Computing](../patterns/edge-computing.md)
+- [Location Privacy](/patterns/location-privacy)
+- [Edge Computing](/patterns/edge-computing)
 
 ## References
-- [Nearby Friends Case Study](../case-studies/nearby-friends.md)
-- [Uber Location Case Study](../case-studies/uber-location.md)
+- [Nearby Friends Case Study](/case-studies/nearby-friends)
+- [Uber Location Case Study](/case-studies/uber-location)

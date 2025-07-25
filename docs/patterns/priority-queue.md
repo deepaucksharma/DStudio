@@ -14,8 +14,6 @@ last_updated: 2025-07-24
 
 # Priority Queue
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Priority Queue**
 
 ## Overview
 
@@ -763,7 +761,7 @@ class BatchPriorityQueue:
 ```
 
 ## Related Patterns
-- [Distributed Queue](distributed-queue.md) - Scaling message queues
+- Distributed Queue (Coming Soon) - Scaling message queues
 - [Load Balancing](load-balancing.md) - Request distribution
 - [Circuit Breaker](circuit-breaker.md) - Failure handling
 - [URL Frontier](url-frontier.md) - Web crawler priority management

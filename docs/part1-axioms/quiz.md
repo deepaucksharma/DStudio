@@ -9,8 +9,6 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part I: Laws](index.md) → **Immutable Laws Quiz**
 
 # Immutable Laws Quiz
 

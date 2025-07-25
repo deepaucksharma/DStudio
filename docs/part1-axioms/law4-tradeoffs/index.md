@@ -4,7 +4,7 @@ description: System design is not choosing two of three. It's finding acceptable
 type: law
 difficulty: expert
 reading_time: 12 min
-prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md"]
+prerequisites: ["part1-axioms/index.md", "law1-failure/index.md", "law2-asynchrony/index.md", "law3-emergence/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -510,7 +510,7 @@ More tunable systems are more complex:
 
 ## Exercises
 
-[**→ Trade-off Analysis Lab**](exercises.md) - Practice navigating high-dimensional trade-off spaces
+[**→ Trade-off Analysis Lab**](./exercises.md) - Practice navigating high-dimensional trade-off spaces
 
 ## The Ultimate Insight
 
@@ -529,4 +529,4 @@ Every system exists at a point in a vast multidimensional space. The best archit
 - "Service Level Objectives" - Google SRE Book Chapter 4
 - "Multi-Objective Optimization Using Evolutionary Algorithms" - Deb
 
-[**← Previous: Law of Emergent Chaos**](../axiom3-emergence/index.md) | [**→ Next: Law of Distributed Knowledge**](../axiom5-epistemology/index.md)
+[**← Previous: Law of Emergent Chaos**](/part1-axioms/law3-emergence/) | [**→ Next: Law of Distributed Knowledge**](/part1-axioms/law5-epistemology/)

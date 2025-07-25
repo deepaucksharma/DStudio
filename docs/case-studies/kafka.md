@@ -10,8 +10,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Case-Studies](index.md) → **Kafka**
 
 # Apache Kafka: Distributed Streaming Platform
 
@@ -428,9 +426,9 @@ graph TB
 
 ## Related Patterns & Concepts
 
-- **Patterns**: [Distributed Log](../patterns/distributed-log.md) | [Leader-Follower](../patterns/leader-follower.md) | [Event Sourcing](../patterns/event-sourcing.md)
-- **Concepts**: [CAP Theorem](../quantitative/cap-theorem.md) | [Consensus](../patterns/consensus.md)
-- **Comparisons**: [Kafka vs Pulsar](kafka-vs-pulsar.md) | [Kafka vs RabbitMQ](kafka-vs-rabbitmq.md)
+- **Patterns**: [Distributed Log](/patterns/event-streaming) | [Leader-Follower](/patterns/leader-follower) | [Event Sourcing](/patterns/event-sourcing)
+- **Concepts**: CAP Theorem (Coming Soon) | [Consensus](/patterns/consensus)
+- **Comparisons**: Kafka vs Pulsar | [Kafka vs RabbitMQ] (Comparison Coming Soon)
 
 ## References
 

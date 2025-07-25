@@ -12,8 +12,6 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-<!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Polyglot Persistence**
 
 # Polyglot Persistence
 
@@ -898,4 +896,4 @@ Based on access patterns, automatically move data to optimal stores:
 
 ---
 
-**Previous**: [← Outbox Pattern](outbox.md) | **Next**: [Priority Queue →](priority-queue.md)
+**Previous**: [← Outbox Pattern](outbox.md) | **Next**: Priority Queue → (Coming Soon)

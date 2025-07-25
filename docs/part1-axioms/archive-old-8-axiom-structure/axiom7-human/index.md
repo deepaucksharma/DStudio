@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 7](index.md) → **Axiom 7: Human-System Interface**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 7](index.md) → **Axiom 7: Human-System Interface**
 
 # Axiom 7: Human-System Interface
 
@@ -835,7 +835,7 @@ Test your runbook:
 
 ---
 
-**Next**: [Axiom 8: Economics →](../axiom8-economics/index.md)
+**Next**: [Axiom 8: Economics →](/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/)
 
 *"The best interface is no interface. The best process is no process. But until then, design for humans."*
 
