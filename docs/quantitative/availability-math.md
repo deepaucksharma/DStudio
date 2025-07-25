@@ -100,28 +100,32 @@ Two 99.9% DBs = 1 - 0.001² = 99.9999%
   
   <div style="margin-top: 15px;">
     <strong>Example: 3+2 Redundancy (Need 3, Have 5)</strong>
-    <table style="width: 100%; margin-top: 10px;">
-      <tr style="background: #BBDEFB;">
+    <table class="responsive-table" style="width: 100%; margin-top: 10px;">
+  <thead>
+    <tr style="background: #BBDEFB;">
         <th style="padding: 8px;">Component Availability</th>
         <th style="padding: 8px;">System Availability</th>
         <th style="padding: 8px;">Improvement</th>
       </tr>
-      <tr>
-        <td style="padding: 8px; text-align: center;">90%</td>
-        <td style="padding: 8px; text-align: center;">99.14%</td>
-        <td style="padding: 8px; text-align: center; color: #4CAF50;">+10x</td>
+  </thead>
+  <tbody>
+    <tr>
+        <td data-label="Component Availability">90%</td>
+        <td data-label="System Availability">99.14%</td>
+        <td data-label="Improvement">+10x</td>
       </tr>
-      <tr style="background: #F5F5F5;">
-        <td style="padding: 8px; text-align: center;">99%</td>
-        <td style="padding: 8px; text-align: center;">99.999%</td>
-        <td style="padding: 8px; text-align: center; color: #4CAF50;">+100x</td>
+    <tr style="background: #F5F5F5;">
+        <td data-label="Component Availability">99%</td>
+        <td data-label="System Availability">99.999%</td>
+        <td data-label="Improvement">+100x</td>
       </tr>
-      <tr>
-        <td style="padding: 8px; text-align: center;">99.9%</td>
-        <td style="padding: 8px; text-align: center;">99.99999%</td>
-        <td style="padding: 8px; text-align: center; color: #4CAF50;">+1000x</td>
+    <tr>
+        <td data-label="Component Availability">99.9%</td>
+        <td data-label="System Availability">99.99999%</td>
+        <td data-label="Improvement">+1000x</td>
       </tr>
-    </table>
+  </tbody>
+</table>
   </div>
 </div>
 </div>

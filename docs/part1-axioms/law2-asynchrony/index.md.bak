@@ -60,7 +60,7 @@ def calculate_information_advantage(location_a, location_b, exchange):
     distance_a = calculate_distance(location_a, exchange)
     distance_b = calculate_distance(location_b, exchange)
     
-    # Speed of light in fiber
+# Speed of light in fiber
     c_fiber = 200_000  # km/s
     
     latency_a = distance_a / c_fiber
@@ -68,7 +68,7 @@ def calculate_information_advantage(location_a, location_b, exchange):
     
     advantage_ms = (latency_b - latency_a) * 1000
     
-    # In high-frequency trading, microseconds = millions
+# In high-frequency trading, microseconds = millions
     return advantage_ms
 ```
 
@@ -141,31 +141,31 @@ gantt
 ```python
 class AsynchronousNode:
     def process_request(self, request):
-        # How long will this take? Nobody knows!
+# How long will this take? Nobody knows!
         
         start = time.monotonic()
         
-        # CPU scheduling delays (0-100ms)
+# CPU scheduling delays (0-100ms)
         wait_for_cpu_slice()
         
-        # Lock contention (0-1000ms)
+# Lock contention (0-1000ms)
         with self.shared_lock:
-            # Garbage collection pause (0-500ms)
-            # Can happen at ANY point
+# Garbage collection pause (0-500ms)
+# Can happen at ANY point
             
-            # Actual work (1-10ms)
+# Actual work (1-10ms)
             result = do_work(request)
             
-            # Database query (5-5000ms)
-            # Depends on cache, query plan, other queries
+# Database query (5-5000ms)
+# Depends on cache, query plan, other queries
             db_result = self.db.query(...)
             
-        # Network send (1-1000ms)
-        # Depends on congestion, receiver readiness
+# Network send (1-1000ms)
+# Depends on congestion, receiver readiness
         send_response(result)
         
         elapsed = time.monotonic() - start
-        # elapsed could be anywhere from 7ms to 7600ms!
+# elapsed could be anywhere from 7ms to 7600ms!
 ```
 
 ## The Fundamental Theorems of Asynchrony
@@ -204,23 +204,23 @@ def flp_intuition():
     Intuition: You can't distinguish slow from dead
     """
     
-    # Node A sends to Node B
+# Node A sends to Node B
     send_message(node_b, "Are you alive?")
     
-    # Wait for response... but how long?
+# Wait for response... but how long?
     timeout = ???  # This is the problem!
     
     response = wait_for_response(timeout)
     
     if response is None:
-        # Is B dead? Or just slow?
-        # If we proceed assuming B is dead, but it's just slow,
-        # we might make a decision B disagrees with (violates safety)
+# Is B dead? Or just slow?
+# If we proceed assuming B is dead, but it's just slow,
+# we might make a decision B disagrees with (violates safety)
         
-        # If we wait forever, we might never make progress
-        # if B is actually dead (violates liveness)
+# If we wait forever, we might never make progress
+# if B is actually dead (violates liveness)
         
-        # FLP proves we can't have both!
+# FLP proves we can't have both!
 ```
 
 ### 2. Lamport's Happens-Before Relation
@@ -261,17 +261,17 @@ def cap_and_asynchrony():
     During a partition, asynchrony becomes infinite
     """
     
-    # Normal operation - high but bounded asynchrony
+# Normal operation - high but bounded asynchrony
     if network_healthy():
         response = await send_with_timeout(request, timeout=5000)
-        # Can maintain consistency with coordination
+# Can maintain consistency with coordination
     
-    # Partition - unbounded asynchrony
+# Partition - unbounded asynchrony
     else:
-        # timeout = ∞ (we don't know when/if partition will heal)
-        # Must choose:
-        # 1. Available: Respond with potentially stale data
-        # 2. Consistent: Refuse to respond
+# timeout = ∞ (we don't know when/if partition will heal)
+# Must choose:
+# 1. Available: Respond with potentially stale data
+# 2. Consistent: Refuse to respond
 ```
 
 ## Information Theory Meets Distributed Systems
@@ -359,11 +359,11 @@ def latency_impact_analysis(latencies):
     p99 = np.percentile(latencies, 99)    # 100ms
     p999 = np.percentile(latencies, 99.9) # 1000ms
     
-    # For a page with 100 API calls:
-    # Probability at least one call hits p99: 1 - 0.99^100 = 63%
-    # Probability at least one call hits p99.9: 1 - 0.999^100 = 9.5%
+# For a page with 100 API calls:
+# Probability at least one call hits p99: 1 - 0.99^100 = 63%
+# Probability at least one call hits p99.9: 1 - 0.999^100 = 9.5%
     
-    # User experience is dominated by the slowest call!
+# User experience is dominated by the slowest call!
     page_load_time = max(api_calls)  # Not sum, not average!
 ```
 
@@ -404,13 +404,13 @@ class AdaptiveTimeout:
         if not self.history:
             return self.base_timeout
             
-        # Use percentile-based timeout
+# Use percentile-based timeout
         p99 = np.percentile(self.history, 99)
         
-        # Add safety margin
+# Add safety margin
         timeout = p99 * 1.5
         
-        # But cap it to prevent infinite wait
+# But cap it to prevent infinite wait
         return min(timeout, 30000)  # 30s max
         
     def record_response_time(self, response_time):
@@ -445,11 +445,11 @@ def amortize_coordination_cost():
     Don't coordinate for every operation
     """
     
-    # Bad: Coordinate per write
+# Bad: Coordinate per write
     for write in writes:
         coordinate_write(write)  # 50ms each!
     
-    # Good: Batch coordination
+# Good: Batch coordination
     batch = []
     for write in writes:
         batch.append(write)
@@ -465,24 +465,24 @@ async def hedged_request(replicas):
     """
     Send to multiple replicas, use first response
     """
-    # Start with one replica
+# Start with one replica
     tasks = [asyncio.create_task(replicas[0].request())]
     
-    # After 10ms, hedge with second replica
+# After 10ms, hedge with second replica
     await asyncio.sleep(0.010)
     tasks.append(asyncio.create_task(replicas[1].request()))
     
-    # After 50ms, panic and try third
+# After 50ms, panic and try third
     await asyncio.sleep(0.040)
     tasks.append(asyncio.create_task(replicas[2].request()))
     
-    # Return first successful response
+# Return first successful response
     done, pending = await asyncio.wait(
         tasks, 
         return_when=asyncio.FIRST_COMPLETED
     )
     
-    # Cancel others
+# Cancel others
     for task in pending:
         task.cancel()
         
@@ -520,4 +520,4 @@ In distributed systems, there is no "now". There are only events and their causa
 - "There Is No Now" - Justin Sheehy
 - "Living Without Atomic Clocks" - Cockroach Labs
 
-[**← Previous: Law of Failure**](../law1-failure/index.md) | [**→ Next: Law of Emergence**](../law3-emergence/index.md)
+[**← Previous: Law of Failure**](/part1-axioms/law1-failure/) | [**→ Next: Law of Emergence**](/part1-axioms/law3-emergence/)

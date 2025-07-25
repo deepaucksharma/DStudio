@@ -16,9 +16,9 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Sharding](../patterns/sharding.md)
-- [Caching Strategies](../patterns/caching-strategies.md)
+- [Sharding](/patterns/sharding)
+- [Caching Strategies](/patterns/caching-strategies)
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md)
-- [Uber Location Case Study](../case-studies/uber-location.md)
+- [Google Maps Case Study](/case-studies/google-maps)
+- [Uber Location Case Study](/case-studies/uber-location)

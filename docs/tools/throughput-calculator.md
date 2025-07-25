@@ -308,32 +308,36 @@ function calculateThroughput() {
         
         <div class="constraints-analysis">
             <h4>Constraint Analysis</h4>
-            <table>
-                <tr>
+            <table class="responsive-table">
+  <thead>
+    <tr>
                     <th>Resource</th>
                     <th>Limit</th>
                     <th>Usage</th>
                     <th>Status</th>
                 </tr>
-                <tr>
-                    <td>Memory</td>
-                    <td>${memoryConstrainedConcurrency} concurrent tasks</td>
-                    <td>${optimal.concurrency} workers</td>
-                    <td>${optimal.concurrency < memoryConstrainedConcurrency ? '✅ OK' : '⚠️ Limited'}</td>
+  </thead>
+  <tbody>
+    <tr>
+                    <td data-label="Resource">Memory</td>
+                    <td data-label="Limit">${memoryConstrainedConcurrency} concurrent tasks</td>
+                    <td data-label="Usage">${optimal.concurrency} workers</td>
+                    <td data-label="Status">${optimal.concurrency < memoryConstrainedConcurrency ? '✅ OK' : '⚠️ Limited'}</td>
                 </tr>
-                <tr>
-                    <td>CPU/Workers</td>
-                    <td>${maxConcurrency} max</td>
-                    <td>${optimal.concurrency} workers</td>
-                    <td>${optimal.concurrency < maxConcurrency ? '✅ OK' : '⚠️ At limit'}</td>
+    <tr>
+                    <td data-label="Resource">CPU/Workers</td>
+                    <td data-label="Limit">${maxConcurrency} max</td>
+                    <td data-label="Usage">${optimal.concurrency} workers</td>
+                    <td data-label="Status">${optimal.concurrency < maxConcurrency ? '✅ OK' : '⚠️ At limit'}</td>
                 </tr>
-                <tr>
-                    <td>Network</td>
-                    <td>${networkBandwidth} Mbps</td>
-                    <td>${(optimal.networkUtilization * networkBandwidth).toFixed(0)} Mbps</td>
-                    <td>${optimal.networkUtilization < 0.8 ? '✅ OK' : '⚠️ High usage'}</td>
+    <tr>
+                    <td data-label="Resource">Network</td>
+                    <td data-label="Limit">${networkBandwidth} Mbps</td>
+                    <td data-label="Usage">${(optimal.networkUtilization * networkBandwidth).toFixed(0)} Mbps</td>
+                    <td data-label="Status">${optimal.networkUtilization < 0.8 ? '✅ OK' : '⚠️ High usage'}</td>
                 </tr>
-            </table>
+  </tbody>
+</table>
         </div>
         
         <div class="recommendations">
@@ -369,32 +373,26 @@ function calculateThroughput() {
         
         <div class="alternatives">
             <h4>Alternative Configurations</h4>
-            <table>
-                <tr>
+            <table class="responsive-table">
+  <thead>
+    <tr>
                     <th>Batch Size</th>
                     <th>Concurrency</th>
                     <th>Throughput</th>
                     <th>Latency</th>
                     <th>Efficiency</th>
                 </tr>
-    `;
-    
-    // Show top 5 alternatives
-    for (let i = 0; i < Math.min(5, optimalConfigs.length); i++) {
-        const config = optimalConfigs[i];
-        resultsHTML += `
-            <tr ${i === 0 ? 'class="optimal"' : ''}>
-                <td>${config.batchSize}</td>
-                <td>${config.concurrency}</td>
-                <td>${config.throughput.toFixed(0)} tps</td>
-                <td>${config.latency.toFixed(1)} ms</td>
-                <td>${(config.efficiency * 100).toFixed(1)}%</td>
+  </thead>
+  <tbody>
+    <tr ${i === 0 ? 'class="optimal"' : ''}>
+                <td data-label="Batch Size">${config.batchSize}</td>
+                <td data-label="Concurrency">${config.concurrency}</td>
+                <td data-label="Throughput">${config.throughput.toFixed(0)} tps</td>
+                <td data-label="Latency">${config.latency.toFixed(1)} ms</td>
+                <td data-label="Efficiency">${(config.efficiency * 100).toFixed(1)}%</td>
             </tr>
-        `;
-    }
-    
-    resultsHTML += `
-            </table>
+  </tbody>
+</table>
         </div>
     `;
     

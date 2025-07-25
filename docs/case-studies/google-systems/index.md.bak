@@ -10,7 +10,7 @@ last_updated: 2025-07-23
 ---
 
 
-# 🌐 Google System Design Interview Guide
+# Google System Design Interview Guide
 
 **Master the most frequently asked Google system design interview questions with comprehensive, production-ready solutions**
 
@@ -29,19 +29,19 @@ last_updated: 2025-07-23
 
 ## 📚 Core Google System Design Problems
 
-### 1. [🔍 Design Google Search](../google-systems/google-search.md)
+### 1. [ Design Google Search](/case-studies/google-systems/google-search)
 Build a web-scale search engine handling 100B+ pages with sub-100ms latency.
 - **Key challenges**: Web crawling, indexing, PageRank, query processing
 - **Scale**: 8.5B searches/day, 100B+ pages, <100ms latency
 - **Core concepts**: Inverted index, distributed crawling, ranking algorithms
 
-### 2. [🎬 Design YouTube](google-youtube.md)
+### 2. [ Design YouTube](google-youtube.md)
 Create a video platform serving billions of hours daily with minimal buffering.
 - **Key challenges**: Video storage, transcoding, CDN, recommendations
 - **Scale**: 500hrs/min uploads, 1B+ hours watched/day
 - **Core concepts**: Adaptive streaming, distributed transcoding, ML recommendations
 
-### 3. [🗺️ Design Google Maps](google-maps-system.md)
+### 3. [🗺 Design Google Maps](google-maps-system.md)
 Build a mapping service with real-time traffic and routing for 1B+ users.
 - **Key challenges**: Map data, routing algorithms, real-time traffic
 - **Scale**: 1B+ users, 220+ countries, millions of routes/sec
@@ -59,7 +59,7 @@ Build a real-time collaborative document editor with conflict resolution.
 - **Scale**: Millions of concurrent edits, sub-second latency
 - **Core concepts**: Operational transformation, CRDTs, WebSocket
 
-## 🎯 How to Use These Guides
+## How to Use These Guides
 
 ### For Interview Preparation
 
@@ -109,7 +109,7 @@ graph TD
 | Gmail | 1.5B+ | Exabytes | 1M+ | <200ms |
 | Docs | 1B+ | 100PB+ | 100K+ | <100ms |
 
-## 📊 Evaluation Criteria
+## Evaluation Criteria
 
 Google interviewers typically evaluate candidates on:
 
@@ -134,7 +134,7 @@ Google interviewers typically evaluate candidates on:
    - Diagram quality
    - Handling feedback
 
-## 🚀 Advanced Topics
+## Advanced Topics
 
 ### Beyond the Basics
 
@@ -154,9 +154,9 @@ Google interviewers typically evaluate candidates on:
 ## 📚 Additional Resources
 
 ### Related Concepts
-- [The 7 Laws](../../axioms/index.md) - Fundamental principles
-- [Pattern Library](../../patterns/index.md) - Reusable solutions
-- [Quantitative Tools](../../quantitative/index.md) - Capacity planning
+- [The 7 Laws](/axioms/) - Fundamental principles
+- [Pattern Library](/patterns/) - Reusable solutions
+- [Quantitative Tools](/quantitative/) - Capacity planning
 
 ### Practice Problems
 - Design a distributed cache (Redis-like)

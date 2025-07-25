@@ -1,0 +1,696 @@
+# CSS Migration Report
+Analyzed 684 files
+
+## Emoji Bullets to Remove
+- **docs/patterns/retry-backoff.md** (line 709): - 🏢 **Used by**: Google, Amazon, Facebook
+- **docs/patterns/retry-backoff.md** (line 1017): - 💸 **$1M+ per hour** in lost revenue during outages
+- **docs/patterns/retry-backoff.md** (line 1018): - 😤 **Customer complaints** flooded social media
+- **docs/patterns/retry-backoff.md** (line 1019): - 📉 **Stock price impact** from reliability concerns
+- **docs/patterns/bulkhead.md** (line 898): - 💣 **Blast radius**: Bad deployments impact everyone
+- **docs/patterns/rate-limiting.md** (line 1133): - 😤 **P99 latency increased 5x** during attacks
+- **docs/patterns/rate-limiting.md** (line 1134): - 💸 **$2.3M annual cost** from abuse traffic
+- **docs/patterns/rate-limiting.md** (line 1135): - 📉 **Developer satisfaction dropped 15%**
+- **docs/learning-paths/index.md** (line 70): - 📖 Read theory (2 hours)
+- **docs/learning-paths/index.md** (line 71): - 👀 Study cascading failure examples (2 hours)
+- **docs/learning-paths/index.md** (line 137): - 🏛 Master Byzantine epistemology
+- **docs/learning-paths/index.md** (line 214): - 🔺 [CAP Theorem implications](part2-pillars/truth/index.md)
+- **docs/learning-paths/index.md** (line 218): - 💳 [PayPal Payments](case-studies/paypal-payments.md) - Financial consistency
+- **docs/case-studies/google-drive.md** (line 926): - 🏛 Pillar: [State Distribution](/part2-pillars/state/) - Sharded metadata
+- **docs/case-studies/google-drive.md** (line 927): - 🏛 Pillar: [Work Distribution](/part2-pillars/work/) - Parallel uploads
+- **docs/case-studies/nearby-friends.md** (line 107): - 🏛 Pillar: [Control Distribution](/part2-pillars/control/) - Privacy UX
+- **docs/case-studies/nearby-friends.md** (line 108): - 🏛 Pillar: [Truth Distribution](/part2-pillars/truth/) - Location accuracy
+- **docs/case-studies/distributed-message-queue.md** (line 120): - 🏛 Pillar: [State Distribution](/part2-pillars/state/) - Distributed logs
+- **docs/case-studies/distributed-message-queue.md** (line 121): - 🏛 Pillar: [Truth Distribution](/part2-pillars/truth/) - Ordered delivery
+- **docs/case-studies/distributed-message-queue.md** (line 1293): - 📨 **[Event-Driven Architecture](/patterns/event-driven)** - Kafka as event backbone
+- **docs/case-studies/distributed-message-queue.md** (line 1294): - 📚 **[Event Sourcing](/patterns/event-sourcing)** - Log as source of truth
+- **docs/case-studies/google-maps.md** (line 890): - 🏛 Pillar: [Work Distribution](/part2-pillars/work/) - Client computation
+- **docs/case-studies/google-maps.md** (line 891): - 🏛 Pillar: [Intelligence](/part2-pillars/intelligence/) - ML map generation
+- **docs/case-studies/search-autocomplete.md** (line 1064): - 🏛 Pillar: [Work Distribution](/part2-pillars/work/) - Parallel prefix search
+- **docs/case-studies/search-autocomplete.md** (line 1065): - 🏛 Pillar: [Intelligence](/part2-pillars/intelligence/) - ML ranking
+- **docs/case-studies/chat-system.md** (line 125): - 🏛 Pillar: [Truth Distribution](/part2-pillars/truth/) - Cryptographic guarantees
+- **docs/case-studies/chat-system.md** (line 126): - 🏛 Pillar: [Control Distribution](/part2-pillars/control/) - Secure message routing
+
+## Old CSS Classes to Update
+- **docs/index.md** (line 42): feature-card → card
+- **docs/index.md** (line 43): feature-card → card
+- **docs/index.md** (line 43): feature-card__title → card__title
+- **docs/index.md** (line 44): feature-card → card
+- **docs/index.md** (line 49): feature-card → card
+- **docs/index.md** (line 50): feature-card → card
+- **docs/index.md** (line 50): feature-card__title → card__title
+- **docs/index.md** (line 51): feature-card → card
+- **docs/index.md** (line 56): feature-card → card
+- **docs/index.md** (line 57): feature-card → card
+- **docs/index.md** (line 57): feature-card__title → card__title
+- **docs/index.md** (line 58): feature-card → card
+- **docs/index.md** (line 63): feature-card → card
+- **docs/index.md** (line 64): feature-card → card
+- **docs/index.md** (line 64): feature-card__title → card__title
+- **docs/index.md** (line 65): feature-card → card
+- **docs/introduction/index.md** (line 51): feature-card → card
+- **docs/introduction/index.md** (line 52): feature-card → card
+- **docs/introduction/index.md** (line 52): feature-card__title → card__title
+- **docs/introduction/index.md** (line 53): feature-card → card
+- **docs/introduction/index.md** (line 58): feature-card → card
+- **docs/introduction/index.md** (line 59): feature-card → card
+- **docs/introduction/index.md** (line 59): feature-card__title → card__title
+- **docs/introduction/index.md** (line 60): feature-card → card
+- **docs/introduction/index.md** (line 65): feature-card → card
+- **docs/introduction/index.md** (line 66): feature-card → card
+- **docs/introduction/index.md** (line 66): feature-card__title → card__title
+- **docs/introduction/index.md** (line 67): feature-card → card
+- **docs/introduction/index.md** (line 72): feature-card → card
+- **docs/introduction/index.md** (line 73): feature-card → card
+- **docs/introduction/index.md** (line 73): feature-card__title → card__title
+- **docs/introduction/index.md** (line 74): feature-card → card
+- **docs/stylesheets/laws.css** (line 233): c-card → card
+- **docs/stylesheets/laws.css** (line 240): c-card → card
+- **docs/stylesheets/laws.css** (line 246): c-card → card
+- **docs/stylesheets/laws.css** (line 246): c-card__title → card__title
+- **docs/stylesheets/laws.css** (line 251): c-card → card
+- **docs/stylesheets/modular.css** (line 67): c-card → card
+- **docs/stylesheets/modular.css** (line 79): c-card → card
+- **docs/stylesheets/modular.css** (line 84): c-card → card
+- **docs/stylesheets/modular.css** (line 84): c-card__title → card__title
+- **docs/stylesheets/modular.css** (line 91): c-card → card
+- **docs/stylesheets/modular.css** (line 98): c-card → card
+- **docs/stylesheets/modular.css** (line 108): c-card → card
+- **docs/stylesheets/modular.css** (line 113): c-card → card
+- **docs/stylesheets/modular.css** (line 114): c-card → card
+- **docs/stylesheets/modular.css** (line 115): c-card → card
+- **docs/stylesheets/modular.css** (line 116): c-card → card
+- **docs/stylesheets/modular.css** (line 117): c-card → card
+- **docs/stylesheets/modular.css** (line 139): c-card → card
+- **docs/stylesheets/modular.css** (line 157): c-card → card
+- **docs/stylesheets/modular.css** (line 163): c-card → card
+- **docs/stylesheets/pattern-explorer.css** (line 4): pattern-card → card
+- **docs/stylesheets/pattern-explorer.css** (line 14): pattern-card → card
+- **docs/stylesheets/pattern-explorer.css** (line 212): pattern-card → card
+- **docs/stylesheets/pattern-explorer.css** (line 233): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 224): feature-card → card
+- **docs/stylesheets/overrides.css** (line 235): feature-card → card
+- **docs/stylesheets/overrides.css** (line 241): feature-card → card
+- **docs/stylesheets/overrides.css** (line 247): feature-card → card
+- **docs/stylesheets/overrides.css** (line 247): feature-card__title → card__title
+- **docs/stylesheets/overrides.css** (line 253): feature-card → card
+- **docs/stylesheets/overrides.css** (line 270): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 280): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 285): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 297): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 297): pattern-card__title → card__title
+- **docs/stylesheets/overrides.css** (line 303): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 310): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 316): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 360): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 361): feature-card → card
+- **docs/stylesheets/overrides.css** (line 392): pattern-card → card
+- **docs/stylesheets/overrides.css** (line 393): feature-card → card
+- **docs/stylesheets/extra.css** (line 115): feature-card → card
+- **docs/stylesheets/extra.css** (line 124): feature-card → card
+- **docs/stylesheets/extra.css** (line 134): feature-card → card
+- **docs/stylesheets/extra.css** (line 140): feature-card → card
+- **docs/stylesheets/unified-system.css** (line 293): feature-card → card
+- **docs/stylesheets/unified-system.css** (line 294): pattern-card → card
+- **docs/stylesheets/unified-system.css** (line 295): c-card → card
+- **docs/stylesheets/unified-system.css** (line 309): feature-card → card
+- **docs/stylesheets/unified-system.css** (line 310): pattern-card → card
+- **docs/stylesheets/unified-system.css** (line 311): c-card → card
+- **docs/stylesheets/unified-system.css** (line 318): feature-card → card
+- **docs/stylesheets/unified-system.css** (line 318): feature-card__title → card__title
+- **docs/stylesheets/unified-system.css** (line 319): pattern-card → card
+- **docs/stylesheets/unified-system.css** (line 319): pattern-card__title → card__title
+- **docs/stylesheets/unified-system.css** (line 320): c-card → card
+- **docs/stylesheets/unified-system.css** (line 320): c-card__title → card__title
+- **docs/stylesheets/unified-system.css** (line 328): feature-card → card
+- **docs/stylesheets/unified-system.css** (line 329): pattern-card → card
+- **docs/stylesheets/unified-system.css** (line 330): c-card → card
+- **docs/stylesheets/unified-system.css** (line 338): feature-card → card
+- **docs/stylesheets/unified-system.css** (line 724): feature-card → card
+- **docs/stylesheets/unified-system.css** (line 725): pattern-card → card
+- **docs/stylesheets/unified-system.css** (line 726): c-card → card
+- **docs/patterns/event-sourcing.md** (line 17): pattern-card → card
+- **docs/patterns/event-sourcing.md** (line 18): pattern-card → card
+- **docs/patterns/event-sourcing.md** (line 19): pattern-card → card
+- **docs/patterns/event-sourcing.md** (line 20): pattern-card → card
+- **docs/patterns/event-sourcing.md** (line 23): pattern-card → card
+- **docs/patterns/event-sourcing.md** (line 24): pattern-card → card
+- **docs/patterns/event-sourcing.md** (line 25): pattern-card → card
+- **docs/patterns/cqrs.md** (line 17): pattern-card → card
+- **docs/patterns/cqrs.md** (line 18): pattern-card → card
+- **docs/patterns/cqrs.md** (line 19): pattern-card → card
+- **docs/patterns/cqrs.md** (line 20): pattern-card → card
+- **docs/patterns/cqrs.md** (line 23): pattern-card → card
+- **docs/patterns/cqrs.md** (line 24): pattern-card → card
+- **docs/patterns/cqrs.md** (line 25): pattern-card → card
+- **docs/templates/case-study-template.md** (line 199): pattern-card → card
+- **docs/templates/case-study-template.md** (line 200): pattern-card → card
+- **docs/templates/case-study-template.md** (line 200): pattern-card__title → card__title
+- **docs/templates/case-study-template.md** (line 201): pattern-card → card
+- **docs/templates/case-study-template.md** (line 203): pattern-card → card
+- **docs/templates/case-study-template.md** (line 204): pattern-card → card
+- **docs/templates/case-study-template.md** (line 204): pattern-card__title → card__title
+- **docs/templates/case-study-template.md** (line 205): pattern-card → card
+- **docs/templates/case-study-template.md** (line 207): pattern-card → card
+- **docs/templates/case-study-template.md** (line 208): pattern-card → card
+- **docs/templates/case-study-template.md** (line 208): pattern-card__title → card__title
+- **docs/templates/case-study-template.md** (line 209): pattern-card → card
+- **docs/templates/homepage-template.md** (line 34): feature-card → card
+- **docs/templates/homepage-template.md** (line 35): feature-card → card
+- **docs/templates/homepage-template.md** (line 36): feature-card → card
+- **docs/templates/homepage-template.md** (line 36): feature-card__title → card__title
+- **docs/templates/homepage-template.md** (line 37): feature-card → card
+- **docs/templates/homepage-template.md** (line 42): feature-card → card
+- **docs/templates/homepage-template.md** (line 43): feature-card → card
+- **docs/templates/homepage-template.md** (line 44): feature-card → card
+- **docs/templates/homepage-template.md** (line 44): feature-card__title → card__title
+- **docs/templates/homepage-template.md** (line 45): feature-card → card
+- **docs/templates/homepage-template.md** (line 50): feature-card → card
+- **docs/templates/homepage-template.md** (line 51): feature-card → card
+- **docs/templates/homepage-template.md** (line 52): feature-card → card
+- **docs/templates/homepage-template.md** (line 52): feature-card__title → card__title
+- **docs/templates/homepage-template.md** (line 53): feature-card → card
+- **docs/templates/homepage-template.md** (line 58): feature-card → card
+- **docs/templates/homepage-template.md** (line 59): feature-card → card
+- **docs/templates/homepage-template.md** (line 60): feature-card → card
+- **docs/templates/homepage-template.md** (line 60): feature-card__title → card__title
+- **docs/templates/homepage-template.md** (line 61): feature-card → card
+- **docs/templates/pattern-template.md** (line 3): pattern-card → card
+- **docs/templates/pattern-template.md** (line 4): pattern-card → card
+- **docs/templates/pattern-template.md** (line 5): pattern-card → card
+- **docs/templates/pattern-template.md** (line 6): pattern-card → card
+- **docs/templates/pattern-template.md** (line 9): pattern-card → card
+- **docs/templates/pattern-template.md** (line 10): pattern-card → card
+- **docs/templates/pattern-template.md** (line 11): pattern-card → card
+- **docs/templates/law-template.md** (line 82): pattern-card → card
+- **docs/templates/law-template.md** (line 83): pattern-card → card
+- **docs/templates/law-template.md** (line 83): pattern-card__title → card__title
+- **docs/templates/law-template.md** (line 84): pattern-card → card
+- **docs/templates/law-template.md** (line 86): pattern-card → card
+- **docs/templates/law-template.md** (line 87): pattern-card → card
+- **docs/templates/law-template.md** (line 87): pattern-card__title → card__title
+- **docs/templates/law-template.md** (line 88): pattern-card → card
+- **docs/google-interviews/index.md** (line 96): c-card → card
+- **docs/google-interviews/index.md** (line 101): c-card → card
+- **docs/google-interviews/index.md** (line 106): c-card → card
+- **docs/google-interviews/index.md** (line 111): c-card → card
+- **docs/google-interviews/index.md** (line 371): pattern-card → card
+- **docs/google-interviews/index.md** (line 377): pattern-card → card
+- **docs/google-interviews/index.md** (line 383): pattern-card → card
+- **docs/google-interviews/index.md** (line 389): pattern-card → card
+- **docs/google-interviews/index.md** (line 395): pattern-card → card
+- **docs/google-interviews/index.md** (line 401): pattern-card → card
+- **docs/google-interviews/index.md** (line 407): pattern-card → card
+- **docs/google-interviews/index.md** (line 413): pattern-card → card
+- **docs/google-interviews/index.md** (line 677): pattern-card → card
+- **docs/google-interviews/index.md** (line 683): pattern-card → card
+- **docs/google-interviews/index.md** (line 689): pattern-card → card
+- **docs/google-interviews/index.md** (line 695): pattern-card → card
+- **docs/google-interviews/index.md** (line 701): pattern-card → card
+- **docs/google-interviews/index.md** (line 712): pattern-card → card
+- **docs/google-interviews/index.md** (line 718): pattern-card → card
+- **docs/google-interviews/index.md** (line 724): pattern-card → card
+- **docs/google-interviews/index.md** (line 735): pattern-card → card
+- **docs/google-interviews/index.md** (line 741): pattern-card → card
+- **docs/google-interviews/index.md** (line 747): pattern-card → card
+- **docs/google-interviews/index.md** (line 758): pattern-card → card
+- **docs/google-interviews/index.md** (line 764): pattern-card → card
+- **docs/google-interviews/index.md** (line 770): pattern-card → card
+- **docs/google-interviews/preparation-roadmap.md** (line 306): c-card → card
+- **docs/google-interviews/preparation-roadmap.md** (line 317): c-card → card
+- **docs/google-interviews/preparation-roadmap.md** (line 328): c-card → card
+- **docs/google-interviews/preparation-roadmap.md** (line 339): c-card → card
+- **docs/google-interviews/preparation-roadmap.md** (line 576): c-card → card
+- **docs/google-interviews/preparation-roadmap.md** (line 693): c-card → card
+- **docs/google-interviews/dashboard.md** (line 104): pattern-card → card
+- **docs/google-interviews/dashboard.md** (line 113): pattern-card → card
+- **docs/google-interviews/dashboard.md** (line 122): pattern-card → card
+- **docs/google-interviews/dashboard.md** (line 131): pattern-card → card
+- **docs/google-interviews/dashboard.md** (line 300): pattern-card → card
+- **docs/google-interviews/dashboard.md** (line 307): pattern-card → card
+- **docs/google-interviews/dashboard.md** (line 312): pattern-card → card
+- **docs/tools/consistency-calculator.md** (line 616): c-card → card
+- **docs/tools/consistency-calculator.md** (line 624): c-card → card
+- **docs/tools/consistency-calculator.md** (line 632): c-card → card
+- **docs/tools/consistency-calculator.md** (line 640): c-card → card
+- **docs/tools/consistency-calculator.md** (line 1175): c-card → card
+- **docs/tools/consistency-calculator.md** (line 1182): c-card → card
+- **docs/tools/capacity-calculator.md** (line 376): c-card → card
+- **docs/tools/capacity-calculator.md** (line 383): c-card → card
+- **docs/tools/capacity-calculator.md** (line 390): c-card → card
+- **docs/tools/capacity-calculator.md** (line 397): c-card → card
+- **docs/tools/capacity-calculator.md** (line 922): c-card → card
+- **docs/tools/capacity-calculator.md** (line 932): c-card → card
+- **docs/tools/capacity-calculator.md** (line 937): c-card → card
+- **docs/tools/capacity-calculator.md** (line 942): c-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 280): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 281): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 281): pattern-card__title → card__title
+- **docs/case-studies/amazon-dynamo.md** (line 282): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 284): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 285): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 285): pattern-card__title → card__title
+- **docs/case-studies/amazon-dynamo.md** (line 286): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 288): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 289): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 289): pattern-card__title → card__title
+- **docs/case-studies/amazon-dynamo.md** (line 290): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 292): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 293): pattern-card → card
+- **docs/case-studies/amazon-dynamo.md** (line 293): pattern-card__title → card__title
+- **docs/case-studies/amazon-dynamo.md** (line 294): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 287): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 288): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 288): pattern-card__title → card__title
+- **docs/case-studies/uber-location.md** (line 289): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 291): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 292): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 292): pattern-card__title → card__title
+- **docs/case-studies/uber-location.md** (line 293): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 295): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 296): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 296): pattern-card__title → card__title
+- **docs/case-studies/uber-location.md** (line 297): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 299): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 300): pattern-card → card
+- **docs/case-studies/uber-location.md** (line 300): pattern-card__title → card__title
+- **docs/case-studies/uber-location.md** (line 301): pattern-card → card
+- **docs/case-studies/kafka.md** (line 277): pattern-card → card
+- **docs/case-studies/kafka.md** (line 278): pattern-card → card
+- **docs/case-studies/kafka.md** (line 278): pattern-card__title → card__title
+- **docs/case-studies/kafka.md** (line 279): pattern-card → card
+- **docs/case-studies/kafka.md** (line 281): pattern-card → card
+- **docs/case-studies/kafka.md** (line 282): pattern-card → card
+- **docs/case-studies/kafka.md** (line 282): pattern-card__title → card__title
+- **docs/case-studies/kafka.md** (line 283): pattern-card → card
+- **docs/case-studies/kafka.md** (line 285): pattern-card → card
+- **docs/case-studies/kafka.md** (line 286): pattern-card → card
+- **docs/case-studies/kafka.md** (line 286): pattern-card__title → card__title
+- **docs/case-studies/kafka.md** (line 287): pattern-card → card
+- **docs/case-studies/kafka.md** (line 289): pattern-card → card
+- **docs/case-studies/kafka.md** (line 290): pattern-card → card
+- **docs/case-studies/kafka.md** (line 290): pattern-card__title → card__title
+- **docs/case-studies/kafka.md** (line 291): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 280): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 281): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 281): pattern-card__title → card__title
+- **docs/case-studies/redis-architecture.md** (line 282): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 284): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 285): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 285): pattern-card__title → card__title
+- **docs/case-studies/redis-architecture.md** (line 286): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 288): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 289): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 289): pattern-card__title → card__title
+- **docs/case-studies/redis-architecture.md** (line 290): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 292): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 293): pattern-card → card
+- **docs/case-studies/redis-architecture.md** (line 293): pattern-card__title → card__title
+- **docs/case-studies/redis-architecture.md** (line 294): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 288): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 289): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 289): pattern-card__title → card__title
+- **docs/case-studies/google-spanner.md** (line 290): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 292): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 293): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 293): pattern-card__title → card__title
+- **docs/case-studies/google-spanner.md** (line 294): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 296): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 297): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 297): pattern-card__title → card__title
+- **docs/case-studies/google-spanner.md** (line 298): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 300): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 301): pattern-card → card
+- **docs/case-studies/google-spanner.md** (line 301): pattern-card__title → card__title
+- **docs/case-studies/google-spanner.md** (line 302): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 281): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 282): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 282): pattern-card__title → card__title
+- **docs/case-studies/netflix-streaming.md** (line 283): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 285): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 286): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 286): pattern-card__title → card__title
+- **docs/case-studies/netflix-streaming.md** (line 287): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 289): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 290): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 290): pattern-card__title → card__title
+- **docs/case-studies/netflix-streaming.md** (line 291): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 293): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 294): pattern-card → card
+- **docs/case-studies/netflix-streaming.md** (line 294): pattern-card__title → card__title
+- **docs/case-studies/netflix-streaming.md** (line 295): pattern-card → card
+
+## Hard-coded Values to Replace
+- **docs/stylesheets/laws.css** (line 9): padding: 2rem → padding: var(--space-8)
+- **docs/stylesheets/laws.css** (line 15): font-size: 1.2rem → font-size: var(--font-size-xl)
+- **docs/stylesheets/laws.css** (line 23): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 24): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 31): font-size: 1.1rem → font-size: var(--font-size-lg)
+- **docs/stylesheets/laws.css** (line 43): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 44): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 57): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 58): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 76): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 77): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 90): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 91): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 115): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 116): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 129): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 130): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 148): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 149): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 162): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 163): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 176): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 177): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 190): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 191): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 200): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 201): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 209): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/laws.css** (line 210): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 217): margin: 1rem → margin: var(--space-4)
+- **docs/stylesheets/laws.css** (line 223): padding: 0.75rem → padding: var(--space-3)
+- **docs/stylesheets/laws.css** (line 228): padding: 0.75rem → padding: var(--space-3)
+- **docs/stylesheets/laws.css** (line 259): padding: 2rem → padding: var(--space-8)
+- **docs/stylesheets/laws.css** (line 260): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 277): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/laws.css** (line 278): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/laws.css** (line 284): margin: 3rem → margin: var(--space-12)
+- **docs/stylesheets/laws.css** (line 294): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/laws.css** (line 299): padding: 0.5rem → padding: var(--space-2)
+- **docs/stylesheets/modular.css** (line 45): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/modular.css** (line 46): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/modular.css** (line 53): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/modular.css** (line 71): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/modular.css** (line 86): font-size: 1.25rem → font-size: var(--font-size-xl)
+- **docs/stylesheets/modular.css** (line 140): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 8): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 9): margin: 0.5rem → margin: var(--space-2)
+- **docs/stylesheets/pattern-explorer.css** (line 38): padding: 0.25rem → padding: var(--space-1)
+- **docs/stylesheets/pattern-explorer.css** (line 40): font-size: 0.875rem → font-size: var(--font-size-sm)
+- **docs/stylesheets/pattern-explorer.css** (line 42): margin: 0.25rem → margin: var(--space-1)
+- **docs/stylesheets/pattern-explorer.css** (line 94): padding: 2rem → padding: var(--space-8)
+- **docs/stylesheets/pattern-explorer.css** (line 95): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/pattern-explorer.css** (line 100): padding: 0.75rem → padding: var(--space-3)
+- **docs/stylesheets/pattern-explorer.css** (line 125): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 126): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 129): margin: 1rem → margin: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 134): font-size: 1.5rem → font-size: var(--font-size-2xl)
+- **docs/stylesheets/pattern-explorer.css** (line 140): gap: 0.5rem → gap: var(--space-2)
+- **docs/stylesheets/pattern-explorer.css** (line 141): padding: 0.5rem → padding: var(--space-2)
+- **docs/stylesheets/pattern-explorer.css** (line 144): font-size: 0.875rem → font-size: var(--font-size-sm)
+- **docs/stylesheets/pattern-explorer.css** (line 151): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 181): padding: 2rem → padding: var(--space-8)
+- **docs/stylesheets/pattern-explorer.css** (line 197): padding: 0.75rem → padding: var(--space-3)
+- **docs/stylesheets/pattern-explorer.css** (line 213): margin: 0.25rem → margin: var(--space-1)
+- **docs/stylesheets/pattern-explorer.css** (line 227): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 263): padding: 0.5rem → padding: var(--space-2)
+- **docs/stylesheets/pattern-explorer.css** (line 265): font-size: 0.875rem → font-size: var(--font-size-sm)
+- **docs/stylesheets/pattern-explorer.css** (line 280): gap: 0.5rem → gap: var(--space-2)
+- **docs/stylesheets/pattern-explorer.css** (line 281): margin: 0.5rem → margin: var(--space-2)
+- **docs/stylesheets/pattern-explorer.css** (line 302): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 303): margin: 1rem → margin: var(--space-4)
+- **docs/stylesheets/pattern-explorer.css** (line 308): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/overrides.css** (line 38): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/overrides.css** (line 44): padding: 0.75rem → padding: var(--space-3)
+- **docs/stylesheets/extra.css** (line 11): padding: 3rem → padding: var(--space-12)
+- **docs/stylesheets/extra.css** (line 37): font-size: 2.5rem → font-size: var(--font-size-4xl)
+- **docs/stylesheets/extra.css** (line 45): font-size: 1.2rem → font-size: var(--font-size-xl)
+- **docs/stylesheets/extra.css** (line 56): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/extra.css** (line 60): font-size: 1.1rem → font-size: var(--font-size-lg)
+- **docs/stylesheets/extra.css** (line 77): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/extra.css** (line 78): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 83): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/extra.css** (line 94): font-size: 2.5rem → font-size: var(--font-size-4xl)
+- **docs/stylesheets/extra.css** (line 111): gap: 2rem → gap: var(--space-8)
+- **docs/stylesheets/extra.css** (line 112): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 117): padding: 2rem → padding: var(--space-8)
+- **docs/stylesheets/extra.css** (line 135): font-size: 1.2rem → font-size: var(--font-size-xl)
+- **docs/stylesheets/extra.css** (line 150): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/extra.css** (line 151): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 157): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 174): font-size: 2.5rem → font-size: var(--font-size-4xl)
+- **docs/stylesheets/extra.css** (line 179): margin: 0.5rem → margin: var(--space-2)
+- **docs/stylesheets/extra.css** (line 180): font-size: 1.1rem → font-size: var(--font-size-lg)
+- **docs/stylesheets/extra.css** (line 185): margin: 0.25rem → margin: var(--space-1)
+- **docs/stylesheets/extra.css** (line 193): padding: 0.25rem → padding: var(--space-1)
+- **docs/stylesheets/extra.css** (line 202): margin: 1rem → margin: var(--space-4)
+- **docs/stylesheets/extra.css** (line 210): padding: 0.75rem → padding: var(--space-3)
+- **docs/stylesheets/extra.css** (line 225): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/extra.css** (line 226): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 230): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 244): font-size: 1.1rem → font-size: var(--font-size-lg)
+- **docs/stylesheets/extra.css** (line 260): gap: 0.25rem → gap: var(--space-1)
+- **docs/stylesheets/extra.css** (line 274): padding: 2rem → padding: var(--space-8)
+- **docs/stylesheets/extra.css** (line 277): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 282): font-size: 2.5rem → font-size: var(--font-size-4xl)
+- **docs/stylesheets/extra.css** (line 288): font-size: 1.2rem → font-size: var(--font-size-xl)
+- **docs/stylesheets/extra.css** (line 296): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 303): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/extra.css** (line 304): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 310): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 349): padding: 0.75rem → padding: var(--space-3)
+- **docs/stylesheets/extra.css** (line 351): margin: 1rem → margin: var(--space-4)
+- **docs/stylesheets/extra.css** (line 356): margin: 1rem → margin: var(--space-4)
+- **docs/stylesheets/extra.css** (line 362): padding: 0.5rem → padding: var(--space-2)
+- **docs/stylesheets/extra.css** (line 367): padding: 0.5rem → padding: var(--space-2)
+- **docs/stylesheets/extra.css** (line 375): padding: 0.75rem → padding: var(--space-3)
+- **docs/stylesheets/extra.css** (line 390): margin: 3rem → margin: var(--space-12)
+- **docs/stylesheets/extra.css** (line 396): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/extra.css** (line 397): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 403): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/extra.css** (line 436): margin: 0.25rem → margin: var(--space-1)
+- **docs/stylesheets/extra.css** (line 443): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 444): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 457): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/extra.css** (line 458): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 464): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/extra.css** (line 471): font-size: 1.1rem → font-size: var(--font-size-lg)
+- **docs/stylesheets/extra.css** (line 492): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 496): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 507): gap: 1rem → gap: var(--space-4)
+- **docs/stylesheets/extra.css** (line 514): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/extra.css** (line 530): font-size: 2rem → font-size: var(--font-size-3xl)
+- **docs/stylesheets/extra.css** (line 536): font-size: 1rem → font-size: var(--font-size-base)
+- **docs/stylesheets/extra.css** (line 550): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/extra.css** (line 551): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 557): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 570): font-size: 1.2rem → font-size: var(--font-size-xl)
+- **docs/stylesheets/extra.css** (line 582): gap: 0.5rem → gap: var(--space-2)
+- **docs/stylesheets/extra.css** (line 583): margin: 1rem → margin: var(--space-4)
+- **docs/stylesheets/extra.css** (line 589): padding: 0.25rem → padding: var(--space-1)
+- **docs/stylesheets/extra.css** (line 609): gap: 2rem → gap: var(--space-8)
+- **docs/stylesheets/extra.css** (line 610): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 615): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 644): margin: 0.5rem → margin: var(--space-2)
+- **docs/stylesheets/extra.css** (line 652): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/extra.css** (line 653): margin: 3rem → margin: var(--space-12)
+- **docs/stylesheets/extra.css** (line 660): padding: 2rem → padding: var(--space-8)
+- **docs/stylesheets/extra.css** (line 696): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/extra.css** (line 700): font-size: 1.1rem → font-size: var(--font-size-lg)
+- **docs/stylesheets/extra.css** (line 738): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/extra.css** (line 739): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 745): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/extra.css** (line 752): font-size: 1.1rem → font-size: var(--font-size-lg)
+- **docs/stylesheets/extra.css** (line 761): margin: 0.5rem → margin: var(--space-2)
+- **docs/stylesheets/extra.css** (line 768): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/extra.css** (line 769): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 775): padding: 1rem → padding: var(--space-4)
+- **docs/stylesheets/extra.css** (line 782): font-size: 1.1rem → font-size: var(--font-size-lg)
+- **docs/stylesheets/extra.css** (line 791): margin: 0.5rem → margin: var(--space-2)
+- **docs/stylesheets/extra.css** (line 798): padding: 3rem → padding: var(--space-12)
+- **docs/stylesheets/extra.css** (line 808): font-size: 2.5rem → font-size: var(--font-size-4xl)
+- **docs/stylesheets/extra.css** (line 814): font-size: 1.2rem → font-size: var(--font-size-xl)
+- **docs/stylesheets/extra.css** (line 819): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 830): padding: 0.25rem → padding: var(--space-1)
+- **docs/stylesheets/extra.css** (line 874): font-size: 2rem → font-size: var(--font-size-3xl)
+- **docs/stylesheets/extra.css** (line 878): font-size: 1rem → font-size: var(--font-size-base)
+- **docs/stylesheets/extra.css** (line 886): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/extra.css** (line 887): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 894): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 907): font-size: 1.25rem → font-size: var(--font-size-xl)
+- **docs/stylesheets/extra.css** (line 931): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 933): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 939): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 941): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 947): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 949): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 955): padding: 1.5rem → padding: var(--space-6)
+- **docs/stylesheets/extra.css** (line 957): margin: 1.5rem → margin: var(--space-6)
+- **docs/stylesheets/extra.css** (line 964): gap: 1.5rem → gap: var(--space-6)
+- **docs/stylesheets/extra.css** (line 965): margin: 2rem → margin: var(--space-8)
+- **docs/stylesheets/extra.css** (line 969): padding: 1.5rem → padding: var(--space-6)
+
+## !important Declarations to Remove
+- **docs/stylesheets/design-system.css** (line 116): font-size: 14px !important;
+- **docs/stylesheets/design-system.css** (line 120): font-size: 14px !important;
+- **docs/stylesheets/design-system.css** (line 125): font-size: var(--font-size-base) !important;
+- **docs/stylesheets/design-system.css** (line 608): animation-duration: 0.01ms !important;
+- **docs/stylesheets/design-system.css** (line 609): animation-iteration-count: 1 !important;
+- **docs/stylesheets/design-system.css** (line 610): transition-duration: 0.01ms !important;
+- **docs/stylesheets/modular.css** (line 172): .mt-0 { margin-top: 0 !important; }
+- **docs/stylesheets/modular.css** (line 173): .mt-1 { margin-top: var(--space-xs) !important; }
+- **docs/stylesheets/modular.css** (line 174): .mt-2 { margin-top: var(--space-sm) !important; }
+- **docs/stylesheets/modular.css** (line 175): .mt-3 { margin-top: var(--space-md) !important; }
+- **docs/stylesheets/modular.css** (line 176): .mt-4 { margin-top: var(--space-lg) !important; }
+- **docs/stylesheets/modular.css** (line 177): .mt-5 { margin-top: var(--space-xl) !important; }
+- **docs/stylesheets/modular.css** (line 179): .mb-0 { margin-bottom: 0 !important; }
+- **docs/stylesheets/modular.css** (line 180): .mb-1 { margin-bottom: var(--space-xs) !important; }
+- **docs/stylesheets/modular.css** (line 181): .mb-2 { margin-bottom: var(--space-sm) !important; }
+- **docs/stylesheets/modular.css** (line 182): .mb-3 { margin-bottom: var(--space-md) !important; }
+- **docs/stylesheets/modular.css** (line 183): .mb-4 { margin-bottom: var(--space-lg) !important; }
+- **docs/stylesheets/modular.css** (line 184): .mb-5 { margin-bottom: var(--space-xl) !important; }
+- **docs/stylesheets/modular.css** (line 187): .text-center { text-align: center !important; }
+- **docs/stylesheets/modular.css** (line 188): .text-right { text-align: right !important; }
+- **docs/stylesheets/modular.css** (line 191): .w-100 { width: 100% !important; }
+- **docs/stylesheets/overrides.css** (line 14): display: none !important;
+- **docs/stylesheets/overrides.css** (line 79): display: none !important;
+- **docs/stylesheets/overrides.css** (line 380): animation: none !important;
+- **docs/stylesheets/overrides.css** (line 381): transition: none !important;
+- **docs/stylesheets/extra.css** (line 374): color: var(--text-on-primary) !important;
+- **docs/stylesheets/extra.css** (line 377): text-decoration: none !important;
+- **docs/stylesheets/extra.css** (line 385): color: var(--text-on-primary) !important;
+- **docs/stylesheets/extra.css** (line 518): text-decoration: none !important;
+- **docs/stylesheets/extra.css** (line 698): text-decoration: none !important;
+- **docs/stylesheets/extra.css** (line 706): color: white !important;
+- **docs/stylesheets/extra.css** (line 716): color: white !important;
+- **docs/stylesheets/extra.css** (line 726): color: white !important;
+- **docs/stylesheets/extra.css** (line 806): color: white !important;
+
+## Tables Missing Responsive Class
+- **docs/amazon-interviews/index.md** (line 28): <table> without responsive-table class
+- **docs/amazon-interviews/index.md** (line 93): <table> without responsive-table class
+- **docs/amazon-interviews/index.md** (line 149): <table> without responsive-table class
+- **docs/amazon-interviews/index.md** (line 230): <table> without responsive-table class
+- **docs/amazon-interviews/index.md** (line 302): <table> without responsive-table class
+- **docs/amazon-interviews/index.md** (line 347): <table> without responsive-table class
+- **docs/amazon-interviews/index.md** (line 411): <table> without responsive-table class
+- **docs/amazon-interviews/index.md** (line 480): <table> without responsive-table class
+- **docs/patterns/leader-follower.md** (line 131): <table> without responsive-table class
+- **docs/patterns/leader-follower.md** (line 356): <table> without responsive-table class
+- **docs/patterns/logical-clocks.md** (line 369): <table> without responsive-table class
+- **docs/patterns/websocket.md** (line 87): <table> without responsive-table class
+- **docs/patterns/websocket.md** (line 548): <table> without responsive-table class
+- **docs/patterns/lsm-tree.md** (line 282): <table> without responsive-table class
+- **docs/patterns/lsm-tree.md** (line 482): <table> without responsive-table class
+- **docs/patterns/wal.md** (line 288): <table> without responsive-table class
+- **docs/patterns/wal.md** (line 398): <table> without responsive-table class
+- **docs/patterns/event-streaming.md** (line 505): <table> without responsive-table class
+- **docs/patterns/clock-sync.md** (line 427): <table> without responsive-table class
+- **docs/patterns/clock-sync.md** (line 515): <table> without responsive-table class
+- **docs/patterns/finops.md** (line 58): <table> without responsive-table class
+- **docs/patterns/finops.md** (line 181): <table> without responsive-table class
+- **docs/patterns/finops.md** (line 475): <table> without responsive-table class
+- **docs/patterns/finops.md** (line 763): <table> without responsive-table class
+- **docs/patterns/finops.md** (line 1007): <table> without responsive-table class
+- **docs/patterns/finops.md** (line 1098): <table> without responsive-table class
+- **docs/patterns/finops.md** (line 1133): <table> without responsive-table class
+- **docs/patterns/finops.md** (line 1214): <table> without responsive-table class
+- **docs/pillars/index.md** (line 161): <table> without responsive-table class
+- **docs/reference/index.md** (line 130): <table> without responsive-table class
+- **docs/google-interviews/time-allocation-calculator.md** (line 176): <table> without responsive-table class
+- **docs/google-interviews/index.md** (line 50): <table> without responsive-table class
+- **docs/google-interviews/index.md** (line 237): <table> without responsive-table class
+- **docs/google-interviews/index.md** (line 451): <table> without responsive-table class
+- **docs/google-interviews/index.md** (line 507): <table> without responsive-table class
+- **docs/google-interviews/index.md** (line 802): <table> without responsive-table class
+- **docs/google-interviews/interview-comparison.md** (line 6): <table> without responsive-table class
+- **docs/google-interviews/interview-comparison.md** (line 104): <table> without responsive-table class
+- **docs/google-interviews/interview-comparison.md** (line 238): <table> without responsive-table class
+- **docs/google-interviews/interview-comparison.md** (line 284): <table> without responsive-table class
+- **docs/google-interviews/visual-cheatsheets.md** (line 55): <table> without responsive-table class
+- **docs/google-interviews/visual-cheatsheets.md** (line 274): <table> without responsive-table class
+- **docs/google-interviews/visual-cheatsheets.md** (line 448): <table> without responsive-table class
+- **docs/google-interviews/focus-selector.md** (line 39): <table> without responsive-table class
+- **docs/google-interviews/focus-selector.md** (line 212): <table> without responsive-table class
+- **docs/google-interviews/common-mistakes.md** (line 73): <table> without responsive-table class
+- **docs/google-interviews/common-mistakes.md** (line 218): <table> without responsive-table class
+- **docs/google-interviews/common-mistakes.md** (line 377): <table> without responsive-table class
+- **docs/google-interviews/common-mistakes.md** (line 456): <table> without responsive-table class
+- **docs/google-interviews/common-mistakes.md** (line 592): <table> without responsive-table class
+- **docs/google-interviews/common-mistakes.md** (line 967): <table> without responsive-table class
+- **docs/google-interviews/common-mistakes.md** (line 1055): <table> without responsive-table class
+- **docs/google-interviews/preparation-guide.md** (line 39): <table> without responsive-table class
+- **docs/google-interviews/preparation-guide.md** (line 267): <table> without responsive-table class
+- **docs/google-interviews/preparation-guide.md** (line 413): <table> without responsive-table class
+- **docs/google-interviews/preparation-guide.md** (line 546): <table> without responsive-table class
+- **docs/google-interviews/preparation-guide.md** (line 700): <table> without responsive-table class
+- **docs/google-interviews/preparation-roadmap.md** (line 43): <table> without responsive-table class
+- **docs/google-interviews/preparation-roadmap.md** (line 269): <table> without responsive-table class
+- **docs/google-interviews/preparation-roadmap.md** (line 472): <table> without responsive-table class
+- **docs/quantitative/coordination-costs.md** (line 23): <table> without responsive-table class
+- **docs/quantitative/coordination-costs.md** (line 65): <table> without responsive-table class
+- **docs/quantitative/coordination-costs.md** (line 127): <table> without responsive-table class
+- **docs/quantitative/coordination-costs.md** (line 145): <table> without responsive-table class
+- **docs/quantitative/coordination-costs.md** (line 217): <table> without responsive-table class
+- **docs/quantitative/coordination-costs.md** (line 278): <table> without responsive-table class
+- **docs/quantitative/failure-models.md** (line 321): <table> without responsive-table class
+- **docs/quantitative/reliability-theory.md** (line 27): <table> without responsive-table class
+- **docs/quantitative/reliability-theory.md** (line 461): <table> without responsive-table class
+- **docs/quantitative/availability-math.md** (line 103): <table> without responsive-table class
+- **docs/quantitative/queueing-models.md** (line 85): <table> without responsive-table class
+- **docs/quantitative/queueing-models.md** (line 233): <table> without responsive-table class
+- **docs/quantitative/queueing-models.md** (line 327): <table> without responsive-table class
+- **docs/quantitative/queueing-models.md** (line 412): <table> without responsive-table class
+- **docs/quantitative/latency-ladder.md** (line 41): <table> without responsive-table class
+- **docs/quantitative/latency-ladder.md** (line 162): <table> without responsive-table class
+- **docs/quantitative/latency-ladder.md** (line 278): <table> without responsive-table class
+- **docs/quantitative/performance-modeling.md** (line 69): <table> without responsive-table class
+- **docs/quantitative/performance-modeling.md** (line 105): <table> without responsive-table class
+- **docs/quantitative/performance-modeling.md** (line 321): <table> without responsive-table class
+- **docs/quantitative/littles-law.md** (line 252): <table> without responsive-table class
+- **docs/quantitative/littles-law.md** (line 429): <table> without responsive-table class
+- **docs/quantitative/littles-law.md** (line 497): <table> without responsive-table class
+- **docs/quantitative/littles-law.md** (line 540): <table> without responsive-table class
+- **docs/quantitative/littles-law.md** (line 703): <table> without responsive-table class
+- **docs/quantitative/littles-law.md** (line 842): <table> without responsive-table class
+- **docs/quantitative/consistency-models.md** (line 406): <table> without responsive-table class
+- **docs/quantitative/cache-economics.md** (line 28): <table> without responsive-table class
+- **docs/quantitative/cache-economics.md** (line 59): <table> without responsive-table class
+- **docs/quantitative/cache-economics.md** (line 85): <table> without responsive-table class
+- **docs/quantitative/cache-economics.md** (line 117): <table> without responsive-table class
+- **docs/quantitative/cache-economics.md** (line 328): <table> without responsive-table class
+- **docs/quantitative/cache-economics.md** (line 397): <table> without responsive-table class
+- **docs/quantitative/cache-economics.md** (line 519): <table> without responsive-table class
+- **docs/quantitative/cache-economics.md** (line 528): <table> without responsive-table class
+- **docs/quantitative/amdahl-gustafson.md** (line 25): <table> without responsive-table class
+- **docs/quantitative/amdahl-gustafson.md** (line 70): <table> without responsive-table class
+- **docs/quantitative/amdahl-gustafson.md** (line 199): <table> without responsive-table class
+- **docs/quantitative/amdahl-gustafson.md** (line 276): <table> without responsive-table class
+- **docs/quantitative/amdahl-gustafson.md** (line 494): <table> without responsive-table class
+- **docs/quantitative/amdahl-gustafson.md** (line 509): <table> without responsive-table class
+- **docs/quantitative/amdahl-gustafson.md** (line 528): <table> without responsive-table class
+- **docs/quantitative/network-theory.md** (line 57): <table> without responsive-table class
+- **docs/quantitative/network-theory.md** (line 339): <table> without responsive-table class
+- **docs/quantitative/universal-scalability.md** (line 27): <table> without responsive-table class
+- **docs/quantitative/universal-scalability.md** (line 218): <table> without responsive-table class
+- **docs/quantitative/capacity-planning.md** (line 27): <table> without responsive-table class
+- **docs/quantitative/capacity-planning.md** (line 35): <table> without responsive-table class
+- **docs/quantitative/capacity-planning.md** (line 129): <table> without responsive-table class
+- **docs/quantitative/capacity-planning.md** (line 321): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 654): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 676): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 758): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 780): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 827): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 918): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 980): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1033): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1121): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1236): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1312): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1405): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1479): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1550): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1589): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1643): <table> without responsive-table class
+- **docs/part2-pillars/work/index.md** (line 1696): <table> without responsive-table class
+- **docs/tools/availability-calculator.md** (line 104): <table> without responsive-table class
+- **docs/tools/availability-calculator.md** (line 353): <table> without responsive-table class
+- **docs/tools/availability-calculator.md** (line 403): <table> without responsive-table class
+- **docs/tools/consistency-calculator.md** (line 190): <table> without responsive-table class
+- **docs/tools/cost-optimizer.md** (line 523): <table> without responsive-table class
+- **docs/tools/capacity-calculator.md** (line 527): <table> without responsive-table class
+- **docs/tools/throughput-calculator.md** (line 311): <table> without responsive-table class
+- **docs/tools/throughput-calculator.md** (line 372): <table> without responsive-table class

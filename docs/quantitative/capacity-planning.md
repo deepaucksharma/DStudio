@@ -24,7 +24,7 @@ last_updated: 2025-07-20
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
     <div>
       <strong>Traffic Metrics:</strong>
-      <table style="width: 100%; margin-top: 10px;">
+      <table class="responsive-table" style="width: 100%; margin-top: 10px;">
         <tr><td>Peak traffic:</td><td style="border-bottom: 1px solid #999; text-align: center;">_______</td><td>req/s</td></tr>
         <tr><td>Average traffic:</td><td style="border-bottom: 1px solid #999; text-align: center;">_______</td><td>req/s</td></tr>
         <tr><td>Peak/Average ratio:</td><td style="border-bottom: 1px solid #999; text-align: center;">_______</td><td>x</td></tr>
@@ -32,7 +32,7 @@ last_updated: 2025-07-20
     </div>
     <div>
       <strong>Growth & Storage:</strong>
-      <table style="width: 100%; margin-top: 10px;">
+      <table class="responsive-table" style="width: 100%; margin-top: 10px;">
         <tr><td>Storage used:</td><td style="border-bottom: 1px solid #999; text-align: center;">_______</td><td>GB</td></tr>
         <tr><td>Growth rate:</td><td style="border-bottom: 1px solid #999; text-align: center;">_______</td><td>% monthly</td></tr>
         <tr><td>Retention:</td><td style="border-bottom: 1px solid #999; text-align: center;">_______</td><td>days</td></tr>
@@ -126,7 +126,7 @@ last_updated: 2025-07-20
 
 <div class="growth-calculator" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
   <strong>Interactive Growth Calculator:</strong>
-  <table style="width: 100%; margin-top: 10px;">
+  <table class="responsive-table" style="width: 100%; margin-top: 10px;">
     <tr>
       <td>Current value:</td>
       <td><input type="text" style="width: 100px; border-bottom: 1px solid #999;"/></td>
@@ -318,7 +318,8 @@ Horizontal: 10→15 instances
 </div>
 
 <div class="planning-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
-  <table style="width: 100%; text-align: center;">
+  <table class="responsive-table" style="width: 100%; text-align: center;">
+  <thead>
     <tr style="background: #E0E0E0;">
       <th>Month</th>
       <th>Traffic</th>
@@ -327,39 +328,42 @@ Horizontal: 10→15 instances
       <th>Monthly Cost</th>
       <th>Action Required</th>
     </tr>
+  </thead>
+  <tbody>
     <tr style="background: #E8F5E9;">
-      <td>0</td>
-      <td>1,000 rps</td>
-      <td>800 cores</td>
-      <td>100</td>
-      <td>$10k</td>
-      <td>✅ Current state</td>
+      <td data-label="Month">0</td>
+      <td data-label="Traffic">1,000 rps</td>
+      <td data-label="CPU Need">800 cores</td>
+      <td data-label="Instances">100</td>
+      <td data-label="Monthly Cost">$10k</td>
+      <td data-label="Action Required">✅ Current state</td>
     </tr>
     <tr>
-      <td>3</td>
-      <td>1,500 rps</td>
-      <td>1,200 cores</td>
-      <td>150</td>
-      <td>$15k</td>
-      <td>⚡ Scale horizontally</td>
+      <td data-label="Month">3</td>
+      <td data-label="Traffic">1,500 rps</td>
+      <td data-label="CPU Need">1,200 cores</td>
+      <td data-label="Instances">150</td>
+      <td data-label="Monthly Cost">$15k</td>
+      <td data-label="Action Required">⚡ Scale horizontally</td>
     </tr>
     <tr style="background: #FFE0B2;">
-      <td>6</td>
-      <td>2,250 rps</td>
-      <td>1,800 cores</td>
-      <td>225</td>
-      <td>$22k</td>
-      <td>🔧 Architecture review</td>
+      <td data-label="Month">6</td>
+      <td data-label="Traffic">2,250 rps</td>
+      <td data-label="CPU Need">1,800 cores</td>
+      <td data-label="Instances">225</td>
+      <td data-label="Monthly Cost">$22k</td>
+      <td data-label="Action Required">🔧 Architecture review</td>
     </tr>
     <tr style="background: #FFCDD2;">
-      <td>12</td>
-      <td>5,000 rps</td>
-      <td>4,000 cores</td>
-      <td>500</td>
-      <td>$50k</td>
-      <td>🚨 Major redesign</td>
+      <td data-label="Month">12</td>
+      <td data-label="Traffic">5,000 rps</td>
+      <td data-label="CPU Need">4,000 cores</td>
+      <td data-label="Instances">500</td>
+      <td data-label="Monthly Cost">$50k</td>
+      <td data-label="Action Required">🚨 Major redesign</td>
     </tr>
-  </table>
+  </tbody>
+</table>
 </div>
 
 <div class="decision-point" style="background: #FFE0B2; padding: 15px; margin-top: 15px; border-left: 4px solid #FF5722;">

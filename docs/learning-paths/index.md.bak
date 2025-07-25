@@ -2,7 +2,7 @@
 
 # 🎓 Learning Paths Guide
 
-## 🗺️ Navigate Your Distributed Systems Journey
+## 🗺 Navigate Your Distributed Systems Journey
 
 This guide helps you navigate the enhanced documentation based on your role, experience level, and learning goals.
 
@@ -33,7 +33,7 @@ graph TD
 
 ---
 
-## 🎯 Quick Start by Role
+## Quick Start by Role
 
 ### 👨‍🎓 New Graduate / Junior Engineer
 **Goal**: Build strong foundations in distributed systems
@@ -69,17 +69,17 @@ graph LR
 1. **Day 1-2**: Start with [Law 1: Failure](part1-axioms/law1-failure/index.md)
    - 📖 Read theory (2 hours)
    - 👀 Study cascading failure examples (2 hours)
-   - 💻 Complete hands-on exercises (4 hours)
+   - Complete hands-on exercises (4 hours)
    
 2. **Day 3-8**: Progress through Laws 2-4:
-   - [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index.md) - ⏳ Time has no meaning
-   - [Law 3: Emergence](part1-axioms/law3-emergence/index.md) - 🌪️ Chaos from scale
-   - [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index.md) - ⚖️ Beyond CAP
+   - [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index.md) - Time has no meaning
+   - [Law 3: Emergence](part1-axioms/law3-emergence/index.md) - Chaos from scale
+   - [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index.md) - Beyond CAP
    
    **Learning Strategy**:
-   - 🎯 Focus on examples sections first
-   - 🧪 Try exercises after understanding concepts
-   - 📝 Take notes on key insights
+   - Focus on examples sections first
+   - Try exercises after understanding concepts
+   - Take notes on key insights
 
 #### Week 3-4: Practical Application
 1. Study [Rate Limiter Case Study](case-studies/rate-limiter.md)
@@ -95,7 +95,7 @@ graph LR
 2. Study [Availability Math](quantitative/availability-math.md)
    - Calculate system reliability
 
-### 👩‍💻 Senior Engineer / Tech Lead
+### 👩‍ Senior Engineer / Tech Lead
 **Goal**: Design better distributed systems
 
 <div class="skill-progression">
@@ -128,19 +128,19 @@ graph TD
 **Daily Time Commitment**: 🕒 2-3 hours
 
 1. **Day 1-2**: Review all [Law Mapping Tables](case-studies/index.md)
-   - 🎯 See how Netflix, Uber, Google apply laws
-   - 📊 Study architecture trade-offs
-   - 💡 Extract patterns from real systems
+   - See how Netflix, Uber, Google apply laws
+   - Study architecture trade-offs
+   - Extract patterns from real systems
    
 2. **Day 3-4**: Deep dive into [Distributed Knowledge](part1-axioms/law5-epistemology/index.md)
-   - 🧠 Understand truth and certainty in distributed systems
-   - 🏛️ Master Byzantine epistemology
-   - 🔍 Apply to consensus protocols
+   - Understand truth and certainty in distributed systems
+   - 🏛 Master Byzantine epistemology
+   - Apply to consensus protocols
    
 3. **Day 5-7**: Master [Economic Reality](part1-axioms/law7-economics/index.md)
-   - 💰 Make cost-aware architecture decisions
-   - 📈 Build TCO models
-   - ⚖️ Balance performance vs cost
+   - Make cost-aware architecture decisions
+   - Build TCO models
+   - Balance performance vs cost
 
 #### Architecture Focus (2 weeks)
 1. Study all case study architecture alternatives:
@@ -165,7 +165,7 @@ graph TD
    - Make informed architecture choices
    - Balance technical and business needs
 
-### 🎯 Solution Architect
+### Solution Architect
 **Goal**: Design systems that meet business requirements
 
 #### Pattern-First Approach (1 week)
@@ -184,7 +184,7 @@ graph TD
 
 ## 📚 Learning Paths by Topic
 
-### 🔄 Path 1: Consistency and Coordination
+### Path 1: Consistency and Coordination
 **For**: Database engineers, financial systems developers
 
 ```mermaid
@@ -207,22 +207,22 @@ journey
 **Learning Milestones**:
 
 1. **Foundation** (🕒 1 week)
-   - ⏳ [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index.md)
-   - 🧠 [Law 5: Epistemology](part1-axioms/law5-epistemology/index.md)
+   - [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index.md)
+   - [Law 5: Epistemology](part1-axioms/law5-epistemology/index.md)
    
 2. **Theory** (🕒 1 week)
    - 🔺 [CAP Theorem implications](part2-pillars/truth/index.md)
-   - 🎨 [Consistency Models](patterns/tunable-consistency.md)
+   - [Consistency Models](patterns/tunable-consistency.md)
    
 3. **Practice** (🕒 2 weeks)
    - 💳 [PayPal Payments](case-studies/paypal-payments.md) - Financial consistency
-   - 📋 [DynamoDB](case-studies/amazon-dynamo.md) - Eventually consistent at scale
+   - [DynamoDB](case-studies/amazon-dynamo.md) - Eventually consistent at scale
    
 4. **Advanced** (🕒 1 week)
-   - 🧪 [Distributed Knowledge Exercises](part1-axioms/law5-epistemology/exercises.md)
-   - 🎯 [Consistency Tuning](human-factors/consistency-tuning.md)
+   - [Distributed Knowledge Exercises](part1-axioms/law5-epistemology/exercises.md)
+   - [Consistency Tuning](human-factors/consistency-tuning.md)
 
-### 🚀 Path 2: Performance and Scale
+### Path 2: Performance and Scale
 **For**: Performance engineers, SREs
 
 1. **Foundation**
@@ -242,7 +242,7 @@ journey
    - [YouTube](case-studies/youtube.md) - Video streaming at scale
    - [Spotify](case-studies/spotify-recommendations.md) - ML at scale
 
-### 💰 Path 3: Cost Optimization
+### Path 3: Cost Optimization
 **For**: FinOps practitioners, Engineering leaders
 
 1. **Foundation**
@@ -260,7 +260,7 @@ journey
    - [Cloud Cost Optimization Strategies](part1-axioms/law7-economics/exercises.md#exercise-3-cloud-cost-optimization-strategies)
    - [Multi-Region Deployment Cost Analysis](part1-axioms/law7-economics/exercises.md#exercise-4-multi-region-deployment-cost-analysis)
 
-### 🛡️ Path 4: Reliability and Resilience
+### Path 4: Reliability and Resilience
 **For**: Site reliability engineers, Platform teams
 
 1. **Foundation**
@@ -283,7 +283,7 @@ journey
 
 ---
 
-## 🎮 Interactive Learning Strategies
+## Interactive Learning Strategies
 
 ### 📖 For Visual Learners
 1. Start with architecture diagrams in case studies
@@ -295,19 +295,19 @@ journey
 2. Build the code examples in patterns
 3. Try the calculators and simulations
 
-### 🎯 For Problem Solvers
+### For Problem Solvers
 1. Start with case studies that match your domain
 2. Analyze the architecture alternatives
 3. Apply decision frameworks to your systems
 
-### 📊 For Analytical Minds
+### For Analytical Minds
 1. Begin with quantitative analysis sections
 2. Work through the mathematical proofs
 3. Build your own cost/performance models
 
 ---
 
-## 📈 Skill Progression Tracker
+## Skill Progression Tracker
 
 ```mermaid
 graph LR
@@ -338,26 +338,26 @@ graph LR
 ```
 
 ### Level 1: Foundation (1-2 months)
-- [ ] 📚 Understand all 7 laws (Correlated Failure ⛓️, Asynchronous Reality ⏳, Emergent Chaos 🌪️, Multidimensional Optimization ⚖️, Distributed Knowledge 🧠, Cognitive Load 🤯, Economic Reality 💰)
-- [ ] 🧪 Complete 50% of law exercises
+- [ ] 📚 Understand all 7 laws (Correlated Failure , Asynchronous Reality , Emergent Chaos , Multidimensional Optimization , Distributed Knowledge , Cognitive Load , Economic Reality )
+- [ ] Complete 50% of law exercises
 - [ ] 📖 Read 5 case studies
-- [ ] 🛠️ Implement 1 pattern
+- [ ] 🛠 Implement 1 pattern
 
 ### Level 2: Practitioner (3-6 months)
 - [ ] ✅ Complete all law exercises
-- [ ] 📊 Analyze all case study trade-offs
-- [ ] 🎨 Implement 5 patterns
-- [ ] 🚀 Apply to real project
+- [ ] Analyze all case study trade-offs
+- [ ] Implement 5 patterns
+- [ ] Apply to real project
 
 ### Level 3: Expert (6-12 months)
-- [ ] 🏗️ Design custom architectures using laws
+- [ ] Design custom architectures using laws
 - [ ] 👨‍🏫 Lead architecture reviews
 - [ ] 🤝 Mentor others using this material
-- [ ] 📝 Contribute improvements
+- [ ] Contribute improvements
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
 <div class="next-steps-grid">
   <div class="step-card">
@@ -394,7 +394,7 @@ graph LR
 !!! tip "Learning Philosophy"
     The goal isn't to read everything, but to understand deeply and apply effectively. The laws are your foundation - everything else builds upon them.
 
-## 🏓️ Learning Velocity Guidelines
+## 🏓 Learning Velocity Guidelines
 
 ```mermaid
 pie title Time Investment by Role
@@ -431,7 +431,7 @@ Happy learning! 🎓
 
 ---
 
-## 🚀 Interactive Learning Journey
+## Interactive Learning Journey
 
 ---
 title: Choose Your Learning Path
@@ -444,7 +444,7 @@ status: complete
 last_updated: 2025-01-23
 ---
 
-# 🎯 Choose Your Learning Path
+# Choose Your Learning Path
 
 <div class="hero-section">
   <h2>Where are you in your distributed systems journey?</h2>
@@ -454,7 +454,7 @@ last_updated: 2025-01-23
 !!! info "Advanced Framework Update"
     This compendium now features an **advanced 7-law framework** that moves beyond basic laws to confront the profound complexity of distributed systems. The learning paths have been updated to reflect this deeper, more nuanced approach suitable for critical system design.
 
-## 🗺️ Visual Learning Roadmap
+## 🗺 Visual Learning Roadmap
 
 ```mermaid
 graph TD
@@ -493,7 +493,7 @@ graph TD
     style Certificate4 fill:#9f9,stroke:#333,stroke-width:2px
 ```
 
-## 🚀 Quick Path Selector
+## Quick Path Selector
 
 <div class="path-selector">
   <div class="path-card beginner">
@@ -599,30 +599,30 @@ graph TD
 
 #### Week 3-4: Essential Patterns
 1. **Resilience First**: 
-   - [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
-   - [Retry with Backoff](../patterns/retry-backoff.md)
-   - [Timeout Pattern](../patterns/timeout.md)
-2. **Case Study**: [How Netflix Handles Failure](../case-studies/netflix-streaming.md)
+   - [Circuit Breaker Pattern](/patterns/circuit-breaker)
+   - [Retry with Backoff](/patterns/retry-backoff)
+   - [Timeout Pattern](/patterns/timeout)
+2. **Case Study**: [How Netflix Handles Failure](/case-studies/netflix-streaming)
 3. **Lab**: Implement circuit breaker for your service
 
 #### Week 5-6: Real Systems
-1. **Study**: [Rate Limiter Design](../case-studies/rate-limiter.md)
-2. **Theory**: [Little's Law](../quantitative/littles-law.md)
+1. **Study**: [Rate Limiter Design](/case-studies/rate-limiter)
+2. **Theory**: [Little's Law](/quantitative/littles-law)
 3. **Project**: Build a distributed chat system
 
 #### Week 7-8: Production Readiness
 1. **Complete the Laws**:
-   - [Distributed Knowledge - Truth is Local](../part1-axioms/law5-epistemology/index.md)
-   - [Cognitive Load - Design for Humans](../part1-axioms/law6-human-api/index.md)
-   - [Economic Reality - Cost Drives Design](../part1-axioms/law7-economics/index.md)
-2. **Operations**: [Observability Basics](../patterns/observability.md)
+   - [Distributed Knowledge - Truth is Local](/part1-axioms/law5-epistemology/)
+   - [Cognitive Load - Design for Humans](/part1-axioms/law6-human-api/)
+   - [Economic Reality - Cost Drives Design](/part1-axioms/law7-economics/)
+2. **Operations**: [Observability Basics](/patterns/observability)
 3. **Capstone**: Deploy your system with monitoring
 
 **Completion Certificate**: Distributed Systems Foundation
 
 ---
 
-### <a name="practitioner-path"></a>🛠️ Practitioner Path: Patterns & Implementation
+### <a name="practitioner-path"></a>🛠 Practitioner Path: Patterns & Implementation
 
 **Goal**: Master practical patterns for building production systems
 
@@ -650,9 +650,9 @@ graph LR
 ```
 
 1. **Consistency Models**:
-   - [CQRS Pattern](../patterns/cqrs.md) - Separate read/write models
-   - [Event Sourcing](../patterns/event-sourcing.md) - Audit trail as primary data
-   - [Saga Pattern](../patterns/saga.md) - Distributed transactions
+   - [CQRS Pattern](/patterns/cqrs) - Separate read/write models
+   - [Event Sourcing](/patterns/event-sourcing) - Audit trail as primary data
+   - [Saga Pattern](/patterns/saga) - Distributed transactions
 2. **Lab**: Implement event-sourced order system
    - Build command & query services
    - Implement event store
@@ -660,30 +660,30 @@ graph LR
 
 #### Week 2: Scaling Patterns
 1. **Horizontal Scaling**:
-   - [Sharding Strategies](../patterns/sharding.md)
-   - [Load Balancing](../patterns/load-balancing.md)
-   - [Auto-Scaling](../patterns/auto-scaling.md)
-2. **Case Study**: [How Uber Scales Globally](../case-studies/uber-location.md)
+   - [Sharding Strategies](/patterns/sharding)
+   - [Load Balancing](/patterns/load-balancing)
+   - [Auto-Scaling](/patterns/auto-scaling)
+2. **Case Study**: [How Uber Scales Globally](/case-studies/uber-location)
 
 #### Week 3: Resilience Engineering
 1. **Advanced Patterns**:
-   - [Bulkhead Isolation](../patterns/bulkhead.md)
-   - [Backpressure Handling](../patterns/backpressure.md)
-   - [Graceful Degradation](../patterns/graceful-degradation.md)
+   - [Bulkhead Isolation](/patterns/bulkhead)
+   - [Backpressure Handling](/patterns/backpressure)
+   - [Graceful Degradation](/patterns/graceful-degradation)
 2. **Exercise**: Chaos engineering workshop
 
 #### Week 4: Modern Architectures
 1. **Cloud-Native Patterns**:
    - Service Mesh (Coming Soon)
-   - [Serverless/FaaS](../patterns/serverless-faas.md)
-   - [Edge Computing](../patterns/edge-computing.md)
+   - [Serverless/FaaS](/patterns/serverless-faas)
+   - [Edge Computing](/patterns/edge-computing)
 2. **Project**: Migrate monolith to microservices
 
 **Completion Certificate**: Distributed Systems Practitioner
 
 ---
 
-### <a name="architect-path"></a>🏗️ Architect Path: Design & Trade-offs
+### <a name="architect-path"></a> Architect Path: Design & Trade-offs
 
 **Goal**: Design large-scale systems with confidence
 
@@ -718,62 +718,62 @@ graph LR
   <span class="skill-node">🌐 Global Scale Design</span>
 </div>
 
-1. **Advanced Framework**: [The 7 Fundamental Laws](../part1-axioms/index.md)
+1. **Advanced Framework**: [The 7 Fundamental Laws](/part1-axioms/)
 2. **Analysis Tools**:
-   - [Multidimensional Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
-   - [Distributed Knowledge & Epistemology](../part1-axioms/law5-epistemology/index.md)
-   - [Trade-off Matrices](../part2-pillars/tradeoff-calculus.md)
+   - [Multidimensional Trade-offs](/part1-axioms/law4-tradeoffs/)
+   - [Distributed Knowledge & Epistemology](/part1-axioms/law5-epistemology/)
+   - [Trade-off Matrices](/part2-pillars/tradeoff-calculus)
 3. **Exercise**: Design a video streaming platform
 
 #### Week 2: Advanced Patterns
 1. **Distributed Coordination**:
-   - [Leader Election](../patterns/leader-election.md)
-   - [Distributed Locks](../patterns/distributed-lock.md)
-   - [Consensus Protocols](../patterns/consensus.md)
-2. **Case Study**: [PayPal's Payment Consistency](../case-studies/paypal-payments.md)
+   - [Leader Election](/patterns/leader-election)
+   - [Distributed Locks](/patterns/distributed-lock)
+   - [Consensus Protocols](/patterns/consensus)
+2. **Case Study**: [PayPal's Payment Consistency](/case-studies/paypal-payments)
 
 #### Week 3: Performance & Economics
 1. **Quantitative Analysis**:
-   - [Queueing Theory](../quantitative/queueing-models.md)
-   - [Capacity Planning](../quantitative/capacity-planning.md)
+   - [Queueing Theory](/quantitative/queueing-models)
+   - [Capacity Planning](/quantitative/capacity-planning)
    - Cost Optimization (Coming Soon)
 2. **Tool**: Use the capacity planning calculator
 
 #### Week 4: Production Excellence
 1. **Operational Architecture**:
-   - [SRE Practices](../human-factors/sre-practices.md)
-   - [Incident Management](../human-factors/incident-response.md)
-   - [Chaos Engineering](../human-factors/chaos-engineering.md)
+   - [SRE Practices](/human-factors/sre-practices)
+   - [Incident Management](/human-factors/incident-response)
+   - [Chaos Engineering](/human-factors/chaos-engineering)
 2. **Capstone**: Present system design to peers
 
 **Completion Certificate**: Distributed Systems Architect
 
 ---
 
-### <a name="leader-path"></a>💼 Leader Path: Strategy & Organization
+### <a name="leader-path"></a> Leader Path: Strategy & Organization
 
 **Goal**: Make strategic technical decisions and lead distributed teams
 
 #### Week 1: Economics & Trade-offs
 1. **Cost Analysis**:
-   - [Economics of Distribution](../part1-axioms/law7-economics/index.md)
-   - [Multidimensional Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
+   - [Economics of Distribution](/part1-axioms/law7-economics/)
+   - [Multidimensional Trade-offs](/part1-axioms/law4-tradeoffs/)
    - FinOps Best Practices (Coming Soon)
 2. **Exercise**: ROI analysis for microservices migration
 
 #### Week 2: Organizational Impact
 1. **Human & Economic Laws**:
-   - [Cognitive Load - Design for Human Minds](../part1-axioms/law6-human-api/index.md)
-   - [Economic Reality - Every Decision Has Cost](../part1-axioms/law7-economics/index.md)
-   - [Conway's Law in Practice](../human-factors/org-structure.md)
-   - [Team Topologies](../human-factors/team-topologies.md)
+   - [Cognitive Load - Design for Human Minds](/part1-axioms/law6-human-api/)
+   - [Economic Reality - Every Decision Has Cost](/part1-axioms/law7-economics/)
+   - [Conway's Law in Practice](/human-factors/org-structure)
+   - [Team Topologies](/human-factors/team-topologies)
 2. **Case Study**: How Amazon organizes teams
 
 **Completion Certificate**: Distributed Systems Leader
 
 ---
 
-## 🎯 Specialized Tracks
+## Specialized Tracks
 
 <div class="specialized-tracks">
   <div class="track-overview">
@@ -809,7 +809,7 @@ graph LR
   <div class="track-modules">
     <div class="module">
       <span class="module-number">1</span>
-      <span class="module-title">[Security Fundamentals](../reference/security.md)</span>
+      <span class="module-title">[Security Fundamentals](/reference/security)</span>
       <span class="module-time">⏱️ 1 week</span>
     </div>
     <div class="module">
@@ -830,13 +830,13 @@ graph LR
   </div>
 </div>
 
-### 📊 Data Engineering Track
+### Data Engineering Track
 <div class="track-card data">
   <h4>Specialize in distributed data systems:</h4>
   <div class="track-modules">
     <div class="module">
       <span class="module-number">1</span>
-      <span class="module-title">[Streaming Architectures](../patterns/queues-streaming.md)</span>
+      <span class="module-title">[Streaming Architectures](/patterns/queues-streaming)</span>
       <span class="module-time">⏱️ 2 weeks</span>
     </div>
     <div class="module">
@@ -884,7 +884,7 @@ graph LR
   </div>
 </div>
 
-### ☁️ Cloud Architecture Track
+### ☁ Cloud Architecture Track
 <div class="track-card cloud">
   <h4>Master cloud-native patterns:</h4>
   <div class="track-modules">
@@ -895,7 +895,7 @@ graph LR
     </div>
     <div class="module">
       <span class="module-number">2</span>
-      <span class="module-title">[Serverless Architectures](../patterns/serverless-faas.md)</span>
+      <span class="module-title">[Serverless Architectures](/patterns/serverless-faas)</span>
       <span class="module-time">⏱️ 2 weeks</span>
     </div>
     <div class="module">
@@ -913,7 +913,7 @@ graph LR
 
 ---
 
-## 📈 Track Your Progress
+## Track Your Progress
 
 <div class="progress-tracker">
   <h3>Your Learning Journey</h3>
@@ -942,7 +942,7 @@ graph LR
   </div>
 </div>
 
-## 🎯 Skill Progression Trees
+## Skill Progression Trees
 
 ```mermaid
 graph LR
@@ -974,7 +974,7 @@ graph LR
     style F3 fill:#e8f5e9,stroke:#4caf50
 ```
 
-## 📊 Prerequisites Decision Tree
+## Prerequisites Decision Tree
 
 ```mermaid
 graph TD
@@ -1006,7 +1006,7 @@ graph TD
 
 ---
 
-## 📊 Learning Analytics Dashboard
+## Learning Analytics Dashboard
 
 <div class="analytics-dashboard">
   <h3>Track Your Progress</h3>

@@ -10,14 +10,14 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 8](index.md) → **Axiom 8: Economic Gradient**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 8](index.md) → **Axiom 8: Economic Gradient**
 
 # Axiom 8: Economic Gradient
 
 ---
 
 
-## 🔥 The Constraint
+## The Constraint
 
 ### The Fundamental Limit
 
@@ -46,7 +46,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 ---
 
-## 💡 Why It Matters
+## Why It Matters
 
 Technical decisions have economic consequences
 
@@ -95,7 +95,7 @@ The constraint is absolute—these misconceptions arise from:
 
 ---
 
-## ⚙️ Practical Implications
+## Practical Implications
 
 How this constraint shapes real system design:
 
@@ -218,7 +218,7 @@ graph LR
 | **Development** | Engineer salaries | Context switching, complexity | 30-50% |
 | **Opportunity** | Time to market | Technical debt, lock-in | ??? |
 
-### 🎬 Failure Vignette: The Serverless Trap
+### Failure Vignette: The Serverless Trap
 
 ```yaml
 The Startup That Almost Died from Success:
@@ -490,7 +490,7 @@ def calculate_multi_region_costs(traffic_patterns):
     optimal_routing = {}
     
     for user_region, traffic in traffic_patterns.items():
-        # Find cheapest region within latency budget
+# Find cheapest region within latency budget
         candidates = get_regions_within_latency(user_region, max_ms=100)
         
         costs = {}
@@ -586,7 +586,7 @@ class ComputeArbitrage:
     
     def __init__(self):
         self.pricing = {
-            # Region -> Instance Type -> Price
+# Region -> Instance Type -> Price
             'us-east-1': {
                 'm5.large': 0.096,
                 'm5.xlarge': 0.192,
@@ -613,7 +613,7 @@ class ComputeArbitrage:
         
         for region, instances in self.pricing.items():
             for instance_type, price in instances.items():
-                # Check if instance meets requirements
+# Check if instance meets requirements
                 if self.meets_requirements(instance_type, requirements):
                     options.append({
                         'region': region,
@@ -691,10 +691,10 @@ class DataLifecycleOptimizer:
     
     def calculate_savings(self, data_volume_gb):
         """Estimate savings from lifecycle policies"""
-        # Before: Everything in hot storage
+# Before: Everything in hot storage
         cost_before = data_volume_gb * 0.30  # $/GB/month
         
-        # After: Tiered storage
+# After: Tiered storage
         hot_percent = 0.10
         warm_percent = 0.20
         cold_percent = 0.70
@@ -732,7 +732,7 @@ class CostAnomalyDetector:
         """Find cost anomalies using multiple methods"""
         anomalies = []
         
-        # Method 1: Statistical deviation
+# Method 1: Statistical deviation
         mean = np.mean(cost_history)
         std = np.std(cost_history)
         threshold = self.sensitivity_levels[sensitivity]['std_dev']
@@ -747,7 +747,7 @@ class CostAnomalyDetector:
                     'method': 'statistical'
                 })
         
-        # Method 2: Percentage change
+# Method 2: Percentage change
         for i in range(1, len(cost_history)):
             change = ((cost_history[i] - cost_history[i-1]) / 
                      cost_history[i-1]) * 100
@@ -843,7 +843,7 @@ class InfrastructureFinance:
         """
         AWS Savings Plans = Options on compute
         """
-        # Similar to buying a call option
+# Similar to buying a call option
         strike_price = usage_forecast * 0.7  # 30% discount
         premium = commitment_term * strike_price
         
@@ -856,11 +856,11 @@ class InfrastructureFinance:
         roi = {}
         for scenario, usage in scenarios.items():
             if usage > strike_price:
-                # In the money
+# In the money
                 savings = (usage - strike_price) * 0.3
                 roi[scenario] = (savings - premium) / premium
             else:
-                # Out of the money
+# Out of the money
                 loss = (strike_price - usage) * 0.7
                 roi[scenario] = -loss / premium
         
@@ -947,16 +947,16 @@ class AutonomousCostOptimizer:
     async def optimize_continuously(self):
         """Real-time cost optimization loop"""
         while True:
-            # 1. Predict next hour's demand
+# 1. Predict next hour's demand
             demand = await self.models['demand_forecast'].predict()
             
-            # 2. Forecast spot prices
+# 2. Forecast spot prices
             prices = await self.models['price_forecast'].predict()
             
-            # 3. Classify workloads by interruptibility
+# 3. Classify workloads by interruptibility
             workloads = await self.models['workload_classifier'].analyze()
             
-            # 4. Optimize placement
+# 4. Optimize placement
             plan = self.models['optimization_engine'].optimize(
                 demand=demand,
                 prices=prices,
@@ -968,10 +968,10 @@ class AutonomousCostOptimizer:
                 }
             )
             
-            # 5. Execute plan
+# 5. Execute plan
             await self.execute_optimization_plan(plan)
             
-            # 6. Learn from results
+# 6. Learn from results
             results = await self.measure_results()
             self.models['optimization_engine'].update(results)
             
@@ -1092,7 +1092,7 @@ Run these commands to find waste:
 # Find unattached EBS volumes
 aws ec2 describe-volumes --filters "Name=status,Values=available"
 
-# Find unused Elastic IPs  
+# Find unused Elastic IPs
 aws ec2 describe-addresses --query 'Addresses[?AssociationId==null]'
 
 # Find old snapshots
@@ -1146,7 +1146,7 @@ Rate your organization (1-5):
 
 ---
 
-**Next**: [Synthesis: Bringing It All Together →](../synthesis.md)
+**Next**: [Synthesis: Bringing It All Together →](/part1-axioms/archive-old-8-axiom-structure/synthesis)
 
 *"The most expensive system is the one that doesn't make money. The second most expensive is the one that costs more to run than it earns."*
 

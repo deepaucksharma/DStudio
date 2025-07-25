@@ -70,7 +70,7 @@ graph TD
 ### 1. Not Thinking at Google Scale
 
 <div class="mistake-comparison">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>❌ Wrong Approach</th>
@@ -80,19 +80,19 @@ graph TD
 </thead>
 <tbody>
 <tr>
-<td>"We'll use a single PostgreSQL database"</td>
-<td>"We'll shard across thousands of database instances"</td>
-<td>Google operates at planetary scale</td>
+<td data-label="❌ Wrong Approach">"We'll use a single PostgreSQL database"</td>
+<td data-label="✅ Correct Approach">"We'll shard across thousands of database instances"</td>
+<td data-label="🎯 Why It Matters">Google operates at planetary scale</td>
 </tr>
 <tr>
-<td>"A few servers should handle it"</td>
-<td>"We'll need 10,000+ servers globally"</td>
-<td>Billions of users, not thousands</td>
+<td data-label="❌ Wrong Approach">"A few servers should handle it"</td>
+<td data-label="✅ Correct Approach">"We'll need 10,000+ servers globally"</td>
+<td data-label="🎯 Why It Matters">Billions of users, not thousands</td>
 </tr>
 <tr>
-<td>"10GB of storage should be enough"</td>
-<td>"We'll need exabytes of storage"</td>
-<td>Data grows exponentially</td>
+<td data-label="❌ Wrong Approach">"10GB of storage should be enough"</td>
+<td data-label="✅ Correct Approach">"We'll need exabytes of storage"</td>
+<td data-label="🎯 Why It Matters">Data grows exponentially</td>
 </tr>
 </tbody>
 </table>
@@ -215,7 +215,7 @@ flowchart TD
 ```
 
 <div class="failure-examples">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Component</th>
@@ -225,19 +225,19 @@ flowchart TD
 </thead>
 <tbody>
 <tr>
-<td><strong>API Call</strong></td>
-<td><code>result = service.call()</code></td>
-<td><code>result = retry_with_backoff(<br/>  service.call,<br/>  max_retries=3,<br/>  timeout=1s<br/>)</code></td>
+<td data-label="Component"><strong>API Call</strong></td>
+<td data-label="❌ No Failure Handling"><code>result = service.call()</code></td>
+<td data-label="✅ With Failure Handling"><code>result = retry_with_backoff(<br/>  service.call,<br/>  max_retries=3,<br/>  timeout=1s<br/>)</code></td>
 </tr>
 <tr>
-<td><strong>Database</strong></td>
-<td><code>db.query(sql)</code></td>
-<td><code>with circuit_breaker:<br/>  try:<br/>    db.query(sql, timeout=100ms)<br/>  except:<br/>    return cached_result</code></td>
+<td data-label="Component"><strong>Database</strong></td>
+<td data-label="❌ No Failure Handling"><code>db.query(sql)</code></td>
+<td data-label="✅ With Failure Handling"><code>with circuit_breaker:<br/>  try:<br/>    db.query(sql, timeout=100ms)<br/>  except:<br/>    return cached_result</code></td>
 </tr>
 <tr>
-<td><strong>Cache</strong></td>
-<td><code>cache.get(key)</code></td>
-<td><code>try:<br/>  return cache.get(key)<br/>except CacheMiss:<br/>  return fetch_with_lock(key)</code></td>
+<td data-label="Component"><strong>Cache</strong></td>
+<td data-label="❌ No Failure Handling"><code>cache.get(key)</code></td>
+<td data-label="✅ With Failure Handling"><code>try:<br/>  return cache.get(key)<br/>except CacheMiss:<br/>  return fetch_with_lock(key)</code></td>
 </tr>
 </tbody>
 </table>
@@ -374,7 +374,7 @@ flowchart LR
 #### Consistency Decision Matrix
 
 <div class="consistency-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Use Case</th>
@@ -385,34 +385,34 @@ flowchart LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Payment Processing</strong></td>
-<td>🔴 Strong Consistency</td>
-<td>Money can't be lost or duplicated</td>
-<td>Distributed transactions, 2PC</td>
+<td data-label="Use Case"><strong>Payment Processing</strong></td>
+<td data-label="Consistency Model">🔴 Strong Consistency</td>
+<td data-label="Why">Money can't be lost or duplicated</td>
+<td data-label="Implementation">Distributed transactions, 2PC</td>
 </tr>
 <tr>
-<td><strong>User Profile Updates</strong></td>
-<td>🟡 Eventual Consistency</td>
-<td>Okay if takes few seconds to propagate</td>
-<td>Async replication, events</td>
+<td data-label="Use Case"><strong>User Profile Updates</strong></td>
+<td data-label="Consistency Model">🟡 Eventual Consistency</td>
+<td data-label="Why">Okay if takes few seconds to propagate</td>
+<td data-label="Implementation">Async replication, events</td>
 </tr>
 <tr>
-<td><strong>View Counts</strong></td>
-<td>🟢 Weak Consistency</td>
-<td>Approximate counts acceptable</td>
-<td>Best effort, sampling</td>
+<td data-label="Use Case"><strong>View Counts</strong></td>
+<td data-label="Consistency Model">🟢 Weak Consistency</td>
+<td data-label="Why">Approximate counts acceptable</td>
+<td data-label="Implementation">Best effort, sampling</td>
 </tr>
 <tr>
-<td><strong>Inventory Management</strong></td>
-<td>🔴 Strong Consistency</td>
-<td>Can't oversell products</td>
-<td>Pessimistic locking</td>
+<td data-label="Use Case"><strong>Inventory Management</strong></td>
+<td data-label="Consistency Model">🔴 Strong Consistency</td>
+<td data-label="Why">Can't oversell products</td>
+<td data-label="Implementation">Pessimistic locking</td>
 </tr>
 <tr>
-<td><strong>Recommendations</strong></td>
-<td>🟢 Weak Consistency</td>
-<td>Stale data acceptable</td>
-<td>Cached, periodic updates</td>
+<td data-label="Use Case"><strong>Recommendations</strong></td>
+<td data-label="Consistency Model">🟢 Weak Consistency</td>
+<td data-label="Why">Stale data acceptable</td>
+<td data-label="Implementation">Cached, periodic updates</td>
 </tr>
 </tbody>
 </table>
@@ -453,7 +453,7 @@ graph TD
 
 <div class="cost-calculator">
 <h4>Monthly Cost Estimation for 1B Users</h4>
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Component</th>
@@ -465,53 +465,53 @@ graph TD
 </thead>
 <tbody>
 <tr>
-<td><strong>Compute (Servers)</strong></td>
-<td>10,000 instances</td>
-<td>$100/instance</td>
-<td>$1,000,000</td>
-<td>20%</td>
+<td data-label="Component"><strong>Compute (Servers)</strong></td>
+<td data-label="Usage">10,000 instances</td>
+<td data-label="Unit Cost">$100/instance</td>
+<td data-label="Monthly Cost">$1,000,000</td>
+<td data-label="% of Total">20%</td>
 </tr>
 <tr>
-<td><strong>Storage</strong></td>
-<td>1 PB</td>
-<td>$20/TB</td>
-<td>$20,000</td>
-<td>0.4%</td>
+<td data-label="Component"><strong>Storage</strong></td>
+<td data-label="Usage">1 PB</td>
+<td data-label="Unit Cost">$20/TB</td>
+<td data-label="Monthly Cost">$20,000</td>
+<td data-label="% of Total">0.4%</td>
 </tr>
 <tr>
-<td><strong>Bandwidth</strong></td>
-<td>10 PB/month</td>
-<td>$0.08/GB</td>
-<td>$800,000</td>
-<td>16%</td>
+<td data-label="Component"><strong>Bandwidth</strong></td>
+<td data-label="Usage">10 PB/month</td>
+<td data-label="Unit Cost">$0.08/GB</td>
+<td data-label="Monthly Cost">$800,000</td>
+<td data-label="% of Total">16%</td>
 </tr>
 <tr>
-<td><strong>Database</strong></td>
-<td>100 clusters</td>
-<td>$5,000/cluster</td>
-<td>$500,000</td>
-<td>10%</td>
+<td data-label="Component"><strong>Database</strong></td>
+<td data-label="Usage">100 clusters</td>
+<td data-label="Unit Cost">$5,000/cluster</td>
+<td data-label="Monthly Cost">$500,000</td>
+<td data-label="% of Total">10%</td>
 </tr>
 <tr>
-<td><strong>CDN</strong></td>
-<td>50 PB/month</td>
-<td>$0.04/GB</td>
-<td>$2,000,000</td>
-<td>40%</td>
+<td data-label="Component"><strong>CDN</strong></td>
+<td data-label="Usage">50 PB/month</td>
+<td data-label="Unit Cost">$0.04/GB</td>
+<td data-label="Monthly Cost">$2,000,000</td>
+<td data-label="% of Total">40%</td>
 </tr>
 <tr>
-<td><strong>Operations</strong></td>
-<td>50 engineers</td>
-<td>$20,000/eng</td>
-<td>$1,000,000</td>
-<td>20%</td>
+<td data-label="Component"><strong>Operations</strong></td>
+<td data-label="Usage">50 engineers</td>
+<td data-label="Unit Cost">$20,000/eng</td>
+<td data-label="Monthly Cost">$1,000,000</td>
+<td data-label="% of Total">20%</td>
 </tr>
 <tr class="total-row">
-<td><strong>TOTAL</strong></td>
-<td>-</td>
-<td>-</td>
-<td><strong>$5,320,000</strong></td>
-<td><strong>100%</strong></td>
+<td data-label="Component"><strong>TOTAL</strong></td>
+<td data-label="Usage">-</td>
+<td data-label="Unit Cost">-</td>
+<td data-label="Monthly Cost"><strong>$5,320,000</strong></td>
+<td data-label="% of Total"><strong>100%</strong></td>
 </tr>
 </tbody>
 </table>
@@ -589,7 +589,7 @@ graph LR
 ```
 
 <div class="evolution-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Stage</th>
@@ -601,32 +601,32 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>MVP</strong></td>
-<td>0-10K</td>
-<td>• Monolith<br/>• Single DB<br/>• Basic caching</td>
-<td>⭐</td>
-<td>2-5 devs</td>
+<td data-label="Stage"><strong>MVP</strong></td>
+<td data-label="Users">0-10K</td>
+<td data-label="Architecture">• Monolith<br/>• Single DB<br/>• Basic caching</td>
+<td data-label="Complexity">⭐</td>
+<td data-label="Team Size">2-5 devs</td>
 </tr>
 <tr>
-<td><strong>Growth</strong></td>
-<td>10K-1M</td>
-<td>• Few services<br/>• Read replicas<br/>• CDN</td>
-<td>⭐⭐⭐</td>
-<td>10-20 devs</td>
+<td data-label="Stage"><strong>Growth</strong></td>
+<td data-label="Users">10K-1M</td>
+<td data-label="Architecture">• Few services<br/>• Read replicas<br/>• CDN</td>
+<td data-label="Complexity">⭐⭐⭐</td>
+<td data-label="Team Size">10-20 devs</td>
 </tr>
 <tr>
-<td><strong>Scale</strong></td>
-<td>1M-100M</td>
-<td>• Microservices<br/>• Sharding<br/>• Multi-region</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>50+ devs</td>
+<td data-label="Stage"><strong>Scale</strong></td>
+<td data-label="Users">1M-100M</td>
+<td data-label="Architecture">• Microservices<br/>• Sharding<br/>• Multi-region</td>
+<td data-label="Complexity">⭐⭐⭐⭐⭐</td>
+<td data-label="Team Size">50+ devs</td>
 </tr>
 <tr>
-<td><strong>Hyper-scale</strong></td>
-<td>100M+</td>
-<td>• Service mesh<br/>• Global distribution<br/>• Custom infrastructure</td>
-<td>⭐⭐⭐⭐⭐⭐</td>
-<td>100+ devs</td>
+<td data-label="Stage"><strong>Hyper-scale</strong></td>
+<td data-label="Users">100M+</td>
+<td data-label="Architecture">• Service mesh<br/>• Global distribution<br/>• Custom infrastructure</td>
+<td data-label="Complexity">⭐⭐⭐⭐⭐⭐</td>
+<td data-label="Team Size">100+ devs</td>
 </tr>
 </tbody>
 </table>
@@ -964,7 +964,7 @@ graph TB
 ### Common Mistakes by System Type
 
 <div class="system-mistakes">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>System Type</th>
@@ -975,34 +975,34 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td><strong>🔍 Search Systems</strong></td>
-<td>• No ranking algorithm<br/>• Ignoring index updates<br/>• No query understanding</td>
-<td>• Inverted index<br/>• Ranking algorithm<br/>• Query processing</td>
-<td>• Spell correction<br/>• Personalization<br/>• A/B testing</td>
+<td data-label="System Type"><strong>🔍 Search Systems</strong></td>
+<td data-label="Common Mistakes">• No ranking algorithm<br/>• Ignoring index updates<br/>• No query understanding</td>
+<td data-label="Must Include">• Inverted index<br/>• Ranking algorithm<br/>• Query processing</td>
+<td data-label="Often Forgotten">• Spell correction<br/>• Personalization<br/>• A/B testing</td>
 </tr>
 <tr>
-<td><strong>💬 Chat Systems</strong></td>
-<td>• No message ordering<br/>• Missing offline support<br/>• No presence system</td>
-<td>• WebSocket/SSE<br/>• Message queue<br/>• Delivery receipts</td>
-<td>• End-to-end encryption<br/>• Media handling<br/>• Push notifications</td>
+<td data-label="System Type"><strong>💬 Chat Systems</strong></td>
+<td data-label="Common Mistakes">• No message ordering<br/>• Missing offline support<br/>• No presence system</td>
+<td data-label="Must Include">• WebSocket/SSE<br/>• Message queue<br/>• Delivery receipts</td>
+<td data-label="Often Forgotten">• End-to-end encryption<br/>• Media handling<br/>• Push notifications</td>
 </tr>
 <tr>
-<td><strong>📹 Video Systems</strong></td>
-<td>• Underestimating bandwidth<br/>• No CDN design<br/>• Missing transcoding</td>
-<td>• CDN architecture<br/>• Adaptive bitrate<br/>• Storage tiers</td>
-<td>• DRM<br/>• Analytics pipeline<br/>• Thumbnail generation</td>
+<td data-label="System Type"><strong>📹 Video Systems</strong></td>
+<td data-label="Common Mistakes">• Underestimating bandwidth<br/>• No CDN design<br/>• Missing transcoding</td>
+<td data-label="Must Include">• CDN architecture<br/>• Adaptive bitrate<br/>• Storage tiers</td>
+<td data-label="Often Forgotten">• DRM<br/>• Analytics pipeline<br/>• Thumbnail generation</td>
 </tr>
 <tr>
-<td><strong>💳 Payment Systems</strong></td>
-<td>• Weak consistency<br/>• No idempotency<br/>• Missing audit logs</td>
-<td>• ACID guarantees<br/>• Idempotent APIs<br/>• Audit trail</td>
-<td>• Fraud detection<br/>• Reconciliation<br/>• Compliance (PCI)</td>
+<td data-label="System Type"><strong>💳 Payment Systems</strong></td>
+<td data-label="Common Mistakes">• Weak consistency<br/>• No idempotency<br/>• Missing audit logs</td>
+<td data-label="Must Include">• ACID guarantees<br/>• Idempotent APIs<br/>• Audit trail</td>
+<td data-label="Often Forgotten">• Fraud detection<br/>• Reconciliation<br/>• Compliance (PCI)</td>
 </tr>
 <tr>
-<td><strong>📦 E-commerce</strong></td>
-<td>• No inventory tracking<br/>• Cart abandonment<br/>• Poor search</td>
-<td>• Product catalog<br/>• Cart service<br/>• Order management</td>
-<td>• Recommendation engine<br/>• Review system<br/>• Wishlist</td>
+<td data-label="System Type"><strong>📦 E-commerce</strong></td>
+<td data-label="Common Mistakes">• No inventory tracking<br/>• Cart abandonment<br/>• Poor search</td>
+<td data-label="Must Include">• Product catalog<br/>• Cart service<br/>• Order management</td>
+<td data-label="Often Forgotten">• Recommendation engine<br/>• Review system<br/>• Wishlist</td>
 </tr>
 </tbody>
 </table>
@@ -1052,7 +1052,7 @@ gantt
 
 <div class="evaluation-form">
 <h4>Post-Interview Self Assessment</h4>
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Criteria</th>
@@ -1064,46 +1064,46 @@ gantt
 </thead>
 <tbody>
 <tr>
-<td><strong>Requirements Gathering</strong></td>
-<td><input type="radio" name="req"></td>
-<td><input type="radio" name="req"></td>
-<td><input type="radio" name="req"></td>
-<td><input type="radio" name="req"></td>
+<td data-label="Criteria"><strong>Requirements Gathering</strong></td>
+<td data-label="❌ Failed"><input type="radio" name="req"></td>
+<td data-label="⚠️ Needs Work"><input type="radio" name="req"></td>
+<td data-label="✅ Good"><input type="radio" name="req"></td>
+<td data-label="🌟 Excellent"><input type="radio" name="req"></td>
 </tr>
 <tr>
-<td><strong>Scale Thinking</strong></td>
-<td><input type="radio" name="scale"></td>
-<td><input type="radio" name="scale"></td>
-<td><input type="radio" name="scale"></td>
-<td><input type="radio" name="scale"></td>
+<td data-label="Criteria"><strong>Scale Thinking</strong></td>
+<td data-label="❌ Failed"><input type="radio" name="scale"></td>
+<td data-label="⚠️ Needs Work"><input type="radio" name="scale"></td>
+<td data-label="✅ Good"><input type="radio" name="scale"></td>
+<td data-label="🌟 Excellent"><input type="radio" name="scale"></td>
 </tr>
 <tr>
-<td><strong>System Completeness</strong></td>
-<td><input type="radio" name="complete"></td>
-<td><input type="radio" name="complete"></td>
-<td><input type="radio" name="complete"></td>
-<td><input type="radio" name="complete"></td>
+<td data-label="Criteria"><strong>System Completeness</strong></td>
+<td data-label="❌ Failed"><input type="radio" name="complete"></td>
+<td data-label="⚠️ Needs Work"><input type="radio" name="complete"></td>
+<td data-label="✅ Good"><input type="radio" name="complete"></td>
+<td data-label="🌟 Excellent"><input type="radio" name="complete"></td>
 </tr>
 <tr>
-<td><strong>Failure Handling</strong></td>
-<td><input type="radio" name="failure"></td>
-<td><input type="radio" name="failure"></td>
-<td><input type="radio" name="failure"></td>
-<td><input type="radio" name="failure"></td>
+<td data-label="Criteria"><strong>Failure Handling</strong></td>
+<td data-label="❌ Failed"><input type="radio" name="failure"></td>
+<td data-label="⚠️ Needs Work"><input type="radio" name="failure"></td>
+<td data-label="✅ Good"><input type="radio" name="failure"></td>
+<td data-label="🌟 Excellent"><input type="radio" name="failure"></td>
 </tr>
 <tr>
-<td><strong>Time Management</strong></td>
-<td><input type="radio" name="time"></td>
-<td><input type="radio" name="time"></td>
-<td><input type="radio" name="time"></td>
-<td><input type="radio" name="time"></td>
+<td data-label="Criteria"><strong>Time Management</strong></td>
+<td data-label="❌ Failed"><input type="radio" name="time"></td>
+<td data-label="⚠️ Needs Work"><input type="radio" name="time"></td>
+<td data-label="✅ Good"><input type="radio" name="time"></td>
+<td data-label="🌟 Excellent"><input type="radio" name="time"></td>
 </tr>
 <tr>
-<td><strong>Communication</strong></td>
-<td><input type="radio" name="comm"></td>
-<td><input type="radio" name="comm"></td>
-<td><input type="radio" name="comm"></td>
-<td><input type="radio" name="comm"></td>
+<td data-label="Criteria"><strong>Communication</strong></td>
+<td data-label="❌ Failed"><input type="radio" name="comm"></td>
+<td data-label="⚠️ Needs Work"><input type="radio" name="comm"></td>
+<td data-label="✅ Good"><input type="radio" name="comm"></td>
+<td data-label="🌟 Excellent"><input type="radio" name="comm"></td>
 </tr>
 </tbody>
 </table>

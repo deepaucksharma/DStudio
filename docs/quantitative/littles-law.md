@@ -249,32 +249,36 @@ Connection Pool: 50/60 (83% utilization at peak)
 <div class="failure-vignette">
 <h4>🔥 Slack's Cascade Failure Timeline</h4>
 
-<table style="width: 100%; border-collapse: collapse;">
-<tr style="background: #F5F5F5;">
+<table class="responsive-table" style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr style="background: #F5F5F5;">
 <th style="padding: 10px; text-align: left;">Stage</th>
 <th>Metrics</th>
 <th>Impact</th>
 </tr>
-<tr>
-<td><strong>1. Normal State</strong></td>
-<td>L = 10,000<br>λ = 50,000 req/s<br>W = 0.2s ✓</td>
-<td style="color: #4CAF50;">Healthy</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Stage"><strong>1. Normal State</strong></td>
+<td data-label="Metrics">L = 10,000<br>λ = 50,000 req/s<br>W = 0.2s ✓</td>
+<td data-label="Impact">Healthy</td>
 </tr>
-<tr style="background: #FFF3E0;">
-<td><strong>2. DB Slowdown</strong></td>
-<td>W → 2s<br>L → 100,000</td>
-<td style="color: #FF9800;">10x queue growth!</td>
+    <tr style="background: #FFF3E0;">
+<td data-label="Stage"><strong>2. DB Slowdown</strong></td>
+<td data-label="Metrics">W → 2s<br>L → 100,000</td>
+<td data-label="Impact">10x queue growth!</td>
 </tr>
-<tr style="background: #FFEBEE;">
-<td><strong>3. Thread Exhaustion</strong></td>
-<td>Max threads: 50,000<br>Queue: 50,000 waiting</td>
-<td style="color: #F44336;">Resources depleted</td>
+    <tr style="background: #FFEBEE;">
+<td data-label="Stage"><strong>3. Thread Exhaustion</strong></td>
+<td data-label="Metrics">Max threads: 50,000<br>Queue: 50,000 waiting</td>
+<td data-label="Impact">Resources depleted</td>
 </tr>
-<tr style="background: #FFCDD2;">
-<td><strong>4. Cascade Failure</strong></td>
-<td>λ → 100,000 req/s<br>(retries double load)</td>
-<td style="color: #B71C1C;">Total collapse</td>
+    <tr style="background: #FFCDD2;">
+<td data-label="Stage"><strong>4. Cascade Failure</strong></td>
+<td data-label="Metrics">λ → 100,000 req/s<br>(retries double load)</td>
+<td data-label="Impact">Total collapse</td>
 </tr>
+  </tbody>
 </table>
 
 <div class="lesson-learned" style="margin-top: 15px; background: #E3F2FD; padding: 15px; border-left: 4px solid #2196F3;">
@@ -426,7 +430,7 @@ Decompose into subsystems, apply to each
 
 <div class="example-calculation" style="background: #F5F5F5; padding: 15px; margin: 15px 0; border-radius: 5px;">
   <strong>Example Calculation:</strong>
-  <table style="width: 100%; margin-top: 10px;">
+  <table class="responsive-table" style="width: 100%; margin-top: 10px;">
     <tr>
       <td>Batch size (N):</td>
       <td><strong>1000 items</strong></td>
@@ -494,7 +498,7 @@ Decompose into subsystems, apply to each
 <h4>🚦 API Rate Limit Calculator</h4>
 
 <div class="formula-box" style="background: #E3F2FD; padding: 15px; margin: 10px 0; border-radius: 5px;">
-<table style="width: 100%; border-collapse: collapse;">
+<table class="responsive-table" style="width: 100%; border-collapse: collapse;">
 <tr>
 <td style="padding: 5px;"><strong>API Limit:</strong></td>
 <td>1000 requests/minute = 16.67 req/s</td>
@@ -537,7 +541,7 @@ Decompose into subsystems, apply to each
 <h4>📊 Kafka Consumer Calculator</h4>
 
 <div class="input-parameters" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
-<table style="width: 100%;">
+<table class="responsive-table" style="width: 100%;">
 <tr>
 <td><strong>Message Rate (λ):</strong></td>
 <td>10,000 msg/s</td>
@@ -700,32 +704,36 @@ graph LR
 <div class="failure-vignette">
 <h4>⚠️ Capacity Overflow Scenario</h4>
 
-<table style="width: 100%; margin: 10px 0;">
-<tr style="background: #F5F5F5;">
+<table class="responsive-table" style="width: 100%; margin: 10px 0;">
+  <thead>
+    <tr style="background: #F5F5F5;">
 <th style="padding: 10px; text-align: left;">Parameter</th>
 <th>Value</th>
 <th>Result</th>
 </tr>
-<tr>
-<td><strong>System Capacity (Max_L)</strong></td>
-<td>1,000 items</td>
-<td style="color: #4CAF50;">✓ Limit</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Parameter"><strong>System Capacity (Max_L)</strong></td>
+<td data-label="Value">1,000 items</td>
+<td data-label="Result">✓ Limit</td>
 </tr>
-<tr>
-<td><strong>Arrival Rate (λ)</strong></td>
-<td>500/s</td>
-<td>-</td>
+    <tr>
+<td data-label="Parameter"><strong>Arrival Rate (λ)</strong></td>
+<td data-label="Value">500/s</td>
+<td data-label="Result">-</td>
 </tr>
-<tr>
-<td><strong>Wait Time (W)</strong></td>
-<td>3 seconds</td>
-<td>-</td>
+    <tr>
+<td data-label="Parameter"><strong>Wait Time (W)</strong></td>
+<td data-label="Value">3 seconds</td>
+<td data-label="Result">-</td>
 </tr>
-<tr style="background: #FFEBEE;">
-<td><strong>Calculated Queue (L)</strong></td>
-<td>500 × 3 = 1,500</td>
-<td style="color: #F44336;">⚠️ OVERFLOW!</td>
+    <tr style="background: #FFEBEE;">
+<td data-label="Parameter"><strong>Calculated Queue (L)</strong></td>
+<td data-label="Value">500 × 3 = 1,500</td>
+<td data-label="Result">⚠️ OVERFLOW!</td>
 </tr>
+  </tbody>
 </table>
 
 <div class="warning-banner" style="margin-top: 10px; background: #FFE0B2; padding: 10px; border-left: 4px solid #FF6B6B;">
@@ -839,27 +847,31 @@ graph LR
 <div class="decision-box">
 <h4>🔧 Resource Calculation Summary</h4>
 
-<table style="width: 100%; margin: 15px 0; border-collapse: collapse;">
-<tr style="background: #E3F2FD;">
+<table class="responsive-table" style="width: 100%; margin: 15px 0; border-collapse: collapse;">
+  <thead>
+    <tr style="background: #E3F2FD;">
 <th style="padding: 10px; text-align: left; border: 1px solid #90CAF9;">Component</th>
 <th style="padding: 10px; border: 1px solid #90CAF9;">Thread/Connection Requirements</th>
 <th style="padding: 10px; border: 1px solid #90CAF9;">Queue Depth (L)</th>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Auth Service</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">10 threads</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">L = 10</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Component"><strong>Auth Service</strong></td>
+<td data-label="Thread/Connection Requirements">10 threads</td>
+<td data-label="Queue Depth (L)">L = 10</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Business Logic</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">40 threads</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">L = 40</td>
+    <tr style="background: #F5F5F5;">
+<td data-label="Component"><strong>Business Logic</strong></td>
+<td data-label="Thread/Connection Requirements">40 threads</td>
+<td data-label="Queue Depth (L)">L = 40</td>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>DB Connections</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">48 connections</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">L = 48</td>
+    <tr>
+<td data-label="Component"><strong>DB Connections</strong></td>
+<td data-label="Thread/Connection Requirements">48 connections</td>
+<td data-label="Queue Depth (L)">L = 48</td>
 </tr>
+  </tbody>
 </table>
 
 <div class="memory-calculation" style="background: #E8F5E9; padding: 15px; margin-top: 15px; border-radius: 5px;">

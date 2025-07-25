@@ -16,9 +16,9 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Web Scraping](../patterns/politeness.md)
+- [Web Scraping](/patterns/politeness)
 - Natural Language Processing (Coming Soon)
-- [Data Pipeline](../patterns/event-streaming.md)
+- [Data Pipeline](/patterns/event-streaming)
 
 ## References
-- [Web Crawler](../case-studies/web-crawler.md) - Content extraction strategies
+- [Web Crawler](/case-studies/web-crawler) - Content extraction strategies

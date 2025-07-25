@@ -101,43 +101,47 @@ A_total = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
 ### Common Availability Targets
 
 <div class="availability-table">
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Availability</th>
 <th>Downtime/Year</th>
 <th>Downtime/Month</th>
 <th>Typical Use Case</th>
 </tr>
-<tr>
-<td>90% (1 nine)</td>
-<td>36.5 days</td>
-<td>3 days</td>
-<td>Internal tools, batch jobs</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Availability">90% (1 nine)</td>
+<td data-label="Downtime/Year">36.5 days</td>
+<td data-label="Downtime/Month">3 days</td>
+<td data-label="Typical Use Case">Internal tools, batch jobs</td>
 </tr>
-<tr>
-<td>99% (2 nines)</td>
-<td>3.65 days</td>
-<td>7.3 hours</td>
-<td>Non-critical services</td>
+    <tr>
+<td data-label="Availability">99% (2 nines)</td>
+<td data-label="Downtime/Year">3.65 days</td>
+<td data-label="Downtime/Month">7.3 hours</td>
+<td data-label="Typical Use Case">Non-critical services</td>
 </tr>
-<tr>
-<td>99.9% (3 nines)</td>
-<td>8.77 hours</td>
-<td>43.8 min</td>
-<td>Business applications</td>
+    <tr>
+<td data-label="Availability">99.9% (3 nines)</td>
+<td data-label="Downtime/Year">8.77 hours</td>
+<td data-label="Downtime/Month">43.8 min</td>
+<td data-label="Typical Use Case">Business applications</td>
 </tr>
-<tr>
-<td>99.99% (4 nines)</td>
-<td>52.6 minutes</td>
-<td>4.38 min</td>
-<td>E-commerce, SaaS</td>
+    <tr>
+<td data-label="Availability">99.99% (4 nines)</td>
+<td data-label="Downtime/Year">52.6 minutes</td>
+<td data-label="Downtime/Month">4.38 min</td>
+<td data-label="Typical Use Case">E-commerce, SaaS</td>
 </tr>
-<tr>
-<td>99.999% (5 nines)</td>
-<td>5.26 minutes</td>
-<td>26.3 sec</td>
-<td>Critical infrastructure</td>
+    <tr>
+<td data-label="Availability">99.999% (5 nines)</td>
+<td data-label="Downtime/Year">5.26 minutes</td>
+<td data-label="Downtime/Month">26.3 sec</td>
+<td data-label="Typical Use Case">Critical infrastructure</td>
 </tr>
+  </tbody>
 </table>
 </div>
 
@@ -350,28 +354,32 @@ function calculateAvailability() {
         
         <div class="component-breakdown">
             <h4>Component Analysis</h4>
-            <table>
-                <tr>
+            <table class="responsive-table">
+  <thead>
+    <tr>
                     <th>Component</th>
                     <th>Availability</th>
                     <th>Downtime/Year</th>
                 </tr>
-                <tr>
-                    <td>Single Component</td>
-                    <td>${(componentAvailability * 100).toFixed(3)}%</td>
-                    <td>${formatDowntime((1 - componentAvailability) * yearlyHours)}</td>
+  </thead>
+  <tbody>
+    <tr>
+                    <td data-label="Component">Single Component</td>
+                    <td data-label="Availability">${(componentAvailability * 100).toFixed(3)}%</td>
+                    <td data-label="Downtime/Year">${formatDowntime((1 - componentAvailability) * yearlyHours)}</td>
                 </tr>
-                <tr>
-                    <td>Serial System (${numComponents} components)</td>
-                    <td>${(serialAvailability * 100).toFixed(3)}%</td>
-                    <td>${formatDowntime((1 - serialAvailability) * yearlyHours)}</td>
+    <tr>
+                    <td data-label="Component">Serial System (${numComponents} components)</td>
+                    <td data-label="Availability">${(serialAvailability * 100).toFixed(3)}%</td>
+                    <td data-label="Downtime/Year">${formatDowntime((1 - serialAvailability) * yearlyHours)}</td>
                 </tr>
-                <tr>
-                    <td>With ${redundancyType.replace('-', ' ')}</td>
-                    <td>${(systemAvailability * 100).toFixed(4)}%</td>
-                    <td>${formatDowntime(downtimeHours)}</td>
+    <tr>
+                    <td data-label="Component">With ${redundancyType.replace('-', ' ')}</td>
+                    <td data-label="Availability">${(systemAvailability * 100).toFixed(4)}%</td>
+                    <td data-label="Downtime/Year">${formatDowntime(downtimeHours)}</td>
                 </tr>
-            </table>
+  </tbody>
+</table>
         </div>
         
         <div class="sla-comparison">
@@ -400,32 +408,36 @@ function calculateAvailability() {
         
         <div class="cost-analysis">
             <h4>💰 Cost-Benefit Analysis</h4>
-            <table>
-                <tr>
+            <table class="responsive-table">
+  <thead>
+    <tr>
                     <th>Configuration</th>
                     <th>Availability</th>
                     <th>Resource Multiplier</th>
                     <th>Cost Impact</th>
                 </tr>
-                <tr>
-                    <td>No Redundancy</td>
-                    <td>${(serialAvailability * 100).toFixed(2)}%</td>
-                    <td>1x</td>
-                    <td>Baseline</td>
+  </thead>
+  <tbody>
+    <tr>
+                    <td data-label="Configuration">No Redundancy</td>
+                    <td data-label="Availability">${(serialAvailability * 100).toFixed(2)}%</td>
+                    <td data-label="Resource Multiplier">1x</td>
+                    <td data-label="Cost Impact">Baseline</td>
                 </tr>
-                <tr>
-                    <td>Current (${redundancyType})</td>
-                    <td>${(systemAvailability * 100).toFixed(3)}%</td>
-                    <td>${redundancyFactor}x</td>
-                    <td>+${((redundancyFactor - 1) * 100).toFixed(0)}%</td>
+    <tr>
+                    <td data-label="Configuration">Current (${redundancyType})</td>
+                    <td data-label="Availability">${(systemAvailability * 100).toFixed(3)}%</td>
+                    <td data-label="Resource Multiplier">${redundancyFactor}x</td>
+                    <td data-label="Cost Impact">+${((redundancyFactor - 1) * 100).toFixed(0)}%</td>
                 </tr>
-                <tr>
-                    <td>Add Region</td>
-                    <td>${calculateNextRegion(systemAvailability, regionFailureRate)}%</td>
-                    <td>${(redundancyFactor * 2).toFixed(1)}x</td>
-                    <td>+${((redundancyFactor * 2 - 1) * 100).toFixed(0)}%</td>
+    <tr>
+                    <td data-label="Configuration">Add Region</td>
+                    <td data-label="Availability">${calculateNextRegion(systemAvailability, regionFailureRate)}%</td>
+                    <td data-label="Resource Multiplier">${(redundancyFactor * 2).toFixed(1)}x</td>
+                    <td data-label="Cost Impact">+${((redundancyFactor * 2 - 1) * 100).toFixed(0)}%</td>
                 </tr>
-            </table>
+  </tbody>
+</table>
         </div>
         
         <div class="recommendations">

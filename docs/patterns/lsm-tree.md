@@ -279,7 +279,7 @@ class LeveledCompaction:
 ### 3. Compaction Comparison
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Strategy</th>
@@ -291,25 +291,25 @@ class LeveledCompaction:
 </thead>
 <tbody>
 <tr>
-<td><strong>Size-Tiered</strong></td>
-<td>Low</td>
-<td>High</td>
-<td>High (2x)</td>
-<td>Write-heavy</td>
+<td data-label="Strategy"><strong>Size-Tiered</strong></td>
+<td data-label="Write Amp">Low</td>
+<td data-label="Read Amp">High</td>
+<td data-label="Space Amp">High (2x)</td>
+<td data-label="Use Case">Write-heavy</td>
 </tr>
 <tr>
-<td><strong>Leveled</strong></td>
-<td>High</td>
-<td>Low</td>
-<td>Low (1.1x)</td>
-<td>Read-heavy</td>
+<td data-label="Strategy"><strong>Leveled</strong></td>
+<td data-label="Write Amp">High</td>
+<td data-label="Read Amp">Low</td>
+<td data-label="Space Amp">Low (1.1x)</td>
+<td data-label="Use Case">Read-heavy</td>
 </tr>
 <tr>
-<td><strong>Time-Window</strong></td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>Time-series</td>
+<td data-label="Strategy"><strong>Time-Window</strong></td>
+<td data-label="Write Amp">Medium</td>
+<td data-label="Read Amp">Medium</td>
+<td data-label="Space Amp">Medium</td>
+<td data-label="Use Case">Time-series</td>
 </tr>
 </tbody>
 </table>
@@ -479,7 +479,7 @@ class SSDOptimizedLSM:
 ## Trade-offs and Considerations
 
 <div class="trade-off-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Aspect</th>
@@ -489,24 +489,24 @@ class SSDOptimizedLSM:
 </thead>
 <tbody>
 <tr>
-<td><strong>Write Performance</strong></td>
-<td>Sequential writes only<br/>No write amplification<br/>High throughput</td>
-<td>Compaction overhead<br/>Background CPU usage</td>
+<td data-label="Aspect"><strong>Write Performance</strong></td>
+<td data-label="Benefits">Sequential writes only<br/>No write amplification<br/>High throughput</td>
+<td data-label="Drawbacks">Compaction overhead<br/>Background CPU usage</td>
 </tr>
 <tr>
-<td><strong>Read Performance</strong></td>
-<td>Bloom filters help<br/>Block cache effective</td>
-<td>Multiple files to check<br/>Read amplification</td>
+<td data-label="Aspect"><strong>Read Performance</strong></td>
+<td data-label="Benefits">Bloom filters help<br/>Block cache effective</td>
+<td data-label="Drawbacks">Multiple files to check<br/>Read amplification</td>
 </tr>
 <tr>
-<td><strong>Space Usage</strong></td>
-<td>Compression friendly<br/>Old versions cleanable</td>
-<td>Temporary space for compaction<br/>Tombstone accumulation</td>
+<td data-label="Aspect"><strong>Space Usage</strong></td>
+<td data-label="Benefits">Compression friendly<br/>Old versions cleanable</td>
+<td data-label="Drawbacks">Temporary space for compaction<br/>Tombstone accumulation</td>
 </tr>
 <tr>
-<td><strong>Consistency</strong></td>
-<td>Point-in-time snapshots<br/>MVCC support</td>
-<td>Eventual compaction<br/>Tombstone visibility</td>
+<td data-label="Aspect"><strong>Consistency</strong></td>
+<td data-label="Benefits">Point-in-time snapshots<br/>MVCC support</td>
+<td data-label="Drawbacks">Eventual compaction<br/>Tombstone visibility</td>
 </tr>
 </tbody>
 </table>

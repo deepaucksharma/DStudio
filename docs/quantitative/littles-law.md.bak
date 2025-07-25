@@ -684,7 +684,7 @@ Decompose into subsystems, apply to each
 
 ## Law Connections
 
-### Law 2: Asynchronous Reality ⏳
+### Law 2: Asynchronous Reality
 ```mermaid
 graph LR
     A[Arrival λ] --> B[System]
@@ -694,9 +694,9 @@ graph LR
     style C fill:#ff6b6b
 ```
 
-**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md).
+**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/).
 
-### Law 4: Trade-offs ⚖️
+### Law 4: Trade-offs
 <div class="failure-vignette">
 <h4>⚠️ Capacity Overflow Scenario</h4>
 
@@ -733,12 +733,12 @@ graph LR
 </div>
 </div>
 
-### Law 4: Trade-offs ⚖️ (Coordination Aspect)
+### Law 4: Trade-offs (Coordination Aspect)
 - Little's Law assumes FIFO (First In, First Out) for average calculations
 - Different queueing disciplines (LIFO, Priority) change individual wait times
 - But the law still holds for averages
 
-### Law 5: Epistemology 🧠
+### Law 5: Epistemology
 <div class="truth-box">
 <h4>📊 Observability Challenge</h4>
 
@@ -943,5 +943,5 @@ Remember: Little's Law is like gravity - always there!
 ## Related Concepts
 
 - **Quantitative**: [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md) | [Availability Math](availability-math.md)
-- **Patterns**: [Rate Limiting](../patterns/rate-limiting.md) | [Bulkhead](../patterns/bulkhead.md) | [Backpressure](../patterns/backpressure.md)
-- **Operations**: [SRE Practices](../human-factors/sre-practices.md) | [Performance Monitoring](../human-factors/observability-stacks.md)
+- **Patterns**: [Rate Limiting](/patterns/rate-limiting) | [Bulkhead](/patterns/bulkhead) | [Backpressure](/patterns/backpressure)
+- **Operations**: [SRE Practices](/human-factors/sre-practices) | [Performance Monitoring](/human-factors/observability-stacks)

@@ -295,17 +295,17 @@ def phi_accrual_detector(heartbeat_history):
     current_time = time.now()
     last_heartbeat = heartbeat_history[-1]
     
-    # Calculate expected interval
+# Calculate expected interval
     intervals = calculate_intervals(heartbeat_history)
     mean = np.mean(intervals)
     std = np.std(intervals)
     
-    # Time since last heartbeat
+# Time since last heartbeat
     elapsed = current_time - last_heartbeat
     
-    # Calculate φ
+# Calculate φ
     phi = -log10(1 - F(elapsed))
-    # where F is CDF of normal distribution
+# where F is CDF of normal distribution
     
     return phi
 
@@ -389,10 +389,10 @@ def cascade_probability(initial_load, capacity, failed_nodes, total_nodes):
     new_load_per_node = (initial_load * total_nodes) / remaining_nodes
     
     if new_load_per_node > capacity:
-        # Cascade likely
+# Cascade likely
         return 1.0
     else:
-        # Probability increases with load
+# Probability increases with load
         return (new_load_per_node / capacity) ** 2
 ```
 
@@ -447,7 +447,7 @@ budgets = {
 
 ## Related Concepts
 
-- **Laws**: [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) | [Law 3: Emergent Chaos](../part1-axioms/law3-emergence/index.md)
-- **Patterns**: [Circuit Breaker](../patterns/circuit-breaker.md) | [Bulkhead](../patterns/bulkhead.md) | [Timeout](../patterns/timeout.md)
+- **Laws**: [Law 1: Correlated Failure](/part1-axioms/law1-failure/) | [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/)
+- **Patterns**: [Circuit Breaker](/patterns/circuit-breaker) | [Bulkhead](/patterns/bulkhead) | [Timeout](/patterns/timeout)
 - **Quantitative**: [Availability Math](availability-math.md) | [Reliability Theory](reliability-theory.md)
-- **Case Studies**: [Netflix Chaos](../case-studies/netflix-chaos.md) | [AWS Outages](../case-studies/aws-outages.md)
+- **Case Studies**: [Netflix Chaos](/case-studies/netflix-chaos) | [AWS Outages](/case-studies/aws-outages)

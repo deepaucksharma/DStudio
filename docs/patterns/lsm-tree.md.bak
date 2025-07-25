@@ -137,15 +137,15 @@ class MemTable:
         self.wal = WriteAheadLog()
         
     def put(self, key, value):
-        # Write to WAL first for durability
+# Write to WAL first for durability
         self.wal.append(('PUT', key, value))
         
-        # Update in-memory structure
+# Update in-memory structure
         old_size = len(self.data.get(key, ''))
         self.data[key] = value
         self.size += len(value) - old_size
         
-        # Check if flush needed
+# Check if flush needed
         if self.size >= self.size_limit:
             return 'NEEDS_FLUSH'
         return 'OK'
@@ -154,7 +154,7 @@ class MemTable:
         return self.data.get(key)
     
     def delete(self, key):
-        # Deletion is just a special value (tombstone)
+# Deletion is just a special value (tombstone)
         self.put(key, '__DELETED__')
     
     def to_sstable(self):
@@ -197,7 +197,7 @@ graph LR
 ```python
 class BloomFilter:
     def __init__(self, expected_items, false_positive_rate=0.01):
-        # Calculate optimal size and hash functions
+# Calculate optimal size and hash functions
         self.size = int(-expected_items * math.log(false_positive_rate) / (math.log(2) ** 2))
         self.hash_count = int(self.size / expected_items * math.log(2))
         self.bits = bitarray(self.size)
@@ -263,16 +263,16 @@ class LeveledCompaction:
     def compact_level(self, level):
         """Compact level into level+1"""
         if self.get_level_total_size(level) > self.get_level_size(level):
-            # Select overlapping files from level and level+1
+# Select overlapping files from level and level+1
             files_to_compact = self.select_compaction_files(level)
             
-            # Merge sort all selected files
+# Merge sort all selected files
             merged = self.merge_sorted_files(files_to_compact)
             
-            # Write back to level+1
+# Write back to level+1
             self.write_to_level(merged, level + 1)
             
-            # Delete old files
+# Delete old files
             self.delete_files(files_to_compact)
 ```
 
@@ -340,21 +340,21 @@ def analyze_read_performance(lsm_tree, key):
     """Analyze read amplification"""
     checks = []
     
-    # Check MemTable (fastest)
+# Check MemTable (fastest)
     if lsm_tree.memtable.contains(key):
         checks.append(('MemTable', 0.01))  # ~0.01ms
         return checks
     
-    # Check each level (increasingly slower)
+# Check each level (increasingly slower)
     for level in range(lsm_tree.num_levels):
         sstables = lsm_tree.get_level_sstables(level)
         
         for sstable in sstables:
-            # Bloom filter check (fast)
+# Bloom filter check (fast)
             if sstable.bloom_filter.might_contain(key):
                 checks.append((f'L{level} Bloom', 0.001))
                 
-                # Actual disk read (slow)
+# Actual disk read (slow)
                 if sstable.contains(key):
                     checks.append((f'L{level} Read', 1.0))
                     return checks
@@ -433,7 +433,7 @@ class BatchedLSMTree:
                 self.write_buffer.append((key, value))
                 self.buffer_size += len(key) + len(value)
         
-        # Apply to MemTable in batch
+# Apply to MemTable in batch
         self.memtable.batch_insert(self.write_buffer)
         self.write_buffer.clear()
         self.buffer_size = 0
@@ -471,8 +471,8 @@ class SSDOptimizedLSM:
     
     def compact_with_zones(self, files):
         """Align compaction with zone boundaries"""
-        # Compact entire zones together
-        # Minimize zone rewrites
+# Compact entire zones together
+# Minimize zone rewrites
         pass
 ```
 
@@ -532,15 +532,15 @@ class SSDOptimizedLSM:
 ```python
 def handle_tombstones(self):
     """Special handling for deletes"""
-    # Problem: Tombstones must be kept until
-    # they've been compacted to bottom level
+# Problem: Tombstones must be kept until
+# they've been compacted to bottom level
     
-    # Solution 1: Single delete optimization
+# Solution 1: Single delete optimization
     if self.is_single_delete_safe(key):
-        # Can drop tombstone early
+# Can drop tombstone early
         pass
     
-    # Solution 2: Delete compaction
+# Solution 2: Delete compaction
     if self.tombstone_ratio > 0.5:
         self.trigger_delete_compaction()
 ```
@@ -578,7 +578,7 @@ def handle_tombstones(self):
 - Write-Ahead Log (WAL) (Coming Soon) - Durability mechanism
 - [Bloom Filter](bloom-filter.md) - Read optimization for LSM trees
 - [Sharding](sharding.md) - Distributing LSM trees across nodes
-- [Consistent Hashing](../case-studies/consistent-hashing.md) - Key distribution
+- [Consistent Hashing](/case-studies/consistent-hashing) - Key distribution
 
 ## References
 

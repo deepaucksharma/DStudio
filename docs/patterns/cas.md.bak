@@ -394,7 +394,7 @@ class OptimisticLockRecord:
     
     def update(self, new_data, db_connection):
         """Update with optimistic concurrency control."""
-        # This simulates a CAS operation at the database level
+# This simulates a CAS operation at the database level
         result = db_connection.execute(
             """
             UPDATE records 
@@ -415,16 +415,16 @@ class OptimisticLockRecord:
 def update_with_retry(record, new_data, db_conn, max_retries=3):
     for attempt in range(max_retries):
         try:
-            # Read current version
+# Read current version
             current = db_conn.fetch_one(
                 "SELECT data, version FROM records WHERE id = %s",
                 (record.id,)
             )
             
-            # Apply business logic
+# Apply business logic
             updated_data = transform_data(current.data, new_data)
             
-            # Try to update
+# Try to update
             record.version = current.version
             record.update(updated_data, db_conn)
             return True
@@ -526,10 +526,10 @@ flag.store(true, std::memory_order_release);
 6. **Profile Performance**: Measure actual performance, don't assume
 
 ## Related Patterns
-- [Optimistic Locking](../patterns/optimistic-locking.md) - Database-level CAS
-- [Event Sourcing](../patterns/event-sourcing.md) - Append-only updates avoid conflicts
+- [Optimistic Locking](/patterns/optimistic-locking) - Database-level CAS
+- [Event Sourcing](/patterns/event-sourcing) - Append-only updates avoid conflicts
 - Actor Model (Coming Soon) - Alternative concurrency model
-- [CRDT](../patterns/crdt.md) - Conflict-free replicated data types
+- [CRDT](/patterns/crdt) - Conflict-free replicated data types
 
 ## References
 - [The Art of Multiprocessor Programming](https://www.elsevier.com/books/the-art-of-multiprocessor-programming/herlihy/978-0-12-415950-1)

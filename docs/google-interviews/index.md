@@ -47,7 +47,7 @@ graph TD
 ## Interview Types Comparison
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Interview Type</th>
@@ -59,32 +59,32 @@ graph TD
 </thead>
 <tbody>
 <tr>
-<td><strong>Phone Screen</strong></td>
-<td>• High-level design<br/>• Basic scale awareness<br/>• Communication skills</td>
-<td>45 min</td>
-<td>• Clear thinking<br/>• Basic patterns<br/>• Ask good questions</td>
-<td>• URL shortener<br/>• Chat system<br/>• Basic storage</td>
+<td data-label="Interview Type"><strong>Phone Screen</strong></td>
+<td data-label="Focus Areas">• High-level design<br/>• Basic scale awareness<br/>• Communication skills</td>
+<td data-label="Duration">45 min</td>
+<td data-label="Key Expectations">• Clear thinking<br/>• Basic patterns<br/>• Ask good questions</td>
+<td data-label="Common Topics">• URL shortener<br/>• Chat system<br/>• Basic storage</td>
 </tr>
 <tr>
-<td><strong>Onsite - Junior</strong></td>
-<td>• Fundamentals<br/>• Common patterns<br/>• Learning ability</td>
-<td>45 min × 2</td>
-<td>• Solid basics<br/>• Growth potential<br/>• Coachability</td>
-<td>• Social media feed<br/>• File storage<br/>• Messaging</td>
+<td data-label="Interview Type"><strong>Onsite - Junior</strong></td>
+<td data-label="Focus Areas">• Fundamentals<br/>• Common patterns<br/>• Learning ability</td>
+<td data-label="Duration">45 min × 2</td>
+<td data-label="Key Expectations">• Solid basics<br/>• Growth potential<br/>• Coachability</td>
+<td data-label="Common Topics">• Social media feed<br/>• File storage<br/>• Messaging</td>
 </tr>
 <tr>
-<td><strong>Onsite - Senior</strong></td>
-<td>• Complex systems<br/>• Trade-offs<br/>• Leadership</td>
-<td>45 min × 2-3</td>
-<td>• Deep expertise<br/>• Novel solutions<br/>• Mentorship</td>
-<td>• YouTube<br/>• Google Search<br/>• AdWords</td>
+<td data-label="Interview Type"><strong>Onsite - Senior</strong></td>
+<td data-label="Focus Areas">• Complex systems<br/>• Trade-offs<br/>• Leadership</td>
+<td data-label="Duration">45 min × 2-3</td>
+<td data-label="Key Expectations">• Deep expertise<br/>• Novel solutions<br/>• Mentorship</td>
+<td data-label="Common Topics">• YouTube<br/>• Google Search<br/>• AdWords</td>
 </tr>
 <tr>
-<td><strong>Onsite - Staff+</strong></td>
-<td>• Architecture<br/>• Cross-system design<br/>• Organizational impact</td>
-<td>60 min × 2-3</td>
-<td>• Vision<br/>• Innovation<br/>• Business sense</td>
-<td>• Platform design<br/>• Infrastructure<br/>• ML systems</td>
+<td data-label="Interview Type"><strong>Onsite - Staff+</strong></td>
+<td data-label="Focus Areas">• Architecture<br/>• Cross-system design<br/>• Organizational impact</td>
+<td data-label="Duration">60 min × 2-3</td>
+<td data-label="Key Expectations">• Vision<br/>• Innovation<br/>• Business sense</td>
+<td data-label="Common Topics">• Platform design<br/>• Infrastructure<br/>• ML systems</td>
 </tr>
 </tbody>
 </table>
@@ -234,7 +234,7 @@ gantt
 ### Technology Selection Matrix
 
 <div class="tech-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Use Case</th>
@@ -246,60 +246,60 @@ gantt
 </thead>
 <tbody>
 <tr>
-<td><strong>Structured Data</strong></td>
-<td>Spanner</td>
-<td>Cloud SQL</td>
-<td>Global consistency needed</td>
-<td>Unlimited</td>
+<td data-label="Use Case"><strong>Structured Data</strong></td>
+<td data-label="Best Choice">Spanner</td>
+<td data-label="Alternative">Cloud SQL</td>
+<td data-label="When to Use">Global consistency needed</td>
+<td data-label="Scale Limit">Unlimited</td>
 </tr>
 <tr>
-<td><strong>NoSQL</strong></td>
-<td>Bigtable</td>
-<td>Firestore</td>
-<td>Time-series, high throughput</td>
-<td>Petabytes</td>
+<td data-label="Use Case"><strong>NoSQL</strong></td>
+<td data-label="Best Choice">Bigtable</td>
+<td data-label="Alternative">Firestore</td>
+<td data-label="When to Use">Time-series, high throughput</td>
+<td data-label="Scale Limit">Petabytes</td>
 </tr>
 <tr>
-<td><strong>Object Storage</strong></td>
-<td>Cloud Storage</td>
-<td>Persistent Disk</td>
-<td>Unstructured data, media</td>
-<td>Exabytes</td>
+<td data-label="Use Case"><strong>Object Storage</strong></td>
+<td data-label="Best Choice">Cloud Storage</td>
+<td data-label="Alternative">Persistent Disk</td>
+<td data-label="When to Use">Unstructured data, media</td>
+<td data-label="Scale Limit">Exabytes</td>
 </tr>
 <tr>
-<td><strong>Caching</strong></td>
-<td>Memcached</td>
-<td>Redis</td>
-<td>Session data, hot data</td>
-<td>TB in memory</td>
+<td data-label="Use Case"><strong>Caching</strong></td>
+<td data-label="Best Choice">Memcached</td>
+<td data-label="Alternative">Redis</td>
+<td data-label="When to Use">Session data, hot data</td>
+<td data-label="Scale Limit">TB in memory</td>
 </tr>
 <tr>
-<td><strong>Message Queue</strong></td>
-<td>Pub/Sub</td>
-<td>Cloud Tasks</td>
-<td>Async processing</td>
-<td>1M msgs/sec</td>
+<td data-label="Use Case"><strong>Message Queue</strong></td>
+<td data-label="Best Choice">Pub/Sub</td>
+<td data-label="Alternative">Cloud Tasks</td>
+<td data-label="When to Use">Async processing</td>
+<td data-label="Scale Limit">1M msgs/sec</td>
 </tr>
 <tr>
-<td><strong>Stream Processing</strong></td>
-<td>Dataflow</td>
-<td>Dataproc</td>
-<td>Real-time analytics</td>
-<td>Unlimited</td>
+<td data-label="Use Case"><strong>Stream Processing</strong></td>
+<td data-label="Best Choice">Dataflow</td>
+<td data-label="Alternative">Dataproc</td>
+<td data-label="When to Use">Real-time analytics</td>
+<td data-label="Scale Limit">Unlimited</td>
 </tr>
 <tr>
-<td><strong>Batch Processing</strong></td>
-<td>Dataflow</td>
-<td>Dataproc</td>
-<td>ETL, ML training</td>
-<td>Unlimited</td>
+<td data-label="Use Case"><strong>Batch Processing</strong></td>
+<td data-label="Best Choice">Dataflow</td>
+<td data-label="Alternative">Dataproc</td>
+<td data-label="When to Use">ETL, ML training</td>
+<td data-label="Scale Limit">Unlimited</td>
 </tr>
 <tr>
-<td><strong>ML Serving</strong></td>
-<td>Vertex AI</td>
-<td>Cloud Run</td>
-<td>Model inference</td>
-<td>10K QPS</td>
+<td data-label="Use Case"><strong>ML Serving</strong></td>
+<td data-label="Best Choice">Vertex AI</td>
+<td data-label="Alternative">Cloud Run</td>
+<td data-label="When to Use">Model inference</td>
+<td data-label="Scale Limit">10K QPS</td>
 </tr>
 </tbody>
 </table>
@@ -448,7 +448,7 @@ graph LR
 ## Detailed Scoring Rubric
 
 <div class="scoring-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Dimension</th>
@@ -460,39 +460,39 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Problem Analysis</strong></td>
-<td>• Misunderstands problem<br/>• No clarifying questions<br/>• Wrong assumptions</td>
-<td>• Basic understanding<br/>• Few questions<br/>• Some assumptions stated</td>
-<td>• Good understanding<br/>• Good questions<br/>• Clear assumptions</td>
-<td>• Deep insight<br/>• Excellent questions<br/>• Challenges assumptions</td>
+<td data-label="Dimension"><strong>Problem Analysis</strong></td>
+<td data-label="1 - Strong No Hire">• Misunderstands problem<br/>• No clarifying questions<br/>• Wrong assumptions</td>
+<td data-label="2 - No Hire">• Basic understanding<br/>• Few questions<br/>• Some assumptions stated</td>
+<td data-label="3 - Hire">• Good understanding<br/>• Good questions<br/>• Clear assumptions</td>
+<td data-label="4 - Strong Hire">• Deep insight<br/>• Excellent questions<br/>• Challenges assumptions</td>
 </tr>
 <tr>
-<td><strong>System Design</strong></td>
-<td>• No coherent design<br/>• Major components missing<br/>• Doesn't work</td>
-<td>• Basic design<br/>• Some gaps<br/>• Would work poorly</td>
-<td>• Solid design<br/>• All components present<br/>• Would work well</td>
-<td>• Elegant design<br/>• Optimal choices<br/>• Production-ready</td>
+<td data-label="Dimension"><strong>System Design</strong></td>
+<td data-label="1 - Strong No Hire">• No coherent design<br/>• Major components missing<br/>• Doesn't work</td>
+<td data-label="2 - No Hire">• Basic design<br/>• Some gaps<br/>• Would work poorly</td>
+<td data-label="3 - Hire">• Solid design<br/>• All components present<br/>• Would work well</td>
+<td data-label="4 - Strong Hire">• Elegant design<br/>• Optimal choices<br/>• Production-ready</td>
 </tr>
 <tr>
-<td><strong>Scale Thinking</strong></td>
-<td>• Ignores scale<br/>• No calculations<br/>• Single-server mindset</td>
-<td>• Mentions scale<br/>• Basic calculations<br/>• Some distribution</td>
-<td>• Plans for scale<br/>• Good calculations<br/>• Proper sharding</td>
-<td>• Masters scale<br/>• Precise calculations<br/>• Optimal partitioning</td>
+<td data-label="Dimension"><strong>Scale Thinking</strong></td>
+<td data-label="1 - Strong No Hire">• Ignores scale<br/>• No calculations<br/>• Single-server mindset</td>
+<td data-label="2 - No Hire">• Mentions scale<br/>• Basic calculations<br/>• Some distribution</td>
+<td data-label="3 - Hire">• Plans for scale<br/>• Good calculations<br/>• Proper sharding</td>
+<td data-label="4 - Strong Hire">• Masters scale<br/>• Precise calculations<br/>• Optimal partitioning</td>
 </tr>
 <tr>
-<td><strong>Trade-offs</strong></td>
-<td>• No trade-offs discussed<br/>• One-size-fits-all<br/>• Inflexible</td>
-<td>• Few trade-offs<br/>• Basic analysis<br/>• Some flexibility</td>
-<td>• Good trade-offs<br/>• Clear reasoning<br/>• Adaptable design</td>
-<td>• Excellent analysis<br/>• Multiple options<br/>• Future-proof</td>
+<td data-label="Dimension"><strong>Trade-offs</strong></td>
+<td data-label="1 - Strong No Hire">• No trade-offs discussed<br/>• One-size-fits-all<br/>• Inflexible</td>
+<td data-label="2 - No Hire">• Few trade-offs<br/>• Basic analysis<br/>• Some flexibility</td>
+<td data-label="3 - Hire">• Good trade-offs<br/>• Clear reasoning<br/>• Adaptable design</td>
+<td data-label="4 - Strong Hire">• Excellent analysis<br/>• Multiple options<br/>• Future-proof</td>
 </tr>
 <tr>
-<td><strong>Communication</strong></td>
-<td>• Unclear explanation<br/>• No diagrams<br/>• Hard to follow</td>
-<td>• Basic clarity<br/>• Simple diagrams<br/>• Some confusion</td>
-<td>• Clear communication<br/>• Good diagrams<br/>• Easy to follow</td>
-<td>• Crystal clear<br/>• Professional diagrams<br/>• Teaches interviewer</td>
+<td data-label="Dimension"><strong>Communication</strong></td>
+<td data-label="1 - Strong No Hire">• Unclear explanation<br/>• No diagrams<br/>• Hard to follow</td>
+<td data-label="2 - No Hire">• Basic clarity<br/>• Simple diagrams<br/>• Some confusion</td>
+<td data-label="3 - Hire">• Clear communication<br/>• Good diagrams<br/>• Easy to follow</td>
+<td data-label="4 - Strong Hire">• Crystal clear<br/>• Professional diagrams<br/>• Teaches interviewer</td>
 </tr>
 </tbody>
 </table>
@@ -504,32 +504,36 @@ graph LR
 
 <div class="truth-box">
 <h3>Core Evaluation Dimensions</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Dimension</th>
 <th>What They Assess</th>
 <th>How to Excel</th>
 </tr>
-<tr>
-<td><strong>Problem Solving</strong></td>
-<td>- Requirement gathering<br>- Trade-off analysis<br>- Iterative refinement</td>
-<td>- Ask clarifying questions<br>- State assumptions clearly<br>- Consider multiple approaches</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Dimension"><strong>Problem Solving</strong></td>
+<td data-label="What They Assess">- Requirement gathering<br>- Trade-off analysis<br>- Iterative refinement</td>
+<td data-label="How to Excel">- Ask clarifying questions<br>- State assumptions clearly<br>- Consider multiple approaches</td>
 </tr>
-<tr>
-<td><strong>Technical Depth</strong></td>
-<td>- System components<br>- Data flow<br>- Technology choices</td>
-<td>- Know common patterns<br>- Understand Google tech<br>- Justify decisions</td>
+    <tr>
+<td data-label="Dimension"><strong>Technical Depth</strong></td>
+<td data-label="What They Assess">- System components<br>- Data flow<br>- Technology choices</td>
+<td data-label="How to Excel">- Know common patterns<br>- Understand Google tech<br>- Justify decisions</td>
 </tr>
-<tr>
-<td><strong>Scale Awareness</strong></td>
-<td>- Capacity planning<br>- Performance optimization<br>- Cost considerations</td>
-<td>- Do back-of-envelope math<br>- Identify bottlenecks<br>- Propose optimizations</td>
+    <tr>
+<td data-label="Dimension"><strong>Scale Awareness</strong></td>
+<td data-label="What They Assess">- Capacity planning<br>- Performance optimization<br>- Cost considerations</td>
+<td data-label="How to Excel">- Do back-of-envelope math<br>- Identify bottlenecks<br>- Propose optimizations</td>
 </tr>
-<tr>
-<td><strong>Communication</strong></td>
-<td>- Clarity of explanation<br>- Diagram quality<br>- Thought process</td>
-<td>- Think out loud<br>- Draw clear diagrams<br>- Summarize decisions</td>
+    <tr>
+<td data-label="Dimension"><strong>Communication</strong></td>
+<td data-label="What They Assess">- Clarity of explanation<br>- Diagram quality<br>- Thought process</td>
+<td data-label="How to Excel">- Think out loud<br>- Draw clear diagrams<br>- Summarize decisions</td>
 </tr>
+  </tbody>
 </table>
 </div>
 
@@ -799,7 +803,7 @@ flowchart TD
 
 <div class="performance-tracker">
 <h3>Track Your Interview Performance</h3>
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Date</th>
@@ -811,25 +815,25 @@ flowchart TD
 </thead>
 <tbody>
 <tr>
-<td><input type="date"></td>
-<td><input type="text" placeholder="e.g., YouTube"></td>
-<td><input type="text" placeholder="e.g., 45 min"></td>
-<td><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
-<td><input type="text" placeholder="e.g., Scale calculations"></td>
+<td data-label="Date"><input type="date"></td>
+<td data-label="System"><input type="text" placeholder="e.g., YouTube"></td>
+<td data-label="Time Taken"><input type="text" placeholder="e.g., 45 min"></td>
+<td data-label="Self Score (1-4)"><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
+<td data-label="Areas to Improve"><input type="text" placeholder="e.g., Scale calculations"></td>
 </tr>
 <tr>
-<td><input type="date"></td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
-<td><input type="text"></td>
+<td data-label="Date"><input type="date"></td>
+<td data-label="System"><input type="text"></td>
+<td data-label="Time Taken"><input type="text"></td>
+<td data-label="Self Score (1-4)"><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
+<td data-label="Areas to Improve"><input type="text"></td>
 </tr>
 <tr>
-<td><input type="date"></td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
-<td><input type="text"></td>
+<td data-label="Date"><input type="date"></td>
+<td data-label="System"><input type="text"></td>
+<td data-label="Time Taken"><input type="text"></td>
+<td data-label="Self Score (1-4)"><select><option>1</option><option>2</option><option>3</option><option>4</option></select></td>
+<td data-label="Areas to Improve"><input type="text"></td>
 </tr>
 </tbody>
 </table>

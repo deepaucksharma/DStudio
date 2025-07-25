@@ -10,14 +10,14 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 6](index.md) → **Axiom 6: Observability**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 6](index.md) → **Axiom 6: Observability**
 
 # Axiom 6: Observability
 
 ---
 
 
-## 🔥 The Constraint
+## The Constraint
 
 ### The Fundamental Limit
 
@@ -46,7 +46,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 ---
 
-## 💡 Why It Matters
+## Why It Matters
 
 Debugging and monitoring have fundamental limitations
 
@@ -95,7 +95,7 @@ The constraint is absolute—these misconceptions arise from:
 
 ---
 
-## ⚙️ Practical Implications
+## Practical Implications
 
 How this constraint shapes real system design:
 
@@ -242,28 +242,28 @@ with log_context(correlation_id=request.correlation_id):
 # The Four Golden Signals (Google SRE)
 class GoldenSignals:
     def __init__(self):
-        # 1. Latency
+# 1. Latency
         self.latency_histogram = Histogram(
             'request_duration_seconds',
             'Request latency',
             buckets=[0.001, 0.01, 0.1, 0.5, 1.0, 5.0]
         )
         
-        # 2. Traffic
+# 2. Traffic
         self.request_rate = Counter(
             'requests_total',
             'Total requests',
             ['method', 'endpoint', 'status']
         )
         
-        # 3. Errors
+# 3. Errors
         self.error_rate = Counter(
             'errors_total',
             'Total errors',
             ['type', 'endpoint']
         )
         
-        # 4. Saturation
+# 4. Saturation
         self.saturation = Gauge(
             'resource_usage_ratio',
             'Resource saturation',
@@ -283,23 +283,23 @@ def process_order(order_id):
     span = trace.get_current_span()
     span.set_attribute("order.id", order_id)
     
-    # Validate order
+# Validate order
     with tracer.start_as_current_span("validate_order") as span:
         validation_result = validate(order_id)
         span.set_attribute("validation.passed", validation_result)
     
-    # Process payment
+# Process payment
     with tracer.start_as_current_span("process_payment") as span:
         payment_result = charge_payment(order_id)
         span.set_attribute("payment.status", payment_result.status)
     
-    # Ship order
+# Ship order
     with tracer.start_as_current_span("ship_order") as span:
         shipping_id = create_shipment(order_id)
         span.set_attribute("shipping.id", shipping_id)
 ```
 
-### 🎬 Failure Vignette: The Twitter Fail Whale Era
+### Failure Vignette: The Twitter Fail Whale Era
 
 **Period**: 2007-2013  
 **Problem**: No observability into Ruby on Rails monolith  
@@ -349,7 +349,7 @@ Lesson: "Flying blind" is not an option at scale
 # Measure latency correctly
 class LatencyTracker:
     def __init__(self):
-        # Track success and error latency separately!
+# Track success and error latency separately!
         self.success_histogram = Histogram(
             'request_duration_success_seconds',
             'Successful request latency'
@@ -363,12 +363,12 @@ class LatencyTracker:
         if success:
             self.success_histogram.observe(duration)
         else:
-            # Errors often fail fast - track separately
+# Errors often fail fast - track separately
             self.error_histogram.observe(duration)
 
 # Why separate? Errors can hide latency issues
 # Example: 99% of requests take 100ms (good)
-#          1% timeout at 30s (bad)
+# 1% timeout at 30s (bad)
 # Average: 396ms (looks ok, but it's not!)
 ```
 
@@ -457,19 +457,19 @@ class AdaptiveSampler:
     """Sample more when interesting things happen"""
     
     def should_sample(self, span):
-        # Always sample errors
+# Always sample errors
         if span.status == 'ERROR':
             return True
             
-        # Always sample slow requests
+# Always sample slow requests
         if span.duration > 1000:  # 1 second
             return True
             
-        # Sample new endpoints
+# Sample new endpoints
         if self.is_new_endpoint(span.endpoint):
             return True
             
-        # Sample based on traffic
+# Sample based on traffic
         traffic_rate = self.get_traffic_rate()
         if traffic_rate < 100:  # Low traffic
             return True  # Sample everything
@@ -480,7 +480,7 @@ class AdaptiveSampler:
 
 # Results in practice:
 # - 100% of errors captured
-# - 100% of slow requests captured  
+# - 100% of slow requests captured
 # - Representative sample of normal traffic
 # - Costs controlled at scale
 ```
@@ -619,10 +619,10 @@ class ExemplarCollector:
     """Link high-cardinality traces to low-cardinality metrics"""
     
     def record_with_exemplar(self, metric, value, trace_id):
-        # Record metric
+# Record metric
         metric.observe(value)
         
-        # Store exemplar (sampled)
+# Store exemplar (sampled)
         if self.should_store_exemplar(value):
             self.exemplar_storage.store({
                 'metric': metric.name,
@@ -632,7 +632,7 @@ class ExemplarCollector:
             })
     
     def should_store_exemplar(self, value):
-        # Store outliers and sample normal values
+# Store outliers and sample normal values
         if value > self.p99_threshold:
             return True  # Always store outliers
         return random.random() < 0.001  # 0.1% of normal
@@ -650,18 +650,18 @@ class SLOMonitor:
         self.window = 30 * 24 * 60 * 60  # 30 days
         
     def calculate_error_budget(self):
-        # Get success rate over window
+# Get success rate over window
         success_rate = self.get_success_rate(self.window)
         
-        # Calculate budget
+# Calculate budget
         budget_total = 1 - self.target
         budget_used = 1 - success_rate
         budget_remaining = budget_total - budget_used
         
-        # Burn rate (how fast we're using budget)
+# Burn rate (how fast we're using budget)
         burn_rate = budget_used / (time_elapsed / self.window)
         
-        # Time until budget exhausted
+# Time until budget exhausted
         if burn_rate > 0:
             time_to_exhaustion = budget_remaining / burn_rate * self.window
         else:
@@ -683,33 +683,33 @@ class SyntheticMonitor:
     
     @every(60)  # Every minute
     def probe_critical_path(self):
-        # Create synthetic user journey
+# Create synthetic user journey
         trace_id = generate_trace_id()
         
         with tracer.start_span("synthetic_probe", trace_id=trace_id):
-            # 1. Login
+# 1. Login
             login_result = self.client.login(
                 username="synthetic_user",
                 password="synthetic_pass"
             )
             
-            # 2. Browse catalog  
+# 2. Browse catalog
             catalog = self.client.get_catalog()
             
-            # 3. Add to cart
+# 3. Add to cart
             cart = self.client.add_to_cart(
                 item_id="synthetic_item"
             )
             
-            # 4. Checkout
+# 4. Checkout
             order = self.client.checkout(
                 payment_method="synthetic_card"
             )
             
-            # 5. Cancel (don't actually fulfill)
+# 5. Cancel (don't actually fulfill)
             self.client.cancel_order(order.id)
             
-        # Record results
+# Record results
         self.metrics.record({
             'synthetic_success': login_result.success,
             'synthetic_latency': trace.duration,
@@ -724,24 +724,24 @@ class ChaosObserver:
     """Observe system during chaos experiments"""
     
     def observe_experiment(self, experiment):
-        # Baseline metrics before chaos
+# Baseline metrics before chaos
         baseline = self.capture_metrics()
         
-        # Start enhanced collection
+# Start enhanced collection
         with self.enhanced_collection():
-            # Run chaos experiment
+# Run chaos experiment
             experiment.run()
             
-            # Collect during chaos
+# Collect during chaos
             chaos_metrics = self.capture_metrics()
             
-            # Wait for recovery
+# Wait for recovery
             time.sleep(experiment.recovery_time)
             
-            # Collect after recovery
+# Collect after recovery
             recovery_metrics = self.capture_metrics()
         
-        # Analyze impact
+# Analyze impact
         return {
             'baseline': baseline,
             'impact': self.calculate_impact(baseline, chaos_metrics),
@@ -884,22 +884,22 @@ class EdgeTracingSampler:
         self.global_budget = 1000000  # 1M traces/day
         
     def should_trace(self, request):
-        # Always trace errors
+# Always trace errors
         if request.will_error():  # Predictive!
             return True
             
-        # Device-based sampling (new devices = interesting)
+# Device-based sampling (new devices = interesting)
         device_id = request.device_id
         if device_id not in self.device_samples:
             self.device_samples[device_id] = 0
             return True  # First time seeing device
             
-        # User experience sampling
+# User experience sampling
         user_id = request.user_id
         if self.user_having_issues(user_id):
             return True  # User experiencing problems
             
-        # Budget-aware sampling
+# Budget-aware sampling
         if self.daily_budget_remaining() > 0:
             return self.adaptive_sample(request)
             
@@ -915,10 +915,10 @@ class IncidentCorrelator:
     def correlate_incident(self, alert):
         correlations = []
         
-        # Time-based correlation
+# Time-based correlation
         window = (alert.time - 300, alert.time + 300)  # ±5 min
         
-        # Find metric anomalies
+# Find metric anomalies
         metric_anomalies = self.find_metric_anomalies(window)
         for anomaly in metric_anomalies:
             correlation = self.calculate_correlation(
@@ -932,7 +932,7 @@ class IncidentCorrelator:
                     'correlation': correlation
                 })
         
-        # Find log patterns
+# Find log patterns
         log_patterns = self.find_log_patterns(window)
         for pattern in log_patterns:
             if self.is_relevant(pattern, alert):
@@ -942,7 +942,7 @@ class IncidentCorrelator:
                     'confidence': pattern.confidence
                 })
         
-        # Find trace anomalies
+# Find trace anomalies
         trace_issues = self.find_trace_issues(window)
         for issue in trace_issues:
             if issue.service in alert.dependency_graph:
@@ -973,10 +973,10 @@ class PredictiveMonitor:
         predictions = []
         
         for name, model in self.models.items():
-            # Get current state
+# Get current state
             current_state = self.get_system_state()
             
-            # Predict future
+# Predict future
             prediction = model.predict(
                 current_state,
                 time_horizon
@@ -1026,23 +1026,23 @@ class ContinuousProfiler:
     """Always-on production profiling"""
     
     def profile_production(self):
-        # CPU profiling (1% overhead)
+# CPU profiling (1% overhead)
         cpu_profile = self.sample_cpu(rate=100)  # 100Hz
         
-        # Memory profiling (2% overhead)
+# Memory profiling (2% overhead)
         memory_profile = self.track_allocations(sample=0.01)
         
-        # Lock contention (minimal overhead)
+# Lock contention (minimal overhead)
         lock_profile = self.monitor_locks()
         
-        # Correlate with business metrics
+# Correlate with business metrics
         correlation = self.correlate_with_slo(
             cpu_profile,
             memory_profile,
             lock_profile
         )
         
-        # Find optimization opportunities
+# Find optimization opportunities
         return {
             'hot_paths': self.find_hot_paths(cpu_profile),
             'memory_leaks': self.find_leaks(memory_profile),
@@ -1215,7 +1215,7 @@ from opentelemetry import trace
 
 class ObservableService:
     def __init__(self):
-        # Metrics
+# Metrics
         self.request_count = Counter(
             'requests_total', 
             'Total requests',
@@ -1230,14 +1230,14 @@ class ObservableService:
             'Currently active connections'
         )
         
-        # Structured logging
+# Structured logging
         self.logger = structlog.get_logger()
         
-        # Tracing
+# Tracing
         self.tracer = trace.get_tracer(__name__)
     
     async def handle_request(self, request):
-        # Your implementation here
+# Your implementation here
         pass
 
 # Goal: Process 1000 requests and analyze:
@@ -1325,18 +1325,18 @@ class TraceMetricCorrelator:
     """
     
     def __init__(self):
-        # Your implementation
+# Your implementation
         pass
     
     def record_request(self, duration, status, trace_id):
-        # 1. Record metric
-        # 2. Store exemplar if interesting
-        # 3. Enable trace lookup from metric
+# 1. Record metric
+# 2. Store exemplar if interesting
+# 3. Enable trace lookup from metric
         pass
     
     def get_example_traces(self, metric_query):
-        # Return trace IDs for requests matching query
-        # E.g., "Show me traces for p99 latency"
+# Return trace IDs for requests matching query
+# E.g., "Show me traces for p99 latency"
         pass
 
 # Test: Process 10K requests
@@ -1510,7 +1510,7 @@ Commercial:
 
 ---
 
-**Next**: [Axiom 7: Human Interface →](../axiom7-human/index.md)
+**Next**: [Axiom 7: Human Interface →](/part1-axioms/archive-old-8-axiom-structure/axiom7-human/)
 
 *"In distributed systems, the truth is out there... scattered across 1000 log files."*
 
@@ -1518,4 +1518,4 @@ Commercial:
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Observability Stacks](../../human-factors/observability-stacks.md) • [SRE Practices](../../human-factors/sre-practices.md) • [Monitoring Patterns](../../patterns/observability.md)
+**Related**: [Observability Stacks](/part1-axioms/human-factors/observability-stacks) • [SRE Practices](/part1-axioms/human-factors/sre-practices) • [Monitoring Patterns](/patterns/observability)

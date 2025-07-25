@@ -36,7 +36,7 @@ flowchart TD
 
 <div class="prep-calculator">
 <h3>Calculate Your Study Hours</h3>
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Factor</th>
@@ -46,8 +46,8 @@ flowchart TD
 </thead>
 <tbody>
 <tr>
-<td>Current Role</td>
-<td>
+<td data-label="Factor">Current Role</td>
+<td data-label="Your Situation">
 <select id="role">
 <option value="5">Non-tech role</option>
 <option value="3">Backend Engineer</option>
@@ -55,11 +55,11 @@ flowchart TD
 <option value="1">Already at Google/FAANG</option>
 </select>
 </td>
-<td id="role-hours">-</td>
+<td data-label="Hours/Week Needed">-</td>
 </tr>
 <tr>
-<td>System Design Experience</td>
-<td>
+<td data-label="Factor">System Design Experience</td>
+<td data-label="Your Situation">
 <select id="sd-exp">
 <option value="8">Never done it</option>
 <option value="5">Some experience</option>
@@ -67,23 +67,23 @@ flowchart TD
 <option value="1">Expert level</option>
 </select>
 </td>
-<td id="sd-hours">-</td>
+<td data-label="Hours/Week Needed">-</td>
 </tr>
 <tr>
-<td>Target Level</td>
-<td>
+<td data-label="Factor">Target Level</td>
+<td data-label="Your Situation">
 <select id="level">
 <option value="3">L3/L4 (Junior/Mid)</option>
 <option value="5">L5 (Senior)</option>
 <option value="8">L6+ (Staff+)</option>
 </select>
 </td>
-<td id="level-hours">-</td>
+<td data-label="Hours/Week Needed">-</td>
 </tr>
 <tr>
-<td><strong>Total Recommended</strong></td>
-<td>-</td>
-<td id="total-hours"><strong>-</strong></td>
+<td data-label="Factor"><strong>Total Recommended</strong></td>
+<td data-label="Your Situation">-</td>
+<td data-label="Hours/Week Needed"><strong>-</strong></td>
 </tr>
 </tbody>
 </table>
@@ -264,7 +264,7 @@ gantt
 ## 📖 Reading Priority Matrix
 
 <div class="reading-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Paper/Resource</th>
@@ -276,53 +276,53 @@ gantt
 </thead>
 <tbody>
 <tr>
-<td><strong>MapReduce (2004)</strong></td>
-<td>🔴 Critical</td>
-<td>2 hours</td>
-<td>Parallel processing, fault tolerance</td>
-<td>★★★★★</td>
+<td data-label="Paper/Resource"><strong>MapReduce (2004)</strong></td>
+<td data-label="Priority">🔴 Critical</td>
+<td data-label="Time to Read">2 hours</td>
+<td data-label="Key Takeaways">Parallel processing, fault tolerance</td>
+<td data-label="Interview Relevance">★★★★★</td>
 </tr>
 <tr>
-<td><strong>Bigtable (2006)</strong></td>
-<td>🔴 Critical</td>
-<td>3 hours</td>
-<td>NoSQL design, LSM trees</td>
-<td>★★★★★</td>
+<td data-label="Paper/Resource"><strong>Bigtable (2006)</strong></td>
+<td data-label="Priority">🔴 Critical</td>
+<td data-label="Time to Read">3 hours</td>
+<td data-label="Key Takeaways">NoSQL design, LSM trees</td>
+<td data-label="Interview Relevance">★★★★★</td>
 </tr>
 <tr>
-<td><strong>Spanner (2012)</strong></td>
-<td>🔴 Critical</td>
-<td>4 hours</td>
-<td>Global consistency, TrueTime</td>
-<td>★★★★☆</td>
+<td data-label="Paper/Resource"><strong>Spanner (2012)</strong></td>
+<td data-label="Priority">🔴 Critical</td>
+<td data-label="Time to Read">4 hours</td>
+<td data-label="Key Takeaways">Global consistency, TrueTime</td>
+<td data-label="Interview Relevance">★★★★☆</td>
 </tr>
 <tr>
-<td><strong>Google File System</strong></td>
-<td>🟡 Important</td>
-<td>2 hours</td>
-<td>Distributed storage, replication</td>
-<td>★★★★☆</td>
+<td data-label="Paper/Resource"><strong>Google File System</strong></td>
+<td data-label="Priority">🟡 Important</td>
+<td data-label="Time to Read">2 hours</td>
+<td data-label="Key Takeaways">Distributed storage, replication</td>
+<td data-label="Interview Relevance">★★★★☆</td>
 </tr>
 <tr>
-<td><strong>Borg (2015)</strong></td>
-<td>🟡 Important</td>
-<td>3 hours</td>
-<td>Container orchestration</td>
-<td>★★★☆☆</td>
+<td data-label="Paper/Resource"><strong>Borg (2015)</strong></td>
+<td data-label="Priority">🟡 Important</td>
+<td data-label="Time to Read">3 hours</td>
+<td data-label="Key Takeaways">Container orchestration</td>
+<td data-label="Interview Relevance">★★★☆☆</td>
 </tr>
 <tr>
-<td><strong>Dapper (2010)</strong></td>
-<td>🟢 Good to Know</td>
-<td>2 hours</td>
-<td>Distributed tracing</td>
-<td>★★★☆☆</td>
+<td data-label="Paper/Resource"><strong>Dapper (2010)</strong></td>
+<td data-label="Priority">🟢 Good to Know</td>
+<td data-label="Time to Read">2 hours</td>
+<td data-label="Key Takeaways">Distributed tracing</td>
+<td data-label="Interview Relevance">★★★☆☆</td>
 </tr>
 <tr>
-<td><strong>Monarch (2020)</strong></td>
-<td>🟢 Good to Know</td>
-<td>2 hours</td>
-<td>Monitoring at scale</td>
-<td>★★☆☆☆</td>
+<td data-label="Paper/Resource"><strong>Monarch (2020)</strong></td>
+<td data-label="Priority">🟢 Good to Know</td>
+<td data-label="Time to Read">2 hours</td>
+<td data-label="Key Takeaways">Monitoring at scale</td>
+<td data-label="Interview Relevance">★★☆☆☆</td>
 </tr>
 </tbody>
 </table>
@@ -410,7 +410,7 @@ graph TD
 ## Difficulty & Time Matrix
 
 <div class="problem-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Problem</th>
@@ -422,32 +422,32 @@ graph TD
 </thead>
 <tbody>
 <tr>
-<td><strong>URL Shortener</strong></td>
-<td>⭐⭐</td>
-<td>30 min</td>
-<td>ID generation, Analytics</td>
-<td>Ignoring custom URLs</td>
+<td data-label="Problem"><strong>URL Shortener</strong></td>
+<td data-label="Difficulty">⭐⭐</td>
+<td data-label="Time Needed">30 min</td>
+<td data-label="Key Challenges">ID generation, Analytics</td>
+<td data-label="Common Mistakes">Ignoring custom URLs</td>
 </tr>
 <tr>
-<td><strong>Chat System</strong></td>
-<td>⭐⭐⭐</td>
-<td>45 min</td>
-<td>Real-time, Message ordering</td>
-<td>No offline support</td>
+<td data-label="Problem"><strong>Chat System</strong></td>
+<td data-label="Difficulty">⭐⭐⭐</td>
+<td data-label="Time Needed">45 min</td>
+<td data-label="Key Challenges">Real-time, Message ordering</td>
+<td data-label="Common Mistakes">No offline support</td>
 </tr>
 <tr>
-<td><strong>YouTube</strong></td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>60 min</td>
-<td>Video processing, CDN, Scale</td>
-<td>Underestimating bandwidth</td>
+<td data-label="Problem"><strong>YouTube</strong></td>
+<td data-label="Difficulty">⭐⭐⭐⭐⭐</td>
+<td data-label="Time Needed">60 min</td>
+<td data-label="Key Challenges">Video processing, CDN, Scale</td>
+<td data-label="Common Mistakes">Underestimating bandwidth</td>
 </tr>
 <tr>
-<td><strong>Google Search</strong></td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>60 min</td>
-<td>Crawling, Indexing, Ranking</td>
-<td>Ignoring freshness</td>
+<td data-label="Problem"><strong>Google Search</strong></td>
+<td data-label="Difficulty">⭐⭐⭐⭐⭐</td>
+<td data-label="Time Needed">60 min</td>
+<td data-label="Key Challenges">Crawling, Indexing, Ranking</td>
+<td data-label="Common Mistakes">Ignoring freshness</td>
 </tr>
 </tbody>
 </table>
@@ -543,7 +543,7 @@ graph TD
 ## 🏋 Optimized Daily Practice Schedule
 
 <div class="practice-schedule">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Time</th>
@@ -554,28 +554,28 @@ graph TD
 </thead>
 <tbody>
 <tr>
-<td><strong>Morning<br/>(30 min)</strong></td>
-<td>• Read 1 paper section<br/>• Take notes<br/>• Identify patterns</td>
-<td>Theory & Concepts</td>
-<td>Deep understanding of Google tech</td>
+<td data-label="Time"><strong>Morning<br/>(30 min)</strong></td>
+<td data-label="Activity">• Read 1 paper section<br/>• Take notes<br/>• Identify patterns</td>
+<td data-label="Focus Area">Theory & Concepts</td>
+<td data-label="Expected Outcome">Deep understanding of Google tech</td>
 </tr>
 <tr>
-<td><strong>Lunch<br/>(15 min)</strong></td>
-<td>• Review flash cards<br/>• Quiz yourself<br/>• Watch tech talk</td>
-<td>Knowledge Retention</td>
-<td>Memorize key numbers & concepts</td>
+<td data-label="Time"><strong>Lunch<br/>(15 min)</strong></td>
+<td data-label="Activity">• Review flash cards<br/>• Quiz yourself<br/>• Watch tech talk</td>
+<td data-label="Focus Area">Knowledge Retention</td>
+<td data-label="Expected Outcome">Memorize key numbers & concepts</td>
 </tr>
 <tr>
-<td><strong>Evening<br/>(45 min)</strong></td>
-<td>• Design 1 system<br/>• Time yourself<br/>• Full solution</td>
-<td>Practical Skills</td>
-<td>Interview-ready designs</td>
+<td data-label="Time"><strong>Evening<br/>(45 min)</strong></td>
+<td data-label="Activity">• Design 1 system<br/>• Time yourself<br/>• Full solution</td>
+<td data-label="Focus Area">Practical Skills</td>
+<td data-label="Expected Outcome">Interview-ready designs</td>
 </tr>
 <tr>
-<td><strong>Night<br/>(15 min)</strong></td>
-<td>• Review design<br/>• Identify gaps<br/>• Plan improvements</td>
-<td>Self-Assessment</td>
-<td>Continuous improvement</td>
+<td data-label="Time"><strong>Night<br/>(15 min)</strong></td>
+<td data-label="Activity">• Review design<br/>• Identify gaps<br/>• Plan improvements</td>
+<td data-label="Focus Area">Self-Assessment</td>
+<td data-label="Expected Outcome">Continuous improvement</td>
 </tr>
 </tbody>
 </table>
@@ -697,7 +697,7 @@ graph LR
 ### 🕰 Time Management Matrix
 
 <div class="time-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Phase</th>
@@ -709,46 +709,46 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Requirements<br/>(0-5 min)</strong></td>
-<td>5 min</td>
-<td>• Functional reqs<br/>• Scale numbers<br/>• Constraints</td>
-<td>• Success metrics<br/>• User personas</td>
-<td>• Assumptions<br/>• Rushing</td>
+<td data-label="Phase"><strong>Requirements<br/>(0-5 min)</strong></td>
+<td data-label="Time">5 min</td>
+<td data-label="Must Do">• Functional reqs<br/>• Scale numbers<br/>• Constraints</td>
+<td data-label="Nice to Have">• Success metrics<br/>• User personas</td>
+<td data-label="Avoid">• Assumptions<br/>• Rushing</td>
 </tr>
 <tr>
-<td><strong>Estimation<br/>(5-10 min)</strong></td>
-<td>5 min</td>
-<td>• QPS calculation<br/>• Storage needs<br/>• Bandwidth</td>
-<td>• Cost estimates<br/>• Growth projection</td>
-<td>• Over-precision<br/>• Complex math</td>
+<td data-label="Phase"><strong>Estimation<br/>(5-10 min)</strong></td>
+<td data-label="Time">5 min</td>
+<td data-label="Must Do">• QPS calculation<br/>• Storage needs<br/>• Bandwidth</td>
+<td data-label="Nice to Have">• Cost estimates<br/>• Growth projection</td>
+<td data-label="Avoid">• Over-precision<br/>• Complex math</td>
 </tr>
 <tr>
-<td><strong>High-Level<br/>(10-25 min)</strong></td>
-<td>15 min</td>
-<td>• Architecture diagram<br/>• Data flow<br/>• API design</td>
-<td>• Alternative designs<br/>• Trade-offs</td>
-<td>• Too much detail<br/>• Perfection</td>
+<td data-label="Phase"><strong>High-Level<br/>(10-25 min)</strong></td>
+<td data-label="Time">15 min</td>
+<td data-label="Must Do">• Architecture diagram<br/>• Data flow<br/>• API design</td>
+<td data-label="Nice to Have">• Alternative designs<br/>• Trade-offs</td>
+<td data-label="Avoid">• Too much detail<br/>• Perfection</td>
 </tr>
 <tr>
-<td><strong>Deep Dive<br/>(25-35 min)</strong></td>
-<td>10 min</td>
-<td>• Critical component<br/>• Data model<br/>• Algorithms</td>
-<td>• Optimization<br/>• Edge cases</td>
-<td>• Spreading thin<br/>• New topics</td>
+<td data-label="Phase"><strong>Deep Dive<br/>(25-35 min)</strong></td>
+<td data-label="Time">10 min</td>
+<td data-label="Must Do">• Critical component<br/>• Data model<br/>• Algorithms</td>
+<td data-label="Nice to Have">• Optimization<br/>• Edge cases</td>
+<td data-label="Avoid">• Spreading thin<br/>• New topics</td>
 </tr>
 <tr>
-<td><strong>Scale<br/>(35-40 min)</strong></td>
-<td>5 min</td>
-<td>• Bottlenecks<br/>• Solutions<br/>• Monitoring</td>
-<td>• Cost optimization<br/>• Future growth</td>
-<td>• Hand-waving<br/>• Complexity</td>
+<td data-label="Phase"><strong>Scale<br/>(35-40 min)</strong></td>
+<td data-label="Time">5 min</td>
+<td data-label="Must Do">• Bottlenecks<br/>• Solutions<br/>• Monitoring</td>
+<td data-label="Nice to Have">• Cost optimization<br/>• Future growth</td>
+<td data-label="Avoid">• Hand-waving<br/>• Complexity</td>
 </tr>
 <tr>
-<td><strong>Wrap-up<br/>(40-45 min)</strong></td>
-<td>5 min</td>
-<td>• Summary<br/>• Trade-offs<br/>• Questions</td>
-<td>• Improvements<br/>• Alternatives</td>
-<td>• New design<br/>• Major changes</td>
+<td data-label="Phase"><strong>Wrap-up<br/>(40-45 min)</strong></td>
+<td data-label="Time">5 min</td>
+<td data-label="Must Do">• Summary<br/>• Trade-offs<br/>• Questions</td>
+<td data-label="Nice to Have">• Improvements<br/>• Alternatives</td>
+<td data-label="Avoid">• New design<br/>• Major changes</td>
 </tr>
 </tbody>
 </table>

@@ -10,7 +10,7 @@ last_updated: 2025-07-21
 ---
 
 
-# 💬 Real-Time Chat System Architecture
+# Real-Time Chat System Architecture
 
 **The Challenge**: Build a messaging system handling 100B+ messages/day with end-to-end encryption and global reach
 
@@ -21,7 +21,7 @@ last_updated: 2025-07-21
 
 Real-time chat: Ultra-low latency, perfect ordering, offline sync. WhatsApp: 100B messages/day. Balance CAP theorem for instantaneous, reliable experience connecting billions.
 
-## 🏗️ Architecture Evolution
+## Architecture Evolution
 
 ### Phase 1: Simple Client-Server Model (2009-2010)
 
@@ -120,10 +120,10 @@ graph TB
 - Deniable Authentication
 
 **Patterns & Pillars Applied**:
-- 🔧 Pattern: End-to-End Encryption (Coming Soon)
-- 🔧 Pattern: Key Management (Coming Soon)
-- 🏛️ Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Cryptographic guarantees
-- 🏛️ Pillar: [Control Distribution](../part2-pillars/control/index.md) - Secure message routing
+- Pattern: End-to-End Encryption (Coming Soon)
+- Pattern: Key Management (Coming Soon)
+- 🏛 Pillar: [Truth Distribution](/part2-pillars/truth/) - Cryptographic guarantees
+- 🏛 Pillar: [Control Distribution](/part2-pillars/control/) - Secure message routing
 
 ### Phase 4: Global Scale Architecture (2016-Present)
 
@@ -279,20 +279,20 @@ class LatencyOptimizedRouter:
         recipient_region = self.user_locations.get(msg.recipient_id, 'us-east')
         
         if sender_region == recipient_region:
-            # Same region - direct routing
+# Same region - direct routing
             return f"{recipient_region}-direct", 5
         
-        # Find shortest path
+# Find shortest path
         path, latency = self._find_shortest_path(sender_region, recipient_region)
         return '-'.join(path), latency
     
     def _find_shortest_path(self, start: str, end: str) -> Tuple[List[str], int]:
         """Dijkstra for optimal routing"""
-        # Simplified - in production use full graph algorithms
+# Simplified - in production use full graph algorithms
         key = tuple(sorted([start, end]))
         direct_latency = self.latency_matrix.get(key, 200)
         
-        # Check if relay through intermediate region is faster
+# Check if relay through intermediate region is faster
         best_path = [start, end]
         best_latency = direct_latency
         
@@ -329,10 +329,10 @@ class WebSocketConnectionManager:
         }
         
         try:
-            # Ping task for connection health
+# Ping task for connection health
             ping_task = asyncio.create_task(self._ping_loop(user_id))
             
-            # Message handling
+# Message handling
             async for message in websocket:
                 await self._handle_message(user_id, message)
                 
@@ -353,7 +353,7 @@ class WebSocketConnectionManager:
             self.connection_metadata[user_id]['latency_ms'].append(latency)
             self.connection_metadata[user_id]['last_ping'] = time.time()
             
-            # Keep only recent latency measurements
+# Keep only recent latency measurements
             if len(self.connection_metadata[user_id]['latency_ms']) > 100:
                 self.connection_metadata[user_id]['latency_ms'].pop(0)
             
@@ -378,20 +378,20 @@ class CapacityManager:
     def calculate_infrastructure_needs(self, user_count: int, 
                                      daily_messages: int) -> Dict:
         """Calculate required infrastructure"""
-        # Connection servers (WebSocket)
+# Connection servers (WebSocket)
         concurrent_connections = user_count * 0.6  # 60% concurrent
         connection_servers = int(concurrent_connections / 50000) + 1  # 50K per server
         
-        # Message routers
+# Message routers
         messages_per_second = daily_messages / 86400
         router_servers = int(messages_per_second / 100000) + 1  # 100K msg/s per router
         
-        # Storage requirements
-        # Assume 1KB per message, 3x replication
+# Storage requirements
+# Assume 1KB per message, 3x replication
         daily_storage_gb = (daily_messages * 1 * 3) / 1e6
         total_storage_pb = (user_count * self.storage_per_user_gb) / 1e6
         
-        # Database shards
+# Database shards
         db_shards = int(user_count / self.shard_capacity) + 1
         
         return {
@@ -425,7 +425,7 @@ class MessageShardingStrategy:
         if conversation_id in self.shard_map:
             return self.shard_map[conversation_id]
         
-        # Consistent hashing for shard assignment
+# Consistent hashing for shard assignment
         hash_value = int(hashlib.md5(conversation_id.encode()).hexdigest(), 16)
         shard = hash_value % self.shard_count
         
@@ -474,16 +474,16 @@ class ReliableMessageDelivery:
         
         while retry_count < self.retry_policy['max_retries']:
             try:
-                # Try to deliver
+# Try to deliver
                 delivered = await self._attempt_delivery(msg)
                 
                 if delivered:
-                    # Wait for acknowledgment
+# Wait for acknowledgment
                     ack = await self._wait_for_ack(msg_id, timeout=5)
                     if ack:
                         return True
                 
-                # Delivery failed, retry with backoff
+# Delivery failed, retry with backoff
                 delay = min(
                     self.retry_policy['base_delay'] * 
                     (self.retry_policy['exponential_factor'] ** retry_count),
@@ -496,7 +496,7 @@ class ReliableMessageDelivery:
                 print(f"Delivery error: {e}")
                 retry_count += 1
         
-        # Failed after all retries - store for later
+# Failed after all retries - store for later
         await self._store_for_retry(msg)
         return False
     
@@ -520,35 +520,35 @@ class MessagePersistence:
         
     async def persist_message(self, msg: Message) -> bool:
         """Durably persist message"""
-        # Write to WAL first
+# Write to WAL first
         wal_entry = {
             'timestamp': time.time(),
             'operation': 'insert',
             'message': msg.serialize()
         }
         
-        # Atomic append
+# Atomic append
         self.write_ahead_log.append(wal_entry)
         
-        # Checkpoint if needed
+# Checkpoint if needed
         if len(self.write_ahead_log) % self.checkpoint_interval == 0:
             await self._checkpoint()
         
-        # Replicate to multiple nodes
+# Replicate to multiple nodes
         await self._replicate_message(msg)
         
         return True
     
     async def _replicate_message(self, msg: Message):
         """Replicate across nodes for durability"""
-        # In production, replicate to 3+ nodes
+# In production, replicate to 3+ nodes
         replicas = ['replica1', 'replica2', 'replica3']
         
         tasks = []
         for replica in replicas:
             tasks.append(self._send_to_replica(replica, msg))
         
-        # Wait for majority (2/3) to succeed
+# Wait for majority (2/3) to succeed
         results = await asyncio.gather(*tasks, return_exceptions=True)
         success_count = sum(1 for r in results if not isinstance(r, Exception))
         
@@ -581,23 +581,23 @@ class ConversationConcurrencyManager:
         else:
             self.typing_indicators[conversation_id].discard(user_id)
         
-        # Broadcast to conversation participants
+# Broadcast to conversation participants
         await self._broadcast_typing_status(conversation_id)
     
     async def add_message_to_conversation(self, 
                                         conversation_id: str,
                                         message: Message) -> int:
         """Add message with proper ordering"""
-        # Get or create conversation lock
+# Get or create conversation lock
         if conversation_id not in self.conversation_locks:
             self.conversation_locks[conversation_id] = Lock()
         
         async with self.conversation_locks[conversation_id]:
-            # Assign sequence number
+# Assign sequence number
             self.message_queues[conversation_id].append(message)
             sequence_num = len(self.message_queues[conversation_id])
             
-            # Clear typing indicator for sender
+# Clear typing indicator for sender
             self.typing_indicators[conversation_id].discard(message.sender_id)
             
             return sequence_num
@@ -615,9 +615,9 @@ class OptimisticConcurrencyControl:
         """Update with optimistic concurrency control"""
         current_version = self.version_vectors.get(conversation_id, {})
         
-        # Check for conflicts
+# Check for conflicts
         if self._has_conflict(client_version, current_version):
-            # Return conflict info for client resolution
+# Return conflict info for client resolution
             return False, {
                 'conflict': True,
                 'server_version': current_version,
@@ -626,7 +626,7 @@ class OptimisticConcurrencyControl:
                 )
             }
         
-        # No conflict - apply update
+# No conflict - apply update
         new_version = self._increment_version(current_version, update)
         self.version_vectors[conversation_id] = new_version
         
@@ -650,10 +650,10 @@ class VectorClockManager:
         if conversation_id not in self.vector_clocks:
             self.vector_clocks[conversation_id] = defaultdict(int)
         
-        # Increment own counter
+# Increment own counter
         self.vector_clocks[conversation_id][self.node_id] += 1
         
-        # Attach vector clock to message
+# Attach vector clock to message
         message.vector_clock = dict(self.vector_clocks[conversation_id])
         
         return message.vector_clock
@@ -667,11 +667,11 @@ class VectorClockManager:
         
         local_clock = self.vector_clocks[conversation_id]
         
-        # Check if message is causally ready
+# Check if message is causally ready
         if not self._is_causally_ready(sender_clock, local_clock):
             return False  # Buffer message
         
-        # Update vector clock
+# Update vector clock
         for node, timestamp in sender_clock.items():
             local_clock[node] = max(local_clock[node], timestamp)
         
@@ -702,15 +702,15 @@ class GlobalMessageSequencer:
         
     async def sequence_message(self, message: Message) -> int:
         """Assign global sequence number"""
-        # For group chats requiring total order
+# For group chats requiring total order
         self.sequence_number += 1
         message.global_sequence = self.sequence_number
         
-        # Check if earlier messages are pending
+# Check if earlier messages are pending
         conversation_id = message.recipient_id
         
         if conversation_id in self.pending_messages:
-            # Insert in order
+# Insert in order
             self.pending_messages[conversation_id].append(message)
             self.pending_messages[conversation_id].sort(
                 key=lambda m: m.global_sequence
@@ -748,7 +748,7 @@ class ChatSystemMonitor:
         
         self.metrics['message_latency_ms'].append(latency)
         
-        # Update success rate (moving average)
+# Update success rate (moving average)
         alpha = 0.01  # Smoothing factor
         self.metrics['delivery_success_rate'] = (
             alpha * (1.0 if success else 0.0) + 
@@ -758,7 +758,7 @@ class ChatSystemMonitor:
         if not success:
             self.metrics['failed_deliveries'] += 1
         
-        # Alert on high latency
+# Alert on high latency
         if latency > 1000:  # 1 second
             self.alerts.append({
                 'type': 'high_latency',
@@ -786,11 +786,11 @@ class ConversationAnalytics:
         
         stats = self.conversation_stats[conversation_id]
         
-        # Message frequency
+# Message frequency
         time_span = (messages[-1].timestamp - messages[0].timestamp).total_seconds()
         message_rate = len(messages) / max(time_span, 1)
         
-        # Response times
+# Response times
         response_times = []
         for i in range(1, len(messages)):
             if messages[i].sender_id != messages[i-1].sender_id:
@@ -800,7 +800,7 @@ class ConversationAnalytics:
         
         avg_response = sum(response_times) / len(response_times) if response_times else 0
         
-        # Calculate health score
+# Calculate health score
         health_score = min(1.0, message_rate / 0.1)  # Target: 0.1 msg/sec
         if avg_response > 300:  # 5 minutes
             health_score *= 0.5  # Penalty for slow responses
@@ -830,11 +830,11 @@ class SmartNotificationManager:
                           message: Message,
                           conversation_context: Dict) -> Tuple[bool, str]:
         """Determine if and how to notify"""
-        # Check quiet hours
+# Check quiet hours
         if self._in_quiet_hours(user_id):
             return False, "quiet_hours"
         
-        # Check importance
+# Check importance
         importance = self._calculate_importance(
             user_id, message, conversation_context
         )
@@ -842,7 +842,7 @@ class SmartNotificationManager:
         if importance < 0.3:  # Low importance threshold
             return False, "low_importance"
         
-        # Determine notification type
+# Determine notification type
         if importance > 0.8:
             return True, "high_priority"
         elif self._is_mentioned(user_id, message):
@@ -856,15 +856,15 @@ class SmartNotificationManager:
         """Calculate message importance score"""
         score = 0.5  # Base score
         
-        # Sender importance
+# Sender importance
         sender_affinity = context.get('sender_affinity', 0.5)
         score *= sender_affinity
         
-        # Keywords and mentions
+# Keywords and mentions
         if self._contains_urgent_keywords(message.content):
             score *= 1.5
         
-        # Conversation activity
+# Conversation activity
         recent_activity = context.get('recent_messages', 0)
         if recent_activity > 10:  # Active conversation
             score *= 1.2
@@ -882,14 +882,14 @@ class MessageComposer:
                                conversation_id: str,
                                partial_content: str):
         """Handle message composition with enhancements"""
-        # Auto-save draft
+# Auto-save draft
         draft_key = f"{user_id}:{conversation_id}"
         self.draft_storage[draft_key] = {
             'content': partial_content,
             'timestamp': time.time()
         }
         
-        # Generate suggestions
+# Generate suggestions
         suggestions = await self.suggestion_engine.get_suggestions(
             partial_content,
             conversation_id
@@ -909,7 +909,7 @@ class SuggestionEngine:
         """Generate contextual suggestions"""
         suggestions = []
         
-        # Emoji suggestions
+# Emoji suggestions
         if any(word in partial_content.lower() 
               for word in ['happy', 'glad', 'excited']):
             suggestions.append({
@@ -917,7 +917,7 @@ class SuggestionEngine:
                 'values': ['😊', '😄', '🎉']
             })
         
-        # Quick replies for common patterns
+# Quick replies for common patterns
         if partial_content.endswith('?'):
             suggestions.append({
                 'type': 'quick_reply',
@@ -951,23 +951,23 @@ class ChatEconomicsOptimizer:
         
     def calculate_per_user_cost(self, user_profile: Dict) -> Dict:
         """Calculate cost per user"""
-        # Base costs
+# Base costs
         messages_per_month = user_profile.get('monthly_messages', 1000)
         avg_message_size = user_profile.get('avg_message_size', 1)  # KB
         
-        # Storage cost
+# Storage cost
         storage_gb = (messages_per_month * avg_message_size) / 1e6
         storage_cost = storage_gb * self.cost_model['message_storage_per_gb']
         
-        # Bandwidth cost
+# Bandwidth cost
         bandwidth_gb = storage_gb * 2  # Upload + download
         bandwidth_cost = bandwidth_gb * self.cost_model['bandwidth_per_gb']
         
-        # Compute cost
+# Compute cost
         compute_cost = (messages_per_month / 1e6) * \
                       self.cost_model['compute_per_million_msg']
         
-        # Feature multipliers
+# Feature multipliers
         total_multiplier = 1.0
         for feature, enabled in user_profile.get('features', {}).items():
             if enabled and feature in self.feature_costs:
@@ -998,13 +998,13 @@ class MessageRetentionOptimizer:
         """Apply retention policies to reduce costs"""
         stats = await self._analyze_conversation(conversation_id)
         
-        # Determine retention policy
+# Determine retention policy
         if stats['last_activity_days'] > 180:
             policy = 'inactive'
         else:
             policy = 'active'
         
-        # Archive old messages
+# Archive old messages
         archived_count = 0
         compressed_size = 0
         
@@ -1012,7 +1012,7 @@ class MessageRetentionOptimizer:
             age_days = (datetime.utcnow() - message.timestamp).days
             
             if age_days > self.retention_policies[policy]:
-                # Archive to cold storage
+# Archive to cold storage
                 compressed_size += await self._archive_message(message)
                 archived_count += 1
         
@@ -1023,7 +1023,7 @@ class MessageRetentionOptimizer:
         }
 ```
 
-## 📊 Core Components Deep Dive
+## Core Components Deep Dive
 
 ### 1. Connection Management
 
@@ -1276,7 +1276,7 @@ sequenceDiagram
 
 ## Law Mapping Analysis - Design Decisions vs Fundamental Constraints
 
-### 🎯 Comprehensive Design Decision Matrix
+### Comprehensive Design Decision Matrix
 
 Every architectural choice in a chat system must respect all 7 fundamental laws. This comprehensive mapping shows how each design decision impacts and is impacted by each law:
 
@@ -1390,18 +1390,18 @@ class P2PChatArchitecture:
         peer_id = message['recipient_id']
         
         if peer_id in self.peers and self.peers[peer_id].connected:
-            # Direct P2P delivery
+# Direct P2P delivery
             await self.peers[peer_id].send(message)
         else:
-            # Store in DHT for later retrieval
+# Store in DHT for later retrieval
             await self.dht.put(f"msg:{peer_id}", message)
             
     async def establish_connection(self, peer_id):
-        # WebRTC connection establishment
+# WebRTC connection establishment
         connection = RTCPeerConnection()
         offer = await connection.createOffer()
         
-        # Signal through server
+# Signal through server
         await self.signal_server.send({
             'type': 'offer',
             'to': peer_id,
@@ -1471,28 +1471,28 @@ class CentralizedChatArchitecture:
         self.push_service = PushNotificationService()
         
     async def handle_message(self, message):
-        # Validate and persist
+# Validate and persist
         message_id = await self.db.insert_message(message)
         
-        # Update cache
+# Update cache
         await self.cache.add_to_conversation(
             message['conversation_id'], 
             message
         )
         
-        # Get recipient status
+# Get recipient status
         recipients = await self.db.get_conversation_members(
             message['conversation_id']
         )
         
-        # Deliver to online users
+# Deliver to online users
         online_delivered = 0
         for recipient in recipients:
             if await self.cache.is_user_online(recipient):
                 await self.deliver_realtime(recipient, message)
                 online_delivered += 1
             else:
-                # Queue for push notification
+# Queue for push notification
                 await self.push_service.queue_notification(
                     recipient, message
                 )
@@ -1556,13 +1556,13 @@ class FederatedChatArchitecture:
     async def send_message(self, message):
         room_id = message['room_id']
         
-        # Add to local timeline
+# Add to local timeline
         await self.append_to_room(room_id, message)
         
-        # Get participating servers
+# Get participating servers
         servers = await self.get_room_servers(room_id)
         
-        # Federate to other servers
+# Federate to other servers
         federation_tasks = []
         for server in servers:
             if server != self.server_name:
@@ -1571,7 +1571,7 @@ class FederatedChatArchitecture:
                 )
                 federation_tasks.append(task)
                 
-        # Wait for majority acknowledgment
+# Wait for majority acknowledgment
         results = await asyncio.gather(
             *federation_tasks, 
             return_exceptions=True
@@ -1589,18 +1589,18 @@ class FederatedChatArchitecture:
         }
         
     async def handle_federation_event(self, event, origin_server):
-        # Validate event signature
+# Validate event signature
         if not await self.verify_signature(event, origin_server):
             raise SecurityError("Invalid signature")
             
-        # Check authorization
+# Check authorization
         if not await self.is_authorized(event):
             raise AuthorizationError("Not authorized")
             
-        # Apply to room state
+# Apply to room state
         await self.apply_event(event)
         
-        # Forward to local users
+# Forward to local users
         await self.distribute_to_local_users(event)
 ```
 
@@ -1662,20 +1662,20 @@ class BlockchainChatArchitecture:
         self.ipfs_client = ipfshttpclient.connect()
         
     async def send_message(self, message, private_key):
-        # Encrypt message content
+# Encrypt message content
         encrypted_content = await self.encrypt_message(
             message['content'],
             message['recipient_public_key']
         )
         
-        # Store encrypted content on IPFS
+# Store encrypted content on IPFS
         ipfs_hash = await self.ipfs_client.add_json({
             'content': encrypted_content,
             'timestamp': message['timestamp'],
             'attachments': message.get('attachments', [])
         })
         
-        # Create blockchain transaction
+# Create blockchain transaction
         tx = self.message_contract.functions.sendMessage(
             recipient=message['recipient_address'],
             ipfsHash=ipfs_hash,
@@ -1686,7 +1686,7 @@ class BlockchainChatArchitecture:
             'gasPrice': self.web3.toWei('20', 'gwei')
         })
         
-        # Sign and send transaction
+# Sign and send transaction
         signed_tx = self.web3.eth.account.sign_transaction(
             tx, private_key
         )
@@ -1694,7 +1694,7 @@ class BlockchainChatArchitecture:
             signed_tx.rawTransaction
         )
         
-        # Wait for confirmation
+# Wait for confirmation
         receipt = await self.web3.eth.wait_for_transaction_receipt(
             tx_hash
         )
@@ -1707,7 +1707,7 @@ class BlockchainChatArchitecture:
         }
         
     async def get_messages(self, user_address, from_block=0):
-        # Query blockchain events
+# Query blockchain events
         filter = self.message_contract.events.MessageSent.createFilter(
             fromBlock=from_block,
             argument_filters={'recipient': user_address}
@@ -1715,12 +1715,12 @@ class BlockchainChatArchitecture:
         
         messages = []
         for event in filter.get_all_entries():
-            # Retrieve from IPFS
+# Retrieve from IPFS
             ipfs_data = await self.ipfs_client.get_json(
                 event['args']['ipfsHash']
             )
             
-            # Decrypt if possible
+# Decrypt if possible
             decrypted = await self.decrypt_message(
                 ipfs_data['content'],
                 user_private_key
@@ -1795,12 +1795,12 @@ class EventSourcingChatArchitecture:
         self.query_handler = QueryHandler()
         
     async def handle_send_message_command(self, command):
-        # Validate command
+# Validate command
         validation = await self.validate_command(command)
         if not validation.is_valid:
             return {'error': validation.errors}
             
-        # Generate events
+# Generate events
         events = [
             MessageSentEvent(
                 conversation_id=command.conversation_id,
@@ -1811,16 +1811,16 @@ class EventSourcingChatArchitecture:
             )
         ]
         
-        # Store events
+# Store events
         stream_id = f"conversation-{command.conversation_id}"
         version = await self.event_store.append_events(
             stream_id, events
         )
         
-        # Update projections asynchronously
+# Update projections asynchronously
         await self.projection_manager.project_events(events)
         
-        # Stream to connected clients
+# Stream to connected clients
         await self.stream_events_to_clients(events)
         
         return {
@@ -1831,14 +1831,14 @@ class EventSourcingChatArchitecture:
         
     async def get_conversation_messages(self, conversation_id, 
                                       from_timestamp=None):
-        # Query from read model (not event store)
+# Query from read model (not event store)
         return await self.query_handler.get_messages(
             conversation_id,
             from_timestamp
         )
         
     async def rebuild_conversation_view(self, conversation_id):
-        # Replay events to rebuild state
+# Replay events to rebuild state
         events = await self.event_store.get_stream_events(
             f"conversation-{conversation_id}"
         )
@@ -1858,7 +1858,7 @@ class ProjectionManager:
         }
         
     async def project_events(self, events):
-        # Update all projections in parallel
+# Update all projections in parallel
         tasks = []
         for projection in self.projections.values():
             tasks.append(projection.handle_events(events))
@@ -1979,22 +1979,22 @@ class HybridChatArchitecture:
         
     async def handle_message(self, message: Message) -> Dict:
         """Process message through hybrid pipeline"""
-        # 1. Validate and enrich
+# 1. Validate and enrich
         enriched = await self._enrich_message(message)
         
-        # 2. Route to conversation actor
+# 2. Route to conversation actor
         actor = self._get_conversation_actor(enriched.recipient_id)
         
-        # 3. Process in actor (isolated state)
+# 3. Process in actor (isolated state)
         result = await actor.process_message(enriched)
         
-        # 4. Persist asynchronously
+# 4. Persist asynchronously
         asyncio.create_task(self._persist_message(enriched))
         
-        # 5. Fan out to recipients
+# 5. Fan out to recipients
         delivery_results = await self._fanout_message(enriched, result['recipients'])
         
-        # 6. Handle offline recipients
+# 6. Handle offline recipients
         for recipient, delivered in delivery_results.items():
             if not delivered:
                 await self._queue_for_offline_delivery(recipient, enriched)
@@ -2013,15 +2013,15 @@ class HybridChatArchitecture:
         
         for recipient in recipients:
             if recipient in self.edge_nodes:
-                # Online - deliver immediately
+# Online - deliver immediately
                 task = self._deliver_to_edge(recipient, message)
             else:
-                # Offline - will be queued
+# Offline - will be queued
                 task = asyncio.create_task(self._check_online_status(recipient))
             
             delivery_tasks.append((recipient, task))
         
-        # Parallel delivery
+# Parallel delivery
         results = {}
         for recipient, task in delivery_tasks:
             try:
@@ -2084,7 +2084,7 @@ graph LR
     MVP -.->|If Enterprise| ES[Event Sourcing]
 ```
 
-## 📊 Performance & Monitoring
+## Performance & Monitoring
 
 ### Key Metrics Dashboard
 
@@ -2164,7 +2164,7 @@ graph LR
     style GRAF fill:#95e1d3
 ```
 
-## 🚨 Failure Scenarios & Recovery
+## Failure Scenarios & Recovery
 
 ### Common Failure Modes
 
@@ -2243,49 +2243,49 @@ graph TB
 | **DB CPU** | > 70% sustained | Shard database |
 | **Storage Growth** | > 1TB/day | Implement archival |
 
-## 💡 Key Design Insights
+## Key Design Insights
 
-### 1. 🚀 **Real-time Requires Custom Protocols**
+### 1. **Real-time Requires Custom Protocols**
 XMPP too heavy; custom binary saves 60% bandwidth; adaptive heartbeat for battery
 
 ### 2. 🔐 **E2E Encryption is Non-negotiable**
 Signal Protocol for forward secrecy; server can't read messages; key management critical
 
-### 3. 📱 **Mobile-First Design Essential**
+### 3. **Mobile-First Design Essential**
 Battery optimization; push notifications for offline; adaptive media quality
 
-### 4. 🌍 **Global Scale Needs Federation**
+### 4. **Global Scale Needs Federation**
 Regional servers reduce latency; cross-region replication; compliance ready
 
-### 5. 💰 **Erlang/Elixir for Concurrent Connections**
+### 5. **Erlang/Elixir for Concurrent Connections**
 2M connections/server; actor model; let-it-crash philosophy
 
-## 🔍 Related Concepts & Deep Dives
+## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - WebSocket for real-time, regional servers
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Connection pooling, message queuing
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Offline queue, retry mechanisms
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Actor model, parallel delivery
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Group state sync, message ordering, and monitoring
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Connection pooling, message queuing
+- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Actor model, parallel delivery
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Typing indicators, read receipts
 
-### 🏛️ Related Patterns
+### 🏛 Related Patterns
 - **WebSocket (Coming Soon)** - Persistent connections
 - **Distributed Queue (Coming Soon)** - Reliable delivery
 - **Actor Model (Coming Soon)** - Concurrent message handling
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
-- **[Event Sourcing](../patterns/event-sourcing.md)** - Message history
-- **[CRDT](../patterns/crdt.md)** - Distributed state sync
-- **[Saga Pattern](../patterns/saga.md)** - Group operations
+- **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
+- **[Event Sourcing](/patterns/event-sourcing)** - Message history
+- **[CRDT](/patterns/crdt)** - Distributed state sync
+- **[Saga Pattern](/patterns/saga)** - Group operations
 
-### 📊 Quantitative Models
-- **[Little's Law](../quantitative/littles-law.md)** - Connection pool sizing
-- **[Queueing Theory](../quantitative/queueing-models.md)** - Message queue capacity
+### Quantitative Models
+- **[Little's Law](/quantitative/littles-law)** - Connection pool sizing
+- **[Queueing Theory](/quantitative/queueing-models)** - Message queue capacity
 - **CAP Theorem (Coming Soon)** - Consistency vs availability
-- **[Network Theory](../quantitative/network-theory.md)** - Optimal server placement
+- **[Network Theory](/quantitative/network-theory)** - Optimal server placement
 
-### 🔄 Similar Case Studies
+### Similar Case Studies
 <!-- TODO: Add when available
 - **Discord Architecture** - Gaming chat at scale
 - **Slack's Infrastructure** - Enterprise messaging

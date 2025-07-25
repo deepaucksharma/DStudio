@@ -187,8 +187,9 @@ P(available) = Σ(k=R to N) C(N,k) × p^k × (1-p)^(N-k)
 
 ### Common Quorum Configurations
 
-<table class="quorum-table">
-<tr>
+<table class="quorum-table responsive-table">
+  <thead>
+    <tr>
 <th>Configuration</th>
 <th>N</th>
 <th>W</th>
@@ -198,46 +199,49 @@ P(available) = Σ(k=R to N) C(N,k) × p^k × (1-p)^(N-k)
 <th>Read Latency</th>
 <th>Fault Tolerance</th>
 </tr>
-<tr>
-<td>Read One, Write All</td>
-<td>3</td>
-<td>3</td>
-<td>1</td>
-<td>Strong</td>
-<td>High</td>
-<td>Low</td>
-<td>0 for writes</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Configuration">Read One, Write All</td>
+<td data-label="N">3</td>
+<td data-label="W">3</td>
+<td data-label="R">1</td>
+<td data-label="Consistency">Strong</td>
+<td data-label="Write Latency">High</td>
+<td data-label="Read Latency">Low</td>
+<td data-label="Fault Tolerance">0 for writes</td>
 </tr>
-<tr>
-<td>Majority Quorum</td>
-<td>3</td>
-<td>2</td>
-<td>2</td>
-<td>Strong</td>
-<td>Medium</td>
-<td>Medium</td>
-<td>1 node</td>
+    <tr>
+<td data-label="Configuration">Majority Quorum</td>
+<td data-label="N">3</td>
+<td data-label="W">2</td>
+<td data-label="R">2</td>
+<td data-label="Consistency">Strong</td>
+<td data-label="Write Latency">Medium</td>
+<td data-label="Read Latency">Medium</td>
+<td data-label="Fault Tolerance">1 node</td>
 </tr>
-<tr>
-<td>Write One, Read All</td>
-<td>3</td>
-<td>1</td>
-<td>3</td>
-<td>Strong</td>
-<td>Low</td>
-<td>High</td>
-<td>0 for reads</td>
+    <tr>
+<td data-label="Configuration">Write One, Read All</td>
+<td data-label="N">3</td>
+<td data-label="W">1</td>
+<td data-label="R">3</td>
+<td data-label="Consistency">Strong</td>
+<td data-label="Write Latency">Low</td>
+<td data-label="Read Latency">High</td>
+<td data-label="Fault Tolerance">0 for reads</td>
 </tr>
-<tr>
-<td>Eventual (W=1, R=1)</td>
-<td>3</td>
-<td>1</td>
-<td>1</td>
-<td>Eventual</td>
-<td>Low</td>
-<td>Low</td>
-<td>2 nodes</td>
+    <tr>
+<td data-label="Configuration">Eventual (W=1, R=1)</td>
+<td data-label="N">3</td>
+<td data-label="W">1</td>
+<td data-label="R">1</td>
+<td data-label="Consistency">Eventual</td>
+<td data-label="Write Latency">Low</td>
+<td data-label="Read Latency">Low</td>
+<td data-label="Fault Tolerance">2 nodes</td>
 </tr>
+  </tbody>
 </table>
 
 ## Decision Framework

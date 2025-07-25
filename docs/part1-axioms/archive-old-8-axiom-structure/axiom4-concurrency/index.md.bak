@@ -10,14 +10,14 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 4](index.md) → **Axiom 4: Concurrency**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 4](index.md) → **Axiom 4: Concurrency**
 
 # Axiom 4: Concurrency
 
 ---
 
 
-## 🔥 The Constraint
+## The Constraint
 
 ### The Fundamental Limit
 
@@ -46,7 +46,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 ---
 
-## 💡 Why It Matters
+## Why It Matters
 
 Coordination overhead grows non-linearly with participants
 
@@ -95,7 +95,7 @@ The constraint is absolute—these misconceptions arise from:
 
 ---
 
-## ⚙️ Practical Implications
+## Practical Implications
 
 How this constraint shapes real system design:
 
@@ -247,7 +247,7 @@ Think of concurrent operations like:
 
 ### Core Principle: The State Explosion
 
-### 🎬 Failure Vignette: The Double-Booked Airplane Seat
+### Failure Vignette: The Double-Booked Airplane Seat
 
 **Company**: Major US Airline
 **Date**: December 23, 2019 (Peak Holiday Travel)
@@ -328,7 +328,7 @@ SELECT COUNT(*) FROM users WHERE type = 'premium';  -- Returns 101!?
 ```python
 # 1. PESSIMISTIC LOCKING (Lock and hold)
 def transfer_pessimistic(from_acc, to_acc, amount):
-    # Lock both accounts (in consistent order to avoid deadlock)
+# Lock both accounts (in consistent order to avoid deadlock)
     acc1, acc2 = sorted([from_acc, to_acc], key=lambda x: x.id)
 
     with acc1.lock():
@@ -342,15 +342,15 @@ def transfer_pessimistic(from_acc, to_acc, amount):
 # 2. OPTIMISTIC LOCKING (Check on commit)
 def transfer_optimistic(from_acc, to_acc, amount):
     while True:
-        # Read current versions
+# Read current versions
         from_version = from_acc.version
         to_version = to_acc.version
 
-        # Check balance
+# Check balance
         if from_acc.balance < amount:
             return False
 
-        # Try to update with version check
+# Try to update with version check
         updates = [
             ("UPDATE accounts SET balance = balance - ?, version = version + 1 "
              "WHERE id = ? AND version = ?", [amount, from_acc.id, from_version]),
@@ -360,7 +360,7 @@ def transfer_optimistic(from_acc, to_acc, amount):
 
         if all_updates_succeeded(updates):
             return True
-        # Else retry - someone else modified the accounts
+# Else retry - someone else modified the accounts
 
 # 3. MVCC (Multi-Version Concurrency Control)
 # Each transaction sees a consistent snapshot
@@ -390,10 +390,10 @@ class AtomicCounter:
             current = self._value
             new_value = current + 1
 
-            # CAS: Compare and swap if unchanged
+# CAS: Compare and swap if unchanged
             if self._compare_and_swap(current, new_value):
                 return new_value
-            # Else retry - value changed, try again
+# Else retry - value changed, try again
 
     def _compare_and_swap(self, expected, new_value):
         """Atomic CAS operation"""
@@ -432,29 +432,29 @@ class STMTransaction:
 
     def commit(self):
         """Try to commit all writes atomically"""
-        # Phase 1: Validate reads are still valid
+# Phase 1: Validate reads are still valid
         for ref, read_version in self.read_set.items():
             if ref.current_version() != read_version:
                 raise ConflictException("Read conflict")
 
-        # Phase 2: Lock all write locations
+# Phase 2: Lock all write locations
         write_locks = sorted(self.write_set.keys())  # Ordered to prevent deadlock
         for ref in write_locks:
             ref.lock()
 
         try:
-            # Phase 3: Validate again under locks
+# Phase 3: Validate again under locks
             for ref, read_version in self.read_set.items():
                 if ref.current_version() != read_version:
                     raise ConflictException("Read conflict")
 
-            # Phase 4: Apply all writes
+# Phase 4: Apply all writes
             new_version = global_version_clock.increment()
             for ref, value in self.write_set.items():
                 ref.write_versioned(value, new_version)
 
         finally:
-            # Release all locks
+# Release all locks
             for ref in write_locks:
                 ref.unlock()
 
@@ -501,13 +501,13 @@ class LockFreeQueue:
 
             if tail == self.tail.get():  # Still valid?
                 if tail_next is None:
-                    # Try to link new node
+# Try to link new node
                     if tail.next.compare_and_set(None, new_node):
-                        # Success! Try to move tail
+# Success! Try to move tail
                         self.tail.compare_and_set(tail, new_node)
                         return
                 else:
-                    # Help move tail forward
+# Help move tail forward
                     self.tail.compare_and_set(tail, tail_next)
 
     def dequeue(self):
@@ -521,13 +521,13 @@ class LockFreeQueue:
                 if head == tail:
                     if head_next is None:
                         return None  # Queue empty
-                    # Help move tail
+# Help move tail
                     self.tail.compare_and_set(tail, head_next)
                 else:
-                    # Read value before CAS
+# Read value before CAS
                     value = head_next.value
 
-                    # Try to move head
+# Try to move head
                     if self.head.compare_and_set(head, head_next):
                         return value
 ```
@@ -585,7 +585,7 @@ class DistributedProcess:
             'content': content,
             'vector_clock': timestamp
         }
-        # Actually send message...
+# Actually send message...
         return message
 
     def receive_message(self, message):
@@ -600,7 +600,7 @@ class DistributedProcess:
 
 ---
 
-## 🔄 Consistency in Concurrent Systems
+## Consistency in Concurrent Systems
 
 ### The Consistency-Concurrency Trade-off
 
@@ -1059,10 +1059,10 @@ public:
                 // Version mismatch - retry with backoff
                 return folly::futures::retrying(
                     std::chrono::milliseconds(100),
-                    [this, new_assoc](../../patterns/retry-backoff.md) {
+                    [this, new_assoc](/patterns/retry-backoff) {
                         return exponentialBackoff(retry_count);
                     },
-                    [this, new_assoc](../../patterns/retry-backoff.md) {
+                    [this, new_assoc](/patterns/retry-backoff) {
                         // Re-read and retry
                         return this->AssocGet(new_assoc.id1, new_assoc.atype, new_assoc.id2)
                             .thenValue([this, new_data](Association current) {
@@ -1825,7 +1825,7 @@ class PaddedAtomicLong extends AtomicLong {
 
 ---
 
-**Next**: [Axiom 5: Coordination →](../axiom5-coordination/index.md)
+**Next**: [Axiom 5: Coordination →](/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/)
 
 *"Shared mutable state is the root of all evil. The history of computing is the history of avoiding shared mutable state."*
 
@@ -1833,4 +1833,4 @@ class PaddedAtomicLong extends AtomicLong {
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga](../../patterns/saga.md)
+**Related**: [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Saga](/patterns/saga)

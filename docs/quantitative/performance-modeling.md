@@ -66,7 +66,7 @@ graph TD
 
 <div class="formula-box">
 <h4>R = W + S</h4>
-<table class="formula-table">
+<table class="formula-table responsive-table">
 <tr><td><strong>R</strong></td><td>Response time (total)</td></tr>
 <tr><td><strong>W</strong></td><td>Wait time (queueing)</td></tr>
 <tr><td><strong>S</strong></td><td>Service time (processing)</td></tr>
@@ -102,7 +102,7 @@ graph LR
 
 <div class="formula-box">
 <h4>U = λ × S</h4>
-<table class="formula-table">
+<table class="formula-table responsive-table">
 <tr><td><strong>U</strong></td><td>Utilization (0-1)</td></tr>
 <tr><td><strong>λ</strong></td><td>Arrival rate</td></tr>
 <tr><td><strong>S</strong></td><td>Service time</td></tr>
@@ -318,7 +318,7 @@ def usl_throughput(N, alpha, beta):
 ## Modeling Techniques Comparison
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Technique</th>
@@ -330,39 +330,39 @@ def usl_throughput(N, alpha, beta):
 </thead>
 <tbody>
 <tr>
-<td><strong>Analytical</strong></td>
-<td>Medium</td>
-<td>Fast</td>
-<td>Low</td>
-<td>Quick estimates</td>
+<td data-label="Technique"><strong>Analytical</strong></td>
+<td data-label="Accuracy">Medium</td>
+<td data-label="Speed">Fast</td>
+<td data-label="Complexity">Low</td>
+<td data-label="Best For">Quick estimates</td>
 </tr>
 <tr>
-<td><strong>Queueing Theory</strong></td>
-<td>High</td>
-<td>Fast</td>
-<td>Medium</td>
-<td>Steady-state analysis</td>
+<td data-label="Technique"><strong>Queueing Theory</strong></td>
+<td data-label="Accuracy">High</td>
+<td data-label="Speed">Fast</td>
+<td data-label="Complexity">Medium</td>
+<td data-label="Best For">Steady-state analysis</td>
 </tr>
 <tr>
-<td><strong>Discrete Simulation</strong></td>
-<td>Very High</td>
-<td>Slow</td>
-<td>High</td>
-<td>Complex scenarios</td>
+<td data-label="Technique"><strong>Discrete Simulation</strong></td>
+<td data-label="Accuracy">Very High</td>
+<td data-label="Speed">Slow</td>
+<td data-label="Complexity">High</td>
+<td data-label="Best For">Complex scenarios</td>
 </tr>
 <tr>
-<td><strong>Machine Learning</strong></td>
-<td>Variable</td>
-<td>Medium</td>
-<td>High</td>
-<td>Pattern recognition</td>
+<td data-label="Technique"><strong>Machine Learning</strong></td>
+<td data-label="Accuracy">Variable</td>
+<td data-label="Speed">Medium</td>
+<td data-label="Complexity">High</td>
+<td data-label="Best For">Pattern recognition</td>
 </tr>
 <tr>
-<td><strong>Hybrid Models</strong></td>
-<td>High</td>
-<td>Medium</td>
-<td>Very High</td>
-<td>Production systems</td>
+<td data-label="Technique"><strong>Hybrid Models</strong></td>
+<td data-label="Accuracy">High</td>
+<td data-label="Speed">Medium</td>
+<td data-label="Complexity">Very High</td>
+<td data-label="Best For">Production systems</td>
 </tr>
 </tbody>
 </table>

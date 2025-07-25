@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 5](index.md) → **Coordination Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 5](index.md) → **Coordination Exercises**
 
 # Coordination Exercises
 
@@ -19,7 +19,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🧪 Hands-On Labs
+## Hands-On Labs
 
 ### Lab 1: Coordination Cost Calculator
 
@@ -54,7 +54,7 @@ class CoordinationCostCalculator:
     """Calculate real AWS costs for coordination patterns"""
     
     def __init__(self):
-        # AWS Pricing (us-east-1, on-demand)
+# AWS Pricing (us-east-1, on-demand)
         self.pricing = {
             'ec2': {
                 'm5.large': 0.096,
@@ -84,13 +84,13 @@ class CoordinationCostCalculator:
                              regions: List[str]) -> Dict:
         """Calculate monthly AWS bill for given coordination pattern"""
         
-        # TODO: Implement cost calculation based on:
-        # 1. Consistency level requirements
-        # 2. Transaction volume
-        # 3. Geographic distribution
-        # 4. Message overhead for coordination
+# TODO: Implement cost calculation based on:
+# 1. Consistency level requirements
+# 2. Transaction volume
+# 3. Geographic distribution
+# 4. Message overhead for coordination
         
-        # Your implementation here
+# Your implementation here
         pass
 
 # Test scenarios
@@ -145,21 +145,21 @@ class CoordinationTradeoffAnalyzer:
     def analyze_pattern(self, pattern_name: str, config: dict):
         """Analyze a coordination pattern"""
         
-        # TODO: Calculate for each pattern:
-        # 1. Average latency (ms)
-        # 2. Availability (nines)
-        # 3. Consistency guarantee
-        # 4. Infrastructure cost
-        # 5. Operational complexity
+# TODO: Calculate for each pattern:
+# 1. Average latency (ms)
+# 2. Availability (nines)
+# 3. Consistency guarantee
+# 4. Infrastructure cost
+# 5. Operational complexity
         
         pass
         
     def generate_report(self):
         """Generate comparison report"""
-        # TODO: Create visualization comparing:
-        # - Cost vs Consistency
-        # - Latency vs Availability
-        # - Complexity vs Scale
+# TODO: Create visualization comparing:
+# - Cost vs Consistency
+# - Latency vs Availability
+# - Complexity vs Scale
         pass
 
 # Patterns to analyze
@@ -226,20 +226,20 @@ class GossipNode:
         
     async def gossip_round(self):
         """One round of gossip communication"""
-        # TODO: Implement gossip protocol
-        # 1. Select random subset of peers (fanout)
-        # 2. Exchange state with selected peers
-        # 3. Merge received state
-        # 4. Track convergence metrics
+# TODO: Implement gossip protocol
+# 1. Select random subset of peers (fanout)
+# 2. Exchange state with selected peers
+# 3. Merge received state
+# 4. Track convergence metrics
         
         pass
         
     def merge_state(self, remote_data: Dict):
         """Merge remote state with local state"""
-        # TODO: Implement merge logic
-        # - Use version vectors or timestamps
-        # - Handle conflicts (LWW, CRDT, etc)
-        # - Track convergence progress
+# TODO: Implement merge logic
+# - Use version vectors or timestamps
+# - Handle conflicts (LWW, CRDT, etc)
+# - Track convergence progress
         
         pass
 
@@ -247,17 +247,17 @@ class GossipNode:
 async def test_gossip_convergence():
     """Test how quickly gossip spreads information"""
     
-    # Create network of 100 nodes
+# Create network of 100 nodes
     nodes = []
     for i in range(100):
         peers = [f"node_{j}" for j in range(100) if j != i]
         node = GossipNode(f"node_{i}", peers)
         nodes.append(node)
     
-    # Inject value at node 0
+# Inject value at node 0
     await nodes[0].set_value("test_key", "test_value")
     
-    # Run gossip rounds until convergence
+# Run gossip rounds until convergence
     rounds = 0
     while not all_converged(nodes, "test_key"):
         await asyncio.gather(*[node.gossip_round() for node in nodes])
@@ -266,7 +266,7 @@ async def test_gossip_convergence():
     print(f"Converged in {rounds} rounds")
     print(f"Total messages: {sum(n.message_count for n in nodes)}")
     
-    # Compare with broadcast (all-to-all)
+# Compare with broadcast (all-to-all)
     broadcast_messages = len(nodes) * (len(nodes) - 1)
     print(f"Broadcast would need: {broadcast_messages} messages")
     print(f"Gossip efficiency: {broadcast_messages / sum(n.message_count for n in nodes):.2f}x")
@@ -296,42 +296,42 @@ class RaftNode:
         self.log = []  # [(term, command)]
         self.commit_index = -1
         
-        # Leader state
+# Leader state
         self.next_index = {}  # peer -> next log index
         self.match_index = {}  # peer -> highest replicated index
         
-        # Timing
+# Timing
         self.election_timeout = random.uniform(150, 300)  # ms
         self.heartbeat_interval = 50  # ms
         
     async def start_election(self):
         """Transition to candidate and start election"""
-        # TODO: Implement leader election
-        # 1. Increment current term
-        # 2. Vote for self
-        # 3. Send RequestVote RPCs to all peers
-        # 4. Become leader if majority votes received
+# TODO: Implement leader election
+# 1. Increment current term
+# 2. Vote for self
+# 3. Send RequestVote RPCs to all peers
+# 4. Become leader if majority votes received
         
         pass
         
     async def append_entries(self, entries: List[tuple]):
         """Leader appends entries and replicates"""
-        # TODO: Implement log replication
-        # 1. Append to local log
-        # 2. Send AppendEntries to all followers
-        # 3. Wait for majority
-        # 4. Update commit index
-        # 5. Apply to state machine
+# TODO: Implement log replication
+# 1. Append to local log
+# 2. Send AppendEntries to all followers
+# 3. Wait for majority
+# 4. Update commit index
+# 5. Apply to state machine
         
         pass
         
     async def handle_request_vote(self, term: int, candidate_id: int, 
                                 last_log_index: int, last_log_term: int):
         """Handle vote request from candidate"""
-        # TODO: Implement voting logic
-        # - Check term
-        # - Check if already voted
-        # - Check if candidate's log is up-to-date
+# TODO: Implement voting logic
+# - Check term
+# - Check if already voted
+# - Check if candidate's log is up-to-date
         
         pass
 
@@ -348,17 +348,17 @@ class RaftCluster:
             
     async def test_leader_election(self):
         """Test that cluster elects a leader"""
-        # TODO: Start nodes and verify leader election
+# TODO: Start nodes and verify leader election
         pass
         
     async def test_log_replication(self):
         """Test that logs replicate correctly"""
-        # TODO: Submit commands and verify replication
+# TODO: Submit commands and verify replication
         pass
         
     async def test_partition_tolerance(self):
         """Test behavior during network partition"""
-        # TODO: Simulate partition and verify safety
+# TODO: Simulate partition and verify safety
         pass
 ```
 
@@ -394,41 +394,41 @@ class CRDTShoppingCart:
         
     def remove_item(self, item: str, quantity: int = 1):
         """Remove item from cart - no coordination needed"""
-        # TODO: Implement remove operation
-        # Must handle concurrent add/remove correctly
+# TODO: Implement remove operation
+# Must handle concurrent add/remove correctly
         pass
         
     def get_contents(self) -> Dict[str, int]:
         """Get current cart contents"""
-        # TODO: Calculate effective quantities
-        # adds - removes for each item
+# TODO: Calculate effective quantities
+# adds - removes for each item
         pass
         
     def merge(self, other: 'CRDTShoppingCart'):
         """Merge with another cart replica"""
-        # TODO: Implement CRDT merge
-        # - Union of all operations
-        # - Commutative and associative
-        # - Idempotent
+# TODO: Implement CRDT merge
+# - Union of all operations
+# - Commutative and associative
+# - Idempotent
         pass
 
 # Test concurrent modifications
 def test_crdt_cart():
-    # User has cart on phone and laptop
+# User has cart on phone and laptop
     phone_cart = CRDTShoppingCart("phone")
     laptop_cart = CRDTShoppingCart("laptop")
     
-    # Concurrent operations (no coordination)
+# Concurrent operations (no coordination)
     phone_cart.add_item("book", 2)
     laptop_cart.add_item("book", 1)
     phone_cart.add_item("pen", 5)
     laptop_cart.remove_item("book", 1)
     
-    # Merge when devices sync
+# Merge when devices sync
     phone_cart.merge(laptop_cart)
     laptop_cart.merge(phone_cart)
     
-    # Both should show same contents
+# Both should show same contents
     assert phone_cart.get_contents() == laptop_cart.get_contents()
     print("Cart contents:", phone_cart.get_contents())
 ```
@@ -445,22 +445,22 @@ class ShardedCounter:
         
     def increment(self, amount: int = 1, key: str = None):
         """Increment counter - no global coordination"""
-        # TODO: Implement sharded increment
-        # 1. Hash key to shard (or random if no key)
-        # 2. Increment only that shard
-        # 3. No coordination with other shards
+# TODO: Implement sharded increment
+# 1. Hash key to shard (or random if no key)
+# 2. Increment only that shard
+# 3. No coordination with other shards
         pass
         
     def get_count(self) -> int:
         """Get total count across all shards"""
-        # TODO: Sum all shards
-        # May be slightly stale but no coordination
+# TODO: Sum all shards
+# May be slightly stale but no coordination
         pass
         
     def rebalance_shards(self, new_shard_count: int):
         """Dynamically adjust shard count"""
-        # TODO: Implement shard rebalancing
-        # Should work without stopping writes
+# TODO: Implement shard rebalancing
+# Should work without stopping writes
         pass
 
 # Benchmark sharded vs global counter
@@ -468,7 +468,7 @@ def benchmark_counters():
     import threading
     import time
     
-    # Global counter (needs synchronization)
+# Global counter (needs synchronization)
     global_counter = 0
     global_lock = threading.Lock()
     
@@ -478,16 +478,16 @@ def benchmark_counters():
             with global_lock:
                 global_counter += 1
     
-    # Sharded counter (no global lock)
+# Sharded counter (no global lock)
     sharded = ShardedCounter(100)
     
     def increment_sharded(n):
         for _ in range(n):
             sharded.increment()
     
-    # Compare performance
-    # TODO: Run benchmarks with multiple threads
-    # Measure throughput difference
+# Compare performance
+# TODO: Run benchmarks with multiple threads
+# Measure throughput difference
 ```
 
 ---
@@ -511,14 +511,14 @@ class MultiRegionDatabase:
             'consistent_prefix': self.consistent_prefix_write
         }
         
-    # Your task: Implement each consistency level
-    # Minimize coordination while meeting guarantees
-    # Calculate the cost of each approach
+# Your task: Implement each consistency level
+# Minimize coordination while meeting guarantees
+# Calculate the cost of each approach
     
     async def write(self, key: str, value: Any, 
                    consistency: str = 'eventual'):
         """Write with specified consistency level"""
-        # TODO: Route to appropriate implementation
+# TODO: Route to appropriate implementation
         pass
 
 # Design challenges:
@@ -543,23 +543,23 @@ class DistributedAnalytics:
     def track_event(self, event_type: str, value: float, 
                    dimensions: Dict[str, str]):
         """Track event without coordination"""
-        # TODO: Design a system that:
-        # 1. Handles 1M events/second
-        # 2. Provides <1s query latency
-        # 3. No coordination between nodes
-        # 4. Approximate results OK (±1%)
+# TODO: Design a system that:
+# 1. Handles 1M events/second
+# 2. Provides <1s query latency
+# 3. No coordination between nodes
+# 4. Approximate results OK (±1%)
         pass
         
     def query(self, metric: str, time_range: Tuple[int, int],
              group_by: List[str]):
         """Query analytics data"""
-        # TODO: Implement distributed query
-        # How to aggregate without coordination?
+# TODO: Implement distributed query
+# How to aggregate without coordination?
         pass
 
 # Techniques to explore:
 # - Probabilistic data structures
-# - Sampling strategies  
+# - Sampling strategies
 # - Local aggregation + periodic merge
 # - Sketch algorithms
 ```
@@ -591,13 +591,13 @@ Your task:
 """
 
 class LikeCounter:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 
 ---
 
-## 🔬 Research Projects
+## Research Projects
 
 ### Project 1: Coordination Cost Visualizer
 
@@ -639,7 +639,7 @@ class ConsistencyTuner:
     def recommend_consistency(self, operation_type: str, 
                             current_load: float) -> ConsistencyLevel:
         """ML model to recommend optimal consistency"""
-        # TODO: Implement adaptive algorithm
+# TODO: Implement adaptive algorithm
         pass
 ```
 
@@ -663,7 +663,7 @@ Test scenarios:
 
 ---
 
-## 📡 Distributed Systems Design Exercise
+## Distributed Systems Design Exercise
 
 ### Design a Global Hotel Booking System
 
@@ -767,7 +767,7 @@ def choose_pattern(requirements):
 
 ---
 
-## 🏆 Skills Assessment
+## Skills Assessment
 
 Rate your understanding (1-5):
 - [ ] Can calculate coordination costs in dollars
@@ -783,7 +783,7 @@ Rate your understanding (1-5):
 
 ---
 
-## 🔄 Consistency Coordination Lab
+## Consistency Coordination Lab
 
 ### Lab 4: Implement Tunable Consistency
 
@@ -993,7 +993,7 @@ class ConsistencyMonitor:
 
 ---
 
-## 🎯 Final Challenge: Production System Design
+## Final Challenge: Production System Design
 
 ```python
 """
@@ -1030,9 +1030,9 @@ class SurgePricingSystem:
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 6: Observability](../axiom6-observability/index.md)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 6: Observability](/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/)
 
-**Related**: [Consensus](../../patterns/consensus.md) • [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga Pattern](../../patterns/saga.md) • [CQRS](../../patterns/cqrs.md)
+**Related**: [Consensus](/patterns/consensus) • [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Saga Pattern](/patterns/saga) • [CQRS](/patterns/cqrs)
 
 ## References
 

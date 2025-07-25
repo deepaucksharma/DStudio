@@ -20,12 +20,12 @@ last_updated: 2025-07-20
     **Challenges**: Even distribution, minimal data movement, heterogeneous nodes  
     **Key Patterns**: Hash ring, virtual nodes, replication, gossip protocol
 
-## 🎯 Challenge Statement
+## Challenge Statement
 Design a distributed data partitioning scheme that minimizes data reorganization when nodes are added or removed from the cluster, while maintaining even load distribution and supporting efficient lookups.
 
 ## Part 1: Concept Map
 
-### 🗺️ System Overview
+### 🗺 System Overview
 Consistent hashing is a distributed hashing scheme that operates independently of the number of servers. When a hash table is resized, only K/n keys need to be remapped on average, where K is the number of keys and n is the number of slots. This is in contrast to traditional hashing where a change in the number of slots causes nearly all keys to be remapped.
 
 **Key Requirements:**
@@ -35,9 +35,9 @@ Consistent hashing is a distributed hashing scheme that operates independently o
 - Support for heterogeneous node capacities
 - Fault tolerance with replication
 
-### 📐 Law Analysis
+### Law Analysis
 
-#### 🚀 Law 1 (Latency): Hash Ring Traversal
+#### Law 1 (Latency): Hash Ring Traversal
 ```text
 Latency Components:
 - Hash computation: 0.001ms (SHA-256)
@@ -84,7 +84,7 @@ class ConsistentHashRing:
             self.ring[hash_value] = node
             bisect.insort(self.sorted_keys, hash_value)
         
-        # Invalidate cache on topology change
+# Invalidate cache on topology change
         self._ring_cache.clear()
     
     def get_node(self, key: str) -> Optional[str]:
@@ -97,7 +97,7 @@ class ConsistentHashRing:
         
         hash_value = self._hash(key)
         
-        # Binary search for next node
+# Binary search for next node
         index = bisect.bisect_right(self.sorted_keys, hash_value)
         if index == len(self.sorted_keys):
             index = 0  # Wrap around
@@ -162,18 +162,18 @@ class LoadBalancedHashRing(ConsistentHashRing):
         """Dynamically adjust virtual nodes based on load"""
         for node, stats in distribution.items():
             if stats['deviation'] > 0.1:  # 10% threshold
-                # Calculate new virtual node count
+# Calculate new virtual node count
                 current_vnodes = self._count_virtual_nodes(node)
                 adjustment_factor = stats['expected'] / stats['actual']
                 new_vnodes = int(current_vnodes * adjustment_factor)
                 
-                # Remove and re-add with new count
+# Remove and re-add with new count
                 self.remove_node(node)
                 weight = new_vnodes / self.virtual_nodes
                 self.add_node(node, weight)
 ```
 
-#### 🔥 Law 3 (Failure): Node Failures and Recovery
+#### Law 3 (Failure): Node Failures and Recovery
 ```text
 Failure Scenarios:
 1. Node crash: Keys rehashed to next node
@@ -209,7 +209,7 @@ class ResilientHashRing(ConsistentHashRing):
         hash_value = self._hash(key)
         start_index = bisect.bisect_right(self.sorted_keys, hash_value)
         
-        # Walk the ring to find N distinct physical nodes
+# Walk the ring to find N distinct physical nodes
         for i in range(len(self.sorted_keys)):
             index = (start_index + i) % len(self.sorted_keys)
             node = self.ring[self.sorted_keys[index]]
@@ -232,14 +232,14 @@ class ResilientHashRing(ConsistentHashRing):
         """Gracefully handle node failure"""
         self.node_health[failed_node] = False
         
-        # Find affected key ranges
+# Find affected key ranges
         affected_ranges = self._get_affected_ranges(failed_node)
         
-        # Trigger re-replication for affected data
+# Trigger re-replication for affected data
         for range_start, range_end in affected_ranges:
             next_healthy_node = self._find_next_healthy_node(range_end)
             
-            # Log re-replication task
+# Log re-replication task
             logger.info(f"Re-replicate range [{range_start}, {range_end}] "
                        f"from {failed_node} to {next_healthy_node}")
 ```
@@ -274,11 +274,11 @@ class ConcurrentHashRing(ConsistentHashRing):
     def add_node_safe(self, node: str, initiator: str):
         """Thread-safe node addition with vector clock"""
         with self.ring_lock.write():
-            # Increment version for initiator
+# Increment version for initiator
             self.version_vector[initiator] = \
                 self.version_vector.get(initiator, 0) + 1
             
-            # Create change record
+# Create change record
             change = {
                 'type': 'add_node',
                 'node': node,
@@ -287,12 +287,12 @@ class ConcurrentHashRing(ConsistentHashRing):
                 'initiator': initiator
             }
             
-            # Apply change if no conflicts
+# Apply change if no conflicts
             if self._can_apply_change(change):
                 self.add_node(node)
                 self._broadcast_change(change)
             else:
-                # Queue for later reconciliation
+# Queue for later reconciliation
                 self.pending_changes.append(change)
     
     def get_node_safe(self, key: str) -> Optional[str]:
@@ -303,7 +303,7 @@ class ConcurrentHashRing(ConsistentHashRing):
     def reconcile_pending_changes(self):
         """Resolve conflicts in pending changes"""
         with self.ring_lock.write():
-            # Sort by vector clock partial order
+# Sort by vector clock partial order
             sorted_changes = self._topological_sort(self.pending_changes)
             
             for change in sorted_changes:
@@ -343,27 +343,27 @@ class CoordinatedHashRing(ConsistentHashRing):
         
     async def join_ring(self):
         """Coordinated ring join protocol"""
-        # Phase 1: Announce intention to join
+# Phase 1: Announce intention to join
         join_request = {
             'node': self.node_id,
             'capacity': self._get_node_capacity(),
             'timestamp': time.time()
         }
         
-        # Phase 2: Get current ring state
+# Phase 2: Get current ring state
         current_topology = await self._fetch_ring_topology()
         
-        # Phase 3: Calculate new token ranges
+# Phase 3: Calculate new token ranges
         my_tokens = self._calculate_tokens(
             current_topology, 
             self.node_id,
             self.virtual_nodes
         )
         
-        # Phase 4: Coordinate with affected nodes
+# Phase 4: Coordinate with affected nodes
         affected_nodes = self._find_affected_nodes(my_tokens, current_topology)
         
-        # Phase 5: Two-phase commit
+# Phase 5: Two-phase commit
         prepared = await self._prepare_topology_change(
             affected_nodes, 
             my_tokens
@@ -379,13 +379,13 @@ class CoordinatedHashRing(ConsistentHashRing):
     async def _gossip_ring_state(self):
         """Epidemic propagation of ring state"""
         while True:
-            # Select random subset of peers
+# Select random subset of peers
             gossip_targets = random.sample(
                 self.peers, 
                 min(3, len(self.peers))
             )
             
-            # Exchange ring state
+# Exchange ring state
             local_state = self._get_ring_digest()
             
             for peer in gossip_targets:
@@ -398,7 +398,7 @@ class CoordinatedHashRing(ConsistentHashRing):
             await asyncio.sleep(self.gossip_interval)
 ```
 
-#### 👁️ Law 6 (Observability): Ring Monitoring
+#### 👁 Law 6 (Observability): Ring Monitoring
 ```text
 Key Metrics:
 - Load distribution (standard deviation)
@@ -430,15 +430,15 @@ class ObservableHashRing(ConsistentHashRing):
         
         node = self.get_node(key)
         
-        # Record lookup latency
+# Record lookup latency
         latency_us = (time.perf_counter() - start_time) * 1_000_000
         self.lookup_histogram.observe(latency_us)
         
-        # Track load
+# Track load
         if node:
             self.load_tracker[node] = self.load_tracker.get(node, 0) + 1
         
-        # Detect hot keys
+# Detect hot keys
         key_hash = self._hash(key)
         self.metrics.increment('hash_ring.lookups', tags={
             'node': node,
@@ -451,7 +451,7 @@ class ObservableHashRing(ConsistentHashRing):
         """Comprehensive ring health analysis"""
         nodes = list(set(self.ring.values()))
         
-        # Calculate load distribution
+# Calculate load distribution
         loads = []
         for node in nodes:
             load = self.load_tracker.get(node, 0)
@@ -460,7 +460,7 @@ class ObservableHashRing(ConsistentHashRing):
         avg_load = sum(loads) / len(loads) if loads else 0
         std_dev = statistics.stdev(loads) if len(loads) > 1 else 0
         
-        # Find hot spots
+# Find hot spots
         hot_spots = []
         for node, load in self.load_tracker.items():
             if load > avg_load * 1.5:  # 50% above average
@@ -506,16 +506,16 @@ class OperationalHashRing(ConsistentHashRing):
         if not self.ring:
             return "Empty ring"
         
-        # Group virtual nodes by physical node
+# Group virtual nodes by physical node
         node_positions = {}
         for hash_val, node in self.ring.items():
             if node not in node_positions:
                 node_positions[node] = []
-            # Normalize to 0-360 degrees
+# Normalize to 0-360 degrees
             angle = (hash_val / (2**32)) * 360
             node_positions[node].append(angle)
         
-        # Create visual representation
+# Create visual representation
         visual = ["Ring Topology (0-360°):"]
         visual.append("-" * 50)
         
@@ -533,15 +533,15 @@ class OperationalHashRing(ConsistentHashRing):
         if target_load is None:
             target_load = 1 / (len(set(self.ring.values())) + 1)
         
-        # Calculate required virtual nodes
+# Calculate required virtual nodes
         total_vnodes = len(self.ring)
         required_vnodes = int(total_vnodes * target_load)
         
-        # Simulate addition
+# Simulate addition
         temp_ring = self._copy_ring()
         temp_ring.add_node(new_node, weight=required_vnodes/self.virtual_nodes)
         
-        # Analyze data movement
+# Analyze data movement
         moved_keys = 0
         key_movements = []
         
@@ -570,7 +570,7 @@ class OperationalHashRing(ConsistentHashRing):
         }
 ```
 
-#### 💰 Law 8 (Economics): Cost Optimization
+#### Law 8 (Economics): Cost Optimization
 ```text
 Cost Factors:
 - Memory: Virtual nodes storage
@@ -607,13 +607,13 @@ class EconomicHashRing(ConsistentHashRing):
         best_cost = float('inf')
         
         for vnodes in range(min_vnodes, max_vnodes, 10):
-            # Calculate distribution quality
+# Calculate distribution quality
             distribution_quality = 1 / math.sqrt(vnodes)  # Approximation
             
-            # Calculate costs
+# Calculate costs
             memory_cost = vnodes * self.cost_model['memory_per_vnode']
             
-            # Estimate rebalancing cost (inversely proportional to vnodes)
+# Estimate rebalancing cost (inversely proportional to vnodes)
             rebalance_frequency = constraints.get('node_changes_per_month', 5)
             avg_rebalance_size = constraints.get('avg_data_per_node_gb', 100)
             rebalance_cost = (rebalance_frequency * avg_rebalance_size * 
@@ -621,7 +621,7 @@ class EconomicHashRing(ConsistentHashRing):
             
             total_cost = memory_cost + rebalance_cost
             
-            # Check if distribution meets SLA
+# Check if distribution meets SLA
             if distribution_quality < constraints.get('max_load_deviation', 0.1):
                 if total_cost < best_cost:
                     best_cost = total_cost
@@ -631,11 +631,11 @@ class EconomicHashRing(ConsistentHashRing):
     
     def estimate_migration_cost(self, from_topology: dict, to_topology: dict) -> dict:
         """Calculate cost of topology change"""
-        # Simulate key movements
+# Simulate key movements
         moved_data_gb = 0
         affected_nodes = set()
         
-        # Sample keys to estimate movement
+# Sample keys to estimate movement
         sample_size = 100000
         for i in range(sample_size):
             key = f"sample_{i}"
@@ -643,12 +643,12 @@ class EconomicHashRing(ConsistentHashRing):
             new_node = self._get_node_in_topology(key, to_topology)
             
             if old_node != new_node:
-                # Estimate data size (example: 1KB per key)
+# Estimate data size (example: 1KB per key)
                 moved_data_gb += 0.000001  # 1KB in GB
                 affected_nodes.add(old_node)
                 affected_nodes.add(new_node)
         
-        # Extrapolate to full dataset
+# Extrapolate to full dataset
         total_keys = constraints.get('total_keys', 1_000_000_000)
         moved_data_gb *= (total_keys / sample_size)
         
@@ -665,7 +665,7 @@ class EconomicHashRing(ConsistentHashRing):
         }
 ```
 
-### 🏛️ Pillar Mapping
+### 🏛 Pillar Mapping
 
 #### Work Distribution
 - **Hash Space Partitioning**: 2^32 or 2^64 space divided among nodes
@@ -697,7 +697,7 @@ class EconomicHashRing(ConsistentHashRing):
 - **Predictive Scaling**: Anticipate load changes
 - **Hot Spot Detection**: Identify and mitigate skew
 
-### 🔧 Pattern Application
+### Pattern Application
 
 **Primary Patterns:**
 - **Consistent Hashing**: Core ring-based distribution
@@ -713,7 +713,7 @@ class EconomicHashRing(ConsistentHashRing):
 
 ## Part 2: Architecture & Trade-offs
 
-### 🏗️ Core Architecture
+### Core Architecture
 
 ```mermaid
 graph TB
@@ -769,7 +769,7 @@ graph TB
     style G fill:#fff9c4
 ```
 
-### ⚖️ Key Design Trade-offs
+### Key Design Trade-offs
 
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
@@ -780,7 +780,7 @@ graph TB
 | **Token Assignment** | Random | Equally spaced | **A** - Random prevents patterns, better distribution with virtual nodes |
 | **Client Awareness** | Smart clients | Proxy/router | **A** - Smart clients reduce latency, distribute load, cache topology |
 
-### 🔄 Alternative Architectures
+### Alternative Architectures
 
 #### Option 1: Simple Ring (Original Karger)
 ```mermaid
@@ -915,7 +915,7 @@ def rendezvous_hash(key: str, nodes: List[str]) -> str:
 
 **When to use**: Small clusters, weighted distribution needs
 
-### 📊 Performance Characteristics
+### Performance Characteristics
 
 **Lookup Performance:**
 ```text
@@ -1204,17 +1204,17 @@ graph TD
 
 ## Key Design Insights
 
-### 1. 🎯 **Virtual Nodes Solve Distribution**
+### 1. **Virtual Nodes Solve Distribution**
 - 150-200 vnodes per physical node optimal
 - Prevents hot spots from hash function bias
 - Enables smooth rebalancing
 
-### 2. 🔄 **Minimal Movement is Critical**
+### 2. **Minimal Movement is Critical**
 - Only K/n keys should move when adding node
 - Successor lists enable fast failover
 - Client-side caching reduces lookup cost
 
-### 3. 🌍 **Topology Changes are Rare but Critical**
+### 3. **Topology Changes are Rare but Critical**
 - Most systems add/remove nodes infrequently
 - Gossip protocol sufficient for ring state
 - Strong consistency overkill for topology
@@ -1224,7 +1224,7 @@ graph TD
 - Weight-based virtual nodes essential
 - Monitor and rebalance based on actual load
 
-### 5. 📊 **Observability Prevents Drift**
+### 5. **Observability Prevents Drift**
 - Load imbalance accumulates over time
 - Active monitoring catches issues early
 - Automated rebalancing based on metrics
@@ -1311,44 +1311,44 @@ class ConsistentHashRing:
 - [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages)
 
 **Related Patterns:**
-- [Virtual Nodes](../patterns/sharding.md)
+- [Virtual Nodes](/patterns/sharding)
 - Gossip Protocol
 - Vector Clocks
 - Replication (Coming Soon)
 
-## 🔍 Related Concepts & Deep Dives
+## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - O(log n) lookup time with client-side caching reduces routing latency
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Even distribution prevents capacity hot spots across nodes
-- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Ring lookups are lock-free read operations
-- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
-- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Visual ring representation aids debugging and operations
-- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Efficient scaling without full data redistribution saves bandwidth
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - O(log n) lookup time with client-side caching reduces routing latency
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Ring lookups are lock-free read operations
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Efficient scaling without full data redistribution saves bandwidth
 
-### 🏛️ Related Patterns (Part III)
-- **[Sharding & Partitioning](../patterns/sharding.md)** - Consistent hashing is the foundation for data sharding
-- **[Load Balancing](../patterns/load-balancing.md)** - Ring-based routing distributes requests evenly
-- **[Service Discovery](../patterns/service-discovery.md)** - Ring topology changes propagate via gossip
+### 🏛 Related Patterns (Part III)
+- **[Sharding & Partitioning](/patterns/sharding)** - Consistent hashing is the foundation for data sharding
+- **[Load Balancing](/patterns/load-balancing)** - Ring-based routing distributes requests evenly
+- **[Service Discovery](/patterns/service-discovery)** - Ring topology changes propagate via gossip
 - **Replication (Coming Soon)** - Successor lists define replica placement
-- **[Health Check](../patterns/health-check.md)** - Node failures trigger ring rebalancing
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Client-side topology caching reduces lookups
-- **[Leader Election](../patterns/leader-election.md)** - Ring position can determine partition ownership
+- **[Health Check](/patterns/health-check)** - Node failures trigger ring rebalancing
+- **[Caching Strategies](/patterns/caching-strategies)** - Client-side topology caching reduces lookups
+- **[Leader Election](/patterns/leader-election)** - Ring position can determine partition ownership
 
-### 📊 Quantitative Models
+### Quantitative Models
 - **Ring Theory** - Mathematical foundation for hash rings
 - **Load Distribution** - Standard deviation measures balance quality
-- **[Little's Law](../quantitative/littles-law.md)** - Rebalancing rate impacts system capacity
+- **[Little's Law](/quantitative/littles-law)** - Rebalancing rate impacts system capacity
 - **Probability Theory** - Virtual node count affects distribution variance
 
 ### 👥 Human Factors Considerations
-- **[Capacity Planning](../quantitative/capacity-planning.md)** - Node weights must match actual capacity
-- **[Observability Tools](../human-factors/observability-stacks.md)** - Ring visualizers essential for operations
-- **[Incident Response](../human-factors/incident-response.md)** - Hot spot detection and mitigation procedures
-- **[On-Call Culture](../human-factors/oncall-culture.md)** - Understanding ring rebalancing critical for operators
+- **[Capacity Planning](/quantitative/capacity-planning)** - Node weights must match actual capacity
+- **[Observability Tools](/human-factors/observability-stacks)** - Ring visualizers essential for operations
+- **[Incident Response](/human-factors/incident-response)** - Hot spot detection and mitigation procedures
+- **[On-Call Culture](/human-factors/oncall-culture)** - Understanding ring rebalancing critical for operators
 
-### 🔄 Similar Case Studies
+### Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Production implementation of consistent hashing at scale
 - **[Rate Limiter Design](rate-limiter.md)** - Uses consistent hashing for distributed rate limit state
 - **[News Feed System](news-feed.md)** - Shards user timelines using consistent hashing

@@ -9,7 +9,7 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-# Law 5: The Law of Distributed Knowledge 🧠
+# Law 5: The Law of Distributed Knowledge
 
 > In distributed systems, truth is local, knowledge is partial, and certainty is expensive.
 
@@ -65,7 +65,7 @@ class DistributedNode:
         self.local_state[key] = value
         self.vector_clock[key] = self.increment_clock()
         
-        # Belief confidence depends on source
+# Belief confidence depends on source
         if source == 'local':
             self.knowledge_level[key] = 'belief'  # I think this is true
         elif source == 'consensus':
@@ -99,23 +99,23 @@ class ByzantineGeneral:
     def reason_about_attack(self):
         """The epistemological challenge"""
         
-        # Level 1: What do I know?
+# Level 1: What do I know?
         my_preference = self.decide_attack_or_retreat()
         
-        # Level 2: What do I know about what others know?
+# Level 2: What do I know about what others know?
         others_preferences = self.gather_messages()
         
-        # Level 3: What do I know about what others know I know?
-        # This is where it gets complex...
+# Level 3: What do I know about what others know I know?
+# This is where it gets complex...
         
-        # Byzantine insight: With traitors, we can never achieve
-        # common knowledge about the traitors' true intentions
+# Byzantine insight: With traitors, we can never achieve
+# common knowledge about the traitors' true intentions
         
         if self.is_traitor:
-            # Send different messages to different generals
+# Send different messages to different generals
             return self.sow_confusion()
         else:
-            # Try to reach consensus despite uncertainty
+# Try to reach consensus despite uncertainty
             return self.byzantine_agreement_protocol()
 ```
 
@@ -251,7 +251,7 @@ def two_generals_problem():
             self.messages_sent += 1
             message = f"{self.name} plans to attack at dawn"
             
-            # Network might lose the message
+# Network might lose the message
             if network.deliver():
                 other_general.receive_message(message, self, network)
                 return True
@@ -259,20 +259,20 @@ def two_generals_problem():
                 return False  # Message lost
                 
         def receive_message(self, message, sender, network):
-            # Now I know sender's plan
+# Now I know sender's plan
             self.plan_to_attack = "dawn"
             
-            # But sender doesn't know I know
-            # So I must acknowledge
+# But sender doesn't know I know
+# So I must acknowledge
             ack = f"{self.name} acknowledges: {message}"
             
             if network.deliver():
                 sender.receive_ack(ack, self, network)
-            # But what if the ack is lost? Infinite regress...
+# But what if the ack is lost? Infinite regress...
             
-    # No protocol can guarantee both generals attack
-    # because we can never achieve common knowledge
-    # that the last message was received
+# No protocol can guarantee both generals attack
+# because we can never achieve common knowledge
+# that the last message was received
 ```
 
 ## Practical Application
@@ -300,13 +300,13 @@ class EpistemologicallyHonestAPI:
     def write(self, key, value, knowledge_requirement='eventual'):
         """Write with explicit knowledge guarantees"""
         if knowledge_requirement == 'immediate':
-            # Synchronous replication to all nodes
+# Synchronous replication to all nodes
             return self.synchronous_write(key, value)
         elif knowledge_requirement == 'quorum':
-            # Write to majority
+# Write to majority
             return self.quorum_write(key, value)
         elif knowledge_requirement == 'eventual':
-            # Local write, async propagation
+# Local write, async propagation
             return self.eventual_write(key, value)
 ```
 
@@ -357,17 +357,17 @@ class PartialKnowledgeDecisionMaker:
     def make_decision(self, context):
         """Make decisions based on available knowledge"""
         
-        # Gather what we know
+# Gather what we know
         available_knowledge = self.gather_knowledge(context)
         
-        # Assess confidence
+# Assess confidence
         confidence = self.assess_confidence(available_knowledge)
         
         if confidence > self.confidence_threshold:
-            # Proceed with high-confidence decision
+# Proceed with high-confidence decision
             return self.high_confidence_path(available_knowledge)
         else:
-            # Use degraded mode
+# Use degraded mode
             return self.low_confidence_path(available_knowledge)
             
     def gather_knowledge(self, context):
@@ -379,7 +379,7 @@ class PartialKnowledgeDecisionMaker:
             'probabilistic': self.consult_sketches(context)
         }
         
-        # Tag each piece with epistemological metadata
+# Tag each piece with epistemological metadata
         for source, data in knowledge.items():
             data['source_type'] = source
             data['timestamp'] = time.time()
@@ -407,8 +407,8 @@ class AmazonShoppingCart:
         """
         Always succeed, even with partial knowledge
         """
-        # Don't need to know the "true" cart state
-        # Just record the intention
+# Don't need to know the "true" cart state
+# Just record the intention
         add_event = {
             'action': 'add',
             'item': item,
@@ -417,23 +417,23 @@ class AmazonShoppingCart:
             'node': self.get_local_node()
         }
         
-        # Store locally - belief, not knowledge
+# Store locally - belief, not knowledge
         self.record_event(add_event)
         
-        # Async propagation - eventual knowledge
+# Async propagation - eventual knowledge
         self.propagate_eventually(add_event)
         
-        # Return success immediately
+# Return success immediately
         return {'status': 'added', 'knowledge': 'local_belief'}
         
     def get_cart_contents(self):
         """
         Merge all known versions using CRDTs
         """
-        # Collect all versions we know about
+# Collect all versions we know about
         all_versions = self.gather_cart_versions()
         
-        # Merge using add-wins semantics
+# Merge using add-wins semantics
         merged_cart = self.crdt_merge(all_versions)
         
         return {
@@ -526,4 +526,4 @@ Perfect knowledge is impossible in distributed systems. The art lies in:
 - "CRDTs: Consistency without Concurrency Control" - Shapiro et al.
 - "Epistemology of Distributed Systems" - Fagin et al.
 
-[**← Previous: Law of Multidimensional Optimization**](../law4-tradeoffs/index.md) | [**→ Next: Law of Cognitive Load**](../law6-human-api/index.md)
+[**← Previous: Law of Multidimensional Optimization**](/part1-axioms/law4-tradeoffs/) | [**→ Next: Law of Cognitive Load**](/part1-axioms/law6-human-api/)

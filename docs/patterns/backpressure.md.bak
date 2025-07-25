@@ -159,7 +159,7 @@ class BoundedQueue:
         """Put item in queue with backpressure handling"""
         
         if self.strategy == BackpressureStrategy.BLOCK:
-            # Block until space available
+# Block until space available
             start_time = time.time()
             while len(self.queue) >= self.capacity:
                 await asyncio.sleep(0.01)  # Small delay
@@ -170,7 +170,7 @@ class BoundedQueue:
             return True
             
         elif self.strategy == BackpressureStrategy.DROP_NEWEST:
-            # Drop new item if full
+# Drop new item if full
             if len(self.queue) >= self.capacity:
                 self.dropped_count += 1
                 return False
@@ -178,7 +178,7 @@ class BoundedQueue:
             return True
             
         elif self.strategy == BackpressureStrategy.DROP_OLDEST:
-            # Always accept, drop oldest if needed
+# Always accept, drop oldest if needed
             self.queue.append(item)  # deque with maxlen handles dropping
             if len(self.queue) < self.capacity:
                 return True
@@ -309,15 +309,15 @@ class ReactiveSubscription(Subscription):
         
         try:
             while self.demand > 0 and not self.cancelled:
-                # Get next item from source
+# Get next item from source
                 item = await self.publisher.data_source()
                 
                 if item is None:
-                    # No more data
+# No more data
                     await self.subscriber.on_complete()
                     break
                     
-                # Send item and decrease demand
+# Send item and decrease demand
                 await self.subscriber.on_next(item)
                 self.demand -= 1
                 
@@ -346,7 +346,7 @@ class AdaptiveBackpressure:
         
     async def should_send(self) -> bool:
         """Check if we should send based on current rate"""
-        # Simple token bucket
+# Simple token bucket
         current_time = time.time()
         if not hasattr(self, 'last_send_time'):
             self.last_send_time = current_time
@@ -370,13 +370,13 @@ class AdaptiveBackpressure:
         avg_latency = sum(self.latency_history) / len(self.latency_history)
         
         if avg_latency > self.target_latency * 1.2:
-            # Latency too high, decrease rate
+# Latency too high, decrease rate
             self.current_rate = max(
                 self.min_rate,
                 int(self.current_rate * 0.9)
             )
         elif avg_latency < self.target_latency * 0.8:
-            # Latency low, increase rate
+# Latency low, increase rate
             self.current_rate = min(
                 self.max_rate,
                 int(self.current_rate * 1.1)
@@ -399,15 +399,15 @@ class BackpressureStreamProcessor:
         
     async def submit(self, item: Any) -> bool:
         """Submit item for processing"""
-        # Check if we have credits
+# Check if we have credits
         if not await self.flow_control.request_send():
             return False  # No credits, backpressure
             
-        # Check adaptive rate
+# Check adaptive rate
         if not await self.adaptive_bp.should_send():
             return False  # Rate limit
             
-        # Try to queue
+# Try to queue
         success = await self.input_queue.put(item, timeout=1.0)
         if success:
             await self.flow_control.send_complete()
@@ -419,30 +419,30 @@ class BackpressureStreamProcessor:
         self.processing = True
         
         while self.processing:
-            # Get item from input queue
+# Get item from input queue
             item = await self.input_queue.get()
             if item is None:
                 await asyncio.sleep(0.01)
                 continue
                 
-            # Process with timing
+# Process with timing
             start_time = time.time()
             try:
                 result = await self.process_fn(item)
                 
-                # Put in output queue
+# Put in output queue
                 await self.output_queue.put(result)
                 
-                # Record latency
+# Record latency
                 latency_ms = (time.time() - start_time) * 1000
                 await self.adaptive_bp.record_latency(latency_ms)
                 
-                # Grant credits back
+# Grant credits back
                 await self.flow_control.grant_credits(1)
                 
             except Exception as e:
                 print(f"Processing error: {e}")
-                # Still grant credits to prevent deadlock
+# Still grant credits to prevent deadlock
                 await self.flow_control.grant_credits(1)
 
 # TCP-like Congestion Control
@@ -471,13 +471,13 @@ class CongestionControl:
         self.acks_received += 1
         
         if self.state == "slow_start":
-            # Exponential increase
+# Exponential increase
             self.cwnd += 1
             if self.cwnd >= self.ssthresh:
                 self.state = "congestion_avoidance"
                 
         elif self.state == "congestion_avoidance":
-            # Linear increase (1/cwnd per ACK)
+# Linear increase (1/cwnd per ACK)
             if self.acks_received >= self.cwnd:
                 self.cwnd += 1
                 self.acks_received = 0
@@ -486,10 +486,10 @@ class CongestionControl:
         """Called on timeout/loss"""
         self.timeouts += 1
         
-        # Set ssthresh to half of current window
+# Set ssthresh to half of current window
         self.ssthresh = max(self.cwnd // 2, 2)
         
-        # Reset to slow start
+# Reset to slow start
         self.cwnd = 1
         self.state = "slow_start"
         self.in_flight = 0
@@ -522,10 +522,10 @@ class KafkaStyleConsumer:
     async def poll(self) -> List[Any]:
         """Poll for messages with automatic backpressure"""
         
-        # Calculate how many messages we can handle
+# Calculate how many messages we can handle
         capacity = self._calculate_capacity()
         
-        # Fetch only what we can process
+# Fetch only what we can process
         messages = await self._fetch_messages(min(capacity, self.max_poll_records))
         
         self.last_poll_time = time.time()
@@ -537,14 +537,14 @@ class KafkaStyleConsumer:
         if not self.processing_times:
             return self.max_poll_records
             
-        # Average processing time per message
+# Average processing time per message
         avg_process_time = sum(self.processing_times) / len(self.processing_times)
         
-        # Time remaining before session timeout
+# Time remaining before session timeout
         time_since_poll = (time.time() - self.last_poll_time) * 1000
         time_remaining = self.max_poll_interval_ms - time_since_poll
         
-        # Calculate how many we can process
+# Calculate how many we can process
         if avg_process_time > 0:
             capacity = int(time_remaining / avg_process_time * 0.8)  # 80% safety
             return max(1, min(capacity, self.max_poll_records))
@@ -594,11 +594,11 @@ class HierarchicalBackpressure:
                 pressure = metrics['current'] / metrics['threshold']
                 max_pressure = max(max_pressure, pressure)
                 
-        # Convert pressure to throttle factor (0.0 to 1.0)
+# Convert pressure to throttle factor (0.0 to 1.0)
         if max_pressure <= 1.0:
             return 1.0  # No throttling
         else:
-            # Exponential backoff as pressure increases
+# Exponential backoff as pressure increases
             return 1.0 / (2 ** (max_pressure - 1))
 ```
 
@@ -619,11 +619,11 @@ class DistributedBackpressureCoordinator:
         """Report local pressure to cluster"""
         self.local_pressure = pressure
         
-        # Publish to Redis with TTL
+# Publish to Redis with TTL
         key = f"backpressure:{self.node_id}"
         await self.redis.setex(key, 60, pressure)  # 60s TTL
         
-        # Publish event for real-time updates
+# Publish event for real-time updates
         await self.redis.publish(
             "backpressure:updates",
             json.dumps({
@@ -636,13 +636,13 @@ class DistributedBackpressureCoordinator:
     async def get_global_pressure(self) -> dict:
         """Get pressure from all nodes"""
         
-        # Get all backpressure keys
+# Get all backpressure keys
         keys = await self.redis.keys("backpressure:*")
         
         if not keys:
             return {self.node_id: self.local_pressure}
             
-        # Get all values
+# Get all values
         pressures = {}
         for key in keys:
             node_id = key.decode().split(":")[1]
@@ -660,15 +660,15 @@ class DistributedBackpressureCoordinator:
         if not pressures:
             return self.local_pressure < 0.8
             
-        # Find least loaded node
+# Find least loaded node
         min_pressure_node = min(pressures, key=pressures.get)
         min_pressure = pressures[min_pressure_node]
         
-        # Accept work if we're the least loaded or reasonably close
+# Accept work if we're the least loaded or reasonably close
         if self.node_id == min_pressure_node:
             return True
             
-        # Or if we're within 10% of least loaded
+# Or if we're within 10% of least loaded
         return self.local_pressure <= min_pressure * 1.1
 ```
 
@@ -691,7 +691,7 @@ class DistributedBackpressureCoordinator:
 
 ```yaml
 metrics:
-  # Flow Metrics
+# Flow Metrics
   - name: backpressure_applied
     description: Times backpressure was applied
     type: counter
@@ -707,7 +707,7 @@ metrics:
     type: gauge
     labels: [queue_name]
     
-  # Performance Metrics
+# Performance Metrics
   - name: processing_latency
     description: Message processing time
     type: histogram
@@ -718,7 +718,7 @@ metrics:
     type: gauge
     labels: [component]
     
-  # Credit Flow Metrics
+# Credit Flow Metrics
   - name: credits_available
     description: Available flow control credits
     type: gauge
@@ -826,26 +826,26 @@ def calculate_backpressure_roi(
 ) -> dict:
     """Calculate ROI of implementing backpressure"""
     
-    # Daily volumes
+# Daily volumes
     messages_per_day = messages_per_second * 86400
     
-    # Without backpressure
+# Without backpressure
     dropped_messages = messages_per_day * drop_rate_without_bp
     dropped_value = dropped_messages * message_value
     
-    # Crash impact (assume 1 hour recovery)
+# Crash impact (assume 1 hour recovery)
     crashes_per_day = crash_rate_without_bp * 24
     crash_lost_messages = messages_per_second * 3600 * crashes_per_day
     crash_lost_value = crash_lost_messages * message_value
     
-    # With backpressure  
+# With backpressure
     bp_drop_rate = drop_rate_without_bp * 0.1  # 90% reduction
     bp_dropped_value = messages_per_day * bp_drop_rate * message_value
     
-    # Costs
+# Costs
     bp_overhead_cost = infra_cost_per_hour * 24 * 0.1  # 10% overhead
     
-    # ROI
+# ROI
     daily_benefit = (dropped_value + crash_lost_value) - (bp_dropped_value + bp_overhead_cost)
     
     return {
@@ -942,7 +942,7 @@ graph TD
 ```yaml
 # Backpressure Configuration
 backpressure:
-  # Queue Configuration
+# Queue Configuration
   queues:
     input_queue:
       size: 10000
@@ -955,21 +955,21 @@ backpressure:
       high_watermark: 0.8  # Apply backpressure at 80%
       low_watermark: 0.6   # Release at 60%
       
-  # Flow Control
+# Flow Control
   flow_control:
     type: credit_based  # credit_based, rate_based, adaptive
     initial_credits: 1000
     credit_timeout: 30s
     min_credits: 100
     
-  # Adaptive Settings
+# Adaptive Settings
   adaptive:
     target_latency_ms: 100
     adjustment_interval: 10s
     increase_rate: 1.1
     decrease_rate: 0.9
     
-  # Monitoring
+# Monitoring
   monitoring:
     metrics_interval: 10s
     alert_thresholds:
@@ -984,7 +984,7 @@ backpressure:
 # Simple Bounded Queue
 queue = BoundedQueue(capacity=1000)
 if not queue.try_put(item, timeout=1.0):
-    # Handle backpressure
+# Handle backpressure
     metrics.record_drop()
 
 # Credit-Based Flow
@@ -993,7 +993,7 @@ if flow.try_acquire(1):
     process_item(item)
     flow.release(1)
 else:
-    # No credits available
+# No credits available
     wait_for_credits()
 
 # Adaptive Rate
@@ -1003,7 +1003,7 @@ if limiter.try_acquire():
     process_item(item)
     limiter.record_latency(time.time() - start)
 else:
-    # Rate limited
+# Rate limited
     defer_item(item)
 
 # Reactive Streams
@@ -1031,16 +1031,16 @@ subscriber.request(10)  # Request 10 items
 ## Related Resources
 
 ### Patterns
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Fail fast under overload
-- [Bulkhead](../patterns/bulkhead.md) - Resource isolation
-- [Rate Limiting](../patterns/rate-limiting.md) - Request throttling
-- [Queues & Streaming](../patterns/queues-streaming.md) - Message patterns
+- [Circuit Breaker](/patterns/circuit-breaker) - Fail fast under overload
+- [Bulkhead](/patterns/bulkhead) - Resource isolation
+- [Rate Limiting](/patterns/rate-limiting) - Request throttling
+- [Queues & Streaming](/patterns/queues-streaming) - Message patterns
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Finite resources
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Cascade prevention
-- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md) - Parallel flows
-- [Law 7 (Economic Reality 💰)](../part1-axioms/law7-economics/index.md) - Cost of dropping
+- [Law 4 (Multidimensional Optimization )](/part1-axioms/law4-tradeoffs/) - Finite resources
+- [Law 1 (Correlated Failure )](/part1-axioms/law1-failure/) - Cascade prevention
+- [Law 3 (Emergent Chaos )](/part1-axioms/law3-emergence/) - Parallel flows
+- [Law 7 (Economic Reality )](/part1-axioms/law7-economics/) - Cost of dropping
 
 ### Quantitative Analysis
 - [Queueing Theory](/quantitative/queueing-models.md) - Mathematical models

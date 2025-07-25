@@ -128,7 +128,7 @@ sequenceDiagram
 ### 3. Read Strategies
 
 <div class="strategy-comparison">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Strategy</th>
@@ -139,28 +139,28 @@ sequenceDiagram
 </thead>
 <tbody>
 <tr>
-<td><strong>Read from Leader</strong></td>
-<td>Strong</td>
-<td>Lower (bottleneck)</td>
-<td>Financial data</td>
+<td data-label="Strategy"><strong>Read from Leader</strong></td>
+<td data-label="Consistency">Strong</td>
+<td data-label="Performance">Lower (bottleneck)</td>
+<td data-label="Use Case">Financial data</td>
 </tr>
 <tr>
-<td><strong>Read from Followers</strong></td>
-<td>Eventual</td>
-<td>Higher (distributed)</td>
-<td>Product catalog</td>
+<td data-label="Strategy"><strong>Read from Followers</strong></td>
+<td data-label="Consistency">Eventual</td>
+<td data-label="Performance">Higher (distributed)</td>
+<td data-label="Use Case">Product catalog</td>
 </tr>
 <tr>
-<td><strong>Read Your Writes</strong></td>
-<td>Session</td>
-<td>Medium</td>
-<td>User profiles</td>
+<td data-label="Strategy"><strong>Read Your Writes</strong></td>
+<td data-label="Consistency">Session</td>
+<td data-label="Performance">Medium</td>
+<td data-label="Use Case">User profiles</td>
 </tr>
 <tr>
-<td><strong>Quorum Reads</strong></td>
-<td>Strong</td>
-<td>Medium</td>
-<td>Critical queries</td>
+<td data-label="Strategy"><strong>Quorum Reads</strong></td>
+<td data-label="Consistency">Strong</td>
+<td data-label="Performance">Medium</td>
+<td data-label="Use Case">Critical queries</td>
 </tr>
 </tbody>
 </table>
@@ -353,7 +353,7 @@ graph TB
 ## Trade-offs Analysis
 
 <div class="trade-off-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Aspect</th>
@@ -363,24 +363,24 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td><strong>Consistency</strong></td>
-<td>Strong consistency for writes<br/>Clear ordering guarantees</td>
-<td>Read consistency depends on strategy<br/>Replication lag issues</td>
+<td data-label="Aspect"><strong>Consistency</strong></td>
+<td data-label="Advantages">Strong consistency for writes<br/>Clear ordering guarantees</td>
+<td data-label="Disadvantages">Read consistency depends on strategy<br/>Replication lag issues</td>
 </tr>
 <tr>
-<td><strong>Availability</strong></td>
-<td>Read availability scales<br/>Automatic failover possible</td>
-<td>Write availability limited to leader<br/>Failover causes downtime</td>
+<td data-label="Aspect"><strong>Availability</strong></td>
+<td data-label="Advantages">Read availability scales<br/>Automatic failover possible</td>
+<td data-label="Disadvantages">Write availability limited to leader<br/>Failover causes downtime</td>
 </tr>
 <tr>
-<td><strong>Performance</strong></td>
-<td>Read scaling with followers<br/>Simple conflict resolution</td>
-<td>Write bottleneck at leader<br/>Replication overhead</td>
+<td data-label="Aspect"><strong>Performance</strong></td>
+<td data-label="Advantages">Read scaling with followers<br/>Simple conflict resolution</td>
+<td data-label="Disadvantages">Write bottleneck at leader<br/>Replication overhead</td>
 </tr>
 <tr>
-<td><strong>Complexity</strong></td>
-<td>Conceptually simple<br/>Clear responsibility</td>
-<td>Leader election complexity<br/>Split-brain handling</td>
+<td data-label="Aspect"><strong>Complexity</strong></td>
+<td data-label="Advantages">Conceptually simple<br/>Clear responsibility</td>
+<td data-label="Disadvantages">Leader election complexity<br/>Split-brain handling</td>
 </tr>
 </tbody>
 </table>

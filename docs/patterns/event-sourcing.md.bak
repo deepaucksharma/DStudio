@@ -9,403 +9,189 @@ prerequisites:
 when_to_use: Audit requirements, complex domains, time-travel debugging, event-driven systems
 when_not_to_use: Simple CRUD operations, storage constraints, real-time aggregations
 status: complete
-last_updated: 2025-07-21
+last_updated: 2025-07-25
 ---
+
 # Event Sourcing
 
+<div class="pattern-card">
+  <span class="pattern-card__category">Data Pattern</span>
+  <div class="pattern-card__content">
+    <p class="pattern-card__description">
+      Store all changes as immutable events to maintain complete audit history while enabling state reconstruction at any point in time.
+    </p>
+    <div class="pattern-card__laws">
+      <span class="pattern-card__law-badge">Law 5: Distributed Knowledge</span>
+      <span class="pattern-card__law-badge">Law 3: Emergent Chaos</span>
+    </div>
+  </div>
+</div>
 
-
-## The Essential Question
+## Problem Statement
 
 **How can we maintain a complete, auditable history of all changes while still providing the current state of our system?**
 
----
+<div class="content-box decision-box">
+<h3>When to Use This Pattern</h3>
 
-## Level 1: Intuition (5 minutes)
+| Scenario | Use Event Sourcing | Alternative |
+|----------|-------------------|-------------|
+| Audit trail required | ✅ Yes | Simple logging |
+| Complex domain with many state changes | ✅ Yes | Traditional CRUD |
+| Time-travel debugging needed | ✅ Yes | Snapshot backups |
+| Compliance regulations | ✅ Yes | Audit tables |
+| Event-driven architecture | ✅ Yes | Message queues |
+| High-frequency writes | ✅ Yes | Write-optimized DB |
+| Simple CRUD operations | ❌ No | Traditional database |
+| Storage cost constraints | ❌ No | Compressed logging |
+| Real-time aggregations | ❌ No | Materialized views |
+| Small development team | ❌ No | Simpler architecture |
 
-### The Story
-
-Your bank balance shows $1,000, but how did it get there? One deposit? Multiple transactions?
-
-Traditional databases show only final state. Event Sourcing keeps the entire transaction history - current balance is the sum of all events.
-
-### Visual Metaphor
-
-```mermaid
-flowchart LR
-    subgraph "Traditional Database"
-        TB[Account Balance<br/>$1,000<br/><br/>How did we<br/>get here?]
-        style TB fill:#ffd54f
-    end
-    
-    subgraph "Event Sourcing"
-        E1[1. Account Opened - $0] --> E2[2. Deposited - $500]
-        E2 --> E3[3. Deposited - $300]
-        E3 --> E4[4. Withdrew - $200]
-        E4 --> E5[5. Deposited - $400]
-        E5 --> CB[Current Balance: $1,000]
-        
-        style E1 fill:#e1f5fe
-        style E2 fill:#e1f5fe
-        style E3 fill:#e1f5fe
-        style E4 fill:#ffe0b2
-        style E5 fill:#e1f5fe
-        style CB fill:#c8e6c9
-    end
-```
-
-### In One Sentence
-
-**Event Sourcing**: Store every state change as an immutable event; derive current state by replaying events.
-
-### Real-World Parallel
-
-Like git: every commit (event) is preserved forever, showing what changed when, allowing state reconstruction at any point.
-
----
-
-## Level 2: Foundation (10 minutes)
-
-### The Problem Space
-
-<div class="failure-vignette">
-<h4>🔥 Without Event Sourcing: Trading Disaster</h4>
-Trading firm couldn't explain massive position. Database showed only final state, no decision sequence.
-- $50M fines
-- No debugging capability
-- No replay/fix option
-- 6-month license suspension
 </div>
 
-### Core Concept
-
-Event Sourcing fundamentals:
-
-1. **Events as Facts**: Record what happened
-2. **Immutability**: Events never change
-3. **Event Stream**: Ordered event sequence
-4. **State Derivation**: Replay events for current state
-5. **Time Travel**: Recreate any past state
-
-### Basic Architecture
+## Solution Architecture
 
 ```mermaid
-graph LR
-    subgraph "Commands"
-        C1[Create Order]
-        C2[Add Item]
-        C3[Remove Item]
-        C4[Submit Order]
-    end
-    
-    subgraph "Domain Model"
-        DM[Order Aggregate]
-        DM --> V{Validate}
-        V -->|Valid| E[Generate Events]
-        V -->|Invalid| R[Reject]
+graph TB
+    subgraph "Command Side"
+        CMD[Commands] --> CH[Command Handlers]
+        CH --> AR[Aggregate Root]
+        AR --> BL[Business Logic]
+        BL --> EV[Generate Events]
+        EV --> ES[(Event Store)]
     end
     
     subgraph "Event Store"
-        E --> ES[(Event Stream)]
-        ES --> |Replay| S[Current State]
+        ES --> EJ[Event Journal]
+        EJ --> SS[(Snapshots)]
+        EJ --> EB[Event Bus]
     end
     
     subgraph "Projections"
-        ES --> P1[Order List]
-        ES --> P2[Customer Orders]
-        ES --> P3[Analytics]
+        EB --> P1[Current State Projector]
+        EB --> P2[Query Model Projector]
+        EB --> P3[Analytics Projector]
+        
+        P1 --> CS[Current State]
+        P2 --> QM[(Query Models)]
+        P3 --> AD[(Analytics Data)]
     end
     
-    C1 --> DM
-    C2 --> DM
-    C3 --> DM
-    C4 --> DM
+    subgraph "Time Travel"
+        ES --> TR[Time Travel Queries]
+        TR --> HS[Historical State]
+    end
     
-    style ES fill:#bbf,stroke:#333,stroke-width:3px
-    style S fill:#f9f,stroke:#333,stroke-width:2px
+    style ES fill:#2196f3
+    style EJ fill:#1976d2
+    style EB fill:#4fc3f7
+    style CS fill:#4caf50
+    style QM fill:#8bc34a
+    style AD fill:#ff9800
 ```
 
-### Key Benefits
-
-1. **Audit Trail**: Complete change history
-2. **Time Travel**: Debug at any point
-3. **Integration**: Natural event flow
-4. **Analytics**: Pattern insights
+## Implementation Considerations
 
 ### Trade-offs
 
-```
-     GAINS                           COSTS
-       ↓                              ↓
-┌──────────────┐              ┌──────────────┐
-│ Auditability │              │   Storage    │
-│              │◄────VS────►  │              │
-│  Complete    │              │  Unbounded   │
-│  History     │              │   Growth     │
-└──────────────┘              └──────────────┘
+<table class="responsive-table">
+<thead>
+  <tr>
+    <th>Aspect</th>
+    <th>Benefit</th>
+    <th>Cost</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td data-label="Aspect">Auditability</td>
+    <td data-label="Benefit">Complete change history</td>
+    <td data-label="Cost">Unbounded storage growth</td>
+  </tr>
+  <tr>
+    <td data-label="Aspect">Debugging</td>
+    <td data-label="Benefit">Time travel capability</td>
+    <td data-label="Cost">Query complexity</td>
+  </tr>
+  <tr>
+    <td data-label="Aspect">Flexibility</td>
+    <td data-label="Benefit">Multiple projections</td>
+    <td data-label="Cost">Eventual consistency</td>
+  </tr>
+  <tr>
+    <td data-label="Aspect">Integration</td>
+    <td data-label="Benefit">Natural event publishing</td>
+    <td data-label="Cost">Event versioning complexity</td>
+  </tr>
+</tbody>
+</table>
 
-┌──────────────┐              ┌──────────────┐
-│  Debugging   │              │    Query     │
-│              │◄────VS────►  │              │
-│ Time Travel  │              │  Complex     │
-│  Capability  │              │  Rebuilding  │
-└──────────────┘              └──────────────┘
+### Key Metrics
 
-┌──────────────┐              ┌──────────────┐
-│ Flexibility  │              │ Consistency  │
-│              │◄────VS────►  │              │
-│  Multiple    │              │  Eventually  │
-│ Projections  │              │  Consistent  │
-└──────────────┘              └──────────────┘
-```
+<div class="card-grid">
+  <div class="card">
+    <div class="card__title">Event Write Latency</div>
+    <div class="card__description">P99: < 100ms</div>
+  </div>
+  <div class="card">
+    <div class="card__title">Replay Performance</div>
+    <div class="card__description">1000 events/sec</div>
+  </div>
+  <div class="card">
+    <div class="card__title">Storage Growth</div>
+    <div class="card__description">~500 bytes/event</div>
+  </div>
+  <div class="card">
+    <div class="card__title">Projection Lag</div>
+    <div class="card__description">< 10 seconds</div>
+  </div>
+</div>
 
----
+## Real-World Examples
 
-## Level 3: Deep Dive (20 minutes)
+<div class="content-box axiom-box">
+<h3>Production Implementation</h3>
 
-### Detailed Architecture
+- **Walmart**: Uses Event Sourcing for inventory tracking across 4,700+ stores, processing 1M+ events/sec with complete audit trail
+- **Capital One**: Implemented Event Sourcing for financial transactions, enabling real-time fraud detection and regulatory compliance
+- **Klarna**: Applied Event Sourcing to payment processing, supporting time-travel debugging for transaction disputes
+- **ING Bank**: Uses Event Sourcing for account management, providing complete transaction history for regulatory reporting
 
-```mermaid
-graph TB
-    subgraph "Application Layer"
-        API[API Gateway]
-        API --> CH[Command Handlers]
-    end
-    
-    subgraph "Domain Layer"
-        CH --> AL[Aggregate Loader]
-        AL --> ES1[(Event Store)]
-        AL --> AR[Aggregate Root]
-        AR --> BL[Business Logic]
-        BL --> EG[Event Generation]
-        EG --> ES2[(Event Store)]
-    end
-    
-    subgraph "Event Store Layer"
-        ES1 --> SS[(Snapshot Store)]
-        ES2 --> EJ[Event Journal]
-        EJ --> EB[Event Bus]
-        SS --> |Optimization| AL
-    end
-    
-    subgraph "Projection Layer"
-        EB --> PH1[Order Projector]
-        EB --> PH2[Inventory Projector]
-        EB --> PH3[Report Projector]
-        
-        PH1 --> DB1[(Order Views)]
-        PH2 --> DB2[(Inventory Views)]
-        PH3 --> DB3[(Report Views)]
-    end
-    
-    subgraph "Query Layer"
-        QH[Query Handlers]
-        QH --> DB1
-        QH --> DB2
-        QH --> DB3
-        API --> QH
-    end
-    
-    style EJ fill:#bbf,stroke:#333,stroke-width:3px
-    style AR fill:#f9f,stroke:#333,stroke-width:2px
-    style EB fill:#9f9,stroke:#333,stroke-width:2px
-```
+</div>
 
-### Implementation Patterns
+## Common Pitfalls
 
-#### Event Flow Architecture
+<div class="content-box failure-vignette">
+<h3>What Can Go Wrong</h3>
 
-```mermaid
-sequenceDiagram
-    participant C as Client
-    participant CH as Command Handler
-    participant A as Aggregate
-    participant ES as Event Store
-    participant EB as Event Bus
-    participant P as Projections
+1. **Mutable Events**: Modifying historical events breaks replay and destroys audit trail. Events must be immutable - use compensating events for corrections.
+2. **Missing Event Versioning**: Schema changes without versioning break deserialization of old events. Implement event versioning and upcasting from the start.
+3. **Unbounded Growth**: Event stores grow indefinitely without archival strategy. Implement snapshots and event archival policies.
+4. **Complex Queries**: Direct queries against event store are inefficient. Use projections for read models and complex queries.
+5. **Snapshot Corruption**: Corrupted snapshots require full event replay. Validate snapshots and maintain multiple checkpoint strategies.
 
-    C->>CH: Send Command
-    CH->>ES: Load Events
-    ES-->>CH: Event History
-    CH->>A: Reconstruct from Events
-    CH->>A: Execute Command
-    A->>A: Validate Business Rules
-    A-->>CH: Generate Events
-    CH->>ES: Append Events
-    ES->>EB: Publish Events
-    EB->>P: Update Read Models
-    CH-->>C: Command Result
-```
+</div>
 
-#### Core Components
+## Related Patterns
 
-```mermaid
-classDiagram
-    class DomainEvent {
-        +String aggregateId
-        +String eventId
-        +DateTime timestamp
-        +int version
-        +Dict metadata
-    }
-    
-    class EventSourcedAggregate {
-        +String id
-        +int version
-        +List~DomainEvent~ uncommittedEvents
-        +applyEvent(event)
-        +raiseEvent(event)
-        +loadFromHistory(events)
-    }
-    
-    class EventStore {
-        +appendEvents(aggregateId, events)
-        +getEvents(aggregateId, fromVersion)
-        +getAggregate(aggregateClass, aggregateId)
-        +saveAggregate(aggregate)
-    }
-    
-    class Projection {
-        +String name
-        +int checkpoint
-        +handle(event)
-        +canHandle(event)
-    }
-    
-    EventSourcedAggregate ..> DomainEvent : raises
-    EventStore ..> DomainEvent : stores
-    EventStore ..> EventSourcedAggregate : loads/saves
-    Projection ..> DomainEvent : processes
-```
+- [CQRS](cqrs.md) - Natural companion for event-driven read models
+- [Saga Pattern](saga.md) - Distributed transactions with events
+- [Event-Driven Architecture](event-driven.md) - Events as first-class citizens
+- [CDC](cdc.md) - Change Data Capture for legacy integration
 
-#### Example: Order Aggregate Events
+## Further Reading
 
-```python
-# Key event types for an Order aggregate
-@dataclass
-class OrderCreatedEvent(DomainEvent):
-    customer_id: str
-    order_number: str
+- [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database
+- [Martin Fowler on Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) - Clear introduction
+- [Versioning in Event Sourced Systems](https://leanpub.com/esversioning) - Schema evolution guide
 
-@dataclass
-class ItemAddedEvent(DomainEvent):
-    product_id: str
-    quantity: int
-    unit_price: float
 
-@dataclass
-class OrderSubmittedEvent(DomainEvent):
-    total_amount: float
-```
 
-#### Business Rule Enforcement
 
-| Operation | Business Rule | Validation Point |
-|-----------|--------------|------------------|
-| Add Item | Cannot modify submitted orders | Check status before event |
-| Add Item | Quantity must be positive | Validate in command handler |
-| Remove Item | Item must exist in order | Check items collection |
-| Submit | Cannot submit empty order | Verify items count > 0 |
-| Submit | Cannot re-submit order | Check current status |
 
-#### Production Architecture
 
-```mermaid
-graph TB
-    subgraph "Write Path"
-        CMD[Commands] --> CV{Concurrency<br/>Check}
-        CV -->|Version Match| AE[Append Events]
-        CV -->|Version Mismatch| CE[Concurrency Error]
-        AE --> ES[(Event Store)]
-        ES --> EB[Event Bus]
-    end
-    
-    subgraph "Read Path"
-        ES --> SN[(Snapshots)]
-        ES --> PM[Projection Manager]
-        PM --> P1[Order List View]
-        PM --> P2[Customer View]
-        PM --> P3[Analytics View]
-        
-        P1 --> RDB[(Read DB)]
-        P2 --> RDB
-        P3 --> RDB
-    end
-    
-    subgraph "Query Path"
-        Q[Queries] --> TQ[Temporal Query]
-        TQ --> ES
-        Q --> RQ[Regular Query]
-        RQ --> RDB
-    end
-    
-    style ES fill:#2196f3,stroke:#1565c0,stroke-width:3px
-    style SN fill:#78909c
-    style EB fill:#4db6ac
-    style RDB fill:#66bb6a
-```
 
-#### Database Schema Design
 
-```sql
--- Core event store tables
-CREATE TABLE events (
-    sequence_number BIGSERIAL PRIMARY KEY,
-    aggregate_id UUID NOT NULL,
-    event_id UUID NOT NULL UNIQUE,
-    event_type VARCHAR(255) NOT NULL,
-    event_data JSONB NOT NULL,
-    metadata JSONB NOT NULL,
-    version INTEGER NOT NULL,
-    timestamp TIMESTAMP NOT NULL,
-    INDEX idx_aggregate_id (aggregate_id),
-    INDEX idx_timestamp (timestamp),
-    UNIQUE(aggregate_id, version)
-);
-
-CREATE TABLE snapshots (
-    aggregate_id UUID PRIMARY KEY,
-    version INTEGER NOT NULL,
-    data JSONB NOT NULL,
-    timestamp TIMESTAMP NOT NULL
-);
-
-CREATE TABLE projection_checkpoints (
-    projection_name VARCHAR(255) PRIMARY KEY,
-    last_sequence_number BIGINT NOT NULL,
-    updated_at TIMESTAMP NOT NULL
-);
-```
-
-#### Projection Processing Flow
-
-```mermaid
-sequenceDiagram
-    participant ES as Event Store
-    participant PM as Projection Manager
-    participant P as Projection
-    participant CP as Checkpoint Store
-    participant RDB as Read Database
-
-    loop Continuous Processing
-        PM->>CP: Get Checkpoint
-        CP-->>PM: Last Sequence Number
-        PM->>ES: Get Events After Checkpoint
-        ES-->>PM: New Events
-        
-        loop For Each Event
-            PM->>P: Can Handle Event?
-            alt Can Handle
-                P->>RDB: Update Read Model
-                PM->>CP: Update Checkpoint
-            else Cannot Handle
-                PM->>PM: Skip Event
-            end
-        end
-        
-        PM->>PM: Sleep if No Events
-    end
-```
 
 #### Key Implementation Considerations
 
@@ -567,7 +353,7 @@ Key metrics to track:
 
 ```yaml
 metrics:
-  # Event Store Metrics
+# Event Store Metrics
   - name: event_append_latency
     description: Time to append events
     alert_threshold: p99 > 100ms
@@ -580,7 +366,7 @@ metrics:
     description: Time to create snapshots
     alert_threshold: p99 > 1s
     
-  # Projection Metrics
+# Projection Metrics
   - name: projection_lag
     description: Lag between event and projection update
     alert_threshold: p99 > 10s
@@ -589,7 +375,7 @@ metrics:
     description: Failed projections per minute
     alert_threshold: > 10/min
     
-  # Storage Metrics
+# Storage Metrics
   - name: event_storage_size
     description: Total event storage used
     alert_threshold: > 80% capacity
@@ -598,7 +384,7 @@ metrics:
     description: Average events per aggregate
     alert_threshold: > 10000
     
-  # Business Metrics
+# Business Metrics
   - name: events_per_second
     description: Event creation rate
     alert_threshold: > 10000/s
@@ -708,7 +494,7 @@ def calculate_event_sourcing_roi(
 ) -> dict:
     """Calculate ROI for Event Sourcing implementation"""
     
-    # Storage costs
+# Storage costs
     events_per_day = daily_transactions * avg_events_per_transaction
     event_size_bytes = 500  # Average event size
     
@@ -721,7 +507,7 @@ def calculate_event_sourcing_roi(
         'backup': yearly_storage_tb * 5,  # Backup at $5/TB
     }
     
-    # Compute costs
+# Compute costs
     replay_frequency = 100  # Replays per day
     replay_compute_hours = replay_frequency * 0.1  # 0.1 hours per replay
     
@@ -731,7 +517,7 @@ def calculate_event_sourcing_roi(
         'projection_updates': events_per_day * 0.000005  # $0.005 per 1K events
     }
     
-    # Benefits
+# Benefits
     benefits = {
         'audit_cost_reduction': 500000 if audit_requirements else 0,
         'debugging_time_saved': 200000,  # Developer hours saved
@@ -739,7 +525,7 @@ def calculate_event_sourcing_roi(
         'business_insights': 1000000,  # New analytics capabilities
     }
     
-    # Calculate ROI
+# Calculate ROI
     total_costs = sum(storage_costs.values()) + sum(compute_costs.values())
     total_benefits = sum(benefits.values())
     
@@ -805,11 +591,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Events capture exact time of state changes
-2. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md)**: Event sequence provides total ordering
-3. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Complete history enables perfect knowledge
-4. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Every change is observable
-5. **[Law 6 (Cognitive Load 🤯)](../part1-axioms/law6-human-api/index.md)**: Natural audit trail for compliance
+1. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Events capture exact time of state changes
+2. **[Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/)**: Event sequence provides total ordering
+3. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Complete history enables perfect knowledge
+4. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Every change is observable
+5. **[Law 6 (Cognitive Load 🤯)](/part1-axioms/law6-human-api/)**: Natural audit trail for compliance
 </div>
 
 ### Future Directions
@@ -931,14 +717,14 @@ event_sourcing:
 ## Related Resources
 
 ### Patterns
-- [CQRS](../patterns/cqrs.md) - Natural companion for read model separation
-- [Saga Pattern](../patterns/saga.md) - Distributed transactions with events
-- [Event-Driven Architecture](../patterns/event-driven.md) - Events as first-class citizens
+- [CQRS](/patterns/cqrs) - Natural companion for read model separation
+- [Saga Pattern](/patterns/saga) - Distributed transactions with events
+- [Event-Driven Architecture](/patterns/event-driven) - Events as first-class citizens
 
 ### Laws
-- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md) - Why event timing matters
-- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md) - Event sequence guarantees
-- [Law 6 (Cognitive Load 🤯)](../part1-axioms/law6-human-api/index.md) - Complete system knowledge
+- [Law 5 (Distributed Knowledge )](/part1-axioms/law5-epistemology/) - Why event timing matters
+- [Law 3 (Emergent Chaos )](/part1-axioms/law3-emergence/) - Event sequence guarantees
+- [Law 6 (Cognitive Load )](/part1-axioms/law6-human-api/) - Complete system knowledge
 
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database

@@ -127,7 +127,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 ### 🧮 Essential Calculations
 <div class="calc-reference">
-  <table>
+  <table class="responsive-table">
     <thead>
       <tr>
         <th>Formula</th>
@@ -137,29 +137,29 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
     </thead>
     <tbody>
       <tr>
-        <td><a href="cheat-sheets.md#littles-law">Little's Law</a></td>
-        <td>L = λW (Queue length = Arrival rate × Wait time)</td>
-        <td>Capacity planning, queue analysis</td>
+        <td data-label="Formula"><a href="cheat-sheets.md#littles-law">Little's Law</a></td>
+        <td data-label="Description">L = λW (Queue length = Arrival rate × Wait time)</td>
+        <td data-label="When to Use">Capacity planning, queue analysis</td>
       </tr>
       <tr>
-        <td><a href="cheat-sheets.md#availability-math">Availability</a></td>
-        <td>A = MTTF / (MTTF + MTTR)</td>
-        <td>SLA calculations, redundancy planning</td>
+        <td data-label="Formula"><a href="cheat-sheets.md#availability-math">Availability</a></td>
+        <td data-label="Description">A = MTTF / (MTTF + MTTR)</td>
+        <td data-label="When to Use">SLA calculations, redundancy planning</td>
       </tr>
       <tr>
-        <td><a href="cheat-sheets.md#amdahls-law">Amdahl's Law</a></td>
-        <td>S = 1 / (s + p/n)</td>
-        <td>Parallelization limits</td>
+        <td data-label="Formula"><a href="cheat-sheets.md#amdahls-law">Amdahl's Law</a></td>
+        <td data-label="Description">S = 1 / (s + p/n)</td>
+        <td data-label="When to Use">Parallelization limits</td>
       </tr>
       <tr>
-        <td><a href="cheat-sheets.md#universal-scalability">USL</a></td>
-        <td>C(N) = N / (1 + α(N-1) + βN(N-1))</td>
-        <td>Scalability modeling</td>
+        <td data-label="Formula"><a href="cheat-sheets.md#universal-scalability">USL</a></td>
+        <td data-label="Description">C(N) = N / (1 + α(N-1) + βN(N-1))</td>
+        <td data-label="When to Use">Scalability modeling</td>
       </tr>
       <tr>
-        <td><a href="../quantitative/queueing-models.md">M/M/1 Queue</a></td>
-        <td>W = 1 / (μ - λ)</td>
-        <td>Service time estimation</td>
+        <td data-label="Formula"><a href="../quantitative/queueing-models.md">M/M/1 Queue</a></td>
+        <td data-label="Description">W = 1 / (μ - λ)</td>
+        <td data-label="When to Use">Service time estimation</td>
       </tr>
     </tbody>
   </table>

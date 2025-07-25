@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 4](index.md) → **Concurrency Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 4](index.md) → **Concurrency Exercises**
 
 # Concurrency Exercises
 
@@ -19,7 +19,7 @@ last_updated: 2025-07-21
 
 ---
 
-## 🧪 Hands-On Labs
+## Hands-On Labs
 
 ### Lab 1: Race Condition Hunting
 
@@ -43,21 +43,21 @@ class BuggyBank:
         self.transaction_log = []
         
     def transfer(self, from_acc, to_acc, amount):
-        # Check balance
+# Check balance
         if self.accounts[from_acc] >= amount:
-            # Simulate processing delay
+# Simulate processing delay
             time.sleep(0.001)
             
-            # Deduct from sender
+# Deduct from sender
             self.accounts[from_acc] -= amount
             
-            # Another delay (network, processing)
+# Another delay (network, processing)
             time.sleep(0.001)
             
-            # Add to receiver
+# Add to receiver
             self.accounts[to_acc] += amount
             
-            # Log transaction
+# Log transaction
             self.transaction_log.append({
                 'from': from_acc,
                 'to': to_acc,
@@ -84,14 +84,14 @@ def stress_test_bank():
             amount = random.randint(1, 100)
             bank.transfer(from_acc, to_acc, amount)
     
-    # Launch multiple threads
+# Launch multiple threads
     threads = []
     for _ in range(10):
         t = threading.Thread(target=random_transfers)
         threads.append(t)
         t.start()
     
-    # Wait for completion
+# Wait for completion
     for t in threads:
         t.join()
     
@@ -99,7 +99,7 @@ def stress_test_bank():
     print(f"Final total: ${final_total}")
     print(f"Money {'LOST' if final_total < initial_total else 'CREATED'}: ${abs(final_total - initial_total)}")
     
-    # Analyze the damage
+# Analyze the damage
     return bank
 
 # TODO: Implement these fixes
@@ -132,7 +132,7 @@ class InventorySystem:
         return available >= quantity
     
     def reserve_item(self, product, quantity):
-        # RACE CONDITION: Check and reserve are not atomic!
+# RACE CONDITION: Check and reserve are not atomic!
         if self.check_availability(product, quantity):
             time.sleep(0.001)  # Simulate API call
             self.products[product]['reserved'] += quantity
@@ -223,8 +223,8 @@ class LockingBenchmark:
         - Medium contention (10 resources, 10 threads)
         - High contention (1 resource, 10 threads)
         """
-        # TODO: Implement the benchmark
-        # Measure: throughput, latency distribution, fairness
+# TODO: Implement the benchmark
+# Measure: throughput, latency distribution, fairness
         pass
 
 # Scenarios to test:
@@ -269,16 +269,16 @@ class DistributedLockManager:
                 self.release(name)
     
     def acquire(self, name, timeout, blocking, blocking_timeout):
-        # TODO: Implement acquisition logic
+# TODO: Implement acquisition logic
         pass
     
     def release(self, name):
-        # TODO: Implement safe release
+# TODO: Implement safe release
         pass
     
     def extend(self, name, additional_timeout):
         """Extend lock timeout for long operations"""
-        # TODO: Implement lock extension
+# TODO: Implement lock extension
         pass
 
 # Test scenarios:
@@ -361,19 +361,19 @@ class DistributedDocument:
         
     def delete(self, position: int, length: int):
         """Delete text at position"""
-        # TODO: Implement delete operation
+# TODO: Implement delete operation
         pass
         
     def receive_operation(self, operation: dict):
         """Receive and merge remote operation"""
-        # TODO: Implement CRDT merge logic
-        # Handle concurrent operations
-        # Ensure convergence
+# TODO: Implement CRDT merge logic
+# Handle concurrent operations
+# Ensure convergence
         pass
         
     def apply_operation(self, operation: dict):
         """Apply operation to document"""
-        # TODO: Transform operations if needed
+# TODO: Transform operations if needed
         pass
 
 # Challenge: Implement these test cases
@@ -384,12 +384,12 @@ class VectorClockTests:
         doc2 = DistributedDocument("node2")
         doc3 = DistributedDocument("node3")
         
-        # Simulate concurrent edits
+# Simulate concurrent edits
         op1 = doc1.insert(0, "Hello ")
         op2 = doc2.insert(0, "World")
         op3 = doc3.insert(0, "!")
         
-        # Exchange operations
+# Exchange operations
         doc1.receive_operation(op2)
         doc1.receive_operation(op3)
         doc2.receive_operation(op1)
@@ -397,7 +397,7 @@ class VectorClockTests:
         doc3.receive_operation(op1)
         doc3.receive_operation(op2)
         
-        # Verify convergence
+# Verify convergence
         assert doc1.document == doc2.document == doc3.document
 ```
 
@@ -424,19 +424,19 @@ class LockFreeStack:
         
     def push(self, value: Any):
         """Push value onto stack without locks"""
-        # TODO: Implement using CAS
-        # Handle the ABA problem!
+# TODO: Implement using CAS
+# Handle the ABA problem!
         pass
         
     def pop(self) -> Optional[Any]:
         """Pop value from stack without locks"""
-        # TODO: Implement using CAS
+# TODO: Implement using CAS
         pass
 
 # Bonus: Implement a lock-free queue
 class LockFreeQueue:
     """Michael & Scott lock-free queue"""
-    # TODO: This is significantly harder!
+# TODO: This is significantly harder!
     pass
 ```
 
@@ -459,12 +459,12 @@ class DiningPhilosophers:
         
     def philosopher(self, philosopher_id: int):
         """Philosopher lifecycle: think -> hungry -> eat -> repeat"""
-        # TODO: Implement a deadlock-free solution
-        # Options:
-        # 1. Resource hierarchy (always pick up lower-numbered fork first)
-        # 2. Arbitrator solution (waiter)
-        # 3. Chandy/Misra solution (clean/dirty forks)
-        # 4. Limit concurrent diners
+# TODO: Implement a deadlock-free solution
+# Options:
+# 1. Resource hierarchy (always pick up lower-numbered fork first)
+# 2. Arbitrator solution (waiter)
+# 3. Chandy/Misra solution (clean/dirty forks)
+# 4. Limit concurrent diners
         pass
     
     def get_stats(self):
@@ -479,7 +479,7 @@ class DiningPhilosophers:
 def test_dining_philosophers():
     table = DiningPhilosophers(5)
     
-    # Run for 10 seconds
+# Run for 10 seconds
     threads = []
     for i in range(5):
         t = threading.Thread(target=table.philosopher, args=(i,))
@@ -492,10 +492,10 @@ def test_dining_philosophers():
     stats = table.get_stats()
     print(f"Fairness test: {stats}")
     
-    # Good solution should have:
-    # - No deadlocks (program doesn't hang)
-    # - Low starvation index (< 10% of total meals)
-    # - High efficiency (> 40%)
+# Good solution should have:
+# - No deadlocks (program doesn't hang)
+# - Low starvation index (< 10% of total meals)
+# - High efficiency (> 40%)
 ```
 
 ### Challenge 3: Distributed Consensus Implementation
@@ -525,29 +525,29 @@ class RaftNode:
         
     async def election_timeout(self):
         """Start election when timeout expires"""
-        # TODO: Implement leader election
-        # 1. Increment term
-        # 2. Vote for self
-        # 3. Send RequestVote to all peers
-        # 4. Become leader if majority votes
+# TODO: Implement leader election
+# 1. Increment term
+# 2. Vote for self
+# 3. Send RequestVote to all peers
+# 4. Become leader if majority votes
         pass
         
     async def append_entries(self, entries, leader_term):
         """Handle AppendEntries from leader"""
-        # TODO: Implement log replication
-        # 1. Verify term
-        # 2. Check log consistency
-        # 3. Append new entries
-        # 4. Update commit index
+# TODO: Implement log replication
+# 1. Verify term
+# 2. Check log consistency
+# 3. Append new entries
+# 4. Update commit index
         pass
         
     async def request_vote(self, candidate_id, candidate_term):
         """Handle vote request"""
-        # TODO: Implement voting logic
-        # 1. Check term
-        # 2. Check if already voted
-        # 3. Check log up-to-date
-        # 4. Grant or deny vote
+# TODO: Implement voting logic
+# 1. Check term
+# 2. Check if already voted
+# 3. Check log up-to-date
+# 4. Grant or deny vote
         pass
 
 # Build a test cluster
@@ -557,10 +557,10 @@ class RaftCluster:
         
     async def simulate_network_partition(self):
         """Test consensus during network partition"""
-        # TODO: Partition nodes and verify:
-        # 1. Minority partition cannot elect leader
-        # 2. Majority partition elects new leader
-        # 3. System recovers when partition heals
+# TODO: Partition nodes and verify:
+# 1. Minority partition cannot elect leader
+# 2. Majority partition elects new leader
+# 3. System recovers when partition heals
         pass
 ```
 
@@ -703,7 +703,7 @@ Questions:
 
 ---
 
-## 🔬 Research Projects
+## Research Projects
 
 ### Project 1: Concurrent Data Structure Library
 
@@ -732,11 +732,11 @@ Benchmark against:
 
 class ConcurrentHashMap:
     """High-performance concurrent hash map"""
-    # TODO: Implement with:
-    # - Segmented locking
-    # - Lock-free reads
-    # - Atomic resize
-    # - Memory ordering guarantees
+# TODO: Implement with:
+# - Segmented locking
+# - Lock-free reads
+# - Atomic resize
+# - Memory ordering guarantees
     pass
 ```
 
@@ -792,14 +792,14 @@ def test_concurrent_map():
     
     @invariant
     def no_lost_writes():
-        # Verify all writes are visible
+# Verify all writes are visible
         pass
 """
 ```
 
 ---
 
-## 📊 Performance Analysis Lab
+## Performance Analysis Lab
 
 ### Measure the Cost of Concurrency
 
@@ -817,29 +817,29 @@ class ConcurrencyBenchmark:
         
     def benchmark_lock_overhead(self):
         """Measure the cost of acquiring/releasing locks"""
-        # TODO: Benchmark:
-        # - Uncontended lock
-        # - Contended lock (2, 4, 8, 16 threads)
-        # - Reader-writer lock
-        # - Spinlock vs mutex
+# TODO: Benchmark:
+# - Uncontended lock
+# - Contended lock (2, 4, 8, 16 threads)
+# - Reader-writer lock
+# - Spinlock vs mutex
         pass
         
     def benchmark_atomic_operations(self):
         """Compare atomic vs locked operations"""
-        # TODO: Benchmark:
-        # - Atomic increment
-        # - Compare-and-swap
-        # - Memory barriers
-        # - Lock-free vs locked counter
+# TODO: Benchmark:
+# - Atomic increment
+# - Compare-and-swap
+# - Memory barriers
+# - Lock-free vs locked counter
         pass
         
     def benchmark_message_passing(self):
         """Measure inter-thread communication cost"""
-        # TODO: Benchmark:
-        # - Queue.put/get
-        # - Pipe communication  
-        # - Shared memory
-        # - Domain sockets
+# TODO: Benchmark:
+# - Queue.put/get
+# - Pipe communication
+# - Shared memory
+# - Domain sockets
         pass
 
 # Visualize results
@@ -856,7 +856,7 @@ def plot_scalability(benchmark_results):
 
 ---
 
-## 🎯 Final Challenge: Build a Distributed Game
+## Final Challenge: Build a Distributed Game
 
 ```python
 """
@@ -885,13 +885,13 @@ Extensions:
 """
 
 class DistributedTicTacToe:
-    # Your implementation here
+# Your implementation here
     pass
 ```
 
 ---
 
-## 🏆 Skills Assessment
+## Skills Assessment
 
 Rate your mastery (1-5):
 - [ ] Can identify race conditions
@@ -907,9 +907,9 @@ Rate your mastery (1-5):
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 5: Coordination](../axiom5-coordination/index.md)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 5: Coordination](/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/)
 
-**Related**: [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga](../../patterns/saga.md) • [Consensus](../../patterns/consensus.md)
+**Related**: [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Saga](/patterns/saga) • [Consensus](/patterns/consensus)
 
 ## References
 

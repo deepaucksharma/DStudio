@@ -3,7 +3,7 @@
 ## Company Comparison Matrix
 
 <div class="company-comparison">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Aspect</th>
@@ -17,49 +17,49 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>Focus</strong></td>
-<td>Scale & Simplicity</td>
-<td>Leadership + Tech</td>
-<td>Product Impact</td>
-<td>Platform Design</td>
-<td>User Experience</td>
-<td>Performance</td>
+<td data-label="Aspect"><strong>Focus</strong></td>
+<td data-label="Google">Scale & Simplicity</td>
+<td data-label="Amazon">Leadership + Tech</td>
+<td data-label="Meta">Product Impact</td>
+<td data-label="Microsoft">Platform Design</td>
+<td data-label="Apple">User Experience</td>
+<td data-label="Netflix">Performance</td>
 </tr>
 <tr>
-<td><strong>Unique Traits</strong></td>
-<td>• Planetary scale<br/>• Elegant solutions<br/>• Infrastructure depth</td>
-<td>• Customer obsession<br/>• Operational rigor<br/>• Cost awareness</td>
-<td>• Move fast<br/>• Social impact<br/>• Data-driven</td>
-<td>• Enterprise ready<br/>• Developer focused<br/>• Cloud native</td>
-<td>• Privacy first<br/>• Hardware integration<br/>• Ecosystem thinking</td>
-<td>• Streaming scale<br/>• Chaos engineering<br/>• A/B testing</td>
+<td data-label="Aspect"><strong>Unique Traits</strong></td>
+<td data-label="Google">• Planetary scale<br/>• Elegant solutions<br/>• Infrastructure depth</td>
+<td data-label="Amazon">• Customer obsession<br/>• Operational rigor<br/>• Cost awareness</td>
+<td data-label="Meta">• Move fast<br/>• Social impact<br/>• Data-driven</td>
+<td data-label="Microsoft">• Enterprise ready<br/>• Developer focused<br/>• Cloud native</td>
+<td data-label="Apple">• Privacy first<br/>• Hardware integration<br/>• Ecosystem thinking</td>
+<td data-label="Netflix">• Streaming scale<br/>• Chaos engineering<br/>• A/B testing</td>
 </tr>
 <tr>
-<td><strong>Common Questions</strong></td>
-<td>• YouTube<br/>• Search<br/>• Maps</td>
-<td>• E-commerce<br/>• AWS services<br/>• Logistics</td>
-<td>• News Feed<br/>• Messenger<br/>• Instagram</td>
-<td>• Teams<br/>• Azure services<br/>• Office 365</td>
-<td>• iMessage<br/>• iCloud<br/>• App Store</td>
-<td>• Video streaming<br/>• Recommendation<br/>• CDN design</td>
+<td data-label="Aspect"><strong>Common Questions</strong></td>
+<td data-label="Google">• YouTube<br/>• Search<br/>• Maps</td>
+<td data-label="Amazon">• E-commerce<br/>• AWS services<br/>• Logistics</td>
+<td data-label="Meta">• News Feed<br/>• Messenger<br/>• Instagram</td>
+<td data-label="Microsoft">• Teams<br/>• Azure services<br/>• Office 365</td>
+<td data-label="Apple">• iMessage<br/>• iCloud<br/>• App Store</td>
+<td data-label="Netflix">• Video streaming<br/>• Recommendation<br/>• CDN design</td>
 </tr>
 <tr>
-<td><strong>Interview Style</strong></td>
-<td>Technical depth</td>
-<td>Behavioral + Tech</td>
-<td>Product + Tech</td>
-<td>Balanced</td>
-<td>Excellence focused</td>
-<td>Deep technical</td>
+<td data-label="Aspect"><strong>Interview Style</strong></td>
+<td data-label="Google">Technical depth</td>
+<td data-label="Amazon">Behavioral + Tech</td>
+<td data-label="Meta">Product + Tech</td>
+<td data-label="Microsoft">Balanced</td>
+<td data-label="Apple">Excellence focused</td>
+<td data-label="Netflix">Deep technical</td>
 </tr>
 <tr>
-<td><strong>Evaluation</strong></td>
-<td>• Problem solving<br/>• Technical depth<br/>• Communication</td>
-<td>• Leadership principles<br/>• Technical skills<br/>• Long-term thinking</td>
-<td>• Impact<br/>• Execution speed<br/>• Innovation</td>
-<td>• Collaboration<br/>• Technical breadth<br/>• Customer focus</td>
-<td>• Attention to detail<br/>• Innovation<br/>• User empathy</td>
-<td>• Technical expertise<br/>• Performance focus<br/>• Data-driven</td>
+<td data-label="Aspect"><strong>Evaluation</strong></td>
+<td data-label="Google">• Problem solving<br/>• Technical depth<br/>• Communication</td>
+<td data-label="Amazon">• Leadership principles<br/>• Technical skills<br/>• Long-term thinking</td>
+<td data-label="Meta">• Impact<br/>• Execution speed<br/>• Innovation</td>
+<td data-label="Microsoft">• Collaboration<br/>• Technical breadth<br/>• Customer focus</td>
+<td data-label="Apple">• Attention to detail<br/>• Innovation<br/>• User empathy</td>
+<td data-label="Netflix">• Technical expertise<br/>• Performance focus<br/>• Data-driven</td>
 </tr>
 </tbody>
 </table>
@@ -101,7 +101,7 @@ graph TD
 ## 🕐 Time Allocation by Company
 
 <div class="time-allocation">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Phase</th>
@@ -113,46 +113,46 @@ graph TD
 </thead>
 <tbody>
 <tr>
-<td><strong>Requirements</strong></td>
-<td>5 min (11%)</td>
-<td>10 min (20%)</td>
-<td>5 min (11%)</td>
-<td>7 min (15%)</td>
+<td data-label="Phase"><strong>Requirements</strong></td>
+<td data-label="Google">5 min (11%)</td>
+<td data-label="Amazon">10 min (20%)</td>
+<td data-label="Meta">5 min (11%)</td>
+<td data-label="Microsoft">7 min (15%)</td>
 </tr>
 <tr>
-<td><strong>Estimation</strong></td>
-<td>5 min (11%)</td>
-<td>5 min (10%)</td>
-<td>3 min (7%)</td>
-<td>5 min (11%)</td>
+<td data-label="Phase"><strong>Estimation</strong></td>
+<td data-label="Google">5 min (11%)</td>
+<td data-label="Amazon">5 min (10%)</td>
+<td data-label="Meta">3 min (7%)</td>
+<td data-label="Microsoft">5 min (11%)</td>
 </tr>
 <tr>
-<td><strong>High-Level Design</strong></td>
-<td>15 min (33%)</td>
-<td>15 min (30%)</td>
-<td>20 min (44%)</td>
-<td>15 min (33%)</td>
+<td data-label="Phase"><strong>High-Level Design</strong></td>
+<td data-label="Google">15 min (33%)</td>
+<td data-label="Amazon">15 min (30%)</td>
+<td data-label="Meta">20 min (44%)</td>
+<td data-label="Microsoft">15 min (33%)</td>
 </tr>
 <tr>
-<td><strong>Deep Dive</strong></td>
-<td>10 min (22%)</td>
-<td>10 min (20%)</td>
-<td>10 min (22%)</td>
-<td>10 min (22%)</td>
+<td data-label="Phase"><strong>Deep Dive</strong></td>
+<td data-label="Google">10 min (22%)</td>
+<td data-label="Amazon">10 min (20%)</td>
+<td data-label="Meta">10 min (22%)</td>
+<td data-label="Microsoft">10 min (22%)</td>
 </tr>
 <tr>
-<td><strong>Scale/Optimize</strong></td>
-<td>5 min (11%)</td>
-<td>5 min (10%)</td>
-<td>5 min (11%)</td>
-<td>5 min (11%)</td>
+<td data-label="Phase"><strong>Scale/Optimize</strong></td>
+<td data-label="Google">5 min (11%)</td>
+<td data-label="Amazon">5 min (10%)</td>
+<td data-label="Meta">5 min (11%)</td>
+<td data-label="Microsoft">5 min (11%)</td>
 </tr>
 <tr>
-<td><strong>Special Focus</strong></td>
-<td>5 min - Performance</td>
-<td>5 min - Operations</td>
-<td>2 min - Metrics</td>
-<td>3 min - Integration</td>
+<td data-label="Phase"><strong>Special Focus</strong></td>
+<td data-label="Google">5 min - Performance</td>
+<td data-label="Amazon">5 min - Operations</td>
+<td data-label="Meta">2 min - Metrics</td>
+<td data-label="Microsoft">3 min - Integration</td>
 </tr>
 </tbody>
 </table>
@@ -235,7 +235,7 @@ graph LR
 ## 🛠 Skill Requirements Matrix
 
 <div class="skill-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Skill Area</th>
@@ -247,32 +247,32 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>System Design</strong></td>
-<td>✓ Basic patterns<br/>✓ Simple systems<br/>✓ Clear diagrams</td>
-<td>✓ Complex systems<br/>✓ Trade-offs<br/>✓ Scale thinking</td>
-<td>✓ Platform design<br/>✓ Cross-cutting<br/>✓ Innovation</td>
-<td>✓ Industry leading<br/>✓ Novel solutions<br/>✓ Vision</td>
+<td data-label="Skill Area"><strong>System Design</strong></td>
+<td data-label="L3/L4">✓ Basic patterns<br/>✓ Simple systems<br/>✓ Clear diagrams</td>
+<td data-label="L5">✓ Complex systems<br/>✓ Trade-offs<br/>✓ Scale thinking</td>
+<td data-label="L6">✓ Platform design<br/>✓ Cross-cutting<br/>✓ Innovation</td>
+<td data-label="L7+">✓ Industry leading<br/>✓ Novel solutions<br/>✓ Vision</td>
 </tr>
 <tr>
-<td><strong>Technical Depth</strong></td>
-<td>✓ Data structures<br/>✓ Algorithms<br/>✓ Databases</td>
-<td>✓ Distributed systems<br/>✓ Performance<br/>✓ Security</td>
-<td>✓ Architecture<br/>✓ ML/AI integration<br/>✓ Research</td>
-<td>✓ Cutting edge<br/>✓ Industry trends<br/>✓ Patents</td>
+<td data-label="Skill Area"><strong>Technical Depth</strong></td>
+<td data-label="L3/L4">✓ Data structures<br/>✓ Algorithms<br/>✓ Databases</td>
+<td data-label="L5">✓ Distributed systems<br/>✓ Performance<br/>✓ Security</td>
+<td data-label="L6">✓ Architecture<br/>✓ ML/AI integration<br/>✓ Research</td>
+<td data-label="L7+">✓ Cutting edge<br/>✓ Industry trends<br/>✓ Patents</td>
 </tr>
 <tr>
-<td><strong>Communication</strong></td>
-<td>✓ Clear explanation<br/>✓ Basic diagrams<br/>✓ Answer questions</td>
-<td>✓ Persuasive<br/>✓ Professional diagrams<br/>✓ Lead discussion</td>
-<td>✓ Executive presence<br/>✓ Teach concepts<br/>✓ Influence</td>
-<td>✓ Thought leader<br/>✓ Industry speaker<br/>✓ Mentor</td>
+<td data-label="Skill Area"><strong>Communication</strong></td>
+<td data-label="L3/L4">✓ Clear explanation<br/>✓ Basic diagrams<br/>✓ Answer questions</td>
+<td data-label="L5">✓ Persuasive<br/>✓ Professional diagrams<br/>✓ Lead discussion</td>
+<td data-label="L6">✓ Executive presence<br/>✓ Teach concepts<br/>✓ Influence</td>
+<td data-label="L7+">✓ Thought leader<br/>✓ Industry speaker<br/>✓ Mentor</td>
 </tr>
 <tr>
-<td><strong>Business Sense</strong></td>
-<td>✓ User focus<br/>✓ Basic metrics<br/>✓ Cost awareness</td>
-<td>✓ Business metrics<br/>✓ ROI thinking<br/>✓ Market aware</td>
-<td>✓ Strategy<br/>✓ Competition<br/>✓ Innovation</td>
-<td>✓ Industry vision<br/>✓ Market maker<br/>✓ Ecosystem</td>
+<td data-label="Skill Area"><strong>Business Sense</strong></td>
+<td data-label="L3/L4">✓ User focus<br/>✓ Basic metrics<br/>✓ Cost awareness</td>
+<td data-label="L5">✓ Business metrics<br/>✓ ROI thinking<br/>✓ Market aware</td>
+<td data-label="L6">✓ Strategy<br/>✓ Competition<br/>✓ Innovation</td>
+<td data-label="L7+">✓ Industry vision<br/>✓ Market maker<br/>✓ Ecosystem</td>
 </tr>
 </tbody>
 </table>
@@ -281,7 +281,7 @@ graph LR
 ## Success Metrics by Company
 
 <div class="metrics-comparison">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Company</th>
@@ -292,28 +292,28 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Google</strong></td>
-<td>• Scales to billions<br/>• Simple & elegant<br/>• Uses Google tech well</td>
-<td>• Over-engineering<br/>• Ignoring latency<br/>• Complex solutions</td>
-<td>• Novel approach<br/>• Deep knowledge<br/>• Clear thinking</td>
+<td data-label="Company"><strong>Google</strong></td>
+<td data-label="Key Success Metrics">• Scales to billions<br/>• Simple & elegant<br/>• Uses Google tech well</td>
+<td data-label="Red Flags">• Over-engineering<br/>• Ignoring latency<br/>• Complex solutions</td>
+<td data-label="Wow Factors">• Novel approach<br/>• Deep knowledge<br/>• Clear thinking</td>
 </tr>
 <tr>
-<td><strong>Amazon</strong></td>
-<td>• Customer focused<br/>• Cost conscious<br/>• Operationally sound</td>
-<td>• Tech over customer<br/>• Ignoring cost<br/>• No ownership</td>
-<td>• Strong LPs<br/>• Frugal innovation<br/>• Long-term view</td>
+<td data-label="Company"><strong>Amazon</strong></td>
+<td data-label="Key Success Metrics">• Customer focused<br/>• Cost conscious<br/>• Operationally sound</td>
+<td data-label="Red Flags">• Tech over customer<br/>• Ignoring cost<br/>• No ownership</td>
+<td data-label="Wow Factors">• Strong LPs<br/>• Frugal innovation<br/>• Long-term view</td>
 </tr>
 <tr>
-<td><strong>Meta</strong></td>
-<td>• User impact<br/>• Fast iteration<br/>• Data-driven</td>
-<td>• Slow approach<br/>• No metrics<br/>• Over-planning</td>
-<td>• Product sense<br/>• Growth hacking<br/>• Bold ideas</td>
+<td data-label="Company"><strong>Meta</strong></td>
+<td data-label="Key Success Metrics">• User impact<br/>• Fast iteration<br/>• Data-driven</td>
+<td data-label="Red Flags">• Slow approach<br/>• No metrics<br/>• Over-planning</td>
+<td data-label="Wow Factors">• Product sense<br/>• Growth hacking<br/>• Bold ideas</td>
 </tr>
 <tr>
-<td><strong>Microsoft</strong></td>
-<td>• Enterprise ready<br/>• Developer friendly<br/>• Integrated solution</td>
-<td>• Consumer only<br/>• Silo thinking<br/>• Legacy approach</td>
-<td>• Platform thinking<br/>• Cloud expertise<br/>• Collaboration</td>
+<td data-label="Company"><strong>Microsoft</strong></td>
+<td data-label="Key Success Metrics">• Enterprise ready<br/>• Developer friendly<br/>• Integrated solution</td>
+<td data-label="Red Flags">• Consumer only<br/>• Silo thinking<br/>• Legacy approach</td>
+<td data-label="Wow Factors">• Platform thinking<br/>• Cloud expertise<br/>• Collaboration</td>
 </tr>
 </tbody>
 </table>

@@ -84,7 +84,7 @@ sequenceDiagram
 ### Frame Structure
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Frame Type</th>
@@ -95,34 +95,34 @@ sequenceDiagram
 </thead>
 <tbody>
 <tr>
-<td><strong>Text</strong></td>
-<td>0x1</td>
-<td>UTF-8 text data</td>
-<td>String messages</td>
+<td data-label="Frame Type"><strong>Text</strong></td>
+<td data-label="Opcode">0x1</td>
+<td data-label="Purpose">UTF-8 text data</td>
+<td data-label="Payload">String messages</td>
 </tr>
 <tr>
-<td><strong>Binary</strong></td>
-<td>0x2</td>
-<td>Binary data</td>
-<td>Byte arrays, files</td>
+<td data-label="Frame Type"><strong>Binary</strong></td>
+<td data-label="Opcode">0x2</td>
+<td data-label="Purpose">Binary data</td>
+<td data-label="Payload">Byte arrays, files</td>
 </tr>
 <tr>
-<td><strong>Close</strong></td>
-<td>0x8</td>
-<td>Close connection</td>
-<td>Status code + reason</td>
+<td data-label="Frame Type"><strong>Close</strong></td>
+<td data-label="Opcode">0x8</td>
+<td data-label="Purpose">Close connection</td>
+<td data-label="Payload">Status code + reason</td>
 </tr>
 <tr>
-<td><strong>Ping</strong></td>
-<td>0x9</td>
-<td>Heartbeat request</td>
-<td>Optional data</td>
+<td data-label="Frame Type"><strong>Ping</strong></td>
+<td data-label="Opcode">0x9</td>
+<td data-label="Purpose">Heartbeat request</td>
+<td data-label="Payload">Optional data</td>
 </tr>
 <tr>
-<td><strong>Pong</strong></td>
-<td>0xA</td>
-<td>Heartbeat response</td>
-<td>Echo ping data</td>
+<td data-label="Frame Type"><strong>Pong</strong></td>
+<td data-label="Opcode">0xA</td>
+<td data-label="Purpose">Heartbeat response</td>
+<td data-label="Payload">Echo ping data</td>
 </tr>
 </tbody>
 </table>
@@ -545,7 +545,7 @@ class RateLimiter:
 ## Performance Optimization
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Optimization</th>
@@ -556,28 +556,28 @@ class RateLimiter:
 </thead>
 <tbody>
 <tr>
-<td><strong>Message Batching</strong></td>
-<td>Reduce overhead</td>
-<td>Queue and send together</td>
-<td>Increased latency</td>
+<td data-label="Optimization"><strong>Message Batching</strong></td>
+<td data-label="Impact">Reduce overhead</td>
+<td data-label="Implementation">Queue and send together</td>
+<td data-label="Trade-off">Increased latency</td>
 </tr>
 <tr>
-<td><strong>Binary Protocol</strong></td>
-<td>Smaller payload</td>
-<td>Use MessagePack/Protobuf</td>
-<td>Complexity</td>
+<td data-label="Optimization"><strong>Binary Protocol</strong></td>
+<td data-label="Impact">Smaller payload</td>
+<td data-label="Implementation">Use MessagePack/Protobuf</td>
+<td data-label="Trade-off">Complexity</td>
 </tr>
 <tr>
-<td><strong>Connection Pooling</strong></td>
-<td>Resource efficiency</td>
-<td>Reuse connections</td>
-<td>State management</td>
+<td data-label="Optimization"><strong>Connection Pooling</strong></td>
+<td data-label="Impact">Resource efficiency</td>
+<td data-label="Implementation">Reuse connections</td>
+<td data-label="Trade-off">State management</td>
 </tr>
 <tr>
-<td><strong>Edge Servers</strong></td>
-<td>Lower latency</td>
-<td>Deploy globally</td>
-<td>Infrastructure cost</td>
+<td data-label="Optimization"><strong>Edge Servers</strong></td>
+<td data-label="Impact">Lower latency</td>
+<td data-label="Implementation">Deploy globally</td>
+<td data-label="Trade-off">Infrastructure cost</td>
 </tr>
 </tbody>
 </table>

@@ -318,7 +318,7 @@ def phi_accrual_detector(heartbeat_history):
 ## Recovery Strategies by Failure Type
 
 <div class="recovery-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Failure Type</th>
@@ -329,34 +329,34 @@ def phi_accrual_detector(heartbeat_history):
 </thead>
 <tbody>
 <tr>
-<td><strong>Crash</strong></td>
-<td>Heartbeat timeout</td>
-<td>Restart/Failover</td>
-<td>Seconds to minutes</td>
+<td data-label="Failure Type"><strong>Crash</strong></td>
+<td data-label="Detection Method">Heartbeat timeout</td>
+<td data-label="Recovery Strategy">Restart/Failover</td>
+<td data-label="Time to Recover">Seconds to minutes</td>
 </tr>
 <tr>
-<td><strong>Omission</strong></td>
-<td>Missing ACKs</td>
-<td>Retransmission</td>
-<td>Milliseconds</td>
+<td data-label="Failure Type"><strong>Omission</strong></td>
+<td data-label="Detection Method">Missing ACKs</td>
+<td data-label="Recovery Strategy">Retransmission</td>
+<td data-label="Time to Recover">Milliseconds</td>
 </tr>
 <tr>
-<td><strong>Timing</strong></td>
-<td>Latency monitoring</td>
-<td>Circuit breaker/Retry</td>
-<td>Seconds</td>
+<td data-label="Failure Type"><strong>Timing</strong></td>
+<td data-label="Detection Method">Latency monitoring</td>
+<td data-label="Recovery Strategy">Circuit breaker/Retry</td>
+<td data-label="Time to Recover">Seconds</td>
 </tr>
 <tr>
-<td><strong>Byzantine</strong></td>
-<td>Voting/Consensus</td>
-<td>Exclude from quorum</td>
-<td>Minutes</td>
+<td data-label="Failure Type"><strong>Byzantine</strong></td>
+<td data-label="Detection Method">Voting/Consensus</td>
+<td data-label="Recovery Strategy">Exclude from quorum</td>
+<td data-label="Time to Recover">Minutes</td>
 </tr>
 <tr>
-<td><strong>Gray</strong></td>
-<td>Multi-perspective</td>
-<td>Gradual drain</td>
-<td>Minutes to hours</td>
+<td data-label="Failure Type"><strong>Gray</strong></td>
+<td data-label="Detection Method">Multi-perspective</td>
+<td data-label="Recovery Strategy">Gradual drain</td>
+<td data-label="Time to Recover">Minutes to hours</td>
 </tr>
 </tbody>
 </table>

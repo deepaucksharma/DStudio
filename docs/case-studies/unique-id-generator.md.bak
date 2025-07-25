@@ -14,12 +14,12 @@ last_updated: 2025-07-20
 
 # Distributed Unique ID Generator
 
-## 🎯 Challenge Statement
+## Challenge Statement
 Design a system to generate millions of unique IDs per second across datacenters with optional ordering, minimal coordination, and clock skew protection.
 
 ## Part 1: Concept Map
 
-### 🗺️ System Overview
+### 🗺 System Overview
 Distributed ID generator for database keys, tracing IDs, and transactions. Must maintain uniqueness without central coordination while meeting format, size, and ordering constraints.
 
 **Key Requirements:**
@@ -30,9 +30,9 @@ Distributed ID generator for database keys, tracing IDs, and transactions. Must 
 - Optional: Lexicographically sortable
 - Tolerate clock skew and node failures
 
-### 📐 Law Analysis
+### Law Analysis
 
-#### 🚀 Law 2: Asynchronous Reality ⏳: Generation Speed
+#### Law 2: Asynchronous Reality : Generation Speed
 ```text
 Latency Requirements:
 - ID generation: <1μs (in-process)
@@ -114,7 +114,7 @@ graph LR
     L2 --> L3 --> L4
 ```
 
-#### 💾 Law 4: Trade-offs ⚖️: ID Space Management
+#### 💾 Law 4: Trade-offs : ID Space Management
 ```text
 ID Space Analysis (64-bit):
 - Total IDs: 2^63 ≈ 9.2 × 10^18
@@ -189,7 +189,7 @@ graph LR
     C2 --> C3
 ```
 
-#### 🔥 Law 1: Failure ⛓️: Clock and Node Failures
+#### Law 1: Failure : Clock and Node Failures
 ```text
 Failure Modes:
 1. Clock skew between nodes
@@ -260,7 +260,7 @@ sequenceDiagram
     G->>G: Validate age < 24h
 ```
 
-#### 🔀 Law 3: Emergence 🌪️: Lock-Free Generation
+#### 🔀 Law 3: Emergence : Lock-Free Generation
 ```text
 Concurrency Challenges:
 - Multiple threads generating IDs
@@ -337,7 +337,7 @@ sequenceDiagram
     Pool->>Client: Combined [1-1000]
 ```
 
-#### 🤝 Law 4: Trade-offs ⚖️: Distributed Agreement
+#### 🤝 Law 4: Trade-offs : Distributed Agreement
 ```text
 Coordination Requirements:
 - Node ID assignment
@@ -436,7 +436,7 @@ stateDiagram-v2
     Abort --> [*]: Cancelled
 ```
 
-#### 👁️ Law 5: Epistemology 🧠: ID Analytics
+#### 👁 Law 5: Epistemology : ID Analytics
 ```text
 Monitoring Requirements:
 - Generation rate per node
@@ -542,7 +542,7 @@ graph TB
     end
 ```
 
-#### 👤 Law 6: Human-API 🤯: Developer Experience
+#### 👤 Law 6: Human-API : Developer Experience
 ```text
 Developer Needs:
 - Simple API
@@ -638,7 +638,7 @@ gantt
     Drop UUID Column   :after 30d, 1d
 ```
 
-#### 💰 Law 7: Economics 💰: Cost Optimization
+#### Law 7: Economics : Cost Optimization
 ```text
 Cost Factors:
 - Infrastructure (ID service servers)
@@ -733,7 +733,7 @@ sequenceDiagram
     Note over Client,Gen: Only 1 network call per 10K IDs
 ```
 
-### 🔍 Law Mapping Summary
+### Law Mapping Summary
 
 | Design Decision | Key Impact | Trade-offs |
 |-----------------|------------|------------|
@@ -743,7 +743,7 @@ sequenceDiagram
 | **Static Node IDs** | No lookup overhead, simple config | Manual updates for new nodes |
 | **Pre-allocation** | Higher throughput, batch efficiency | Range coordination complexity |
 
-### 🏛️ Pillar Mapping
+### 🏛 Pillar Mapping
 
 #### Work Distribution
 - **Generation Load**: Distributed across nodes/threads
@@ -775,7 +775,7 @@ sequenceDiagram
 - **Capacity Planning**: ID space exhaustion prediction
 - **Performance Optimization**: Adaptive strategies
 
-### 🔧 Pattern Application
+### Pattern Application
 
 **Primary Patterns:**
 - **Snowflake Algorithm**: Time + Node + Sequence
@@ -789,7 +789,7 @@ sequenceDiagram
 - **Circuit Breaker**: Fallback mechanisms
 - **Caching**: ID range caching
 
-### 🏗️ Architecture Alternatives
+### Architecture Alternatives
 
 #### Alternative 1: Centralized Ticket Server
 ```mermaid
@@ -951,7 +951,7 @@ graph LR
 - Not globally unique without node ID
 - Good for distributed tracing
 
-### ⚖️ Architecture Trade-offs
+### Architecture Trade-offs
 
 | Architecture | Uniqueness | Ordering | Latency | Scalability | Complexity | Clock Dependency | Failure Handling |
 |--------------|------------|----------|---------|-------------|------------|------------------|------------------|
@@ -961,7 +961,7 @@ graph LR
 | **Hybrid Sharded** | Per shard | Partial | 1-5ms | Good | Complex | Optional | Shard-level |
 | **Lamport Timestamp** | With node ID | Causal | <1μs | Excellent | Medium | None | Resilient |
 
-### 📊 Performance Comparison
+### Performance Comparison
 
 ```mermaid
 graph LR
@@ -991,7 +991,7 @@ graph TB
     T1 -->|200x| T4
 ```
 
-### 🔄 Migration Strategies
+### Migration Strategies
 
 #### Migrating from UUID to Snowflake
 ```mermaid
@@ -1046,7 +1046,7 @@ graph LR
 
 ## Part 2: Architecture & Trade-offs
 
-### 🏗️ Core Architecture
+### Core Architecture
 
 ```mermaid
 graph TB
@@ -1088,7 +1088,7 @@ graph TB
     style ZK fill:#fff9c4
 ```
 
-### ⚖️ Key Design Trade-offs
+### Key Design Trade-offs
 
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
@@ -1099,7 +1099,7 @@ graph TB
 | **Generation** | Server-side service | Client-side library | **Client-side** - Eliminates network latency, scales infinitely |
 | **Algorithm** | Snowflake | UUID v4 | **Snowflake** - Time ordering useful, smaller than UUID, deterministic debugging |
 
-### 🔄 Alternative Architectures
+### Alternative Architectures
 
 #### Option 1: Twitter Snowflake (Original)
 ```mermaid
@@ -1221,18 +1221,18 @@ graph TB
 ```python
 # 64-bit ID:
 # - 41 bits: timestamp (ms)
-# - 13 bits: shard ID  
+# - 13 bits: shard ID
 # - 10 bits: auto-increment
 
 def generate_instagram_id(shard_id, timestamp_ms):
-    # Time component
+# Time component
     epoch = 1314220021721  # Instagram epoch
     time_bits = timestamp_ms - epoch
     
-    # Get next sequence for this millisecond
+# Get next sequence for this millisecond
     sequence = get_next_sequence(shard_id, timestamp_ms)
     
-    # Compose ID
+# Compose ID
     id_value = (time_bits << 23) | (shard_id << 10) | sequence
     return id_value
 ```
@@ -1252,7 +1252,7 @@ def generate_instagram_id(shard_id, timestamp_ms):
 
 **When to use**: Sharded database architecture
 
-### 📊 Performance Characteristics
+### Performance Characteristics
 
 **Generation Performance:**
 ```text
@@ -1313,26 +1313,26 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 4: Trade-offs](../part1-axioms/law5-epistemology/index.md) - Node ID assignment and consensus
-- [Law 6: Human-API](../part1-axioms/law6-human-api/index.md) - Developer experience considerations
-- [Clock Synchronization](../patterns/clock-sync.md) - NTP and time coordination
-- [Logical Clocks](../patterns/logical-clocks.md) - Alternative to wall-clock time
+- [Law 4: Trade-offs](/part1-axioms/law5-epistemology/) - Node ID assignment and consensus
+- [Law 6: Human-API](/part1-axioms/law6-human-api/) - Developer experience considerations
+- [Clock Synchronization](/patterns/clock-sync) - NTP and time coordination
+- [Logical Clocks](/patterns/logical-clocks) - Alternative to wall-clock time
 
 **Advanced Topics:**
 - [Jepsen Analysis of ID Generators] (Jepsen Analysis Coming Soon) - Correctness testing
-- [ID Generation at Scale](../patterns/id-generation-scale.md) - Billion+ IDs/second
-- [Time-Series IDs](../patterns/time-series-ids.md) - Optimized for time-series data
-- [Collision Probability Math](../quantitative/collision-probability.md) - Birthday paradox applied
+- [ID Generation at Scale](/patterns/id-generation-scale) - Billion+ IDs/second
+- [Time-Series IDs](/patterns/time-series-ids) - Optimized for time-series data
+- [Collision Probability Math](/quantitative/collision-probability) - Birthday paradox applied
 
 **Related Case Studies:**
 - [URL Shortener](./url-shortener.md) - Uses ID generation for short codes
 <!-- TODO: Add distributed tracing case study -->
-- [Event Sourcing](../patterns/event-sourcing.md) - Event ID generation patterns
+- [Event Sourcing](/patterns/event-sourcing) - Event ID generation patterns
 
 **Implementation Patterns:**
 - Client Library Design (Coming Soon) - SDK best practices
-- [Service Discovery](../patterns/service-discovery.md) - For ticket server architectures
-- [Graceful Degradation](../patterns/graceful-degradation.md) - Fallback strategies
+- [Service Discovery](/patterns/service-discovery) - For ticket server architectures
+- [Graceful Degradation](/patterns/graceful-degradation) - Fallback strategies
 
 ### 📚 References
 
@@ -1349,7 +1349,7 @@ Database:
 - [Discord's Snowflake](https://discord.com/developers/docs/reference#snowflakes)
 
 **Related Patterns:**
-- [Lamport Timestamps](../patterns/logical-clocks.md)
-- [Vector Clocks](../patterns/vector-clocks.md)
-- [Consistent Hashing](../case-studies/consistent-hashing.md)
-- [Leader Election](../patterns/leader-election.md)
+- [Lamport Timestamps](/patterns/logical-clocks)
+- [Vector Clocks](/patterns/vector-clocks)
+- [Consistent Hashing](/case-studies/consistent-hashing)
+- [Leader Election](/patterns/leader-election)

@@ -52,7 +52,7 @@ graph TB
 ## Quick Reference: Scale Numbers
 
 <div class="scale-reference">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Metric</th>
@@ -64,46 +64,46 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td><strong>Users</strong></td>
-<td>10K</td>
-<td>1M</td>
-<td>100M</td>
-<td>1B+</td>
+<td data-label="Metric"><strong>Users</strong></td>
+<td data-label="Small">10K</td>
+<td data-label="Medium">1M</td>
+<td data-label="Large">100M</td>
+<td data-label="Google Scale">1B+</td>
 </tr>
 <tr>
-<td><strong>Requests/sec</strong></td>
-<td>100</td>
-<td>10K</td>
-<td>100K</td>
-<td>1M+</td>
+<td data-label="Metric"><strong>Requests/sec</strong></td>
+<td data-label="Small">100</td>
+<td data-label="Medium">10K</td>
+<td data-label="Large">100K</td>
+<td data-label="Google Scale">1M+</td>
 </tr>
 <tr>
-<td><strong>Data Size</strong></td>
-<td>GB</td>
-<td>TB</td>
-<td>PB</td>
-<td>EB</td>
+<td data-label="Metric"><strong>Data Size</strong></td>
+<td data-label="Small">GB</td>
+<td data-label="Medium">TB</td>
+<td data-label="Large">PB</td>
+<td data-label="Google Scale">EB</td>
 </tr>
 <tr>
-<td><strong>Servers Needed</strong></td>
-<td>1-10</td>
-<td>100s</td>
-<td>1000s</td>
-<td>100K+</td>
+<td data-label="Metric"><strong>Servers Needed</strong></td>
+<td data-label="Small">1-10</td>
+<td data-label="Medium">100s</td>
+<td data-label="Large">1000s</td>
+<td data-label="Google Scale">100K+</td>
 </tr>
 <tr>
-<td><strong>Cache Size</strong></td>
-<td>MB</td>
-<td>GB</td>
-<td>TB</td>
-<td>PB</td>
+<td data-label="Metric"><strong>Cache Size</strong></td>
+<td data-label="Small">MB</td>
+<td data-label="Medium">GB</td>
+<td data-label="Large">TB</td>
+<td data-label="Google Scale">PB</td>
 </tr>
 <tr>
-<td><strong>Bandwidth</strong></td>
-<td>Mbps</td>
-<td>Gbps</td>
-<td>10 Gbps</td>
-<td>Tbps</td>
+<td data-label="Metric"><strong>Bandwidth</strong></td>
+<td data-label="Small">Mbps</td>
+<td data-label="Medium">Gbps</td>
+<td data-label="Large">10 Gbps</td>
+<td data-label="Google Scale">Tbps</td>
 </tr>
 </tbody>
 </table>
@@ -271,7 +271,7 @@ flowchart TD
 ## Caching Strategy Selector
 
 <div class="caching-strategies">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Pattern</th>
@@ -282,28 +282,28 @@ flowchart TD
 </thead>
 <tbody>
 <tr>
-<td><strong>Cache Aside</strong></td>
-<td>• Read heavy<br/>• Cache misses OK</td>
-<td>• Simple<br/>• Flexible</td>
-<td>• Cache misses<br/>• Inconsistency risk</td>
+<td data-label="Pattern"><strong>Cache Aside</strong></td>
+<td data-label="When to Use">• Read heavy<br/>• Cache misses OK</td>
+<td data-label="Pros">• Simple<br/>• Flexible</td>
+<td data-label="Cons">• Cache misses<br/>• Inconsistency risk</td>
 </tr>
 <tr>
-<td><strong>Write Through</strong></td>
-<td>• Write heavy<br/>• Need consistency</td>
-<td>• No stale data<br/>• Simpler logic</td>
-<td>• Write latency<br/>• Cache churn</td>
+<td data-label="Pattern"><strong>Write Through</strong></td>
+<td data-label="When to Use">• Write heavy<br/>• Need consistency</td>
+<td data-label="Pros">• No stale data<br/>• Simpler logic</td>
+<td data-label="Cons">• Write latency<br/>• Cache churn</td>
 </tr>
 <tr>
-<td><strong>Write Behind</strong></td>
-<td>• Write heavy<br/>• Latency sensitive</td>
-<td>• Fast writes<br/>• Batch updates</td>
-<td>• Data loss risk<br/>• Complex</td>
+<td data-label="Pattern"><strong>Write Behind</strong></td>
+<td data-label="When to Use">• Write heavy<br/>• Latency sensitive</td>
+<td data-label="Pros">• Fast writes<br/>• Batch updates</td>
+<td data-label="Cons">• Data loss risk<br/>• Complex</td>
 </tr>
 <tr>
-<td><strong>Refresh Ahead</strong></td>
-<td>• Predictable access<br/>• Low latency critical</td>
-<td>• No cache misses<br/>• Great performance</td>
-<td>• Prediction needed<br/>• Resource intensive</td>
+<td data-label="Pattern"><strong>Refresh Ahead</strong></td>
+<td data-label="When to Use">• Predictable access<br/>• Low latency critical</td>
+<td data-label="Pros">• No cache misses<br/>• Great performance</td>
+<td data-label="Cons">• Prediction needed<br/>• Resource intensive</td>
 </tr>
 </tbody>
 </table>
@@ -445,7 +445,7 @@ graph LR
 ## Common Bottlenecks & Solutions
 
 <div class="bottleneck-solutions">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Bottleneck</th>
@@ -455,29 +455,29 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Database</strong></td>
-<td>• Slow queries<br/>• Connection limits<br/>• Lock contention</td>
-<td>• Add read replicas<br/>• Implement caching<br/>• Shard data<br/>• Optimize queries</td>
+<td data-label="Bottleneck"><strong>Database</strong></td>
+<td data-label="Symptoms">• Slow queries<br/>• Connection limits<br/>• Lock contention</td>
+<td data-label="Solutions">• Add read replicas<br/>• Implement caching<br/>• Shard data<br/>• Optimize queries</td>
 </tr>
 <tr>
-<td><strong>Network</strong></td>
-<td>• High latency<br/>• Packet loss<br/>• Bandwidth limits</td>
-<td>• Use CDN<br/>• Compress data<br/>• Regional deployment<br/>• Connection pooling</td>
+<td data-label="Bottleneck"><strong>Network</strong></td>
+<td data-label="Symptoms">• High latency<br/>• Packet loss<br/>• Bandwidth limits</td>
+<td data-label="Solutions">• Use CDN<br/>• Compress data<br/>• Regional deployment<br/>• Connection pooling</td>
 </tr>
 <tr>
-<td><strong>CPU</strong></td>
-<td>• High CPU usage<br/>• Slow processing<br/>• Request timeouts</td>
-<td>• Horizontal scaling<br/>• Optimize algorithms<br/>• Async processing<br/>• Load balancing</td>
+<td data-label="Bottleneck"><strong>CPU</strong></td>
+<td data-label="Symptoms">• High CPU usage<br/>• Slow processing<br/>• Request timeouts</td>
+<td data-label="Solutions">• Horizontal scaling<br/>• Optimize algorithms<br/>• Async processing<br/>• Load balancing</td>
 </tr>
 <tr>
-<td><strong>Memory</strong></td>
-<td>• OOM errors<br/>• Garbage collection<br/>• Cache misses</td>
-<td>• Increase memory<br/>• Optimize data structures<br/>• Implement paging<br/>• Memory-mapped files</td>
+<td data-label="Bottleneck"><strong>Memory</strong></td>
+<td data-label="Symptoms">• OOM errors<br/>• Garbage collection<br/>• Cache misses</td>
+<td data-label="Solutions">• Increase memory<br/>• Optimize data structures<br/>• Implement paging<br/>• Memory-mapped files</td>
 </tr>
 <tr>
-<td><strong>Storage</strong></td>
-<td>• Slow I/O<br/>• Full disks<br/>• Hot partitions</td>
-<td>• Use SSD<br/>• Implement archiving<br/>• Partition data<br/>• Compress files</td>
+<td data-label="Bottleneck"><strong>Storage</strong></td>
+<td data-label="Symptoms">• Slow I/O<br/>• Full disks<br/>• Hot partitions</td>
+<td data-label="Solutions">• Use SSD<br/>• Implement archiving<br/>• Partition data<br/>• Compress files</td>
 </tr>
 </tbody>
 </table>

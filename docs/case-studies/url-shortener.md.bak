@@ -15,12 +15,12 @@ last_updated: 2025-07-20
 
 # URL Shortener Service
 
-## 🎯 Challenge Statement
+## Challenge Statement
 Design a URL shortening service capable of handling billions of URLs, providing sub-50ms redirects globally, supporting custom aliases, detailed analytics, spam detection, and graceful handling of expired or malicious links.
 
 ## Part 1: Concept Map
 
-### 🗺️ System Overview
+### 🗺 System Overview
 A URL shortener converts long URLs into short, manageable links while providing analytics, custom branding, and protection against abuse. Examples include bit.ly, goo.gl (defunct), and TinyURL. The system must balance between short code length, uniqueness guarantees, and operational complexity.
 
 **Key Requirements:**
@@ -33,9 +33,9 @@ A URL shortener converts long URLs into short, manageable links while providing 
 - Spam/malware detection
 - URL expiration handling
 
-### 📐 Law Analysis
+### Law Analysis
 
-#### 🚀 Law 1 (Latency): Redirect Performance
+#### Law 1 (Latency): Redirect Performance
 ```text
 Latency Budget (50ms total):
 - DNS lookup: 10ms
@@ -217,7 +217,7 @@ graph LR
 | Warm | Regular URLs | 1-100 hits/day | $0.05 | Age > 30 days |
 | Cold | Archive | <1 hit/day | $0.02 | Age > 90 days & access < 10 |
 
-#### 🔥 Law 3 (Failure): Resilience and Recovery
+#### Law 3 (Failure): Resilience and Recovery
 ```text
 Failure Modes:
 1. Database failures
@@ -541,7 +541,7 @@ stateDiagram-v2
     Wait --> [*]
 ```
 
-#### 👁️ Law 6 (Observability): Analytics Pipeline
+#### 👁 Law 6 (Observability): Analytics Pipeline
 ```text
 Analytics Requirements:
 - Click tracking (time, location, device)
@@ -778,7 +778,7 @@ sequenceDiagram
     Note over C,DB: Rate limiting applied per key
 ```
 
-#### 💰 Law 8 (Economics): Cost Optimization
+#### Law 8 (Economics): Cost Optimization
 ```text
 Cost Components:
 - Storage: $0.10/GB/month
@@ -879,7 +879,7 @@ gantt
     Monthly Savings $4.8K :milestone, 2024-04, 0d
 ```
 
-### 🔍 Comprehensive Law Mapping
+### Comprehensive Law Mapping
 
 | Design Decision | Axiom 1 (Latency) | Axiom 2 (Capacity) | Axiom 3 (Failure) | Axiom 4 (Concurrency) | Axiom 5 (Coordination) | Axiom 6 (Observability) | Axiom 7 (Human Interface) | Axiom 8 (Economics) |
 |-----------------|-------------------|-------------------|-------------------|---------------------|---------------------|----------------------|------------------------|--------------------|
@@ -894,7 +894,7 @@ gantt
 | **URL Deduplication** | Hash overhead | 30-40% savings | Rebuild capable | Race conditions | Distributed lock | Dedup ratio stats | Same short URL | Major savings |
 | **Spam Detection** | ML adds latency | Scalable blacklist | Fail open | Async checking | Blacklist sync | False positive rate | May block legitimate | Quality protection |
 
-### 🏛️ Pillar Mapping
+### 🏛 Pillar Mapping
 
 #### Work Distribution
 - **URL Shortening**: Distributed across nodes
@@ -926,7 +926,7 @@ gantt
 - **Analytics Insights**: Trend detection
 - **Performance Optimization**: Auto-tuning
 
-### 🔧 Pattern Application
+### Pattern Application
 
 **Primary Patterns:**
 - **Sharding**: URL data distribution
@@ -940,7 +940,7 @@ gantt
 - **Event Sourcing**: Analytics pipeline
 - **CQRS**: Read/write separation
 
-### 🏗️ Architecture Alternatives
+### Architecture Alternatives
 
 #### Alternative 1: NoSQL-Based Architecture
 ```mermaid
@@ -1141,7 +1141,7 @@ graph TB
 - Complex operations
 - Higher costs
 
-### ⚖️ Trade-off Analysis Matrix
+### Trade-off Analysis Matrix
 
 | Architecture | Scalability | Latency | Consistency | Cost | Complexity | Vendor Lock-in | Reliability |
 |--------------|-------------|---------|-------------|------|------------|----------------|-------------|
@@ -1151,7 +1151,7 @@ graph TB
 | **Blockchain** | Low | High | Strong | Very High | High | None | High |
 | **Hybrid Multi-Cloud** | High | Medium | Eventual | High | Very High | None | Very High |
 
-### 📊 Performance Comparison
+### Performance Comparison
 
 ```mermaid
 graph LR
@@ -1185,7 +1185,7 @@ graph TB
 
 ## Part 2: Architecture & Trade-offs
 
-### 🏗️ Core Architecture
+### Core Architecture
 
 ```mermaid
 graph TB
@@ -1252,7 +1252,7 @@ graph TB
     style DBN fill:#c8e6c9
 ```
 
-### ⚖️ Key Design Trade-offs
+### Key Design Trade-offs
 
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
@@ -1262,7 +1262,7 @@ graph TB
 | **Caching** | Cache everything | Cache hot URLs only | **Smart caching** - LRU with predictive warming for popular URLs |
 | **Custom URLs** | Always allow | Premium feature | **Freemium model** - Basic custom URLs free, advanced features paid |
 
-### 🔄 Alternative Architectures
+### Alternative Architectures
 
 #### Option 1: Simple Monolithic
 ```mermaid
@@ -1318,7 +1318,7 @@ graph TB
 **Cons**: Complex deployment, consistency challenges
 **When to use**: Global audience, latency-critical
 
-### 📊 Performance Characteristics
+### Performance Characteristics
 
 **System Metrics:**
 ```text
@@ -1354,27 +1354,27 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md) - CDN and caching strategies
-- [Law 7: Economics 💰](../part1-axioms/law7-economics/index.md) - Cost optimization techniques
-- [Caching Strategies](../patterns/caching-strategies.md) - Multi-level cache design
-- [Rate Limiting](../patterns/rate-limiting.md) - Protecting against abuse
+- [Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/) - CDN and caching strategies
+- [Law 7: Economics ](/part1-axioms/law7-economics/) - Cost optimization techniques
+- [Caching Strategies](/patterns/caching-strategies) - Multi-level cache design
+- [Rate Limiting](/patterns/rate-limiting) - Protecting against abuse
 
 **Advanced Topics:**
-- [Edge Computing Patterns](../patterns/edge-computing.md) - Building at the edge
+- [Edge Computing Patterns](/patterns/edge-computing) - Building at the edge
 - Analytics at Scale (Coming Soon) - Handling billions of events
 - Geo-Distribution (Coming Soon) - Global service deployment
-- [Security Patterns](../patterns/security-shortener.md) - Preventing abuse and attacks
+- [Security Patterns](/patterns/security-shortener) - Preventing abuse and attacks
 
 **Related Case Studies:**
 <!-- TODO: Add CDN design case study -->
 <!-- TODO: Add analytics pipeline case study -->
-- [API Gateway](../patterns/api-gateway.md) - Rate limiting and routing
+- [API Gateway](/patterns/api-gateway) - Rate limiting and routing
 
 **Implementation Patterns:**
-- [Database Sharding](../patterns/sharding.md) - Horizontal scaling
-- [Bloom Filters](../patterns/bloom-filter.md) - Space-efficient lookups
-- [Circuit Breakers](../patterns/circuit-breaker.md) - Handling failures
-- [CQRS](../patterns/cqrs.md) - Read/write separation
+- [Database Sharding](/patterns/sharding) - Horizontal scaling
+- [Bloom Filters](/patterns/bloom-filter) - Space-efficient lookups
+- [Circuit Breakers](/patterns/circuit-breaker) - Handling failures
+- [CQRS](/patterns/cqrs) - Read/write separation
 
 ### 📚 References
 
@@ -1389,7 +1389,7 @@ Analytics     10M events/s    Kafka throughput
 - [Polr](https://github.com/cydrobolt/polr)
 
 **Related Patterns:**
-- [Caching Strategies](../patterns/caching-strategies.md)
-- [Sharding](../patterns/sharding.md)
-- [Rate Limiting](../patterns/rate-limiting.md)
-- [CDN](../patterns/edge-computing.md)
+- [Caching Strategies](/patterns/caching-strategies)
+- [Sharding](/patterns/sharding)
+- [Rate Limiting](/patterns/rate-limiting)
+- [CDN](/patterns/edge-computing)

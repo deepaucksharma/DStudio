@@ -651,7 +651,7 @@ Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing t
 <div style="text-align: center; font-size: 1.2em; margin: 20px 0;">
 <strong>C(N) = N / (1 + α(N-1) + βN(N-1))</strong>
 </div>
-<table style="margin: 20px auto;">
+<table class="responsive-table" style="margin: 20px auto;">
 <tr>
 <td><strong>C(N)</strong></td>
 <td>=</td>
@@ -673,7 +673,7 @@ Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing t
 **Visual Scalability Analysis**:
 
 <div class="scalability-chart">
-<table class="workload-comparison">
+<table class="workload-comparison responsive-table">
 <thead>
 <tr>
 <th>Workload Type</th>
@@ -686,48 +686,48 @@ Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing t
 </thead>
 <tbody>
 <tr>
-<td><strong>Embarrassingly Parallel</strong></td>
-<td>0.01</td>
-<td>0.0001</td>
-<td>~100</td>
-<td>~50x</td>
-<td>
+<td data-label="Workload Type"><strong>Embarrassingly Parallel</strong></td>
+<td data-label="α (Contention)">0.01</td>
+<td data-label="β (Coherency)">0.0001</td>
+<td data-label="Optimal Workers">~100</td>
+<td data-label="Max Speedup">~50x</td>
+<td data-label="Scalability Curve">
 <div class="mini-chart">
 <span style="color: #4CAF50;">━━━━━━━━━━╱</span> Near-linear scaling
 </div>
 </td>
 </tr>
 <tr>
-<td><strong>Moderate Coordination</strong></td>
-<td>0.05</td>
-<td>0.001</td>
-<td>~32</td>
-<td>~16x</td>
-<td>
+<td data-label="Workload Type"><strong>Moderate Coordination</strong></td>
+<td data-label="α (Contention)">0.05</td>
+<td data-label="β (Coherency)">0.001</td>
+<td data-label="Optimal Workers">~32</td>
+<td data-label="Max Speedup">~16x</td>
+<td data-label="Scalability Curve">
 <div class="mini-chart">
 <span style="color: #FFC107;">━━━━━╱━━━━━</span> Good scaling, then plateau
 </div>
 </td>
 </tr>
 <tr>
-<td><strong>High Contention</strong></td>
-<td>0.1</td>
-<td>0.01</td>
-<td>~10</td>
-<td>~5x</td>
-<td>
+<td data-label="Workload Type"><strong>High Contention</strong></td>
+<td data-label="α (Contention)">0.1</td>
+<td data-label="β (Coherency)">0.01</td>
+<td data-label="Optimal Workers">~10</td>
+<td data-label="Max Speedup">~5x</td>
+<td data-label="Scalability Curve">
 <div class="mini-chart">
 <span style="color: #FF5722;">━━╱━━━━━━━━</span> Limited scaling
 </div>
 </td>
 </tr>
 <tr>
-<td><strong>Extreme Coordination</strong></td>
-<td>0.2</td>
-<td>0.02</td>
-<td>~5</td>
-<td>~2.5x</td>
-<td>
+<td data-label="Workload Type"><strong>Extreme Coordination</strong></td>
+<td data-label="α (Contention)">0.2</td>
+<td data-label="β (Coherency)">0.02</td>
+<td data-label="Optimal Workers">~5</td>
+<td data-label="Max Speedup">~2.5x</td>
+<td data-label="Scalability Curve">
 <div class="mini-chart">
 <span style="color: #F44336;">━╱━━━━━━━━━</span> Poor scaling
 </div>
@@ -755,7 +755,7 @@ Little's Law provides fundamental insights (see also [Quantitative Analysis: Que
 <div style="text-align: center; font-size: 1.2em; margin: 20px 0;">
 <strong>L = λW</strong>
 </div>
-<table style="margin: 20px auto;">
+<table class="responsive-table" style="margin: 20px auto;">
 <tr>
 <td><strong>L</strong></td>
 <td>=</td>
@@ -777,7 +777,7 @@ Little's Law provides fundamental insights (see also [Quantitative Analysis: Que
 **Applied to Work Queues:**
 
 <div class="queue-metrics">
-<table class="metrics-table">
+<table class="metrics-table responsive-table">
 <thead>
 <tr>
 <th>Metric</th>
@@ -788,34 +788,34 @@ Little's Law provides fundamental insights (see also [Quantitative Analysis: Que
 </thead>
 <tbody>
 <tr>
-<td><strong>Arrival Rate (λ)</strong></td>
-<td>requests / time</td>
-<td>How fast work arrives</td>
-<td>Capacity planning</td>
+<td data-label="Metric"><strong>Arrival Rate (λ)</strong></td>
+<td data-label="Formula">requests / time</td>
+<td data-label="Meaning">How fast work arrives</td>
+<td data-label="Use Case">Capacity planning</td>
 </tr>
 <tr>
-<td><strong>Service Rate (μ)</strong></td>
-<td>completions / time</td>
-<td>How fast work completes</td>
-<td>Performance tuning</td>
+<td data-label="Metric"><strong>Service Rate (μ)</strong></td>
+<td data-label="Formula">completions / time</td>
+<td data-label="Meaning">How fast work completes</td>
+<td data-label="Use Case">Performance tuning</td>
 </tr>
 <tr>
-<td><strong>Utilization (ρ)</strong></td>
-<td>λ / μ</td>
-<td>Fraction of time busy</td>
-<td>Efficiency monitoring</td>
+<td data-label="Metric"><strong>Utilization (ρ)</strong></td>
+<td data-label="Formula">λ / μ</td>
+<td data-label="Meaning">Fraction of time busy</td>
+<td data-label="Use Case">Efficiency monitoring</td>
 </tr>
 <tr>
-<td><strong>Queue Length (L)</strong></td>
-<td>λ × W</td>
-<td>Average items waiting</td>
-<td>Buffer sizing</td>
+<td data-label="Metric"><strong>Queue Length (L)</strong></td>
+<td data-label="Formula">λ × W</td>
+<td data-label="Meaning">Average items waiting</td>
+<td data-label="Use Case">Buffer sizing</td>
 </tr>
 <tr>
-<td><strong>Wait Time</strong></td>
-<td>ρ / (μ × (1 - ρ))</td>
-<td>Time in queue (M/M/1)</td>
-<td>SLA compliance</td>
+<td data-label="Metric"><strong>Wait Time</strong></td>
+<td data-label="Formula">ρ / (μ × (1 - ρ))</td>
+<td data-label="Meaning">Time in queue (M/M/1)</td>
+<td data-label="Use Case">SLA compliance</td>
 </tr>
 </tbody>
 </table>
@@ -824,7 +824,7 @@ Little's Law provides fundamental insights (see also [Quantitative Analysis: Que
 <div class="warning-box">
 <strong>Queue Saturation Effects:</strong>
 <div style="margin: 10px 0;">
-<table class="saturation-effects">
+<table class="saturation-effects responsive-table">
 <tr>
 <td><strong>Utilization</strong></td>
 <td><strong>Wait Time</strong></td>
@@ -915,11 +915,15 @@ graph TB
 </ol>
 
 <b>Node Operations:</b>
-<table>
-<tr><th>Operation</th><th>Impact</th><th>Keys Moved</th></tr>
-<tr><td>Add Node</td><td>Only keys between new node and next node</td><td>~1/N of total</td></tr>
-<tr><td>Remove Node</td><td>Only keys on removed node move to next</td><td>~1/N of total</td></tr>
-<tr><td>Replication</td><td>Walk ring clockwise for N unique nodes</td><td>No movement</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Operation</th><th>Impact</th><th>Keys Moved</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Operation">Add Node</td><td data-label="Impact">Only keys between new node and next node</td><td data-label="Keys Moved">~1/N of total</td></tr>
+    <tr><td data-label="Operation">Remove Node</td><td data-label="Impact">Only keys on removed node move to next</td><td data-label="Keys Moved">~1/N of total</td></tr>
+    <tr><td data-label="Operation">Replication</td><td data-label="Impact">Walk ring clockwise for N unique nodes</td><td data-label="Keys Moved">No movement</td></tr>
+  </tbody>
 </table>
 </div>
 #### Two-Phase Commit for Distributed Work
@@ -977,12 +981,16 @@ sequenceDiagram
 </ul>
 
 <b>Failure Scenarios:</b>
-<table>
-<tr><th>When</th><th>Who Fails</th><th>Recovery Action</th></tr>
-<tr><td>Before Vote</td><td>Participant</td><td>Coordinator timeouts, aborts transaction</td></tr>
-<tr><td>After Vote</td><td>Participant</td><td>Participant must honor vote when recovers</td></tr>
-<tr><td>Before Decision</td><td>Coordinator</td><td>Participants timeout, run termination protocol</td></tr>
-<tr><td>After Decision</td><td>Coordinator</td><td>Participants read decision from TX log</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>When</th><th>Who Fails</th><th>Recovery Action</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="When">Before Vote</td><td data-label="Who Fails">Participant</td><td data-label="Recovery Action">Coordinator timeouts, aborts transaction</td></tr>
+    <tr><td data-label="When">After Vote</td><td data-label="Who Fails">Participant</td><td data-label="Recovery Action">Participant must honor vote when recovers</td></tr>
+    <tr><td data-label="When">Before Decision</td><td data-label="Who Fails">Coordinator</td><td data-label="Recovery Action">Participants timeout, run termination protocol</td></tr>
+    <tr><td data-label="When">After Decision</td><td data-label="Who Fails">Coordinator</td><td data-label="Recovery Action">Participants read decision from TX log</td></tr>
+  </tbody>
 </table>
 
 <b>Blocking Problem:</b> If coordinator fails after prepare but before decision, participants must wait (blocked) until coordinator recovers.
@@ -1030,12 +1038,16 @@ flowchart LR
 </ul>
 
 <b>Cost-Benefit Analysis:</b>
-<table>
-<tr><th>Metric</th><th>Formula</th><th>Good Threshold</th></tr>
-<tr><td>Hit Rate</td><td>correct_predictions / total</td><td>> 0.6</td></tr>
-<tr><td>Speedup</td><td>sequential_time / speculative_time</td><td>> 1.5x</td></tr>
-<tr><td>Waste Ratio</td><td>canceled_work / total_work</td><td>< 0.3</td></tr>
-<tr><td>ROI</td><td>(time_saved - time_wasted) / time_wasted</td><td>> 1.0</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Metric</th><th>Formula</th><th>Good Threshold</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Metric">Hit Rate</td><td data-label="Formula">correct_predictions / total</td><td data-label="Good Threshold">> 0.6</td></tr>
+    <tr><td data-label="Metric">Speedup</td><td data-label="Formula">sequential_time / speculative_time</td><td data-label="Good Threshold">> 1.5x</td></tr>
+    <tr><td data-label="Metric">Waste Ratio</td><td data-label="Formula">canceled_work / total_work</td><td data-label="Good Threshold">< 0.3</td></tr>
+    <tr><td data-label="Metric">ROI</td><td data-label="Formula">(time_saved - time_wasted) / time_wasted</td><td data-label="Good Threshold">> 1.0</td></tr>
+  </tbody>
 </table>
 </div>
 ---
@@ -1118,13 +1130,17 @@ PENDING → RUNNING → COMPLETED
 </pre>
 
 <b>Key Features:</b>
-<table>
-<tr><th>Feature</th><th>Implementation</th><th>Benefit</th></tr>
-<tr><td><b>Priority Scheduling</b></td><td>3 queues (high/normal/low)</td><td>Important work processed first</td></tr>
-<tr><td><b>Work Stealing</b></td><td>Steal when queue > threshold</td><td>Better load distribution</td></tr>
-<tr><td><b>Automatic Retries</b></td><td>Configurable max retries</td><td>Resilience to transient failures</td></tr>
-<tr><td><b>Deadlock Detection</b></td><td>30s periodic timeout check</td><td>Prevents stuck tasks</td></tr>
-<tr><td><b>Local Queues</b></td><td>Per-worker task buffer</td><td>Reduces Redis contention</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Feature</th><th>Implementation</th><th>Benefit</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Feature"><b>Priority Scheduling</b></td><td data-label="Implementation">3 queues (high/normal/low)</td><td data-label="Benefit">Important work processed first</td></tr>
+    <tr><td data-label="Feature"><b>Work Stealing</b></td><td data-label="Implementation">Steal when queue > threshold</td><td data-label="Benefit">Better load distribution</td></tr>
+    <tr><td data-label="Feature"><b>Automatic Retries</b></td><td data-label="Implementation">Configurable max retries</td><td data-label="Benefit">Resilience to transient failures</td></tr>
+    <tr><td data-label="Feature"><b>Deadlock Detection</b></td><td data-label="Implementation">30s periodic timeout check</td><td data-label="Benefit">Prevents stuck tasks</td></tr>
+    <tr><td data-label="Feature"><b>Local Queues</b></td><td data-label="Implementation">Per-worker task buffer</td><td data-label="Benefit">Reduces Redis contention</td></tr>
+  </tbody>
 </table>
 
 <b>Performance Optimizations:</b>
@@ -1233,7 +1249,7 @@ flowchart TB
 ### Key Implementation Details
 
 <div class="implementation-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Component</th>
@@ -1244,40 +1260,40 @@ flowchart TB
 </thead>
 <tbody>
 <tr>
-<td><b>Task State Machine</b></td>
-<td>State transitions</td>
-<td>Enum: PENDING → RUNNING → COMPLETED/FAILED</td>
-<td>Track task lifecycle</td>
+<td data-label="Component"><b>Task State Machine</b></td>
+<td data-label="Key Methods">State transitions</td>
+<td data-label="Data Structure">Enum: PENDING → RUNNING → COMPLETED/FAILED</td>
+<td data-label="Purpose">Track task lifecycle</td>
 </tr>
 <tr>
-<td><b>Priority Queues</b></td>
-<td>zadd(), zrange(), zrem()</td>
-<td>Redis Sorted Sets (score = timestamp)</td>
-<td>Priority-based scheduling</td>
+<td data-label="Component"><b>Priority Queues</b></td>
+<td data-label="Key Methods">zadd(), zrange(), zrem()</td>
+<td data-label="Data Structure">Redis Sorted Sets (score = timestamp)</td>
+<td data-label="Purpose">Priority-based scheduling</td>
 </tr>
 <tr>
-<td><b>Work Stealing</b></td>
-<td>steal_work()</td>
-<td>Local queue comparison</td>
-<td>Dynamic load balancing</td>
+<td data-label="Component"><b>Work Stealing</b></td>
+<td data-label="Key Methods">steal_work()</td>
+<td data-label="Data Structure">Local queue comparison</td>
+<td data-label="Purpose">Dynamic load balancing</td>
 </tr>
 <tr>
-<td><b>Batch Fetching</b></td>
-<td>zrange(0, threshold-1)</td>
-<td>Fetch multiple tasks</td>
-<td>Reduce Redis calls</td>
+<td data-label="Component"><b>Batch Fetching</b></td>
+<td data-label="Key Methods">zrange(0, threshold-1)</td>
+<td data-label="Data Structure">Fetch multiple tasks</td>
+<td data-label="Purpose">Reduce Redis calls</td>
 </tr>
 <tr>
-<td><b>Deadlock Detection</b></td>
-<td>Periodic timeout check</td>
-<td>Scan running tasks</td>
-<td>Prevent stuck tasks</td>
+<td data-label="Component"><b>Deadlock Detection</b></td>
+<td data-label="Key Methods">Periodic timeout check</td>
+<td data-label="Data Structure">Scan running tasks</td>
+<td data-label="Purpose">Prevent stuck tasks</td>
 </tr>
 <tr>
-<td><b>Monitoring</b></td>
-<td>record_*, report_metrics()</td>
-<td>In-memory metrics dict</td>
-<td>Performance tracking</td>
+<td data-label="Component"><b>Monitoring</b></td>
+<td data-label="Key Methods">record_*, report_metrics()</td>
+<td data-label="Data Structure">In-memory metrics dict</td>
+<td data-label="Purpose">Performance tracking</td>
 </tr>
 </tbody>
 </table>
@@ -1309,7 +1325,7 @@ flowchart LR
 ### Performance Metrics Collection
 
 <div class="metrics-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Metric</th>
@@ -1320,40 +1336,40 @@ flowchart LR
 </thead>
 <tbody>
 <tr>
-<td><b>Throughput</b></td>
-<td>Task completion</td>
-<td>completed_tasks / time_window</td>
-<td>System capacity</td>
+<td data-label="Metric"><b>Throughput</b></td>
+<td data-label="Collection Point">Task completion</td>
+<td data-label="Formula/Method">completed_tasks / time_window</td>
+<td data-label="Use Case">System capacity</td>
 </tr>
 <tr>
-<td><b>Latency P50/P99</b></td>
-<td>Task duration</td>
-<td>sorted(durations)[index]</td>
-<td>Performance SLAs</td>
+<td data-label="Metric"><b>Latency P50/P99</b></td>
+<td data-label="Collection Point">Task duration</td>
+<td data-label="Formula/Method">sorted(durations)[index]</td>
+<td data-label="Use Case">Performance SLAs</td>
 </tr>
 <tr>
-<td><b>Queue Depth</b></td>
-<td>Queue operations</td>
-<td>zcard(queue_name)</td>
-<td>Backlog monitoring</td>
+<td data-label="Metric"><b>Queue Depth</b></td>
+<td data-label="Collection Point">Queue operations</td>
+<td data-label="Formula/Method">zcard(queue_name)</td>
+<td data-label="Use Case">Backlog monitoring</td>
 </tr>
 <tr>
-<td><b>Worker Utilization</b></td>
-<td>Worker state</td>
-<td>busy_time / total_time</td>
-<td>Resource efficiency</td>
+<td data-label="Metric"><b>Worker Utilization</b></td>
+<td data-label="Collection Point">Worker state</td>
+<td data-label="Formula/Method">busy_time / total_time</td>
+<td data-label="Use Case">Resource efficiency</td>
 </tr>
 <tr>
-<td><b>Failure Rate</b></td>
-<td>Task completion</td>
-<td>failed_tasks / total_tasks</td>
-<td>System health</td>
+<td data-label="Metric"><b>Failure Rate</b></td>
+<td data-label="Collection Point">Task completion</td>
+<td data-label="Formula/Method">failed_tasks / total_tasks</td>
+<td data-label="Use Case">System health</td>
 </tr>
 <tr>
-<td><b>Steal Success Rate</b></td>
-<td>Work stealing</td>
-<td>successful_steals / attempts</td>
-<td>Load balance effectiveness</td>
+<td data-label="Metric"><b>Steal Success Rate</b></td>
+<td data-label="Collection Point">Work stealing</td>
+<td data-label="Formula/Method">successful_steals / attempts</td>
+<td data-label="Use Case">Load balance effectiveness</td>
 </tr>
 </tbody>
 </table>
@@ -1402,10 +1418,14 @@ sequenceDiagram
 
 <div class="failure-vignette">
 <b>Single-Threaded Processing:</b>
-<table>
-<tr><th>Step</th><th>Time</th><th>Total for 1B posts</th></tr>
-<tr><td>Analyze sentiment</td><td>100ms</td><td rowspan="2">150ms × 1B = 1,736 days!</td></tr>
-<tr><td>Save to database</td><td>50ms</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Step</th><th>Time</th><th>Total for 1B posts</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Step">Analyze sentiment</td><td data-label="Time">100ms</td><td data-label="Total for 1B posts">150ms × 1B = 1,736 days!</td></tr>
+    <tr><td data-label="Step">Save to database</td><td data-label="Time">50ms</td></tr>
+  </tbody>
 </table>
 </div>
 
@@ -1476,13 +1496,17 @@ flowchart TB
 
 <div class="decision-box">
 <h4>Smart Processing Strategy</h4>
-<table>
-<tr><th>Component</th><th>Setting</th><th>Why It Works</th></tr>
-<tr><td>Workers</td><td>100 (not 1000)</td><td>Matches DB connection pool</td></tr>
-<tr><td>Batch Size</td><td>1000 posts</td><td>Amortizes DB overhead</td></tr>
-<tr><td>Queue Limit</td><td>10,000 items</td><td>Prevents memory explosion</td></tr>
-<tr><td>DB Pool</td><td>50 connections</td><td>Below DB max, allows headroom</td></tr>
-<tr><td>Backpressure</td><td>Queue blocks when full</td><td>Self-regulating system</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Component</th><th>Setting</th><th>Why It Works</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Component">Workers</td><td data-label="Setting">100 (not 1000)</td><td data-label="Why It Works">Matches DB connection pool</td></tr>
+    <tr><td data-label="Component">Batch Size</td><td data-label="Setting">1000 posts</td><td data-label="Why It Works">Amortizes DB overhead</td></tr>
+    <tr><td data-label="Component">Queue Limit</td><td data-label="Setting">10,000 items</td><td data-label="Why It Works">Prevents memory explosion</td></tr>
+    <tr><td data-label="Component">DB Pool</td><td data-label="Setting">50 connections</td><td data-label="Why It Works">Below DB max, allows headroom</td></tr>
+    <tr><td data-label="Component">Backpressure</td><td data-label="Setting">Queue blocks when full</td><td data-label="Why It Works">Self-regulating system</td></tr>
+  </tbody>
 </table>
 </div>
 **Lessons Learned**:
@@ -1547,11 +1571,15 @@ flowchart TB
 </ol>
 
 <b>Results:</b>
-<table>
-<tr><th>Metric</th><th>Before</th><th>After</th><th>Impact</th></tr>
-<tr><td>P99 Latency</td><td>30s</td><td>2s</td><td>15x improvement</td></tr>
-<tr><td>Success Rate</td><td>72%</td><td>99.5%</td><td>$2.3M revenue saved</td></tr>
-<tr><td>Worker Utilization</td><td>10%</td><td>85%</td><td>8.5x efficiency</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Metric</th><th>Before</th><th>After</th><th>Impact</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Metric">P99 Latency</td><td data-label="Before">30s</td><td data-label="After">2s</td><td data-label="Impact">15x improvement</td></tr>
+    <tr><td data-label="Metric">Success Rate</td><td data-label="Before">72%</td><td data-label="After">99.5%</td><td data-label="Impact">$2.3M revenue saved</td></tr>
+    <tr><td data-label="Metric">Worker Utilization</td><td data-label="Before">10%</td><td data-label="After">85%</td><td data-label="Impact">8.5x efficiency</td></tr>
+  </tbody>
 </table>
 </div>
 ## Performance Optimization Cookbook
@@ -1586,11 +1614,15 @@ flowchart LR
 <h4>Batch Accumulator Pattern</h4>
 
 <b>Configuration:</b>
-<table>
-<tr><th>Parameter</th><th>Value</th><th>Purpose</th></tr>
-<tr><td>Batch Size</td><td>1000</td><td>Optimal for DB bulk inserts</td></tr>
-<tr><td>Max Wait</td><td>50ms</td><td>Balance latency vs efficiency</td></tr>
-<tr><td>Lock</td><td>AsyncIO Lock</td><td>Thread-safe operations</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Parameter</th><th>Value</th><th>Purpose</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Parameter">Batch Size</td><td data-label="Value">1000</td><td data-label="Purpose">Optimal for DB bulk inserts</td></tr>
+    <tr><td data-label="Parameter">Max Wait</td><td data-label="Value">50ms</td><td data-label="Purpose">Balance latency vs efficiency</td></tr>
+    <tr><td data-label="Parameter">Lock</td><td data-label="Value">AsyncIO Lock</td><td data-label="Purpose">Thread-safe operations</td></tr>
+  </tbody>
 </table>
 
 <b>Benefits:</b>
@@ -1640,11 +1672,15 @@ stateDiagram-v2
 <h4>Priority Queue with Anti-Starvation</h4>
 
 <b>Priority Levels:</b>
-<table>
-<tr><th>Priority</th><th>Expected Ratio</th><th>Use Case</th></tr>
-<tr><td>0 (High)</td><td>50%</td><td>Critical tasks</td></tr>
-<tr><td>1 (Medium)</td><td>25%</td><td>Normal tasks</td></tr>
-<tr><td>2 (Low)</td><td>12.5%</td><td>Background tasks</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Priority</th><th>Expected Ratio</th><th>Use Case</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Priority">0 (High)</td><td data-label="Expected Ratio">50%</td><td data-label="Use Case">Critical tasks</td></tr>
+    <tr><td data-label="Priority">1 (Medium)</td><td data-label="Expected Ratio">25%</td><td data-label="Use Case">Normal tasks</td></tr>
+    <tr><td data-label="Priority">2 (Low)</td><td data-label="Expected Ratio">12.5%</td><td data-label="Use Case">Background tasks</td></tr>
+  </tbody>
 </table>
 
 <b>Anti-Starvation Logic:</b>
@@ -1693,12 +1729,16 @@ flowchart TB
 <h4>Adaptive Batch Sizing Strategy</h4>
 
 <b>Configuration:</b>
-<table>
-<tr><th>Parameter</th><th>Default</th><th>Purpose</th></tr>
-<tr><td>Min Batch</td><td>10</td><td>Prevent overhead dominating</td></tr>
-<tr><td>Max Batch</td><td>1000</td><td>Prevent memory issues</td></tr>
-<tr><td>History Size</td><td>100</td><td>Trend detection window</td></tr>
-<tr><td>Sample Size</td><td>10</td><td>Smoothing for decisions</td></tr>
+<table class="responsive-table">
+  <thead>
+    <tr><th>Parameter</th><th>Default</th><th>Purpose</th></tr>
+  </thead>
+  <tbody>
+    <tr><td data-label="Parameter">Min Batch</td><td data-label="Default">10</td><td data-label="Purpose">Prevent overhead dominating</td></tr>
+    <tr><td data-label="Parameter">Max Batch</td><td data-label="Default">1000</td><td data-label="Purpose">Prevent memory issues</td></tr>
+    <tr><td data-label="Parameter">History Size</td><td data-label="Default">100</td><td data-label="Purpose">Trend detection window</td></tr>
+    <tr><td data-label="Parameter">Sample Size</td><td data-label="Default">10</td><td data-label="Purpose">Smoothing for decisions</td></tr>
+  </tbody>
 </table>
 
 <b>Adjustment Rules:</b>

@@ -38,52 +38,56 @@ CA → Netherlands packet           150 ms      4.8 years
 <div class="law-box">
 <h4>🚀 2025 Hardware Evolution</h4>
 
-<table style="width: 100%; border-collapse: collapse;">
-<tr style="background: #E8E5F5;">
+<table class="responsive-table" style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr style="background: #E8E5F5;">
 <th style="padding: 10px; text-align: left; border: 1px solid #D1C4E9;">Operation</th>
 <th style="padding: 10px; border: 1px solid #D1C4E9;">Latency</th>
 <th style="padding: 10px; border: 1px solid #D1C4E9;">Notes</th>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>NVMe SSD random read</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">10 μs</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">10x faster than 2015</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Operation"><strong>NVMe SSD random read</strong></td>
+<td data-label="Latency">10 μs</td>
+<td data-label="Notes">10x faster than 2015</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Optane persistent memory</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">100 ns</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Between RAM and SSD</td>
+    <tr style="background: #F5F5F5;">
+<td data-label="Operation"><strong>Optane persistent memory</strong></td>
+<td data-label="Latency">100 ns</td>
+<td data-label="Notes">Between RAM and SSD</td>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>RDMA network transfer</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">1-2 μs</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Bypass kernel</td>
+    <tr>
+<td data-label="Operation"><strong>RDMA network transfer</strong></td>
+<td data-label="Latency">1-2 μs</td>
+<td data-label="Notes">Bypass kernel</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>GPU memory transfer</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #FF9800;">10-100 μs</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Depends on size</td>
+    <tr style="background: #F5F5F5;">
+<td data-label="Operation"><strong>GPU memory transfer</strong></td>
+<td data-label="Latency">10-100 μs</td>
+<td data-label="Notes">Depends on size</td>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>5G mobile network latency</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #2196F3;">1-10 ms</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">10x better than 4G</td>
+    <tr>
+<td data-label="Operation"><strong>5G mobile network latency</strong></td>
+<td data-label="Latency">1-10 ms</td>
+<td data-label="Notes">10x better than 4G</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Starlink satellite latency</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #FF5722;">20-40 ms</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">LEO constellation</td>
+    <tr style="background: #F5F5F5;">
+<td data-label="Operation"><strong>Starlink satellite latency</strong></td>
+<td data-label="Latency">20-40 ms</td>
+<td data-label="Notes">LEO constellation</td>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Cross-region (optimized)</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #FF5722;">30-80 ms</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Private backbone</td>
+    <tr>
+<td data-label="Operation"><strong>Cross-region (optimized)</strong></td>
+<td data-label="Latency">30-80 ms</td>
+<td data-label="Notes">Private backbone</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Edge compute</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">&lt;5 ms</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Local processing</td>
+    <tr style="background: #F5F5F5;">
+<td data-label="Operation"><strong>Edge compute</strong></td>
+<td data-label="Latency">&lt;5 ms</td>
+<td data-label="Notes">Local processing</td>
 </tr>
+  </tbody>
 </table>
 
 <div class="progress-visualization" style="margin-top: 20px;">
@@ -159,103 +163,107 @@ Practical approaches to reduce latency:
 <div class="decision-box">
 <h4>💡 Latency Reduction Strategies</h4>
 
-<table style="width: 100%; border-collapse: collapse;">
-<tr style="background: #E8F5E9;">
+<table class="responsive-table" style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr style="background: #E8F5E9;">
 <th style="padding: 12px; text-align: left; border: 1px solid #A5D6A7;">Strategy</th>
 <th style="padding: 12px; border: 1px solid #A5D6A7;">Typical Improvement</th>
 <th style="padding: 12px; border: 1px solid #A5D6A7;">Cost</th>
 <th style="padding: 12px; border: 1px solid #A5D6A7;">Implementation</th>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Add regional cache</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Strategy"><strong>Add regional cache</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #4CAF50; width: 90%; height: 20px; border-radius: 10px;"></div>
   <span>50-90%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Redis, Memcached</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">Redis, Memcached</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Use CDN</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr style="background: #F5F5F5;">
+<td data-label="Strategy"><strong>Use CDN</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #66BB6A; width: 80%; height: 20px; border-radius: 10px;"></div>
   <span>40-80%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">CloudFront, Akamai</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">CloudFront, Akamai</td>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Optimize queries</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr>
+<td data-label="Strategy"><strong>Optimize queries</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #81C784; width: 50%; height: 20px; border-radius: 10px;"></div>
   <span>20-50%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Query tuning</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">Query tuning</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Add indexes</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr style="background: #F5F5F5;">
+<td data-label="Strategy"><strong>Add indexes</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #66BB6A; width: 70%; height: 20px; border-radius: 10px;"></div>
   <span>30-70%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Database indexes</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">Database indexes</td>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Batch operations</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr>
+<td data-label="Strategy"><strong>Batch operations</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #66BB6A; width: 60%; height: 20px; border-radius: 10px;"></div>
   <span>40-60%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Code refactor</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">Code refactor</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Parallel processing</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr style="background: #F5F5F5;">
+<td data-label="Strategy"><strong>Parallel processing</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #81C784; width: 50%; height: 20px; border-radius: 10px;"></div>
   <span>30-50%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Async/threads</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">Async/threads</td>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Better algorithms</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr>
+<td data-label="Strategy"><strong>Better algorithms</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: linear-gradient(to right, #A5D6A7 0%, #4CAF50 90%); width: 90%; height: 20px; border-radius: 10px;"></div>
   <span>10-90%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Algorithm research</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">Algorithm research</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Hardware upgrade</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr style="background: #F5F5F5;">
+<td data-label="Strategy"><strong>Hardware upgrade</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #A5D6A7; width: 40%; height: 20px; border-radius: 10px;"></div>
   <span>20-40%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #FF9800;">$$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Better servers</td>
+<td data-label="Cost">$$</td>
+<td data-label="Implementation">Better servers</td>
 </tr>
-<tr>
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Protocol optimization</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr>
+<td data-label="Strategy"><strong>Protocol optimization</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #A5D6A7; width: 30%; height: 20px; border-radius: 10px;"></div>
   <span>10-30%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">HTTP/3, gRPC</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">HTTP/3, gRPC</td>
 </tr>
-<tr style="background: #F5F5F5;">
-<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Connection pooling</strong></td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">
+    <tr style="background: #F5F5F5;">
+<td data-label="Strategy"><strong>Connection pooling</strong></td>
+<td data-label="Typical Improvement">
   <div style="background: #81C784; width: 40%; height: 20px; border-radius: 10px;"></div>
   <span>20-40%</span>
 </td>
-<td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">$</td>
-<td style="padding: 10px; border: 1px solid #E0E0E0;">Pool configuration</td>
+<td data-label="Cost">$</td>
+<td data-label="Implementation">Pool configuration</td>
 </tr>
+  </tbody>
 </table>
 
 <div class="key-insight" style="margin-top: 15px;">
@@ -275,61 +283,65 @@ Practical approaches to reduce latency:
     <strong>User clicks "Buy Now" → Order confirmed</strong>
   </div>
   
-  <table style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <thead>
     <tr style="background: #BBDEFB;">
       <th style="padding: 12px; text-align: left;">Step</th>
       <th style="padding: 12px;">Latency</th>
       <th style="padding: 12px;">Type</th>
       <th style="padding: 12px;">Cumulative</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px;">User → CDN edge</td>
-      <td style="padding: 10px; text-align: center;">20ms</td>
-      <td style="padding: 10px; text-align: center;">Sequential</td>
-      <td style="padding: 10px; text-align: center;">20ms</td>
+      <td data-label="Step">User → CDN edge</td>
+      <td data-label="Latency">20ms</td>
+      <td data-label="Type">Sequential</td>
+      <td data-label="Cumulative">20ms</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px;">Edge → Region</td>
-      <td style="padding: 10px; text-align: center;">30ms</td>
-      <td style="padding: 10px; text-align: center;">Sequential</td>
-      <td style="padding: 10px; text-align: center;">50ms</td>
+      <td data-label="Step">Edge → Region</td>
+      <td data-label="Latency">30ms</td>
+      <td data-label="Type">Sequential</td>
+      <td data-label="Cumulative">50ms</td>
     </tr>
     <tr>
-      <td style="padding: 10px;">API Gateway</td>
-      <td style="padding: 10px; text-align: center;">5ms</td>
-      <td style="padding: 10px; text-align: center;">Sequential</td>
-      <td style="padding: 10px; text-align: center;">55ms</td>
+      <td data-label="Step">API Gateway</td>
+      <td data-label="Latency">5ms</td>
+      <td data-label="Type">Sequential</td>
+      <td data-label="Cumulative">55ms</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px;">Auth service</td>
-      <td style="padding: 10px; text-align: center;">10ms</td>
-      <td style="padding: 10px; text-align: center;">Sequential</td>
-      <td style="padding: 10px; text-align: center;">65ms</td>
+      <td data-label="Step">Auth service</td>
+      <td data-label="Latency">10ms</td>
+      <td data-label="Type">Sequential</td>
+      <td data-label="Cumulative">65ms</td>
     </tr>
     <tr style="background: #E8F5E9;">
-      <td style="padding: 10px;">Inventory check</td>
-      <td style="padding: 10px; text-align: center;">15ms</td>
-      <td style="padding: 10px; text-align: center; color: #4CAF50;">Parallel</td>
-      <td rowspan="2" style="padding: 10px; text-align: center; vertical-align: middle;">165ms</td>
+      <td data-label="Step">Inventory check</td>
+      <td data-label="Latency">15ms</td>
+      <td data-label="Type">Parallel</td>
+      <td data-label="Cumulative">165ms</td>
     </tr>
     <tr style="background: #E8F5E9;">
-      <td style="padding: 10px;">Payment processing</td>
-      <td style="padding: 10px; text-align: center;">100ms</td>
-      <td style="padding: 10px; text-align: center; color: #4CAF50;">Parallel</td>
+      <td data-label="Step">Payment processing</td>
+      <td data-label="Latency">100ms</td>
+      <td data-label="Type">Parallel</td>
     </tr>
     <tr>
-      <td style="padding: 10px;">Order creation</td>
-      <td style="padding: 10px; text-align: center;">20ms</td>
-      <td style="padding: 10px; text-align: center;">Sequential</td>
-      <td style="padding: 10px; text-align: center;">185ms</td>
+      <td data-label="Step">Order creation</td>
+      <td data-label="Latency">20ms</td>
+      <td data-label="Type">Sequential</td>
+      <td data-label="Cumulative">185ms</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px;">Confirmation email</td>
-      <td style="padding: 10px; text-align: center;">-</td>
-      <td style="padding: 10px; text-align: center; color: #2196F3;">Async</td>
-      <td style="padding: 10px; text-align: center;">-</td>
+      <td data-label="Step">Confirmation email</td>
+      <td data-label="Latency">-</td>
+      <td data-label="Type">Async</td>
+      <td data-label="Cumulative">-</td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="background: #C8E6C9; padding: 15px; border-radius: 5px; text-align: center;">
     <strong style="font-size: 1.2em;">Total Perceived Latency: ~185ms</strong>

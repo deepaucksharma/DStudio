@@ -25,52 +25,56 @@
 
 <div class="decision-box">
 <h3>🎯 Leadership Principles Quick Reference</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Principle</th>
 <th>System Design Application</th>
 <th>Key Questions</th>
 </tr>
-<tr>
-<td><strong>Customer Obsession</strong></td>
-<td>Start with use cases, optimize for CX metrics</td>
-<td>What's the customer impact? Latency SLA?</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Principle"><strong>Customer Obsession</strong></td>
+<td data-label="System Design Application">Start with use cases, optimize for CX metrics</td>
+<td data-label="Key Questions">What's the customer impact? Latency SLA?</td>
 </tr>
-<tr>
-<td><strong>Ownership</strong></td>
-<td>Design for operations, long-term thinking</td>
-<td>Who owns this at 3am? 5-year TCO?</td>
+    <tr>
+<td data-label="Principle"><strong>Ownership</strong></td>
+<td data-label="System Design Application">Design for operations, long-term thinking</td>
+<td data-label="Key Questions">Who owns this at 3am? 5-year TCO?</td>
 </tr>
-<tr>
-<td><strong>Invent & Simplify</strong></td>
-<td>Remove complexity, innovate through constraints</td>
-<td>Can we eliminate this component?</td>
+    <tr>
+<td data-label="Principle"><strong>Invent & Simplify</strong></td>
+<td data-label="System Design Application">Remove complexity, innovate through constraints</td>
+<td data-label="Key Questions">Can we eliminate this component?</td>
 </tr>
-<tr>
-<td><strong>Are Right, A Lot</strong></td>
-<td>Data-driven decisions, learn from prod</td>
-<td>What data supports this choice?</td>
+    <tr>
+<td data-label="Principle"><strong>Are Right, A Lot</strong></td>
+<td data-label="System Design Application">Data-driven decisions, learn from prod</td>
+<td data-label="Key Questions">What data supports this choice?</td>
 </tr>
-<tr>
-<td><strong>Think Big</strong></td>
-<td>Design for 10x scale from day one</td>
-<td>What breaks at 10x load?</td>
+    <tr>
+<td data-label="Principle"><strong>Think Big</strong></td>
+<td data-label="System Design Application">Design for 10x scale from day one</td>
+<td data-label="Key Questions">What breaks at 10x load?</td>
 </tr>
-<tr>
-<td><strong>Bias for Action</strong></td>
-<td>MVP first, iterate fast, reversible decisions</td>
-<td>Can we ship v1 in 2 weeks?</td>
+    <tr>
+<td data-label="Principle"><strong>Bias for Action</strong></td>
+<td data-label="System Design Application">MVP first, iterate fast, reversible decisions</td>
+<td data-label="Key Questions">Can we ship v1 in 2 weeks?</td>
 </tr>
-<tr>
-<td><strong>Frugality</strong></td>
-<td>Cost-aware architecture, do more with less</td>
-<td>What's the cost per transaction?</td>
+    <tr>
+<td data-label="Principle"><strong>Frugality</strong></td>
+<td data-label="System Design Application">Cost-aware architecture, do more with less</td>
+<td data-label="Key Questions">What's the cost per transaction?</td>
 </tr>
-<tr>
-<td><strong>Dive Deep</strong></td>
-<td>Know bottlenecks, understand failure modes</td>
-<td>What's the p99 latency breakdown?</td>
+    <tr>
+<td data-label="Principle"><strong>Dive Deep</strong></td>
+<td data-label="System Design Application">Know bottlenecks, understand failure modes</td>
+<td data-label="Key Questions">What's the p99 latency breakdown?</td>
 </tr>
+  </tbody>
 </table>
 </div>
 
@@ -90,37 +94,41 @@ graph LR
 
 <div class="truth-box">
 <h3>💡 The Amazon Difference</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Concept</th>
 <th>Implementation</th>
 <th>Anti-Pattern</th>
 </tr>
-<tr>
-<td><strong>Operational Excellence</strong></td>
-<td>• Runbooks for every alert<br>• Metrics dashboard from day 1<br>• On-call rotation planned</td>
-<td>"We'll add monitoring later"</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Concept"><strong>Operational Excellence</strong></td>
+<td data-label="Implementation">• Runbooks for every alert<br>• Metrics dashboard from day 1<br>• On-call rotation planned</td>
+<td data-label="Anti-Pattern">"We'll add monitoring later"</td>
 </tr>
-<tr>
-<td><strong>Cost Consciousness</strong></td>
-<td>• $/request calculated<br>• Auto-scaling policies<br>• Reserved capacity planning</td>
-<td>"Hardware is cheap"</td>
+    <tr>
+<td data-label="Concept"><strong>Cost Consciousness</strong></td>
+<td data-label="Implementation">• $/request calculated<br>• Auto-scaling policies<br>• Reserved capacity planning</td>
+<td data-label="Anti-Pattern">"Hardware is cheap"</td>
 </tr>
-<tr>
-<td><strong>Working Backwards</strong></td>
-<td>• Start with press release<br>• Define success metrics<br>• MVP in 2 weeks</td>
-<td>"Let's build it and see"</td>
+    <tr>
+<td data-label="Concept"><strong>Working Backwards</strong></td>
+<td data-label="Implementation">• Start with press release<br>• Define success metrics<br>• MVP in 2 weeks</td>
+<td data-label="Anti-Pattern">"Let's build it and see"</td>
 </tr>
-<tr>
-<td><strong>Two-Pizza Teams</strong></td>
-<td>• 6-10 person ownership<br>• Full stack responsibility<br>• Independent deployment</td>
-<td>"The platform team handles that"</td>
+    <tr>
+<td data-label="Concept"><strong>Two-Pizza Teams</strong></td>
+<td data-label="Implementation">• 6-10 person ownership<br>• Full stack responsibility<br>• Independent deployment</td>
+<td data-label="Anti-Pattern">"The platform team handles that"</td>
 </tr>
-<tr>
-<td><strong>Mechanisms > Intentions</strong></td>
-<td>• Automated deployments<br>• Self-healing systems<br>• Policy as code</td>
-<td>"The team will remember"</td>
+    <tr>
+<td data-label="Concept"><strong>Mechanisms > Intentions</strong></td>
+<td data-label="Implementation">• Automated deployments<br>• Self-healing systems<br>• Policy as code</td>
+<td data-label="Anti-Pattern">"The team will remember"</td>
 </tr>
+  </tbody>
 </table>
 <p style="margin-top: 10px; font-style: italic;">Related: <a href="/part2-pillars/control/">Control Distribution</a>, <a href="/part1-axioms/law1-failure/">Correlated Failure</a></p>
 </div>
@@ -146,37 +154,41 @@ graph TB
 
 <div class="decision-box">
 <h3>📋 Question Difficulty & Focus Areas</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Category</th>
 <th>Example Questions</th>
 <th>Key Challenges</th>
 <th>Leadership Focus</th>
 </tr>
-<tr>
-<td><strong>E-Commerce</strong></td>
-<td>• Product Catalog<br>• Shopping Cart<br>• Order System</td>
-<td>Scale, consistency, latency</td>
-<td>Customer Obsession, Frugality</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Category"><strong>E-Commerce</strong></td>
+<td data-label="Example Questions">• Product Catalog<br>• Shopping Cart<br>• Order System</td>
+<td data-label="Key Challenges">Scale, consistency, latency</td>
+<td data-label="Leadership Focus">Customer Obsession, Frugality</td>
 </tr>
-<tr>
-<td><strong>AWS Services</strong></td>
-<td>• <a href="s3.md">S3</a><br>• <a href="dynamodb.md">DynamoDB</a><br>• Lambda</td>
-<td>Multi-tenancy, durability, cost</td>
-<td>Think Big, Dive Deep</td>
+    <tr>
+<td data-label="Category"><strong>AWS Services</strong></td>
+<td data-label="Example Questions">• <a href="s3.md">S3</a><br>• <a href="dynamodb.md">DynamoDB</a><br>• Lambda</td>
+<td data-label="Key Challenges">Multi-tenancy, durability, cost</td>
+<td data-label="Leadership Focus">Think Big, Dive Deep</td>
 </tr>
-<tr>
-<td><strong>Logistics</strong></td>
-<td>• Last-mile delivery<br>• Route optimization<br>• Inventory</td>
-<td>Real-time optimization, constraints</td>
-<td>Deliver Results, Ownership</td>
+    <tr>
+<td data-label="Category"><strong>Logistics</strong></td>
+<td data-label="Example Questions">• Last-mile delivery<br>• Route optimization<br>• Inventory</td>
+<td data-label="Key Challenges">Real-time optimization, constraints</td>
+<td data-label="Leadership Focus">Deliver Results, Ownership</td>
 </tr>
-<tr>
-<td><strong>Streaming</strong></td>
-<td>• <a href="prime-video.md">Prime Video</a><br>• Twitch<br>• Music</td>
-<td>CDN, buffering, quality adaptation</td>
-<td>Customer Obsession, Innovation</td>
+    <tr>
+<td data-label="Category"><strong>Streaming</strong></td>
+<td data-label="Example Questions">• <a href="prime-video.md">Prime Video</a><br>• Twitch<br>• Music</td>
+<td data-label="Key Challenges">CDN, buffering, quality adaptation</td>
+<td data-label="Leadership Focus">Customer Obsession, Innovation</td>
 </tr>
+  </tbody>
 </table>
 <p style="margin-top: 10px; font-style: italic;">See also: <a href="/part2-pillars/work/">Work Distribution</a> for scaling strategies</p>
 </div>
@@ -227,43 +239,47 @@ gantt
 
 <div class="axiom-box">
 <h3>⏱️ System Design Round Breakdown</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Phase</th>
 <th>Time</th>
 <th>Focus</th>
 <th>Deliverables</th>
 </tr>
-<tr>
-<td><strong>1. Requirements</strong></td>
-<td>5-10 min</td>
-<td>• Functional/Non-functional<br>• Scale (QPS, storage)<br>• Constraints (cost, latency)</td>
-<td>• Use cases list<br>• Numbers (100M users, 10K QPS)<br>• SLAs (99.9%, <100ms)</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Phase"><strong>1. Requirements</strong></td>
+<td data-label="Time">5-10 min</td>
+<td data-label="Focus">• Functional/Non-functional<br>• Scale (QPS, storage)<br>• Constraints (cost, latency)</td>
+<td data-label="Deliverables">• Use cases list<br>• Numbers (100M users, 10K QPS)<br>• SLAs (99.9%, <100ms)</td>
 </tr>
-<tr>
-<td><strong>2. High-Level</strong></td>
-<td>10-15 min</td>
-<td>• Architecture diagram<br>• Component interaction<br>• API design</td>
-<td>• Box & arrow diagram<br>• REST/gRPC APIs<br>• Data flow</td>
+    <tr>
+<td data-label="Phase"><strong>2. High-Level</strong></td>
+<td data-label="Time">10-15 min</td>
+<td data-label="Focus">• Architecture diagram<br>• Component interaction<br>• API design</td>
+<td data-label="Deliverables">• Box & arrow diagram<br>• REST/gRPC APIs<br>• Data flow</td>
 </tr>
-<tr>
-<td><strong>3. Deep Dive</strong></td>
-<td>15-20 min</td>
-<td>• Data models<br>• Algorithms<br>• Technology choices</td>
-<td>• Schema design<br>• Consistency strategy<br>• Tech stack justification</td>
+    <tr>
+<td data-label="Phase"><strong>3. Deep Dive</strong></td>
+<td data-label="Time">15-20 min</td>
+<td data-label="Focus">• Data models<br>• Algorithms<br>• Technology choices</td>
+<td data-label="Deliverables">• Schema design<br>• Consistency strategy<br>• Tech stack justification</td>
 </tr>
-<tr>
-<td><strong>4. Scale</strong></td>
-<td>10-15 min</td>
-<td>• Bottlenecks<br>• Optimization<br>• Cost analysis</td>
-<td>• Performance calculations<br>• Caching strategy<br>• $/request analysis</td>
+    <tr>
+<td data-label="Phase"><strong>4. Scale</strong></td>
+<td data-label="Time">10-15 min</td>
+<td data-label="Focus">• Bottlenecks<br>• Optimization<br>• Cost analysis</td>
+<td data-label="Deliverables">• Performance calculations<br>• Caching strategy<br>• $/request analysis</td>
 </tr>
-<tr>
-<td><strong>5. Operations</strong></td>
-<td>5-10 min</td>
-<td>• Monitoring<br>• Deployment<br>• Failure modes</td>
-<td>• Metrics & alerts<br>• Rollout strategy<br>• Disaster recovery</td>
+    <tr>
+<td data-label="Phase"><strong>5. Operations</strong></td>
+<td data-label="Time">5-10 min</td>
+<td data-label="Focus">• Monitoring<br>• Deployment<br>• Failure modes</td>
+<td data-label="Deliverables">• Metrics & alerts<br>• Rollout strategy<br>• Disaster recovery</td>
 </tr>
+  </tbody>
 </table>
 <p style="margin-top: 10px; font-style: italic;">Master <a href="/part1-axioms/law2-asynchrony/">Asynchronous Reality</a> before deep dives</p>
 </div>
@@ -299,43 +315,47 @@ gantt
 
 <div class="decision-box">
 <h3>📚 Priority Study Matrix</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Week</th>
 <th>Must Do</th>
 <th>Should Do</th>
 <th>Nice to Have</th>
 </tr>
-<tr>
-<td><strong>1-2</strong></td>
-<td>• <a href="/part1-axioms/">7 Laws</a><br>• <a href="/part2-pillars/">5 Pillars</a></td>
-<td>• CAP Theorem<br>• Consistency Models</td>
-<td>• Failure stories</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Week"><strong>1-2</strong></td>
+<td data-label="Must Do">• <a href="/part1-axioms/">7 Laws</a><br>• <a href="/part2-pillars/">5 Pillars</a></td>
+<td data-label="Should Do">• CAP Theorem<br>• Consistency Models</td>
+<td data-label="Nice to Have">• Failure stories</td>
 </tr>
-<tr>
-<td><strong>3-4</strong></td>
-<td>• <a href="leadership-principles.md">Leadership Principles</a><br>• Two-pizza teams</td>
-<td>• Working Backwards<br>• Day 1 mentality</td>
-<td>• Amazon history</td>
+    <tr>
+<td data-label="Week"><strong>3-4</strong></td>
+<td data-label="Must Do">• <a href="leadership-principles.md">Leadership Principles</a><br>• Two-pizza teams</td>
+<td data-label="Should Do">• Working Backwards<br>• Day 1 mentality</td>
+<td data-label="Nice to Have">• Amazon history</td>
 </tr>
-<tr>
-<td><strong>5-6</strong></td>
-<td>• <a href="/patterns/sharding">Sharding</a><br>• <a href="/patterns/caching-strategies">Caching</a></td>
-<td>• Event sourcing<br>• CQRS</td>
-<td>• Service mesh</td>
+    <tr>
+<td data-label="Week"><strong>5-6</strong></td>
+<td data-label="Must Do">• <a href="/patterns/sharding">Sharding</a><br>• <a href="/patterns/caching-strategies">Caching</a></td>
+<td data-label="Should Do">• Event sourcing<br>• CQRS</td>
+<td data-label="Nice to Have">• Service mesh</td>
 </tr>
-<tr>
-<td><strong>7-8</strong></td>
-<td>• <a href="dynamodb.md">DynamoDB</a><br>• <a href="s3.md">S3</a></td>
-<td>• Lambda<br>• SQS/SNS</td>
-<td>• Kinesis</td>
+    <tr>
+<td data-label="Week"><strong>7-8</strong></td>
+<td data-label="Must Do">• <a href="dynamodb.md">DynamoDB</a><br>• <a href="s3.md">S3</a></td>
+<td data-label="Should Do">• Lambda<br>• SQS/SNS</td>
+<td data-label="Nice to Have">• Kinesis</td>
 </tr>
-<tr>
-<td><strong>9-12</strong></td>
-<td>• 10 practice problems<br>• 5 mock interviews</td>
-<td>• Behavioral stories<br>• Failure scenarios</td>
-<td>• Edge cases</td>
+    <tr>
+<td data-label="Week"><strong>9-12</strong></td>
+<td data-label="Must Do">• 10 practice problems<br>• 5 mock interviews</td>
+<td data-label="Should Do">• Behavioral stories<br>• Failure scenarios</td>
+<td data-label="Nice to Have">• Edge cases</td>
 </tr>
+  </tbody>
 </table>
 <p style="margin-top: 10px; font-style: italic;">Foundation: <a href="/part1-axioms/">7 Laws</a> → <a href="/part2-pillars/">5 Pillars</a> → Patterns → Practice</p>
 </div>
@@ -344,43 +364,47 @@ gantt
 
 <div class="truth-box">
 <h3>🛠️ Core Technologies Comparison</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Service</th>
 <th>Use Case</th>
 <th>Scale</th>
 <th>Trade-offs</th>
 </tr>
-<tr>
-<td><strong>DynamoDB</strong></td>
-<td>NoSQL, high throughput</td>
-<td>Millions TPS</td>
-<td>✅ Predictable performance<br>❌ Query flexibility</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Service"><strong>DynamoDB</strong></td>
+<td data-label="Use Case">NoSQL, high throughput</td>
+<td data-label="Scale">Millions TPS</td>
+<td data-label="Trade-offs">✅ Predictable performance<br>❌ Query flexibility</td>
 </tr>
-<tr>
-<td><strong>S3</strong></td>
-<td>Object storage</td>
-<td>Trillions of objects</td>
-<td>✅ 11 9s durability<br>❌ Not for small files</td>
+    <tr>
+<td data-label="Service"><strong>S3</strong></td>
+<td data-label="Use Case">Object storage</td>
+<td data-label="Scale">Trillions of objects</td>
+<td data-label="Trade-offs">✅ 11 9s durability<br>❌ Not for small files</td>
 </tr>
-<tr>
-<td><strong>SQS</strong></td>
-<td>Message queue</td>
-<td>Unlimited</td>
-<td>✅ Simple, reliable<br>❌ No ordering (standard)</td>
+    <tr>
+<td data-label="Service"><strong>SQS</strong></td>
+<td data-label="Use Case">Message queue</td>
+<td data-label="Scale">Unlimited</td>
+<td data-label="Trade-offs">✅ Simple, reliable<br>❌ No ordering (standard)</td>
 </tr>
-<tr>
-<td><strong>Lambda</strong></td>
-<td>Event-driven compute</td>
-<td>1000s concurrent</td>
-<td>✅ No servers<br>❌ 15min limit, cold starts</td>
+    <tr>
+<td data-label="Service"><strong>Lambda</strong></td>
+<td data-label="Use Case">Event-driven compute</td>
+<td data-label="Scale">1000s concurrent</td>
+<td data-label="Trade-offs">✅ No servers<br>❌ 15min limit, cold starts</td>
 </tr>
-<tr>
-<td><strong>Kinesis</strong></td>
-<td>Real-time streaming</td>
-<td>GB/sec</td>
-<td>✅ Real-time processing<br>❌ 7-day retention</td>
+    <tr>
+<td data-label="Service"><strong>Kinesis</strong></td>
+<td data-label="Use Case">Real-time streaming</td>
+<td data-label="Scale">GB/sec</td>
+<td data-label="Trade-offs">✅ Real-time processing<br>❌ 7-day retention</td>
 </tr>
+  </tbody>
 </table>
 <p style="margin-top: 10px; font-style: italic;">Applies <a href="/part2-pillars/state/">State Distribution</a> & <a href="/part2-pillars/truth/">Truth Distribution</a> principles</p>
 </div>
@@ -408,37 +432,41 @@ graph LR
 
 <div class="failure-vignette">
 <h3>🚨 Common Failure Modes</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Mistake</th>
 <th>Why It Fails</th>
 <th>Do Instead</th>
 </tr>
-<tr>
-<td>"We'll use Kubernetes"</td>
-<td>Over-engineering, high operational cost</td>
-<td>Start with EC2 + ALB, evolve if needed</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Mistake">"We'll use Kubernetes"</td>
+<td data-label="Why It Fails">Over-engineering, high operational cost</td>
+<td data-label="Do Instead">Start with EC2 + ALB, evolve if needed</td>
 </tr>
-<tr>
-<td>"Infinite scale design"</td>
-<td>Ignores cost, unrealistic</td>
-<td>Design for 10x with cost targets</td>
+    <tr>
+<td data-label="Mistake">"Infinite scale design"</td>
+<td data-label="Why It Fails">Ignores cost, unrealistic</td>
+<td data-label="Do Instead">Design for 10x with cost targets</td>
 </tr>
-<tr>
-<td>"Perfect consistency"</td>
-<td>Impossible in distributed systems</td>
-<td>Define consistency boundaries</td>
+    <tr>
+<td data-label="Mistake">"Perfect consistency"</td>
+<td data-label="Why It Fails">Impossible in distributed systems</td>
+<td data-label="Do Instead">Define consistency boundaries</td>
 </tr>
-<tr>
-<td>"We'll monitor later"</td>
-<td>Violates operational excellence</td>
-<td>Metrics from day 1</td>
+    <tr>
+<td data-label="Mistake">"We'll monitor later"</td>
+<td data-label="Why It Fails">Violates operational excellence</td>
+<td data-label="Do Instead">Metrics from day 1</td>
 </tr>
-<tr>
-<td>"The team will handle it"</td>
-<td>No mechanisms</td>
-<td>Automate everything possible</td>
+    <tr>
+<td data-label="Mistake">"The team will handle it"</td>
+<td data-label="Why It Fails">No mechanisms</td>
+<td data-label="Do Instead">Automate everything possible</td>
 </tr>
+  </tbody>
 </table>
 <p style="margin-top: 10px; font-style: italic;">Violates <a href="/part1-axioms/law5-epistemology/">Distributed Knowledge</a> principles</p>
 </div>
@@ -477,37 +505,41 @@ graph TB
 
 <div class="decision-box">
 <h3>🎯 Pattern Selection Guide</h3>
-<table>
-<tr>
+<table class="responsive-table">
+  <thead>
+    <tr>
 <th>Pattern</th>
 <th>When to Use</th>
 <th>Amazon Example</th>
 <th>Key Benefit</th>
 </tr>
-<tr>
-<td><strong>Cell-Based</strong></td>
-<td>Multi-tenant isolation</td>
-<td>Route 53, DynamoDB</td>
-<td>Blast radius control</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Pattern"><strong>Cell-Based</strong></td>
+<td data-label="When to Use">Multi-tenant isolation</td>
+<td data-label="Amazon Example">Route 53, DynamoDB</td>
+<td data-label="Key Benefit">Blast radius control</td>
 </tr>
-<tr>
-<td><strong>Shuffle Sharding</strong></td>
-<td>Shared resource pools</td>
-<td>ALB target groups</td>
-<td>Failure isolation</td>
+    <tr>
+<td data-label="Pattern"><strong>Shuffle Sharding</strong></td>
+<td data-label="When to Use">Shared resource pools</td>
+<td data-label="Amazon Example">ALB target groups</td>
+<td data-label="Key Benefit">Failure isolation</td>
 </tr>
-<tr>
-<td><strong>Backpressure</strong></td>
-<td>Async processing</td>
-<td>Kinesis, SQS</td>
-<td>System stability</td>
+    <tr>
+<td data-label="Pattern"><strong>Backpressure</strong></td>
+<td data-label="When to Use">Async processing</td>
+<td data-label="Amazon Example">Kinesis, SQS</td>
+<td data-label="Key Benefit">System stability</td>
 </tr>
-<tr>
-<td><strong>Circuit Breaker</strong></td>
-<td>External dependencies</td>
-<td>Service calls</td>
-<td>Fast failure</td>
+    <tr>
+<td data-label="Pattern"><strong>Circuit Breaker</strong></td>
+<td data-label="When to Use">External dependencies</td>
+<td data-label="Amazon Example">Service calls</td>
+<td data-label="Key Benefit">Fast failure</td>
 </tr>
+  </tbody>
 </table>
 <p style="margin-top: 10px; font-style: italic;">Implements <a href="/patterns/circuit-breaker">Circuit Breaker</a> & <a href="/patterns/bulkhead">Bulkhead</a> patterns</p>
 </div>

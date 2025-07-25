@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 7](index.md) → **Human Interface Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 7](index.md) → **Human Interface Examples**
 
 # Human Interface Examples
 
@@ -19,7 +19,7 @@ last_updated: 2025-07-20
 
 ---
 
-## 🌍 Real-World Case Studies
+## Real-World Case Studies
 
 ### Case 1: The $440M Fat Finger (Tokyo Stock Exchange, 2005)
 
@@ -62,7 +62,7 @@ class DangerousTradingUI:
             'price': price,
             'total': quantity * price
         }
-        # BOOM! Order placed immediately
+# BOOM! Order placed immediately
         return self.exchange.submit(order)
 
 # The UI that would have saved $440M
@@ -74,39 +74,39 @@ class SafeTradingUI:
     def place_order(self, quantity, price):
         """Multiple layers of safety"""
         
-        # Layer 1: Input validation
+# Layer 1: Input validation
         validations = self.validate_order(quantity, price)
         if validations['errors']:
             return self.show_errors(validations['errors'])
             
-        # Layer 2: Sanity checks
+# Layer 2: Sanity checks
         warnings = self.sanity_check(quantity, price)
         if warnings:
             if not self.confirm_warnings(warnings):
                 return {'status': 'cancelled', 'reason': 'warnings_not_confirmed'}
                 
-        # Layer 3: Visual confirmation
+# Layer 3: Visual confirmation
         confirmation_ui = self.build_confirmation_ui(quantity, price)
         if not self.show_confirmation(confirmation_ui):
             return {'status': 'cancelled', 'reason': 'user_cancelled'}
             
-        # Layer 4: Two-factor for large orders
+# Layer 4: Two-factor for large orders
         if self.is_large_order(quantity, price):
             if not self.two_factor_auth():
                 return {'status': 'cancelled', 'reason': '2fa_failed'}
                 
-        # Layer 5: Rate limiting
+# Layer 5: Rate limiting
         if not self.check_rate_limit():
             return {'status': 'delayed', 'retry_after': 60}
             
-        # Finally submit
+# Finally submit
         return self.exchange.submit(order)
         
     def validate_order(self, quantity, price):
         errors = []
         warnings = []
         
-        # Check if selling more shares than company has
+# Check if selling more shares than company has
         if quantity > self.company_shares:
             errors.append({
                 'field': 'quantity',
@@ -114,7 +114,7 @@ class SafeTradingUI:
                 'severity': 'CRITICAL'
             })
             
-        # Check for price anomalies
+# Check for price anomalies
         price_ratio = price / self.recent_price
         if price_ratio < 0.01:  # 99% below market
             errors.append({
@@ -186,13 +186,13 @@ class SafeProductionCLI:
     def setup_prompt(self):
         """Visual indicators of environment"""
         if self.environment == 'production':
-            # Red background, bold text
+# Red background, bold text
             PS1 = '\[\033[41m\]\[\033[1m\]PRODUCTION\[\033[0m\] \u@\h:\w\$ '
             
-            # Change terminal title
+# Change terminal title
             print('\033]0;⚠️  PRODUCTION ENVIRONMENT ⚠️\007')
             
-            # Set distinctive colors
+# Set distinctive colors
             os.environ['LS_COLORS'] = 'di=1;31:fi=1;31'  # Red everything
             
         elif self.environment == 'staging':
@@ -210,7 +210,7 @@ class SafeProductionCLI:
             import sys
             args = sys.argv[1:]
             
-            # Check if it's a dangerous rm
+# Check if it's a dangerous rm
             if '-rf' in args and self.environment == 'production':
                 target = args[-1]
                 
@@ -241,13 +241,13 @@ class SafeProductionCLI:
                     self.log_attempted_deletion(target, 'cancelled')
                     return 1
                     
-                # Additional check - require supervisor approval
+# Additional check - require supervisor approval
                 if self.requires_approval(target):
                     if not self.get_supervisor_approval():
                         print("❌ Supervisor approval required. Operation cancelled.")
                         return 1
                         
-            # Execute the real rm
+# Execute the real rm
             os.execvp('/bin/rm', ['rm'] + args)
             
         return safe_rm
@@ -264,11 +264,11 @@ class SafeProductionCLI:
             'environment': self.environment
         }
         
-        # Local logging
+# Local logging
         with open('/var/log/production_commands.json', 'a') as f:
             f.write(json.dumps(audit_entry) + '\n')
             
-        # Remote logging
+# Remote logging
         self.send_to_audit_service(audit_entry)
 ```
 
@@ -292,7 +292,7 @@ class DangerousAlertUI:
         ]
         
     def show_dropdown(self):
-        # Simple dropdown, no visual distinction
+# Simple dropdown, no visual distinction
         return self.create_dropdown(self.options)
 
 # The safe interface design
@@ -340,11 +340,11 @@ class SafeAlertUI:
         """Multiple confirmation steps for live alerts"""
         
         if mode == 'live':
-            # Step 1: Unlock live panel
+# Step 1: Unlock live panel
             if not self.unlock_live_panel():
                 return {'status': 'cancelled', 'stage': 'unlock'}
                 
-            # Step 2: Select alert type with confirmation
+# Step 2: Select alert type with confirmation
             alert_ui = f"""
 ╔══════════════════════════════════════════════════════╗
 ║                  🚨 LIVE ALERT 🚨                     ║
@@ -365,22 +365,22 @@ class SafeAlertUI:
             if not self.show_confirmation(alert_ui):
                 return {'status': 'cancelled', 'stage': 'confirm1'}
                 
-            # Step 3: Second confirmation with typing
+# Step 3: Second confirmation with typing
             confirm_text = f"SEND {alert_type.upper()} TO ALL"
             typed = input(f"Type '{confirm_text}' to proceed: ")
             
             if typed != confirm_text:
                 return {'status': 'cancelled', 'stage': 'confirm2'}
                 
-            # Step 4: Supervisor approval
+# Step 4: Supervisor approval
             if not self.get_supervisor_approval():
                 return {'status': 'cancelled', 'stage': 'supervisor'}
                 
-            # Step 5: Final countdown
+# Step 5: Final countdown
             if not self.countdown_confirmation(30):
                 return {'status': 'cancelled', 'stage': 'countdown'}
                 
-        # Send the alert
+# Send the alert
         return self.dispatch_alert(alert_type, mode)
         
     def create_test_training_system(self):
@@ -454,7 +454,7 @@ class DeploymentSafetyUI:
 ╚══════════════════════════════════════════════════════╝
         """
         
-        # Real-time updates
+# Real-time updates
         if deployment.errors > 0:
             self.highlight_errors(deployment)
             
@@ -466,13 +466,13 @@ class DeploymentSafetyUI:
     def diff_visualization(self, old_version, new_version):
         """Visual diff that makes changes obvious"""
         
-        # Feature flag differences
+# Feature flag differences
         flag_changes = self.compare_feature_flags(old_version, new_version)
         
         if flag_changes['critical']:
             return self.render_critical_changes_ui(flag_changes)
             
-        # Code differences
+# Code differences
         code_diff = self.generate_visual_diff(old_version, new_version)
         
         return code_diff
@@ -480,7 +480,7 @@ class DeploymentSafetyUI:
 
 ---
 
-## 🧠 Cognitive Load Management
+## Cognitive Load Management
 
 ### Pattern 1: Progressive Disclosure
 
@@ -555,19 +555,19 @@ class IntelligentAlertSystem:
     def process_alerts(self, incoming_alerts):
         """Smart alert processing"""
         
-        # Step 1: Deduplicate
+# Step 1: Deduplicate
         unique_alerts = self.deduplicate(incoming_alerts)
         
-        # Step 2: Correlate related alerts
+# Step 2: Correlate related alerts
         correlated = self.correlate_alerts(unique_alerts)
         
-        # Step 3: Prioritize by impact
+# Step 3: Prioritize by impact
         prioritized = self.prioritize_by_impact(correlated)
         
-        # Step 4: Apply user preferences
+# Step 4: Apply user preferences
         filtered = self.apply_user_preferences(prioritized)
         
-        # Step 5: Smart batching
+# Step 5: Smart batching
         batched = self.batch_alerts(filtered)
         
         return batched
@@ -600,7 +600,7 @@ class IntelligentAlertSystem:
     def learn_from_responses(self, alert, user_action):
         """Learn what alerts users care about"""
         
-        # Track: Did user investigate? Fix? Ignore?
+# Track: Did user investigate? Fix? Ignore?
         self.user_responses[alert.type] = self.user_responses.get(alert.type, [])
         self.user_responses[alert.type].append({
             'action': user_action,
@@ -609,20 +609,20 @@ class IntelligentAlertSystem:
             'context': alert.context
         })
         
-        # Adjust future alerting
+# Adjust future alerting
         if user_action == 'ignored' and len(self.user_responses[alert.type]) > 10:
-            # User ignores this alert type
+# User ignores this alert type
             self.decrease_priority(alert.type)
 ```
 
 ---
 
-## 📝 Runbook Excellence
+## Runbook Excellence
 
 ### The Runbook That Actually Works at 3 AM
 
 ```markdown
-# 🚨 SERVICE DOWN: Payment Processing
+# SERVICE DOWN: Payment Processing
 
 ## IMMEDIATE ACTIONS (Do these NOW)
 
@@ -728,11 +728,11 @@ class RunbookTester:
     def test_command(self, command):
         """Safely test a command"""
         
-        # Replace production values with test values
+# Replace production values with test values
         safe_command = self.make_safe_for_testing(command)
         
         try:
-            # Run in isolated environment
+# Run in isolated environment
             output = self.run_in_sandbox(safe_command)
             
             return {
@@ -783,7 +783,7 @@ class GradualAutomation:
             'automation': 0,
             'safety': 'High - Human in full control',
             'example': '''
-                ## Daily Backup Process
+## Daily Backup Process
                 1. SSH to backup server
                 2. Run: ./backup.sh --daily
                 3. Verify: check_backup_status.sh
@@ -798,8 +798,8 @@ class GradualAutomation:
             'automation': 25,
             'safety': 'High - Human verification required',
             'example': '''
-                #!/bin/bash
-                # daily_backup_assistant.sh
+# !/bin/bash
+# daily_backup_assistant.sh
                 
                 echo "Starting daily backup process..."
                 ./backup.sh --daily
@@ -859,20 +859,20 @@ class SafeCommandExecutor:
     def execute_with_safety(self, command, context):
         """Multiple safety checks before execution"""
         
-        # Check 1: Is this a known dangerous pattern?
+# Check 1: Is this a known dangerous pattern?
         if self.is_dangerous(command):
             return self.handle_dangerous_command(command, context)
             
-        # Check 2: Dry run first
+# Check 2: Dry run first
         dry_run_result = self.dry_run(command)
         if not dry_run_result['safe']:
             return self.confirm_with_user(command, dry_run_result)
             
-        # Check 3: Resource limits
+# Check 3: Resource limits
         with self.resource_limits():
-            # Check 4: Timeout
+# Check 4: Timeout
             with self.timeout(seconds=300):
-                # Check 5: Audit trail
+# Check 5: Audit trail
                 with self.audit_trail(command, context):
                     return self.execute(command)
                     
@@ -882,15 +882,15 @@ class SafeCommandExecutor:
         if command.startswith('CREATE'):
             return command.replace('CREATE', 'DROP')
         elif command.startswith('DELETE'):
-            # Save deleted data first!
+# Save deleted data first!
             self.backup_before_delete(command)
             return f"RESTORE FROM backup_{timestamp}"
-        # ... etc
+# ... etc
 ```
 
 ---
 
-## 🎯 Key Takeaways
+## Key Takeaways
 
 ### The Human Interface Principles
 

@@ -285,7 +285,7 @@ class ParallelWAL:
 ### WAL Performance Metrics
 
 <div class="performance-stats">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Operation</th>
@@ -296,28 +296,28 @@ class ParallelWAL:
 </thead>
 <tbody>
 <tr>
-<td><strong>Single Write</strong></td>
-<td>5-10ms</td>
-<td>100-200 ops/s</td>
-<td>fsync() calls</td>
+<td data-label="Operation"><strong>Single Write</strong></td>
+<td data-label="Latency">5-10ms</td>
+<td data-label="Throughput">100-200 ops/s</td>
+<td data-label="Bottleneck">fsync() calls</td>
 </tr>
 <tr>
-<td><strong>Group Commit</strong></td>
-<td>10-20ms</td>
-<td>10K-50K ops/s</td>
-<td>Group formation</td>
+<td data-label="Operation"><strong>Group Commit</strong></td>
+<td data-label="Latency">10-20ms</td>
+<td data-label="Throughput">10K-50K ops/s</td>
+<td data-label="Bottleneck">Group formation</td>
 </tr>
 <tr>
-<td><strong>Async Commit</strong></td>
-<td><1ms</td>
-<td>100K+ ops/s</td>
-<td>Durability risk</td>
+<td data-label="Operation"><strong>Async Commit</strong></td>
+<td data-label="Latency"><1ms</td>
+<td data-label="Throughput">100K+ ops/s</td>
+<td data-label="Bottleneck">Durability risk</td>
 </tr>
 <tr>
-<td><strong>Recovery</strong></td>
-<td>-</td>
-<td>1-10 GB/min</td>
-<td>I/O bandwidth</td>
+<td data-label="Operation"><strong>Recovery</strong></td>
+<td data-label="Latency">-</td>
+<td data-label="Throughput">1-10 GB/min</td>
+<td data-label="Bottleneck">I/O bandwidth</td>
 </tr>
 </tbody>
 </table>
@@ -395,7 +395,7 @@ A system updating a single byte:
 ## Trade-offs
 
 <div class="trade-off-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Aspect</th>
@@ -405,19 +405,19 @@ A system updating a single byte:
 </thead>
 <tbody>
 <tr>
-<td><strong>Durability</strong></td>
-<td>No data loss after commit<br/>Crash recovery capability</td>
-<td>fsync() latency<br/>Write amplification</td>
+<td data-label="Aspect"><strong>Durability</strong></td>
+<td data-label="Benefits">No data loss after commit<br/>Crash recovery capability</td>
+<td data-label="Costs">fsync() latency<br/>Write amplification</td>
 </tr>
 <tr>
-<td><strong>Performance</strong></td>
-<td>Sequential I/O<br/>Batch optimizations</td>
-<td>Extra writes<br/>Recovery time</td>
+<td data-label="Aspect"><strong>Performance</strong></td>
+<td data-label="Benefits">Sequential I/O<br/>Batch optimizations</td>
+<td data-label="Costs">Extra writes<br/>Recovery time</td>
 </tr>
 <tr>
-<td><strong>Flexibility</strong></td>
-<td>Point-in-time recovery<br/>Replication support</td>
-<td>Space overhead<br/>Complexity</td>
+<td data-label="Aspect"><strong>Flexibility</strong></td>
+<td data-label="Benefits">Point-in-time recovery<br/>Replication support</td>
+<td data-label="Costs">Space overhead<br/>Complexity</td>
 </tr>
 </tbody>
 </table>

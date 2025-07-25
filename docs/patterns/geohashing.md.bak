@@ -133,7 +133,7 @@ class Geohash:
 ```python
 def get_neighbors(geohash: str) -> list[str]:
     """Get all 8 neighbors of a geohash cell."""
-    # Neighbor and border lookup tables
+# Neighbor and border lookup tables
     NEIGHBORS = {
         'odd': {
             'n': "p0r21436x8zb9dcf5h7kjnmqesgutwvy",
@@ -149,16 +149,16 @@ def get_neighbors(geohash: str) -> list[str]:
         }
     }
     
-    # Get direct neighbors
+# Get direct neighbors
     neighbors = []
     last_char = geohash[-1]
     parent = geohash[:-1]
     type_ = 'odd' if len(geohash) % 2 else 'even'
     
-    # Calculate 8 neighbors (N, NE, E, SE, S, SW, W, NW)
+# Calculate 8 neighbors (N, NE, E, SE, S, SW, W, NW)
     for direction in ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw']:
         if len(direction) == 2:
-            # Corner neighbors require two operations
+# Corner neighbors require two operations
             neighbors.append(get_adjacent(get_adjacent(geohash, direction[0]), direction[1]))
         else:
             neighbors.append(get_adjacent(geohash, direction))
@@ -180,12 +180,12 @@ class ProximityService:
     
     def index_location(self, id: str, lat: float, lon: float, precision: int = 6):
         """Index a location with multiple precision levels."""
-        # Generate geohashes at different precisions
+# Generate geohashes at different precisions
         for p in range(4, precision + 1):
             gh = self.geohash.encode(lat, lon, p)
-            # Store in Redis sorted set with timestamp as score
+# Store in Redis sorted set with timestamp as score
             self.redis.zadd(f"geo:{gh}", {id: time.time()})
-            # Also store reverse mapping
+# Also store reverse mapping
             self.redis.hset(f"loc:{id}", mapping={
                 'lat': lat,
                 'lon': lon,
@@ -194,19 +194,19 @@ class ProximityService:
     
     def find_nearby(self, lat: float, lon: float, radius_km: float) -> list[str]:
         """Find locations within radius."""
-        # Determine geohash precision based on radius
+# Determine geohash precision based on radius
         precision = self._radius_to_precision(radius_km)
         center_gh = self.geohash.encode(lat, lon, precision)
         
-        # Search center cell and neighbors
+# Search center cell and neighbors
         search_cells = [center_gh] + get_neighbors(center_gh)
         
         results = []
         for cell in search_cells:
-            # Get all locations in this cell
+# Get all locations in this cell
             locations = self.redis.zrange(f"geo:{cell}", 0, -1)
             
-            # Filter by actual distance
+# Filter by actual distance
             for loc_id in locations:
                 loc_data = self.redis.hgetall(f"loc:{loc_id}")
                 loc_lat, loc_lon = float(loc_data['lat']), float(loc_data['lon'])
@@ -250,17 +250,17 @@ class GeofenceService:
     
     def create_geofence(self, fence_id: str, polygon: list[tuple[float, float]]):
         """Create a geofence from polygon coordinates."""
-        # Find bounding box
+# Find bounding box
         min_lat = min(p[0] for p in polygon)
         max_lat = max(p[0] for p in polygon)
         min_lon = min(p[1] for p in polygon)
         max_lon = max(p[1] for p in polygon)
         
-        # Generate geohashes covering the polygon
+# Generate geohashes covering the polygon
         precision = self._calculate_precision(max_lat - min_lat, max_lon - min_lon)
         covering_geohashes = self._polygon_to_geohashes(polygon, precision)
         
-        # Store geofence
+# Store geofence
         self.redis.sadd(f"fence:{fence_id}:cells", *covering_geohashes)
         self.redis.hset(f"fence:{fence_id}:meta", mapping={
             'polygon': json.dumps(polygon),
@@ -269,19 +269,19 @@ class GeofenceService:
     
     def check_point_in_fences(self, lat: float, lon: float) -> list[str]:
         """Check which geofences contain a point."""
-        # Generate geohashes at multiple precisions
+# Generate geohashes at multiple precisions
         point_geohashes = [
             self.geohash.encode(lat, lon, p) 
             for p in range(4, 9)
         ]
         
-        # Find candidate fences
+# Find candidate fences
         candidate_fences = set()
         for gh in point_geohashes:
             fence_ids = self.redis.smembers(f"geohash:{gh}:fences")
             candidate_fences.update(fence_ids)
         
-        # Precise polygon check for candidates
+# Precise polygon check for candidates
         active_fences = []
         for fence_id in candidate_fences:
             polygon = json.loads(
@@ -427,6 +427,6 @@ cache_levels:
 - [Original Geohash Implementation](https://github.com/vinsci/geohash)
 - [Redis Geo Commands](https://redis.io/commands/geoadd)
 - [PostGIS Spatial Indexing](https://postgis.net/docs/using_postgis_dbmanagement.html)
-- [Proximity Service Case Study](../case-studies/proximity-service.md)
+- [Proximity Service Case Study](/case-studies/proximity-service)
 
 > **Note**: This pattern documentation is planned for future development with more advanced examples and production considerations.

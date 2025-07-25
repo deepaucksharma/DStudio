@@ -54,7 +54,7 @@ graph TB
 
 <div class="formula-box">
 <h4>Node Degree</h4>
-<table class="formula-table">
+<table class="formula-table responsive-table">
 <tr><td><strong>k_i</strong></td><td>Degree of node i (number of connections)</td></tr>
 <tr><td><strong>⟨k⟩</strong></td><td>Average degree = 2E/N</td></tr>
 <tr><td><strong>P(k)</strong></td><td>Probability of degree k</td></tr>
@@ -336,7 +336,7 @@ graph TB
 ### 2. P2P Network Structures
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Topology</th>
@@ -348,32 +348,32 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td><strong>Unstructured</strong></td>
-<td>O(N)</td>
-<td>O(1)</td>
-<td>High</td>
-<td>Gnutella</td>
+<td data-label="Topology"><strong>Unstructured</strong></td>
+<td data-label="Lookup Time">O(N)</td>
+<td data-label="State/Node">O(1)</td>
+<td data-label="Resilience">High</td>
+<td data-label="Example">Gnutella</td>
 </tr>
 <tr>
-<td><strong>DHT Ring</strong></td>
-<td>O(log N)</td>
-<td>O(log N)</td>
-<td>Medium</td>
-<td>Chord</td>
+<td data-label="Topology"><strong>DHT Ring</strong></td>
+<td data-label="Lookup Time">O(log N)</td>
+<td data-label="State/Node">O(log N)</td>
+<td data-label="Resilience">Medium</td>
+<td data-label="Example">Chord</td>
 </tr>
 <tr>
-<td><strong>Hypercube</strong></td>
-<td>O(log N)</td>
-<td>O(log N)</td>
-<td>High</td>
-<td>CAN</td>
+<td data-label="Topology"><strong>Hypercube</strong></td>
+<td data-label="Lookup Time">O(log N)</td>
+<td data-label="State/Node">O(log N)</td>
+<td data-label="Resilience">High</td>
+<td data-label="Example">CAN</td>
 </tr>
 <tr>
-<td><strong>Skip Graph</strong></td>
-<td>O(log N)</td>
-<td>O(log N)</td>
-<td>High</td>
-<td>Skip Net</td>
+<td data-label="Topology"><strong>Skip Graph</strong></td>
+<td data-label="Lookup Time">O(log N)</td>
+<td data-label="State/Node">O(log N)</td>
+<td data-label="Resilience">High</td>
+<td data-label="Example">Skip Net</td>
 </tr>
 </tbody>
 </table>

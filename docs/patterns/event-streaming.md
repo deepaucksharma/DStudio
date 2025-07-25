@@ -502,7 +502,7 @@ pattern = EventPattern().followed_by(
 ### Architecture Comparison
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Framework</th>
@@ -514,32 +514,32 @@ pattern = EventPattern().followed_by(
 </thead>
 <tbody>
 <tr>
-<td><strong>Apache Flink</strong></td>
-<td>True streaming</td>
-<td>Very Low</td>
-<td>Very High</td>
-<td>Low-latency CEP</td>
+<td data-label="Framework"><strong>Apache Flink</strong></td>
+<td data-label="Processing Model">True streaming</td>
+<td data-label="Latency">Very Low</td>
+<td data-label="Throughput">Very High</td>
+<td data-label="Best For">Low-latency CEP</td>
 </tr>
 <tr>
-<td><strong>Apache Spark</strong></td>
-<td>Micro-batch</td>
-<td>Low</td>
-<td>Very High</td>
-<td>Batch + Stream</td>
+<td data-label="Framework"><strong>Apache Spark</strong></td>
+<td data-label="Processing Model">Micro-batch</td>
+<td data-label="Latency">Low</td>
+<td data-label="Throughput">Very High</td>
+<td data-label="Best For">Batch + Stream</td>
 </tr>
 <tr>
-<td><strong>Apache Storm</strong></td>
-<td>True streaming</td>
-<td>Very Low</td>
-<td>High</td>
-<td>Simple pipelines</td>
+<td data-label="Framework"><strong>Apache Storm</strong></td>
+<td data-label="Processing Model">True streaming</td>
+<td data-label="Latency">Very Low</td>
+<td data-label="Throughput">High</td>
+<td data-label="Best For">Simple pipelines</td>
 </tr>
 <tr>
-<td><strong>Kafka Streams</strong></td>
-<td>True streaming</td>
-<td>Low</td>
-<td>High</td>
-<td>Kafka-centric</td>
+<td data-label="Framework"><strong>Kafka Streams</strong></td>
+<td data-label="Processing Model">True streaming</td>
+<td data-label="Latency">Low</td>
+<td data-label="Throughput">High</td>
+<td data-label="Best For">Kafka-centric</td>
 </tr>
 </tbody>
 </table>

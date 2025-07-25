@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 1](index.md) → **Axiom 1: Latency (Speed of Light)**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](index.md) → **Axiom 1: Latency (Speed of Light)**
 
 # Axiom 1: Latency (Speed of Light)
 
@@ -31,7 +31,7 @@ last_updated: 2025-07-20
     ```
 
 
-## 🔥 The Constraint
+## The Constraint
 
 ### The Fundamental Limit
 
@@ -129,7 +129,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 ---
 
-## 💡 Why It Matters
+## Why It Matters
 
 Every network call pays a physics tax that no engineering can eliminate
 
@@ -206,7 +206,7 @@ No technology can make this faster than 160ms RTT
 
 ---
 
-## ⚙️ Practical Implications
+## Practical Implications
 
 How this constraint shapes real system design:
 
@@ -269,13 +269,13 @@ When designing systems, always:
 ## Quick Links
 
 - **Navigation**: [Examples](examples.md) • [Exercises](exercises.md)
-- **Related Patterns**: [Circuit Breaker](../../patterns/circuit-breaker.md) • [Caching Strategies](../../patterns/caching-strategies.md) • [Edge Computing](../../patterns/edge-computing.md)
-- **Case Studies**: [Uber's Real-Time Location](../../case-studies/uber-location.md) • [Spotify Recommendations](../../case-studies/spotify-recommendations.md)
-- **Quantitative**: [Latency Budget Analysis](../../quantitative/latency-ladder.md) • [Queueing Theory](../../quantitative/queueing-models.md)
+- **Related Patterns**: [Circuit Breaker](/patterns/circuit-breaker) • [Caching Strategies](/patterns/caching-strategies) • [Edge Computing](/patterns/edge-computing)
+- **Case Studies**: [Uber's Real-Time Location](/case-studies/uber-location) • [Spotify Recommendations](/case-studies/spotify-recommendations)
+- **Quantitative**: [Latency Budget Analysis](/quantitative/latency-ladder) • [Queueing Theory](/quantitative/queueing-models)
 
 ---
 
-## 🟢 Intuition: The Pizza Delivery Problem (5 min read)
+## Intuition: The Pizza Delivery Problem (5 min read)
 
 Imagine you order pizza from a restaurant 10 miles away. No matter how fast the driver goes (within legal limits), there's a minimum delivery time based on distance. Even with a Formula 1 car, they can't teleport the pizza to you.
 
@@ -313,7 +313,7 @@ If latency didn't matter, why spend $300M on a cable to save 5ms?
 
 ---
 
-## 🟡 Foundation: Understanding Latency (15 min read)
+## Foundation: Understanding Latency (15 min read)
 
 ### The Latency Ladder (Memorize This!)
 
@@ -471,7 +471,7 @@ remaining = total_budget - network_latency - processing_time - database_query
 
 ---
 
-## 🔴 Deep Dive: Engineering Around Physics (30 min read)
+## Deep Dive: Engineering Around Physics (30 min read)
 
 ### Detailed Latency Breakdown
 
@@ -500,7 +500,7 @@ User Click → Response
 └── Response Path (same delays in reverse)
 ```
 
-### 🎬 Real Failure: The Tokyo Checkout Disaster
+### Real Failure: The Tokyo Checkout Disaster
 
 **Company**: Major US E-commerce Platform
 **Date**: Black Friday 2019
@@ -543,15 +543,15 @@ def checkout(cart_items):
 
 # After: Regional inventory cache
 def checkout(cart_items):
-    # Check local cache (1ms)
+# Check local cache (1ms)
     local_inventory = get_regional_cache()
 
-    # Optimistic checkout
+# Optimistic checkout
     if all(local_inventory.probably_available(item) for item in cart_items):
-        # Process payment first
+# Process payment first
         payment = process_payment()
 
-        # Async verification with SF (customer doesn't wait)
+# Async verification with SF (customer doesn't wait)
         verify_async(cart_items, payment)
         return success()
 ```
@@ -578,11 +578,11 @@ class LatencyAwareCacheHierarchy:
 
             value = self.check_cache(cache_name, key)
             if value is not None:
-                # Async populate faster caches
+# Async populate faster caches
                 self.populate_upstream_caches(key, value, cache_name)
                 return value
 
-        # Latency budget exhausted
+# Latency budget exhausted
         return None
 ```
 
@@ -595,7 +595,7 @@ def optimize_replica_placement(user_distribution, latency_requirements):
     """
     regions = get_all_regions()
 
-    # Build latency matrix
+# Build latency matrix
     latency_matrix = {}
     for user_region in user_distribution:
         for dc_region in regions:
@@ -603,7 +603,7 @@ def optimize_replica_placement(user_distribution, latency_requirements):
                 user_region, dc_region
             )
 
-    # Integer Linear Programming to minimize latency
+# Integer Linear Programming to minimize latency
     selected_dcs = solve_ilp(
         objective="minimize_weighted_latency",
         constraints={
@@ -735,17 +735,17 @@ def bgp_path_selection(routes):
     Note: Latency is NOT a factor!
     """
     for route in routes:
-        # 1. Highest LOCAL_PREF (policy)
-        # 2. Shortest AS_PATH (hops between networks)
-        # 3. Lowest ORIGIN type
-        # 4. Lowest MED (metric)
-        # 5. External over internal
-        # 6. Lowest IGP metric to next hop
-        # 7. Oldest route (stability)
-        # 8. Lowest router ID
+# 1. Highest LOCAL_PREF (policy)
+# 2. Shortest AS_PATH (hops between networks)
+# 3. Lowest ORIGIN type
+# 4. Lowest MED (metric)
+# 5. External over internal
+# 6. Lowest IGP metric to next hop
+# 7. Oldest route (stability)
+# 8. Lowest router ID
         pass
 
-    # Result: Your packets might take the "scenic route"
+# Result: Your packets might take the "scenic route"
 ```
 
 ### Advanced Techniques
@@ -762,11 +762,11 @@ class LatencyPredictor:
         self.model = self._build_model()
 
     def _build_model(self):
-        # Features: time_of_day, day_of_week, distance,
-        #          packet_size, network_conditions
-        # Target: observed_latency
+# Features: time_of_day, day_of_week, distance,
+# packet_size, network_conditions
+# Target: observed_latency
 
-        # Use gradient boosting for non-linear relationships
+# Use gradient boosting for non-linear relationships
         from sklearn.ensemble import GradientBoostingRegressor
         return GradientBoostingRegressor(
             n_estimators=100,
@@ -810,16 +810,16 @@ class ContentAddressableNetwork:
     Retrieve data from nearest location, not specific server
     """
     def get(self, content_hash):
-        # Find all replicas
+# Find all replicas
         replicas = self.dht.find_replicas(content_hash)
 
-        # Measure latency to each
+# Measure latency to each
         latencies = []
         for replica in replicas:
             latency = self.measure_latency(replica)
             latencies.append((latency, replica))
 
-        # Fetch from nearest
+# Fetch from nearest
         latencies.sort()
         return self.fetch_from(latencies[0][1])
 ```
@@ -838,7 +838,7 @@ class EdgeComputeOptimizer:
         best_location = None
 
         for node in compute_locations:
-            # Latency = data fetch + compute + response
+# Latency = data fetch + compute + response
             data_latency = self.get_latency(data_location, node)
             compute_time = self.estimate_compute_time(task, node)
             response_latency = self.get_latency(node, user_location)
@@ -903,15 +903,15 @@ class PhysicsAwareKVStore:
                 if r1 == r2:
                     matrix[(r1, r2)] = 0.5  # Same DC latency
                 else:
-                    # Haversine formula for great-circle distance
+# Haversine formula for great-circle distance
                     distance_km = self._haversine_distance(
                         r1.location, r2.location
                     )
 
-                    # Physics: speed of light in fiber
+# Physics: speed of light in fiber
                     min_latency_ms = distance_km / 200  # 200km/ms
 
-                    # Add realistic overhead (routing, congestion)
+# Add realistic overhead (routing, congestion)
                     overhead_factor = 1.5  # Conservative estimate
                     matrix[(r1, r2)] = min_latency_ms * overhead_factor
 
@@ -943,7 +943,7 @@ class PhysicsAwareKVStore:
         start_time = time.time()
 
         if consistency == 'strong':
-            # Must read from primary
+# Must read from primary
             primary = self._get_primary(key)
             latency = self.latency_matrix[(client_region, primary.region)]
 
@@ -956,17 +956,17 @@ class PhysicsAwareKVStore:
             return await self._read_with_latency(primary, key, latency)
 
         elif consistency == 'eventual':
-            # Read from nearest replica
+# Read from nearest replica
             replicas = self._get_replicas(key)
 
-            # Sort by latency from client
+# Sort by latency from client
             replicas_by_latency = [
                 (self.latency_matrix[(client_region, node.region)], node)
                 for node in replicas
             ]
             replicas_by_latency.sort()
 
-            # Try replicas in order of increasing latency
+# Try replicas in order of increasing latency
             for latency, replica in replicas_by_latency:
                 if latency > latency_budget_ms:
                     break  # No point trying farther replicas
@@ -981,7 +981,7 @@ class PhysicsAwareKVStore:
             raise NoReplicaAvailable(f"No replica within {latency_budget_ms}ms")
 
         elif consistency == 'bounded_staleness':
-            # Read from any replica with staleness < threshold
+# Read from any replica with staleness < threshold
             max_staleness_ms = 5000  # 5 seconds
 
             valid_replicas = []
@@ -992,7 +992,7 @@ class PhysicsAwareKVStore:
                     valid_replicas.append((latency, replica))
 
             if not valid_replicas:
-                # Fall back to primary
+# Fall back to primary
                 return await self.get(key, client_region, 'strong', latency_budget_ms)
 
             valid_replicas.sort()
@@ -1010,24 +1010,24 @@ class PhysicsAwareKVStore:
         Write with latency awareness
         """
         if durability == 'sync':
-            # Synchronous replication to W replicas
+# Synchronous replication to W replicas
             W = 3  # Write quorum
             replicas = self._get_replicas(key)[:W]
 
-            # Calculate total latency for parallel writes
+# Calculate total latency for parallel writes
             max_latency = max(
                 self.latency_matrix[(client_region, replica.region)]
                 for replica in replicas
             )
 
             if max_latency * 2 > latency_budget_ms:  # RTT
-                # Cannot meet budget with sync replication
+# Cannot meet budget with sync replication
                 raise LatencyBudgetExceeded(
                     f"Sync write requires {max_latency * 2}ms, "
                     f"budget is {latency_budget_ms}ms"
                 )
 
-            # Parallel writes
+# Parallel writes
             tasks = [
                 self._write_with_latency(replica, key, value, max_latency)
                 for replica in replicas
@@ -1039,7 +1039,7 @@ class PhysicsAwareKVStore:
             return success_count >= (W // 2 + 1)  # Majority
 
         elif durability == 'async':
-            # Write to nearest replica, async propagation
+# Write to nearest replica, async propagation
             replicas = self._get_replicas(key)
             nearest = min(
                 replicas,
@@ -1051,13 +1051,13 @@ class PhysicsAwareKVStore:
             if latency * 2 > latency_budget_ms:
                 raise LatencyBudgetExceeded()
 
-            # Write to nearest
+# Write to nearest
             success = await self._write_with_latency(
                 nearest, key, value, latency
             )
 
             if success:
-                # Async replication to others
+# Async replication to others
                 asyncio.create_task(
                     self._async_replicate(key, value, nearest, replicas)
                 )
@@ -1067,12 +1067,12 @@ class PhysicsAwareKVStore:
     async def _read_with_latency(self, node, key: str,
                                  latency_ms: float) -> Optional[str]:
         """Simulate network latency for reads"""
-        # Simulate one-way latency
+# Simulate one-way latency
         await asyncio.sleep(latency_ms / 1000)
 
         value = node.get_local(key)
 
-        # Simulate return latency
+# Simulate return latency
         await asyncio.sleep(latency_ms / 1000)
 
         return value
@@ -1096,14 +1096,14 @@ class PhysicsAwareKVStore:
         primary = self._get_primary(key)
         all_nodes = list(self.nodes.values())
 
-        # Sort by distance from primary
+# Sort by distance from primary
         nodes_by_distance = [
             (self.latency_matrix[(primary.region, node.region)], node)
             for node in all_nodes if node != primary
         ]
         nodes_by_distance.sort()
 
-        # Return primary + closest replicas
+# Return primary + closest replicas
         return [primary] + [node for _, node in nodes_by_distance[:count-1]]
 
 
@@ -1129,7 +1129,7 @@ class KVNode:
 
 # Example usage
 async def demo_physics_aware_kv():
-    # Define regions (major AWS regions)
+# Define regions (major AWS regions)
     regions = [
         Region("us-east-1", (38.7489, -77.0470)),      # N. Virginia
         Region("us-west-2", (45.5234, -122.6762)),     # Oregon
@@ -1141,13 +1141,13 @@ async def demo_physics_aware_kv():
 
     store = PhysicsAwareKVStore(regions)
 
-    # Client in Tokyo
+# Client in Tokyo
     client_region = regions[4]  # Tokyo
 
-    # Test different consistency levels
+# Test different consistency levels
     print("=== Physics-Aware KV Store Demo ===\n")
 
-    # 1. Eventual consistency read (fast)
+# 1. Eventual consistency read (fast)
     print("1. Eventual consistency read from Tokyo:")
     try:
         value = await store.get(
@@ -1160,7 +1160,7 @@ async def demo_physics_aware_kv():
     except LatencyBudgetExceeded as e:
         print(f"   ✗ Failed: {e}")
 
-    # 2. Strong consistency read (slow)
+# 2. Strong consistency read (slow)
     print("\n2. Strong consistency read from Tokyo (primary in US):")
     try:
         value = await store.get(
@@ -1174,23 +1174,23 @@ async def demo_physics_aware_kv():
         print(f"   ✗ Failed: {e}")
         print(f"   → Suggestion: Increase budget or use eventual consistency")
 
-    # 3. Adaptive consistency based on budget
+# 3. Adaptive consistency based on budget
     print("\n3. Adaptive consistency based on budget:")
 
     async def smart_get(key, budget_ms):
-        # Try strong consistency first
+# Try strong consistency first
         try:
             return await store.get(
                 key, client_region, 'strong', budget_ms
             )
         except LatencyBudgetExceeded:
-            # Fall back to bounded staleness
+# Fall back to bounded staleness
             try:
                 return await store.get(
                     key, client_region, 'bounded_staleness', budget_ms
                 )
             except LatencyBudgetExceeded:
-                # Last resort: eventual consistency
+# Last resort: eventual consistency
                 return await store.get(
                     key, client_region, 'eventual', budget_ms
                 )
@@ -1271,10 +1271,10 @@ class RequestCollapser:
 
     async def get(self, key, fetch_func):
         if key in self.in_flight:
-            # Request already in flight, wait for it
+# Request already in flight, wait for it
             return await self.in_flight[key]
 
-        # Create new request
+# Create new request
         future = asyncio.create_task(fetch_func(key))
         self.in_flight[key] = future
 
@@ -1282,7 +1282,7 @@ class RequestCollapser:
             result = await future
             return result
         finally:
-            # Clean up
+# Clean up
             del self.in_flight[key]
 
 # Usage: Prevents 1000 clients from making 1000 requests
@@ -1319,7 +1319,7 @@ class LatencyCircuitBreaker:
 
             self.latencies.append(latency_ms)
 
-            # Check if we should open circuit
+# Check if we should open circuit
             if len(self.latencies) >= 10:
                 p95_latency = sorted(self.latencies)[int(len(self.latencies) * 0.95)]
 
@@ -1356,21 +1356,21 @@ class GeographicLoadBalancer:
     def route(self, client_ip, request_size=1):
         client_location = self._get_client_location(client_ip)
 
-        # Calculate effective latency to each endpoint
+# Calculate effective latency to each endpoint
         candidates = []
 
         for endpoint in self.endpoints:
-            # Skip if at capacity
+# Skip if at capacity
             if endpoint.current_load + request_size > endpoint.capacity:
                 continue
 
-            # Physics latency
+# Physics latency
             base_latency = self._calculate_latency(
                 client_location,
                 endpoint.location
             )
 
-            # Queueing delay (M/M/1 queue)
+# Queueing delay (M/M/1 queue)
             utilization = endpoint.current_load / endpoint.capacity
             queue_delay = (utilization / (1 - utilization)) * endpoint.service_time
 
@@ -1380,7 +1380,7 @@ class GeographicLoadBalancer:
         if not candidates:
             raise NoCapacityError("All endpoints at capacity")
 
-        # Route to lowest latency endpoint
+# Route to lowest latency endpoint
         candidates.sort()
         return candidates[0][1]
 ```
@@ -1453,7 +1453,7 @@ If latency increases, either:
 
 ---
 
-## 🛠️ Mitigation Strategies
+## 🛠 Mitigation Strategies
 
 Since we can't beat physics, we work around it:
 
@@ -1511,7 +1511,7 @@ Trade-offs:
 
 ---
 
-## 🎯 Quick Decision Guide
+## Quick Decision Guide
 
 ```mermaid
 flowchart TD
@@ -1537,7 +1537,7 @@ flowchart TD
 
 ---
 
-## 🏆 Best Practices
+## Best Practices
 
 1. **Measure, Don't Assume**
    - Use real network paths, not straight-line distance
@@ -1587,7 +1587,7 @@ flowchart TD
 
 ---
 
-**Next**: [Axiom 2: Finite Capacity →](../axiom2-capacity/index.md)
+**Next**: [Axiom 2: Finite Capacity →](/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/)
 
 *"You can't patch the speed of light, but you can architect around it."*
 
@@ -1596,35 +1596,35 @@ flowchart TD
 ## Related Concepts
 
 ### Pillars Building on This Axiom
-- [Work Distribution](../../part2-pillars/work/index.md) - How to distribute work considering latency constraints
-- [State Management](../../part2-pillars/state/index.md) - Managing state across geographically distributed systems
-- [Truth & Consensus](../../part2-pillars/truth/index.md) - Achieving consensus despite network latency
-- [Control & Ordering](../../part2-pillars/control/index.md) - Maintaining order in the face of variable latency
+- [Work Distribution](/part2-pillars/work/) - How to distribute work considering latency constraints
+- [State Management](/part2-pillars/state/) - Managing state across geographically distributed systems
+- [Truth & Consensus](/part2-pillars/truth/) - Achieving consensus despite network latency
+- [Control & Ordering](/part2-pillars/control/) - Maintaining order in the face of variable latency
 
 ### Patterns Addressing Latency Challenges
-- [Caching Strategies](../../patterns/caching-strategies.md) - Reduce latency by keeping data close to users
-- [Edge Computing](../../patterns/edge-computing.md) - Process at the edge to minimize round trips
-- [Circuit Breaker](../../patterns/circuit-breaker.md) - Fail fast when latency exceeds thresholds
-- [Timeout](../../patterns/timeout.md) - Prevent indefinite waiting due to network delays
-- [Bulkhead](../../patterns/bulkhead.md) - Isolate latency-sensitive operations
-- [Load Balancing](../../patterns/load-balancing.md) - Route to least latent endpoints
+- [Caching Strategies](/patterns/caching-strategies) - Reduce latency by keeping data close to users
+- [Edge Computing](/patterns/edge-computing) - Process at the edge to minimize round trips
+- [Circuit Breaker](/patterns/circuit-breaker) - Fail fast when latency exceeds thresholds
+- [Timeout](/patterns/timeout) - Prevent indefinite waiting due to network delays
+- [Bulkhead](/patterns/bulkhead) - Isolate latency-sensitive operations
+- [Load Balancing](/patterns/load-balancing) - Route to least latent endpoints
 
 ### Case Studies Demonstrating Latency Impact
-- [Uber's Real-Time Location](../../case-studies/uber-location.md) - Managing global location data with strict latency requirements
-- [Spotify Recommendations](../../case-studies/spotify-recommendations.md) - Delivering personalized content with minimal latency
-- [Amazon DynamoDB](../../case-studies/amazon-dynamo.md) - Multi-region replication with controlled latency
+- [Uber's Real-Time Location](/case-studies/uber-location) - Managing global location data with strict latency requirements
+- [Spotify Recommendations](/case-studies/spotify-recommendations) - Delivering personalized content with minimal latency
+- [Amazon DynamoDB](/case-studies/amazon-dynamo) - Multi-region replication with controlled latency
 
 ### Other Axioms That Interact
-- [Axiom 2: Finite Capacity](../axiom2-capacity/index.md) - Latency increases as systems approach capacity
-- [Axiom 3: Partial Failure](../axiom3-failure/index.md) - Network partitions manifest as infinite latency
-- [Axiom 4: Concurrency](../axiom4-concurrency/index.md) - Parallel operations to hide latency
-- [Axiom 5: Coordination](../axiom5-coordination/index.md) - Coordination overhead adds latency
+- [Axiom 2: Finite Capacity](/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/) - Latency increases as systems approach capacity
+- [Axiom 3: Partial Failure](/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/) - Network partitions manifest as infinite latency
+- [Axiom 4: Concurrency](/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/) - Parallel operations to hide latency
+- [Axiom 5: Coordination](/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/) - Coordination overhead adds latency
 
 ### Quantitative Tools
-- [Latency Budget Analysis](../../quantitative/latency-ladder.md) - Tools for calculating and budgeting latency
-- [Queueing Theory](../../quantitative/queueing-models.md) - Mathematical models for latency under load
-- [Little's Law](../../quantitative/littles-law.md) - Fundamental relationship between latency and throughput
-- [Network Modeling](../../quantitative/network-model.md) - Predicting latency in complex topologies
+- [Latency Budget Analysis](/quantitative/latency-ladder) - Tools for calculating and budgeting latency
+- [Queueing Theory](/quantitative/queueing-models) - Mathematical models for latency under load
+- [Little's Law](/quantitative/littles-law) - Fundamental relationship between latency and throughput
+- [Network Modeling](/quantitative/network-model) - Predicting latency in complex topologies
 
 ---
 
@@ -1680,4 +1680,4 @@ flowchart TD
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Timeout](../../patterns/timeout.md) • [Circuit Breaker](../../patterns/circuit-breaker.md) • [Caching Strategies](../../patterns/caching-strategies.md)
+**Related**: [Timeout](/patterns/timeout) • [Circuit Breaker](/patterns/circuit-breaker) • [Caching Strategies](/patterns/caching-strategies)

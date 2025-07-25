@@ -402,12 +402,12 @@ sequenceDiagram
 # Example: Idempotent payment processing
 class PaymentService:
     async def charge(self, amount, idempotency_key):
-        # Check if already processed
+# Check if already processed
         existing = await self.db.get_payment(idempotency_key)
         if existing:
             return existing
             
-        # Process payment
+# Process payment
         payment = await self._process_payment(amount)
         await self.db.save_payment(idempotency_key, payment)
         return payment
@@ -479,17 +479,17 @@ class CompositeSaga:
         
         try:
             for sub_saga in self.sub_sagas:
-                # Each sub-saga gets its own context
+# Each sub-saga gets its own context
                 sub_context = self._create_sub_context(context, sub_saga)
                 
                 result = await sub_saga.execute(sub_context)
                 completed_sagas.append((sub_saga, result))
                 
-                # Update parent context
+# Update parent context
                 self._merge_results(context, result)
                 
         except Exception as e:
-            # Compensate completed sub-sagas
+# Compensate completed sub-sagas
             for saga, result in reversed(completed_sagas):
                 await saga._run_compensations(result)
             raise
@@ -516,7 +516,7 @@ class ParallelSagaOrchestrator(SagaOrchestrator):
         
         try:
             for group in self.parallel_groups:
-                # Execute steps in parallel
+# Execute steps in parallel
                 tasks = [
                     self._execute_step(step, context) 
                     for step in group
@@ -524,11 +524,11 @@ class ParallelSagaOrchestrator(SagaOrchestrator):
                 
                 results = await asyncio.gather(*tasks)
                 
-                # All succeeded, mark as completed
+# All succeeded, mark as completed
                 self.completed_steps.extend(group)
                 
         except Exception as e:
-            # Compensate in parallel too
+# Compensate in parallel too
             await self._run_parallel_compensations(context)
             raise
 ```
@@ -545,12 +545,12 @@ class SagaTestFramework:
         
     async def test_happy_path(self, saga: SagaOrchestrator):
         """Test successful execution"""
-        # Mock all services to succeed
+# Mock all services to succeed
         self._setup_success_mocks()
         
         context = await saga.execute(self._get_test_request())
         
-        # Verify all steps executed
+# Verify all steps executed
         assert all(
             step.status == StepStatus.COMPLETED 
             for step in saga.steps
@@ -562,18 +562,18 @@ class SagaTestFramework:
                                        saga: SagaOrchestrator,
                                        failing_step: int):
         """Test compensation when specific step fails"""
-        # Setup mocks
+# Setup mocks
         for i, step in enumerate(saga.steps):
             if i < failing_step:
                 self._mock_step_success(step)
             elif i == failing_step:
                 self._mock_step_failure(step)
                 
-        # Execute and expect failure
+# Execute and expect failure
         with pytest.raises(SagaFailedException):
             await saga.execute(self._get_test_request())
             
-        # Verify compensations
+# Verify compensations
         for i in range(failing_step):
             step = saga.steps[i]
             assert step.status == StepStatus.COMPENSATED
@@ -582,14 +582,14 @@ class SagaTestFramework:
         """Test saga can be safely retried"""
         request = self._get_test_request()
         
-        # First execution
+# First execution
         context1 = await saga.execute(request)
         
-        # Retry with same request
+# Retry with same request
         saga2 = self._rebuild_saga()
         context2 = await saga2.execute(request)
         
-        # Results should be identical
+# Results should be identical
         assert context1.step_results == context2.step_results
 ```
 
@@ -614,7 +614,7 @@ Key metrics to track:
 
 ```yaml
 metrics:
-  # Saga Execution Metrics
+# Saga Execution Metrics
   - name: saga_duration
     description: Total saga execution time
     alert_threshold: p99 > 30s
@@ -627,7 +627,7 @@ metrics:
     description: Percentage of sagas requiring compensation
     alert_threshold: > 10%
     
-  # Step Metrics
+# Step Metrics
   - name: step_duration
     description: Individual step execution time
     alert_threshold: p99 > 5s
@@ -636,7 +636,7 @@ metrics:
     description: Step failure rate by type
     alert_threshold: > 5%
     
-  # Compensation Metrics
+# Compensation Metrics
   - name: compensation_success_rate
     description: Successful compensation percentage
     alert_threshold: < 99%
@@ -645,7 +645,7 @@ metrics:
     description: Sagas not progressing
     alert_threshold: > 10
     
-  # Resource Metrics
+# Resource Metrics
   - name: concurrent_sagas
     description: Number of active sagas
     alert_threshold: > 1000
@@ -823,7 +823,7 @@ def calculate_saga_roi(
 ) -> dict:
     """Calculate ROI for implementing Saga pattern"""
     
-    # Cost without saga (distributed transactions or manual)
+# Cost without saga (distributed transactions or manual)
     distributed_tx_overhead = 0.5  # 50% performance overhead
     manual_resolutions = transactions_per_day * failure_rate
     
@@ -834,7 +834,7 @@ def calculate_saga_roi(
         'development_complexity': services_involved * 5000
     }
     
-    # Cost with saga
+# Cost with saga
     saga_compensation_rate = failure_rate * 0.1  # 90% auto-recovery
     
     with_saga_costs = {
@@ -844,7 +844,7 @@ def calculate_saga_roi(
         'monitoring': 2000  # Monthly monitoring cost
     }
     
-    # Benefits
+# Benefits
     monthly_savings = (
         sum(without_saga_costs.values()) - 
         sum(with_saga_costs.values())
@@ -910,11 +910,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md)**: Manages distributed consensus without locks
-2. **[Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md)**: Explicit handling of partial failures
-3. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md)**: Handles concurrent saga executions
-4. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Full audit trail of all steps
-5. **[Law 7 (Economic Reality 💰)](../part1-axioms/law7-economics/index.md)**: Balances consistency costs with business needs
+1. **[Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/)**: Manages distributed consensus without locks
+2. **[Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/)**: Explicit handling of partial failures
+3. **[Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/)**: Handles concurrent saga executions
+4. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Full audit trail of all steps
+5. **[Law 7 (Economic Reality 💰)](/part1-axioms/law7-economics/)**: Balances consistency costs with business needs
 </div>
 
 ### Future Directions
@@ -1035,15 +1035,15 @@ saga:
 ## Related Resources
 
 ### Patterns
-- [Event Sourcing](../patterns/event-sourcing.md) - Natural event log for sagas
-- [CQRS](../patterns/cqrs.md) - Separate saga execution from queries
-- [Outbox Pattern](../patterns/outbox.md) - Reliable event publishing
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Protect saga steps
+- [Event Sourcing](/patterns/event-sourcing) - Natural event log for sagas
+- [CQRS](/patterns/cqrs) - Separate saga execution from queries
+- [Outbox Pattern](/patterns/outbox) - Reliable event publishing
+- [Circuit Breaker](/patterns/circuit-breaker) - Protect saga steps
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Why distributed consensus is hard
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Handling partial failures
-- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/law3-emergence/index.md) - Managing parallel execution
+- [Law 4 (Multidimensional Optimization )](/part1-axioms/law4-tradeoffs/) - Why distributed consensus is hard
+- [Law 1 (Correlated Failure )](/part1-axioms/law1-failure/) - Handling partial failures
+- [Law 3 (Emergent Chaos )](/part1-axioms/law3-emergence/) - Managing parallel execution
 
 ### Further Reading
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem

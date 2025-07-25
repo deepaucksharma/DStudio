@@ -82,33 +82,37 @@ last_updated: 2025-07-20
 </div>
 
 <div class="utilization-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
-  <table style="width: 100%; text-align: center;">
+  <table class="responsive-table" style="width: 100%; text-align: center;">
+  <thead>
     <tr style="background: #E0E0E0;">
       <th>Utilization (ρ)</th>
       <th>Queue Length (Lq)</th>
       <th>Impact</th>
     </tr>
+  </thead>
+  <tbody>
     <tr style="background: #C8E6C9;">
-      <td>50%</td>
-      <td>0.5 customers</td>
-      <td>✅ Stable</td>
+      <td data-label="Utilization (ρ)">50%</td>
+      <td data-label="Queue Length (Lq)">0.5 customers</td>
+      <td data-label="Impact">✅ Stable</td>
     </tr>
     <tr style="background: #FFF9C4;">
-      <td>80%</td>
-      <td>3.2 customers</td>
-      <td>⚠️ Growing</td>
+      <td data-label="Utilization (ρ)">80%</td>
+      <td data-label="Queue Length (Lq)">3.2 customers</td>
+      <td data-label="Impact">⚠️ Growing</td>
     </tr>
     <tr style="background: #FFCCBC;">
-      <td>90%</td>
-      <td>8.1 customers</td>
-      <td>🚨 Critical</td>
+      <td data-label="Utilization (ρ)">90%</td>
+      <td data-label="Queue Length (Lq)">8.1 customers</td>
+      <td data-label="Impact">🚨 Critical</td>
     </tr>
     <tr style="background: #FFCDD2;">
-      <td>95%</td>
-      <td>18 customers!</td>
-      <td>🔥 Explosive</td>
+      <td data-label="Utilization (ρ)">95%</td>
+      <td data-label="Queue Length (Lq)">18 customers!</td>
+      <td data-label="Impact">🔥 Explosive</td>
     </tr>
-  </table>
+  </tbody>
+</table>
 </div>
 </div>
 
@@ -230,7 +234,8 @@ P(response > t) = e^(-μ(1-ρ)t)
 </div>
 
 <div class="response-time-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
-  <table style="width: 100%;">
+  <table class="responsive-table" style="width: 100%;">
+  <thead>
     <tr style="background: #E0E0E0;">
       <th>Utilization</th>
       <th>Queue Time</th>
@@ -238,63 +243,66 @@ P(response > t) = e^(-μ(1-ρ)t)
       <th>Total Response</th>
       <th>Status</th>
     </tr>
+  </thead>
+  <tbody>
     <tr style="background: #C8E6C9;">
-      <td>50%</td>
-      <td>10ms</td>
-      <td>10ms</td>
-      <td><strong>20ms</strong></td>
-      <td>✅ Excellent</td>
+      <td data-label="Utilization">50%</td>
+      <td data-label="Queue Time">10ms</td>
+      <td data-label="Service Time">10ms</td>
+      <td data-label="Total Response"><strong>20ms</strong></td>
+      <td data-label="Status">✅ Excellent</td>
     </tr>
     <tr style="background: #DCEDC8;">
-      <td>60%</td>
-      <td>15ms</td>
-      <td>10ms</td>
-      <td><strong>25ms</strong></td>
-      <td>✅ Good</td>
+      <td data-label="Utilization">60%</td>
+      <td data-label="Queue Time">15ms</td>
+      <td data-label="Service Time">10ms</td>
+      <td data-label="Total Response"><strong>25ms</strong></td>
+      <td data-label="Status">✅ Good</td>
     </tr>
     <tr style="background: #F0F4C3;">
-      <td>70%</td>
-      <td>23ms</td>
-      <td>10ms</td>
-      <td><strong>33ms</strong></td>
-      <td>✅ Acceptable</td>
+      <td data-label="Utilization">70%</td>
+      <td data-label="Queue Time">23ms</td>
+      <td data-label="Service Time">10ms</td>
+      <td data-label="Total Response"><strong>33ms</strong></td>
+      <td data-label="Status">✅ Acceptable</td>
     </tr>
     <tr style="background: #FFF9C4;">
-      <td>80%</td>
-      <td>40ms</td>
-      <td>10ms</td>
-      <td><strong>50ms</strong></td>
-      <td>⚠️ Caution</td>
+      <td data-label="Utilization">80%</td>
+      <td data-label="Queue Time">40ms</td>
+      <td data-label="Service Time">10ms</td>
+      <td data-label="Total Response"><strong>50ms</strong></td>
+      <td data-label="Status">⚠️ Caution</td>
     </tr>
     <tr style="background: #FFE0B2;">
-      <td>85%</td>
-      <td>57ms</td>
-      <td>10ms</td>
-      <td><strong>67ms</strong></td>
-      <td>🚨 Warning</td>
+      <td data-label="Utilization">85%</td>
+      <td data-label="Queue Time">57ms</td>
+      <td data-label="Service Time">10ms</td>
+      <td data-label="Total Response"><strong>67ms</strong></td>
+      <td data-label="Status">🚨 Warning</td>
     </tr>
     <tr style="background: #FFCCBC;">
-      <td>90%</td>
-      <td>90ms</td>
-      <td>10ms</td>
-      <td><strong>100ms</strong></td>
-      <td>🚨 Critical</td>
+      <td data-label="Utilization">90%</td>
+      <td data-label="Queue Time">90ms</td>
+      <td data-label="Service Time">10ms</td>
+      <td data-label="Total Response"><strong>100ms</strong></td>
+      <td data-label="Status">🚨 Critical</td>
     </tr>
     <tr style="background: #FFCDD2;">
-      <td>95%</td>
-      <td>190ms</td>
-      <td>10ms</td>
-      <td><strong>200ms</strong></td>
-      <td>🔥 Emergency</td>
+      <td data-label="Utilization">95%</td>
+      <td data-label="Queue Time">190ms</td>
+      <td data-label="Service Time">10ms</td>
+      <td data-label="Total Response"><strong>200ms</strong></td>
+      <td data-label="Status">🔥 Emergency</td>
     </tr>
     <tr style="background: #EF9A9A;">
-      <td>99%</td>
-      <td>990ms</td>
-      <td>10ms</td>
-      <td><strong>1000ms!</strong></td>
-      <td>💥 Meltdown</td>
+      <td data-label="Utilization">99%</td>
+      <td data-label="Queue Time">990ms</td>
+      <td data-label="Service Time">10ms</td>
+      <td data-label="Total Response"><strong>1000ms!</strong></td>
+      <td data-label="Status">💥 Meltdown</td>
     </tr>
-  </table>
+  </tbody>
+</table>
 </div>
 
 <div class="key-insight" style="background: #E3F2FD; padding: 15px; margin-top: 15px; border-left: 4px solid #2196F3;">
@@ -324,7 +332,7 @@ Servers @ 80% util: 1→80%, 2→44%, 4→23%, 8→11%, 16→5% queue probabilit
 
 <div class="requirements-box" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
   <strong>Given Requirements:</strong>
-  <table style="width: 100%; margin-top: 10px;">
+  <table class="responsive-table" style="width: 100%; margin-top: 10px;">
     <tr><td>Request rate:</td><td><strong>1000 req/s</strong></td></tr>
     <tr><td>Service time:</td><td><strong>50ms</strong></td></tr>
     <tr><td>Target:</td><td><strong>95% requests < 200ms</strong></td></tr>
@@ -409,7 +417,7 @@ This sizing directly impacts [Availability](availability-math.md) - overloaded s
 <h4>🔗 Connection Pool Calculator</h4>
 
 <div class="problem-statement" style="background: #F3E5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
-  <table style="width: 100%;">
+  <table class="responsive-table" style="width: 100%;">
     <tr><td><strong>Query rate:</strong></td><td>500 queries/s</td></tr>
     <tr><td><strong>Query time:</strong></td><td>20ms</td></tr>
     <tr><td><strong>Target wait:</strong></td><td>&lt; 5ms</td></tr>

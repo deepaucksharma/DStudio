@@ -19,7 +19,7 @@ last_updated: 2025-07-23
 - [Bloom Filter](bloom-filter.md)
 - [Content-Addressed Storage](cas.md)
 - Merkle Trees (Coming Soon)
-- [Consistent Hashing](../case-studies/consistent-hashing.md)
+- [Consistent Hashing](/case-studies/consistent-hashing)
 
 ## References
-- [Web Crawler](../case-studies/web-crawler.md) - URL deduplication at scale
+- [Web Crawler](/case-studies/web-crawler) - URL deduplication at scale

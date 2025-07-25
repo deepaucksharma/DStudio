@@ -25,24 +25,28 @@ last_updated: 2025-07-20
     <span style="font-size: 1.1em;">(Cache Cost) < (Saved Backend Cost) + (Saved Latency Cost)</span>
   </div>
   
-  <table style="width: 100%; background: white; border-radius: 5px;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
+  <thead>
     <tr style="background: #E8E5F5;">
       <th style="padding: 12px; text-align: left;">Component</th>
       <th style="padding: 12px;">Formula</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px;"><strong>Cache Cost</strong></td>
-      <td style="padding: 10px; font-family: monospace;">Memory$ + CPU$ + Network$</td>
+      <td data-label="Component"><strong>Cache Cost</strong></td>
+      <td data-label="Formula">Memory$ + CPU$ + Network$</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px;"><strong>Saved Backend</strong></td>
-      <td style="padding: 10px; font-family: monospace;">(Hit Rate) × (Requests) × (Backend $/request)</td>
+      <td data-label="Component"><strong>Saved Backend</strong></td>
+      <td data-label="Formula">(Hit Rate) × (Requests) × (Backend $/request)</td>
     </tr>
     <tr>
-      <td style="padding: 10px;"><strong>Saved Latency</strong></td>
-      <td style="padding: 10px; font-family: monospace;">(Hit Rate) × (Requests) × (Latency Reduction) × ($/ms)</td>
+      <td data-label="Component"><strong>Saved Latency</strong></td>
+      <td data-label="Formula">(Hit Rate) × (Requests) × (Latency Reduction) × ($/ms)</td>
     </tr>
-  </table>
+  </tbody>
+</table>
 </div>
 </div>
 
@@ -56,7 +60,7 @@ last_updated: 2025-07-20
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
     <div>
       <h5 style="margin: 0 0 10px 0; color: #1565C0;">Redis Cluster Costs</h5>
-      <table style="width: 100%; background: white; border-radius: 5px;">
+      <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
         <tr style="background: #BBDEFB;">
           <td style="padding: 8px;"><strong>Memory</strong></td>
           <td style="padding: 8px; text-align: right;">100GB</td>
@@ -82,7 +86,7 @@ last_updated: 2025-07-20
     
     <div>
       <h5 style="margin: 0 0 10px 0; color: #E65100;">Database Query Costs</h5>
-      <table style="width: 100%; background: white; border-radius: 5px;">
+      <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
         <tr style="background: #FFE0B2;">
           <td style="padding: 8px;"><strong>Query cost</strong></td>
           <td style="padding: 8px; text-align: right; color: #E65100;">$0.001</td>
@@ -114,62 +118,66 @@ last_updated: 2025-07-20
 <h4>🎯 Hit Rate Impact on ROI</h4>
 
 <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <table style="width: 100%; background: white; border-radius: 5px; border-collapse: collapse;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; border-collapse: collapse;">
+  <thead>
     <tr style="background: #C8E6C9;">
       <th style="padding: 12px; text-align: left;">Hit Rate</th>
       <th style="padding: 12px;">Backend Savings</th>
       <th style="padding: 12px;">ROI</th>
       <th style="padding: 12px;">Visual ROI</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>50%</strong></td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">50%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0; color: #F44336;">-20% (loss)</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">
+      <td data-label="Hit Rate"><strong>50%</strong></td>
+      <td data-label="Backend Savings">50%</td>
+      <td data-label="ROI">-20% (loss)</td>
+      <td data-label="Visual ROI">
         <div style="background: #F44336; width: 20%; height: 15px; margin-left: auto;"></div>
       </td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>70%</strong></td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">70%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0; color: #FF9800;">+15%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">
+      <td data-label="Hit Rate"><strong>70%</strong></td>
+      <td data-label="Backend Savings">70%</td>
+      <td data-label="ROI">+15%</td>
+      <td data-label="Visual ROI">
         <div style="background: #FF9800; width: 15%; height: 15px;"></div>
       </td>
     </tr>
     <tr>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>80%</strong></td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">80%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0; color: #4CAF50;">+45%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">
+      <td data-label="Hit Rate"><strong>80%</strong></td>
+      <td data-label="Backend Savings">80%</td>
+      <td data-label="ROI">+45%</td>
+      <td data-label="Visual ROI">
         <div style="background: #4CAF50; width: 45%; height: 15px;"></div>
       </td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>90%</strong></td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">90%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0; color: #2E7D32;">+125%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">
+      <td data-label="Hit Rate"><strong>90%</strong></td>
+      <td data-label="Backend Savings">90%</td>
+      <td data-label="ROI">+125%</td>
+      <td data-label="Visual ROI">
         <div style="background: #2E7D32; width: 80%; height: 15px;"></div>
       </td>
     </tr>
     <tr>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>95%</strong></td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">95%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0; color: #1B5E20;">+200%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">
+      <td data-label="Hit Rate"><strong>95%</strong></td>
+      <td data-label="Backend Savings">95%</td>
+      <td data-label="ROI">+200%</td>
+      <td data-label="Visual ROI">
         <div style="background: #1B5E20; width: 90%; height: 15px;"></div>
       </td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>99%</strong></td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">99%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0; color: #1B5E20;">+400%</td>
-      <td style="padding: 10px; border: 1px solid #E0E0E0;">
+      <td data-label="Hit Rate"><strong>99%</strong></td>
+      <td data-label="Backend Savings">99%</td>
+      <td data-label="ROI">+400%</td>
+      <td data-label="Visual ROI">
         <div style="background: #1B5E20; width: 100%; height: 15px;"></div>
       </td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="margin-top: 20px; text-align: center;">
     <svg viewBox="0 0 400 250" style="width: 100%; max-width: 400px;">
@@ -325,38 +333,42 @@ Tag-Based:
     return ttl</code></pre>
   </div>
   
-  <table style="width: 100%; background: white; border-radius: 5px;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
+  <thead>
     <tr style="background: #C8E6C9;">
       <th style="padding: 12px; text-align: left;">Key Type</th>
       <th style="padding: 12px;">TTL Strategy</th>
       <th style="padding: 12px;">Example TTL</th>
       <th style="padding: 12px;">Reasoning</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px;"><strong>Expensive queries</strong></td>
-      <td style="padding: 10px;">4x base</td>
-      <td style="padding: 10px; color: #2E7D32;">4 hours</td>
-      <td style="padding: 10px;">Maximize cost savings</td>
+      <td data-label="Key Type"><strong>Expensive queries</strong></td>
+      <td data-label="TTL Strategy">4x base</td>
+      <td data-label="Example TTL">4 hours</td>
+      <td data-label="Reasoning">Maximize cost savings</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px;"><strong>Frequently updated</strong></td>
-      <td style="padding: 10px;">0.25x base</td>
-      <td style="padding: 10px; color: #FF5722;">15 minutes</td>
-      <td style="padding: 10px;">Minimize staleness</td>
+      <td data-label="Key Type"><strong>Frequently updated</strong></td>
+      <td data-label="TTL Strategy">0.25x base</td>
+      <td data-label="Example TTL">15 minutes</td>
+      <td data-label="Reasoning">Minimize staleness</td>
     </tr>
     <tr>
-      <td style="padding: 10px;"><strong>Periodic access</strong></td>
-      <td style="padding: 10px;">1.5x period</td>
-      <td style="padding: 10px; color: #2196F3;">Variable</td>
-      <td style="padding: 10px;">Match access pattern</td>
+      <td data-label="Key Type"><strong>Periodic access</strong></td>
+      <td data-label="TTL Strategy">1.5x period</td>
+      <td data-label="Example TTL">Variable</td>
+      <td data-label="Reasoning">Match access pattern</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px;"><strong>Default</strong></td>
-      <td style="padding: 10px;">1x base</td>
-      <td style="padding: 10px;">1 hour</td>
-      <td style="padding: 10px;">Balanced approach</td>
+      <td data-label="Key Type"><strong>Default</strong></td>
+      <td data-label="TTL Strategy">1x base</td>
+      <td data-label="Example TTL">1 hour</td>
+      <td data-label="Reasoning">Balanced approach</td>
     </tr>
-  </table>
+  </tbody>
+</table>
 </div>
 
 <div class="key-insight" style="margin-top: 15px;">
@@ -394,7 +406,8 @@ Pareto: 20% of keys = 80% of requests
 <h4>📈 Memory vs Hit Rate Trade-offs</h4>
 
 <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <table style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <thead>
     <tr style="background: #C8E6C9;">
       <th style="padding: 12px;">Cache Size</th>
       <th style="padding: 12px;">Hit Rate</th>
@@ -402,35 +415,38 @@ Pareto: 20% of keys = 80% of requests
       <th style="padding: 12px;">Benefit/month</th>
       <th style="padding: 12px;">Net Value</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>1GB</strong></td>
-      <td style="padding: 10px; text-align: center;">60%</td>
-      <td style="padding: 10px; text-align: center; color: #4CAF50;">$10</td>
-      <td style="padding: 10px; text-align: center;">$600</td>
-      <td style="padding: 10px; text-align: center; color: #2E7D32; font-weight: bold;">+$590</td>
+      <td data-label="Cache Size"><strong>1GB</strong></td>
+      <td data-label="Hit Rate">60%</td>
+      <td data-label="Cost/month">$10</td>
+      <td data-label="Benefit/month">$600</td>
+      <td data-label="Net Value">+$590</td>
     </tr>
     <tr style="background: #F1F8E9;">
-      <td style="padding: 10px; text-align: center;"><strong>10GB</strong></td>
-      <td style="padding: 10px; text-align: center;">85%</td>
-      <td style="padding: 10px; text-align: center; color: #66BB6A;">$100</td>
-      <td style="padding: 10px; text-align: center;">$850</td>
-      <td style="padding: 10px; text-align: center; color: #2E7D32; font-weight: bold;">+$750</td>
+      <td data-label="Cache Size"><strong>10GB</strong></td>
+      <td data-label="Hit Rate">85%</td>
+      <td data-label="Cost/month">$100</td>
+      <td data-label="Benefit/month">$850</td>
+      <td data-label="Net Value">+$750</td>
     </tr>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>100GB</strong></td>
-      <td style="padding: 10px; text-align: center;">95%</td>
-      <td style="padding: 10px; text-align: center; color: #FF9800;">$1,000</td>
-      <td style="padding: 10px; text-align: center;">$950</td>
-      <td style="padding: 10px; text-align: center; color: #F44336; font-weight: bold;">-$50</td>
+      <td data-label="Cache Size"><strong>100GB</strong></td>
+      <td data-label="Hit Rate">95%</td>
+      <td data-label="Cost/month">$1,000</td>
+      <td data-label="Benefit/month">$950</td>
+      <td data-label="Net Value">-$50</td>
     </tr>
     <tr style="background: #FFEBEE;">
-      <td style="padding: 10px; text-align: center;"><strong>1TB</strong></td>
-      <td style="padding: 10px; text-align: center;">99%</td>
-      <td style="padding: 10px; text-align: center; color: #F44336;">$10,000</td>
-      <td style="padding: 10px; text-align: center;">$990</td>
-      <td style="padding: 10px; text-align: center; color: #B71C1C; font-weight: bold;">-$9,010</td>
+      <td data-label="Cache Size"><strong>1TB</strong></td>
+      <td data-label="Hit Rate">99%</td>
+      <td data-label="Cost/month">$10,000</td>
+      <td data-label="Benefit/month">$990</td>
+      <td data-label="Net Value">-$9,010</td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="text-align: center; margin-bottom: 20px;">
     <svg viewBox="0 0 500 300" style="width: 100%; max-width: 500px;">
@@ -516,7 +532,7 @@ ROI = ((R × H × B) + (R × H × L × V) - C) / C × 100%
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
     <div style="background: white; padding: 15px; border-radius: 5px;">
       <h6 style="margin: 0 0 10px 0; color: #C62828;">Traffic & Performance</h6>
-      <table style="width: 100%;">
+      <table class="responsive-table" style="width: 100%;">
         <tr><td>Requests/month:</td><td style="text-align: right; font-weight: bold;">100M</td></tr>
         <tr><td>Hit rate:</td><td style="text-align: right; font-weight: bold; color: #4CAF50;">90%</td></tr>
         <tr><td>Latency reduction:</td><td style="text-align: right; font-weight: bold;">50ms</td></tr>
@@ -525,7 +541,7 @@ ROI = ((R × H × B) + (R × H × L × V) - C) / C × 100%
     
     <div style="background: white; padding: 15px; border-radius: 5px;">
       <h6 style="margin: 0 0 10px 0; color: #C62828;">Cost Parameters</h6>
-      <table style="width: 100%;">
+      <table class="responsive-table" style="width: 100%;">
         <tr><td>Backend cost:</td><td style="text-align: right;">$0.001/req</td></tr>
         <tr><td>Cache cost:</td><td style="text-align: right;">$2,000/mo</td></tr>
         <tr><td>Latency value:</td><td style="text-align: right;">$0.00001/ms</td></tr>

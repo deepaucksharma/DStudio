@@ -9,7 +9,7 @@ status: complete
 last_updated: 2025-07-20
 ---
 
-## 🟢 Intuition: The Restaurant Kitchen Problem (5 min read)
+## Intuition: The Restaurant Kitchen Problem (5 min read)
 
 Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, salads, desserts. One chef trying to cook everything would create a massive bottleneck. Instead, they organize:
 
@@ -18,7 +18,7 @@ Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, s
 - **Pastry station**: Makes desserts
 - **Expeditor**: Coordinates and quality checks
 
-This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) - the reality that operations happen independently in time.
+This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) - the reality that operations happen independently in time.
 
 💡 **Key Insight**: The best kitchens aren't the ones with the most chefs, but the ones with the smartest work distribution.
 
@@ -34,11 +34,11 @@ You're solving the same fundamental problem: how to split work efficiently acros
 
 ---
 
-## 📋 Questions This Pillar Answers
+## Questions This Pillar Answers
 
 ---
 
-## 🟡 Foundation: Understanding Work Distribution (15 min read)
+## Foundation: Understanding Work Distribution (15 min read)
 
 ## The Central Question
 
@@ -48,13 +48,13 @@ How do you break computation into pieces that can run on different machines whil
 
 ## The Fundamental Trade-offs
 
-!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Law of Economic Reality](../../part1-axioms/law7-economics/index.md))
+!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Law of Economic Reality](/part1-axioms/law7-economics/))
     Every choice in work distribution involves trade-offs:
 
     **Parallelism vs Coordination Overhead**
     - More workers = More communication needed
     - Amdahl's Law: Serial portions limit speedup
-    - Eventually coordination costs exceed computation savings (see [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md))
+    - Eventually coordination costs exceed computation savings (see [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/))
 
     **Latency vs Throughput**
     - Batching improves throughput but increases latency
@@ -224,7 +224,7 @@ gantt
     Store All           :active, par5, after par3 par4, 200
 ```
 
-**Performance Comparison:** (demonstrates [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) in action)
+**Performance Comparison:** (demonstrates [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) in action)
 
 | Approach | Total Time | Speedup | Resource Usage |
 |----------|------------|---------|----------------|
@@ -264,7 +264,7 @@ P = Parallel fraction (can be parallelized)
 N = Number of processors
 
 Example:
-If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of Emergent Chaos](../../part1-axioms/law3-emergence/index.md):
+If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of Emergent Chaos](/part1-axioms/law3-emergence/):
 - With 10 processors: Speedup = 5.3x (not 10x!)
 - With 100 processors: Speedup = 9.2x (not 100x!)
 - With ∞ processors: Speedup = 10x (hard limit)
@@ -272,7 +272,7 @@ If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of
 
 ---
 
-## 🔴 Deep Dive: Engineering Work Distribution (30 min read)
+## Deep Dive: Engineering Work Distribution (30 min read)
 
 ## Real Failure: The Netflix Encoding Disaster
 
@@ -390,7 +390,7 @@ sequenceDiagram
     R-->>M: Results[]
 ```
 
-**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md))
+**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/))
 
 | Aspect | Description | Use When |
 |--------|-------------|----------|
@@ -632,7 +632,7 @@ graph LR
 
 ## The Coordination Tax
 
-Every distributed system pays a coordination tax (detailed in [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md)):
+Every distributed system pays a coordination tax (detailed in [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/)):
 
 ## Load Balancing Strategies
 
@@ -644,7 +644,7 @@ Every distributed system pays a coordination tax (detailed in [Law 5: Law of Dis
 
 #### Universal Scalability Law
 
-Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Law of Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/index.md)):
+Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)):
 
 <div class="formula-box">
 <h4>Universal Scalability Law (USL)</h4>
@@ -748,7 +748,7 @@ Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing t
 </div>
 #### Queue Theory for Work Distribution
 
-Little's Law provides fundamental insights (see also [Quantitative Analysis: Queueing Theory](../../quantitative/queueing-models.md)):
+Little's Law provides fundamental insights (see also [Quantitative Analysis: Queueing Theory](/quantitative/queueing-models)):
 
 <div class="formula-box">
 <h4>Little's Law</h4>
@@ -1801,25 +1801,25 @@ flowchart TB
 ## Related Resources
 
 ### Foundational Laws
-- [Law 1: Law of Correlated Failure](../../part1-axioms/law1-failure/index.md) - Handling worker failures
-- [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) - Time and causality in distributed work
-- [Law 3: Law of Emergent Chaos](../../part1-axioms/law3-emergence/index.md) - Complex behavior from simple rules
-- [Law 4: Law of Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/index.md) - Resource limits and scaling
-- [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md) - Managing distributed workers
-- [Law 7: Law of Economic Reality](../../part1-axioms/law7-economics/index.md) - Cost of distribution
+- [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure/) - Handling worker failures
+- [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time and causality in distributed work
+- [Law 3: Law of Emergent Chaos](/part1-axioms/law3-emergence/) - Complex behavior from simple rules
+- [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - Resource limits and scaling
+- [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/) - Managing distributed workers
+- [Law 7: Law of Economic Reality](/part1-axioms/law7-economics/) - Cost of distribution
 
 ### Related Pillars
-- [Pillar 2: State](../state/index.md) - Managing distributed computation state
-- [Pillar 3: Truth](../truth/index.md) - Consensus on work completion
-- [Pillar 4: Control](../control/index.md) - Orchestrating distributed work
+- [Pillar 2: State](/part2-pillars/state/) - Managing distributed computation state
+- [Pillar 3: Truth](/part2-pillars/truth/) - Consensus on work completion
+- [Pillar 4: Control](/part2-pillars/control/) - Orchestrating distributed work
 
 ### Implementation Patterns
-- [MapReduce Pattern](../../case-studies/mapreduce.md) - Classic work distribution
+- [MapReduce Pattern](/case-studies/mapreduce) - Classic work distribution
 - Service Mesh (Coming Soon) - Modern microservice coordination
-- [Event Streaming](../../patterns/queues-streaming.md) - Async work distribution
-- [Circuit Breaker](../../patterns/circuit-breaker.md) - Handling worker failures
+- [Event Streaming](/patterns/queues-streaming) - Async work distribution
+- [Circuit Breaker](/patterns/circuit-breaker) - Handling worker failures
 
 ### Real-World Case Studies
-- [Netflix: Chaos Engineering](../../case-studies/netflix-chaos.md) - Resilient work distribution
-- [Google: MapReduce](../../case-studies/mapreduce.md) - Planet-scale processing
-- [Apache Spark](../../case-studies/apache-spark.md) - In-memory distributed computing
+- [Netflix: Chaos Engineering](/case-studies/netflix-chaos) - Resilient work distribution
+- [Google: MapReduce](/case-studies/mapreduce) - Planet-scale processing
+- [Apache Spark](/case-studies/apache-spark) - In-memory distributed computing

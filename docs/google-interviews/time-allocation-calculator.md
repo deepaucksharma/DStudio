@@ -173,7 +173,7 @@ graph LR
 ### By Target Company
 
 <div class="company-allocation">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Company</th>
@@ -185,46 +185,46 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Google</strong></td>
-<td>30%</td>
-<td>50%</td>
-<td>10%</td>
-<td>10% - Scale & Algorithms</td>
+<td data-label="Company"><strong>Google</strong></td>
+<td data-label="Coding">30%</td>
+<td data-label="System Design">50%</td>
+<td data-label="Behavioral">10%</td>
+<td data-label="Special Focus">10% - Scale & Algorithms</td>
 </tr>
 <tr>
-<td><strong>Amazon</strong></td>
-<td>25%</td>
-<td>35%</td>
-<td>30%</td>
-<td>10% - Leadership Principles</td>
+<td data-label="Company"><strong>Amazon</strong></td>
+<td data-label="Coding">25%</td>
+<td data-label="System Design">35%</td>
+<td data-label="Behavioral">30%</td>
+<td data-label="Special Focus">10% - Leadership Principles</td>
 </tr>
 <tr>
-<td><strong>Meta</strong></td>
-<td>35%</td>
-<td>40%</td>
-<td>15%</td>
-<td>10% - Product Sense</td>
+<td data-label="Company"><strong>Meta</strong></td>
+<td data-label="Coding">35%</td>
+<td data-label="System Design">40%</td>
+<td data-label="Behavioral">15%</td>
+<td data-label="Special Focus">10% - Product Sense</td>
 </tr>
 <tr>
-<td><strong>Microsoft</strong></td>
-<td>30%</td>
-<td>40%</td>
-<td>20%</td>
-<td>10% - Cloud/Enterprise</td>
+<td data-label="Company"><strong>Microsoft</strong></td>
+<td data-label="Coding">30%</td>
+<td data-label="System Design">40%</td>
+<td data-label="Behavioral">20%</td>
+<td data-label="Special Focus">10% - Cloud/Enterprise</td>
 </tr>
 <tr>
-<td><strong>Apple</strong></td>
-<td>35%</td>
-<td>35%</td>
-<td>20%</td>
-<td>10% - Excellence/Details</td>
+<td data-label="Company"><strong>Apple</strong></td>
+<td data-label="Coding">35%</td>
+<td data-label="System Design">35%</td>
+<td data-label="Behavioral">20%</td>
+<td data-label="Special Focus">10% - Excellence/Details</td>
 </tr>
 <tr>
-<td><strong>Netflix</strong></td>
-<td>25%</td>
-<td>55%</td>
-<td>10%</td>
-<td>10% - Scale/Performance</td>
+<td data-label="Company"><strong>Netflix</strong></td>
+<td data-label="Coding">25%</td>
+<td data-label="System Design">55%</td>
+<td data-label="Behavioral">10%</td>
+<td data-label="Special Focus">10% - Scale/Performance</td>
 </tr>
 </tbody>
 </table>

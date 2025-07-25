@@ -68,7 +68,7 @@ class SnowflakeGenerator:
         self.last_timestamp = -1
         self.lock = threading.Lock()
         
-        # Custom epoch (Twitter uses 2010-11-04 01:42:54 UTC)
+# Custom epoch (Twitter uses 2010-11-04 01:42:54 UTC)
         self.epoch = 1288834974657
     
     def generate(self):
@@ -81,14 +81,14 @@ class SnowflakeGenerator:
             if timestamp == self.last_timestamp:
                 self.sequence = (self.sequence + 1) & 0xFFF  # 12 bits
                 if self.sequence == 0:
-                    # Sequence overflow, wait for next millisecond
+# Sequence overflow, wait for next millisecond
                     timestamp = self._wait_next_millis(timestamp)
             else:
                 self.sequence = 0
             
             self.last_timestamp = timestamp
             
-            # Combine components
+# Combine components
             id = ((timestamp - self.epoch) << 22) | \
                  (self.node_id << 12) | \
                  self.sequence
@@ -197,20 +197,20 @@ class ULID:
         self.encoding = "0123456789ABCDEFGHJKMNPQRSTVWXYZ"
     
     def generate(self):
-        # 48-bit timestamp (milliseconds)
+# 48-bit timestamp (milliseconds)
         timestamp = int(time.time() * 1000)
         
-        # 80-bit randomness
+# 80-bit randomness
         randomness = random.getrandbits(80)
         
-        # Encode to base32
+# Encode to base32
         timestamp_str = self._encode_timestamp(timestamp)
         random_str = self._encode_randomness(randomness)
         
         return timestamp_str + random_str
     
     def _encode_timestamp(self, timestamp):
-        # Convert to 10-character base32 string
+# Convert to 10-character base32 string
         result = ""
         for _ in range(10):
             result = self.encoding[timestamp % 32] + result
@@ -218,7 +218,7 @@ class ULID:
         return result
     
     def _encode_randomness(self, randomness):
-        # Convert to 16-character base32 string
+# Convert to 16-character base32 string
         result = ""
         for _ in range(16):
             result = self.encoding[randomness % 32] + result
@@ -312,7 +312,7 @@ class FlakeID:
         self.last_timestamp = 0
     
     def _generate_worker_id(self):
-        # Combine hostname and process ID
+# Combine hostname and process ID
         hostname = socket.gethostname()
         pid = os.getpid()
         combined = f"{hostname}-{pid}"
@@ -327,7 +327,7 @@ class FlakeID:
         if timestamp == self.last_timestamp:
             self.sequence = (self.sequence + 1) & 0xFFF
             if self.sequence == 0:
-                # Wait for next millisecond
+# Wait for next millisecond
                 while timestamp <= self.last_timestamp:
                     timestamp = int(time.time() * 1000)
         else:
@@ -335,8 +335,8 @@ class FlakeID:
         
         self.last_timestamp = timestamp
         
-        # 128-bit ID structure
-        # 64-bit timestamp + 16-bit worker + 12-bit sequence + 36-bit random
+# 128-bit ID structure
+# 64-bit timestamp + 16-bit worker + 12-bit sequence + 36-bit random
         random_bits = os.urandom(5)  # 40 bits, use 36
         
         high_64 = timestamp << 16 | self.worker_id
@@ -366,7 +366,7 @@ def benchmark_generator(generator_class, iterations=1000000):
         for _ in range(count):
             generator.generate()
     
-    # Multi-threaded test
+# Multi-threaded test
     with ThreadPoolExecutor(max_workers=10) as executor:
         batch_size = iterations // 10
         futures = [
@@ -435,7 +435,7 @@ class ShortIDGenerator:
         self.last_timestamp = 0
     
     def generate_short_id(self):
-        # Generate Snowflake-style ID
+# Generate Snowflake-style ID
         timestamp = int(time.time() * 1000)
         
         if timestamp == self.last_timestamp:
@@ -444,15 +444,15 @@ class ShortIDGenerator:
             self.counter = 0
             self.last_timestamp = timestamp
         
-        # Compact ID: 32-bit timestamp + 16-bit node + 16-bit counter
+# Compact ID: 32-bit timestamp + 16-bit node + 16-bit counter
         compact_id = ((timestamp & 0xFFFFFFFF) << 32) | \
                     ((self.node_id & 0xFFFF) << 16) | \
                     (self.counter & 0xFFFF)
         
-        # Encode to base62
+# Encode to base62
         short_id = Base62Encoder.encode(compact_id)
         
-        # Ensure minimum length for consistency
+# Ensure minimum length for consistency
         while len(short_id) < self.min_length:
             short_id = "0" + short_id
         
@@ -477,16 +477,16 @@ class CollisionSafeGenerator:
     
     def generate_with_collision_check(self, max_retries=3):
         for attempt in range(max_retries):
-            # Generate ID using primary method
+# Generate ID using primary method
             candidate_id = self.primary.generate()
             
-            # Check for collision
+# Check for collision
             if not self.store.exists(f"id:{candidate_id}"):
-                # Reserve the ID
+# Reserve the ID
                 self.store.setex(f"id:{candidate_id}", 86400, "reserved")
                 return candidate_id
             
-            # Collision detected, add entropy
+# Collision detected, add entropy
             self.primary.sequence += hash(str(attempt)) & 0xFF
         
         raise Exception("Failed to generate unique ID after retries")
@@ -523,7 +523,7 @@ class HierarchicalID:
             self.sequence = 0
             self.last_timestamp = timestamp
         
-        # 64-bit hierarchical ID
+# 64-bit hierarchical ID
         id = (self.datacenter_id << 56) | \
              (self.rack_id << 48) | \
              (self.node_id << 40) | \
@@ -552,7 +552,7 @@ class TimeBucketedID:
         
         self.bucket_sequence += 1
         
-        # ID includes bucket number for better sharding
+# ID includes bucket number for better sharding
         id = (bucket << 32) | (self.node_id << 16) | self.bucket_sequence
         return id
 ```
@@ -596,8 +596,8 @@ class TimeBucketedID:
 ## Related Patterns
 - [Time Series IDs](time-series-ids.md) - Time-based ID variations
 - [Sharding](sharding.md) - ID-based data partitioning
-- [Consistent Hashing](../case-studies/consistent-hashing.md) - ID distribution
-- [URL Shortener](../case-studies/url-shortener.md) - Complete implementation
+- [Consistent Hashing](/case-studies/consistent-hashing) - ID distribution
+- [URL Shortener](/case-studies/url-shortener) - Complete implementation
 
 ## References
 - [Twitter Snowflake](https://blog.twitter.com/engineering/en_us/a/2010/announcing-snowflake.html)

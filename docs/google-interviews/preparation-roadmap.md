@@ -40,7 +40,7 @@ gantt
 ## Preparation Strategy Matrix
 
 <div class="strategy-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Your Situation</th>
@@ -52,32 +52,32 @@ gantt
 </thead>
 <tbody>
 <tr>
-<td><strong>New Grad<br/>(0-2 years)</strong></td>
-<td>12-16 weeks</td>
-<td>• Fundamentals (40%)<br/>• Coding (30%)<br/>• System Design (30%)</td>
-<td>3-4 hours</td>
-<td>65-75%</td>
+<td data-label="Your Situation"><strong>New Grad<br/>(0-2 years)</strong></td>
+<td data-label="Recommended Timeline">12-16 weeks</td>
+<td data-label="Focus Areas">• Fundamentals (40%)<br/>• Coding (30%)<br/>• System Design (30%)</td>
+<td data-label="Daily Commitment">3-4 hours</td>
+<td data-label="Success Rate">65-75%</td>
 </tr>
 <tr>
-<td><strong>Mid-Level<br/>(3-5 years)</strong></td>
-<td>8-12 weeks</td>
-<td>• System Design (40%)<br/>• Coding (30%)<br/>• Behavioral (30%)</td>
-<td>2-3 hours</td>
-<td>70-80%</td>
+<td data-label="Your Situation"><strong>Mid-Level<br/>(3-5 years)</strong></td>
+<td data-label="Recommended Timeline">8-12 weeks</td>
+<td data-label="Focus Areas">• System Design (40%)<br/>• Coding (30%)<br/>• Behavioral (30%)</td>
+<td data-label="Daily Commitment">2-3 hours</td>
+<td data-label="Success Rate">70-80%</td>
 </tr>
 <tr>
-<td><strong>Senior<br/>(5+ years)</strong></td>
-<td>6-8 weeks</td>
-<td>• System Design (50%)<br/>• Leadership (25%)<br/>• Coding (25%)</td>
-<td>2 hours</td>
-<td>75-85%</td>
+<td data-label="Your Situation"><strong>Senior<br/>(5+ years)</strong></td>
+<td data-label="Recommended Timeline">6-8 weeks</td>
+<td data-label="Focus Areas">• System Design (50%)<br/>• Leadership (25%)<br/>• Coding (25%)</td>
+<td data-label="Daily Commitment">2 hours</td>
+<td data-label="Success Rate">75-85%</td>
 </tr>
 <tr>
-<td><strong>Already at FAANG</strong></td>
-<td>4-6 weeks</td>
-<td>• Company-specific (40%)<br/>• System Design (40%)<br/>• Behavioral (20%)</td>
-<td>1-2 hours</td>
-<td>80-90%</td>
+<td data-label="Your Situation"><strong>Already at FAANG</strong></td>
+<td data-label="Recommended Timeline">4-6 weeks</td>
+<td data-label="Focus Areas">• Company-specific (40%)<br/>• System Design (40%)<br/>• Behavioral (20%)</td>
+<td data-label="Daily Commitment">1-2 hours</td>
+<td data-label="Success Rate">80-90%</td>
 </tr>
 </tbody>
 </table>
@@ -266,7 +266,7 @@ graph LR
 ### 🗓 Phase 4: Mock Interviews (Weeks 10-11)
 
 <div class="mock-schedule">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Week</th>
@@ -279,20 +279,20 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Week 10</strong></td>
-<td>Self Mock<br/>(Record)</td>
-<td>Review & Fix</td>
-<td>Peer Mock<br/>(Friend)</td>
-<td>Review & Fix</td>
-<td>Platform Mock<br/>(Pramp)</td>
+<td data-label="Week"><strong>Week 10</strong></td>
+<td data-label="Monday">Self Mock<br/>(Record)</td>
+<td data-label="Tuesday">Review & Fix</td>
+<td data-label="Wednesday">Peer Mock<br/>(Friend)</td>
+<td data-label="Thursday">Review & Fix</td>
+<td data-label="Friday">Platform Mock<br/>(Pramp)</td>
 </tr>
 <tr>
-<td><strong>Week 11</strong></td>
-<td>Expert Mock<br/>(Paid)</td>
-<td>Implement Feedback</td>
-<td>Company Mock<br/>(Target)</td>
-<td>Polish Weak Areas</td>
-<td>Final Mock<br/>(All topics)</td>
+<td data-label="Week"><strong>Week 11</strong></td>
+<td data-label="Monday">Expert Mock<br/>(Paid)</td>
+<td data-label="Tuesday">Implement Feedback</td>
+<td data-label="Wednesday">Company Mock<br/>(Target)</td>
+<td data-label="Thursday">Polish Weak Areas</td>
+<td data-label="Friday">Final Mock<br/>(All topics)</td>
 </tr>
 </tbody>
 </table>
@@ -469,7 +469,7 @@ gantt
 ### 4-Week Standard Path
 
 <div class="path-comparison">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Week</th>
@@ -480,28 +480,28 @@ gantt
 </thead>
 <tbody>
 <tr>
-<td><strong>Week 1</strong></td>
-<td>Fundamentals</td>
-<td>• Master basics<br/>• 5 easy systems<br/>• Read 3 papers</td>
-<td>3 hours</td>
+<td data-label="Week"><strong>Week 1</strong></td>
+<td data-label="Focus">Fundamentals</td>
+<td data-label="Goals">• Master basics<br/>• 5 easy systems<br/>• Read 3 papers</td>
+<td data-label="Hours/Day">3 hours</td>
 </tr>
 <tr>
-<td><strong>Week 2</strong></td>
-<td>Patterns & Practice</td>
-<td>• 10 patterns<br/>• 8 medium systems<br/>• First mock</td>
-<td>3 hours</td>
+<td data-label="Week"><strong>Week 2</strong></td>
+<td data-label="Focus">Patterns & Practice</td>
+<td data-label="Goals">• 10 patterns<br/>• 8 medium systems<br/>• First mock</td>
+<td data-label="Hours/Day">3 hours</td>
 </tr>
 <tr>
-<td><strong>Week 3</strong></td>
-<td>Advanced & Company</td>
-<td>• Complex systems<br/>• Company tech<br/>• 5 mocks</td>
-<td>4 hours</td>
+<td data-label="Week"><strong>Week 3</strong></td>
+<td data-label="Focus">Advanced & Company</td>
+<td data-label="Goals">• Complex systems<br/>• Company tech<br/>• 5 mocks</td>
+<td data-label="Hours/Day">4 hours</td>
 </tr>
 <tr>
-<td><strong>Week 4</strong></td>
-<td>Polish & Perfect</td>
-<td>• Weak areas<br/>• Final mocks<br/>• Mental prep</td>
-<td>2 hours</td>
+<td data-label="Week"><strong>Week 4</strong></td>
+<td data-label="Focus">Polish & Perfect</td>
+<td data-label="Goals">• Weak areas<br/>• Final mocks<br/>• Mental prep</td>
+<td data-label="Hours/Day">2 hours</td>
 </tr>
 </tbody>
 </table>

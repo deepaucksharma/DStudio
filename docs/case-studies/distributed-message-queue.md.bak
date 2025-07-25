@@ -21,7 +21,7 @@ last_updated: 2025-07-21
 
 Message queues enable async communication and service decoupling. Handle 1M+ msg/sec with durability, configurable delivery, horizontal scaling, partition ordering, consumer groups.
 
-## 🏗️ Architecture Evolution
+## Architecture Evolution
 
 ### Phase 1: Simple In-Memory Queue (2008-2010)
 ```text
@@ -115,10 +115,10 @@ graph TB
 - Pagecache usage
 
 **Patterns & Pillars Applied**:
-- 🔧 Pattern: [Leader-Follower Replication](../patterns/leader-follower.md)
-- 🔧 Pattern: [Partitioning](../patterns/sharding.md) - Topic partitions
-- 🏛️ Pillar: [State Distribution](../part2-pillars/state/index.md) - Distributed logs
-- 🏛️ Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Ordered delivery
+- Pattern: [Leader-Follower Replication](/patterns/leader-follower)
+- Pattern: [Partitioning](/patterns/sharding) - Topic partitions
+- 🏛 Pillar: [State Distribution](/part2-pillars/state/) - Distributed logs
+- 🏛 Pillar: [Truth Distribution](/part2-pillars/truth/) - Ordered delivery
 
 ### Phase 4: Modern Streaming Platform (2014-Present)
 
@@ -279,10 +279,10 @@ Benefits:
 ```python
 def get_partition(key, num_partitions):
     if key is None:
-        # Round-robin for keyless messages
+# Round-robin for keyless messages
         return round_robin_counter % num_partitions
     else:
-        # Hash-based partitioning for keyed messages
+# Hash-based partitioning for keyed messages
         return hash(key) % num_partitions
 ```
 
@@ -397,7 +397,7 @@ try {
 }
 ```
 
-## 📊 Core Components Deep Dive
+## Core Components Deep Dive
 
 ### 1. Log-Structured Storage Engine
 
@@ -411,7 +411,7 @@ class LogSegment:
         self.index_file = f"{log_dir}/{base_offset}.index"
         self.timeindex_file = f"{log_dir}/{base_offset}.timeindex"
         
-        # Memory-mapped files for performance
+# Memory-mapped files for performance
         self.log_mmap = None
         self.index_mmap = None
         self.current_position = 0
@@ -421,7 +421,7 @@ class LogSegment:
         """Append messages to log segment"""
         batch = MessageBatch()
         
-        # Add messages to batch
+# Add messages to batch
         for msg in messages:
             batch.add(
                 offset=self.current_offset,
@@ -432,15 +432,15 @@ class LogSegment:
             )
             self.current_offset += 1
             
-        # Compress batch
+# Compress batch
         compressed = self._compress_batch(batch)
         
-        # Write to log file
+# Write to log file
         start_position = self.current_position
         bytes_written = await self._write_to_log(compressed)
         self.current_position += bytes_written
         
-        # Update indices
+# Update indices
         await self._update_indices(
             batch.first_offset,
             batch.last_offset,
@@ -465,22 +465,22 @@ class ReplicationManager:
         
     async def become_leader(self, topic_partition: TopicPartition):
         """Handle leader election"""
-        # 1. Stop fetching as follower
+# 1. Stop fetching as follower
         if topic_partition in self.replica_fetchers:
             await self.replica_fetchers[topic_partition].stop()
             del self.replica_fetchers[topic_partition]
             
-        # 2. Initialize leader state
+# 2. Initialize leader state
         leader_replica = LeaderReplica(
             topic_partition,
             self.broker_id
         )
         self.leader_replicas[topic_partition] = leader_replica
         
-        # 3. Start accepting produces
+# 3. Start accepting produces
         await leader_replica.start_accepting_produces()
         
-        # 4. Wait for ISR to catch up
+# 4. Wait for ISR to catch up
         await leader_replica.wait_for_isr_catchup()
 ```
 
@@ -500,21 +500,21 @@ class ConsumerGroupCoordinator:
     async def handle_join_group(self, member_id: str,
                                metadata: ConsumerMetadata) -> JoinGroupResponse:
         """Handle consumer joining group"""
-        # 1. Add/update member
+# 1. Add/update member
         self.members[member_id] = metadata
         
-        # 2. Trigger rebalance if needed
+# 2. Trigger rebalance if needed
         if self._should_rebalance():
             await self._trigger_rebalance()
             
-        # 3. Elect leader if needed
+# 3. Elect leader if needed
         if not self.leader_id:
             self.leader_id = self._elect_leader()
             
-        # 4. Wait for all members
+# 4. Wait for all members
         await self._wait_for_members()
         
-        # 5. Return response
+# 5. Return response
         return JoinGroupResponse(
             generation_id=self.generation_id,
             leader_id=self.leader_id,
@@ -557,13 +557,13 @@ class ZeroCopyTransfer:
                                 offset: int,
                                 length: int):
         """Transfer log data directly to socket"""
-        # Open log file
+# Open log file
         with open(log_segment.log_file, 'rb') as f:
-            # Seek to offset
+# Seek to offset
             position = log_segment.index.lookup(offset)
             f.seek(position)
             
-            # Use sendfile for zero-copy transfer
+# Use sendfile for zero-copy transfer
             await socket.sendfile(f, position, length)
 ```
 
@@ -703,7 +703,7 @@ kafka-reassign-partitions.sh \
 - Set alerts on increasing lag
 - Investigate root cause (slow processing vs. high load)
 
-## 🎯 Law Mapping & Design Decisions
+## Law Mapping & Design Decisions
 
 ### Comprehensive Design Decision Matrix
 
@@ -720,7 +720,7 @@ kafka-reassign-partitions.sh \
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact
 
-## 🔄 Alternative Architectures
+## Alternative Architectures
 
 ### Alternative 1: Traditional Message Queue (RabbitMQ Style)
 
@@ -843,7 +843,7 @@ graph TB
 - ❌ Storage overhead
 - ❌ Complex operations
 
-## 📊 Performance & Monitoring
+## Performance & Monitoring
 
 ### Key Performance Metrics
 
@@ -853,7 +853,7 @@ class MessageQueueMetrics:
     
     def __init__(self):
         self.metrics = {
-            # Throughput metrics
+# Throughput metrics
             'messages_in_rate': Rate(
                 'mq_messages_in_per_sec',
                 'Messages produced per second'
@@ -863,7 +863,7 @@ class MessageQueueMetrics:
                 'Messages consumed per second'
             ),
             
-            # Latency metrics
+# Latency metrics
             'produce_latency': Histogram(
                 'mq_produce_latency_ms',
                 'Time to produce message',
@@ -875,7 +875,7 @@ class MessageQueueMetrics:
                 buckets=[10, 50, 100, 500, 1000, 5000]
             ),
             
-            # Consumer metrics
+# Consumer metrics
             'consumer_lag': Gauge(
                 'mq_consumer_lag_messages',
                 'Consumer lag in messages',
@@ -915,7 +915,7 @@ graph TB
     end
 ```
 
-## 🔄 Consistency Deep Dive for Message Queues
+## Consistency Deep Dive for Message Queues
 
 ### Consistency Challenges in Distributed Queues
 
@@ -1212,7 +1212,7 @@ graph LR
     PB1 --> BB1 --> CB1
 ```
 
-## 🚨 Failure Scenarios & Recovery
+## Failure Scenarios & Recovery
 
 ### Common Failure Modes
 
@@ -1220,9 +1220,9 @@ graph LR
    ```python
    class BrokerFailureHandler:
        async def handle_broker_failure(self, failed_broker_id: int):
-           # 1. Detect failed broker
+# 1. Detect failed broker
            if not await self.is_broker_alive(failed_broker_id):
-               # 2. Trigger leader election for affected partitions
+# 2. Trigger leader election for affected partitions
                affected_partitions = self.get_broker_partitions(failed_broker_id)
                
                for partition in affected_partitions:
@@ -1234,9 +1234,9 @@ graph LR
    ```python
    class NetworkPartitionHandler:
        async def handle_network_partition(self, partitioned_brokers: List[int]):
-           # 1. Detect split brain
+# 1. Detect split brain
            if self.is_split_brain(partitioned_brokers):
-               # 2. Fence minority partition
+# 2. Fence minority partition
                minority = self.find_minority_partition(partitioned_brokers)
                await self.fence_brokers(minority)
    ```
@@ -1251,7 +1251,7 @@ graph LR
 | Persistent storage | Higher latency | Durability guarantee |
 | Fixed partition count | Rebalancing overhead | Predictable performance |
 
-## 💡 Key Design Insights
+## Key Design Insights
 
 <div class="truth-box">
 <h3>1. 📊 Log is the Core Abstraction</h3>
@@ -1281,29 +1281,29 @@ Separating hot and cold storage enables infinite retention at reasonable cost.
 ## 🔗 Related Concepts & Deep Dives
 
 ### Laws Applied
-- ⏳ **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - Network RTT dominates replication latency
-- ⚖️ **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Partitioning for horizontal scaling
-- ⛓️ **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Replication for fault tolerance
-- 🌪️ **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Producer and consumer parallelism
-- 🧠 **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Consumer group coordination and monitoring
-- 🤯 **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - Simple producer/consumer API
-- 💰 **[Law 7: Economics](../part1-axioms/law7-economics/index.md)** - Cost-effective storage with compression
+- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)** - Network RTT dominates replication latency
+- **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/)** - Partitioning for horizontal scaling
+- **[Law 1: Failure](/part1-axioms/law1-failure/)** - Replication for fault tolerance
+- **[Law 3: Emergence](/part1-axioms/law3-emergence/)** - Producer and consumer parallelism
+- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Consumer group coordination and monitoring
+- **[Law 6: Human-API](/part1-axioms/law6-human-api/)** - Simple producer/consumer API
+- **[Law 7: Economics](/part1-axioms/law7-economics/)** - Cost-effective storage with compression
 
 ### Related Patterns
-- 📨 **[Event-Driven Architecture](../patterns/event-driven.md)** - Kafka as event backbone
-- 📚 **[Event Sourcing](../patterns/event-sourcing.md)** - Log as source of truth
-- 🔄 **[Saga Pattern](../patterns/saga.md)** - Distributed transactions over messaging
-- 🎯 **[CQRS](../patterns/cqrs.md)** - Separate read/write paths with Kafka
+- 📨 **[Event-Driven Architecture](/patterns/event-driven)** - Kafka as event backbone
+- 📚 **[Event Sourcing](/patterns/event-sourcing)** - Log as source of truth
+- **[Saga Pattern](/patterns/saga)** - Distributed transactions over messaging
+- **[CQRS](/patterns/cqrs)** - Separate read/write paths with Kafka
 
 ### Quantitative Models
-- 📊 **[Little's Law](../quantitative/littles-law.md)** - Queue depth and latency relationship
-- 📈 **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for brokers
-- 🚀 **[Universal Scalability Law](../quantitative/universal-scalability.md)** - Coordination overhead in consumer groups
+- **[Little's Law](/quantitative/littles-law)** - Queue depth and latency relationship
+- **[Queueing Theory](/quantitative/queueing-models)** - M/M/c model for brokers
+- **[Universal Scalability Law](/quantitative/universal-scalability)** - Coordination overhead in consumer groups
 
 ### Similar Case Studies
-- 🔄 **[Event Sourcing System](../patterns/event-sourcing.md)** - Using Kafka for event store
-- 📊 **Real-time Analytics (Coming Soon)** - Stream processing with Kafka Streams
-- 🌍 **Multi-Region Replication (Coming Soon)** - Cross-DC messaging
+- **[Event Sourcing System](/patterns/event-sourcing)** - Using Kafka for event store
+- **Real-time Analytics (Coming Soon)** - Stream processing with Kafka Streams
+- **Multi-Region Replication (Coming Soon)** - Cross-DC messaging
 
 ## References
 

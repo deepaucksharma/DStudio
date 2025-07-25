@@ -158,7 +158,7 @@ graph TB
 ## Pillar Trade-offs Matrix
 
 <div class="tradeoff-matrix">
-  <table>
+  <table class="responsive-table">
     <thead>
       <tr>
         <th>Pillar</th>
@@ -169,34 +169,34 @@ graph TB
     </thead>
     <tbody>
       <tr>
-        <td><strong>Work</strong></td>
-        <td>Throughput</td>
-        <td>Latency</td>
-        <td>Batch processing</td>
+        <td data-label="Pillar"><strong>Work</strong></td>
+        <td data-label="Optimize For">Throughput</td>
+        <td data-label="Trade Away">Latency</td>
+        <td data-label="Example">Batch processing</td>
       </tr>
       <tr>
-        <td><strong>State</strong></td>
-        <td>Availability</td>
-        <td>Consistency</td>
-        <td>Eventually consistent DB</td>
+        <td data-label="Pillar"><strong>State</strong></td>
+        <td data-label="Optimize For">Availability</td>
+        <td data-label="Trade Away">Consistency</td>
+        <td data-label="Example">Eventually consistent DB</td>
       </tr>
       <tr>
-        <td><strong>Truth</strong></td>
-        <td>Consistency</td>
-        <td>Availability</td>
-        <td>Strongly consistent DB</td>
+        <td data-label="Pillar"><strong>Truth</strong></td>
+        <td data-label="Optimize For">Consistency</td>
+        <td data-label="Trade Away">Availability</td>
+        <td data-label="Example">Strongly consistent DB</td>
       </tr>
       <tr>
-        <td><strong>Control</strong></td>
-        <td>Visibility</td>
-        <td>Performance</td>
-        <td>Full observability</td>
+        <td data-label="Pillar"><strong>Control</strong></td>
+        <td data-label="Optimize For">Visibility</td>
+        <td data-label="Trade Away">Performance</td>
+        <td data-label="Example">Full observability</td>
       </tr>
       <tr>
-        <td><strong>Intelligence</strong></td>
-        <td>Adaptability</td>
-        <td>Predictability</td>
-        <td>Auto-scaling systems</td>
+        <td data-label="Pillar"><strong>Intelligence</strong></td>
+        <td data-label="Optimize For">Adaptability</td>
+        <td data-label="Trade Away">Predictability</td>
+        <td data-label="Example">Auto-scaling systems</td>
       </tr>
     </tbody>
   </table>

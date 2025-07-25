@@ -36,7 +36,7 @@ flowchart TD
 ## Role-Based Focus Areas
 
 <div class="role-focus-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Your Role</th>
@@ -47,34 +47,34 @@ flowchart TD
 </thead>
 <tbody>
 <tr>
-<td><strong>New Grad</strong></td>
-<td>• Data structures<br/>• Basic patterns<br/>• Simple systems<br/>• Communication</td>
-<td>• Scale basics<br/>• Cloud concepts<br/>• Databases</td>
-<td>• Papers<br/>• Advanced patterns<br/>• ML systems</td>
+<td data-label="Your Role"><strong>New Grad</strong></td>
+<td data-label="Must Master (80% time)">• Data structures<br/>• Basic patterns<br/>• Simple systems<br/>• Communication</td>
+<td data-label="Should Know (15% time)">• Scale basics<br/>• Cloud concepts<br/>• Databases</td>
+<td data-label="Nice to Have (5% time)">• Papers<br/>• Advanced patterns<br/>• ML systems</td>
 </tr>
 <tr>
-<td><strong>Backend Engineer</strong></td>
-<td>• Distributed systems<br/>• Databases<br/>• Microservices<br/>• Performance</td>
-<td>• Frontend basics<br/>• ML pipeline<br/>• Mobile concerns</td>
-<td>• Hardware<br/>• Quantum<br/>• Blockchain</td>
+<td data-label="Your Role"><strong>Backend Engineer</strong></td>
+<td data-label="Must Master (80% time)">• Distributed systems<br/>• Databases<br/>• Microservices<br/>• Performance</td>
+<td data-label="Should Know (15% time)">• Frontend basics<br/>• ML pipeline<br/>• Mobile concerns</td>
+<td data-label="Nice to Have (5% time)">• Hardware<br/>• Quantum<br/>• Blockchain</td>
 </tr>
 <tr>
-<td><strong>Full Stack</strong></td>
-<td>• End-to-end systems<br/>• APIs<br/>• Databases<br/>• Frontend scale</td>
-<td>• ML integration<br/>• DevOps<br/>• Security</td>
-<td>• Low-level<br/>• Embedded<br/>• Research</td>
+<td data-label="Your Role"><strong>Full Stack</strong></td>
+<td data-label="Must Master (80% time)">• End-to-end systems<br/>• APIs<br/>• Databases<br/>• Frontend scale</td>
+<td data-label="Should Know (15% time)">• ML integration<br/>• DevOps<br/>• Security</td>
+<td data-label="Nice to Have (5% time)">• Low-level<br/>• Embedded<br/>• Research</td>
 </tr>
 <tr>
-<td><strong>ML Engineer</strong></td>
-<td>• ML systems<br/>• Data pipelines<br/>• Model serving<br/>• Feature stores</td>
-<td>• Traditional systems<br/>• Databases<br/>• APIs</td>
-<td>• Frontend<br/>• Mobile<br/>• Games</td>
+<td data-label="Your Role"><strong>ML Engineer</strong></td>
+<td data-label="Must Master (80% time)">• ML systems<br/>• Data pipelines<br/>• Model serving<br/>• Feature stores</td>
+<td data-label="Should Know (15% time)">• Traditional systems<br/>• Databases<br/>• APIs</td>
+<td data-label="Nice to Have (5% time)">• Frontend<br/>• Mobile<br/>• Games</td>
 </tr>
 <tr>
-<td><strong>Mobile Engineer</strong></td>
-<td>• Mobile architecture<br/>• Offline sync<br/>• Push systems<br/>• Battery optimization</td>
-<td>• Backend design<br/>• APIs<br/>• CDNs</td>
-<td>• ML systems<br/>• Big data<br/>• Blockchain</td>
+<td data-label="Your Role"><strong>Mobile Engineer</strong></td>
+<td data-label="Must Master (80% time)">• Mobile architecture<br/>• Offline sync<br/>• Push systems<br/>• Battery optimization</td>
+<td data-label="Should Know (15% time)">• Backend design<br/>• APIs<br/>• CDNs</td>
+<td data-label="Nice to Have (5% time)">• ML systems<br/>• Big data<br/>• Blockchain</td>
 </tr>
 </tbody>
 </table>
@@ -209,7 +209,7 @@ radar
 ## Time Investment ROI Matrix
 
 <div class="roi-matrix">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Topic</th>
@@ -221,60 +221,60 @@ radar
 </thead>
 <tbody>
 <tr>
-<td><strong>Load Balancing</strong></td>
-<td>2 hours</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐</td>
-<td>🔥 95%</td>
+<td data-label="Topic"><strong>Load Balancing</strong></td>
+<td data-label="Time Investment">2 hours</td>
+<td data-label="Interview Frequency">⭐⭐⭐⭐⭐</td>
+<td data-label="Difficulty">⭐⭐</td>
+<td data-label="ROI Score">🔥 95%</td>
 </tr>
 <tr>
-<td><strong>Consistent Hashing</strong></td>
-<td>3 hours</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-<td>🔥 90%</td>
+<td data-label="Topic"><strong>Consistent Hashing</strong></td>
+<td data-label="Time Investment">3 hours</td>
+<td data-label="Interview Frequency">⭐⭐⭐⭐⭐</td>
+<td data-label="Difficulty">⭐⭐⭐</td>
+<td data-label="ROI Score">🔥 90%</td>
 </tr>
 <tr>
-<td><strong>Database Sharding</strong></td>
-<td>4 hours</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-<td>🔥 88%</td>
+<td data-label="Topic"><strong>Database Sharding</strong></td>
+<td data-label="Time Investment">4 hours</td>
+<td data-label="Interview Frequency">⭐⭐⭐⭐⭐</td>
+<td data-label="Difficulty">⭐⭐⭐</td>
+<td data-label="ROI Score">🔥 88%</td>
 </tr>
 <tr>
-<td><strong>Caching Strategies</strong></td>
-<td>3 hours</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐</td>
-<td>🔥 92%</td>
+<td data-label="Topic"><strong>Caching Strategies</strong></td>
+<td data-label="Time Investment">3 hours</td>
+<td data-label="Interview Frequency">⭐⭐⭐⭐⭐</td>
+<td data-label="Difficulty">⭐⭐</td>
+<td data-label="ROI Score">🔥 92%</td>
 </tr>
 <tr>
-<td><strong>Message Queues</strong></td>
-<td>3 hours</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐</td>
-<td>✅ 85%</td>
+<td data-label="Topic"><strong>Message Queues</strong></td>
+<td data-label="Time Investment">3 hours</td>
+<td data-label="Interview Frequency">⭐⭐⭐⭐</td>
+<td data-label="Difficulty">⭐⭐</td>
+<td data-label="ROI Score">✅ 85%</td>
 </tr>
 <tr>
-<td><strong>Microservices</strong></td>
-<td>5 hours</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-<td>✅ 75%</td>
+<td data-label="Topic"><strong>Microservices</strong></td>
+<td data-label="Time Investment">5 hours</td>
+<td data-label="Interview Frequency">⭐⭐⭐⭐</td>
+<td data-label="Difficulty">⭐⭐⭐⭐</td>
+<td data-label="ROI Score">✅ 75%</td>
 </tr>
 <tr>
-<td><strong>Consensus Algorithms</strong></td>
-<td>6 hours</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⚡ 60%</td>
+<td data-label="Topic"><strong>Consensus Algorithms</strong></td>
+<td data-label="Time Investment">6 hours</td>
+<td data-label="Interview Frequency">⭐⭐⭐</td>
+<td data-label="Difficulty">⭐⭐⭐⭐⭐</td>
+<td data-label="ROI Score">⚡ 60%</td>
 </tr>
 <tr>
-<td><strong>Blockchain</strong></td>
-<td>8 hours</td>
-<td>⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-<td>❄️ 30%</td>
+<td data-label="Topic"><strong>Blockchain</strong></td>
+<td data-label="Time Investment">8 hours</td>
+<td data-label="Interview Frequency">⭐⭐</td>
+<td data-label="Difficulty">⭐⭐⭐⭐</td>
+<td data-label="ROI Score">❄️ 30%</td>
 </tr>
 </tbody>
 </table>

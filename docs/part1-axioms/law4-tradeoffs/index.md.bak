@@ -9,7 +9,7 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-# Law 4: The Law of Multidimensional Optimization ⚖️
+# Law 4: The Law of Multidimensional Optimization
 
 > System design is not choosing two of three. It's finding acceptable points in an n-dimensional space of trade-offs.
 
@@ -68,22 +68,22 @@ def calculate_trade_off_cost(dimension_improvements):
     """
     costs = {}
     
-    # Example: Improving consistency
+# Example: Improving consistency
     consistency_level = dimension_improvements.get('consistency', 0)
     
-    # Latency cost grows exponentially with consistency
+# Latency cost grows exponentially with consistency
     costs['latency'] = 50 * (2 ** consistency_level)  # ms
     
-    # Availability decreases non-linearly
+# Availability decreases non-linearly
     costs['availability'] = 99.9 - (consistency_level ** 2) * 0.1  # %
     
-    # Cost grows faster than linear
+# Cost grows faster than linear
     costs['infrastructure'] = 1000 * (consistency_level ** 1.5)  # $/month
     
-    # Operational complexity compounds
+# Operational complexity compounds
     costs['ops_burden'] = consistency_level ** 3  # incident hours/month
     
-    # Development velocity suffers
+# Development velocity suffers
     costs['dev_velocity'] = 1 / (1 + consistency_level * 0.5)  # features/sprint
     
     return costs
@@ -108,7 +108,7 @@ class HarvestYieldSystem:
         
     def query_with_harvest_yield_choice(self, query, strategy):
         if strategy == "maximize_yield":
-            # Respond to all queries with partial data
+# Respond to all queries with partial data
             yield_rate = 1.0  # 100% of queries answered
             harvest = self.available_replicas / self.replicas
             return {
@@ -118,7 +118,7 @@ class HarvestYieldSystem:
             }
             
         elif strategy == "maximize_harvest":
-            # Only respond if we can give complete data
+# Only respond if we can give complete data
             if self.available_replicas == self.replicas:
                 return {
                     'yield': 1.0,
@@ -133,12 +133,12 @@ class HarvestYieldSystem:
                 }
                 
         elif strategy == "adaptive":
-            # Different strategies for different queries
+# Different strategies for different queries
             if query.type == "search":
-                # Searches can tolerate partial results
+# Searches can tolerate partial results
                 return self.query_with_harvest_yield_choice(query, "maximize_yield")
             elif query.type == "transaction":
-                # Transactions need full consistency
+# Transactions need full consistency
                 return self.query_with_harvest_yield_choice(query, "maximize_harvest")
 ```
 
@@ -221,14 +221,14 @@ class MultiTenantTradeoffGame:
     def tenant_strategy(self, tenant_id, strategy):
         """Each tenant optimizes for their own needs"""
         if strategy == "aggressive":
-            # Consume maximum resources for best performance
+# Consume maximum resources for best performance
             return {
                 'resource_demand': 500,
                 'latency': 10,  # ms - great for this tenant
                 'cost_share': 0.1  # Try to minimize cost contribution
             }
         elif strategy == "cooperative":
-            # Fair share approach
+# Fair share approach
             return {
                 'resource_demand': 100,
                 'latency': 50,  # ms - acceptable
@@ -237,9 +237,9 @@ class MultiTenantTradeoffGame:
             
     def calculate_nash_equilibrium(self):
         """Find the stable state where no tenant benefits from changing"""
-        # In practice: Everyone chooses 'aggressive'
-        # Result: Tragedy of the commons
-        # Solution: Quotas, rate limits, isolation
+# In practice: Everyone chooses 'aggressive'
+# Result: Tragedy of the commons
+# Solution: Quotas, rate limits, isolation
         pass
 ```
 
@@ -280,7 +280,7 @@ class ParetoOptimalDesign:
                     
                 other_scores = self.evaluate_design(other)
                 
-                # Check if 'other' dominates 'design'
+# Check if 'other' dominates 'design'
                 if all(other_scores[k] >= scores[k] for k in scores) and \
                    any(other_scores[k] > scores[k] for k in scores):
                     dominated = True
@@ -356,28 +356,28 @@ class AdaptiveTradeoffSystem:
         violations = self.check_slo_violations(metrics)
         
         if violations['availability'] > 0.01:
-            # Availability suffering - relax consistency
+# Availability suffering - relax consistency
             self.current_position['consistency'] = 'eventual'
             self.current_position['timeout'] = 500
             
         elif violations['latency_p99'] > 0.05:
-            # Latency suffering - add caching
+# Latency suffering - add caching
             self.current_position['cache_ttl'] = 60
             
         elif violations['cost'] > 0:
-            # Cost too high - reduce replication
+# Cost too high - reduce replication
             self.current_position['replication'] = 2
             
         elif all(v == 0 for v in violations.values()):
-            # Everything fine - can we improve?
+# Everything fine - can we improve?
             self.probe_better_position()
             
     def probe_better_position(self):
         """Carefully try to improve one dimension"""
-        # Gradually increase consistency if we have headroom
+# Gradually increase consistency if we have headroom
         if self.current_position['consistency'] == 'eventual':
             self.current_position['consistency'] = 'causal'
-            # Monitor for impact
+# Monitor for impact
 ```
 
 ## Example: DynamoDB's Tunable Consistency
@@ -416,16 +416,16 @@ def choose_consistency_for_use_case(use_case):
     """Different use cases navigate trade-offs differently"""
     
     if use_case == "user_session":
-        # Sessions need consistency within region
+# Sessions need consistency within region
         return "strongly_consistent"
         
     elif use_case == "product_catalog":
-        # Catalog can be eventually consistent
+# Catalog can be eventually consistent
         return "eventually_consistent"
         
     elif use_case == "inventory_count":
-        # Inventory needs strong consistency for correctness
-        # But only for writes - reads can be eventual
+# Inventory needs strong consistency for correctness
+# But only for writes - reads can be eventual
         return {
             'write': 'strongly_consistent',
             'read': 'eventually_consistent',
@@ -433,7 +433,7 @@ def choose_consistency_for_use_case(use_case):
         }
         
     elif use_case == "analytics_data":
-        # Analytics can tolerate staleness
+# Analytics can tolerate staleness
         return "global_table_eventual"
 ```
 
@@ -471,13 +471,13 @@ class DimensionAwareService:
         }
         
     def handle_request(self, request):
-        # Each request can specify its priorities
+# Each request can specify its priorities
         priorities = request.get_priorities()
         
-        # Configure each dimension based on priorities
+# Configure each dimension based on priorities
         config = self.optimize_configuration(priorities)
         
-        # Execute with optimized configuration
+# Execute with optimized configuration
         return self.execute_with_config(request, config)
 ```
 
@@ -491,7 +491,7 @@ class SpeedDemon:
         self.cache_everything = True
         self.skip_validation = True
         self.no_persistence = True
-        # Fast but incorrect, insecure, and loses data
+# Fast but incorrect, insecure, and loses data
         
 # GOOD: Balanced optimization
 class BalancedService:
@@ -499,7 +499,7 @@ class BalancedService:
         self.cache_policy = "LRU with TTL"
         self.validation_level = "critical_paths"
         self.persistence = "async_with_wal"
-        # Reasonable performance with correctness
+# Reasonable performance with correctness
 ```
 
 ### 3. **Trade-off: Flexibility vs Complexity**
@@ -529,4 +529,4 @@ Every system exists at a point in a vast multidimensional space. The best archit
 - "Service Level Objectives" - Google SRE Book Chapter 4
 - "Multi-Objective Optimization Using Evolutionary Algorithms" - Deb
 
-[**← Previous: Law of Emergent Chaos**](../law3-emergence/index.md) | [**→ Next: Law of Distributed Knowledge**](../law5-epistemology/index.md)
+[**← Previous: Law of Emergent Chaos**](/part1-axioms/law3-emergence/) | [**→ Next: Law of Distributed Knowledge**](/part1-axioms/law5-epistemology/)

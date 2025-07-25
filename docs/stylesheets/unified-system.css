@@ -192,6 +192,12 @@ body {
   background-color: var(--color-bg-primary);
 }
 
+/* Full-width content layout - remove Material's default max-width constraint */
+.md-content {
+  max-width: none !important;
+  width: 100% !important;
+}
+
 /* ==========================================
    3. TYPOGRAPHY SYSTEM
    ========================================== */

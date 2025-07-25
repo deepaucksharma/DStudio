@@ -195,11 +195,11 @@ class AuthenticationPlugin(GatewayPlugin):
         self.excluded_paths = excluded_paths or ['/health', '/metrics']
         
     async def process_request(self, request: Request) -> Optional[Response]:
-        # Skip auth for excluded paths
+# Skip auth for excluded paths
         if request.path in self.excluded_paths:
             return None
             
-        # Extract token
+# Extract token
         auth_header = request.headers.get('Authorization', '')
         if not auth_header.startswith('Bearer '):
             return Response(
@@ -210,10 +210,10 @@ class AuthenticationPlugin(GatewayPlugin):
             
         token = auth_header[7:]  # Remove 'Bearer ' prefix
         
-        # Validate token (simplified)
+# Validate token (simplified)
         try:
             payload = self._validate_jwt(token)
-            # Add user info to request headers for downstream services
+# Add user info to request headers for downstream services
             request.headers['X-User-ID'] = payload['user_id']
             request.headers['X-User-Role'] = payload['role']
             return None  # Continue processing
@@ -228,8 +228,8 @@ class AuthenticationPlugin(GatewayPlugin):
         return response  # No response processing needed
         
     def _validate_jwt(self, token: str) -> Dict:
-        # Simplified JWT validation
-        # In production, use proper JWT library
+# Simplified JWT validation
+# In production, use proper JWT library
         return {'user_id': '123', 'role': 'user'}
 
 # Rate Limiting Plugin
@@ -241,10 +241,10 @@ class RateLimitPlugin(GatewayPlugin):
         self.buckets: Dict[str, List[datetime]] = {}
         
     async def process_request(self, request: Request) -> Optional[Response]:
-        # Get client identifier
+# Get client identifier
         client_id = request.headers.get('X-User-ID', request.client_ip)
         
-        # Clean old entries
+# Clean old entries
         now = datetime.utcnow()
         if client_id in self.buckets:
             self.buckets[client_id] = [
@@ -254,7 +254,7 @@ class RateLimitPlugin(GatewayPlugin):
         else:
             self.buckets[client_id] = []
             
-        # Check rate limit
+# Check rate limit
         if len(self.buckets[client_id]) >= self.requests_per_minute:
             return Response(
                 status_code=429,
@@ -267,10 +267,10 @@ class RateLimitPlugin(GatewayPlugin):
                 body=json.dumps({'error': 'Rate limit exceeded'})
             )
             
-        # Record request
+# Record request
         self.buckets[client_id].append(now)
         
-        # Add rate limit headers
+# Add rate limit headers
         remaining = self.requests_per_minute - len(self.buckets[client_id])
         request.headers['X-RateLimit-Limit'] = str(self.requests_per_minute)
         request.headers['X-RateLimit-Remaining'] = str(remaining)
@@ -289,28 +289,28 @@ class CachingPlugin(GatewayPlugin):
         self.cache: Dict[str, tuple[Response, datetime]] = {}
         
     async def process_request(self, request: Request) -> Optional[Response]:
-        # Only cache GET requests
+# Only cache GET requests
         if request.method != 'GET':
             return None
             
-        # Generate cache key
+# Generate cache key
         cache_key = self._generate_key(request)
         
-        # Check cache
+# Check cache
         if cache_key in self.cache:
             response, timestamp = self.cache[cache_key]
             if datetime.utcnow() - timestamp < timedelta(seconds=self.ttl_seconds):
-                # Cache hit
+# Cache hit
                 response.headers['X-Cache'] = 'HIT'
                 return response
             else:
-                # Expired
+# Expired
                 del self.cache[cache_key]
                 
         return None
         
     async def process_response(self, response: Response) -> Response:
-        # Only cache successful responses
+# Only cache successful responses
         if response.status_code == 200:
             request = response.headers.get('X-Original-Request')
             if request:
@@ -321,7 +321,7 @@ class CachingPlugin(GatewayPlugin):
         return response
         
     def _generate_key(self, request: Request) -> str:
-        # Generate cache key from request
+# Generate cache key from request
         key_parts = [
             request.method,
             request.path,
@@ -349,7 +349,7 @@ class ServiceRegistry:
         if service_name not in self.services:
             return None
             
-        # Find healthy endpoints
+# Find healthy endpoints
         healthy_endpoints = [
             ep for ep in self.services[service_name]
             if self.health_status.get(ep, False)
@@ -358,7 +358,7 @@ class ServiceRegistry:
         if not healthy_endpoints:
             return None
             
-        # Simple round-robin
+# Simple round-robin
         return healthy_endpoints[0]  # In production, implement proper LB
         
     async def health_check(self):
@@ -366,12 +366,12 @@ class ServiceRegistry:
         while True:
             for service, endpoints in self.services.items():
                 for endpoint in endpoints:
-                    # Simplified health check
+# Simplified health check
                     self.health_status[endpoint] = await self._check_endpoint(endpoint)
             await asyncio.sleep(30)  # Check every 30 seconds
             
     async def _check_endpoint(self, endpoint: str) -> bool:
-        # In production, make actual health check request
+# In production, make actual health check request
         return True
 
 # Main API Gateway
@@ -394,19 +394,19 @@ class APIGateway:
         
     async def handle_request(self, request: Request) -> Response:
         """Main request processing pipeline"""
-        # Generate request ID
+# Generate request ID
         self.request_id_counter += 1
         request_id = f"req-{self.request_id_counter}"
         request.headers['X-Request-ID'] = request_id
         
-        # Process request through plugins
+# Process request through plugins
         for plugin in self.plugins:
             response = await plugin.process_request(request)
             if response:
-                # Plugin returned response, short-circuit
+# Plugin returned response, short-circuit
                 return response
                 
-        # Route request
+# Route request
         service_name = self._match_route(request.path)
         if not service_name:
             return Response(
@@ -415,7 +415,7 @@ class APIGateway:
                 body=json.dumps({'error': 'Route not found'})
             )
             
-        # Get service endpoint
+# Get service endpoint
         endpoint = self.service_registry.get_endpoint(service_name)
         if not endpoint:
             return Response(
@@ -424,10 +424,10 @@ class APIGateway:
                 body=json.dumps({'error': 'Service unavailable'})
             )
             
-        # Forward request (simplified)
+# Forward request (simplified)
         response = await self._forward_request(request, endpoint)
         
-        # Process response through plugins
+# Process response through plugins
         for plugin in reversed(self.plugins):
             response = await plugin.process_response(response)
             
@@ -435,7 +435,7 @@ class APIGateway:
         
     def _match_route(self, path: str) -> Optional[str]:
         """Match request path to service"""
-        # Simplified pattern matching
+# Simplified pattern matching
         for pattern, service in self.routes.items():
             if path.startswith(pattern):
                 return service
@@ -443,8 +443,8 @@ class APIGateway:
         
     async def _forward_request(self, request: Request, endpoint: str) -> Response:
         """Forward request to backend service"""
-        # In production, use proper HTTP client
-        # This is simplified for illustration
+# In production, use proper HTTP client
+# This is simplified for illustration
         return Response(
             status_code=200,
             headers={'Content-Type': 'application/json'},
@@ -461,16 +461,16 @@ class AggregationPlugin(GatewayPlugin):
         self.aggregation_rules = aggregation_rules
         
     async def process_request(self, request: Request) -> Optional[Response]:
-        # Check if this is an aggregation endpoint
+# Check if this is an aggregation endpoint
         if request.path in self.aggregation_rules:
-            # Make parallel requests to multiple services
+# Make parallel requests to multiple services
             services = self.aggregation_rules[request.path]
             results = await asyncio.gather(*[
                 self._fetch_from_service(service, request)
                 for service in services
             ])
             
-            # Combine results
+# Combine results
             aggregated = {}
             for service, result in zip(services, results):
                 aggregated[service] = result
@@ -487,7 +487,7 @@ class AggregationPlugin(GatewayPlugin):
         return response
         
     async def _fetch_from_service(self, service: str, request: Request) -> Dict:
-        # In production, make actual service call
+# In production, make actual service call
         return {'data': f'Response from {service}'}
 
 # Circuit Breaker Integration
@@ -505,7 +505,7 @@ class CircuitBreakerPlugin(GatewayPlugin):
         if not service:
             return None
             
-        # Check circuit state
+# Check circuit state
         if service in self.circuit_open:
             if datetime.utcnow() - self.circuit_open[service] < timedelta(seconds=self.timeout):
                 return Response(
@@ -514,7 +514,7 @@ class CircuitBreakerPlugin(GatewayPlugin):
                     body=json.dumps({'error': 'Circuit breaker open'})
                 )
             else:
-                # Reset circuit
+# Reset circuit
                 del self.circuit_open[service]
                 self.failures[service] = 0
                 
@@ -526,15 +526,15 @@ class CircuitBreakerPlugin(GatewayPlugin):
             return response
             
         if response.status_code >= 500:
-            # Record failure
+# Record failure
             self.failures[service] = self.failures.get(service, 0) + 1
             
-            # Open circuit if threshold reached
+# Open circuit if threshold reached
             if self.failures[service] >= self.failure_threshold:
                 self.circuit_open[service] = datetime.utcnow()
                 
         else:
-            # Reset failure count on success
+# Reset failure count on success
             self.failures[service] = 0
             
         return response
@@ -556,13 +556,13 @@ class BFFGateway(APIGateway):
         self.transformers[service] = transformer
         
     async def handle_request(self, request: Request) -> Response:
-        # Add client type header
+# Add client type header
         request.headers['X-Client-Type'] = self.client_type
         
-        # Process normally
+# Process normally
         response = await super().handle_request(request)
         
-        # Apply client-specific transformations
+# Apply client-specific transformations
         service = request.headers.get('X-Target-Service')
         if service in self.transformers:
             response = await self.transformers[service](response)
@@ -574,12 +574,12 @@ def mobile_user_transformer(response: Response) -> Response:
     """Transform user data for mobile clients"""
     data = json.loads(response.body)
     
-    # Remove unnecessary fields for mobile
+# Remove unnecessary fields for mobile
     mobile_data = {
         'id': data.get('id'),
         'name': data.get('name'),
         'avatar_url': data.get('avatar_url'),
-        # Exclude detailed profile data
+# Exclude detailed profile data
     }
     
     response.body = json.dumps(mobile_data)
@@ -602,16 +602,16 @@ class GraphQLGateway:
         
     async def execute_query(self, query: str) -> Dict:
         """Execute GraphQL query"""
-        # Parse query (simplified)
+# Parse query (simplified)
         fields = self._parse_query(query)
         
-        # Execute resolvers in parallel
+# Execute resolvers in parallel
         results = await asyncio.gather(*[
             self.resolvers[field]() for field in fields
             if field in self.resolvers
         ])
         
-        # Build response
+# Build response
         response = {}
         for field, result in zip(fields, results):
             response[field] = result
@@ -619,8 +619,8 @@ class GraphQLGateway:
         return response
         
     def _parse_query(self, query: str) -> List[str]:
-        # Simplified query parsing
-        # In production, use proper GraphQL parser
+# Simplified query parsing
+# In production, use proper GraphQL parser
         return ['user', 'orders', 'recommendations']
 ```
 
@@ -646,7 +646,7 @@ class DynamicRouter:
         services = await self.consul.catalog.services()
         
         for service_name, tags in services.items():
-            # Get healthy instances
+# Get healthy instances
             instances = await self.consul.health.service(
                 service_name, 
                 passing=True
@@ -663,7 +663,7 @@ class DynamicRouter:
         
     async def get_endpoint(self, service_name: str) -> Optional[str]:
         """Get endpoint with auto-refresh"""
-        # Refresh cache if stale
+# Refresh cache if stale
         if datetime.utcnow() - self.last_update > timedelta(seconds=30):
             await self.discover_routes()
             
@@ -671,7 +671,7 @@ class DynamicRouter:
         if not endpoints:
             return None
             
-        # Load balance with weighted round-robin
+# Load balance with weighted round-robin
         return self._weighted_select(endpoints)
 ```
 
@@ -686,20 +686,20 @@ class VersioningPlugin(GatewayPlugin):
         self.version_routes: Dict[str, Dict[str, str]] = {}
         
     async def process_request(self, request: Request) -> Optional[Response]:
-        # Extract version from header or path
+# Extract version from header or path
         version = request.headers.get('API-Version')
         if not version:
-            # Check path: /v2/users -> v2
+# Check path: /v2/users -> v2
             path_parts = request.path.split('/')
             if len(path_parts) > 1 and path_parts[1].startswith('v'):
                 version = path_parts[1]
             else:
                 version = self.default_version
                 
-        # Update routing based on version
+# Update routing based on version
         request.headers['X-API-Version'] = version
         
-        # Validate version
+# Validate version
         if version not in self.version_routes:
             return Response(
                 status_code=400,
@@ -710,7 +710,7 @@ class VersioningPlugin(GatewayPlugin):
         return None
         
     async def process_response(self, response: Response) -> Response:
-        # Add version header to response
+# Add version header to response
         version = response.headers.get('X-API-Version', self.default_version)
         response.headers['API-Version'] = version
         return response
@@ -735,7 +735,7 @@ class VersioningPlugin(GatewayPlugin):
 
 ```yaml
 metrics:
-  # Request Metrics
+# Request Metrics
   - name: gateway_requests_total
     description: Total requests processed
     labels: [method, path, status, client_type]
@@ -750,7 +750,7 @@ metrics:
     type: histogram
     labels: [service, endpoint]
     
-  # Error Metrics
+# Error Metrics
   - name: gateway_errors_total
     description: Total errors by type
     labels: [error_type, service]
@@ -759,7 +759,7 @@ metrics:
     description: Circuit breaker state
     labels: [service, state]
     
-  # Performance Metrics
+# Performance Metrics
   - name: gateway_cache_hit_rate
     description: Cache hit ratio
     labels: [cache_type]
@@ -870,7 +870,7 @@ def calculate_gateway_roi(
 ) -> dict:
     """Calculate ROI of implementing API Gateway"""
     
-    # Cost without gateway
+# Cost without gateway
     without_gateway = {
         'bandwidth': requests_per_day * microservices_count * average_payload_kb * 0.00001,
         'client_development': client_types * microservices_count * 1000,  # Integration cost
@@ -878,7 +878,7 @@ def calculate_gateway_roi(
         'monitoring': microservices_count * 100,  # Per-service monitoring
     }
     
-    # Cost with gateway
+# Cost with gateway
     with_gateway = {
         'gateway_infrastructure': 10000,  # Monthly
         'bandwidth': requests_per_day * average_payload_kb * 0.7 * 0.00001,  # 30% reduction
@@ -886,7 +886,7 @@ def calculate_gateway_roi(
         'maintenance': 5000,  # Monthly
     }
     
-    # Benefits
+# Benefits
     monthly_savings = sum(without_gateway.values()) - sum(with_gateway.values())
     
     return {
@@ -1045,14 +1045,14 @@ POST /circuit-breakers/{service}/reset
 
 ### Patterns
 - Service Mesh (Coming Soon) - Service-to-service communication
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Handling downstream failures
-- [Rate Limiting](../patterns/rate-limiting.md) - Protecting backend services
-- [Saga Pattern](../patterns/saga.md) - Distributed transactions through gateway
+- [Circuit Breaker](/patterns/circuit-breaker) - Handling downstream failures
+- [Rate Limiting](/patterns/rate-limiting) - Protecting backend services
+- [Saga Pattern](/patterns/saga) - Distributed transactions through gateway
 
 ### Laws
-- [Law 6 (Cognitive Load 🤯)](../part1-axioms/law6-human-api/index.md) - API design principles
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md) - Performance implications
-- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md) - Monitoring and tracing
+- [Law 6 (Cognitive Load )](/part1-axioms/law6-human-api/) - API design principles
+- [Law 2 (Asynchronous Reality )](/part1-axioms/law2-asynchrony/) - Performance implications
+- [Law 5 (Distributed Knowledge )](/part1-axioms/law5-epistemology/) - Monitoring and tracing
 
 ### Tools & Technologies
 - **Open Source**: Kong, Zuul, Tyk, Express Gateway

@@ -41,40 +41,40 @@ class TradeoffSpaceExplorer:
         
     def calculate_pareto_frontier(self):
         """Find non-dominated designs"""
-        # TODO: Implement Pareto frontier calculation
-        # A design is dominated if another design is better
-        # in all dimensions
+# TODO: Implement Pareto frontier calculation
+# A design is dominated if another design is better
+# in all dimensions
         for i, design1 in enumerate(self.designs):
             for j, design2 in enumerate(self.designs):
                 if i == j:
                     continue
                     
-                # Check if design2 dominates design1
-                # Implement this logic
+# Check if design2 dominates design1
+# Implement this logic
                 pass
                 
         return [d for d in self.designs if not d['dominated']]
         
     def visualize_2d(self, dim1, dim2):
         """Plot two dimensions with Pareto frontier"""
-        # TODO: Create 2D scatter plot
-        # - Plot all designs
-        # - Highlight Pareto frontier
-        # - Show trade-off curves
+# TODO: Create 2D scatter plot
+# - Plot all designs
+# - Highlight Pareto frontier
+# - Show trade-off curves
         pass
         
     def visualize_3d(self, dim1, dim2, dim3):
         """3D visualization of trade-off space"""
-        # TODO: Create 3D plot
-        # - Use color for 4th dimension
-        # - Show Pareto surface
+# TODO: Create 3D plot
+# - Use color for 4th dimension
+# - Show Pareto surface
         pass
         
     def reduce_dimensions(self):
         """Use PCA to visualize high-dimensional space"""
-        # TODO: Implement PCA reduction
-        # - Preserve variance
-        # - Show contribution of each dimension
+# TODO: Implement PCA reduction
+# - Preserve variance
+# - Show contribution of each dimension
         pass
 ```
 
@@ -147,28 +147,28 @@ class MultiConsistencyKVStore:
         }
         
         if consistency == ConsistencyLevel.EVENTUAL:
-            # TODO: Implement eventual consistency write
-            # - Write to one replica
-            # - Async propagation to others
-            # - Return immediately
+# TODO: Implement eventual consistency write
+# - Write to one replica
+# - Async propagation to others
+# - Return immediately
             pass
             
         elif consistency == ConsistencyLevel.CAUSAL:
-            # TODO: Implement causal consistency
-            # - Track dependencies
-            # - Ensure causal order
+# TODO: Implement causal consistency
+# - Track dependencies
+# - Ensure causal order
             pass
             
         elif consistency == ConsistencyLevel.SEQUENTIAL:
-            # TODO: Implement sequential consistency
-            # - Global order but not real-time
-            # - Use logical timestamps
+# TODO: Implement sequential consistency
+# - Global order but not real-time
+# - Use logical timestamps
             pass
             
         elif consistency == ConsistencyLevel.LINEARIZABLE:
-            # TODO: Implement linearizability
-            # - Use distributed locking or consensus
-            # - Ensure real-time ordering
+# TODO: Implement linearizability
+# - Use distributed locking or consensus
+# - Ensure real-time ordering
             pass
             
         metrics['latency'] = time.time() - start_time
@@ -177,16 +177,16 @@ class MultiConsistencyKVStore:
     async def read(self, key: str, 
                   consistency: ConsistencyLevel) -> tuple[Any, Dict[str, float]]:
         """Read with specified consistency level"""
-        # TODO: Implement read logic for each consistency level
+# TODO: Implement read logic for each consistency level
         pass
         
     def inject_failure(self, replica_id: int, failure_type: str):
         """Simulate various failure modes"""
-        # TODO: Implement failure injection
-        # - network_partition
-        # - crash
-        # - slowdown
-        # - clock_skew
+# TODO: Implement failure injection
+# - network_partition
+# - crash
+# - slowdown
+# - clock_skew
         pass
 ```
 
@@ -208,18 +208,18 @@ class ConsistencyBenchmark:
             'messages_per_op': []
         }
         
-        # TODO: Run comprehensive benchmark
-        # - Concurrent writers
-        # - Concurrent readers
-        # - With failures
-        # - Measure all dimensions
+# TODO: Run comprehensive benchmark
+# - Concurrent writers
+# - Concurrent readers
+# - With failures
+# - Measure all dimensions
         
         return metrics
         
     def generate_tradeoff_report(self):
         """Generate report comparing all consistency levels"""
-        # TODO: Create comparison table
-        # Show how each dimension changes
+# TODO: Create comparison table
+# Show how each dimension changes
         pass
 ```
 
@@ -251,8 +251,8 @@ class AdaptiveSystemController:
         
     def measure_current_state(self) -> Dict[str, float]:
         """Measure system performance across all dimensions"""
-        # TODO: Implement measurement
-        # Return current values for all SLO dimensions
+# TODO: Implement measurement
+# Return current values for all SLO dimensions
         pass
         
     def calculate_slo_violations(self, measurements):
@@ -261,11 +261,11 @@ class AdaptiveSystemController:
         for dimension, target in self.slo_targets.items():
             current = measurements.get(dimension)
             if dimension in ['availability', 'throughput']:
-                # Higher is better
+# Higher is better
                 if current < target:
                     violations[dimension] = (target - current) / target
             else:
-                # Lower is better
+# Lower is better
                 if current > target:
                     violations[dimension] = (current - target) / target
         return violations
@@ -274,8 +274,8 @@ class AdaptiveSystemController:
         """Generate possible configuration changes"""
         candidates = []
         
-        # TODO: Implement adaptation strategies
-        # Example strategies:
+# TODO: Implement adaptation strategies
+# Example strategies:
         if 'availability' in violations:
             candidates.append({
                 'action': 'increase_replication',
@@ -287,26 +287,26 @@ class AdaptiveSystemController:
                 }
             })
             
-        # Add more adaptation strategies
-        # Consider interaction effects
+# Add more adaptation strategies
+# Consider interaction effects
         
         return candidates
         
     def simulate_adaptation(self, candidate):
         """Predict impact of configuration change"""
-        # TODO: Implement prediction model
-        # Could use:
-        # - Historical data
-        # - Queuing theory
-        # - ML model
+# TODO: Implement prediction model
+# Could use:
+# - Historical data
+# - Queuing theory
+# - ML model
         pass
         
     def execute_adaptation(self, selected_action):
         """Apply configuration change with safety checks"""
-        # TODO: Implement safe adaptation
-        # - Gradual rollout
-        # - Rollback capability
-        # - Monitoring during change
+# TODO: Implement safe adaptation
+# - Gradual rollout
+# - Rollback capability
+# - Monitoring during change
         pass
 ```
 
@@ -317,11 +317,11 @@ def pareto_optimal_adaptation(violations, candidates):
     Find adaptation that best addresses violations
     without making other dimensions worse
     """
-    # TODO: Implement multi-objective optimization
-    # Consider:
-    # - Weighted sum approach
-    # - Epsilon-constraint method
-    # - Evolutionary algorithms (NSGA-II)
+# TODO: Implement multi-objective optimization
+# Consider:
+# - Weighted sum approach
+# - Epsilon-constraint method
+# - Evolutionary algorithms (NSGA-II)
     pass
 ```
 
@@ -343,12 +343,12 @@ class MultiTenantSystem:
         """Calculate utility for a tenant given allocation"""
         tenant = self.tenants[tenant_id]
         
-        # TODO: Implement realistic utility function
-        # Consider:
-        # - Performance improvement from resources
-        # - Cost of resources
-        # - SLA penalties
-        # - Diminishing returns
+# TODO: Implement realistic utility function
+# Consider:
+# - Performance improvement from resources
+# - Cost of resources
+# - SLA penalties
+# - Diminishing returns
         
         performance = self.performance_model(allocation)
         cost = self.cost_model(allocation)
@@ -359,16 +359,16 @@ class MultiTenantSystem:
         
     def find_nash_equilibrium(self):
         """Find stable allocation where no tenant wants to change"""
-        # TODO: Implement Nash equilibrium finder
-        # Each tenant optimizes given others' choices
+# TODO: Implement Nash equilibrium finder
+# Each tenant optimizes given others' choices
         pass
         
     def design_incentive_mechanism(self):
         """Design pricing/allocation mechanism for global optimum"""
-        # TODO: Implement mechanism design
-        # - Vickrey-Clarke-Groves (VCG) mechanism
-        # - Ensure truthful bidding
-        # - Maximize total system utility
+# TODO: Implement mechanism design
+# - Vickrey-Clarke-Groves (VCG) mechanism
+# - Ensure truthful bidding
+# - Maximize total system utility
         pass
 ```
 
@@ -444,26 +444,26 @@ class SLOCompiler:
         """
         Given SLOs and constraints, determine optimal architecture
         """
-        # TODO: Implement SLO compiler
-        # Input SLOs like:
-        # - 99.9% availability
-        # - <100ms p99 latency
-        # - Strong consistency for transactions
-        # - Eventual consistency for analytics
-        # - <$0.002 per request
+# TODO: Implement SLO compiler
+# Input SLOs like:
+# - 99.9% availability
+# - <100ms p99 latency
+# - Strong consistency for transactions
+# - Eventual consistency for analytics
+# - <$0.002 per request
         
-        # Output:
-        # - Recommended architecture pattern
-        # - Required infrastructure
-        # - Configuration parameters
+# Output:
+# - Recommended architecture pattern
+# - Required infrastructure
+# - Configuration parameters
         pass
         
     def generate_hybrid_architecture(self, slos_by_usecase):
         """Design system with different architectures for different use cases"""
-        # TODO: Implement hybrid architecture generator
-        # - Transaction path: Single leader
-        # - Analytics path: Event sourced
-        # - User profiles: Cache + eventual
+# TODO: Implement hybrid architecture generator
+# - Transaction path: Single leader
+# - Analytics path: Event sourced
+# - User profiles: Cache + eventual
         pass
 ```
 
@@ -501,20 +501,20 @@ class ArchitectureEvolutionAnalyzer:
         
     def calculate_migration_cost(self, from_stage, to_stage):
         """Estimate cost of architectural migration"""
-        # TODO: Consider:
-        # - Development time
-        # - Risk of migration
-        # - Operational complexity increase
-        # - Training needs
+# TODO: Consider:
+# - Development time
+# - Risk of migration
+# - Operational complexity increase
+# - Training needs
         pass
         
     def was_migration_worth_it(self, from_stage, to_stage):
         """Analyze if migration improved overall position"""
-        # TODO: Compare:
-        # - Business metrics before/after
-        # - Total cost of ownership
-        # - Developer productivity
-        # - System reliability
+# TODO: Compare:
+# - Business metrics before/after
+# - Total cost of ownership
+# - Developer productivity
+# - System reliability
         pass
 ```
 
@@ -534,28 +534,28 @@ class CustomTradeoffFramework:
     def define_dimension(self, name, measure, unit, 
                         business_impact, optimization_direction):
         """Define a dimension that matters for your system"""
-        # TODO: Implement dimension definition
-        # Examples:
-        # - Data freshness (seconds, revenue impact, minimize)
-        # - Query complexity (joins, dev productivity, minimize)
-        # - Deployment frequency (per day, feature velocity, maximize)
+# TODO: Implement dimension definition
+# Examples:
+# - Data freshness (seconds, revenue impact, minimize)
+# - Query complexity (joins, dev productivity, minimize)
+# - Deployment frequency (per day, feature velocity, maximize)
         pass
         
     def map_technical_to_business(self, technical_metric):
         """Convert technical metrics to business impact"""
-        # TODO: Create mapping functions
-        # - Latency -> Customer satisfaction -> Revenue
-        # - Availability -> Trust -> Customer retention
-        # - Consistency -> Correctness -> Regulatory compliance
+# TODO: Create mapping functions
+# - Latency -> Customer satisfaction -> Revenue
+# - Availability -> Trust -> Customer retention
+# - Consistency -> Correctness -> Regulatory compliance
         pass
         
     def find_optimal_position(self, business_objectives):
         """Given business objectives, find technical targets"""
-        # TODO: Implement reverse mapping
-        # Business goal: Increase revenue 10%
-        # -> Need 95% customer satisfaction
-        # -> Need <200ms p99 latency
-        # -> Need specific architecture
+# TODO: Implement reverse mapping
+# Business goal: Increase revenue 10%
+# -> Need 95% customer satisfaction
+# -> Need <200ms p99 latency
+# -> Need specific architecture
         pass
 ```
 
@@ -577,4 +577,4 @@ After completing these exercises, answer:
 
 Remember: The goal isn't to eliminate trade-offs—it's to make them conscious, visible, and aligned with business objectives.
 
-[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ Next: Law of Distributed Knowledge**](../law5-epistemology/index.md)
+[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ Next: Law of Distributed Knowledge**](/part1-axioms/law5-epistemology/)

@@ -19,7 +19,7 @@ last_updated: 2025-07-23
 - Service Mesh (Coming Soon)
 - [Circuit Breaker](circuit-breaker.md)
 - [Retry with Backoff](retry-backoff.md)
-- [SDK Design](../patterns/api-gateway.md)
+- [SDK Design](/patterns/api-gateway)
 
 ## References
-- [Unique ID Generator](../case-studies/unique-id-generator.md) - Client library considerations
+- [Unique ID Generator](/case-studies/unique-id-generator) - Client library considerations

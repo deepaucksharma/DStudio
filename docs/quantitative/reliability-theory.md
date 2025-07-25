@@ -24,7 +24,7 @@ Reliability theory provides mathematical tools to predict, measure, and improve 
 
 <div class="formula-box">
 <h4>R(t) = P(T > t)</h4>
-<table class="formula-table">
+<table class="formula-table responsive-table">
 <tr><td><strong>R(t)</strong></td><td>Reliability at time t</td></tr>
 <tr><td><strong>T</strong></td><td>Time to failure (random variable)</td></tr>
 <tr><td><strong>F(t)</strong></td><td>Failure probability = 1 - R(t)</td></tr>
@@ -458,7 +458,7 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
 ## Key Metrics Summary
 
 <div class="performance-stats">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Metric</th>
@@ -469,34 +469,34 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
 </thead>
 <tbody>
 <tr>
-<td><strong>Availability</strong></td>
-<td>MTTF/(MTTF+MTTR)</td>
-<td>99.9% - 99.999%</td>
-<td>Includes repair time</td>
+<td data-label="Metric"><strong>Availability</strong></td>
+<td data-label="Formula">MTTF/(MTTF+MTTR)</td>
+<td data-label="Typical Target">99.9% - 99.999%</td>
+<td data-label="Notes">Includes repair time</td>
 </tr>
 <tr>
-<td><strong>Reliability</strong></td>
-<td>e^(-λt)</td>
-<td>90% @ 1 year</td>
-<td>No repair considered</td>
+<td data-label="Metric"><strong>Reliability</strong></td>
+<td data-label="Formula">e^(-λt)</td>
+<td data-label="Typical Target">90% @ 1 year</td>
+<td data-label="Notes">No repair considered</td>
 </tr>
 <tr>
-<td><strong>MTTF</strong></td>
-<td>1/λ</td>
-<td>10,000+ hours</td>
-<td>Non-repairable</td>
+<td data-label="Metric"><strong>MTTF</strong></td>
+<td data-label="Formula">1/λ</td>
+<td data-label="Typical Target">10,000+ hours</td>
+<td data-label="Notes">Non-repairable</td>
 </tr>
 <tr>
-<td><strong>MTBF</strong></td>
-<td>MTTF + MTTR</td>
-<td>10,000+ hours</td>
-<td>Repairable systems</td>
+<td data-label="Metric"><strong>MTBF</strong></td>
+<td data-label="Formula">MTTF + MTTR</td>
+<td data-label="Typical Target">10,000+ hours</td>
+<td data-label="Notes">Repairable systems</td>
 </tr>
 <tr>
-<td><strong>Failure Rate</strong></td>
-<td>1/MTTF</td>
-<td><0.01%/hour</td>
-<td>During useful life</td>
+<td data-label="Metric"><strong>Failure Rate</strong></td>
+<td data-label="Formula">1/MTTF</td>
+<td data-label="Typical Target"><0.01%/hour</td>
+<td data-label="Notes">During useful life</td>
 </tr>
 </tbody>
 </table>

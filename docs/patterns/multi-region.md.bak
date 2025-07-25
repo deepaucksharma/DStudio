@@ -164,43 +164,43 @@ class MultiRegionDB:
         """Write with configured consistency"""
         
         if self.consistency == ConsistencyLevel.LOCAL:
-            # Write only to local region
+# Write only to local region
             return await self._write_local(key, value)
             
         elif self.consistency == ConsistencyLevel.EVENTUAL:
-            # Write locally first, replicate async
+# Write locally first, replicate async
             local_result = await self._write_local(key, value)
             asyncio.create_task(self._replicate_async(key, value))
             return local_result
             
         elif self.consistency == ConsistencyLevel.QUORUM:
-            # Write to quorum of regions
+# Write to quorum of regions
             return await self._write_quorum(key, value)
             
         else:  # STRONG
-            # Write to all regions
+# Write to all regions
             return await self._write_all(key, value)
             
     async def read(self, key: str, options: Dict = None) -> Optional[Any]:
         """Read with configured consistency"""
         
         if self.consistency == ConsistencyLevel.LOCAL:
-            # Read from local region only
+# Read from local region only
             return await self._read_local(key)
             
         elif self.consistency == ConsistencyLevel.EVENTUAL:
-            # Read from local, fallback to others
+# Read from local, fallback to others
             value = await self._read_local(key)
             if value is None:
                 value = await self._read_any(key)
             return value
             
         elif self.consistency == ConsistencyLevel.QUORUM:
-            # Read from quorum, return most recent
+# Read from quorum, return most recent
             return await self._read_quorum(key)
             
         else:  # STRONG
-            # Read from all, ensure consistency
+# Read from all, ensure consistency
             return await self._read_all(key)
             
     async def _write_local(self, key: str, value: Any) -> bool:
@@ -217,7 +217,7 @@ class MultiRegionDB:
             for region in active_regions
         ], return_exceptions=True)
         
-        # All must succeed for strong consistency
+# All must succeed for strong consistency
         return all(r is True for r in results if not isinstance(r, Exception))
         
     async def _write_quorum(self, key: str, value: Any) -> bool:
@@ -262,10 +262,10 @@ class GlobalTrafficManager:
     async def route_request(self, client_ip: str, request_type: str) -> str:
         """Determine best region for request"""
         
-        # Get client location
+# Get client location
         client_location = await self._get_client_location(client_ip)
         
-        # Find healthy regions
+# Find healthy regions
         healthy_regions = [
             name for name, healthy in self.health_status.items()
             if healthy and self.regions[name].active
@@ -274,12 +274,12 @@ class GlobalTrafficManager:
         if not healthy_regions:
             raise Exception("No healthy regions available")
             
-        # Route based on strategy
+# Route based on strategy
         if request_type == "write" and self._has_primary():
-            # Writes go to primary if configured
+# Writes go to primary if configured
             return self._get_primary_region()
             
-        # Route to lowest latency healthy region
+# Route to lowest latency healthy region
         return self._get_lowest_latency_region(client_location, healthy_regions)
         
     async def health_check_all(self):
@@ -314,31 +314,31 @@ class ConflictResolver:
         """Resolve conflicts between regions"""
         
         if self.strategy == "last_write_wins":
-            # Return value with latest timestamp
+# Return value with latest timestamp
             return max(conflicts, key=lambda x: x['timestamp'])['value']
             
         elif self.strategy == "version_vector":
-            # Use version vectors for causality
+# Use version vectors for causality
             return self._resolve_version_vectors(conflicts)
             
         elif self.strategy == "crdt":
-            # Use Conflict-free Replicated Data Types
+# Use Conflict-free Replicated Data Types
             return self._merge_crdts(conflicts)
             
         elif self.strategy == "custom":
-            # Application-specific resolution
+# Application-specific resolution
             return self._custom_resolve(conflicts)
             
     def _resolve_version_vectors(self, conflicts: List[Dict]) -> Any:
         """Resolve using version vectors"""
-        # Track causality between updates
-        # Implementation depends on version vector algorithm
+# Track causality between updates
+# Implementation depends on version vector algorithm
         pass
         
     def _merge_crdts(self, conflicts: List[Dict]) -> Any:
         """Merge Conflict-free Replicated Data Types"""
-        # CRDT-specific merge logic
-        # Example: G-Counter, PN-Counter, OR-Set
+# CRDT-specific merge logic
+# Example: G-Counter, PN-Counter, OR-Set
         pass
 
 # Regional Failover Manager
@@ -359,11 +359,11 @@ class RegionalFailoverManager:
         self.failover_in_progress = True
         
         try:
-            # Verify failure (avoid false positives)
+# Verify failure (avoid false positives)
             if not await self._verify_failure(region_name):
                 return
                 
-            # Determine failover strategy
+# Determine failover strategy
             if region_name == self.primary_region.name:
                 await self._failover_primary()
             else:
@@ -375,23 +375,23 @@ class RegionalFailoverManager:
     async def _failover_primary(self):
         """Handle primary region failure"""
         
-        # 1. Stop writes to failed primary
+# 1. Stop writes to failed primary
         await self._fence_region(self.primary_region.name)
         
-        # 2. Promote secondary to primary
+# 2. Promote secondary to primary
         new_primary = self._select_new_primary()
         await self._promote_to_primary(new_primary)
         
-        # 3. Update DNS/routing
+# 3. Update DNS/routing
         await self._update_routing(new_primary)
         
-        # 4. Notify applications
+# 4. Notify applications
         await self._broadcast_topology_change()
         
     async def _fence_region(self, region_name: str):
         """Fence a failed region to prevent split-brain"""
-        # Implement STONITH (Shoot The Other Node In The Head)
-        # Ensure failed region cannot accept writes
+# Implement STONITH (Shoot The Other Node In The Head)
+# Ensure failed region cannot accept writes
         pass
 
 # Cost Optimization
@@ -417,17 +417,17 @@ class MultiRegionCostOptimizer:
             'total': 0
         }
         
-        # Storage costs (data replicated to all regions)
+# Storage costs (data replicated to all regions)
         for region in regions:
             costs['storage'] += data_size_gb * self.region_costs.get(region, 0.1)
             
-        # Transfer costs (between regions)
+# Transfer costs (between regions)
         for i, region1 in enumerate(regions):
             for region2 in regions[i+1:]:
                 transfer_cost = self.transfer_costs.get((region1, region2), 0.02)
                 costs['transfer'] += transfer_gb_per_month * transfer_cost
                 
-        # Compute costs
+# Compute costs
         for region in regions:
             costs['compute'] += compute_hours * self.compute_costs.get(region, 0.1)
             
@@ -437,38 +437,38 @@ class MultiRegionCostOptimizer:
     def recommend_regions(self, requirements: Dict) -> List[str]:
         """Recommend cost-optimal regions based on requirements"""
         
-        # Consider:
-        # - User distribution
-        # - Latency requirements  
-        # - Compliance needs
-        # - Cost constraints
+# Consider:
+# - User distribution
+# - Latency requirements
+# - Compliance needs
+# - Cost constraints
         
-        # Return optimal region list
+# Return optimal region list
         pass
 
 # Example Usage
 async def setup_multi_region_app():
     """Example multi-region application setup"""
     
-    # Define regions
+# Define regions
     regions = [
         Region("us-east-1", "app-us.example.com", "Virginia", primary=True),
         Region("eu-west-1", "app-eu.example.com", "Ireland"),
         Region("ap-southeast-1", "app-asia.example.com", "Singapore")
     ]
     
-    # Setup database with eventual consistency
+# Setup database with eventual consistency
     db = MultiRegionDB(regions, ConsistencyLevel.EVENTUAL)
     
-    # Setup traffic manager
+# Setup traffic manager
     traffic_manager = GlobalTrafficManager()
     for region in regions:
         traffic_manager.add_region(region, f"https://{region.endpoint}/health")
         
-    # Setup failover manager
+# Setup failover manager
     failover_manager = RegionalFailoverManager(regions)
     
-    # Start health monitoring
+# Start health monitoring
     asyncio.create_task(traffic_manager.health_check_all())
     
     return db, traffic_manager, failover_manager
@@ -554,14 +554,14 @@ class GeoPartitionedService:
         """Route based on data regulations"""
         
         if data_classification == "gdpr":
-            # GDPR data must stay in EU
+# GDPR data must stay in EU
             return self._get_nearest_region(user_location, 
                                           self.partitions['europe'])
         elif data_classification == "financial":
-            # Financial data has specific requirements
+# Financial data has specific requirements
             return self._get_compliant_region(user_location)
         else:
-            # General data can go anywhere
+# General data can go anywhere
             return self._get_nearest_region(user_location)
 ```
 
@@ -582,13 +582,13 @@ class EdgeRegionHierarchy:
         """Determine where to process request"""
         
         if request_type == "real-time" and data_size < 1024:  # 1KB
-            # Process at edge for lowest latency
+# Process at edge for lowest latency
             return self._get_nearest_edge()
         elif request_type == "batch" or data_size > 1048576:  # 1MB
-            # Process at core for efficiency
+# Process at core for efficiency
             return self._get_core_region()
         else:
-            # Process at regional level
+# Process at regional level
             return self._get_regional_center()
 ```
 
@@ -611,7 +611,7 @@ class EdgeRegionHierarchy:
 
 ```yaml
 metrics:
-  # Latency Metrics
+# Latency Metrics
   - name: cross_region_latency
     description: Latency between regions
     type: histogram
@@ -622,7 +622,7 @@ metrics:
     type: histogram
     labels: [user_region, serving_region]
     
-  # Replication Metrics
+# Replication Metrics
   - name: replication_lag
     description: Data replication delay
     type: gauge
@@ -633,7 +633,7 @@ metrics:
     type: counter
     labels: [region, resolution_strategy]
     
-  # Availability Metrics
+# Availability Metrics
   - name: region_health
     description: Region health status
     type: gauge
@@ -644,7 +644,7 @@ metrics:
     type: histogram
     labels: [failed_region, new_primary]
     
-  # Cost Metrics
+# Cost Metrics
   - name: cross_region_transfer_bytes
     description: Data transferred between regions
     type: counter
@@ -759,9 +759,9 @@ def analyze_multi_region_economics(
 ) -> Dict:
     """Analyze economics of multi-region deployment"""
     
-    # Calculate user impact of latency
+# Calculate user impact of latency
     def latency_impact(latency_ms: float) -> float:
-        # User engagement drops with latency
+# User engagement drops with latency
         if latency_ms < 100:
             return 1.0  # No impact
         elif latency_ms < 300:
@@ -771,21 +771,21 @@ def analyze_multi_region_economics(
         else:
             return 0.4  # 60% drop
             
-    # Single region revenue
+# Single region revenue
     single_region_revenue = 0
     for region, users in users_by_region.items():
         latency = single_region_latency[region]
         engagement = latency_impact(latency)
         single_region_revenue += users * revenue_per_user * engagement
         
-    # Multi-region revenue (assume <100ms latency everywhere)
+# Multi-region revenue (assume <100ms latency everywhere)
     multi_region_revenue = sum(users_by_region.values()) * revenue_per_user
     
-    # Cost analysis
+# Cost analysis
     single_region_cost = 100000  # Base monthly cost
     multi_region_cost = single_region_cost * multi_region_cost_multiplier
     
-    # ROI calculation
+# ROI calculation
     roi = {
         'single_region_revenue': single_region_revenue,
         'multi_region_revenue': multi_region_revenue,
@@ -996,20 +996,20 @@ failover test --dry-run
 
 ### Patterns
 - Geo-Replication (Coming Soon) - Data replication strategies
-- [Edge Computing](../patterns/edge-computing.md) - Processing at network edge
-- [Tunable Consistency](../patterns/tunable-consistency.md) - Consistency models
-- [CQRS](../patterns/cqrs.md) - Separate read/write paths
+- [Edge Computing](/patterns/edge-computing) - Processing at network edge
+- [Tunable Consistency](/patterns/tunable-consistency) - Consistency models
+- [CQRS](/patterns/cqrs) - Separate read/write paths
 
 ### Laws
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md) - Speed of light constraints
-- [Law 7 (Economic Reality 💰)](../part1-axioms/law7-economics/index.md) - Cost implications
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Regional failure modes
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Regional capacity planning
+- [Law 2 (Asynchronous Reality )](/part1-axioms/law2-asynchrony/) - Speed of light constraints
+- [Law 7 (Economic Reality )](/part1-axioms/law7-economics/) - Cost implications
+- [Law 1 (Correlated Failure )](/part1-axioms/law1-failure/) - Regional failure modes
+- [Law 4 (Multidimensional Optimization )](/part1-axioms/law4-tradeoffs/) - Regional capacity planning
 
 ### Case Studies
-- [Video Streaming Platform](../case-studies/video-streaming.md) - Netflix's approach
-- [Social Media Feed](../case-studies/social-media-feed.md) - Facebook's architecture
-- [E-commerce Platform](../case-studies/ecommerce-platform.md) - Amazon's strategy
+- [Video Streaming Platform](/case-studies/video-streaming) - Netflix's approach
+- [Social Media Feed](/case-studies/social-media-feed) - Facebook's architecture
+- [E-commerce Platform](/case-studies/ecommerce-platform) - Amazon's strategy
 
 ### Tools & Technologies
 - **Cloud Providers**: AWS Global Infrastructure, Azure Regions, GCP Regions

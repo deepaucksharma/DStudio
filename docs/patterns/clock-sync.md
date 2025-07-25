@@ -424,7 +424,7 @@ def handle_leap_second(timestamp):
 ## Synchronization Accuracy
 
 <div class="performance-stats">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Method</th>
@@ -435,34 +435,34 @@ def handle_leap_second(timestamp):
 </thead>
 <tbody>
 <tr>
-<td><strong>NTP (Internet)</strong></td>
-<td>1-50 ms</td>
-<td>1 ms</td>
-<td>Public servers</td>
+<td data-label="Method"><strong>NTP (Internet)</strong></td>
+<td data-label="Typical Accuracy">1-50 ms</td>
+<td data-label="Best Case">1 ms</td>
+<td data-label="Requirements">Public servers</td>
 </tr>
 <tr>
-<td><strong>NTP (LAN)</strong></td>
-<td>0.1-1 ms</td>
-<td>10 μs</td>
-<td>Local server</td>
+<td data-label="Method"><strong>NTP (LAN)</strong></td>
+<td data-label="Typical Accuracy">0.1-1 ms</td>
+<td data-label="Best Case">10 μs</td>
+<td data-label="Requirements">Local server</td>
 </tr>
 <tr>
-<td><strong>PTP</strong></td>
-<td>1-100 μs</td>
-<td>10 ns</td>
-<td>Hardware support</td>
+<td data-label="Method"><strong>PTP</strong></td>
+<td data-label="Typical Accuracy">1-100 μs</td>
+<td data-label="Best Case">10 ns</td>
+<td data-label="Requirements">Hardware support</td>
 </tr>
 <tr>
-<td><strong>GPS</strong></td>
-<td>100 ns</td>
-<td>10 ns</td>
-<td>GPS receiver</td>
+<td data-label="Method"><strong>GPS</strong></td>
+<td data-label="Typical Accuracy">100 ns</td>
+<td data-label="Best Case">10 ns</td>
+<td data-label="Requirements">GPS receiver</td>
 </tr>
 <tr>
-<td><strong>Atomic Clock</strong></td>
-<td>10 ns</td>
-<td>1 ns</td>
-<td>Local atomic clock</td>
+<td data-label="Method"><strong>Atomic Clock</strong></td>
+<td data-label="Typical Accuracy">10 ns</td>
+<td data-label="Best Case">1 ns</td>
+<td data-label="Requirements">Local atomic clock</td>
 </tr>
 </tbody>
 </table>
@@ -512,7 +512,7 @@ graph LR
 ## When to Use Physical vs Logical Clocks
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Use Case</th>
@@ -522,29 +522,29 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Log correlation</strong></td>
-<td>✓ (with NTP)</td>
-<td>✗</td>
+<td data-label="Use Case"><strong>Log correlation</strong></td>
+<td data-label="Physical Clocks">✓ (with NTP)</td>
+<td data-label="Logical Clocks">✗</td>
 </tr>
 <tr>
-<td><strong>Distributed transactions</strong></td>
-<td>✓ (TrueTime)</td>
-<td>✓ (Vector clocks)</td>
+<td data-label="Use Case"><strong>Distributed transactions</strong></td>
+<td data-label="Physical Clocks">✓ (TrueTime)</td>
+<td data-label="Logical Clocks">✓ (Vector clocks)</td>
 </tr>
 <tr>
-<td><strong>Cache expiry</strong></td>
-<td>✓</td>
-<td>✗</td>
+<td data-label="Use Case"><strong>Cache expiry</strong></td>
+<td data-label="Physical Clocks">✓</td>
+<td data-label="Logical Clocks">✗</td>
 </tr>
 <tr>
-<td><strong>Event ordering</strong></td>
-<td>~ (accuracy limited)</td>
-<td>✓</td>
+<td data-label="Use Case"><strong>Event ordering</strong></td>
+<td data-label="Physical Clocks">~ (accuracy limited)</td>
+<td data-label="Logical Clocks">✓</td>
 </tr>
 <tr>
-<td><strong>Billing/SLA</strong></td>
-<td>✓</td>
-<td>✗</td>
+<td data-label="Use Case"><strong>Billing/SLA</strong></td>
+<td data-label="Physical Clocks">✓</td>
+<td data-label="Logical Clocks">✗</td>
 </tr>
 </tbody>
 </table>

@@ -17,8 +17,8 @@ last_updated: 2025-07-23
 
 ## Related Patterns
 - [Edge Computing](edge-computing.md)
-- [Progressive Web Apps](../patterns/serverless-faas.md)
+- [Progressive Web Apps](/patterns/serverless-faas)
 - Vector Maps (Coming Soon)
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md) - Client-side map rendering
+- [Google Maps Case Study](/case-studies/google-maps) - Client-side map rendering

@@ -21,4 +21,4 @@ last_updated: 2025-07-23
 - [Rate Limiting](rate-limiting.md)
 
 ## References
-- [Web Crawler](../case-studies/web-crawler.md) - JavaScript rendering strategies
+- [Web Crawler](/case-studies/web-crawler) - JavaScript rendering strategies

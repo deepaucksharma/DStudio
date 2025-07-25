@@ -131,8 +131,8 @@ def series_reliability(component_reliabilities):
     """Series system: fails if any component fails"""
     R_system = np.prod(component_reliabilities)
     
-    # Approximation for high reliability components
-    # R_s ≈ 1 - Σ(1 - R_i)
+# Approximation for high reliability components
+# R_s ≈ 1 - Σ(1 - R_i)
     
     return R_system
 
@@ -225,13 +225,13 @@ def fault_tree_analysis(tree):
         if node['type'] == 'basic':
             return node['probability']
         elif node['type'] == 'OR':
-            # P(A or B) = 1 - (1-P(A))(1-P(B))
+# P(A or B) = 1 - (1-P(A))(1-P(B))
             p = 1.0
             for child in node['children']:
                 p *= (1 - calculate_node(child))
             return 1 - p
         elif node['type'] == 'AND':
-            # P(A and B) = P(A) * P(B)
+# P(A and B) = P(A) * P(B)
             p = 1.0
             for child in node['children']:
                 p *= calculate_node(child)
@@ -259,10 +259,10 @@ stateDiagram-v2
 ```python
 def markov_availability(lambda_fail, mu_repair, t):
     """Time-dependent availability for repairable system"""
-    # Steady-state availability
+# Steady-state availability
     A_ss = mu_repair / (lambda_fail + mu_repair)
     
-    # Time-dependent (starting in working state)
+# Time-dependent (starting in working state)
     A_t = A_ss + (1 - A_ss) * np.exp(-(lambda_fail + mu_repair) * t)
     
     return {
@@ -286,7 +286,7 @@ def multi_state_reliability(Q, initial_state, t):
     initial_state: Initial probability vector
     t: Time
     """
-    # State probability vector at time t
+# State probability vector at time t
     P_t = initial_state @ expm(Q * t)
     
     return P_t
@@ -347,10 +347,10 @@ def consensus_reliability(n, f, node_reliability):
     """
     Reliability of consensus with n nodes, tolerating f failures
     """
-    # System works if at least n-f nodes work
+# System works if at least n-f nodes work
     R_consensus = k_out_of_n_reliability(n, n-f, node_reliability)
     
-    # Byzantine case: need n > 3f
+# Byzantine case: need n > 3f
     byzantine_possible = n > 3*f
     
     return {
@@ -375,16 +375,16 @@ def geo_replicated_reliability(regions, quorum_size, region_reliability,
     correlation: Common-mode failure correlation
     """
     if correlation == 0:
-        # Independent failures
+# Independent failures
         return k_out_of_n_reliability(regions, quorum_size, 
                                      region_reliability)
     else:
-        # Correlated failures (simplified model)
+# Correlated failures (simplified model)
         R_independent = k_out_of_n_reliability(regions, quorum_size, 
                                               region_reliability)
         R_common_mode = region_reliability
         
-        # Weighted combination
+# Weighted combination
         R_system = (1 - correlation) * R_independent + \
                    correlation * R_common_mode
         
@@ -404,13 +404,13 @@ def optimize_redundancy(component_cost, component_reliability,
     from scipy.optimize import minimize
     
     def objective(x):
-        # x[i] = number of components in parallel for subsystem i
+# x[i] = number of components in parallel for subsystem i
         total_cost = sum(x[i] * component_cost[i] for i in range(len(x)))
         
         if total_cost > budget:
             return 1e10  # Penalty for exceeding budget
         
-        # System reliability (series of parallel subsystems)
+# System reliability (series of parallel subsystems)
         R_system = 1.0
         for i in range(len(x)):
             R_subsystem = 1 - (1 - component_reliability[i])**x[i]
@@ -418,7 +418,7 @@ def optimize_redundancy(component_cost, component_reliability,
         
         return -R_system  # Maximize reliability
     
-    # Optimize
+# Optimize
     x0 = np.ones(len(component_cost))  # Start with no redundancy
     result = minimize(objective, x0, method='SLSQP', 
                      bounds=[(1, 10) for _ in x0])
@@ -438,14 +438,14 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
     """
     from scipy import stats
     
-    # Accelerated MTTF
+# Accelerated MTTF
     accelerated_MTTF = normal_MTTF / acceleration_factor
     
-    # Sample size for desired confidence/precision
+# Sample size for desired confidence/precision
     z = stats.norm.ppf((1 + confidence) / 2)
     n = (z / precision)**2
     
-    # Test duration (multiples of accelerated MTTF)
+# Test duration (multiples of accelerated MTTF)
     test_duration = 2 * accelerated_MTTF  # Common choice
     
     return {
@@ -519,5 +519,5 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
 ## Related Topics
 
 - **Theory**: [Failure Models](failure-models.md) | [MTBF/MTTR](mtbf-mttr.md) | [Availability Math](availability-math.md)
-- **Practice**: [Fault Tolerance](../patterns/fault-tolerance.md) | [Chaos Engineering](../human-factors/chaos-engineering.md)
-- **Laws**: [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) | [Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
+- **Practice**: [Fault Tolerance](/patterns/fault-tolerance) | [Chaos Engineering](/human-factors/chaos-engineering)
+- **Laws**: [Law 1: Correlated Failure](/part1-axioms/law1-failure/) | [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/)

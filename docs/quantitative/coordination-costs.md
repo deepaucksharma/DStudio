@@ -20,33 +20,37 @@ last_updated: 2025-07-20
 <h4>🤝 2-Phase Commit Protocol Costs</h4>
 
 <div style="background: #F3E5F5; padding: 20px; border-radius: 8px;">
-  <table style="width: 100%; margin-bottom: 15px;">
+  <table class="responsive-table" style="width: 100%; margin-bottom: 15px;">
+  <thead>
     <tr style="background: #E8E5F5;">
       <th style="padding: 10px; text-align: left;">Metric</th>
       <th style="padding: 10px;">Value</th>
       <th style="padding: 10px;">Explanation</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px;"><strong>Messages</strong></td>
-      <td style="padding: 10px; color: #5448C8; font-weight: bold;">3N</td>
-      <td style="padding: 10px;">prepare + vote + commit</td>
+      <td data-label="Metric"><strong>Messages</strong></td>
+      <td data-label="Value">3N</td>
+      <td data-label="Explanation">prepare + vote + commit</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px;"><strong>Rounds</strong></td>
-      <td style="padding: 10px; color: #5448C8; font-weight: bold;">3</td>
-      <td style="padding: 10px;">Sequential phases</td>
+      <td data-label="Metric"><strong>Rounds</strong></td>
+      <td data-label="Value">3</td>
+      <td data-label="Explanation">Sequential phases</td>
     </tr>
     <tr>
-      <td style="padding: 10px;"><strong>Latency</strong></td>
-      <td style="padding: 10px; color: #FF5722; font-weight: bold;">3 × RTT</td>
-      <td style="padding: 10px;">Round-trip time per phase</td>
+      <td data-label="Metric"><strong>Latency</strong></td>
+      <td data-label="Value">3 × RTT</td>
+      <td data-label="Explanation">Round-trip time per phase</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px;"><strong>Failure modes</strong></td>
-      <td style="padding: 10px; color: #FF5722; font-weight: bold;">N + 1</td>
-      <td style="padding: 10px;">Coordinator + participants</td>
+      <td data-label="Metric"><strong>Failure modes</strong></td>
+      <td data-label="Value">N + 1</td>
+      <td data-label="Explanation">Coordinator + participants</td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="background: white; padding: 15px; border-radius: 5px; font-family: monospace;">
     <strong>Cost Function:</strong><br>
@@ -62,28 +66,32 @@ last_updated: 2025-07-20
 <div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
   <h5 style="margin: 0 0 15px 0;">Scenario: 5 participants across regions</h5>
   
-  <table style="width: 100%; margin-bottom: 15px; background: white; border-radius: 5px;">
+  <table class="responsive-table" style="width: 100%; margin-bottom: 15px; background: white; border-radius: 5px;">
+  <thead>
     <tr style="background: #FFCDD2;">
       <th style="padding: 10px; text-align: left;">Parameter</th>
       <th style="padding: 10px;">Value</th>
       <th style="padding: 10px;">Calculation</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px;">Message cost</td>
-      <td style="padding: 10px;">$0.01 per 1000</td>
-      <td style="padding: 10px;">AWS pricing</td>
+      <td data-label="Parameter">Message cost</td>
+      <td data-label="Value">$0.01 per 1000</td>
+      <td data-label="Calculation">AWS pricing</td>
     </tr>
     <tr style="background: #FFF5F5;">
-      <td style="padding: 10px;">RTT</td>
-      <td style="padding: 10px;">100ms</td>
-      <td style="padding: 10px;">Cross-region latency</td>
+      <td data-label="Parameter">RTT</td>
+      <td data-label="Value">100ms</td>
+      <td data-label="Calculation">Cross-region latency</td>
     </tr>
     <tr>
-      <td style="padding: 10px;">Latency cost</td>
-      <td style="padding: 10px;">$1 per second</td>
-      <td style="padding: 10px;">Business impact</td>
+      <td data-label="Parameter">Latency cost</td>
+      <td data-label="Value">$1 per second</td>
+      <td data-label="Calculation">Business impact</td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="background: #FFF; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
     <h5 style="margin: 0 0 10px 0;">Per Transaction Breakdown:</h5>
@@ -124,7 +132,7 @@ Modern consensus protocols:
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
     <div>
       <h5 style="margin: 0 0 10px 0; color: #2E7D32;">Normal Operation</h5>
-      <table style="width: 100%; background: white; border-radius: 5px;">
+      <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
         <tr style="background: #C8E6C9;">
           <td style="padding: 8px;"><strong>Messages/round</strong></td>
           <td style="padding: 8px; text-align: right;">2N</td>
@@ -142,7 +150,7 @@ Modern consensus protocols:
     
     <div>
       <h5 style="margin: 0 0 10px 0; color: #E65100;">During Failures</h5>
-      <table style="width: 100%; background: white; border-radius: 5px;">
+      <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
         <tr style="background: #FFE0B2;">
           <td style="padding: 8px;"><strong>Leader election</strong></td>
           <td style="padding: 8px; text-align: right;">N²</td>
@@ -214,24 +222,28 @@ Amortized: ~1 message per decision
 <div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
   <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
     <div>
-      <table style="width: 100%; background: white; border-radius: 5px;">
-        <tr style="background: #BBDEFB;">
+      <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
+  <thead>
+    <tr style="background: #BBDEFB;">
           <th style="padding: 10px; text-align: left;">Metric</th>
           <th style="padding: 10px;">Value</th>
         </tr>
-        <tr>
-          <td style="padding: 10px;"><strong>Messages</strong></td>
-          <td style="padding: 10px;">O(log N) average</td>
+  </thead>
+  <tbody>
+    <tr>
+          <td data-label="Metric"><strong>Messages</strong></td>
+          <td data-label="Value">O(log N) average</td>
         </tr>
-        <tr style="background: #F5F5F5;">
-          <td style="padding: 10px;"><strong>Convergence</strong></td>
-          <td style="padding: 10px;">O(log N) rounds</td>
+    <tr style="background: #F5F5F5;">
+          <td data-label="Metric"><strong>Convergence</strong></td>
+          <td data-label="Value">O(log N) rounds</td>
         </tr>
-        <tr>
-          <td style="padding: 10px;"><strong>Consistency</strong></td>
-          <td style="padding: 10px; color: #FF5722;">Eventual only</td>
+    <tr>
+          <td data-label="Metric"><strong>Consistency</strong></td>
+          <td data-label="Value">Eventual only</td>
         </tr>
-      </table>
+  </tbody>
+</table>
     </div>
     
     <div>
@@ -275,34 +287,38 @@ Byzantine: O(N²) messages, multi-round (slow/strong/untrusted)
 <div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
   <h5 style="margin: 0 0 15px 0;">AWS Data Transfer Pricing</h5>
   
-  <table style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <thead>
     <tr style="background: #FFCDD2;">
       <th style="padding: 12px; text-align: left;">Transfer Type</th>
       <th style="padding: 12px;">Cost</th>
       <th style="padding: 12px;">Visual</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px;"><strong>Same AZ</strong></td>
-      <td style="padding: 10px; color: #4CAF50; font-weight: bold;">$0</td>
-      <td style="padding: 10px;">
+      <td data-label="Transfer Type"><strong>Same AZ</strong></td>
+      <td data-label="Cost">$0</td>
+      <td data-label="Visual">
         <div style="background: #4CAF50; width: 1px; height: 15px;"></div>
       </td>
     </tr>
     <tr style="background: #FFF5F5;">
-      <td style="padding: 10px;"><strong>Cross AZ</strong></td>
-      <td style="padding: 10px; color: #FF9800; font-weight: bold;">$0.01/GB</td>
-      <td style="padding: 10px;">
+      <td data-label="Transfer Type"><strong>Cross AZ</strong></td>
+      <td data-label="Cost">$0.01/GB</td>
+      <td data-label="Visual">
         <div style="background: #FF9800; width: 50%; height: 15px;"></div>
       </td>
     </tr>
     <tr>
-      <td style="padding: 10px;"><strong>Cross Region</strong></td>
-      <td style="padding: 10px; color: #F44336; font-weight: bold;">$0.02/GB</td>
-      <td style="padding: 10px;">
+      <td data-label="Transfer Type"><strong>Cross Region</strong></td>
+      <td data-label="Cost">$0.02/GB</td>
+      <td data-label="Visual">
         <div style="background: #F44336; width: 100%; height: 15px;"></div>
       </td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="background: #FFF; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
     <h5 style="margin: 0 0 10px 0;">📊 Coordination Cost Calculator</h5>

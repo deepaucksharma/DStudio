@@ -524,7 +524,7 @@ function displayCapacityResults(data, inputs) {
         <div class="detailed-projections">
             <h4>📋 Detailed Monthly Projections</h4>
             <div class="projection-table-container">
-                <table class="projection-table">
+                <table class="projection-table responsive-table">
                     <thead>
                         <tr>
                             <th>Month</th>
@@ -547,14 +547,14 @@ function displayCapacityResults(data, inputs) {
             const proj = data.projections[month];
             resultsHTML += `
                 <tr class="${proj.utilization > 80 ? 'high-util' : ''}">
-                    <td>${month}</td>
-                    <td>${proj.avgRPS.toFixed(0).toLocaleString()}</td>
-                    <td>${proj.peakRPS.toFixed(0).toLocaleString()}</td>
-                    <td>${proj.servers}</td>
-                    <td>${proj.cpuUtilization.toFixed(1)}%</td>
-                    <td>${proj.memoryUtilization.toFixed(1)}%</td>
-                    <td>$${proj.cost.toLocaleString()}</td>
-                    <td><span class="constraint-badge ${proj.constraintType.toLowerCase()}">${proj.constraintType}</span></td>
+                    <td data-label="Month">${month}</td>
+                    <td data-label="Avg RPS">${proj.avgRPS.toFixed(0).toLocaleString()}</td>
+                    <td data-label="Peak RPS">${proj.peakRPS.toFixed(0).toLocaleString()}</td>
+                    <td data-label="Servers">${proj.servers}</td>
+                    <td data-label="CPU %">${proj.cpuUtilization.toFixed(1)}%</td>
+                    <td data-label="Memory %">${proj.memoryUtilization.toFixed(1)}%</td>
+                    <td data-label="Monthly Cost">$${proj.cost.toLocaleString()}</td>
+                    <td data-label="Constraint"><span class="constraint-badge ${proj.constraintType.toLowerCase()}">${proj.constraintType}</span></td>
                 </tr>
             `;
         }

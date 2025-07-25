@@ -17,8 +17,8 @@ last_updated: 2025-07-23
 
 ## Related Patterns
 - Vector Tiles (Coming Soon)
-- [Caching Strategies](../patterns/caching-strategies.md)
-- [Edge Computing](../patterns/edge-computing.md)
+- [Caching Strategies](/patterns/caching-strategies)
+- [Edge Computing](/patterns/edge-computing)
 
 ## References
-- [Google Maps Case Study](../case-studies/google-maps.md)
+- [Google Maps Case Study](/case-studies/google-maps)

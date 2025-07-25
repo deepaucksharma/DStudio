@@ -85,7 +85,7 @@ graph TD
 
 ---
 
-## 📋 Questions This Pillar Answers
+## Questions This Pillar Answers
 
 ---
 
@@ -173,7 +173,7 @@ graph TB
     style E1 fill:#ffcccc
 ```
 
-### 🎬 Failure Vignette: Knight Capital Meltdown
+### Failure Vignette: Knight Capital Meltdown
 
 **Date**: August 1, 2012  
 **Loss**: $440 million in 45 minutes  
@@ -1039,7 +1039,7 @@ sequenceDiagram
 3. **Start small, grow scope** - Instance → Service → Region
 4. **Automate everything** - Including failure injection
 
-### 🎯 Decision Framework: Control Strategy
+### Decision Framework: Control Strategy
 
 ```mermaid
 graph TD
@@ -1495,6 +1495,6 @@ graph TB
 
 ---
 
-**Next**: [Pillar 5: Intelligence →](../intelligence/index.md)
+**Next**: [Pillar 5: Intelligence →](/part2-pillars/intelligence/)
 
 *"The best control system is one you never notice—until you need it."*

@@ -10,14 +10,14 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 5](index.md) → **Axiom 5: Cost of Coordination**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 5](index.md) → **Axiom 5: Cost of Coordination**
 
 # Axiom 5: Cost of Coordination
 
 ---
 
 
-## 🔥 The Constraint
+## The Constraint
 
 ### The Fundamental Limit
 
@@ -46,7 +46,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 ---
 
-## 💡 Why It Matters
+## Why It Matters
 
 Cannot determine absolute ordering of events across nodes
 
@@ -95,7 +95,7 @@ The constraint is absolute—these misconceptions arise from:
 
 ---
 
-## ⚙️ Practical Implications
+## Practical Implications
 
 How this constraint shapes real system design:
 
@@ -214,7 +214,7 @@ graph TB
 | **Clock Drift** | 10-100 ppm typical | Requires NTP infrastructure |
 | **Byzantine Failures** | 0.01% in practice | 10x coordination overhead |
 
-### 🎬 Failure Vignette: The Olympic Timing Disaster
+### Failure Vignette: The Olympic Timing Disaster
 
 **Event**: 2014 Sochi Olympics Speed Skating  
 **Problem**: Distributed timing system disagreement  
@@ -287,7 +287,7 @@ class TwoPhaseCommitCoordinator:
         start_time = time.time()
         tx_id = str(uuid.uuid4())
         
-        # Phase 1: Prepare (1 message per participant)
+# Phase 1: Prepare (1 message per participant)
         prepare_votes = []
         for participant in self.participants:
             self.message_count += 1
@@ -300,15 +300,15 @@ class TwoPhaseCommitCoordinator:
             vote = participant.prepare(tx_id, transaction)
             prepare_votes.append(vote)
             
-        # Check if all voted YES
+# Check if all voted YES
         if not all(prepare_votes):
-            # Abort (1 message per participant)
+# Abort (1 message per participant)
             for participant in self.participants:
                 self.message_count += 1
                 participant.abort(tx_id)
             return False
             
-        # Phase 2: Commit (1 message per participant)
+# Phase 2: Commit (1 message per participant)
         for participant in self.participants:
             self.message_count += 1
             self.network_bytes += len(json.dumps({
@@ -317,7 +317,7 @@ class TwoPhaseCommitCoordinator:
             }))
             participant.commit(tx_id)
             
-        # Calculate costs
+# Calculate costs
         duration = time.time() - start_time
         cost = self.calculate_cost(duration)
         
@@ -333,13 +333,13 @@ class TwoPhaseCommitCoordinator:
         
     def calculate_cost(self, duration):
         """Calculate real dollar cost"""
-        # Network cost: $0.02/GB cross-region
+# Network cost: $0.02/GB cross-region
         network_cost = (self.network_bytes / 1e9) * 0.02
         
-        # Latency cost: $1 per second of delay (business impact)
+# Latency cost: $1 per second of delay (business impact)
         latency_cost = duration * 1.0
         
-        # Compute cost: $0.10 per CPU-second
+# Compute cost: $0.10 per CPU-second
         compute_cost = duration * 0.10 * len(self.participants)
         
         return {
@@ -370,7 +370,7 @@ class TwoPhaseCommitCoordinator:
 | **Consensus Rounds** | 1 | 2-3 | 3-4 | 5-7 |
 | **Coordinator Load** | 2× | 5× | 10× | 100× |
 
-### 🎬 Production War Story: The $2M Coordination Bill
+### Production War Story: The $2M Coordination Bill
 
 ```yaml
 Company: Major Financial Institution (2022)
@@ -661,7 +661,7 @@ class DistributedRateLimiter:
         
     def allow_request(self):
         """Check if request allowed - no coordination needed"""
-        # Refill bucket based on time elapsed
+# Refill bucket based on time elapsed
         now = time.time()
         elapsed = now - self.last_refill
         self.local_bucket = min(
@@ -670,7 +670,7 @@ class DistributedRateLimiter:
         )
         self.last_refill = now
         
-        # Allow if tokens available
+# Allow if tokens available
         if self.local_bucket >= 1:
             self.local_bucket -= 1
             return True
@@ -855,7 +855,7 @@ Results:
 | **PACELC** | If Partition, choose A or C; Else choose Latency or Consistency | Trade-offs even when healthy | Dynamic adaptation |
 | **CALM Theorem** | Monotonic programs are coordination-free | Some computations don't need coordination | Use when possible |
 
-### 🔄 Consistency Models Deep Dive
+### Consistency Models Deep Dive
 
 #### The Consistency Spectrum
 
@@ -1282,18 +1282,18 @@ class DistributedCounter:
     
     def __init__(self, node_id):
         self.node_id = node_id
-        # Your implementation here
+# Your implementation here
         
     def increment(self, value=1):
-        # Your implementation
+# Your implementation
         pass
         
     def merge(self, other_counter):
-        # Your implementation  
+# Your implementation
         pass
         
     def value(self):
-        # Your implementation
+# Your implementation
         pass
 
 # Test: Should work without any coordination
@@ -1427,20 +1427,20 @@ class DynamoDBQuorum:
         self.N = N  # Total replicas
         self.R = R  # Read quorum
         self.W = W  # Write quorum
-        # R + W > N ensures strong consistency
+# R + W > N ensures strong consistency
         
     def write(self, key, value, version):
         """Write with quorum"""
         replicas = self.get_replicas(key)
         write_count = 0
         
-        # Send write to all replicas
+# Send write to all replicas
         futures = []
         for replica in replicas:
             future = replica.async_write(key, value, version)
             futures.append(future)
             
-        # Wait for W confirmations
+# Wait for W confirmations
         for future in futures:
             if future.wait(timeout=100):
                 write_count += 1
@@ -1454,7 +1454,7 @@ class DynamoDBQuorum:
         replicas = self.get_replicas(key)
         responses = []
         
-        # Send read to all replicas
+# Send read to all replicas
         for replica in replicas:
             try:
                 value, version = replica.read(key)
@@ -1464,9 +1464,9 @@ class DynamoDBQuorum:
             except:
                 continue
                 
-        # Reconcile versions
+# Reconcile versions
         if len(responses) >= self.R:
-            # Return highest version
+# Return highest version
             return max(responses, key=lambda x: x[1])
         return None
 ```
@@ -1511,14 +1511,14 @@ class CRDTShoppingCart:
         
     def merge(self, other):
         """Merge carts - commutative & associative"""
-        # Merge adds
+# Merge adds
         for item, counts in other.adds.items():
             if item not in self.adds:
                 self.adds[item] = {}
             for node, count in counts.items():
                 self.adds[item][node] = count
                 
-        # Merge removes  
+# Merge removes
         for item, counts in other.removes.items():
             if item not in self.removes:
                 self.removes[item] = {}
@@ -1529,7 +1529,7 @@ class CRDTShoppingCart:
         """Calculate current state"""
         result = {}
         
-        # Sum all adds
+# Sum all adds
         for item, counts in self.adds.items():
             total_adds = sum(counts.values())
             total_removes = sum(self.removes.get(item, {}).values())
@@ -1675,7 +1675,7 @@ Emerging Trends:
 
 ---
 
-**Next**: [Axiom 6: Observability →](../axiom6-observability/index.md)
+**Next**: [Axiom 6: Observability →](/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/)
 
 *"The best coordination is no coordination."*
 
@@ -1683,4 +1683,4 @@ Emerging Trends:
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Consensus](../../patterns/consensus.md) • [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Coordination Costs](../../quantitative/coordination-costs.md)
+**Related**: [Consensus](/patterns/consensus) • [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Coordination Costs](/quantitative/coordination-costs)

@@ -520,44 +520,48 @@ function displayCostResults(costBreakdown, params) {
         
         <div class="savings-opportunities">
             <h4>Quick Win Opportunities</h4>
-            <table>
-                <tr>
+            <table class="responsive-table">
+  <thead>
+    <tr>
                     <th>Action</th>
                     <th>Effort</th>
                     <th>Potential Savings</th>
                     <th>Time to Implement</th>
                 </tr>
-                <tr>
-                    <td>Right-size instances</td>
-                    <td>Low</td>
-                    <td>10-30%</td>
-                    <td>1 week</td>
+  </thead>
+  <tbody>
+    <tr>
+                    <td data-label="Action">Right-size instances</td>
+                    <td data-label="Effort">Low</td>
+                    <td data-label="Potential Savings">10-30%</td>
+                    <td data-label="Time to Implement">1 week</td>
                 </tr>
-                <tr>
-                    <td>Reserved instances</td>
-                    <td>Low</td>
-                    <td>30-60%</td>
-                    <td>Immediate</td>
+    <tr>
+                    <td data-label="Action">Reserved instances</td>
+                    <td data-label="Effort">Low</td>
+                    <td data-label="Potential Savings">30-60%</td>
+                    <td data-label="Time to Implement">Immediate</td>
                 </tr>
-                <tr>
-                    <td>Storage tiering</td>
-                    <td>Medium</td>
-                    <td>40-70%</td>
-                    <td>2-4 weeks</td>
+    <tr>
+                    <td data-label="Action">Storage tiering</td>
+                    <td data-label="Effort">Medium</td>
+                    <td data-label="Potential Savings">40-70%</td>
+                    <td data-label="Time to Implement">2-4 weeks</td>
                 </tr>
-                <tr>
-                    <td>CDN implementation</td>
-                    <td>Medium</td>
-                    <td>20-50%</td>
-                    <td>2-3 weeks</td>
+    <tr>
+                    <td data-label="Action">CDN implementation</td>
+                    <td data-label="Effort">Medium</td>
+                    <td data-label="Potential Savings">20-50%</td>
+                    <td data-label="Time to Implement">2-3 weeks</td>
                 </tr>
-                <tr>
-                    <td>Serverless migration</td>
-                    <td>High</td>
-                    <td>50-80%</td>
-                    <td>2-6 months</td>
+    <tr>
+                    <td data-label="Action">Serverless migration</td>
+                    <td data-label="Effort">High</td>
+                    <td data-label="Potential Savings">50-80%</td>
+                    <td data-label="Time to Implement">2-6 months</td>
                 </tr>
-            </table>
+  </tbody>
+</table>
         </div>
     `;
     

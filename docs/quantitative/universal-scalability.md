@@ -24,7 +24,7 @@ last_updated: 2025-07-20
 </div>
 
 <div class="parameter-explanation" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
-  <table style="width: 100%;">
+  <table class="responsive-table" style="width: 100%;">
     <tr>
       <td style="width: 30%;"><strong>C(N)</strong></td>
       <td>Capacity/throughput with N nodes (relative to single node)</td>
@@ -215,7 +215,8 @@ last_updated: 2025-07-20
 </div>
 
 <div class="data-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
-  <table style="width: 100%; text-align: center;">
+  <table class="responsive-table" style="width: 100%; text-align: center;">
+  <thead>
     <tr style="background: #E0E0E0;">
       <th>Nodes</th>
       <th>Throughput</th>
@@ -223,49 +224,52 @@ last_updated: 2025-07-20
       <th>Efficiency</th>
       <th>Status</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td>1</td>
-      <td>1,000 req/s</td>
-      <td>1.0</td>
-      <td>100%</td>
-      <td>✅ Baseline</td>
+      <td data-label="Nodes">1</td>
+      <td data-label="Throughput">1,000 req/s</td>
+      <td data-label="Relative Capacity">1.0</td>
+      <td data-label="Efficiency">100%</td>
+      <td data-label="Status">✅ Baseline</td>
     </tr>
     <tr>
-      <td>2</td>
-      <td>1,900 req/s</td>
-      <td>1.9</td>
-      <td>95%</td>
-      <td>✅ Excellent</td>
+      <td data-label="Nodes">2</td>
+      <td data-label="Throughput">1,900 req/s</td>
+      <td data-label="Relative Capacity">1.9</td>
+      <td data-label="Efficiency">95%</td>
+      <td data-label="Status">✅ Excellent</td>
     </tr>
     <tr>
-      <td>4</td>
-      <td>3,400 req/s</td>
-      <td>3.4</td>
-      <td>85%</td>
-      <td>✅ Good</td>
+      <td data-label="Nodes">4</td>
+      <td data-label="Throughput">3,400 req/s</td>
+      <td data-label="Relative Capacity">3.4</td>
+      <td data-label="Efficiency">85%</td>
+      <td data-label="Status">✅ Good</td>
     </tr>
     <tr style="background: #FFF9C4;">
-      <td>8</td>
-      <td>5,200 req/s</td>
-      <td>5.2</td>
-      <td>65%</td>
-      <td>⚠️ Declining</td>
+      <td data-label="Nodes">8</td>
+      <td data-label="Throughput">5,200 req/s</td>
+      <td data-label="Relative Capacity">5.2</td>
+      <td data-label="Efficiency">65%</td>
+      <td data-label="Status">⚠️ Declining</td>
     </tr>
     <tr style="background: #FFE0B2;">
-      <td>16</td>
-      <td>6,400 req/s</td>
-      <td>6.4</td>
-      <td>40%</td>
-      <td>🚨 Poor</td>
+      <td data-label="Nodes">16</td>
+      <td data-label="Throughput">6,400 req/s</td>
+      <td data-label="Relative Capacity">6.4</td>
+      <td data-label="Efficiency">40%</td>
+      <td data-label="Status">🚨 Poor</td>
     </tr>
     <tr style="background: #FFCDD2;">
-      <td>32</td>
-      <td>5,800 req/s</td>
-      <td>5.8</td>
-      <td>18%</td>
-      <td>🔥 Negative!</td>
+      <td data-label="Nodes">32</td>
+      <td data-label="Throughput">5,800 req/s</td>
+      <td data-label="Relative Capacity">5.8</td>
+      <td data-label="Efficiency">18%</td>
+      <td data-label="Status">🔥 Negative!</td>
     </tr>
-  </table>
+  </tbody>
+</table>
 </div>
 
 ### Parameter Fitting

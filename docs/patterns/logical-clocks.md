@@ -366,7 +366,7 @@ class BoundedLamportClock(LamportClock):
 ## Comparison with Other Clock Types
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Feature</th>
@@ -377,34 +377,34 @@ class BoundedLamportClock(LamportClock):
 </thead>
 <tbody>
 <tr>
-<td><strong>Purpose</strong></td>
-<td>Wall-clock time</td>
-<td>Causal ordering</td>
-<td>Detect concurrency</td>
+<td data-label="Feature"><strong>Purpose</strong></td>
+<td data-label="Physical Clocks">Wall-clock time</td>
+<td data-label="Lamport Clocks">Causal ordering</td>
+<td data-label="Vector Clocks">Detect concurrency</td>
 </tr>
 <tr>
-<td><strong>Space</strong></td>
-<td>O(1)</td>
-<td>O(1)</td>
-<td>O(N)</td>
+<td data-label="Feature"><strong>Space</strong></td>
+<td data-label="Physical Clocks">O(1)</td>
+<td data-label="Lamport Clocks">O(1)</td>
+<td data-label="Vector Clocks">O(N)</td>
 </tr>
 <tr>
-<td><strong>Sync Required</strong></td>
-<td>Yes</td>
-<td>No</td>
-<td>No</td>
+<td data-label="Feature"><strong>Sync Required</strong></td>
+<td data-label="Physical Clocks">Yes</td>
+<td data-label="Lamport Clocks">No</td>
+<td data-label="Vector Clocks">No</td>
 </tr>
 <tr>
-<td><strong>Concurrent Events</strong></td>
-<td>Same time</td>
-<td>Arbitrary order</td>
-<td>Detected</td>
+<td data-label="Feature"><strong>Concurrent Events</strong></td>
+<td data-label="Physical Clocks">Same time</td>
+<td data-label="Lamport Clocks">Arbitrary order</td>
+<td data-label="Vector Clocks">Detected</td>
 </tr>
 <tr>
-<td><strong>Use Case</strong></td>
-<td>Timestamps</td>
-<td>Total order</td>
-<td>Conflict detection</td>
+<td data-label="Feature"><strong>Use Case</strong></td>
+<td data-label="Physical Clocks">Timestamps</td>
+<td data-label="Lamport Clocks">Total order</td>
+<td data-label="Vector Clocks">Conflict detection</td>
 </tr>
 </tbody>
 </table>

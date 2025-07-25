@@ -31,18 +31,18 @@ You have a microservices architecture with the following components:
 dependencies = {
     'api_gateway': ['auth_service', 'rate_limiter', 'service_mesh', 'dns', 'logging'],
     'auth_service': ['user_db', 'redis_cache', 'token_service', 'service_mesh', 'dns', 'logging'],
-    # TODO: Complete for all services
+# TODO: Complete for all services
 }
 
 def calculate_shared_dependencies(service1, service2, deps):
     """Calculate shared dependencies between two services"""
-    # TODO: Implement
+# TODO: Implement
     pass
 
 def calculate_correlation_coefficient(service1, service2, deps):
     """Calculate failure correlation coefficient (0-1)"""
-    # TODO: Implement
-    # Hint: Consider both direct and transitive dependencies
+# TODO: Implement
+# Hint: Consider both direct and transitive dependencies
     pass
 ```
 
@@ -74,21 +74,21 @@ class GrayFailureDetector:
         
     def record_request(self, latency_ms: float, is_health_check: bool):
         """Record request latency"""
-        # TODO: Implement
+# TODO: Implement
         pass
         
     def detect_gray_failure(self) -> bool:
         """Detect if system is in gray failure state"""
-        # TODO: Implement detection logic
-        # Hints:
-        # - Compare health check latency vs real request latency
-        # - Look for bimodal distributions
-        # - Check for increasing timeouts despite passing health checks
+# TODO: Implement detection logic
+# Hints:
+# - Compare health check latency vs real request latency
+# - Look for bimodal distributions
+# - Check for increasing timeouts despite passing health checks
         pass
         
     def get_reliability_score(self) -> float:
         """Return reliability score (0-1) accounting for gray failures"""
-        # TODO: Implement
+# TODO: Implement
         pass
 ```
 
@@ -98,16 +98,16 @@ Test your detector with this simulated gray failure:
 def simulate_gray_failure():
     detector = GrayFailureDetector()
     
-    # Normal operation
+# Normal operation
     for _ in range(100):
         detector.record_request(random.gauss(200, 50), False)
         detector.record_request(50, True)  # Health check
     
-    # Gray failure begins
+# Gray failure begins
     for _ in range(100):
-        # Real requests severely degraded
+# Real requests severely degraded
         detector.record_request(random.gauss(10000, 2000), False)
-        # Health checks still fast
+# Health checks still fast
         detector.record_request(50, True)
     
     assert detector.detect_gray_failure() == True
@@ -133,25 +133,25 @@ class MetastableSystem:
         total_load = incoming_load + self.retry_rate
         
         if total_load <= self.capacity * 0.7:
-            # Stable state - all requests succeed
+# Stable state - all requests succeed
             self.goodput = incoming_load
             self.retry_rate = 0
             self.in_metastable_state = False
         elif total_load <= self.capacity:
-            # Degraded state - some failures
+# Degraded state - some failures
             success_rate = 1 - (total_load - 0.7 * self.capacity) / (0.3 * self.capacity)
             self.goodput = incoming_load * success_rate
-            # Failed requests retry
+# Failed requests retry
             self.retry_rate = incoming_load * (1 - success_rate) * 3  # 3x retry
         else:
-            # Overload - metastable state
+# Overload - metastable state
             self.in_metastable_state = True
-            # Only process up to capacity
+# Only process up to capacity
             processed = self.capacity
-            # Very low success rate
+# Very low success rate
             success_rate = 0.1
             self.goodput = processed * success_rate
-            # Massive retry amplification
+# Massive retry amplification
             self.retry_rate = (total_load - processed + processed * (1 - success_rate)) * 3
 ```
 
@@ -159,18 +159,18 @@ class MetastableSystem:
 ```python
 def find_metastability_threshold(system):
     """Find the load level that triggers metastable failure"""
-    # TODO: Implement binary search to find threshold
-    # Start with low load, gradually increase
-    # Detect when system enters metastable state
+# TODO: Implement binary search to find threshold
+# Start with low load, gradually increase
+# Detect when system enters metastable state
     pass
 
 def design_retry_strategy():
     """Design a retry strategy that prevents metastable failure"""
-    # TODO: Implement adaptive retry with:
-    # - Exponential backoff
-    # - Jitter
-    # - Circuit breaking
-    # - Load shedding
+# TODO: Implement adaptive retry with:
+# - Exponential backoff
+# - Jitter
+# - Circuit breaking
+# - Load shedding
     pass
 ```
 
@@ -195,29 +195,29 @@ class CorrelationChaosEngine:
             'dependency_failure': self.fail_shared_dependency,
             'gray_failure': self.inject_performance_degradation
         }
-        # TODO: Implement each scenario
+# TODO: Implement each scenario
         
     def fail_entire_rack(self, rack_id):
         """Simulate power/network failure for entire rack"""
-        # TODO: Implement
-        # Should fail all services in the rack
-        # Test if system maintains availability
+# TODO: Implement
+# Should fail all services in the rack
+# Test if system maintains availability
         pass
         
     def trigger_time_based_failure(self):
         """Simulate certificate expiry or time-based bug"""
-        # TODO: Implement
-        # Fail all services using same certificate
-        # Or trigger leap-second style bug
+# TODO: Implement
+# Fail all services using same certificate
+# Or trigger leap-second style bug
         pass
         
     def measure_blast_radius(self, failure_scenario):
         """Measure the impact radius of a failure"""
-        # TODO: Implement metrics:
-        # - Number of services affected
-        # - Customer impact percentage
-        # - Time to recovery
-        # - Whether failure cascaded
+# TODO: Implement metrics:
+# - Number of services affected
+# - Customer impact percentage
+# - Time to recovery
+# - Whether failure cascaded
         pass
 ```
 
@@ -248,23 +248,23 @@ architecture:
       region: "us-east-1"
       azs: ["us-east-1a", "us-east-1b"]
       capacity_percent: 35
-      # TODO: Define isolation boundaries
+# TODO: Define isolation boundaries
       
   anti_correlation_strategies:
     deployment:
-      # TODO: Define deployment strategy to prevent correlated software failures
+# TODO: Define deployment strategy to prevent correlated software failures
     
     dependencies:
-      # TODO: Define how to break dependency correlations
+# TODO: Define how to break dependency correlations
     
     data:
-      # TODO: Define data replication strategy
+# TODO: Define data replication strategy
     
   failure_domains:
-    # TODO: Define hierarchical failure domains
+# TODO: Define hierarchical failure domains
     
   bulkheads:
-    # TODO: Define isolation mechanisms
+# TODO: Define isolation mechanisms
 ```
 
 ### Bonus: Economic Analysis
@@ -326,4 +326,4 @@ After completing these exercises, you should be able to answer:
 2. **Design a Game Day**: Plan a full correlation-focused game day for your organization
 3. **Cost Model**: Build a model that quantifies the cost of correlation vs the cost of preventing it
 
-[**← Back to Law of Failure**](index.md) | [**→ Next: Law of Asynchrony Exercises**](../law2-asynchrony/exercises.md)
+[**← Back to Law of Failure**](index.md) | [**→ Next: Law of Asynchrony Exercises**](/part1-axioms/law2-asynchrony/exercises)

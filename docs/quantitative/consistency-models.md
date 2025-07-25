@@ -403,49 +403,53 @@ Example (3 replicas: 10ms, 15ms, 50ms):<br>
 <h4>📈 Cassandra Consistency Levels</h4>
 
 <div style="overflow-x: auto;">
-<table style="width: 100%; min-width: 600px;">
-<tr>
+<table class="responsive-table" style="width: 100%; min-width: 600px;">
+  <thead>
+    <tr>
 <th>Level</th>
 <th>Write Latency</th>
 <th>Read Latency</th>
 <th>Consistency</th>
 <th>Availability (3 replicas)</th>
 </tr>
-<tr>
-<td><strong>ANY</strong></td>
-<td>5ms (p50)</td>
-<td>N/A</td>
-<td>None</td>
-<td>100%</td>
+  </thead>
+  <tbody>
+    <tr>
+<td data-label="Level"><strong>ANY</strong></td>
+<td data-label="Write Latency">5ms (p50)</td>
+<td data-label="Read Latency">N/A</td>
+<td data-label="Consistency">None</td>
+<td data-label="Availability (3 replicas)">100%</td>
 </tr>
-<tr>
-<td><strong>ONE</strong></td>
-<td>10ms (p50)</td>
-<td>10ms (p50)</td>
-<td>Eventual</td>
-<td>99.9%</td>
+    <tr>
+<td data-label="Level"><strong>ONE</strong></td>
+<td data-label="Write Latency">10ms (p50)</td>
+<td data-label="Read Latency">10ms (p50)</td>
+<td data-label="Consistency">Eventual</td>
+<td data-label="Availability (3 replicas)">99.9%</td>
 </tr>
-<tr>
-<td><strong>TWO</strong></td>
-<td>15ms (p50)</td>
-<td>15ms (p50)</td>
-<td>Stronger</td>
-<td>99%</td>
+    <tr>
+<td data-label="Level"><strong>TWO</strong></td>
+<td data-label="Write Latency">15ms (p50)</td>
+<td data-label="Read Latency">15ms (p50)</td>
+<td data-label="Consistency">Stronger</td>
+<td data-label="Availability (3 replicas)">99%</td>
 </tr>
-<tr>
-<td><strong>QUORUM</strong></td>
-<td>15ms (p50)</td>
-<td>15ms (p50)</td>
-<td>Strong</td>
-<td>99%</td>
+    <tr>
+<td data-label="Level"><strong>QUORUM</strong></td>
+<td data-label="Write Latency">15ms (p50)</td>
+<td data-label="Read Latency">15ms (p50)</td>
+<td data-label="Consistency">Strong</td>
+<td data-label="Availability (3 replicas)">99%</td>
 </tr>
-<tr>
-<td><strong>ALL</strong></td>
-<td>50ms (p50)</td>
-<td>50ms (p50)</td>
-<td>Strongest</td>
-<td>90%</td>
+    <tr>
+<td data-label="Level"><strong>ALL</strong></td>
+<td data-label="Write Latency">50ms (p50)</td>
+<td data-label="Read Latency">50ms (p50)</td>
+<td data-label="Consistency">Strongest</td>
+<td data-label="Availability (3 replicas)">90%</td>
 </tr>
+  </tbody>
 </table>
 </div>
 

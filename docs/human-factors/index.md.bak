@@ -140,7 +140,7 @@ Distributed systems fail in complex ways that exceed human cognitive capacity:
 7. **Conway's Law is real** - Org structure reflects cognitive boundaries
 8. **Measurement drives behavior** - Track cognitive load metrics
 
-### 📋 Human Factors Checklist
+### Human Factors Checklist
 
 **System Design**: Observable, debuggable, recoverable, predictable, learnable
 
@@ -148,7 +148,7 @@ Distributed systems fail in complex ways that exceed human cognitive capacity:
 
 **Operational Excellence**: Actionable alerts, runbook coverage, incident response, automation, continuous improvement
 
-### 🚀 Success Formula
+### Success Formula
 
 ```text
 Technical Excellence + Human Factors = Operational Success
@@ -166,18 +166,18 @@ Technical Excellence + Human Factors = Operational Success
 ### 📚 Prerequisites
 
 **Required**: 
-- Understanding of [Law 6: Human-API](../part1-axioms/law6-human-api/index.md)
+- Understanding of [Law 6: Human-API](/part1-axioms/law6-human-api/)
 - 1-2 years operating production systems
 - Distributed systems basics
 - Process improvement mindset
 
 **Helpful**: 
-- Understanding of [Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)
+- Understanding of [Law 5: Epistemology](/part1-axioms/law5-epistemology/)
 - Incident response experience
 - Team leadership
 - Cognitive science background
 
-### 🔧 Skills to Develop
+### Skills to Develop
 
 **Technical**: Observability (metrics/logs/traces), chaos engineering, automation, documentation
 
@@ -204,23 +204,23 @@ Distributed systems are fundamentally human systems that happen to use computers
 
 Below is the complete catalog of all human and operational factors practices in our library, organized by focus area.
 
-#### 🚀 Production Excellence
+#### Production Excellence
 
 **System Reliability:**
-- **[Chaos Engineering](chaos-engineering.md)** ⭐ - Building confidence through controlled failure experiments
-- **[Consistency Tuning](consistency-tuning.md)** ⭐ - Real-world consistency optimization without breaking production
-- **[Observability Stacks](observability-stacks.md)** ⭐ - Making complex systems understandable within cognitive limits
+- **[Chaos Engineering](chaos-engineering.md)** - Building confidence through controlled failure experiments
+- **[Consistency Tuning](consistency-tuning.md)** - Real-world consistency optimization without breaking production
+- **[Observability Stacks](observability-stacks.md)** - Making complex systems understandable within cognitive limits
 
 **Operational Practices:**
-- **[SRE Practices](sre-practices.md)** ⭐ - Site Reliability Engineering at scale
-- **[Runbooks & Playbooks](runbooks-playbooks.md)** ⭐ - Turning chaos into reliable checklists
+- **[SRE Practices](sre-practices.md)** - Site Reliability Engineering at scale
+- **[Runbooks & Playbooks](runbooks-playbooks.md)** - Turning chaos into reliable checklists
 - **[Incident Response](incident-response.md)** - Structured approach to production incidents
 - **[Blameless Postmortems](blameless-postmortems.md)** - Learning from failure without blame
 
 #### 👥 Team & Organization
 
 **Organizational Design:**
-- **[Org-Structure Physics](org-structure.md)** ⭐ - Conway's Law and team boundaries
+- **[Org-Structure Physics](org-structure.md)** - Conway's Law and team boundaries
 - **[Team Topologies](team-topologies.md)** - Fundamental team types and interactions
 - **[On-Call Culture](oncall-culture.md)** - Building sustainable on-call practices
 
@@ -229,7 +229,7 @@ Below is the complete catalog of all human and operational factors practices in 
 
 ---
 
-### 📊 Practice Maturity Levels
+### Practice Maturity Levels
 
 **⭐ Featured Practices (6):** Comprehensive guides with:
 - Theoretical foundations aligned with Laws
@@ -246,7 +246,7 @@ Below is the complete catalog of all human and operational factors practices in 
 
 ---
 
-### 🔍 Finding the Right Practice
+### Finding the Right Practice
 
 **By Challenge:**
 - **System keeps failing** → Chaos Engineering, Observability Stacks
@@ -289,7 +289,7 @@ Below is the complete catalog of all human and operational factors practices in 
 
 ---
 
-### 🎯 Quick Reference
+### Quick Reference
 
 **Core SRE Metrics:**
 - Error Budget = 1 - SLO
@@ -311,7 +311,7 @@ Below is the complete catalog of all human and operational factors practices in 
 
 ---
 
-### 🚨 Common Anti-Patterns
+### Common Anti-Patterns
 
 1. **Hero Culture** - Rewarding firefighting over prevention
 2. **Blame Game** - Postmortems that find scapegoats

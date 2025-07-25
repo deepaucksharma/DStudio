@@ -55,7 +55,7 @@ graph LR
 ```
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Aspect</th>
@@ -66,28 +66,28 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Visibility</strong></td>
-<td>Monthly surprise bill</td>
-<td>Real-time dashboards</td>
-<td>90% faster issue detection</td>
+<td data-label="Aspect"><strong>Visibility</strong></td>
+<td data-label="Without FinOps">Monthly surprise bill</td>
+<td data-label="With FinOps">Real-time dashboards</td>
+<td data-label="Impact">90% faster issue detection</td>
 </tr>
 <tr>
-<td><strong>Resource Usage</strong></td>
-<td>Always-on, oversized</td>
-<td>Right-sized, scheduled</td>
-<td>40% cost reduction</td>
+<td data-label="Aspect"><strong>Resource Usage</strong></td>
+<td data-label="Without FinOps">Always-on, oversized</td>
+<td data-label="With FinOps">Right-sized, scheduled</td>
+<td data-label="Impact">40% cost reduction</td>
 </tr>
 <tr>
-<td><strong>Decision Making</strong></td>
-<td>Reactive, panic-driven</td>
-<td>Data-driven, proactive</td>
-<td>70% fewer emergencies</td>
+<td data-label="Aspect"><strong>Decision Making</strong></td>
+<td data-label="Without FinOps">Reactive, panic-driven</td>
+<td data-label="With FinOps">Data-driven, proactive</td>
+<td data-label="Impact">70% fewer emergencies</td>
 </tr>
 <tr>
-<td><strong>Team Alignment</strong></td>
-<td>Siloed spending</td>
-<td>Shared accountability</td>
-<td>25% efficiency gain</td>
+<td data-label="Aspect"><strong>Team Alignment</strong></td>
+<td data-label="Without FinOps">Siloed spending</td>
+<td data-label="With FinOps">Shared accountability</td>
+<td data-label="Impact">25% efficiency gain</td>
 </tr>
 </tbody>
 </table>
@@ -178,7 +178,7 @@ graph LR
 </div>
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Pillar</th>
@@ -189,22 +189,22 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>INFORM</strong></td>
-<td>Visibility</td>
-<td>• Tagging strategy<br>• Cost dashboards<br>• Team allocation<br>• Showback reports</td>
-<td>100% cost attribution</td>
+<td data-label="Pillar"><strong>INFORM</strong></td>
+<td data-label="Focus">Visibility</td>
+<td data-label="Key Activities">• Tagging strategy<br>• Cost dashboards<br>• Team allocation<br>• Showback reports</td>
+<td data-label="Outcomes">100% cost attribution</td>
 </tr>
 <tr>
-<td><strong>OPTIMIZE</strong></td>
-<td>Efficiency</td>
-<td>• Right-sizing<br>• Scheduling<br>• Reserved instances<br>• Architecture review</td>
-<td>30-50% cost reduction</td>
+<td data-label="Pillar"><strong>OPTIMIZE</strong></td>
+<td data-label="Focus">Efficiency</td>
+<td data-label="Key Activities">• Right-sizing<br>• Scheduling<br>• Reserved instances<br>• Architecture review</td>
+<td data-label="Outcomes">30-50% cost reduction</td>
 </tr>
 <tr>
-<td><strong>OPERATE</strong></td>
-<td>Culture</td>
-<td>• Automation<br>• Governance<br>• Training<br>• KPI tracking</td>
-<td>Sustainable practices</td>
+<td data-label="Pillar"><strong>OPERATE</strong></td>
+<td data-label="Focus">Culture</td>
+<td data-label="Key Activities">• Automation<br>• Governance<br>• Training<br>• KPI tracking</td>
+<td data-label="Outcomes">Sustainable practices</td>
 </tr>
 </tbody>
 </table>
@@ -472,7 +472,7 @@ graph TB
 ```
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Service Type</th>
@@ -484,25 +484,25 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td><strong>Compute</strong></td>
-<td>EC2, Lambda, ECS</td>
-<td>VMs, Functions</td>
-<td>GCE, Cloud Run</td>
-<td>Spot/Preemptible</td>
+<td data-label="Service Type"><strong>Compute</strong></td>
+<td data-label="AWS">EC2, Lambda, ECS</td>
+<td data-label="Azure">VMs, Functions</td>
+<td data-label="GCP">GCE, Cloud Run</td>
+<td data-label="Optimization">Spot/Preemptible</td>
 </tr>
 <tr>
-<td><strong>Storage</strong></td>
-<td>S3, EBS, Glacier</td>
-<td>Blob, Disk, Archive</td>
-<td>GCS, PD, Nearline</td>
-<td>Lifecycle policies</td>
+<td data-label="Service Type"><strong>Storage</strong></td>
+<td data-label="AWS">S3, EBS, Glacier</td>
+<td data-label="Azure">Blob, Disk, Archive</td>
+<td data-label="GCP">GCS, PD, Nearline</td>
+<td data-label="Optimization">Lifecycle policies</td>
 </tr>
 <tr>
-<td><strong>Database</strong></td>
-<td>RDS, DynamoDB</td>
-<td>SQL, Cosmos DB</td>
-<td>Cloud SQL, Spanner</td>
-<td>Reserved capacity</td>
+<td data-label="Service Type"><strong>Database</strong></td>
+<td data-label="AWS">RDS, DynamoDB</td>
+<td data-label="Azure">SQL, Cosmos DB</td>
+<td data-label="GCP">Cloud SQL, Spanner</td>
+<td data-label="Optimization">Reserved capacity</td>
 </tr>
 </tbody>
 </table>
@@ -760,7 +760,7 @@ graph TB
 ### Real Production Metrics
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Company</th>
@@ -771,28 +771,28 @@ graph TB
 </thead>
 <tbody>
 <tr>
-<td><strong>Netflix</strong></td>
-<td>• $150M encoding/year<br>• 45% utilization<br>• $2.50/hour</td>
-<td>• 80% spot instances<br>• Custom hardware<br>• Off-peak scheduling</td>
-<td>• $48M encoding/year<br>• 85% utilization<br>• $102M saved</td>
+<td data-label="Company"><strong>Netflix</strong></td>
+<td data-label="Before FinOps">• $150M encoding/year<br>• 45% utilization<br>• $2.50/hour</td>
+<td data-label="Optimizations">• 80% spot instances<br>• Custom hardware<br>• Off-peak scheduling</td>
+<td data-label="Results">• $48M encoding/year<br>• 85% utilization<br>• $102M saved</td>
 </tr>
 <tr>
-<td><strong>Uber</strong></td>
-<td>• $50M/month cloud<br>• $0.12/trip<br>• 35% utilization</td>
-<td>• Container right-sizing<br>• 70% spot fleet<br>• Data lifecycle</td>
-<td>• $28M/month cloud<br>• $0.06/trip<br>• 440% ROI</td>
+<td data-label="Company"><strong>Uber</strong></td>
+<td data-label="Before FinOps">• $50M/month cloud<br>• $0.12/trip<br>• 35% utilization</td>
+<td data-label="Optimizations">• Container right-sizing<br>• 70% spot fleet<br>• Data lifecycle</td>
+<td data-label="Results">• $28M/month cloud<br>• $0.06/trip<br>• 440% ROI</td>
 </tr>
 <tr>
-<td><strong>Spotify</strong></td>
-<td>• $10M/month infra<br>• No cost visibility<br>• Untracked growth</td>
-<td>• Squad ownership<br>• Cost per stream<br>• Weekly reports</td>
-<td>• 30% reduction<br>• 73% margin<br>• Cost predictability</td>
+<td data-label="Company"><strong>Spotify</strong></td>
+<td data-label="Before FinOps">• $10M/month infra<br>• No cost visibility<br>• Untracked growth</td>
+<td data-label="Optimizations">• Squad ownership<br>• Cost per stream<br>• Weekly reports</td>
+<td data-label="Results">• 30% reduction<br>• 73% margin<br>• Cost predictability</td>
 </tr>
 <tr>
-<td><strong>Airbnb</strong></td>
-<td>• Regional silos<br>• Peak provisioning<br>• Manual scaling</td>
-<td>• Dynamic allocation<br>• Demand prediction<br>• Cross-region optimization</td>
-<td>• 40% cost savings<br>• 99.99% availability<br>• Elastic scaling</td>
+<td data-label="Company"><strong>Airbnb</strong></td>
+<td data-label="Before FinOps">• Regional silos<br>• Peak provisioning<br>• Manual scaling</td>
+<td data-label="Optimizations">• Dynamic allocation<br>• Demand prediction<br>• Cross-region optimization</td>
+<td data-label="Results">• 40% cost savings<br>• 99.99% availability<br>• Elastic scaling</td>
 </tr>
 </tbody>
 </table>
@@ -1004,7 +1004,7 @@ class AutonomousFinOpsAgent:
 
 ```python
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>FinOps Investment</th>
@@ -1015,34 +1015,34 @@ class AutonomousFinOpsAgent:
 </thead>
 <tbody>
 <tr>
-<td><strong>Tooling</strong></td>
-<td>$100K</td>
-<td><strong>Right-sizing</strong></td>
-<td>$1.5M (15%)</td>
+<td data-label="FinOps Investment"><strong>Tooling</strong></td>
+<td data-label="Cost">$100K</td>
+<td data-label="Savings Category"><strong>Right-sizing</strong></td>
+<td data-label="Annual Savings">$1.5M (15%)</td>
 </tr>
 <tr>
-<td><strong>Training</strong></td>
-<td>$50K</td>
-<td><strong>Scheduling</strong></td>
-<td>$1M (10%)</td>
+<td data-label="FinOps Investment"><strong>Training</strong></td>
+<td data-label="Cost">$50K</td>
+<td data-label="Savings Category"><strong>Scheduling</strong></td>
+<td data-label="Annual Savings">$1M (10%)</td>
 </tr>
 <tr>
-<td><strong>Consulting</strong></td>
-<td>$150K</td>
-<td><strong>Spot Usage</strong></td>
-<td>$800K (8%)</td>
+<td data-label="FinOps Investment"><strong>Consulting</strong></td>
+<td data-label="Cost">$150K</td>
+<td data-label="Savings Category"><strong>Spot Usage</strong></td>
+<td data-label="Annual Savings">$800K (8%)</td>
 </tr>
 <tr>
-<td><strong>Personnel</strong></td>
-<td>$400K</td>
-<td><strong>Reserved Instances</strong></td>
-<td>$1.2M (12%)</td>
+<td data-label="FinOps Investment"><strong>Personnel</strong></td>
+<td data-label="Cost">$400K</td>
+<td data-label="Savings Category"><strong>Reserved Instances</strong></td>
+<td data-label="Annual Savings">$1.2M (12%)</td>
 </tr>
 <tr>
-<td><strong>Total Investment</strong></td>
-<td>$700K</td>
-<td><strong>Total Savings</strong></td>
-<td>$5M (50%)</td>
+<td data-label="FinOps Investment"><strong>Total Investment</strong></td>
+<td data-label="Cost">$700K</td>
+<td data-label="Savings Category"><strong>Total Savings</strong></td>
+<td data-label="Annual Savings">$5M (50%)</td>
 </tr>
 </tbody>
 </table>
@@ -1095,7 +1095,7 @@ graph LR
 ### Cost Optimization Checklist
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Frequency</th>
@@ -1106,22 +1106,22 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Daily</strong></td>
-<td>• Review anomalies<br>• Check idle resources<br>• Monitor auto-scaling</td>
-<td>CloudWatch, Cost Explorer</td>
-<td>15 minutes</td>
+<td data-label="Frequency"><strong>Daily</strong></td>
+<td data-label="Tasks">• Review anomalies<br>• Check idle resources<br>• Monitor auto-scaling</td>
+<td data-label="Tools">CloudWatch, Cost Explorer</td>
+<td data-label="Time Investment">15 minutes</td>
 </tr>
 <tr>
-<td><strong>Weekly</strong></td>
-<td>• Analyze trends<br>• Review recommendations<br>• Update forecasts<br>• Team reviews</td>
-<td>FinOps dashboards, Trusted Advisor</td>
-<td>2 hours</td>
+<td data-label="Frequency"><strong>Weekly</strong></td>
+<td data-label="Tasks">• Analyze trends<br>• Review recommendations<br>• Update forecasts<br>• Team reviews</td>
+<td data-label="Tools">FinOps dashboards, Trusted Advisor</td>
+<td data-label="Time Investment">2 hours</td>
 </tr>
 <tr>
-<td><strong>Monthly</strong></td>
-<td>• RI planning<br>• Architecture review<br>• Vendor negotiation<br>• Executive reports</td>
-<td>RI analyzers, Cost reports</td>
-<td>1 day</td>
+<td data-label="Frequency"><strong>Monthly</strong></td>
+<td data-label="Tasks">• RI planning<br>• Architecture review<br>• Vendor negotiation<br>• Executive reports</td>
+<td data-label="Tools">RI analyzers, Cost reports</td>
+<td data-label="Time Investment">1 day</td>
 </tr>
 </tbody>
 </table>
@@ -1130,7 +1130,7 @@ graph LR
 ### Quick Wins
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Action</th>
@@ -1141,34 +1141,34 @@ graph LR
 </thead>
 <tbody>
 <tr>
-<td><strong>Stop idle resources</strong></td>
-<td>Low</td>
-<td>20-30%</td>
-<td>1 hour</td>
+<td data-label="Action"><strong>Stop idle resources</strong></td>
+<td data-label="Effort">Low</td>
+<td data-label="Potential Savings">20-30%</td>
+<td data-label="Time to Implement">1 hour</td>
 </tr>
 <tr>
-<td><strong>Delete unattached volumes</strong></td>
-<td>Low</td>
-<td>$100-1000/month each</td>
-<td>30 minutes</td>
+<td data-label="Action"><strong>Delete unattached volumes</strong></td>
+<td data-label="Effort">Low</td>
+<td data-label="Potential Savings">$100-1000/month each</td>
+<td data-label="Time to Implement">30 minutes</td>
 </tr>
 <tr>
-<td><strong>Release unassociated IPs</strong></td>
-<td>Low</td>
-<td>$45/month per IP</td>
-<td>15 minutes</td>
+<td data-label="Action"><strong>Release unassociated IPs</strong></td>
+<td data-label="Effort">Low</td>
+<td data-label="Potential Savings">$45/month per IP</td>
+<td data-label="Time to Implement">15 minutes</td>
 </tr>
 <tr>
-<td><strong>Implement tagging</strong></td>
-<td>Medium</td>
-<td>Enables 100% visibility</td>
-<td>1 week</td>
+<td data-label="Action"><strong>Implement tagging</strong></td>
+<td data-label="Effort">Medium</td>
+<td data-label="Potential Savings">Enables 100% visibility</td>
+<td data-label="Time to Implement">1 week</td>
 </tr>
 <tr>
-<td><strong>Use spot instances</strong></td>
-<td>Medium</td>
-<td>70-90% on batch</td>
-<td>2 weeks</td>
+<td data-label="Action"><strong>Use spot instances</strong></td>
+<td data-label="Effort">Medium</td>
+<td data-label="Potential Savings">70-90% on batch</td>
+<td data-label="Time to Implement">2 weeks</td>
 </tr>
 </tbody>
 </table>
@@ -1211,7 +1211,7 @@ graph TD
 ## Implementation Roadmap
 
 <div class="comparison-table">
-<table>
+<table class="responsive-table">
 <thead>
 <tr>
 <th>Week</th>
@@ -1222,28 +1222,28 @@ graph TD
 </thead>
 <tbody>
 <tr>
-<td><strong>1-2</strong></td>
-<td>Quick Wins</td>
-<td>• Stop idle resources<br>• Delete unused volumes<br>• Basic tagging</td>
-<td>10-20% immediate savings</td>
+<td data-label="Week"><strong>1-2</strong></td>
+<td data-label="Focus">Quick Wins</td>
+<td data-label="Actions">• Stop idle resources<br>• Delete unused volumes<br>• Basic tagging</td>
+<td data-label="Expected Impact">10-20% immediate savings</td>
 </tr>
 <tr>
-<td><strong>3-4</strong></td>
-<td>Visibility</td>
-<td>• Deploy dashboards<br>• Set up alerts<br>• Cost allocation</td>
-<td>100% cost attribution</td>
+<td data-label="Week"><strong>3-4</strong></td>
+<td data-label="Focus">Visibility</td>
+<td data-label="Actions">• Deploy dashboards<br>• Set up alerts<br>• Cost allocation</td>
+<td data-label="Expected Impact">100% cost attribution</td>
 </tr>
 <tr>
-<td><strong>5-8</strong></td>
-<td>Optimization</td>
-<td>• Right-sizing<br>• Reserved instances<br>• Spot adoption</td>
-<td>Additional 20-30% savings</td>
+<td data-label="Week"><strong>5-8</strong></td>
+<td data-label="Focus">Optimization</td>
+<td data-label="Actions">• Right-sizing<br>• Reserved instances<br>• Spot adoption</td>
+<td data-label="Expected Impact">Additional 20-30% savings</td>
 </tr>
 <tr>
-<td><strong>9-12</strong></td>
-<td>Culture</td>
-<td>• Team training<br>• Automation<br>• Continuous improvement</td>
-<td>Sustainable practices</td>
+<td data-label="Week"><strong>9-12</strong></td>
+<td data-label="Focus">Culture</td>
+<td data-label="Actions">• Team training<br>• Automation<br>• Continuous improvement</td>
+<td data-label="Expected Impact">Sustainable practices</td>
 </tr>
 </tbody>
 </table>

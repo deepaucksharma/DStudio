@@ -9,7 +9,7 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-# Law 6: The Law of Cognitive Load 🤯
+# Law 6: The Law of Cognitive Load
 
 > A system's complexity must fit within human cognitive limits, or it will fail through misoperation.
 
@@ -37,13 +37,13 @@ class HumanWorkingMemory:
     def process_dashboard(self, dashboard_elements):
         """Model cognitive load of a dashboard"""
         
-        # Can only track 5-9 elements simultaneously
+# Can only track 5-9 elements simultaneously
         if len(dashboard_elements) > 9:
-            # Cognitive overload - will miss critical signals
+# Cognitive overload - will miss critical signals
             missed_signals = len(dashboard_elements) - 9
             error_probability = 1 - (0.9 ** missed_signals)
             
-        # Group related items to fit within limits
+# Group related items to fit within limits
         chunks = self.chunk_information(dashboard_elements)
         if len(chunks) <= self.capacity:
             return {'comprehension': 'high', 'error_rate': 0.01}
@@ -88,7 +88,7 @@ class CognitivelyOptimizedErrors:
     def format_error(self, error, context):
         """Design errors for human comprehension"""
         
-        # BAD: Cognitive overload
+# BAD: Cognitive overload
         bad_error = {
             'error': 'ConnectionException',
             'code': 'ERR_5847',
@@ -96,7 +96,7 @@ class CognitivelyOptimizedErrors:
             'timestamp': '1684934400000'
         }
         
-        # GOOD: Fits mental model
+# GOOD: Fits mental model
         good_error = {
             'what_failed': 'Payment Service cannot reach Order Database',
             'why': 'Network partition between us-east-1a and us-east-1b',
@@ -120,7 +120,7 @@ def cognitive_capacity_under_stress(base_capacity, stress_factors):
     
     capacity = base_capacity
     
-    # Each stressor reduces capacity
+# Each stressor reduces capacity
     if stress_factors['time_pressure']:
         capacity *= 0.7  # 30% reduction
         
@@ -133,11 +133,11 @@ def cognitive_capacity_under_stress(base_capacity, stress_factors):
     if stress_factors['multiple_failures']:
         capacity *= 0.5  # 50% reduction
         
-    # Compound effects
+# Compound effects
     final_capacity = capacity
     
-    # At 3 AM during a major outage, operators may have
-    # only 20% of their normal cognitive capacity
+# At 3 AM during a major outage, operators may have
+# only 20% of their normal cognitive capacity
     return {
         'normal_capacity': base_capacity,
         'stress_capacity': final_capacity,
@@ -179,10 +179,10 @@ class RecognitionBasedUI:
     """
     
     def design_alert(self, alert_data):
-        # BAD: Forces recall
+# BAD: Forces recall
         bad_alert = "Error 5847 on node i-0a1b2c3d4e5f"
         
-        # GOOD: Enables recognition
+# GOOD: Enables recognition
         good_alert = Alert(
             title="Payment Service Degraded",
             visual_indicator="🔴",  # Red = bad, instantly recognizable
@@ -220,14 +220,14 @@ class ProgressiveDisclosureDashboard:
         
     def render_service_status(self, service, attention_level):
         if attention_level == 'glance':
-            # Just health indicator
+# Just health indicator
             return {
                 'status': '🟢' if service.healthy else '🔴',
                 'name': service.name
             }
             
         elif attention_level == 'scan':
-            # Key metrics
+# Key metrics
             return {
                 'status': service.health_emoji,
                 'name': service.name,
@@ -237,7 +237,7 @@ class ProgressiveDisclosureDashboard:
             }
             
         elif attention_level == 'study':
-            # Detailed metrics + context
+# Detailed metrics + context
             return {
                 **self.render_service_status(service, 'scan'),
                 'dependencies': service.dependency_health,
@@ -247,7 +247,7 @@ class ProgressiveDisclosureDashboard:
             }
             
         else:  # deep
-            # Everything including raw data
+# Everything including raw data
             return service.full_telemetry
 ```
 
@@ -264,17 +264,17 @@ class HumanInTheLoopAutomation:
         self.human_override_history = []
         
     def execute_remediation(self, issue, context):
-        # Calculate automation confidence
+# Calculate automation confidence
         confidence = self.calculate_confidence(issue, context)
         
         if confidence > 0.95:
-            # Fully automated
+# Fully automated
             action = self.determine_action(issue)
             self.notify_human(f"Auto-remediation: {action}")
             return self.execute(action)
             
         elif confidence > 0.7:
-            # Propose and wait
+# Propose and wait
             action = self.determine_action(issue)
             message = f"""
             Proposed action: {action}
@@ -287,7 +287,7 @@ class HumanInTheLoopAutomation:
             return self.propose_and_wait(message, action)
             
         else:
-            # Human decision required
+# Human decision required
             options = self.generate_options(issue)
             return self.present_options_to_human(options)
 ```
@@ -371,7 +371,7 @@ class KubernetesCognitiveInterface:
     def summarize_deployment_status(self, deployment):
         """Transform complex state to simple mental model"""
         
-        # Instead of 20+ fields, show what matters
+# Instead of 20+ fields, show what matters
         return {
             'simple_status': self.get_simple_status(deployment),
             'visual': self.generate_visual_representation(deployment),
@@ -397,7 +397,7 @@ class KubernetesCognitiveInterface:
                 'fix': 'Check: kubectl describe pod <pod-name>'
             })
             
-        # Transform technical issues to human understanding
+# Transform technical issues to human understanding
         return problems
 ```
 
@@ -476,4 +476,4 @@ Great systems succeed not by eliminating human involvement but by designing for 
 - "The Humane Interface" - Jef Raskin
 - "Normal Accidents" - Charles Perrow
 
-[**← Previous: Law of Distributed Knowledge**](../law5-epistemology/index.md) | [**→ Next: Law of Economic Reality**](../law7-economics/index.md)
+[**← Previous: Law of Distributed Knowledge**](/part1-axioms/law5-epistemology/) | [**→ Next: Law of Economic Reality**](/part1-axioms/law7-economics/)

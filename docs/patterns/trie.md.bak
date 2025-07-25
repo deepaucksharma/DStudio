@@ -16,8 +16,8 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Caching Strategies](../patterns/caching-strategies.md)
-- [Sharding](../patterns/sharding.md)
+- [Caching Strategies](/patterns/caching-strategies)
+- [Sharding](/patterns/sharding)
 
 ## References
-- [Search Autocomplete Case Study](../case-studies/search-autocomplete.md)
+- [Search Autocomplete Case Study](/case-studies/search-autocomplete)

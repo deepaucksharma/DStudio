@@ -22,33 +22,37 @@ last_updated: 2025-07-20
     <h3 style="margin: 0 0 10px 0; color: #5448C8;">Speedup = 1 / (s + p/n)</h3>
   </div>
   
-  <table style="width: 100%; background: white; border-radius: 5px;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
+  <thead>
     <tr style="background: #E8E5F5;">
       <th style="padding: 12px;">Variable</th>
       <th style="padding: 12px;">Meaning</th>
       <th style="padding: 12px;">Constraint</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>s</strong></td>
-      <td style="padding: 10px;">Serial fraction (can't parallelize)</td>
-      <td style="padding: 10px;">0 ≤ s ≤ 1</td>
+      <td data-label="Variable"><strong>s</strong></td>
+      <td data-label="Meaning">Serial fraction (can't parallelize)</td>
+      <td data-label="Constraint">0 ≤ s ≤ 1</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px; text-align: center;"><strong>p</strong></td>
-      <td style="padding: 10px;">Parallel fraction (can parallelize)</td>
-      <td style="padding: 10px;">0 ≤ p ≤ 1</td>
+      <td data-label="Variable"><strong>p</strong></td>
+      <td data-label="Meaning">Parallel fraction (can parallelize)</td>
+      <td data-label="Constraint">0 ≤ p ≤ 1</td>
     </tr>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>n</strong></td>
-      <td style="padding: 10px;">Number of processors</td>
-      <td style="padding: 10px;">n ≥ 1</td>
+      <td data-label="Variable"><strong>n</strong></td>
+      <td data-label="Meaning">Number of processors</td>
+      <td data-label="Constraint">n ≥ 1</td>
     </tr>
     <tr style="background: #E8E5F5;">
-      <td style="padding: 10px; text-align: center;"><strong>s + p</strong></td>
-      <td style="padding: 10px;">Total work</td>
-      <td style="padding: 10px; font-weight: bold;">= 1</td>
+      <td data-label="Variable"><strong>s + p</strong></td>
+      <td data-label="Meaning">Total work</td>
+      <td data-label="Constraint">= 1</td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="margin-top: 20px; background: #FFF3E0; padding: 15px; border-radius: 5px;">
     <strong>💡 Key Insight:</strong> Serial bottlenecks dominate - even 5% serial work limits speedup to 20x maximum!
@@ -67,70 +71,74 @@ last_updated: 2025-07-20
     <strong>Given:</strong> s = 0.05 (5% serial), p = 0.95 (95% parallel)
   </div>
   
-  <table style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <thead>
     <tr style="background: #C8E6C9;">
       <th style="padding: 12px;">Processors</th>
       <th style="padding: 12px;">Speedup</th>
       <th style="padding: 12px;">Efficiency</th>
       <th style="padding: 12px;">Visual Speedup</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>1</strong></td>
-      <td style="padding: 10px; text-align: center;">1.0x</td>
-      <td style="padding: 10px; text-align: center; color: #4CAF50;">100%</td>
-      <td style="padding: 10px;">
+      <td data-label="Processors"><strong>1</strong></td>
+      <td data-label="Speedup">1.0x</td>
+      <td data-label="Efficiency">100%</td>
+      <td data-label="Visual Speedup">
         <div style="background: #4CAF50; width: 5%; height: 15px;"></div>
       </td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px; text-align: center;"><strong>2</strong></td>
-      <td style="padding: 10px; text-align: center;">1.9x</td>
-      <td style="padding: 10px; text-align: center; color: #4CAF50;">95%</td>
-      <td style="padding: 10px;">
+      <td data-label="Processors"><strong>2</strong></td>
+      <td data-label="Speedup">1.9x</td>
+      <td data-label="Efficiency">95%</td>
+      <td data-label="Visual Speedup">
         <div style="background: #4CAF50; width: 9.5%; height: 15px;"></div>
       </td>
     </tr>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>4</strong></td>
-      <td style="padding: 10px; text-align: center;">3.5x</td>
-      <td style="padding: 10px; text-align: center; color: #66BB6A;">87%</td>
-      <td style="padding: 10px;">
+      <td data-label="Processors"><strong>4</strong></td>
+      <td data-label="Speedup">3.5x</td>
+      <td data-label="Efficiency">87%</td>
+      <td data-label="Visual Speedup">
         <div style="background: #66BB6A; width: 17.5%; height: 15px;"></div>
       </td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px; text-align: center;"><strong>8</strong></td>
-      <td style="padding: 10px; text-align: center;">5.9x</td>
-      <td style="padding: 10px; text-align: center; color: #FF9800;">74%</td>
-      <td style="padding: 10px;">
+      <td data-label="Processors"><strong>8</strong></td>
+      <td data-label="Speedup">5.9x</td>
+      <td data-label="Efficiency">74%</td>
+      <td data-label="Visual Speedup">
         <div style="background: #FF9800; width: 29.5%; height: 15px;"></div>
       </td>
     </tr>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>16</strong></td>
-      <td style="padding: 10px; text-align: center;">8.4x</td>
-      <td style="padding: 10px; text-align: center; color: #FF5722;">53%</td>
-      <td style="padding: 10px;">
+      <td data-label="Processors"><strong>16</strong></td>
+      <td data-label="Speedup">8.4x</td>
+      <td data-label="Efficiency">53%</td>
+      <td data-label="Visual Speedup">
         <div style="background: #FF5722; width: 42%; height: 15px;"></div>
       </td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px; text-align: center;"><strong>32</strong></td>
-      <td style="padding: 10px; text-align: center;">10.3x</td>
-      <td style="padding: 10px; text-align: center; color: #F44336;">32%</td>
-      <td style="padding: 10px;">
+      <td data-label="Processors"><strong>32</strong></td>
+      <td data-label="Speedup">10.3x</td>
+      <td data-label="Efficiency">32%</td>
+      <td data-label="Visual Speedup">
         <div style="background: #F44336; width: 51.5%; height: 15px;"></div>
       </td>
     </tr>
     <tr style="background: #FFEBEE;">
-      <td style="padding: 10px; text-align: center;"><strong>∞</strong></td>
-      <td style="padding: 10px; text-align: center; font-weight: bold; color: #B71C1C;">20x</td>
-      <td style="padding: 10px; text-align: center; color: #B71C1C;">0%</td>
-      <td style="padding: 10px;">
+      <td data-label="Processors"><strong>∞</strong></td>
+      <td data-label="Speedup">20x</td>
+      <td data-label="Efficiency">0%</td>
+      <td data-label="Visual Speedup">
         <div style="background: #B71C1C; width: 100%; height: 15px;"></div>
       </td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="text-align: center;">
     <svg viewBox="0 0 500 300" style="width: 100%; max-width: 500px;">
@@ -196,28 +204,32 @@ Serial = 10% → Max speedup = 10x (even with 1000 cores!)
     <h3 style="margin: 0 0 10px 0; color: #5448C8;">Speedup = s + p × n</h3>
   </div>
   
-  <table style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+  <thead>
     <tr style="background: #E8E5F5;">
       <th style="padding: 12px;">Variable</th>
       <th style="padding: 12px;">Meaning</th>
       <th style="padding: 12px;">Key Difference</th>
     </tr>
+  </thead>
+  <tbody>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>s</strong></td>
-      <td style="padding: 10px;">Serial fraction of parallel execution</td>
-      <td style="padding: 10px; color: #5448C8;">Based on parallel time</td>
+      <td data-label="Variable"><strong>s</strong></td>
+      <td data-label="Meaning">Serial fraction of parallel execution</td>
+      <td data-label="Key Difference">Based on parallel time</td>
     </tr>
     <tr style="background: #F5F5F5;">
-      <td style="padding: 10px; text-align: center;"><strong>p</strong></td>
-      <td style="padding: 10px;">Parallel fraction</td>
-      <td style="padding: 10px; color: #5448C8;">Scales with problem</td>
+      <td data-label="Variable"><strong>p</strong></td>
+      <td data-label="Meaning">Parallel fraction</td>
+      <td data-label="Key Difference">Scales with problem</td>
     </tr>
     <tr>
-      <td style="padding: 10px; text-align: center;"><strong>n</strong></td>
-      <td style="padding: 10px;">Number of processors</td>
-      <td style="padding: 10px;">Same as Amdahl</td>
+      <td data-label="Variable"><strong>n</strong></td>
+      <td data-label="Meaning">Number of processors</td>
+      <td data-label="Key Difference">Same as Amdahl</td>
     </tr>
-  </table>
+  </tbody>
+</table>
   
   <div style="background: #E8F5E9; padding: 15px; border-radius: 5px;">
     <strong>💡 Key Insight:</strong> Scale the problem, not just processors - larger problems often have better parallelism!
@@ -273,7 +285,7 @@ Large: 0.01% serial (bigger data scales better!)
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
     <div style="background: white; padding: 15px; border-radius: 5px; border: 2px solid #EF5350;">
       <h5 style="margin: 0 0 10px 0; color: #C62828;">Amdahl View: Single Video</h5>
-      <table style="width: 100%; margin-bottom: 10px;">
+      <table class="responsive-table" style="width: 100%; margin-bottom: 10px;">
         <tr style="background: #FFEBEE;">
           <td style="padding: 8px;">Read file</td>
           <td style="padding: 8px; text-align: right;">5%</td>
@@ -491,7 +503,7 @@ Large: 0.01% serial (bigger data scales better!)
 <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
   <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
     <h5 style="margin: 0 0 10px 0;">Current Situation</h5>
-    <table style="width: 100%;">
+    <table class="responsive-table" style="width: 100%;">
       <tr>
         <td style="padding: 5px;">Current speedup:</td>
         <td style="padding: 5px; text-align: right; font-weight: bold;">4x with 8 cores</td>
@@ -506,7 +518,7 @@ Large: 0.01% serial (bigger data scales better!)
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
     <div style="background: #FFEBEE; padding: 15px; border-radius: 5px; border: 2px solid #EF5350;">
       <h5 style="margin: 0 0 10px 0; color: #C62828;">❌ Option 1: More Cores</h5>
-      <table style="width: 100%;">
+      <table class="responsive-table" style="width: 100%;">
         <tr>
           <td>16 cores:</td>
           <td style="text-align: right;">5.7x</td>
@@ -525,7 +537,7 @@ Large: 0.01% serial (bigger data scales better!)
     
     <div style="background: #E8F5E9; padding: 15px; border-radius: 5px; border: 2px solid #66BB6A;">
       <h5 style="margin: 0 0 10px 0; color: #2E7D32;">✅ Option 2: Reduce Serial</h5>
-      <table style="width: 100%;">
+      <table class="responsive-table" style="width: 100%;">
         <tr>
           <td>10% → 5%:</td>
           <td style="text-align: right;">10x → 20x</td>
