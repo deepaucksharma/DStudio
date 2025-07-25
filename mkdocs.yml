@@ -110,10 +110,10 @@ plugins:
           tertiaryColor: "#f3f4f6"
   - tags:
       tags_file: tags.md
-  - git-revision-date-localized:
-      enable_creation_date: true
-      type: timeago
-      fallback_to_build_date: true
+  # - git-revision-date-localized:
+  #     enable_creation_date: true
+  #     type: timeago
+  #     fallback_to_build_date: true
 
 # Markdown Extensions
 markdown_extensions:
@@ -140,9 +140,6 @@ markdown_extensions:
   - pymdownx.critic:
       mode: view
   - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.magiclink:
       repo_url_shorthand: true
       user: deepaucksharma
@@ -182,8 +179,6 @@ markdown_extensions:
           format: !!python/name:pymdownx.arithmatex.fence_mathjax_format
         - name: python
           class: python
-          validator: !!python/name:markdown_exec.validator
-          format: !!python/name:markdown_exec.formatter
   - pymdownx.tabbed:
       alternate_style: true
       combine_header_slug: true
@@ -233,21 +228,7 @@ extra:
     provider: mike
     default: stable
     
-  # Analytics (optional)
-  analytics:
-    provider: google
-    property: !ENV GOOGLE_ANALYTICS_KEY
-    feedback:
-      title: Was this page helpful?
-      ratings:
-        - icon: material/emoticon-happy-outline
-          name: This page was helpful
-          data: 1
-          note: Thanks for your feedback!
-        - icon: material/emoticon-sad-outline
-          name: This page could be improved
-          data: 0
-          note: Thanks! Let us know how we can improve.
+  # Analytics (optional) - disabled for testing
     
   # MathJax configuration
   mathjax:
