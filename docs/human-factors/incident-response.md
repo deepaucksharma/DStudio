@@ -12,15 +12,21 @@ last_updated: 2025-07-23
 
 # Incident Response
 
-**Coordinated action when systems fail - designed for Law 6: Human-API under stress**
+!!! abstract "Incident Response Philosophy"
+    **🎯 Core Truth**: Under stress, cognitive capacity drops 80%
+    **🧠 Design Principle**: Simple enough for 20% brain capacity
+    **⏱️ Speed Matters**: Every minute = $1000s lost
+    **🤝 Human-Centric**: Tools serve humans, not vice versa
 
-> *"The best incident response works when cognitive capacity drops 80% under stress—simple, clear, practiced."*
+## Incident Response at a Glance
 
----
-
-## What is Incident Response? (Law 6 Context)
-
-Organized approach to managing failures when human cognitive capacity is severely reduced by stress. Goal: provide simple, clear procedures that work within the 7±2 cognitive limit even when operators are at 20% mental capacity.
+| Phase | Time Target | Cognitive Load | Key Actions |
+|-------|-------------|----------------|-------------|
+| **Detect** | < 1 min | 🟥 Very High | Acknowledge alert |
+| **Triage** | < 5 min | 🟥 Very High | Assess severity |
+| **Respond** | < 15 min | 🟧 High | Form team, start fix |
+| **Recover** | ASAP | 🟨 Medium | Deploy, verify |
+| **Learn** | < 48 hr | 🟩 Low | Postmortem |
 
 ## Incident Severity Levels
 
@@ -91,28 +97,14 @@ flowchart LR
     style F fill:#e0f2f1
 ```
 
-## Key Roles (Law 6: Human-API Distribution)
+## Incident Response Roles Matrix
 
-### 1. Incident Commander (IC) - Managing Attention
-- Overall coordination (max 7±2 active concerns)
-- Decision authority (reduces cognitive burden on others)
-- External communication (single voice principle)
-- NOT debugging (preserves cognitive capacity for coordination)
-
-### 2. Technical Lead
-- Investigation
-- Solution implementation
-- Engineering coordination
-
-### 3. Communications Lead
-- Status updates
-- Customer communication
-- Internal updates
-
-### 4. Scribe
-- Document timeline
-- Track decisions
-- Record actions
+| Role | Primary Focus | Cognitive Limit | Anti-Patterns |
+|------|---------------|-----------------|---------------|
+| **Incident Commander** | • Coordination<br/>• Decisions<br/>• External comms | Max 7±2 concerns | ❌ Don't debug<br/>❌ Don't code |
+| **Technical Lead** | • Root cause<br/>• Solution<br/>• Implementation | Deep focus on 1 problem | ❌ Don't manage<br/>❌ Don't communicate |
+| **Comms Lead** | • Status updates<br/>• Customer messaging<br/>• Stakeholders | 3 audiences max | ❌ Don't debug<br/>❌ Don't promise ETAs |
+| **Scribe** | • Timeline<br/>• Decisions<br/>• Actions | Document everything | ❌ Don't filter<br/>❌ Don't delay |
 
 ## Response Procedures
 
@@ -201,39 +193,43 @@ flowchart TB
     style POSTMORTEM fill:#e1bee7
 ```
 
-### Communication Templates
+## Communication Templates (Copy-Paste Ready)
 
-#### Initial Customer Communication
-**Communication Templates:**
-
-```mermaid
-flowchart LR
-    subgraph "Communication Flow"
-        A[Incident Start] --> B[Initial Notice<br/>< 30 min]
-        B --> C[Regular Updates<br/>Every 30 min]
-        C --> D[Resolution Notice<br/>When fixed]
-        D --> E[RCA Summary<br/>< 48 hours]
-        
-        B -.-> F[Customers]
-        C -.-> F
-        D -.-> F
-        
-        B -.-> G[Internal Teams]
-        C -.-> G
-        D -.-> G
-        E -.-> G
-    end
-    
-    style A fill:#ffcdd2
-    style D fill:#c8e6c9
+### 🔴 SEV-1 Initial Message (< 5 min)
+```
+We are experiencing a service disruption affecting [FEATURE].
+Impact: [NUMBER] users affected
+Status: Investigating
+Next update: In 15 minutes
 ```
 
-| Template | When to Use | Key Elements | Tone |
-|----------|-------------|--------------|------|  
-| **Initial** | First 30 min | Impact, investigating, next update | Acknowledge concern |
-| **Update** | Every 30-60 min | Progress, current state, ETA | Transparent |
-| **Resolution** | When fixed | Duration, cause, prevention | Apologetic, forward-looking |
-| **RCA** | Within 48hr | Deep dive, lessons, improvements | Technical, honest |
+### 🟡 Update Message (Every 30 min)
+```
+Update on [FEATURE] disruption:
+Current status: [INVESTIGATING/IDENTIFIED/FIXING/MONITORING]
+Progress: [WHAT WE'VE DONE]
+Next steps: [WHAT WE'RE DOING]
+ETA: [TIME or "Working to resolve ASAP"]
+Next update: In 30 minutes
+```
+
+### ✅ Resolution Message
+```
+[FEATURE] service has been restored.
+Duration: [START] - [END] ([TOTAL TIME])
+Root cause: [ONE SENTENCE]
+Prevention: [WHAT WE'RE DOING]
+Full RCA: To follow within 48 hours
+```
+
+### Communication Decision Matrix
+
+| Severity | Customer Comms | Internal Comms | Executive Brief |
+|----------|----------------|----------------|------------------|
+| **SEV-1** | Immediate | All-hands page | CEO + VP alert |
+| **SEV-2** | < 30 min | Team page | Director alert |
+| **SEV-3** | If asked | Slack channel | Weekly report |
+| **SEV-4** | None | Ticket only | Monthly metrics |
 
 
 #### Update Communication
@@ -366,81 +362,47 @@ flowchart TD
 | 15+ min | L4 | C-Suite | Business decisions |
 
 
-## Runbook Structure
+## Runbook Template (Optimized for Stress)
 
-```markdown
-# Service Name Runbook
-
-## Service Overview
-- Purpose: What does this service do?
-- Dependencies: What does it depend on?
-- Impact: What happens when it fails?
-
-## Key Metrics
-- Dashboard: [link]
-- Key metrics to monitor:
-  - Request rate
-  - Error rate
-  - Latency (p50, p95, p99)
-
-## Common Issues (Pre-computed Solutions for Stressed Minds)
-
-### Issue 1: High Memory Usage
-**Symptoms** (Recognition cues): Memory alerts, OOM kills, slow responses
-**Diagnosis** (Simple steps): 
-- Check dashboard link #1
-- Look for red memory graph
-**Resolution** (Copy-paste ready):
+### 🚨 HIGH MEMORY - QUICK FIX
 ```bash
-# Step 1: Immediate relief (do this first)
-kubectl rollout restart deployment/service-name
-
-# Step 2: If persists (after 5 min)
-kubectl scale deployment/service-name --replicas=+2
-
-# Step 3: Investigate later (when calm)
-# Memory leak analysis runbook: [link]
+# COPY THIS ENTIRE BLOCK:
+kubectl rollout restart deployment/service-name && \
+kubectl scale deployment/service-name --replicas=+2 && \
+echo "Restarted and scaled. Check metrics in 2 min."
 ```
 
-### Issue 2: Database Connection Exhaustion
-**Symptoms** (Recognition cues): "connection refused", timeout errors
-**Diagnosis** (Simple check):
-- Dashboard link #2 
-- Connection count > 90%
-**Resolution** (Copy-paste ready):
+### 🚨 DATABASE CONNECTIONS FULL
 ```sql
--- Step 1: Kill idle connections
+-- COPY THIS ENTIRE BLOCK:
+-- Kill idle connections and increase limit
 SELECT pg_terminate_backend(pid) 
 FROM pg_stat_activity 
-WHERE state = 'idle' AND state_change < NOW() - INTERVAL '10 minutes';
+WHERE state = 'idle' 
+  AND state_change < NOW() - INTERVAL '5 minutes';
 
--- Step 2: Emergency increase
 ALTER SYSTEM SET max_connections = 500;
 SELECT pg_reload_conf();
 ```
 
-## Emergency Procedures
-
-### Rollback
+### 🚨 EMERGENCY ROLLBACK
 ```bash
-# Get previous version
-kubectl rollout history deployment/service-name
-
-# Rollback to previous
+# ONE COMMAND TO ROLLBACK:
 kubectl rollout undo deployment/service-name
 
-# Rollback to specific version
-kubectl rollout undo deployment/service-name --to-revision=2
-```bash
-### Emergency Scale
-```bash
-# Scale up immediately
-kubectl scale deployment/service-name --replicas=10
-
-# Auto-scale based on CPU
-kubectl autoscale deployment/service-name --cpu-percent=50 --min=5 --max=20
-```text
+# CHECK STATUS:
+kubectl rollout status deployment/service-name
 ```
+
+## Visual Runbook Index
+
+| Symptom | Likely Cause | Quick Fix Command | Dashboard |
+|---------|--------------|-------------------|-----------||
+| 🔴 **High CPU** | Infinite loop | `kubectl rollout restart` | [CPU Dashboard](#) |
+| 🔴 **High Memory** | Memory leak | `kubectl scale --replicas=+2` | [Memory Dashboard](#) |
+| 🔴 **Timeouts** | DB connections | See SQL above | [DB Dashboard](#) |
+| 🔴 **500 Errors** | Bad deploy | `kubectl rollout undo` | [Error Dashboard](#) |
+| 🟡 **Slow Response** | High load | `kubectl autoscale` | [Latency Dashboard](#) |
 
 ## Law Impact Analysis
 
@@ -524,44 +486,43 @@ graph TD
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## Incident Metrics
+## Incident Metrics That Matter
 
-### Key Performance Indicators
-- **MTTA** (Mean Time To Acknowledge)
-- **MTTD** (Mean Time To Detect)
-- **MTTR** (Mean Time To Resolve)
-- **MTTF** (Mean Time To Failure)
+### Real-Time Performance Dashboard
 
-### Tracking and Improvement
 ```mermaid
-flowchart LR
-    subgraph "Key Incident Metrics"
-        A[Incident Triggered] -->|MTTA| B[Acknowledged]
-        B -->|Investigation Time| C[Root Cause Found]
-        C -->|Fix Time| D[Resolution Applied]
-        D -->|Verification Time| E[Incident Resolved]
-        
-        A -->|MTTR| E
-        
-        F[MTTD: Time to Detect]
-        G[MTTA: Time to Acknowledge]
-        H[MTTR: Time to Resolve]
-        I[MTTF: Time Between Failures]
+graph LR
+    subgraph "Current Month"
+        DETECT[Detect<br/>3.2min<br/>🟢] --> ACK[Acknowledge<br/>4.1min<br/>🟢]
+        ACK --> FIX[Resolve<br/>28min<br/>🟢]
+        FIX --> VERIFY[Verify<br/>5min<br/>🟢]
     end
     
-    style A fill:#ffcdd2
-    style E fill:#c8e6c9
+    subgraph "Targets"
+        T1[< 5 min]
+        T2[< 5 min]
+        T3[< 30 min]
+        T4[< 10 min]
+    end
 ```
 
-**Incident Metrics Dashboard:**
+### Metrics Scorecard
 
-| Metric | Definition | Target | Current | Trend |
-|--------|------------|--------|---------|-------|
-| **MTTD** | Detection time | < 5 min | 3.2 min | ↓ 15% |
-| **MTTA** | Acknowledge time | < 5 min | 4.1 min | ↓ 8% |
-| **MTTR** | Resolution time | < 30 min | 28 min | ↓ 22% |
-| **MTTF** | Between failures | > 720 hr | 892 hr | ↑ 18% |
-| **Incidents/Month** | Total count | < 10 | 7 | ↓ 30% |
+| Metric | This Month | Last Month | Target | Status |
+|--------|------------|------------|--------|--------|
+| **Detection (MTTD)** | 3.2 min | 3.8 min | < 5 min | 🟢 -16% |
+| **Response (MTTA)** | 4.1 min | 4.5 min | < 5 min | 🟢 -9% |
+| **Resolution (MTTR)** | 28 min | 36 min | < 30 min | 🟢 -22% |
+| **Reliability (MTTF)** | 892 hrs | 756 hrs | > 720 hrs | 🟢 +18% |
+| **Volume** | 7 incidents | 10 incidents | < 10 | 🟢 -30% |
+
+### Cost Impact Analysis
+
+| Metric Improvement | Business Value | Annual Savings |
+|--------------------|----------------|----------------|
+| **MTTR -22%** | 8 min less downtime/incident | $240K |
+| **MTTF +18%** | 3 fewer incidents/month | $450K |
+| **MTTA -9%** | Faster customer communication | +2% NPS |
 
 
 ## Communication Strategy Matrix

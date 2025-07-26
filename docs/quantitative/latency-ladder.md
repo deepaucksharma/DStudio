@@ -91,7 +91,9 @@ CA → Netherlands packet 150 ms 4.8 years
 
  <div class="progress-visualization">
  <h5>Latency Scale Visualization</h5>
- <svg viewBox="0 0 600 120">
+ <svg viewBox="0 0 600 120" role="img" aria-label="Latency scale visualization showing logarithmic scale from nanoseconds to tens of milliseconds">
+ <title>Latency Scale Visualization</title>
+ <desc>Horizontal bar chart showing latency ranges on a logarithmic scale: Memory operations in nanoseconds, Storage in microseconds, Network in milliseconds, and WAN in tens of milliseconds</desc>
  <!-- Log scale bars -->
  <rect x="50" y="20" width="20" height="20" fill="#4CAF50" />
  <text x="75" y="35" font-size="12">ns</text>
@@ -350,7 +352,9 @@ Practical approaches to reduce latency:
  <strong>Player input → Other players see action</strong>
  
  <div>
- <svg viewBox="0 0 600 200">
+ <svg viewBox="0 0 600 200" role="img" aria-label="Gaming latency timeline breakdown showing input to render pipeline">
+ <title>Real-time Gaming Latency</title>
+ <desc>Timeline visualization showing latency breakdown for real-time gaming: 8ms input polling, 30ms client to server, 5ms server processing, 30ms server to clients, 8ms render, totaling 81ms</desc>
  <!-- Timeline -->
  <line x1="50" y1="100" x2="550" y2="100" stroke="#333" stroke-width="2"/>
  
@@ -444,7 +448,9 @@ Every operation proves [Law 1](/part1-axioms/law1-failure/) - even L1 cache (0.5
 ### Law 4: Trade-offs
 !!! danger "📈 Latency Under Load"
  <div>
- <svg viewBox="0 0 600 300">
+ <svg viewBox="0 0 600 300" role="img" aria-label="Chart showing exponential latency growth as system utilization increases">
+ <title>Latency vs System Utilization</title>
+ <desc>Exponential curve showing how latency remains stable until 75% utilization, then increases dramatically, reaching 10x at 90% and 100x at 99% utilization. Highlights danger zone above 75% and critical zone above 90%</desc>
  <!-- Title -->
  <text x="300" y="20" text-anchor="middle" font-weight="bold">Latency vs System Utilization</text>
  <!-- Axes -->
@@ -499,7 +505,9 @@ Consensus = multiple RTTs. Strong consistency = more hops.
 !!! abstract "🕐 Human-Scale Latency Comparison"
 
  <div>
- <svg viewBox="0 0 700 400">
+ <svg viewBox="0 0 700 400" role="img" aria-label="Human-scale comparison of computer operation latencies">
+ <title>Human-Scale Latency Comparison</title>
+ <desc>Visualization comparing computer operation latencies at human scale: if L1 cache access took 0.5 seconds, then L2 cache would take 7 seconds, main memory 1.5 minutes, SSD read 4.4 hours, disk seek 3.8 months, and cross-region network calls 4.8 years</desc>
  <!-- Title -->
  <text x="350" y="30" text-anchor="middle" font-weight="bold" font-size="16">If L1 Cache = 0.5 seconds...</text>
 

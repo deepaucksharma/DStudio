@@ -173,7 +173,9 @@ last_updated: 2025-07-20
 </table>
  
  <div>
- <svg viewBox="0 0 400 250">
+ <svg viewBox="0 0 400 250" role="img" aria-label="Chart showing cache return on investment percentage increasing with hit rate">
+ <title>Cache ROI by Hit Rate</title>
+ <desc>Curve chart demonstrating how cache ROI grows exponentially as hit rate increases, breaking even around 70% and reaching 400% ROI at 99% hit rate</desc>
  <text x="200" y="20" text-anchor="middle" font-weight="bold">Cache ROI by Hit Rate</text>
  
  <!-- Axes -->
@@ -430,7 +432,9 @@ Pareto: 20% of keys = 80% of requests
  </tbody>
  </table>
  <div>
- <svg viewBox="0 0 500 300">
+ <svg viewBox="0 0 500 300" role="img" aria-label="Chart comparing cache size, hit rate percentage, and net value to identify optimal cache sizing">
+ <title>Cache Size vs Hit Rate vs Value</title>
+ <desc>Visualization showing the relationship between cache size (1GB to 1TB), hit rate curve, and net value curve, identifying a sweet spot between 10-100GB for most applications</desc>
  <text x="250" y="20" text-anchor="middle" font-weight="bold">Cache Size vs Hit Rate vs Value</text>
  <!-- Axes -->
  <line x1="50" y1="250" x2="450" y2="250" stroke="#333" stroke-width="2"/>

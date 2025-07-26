@@ -136,7 +136,9 @@ last_updated: 2025-07-20
 </table>
  
  <div>
- <svg viewBox="0 0 500 300">
+ <svg viewBox="0 0 500 300" role="img" aria-label="Speedup vs Processors chart showing performance scaling with 95% parallel code">
+ <title>Speedup vs Processors (95% Parallel)</title>
+ <desc>Chart showing how speedup increases with processor count for 95% parallelizable code, plateauing at 20x speedup due to 5% serial bottleneck</desc>
  <text x="250" y="20" text-anchor="middle" font-weight="bold">Speedup vs Processors (95% Parallel)</text>
  
  <!-- Axes -->
@@ -229,7 +231,9 @@ Serial = 10% → Max speedup = 10x (even with 1000 cores!)
  </div>
  
  <div>
- <svg viewBox="0 0 400 200">
+ <svg viewBox="0 0 400 200" role="img" aria-label="Comparison of Amdahl's Law and Gustafson's Law perspectives on parallel computing">
+ <title>Amdahl vs Gustafson Perspective</title>
+ <desc>Visual comparison showing Amdahl's pessimistic fixed-problem view versus Gustafson's optimistic scaled-problem approach to parallel computing</desc>
  <text x="200" y="20" text-anchor="middle" font-weight="bold">Amdahl vs Gustafson Perspective</text>
  
  <!-- Amdahl box -->
@@ -316,7 +320,9 @@ Large: 0.01% serial (bigger data scales better!)
  </div>
  
  <div>
- <svg viewBox="0 0 500 300">
+ <svg viewBox="0 0 500 300" role="img" aria-label="Video processing timeline comparing single video encoding versus platform-wide batch processing">
+ <title>Video Processing: Two Perspectives</title>
+ <desc>Timeline visualization showing how video encoding scales differently when processing a single video (Amdahl's view) versus processing many videos in parallel (Gustafson's view)</desc>
  <text x="250" y="20" text-anchor="middle" font-weight="bold">Video Processing: Two Perspectives</text>
  
  <!-- Timeline for single video -->
@@ -450,7 +456,9 @@ Large: 0.01% serial (bigger data scales better!)
  </div>
  
  <div>
- <svg viewBox="0 0 500 200">
+ <svg viewBox="0 0 500 200" role="img" aria-label="Bar chart showing maximum practical speedup achievable based on serial code fraction">
+ <title>Maximum Practical Speedup by Serial Fraction</title>
+ <desc>Bar chart demonstrating how serial code percentage limits maximum achievable speedup: less than 5% serial allows 20-100x speedup, 5-20% allows 5-20x, and over 20% serial limits speedup to less than 5x</desc>
  <text x="250" y="20" text-anchor="middle" font-weight="bold">Maximum Practical Speedup by Serial Fraction</text>
  
  <!-- Bars -->
@@ -540,7 +548,9 @@ Large: 0.01% serial (bigger data scales better!)
  </div>
  
  <div>
- <svg viewBox="0 0 500 250">
+ <svg viewBox="0 0 500 250" role="img" aria-label="Chart comparing speedup improvement strategies: adding more cores versus reducing serial bottlenecks">
+ <title>Speedup Improvement Strategies</title>
+ <desc>Comparison chart showing two paths from current 8-core, 4x speedup state: adding more cores yields diminishing returns, while reducing serial bottlenecks provides better ROI</desc>
  <text x="250" y="20" text-anchor="middle" font-weight="bold">Speedup Improvement Strategies</text>
  
  <!-- Axes -->

@@ -115,7 +115,8 @@ It is verify important to present highest conceptual clarity with in-depth compr
   - have a clear visual hierarchy
 
 ### Comprehensive Content Updates
-**CRITICAL**: When making any change to a page, think comprehensively:
+**CRITICAL**: the cotnent is already high quality, we need to be surgically pricise and intentional in 
+  updating all the content. When making any change to a page, think comprehensively:
 1. Update the ENTIRE page for consistency and flow
 2. Review and update ALL related content across the site
 3. Ensure changes align with the overall pedagogical approach

@@ -40,7 +40,9 @@ last_updated: 2025-07-20
  
  <div>
  <strong>Resource Usage at Peak:</strong>
- <svg viewBox="0 0 500 200">
+ <svg viewBox="0 0 500 200" role="img" aria-label="Resource usage gauges showing CPU, Memory, Network, and Disk I/O percentages at peak load">
+ <title>Resource Usage at Peak</title>
+ <desc>Interactive gauge visualization displaying current resource utilization levels for CPU, Memory, Network bandwidth, and Disk I/O operations</desc>
  <!-- CPU gauge -->
  <g transform="translate(50, 50)">
  <text x="50" y="-10" text-anchor="middle" font-weight="bold">CPU</text>
@@ -83,7 +85,8 @@ last_updated: 2025-07-20
  <h5>Linear Growth</h5>
  <div>
  <span>Future = Current × (1 + rate × months)</span>
- <svg viewBox="0 0 150 100">
+ <svg viewBox="0 0 150 100" role="img" aria-label="Linear growth model graph">
+ <title>Linear Growth</title>
  <line x1="10" y1="80" x2="140" y2="20" stroke="#4CAF50" stroke-width="3"/>
  <line x1="10" y1="90" x2="140" y2="90" stroke="#333" stroke-width="1"/>
  <line x1="10" y1="90" x2="10" y2="10" stroke="#333" stroke-width="1"/>
@@ -95,7 +98,8 @@ last_updated: 2025-07-20
  <div>
  <span>Future = Current × (1 + rate)^months</span>
  </div>
- <svg viewBox="0 0 150 100">
+ <svg viewBox="0 0 150 100" role="img" aria-label="Exponential growth model graph">
+ <title>Exponential Growth</title>
  <path d="M 10,80 Q 50,75 140,20" stroke="#FF9800" stroke-width="3" fill="none"/>
  <line x1="10" y1="90" x2="140" y2="90" stroke="#333" stroke-width="1"/>
  <line x1="10" y1="90" x2="10" y2="10" stroke="#333" stroke-width="1"/>
@@ -108,7 +112,8 @@ last_updated: 2025-07-20
  <div>
  <span>Future = Cap / (1 + e^(-k×(t-t0)))</span>
  </div>
- <svg viewBox="0 0 150 100">
+ <svg viewBox="0 0 150 100" role="img" aria-label="S-curve growth model graph">
+ <title>S-Curve Growth</title>
  <path d="M 10,80 C 30,80 50,50 70,30 S 120,20 140,20" stroke="#2196F3" stroke-width="3" fill="none"/>
  <line x1="10" y1="90" x2="140" y2="90" stroke="#333" stroke-width="1"/>
  <line x1="10" y1="90" x2="10" y2="10" stroke="#333" stroke-width="1"/>
@@ -147,7 +152,9 @@ last_updated: 2025-07-20
 
 ### Step 3: Safety Margins
 !!! info "🛟️ Safety Margin Guidelines"
- <svg viewBox="0 0 600 300">
+ <svg viewBox="0 0 600 300" role="img" aria-label="Bar chart showing recommended safety margins for different system components">
+ <title>Recommended Safety Margins by Component</title>
+ <desc>Horizontal bar chart displaying recommended usage percentages and safety margins for CPU (60% usage, 40% margin), Memory (70% usage, 30% margin), Network (50% usage, 50% margin), Storage (50% usage, 50% margin), and Database Connections (70% usage, 30% margin)</desc>
  <!-- Title -->
  <text x="300" y="20" text-anchor="middle" font-weight="bold">Recommended Safety Margins by Component</text>
  <!-- CPU -->
@@ -244,7 +251,9 @@ Horizontal: 10→15 instances
 
 ### Resource Planning Table
 !!! note "📊 Capacity Growth Timeline"
- <svg viewBox="0 0 700 400">
+ <svg viewBox="0 0 700 400" role="img" aria-label="Line chart showing 12-month traffic growth projection with cost impact and architecture change indicators">
+ <title>12-Month Capacity Projection</title>
+ <desc>Line chart projecting traffic growth from 1000 to 5000 requests per second over 12 months, with markers indicating architecture change needed at month 6 and associated cost increases from $10k to $50k monthly</desc>
  <!-- Title -->
  <text x="350" y="20" text-anchor="middle" font-weight="bold">12-Month Capacity Projection</text>
  <!-- Axes -->
