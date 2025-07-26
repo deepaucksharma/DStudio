@@ -1119,9 +1119,9 @@ The near real-time architecture, combined with sophisticated scoring algorithms 
 The operational patterns pioneered by Netflix, GitHub, and other large-scale users demonstrate how Elasticsearch can evolve from simple search to comprehensive data platforms powering business-critical applications.
 
 ## Related Case Studies
-- [Key-Value Store](./key-value-store.md) - Foundation for document storage
-- [Cassandra](./cassandra.md) - Alternative distributed database architecture
-- [Apache Kafka](./kafka.md) - Stream processing for real-time indexing
+- [Key-Value Store](key-value-store.md) - Foundation for document storage
+- [Cassandra](cassandra.md) - Alternative distributed database architecture
+- [Apache Kafka](kafka.md) - Stream processing for real-time indexing
 
 ## External Resources
 - [Elasticsearch Guide](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)¹

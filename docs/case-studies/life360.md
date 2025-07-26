@@ -19,9 +19,9 @@ This case study would analyze Life360's architecture for continuous family locat
 - Location history storage and privacy
 
 ## Related Case Studies
-- [Nearby Friends](./nearby-friends.md) - Location sharing patterns
-- [Snap Map](./snap-map.md) - Social location features
-- [Find My Device](./find-my-device.md) - Device tracking
+- [Nearby Friends](nearby-friends.md) - Location sharing patterns
+- [Snap Map](snap-map.md) - Social location features
+- [Find My Device](find-my-device.md) - Device tracking
 - Geofencing (Coming Soon) - Location-based notifications
 
 ## External Resources

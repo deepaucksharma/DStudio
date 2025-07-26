@@ -14,7 +14,7 @@ last_updated: 2025-07-25
 
 # Event Sourcing
 
-[Home](/) > [Patterns](/patterns/) > [Core Patterns](/patterns/#core-patterns) > Event Sourcing
+[Home](/) > [Patterns](/patterns) > [Core Patterns](/patterns/#core-patterns) > Event Sourcing
 
 !!! abstract "📊 Data Pattern"
  Store all changes as immutable events to maintain complete audit history while enabling state reconstruction at any point in time.
@@ -554,11 +554,11 @@ timeline
 
  This pattern directly addresses:
 
- 1. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Events capture exact time of state changes
- 2. **[Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/)**: Event sequence provides total ordering
- 3. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Complete history enables perfect knowledge
- 4. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Every change is observable
- 5. **[Law 6 (Cognitive Load 🤯)](/part1-axioms/law6-human-api/)**: Natural audit trail for compliance
+ 1. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology)**: Events capture exact time of state changes
+ 2. **[Law 3 (Emergent Chaos 🌪️/index)](/part1-axioms/law3-emergence)**: Event sequence provides total ordering
+ 3. **[Law 5 (Distributed Knowledge 🧠/index)](/part1-axioms/law5-epistemology)**: Complete history enables perfect knowledge
+ 4. **[Law 5 (Distributed Knowledge 🧠/index)](/part1-axioms/law5-epistemology)**: Every change is observable
+ 5. **[Law 6 (Cognitive Load 🤯/index)](/part1-axioms/law6-human-api/index)**: Natural audit trail for compliance
 
 ### Future Directions
 
@@ -676,17 +676,41 @@ event_sourcing:
 
 ---
 
-## Related Resources
+## Related Laws & Pillars
 
-### Patterns
-- [CQRS](/patterns/cqrs) - Natural companion for read model separation
-- [Saga Pattern](/patterns/saga) - Distributed transactions with events
-- [Event-Driven Architecture](/patterns/event-driven) - Events as first-class citizens
+### Fundamental Laws
+This pattern directly addresses:
 
-### Laws
-- [Law 5 (Distributed Knowledge )](/part1-axioms/law5-epistemology/) - Why event timing matters
-- [Law 3 (Emergent Chaos )](/part1-axioms/law3-emergence/) - Event sequence guarantees
-- [Law 6 (Cognitive Load )](/part1-axioms/law6-human-api/) - Complete system knowledge
+- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure/)**: Event store as single point of failure
+- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-asynchrony/)**: Events happen asynchronously
+- **[Law 3: Emergent Chaos 🌪️](/part1-axioms/law3-emergence/)**: Event ordering complexity emerges
+- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology/)**: Complete history preserved
+- **[Law 6: Cognitive Load 🧠](/part1-axioms/law6-human-api/)**: Complexity of temporal queries
+- **[Law 7: Economic Reality 💰](/part1-axioms/law7-economics/)**: Storage costs grow over time
+
+### Foundational Pillars
+Event Sourcing implements:
+
+- **[Pillar 2: Distribution of State 🗃️](/part2-pillars/state/)**: State as sequence of events
+- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/)**: Events as source of truth
+- **[Pillar 5: Distribution of Intelligence 🤖](/part2-pillars/intelligence/)**: Smart projections from events
+
+## Related Patterns
+
+### Core Companions
+- **[CQRS](/patterns/cqrs/)**: Natural companion for read model separation
+- **[Saga Pattern](/patterns/saga)**: Distributed transactions with events
+- **[Event-Driven Architecture](/patterns/event-driven)**: Events as first-class citizens
+
+### Implementation Patterns
+- **[Outbox Pattern](/patterns/outbox)**: Reliable event publishing
+- **[Event Streaming](/patterns/event-streaming)**: Real-time event processing
+- **[Snapshot](/patterns/snapshot/)**: Performance optimization for long streams
+
+### Supporting Patterns
+- **[Idempotent Receiver](/patterns/idempotent-receiver/)**: Handle duplicate events
+- **[Message Queue](/patterns/distributed-queue)**: Event distribution
+- **[CDC (Change Data Capture)](/patterns/cdc/)**: Generate events from state changes
 
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database
@@ -705,7 +729,7 @@ event_sourcing:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: CQRS](/patterns/cqrs/) | 
-[:material-arrow-up: Patterns](/patterns/) | 
-[:material-arrow-right: Saga Pattern](/patterns/saga/)
+[:material-arrow-left: CQRS](/patterns/cqrs) | 
+[:material-arrow-up: Patterns](/patterns) | 
+[:material-arrow-right: Saga Pattern](/patterns/saga)
 </div>

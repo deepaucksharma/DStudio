@@ -468,7 +468,7 @@ graph TB
  <h3 class="pattern-card__title">Leader-Follower</h3>
  <p class="pattern-card__description">ISR protocol for partition replication and failover</p>
  </a>
- <a href="../../patterns/event-streaming/" class="pattern-card">
+ <a href="../../patterns/event-streaming" class="pattern-card">
  <h3 class="pattern-card__title">Event Streaming</h3>
  <p class="pattern-card__description">Append-only log as foundation for event-driven systems</p>
  </a>

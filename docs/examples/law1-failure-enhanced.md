@@ -24,7 +24,7 @@ nav:
       path: "/quantitative/failure-models/"
       type: "theory"
     - title: "Circuit Breaker Pattern"
-      path: "/patterns/circuit-breaker/"
+      path: "/patterns/circuit-breaker"
       type: "pattern"
     - title: "GitHub 2018 Outage"
       path: "/case-studies/github-2018/"

@@ -12,7 +12,7 @@ last_updated: 2025-07-25
 
 # Part III: Modern Architectural Patterns
 
-[Home](/) > [Patterns](/patterns/) > Overview
+[Home](/) > [Patterns](/patterns) > Overview
 
 !!! abstract "The Pattern Library"
     **50+ Production-Ready Patterns** from companies operating at massive scale  
@@ -245,8 +245,10 @@ graph LR
 | **CDC** | 💾 Data | Data sync | Real-time replication | 🔴 High | [🔄](cdc.md) |
 | **Sharding** | 💾 Data | Data scale | > 1TB or > 10K TPS | 🔴 High | [🔪](sharding.md) |
 | **Caching** | 💾 Data | Latency | Read-heavy load | 🟢 Low | [💾](caching-strategies.md) |
+| **Request Batching** | 💾 Data | Overhead amortization | High frequency ops | 🟡 Medium | [📦](request-batching.md) |
 | **Leader Election** | 🤝 Coordination | Single writer | Consensus needed | 🔴 High | [👑](leader-election.md) |
 | **Distributed Lock** | 🤝 Coordination | Mutual exclusion | Critical sections | 🔴 High | [🔒](distributed-lock.md) |
+| **State Watch** | 🤝 Coordination | Change notification | Real-time state updates | 🔴 High | [👁️](state-watch.md) |
 | **Observability** | ⚙️ Operational | Visibility | Production systems | 🟡 Medium | [👁️](observability.md) |
 | **Auto-scaling** | ⚙️ Operational | Variable load | Cloud deployments | 🟡 Medium | [📈](auto-scaling.md) |
 | **Load Balancing** | ⚙️ Operational | Request distribution | > 1 server | 🟢 Low | [⚖️](load-balancing.md) |
@@ -409,7 +411,7 @@ Key Papers & Resources:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Part II - The 5 Pillars](/part2-pillars/) | 
+[:material-arrow-left: Part II - The 5 Pillars](/part2-pillars) | 
 [:material-arrow-up: Home](/) | 
-[:material-arrow-right: Pattern Comparison](/patterns/pattern-comparison/)
+[:material-arrow-right: Pattern Comparison](/patterns/pattern-comparison)
 </div>

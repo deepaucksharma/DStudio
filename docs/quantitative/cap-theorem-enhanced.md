@@ -435,7 +435,7 @@ def quorum_parameters(N=5):
 
 ## Real-World Case Studies
 
-<a href="/case-studies/cassandra/" class="related-item">
+<a href="/case-studies/cassandra.md" class="related-item">
  <span class="item-icon">💿</span>
  <span class="item-title">Cassandra (AP)</span>
  <span class="item-type">case-study</span>
@@ -458,7 +458,7 @@ def quorum_parameters(N=5):
 
 ## Interactive Tool
 
-Try our [CAP Theorem Calculator](/tools/cap-calculator/) to explore trade-offs with different:
+Try our [CAP Theorem Calculator](/tools/cap-calculator) to explore trade-offs with different:
 - Network partition probabilities
 - Consistency requirements
 - Availability SLAs

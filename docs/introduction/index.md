@@ -109,7 +109,7 @@ description: "A physics-first approach to understanding distributed systems"
 
     Dive into the fundamental laws that govern all distributed systems.
 
-    [:octicons-arrow-right-24: The 7 Laws](/part1-axioms/)
+    [:octicons-arrow-right-24: The 7 Laws](/part1-axioms)
 
 </div>
 

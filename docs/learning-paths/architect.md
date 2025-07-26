@@ -45,17 +45,17 @@ As a solution architect, you will:
  
  Apply laws to architectural decisions:
  
- - [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Blast radius design
- - [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Event-driven architectures
- - [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - Complexity management
+ - [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Blast radius design
+ - [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Event-driven architectures
+ - [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - Complexity management
 
 - **Week 2: Pillars as Design Patterns**
  
  Master distribution strategies:
  
- - [Work Distribution](/part2-pillars/work/) - Compute architectures
- - [State Distribution](/part2-pillars/state/) - Data architectures
- - [Control Distribution](/part2-pillars/control/) - Orchestration patterns
+ - [Work Distribution](/part2-pillars/work/index) - Compute architectures
+ - [State Distribution](/part2-pillars/state/index) - Data architectures
+ - [Control Distribution](/part2-pillars/control/index) - Orchestration patterns
 
 </div>
 
@@ -67,42 +67,42 @@ As a solution architect, you will:
 #### Week 3-4: Foundation Patterns
 
 === "Microservices Architecture"
- - [Service Mesh](/patterns/service-mesh/) - Istio, Linkerd, Consul
- - [API Gateway](/patterns/api-gateway/) - Kong, Apigee, AWS API Gateway
- - [Service Discovery](/patterns/service-discovery/) - Consul, Eureka, etcd
- - [Sidecar Pattern](/patterns/sidecar/) - Envoy, Dapr
+ - [Service Mesh](/patterns/service-mesh) - Istio, Linkerd, Consul
+ - [API Gateway](/patterns/api-gateway) - Kong, Apigee, AWS API Gateway
+ - [Service Discovery](/patterns/service-discovery) - Consul, Eureka, etcd
+ - [Sidecar Pattern](/patterns/sidecar) - Envoy, Dapr
 
 === "Event-Driven Architecture"
- - [Event Sourcing](/patterns/event-sourcing/) - Event stores
- - [CQRS](/patterns/cqrs/) - Read/write separation
- - [Saga Pattern](/patterns/saga/) - Distributed transactions
- - [Event Streaming](/patterns/event-streaming/) - Kafka, Pulsar
+ - [Event Sourcing](/patterns/event-sourcing) - Event stores
+ - [CQRS](/patterns/cqrs) - Read/write separation
+ - [Saga Pattern](/patterns/saga) - Distributed transactions
+ - [Event Streaming](/patterns/event-streaming) - Kafka, Pulsar
 
 === "Data Architecture"
- - [Data Mesh](/patterns/data-mesh/) - Decentralized data
- - [Lambda Architecture](/patterns/lambda-architecture/) - Batch + stream
- - [Kappa Architecture](/patterns/kappa-architecture/) - Stream-only
- - [CDC](/patterns/cdc/) - Change data capture
+ - [Data Mesh](/patterns/data-mesh) - Decentralized data
+ - [Lambda Architecture](/patterns/lambda-architecture) - Batch + stream
+ - [Kappa Architecture](/patterns/kappa-architecture) - Stream-only
+ - [CDC](/patterns/cdc) - Change data capture
 
 #### Week 5-6: Advanced Patterns
 
 === "Global Architecture"
- - [Multi-Region](/patterns/multi-region/) - Active-active deployments
- - [Geo-Replication](/patterns/geo-replication/) - Data sovereignty
- - [Edge Computing](/patterns/edge-computing/) - CDN architectures
- - [Cell-Based](/patterns/cell-based/) - Failure isolation
+ - [Multi-Region](/patterns/multi-region) - Active-active deployments
+ - [Geo-Replication](/patterns/geo-replication) - Data sovereignty
+ - [Edge Computing](/patterns/edge-computing) - CDN architectures
+ - [Cell-Based](/patterns/cell-based) - Failure isolation
 
 === "Resilience Architecture"
- - [Chaos Engineering](/patterns/chaos-engineering/) - Proactive testing
- - [Bulkhead](/patterns/bulkhead/) - Resource isolation
- - [Circuit Breaker](/patterns/circuit-breaker/) - Cascade prevention
- - [Graceful Degradation](/patterns/graceful-degradation/) - Feature flags
+ - [Chaos Engineering](/human-factors/chaos-engineering) - Proactive testing
+ - [Bulkhead](/patterns/bulkhead) - Resource isolation
+ - [Circuit Breaker](/patterns/circuit-breaker) - Cascade prevention
+ - [Graceful Degradation](/patterns/graceful-degradation) - Feature flags
 
 === "Security Architecture"
- - [Zero Trust](/patterns/zero-trust/) - Security model
- - [E2E Encryption](/patterns/e2e-encryption/) - Data protection
- - [Key Management](/patterns/key-management/) - HSM integration
- - [Consent Management](/patterns/consent-management/) - GDPR compliance
+ - [Zero Trust](/patterns/key-management) - Security model
+ - [E2E Encryption](/patterns/e2e-encryption) - Data protection
+ - [Key Management](/patterns/key-management) - HSM integration
+ - [Consent Management](/patterns/consent-management) - GDPR compliance
 
 ### Phase 3: Reference Architectures (3-4 weeks)
 
@@ -156,10 +156,10 @@ As a solution architect, you will:
 
 Study complete architectures:
 
-- [Netflix Architecture](/case-studies/netflix-streaming/) - Microservices at scale
-- [Uber Architecture](/case-studies/uber-location/) - Real-time geo-distributed
-- [Airbnb Architecture](/case-studies/airbnb-architecture/) - Global marketplace
-- [LinkedIn Architecture](/case-studies/linkedin-architecture/) - Social graph at scale
+- [Netflix Architecture](/case-studies/netflix-streaming) - Microservices at scale
+- [Uber Architecture](/case-studies/uber-location) - Real-time geo-distributed
+- [Airbnb Architecture](/case-studies/hotel-reservation) - Global marketplace
+- [LinkedIn Architecture](/case-studies/social-graph) - Social graph at scale
 
 ### Phase 4: Architectural Decision Making (2-3 weeks)
 
@@ -194,10 +194,10 @@ Study complete architectures:
 
 #### Week 12: Cost Optimization
 
-- [FinOps Patterns](/patterns/finops/) - Cloud cost management
-- [Resource Optimization](/patterns/resource-optimization/) - Right-sizing
-- [Spot Instance Strategies](/patterns/spot-instances/) - Cost reduction
-- [Multi-Cloud Arbitrage](/patterns/multi-cloud/) - Vendor optimization
+- [FinOps Patterns](/patterns/finops) - Cloud cost management
+- [Resource Optimization](/patterns/auto-scaling) - Right-sizing
+- [Spot Instance Strategies](/patterns/finops) - Cost reduction
+- [Multi-Cloud Arbitrage](/patterns/multi-region) - Vendor optimization
 
 ### Phase 5: Enterprise Architecture (2-3 weeks)
 
@@ -352,7 +352,7 @@ Remember: Great architects balance technical excellence with business value.
  
  ---
  
- [Engineering Manager Path](/learning-paths/manager/)
+ [Engineering Manager Path](/learning-paths/manager)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  

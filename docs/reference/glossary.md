@@ -19,14 +19,14 @@ last_updated: 2025-07-20
 ### Law
 Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws.
 
-**Examples**: [Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/), [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/)
+**Examples**: [Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/index), [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs)
 
 ### At-Least-Once Delivery
 Messages may be delivered multiple times but will not be lost. Requires idempotent processing.
 
 **Trade-offs**: Higher reliability vs. duplicate handling complexity
 
-**Related**: Idempotent Receiver (Coming Soon), [Outbox Pattern](/patterns/outbox)
+**Related**: Idempotent Receiver (Coming Soon/index), [Outbox Pattern](/patterns/outbox)
 
 ### Availability
 Percentage of time a system is operational. Often measured as "nines".
@@ -54,14 +54,14 @@ Isolation pattern preventing failures from spreading between components.
 
 **Implementation**: Separate thread pools, connection pools, compute resources
 
-**Related**: [Circuit Breaker](/patterns/circuit-breaker), [Correlated Failure ⛓️](/part1-axioms/law1-failure/)
+**Related**: [Circuit Breaker](/patterns/circuit-breaker), [Correlated Failure ⛓️](/part1-axioms/law1-failure/index)
 
 ### Byzantine Fault
 Components behave arbitrarily, sending conflicting information to different parts.
 
 **Examples**: Malicious actors, hardware corruption, inconsistent software behavior
 
-**Related**: [Correlated Failure ⛓️](/part1-axioms/law1-failure/), consensus algorithms
+**Related**: [Correlated Failure ⛓️](/part1-axioms/law1-failure/index), consensus algorithms
 
 ## C
 
@@ -70,12 +70,12 @@ Distributed systems can provide at most two of: Consistency, Availability, Parti
 
 **Implication**: Must choose between consistency and availability during partitions
 
-**Related**: [Truth Pillar](/part2-pillars/truth/), [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/)
+**Related**: [Truth Pillar](/part2-pillars/truth/index), [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs)
 
 ### Circuit Breaker
 Prevents cascade failures by failing fast when error thresholds exceeded.
 
-**States**: Closed (normal), Open (failing fast), Half-Open (testing recovery)
+**States**: Closed (normal), Open (failing fast), Half-Open (testing recovery/index)
 
 **Implementation**: [Circuit Breaker Pattern](/patterns/circuit-breaker)
 
@@ -86,7 +86,7 @@ Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **Trade-offs**: Strong consistency vs. availability and performance
 
-**Related**: [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/), [Leader Election](/patterns/leader-election)
+**Related**: [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/index), [Leader Election](/patterns/leader-election)
 
 ### Consistent Hashing
 Distributes data across nodes with minimal disruption when adding/removing nodes.
@@ -176,7 +176,7 @@ Failures that are subtle, partial, or inconsistent across different observers.
 
 **Detection**: Multi-perspective monitoring, synthetic transactions
 
-**Related**: [Correlated Failure ⛓️](/part1-axioms/law1-failure/), [Observability](/patterns/observability)
+**Related**: [Correlated Failure ⛓️](/part1-axioms/law1-failure/index), [Observability](/patterns/observability)
 
 ## H
 
@@ -258,7 +258,7 @@ System state where minor triggers cause cascading performance collapse.
 
 **Prevention**: Circuit breakers, admission control, jitter in retries
 
-**Related**: [Emergent Chaos 🌪️](/part1-axioms/law3-emergence/), [Case Study: Facebook's Metastable Failures](/case-studies/consistent-hashing)
+**Related**: [Emergent Chaos 🌪️](/part1-axioms/law3-emergence/index), [Case Study: Facebook's Metastable Failures](/case-studies/consistent-hashing)
 
 ### Microservices
 Small, independently deployable services.
@@ -300,7 +300,7 @@ Extension of CAP theorem including latency considerations.
 - PC/EC: MongoDB, HBase (consistent, higher latency)
 - PA/EC: Some configurations prioritize availability but consistency when stable
 
-**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/)
+**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/index)
 
 ### Partition Tolerance
 Continues operating despite network partitions.
@@ -312,7 +312,7 @@ Continues operating despite network partitions.
 ### Pillar
 Five foundational concepts: Work, State, Truth, Control, Intelligence.
 
-**Reference**: [Part II: Pillars](/part2-pillars/)
+**Reference**: [Part II: Pillars](/part2-pillars)
 
 ## Q
 
@@ -383,11 +383,11 @@ Captures causality relationships between events.
 
 **Format**: Array of counters, one per node
 
-**Implementation**: [Emergent Chaos 🌪️](/part1-axioms/law3-emergence/)
+**Implementation**: [Emergent Chaos 🌪️](/part1-axioms/law3-emergence)
 
 ## W
 
-### Write-Ahead Log (WAL)
+### Write-Ahead Log (WAL/index)
 Changes logged before applying to database.
 
 **Benefits**: Durability, crash recovery, replication

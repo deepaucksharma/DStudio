@@ -1222,15 +1222,15 @@ The hybrid architecture balances the trade-offs between different approaches, us
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - Pre-computed feeds and edge caching achieve <100ms load times
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Multiple fallback strategies ensure feed availability
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Async fanout and parallel timeline merging handle scale
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Eventually consistent timelines with causal ordering and engagement metrics
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Personalization and pacing optimize for human attention
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Ad placement and infrastructure costs drive architectural decisions
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - Pre-computed feeds and edge caching achieve <100ms load times
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Multiple fallback strategies ensure feed availability
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Async fanout and parallel timeline merging handle scale
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Eventually consistent timelines with causal ordering and engagement metrics
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Personalization and pacing optimize for human attention
+- **[Law 7: Economics ](/part1-axioms/law7-economics)** - Ad placement and infrastructure costs drive architectural decisions
 
-### 🏛 Related Patterns (Part III)
+### 🏛 Related Patterns (Part III/index)
 - **[Event-Driven Architecture](/patterns/event-driven)** - Post creation triggers fanout pipeline
 - **[CQRS](/patterns/cqrs)** - Separate write (fanout) and read (feed generation) paths
 - **[Caching Strategies](/patterns/caching-strategies)** - Multi-tier caching from edge to application layer

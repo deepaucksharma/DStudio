@@ -166,13 +166,13 @@ Technical Excellence + Human Factors = Operational Success
 ### 📚 Prerequisites
 
 **Required**: 
-- Understanding of [Law 6: Human-API](/part1-axioms/law6-human-api/)
+- Understanding of [Law 6: Human-API](/part1-axioms/law6-human-api/index)
 - 1-2 years operating production systems
 - Distributed systems basics
 - Process improvement mindset
 
 **Helpful**: 
-- Understanding of [Law 5: Epistemology](/part1-axioms/law5-epistemology/)
+- Understanding of [Law 5: Epistemology](/part1-axioms/law5-epistemology/index)
 - Incident response experience
 - Team leadership
 - Cognitive science background

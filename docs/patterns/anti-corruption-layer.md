@@ -665,7 +665,7 @@ graph TB
 #### Migration Strategy Using ACL
 
 ```
-Phase 1: Strangler Fig with ACL
+Phase 1: [Strangler Fig](strangler-fig.md) with ACL
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
 │   New       │────▶│     ACL     │────▶│   Legacy    │
 │  Service    │     │  (Full)     │     │   System    │

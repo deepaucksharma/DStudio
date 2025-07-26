@@ -181,7 +181,7 @@ graph LR
 ## Applicable Patterns
 
 <div class="grid" markdown>
- <a href="../../patterns/circuit-breaker/" class="pattern-card">
+ <a href="../../patterns/circuit-breaker" class="pattern-card">
  <h3 class="pattern-card__title">Circuit Breaker</h3>
  <p class="pattern-card__description">Prevents cascade failures</p>
  </a>
@@ -189,7 +189,7 @@ graph LR
  <h3 class="pattern-card__title">CQRS</h3>
  <p class="pattern-card__description">Separates reads and writes</p>
  </a>
- <a href="../../patterns/event-sourcing/" class="pattern-card">
+ <a href="../../patterns/event-sourcing" class="pattern-card">
  <h3 class="pattern-card__title">Event Sourcing</h3>
  <p class="pattern-card__description">Audit trail and replay</p>
  </a>

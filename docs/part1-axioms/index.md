@@ -13,7 +13,7 @@ tags:
 
 # The 7 Fundamental Laws
 
-[Home](/) > [The 7 Laws](/part1-axioms/) > Overview
+[Home](/) > [The 7 Laws](/part1-axioms) > Overview
 
 !!! abstract "From Physics to Distributed Systems"
     These seven laws are not design choices or best practices—they are fundamental constraints derived from physics and mathematics. Every distributed system, regardless of implementation, must obey these laws.
@@ -31,7 +31,7 @@ tags:
 
 <div class="grid cards" markdown>
 
-- :material-numeric-1-circle:{ .lg .middle } **[Law 1: Correlated Failure](/part1-axioms/law1-failure/)**
+- :material-numeric-1-circle:{ .lg .middle } **[Law 1: Correlated Failure](/part1-axioms/law1-failure/index)**
     
     ---
     
@@ -39,7 +39,7 @@ tags:
     
     The myth of independent failure and why redundancy isn't enough.
 
-- :material-numeric-2-circle:{ .lg .middle } **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)**
+- :material-numeric-2-circle:{ .lg .middle } **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)**
     
     ---
     
@@ -47,7 +47,7 @@ tags:
     
     Why timeouts are guesses and synchronous assumptions break.
 
-- :material-numeric-3-circle:{ .lg .middle } **[Law 3: Emergent Chaos](/part1-axioms/law3-emergence/)**
+- :material-numeric-3-circle:{ .lg .middle } **[Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index)**
     
     ---
     
@@ -55,7 +55,7 @@ tags:
     
     Why distributed systems surprise us and testing isn't enough.
 
-- :material-numeric-4-circle:{ .lg .middle } **[Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)**
+- :material-numeric-4-circle:{ .lg .middle } **[Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index)**
     
     ---
     
@@ -63,7 +63,7 @@ tags:
     
     The CAP theorem is just one example of fundamental trade-offs.
 
-- :material-numeric-5-circle:{ .lg .middle } **[Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/)**
+- :material-numeric-5-circle:{ .lg .middle } **[Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index)**
     
     ---
     
@@ -71,7 +71,7 @@ tags:
     
     Why consensus is hard and eventual consistency is often inevitable.
 
-- :material-numeric-6-circle:{ .lg .middle } **[Law 6: Cognitive Load](/part1-axioms/law6-human-api/)**
+- :material-numeric-6-circle:{ .lg .middle } **[Law 6: Cognitive Load](/part1-axioms/law6-human-api/index)**
     
     ---
     
@@ -79,7 +79,7 @@ tags:
     
     Why simple systems win and complexity compounds failures.
 
-- :material-numeric-7-circle:{ .lg .middle } **[Law 7: Economic Reality](/part1-axioms/law7-economics/)**
+- :material-numeric-7-circle:{ .lg .middle } **[Law 7: Economic Reality](/part1-axioms/law7-economics/index)**
     
     ---
     
@@ -174,9 +174,9 @@ Each law drives the need for specific patterns:
 
 === "Case Studies"
 
-    - [Amazon's Dynamo Paper](/references/papers/dynamo/)
-    - [Google's Spanner Paper](/references/papers/spanner/)
-    - [Facebook's TAO Paper](/references/papers/tao/)
+    - [Amazon's Dynamo Paper](/reference/#dynamo)
+    - [Google's Spanner Paper](/reference/#spanner)
+    - [Facebook's TAO Paper](/reference/#tao)
 
 ## :material-lightbulb: Key Insight
 
@@ -187,6 +187,6 @@ Each law drives the need for specific patterns:
 
 <div class="page-nav" markdown>
 [:material-arrow-left: Philosophy](/introduction/philosophy/) | 
-[:material-arrow-up: Learn](/learn/) | 
-[:material-arrow-right: Law 1: Correlated Failure](/part1-axioms/law1-failure/)
+[:material-arrow-up: Learn](/introduction/getting-started.md) | 
+[:material-arrow-right: Law 1: Correlated Failure](/part1-axioms/law1-failure/index)
 </div>

@@ -25,9 +25,9 @@ Storage economics models the cost optimization and trade-offs in distributed sto
 - Object storage lifecycle policies
 
 ## Related Models
-- [Cache Economics](./cache-economics.md)
-- [Capacity Planning](./capacity-planning.md)
-- [Information Theory](./information-theory.md)
+- [Cache Economics](cache-economics.md)
+- [Capacity Planning](capacity-planning.md)
+- [Information Theory](information-theory.md)
 
 ## References
 - "The Economics of Cloud Storage" - Amazon S3 White Paper

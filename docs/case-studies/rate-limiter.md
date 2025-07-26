@@ -1014,21 +1014,21 @@ graph TD
 **Related Patterns:**
 - [Token Bucket Algorithm](/patterns/rate-limiting)
 - [Circuit Breaker](/patterns/circuit-breaker)
-- [Consistent Hashing](/patterns/consistent-hashing)
+- [Consistent Hashing](/case-studies/consistent-hashing)
 - Gossip Protocol (Coming Soon)
 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Rate limiting protects backend capacity from overload
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Clear error messages with retry-after headers
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Local caching reduces infrastructure costs by 80%
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Rate limiting protects backend capacity from overload
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Clear error messages with retry-after headers
+- **[Law 7: Economics ](/part1-axioms/law7-economics)** - Local caching reduces infrastructure costs by 80%
 
-### 🏛 Related Patterns (Part III)
+### 🏛 Related Patterns (Part III/index)
 - **[Rate Limiting](/patterns/rate-limiting)** - Core pattern implemented with token bucket algorithm
 - **[Circuit Breaker](/patterns/circuit-breaker)** - Protects rate limiter from Redis failures
 - **[Bulkhead](/patterns/bulkhead)** - Isolates rate limit pools per tenant/API

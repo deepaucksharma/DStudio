@@ -26,9 +26,9 @@ Compression algorithms reduce data size for efficient storage and transmission i
 - Message queue optimization
 
 ## Related Models
-- [Information Theory](./information-theory.md)
-- [Storage Economics](./storage-economics.md)
-- [Cache Economics](./cache-economics.md)
+- [Information Theory](information-theory.md)
+- [Storage Economics](storage-economics.md)
+- [Cache Economics](cache-economics.md)
 
 ## References
 - "Introduction to Data Compression" - Sayood (2017)

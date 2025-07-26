@@ -383,10 +383,10 @@ Google-scale systems with multiple constraints:
 ## 🔗 Resources for Each Question
 
 Link each design to relevant patterns:
-- [Sharding](../../patterns/sharding.md) for horizontal scaling
-- [Caching Strategies](../../patterns/caching-strategies.md) for performance
-- [Event Sourcing](../../patterns/event-sourcing.md) for audit trails
-- [Circuit Breaker](../../patterns/circuit-breaker.md) for reliability
-- [Load Balancing](../../patterns/load-balancing.md) for distribution
+- [Sharding](/google-interviews/../../patterns/sharding.md) for horizontal scaling
+- [Caching Strategies](/google-interviews/../../patterns/caching-strategies.md) for performance
+- [Event Sourcing](/google-interviews/../../patterns/event-sourcing.md) for audit trails
+- [Circuit Breaker](/google-interviews/../../patterns/circuit-breaker.md) for reliability
+- [Load Balancing](/google-interviews/../../patterns/load-balancing.md) for distribution
 
 Remember: The goal isn't to memorize solutions but to demonstrate systematic thinking and problem-solving skills at Google scale.

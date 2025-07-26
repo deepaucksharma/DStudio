@@ -573,15 +573,15 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Fallback to popular playlists when recommendation service fails
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Millions of concurrent users require lock-free serving infrastructure
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - GPU clusters and feature store synchronization balance multiple trade-offs
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - A/B testing framework measures recommendation quality in real-time
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - UI design balances algorithmic recommendations with user control
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Recommendation quality directly impacts user retention and revenue
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Fallback to popular playlists when recommendation service fails
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - GPU clusters and feature store synchronization balance multiple trade-offs
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - A/B testing framework measures recommendation quality in real-time
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - UI design balances algorithmic recommendations with user control
+- **[Law 7: Economics ](/part1-axioms/law7-economics)** - Recommendation quality directly impacts user retention and revenue
 
-### 🏛 Related Patterns (Part III)
+### 🏛 Related Patterns (Part III/index)
 - **[Event-Driven Architecture](/patterns/event-driven)** - User events (plays, skips, likes) flow through Kafka streams
 - **[CQRS](/patterns/cqrs)** - Separate paths for collecting user signals vs serving recommendations
 - **[Caching Strategies](/patterns/caching-strategies)** - Multi-level caches for popular recommendations and user preferences

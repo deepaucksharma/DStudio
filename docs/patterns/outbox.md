@@ -1170,6 +1170,43 @@ class OutboxEconomics:
 
 ---
 
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure/)**: Database and message broker failures are decoupled
+- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-async/)**: Embraces async message publishing
+- **[Law 4: Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/)**: Trades latency for reliability
+- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology/)**: Complete audit trail of events
+- **[Law 7: Economic Reality 💰](/part1-axioms/law7-economics/)**: Cost of reliability vs lost messages
+
+### Foundational Pillars
+Outbox implements:
+
+- **[Pillar 2: Distribution of State 🗃️](/part2-pillars/state/)**: Events stored with business data
+- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/)**: Database as single source of truth
+- **[Pillar 4: Distribution of Control 🎮](/part2-pillars/control/)**: Decoupled publishing control
+
+## Related Patterns
+
+### Core Dependencies
+- **[Event-Driven Architecture](/patterns/event-driven/)**: Foundation for async messaging
+- **[Saga Pattern](/patterns/saga/)**: Uses outbox for reliable choreography
+- **[Event Sourcing](/patterns/event-sourcing/)**: Natural fit for event publishing
+
+### Supporting Patterns
+- **[Idempotent Receiver](/patterns/idempotent-receiver/)**: Handle duplicate messages
+- **[CDC (Change Data Capture)](/patterns/cdc/)**: Alternative implementation approach
+- **[Message Queue](/patterns/distributed-queue/)**: Target for published messages
+
+### Alternative Patterns
+- **[Two-Phase Commit](/patterns/two-phase-commit/)**: When strong consistency needed
+- **[Write-Through Cache](/patterns/write-through-cache/)**: Synchronous alternative
+- **[Transactional Messaging](/patterns/distributed-transactions/)**: JMS/XA approach
+
+---
+
 ## 🎓 Key Takeaways
 
 1. **Outbox turns dual-write into single-write** - Atomic transaction guarantee

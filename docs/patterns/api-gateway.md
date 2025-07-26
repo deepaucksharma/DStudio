@@ -13,7 +13,7 @@ last_updated: 2025-07-21
 ---
 # API Gateway Pattern
 
-[Home](/) > [Patterns](/patterns/) > [Core Patterns](/patterns/#core-patterns) > API Gateway
+[Home](/) > [Patterns](/patterns) > [Core Patterns](/patterns/#core-patterns) > API Gateway
 
 ## The Essential Question
 
@@ -1030,9 +1030,9 @@ POST /circuit-breakers/{service}/reset
 - [Saga Pattern](/patterns/saga) - Distributed transactions through gateway
 
 ### Laws
-- [Law 6 (Cognitive Load )](/part1-axioms/law6-human-api/) - API design principles
-- [Law 2 (Asynchronous Reality )](/part1-axioms/law2-asynchrony/) - Performance implications
-- [Law 5 (Distributed Knowledge )](/part1-axioms/law5-epistemology/) - Monitoring and tracing
+- [Law 6 (Cognitive Load )](/part1-axioms/law6-human-api) - API design principles
+- [Law 2 (Asynchronous Reality /index)](/part1-axioms/law2-asynchrony) - Performance implications
+- [Law 5 (Distributed Knowledge /index)](/part1-axioms/law5-epistemology/index) - Monitoring and tracing
 
 ### Tools & Technologies
 - **Open Source**: Kong, Zuul, Tyk, Express Gateway
@@ -1049,7 +1049,7 @@ POST /circuit-breakers/{service}/reset
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Load Balancing](/patterns/load-balancing/) | 
-[:material-arrow-up: Patterns](/patterns/) | 
-[:material-arrow-right: Service Mesh](/patterns/service-mesh/)
+[:material-arrow-left: Load Balancing](/patterns/load-balancing) | 
+[:material-arrow-up: Patterns](/patterns) | 
+[:material-arrow-right: Service Mesh](/patterns/service-mesh)
 </div>

@@ -104,10 +104,10 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: [Location Privacy](/patterns/location-privacy) - K-anonymity
 - Pattern: [Consent Management](/patterns/consent-management) - Mutual opt-in
-- 🏛 Pillar: [Control Distribution](/part2-pillars/control/) - Privacy UX
-- 🏛 Pillar: [Truth Distribution](/part2-pillars/truth/) - Location accuracy
+- 🏛 Pillar: [Control Distribution](/part2-pillars/control/index) - Privacy UX
+- 🏛 Pillar: [Truth Distribution](/part2-pillars/truth) - Location accuracy
 
-### Phase 4: Modern Distributed Architecture (2018-Present)
+### Phase 4: Modern Distributed Architecture (2018-Present/index)
 
 ## Part 1: Concept Map - The Physics of Moving Friends
 
@@ -1688,13 +1688,13 @@ class PrivacyDashboard:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - Real-time location updates
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Battery and bandwidth limits
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Privacy fail-safes
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Parallel proximity checks
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Consent synchronization and privacy analytics
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Privacy UX, battery life
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - Real-time location updates
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Battery and bandwidth limits
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Privacy fail-safes
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Parallel proximity checks
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Consent synchronization and privacy analytics
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Privacy UX, battery life
+- **[Law 7: Economics ](/part1-axioms/law7-economics/index)** - Infrastructure costs
 
 ### 🏛 Related Patterns
 - **[Location Privacy](/patterns/location-privacy)** - K-anonymity, fuzzing

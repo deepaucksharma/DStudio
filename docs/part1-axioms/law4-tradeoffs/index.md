@@ -11,7 +11,7 @@ last_updated: 2025-01-25
 
 # Law 4: The Law of Multidimensional Optimization ⚖️
 
-[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) > Deep Dive
+[Home](/) > [The 7 Laws](/part1-axioms) > [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) > Deep Dive
 
 !!! quote "Core Principle"
     System design is not choosing two of three. It's finding acceptable points in an n-dimensional space of trade-offs.
@@ -1121,22 +1121,22 @@ class TradeoffAwareSystem:
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - How trade-offs affect failure modes
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time as a dimension to trade
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - How optimization creates fragility
-- [Law 7: Economic Reality](/part1-axioms/law7-economics/) - Cost as the ultimate constraint
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - How trade-offs affect failure modes
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Time as a dimension to trade
+- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - How optimization creates fragility
+- [Law 7: Economic Reality](/part1-axioms/law7-economics/index) - Cost as the ultimate constraint
 
 ### Related Patterns
-- [Circuit Breaker](/patterns/circuit-breaker/) - Trading availability for stability
-- [Bulkhead Pattern](/patterns/bulkhead/) - Trading efficiency for isolation
-- [CQRS](/patterns/cqrs/) - Trading simplicity for optimized read/write paths
-- [Event Sourcing](/patterns/event-sourcing/) - Trading space for auditability
-- [Saga Pattern](/patterns/saga/) - Trading consistency for availability
+- [Circuit Breaker](/patterns/circuit-breaker) - Trading availability for stability
+- [Bulkhead Pattern](/patterns/bulkhead) - Trading efficiency for isolation
+- [CQRS](/patterns/cqrs) - Trading simplicity for optimized read/write paths
+- [Event Sourcing](/patterns/event-sourcing) - Trading space for auditability
+- [Saga Pattern](/patterns/saga) - Trading consistency for availability
 
 ### Case Studies
 - [DynamoDB Design](/case-studies/dynamodb/) - Master class in tunable trade-offs
 - [Spanner](/case-studies/spanner/) - Trading latency for consistency
-- [Netflix Chaos Engineering](/case-studies/netflix-chaos/) - Testing trade-off boundaries
+- [Netflix Chaos Engineering](/case-studies/netflix-chaos) - Testing trade-off boundaries
 
 ## References and Further Reading
 
@@ -1149,7 +1149,7 @@ class TradeoffAwareSystem:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
-[:material-arrow-right: Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/)
+[:material-arrow-left: Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms) | 
+[:material-arrow-right: Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index)
 </div>

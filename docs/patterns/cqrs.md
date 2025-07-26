@@ -234,6 +234,26 @@ graph TB
  - **Uber**: Applied CQRS to their trip data, supporting real-time analytics while maintaining transactional integrity
  - **Amazon**: Uses CQRS for product catalog, serving millions of queries while processing inventory updates
 
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-asynchrony/)**: Eventual consistency between read/write
+- **[Law 3: Emergent Chaos 🌪️](/part1-axioms/law3-emergence/)**: Complex interactions between models
+- **[Law 4: Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/)**: Read vs write optimization
+- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology/)**: Separate knowledge domains
+- **[Law 6: Cognitive Load 🧠](/part1-axioms/law6-human-api/)**: Complexity of dual models
+- **[Law 7: Economic Reality 💰](/part1-axioms/law7-economics/)**: Cost of maintaining multiple models
+
+### Foundational Pillars
+CQRS implements:
+
+- **[Pillar 1: Distribution of Work 💪](/part2-pillars/work/)**: Separate read/write workloads
+- **[Pillar 2: Distribution of State 🗃️](/part2-pillars/state/)**: Different models for different needs
+- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/)**: Write model as source of truth
+- **[Pillar 5: Distribution of Intelligence 🤖](/part2-pillars/intelligence/)**: Smart read model optimization
+
 ## Common Pitfalls
 
 !!! danger "What Can Go Wrong"
@@ -245,16 +265,26 @@ graph TB
 
 ## Related Patterns
 
-- [Event Sourcing](event-sourcing.md) - Natural companion for event-driven CQRS
-- [Saga Pattern](saga.md) - Handling distributed transactions with CQRS
-- [Event-Driven Architecture](event-driven.md) - Foundation for CQRS communication
-- [Service Mesh](service-mesh.md) - Infrastructure for distributed CQRS systems
+### Core Companions
+- **[Event Sourcing](/patterns/event-sourcing)**: Natural fit for write model
+- **[Saga Pattern](/patterns/saga)**: Handling distributed transactions
+- **[Event-Driven Architecture](/patterns/event-driven)**: Foundation for model sync
+
+### Infrastructure Patterns
+- **[Message Queue](/patterns/distributed-queue)**: Async projection updates
+- **[Event Streaming](/patterns/event-streaming)**: Real-time projections
+- **[Service Mesh](/patterns/service-mesh/)**: Infrastructure support
+
+### Supporting Patterns
+- **[Outbox Pattern](/patterns/outbox)**: Reliable event publishing
+- **[CDC (Change Data Capture)](/patterns/cdc/)**: Database-level sync
+- **[Materialized View](/patterns/materialized-view/)**: Read model implementation
 
 ## Further Reading
 
 - [Greg Young's CQRS Documents](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf) - Original CQRS papers
 - [Martin Fowler's CQRS Article](https://martinfowler.com/bliki/CQRS.html) - Clear introduction
-- [Microsoft CQRS Journey](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/jj554200(v=pandp.10)) - Detailed implementation guide
+- [Microsoft CQRS Journey](https://docs.microsoft.com/en-us#-versions/msp-n-p/jj554200(v=pandp.10)) - Detailed implementation guide
 
 
 

@@ -246,11 +246,11 @@ graph TD
 !!! tip "Start Based on Your Immediate Need"
 | If You Need | Go To | Why |
  |-------------|-------|-----|
- | **Solve Problem Now** | [Pattern Catalog](/patterns/) | Find proven solutions |
- | **Deep Understanding** | [Law 1 - Failure](/part1-axioms/law1-failure/) | Build from fundamentals |
- | **Design System** | [Pattern Selector](/patterns/pattern-selector/) | Make informed choices |
- | **Capacity Planning** | [Calculators](/quantitative/) | Quantify decisions |
- | **Learn from Failures** | [Case Studies](/case-studies/) | Avoid known pitfalls |
+ | **Solve Problem Now** | [Pattern Catalog](/patterns) | Find proven solutions |
+ | **Deep Understanding** | [Law 1 - Failure](/part1-axioms/law1-failure/index) | Build from fundamentals |
+ | **Design System** | [Pattern Selector](/patterns/pattern-selector) | Make informed choices |
+ | **Capacity Planning** | [Calculators](/quantitative) | Quantify decisions |
+ | **Learn from Failures** | [Case Studies](/case-studies) | Avoid known pitfalls |
 
 
 ### Reading Order Options
@@ -323,10 +323,10 @@ graph TD
  **Time Investment:** 15-30 minutes
  
  **Quick Links:**
- - [Pattern Selector Tool](/patterns/pattern-selector/)
- - [Cheat Sheets](/reference/cheat-sheets/)
- - [Glossary](/reference/glossary/)
- - [Recipe Cards](/reference/recipe-cards/)
+ - [Pattern Selector Tool](/patterns/pattern-selector)
+ - [Cheat Sheets](/reference/cheat-sheets)
+ - [Glossary](/reference/glossary)
+ - [Recipe Cards](/reference/recipe-cards)
 
 
 ## Common Learning Pitfalls
@@ -346,7 +346,7 @@ graph TD
  1. **Check Prerequisites**: Do you have basic programming, networking, and database knowledge?
  2. **Choose Your Path**: Pick the learning path that matches your experience level
  3. **Set Schedule**: Block 5-15 hours per week for focused study
- 4. **Begin**: Start with [Law 1: Correlated Failure](/part1-axioms/law1-failure/)
+ 4. **Begin**: Start with [Law 1: Correlated Failure](/part1-axioms/law1-failure/index)
 
 ---
 

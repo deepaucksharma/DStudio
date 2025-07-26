@@ -207,7 +207,7 @@ class ServerlessAPI:
 # Find and execute handler
         if route_key in self.routes:
             try:
-                result = self.routes[route_key](event, context)
+                result = self.routesroute_key
                 return {
                     'statusCode': 200,
                     'headers': {
@@ -267,23 +267,23 @@ class EventDrivenProcessor:
             record = event['Records'][0]
             
             if 's3' in record:
-                return self.handlers['s3'](event, context)
+                return self.handlers's3'
             elif 'Sns' in record:
-                return self.handlers['sns'](event, context)
+                return self.handlers'sns'
             elif 'eventSource' in record:
                 source = record['eventSource']
                 if source == 'aws:dynamodb':
-                    return self.handlers['dynamodb'](event, context)
+                    return self.handlers'dynamodb'
                 elif source == 'aws:sqs':
-                    return self.handlers['sqs'](event, context)
+                    return self.handlers'sqs'
         
 # API Gateway event
         if 'httpMethod' in event:
-            return self.handlers['http'](event, context)
+            return self.handlers'http'
         
 # CloudWatch scheduled event
         if 'source' in event and event['source'] == 'aws.events':
-            return self.handlers['schedule'](event, context)
+            return self.handlers'schedule'
 
 # Usage
 processor = EventDrivenProcessor()

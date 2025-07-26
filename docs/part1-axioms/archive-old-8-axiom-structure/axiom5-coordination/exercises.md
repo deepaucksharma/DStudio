@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 5](index.md) → **Coordination Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 5](index.md) → **Coordination Exercises**
 
 # Coordination Exercises
 

@@ -11,7 +11,7 @@ last_updated: 2025-01-25
 
 # Law 1: The Law of Inevitable and Correlated Failure ⚡
 
-[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 1: Correlated Failure](/part1-axioms/law1-failure/) > Deep Dive
+[Home](/) > [The 7 Laws](/part1-axioms) > [Law 1: Correlated Failure](/part1-axioms/law1-failure) > Deep Dive
 
 !!! quote "Core Principle"
     Any component can fail, and failures are often correlated, not independent.
@@ -109,7 +109,7 @@ def calculate_failure_correlation(component_metrics):
             window_minutes=5
         )
         
-        correlations[(c1, c2)] = {
+        correlations[(c1, c2/index)] = {
             'coefficient': correlation,
             'risk_multiplier': 1 / (1 - correlation) if correlation < 1 else float('inf'),
             'shared_dependencies': find_shared_dependencies(c1, c2)
@@ -737,7 +737,7 @@ def correlation_impact_calculator(
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Overview](/part1-axioms/) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
-[:material-arrow-right: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)
+[:material-arrow-left: Overview](/part1-axioms) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms) | 
+[:material-arrow-right: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)
 </div>

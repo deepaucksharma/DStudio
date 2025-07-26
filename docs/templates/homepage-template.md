@@ -64,10 +64,10 @@
 !!! tip "Find Your Starting Point"
  | Your Background | Recommended Path | Time Investment |
  |-----------------|------------------|-----------------|
- | New Graduate | [Foundations First](/learning-paths/new-graduate/) | 12 weeks |
- | Mid-Level Engineer | [Practical Patterns](/learning-paths/mid-level/) | 8 weeks |
- | Senior Engineer | [Advanced Topics](/learning-paths/senior/) | 6 weeks |
- | Engineering Manager | [Strategic Overview](/learning-paths/manager/) | 4 weeks |
+ | New Graduate | [Foundations First](/learning-paths/new-graduate) | 12 weeks |
+ | Mid-Level Engineer | [Practical Patterns](/learning-paths/senior-engineer) | 8 weeks |
+ | Senior Engineer | [Advanced Topics](/learning-paths/architect) | 6 weeks |
+ | Engineering Manager | [Strategic Overview](/learning-paths/manager) | 4 weeks |
 
 ## Why This Approach?
 

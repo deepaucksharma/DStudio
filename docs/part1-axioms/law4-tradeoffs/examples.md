@@ -442,4 +442,4 @@ Each of these systems succeeded by:
 3. **Making different trade-offs for different use cases**
 4. **Adapting based on real-time conditions**
 
-[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ To Exercises**](./exercises.md)
+[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ To Exercises**](exercises.md)

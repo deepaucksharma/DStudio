@@ -1,0 +1,3675 @@
+{
+  "summary": {
+    "total_files_checked": 358,
+    "files_with_broken_links": 154,
+    "total_broken_links": 579,
+    "total_links_checked": 3334
+  },
+  "broken_links_by_file": {
+    "case-studies/apple-maps.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./google-maps.md",
+          "normalized": "case-studies/./google-maps.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./find-my-device.md",
+          "normalized": "case-studies/./find-my-device.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./nearby-friends.md",
+          "normalized": "case-studies/./nearby-friends.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/cassandra-enhanced.md": {
+      "count": 10,
+      "links": [
+        {
+          "link": "/patterns/consistent-hashing.md",
+          "normalized": "patterns/consistent-hashing.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "/patterns/consistent-hashing.md",
+          "normalized": "patterns/consistent-hashing.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "/patterns/consistent-hashing.md",
+          "normalized": "patterns/consistent-hashing.md",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/patterns/consistent-hashing.md",
+          "normalized": "patterns/consistent-hashing.md",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/patterns/lsm-tree/",
+          "normalized": "patterns/lsm-tree/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/patterns/gossip/",
+          "normalized": "patterns/gossip/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/case-studies/dynamodb/",
+          "normalized": "case-studies/dynamodb/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/cassandra-deployment/",
+          "normalized": "tutorials/cassandra-deployment/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/cassandra-data-modeling/",
+          "normalized": "tutorials/cassandra-data-modeling/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/cassandra-operations/",
+          "normalized": "tutorials/cassandra-operations/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "case-studies/ecommerce-platform.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "./amazon-dynamo.md",
+          "normalized": "case-studies/./amazon-dynamo.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./payment-system.md",
+          "normalized": "case-studies/./payment-system.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./hotel-reservation.md",
+          "normalized": "case-studies/./hotel-reservation.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./stock-exchange.md",
+          "normalized": "case-studies/./stock-exchange.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/elasticsearch.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./key-value-store.md",
+          "normalized": "case-studies/./key-value-store.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./cassandra.md",
+          "normalized": "case-studies/./cassandra.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./kafka.md",
+          "normalized": "case-studies/./kafka.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/find-my-device.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "./nearby-friends.md",
+          "normalized": "case-studies/./nearby-friends.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./apple-maps.md",
+          "normalized": "case-studies/./apple-maps.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/here-maps.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "./google-maps.md",
+          "normalized": "case-studies/./google-maps.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./uber-maps.md",
+          "normalized": "case-studies/./uber-maps.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/index.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/case-studies/google-systems/",
+          "normalized": "case-studies/google-systems/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/google-systems/google-maps",
+          "normalized": "case-studies/google-systems/google-maps",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/key-value-store.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./amazon-dynamo.md",
+          "normalized": "case-studies/./amazon-dynamo.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./google-spanner.md",
+          "normalized": "case-studies/./google-spanner.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./redis.md",
+          "normalized": "case-studies/./redis.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/life360.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./nearby-friends.md",
+          "normalized": "case-studies/./nearby-friends.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./snap-map.md",
+          "normalized": "case-studies/./snap-map.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./find-my-device.md",
+          "normalized": "case-studies/./find-my-device.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/notification-system.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./chat-system.md",
+          "normalized": "case-studies/./chat-system.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./search-autocomplete.md",
+          "normalized": "case-studies/./search-autocomplete.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./spotify-recommendations.md",
+          "normalized": "case-studies/./spotify-recommendations.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/openstreetmap.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./google-maps.md",
+          "normalized": "case-studies/./google-maps.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./web-crawler.md",
+          "normalized": "case-studies/./web-crawler.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./consistent-hashing.md",
+          "normalized": "case-studies/./consistent-hashing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/search-autocomplete.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "amazon-search.md",
+          "normalized": "case-studies/amazon-search.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/snap-map.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./nearby-friends.md",
+          "normalized": "case-studies/./nearby-friends.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./life360.md",
+          "normalized": "case-studies/./life360.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./social-media-feed.md",
+          "normalized": "case-studies/./social-media-feed.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/social-media-feed.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./notification-system.md",
+          "normalized": "case-studies/./notification-system.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./redis-architecture.md",
+          "normalized": "case-studies/./redis-architecture.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./key-value-store.md",
+          "normalized": "case-studies/./key-value-store.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/strava-heatmaps.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "./google-maps.md",
+          "normalized": "case-studies/./google-maps.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/unique-id-generator.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "./url-shortener.md",
+          "normalized": "case-studies/./url-shortener.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "case-studies/video-streaming.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "./netflix-streaming.md",
+          "normalized": "case-studies/./netflix-streaming.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./youtube.md",
+          "normalized": "case-studies/./youtube.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "examples/law1-failure-enhanced.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "../law2-asynchrony/",
+          "normalized": "law2-asynchrony",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "examples/material-features-showcase.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/reference/keyboard-shortcuts/",
+          "normalized": "reference/keyboard-shortcuts/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "examples/progressive-disclosure.md": {
+      "count": 5,
+      "links": [
+        {
+          "link": "/patterns/#beginner",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/#intermediate",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/reference/",
+          "normalized": "reference/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/quantitative/advanced",
+          "normalized": "quantitative/advanced",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/#expert",
+          "normalized": "case-studies/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "examples/responsive-layouts-guide.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "image.jpg",
+          "normalized": "examples/image.jpg",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "google-interviews/bigtable.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/google-interviews/https://research.google/pubs/pub27898/",
+          "normalized": "google-interviews/https://research.google/pubs/pub27898/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/https://cloud.google.com/bigtable/docs",
+          "normalized": "google-interviews/https://cloud.google.com/bigtable/docs",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "google-interviews/dashboard.md": {
+      "count": 21,
+      "links": [
+        {
+          "link": "/google-interviews/../../patterns/index.md",
+          "normalized": "google-interviews/../../patterns/index.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/application/ads-systems.md",
+          "normalized": "google-interviews/patterns/application/ads-systems.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/application/media-platforms.md",
+          "normalized": "google-interviews/patterns/application/media-platforms.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/infrastructure/geo-systems.md",
+          "normalized": "google-interviews/patterns/infrastructure/geo-systems.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/application/communication-systems.md",
+          "normalized": "google-interviews/patterns/application/communication-systems.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/data/storage-systems.md",
+          "normalized": "google-interviews/patterns/data/storage-systems.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/data/ml-data-systems.md",
+          "normalized": "google-interviews/patterns/data/ml-data-systems.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/application/marketplace-systems.md",
+          "normalized": "google-interviews/patterns/application/marketplace-systems.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/infrastructure/cloud-infrastructure.md",
+          "normalized": "google-interviews/patterns/infrastructure/cloud-infrastructure.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/patterns/infrastructure/mobile-platforms.md",
+          "normalized": "google-interviews/patterns/infrastructure/mobile-platforms.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/index.md",
+          "normalized": "google-interviews/../../patterns/index.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/technical-deep-dives.md",
+          "normalized": "google-interviews/technical-deep-dives.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/references.md#google-papers",
+          "normalized": "google-interviews/references.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/references.md#architecture-diagrams",
+          "normalized": "google-interviews/references.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/design-template.md",
+          "normalized": "google-interviews/design-template.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/checklists.md",
+          "normalized": "google-interviews/checklists.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/quick-reference.md",
+          "normalized": "google-interviews/quick-reference.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/evaluation-framework.md#self-assessment",
+          "normalized": "google-interviews/evaluation-framework.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/evaluation-framework.md#scorecard",
+          "normalized": "google-interviews/evaluation-framework.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/study-guide.md",
+          "normalized": "google-interviews/study-guide.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/quick-reference.md",
+          "normalized": "google-interviews/quick-reference.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "google-interviews/gmail-walkthrough.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "/google-interviews/../../patterns/consent-management.md",
+          "normalized": "google-interviews/../../patterns/consent-management.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/distributed-storage.md",
+          "normalized": "google-interviews/../../patterns/distributed-storage.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/event-sourcing.md",
+          "normalized": "google-interviews/../../patterns/event-sourcing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/cqrs.md",
+          "normalized": "google-interviews/../../patterns/cqrs.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/sharding.md",
+          "normalized": "google-interviews/../../patterns/sharding.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/https://research.google/pubs/pub123456/",
+          "normalized": "google-interviews/https://research.google/pubs/pub123456/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "google-interviews/maps-walkthrough.md": {
+      "count": 5,
+      "links": [
+        {
+          "link": "/google-interviews/../../patterns/event-streaming.md",
+          "normalized": "google-interviews/../../patterns/event-streaming.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/time-series-ids.md",
+          "normalized": "google-interviews/../../patterns/time-series-ids.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/tile-caching.md",
+          "normalized": "google-interviews/../../patterns/tile-caching.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/location-privacy.md",
+          "normalized": "google-interviews/../../patterns/location-privacy.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/https://s2geometry.io/",
+          "normalized": "google-interviews/https://s2geometry.io/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "google-interviews/mock-questions.md": {
+      "count": 5,
+      "links": [
+        {
+          "link": "/google-interviews/../../patterns/sharding.md",
+          "normalized": "google-interviews/../../patterns/sharding.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/caching-strategies.md",
+          "normalized": "google-interviews/../../patterns/caching-strategies.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/event-sourcing.md",
+          "normalized": "google-interviews/../../patterns/event-sourcing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/circuit-breaker.md",
+          "normalized": "google-interviews/../../patterns/circuit-breaker.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/load-balancing.md",
+          "normalized": "google-interviews/../../patterns/load-balancing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "google-interviews/preparation-guide.md": {
+      "count": 19,
+      "links": [
+        {
+          "link": "/google-interviews/../../case-studies/google-spanner.md",
+          "normalized": "google-interviews/../../case-studies/google-spanner.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/circuit-breaker.md",
+          "normalized": "google-interviews/../../patterns/circuit-breaker.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/sharding.md",
+          "normalized": "google-interviews/../../patterns/sharding.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/event-sourcing.md",
+          "normalized": "google-interviews/../../patterns/event-sourcing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/cqrs.md",
+          "normalized": "google-interviews/../../patterns/cqrs.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/leader-election.md",
+          "normalized": "google-interviews/../../patterns/leader-election.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../quantitative/latency-ladder.md",
+          "normalized": "google-interviews/../../quantitative/latency-ladder.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../quantitative/universal-scalability.md",
+          "normalized": "google-interviews/../../quantitative/universal-scalability.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../case-studies/url-shortener.md",
+          "normalized": "google-interviews/../../case-studies/url-shortener.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../case-studies/key-value-store.md",
+          "normalized": "google-interviews/../../case-studies/key-value-store.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/circuit-breaker.md",
+          "normalized": "google-interviews/../../patterns/circuit-breaker.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/sharding.md",
+          "normalized": "google-interviews/../../patterns/sharding.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/caching-strategies.md",
+          "normalized": "google-interviews/../../patterns/caching-strategies.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/load-balancing.md",
+          "normalized": "google-interviews/../../patterns/load-balancing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../case-studies/amazon-dynamo.md",
+          "normalized": "google-interviews/../../case-studies/amazon-dynamo.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../case-studies/chat-system.md",
+          "normalized": "google-interviews/../../case-studies/chat-system.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../case-studies/payment-system.md",
+          "normalized": "google-interviews/../../case-studies/payment-system.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/axioms/",
+          "normalized": "axioms/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/pillars/",
+          "normalized": "pillars/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "google-interviews/spanner.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "/google-interviews/https://research.google/pubs/pub39966/",
+          "normalized": "google-interviews/https://research.google/pubs/pub39966/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/https://research.google/pubs/pub46103/",
+          "normalized": "google-interviews/https://research.google/pubs/pub46103/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/https://cloud.google.com/spanner/docs",
+          "normalized": "google-interviews/https://cloud.google.com/spanner/docs",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "google-interviews/time-allocation-calculator.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "${resource.url}",
+          "normalized": "google-interviews/${resource.url}",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "google-interviews/youtube-walkthrough.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "/google-interviews/../../patterns/caching-strategies.md",
+          "normalized": "google-interviews/../../patterns/caching-strategies.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/event-driven.md",
+          "normalized": "google-interviews/../../patterns/event-driven.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/event-sourcing.md",
+          "normalized": "google-interviews/../../patterns/event-sourcing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/edge-computing.md",
+          "normalized": "google-interviews/../../patterns/edge-computing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/../../patterns/sharding.md",
+          "normalized": "google-interviews/../../patterns/sharding.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/https://vitess.io/docs/",
+          "normalized": "google-interviews/https://vitess.io/docs/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "human-factors/oncall-culture.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "alert.service",
+          "normalized": "human-factors/alert.service",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "includes/breadcrumbs.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "/patterns/#category",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/#category",
+          "normalized": "case-studies/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/parent/",
+          "normalized": "parent/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "introduction/getting-started.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/introduction/",
+          "normalized": "introduction/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/introduction/philosophy/",
+          "normalized": "introduction/philosophy/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "introduction/index.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/introduction/",
+          "normalized": "introduction/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "learning-paths.md",
+          "normalized": "introduction/learning-paths.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "introduction/interview-prep/behavioral.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "../../part1-axioms/law6-cognitive-load/index.md",
+          "normalized": "part1-axioms/law6-cognitive-load/index.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "learning-paths/architect.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/learning-paths/#topic-paths",
+          "normalized": "learning-paths/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "learning-paths/consistency.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/learning-paths/",
+          "normalized": "learning-paths/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "learning-paths/manager.md": {
+      "count": 8,
+      "links": [
+        {
+          "link": "/axioms/",
+          "normalized": "axioms/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/pillars/",
+          "normalized": "pillars/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/human-factors/team-topologies/",
+          "normalized": "human-factors/team-topologies/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/human-factors/blameless-postmortems/",
+          "normalized": "human-factors/blameless-postmortems/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/human-factors/observability-stacks/",
+          "normalized": "human-factors/observability-stacks/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/google-sre/",
+          "normalized": "case-studies/google-sre/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/facebook-tao/",
+          "normalized": "case-studies/facebook-tao/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/pinterest-sharding/",
+          "normalized": "case-studies/pinterest-sharding/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "learning-paths/new-graduate.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "/google-interviews/google-interviews/common-mistakes/",
+          "normalized": "google-interviews/google-interviews/common-mistakes/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/google-interviews/preparation-guide/",
+          "normalized": "google-interviews/google-interviews/preparation-guide/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/google-interviews/visual-cheatsheets/",
+          "normalized": "google-interviews/visual-cheatsheets/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/learning-paths/",
+          "normalized": "learning-paths/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "learning-paths/reliability.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "/quantitative/error-budgets",
+          "normalized": "quantitative/error-budgets",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/human-factors/blameless-postmortems/",
+          "normalized": "human-factors/blameless-postmortems/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/learning-paths/",
+          "normalized": "learning-paths/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "learning-paths/senior-engineer.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "/case-studies/bigtable/",
+          "normalized": "case-studies/bigtable/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/facebook-tao/",
+          "normalized": "case-studies/facebook-tao/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/trading-system/",
+          "normalized": "case-studies/trading-system/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/gaming-backend/",
+          "normalized": "case-studies/gaming-backend/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/live-streaming/",
+          "normalized": "case-studies/live-streaming/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/iot-platform/",
+          "normalized": "case-studies/iot-platform/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "navigation-mkdocs-native.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "getting-started/",
+          "normalized": "getting-started/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "fundamentals/",
+          "normalized": "fundamentals/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "link1/",
+          "normalized": "link1/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "link2/",
+          "normalized": "link2/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "..#/",
+          "normalized": "..",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "..#/",
+          "normalized": "..",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/examples.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "pattern, current_content",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/pattern, current_content",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/./",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/index.md": {
+      "count": 5,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/examples.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "./",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/./",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/index.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom1-latency/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/human-factors/incident-response",
+          "normalized": "part1-axioms/human-factors/incident-response",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/index.md": {
+      "count": 11,
+      "links": [
+        {
+          "link": "self.cluster",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/self.cluster",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom1-latency/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/human-factors/incident-response",
+          "normalized": "part1-axioms/human-factors/incident-response",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/human-factors/blameless-postmortems",
+          "normalized": "part1-axioms/human-factors/blameless-postmortems",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/human-factors/oncall-culture",
+          "normalized": "part1-axioms/human-factors/oncall-culture",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/human-factors/runbooks-playbooks",
+          "normalized": "part1-axioms/human-factors/runbooks-playbooks",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/index.md": {
+      "count": 7,
+      "links": [
+        {
+          "link": "auto result",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/auto result",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "Association assoc",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/Association assoc",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "bool success",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/bool success",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "bool success",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/bool success",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "Association current",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/Association current",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "Node* node",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/Node* node",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/examples.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "./",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/./",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/index.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/examples.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "./",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/./",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom7-human/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/index.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom7-human/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/human-factors/observability-stacks",
+          "normalized": "part1-axioms/human-factors/observability-stacks",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom7-human/examples.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "./",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/./",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom7-human/exercises.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom7-human/index.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/examples.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "nodes",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/nodes",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "nodes",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/nodes",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/./",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/summary",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/summary",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/index.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-axiom-structure/synthesis",
+          "normalized": "part1-axioms/archive-old-8-axiom-structure/synthesis",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/index.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "/reference/#dynamo",
+          "normalized": "reference/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/reference/#spanner",
+          "normalized": "reference/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/reference/#tao",
+          "normalized": "reference/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/introduction/philosophy/",
+          "normalized": "introduction/philosophy/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part1-axioms/law-interactions.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law1-failure/examples.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/part1-axioms/law1-failure/exercises/",
+          "normalized": "part1-axioms/law1-failure/exercises/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "law1-failure/index.md",
+          "normalized": "part1-axioms/law1-failure/law1-failure/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law1-failure/exercises.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/part1-axioms/law1-failure/examples/",
+          "normalized": "part1-axioms/law1-failure/examples/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "law1-failure/index.md",
+          "normalized": "part1-axioms/law1-failure/law1-failure/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law1-failure/index-enhanced.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/law1-failure/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law1-failure/index.md": {
+      "count": 5,
+      "links": [
+        {
+          "link": "/patterns/health-checks",
+          "normalized": "patterns/health-checks",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/aws-s3-outage/",
+          "normalized": "case-studies/aws-s3-outage/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/github-database-failure/",
+          "normalized": "case-studies/github-database-failure/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/google-chubby/",
+          "normalized": "case-studies/google-chubby/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/law1-failure/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law2-asynchrony/examples.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "./exercises.md",
+          "normalized": "part1-axioms/law2-asynchrony/./exercises.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "law2-asynchrony/index.md",
+          "normalized": "part1-axioms/law2-asynchrony/law2-asynchrony/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law2-asynchrony/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "law2-asynchrony/index.md",
+          "normalized": "part1-axioms/law2-asynchrony/law2-asynchrony/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law2-asynchrony/index.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "/patterns/optimistic-replication",
+          "normalized": "patterns/optimistic-replication",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/dynamodb/",
+          "normalized": "case-studies/dynamodb/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/law2-asynchrony/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law1-failure/index.md",
+          "normalized": "part1-axioms/law2-asynchrony/law1-failure/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law3-emergence/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "law3-emergence/index.md",
+          "normalized": "part1-axioms/law3-emergence/law3-emergence/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law3-emergence/index.md": {
+      "count": 7,
+      "links": [
+        {
+          "link": "/part1-axioms/law6-human-api/",
+          "normalized": "part1-axioms/law6-human-api/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/flash-crash/",
+          "normalized": "case-studies/flash-crash/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/facebook-outage/",
+          "normalized": "case-studies/facebook-outage/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/dynamodb-outage/",
+          "normalized": "case-studies/dynamodb-outage/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/law3-emergence/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law1-failure/index.md",
+          "normalized": "part1-axioms/law3-emergence/law1-failure/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law2-asynchrony/index.md",
+          "normalized": "part1-axioms/law3-emergence/law2-asynchrony/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law4-tradeoffs/examples.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "./exercises.md",
+          "normalized": "part1-axioms/law4-tradeoffs/./exercises.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "law4-tradeoffs/index.md",
+          "normalized": "part1-axioms/law4-tradeoffs/law4-tradeoffs/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law4-tradeoffs/exercises.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "law4-tradeoffs/index.md",
+          "normalized": "part1-axioms/law4-tradeoffs/law4-tradeoffs/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law4-tradeoffs/index.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "/case-studies/dynamodb/",
+          "normalized": "case-studies/dynamodb/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/spanner/",
+          "normalized": "case-studies/spanner/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/law4-tradeoffs/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law1-failure/index.md",
+          "normalized": "part1-axioms/law4-tradeoffs/law1-failure/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law2-asynchrony/index.md",
+          "normalized": "part1-axioms/law4-tradeoffs/law2-asynchrony/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law3-emergence/index.md",
+          "normalized": "part1-axioms/law4-tradeoffs/law3-emergence/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law5-epistemology/index.md": {
+      "count": 13,
+      "links": [
+        {
+          "link": "/part1-axioms/law6-human-api/",
+          "normalized": "part1-axioms/law6-human-api/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/crdts",
+          "normalized": "patterns/crdts",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/bft",
+          "normalized": "patterns/bft",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/bitcoin-fork/",
+          "normalized": "case-studies/bitcoin-fork/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/dao-fork/",
+          "normalized": "case-studies/dao-fork/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/dynamo/",
+          "normalized": "case-studies/dynamo/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/spanner/",
+          "normalized": "case-studies/spanner/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law6-human-api/",
+          "normalized": "part1-axioms/law6-human-api/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/law5-epistemology/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law1-failure/index.md",
+          "normalized": "part1-axioms/law5-epistemology/law1-failure/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law2-asynchrony/index.md",
+          "normalized": "part1-axioms/law5-epistemology/law2-asynchrony/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law3-emergence/index.md",
+          "normalized": "part1-axioms/law5-epistemology/law3-emergence/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law4-tradeoffs/index.md",
+          "normalized": "part1-axioms/law5-epistemology/law4-tradeoffs/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law6-human-api/index.md": {
+      "count": 10,
+      "links": [
+        {
+          "link": "/case-studies/knight-capital/",
+          "normalized": "case-studies/knight-capital/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/gitlab-database/",
+          "normalized": "case-studies/gitlab-database/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/hawaii-missile/",
+          "normalized": "case-studies/hawaii-missile/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/three-mile-island/",
+          "normalized": "case-studies/three-mile-island/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/law6-human-api/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law1-failure/index.md",
+          "normalized": "part1-axioms/law6-human-api/law1-failure/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law2-asynchrony/index.md",
+          "normalized": "part1-axioms/law6-human-api/law2-asynchrony/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law3-emergence/index.md",
+          "normalized": "part1-axioms/law6-human-api/law3-emergence/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law4-tradeoffs/index.md",
+          "normalized": "part1-axioms/law6-human-api/law4-tradeoffs/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "law5-epistemology/index.md",
+          "normalized": "part1-axioms/law6-human-api/law5-epistemology/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/law7-economics/index.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "./exercises.md",
+          "normalized": "part1-axioms/law7-economics/./exercises.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/law7-economics/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part1-axioms/synthesis.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "part1-axioms/index.md",
+          "normalized": "part1-axioms/part1-axioms/index.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "part2-pillars/state/index.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "/tutorials/state-replication-basics/",
+          "normalized": "tutorials/state-replication-basics/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/consistent-hashing/",
+          "normalized": "tutorials/consistent-hashing/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/distributed-db/",
+          "normalized": "tutorials/distributed-db/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "part2-pillars/tradeoff-calculus.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "law-mapping-guide.md",
+          "normalized": "part2-pillars/law-mapping-guide.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part2-pillars/work/examples.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part2-pillars/work/exercises/",
+          "normalized": "part2-pillars/work/exercises/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "part2-pillars/work/index.md": {
+      "count": 11,
+      "links": [
+        {
+          "link": "/patterns/mapreduce",
+          "normalized": "patterns/mapreduce",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/fork-join",
+          "normalized": "patterns/fork-join",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/work-stealing",
+          "normalized": "patterns/work-stealing",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/pipeline",
+          "normalized": "patterns/pipeline",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/google-mapreduce/",
+          "normalized": "case-studies/google-mapreduce/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/netflix-encoding/",
+          "normalized": "case-studies/netflix-encoding/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/uber-schemaless/",
+          "normalized": "case-studies/uber-schemaless/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/distributed-scheduling",
+          "normalized": "patterns/distributed-scheduling",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/stream-processing",
+          "normalized": "patterns/stream-processing",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/batch-processing",
+          "normalized": "patterns/batch-processing",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/microservices-work",
+          "normalized": "patterns/microservices-work",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/PATTERN_TEMPLATE.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "related-pattern-1.md",
+          "normalized": "patterns/related-pattern-1.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "related-pattern-2.md",
+          "normalized": "patterns/related-pattern-2.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "related-pattern-3.md",
+          "normalized": "patterns/related-pattern-3.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/case-1",
+          "normalized": "case-studies/case-1",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/case-2",
+          "normalized": "case-studies/case-2",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "next-pattern.md",
+          "normalized": "patterns/next-pattern.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/api-gateway.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/patterns/#core-patterns",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "response",
+          "normalized": "patterns/response",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/backends-for-frontends.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "context",
+          "normalized": "patterns/context",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "10",
+          "normalized": "patterns/10",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "2",
+          "normalized": "patterns/2",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/bloom-filter.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "count-min-sketch.md",
+          "normalized": "patterns/count-min-sketch.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/caching-strategies.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/patterns/#data-patterns",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/cas.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/patterns/optimistic-locking",
+          "normalized": "patterns/optimistic-locking",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/chunking.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "streaming.md",
+          "normalized": "patterns/streaming.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "batching.md",
+          "normalized": "patterns/batching.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "pagination.md",
+          "normalized": "patterns/pagination.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/circuit-breaker-enhanced.md": {
+      "count": 5,
+      "links": [
+        {
+          "link": "/patterns/retry-backoff/",
+          "normalized": "patterns/retry-backoff/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/case-studies/netflix-chaos/",
+          "normalized": "case-studies/netflix-chaos/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-basic/",
+          "normalized": "tutorials/circuit-breaker-basic/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-production/",
+          "normalized": "tutorials/circuit-breaker-production/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-advanced/",
+          "normalized": "tutorials/circuit-breaker-advanced/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "patterns/circuit-breaker-native.md": {
+      "count": 14,
+      "links": [
+        {
+          "link": "/case-studies/netflix-hystrix/",
+          "normalized": "case-studies/netflix-hystrix/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/aws-api-gateway/",
+          "normalized": "case-studies/aws-api-gateway/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/azure-service-fabric/",
+          "normalized": "case-studies/azure-service-fabric/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/istio/",
+          "normalized": "case-studies/istio/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-basic/",
+          "normalized": "tutorials/circuit-breaker-basic/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-testing/",
+          "normalized": "tutorials/circuit-breaker-testing/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-monitoring/",
+          "normalized": "tutorials/circuit-breaker-monitoring/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-config/",
+          "normalized": "tutorials/circuit-breaker-config/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-distributed/",
+          "normalized": "tutorials/circuit-breaker-distributed/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-frameworks/",
+          "normalized": "tutorials/circuit-breaker-frameworks/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-ml/",
+          "normalized": "tutorials/circuit-breaker-ml/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/tutorials/circuit-breaker-adaptive/",
+          "normalized": "tutorials/circuit-breaker-adaptive/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/references/circuit-breaker-papers/",
+          "normalized": "references/circuit-breaker-papers/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/#resilience-patterns",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/circuit-breaker.md": {
+      "count": 13,
+      "links": [
+        {
+          "link": "/patterns/#resilience-patterns",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law1-failure/",
+          "normalized": "part1-axioms/law1-failure/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law2-asynchrony/",
+          "normalized": "part1-axioms/law2-asynchrony/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law3-emergence/",
+          "normalized": "part1-axioms/law3-emergence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law4-tradeoffs/",
+          "normalized": "part1-axioms/law4-tradeoffs/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law6-human-api/",
+          "normalized": "part1-axioms/law6-human-api/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/truth/",
+          "normalized": "part2-pillars/truth/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/control/",
+          "normalized": "part2-pillars/control/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/intelligence/",
+          "normalized": "part2-pillars/intelligence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/netflix-hystrix/",
+          "normalized": "case-studies/netflix-hystrix/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/amazon-prime-day/",
+          "normalized": "case-studies/amazon-prime-day/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/uber-microservices/",
+          "normalized": "case-studies/uber-microservices/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/microservices-resilience",
+          "normalized": "patterns/microservices-resilience",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/consensus.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/law2-asynchrony/",
+          "normalized": "part1-axioms/law2-asynchrony/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/cqrs.md": {
+      "count": 13,
+      "links": [
+        {
+          "link": "/part1-axioms/law2-asynchrony/",
+          "normalized": "part1-axioms/law2-asynchrony/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law3-emergence/",
+          "normalized": "part1-axioms/law3-emergence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law4-tradeoffs/",
+          "normalized": "part1-axioms/law4-tradeoffs/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law5-epistemology/",
+          "normalized": "part1-axioms/law5-epistemology/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law6-human-api/",
+          "normalized": "part1-axioms/law6-human-api/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law7-economics/",
+          "normalized": "part1-axioms/law7-economics/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/work/",
+          "normalized": "part2-pillars/work/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/state/",
+          "normalized": "part2-pillars/state/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/truth/",
+          "normalized": "part2-pillars/truth/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/intelligence/",
+          "normalized": "part2-pillars/intelligence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/service-mesh/",
+          "normalized": "patterns/service-mesh/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/cdc/",
+          "normalized": "patterns/cdc/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/materialized-view/",
+          "normalized": "patterns/materialized-view/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/distributed-lock.md": {
+      "count": 17,
+      "links": [
+        {
+          "link": "/part1-axioms/law1-failure/",
+          "normalized": "part1-axioms/law1-failure/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law2-async/",
+          "normalized": "part1-axioms/law2-async/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law3-emergence/",
+          "normalized": "part1-axioms/law3-emergence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law4-tradeoffs/",
+          "normalized": "part1-axioms/law4-tradeoffs/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law5-epistemology/",
+          "normalized": "part1-axioms/law5-epistemology/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/truth/",
+          "normalized": "part2-pillars/truth/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/control/",
+          "normalized": "part2-pillars/control/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/state/",
+          "normalized": "part2-pillars/state/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/consensus/",
+          "normalized": "patterns/consensus/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/leader-election/",
+          "normalized": "patterns/leader-election/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/heartbeat/",
+          "normalized": "patterns/heartbeat/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/cas/",
+          "normalized": "patterns/cas/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/two-phase-commit/",
+          "normalized": "patterns/two-phase-commit/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/crdt/",
+          "normalized": "patterns/crdt/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/circuit-breaker/",
+          "normalized": "patterns/circuit-breaker/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/timeout/",
+          "normalized": "patterns/timeout/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/retry-backoff/",
+          "normalized": "patterns/retry-backoff/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/distributed-queue.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "message-broker.md",
+          "normalized": "patterns/message-broker.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/e2e-encryption.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "recipient_public_key",
+          "normalized": "patterns/recipient_public_key",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/event-sourcing.md": {
+      "count": 14,
+      "links": [
+        {
+          "link": "/patterns/#core-patterns",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law1-failure/",
+          "normalized": "part1-axioms/law1-failure/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law2-asynchrony/",
+          "normalized": "part1-axioms/law2-asynchrony/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law3-emergence/",
+          "normalized": "part1-axioms/law3-emergence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law5-epistemology/",
+          "normalized": "part1-axioms/law5-epistemology/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law6-human-api/",
+          "normalized": "part1-axioms/law6-human-api/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law7-economics/",
+          "normalized": "part1-axioms/law7-economics/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/state/",
+          "normalized": "part2-pillars/state/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/truth/",
+          "normalized": "part2-pillars/truth/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/intelligence/",
+          "normalized": "part2-pillars/intelligence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/cqrs/",
+          "normalized": "patterns/cqrs/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/snapshot/",
+          "normalized": "patterns/snapshot/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/idempotent-receiver/",
+          "normalized": "patterns/idempotent-receiver/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/cdc/",
+          "normalized": "patterns/cdc/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/fault-tolerance.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "context",
+          "normalized": "patterns/context",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/finops.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "my_share",
+          "normalized": "patterns/my_share",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/index.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "case-studies/netflix-chaos",
+          "normalized": "patterns/case-studies/netflix-chaos",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "case-studies/uber-location",
+          "normalized": "patterns/case-studies/uber-location",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "case-studies/amazon-dynamo",
+          "normalized": "patterns/case-studies/amazon-dynamo",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "case-studies/paypal-payments",
+          "normalized": "patterns/case-studies/paypal-payments",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/leader-election.md": {
+      "count": 8,
+      "links": [
+        {
+          "link": "/part1-axioms/law1-failure/",
+          "normalized": "part1-axioms/law1-failure/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law2-asynchrony/",
+          "normalized": "part1-axioms/law2-asynchrony/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law3-emergence/",
+          "normalized": "part1-axioms/law3-emergence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law4-tradeoffs/",
+          "normalized": "part1-axioms/law4-tradeoffs/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law5-epistemology/",
+          "normalized": "part1-axioms/law5-epistemology/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/truth/",
+          "normalized": "part2-pillars/truth/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/control/",
+          "normalized": "part2-pillars/control/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/intelligence/",
+          "normalized": "part2-pillars/intelligence/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/leader-follower.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "primary-backup.md",
+          "normalized": "patterns/primary-backup.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "multi-master.md",
+          "normalized": "patterns/multi-master.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "chain-replication.md",
+          "normalized": "patterns/chain-replication.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/load-balancing.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/patterns/#operational-patterns",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/load-shedding.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "current_load",
+          "normalized": "patterns/current_load",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "current_load",
+          "normalized": "patterns/current_load",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/pattern-relationships.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "../reference/anti-patterns.md",
+          "normalized": "reference/anti-patterns.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "pattern-evolution.md",
+          "normalized": "patterns/pattern-evolution.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/pattern-selector.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "/patterns/polyglot-persistence/",
+          "normalized": "patterns/polyglot-persistence/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/patterns/retry-backoff/",
+          "normalized": "patterns/retry-backoff/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/patterns/service-mesh/",
+          "normalized": "patterns/service-mesh/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/patterns/distributed-lock/",
+          "normalized": "patterns/distributed-lock/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "patterns/polyglot-persistence.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "microservices.md",
+          "normalized": "patterns/microservices.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/request-batching.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "../part2-pillars/1-work-distribution/index.md",
+          "normalized": "part2-pillars/1-work-distribution/index.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "queue-load-leveling.md",
+          "normalized": "patterns/queue-load-leveling.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../human-factors/performance-testing.md",
+          "normalized": "human-factors/performance-testing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/saga-enhanced.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "/patterns/two-phase-commit/",
+          "normalized": "patterns/two-phase-commit/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/case-studies/uber-trip-saga/",
+          "normalized": "case-studies/uber-trip-saga/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/case-studies/airbnb-booking/",
+          "normalized": "case-studies/airbnb-booking/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/saga-basics/",
+          "normalized": "tutorials/saga-basics/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/saga-orchestrator/",
+          "normalized": "tutorials/saga-orchestrator/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/saga-production/",
+          "normalized": "tutorials/saga-production/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "patterns/saga.md": {
+      "count": 15,
+      "links": [
+        {
+          "link": "/patterns/#core-patterns",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law2-asynchrony/",
+          "normalized": "part1-axioms/law2-asynchrony/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/2pc",
+          "normalized": "patterns/2pc",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/concepts/acid-base/",
+          "normalized": "concepts/acid-base/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/idempotency",
+          "normalized": "patterns/idempotency",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/compensation",
+          "normalized": "patterns/compensation",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/architectures/microservices/",
+          "normalized": "architectures/microservices/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/architectures/event-driven/",
+          "normalized": "architectures/event-driven/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/uber-trips/",
+          "normalized": "case-studies/uber-trips/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/amazon-orders/",
+          "normalized": "case-studies/amazon-orders/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/booking-reservations/",
+          "normalized": "case-studies/booking-reservations/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/netflix-billing/",
+          "normalized": "case-studies/netflix-billing/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/operations/distributed-tracing/",
+          "normalized": "operations/distributed-tracing/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/operations/saga-monitoring/",
+          "normalized": "operations/saga-monitoring/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/operations/chaos-engineering/",
+          "normalized": "operations/chaos-engineering/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/segmented-log.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "partitioning.md",
+          "normalized": "patterns/partitioning.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/serverless-faas.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "clean_event",
+          "normalized": "patterns/clean_event",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "*.md",
+          "normalized": "patterns/*.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "patterns/sharding.md": {
+      "count": 9,
+      "links": [
+        {
+          "link": "/patterns/#data-patterns",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/partitioning",
+          "normalized": "patterns/partitioning",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/federation",
+          "normalized": "patterns/federation",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/cache-sharding",
+          "normalized": "patterns/cache-sharding",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/uber-schemaless/",
+          "normalized": "case-studies/uber-schemaless/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/instagram-cassandra/",
+          "normalized": "case-studies/instagram-cassandra/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/pinterest-sharding/",
+          "normalized": "case-studies/pinterest-sharding/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/human-factors/monitoring/",
+          "normalized": "human-factors/monitoring/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/human-factors/capacity-planning/",
+          "normalized": "human-factors/capacity-planning/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/split-brain.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "quorum.md",
+          "normalized": "patterns/quorum.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/two-phase-commit.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/part1-axioms/law2-asynchrony/",
+          "normalized": "part1-axioms/law2-asynchrony/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/three-phase-commit",
+          "normalized": "patterns/three-phase-commit",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/url-normalization.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "[^\"\\']+",
+          "normalized": "patterns/[^\"\\']+",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "[^\"\\']+",
+          "normalized": "patterns/[^\"\\']+",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "[^\"\\']+",
+          "normalized": "patterns/[^\"\\']+",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/valet-key.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/patterns/cdn",
+          "normalized": "patterns/cdn",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/encryption-at-rest",
+          "normalized": "patterns/encryption-at-rest",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/wal.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "replication.md",
+          "normalized": "patterns/replication.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "patterns/websocket.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/patterns/publish-subscribe",
+          "normalized": "patterns/publish-subscribe",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/availability-math.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "99.9999%",
+          "normalized": "quantitative/99.9999%",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/battery-models.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "./performance-modeling.md",
+          "normalized": "quantitative/./performance-modeling.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./network-theory.md",
+          "normalized": "quantitative/./network-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./markov-chains.md",
+          "normalized": "quantitative/./markov-chains.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./queueing-theory.md",
+          "normalized": "quantitative/./queueing-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/cap-theorem-enhanced.md": {
+      "count": 9,
+      "links": [
+        {
+          "link": "/tools/cap-calculator",
+          "normalized": "tools/cap-calculator",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/introduction/getting-started/",
+          "normalized": "introduction/getting-started/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/introduction/networking-basics/",
+          "normalized": "introduction/networking-basics/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/case-studies/zookeeper/",
+          "normalized": "case-studies/zookeeper/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/patterns/two-phase-commit/",
+          "normalized": "patterns/two-phase-commit/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/quantitative/pacelc/",
+          "normalized": "quantitative/pacelc/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tools/cap-calculator/",
+          "normalized": "tools/cap-calculator/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/cp-system-design/",
+          "normalized": "tutorials/cp-system-design/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "/tutorials/cap-production/",
+          "normalized": "tutorials/cap-production/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "quantitative/cap-theorem.md": {
+      "count": 8,
+      "links": [
+        {
+          "link": "/patterns/consensus-algorithms",
+          "normalized": "patterns/consensus-algorithms",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/conflict-resolution",
+          "normalized": "patterns/conflict-resolution",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/quantitative/pacelc-analysis",
+          "normalized": "quantitative/pacelc-analysis",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/quantitative/latency-models",
+          "normalized": "quantitative/latency-models",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/case-studies/cockroachdb/",
+          "normalized": "case-studies/cockroachdb/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/distributed-database",
+          "normalized": "patterns/distributed-database",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/microservices-consistency",
+          "normalized": "patterns/microservices-consistency",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/blockchain-consensus",
+          "normalized": "patterns/blockchain-consensus",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/compression.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./information-theory.md",
+          "normalized": "quantitative/./information-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./storage-economics.md",
+          "normalized": "quantitative/./storage-economics.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./cache-economics.md",
+          "normalized": "quantitative/./cache-economics.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/computational-geometry.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./spatial-stats.md",
+          "normalized": "quantitative/./spatial-stats.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./graph-theory.md",
+          "normalized": "quantitative/./graph-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./time-complexity.md",
+          "normalized": "quantitative/./time-complexity.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/computer-vision.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./information-theory.md",
+          "normalized": "quantitative/./information-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./computational-geometry.md",
+          "normalized": "quantitative/./computational-geometry.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./compression.md",
+          "normalized": "quantitative/./compression.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/consistency-models.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/patterns/consensus-algorithms",
+          "normalized": "patterns/consensus-algorithms",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/failure-models.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/case-studies/aws-outages",
+          "normalized": "case-studies/aws-outages",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/graph-theory.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./network-theory.md",
+          "normalized": "quantitative/./network-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./graph-models.md",
+          "normalized": "quantitative/./graph-models.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./social-networks.md",
+          "normalized": "quantitative/./social-networks.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/network-theory.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/patterns/network-protocols",
+          "normalized": "patterns/network-protocols",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/p2p",
+          "normalized": "patterns/p2p",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/performance-modeling.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "load-testing.md",
+          "normalized": "quantitative/load-testing.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/privacy-metrics.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./information-theory.md",
+          "normalized": "quantitative/./information-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./bayesian-reasoning.md",
+          "normalized": "quantitative/./bayesian-reasoning.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./stochastic-processes.md",
+          "normalized": "quantitative/./stochastic-processes.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/social-networks.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./graph-models.md",
+          "normalized": "quantitative/./graph-models.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./network-theory.md",
+          "normalized": "quantitative/./network-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./power-laws.md",
+          "normalized": "quantitative/./power-laws.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/spatial-stats.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./graph-models.md",
+          "normalized": "quantitative/./graph-models.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./network-theory.md",
+          "normalized": "quantitative/./network-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./stochastic-processes.md",
+          "normalized": "quantitative/./stochastic-processes.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/storage-economics.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./cache-economics.md",
+          "normalized": "quantitative/./cache-economics.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./capacity-planning.md",
+          "normalized": "quantitative/./capacity-planning.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./information-theory.md",
+          "normalized": "quantitative/./information-theory.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "quantitative/time-series.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "./stochastic-processes.md",
+          "normalized": "quantitative/./stochastic-processes.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./markov-chains.md",
+          "normalized": "quantitative/./markov-chains.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "./queueing-models.md",
+          "normalized": "quantitative/./queueing-models.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "reference/admonition-guide.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/reference/",
+          "normalized": "reference/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/reference/",
+          "normalized": "reference/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "reference/contributing.md": {
+      "count": 2,
+      "links": [
+        {
+          "link": "/reference/",
+          "normalized": "reference/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/reference/",
+          "normalized": "reference/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "reference/law-mapping-guide.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/archive-old-8-law-structure/README",
+          "normalized": "part1-axioms/archive-old-8-law-structure/README",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "reference/recipe-cards.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "../patterns/retry.md",
+          "normalized": "patterns/retry.md",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "tags.md": {
+      "count": 5,
+      "links": [
+        {
+          "link": "/case-studies/",
+          "normalized": "case-studies/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/",
+          "normalized": "part1-axioms/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part2-pillars/",
+          "normalized": "part2-pillars/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/quantitative/",
+          "normalized": "quantitative/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "templates/homepage-template.md": {
+      "count": 6,
+      "links": [
+        {
+          "link": "introduction/getting-started/",
+          "normalized": "templates/introduction/getting-started/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "introduction/getting-started/",
+          "normalized": "templates/introduction/getting-started/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "axioms/",
+          "normalized": "templates/axioms/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "patterns/",
+          "normalized": "templates/patterns/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "case-studies/",
+          "normalized": "templates/case-studies/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "introduction/getting-started/",
+          "normalized": "templates/introduction/getting-started/",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "templates/law-template-native.md": {
+      "count": 5,
+      "links": [
+        {
+          "link": "/patterns/pattern",
+          "normalized": "patterns/pattern",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/pattern",
+          "normalized": "patterns/pattern",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/lawX/exercises/",
+          "normalized": "part1-axioms/lawX/exercises/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law[X-1]/",
+          "normalized": "part1-axioms/law[X-1]/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/part1-axioms/law[X+1]/",
+          "normalized": "part1-axioms/law[X+1]/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "templates/law-template.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/tools/law-x-calculator",
+          "normalized": "tools/law-x-calculator",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "templates/navigation.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "{{ item.path }}",
+          "normalized": "templates/{{ item.path }}",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "{{ step.path }}",
+          "normalized": "templates/{{ step.path }}",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "{prereq[",
+          "normalized": "templates/{prereq[",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        },
+        {
+          "link": "{item[",
+          "normalized": "templates/{item[",
+          "pattern": "href=[\"\\']([^\"\\']+)[\"\\']"
+        }
+      ]
+    },
+    "templates/page-navigation-native.md": {
+      "count": 25,
+      "links": [
+        {
+          "link": "../path/to/concept1/",
+          "normalized": "path/to/concept1",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../path/to/concept2/",
+          "normalized": "path/to/concept2",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../path/to/concept3/",
+          "normalized": "path/to/concept3",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../patterns/pattern1/",
+          "normalized": "patterns/pattern1",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../patterns/pattern2/",
+          "normalized": "patterns/pattern2",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../case-studies/company-x/",
+          "normalized": "case-studies/company-x",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../case-studies/company-y/",
+          "normalized": "case-studies/company-y",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../case-studies/company-z/",
+          "normalized": "case-studies/company-z",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../quantitative/model/",
+          "normalized": "quantitative/model",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../quantitative/performance/",
+          "normalized": "quantitative/performance",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../quantitative/tradeoffs/",
+          "normalized": "quantitative/tradeoffs",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../tutorials/basic/",
+          "normalized": "tutorials/basic",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../examples/simple/",
+          "normalized": "examples/simple",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../tutorials/production/",
+          "normalized": "tutorials/production",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../tutorials/performance/",
+          "normalized": "tutorials/performance",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../tutorials/edge-cases/",
+          "normalized": "tutorials/edge-cases",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../references/papers/",
+          "normalized": "references/papers",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "..#/",
+          "normalized": "templates/..",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "..#/",
+          "normalized": "templates/..",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "/patterns/current",
+          "normalized": "patterns/current",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "..#/",
+          "normalized": "templates/..",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "..#/",
+          "normalized": "templates/..",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../related1/",
+          "normalized": "related1",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../related2/",
+          "normalized": "related2",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../related3/",
+          "normalized": "related3",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "templates/pattern-template.md": {
+      "count": 3,
+      "links": [
+        {
+          "link": "../pattern-x/",
+          "normalized": "pattern-x",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../pattern-y/",
+          "normalized": "pattern-y",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        },
+        {
+          "link": "../pattern-z/",
+          "normalized": "pattern-z",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "test-plan/navigation-test-plan.md": {
+      "count": 4,
+      "links": [
+        {
+          "link": "*.md",
+          "normalized": "test-plan/*.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "*.md",
+          "normalized": "test-plan/*.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "docs/introduction/getting-started.md",
+          "normalized": "test-plan/docs/introduction/getting-started.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        },
+        {
+          "link": "docs/case-studies/prometheus-datadog-enhanced.md",
+          "normalized": "test-plan/docs/case-studies/prometheus-datadog-enhanced.md",
+          "pattern": "[\"\\']([^\"\\']+\\.md)[\"\\']"
+        }
+      ]
+    },
+    "tools/index.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/part1-axioms/distributed-knowledge",
+          "normalized": "part1-axioms/distributed-knowledge",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    },
+    "tools/latency-calculator.md": {
+      "count": 1,
+      "links": [
+        {
+          "link": "/patterns/#performance-scaling",
+          "normalized": "patterns/",
+          "pattern": "\\[([^\\]]+)\\]\\(([^)]+)\\)"
+        }
+      ]
+    }
+  }
+}

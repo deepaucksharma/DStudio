@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 
 # Pillar 1: Distribution of Work
 
-[Home](/) > [The 5 Pillars](/part2-pillars/) > Pillar 1: Work > Overview
+[Home](/) > [The 5 Pillars](/part2-pillars) > Pillar 1: Work > Overview
 
 ## Intuition: The Restaurant Kitchen Problem (5 min read)
 
@@ -22,7 +22,7 @@ Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, s
 - **Pastry station**: Makes desserts
 - **Expeditor**: Coordinates and quality checks
 
-This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) - the reality that operations happen independently in time.
+This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony) - the reality that operations happen independently in time.
 
 💡 **Key Insight**: The best kitchens aren't the ones with the most chefs, but the ones with the smartest work distribution.
 
@@ -42,7 +42,7 @@ You're solving the same fundamental problem: how to split work efficiently acros
 
 ---
 
-## Foundation: Understanding Work Distribution (15 min read)
+## Foundation: Understanding Work Distribution (15 min read/index)
 
 ## The Central Question
 
@@ -52,13 +52,13 @@ How do you break computation into pieces that can run on different machines whil
 
 ## The Fundamental Trade-offs
 
-!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Law of Economic Reality](/part1-axioms/law7-economics/))
+!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Law of Economic Reality](/part1-axioms/law7-economics)/index)
  Every choice in work distribution involves trade-offs:
 
  **Parallelism vs Coordination Overhead**
  - More workers = More communication needed
  - Amdahl's Law: Serial portions limit speedup
- - Eventually coordination costs exceed computation savings (see [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/))
+ - Eventually coordination costs exceed computation savings (see [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology)/index)
 
  **Latency vs Throughput**
  - Batching improves throughput but increases latency
@@ -229,7 +229,7 @@ gantt
  Store All :active, par5, after par3 par4, 200
 ```
 
-**Performance Comparison:** (demonstrates [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) in action)
+**Performance Comparison:** (demonstrates [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony) in action/index)
 
 | Approach | Total Time | Speedup | Resource Usage |
 |----------|------------|---------|----------------|
@@ -270,7 +270,7 @@ P = Parallel fraction (can be parallelized)
 N = Number of processors
 
 Example:
-If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of Emergent Chaos](/part1-axioms/law3-emergence/):
+If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of Emergent Chaos](/part1-axioms/law3-emergence):
 - With 10 processors: Speedup = 5.3x (not 10x!)
 - With 100 processors: Speedup = 9.2x (not 100x!)
 - With ∞ processors: Speedup = 10x (hard limit)
@@ -278,7 +278,7 @@ If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of
 
 ---
 
-## Deep Dive: Engineering Work Distribution (30 min read)
+## Deep Dive: Engineering Work Distribution (30 min read/index)
 
 ## Real Failure: The Netflix Encoding Disaster
 
@@ -398,7 +398,7 @@ sequenceDiagram
  R-->>M: Results[]
 ```
 
-**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/))
+**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology)/index)
 
 | Aspect | Description | Use When |
 |--------|-------------|----------|
@@ -644,23 +644,23 @@ graph LR
 
 ## The Coordination Tax
 
-Every distributed system pays a coordination tax (detailed in [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/)):
+Every distributed system pays a coordination tax (detailed in [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology)):
 
 ## Load Balancing Strategies
 
 ---
 
-## 🟣 Expert: Theory and Advanced Techniques (45 min read)
+## 🟣 Expert: Theory and Advanced Techniques (45 min read/index)
 
 ## Theoretical Foundations
 
 #### Universal Scalability Law
 
-Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)):
+Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs)):
 
 !!! example "Universal Scalability Law (USL)"
  <div>
- <strong>C(N) = N / (1 + α(N-1) + βN(N-1))</strong>
+ <strong>C(N/index) = N / (1 + α(N-1) + βN(N-1))</strong>
 <table class="responsive-table">
 <tr>
 <td><strong>C(N)</strong></td>
@@ -1798,50 +1798,50 @@ flowchart TB
 ## Related Topics
 
 ### Foundational Laws
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Handling worker failures and correlation
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time and causality in distributed work
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - Complex behavior from simple rules
-- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - Resource limits and scaling trade-offs
-- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) - Coordination and knowledge sharing
-- [Law 7: Economic Reality](/part1-axioms/law7-economics/) - Cost of distribution and resources
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Handling worker failures and correlation
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Time and causality in distributed work
+- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - Complex behavior from simple rules
+- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) - Resource limits and scaling trade-offs
+- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) - Coordination and knowledge sharing
+- [Law 7: Economic Reality](/part1-axioms/law7-economics/index) - Cost of distribution and resources
 
 ### Related Pillars
-- [Pillar 2: State](/part2-pillars/state/) - Managing distributed computation state
-- [Pillar 3: Truth](/part2-pillars/truth/) - Consensus on work completion
-- [Pillar 4: Control](/part2-pillars/control/) - Orchestrating distributed work
-- [Pillar 5: Intelligence](/part2-pillars/intelligence/) - Smart work scheduling and optimization
+- [Pillar 2: State](/part2-pillars/state/index) - Managing distributed computation state
+- [Pillar 3: Truth](/part2-pillars/truth/index) - Consensus on work completion
+- [Pillar 4: Control](/part2-pillars/control/index) - Orchestrating distributed work
+- [Pillar 5: Intelligence](/part2-pillars/intelligence/index) - Smart work scheduling and optimization
 
 ### Related Patterns
-- [MapReduce](/patterns/mapreduce/) - Classic parallel processing pattern
-- [Fork-Join](/patterns/fork-join/) - Recursive work decomposition
-- [Work Stealing](/patterns/work-stealing/) - Dynamic load balancing
-- [Pipeline Pattern](/patterns/pipeline/) - Stream processing workflows
-- [Actor Model](/patterns/actor-model/) - Message-based work distribution
-- [Scatter-Gather](/patterns/scatter-gather/) - Parallel query processing
+- [MapReduce](/patterns/mapreduce) - Classic parallel processing pattern
+- [Fork-Join](/patterns/fork-join) - Recursive work decomposition
+- [Work Stealing](/patterns/work-stealing) - Dynamic load balancing
+- [Pipeline Pattern](/patterns/pipeline) - Stream processing workflows
+- [Actor Model](/patterns/actor-model) - Message-based work distribution
+- [Scatter-Gather](/patterns/scatter-gather) - Parallel query processing
 
 ### Quantitative Analysis
-- [Amdahl's Law](/quantitative/amdahl-gustafson/) - Limits of parallelization
-- [Universal Scalability Law](/quantitative/universal-scalability/) - Coordination costs at scale
-- [Little's Law](/quantitative/littles-law/) - Queue theory for work distribution
-- [Queueing Models](/quantitative/queueing-models/) - Understanding work queue behavior
-- [Performance Modeling](/quantitative/performance-modeling/) - Predicting distributed system performance
+- [Amdahl's Law](/quantitative/amdahl-gustafson) - Limits of parallelization
+- [Universal Scalability Law](/quantitative/universal-scalability) - Coordination costs at scale
+- [Little's Law](/quantitative/littles-law) - Queue theory for work distribution
+- [Queueing Models](/quantitative/queueing-models) - Understanding work queue behavior
+- [Performance Modeling](/quantitative/performance-modeling) - Predicting distributed system performance
 
 ### Case Studies
 - [Google MapReduce](/case-studies/google-mapreduce/) - Processing the web at scale
-- [Apache Spark](/case-studies/apache-spark/) - In-memory distributed computing
+- [Apache Spark](/case-studies/apache-spark) - In-memory distributed computing
 - [Netflix Encoding Pipeline](/case-studies/netflix-encoding/) - Video processing at scale
 - [Uber's Schemaless](/case-studies/uber-schemaless/) - Distributed database work distribution
 
 ### Further Reading
-- [Distributed Task Scheduling](/patterns/distributed-scheduling/) - Advanced scheduling algorithms
-- [Stream Processing Architectures](/patterns/stream-processing/) - Real-time work distribution
-- [Batch Processing Systems](/patterns/batch-processing/) - Large-scale data processing
-- [Microservices Work Patterns](/patterns/microservices-work/) - Service-oriented work distribution
+- [Distributed Task Scheduling](/patterns/distributed-scheduling) - Advanced scheduling algorithms
+- [Stream Processing Architectures](/patterns/stream-processing) - Real-time work distribution
+- [Batch Processing Systems](/patterns/batch-processing) - Large-scale data processing
+- [Microservices Work Patterns](/patterns/microservices-work) - Service-oriented work distribution
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: The 5 Pillars](/part2-pillars/) | 
-[:material-arrow-up: The 5 Pillars](/part2-pillars/) | 
-[:material-arrow-right: Pillar 2: State](/part2-pillars/state/)
+[:material-arrow-left: The 5 Pillars](/part2-pillars) | 
+[:material-arrow-up: The 5 Pillars](/part2-pillars) | 
+[:material-arrow-right: Pillar 2: State](/part2-pillars/state/index)
 </div>

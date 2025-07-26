@@ -577,4 +577,4 @@ After completing these exercises, answer:
 
 Remember: The goal isn't to eliminate trade-offs—it's to make them conscious, visible, and aligned with business objectives.
 
-[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ Next: Law of Distributed Knowledge**](/part1-axioms/law5-epistemology/)
+[**← Back to Law of Multidimensional Optimization**](index.md) | [**→ Next: Law of Distributed Knowledge**](/part1-axioms/law5-epistemology/index)

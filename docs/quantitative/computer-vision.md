@@ -26,9 +26,9 @@ Computer vision models provide mathematical frameworks for image processing, fea
 - Map tile generation and processing
 
 ## Related Models
-- [Information Theory](./information-theory.md)
-- [Computational Geometry](./computational-geometry.md)
-- [Compression](./compression.md)
+- [Information Theory](information-theory.md)
+- [Computational Geometry](computational-geometry.md)
+- [Compression](compression.md)
 
 ## References
 - "Computer Vision: Algorithms and Applications" - Szeliski (2022)

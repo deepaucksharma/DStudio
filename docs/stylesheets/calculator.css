@@ -1,0 +1,408 @@
+/* Calculator Styling for The Compendium of Distributed Systems */
+/* Ensures consistent, professional appearance across all calculators */
+
+/* === Base Calculator Container === */
+.calculator-tool {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .calculator-tool {
+  background: var(--md-code-bg-color);
+  border-color: var(--md-default-fg-color--lighter);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* === Form Styling === */
+.calculator-tool form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Form sections */
+.calculator-tool h3,
+.calculator-tool h4 {
+  color: var(--md-primary-fg-color);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--md-primary-fg-color);
+  padding-bottom: 0.5rem;
+}
+
+/* === Input Fields === */
+.calculator-tool label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--md-default-fg-color);
+}
+
+.calculator-tool input[type="number"],
+.calculator-tool input[type="text"],
+.calculator-tool select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--md-default-fg-color--lighter);
+  border-radius: 4px;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+/* Focus states */
+.calculator-tool input:focus,
+.calculator-tool select:focus {
+  outline: none;
+  border-color: var(--md-primary-fg-color);
+  box-shadow: 0 0 0 3px rgba(84, 72, 200, 0.1);
+}
+
+/* Valid/Invalid states */
+.calculator-tool input:valid {
+  border-color: #51cf66;
+}
+
+.calculator-tool input:invalid {
+  border-color: #ff6b6b;
+}
+
+/* Help text */
+.calculator-tool input + em,
+.calculator-tool select + em {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--md-default-fg-color--light);
+  font-style: normal;
+}
+
+/* === Calculate Button === */
+.calc-button {
+  background: var(--md-primary-fg-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+  align-self: flex-start;
+}
+
+.calc-button:hover {
+  background: var(--md-primary-fg-color--dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(84, 72, 200, 0.3);
+}
+
+.calc-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(84, 72, 200, 0.3);
+}
+
+/* === Results Panel === */
+.results-panel {
+  display: none;
+  background: var(--md-default-bg-color);
+  border: 2px solid var(--md-primary-fg-color);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-top: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Summary Cards === */
+.summary-card {
+  background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-primary-fg-color--dark) 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.summary-card.success {
+  background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+}
+
+.summary-card.warning {
+  background: linear-gradient(135deg, #ffd43b 0%, #fab005 100%);
+  color: #212529;
+}
+
+.summary-card.error {
+  background: linear-gradient(135deg, #ff6b6b 0%, #f03e3e 100%);
+}
+
+.summary-card .card-header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.summary-card .big-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+/* === Metric Cards Grid === */
+.metric-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.metric-card {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.metric-card h4 {
+  font-size: 0.875rem;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 0.5rem;
+  border-bottom: none;
+}
+
+.metric-card .metric-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--md-primary-fg-color);
+}
+
+/* === Progress Bars === */
+.bar {
+  height: 8px;
+  background: var(--md-primary-fg-color);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  transition: width 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* === Tables === */
+.calculator-tool table,
+.results-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.calculator-tool th,
+.results-panel th {
+  background: var(--md-primary-fg-color);
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.calculator-tool td,
+.results-panel td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.calculator-tool tr:hover,
+.results-panel tr:hover {
+  background: var(--md-code-bg-color);
+}
+
+/* === Charts Canvas === */
+canvas {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+  padding: 1rem;
+  background: white;
+}
+
+[data-md-color-scheme="slate"] canvas {
+  background: var(--md-default-bg-color);
+  filter: invert(0.9) hue-rotate(180deg);
+}
+
+/* === Responsive Design === */
+@media (max-width: 768px) {
+  .calculator-tool {
+    padding: 1rem;
+  }
+  
+  .metric-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .calc-button {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .summary-card .big-value {
+    font-size: 2rem;
+  }
+  
+  /* Stack form elements on mobile */
+  .calculator-tool input,
+  .calculator-tool select {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+/* === Special Components === */
+
+/* Error display */
+.error-messages {
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: #c00;
+}
+
+.error-messages h4 {
+  margin-top: 0;
+  color: #c00;
+}
+
+.error-messages ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+/* Recommendations */
+.recommendations-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.recommendation-card {
+  padding: 1rem;
+  border-radius: 4px;
+  border-left: 4px solid;
+}
+
+.recommendation-card.urgent {
+  background: #fee;
+  border-color: #f03e3e;
+}
+
+.recommendation-card.error {
+  background: #fee;
+  border-color: #c92a2a;
+}
+
+.recommendation-card.warning {
+  background: #fff8dc;
+  border-color: #fab005;
+}
+
+.recommendation-card.important {
+  background: #e7f5ff;
+  border-color: #339af0;
+}
+
+.recommendation-card.info {
+  background: #f3f0ff;
+  border-color: #5f3dc4;
+}
+
+/* Loading states */
+.calculator-tool.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.calculator-tool.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 4px solid var(--md-primary-fg-color);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* === Utility Classes === */
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.mb-0 { margin-bottom: 0; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+
+/* === Print Styles === */
+@media print {
+  .calculator-tool form {
+    display: none;
+  }
+  
+  .results-panel {
+    border: 1px solid #000;
+    box-shadow: none;
+  }
+  
+  canvas {
+    max-height: 400px;
+  }
+}

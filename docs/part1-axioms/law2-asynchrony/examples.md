@@ -11,7 +11,7 @@ last_updated: 2025-07-23
 
 # Real-World Asynchronous Reality: Case Studies and Lessons
 
-[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) > Examples
+[Home](/) > [The 7 Laws](/part1-axioms) > [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony) > Examples
 
 ## Case Study 1: Google Spanner's TrueTime (2012)
 
@@ -27,7 +27,7 @@ def transfer_money(from_account, to_account, amount):
     to_balance = read_balance(to_account)      # Time T2
     
     write_balance(from_account, from_balance - amount)  # Time T3
-    write_balance(to_account, to_balance + amount)      # Time T4
+    write_balance(to_account, to_balance + amount/index)      # Time T4
 # Times T1-T4 could be seconds apart across continents!
 ```
 
@@ -640,4 +640,4 @@ These cases teach us that:
 3. **Conflicts are inevitable**: Design for resolution, not prevention
 4. **Human intuition fails**: Our brains aren't built for distributed thinking
 
-[**← Back to Law of Asynchronous Reality**](index.md) | [**→ To Exercises**](./exercises.md)
+[**← Back to Law of Asynchronous Reality**](index.md) | [**→ To Exercises**](exercises.md)

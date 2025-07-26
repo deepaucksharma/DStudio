@@ -183,4 +183,4 @@ graph LR
 
 ---
 
-[← Back to Patterns](/patterns/) | [Pattern Details →](/patterns/circuit-breaker/)
+[← Back to Patterns](/patterns) | [Pattern Details →](/patterns/circuit-breaker)

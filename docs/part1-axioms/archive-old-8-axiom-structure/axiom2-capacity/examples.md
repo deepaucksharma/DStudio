@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](index.md) → **Capacity Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 2](index.md) → **Capacity Examples**
 
 # Capacity Examples
 
@@ -698,7 +698,7 @@ Every resource has capacity limits:
 
 ---
 
-**Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
+**Previous**: [Overview]() | **Next**: [Exercises](exercises.md)
 
 **Related Patterns**: 
 - [Auto Scaling](/patterns/auto-scaling) - Dynamic capacity management

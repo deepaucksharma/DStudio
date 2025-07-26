@@ -1324,15 +1324,15 @@ class ConsistentHashRing:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - O(log n) lookup time with client-side caching reduces routing latency
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Even distribution prevents capacity hot spots across nodes
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Ring lookups are lock-free read operations
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Visual ring representation aids debugging and operations
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Efficient scaling without full data redistribution saves bandwidth
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony)** - O(log n/index) lookup time with client-side caching reduces routing latency
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Ring lookups are lock-free read operations
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economics ](/part1-axioms/law7-economics)** - Efficient scaling without full data redistribution saves bandwidth
 
-### 🏛 Related Patterns (Part III)
+### 🏛 Related Patterns (Part III/index)
 - **[Sharding & Partitioning](/patterns/sharding)** - Consistent hashing is the foundation for data sharding
 - **[Load Balancing](/patterns/load-balancing)** - Ring-based routing distributes requests evenly
 - **[Service Discovery](/patterns/service-discovery)** - Ring topology changes propagate via gossip

@@ -11,7 +11,7 @@ last_updated: 2025-01-25
 
 # Law 3: The Law of Emergent Chaos 🌪️
 
-[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) > Deep Dive
+[Home](/) > [The 7 Laws](/part1-axioms) > [Law 3: Emergent Chaos](/part1-axioms/law3-emergence) > Deep Dive
 
 !!! quote "Core Principle"
     At scale, systems exhibit behaviors that cannot be predicted from their components.
@@ -106,7 +106,7 @@ class DistributedSystemDynamics:
     def __init__(self):
         # System parameters (analogous to Lorenz parameters)
         self.latency_coupling = 10.0      # σ (sigma)
-        self.traffic_growth = 28.0        # ρ (rho)  
+        self.traffic_growth = 28.0        # ρ (rho/index)  
         self.resource_ratio = 8.0/3.0     # β (beta)
         
     def system_dynamics(self, state, t):
@@ -848,17 +848,17 @@ class CellularArchitecture:
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - How failures create emergent cascades
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - How timing creates emergent patterns
-- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - How optimization creates fragility
-- [Law 6: Cognitive Load](/part1-axioms/law6-cognitive/) - How emergence overwhelms human operators
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - How failures create emergent cascades
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - How timing creates emergent patterns
+- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) - How optimization creates fragility
+- [Law 6: Cognitive Load](/part1-axioms/law6-human-api/) - How emergence overwhelms human operators
 
 ### Related Patterns
-- [Circuit Breaker](/patterns/circuit-breaker/) - Preventing cascade emergence
-- [Bulkhead Pattern](/patterns/bulkhead/) - Containing emergent failures
-- [Chaos Engineering](/human-factors/chaos-engineering/) - Discovering emergence proactively
-- [Cell-Based Architecture](/patterns/cell-based/) - Limiting emergence blast radius
-- [Backpressure](/patterns/backpressure/) - Breaking feedback loops
+- [Circuit Breaker](/patterns/circuit-breaker) - Preventing cascade emergence
+- [Bulkhead Pattern](/patterns/bulkhead) - Containing emergent failures
+- [Chaos Engineering](/human-factors/chaos-engineering.md) - Discovering emergence proactively
+- [Cell-Based Architecture](/patterns/cell-based) - Limiting emergence blast radius
+- [Backpressure](/patterns/backpressure) - Breaking feedback loops
 
 ### Case Studies
 - [2010 Flash Crash](/case-studies/flash-crash/) - Emergence in financial markets
@@ -876,7 +876,7 @@ class CellularArchitecture:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
-[:material-arrow-right: Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)
+[:material-arrow-left: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms) | 
+[:material-arrow-right: Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index)
 </div>

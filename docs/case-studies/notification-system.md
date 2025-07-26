@@ -2439,10 +2439,10 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Foundation for reliable delivery
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - Real-time delivery constraints
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Cost optimization strategies
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Foundation for reliable delivery
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - Real-time delivery constraints
+- **[Law 7: Economics ](/part1-axioms/law7-economics/index)** - Cost optimization strategies
 
 #### Advanced Topics
 - **[Event-Driven Architecture](/patterns/event-driven)** - Asynchronous notification processing
@@ -2451,9 +2451,9 @@ Analytics Service    8 cores  32GB      10TB
 - **[Rate Limiting](/patterns/rate-limiting)** - Preventing notification storms
 
 #### Related Case Studies
-- **[Chat System](./chat-system.md)** - Real-time messaging patterns
-- **[Search Autocomplete](./search-autocomplete.md)** - Low-latency requirements
-- **[Spotify Recommendations](./spotify-recommendations.md)** - Personalization at scale
+- **[Chat System](chat-system.md)** - Real-time messaging patterns
+- **[Search Autocomplete](search-autocomplete.md)** - Low-latency requirements
+- **[Spotify Recommendations](spotify-recommendations.md)** - Personalization at scale
 <!-- TODO: Add workflow engine case study -->
 
 #### Implementation Patterns

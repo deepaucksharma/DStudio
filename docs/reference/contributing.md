@@ -92,7 +92,7 @@ git commit -m "Add: Clear description of change"
     All contributions must:
     
     - Follow existing formatting and style
-    - Include proper navigation (breadcrumbs, prev/next)
+    - Include proper navigation (breadcrumbs, prev#)
     - Add appropriate tags and metadata
     - Pass build tests
     - Be technically accurate
@@ -232,7 +232,7 @@ Thank you for helping make distributed systems knowledge accessible to everyone!
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Recipe Cards](/reference/recipe-cards/) | 
+[:material-arrow-left: Recipe Cards](/reference/recipe-cards) | 
 [:material-arrow-up: Reference](/reference/) | 
 [:material-arrow-right: Home](/)
 </div>

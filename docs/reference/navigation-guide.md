@@ -128,7 +128,7 @@ nav:
  
  next_steps:
  - title: "Try This Next"
- path: "/tutorials/next/"
+ path: "/tutorials#/"
  level: "beginner"
  
  tags:
@@ -227,7 +227,7 @@ nav:
  path: "/concepts/required/"
  next_steps:
  - title: "Next tutorial"
- path: "/tutorials/next-in-series/"
+ path: "/tutorials#-in-series/"
  level: "same"
 ```
 
@@ -371,7 +371,7 @@ nav:
  
  prerequisites:
  - title: "Circuit Breaker Basics"
- path: "/patterns/circuit-breaker/"
+ path: "/patterns/circuit-breaker"
  - title: "State Machines"
  path: "/concepts/state-machines/"
  - title: "Failure Detection"

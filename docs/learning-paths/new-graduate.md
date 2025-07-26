@@ -43,24 +43,24 @@ By completing this path, you will:
  
  Start with understanding the fundamental constraints:
  
- 1. [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Why things fail together
- 2. [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time and ordering challenges
- 3. [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - Complexity from simplicity
+ 1. [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Why things fail together
+ 2. [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Time and ordering challenges
+ 3. [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - Complexity from simplicity
 
 - **Week 2: Core Concepts**
  
  Continue with practical implications:
  
- 4. [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - Understanding trade-offs
- 5. [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) - Information challenges
- 6. [Law 6: Cognitive Load](/part1-axioms/law6-human-api/) - Human factors
+ 4. [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) - Understanding trade-offs
+ 5. [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) - Information challenges
+ 6. [Law 6: Cognitive Load](/part1-axioms/law6-human-api/index) - Human factors
 
 - **Week 3: Economics & Pillars**
  
  Complete foundations:
  
- 7. [Law 7: Economic Reality](/part1-axioms/law7-economics/) - Cost considerations
- 8. [The 5 Pillars Overview](/part2-pillars/) - Distribution strategies
+ 7. [Law 7: Economic Reality](/part1-axioms/law7-economics/index) - Cost considerations
+ 8. [The 5 Pillars Overview](/part2-pillars) - Distribution strategies
 
 </div>
 
@@ -73,26 +73,26 @@ By completing this path, you will:
 
 Start with patterns that keep systems running:
 
-- [Retry & Backoff](/patterns/retry-backoff/) - Handling transient failures
-- [Circuit Breaker](/patterns/circuit-breaker/) - Preventing cascade failures
-- [Timeout](/patterns/timeout/) - Avoiding indefinite waits
-- [Health Check](/patterns/health-check/) - Monitoring system health
+- [Retry & Backoff](/patterns/retry-backoff) - Handling transient failures
+- [Circuit Breaker](/patterns/circuit-breaker) - Preventing cascade failures
+- [Timeout](/patterns/timeout) - Avoiding indefinite waits
+- [Health Check](/patterns/health-check) - Monitoring system health
 
 #### Week 6: Data Patterns
 
 Understand how data flows in distributed systems:
 
-- [Caching Strategies](/patterns/caching-strategies/) - Performance optimization
-- [Event Sourcing](/patterns/event-sourcing/) - Event-driven architectures
-- [CQRS](/patterns/cqrs/) - Separating reads and writes
+- [Caching Strategies](/patterns/caching-strategies) - Performance optimization
+- [Event Sourcing](/patterns/event-sourcing) - Event-driven architectures
+- [CQRS](/patterns/cqrs) - Separating reads and writes
 
 #### Week 7: Coordination Patterns
 
 Learn how systems work together:
 
-- [Service Discovery](/patterns/service-discovery/) - Finding services
-- [Load Balancing](/patterns/load-balancing/) - Distributing work
-- [API Gateway](/patterns/api-gateway/) - Central entry points
+- [Service Discovery](/patterns/service-discovery) - Finding services
+- [Load Balancing](/patterns/load-balancing) - Distributing work
+- [API Gateway](/patterns/api-gateway) - Central entry points
 
 ### Phase 3: Real-World Applications (2-3 weeks)
 
@@ -103,17 +103,17 @@ Learn how systems work together:
 
 Study real implementations:
 
-- [Chat System Design](/case-studies/chat-system/) - WhatsApp-like messaging
-- [URL Shortener](/case-studies/url-shortener/) - Bit.ly architecture
-- [Key-Value Store](/case-studies/key-value-store/) - Redis-like system
+- [Chat System Design](/case-studies/chat-system) - WhatsApp-like messaging
+- [URL Shortener](/case-studies/url-shortener) - Bit.ly architecture
+- [Key-Value Store](/case-studies/key-value-store) - Redis-like system
 
 #### Week 10: Quantitative Skills
 
 Build your analytical toolkit:
 
-- [Latency Ladder](/quantitative/latency-ladder/) - Performance intuition
-- [Little's Law](/quantitative/littles-law/) - Queue theory basics
-- [CAP Theorem](/quantitative/cap-theorem/) - Fundamental trade-offs
+- [Latency Ladder](/quantitative/latency-ladder) - Performance intuition
+- [Little's Law](/quantitative/littles-law) - Queue theory basics
+- [CAP Theorem](/quantitative/cap-theorem) - Fundamental trade-offs
 
 ### Phase 4: Interview Preparation (1-2 weeks)
 
@@ -123,8 +123,8 @@ Build your analytical toolkit:
 <div class="grid cards" markdown>
 
 - **System Design Basics**
- - [Common Mistakes](/google-interviews/common-mistakes/)
- - [Preparation Guide](/google-interviews/preparation-guide/)
+ - [Common Mistakes](/google-interviews/google-interviews/common-mistakes/)
+ - [Preparation Guide](/google-interviews/google-interviews/preparation-guide/)
  - [Visual Cheat Sheets](/google-interviews/visual-cheatsheets/)
 
 - **Mock Problems**
@@ -169,7 +169,7 @@ After completing this path:
 1. **Join the Community**: Participate in system design discussions
 2. **Build Projects**: Implement a distributed system
 3. **Contribute**: Share your learning journey
-4. **Advanced Path**: Move to [Senior Engineer Path](/learning-paths/senior-engineer/)
+4. **Advanced Path**: Move to [Senior Engineer Path](/learning-paths/senior-engineer)
 
 ## 📚 Additional Resources
 
@@ -218,6 +218,6 @@ Remember: This is a marathon, not a sprint. Take time to deeply understand each 
  
  ---
  
- [Senior Engineer Path](/learning-paths/senior-engineer/)
+ [Senior Engineer Path](/learning-paths/senior-engineer)
 
 </div>

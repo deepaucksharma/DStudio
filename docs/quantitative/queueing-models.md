@@ -555,14 +555,14 @@ graph LR
  style F fill:#ff0000
 ```
 
-**Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs/) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
+**Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](/part1-axioms/law4-tradeoffs) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
 
 ### Law 1: Failure
 - At high utilization (>90%), small disruptions cause catastrophic queue growth
 - Variance in service times creates unpredictable failure modes
 - Queue overflow leads to dropped requests and cascading failures
 
-### Law 4: Trade-offs (Ordering Constraints)
+### Law 4: Trade-offs (Ordering Constraints/index)
 ```python
 # FIFO Queue Ordering
 Customer 1 arrives at t=0, waits 0ms

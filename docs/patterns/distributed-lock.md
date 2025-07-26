@@ -953,10 +953,47 @@ flowchart TD
 
 ---
 
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure/)**: Lock service failure affects all clients
+- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-async/)**: Network delays affect lock timing
+- **[Law 3: Emergent Chaos 🌪️](/part1-axioms/law3-emergence/)**: Concurrent lock requests create complexity
+- **[Law 4: Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/)**: Safety vs liveness trade-offs
+- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology/)**: No single view of lock state
+
+### Foundational Pillars
+Distributed Lock implements:
+
+- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/)**: Single lock holder as truth
+- **[Pillar 4: Distribution of Control 🎮](/part2-pillars/control/)**: Mutual exclusion control
+- **[Pillar 2: Distribution of State 🗃️](/part2-pillars/state/)**: Lock state management
+
+## Related Patterns
+
+### Core Dependencies
+- **[Consensus](/patterns/consensus/)**: Foundation for lock agreement
+- **[Leader Election](/patterns/leader-election/)**: Similar coordination primitive
+- **[Heartbeat](/patterns/heartbeat/)**: Lock renewal mechanism
+
+### Alternative Approaches
+- **[Optimistic Locking](/patterns/cas/)**: Compare-and-swap alternative
+- **[Pessimistic Locking](/patterns/two-phase-commit/)**: Traditional database locks
+- **[Lock-Free Algorithms](/patterns/crdt/)**: Coordination without locks
+
+### Supporting Patterns
+- **[Circuit Breaker](/patterns/circuit-breaker/)**: Protect lock service
+- **[Timeout](/patterns/timeout/)**: Prevent indefinite waiting
+- **[Retry with Backoff](/patterns/retry-backoff/)**: Handle lock contention
+
+---
+
 *"A distributed lock is a promise that's hard to keep and harder to break safely."*
 
 ---
 
 **Previous**: [← CQRS (Command Query Responsibility Segregation)](cqrs.md) | **Next**: [Edge Computing/IoT Patterns →](edge-computing.md)
 
-**Related**: [Leader Election](leader-election.md) • [Consensus](consensus.md)
+**Related**: [Leader Election](leader-election.md) • [Consensus](consensus.md) • [State Watch](state-watch.md)

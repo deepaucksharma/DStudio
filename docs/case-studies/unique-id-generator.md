@@ -1325,8 +1325,8 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 4: Trade-offs](/part1-axioms/law5-epistemology/) - Node ID assignment and consensus
-- [Law 6: Human-API](/part1-axioms/law6-human-api/) - Developer experience considerations
+- [Law 4: Trade-offs](/part1-axioms/law5-epistemology/index) - Node ID assignment and consensus
+- [Law 6: Human-API](/part1-axioms/law6-human-api/index) - Developer experience considerations
 - [Clock Synchronization](/patterns/clock-sync) - NTP and time coordination
 - [Logical Clocks](/patterns/logical-clocks) - Alternative to wall-clock time
 
@@ -1337,7 +1337,7 @@ Database:
 - [Collision Probability Math](/quantitative/collision-probability) - Birthday paradox applied
 
 **Related Case Studies:**
-- [URL Shortener](./url-shortener.md) - Uses ID generation for short codes
+- [URL Shortener](url-shortener.md) - Uses ID generation for short codes
 <!-- TODO: Add distributed tracing case study -->
 - [Event Sourcing](/patterns/event-sourcing) - Event ID generation patterns
 

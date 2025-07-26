@@ -684,4 +684,4 @@ def inventory_accuracy():
    - Image optimization and lazy loading
    - Offline capability with service workers
 
-[Return to Amazon Interview Guide](./index.md)
+[Return to Amazon Interview Guide](index.md)

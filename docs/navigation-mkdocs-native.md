@@ -36,7 +36,7 @@ Use Material's admonition blocks for prerequisites:
 
 ## 3. Navigation Footer
 
-MkDocs Material automatically generates previous/next navigation. Enhance with:
+MkDocs Material automatically generates previous# navigation. Enhance with:
 
 ```yaml
 # In mkdocs.yml
@@ -52,8 +52,8 @@ Use Material's content tabs for organizing related materials:
 ```markdown
 === "Related Patterns"
 
-    - [Circuit Breaker](../patterns/circuit-breaker/) - Prevent cascading failures
-    - [Retry with Backoff](../patterns/retry-backoff/) - Handle transient failures
+    - [Circuit Breaker](../patterns/circuit-breaker) - Prevent cascading failures
+    - [Retry with Backoff](../patterns/retry-backoff) - Handle transient failures
     - [Bulkhead](../patterns/bulkhead/) - Isolate resources
 
 === "Case Studies"
@@ -245,9 +245,9 @@ Content here...
 
 ---
 
-:material-arrow-left: [Previous Topic](../previous/) | 
-:material-arrow-up: [Patterns Index](../) | 
-:material-arrow-right: [Next Topic](../next/)
+:material-arrow-left: [Previous Topic](..#/) | 
+:material-arrow-up: [Patterns Index](../index.md) | 
+:material-arrow-right: [Next Topic](..#/)
 ```
 
 ## MkDocs Configuration Updates

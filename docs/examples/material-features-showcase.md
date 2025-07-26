@@ -48,7 +48,7 @@ def circuit_breaker(func):
             on_success()
             return result
         except Exception as e:
-            on_failure()  # (3)!
+            on_failure()  # (3/index)!
             raise e
     
     return wrapper
@@ -100,7 +100,7 @@ The site now supports comprehensive keyboard navigation:
 
 Content is now organized with a comprehensive tagging system:
 
-- Automatic tag index at `/tags/`
+- Automatic tag index at `#`
 - Tag categories for different content types
 - Visual tag indicators with hover effects
 - Cross-content discovery through tags
@@ -254,7 +254,7 @@ Pages show last updated information using git history:
 ## 🚀 Getting Started with Features
 
 1. **Try Keyboard Shortcuts**: Press ++question++ to see all shortcuts
-2. **Explore Tags**: Visit [/tags/](/tags/) to browse by topic
+2. **Explore Tags**: Visit [#](#) to browse by topic
 3. **Test Progressive Disclosure**: Click the arrows on collapsible sections
 4. **Check Offline Mode**: Disconnect internet and navigate
 5. **Use Search**: Press ++cmd+k++ to quickly find content

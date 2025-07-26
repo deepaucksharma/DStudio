@@ -11,7 +11,7 @@ last_updated: 2025-07-23
 
 # Failure Engineering Lab: Correlation Analysis & Chaos Experiments
 
-[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 1: Correlated Failure](/part1-axioms/law1-failure/) > Exercises
+[Home](/) > [The 7 Laws](/part1-axioms) > [Law 1: Correlated Failure](/part1-axioms/law1-failure) > Exercises
 
 ## Exercise 1: Dependency Mapping and Correlation Analysis
 
@@ -141,7 +141,7 @@ class MetastableSystem:
             self.in_metastable_state = False
         elif total_load <= self.capacity:
 # Degraded state - some failures
-            success_rate = 1 - (total_load - 0.7 * self.capacity) / (0.3 * self.capacity)
+            success_rate = 1 - (total_load - 0.7 * self.capacity/index) / (0.3 * self.capacity)
             self.goodput = incoming_load * success_rate
 # Failed requests retry
             self.retry_rate = incoming_load * (1 - success_rate) * 3  # 3x retry
@@ -332,6 +332,6 @@ After completing these exercises, you should be able to answer:
 
 <div class="page-nav" markdown>
 [:material-arrow-left: Law 1 Examples](/part1-axioms/law1-failure/examples/) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
-[:material-arrow-right: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)
+[:material-arrow-up: The 7 Laws](/part1-axioms) | 
+[:material-arrow-right: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)
 </div>

@@ -265,11 +265,11 @@ graph LR
 ## Applicable Patterns
 
 <div class="grid" markdown>
- <a href="../../patterns/circuit-breaker/" class="pattern-card">
+ <a href="../../patterns/circuit-breaker" class="pattern-card">
  <h3 class="pattern-card__title">Circuit Breaker</h3>
  <p class="pattern-card__description">Prevents cascade failures in microservices architecture</p>
  </a>
- <a href="../../patterns/event-sourcing/" class="pattern-card">
+ <a href="../../patterns/event-sourcing" class="pattern-card">
  <h3 class="pattern-card__title">Event Sourcing</h3>
  <p class="pattern-card__description">Tracks user viewing history and preferences</p>
  </a>

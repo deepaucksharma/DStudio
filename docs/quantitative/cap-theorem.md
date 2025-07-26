@@ -386,35 +386,35 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Network partitions and failure modes
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time and consistency challenges
-- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - CAP trade-offs in practice
-- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) - Knowledge consistency across nodes
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Network partitions and failure modes
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Time and consistency challenges
+- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) - CAP trade-offs in practice
+- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) - Knowledge consistency across nodes
 
 ### Related Patterns
-- [Consensus Algorithms](/patterns/consensus-algorithms/) - Achieving agreement despite CAP
-- [Leader Election](/patterns/leader-follower/) - Maintaining consistency with leaders
-- [Eventual Consistency](/patterns/eventual-consistency/) - AP system design patterns
-- [Quorum Consensus](/patterns/quorum-consensus/) - Tunable consistency implementations
-- [Vector Clocks](/patterns/vector-clocks/) - Tracking causality in AP systems
-- [Conflict Resolution](/patterns/conflict-resolution/) - Handling divergence in AP systems
+- [Consensus Algorithms](/patterns/consensus-algorithms) - Achieving agreement despite CAP
+- [Leader Election](/patterns/leader-follower) - Maintaining consistency with leaders
+- [Eventual Consistency](/patterns/eventual-consistency) - AP system design patterns
+- [Quorum Consensus](/patterns/consensus) - Tunable consistency implementations
+- [Vector Clocks](/patterns/vector-clocks) - Tracking causality in AP systems
+- [Conflict Resolution](/patterns/conflict-resolution) - Handling divergence in AP systems
 
 ### Quantitative Analysis
-- [Consistency Models](/quantitative/consistency-models/) - Deep dive into consistency levels
-- [PACELC Analysis](/quantitative/pacelc-analysis/) - Extended CAP theorem implications
-- [Network Theory](/quantitative/network-theory/) - Understanding partition probabilities
-- [Availability Math](/quantitative/availability-math/) - Calculating system availability
-- [Latency Models](/quantitative/latency-models/) - Consistency vs latency trade-offs
+- [Consistency Models](/quantitative/consistency-models) - Deep dive into consistency levels
+- [PACELC Analysis](/quantitative/pacelc-analysis) - Extended CAP theorem implications
+- [Network Theory](/quantitative/network-theory) - Understanding partition probabilities
+- [Availability Math](/quantitative/availability-math) - Calculating system availability
+- [Latency Models](/quantitative/latency-models) - Consistency vs latency trade-offs
 
 ### Case Studies
-- [Apache Cassandra](/case-studies/cassandra/) - Tunable consistency in practice
-- [Amazon DynamoDB](/case-studies/amazon-dynamo/) - AP system at scale
-- [Google Spanner](/case-studies/google-spanner/) - CP system with global consistency
-- [MongoDB](/case-studies/mongodb/) - CP trade-offs in document stores
+- [Apache Cassandra](/case-studies/cassandra) - Tunable consistency in practice
+- [Amazon DynamoDB](/case-studies/amazon-dynamo) - AP system at scale
+- [Google Spanner](/case-studies/google-spanner) - CP system with global consistency
+- [MongoDB](/case-studies/mongodb) - CP trade-offs in document stores
 - [CockroachDB](/case-studies/cockroachdb/) - Modern CP distributed SQL
 
 ### Further Reading
-- [Distributed Database Design](/patterns/distributed-database/) - Applying CAP to database systems
-- [Multi-Region Architecture](/patterns/multi-region/) - CAP across geographic regions
-- [Microservices Consistency](/patterns/microservices-consistency/) - CAP in service architectures
-- [Blockchain Consensus](/patterns/blockchain-consensus/) - CAP theorem in blockchain systems
+- [Distributed Database Design](/patterns/distributed-database) - Applying CAP to database systems
+- [Multi-Region Architecture](/patterns/multi-region) - CAP across geographic regions
+- [Microservices Consistency](/patterns/microservices-consistency) - CAP in service architectures
+- [Blockchain Consensus](/patterns/blockchain-consensus) - CAP theorem in blockchain systems

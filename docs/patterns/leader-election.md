@@ -1445,16 +1445,15 @@ graph LR
 
 ### Law Relationships
 
-| Axiom | How Leader Election Addresses It |
+| Law | How Leader Election Addresses It |
 |-------|----------------------------------|
-| **Latency** | Leader decisions avoid coordination delay |
-| **Capacity** | Single leader prevents resource conflicts |
-| **Failure** | Automatic failover on leader failure |
-| **Concurrency** | Serializes decisions through leader |
-| **Coordination** | Consensus protocol ensures agreement |
-| **Observability** | Clear leader identity aids debugging |
-| **Human Interface** | Simple mental model of single decider |
-| **Economics** | Reduces coordination overhead costs |
+| **Law 1: Correlated Failure** | Automatic failover on leader failure |
+| **Law 2: Asynchronous Reality** | Leader decisions avoid coordination delay |
+| **Law 3: Emergent Chaos** | Serializes decisions through leader |
+| **Law 4: Multidimensional Optimization** | Single leader prevents resource conflicts |
+| **Law 5: Distributed Knowledge** | Consensus protocol ensures agreement |
+| **Law 6: Cognitive Load** | Simple mental model of single decider |
+| **Law 7: Economic Reality** | Reduces coordination overhead costs |
 
 
 ### Trade-off Analysis
@@ -1779,6 +1778,44 @@ graph TB
     style C1 fill:#f59e0b,stroke:#d97706
     style O1 fill:#10b981,stroke:#059669
 ```
+
+---
+
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure/)**: Leader failure affects all followers
+- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-asynchrony/)**: Election timeouts handle async networks
+- **[Law 3: Emergent Chaos 🌪️](/part1-axioms/law3-emergence/)**: Multiple elections create split-brain
+- **[Law 4: Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/)**: Consistency vs availability in elections
+- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology/)**: No node knows complete cluster state
+
+### Foundational Pillars
+Leader Election implements:
+
+- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/)**: Single source of truth via leader
+- **[Pillar 4: Distribution of Control 🎮](/part2-pillars/control/)**: Centralized control through leader
+- **[Pillar 5: Distribution of Intelligence 🤖](/part2-pillars/intelligence/)**: Leader makes cluster decisions
+
+## Related Patterns
+
+### Core Dependencies
+- **[Consensus](/patterns/consensus)**: Foundation for leader election algorithms
+- **[Heartbeat](/patterns/heartbeat)**: Detects leader failures
+- **[Distributed Lock](/patterns/distributed-lock)**: Similar coordination primitive
+- **[State Watch](/patterns/state-watch)**: Monitors leader changes and triggers failover
+
+### Implementation Patterns
+- **[Write-Ahead Log](/patterns/wal)**: Persists election state
+- **[Gossip Protocol](/patterns/gossip-protocol)**: Alternative for leader discovery
+- **[Service Discovery](/patterns/service-discovery)**: Registers current leader
+
+### Usage Patterns
+- **[Primary-Backup](/patterns/leader-follower)**: Leader handles writes
+- **[Shard Management](/patterns/sharding)**: Leader assigns shards
+- **[Job Scheduling](/patterns/distributed-queue)**: Leader distributes work
 
 ---
 

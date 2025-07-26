@@ -1395,10 +1395,10 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Epistemology ](/part1-axioms/law5-epistemology/) - Consensus and distributed coordination
-- [Law 1: Failure ](/part1-axioms/law1-failure/) - Failure modes and recovery strategies
-- [Consistent Hashing Pattern](consistent-hashing.md) - Data distribution technique
-- [CAP Theorem](../../quantitative/cap-theorem.md) - Fundamental trade-offs
+- [Law 5: Epistemology ](/part1-axioms/law5-epistemology/index) - Consensus and distributed coordination
+- [Law 1: Failure ](/part1-axioms/law1-failure) - Failure modes and recovery strategies
+- [Consistent Hashing Pattern](consistent-hashing.md/index) - Data distribution technique
+- [CAP Theorem](../quantitative/cap-theorem) - Fundamental trade-offs
 
 **Advanced Topics:**
 - Multi-Region Replication (Coming Soon) - Global distribution strategies
@@ -1407,9 +1407,9 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 - [Storage Engine Internals](/quantitative/storage-engines) - LSM vs B-Tree deep dive
 
 **Related Case Studies:**
-- [Amazon DynamoDB](./amazon-dynamo.md) - Production implementation of these concepts
-- [Google Spanner](./google-spanner.md) - Globally consistent alternative approach
-- [Redis Architecture](./redis.md) - In-memory KV store design
+- [Amazon DynamoDB](amazon-dynamo.md) - Production implementation of these concepts
+- [Google Spanner](google-spanner.md) - Globally consistent alternative approach
+- [Redis Architecture](redis.md) - In-memory KV store design
 
 **Performance Optimization:**
 - [Caching Strategies](/patterns/caching-strategies) - Multi-level cache design

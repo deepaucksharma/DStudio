@@ -117,10 +117,10 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: [Leader-Follower Replication](/patterns/leader-follower)
 - Pattern: [Partitioning](/patterns/sharding) - Topic partitions
-- 🏛 Pillar: [State Distribution](/part2-pillars/state/) - Distributed logs
-- 🏛 Pillar: [Truth Distribution](/part2-pillars/truth/) - Ordered delivery
+- 🏛 Pillar: [State Distribution](/part2-pillars/state/index) - Distributed logs
+- 🏛 Pillar: [Truth Distribution](/part2-pillars/truth) - Ordered delivery
 
-### Phase 4: Modern Streaming Platform (2014-Present)
+### Phase 4: Modern Streaming Platform (2014-Present/index)
 
 ```mermaid
 graph LR
@@ -1276,13 +1276,13 @@ graph LR
 ## 🔗 Related Concepts & Deep Dives
 
 ### Laws Applied
-- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)** - Network RTT dominates replication latency
-- **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/)** - Partitioning for horizontal scaling
-- **[Law 1: Failure](/part1-axioms/law1-failure/)** - Replication for fault tolerance
-- **[Law 3: Emergence](/part1-axioms/law3-emergence/)** - Producer and consumer parallelism
-- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Consumer group coordination and monitoring
-- **[Law 6: Human-API](/part1-axioms/law6-human-api/)** - Simple producer/consumer API
-- **[Law 7: Economics](/part1-axioms/law7-economics/)** - Cost-effective storage with compression
+- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)** - Network RTT dominates replication latency
+- **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/index)** - Partitioning for horizontal scaling
+- **[Law 1: Failure](/part1-axioms/law1-failure/index)** - Replication for fault tolerance
+- **[Law 3: Emergence](/part1-axioms/law3-emergence/index)** - Producer and consumer parallelism
+- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/index)** - Consumer group coordination and monitoring
+- **[Law 6: Human-API](/part1-axioms/law6-human-api/index)** - Simple producer/consumer API
+- **[Law 7: Economics](/part1-axioms/law7-economics/index)** - Cost-effective storage with compression
 
 ### Related Patterns
 - 📨 **[Event-Driven Architecture](/patterns/event-driven)** - Kafka as event backbone

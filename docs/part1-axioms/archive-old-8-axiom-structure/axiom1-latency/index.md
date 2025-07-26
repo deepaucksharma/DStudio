@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](index.md) → **Axiom 1: Latency (Speed of Light)**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 1](index.md) → **Axiom 1: Latency (Speed of Light)**
 
 # Axiom 1: Latency (Speed of Light)
 
@@ -1600,10 +1600,10 @@ flowchart TD
 ## Related Concepts
 
 ### Pillars Building on This Axiom
-- [Work Distribution](/part2-pillars/work/) - How to distribute work considering latency constraints
-- [State Management](/part2-pillars/state/) - Managing state across geographically distributed systems
-- [Truth & Consensus](/part2-pillars/truth/) - Achieving consensus despite network latency
-- [Control & Ordering](/part2-pillars/control/) - Maintaining order in the face of variable latency
+- [Work Distribution](/part2-pillars/work/index) - How to distribute work considering latency constraints
+- [State Management](/part2-pillars/state/index) - Managing state across geographically distributed systems
+- [Truth & Consensus](/part2-pillars/truth/index) - Achieving consensus despite network latency
+- [Control & Ordering](/part2-pillars/control/index) - Maintaining order in the face of variable latency
 
 ### Patterns Addressing Latency Challenges
 - [Caching Strategies](/patterns/caching-strategies) - Reduce latency by keeping data close to users

@@ -71,9 +71,9 @@ nav:
  <h4>📚 Before You Begin</h4>
  <p>Make sure you understand these concepts:</p>
  <ul>
- <li><a href="/part2-pillars/state/">State Distribution</a> - How to distribute data</li>
- <li><a href="/patterns/consistent-hashing/">Consistent Hashing</a> - Data partitioning</li>
- <li><a href="/quantitative/cap-theorem/">CAP Theorem</a> - Trade-offs in distributed systems</li>
+ <li><a href="/part2-pillars/state/index.md">State Distribution</a> - How to distribute data</li>
+ <li><a href="/patterns/consistent-hashing.md">Consistent Hashing</a> - Data partitioning</li>
+ <li><a href="//quantitative/cap-theorem">CAP Theorem</a> - Trade-offs in distributed systems</li>
  </ul>
 
 ## Executive Summary
@@ -468,7 +468,7 @@ nodetool verify
 
 ## Related Patterns
 
-<a href="/patterns/consistent-hashing/" class="related-item">
+<a href="/patterns/consistent-hashing.md" class="related-item">
  <span class="item-icon">#️⃣</span>
  <span class="item-title">Consistent Hashing</span>
  <span class="item-type">pattern</span>

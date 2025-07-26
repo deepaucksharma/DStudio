@@ -103,12 +103,61 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: var(--md-primary-fg-color);
+  height: 4px;
+  background: #5448C8; /* Brand primary color */
   transform-origin: 0 50%;
   transform: scaleX(0);
-  transition: transform 0.1s ease;
-  z-index: 999;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, height 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(84, 72, 200, 0.3);
+  will-change: transform;
+  opacity: 0;
+}
+
+/* Enhanced progress bar on hover */
+.reading-progress:hover {
+  height: 6px;
+  transition: height 0.2s ease;
+}
+
+/* Progress percentage tooltip */
+.reading-progress::after {
+  content: attr(data-progress) '%';
+  position: absolute;
+  right: 10px;
+  top: 100%;
+  margin-top: 5px;
+  padding: 2px 8px;
+  background: #5448C8;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 3px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.reading-progress:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile-specific progress bar adjustments */
+@media (max-width: 768px) {
+  .reading-progress {
+    height: 3px;
+  }
+  
+  .reading-progress:hover {
+    height: 4px;
+  }
+  
+  .reading-progress::after {
+    display: none; /* Hide percentage on mobile */
+  }
 }
 
 /* === Search Optimization === */

@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 6](index.md) → **Observability Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 6](index.md) → **Observability Examples**
 
 # Observability Examples
 
@@ -1143,4 +1143,4 @@ class BusinessMetrics:
 
 ---
 
-**Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
+**Previous**: [Overview]() | **Next**: [Exercises](exercises.md)

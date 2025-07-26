@@ -78,7 +78,7 @@ flowchart TD
 | **Write-Behind** | Write-heavy | Risk data loss | ⭐⭐⭐ |
 | **Event Sourcing** | Audit trail needed | Complex queries | ⭐⭐⭐⭐⭐ |
 
-[→ Detailed Caching Guide](/patterns/caching-strategies/)
+[→ Detailed Caching Guide](/patterns/caching-strategies)
 
 <div>
 <h4>Database Selection</h4>
@@ -99,7 +99,7 @@ flowchart TD
 <p><strong>Pros:</strong> Complete history, replay capability</p>
 <p><strong>Cons:</strong> Complex queries, storage cost</p>
 <p><strong>Decision:</strong> Compliance required → Event Sourcing</p>
-<a href="/patterns/event-sourcing/">→ Full Guide</a>
+<a href="/patterns/event-sourcing">→ Full Guide</a>
 </div>
 
 </div>
@@ -119,7 +119,7 @@ flowchart TD
 <li>Half-open tests: 10%</li>
 </ul>
 <p><strong>Decision:</strong> External API → Always use</p>
-<a href="/patterns/circuit-breaker/">→ Full Guide</a>
+<a href="/patterns/circuit-breaker.md">→ Full Guide</a>
 </div>
 
 <div>
@@ -145,7 +145,7 @@ flowchart TD
 <li>Circuit breakers: Network isolation</li>
 </ul>
 <p><strong>Decision:</strong> Multi-tenant → Thread pools</p>
-<a href="/patterns/bulkhead/">→ Full Guide</a>
+<a href="/patterns/bulkhead.md">→ Full Guide</a>
 </div>
 
 </div>
@@ -161,7 +161,7 @@ flowchart TD
 <p><strong>Challenges:</strong> Eventual consistency</p>
 <p><strong>Tools:</strong> Kafka, RabbitMQ, EventBridge</p>
 <p><strong>Decision:</strong> Microservices → Event-driven</p>
-<a href="/patterns/event-driven/">→ Full Guide</a>
+<a href="/patterns/event-driven">→ Full Guide</a>
 </div>
 
 <div>
@@ -174,7 +174,7 @@ flowchart TD
 <li>Request routing</li>
 </ul>
 <p><strong>Decision:</strong> >5 services → API Gateway</p>
-<a href="/patterns/api-gateway/">→ Full Guide</a>
+<a href="/patterns/api-gateway.md">→ Full Guide</a>
 </div>
 
 <div>
@@ -202,7 +202,7 @@ flowchart TD
 <li>PBFT: Byzantine tolerance</li>
 </ul>
 <p><strong>Decision:</strong> New system → Raft</p>
-<a href="/patterns/consensus/">→ Full Guide</a>
+<a href="/patterns/consensus.md">→ Full Guide</a>
 </div>
 
 <div>
@@ -227,7 +227,7 @@ flowchart TD
 <li>Choreography: Event-driven</li>
 </ul>
 <p><strong>Decision:</strong> Complex flow → Orchestration</p>
-<a href="/patterns/saga/">→ Full Guide</a>
+<a href="/patterns/saga">→ Full Guide</a>
 </div>
 
 </div>
@@ -524,4 +524,4 @@ CDC → Stream Processing → Data Lake
 
 ---
 
-**Previous**: [← Pattern Combinations](/patterns/pattern-combinations/) | **Next**: [Pattern Quiz →](/patterns/pattern-quiz/)
+**Previous**: [← Pattern Combinations](/patterns/pattern-combinations) | **Next**: [Pattern Quiz →](/patterns/pattern-quiz)

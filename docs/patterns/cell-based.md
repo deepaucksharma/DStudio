@@ -40,7 +40,7 @@ Cell-based architecture divides a system into multiple isolated cells, each capa
 
 - [Bulkhead Pattern](bulkhead.md)
 - [Sharding](sharding.md)
-- Multi-Region (Coming Soon)
+- Multi-Region
 
 ---
 

@@ -196,17 +196,17 @@ gantt
 **Practice:**
 - Redesign Bigtable from scratch
 - Design a global SQL database like Spanner
-- Review [Google Spanner Case Study](../../case-studies/google-spanner.md)
+- Review [Google Spanner Case Study](/google-interviews/../../case-studies/google-spanner.md)
 
 ### Week 5-6: Common Patterns
 **Goal**: Master design patterns used at scale
 
 **Patterns to Study:**
-- [Circuit Breaker](../../patterns/circuit-breaker.md) - Failure isolation
-- [Sharding](../../patterns/sharding.md) - Data partitioning
-- [Event Sourcing](../../patterns/event-sourcing.md) - Event-driven systems
-- [CQRS](../../patterns/cqrs.md) - Read/write separation
-- [Leader Election](../../patterns/leader-election.md) - Coordination
+- [Circuit Breaker](/google-interviews/../../patterns/circuit-breaker.md) - Failure isolation
+- [Sharding](/google-interviews/../../patterns/sharding.md) - Data partitioning
+- [Event Sourcing](/google-interviews/../../patterns/event-sourcing.md) - Event-driven systems
+- [CQRS](/google-interviews/../../patterns/cqrs.md) - Read/write separation
+- [Leader Election](/google-interviews/../../patterns/leader-election.md) - Coordination
 
 **Practice Systems:**
 - Design YouTube (use walkthrough as reference)
@@ -226,9 +226,9 @@ gantt
 - Cost optimization at scale
 
 **Resources:**
-- [Latency Numbers](../../quantitative/latency-ladder.md)
-- [Universal Scalability Law](../../quantitative/universal-scalability.md)
-- [Scale Cheat Sheet](scale-cheatsheet.md)
+- [Latency Numbers](/google-interviews/../../quantitative/latency-ladder.md)
+- [Universal Scalability Law](/google-interviews/../../quantitative/universal-scalability.md)
+- [Scale Cheat Sheet](/google-interviews/scale-cheatsheet.md)
 
 **Practice:**
 - Take any design and scale it to 10x, 100x, 1000x
@@ -440,9 +440,9 @@ graph TD
 ## Practice Problem Sets
 
 ### Beginner Level
-1. URL Shortener - [Reference](../../case-studies/url-shortener.md)
+1. URL Shortener - [Reference](/google-interviews/../../case-studies/url-shortener.md)
 2. Pastebin
-3. Key-Value Store - [Reference](../../case-studies/key-value-store.md)
+3. Key-Value Store - [Reference](/google-interviews/../../case-studies/key-value-store.md)
 
 ### Intermediate Level
 1. Design Twitter - Focus on timeline generation
@@ -451,12 +451,12 @@ graph TD
 
 ### Advanced Level
 1. Design Google Search - Crawling, indexing, ranking
-2. Design YouTube - [Use walkthrough](youtube-walkthrough.md)
+2. Design YouTube - [Use walkthrough](/google-interviews/youtube-walkthrough.md)
 3. Design AdWords - Real-time bidding
 
 ### Google-Specific
-1. Design Gmail - [Use walkthrough](gmail-walkthrough.md)
-2. Design Google Maps - [Use walkthrough](maps-walkthrough.md)
+1. Design Gmail - [Use walkthrough](/google-interviews/gmail-walkthrough.md)
+2. Design Google Maps - [Use walkthrough](/google-interviews/maps-walkthrough.md)
 3. Design Google Docs - Real-time collaboration
 4. Design Google Photos - ML at scale
 5. Design Google Calendar - Distributed scheduling
@@ -748,15 +748,15 @@ graph LR
 ## 🔗 Quick Links
 
 ### Patterns
-- [Circuit Breaker](../../patterns/circuit-breaker.md)
-- [Sharding](../../patterns/sharding.md)
-- [Caching Strategies](../../patterns/caching-strategies.md)
-- [Load Balancing](../../patterns/load-balancing.md)
+- [Circuit Breaker](/google-interviews/../../patterns/circuit-breaker.md)
+- [Sharding](/google-interviews/../../patterns/sharding.md)
+- [Caching Strategies](/google-interviews/../../patterns/caching-strategies.md)
+- [Load Balancing](/google-interviews/../../patterns/load-balancing.md)
 
 ### Case Studies
-- [Amazon DynamoDB](../../case-studies/amazon-dynamo.md)
-- [Chat System](../../case-studies/chat-system.md)
-- [Payment System](../../case-studies/payment-system.md)
+- [Amazon DynamoDB](/google-interviews/../../case-studies/amazon-dynamo.md)
+- [Chat System](/google-interviews/../../case-studies/chat-system.md)
+- [Payment System](/google-interviews/../../case-studies/payment-system.md)
 
 ### Quantitative Tools
 - [Capacity Calculator](/tools/capacity-calculator)

@@ -350,7 +350,7 @@ graph TB
 ```
 
 **Key Design Decision: CDN for Static Content**
-- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](/part2-pillars/work/))
+- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](/part2-pillars/work)/index)
 - **Choice**: Pay for CDN to achieve global scale
 - **Result**: 70% reduction in origin bandwidth
 - **Pattern Applied**: [Edge Computing](/patterns/edge-computing)
@@ -1348,16 +1348,16 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Millions of concurrent uploads/views require distributed processing pipelines
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Global CDN cache invalidation and content synchronization challenges
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Real-time monitoring of video quality, buffering, and viewer engagement
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Adaptive UI for different devices and network conditions
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Bandwidth costs (40% of total) drive compression and quality optimization
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony)** - Video start time (<100ms/index) drives multi-tier CDN architecture and edge caching strategy
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Millions of concurrent uploads/views require distributed processing pipelines
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Global CDN cache invalidation and content synchronization challenges
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Real-time monitoring of video quality, buffering, and viewer engagement
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Adaptive UI for different devices and network conditions
+- **[Law 7: Economics ](/part1-axioms/law7-economics)** - Bandwidth costs (40% of total) drive compression and quality optimization
 
-### 🏛 Related Patterns (Part III)
+### 🏛 Related Patterns (Part III/index)
 - **[Edge Computing](/patterns/edge-computing)** - Regional transcoding and caching reduce latency and bandwidth costs
 - **CDN Strategy (Coming Soon)** - Multi-CDN architecture with intelligent routing
 - **[Load Balancing](/patterns/load-balancing)** - Anycast routing and geo-aware traffic distribution

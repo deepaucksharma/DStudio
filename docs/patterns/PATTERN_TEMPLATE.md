@@ -52,7 +52,7 @@ class [PatternName]:
 # Initialize pattern components
         pass
     
-    def [core_method](self):
+    def core_method:
         """Main pattern operation"""
         pass
 ```
@@ -92,7 +92,7 @@ class Production[PatternName]:
         self.metrics = MetricsCollector()
         self.logger = Logger()
     
-    def [method](self):
+    def method:
         """Production implementation with monitoring"""
         try:
 # Implementation with error handling

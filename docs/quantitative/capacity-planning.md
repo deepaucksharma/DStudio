@@ -123,31 +123,71 @@ last_updated: 2025-07-20
 </div>
 
 <strong>Interactive Growth Calculator:</strong>
+<div class="calculator-tool">
+ <form id="growthCalc">
  <table class="responsive-table">
  <tr>
- <td>Current value:</td>
- <td><input type="text"/></td>
- <td>Growth rate:</td>
- <td><input type="text"/>%</td>
- <td>Months:</td>
- <td><input type="text"/></td>
+ <td><label for="currentValue">Current value:</label></td>
+ <td><input type="number" id="currentValue" min="0" step="1"/></td>
+ <td><label for="growthRate">Growth rate:</label></td>
+ <td><input type="number" id="growthRate" min="0" max="100" step="0.1"/>%</td>
+ <td><label for="months">Months:</label></td>
+ <td><input type="number" id="months" min="1" max="60" step="1"/></td>
  </tr>
  </table>
+ <button type="button" onclick="calculateGrowth()" class="calc-button">Calculate Growth</button>
+ </form>
  
- <div>
- <div>
- <strong>Linear:</strong><br>
- <span>______</span>
- <div>
- <strong>Exponential:</strong><br>
- <span>______</span>
+ <div id="growthResults" class="results-panel" style="display: none;">
+ <h4>Growth Projections</h4>
+ <div class="metric-cards-grid">
+ <div class="metric-card">
+ <h4>Linear Growth</h4>
+ <div class="metric-value" id="linearResult">______</div>
  </div>
- <div>
- <strong>S-Curve:</strong><br>
- <span>______</span>
+ <div class="metric-card">
+ <h4>Exponential Growth</h4>
+ <div class="metric-value" id="exponentialResult">______</div>
+ </div>
+ <div class="metric-card">
+ <h4>S-Curve Growth</h4>
+ <div class="metric-value" id="scurveResult">______</div>
+ </div>
  </div>
  </div>
 </div>
+
+<script>
+function calculateGrowth() {
+ const current = parseFloat(document.getElementById('currentValue').value);
+ const rate = parseFloat(document.getElementById('growthRate').value) / 100;
+ const months = parseInt(document.getElementById('months').value);
+ 
+ if (isNaN(current) || isNaN(rate) || isNaN(months)) {
+ alert('Please enter valid numbers');
+ return;
+ }
+ 
+ // Linear growth
+ const linear = current * (1 + rate * months);
+ 
+ // Exponential growth
+ const exponential = current * Math.pow(1 + rate, months);
+ 
+ // S-Curve (simplified)
+ const cap = current * 10; // Assume 10x max capacity
+ const k = 0.5; // Growth rate constant
+ const t0 = months / 2; // Midpoint
+ const scurve = cap / (1 + Math.exp(-k * (months - t0)));
+ 
+ // Display results
+ document.getElementById('linearResult').textContent = linear.toFixed(0);
+ document.getElementById('exponentialResult').textContent = exponential.toFixed(0);
+ document.getElementById('scurveResult').textContent = scurve.toFixed(0);
+ 
+ document.getElementById('growthResults').style.display = 'block';
+}
+</script>
 </div>
 
 ### Step 3: Safety Margins

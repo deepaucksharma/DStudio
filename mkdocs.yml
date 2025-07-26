@@ -203,6 +203,8 @@ extra_css:
   - stylesheets/responsive-table.css  # Table responsiveness only
   - stylesheets/content-limits.css  # Minimal content overflow prevention
   - stylesheets/hide-toc.css  # Hide right sidebar and enhance navigation
+  - stylesheets/calculator.css  # Consistent calculator styling
+  - stylesheets/mobile-enhancements.css  # Comprehensive mobile optimizations
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:
@@ -410,8 +412,10 @@ nav:
       - Two-Phase Commit: patterns/two-phase-commit.md
       - Distributed Lock: patterns/distributed-lock.md
       - Leader Election: patterns/leader-election.md
+      - State Watch: patterns/state-watch.md
       - Vector Clocks: patterns/vector-clocks.md
       - Logical Clocks: patterns/logical-clocks.md
+      - Hybrid Logical Clocks: patterns/hlc.md
     
     - Storage Patterns:
       - LSM Tree: patterns/lsm-tree.md
@@ -425,6 +429,7 @@ nav:
       - Auto-Scaling: patterns/auto-scaling.md
       - Load Balancing: patterns/load-balancing.md
       - Caching Strategies: patterns/caching-strategies.md
+      - Request Batching: patterns/request-batching.md
       - Edge Computing: patterns/edge-computing.md
       - Multi-Region: patterns/multi-region.md
       - Cell-Based: patterns/cell-based.md

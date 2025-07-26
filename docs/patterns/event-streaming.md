@@ -9,713 +9,868 @@ prerequisites: [distributed-systems, message-queues, event-driven-architecture]
 when_to_use: When you need real-time processing, continuous computation, or event-driven architectures at scale
 when_not_to_use: For simple request-response patterns or when batch processing is sufficient
 status: complete
-last_updated: 2025-01-23
+last_updated: 2025-01-26
 ---
-
 
 # Event Streaming Pattern
 
-<div class="pattern-type">Data Processing Pattern
- Build systems that process continuous, unbounded streams of events in real-time, enabling reactive architectures and real-time analytics at scale.
-</div>
+<div class="pattern-type">Data Processing Pattern</div>
+
+Build systems that process continuous, unbounded streams of events in real-time, enabling reactive architectures and real-time analytics at scale.
 
 ## Problem Context
 
 !!! warning "🎯 The Challenge"
 
- Modern systems generate continuous streams of events:
- - **Unbounded data**: No clear beginning or end
- - **Real-time requirements**: Low latency processing
- - **High volume**: Millions of events per second
- - **Out-of-order arrival**: Network delays cause disorder
- - **Failure handling**: Must process exactly once
- - **State management**: Maintain consistency across streams
-
- Traditional batch processing can't handle these requirements effectively.
+    Modern systems generate continuous streams of events that traditional batch processing can't handle:
+    
+    - **Unbounded data**: No clear beginning or end
+    - **Real-time requirements**: Millisecond latency processing
+    - **High volume**: Millions of events per second
+    - **Out-of-order arrival**: Network delays cause temporal disorder
+    - **Exactly-once semantics**: Each event must be processed exactly once
+    - **Distributed state**: Maintain consistency across stream processors
 
 ## Core Concepts
 
-### Event Stream Model
+### Event Streaming vs Batch Processing
 
 ```mermaid
 graph LR
- subgraph "Event Stream"
- E1[Event 1<br/>t=10:00:01] --> E2[Event 2<br/>t=10:00:02]
- E2 --> E3[Event 3<br/>t=10:00:03]
- E3 --> E4[Event 4<br/>t=10:00:04]
- E4 --> E5[...]
- end
- 
- subgraph "Stream Processing"
- P1[Processor 1<br/>Filter]
- P2[Processor 2<br/>Transform]
- P3[Processor 3<br/>Aggregate]
- end
- 
- subgraph "Outputs"
- O1[Real-time<br/>Dashboard]
- O2[Alerts]
- O3[Storage]
- end
- 
- E1 --> P1
- E2 --> P1
- E3 --> P1
- P1 --> P2
- P2 --> P3
- P3 --> O1
- P3 --> O2
- P3 --> O3
+    subgraph "Batch Processing"
+        B1[Collect Data] --> B2[Store Data]
+        B2 --> B3[Process Batch]
+        B3 --> B4[Output Results]
+        B4 --> B5[Wait for Next Batch]
+        B5 --> B1
+    end
+    
+    subgraph "Stream Processing"
+        S1[Event Arrives] --> S2[Process Immediately]
+        S2 --> S3[Update State]
+        S3 --> S4[Emit Result]
+        S4 --> S1
+    end
+    
+    style B1 fill:#ff9999
+    style B2 fill:#ff9999
+    style B3 fill:#ff9999
+    style S1 fill:#99ff99
+    style S2 fill:#99ff99
+    style S3 fill:#99ff99
 ```
 
-### Key Properties
+<table class="comparison-table">
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Batch Processing</th>
+<th>Stream Processing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data Model</strong></td>
+<td>Bounded datasets</td>
+<td>Unbounded streams</td>
+</tr>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Minutes to hours</td>
+<td>Milliseconds to seconds</td>
+</tr>
+<tr>
+<td><strong>Throughput</strong></td>
+<td>Very high (optimized)</td>
+<td>High (continuous)</td>
+</tr>
+<tr>
+<td><strong>State Management</strong></td>
+<td>Between batches</td>
+<td>Continuous, distributed</td>
+</tr>
+<tr>
+<td><strong>Reprocessing</strong></td>
+<td>Simple (re-run batch)</td>
+<td>Complex (replay stream)</td>
+</tr>
+<tr>
+<td><strong>Use Cases</strong></td>
+<td>ETL, reporting, ML training</td>
+<td>Real-time analytics, monitoring, CEP</td>
+</tr>
+</tbody>
+</table>
 
-!!! abstract "🔑 Stream Processing Principles"
-
- 1. **Infinite Data**: Streams are unbounded sequences
- 2. **Time Matters**: Events have inherent time dimension
- 3. **State is Distributed**: Processing maintains state across nodes
- 4. **Exactly Once**: Each event processed exactly once despite failures
- 5. **Low Latency**: Results available in near real-time
-
-## Stream Processing Architecture
-
-### 1. Basic Components
+### Stream Components
 
 ```mermaid
 graph TB
- subgraph "Event Sources"
- S1[IoT Devices]
- S2[Web Servers]
- S3[Mobile Apps]
- S4[Databases]
- end
- 
- subgraph "Stream Ingestion"
- K[Apache Kafka<br/>Event Bus]
- end
- 
- subgraph "Stream Processing"
- SP[Stream Processor<br/>Flink/Spark/Storm]
- ST[State Store]
- SP <--> ST
- end
- 
- subgraph "Sinks"
- DB[(Database)]
- RT[Real-time View]
- AN[Analytics]
- end
- 
- S1 --> K
- S2 --> K
- S3 --> K
- S4 --> K
- 
- K --> SP
- SP --> DB
- SP --> RT
- SP --> AN
+    subgraph "Event Producers"
+        P1[Web Servers]
+        P2[IoT Sensors]
+        P3[Mobile Apps]
+        P4[Databases<br/>CDC]
+    end
+    
+    subgraph "Event Bus"
+        EB[Event Stream<br/>Kafka/Pulsar/Kinesis]
+        T1[Topic: Orders]
+        T2[Topic: Clicks]
+        T3[Topic: Sensors]
+    end
+    
+    subgraph "Stream Processors"
+        SP1[Filter]
+        SP2[Transform]
+        SP3[Aggregate]
+        SP4[Join]
+        SP5[Pattern<br/>Detect]
+    end
+    
+    subgraph "Consumers"
+        C1[Real-time<br/>Dashboard]
+        C2[Alert<br/>System]
+        C3[Data<br/>Lake]
+        C4[ML<br/>Model]
+    end
+    
+    P1 --> EB
+    P2 --> EB
+    P3 --> EB
+    P4 --> EB
+    
+    EB --> T1
+    EB --> T2
+    EB --> T3
+    
+    T1 --> SP1
+    T2 --> SP2
+    T3 --> SP3
+    
+    SP1 --> SP4
+    SP2 --> SP4
+    SP3 --> SP5
+    
+    SP4 --> C1
+    SP5 --> C2
+    SP4 --> C3
+    SP5 --> C4
 ```
 
-### 2. Processing Patterns
+## Architecture Patterns
 
-```python
-from abc import ABC, abstractmethod
-from typing import List, Callable, Any
-import time
-
-class Event:
- def __init__(self, key: str, value: Any, timestamp: float = None):
- self.key = key
- self.value = value
- self.timestamp = timestamp or time.time()
- self.event_time = timestamp # For event-time processing
-
-class StreamProcessor(ABC):
- @abstractmethod
- def process(self, event: Event) -> List[Event]:
- pass
-
-class FilterProcessor(StreamProcessor):
- """Filter events based on predicate"""
- def __init__(self, predicate: Callable):
- self.predicate = predicate
- 
- def process(self, event: Event) -> List[Event]:
- if self.predicate(event):
- return [event]
- return []
-
-class MapProcessor(StreamProcessor):
- """Transform events"""
- def __init__(self, mapper: Callable):
- self.mapper = mapper
- 
- def process(self, event: Event) -> List[Event]:
- transformed_value = self.mapper(event.value)
- return [Event(event.key, transformed_value, event.timestamp)]
-
-class WindowedAggregator(StreamProcessor):
- """Aggregate events in time windows"""
- def __init__(self, window_size: float, aggregator: Callable):
- self.window_size = window_size
- self.aggregator = aggregator
- self.windows = {} # window_start -> accumulated_value
- 
- def process(self, event: Event) -> List[Event]:
-# Determine window
- window_start = (event.timestamp // self.window_size) * self.window_size
- 
-# Update window state
- if window_start not in self.windows:
- self.windows[window_start] = []
- self.windows[window_start].append(event.value)
- 
-# Check for complete windows
- current_time = time.time()
- completed = []
- 
- for ws, values in list(self.windows.items()):
- if ws + self.window_size <= current_time:
-# Window is complete
- result = self.aggregator(values)
- completed.append(Event(
- key=f"window_{ws}",
- value=result,
- timestamp=ws + self.window_size
- ))
- del self.windows[ws]
- 
- return completed
-```
-
-## Time in Stream Processing
-
-### Event Time vs Processing Time
+### 1. Lambda Architecture
 
 ```mermaid
-graph TD
- subgraph "Time Concepts"
- ET[Event Time<br/>When event occurred]
- IT[Ingestion Time<br/>When entered system]
- PT[Processing Time<br/>When processed]
- end
- 
- subgraph "Example"
- E1[User Click<br/>12:00:00] -->|Network Delay| I1[Kafka<br/>12:00:02]
- I1 -->|Queue Time| P1[Process<br/>12:00:05]
- end
- 
- E1 -.-> ET
- I1 -.-> IT
- P1 -.-> PT
+graph TB
+    subgraph "Data Sources"
+        DS[Event Stream]
+    end
+    
+    subgraph "Lambda Architecture"
+        subgraph "Speed Layer"
+            RT[Real-time<br/>Processing]
+            RV[Real-time<br/>Views]
+        end
+        
+        subgraph "Batch Layer"
+            BT[Batch<br/>Processing]
+            BV[Batch<br/>Views]
+        end
+        
+        subgraph "Serving Layer"
+            SL[Query<br/>Service]
+            MV[Merged<br/>Views]
+        end
+    end
+    
+    DS --> RT
+    DS --> BT
+    RT --> RV
+    BT --> BV
+    RV --> MV
+    BV --> MV
+    MV --> SL
 ```
 
-### Watermarks for Late Data
-
-```python
-class Watermark:
- """Tracks event time progress"""
- def __init__(self, max_out_of_orderness: float):
- self.max_out_of_orderness = max_out_of_orderness
- self.current_watermark = float('-inf')
- 
- def update(self, event_time: float) -> float:
- """Update watermark based on event time"""
-# Watermark = max_event_time - allowed_lateness
- potential_watermark = event_time - self.max_out_of_orderness
- 
- if potential_watermark > self.current_watermark:
- self.current_watermark = potential_watermark
- 
- return self.current_watermark
- 
- def is_late(self, event_time: float) -> bool:
- """Check if event is late"""
- return event_time < self.current_watermark
-
-class WatermarkProcessor:
- def __init__(self, max_lateness: float):
- self.watermark = Watermark(max_lateness)
- self.windows = {}
- self.late_data_handler = []
- 
- def process_event(self, event: Event):
-# Update watermark
- current_watermark = self.watermark.update(event.event_time)
- 
- if self.watermark.is_late(event.event_time):
-# Handle late data
- self.late_data_handler.append(event)
- else:
-# Normal processing
- self.add_to_window(event)
- 
-# Trigger windows based on watermark
- self.trigger_windows(current_watermark)
-```
-
-## Windowing Strategies
-
-### 1. Window Types
+### 2. Kappa Architecture
 
 ```mermaid
-graph TD
- subgraph "Tumbling Windows"
- T1[|--W1--|]
- T2[|--W2--|]
- T3[|--W3--|]
- end
- 
- subgraph "Sliding Windows"
- S1[|--W1---------|]
- S2[|---W2---------|]
- S3[|----W3--------|]
- end
- 
- subgraph "Session Windows"
- SE1[|-W1-|]
- SE2[Gap]
- SE3[|---W2---|]
- SE4[Gap]
- SE5[|-W3-|]
- end
+graph TB
+    subgraph "Kappa Architecture"
+        ES[Event Stream] --> SP[Stream<br/>Processing]
+        SP --> SV[Serving<br/>Views]
+        
+        ES --> RP[Reprocess<br/>Stream]
+        RP --> NV[New<br/>Views]
+        
+        NV -.->|Replace| SV
+    end
+    
+    style SP fill:#99ff99
+    style RP fill:#ffff99
 ```
 
-### 2. Window Implementation
+### 3. Event Sourcing Integration
 
-```python
-from enum import Enum
-from collections import defaultdict
-
-class WindowType(Enum):
- TUMBLING = "tumbling"
- SLIDING = "sliding"
- SESSION = "session"
-
-class WindowManager:
- def __init__(self, window_type: WindowType, size: float, 
- slide: float = None, gap: float = None):
- self.window_type = window_type
- self.size = size
- self.slide = slide or size # For sliding windows
- self.gap = gap # For session windows
- self.windows = defaultdict(list)
- self.sessions = {} # For session windows
- 
- def assign_windows(self, event: Event) -> List[str]:
- """Assign event to appropriate windows"""
- if self.window_type == WindowType.TUMBLING:
- window_start = (event.timestamp // self.size) * self.size
- return [f"{window_start}_{window_start + self.size}"]
- 
- elif self.window_type == WindowType.SLIDING:
- windows = []
-# Find all windows this event belongs to
- first_window = (event.timestamp // self.slide) * self.slide
- 
-# Check previous windows that might still contain this event
- current = first_window
- while current >= 0 and event.timestamp < current + self.size:
- windows.append(f"{current}_{current + self.size}")
- current -= self.slide
- 
- return windows
- 
- elif self.window_type == WindowType.SESSION:
-# Find or create session
- session_key = self.find_session(event)
- if session_key:
- self.extend_session(session_key, event)
- else:
- session_key = self.create_session(event)
- return [session_key]
- 
- def find_session(self, event: Event) -> str:
- """Find existing session for event"""
- for key, (start, end) in self.sessions.items():
- if event.timestamp >= start - self.gap and \
- event.timestamp <= end + self.gap:
- return key
- return None
- 
- def create_session(self, event: Event) -> str:
- """Create new session"""
- key = f"session_{event.timestamp}"
- self.sessions[key] = (event.timestamp, event.timestamp)
- return key
+```mermaid
+graph LR
+    subgraph "Commands"
+        C1[Create Order]
+        C2[Update Status]
+        C3[Cancel Order]
+    end
+    
+    subgraph "Event Store"
+        ES[Event Log<br/>Kafka]
+    end
+    
+    subgraph "Stream Processing"
+        SP1[Order<br/>Projector]
+        SP2[Analytics<br/>Processor]
+        SP3[Notification<br/>Handler]
+    end
+    
+    subgraph "Read Models"
+        RM1[Order<br/>View]
+        RM2[Analytics<br/>Dashboard]
+    end
+    
+    C1 --> ES
+    C2 --> ES
+    C3 --> ES
+    
+    ES --> SP1
+    ES --> SP2
+    ES --> SP3
+    
+    SP1 --> RM1
+    SP2 --> RM2
+    SP3 --> |Send| N[Notifications]
 ```
 
-## State Management
+## Technology Comparison
 
-### 1. Stateful Stream Processing
+### Stream Processing Platforms
 
-```python
-class StatefulProcessor:
- """Processor that maintains state across events"""
- 
- def __init__(self):
- self.state_backend = {} # In production: RocksDB, Redis, etc.
- 
- def process_with_state(self, event: Event):
-# Example: Count events per key
- key = event.key
- 
-# Get current state
- current_count = self.state_backend.get(key, 0)
- 
-# Update state
- new_count = current_count + 1
- self.state_backend[key] = new_count
- 
-# Emit result
- return Event(
- key=key,
- value={'count': new_count},
- timestamp=event.timestamp
- )
-
-class KeyedStateProcessor:
- """Process streams with partitioned state"""
- 
- def __init__(self, num_partitions: int):
- self.num_partitions = num_partitions
- self.partitions = [StatefulProcessor() for _ in range(num_partitions)]
- 
- def get_partition(self, key: str) -> int:
- """Hash-based partitioning"""
- return hash(key) % self.num_partitions
- 
- def process(self, event: Event):
- partition = self.get_partition(event.key)
- return self.partitions[partition].process_with_state(event)
-```
-
-### 2. Checkpointing
-
-```python
-import pickle
-import os
-
-class CheckpointManager:
- """Manage checkpoints for fault tolerance"""
- 
- def __init__(self, checkpoint_dir: str, checkpoint_interval: float):
- self.checkpoint_dir = checkpoint_dir
- self.checkpoint_interval = checkpoint_interval
- self.last_checkpoint = time.time()
- 
- def should_checkpoint(self) -> bool:
- """Check if checkpoint is due"""
- return time.time() - self.last_checkpoint >= self.checkpoint_interval
- 
- def save_checkpoint(self, processor_state: dict, offset: int):
- """Save processor state and offset"""
- checkpoint = {
- 'timestamp': time.time(),
- 'offset': offset,
- 'state': processor_state
- }
- 
-# Atomic write with temporary file
- temp_path = os.path.join(self.checkpoint_dir, 'checkpoint.tmp')
- final_path = os.path.join(self.checkpoint_dir, 'checkpoint.pkl')
- 
- with open(temp_path, 'wb') as f:
- pickle.dump(checkpoint, f)
- 
- os.rename(temp_path, final_path)
- self.last_checkpoint = time.time()
- 
- def restore_checkpoint(self) -> tuple:
- """Restore from checkpoint"""
- checkpoint_path = os.path.join(self.checkpoint_dir, 'checkpoint.pkl')
- 
- if os.path.exists(checkpoint_path):
- with open(checkpoint_path, 'rb') as f:
- checkpoint = pickle.load(f)
- return checkpoint['state'], checkpoint['offset']
- 
- return {}, 0
-```
-
-## Complex Event Processing (CEP)
-
-### Pattern Detection
-
-```python
-class EventPattern:
- """Detect patterns in event streams"""
- 
- def __init__(self):
- self.patterns = []
- 
- def followed_by(self, condition1: Callable, condition2: Callable, 
- within: float) -> 'EventPattern':
- """Detect pattern: Event A followed by Event B within time window"""
- self.patterns.append({
- 'type': 'followed_by',
- 'conditions': [condition1, condition2],
- 'within': within
- })
- return self
- 
- def detect(self, events: List[Event]) -> List[List[Event]]:
- """Find all pattern matches"""
- matches = []
- 
- for pattern in self.patterns:
- if pattern['type'] == 'followed_by':
-# Find all events matching first condition
- first_matches = [e for e in events if pattern['conditions'][0](e)]
- 
- for first in first_matches:
-# Find following events within time window
- second_matches = [
- e for e in events
- if pattern['conditions'][1](e)
- and e.timestamp > first.timestamp
- and e.timestamp <= first.timestamp + pattern['within']
- ]
- 
- for second in second_matches:
- matches.append([first, second])
- 
- return matches
-
-# Example: Detect failed login followed by successful login
-pattern = EventPattern().followed_by(
- lambda e: e.value.get('type') == 'login_failed',
- lambda e: e.value.get('type') == 'login_success',
- within=300 # 5 minutes
-)
-```
-
-## Stream Processing Frameworks
-
-### Architecture Comparison
-
-<table class="responsive-table">
+<table class="tech-comparison">
 <thead>
 <tr>
-<th>Framework</th>
-<th>Processing Model</th>
-<th>Latency</th>
+<th>Technology</th>
+<th>Architecture</th>
 <th>Throughput</th>
+<th>Latency</th>
+<th>Durability</th>
 <th>Best For</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td data-label="Framework"><strong>Apache Flink</strong></td>
-<td data-label="Processing Model">True streaming</td>
-<td data-label="Latency">Very Low</td>
-<td data-label="Throughput">Very High</td>
-<td data-label="Best For">Low-latency CEP</td>
+<td><strong>Apache Kafka</strong></td>
+<td>Distributed log</td>
+<td>1M+ msg/sec</td>
+<td>2-10ms</td>
+<td>Replicated</td>
+<td>Event bus, log aggregation</td>
 </tr>
 <tr>
-<td data-label="Framework"><strong>Apache Spark</strong></td>
-<td data-label="Processing Model">Micro-batch</td>
-<td data-label="Latency">Low</td>
-<td data-label="Throughput">Very High</td>
-<td data-label="Best For">Batch + Stream</td>
+<td><strong>Apache Pulsar</strong></td>
+<td>Segmented storage</td>
+<td>1M+ msg/sec</td>
+<td>5-15ms</td>
+<td>BookKeeper</td>
+<td>Multi-tenancy, geo-replication</td>
 </tr>
 <tr>
-<td data-label="Framework"><strong>Apache Storm</strong></td>
-<td data-label="Processing Model">True streaming</td>
-<td data-label="Latency">Very Low</td>
-<td data-label="Throughput">High</td>
-<td data-label="Best For">Simple pipelines</td>
+<td><strong>AWS Kinesis</strong></td>
+<td>Managed shards</td>
+<td>1K-1M rec/sec</td>
+<td>70-200ms</td>
+<td>3 AZ replication</td>
+<td>AWS ecosystem, serverless</td>
 </tr>
 <tr>
-<td data-label="Framework"><strong>Kafka Streams</strong></td>
-<td data-label="Processing Model">True streaming</td>
-<td data-label="Latency">Low</td>
-<td data-label="Throughput">High</td>
-<td data-label="Best For">Kafka-centric</td>
+<td><strong>Redis Streams</strong></td>
+<td>In-memory</td>
+<td>100K+ msg/sec</td>
+<td><1ms</td>
+<td>Optional</td>
+<td>Low latency, simple streams</td>
 </tr>
 </tbody>
 </table>
 
-### Example: Kafka Streams
-
-```python
-# Pseudo-code for Kafka Streams style processing
-class KafkaStreamsExample:
- def word_count_topology(self):
-# Define topology
- builder = StreamsBuilder()
- 
-# Source: Read from topic
- text_lines = builder.stream("text-input")
- 
-# Processing: Split and count
- word_counts = (
- text_lines
- .flatmap(lambda line: line.split())
- .group_by(lambda word: word)
- .count()
- .to_stream()
- )
- 
-# Sink: Write to topic
- word_counts.to("word-counts")
- 
- return builder.build()
-```
-
-## Production Considerations
-
-### 1. Scalability Patterns
+### Processing Frameworks
 
 ```mermaid
 graph TB
- subgraph "Horizontal Scaling"
- subgraph "Partition 1"
- P1[Processor 1]
- S1[State 1]
- P1 <--> S1
- end
- 
- subgraph "Partition 2"
- P2[Processor 2]
- S2[State 2]
- P2 <--> S2
- end
- 
- subgraph "Partition 3"
- P3[Processor 3]
- S3[State 3]
- P3 <--> S3
- end
- end
- 
- K[Kafka<br/>Partitioned Topic] --> P1
- K --> P2
- K --> P3
+    subgraph "Processing Models"
+        subgraph "Native Streaming"
+            F1[Apache Flink]
+            F2[Kafka Streams]
+        end
+        
+        subgraph "Micro-batch"
+            S1[Spark Streaming]
+            S2[Structured Streaming]
+        end
+        
+        subgraph "Actor-based"
+            A1[Akka Streams]
+            A2[Orleans]
+        end
+    end
+    
+    style F1 fill:#99ff99
+    style F2 fill:#99ff99
+    style S1 fill:#ffff99
+    style S2 fill:#ffff99
 ```
 
-### 2. Monitoring and Metrics
+## Stream Processing Patterns
 
-```python
-class StreamMetrics:
- """Track streaming metrics"""
- 
- def __init__(self):
- self.metrics = {
- 'events_processed': 0,
- 'processing_latency': [],
- 'throughput': [],
- 'errors': 0,
- 'checkpoints': 0,
- 'watermark_delay': []
- }
- 
- def record_event(self, event: Event, process_time: float):
- """Record event processing metrics"""
- self.metrics['events_processed'] += 1
- 
-# Latency
- latency = time.time() - event.timestamp
- self.metrics['processing_latency'].append(latency)
- 
-# Throughput (events per second)
- if not hasattr(self, 'last_throughput_calc'):
- self.last_throughput_calc = time.time()
- self.events_in_window = 0
- 
- self.events_in_window += 1
- 
- if time.time() - self.last_throughput_calc >= 1.0:
- throughput = self.events_in_window
- self.metrics['throughput'].append(throughput)
- self.events_in_window = 0
- self.last_throughput_calc = time.time()
+### 1. Windowing
+
+```mermaid
+graph LR
+    subgraph "Event Stream"
+        E1[e1] --> E2[e2] --> E3[e3] --> E4[e4] --> E5[e5] --> E6[e6] --> E7[e7] --> E8[e8]
+    end
+    
+    subgraph "Tumbling Windows"
+        TW1[Window 1<br/>e1,e2,e3] 
+        TW2[Window 2<br/>e4,e5,e6]
+        TW3[Window 3<br/>e7,e8]
+    end
+    
+    subgraph "Sliding Windows"
+        SW1[Window 1<br/>e1,e2,e3,e4]
+        SW2[Window 2<br/>e3,e4,e5,e6]
+        SW3[Window 3<br/>e5,e6,e7,e8]
+    end
+    
+    subgraph "Session Windows"
+        SE1[Session 1<br/>e1,e2]
+        SE2[Session 2<br/>e4,e5,e6]
+        SE3[Session 3<br/>e8]
+    end
+```
+
+### 2. Watermarks and Late Data
+
+```mermaid
+graph TD
+    subgraph "Event Time Progress"
+        ET[Event Time: 12:00:00]
+        WT[Watermark: 11:59:50<br/>10s behind]
+        
+        E1[Event<br/>11:59:45] -->|On Time| P1[Process]
+        E2[Event<br/>11:59:55] -->|On Time| P2[Process]
+        E3[Event<br/>11:59:40] -->|Late| L1[Late Handler]
+    end
+    
+    style E1 fill:#99ff99
+    style E2 fill:#99ff99
+    style E3 fill:#ff9999
+```
+
+### 3. Exactly-Once Processing
+
+```mermaid
+stateDiagram-v2
+    [*] --> Reading: Read Event
+    Reading --> Processing: Begin Transaction
+    Processing --> Checkpointing: Process Event
+    Checkpointing --> Committing: Save State
+    Committing --> [*]: Commit Offset
+    
+    Processing --> Rollback: Failure
+    Checkpointing --> Rollback: Failure
+    Rollback --> Reading: Retry
 ```
 
 ## Real-World Examples
 
-### 1. Real-Time Analytics
+### Netflix Real-Time Analytics
 
-<h4>Netflix Streaming Analytics</h4>
+<div class="failure-vignette">
+<h4>📊 Netflix Streaming Metrics</h4>
 
-- **Volume**: Billions of events/day
-- **Use Case**: Real-time viewing metrics
-- **Technology**: Apache Flink + Kafka
-- **Challenges**: 
- - Global scale
- - Device diversity
- - Network partitions
+**Scale**: 200M+ subscribers, billions of events/day
 
-### 2. IoT Data Processing
+**Architecture**:
+- Apache Kafka for event ingestion
+- Apache Flink for stream processing
+- Druid for real-time analytics
 
-<h4>Uber Real-Time Pricing</h4>
+**Challenges Solved**:
+- Global event ordering
+- Multi-region aggregation
+- Sub-second dashboards
 
-- **Events**: Driver locations, ride requests
-- **Processing**: Supply/demand calculation
-- **Latency**: < 1 second
-- **Technology**: Apache Flink
+**Key Metrics**:
+- 4M events/second peak
+- 50ms p99 latency
+- 99.99% processing guarantee
+</div>
+
+### Uber Dynamic Pricing
+
+```mermaid
+graph TB
+    subgraph "Event Sources"
+        D[Driver<br/>Locations]
+        R[Ride<br/>Requests]
+        T[Traffic<br/>Data]
+    end
+    
+    subgraph "Stream Processing"
+        subgraph "Apache Flink"
+            A[Area<br/>Aggregator]
+            S[Supply<br/>Calculator]
+            P[Price<br/>Engine]
+        end
+    end
+    
+    subgraph "Output"
+        PM[Price<br/>Model]
+        UI[Rider<br/>App]
+        DA[Driver<br/>App]
+    end
+    
+    D --> A
+    R --> A
+    T --> A
+    
+    A --> S
+    S --> P
+    
+    P --> PM
+    PM --> UI
+    PM --> DA
+```
+
+**Performance Metrics**:
+- Latency: < 1 second price updates
+- Throughput: 100K+ events/second
+- Accuracy: 95%+ demand prediction
+
+### LinkedIn Real-Time Anomaly Detection
+
+<div class="decision-box">
+<h4>🔍 LinkedIn Security Monitoring</h4>
+
+**Problem**: Detect account takeovers in real-time
+
+**Solution**:
+```mermaid
+graph LR
+    L[Login Events] --> K[Kafka]
+    K --> S[Samza<br/>Processor]
+    S --> ML[ML Model<br/>Scoring]
+    ML --> A{Anomaly?}
+    A -->|Yes| Alert[Security<br/>Alert]
+    A -->|No| Log[Audit<br/>Log]
+```
+
+**Results**:
+- 90% reduction in detection time
+- 50ms average processing latency
+- 99.9% accuracy rate
+</div>
+
+## Implementation Guide
+
+### Basic Stream Processor
+
+```python
+from abc import ABC, abstractmethod
+from typing import List, Dict, Any, Optional
+from dataclasses import dataclass
+from datetime import datetime
+import asyncio
+
+@dataclass
+class StreamEvent:
+    key: str
+    value: Any
+    timestamp: datetime
+    headers: Dict[str, str] = None
+
+class StreamProcessor(ABC):
+    """Base class for stream processors"""
+    
+    @abstractmethod
+    async def process(self, event: StreamEvent) -> Optional[StreamEvent]:
+        pass
+
+class FilterProcessor(StreamProcessor):
+    """Filter events based on predicate"""
+    def __init__(self, predicate):
+        self.predicate = predicate
+    
+    async def process(self, event: StreamEvent) -> Optional[StreamEvent]:
+        if self.predicate(event):
+            return event
+        return None
+
+class MapProcessor(StreamProcessor):
+    """Transform event values"""
+    def __init__(self, mapper):
+        self.mapper = mapper
+    
+    async def process(self, event: StreamEvent) -> Optional[StreamEvent]:
+        transformed = await self.mapper(event.value)
+        return StreamEvent(
+            key=event.key,
+            value=transformed,
+            timestamp=event.timestamp,
+            headers=event.headers
+        )
+
+class StreamPipeline:
+    """Chain multiple processors"""
+    def __init__(self):
+        self.processors = []
+    
+    def add_processor(self, processor: StreamProcessor):
+        self.processors.append(processor)
+        return self
+    
+    async def process(self, event: StreamEvent) -> Optional[StreamEvent]:
+        current = event
+        for processor in self.processors:
+            if current is None:
+                break
+            current = await processor.process(current)
+        return current
+```
+
+### Windowed Aggregation
+
+```python
+from collections import defaultdict
+from datetime import timedelta
+import heapq
+
+class WindowedAggregator:
+    """Time-based windowed aggregation"""
+    
+    def __init__(self, window_size: timedelta, slide: timedelta = None):
+        self.window_size = window_size
+        self.slide = slide or window_size
+        self.windows = defaultdict(list)
+        self.watermark = datetime.min
+        self.late_events = 0
+    
+    def process_event(self, event: StreamEvent) -> List[Dict]:
+        """Process event and return completed windows"""
+        # Update watermark
+        self.watermark = max(self.watermark, 
+                           event.timestamp - timedelta(seconds=10))
+        
+        # Check if event is late
+        if event.timestamp < self.watermark:
+            self.late_events += 1
+            return []
+        
+        # Assign to windows
+        window_start = self._get_window_start(event.timestamp)
+        self.windows[window_start].append(event)
+        
+        # Check for completed windows
+        completed = []
+        for start, events in list(self.windows.items()):
+            if start + self.window_size <= self.watermark:
+                # Window is complete
+                result = self._aggregate(events)
+                completed.append({
+                    'window_start': start,
+                    'window_end': start + self.window_size,
+                    'result': result,
+                    'event_count': len(events)
+                })
+                del self.windows[start]
+        
+        return completed
+    
+    def _get_window_start(self, timestamp: datetime) -> datetime:
+        """Calculate window start time"""
+        epoch = datetime(1970, 1, 1)
+        window_ms = int(self.window_size.total_seconds() * 1000)
+        ts_ms = int((timestamp - epoch).total_seconds() * 1000)
+        window_start_ms = (ts_ms // window_ms) * window_ms
+        return epoch + timedelta(milliseconds=window_start_ms)
+    
+    def _aggregate(self, events: List[StreamEvent]) -> Any:
+        """Override this for custom aggregation"""
+        return len(events)  # Default: count
+```
+
+### State Management
+
+```python
+class StatefulProcessor:
+    """Processor with managed state"""
+    
+    def __init__(self, state_backend):
+        self.state_backend = state_backend
+        self.pending_checkpoints = []
+    
+    async def process_with_state(self, event: StreamEvent):
+        """Process event with exactly-once semantics"""
+        # Begin transaction
+        tx = await self.state_backend.begin_transaction()
+        
+        try:
+            # Get current state
+            state = await tx.get(event.key)
+            
+            # Process event
+            new_state = await self.update_state(state, event)
+            
+            # Update state
+            await tx.put(event.key, new_state)
+            
+            # Commit transaction
+            await tx.commit()
+            
+            return new_state
+        except Exception as e:
+            # Rollback on failure
+            await tx.rollback()
+            raise e
+    
+    async def update_state(self, state: Any, event: StreamEvent) -> Any:
+        """Override this for custom state updates"""
+        if state is None:
+            state = {'count': 0, 'sum': 0}
+        
+        state['count'] += 1
+        state['sum'] += event.value
+        return state
+```
+
+## Performance Optimization
+
+### Partitioning Strategy
+
+```mermaid
+graph TB
+    subgraph "Input Stream"
+        IS[1M events/sec]
+    end
+    
+    subgraph "Partitioning"
+        P[Partitioner<br/>hash(key) % N]
+    end
+    
+    subgraph "Parallel Processing"
+        PP1[Partition 1<br/>200K/sec]
+        PP2[Partition 2<br/>200K/sec]
+        PP3[Partition 3<br/>200K/sec]
+        PP4[Partition 4<br/>200K/sec]
+        PP5[Partition 5<br/>200K/sec]
+    end
+    
+    IS --> P
+    P --> PP1
+    P --> PP2
+    P --> PP3
+    P --> PP4
+    P --> PP5
+```
+
+### Backpressure Handling
+
+<table class="strategy-table">
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Implementation</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rate Limiting</strong></td>
+<td>Limit input rate</td>
+<td>Simple, predictable</td>
+<td>May drop events</td>
+</tr>
+<tr>
+<td><strong>Buffering</strong></td>
+<td>Queue events</td>
+<td>No data loss</td>
+<td>Memory pressure</td>
+</tr>
+<tr>
+<td><strong>Dynamic Scaling</strong></td>
+<td>Add processors</td>
+<td>Handles spikes</td>
+<td>Complex, costly</td>
+</tr>
+<tr>
+<td><strong>Sampling</strong></td>
+<td>Process subset</td>
+<td>Reduces load</td>
+<td>Loses accuracy</td>
+</tr>
+</tbody>
+</table>
+
+## When to Use vs Message Queues
+
+### Decision Matrix
+
+```mermaid
+graph TD
+    Start[Data Processing<br/>Requirement] --> Q1{Unbounded<br/>Stream?}
+    
+    Q1 -->|Yes| Q2{Real-time<br/>Required?}
+    Q1 -->|No| MQ[Use Message Queue]
+    
+    Q2 -->|Yes| Q3{Complex<br/>Processing?}
+    Q2 -->|No| MQ
+    
+    Q3 -->|Yes| ES[Use Event Streaming]
+    Q3 -->|No| Q4{High<br/>Volume?}
+    
+    Q4 -->|Yes| ES
+    Q4 -->|No| MQ
+    
+    style ES fill:#99ff99
+    style MQ fill:#ffff99
+```
+
+### Comparison Table
+
+<table class="comparison-table">
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Event Streaming</th>
+<th>Message Queues</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Data Model</strong></td>
+<td>Continuous streams</td>
+<td>Discrete messages</td>
+</tr>
+<tr>
+<td><strong>Processing</strong></td>
+<td>Stateful, windowed</td>
+<td>Stateless, per-message</td>
+</tr>
+<tr>
+<td><strong>Ordering</strong></td>
+<td>Per-partition ordering</td>
+<td>FIFO or priority</td>
+</tr>
+<tr>
+<td><strong>Replay</strong></td>
+<td>Full replay capability</td>
+<td>Limited/no replay</td>
+</tr>
+<tr>
+<td><strong>Use Cases</strong></td>
+<td>Analytics, CEP, ETL</td>
+<td>Task queues, RPC</td>
+</tr>
+</tbody>
+</table>
 
 ## Common Pitfalls
 
-!!! danger "⚠️ Out-of-Order Event Handling"
- **Problem**: Events arrive out of order due to network delays
- **Symptom**: Incorrect aggregations, missed patterns
- **Solution**:
- - Use event time, not processing time
- - Implement watermarks with appropriate lateness
- - Handle late data explicitly
+<div class="failure-vignette">
+<h4>⚠️ Late Data Handling</h4>
+
+**Problem**: Events arrive after window closes
+
+**Symptoms**:
+- Missing data in aggregations
+- Incorrect results
+- Customer complaints
+
+**Solution**:
+```mermaid
+graph LR
+    E[Late Event] --> W{Within<br/>Allowed<br/>Lateness?}
+    W -->|Yes| R[Recompute<br/>Window]
+    W -->|No| S[Side<br/>Output]
+    R --> U[Update<br/>Results]
+    S --> L[Late Data<br/>Stream]
+```
+</div>
 
 ## Best Practices
 
-!!! info "🎯 Stream Processing Guidelines"
- 1. **Choose the right time semantics**: Event time for correctness
- 2. **Plan for late data**: Watermarks and allowed lateness
- 3. **Partition for scale**: Key-based partitioning
- 4. **Checkpoint frequently**: Balance performance vs recovery time
- 5. **Monitor everything**: Lag, throughput, latency
- 6. **Handle backpressure**: Don't overwhelm downstream
- 7. **Design for reprocessing**: Idempotent operations
+<div class="axiom-box">
+<h4>🎯 Stream Processing Guidelines</h4>
 
-## When to Use Event Streaming
+1. **Design for Failure**
+   - Checkpointing strategy
+   - Idempotent operations
+   - Dead letter queues
 
-✅ **Good Fit**:
-- Real-time analytics
-- Event-driven architectures
-- Continuous computation
-- Time-series processing
-- Complex event detection
+2. **Optimize State**
+   - Minimize state size
+   - Use appropriate backends
+   - Regular compaction
 
-❌ **Poor Fit**:
-- Simple request-response
-- Batch processing sufficient
-- No real-time requirements
-- Limited scale
+3. **Monitor Everything**
+   - Lag metrics
+   - Throughput/latency
+   - State size
+   - Rebalancing events
+
+4. **Handle Time Properly**
+   - Event time > processing time
+   - Appropriate watermarks
+   - Late data strategy
+</div>
 
 ## Implementation Checklist
 
-- [ ] Define event schema and serialization
-- [ ] Choose time semantics (event vs processing)
-- [ ] Implement windowing strategy
-- [ ] Design state management approach
-- [ ] Set up checkpointing
-- [ ] Plan partitioning strategy
-- [ ] Implement monitoring/alerting
-- [ ] Handle late/out-of-order data
-- [ ] Test failure scenarios
-- [ ] Document retention policies
+- [ ] **Event Design**
+  - [ ] Define event schema
+  - [ ] Choose serialization format
+  - [ ] Plan versioning strategy
+
+- [ ] **Processing Logic**
+  - [ ] Select time semantics
+  - [ ] Design windowing strategy
+  - [ ] Plan state management
+  - [ ] Implement exactly-once
+
+- [ ] **Infrastructure**
+  - [ ] Choose streaming platform
+  - [ ] Design partitioning
+  - [ ] Plan scaling strategy
+  - [ ] Set up monitoring
+
+- [ ] **Operations**
+  - [ ] Checkpointing configuration
+  - [ ] Backpressure handling
+  - [ ] Replay procedures
+  - [ ] Failure recovery
 
 ## Related Patterns
 
-- [Event Sourcing](event-sourcing.md) - Store events as source of truth
+- [Event-Driven Architecture](event-driven.md) - Architectural style using events
+- [Event Sourcing](event-sourcing.md) - Store state as event sequence
 - [CQRS](cqrs.md) - Separate read/write models
 - [Saga Pattern](saga.md) - Distributed transactions
-- [Message Queue](/case-studies/distributed-message-queue) - Async messaging
+- [Message Queue Case Study](../case-studies/distributed-message-queue.md) - Deep dive into queuing
 
 ## References
 
-- "Streaming Systems" - Tyler Akidau et al.
-- "The Dataflow Model" - Google Research
+- "Streaming Systems" - Tyler Akidau, Slava Chernyak, Reuven Lax
+- "Designing Data-Intensive Applications" - Martin Kleppmann
+- "Kafka: The Definitive Guide" - Neha Narkhede, Gwen Shapira, Todd Palino
 - Apache Flink Documentation
-- "Kafka: The Definitive Guide" - Confluent
+- Google Dataflow Model Paper

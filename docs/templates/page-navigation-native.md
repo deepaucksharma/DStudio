@@ -131,9 +131,9 @@ Content goes here...
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Previous Topic](../previous/) | 
-[:material-arrow-up: Section Index](../) | 
-[:material-arrow-right: Next Topic](../next/)
+[:material-arrow-left: Previous Topic](..#/) | 
+[:material-arrow-up: Section Index](../index.md) | 
+[:material-arrow-right: Next Topic](..#/)
 </div>
 ```
 
@@ -238,7 +238,7 @@ Term 3
 
     Card description with markdown support
 
-    [:octicons-arrow-right-24: Learn more](link/)
+    :octicons-arrow-right-24: Learn more
 
 - :material-book:{ .lg .middle } __Card Title 2__
 
@@ -246,7 +246,7 @@ Term 3
 
     Another card with different icon
 
-    [:octicons-arrow-right-24: Explore](link/)
+    :octicons-arrow-right-24: Explore
 
 </div>
 ```
@@ -307,7 +307,7 @@ This needs a citation[^1].
 ### 2. Breadcrumb-style Path
 
 ```markdown
-[Home](/) > [Patterns](/patterns/) > [Current Page](/patterns/current/)
+[Home](/) > [Patterns](/patterns) > [Current Page](/patterns/current)
 ```
 
 ### 3. Previous/Next Navigation
@@ -315,9 +315,9 @@ This needs a citation[^1].
 ```markdown
 ---
 
-[:material-arrow-left: Previous: Topic Name](../previous/) | 
-[:material-arrow-up: Up: Section Name](../) | 
-[:material-arrow-right: Next: Topic Name](../next/)
+[:material-arrow-left: Previous: Topic Name](..#/) | 
+[:material-arrow-up: Up: Section Name](../index.md) | 
+[:material-arrow-right: Next: Topic Name](..#/)
 ```
 
 ### 4. See Also Section

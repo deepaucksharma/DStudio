@@ -451,9 +451,9 @@ class LocationPrivacy:
 ### Q: How do you detect traffic jams?
 
 Link to patterns:
-- [Event Streaming](../../patterns/event-streaming.md) for real-time processing
+- [Event Streaming](/google-interviews/../../patterns/event-streaming.md) for real-time processing
 - ML Pipeline (Coming Soon) for anomaly detection
-- [Time Series](../../patterns/time-series-ids.md) for historical analysis
+- [Time Series](/google-interviews/../../patterns/time-series-ids.md) for historical analysis
 
 ### Q: How do you handle offline regions?
 
@@ -514,7 +514,7 @@ graph LR
 ## Related Patterns & Resources
 
 - Spatial Indexing (Coming Soon) - Quadtrees, R-trees, S2
-- [Tile Caching](../../patterns/tile-caching.md) - Map tile optimization
-- [Location Privacy](../../patterns/location-privacy.md) - Privacy-preserving techniques
+- [Tile Caching](/google-interviews/../../patterns/tile-caching.md) - Map tile optimization
+- [Location Privacy](/google-interviews/../../patterns/location-privacy.md) - Privacy-preserving techniques
 - Real-time Processing (Coming Soon) - Traffic stream processing
-- [Google's S2 Library](https://s2geometry.io/) - Spatial indexing at scale
+- [Google's S2 Library](/google-interviews/https://s2geometry.io/) - Spatial indexing at scale

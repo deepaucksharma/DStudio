@@ -11,7 +11,7 @@ last_updated: 2025-01-25
 
 # Law 6: The Law of Cognitive Load 🤯
 
-[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 6: Cognitive Load](/part1-axioms/law6-human-api/) > Deep Dive
+[Home](/) > [The 7 Laws](/part1-axioms) > [Law 6: Cognitive Load](/part1-axioms/law6-human-api) > Deep Dive
 
 !!! quote "Core Principle"
     A system's complexity must fit within human cognitive limits, or it will fail through misoperation.
@@ -103,7 +103,7 @@ class HumanWorkingMemory:
         """
 ```
 
-### Cognitive Load Theory (Sweller, 1988)
+### Cognitive Load Theory (Sweller, 1988/index)
 
 ```python
 class CognitiveLoadTypes:
@@ -1367,16 +1367,16 @@ class MysteryMeatAntiPattern:
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - How cognitive failures correlate
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Mental models of time
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - When complexity exceeds cognition
-- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) - How humans know distributed state
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - How cognitive failures correlate
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Mental models of time
+- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - When complexity exceeds cognition
+- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) - How humans know distributed state
 
 ### Related Patterns
-- [Observability](/patterns/observability/) - Making systems understandable
-- [Circuit Breakers](/patterns/circuit-breaker/) - Automation with human override
-- [Bulkheads](/patterns/bulkhead/) - Containing cognitive complexity
-- [Chaos Engineering](/human-factors/chaos-engineering/) - Training for rare events
+- [Observability](/patterns/observability) - Making systems understandable
+- [Circuit Breakers](/patterns/circuit-breaker) - Automation with human override
+- [Bulkheads](/patterns/bulkhead) - Containing cognitive complexity
+- [Chaos Engineering](/human-factors/chaos-engineering.md) - Training for rare events
 
 ### Case Studies
 - [Knight Capital](/case-studies/knight-capital/) - Cognitive overload disaster
@@ -1395,7 +1395,7 @@ class MysteryMeatAntiPattern:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
-[:material-arrow-right: Law 7: Economic Reality](/part1-axioms/law7-economics/)
+[:material-arrow-left: Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms) | 
+[:material-arrow-right: Law 7: Economic Reality](/part1-axioms/law7-economics/index)
 </div>

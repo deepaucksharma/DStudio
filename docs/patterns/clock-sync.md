@@ -551,7 +551,7 @@ graph LR
 
 - [Logical Clocks](logical-clocks.md) - Ordering without wall time
 - [Vector Clocks](vector-clocks.md) - Capturing causality
-- Hybrid Logical Clocks (Coming Soon) - Best of both worlds
+- [Hybrid Logical Clocks](hlc.md) - Best of both worlds
 - [Event Sourcing](event-sourcing.md) - Time-based event streams
 
 ## References

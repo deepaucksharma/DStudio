@@ -46,8 +46,8 @@ By completing this path, you will:
  
  Understanding cloud costs:
  
- - [Law 7: Economic Reality](/part1-axioms/law7-economics/) - Cost as a constraint
- - Compute pricing (on-demand, reserved, spot)
+ - [Law 7: Economic Reality](/part1-axioms/law7-economics) - Cost as a constraint
+ - Compute pricing (on-demand, reserved, spot/index)
  - Storage tiers and data transfer costs
 
 - **Hidden Costs**
@@ -92,10 +92,10 @@ By completing this path, you will:
 
 Cost-efficient patterns:
 
-- [FinOps](/patterns/finops/) - Financial operations
-- [Auto-Scaling](/patterns/auto-scaling/) - Dynamic capacity
-- [Serverless/FaaS](/patterns/serverless-faas/) - Pay per use
-- [Edge Computing](/patterns/edge-computing/) - Reduce data transfer
+- [FinOps](/patterns/finops) - Financial operations
+- [Auto-Scaling](/patterns/auto-scaling) - Dynamic capacity
+- [Serverless/FaaS](/patterns/serverless-faas) - Pay per use
+- [Edge Computing](/patterns/edge-computing) - Reduce data transfer
 
 ### Phase 3: Advanced Optimization (2 weeks)
 
@@ -129,10 +129,10 @@ Cost-efficient patterns:
 
 Design for cost efficiency:
 
-- [Cell-Based Architecture](/patterns/cell-based/) - Limit blast radius and cost
-- [Lambda Architecture](/patterns/lambda-architecture/) - Optimize batch vs stream
-- [Data Mesh](/patterns/data-mesh/) - Decentralized cost ownership
-- [Bulkhead Pattern](/patterns/bulkhead/) - Resource isolation
+- [Cell-Based Architecture](/patterns/cell-based) - Limit blast radius and cost
+- [Lambda Architecture](/patterns/lambda-architecture) - Optimize batch vs stream
+- [Data Mesh](/patterns/data-mesh) - Decentralized cost ownership
+- [Bulkhead Pattern](/patterns/bulkhead) - Resource isolation
 
 ### Phase 4: FinOps in Practice (1 week)
 
@@ -427,12 +427,12 @@ operational_metrics:
  
  ---
  
- [Performance Path](/learning-paths/performance/)
+ [Performance Path](/learning-paths/performance)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Reliability Path](/learning-paths/reliability/)
+ [Reliability Path](/learning-paths/reliability)
 
 </div>

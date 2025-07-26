@@ -11,7 +11,7 @@ last_updated: 2025-01-25
 
 # Law 5: The Law of Distributed Knowledge 🧠
 
-[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) > Deep Dive
+[Home](/) > [The 7 Laws](/part1-axioms) > [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology) > Deep Dive
 
 !!! quote "Core Principle"
     In distributed systems, truth is local, knowledge is partial, and certainty is expensive.
@@ -282,7 +282,7 @@ class ChubbyLockService:
             if promise:
                 promises.append(promise)
                 
-        if len(promises) > self.cell_size // 2:
+        if len(promises/index) > self.cell_size // 2:
             # Phase 2: Accept (Paxos Phase 2)
             value = self.choose_value(promises)
             accepts = []
@@ -1048,17 +1048,17 @@ class KnowledgeAwareAPI:
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - How failures affect knowledge
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time and knowledge are inseparable
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - Knowledge emergent behaviors
-- [Law 6: Cognitive Load](/part1-axioms/law6-cognitive/) - Human limits in understanding distributed knowledge
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - How failures affect knowledge
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Time and knowledge are inseparable
+- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - Knowledge emergent behaviors
+- [Law 6: Cognitive Load](/part1-axioms/law6-human-api/) - Human limits in understanding distributed knowledge
 
 ### Related Patterns
-- [Consensus Protocols](/patterns/consensus/) - Achieving agreement
-- [CRDTs](/patterns/crdts/) - Convergent knowledge without coordination
-- [Vector Clocks](/patterns/vector-clocks/) - Tracking causality
-- [Quorum Systems](/patterns/quorum/) - Partial knowledge for availability
-- [Byzantine Fault Tolerance](/patterns/bft/) - Handling lying nodes
+- [Consensus Protocols](/patterns/consensus) - Achieving agreement
+- [CRDTs](/patterns/crdts) - Convergent knowledge without coordination
+- [Vector Clocks](/patterns/vector-clocks) - Tracking causality
+- [Quorum Systems](/patterns/consensus) - Partial knowledge for availability
+- [Byzantine Fault Tolerance](/patterns/bft) - Handling lying nodes
 
 ### Case Studies
 - [Bitcoin Fork Analysis](/case-studies/bitcoin-fork/) - When one truth becomes two
@@ -1077,7 +1077,7 @@ class KnowledgeAwareAPI:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
-[:material-arrow-right: Law 6: Cognitive Load](/part1-axioms/law6-cognitive/)
+[:material-arrow-left: Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms) | 
+[:material-arrow-right: Law 6: Cognitive Load](/part1-axioms/law6-human-api/)
 </div>

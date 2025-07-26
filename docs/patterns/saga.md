@@ -13,7 +13,7 @@ last_updated: 2025-07-21
 ---
 # Saga Pattern
 
-[Home](/) > [Patterns](/patterns/) > [Core Patterns](/patterns/#core-patterns) > Saga
+[Home](/) > [Patterns](/patterns) > [Core Patterns](/patterns/#core-patterns) > Saga
 
 ## The Essential Question
 
@@ -1242,16 +1242,25 @@ timeline
  : Automatic saga generation
 ```
 
-### Law Connections
+## Related Laws & Pillars
 
-!!! abstract "🔗 Fundamental Laws"
- This pattern directly addresses:
- 
- 1. **[Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/)**: Manages distributed consensus without locks
- 2. **[Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/)**: Explicit handling of partial failures
- 3. **[Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/)**: Handles concurrent saga executions
- 4. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Full audit trail of all steps
- 5. **[Law 7 (Economic Reality 💰)](/part1-axioms/law7-economics/)**: Balances consistency costs with business needs
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure/index)**: Handles partial failures with compensations
+- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-asynchrony/)**: Embraces async coordination
+- **[Law 3: Emergent Chaos 🌪️](/part1-axioms/law3-emergence/index)**: Manages concurrent saga executions
+- **[Law 4: Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/index)**: Trades consistency for availability
+- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology/index)**: Full audit trail of all steps
+- **[Law 7: Economic Reality 💰](/part1-axioms/law7-economics/index)**: Balances consistency costs with business needs
+
+### Foundational Pillars
+Saga implements:
+
+- **[Pillar 1: Distribution of Work 💪](/part2-pillars/work/index)**: Distributes transaction steps across services
+- **[Pillar 2: Distribution of State 🗃️](/part2-pillars/state/index)**: Each service manages its own state
+- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/index)**: Eventual consistency model
+- **[Pillar 4: Distribution of Control 🎮](/part2-pillars/control/index)**: Orchestrated or choreographed coordination
 
 ### Future Directions
 
@@ -1387,21 +1396,21 @@ saga:
 ## Related Topics
 
 ### Foundation Concepts
-- [CAP Theorem](/quantitative/cap-theorem/) - Why distributed transactions are hard
-- [Two-Phase Commit](/patterns/2pc/) - Traditional distributed transactions
-- [Event Sourcing](/patterns/event-sourcing/) - Alternative consistency approach
+- [CAP Theorem](/quantitative/cap-theorem) - Why distributed transactions are hard
+- [Two-Phase Commit](/patterns/2pc) - Traditional distributed transactions
+- [Event Sourcing](/patterns/event-sourcing) - Alternative consistency approach
 - [ACID vs BASE](/concepts/acid-base/) - Consistency model trade-offs
 
 ### Implementation Patterns
-- [Outbox Pattern](/patterns/outbox/) - Reliable event publishing
-- [Idempotency](/patterns/idempotency/) - Safe retries in sagas
-- [Circuit Breaker](/patterns/circuit-breaker/) - Handling service failures
-- [Compensation](/patterns/compensation/) - Undoing operations
+- [Outbox Pattern](/patterns/outbox) - Reliable event publishing
+- [Idempotency](/patterns/idempotency) - Safe retries in sagas
+- [Circuit Breaker](/patterns/circuit-breaker) - Handling service failures
+- [Compensation](/patterns/compensation) - Undoing operations
 
 ### Related Architectures
 - [Microservices](/architectures/microservices/) - Where sagas are essential
 - [Event-Driven Architecture](/architectures/event-driven/) - Choreographed sagas
-- [CQRS](/patterns/cqrs/) - Often used with sagas
+- [CQRS](/patterns/cqrs) - Often used with sagas
 
 ### Production Case Studies
 - [Uber Trip Bookings](/case-studies/uber-trips/) - 15M sagas/day
@@ -1429,18 +1438,24 @@ saga:
 
 ---
 
-## Related Resources
+## Related Patterns
 
-### Patterns
-- [Event Sourcing](/patterns/event-sourcing) - Natural event log for sagas
-- [CQRS](/patterns/cqrs) - Separate saga execution from queries
-- [Outbox Pattern](/patterns/outbox) - Reliable event publishing
-- [Circuit Breaker](/patterns/circuit-breaker) - Protect saga steps
+### Alternative Transaction Patterns
+- **[Two-Phase Commit](/patterns/two-phase-commit)**: Strong consistency alternative
+- **[Event Sourcing](/patterns/event-sourcing)**: Natural event log for sagas
+- **[Consensus](/patterns/consensus)**: For when strong consistency is required
 
-### Laws
-- [Law 4 (Multidimensional Optimization )](/part1-axioms/law4-tradeoffs/) - Why distributed consensus is hard
-- [Law 1 (Correlated Failure )](/part1-axioms/law1-failure/) - Handling partial failures
-- [Law 3 (Emergent Chaos )](/part1-axioms/law3-emergence/) - Managing parallel execution
+### Supporting Patterns
+- **[Outbox Pattern](/patterns/outbox)**: Reliable event publishing for choreography
+- **[Idempotent Receiver](/patterns/idempotent-receiver)**: Essential for safe retries
+- **[Circuit Breaker](/patterns/circuit-breaker)**: Protect saga steps from failures
+- **[Retry with Backoff](/patterns/retry-backoff)**: Handle transient failures
+
+### Implementation Patterns
+- **[CQRS](/patterns/cqrs)**: Separate saga execution from queries
+- **[Event-Driven Architecture](/patterns/event-driven)**: Natural fit for choreography
+- **[Write-Ahead Log](/patterns/wal)**: Saga state persistence
+- **[Message Queue](/patterns/distributed-queue)**: Async communication between steps
 
 ### Further Reading
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem
@@ -1459,7 +1474,7 @@ saga:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Event Sourcing](/patterns/event-sourcing/) | 
-[:material-arrow-up: Patterns](/patterns/) | 
-[:material-arrow-right: Service Mesh](/patterns/service-mesh/)
+[:material-arrow-left: Event Sourcing](/patterns/event-sourcing) | 
+[:material-arrow-up: Patterns](/patterns) | 
+[:material-arrow-right: Service Mesh](/patterns/service-mesh)
 </div>

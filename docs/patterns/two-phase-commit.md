@@ -910,7 +910,44 @@ two_phase_commit:
 
 ---
 
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure/index)**: Coordinator failure blocks all participants
+- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-asynchrony/)**: Network delays cause blocking
+- **[Law 4: Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/index)**: Strong consistency vs availability trade-off
+- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology/index)**: Coordinator must track all participant states
+- **[Law 7: Economic Reality 💰](/part1-axioms/law7-economics/index)**: High cost of holding locks
+
+### Foundational Pillars
+2PC implements:
+
+- **[Pillar 2: Distribution of State 🗃️](/part2-pillars/state/index)**: Atomic state changes across nodes
+- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/index)**: Single source of truth via coordinator
+- **[Pillar 4: Distribution of Control 🎮](/part2-pillars/control/index)**: Centralized coordination
+
+## Related Patterns
+
+### Alternative Approaches
+- **[Saga Pattern](/patterns/saga)**: Long-running transactions with compensation
+- **[Event Sourcing](/patterns/event-sourcing)**: Event-based consistency
+- **[Consensus](/patterns/consensus)**: More fault-tolerant agreement
+
+### Supporting Patterns
+- **[Write-Ahead Log](/patterns/wal)**: Recovery after failures
+- **[Idempotent Receiver](/patterns/idempotent-receiver)**: Safe retry of operations
+- **[Timeout](/patterns/timeout)**: Prevent indefinite blocking
+
+### Related Concepts
+- **[Three-Phase Commit](/patterns/three-phase-commit)**: Non-blocking variant
+- **[Paxos Commit](/patterns/consensus)**: Combines 2PC with consensus
+- **[Distributed Lock](/patterns/distributed-lock)**: Related coordination primitive
+
+---
+
 <div class="prev-link">
 <a href="/patterns/tunable-consistency">← Previous: Tunable Consistency</a>
-<a href="/patterns/">Back to Patterns →</a>
+<a href="/patterns/index.md">Back to Patterns →</a>
 </div>

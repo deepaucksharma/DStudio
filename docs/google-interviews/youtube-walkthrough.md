@@ -370,8 +370,8 @@ graph LR
 
 Link to patterns:
 - ML Pipeline Pattern (Coming Soon) for training
-- [Caching Strategies](../../patterns/caching-strategies.md) for serving
-- [Event-Driven Pattern](../../patterns/event-driven.md) for real-time updates
+- [Caching Strategies](/google-interviews/../../patterns/caching-strategies.md) for serving
+- [Event-Driven Pattern](/google-interviews/../../patterns/event-driven.md) for real-time updates
 
 ### Q: How do you handle viral videos?
 
@@ -395,7 +395,7 @@ Link to patterns:
 
 ## Related Resources
 
-- [Event Sourcing Pattern](../../patterns/event-sourcing.md) - For analytics pipeline
-- [Edge Computing Pattern](../../patterns/edge-computing.md) - For content delivery
-- [Sharding Pattern](../../patterns/sharding.md) - For metadata storage
-- [Google's Vitess Paper](https://vitess.io/docs/) - For YouTube's actual MySQL scaling
+- [Event Sourcing Pattern](/google-interviews/../../patterns/event-sourcing.md) - For analytics pipeline
+- [Edge Computing Pattern](/google-interviews/../../patterns/edge-computing.md) - For content delivery
+- [Sharding Pattern](/google-interviews/../../patterns/sharding.md) - For metadata storage
+- [Google's Vitess Paper](/google-interviews/https://vitess.io/docs/) - For YouTube's actual MySQL scaling

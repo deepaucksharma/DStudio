@@ -126,7 +126,7 @@ graph LR
  </tr>
  </tbody>
  </table>
- <p>Related: <a href="/part2-pillars/control/">Control Distribution</a>, <a href="/part1-axioms/law1-failure/">Correlated Failure</a></p>
+ <p>Related: <a href="/part2-pillars/control/index.md">Control Distribution</a>, <a href="/part1-axioms/law1-failure/index.md">Correlated Failure</a></p>
 
 ```mermaid
 graph TB
@@ -184,7 +184,7 @@ graph TB
  </tr>
  </tbody>
  </table>
- <p>See also: <a href="/part2-pillars/work/">Work Distribution</a> for scaling strategies</p>
+ <p>See also: <a href="/part2-pillars/work/index.md">Work Distribution</a> for scaling strategies</p>
 
 ```mermaid
 graph TB
@@ -273,7 +273,7 @@ gantt
  </tr>
  </tbody>
  </table>
- <p>Master <a href="/part1-axioms/law2-asynchrony/">Asynchronous Reality</a> before deep dives</p>
+ <p>Master <a href="/part1-axioms/law2-asynchrony/index.md">Asynchronous Reality</a> before deep dives</p>
 
 ## 12-Week Preparation Roadmap
 
@@ -317,7 +317,7 @@ gantt
  <tbody>
  <tr>
  <td data-label="Week"><strong>1-2</strong></td>
- <td data-label="Must Do">• <a href="/part1-axioms/">7 Laws</a><br>• <a href="/part2-pillars/">5 Pillars</a></td>
+ <td data-label="Must Do">• <a href="/part1-axioms/index.md">7 Laws</a><br>• <a href="/part2-pillars/index.md">5 Pillars</a></td>
  <td data-label="Should Do">• CAP Theorem<br>• Consistency Models</td>
  <td data-label="Nice to Have">• Failure stories</td>
  </tr>
@@ -347,7 +347,7 @@ gantt
  </tr>
  </tbody>
  </table>
- <p>Foundation: <a href="/part1-axioms/">7 Laws</a> → <a href="/part2-pillars/">5 Pillars</a> → Patterns → Practice</p>
+ <p>Foundation: <a href="/part1-axioms/index.md">7 Laws</a> → <a href="/part2-pillars/index.md">5 Pillars</a> → Patterns → Practice</p>
 
 ## Amazon Technology Stack
 
@@ -394,7 +394,7 @@ gantt
  </tr>
  </tbody>
  </table>
- <p>Applies <a href="/part2-pillars/state/">State Distribution</a> & <a href="/part2-pillars/truth/">Truth Distribution</a> principles</p>
+ <p>Applies <a href="/part2-pillars/state/index.md">State Distribution</a> & <a href="/part2-pillars/truth/index.md">Truth Distribution</a> principles</p>
 
 ```mermaid
 graph LR
@@ -454,7 +454,7 @@ graph LR
  </tr>
  </tbody>
  </table>
- <p>Violates <a href="/part1-axioms/law5-epistemology/">Distributed Knowledge</a> principles</p>
+ <p>Violates <a href="/part1-axioms/law5-epistemology/index.md">Distributed Knowledge</a> principles</p>
 
 !!! abstract "✅ Success Formula"
  <ol>
@@ -556,4 +556,4 @@ graph LR
  <li><strong>Frugality:</strong> Constraints breed innovation</li>
  <li><strong>Ownership:</strong> You build it, you run it</li>
  </ul>
- <p>Success = Mastery of <a href="/part1-axioms/law7-economics/">Economic Reality</a> + <a href="/part2-pillars/intelligence/">Intelligence Distribution</a></p>
+ <p>Success = Mastery of <a href="/part1-axioms/law7-economics/index.md">Economic Reality</a> + <a href="/part2-pillars/intelligence/index.md">Intelligence Distribution</a></p>

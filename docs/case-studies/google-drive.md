@@ -887,14 +887,14 @@ graph TB
 ```
 
 **Key Design Decision: Metadata/Data Separation**
-- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](/part2-pillars/state/))
+- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](/part2-pillars/state))
 - **Choice**: Store metadata in DB, files in object storage
 - **Result**: Independent scaling of metadata and storage
 - **Pattern Applied**: Metadata Service (Coming Soon)
 
 According to early reports¹, this enabled handling 10x more files with same database resources.
 
-### Phase 3: Distributed Architecture (2010-2014)
+### Phase 3: Distributed Architecture (2010-2014/index)
 
 ```mermaid
 graph TB
@@ -947,10 +947,10 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: [Content-Addressed Storage](/patterns/cas) - Deduplication
 - Pattern: Chunking (Coming Soon) - Large file handling
-- 🏛 Pillar: [State Distribution](/part2-pillars/state/) - Sharded metadata
-- 🏛 Pillar: [Work Distribution](/part2-pillars/work/) - Parallel uploads
+- 🏛 Pillar: [State Distribution](/part2-pillars/state/index) - Sharded metadata
+- 🏛 Pillar: [Work Distribution](/part2-pillars/work) - Parallel uploads
 
-### Phase 4: Modern Cloud-Native Architecture (2014-Present)
+### Phase 4: Modern Cloud-Native Architecture (2014-Present/index)
 
 ```mermaid
 graph LR
@@ -1523,14 +1523,14 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - Sync speed, cache placement
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Storage tiering, deduplication
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - Replication, conflict resolution
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Parallel uploads, collaborative editing
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Distributed sync, consistency
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Sync tracking, storage metrics
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Selective sync, offline mode
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Storage costs, tiering strategy
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - Sync speed, cache placement
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Storage tiering, deduplication
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Replication, conflict resolution
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Parallel uploads, collaborative editing
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Distributed sync, consistency
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Sync tracking, storage metrics
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Selective sync, offline mode
+- **[Law 7: Economics ](/part1-axioms/law7-economics/index)** - Storage costs, tiering strategy
 
 ### 🏛 Related Patterns
 - **[Content-Addressed Storage](/patterns/cas)** - Deduplication foundation

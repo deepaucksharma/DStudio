@@ -16,10 +16,10 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- Multi-Region (Coming Soon)
+- Multi-Region
 - [Edge Computing](edge-computing.md)
 - [CDN Pattern](caching-strategies.md)
-- Geo-Replication (Coming Soon)
+- Geo-Replication
 
 ## References
 - [URL Shortener](/case-studies/url-shortener) - Global service deployment

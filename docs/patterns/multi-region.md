@@ -978,16 +978,16 @@ failover test --dry-run
 ## Related Resources
 
 ### Patterns
-- Geo-Replication (Coming Soon) - Data replication strategies
+- Geo-Replication - Data replication strategies
 - [Edge Computing](/patterns/edge-computing) - Processing at network edge
 - [Tunable Consistency](/patterns/tunable-consistency) - Consistency models
 - [CQRS](/patterns/cqrs) - Separate read/write paths
 
 ### Laws
-- [Law 2 (Asynchronous Reality )](/part1-axioms/law2-asynchrony/) - Speed of light constraints
-- [Law 7 (Economic Reality )](/part1-axioms/law7-economics/) - Cost implications
-- [Law 1 (Correlated Failure )](/part1-axioms/law1-failure/) - Regional failure modes
-- [Law 4 (Multidimensional Optimization )](/part1-axioms/law4-tradeoffs/) - Regional capacity planning
+- [Law 2 (Asynchronous Reality )](/part1-axioms/law2-asynchrony) - Speed of light constraints
+- [Law 7 (Economic Reality /index)](/part1-axioms/law7-economics) - Cost implications
+- [Law 1 (Correlated Failure /index)](/part1-axioms/law1-failure) - Regional failure modes
+- [Law 4 (Multidimensional Optimization /index)](/part1-axioms/law4-tradeoffs/index) - Regional capacity planning
 
 ### Case Studies
 - [Video Streaming Platform](/case-studies/video-streaming) - Netflix's approach

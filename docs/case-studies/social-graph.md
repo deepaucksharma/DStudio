@@ -1323,9 +1323,9 @@ Understanding social graph architecture provides valuable insights for any large
 
 ### Patterns
 - [Sharding](../patterns/sharding.md): Graph partitioning strategies
-- [Caching](../patterns/caching.md): Multi-level caching for hot nodes
+- [Caching](../patterns/caching-strategies.md): Multi-level caching for hot nodes
 - [Event Streaming](../patterns/event-streaming.md): Real-time graph updates
-- [Privacy Patterns](../patterns/privacy.md): Access control and anonymization
+- [Privacy Patterns](../patterns/location-privacy): Access control and anonymization
 
 ## Next Steps
 

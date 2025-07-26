@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 
 # Pillar 4: Distribution of Control
 
-[Home](/) > [The 5 Pillars](/part2-pillars/) > Pillar 4: Control > Overview
+[Home](/) > [The 5 Pillars](/part2-pillars) > Pillar 4: Control > Overview
 
 ## Level 1: Intuition (Start Here) 🌱
 
@@ -1505,14 +1505,14 @@ graph TB
 
 ---
 
-**Next**: [Pillar 5: Intelligence →](/part2-pillars/intelligence/)
+**Next**: [Pillar 5: Intelligence →](/part2-pillars/intelligence/index)
 
 *"The best control system is one you never notice—until you need it."*
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Pillar 3: Truth](/part2-pillars/truth/) | 
-[:material-arrow-up: The 5 Pillars](/part2-pillars/) | 
-[:material-arrow-right: Pillar 5: Intelligence](/part2-pillars/intelligence/)
+[:material-arrow-left: Pillar 3: Truth](/part2-pillars/truth/index) | 
+[:material-arrow-up: The 5 Pillars](/part2-pillars) | 
+[:material-arrow-right: Pillar 5: Intelligence](/part2-pillars/intelligence/index)
 </div>

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 4](index.md) → **Axiom 4: Concurrency**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 4](index.md) → **Axiom 4: Concurrency**
 
 # Axiom 4: Concurrency
 

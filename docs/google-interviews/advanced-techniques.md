@@ -525,4 +525,4 @@ The best interviews feel like engaging technical discussions between colleagues.
 
 Good luck! You've got this! 🚀
 
-[Return to Google Interview Guide](./index.md)
+[Return to Google Interview Guide](/google-interviews/index.md)

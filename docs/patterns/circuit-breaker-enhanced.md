@@ -63,9 +63,9 @@ The Circuit Breaker pattern prevents cascading failures by detecting when a down
  <h4>📚 Before You Begin</h4>
  <p>Make sure you understand these concepts:</p>
  <ul>
- <li><a href="/part1-axioms/law1-failure/">Law 1: Correlated Failure</a> - Why failures cascade</li>
- <li><a href="/part2-pillars/state/">State Management</a> - How to track system state</li>
- <li><a href="/patterns/timeout/">Timeout Pattern</a> - Basic failure detection</li>
+ <li><a href="/part1-axioms/law1-failure/index.md">Law 1: Correlated Failure</a> - Why failures cascade</li>
+ <li><a href="/part2-pillars/state/index.md">State Management</a> - How to track system state</li>
+ <li><a href="/patterns/timeout.md">Timeout Pattern</a> - Basic failure detection</li>
  </ul>
 
 ## 🎯 Problem Statement
@@ -331,12 +331,12 @@ def protected_operation():
  <span class="item-title">Retry with Backoff</span>
  <span class="item-type">pattern</span>
  </a>
- <a href="/patterns/bulkhead/" class="related-item">
+ <a href="/patterns/bulkhead.md" class="related-item">
  <span class="item-icon">🚢</span>
  <span class="item-title">Bulkhead Pattern</span>
  <span class="item-type">pattern</span>
  </a>
- <a href="/patterns/timeout/" class="related-item">
+ <a href="/patterns/timeout.md" class="related-item">
  <span class="item-icon">⏱️</span>
  <span class="item-title">Timeout Pattern</span>
  <span class="item-type">pattern</span>

@@ -20,7 +20,7 @@ last_updated: 2025-07-24
 Chunking divides large datasets, files, or operations into smaller, manageable pieces that can be processed independently. This pattern improves memory efficiency, enables parallel processing, provides fault tolerance, and creates better user experiences through progressive loading and processing.
 
 !!! abstract
-    <strong>Axiom 2: Finite Capacity</strong>: Systems have limited memory, bandwidth, and processing power. Chunking allows systems to handle arbitrarily large data by processing it in bounded segments that fit within system constraints.
+    <strong>Law 4: Multidimensional Optimization</strong>: Systems must balance finite memory, bandwidth, and processing power. Chunking allows systems to handle arbitrarily large data by processing it in bounded segments that fit within system constraints.
 
 ## The Large Data Problem
 

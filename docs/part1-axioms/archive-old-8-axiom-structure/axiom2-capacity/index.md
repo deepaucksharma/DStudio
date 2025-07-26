@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](index.md) → **Axiom 2: Finite Capacity**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 2](index.md) → **Axiom 2: Finite Capacity**
 
 # Axiom 2: Finite Capacity
 
@@ -1205,10 +1205,10 @@ class CapacityOptimizationPatterns:
 ## Related Concepts
 
 ### Pillars Building on This Axiom
-- [Work Distribution](/part2-pillars/work/) - Distributing work across finite resources efficiently
-- [State Management](/part2-pillars/state/) - Managing state within memory and storage constraints
-- [Control & Ordering](/part2-pillars/control/) - Controlling flow to prevent resource exhaustion
-- [Intelligence & Learning](/part2-pillars/intelligence/) - ML-based capacity prediction and optimization
+- [Work Distribution](/part2-pillars/work/index) - Distributing work across finite resources efficiently
+- [State Management](/part2-pillars/state/index) - Managing state within memory and storage constraints
+- [Control & Ordering](/part2-pillars/control/index) - Controlling flow to prevent resource exhaustion
+- [Intelligence & Learning](/part2-pillars/intelligence/index) - ML-based capacity prediction and optimization
 
 ### Patterns Addressing Capacity Challenges
 - [Auto-scaling](/patterns/auto-scaling) - Dynamically adjust resources based on demand
@@ -1238,7 +1238,7 @@ class CapacityOptimizationPatterns:
 - [Performance Testing](/quantitative/performance-testing) - Finding actual capacity limits
 
 ### Human Factors
-- [SRE Practices](/part1-axioms/human-factors/sre-practices) - Managing capacity through SLOs and error budgets
+- [SRE Practices](/human-factors/sre-practices) - Managing capacity through SLOs and error budgets
 - [Capacity Planning](/quantitative/capacity-planning) - Human aspects of predicting future needs
 - [Incident Response](/part1-axioms/human-factors/incident-response) - Handling capacity-related outages
 

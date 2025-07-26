@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 7](index.md) → **Human Interface Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 7](index.md) → **Human Interface Examples**
 
 # Human Interface Examples
 
@@ -921,4 +921,4 @@ class SafeCommandExecutor:
 
 ---
 
-**Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
+**Previous**: [Overview]() | **Next**: [Exercises](exercises.md)

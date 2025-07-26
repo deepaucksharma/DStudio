@@ -20,7 +20,7 @@ last_updated: 2025-07-24
 Distributed queues provide reliable, scalable message passing across multiple nodes while maintaining ordering guarantees and fault tolerance. Unlike single-node queues, distributed queues must handle network partitions, node failures, and coordination challenges while ensuring messages are neither lost nor duplicated.
 
 !!! abstract
-    <strong>Axiom 3: Failure Resilience</strong>: In distributed systems, components fail independently. Distributed queues must continue operating even when individual nodes fail, ensuring message durability and system availability.
+    <strong>Law 1: Correlated Failure</strong>: In distributed systems, components fail independently. Distributed queues must continue operating even when individual nodes fail, ensuring message durability and system availability.
 
 ## The Distributed Challenge
 

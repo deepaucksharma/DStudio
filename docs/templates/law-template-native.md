@@ -12,7 +12,7 @@ tags:
 
 # Law X: [Law Name]
 
-[Home](/) > [Learn](/learn/) > [The 7 Laws](/part1-axioms/) > Law X
+[Home](/) > [Learn](/introduction/getting-started.md) > [The 7 Laws](/part1-axioms) > Law X
 
 !!! abstract "The Fundamental Truth"
     [One-sentence summary of the law]
@@ -64,13 +64,13 @@ tags:
 
 <div class="grid cards" markdown>
 
-- :material-puzzle:{ .lg .middle } **[Pattern Name](/patterns/pattern/)**
+- :material-puzzle:{ .lg .middle } **[Pattern Name](/patterns/pattern)**
     
     ---
     
     How this pattern addresses the law
 
-- :material-puzzle:{ .lg .middle } **[Pattern Name](/patterns/pattern/)**
+- :material-puzzle:{ .lg .middle } **[Pattern Name](/patterns/pattern)**
     
     ---
     
@@ -116,14 +116,14 @@ tags:
 
 ## Further Reading
 
-- :material-file-document: [Academic Paper](link)
-- :material-book: [Book Chapter](link)
-- :material-web: [Blog Post](link)
+- :material-file-document: Academic Paper
+- :material-book: Book Chapter
+- :material-web: Blog Post
 
 ---
 
 <div class="page-nav" markdown>
 [:material-arrow-left: Previous Law](/part1-axioms/law[X-1]/) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms) | 
 [:material-arrow-right: Next Law](/part1-axioms/law[X+1]/)
 </div>

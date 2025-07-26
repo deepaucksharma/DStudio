@@ -25,9 +25,9 @@ Privacy metrics provide quantitative measures for data anonymization, privacy pr
 - GDPR compliance metrics
 
 ## Related Models
-- [Information Theory](./information-theory.md)
-- [Bayesian Reasoning](./bayesian-reasoning.md)
-- [Stochastic Processes](./stochastic-processes.md)
+- [Information Theory](information-theory.md)
+- [Bayesian Reasoning](bayesian-reasoning.md)
+- [Stochastic Processes](stochastic-processes.md)
 
 ## References
 - "K-Anonymity: A Model for Protecting Privacy" - Sweeney (2002)

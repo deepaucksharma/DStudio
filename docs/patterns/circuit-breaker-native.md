@@ -29,10 +29,10 @@ tags:
     
     Make sure you understand these fundamental concepts:
     
-    - :material-book: [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Why failures cascade
-    - :material-book: [State Management](/part2-pillars/state/) - Tracking system state
-    - :material-book: [Timeout Pattern](/patterns/timeout/) - Basic failure detection
-    - :material-alert: [Retry Pattern](/patterns/retry-backoff/) - Retry strategies
+    - :material-book: [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Why failures cascade
+    - :material-book: [State Management](/part2-pillars/state/index) - Tracking system state
+    - :material-book: [Timeout Pattern](/patterns/timeout) - Basic failure detection
+    - :material-alert: [Retry Pattern](/patterns/retry-backoff) - Retry strategies
 
 ## :material-lightbulb: Core Concept
 
@@ -238,25 +238,25 @@ stateDiagram-v2
 
     <div class="grid cards" markdown>
     
-    - :material-refresh:{ .lg .middle } __[Retry with Backoff](/patterns/retry-backoff/)__
+    - :material-refresh:{ .lg .middle } __[Retry with Backoff](/patterns/retry-backoff)__
     
         ---
         
         Works together with circuit breaker for transient failures. Retry handles temporary issues, circuit breaker handles persistent problems.
     
-    - :material-ship:{ .lg .middle } __[Bulkhead Pattern](/patterns/bulkhead/)__
+    - :material-ship:{ .lg .middle } __[Bulkhead Pattern](/patterns/bulkhead)__
     
         ---
         
         Isolates resources to prevent total system failure. Use with circuit breaker for defense in depth.
     
-    - :material-timer-sand:{ .lg .middle } __[Timeout Pattern](/patterns/timeout/)__
+    - :material-timer-sand:{ .lg .middle } __[Timeout Pattern](/patterns/timeout)__
     
         ---
         
         Essential for circuit breaker operation. Timeouts detect slow failures that trigger circuit opening.
     
-    - :material-heart-pulse:{ .lg .middle } __[Health Check](/patterns/health-check/)__
+    - :material-heart-pulse:{ .lg .middle } __[Health Check](/patterns/health-check)__
     
         ---
         
@@ -333,7 +333,7 @@ stateDiagram-v2
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Bulkhead Pattern](/patterns/bulkhead/) | 
+[:material-arrow-left: Bulkhead Pattern](/patterns/bulkhead) | 
 [:material-arrow-up: Resilience Patterns](/patterns/#resilience-patterns) | 
-[:material-arrow-right: Retry Pattern](/patterns/retry-backoff/)
+[:material-arrow-right: Retry Pattern](/patterns/retry-backoff)
 </div>

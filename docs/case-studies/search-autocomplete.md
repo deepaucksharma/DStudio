@@ -1061,10 +1061,10 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: [Sharding](/patterns/sharding) - Prefix-based partitioning
 - Pattern: [Cache-Aside](/patterns/caching-strategies) - Redis for hot queries
-- 🏛 Pillar: [Work Distribution](/part2-pillars/work/) - Parallel prefix search
-- 🏛 Pillar: [Intelligence](/part2-pillars/intelligence/) - ML ranking
+- 🏛 Pillar: [Work Distribution](/part2-pillars/work/index) - Parallel prefix search
+- 🏛 Pillar: [Intelligence](/part2-pillars/intelligence) - ML ranking
 
-### Phase 4: Modern Multi-Model Architecture (2015-Present)
+### Phase 4: Modern Multi-Model Architecture (2015-Present/index)
 
 ```mermaid
 graph LR
@@ -1662,17 +1662,17 @@ class DistributedAutocomplete:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)** - Sub-100ms response critical for UX
-- **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/)** - Memory limits drive sharding
-- **[Law 1: Failure](/part1-axioms/law1-failure/)** - Graceful degradation strategies
-- **[Law 3: Emergence](/part1-axioms/law3-emergence/)** - Lock-free trie operations
-- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Distributed trie updates
-- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/)** - Query performance tracking
-- **[Law 6: Human-API](/part1-axioms/law6-human-api/)** - Typo tolerance, personalization
-- **[Law 7: Economics](/part1-axioms/law7-economics/)** - Memory cost vs latency
+- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)** - Sub-100ms response critical for UX
+- **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/index)** - Memory limits drive sharding
+- **[Law 1: Failure](/part1-axioms/law1-failure/index)** - Graceful degradation strategies
+- **[Law 3: Emergence](/part1-axioms/law3-emergence/index)** - Lock-free trie operations
+- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/index)** - Distributed trie updates
+- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/index)** - Query performance tracking
+- **[Law 6: Human-API](/part1-axioms/law6-human-api/index)** - Typo tolerance, personalization
+- **[Law 7: Economics](/part1-axioms/law7-economics)** - Memory cost vs latency
 
 ### 🏛 Related Patterns
-- **Trie Data Structure (Coming Soon)** - Core search structure
+- **Trie Data Structure (Coming Soon/index)** - Core search structure
 - **[Caching Strategies](/patterns/caching-strategies)** - Multi-level caching
 - **[Sharding](/patterns/sharding)** - Distribute by prefix
 - **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
@@ -1687,7 +1687,7 @@ class DistributedAutocomplete:
 - **[Machine Learning] (ML Ranking Coming Soon)** - Learning to rank
 
 ### Similar Case Studies
-- **[Google Search](/google-systems/google-search)** - Full search architecture
+- **[Google Search](/case-studies/google-systems/google-search)** - Full search architecture
 - **[Elasticsearch] (Deep Dive Coming Soon)** - Search engine internals
 - **[Facebook Typeahead] (Case Study Coming Soon)** - Social search
 - **[Amazon Product Search](amazon-search.md)** - E-commerce search

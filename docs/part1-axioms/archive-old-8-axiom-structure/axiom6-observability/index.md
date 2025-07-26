@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 6](index.md) → **Axiom 6: Observability**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 6](index.md) → **Axiom 6: Observability**
 
 # Axiom 6: Observability
 
@@ -1524,4 +1524,4 @@ Commercial:
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Observability Stacks](/part1-axioms/human-factors/observability-stacks) • [SRE Practices](/part1-axioms/human-factors/sre-practices) • [Monitoring Patterns](/patterns/observability)
+**Related**: [Observability Stacks](/part1-axioms/human-factors/observability-stacks) • [SRE Practices](/human-factors/sre-practices) • [Monitoring Patterns](/patterns/observability)

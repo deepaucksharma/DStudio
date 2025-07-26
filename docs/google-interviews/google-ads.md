@@ -485,4 +485,4 @@ class AdsDashboard:
 - Historical performance
 - User feedback signals
 
-[Return to Google Interview Guide](./index.md)
+[Return to Google Interview Guide](/google-interviews/index.md)

@@ -25,15 +25,39 @@
   // === Reading Progress Indicator ===
   
   function createProgressBar() {
+    // Check if page has enough content to scroll
+    const isScrollable = document.documentElement.scrollHeight > window.innerHeight * 1.5;
+    if (!isScrollable) return; // Don't show progress bar on short pages
+    
     const progress = document.createElement('div');
     progress.className = 'reading-progress';
     document.body.appendChild(progress);
     
+    // Add ARIA attributes for accessibility
+    progress.setAttribute('role', 'progressbar');
+    progress.setAttribute('aria-label', 'Reading progress');
+    progress.setAttribute('aria-valuemin', '0');
+    progress.setAttribute('aria-valuemax', '100');
+    
     function updateProgress() {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height);
+      const scrolled = height > 0 ? (winScroll / height) : 0;
+      const percentage = Math.round(scrolled * 100);
+      
+      // Update progress bar
       progress.style.transform = `scaleX(${scrolled})`;
+      
+      // Update percentage for tooltip
+      progress.setAttribute('data-progress', percentage);
+      progress.setAttribute('aria-valuenow', percentage);
+      
+      // Hide progress bar when at top
+      if (percentage === 0) {
+        progress.style.opacity = '0';
+      } else {
+        progress.style.opacity = '1';
+      }
     }
     
     // Throttle scroll events for performance
@@ -42,11 +66,43 @@
       if (!ticking) {
         window.requestAnimationFrame(updateProgress);
         ticking = true;
-        setTimeout(() => ticking = false, 100);
+        setTimeout(() => ticking = false, 50); // Reduced delay for smoother updates
       }
     }
     
-    window.addEventListener('scroll', requestTick);
+    // Initial update
+    updateProgress();
+    
+    // Listen to scroll events
+    window.addEventListener('scroll', requestTick, { passive: true });
+    
+    // Update on window resize
+    window.addEventListener('resize', () => {
+      // Re-check if page is still scrollable
+      const stillScrollable = document.documentElement.scrollHeight > window.innerHeight * 1.5;
+      if (!stillScrollable && progress.parentNode) {
+        progress.remove();
+      } else if (stillScrollable && !progress.parentNode) {
+        document.body.appendChild(progress);
+      }
+      updateProgress();
+    });
+    
+    // Handle instant navigation (MkDocs Material feature)
+    if (window.location$ && window.location$.subscribe) {
+      window.location$.subscribe(() => {
+        // Small delay to ensure DOM is updated
+        setTimeout(() => {
+          const isNewPageScrollable = document.documentElement.scrollHeight > window.innerHeight * 1.5;
+          if (isNewPageScrollable && !progress.parentNode) {
+            document.body.appendChild(progress);
+          } else if (!isNewPageScrollable && progress.parentNode) {
+            progress.remove();
+          }
+          updateProgress();
+        }, 100);
+      });
+    }
   }
 
   // === Enhanced Search Experience ===

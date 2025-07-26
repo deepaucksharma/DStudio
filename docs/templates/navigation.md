@@ -25,7 +25,7 @@ nav:
  # Related content
  related:
  - title: "Related Pattern"
- path: "/patterns/circuit-breaker/"
+ path: "/patterns/circuit-breaker"
  type: "pattern"
  - title: "Case Study Example"
  path: "/case-studies/netflix-chaos/"
@@ -41,7 +41,7 @@ nav:
  # Next steps
  next_steps:
  - title: "Implement Circuit Breaker"
- path: "/patterns/circuit-breaker/"
+ path: "/patterns/circuit-breaker"
  level: "beginner"
  - title: "Advanced Retry Strategies"
  path: "/patterns/retry-backoff/"
@@ -77,7 +77,7 @@ Add this at the top of each page:
 <nav class="enhanced-breadcrumb" aria-label="Breadcrumb">
  <ol>
  <li><a href="/">Home</a></li>
- <li><a href="../">{{ page.parent.title }}</a></li>
+ <li><a href="../index.md">{{ page.parent.title }}</a></li>
  <li aria-current="page">{{ page.title }}</li>
  </ol>
 </nav>
@@ -93,7 +93,7 @@ Place after the page introduction:
  Before diving into this topic, make sure you understand:
  
  {% for prereq in page.meta.nav.prerequisites %}
- - [{{ prereq.title }}]({{ prereq.path }})
+ - {{ prereq.title }}
  {% endfor %}
 {% endif %}
 ```

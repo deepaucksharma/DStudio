@@ -653,15 +653,15 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ](/part1-axioms/law1-failure/)** - SAGA compensations handle partial failures in distributed transactions
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/)** - 234ms average latency balances fraud checks with user experience
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/)** - Optimistic locking prevents double-spending without blocking
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/)** - Cell architecture and event-driven choreography balance multiple trade-offs
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/)** - Distributed tracing tracks payments across 20+ services
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/)** - Clear error messages and status updates reduce support calls
-- **[Law 7: Economics ](/part1-axioms/law7-economics/)** - Processing costs optimized through batching and routing
+- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economics ](/part1-axioms/law7-economics)** - Processing costs optimized through batching and routing
 
-### 🏛 Related Patterns (Part III)
+### 🏛 Related Patterns (Part III/index)
 - **[SAGA Pattern](/patterns/saga)** - Orchestrates distributed transactions with compensation logic
 - **[Event Sourcing](/patterns/event-sourcing)** - Immutable event log provides perfect audit trail
 - **Idempotent Receiver (Coming Soon)** - Prevents duplicate payments at every layer

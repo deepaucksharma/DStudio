@@ -45,17 +45,17 @@ By completing this path, you will:
  
  Essential concepts:
  
- - [Latency Ladder](/quantitative/latency-ladder/) - Know your numbers
- - [Little's Law](/quantitative/littles-law/) - Queue theory basics
- - [Universal Scalability Law](/quantitative/universal-scalability/) - Scaling limits
+ - [Latency Ladder](/quantitative/latency-ladder) - Know your numbers
+ - [Little's Law](/quantitative/littles-law) - Queue theory basics
+ - [Universal Scalability Law](/quantitative/universal-scalability) - Scaling limits
 
 - **Measurement & Analysis**
  
  Quantify performance:
  
- - [Performance Modeling](/quantitative/performance-modeling/) - Predict behavior
- - [Queueing Models](/quantitative/queueing-models/) - Analyze bottlenecks
- - [Capacity Planning](/quantitative/capacity-planning/) - Resource estimation
+ - [Performance Modeling](/quantitative/performance-modeling) - Predict behavior
+ - [Queueing Models](/quantitative/queueing-models) - Analyze bottlenecks
+ - [Capacity Planning](/quantitative/capacity-planning) - Resource estimation
 
 </div>
 
@@ -68,10 +68,10 @@ By completing this path, you will:
 
 === "Cache Types"
  Different caching approaches:
- - [Cache Aside](/patterns/cache-aside/) - Lazy population
- - [Read Through Cache](/patterns/read-through-cache/) - Transparent reads
- - [Write Through Cache](/patterns/write-through-cache/) - Consistent writes
- - [Write Behind Cache](/patterns/write-behind-cache/) - Async writes
+ - [Cache Aside](/patterns/cache-aside) - Lazy population
+ - [Read Through Cache](/patterns/read-through-cache) - Transparent reads
+ - [Write Through Cache](/patterns/write-through-cache) - Consistent writes
+ - [Write Behind Cache](/patterns/write-behind-cache) - Async writes
 
 === "Cache Design"
  Implementation considerations:
@@ -82,17 +82,17 @@ By completing this path, you will:
 
 === "Advanced Caching"
  Sophisticated techniques:
- - [Tile Caching](/patterns/tile-caching/) - Spatial data
+ - [Tile Caching](/patterns/tile-caching) - Spatial data
  - Predictive caching
  - Cache warming strategies
  - Multi-tier caching
 
 #### Week 3: Load Distribution
 
-- [Load Balancing](/patterns/load-balancing/) - Traffic distribution
-- [Sharding](/patterns/sharding/) - Data partitioning
-- [Request Routing](/patterns/request-routing/) - Smart routing
-- [Scatter Gather](/patterns/scatter-gather/) - Parallel processing
+- [Load Balancing](/patterns/load-balancing) - Traffic distribution
+- [Sharding](/patterns/sharding) - Data partitioning
+- [Request Routing](/patterns/request-routing) - Smart routing
+- [Scatter Gather](/patterns/scatter-gather) - Parallel processing
 
 ### Phase 3: Scaling Strategies (2 weeks)
 
@@ -103,33 +103,33 @@ By completing this path, you will:
 
 === "Service Scaling"
  Scale your application tier:
- - [Auto-Scaling](/patterns/auto-scaling/) - Dynamic capacity
- - [Service Mesh](/patterns/service-mesh/) - Service management
- - [Bulkhead](/patterns/bulkhead/) - Resource isolation
- - **Case Study**: [Netflix Architecture](/case-studies/netflix-streaming/)
+ - [Auto-Scaling](/patterns/auto-scaling) - Dynamic capacity
+ - [Service Mesh](/patterns/service-mesh) - Service management
+ - [Bulkhead](/patterns/bulkhead) - Resource isolation
+ - **Case Study**: [Netflix Architecture](/case-studies/netflix-streaming)
 
 === "Data Scaling"
  Scale your data tier:
- - [Geo-Replication](/patterns/geo-replication/) - Global distribution
- - [Multi-Region](/patterns/multi-region/) - Active-active
+ - [Geo-Replication](/patterns/geo-replication) - Global distribution
+ - [Multi-Region](/patterns/multi-region) - Active-active
  - Database sharding strategies
- - **Case Study**: [Cassandra at Scale](/case-studies/cassandra/)
+ - **Case Study**: [Cassandra at Scale](/case-studies/cassandra)
 
 === "Message Scaling"
  Scale your messaging layer:
- - [Event Streaming](/patterns/event-streaming/) - High throughput
- - [Distributed Queue](/patterns/distributed-queue/) - Work distribution
+ - [Event Streaming](/patterns/event-streaming) - High throughput
+ - [Distributed Queue](/patterns/distributed-queue) - Work distribution
  - Partitioned topics (Kafka)
- - **Case Study**: [LinkedIn Kafka](/case-studies/kafka/)
+ - **Case Study**: [LinkedIn Kafka](/case-studies/kafka)
 
 #### Week 5: Performance Patterns
 
 Advanced optimization patterns:
 
-- [CQRS](/patterns/cqrs/) - Optimize reads and writes separately
-- [Event Sourcing](/patterns/event-sourcing/) - Async processing
-- [Lambda Architecture](/patterns/lambda-architecture/) - Batch + real-time
-- [Edge Computing](/patterns/edge-computing/) - Move compute closer
+- [CQRS](/patterns/cqrs) - Optimize reads and writes separately
+- [Event Sourcing](/patterns/event-sourcing) - Async processing
+- [Lambda Architecture](/patterns/lambda-architecture) - Batch + real-time
+- [Edge Computing](/patterns/edge-computing) - Move compute closer
 
 ### Phase 4: Production Performance (1 week)
 
@@ -141,7 +141,7 @@ Advanced optimization patterns:
 <div class="grid cards" markdown>
 
 - **Performance Monitoring**
- - [Observability](/patterns/observability/)
+ - [Observability](/patterns/observability)
  - Distributed tracing
  - Performance profiling
  - Anomaly detection
@@ -383,12 +383,12 @@ efficiency_targets:
  
  ---
  
- [Consistency Path](/learning-paths/consistency/)
+ [Consistency Path](/learning-paths/consistency)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Cost Optimization Path](/learning-paths/cost/)
+ [Cost Optimization Path](/learning-paths/cost)
 
 </div>

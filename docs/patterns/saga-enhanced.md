@@ -23,16 +23,16 @@ nav:
     - title: "Two-Phase Commit"
       path: "/patterns/two-phase-commit/"
     - title: "Event Sourcing"
-      path: "/patterns/event-sourcing/"
+      path: "/patterns/event-sourcing"
     - title: "State Distribution"
       path: "/part2-pillars/state/"
   
   related:
     - title: "Event Sourcing"
-      path: "/patterns/event-sourcing/"
+      path: "/patterns/event-sourcing"
       type: "pattern"
     - title: "Outbox Pattern"
-      path: "/patterns/outbox/"
+      path: "/patterns/outbox"
       type: "pattern"
     - title: "Uber Trip Coordination"
       path: "/case-studies/uber-trip-saga/"
@@ -72,8 +72,8 @@ nav:
  <p>Make sure you understand these concepts:</p>
  <ul>
  <li><a href="/patterns/two-phase-commit/">Two-Phase Commit</a> - Traditional distributed transactions</li>
- <li><a href="/patterns/event-sourcing/">Event Sourcing</a> - Event-driven state management</li>
- <li><a href="/part2-pillars/state/">State Distribution</a> - Managing distributed state</li>
+ <li><a href="/patterns/event-sourcing">Event Sourcing</a> - Event-driven state management</li>
+ <li><a href="/part2-pillars/state/index.md">State Distribution</a> - Managing distributed state</li>
  </ul>
 
 ## The Essential Question
@@ -554,12 +554,12 @@ async def test_compensation_idempotency():
  <span class="item-title">Airbnb Booking Flow</span>
  <span class="item-type">case-study</span>
  </a>
- <a href="/patterns/event-sourcing/" class="related-item">
+ <a href="/patterns/event-sourcing" class="related-item">
  <span class="item-icon">📝</span>
  <span class="item-title">Event Sourcing</span>
  <span class="item-type">pattern</span>
  </a>
- <a href="/patterns/outbox/" class="related-item">
+ <a href="/patterns/outbox" class="related-item">
  <span class="item-icon">📤</span>
  <span class="item-title">Outbox Pattern</span>
  <span class="item-type">pattern</span>

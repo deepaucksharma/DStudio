@@ -14,7 +14,7 @@ last_updated: 2025-07-20
 
 # Circuit Breaker Pattern
 
-[Home](/) > [Patterns](/patterns/) > [Resilience Patterns](/patterns/#resilience-patterns) > Circuit Breaker
+[Home](/) > [Patterns](/patterns) > [Resilience Patterns](/patterns/#resilience-patterns) > Circuit Breaker
 
 **Fail fast, recover gracefully - The electrical metaphor that saves systems**
 
@@ -1599,18 +1599,45 @@ circuit_breaker:
 
 ## Related Topics
 
-### Related Patterns
-- [Retry & Backoff](/patterns/retry-backoff/) - Works hand-in-hand with circuit breakers for resilient operations
-- [Bulkhead Pattern](/patterns/bulkhead/) - Isolates resources to prevent cascade failures
-- [Rate Limiting](/patterns/rate-limiting/) - Prevents service overload before circuit breaker trips
-- [Health Checks](/patterns/health-checks/) - Monitors service health that circuit breakers protect
-- [Timeout Pattern](/patterns/timeout/) - Often triggers circuit breaker state changes
-- [Fallback Pattern](/patterns/fallback/) - Provides degraded functionality when circuit is open
+## Related Patterns
 
-### Related Laws & Axioms
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Circuit breakers prevent correlated cascade failures
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Circuit breakers handle async communication failures
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - Circuit breakers control emergent failure patterns
+### Resilience Patterns
+- **[Retry & Backoff](/patterns/retry-backoff)**: Works together for handling transient failures
+- **[Bulkhead Pattern](/patterns/bulkhead)**: Isolates resources to complement circuit breaking
+- **[Timeout Pattern](/patterns/timeout)**: Triggers circuit breaker state changes
+- **[Fallback Pattern](/patterns/graceful-degradation)**: Provides degraded functionality when open
+
+### Prevention Patterns
+- **[Rate Limiting](/patterns/rate-limiting)**: Prevents overload before circuit trips
+- **[Load Shedding](/patterns/load-shedding)**: Proactive load management
+- **[Backpressure](/patterns/backpressure)**: Flow control to prevent cascades
+
+### Monitoring Patterns
+- **[Health Checks](/patterns/health-check)**: Service health monitoring
+- **[Observability](/patterns/observability)**: Circuit breaker metrics and tracing
+
+### Coordination Patterns
+- **[Saga Pattern](/patterns/saga)**: Circuit breakers protect saga steps
+- **[Service Mesh](/patterns/service-mesh)**: Built-in circuit breaking
+- **[API Gateway](/patterns/api-gateway)**: Centralized circuit breaking
+
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure/)**: Prevents cascade failures across services
+- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-asynchrony/)**: Handles timeout and async communication failures
+- **[Law 3: Emergent Chaos 🌪️](/part1-axioms/law3-emergence/)**: Controls emergent failure patterns
+- **[Law 4: Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/)**: Balances availability vs consistency
+- **[Law 6: Cognitive Load 🧠](/part1-axioms/law6-human-api/)**: Simple state machine reduces operational complexity
+
+### Foundational Pillars
+Circuit Breaker implements:
+
+- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/)**: Each service tracks its own dependencies' health
+- **[Pillar 4: Distribution of Control 🎮](/part2-pillars/control/)**: Decentralized failure detection and response
+- **[Pillar 5: Distribution of Intelligence 🤖](/part2-pillars/intelligence/)**: Smart failure prediction and recovery
 
 ### Case Studies
 - [Netflix Hystrix Implementation](/case-studies/netflix-hystrix/) - Pioneered circuit breaker patterns at scale
@@ -1618,19 +1645,19 @@ circuit_breaker:
 - [Uber's Microservices Architecture](/case-studies/uber-microservices/) - Circuit breakers in ride-sharing systems
 
 ### Quantitative Analysis
-- [Failure Models](/quantitative/failure-models/) - Mathematical models for failure cascades
-- [Queueing Theory](/quantitative/queueing-models/) - Understanding load and failure relationships
-- [Reliability Theory](/quantitative/reliability-theory/) - Calculating system reliability with circuit breakers
+- [Failure Models](/quantitative/failure-models) - Mathematical models for failure cascades
+- [Queueing Theory](/quantitative/queueing-models) - Understanding load and failure relationships
+- [Reliability Theory](/quantitative/reliability-theory) - Calculating system reliability with circuit breakers
 
 ### Further Reading
-- [Microservices Resilience Patterns](/patterns/microservices-resilience/) - Comprehensive resilience strategies
-- [Service Mesh Architecture](/patterns/service-mesh/) - Circuit breakers in modern service meshes
-- [Chaos Engineering](/human-factors/chaos-engineering/) - Testing circuit breaker effectiveness
+- [Microservices Resilience Patterns](/patterns/microservices-resilience) - Comprehensive resilience strategies
+- [Service Mesh Architecture](/patterns/service-mesh) - Circuit breakers in modern service meshes
+- [Chaos Engineering](/human-factors/chaos-engineering.md) - Testing circuit breaker effectiveness
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Rate Limiting](/patterns/rate-limiting/) | 
-[:material-arrow-up: Patterns](/patterns/) | 
-[:material-arrow-right: Retry & Backoff](/patterns/retry-backoff/)
+[:material-arrow-left: Rate Limiting](/patterns/rate-limiting) | 
+[:material-arrow-up: Patterns](/patterns) | 
+[:material-arrow-right: Retry & Backoff](/patterns/retry-backoff)
 </div>

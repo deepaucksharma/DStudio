@@ -498,7 +498,7 @@ def find_economic_optimum(performance_curve, cost_curve, revenue_curve):
 
 ## Exercises
 
-[**→ Economic Architecture Lab**](./exercises.md) - Design systems with cost as a first-class concern
+[**→ Economic Architecture Lab**](exercises.md) - Design systems with cost as a first-class concern
 
 ## The Ultimate Insight
 
@@ -517,4 +517,4 @@ Economic thinking transforms architecture:
 - "Cloud FinOps" - J.R. Storment & Mike Fuller
 - "The Mythical Man-Month" - Fred Brooks (on software economics)
 
-[**← Previous: Law of Cognitive Load**](/part1-axioms/law6-human-api/) | [**→ To Synthesis**](/part1-axioms/synthesis)
+[**← Previous: Law of Cognitive Load**](/part1-axioms/law6-human-api/index) | [**→ To Synthesis**](/part1-axioms/synthesis)

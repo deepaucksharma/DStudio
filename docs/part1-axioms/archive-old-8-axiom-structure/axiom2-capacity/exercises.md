@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](index.md) → **Capacity Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 2](index.md) → **Capacity Exercises**
 
 # Capacity Exercises
 

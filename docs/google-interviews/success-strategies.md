@@ -498,4 +498,4 @@ The best engineers at Google aren't those who memorize solutions. They're those 
 
 Show these qualities, and you'll do great.
 
-[Return to Google Interview Guide](./index.md)
+[Return to Google Interview Guide](/google-interviews/index.md)

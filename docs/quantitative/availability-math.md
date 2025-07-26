@@ -295,7 +295,7 @@ graph TD
  style F fill:#ffd700
 ```
 
-**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](/part1-axioms/law1-failure/) - we can't prevent failures, but we can design systems that survive them.
+**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](/part1-axioms/law1-failure) - we can't prevent failures, but we can design systems that survive them.
 
 ### Law 4: Trade-offs
 - Redundancy requires 2x resources for high availability
@@ -339,7 +339,7 @@ graph LR
 ### The Nines Visualization
 
 ```text
-99% (2 nines): ████████████████████░ 3.65 days/year
+99% (2 nines/index): ████████████████████░ 3.65 days/year
 99.9% (3 nines): ███████████████████▉░ 8.76 hours/year 
 99.99% (4 nines): ████████████████████░ 52.6 minutes/year
 99.999% (5 nines):████████████████████░ 5.26 minutes/year

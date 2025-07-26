@@ -31,91 +31,219 @@ Fault tolerance is like designing an unsinkable ship:
 - **Damage control teams**: Monitoring and repair mechanisms
 - **Lifeboats**: Graceful degradation when all else fails
 
-### Fault Tolerance Hierarchy
+### Fault Tolerance Building Blocks
 
 ```mermaid
 flowchart TB
-    subgraph "Fault Tolerance Layers"
-        P[Prevention<br/>Design for reliability]
-        D[Detection<br/>Monitoring & alerting]
-        I[Isolation<br/>Contain failures]
-        R[Recovery<br/>Restore functionality]
-        A[Adaptation<br/>Learn from failures]
+    subgraph "Fault Tolerance Building Blocks"
+        subgraph "Detection"
+            HC[Health Checks]
+            M[Monitoring]
+            A[Alerting]
+        end
         
-        P --> D
-        D --> I  
-        I --> R
-        R --> A
-        A --> P
+        subgraph "Prevention"
+            V[Input Validation]
+            RL[Rate Limiting]
+            T[Timeouts]
+        end
+        
+        subgraph "Isolation"
+            CB[Circuit Breaker]
+            BH[Bulkhead]
+            FI[Failure Isolation]
+        end
+        
+        subgraph "Recovery"
+            RT[Retry]
+            FO[Failover]
+            GD[Graceful Degradation]
+        end
+        
+        subgraph "Redundancy"
+            AP[Active-Passive]
+            AA[Active-Active]
+            NP[N+1 Protection]
+        end
     end
     
-    style P fill:#e1f5fe
-    style D fill:#fff3e0
-    style I fill:#fce4ec
-    style R fill:#e8f5e8
-    style A fill:#f3e5f5
+    style HC fill:#e1f5fe
+    style CB fill:#fce4ec
+    style RT fill:#e8f5e8
+    style AP fill:#f3e5f5
 ```
 
-### Core Principles
+### Fault Tolerance Principles
 
-```text
-1. Fail-Safe Defaults
-   ❌ System crashes → ❌ No response
-   ✅ Component fails → ✅ Safe fallback
+| Principle | Description | Example |
+|-----------|-------------|----------|
+| **Fail-Fast** | Detect and report failures immediately | Connection timeout after 5s |
+| **Fail-Safe** | Default to safe state on failure | Circuit breaker opens |
+| **Fail-Soft** | Maintain partial functionality | Read-only mode during DB issues |
+| **Fail-Silent** | Stop rather than produce bad output | Crash on data corruption |
+| **Fail-Over** | Switch to backup automatically | Primary → Secondary DB |
 
-2. Redundancy
-   ❌ Single database → ❌ Single point of failure
-   ✅ Multiple replicas → ✅ Automatic failover
+### Fault Tolerance Levels
 
-3. Timeouts & Limits
-   ❌ Infinite wait → ❌ Resource exhaustion
-   ✅ Circuit breakers → ✅ Fast failure
-
-4. Monitoring & Alerting
-   ❌ Silent failures → ❌ Unknown problems
-   ✅ Health checks → ✅ Proactive response
+```mermaid
+graph LR
+    subgraph "Maturity Levels"
+        L0[Level 0<br/>No Tolerance<br/>Single Point of Failure]
+        L1[Level 1<br/>Basic Retry<br/>Simple Error Handling]
+        L2[Level 2<br/>Redundancy<br/>Failover Capability]
+        L3[Level 3<br/>Self-Healing<br/>Automatic Recovery]
+        L4[Level 4<br/>Chaos-Ready<br/>Proven Resilience]
+        
+        L0 --> L1 --> L2 --> L3 --> L4
+    end
+    
+    style L0 fill:#ffcdd2
+    style L1 fill:#ffe0b2
+    style L2 fill:#fff9c4
+    style L3 fill:#dcedc8
+    style L4 fill:#c8e6c9
 ```
 
 ---
 
 ## Level 2: Foundation
 
-### Types of Faults
+### Fault Models
 
-| Fault Type | Examples | Impact | Mitigation |
-|------------|----------|--------|------------|
-| **Hardware** | Disk failure, Memory corruption | Service unavailable | Redundancy, RAID |
-| **Software** | Bugs, Memory leaks | Incorrect behavior | Testing, Monitoring |
-| **Network** | Partitions, Packet loss | Communication failure | Retries, Timeouts |
-| **Human** | Configuration errors | Unpredictable impact | Automation, Validation |
-| **Environmental** | Power outage, Cooling failure | System shutdown | UPS, Multi-DC |
+| Model | Description | Detection | Recovery Strategy |
+|-------|-------------|-----------|-------------------|
+| **Crash Fault** | Process stops responding | Heartbeat timeout | Restart, failover |
+| **Omission Fault** | Messages lost | Missing acknowledgments | Retry, redundant paths |
+| **Timing Fault** | Response too slow | Deadline exceeded | Timeout, circuit breaker |
+| **Byzantine Fault** | Arbitrary behavior | Consensus protocols | Voting, Byzantine consensus |
+| **Network Partition** | Split brain scenario | Quorum loss | Partition tolerance strategy |
 
-
-### Fault Tolerance Patterns
+### Redundancy Strategies
 
 ```mermaid
 graph TB
-    subgraph "Fault Tolerance Pattern Ecosystem"
-        CB[Circuit Breaker<br/>🔌 Stop cascade failures]
-        TO[Timeout<br/>⏰ Bounded waiting]
-        RT[Retry<br/>🔄 Handle transient faults]
-        BH[Bulkhead<br/>🚢 Isolate failures]
-        FO[Failover<br/>🔄 Switch to backup]
-        GD[Graceful Degradation<br/>📉 Reduced functionality]
+    subgraph "Redundancy Models"
+        subgraph "Active-Active"
+            AA1[Server 1<br/>Active]
+            AA2[Server 2<br/>Active]
+            LB1[Load Balancer]
+            LB1 --> AA1
+            LB1 --> AA2
+        end
         
-        CB --> BH
-        TO --> RT
-        RT --> FO
-        BH --> GD
-        FO --> GD
+        subgraph "Active-Passive"
+            AP1[Server 1<br/>Active]
+            AP2[Server 2<br/>Standby]
+            HB[Heartbeat]
+            AP1 -.-> HB -.-> AP2
+        end
+        
+        subgraph "N+1"
+            N1[Server 1]
+            N2[Server 2]
+            N3[Server 3]
+            N4[+1 Spare]
+        end
+        
+        subgraph "2N"
+            P1[Primary DC]
+            P2[Secondary DC]
+            P1 -.-> P2
+        end
+    end
+```
+
+| Strategy | Description | Cost | Complexity | Use Case |
+|----------|-------------|------|------------|----------|
+| **Active-Active** | All nodes handle traffic | High | High | Maximum availability |
+| **Active-Passive** | Standby ready to take over | Medium | Medium | Cost-effective HA |
+| **N+1** | One spare for N units | Low | Low | Hardware redundancy |
+| **2N** | Full duplicate system | Very High | High | Disaster recovery |
+| **N+M** | M spares for N units | Medium | Medium | Large scale systems |
+
+### Recovery Mechanisms
+
+```mermaid
+flowchart LR
+    subgraph "Recovery Strategies"
+        subgraph "Checkpointing"
+            CP1[Normal<br/>Operation]
+            CP2[Save<br/>Checkpoint]
+            CP3[Failure]
+            CP4[Restore<br/>Checkpoint]
+            CP1 --> CP2 --> CP1
+            CP1 --> CP3 --> CP4 --> CP1
+        end
+        
+        subgraph "Log Replay"
+            LR1[Write<br/>Ahead Log]
+            LR2[Failure]
+            LR3[Replay<br/>Log]
+            LR4[Resume]
+            LR1 --> LR2 --> LR3 --> LR4
+        end
+        
+        subgraph "State Transfer"
+            ST1[Primary]
+            ST2[Sync State]
+            ST3[Secondary]
+            ST4[Takeover]
+            ST1 --> ST2 --> ST3
+            ST3 --> ST4
+        end
+    end
+```
+
+| Mechanism | RPO | RTO | Storage Overhead | Use Case |
+|-----------|-----|-----|------------------|----------|
+| **Synchronous Replication** | 0 | Seconds | 2x | Financial transactions |
+| **Asynchronous Replication** | Seconds | Minutes | 2x | General purpose |
+| **Periodic Checkpoints** | Minutes | Minutes | Variable | Batch processing |
+| **Continuous Checkpoints** | Seconds | Seconds | High | Stream processing |
+| **Log-based Recovery** | 0 | Minutes | Log size | Databases |
+
+
+### Fault Tolerance Pattern Ecosystem
+
+```mermaid
+graph TB
+    subgraph "Core Patterns"
+        subgraph "Detection Patterns"
+            HC[Health Check<br/>Monitor component health]
+            HB[Heartbeat<br/>Detect process failures]
+            WD[Watchdog<br/>Detect hangs]
+        end
+        
+        subgraph "Prevention Patterns"
+            CB[Circuit Breaker<br/>Stop cascade failures]
+            TO[Timeout<br/>Bounded waiting]
+            RL[Rate Limiter<br/>Prevent overload]
+        end
+        
+        subgraph "Recovery Patterns"
+            RT[Retry<br/>Handle transient faults]
+            FO[Failover<br/>Switch to backup]
+            GD[Graceful Degradation<br/>Reduced functionality]
+        end
+        
+        subgraph "Isolation Patterns"
+            BH[Bulkhead<br/>Isolate failures]
+            SV[Supervisor<br/>Restart failed components]
+            QU[Quarantine<br/>Isolate misbehaving nodes]
+        end
     end
     
+    HC --> CB
+    CB --> RT
+    RT --> FO
+    BH --> GD
+    TO --> RT
+    WD --> SV
+    
+    style HC fill:#e1f5fe
     style CB fill:#ff9999
-    style TO fill:#99ccff
     style RT fill:#99ff99
     style BH fill:#ffcc99
-    style FO fill:#ff99ff
-    style GD fill:#cccccc
 ```
 
 ### Implementation Framework
@@ -293,6 +421,100 @@ class FaultTolerantComponent:
 ---
 
 ## Level 3: Deep Dive
+
+### Availability Calculations
+
+```python
+class AvailabilityCalculator:
+    """Calculate system availability with various configurations"""
+    
+    def calculate_availability(self, component_availability: float, 
+                             redundancy_type: str, 
+                             num_components: int) -> float:
+        """Calculate overall system availability"""
+        
+        if redundancy_type == "series":
+            # All components must work
+            return component_availability ** num_components
+            
+        elif redundancy_type == "parallel":
+            # At least one component must work
+            failure_rate = 1 - component_availability
+            system_failure = failure_rate ** num_components
+            return 1 - system_failure
+            
+        elif redundancy_type == "2_out_of_3":
+            # At least 2 out of 3 must work
+            p = component_availability
+            return 3 * p**2 * (1-p) + p**3
+            
+        elif redundancy_type == "active_standby":
+            # Primary + standby with switchover reliability
+            switchover_reliability = 0.99
+            return component_availability + \
+                   (1 - component_availability) * \
+                   component_availability * \
+                   switchover_reliability
+
+# Real-world examples
+calc = AvailabilityCalculator()
+
+# Single server (no redundancy)
+single = calc.calculate_availability(0.99, "series", 1)
+print(f"Single server (99% uptime): {single:.4%} availability")
+print(f"Downtime per year: {(1-single)*365*24:.1f} hours\n")
+
+# Active-Active (2 servers)
+active_active = calc.calculate_availability(0.99, "parallel", 2)
+print(f"Active-Active (2x 99% servers): {active_active:.4%} availability")
+print(f"Downtime per year: {(1-active_active)*365*24:.1f} hours\n")
+
+# 2-out-of-3 voting
+voting = calc.calculate_availability(0.99, "2_out_of_3", 3)
+print(f"2-out-of-3 voting (99% servers): {voting:.4%} availability")
+print(f"Downtime per year: {(1-voting)*365*24:.1f} hours\n")
+
+# Active-Standby
+active_standby = calc.calculate_availability(0.99, "active_standby", 2)
+print(f"Active-Standby (99% servers): {active_standby:.4%} availability")
+print(f"Downtime per year: {(1-active_standby)*365*24:.1f} hours")
+```
+
+### Cost vs Resilience Trade-offs
+
+```mermaid
+graph LR
+    subgraph "Cost-Resilience Analysis"
+        subgraph "Low Cost"
+            LC1[Single Instance<br/>99% uptime<br/>87.6h downtime/year]
+            LC2[Basic Retry<br/>99.5% uptime<br/>43.8h downtime/year]
+        end
+        
+        subgraph "Medium Cost"
+            MC1[Active-Standby<br/>99.9% uptime<br/>8.76h downtime/year]
+            MC2[Regional Redundancy<br/>99.95% uptime<br/>4.38h downtime/year]
+        end
+        
+        subgraph "High Cost"
+            HC1[Active-Active Multi-Region<br/>99.99% uptime<br/>52.6min downtime/year]
+            HC2[Global Distribution<br/>99.999% uptime<br/>5.26min downtime/year]
+        end
+        
+        LC1 -->|+50% cost| MC1
+        MC1 -->|+100% cost| HC1
+        LC2 -->|+75% cost| MC2
+        MC2 -->|+150% cost| HC2
+    end
+```
+
+| Configuration | Availability | Annual Downtime | Relative Cost | Use Case |
+|---------------|--------------|-----------------|---------------|----------|
+| **Single Instance** | 99% | 3.65 days | 1x | Development |
+| **Primary + Cold Standby** | 99.5% | 1.83 days | 1.2x | Non-critical |
+| **Primary + Warm Standby** | 99.9% | 8.76 hours | 1.5x | Business apps |
+| **Active-Active (2 nodes)** | 99.99% | 52.6 minutes | 2x | E-commerce |
+| **Active-Active (3 nodes)** | 99.999% | 5.26 minutes | 3x | Financial |
+| **Geo-distributed (5 regions)** | 99.9999% | 31.5 seconds | 5x+ | Critical infra |
 
 ### Advanced Fault Tolerance Patterns
 
@@ -528,7 +750,7 @@ class FaultTolerantStateMachine:
 # Use fault handler if available
         if self.current_state in self.fault_handlers:
             try:
-                await self.fault_handlers[self.current_state](exception, event, context)
+                await self.fault_handlersself.current_state
             except Exception as handler_error:
                 logging.critical(f"Fault handler failed: {handler_error}")
 # Fall back to safe state
@@ -703,6 +925,80 @@ class HierarchicalFaultDetector:
 
 ## Level 4: Expert
 
+### Real-World Examples
+
+#### AWS Multi-AZ RDS
+```mermaid
+flowchart TB
+    subgraph "AWS Multi-AZ RDS Architecture"
+        subgraph "AZ-1"
+            P[Primary DB]
+            EBS1[EBS Storage]
+            P --> EBS1
+        end
+        
+        subgraph "AZ-2"
+            S[Standby DB]
+            EBS2[EBS Storage]
+            S --> EBS2
+        end
+        
+        SYNC[Synchronous<br/>Replication]
+        P --> SYNC --> S
+        
+        DNS[RDS Endpoint<br/>DNS]
+        APP[Application]
+        
+        APP --> DNS
+        DNS --> P
+        DNS -.->|Failover| S
+    end
+```
+
+**Fault Tolerance Features:**
+- Synchronous replication (RPO = 0)
+- Automatic failover (RTO < 60 seconds)
+- 99.95% SLA availability
+- Transparent to applications
+
+#### Google Spanner
+```mermaid
+flowchart TB
+    subgraph "Spanner Global Distribution"
+        subgraph "Region 1"
+            L1[Leader]
+            F1[Follower]
+            F2[Follower]
+        end
+        
+        subgraph "Region 2"
+            F3[Follower]
+            F4[Follower]
+            W1[Witness]
+        end
+        
+        subgraph "Region 3"
+            F5[Follower]
+            F6[Follower]
+            W2[Witness]
+        end
+        
+        L1 --> F1 & F2 & F3 & F4 & F5 & F6
+        
+        subgraph "Consensus"
+            PAXOS[Paxos<br/>Consensus]
+        end
+        
+        L1 & F1 & F2 & F3 & F4 --> PAXOS
+    end
+```
+
+**Fault Tolerance Features:**
+- Survives zone, region failures
+- 99.999% availability (multi-region)
+- Automatic re-election on leader failure
+- Consistent despite partitions
+
 ### Production Case Study: Netflix's Fault Tolerance
 
 Netflix processes 1B+ hours of video daily with 99.9%+ availability using sophisticated fault tolerance.
@@ -774,7 +1070,7 @@ class NetflixFaultTolerance:
                 lambda: self._call_user_service(user_id)
             )
         except:
-            return await service['fallback'](user_id)
+            return await service'fallback'
     
     async def _get_recommendations_safe(self, user_id: str) -> List[Dict[str, Any]]:
         """Get recommendations with multiple fallback strategies"""
@@ -792,7 +1088,7 @@ class NetflixFaultTolerance:
                 return cached
             
 # Fallback to popular content
-            return await service['fallback'](user_id)
+            return await service'fallback'
     
     async def _user_fallback(self, user_id: str) -> Dict[str, Any]:
         """Fallback user profile data"""
@@ -951,6 +1247,169 @@ class FaultToleranceMetrics:
 ---
 
 ## Level 5: Mastery
+
+### Fault Injection Testing
+
+```python
+class FaultInjector:
+    """Systematic fault injection for testing"""
+    
+    def __init__(self):
+        self.fault_scenarios = [
+            {"name": "network_delay", "probability": 0.1, "impact": "latency"},
+            {"name": "connection_error", "probability": 0.05, "impact": "error"},
+            {"name": "timeout", "probability": 0.02, "impact": "timeout"},
+            {"name": "corrupt_response", "probability": 0.01, "impact": "corruption"},
+            {"name": "partial_failure", "probability": 0.03, "impact": "partial"}
+        ]
+    
+    async def inject_fault(self, operation: Callable, fault_type: str = None):
+        """Inject fault into operation"""
+        
+        # Determine if fault should be injected
+        if fault_type:
+            scenario = next((s for s in self.fault_scenarios 
+                           if s["name"] == fault_type), None)
+        else:
+            # Random fault based on probability
+            scenario = self._select_random_fault()
+        
+        if scenario:
+            return await self._apply_fault(operation, scenario)
+        else:
+            return await operation()
+    
+    def _select_random_fault(self):
+        """Select fault based on probability"""
+        rand = random.random()
+        cumulative = 0
+        
+        for scenario in self.fault_scenarios:
+            cumulative += scenario["probability"]
+            if rand < cumulative:
+                return scenario
+        
+        return None
+    
+    async def _apply_fault(self, operation: Callable, scenario: Dict):
+        """Apply specific fault scenario"""
+        
+        if scenario["impact"] == "latency":
+            # Add 1-5 second delay
+            delay = random.uniform(1, 5)
+            await asyncio.sleep(delay)
+            return await operation()
+            
+        elif scenario["impact"] == "error":
+            # Throw connection error
+            raise ConnectionError(f"Injected fault: {scenario['name']}")
+            
+        elif scenario["impact"] == "timeout":
+            # Simulate timeout
+            raise asyncio.TimeoutError(f"Injected fault: {scenario['name']}")
+            
+        elif scenario["impact"] == "corruption":
+            # Return corrupted data
+            result = await operation()
+            if isinstance(result, dict):
+                result["corrupted"] = True
+            return result
+            
+        elif scenario["impact"] == "partial":
+            # Return partial results
+            result = await operation()
+            if isinstance(result, list) and len(result) > 1:
+                return result[:len(result)//2]
+            return result
+
+# Example usage in tests
+async def test_fault_tolerance():
+    injector = FaultInjector()
+    fault_tolerant_service = FaultTolerantComponent("test_service")
+    
+    # Test specific fault scenarios
+    for fault_type in ["network_delay", "connection_error", "timeout"]:
+        try:
+            result = await fault_tolerant_service.execute_with_fault_tolerance(
+                lambda: injector.inject_fault(actual_operation, fault_type)
+            )
+            print(f"Service handled {fault_type} successfully")
+        except Exception as e:
+            print(f"Service failed on {fault_type}: {e}")
+```
+
+### Byzantine Fault Tolerance
+
+```python
+class ByzantineFaultTolerance:
+    """Byzantine fault tolerant consensus"""
+    
+    def __init__(self, num_nodes: int):
+        self.num_nodes = num_nodes
+        self.f = (num_nodes - 1) // 3  # Max Byzantine nodes
+        self.min_votes = 2 * self.f + 1  # Minimum votes needed
+        
+    def can_tolerate_byzantine_faults(self) -> bool:
+        """Check if configuration can tolerate Byzantine faults"""
+        return self.num_nodes >= 3 * self.f + 1
+    
+    def byzantine_consensus(self, votes: Dict[str, Any]) -> Optional[Any]:
+        """Achieve consensus despite Byzantine nodes"""
+        
+        if len(votes) < self.min_votes:
+            return None  # Not enough votes
+        
+        # Count votes for each value
+        vote_counts = {}
+        for node, value in votes.items():
+            if value not in vote_counts:
+                vote_counts[value] = 0
+            vote_counts[value] += 1
+        
+        # Find value with enough votes
+        for value, count in vote_counts.items():
+            if count >= self.min_votes:
+                return value
+        
+        return None  # No consensus
+    
+    def pbft_phases(self, request: Any) -> Dict[str, Any]:
+        """Practical Byzantine Fault Tolerance phases"""
+        
+        phases = {
+            "pre_prepare": {
+                "leader_sends": request,
+                "to": "all replicas"
+            },
+            "prepare": {
+                "replicas_exchange": "prepare messages",
+                "wait_for": f"{self.min_votes} matching prepares"
+            },
+            "commit": {
+                "replicas_exchange": "commit messages",
+                "wait_for": f"{self.min_votes} matching commits",
+                "then": "execute request"
+            }
+        }
+        
+        return phases
+
+# Example: 4-node system (tolerates 1 Byzantine node)
+bft = ByzantineFaultTolerance(4)
+print(f"4-node system can tolerate {bft.f} Byzantine nodes")
+print(f"Needs {bft.min_votes} votes for consensus")
+
+# Voting example
+votes = {
+    "node1": "value_A",
+    "node2": "value_A", 
+    "node3": "value_A",
+    "node4": "value_B"  # Byzantine node
+}
+
+consensus = bft.byzantine_consensus(votes)
+print(f"Consensus reached: {consensus}")
+```
 
 ### Theoretical Foundations
 
@@ -1203,48 +1662,119 @@ for key, value in roi_analysis.items():
 
 ## Quick Reference
 
+### Pattern Selection Guide
+
+```mermaid
+flowchart TD
+    Start[Identify Fault Type]
+    Start --> Transient{Transient?}
+    Start --> Permanent{Permanent?}
+    Start --> Byzantine{Byzantine?}
+    
+    Transient -->|Yes| Retry[Use: Retry + Backoff]
+    Transient -->|Network| CB[Use: Circuit Breaker]
+    
+    Permanent -->|Yes| Failover[Use: Failover]
+    Permanent -->|Partial| Degrade[Use: Graceful Degradation]
+    
+    Byzantine -->|Yes| Consensus[Use: Byzantine Consensus]
+    Byzantine -->|State| Vote[Use: Voting/Quorum]
+    
+    Retry --> Monitor[Add: Monitoring]
+    CB --> Monitor
+    Failover --> Monitor
+    Degrade --> Monitor
+    Consensus --> Monitor
+    Vote --> Monitor
+```
+
 ### Fault Tolerance Decision Matrix
 
 | System Type | Recommended Patterns | Availability Target | Implementation Complexity |
 |-------------|---------------------|-------------------|-------------------------|
-| **Critical Infrastructure** | Circuit Breaker + Bulkhead + Failover | 99.99% | High |
-| **E-commerce** | Retry + Timeout + Graceful Degradation | 99.9% | Medium |
-| **Content Delivery** | Circuit Breaker + Caching + Multi-Region | 99.95% | High |
+| **Payment Processing** | Byzantine FT + Sync Replication + Audit | 99.999% | Very High |
+| **Video Streaming** | CDN + Graceful Degradation + Caching | 99.9% | Medium |
+| **Search Engine** | Partial Results + Timeout + Sharding | 99.95% | High |
+| **IoT Platform** | Edge Computing + Store-Forward + Eventual Consistency | 99% | Medium |
+| **Gaming Backend** | Regional Sharding + Fast Failover + State Sync | 99.9% | High |
+| **Critical Infrastructure** | 2N Redundancy + Formal Verification + Byzantine FT | 99.999% | Very High |
+| **E-commerce** | Active-Standby + Circuit Breaker + Degradation | 99.9% | Medium |
 | **Internal Tools** | Basic Retry + Health Checks | 99.5% | Low |
-| **Real-time Systems** | Redundancy + Fast Failover | 99.999% | Very High |
+| **Real-time Trading** | Hot-Hot + Deterministic Replay + Zero RPO | 99.999% | Very High |
 
 
 ### Implementation Checklist
 
-- [ ] Identify critical failure modes and their impact
-- [ ] Implement appropriate redundancy levels
-- [ ] Add circuit breakers for external dependencies
-- [ ] Design graceful degradation strategies
-- [ ] Implement comprehensive health monitoring
-- [ ] Create automated recovery procedures
-- [ ] Test fault tolerance regularly (chaos engineering)
-- [ ] Monitor fault tolerance effectiveness
-- [ ] Document incident response procedures
+#### Planning Phase
+- [ ] Identify all failure modes (hardware, software, network, human)
+- [ ] Classify faults (transient, intermittent, permanent)
+- [ ] Define availability targets and SLOs
+- [ ] Calculate cost-benefit for each redundancy level
+- [ ] Design degradation strategy for each component
+
+#### Implementation Phase  
+- [ ] Implement health checks at multiple levels
+- [ ] Add timeouts to all external calls
+- [ ] Deploy circuit breakers for dependencies
+- [ ] Set up retry logic with exponential backoff
+- [ ] Configure bulkheads for failure isolation
+- [ ] Implement failover mechanisms
+- [ ] Add comprehensive logging and metrics
+
+#### Testing Phase
+- [ ] Unit test fault handling code
+- [ ] Integration test failover scenarios
+- [ ] Chaos engineering in staging
+- [ ] Load test under failure conditions
+- [ ] Game day exercises in production
+
+#### Operations Phase
+- [ ] Monitor fault tolerance metrics
+- [ ] Regular failover drills
+- [ ] Update runbooks based on incidents
 - [ ] Train team on fault handling
+- [ ] Review and improve based on post-mortems
 
 ### Common Anti-Patterns
 
-1. **Over-Engineering**: Adding unnecessary complexity for low-risk scenarios
-2. **Silent Failures**: Faults that don't trigger alerts or recovery
-3. **Cascading Failures**: Faults in one component bringing down others
-4. **Testing in Production Only**: Not testing fault tolerance in lower environments
-5. **Manual Recovery**: Relying on humans for time-critical recovery actions
+| Anti-Pattern | Description | Example | Better Approach |
+|--------------|-------------|---------|----------------|
+| **Retry Storms** | Unbounded retries overwhelm system | Infinite retry loop | Exponential backoff with jitter |
+| **Timeout Cascade** | Nested timeouts cause premature failures | 5s timeout calling 10s timeout | Propagate deadline context |
+| **Split Brain** | Multiple masters during partition | Both nodes think they're primary | Use proper leader election |
+| **False Positives** | Healthy services marked as failed | Aggressive health checks | Adaptive thresholds |
+| **Poison Pills** | Bad data crashes all replicas | Malformed message in queue | Input validation + quarantine |
+| **Thundering Herd** | All clients retry simultaneously | Cache expires, all fetch | Jittered retries + cache warming |
+| **Failover Loops** | Continuous failover between unhealthy nodes | A→B→A→B... | Cooldown periods + history |
+| **Silent Failures** | Faults without alerts | Exception swallowed | Comprehensive monitoring |
+| **Manual Recovery** | Human intervention required | On-call fixes at 3 AM | Automated recovery procedures |
+| **Testing in Prod Only** | First failure test is real outage | No staging tests | Chaos engineering pipeline |
 
 ---
 
 ## Related Patterns
 
-- [Circuit Breaker](circuit-breaker.md) - Preventing cascading failures
-- [Bulkhead](bulkhead.md) - Isolating failures to prevent spread
-- [Retry & Backoff](retry-backoff.md) - Handling transient failures
-- [Health Check](health-check.md) - Detecting failures quickly
-- [Failover](failover.md) - Switching to backup systems
-- [Graceful Degradation](graceful-degradation.md) - Maintaining partial functionality
+### Core Fault Tolerance Patterns
+- [Circuit Breaker](circuit-breaker.md) - Stop cascading failures and provide fast failure
+- [Bulkhead](bulkhead.md) - Isolate failures to prevent system-wide impact
+- [Retry & Backoff](retry-backoff.md) - Handle transient failures automatically
+- [Timeout](timeout.md) - Bound wait times and prevent resource exhaustion
+
+### Detection & Monitoring Patterns
+- [Health Check](health-check.md) - Proactive failure detection
+- [Heartbeat](heartbeat.md) - Detect process failures quickly
+- [Watchdog](watchdog.md) - Detect and recover from hangs
+
+### Recovery & Redundancy Patterns  
+- [Failover](failover.md) - Automatic switching to backup systems
+- [Graceful Degradation](graceful-degradation.md) - Maintain core functionality
+- [Compensating Transaction](compensating-transaction.md) - Undo failed operations
+- [Leader Election](leader-election.md) - Coordinate distributed decisions
+
+### Related Architectural Concepts
+- [Chaos Engineering](../human-factors/chaos-engineering.md) - Test fault tolerance
+- [Site Reliability Engineering](../human-factors/sre.md) - Operational excellence
+- [Distributed Consensus](../part2-pillars/truth-distribution/index.md) - Agreement despite failures
 
 ---
 

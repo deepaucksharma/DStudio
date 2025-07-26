@@ -25,9 +25,9 @@ Social network models analyze the structure and dynamics of social graphs, inclu
 - Distributed social networks
 
 ## Related Models
-- [Graph Models](./graph-models.md)
-- [Network Theory](./network-theory.md)
-- [Power Laws](./power-laws.md)
+- [Graph Models](graph-models.md)
+- [Network Theory](network-theory.md)
+- [Power Laws](power-laws.md)
 
 ## References
 - "The Structure and Function of Complex Networks" - Newman (2003)

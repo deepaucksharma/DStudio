@@ -39,7 +39,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Formal temporal logic and partial ordering
 - The unknowability of the present in distributed systems
 
-**Find it here:** [Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/)
+**Find it here:** [Law of Asynchronous Reality](/part1-axioms/law2-asynchrony)
 
 ### Old Law 2: Finite Capacity → Distributed Across Multiple Laws
 
@@ -61,11 +61,11 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 **Key concepts added:**
 - Correlated failures from shared dependencies
-- Gray failures (partial degradation)
+- Gray failures (partial degradation/index)
 - Metastable failure states
 - Cascading failure analysis
 
-**Find it here:** [Law of Correlated Failure](/part1-axioms/law1-failure/)
+**Find it here:** [Law of Correlated Failure](/part1-axioms/law1-failure/index)
 
 ### Old Law 4: Concurrency → New Law 3: Emergence
 
@@ -79,7 +79,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Non-linear dynamics and tipping points
 - Chaos engineering as a response to emergence
 
-**Find it here:** [Law of Emergent Chaos](/part1-axioms/law3-emergence/)
+**Find it here:** [Law of Emergent Chaos](/part1-axioms/law3-emergence/index)
 
 ### Old Law 5: Coordination → New Law 4: Trade-offs
 
@@ -93,7 +93,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Non-linear trade-off surfaces
 - Context-dependent optimization
 
-**Find it here:** [Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)
+**Find it here:** [Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs)
 
 ### Old Law 6: Observability → New Law 5: Epistemology
 
@@ -104,10 +104,10 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 **Key concepts added:**
 - Levels of distributed knowledge
-- Probabilistic certainty (Bloom filters, HyperLogLog)
+- Probabilistic certainty (Bloom filters, HyperLogLog/index)
 - The cost of certainty in distributed systems
 
-**Find it here:** [Law of Distributed Knowledge](/part1-axioms/law5-epistemology/)
+**Find it here:** [Law of Distributed Knowledge](/part1-axioms/law5-epistemology/index)
 
 ### Old Law 7: Human Interface → New Law 6: Human-API
 
@@ -121,7 +121,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Cognitive load of different consistency models
 - Observability as user interface design
 
-**Find it here:** [Law of Cognitive Load](/part1-axioms/law6-human-api/)
+**Find it here:** [Law of Cognitive Load](/part1-axioms/law6-human-api/index)
 
 ### Old Law 7: Economics → New Law 7: Economics
 
@@ -135,7 +135,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Economic modeling of architectural choices
 - Cost-aware system design
 
-**Find it here:** [Law of Economic Reality](/part1-axioms/law7-economics/)
+**Find it here:** [Law of Economic Reality](/part1-axioms/law7-economics)
 
 ## Why the Framework Was Restructured
 
@@ -183,20 +183,20 @@ The old laws were empirical observations. The new laws are grounded in formal th
 1. The multidimensional trade-off model (Law 4) revolutionizes design decisions
 2. Correlated failure analysis (Law 1) improves reliability planning
 3. Economic modeling (Law 7) helps justify architectural choices
-4. Cognitive load (Law 6) informs API and tool design
+4. Cognitive load (Law 6/index) informs API and tool design
 
 ## Quick Navigation
 
 ### If you're looking for content on...
 
-- **Latency, RTT, speed of light** → [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)
-- **Capacity planning, limits** → [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/) and [Law 7: Economics](/part1-axioms/law7-economics/)
-- **Failure modes, fault tolerance** → [Law 1: Failure](/part1-axioms/law1-failure/)
-- **Race conditions, concurrency** → [Law 3: Emergence](/part1-axioms/law3-emergence/)
-- **Consensus, coordination** → [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/) and [Law 5: Knowledge](/part1-axioms/law5-epistemology/)
-- **Monitoring, observability** → [Law 5: Epistemology](/part1-axioms/law5-epistemology/)
-- **UX, operations, tooling** → [Law 6: Human-API](/part1-axioms/law6-human-api/)
-- **Cost, resources, scaling** → [Law 7: Economics](/part1-axioms/law7-economics/)
+- **Latency, RTT, speed of light** → [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)
+- **Capacity planning, limits** → [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/index) and [Law 7: Economics](/part1-axioms/law7-economics/index)
+- **Failure modes, fault tolerance** → [Law 1: Failure](/part1-axioms/law1-failure/index)
+- **Race conditions, concurrency** → [Law 3: Emergence](/part1-axioms/law3-emergence/index)
+- **Consensus, coordination** → [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/index) and [Law 5: Knowledge](/part1-axioms/law5-epistemology/index)
+- **Monitoring, observability** → [Law 5: Epistemology](/part1-axioms/law5-epistemology/index)
+- **UX, operations, tooling** → [Law 6: Human-API](/part1-axioms/law6-human-api/index)
+- **Cost, resources, scaling** → [Law 7: Economics](/part1-axioms/law7-economics/index)
 
 ## Archived Content
 

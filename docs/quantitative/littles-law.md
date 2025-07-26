@@ -40,6 +40,111 @@ last_updated: 2025-07-20
  
  **Twitter (2010)**: λ=3,283 tweets/s × W=5s → L=16,415 tweets queued → Fail Whale
 
+## Interactive Little's Law Calculator
+
+<div class="calculator-tool">
+<form id="littlesLawCalc">
+ <h3>Calculate Missing Values</h3>
+ <p>Enter any two values to calculate the third:</p>
+ 
+ <label for="arrivalRate">Arrival Rate (λ) - items/second:</label>
+ <input type="number" id="arrivalRate" min="0" step="0.1" placeholder="e.g., 100"/>
+ 
+ <label for="avgItems">Average Items in System (L):</label>
+ <input type="number" id="avgItems" min="0" step="0.1" placeholder="e.g., 50"/>
+ 
+ <label for="avgTime">Average Time in System (W) - seconds:</label>
+ <input type="number" id="avgTime" min="0" step="0.01" placeholder="e.g., 0.5"/>
+ 
+ <button type="button" onclick="calculateLittlesLaw()" class="calc-button">Calculate</button>
+</form>
+
+<div id="littlesResults" class="results-panel" style="display: none;">
+ <h3>Results</h3>
+ <div class="summary-card">
+ <div class="card-header">Little's Law Calculation</div>
+ <div id="resultFormula" style="font-size: 1.2em; margin: 1rem 0;"></div>
+ <div id="resultExplanation"></div>
+ </div>
+ 
+ <div id="resultInsights" style="margin-top: 1rem;"></div>
+</div>
+</div>
+
+<script>
+function calculateLittlesLaw() {
+ const lambda = parseFloat(document.getElementById('arrivalRate').value);
+ const L = parseFloat(document.getElementById('avgItems').value);
+ const W = parseFloat(document.getElementById('avgTime').value);
+ 
+ let result = '';
+ let formula = '';
+ let explanation = '';
+ let insights = '';
+ 
+ // Count how many values were provided
+ const providedCount = [lambda, L, W].filter(v => !isNaN(v) && v >= 0).length;
+ 
+ if (providedCount < 2) {
+ alert('Please provide at least 2 values to calculate the third');
+ return;
+ } else if (providedCount === 3) {
+ // Verify the relationship
+ const calculated_L = lambda * W;
+ const error = Math.abs(calculated_L - L) / L * 100;
+ if (error < 1) {
+ explanation = '✅ The values satisfy Little\'s Law!';
+ } else {
+ explanation = `⚠️ The values don't quite match. L should be ${calculated_L.toFixed(2)} for the given λ and W.`;
+ }
+ formula = `${L} = ${lambda} × ${W}`;
+ } else {
+ // Calculate the missing value
+ if (isNaN(lambda) || lambda < 0) {
+ // Calculate arrival rate
+ const calculated_lambda = L / W;
+ formula = `λ = L / W = ${L} / ${W} = ${calculated_lambda.toFixed(2)}`;
+ explanation = `Arrival rate: ${calculated_lambda.toFixed(2)} items/second`;
+ 
+ // Insights
+ if (calculated_lambda > 1000) {
+ insights = '💡 High arrival rate detected. Consider load balancing or horizontal scaling.';
+ }
+ } else if (isNaN(L) || L < 0) {
+ // Calculate average items
+ const calculated_L = lambda * W;
+ formula = `L = λ × W = ${lambda} × ${W} = ${calculated_L.toFixed(2)}`;
+ explanation = `Average items in system: ${calculated_L.toFixed(2)}`;
+ 
+ // Insights
+ if (calculated_L > 1000) {
+ insights = '💡 Large queue size. System may be overloaded. Consider adding capacity.';
+ } else if (calculated_L < 1) {
+ insights = '💡 Very low queue size. System is underutilized.';
+ }
+ } else if (isNaN(W) || W < 0) {
+ // Calculate average time
+ const calculated_W = L / lambda;
+ formula = `W = L / λ = ${L} / ${lambda} = ${calculated_W.toFixed(3)}`;
+ explanation = `Average time in system: ${calculated_W.toFixed(3)} seconds`;
+ 
+ // Insights
+ if (calculated_W > 10) {
+ insights = '💡 High latency detected. Consider optimizing processing time or adding servers.';
+ } else if (calculated_W < 0.1) {
+ insights = '💡 Excellent response time! System is performing well.';
+ }
+ }
+ }
+ 
+ // Display results
+ document.getElementById('resultFormula').innerHTML = formula;
+ document.getElementById('resultExplanation').innerHTML = explanation;
+ document.getElementById('resultInsights').innerHTML = insights;
+ document.getElementById('littlesResults').style.display = 'block';
+}
+</script>
+
 ## Applications in Distributed Systems
 
 ### 1. Thread Pool Sizing
@@ -617,7 +722,7 @@ graph LR
  style C fill:#ff6b6b
 ```
 
-**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/).
+**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/index).
 
 ### Law 4: Trade-offs
 !!! danger "⚠️ Capacity Overflow Scenario"
