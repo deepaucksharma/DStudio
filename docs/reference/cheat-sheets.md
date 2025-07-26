@@ -195,10 +195,107 @@ graph TD
 
 ## Testing Strategies
 
-### Testing Strategies
+### Chaos Engineering
 
 **Chaos**: Kill instances, Add latency, Fail dependencies, Network partitions, Resource exhaustion
 
 **Load**: Baseline (1x), Peak (2-3x), Spike (10x), Soak (extended), Failure (with outages)
 
+**Verification**: Error budgets maintained, Alerts fired correctly, Recovery successful, No data loss
+
 ---
+
+## Quick Formulas
+
+### Replication Factor
+- **2N+1 Rule**: Need 2N+1 nodes to tolerate N failures
+- **Quorum**: (N/2) + 1 nodes must agree
+- **Example**: 5 nodes = tolerate 2 failures, need 3 for quorum
+
+### Storage Calculations
+- **RAID 5**: Capacity = (N-1) × disk size, Read = N×, Write = (N-1)×
+- **RAID 6**: Capacity = (N-2) × disk size, tolerates 2 disk failures
+- **3-way replication**: 3× storage cost, any 2 can fail
+
+### Network Calculations
+- **Bandwidth**: Mbps = (bytes × 8) / (seconds × 1,000,000)
+- **Latency budget**: User limit (100ms) - Network (20ms) - Processing (30ms) = 50ms for services
+- **Connection pool**: Pool size = (RPS × Response Time) / Utilization target
+
+---
+
+## Architecture Decision Records (ADR)
+
+### ADR Template
+```
+# Title: Short noun phrase
+
+## Status
+[Proposed | Accepted | Deprecated | Superseded]
+
+## Context
+What is the issue that we're seeing that is motivating this decision?
+
+## Decision
+What is the change that we're proposing/doing?
+
+## Consequences
+What becomes easier or harder because of this change?
+```
+
+### Common Trade-offs
+- **Consistency vs Availability**: Strong → CP, Eventual → AP
+- **Latency vs Throughput**: Batching increases throughput but latency
+- **Cost vs Performance**: Caching costs memory but saves compute
+- **Simplicity vs Flexibility**: Abstractions hide complexity but limit control
+
+---
+
+## Security Checklist
+
+### Zero Trust Principles
+- **Never trust**: Verify every request, even internal
+- **Least privilege**: Minimum permissions required
+- **Defense in depth**: Multiple security layers
+- **Assume breach**: Design for compromise containment
+
+### Quick Security Audit
+- [ ] TLS everywhere (including internal)
+- [ ] Secrets in vault, not config
+- [ ] API keys rotate automatically
+- [ ] Audit logs tamper-proof
+- [ ] Rate limiting on all endpoints
+- [ ] Input validation whitelist-based
+
+---
+
+## Distributed Systems Laws Summary
+
+### The 7 Fundamental Laws
+1. **Correlated Failure 🔥**: Failures cluster and cascade
+2. **Asynchronous Reality ⏱️**: The speed of light is finite
+3. **Emergent Chaos 🌪️**: Systems have emergent behaviors
+4. **Multidimensional Optimization ⚖️**: Trade-offs in multiple dimensions
+5. **Distributed Knowledge 🧠**: No single source of truth
+6. **Cognitive Load 🤯**: Must fit human mental capacity
+7. **Economic Reality 💰**: Cost constrains everything
+
+### The 5 Pillars
+1. **Work Distribution**: Computation across nodes
+2. **State Distribution**: Data across locations
+3. **Truth Distribution**: Consensus and consistency
+4. **Control Distribution**: Coordination and orchestration
+5. **Intelligence Distribution**: ML and decision-making
+
+---
+
+## Next Steps
+
+- Review [Patterns Index](../patterns/index.md) for implementation details
+- Use [Calculators](../tools/consistency-calculator.md) for specific scenarios
+- Practice with [Case Studies](../case-studies/index.md) 
+- Build mental models with [Recipe Cards](recipe-cards.md)
+
+---
+
+*Quick reference designed for rapid lookup during incidents and architecture reviews.*

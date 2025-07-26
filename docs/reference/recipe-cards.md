@@ -433,6 +433,271 @@ last_updated: 2025-07-20
 
 **Tools**: [Capacity Planning Calculator](/tools/capacity-calculator), [Little's Law Calculator](/tools/latency-calculator)
 
+---
+
+### Recipe: Distributed Tracing Implementation
+
+**Difficulty**: ⭐⭐⭐ | **Time**: 4-6 hours
+
+1. **Install Tracing Infrastructure**
+   ```bash
+   # Deploy Jaeger using Helm
+   helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+   helm install jaeger jaegertracing/jaeger \
+     --set cassandra.config.max_heap_size=1024M \
+     --set cassandra.config.heap_new_size=256M
+   ```
+
+2. **Instrument Applications**
+   ```python
+   from opentelemetry import trace
+   from opentelemetry.exporter.jaeger import JaegerExporter
+   
+   tracer = trace.get_tracer(__name__)
+   
+   @app.route('/api/users/<user_id>')
+   def get_user(user_id):
+       with tracer.start_as_current_span("get_user") as span:
+           span.set_attribute("user.id", user_id)
+           # Your code here
+   ```
+
+3. **Propagate Context**
+   ```python
+   # Automatic context propagation
+   from opentelemetry.propagate import inject
+   
+   headers = {}
+   inject(headers)  # Injects trace context
+   response = requests.get(downstream_url, headers=headers)
+   ```
+
+4. **Set Sampling Strategy**
+   ```yaml
+   sampling:
+     default_strategy:
+       type: probabilistic
+       param: 0.1  # Sample 10% of traces
+     per_operation_strategies:
+       - operation: "critical_payment_flow"
+         type: probabilistic
+         param: 1.0  # Sample 100% of payment traces
+   ```
+
+5. **Monitor and Alert**: Trace duration P99, Error traces, Missing spans
+
+**Related Patterns**: [Observability](../patterns/observability.md), [Service Mesh](../patterns/service-mesh.md)
 
 ---
+
+### Recipe: Zero-Downtime Database Migration
+
+**Difficulty**: ⭐⭐⭐⭐ | **Time**: 2-4 days
+
+1. **Dual Write Pattern**
+   ```python
+   def save_user(user_data):
+       # Phase 1: Write to both databases
+       old_db.save(user_data)
+       new_db.save(user_data)
+       
+       # Phase 2: Read from old, verify against new
+       # Phase 3: Read from new, old as fallback
+       # Phase 4: Remove old database writes
+   ```
+
+2. **Add Background Sync**
+   ```python
+   class DataMigrator:
+       def sync_batch(self, offset, limit):
+           old_records = old_db.query(
+               "SELECT * FROM users LIMIT %s OFFSET %s",
+               limit, offset
+           )
+           
+           for record in old_records:
+               if not new_db.exists(record.id):
+                   new_db.insert(record)
+               elif record.updated > new_db.get(record.id).updated:
+                   new_db.update(record)
+   ```
+
+3. **Implement Verification**
+   ```python
+   def verify_migration():
+       sample_size = 1000
+       sample_ids = old_db.query(
+           "SELECT id FROM users ORDER BY RANDOM() LIMIT %s",
+           sample_size
+       )
+       
+       mismatches = []
+       for id in sample_ids:
+           old_record = old_db.get(id)
+           new_record = new_db.get(id)
+           if not records_match(old_record, new_record):
+               mismatches.append(id)
+       
+       accuracy = (sample_size - len(mismatches)) / sample_size
+       return accuracy > 0.999  # 99.9% accuracy required
+   ```
+
+4. **Traffic Shifting**
+   ```nginx
+   # Gradual traffic shift using nginx
+   upstream old_db_service { server old-db:5432 weight=90; }
+   upstream new_db_service { server new-db:5432 weight=10; }
+   ```
+
+5. **Rollback Plan**: Keep old database running, Maintain dual writes, Quick config switch
+
+**Related Laws**: Law 2 (Asynchronous Reality ⏱️) for sync delays, Law 5 (Distributed Knowledge 🧠) for consistency
+
+---
+
+### Recipe: Circuit Breaker Pattern
+
+**Difficulty**: ⭐⭐ | **Time**: 2-3 hours
+
+1. **Implement Basic Circuit Breaker**
+   ```python
+   class CircuitBreaker:
+       def __init__(self, failure_threshold=5, timeout=60):
+           self.failure_threshold = failure_threshold
+           self.timeout = timeout
+           self.failure_count = 0
+           self.last_failure_time = None
+           self.state = 'CLOSED'  # CLOSED, OPEN, HALF_OPEN
+           
+       def call(self, func, *args, **kwargs):
+           if self.state == 'OPEN':
+               if time.time() - self.last_failure_time > self.timeout:
+                   self.state = 'HALF_OPEN'
+               else:
+                   raise CircuitOpenError()
+           
+           try:
+               result = func(*args, **kwargs)
+               if self.state == 'HALF_OPEN':
+                   self.state = 'CLOSED'
+                   self.failure_count = 0
+               return result
+           except Exception as e:
+               self.record_failure()
+               raise e
+   ```
+
+2. **Add Hystrix-style Fallbacks**
+   ```python
+   @circuit_breaker.protect(fallback=get_cached_data)
+   def get_user_data(user_id):
+       return external_service.get_user(user_id)
+   
+   def get_cached_data(user_id):
+       return cache.get(f"user:{user_id}", default={"status": "degraded"})
+   ```
+
+3. **Configure Thresholds**
+   ```yaml
+   circuit_breaker:
+     payment_service:
+       error_threshold: 50%
+       request_volume_threshold: 20
+       sleep_window: 5000ms
+       timeout: 1000ms
+   ```
+
+4. **Add Metrics**
+   ```python
+   circuit_breaker_state = Gauge(
+       'circuit_breaker_state',
+       'Circuit breaker state (0=closed, 1=open, 2=half-open)',
+       ['service']
+   )
+   ```
+
+5. **Test the Breaker**: Inject failures, Verify opens at threshold, Confirm recovery behavior
+
+**Related Patterns**: [Bulkhead](../patterns/bulkhead.md), [Retry with Backoff](../patterns/retry.md)
+
+---
+
+## Quick Recipe Index
+
+### By Time Required
+- **< 1 hour**: Health checks, Basic caching, Logging setup
+- **1-4 hours**: Circuit breakers, Rate limiting, API optimization
+- **4-8 hours**: Service mesh, Distributed tracing, Load testing
+- **Days**: Database migration, Multi-region setup, Security hardening
+
+### By Difficulty
+- **⭐ Beginner**: Health checks, Basic monitoring, Caching
+- **⭐⭐ Intermediate**: Circuit breakers, Rate limiting, Tracing
+- **⭐⭐⭐ Advanced**: Service mesh, Capacity planning, Chaos testing
+- **⭐⭐⭐⭐ Expert**: Database migration, Multi-region, Custom protocols
+
+### By Problem Domain
+- **Reliability**: Circuit breakers, Health checks, Bulkheads
+- **Performance**: Caching, CDN setup, Database optimization
+- **Scalability**: Load balancing, Sharding, Capacity planning
+- **Operations**: Monitoring, Tracing, Incident response
+
+---
+
+## Creating Your Own Recipes
+
+### Recipe Template
+```markdown
+### Recipe: [Name]
+
+**Difficulty**: ⭐ to ⭐⭐⭐⭐ | **Time**: X hours/days
+
+1. **Step Name**
+   ```language
+   # Code or commands
+   ```
+   Explanation of what this does
+
+2. **Next Step**
+   Continue pattern...
+
+3. **Verification**
+   How to know it worked
+
+4. **Monitoring**
+   What to watch
+
+5. **Rollback**
+   How to undo if needed
+
+**Related Laws**: Which fundamental laws apply
+**Related Patterns**: Links to detailed patterns
+**Tools**: Relevant calculators or tools
+```
+
+### Best Practices
+1. **Start simple**: Show the minimal working version first
+2. **Include verification**: How to test each step
+3. **Provide rollback**: Always include undo instructions
+4. **Link concepts**: Connect to laws and patterns
+5. **Real examples**: Use actual commands and code
+
+---
+
+## Next Steps
+
+1. **Pick a recipe** matching your current challenge
+2. **Follow step-by-step** in a test environment first
+3. **Adapt to your needs** - recipes are starting points
+4. **Share your recipes** - contribute back improvements
+
+For deeper understanding:
+- [Patterns](../patterns/index.md) - Detailed architectural patterns
+- [Case Studies](../case-studies/index.md) - Real-world implementations
+- [Tools](../tools/index.md) - Interactive calculators
+- [Cheat Sheets](cheat-sheets.md) - Quick reference
+
+---
+
+*Practical recipes for common distributed systems challenges. Each recipe tested in production environments.*
 

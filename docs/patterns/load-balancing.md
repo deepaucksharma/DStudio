@@ -14,6 +14,8 @@ last_updated: 2025-07-20
 
 # Load Balancing Pattern
 
+[Home](/) > [Patterns](/patterns/) > [Operational Patterns](/patterns/#operational-patterns) > Load Balancing
+
 **Distributing work across multiple resources**
 
 > *"Many hands make light work—if coordinated properly."*
@@ -491,4 +493,8 @@ def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
 
 ---
 
-**Previous**: [← Leader Election Pattern](leader-election.md) | **Next**: [Load Shedding Pattern →](load-shedding.md)
+<div class="page-nav" markdown>
+[:material-arrow-left: Auto-Scaling](/patterns/auto-scaling/) | 
+[:material-arrow-up: Patterns](/patterns/) | 
+[:material-arrow-right: API Gateway](/patterns/api-gateway/)
+</div>

@@ -18,10 +18,11 @@ last_updated: 2025-07-20
 
 **M/M/1** = Markovian arrivals / Markovian service / 1 server
 
-```proto
-ρ = λ/μ (utilization)
-λ = arrival rate, μ = service rate
-```
+$$\rho = \frac{\lambda}{\mu} \text{ (utilization)}$$
+
+Where:
+- $\lambda$ = arrival rate
+- $\mu$ = service rate
 
 ## Fundamental Formulas
 
@@ -29,7 +30,7 @@ last_updated: 2025-07-20
 !!! abstract "📈 Queue Length Formula"
 
  <div class="formula-highlight">
- <span>Lq = ρ²/(1-ρ)</span>
+ $$L_q = \frac{\rho^2}{1-\rho}$$
 
 <svg viewBox="0 0 600 300">
  <!-- Title -->
@@ -112,7 +113,7 @@ last_updated: 2025-07-20
 
 ### Average Wait Time
 !!! note "⏱️ Wait Time Calculator"
- <span>Wq = Lq/λ = ρ/(μ-λ)</span>
+ $$W_q = \frac{L_q}{\lambda} = \frac{\rho}{\mu - \lambda}$$
 
 <div class="interactive-calculator">
  <div>
@@ -161,14 +162,14 @@ last_updated: 2025-07-20
 </div>
 
 ### Response Time Distribution
-```python
-P(response > t) = e^(-μ(1-ρ)t)
+$$P(\text{response} > t) = e^{-\mu(1-\rho)t}$$
 
-50% util: P(>1s) = 0.0000%
-80% util: P(>1s) = 0.02%
-90% util: P(>1s) = 0.37%
-95% util: P(>1s) = 7.8%!
-```
+| Utilization | P(>1s) |
+|-------------|--------|
+| 50% | 0.0000% |
+| 80% | 0.02% |
+| 90% | 0.37% |
+| 95% | 7.8%! |
 
 ## The Knee of the Curve
 
@@ -288,9 +289,7 @@ P(response > t) = e^(-μ(1-ρ)t)
 ## M/M/c Multi-Server Queue
 
 ### Erlang C Formula
-```python
-P(queue) = (ρ^c / c!) / Σ[(ρ^k / k!) + (ρ^c / c!) × (1/(1-ρ/c))]
-```
+$$P(\text{queue}) = \frac{\frac{\rho^c}{c!}}{\sum_{k=0}^{c-1}\frac{\rho^k}{k!} + \frac{\rho^c}{c!} \times \frac{1}{1-\rho/c}}$$
 
 ### Impact
 ```
@@ -518,7 +517,7 @@ This sizing directly impacts [Availability](availability-math.md) - overloaded s
 
 ## Advanced Patterns
 
-- **Timeout**: λ_eff = λ × P(wait < timeout)
+- **Timeout**: $\lambda_{\text{eff}} = \lambda \times P(\text{wait} < \text{timeout})$
 - **Bulk service**: Process N together, trade latency for throughput
 - **Processor sharing**: All served at once (CPU scheduling)
 
@@ -532,7 +531,7 @@ This sizing directly impacts [Availability](availability-math.md) - overloaded s
 ```
 
 ### Key Metrics
-L (queue), W (wait), ρ (util), λ (arrival), μ (service)
+$L$ (queue), $W$ (wait), $\rho$ (util), $\lambda$ (arrival), $\mu$ (service)
 
 ### Capacity Planning
 ```

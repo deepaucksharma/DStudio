@@ -13,7 +13,7 @@ last_updated: 2025-07-21
 ---
 # API Gateway Pattern
 
-
+[Home](/) > [Patterns](/patterns/) > [Core Patterns](/patterns/#core-patterns) > API Gateway
 
 ## The Essential Question
 
@@ -1048,7 +1048,8 @@ POST /circuit-breakers/{service}/reset
 
 ---
 
-<div class="prev-link">
-<a href="/patterns/">← Back to Patterns</a>
-<a href="/patterns/service-mesh">Next: Service Mesh →</a>
+<div class="page-nav" markdown>
+[:material-arrow-left: Load Balancing](/patterns/load-balancing/) | 
+[:material-arrow-up: Patterns](/patterns/) | 
+[:material-arrow-right: Service Mesh](/patterns/service-mesh/)
 </div>

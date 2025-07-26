@@ -83,18 +83,18 @@ Control Centralized/P2P Coordination vs Resilience Kubernetes vs BitTorrent
 
 ## When Work Distribution Goes Wrong
 
-!!! danger "Common Anti-Patterns"
- **The Overeager Parallelizer**: Breaking work into pieces smaller than coordination overhead
- - Example: 1000 workers processing 1000 items = mostly waiting
- - Solution: Batch work to amortize coordination costs
+!!! warning "Common Anti-Patterns"
+    **The Overeager Parallelizer**: Breaking work into pieces smaller than coordination overhead
+    - Example: 1000 workers processing 1000 items = mostly waiting
+    - Solution: Batch work to amortize coordination costs
 
- **The Hotspot Creator**: Uneven work distribution causing bottlenecks
- - Example: All video encoding jobs hitting the same worker
- - Solution: Content-aware load balancing or work stealing
+    **The Hotspot Creator**: Uneven work distribution causing bottlenecks
+    - Example: All video encoding jobs hitting the same worker
+    - Solution: Content-aware load balancing or work stealing
 
- **The Thundering Herd**: All workers starting simultaneously
- - Example: Cron job at midnight across all servers
- - Solution: Jittered starts and gradual ramp-up
+    **The Thundering Herd**: All workers starting simultaneously
+    - Example: Cron job at midnight across all servers
+    - Solution: Jittered starts and gradual ramp-up
 
 ## Concept Map: Work Distribution
 
@@ -1014,7 +1014,7 @@ flowchart LR
  style M fill:#ffab91
 ```
 
-!!! note "Speculative Execution Strategy"
+!!! tip "Speculative Execution Strategy"
  <b>When to Use Speculation:</b>
  <ul>
  <li>Branch prediction accuracy > 60%</li>
@@ -1391,8 +1391,8 @@ sequenceDiagram
 
 **Original System**:
 
-!!! danger
- <b>Single-Threaded Processing:</b>
+!!! danger "Single-Threaded Processing"
+    <b>Single-Threaded Processing:</b>
  <table class="responsive-table">
  <thead>
  <tr><th>Step</th><th>Time</th><th>Total for 1B posts</th></tr>
@@ -1468,7 +1468,7 @@ flowchart TB
  style R4 fill:#c8e6c9
 ```
 
-!!! note "Smart Processing Strategy"
+!!! tip "Smart Processing Strategy"
  <table class="responsive-table">
  <thead>
  <tr><th>Component</th><th>Setting</th><th>Why It Works</th></tr>
@@ -1578,7 +1578,7 @@ flowchart LR
  style P fill:#81c784
 ```
 
-!!! note "Batch Accumulator Pattern"
+!!! tip "Batch Accumulator Pattern"
  <b>Configuration:</b>
  <table class="responsive-table">
  <thead>
@@ -1687,7 +1687,7 @@ flowchart TB
  style K fill:#e1f5fe
 ```
 
-!!! note "Adaptive Batch Sizing Strategy"
+!!! tip "Adaptive Batch Sizing Strategy"
  <b>Configuration:</b>
  <table class="responsive-table">
  <thead>
@@ -1795,31 +1795,48 @@ flowchart TB
 
 *"Work distribution is not just about spreading computation—it's about spreading it intelligently while respecting the laws of physics and coordination."*
 
-## Related Resources
+## Related Topics
 
 ### Foundational Laws
-- [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure/) - Handling worker failures
-- [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time and causality in distributed work
-- [Law 3: Law of Emergent Chaos](/part1-axioms/law3-emergence/) - Complex behavior from simple rules
-- [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - Resource limits and scaling
-- [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/) - Managing distributed workers
-- [Law 7: Law of Economic Reality](/part1-axioms/law7-economics/) - Cost of distribution
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Handling worker failures and correlation
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time and causality in distributed work
+- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - Complex behavior from simple rules
+- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - Resource limits and scaling trade-offs
+- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) - Coordination and knowledge sharing
+- [Law 7: Economic Reality](/part1-axioms/law7-economics/) - Cost of distribution and resources
 
 ### Related Pillars
 - [Pillar 2: State](/part2-pillars/state/) - Managing distributed computation state
 - [Pillar 3: Truth](/part2-pillars/truth/) - Consensus on work completion
 - [Pillar 4: Control](/part2-pillars/control/) - Orchestrating distributed work
+- [Pillar 5: Intelligence](/part2-pillars/intelligence/) - Smart work scheduling and optimization
 
-### Implementation Patterns
-- [MapReduce Pattern](/case-studies/mapreduce) - Classic work distribution
-- Service Mesh (Coming Soon) - Modern microservice coordination
-- [Event Streaming](/patterns/queues-streaming) - Async work distribution
-- [Circuit Breaker](/patterns/circuit-breaker) - Handling worker failures
+### Related Patterns
+- [MapReduce](/patterns/mapreduce/) - Classic parallel processing pattern
+- [Fork-Join](/patterns/fork-join/) - Recursive work decomposition
+- [Work Stealing](/patterns/work-stealing/) - Dynamic load balancing
+- [Pipeline Pattern](/patterns/pipeline/) - Stream processing workflows
+- [Actor Model](/patterns/actor-model/) - Message-based work distribution
+- [Scatter-Gather](/patterns/scatter-gather/) - Parallel query processing
 
-### Real-World Case Studies
-- [Netflix: Chaos Engineering](/case-studies/netflix-chaos) - Resilient work distribution
-- [Google: MapReduce](/case-studies/mapreduce) - Planet-scale processing
-- [Apache Spark](/case-studies/apache-spark) - In-memory distributed computing
+### Quantitative Analysis
+- [Amdahl's Law](/quantitative/amdahl-gustafson/) - Limits of parallelization
+- [Universal Scalability Law](/quantitative/universal-scalability/) - Coordination costs at scale
+- [Little's Law](/quantitative/littles-law/) - Queue theory for work distribution
+- [Queueing Models](/quantitative/queueing-models/) - Understanding work queue behavior
+- [Performance Modeling](/quantitative/performance-modeling/) - Predicting distributed system performance
+
+### Case Studies
+- [Google MapReduce](/case-studies/google-mapreduce/) - Processing the web at scale
+- [Apache Spark](/case-studies/apache-spark/) - In-memory distributed computing
+- [Netflix Encoding Pipeline](/case-studies/netflix-encoding/) - Video processing at scale
+- [Uber's Schemaless](/case-studies/uber-schemaless/) - Distributed database work distribution
+
+### Further Reading
+- [Distributed Task Scheduling](/patterns/distributed-scheduling/) - Advanced scheduling algorithms
+- [Stream Processing Architectures](/patterns/stream-processing/) - Real-time work distribution
+- [Batch Processing Systems](/patterns/batch-processing/) - Large-scale data processing
+- [Microservices Work Patterns](/patterns/microservices-work/) - Service-oriented work distribution
 
 ---
 

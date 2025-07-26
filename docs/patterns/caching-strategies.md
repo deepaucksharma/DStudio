@@ -14,6 +14,8 @@ last_updated: 2025-07-21
 
 # Caching Strategies
 
+[Home](/) > [Patterns](/patterns/) > [Data Patterns](/patterns/#data-patterns) > Caching Strategies
+
 **Remember to forget - Strategic data storage for blazing performance**
 
 > *"There are only two hard things in Computer Science: cache invalidation and naming things." - Phil Karlton*
@@ -1059,4 +1061,8 @@ cost_per_request = (cache_cost + (miss_rate * db_cost)) / total_requests
 
 ---
 
-**Previous**: [← Bulkhead Pattern](bulkhead.md) | **Next**: Change Data Capture (CDC) → (Coming Soon)
+<div class="page-nav" markdown>
+[:material-arrow-left: Sharding](/patterns/sharding/) | 
+[:material-arrow-up: Patterns](/patterns/) | 
+[:material-arrow-right: CDC](/patterns/cdc/)
+</div>

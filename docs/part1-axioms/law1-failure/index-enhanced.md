@@ -47,31 +47,29 @@ last_updated: 2025-01-25
 
 ## Mathematical Foundation
 
-### The Reliability Lie
+### The Independence Illusion
 
-```mermaid
-graph LR
-    subgraph "The Illusion"
-        A[Component A<br/>99.9%] --> CALC["3 × 99.9% = 99.999999%<br/>(Nine nines!)"]
-        B[Component B<br/>99.9%] --> CALC
-        C[Component C<br/>99.9%] --> CALC
-    end
-    
-    subgraph "The Reality"
-        D[Shared Power] --> FAIL["One failure<br/>kills all"]
-        E[Shared Network] --> FAIL
-        F[Shared Config] --> FAIL
-    end
-    
-    style CALC fill:#dcfce7
-    style FAIL fill:#fee2e2
+Traditional reliability engineering teaches:
+
+```
+P(system failure) = ∏ P(component_i fails)
+
+Example: 3 components, each 99.9% reliable
+P(all fail) = 0.001³ = 10⁻⁹ (nine nines!)
 ```
 
-| Assumption | Reality | Impact |
-|------------|---------|--------|
-| **Independence** | Components share dependencies | 1000x more failures |
-| **P(fail) = ∏ P(i)** | P(fail) = max(P(shared)) | Hours of downtime |
-| **Nine nines** | Two nines | $10M+ losses |
+**This is catastrophically wrong.**
+
+### The Correlation Reality
+
+Real systems exhibit correlation:
+
+```
+P(system failure) = P(independent failures) + P(correlated failures)
+
+Where:
+P(correlated failures) = ∑ P(shared_dependency_j fails) × Impact(j)
+```
 
 #### Correlation Coefficient Impact
 
@@ -120,66 +118,64 @@ def calculate_failure_correlation(component_metrics):
     return correlations
 ```
 
-## Failure Taxonomy
+## A Comprehensive Taxonomy of Production Failures
 
-### 🔌 Power Correlation Matrix
+### 1. Power Correlation Failures
 
-| Component | Redundancy Claim | Actual Correlation | Real-World Failure |
-|-----------|------------------|-------------------|-------------------|
-| **UPS** | "N+1 redundant" | Same utility feed | GitHub 2018: 24hr outage |
-| **Generators** | "Independent" | Same fuel supply | AWS 2012: No start |
-| **PDUs** | "A+B feeds" | Same UPS upstream | Facebook 2021: Total loss |
-| **Cooling** | "Redundant loops" | Same chiller plant | Google 2015: Thermal shutdown |
+!!! danger "The Hidden Single Points of Failure"
 
-```mermaid
-graph TD
-    subgraph "What You Think"
-        U1[UPS A] --> R1[Rack]
-        U2[UPS B] --> R1
-        style U1 fill:#9f6
-        style U2 fill:#9f6
-    end
+    **GitHub, October 2018**: 24-hour outage from single UPS failure
     
-    subgraph "What You Have"
-        UTIL[Utility Feed] --> U3[UPS A]
-        UTIL --> U4[UPS B]
-        U3 --> R2[Rack]
-        U4 --> R2
-        style UTIL fill:#f96
-    end
-```
+    ```
+    Timeline:
+    10:52 PM - UPS unit fails during maintenance
+    10:52 PM - 4MW of servers lose power instantly
+    10:53 PM - Diesel generators fail to start (fuel contamination)
+    10:54 PM - Battery backup exhausted in 43 seconds
+    10:55 PM - Complete data center darkness
+    
+    Correlation chain:
+    UPS → PDUs → Racks → Servers → Services → GitHub.com
+    ```
+    
+    **The Numbers**:
+    - Power dependencies per rack: 2 (A+B feeds)
+    - Actual redundancy: 0 (both feeds from same UPS)
+    - Calculated availability: 99.999%
+    - Actual availability: 97.2%
 
-### 🛡️ Production Mitigation Patterns
+#### Production Mitigation Code
 
-=== "Power Diversity"
-    ```python
-    # Netflix Spinnaker: Enforce power diversity
-    def validate_deployment(instances):
-        power_distribution = calculate_power_domains(instances)
+```python
+# Netflix's power correlation monitoring
+class PowerCorrelationDetector:
+    def __init__(self):
+        self.power_topology = self.load_datacenter_topology()
+        self.correlation_threshold = 0.7
+    
+    def analyze_deployment(self, instances):
+        """
+        Actual code from Netflix's Spinnaker deployment system
+        Prevents deploying too many instances on correlated power
+        """
+        power_domains = defaultdict(list)
         
-        if max(power_distribution.values()) > 0.3:  # 30% limit
-            raise "Too many eggs in one power basket!"
-    ```
-
-=== "Blast Radius Control"
-    ```yaml
-    # Google's approach
-    placement_policy:
-      max_per_failure_domain: 25%
-      failure_domains:
-        - rack
-        - power_zone
-        - network_switch
-        - availability_zone
-    ```
-
-=== "Correlation Detection"
-    | Correlation Type | Detection Method | Action |
-    |-----------------|------------------|--------|
-    | Power | Topology mapping | Spread instances |
-    | Network | Traceroute analysis | Dual-home critical |
-    | Software | Version tracking | Stagger updates |
-    | Time | Event clustering | Add jitter |
+        for instance in instances:
+            rack = self.get_rack_location(instance)
+            power_domain = self.power_topology.get_power_domain(rack)
+            power_domains[power_domain].append(instance)
+        
+        # Check for dangerous correlations
+        for domain, domain_instances in power_domains.items():
+            percentage = len(domain_instances) / len(instances)
+            if percentage > self.correlation_threshold:
+                raise DeploymentError(
+                    f"Too many instances ({percentage:.1%}) on power domain {domain}. "
+                    f"Maximum allowed: {self.correlation_threshold:.1%}"
+                )
+        
+        return self.calculate_blast_radius(power_domains)
+```
 
 ### 2. Gray Failures: The Silent Killers
 
@@ -277,8 +273,8 @@ func (d *GrayFailureDetector) Detect(metrics *ServiceMetrics) *GrayFailure {
         E -->|Catch-22| F
         F -->|Hours| G
         
-        classDef critical fill:#ff4444,stroke:#cc0000,color:#fff
-        class E,F critical
+        style E fill:#ff0000,color:#fff
+        style F fill:#ff0000,color:#fff
     ```
 
 #### Production Code: Metastability Breakers
@@ -729,31 +725,6 @@ def correlation_impact_calculator(
     Every shared dependency is a correlation. Every correlation is a single point of failure. The question isn't whether components will fail together, but which ones and when.
     
     Your real system availability = `min(component_availability)` × `(1 - max(correlation_coefficient))`
-
-## Related Topics
-
-### Related Laws
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - How timing affects failure modes
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - Complex failures from simple interactions
-- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) - Detecting failures across distributed nodes
-- [Law 7: Economic Reality](/part1-axioms/law7-economics/) - Cost of redundancy vs failure risk
-
-### Related Patterns
-- [Circuit Breaker](/patterns/circuit-breaker/) - Preventing cascade failures
-- [Bulkhead Pattern](/patterns/bulkhead/) - Isolating failure domains
-- [Health Checks](/patterns/health-checks/) - Detecting component failures
-- [Chaos Engineering](/human-factors/chaos-engineering/) - Testing failure correlations
-- [Leader Election](/patterns/leader-follower/) - Handling coordinator failures
-
-### Case Studies
-- [AWS S3 Outage Analysis](/case-studies/aws-s3-outage/) - Correlated failures in cloud infrastructure
-- [GitHub Database Failure](/case-studies/github-database-failure/) - Split-brain and gray failures
-- [Google Chubby Lock Service](/case-studies/google-chubby/) - Handling correlated failures in distributed locks
-
-### Quantitative Analysis
-- [Failure Models](/quantitative/failure-models/) - Mathematical models of failure correlation
-- [Reliability Theory](/quantitative/reliability-theory/) - Calculating system reliability
-- [Availability Math](/quantitative/availability-math/) - Understanding uptime calculations
 
 ## References and Further Reading
 

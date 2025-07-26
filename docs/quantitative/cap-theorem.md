@@ -15,38 +15,75 @@ last_updated: 2025-01-23
 
 **The impossible trinity of distributed systems**
 
-!!! abstract "🔺 CAP Theorem Statement"
+!!! quote "Eric Brewer's Insight (PODC 2000)"
+    "The CAP theorem states that any networked shared-data system can have at most two of three desirable properties: consistency, availability, and partition tolerance."
 
- <div class="formula-highlight">
- <h2>Choose at most 2 of 3:</h2>
+!!! abstract "The CAP Triangle - Choose 2 of 3"
 
-| Property | Description | Example |
-|----------|-------------|---------|
-| **C**onsistency | All nodes see the same data simultaneously | Bank balance is same everywhere |
-| **A**vailability | System remains operational | Service always responds |
-| **P**artition tolerance | System continues despite network failures | Works during network splits |
+    ```mermaid
+    graph TB
+        subgraph "The CAP Triangle"
+            C[Consistency<br/>All nodes see same data]
+            A[Availability<br/>System always responds]
+            P[Partition Tolerance<br/>Survives network splits]
+        end
+        
+        C ---|"CP: Banks<br/>Voting Systems"| P
+        A ---|"AP: Social Media<br/>DNS"| P
+        C ---|"CA: Single Node<br/>(Not Distributed!)"| A
+        
+        style C fill:#4CAF50,stroke:#2E7D32,color:#fff
+        style A fill:#2196F3,stroke:#1565C0,color:#fff
+        style P fill:#FF9800,stroke:#E65100,color:#fff
+    ```
+
+| Property | Definition | What It Means | Real-World Example |
+|----------|------------|---------------|-------------------|
+| **C**onsistency | Every read receives the most recent write | All nodes agree on current state | Bank account balance |
+| **A**vailability | Every request receives a response | No downtime, always operational | Shopping cart service |
+| **P**artition tolerance | System continues when network splits | Handles cable cuts, router failures | Multi-datacenter system |
 
 
 !!! info
  💡 <strong>Brewer's Theorem (2000)</strong>: In a distributed system, when a network partition occurs, you must choose between consistency and availability.
 </div>
 
-## Quick Example
+## The Trade-off in Action: Real Examples
 
-**Social media post**: During network partition:
-- **Choose CP**: Some users can't post (unavailable) but all see same feed
-- **Choose AP**: Users can post (available) but feeds may differ temporarily
+### Banking System (CP Choice)
+```
+Network partition occurs between datacenters:
+• ATM in DC1: User withdraws $1000
+• ATM in DC2: Can't verify balance
 
-!!! info "Real Impact"
- **MongoDB (2018)**: 5-hour outage choosing C over A during partition
- 
- **Amazon DynamoDB**: Chooses A over C, eventual consistency = 99.999% uptime
+CP CHOICE: DC2 ATM shows "Service Unavailable"
+Result: Angry customer but no overdraft
+```
+
+### Social Media (AP Choice)  
+```
+Network partition occurs:
+• User in DC1: Posts update
+• User in DC2: Doesn't see update yet
+
+AP CHOICE: Both can post/read
+Result: Temporary inconsistency, eventual convergence
+```
+
+### Production Impact: The Cost of Choices
+
+| System | CAP Choice | Business Impact | Technical Decision |
+|--------|------------|-----------------|--------------------|
+| **MongoDB** | CP | 5-hour outage (2018) | Consistency > Availability |
+| **DynamoDB** | AP | 99.999% uptime | Availability > Consistency |
+| **Zookeeper** | CP | Leader election delays | Configuration consistency critical |
+| **Cassandra** | AP | Temporary inconsistencies | Scale > Strong consistency |
 
 ## The Mathematical Foundation
 
 ### Formal Proof Sketch
 
-!!! note "📐 Proof by Contradiction"
+!!! example "📐 Proof by Contradiction"
  **Assume**: System has all three properties (C, A, P)
  **Setup**: Two nodes (N1, N2) with network partition between them
  <strong>Step 1:</strong> Client writes value V to N1
@@ -159,7 +196,7 @@ last_updated: 2025-01-23
 
 ### Consistency Cost Calculator
 
-!!! note "💰 Strong Consistency Overhead"
+!!! warning "💰 Strong Consistency Overhead"
 | Parameter | Value | Unit |
  |-----------|-------|------|
  | Write nodes (W) | 3 | nodes |
@@ -167,9 +204,9 @@ last_updated: 2025-01-23
  | Network RTT | 10 | ms |
  | Consensus rounds | 2 | - |
 
- <strong>Write latency = Consensus rounds × max(RTT to W nodes)</strong>
- <strong>= 2 × 10ms = 20ms minimum</strong>
- <strong>99th percentile ≈ 3 × 20ms = 60ms</strong>
+ $$\text{Write latency} = \text{Consensus rounds} \times \max(\text{RTT to W nodes})$$
+ $$= 2 \times 10\text{ms} = 20\text{ms minimum}$$
+ $$\text{99th percentile} \approx 3 \times 20\text{ms} = 60\text{ms}$$
 
 <div class="latency-comparison">
 <div>Local: 1ms
@@ -184,18 +221,18 @@ last_updated: 2025-01-23
  For a CP system requiring majority quorum:
 
  <div class="formula-highlight">
- P(available) = Σ(k=⌈N/2⌉ to N) C(N,k) × p^k × (1-p)^(N-k)
+ $$P(\text{available}) = \sum_{k=\lceil N/2 \rceil}^{N} \binom{N}{k} \times p^k \times (1-p)^{N-k}$$
 
 Where:
-- N = total nodes
-- p = individual node availability
-- k = available nodes
-- C(N,k) = combinations
+- $N$ = total nodes
+- $p$ = individual node availability
+- $k$ = available nodes
+- $\binom{N}{k}$ = combinations
 
 <strong>Example: 5 nodes, 99% individual availability</strong><br>
-P(available) = P(3 up) + P(4 up) + P(5 up)<br>
-= 0.00098 + 0.04804 + 0.95099<br>
-= <span>99.999%</span>
+$P(\text{available}) = P(3 \text{ up}) + P(4 \text{ up}) + P(5 \text{ up})$<br>
+$= 0.00098 + 0.04804 + 0.95099$<br>
+$= 99.999\%$
 </div>
 
 ## PACELC Extension
@@ -219,7 +256,7 @@ P(available) = P(3 up) + P(4 up) + P(5 up)<br>
 
 ### Banking System Design
 
-!!! note "🏦 Financial Transaction System"
+!!! example "🏦 Financial Transaction System"
  **Requirements Analysis**:
 | Operation | CAP Choice | Reasoning |
  |-----------|------------|-----------|
@@ -266,15 +303,15 @@ Latency: <200ms
  | Topology | Mesh | Redundancy factor |
 
 
-<strong>Single link failure rate</strong> = 1/10,000 = 0.01% per hour<br>
-<strong>P(at least one partition)</strong> = 1 - (1 - 0.0001)^100<br>
-= 1 - 0.99^100 ≈ <span>1% per hour</span><br>
-<strong>Expected partitions/year</strong> = 0.01 × 24 × 365 ≈ <strong>88 partitions</strong>
+<strong>Single link failure rate</strong> = $\frac{1}{10,000} = 0.01\%$ per hour<br>
+<strong>P(at least one partition)</strong> = $1 - (1 - 0.0001)^{100}$<br>
+$= 1 - 0.99^{100} \approx 1\%$ per hour<br>
+<strong>Expected partitions/year</strong> = $0.01 \times 24 \times 365 \approx 88$ partitions
 </div>
 
 ### Consistency Window Calculator
 
-!!! note "⏱️ Eventual Consistency Timing"
+!!! info "⏱️ Eventual Consistency Timing"
 | Parameter | Value | Description |
  |-----------|-------|-------------|
  | Replication factor | 3 | Copies of data |
@@ -319,7 +356,7 @@ Latency: <200ms
 
 ### Tunable Consistency
 
-!!! note "🎛️ Cassandra's Approach"
+!!! example "🎛️ Cassandra's Approach"
  **Consistency Levels**:
 | Level | Write Nodes | Read Nodes | Guarantee |
  |-------|------------|------------|-----------|
@@ -328,8 +365,8 @@ Latency: <200ms
  | ALL | N | N | Highest consistency |
  | LOCAL_QUORUM | ⌈(RF+1)/2⌉ | ⌈(RF+1)/2⌉ | DC consistency |
 
- <strong>Consistency guarantee</strong>: R + W > N
- Example: N=3, W=2, R=2 → 2+2 > 3 ✓ Strong consistency
+ <strong>Consistency guarantee</strong>: $R + W > N$
+ Example: $N=3$, $W=2$, $R=2$ → $2+2 > 3$ ✓ Strong consistency
 
 ## Key Takeaways
 
@@ -348,7 +385,36 @@ Latency: <200ms
 
 ## Related Topics
 
-- [Consistency Models](consistency-models.md) - Deep dive into consistency levels
-- [Consensus Algorithms](/patterns/consensus-algorithms) - Achieving agreement
-- [Network Partitions](/part1-axioms/law1-failure/) - Understanding failure modes
-- [Eventual Consistency](/patterns/eventual-consistency) - AP system patterns
+### Related Laws & Axioms
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Network partitions and failure modes
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Time and consistency challenges
+- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - CAP trade-offs in practice
+- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/) - Knowledge consistency across nodes
+
+### Related Patterns
+- [Consensus Algorithms](/patterns/consensus-algorithms/) - Achieving agreement despite CAP
+- [Leader Election](/patterns/leader-follower/) - Maintaining consistency with leaders
+- [Eventual Consistency](/patterns/eventual-consistency/) - AP system design patterns
+- [Quorum Consensus](/patterns/quorum-consensus/) - Tunable consistency implementations
+- [Vector Clocks](/patterns/vector-clocks/) - Tracking causality in AP systems
+- [Conflict Resolution](/patterns/conflict-resolution/) - Handling divergence in AP systems
+
+### Quantitative Analysis
+- [Consistency Models](/quantitative/consistency-models/) - Deep dive into consistency levels
+- [PACELC Analysis](/quantitative/pacelc-analysis/) - Extended CAP theorem implications
+- [Network Theory](/quantitative/network-theory/) - Understanding partition probabilities
+- [Availability Math](/quantitative/availability-math/) - Calculating system availability
+- [Latency Models](/quantitative/latency-models/) - Consistency vs latency trade-offs
+
+### Case Studies
+- [Apache Cassandra](/case-studies/cassandra/) - Tunable consistency in practice
+- [Amazon DynamoDB](/case-studies/amazon-dynamo/) - AP system at scale
+- [Google Spanner](/case-studies/google-spanner/) - CP system with global consistency
+- [MongoDB](/case-studies/mongodb/) - CP trade-offs in document stores
+- [CockroachDB](/case-studies/cockroachdb/) - Modern CP distributed SQL
+
+### Further Reading
+- [Distributed Database Design](/patterns/distributed-database/) - Applying CAP to database systems
+- [Multi-Region Architecture](/patterns/multi-region/) - CAP across geographic regions
+- [Microservices Consistency](/patterns/microservices-consistency/) - CAP in service architectures
+- [Blockchain Consensus](/patterns/blockchain-consensus/) - CAP theorem in blockchain systems

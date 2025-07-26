@@ -1,33 +1,95 @@
 /* ============================================
-   RESPONSIVE TABLES ONLY
+   RESPONSIVE TABLES - VERTICAL STACKING
    ============================================ */
 
-/* Responsive table wrapper */
-.md-typeset .responsive-table {
+/* Base responsive table styles */
+.md-typeset table.responsive-table {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin: 1rem 0;
-}
-
-.md-typeset .responsive-table table {
-  min-width: 100%;
   border-collapse: collapse;
+  margin: 1.5rem 0;
+  background: var(--md-default-bg-color);
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.05);
+  border-radius: 0.4rem;
+  overflow: hidden;
 }
 
-/* Mobile adjustments */
+.md-typeset .responsive-table th,
+.md-typeset .responsive-table td {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  border-bottom: 0.05rem solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset .responsive-table th {
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.md-typeset .responsive-table tr:last-child td {
+  border-bottom: none;
+}
+
+.md-typeset .responsive-table tbody tr:hover {
+  background: var(--md-default-fg-color--lightest);
+}
+
+/* Mobile responsive styles - vertical stacking */
 @media screen and (max-width: 59.9375em) {
-  .md-typeset .responsive-table {
-    margin: 0.5rem -0.8rem;
-    padding: 0 0.8rem;
+  .md-typeset table.responsive-table {
+    box-shadow: none;
+    border-radius: 0;
+    margin: 1rem 0;
   }
   
-  .md-typeset .responsive-table table {
-    font-size: 0.875rem;
+  .md-typeset .responsive-table thead {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
   
-  .md-typeset .responsive-table th,
+  .md-typeset .responsive-table tr {
+    border: 0.05rem solid var(--md-default-fg-color--lightest);
+    border-radius: 0.4rem;
+    margin-bottom: 1rem;
+    display: block;
+    box-shadow: 0 0.1rem 0.3rem rgba(0, 0, 0, 0.05);
+    background: var(--md-default-bg-color);
+  }
+  
+  .md-typeset .responsive-table tbody tr:hover {
+    background: var(--md-default-bg-color);
+    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+  }
+  
   .md-typeset .responsive-table td {
-    padding: 0.5rem;
+    display: block;
+    text-align: right;
+    border: none;
+    padding: 0.75rem 1rem;
+    position: relative;
+    padding-left: 50%;
+    min-height: 2.5rem;
+  }
+  
+  .md-typeset .responsive-table td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    width: 45%;
+    text-align: left;
+    font-weight: 700;
+    color: var(--md-default-fg-color--light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .md-typeset .responsive-table td:last-child {
+    border-bottom: none;
   }
 }

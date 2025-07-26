@@ -65,11 +65,18 @@ graph LR
 **Power Law Implications:**
 
 | User Type | Population | Avg Connections | Storage Impact | Query Impact |
-|-----------|------------|----------------|----------------|---------------|
-| Regular Users | 80% | 150 | Manageable | Low QPS |
-| Active Users | 19% | 1,000 | Moderate | Medium QPS |
-| Influencers | 0.9% | 50,000 | High | High QPS |
-| Celebrities | 0.1% | 10M+ | Extreme | Hotspot risk |
+|-----------|------------|-----------------|----------------|---------------|
+| Regular Users | 80% | 150 | 1KB/user | <10 QPS |
+| Active Users | 19% | 1,000 | 10KB/user | 100 QPS |
+| Influencers | 0.9% | 50,000 | 500KB/user | 10K QPS |
+| Celebrities | 0.1% | 10M+ | 100MB/user | 1M+ QPS |
+<td data-label="Population">0.1%</td>
+<td data-label="Avg Connections">10M+</td>
+<td data-label="Storage Impact">Extreme</td>
+<td data-label="Query Impact">Hotspot risk</td>
+</tr>
+</tbody>
+</table>
 
 
 ### Law 2: Concurrency - Six Degrees of Separation
@@ -171,10 +178,10 @@ graph LR
 **Storage Comparison:**
 
 | Approach | Read Performance | Write Performance | Storage Efficiency | Query Flexibility |
-|----------|-----------------|-------------------|-------------------|-------------------|
-| Adjacency List | O(1) neighbor lookup | O(n) list updates | 60% overhead | Limited |
-| Edge Table | O(log n) with index | O(1) insert | 95% efficient | Full SQL |
-| Hybrid | O(1) cache + O(log n) DB | O(1) + async sync | 80% with caching | Best of both |
+|----------|------------------|-------------------|-------------------|-------------------|
+| Adjacency List | O(1) neighbor lookup | O(n) list updates | 60% overhead (pointers) | Limited to direct edges |
+| Edge Table | O(log n) with index | O(1) insert | 95% efficient | Full SQL capabilities |
+| Hybrid (TAO) | O(1) cache + O(log n) DB | O(1) + async sync | 80% with 10GB cache/node | Best of both worlds |
 
 
 #### 2. Graph-Specific Data Structures
@@ -1302,6 +1309,31 @@ The evolution from simple friend lists to sophisticated recommendation engines p
 
 Understanding social graph architecture provides valuable insights for any large-scale system dealing with relationships, recommendations, and real-time updates across massive user bases.
 
-<function_calls>
-<invoke name="TodoWrite">
-<parameter name="todos">[{"id": "1", "content": "Complete Redis Architecture Deep Dive case study with comprehensive technical analysis", "status": "completed", "priority": "high"}, {"id": "2", "content": "Complete Social Graph Architecture case study with distributed graph systems focus", "status": "completed", "priority": "high"}]
+## Related Topics
+
+### Axioms
+- **Law 1 (Correlated Failure 🔥)**: Celebrity nodes create correlated failures across systems
+- **Law 2 (Asynchronous Reality ⏱️)**: Graph updates propagate asynchronously across shards
+- **Law 5 (Distributed Knowledge 🧠)**: Privacy requires distributed access control
+
+### Pillars
+- **State Distribution**: Graph sharding strategies and consistency models
+- **Work Distribution**: Parallel graph algorithms and batch processing
+- **Intelligence Distribution**: Distributed recommendation engines and ML pipelines
+
+### Patterns
+- [Sharding](../patterns/sharding.md): Graph partitioning strategies
+- [Caching](../patterns/caching.md): Multi-level caching for hot nodes
+- [Event Streaming](../patterns/event-streaming.md): Real-time graph updates
+- [Privacy Patterns](../patterns/privacy.md): Access control and anonymization
+
+## Next Steps
+
+1. **Explore Graph Databases**: Compare Neo4j, Amazon Neptune, and specialized solutions
+2. **Study Graph Algorithms**: PageRank, community detection, and path finding at scale
+3. **Privacy Engineering**: Deep dive into differential privacy and secure multi-party computation
+4. **ML on Graphs**: Graph neural networks and embedding techniques
+
+---
+
+*Continue your journey: [Social Media Feed Architecture](social-media-feed.md) | [Back to Case Studies](index.md)*

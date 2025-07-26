@@ -18,15 +18,15 @@ Learn how the 7 fundamental laws and 5 pillars apply to real-world systems throu
 
 ## Featured: Google System Design Interview Guide
 
-### [Google System Design Problems](google-systems/index.md)
+### [Google System Design Problems](/case-studies/google-systems/)
 **NEW!** Comprehensive guides for the most commonly asked Google system design interview questions, with detailed solutions focusing on scale, performance, and real-world trade-offs.
 
 #### Core Problems Covered:
-- **[Design Google Search](google-systems/google-search.md)**: 100B+ pages, <100ms latency, PageRank
-- **[Design YouTube](google-systems/google-youtube.md)**: 500hrs/min uploads, adaptive streaming, recommendations 
-- **[Design Google Maps](google-systems/google-maps-system.md)**: Real-time traffic, routing algorithms, offline maps
-- **[Design Gmail](google-systems/google-gmail.md)**: 300B emails/day, spam filtering, search
-- **[Design Google Docs](google-systems/google-docs.md)**: Real-time collaboration, conflict resolution, OT
+- **[Design Google Search](/case-studies/google-systems/google-search/)**: 100B+ pages, <100ms latency, PageRank
+- **[Design YouTube](/case-studies/google-systems/google-youtube/)**: 500hrs/min uploads, adaptive streaming, recommendations 
+- **[Design Google Maps](/case-studies/google-systems/google-maps-system/)**: Real-time traffic, routing algorithms, offline maps
+- **[Design Gmail](/case-studies/google-systems/google-gmail/)**: 300B emails/day, spam filtering, search
+- **[Design Google Docs](/case-studies/google-systems/google-docs/)**: Real-time collaboration, conflict resolution, OT
 
 Each guide includes problem clarification, capacity estimation, API design, detailed architecture, and interview tips.
 
@@ -36,7 +36,7 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 
 <div class="grid cards" markdown>
 
-- [:material-map-marker:{ .lg .middle } **Uber Location System**](uber-location.md)
+- [:material-map-marker:{ .lg .middle } **Uber Location System**](/case-studies/uber-location/)
 
  ---
 
@@ -47,7 +47,7 @@ Each guide includes problem clarification, capacity estimation, API design, deta
  
  **Laws**: [Asynchronous Reality](/part1-axioms/law2-asynchrony/) • [Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) • [State Distribution](/part2-pillars/state/)
 
-- [:material-database-outline:{ .lg .middle } **Amazon DynamoDB**](amazon-dynamo.md)
+- [:material-database-outline:{ .lg .middle } **Amazon DynamoDB**](/case-studies/amazon-dynamo/)
 
  ---
 
@@ -58,7 +58,7 @@ Each guide includes problem clarification, capacity estimation, API design, deta
  
  **Laws**: [Correlated Failure](/part1-axioms/law1-failure/) • [Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)
 
-- [:material-music:{ .lg .middle } **Spotify Recommendations**](spotify-recommendations.md)
+- [:material-music:{ .lg .middle } **Spotify Recommendations**](/case-studies/spotify-recommendations/)
 
  ---
 
@@ -71,7 +71,7 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 
 </div>
 
-### [PayPal: Distributed Payment Processing](paypal-payments.md)
+### [PayPal: Distributed Payment Processing](/case-studies/paypal-payments/)
 **Scale**: $1.36T/year | **Challenge**: Zero transaction loss with global scale 
 **Key Insights**: Distributed sagas, idempotency, compensating transactions 
 **Laws in Focus**: [Truth Distribution](/part2-pillars/truth/), [Control Distribution](/part2-pillars/control/), [Economic Reality 💰](/part1-axioms/law7-economics/) 
@@ -115,23 +115,23 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 ## Learning Paths by Role
 
 ### For Backend Engineers
-1. Start with [Uber's Location System](uber-location.md) - Classic distributed systems challenges
-2. Study [DynamoDB](amazon-dynamo.md) - Database internals
-3. Explore [PayPal](paypal-payments.md) - Transaction processing
+1. Start with [Uber's Location System](/case-studies/uber-location/) - Classic distributed systems challenges
+2. Study [DynamoDB](/case-studies/amazon-dynamo/) - Database internals
+3. Explore [PayPal](/case-studies/paypal-payments/) - Transaction processing
 
 ### For ML Engineers
-1. Begin with [Spotify Recommendations](spotify-recommendations.md) - ML at scale
-2. Review [Uber's Location](uber-location.md) - Real-time features
+1. Begin with [Spotify Recommendations](/case-studies/spotify-recommendations/) - ML at scale
+2. Review [Uber's Location](/case-studies/uber-location/) - Real-time features
 3. Examine feature stores and pipelines
 
 ### For Gaming Engineers
 1. Focus on **Fortnite** - State synchronization (coming soon)
-2. Study [Uber](uber-location.md) - Real-time systems
+2. Study [Uber](/case-studies/uber-location/) - Real-time systems
 3. Learn about edge computing patterns
 
 ### For Reliability Engineers
 1. Start with **SpaceX** - Safety-critical systems (coming soon)
-2. Study [DynamoDB](amazon-dynamo.md) - High availability
+2. Study [DynamoDB](/case-studies/amazon-dynamo/) - High availability
 3. Review all failure handling strategies
 
 ---
@@ -175,16 +175,16 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 
 ### Case Studies by Primary Focus
 **Latency & Performance**
-- [Uber Location](uber-location.md) - Sub-100ms global updates
+- [Uber Location](/case-studies/uber-location/) - Sub-100ms global updates
 - Coming Soon: Fortnite - Real-time game state
 
 **Availability & Resilience**
-- [Amazon DynamoDB](amazon-dynamo.md) - 99.999% availability
+- [Amazon DynamoDB](/case-studies/amazon-dynamo/) - 99.999% availability
 - Coming Soon: SpaceX - Safety-critical systems
 
 **Scale & Intelligence**
-- [Spotify Recommendations](spotify-recommendations.md) - 5B recommendations/day
-- [PayPal Payments](paypal-payments.md) - $1.36T/year processing
+- [Spotify Recommendations](/case-studies/spotify-recommendations/) - 5B recommendations/day
+- [PayPal Payments](/case-studies/paypal-payments/) - $1.36T/year processing
 
 ### Patterns Demonstrated
 - **[Edge Computing](/patterns/edge-computing)**: Uber's location system
@@ -207,98 +207,98 @@ Below is the complete catalog of all case studies in our library, organized by c
 #### 🏢 Major Technology Companies
 
 **Amazon & AWS:**
-- **[Amazon DynamoDB](amazon-dynamo.md)** - Eventually consistent key-value store achieving 99.999% availability
-- **[Amazon Aurora](amazon-aurora.md)** - Cloud-native relational database with multi-master replication
-- **[S3 Object Storage (Enhanced)](s3-object-storage-enhanced.md)** - Scalable object storage design patterns
+- **[Amazon DynamoDB](/case-studies/amazon-dynamo/)** - Eventually consistent key-value store achieving 99.999% availability
+- **[Amazon Aurora](/case-studies/amazon-aurora/)** - Cloud-native relational database with multi-master replication
+- **[S3 Object Storage (Enhanced)](/case-studies/s3-object-storage-enhanced/)** - Scalable object storage design patterns
 
 **Google:**
-- **[Google Drive](google-drive.md)** - Distributed file storage and synchronization
-- **[Google Maps](google-maps.md)** - Real-time mapping at planetary scale
-- **[Google Spanner](google-spanner.md)** - Globally distributed, strongly consistent database
-- **[YouTube](youtube.md)** - Video streaming infrastructure serving billions
+- **[Google Drive](/case-studies/google-drive/)** - Distributed file storage and synchronization
+- **[Google Maps](/case-studies/google-maps/)** - Real-time mapping at planetary scale
+- **[Google Spanner](/case-studies/google-spanner/)** - Globally distributed, strongly consistent database
+- **[YouTube](/case-studies/youtube/)** - Video streaming infrastructure serving billions
 
 **Netflix:**
-- **[Netflix Streaming](netflix-streaming.md)** - Adaptive streaming and CDN architecture
-- **[Netflix Chaos Engineering](netflix-chaos.md)** - Resilience through controlled failure
+- **[Netflix Streaming](/case-studies/netflix-streaming/)** - Adaptive streaming and CDN architecture
+- **[Netflix Chaos Engineering](/case-studies/netflix-chaos/)** - Resilience through controlled failure
 
 **Other Tech Giants:**
-- **[Apple Maps](apple-maps.md)** - Privacy-focused mapping infrastructure
-- **[PayPal Payments](paypal-payments.md)** - Distributed payment processing at $1.36T/year scale
-- **[Spotify Recommendations](spotify-recommendations.md)** - ML-powered personalization serving 5B recommendations/day
-- **[Twitter Timeline](twitter-timeline.md)** - Real-time timeline generation at scale
-- **[Uber Location Services](uber-location.md)** - Real-time location tracking for 40M concurrent users
+- **[Apple Maps](/case-studies/apple-maps/)** - Privacy-focused mapping infrastructure
+- **[PayPal Payments](/case-studies/paypal-payments/)** - Distributed payment processing at $1.36T/year scale
+- **[Spotify Recommendations](/case-studies/spotify-recommendations/)** - ML-powered personalization serving 5B recommendations/day
+- **[Twitter Timeline](/case-studies/twitter-timeline/)** - Real-time timeline generation at scale
+- **[Uber Location Services](/case-studies/uber-location/)** - Real-time location tracking for 40M concurrent users
 
 #### Communication & Messaging Systems
 
-- **[Chat System](chat-system.md)** - Real-time messaging architecture with 2,320 lines of comprehensive design
-- **[Consistency Deep Dive Chat](consistency-deep-dive-chat.md)** - Advanced consistency patterns in chat applications
-- **[Distributed Email (Enhanced)](distributed-email-enhanced.md)** - Modern email architecture patterns
-- **[Distributed Message Queue](distributed-message-queue.md)** - Scalable message queuing design
-- **[News Feed](news-feed.md)** - Social media feed generation
-- **[Notification System](notification-system.md)** - Multi-channel notification delivery
-- **[Social Media Feed](social-media-feed.md)** - Feed ranking and distribution
+- **[Chat System](/case-studies/chat-system/)** - Real-time messaging architecture with 2,320 lines of comprehensive design
+- **[Consistency Deep Dive Chat](/case-studies/consistency-deep-dive-chat/)** - Advanced consistency patterns in chat applications
+- **[Distributed Email (Enhanced)](/case-studies/distributed-email-enhanced/)** - Modern email architecture patterns
+- **[Distributed Message Queue](/case-studies/distributed-message-queue/)** - Scalable message queuing design
+- **[News Feed](/case-studies/news-feed/)** - Social media feed generation
+- **[Notification System](/case-studies/notification-system/)** - Multi-channel notification delivery
+- **[Social Media Feed](/case-studies/social-media-feed/)** - Feed ranking and distribution
 
 #### 🗄 Storage & Database Systems
 
 **Core Distributed Systems:**
-- **[Apache Kafka](kafka.md)** - Distributed streaming platform
-- **[Apache Spark](apache-spark.md)** - Unified analytics engine
-- **[Cassandra](cassandra.md)** - Wide column store database
-- **[Consistent Hashing](consistent-hashing.md)** - Fundamental distributed systems technique
-- **[ElasticSearch](elasticsearch.md)** - Distributed search and analytics
-- **[etcd](etcd.md)** - Distributed key-value store
-- **[Key-Value Store](key-value-store.md)** - Building blocks of distributed storage
-- **[MapReduce](mapreduce.md)** - Large-scale data processing
-- **[Memcached](memcached.md)** - High-performance caching
-- **[MongoDB](mongodb.md)** - Document-oriented database
-- **[Object Storage](object-storage.md)** - Scalable unstructured data storage
-- **[Redis](redis.md)** - In-memory data structure store
-- **[Redis Architecture](redis-architecture.md)** - Deep dive into Redis internals
-- **[ZooKeeper](zookeeper.md)** - Distributed coordination service
+- **[Apache Kafka](/case-studies/kafka/)** - Distributed streaming platform
+- **[Apache Spark](/case-studies/apache-spark/)** - Unified analytics engine
+- **[Cassandra](/case-studies/cassandra/)** - Wide column store database
+- **[Consistent Hashing](/case-studies/consistent-hashing/)** - Fundamental distributed systems technique
+- **[ElasticSearch](/case-studies/elasticsearch/)** - Distributed search and analytics
+- **[etcd](/case-studies/etcd/)** - Distributed key-value store
+- **[Key-Value Store](/case-studies/key-value-store/)** - Building blocks of distributed storage
+- **[MapReduce](/case-studies/mapreduce/)** - Large-scale data processing
+- **[Memcached](/case-studies/memcached/)** - High-performance caching
+- **[MongoDB](/case-studies/mongodb/)** - Document-oriented database
+- **[Object Storage](/case-studies/object-storage/)** - Scalable unstructured data storage
+- **[Redis](/case-studies/redis/)** - In-memory data structure store
+- **[Redis Architecture](/case-studies/redis-architecture/)** - Deep dive into Redis internals
+- **[ZooKeeper](/case-studies/zookeeper/)** - Distributed coordination service
 
 #### Financial & E-commerce Systems
 
-- **[Digital Wallet (Enhanced)](digital-wallet-enhanced.md)** - Modern digital wallet architecture
-- **[Ecommerce Platform](ecommerce-platform.md)** - Complete e-commerce system design
-- **[Hotel Reservation](hotel-reservation.md)** - Booking system with inventory management
-- **[Payment System](payment-system.md)** - Core payment processing patterns
-- **[Stock Exchange](stock-exchange.md)** - High-frequency trading architecture
+- **[Digital Wallet (Enhanced)](/case-studies/digital-wallet-enhanced/)** - Modern digital wallet architecture
+- **[Ecommerce Platform](/case-studies/ecommerce-platform/)** - Complete e-commerce system design
+- **[Hotel Reservation](/case-studies/hotel-reservation/)** - Booking system with inventory management
+- **[Payment System](/case-studies/payment-system/)** - Core payment processing patterns
+- **[Stock Exchange](/case-studies/stock-exchange/)** - High-frequency trading architecture
 
 #### 📍 Location & Mapping Services
 
-- **[Find My Device](find-my-device.md)** - Device tracking infrastructure
-- **[HERE Maps](here-maps.md)** - Global mapping platform
-- **[Life360](life360.md)** - Family location sharing
-- **[Nearby Friends](nearby-friends.md)** - Proximity-based social features
-- **[OpenStreetMap](openstreetmap.md)** - Crowdsourced mapping
-- **[Proximity Service](proximity-service.md)** - Location-based discovery
-- **[Snap Map](snap-map.md)** - Real-time location sharing
-- **[Strava Heatmaps](strava-heatmaps.md)** - Activity aggregation and visualization
-- **[Uber Maps](uber-maps.md)** - Real-time navigation for ride-sharing
+- **[Find My Device](/case-studies/find-my-device/)** - Device tracking infrastructure
+- **[HERE Maps](/case-studies/here-maps/)** - Global mapping platform
+- **[Life360](/case-studies/life360/)** - Family location sharing
+- **[Nearby Friends](/case-studies/nearby-friends/)** - Proximity-based social features
+- **[OpenStreetMap](/case-studies/openstreetmap/)** - Crowdsourced mapping
+- **[Proximity Service](/case-studies/proximity-service/)** - Location-based discovery
+- **[Snap Map](/case-studies/snap-map/)** - Real-time location sharing
+- **[Strava Heatmaps](/case-studies/strava-heatmaps/)** - Activity aggregation and visualization
+- **[Uber Maps](/case-studies/uber-maps/)** - Real-time navigation for ride-sharing
 
 #### Search & Discovery
 
-- **[Search Autocomplete](search-autocomplete.md)** - Real-time search suggestions
-- **[Social Graph](social-graph.md)** - Graph database for social connections
-- **[Web Crawler](web-crawler.md)** - Distributed web crawling architecture
+- **[Search Autocomplete](/case-studies/search-autocomplete/)** - Real-time search suggestions
+- **[Social Graph](/case-studies/social-graph/)** - Graph database for social connections
+- **[Web Crawler](/case-studies/web-crawler/)** - Distributed web crawling architecture
 
 #### Monitoring & Infrastructure
 
-- **[Ad Click Aggregation](ad-click-aggregation.md)** - Real-time analytics pipeline
-- **[Gaming Leaderboard (Enhanced)](gaming-leaderboard-enhanced.md)** - Global ranking systems
-- **[HashiCorp Vault](vault.md)** - Secret management infrastructure
-- **[Kubernetes](kubernetes.md)** - Container orchestration platform
-- **[Metrics & Monitoring](metrics-monitoring.md)** - Observability infrastructure
-- **[Prometheus](prometheus.md)** - Time-series monitoring
-- **[Prometheus & Datadog (Enhanced)](prometheus-datadog-enhanced.md)** - Modern monitoring stack
-- **[Rate Limiter](rate-limiter.md)** - API rate limiting at scale
-- **[Unique ID Generator](unique-id-generator.md)** - Distributed ID generation
-- **[URL Shortener](url-shortener.md)** - URL shortening service design
-- **[Video Streaming](video-streaming.md)** - Adaptive video delivery
+- **[Ad Click Aggregation](/case-studies/ad-click-aggregation/)** - Real-time analytics pipeline
+- **[Gaming Leaderboard (Enhanced)](/case-studies/gaming-leaderboard-enhanced/)** - Global ranking systems
+- **[HashiCorp Vault](/case-studies/vault/)** - Secret management infrastructure
+- **[Kubernetes](/case-studies/kubernetes/)** - Container orchestration platform
+- **[Metrics & Monitoring](/case-studies/metrics-monitoring/)** - Observability infrastructure
+- **[Prometheus](/case-studies/prometheus/)** - Time-series monitoring
+- **[Prometheus & Datadog (Enhanced)](/case-studies/prometheus-datadog-enhanced/)** - Modern monitoring stack
+- **[Rate Limiter](/case-studies/rate-limiter/)** - API rate limiting at scale
+- **[Unique ID Generator](/case-studies/unique-id-generator/)** - Distributed ID generation
+- **[URL Shortener](/case-studies/url-shortener/)** - URL shortening service design
+- **[Video Streaming](/case-studies/video-streaming/)** - Adaptive video delivery
 
 #### 🔐 Security & Privacy
 
-- **[Blockchain](blockchain.md)** - Distributed ledger technology
+- **[Blockchain](/case-studies/blockchain/)** - Distributed ledger technology
 
 #### Administrative
 
@@ -355,9 +355,9 @@ Below is the complete catalog of all case studies in our library, organized by c
 ### 📚 Learning Paths by System Type
 
 **Start with fundamentals:**
-1. [Consistent Hashing](consistent-hashing.md) - Core concept
-2. [Key-Value Store](key-value-store.md) - Basic building block
-3. [DynamoDB](amazon-dynamo.md) - Production implementation
+1. [Consistent Hashing](/case-studies/consistent-hashing/) - Core concept
+2. [Key-Value Store](/case-studies/key-value-store/) - Basic building block
+3. [DynamoDB](/case-studies/amazon-dynamo/) - Production implementation
 
 **Then explore your domain:**
 - **Backend Systems**: Kafka → Redis → Cassandra

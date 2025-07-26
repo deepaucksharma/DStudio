@@ -24,20 +24,20 @@ last_updated: 2025-07-23
 
 ## Our Approach vs Traditional Learning
 
-<div class="grid" markdown>
- <div class="card">
- <h3 class="card__title">Traditional Approach</h3>
- <p class="card__description">
- Start with tools (Kafka, Redis, Kubernetes). Problem: Technologies become obsolete in 3-5 years.
- </p>
- </div>
- 
- <div class="card">
- <h3 class="card__title">Our Physics-First Philosophy</h3>
- <p class="card__description">
- Start with immutable laws of physics and derive solutions. Benefit: Understanding that transcends technology.
- </p>
- </div>
+<div class="grid cards" markdown>
+
+- :material-tools:{ .lg .middle } **Traditional Approach**
+    
+    ---
+    
+    Start with tools (Kafka, Redis, Kubernetes). Problem: Technologies become obsolete in 3-5 years.
+
+- :material-atom:{ .lg .middle } **Our Physics-First Philosophy**
+    
+    ---
+    
+    Start with immutable laws of physics and derive solutions. Benefit: Understanding that transcends technology.
+
 </div>
 
 ```mermaid
@@ -61,7 +61,7 @@ graph TD
  | **Databases** | Basic SQL knowledge | SELECT, INSERT, transactions |
 
 
-!!! note "Helpful but Optional"
+!!! info "Helpful but Optional"
 | Topic | Why It Helps | When You'll Use It |
  |-------|--------------|-------------------|
  | **OS Concepts** | Understanding processes, threads | Concurrency patterns |
@@ -196,34 +196,32 @@ graph TD
 
 ## What You'll Find in This Compendium
 
-<div class="grid" markdown>
- <div class="card">
- <h3 class="card__title">The 7 Fundamental Laws</h3>
- <p class="card__description">
- Correlated Failure, Asynchronous Reality, Emergent Chaos, Multidimensional Optimization, Distributed Knowledge, Cognitive Load, Economic Reality
- </p>
- </div>
- 
- <div class="card">
- <h3 class="card__title">50+ Battle-Tested Patterns</h3>
- <p class="card__description">
- Reliability, scalability, consistency, and performance patterns organized by problem domain.
- </p>
- </div>
- 
- <div class="card">
- <h3 class="card__title">Quantitative Toolkit</h3>
- <p class="card__description">
- Queue theory, availability calculations, capacity planning models, cost optimization frameworks.
- </p>
- </div>
- 
- <div class="card">
- <h3 class="card__title">Real-World Case Studies</h3>
- <p class="card__description">
- Netflix, Amazon DynamoDB, Google Spanner, Uber geospatial services, and more.
- </p>
- </div>
+<div class="grid cards" markdown>
+
+- :material-scale-balance:{ .lg .middle } **The 7 Fundamental Laws**
+    
+    ---
+    
+    Correlated Failure, Asynchronous Reality, Emergent Chaos, Multidimensional Optimization, Distributed Knowledge, Cognitive Load, Economic Reality
+
+- :material-puzzle:{ .lg .middle } **50+ Battle-Tested Patterns**
+    
+    ---
+    
+    Reliability, scalability, consistency, and performance patterns organized by problem domain.
+
+- :material-calculator-variant:{ .lg .middle } **Quantitative Toolkit**
+    
+    ---
+    
+    Queue theory, availability calculations, capacity planning models, cost optimization frameworks.
+
+- :material-city:{ .lg .middle } **Real-World Case Studies**
+    
+    ---
+    
+    Netflix, Amazon DynamoDB, Google Spanner, Uber geospatial services, and more.
+
 </div>
 
 ## Study Tips
@@ -237,7 +235,7 @@ graph TD
  | **Build** | Implement patterns yourself | Develops practical skills |
 
 
-!!! note "Build Your Portfolio"
+!!! tip "Build Your Portfolio"
  - **Document insights** as you learn
  - **Implement patterns** in code
  - **Break things intentionally** to see failures
@@ -248,11 +246,11 @@ graph TD
 !!! tip "Start Based on Your Immediate Need"
 | If You Need | Go To | Why |
  |-------------|-------|-----|
- | **Solve Problem Now** | [Pattern Catalog](../patterns/) | Find proven solutions |
- | **Deep Understanding** | [Law 1 - Failure](../part1-axioms/law1-failure/) | Build from fundamentals |
- | **Design System** | [Pattern Selector](../patterns/pattern-selector/) | Make informed choices |
- | **Capacity Planning** | [Calculators](../quantitative/) | Quantify decisions |
- | **Learn from Failures** | [Case Studies](../case-studies/) | Avoid known pitfalls |
+ | **Solve Problem Now** | [Pattern Catalog](/patterns/) | Find proven solutions |
+ | **Deep Understanding** | [Law 1 - Failure](/part1-axioms/law1-failure/) | Build from fundamentals |
+ | **Design System** | [Pattern Selector](/patterns/pattern-selector/) | Make informed choices |
+ | **Capacity Planning** | [Calculators](/quantitative/) | Quantify decisions |
+ | **Learn from Failures** | [Case Studies](/case-studies/) | Avoid known pitfalls |
 
 
 ### Reading Order Options
@@ -325,10 +323,10 @@ graph TD
  **Time Investment:** 15-30 minutes
  
  **Quick Links:**
- - [Pattern Selector Tool](../patterns/pattern-selector/)
- - [Cheat Sheets](../reference/cheat-sheets/)
- - [Glossary](../reference/glossary/)
- - [Recipe Cards](../reference/recipe-cards/)
+ - [Pattern Selector Tool](/patterns/pattern-selector/)
+ - [Cheat Sheets](/reference/cheat-sheets/)
+ - [Glossary](/reference/glossary/)
+ - [Recipe Cards](/reference/recipe-cards/)
 
 
 ## Common Learning Pitfalls
@@ -348,9 +346,9 @@ graph TD
  1. **Check Prerequisites**: Do you have basic programming, networking, and database knowledge?
  2. **Choose Your Path**: Pick the learning path that matches your experience level
  3. **Set Schedule**: Block 5-15 hours per week for focused study
- 4. **Begin**: Start with [Law 1: Correlated Failure](../part1-axioms/law1-failure/)
+ 4. **Begin**: Start with [Law 1: Correlated Failure](/part1-axioms/law1-failure/)
 
 ---
 
-<a href="index.md" class="nav-button prev">← Introduction</a>
- <a href="philosophy.md" class="nav-button next">The Philosophy →</a>
+<a href="/introduction/" class="nav-button prev">← Introduction</a>
+ <a href="/introduction/philosophy/" class="nav-button next">The Philosophy →</a>

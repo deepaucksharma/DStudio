@@ -4,7 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a MkDocs-based documentation site called "The Compendium of Distributed Systems" - an educational resource that teaches distributed systems from first principles, starting with physics and mathematics rather than specific technologies.
+This is a MkDocs-based documentation site called "The Compendium of Distributed Systems" - an educational resource that teaches distributed systems from first principles - Maximum conceptual depth with minimum cognitive load through visual
+  organization and progressive disclosure.
 
 ## Essential Commands
 
@@ -107,6 +108,11 @@ The site uses custom-styled components defined in `extra.css`:
 - Build artifacts in `site/` directory (gitignored)
 
 ## Content Quality Standards
+
+It is verify important to present highest conceptual clarity with in-depth comprehensive coverage of concepts -
+  - be direct, to the point 
+  - Concise with scannable format
+  - have a clear visual hierarchy
 
 ### Comprehensive Content Updates
 **CRITICAL**: When making any change to a page, think comprehensively:

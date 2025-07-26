@@ -18,7 +18,7 @@ last_updated: 2025-07-20
 
  <div>
  <div>
- <h3>Speedup = 1 / (s + p/n)</h3>
+ <h3>$$\text{Speedup} = \frac{1}{s + p/n}$$</h3>
  
  <table class="responsive-table">
  <thead>
@@ -195,7 +195,7 @@ Serial = 10% → Max speedup = 10x (even with 1000 cores!)
 
  <div>
  <div>
- <h3>Speedup = s + p × n</h3>
+ <h3>$$\text{Speedup} = s + p \times n$$</h3>
  
  <table class="responsive-table">
  <thead>
@@ -474,7 +474,7 @@ Large: 0.01% serial (bigger data scales better!)
  <div>
  <strong>📐 Quick Reference Formula:</strong>
  <div>
- Max Speedup ≈ 1 / (Serial Fraction)
+ $$\text{Max Speedup} \approx \frac{1}{\text{Serial Fraction}}$$
  </div>
  <div>
  Example: 10% serial → max 10x speedup

@@ -10,52 +10,83 @@ search:
 
 # The Compendium of Distributed Systems
 
-!!! abstract "Learn Distributed Systems from First Principles"
+!!! abstract "Core Philosophy"
+    🎯 **Derive distributed systems from physics laws, not memorize patterns**
     
-    Master the fundamental laws of physics and mathematics that govern all distributed systems.
-    No buzzwords, just timeless principles.
+    **7 Fundamental Laws** • **5 Core Pillars** • **50+ Production Patterns** • **100+ Real Failures**
+
+## Your Learning Journey
+
+```mermaid
+graph LR
+    subgraph "Week 1-2: Foundation"
+        A[Speed of Light] --> B[CAP Theorem]
+        B --> C[FLP Result]
+        C --> D[7 Laws]
+    end
     
-    <div class="grid cards" markdown>
+    subgraph "Week 3-6: Patterns"
+        D --> E[Load Balancing]
+        E --> F[Sharding]
+        F --> G[Consensus]
+        G --> H[50+ More]
+    end
     
-    - :material-rocket-launch:{ .lg } __Quick Start__
+    subgraph "Week 7-12: Mastery"
+        H --> I[Build Twitter Clone]
+        I --> J[Design Uber]
+        J --> K[Create New Patterns]
+    end
     
-        ---
-        
-        [:octicons-arrow-right-24: Start Your Journey](introduction/getting-started/){ .md-button .md-button--primary }
-    
-    - :material-clock-fast:{ .lg } __5 Min Overview__
-    
-        ---
-        
-        [:octicons-video-24: Watch Introduction](introduction/#video-overview){ .md-button }
-    
-    </div>
+    style A fill:#4CAF50,color:#fff
+    style D fill:#2196F3,color:#fff
+    style H fill:#FF9800,color:#fff
+    style K fill:#9C27B0,color:#fff
+```
 
 <div class="grid cards" markdown>
 
-- :material-numeric-7-box:{ .lg .middle } **7**
- 
- ---
- 
- Fundamental Laws
+- :material-rocket-launch:{ .lg } **Start Learning**
+    
+    ---
+    
+    [:octicons-arrow-right-24: Choose Your Path](/introduction/getting-started/){ .md-button .md-button--primary }
 
-- :material-numeric-5-box:{ .lg .middle } **5**
- 
- ---
- 
- Core Pillars
+- :material-compass:{ .lg } **Quick Navigator**
+    
+    ---
+    
+    [:octicons-arrow-right-24: Pattern Selector](/patterns/pattern-matrix/){ .md-button }
 
-- :material-plus:{ .lg .middle } **50+**
- 
- ---
- 
- Design Patterns
+</div>
 
-- :material-library:{ .lg .middle } **20+**
- 
- ---
- 
- Case Studies
+## What You'll Master
+
+<div class="grid cards" markdown>
+
+- :material-atom:{ .lg .middle } **Foundation**
+    
+    ---
+    
+    **7 Fundamental Laws** derived from physics  
+    **5 Core Pillars** organizing all patterns  
+    **Mathematical proofs** for impossibility results
+
+- :material-puzzle:{ .lg .middle } **Application**
+    
+    ---
+    
+    **50+ Patterns** from Google, Amazon, Netflix  
+    **100+ Failures** analyzed with root causes  
+    **Decision frameworks** for architecture choices
+
+- :material-rocket:{ .lg .middle } **Outcome**
+    
+    ---
+    
+    **Design** systems that scale to millions  
+    **Debug** any distributed system failure  
+    **Lead** technical architecture decisions
 
 </div>
 
@@ -69,7 +100,7 @@ search:
 
  New to distributed systems? Start with our guided learning paths tailored to your experience level.
 
- [:octicons-arrow-right-24: Get Started](introduction/getting-started/)
+ [:octicons-arrow-right-24: Get Started](/introduction/getting-started/)
 
 - :material-scale-balance:{ .lg .middle } __The 7 Laws__
 
@@ -77,7 +108,7 @@ search:
 
  Discover the fundamental laws derived from physics that govern all distributed systems.
 
- [:octicons-arrow-right-24: Explore Laws](part1-axioms/)
+ [:octicons-arrow-right-24: Explore Laws](/part1-axioms/)
 
 - :material-pillar:{ .lg .middle } __The 5 Pillars__
 
@@ -85,7 +116,7 @@ search:
 
  Learn how to organize solutions around fundamental distributed concepts.
 
- [:octicons-arrow-right-24: Study Pillars](part2-pillars/)
+ [:octicons-arrow-right-24: Study Pillars](/part2-pillars/)
 
 - :material-puzzle:{ .lg .middle } __Design Patterns__
 
@@ -93,11 +124,11 @@ search:
 
  Explore battle-tested patterns for building resilient, scalable distributed systems.
 
- [:octicons-arrow-right-24: Browse Patterns](patterns/)
+ [:octicons-arrow-right-24: Browse Patterns](/patterns/)
 
 </div>
 
-## Choose Your Learning Path
+## 🎯 Choose Your Learning Path
 
 === ":material-school: New Graduate"
 
@@ -107,7 +138,7 @@ search:
         
         Build deep understanding from physics up. Perfect for those with time to invest in fundamentals.
         
-        [:octicons-arrow-right-24: Start Foundation Path](introduction/getting-started/#path-1-foundation-builder-new-graduates){ .md-button }
+        [:octicons-arrow-right-24: Start Foundation Path](/introduction/getting-started/#path-1-foundation-builder-new-graduates){ .md-button }
 
 === ":material-code-tags: Mid-Level"
 
@@ -117,7 +148,7 @@ search:
         
         Apply patterns immediately while building theoretical foundation.
         
-        [:octicons-arrow-right-24: Start Practical Path](introduction/getting-started/#path-2-practical-problem-solver-mid-level-engineers){ .md-button }
+        [:octicons-arrow-right-24: Start Practical Path](/introduction/getting-started/#path-2-practical-problem-solver-mid-level-engineers){ .md-button }
 
 === ":material-account-star: Senior"
 
@@ -127,7 +158,7 @@ search:
         
         Master complex patterns and architectural decision-making.
         
-        [:octicons-arrow-right-24: Start Advanced Path](introduction/getting-started/#path-3-system-designer-senior-engineers){ .md-button }
+        [:octicons-arrow-right-24: Start Advanced Path](/introduction/getting-started/#path-3-system-designer-senior-engineers){ .md-button }
 
 === ":material-account-group: Manager"
 
@@ -137,7 +168,7 @@ search:
         
         Strategic overview for technical decision makers.
         
-        [:octicons-arrow-right-24: Start Leadership Path](introduction/getting-started/#path-4-technical-leader-managersarchitects){ .md-button }
+        [:octicons-arrow-right-24: Start Leadership Path](/introduction/getting-started/#path-4-technical-leader-managersarchitects){ .md-button }
 
 
 ## Why This Approach?
@@ -220,4 +251,4 @@ search:
 
 ## Ready to Begin?
 
-[Start Learning :fontawesome-solid-graduation-cap:](introduction/getting-started/){ .md-button .md-button--primary .md-button--stretch }
+[Start Learning :fontawesome-solid-graduation-cap:](/introduction/getting-started/){ .md-button .md-button--primary .md-button--stretch }

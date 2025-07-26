@@ -14,6 +14,8 @@ last_updated: 2025-07-25
 
 # Event Sourcing
 
+[Home](/) > [Patterns](/patterns/) > [Core Patterns](/patterns/#core-patterns) > Event Sourcing
+
 !!! abstract "📊 Data Pattern"
  Store all changes as immutable events to maintain complete audit history while enabling state reconstruction at any point in time.
  
@@ -702,7 +704,8 @@ event_sourcing:
 
 ---
 
-<div class="prev-link">
-<a href="/patterns/event-driven">← Previous: Event-Driven Architecture</a>
-<a href="/patterns/saga">Next: Saga Pattern →</a>
+<div class="page-nav" markdown>
+[:material-arrow-left: CQRS](/patterns/cqrs/) | 
+[:material-arrow-up: Patterns](/patterns/) | 
+[:material-arrow-right: Saga Pattern](/patterns/saga/)
 </div>

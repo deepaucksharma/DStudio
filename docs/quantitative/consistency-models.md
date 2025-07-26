@@ -55,13 +55,13 @@ last_updated: 2025-01-23
  - Invocation and response times
  - Return value
  <strong>Linearizability</strong>:
- ∃ total order ≺ on operations in H such that:
- 1. If op1 returns before op2 starts, then op1 ≺ op2 (real-time)
- 2. Each read returns the value of the most recent write in ≺
+ $\exists$ total order $\prec$ on operations in $H$ such that:
+ 1. If $op_1$ returns before $op_2$ starts, then $op_1 \prec op_2$ (real-time)
+ 2. Each read returns the value of the most recent write in $\prec$
  <strong>Sequential Consistency</strong>:
- ∃ total order ≺ on operations in H such that:
- 1. ≺ respects program order for each process
- 2. Each read returns the value of the most recent write in ≺
+ $\exists$ total order $\prec$ on operations in $H$ such that:
+ 1. $\prec$ respects program order for each process
+ 2. Each read returns the value of the most recent write in $\prec$
  (No real-time constraint!)
 
 ### Visualization of Guarantees
@@ -143,7 +143,7 @@ last_updated: 2025-01-23
 !!! abstract "📊 PBS: Measuring Eventual Consistency"
 
  <div class="formula-highlight">
- PBS(t) = P(read returns latest value after time t)
+ $$PBS(t) = P(\text{read returns latest value after time } t)$$
 
 **Amazon S3 Measurements (2011)**:
 | Time After Write | PBS |
@@ -188,8 +188,8 @@ last_updated: 2025-01-23
  <strong>Example: 3-atomic system</strong>
  Writes: v1 → v2 → v3 → v4 → v5
  Valid reads after v5: {v3, v4, v5}
- <strong>Staleness bound</strong> = k × (average write interval)
- If writes occur every 10ms: max staleness = 3 × 10ms = 30ms
+ <strong>Staleness bound</strong> = $k \times$ (average write interval)
+ If writes occur every 10ms: max staleness = $3 \times 10\text{ms} = 30\text{ms}$
 
 **Real-world k-atomicity**:
 <div class="responsive-table" markdown>
@@ -208,17 +208,17 @@ last_updated: 2025-01-23
 
 !!! info "⏰ Causal Consistency with Vector Clocks"
  !!! info
- <strong>Vector Clock VC[n]</strong> where n = number of processes
- On local event at Pi:
- VC[i] = VC[i] + 1
- On send message m at Pi:
- VC[i] = VC[i] + 1
- attach VC to m
- On receive message m at Pj:
- VC[j] = max(VC[j], m.VC[j]) + 1
- ∀k≠j: VC[k] = max(VC[k], m.VC[k])
+ <strong>Vector Clock $VC[n]$</strong> where $n$ = number of processes
+ On local event at $P_i$:
+ $VC[i] = VC[i] + 1$
+ On send message $m$ at $P_i$:
+ $VC[i] = VC[i] + 1$
+ attach $VC$ to $m$
+ On receive message $m$ at $P_j$:
+ $VC[j] = \max(VC[j], m.VC[j]) + 1$
+ $\forall k \neq j: VC[k] = \max(VC[k], m.VC[k])$
 
-**Causal ordering**: e1 → e2 iff VC(e1) < VC(e2)
+**Causal ordering**: $e_1 \rightarrow e_2$ iff $VC(e_1) < VC(e_2)$
 
 <div class="example-scenario">
 <svg viewBox="0 0 600 300">
@@ -270,12 +270,12 @@ last_updated: 2025-01-23
 
  | Consistency | Local DC | Cross-Region | Global | Formula |
  |-------------|----------|--------------|--------|---------|
- | Eventual | 1-5ms | 1-5ms | 1-5ms | O(1) |
- | Read Your Write | 1-5ms | RTT/2 | RTT/2 | O(RTT) |
- | Monotonic Read | 5-10ms | RTT | RTT | O(RTT) |
- | Causal | 10-20ms | RTT | RTT×log(N) | O(RTT×log(N)) |
- | Sequential | 20-50ms | 2×RTT | 2×RTT×N | O(RTT×N) |
- | Linearizable | 50-100ms | 3×RTT | 3×RTT×N | O(RTT×N) |
+ | Eventual | 1-5ms | 1-5ms | 1-5ms | $O(1)$ |
+ | Read Your Write | 1-5ms | RTT/2 | RTT/2 | $O(\text{RTT})$ |
+ | Monotonic Read | 5-10ms | RTT | RTT | $O(\text{RTT})$ |
+ | Causal | 10-20ms | RTT | $\text{RTT} \times \log(N)$ | $O(\text{RTT} \times \log(N))$ |
+ | Sequential | 20-50ms | $2 \times \text{RTT}$ | $2 \times \text{RTT} \times N$ | $O(\text{RTT} \times N)$ |
+ | Linearizable | 50-100ms | $3 \times \text{RTT}$ | $3 \times \text{RTT} \times N$ | $O(\text{RTT} \times N)$ |
 
 
 <strong>Example: Global E-commerce Platform</strong><br>
@@ -283,10 +283,10 @@ last_updated: 2025-01-23
 • US ↔ Asia RTT = 150ms<br>
 <br>
 <strong>Linearizable write across 3 regions</strong>:<br>
-= 3 × max(100ms, 150ms) = 450ms minimum<br>
+$= 3 \times \max(100\text{ms}, 150\text{ms}) = 450\text{ms}$ minimum<br>
 <br>
 <strong>Eventual consistency write</strong>:<br>
-= 5ms (local write only)
+$= 5\text{ms}$ (local write only)
 </div>
 
 ### Consistency SLA Calculator
@@ -301,8 +301,8 @@ last_updated: 2025-01-23
 
  <strong>Revenue calculation for 1M requests/day</strong>:
  • Eventual (50ms) vs Linearizable (500ms) for product views
- • Δ = 450ms = 4.5% conversion loss
- • Daily impact = 1M × $100 AOV × 2% conversion × 4.5% = <span>$90,000/day</span>
+ • $\Delta = 450\text{ms} = 4.5\%$ conversion loss
+ • Daily impact = $1\text{M} \times \$100 \text{ AOV} \times 2\% \text{ conversion} \times 4.5\% = \$90,000\text{/day}$
 
 ## Session Guarantees
 
@@ -316,14 +316,18 @@ last_updated: 2025-01-23
  | **Writes Follow Reads** | Causal consistency | Track read dependencies |
 
  <strong>Session vector example</strong>:
- Session S1: {lastWrite: v5, highestRead: v7, deps: [v3, v4]}
+ Session $S_1$: $\{\text{lastWrite}: v_5, \text{highestRead}: v_7, \text{deps}: [v_3, v_4]\}$
  On read request:
+ ```
  if (replica.version < session.highestRead) {
- &nbsp;&nbsp;// Forward to newer replica or wait
+   // Forward to newer replica or wait
  }
+ ```
  On write request:
+ ```
  ensure(all session.deps are applied)
  newVersion = max(session.lastWrite, replica.version) + 1
+ ```
 
 ## Tunable Consistency
 
@@ -332,8 +336,8 @@ last_updated: 2025-01-23
 !!! abstract "🎛️ Dynamo-Style Tunable Consistency"
 
  <div class="formula-highlight">
- <strong>Strong Consistency Condition</strong>: R + W > N<br>
- Where: R = read replicas, W = write replicas, N = total replicas
+ <strong>Strong Consistency Condition</strong>: $R + W > N$<br>
+ Where: $R$ = read replicas, $W$ = write replicas, $N$ = total replicas
 
 **Common Configurations**:
 
@@ -346,13 +350,13 @@ last_updated: 2025-01-23
 
 
 <strong>Latency formulas</strong>:<br>
-• Read latency = P(R) where P(k) = k-th fastest replica<br>
-• Write latency = P(W) where P(k) = k-th fastest replica<br>
+• Read latency = $P(R)$ where $P(k)$ = $k$-th fastest replica<br>
+• Write latency = $P(W)$ where $P(k)$ = $k$-th fastest replica<br>
 <br>
 Example (3 replicas: 10ms, 15ms, 50ms):<br>
-• R=1: 10ms (fastest)<br>
-• R=2: 15ms (2nd fastest)<br>
-• R=3: 50ms (slowest)
+• $R=1$: 10ms (fastest)<br>
+• $R=2$: 15ms (2nd fastest)<br>
+• $R=3$: 50ms (slowest)
 </div>
 
 ### Consistency Level Performance
@@ -519,9 +523,9 @@ GROUP BY datacenter
  □ Geographic distribution: ______
  <strong>Step 3: Calculate trade-offs</strong>
  Using formulas from this guide:
- • Expected latency = <em>consistency_overhead + network_RTT</em>
- • Availability = <em>based on quorum requirements</em>
- • Conflict probability = <em>write_rate × consistency_window</em>
+ • Expected latency = $\text{consistency\_overhead} + \text{network\_RTT}$
+ • Availability = based on quorum requirements
+ • Conflict probability = $\text{write\_rate} \times \text{consistency\_window}$
 </div>
 
 ## Key Takeaways

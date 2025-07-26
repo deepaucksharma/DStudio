@@ -15,13 +15,18 @@ last_updated: 2025-01-23
 
 # Pattern Selection Guide
 
-**Your interactive decision support system for distributed patterns**
+!!! abstract "Quick Navigator"
+    🎯 **Find the right pattern in 30 seconds using our decision matrices**
 
-> *"Choosing the right pattern is half the battle in distributed systems design."*
+## Pattern Selection Matrix
 
----
-
-## Master Decision Tree
+| Your Challenge | Best Pattern | Complexity | When to Use |
+|----------------|--------------|------------|-------------|
+| **External API failures** | Circuit Breaker | ⭐⭐ | Always |
+| **High read load** | Cache-Aside | ⭐ | Read/Write > 10:1 |
+| **Distributed transactions** | Saga | ⭐⭐⭐ | Microservices |
+| **Service discovery** | Service Mesh | ⭐⭐⭐⭐ | >20 services |
+| **Data consistency** | Event Sourcing | ⭐⭐⭐⭐⭐ | Audit required |
 
 ```mermaid
 flowchart TD
@@ -62,24 +67,18 @@ flowchart TD
 
 ---
 
-## 🎴 Quick Reference Cards by Challenge
+## Pattern Decision Cards
 
 ### 💾 Data Management Patterns
 
-<div>
+| Pattern | When to Use | Trade-off | Complexity |
+|---------|-------------|-----------|------------|
+| **Cache-Aside** | Read-heavy (>10:1) | Eventual consistency | ⭐ |
+| **Write-Through** | Need consistency | Higher latency | ⭐⭐ |
+| **Write-Behind** | Write-heavy | Risk data loss | ⭐⭐⭐ |
+| **Event Sourcing** | Audit trail needed | Complex queries | ⭐⭐⭐⭐⭐ |
 
-<div>
-<h4>Caching Strategies</h4>
-<p><strong>When:</strong> Repeated reads, expensive queries</p>
-<p><strong>Options:</strong></p>
-<ul>
-<li>Cache-Aside: Simple, flexible</li>
-<li>Write-Through: Strong consistency</li>
-<li>Write-Behind: High write performance</li>
-</ul>
-<p><strong>Decision:</strong> Read/write ratio > 10:1 → Cache-Aside</p>
-<a href="caching-strategies.md">→ Full Guide</a>
-</div>
+[→ Detailed Caching Guide](/patterns/caching-strategies/)
 
 <div>
 <h4>Database Selection</h4>
@@ -91,7 +90,7 @@ flowchart TD
 <li>Polyglot: Best of all worlds</li>
 </ul>
 <p><strong>Decision:</strong> Multiple data models → Polyglot</p>
-<a href="polyglot-persistence.md">→ Full Guide</a>
+<a href="/patterns/polyglot-persistence/">→ Full Guide</a>
 </div>
 
 <div>
@@ -100,7 +99,7 @@ flowchart TD
 <p><strong>Pros:</strong> Complete history, replay capability</p>
 <p><strong>Cons:</strong> Complex queries, storage cost</p>
 <p><strong>Decision:</strong> Compliance required → Event Sourcing</p>
-<a href="event-sourcing.md">→ Full Guide</a>
+<a href="/patterns/event-sourcing/">→ Full Guide</a>
 </div>
 
 </div>
@@ -120,7 +119,7 @@ flowchart TD
 <li>Half-open tests: 10%</li>
 </ul>
 <p><strong>Decision:</strong> External API → Always use</p>
-<a href="circuit-breaker.md">→ Full Guide</a>
+<a href="/patterns/circuit-breaker/">→ Full Guide</a>
 </div>
 
 <div>
@@ -133,7 +132,7 @@ flowchart TD
 <li>Jittered: Avoids thundering herd</li>
 </ul>
 <p><strong>Decision:</strong> Network calls → Exponential + Jitter</p>
-<a href="retry-backoff.md">→ Full Guide</a>
+<a href="/patterns/retry-backoff/">→ Full Guide</a>
 </div>
 
 <div>
@@ -146,7 +145,7 @@ flowchart TD
 <li>Circuit breakers: Network isolation</li>
 </ul>
 <p><strong>Decision:</strong> Multi-tenant → Thread pools</p>
-<a href="bulkhead.md">→ Full Guide</a>
+<a href="/patterns/bulkhead/">→ Full Guide</a>
 </div>
 
 </div>
@@ -162,7 +161,7 @@ flowchart TD
 <p><strong>Challenges:</strong> Eventual consistency</p>
 <p><strong>Tools:</strong> Kafka, RabbitMQ, EventBridge</p>
 <p><strong>Decision:</strong> Microservices → Event-driven</p>
-<a href="event-driven.md">→ Full Guide</a>
+<a href="/patterns/event-driven/">→ Full Guide</a>
 </div>
 
 <div>
@@ -175,7 +174,7 @@ flowchart TD
 <li>Request routing</li>
 </ul>
 <p><strong>Decision:</strong> >5 services → API Gateway</p>
-<a href="api-gateway.md">→ Full Guide</a>
+<a href="/patterns/api-gateway/">→ Full Guide</a>
 </div>
 
 <div>
@@ -184,7 +183,7 @@ flowchart TD
 <p><strong>Provides:</strong> Traffic mgmt, security, observability</p>
 <p><strong>Options:</strong> Istio, Linkerd, Consul</p>
 <p><strong>Decision:</strong> >20 services → Service Mesh</p>
-<a href="service-mesh.md">→ Full Guide</a>
+<a href="/patterns/service-mesh/">→ Full Guide</a>
 </div>
 
 </div>
@@ -203,7 +202,7 @@ flowchart TD
 <li>PBFT: Byzantine tolerance</li>
 </ul>
 <p><strong>Decision:</strong> New system → Raft</p>
-<a href="consensus.md">→ Full Guide</a>
+<a href="/patterns/consensus/">→ Full Guide</a>
 </div>
 
 <div>
@@ -216,7 +215,7 @@ flowchart TD
 <li>etcd: Kubernetes-native</li>
 </ul>
 <p><strong>Decision:</strong> Already using Redis → Redlock</p>
-<a href="distributed-lock.md">→ Full Guide</a>
+<a href="/patterns/distributed-lock/">→ Full Guide</a>
 </div>
 
 <div>
@@ -228,7 +227,7 @@ flowchart TD
 <li>Choreography: Event-driven</li>
 </ul>
 <p><strong>Decision:</strong> Complex flow → Orchestration</p>
-<a href="saga.md">→ Full Guide</a>
+<a href="/patterns/saga/">→ Full Guide</a>
 </div>
 
 </div>
@@ -237,15 +236,23 @@ flowchart TD
 
 ## Pattern Comparison Matrix
 
-### Performance vs Complexity Trade-offs
+### Visual Trade-off Guide
 
-| Pattern | Performance | Complexity | Use When |
-|---------|------------|------------|----------|
-| **Monolithic DB** | ⭐⭐⭐ | ⭐ | Starting out |
-| **Read Replicas** | ⭐⭐⭐⭐ | ⭐⭐ | Read-heavy load |
-| **Sharding** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Massive scale |
-| **CQRS** | ⭐⭐⭐⭐ | ⭐⭐⭐ | Complex domains |
-| **Event Sourcing** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Audit requirements |
+```mermaid
+graph TD
+    subgraph "Performance vs Complexity"
+        A[Monolithic DB<br/>Perf: ⭐⭐⭐<br/>Complex: ⭐]
+        B[Read Replicas<br/>Perf: ⭐⭐⭐⭐<br/>Complex: ⭐⭐]
+        C[Sharding<br/>Perf: ⭐⭐⭐⭐⭐<br/>Complex: ⭐⭐⭐⭐]
+        
+        A -->|"Read bottleneck"| B
+        B -->|"Write bottleneck"| C
+    end
+    
+    style A fill:#9f6
+    style B fill:#fc6
+    style C fill:#f96
+```
 
 
 ### Consistency vs Availability Trade-offs
@@ -517,4 +524,4 @@ CDC → Stream Processing → Data Lake
 
 ---
 
-**Previous**: [← Pattern Combinations](pattern-combinations.md) | **Next**: [Pattern Quiz →](pattern-quiz.md)
+**Previous**: [← Pattern Combinations](/patterns/pattern-combinations/) | **Next**: [Pattern Quiz →](/patterns/pattern-quiz/)

@@ -17,7 +17,7 @@ last_updated: 2025-07-20
 !!! abstract "📐 Little's Law Formula"
 
  <div class="formula-highlight">
- <h2>L = λ × W</h2>
+ <h2>$$L = \lambda \times W$$</h2>
 
 | Variable | Description | Example |
 |----------|-------------|------|
@@ -51,7 +51,7 @@ last_updated: 2025-07-20
  | Processing time (W) | 200 | ms |
  | Target | No queueing | - |
 
- <strong>Required threads = λ × W = 1,000 × 0.2 = 200 threads</strong>
+ <strong>Required threads = $\lambda \times W = 1,000 \times 0.2 = 200$ threads</strong>
 
 <div>
 📊 <em>Visualization: Each thread handles 5 requests/second</em>
@@ -66,8 +66,8 @@ last_updated: 2025-07-20
  | Query duration (W) | 50 | ms |
  | Safety margin | 20% | - |
 
- <strong>Base connections = 500 × 0.05 = 25</strong>
- <strong>With safety margin = 25 × 1.2 = 30 connections</strong>
+ <strong>Base connections = $500 \times 0.05 = 25$</strong>
+ <strong>With safety margin = $25 \times 1.2 = 30$ connections</strong>
 
 <div class="progress-bar">
 <div>83% utilization at peak
@@ -83,8 +83,8 @@ last_updated: 2025-07-20
  | Processing rate | 800 | msg/s |
  | Observation period | 60 | seconds |
 
- <strong>Net accumulation = 1,000 - 800 = 200 msg/s</strong>
- <strong>Queue growth = 200 × 60 = 12,000 messages</strong>
+ <strong>Net accumulation = $1,000 - 800 = 200$ msg/s</strong>
+ <strong>Queue growth = $200 \times 60 = 12,000$ messages</strong>
 
 <div class="warning-banner">
 ⚡ <strong>System Overload!</strong> Queue will grow indefinitely - add capacity or implement backpressure
@@ -99,8 +99,8 @@ last_updated: 2025-07-20
  | Request lifetime (W) | 5 | seconds |
  | Memory per request | 10 | MB |
 
- <strong>Concurrent requests (L) = 100 × 5 = 500</strong>
- <strong>Total memory = 500 × 10MB = 5,000MB = 5GB</strong>
+ <strong>Concurrent requests (L) = $100 \times 5 = 500$</strong>
+ <strong>Total memory = $500 \times 10\text{MB} = 5,000\text{MB} = 5\text{GB}$</strong>
 
 <div class="memory-visualization">
 <div>
@@ -111,9 +111,9 @@ last_updated: 2025-07-20
 ## Little's Law Variants
 
 !!! note "📐 Three Forms"
- - **L = λ × W** (queue length from rate & time)
- - **W = L / λ** (response time from queue & rate)
- - **λ = L / W** (throughput from queue & time)
+ - $L = \lambda \times W$ (queue length from rate & time)
+ - $W = L / \lambda$ (response time from queue & rate)
+ - $\lambda = L / W$ (throughput from queue & time)
 
 ## Real Production Examples
 
@@ -123,7 +123,7 @@ last_updated: 2025-07-20
  |-----------|-------|-------------|
  | Upload rate (λ) | 100 videos/hour | - |
  | Encoding time (W) | 2 hours/video | - |
- | Videos in process (L) | **200 videos** | = 100 × 2 |
+ | Videos in process (L) | **200 videos** | $= 100 \times 2$ |
  | Videos per server | 4 | - |
  | **Minimum servers** | **50** | = 200 ÷ 4 |
  | **Actual deployment** | **300+ servers** | 6x for peaks & redundancy |
@@ -162,9 +162,9 @@ last_updated: 2025-07-20
  |--------|----------------|-------------|
  | Ride requests (λ) | 1,000/minute | - |
  | Match time (W) | 3 seconds | = 0.05 minutes |
- | **Concurrent matches (L)** | **50** | = 1,000 × 0.05 |
+ | **Concurrent matches (L)** | **50** | $= 1,000 \times 0.05$ |
  | Safety margin | 20% | Industry standard |
- | **DB connections needed** | **60** | = 50 × 1.2 |
+ | **DB connections needed** | **60** | $= 50 \times 1.2$ |
 
  <div>
  Connection Pool: 50/60 (83% utilization at peak)
@@ -180,10 +180,10 @@ last_updated: 2025-07-20
  | CPU time per request | 100ms | Processing constraint |
  | Target utilization | 70% | Safety margin |
 
- <strong>Step 1:</strong> Requests per core = 1000ms ÷ 100ms = 10
- <strong>Step 2:</strong> Total capacity = 8 cores × 10 = 80
- <strong>Step 3:</strong> Safe capacity = 80 × 0.7 = 56 concurrent
- <strong>Result:</strong> Max throughput = 56 ÷ 0.1s = <span>560 req/s</span>
+ <strong>Step 1:</strong> Requests per core = $1000\text{ms} \div 100\text{ms} = 10$
+ <strong>Step 2:</strong> Total capacity = $8 \text{ cores} \times 10 = 80$
+ <strong>Step 3:</strong> Safe capacity = $80 \times 0.7 = 56$ concurrent
+ <strong>Result:</strong> Max throughput = $56 \div 0.1\text{s} = 560$ req/s
 
 ### Database Connection Needs
 !!! abstract "🔗 Connection Pool Sizing"
@@ -196,10 +196,10 @@ last_updated: 2025-07-20
  | Requests/server | 50 req/s | - |
  | Queries/request | 3 | - |
  | Query time | 30ms | - |
- | **Total query rate** | **3,000/s** | = 20 × 50 × 3 |
- | **Base connections (L)** | **90** | = 3,000 × 0.03 |
+ | **Total query rate** | **3,000/s** | $= 20 \times 50 \times 3$ |
+ | **Base connections (L)** | **90** | $= 3,000 \times 0.03$ |
  | Safety factor | 50% | Best practice |
- | **Final pool size** | **135** | = 90 × 1.5 |
+ | **Final pool size** | **135** | $= 90 \times 1.5$ |
 
 
 !!! warning
@@ -221,15 +221,15 @@ last_updated: 2025-07-20
  <tbody>
  <tr>
  <td data-label="Stage"><strong>1. Normal State</strong></td>
- <td data-label="Metrics">L = 10,000
- λ = 50,000 req/s
- W = 0.2s ✓</td>
+ <td data-label="Metrics">$L = 10,000$
+ $\lambda = 50,000$ req/s
+ $W = 0.2\text{s}$ ✓</td>
  <td data-label="Impact">Healthy</td>
  </tr>
  <tr>
  <td data-label="Stage"><strong>2. DB Slowdown</strong></td>
- <td data-label="Metrics">W → 2s
- L → 100,000</td>
+ <td data-label="Metrics">$W \rightarrow 2\text{s}$
+ $L \rightarrow 100,000$</td>
  <td data-label="Impact">10x queue growth!</td>
  </tr>
  <tr>
@@ -240,7 +240,7 @@ last_updated: 2025-07-20
  </tr>
  <tr>
  <td data-label="Stage"><strong>4. Cascade Failure</strong></td>
- <td data-label="Metrics">λ → 100,000 req/s
+ <td data-label="Metrics">$\lambda \rightarrow 100,000$ req/s
  (retries double load)</td>
  <td data-label="Impact">Total collapse</td>
  </tr>
@@ -253,8 +253,8 @@ last_updated: 2025-07-20
 !!! note "🔍 Performance Diagnosis Tool"
  <strong>Symptom:</strong> Response times increasing 📈
  <strong>Step 1:</strong> Measure current requests in system (L) = <span>500</span>
- <strong>Step 2:</strong> Measure arrival rate (λ) = <span>100 req/s</span>
- <strong>Step 3:</strong> Calculate response time W = L/λ = <span>5 seconds</span>
+ <strong>Step 2:</strong> Measure arrival rate $\lambda = 100$ req/s
+ <strong>Step 3:</strong> Calculate response time $W = L/\lambda = 5$ seconds
  <strong>Step 4:</strong> Compare to normal (1 second)
 
 <div class="diagnosis-result">
@@ -335,13 +335,13 @@ Decompose into subsystems, apply to each
 
 | Stage | Queue Formula | Total Impact |
 |-------|---------------|---------------|
-| Stage A | L₁ = λ × W₁ | First bottleneck |
-| Stage B | L₂ = λ × W₂ | Middle processing |
-| Stage C | L₃ = λ × W₃ | Final stage |
+| Stage A | $L_1 = \lambda \times W_1$ | First bottleneck |
+| Stage B | $L_2 = \lambda \times W_2$ | Middle processing |
+| Stage C | $L_3 = \lambda \times W_3$ | Final stage |
 
 
 <strong>Total System Queue:</strong><br>
-<span>L = λ × (W₁ + W₂ + W₃)</span>
+$$L = \lambda \times (W_1 + W_2 + W_3)$$
 </div>
 
 ### Variable Arrival Rates
@@ -365,7 +365,7 @@ Decompose into subsystems, apply to each
  <div class="formula-box">
  <div>
  <strong>Batch arrivals: N items every T seconds</strong><br>
- <span>Effective λ = N/T</span>
+ $$\text{Effective } \lambda = N/T$$
 </div>
 
 <strong>Example Calculation:</strong>
@@ -443,7 +443,7 @@ Decompose into subsystems, apply to each
  </tr>
  <tr>
  <td><strong>Concurrent Requests (L):</strong></td>
- <td><strong>16.67 × 0.1 = 1.67</strong></td>
+ <td><strong>$16.67 \times 0.1 = 1.67$</strong></td>
  </tr>
  </table>
 
@@ -602,7 +602,7 @@ Decompose into subsystems, apply to each
 </div>
 
 !!! info
- 💡 <strong>Little's Law Applied:</strong> L (cached items) = λ (unique keys/s) × W (TTL) = 60,000 entries
+ 💡 <strong>Little's Law Applied:</strong> $L$ (cached items) = $\lambda$ (unique keys/s) $\times W$ (TTL) = 60,000 entries
 </div>
 
 ## Law Connections
@@ -665,13 +665,13 @@ graph LR
  <div>
  <strong>✅ Directly Observable</strong>
  <ul>
- <li><strong>L</strong> = count(items_in_system)</li>
- <li><strong>λ</strong> = count(arrivals) / time</li>
+ <li>$L$ = count(items_in_system)</li>
+ <li>$\lambda$ = count(arrivals) / time</li>
  </ul>
  <div>
  <strong>❌ Must Calculate</strong>
  <ul>
- <li><strong>W</strong> = L / λ</li>
+ <li>$W = L / \lambda$</li>
  <li>Hidden queues obscure true L</li>
  </ul>
 </div>
@@ -842,9 +842,9 @@ Recommendations:
 
 ## Connections to Other Concepts
 
-- **[Queueing Models](queueing-models.md)**: L = Lq + Ls, utilization ρ = λ/μ affects W
-- **[Latency Ladder](latency-ladder.md)**: W includes all ladder latencies
-- **[Availability Math](availability-math.md)**: Failures spike λ (retries), predict cascades
+- **[Queueing Models](queueing-models.md)**: $L = L_q + L_s$, utilization $\rho = \lambda/\mu$ affects $W$
+- **[Latency Ladder](latency-ladder.md)**: $W$ includes all ladder latencies
+- **[Availability Math](availability-math.md)**: Failures spike $\lambda$ (retries), predict cascades
 - **Patterns**: Rate limiting controls λ, circuit breakers prevent retry storms
 
 ## Key Insights & Pitfalls

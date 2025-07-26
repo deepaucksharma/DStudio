@@ -28,91 +28,109 @@ graph LR
 
 ## Chapters
 
-!!! info
- <div class="quant-category">
-<h3>⏱️ Latency & Performance</h3>
-<div class="quant-grid">
+## Chapters
 
-<a href="latency-ladder.md" class="quant-card">
-<div class="quant-icon">🪜
-<h4>Latency Ladder 2025</h4>
-<p>Know your physics: every operation has a cost</p>
-</a>
+### ⏱️ Latency & Performance
 
-<a href="littles-law.md" class="quant-card">
-📐
-<h4>Little's Law Deep-Dive</h4>
-<p>The most important equation in systems thinking</p>
-</a>
+<div class="grid cards" markdown>
 
-<a href="queueing-models.md" class="quant-card">
-📊
-<h4>Queueing Theory</h4>
-<p>When will your system hit the wall?</p>
-</a>
+- :material-ladder:{ .lg .middle } **[Latency Ladder 2025](/quantitative/latency-ladder/)**
+    
+    ---
+    
+    Know your physics: every operation has a cost
+    
+    [Learn more →](/quantitative/latency-ladder/)
 
-</div>
-</div>
+- :material-ruler-square:{ .lg .middle } **[Little's Law Deep-Dive](/quantitative/littles-law/)**
+    
+    ---
+    
+    The most important equation in systems thinking
+    
+    [Learn more →](/quantitative/littles-law/)
 
-<h3>📈 Scaling Laws</h3>
-<div class="quant-grid">
-
-<a href="amdahl-gustafson.md" class="quant-card">
-<div class="quant-icon">🔀
-<h4>Amdahl & Gustafson Laws</h4>
-<p>The limits of parallelization</p>
-</a>
-
-<a href="universal-scalability.md" class="quant-card">
-🌐
-<h4>Universal Scalability Law</h4>
-<p>Why systems don't scale linearly</p>
-</a>
+- :material-chart-bar:{ .lg .middle } **[Queueing Theory](/quantitative/queueing-models/)**
+    
+    ---
+    
+    When will your system hit the wall?
+    
+    [Learn more →](/quantitative/queueing-models/)
 
 </div>
-</div>
 
-<h3>💰 Economics & Planning</h3>
-<div class="quant-grid">
+### 📈 Scaling Laws
 
-<a href="coordination-costs.md" class="quant-card">
-<div class="quant-icon">🤝
-<h4>Coordination Costs</h4>
-<p>The hidden tax of distributed systems</p>
-</a>
+<div class="grid cards" markdown>
 
-<a href="cache-economics.md" class="quant-card">
-💾
-<h4>Cache Economics</h4>
-<p>When caching saves money</p>
-</a>
+- :material-arrow-split-vertical:{ .lg .middle } **[Amdahl & Gustafson Laws](/quantitative/amdahl-gustafson/)**
+    
+    ---
+    
+    The limits of parallelization
+    
+    [Learn more →](/quantitative/amdahl-gustafson/)
 
-<a href="availability-math.md" class="quant-card">
-✅
-<h4>Availability Math</h4>
-<p>Building reliable systems from unreliable parts</p>
-</a>
-
-<a href="capacity-planning.md" class="quant-card">
-📊
-<h4>Capacity Planning</h4>
-<p>Right-sizing for the future</p>
-</a>
+- :material-earth:{ .lg .middle } **[Universal Scalability Law](/quantitative/universal-scalability/)**
+    
+    ---
+    
+    Why systems don't scale linearly
+    
+    [Learn more →](/quantitative/universal-scalability/)
 
 </div>
+
+### 💰 Economics & Planning
+
+<div class="grid cards" markdown>
+
+- :material-handshake:{ .lg .middle } **[Coordination Costs](/quantitative/coordination-costs/)**
+    
+    ---
+    
+    The hidden tax of distributed systems
+    
+    [Learn more →](/quantitative/coordination-costs/)
+
+- :material-memory:{ .lg .middle } **[Cache Economics](/quantitative/cache-economics/)**
+    
+    ---
+    
+    When caching saves money
+    
+    [Learn more →](/quantitative/cache-economics/)
+
+- :material-check-circle:{ .lg .middle } **[Availability Math](/quantitative/availability-math/)**
+    
+    ---
+    
+    Building reliable systems from unreliable parts
+    
+    [Learn more →](/quantitative/availability-math/)
+
+- :material-chart-line:{ .lg .middle } **[Capacity Planning](/quantitative/capacity-planning/)**
+    
+    ---
+    
+    Right-sizing for the future
+    
+    [Learn more →](/quantitative/capacity-planning/)
+
 </div>
 
-<h3>🎯 Practice</h3>
-<div class="quant-grid">
+### 🎯 Practice
 
-<a href="problem-set.md" class="quant-card">
-<div class="quant-icon">📝
-<h4>Numerical Problem Set</h4>
-<p>Practice problems with real-world parameters</p>
-</a>
+<div class="grid cards" markdown>
 
-</div>
-</div>
+- :material-pencil:{ .lg .middle } **[Numerical Problem Set](/quantitative/problem-set/)**
+    
+    ---
+    
+    Practice problems with real-world parameters
+    
+    [Learn more →](/quantitative/problem-set/)
 
 </div>
 
@@ -214,91 +232,91 @@ Below is the complete catalog of all quantitative tools and mathematical models 
 #### 📏 Fundamental Metrics & Laws
 
 **Core Performance Laws:**
-- **[Amdahl & Gustafson Laws](amdahl-gustafson.md)** - Parallel speedup limits
-- **[Latency Ladder](latency-ladder.md)** - Operation cost hierarchy
-- **[Little's Law](littles-law.md)** - Fundamental queueing relationship
-- **[Universal Scalability Law](universal-scalability.md)** - Scaling limitations model
+- **[Amdahl & Gustafson Laws](/quantitative/amdahl-gustafson/)** - Parallel speedup limits
+- **[Latency Ladder](/quantitative/latency-ladder/)** - Operation cost hierarchy
+- **[Little's Law](/quantitative/littles-law/)** - Fundamental queueing relationship
+- **[Universal Scalability Law](/quantitative/universal-scalability/)** - Scaling limitations model
 
 **Reliability & Availability:**
-- **[Availability](availability.md)** - System uptime calculations
-- **[Availability Math](availability-math.md)** - Building reliability from components
-- **[Blast Radius](blast-radius.md)** - Failure impact analysis
-- **[Failure Models](failure-models.md)** - Types and patterns of failures
-- **[MTBF & MTTR](mtbf-mttr.md)** - Mean time metrics
-- **[Reliability Engineering](reliability-engineering.md)** - Systematic reliability approach
-- **[Reliability Theory](reliability-theory.md)** - Mathematical foundations
+- **[Availability](/quantitative/availability/)** - System uptime calculations
+- **[Availability Math](/quantitative/availability-math/)** - Building reliability from components
+- **[Blast Radius](/quantitative/blast-radius/)** - Failure impact analysis
+- **[Failure Models](/quantitative/failure-models/)** - Types and patterns of failures
+- **[MTBF & MTTR](/quantitative/mtbf-mttr/)** - Mean time metrics
+- **[Reliability Engineering](/quantitative/reliability-engineering/)** - Systematic reliability approach
+- **[Reliability Theory](/quantitative/reliability-theory/)** - Mathematical foundations
 
 #### Queueing & Performance Theory
 
 **Queueing Models:**
-- **[Queueing Models](queueing-models.md)** - M/M/1, M/M/c analysis
-- **[Queuing Networks](queuing-networks.md)** - Multi-stage queue systems
-- **[Backpressure Math](backpressure-math.md)** - Flow control mathematics
+- **[Queueing Models](/quantitative/queueing-models/)** - M/M/1, M/M/c analysis
+- **[Queuing Networks](/quantitative/queuing-networks/)** - Multi-stage queue systems
+- **[Backpressure Math](/quantitative/backpressure-math/)** - Flow control mathematics
 
 **Performance Analysis:**
-- **[Performance Modeling](performance-modeling.md)** - System behavior prediction
-- **[Performance Testing](performance-testing.md)** - Load testing methodology
-- **[Network Model](network-model.md)** - Network performance analysis
-- **[Network Theory](network-theory.md)** - Graph-based network analysis
+- **[Performance Modeling](/quantitative/performance-modeling/)** - System behavior prediction
+- **[Performance Testing](/quantitative/performance-testing/)** - Load testing methodology
+- **[Network Model](/quantitative/network-model/)** - Network performance analysis
+- **[Network Theory](/quantitative/network-theory/)** - Graph-based network analysis
 
 #### 💾 Storage & Data Theory
 
 **Data Structures & Algorithms:**
-- **[Compression](compression.md)** - Data compression theory
-- **[Storage Economics](storage-economics.md)** - Cost optimization models
-- **[Storage Engines](storage-engines.md)** - Database internals math
-- **[Cache Economics](cache-economics.md)** - Cache cost-benefit analysis
-- **[Collision Probability](collision-probability.md)** - Hash collision mathematics
+- **[Compression](/quantitative/compression/)** - Data compression theory
+- **[Storage Economics](/quantitative/storage-economics/)** - Cost optimization models
+- **[Storage Engines](/quantitative/storage-engines/)** - Database internals math
+- **[Cache Economics](/quantitative/cache-economics/)** - Cache cost-benefit analysis
+- **[Collision Probability](/quantitative/collision-probability/)** - Hash collision mathematics
 
 **Consistency & Coordination:**
 - **CAP Theorem (Coming Soon)** - Fundamental distributed systems theorem
-- **[Consistency Models](consistency-models.md)** - Mathematical consistency guarantees
-- **[Coordination Costs](coordination-costs.md)** - Synchronization overhead
+- **[Consistency Models](/quantitative/consistency-models/)** - Mathematical consistency guarantees
+- **[Coordination Costs](/quantitative/coordination-costs/)** - Synchronization overhead
 
 #### Statistical & Probabilistic Models
 
 **Core Statistics:**
-- **[Bayesian Reasoning](bayesian-reasoning.md)** - Probabilistic inference
-- **[Information Theory](information-theory.md)** - Entropy and information content
-- **[Markov Chains](markov-chains.md)** - State transition models
-- **[Power Laws](power-laws.md)** - Scale-free distributions
-- **[Probabilistic Structures](probabilistic-structures.md)** - Bloom filters, HyperLogLog
-- **[Stochastic Processes](stochastic-processes.md)** - Random process modeling
+- **[Bayesian Reasoning](/quantitative/bayesian-reasoning/)** - Probabilistic inference
+- **[Information Theory](/quantitative/information-theory/)** - Entropy and information content
+- **[Markov Chains](/quantitative/markov-chains/)** - State transition models
+- **[Power Laws](/quantitative/power-laws/)** - Scale-free distributions
+- **[Probabilistic Structures](/quantitative/probabilistic-structures/)** - Bloom filters, HyperLogLog
+- **[Stochastic Processes](/quantitative/stochastic-processes/)** - Random process modeling
 
 **Advanced Analytics:**
-- **[Time Series](time-series.md)** - Temporal data analysis
-- **[Social Networks](social-networks.md)** - Network effect mathematics
-- **[Privacy Metrics](privacy-metrics.md)** - Privacy quantification
+- **[Time Series](/quantitative/time-series/)** - Temporal data analysis
+- **[Social Networks](/quantitative/social-networks/)** - Network effect mathematics
+- **[Privacy Metrics](/quantitative/privacy-metrics/)** - Privacy quantification
 
 #### 🗺 Spatial & Geometric Computing
 
-- **[Comp Geometry](comp-geometry.md)** - Computational geometry basics
-- **[Computational Geometry](computational-geometry.md)** - Advanced spatial algorithms
-- **[Computer Vision](computer-vision.md)** - Image processing mathematics
-- **[Haversine](haversine.md)** - Distance calculations on sphere
-- **[Spatial Stats](spatial-stats.md)** - Geographic data analysis
+- **[Comp Geometry](/quantitative/comp-geometry/)** - Computational geometry basics
+- **[Computational Geometry](/quantitative/computational-geometry/)** - Advanced spatial algorithms
+- **[Computer Vision](/quantitative/computer-vision/)** - Image processing mathematics
+- **[Haversine](/quantitative/haversine/)** - Distance calculations on sphere
+- **[Spatial Stats](/quantitative/spatial-stats/)** - Geographic data analysis
 
 #### Graph & Network Theory
 
-- **[Graph Models](graph-models.md)** - Graph representation and algorithms
-- **[Graph Theory](graph-theory.md)** - Mathematical graph foundations
+- **[Graph Models](/quantitative/graph-models/)** - Graph representation and algorithms
+- **[Graph Theory](/quantitative/graph-theory/)** - Mathematical graph foundations
 
 #### 🔋 Specialized Domain Models
 
-- **[Battery Models](battery-models.md)** - Mobile device power modeling
+- **[Battery Models](/quantitative/battery-models/)** - Mobile device power modeling
 
 #### Complexity Analysis
 
-- **[Space Complexity](space-complexity.md)** - Memory usage analysis
-- **[Time Complexity](time-complexity.md)** - Algorithm runtime analysis
+- **[Space Complexity](/quantitative/space-complexity/)** - Memory usage analysis
+- **[Time Complexity](/quantitative/time-complexity/)** - Algorithm runtime analysis
 
 #### Planning & Optimization
 
-- **[Capacity Planning](capacity-planning.md)** - Resource requirement forecasting
+- **[Capacity Planning](/quantitative/capacity-planning/)** - Resource requirement forecasting
 
 #### Practice & Application
 
-- **[Problem Set](problem-set.md)** - Hands-on practice problems
+- **[Problem Set](/quantitative/problem-set/)** - Hands-on practice problems
 
 ---
 
@@ -347,22 +365,22 @@ Below is the complete catalog of all quantitative tools and mathematical models 
 ### 📚 Learning Paths
 
 **Foundation Path (Essential Mathematics):**
-1. [Latency Ladder](latency-ladder.md) - Know your constants
-2. [Little's Law](littles-law.md) - Universal flow equation
-3. [Queueing Models](queueing-models.md) - Predict system behavior
-4. [Availability Math](availability-math.md) - Build reliable systems
+1. [Latency Ladder](/quantitative/latency-ladder/) - Know your constants
+2. [Little's Law](/quantitative/littles-law/) - Universal flow equation
+3. [Queueing Models](/quantitative/queueing-models/) - Predict system behavior
+4. [Availability Math](/quantitative/availability-math/) - Build reliable systems
 
 **Performance Path:**
-1. [Performance Modeling](performance-modeling.md) - Predict behavior
-2. [Universal Scalability Law](universal-scalability.md) - Understand limits
-3. [Amdahl's Law](amdahl-gustafson.md) - Parallel efficiency
-4. [Capacity Planning](capacity-planning.md) - Plan for growth
+1. [Performance Modeling](/quantitative/performance-modeling/) - Predict behavior
+2. [Universal Scalability Law](/quantitative/universal-scalability/) - Understand limits
+3. [Amdahl's Law](/quantitative/amdahl-gustafson/) - Parallel efficiency
+4. [Capacity Planning](/quantitative/capacity-planning/) - Plan for growth
 
 **Advanced Theory Path:**
 1. CAP Theorem (Coming Soon) - Fundamental limits
-2. [Information Theory](information-theory.md) - Data fundamentals
-3. [Markov Chains](markov-chains.md) - State modeling
-4. [Graph Theory](graph-theory.md) - Network analysis
+2. [Information Theory](/quantitative/information-theory/) - Data fundamentals
+3. [Markov Chains](/quantitative/markov-chains/) - State modeling
+4. [Graph Theory](/quantitative/graph-theory/) - Network analysis
 
 ---
 

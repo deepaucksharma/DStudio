@@ -29,19 +29,26 @@ Uber's real-time location system evolved from simple database polling to a sophi
 
 ### Business Context
 
-<div class="grid" markdown>
- <div class="card">
- <h3 class="card__title">Problem Space</h3>
- <p class="card__description">Track millions of moving vehicles globally with sub-second location updates for optimal driver-rider matching</p>
- </div>
- <div class="card">
- <h3 class="card__title">Constraints</h3>
- <p class="card__description">Battery life optimization, network variability, regulatory compliance, privacy requirements</p>
- </div>
- <div class="card">
- <h3 class="card__title">Success Metrics</h3>
- <p class="card__description">Sub-second location updates, 99.99% availability, optimal ETAs, efficient matching</p>
- </div>
+<div class="grid cards" markdown>
+
+- :material-target:{ .lg .middle } **Problem Space**
+    
+    ---
+    
+    Track 40M+ concurrent users with 4-second location updates for optimal driver-rider matching (15M drivers, 25M riders)
+
+- :material-alert:{ .lg .middle } **Constraints**
+    
+    ---
+    
+    Battery life optimization, network variability, regulatory compliance, privacy requirements
+
+- :material-chart-line:{ .lg .middle } **Success Metrics**
+    
+    ---
+    
+    4-second location updates, 99.99% availability, <5% ETA error rate, <15s matching time
+
 </div>
 
 ### High-Level Architecture
@@ -220,29 +227,43 @@ graph LR
 
 ### Latency Breakdown
 
-<div class="grid" markdown>
- <div class="card">
- <h3 class="card__title">Location Update</h3>
- <div class="stat-number">200ms</div>
- </div>
- <div class="card">
- <h3 class="card__title">Driver Search</h3>
- <div class="stat-number">50ms</div>
- </div>
- <div class="card">
- <h3 class="card__title">ETA Calculation</h3>
- <div class="stat-number">100ms</div>
- </div>
+<div class="grid cards" markdown>
+
+- :material-map-marker:{ .lg .middle } **Location Update**
+    
+    ---
+    
+    **200ms** average latency
+    
+    Processing 1M updates/second at peak
+
+- :material-magnify:{ .lg .middle } **Driver Search**
+    
+    ---
+    
+    **50ms** p99 latency
+    
+    Searching within 5km radius across 15M drivers
+
+- :material-clock-fast:{ .lg .middle } **ETA Calculation**
+    
+    ---
+    
+    **100ms** average time
+    
+    ML model with <5% error rate on actual arrival
+
 </div>
 
 ### Resource Utilization
 
-| Resource | Usage | Efficiency |
-|----------|-------|------------|
-| Mobile Data | 1-2 MB/hour | Optimized via compression |
-| Server CPU | 70-80% | High during peak hours |
-| Memory | 60-70% | Efficient geospatial indices |
-| Network | Variable | Edge caching reduces backbone load |
+| Resource | Usage | Details |
+|----------|-------|---------|
+| Mobile Data | 1-2 MB/hour | 80% compression ratio using protobuf |
+| Server CPU | 70-80% | Processing 1M QPS during peak (8-10PM) |
+| Memory | 60-70% | 500GB Redis cluster for hot locations |
+| Network | 10 Gbps peak | 90% reduction via edge caching |
+| Storage | 50TB/day | Location history retained for 90 days |
 
 
 ## Operational Excellence
@@ -270,24 +291,65 @@ graph LR
 
 ## Applicable Patterns
 
-<div class="grid" markdown>
- <a href="../../patterns/geospatial-indexing/" class="pattern-card">
- <h3 class="pattern-card__title">Geospatial Indexing</h3>
- <p class="pattern-card__description">H3 hexagonal grid for efficient location queries</p>
- </a>
- <a href="../../patterns/event-streaming/" class="pattern-card">
- <h3 class="pattern-card__title">Event Streaming</h3>
- <p class="pattern-card__description">Real-time location updates via Kafka streams</p>
- </a>
- <a href="../../patterns/caching/" class="pattern-card">
- <h3 class="pattern-card__title">Multi-Level Caching</h3>
- <p class="pattern-card__description">Hot/warm/cold data architecture for location storage</p>
- </a>
- <a href="../../patterns/edge-computing/" class="pattern-card">
- <h3 class="pattern-card__title">Edge Computing</h3>
- <p class="pattern-card__description">Regional processing for reduced latency</p>
- </a>
+<div class="grid cards" markdown>
+
+- :material-hexagon-multiple:{ .lg .middle } **[Geospatial Indexing](../../patterns/geospatial-indexing/)**
+    
+    ---
+    
+    H3 hexagonal grid for efficient location queries
+    
+    [Learn more →](../../patterns/geospatial-indexing/)
+
+- :material-broadcast:{ .lg .middle } **[Event Streaming](../../patterns/event-streaming/)**
+    
+    ---
+    
+    Real-time location updates via Kafka streams
+    
+    [Learn more →](../../patterns/event-streaming/)
+
+- :material-layers-triple:{ .lg .middle } **[Multi-Level Caching](../../patterns/caching/)**
+    
+    ---
+    
+    Hot/warm/cold data architecture for location storage
+    
+    [Learn more →](../../patterns/caching/)
+
+- :material-cloud-outline:{ .lg .middle } **[Edge Computing](../../patterns/edge-computing/)**
+    
+    ---
+    
+    Regional processing for reduced latency
+    
+    [Learn more →](../../patterns/edge-computing/)
+
 </div>
+
+## Related Topics
+
+### Related Laws & Axioms
+- [Law 1: Correlated Failure](/part1-axioms/law1-failure/) - Multi-region prevents city-wide outages
+- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) - Edge servers handle network latency
+- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) - Event-driven handles 1M updates/sec
+- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) - Battery vs accuracy trade-offs
+
+### Related Patterns
+- [Geospatial Indexing](/patterns/geospatial-indexing/) - H3 hexagonal grid system
+- [Event Streaming](/patterns/event-streaming/) - Kafka processing 100M events/day
+- [Edge Computing](/patterns/edge-computing/) - 200+ edge locations globally
+- [Time-Series Storage](/patterns/time-series/) - Cassandra for location history
+
+### Related Pillars
+- [Pillar 1: Work](/part2-pillars/work/) - Geospatial sharding across regions
+- [Pillar 2: State](/part2-pillars/state/) - Multi-layer location caching
+- [Pillar 5: Intelligence](/part2-pillars/intelligence/) - ML-based ETA prediction
+
+### Case Studies
+- [Google Maps](/case-studies/google-maps/) - Similar scale location challenges
+- [DoorDash](/case-studies/doordash/) - Food delivery location tracking
+- [Lyft](/case-studies/lyft/) - Competing architecture approach
 
 ## Takeaways for Your System
 

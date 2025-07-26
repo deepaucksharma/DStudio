@@ -97,19 +97,7 @@ plugins:
       on_error_fail: false
       on_undefined: strict
   - mermaid2:
-      arguments:
-        theme: |
-          ^(JSON.parse(window.localStorage.getItem("data-md-color-scheme")) === "slate") ? "dark" : "default"
-        themeVariables:
-          primaryColor: "#5448C8"
-          primaryTextColor: "#ffffff"
-          primaryBorderColor: "#5448C8"
-          lineColor: "#6366f1"
-          sectionBkgColor: "#f8fafc"
-          altSectionBkgColor: "#f1f5f9"
-          gridColor: "#e2e8f0"
-          secondaryColor: "#00BCD4"
-          tertiaryColor: "#f3f4f6"
+      javascript: javascripts/mermaid-init.js
   - tags
   - markdown-exec
   - git-revision-date-localized:
@@ -322,6 +310,7 @@ nav:
     
     - The 7 Laws:
       - Overview: part1-axioms/index.md
+      - Law Interactions: part1-axioms/law-interactions.md
       - Law 1 - Correlated Failure:
         - Concept: part1-axioms/law1-failure/index.md
         - Examples: part1-axioms/law1-failure/examples.md
@@ -384,6 +373,7 @@ nav:
   - Patterns:
     - Overview: patterns/index.md
     - Pattern Tools:
+      - Pattern Matrix: patterns/pattern-matrix.md
       - Pattern Selector: patterns/pattern-selector.md
       - Pattern Comparison: patterns/pattern-comparison.md
       - Pattern Quiz: patterns/pattern-quiz.md

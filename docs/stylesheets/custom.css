@@ -336,3 +336,33 @@ html {
     scroll-behavior: auto;
   }
 }
+
+/* === Page Navigation === */
+
+.page-nav {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.page-nav a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  color: var(--md-default-fg-color--light);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.page-nav a:hover {
+  color: var(--md-primary-fg-color);
+  background-color: var(--md-primary-fg-color--transparent);
+  border-radius: 0.25rem;
+}
+
+.page-nav .material {
+  vertical-align: middle;
+  font-size: 1.2rem;
+}
