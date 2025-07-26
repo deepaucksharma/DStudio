@@ -21,4 +21,4 @@ last_updated: 2025-07-23
 - [CQRS](cqrs.md) - Often uses metadata service for query routing
 
 ## References
-- [Google Drive Case Study](/case-studies/google-drive) - File metadata management at scale
+- [Google Drive Case Study](case-studies/google-drive) - File metadata management at scale

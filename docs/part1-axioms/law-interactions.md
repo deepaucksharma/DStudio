@@ -185,4 +185,4 @@ graph TD
 
 ---
 
-[← The 7 Laws](/part1-axioms) | [Law 1: Correlated Failure →](/part1-axioms/law1-failure/index)
+[← The 7 Laws](part1-axioms) | [Law 1: Correlated Failure →](part1-axioms/law1-failure/index)

@@ -502,4 +502,4 @@ Remember: Even choosing which trade-offs to optimize for is itself a trade-off. 
 
 Master this, and you'll think like a Staff+ engineer at Google.
 
-[Return to Google Interview Guide](/google-interviews/index.md)
+[Return to Google Interview Guide](google-interviews/index.md)

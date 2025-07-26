@@ -526,10 +526,10 @@ flag.store(true, std::memory_order_release);
 6. **Profile Performance**: Measure actual performance, don't assume
 
 ## Related Patterns
-- [Optimistic Locking](/patterns/optimistic-locking) - Database-level CAS
-- [Event Sourcing](/patterns/event-sourcing) - Append-only updates avoid conflicts
+- [Optimistic Locking](patterns/optimistic-locking) - Database-level CAS
+- [Event Sourcing](patterns/event-sourcing) - Append-only updates avoid conflicts
 - Actor Model (Coming Soon) - Alternative concurrency model
-- [CRDT](/patterns/crdt) - Conflict-free replicated data types
+- [CRDT](patterns/crdt) - Conflict-free replicated data types
 
 ## References
 - [The Art of Multiprocessor Programming](https://www.elsevier.com/books/the-art-of-multiprocessor-programming/herlihy/978-0-12-415950-1)

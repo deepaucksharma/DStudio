@@ -16,9 +16,9 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Location Privacy](/patterns/location-privacy)
-- [Edge Computing](/patterns/edge-computing)
+- [Location Privacy](patterns/location-privacy)
+- [Edge Computing](patterns/edge-computing)
 
 ## References
-- [Nearby Friends Case Study](/case-studies/nearby-friends)
-- [Uber Location Case Study](/case-studies/uber-location)
+- [Nearby Friends Case Study](case-studies/nearby-friends)
+- [Uber Location Case Study](case-studies/uber-location)

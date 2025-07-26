@@ -979,20 +979,20 @@ failover test --dry-run
 
 ### Patterns
 - Geo-Replication - Data replication strategies
-- [Edge Computing](/patterns/edge-computing) - Processing at network edge
-- [Tunable Consistency](/patterns/tunable-consistency) - Consistency models
-- [CQRS](/patterns/cqrs) - Separate read/write paths
+- [Edge Computing](patterns/edge-computing) - Processing at network edge
+- [Tunable Consistency](patterns/tunable-consistency) - Consistency models
+- [CQRS](patterns/cqrs) - Separate read/write paths
 
 ### Laws
-- [Law 2 (Asynchronous Reality )](/part1-axioms/law2-asynchrony) - Speed of light constraints
-- [Law 7 (Economic Reality /index)](/part1-axioms/law7-economics) - Cost implications
-- [Law 1 (Correlated Failure /index)](/part1-axioms/law1-failure) - Regional failure modes
-- [Law 4 (Multidimensional Optimization /index)](/part1-axioms/law4-tradeoffs/index) - Regional capacity planning
+- [Law 2 (Asynchronous Reality )](part1-axioms/law2-asynchrony) - Speed of light constraints
+- [Law 7 (Economic Reality /index)](part1-axioms/law7-economics) - Cost implications
+- [Law 1 (Correlated Failure /index)](part1-axioms/law1-failure) - Regional failure modes
+- [Law 4 (Multidimensional Optimization /index)](part1-axioms/law4-tradeoffs/index) - Regional capacity planning
 
 ### Case Studies
-- [Video Streaming Platform](/case-studies/video-streaming) - Netflix's approach
-- [Social Media Feed](/case-studies/social-media-feed) - Facebook's architecture
-- [E-commerce Platform](/case-studies/ecommerce-platform) - Amazon's strategy
+- [Video Streaming Platform](case-studies/video-streaming) - Netflix's approach
+- [Social Media Feed](case-studies/social-media-feed) - Facebook's architecture
+- [E-commerce Platform](case-studies/ecommerce-platform) - Amazon's strategy
 
 ### Tools & Technologies
 - **Cloud Providers**: AWS Global Infrastructure, Azure Regions, GCP Regions

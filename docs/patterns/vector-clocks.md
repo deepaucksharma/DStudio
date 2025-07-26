@@ -775,9 +775,9 @@ graph TD
 
 This pattern directly addresses:
 
-- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)** - Vector clocks provide a way to order events in asynchronous systems where there's no global time
-- **[Law 3: Emergent Chaos](/part1-axioms/law3-emergence/)** - Helps detect and resolve concurrent updates that emerge from independent node actions
-- **[Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/)** - Each node maintains partial knowledge; vector clocks help reconcile different views of system state
+- **[Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/)** - Vector clocks provide a way to order events in asynchronous systems where there's no global time
+- **[Law 3: Emergent Chaos](part1-axioms/law3-emergence/)** - Helps detect and resolve concurrent updates that emerge from independent node actions
+- **[Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/)** - Each node maintains partial knowledge; vector clocks help reconcile different views of system state
 
 ## Related Patterns
 

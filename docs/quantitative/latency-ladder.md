@@ -443,7 +443,7 @@ graph LR
  style D fill:#ffcccc
 ```
 
-Every operation proves [Law 1](/part1-axioms/law1-failure) - even L1 cache (0.5ns/index) > 0.
+Every operation proves [Law 1](part1-axioms/law1-failure) - even L1 cache (0.5ns/index) > 0.
 
 ### Law 4: Trade-offs
 !!! danger "📈 Latency Under Load"
@@ -640,5 +640,5 @@ You can't beat physics, but you can work with it.
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Availability Math](availability-math.md)
-- **Patterns**: [Caching Strategies](/patterns/caching-strategies) | [Edge Computing](/patterns/edge-computing)
+- **Patterns**: [Caching Strategies](patterns/caching-strategies) | [Edge Computing](patterns/edge-computing)
 ---

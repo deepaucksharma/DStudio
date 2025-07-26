@@ -66,26 +66,26 @@ graph TD
 ```
 
 ### Quick Links
-- [Complete Study Guide](/google-interviews/preparation-guide) - Start here for comprehensive preparation
-- [Pattern Library](/google-interviews/../../patterns/index.md) - Essential Google design patterns
-- [Practice Problems](/google-interviews/practice-problems.md) - Real interview scenarios
+- [Complete Study Guide](google-interviews/preparation-guide) - Start here for comprehensive preparation
+- [Pattern Library](google-interviews/../../patterns/index.md) - Essential Google design patterns
+- [Practice Problems](google-interviews/practice-problems.md) - Real interview scenarios
 - [Evaluation Framework] (Framework Coming Soon) - How you'll be assessed
-- [Common Pitfalls](/google-interviews/common-mistakes) - Mistakes to avoid
+- [Common Pitfalls](google-interviews/common-mistakes) - Mistakes to avoid
 
 ## Google Systems Coverage Matrix
 
 | System | Difficulty | Prep Time | Key Focus Areas | Resources |
 |--------|------------|-----------|-----------------|-----------|
-| **Search** | ⭐⭐⭐⭐⭐ | 8-10 hrs | PageRank, Indexing, Query Processing | [Guide](/google-interviews/google-search) |
-| **Ads** | ⭐⭐⭐⭐⭐ | 8-10 hrs | RTB, CTR Prediction, Auction | [Guide](/google-interviews/patterns/application/ads-systems.md) |
-| **YouTube** | ⭐⭐⭐⭐ | 6-8 hrs | Video Processing, CDN, Recommendations | [Guide](/google-interviews/patterns/application/media-platforms.md) |
-| **Maps** | ⭐⭐⭐⭐ | 6-8 hrs | Geospatial, Routing, Real-time Updates | [Guide](/google-interviews/patterns/infrastructure/geo-systems.md) |
-| **Gmail** | ⭐⭐⭐ | 4-6 hrs | Email Delivery, Spam, Storage | [Guide](/google-interviews/patterns/application/communication-systems.md) |
-| **Drive** | ⭐⭐⭐ | 4-6 hrs | File Sync, Collaboration, Versioning | [Guide](/google-interviews/patterns/data/storage-systems.md) |
-| **Photos** | ⭐⭐⭐ | 4-6 hrs | ML Pipeline, Storage, Search | [Guide](/google-interviews/patterns/data/ml-data-systems.md) |
-| **Play Store** | ⭐⭐⭐ | 4-6 hrs | App Distribution, Updates, Analytics | [Guide](/google-interviews/patterns/application/marketplace-systems.md) |
-| **Cloud Platform** | ⭐⭐⭐⭐ | 6-8 hrs | Multi-tenancy, Resource Management | [Guide](/google-interviews/patterns/infrastructure/cloud-infrastructure.md) |
-| **Android** | ⭐⭐⭐⭐ | 6-8 hrs | OS Updates, App Framework, Play Services | [Guide](/google-interviews/patterns/infrastructure/mobile-platforms.md) |
+| **Search** | ⭐⭐⭐⭐⭐ | 8-10 hrs | PageRank, Indexing, Query Processing | [Guide](google-interviews/google-search) |
+| **Ads** | ⭐⭐⭐⭐⭐ | 8-10 hrs | RTB, CTR Prediction, Auction | [Guide](google-interviews/patterns/application/ads-systems.md) |
+| **YouTube** | ⭐⭐⭐⭐ | 6-8 hrs | Video Processing, CDN, Recommendations | [Guide](google-interviews/patterns/application/media-platforms.md) |
+| **Maps** | ⭐⭐⭐⭐ | 6-8 hrs | Geospatial, Routing, Real-time Updates | [Guide](google-interviews/patterns/infrastructure/geo-systems.md) |
+| **Gmail** | ⭐⭐⭐ | 4-6 hrs | Email Delivery, Spam, Storage | [Guide](google-interviews/patterns/application/communication-systems.md) |
+| **Drive** | ⭐⭐⭐ | 4-6 hrs | File Sync, Collaboration, Versioning | [Guide](google-interviews/patterns/data/storage-systems.md) |
+| **Photos** | ⭐⭐⭐ | 4-6 hrs | ML Pipeline, Storage, Search | [Guide](google-interviews/patterns/data/ml-data-systems.md) |
+| **Play Store** | ⭐⭐⭐ | 4-6 hrs | App Distribution, Updates, Analytics | [Guide](google-interviews/patterns/application/marketplace-systems.md) |
+| **Cloud Platform** | ⭐⭐⭐⭐ | 6-8 hrs | Multi-tenancy, Resource Management | [Guide](google-interviews/patterns/infrastructure/cloud-infrastructure.md) |
+| **Android** | ⭐⭐⭐⭐ | 6-8 hrs | OS Updates, App Framework, Play Services | [Guide](google-interviews/patterns/infrastructure/mobile-platforms.md) |
 
 
 ### Difficulty Levels
@@ -175,31 +175,31 @@ graph TD
 ## ✅ Resource Checklist
 
 ### 📚 Preparation Materials
-- [ ] [Complete Study Guide](/google-interviews/preparation-guide)
-- [ ] [Pattern Library](/google-interviews/../../patterns/index.md) (25 patterns)
-- [ ] [Technical Deep Dives](/google-interviews/technical-deep-dives.md)
-- [ ] [Google Papers Collection](/google-interviews/references.md#google-papers)
-- [ ] [Architecture Diagrams](/google-interviews/references.md#architecture-diagrams)
+- [ ] [Complete Study Guide](google-interviews/preparation-guide)
+- [ ] [Pattern Library](google-interviews/../../patterns/index.md) (25 patterns)
+- [ ] [Technical Deep Dives](google-interviews/technical-deep-dives.md)
+- [ ] [Google Papers Collection](google-interviews/references.md#google-papers)
+- [ ] [Architecture Diagrams](google-interviews/references.md#architecture-diagrams)
 
 ### Practice Resources
-- [ ] [20 Mock Problems](/google-interviews/practice-problems.md)
-- [ ] [Design Templates](/google-interviews/design-template.md)
+- [ ] [20 Mock Problems](google-interviews/practice-problems.md)
+- [ ] [Design Templates](google-interviews/design-template.md)
 - [ ] [Evaluation Rubric] (Framework Coming Soon)
-- [ ] [Time Management Guide](/google-interviews/time-management.md)
-- [ ] [Common Pitfalls Guide](/google-interviews/common-mistakes)
+- [ ] [Time Management Guide](google-interviews/time-management.md)
+- [ ] [Common Pitfalls Guide](google-interviews/common-mistakes)
 
 ### 🛠 Tools & References
-- [ ] [Capacity Calculator](/tools/capacity-calculator)
-- [ ] [Latency Cheat Sheet](/google-interviews/cheat-sheets.md#latency-numbers)
-- [ ] [Technology Comparison](/google-interviews/cheat-sheets.md#technology-choices)
-- [ ] [Design Checklist](/google-interviews/checklists.md)
-- [ ] [Quick Reference Cards](/google-interviews/quick-reference.md)
+- [ ] [Capacity Calculator](tools/capacity-calculator)
+- [ ] [Latency Cheat Sheet](google-interviews/cheat-sheets.md#latency-numbers)
+- [ ] [Technology Comparison](google-interviews/cheat-sheets.md#technology-choices)
+- [ ] [Design Checklist](google-interviews/checklists.md)
+- [ ] [Quick Reference Cards](google-interviews/quick-reference.md)
 
 ### Assessment Tools
-- [ ] [Self-Evaluation Rubric](/google-interviews/evaluation-framework.md#self-assessment)
-- [ ] [Mock Interview Scorecard](/google-interviews/evaluation-framework.md#scorecard)
-- [ ] [Progress Tracker](/google-interviews/study-plans.md#progress-tracking)
-- [ ] [Knowledge Gaps Identifier](/google-interviews/study-plans.md#gap-analysis)
+- [ ] [Self-Evaluation Rubric](google-interviews/evaluation-framework.md#self-assessment)
+- [ ] [Mock Interview Scorecard](google-interviews/evaluation-framework.md#scorecard)
+- [ ] [Progress Tracker](google-interviews/study-plans.md#progress-tracking)
+- [ ] [Knowledge Gaps Identifier](google-interviews/study-plans.md#gap-analysis)
 
 ## 📅 Study Plan Options
 
@@ -212,7 +212,7 @@ graph TD
 | **2** | Practice | 20 | • Mock interviews<br>• Deep dive 3 systems<br>• Refine approach |
 
 
-[Detailed Plan →](/google-interviews/study-plans.md#crash-course)
+[Detailed Plan →](google-interviews/study-plans.md#crash-course)
 
 ### 📖 6-Week Comprehensive (120 hours)
 **For:** Engineers wanting thorough preparation
@@ -224,7 +224,7 @@ graph TD
 | **5-6** | Practice | 40 | • 15+ mock problems<br>• Refine communication |
 
 
-[Detailed Plan →](/google-interviews/study-plans.md#comprehensive)
+[Detailed Plan →](google-interviews/study-plans.md#comprehensive)
 
 ### 🎓 12-Week Mastery Path (240 hours)
 **For:** Career changers or those targeting Staff+ roles
@@ -236,7 +236,7 @@ graph TD
 | **Mastery** | 9-12 | Practice & Polish | Interview readiness at Staff level |
 
 
-[Detailed Plan →](/google-interviews/study-plans.md#mastery)
+[Detailed Plan →](google-interviews/study-plans.md#mastery)
 
 ## Next Steps
 
@@ -246,25 +246,25 @@ graph TD
 
  ---
 
- Start with the [Complete Study Guide](/google-interviews/study-guide.md) for a structured approach
+ Start with the [Complete Study Guide](google-interviews/study-guide.md) for a structured approach
 
 - :material-clock-fast:{ .lg .middle } **Short on Time?**
 
  ---
 
- Jump to [Quick Reference](/google-interviews/quick-reference.md) and [Cheat Sheets](/google-interviews/cheat-sheets.md)
+ Jump to [Quick Reference](google-interviews/quick-reference.md) and [Cheat Sheets](google-interviews/cheat-sheets.md)
 
 - :material-dumbbell:{ .lg .middle } **Ready to Practice?**
 
  ---
 
- Try our [Mock Problems](/google-interviews/practice-problems.md) with solutions
+ Try our [Mock Problems](google-interviews/practice-problems.md) with solutions
 
 - :material-school:{ .lg .middle } **Want Mastery?**
 
  ---
 
- Follow the [12-Week Path](/google-interviews/study-plans.md#mastery) for comprehensive preparation
+ Follow the [12-Week Path](google-interviews/study-plans.md#mastery) for comprehensive preparation
 
 </div>
 

@@ -21,4 +21,4 @@ last_updated: 2025-07-23
 - Spatial Indexing (Coming Soon)
 
 ## References
-- [Google Maps Case Study](/case-studies/google-maps) - Transition from raster to vector maps
+- [Google Maps Case Study](case-studies/google-maps) - Transition from raster to vector maps

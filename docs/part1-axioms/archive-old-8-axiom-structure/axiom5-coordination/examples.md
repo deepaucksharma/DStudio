@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 5](index.md) → **Coordination Examples**
+[Home](/) → [Part I: Axioms](part1-axioms) → [Axiom 5](index.md) → **Coordination Examples**
 
 # Coordination Examples
 
@@ -1031,7 +1031,7 @@ graph TB
 
 **Previous**: [Overview]() | **Next**: [Exercises](exercises.md)
 
-**Related**: [Consensus](/patterns/consensus) • [Distributed Lock](/patterns/distributed-lock) • [Leader Election](/patterns/leader-election) • [Two-Phase Commit](/patterns/two-phase-commit)
+**Related**: [Consensus](patterns/consensus) • [Distributed Lock](patterns/distributed-lock) • [Leader Election](patterns/leader-election) • [Two-Phase Commit](patterns/two-phase-commit)
 
 ## Additional Real-World Examples
 

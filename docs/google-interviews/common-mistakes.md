@@ -1153,5 +1153,5 @@ flowchart TD
 </ul>
 <p><strong>Focus on demonstrating these qualities while avoiding common pitfalls!</strong></p>
 
-[Return to Google Interview Guide](/google-interviews/index.md)
+[Return to Google Interview Guide](google-interviews/index.md)
 

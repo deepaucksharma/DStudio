@@ -1387,29 +1387,29 @@ class SpatialCacheWarmer:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)** - Sub-100ms spatial queries
-- **[Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/index)** - Index memory limits
-- **[Law 1: Failure](/part1-axioms/law1-failure/index)** - Redundant indices
-- **[Law 3: Emergence](/part1-axioms/law3-emergence/index)** - Parallel spatial queries
-- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/index)** - Index consistency
-- **[Law 5: Epistemology](/part1-axioms/law5-epistemology/index)** - Query pattern analysis
-- **[Law 6: Human-API](/part1-axioms/law6-human-api/index)** - Intuitive results
-- **[Law 7: Economics](/part1-axioms/law7-economics)** - Index storage costs
+- **[Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index)** - Sub-100ms spatial queries
+- **[Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index)** - Index memory limits
+- **[Law 1: Failure](part1-axioms/law1-failure/index)** - Redundant indices
+- **[Law 3: Emergence](part1-axioms/law3-emergence/index)** - Parallel spatial queries
+- **[Law 5: Epistemology](part1-axioms/law5-epistemology/index)** - Index consistency
+- **[Law 5: Epistemology](part1-axioms/law5-epistemology/index)** - Query pattern analysis
+- **[Law 6: Human-API](part1-axioms/law6-human-api/index)** - Intuitive results
+- **[Law 7: Economics](part1-axioms/law7-economics)** - Index storage costs
 
 ### 🏛 Related Patterns
 - **Spatial Indexing (Coming Soon)** - R-tree, QuadTree, KD-tree
 - **Geohashing (Coming Soon/index)** - Location encoding
-- **[Caching Strategies](/patterns/caching-strategies)** - Multi-level caches
-- **[Sharding](/patterns/sharding)** - Geographic partitioning
-- **[Load Balancing](/patterns/load-balancing)** - Query distribution
-- **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
-- **[Edge Computing](/patterns/edge-computing)** - Regional processing
+- **[Caching Strategies](patterns/caching-strategies)** - Multi-level caches
+- **[Sharding](patterns/sharding)** - Geographic partitioning
+- **[Load Balancing](patterns/load-balancing)** - Query distribution
+- **[Circuit Breaker](patterns/circuit-breaker)** - Service protection
+- **[Edge Computing](patterns/edge-computing)** - Regional processing
 
 ### Quantitative Models
-- **[Haversine Distance](/quantitative/haversine)** - Accurate Earth distances
-- **[Spatial Statistics](/quantitative/spatial-stats)** - Clustering, hot spots
-- **[Computational Geometry](/quantitative/comp-geometry)** - Polygon operations
-- **[Graph Theory](/quantitative/graph-theory)** - Network analysis
+- **[Haversine Distance](quantitative/haversine)** - Accurate Earth distances
+- **[Spatial Statistics](quantitative/spatial-stats)** - Clustering, hot spots
+- **[Computational Geometry](quantitative/comp-geometry)** - Polygon operations
+- **[Graph Theory](quantitative/graph-theory)** - Network analysis
 
 ### Similar Case Studies
 - **[Uber's H3 System] (Case Study Coming Soon)** - Hexagonal spatial indexing

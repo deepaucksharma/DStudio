@@ -29,10 +29,10 @@ tags:
     
     Make sure you understand these fundamental concepts:
     
-    - :material-book: [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Why failures cascade
-    - :material-book: [State Management](/part2-pillars/state/index) - Tracking system state
-    - :material-book: [Timeout Pattern](/patterns/timeout) - Basic failure detection
-    - :material-alert: [Retry Pattern](/patterns/retry-backoff) - Retry strategies
+    - :material-book: [Law 1: Correlated Failure](part1-axioms/law1-failure/index) - Why failures cascade
+    - :material-book: [State Management](part2-pillars/state/index) - Tracking system state
+    - :material-book: [Timeout Pattern](patterns/timeout) - Basic failure detection
+    - :material-alert: [Retry Pattern](patterns/retry-backoff) - Retry strategies
 
 ## :material-lightbulb: Core Concept
 
@@ -238,25 +238,25 @@ stateDiagram-v2
 
     <div class="grid cards" markdown>
     
-    - :material-refresh:{ .lg .middle } __[Retry with Backoff](/patterns/retry-backoff)__
+    - :material-refresh:{ .lg .middle } __[Retry with Backoff](patterns/retry-backoff)__
     
         ---
         
         Works together with circuit breaker for transient failures. Retry handles temporary issues, circuit breaker handles persistent problems.
     
-    - :material-ship:{ .lg .middle } __[Bulkhead Pattern](/patterns/bulkhead)__
+    - :material-ship:{ .lg .middle } __[Bulkhead Pattern](patterns/bulkhead)__
     
         ---
         
         Isolates resources to prevent total system failure. Use with circuit breaker for defense in depth.
     
-    - :material-timer-sand:{ .lg .middle } __[Timeout Pattern](/patterns/timeout)__
+    - :material-timer-sand:{ .lg .middle } __[Timeout Pattern](patterns/timeout)__
     
         ---
         
         Essential for circuit breaker operation. Timeouts detect slow failures that trigger circuit opening.
     
-    - :material-heart-pulse:{ .lg .middle } __[Health Check](/patterns/health-check)__
+    - :material-heart-pulse:{ .lg .middle } __[Health Check](patterns/health-check)__
     
         ---
         
@@ -268,10 +268,10 @@ stateDiagram-v2
 
     **Real-world implementations:**
     
-    - :material-netflix: **[Netflix Hystrix](/case-studies/netflix-hystrix/)** - Original implementation at scale
-    - :material-aws: **[AWS API Gateway](/case-studies/aws-api-gateway/)** - Built-in circuit breaking
-    - :material-microsoft: **[Azure Service Fabric](/case-studies/azure-service-fabric/)** - Mesh-level implementation
-    - :material-kubernetes: **[Istio Service Mesh](/case-studies/istio/)** - Automatic circuit breaking
+    - :material-netflix: **[Netflix Hystrix](case-studies/netflix-hystrix/)** - Original implementation at scale
+    - :material-aws: **[AWS API Gateway](case-studies/aws-api-gateway/)** - Built-in circuit breaking
+    - :material-microsoft: **[Azure Service Fabric](case-studies/azure-service-fabric/)** - Mesh-level implementation
+    - :material-kubernetes: **[Istio Service Mesh](case-studies/istio/)** - Automatic circuit breaking
 
 === "Alternative Approaches"
 
@@ -287,21 +287,21 @@ stateDiagram-v2
     
     **Beginner Path**
     : Master the basics with hands-on practice
-    : - :material-school: [Circuit Breaker Tutorial](/tutorials/circuit-breaker-basic/) - Build from scratch
-    : - :material-test-tube: [Testing Circuit Breakers](/tutorials/circuit-breaker-testing/) - Unit and integration tests
-    : - :material-chart-box: [Monitoring Setup](/tutorials/circuit-breaker-monitoring/) - Metrics and dashboards
+    : - :material-school: [Circuit Breaker Tutorial](tutorials/circuit-breaker-basic/) - Build from scratch
+    : - :material-test-tube: [Testing Circuit Breakers](tutorials/circuit-breaker-testing/) - Unit and integration tests
+    : - :material-chart-box: [Monitoring Setup](tutorials/circuit-breaker-monitoring/) - Metrics and dashboards
     
     **Intermediate Path**
     : Production-ready implementations
-    : - :material-cog: [Advanced Configuration](/tutorials/circuit-breaker-config/) - Tuning for your system
-    : - :material-lan: [Distributed Circuit Breakers](/tutorials/circuit-breaker-distributed/) - Multi-node coordination
-    : - :material-integration: [Framework Integration](/tutorials/circuit-breaker-frameworks/) - Spring, .NET, etc.
+    : - :material-cog: [Advanced Configuration](tutorials/circuit-breaker-config/) - Tuning for your system
+    : - :material-lan: [Distributed Circuit Breakers](tutorials/circuit-breaker-distributed/) - Multi-node coordination
+    : - :material-integration: [Framework Integration](tutorials/circuit-breaker-frameworks/) - Spring, .NET, etc.
     
     **Advanced Path**
     : Cutting-edge techniques
-    : - :material-brain: [ML-Based Circuit Breakers](/tutorials/circuit-breaker-ml/) - Predictive failure detection
-    : - :material-wave: [Adaptive Thresholds](/tutorials/circuit-breaker-adaptive/) - Self-tuning systems
-    : - :material-microscope: [Research Papers](/references/circuit-breaker-papers/) - Latest academic work
+    : - :material-brain: [ML-Based Circuit Breakers](tutorials/circuit-breaker-ml/) - Predictive failure detection
+    : - :material-wave: [Adaptive Thresholds](tutorials/circuit-breaker-adaptive/) - Self-tuning systems
+    : - :material-microscope: [Research Papers](references/circuit-breaker-papers/) - Latest academic work
 
 ## Key Takeaways
 
@@ -333,7 +333,7 @@ stateDiagram-v2
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Bulkhead Pattern](/patterns/bulkhead) | 
-[:material-arrow-up: Resilience Patterns](/patterns/#resilience-patterns) | 
-[:material-arrow-right: Retry Pattern](/patterns/retry-backoff)
+[:material-arrow-left: Bulkhead Pattern](patterns/bulkhead) | 
+[:material-arrow-up: Resilience Patterns](patterns/#resilience-patterns) | 
+[:material-arrow-right: Retry Pattern](patterns/retry-backoff)
 </div>

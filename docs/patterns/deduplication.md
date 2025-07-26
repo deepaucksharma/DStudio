@@ -16,8 +16,8 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Content-Addressed Storage](/patterns/cas)
-- [Caching Strategies](/patterns/caching-strategies)
+- [Content-Addressed Storage](patterns/cas)
+- [Caching Strategies](patterns/caching-strategies)
 
 ## References
-- [Google Drive Case Study](/case-studies/google-drive)
+- [Google Drive Case Study](case-studies/google-drive)

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 3](index.md) → **Axiom 3: Partial Failure**
+[Home](/) → [Part I: Axioms](part1-axioms) → [Axiom 3](index.md) → **Axiom 3: Partial Failure**
 
 # Axiom 3: Partial Failure
 
@@ -1804,7 +1804,7 @@ class RegionEvacuation:
 
 ---
 
-**Next**: [Axiom 4: Concurrency →](/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/)
+**Next**: [Axiom 4: Concurrency →](part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/)
 
 *"In distributed systems, the question isn't if failures will happen, but how your system behaves when they do."*
 
@@ -1813,49 +1813,49 @@ class RegionEvacuation:
 ## Related Concepts
 
 ### Pillars Building on This Axiom
-- [Work Distribution](/part2-pillars/work/index) - Distributing work despite partial failures
-- [State Management](/part2-pillars/state/index) - Maintaining state consistency during failures
-- [Truth & Consensus](/part2-pillars/truth/index) - Achieving consensus when nodes fail
-- [Control & Ordering](/part2-pillars/control/index) - Maintaining control flow during partial outages
-- [Intelligence & Learning](/part2-pillars/intelligence/index) - ML-based failure prediction and mitigation
+- [Work Distribution](part2-pillars/work/index) - Distributing work despite partial failures
+- [State Management](part2-pillars/state/index) - Maintaining state consistency during failures
+- [Truth & Consensus](part2-pillars/truth/index) - Achieving consensus when nodes fail
+- [Control & Ordering](part2-pillars/control/index) - Maintaining control flow during partial outages
+- [Intelligence & Learning](part2-pillars/intelligence/index) - ML-based failure prediction and mitigation
 
 ### Patterns Addressing Failure Challenges
-- [Circuit Breaker](/patterns/circuit-breaker) - Stop cascading failures by failing fast
-- [Retry & Backoff](/patterns/retry-backoff) - Recover from transient failures gracefully
-- [Bulkhead](/patterns/bulkhead) - Isolate failures to prevent system-wide impact
-- [Timeout](/patterns/timeout) - Detect and handle unresponsive components
-- [Health Checks](/patterns/health-check) - Proactive failure detection
-- [Chaos Engineering](/human-factors/chaos-engineering) - Intentional failure injection for resilience
-- [Saga Pattern](/patterns/saga) - Managing distributed transactions with failure compensation
+- [Circuit Breaker](patterns/circuit-breaker) - Stop cascading failures by failing fast
+- [Retry & Backoff](patterns/retry-backoff) - Recover from transient failures gracefully
+- [Bulkhead](patterns/bulkhead) - Isolate failures to prevent system-wide impact
+- [Timeout](patterns/timeout) - Detect and handle unresponsive components
+- [Health Checks](patterns/health-check) - Proactive failure detection
+- [Chaos Engineering](human-factors/chaos-engineering) - Intentional failure injection for resilience
+- [Saga Pattern](patterns/saga) - Managing distributed transactions with failure compensation
 
 ### Case Studies Demonstrating Failure Handling
-- [Netflix Chaos Engineering](/case-studies/netflix-chaos) - Simian Army and production failure testing
-- [Amazon Aurora](/case-studies/amazon-aurora) - Survivable database with quorum-based replication
-- [Google Spanner](/case-studies/google-spanner) - Global consistency despite failures
-- [Uber's Ringpop](/case-studies/uber-location) - Gossip-based failure detection
+- [Netflix Chaos Engineering](case-studies/netflix-chaos) - Simian Army and production failure testing
+- [Amazon Aurora](case-studies/amazon-aurora) - Survivable database with quorum-based replication
+- [Google Spanner](case-studies/google-spanner) - Global consistency despite failures
+- [Uber's Ringpop](case-studies/uber-location) - Gossip-based failure detection
 
 ### Other Axioms That Interact
-- [Axiom 1: Latency](/part1-axioms/archive-old-8-axiom-structure/axiom1-latency/) - Network partitions appear as infinite latency
-- [Axiom 2: Finite Capacity](/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/) - Resource exhaustion causes failures
-- [Axiom 4: Concurrency](/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/) - Race conditions during failure recovery
-- [Axiom 5: Coordination](/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/) - Consensus algorithms handle node failures
-- [Axiom 6: Observability](/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/) - Detecting and diagnosing partial failures
+- [Axiom 1: Latency](part1-axioms/archive-old-8-axiom-structure/axiom1-latency/) - Network partitions appear as infinite latency
+- [Axiom 2: Finite Capacity](part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/) - Resource exhaustion causes failures
+- [Axiom 4: Concurrency](part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/) - Race conditions during failure recovery
+- [Axiom 5: Coordination](part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/) - Consensus algorithms handle node failures
+- [Axiom 6: Observability](part1-axioms/archive-old-8-axiom-structure/axiom6-observability/) - Detecting and diagnosing partial failures
 
 ### Quantitative Tools
-- [Failure Probability Models](/quantitative/failure-models) - Mathematical models for system reliability
-- [MTBF/MTTR Analysis](/quantitative/mtbf-mttr) - Mean time between failures and recovery
-- [Availability Calculations](/quantitative/availability) - Computing system uptime with failures
-- [Blast Radius Analysis](/quantitative/blast-radius) - Quantifying failure impact
+- [Failure Probability Models](quantitative/failure-models) - Mathematical models for system reliability
+- [MTBF/MTTR Analysis](quantitative/mtbf-mttr) - Mean time between failures and recovery
+- [Availability Calculations](quantitative/availability) - Computing system uptime with failures
+- [Blast Radius Analysis](quantitative/blast-radius) - Quantifying failure impact
 
 ### Human Factors
-- [Incident Response](/part1-axioms/human-factors/incident-response) - Human processes for handling failures
-- [Post-Mortems](/part1-axioms/human-factors/blameless-postmortems) - Learning from failures without blame
-- [On-Call Practices](/part1-axioms/human-factors/oncall-culture) - Sustainable approaches to 24/7 operations
-- [Runbooks](/part1-axioms/human-factors/runbooks-playbooks) - Documented procedures for failure scenarios
-- [Game Days](/human-factors/chaos-engineering) - Practicing failure response
+- [Incident Response](part1-axioms/human-factors/incident-response) - Human processes for handling failures
+- [Post-Mortems](part1-axioms/human-factors/blameless-postmortems) - Learning from failures without blame
+- [On-Call Practices](part1-axioms/human-factors/oncall-culture) - Sustainable approaches to 24/7 operations
+- [Runbooks](part1-axioms/human-factors/runbooks-playbooks) - Documented procedures for failure scenarios
+- [Game Days](human-factors/chaos-engineering) - Practicing failure response
 
 ---
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Circuit Breaker](/patterns/circuit-breaker) • [Retry Backoff](/patterns/retry-backoff) • [Bulkhead](/patterns/bulkhead)
+**Related**: [Circuit Breaker](patterns/circuit-breaker) • [Retry Backoff](patterns/retry-backoff) • [Bulkhead](patterns/bulkhead)

@@ -517,4 +517,4 @@ Economic thinking transforms architecture:
 - "Cloud FinOps" - J.R. Storment & Mike Fuller
 - "The Mythical Man-Month" - Fred Brooks (on software economics)
 
-[**← Previous: Law of Cognitive Load**](/part1-axioms/law6-human-api/index) | [**→ To Synthesis**](/part1-axioms/synthesis)
+[**← Previous: Law of Cognitive Load**](part1-axioms/law6-human-api/index) | [**→ To Synthesis**](part1-axioms/synthesis)

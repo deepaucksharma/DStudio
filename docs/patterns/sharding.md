@@ -15,7 +15,7 @@ tags: [scalability, partitioning, horizontal-scaling, data-distribution, multi-t
 
 # Sharding (Data Partitioning)
 
-[Home](/) > [Patterns](/patterns) > [Data Patterns](/patterns/#data-patterns) > Sharding
+[Home](/) > [Patterns](patterns) > [Data Patterns](patterns/#data-patterns) > Sharding
 
 **Divide and conquer at planetary scale - How to handle 100B+ records**
 
@@ -1474,36 +1474,36 @@ def should_we_shard(current_metrics):
 ## Related Topics
 
 ### Foundational Concepts
-- [Consistent Hashing](/case-studies/consistent-hashing) - Core algorithm for data distribution
-- [CAP Theorem](/quantitative/cap-theorem) - Understanding trade-offs in distributed data
-- [Partitioning Strategies](/patterns/partitioning) - Different ways to split data
+- [Consistent Hashing](case-studies/consistent-hashing) - Core algorithm for data distribution
+- [CAP Theorem](quantitative/cap-theorem) - Understanding trade-offs in distributed data
+- [Partitioning Strategies](patterns/partitioning) - Different ways to split data
 
 ### Related Patterns
-- [Database Federation](/patterns/federation) - Alternative scaling approach
-- [CQRS](/patterns/cqrs) - Separate read/write paths (works well with sharding)
-- [Event Sourcing](/patterns/event-sourcing) - Append-only sharding strategy
-- [Cache Sharding](/patterns/cache-sharding) - Distributed caching patterns
+- [Database Federation](patterns/federation) - Alternative scaling approach
+- [CQRS](patterns/cqrs) - Separate read/write paths (works well with sharding)
+- [Event Sourcing](patterns/event-sourcing) - Append-only sharding strategy
+- [Cache Sharding](patterns/cache-sharding) - Distributed caching patterns
 
 ### Implementation Patterns
-- [Service Mesh](/patterns/service-mesh) - Managing shard routing at network level
-- [Saga Pattern](/patterns/saga) - Distributed transactions across shards
-- [API Gateway](/patterns/api-gateway) - Hide sharding complexity from clients
+- [Service Mesh](patterns/service-mesh) - Managing shard routing at network level
+- [Saga Pattern](patterns/saga) - Distributed transactions across shards
+- [API Gateway](patterns/api-gateway) - Hide sharding complexity from clients
 
 ### Case Studies
-- [Discord Message Sharding](/case-studies/chat-system) - 1T+ messages
-- [Uber's Schemaless](/case-studies/uber-schemaless/) - Dynamic sharding
-- [Instagram's Cassandra](/case-studies/instagram-cassandra/) - User feed sharding
-- [Pinterest Sharding Journey](/case-studies/pinterest-sharding/) - Resharding at scale
+- [Discord Message Sharding](case-studies/chat-system) - 1T+ messages
+- [Uber's Schemaless](case-studies/uber-schemaless/) - Dynamic sharding
+- [Instagram's Cassandra](case-studies/instagram-cassandra/) - User feed sharding
+- [Pinterest Sharding Journey](case-studies/pinterest-sharding/) - Resharding at scale
 
 ### Operational Excellence
-- [Monitoring Distributed Systems](/human-factors/monitoring/) - Per-shard observability
-- [Chaos Engineering](/human-factors/chaos-engineering.md) - Testing shard failures
-- [Capacity Planning](/human-factors/capacity-planning/) - When to add shards
+- [Monitoring Distributed Systems](human-factors/monitoring/) - Per-shard observability
+- [Chaos Engineering](human-factors/chaos-engineering.md) - Testing shard failures
+- [Capacity Planning](human-factors/capacity-planning/) - When to add shards
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: CDC](/patterns/cdc) | 
-[:material-arrow-up: Patterns](/patterns) | 
-[:material-arrow-right: Caching Strategies](/patterns/caching-strategies)
+[:material-arrow-left: CDC](patterns/cdc) | 
+[:material-arrow-up: Patterns](patterns) | 
+[:material-arrow-right: Caching Strategies](patterns/caching-strategies)
 </div>

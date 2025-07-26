@@ -11,7 +11,7 @@ last_updated: 2025-07-23
 
 # Real-World Asynchronous Reality: Case Studies and Lessons
 
-[Home](/) > [The 7 Laws](/part1-axioms) > [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony) > Examples
+[Home](/) > [The 7 Laws](part1-axioms) > [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony) > Examples
 
 ## Case Study 1: Google Spanner's TrueTime (2012)
 

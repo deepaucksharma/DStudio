@@ -315,9 +315,9 @@ Browser → Apache Server → Local Files → Flash Player
 - Flash dependency
 
 **Patterns Violated**: 
-- No [Load Balancing](/patterns/load-balancing)
-- No [Caching Strategy](/patterns/caching-strategies)
-- No [Fault Tolerance](/patterns/fault-tolerance)
+- No [Load Balancing](patterns/load-balancing)
+- No [Caching Strategy](patterns/caching-strategies)
+- No [Fault Tolerance](patterns/fault-tolerance)
 
 ### Phase 2: Basic CDN Integration (2006-2008)
 
@@ -350,10 +350,10 @@ graph TB
 ```
 
 **Key Design Decision: CDN for Static Content**
-- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](/part2-pillars/work)/index)
+- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](part2-pillars/work)/index)
 - **Choice**: Pay for CDN to achieve global scale
 - **Result**: 70% reduction in origin bandwidth
-- **Pattern Applied**: [Edge Computing](/patterns/edge-computing)
+- **Pattern Applied**: [Edge Computing](patterns/edge-computing)
 
 According to Google's reports¹, this reduced average latency from 800ms to 200ms globally.
 
@@ -1348,35 +1348,35 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony)** - Video start time (<100ms/index) drives multi-tier CDN architecture and edge caching strategy
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
-- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Millions of concurrent uploads/views require distributed processing pipelines
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Global CDN cache invalidation and content synchronization challenges
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Real-time monitoring of video quality, buffering, and viewer engagement
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Adaptive UI for different devices and network conditions
-- **[Law 7: Economics ](/part1-axioms/law7-economics)** - Bandwidth costs (40% of total) drive compression and quality optimization
+- **[Law 2: Asynchronous Reality ](part1-axioms/law2-asynchrony)** - Video start time (<100ms/index) drives multi-tier CDN architecture and edge caching strategy
+- **[Law 4: Trade-offs ](part1-axioms/law4-tradeoffs/index)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
+- **[Law 1: Failure ](part1-axioms/law1-failure/index)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
+- **[Law 3: Emergence ](part1-axioms/law3-emergence/index)** - Millions of concurrent uploads/views require distributed processing pipelines
+- **[Law 4: Trade-offs ](part1-axioms/law4-tradeoffs/index)** - Global CDN cache invalidation and content synchronization challenges
+- **[Law 5: Epistemology ](part1-axioms/law5-epistemology/index)** - Real-time monitoring of video quality, buffering, and viewer engagement
+- **[Law 6: Human-API ](part1-axioms/law6-human-api/index)** - Adaptive UI for different devices and network conditions
+- **[Law 7: Economics ](part1-axioms/law7-economics)** - Bandwidth costs (40% of total) drive compression and quality optimization
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Edge Computing](/patterns/edge-computing)** - Regional transcoding and caching reduce latency and bandwidth costs
+- **[Edge Computing](patterns/edge-computing)** - Regional transcoding and caching reduce latency and bandwidth costs
 - **CDN Strategy (Coming Soon)** - Multi-CDN architecture with intelligent routing
-- **[Load Balancing](/patterns/load-balancing)** - Anycast routing and geo-aware traffic distribution
-- **[Caching Strategies](/patterns/caching-strategies)** - Multi-tier caching from edge to origin
-- **[Event-Driven Architecture](/patterns/event-driven)** - Video processing pipeline triggered by upload events
-- **[Auto-Scaling](/patterns/auto-scaling)** - Dynamic compute allocation for transcoding workloads
-- **[Graceful Degradation](/patterns/graceful-degradation)** - Adaptive bitrate ensures playback under poor conditions
+- **[Load Balancing](patterns/load-balancing)** - Anycast routing and geo-aware traffic distribution
+- **[Caching Strategies](patterns/caching-strategies)** - Multi-tier caching from edge to origin
+- **[Event-Driven Architecture](patterns/event-driven)** - Video processing pipeline triggered by upload events
+- **[Auto-Scaling](patterns/auto-scaling)** - Dynamic compute allocation for transcoding workloads
+- **[Graceful Degradation](patterns/graceful-degradation)** - Adaptive bitrate ensures playback under poor conditions
 
 ### Quantitative Models
-- **[Power Laws](/quantitative/power-laws)** - 90% of views from 10% of content drives hot/cold storage tiers
-- **[Little's Law](/quantitative/littles-law)** - CDN capacity planning: concurrent streams = arrival rate × duration
-- **[Queueing Theory](/quantitative/queueing-models)** - Transcoding queue optimization for different video priorities
-- **[Information Theory](/quantitative/information-theory)** - Video compression algorithms and bandwidth optimization
+- **[Power Laws](quantitative/power-laws)** - 90% of views from 10% of content drives hot/cold storage tiers
+- **[Little's Law](quantitative/littles-law)** - CDN capacity planning: concurrent streams = arrival rate × duration
+- **[Queueing Theory](quantitative/queueing-models)** - Transcoding queue optimization for different video priorities
+- **[Information Theory](quantitative/information-theory)** - Video compression algorithms and bandwidth optimization
 
 ### 👥 Human Factors Considerations
-- **[SRE Practices](/human-factors/sre-practices)** - Managing global video infrastructure at scale
-- **[Capacity Planning](/quantitative/capacity-planning)** - Predicting and provisioning for viral videos
-- **[Incident Response](/human-factors/incident-response)** - Handling regional CDN failures and live stream issues
-- **[Observability Tools](/human-factors/observability-stacks)** - Video quality metrics and viewer experience monitoring
+- **[SRE Practices](human-factors/sre-practices)** - Managing global video infrastructure at scale
+- **[Capacity Planning](quantitative/capacity-planning)** - Predicting and provisioning for viral videos
+- **[Incident Response](human-factors/incident-response)** - Handling regional CDN failures and live stream issues
+- **[Observability Tools](human-factors/observability-stacks)** - Video quality metrics and viewer experience monitoring
 
 ### Similar Case Studies
 - **[Spotify Recommendations](spotify-recommendations.md)** - Similar ML-driven content discovery challenges

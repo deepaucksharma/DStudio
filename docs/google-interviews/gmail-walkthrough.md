@@ -537,7 +537,7 @@ GROUP BY label;
 Link to patterns:
 - E2E Encryption (Coming Soon) for message security
 - Key Management (Coming Soon) for encryption keys
-- [Consent Management](/google-interviews/../../patterns/consent-management.md) for privacy
+- [Consent Management](google-interviews/../../patterns/consent-management.md) for privacy
 
 ## Key Metrics
 
@@ -575,8 +575,8 @@ Link to patterns:
 
 ## Related Patterns & Resources
 
-- [Distributed Storage](/google-interviews/../../patterns/distributed-storage.md) - For email blob storage
-- [Event Sourcing](/google-interviews/../../patterns/event-sourcing.md) - For email state changes
-- [CQRS](/google-interviews/../../patterns/cqrs.md) - Separate read/write paths
-- [Sharding](/google-interviews/../../patterns/sharding.md) - User-based partitioning
-- [The Anatomy of a Large-Scale Email System](/google-interviews/https://research.google/pubs/pub123456/) - Google's paper
+- [Distributed Storage](google-interviews/../../patterns/distributed-storage.md) - For email blob storage
+- [Event Sourcing](google-interviews/../../patterns/event-sourcing.md) - For email state changes
+- [CQRS](google-interviews/../../patterns/cqrs.md) - Separate read/write paths
+- [Sharding](google-interviews/../../patterns/sharding.md) - User-based partitioning
+- [The Anatomy of a Large-Scale Email System](google-interviews/https://research.google/pubs/pub123456/) - Google's paper

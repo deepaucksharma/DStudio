@@ -692,33 +692,33 @@ class PBFTNode:
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure)**: Byzantine nodes can coordinate attacks
-- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-asynchrony)**: BFT must handle async networks
-- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology)**: No single node knows who's Byzantine
-- **[Law 7: Economic Reality 💰](/part1-axioms/law7-economics)**: BFT has high resource costs (3f+1 nodes)
+- **[Law 1: Correlated Failure ⛓️](part1-axioms/law1-failure)**: Byzantine nodes can coordinate attacks
+- **[Law 2: Asynchronous Reality ⏱️](part1-axioms/law2-asynchrony)**: BFT must handle async networks
+- **[Law 5: Distributed Knowledge 🧠](part1-axioms/law5-epistemology)**: No single node knows who's Byzantine
+- **[Law 7: Economic Reality 💰](part1-axioms/law7-economics)**: BFT has high resource costs (3f+1 nodes)
 
 ### Foundational Pillars
 BFT implements:
 
-- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth)**: Agreement despite lies
-- **[Pillar 4: Distribution of Control 🎮](/part2-pillars/control)**: No single point of trust
+- **[Pillar 3: Distribution of Truth 🔍](part2-pillars/truth)**: Agreement despite lies
+- **[Pillar 4: Distribution of Control 🎮](part2-pillars/control)**: No single point of trust
 
 ## Related Patterns
 
 ### Core Dependencies
-- **[Consensus Pattern](/patterns/consensus)**: BFT extends consensus for Byzantine faults
-- **[Leader Election](/patterns/leader-election)**: Used in leader-based BFT protocols
-- **[Distributed Lock](/patterns/distributed-lock)**: Can be built on BFT primitives
+- **[Consensus Pattern](patterns/consensus)**: BFT extends consensus for Byzantine faults
+- **[Leader Election](patterns/leader-election)**: Used in leader-based BFT protocols
+- **[Distributed Lock](patterns/distributed-lock)**: Can be built on BFT primitives
 
 ### Complementary Patterns
-- **[Gossip Protocol](/patterns/gossip-protocol)**: Disseminates messages in BFT
-- **[Vector Clocks](/patterns/vector-clocks)**: Orders events in async BFT
-- **[Merkle Trees](/patterns/merkle-trees)**: Efficient state verification
+- **[Gossip Protocol](patterns/gossip-protocol)**: Disseminates messages in BFT
+- **[Vector Clocks](patterns/vector-clocks)**: Orders events in async BFT
+- **[Merkle Trees](patterns/merkle-trees)**: Efficient state verification
 
 ### Security Patterns
-- **[E2E Encryption](/patterns/e2e-encryption)**: Protects BFT messages
-- **[Key Management](/patterns/key-management)**: Critical for BFT node identity
-- **[Audit Logging](/patterns/audit-logging)**: Forensics for Byzantine behavior
+- **[E2E Encryption](patterns/e2e-encryption)**: Protects BFT messages
+- **[Key Management](patterns/key-management)**: Critical for BFT node identity
+- **[Audit Logging](patterns/audit-logging)**: Forensics for Byzantine behavior
 
 ---
 

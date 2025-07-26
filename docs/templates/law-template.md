@@ -154,7 +154,7 @@ graph TD
 
 - [Academic Paper 1]
 - [Industry Case Study]
-- [Interactive Calculator](/tools/law-x-calculator)
+- [Interactive Calculator](tools/law-x-calculator)
 
 ## Quick Quiz
 

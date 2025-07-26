@@ -15,13 +15,13 @@ tags: [data-architecture, domain-driven, decentralization, data-as-product, orga
 
 # Data Mesh
 
-[Home](/) > [Patterns](/patterns) > [Core Patterns](/patterns/#core-patterns) > Data Mesh
+[Home](/) > [Patterns](patterns) > [Core Patterns](patterns/#core-patterns) > Data Mesh
 
 !!! abstract "🌐 Organizational Data Pattern"
     Decentralize data ownership and architecture to scale data teams and analytics by treating data as a product owned by domain teams.
     
     **Connected Laws**: Law 5 (Distributed Knowledge) • Law 6 (Cognitive Load) • Law 7 (Economic Reality)
-    **Related Pillars**: [Pillar 2 (State)](/part2-pillars/state) • [Pillar 5 (Intelligence)](/part2-pillars/intelligence)
+    **Related Pillars**: [Pillar 2 (State)](part2-pillars/state) • [Pillar 5 (Intelligence)](part2-pillars/intelligence)
 
 ## Problem Statement
 
@@ -677,18 +677,18 @@ graph TB
 
 ### Connected Distributed Systems Concepts
 
-- **[Law 5: Distributed Knowledge](/part1-axioms/law5-knowledge)**: Data mesh addresses the challenge of distributed domain knowledge
-- **[Law 6: Cognitive Load](/part1-axioms/law6-cognitive-load)**: Self-serve platform reduces cognitive burden on domain teams
-- **[Law 7: Economic Reality](/part1-axioms/law7-economics)**: Domain ownership aligns costs with value creation
-- **[Pillar 2: State Distribution](/part2-pillars/state)**: Data products are distributed state with consistency guarantees
-- **[Pillar 5: Intelligence Distribution](/part2-pillars/intelligence)**: Federated analytics and ML on mesh architecture
+- **[Law 5: Distributed Knowledge](part1-axioms/law5-knowledge)**: Data mesh addresses the challenge of distributed domain knowledge
+- **[Law 6: Cognitive Load](part1-axioms/law6-cognitive-load)**: Self-serve platform reduces cognitive burden on domain teams
+- **[Law 7: Economic Reality](part1-axioms/law7-economics)**: Domain ownership aligns costs with value creation
+- **[Pillar 2: State Distribution](part2-pillars/state)**: Data products are distributed state with consistency guarantees
+- **[Pillar 5: Intelligence Distribution](part2-pillars/intelligence)**: Federated analytics and ML on mesh architecture
 
 ### Related Patterns
 
-- **[Event Sourcing](/patterns/event-sourcing)**: Source data products from event streams
-- **[CQRS](/patterns/cqrs)**: Separate read/write models within data products
-- **[Microservices](/patterns/microservices)**: Operational plane counterpart to analytical plane
-- **[Service Mesh](/patterns/service-mesh)**: Infrastructure pattern for managing data product communication
+- **[Event Sourcing](patterns/event-sourcing)**: Source data products from event streams
+- **[CQRS](patterns/cqrs)**: Separate read/write models within data products
+- **[Microservices](patterns/microservices)**: Operational plane counterpart to analytical plane
+- **[Service Mesh](patterns/service-mesh)**: Infrastructure pattern for managing data product communication
 
 ### Implementation Technologies
 

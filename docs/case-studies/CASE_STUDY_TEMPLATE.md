@@ -139,9 +139,9 @@ graph TD
 
 | Pattern | How It Helps | Implementation |
 |---------|--------------|----------------|
-| [Circuit Breaker](/patterns/circuit-breaker) | Prevents cascade | Add to all external calls |
-| [Bulkhead](/patterns/bulkhead) | Isolates failures | Separate thread pools |
-| [Timeout](/patterns/timeout) | Fails fast | 5s max for any call |
+| [Circuit Breaker](patterns/circuit-breaker) | Prevents cascade | Add to all external calls |
+| [Bulkhead](patterns/bulkhead) | Isolates failures | Separate thread pools |
+| [Timeout](patterns/timeout) | Fails fast | 5s max for any call |
 
 ## Key Metrics
 
@@ -171,4 +171,4 @@ graph LR
 
 ---
 
-[← Case Studies](/case-studies) | [Similar Incidents →](/case-studies)
+[← Case Studies](case-studies) | [Similar Incidents →](case-studies)

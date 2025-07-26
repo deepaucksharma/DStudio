@@ -15,7 +15,7 @@ tags: [scalability, hashing, load-balancing, data-distribution, caching, partiti
 
 # Consistent Hashing
 
-[Home](/) > [Patterns](/patterns) > [Data Patterns](/patterns/#data-patterns) > Consistent Hashing
+[Home](/) > [Patterns](patterns) > [Data Patterns](patterns/#data-patterns) > Consistent Hashing
 
 **Elegantly distributing data when nodes come and go**
 
@@ -585,14 +585,14 @@ Where:
 ## Related Patterns
 
 ### Core Concepts
-- [Sharding](/patterns/sharding) - Uses consistent hashing for distribution
-- [Load Balancing](/patterns/load-balancing) - Consistent hashing for sticky sessions
-- [Distributed Caching](/patterns/caching-strategies) - Key distribution strategy
+- [Sharding](patterns/sharding) - Uses consistent hashing for distribution
+- [Load Balancing](patterns/load-balancing) - Consistent hashing for sticky sessions
+- [Distributed Caching](patterns/caching-strategies) - Key distribution strategy
 
 ### Case Studies
-- [Cassandra Architecture](/case-studies/cassandra) - Token ring implementation
-- [DynamoDB Internals](/case-studies/amazon-dynamo) - Virtual nodes in practice
-- [Memcached Scaling](/case-studies/memcached) - Cache node distribution
+- [Cassandra Architecture](case-studies/cassandra) - Token ring implementation
+- [DynamoDB Internals](case-studies/amazon-dynamo) - Virtual nodes in practice
+- [Memcached Scaling](case-studies/memcached) - Cache node distribution
 
 ---
 

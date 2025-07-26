@@ -562,7 +562,7 @@ def handle_tombstones(self):
 - Write-Ahead Log (WAL) (Coming Soon) - Durability mechanism
 - [Bloom Filter](bloom-filter.md) - Read optimization for LSM trees
 - [Sharding](sharding.md) - Distributing LSM trees across nodes
-- [Consistent Hashing](/case-studies/consistent-hashing) - Key distribution
+- [Consistent Hashing](case-studies/consistent-hashing) - Key distribution
 
 ## References
 

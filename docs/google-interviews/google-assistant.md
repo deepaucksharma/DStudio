@@ -519,4 +519,4 @@ Quality Metrics:
 - A/B testing responses
 - Federated learning for privacy
 
-[Return to Google Interview Guide](/google-interviews/index.md)
+[Return to Google Interview Guide](google-interviews/index.md)

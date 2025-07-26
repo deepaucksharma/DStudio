@@ -15,7 +15,7 @@ status: stub
 For now, please refer to:
 - [Scale Cheat Sheet](scale-cheatsheet.md) - Common scale numbers
 - [Visual Cheat Sheets](visual-cheatsheets.md) - Architecture patterns
-- [Reference Cheat Sheets](/reference/cheat-sheets.md) - General distributed systems
+- [Reference Cheat Sheets](reference/cheat-sheets.md) - General distributed systems
 
 ## Latency Numbers
 

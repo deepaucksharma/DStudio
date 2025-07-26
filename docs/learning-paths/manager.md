@@ -45,17 +45,17 @@ As an engineering manager, you will:
  
  Focus on high-impact knowledge:
  
- - [The 7 Laws Overview](/axioms/) - Quick understanding
- - [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/index) - Decision making
- - [Law 7: Economic Reality](/part1-axioms/law7-economics/index) - Cost implications
+ - [The 7 Laws Overview](axioms/) - Quick understanding
+ - [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index) - Decision making
+ - [Law 7: Economic Reality](part1-axioms/law7-economics/index) - Cost implications
 
 - **Week 2: Practical Implications**
  
  Understand operational realities:
  
- - [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Risk management
- - [Law 6: Cognitive Load](/part1-axioms/law6-human-api/index) - Team capacity
- - [The 5 Pillars](/pillars/) - Architectural choices
+ - [Law 1: Correlated Failure](part1-axioms/law1-failure/index) - Risk management
+ - [Law 6: Cognitive Load](part1-axioms/law6-human-api/index) - Team capacity
+ - [The 5 Pillars](pillars/) - Architectural choices
 
 </div>
 
@@ -68,30 +68,30 @@ As an engineering manager, you will:
 
 === "Reliability Patterns"
  Understand how teams ensure system reliability:
- - [Circuit Breaker](/patterns/circuit-breaker) - Failure isolation
- - [Retry & Backoff](/patterns/retry-backoff) - Handling failures
- - [Health Checks](/patterns/health-check) - System monitoring
+ - [Circuit Breaker](patterns/circuit-breaker) - Failure isolation
+ - [Retry & Backoff](patterns/retry-backoff) - Handling failures
+ - [Health Checks](patterns/health-check) - System monitoring
 
 === "Scaling Patterns"
  Know how systems grow:
- - [Load Balancing](/patterns/load-balancing) - Traffic distribution
- - [Caching](/patterns/caching-strategies) - Performance optimization
- - [Sharding](/patterns/sharding) - Data partitioning
+ - [Load Balancing](patterns/load-balancing) - Traffic distribution
+ - [Caching](patterns/caching-strategies) - Performance optimization
+ - [Sharding](patterns/sharding) - Data partitioning
 
 === "Architecture Patterns"
  Understand system organization:
- - [Service Mesh](/patterns/service-mesh) - Microservices management
- - [API Gateway](/patterns/api-gateway) - External interfaces
- - [Event-Driven](/patterns/event-driven) - Async architectures
+ - [Service Mesh](patterns/service-mesh) - Microservices management
+ - [API Gateway](patterns/api-gateway) - External interfaces
+ - [Event-Driven](patterns/event-driven) - Async architectures
 
 #### Week 4: Advanced Patterns
 
 Focus on patterns with significant business impact:
 
-- [CQRS](/patterns/cqrs) - Read/write optimization
-- [Saga Pattern](/patterns/saga) - Distributed transactions
-- [Event Sourcing](/patterns/event-sourcing) - Audit trails
-- [Multi-Region](/patterns/multi-region) - Global deployment
+- [CQRS](patterns/cqrs) - Read/write optimization
+- [Saga Pattern](patterns/saga) - Distributed transactions
+- [Event Sourcing](patterns/event-sourcing) - Audit trails
+- [Multi-Region](patterns/multi-region) - Global deployment
 
 ### Phase 3: Operational Excellence (2-3 weeks)
 
@@ -103,14 +103,14 @@ Focus on patterns with significant business impact:
 <div class="grid cards" markdown>
 
 - **Team Dynamics**
- - [SRE Practices](/human-factors/sre-practices.md)
- - [Team Topologies](/human-factors/team-topologies/)
- - [On-Call Rotation](/human-factors/incident-response)
+ - [SRE Practices](human-factors/sre-practices.md)
+ - [Team Topologies](human-factors/team-topologies/)
+ - [On-Call Rotation](human-factors/incident-response)
 
 - **Engineering Culture**
- - [Blameless Postmortems](/human-factors/blameless-postmortems/)
- - [Chaos Engineering](/human-factors/chaos-engineering.md)
- - [Observability Culture](/human-factors/observability-stacks/)
+ - [Blameless Postmortems](human-factors/blameless-postmortems/)
+ - [Chaos Engineering](human-factors/chaos-engineering.md)
+ - [Observability Culture](human-factors/observability-stacks/)
 
 </div>
 
@@ -118,10 +118,10 @@ Focus on patterns with significant business impact:
 
 Essential metrics and models:
 
-- [Little's Law](/quantitative/littles-law) - Queue management
-- [Availability Math](/quantitative/availability-math) - SLA calculations
-- [Capacity Planning](/quantitative/capacity-planning) - Resource estimation
-- [Latency Budgets](/quantitative/latency-ladder) - Performance targets
+- [Little's Law](quantitative/littles-law) - Queue management
+- [Availability Math](quantitative/availability-math) - SLA calculations
+- [Capacity Planning](quantitative/capacity-planning) - Resource estimation
+- [Latency Budgets](quantitative/latency-ladder) - Performance targets
 
 ### Phase 4: Strategic Case Studies (1-2 weeks)
 
@@ -131,19 +131,19 @@ Essential metrics and models:
 #### Week 7-8: Management Perspectives
 
 === "Organizational Lessons"
- - [Netflix Culture](/case-studies/netflix-chaos) - Innovation through chaos
- - [Amazon's Two-Pizza Teams](/case-studies/amazon-dynamo) - Team structure
- - [Google's SRE Model](/case-studies/google-sre/) - Operational excellence
+ - [Netflix Culture](case-studies/netflix-chaos) - Innovation through chaos
+ - [Amazon's Two-Pizza Teams](case-studies/amazon-dynamo) - Team structure
+ - [Google's SRE Model](case-studies/google-sre/) - Operational excellence
 
 === "Technical Decisions"
- - [Twitter's Fail Whale](/case-studies/twitter-timeline) - Scaling challenges
- - [Facebook's Move Fast](/case-studies/facebook-tao/) - Speed vs stability
- - [Uber's Microservices](/case-studies/uber-location) - Service proliferation
+ - [Twitter's Fail Whale](case-studies/twitter-timeline) - Scaling challenges
+ - [Facebook's Move Fast](case-studies/facebook-tao/) - Speed vs stability
+ - [Uber's Microservices](case-studies/uber-location) - Service proliferation
 
 === "Cost Optimization"
- - [Spotify's Migration](/case-studies/spotify-recommendations) - Cloud costs
- - [Airbnb's Architecture](/case-studies/hotel-reservation) - Growth management
- - [Pinterest's Sharding](/case-studies/pinterest-sharding/) - Data costs
+ - [Spotify's Migration](case-studies/spotify-recommendations) - Cloud costs
+ - [Airbnb's Architecture](case-studies/hotel-reservation) - Growth management
+ - [Pinterest's Sharding](case-studies/pinterest-sharding/) - Data costs
 
 ## 📊 Manager's Decision Framework
 
@@ -297,7 +297,7 @@ change_failure_rate:
 
 After completing this path:
 
-1. **Deeper Dive**: Explore [Senior Engineer Path](/learning-paths/senior-engineer) for technical depth
+1. **Deeper Dive**: Explore [Senior Engineer Path](learning-paths/senior-engineer) for technical depth
 2. **Specialization**: Focus on specific domains (FinTech, Gaming, etc.)
 3. **Strategic Leadership**: Move towards director/VP roles
 4. **Cross-Functional**: Work with product and business teams
@@ -319,12 +319,12 @@ Remember: Great engineering managers balance technical knowledge with people lea
  
  ---
  
- [Senior Engineer Path](/learning-paths/senior-engineer)
+ [Senior Engineer Path](learning-paths/senior-engineer)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Solution Architect Path](/learning-paths/architect)
+ [Solution Architect Path](learning-paths/architect)
 
 </div>

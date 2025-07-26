@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 8](index.md) → **Axiom 8: Economic Gradient**
+[Home](/) → [Part I: Axioms](part1-axioms) → [Axiom 8](index.md) → **Axiom 8: Economic Gradient**
 
 # Axiom 8: Economic Gradient
 
@@ -1154,7 +1154,7 @@ Rate your organization (1-5):
 
 ---
 
-**Next**: [Synthesis: Bringing It All Together →](/part1-axioms/archive-old-8-axiom-structure/synthesis)
+**Next**: [Synthesis: Bringing It All Together →](part1-axioms/archive-old-8-axiom-structure/synthesis)
 
 *"The most expensive system is the one that doesn't make money. The second most expensive is the one that costs more to run than it earns."*
 

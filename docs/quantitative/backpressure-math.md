@@ -359,6 +359,6 @@ Service_rate_i = weight_i × total_capacity / Σ(weights)
 ## Related Topics
 
 - [Queueing Theory](queueing-models.md)
-- [Flow Control Patterns](/patterns/backpressure)
+- [Flow Control Patterns](patterns/backpressure)
 - [Little's Law](littles-law.md)
 - [Performance Modeling](performance-modeling.md)

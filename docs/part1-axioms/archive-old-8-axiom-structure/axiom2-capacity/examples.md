@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 2](index.md) → **Capacity Examples**
+[Home](/) → [Part I: Axioms](part1-axioms) → [Axiom 2](index.md) → **Capacity Examples**
 
 # Capacity Examples
 
@@ -701,7 +701,7 @@ Every resource has capacity limits:
 **Previous**: [Overview]() | **Next**: [Exercises](exercises.md)
 
 **Related Patterns**: 
-- [Auto Scaling](/patterns/auto-scaling) - Dynamic capacity management
-- [Load Balancing](/patterns/load-balancing) - Distributing load across capacity  
-- [Circuit Breaker](/patterns/circuit-breaker) - Failing fast when capacity exceeded
-- [Bulkhead](/patterns/bulkhead) - Isolating capacity failures
+- [Auto Scaling](patterns/auto-scaling) - Dynamic capacity management
+- [Load Balancing](patterns/load-balancing) - Distributing load across capacity  
+- [Circuit Breaker](patterns/circuit-breaker) - Failing fast when capacity exceeded
+- [Bulkhead](patterns/bulkhead) - Isolating capacity failures

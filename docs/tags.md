@@ -26,8 +26,8 @@ hide:
 
 For now, you can browse content through these sections:
 
-- [Case Studies](/case-studies/) - Real-world systems
-- [Patterns](/patterns/) - Architectural patterns
-- [7 Laws](/part1-axioms/) - Fundamental constraints
-- [5 Pillars](/part2-pillars/) - Core concepts
-- [Quantitative](/quantitative/) - Mathematical models
+- [Case Studies](case-studies/) - Real-world systems
+- [Patterns](patterns) - Architectural patterns
+- [7 Laws](part1-axioms/) - Fundamental constraints
+- [5 Pillars](part2-pillars/) - Core concepts
+- [Quantitative](quantitative/) - Mathematical models

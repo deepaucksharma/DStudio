@@ -649,4 +649,4 @@ def design_google_scale_service(requirements):
 
 Remember: These patterns are tools. The art is knowing when and how to apply them based on your specific requirements and constraints.
 
-[Return to Google Interview Guide](/google-interviews/index.md)
+[Return to Google Interview Guide](google-interviews/index.md)

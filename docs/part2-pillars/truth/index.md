@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 
 # Pillar 3: Distribution of Truth
 
-[Home](/) > [The 5 Pillars](/part2-pillars) > Pillar 3: Truth > Overview
+[Home](/) > [The 5 Pillars](part2-pillars) > Pillar 3: Truth > Overview
 
 ## Level 1: Intuition (Start Here) 🌱
 
@@ -24,7 +24,7 @@ Imagine a library before computers:
 - **Phone Lines Down**: Can't call other libraries
 - **Librarian Sick**: Who updates the cards?
 
-**This is distributed truth**: Multiple copies, no master, must agree somehow. This fundamental challenge emerges from [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure) (nodes can fail/index) and [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology) (agreement requires communication/index).
+**This is distributed truth**: Multiple copies, no master, must agree somehow. This fundamental challenge emerges from [Law 1: Law of Correlated Failure](part1-axioms/law1-failure) (nodes can fail/index) and [Law 5: Law of Distributed Knowledge](part1-axioms/law5-epistemology) (agreement requires communication/index).
 
 ### Real-World Analogy: Group Chat Planning
 
@@ -158,7 +158,7 @@ gantt
     - Miners voluntarily took losses
     - Proved that Bitcoin consensus is sociotechnical
 
-**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Law 6: Law of Cognitive Load](/part1-axioms/law6-human-api) - humans remain the ultimate arbiters.
+**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Law 6: Law of Cognitive Load](part1-axioms/law6-human-api) - humans remain the ultimate arbiters.
 
 ### The FLP Impossibility Result
 
@@ -262,7 +262,7 @@ This concept map shows how distributed truth branches into consensus mechanisms,
 
 ### Understanding Raft: The Understandable Consensus
 
-Raft achieves consensus by electing a leader that manages replication (addressing [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure)/index).
+Raft achieves consensus by electing a leader that manages replication (addressing [Law 1: Law of Correlated Failure](part1-axioms/law1-failure)/index).
 
 ```mermaid
 stateDiagram-v2
@@ -342,7 +342,7 @@ sequenceDiagram
 
 ### The Vector Clock Pattern
 
-Vector clocks track causality in distributed systems without synchronized time (implementing [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony) ordering guarantees/index).
+Vector clocks track causality in distributed systems without synchronized time (implementing [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony) ordering guarantees/index).
 
 ### The Vector Clock Pattern
 
@@ -415,7 +415,7 @@ graph LR
 
 ### CRDTs: Conflict-Free Truth
 
-CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination. They elegantly sidestep [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology) costs by making all operations commutative.
+CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination. They elegantly sidestep [Law 5: Law of Distributed Knowledge](part1-axioms/law5-epistemology) costs by making all operations commutative.
 
 ### CRDTs: Conflict-Free Truth
 
@@ -829,7 +829,7 @@ graph TB
 
 ### Case Study: Kubernetes Etcd Consensus
 
-Kubernetes uses etcd (built on Raft) as its distributed truth source for all cluster state. This demonstrates how modern systems handle [Pillar 2: State](/part2-pillars/state/index) distribution with strong consistency guarantees.
+Kubernetes uses etcd (built on Raft) as its distributed truth source for all cluster state. This demonstrates how modern systems handle [Pillar 2: State](part2-pillars/state/index) distribution with strong consistency guarantees.
 
 ```mermaid
 graph TB
@@ -1307,7 +1307,7 @@ sequenceDiagram
 ```
 
 **Spanner's Key Insights**:
-1. **Expose uncertainty** - Don't pretend time is precise (acknowledging [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony))
+1. **Expose uncertainty** - Don't pretend time is precise (acknowledging [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony))
 2. **Wait out uncertainty** - 1-4ms average wait for consistency (improved from 7ms in 2012)
 3. **Hardware investment** - GPS + atomic clocks per DC
 4. **Global scale** - Serves Google's entire infrastructure
@@ -1326,7 +1326,7 @@ sequenceDiagram
 3. **Majority vote is simplest consensus**
 
 ### 🌿 Intermediate
-1. **CAP theorem forces truth trade-offs** (explored in depth in [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology))
+1. **CAP theorem forces truth trade-offs** (explored in depth in [Law 5: Law of Distributed Knowledge](part1-axioms/law5-epistemology))
 2. **Higher consistency = Higher cost**
 3. **FLP theorem: Perfect consensus impossible**
 
@@ -1582,41 +1582,41 @@ flowchart TD
 
 ---
 
-**Next**: [Pillar 4: Control →](/part2-pillars/control/index)
+**Next**: [Pillar 4: Control →](part2-pillars/control/index)
 
 *"In distributed systems, truth isn't discovered—it's negotiated."*
 
 ## Related Resources
 
 ### Foundational Laws
-- [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure/index) - Why consensus protocols need fault tolerance
-- [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Time uncertainty and event ordering
-- [Law 3: Law of Emergent Chaos](/part1-axioms/law3-emergence/index) - Unpredictable consensus behaviors
-- [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/index) - The cost of achieving consensus
-- [Law 6: Law of Cognitive Load](/part1-axioms/law6-human-api/index) - Human intervention in consensus failures
+- [Law 1: Law of Correlated Failure](part1-axioms/law1-failure/index) - Why consensus protocols need fault tolerance
+- [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony/index) - Time uncertainty and event ordering
+- [Law 3: Law of Emergent Chaos](part1-axioms/law3-emergence/index) - Unpredictable consensus behaviors
+- [Law 5: Law of Distributed Knowledge](part1-axioms/law5-epistemology/index) - The cost of achieving consensus
+- [Law 6: Law of Cognitive Load](part1-axioms/law6-human-api/index) - Human intervention in consensus failures
 
 ### Related Pillars
-- [Pillar 1: Work](/part2-pillars/work/index) - Coordinating distributed computation
-- [Pillar 2: State](/part2-pillars/state/index) - Managing distributed data consistency
-- [Pillar 4: Control](/part2-pillars/control/index) - Implementing consensus protocols
-- [Pillar 5: Intelligence](/part2-pillars/intelligence/index) - Smart consensus optimization
+- [Pillar 1: Work](part2-pillars/work/index) - Coordinating distributed computation
+- [Pillar 2: State](part2-pillars/state/index) - Managing distributed data consistency
+- [Pillar 4: Control](part2-pillars/control/index) - Implementing consensus protocols
+- [Pillar 5: Intelligence](part2-pillars/intelligence/index) - Smart consensus optimization
 
 ### Implementation Patterns
-- [Consensus Protocols](/patterns/consensus) - Raft, Paxos, PBFT
-- [Event Sourcing](/patterns/event-sourcing) - Truth from event logs
-- [CQRS](/patterns/cqrs) - Separating read/write models
-- [Saga Pattern](/patterns/saga) - Distributed transaction consensus
+- [Consensus Protocols](patterns/consensus) - Raft, Paxos, PBFT
+- [Event Sourcing](patterns/event-sourcing) - Truth from event logs
+- [CQRS](patterns/cqrs) - Separating read/write models
+- [Saga Pattern](patterns/saga) - Distributed transaction consensus
 
 ### Real-World Case Studies
-- [etcd: Production Raft](/case-studies/etcd) - Kubernetes' consensus backbone
-- [Blockchain Consensus](/case-studies/blockchain) - Bitcoin and Ethereum
-- [Google Spanner](/case-studies/google-spanner) - Global consistency at scale
-- [Apache Kafka](/case-studies/kafka) - Distributed log consensus
+- [etcd: Production Raft](case-studies/etcd) - Kubernetes' consensus backbone
+- [Blockchain Consensus](case-studies/blockchain) - Bitcoin and Ethereum
+- [Google Spanner](case-studies/google-spanner) - Global consistency at scale
+- [Apache Kafka](case-studies/kafka) - Distributed log consensus
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Pillar 2: State](/part2-pillars/state/index) | 
-[:material-arrow-up: The 5 Pillars](/part2-pillars) | 
-[:material-arrow-right: Pillar 4: Control](/part2-pillars/control/index)
+[:material-arrow-left: Pillar 2: State](part2-pillars/state/index) | 
+[:material-arrow-up: The 5 Pillars](part2-pillars) | 
+[:material-arrow-right: Pillar 4: Control](part2-pillars/control/index)
 </div>

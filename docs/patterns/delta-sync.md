@@ -16,8 +16,8 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Event Sourcing](/patterns/event-sourcing)
-- [CRDT](/patterns/crdt)
+- [Event Sourcing](patterns/event-sourcing)
+- [CRDT](patterns/crdt)
 
 ## References
-- [Google Drive Case Study](/case-studies/google-drive)
+- [Google Drive Case Study](case-studies/google-drive)

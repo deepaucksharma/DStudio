@@ -21,4 +21,4 @@ last_updated: 2025-07-23
 - [Bloom Filter](bloom-filter.md)
 
 ## References
-- [Web Crawler](/case-studies/web-crawler) - Trap detection implementation
+- [Web Crawler](case-studies/web-crawler) - Trap detection implementation

@@ -16,9 +16,9 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Event-Driven Architecture](/patterns/event-driven) - Pipeline orchestration
+- [Event-Driven Architecture](patterns/event-driven) - Pipeline orchestration
 - Distributed Queue (Coming Soon) - Task distribution
 
 ## References
-- [Google Maps Case Study](/case-studies/google-maps)
-- [Spotify ML Recommendations Case Study](/case-studies/spotify-recommendations)
+- [Google Maps Case Study](case-studies/google-maps)
+- [Spotify ML Recommendations Case Study](case-studies/spotify-recommendations)

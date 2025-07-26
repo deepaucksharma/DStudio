@@ -122,10 +122,10 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: End-to-End Encryption (Coming Soon)
 - Pattern: Key Management (Coming Soon)
-- 🏛 Pillar: [Truth Distribution](/part2-pillars/truth/index) - Cryptographic guarantees
-- 🏛 Pillar: [Control Distribution](/part2-pillars/control) - Secure message routing
+- 🏛 Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Cryptographic guarantees
+- 🏛 Pillar: [Control Distribution](../part2-pillars/control/index.md) - Secure message routing
 
-### Phase 4: Global Scale Architecture (2016-Present/index)
+### Phase 4: Global Scale Architecture (2016-Present)
 
 ```mermaid
 graph LR
@@ -2279,27 +2279,27 @@ Regional servers reduce latency; cross-region replication; compliance ready
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - WebSocket for real-time, regional servers
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Connection pooling, message queuing
-- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Offline queue, retry mechanisms
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Actor model, parallel delivery
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Group state sync, message ordering, and monitoring
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Connection pooling, message queuing
+- **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Actor model, parallel delivery
+- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - Typing indicators, read receipts
 
 ### 🏛 Related Patterns
 - **WebSocket (Coming Soon)** - Persistent connections
 - **Distributed Queue (Coming Soon)** - Reliable delivery
-- **Actor Model (Coming Soon/index)** - Concurrent message handling
-- **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
-- **[Event Sourcing](/patterns/event-sourcing)** - Message history
-- **[CRDT](/patterns/crdt)** - Distributed state sync
-- **[Saga Pattern](/patterns/saga)** - Group operations
+- **Actor Model (Coming Soon)** - Concurrent message handling
+- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
+- **[Event Sourcing](../patterns/event-sourcing.md)** - Message history
+- **[CRDT](../patterns/crdt.md)** - Distributed state sync
+- **[Saga Pattern](../patterns/saga.md)** - Group operations
 
 ### Quantitative Models
-- **[Little's Law](/quantitative/littles-law)** - Connection pool sizing
-- **[Queueing Theory](/quantitative/queueing-models)** - Message queue capacity
+- **[Little's Law](../quantitative/littles-law.md)** - Connection pool sizing
+- **[Queueing Theory](../quantitative/queueing-models.md)** - Message queue capacity
 - **CAP Theorem (Coming Soon)** - Consistency vs availability
-- **[Network Theory](/quantitative/network-theory)** - Optimal server placement
+- **[Network Theory](../quantitative/network-theory.md)** - Optimal server placement
 
 ### Similar Case Studies
 <!-- TODO: Add when available

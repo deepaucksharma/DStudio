@@ -22,4 +22,4 @@ last_updated: 2025-07-23
 - Geo-Replication
 
 ## References
-- [URL Shortener](/case-studies/url-shortener) - Global service deployment
+- [URL Shortener](case-studies/url-shortener) - Global service deployment

@@ -11,7 +11,7 @@ last_updated: 2025-07-23
 
 # Chaos Engineering Lab: Discovering Emergent Behaviors
 
-[Home](/) > [The 7 Laws](/part1-axioms) > [Law 3: Emergent Chaos](/part1-axioms/law3-emergence) > Exercises
+[Home](/) > [The 7 Laws](part1-axioms) > [Law 3: Emergent Chaos](part1-axioms/law3-emergence) > Exercises
 
 ## Exercise 1: Phase Transition Detection
 
@@ -514,4 +514,4 @@ After completing these exercises, you should understand:
 
 Remember: The goal isn't to eliminate emergence—it's to survive it.
 
-[**← Back to Law of Emergent Chaos**](index.md) | [**→ Next: Law of Multidimensional Optimization**](/part1-axioms/law4-tradeoffs/index)
+[**← Back to Law of Emergent Chaos**](index.md) | [**→ Next: Law of Multidimensional Optimization**](part1-axioms/law4-tradeoffs/index)

@@ -102,10 +102,10 @@ graph TB
 - Grid-based quantization
 
 **Patterns & Pillars Applied**:
-- Pattern: [Location Privacy](/patterns/location-privacy) - K-anonymity
-- Pattern: [Consent Management](/patterns/consent-management) - Mutual opt-in
-- 🏛 Pillar: [Control Distribution](/part2-pillars/control/index) - Privacy UX
-- 🏛 Pillar: [Truth Distribution](/part2-pillars/truth) - Location accuracy
+- Pattern: [Location Privacy](patterns/location-privacy) - K-anonymity
+- Pattern: [Consent Management](patterns/consent-management) - Mutual opt-in
+- 🏛 Pillar: [Control Distribution](part2-pillars/control/index) - Privacy UX
+- 🏛 Pillar: [Truth Distribution](part2-pillars/truth) - Location accuracy
 
 ### Phase 4: Modern Distributed Architecture (2018-Present/index)
 
@@ -1688,28 +1688,28 @@ class PrivacyDashboard:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - Real-time location updates
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Battery and bandwidth limits
-- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Privacy fail-safes
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Parallel proximity checks
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Consent synchronization and privacy analytics
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Privacy UX, battery life
-- **[Law 7: Economics ](/part1-axioms/law7-economics/index)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality ](part1-axioms/law2-asynchrony/index)** - Real-time location updates
+- **[Law 4: Trade-offs ](part1-axioms/law4-tradeoffs/index)** - Battery and bandwidth limits
+- **[Law 1: Failure ](part1-axioms/law1-failure/index)** - Privacy fail-safes
+- **[Law 3: Emergence ](part1-axioms/law3-emergence/index)** - Parallel proximity checks
+- **[Law 5: Epistemology ](part1-axioms/law5-epistemology/index)** - Consent synchronization and privacy analytics
+- **[Law 6: Human-API ](part1-axioms/law6-human-api/index)** - Privacy UX, battery life
+- **[Law 7: Economics ](part1-axioms/law7-economics/index)** - Infrastructure costs
 
 ### 🏛 Related Patterns
-- **[Location Privacy](/patterns/location-privacy)** - K-anonymity, fuzzing
-- **[Consent Management](/patterns/consent-management)** - GDPR compliance
-- **[Stream Processing](/patterns/queues-streaming)** - Real-time events
-- **[Edge Computing](/patterns/edge-computing)** - Regional processing
-- **[Circuit Breaker](/patterns/circuit-breaker)** - Service protection
+- **[Location Privacy](patterns/location-privacy)** - K-anonymity, fuzzing
+- **[Consent Management](patterns/consent-management)** - GDPR compliance
+- **[Stream Processing](patterns/queues-streaming)** - Real-time events
+- **[Edge Computing](patterns/edge-computing)** - Regional processing
+- **[Circuit Breaker](patterns/circuit-breaker)** - Service protection
 - **Geofencing (Coming Soon)** - Location triggers
 - **Battery Optimization (Coming Soon)** - Mobile efficiency
 
 ### Quantitative Models
-- **[Privacy Metrics](/quantitative/privacy-metrics)** - K-anonymity, l-diversity
-- **[Battery Models](/quantitative/battery-models)** - Power consumption
-- **[Social Networks](/quantitative/social-networks)** - Friend graphs
-- **[Spatial Statistics](/quantitative/spatial-stats)** - Location clustering
+- **[Privacy Metrics](quantitative/privacy-metrics)** - K-anonymity, l-diversity
+- **[Battery Models](quantitative/battery-models)** - Power consumption
+- **[Social Networks](quantitative/social-networks)** - Friend graphs
+- **[Spatial Statistics](quantitative/spatial-stats)** - Location clustering
 
 ### Similar Case Studies
 - **[Find My Device](find-my-device.md)** - Apple/Google location

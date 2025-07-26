@@ -11,7 +11,7 @@ last_updated: 2025-01-25
 
 # Law 1: The Law of Inevitable and Correlated Failure ⚡
 
-[Home](/) > [The 7 Laws](/part1-axioms) > [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) > Deep Dive
+[Home](/) > [The 7 Laws](part1-axioms) > [Law 1: Correlated Failure](part1-axioms/law1-failure/index) > Deep Dive
 
 !!! quote "Core Principle"
     Any component can fail, and failures are often correlated, not independent.
@@ -733,27 +733,27 @@ def correlation_impact_calculator(
 ## Related Topics
 
 ### Related Laws
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - How timing affects failure modes
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - Complex failures from simple interactions
-- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) - Detecting failures across distributed nodes
-- [Law 7: Economic Reality](/part1-axioms/law7-economics/index) - Cost of redundancy vs failure risk
+- [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index) - How timing affects failure modes
+- [Law 3: Emergent Chaos](part1-axioms/law3-emergence/index) - Complex failures from simple interactions
+- [Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index) - Detecting failures across distributed nodes
+- [Law 7: Economic Reality](part1-axioms/law7-economics/index) - Cost of redundancy vs failure risk
 
 ### Related Patterns
-- [Circuit Breaker](/patterns/circuit-breaker) - Preventing cascade failures
-- [Bulkhead Pattern](/patterns/bulkhead) - Isolating failure domains
-- [Health Checks](/patterns/health-checks) - Detecting component failures
-- [Chaos Engineering](/human-factors/chaos-engineering.md) - Testing failure correlations
-- [Leader Election](/patterns/leader-follower) - Handling coordinator failures
+- [Circuit Breaker](patterns/circuit-breaker) - Preventing cascade failures
+- [Bulkhead Pattern](patterns/bulkhead) - Isolating failure domains
+- [Health Checks](patterns/health-checks) - Detecting component failures
+- [Chaos Engineering](human-factors/chaos-engineering.md) - Testing failure correlations
+- [Leader Election](patterns/leader-follower) - Handling coordinator failures
 
 ### Case Studies
-- [AWS S3 Outage Analysis](/case-studies/aws-s3-outage/) - Correlated failures in cloud infrastructure
-- [GitHub Database Failure](/case-studies/github-database-failure/) - Split-brain and gray failures
-- [Google Chubby Lock Service](/case-studies/google-chubby/) - Handling correlated failures in distributed locks
+- [AWS S3 Outage Analysis](case-studies/aws-s3-outage/) - Correlated failures in cloud infrastructure
+- [GitHub Database Failure](case-studies/github-database-failure/) - Split-brain and gray failures
+- [Google Chubby Lock Service](case-studies/google-chubby/) - Handling correlated failures in distributed locks
 
 ### Quantitative Analysis
-- [Failure Models](/quantitative/failure-models) - Mathematical models of failure correlation
-- [Reliability Theory](/quantitative/reliability-theory) - Calculating system reliability
-- [Availability Math](/quantitative/availability-math) - Understanding uptime calculations
+- [Failure Models](quantitative/failure-models) - Mathematical models of failure correlation
+- [Reliability Theory](quantitative/reliability-theory) - Calculating system reliability
+- [Availability Math](quantitative/availability-math) - Understanding uptime calculations
 
 ## References and Further Reading
 
@@ -766,7 +766,7 @@ def correlation_impact_calculator(
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Overview](/part1-axioms) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms) | 
-[:material-arrow-right: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)
+[:material-arrow-left: Overview](part1-axioms) | 
+[:material-arrow-up: The 7 Laws](part1-axioms) | 
+[:material-arrow-right: Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index)
 </div>

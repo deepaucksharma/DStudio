@@ -1018,21 +1018,21 @@ subscriber.request(10) # Request 10 items
 ## Related Resources
 
 ### Patterns
-- [Circuit Breaker](/patterns/circuit-breaker) - Fail fast under overload
-- [Bulkhead](/patterns/bulkhead) - Resource isolation
-- [Rate Limiting](/patterns/rate-limiting) - Request throttling
-- [Queues & Streaming](/patterns/queues-streaming) - Message patterns
+- [Circuit Breaker](patterns/circuit-breaker) - Fail fast under overload
+- [Bulkhead](patterns/bulkhead) - Resource isolation
+- [Rate Limiting](patterns/rate-limiting) - Request throttling
+- [Queues & Streaming](patterns/queues-streaming) - Message patterns
 
 ### Laws
-- [Law 4 (Multidimensional Optimization )](/part1-axioms/law4-tradeoffs) - Finite resources
-- [Law 1 (Correlated Failure /index)](/part1-axioms/law1-failure) - Cascade prevention
-- [Law 3 (Emergent Chaos /index)](/part1-axioms/law3-emergence) - Parallel flows
-- [Law 7 (Economic Reality /index)](/part1-axioms/law7-economics/index) - Cost of dropping
+- [Law 4 (Multidimensional Optimization )](part1-axioms/law4-tradeoffs) - Finite resources
+- [Law 1 (Correlated Failure /index)](part1-axioms/law1-failure) - Cascade prevention
+- [Law 3 (Emergent Chaos /index)](part1-axioms/law3-emergence) - Parallel flows
+- [Law 7 (Economic Reality /index)](part1-axioms/law7-economics/index) - Cost of dropping
 
 ### Quantitative Analysis
-- [Queueing Theory](/quantitative/queueing-models) - Mathematical models
-- [Little's Law](/quantitative/littles-law) - Capacity relationships
-- [Backpressure Mathematics](/quantitative/backpressure-math) - Flow control theory
+- [Queueing Theory](quantitative/queueing-models) - Mathematical models
+- [Little's Law](quantitative/littles-law) - Capacity relationships
+- [Backpressure Mathematics](quantitative/backpressure-math) - Flow control theory
 
 ### Tools & Libraries
 - **Java**: Reactor, RxJava, Akka Streams

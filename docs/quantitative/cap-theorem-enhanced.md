@@ -458,7 +458,7 @@ def quorum_parameters(N=5):
 
 ## Interactive Tool
 
-Try our [CAP Theorem Calculator](/tools/cap-calculator) to explore trade-offs with different:
+Try our [CAP Theorem Calculator](tools/cap-calculator) to explore trade-offs with different:
 - Network partition probabilities
 - Consistency requirements
 - Availability SLAs

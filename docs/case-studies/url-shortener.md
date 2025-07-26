@@ -1367,27 +1367,27 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index) - CDN and caching strategies
-- [Law 7: Economics ](/part1-axioms/law7-economics/index) - Cost optimization techniques
-- [Caching Strategies](/patterns/caching-strategies) - Multi-level cache design
-- [Rate Limiting](/patterns/rate-limiting) - Protecting against abuse
+- [Law 2: Asynchronous Reality ](part1-axioms/law2-asynchrony/index) - CDN and caching strategies
+- [Law 7: Economics ](part1-axioms/law7-economics/index) - Cost optimization techniques
+- [Caching Strategies](patterns/caching-strategies) - Multi-level cache design
+- [Rate Limiting](patterns/rate-limiting) - Protecting against abuse
 
 **Advanced Topics:**
-- [Edge Computing Patterns](/patterns/edge-computing) - Building at the edge
+- [Edge Computing Patterns](patterns/edge-computing) - Building at the edge
 - Analytics at Scale (Coming Soon) - Handling billions of events
 - Geo-Distribution (Coming Soon) - Global service deployment
-- [Security Patterns](/patterns/security-shortener) - Preventing abuse and attacks
+- [Security Patterns](patterns/security-shortener) - Preventing abuse and attacks
 
 **Related Case Studies:**
 <!-- TODO: Add CDN design case study -->
 <!-- TODO: Add analytics pipeline case study -->
-- [API Gateway](/patterns/api-gateway) - Rate limiting and routing
+- [API Gateway](patterns/api-gateway) - Rate limiting and routing
 
 **Implementation Patterns:**
-- [Database Sharding](/patterns/sharding) - Horizontal scaling
-- [Bloom Filters](/patterns/bloom-filter) - Space-efficient lookups
-- [Circuit Breakers](/patterns/circuit-breaker) - Handling failures
-- [CQRS](/patterns/cqrs) - Read/write separation
+- [Database Sharding](patterns/sharding) - Horizontal scaling
+- [Bloom Filters](patterns/bloom-filter) - Space-efficient lookups
+- [Circuit Breakers](patterns/circuit-breaker) - Handling failures
+- [CQRS](patterns/cqrs) - Read/write separation
 
 ### 📚 References
 
@@ -1402,7 +1402,7 @@ Analytics     10M events/s    Kafka throughput
 - [Polr](https://github.com/cydrobolt/polr)
 
 **Related Patterns:**
-- [Caching Strategies](/patterns/caching-strategies)
-- [Sharding](/patterns/sharding)
-- [Rate Limiting](/patterns/rate-limiting)
-- [CDN](/patterns/edge-computing)
+- [Caching Strategies](patterns/caching-strategies)
+- [Sharding](patterns/sharding)
+- [Rate Limiting](patterns/rate-limiting)
+- [CDN](patterns/edge-computing)

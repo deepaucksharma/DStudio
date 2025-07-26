@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 8](index.md) → **Economics Exercises**
+[Home](/) → [Part I: Axioms](part1-axioms) → [Axiom 8](index.md) → **Economics Exercises**
 
 # Economics Exercises
 
@@ -1257,6 +1257,6 @@ class UnicornCostStrategy:
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Part I Summary](/part1-axioms/archive-old-8-axiom-structure/summary)
+**Previous**: [Examples](examples.md) | **Next**: [Part I Summary](part1-axioms/archive-old-8-axiom-structure/summary)
 
-**Related**: [Capacity Planning](/quantitative/capacity-planning) • [Auto-scaling](/patterns/auto-scaling) • [Multi-region](/patterns/multi-region)
+**Related**: [Capacity Planning](quantitative/capacity-planning) • [Auto-scaling](patterns/auto-scaling) • [Multi-region](patterns/multi-region)

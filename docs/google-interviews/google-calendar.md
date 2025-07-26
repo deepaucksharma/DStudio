@@ -514,4 +514,4 @@ class SyncEngine:
 - Approval workflows
 - Integration with building systems
 
-[Return to Google Interview Guide](/google-interviews/index.md)
+[Return to Google Interview Guide](google-interviews/index.md)

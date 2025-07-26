@@ -94,7 +94,7 @@ The site now supports comprehensive keyboard navigation:
 | ++t++ | Toggle theme |
 | ++question++ | Show keyboard help |
 
-[View all shortcuts](/reference/keyboard-shortcuts/)
+[View all shortcuts](reference/keyboard-shortcuts/)
 
 ## 🏷️ Enhanced Tags System
 

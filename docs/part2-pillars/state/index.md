@@ -60,7 +60,7 @@ nav:
 
 # Pillar 2: Distribution of State
 
-[Home](/) > [The 5 Pillars](/part2-pillars) > Pillar 2: State > Overview
+[Home](/) > [The 5 Pillars](part2-pillars) > Pillar 2: State > Overview
 
 <span class="path-icon">🗂️</span>
 <span class="path-name">Core Pillar</span>
@@ -97,7 +97,7 @@ Imagine a massive library with millions of books. How do you organize the catalo
 - Con: What about books covering multiple topics?
 - Con: How do you keep them synchronized?
 
-That's distributed state in a nutshell! This challenge arises from [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs) (finite resources require distribution/index) and [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure) (replicas for fault tolerance/index).
+That's distributed state in a nutshell! This challenge arises from [Law 4: Law of Multidimensional Optimization](part1-axioms/law4-tradeoffs) (finite resources require distribution/index) and [Law 1: Law of Correlated Failure](part1-axioms/law1-failure) (replicas for fault tolerance/index).
 
 ---
 
@@ -177,7 +177,7 @@ sequenceDiagram
 | Problem | Description | Real-World Impact |
 |---------|-------------|-------------------|
 | **Stale Cache** | ATMs see outdated balance | Double-spending attacks |
-| **Race Condition** | Concurrent operations conflict | Data corruption (see [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony)/index) |
+| **Race Condition** | Concurrent operations conflict | Data corruption (see [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony)/index) |
 | **Lost Update** | One update overwrites another | Missing transactions |
 | **Version Mismatch** | Cache version != source version | Inconsistent state |
 
@@ -273,7 +273,7 @@ Think of distributed state like:
 **Date**: October 21, 2018
 **Impact**: 24 hours of degraded service
 
-This incident perfectly illustrates [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure/index) and the challenges of maintaining [Pillar 3: Truth](/part2-pillars/truth/index) across distributed state.
+This incident perfectly illustrates [Law 1: Law of Correlated Failure](part1-axioms/law1-failure/index) and the challenges of maintaining [Pillar 3: Truth](part2-pillars/truth/index) across distributed state.
 
 ```mermaid
 graph TB
@@ -330,7 +330,7 @@ graph LR
 
 ### The CAP Theorem Visualized
 
-The CAP theorem directly connects to [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology) - you can't have perfect coordination (consistency/index) and availability during network partitions.
+The CAP theorem directly connects to [Law 5: Law of Distributed Knowledge](part1-axioms/law5-epistemology) - you can't have perfect coordination (consistency/index) and availability during network partitions.
 
 ```mermaid
 graph TB
@@ -403,7 +403,7 @@ graph TB
 | Pattern | State Distribution | Consistency | Use Case |
 |---------|-------------------|-------------|----------|
 | **Single Master** | All writes to one node | Strong | MySQL primary |
-| **Multi-Master** | Any node can accept writes | Eventual/Conflict | Cassandra (requires [Pillar 3: Truth](/part2-pillars/truth) resolution/index) |
+| **Multi-Master** | Any node can accept writes | Eventual/Conflict | Cassandra (requires [Pillar 3: Truth](part2-pillars/truth) resolution/index) |
 | **Partitioned** | Each partition has master | Strong per partition | MongoDB sharding |
 | **Replicated State Machine** | All nodes execute same ops | Strong | etcd/Raft |
 | **CRDT** | Merge concurrent updates | Strong eventual | Redis CRDT (see CRDT section below) |
@@ -522,7 +522,7 @@ graph LR
 
 ### Advanced Replication: Chain Replication Architecture
 
-Chain replication leverages [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/index) trade-offs - higher write latency for stronger consistency and simpler failure handling.
+Chain replication leverages [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony/index) trade-offs - higher write latency for stronger consistency and simpler failure handling.
 
 ```mermaid
 graph LR
@@ -644,7 +644,7 @@ graph TB
 
 ### Vector Clocks: Tracking Causality
 
-Vector clocks implement the ordering requirements from [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/index), enabling distributed systems to reason about happened-before relationships.
+Vector clocks implement the ordering requirements from [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony/index), enabling distributed systems to reason about happened-before relationships.
 
 ```mermaid
 sequenceDiagram
@@ -711,7 +711,7 @@ graph TB
 
 ### CRDTs: Conflict-Free Replicated Data Types
 
-CRDTs bypass [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/index) overhead by ensuring all operations commute - achieving consistency without consensus (see [Pillar 3: Truth](/part2-pillars/truth) for consensus alternatives).
+CRDTs bypass [Law 5: Law of Distributed Knowledge](part1-axioms/law5-epistemology/index) overhead by ensuring all operations commute - achieving consistency without consensus (see [Pillar 3: Truth](part2-pillars/truth) for consensus alternatives).
 
 ```mermaid
 graph TB
@@ -808,7 +808,7 @@ sequenceDiagram
 
 ### DynamoDB: Eventually Consistent at Scale
 
-DynamoDB exemplifies the [Law 7: Law of Economic Reality](/part1-axioms/law7-economics/index) trade-offs - offering tunable consistency levels that balance cost, performance, and correctness.
+DynamoDB exemplifies the [Law 7: Law of Economic Reality](part1-axioms/law7-economics/index) trade-offs - offering tunable consistency levels that balance cost, performance, and correctness.
 
 ```mermaid
 graph TB
@@ -914,7 +914,7 @@ graph LR
 
 ### Google Spanner: Globally Consistent Database
 
-Spanner represents the pinnacle of distributed state management, using atomic clocks to tame [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/index) and achieve global consistency (detailed in [Pillar 3: Truth](/part2-pillars/truth)/index).
+Spanner represents the pinnacle of distributed state management, using atomic clocks to tame [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony/index) and achieve global consistency (detailed in [Pillar 3: Truth](part2-pillars/truth)/index).
 
 ```mermaid
 graph TB
@@ -1668,19 +1668,19 @@ graph TD
     
     How Cassandra achieves linear scalability with tunable consistency
     
-    [Read Case Study →](/case-studies/cassandra)
+    [Read Case Study →](case-studies/cassandra)
 
 - **Elasticsearch Distributed State**
     
     Managing distributed search indices with automatic sharding
     
-    [Read Case Study →](/case-studies/elasticsearch)
+    [Read Case Study →](case-studies/elasticsearch)
 
 - **Facebook Social Graph**
     
     TAO's approach to globally distributed graph data
     
-    [Read Case Study →](/case-studies/social-graph)
+    [Read Case Study →](case-studies/social-graph)
 
 </div>
 
@@ -1717,42 +1717,42 @@ graph TD
 Progress: 2 of 5 pillars completed
 </div>
 
-**Next**: [Pillar 3: Truth →](/part2-pillars/truth/index)
+**Next**: [Pillar 3: Truth →](part2-pillars/truth/index)
 
 *"State is the hardest problem in distributed systems. Everything else is just moving bytes around."*
 
 ## Related Resources
 
 ### Foundational Laws
-- [Law 1: Law of Correlated Failure](/part1-axioms/law1-failure/index) - Replication for fault tolerance
-- [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - How network delays affect state consistency
-- [Law 3: Law of Emergent Chaos](/part1-axioms/law3-emergence/index) - Unpredictable state mutations
-- [Law 4: Law of Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) - Why we must distribute state
-- [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/index) - Synchronizing state updates
-- [Law 7: Law of Economic Reality](/part1-axioms/law7-economics/index) - Cost of consistency levels
+- [Law 1: Law of Correlated Failure](part1-axioms/law1-failure/index) - Replication for fault tolerance
+- [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony/index) - How network delays affect state consistency
+- [Law 3: Law of Emergent Chaos](part1-axioms/law3-emergence/index) - Unpredictable state mutations
+- [Law 4: Law of Multidimensional Optimization](part1-axioms/law4-tradeoffs/index) - Why we must distribute state
+- [Law 5: Law of Distributed Knowledge](part1-axioms/law5-epistemology/index) - Synchronizing state updates
+- [Law 7: Law of Economic Reality](part1-axioms/law7-economics/index) - Cost of consistency levels
 
 ### Related Pillars
-- [Pillar 1: Work](/part2-pillars/work/index) - Stateless vs stateful computation
-- [Pillar 3: Truth](/part2-pillars/truth/index) - Consensus on state values
-- [Pillar 4: Control](/part2-pillars/control/index) - Orchestrating state changes
-- [Pillar 5: Intelligence](/part2-pillars/intelligence/index) - Smart state placement
+- [Pillar 1: Work](part2-pillars/work/index) - Stateless vs stateful computation
+- [Pillar 3: Truth](part2-pillars/truth/index) - Consensus on state values
+- [Pillar 4: Control](part2-pillars/control/index) - Orchestrating state changes
+- [Pillar 5: Intelligence](part2-pillars/intelligence/index) - Smart state placement
 
 ### Implementation Patterns
-- [Event Sourcing](/patterns/event-sourcing) - State as event log
-- [CQRS](/patterns/cqrs) - Separate read/write state models
-- [Sharding](/patterns/sharding) - Horizontal state partitioning
+- [Event Sourcing](patterns/event-sourcing) - State as event log
+- [CQRS](patterns/cqrs) - Separate read/write state models
+- [Sharding](patterns/sharding) - Horizontal state partitioning
 - Replication (Coming Soon) - State redundancy patterns
 
 ### Real-World Case Studies
-- [DynamoDB](/case-studies/amazon-dynamo) - Amazon's distributed database
-- [Cassandra](/case-studies/cassandra) - Wide-column distributed store
-- [Redis Cluster](/case-studies/redis) - In-memory distributed state
-- [MongoDB](/case-studies/mongodb) - Document database sharding
+- [DynamoDB](case-studies/amazon-dynamo) - Amazon's distributed database
+- [Cassandra](case-studies/cassandra) - Wide-column distributed store
+- [Redis Cluster](case-studies/redis) - In-memory distributed state
+- [MongoDB](case-studies/mongodb) - Document database sharding
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Pillar 1: Work](/part2-pillars/work/index) | 
-[:material-arrow-up: The 5 Pillars](/part2-pillars) | 
-[:material-arrow-right: Pillar 3: Truth](/part2-pillars/truth/index)
+[:material-arrow-left: Pillar 1: Work](part2-pillars/work/index) | 
+[:material-arrow-up: The 5 Pillars](part2-pillars) | 
+[:material-arrow-right: Pillar 3: Truth](part2-pillars/truth/index)
 </div>

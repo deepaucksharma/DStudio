@@ -519,13 +519,13 @@ graph TD
 
 | Resource | Type | Relevance |
 |----------|------|-----------|
-| **[API Gateway Pattern](/patterns/api-gateway)** | Pattern | Alternative for complex auth |
-| **[Circuit Breaker](/patterns/circuit-breaker)** | Pattern | Protect storage services |
-| **[Rate Limiting](/patterns/rate-limiting)** | Pattern | Control valet key generation |
-| **[Law 7: Economic Reality](/part1-axioms/law7-economics/index)** | Axiom | Cost optimization driver |
-| **[Pillar 4: Control](/part2-pillars/control/index)** | Pillar | Access control principles |
-| **[CDN Pattern](/patterns/cdn)** | Pattern | Combine for global scale |
-| **[Encryption at Rest](/patterns/encryption-at-rest)** | Pattern | Secure storage layer |
+| **[API Gateway Pattern](patterns/api-gateway)** | Pattern | Alternative for complex auth |
+| **[Circuit Breaker](patterns/circuit-breaker)** | Pattern | Protect storage services |
+| **[Rate Limiting](patterns/rate-limiting)** | Pattern | Control valet key generation |
+| **[Law 7: Economic Reality](part1-axioms/law7-economics/index)** | Axiom | Cost optimization driver |
+| **[Pillar 4: Control](part2-pillars/control/index)** | Pillar | Access control principles |
+| **[CDN Pattern](patterns/cdn)** | Pattern | Combine for global scale |
+| **[Encryption at Rest](patterns/encryption-at-rest)** | Pattern | Secure storage layer |
 
 ## Summary
 

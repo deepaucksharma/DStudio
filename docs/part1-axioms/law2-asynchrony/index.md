@@ -11,7 +11,7 @@ last_updated: 2025-01-25
 
 # Law 2: The Law of Physical and Information Asynchrony ⏱️
 
-[Home](/) > [The 7 Laws](/part1-axioms) > [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony) > Deep Dive
+[Home](/) > [The 7 Laws](part1-axioms) > [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony) > Deep Dive
 
 !!! quote "Core Principle"
     The time required for information to propagate between nodes is variable, non-zero, and creates fundamental uncertainty.
@@ -1045,22 +1045,22 @@ class BatchedWriter:
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - How asynchrony affects failure detection
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - How timing creates emergent behavior
-- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) - The epistemology of distributed time
-- [Law 7: Economic Reality](/part1-axioms/law7-economics/index) - The cost of fighting asynchrony
+- [Law 1: Correlated Failure](part1-axioms/law1-failure/index) - How asynchrony affects failure detection
+- [Law 3: Emergent Chaos](part1-axioms/law3-emergence/index) - How timing creates emergent behavior
+- [Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index) - The epistemology of distributed time
+- [Law 7: Economic Reality](part1-axioms/law7-economics/index) - The cost of fighting asynchrony
 
 ### Related Patterns
-- [Saga Pattern](/patterns/saga) - Managing distributed transactions without 2PC
-- [Event Sourcing](/patterns/event-sourcing) - Embracing the event-driven nature of time
-- [CRDT](/patterns/crdt) - Conflict-free replicated data types
-- [Vector Clocks](/patterns/vector-clocks) - Practical causality tracking
-- [Optimistic Replication](/patterns/optimistic-replication) - Working with stale data
+- [Saga Pattern](patterns/saga) - Managing distributed transactions without 2PC
+- [Event Sourcing](patterns/event-sourcing) - Embracing the event-driven nature of time
+- [CRDT](patterns/crdt) - Conflict-free replicated data types
+- [Vector Clocks](patterns/vector-clocks) - Practical causality tracking
+- [Optimistic Replication](patterns/optimistic-replication) - Working with stale data
 
 ### Case Studies
-- [Google Spanner](/case-studies/google-spanner) - TrueTime and external consistency
-- [Amazon DynamoDB](/case-studies/dynamodb/) - Eventually consistent by design
-- [Apache Cassandra](/case-studies/cassandra) - Tunable consistency in practice
+- [Google Spanner](case-studies/google-spanner) - TrueTime and external consistency
+- [Amazon DynamoDB](case-studies/dynamodb/) - Eventually consistent by design
+- [Apache Cassandra](case-studies/cassandra) - Tunable consistency in practice
 
 ## References and Further Reading
 
@@ -1073,7 +1073,7 @@ class BatchedWriter:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Law 1: Correlated Failure](/part1-axioms/law1-failure/index) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms) | 
-[:material-arrow-right: Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index)
+[:material-arrow-left: Law 1: Correlated Failure](part1-axioms/law1-failure/index) | 
+[:material-arrow-up: The 7 Laws](part1-axioms) | 
+[:material-arrow-right: Law 3: Emergent Chaos](part1-axioms/law3-emergence/index)
 </div>

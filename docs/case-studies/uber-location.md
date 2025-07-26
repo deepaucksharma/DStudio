@@ -330,26 +330,26 @@ graph LR
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Multi-region prevents city-wide outages
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Edge servers handle network latency
-- [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index) - Event-driven handles 1M updates/sec
-- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) - Battery vs accuracy trade-offs
+- [Law 1: Correlated Failure](../part1-axioms/law1-failure/) - Multi-region prevents city-wide outages
+- [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/) - Edge servers handle network latency
+- [Law 3: Emergent Chaos](../part1-axioms/law3-emergence/) - Event-driven handles 1M updates/sec
+- [Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/) - Battery vs accuracy trade-offs
 
 ### Related Patterns
-- [Geospatial Indexing](/patterns/spatial-indexing) - H3 hexagonal grid system
-- [Event Streaming](/patterns/event-streaming) - Kafka processing 100M events/day
-- [Edge Computing](/patterns/edge-computing) - 200+ edge locations globally
-- [Time-Series Storage](/patterns/time-series-ids) - Cassandra for location history
+- [Geospatial Indexing](../patterns/spatial-indexing) - H3 hexagonal grid system
+- [Event Streaming](../patterns/event-streaming) - Kafka processing 100M events/day
+- [Edge Computing](../patterns/edge-computing) - 200+ edge locations globally
+- [Time-Series Storage](../patterns/time-series-ids) - Cassandra for location history
 
 ### Related Pillars
-- [Pillar 1: Work](/part2-pillars/work/index) - Geospatial sharding across regions
-- [Pillar 2: State](/part2-pillars/state/index) - Multi-layer location caching
-- [Pillar 5: Intelligence](/part2-pillars/intelligence/index) - ML-based ETA prediction
+- [Pillar 1: Work](../part2-pillars/work/) - Geospatial sharding across regions
+- [Pillar 2: State](../part2-pillars/state/) - Multi-layer location caching
+- [Pillar 5: Intelligence](../part2-pillars/intelligence/) - ML-based ETA prediction
 
 ### Case Studies
-- [Google Maps](/case-studies/google-maps) - Similar scale location challenges
-- [DoorDash](/case-studies/uber-location) - Food delivery location tracking
-- [Lyft](/case-studies/uber-location) - Competing architecture approach
+- [Google Maps](google-maps) - Similar scale location challenges
+- [Uber Maps](uber-maps) - Mapping infrastructure for location services
+- [Nearby Friends](nearby-friends) - Location-based proximity service
 
 ## Takeaways for Your System
 
@@ -362,23 +362,23 @@ graph LR
 ## Cross-References to Fundamental Laws
 
 ### Related Laws (Part I)
-- **[Law 1: Correlated Failure](/part1-axioms/law1-failure/index)** - Multi-region deployment prevents city-wide service outages during infrastructure failures
-- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)** - Edge servers and predictive updates compensate for mobile network latency
-- **[Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index)** - Event-driven architecture handles millions of concurrent location updates
-- **[Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index)** - Balance battery life, accuracy, and real-time requirements through adaptive algorithms
-- **[Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index)** - Comprehensive monitoring of location quality and system health across global infrastructure
-- **[Law 6: Cognitive Load](/part1-axioms/law6-human-api/index)** - H3 indexing simplifies complex geospatial operations for developers
-- **[Law 7: Economic Reality](/part1-axioms/law7-economics)** - Edge computing and compression optimize mobile data costs
+- **[Law 1: Correlated Failure](../part1-axioms/law1-failure/)** - Multi-region deployment prevents city-wide service outages during infrastructure failures
+- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/)** - Edge servers and predictive updates compensate for mobile network latency
+- **[Law 3: Emergent Chaos](../part1-axioms/law3-emergence/)** - Event-driven architecture handles millions of concurrent location updates
+- **[Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/)** - Balance battery life, accuracy, and real-time requirements through adaptive algorithms
+- **[Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/)** - Comprehensive monitoring of location quality and system health across global infrastructure
+- **[Law 6: Cognitive Load](../part1-axioms/law6-human-api/)** - H3 indexing simplifies complex geospatial operations for developers
+- **[Law 7: Economic Reality](../part1-axioms/law7-economics/)** - Edge computing and compression optimize mobile data costs
 
-### Related Pillars (Part II/index)
-- **[Work Distribution](/part2-pillars/work/index)** - Geospatial sharding distributes location processing across regions
-- **[State Distribution](/part2-pillars/state/index)** - Multi-layered caching strategy for location data at different time scales
-- **[Intelligence Distribution](/part2-pillars/intelligence)** - ML-based prediction algorithms deployed at edge locations
+### Related Pillars (Part II)
+- **[Work Distribution](../part2-pillars/work/)** - Geospatial sharding distributes location processing across regions
+- **[State Distribution](../part2-pillars/state/)** - Multi-layered caching strategy for location data at different time scales
+- **[Intelligence Distribution](../part2-pillars/intelligence/)** - ML-based prediction algorithms deployed at edge locations
 
-### Related Patterns (Part III/index)
-- **[Geospatial Indexing](/patterns/spatial-indexing)** - H3 hexagonal grid system for efficient spatial queries
-- **[Event Streaming](/patterns/event-streaming)** - Kafka-based real-time location update pipeline
-- **[Multi-Level Caching](/patterns/caching-strategies)** - Hot/warm/cold storage architecture for location data
+### Related Patterns (Part III)
+- **[Geospatial Indexing](../patterns/spatial-indexing)** - H3 hexagonal grid system for efficient spatial queries
+- **[Event Streaming](../patterns/event-streaming)** - Kafka-based real-time location update pipeline
+- **[Multi-Level Caching](../patterns/caching-strategies)** - Hot/warm/cold storage architecture for location data
 
 ## Further Reading
 

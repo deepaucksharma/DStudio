@@ -527,8 +527,8 @@ class DistributedTransaction:
 
 This pattern directly addresses:
 
-- **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)** - Logical clocks handle the absence of global time by creating a logical ordering based on causality rather than physical time
-- **[Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/)** - No single node knows the global state; logical clocks help establish a consistent ordering despite this limitation
+- **[Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/)** - Logical clocks handle the absence of global time by creating a logical ordering based on causality rather than physical time
+- **[Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/)** - No single node knows the global state; logical clocks help establish a consistent ordering despite this limitation
 
 ## Related Patterns
 

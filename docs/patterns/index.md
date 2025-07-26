@@ -12,7 +12,7 @@ last_updated: 2025-07-25
 
 # Part III: Modern Architectural Patterns
 
-[Home](/) > [Patterns](/patterns) > Overview
+[Home](/) > [Patterns](patterns) > Overview
 
 !!! abstract "The Pattern Library"
     **50+ Production-Ready Patterns** from companies operating at massive scale  
@@ -411,7 +411,7 @@ Key Papers & Resources:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Part II - The 5 Pillars](/part2-pillars) | 
+[:material-arrow-left: Part II - The 5 Pillars](part2-pillars) | 
 [:material-arrow-up: Home](/) | 
-[:material-arrow-right: Pattern Comparison](/patterns/pattern-comparison)
+[:material-arrow-right: Pattern Comparison](patterns/pattern-comparison)
 </div>

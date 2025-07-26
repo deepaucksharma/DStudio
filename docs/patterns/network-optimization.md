@@ -17,9 +17,9 @@ last_updated: 2025-07-23
 
 ## Related Patterns
 - [CDN/Edge Computing](edge-computing.md)
-- [Compression](/quantitative/compression)
+- [Compression](quantitative/compression)
 - [Connection Pooling](bulkhead.md)
-- [Protocol Buffers](/patterns/api-gateway)
+- [Protocol Buffers](patterns/api-gateway)
 
 ## References
-- [Key-Value Store](/case-studies/key-value-store) - Network protocol optimization
+- [Key-Value Store](case-studies/key-value-store) - Network protocol optimization

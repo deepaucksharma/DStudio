@@ -78,7 +78,7 @@ flowchart TD
 | **Write-Behind** | Write-heavy | Risk data loss | ⭐⭐⭐ |
 | **Event Sourcing** | Audit trail needed | Complex queries | ⭐⭐⭐⭐⭐ |
 
-[→ Detailed Caching Guide](/patterns/caching-strategies)
+[→ Detailed Caching Guide](patterns/caching-strategies)
 
 <div>
 <h4>Database Selection</h4>
@@ -524,4 +524,4 @@ CDC → Stream Processing → Data Lake
 
 ---
 
-**Previous**: [← Pattern Combinations](/patterns/pattern-combinations) | **Next**: [Pattern Quiz →](/patterns/pattern-quiz)
+**Previous**: [← Pattern Combinations](patterns/pattern-combinations) | **Next**: [Pattern Quiz →](patterns/pattern-quiz)

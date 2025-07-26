@@ -489,4 +489,4 @@ Latency vs Throughput trade-off
 - [Two-Phase Commit](two-phase-commit.md)
 
 ## References
-- [Key-Value Store Design](/case-studies/key-value-store) - WAL for crash recovery
+- [Key-Value Store Design](case-studies/key-value-store) - WAL for crash recovery

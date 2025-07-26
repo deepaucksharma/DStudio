@@ -308,13 +308,13 @@ graph LR
     
     [Learn more →](../patterns/circuit-breaker)
 
-- :material-rotate-3d:{ .lg .middle } **[Consistent Hashing](../case-studies/consistent-hashing)**
+- :material-rotate-3d:{ .lg .middle } **[Consistent Hashing](../patterns/consistent-hashing)**
     
     ---
     
     Enables elastic scaling with minimal data movement
     
-    [Learn more →](../case-studies/consistent-hashing)
+    [Learn more →](../patterns/consistent-hashing)
 
 - :material-vote:{ .lg .middle } **[Quorum Consensus](../patterns/consensus)**
     
@@ -337,26 +337,26 @@ graph LR
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Eventually consistent by design
-- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) - AP choice in CAP theorem
-- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) - Gossip protocol for membership
+- [Law 1: Correlated Failure](../part1-axioms/law1-failure/) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/) - Eventually consistent by design
+- [Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/) - AP choice in CAP theorem
+- [Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/) - Gossip protocol for membership
 
 ### Related Patterns
-- [Consistent Hashing](/case-studies/consistent-hashing) - Virtual nodes for data distribution
-- [Vector Clocks](/patterns/vector-clocks) - Conflict resolution mechanism
-- [Merkle Trees](/patterns/merkle-trees) - Anti-entropy synchronization
-- [Quorum Consensus](/patterns/consensus) - Tunable consistency levels
+- [Consistent Hashing](../patterns/consistent-hashing/) - Virtual nodes for data distribution
+- [Vector Clocks](../patterns/vector-clocks/) - Conflict resolution mechanism
+- [Merkle Trees](../patterns/merkle-trees/) - Anti-entropy synchronization
+- [Quorum Consensus](../patterns/consensus/) - Tunable consistency levels
 
 ### Related Pillars
-- [Pillar 2: State](/part2-pillars/state/index) - Eventually consistent state management
-- [Pillar 3: Truth](/part2-pillars/truth/index) - Multiple versions of truth
-- [Pillar 4: Control](/part2-pillars/control/index) - Decentralized control plane
+- [Pillar 2: State](../part2-pillars/state/) - Eventually consistent state management
+- [Pillar 3: Truth](../part2-pillars/truth/) - Multiple versions of truth
+- [Pillar 4: Control](../part2-pillars/control/) - Decentralized control plane
 
 ### Case Studies
-- [Apache Cassandra](/case-studies/cassandra) - Similar eventual consistency model
-- [Redis Cluster](/case-studies/redis) - Alternative distributed key-value store
-- [Spanner](/case-studies/google-spanner) - Contrasting strongly consistent approach
+- [Apache Cassandra](../case-studies/cassandra/) - Similar eventual consistency model
+- [Redis Cluster](../case-studies/redis/) - Alternative distributed key-value store
+- [Spanner](../case-studies/google-spanner/) - Contrasting strongly consistent approach
 
 ## Decision Guide
 

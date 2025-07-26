@@ -744,4 +744,4 @@ After completing these exercises, you should be able to answer:
 
 3. **Design a Chaos Test**: Create chaos engineering tests that specifically target timing assumptions in your system
 
-[**← Back to Law of Asynchrony**](index.md) | [**→ Next: Law of Emergence Exercises**](/part1-axioms/law3-emergence/exercises)
+[**← Back to Law of Asynchrony**](index.md) | [**→ Next: Law of Emergence Exercises**](part1-axioms/law3-emergence/exercises)

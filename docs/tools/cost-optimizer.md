@@ -169,11 +169,11 @@
 
 ## Related Resources
 
-- [Economic Reality Law](/part1-axioms/law7-economics)
+- [Economic Reality Law](part1-axioms/law7-economics)
 - FinOps Best Practices (Coming Soon)
 - Multi-Region Architecture (Coming Soon/index)
-- [Storage Economics](/quantitative/storage-economics)
-- [Cache Economics](/quantitative/cache-economics)
+- [Storage Economics](quantitative/storage-economics)
+- [Cache Economics](quantitative/cache-economics)
 
 <script>
 // Simplified cloud pricing model (real pricing is more complex)

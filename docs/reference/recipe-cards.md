@@ -78,7 +78,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 1 (Correlated Failure ⛓️), Law 3 (Emergent Chaos 🌪️)
 
-**Case Studies**: [Netflix's Resilience Patterns](/case-studies/netflix-chaos), [Circuit Breaker Pattern](/patterns/circuit-breaker)
+**Case Studies**: [Netflix's Resilience Patterns](case-studies/netflix-chaos), [Circuit Breaker Pattern](patterns/circuit-breaker)
 
 ---
 
@@ -170,7 +170,7 @@ last_updated: 2025-07-20
 
 **Consider**: Law 1 (Correlated Failure ⛓️) for cascade analysis, Law 2 (Asynchronous Reality ⏳) for timing issues
 
-**Case Studies**: [Amazon DynamoDB Outage](/case-studies/amazon-dynamo), [Facebook's Metastable Failures](/case-studies/consistent-hashing)
+**Case Studies**: [Amazon DynamoDB Outage](case-studies/amazon-dynamo), [Facebook's Metastable Failures](case-studies/consistent-hashing)
 
 ---
 
@@ -255,7 +255,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 5 (Distributed Knowledge 🧠) for observability, Law 6 (Cognitive Load 🤯) for operator experience
 
-**Learn More**: [Observability Best Practices](/patterns/observability), [Monitoring Patterns](/patterns/observability)
+**Learn More**: [Observability Best Practices](patterns/observability), [Monitoring Patterns](patterns/observability)
 
 ---
 
@@ -431,7 +431,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 4 (Multidimensional Optimization ⚖️) for trade-offs, Law 7 (Economic Reality 💰) for cost planning
 
-**Tools**: [Capacity Planning Calculator](/tools/capacity-calculator), [Little's Law Calculator](/tools/latency-calculator)
+**Tools**: [Capacity Planning Calculator](tools/capacity-calculator), [Little's Law Calculator](tools/latency-calculator)
 
 ---
 

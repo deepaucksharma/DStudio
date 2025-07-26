@@ -12,7 +12,7 @@ last_updated: 2025-07-20
 
 # Immutable Laws Quiz
 
-[Home](/) > [The 7 Laws](/part1-axioms) > Quiz
+[Home](/) > [The 7 Laws](part1-axioms) > Quiz
 
 Test your understanding of the fundamental laws with these questions.
 

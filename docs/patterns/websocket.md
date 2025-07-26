@@ -734,15 +734,15 @@ class WebSocketMetrics:
 
 ## Related Patterns
 
-- [Event-Driven Architecture](/patterns/event-driven) - WebSockets enable real-time events
-- [Circuit Breaker](/patterns/circuit-breaker) - Protect WebSocket endpoints
-- [Load Balancing](/patterns/load-balancing) - Distribute WebSocket connections
-- [Backpressure](/patterns/backpressure) - Handle message flooding
-- [Pub-Sub](/patterns/publish-subscribe) - Scale WebSocket systems
+- [Event-Driven Architecture](patterns/event-driven) - WebSockets enable real-time events
+- [Circuit Breaker](patterns/circuit-breaker) - Protect WebSocket endpoints
+- [Load Balancing](patterns/load-balancing) - Distribute WebSocket connections
+- [Backpressure](patterns/backpressure) - Handle message flooding
+- [Pub-Sub](patterns/publish-subscribe) - Scale WebSocket systems
 
 ## References
 
-- [Chat System Case Study](/case-studies/chat-system) - WhatsApp-scale implementation
+- [Chat System Case Study](case-studies/chat-system) - WhatsApp-scale implementation
 - RFC 6455: The WebSocket Protocol
 - "Scaling WebSockets" - High Scalability
 - "WebSocket Security" - OWASP Guidelines

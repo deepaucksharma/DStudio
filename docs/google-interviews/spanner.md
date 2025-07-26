@@ -502,8 +502,8 @@ WHERE LAG_MS > 100;
 
 ## References
 
-- [Spanner: Google's Globally-Distributed Database](/google-interviews/https://research.google/pubs/pub39966/)
-- [Spanner: Becoming a SQL System](/google-interviews/https://research.google/pubs/pub46103/)
-- [Cloud Spanner Documentation](/google-interviews/https://cloud.google.com/spanner/docs)
+- [Spanner: Google's Globally-Distributed Database](google-interviews/https://research.google/pubs/pub39966/)
+- [Spanner: Becoming a SQL System](google-interviews/https://research.google/pubs/pub46103/)
+- [Cloud Spanner Documentation](google-interviews/https://cloud.google.com/spanner/docs)
 
-[Return to Google Interview Guide](/google-interviews/index.md)
+[Return to Google Interview Guide](google-interviews/index.md)

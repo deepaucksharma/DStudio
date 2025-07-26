@@ -13,10 +13,50 @@ tags:
 
 # The 7 Fundamental Laws
 
-[Home](/) > [The 7 Laws](/part1-axioms) > Overview
+[Home](/) > [The 7 Laws](part1-axioms) > Overview
 
 !!! abstract "From Physics to Distributed Systems"
     These seven laws are not design choices or best practices—they are fundamental constraints derived from physics and mathematics. Every distributed system, regardless of implementation, must obey these laws.
+
+## 📚 Prerequisites & Learning Path
+
+<div class="grid cards" markdown>
+
+- :material-clock-outline:{ .lg .middle } **Time Investment**
+    
+    ---
+    
+    **Total**: 15-20 hours  
+    **Per Law**: 2-3 hours  
+    **Difficulty**: 🟡 Intermediate  
+
+- :material-school-outline:{ .lg .middle } **What You'll Learn**
+    
+    ---
+    
+    ✓ Physical limits of distributed systems  
+    ✓ Why certain problems are unsolvable  
+    ✓ How to work within constraints  
+    ✓ Foundation for all patterns  
+
+- :material-book-check:{ .lg .middle } **Prerequisites**
+    
+    ---
+    
+    ✓ Basic networking (TCP/IP, HTTP)  
+    ✓ Programming experience (any language)  
+    ✓ Database fundamentals (ACID)  
+    ✓ [Introduction](introduction/philosophy) complete  
+
+- :material-navigation:{ .lg .middle } **Your Path**
+    
+    ---
+    
+    **Current**: 🔵 Laws (Theory)  
+    **Next**: [→ Pillars](part2-pillars) (Practice)  
+    **Then**: [→ Patterns](patterns) (Implementation)  
+
+</div>
 
 ## :material-lightbulb: Why Laws Matter
 
@@ -31,7 +71,7 @@ tags:
 
 <div class="grid cards" markdown>
 
-- :material-numeric-1-circle:{ .lg .middle } **[Law 1: Correlated Failure](/part1-axioms/law1-failure/index)**
+- :material-numeric-1-circle:{ .lg .middle } **[Law 1: Correlated Failure](part1-axioms/law1-failure/index)**
     
     ---
     
@@ -39,7 +79,7 @@ tags:
     
     The myth of independent failure and why redundancy isn't enough.
 
-- :material-numeric-2-circle:{ .lg .middle } **[Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)**
+- :material-numeric-2-circle:{ .lg .middle } **[Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index)**
     
     ---
     
@@ -47,7 +87,7 @@ tags:
     
     Why timeouts are guesses and synchronous assumptions break.
 
-- :material-numeric-3-circle:{ .lg .middle } **[Law 3: Emergent Chaos](/part1-axioms/law3-emergence/index)**
+- :material-numeric-3-circle:{ .lg .middle } **[Law 3: Emergent Chaos](part1-axioms/law3-emergence/index)**
     
     ---
     
@@ -55,7 +95,7 @@ tags:
     
     Why distributed systems surprise us and testing isn't enough.
 
-- :material-numeric-4-circle:{ .lg .middle } **[Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index)**
+- :material-numeric-4-circle:{ .lg .middle } **[Law 4: Multidimensional Optimization](part1-axioms/law4-tradeoffs/index)**
     
     ---
     
@@ -63,7 +103,7 @@ tags:
     
     The CAP theorem is just one example of fundamental trade-offs.
 
-- :material-numeric-5-circle:{ .lg .middle } **[Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index)**
+- :material-numeric-5-circle:{ .lg .middle } **[Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index)**
     
     ---
     
@@ -71,7 +111,7 @@ tags:
     
     Why consensus is hard and eventual consistency is often inevitable.
 
-- :material-numeric-6-circle:{ .lg .middle } **[Law 6: Cognitive Load](/part1-axioms/law6-human-api/index)**
+- :material-numeric-6-circle:{ .lg .middle } **[Law 6: Cognitive Load](part1-axioms/law6-human-api/index)**
     
     ---
     
@@ -79,7 +119,7 @@ tags:
     
     Why simple systems win and complexity compounds failures.
 
-- :material-numeric-7-circle:{ .lg .middle } **[Law 7: Economic Reality](/part1-axioms/law7-economics/index)**
+- :material-numeric-7-circle:{ .lg .middle } **[Law 7: Economic Reality](part1-axioms/law7-economics/index)**
     
     ---
     
@@ -149,6 +189,62 @@ Each law drives the need for specific patterns:
 | Why do simple systems often outperform complex ones? | Law 6 | Cognitive limits |
 | Why might the "best" solution fail? | Law 7 | Economic constraints |
 
+## 🎯 Next Steps: Apply Your Knowledge
+
+<div class="grid cards" markdown>
+
+- :material-numeric-1-circle:{ .lg .middle } **Immediate Next**
+    
+    ---
+    
+    **Read**: [Law 1: Correlated Failure](part1-axioms/law1-failure/index)  
+    **Time**: 2-3 hours  
+    **Goal**: Understand why redundancy isn't enough  
+
+- :material-numeric-2-circle:{ .lg .middle } **After Laws**
+    
+    ---
+    
+    **Study**: [The 5 Pillars](part2-pillars)  
+    **Time**: 20-25 hours  
+    **Goal**: Learn practical distribution strategies  
+
+- :material-numeric-3-circle:{ .lg .middle } **Real Application**
+    
+    ---
+    
+    **Build**: [Case Studies](case-studies)  
+    **Time**: 15-20 hours  
+    **Goal**: See laws in production systems  
+
+- :material-numeric-4-circle:{ .lg .middle } **Advanced Path**
+    
+    ---
+    
+    **Master**: [Patterns Library](patterns)  
+    **Time**: 40+ hours  
+    **Goal**: Production-ready solutions  
+
+</div>
+
+### 📊 Progress Tracker
+
+!!! info "Track Your Journey"
+    Use this checklist to monitor your progress through the 7 Laws:
+    
+    **Foundation Laws (Start Here)**:
+    - [ ] Law 1: Correlated Failure - *Why systems fail in groups*
+    - [ ] Law 2: Asynchronous Reality - *Time and ordering challenges*
+    - [ ] Law 4: Trade-offs - *CAP theorem and beyond*
+    
+    **Advanced Laws (Build On Foundation)**:
+    - [ ] Law 5: Distributed Knowledge - *Consensus and coordination*
+    - [ ] Law 3: Emergent Chaos - *Complex behaviors from simple rules*
+    
+    **Human Laws (Complete Your Understanding)**:
+    - [ ] Law 6: Cognitive Load - *Why simplicity wins*
+    - [ ] Law 7: Economic Reality - *Cost drives all decisions*
+
 ### Deep Understanding Matrix
 
 | If you understand... | You can explain... | You can design... |
@@ -174,9 +270,9 @@ Each law drives the need for specific patterns:
 
 === "Case Studies"
 
-    - [Amazon's Dynamo Paper](/reference/#dynamo)
-    - [Google's Spanner Paper](/reference/#spanner)
-    - [Facebook's TAO Paper](/reference/#tao)
+    - [Amazon's Dynamo Paper](reference/#dynamo)
+    - [Google's Spanner Paper](reference/#spanner)
+    - [Facebook's TAO Paper](reference/#tao)
 
 ## :material-lightbulb: Key Insight
 
@@ -186,7 +282,7 @@ Each law drives the need for specific patterns:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Philosophy](/introduction/philosophy/) | 
-[:material-arrow-up: Learn](/introduction/getting-started.md) | 
-[:material-arrow-right: Law 1: Correlated Failure](/part1-axioms/law1-failure/index)
+[:material-arrow-left: Philosophy](introduction/philosophy/) | 
+[:material-arrow-up: Learn](introduction/getting-started.md) | 
+[:material-arrow-right: Law 1: Correlated Failure](part1-axioms/law1-failure/index)
 </div>

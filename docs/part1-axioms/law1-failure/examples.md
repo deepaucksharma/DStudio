@@ -11,7 +11,7 @@ last_updated: 2025-07-23
 
 # Real-World Correlated Failures: Case Studies and Lessons
 
-[Home](/) > [The 7 Laws](/part1-axioms) > [Law 1: Correlated Failure](/part1-axioms/law1-failure) > Examples
+[Home](/) > [The 7 Laws](part1-axioms) > [Law 1: Correlated Failure](part1-axioms/law1-failure) > Examples
 
 ## Case Study 1: The AWS S3 Outage (February 28, 2017)
 
@@ -321,7 +321,7 @@ These cases teach us that:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Law 1 Concept](/part1-axioms/law1-failure/index) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms) | 
-[:material-arrow-right: Law 1 Exercises](/part1-axioms/law1-failure/exercises/)
+[:material-arrow-left: Law 1 Concept](part1-axioms/law1-failure/index) | 
+[:material-arrow-up: The 7 Laws](part1-axioms) | 
+[:material-arrow-right: Law 1 Exercises](part1-axioms/law1-failure/exercises/)
 </div>

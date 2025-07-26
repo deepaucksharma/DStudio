@@ -429,6 +429,6 @@ cache_levels:
 - [Original Geohash Implementation](https://github.com/vinsci/geohash)
 - [Redis Geo Commands](https://redis.io/commands/geoadd)
 - [PostGIS Spatial Indexing](https://postgis.net/docs/using_postgis_dbmanagement.html)
-- [Proximity Service Case Study](/case-studies/proximity-service)
+- [Proximity Service Case Study](case-studies/proximity-service)
 
 > **Note**: This pattern documentation is planned for future development with more advanced examples and production considerations.

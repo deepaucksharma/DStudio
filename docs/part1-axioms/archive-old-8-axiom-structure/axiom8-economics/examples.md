@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 8](index.md) → **Economics Examples**
+[Home](/) → [Part I: Axioms](part1-axioms) → [Axiom 8](index.md) → **Economics Examples**
 
 # Economics Examples
 

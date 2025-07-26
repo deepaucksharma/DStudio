@@ -205,6 +205,8 @@ extra_css:
   - stylesheets/hide-toc.css  # Hide right sidebar and enhance navigation
   - stylesheets/calculator.css  # Consistent calculator styling
   - stylesheets/mobile-enhancements.css  # Comprehensive mobile optimizations
+  # Optional: Advanced mobile features (uncomment to enable)
+  # - stylesheets/mobile-advanced.css  # Premium mobile features
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:
@@ -218,6 +220,8 @@ extra_javascript:
   - javascripts/custom.js
   - javascripts/navigation.js
   - javascripts/keyboard-shortcuts.js
+  # Optional: Interactive mobile features (uncomment to enable)
+  # - javascripts/mobile-enhancements.js  # Advanced mobile interactions
 
 # Extra Configuration
 extra:

@@ -16,9 +16,9 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Sharding](/patterns/sharding) - Graph partitioning
-- [Caching Strategies](/patterns/caching-strategies) - Caching graph computations
+- [Sharding](patterns/sharding) - Graph partitioning
+- [Caching Strategies](patterns/caching-strategies) - Caching graph computations
 
 ## References
-- [Google Maps Case Study](/case-studies/google-maps) - Routing algorithms
-- [Social Graph Case Study](/case-studies/social-graph) - Friend recommendations
+- [Google Maps Case Study](case-studies/google-maps) - Routing algorithms
+- [Social Graph Case Study](case-studies/social-graph) - Friend recommendations

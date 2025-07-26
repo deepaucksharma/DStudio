@@ -16,8 +16,8 @@ last_updated: 2025-07-23
 
 
 ## Related Patterns
-- [Edge Computing](/patterns/edge-computing)
-- [Caching Strategies](/patterns/caching-strategies)
+- [Edge Computing](patterns/edge-computing)
+- [Caching Strategies](patterns/caching-strategies)
 
 ## References
-- [Google Maps Case Study](/case-studies/google-maps)
+- [Google Maps Case Study](case-studies/google-maps)

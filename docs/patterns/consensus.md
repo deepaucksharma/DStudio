@@ -1493,35 +1493,35 @@ flowchart TD
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](/part1-axioms/law1-failure/index)**: Consensus handles node failures and network partitions
-- **[Law 2: Asynchronous Reality ⏱️](/part1-axioms/law2-asynchrony/)**: FLP impossibility shows async consensus limits
-- **[Law 3: Emergent Chaos 🌪️](/part1-axioms/law3-emergence/index)**: Multiple consensus attempts create emergent behaviors
-- **[Law 4: Multidimensional Optimization ⚖️](/part1-axioms/law4-tradeoffs/index)**: CAP theorem trade-offs in consensus
-- **[Law 5: Distributed Knowledge 🧠](/part1-axioms/law5-epistemology/index)**: No single node knows complete state
+- **[Law 1: Correlated Failure ⛓️](part1-axioms/law1-failure/index)**: Consensus handles node failures and network partitions
+- **[Law 2: Asynchronous Reality ⏱️](part1-axioms/law2-asynchrony/)**: FLP impossibility shows async consensus limits
+- **[Law 3: Emergent Chaos 🌪️](part1-axioms/law3-emergence/index)**: Multiple consensus attempts create emergent behaviors
+- **[Law 4: Multidimensional Optimization ⚖️](part1-axioms/law4-tradeoffs/index)**: CAP theorem trade-offs in consensus
+- **[Law 5: Distributed Knowledge 🧠](part1-axioms/law5-epistemology/index)**: No single node knows complete state
 
 ### Foundational Pillars
 Consensus implements:
 
-- **[Pillar 2: Distribution of State 🗃️](/part2-pillars/state/index)**: Replicated state machines
-- **[Pillar 3: Distribution of Truth 🔍](/part2-pillars/truth/index)**: Agreement on single truth
-- **[Pillar 4: Distribution of Control 🎮](/part2-pillars/control/index)**: Leader election and coordination
+- **[Pillar 2: Distribution of State 🗃️](part2-pillars/state/index)**: Replicated state machines
+- **[Pillar 3: Distribution of Truth 🔍](part2-pillars/truth/index)**: Agreement on single truth
+- **[Pillar 4: Distribution of Control 🎮](part2-pillars/control/index)**: Leader election and coordination
 
 ## Related Patterns
 
 ### Core Dependencies
-- **[Leader Election](/patterns/leader-election)**: Uses consensus for choosing leaders
-- **[Distributed Lock](/patterns/distributed-lock)**: Built on consensus primitives
-- **[Two-Phase Commit](/patterns/two-phase-commit)**: Alternative for distributed transactions
+- **[Leader Election](patterns/leader-election)**: Uses consensus for choosing leaders
+- **[Distributed Lock](patterns/distributed-lock)**: Built on consensus primitives
+- **[Two-Phase Commit](patterns/two-phase-commit)**: Alternative for distributed transactions
 
 ### Complementary Patterns
-- **[Circuit Breaker](/patterns/circuit-breaker)**: Protects consensus operations
-- **[Saga Pattern](/patterns/saga)**: Alternative to consensus for long-running transactions
-- **[Event Sourcing](/patterns/event-sourcing)**: Can use consensus for ordering events
+- **[Circuit Breaker](patterns/circuit-breaker)**: Protects consensus operations
+- **[Saga Pattern](patterns/saga)**: Alternative to consensus for long-running transactions
+- **[Event Sourcing](patterns/event-sourcing)**: Can use consensus for ordering events
 
 ### Implementation Patterns
-- **[Write-Ahead Log](/patterns/wal)**: Critical for consensus durability
-- **[Gossip Protocol](/patterns/gossip-protocol)**: Alternative for eventual consistency
-- **[Vector Clocks](/patterns/vector-clocks)**: Track causality without consensus
+- **[Write-Ahead Log](patterns/wal)**: Critical for consensus durability
+- **[Gossip Protocol](patterns/gossip-protocol)**: Alternative for eventual consistency
+- **[Vector Clocks](patterns/vector-clocks)**: Track causality without consensus
 
 ---
 

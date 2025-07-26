@@ -665,7 +665,7 @@ asyncio.run(test_async())
 
 ## Related Patterns
 - Deduplication (Coming Soon) - Content deduplication strategies
-- [URL Shortener](/case-studies/url-shortener) - Complete shortener implementation
+- [URL Shortener](case-studies/url-shortener) - Complete shortener implementation
 - Content Extraction (Coming Soon) - Extracting canonical URLs
 - [Caching Strategies](caching-strategies.md) - URL-based caching
 

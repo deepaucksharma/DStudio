@@ -22,5 +22,5 @@ last_updated: 2025-07-23
 - Lambda Architecture (Coming Soon)
 
 ## References
-- [Google Maps Case Study](/case-studies/google-maps) - Real-time traffic updates
-- [Chat System](/case-studies/chat-system) - Real-time messaging
+- [Google Maps Case Study](case-studies/google-maps) - Real-time traffic updates
+- [Chat System](case-studies/chat-system) - Real-time messaging

@@ -872,41 +872,41 @@ Understanding Cassandra's approach to distributed data management provides insig
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index) - Gossip protocol and eventual consistency
-- [Law 4: Multidimensional Optimization](/part1-axioms/law4-tradeoffs/index) - CAP theorem trade-offs in Cassandra
-- [Law 5: Distributed Knowledge](/part1-axioms/law5-epistemology/index) - Gossip-based membership and failure detection
+- [Law 1: Correlated Failure](../part1-axioms/law1-failure/) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/) - Gossip protocol and eventual consistency
+- [Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/) - CAP theorem trade-offs in Cassandra
+- [Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/) - Gossip-based membership and failure detection
 
 ### Related Patterns
-- [Consistent Hashing](/case-studies/consistent-hashing) - Core data distribution mechanism
-- [Gossip Protocol](/patterns/gossip-protocol) - Membership and failure detection
-- [Merkle Trees](/patterns/merkle-trees) - Anti-entropy repair mechanism
-- [Vector Clocks](/patterns/vector-clocks) - Conflict resolution in distributed writes
-- [LSM Trees](/patterns/lsm-tree) - Storage engine design
-- [Bloom Filters](/patterns/bloom-filter) - Read optimization
+- [Consistent Hashing](consistent-hashing) - Core data distribution mechanism
+- [Gossip Protocol](../patterns/gossip-protocol) - Membership and failure detection
+- [Merkle Trees](../patterns/merkle-trees) - Anti-entropy repair mechanism
+- [Vector Clocks](../patterns/vector-clocks) - Conflict resolution in distributed writes
+- [LSM Trees](../patterns/lsm-tree) - Storage engine design
+- [Bloom Filters](../patterns/bloom-filter) - Read optimization
 
 ### Related Pillars
-- [Pillar 2: State](/part2-pillars/state/index) - Distributed state management at scale
-- [Pillar 3: Truth](/part2-pillars/truth/index) - Tunable consistency levels
-- [Pillar 4: Control](/part2-pillars/control/index) - Masterless coordination
+- [Pillar 2: State](../part2-pillars/state/) - Distributed state management at scale
+- [Pillar 3: Truth](../part2-pillars/truth/) - Tunable consistency levels
+- [Pillar 4: Control](../part2-pillars/control/) - Masterless coordination
 
 ### Quantitative Analysis
-- [CAP Theorem](/quantitative/cap-theorem) - Understanding Cassandra's AP choice
-- [Consistency Models](/quantitative/consistency-models) - Tunable consistency mathematics
-- [Performance Modeling](/quantitative/performance-modeling) - Linear scalability analysis
-- [Failure Models](/quantitative/failure-models) - Understanding failure domains
+- [CAP Theorem](../quantitative/cap-theorem) - Understanding Cassandra's AP choice
+- [Consistency Models](../quantitative/consistency-models) - Tunable consistency mathematics
+- [Performance Modeling](../quantitative/performance-modeling) - Linear scalability analysis
+- [Failure Models](../quantitative/failure-models) - Understanding failure domains
 
 ### Case Studies
-- [Amazon DynamoDB](/case-studies/amazon-dynamo) - Similar dynamo-style architecture
-- [Netflix at Scale](/case-studies/netflix-chaos) - Using Cassandra for global streaming
-- [Discord Messages](/case-studies/chat-system) - Storing billions of messages
-- [ScyllaDB](/case-studies/cassandra) - C++ reimplementation of Cassandra
+- [Amazon DynamoDB](amazon-dynamo) - Similar dynamo-style architecture
+- [Netflix at Scale](netflix-chaos) - Using Cassandra for global streaming
+- [Discord Messages](chat-system) - Storing billions of messages
+- [ScyllaDB](scylladb) - C++ reimplementation of Cassandra
 
 ### Further Reading
-- [NoSQL Database Patterns](/patterns/polyglot-persistence) - Broader NoSQL design patterns
-- [Time Series Databases](/patterns/time-series-ids) - Cassandra for time series data
-- [Multi-Region Replication](/patterns/multi-region) - Global Cassandra deployments
-- [Database Internals](/patterns/lsm-tree) - Deep dive into storage engines
+- [NoSQL Database Patterns](../patterns/polyglot-persistence) - Broader NoSQL design patterns
+- [Time Series Databases](../patterns/time-series-ids) - Cassandra for time series data
+- [Multi-Region Replication](../patterns/multi-region) - Global Cassandra deployments
+- [Database Internals](../patterns/lsm-tree) - Deep dive into storage engines
 
 ## External Resources
 - [Cassandra Architecture Documentation](https://cassandra.apache.org/doc/latest/architecture/)¹

@@ -243,7 +243,7 @@ downtime_minutes = period_minutes * (1 - availability)
 
 | Concept | Connection | Learn More |
 |---------|------------|------------|
-| **[Law 1: Correlated Failure](/part1-axioms/law1-failure/index)** | Components fail together | Failure domains |
-| **[Failure Models](/quantitative/failure-models)** | Types of failures | Failure patterns |
-| **[SRE Practices](/human-factors/sre-practices.md)** | Operational reliability | Error budgets |
-| **[Chaos Engineering](/human-factors/chaos-engineering.md)** | Testing reliability | Failure injection |
+| **[Law 1: Correlated Failure](part1-axioms/law1-failure/index)** | Components fail together | Failure domains |
+| **[Failure Models](quantitative/failure-models)** | Types of failures | Failure patterns |
+| **[SRE Practices](human-factors/sre-practices.md)** | Operational reliability | Error budgets |
+| **[Chaos Engineering](human-factors/chaos-engineering.md)** | Testing reliability | Failure injection |

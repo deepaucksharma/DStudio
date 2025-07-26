@@ -11,7 +11,7 @@ last_updated: 2025-07-23
 
 # Failure Engineering Lab: Correlation Analysis & Chaos Experiments
 
-[Home](/) > [The 7 Laws](/part1-axioms) > [Law 1: Correlated Failure](/part1-axioms/law1-failure) > Exercises
+[Home](/) > [The 7 Laws](part1-axioms) > [Law 1: Correlated Failure](part1-axioms/law1-failure) > Exercises
 
 ## Exercise 1: Dependency Mapping and Correlation Analysis
 
@@ -331,7 +331,7 @@ After completing these exercises, you should be able to answer:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Law 1 Examples](/part1-axioms/law1-failure/examples/) | 
-[:material-arrow-up: The 7 Laws](/part1-axioms) | 
-[:material-arrow-right: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/index)
+[:material-arrow-left: Law 1 Examples](part1-axioms/law1-failure/examples/) | 
+[:material-arrow-up: The 7 Laws](part1-axioms) | 
+[:material-arrow-right: Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index)
 </div>

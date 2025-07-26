@@ -140,6 +140,6 @@ This guide defines the standardized semantic usage of admonitions throughout The
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Reference Index](/reference/) | 
-[:material-arrow-up: Reference](/reference/)
+[:material-arrow-left: Reference Index](reference/) | 
+[:material-arrow-up: Reference](reference/)
 </div>

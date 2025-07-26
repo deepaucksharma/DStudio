@@ -156,9 +156,9 @@ Google interviewers typically evaluate candidates on:
 ## 📚 Additional Resources
 
 ### Related Concepts
-- [The 7 Laws](/part1-axioms) - Fundamental principles
-- [Pattern Library](/patterns) - Reusable solutions
-- [Quantitative Tools](/quantitative) - Capacity planning
+- [The 7 Laws](part1-axioms) - Fundamental principles
+- [Pattern Library](patterns) - Reusable solutions
+- [Quantitative Tools](quantitative) - Capacity planning
 
 ### Practice Problems
 - Design a distributed cache (Redis-like)

@@ -133,9 +133,9 @@ Progressive disclosure helps manage information complexity by revealing details 
         4. **Week 7-8**: Simple case studies
         
         ??? tip "Resources"
-            - [Getting Started Guide](/introduction/getting-started)
-            - [Glossary](/reference/glossary)
-            - [Basic Patterns](/patterns/#beginner)
+            - [Getting Started Guide](introduction/getting-started)
+            - [Glossary](reference/glossary)
+            - [Basic Patterns](patterns/#beginner)
     
     ??? info "Intermediate Path" 
         Build on existing knowledge:
@@ -146,9 +146,9 @@ Progressive disclosure helps manage information complexity by revealing details 
         4. **Week 7-8**: Real-world case studies
         
         ??? tip "Resources"
-            - [Advanced Patterns](/patterns/#intermediate)
-            - [Quantitative Analysis](/quantitative)
-            - [Case Studies](/case-studies)
+            - [Advanced Patterns](patterns/#intermediate)
+            - [Quantitative Analysis](quantitative)
+            - [Case Studies](case-studies)
     
     ??? warning "Expert Path"
         Deep dive into complex topics:
@@ -159,9 +159,9 @@ Progressive disclosure helps manage information complexity by revealing details 
         4. **Week 7-8**: Research papers and cutting edge
         
         ??? tip "Resources"
-            - [Research Papers](/reference/)
-            - [Advanced Mathematics](/quantitative/advanced)
-            - [System Design](/case-studies/#expert)
+            - [Research Papers](reference/)
+            - [Advanced Mathematics](quantitative/advanced)
+            - [System Design](case-studies/#expert)
 
 ## Styled Progressive Disclosure
 

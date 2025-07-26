@@ -855,7 +855,7 @@ Web Browser → Web Server → File System → Database
 **Patterns Violated**: 
 - No Deduplication (Coming Soon)
 - No Delta Sync (Coming Soon)
-- No [Distributed Storage](/patterns/distributed-storage)
+- No [Distributed Storage](patterns/distributed-storage)
 
 ### Phase 2: Basic Sync Architecture (2008-2010)
 
@@ -887,7 +887,7 @@ graph TB
 ```
 
 **Key Design Decision: Metadata/Data Separation**
-- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](/part2-pillars/state))
+- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](part2-pillars/state))
 - **Choice**: Store metadata in DB, files in object storage
 - **Result**: Independent scaling of metadata and storage
 - **Pattern Applied**: Metadata Service (Coming Soon)
@@ -945,10 +945,10 @@ graph TB
 - Immutable storage simplifies replication
 
 **Patterns & Pillars Applied**:
-- Pattern: [Content-Addressed Storage](/patterns/cas) - Deduplication
+- Pattern: [Content-Addressed Storage](patterns/cas) - Deduplication
 - Pattern: Chunking (Coming Soon) - Large file handling
-- 🏛 Pillar: [State Distribution](/part2-pillars/state/index) - Sharded metadata
-- 🏛 Pillar: [Work Distribution](/part2-pillars/work) - Parallel uploads
+- 🏛 Pillar: [State Distribution](part2-pillars/state/index) - Sharded metadata
+- 🏛 Pillar: [Work Distribution](part2-pillars/work) - Parallel uploads
 
 ### Phase 4: Modern Cloud-Native Architecture (2014-Present/index)
 
@@ -1523,29 +1523,29 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - Sync speed, cache placement
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Storage tiering, deduplication
-- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Replication, conflict resolution
-- **[Law 3: Emergence ](/part1-axioms/law3-emergence/index)** - Parallel uploads, collaborative editing
-- **[Law 4: Trade-offs ](/part1-axioms/law4-tradeoffs/index)** - Distributed sync, consistency
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Sync tracking, storage metrics
-- **[Law 6: Human-API ](/part1-axioms/law6-human-api/index)** - Selective sync, offline mode
-- **[Law 7: Economics ](/part1-axioms/law7-economics/index)** - Storage costs, tiering strategy
+- **[Law 2: Asynchronous Reality ](part1-axioms/law2-asynchrony/index)** - Sync speed, cache placement
+- **[Law 4: Trade-offs ](part1-axioms/law4-tradeoffs/index)** - Storage tiering, deduplication
+- **[Law 1: Failure ](part1-axioms/law1-failure/index)** - Replication, conflict resolution
+- **[Law 3: Emergence ](part1-axioms/law3-emergence/index)** - Parallel uploads, collaborative editing
+- **[Law 4: Trade-offs ](part1-axioms/law4-tradeoffs/index)** - Distributed sync, consistency
+- **[Law 5: Epistemology ](part1-axioms/law5-epistemology/index)** - Sync tracking, storage metrics
+- **[Law 6: Human-API ](part1-axioms/law6-human-api/index)** - Selective sync, offline mode
+- **[Law 7: Economics ](part1-axioms/law7-economics/index)** - Storage costs, tiering strategy
 
 ### 🏛 Related Patterns
-- **[Content-Addressed Storage](/patterns/cas)** - Deduplication foundation
+- **[Content-Addressed Storage](patterns/cas)** - Deduplication foundation
 - **Delta Sync (Coming Soon)** - Efficient synchronization
 - **Merkle Trees (Coming Soon)** - File verification
-- **[CRDT](/patterns/crdt)** - Conflict-free collaboration
-- **[Event Sourcing](/patterns/event-sourcing)** - File history
-- **[Saga Pattern](/patterns/saga)** - Multi-step operations
-- **[Circuit Breaker](/patterns/circuit-breaker)** - Service resilience
+- **[CRDT](patterns/crdt)** - Conflict-free collaboration
+- **[Event Sourcing](patterns/event-sourcing)** - File history
+- **[Saga Pattern](patterns/saga)** - Multi-step operations
+- **[Circuit Breaker](patterns/circuit-breaker)** - Service resilience
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Sync consistency trade-offs
-- **[Information Theory](/quantitative/information-theory)** - Compression limits
-- **[Queueing Theory](/quantitative/queueing-models)** - Upload/download capacity
-- **[Storage Economics](/quantitative/storage-economics)** - Cost optimization
+- **[Information Theory](quantitative/information-theory)** - Compression limits
+- **[Queueing Theory](quantitative/queueing-models)** - Upload/download capacity
+- **[Storage Economics](quantitative/storage-economics)** - Cost optimization
 
 ### Similar Case Studies
 <!-- TODO: Add when available

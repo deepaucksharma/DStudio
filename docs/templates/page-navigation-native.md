@@ -307,7 +307,7 @@ This needs a citation[^1].
 ### 2. Breadcrumb-style Path
 
 ```markdown
-[Home](/) > [Patterns](/patterns) > [Current Page](/patterns/current)
+[Home](/) > [Patterns](patterns) > [Current Page](patterns/current)
 ```
 
 ### 3. Previous/Next Navigation

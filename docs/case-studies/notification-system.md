@@ -2439,16 +2439,16 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ](/part1-axioms/law1-failure/index)** - Foundation for reliable delivery
-- **[Law 5: Epistemology ](/part1-axioms/law5-epistemology/index)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ](/part1-axioms/law2-asynchrony/index)** - Real-time delivery constraints
-- **[Law 7: Economics ](/part1-axioms/law7-economics/index)** - Cost optimization strategies
+- **[Law 1: Failure ](../part1-axioms/law1-failure/index.md)** - Foundation for reliable delivery
+- **[Law 5: Epistemology ](../part1-axioms/law5-epistemology/index.md)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ](../part1-axioms/law2-asynchrony/index.md)** - Real-time delivery constraints
+- **[Law 7: Economics ](../part1-axioms/law7-economics/index.md)** - Cost optimization strategies
 
 #### Advanced Topics
-- **[Event-Driven Architecture](/patterns/event-driven)** - Asynchronous notification processing
-- **[Queue Systems](/patterns/queues-streaming)** - Message queue patterns
-- **[Circuit Breakers](/patterns/circuit-breaker)** - Provider failure handling
-- **[Rate Limiting](/patterns/rate-limiting)** - Preventing notification storms
+- **[Event-Driven Architecture](../patterns/event-driven.md)** - Asynchronous notification processing
+- **[Queue Systems](../patterns/queues-streaming.md)** - Message queue patterns
+- **[Circuit Breakers](../patterns/circuit-breaker.md)** - Provider failure handling
+- **[Rate Limiting](../patterns/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
 - **[Chat System](chat-system.md)** - Real-time messaging patterns
@@ -2475,7 +2475,7 @@ Analytics Service    8 cores  32GB      10TB
 - [OneSignal](https://onesignal.com/) - Push notification service
 
 **Related Patterns:**
-- [Message Queue](/patterns/queues-streaming)
-- [Circuit Breaker](/patterns/circuit-breaker)
-- [Event-Driven Architecture](/patterns/event-driven)
-- [Rate Limiting](/patterns/rate-limiting)
+- [Message Queue](../patterns/queues-streaming.md)
+- [Circuit Breaker](../patterns/circuit-breaker.md)
+- [Event-Driven Architecture](../patterns/event-driven.md)
+- [Rate Limiting](../patterns/rate-limiting.md)

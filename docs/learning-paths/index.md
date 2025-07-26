@@ -131,7 +131,7 @@ graph TD
 
     !!! tip "Start with visuals and work toward concepts"
         
-        1. **Architecture Diagrams** in [Case Studies](/case-studies)
+        1. **Architecture Diagrams** in [Case Studies](case-studies)
         2. **Trade-off Matrices** in each pattern
         3. **Visual Decision Trees** throughout
         4. **Mermaid Diagrams** explaining concepts
@@ -194,11 +194,11 @@ graph TD
         - **1 hour/day** → Pick a topic path
         - **2+ hours/day** → Choose a role path
         - **Full time** → Complete foundation path
-        - **Just browsing** → Start with [Case Studies](/case-studies)
+        - **Just browsing** → Start with [Case Studies](case-studies)
 
 !!! success "Your First Step"
     
-    No matter which path you choose, start with [Law 1: The Inevitability of Failure](/part1-axioms/law1-failure/index).
+    No matter which path you choose, start with [Law 1: The Inevitability of Failure](part1-axioms/law1-failure/index).
     It's the foundation everything else builds upon.
     
-    [:octicons-arrow-right-24: Begin Your Journey](/part1-axioms/law1-failure/index){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Begin Your Journey](part1-axioms/law1-failure/index){ .md-button .md-button--primary }

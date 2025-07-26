@@ -524,5 +524,5 @@ graph LR
 ## Related Topics
 
 - **Theory**: [Little's Law](littles-law.md) | [Queueing Models](queueing-models.md) | [Universal Scalability](universal-scalability.md)
-- **Practice**: [Capacity Planning](capacity-planning.md) | [Load Testing](load-testing.md) | [Monitoring](/patterns/observability)
-- **Laws**: [Law 4: Trade-offs](/part1-axioms/law4-tradeoffs/index) | [Law 7: Economics](/part1-axioms/law7-economics/index)
+- **Practice**: [Capacity Planning](capacity-planning.md) | [Load Testing](load-testing.md) | [Monitoring](patterns/observability)
+- **Laws**: [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index) | [Law 7: Economics](part1-axioms/law7-economics/index)

@@ -46,17 +46,17 @@ By completing this path, you will:
  
  Core concepts:
  
- - [Law 1: Correlated Failure](/part1-axioms/law1-failure/index) - Why things fail together
- - [Failure Models](/quantitative/failure-models) - Types of failures
- - [Availability Math](/quantitative/availability-math) - Calculate uptime
+ - [Law 1: Correlated Failure](part1-axioms/law1-failure/index) - Why things fail together
+ - [Failure Models](quantitative/failure-models) - Types of failures
+ - [Availability Math](quantitative/availability-math) - Calculate uptime
 
 - **Reliability Engineering**
  
  Quantitative approach:
  
- - [Reliability Theory](/quantitative/reliability-theory) - MTBF, MTTR
- - [SRE Practices](/human-factors/sre-practices.md) - Google's approach
- - [Error Budgets](/quantitative/error-budgets) - Managing risk
+ - [Reliability Theory](quantitative/reliability-theory) - MTBF, MTTR
+ - [SRE Practices](human-factors/sre-practices.md) - Google's approach
+ - [Error Budgets](quantitative/error-budgets) - Managing risk
 
 </div>
 
@@ -69,33 +69,33 @@ By completing this path, you will:
 
 === "Failure Isolation"
  Prevent cascade failures:
- - [Circuit Breaker](/patterns/circuit-breaker) - Stop cascades
- - [Bulkhead](/patterns/bulkhead) - Resource isolation
- - [Timeout](/patterns/timeout) - Bounded waiting
+ - [Circuit Breaker](patterns/circuit-breaker) - Stop cascades
+ - [Bulkhead](patterns/bulkhead) - Resource isolation
+ - [Timeout](patterns/timeout) - Bounded waiting
  - **Project**: Implement circuit breaker library
 
 === "Recovery Patterns"
  Graceful failure handling:
- - [Retry & Backoff](/patterns/retry-backoff) - Transient failures
- - [Graceful Degradation](/patterns/graceful-degradation) - Feature flags
- - [Failover](/patterns/failover) - Automatic recovery
+ - [Retry & Backoff](patterns/retry-backoff) - Transient failures
+ - [Graceful Degradation](patterns/graceful-degradation) - Feature flags
+ - [Failover](patterns/failover) - Automatic recovery
  - **Project**: Build retry with jitter
 
 === "Overload Protection"
  Handle traffic spikes:
- - [Rate Limiting](/patterns/rate-limiting) - Request caps
- - [Load Shedding](/patterns/load-shedding) - Selective drops
- - [Backpressure](/patterns/backpressure) - Flow control
+ - [Rate Limiting](patterns/rate-limiting) - Request caps
+ - [Load Shedding](patterns/load-shedding) - Selective drops
+ - [Backpressure](patterns/backpressure) - Flow control
  - **Project**: Implement adaptive rate limiter
 
 #### Week 3: Advanced Patterns
 
 System-level resilience:
 
-- [Health Check](/patterns/health-check) - Liveness and readiness
-- [Idempotent Receiver](/patterns/idempotent-receiver) - Safe retries
-- [Split Brain](/patterns/split-brain) - Network partition handling
-- [Chaos Engineering](/human-factors/chaos-engineering) - Proactive testing
+- [Health Check](patterns/health-check) - Liveness and readiness
+- [Idempotent Receiver](patterns/idempotent-receiver) - Safe retries
+- [Split Brain](patterns/split-brain) - Network partition handling
+- [Chaos Engineering](human-factors/chaos-engineering) - Proactive testing
 
 ### Phase 3: High Availability Architecture (2 weeks)
 
@@ -109,18 +109,18 @@ System-level resilience:
  - Active-Active vs Active-Passive
  - N+1, N+2, and 2N redundancy
  - Geographic distribution
- - **Case Study**: [Netflix Multi-Region](/case-studies/netflix-streaming)
+ - **Case Study**: [Netflix Multi-Region](case-studies/netflix-streaming)
 
 === "Data Resilience"
  Protect your data:
- - [Multi-Region](/patterns/multi-region) - Global deployment
- - [Geo-Replication](/patterns/geo-replication) - Data distribution
+ - [Multi-Region](patterns/multi-region) - Global deployment
+ - [Geo-Replication](patterns/geo-replication) - Data distribution
  - Backup and restore strategies
- - **Case Study**: [Amazon S3 Durability](/case-studies/s3-object-storage-enhanced)
+ - **Case Study**: [Amazon S3 Durability](case-studies/s3-object-storage-enhanced)
 
 === "Service Mesh"
  Infrastructure-level resilience:
- - [Service Mesh](/patterns/service-mesh) - Istio/Linkerd
+ - [Service Mesh](patterns/service-mesh) - Istio/Linkerd
  - Automatic retries and timeouts
  - Circuit breaking at mesh level
  - **Project**: Deploy Istio with resilience policies
@@ -144,25 +144,25 @@ Prepare for the worst:
 <div class="grid cards" markdown>
 
 - **Monitoring & Alerting**
- - [Observability](/patterns/observability)
+ - [Observability](patterns/observability)
  - SLI/SLO/SLA definition
  - Alert fatigue reduction
  - Synthetic monitoring
 
 - **Incident Management**
- - [Incident Response](/human-factors/incident-response)
+ - [Incident Response](human-factors/incident-response)
  - On-call rotation
  - Runbook creation
  - War room protocols
 
 - **Chaos Engineering**
- - [Chaos Practices](/human-factors/chaos-engineering.md)
+ - [Chaos Practices](human-factors/chaos-engineering.md)
  - Game days
  - Failure injection
  - Hypothesis testing
 
 - **Post-Incident**
- - [Blameless Postmortems](/human-factors/blameless-postmortems/)
+ - [Blameless Postmortems](human-factors/blameless-postmortems/)
  - Root cause analysis
  - Action item tracking
  - Knowledge sharing
@@ -417,12 +417,12 @@ operational_metrics:
  
  ---
  
- [Cost Optimization Path](/learning-paths/cost)
+ [Cost Optimization Path](learning-paths/cost)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Learning Paths Overview](/learning-paths/)
+ [Learning Paths Overview](learning-paths/)
 
 </div>

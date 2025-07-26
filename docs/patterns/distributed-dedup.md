@@ -20,7 +20,7 @@ tags: [deduplication, data-integrity, storage-optimization, distributed-algorith
 - [Bloom Filter](bloom-filter.md)
 - [Content-Addressed Storage](cas.md)
 - Merkle Trees (Coming Soon)
-- [Consistent Hashing](/case-studies/consistent-hashing)
+- [Consistent Hashing](case-studies/consistent-hashing)
 
 ## References
-- [Web Crawler](/case-studies/web-crawler) - URL deduplication at scale
+- [Web Crawler](case-studies/web-crawler) - URL deduplication at scale

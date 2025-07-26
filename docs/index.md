@@ -50,13 +50,13 @@ graph LR
     
     ---
     
-    [:octicons-arrow-right-24: Choose Your Path](/introduction/getting-started){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Choose Your Path](introduction/getting-started){ .md-button .md-button--primary }
 
 - :material-compass:{ .lg } **Quick Navigator**
     
     ---
     
-    [:octicons-arrow-right-24: Pattern Selector](/patterns/pattern-matrix){ .md-button }
+    [:octicons-arrow-right-24: Pattern Selector](patterns/pattern-matrix){ .md-button }
 
 </div>
 
@@ -100,7 +100,7 @@ graph LR
 
  New to distributed systems? Start with our guided learning paths tailored to your experience level.
 
- [:octicons-arrow-right-24: Get Started](/introduction/getting-started)
+ [:octicons-arrow-right-24: Get Started](introduction/getting-started)
 
 - :material-scale-balance:{ .lg .middle } __The 7 Laws__
 
@@ -108,7 +108,7 @@ graph LR
 
  Discover the fundamental laws derived from physics that govern all distributed systems.
 
- [:octicons-arrow-right-24: Explore Laws](/part1-axioms)
+ [:octicons-arrow-right-24: Explore Laws](part1-axioms)
 
 - :material-pillar:{ .lg .middle } __The 5 Pillars__
 
@@ -116,7 +116,7 @@ graph LR
 
  Learn how to organize solutions around fundamental distributed concepts.
 
- [:octicons-arrow-right-24: Study Pillars](/part2-pillars)
+ [:octicons-arrow-right-24: Study Pillars](part2-pillars)
 
 - :material-puzzle:{ .lg .middle } __Design Patterns__
 
@@ -124,7 +124,7 @@ graph LR
 
  Explore battle-tested patterns for building resilient, scalable distributed systems.
 
- [:octicons-arrow-right-24: Browse Patterns](/patterns)
+ [:octicons-arrow-right-24: Browse Patterns](patterns)
 
 </div>
 
@@ -138,7 +138,7 @@ graph LR
         
         Build deep understanding from physics up. Perfect for those with time to invest in fundamentals.
         
-        [:octicons-arrow-right-24: Start Foundation Path](/introduction/getting-started#path-1-foundation-builder-new-graduates){ .md-button }
+        [:octicons-arrow-right-24: Start Foundation Path](introduction/getting-started#path-1-foundation-builder-new-graduates){ .md-button }
 
 === ":material-code-tags: Mid-Level"
 
@@ -148,7 +148,7 @@ graph LR
         
         Apply patterns immediately while building theoretical foundation.
         
-        [:octicons-arrow-right-24: Start Practical Path](/introduction/getting-started#path-2-practical-problem-solver-mid-level-engineers){ .md-button }
+        [:octicons-arrow-right-24: Start Practical Path](introduction/getting-started#path-2-practical-problem-solver-mid-level-engineers){ .md-button }
 
 === ":material-account-star: Senior"
 
@@ -158,7 +158,7 @@ graph LR
         
         Master complex patterns and architectural decision-making.
         
-        [:octicons-arrow-right-24: Start Advanced Path](/introduction/getting-started#path-3-system-designer-senior-engineers){ .md-button }
+        [:octicons-arrow-right-24: Start Advanced Path](introduction/getting-started#path-3-system-designer-senior-engineers){ .md-button }
 
 === ":material-account-group: Manager"
 
@@ -168,7 +168,7 @@ graph LR
         
         Strategic overview for technical decision makers.
         
-        [:octicons-arrow-right-24: Start Leadership Path](/introduction/getting-started#path-4-technical-leader-managersarchitects){ .md-button }
+        [:octicons-arrow-right-24: Start Leadership Path](introduction/getting-started#path-4-technical-leader-managersarchitects){ .md-button }
 
 
 ## Why This Approach?
@@ -251,4 +251,4 @@ graph LR
 
 ## Ready to Begin?
 
-[Start Learning :fontawesome-solid-graduation-cap:](/introduction/getting-started){ .md-button .md-button--primary .md-button--stretch }
+[Start Learning :fontawesome-solid-graduation-cap:](introduction/getting-started){ .md-button .md-button--primary .md-button--stretch }

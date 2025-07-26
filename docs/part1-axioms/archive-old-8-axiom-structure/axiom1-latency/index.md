@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms) → [Axiom 1](index.md) → **Axiom 1: Latency (Speed of Light)**
+[Home](/) → [Part I: Axioms](part1-axioms) → [Axiom 1](index.md) → **Axiom 1: Latency (Speed of Light)**
 
 # Axiom 1: Latency (Speed of Light)
 
@@ -270,9 +270,9 @@ When designing systems, always:
 ## Quick Links
 
 - **Navigation**: [Examples](examples.md) • [Exercises](exercises.md)
-- **Related Patterns**: [Circuit Breaker](/patterns/circuit-breaker) • [Caching Strategies](/patterns/caching-strategies) • [Edge Computing](/patterns/edge-computing)
-- **Case Studies**: [Uber's Real-Time Location](/case-studies/uber-location) • [Spotify Recommendations](/case-studies/spotify-recommendations)
-- **Quantitative**: [Latency Budget Analysis](/quantitative/latency-ladder) • [Queueing Theory](/quantitative/queueing-models)
+- **Related Patterns**: [Circuit Breaker](patterns/circuit-breaker) • [Caching Strategies](patterns/caching-strategies) • [Edge Computing](patterns/edge-computing)
+- **Case Studies**: [Uber's Real-Time Location](case-studies/uber-location) • [Spotify Recommendations](case-studies/spotify-recommendations)
+- **Quantitative**: [Latency Budget Analysis](quantitative/latency-ladder) • [Queueing Theory](quantitative/queueing-models)
 
 ---
 
@@ -1591,7 +1591,7 @@ flowchart TD
 
 ---
 
-**Next**: [Axiom 2: Finite Capacity →](/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/)
+**Next**: [Axiom 2: Finite Capacity →](part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/)
 
 *"You can't patch the speed of light, but you can architect around it."*
 
@@ -1600,35 +1600,35 @@ flowchart TD
 ## Related Concepts
 
 ### Pillars Building on This Axiom
-- [Work Distribution](/part2-pillars/work/index) - How to distribute work considering latency constraints
-- [State Management](/part2-pillars/state/index) - Managing state across geographically distributed systems
-- [Truth & Consensus](/part2-pillars/truth/index) - Achieving consensus despite network latency
-- [Control & Ordering](/part2-pillars/control/index) - Maintaining order in the face of variable latency
+- [Work Distribution](part2-pillars/work/index) - How to distribute work considering latency constraints
+- [State Management](part2-pillars/state/index) - Managing state across geographically distributed systems
+- [Truth & Consensus](part2-pillars/truth/index) - Achieving consensus despite network latency
+- [Control & Ordering](part2-pillars/control/index) - Maintaining order in the face of variable latency
 
 ### Patterns Addressing Latency Challenges
-- [Caching Strategies](/patterns/caching-strategies) - Reduce latency by keeping data close to users
-- [Edge Computing](/patterns/edge-computing) - Process at the edge to minimize round trips
-- [Circuit Breaker](/patterns/circuit-breaker) - Fail fast when latency exceeds thresholds
-- [Timeout](/patterns/timeout) - Prevent indefinite waiting due to network delays
-- [Bulkhead](/patterns/bulkhead) - Isolate latency-sensitive operations
-- [Load Balancing](/patterns/load-balancing) - Route to least latent endpoints
+- [Caching Strategies](patterns/caching-strategies) - Reduce latency by keeping data close to users
+- [Edge Computing](patterns/edge-computing) - Process at the edge to minimize round trips
+- [Circuit Breaker](patterns/circuit-breaker) - Fail fast when latency exceeds thresholds
+- [Timeout](patterns/timeout) - Prevent indefinite waiting due to network delays
+- [Bulkhead](patterns/bulkhead) - Isolate latency-sensitive operations
+- [Load Balancing](patterns/load-balancing) - Route to least latent endpoints
 
 ### Case Studies Demonstrating Latency Impact
-- [Uber's Real-Time Location](/case-studies/uber-location) - Managing global location data with strict latency requirements
-- [Spotify Recommendations](/case-studies/spotify-recommendations) - Delivering personalized content with minimal latency
-- [Amazon DynamoDB](/case-studies/amazon-dynamo) - Multi-region replication with controlled latency
+- [Uber's Real-Time Location](case-studies/uber-location) - Managing global location data with strict latency requirements
+- [Spotify Recommendations](case-studies/spotify-recommendations) - Delivering personalized content with minimal latency
+- [Amazon DynamoDB](case-studies/amazon-dynamo) - Multi-region replication with controlled latency
 
 ### Other Axioms That Interact
-- [Axiom 2: Finite Capacity](/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/) - Latency increases as systems approach capacity
-- [Axiom 3: Partial Failure](/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/) - Network partitions manifest as infinite latency
-- [Axiom 4: Concurrency](/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/) - Parallel operations to hide latency
-- [Axiom 5: Coordination](/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/) - Coordination overhead adds latency
+- [Axiom 2: Finite Capacity](part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/) - Latency increases as systems approach capacity
+- [Axiom 3: Partial Failure](part1-axioms/archive-old-8-axiom-structure/axiom3-failure/) - Network partitions manifest as infinite latency
+- [Axiom 4: Concurrency](part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/) - Parallel operations to hide latency
+- [Axiom 5: Coordination](part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/) - Coordination overhead adds latency
 
 ### Quantitative Tools
-- [Latency Budget Analysis](/quantitative/latency-ladder) - Tools for calculating and budgeting latency
-- [Queueing Theory](/quantitative/queueing-models) - Mathematical models for latency under load
-- [Little's Law](/quantitative/littles-law) - Fundamental relationship between latency and throughput
-- [Network Modeling](/quantitative/network-model) - Predicting latency in complex topologies
+- [Latency Budget Analysis](quantitative/latency-ladder) - Tools for calculating and budgeting latency
+- [Queueing Theory](quantitative/queueing-models) - Mathematical models for latency under load
+- [Little's Law](quantitative/littles-law) - Fundamental relationship between latency and throughput
+- [Network Modeling](quantitative/network-model) - Predicting latency in complex topologies
 
 ---
 
@@ -1684,4 +1684,4 @@ flowchart TD
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Timeout](/patterns/timeout) • [Circuit Breaker](/patterns/circuit-breaker) • [Caching Strategies](/patterns/caching-strategies)
+**Related**: [Timeout](patterns/timeout) • [Circuit Breaker](patterns/circuit-breaker) • [Caching Strategies](patterns/caching-strategies)
