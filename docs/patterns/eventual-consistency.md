@@ -1481,9 +1481,9 @@ Where:
 ## Related Patterns
 
 - CAP Theorem (Coming Soon) - Fundamental trade-offs
-- [Vector Clocks](vector-clocks.md) - Tracking causality
+- [Hybrid Logical Clocks](hlc.md) - Modern causality tracking
 - [CRDT](crdt.md) - Conflict-free data types
-- Gossip Protocol (Coming Soon) - Dissemination mechanism
+- [Service Mesh](service-mesh.md) - Modern service discovery (replaces gossip)
 - [Read Repair] (Pattern: Read Repair - Coming Soon) - Fixing inconsistencies
 
 ## References

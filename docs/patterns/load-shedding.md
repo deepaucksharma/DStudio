@@ -8,6 +8,15 @@ reading_time: 25 min
 prerequisites: []
 when_to_use: When dealing with resilience challenges
 when_not_to_use: When simpler solutions suffice
+related_laws:
+  - law1-failure
+  - law3-emergence
+  - law4-tradeoffs
+  - law7-economics
+related_pillars:
+  - work
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-07-20
 ---

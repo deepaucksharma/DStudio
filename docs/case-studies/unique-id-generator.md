@@ -5,8 +5,8 @@ type: case-study
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: 
-  - axiom5-epistemology
-  - axiom6-human-api
+  - law5-epistemology
+  - law6-human-api
   - patterns/leader-election
 status: complete
 last_updated: 2025-07-20
@@ -32,7 +32,7 @@ Distributed ID generator for database keys, tracing IDs, and transactions. Must 
 
 ### Law Analysis
 
-#### Law 2: Asynchronous Reality : Generation Speed
+#### Law 2 (Asynchronous Reality): Generation Speed
 ```text
 Latency Requirements:
 - ID generation: <1μs (in-process)
@@ -115,7 +115,7 @@ graph LR
     L2 --> L3 --> L4
 ```
 
-#### 💾 Law 4: Trade-offs : ID Space Management
+#### 💾 Law 4 (Multidimensional Trade-offs): ID Space Management
 ```text
 ID Space Analysis (64-bit):
 - Total IDs: 2^63 ≈ 9.2 × 10^18
@@ -191,7 +191,7 @@ graph LR
     C2 --> C3
 ```
 
-#### Law 1: Failure : Clock and Node Failures
+#### Law 1 (Correlated Failure): Clock and Node Failures
 ```text
 Failure Modes:
 1. Clock skew between nodes
@@ -646,7 +646,7 @@ gantt
     Drop UUID Column   :after 30d, 1d
 ```
 
-#### Law 7: Economics : Cost Optimization
+#### Law 7 (Economic Reality): Cost Optimization
 ```text
 Cost Factors:
 - Infrastructure (ID service servers)
@@ -1325,26 +1325,26 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 4: Trade-offs](part1-axioms/law5-epistemology/index) - Node ID assignment and consensus
-- [Law 6: Human-API](part1-axioms/law6-human-api/index) - Developer experience considerations
-- [Clock Synchronization](patterns/clock-sync) - NTP and time coordination
-- [Logical Clocks](patterns/logical-clocks) - Alternative to wall-clock time
+- [Law 5: Distributed Knowledge ](../part1-axioms/law5-epistemology/index.md) - Node ID assignment and consensus
+- [Law 6: Cognitive Load ](../part1-axioms/law6-human-api/index.md) - Developer experience considerations
+- [Clock Synchronization](../patterns/clock-sync.md) - NTP and time coordination
+- [Logical Clocks](../patterns/logical-clocks.md) - Alternative to wall-clock time
 
 **Advanced Topics:**
 - [Jepsen Analysis of ID Generators] (Jepsen Analysis Coming Soon) - Correctness testing
-- [ID Generation at Scale](patterns/id-generation-scale) - Billion+ IDs/second
-- [Time-Series IDs](patterns/time-series-ids) - Optimized for time-series data
-- [Collision Probability Math](quantitative/collision-probability) - Birthday paradox applied
+- [ID Generation at Scale](../patterns/id-generation-scale.md) - Billion+ IDs/second
+- [Time-Series IDs](../patterns/time-series-ids.md) - Optimized for time-series data
+- [Collision Probability Math](../quantitative/collision-probability.md) - Birthday paradox applied
 
 **Related Case Studies:**
 - [URL Shortener](url-shortener.md) - Uses ID generation for short codes
 <!-- TODO: Add distributed tracing case study -->
-- [Event Sourcing](patterns/event-sourcing) - Event ID generation patterns
+- [Event Sourcing](../patterns/event-sourcing.md) - Event ID generation patterns
 
 **Implementation Patterns:**
 - Client Library Design (Coming Soon) - SDK best practices
-- [Service Discovery](patterns/service-discovery) - For ticket server architectures
-- [Graceful Degradation](patterns/graceful-degradation) - Fallback strategies
+- [Service Discovery](../patterns/service-discovery.md) - For ticket server architectures
+- [Graceful Degradation](../patterns/graceful-degradation.md) - Fallback strategies
 
 ### 📚 References
 
@@ -1361,7 +1361,7 @@ Database:
 - [Discord's Snowflake](https://discord.com/developers/docs/reference#snowflakes)
 
 **Related Patterns:**
-- [Lamport Timestamps](patterns/logical-clocks)
-- [Vector Clocks](patterns/vector-clocks)
+- [Lamport Timestamps](../patterns/logical-clocks.md)
+- [Vector Clocks](../patterns/vector-clocks.md)
 - [Consistent Hashing](consistent-hashing.md)
-- [Leader Election](patterns/leader-election)
+- [Leader Election](../patterns/leader-election.md)

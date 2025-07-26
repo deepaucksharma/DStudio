@@ -29,9 +29,9 @@ Modern feed systems process over 1 billion posts daily, serve 50+ million feed r
 
 ## Part 1: The Physics of Feed Generation
 
-### Axiom 1: Latency - The Speed of Relevance
+### Law 2: Asynchronous Reality - The Speed of Relevance
 
-!!! abstract "🕰️ Latency Axiom in Action"
+!!! abstract "🕰️ Law 2 in Action"
  <p><strong>Every millisecond matters for engagement</strong> - Studies show 100ms delay reduces user engagement by 1%. Feed systems must deliver personalized content in under 200ms to maintain user experience.</p>
 
 ```mermaid
@@ -65,7 +65,7 @@ graph LR
  class RANK,RENDER acceptable
 ```
 
-### Axiom 2: Finite Capacity - The Storage-Computation Trade-off
+### Law 4: Multidimensional Trade-offs - The Storage-Computation Balance
 
 !!! abstract "💾 Capacity Axiom in Action"
  <p><strong>Memory vs Compute trade-offs define architecture</strong> - Pre-computing all feeds requires 100PB+ storage but enables sub-50ms responses. Computing on-demand uses minimal storage but takes 500ms+.</p>

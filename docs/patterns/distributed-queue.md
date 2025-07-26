@@ -14,13 +14,82 @@ last_updated: 2025-07-24
 
 # Distributed Queue
 
+**Reliable message queuing across distributed systems with configurable delivery guarantees**
 
-## Overview
+> *"A distributed queue is the postal service of the digital world - ensuring every message reaches its destination, no matter what happens along the way."*
 
-Distributed queues provide reliable, scalable message passing across multiple nodes while maintaining ordering guarantees and fault tolerance. Unlike single-node queues, distributed queues must handle network partitions, node failures, and coordination challenges while ensuring messages are neither lost nor duplicated.
+---
 
-!!! abstract
-    <strong>Law 1: Correlated Failure</strong>: In distributed systems, components fail independently. Distributed queues must continue operating even when individual nodes fail, ensuring message durability and system availability.
+## The Essential Question
+
+**How do we reliably pass messages between distributed components while handling failures, ensuring ordering, and preventing duplication?**
+
+---
+
+## Visual Overview
+
+```mermaid
+graph TB
+    subgraph "Distributed Queue Architecture"
+        subgraph "Producers"
+            P1[Producer 1]
+            P2[Producer 2]
+            P3[Producer 3]
+        end
+        
+        subgraph "Queue Cluster"
+            subgraph "Node 1 (Leader)"
+                Q1[Queue Partition 1]
+                Q2[Queue Partition 2]
+            end
+            subgraph "Node 2 (Replica)"
+                R1[Replica 1-1]
+                R2[Replica 2-1]
+            end
+            subgraph "Node 3 (Replica)"
+                R3[Replica 1-2]
+                R4[Replica 2-2]
+            end
+        end
+        
+        subgraph "Consumers"
+            subgraph "Consumer Group A"
+                C1[Consumer A1]
+                C2[Consumer A2]
+            end
+            subgraph "Consumer Group B"
+                C3[Consumer B1]
+                C4[Consumer B2]
+            end
+        end
+        
+        P1 --> Q1
+        P2 --> Q2
+        P3 --> Q1
+        
+        Q1 -.->|Replicate| R1
+        Q1 -.->|Replicate| R3
+        Q2 -.->|Replicate| R2
+        Q2 -.->|Replicate| R4
+        
+        Q1 --> C1
+        Q2 --> C2
+        Q1 --> C3
+        Q2 --> C4
+    end
+    
+    style Q1 fill:#4a90e2,stroke:#333,stroke-width:3px
+    style Q2 fill:#4a90e2,stroke:#333,stroke-width:3px
+```
+
+## Queue Semantics Comparison
+
+| Queue Type | Ordering | Priority Support | Delay Support | Use Case |
+|------------|----------|------------------|---------------|----------|
+| **FIFO** | Strict order | ❌ | ❌ | Event processing, audit logs |
+| **Priority** | By priority | ✅ | ❌ | Task scheduling, alerts |
+| **Delay** | FIFO + delay | ❌ | ✅ | Scheduled jobs, retries |
+| **Hybrid** | Configurable | ✅ | ✅ | Complex workflows |
 
 ## The Distributed Challenge
 
@@ -856,15 +925,344 @@ class QueueMetrics:
         ])
 ```
 
+## Delivery Guarantees
+
+### Delivery Semantics Comparison
+
+```mermaid
+graph LR
+    subgraph "At-Most-Once"
+        A1[Send] --> A2[Delete]
+        A2 --> A3[Process]
+        A3 -.->|Failure| A4[Message Lost]
+    end
+    
+    subgraph "At-Least-Once"
+        B1[Send] --> B2[Process]
+        B2 --> B3[Delete on Success]
+        B2 -.->|Failure| B4[Retry]
+        B4 -.->|Duplicate| B5[Process Again]
+    end
+    
+    subgraph "Exactly-Once"
+        C1[Send with ID] --> C2[Process + Store ID]
+        C2 --> C3[Idempotent Check]
+        C3 --> C4[Delete]
+        C3 -.->|Already Processed| C5[Skip]
+    end
+    
+    style A4 fill:#ff6b6b,stroke:#333
+    style B5 fill:#ffd93d,stroke:#333
+    style C5 fill:#6bcf7f,stroke:#333
+```
+
+### Delivery Guarantee Decision Matrix
+
+| Guarantee | Performance | Complexity | Data Loss Risk | Duplication Risk | Use When |
+|-----------|-------------|------------|----------------|------------------|----------|
+| **At-Most-Once** | ⚡⚡⚡ High | 🟢 Low | ❌ High | ✅ None | Metrics, logs, non-critical events |
+| **At-Least-Once** | ⚡⚡ Medium | 🟡 Medium | ✅ None | ❌ High | Financial transactions (with idempotency) |
+| **Exactly-Once** | ⚡ Low | 🔴 High | ✅ None | ✅ None | Critical state changes, payments |
+
+## Queue Implementation Patterns
+
+### Partitioning Strategies
+
+```mermaid
+graph TB
+    subgraph "Partitioning Approaches"
+        subgraph "Hash-Based Partitioning"
+            H1[Message] --> H2[Hash(Key)]
+            H2 --> H3{Partition = Hash % N}
+            H3 -->|0| HP0[Partition 0]
+            H3 -->|1| HP1[Partition 1]
+            H3 -->|2| HP2[Partition 2]
+        end
+        
+        subgraph "Range-Based Partitioning"
+            R1[Message] --> R2[Key Value]
+            R2 --> R3{Key Range}
+            R3 -->|A-J| RP0[Partition 0]
+            R3 -->|K-S| RP1[Partition 1]
+            R3 -->|T-Z| RP2[Partition 2]
+        end
+        
+        subgraph "Round-Robin Partitioning"
+            RR1[Message 1] --> RRP0[Partition 0]
+            RR2[Message 2] --> RRP1[Partition 1]
+            RR3[Message 3] --> RRP2[Partition 2]
+            RR4[Message 4] --> RRP0
+        end
+    end
+```
+
+### Replication Patterns
+
+```mermaid
+sequenceDiagram
+    participant P as Producer
+    participant L as Leader
+    participant F1 as Follower 1
+    participant F2 as Follower 2
+    participant C as Consumer
+    
+    Note over P,C: Synchronous Replication
+    P->>L: Send Message
+    L->>F1: Replicate
+    L->>F2: Replicate
+    F1-->>L: ACK
+    F2-->>L: ACK
+    L-->>P: Confirm (after all ACKs)
+    L->>C: Deliver Message
+    
+    Note over P,C: Asynchronous Replication
+    P->>L: Send Message
+    L-->>P: Confirm (immediate)
+    L->>C: Deliver Message
+    L->>F1: Replicate (async)
+    L->>F2: Replicate (async)
+```
+
+## Consumer Coordination
+
+### Consumer Group Management
+
+```mermaid
+stateDiagram-v2
+    [*] --> Joining: Consumer Starts
+    Joining --> Rebalancing: Join Group
+    Rebalancing --> Active: Partitions Assigned
+    Active --> Processing: Fetch Messages
+    Processing --> Active: Commit Offset
+    Processing --> Rebalancing: Consumer Failure
+    Active --> Rebalancing: Group Change
+    Rebalancing --> Leaving: Shutdown
+    Leaving --> [*]
+    
+    note right of Rebalancing
+        All consumers pause
+        during rebalancing
+    end note
+    
+    note right of Processing
+        Consumer owns partition
+        exclusively during processing
+    end note
+```
+
+## Failure Handling
+
+### Dead Letter Queue Pattern
+
+```mermaid
+graph TB
+    subgraph "Message Flow with DLQ"
+        M[Message] --> Q[Main Queue]
+        Q --> C[Consumer]
+        C -->|Success| A[ACK]
+        C -->|Failure 1| R1[Retry 1]
+        R1 -->|Failure 2| R2[Retry 2]
+        R2 -->|Failure 3| R3[Retry 3]
+        R3 -->|Max Retries| DLQ[Dead Letter Queue]
+        
+        DLQ --> M1[Manual Review]
+        M1 -->|Fix & Replay| Q
+        M1 -->|Discard| D[Archive]
+    end
+    
+    style DLQ fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style M1 fill:#ffd93d,stroke:#333
+```
+
+### Retry Strategy Comparison
+
+| Strategy | Delay Pattern | Use Case | Pros | Cons |
+|----------|--------------|----------|------|------|
+| **Fixed Delay** | 5s, 5s, 5s | Transient errors | Simple, predictable | May overwhelm recovering service |
+| **Linear Backoff** | 5s, 10s, 15s | Gradual recovery | Balanced approach | Still predictable load |
+| **Exponential Backoff** | 2s, 4s, 8s, 16s | Network issues | Reduces load effectively | Can delay recovery |
+| **Jittered Backoff** | 2-4s, 3-8s, 6-16s | Distributed systems | Prevents thundering herd | More complex |
+
+## Real-World Implementations
+
+### System Comparison Matrix
+
+| System | Type | Throughput | Latency | Ordering | Durability | Best For |
+|--------|------|------------|---------|----------|------------|----------|
+| **Kafka** | Log-based | 1M+ msg/s | 2-5ms | Per partition | Replicated | Event streaming, high volume |
+| **RabbitMQ** | Traditional | 50K msg/s | <1ms | FIFO/Priority | Configurable | Enterprise messaging |
+| **AWS SQS** | Managed | 3K msg/s/queue | 10-100ms | Best effort | High | Serverless, AWS ecosystem |
+| **Pulsar** | Multi-tier | 1M+ msg/s | 5-10ms | Per partition | Tiered | Multi-tenancy, geo-replication |
+| **Redis Streams** | In-memory | 100K msg/s | <1ms | Strict | Optional | Real-time, caching |
+| **Azure Service Bus** | Managed | 2K msg/s | 20-50ms | FIFO | High | Azure ecosystem, enterprise |
+
+### Kafka Architecture Deep Dive
+
+```mermaid
+graph TB
+    subgraph "Kafka Cluster"
+        subgraph "Broker 1"
+            T1P0[Topic1-Partition0-Leader]
+            T1P1R[Topic1-Partition1-Replica]
+            T2P0R[Topic2-Partition0-Replica]
+        end
+        
+        subgraph "Broker 2"
+            T1P0R[Topic1-Partition0-Replica]
+            T1P1[Topic1-Partition1-Leader]
+            T2P1R[Topic2-Partition1-Replica]
+        end
+        
+        subgraph "Broker 3"
+            T2P0[Topic2-Partition0-Leader]
+            T2P1[Topic2-Partition1-Leader]
+            T1P0R2[Topic1-Partition0-Replica]
+        end
+        
+        ZK[ZooKeeper/KRaft] -.->|Metadata| Broker 1
+        ZK -.->|Metadata| Broker 2
+        ZK -.->|Metadata| Broker 3
+    end
+    
+    P[Producers] --> T1P0
+    P --> T1P1
+    P --> T2P0
+    
+    T1P0 --> CG1[Consumer Group 1]
+    T1P1 --> CG1
+    T2P0 --> CG2[Consumer Group 2]
+    T2P1 --> CG2
+    
+    style T1P0 fill:#4a90e2,stroke:#333,stroke-width:3px
+    style T1P1 fill:#4a90e2,stroke:#333,stroke-width:3px
+    style T2P0 fill:#4a90e2,stroke:#333,stroke-width:3px
+    style T2P1 fill:#4a90e2,stroke:#333,stroke-width:3px
+```
+
+## Performance & Scalability
+
+### Scalability Patterns
+
+```mermaid
+graph LR
+    subgraph "Vertical Partitioning"
+        V1[High Priority Queue]
+        V2[Normal Queue]
+        V3[Bulk Queue]
+        
+        V1 -->|Fast Workers| VW1[Worker Pool 1]
+        V2 -->|Normal Workers| VW2[Worker Pool 2]
+        V3 -->|Batch Workers| VW3[Worker Pool 3]
+    end
+    
+    subgraph "Horizontal Partitioning"
+        H1[Queue] -->|Hash(UserID)| HP1[Partition 1]
+        H1 -->|Hash(UserID)| HP2[Partition 2]
+        H1 -->|Hash(UserID)| HP3[Partition 3]
+        
+        HP1 --> HW1[Workers 1-3]
+        HP2 --> HW2[Workers 4-6]
+        HP3 --> HW3[Workers 7-9]
+    end
+```
+
+### Performance Tuning Checklist
+
+| Component | Optimization | Impact | Trade-off |
+|-----------|-------------|--------|-----------||
+| **Producer** | Batch messages | ↑ Throughput 10x | ↑ Latency |
+| **Producer** | Async sends | ↑ Throughput 5x | ↓ Reliability |
+| **Queue** | Increase partitions | ↑ Parallelism | ↑ Complexity |
+| **Queue** | Enable compression | ↓ Network 70% | ↑ CPU |
+| **Consumer** | Increase prefetch | ↑ Throughput 3x | ↑ Memory |
+| **Consumer** | Batch processing | ↑ Efficiency 5x | ↑ Latency |
+
+## Decision Framework
+
+```mermaid
+graph TD
+    Start[Need Message Queue?] --> Q1{Message Volume?}
+    
+    Q1 -->|< 1K/s| Q2{Complexity Tolerance?}
+    Q1 -->|1K-100K/s| Q3{Ordering Required?}
+    Q1 -->|> 100K/s| Kafka[Use Kafka/Pulsar]
+    
+    Q2 -->|Low| SQS[Use SQS/Cloud Queue]
+    Q2 -->|High| RabbitMQ[Use RabbitMQ]
+    
+    Q3 -->|Global| Q4{Durability?}
+    Q3 -->|Per-Key| Kafka
+    Q3 -->|None| Q5{Latency?}
+    
+    Q4 -->|Required| RabbitMQ
+    Q4 -->|Optional| Redis[Use Redis Streams]
+    
+    Q5 -->|< 1ms| Redis
+    Q5 -->|> 10ms| SQS
+    
+    style Kafka fill:#4a90e2,stroke:#333,stroke-width:2px
+    style RabbitMQ fill:#4a90e2,stroke:#333,stroke-width:2px
+    style SQS fill:#4a90e2,stroke:#333,stroke-width:2px
+    style Redis fill:#4a90e2,stroke:#333,stroke-width:2px
+```
+
+## Production Considerations
+
+### Monitoring Dashboard
+
+```yaml
+metrics:
+  health:
+    - queue_depth: < 10000 messages
+    - consumer_lag: < 1000 messages
+    - error_rate: < 0.1%
+    - dlq_size: < 100 messages
+  
+  performance:
+    - enqueue_rate: messages/second
+    - dequeue_rate: messages/second
+    - processing_time_p99: < 1s
+    - batch_size_avg: messages
+  
+  capacity:
+    - partition_count: number
+    - consumer_count: number
+    - disk_usage: GB
+    - network_throughput: MB/s
+
+alerts:
+  critical:
+    - consumer_lag > 10000
+    - dlq_size > 1000
+    - no_consumers > 5min
+  
+  warning:
+    - queue_depth > 50000
+    - error_rate > 1%
+    - disk_usage > 80%
+```
+
+## Law Connections
+
+!!! abstract "🔗 Fundamental Laws"
+    **[Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md)** - Queues must handle node failures through replication
+    
+    **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - Asynchronous message passing is fundamental to distributed queues
+    
+    **[Law 3: Emergent Chaos](../part1-axioms/law3-emergence/index.md)** - Complex behaviors emerge from simple queue operations at scale
+    
+    **[Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/index.md)** - Balance between throughput, latency, durability, and consistency
+
 ## Related Patterns
-- Priority Queue (Coming Soon) - Message prioritization
-- [Message Broker](message-broker.md) - Publish-subscribe messaging
+- [Queues & Streaming](queues-streaming.md) - General queue concepts
 - [Event Sourcing](event-sourcing.md) - Event-driven architecture
-- [Circuit Breaker](circuit-breaker.md) - Fault tolerance
+- [Saga](saga.md) - Distributed transactions via queues
+- [Circuit Breaker](circuit-breaker.md) - Consumer protection
 - [Load Balancing](load-balancing.md) - Work distribution
 
 ## References
-- [Apache Kafka Documentation](https://kafka.apache.org/documentation/)
-- [Raft Consensus Algorithm](https://raft.github.io/)
+- [Apache Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/)
+- [Designing Data-Intensive Applications](https://dataintensive.net/) - Chapter 11
 - [Amazon SQS Best Practices](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html)
-- [RabbitMQ Clustering Guide](https://www.rabbitmq.com/clustering.html)
+- [RabbitMQ in Depth](https://www.manning.com/books/rabbitmq-in-depth)
+- [Building Event-Driven Microservices](https://www.oreilly.com/library/view/building-event-driven-microservices/9781492057888/)

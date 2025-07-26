@@ -216,6 +216,9 @@ extra_javascript:
   # MathJax Library - Use specific version for stability
   - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
   
+  # Learning Path Enhancements
+  - javascripts/learning-paths.js
+  
   # Custom Scripts
   - javascripts/custom.js
   - javascripts/navigation.js
@@ -378,12 +381,7 @@ nav:
   
   - Patterns:
     - Overview: patterns/index.md
-    - Pattern Tools:
-      - Pattern Matrix: patterns/pattern-matrix.md
-      - Pattern Selector: patterns/pattern-selector.md
-      - Pattern Comparison: patterns/pattern-comparison.md
-      - Pattern Quiz: patterns/pattern-quiz.md
-      - Pattern Relationships: patterns/pattern-relationships.md
+    # Pattern Tools section removed - tools archived
     
     - Communication Patterns:
       - API Gateway: patterns/api-gateway.md
@@ -393,6 +391,7 @@ nav:
       - CQRS: patterns/cqrs.md
       - Saga: patterns/saga.md
       - Choreography: patterns/choreography.md
+      - Actor Model: patterns/actor-model.md
       - WebSocket: patterns/websocket.md
       - GraphQL Federation: patterns/graphql-federation.md
     
@@ -409,23 +408,24 @@ nav:
     
     - Data Patterns:
       - Sharding: patterns/sharding.md
-      - CRDT: patterns/crdt.md
+      # - CRDT: patterns/crdt.md  # Archived - academic pattern
       - Event Streaming: patterns/event-streaming.md
       - CDC: patterns/cdc.md
       - Outbox: patterns/outbox.md
-      - Two-Phase Commit: patterns/two-phase-commit.md
+      # - Two-Phase Commit: patterns/two-phase-commit.md  # Deprecated - redirects to saga.md
       - Distributed Lock: patterns/distributed-lock.md
       - Leader Election: patterns/leader-election.md
       - State Watch: patterns/state-watch.md
-      - Vector Clocks: patterns/vector-clocks.md
+      # - Anti-Entropy: patterns/anti-entropy.md  # Deprecated - redirects to event-sourcing.md
+      # - Vector Clocks: patterns/vector-clocks.md  # Deprecated - redirects to hlc.md
       - Logical Clocks: patterns/logical-clocks.md
-      - Hybrid Logical Clocks: patterns/hlc.md
+      # - Hybrid Logical Clocks: patterns/hlc.md  # Archived - academic pattern
     
     - Storage Patterns:
       - LSM Tree: patterns/lsm-tree.md
       - WAL: patterns/wal.md
-      - Merkle Trees: patterns/merkle-trees.md
-      - Bloom Filter: patterns/bloom-filter.md
+      # - Merkle Trees: patterns/merkle-trees.md  # Archived - academic pattern
+      # - Bloom Filter: patterns/bloom-filter.md  # Archived - academic pattern
       - Distributed Storage: patterns/distributed-storage.md
       - Polyglot Persistence: patterns/polyglot-persistence.md
     
@@ -440,9 +440,9 @@ nav:
       - Shared Nothing: patterns/shared-nothing.md
     
     - Security Patterns:
-      - E2E Encryption: patterns/e2e-encryption.md
-      - Key Management: patterns/key-management.md
-      - Consent Management: patterns/consent-management.md
+      # - E2E Encryption: patterns/e2e-encryption.md  # Archived - overly specific
+      # - Key Management: patterns/key-management.md  # Archived - overly specific
+      # - Consent Management: patterns/consent-management.md  # Archived - overly specific
       - Valet Key: patterns/valet-key.md
     
     - Browse All: patterns/index.md#all-patterns

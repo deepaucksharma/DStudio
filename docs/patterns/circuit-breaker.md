@@ -8,6 +8,16 @@ reading_time: 45 min
 prerequisites: []
 when_to_use: External service calls, microservice communication, database connections
 when_not_to_use: Internal method calls, non-network operations, CPU-bound tasks
+related_laws:
+  - law1-failure
+  - law2-asynchrony
+  - law3-emergence
+  - law4-tradeoffs
+  - law6-human-api
+related_pillars:
+  - truth
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-07-20
 ---

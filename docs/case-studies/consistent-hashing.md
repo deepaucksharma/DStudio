@@ -5,8 +5,8 @@ type: case-study
 difficulty: advanced
 reading_time: 30 min
 prerequisites: 
-  - axiom1-failure
-  - axiom5-epistemology
+  - law1-failure
+  - law5-epistemology
   - patterns/sharding
 status: complete
 last_updated: 2025-07-20
@@ -37,7 +37,7 @@ Consistent hashing is a distributed hashing scheme that operates independently o
 
 ### Law Analysis
 
-#### Law 1 (Latency): Hash Ring Traversal
+#### Law 2 (Asynchronous Reality): Hash Ring Traversal
 ```text
 Latency Components:
 - Hash computation: 0.001ms (SHA-256)
@@ -173,7 +173,7 @@ class LoadBalancedHashRing(ConsistentHashRing):
                 self.add_node(node, weight)
 ```
 
-#### Law 3 (Failure): Node Failures and Recovery
+#### Law 1 (Correlated Failure): Node Failures and Recovery
 ```text
 Failure Scenarios:
 1. Node crash: Keys rehashed to next node
@@ -570,7 +570,7 @@ class OperationalHashRing(ConsistentHashRing):
         }
 ```
 
-#### Law 8 (Economics): Cost Optimization
+#### Law 7 (Economic Reality): Cost Optimization
 ```text
 Cost Factors:
 - Memory: Virtual nodes storage
@@ -1324,13 +1324,13 @@ class ConsistentHashRing:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ](part1-axioms/law2-asynchrony)** - O(log n/index) lookup time with client-side caching reduces routing latency
-- **[Law 4: Trade-offs ](part1-axioms/law4-tradeoffs/index)** - Even distribution prevents capacity hot spots across nodes
-- **[Law 1: Failure ](part1-axioms/law1-failure/index)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Law 3: Emergence ](part1-axioms/law3-emergence/index)** - Ring lookups are lock-free read operations
-- **[Law 5: Epistemology ](part1-axioms/law5-epistemology/index)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
-- **[Law 6: Human-API ](part1-axioms/law6-human-api/index)** - Visual ring representation aids debugging and operations
-- **[Law 7: Economics ](part1-axioms/law7-economics)** - Efficient scaling without full data redistribution saves bandwidth
+- **[Law 1: Correlated Failure ](../part1-axioms/law1-failure/index.md)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 2: Asynchronous Reality ](../part1-axioms/law2-asynchrony/index.md)** - O(log n/index) lookup time with client-side caching reduces routing latency
+- **[Law 3: Emergent Chaos ](../part1-axioms/law3-emergence/index.md)** - Ring lookups are lock-free read operations
+- **[Law 4: Multidimensional Trade-offs ](../part1-axioms/law4-tradeoffs/index.md)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 5: Distributed Knowledge ](../part1-axioms/law5-epistemology/index.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Cognitive Load ](../part1-axioms/law6-human-api/index.md)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economic Reality ](../part1-axioms/law7-economics/index.md)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛 Related Patterns (Part III/index)
 - **[Sharding & Partitioning](patterns/sharding)** - Consistent hashing is the foundation for data sharding

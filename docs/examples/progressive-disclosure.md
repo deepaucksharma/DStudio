@@ -165,7 +165,7 @@ Progressive disclosure helps manage information complexity by revealing details 
 
 ## Styled Progressive Disclosure
 
-??? axiom "Fundamental Law: Correlated Failure"
+??? law "Fundamental Law: Correlated Failure"
     !!! quote "Murphy's Law for Distributed Systems"
         "Components that can fail together, will fail together."
     

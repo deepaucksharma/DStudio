@@ -79,19 +79,7 @@
 }
 
 /* === Navigation Enhancements === */
-
-/* Sticky navigation headers */
-.md-nav__title {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background: var(--md-default-bg-color);
-}
-
-/* Better active state indication */
-.md-nav__item--active > .md-nav__link {
-  font-weight: 600;
-}
+/* Removed custom navigation styling - using Material defaults */
 
 /* Progress indicator for long pages */
 .md-content {
@@ -250,14 +238,7 @@
 
 /* === Responsive Enhancements === */
 
-/* Better mobile navigation */
-@media screen and (max-width: 76.1875em) {
-  .md-nav--primary .md-nav__title {
-    padding: 0.4rem 0.8rem;
-    background-color: var(--md-default-bg-color);
-    box-shadow: 0 0 0.2rem rgba(0,0,0,.1);
-  }
-}
+/* Mobile optimizations - removed custom nav styling */
 
 /* Tablet optimizations */
 @media screen and (min-width: 60em) and (max-width: 76.1875em) {

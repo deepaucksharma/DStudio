@@ -5,8 +5,8 @@ type: case-study
 difficulty: advanced
 reading_time: 35 min
 prerequisites: 
-  - axiom1-failure
-  - axiom5-epistemology
+  - law1-failure
+  - law5-epistemology
   - patterns/event-driven
   - patterns/queues-streaming
 status: complete

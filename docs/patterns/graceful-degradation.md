@@ -8,6 +8,15 @@ reading_time: 20 min
 prerequisites: []
 when_to_use: When dealing with resilience challenges
 when_not_to_use: When simpler solutions suffice
+related_laws:
+  - law1-failure
+  - law4-tradeoffs
+  - law6-human-api
+  - law7-economics
+related_pillars:
+  - work
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-07-20
 ---
@@ -882,6 +891,33 @@ class AdaptiveDegradation:
 - [ ] Monitor degradation effectiveness
 - [ ] Test each degradation level
 - [ ] Document degradation behavior
+
+---
+
+## Related Patterns
+
+- **[Circuit Breaker](circuit-breaker.md)**: Protects systems by failing fast
+- **[Bulkhead](bulkhead.md)**: Isolates resources to prevent total failure
+- **[Load Shedding](load-shedding.md)**: Actively drops requests under load
+- **[Rate Limiting](rate-limiting.md)**: Controls incoming request flow
+- **[Fallback](retry-backoff.md)**: Provides alternative responses
+
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Prevents total system failure by maintaining core functionality
+- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/)**: Balances functionality vs performance under load
+- **[Law 6: Cognitive Load 🧠](../part1-axioms/law6-human-api/)**: Simplifies user experience during degradation
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Optimizes resource usage during high load
+
+### Foundational Pillars
+Graceful Degradation implements:
+
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Prioritizes critical work during resource constraints
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Manages feature availability dynamically
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Makes intelligent decisions about what to degrade
 
 ---
 

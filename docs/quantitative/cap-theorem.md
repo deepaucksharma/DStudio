@@ -385,7 +385,7 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 
 ## Related Topics
 
-### Related Laws & Axioms
+### Related Laws
 - [Law 1: Correlated Failure](part1-axioms/law1-failure/index) - Network partitions and failure modes
 - [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index) - Time and consistency challenges
 - [Law 4: Multidimensional Optimization](part1-axioms/law4-tradeoffs/index) - CAP trade-offs in practice

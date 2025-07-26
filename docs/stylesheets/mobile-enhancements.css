@@ -438,24 +438,7 @@
 
 /* === Mobile Sidebar Improvements === */
 
-/* Better mobile drawer */
-@media screen and (max-width: 76.1875em) {
-  /* Increase drawer width slightly */
-  .md-sidebar--primary {
-    width: 15rem;
-  }
-  
-  /* Better touch targets in sidebar */
-  .md-nav--primary .md-nav__link {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-  }
-  
-  /* Visual hierarchy in navigation */
-  .md-nav--primary .md-nav__item--nested > .md-nav__link {
-    font-weight: 600;
-  }
-}
+/* Mobile drawer - removed custom nav styling */
 
 /* === Search Experience === */
 

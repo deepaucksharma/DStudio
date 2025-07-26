@@ -8,6 +8,15 @@ reading_time: 35 min
 prerequisites: [health-check, load-balancing]
 when_to_use: High availability requirements, critical systems, disaster recovery scenarios
 when_not_to_use: Low-criticality systems, cost-sensitive deployments, simple applications
+related_laws:
+  - law1-failure
+  - law2-asynchrony
+  - law5-epistemology
+  - law7-economics
+related_pillars:
+  - state
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-01-23
 ---
@@ -1115,6 +1124,23 @@ for key, value in roi_analysis.items():
 - [Load Balancing](load-balancing.md) - Distributing traffic during normal operations
 - [Service Discovery](service-discovery.md) - Finding healthy service instances
 - [Bulkhead](bulkhead.md) - Isolating failures to prevent cascading
+
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Ensures backup systems have independent failure modes
+- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/)**: Handles network delays during failover transitions
+- **[Law 5: Distributed Knowledge 🧩](../part1-axioms/law5-epistemology/)**: Manages split-brain scenarios during failover
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Balances redundancy costs vs availability benefits
+
+### Foundational Pillars
+Failover implements:
+
+- **[Pillar 2: Distribution of State 📊](../part2-pillars/state/)**: Replicates state across primary and backup systems
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Coordinates failover decisions and transitions
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Detects failures and orchestrates recovery
 
 ---
 

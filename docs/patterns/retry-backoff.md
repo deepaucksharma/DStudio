@@ -8,6 +8,15 @@ reading_time: 45 min
 prerequisites: [latency, failure, capacity]
 when_to_use: Network calls, external APIs, distributed services, temporary failures
 when_not_to_use: Permanent failures, business logic errors, data validation failures
+related_laws:
+  - law1-failure
+  - law2-asynchrony
+  - law3-emergence
+  - law7-economics
+related_pillars:
+  - work
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-01-21
 ---
@@ -2032,6 +2041,23 @@ def calculate_retry_value(your_metrics: Dict) -> Dict:
 - **[Timeout](timeout.md)**: Bound total operation time
 - **[Rate Limiting](rate-limiting.md)**: Respect server-side limits
 - **[Saga](saga.md)**: Retry distributed transactions
+
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Prevents retry storms from causing cascade failures
+- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/)**: Handles network delays and timeouts gracefully
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/)**: Jitter prevents synchronized retry storms
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Balances retry costs vs success probability
+
+### Foundational Pillars
+Retry & Backoff implements:
+
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Distributes retry load over time
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Each service controls its own retry policy
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Adaptive retry strategies learn from failure patterns
 
 ---
 

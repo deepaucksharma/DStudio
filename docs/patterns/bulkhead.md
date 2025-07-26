@@ -8,6 +8,15 @@ reading_time: 45 min
 prerequisites: [failure, capacity, concurrency]
 when_to_use: Shared resource pools, multi-tenant systems, microservices, preventing cascade failures
 when_not_to_use: Simple applications, single-purpose services, when isolation overhead exceeds benefits
+related_laws:
+  - law1-failure
+  - law3-emergence
+  - law4-tradeoffs
+  - law7-economics
+related_pillars:
+  - work
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-01-21
 ---
@@ -1789,6 +1798,23 @@ def calculate_bulkhead_value(your_metrics: Dict) -> Dict:
 - **[Rate Limiting](rate-limiting.md)**: Complement bulkheads with rate limits
 - **[Load Shedding](load-shedding.md)**: Drop requests when bulkheads full
 - **Service Mesh (Coming Soon)**: Implement bulkheads at infrastructure level
+
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Isolates failures to prevent system-wide cascades
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/)**: Controls emergent behavior by limiting resource interactions
+- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/)**: Balances isolation vs resource efficiency
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Trade-off between isolation costs and failure impact
+
+### Foundational Pillars
+Bulkhead implements:
+
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Isolates workloads into separate resource pools
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Each bulkhead independently manages its resources
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Smart resource allocation and monitoring per bulkhead
 
 ---
 

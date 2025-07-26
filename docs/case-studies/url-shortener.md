@@ -5,8 +5,8 @@ type: case-study
 difficulty: intermediate
 reading_time: 35 min
 prerequisites: 
-  - axiom2-asynchrony
-  - axiom7-economics
+  - law2-asynchrony
+  - law7-economics
   - patterns/caching-strategies
   - patterns/rate-limiting
 status: complete
@@ -35,7 +35,7 @@ A URL shortener converts long URLs into short, manageable links while providing 
 
 ### Law Analysis
 
-#### Law 1 (Latency): Redirect Performance
+#### Law 2 (Asynchronous Reality): Redirect Performance
 ```text
 Latency Budget (50ms total):
 - DNS lookup: 10ms
@@ -136,7 +136,7 @@ graph LR
     end
 ```
 
-#### 💾 Law 2 (Capacity): Storage Optimization
+#### 💾 Law 4 (Multidimensional Trade-offs): Storage Optimization
 ```text
 Storage Requirements:
 - URLs: 100M/day × 365 days × 5 years = 180B URLs
@@ -220,7 +220,7 @@ graph LR
 | Cold | Archive | <1 hit/day | $0.02 | Age > 90 days & access < 10 |
 
 
-#### Law 3 (Failure): Resilience and Recovery
+#### Law 1 (Correlated Failure): Resilience and Recovery
 ```text
 Failure Modes:
 1. Database failures
@@ -332,7 +332,7 @@ graph TD
     T -->|Yes| R2[Use Modified]
 ```
 
-#### 🔀 Law 4 (Concurrency): Parallel Processing
+#### 🔀 Law 3 (Emergent Chaos): Parallel Processing
 ```text
 Concurrency Challenges:
 - Simultaneous URL shortening
@@ -432,7 +432,7 @@ graph LR
     T1 --> T2 --> T3 --> T4
 ```
 
-#### 🤝 Law 5 (Coordination): Distributed Consensus
+#### 🤝 Law 5 (Distributed Knowledge): Distributed Consensus
 ```text
 Coordination Needs:
 - Short code uniqueness
@@ -547,7 +547,7 @@ stateDiagram-v2
     Wait --> [*]
 ```
 
-#### 👁 Law 6 (Observability): Analytics Pipeline
+#### 👁 Law 6 (Cognitive Load): Analytics Pipeline
 ```text
 Analytics Requirements:
 - Click tracking (time, location, device)
@@ -670,7 +670,7 @@ graph LR
 | Full report | <1s | 1K/s | Parallel queries |
 
 
-#### 👤 Law 7 (Human Interface): Management Tools
+#### 👤 Law 6 (Cognitive Load): Management Tools
 ```text
 User Interfaces:
 - Developer API
@@ -787,7 +787,7 @@ sequenceDiagram
     Note over C,DB: Rate limiting applied per key
 ```
 
-#### Law 8 (Economics): Cost Optimization
+#### Law 7 (Economic Reality): Cost Optimization
 ```text
 Cost Components:
 - Storage: $0.10/GB/month
@@ -891,18 +891,18 @@ gantt
 
 ### Comprehensive Law Mapping
 
-| Design Decision | Axiom 1 (Latency) | Axiom 2 (Capacity) | Axiom 3 (Failure) | Axiom 4 (Concurrency) | Axiom 5 (Coordination) | Axiom 6 (Observability) | Axiom 7 (Human Interface) | Axiom 8 (Economics) |
-|-----------------|-------------------|-------------------|-------------------|---------------------|---------------------|----------------------|------------------------|--------------------|
-| **CDN Edge Caching** | 5ms redirects, global | Limited cache, LRU | Origin failover | Parallel, no contention | TTL-based coherence | Hit rate metrics | Transparent | 90% cost reduction |
-| **Counter + Hash Hybrid** | O(1) generation | 2^62 space, 7-8 chars | Counter gaps OK | Atomic increment | Distributed counter | Generation tracking | Predictable codes | Simple, low CPU |
-| **SQL with Sharding** | ~10ms lookups | 1000+ shards | Shard isolation | Hot shard contention | Shard consensus | Query latency metrics | Familiar SQL | Higher than NoSQL |
-| **Analytics Sampling** | Minimal impact | 10x data reduction | Graceful degradation | Async pipeline | Best effort only | Statistical accuracy | Confidence levels | 90% cost savings |
-| **Bloom Filter Checks** | <1ms existence check | 10 bits per URL | Reconstructible | Lock-free reads | Local only | False positive rate | Better UX | Prevents DB hits |
-| **Multi-tier Storage** | Hot fast, cold slow | Infinite S3 scale | Durable cold tier | Background migration | Migration rules | Access patterns | Configurable policies | 80% cost reduction |
-| **Rate Limiting** | ~1ms overhead | Protects capacity | Returns 429 | Distributed counters | Global coordination | Per endpoint/user | Clear error messages | Prevents abuse costs |
-| **Real-time + Batch** | <1s key metrics | Efficient batching | Queue spillover | Parallel streams | Stream partitioning | Dual dashboards | Both use cases | Dual complexity |
-| **URL Deduplication** | Hash overhead | 30-40% savings | Rebuild capable | Race conditions | Distributed lock | Dedup ratio stats | Same short URL | Major savings |
-| **Spam Detection** | ML adds latency | Scalable blacklist | Fail open | Async checking | Blacklist sync | False positive rate | May block legitimate | Quality protection |
+| Design Decision | Law 1 (Failure) | Law 2 (Asynchrony) | Law 3 (Emergence) | Law 4 (Trade-offs) | Law 5 (Epistemology) | Law 6 (Human-API) | Law 7 (Economics) |
+|-----------------|-----------------|-------------------|-------------------|-------------------|---------------------|-------------------|-------------------|
+| **CDN Edge Caching** | Origin failover | 5ms redirects, global | Parallel, no contention | Limited cache, LRU | TTL-based coherence | Transparent | 90% cost reduction |
+| **Counter + Hash Hybrid** | Counter gaps OK | O(1) generation | Atomic increment | 2^62 space, 7-8 chars | Distributed counter | Predictable codes | Simple, low CPU |
+| **SQL with Sharding** | Shard isolation | ~10ms lookups | Hot shard contention | 1000+ shards | Shard consensus | Familiar SQL | Higher than NoSQL |
+| **Analytics Sampling** | Graceful degradation | Minimal impact | Async pipeline | 10x data reduction | Best effort only | Confidence levels | 90% cost savings |
+| **Bloom Filter Checks** | Reconstructible | <1ms existence check | Lock-free reads | 10 bits per URL | Local only | Better UX | Prevents DB hits |
+| **Multi-tier Storage** | Durable cold tier | Hot fast, cold slow | Background migration | Infinite S3 scale | Migration rules | Configurable policies | 80% cost reduction |
+| **Rate Limiting** | Returns 429 | ~1ms overhead | Distributed counters | Protects capacity | Global coordination | Clear error messages | Prevents abuse costs |
+| **Real-time + Batch** | Queue spillover | <1s key metrics | Parallel streams | Efficient batching | Stream partitioning | Both use cases | Dual complexity |
+| **URL Deduplication** | Rebuild capable | Hash overhead | Race conditions | 30-40% savings | Distributed lock | Same short URL | Major savings |
+| **Spam Detection** | Fail open | ML adds latency | Async checking | Scalable blacklist | Blacklist sync | May block legitimate | Quality protection |
 
 
 ### 🏛 Pillar Mapping
@@ -1367,27 +1367,27 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality ](part1-axioms/law2-asynchrony/index) - CDN and caching strategies
-- [Law 7: Economics ](part1-axioms/law7-economics/index) - Cost optimization techniques
-- [Caching Strategies](patterns/caching-strategies) - Multi-level cache design
-- [Rate Limiting](patterns/rate-limiting) - Protecting against abuse
+- [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/) - CDN and caching strategies
+- [Law 7: Economic Reality](../part1-axioms/law7-economics/) - Cost optimization techniques
+- [Caching Strategies](../patterns/caching-strategies.md) - Multi-level cache design
+- [Rate Limiting](../patterns/rate-limiting.md) - Protecting against abuse
 
 **Advanced Topics:**
-- [Edge Computing Patterns](patterns/edge-computing) - Building at the edge
+- [Edge Computing Patterns](../patterns/edge-computing.md) - Building at the edge
 - Analytics at Scale (Coming Soon) - Handling billions of events
 - Geo-Distribution (Coming Soon) - Global service deployment
-- [Security Patterns](patterns/security-shortener) - Preventing abuse and attacks
+- [Security Patterns](../patterns/security-shortener.md) - Preventing abuse and attacks
 
 **Related Case Studies:**
 <!-- TODO: Add CDN design case study -->
 <!-- TODO: Add analytics pipeline case study -->
-- [API Gateway](patterns/api-gateway) - Rate limiting and routing
+- [API Gateway](../patterns/api-gateway.md) - Rate limiting and routing
 
 **Implementation Patterns:**
-- [Database Sharding](patterns/sharding) - Horizontal scaling
-- [Bloom Filters](patterns/bloom-filter) - Space-efficient lookups
-- [Circuit Breakers](patterns/circuit-breaker) - Handling failures
-- [CQRS](patterns/cqrs) - Read/write separation
+- [Database Sharding](../patterns/sharding.md) - Horizontal scaling
+- [Bloom Filters](../patterns/bloom-filter.md) - Space-efficient lookups
+- [Circuit Breakers](../patterns/circuit-breaker.md) - Handling failures
+- [CQRS](../patterns/cqrs.md) - Read/write separation
 
 ### 📚 References
 
@@ -1402,7 +1402,7 @@ Analytics     10M events/s    Kafka throughput
 - [Polr](https://github.com/cydrobolt/polr)
 
 **Related Patterns:**
-- [Caching Strategies](patterns/caching-strategies)
-- [Sharding](patterns/sharding)
-- [Rate Limiting](patterns/rate-limiting)
-- [CDN](patterns/edge-computing)
+- [Caching Strategies](../patterns/caching-strategies.md)
+- [Sharding](../patterns/sharding.md)
+- [Rate Limiting](../patterns/rate-limiting.md)
+- [CDN](../patterns/edge-computing.md)

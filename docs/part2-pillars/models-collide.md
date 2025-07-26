@@ -20,10 +20,10 @@ last_updated: 2025-07-20
 
 ```text
 Requirements:
-1. <100ms latency globally (Axiom 1)
-2. 99.999% availability (Axiom 3)
+1. <100ms latency globally (Law 2: Asynchronous Reality)
+2. 99.999% availability (Law 1: Correlated Failure)
 3. Strict consistency for payments (Pillar 3)
-4. Cost effective (Axiom 8)
+4. Cost effective (Law 7: Economic Reality)
 
 Conflict: Can't have all four!
 ```

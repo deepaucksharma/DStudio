@@ -16,14 +16,71 @@ last_updated: 2025-01-25
 !!! quote "Core Principle"
     Any component can fail, and failures are often correlated, not independent.
 
+## 📚 Learning Path Context
+
+<div class="grid cards" markdown>
+
+- :material-map-marker:{ .lg .middle } **Where You Are**
+    
+    ---
+    
+    **Law 1 of 7** in Foundation Phase  
+    **Time**: 2-3 hours  
+    **Difficulty**: 🟢 Starting Point  
+    
+    **Prerequisites**:
+    - ✅ Basic networking
+    - ✅ Programming experience
+    - ✅ [Introduction complete](../../introduction/philosophy.md)
+
+- :material-target:{ .lg .middle } **What You'll Learn**
+    
+    ---
+    
+    - Why redundancy isn't enough
+    - Correlation vs independence
+    - Blast radius concepts
+    - Failure domain design
+    - Real AWS/Google outages
+    
+    **Key Takeaway**: Systems fail in groups
+
+- :material-arrow-right-circle:{ .lg .middle } **Your Next Steps**
+    
+    ---
+    
+    **After This Law**:
+    1. [Law 2: Async Reality](../law2-asynchrony/index.md) (2-3 hrs)
+    2. [Apply to Patterns](../../patterns/circuit-breaker.md)
+    3. [Case Study: AWS Outage](../../case-studies/aws-outage.md)
+    
+    **Related Pillars**:
+    - [State Distribution](../../part2-pillars/state/index.md)
+    - [Control Distribution](../../part2-pillars/control/index.md)
+
+</div>
+
 !!! progress "Your Journey Through The 7 Laws"
-    - [x] **Law 1: Correlated Failure** ← You are here
-    - [ ] Law 2: Asynchronous Reality
-    - [ ] Law 3: Emergent Chaos
-    - [ ] Law 4: Multidimensional Optimization
-    - [ ] Law 5: Distributed Knowledge
-    - [ ] Law 6: Cognitive Load
-    - [ ] Law 7: Economic Reality
+    ```mermaid
+    graph LR
+        L1["Law 1: Failure<br/>✅ You are here"] 
+        L2["Law 2: Async<br/>⏳ Next"]
+        L3["Law 3: Chaos<br/>🔒 Week 2"]
+        L4["Law 4: Trade-offs<br/>🔒 Week 2"]
+        L5["Law 5: Knowledge<br/>🔒 Week 2"]
+        L6["Law 6: Cognitive<br/>🔒 Week 3"]
+        L7["Law 7: Economic<br/>🔒 Week 3"]
+        
+        L1 --> L2
+        L2 --> L3
+        L3 --> L4
+        L4 --> L5
+        L5 --> L6
+        L6 --> L7
+        
+        style L1 fill:#4caf50,color:#fff
+        style L2 fill:#2196f3,color:#fff
+    ```
 
 ## The $7 Billion Wake-Up Call
 
@@ -763,10 +820,65 @@ def correlation_impact_calculator(
 - Veeraraghavan et al. (2016). "Maelstrom: Mitigating Datacenter-level Disasters"
 - AWS (2011). "Summary of the Amazon EC2 and Amazon RDS Service Disruption"
 
+## 🎯 Your Learning Progress
+
+<div class="grid cards" markdown>
+
+- :material-check-circle:{ .lg .middle } **Completed: Law 1**
+    
+    ---
+    
+    **Key Concepts Mastered**:
+    - ✅ Correlated failures
+    - ✅ Blast radius design
+    - ✅ Failure domains
+    - ✅ Real-world examples
+    
+    **Time Invested**: ~3 hours
+
+- :material-arrow-right-circle:{ .lg .middle } **Next: Law 2**
+    
+    ---
+    
+    **[Law 2: Asynchronous Reality](../law2-asynchrony/index.md)**
+    
+    You'll learn:
+    - Network delays
+    - Timeout strategies
+    - Clock synchronization
+    - Ordering guarantees
+    
+    **Estimated Time**: 2-3 hours
+
+- :material-trophy:{ .lg .middle } **Apply Your Knowledge**
+    
+    ---
+    
+    **Practice Exercises**:
+    1. [Design a failure domain](exercises.md#failure-domains)
+    2. [Calculate blast radius](exercises.md#blast-radius)
+    3. [Build circuit breaker](../../patterns/circuit-breaker.md)
+    
+    **Real Project**: Add bulkheads to your app
+
+</div>
+
+### 🔗 Quick Links
+
+**Continue Learning**:
+- **Next Law**: [Law 2: Asynchronous Reality](../law2-asynchrony/index.md) →
+- **Related Pattern**: [Circuit Breaker](../../patterns/circuit-breaker.md) 
+- **Case Study**: [AWS Outage Analysis](../../case-studies/aws-outage.md)
+- **Back to**: [All 7 Laws](../../part1-axioms/index.md)
+
+**Learning Paths**:
+- [New Graduate Path](../../learning-paths/new-graduate.md) (You're on Week 1)
+- [All Learning Paths](../../learning-paths/index.md)
+
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Overview](part1-axioms) | 
-[:material-arrow-up: The 7 Laws](part1-axioms) | 
-[:material-arrow-right: Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index)
+[:material-arrow-left: The 7 Laws](../../part1-axioms/index.md) | 
+[:material-arrow-up: Top](#) | 
+[:material-arrow-right: Law 2: Async Reality](../law2-asynchrony/index.md)
 </div>

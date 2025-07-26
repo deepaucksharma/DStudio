@@ -5,8 +5,8 @@ type: case-study
 difficulty: intermediate
 reading_time: 25 min
 prerequisites: 
-  - axiom1-failure
-  - axiom4-tradeoffs
+  - law1-failure
+  - law4-tradeoffs
   - patterns/rate-limiting
 status: complete
 last_updated: 2025-07-20
@@ -32,7 +32,7 @@ Distributed rate limiter protecting backend services across multiple servers wit
 
 ### Law Analysis
 
-#### Law 1 (Latency): Speed of Light Constraints
+#### Law 2 (Asynchronous Reality): Speed of Light Constraints
 ```text
 Latency Budget:
 - Total API call budget: 100ms
@@ -84,7 +84,7 @@ graph TB
 | Sync Interval | 100ms | Balance accuracy vs load |
 
 
-#### 💾 Law 2 (Capacity): Finite Resources
+#### 💾 Law 4 (Multidimensional Trade-offs): Finite Resources
 ```text
 Scale Requirements:
 - 10M requests/second across fleet
@@ -146,7 +146,7 @@ graph TB
 | Storage | 10Gi | - | Persistent state |
 
 
-#### Law 3 (Failure): Byzantine Failures
+#### Law 1 (Correlated Failure): Byzantine Failures
 ```text
 Failure Modes:
 1. Rate limiter node crash
@@ -197,7 +197,7 @@ stateDiagram-v2
 | Local Limits | Conservative | Prevent abuse during outage |
 
 
-#### 🔀 Law 4 (Concurrency): Race Conditions
+#### 🔀 Law 3 (Emergent Chaos): Race Conditions
 ```text
 Concurrency Challenges:
 - Simultaneous requests from same user
@@ -252,7 +252,7 @@ graph LR
 
 **Atomicity Guarantee:** All operations execute atomically in Redis, preventing race conditions.
 
-#### 🤝 Law 5 (Coordination): Distributed Consensus
+#### 🤝 Law 5 (Distributed Knowledge): Distributed Consensus
 ```text
 Coordination Requirements:
 - Consistent rate limit enforcement
@@ -307,7 +307,7 @@ graph TB
 | CRDT Type | G-Counter | Conflict-free counting |
 
 
-#### 👁 Law 6 (Observability): Monitoring
+#### 👁 Law 6 (Cognitive Load): Monitoring
 ```text
 Key Metrics:
 - Request rate by endpoint/user
@@ -366,7 +366,7 @@ graph TB
 | rate_limiter.fallbacks | Counter | reason | rate > 1% |
 
 
-#### 👤 Law 7 (Human Interface): Operations
+#### 👤 Law 6 (Cognitive Load): Operations
 ```text
 Operational Requirements:
 - Dynamic limit adjustments
@@ -422,7 +422,7 @@ sequenceDiagram
 | /api/v1/debug/{key} | GET | Debug specific key |
 
 
-#### Law 8 (Economics): Cost Optimization
+#### Law 7 (Economic Reality): Cost Optimization
 ```text
 Cost Factors:
 - Redis cluster: $500/month
@@ -702,15 +702,15 @@ Cost per billion requests: $0.34
 
 ## Law Mapping Matrix
 
-| Design Decision | A1: Latency | A2: Capacity | A3: Failure | A4: Concurrency | A5: Coordination | A6: Observability | A7: Human | A8: Economics |
-|----------------|-------------|--------------|-------------|-----------------|------------------|-------------------|-----------|---------------|
-| **Local Caching** | <0.01ms | -80% Redis | Works offline | Lock-free | - | Hit metrics | Fast API | -80% cost |
-| **Sliding Window** | O(log n) | Fixed memory | - | Atomic ops | Consistent | Accurate | Fair limits | - |
-| **Circuit Breaker** | Fast fail | - | No cascades | Thread-safe | State sync | Failure track | Stable | No waste |
-| **Consistent Hash** | O(log n) | Even dist | Min reshard | - | Node mgmt | Load metrics | - | Efficient |
-| **Gossip Protocol** | - | Scalable | Partition OK | Async | Eventually consistent | Convergence | - | Low bandwidth |
-| **Bloom Filters** | O(1) | 1MB/1M items | - | Lock-free | - | FP rate | - | Memory efficient |
-| **Fallback** | No block | - | Graceful | - | Mode switch | Metrics | Available | SLA compliant |
+| Design Decision | Law 1: Failure | Law 2: Asynchrony | Law 3: Emergence | Law 4: Trade-offs | Law 5: Epistemology | Law 6: Human-API | Law 7: Economics |
+|----------------|----------------|-------------------|------------------|-------------------|---------------------|------------------|---------------|
+| **Local Caching** | Works offline | <0.01ms | Lock-free | -80% Redis | - | Fast API | -80% cost |
+| **Sliding Window** | - | O(log n) | Atomic ops | Fixed memory | Consistent | Fair limits | - |
+| **Circuit Breaker** | No cascades | Fast fail | Thread-safe | - | State sync | Stable | No waste |
+| **Consistent Hash** | Min reshard | O(log n) | - | Even dist | Node mgmt | - | Efficient |
+| **Gossip Protocol** | Partition OK | - | Async | Scalable | Eventually consistent | - | Low bandwidth |
+| **Bloom Filters** | - | O(1) | Lock-free | 1MB/1M items | - | - | Memory efficient |
+| **Fallback** | Graceful | No block | - | - | Mode switch | Available | SLA compliant |
 
 
 ### Law Implementation Priority
@@ -718,32 +718,30 @@ Cost per billion requests: $0.34
 ```mermaid
 graph TB
     subgraph "Performance Critical"
-        A1[Law 1: Latency<br/>Sub-millisecond]
-        A4[Law 4: Concurrency<br/>10M req/sec]
+        L2[Law 2: Asynchrony<br/>Sub-millisecond]
+        L3[Law 3: Emergence<br/>10M req/sec]
     end
     
     subgraph "Reliability Critical"
-        A3[Law 3: Failure<br/>Graceful Degradation]
-        A5[Law 5: Coordination<br/>Distributed State]
+        L1[Law 1: Failure<br/>Graceful Degradation]
+        L5[Law 5: Epistemology<br/>Distributed State]
     end
     
     subgraph "Operational"
-        A2[Law 2: Capacity<br/>Scale Management]
-        A6[Law 6: Observability<br/>Monitoring]
-        A7[Law 7: Human<br/>Operations]
-        A8[Law 7: Economics<br/>Cost Control]
+        L4[Law 4: Trade-offs<br/>Scale Management]
+        L6[Law 6: Human-API<br/>Operations & Monitoring]
+        L7[Law 7: Economics<br/>Cost Control]
     end
     
-    A1 --> A3
-    A4 --> A5
-    A3 --> A6
-    A5 --> A2
-    A6 --> A7
-    A2 --> A8
+    L2 --> L1
+    L3 --> L5
+    L1 --> L6
+    L5 --> L4
+    L6 --> L7
     
-    style A1 fill:#ff6b6b
-    style A4 fill:#ff6b6b
-    style A3 fill:#ffd93d
+    style L2 fill:#ff6b6b
+    style L3 fill:#ff6b6b
+    style L1 fill:#ffd93d
 ```
 
 ## Architecture Alternatives Analysis
@@ -1012,42 +1010,42 @@ graph TD
 - [Gubernator](https://github.com/mailgun/gubernator) - High-performance distributed rate limiting
 
 **Related Patterns:**
-- [Token Bucket Algorithm](patterns/rate-limiting)
-- [Circuit Breaker](patterns/circuit-breaker)
-- [Consistent Hashing](case-studies/consistent-hashing)
+- [Token Bucket Algorithm](../patterns/rate-limiting)
+- [Circuit Breaker](../patterns/circuit-breaker)
+- [Consistent Hashing](consistent-hashing)
 - Gossip Protocol (Coming Soon)
 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ](part1-axioms/law2-asynchrony/index)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 4: Trade-offs ](part1-axioms/law4-tradeoffs/index)** - Rate limiting protects backend capacity from overload
-- **[Law 1: Failure ](part1-axioms/law1-failure/index)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 3: Emergence ](part1-axioms/law3-emergence/index)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 5: Epistemology ](part1-axioms/law5-epistemology/index)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Human-API ](part1-axioms/law6-human-api/index)** - Clear error messages with retry-after headers
-- **[Law 7: Economics ](part1-axioms/law7-economics)** - Local caching reduces infrastructure costs by 80%
+- **[Law 1: Correlated Failure ](../part1-axioms/law1-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 2: Asynchronous Reality ](../part1-axioms/law2-asynchrony/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 3: Emergent Chaos ](../part1-axioms/law3-emergence/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 4: Multidimensional Trade-offs ](../part1-axioms/law4-tradeoffs/index.md)** - Rate limiting protects backend capacity from overload
+- **[Law 5: Distributed Knowledge ](../part1-axioms/law5-epistemology/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Cognitive Load ](../part1-axioms/law6-human-api/index.md)** - Clear error messages with retry-after headers and operational dashboards
+- **[Law 7: Economic Reality ](../part1-axioms/law7-economics/index.md)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Rate Limiting](patterns/rate-limiting)** - Core pattern implemented with token bucket algorithm
-- **[Circuit Breaker](patterns/circuit-breaker)** - Protects rate limiter from Redis failures
-- **[Bulkhead](patterns/bulkhead)** - Isolates rate limit pools per tenant/API
-- **[Consistent Hashing](patterns/sharding)** - Distributes users across rate limiter nodes
-- **[Caching Strategies](patterns/caching-strategies)** - Local cache with TTL for performance
-- **[Health Check](patterns/health-check)** - Monitors Redis connectivity and accuracy
-- **[Load Shedding](patterns/load-shedding)** - Drops low-priority requests under extreme load
+- **[Rate Limiting](../patterns/rate-limiting)** - Core pattern implemented with token bucket algorithm
+- **[Circuit Breaker](../patterns/circuit-breaker)** - Protects rate limiter from Redis failures
+- **[Bulkhead](../patterns/bulkhead)** - Isolates rate limit pools per tenant/API
+- **[Consistent Hashing](../patterns/sharding)** - Distributes users across rate limiter nodes
+- **[Caching Strategies](../patterns/caching-strategies)** - Local cache with TTL for performance
+- **[Health Check](../patterns/health-check)** - Monitors Redis connectivity and accuracy
+- **[Load Shedding](../patterns/load-shedding)** - Drops low-priority requests under extreme load
 
 ### Quantitative Models
-- **[Little's Law](quantitative/littles-law)** - Queue depth = arrival rate × processing time for pending checks
-- **[Queueing Theory](quantitative/queueing-models)** - M/M/c model for rate limiter node sizing
+- **[Little's Law](../quantitative/littles-law)** - Queue depth = arrival rate × processing time for pending checks
+- **[Queueing Theory](../quantitative/queueing-models)** - M/M/c model for rate limiter node sizing
 - **CAP Theorem (Coming Soon)** - AP choice: available during partitions with approximate counts
-- **[Bloom Filters](quantitative/probabilistic-structures)** - Space-efficient first-time user detection
+- **[Bloom Filters](../quantitative/probabilistic-structures)** - Space-efficient first-time user detection
 
 ### 👥 Human Factors Considerations
-- **[On-Call Culture](human-factors/oncall-culture)** - Rate limiter failures directly impact users
-- **[Incident Response](human-factors/incident-response)** - Runbooks for common scenarios (Redis failure, DDoS)
-- **[Observability Tools](human-factors/observability-stacks)** - Dashboards show rate limit utilization per API/user
-- **[Capacity Planning](quantitative/capacity-planning)** - Predicting rate limit needs based on growth
+- **[On-Call Culture](../human-factors/oncall-culture)** - Rate limiter failures directly impact users
+- **[Incident Response](../human-factors/incident-response)** - Runbooks for common scenarios (Redis failure, DDoS)
+- **[Observability Tools](../human-factors/observability-stacks)** - Dashboards show rate limit utilization per API/user
+- **[Capacity Planning](../quantitative/capacity-planning)** - Predicting rate limit needs based on growth
 
 ### Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Similar distributed counting challenges

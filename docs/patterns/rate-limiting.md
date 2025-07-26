@@ -8,6 +8,15 @@ reading_time: 45 min
 prerequisites: [capacity, observability, economics]
 when_to_use: API protection, resource allocation, cost control, DDoS mitigation
 when_not_to_use: Internal trusted services, batch processing, event streams
+related_laws:
+  - law1-failure
+  - law3-emergence
+  - law4-tradeoffs
+  - law7-economics
+related_pillars:
+  - work
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-01-21
 ---
@@ -2322,6 +2331,23 @@ def calculate_rate_limiting_value(metrics: Dict) -> Dict:
 - **[Bulkhead](bulkhead.md)**: Isolate resources to prevent cascading failures
 - **[Retry & Backoff](retry-backoff.md)**: Handle rate limit responses gracefully
 - **[Load Shedding](load-shedding.md)**: Drop requests when overwhelmed
+
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Prevents overload-induced cascading failures
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/)**: Controls emergent behavior from uncoordinated clients
+- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/)**: Balances fairness vs efficiency in resource allocation
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Manages resource costs and usage quotas
+
+### Foundational Pillars
+Rate Limiting implements:
+
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Controls and distributes workload across time
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Enforces access control policies
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Adapts limits based on system conditions
 
 ---
 

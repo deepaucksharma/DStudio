@@ -635,10 +635,10 @@ graph TB
 ## 🔗 References & Deep Dives
 
 ### Related Patterns
-- [SAGA Pattern](patterns/saga)
-- [Event Sourcing](patterns/event-sourcing)
+- [SAGA Pattern](../patterns/saga.md)
+- [Event Sourcing](../patterns/event-sourcing.md)
 - Idempotent Receiver (Coming Soon)
-- [Circuit Breaker](patterns/circuit-breaker)
+- [Circuit Breaker](../patterns/circuit-breaker.md)
 
 ### Technical Resources
 - [Distributed Transactions at Scale](https://www.paypal-engineering.com/distributed-transactions)
@@ -653,34 +653,34 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ](part1-axioms/law1-failure/index)** - SAGA compensations handle partial failures in distributed transactions
-- **[Law 2: Asynchronous Reality ](part1-axioms/law2-asynchrony/index)** - 234ms average latency balances fraud checks with user experience
-- **[Law 3: Emergence ](part1-axioms/law3-emergence/index)** - Optimistic locking prevents double-spending without blocking
-- **[Law 4: Trade-offs ](part1-axioms/law4-tradeoffs/index)** - Cell architecture and event-driven choreography balance multiple trade-offs
-- **[Law 5: Epistemology ](part1-axioms/law5-epistemology/index)** - Distributed tracing tracks payments across 20+ services
-- **[Law 6: Human-API ](part1-axioms/law6-human-api/index)** - Clear error messages and status updates reduce support calls
-- **[Law 7: Economics ](part1-axioms/law7-economics)** - Processing costs optimized through batching and routing
+- **[Law 1: Failure ](../part1-axioms/law1-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ](../part1-axioms/law2-asynchrony/index.md)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergence ](../part1-axioms/law3-emergence/index.md)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Trade-offs ](../part1-axioms/law4-tradeoffs/index.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Epistemology ](../part1-axioms/law5-epistemology/index.md)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Human-API ](../part1-axioms/law6-human-api/index.md)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economics ](../part1-axioms/law7-economics/index.md)** - Processing costs optimized through batching and routing
 
-### 🏛 Related Patterns (Part III/index)
-- **[SAGA Pattern](patterns/saga)** - Orchestrates distributed transactions with compensation logic
-- **[Event Sourcing](patterns/event-sourcing)** - Immutable event log provides perfect audit trail
+### 🏛 Related Patterns
+- **[SAGA Pattern](../patterns/saga.md)** - Orchestrates distributed transactions with compensation logic
+- **[Event Sourcing](../patterns/event-sourcing.md)** - Immutable event log provides perfect audit trail
 - **Idempotent Receiver (Coming Soon)** - Prevents duplicate payments at every layer
-- **[Circuit Breaker](patterns/circuit-breaker)** - Protects against cascading failures to bank networks
-- **[Outbox Pattern](patterns/outbox)** - Ensures reliable event publishing with database transactions
-- **[Bulkhead](patterns/bulkhead)** - Isolates payment types and regions for fault containment
-- **[Retry & Backoff](patterns/retry-backoff)** - Handles transient failures in external integrations
+- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects against cascading failures to bank networks
+- **[Outbox Pattern](../patterns/outbox.md)** - Ensures reliable event publishing with database transactions
+- **[Bulkhead](../patterns/bulkhead.md)** - Isolates payment types and regions for fault containment
+- **[Retry & Backoff](../patterns/retry-backoff.md)** - Handles transient failures in external integrations
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Chooses AP with eventual consistency through compensations
-- **[Little's Law](quantitative/littles-law)** - Queue depth = arrival rate × processing time for fraud checks
-- **[Queueing Theory](quantitative/queueing-models)** - M/M/c model for payment processor pool sizing
-- **[Two-Phase Commit](quantitative/consistency-models)** - Rejected due to availability and latency constraints
+- **[Little's Law](../quantitative/littles-law.md)** - Queue depth = arrival rate × processing time for fraud checks
+- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for payment processor pool sizing
+- **[Two-Phase Commit](../quantitative/consistency-models.md)** - Rejected due to availability and latency constraints
 
 ### 👥 Human Factors Considerations
-- **[Incident Response](human-factors/incident-response)** - Payment failures require immediate response procedures
-- **[On-Call Culture](human-factors/oncall-culture)** - 24/7 global payments need follow-the-sun support
-- **[Post-Mortem Culture](human-factors/blameless-postmortems)** - Every payment failure analyzed for systemic improvements
-- **[Security Considerations](reference/security)** - PCI compliance and fraud prevention are paramount
+- **[Incident Response](../human-factors/incident-response.md)** - Payment failures require immediate response procedures
+- **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 global payments need follow-the-sun support
+- **[Post-Mortem Culture](../human-factors/blameless-postmortems.md)** - Every payment failure analyzed for systemic improvements
+- **[Security Considerations](../reference/security.md)** - PCI compliance and fraud prevention are paramount
 
 ### Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Similar high-availability requirements for financial data
