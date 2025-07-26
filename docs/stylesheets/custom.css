@@ -133,20 +133,6 @@
   transform: translateY(0);
 }
 
-/* Mobile-specific progress bar adjustments */
-@media (max-width: 768px) {
-  .reading-progress {
-    height: 3px;
-  }
-  
-  .reading-progress:hover {
-    height: 4px;
-  }
-  
-  .reading-progress::after {
-    display: none; /* Hide percentage on mobile */
-  }
-}
 
 /* === Search Optimization === */
 
@@ -240,12 +226,6 @@
 
 /* Mobile optimizations - removed custom nav styling */
 
-/* Tablet optimizations */
-@media screen and (min-width: 60em) and (max-width: 76.1875em) {
-  .md-content {
-    margin-right: 0;
-  }
-}
 
 /* === Accessibility Enhancements === */
 

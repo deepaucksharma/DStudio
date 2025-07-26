@@ -8,6 +8,16 @@ reading_time: 35 min
 prerequisites: 
 when_to_use: Cross-service transactions, workflow orchestration, distributed business processes
 when_not_to_use: Simple local transactions, strongly consistent requirements, simple CRUD operations
+related_laws:
+  - law2-asynchrony
+  - law3-emergence
+  - law4-tradeoffs
+  - law5-epistemology
+related_pillars:
+  - state
+  - truth
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-07-21
 ---

@@ -8,6 +8,15 @@ reading_time: 30 min
 prerequisites: [distributed-systems, networking, failure-detection]
 when_to_use: Node health monitoring, failure detection, membership protocols, leader election, service discovery
 when_not_to_use: Single-node systems, synchronous request-response only, stateless ephemeral services
+related_laws:
+  - law1-failure
+  - law2-asynchrony
+  - law5-epistemology
+  - law6-human-api
+related_pillars:
+  - truth
+  - control
+  - intelligence
 status: complete
 last_updated: 2025-07-26
 tags: [failure-detection, liveness, monitoring, distributed-systems, consensus]
@@ -875,6 +884,33 @@ stateDiagram-v2
 3. **False positives hurt** - Better to be slightly slow detecting failures than to incorrectly mark nodes as failed
 4. **Network awareness matters** - Adjust parameters based on network conditions
 5. **Combine with other patterns** - Heartbeats work best with health checks, circuit breakers, and leader election
+
+---
+
+## Related Patterns
+
+- **[Health Check](failover.md)**: Complement heartbeats with detailed health status
+- **[Leader Election](leader-election.md)**: Use heartbeats to detect leader failures
+- **[Gossip Protocol](consensus.md)**: Alternative failure detection approach
+- **[Circuit Breaker](circuit-breaker.md)**: React to heartbeat failures
+- **[Service Discovery](service-discovery.md)**: Register services based on heartbeats
+
+## Related Laws & Pillars
+
+### Fundamental Laws
+This pattern directly addresses:
+
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Detects node failures to prevent cascade effects
+- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/)**: Handles network delays and timeouts in failure detection
+- **[Law 5: Distributed Knowledge 🧩](../part1-axioms/law5-epistemology/)**: Manages partial knowledge about node liveness
+- **[Law 6: Cognitive Load 🧠](../part1-axioms/law6-human-api/)**: Provides simple alive/dead abstraction for operators
+
+### Foundational Pillars
+Heartbeat implements:
+
+- **[Pillar 3: Distribution of Truth 🔍](../part2-pillars/truth/)**: Establishes truth about node liveness across the system
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Enables decentralized failure detection
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Adaptive timeout and interval adjustments
 
 ---
 

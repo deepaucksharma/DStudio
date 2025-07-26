@@ -17,7 +17,7 @@ theme:
   language: en
   
   features:
-    # Navigation
+    # Navigation - Optimized for mobile
     - navigation.instant
     - navigation.instant.prefetch
     - navigation.instant.progress
@@ -29,26 +29,25 @@ theme:
     - navigation.path
     - navigation.prune        # Remove inactive sections from sidebar
     - navigation.indexes
-    - navigation.top          # Back to top button
-    - navigation.footer       # Previous/Next navigation
+    - navigation.top          # Back to top button (mobile-friendly)
+    - navigation.footer       # Previous/Next navigation (mobile swipe-friendly)
     
-    
-    # Search
+    # Search - Mobile optimized
     - search.suggest
     - search.highlight
     - search.share
     
-    # Content
-    - content.code.copy
+    # Content - Touch-friendly
+    - content.code.copy       # Touch-friendly copy buttons
     - content.code.annotate
     - content.code.select
     - content.action.edit
     - content.action.view
-    - content.tooltips        # Better tooltips
-    - content.tabs.link       # Link content tabs
+    - content.tooltips        # Touch-aware tooltips
+    - content.tabs.link       # Touch-friendly tabs
     
-    # Header
-    - header.autohide         # Hide header on scroll
+    # Header - Mobile optimization
+    - header.autohide         # Auto-hide header on scroll (saves mobile space)
     
     # Announcement bar
     - announce.dismiss
@@ -204,9 +203,6 @@ extra_css:
   - stylesheets/content-limits.css  # Minimal content overflow prevention
   - stylesheets/hide-toc.css  # Hide right sidebar and enhance navigation
   - stylesheets/calculator.css  # Consistent calculator styling
-  - stylesheets/mobile-enhancements.css  # Comprehensive mobile optimizations
-  # Optional: Advanced mobile features (uncomment to enable)
-  # - stylesheets/mobile-advanced.css  # Premium mobile features
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:
@@ -223,8 +219,6 @@ extra_javascript:
   - javascripts/custom.js
   - javascripts/navigation.js
   - javascripts/keyboard-shortcuts.js
-  # Optional: Interactive mobile features (uncomment to enable)
-  # - javascripts/mobile-enhancements.js  # Advanced mobile interactions
 
 # Extra Configuration
 extra:
