@@ -10,10 +10,42 @@ when_to_use: When you need crash recovery, transaction support, or durable write
 when_not_to_use: For read-only systems or when durability isn't critical
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: specialized-use
+introduced: 1992-01
+current_relevance: stable
+trade_offs:
+  pros:
+    - "Guarantees durability and crash recovery"
+    - "Enables transaction rollback"
+    - "Sequential I/O performance"
+  cons:
+    - "Low-level implementation detail"
+    - "Write amplification overhead"
+    - "Complex recovery procedures"
+best_for: "Database implementers, understanding ACID properties"
+implementations:
+  - company: PostgreSQL
+    scale: "WAL-based replication and recovery"
+  - company: MySQL/InnoDB
+    scale: "Redo logs for crash recovery"
+  - company: etcd
+    scale: "WAL for distributed consensus"
 ---
 
 
 # Write-Ahead Log (WAL) Pattern
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Database internals pattern**
+    
+    WAL is fundamental to database durability but is typically implemented by database engines, not application developers. Understanding WAL helps when tuning databases or building storage systems.
+    
+    **Best suited for:**
+    - Building databases or storage engines
+    - Understanding database durability
+    - Debugging database performance
+    - Learning transaction processing
 
 <div class="pattern-type">Data Management Pattern
  Guarantee durability by writing intended changes to a sequential log before modifying the actual data, enabling crash recovery and transaction support.

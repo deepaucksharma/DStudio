@@ -10,9 +10,49 @@ when_to_use: When dealing with caching challenges
 when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1960-01
+current_relevance: mainstream
+modern_examples:
+  - company: Facebook
+    implementation: "Memcached at massive scale for social graph caching"
+    scale: "Trillions of cache requests daily, PB of RAM"
+  - company: Netflix
+    implementation: "EVCache for video metadata and personalization"
+    scale: "180M+ subscribers, 30+ cache clusters"
+  - company: Reddit
+    implementation: "Redis caching for front page and comments"
+    scale: "52M+ daily active users, billions of cached items"
+production_checklist:
+  - "Choose appropriate caching layer (CDN, application, database)"
+  - "Implement cache-aside or write-through based on consistency needs"
+  - "Set proper TTLs based on data volatility (seconds to days)"
+  - "Monitor cache hit ratio (target 80%+ for most use cases)"
+  - "Implement cache warming for critical data"
+  - "Handle cache stampede with locks or probabilistic expiry"
+  - "Size cache appropriately (20% of dataset often sufficient)"
+  - "Plan cache invalidation strategy carefully"
+related_laws:
+  - law1-failure
+  - law4-tradeoffs
+  - law7-economics
+related_pillars:
+  - state
+  - work
 ---
 
 # Caching Strategies
+
+!!! success "🏆 Gold Standard Pattern"
+    **Performance Optimization Essential** • Facebook, Netflix, Reddit scale proven
+    
+    Caching is fundamental to achieving web-scale performance. It reduces latency, decreases load on backend systems, and enables cost-effective scaling through strategic data placement.
+    
+    **Key Success Metrics:**
+    - Facebook: Trillions of daily cache requests
+    - Netflix: 30+ cache clusters serving 180M+ users
+    - Reddit: Billions of cached items for instant access
 
 [Home](/) > [Patterns](patterns) > [Data Patterns](patterns/#data-patterns) > Caching Strategies
 

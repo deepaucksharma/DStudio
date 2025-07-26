@@ -10,10 +10,43 @@ when_to_use: When dealing with specialized challenges
 when_not_to_use: When simpler solutions suffice
 status: partial
 last_updated: 2025-01-23
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1990s
+current_relevance: mainstream
+modern_examples:
+  - company: Cloudflare
+    implementation: "Anycast routing directs requests to nearest of 300+ data centers"
+    scale: "45M+ HTTP requests/second routed globally"
+  - company: AWS Application Load Balancer
+    implementation: "Content-based routing for microservices across availability zones"
+    scale: "Trillions of requests routed daily"
+  - company: Netflix
+    implementation: "Zuul gateway routes requests across 1000+ microservices"
+    scale: "100B+ requests/day with intelligent routing"
+production_checklist:
+  - "Define routing rules (path, header, query, method-based)"
+  - "Implement health-aware routing with circuit breakers"
+  - "Configure sticky sessions if needed (with failover)"
+  - "Set up request retry and timeout policies"
+  - "Monitor routing decisions and latency per route"
+  - "Implement A/B testing and canary deployment routing"
+  - "Plan for route priority and fallback strategies"
+  - "Configure rate limiting per route/client"
 ---
 
 
 # Request Routing Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **The Internet's Traffic Controller** • Cloudflare, AWS ALB, Netflix proven
+    
+    Every internet request relies on intelligent routing - from Cloudflare's 45M requests/second across 300+ data centers to Netflix routing 100B daily requests across 1000+ microservices.
+    
+    **Key Success Metrics:**
+    - Cloudflare: 45M+ requests/second routed globally
+    - AWS ALB: Trillions of requests routed daily
+    - Netflix Zuul: 100B+ requests/day across microservices
 
 **Intelligently directing requests to the right service instances**
 

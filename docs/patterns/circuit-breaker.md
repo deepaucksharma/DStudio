@@ -20,9 +20,42 @@ related_pillars:
   - intelligence
 status: complete
 last_updated: 2025-07-20
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2007-03
+current_relevance: mainstream
+modern_examples:
+  - company: Netflix
+    implementation: "Hystrix handles 100B+ requests/day with circuit breaker protection"
+    scale: "100B+ requests/day across thousands of microservices"
+  - company: Amazon
+    implementation: "Circuit breakers protect Prime Day traffic surges and prevent cascade failures"
+    scale: "10x normal load handled gracefully during Prime Day 2018"
+  - company: Uber
+    implementation: "Circuit breakers on all critical paths including payments and dispatch"
+    scale: "20M+ rides/day with 99.99% availability"
+production_checklist:
+  - "Configure failure thresholds based on service SLA (typically 50% error rate)"
+  - "Set appropriate recovery timeout (30-60 seconds for most services)"
+  - "Implement meaningful fallback strategies (cache, default values, queues)"
+  - "Monitor circuit state changes and business impact metrics"
+  - "Test circuit breakers weekly with chaos engineering"
+  - "Use distributed state for multi-instance consistency"
+  - "Add jitter to recovery timeouts to prevent thundering herd"
+  - "Configure different thresholds for different error types"
 ---
 
 # Circuit Breaker Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Industry Champion** • Used by Netflix, Amazon, Uber, Twitter at 100M+ scale
+    
+    This pattern is essential for production systems handling external dependencies. Circuit breakers prevent cascade failures and are proven at internet scale with clear implementation playbooks available.
+    
+    **Key Success Metrics:**
+    - Netflix: 100B+ requests/day protected
+    - Amazon: Survived 10x Prime Day traffic
+    - Uber: 99.99% availability for 20M+ daily rides
 
 [Home](/) > [Patterns](patterns) > [Resilience Patterns](patterns/#resilience-patterns) > Circuit Breaker
 

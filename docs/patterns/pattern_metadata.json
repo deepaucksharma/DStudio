@@ -1,0 +1,338 @@
+{
+  "publish-subscribe_metrics": {
+    "timestamp": "2025-07-26T21:37:23.578770",
+    "metrics": {
+      "github_stars": 713292,
+      "github_repos": 18501,
+      "conference_talks": 30,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 38,
+      "major_adopters": [
+        "Apache Kafka",
+        "Redis",
+        "Google Cloud Pub/Sub"
+      ],
+      "health_score": 67.0,
+      "recommended_tier": "silver"
+    }
+  },
+  "load-shedding_metrics": {
+    "timestamp": "2025-07-26T21:37:26.112803",
+    "metrics": {
+      "github_stars": 75453,
+      "github_repos": 1032,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 35.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "index-new_metrics": {
+    "timestamp": "2025-07-26T21:37:29.167613",
+    "metrics": {
+      "github_stars": 378438,
+      "github_repos": 6790,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 35.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "caching-strategies_metrics": {
+    "timestamp": "2025-07-26T21:37:31.666580",
+    "metrics": {
+      "github_stars": 433464,
+      "github_repos": 171226,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 65,
+      "major_adopters": [
+        "Facebook",
+        "Netflix",
+        "Reddit"
+      ],
+      "health_score": 57.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "geo-distribution_metrics": {
+    "timestamp": "2025-07-26T21:37:35.047436",
+    "metrics": {
+      "github_stars": 3631,
+      "github_repos": 260,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 20.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "multi-region_metrics": {
+    "timestamp": "2025-07-26T21:37:37.637269",
+    "metrics": {
+      "github_stars": 267588,
+      "github_repos": 9741,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 15,
+      "major_adopters": [
+        "Netflix",
+        "Spotify",
+        "Cloudflare"
+      ],
+      "health_score": 54.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "anti-corruption-layer_metrics": {
+    "timestamp": "2025-07-26T21:37:40.209357",
+    "metrics": {
+      "github_stars": 48630,
+      "github_repos": 656,
+      "conference_talks": 20,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 40.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "api-gateway_metrics": {
+    "timestamp": "2025-07-26T21:37:42.281957",
+    "metrics": {
+      "github_stars": 1702971,
+      "github_repos": 168959,
+      "conference_talks": 55,
+      "job_postings": 500,
+      "stack_overflow_questions": 0,
+      "years_in_production": 14,
+      "major_adopters": [
+        "Netflix",
+        "Amazon",
+        "Uber"
+      ],
+      "health_score": 84.0,
+      "recommended_tier": "silver"
+    }
+  },
+  "saga-enhanced_metrics": {
+    "timestamp": "2025-07-26T21:37:44.673139",
+    "metrics": {
+      "github_stars": 8,
+      "github_repos": 10,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 10.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "spatial-indexing_metrics": {
+    "timestamp": "2025-07-26T21:37:46.967811",
+    "metrics": {
+      "github_stars": 283141,
+      "github_repos": 3261,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 35.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "shared-nothing_metrics": {
+    "timestamp": "2025-07-26T21:37:47.600328",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 10.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "graphql-federation_metrics": {
+    "timestamp": "2025-07-26T21:37:48.240649",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 6,
+      "major_adopters": [],
+      "health_score": 18.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "circuit-breaker-native_metrics": {
+    "timestamp": "2025-07-26T21:37:48.873564",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 10.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "sharding_metrics": {
+    "timestamp": "2025-07-26T21:37:49.492576",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 45,
+      "job_postings": 400,
+      "stack_overflow_questions": 0,
+      "years_in_production": 25,
+      "major_adopters": [
+        "Discord",
+        "Pinterest",
+        "Facebook"
+      ],
+      "health_score": 52.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "PATTERN_CLASSIFICATION_RESULTS_metrics": {
+    "timestamp": "2025-07-26T21:37:50.274954",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 10.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "polyglot-persistence_metrics": {
+    "timestamp": "2025-07-26T21:37:50.850174",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 25,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 20.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "hlc_metrics": {
+    "timestamp": "2025-07-26T21:37:51.462737",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 11,
+      "major_adopters": [
+        "CockroachDB",
+        "MongoDB",
+        "YugabyteDB"
+      ],
+      "health_score": 29.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "choreography_metrics": {
+    "timestamp": "2025-07-26T21:37:52.101302",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 20,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 20.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "timeout_metrics": {
+    "timestamp": "2025-07-26T21:37:52.744010",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 20,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 45,
+      "major_adopters": [
+        "Netflix",
+        "Amazon",
+        "Google"
+      ],
+      "health_score": 42.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "kappa-architecture_metrics": {
+    "timestamp": "2025-07-26T21:37:53.385831",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 11,
+      "major_adopters": [],
+      "health_score": 22.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "emergent-leader_metrics": {
+    "timestamp": "2025-07-26T21:37:54.082407",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 10.0,
+      "recommended_tier": "bronze"
+    }
+  },
+  "tile-caching_metrics": {
+    "timestamp": "2025-07-26T21:37:54.712971",
+    "metrics": {
+      "github_stars": 0,
+      "github_repos": 0,
+      "conference_talks": 5,
+      "job_postings": 50,
+      "stack_overflow_questions": 0,
+      "years_in_production": 0,
+      "major_adopters": [],
+      "health_score": 10.0,
+      "recommended_tier": "bronze"
+    }
+  }
+}

@@ -10,9 +10,27 @@ when_to_use: When building lock-free concurrent data structures
 when_not_to_use: When locks are simpler and sufficient
 status: complete
 last_updated: 2025-07-23
+excellence_tier: silver
+pattern_status: use-with-caution
+introduced: 1970s
+current_relevance: niche
+trade_offs:
+  pros:
+    - "Lock-free performance"
+    - "No deadlock possibility"
+    - "Fine-grained concurrency"
+  cons:
+    - "ABA problem complexity"
+    - "Limited to single-word updates"
+    - "Difficult to debug"
+best_for: "High-performance concurrent data structures, atomic counters, lock-free algorithms where contention is moderate"
 ---
 # CAS (Compare-and-Swap)
 
+!!! warning "🥈 Silver Tier Pattern"
+    **Lock-Free Power with Complexity** • Use for specific performance needs
+    
+    CAS enables lock-free programming but comes with significant complexity. The ABA problem and debugging challenges mean locks are often the better choice unless you have specific performance requirements.
 
 ## Overview
 

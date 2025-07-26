@@ -10,8 +10,43 @@ when_to_use: Microservices architectures, mobile backends, third-party API acces
 when_not_to_use: Monolithic applications, simple architectures, low-latency requirements
 status: complete
 last_updated: 2025-07-21
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2011-10
+current_relevance: mainstream
+modern_examples:
+  - company: Netflix
+    implementation: "Zuul gateway handles 50B+ requests daily across edge devices"
+    scale: "50B+ API requests/day, 130M+ subscribers"
+  - company: Amazon
+    implementation: "AWS API Gateway manages APIs for Prime Video, Alexa, and retail"
+    scale: "Trillions of API calls annually"
+  - company: Uber
+    implementation: "Edge gateway routes requests across 3000+ microservices"
+    scale: "18M+ trips daily across 10,000+ cities"
+production_checklist:
+  - "Implement request/response logging with correlation IDs"
+  - "Configure rate limiting per client (typical: 1000 req/min)"
+  - "Enable circuit breakers for backend services (50% error threshold)"
+  - "Set up authentication/authorization (OAuth2/JWT)"
+  - "Configure caching for frequently accessed data (TTL: 5-60s)"
+  - "Implement request/response transformation as needed"
+  - "Monitor latency percentiles (p50, p95, p99)"
+  - "Configure timeouts for each backend service (typically 5-30s)"
+  - "Set up health checks for all backend services"
+  - "Implement gradual rollout for configuration changes"
 ---
 # API Gateway Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Microservices Entry Point** • Netflix, Amazon, Uber proven
+    
+    The essential pattern for managing microservices at scale. API Gateway provides the single entry point that handles routing, authentication, rate limiting, and protocol translation - proven to handle billions of requests daily.
+    
+    **Key Success Metrics:**
+    - Netflix Zuul: 50B+ requests/day with sub-100ms p99 latency
+    - AWS API Gateway: Trillions of calls annually with 99.95% availability
+    - Uber Edge Gateway: Routes to 3000+ services handling 18M+ daily trips
 
 [Home](/) > [Patterns](patterns) > [Core Patterns](patterns/#core-patterns) > API Gateway
 

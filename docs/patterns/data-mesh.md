@@ -11,9 +11,41 @@ when_not_to_use: Small organizations, centralized data teams sufficient, limited
 status: complete
 last_updated: 2025-07-26
 tags: [data-architecture, domain-driven, decentralization, data-as-product, organizational-patterns]
+excellence_tier: silver
+pattern_status: emerging
+introduced: 2019-05
+current_relevance: growing
+trade_offs:
+  pros:
+    - "Scales data ownership with organization growth"
+    - "Improves data quality through domain expertise"
+    - "Enables faster innovation and experimentation"
+  cons:
+    - "Requires significant organizational change"
+    - "Needs strong data platform capabilities"
+    - "Limited proven implementations at scale"
+best_for: "Large enterprises with strong domain boundaries and mature data practices"
+implementations:
+  - company: Zalando
+    scale: "Multiple domains, 15K+ employees"
+  - company: JPMorgan Chase
+    scale: "Pilot implementations in specific domains"
+  - company: Intuit
+    scale: "Gradual migration from centralized model"
 ---
 
 # Data Mesh
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Emerging paradigm with organizational complexity**
+    
+    Data Mesh represents a paradigm shift in data architecture but requires significant organizational maturity and platform investment. Still evolving with limited large-scale proven implementations.
+    
+    **Best suited for:**
+    - Large enterprises with autonomous teams
+    - Organizations hitting centralized data bottlenecks
+    - Companies with strong domain boundaries
+    - Teams ready for organizational transformation
 
 [Home](/) > [Patterns](patterns) > [Core Patterns](patterns/#core-patterns) > Data Mesh
 

@@ -19,9 +19,42 @@ related_pillars:
   - intelligence
 status: complete
 last_updated: 2025-01-21
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1990-01
+current_relevance: mainstream
+modern_examples:
+  - company: Stripe
+    implementation: "Sophisticated rate limiting for payment API protection"
+    scale: "Billions of API requests with fair queuing"
+  - company: Twitter
+    implementation: "Rate limiting for API endpoints and tweet creation"
+    scale: "500M+ tweets/day, API rate limits per endpoint"
+  - company: GitHub
+    implementation: "GraphQL and REST API rate limiting with cost-based quotas"
+    scale: "100M+ developers, preventing API abuse"
+production_checklist:
+  - "Choose algorithm based on use case (token bucket, sliding window)"
+  - "Implement multiple rate limit tiers (per-user, per-IP, global)"
+  - "Return proper headers (X-RateLimit-Limit, X-RateLimit-Remaining)"
+  - "Use distributed rate limiting for multi-instance deployments"
+  - "Configure graceful degradation for rate limit breaches"
+  - "Monitor rate limit metrics and adjust thresholds"
+  - "Implement retry-after headers for client guidance"
+  - "Consider cost-based quotas for expensive operations"
 ---
 
 # Rate Limiting Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **API Protection Essential** • Stripe, Twitter, GitHub proven at scale
+    
+    Rate limiting is critical for protecting APIs from abuse, ensuring fair resource usage, and maintaining system stability. Every public API requires rate limiting for production readiness.
+    
+    **Key Success Metrics:**
+    - Stripe: Billions of payment API requests protected
+    - Twitter: 500M+ daily tweets rate limited
+    - GitHub: 100M+ developers served fairly
 
 **Control request flow to protect systems and ensure fair resource allocation**
 

@@ -19,9 +19,31 @@ related_pillars:
   - intelligence
 status: complete
 last_updated: 2025-01-21
+excellence_tier: silver
+status: use-with-caution
+trade_offs:
+  pros: 
+    - "Excellent fault isolation between components"
+    - "Prevents cascading failures effectively"
+    - "Enables independent scaling of resources"
+  cons:
+    - "Increased complexity compared to simpler patterns"
+    - "Resource overhead from isolation boundaries"
+    - "Requires careful capacity planning per bulkhead"
+best_for: "Multi-tenant systems, services with mixed criticality levels, protecting critical resources from less important workloads"
 ---
 
 # Bulkhead Pattern
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Good isolation pattern with complexity trade-offs**
+    
+    Bulkhead provides excellent fault isolation but adds complexity compared to simpler resilience patterns. Consider using circuit breakers or rate limiting first unless you specifically need resource pool isolation.
+    
+    **Best suited for:**
+    - Multi-tenant systems requiring strict isolation
+    - Mixed criticality workloads
+    - Services where partial failure is acceptable
 
 **Isolate system resources to prevent cascading failures**
 

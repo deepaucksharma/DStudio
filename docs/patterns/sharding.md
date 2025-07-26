@@ -11,9 +11,42 @@ when_not_to_use: Complex cross-shard queries needed, strong consistency requirem
 status: complete
 last_updated: 2025-07-21
 tags: [scalability, partitioning, horizontal-scaling, data-distribution, multi-tenancy, sharding-strategies]
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2000-01
+current_relevance: mainstream
+modern_examples:
+  - company: Discord
+    implementation: "MongoDB sharding for messages and guild data"
+    scale: "150M+ users, 1T+ messages across thousands of shards"
+  - company: Pinterest
+    implementation: "MySQL sharding for user data and pins"
+    scale: "450M+ users, 240B+ pins saved"
+  - company: Facebook
+    implementation: "Custom sharding across thousands of MySQL instances"
+    scale: "3B+ users, exabytes of data"
+production_checklist:
+  - "Choose sharding key based on access patterns (user_id, tenant_id)"
+  - "Implement shard routing layer (Vitess, ProxySQL, custom)"
+  - "Plan for resharding from day one (consistent hashing helps)"
+  - "Monitor shard distribution and rebalance hot shards"
+  - "Handle cross-shard queries carefully (avoid when possible)"
+  - "Implement proper backup strategy per shard"
+  - "Use shard replicas for high availability"
+  - "Test shard failure scenarios and recovery"
 ---
 
 # Sharding (Data Partitioning)
+
+!!! success "🏆 Gold Standard Pattern"
+    **Horizontal Scaling Foundation** • Discord, Pinterest, Facebook at planet scale
+    
+    Sharding is the fundamental pattern for scaling databases beyond single-machine limits. It enables linear scaling by distributing data across multiple machines based on a partition key.
+    
+    **Key Success Metrics:**
+    - Discord: 1T+ messages across thousands of shards
+    - Pinterest: 240B+ pins distributed globally
+    - Facebook: 3B+ users, exabytes of data
 
 [Home](/) > [Patterns](patterns) > [Data Patterns](patterns/#data-patterns) > Sharding
 

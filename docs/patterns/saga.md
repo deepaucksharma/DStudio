@@ -20,8 +20,41 @@ related_pillars:
   - intelligence
 status: complete
 last_updated: 2025-07-21
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1987-12
+current_relevance: mainstream
+modern_examples:
+  - company: Uber
+    implementation: "Saga orchestrates ride booking across payment, dispatch, and driver services"
+    scale: "20M+ distributed transactions daily"
+  - company: Airbnb
+    implementation: "Booking saga coordinates inventory, payment, and notification services"
+    scale: "2M+ bookings per day across global inventory"
+  - company: Booking.com
+    implementation: "Complex travel booking sagas with multi-vendor coordination"
+    scale: "1.5M+ room nights booked daily"
+production_checklist:
+  - "Choose orchestration vs choreography based on complexity"
+  - "Design compensating transactions for every step"
+  - "Implement idempotent operations to handle retries"
+  - "Use state machines to track saga progress"
+  - "Monitor saga completion rates and failure patterns"
+  - "Set timeouts for each saga step (typically 30s-5min)"
+  - "Store saga state durably (database or event store)"
+  - "Test failure scenarios and compensation flows"
 ---
 # Saga Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Distributed Transaction Management** • Uber, Airbnb, Booking.com proven
+    
+    Saga pattern is the de facto solution for managing distributed transactions across microservices. It enables business processes to span multiple services while maintaining consistency through compensations.
+    
+    **Key Success Metrics:**
+    - Uber: 20M+ daily distributed transactions
+    - Airbnb: 2M+ bookings coordinated daily
+    - Booking.com: 1.5M+ room nights processed
 
 [Home](/) > [Patterns](patterns) > [Core Patterns](patterns/#core-patterns) > Saga
 

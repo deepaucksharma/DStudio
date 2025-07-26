@@ -10,9 +10,42 @@ when_to_use: Audit requirements, complex domains, time-travel debugging, event-d
 when_not_to_use: Simple CRUD operations, storage constraints, real-time aggregations
 status: complete
 last_updated: 2025-07-25
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2005-03
+current_relevance: mainstream
+modern_examples:
+  - company: PayPal
+    implementation: "Event sourcing for payment transactions and fraud detection"
+    scale: "350M+ active accounts, complete transaction history"
+  - company: Walmart
+    implementation: "Order management system with full audit trail"
+    scale: "100M+ orders/day with complete event history"
+  - company: Banking Systems
+    implementation: "Financial transactions stored as immutable events"
+    scale: "Trillions in transactions with regulatory compliance"
+production_checklist:
+  - "Design events as immutable facts (OrderPlaced, PaymentReceived)"
+  - "Implement event versioning strategy from day one"
+  - "Use snapshots for faster state reconstruction (every 100-1000 events)"
+  - "Plan storage strategy for long-term event retention"
+  - "Implement GDPR compliance with event anonymization"
+  - "Use event stores like EventStore, Kafka, or Axon"
+  - "Monitor event processing lag and replay performance"
+  - "Test event replay and projection rebuilding regularly"
 ---
 
 # Event Sourcing
+
+!!! success "🏆 Gold Standard Pattern"
+    **Audit Trail & Time Travel Champion** • PayPal, Walmart, Financial Systems
+    
+    Event sourcing is critical for systems requiring complete audit trails, regulatory compliance, and the ability to reconstruct state at any point in time. Essential for financial and e-commerce systems.
+    
+    **Key Success Metrics:**
+    - PayPal: 350M+ accounts with full history
+    - Walmart: 100M+ daily orders tracked
+    - Banking: Trillions in compliant transactions
 
 [Home](/) > [Patterns](patterns) > [Core Patterns](patterns/#core-patterns) > Event Sourcing
 

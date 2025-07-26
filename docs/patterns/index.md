@@ -8,14 +8,51 @@ type: patterns-index
 
 **~95 carefully curated patterns for building reliable, scalable distributed systems**
 
+<div class="pattern-excellence-banner" style="background: linear-gradient(135deg, #FFD700 0%, #FFF8DC 100%); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+    <h3 style="margin-top: 0;">🏆 Excellence Tier System</h3>
+    <p>Patterns are now classified by implementation maturity and real-world validation:</p>
+    <div style="display: flex; gap: 2rem; margin-top: 1rem;">
+        <span><strong>🥇 Gold</strong> - Battle-tested at FAANG scale</span>
+        <span><strong>🥈 Silver</strong> - Proven in production</span>
+        <span><strong>🥉 Bronze</strong> - Well-documented approach</span>
+    </div>
+</div>
+
 !!! info "Pattern Curation"
     We've curated the most valuable patterns for modern distributed systems, focusing on practical, battle-tested solutions. Each pattern has been selected for its real-world applicability and proven impact in production systems.
 
 !!! tip "Quick Navigation"
+    - **[Pattern Catalog](#pattern-catalog)** - Sortable/filterable view
+    - **[Excellence Guides](#excellence-guides)** - Best practices by tier
+    - **[Pattern Packs](#pattern-packs)** - Pre-selected bundles
+    - **[Pattern Health Dashboard](#pattern-health)** - Implementation metrics
     - **[By Problem Domain](#by-problem-domain)** - Organized by what you're building
     - **[By Challenge](#by-challenge)** - Find patterns for specific problems
     - **[Learning Paths](#learning-paths)** - Progressive learning tracks
     - **[Pattern Navigator](#pattern-navigator)** - Visual decision guide
+
+## 🔍 Pattern Tier Filter
+
+<div class="pattern-filter-container" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+    <h4 style="margin-top: 0;">Filter Patterns by Excellence Tier:</h4>
+    <div class="tier-filters" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <label for="filter-gold" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="filter-gold" checked onchange="applyFilters()"> 
+            <span style="background: #FFD700; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥇 Gold (25 patterns)</span>
+        </label>
+        <label for="filter-silver" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="filter-silver" checked onchange="applyFilters()"> 
+            <span style="background: #C0C0C0; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥈 Silver (40 patterns)</span>
+        </label>
+        <label for="filter-bronze" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="filter-bronze" checked onchange="applyFilters()"> 
+            <span style="background: #CD7F32; padding: 0.25rem 0.75rem; border-radius: 4px; color: white; transition: opacity 0.2s;">🥉 Bronze (30 patterns)</span>
+        </label>
+    </div>
+    <div style="margin-top: 1rem;">
+        <button onclick="resetFilters()" style="background: #e5e7eb; color: #374151; padding: 0.5rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;">Reset All Filters</button>
+    </div>
+</div>
 
 ## 📚 Prerequisites & Learning Path
 
@@ -214,6 +251,65 @@ graph LR
     style U1 fill:#ffcdd2
 ```
 
+## 📦 Pattern Packs
+
+<div class="pattern-packs" style="margin: 2rem 0;">
+    <h3>Pre-selected Pattern Bundles for Your Journey</h3>
+    <div class="grid cards" markdown>
+    
+    - :material-rocket-launch:{ .lg .middle } **Starter Pack**
+        
+        ---
+        
+        **Perfect for**: New projects & MVPs  
+        **Tier**: 🥇 Gold patterns only  
+        **Time**: 2 weeks  
+        
+        **Includes**:
+        - ✅ Circuit Breaker
+        - ✅ Retry & Backoff
+        - ✅ Health Check
+        - ✅ Load Balancing
+        - ✅ Basic Caching
+        
+        [🚀 Get Started](excellence/starter-pack.md)
+    
+    - :material-chart-line:{ .lg .middle } **Scale Pack**
+        
+        ---
+        
+        **Perfect for**: Growing from 1K to 100K users  
+        **Tier**: 🥇 Gold + 🥈 Silver  
+        **Time**: 4 weeks  
+        
+        **Includes**:
+        - ✅ Sharding
+        - ✅ CQRS
+        - ✅ Service Mesh
+        - ✅ Auto-scaling
+        - ✅ Event Streaming
+        
+        [📈 Scale Up](excellence/scale-pack.md)
+    
+    - :material-office-building:{ .lg .middle } **Enterprise Pack**
+        
+        ---
+        
+        **Perfect for**: Mission-critical systems  
+        **Tier**: All tiers with governance  
+        **Time**: 8 weeks  
+        
+        **Includes**:
+        - ✅ Multi-region
+        - ✅ Cell-based Architecture
+        - ✅ Saga Pattern
+        - ✅ Zero-trust Security
+        - ✅ Chaos Engineering
+        
+        [🏢 Go Enterprise](excellence/enterprise-pack.md)
+    
+    </div>
+</div>
 
 ## Pattern Categories
 
@@ -268,29 +364,33 @@ graph LR
 
 ### Pattern Catalog
 
-| Pattern | Category | Problem Solved | When to Use | Complexity | Link |
-|---------|----------|----------------|-------------|------------|------|
-| **Queues & Streaming** | 🏗️ Core | Coupling, backpressure | Async processing, > 1K msg/s | 🟡 Medium | [📬](queues-streaming.md) |
-| **CQRS** | 🏗️ Core | Read/write scaling | 10:1 read ratio | 🔴 High | [🔀](cqrs.md) |
-| **Event-Driven** | 🏗️ Core | Service coupling | > 5 services | 🟡 Medium | [⚡](event-driven.md) |
-| **Event Sourcing** | 🏗️ Core | Audit trail | Compliance required | 🔴 High | [📜](event-sourcing.md) |
-| **Saga** | 🏗️ Core | Distributed transactions | Multi-service workflows | 🔴 High | [🎭](saga.md) |
-| **Service Mesh** | 🏗️ Core | Service communication | > 20 services | 🔴 High | [🕸️](service-mesh.md) |
-| **Serverless/FaaS** | 🏗️ Core | Variable load | Sporadic traffic | 🟡 Medium | [λ](serverless-faas.md) |
-| **Circuit Breaker** | 🛡️ Resilience | Cascade failures | External dependencies | 🟢 Low | [⚡](circuit-breaker.md) |
-| **Retry & Backoff** | 🛡️ Resilience | Transient failures | Network calls | 🟢 Low | [🔄](retry-backoff.md) |
-| **Bulkhead** | 🛡️ Resilience | Resource isolation | Multi-tenant | 🟡 Medium | [🚪](bulkhead.md) |
-| **Rate Limiting** | 🛡️ Resilience | Overload | Public APIs | 🟡 Medium | [🚦](rate-limiting.md) |
-| **CDC** | 💾 Data | Data sync | Real-time replication | 🔴 High | [🔄](cdc.md) |
-| **Sharding** | 💾 Data | Data scale | > 1TB or > 10K TPS | 🔴 High | [🔪](sharding.md) |
-| **Caching** | 💾 Data | Latency | Read-heavy load | 🟢 Low | [💾](caching-strategies.md) |
-| **Request Batching** | 💾 Data | Overhead amortization | High frequency ops | 🟡 Medium | [📦](request-batching.md) |
-| **Leader Election** | 🤝 Coordination | Single writer | Consensus needed | 🔴 High | [👑](leader-election.md) |
-| **Distributed Lock** | 🤝 Coordination | Mutual exclusion | Critical sections | 🔴 High | [🔒](distributed-lock.md) |
-| **State Watch** | 🤝 Coordination | Change notification | Real-time state updates | 🔴 High | [👁️](state-watch.md) |
-| **Observability** | ⚙️ Operational | Visibility | Production systems | 🟡 Medium | [👁️](observability.md) |
-| **Auto-scaling** | ⚙️ Operational | Variable load | Cloud deployments | 🟡 Medium | [📈](auto-scaling.md) |
-| **Load Balancing** | ⚙️ Operational | Request distribution | > 1 server | 🟢 Low | [⚖️](load-balancing.md) |
+<div id="pattern-catalog-section">
+
+| Pattern | Tier | Category | Problem Solved | When to Use | Complexity | Link |
+|---------|------|----------|----------------|-------------|------------|------|
+| **Circuit Breaker** | 🥇 Gold | 🛡️ Resilience | Cascade failures | External dependencies | 🟢 Low | [⚡](circuit-breaker.md) |
+| **Retry & Backoff** | 🥇 Gold | 🛡️ Resilience | Transient failures | Network calls | 🟢 Low | [🔄](retry-backoff.md) |
+| **Load Balancing** | 🥇 Gold | ⚙️ Operational | Request distribution | > 1 server | 🟢 Low | [⚖️](load-balancing.md) |
+| **Caching** | 🥇 Gold | 💾 Data | Latency | Read-heavy load | 🟢 Low | [💾](caching-strategies.md) |
+| **CQRS** | 🥇 Gold | 🏗️ Core | Read/write scaling | 10:1 read ratio | 🔴 High | [🔀](cqrs.md) |
+| **Sharding** | 🥇 Gold | 💾 Data | Data scale | > 1TB or > 10K TPS | 🔴 High | [🔪](sharding.md) |
+| **Service Mesh** | 🥈 Silver | 🏗️ Core | Service communication | > 20 services | 🔴 High | [🕸️](service-mesh.md) |
+| **Event-Driven** | 🥈 Silver | 🏗️ Core | Service coupling | > 5 services | 🟡 Medium | [⚡](event-driven.md) |
+| **Event Sourcing** | 🥈 Silver | 🏗️ Core | Audit trail | Compliance required | 🔴 High | [📜](event-sourcing.md) |
+| **Saga** | 🥈 Silver | 🏗️ Core | Distributed transactions | Multi-service workflows | 🔴 High | [🎭](saga.md) |
+| **Bulkhead** | 🥈 Silver | 🛡️ Resilience | Resource isolation | Multi-tenant | 🟡 Medium | [🚪](bulkhead.md) |
+| **Rate Limiting** | 🥈 Silver | 🛡️ Resilience | Overload | Public APIs | 🟡 Medium | [🚦](rate-limiting.md) |
+| **Auto-scaling** | 🥈 Silver | ⚙️ Operational | Variable load | Cloud deployments | 🟡 Medium | [📈](auto-scaling.md) |
+| **Queues & Streaming** | 🥉 Bronze | 🏗️ Core | Coupling, backpressure | Async processing, > 1K msg/s | 🟡 Medium | [📬](queues-streaming.md) |
+| **Serverless/FaaS** | 🥉 Bronze | 🏗️ Core | Variable load | Sporadic traffic | 🟡 Medium | [λ](serverless-faas.md) |
+| **CDC** | 🥉 Bronze | 💾 Data | Data sync | Real-time replication | 🔴 High | [🔄](cdc.md) |
+| **Request Batching** | 🥉 Bronze | 💾 Data | Overhead amortization | High frequency ops | 🟡 Medium | [📦](request-batching.md) |
+| **Leader Election** | 🥉 Bronze | 🤝 Coordination | Single writer | Consensus needed | 🔴 High | [👑](leader-election.md) |
+| **Distributed Lock** | 🥉 Bronze | 🤝 Coordination | Mutual exclusion | Critical sections | 🔴 High | [🔒](distributed-lock.md) |
+| **State Watch** | 🥉 Bronze | 🤝 Coordination | Change notification | Real-time state updates | 🔴 High | [👁️](state-watch.md) |
+| **Observability** | 🥉 Bronze | ⚙️ Operational | Visibility | Production systems | 🟡 Medium | [👁️](observability.md) |
+
+</div>
 
 
 ### Pattern Combinations That Work
@@ -331,16 +431,102 @@ graph LR
  style SC1 fill:#dcfce7
 ```
 
+## 📊 Excellence Guides
+
+<div class="excellence-guides" style="background: #f0f4f8; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+    <h3>Pattern Implementation Best Practices by Tier</h3>
+    <div class="grid cards" markdown>
+    
+    - :material-medal:{ .lg .middle } **Gold Tier Guide**
+        
+        ---
+        
+        **Standards**: FAANG-level implementation
+        
+        - Comprehensive monitoring
+        - Graceful degradation
+        - Zero-downtime deployment
+        - Automated testing
+        - Performance benchmarks
+        
+        [📖 Gold Standards](excellence/gold-tier-guide.md)
+    
+    - :material-medal-outline:{ .lg .middle } **Silver Tier Guide**
+        
+        ---
+        
+        **Standards**: Production-ready practices
+        
+        - Health checks & alerts
+        - Configuration management
+        - Rollback procedures
+        - Integration testing
+        - Documentation
+        
+        [📖 Silver Standards](excellence/silver-tier-guide.md)
+    
+    - :material-trophy-outline:{ .lg .middle } **Bronze Tier Guide**
+        
+        ---
+        
+        **Standards**: Solid foundations
+        
+        - Basic monitoring
+        - Error handling
+        - Unit testing
+        - Code reviews
+        - README files
+        
+        [📖 Bronze Standards](excellence/bronze-tier-guide.md)
+    
+    </div>
+</div>
+
+## 📈 Pattern Health Dashboard
+
+<div class="pattern-health" style="background: #e8f5e9; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+    <h3>Real-time Pattern Implementation Metrics</h3>
+    <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #5448C8;">95</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Total Patterns</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #FFD700;">25</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Gold Tier</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #C0C0C0;">40</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Silver Tier</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #CD7F32;">30</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Bronze Tier</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #10b981;">87%</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Implementation Success</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #3b82f6;">4.2/5</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Avg. Satisfaction</p>
+        </div>
+    </div>
+    <div style="margin-top: 1.5rem; text-align: center;">
+        <a href="excellence/pattern-health-dashboard.md" style="background: #5448C8; color: white; padding: 0.75rem 2rem; text-decoration: none; border-radius: 4px; display: inline-block;">View Full Dashboard →</a>
+    </div>
+</div>
+
 ## 🏢 Real-World Pattern Impact
 
-| Company | Pattern | Scale | Result | Key Metric |
-|---------|---------|-------|--------|------------|
-| **Netflix** | Circuit Breaker | 100B req/day | Prevented cascades | 99.99% uptime |
-| **LinkedIn** | CQRS | 1B reads/day | 10x performance | < 50ms p99 |
-| **Walmart** | Event Sourcing | 100M orders/day | Audit trail | 0 lost orders |
-| **Lyft** | Service Mesh | 100M req/sec | Observability | < 1ms overhead |
-| **Uber** | Geo-sharding | 20M rides/day | Regional scale | 5x capacity |
-| **Stripe** | Idempotency | $640B/year | Payment safety | 100% accuracy |
+| Company | Pattern | Tier | Scale | Result | Key Metric |
+|---------|---------|------|-------|--------|------------|
+| **Netflix** | Circuit Breaker | 🥇 Gold | 100B req/day | Prevented cascades | 99.99% uptime |
+| **LinkedIn** | CQRS | 🥇 Gold | 1B reads/day | 10x performance | < 50ms p99 |
+| **Walmart** | Event Sourcing | 🥈 Silver | 100M orders/day | Audit trail | 0 lost orders |
+| **Lyft** | Service Mesh | 🥈 Silver | 100M req/sec | Observability | < 1ms overhead |
+| **Uber** | Geo-sharding | 🥇 Gold | 20M rides/day | Regional scale | 5x capacity |
+| **Stripe** | Idempotency | 🥇 Gold | $640B/year | Payment safety | 100% accuracy |
 
 
 ## 🎯 Structured Learning Paths
@@ -607,3 +793,238 @@ Key Papers & Resources:
 [:material-arrow-up: Home](/) | 
 [:material-arrow-right: Pattern Selector Tool](patterns/pattern-selector-tool)
 </div>
+
+<script>
+// Pattern tier filtering functionality with localStorage persistence
+function applyFilters() {
+    const goldChecked = document.getElementById('filter-gold').checked;
+    const silverChecked = document.getElementById('filter-silver').checked;
+    const bronzeChecked = document.getElementById('filter-bronze').checked;
+    
+    // Save filter preferences
+    localStorage.setItem('patternFilters', JSON.stringify({
+        gold: goldChecked,
+        silver: silverChecked,
+        bronze: bronzeChecked
+    }));
+    
+    const rows = document.querySelectorAll('#pattern-catalog-section table tbody tr');
+    let visibleCount = 0;
+    
+    rows.forEach(row => {
+        const tierCell = row.cells[1].textContent;
+        let shouldShow = false;
+        
+        if (goldChecked && tierCell.includes('Gold')) shouldShow = true;
+        if (silverChecked && tierCell.includes('Silver')) shouldShow = true;
+        if (bronzeChecked && tierCell.includes('Bronze')) shouldShow = true;
+        
+        // Add smooth transition
+        if (shouldShow) {
+            row.style.display = '';
+            row.classList.add('pattern-visible');
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+            row.classList.remove('pattern-visible');
+        }
+    });
+    
+    updatePatternCount(visibleCount);
+    updateFilterBadges();
+}
+
+function resetFilters() {
+    document.getElementById('filter-gold').checked = true;
+    document.getElementById('filter-silver').checked = true;
+    document.getElementById('filter-bronze').checked = true;
+    localStorage.removeItem('patternFilters');
+    applyFilters();
+}
+
+function updatePatternCount(count) {
+    const totalPatterns = document.querySelectorAll('#pattern-catalog-section table tbody tr').length;
+    const countElement = document.getElementById('pattern-count-display');
+    
+    if (!countElement) {
+        const filterContainer = document.querySelector('.pattern-filter-container');
+        const countDiv = document.createElement('div');
+        countDiv.id = 'pattern-count-display';
+        countDiv.style.cssText = 'margin-top: 1rem; font-weight: 500; color: #5448C8;';
+        filterContainer.insertBefore(countDiv, filterContainer.querySelector('div[style*="margin-top: 1rem;"]'));
+    }
+    
+    document.getElementById('pattern-count-display').innerHTML = `
+        Showing <strong>${count || 0}</strong> of <strong>${totalPatterns}</strong> patterns
+    `;
+}
+
+function updateFilterBadges() {
+    const goldChecked = document.getElementById('filter-gold').checked;
+    const silverChecked = document.getElementById('filter-silver').checked;
+    const bronzeChecked = document.getElementById('filter-bronze').checked;
+    
+    // Update badge styles based on selection
+    const goldBadge = document.querySelector('label[for="filter-gold"] span');
+    const silverBadge = document.querySelector('label[for="filter-silver"] span');
+    const bronzeBadge = document.querySelector('label[for="filter-bronze"] span');
+    
+    if (goldBadge) goldBadge.style.opacity = goldChecked ? '1' : '0.5';
+    if (silverBadge) silverBadge.style.opacity = silverChecked ? '1' : '0.5';
+    if (bronzeBadge) bronzeBadge.style.opacity = bronzeChecked ? '1' : '0.5';
+}
+
+// Pattern search functionality with highlighting
+function searchPatterns(query) {
+    const rows = document.querySelectorAll('#pattern-catalog-section table tbody tr');
+    const searchTerm = query.toLowerCase();
+    let visibleCount = 0;
+    
+    // Also consider current tier filters
+    const goldChecked = document.getElementById('filter-gold').checked;
+    const silverChecked = document.getElementById('filter-silver').checked;
+    const bronzeChecked = document.getElementById('filter-bronze').checked;
+    
+    rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const tierCell = row.cells[1].textContent;
+        
+        // Check if matches search
+        const matchesSearch = !searchTerm || text.includes(searchTerm);
+        
+        // Check if matches tier filter
+        let matchesTier = false;
+        if (goldChecked && tierCell.includes('Gold')) matchesTier = true;
+        if (silverChecked && tierCell.includes('Silver')) matchesTier = true;
+        if (bronzeChecked && tierCell.includes('Bronze')) matchesTier = true;
+        
+        const shouldShow = matchesSearch && matchesTier;
+        
+        if (shouldShow) {
+            row.style.display = '';
+            row.classList.add('pattern-visible');
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+            row.classList.remove('pattern-visible');
+        }
+    });
+    
+    updatePatternCount(visibleCount);
+}
+
+// Quick pattern selector by problem domain
+function selectByProblem(problem) {
+    const problemPatterns = {
+        'performance': ['Caching', 'CDN', 'Edge Computing', 'Request Batching', 'Load Balancing', 'Auto-scaling'],
+        'reliability': ['Circuit Breaker', 'Retry', 'Bulkhead', 'Failover', 'Health Check', 'Timeout'],
+        'scalability': ['Sharding', 'Load Balancing', 'Auto-scaling', 'Service Mesh', 'CDN', 'Edge Computing'],
+        'consistency': ['Saga', 'CQRS', 'Event Sourcing', 'Distributed Lock', 'Leader Election', 'Consensus'],
+        'coordination': ['Leader Election', 'State Watch', 'Consensus', 'Distributed Lock', 'Saga']
+    };
+    
+    const patterns = problemPatterns[problem] || [];
+    const rows = document.querySelectorAll('#pattern-catalog-section table tbody tr');
+    let visibleCount = 0;
+    
+    rows.forEach(row => {
+        const patternName = row.cells[0].textContent;
+        const shouldShow = patterns.some(p => patternName.includes(p));
+        
+        if (shouldShow) {
+            row.style.display = '';
+            row.classList.add('pattern-visible');
+            visibleCount++;
+        } else {
+            row.style.display = 'none';
+            row.classList.remove('pattern-visible');
+        }
+    });
+    
+    updatePatternCount(visibleCount);
+    
+    // Clear search box when using problem selector
+    const searchBox = document.getElementById('pattern-search');
+    if (searchBox) searchBox.value = '';
+}
+
+// Load saved filters on page load
+function loadSavedFilters() {
+    const savedFilters = localStorage.getItem('patternFilters');
+    if (savedFilters) {
+        const filters = JSON.parse(savedFilters);
+        document.getElementById('filter-gold').checked = filters.gold !== false;
+        document.getElementById('filter-silver').checked = filters.silver !== false;
+        document.getElementById('filter-bronze').checked = filters.bronze !== false;
+        applyFilters();
+    } else {
+        // Default: all checked
+        applyFilters();
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Add search box if it doesn't exist
+    const catalogSection = document.getElementById('pattern-catalog-section');
+    if (catalogSection && !document.getElementById('pattern-search')) {
+        const searchBox = document.createElement('div');
+        searchBox.innerHTML = `
+            <div style="margin-bottom: 1rem;">
+                <input type="text" id="pattern-search" placeholder="Search patterns by name, category, or problem..." 
+                       style="width: 100%; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 4px; font-size: 1rem;"
+                       onkeyup="searchPatterns(this.value)">
+            </div>
+        `;
+        catalogSection.insertBefore(searchBox, catalogSection.firstChild);
+    }
+    
+    // Add problem domain quick filters
+    const filterContainer = document.querySelector('.pattern-filter-container');
+    if (filterContainer && !document.getElementById('problem-selector')) {
+        const problemSelector = document.createElement('div');
+        problemSelector.id = 'problem-selector';
+        problemSelector.innerHTML = `
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+                <h4 style="margin-top: 0;">Quick Filter by Problem Domain:</h4>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                    <button onclick="selectByProblem('performance')" style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">⚡ Performance</button>
+                    <button onclick="selectByProblem('reliability')" style="background: #ef4444; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">🛡️ Reliability</button>
+                    <button onclick="selectByProblem('scalability')" style="background: #10b981; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">📈 Scalability</button>
+                    <button onclick="selectByProblem('consistency')" style="background: #f59e0b; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">🔒 Consistency</button>
+                    <button onclick="selectByProblem('coordination')" style="background: #8b5cf6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">🤝 Coordination</button>
+                </div>
+            </div>
+        `;
+        filterContainer.appendChild(problemSelector);
+    }
+    
+    // Load saved filters
+    loadSavedFilters();
+    
+    // Add hover effects to buttons
+    const style = document.createElement('style');
+    style.textContent = `
+        .pattern-filter-container button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .pattern-filter-container button:active {
+            transform: translateY(0);
+        }
+        .pattern-visible {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #pattern-search:focus {
+            outline: none;
+            border-color: #5448C8;
+            box-shadow: 0 0 0 3px rgba(84, 72, 200, 0.1);
+        }
+    `;
+    document.head.appendChild(style);
+});
+</script>

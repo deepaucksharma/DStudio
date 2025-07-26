@@ -19,9 +19,38 @@ related_pillars:
   - intelligence
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: use-with-context
+introduced: 1990-01
+current_relevance: stable
+trade_offs:
+  pros:
+    - "Provides automatic recovery from failures"
+    - "Maintains service availability"
+    - "Well-understood and mature pattern"
+  cons:
+    - "Often part of larger HA strategies"
+    - "Split-brain risks without proper fencing"
+    - "Data consistency challenges during switchover"
+best_for: "Database clusters, network equipment, simple active-passive setups"
+modern_alternatives: 
+  - "Multi-region active-active (for global scale)"
+  - "Service mesh with automatic retry (for microservices)"
+  - "Chaos engineering for proactive resilience"
 ---
 
 # Failover Pattern
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Important but basic HA pattern**
+    
+    Failover is a fundamental availability pattern but often insufficient alone for modern distributed systems. Consider it as part of a broader resilience strategy including load balancing, circuit breakers, and multi-region deployments.
+    
+    **Best suited for:**
+    - Traditional database clusters
+    - Network infrastructure
+    - Active-passive configurations
+    - Regional disaster recovery
 
 **Seamless switching to backup systems when primary systems fail**
 

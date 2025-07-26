@@ -10,10 +10,28 @@ when_to_use: Task scheduling, resource allocation, emergency systems, web crawli
 when_not_to_use: Simple FIFO processing, when all messages have equal importance, low-latency requirements
 status: complete
 last_updated: 2025-07-24
+excellence_tier: silver
+pattern_status: use-with-caution
+introduced: 1960s
+current_relevance: essential
+trade_offs:
+  pros: 
+    - "Ensures critical tasks processed first"
+    - "Flexible priority schemes"
+    - "Better resource utilization"
+  cons:
+    - "Risk of low-priority starvation"
+    - "Complex distributed implementation"
+    - "Priority inversion problems"
+best_for: "Emergency systems, job schedulers, web crawlers, resource allocators where importance varies significantly"
 ---
 
 # Priority Queue
 
+!!! warning "🥈 Silver Tier Pattern"
+    **Powerful but Complex** • Use when priority truly matters
+    
+    Priority queues excel at ensuring critical work happens first, but beware of starvation risks and implementation complexity in distributed systems. Consider simpler alternatives like multiple queues by priority level.
 
 ## Overview
 

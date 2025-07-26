@@ -10,9 +10,41 @@ when_to_use: When dealing with communication challenges
 when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
+excellence_tier: silver
+pattern_status: use-with-caution
+introduced: 2019-07
+current_relevance: growing
+trade_offs:
+  pros:
+    - "Single endpoint for multiple services"
+    - "Reduced client complexity"
+    - "Flexible data fetching"
+  cons:
+    - "Performance concerns at scale"
+    - "Complex caching strategies"
+    - "Debugging federated queries is difficult"
+best_for: "API gateways, mobile apps needing flexible data fetching"
+implementations:
+  - company: Netflix
+    scale: "Federation for internal microservices"
+  - company: Airbnb
+    scale: "GraphQL gateway for mobile apps"
+  - company: PayPal
+    scale: "Federated APIs across business units"
 ---
 
 # GraphQL Federation
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Modern API approach with performance considerations**
+    
+    GraphQL Federation elegantly solves API composition but can introduce performance bottlenecks and debugging complexity at scale. Requires careful query optimization and monitoring.
+    
+    **Best suited for:**
+    - Mobile applications with varying data needs
+    - API gateways unifying microservices
+    - Internal service composition
+    - Teams with GraphQL expertise
 
 **One graph to rule them all - Composing distributed APIs into a unified experience**
 

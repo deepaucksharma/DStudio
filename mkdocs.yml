@@ -202,6 +202,7 @@ extra_css:
   - stylesheets/responsive-table.css  # Table responsiveness only
   - stylesheets/content-limits.css  # Minimal content overflow prevention
   - stylesheets/hide-toc.css  # Hide right sidebar and enhance navigation
+  - stylesheets/pattern-filtering.css  # Interactive pattern filtering
   - stylesheets/calculator.css  # Consistent calculator styling
 
 # Extra JavaScript - Optimized Loading
@@ -439,7 +440,35 @@ nav:
       # - Consent Management: patterns/consent-management.md  # Archived - overly specific
       - Valet Key: patterns/valet-key.md
     
+    - Pattern Excellence:
+      - Pattern Catalog: patterns/pattern-catalog.md
+      - Excellence Guides:
+        - Gold Tier Guide: patterns/excellence/gold-tier-guide.md
+        - Silver Tier Guide: patterns/excellence/silver-tier-guide.md
+        - Bronze Tier Guide: patterns/excellence/bronze-tier-guide.md
+      - Pattern Packs:
+        - Starter Pack: patterns/excellence/starter-pack.md
+        - Scale Pack: patterns/excellence/scale-pack.md
+        - Enterprise Pack: patterns/excellence/enterprise-pack.md
+      - Pattern Health Dashboard: patterns/excellence/pattern-health-dashboard.md
+    
     - Browse All: patterns/index.md#all-patterns
+  
+  - Excellence Framework:
+    - Overview: excellence/index.md
+    - Framework: excellence/framework-overview.md
+    - Guides:
+      - Modern Systems 2025: excellence/guides/modern-distributed-systems-2025.md
+      - Platform Engineering: excellence/guides/platform-engineering-playbook.md
+      - Quick Start: excellence/guides/quick-start-guide.md
+    - Migration Playbooks:
+      - Overview: excellence/migrations/index.md
+      - 2PC to Saga: excellence/migrations/2pc-to-saga.md
+      - Polling to WebSocket: excellence/migrations/polling-to-websocket.md
+      - Monolith to Microservices: excellence/migrations/monolith-to-microservices.md
+      - Batch to Streaming: excellence/migrations/batch-to-streaming.md
+    - Case Studies:
+      - Overview: excellence/case-studies/index.md
   
   - Quantitative:
     - Overview: quantitative/index.md
@@ -558,6 +587,8 @@ nav:
       - Recipe Cards: reference/recipe-cards.md
       - Law Mapping Guide: reference/law-mapping-guide.md
       - Keyboard Shortcuts: reference/keyboard-shortcuts.md
+      - Pattern Health Dashboard: reference/pattern-health-dashboard.md
+      - Pattern Catalog: patterns/pattern-catalog.md
     - Tools & Calculators:
       - Overview: tools/index.md
       - Consistency Calculator: tools/consistency-calculator.md

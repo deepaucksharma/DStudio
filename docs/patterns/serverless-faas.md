@@ -10,9 +10,41 @@ when_to_use: When dealing with specialized challenges
 when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
+excellence_tier: silver
+pattern_status: use-with-context
+introduced: 2014-11
+current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Zero server management and automatic scaling"
+    - "Pay only for actual execution time"
+    - "Rapid development and deployment"
+  cons:
+    - "Vendor lock-in concerns"
+    - "Cold start latency issues"
+    - "Limited execution time and resources"
+best_for: "Event-driven workloads, APIs with variable traffic, batch jobs, webhooks"
+implementations:
+  - company: iRobot
+    scale: "Processes millions of IoT events from Roomba vacuums"
+  - company: Coca-Cola
+    scale: "Vending machine payments via AWS Lambda"
+  - company: Netflix
+    scale: "Video encoding and media processing pipelines"
 ---
 
 # Serverless/FaaS (Function-as-a-Service)
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Great for specific use cases with trade-offs**
+    
+    Serverless excels at event-driven, sporadic workloads but struggles with consistent high-throughput applications. Cold starts, vendor lock-in, and debugging complexity require careful consideration.
+    
+    **Best suited for:**
+    - Event-driven processing
+    - APIs with highly variable traffic
+    - Scheduled jobs and automation
+    - Rapid prototyping and MVPs
 
 **The cloud's promise fulfilled: infinite scale, zero servers, pay-per-millisecond**
 

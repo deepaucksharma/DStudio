@@ -10,9 +10,44 @@ when_to_use: Leader election, distributed configuration, replicated state machin
 when_not_to_use: High-throughput data processing, eventually consistent systems
 status: complete
 last_updated: 2025-07-20
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1989-01
+current_relevance: mainstream
+modern_examples:
+  - company: etcd
+    implementation: "Raft consensus for Kubernetes configuration management"
+    scale: "Powers millions of Kubernetes clusters globally"
+  - company: Apache Kafka
+    implementation: "KRaft consensus replacing Zookeeper dependency"
+    scale: "Manages metadata for trillions of messages/day"
+  - company: CockroachDB
+    implementation: "Raft consensus for distributed SQL transactions"
+    scale: "Handles billions of transactions with strong consistency"
+production_checklist:
+  - "Choose consensus algorithm (Raft preferred over Paxos)"
+  - "Configure cluster size (3, 5, or 7 nodes typical)"
+  - "Set election timeout (150-300ms recommended)"
+  - "Implement leader lease for read optimization"
+  - "Monitor leader stability and election frequency"
+  - "Configure snapshot frequency for log compaction"
+  - "Test network partition scenarios"
+  - "Implement graceful node addition/removal"
+  - "Set up monitoring for consensus health"
+  - "Plan for split-brain prevention"
 ---
 
 # Consensus Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Distributed Agreement** • etcd, Kafka, CockroachDB proven
+    
+    The foundational pattern for achieving agreement in distributed systems. Consensus enables leader election, configuration management, and coordinated decision-making despite failures.
+    
+    **Key Success Metrics:**
+    - etcd: Powers millions of Kubernetes clusters reliably
+    - Kafka KRaft: Manages metadata for trillions of messages
+    - CockroachDB: Strong consistency for global SQL databases
 
 **Agreement in a world of unreliable networks and failing nodes**
 

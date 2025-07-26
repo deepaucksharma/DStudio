@@ -10,9 +10,44 @@ when_to_use: When dealing with specialized challenges
 when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1998-01
+current_relevance: mainstream
+modern_examples:
+  - company: Kubernetes
+    implementation: "etcd-based leader election for controller manager"
+    scale: "Manages millions of clusters globally"
+  - company: Apache Kafka
+    implementation: "Controller election for partition management"
+    scale: "Coordinates thousands of brokers"
+  - company: MongoDB
+    implementation: "Replica set primary election using Raft-like protocol"
+    scale: "Powers millions of databases worldwide"
+production_checklist:
+  - "Choose election mechanism (Raft, Zab, or lease-based)"
+  - "Configure election timeout (typically 5-15 seconds)"
+  - "Implement split-brain prevention (fencing tokens)"
+  - "Set up health checks for leader liveness"
+  - "Monitor election frequency (too many = instability)"
+  - "Implement graceful leader shutdown"
+  - "Configure leader lease renewal intervals"
+  - "Test network partition scenarios"
+  - "Set up alerts for leadership changes"
+  - "Document leader responsibilities clearly"
 ---
 
 # Leader Election Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Distributed Coordination** • Kubernetes, Kafka, MongoDB proven
+    
+    Essential for preventing split-brain and ensuring single-point decision making in distributed systems. Leader election enables coordinated actions while maintaining high availability through automatic failover.
+    
+    **Key Success Metrics:**
+    - Kubernetes: Reliable control plane for millions of clusters
+    - Kafka: Manages metadata for thousands of brokers
+    - MongoDB: Automatic failover in seconds for HA
 
 **Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios**
 

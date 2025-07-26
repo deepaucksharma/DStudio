@@ -10,9 +10,44 @@ when_to_use: Real-time updates, chat applications, live notifications, collabora
 when_not_to_use: Simple request-response, one-way data flow, stateless operations, resource-constrained clients
 status: complete
 last_updated: 2025-07-24
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2011-12
+current_relevance: mainstream
+modern_examples:
+  - company: Discord
+    implementation: "WebSocket infrastructure handles voice/text for 150M+ active users"
+    scale: "15M concurrent WebSocket connections"
+  - company: Slack
+    implementation: "Real-time messaging across millions of workspaces"
+    scale: "12M+ daily active users with instant message delivery"
+  - company: Binance
+    implementation: "WebSocket streams for real-time crypto trading data"
+    scale: "90M+ users, 1.2M messages/second peak"
+production_checklist:
+  - "Implement connection pooling and reuse"
+  - "Configure heartbeat/ping-pong (typically 30-60s intervals)"
+  - "Set up automatic reconnection with exponential backoff"
+  - "Implement message queuing for offline clients"
+  - "Configure proper load balancing (sticky sessions)"
+  - "Monitor connection count and message throughput"
+  - "Implement rate limiting per connection"
+  - "Use compression for large messages (permessage-deflate)"
+  - "Handle connection lifecycle events properly"
+  - "Test with realistic network conditions (latency, packet loss)"
 ---
 
 # WebSocket Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Real-Time Bidirectional Communication** • Discord, Slack, Binance proven
+    
+    The standard for real-time, bidirectional communication in modern applications. WebSockets enable instant data exchange with minimal overhead, powering chat, gaming, and financial applications at massive scale.
+    
+    **Key Success Metrics:**
+    - Discord: 15M concurrent connections for gaming communities
+    - Slack: Sub-100ms message delivery for 12M+ daily users
+    - Binance: 1.2M messages/second for real-time trading
 
 **Persistent bidirectional communication channels for real-time distributed systems**
 

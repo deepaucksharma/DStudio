@@ -10,9 +10,44 @@ when_to_use: When dealing with specialized challenges
 when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-20
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2006-11
+current_relevance: mainstream
+modern_examples:
+  - company: Redis
+    implementation: "Redlock algorithm provides distributed locking across Redis nodes"
+    scale: "Used by millions of applications for coordination"
+  - company: Google
+    implementation: "Chubby lock service coordinates distributed systems"
+    scale: "Powers GFS, Bigtable, and core infrastructure"
+  - company: Apache
+    implementation: "Zookeeper provides distributed coordination primitives"
+    scale: "Used by Kafka, HBase, Solr for consensus"
+production_checklist:
+  - "Choose lock backend (Redis with Redlock, Zookeeper, etcd)"
+  - "Set appropriate lock timeout (typically 30s-5min)"
+  - "Implement lock renewal for long operations"
+  - "Use fencing tokens to prevent split-brain"
+  - "Monitor lock contention and wait times"
+  - "Implement exponential backoff for retries"
+  - "Handle clock skew between nodes (use monotonic clocks)"
+  - "Test network partition scenarios"
+  - "Implement deadlock detection/prevention"
+  - "Use unique lock identifiers (UUID) for tracking"
 ---
 
 # Distributed Lock Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Distributed Coordination** • Redis, Google Chubby, Apache Zookeeper proven
+    
+    Essential for coordinating access to shared resources in distributed systems. Distributed locks prevent race conditions and ensure consistency when multiple nodes need exclusive access to critical sections.
+    
+    **Key Success Metrics:**
+    - Redis Redlock: Millisecond acquisition with fault tolerance
+    - Google Chubby: Powers critical infrastructure with 99.99% reliability
+    - Apache Zookeeper: Industry standard for distributed coordination
 
 **Mutual exclusion across distributed nodes**
 

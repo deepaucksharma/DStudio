@@ -28,9 +28,21 @@ when_not_to_use:
   - Business process monitoring required
 status: complete
 last_updated: 2025-01-26
+excellence_tier: bronze
+pattern_status: legacy
+introduced: 2000s
+current_relevance: declining
+deprecation_reason: "Debugging complexity and lack of visibility in distributed workflows"
+modern_alternatives: ["Event Streaming (Kafka)", "Service Mesh", "Saga Orchestration"]
+migration_guide: "/excellence/migrations/choreography-to-event-streaming"
 ---
 
 # Choreography Pattern
+
+!!! danger "🥉 Bronze Tier Pattern"
+    **Legacy Approach** • Consider modern alternatives
+    
+    Pure choreography leads to hard-to-debug distributed workflows. Modern systems use event streaming platforms (Kafka) or saga orchestration for better visibility and control. See our [migration guide](/excellence/migrations/choreography-to-event-streaming).
 
 ## 🎯 The Essence
 

@@ -11,9 +11,42 @@ when_not_to_use: Fixed number of nodes, simple round-robin sufficient, non-unifo
 status: complete
 last_updated: 2025-07-26
 tags: [scalability, hashing, load-balancing, data-distribution, caching, partitioning]
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1997-05
+current_relevance: mainstream
+modern_examples:
+  - company: Amazon
+    implementation: "DynamoDB uses consistent hashing for data distribution across nodes"
+    scale: "Exabyte scale with billions of requests per day"
+  - company: Discord
+    implementation: "Consistent hashing for message routing and user sessions"
+    scale: "150M+ active users, 15B messages per month"
+  - company: Apache Cassandra
+    implementation: "Core partitioning strategy using virtual nodes"
+    scale: "Apple runs 160K+ Cassandra nodes storing 100+ PB"
+production_checklist:
+  - "Use virtual nodes (vnodes) for better load distribution (typically 256 per physical node)"
+  - "Implement proper hash function (MD5/SHA-1 for uniformity)"
+  - "Monitor key distribution across nodes for hot spots"
+  - "Plan replication strategy (N=3 typical for durability)"
+  - "Configure proper node weights for heterogeneous hardware"
+  - "Implement bounded load to prevent hot nodes"
+  - "Use consistent hashing libraries (don't roll your own)"
+  - "Test redistribution impact before scaling operations"
 ---
 
 # Consistent Hashing
+
+!!! success "🏆 Gold Standard Pattern"
+    **Foundation of Distributed Systems** • Powers Cassandra, DynamoDB, Discord
+    
+    Essential for any distributed system that needs to scale dynamically. Consistent hashing minimizes data movement during scaling operations and is the backbone of modern distributed databases and caches.
+    
+    **Key Success Metrics:**
+    - DynamoDB: Exabyte scale operations
+    - Discord: 150M+ users with seamless scaling
+    - Cassandra: 160K+ nodes at Apple
 
 [Home](/) > [Patterns](patterns) > [Data Patterns](patterns/#data-patterns) > Consistent Hashing
 

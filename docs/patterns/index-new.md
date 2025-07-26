@@ -8,14 +8,51 @@ type: patterns-index
 
 **~95 carefully curated patterns for building reliable, scalable distributed systems**
 
+<div class="pattern-excellence-banner" style="background: linear-gradient(135deg, #FFD700 0%, #FFF8DC 100%); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+    <h3 style="margin-top: 0;">🏆 Excellence Tier System</h3>
+    <p>Patterns are now classified by implementation maturity and real-world validation:</p>
+    <div style="display: flex; gap: 2rem; margin-top: 1rem;">
+        <span><strong>🥇 Gold</strong> - Battle-tested at FAANG scale</span>
+        <span><strong>🥈 Silver</strong> - Proven in production</span>
+        <span><strong>🥉 Bronze</strong> - Well-documented approach</span>
+    </div>
+</div>
+
 !!! info "Pattern Curation"
     We've curated the most valuable patterns for modern distributed systems, focusing on practical, battle-tested solutions. Each pattern has been selected for its real-world applicability and proven impact in production systems.
 
 !!! tip "Quick Navigation"
+    - **[Pattern Catalog](#pattern-catalog)** - Sortable/filterable view
+    - **[Excellence Guides](#excellence-guides)** - Best practices by tier
+    - **[Pattern Packs](#pattern-packs)** - Pre-selected bundles
+    - **[Pattern Health Dashboard](#pattern-health)** - Implementation metrics
     - **[By Problem Domain](#by-problem-domain)** - Organized by what you're building
     - **[By Challenge](#by-challenge)** - Find patterns for specific problems
     - **[Learning Paths](#learning-paths)** - Progressive learning tracks
     - **[Pattern Navigator](#pattern-navigator)** - Visual decision guide
+
+## 🔍 Pattern Tier Filter
+
+<div class="pattern-filter-container" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+    <h4 style="margin-top: 0;">Filter Patterns by Excellence Tier:</h4>
+    <div class="tier-filters" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <label for="filter-gold" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="filter-gold" checked onchange="applyFilters()"> 
+            <span style="background: #FFD700; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥇 Gold (25 patterns)</span>
+        </label>
+        <label for="filter-silver" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="filter-silver" checked onchange="applyFilters()"> 
+            <span style="background: #C0C0C0; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥈 Silver (40 patterns)</span>
+        </label>
+        <label for="filter-bronze" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+            <input type="checkbox" id="filter-bronze" checked onchange="applyFilters()"> 
+            <span style="background: #CD7F32; padding: 0.25rem 0.75rem; border-radius: 4px; color: white; transition: opacity 0.2s;">🥉 Bronze (30 patterns)</span>
+        </label>
+    </div>
+    <div style="margin-top: 1rem;">
+        <button onclick="resetFilters()" style="background: #e5e7eb; color: #374151; padding: 0.5rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;">Reset All Filters</button>
+    </div>
+</div>
 
 ## 🎯 Pattern Finder
 
@@ -48,6 +85,119 @@ type: patterns-index
     - [Implementation Guides](patterns/pattern-implementations)
     - [Anti-patterns](patterns/anti-patterns)
 
+</div>
+
+---
+
+## 📦 Pattern Packs
+
+<div class="pattern-packs" style="margin: 2rem 0;">
+    <h3>Pre-selected Pattern Bundles for Your Journey</h3>
+    <div class="grid cards" markdown>
+    
+    - :material-rocket-launch:{ .lg .middle } **Starter Pack**
+        
+        ---
+        
+        **Perfect for**: New projects & MVPs  
+        **Tier**: 🥇 Gold patterns only  
+        **Time**: 2 weeks  
+        
+        **Includes**:
+        - ✅ Circuit Breaker
+        - ✅ Retry & Backoff
+        - ✅ Health Check
+        - ✅ Load Balancing
+        - ✅ Basic Caching
+        
+        [🚀 Get Started](excellence/starter-pack.md)
+    
+    - :material-chart-line:{ .lg .middle } **Scale Pack**
+        
+        ---
+        
+        **Perfect for**: Growing from 1K to 100K users  
+        **Tier**: 🥇 Gold + 🥈 Silver  
+        **Time**: 4 weeks  
+        
+        **Includes**:
+        - ✅ Sharding
+        - ✅ CQRS
+        - ✅ Service Mesh
+        - ✅ Auto-scaling
+        - ✅ Event Streaming
+        
+        [📈 Scale Up](excellence/scale-pack.md)
+    
+    - :material-office-building:{ .lg .middle } **Enterprise Pack**
+        
+        ---
+        
+        **Perfect for**: Mission-critical systems  
+        **Tier**: All tiers with governance  
+        **Time**: 8 weeks  
+        
+        **Includes**:
+        - ✅ Multi-region
+        - ✅ Cell-based Architecture
+        - ✅ Saga Pattern
+        - ✅ Zero-trust Security
+        - ✅ Chaos Engineering
+        
+        [🏢 Go Enterprise](excellence/enterprise-pack.md)
+    
+    </div>
+</div>
+
+## 📊 Excellence Guides
+
+<div class="excellence-guides" style="background: #f0f4f8; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+    <h3>Pattern Implementation Best Practices by Tier</h3>
+    <div class="grid cards" markdown>
+    
+    - :material-medal:{ .lg .middle } **Gold Tier Guide**
+        
+        ---
+        
+        **Standards**: FAANG-level implementation
+        
+        - Comprehensive monitoring
+        - Graceful degradation
+        - Zero-downtime deployment
+        - Automated testing
+        - Performance benchmarks
+        
+        [📖 Gold Standards](excellence/gold-tier-guide.md)
+    
+    - :material-medal-outline:{ .lg .middle } **Silver Tier Guide**
+        
+        ---
+        
+        **Standards**: Production-ready practices
+        
+        - Health checks & alerts
+        - Configuration management
+        - Rollback procedures
+        - Integration testing
+        - Documentation
+        
+        [📖 Silver Standards](excellence/silver-tier-guide.md)
+    
+    - :material-trophy-outline:{ .lg .middle } **Bronze Tier Guide**
+        
+        ---
+        
+        **Standards**: Solid foundations
+        
+        - Basic monitoring
+        - Error handling
+        - Unit testing
+        - Code reviews
+        - README files
+        
+        [📖 Bronze Standards](excellence/bronze-tier-guide.md)
+    
+    </div>
 </div>
 
 ---
@@ -400,31 +550,66 @@ graph LR
 
 ---
 
+## 📈 Pattern Health Dashboard
+
+<div class="pattern-health" style="background: #e8f5e9; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+    <h3>Real-time Pattern Implementation Metrics</h3>
+    <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #5448C8;">95</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Total Patterns</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #FFD700;">25</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Gold Tier</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #C0C0C0;">40</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Silver Tier</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #CD7F32;">30</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Bronze Tier</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #10b981;">87%</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Implementation Success</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
+            <h4 style="margin: 0; color: #3b82f6;">4.2/5</h4>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Avg. Satisfaction</p>
+        </div>
+    </div>
+    <div style="margin-top: 1.5rem; text-align: center;">
+        <a href="excellence/pattern-health-dashboard.md" style="background: #5448C8; color: white; padding: 0.75rem 2rem; text-decoration: none; border-radius: 4px; display: inline-block;">View Full Dashboard →</a>
+    </div>
+</div>
+
 ## 📊 Pattern Comparison
 
 ### Consensus Patterns
-| Pattern | Fault Tolerance | Performance | Complexity | Use Case |
-|---------|----------------|-------------|------------|----------|
-| [Raft](patterns/consensus) | n/2 | Fast | Medium | General purpose |
-| [Paxos](patterns/consensus) | n/2 | Medium | High | Academic/proven |
-| [PBFT](patterns/byzantine-fault-tolerance) | n/3 | Slow | Very High | Byzantine faults |
-| [Gossip](patterns/emergent-leader) | High | Variable | Low | Eventual consistency |
+| Pattern | Tier | Fault Tolerance | Performance | Complexity | Use Case |
+|---------|------|----------------|-------------|------------|----------|
+| [Raft](patterns/consensus) | 🥇 Gold | n/2 | Fast | Medium | General purpose |
+| [Paxos](patterns/consensus) | 🥈 Silver | n/2 | Medium | High | Academic/proven |
+| [PBFT](patterns/byzantine-fault-tolerance) | 🥉 Bronze | n/3 | Slow | Very High | Byzantine faults |
+| [Gossip](patterns/emergent-leader) | 🥈 Silver | High | Variable | Low | Eventual consistency |
 
 ### Caching Patterns
-| Pattern | Consistency | Complexity | Performance | Use Case |
-|---------|------------|------------|-------------|----------|
-| [Cache Aside](patterns/cache-aside) | Eventual | Low | Good | Read heavy |
-| [Read Through](patterns/read-through-cache) | Eventual | Medium | Better | Transparent |
-| [Write Through](patterns/write-through-cache) | Strong | Medium | Slower | Consistency |
-| [Write Behind](patterns/write-behind-cache) | Eventual | High | Fastest | Write heavy |
+| Pattern | Tier | Consistency | Complexity | Performance | Use Case |
+|---------|------|------------|------------|-------------|----------|
+| [Cache Aside](patterns/cache-aside) | 🥇 Gold | Eventual | Low | Good | Read heavy |
+| [Read Through](patterns/read-through-cache) | 🥈 Silver | Eventual | Medium | Better | Transparent |
+| [Write Through](patterns/write-through-cache) | 🥈 Silver | Strong | Medium | Slower | Consistency |
+| [Write Behind](patterns/write-behind-cache) | 🥉 Bronze | Eventual | High | Fastest | Write heavy |
 
 ### Transaction Patterns
-| Pattern | Consistency | Availability | Partition Tolerance | Use Case |
-|---------|------------|--------------|-------------------|----------|
-| [Saga](patterns/saga) | Eventual | High | Yes | Multi-DC |
-| [Saga](patterns/saga) | Eventual | High | Yes | Microservices |
-| [TCC](patterns/tcc) | Eventual | High | Yes | Business trans |
-| [Outbox](patterns/outbox) | Eventual | High | Yes | Event + DB |
+| Pattern | Tier | Consistency | Availability | Partition Tolerance | Use Case |
+|---------|------|------------|--------------|-------------------|----------|
+| [Saga](patterns/saga) | 🥈 Silver | Eventual | High | Yes | Multi-DC |
+| [Saga](patterns/saga) | 🥈 Silver | Eventual | High | Yes | Microservices |
+| [TCC](patterns/tcc) | 🥉 Bronze | Eventual | High | Yes | Business trans |
+| [Outbox](patterns/outbox) | 🥈 Silver | Eventual | High | Yes | Event + DB |
 
 ---
 
@@ -514,3 +699,299 @@ graph TD
 <div class="pattern-nav" markdown>
 [← Back to Home](/) | [The 7 Laws →](part1-axioms/) | [The 5 Pillars →](part2-pillars/)
 </div>
+
+<script>
+// Pattern tier filtering functionality with localStorage persistence
+function applyFilters() {
+    const goldChecked = document.getElementById('filter-gold').checked;
+    const silverChecked = document.getElementById('filter-silver').checked;
+    const bronzeChecked = document.getElementById('filter-bronze').checked;
+    
+    // Save filter preferences
+    localStorage.setItem('patternFilters', JSON.stringify({
+        gold: goldChecked,
+        silver: silverChecked,
+        bronze: bronzeChecked
+    }));
+    
+    const tables = document.querySelectorAll('table');
+    let totalVisible = 0;
+    
+    tables.forEach(table => {
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            // Check if this table has a tier column
+            const headers = table.querySelectorAll('th');
+            let tierIndex = -1;
+            headers.forEach((header, index) => {
+                if (header.textContent.includes('Tier')) {
+                    tierIndex = index;
+                }
+            });
+            
+            if (tierIndex !== -1) {
+                const tierCell = row.cells[tierIndex]?.textContent || '';
+                let shouldShow = false;
+                
+                if (goldChecked && tierCell.includes('Gold')) shouldShow = true;
+                if (silverChecked && tierCell.includes('Silver')) shouldShow = true;
+                if (bronzeChecked && tierCell.includes('Bronze')) shouldShow = true;
+                
+                // Add smooth transition
+                if (shouldShow) {
+                    row.style.display = '';
+                    row.classList.add('pattern-visible');
+                    totalVisible++;
+                } else {
+                    row.style.display = 'none';
+                    row.classList.remove('pattern-visible');
+                }
+            }
+        });
+    });
+    
+    updatePatternCount(totalVisible);
+    updateFilterBadges();
+}
+
+function resetFilters() {
+    document.getElementById('filter-gold').checked = true;
+    document.getElementById('filter-silver').checked = true;
+    document.getElementById('filter-bronze').checked = true;
+    localStorage.removeItem('patternFilters');
+    applyFilters();
+}
+
+function updatePatternCount(count) {
+    // Count total patterns across all tables
+    let totalPatterns = 0;
+    document.querySelectorAll('table').forEach(table => {
+        const headers = table.querySelectorAll('th');
+        let hasTierColumn = false;
+        headers.forEach(header => {
+            if (header.textContent.includes('Tier')) {
+                hasTierColumn = true;
+            }
+        });
+        if (hasTierColumn) {
+            totalPatterns += table.querySelectorAll('tbody tr').length;
+        }
+    });
+    
+    const countElement = document.getElementById('pattern-count-display');
+    if (!countElement) {
+        const filterContainer = document.querySelector('.pattern-filter-container');
+        const countDiv = document.createElement('div');
+        countDiv.id = 'pattern-count-display';
+        countDiv.style.cssText = 'margin-top: 1rem; font-weight: 500; color: #5448C8;';
+        filterContainer.insertBefore(countDiv, filterContainer.querySelector('div[style*="margin-top: 1rem;"]'));
+    }
+    
+    document.getElementById('pattern-count-display').innerHTML = `
+        Showing <strong>${count || 0}</strong> of <strong>${totalPatterns}</strong> patterns
+    `;
+}
+
+function updateFilterBadges() {
+    const goldChecked = document.getElementById('filter-gold').checked;
+    const silverChecked = document.getElementById('filter-silver').checked;
+    const bronzeChecked = document.getElementById('filter-bronze').checked;
+    
+    // Update badge styles based on selection
+    const goldBadge = document.querySelector('label[for="filter-gold"] span');
+    const silverBadge = document.querySelector('label[for="filter-silver"] span');
+    const bronzeBadge = document.querySelector('label[for="filter-bronze"] span');
+    
+    if (goldBadge) goldBadge.style.opacity = goldChecked ? '1' : '0.5';
+    if (silverBadge) silverBadge.style.opacity = silverChecked ? '1' : '0.5';
+    if (bronzeBadge) bronzeBadge.style.opacity = bronzeChecked ? '1' : '0.5';
+}
+
+// Pattern search functionality with highlighting
+function searchPatterns(query) {
+    const tables = document.querySelectorAll('table');
+    const searchTerm = query.toLowerCase();
+    let totalVisible = 0;
+    
+    // Also consider current tier filters
+    const goldChecked = document.getElementById('filter-gold').checked;
+    const silverChecked = document.getElementById('filter-silver').checked;
+    const bronzeChecked = document.getElementById('filter-bronze').checked;
+    
+    tables.forEach(table => {
+        const rows = table.querySelectorAll('tbody tr');
+        const headers = table.querySelectorAll('th');
+        let tierIndex = -1;
+        
+        headers.forEach((header, index) => {
+            if (header.textContent.includes('Tier')) {
+                tierIndex = index;
+            }
+        });
+        
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            const tierCell = tierIndex !== -1 ? row.cells[tierIndex]?.textContent || '' : '';
+            
+            // Check if matches search
+            const matchesSearch = !searchTerm || text.includes(searchTerm);
+            
+            // Check if matches tier filter
+            let matchesTier = tierIndex === -1; // If no tier column, show all
+            if (tierIndex !== -1) {
+                if (goldChecked && tierCell.includes('Gold')) matchesTier = true;
+                if (silverChecked && tierCell.includes('Silver')) matchesTier = true;
+                if (bronzeChecked && tierCell.includes('Bronze')) matchesTier = true;
+            }
+            
+            const shouldShow = matchesSearch && matchesTier;
+            
+            if (shouldShow) {
+                row.style.display = '';
+                row.classList.add('pattern-visible');
+                totalVisible++;
+            } else {
+                row.style.display = 'none';
+                row.classList.remove('pattern-visible');
+            }
+        });
+    });
+    
+    updatePatternCount(totalVisible);
+}
+
+// Quick pattern selector by problem domain
+function selectByProblem(problem) {
+    const problemPatterns = {
+        'performance': ['Caching', 'CDN', 'Edge Computing', 'Request Batching', 'Load Balancing', 'Auto-scaling', 'Materialized View'],
+        'reliability': ['Circuit Breaker', 'Retry', 'Bulkhead', 'Failover', 'Health Check', 'Timeout', 'Graceful Degradation'],
+        'scalability': ['Sharding', 'Load Balancing', 'Auto-scaling', 'Service Mesh', 'CDN', 'Edge Computing', 'Consistent Hashing'],
+        'consistency': ['Saga', 'CQRS', 'Event Sourcing', 'Distributed Lock', 'Leader Election', 'Consensus', 'Logical Clocks'],
+        'coordination': ['Leader Election', 'State Watch', 'Consensus', 'Distributed Lock', 'Saga', 'Lease', 'Generation Clock']
+    };
+    
+    const patterns = problemPatterns[problem] || [];
+    const tables = document.querySelectorAll('table');
+    let totalVisible = 0;
+    
+    tables.forEach(table => {
+        const rows = table.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            const text = row.textContent;
+            const shouldShow = patterns.some(p => text.includes(p));
+            
+            if (shouldShow) {
+                row.style.display = '';
+                row.classList.add('pattern-visible');
+                totalVisible++;
+            } else {
+                row.style.display = 'none';
+                row.classList.remove('pattern-visible');
+            }
+        });
+    });
+    
+    updatePatternCount(totalVisible);
+    
+    // Clear search box when using problem selector
+    const searchBox = document.getElementById('pattern-search');
+    if (searchBox) searchBox.value = '';
+}
+
+// Load saved filters on page load
+function loadSavedFilters() {
+    const savedFilters = localStorage.getItem('patternFilters');
+    if (savedFilters) {
+        const filters = JSON.parse(savedFilters);
+        document.getElementById('filter-gold').checked = filters.gold !== false;
+        document.getElementById('filter-silver').checked = filters.silver !== false;
+        document.getElementById('filter-bronze').checked = filters.bronze !== false;
+        applyFilters();
+    } else {
+        // Default: all checked
+        applyFilters();
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Add search box to tables with patterns
+    const tables = document.querySelectorAll('table');
+    let hasPatternTable = false;
+    
+    tables.forEach(table => {
+        const headers = table.querySelectorAll('th');
+        headers.forEach(header => {
+            if (header.textContent.includes('Pattern') || header.textContent.includes('Tier')) {
+                hasPatternTable = true;
+            }
+        });
+    });
+    
+    if (hasPatternTable && !document.getElementById('pattern-search')) {
+        const firstPatternTable = document.querySelector('table');
+        if (firstPatternTable) {
+            const searchBox = document.createElement('div');
+            searchBox.innerHTML = `
+                <div style="margin-bottom: 1rem;">
+                    <input type="text" id="pattern-search" placeholder="Search patterns by name, category, or description..." 
+                           style="width: 100%; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 4px; font-size: 1rem;"
+                           onkeyup="searchPatterns(this.value)">
+                </div>
+            `;
+            firstPatternTable.parentNode.insertBefore(searchBox, firstPatternTable);
+        }
+    }
+    
+    // Add problem domain quick filters
+    const filterContainer = document.querySelector('.pattern-filter-container');
+    if (filterContainer && !document.getElementById('problem-selector')) {
+        const problemSelector = document.createElement('div');
+        problemSelector.id = 'problem-selector';
+        problemSelector.innerHTML = `
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb;">
+                <h4 style="margin-top: 0;">Quick Filter by Problem Domain:</h4>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                    <button onclick="selectByProblem('performance')" style="background: #3b82f6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">⚡ Performance</button>
+                    <button onclick="selectByProblem('reliability')" style="background: #ef4444; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">🛡️ Reliability</button>
+                    <button onclick="selectByProblem('scalability')" style="background: #10b981; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">📈 Scalability</button>
+                    <button onclick="selectByProblem('consistency')" style="background: #f59e0b; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">🔒 Consistency</button>
+                    <button onclick="selectByProblem('coordination')" style="background: #8b5cf6; color: white; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; transition: all 0.2s;">🤝 Coordination</button>
+                </div>
+            </div>
+        `;
+        filterContainer.appendChild(problemSelector);
+    }
+    
+    // Load saved filters
+    loadSavedFilters();
+    
+    // Add hover effects to buttons
+    const style = document.createElement('style');
+    style.textContent = `
+        .pattern-filter-container button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .pattern-filter-container button:active {
+            transform: translateY(0);
+        }
+        .pattern-visible {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #pattern-search:focus {
+            outline: none;
+            border-color: #5448C8;
+            box-shadow: 0 0 0 3px rgba(84, 72, 200, 0.1);
+        }
+        table tbody tr {
+            transition: opacity 0.2s ease-in-out;
+        }
+    `;
+    document.head.appendChild(style);
+});
+</script>

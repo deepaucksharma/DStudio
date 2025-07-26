@@ -10,9 +10,24 @@ when_to_use: Building highly concurrent, fault-tolerant systems with millions of
 when_not_to_use: Simple request-response applications, systems requiring shared mutable state
 status: complete
 last_updated: 2025-01-26
+excellence_tier: bronze
+pattern_status: legacy
+modern_alternatives: ["service-mesh", "serverless-faas", "event-driven"]
+still_valid_for: "Erlang/Elixir systems, specific IoT scenarios, academic study"
+migration_guide: "/excellence/migrations/actor-to-service-mesh"
 ---
 
 # Actor Model
+
+!!! info "🥉 Bronze Tier Pattern"
+    **Legacy pattern with limited modern applicability**
+    
+    While the Actor Model pioneered important concurrency concepts, modern alternatives like service mesh and serverless provide better solutions for most use cases. The complexity without clear benefits makes it unsuitable for new projects.
+    
+    **Consider instead:**
+    - **Service Mesh** for microservice communication
+    - **Serverless Functions** for isolated compute
+    - **Event-Driven Architecture** for async processing
 
 > *"Don't communicate by sharing memory; share memory by communicating."* - The actor model takes this principle to its logical extreme.
 

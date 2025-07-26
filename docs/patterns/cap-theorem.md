@@ -10,10 +10,29 @@ when_to_use: When designing distributed systems architecture
 when_not_to_use: When working with single-node systems
 status: complete
 last_updated: 2025-01-23
+excellence_tier: bronze
+pattern_status: educational-only
+introduced: 2000-07
+current_relevance: theoretical
+modern_context:
+  - "PACELC theorem provides more nuanced view"
+  - "Modern systems offer tunable consistency"
+  - "Cloud providers abstract many CAP concerns"
+educational_value: "Important for understanding distributed systems theory but not directly actionable"
 ---
 
 
 # CAP Theorem
+
+!!! info "🥉 Bronze Tier Pattern"
+    **Educational concept, not actionable pattern**
+    
+    CAP theorem is important for understanding distributed systems theory but doesn't provide actionable guidance. Modern systems offer more nuanced approaches like tunable consistency and PACELC considerations.
+    
+    **For practical guidance, see:**
+    - **[Tunable Consistency](tunable-consistency.md)** for flexible trade-offs
+    - **[Consensus Patterns](consensus.md)** for agreement protocols
+    - **[Multi-Region Architecture](multi-region.md)** for real-world CAP decisions
 
 **You can't have your cake and eat it too - The fundamental trade-off in distributed systems**
 

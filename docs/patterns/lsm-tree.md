@@ -10,10 +10,42 @@ when_to_use: When you need high write throughput, can tolerate read amplificatio
 when_not_to_use: When you need consistent read performance or immediate read-after-write consistency
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: specialized-use
+introduced: 1996-01
+current_relevance: stable
+trade_offs:
+  pros:
+    - "Excellent write performance"
+    - "Sequential I/O friendly"
+    - "Good for write-heavy workloads"
+  cons:
+    - "Read amplification issues"
+    - "Complex compaction tuning"
+    - "Database internals - not for app developers"
+best_for: "NoSQL databases, time-series databases, write-heavy applications"
+implementations:
+  - company: RocksDB
+    scale: "Facebook's embedded key-value store"
+  - company: Cassandra
+    scale: "Distributed database using LSM"
+  - company: LevelDB
+    scale: "Google's embedded database"
 ---
 
 
 # LSM Tree (Log-Structured Merge Tree)
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Storage engine pattern for database implementers**
+    
+    LSM trees are a powerful storage engine design but primarily relevant for database developers, not application developers. Most will use LSM trees indirectly through databases like RocksDB or Cassandra.
+    
+    **Best suited for:**
+    - Building write-optimized databases
+    - Time-series data storage
+    - Log processing systems
+    - Understanding database internals
 
 <div class="pattern-type">Data Management Pattern
  Transform random writes into sequential writes by buffering in memory and periodically merging sorted files, achieving high write throughput at the cost of read complexity.

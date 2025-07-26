@@ -10,9 +10,44 @@ when_to_use: Event-driven architectures, real-time notifications, decoupled micr
 when_not_to_use: Point-to-point communication, request-response patterns, transactional consistency requirements
 status: initial
 last_updated: 2025-07-26
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1987-01
+current_relevance: mainstream
+modern_examples:
+  - company: Apache Kafka
+    implementation: "Distributed pub-sub for event streaming at LinkedIn, Uber, Netflix"
+    scale: "7 trillion messages/day at LinkedIn"
+  - company: Redis
+    implementation: "In-memory pub-sub for real-time features"
+    scale: "Millions of messages/sec with microsecond latency"
+  - company: Google Cloud Pub/Sub
+    implementation: "Globally distributed message service"
+    scale: "500M messages/second, 99.95% SLA"
+production_checklist:
+  - "Choose delivery semantics (at-least-once, at-most-once, exactly-once)"
+  - "Configure topic partitioning for scalability"
+  - "Implement message ordering guarantees where needed"
+  - "Set up dead letter queues for failed messages"
+  - "Configure retention policies (hours to days)"
+  - "Monitor consumer lag and backpressure"
+  - "Implement idempotent consumers"
+  - "Set up topic-based access control"
+  - "Plan for message schema evolution"
+  - "Test fan-out performance under load"
 ---
 
 # Publish-Subscribe Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Decoupled Event Distribution** • Kafka, Redis, Google Pub/Sub proven
+    
+    The cornerstone of event-driven architectures. Pub-sub enables scalable, decoupled communication where publishers and subscribers operate independently, supporting everything from real-time notifications to event streaming.
+    
+    **Key Success Metrics:**
+    - LinkedIn Kafka: 7 trillion messages/day powering all services
+    - Redis Pub/Sub: Microsecond latency for real-time features
+    - Google Pub/Sub: 500M messages/sec with global distribution
 
 [Home](/) > [Patterns](patterns) > [Communication Patterns](patterns/#communication-patterns) > Publish-Subscribe
 

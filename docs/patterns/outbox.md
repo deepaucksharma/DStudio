@@ -10,9 +10,39 @@ when_to_use: When dealing with communication challenges
 when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
+excellence_tier: silver
+pattern_status: use-with-context
+introduced: 2015-01
+current_relevance: stable
+trade_offs:
+  pros:
+    - "Guarantees consistency between DB and events"
+    - "No distributed transactions needed"
+    - "Works with any database"
+  cons:
+    - "Database-specific implementations"
+    - "Requires polling or CDC setup"
+    - "Eventual consistency for events"
+best_for: "Microservices needing reliable event publishing, CQRS implementations"
+implementations:
+  - company: Debezium
+    scale: "Open source CDC supporting outbox pattern"
+  - company: Eventuate
+    scale: "Framework with built-in outbox support"
 ---
 
 # Outbox Pattern
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Transactional messaging with implementation complexity**
+    
+    Outbox pattern solves the dual-write problem elegantly but requires careful implementation with either polling or CDC. Consider managed solutions or frameworks that provide built-in support.
+    
+    **Best suited for:**
+    - Event-driven microservices
+    - CQRS event publishing
+    - Saga pattern implementations
+    - Systems requiring guaranteed event delivery
 
 **Solving the dual-write problem once and for all - Transactional event publishing for distributed systems**
 

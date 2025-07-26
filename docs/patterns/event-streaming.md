@@ -10,9 +10,41 @@ when_to_use: When you need real-time processing, continuous computation, or even
 when_not_to_use: For simple request-response patterns or when batch processing is sufficient
 status: complete
 last_updated: 2025-01-26
+excellence_tier: silver
+pattern_status: use-with-expertise
+introduced: 2011-01
+current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Enables real-time processing and analytics"
+    - "Handles unbounded data streams"
+    - "Powerful for event-driven architectures"
+  cons:
+    - "Steep learning curve and operational complexity"
+    - "Requires expertise in distributed systems"
+    - "Difficult to debug and test"
+best_for: "Real-time analytics, IoT data processing, event-driven microservices"
+implementations:
+  - company: LinkedIn
+    scale: "Apache Kafka creator, 7T messages/day"
+  - company: Uber
+    scale: "Flink for dynamic pricing"
+  - company: Netflix
+    scale: "Keystone platform, 500B events/day"
 ---
 
 # Event Streaming Pattern
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Powerful but complex streaming solution**
+    
+    Event streaming provides unmatched capabilities for real-time processing but comes with significant complexity. Requires deep expertise in distributed systems, careful capacity planning, and robust monitoring.
+    
+    **Best suited for:**
+    - Real-time analytics and monitoring
+    - IoT and sensor data processing
+    - Event-driven microservices
+    - Teams with streaming expertise
 
 <div class="pattern-type">Data Processing Pattern</div>
 

@@ -10,10 +10,41 @@ when_to_use: Handling traffic spikes, decoupling services, event streaming, work
 when_not_to_use: Synchronous request-response, low latency requirements, simple direct calls
 status: complete
 last_updated: 2025-07-21
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2011-01
+current_relevance: mainstream
+modern_examples:
+  - company: Uber
+    implementation: "Apache Kafka processes all trip events and driver matching"
+    scale: "1M+ messages/second for real-time trip processing"
+  - company: LinkedIn
+    implementation: "Kafka Streams for real-time member activity processing"
+    scale: "7 trillion messages/day across all pipelines"
+  - company: Netflix
+    implementation: "Amazon Kinesis for real-time viewing analytics"
+    scale: "500B+ events/day for personalization"
+production_checklist:
+  - "Choose between queues (SQS/RabbitMQ) vs streams (Kafka/Kinesis)"
+  - "Design partition strategy for parallel processing"
+  - "Configure retention period based on replay requirements"
+  - "Implement consumer group management for scaling"
+  - "Monitor consumer lag and throughput metrics"
+  - "Set up dead letter queues for failed messages"
+  - "Plan for exactly-once vs at-least-once semantics"
+  - "Implement backpressure and flow control mechanisms"
 ---
 # Queues & Stream Processing
 
-
+!!! success "🏆 Gold Standard Pattern"
+    **Real-Time Event Processing at Scale** • Uber, LinkedIn, Netflix proven
+    
+    Modern applications run on event streams - from Uber processing 1M+ messages/second for trip matching to LinkedIn's 7 trillion daily messages. Queues and streams enable decoupled, scalable architectures.
+    
+    **Key Success Metrics:**
+    - Uber: 1M+ messages/second for real-time operations
+    - LinkedIn: 7 trillion messages/day across Kafka
+    - Netflix: 500B+ events/day for personalization
 
 ## The Essential Question
 
