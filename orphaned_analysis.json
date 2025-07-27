@@ -1,0 +1,4347 @@
+{
+  "summary": {
+    "total_files": 523,
+    "files_in_navigation": 214,
+    "orphaned_files": 327,
+    "significant_orphaned": 284,
+    "missing_files": 18,
+    "orphaned_percentage": 62.52
+  },
+  "orphaned_by_category": {
+    "pattern": [
+      {
+        "path": "patterns/emergent-leader.md",
+        "title": "Emergent Leader Pattern",
+        "word_count": 2769,
+        "cross_references": 16
+      },
+      {
+        "path": "patterns/serverless-faas.md",
+        "title": "Serverless/FaaS (Function-as-a-Service)",
+        "word_count": 4498,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/strangler-fig.md",
+        "title": "Strangler Fig Pattern",
+        "word_count": 1445,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/rate-limiting.md",
+        "title": "Rate Limiting Pattern",
+        "word_count": 7284,
+        "cross_references": 7
+      },
+      {
+        "path": "patterns/heartbeat.md",
+        "title": "Heartbeat Pattern",
+        "word_count": 2876,
+        "cross_references": 7
+      },
+      {
+        "path": "patterns/saga-enhanced.md",
+        "title": "Saga Pattern",
+        "word_count": 1770,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/lease.md",
+        "title": "Lease Pattern",
+        "word_count": 2427,
+        "cross_references": 16
+      },
+      {
+        "path": "patterns/single-socket-channel.md",
+        "title": "Single-Socket Channel",
+        "word_count": 2645,
+        "cross_references": 14
+      },
+      {
+        "path": "patterns/index-navigation.md",
+        "title": "Design Patterns for Distributed Systems",
+        "word_count": 866,
+        "cross_references": 30
+      },
+      {
+        "path": "patterns/clock-sync.md",
+        "title": "Clock Synchronization Pattern",
+        "word_count": 1733,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/data-lake.md",
+        "title": "Data Lake Pattern",
+        "word_count": 795,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/service-discovery.md",
+        "title": "Service Discovery Pattern",
+        "word_count": 1383,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/tunable-consistency.md",
+        "title": "Tunable Consistency",
+        "word_count": 3092,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/lambda-architecture.md",
+        "title": "Lambda Architecture",
+        "word_count": 176,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/cas.md",
+        "title": "CAS (Compare-and-Swap)",
+        "word_count": 1591,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/observability.md",
+        "title": "Observability Patterns",
+        "word_count": 3873,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/read-repair.md",
+        "title": "Read Repair",
+        "word_count": 3855,
+        "cross_references": 5
+      },
+      {
+        "path": "patterns/delta-sync.md",
+        "title": "Delta Sync Pattern",
+        "word_count": 920,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/PATTERN_TEMPLATE.md",
+        "title": "[Pattern Name]",
+        "word_count": 588,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/low-high-water-marks.md",
+        "title": "Low-Water/High-Water Marks",
+        "word_count": 2414,
+        "cross_references": 16
+      },
+      {
+        "path": "patterns/queues-streaming.md",
+        "title": "Queues & Stream Processing",
+        "word_count": 4427,
+        "cross_references": 9
+      },
+      {
+        "path": "patterns/backends-for-frontends.md",
+        "title": "Backends For Frontends (BFF)",
+        "word_count": 4738,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/consistent-hashing.md",
+        "title": "Consistent Hashing",
+        "word_count": 2227,
+        "cross_references": 8
+      },
+      {
+        "path": "patterns/kappa-architecture.md",
+        "title": "Kappa Architecture",
+        "word_count": 180,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/index-new.md",
+        "title": "Distributed Systems Patterns",
+        "word_count": 3618,
+        "cross_references": 135
+      },
+      {
+        "path": "patterns/sidecar.md",
+        "title": "Sidecar Pattern",
+        "word_count": 5402,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/geohashing.md",
+        "title": "Geohashing",
+        "word_count": 1547,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/distributed-queue.md",
+        "title": "Distributed Queue",
+        "word_count": 4008,
+        "cross_references": 4
+      },
+      {
+        "path": "patterns/adaptive-scheduling.md",
+        "title": "Adaptive Scheduling",
+        "word_count": 80,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/scatter-gather.md",
+        "title": "Scatter-Gather",
+        "word_count": 988,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/url-normalization.md",
+        "title": "URL Normalization",
+        "word_count": 2113,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/circuit-breaker-native.md",
+        "title": "Circuit Breaker Pattern",
+        "word_count": 1133,
+        "cross_references": 20
+      },
+      {
+        "path": "patterns/fault-tolerance.md",
+        "title": "Fault Tolerance Pattern",
+        "word_count": 6047,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/idempotent-receiver.md",
+        "title": "Idempotent Receiver Pattern",
+        "word_count": 3855,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/ambassador.md",
+        "title": "Ambassador Pattern",
+        "word_count": 3013,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/data-mesh.md",
+        "title": "Data Mesh",
+        "word_count": 2509,
+        "cross_references": 11
+      },
+      {
+        "path": "patterns/eventual-consistency.md",
+        "title": "Eventual Consistency",
+        "word_count": 4828,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/service-registry.md",
+        "title": "Service Registry Pattern",
+        "word_count": 4066,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/time-series-ids.md",
+        "title": "Time Series IDs",
+        "word_count": 2027,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/tile-caching.md",
+        "title": "Tile Caching",
+        "word_count": 163,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/materialized-view.md",
+        "title": "Materialized View Pattern",
+        "word_count": 1121,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/circuit-breaker-enhanced.md",
+        "title": "Circuit Breaker Pattern",
+        "word_count": 1049,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/anti-corruption-layer.md",
+        "title": "Anti-Corruption Layer (ACL)",
+        "word_count": 2951,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/geo-distribution.md",
+        "title": "Geo-Distribution",
+        "word_count": 64,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/leader-follower.md",
+        "title": "Leader-Follower Pattern",
+        "word_count": 1102,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/analytics-scale.md",
+        "title": "Analytics Scale",
+        "word_count": 80,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/deduplication.md",
+        "title": "Deduplication",
+        "word_count": 52,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/split-brain.md",
+        "title": "Split-Brain Detection & Resolution",
+        "word_count": 1093,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/consensus.md",
+        "title": "Consensus Pattern",
+        "word_count": 4795,
+        "cross_references": 17
+      },
+      {
+        "path": "patterns/geo-replication.md",
+        "title": "Geo-Replication Patterns",
+        "word_count": 4125,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/generation-clock.md",
+        "title": "Generation Clock",
+        "word_count": 2504,
+        "cross_references": 16
+      },
+      {
+        "path": "patterns/segmented-log.md",
+        "title": "Segmented Log Pattern",
+        "word_count": 1732,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/priority-queue.md",
+        "title": "Priority Queue",
+        "word_count": 2538,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/id-generation-scale.md",
+        "title": "ID Generation at Scale",
+        "word_count": 2131,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/README.md",
+        "title": "Pattern Library - Contributor Guide",
+        "word_count": 931,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/blue-green-deployment.md",
+        "title": "Blue-Green Deployment",
+        "word_count": 1270,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/chunking.md",
+        "title": "Chunking",
+        "word_count": 2614,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/cap-theorem.md",
+        "title": "CAP Theorem",
+        "word_count": 1669,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/request-routing.md",
+        "title": "Request Routing Pattern",
+        "word_count": 3393,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/spatial-indexing.md",
+        "title": "Spatial Indexing",
+        "word_count": 58,
+        "cross_references": 4
+      },
+      {
+        "path": "patterns/publish-subscribe.md",
+        "title": "Publish-Subscribe Pattern",
+        "word_count": 1795,
+        "cross_references": 2
+      }
+    ],
+    "case-study": [
+      {
+        "path": "case-studies/snap-map.md",
+        "title": "Snap Map Case Study",
+        "word_count": 140,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/strava-heatmaps.md",
+        "title": "Strava Heatmaps Case Study",
+        "word_count": 147,
+        "cross_references": 1
+      },
+      {
+        "path": "case-studies/redis-architecture.md",
+        "title": "Redis Architecture: Scale and Architecture Deep Dive",
+        "word_count": 1758,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/video-streaming.md",
+        "title": "Video Streaming Platform Architecture",
+        "word_count": 172,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/twitter-timeline.md",
+        "title": "Twitter Timeline",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/distributed-email-enhanced.md",
+        "title": "Distributed Email Service - System Design Case Study",
+        "word_count": 4124,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/spotify-recommendations.md",
+        "title": "\ud83c\udfb5 Spotify's Music Recommendation Engine",
+        "word_count": 2440,
+        "cross_references": 26
+      },
+      {
+        "path": "case-studies/stock-exchange.md",
+        "title": "Design a Stock Exchange",
+        "word_count": 3766,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/STUB_CREATION_REPORT.md",
+        "title": "Case Study Stub Creation Report",
+        "word_count": 294,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/distributed-message-queue.md",
+        "title": "\ud83d\udce8 Distributed Message Queue Design (Kafka/RabbitMQ)",
+        "word_count": 4028,
+        "cross_references": 18
+      },
+      {
+        "path": "case-studies/cassandra-enhanced.md",
+        "title": "Cassandra: Distributed Database at Scale",
+        "word_count": 1681,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/redis.md",
+        "title": "Redis",
+        "word_count": 66,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/memcached.md",
+        "title": "Memcached",
+        "word_count": 66,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/blockchain.md",
+        "title": "Blockchain",
+        "word_count": 66,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/consistent-hashing.md",
+        "title": "Consistent Hashing",
+        "word_count": 5141,
+        "cross_references": 18
+      },
+      {
+        "path": "case-studies/ad-click-aggregation.md",
+        "title": "Design an Ad Click Event Aggregation System",
+        "word_count": 1778,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/object-storage.md",
+        "title": "Design an S3-like Object Storage System",
+        "word_count": 2453,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/amazon-aurora.md",
+        "title": "Amazon Aurora",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/prometheus.md",
+        "title": "Prometheus",
+        "word_count": 66,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/unique-id-generator.md",
+        "title": "Distributed Unique ID Generator",
+        "word_count": 4442,
+        "cross_references": 12
+      },
+      {
+        "path": "case-studies/life360.md",
+        "title": "Life360 Case Study",
+        "word_count": 136,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/search-autocomplete.md",
+        "title": "Search Autocomplete System Design",
+        "word_count": 5530,
+        "cross_references": 18
+      },
+      {
+        "path": "case-studies/elite-engineering/discord-voice-infrastructure.md",
+        "title": "Discord Voice Infrastructure Case Study",
+        "word_count": 1483,
+        "cross_references": 5
+      },
+      {
+        "path": "case-studies/consistency-deep-dive-chat.md",
+        "title": "Deep Dive: Consistency in Chat Systems",
+        "word_count": 2557,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/paypal-payments.md",
+        "title": "\ud83c\udfe6 PayPal's Payment Processing System",
+        "word_count": 2642,
+        "cross_references": 20
+      },
+      {
+        "path": "case-studies/elite-engineering/CASE_STUDIES_COMPLETE.md",
+        "title": "Elite Engineering Case Studies - Completion Report",
+        "word_count": 365,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/elite-engineering/figma-crdt-collaboration.md",
+        "title": "Figma CRDT Collaboration Case Study",
+        "word_count": 1577,
+        "cross_references": 5
+      },
+      {
+        "path": "case-studies/digital-wallet-enhanced.md",
+        "title": "Digital Wallet - System Design Case Study",
+        "word_count": 5762,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/google-spanner.md",
+        "title": "Google Spanner: Scale and Architecture Deep Dive",
+        "word_count": 1939,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/proximity-service.md",
+        "title": "\ud83d\udccd Proximity Service Design (Yelp/Google Places)",
+        "word_count": 6820,
+        "cross_references": 16
+      },
+      {
+        "path": "case-studies/openstreetmap.md",
+        "title": "OpenStreetMap Case Study",
+        "word_count": 134,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/CASE_STUDY_TEMPLATE.md",
+        "title": "[System Name] Case Study",
+        "word_count": 594,
+        "cross_references": 3
+      },
+      {
+        "path": "case-studies/google-maps.md",
+        "title": "\ud83d\uddfa Google Maps Architecture Design",
+        "word_count": 5944,
+        "cross_references": 17
+      },
+      {
+        "path": "case-studies/youtube.md",
+        "title": "YouTube's Video Platform Architecture",
+        "word_count": 5282,
+        "cross_references": 23
+      },
+      {
+        "path": "case-studies/elite-engineering/stripe-api-excellence.md",
+        "title": "Stripe API Excellence Case Study",
+        "word_count": 1242,
+        "cross_references": 5
+      },
+      {
+        "path": "case-studies/hotel-reservation.md",
+        "title": "Design a Hotel Reservation System",
+        "word_count": 3799,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/elite-engineering/index.md",
+        "title": "Elite Engineering Case Studies",
+        "word_count": 606,
+        "cross_references": 10
+      },
+      {
+        "path": "case-studies/netflix-chaos.md",
+        "title": "Netflix Chaos",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/kafka.md",
+        "title": "Apache Kafka: Scale and Architecture Deep Dive",
+        "word_count": 1687,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/mapreduce.md",
+        "title": "Mapreduce",
+        "word_count": 66,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/payment-system.md",
+        "title": "Design a Payment System",
+        "word_count": 3571,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/kubernetes.md",
+        "title": "Kubernetes",
+        "word_count": 66,
+        "cross_references": 0
+      },
+      {
+        "path": "case-studies/notification-system.md",
+        "title": "Distributed Notification System",
+        "word_count": 7152,
+        "cross_references": 8
+      },
+      {
+        "path": "case-studies/ecommerce-platform.md",
+        "title": "E-commerce Platform Architecture",
+        "word_count": 182,
+        "cross_references": 0
+      }
+    ],
+    "reference": [
+      {
+        "path": "reference/navigation-guide.md",
+        "title": "Navigation Implementation Guide",
+        "word_count": 1106,
+        "cross_references": 0
+      },
+      {
+        "path": "reference/admonition-guide.md",
+        "title": "Admonition Semantic Guide",
+        "word_count": 537,
+        "cross_references": 1
+      }
+    ],
+    "example": [
+      {
+        "path": "examples/responsive-patterns-showcase.md",
+        "title": "Responsive Pattern Showcase",
+        "word_count": 1176,
+        "cross_references": 9
+      },
+      {
+        "path": "examples/circuit-breaker-annotated.md",
+        "title": "Circuit Breaker: Annotated Implementation",
+        "word_count": 1222,
+        "cross_references": 0
+      },
+      {
+        "path": "examples/material-grid-examples.md",
+        "title": "Material for MkDocs Grid & Layout Examples",
+        "word_count": 1087,
+        "cross_references": 4
+      },
+      {
+        "path": "examples/layout-test.md",
+        "title": "Layout Test: Content Boundaries",
+        "word_count": 597,
+        "cross_references": 0
+      },
+      {
+        "path": "examples/progressive-disclosure.md",
+        "title": "Progressive Disclosure Examples",
+        "word_count": 934,
+        "cross_references": 7
+      },
+      {
+        "path": "examples/material-transformations.md",
+        "title": "Material for MkDocs Content Transformations",
+        "word_count": 1285,
+        "cross_references": 0
+      },
+      {
+        "path": "examples/mkdocs-responsive-config.md",
+        "title": "MkDocs Responsive Configuration Guide",
+        "word_count": 1375,
+        "cross_references": 0
+      },
+      {
+        "path": "examples/material-features-showcase.md",
+        "title": "Material for MkDocs Features Showcase",
+        "word_count": 973,
+        "cross_references": 1
+      },
+      {
+        "path": "examples/law1-failure-enhanced.md",
+        "title": "Law 1: The Law of Inevitable and Correlated Failure",
+        "word_count": 1744,
+        "cross_references": 2
+      },
+      {
+        "path": "examples/responsive-layouts-guide.md",
+        "title": "Full-Width Responsive Layouts with Material for MkDocs",
+        "word_count": 1299,
+        "cross_references": 4
+      }
+    ],
+    "archived-pattern": [
+      {
+        "path": "patterns/archive/anti-entropy.md",
+        "title": "Anti-Entropy Pattern",
+        "word_count": 1501,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/archive/vector-clocks.md",
+        "title": "Vector Clocks Pattern",
+        "word_count": 2205,
+        "cross_references": 5
+      },
+      {
+        "path": "patterns/archive/stubs/vector-maps.md",
+        "title": "Vector Maps",
+        "word_count": 76,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/archive/write-through-cache.md",
+        "title": "Write-Through Cache Pattern",
+        "word_count": 2296,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/pattern-quiz.md",
+        "title": "Pattern Catalog Quiz",
+        "word_count": 598,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/graph-algorithms.md",
+        "title": "Graph Algorithms",
+        "word_count": 71,
+        "cross_references": 4
+      },
+      {
+        "path": "patterns/archive/stubs/js-crawling.md",
+        "title": "JavaScript Crawling",
+        "word_count": 68,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/archive/pattern-matrix.md",
+        "title": "Pattern Selection Matrix",
+        "word_count": 813,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/archive/stubs/distributed-dedup.md",
+        "title": "Distributed Deduplication",
+        "word_count": 101,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/archive/FINAL_STATUS_REPORT.md",
+        "title": "Pattern Documentation - Final Status Report",
+        "word_count": 1065,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/byzantine-fault-tolerance.md",
+        "title": "Byzantine Fault Tolerance Pattern",
+        "word_count": 2008,
+        "cross_references": 15
+      },
+      {
+        "path": "patterns/archive/pattern-combinations.md",
+        "title": "Pattern Combination Guide",
+        "word_count": 3082,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/real-time.md",
+        "title": "Real-Time Processing",
+        "word_count": 83,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/archive/cache-aside.md",
+        "title": "Cache-Aside Pattern",
+        "word_count": 1872,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/location-privacy.md",
+        "title": "Location Privacy Pattern",
+        "word_count": 3621,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/quality-check-report.md",
+        "title": "Pattern Quality Check Report",
+        "word_count": 765,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/DEPRECATION_NOTICE.md",
+        "title": "Deprecated Patterns Archive",
+        "word_count": 340,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/geofencing.md",
+        "title": "Geofencing",
+        "word_count": 57,
+        "cross_references": 4
+      },
+      {
+        "path": "patterns/archive/url-frontier.md",
+        "title": "URL Frontier",
+        "word_count": 2574,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/ml-pipeline.md",
+        "title": "ML Pipeline",
+        "word_count": 68,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/archive/pattern-comparison.md",
+        "title": "Pattern Comparison Guide",
+        "word_count": 1968,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/crawler-traps.md",
+        "title": "Crawler Trap Detection",
+        "word_count": 68,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/archive/write-behind-cache.md",
+        "title": "Write-Behind Cache Pattern",
+        "word_count": 2619,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/client-library-design.md",
+        "title": "Client Library Design",
+        "word_count": 77,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/archive/politeness.md",
+        "title": "Crawler Politeness",
+        "word_count": 2782,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/gossip-protocol.md",
+        "title": "Gossip Protocol Pattern",
+        "word_count": 5724,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/archive/stubs/client-rendering.md",
+        "title": "Client-Side Rendering",
+        "word_count": 74,
+        "cross_references": 2
+      },
+      {
+        "path": "patterns/archive/stubs/tile-pyramid.md",
+        "title": "Tile Pyramid",
+        "word_count": 59,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/archive/read-through-cache.md",
+        "title": "Read-Through Cache Pattern",
+        "word_count": 2649,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/pattern-relationships.md",
+        "title": "\ud83d\udd17 Pattern Relationship Explorer",
+        "word_count": 1517,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/archive/AUDIT_REPORT.md",
+        "title": "Pattern Documentation Audit Report",
+        "word_count": 548,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/metadata-service.md",
+        "title": "Metadata Service",
+        "word_count": 79,
+        "cross_references": 1
+      },
+      {
+        "path": "patterns/archive/key-management.md",
+        "title": "Key Management",
+        "word_count": 6277,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/network-optimization.md",
+        "title": "Network Optimization",
+        "word_count": 70,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/archive/security-shortener.md",
+        "title": "URL Shortener Security Pattern",
+        "word_count": 4150,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/two-phase-commit.md",
+        "title": "Two-Phase Commit (2PC)",
+        "word_count": 2855,
+        "cross_references": 18
+      },
+      {
+        "path": "patterns/archive/stubs/battery-optimization.md",
+        "title": "Battery Optimization",
+        "word_count": 80,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/content-extraction.md",
+        "title": "Content Extraction",
+        "word_count": 69,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/archive/stubs/vector-tiles.md",
+        "title": "Vector Tiles",
+        "word_count": 54,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/archive/consent-management.md",
+        "title": "Consent Management Pattern",
+        "word_count": 3130,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/e2e-encryption.md",
+        "title": "End-to-End Encryption (E2E)",
+        "word_count": 5359,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/stubs/trie.md",
+        "title": "Trie Data Structure",
+        "word_count": 55,
+        "cross_references": 3
+      },
+      {
+        "path": "patterns/archive/distributed-transactions.md",
+        "title": "Distributed Transactions",
+        "word_count": 4361,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/finops.md",
+        "title": "FinOps Patterns",
+        "word_count": 3125,
+        "cross_references": 0
+      },
+      {
+        "path": "patterns/archive/pattern-selector.md",
+        "title": "Pattern Selection Guide",
+        "word_count": 1520,
+        "cross_references": 3
+      }
+    ],
+    "template": [
+      {
+        "path": "templates/page-navigation-native.md",
+        "title": "Page Navigation Template - MkDocs Material Native",
+        "word_count": 939,
+        "cross_references": 24
+      },
+      {
+        "path": "templates/law-template-native.md",
+        "title": "Law X: [Law Name]",
+        "word_count": 316,
+        "cross_references": 6
+      },
+      {
+        "path": "templates/navigation.md",
+        "title": "Navigation Enhancement Templates",
+        "word_count": 922,
+        "cross_references": 0
+      },
+      {
+        "path": "templates/law-template.md",
+        "title": "Law Name: Descriptive Title",
+        "word_count": 438,
+        "cross_references": 1
+      },
+      {
+        "path": "templates/abbreviations.md",
+        "title": "Abbreviations",
+        "word_count": 257,
+        "cross_references": 0
+      },
+      {
+        "path": "templates/case-study-template.md",
+        "title": "System Name: Scale and Architecture Deep Dive",
+        "word_count": 627,
+        "cross_references": 0
+      },
+      {
+        "path": "templates/pattern-template.md",
+        "title": "Pattern Name",
+        "word_count": 279,
+        "cross_references": 3
+      },
+      {
+        "path": "templates/homepage-template.md",
+        "title": "The Compendium of Distributed Systems",
+        "word_count": 411,
+        "cross_references": 4
+      }
+    ],
+    "excellence": [
+      {
+        "path": "excellence/transformation/archive/NAVIGATION_INTEGRATION_COMPLETE.md",
+        "title": "Navigation Integration Complete",
+        "word_count": 257,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/DSTUDIO_EXCELLENCE_IMPLEMENTATION_PLAN.md",
+        "title": "DStudio Excellence Implementation Plan",
+        "word_count": 3785,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/TRANSFORMATION_COMPLETE.md",
+        "title": "\ud83c\udf89 DStudio Excellence Transformation Complete!",
+        "word_count": 794,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/FINAL_IMPLEMENTATION_SUMMARY.md",
+        "title": "DStudio Excellence Transformation - Final Implementation Summary",
+        "word_count": 926,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/index.md",
+        "title": "Excellence Transformation Archive",
+        "word_count": 123,
+        "cross_references": 7
+      },
+      {
+        "path": "excellence/transformation/archive/NAVIGATION_FILTERING_COMPLETE.md",
+        "title": "Navigation Filtering Implementation Complete",
+        "word_count": 493,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/PATTERN_VERIFICATION_REPORT.md",
+        "title": "Pattern Excellence Verification Report",
+        "word_count": 899,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/migrations/gossip-to-service-mesh.md",
+        "title": "Migrating from Gossip Protocol to Service Mesh",
+        "word_count": 1185,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/PATTERN_CLASSIFICATION_SUMMARY.md",
+        "title": "Pattern Classification Summary - Quick Reference",
+        "word_count": 446,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/PATTERN_RESTORATION_COMPLETE.md",
+        "title": "Pattern Restoration Complete Report",
+        "word_count": 330,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/GOLD_PATTERNS_COMPLETE.md",
+        "title": "Gold Patterns Enhancement Complete",
+        "word_count": 524,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/EXCELLENCE_TRANSFORMATION_SUMMARY.md",
+        "title": "DStudio Excellence Transformation - Complete Summary",
+        "word_count": 898,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/EXCELLENCE_STRUCTURE_COMPLETE.md",
+        "title": "Excellence Structure Implementation Complete",
+        "word_count": 481,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/LEFT_NAV_CLEANUP_REPORT.md",
+        "title": "Left Navigation Bar Cleanup Report",
+        "word_count": 275,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/index.md",
+        "title": "Excellence Transformation Documentation",
+        "word_count": 437,
+        "cross_references": 1
+      },
+      {
+        "path": "excellence/guides/index.md",
+        "title": "Excellence Guides",
+        "word_count": 339,
+        "cross_references": 3
+      },
+      {
+        "path": "excellence/transformation/archive/DSTUDIO_EXCELLENCE_ULTRA_DETAILED_PLAN.md",
+        "title": "DStudio Excellence Transformation: Ultra-Detailed Implementation Plan",
+        "word_count": 5193,
+        "cross_references": 8
+      },
+      {
+        "path": "excellence/transformation/archive/EXCELLENCE_TRANSFORMATION_PROGRESS.md",
+        "title": "DStudio Excellence Transformation Progress Report",
+        "word_count": 631,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/RT.md",
+        "title": "DStudio Excellence Transformation Blueprint (Final Version)",
+        "word_count": 3113,
+        "cross_references": 9
+      },
+      {
+        "path": "excellence/transformation/archive/NEXT_STEPS_ACTION_PLAN.md",
+        "title": "DStudio Excellence Transformation - Next Steps Action Plan",
+        "word_count": 959,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/IMPLEMENTATION_VERIFICATION_CHECKLIST.md",
+        "title": "DStudio Excellence Implementation - Verification Checklist",
+        "word_count": 596,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/IMPLEMENTATION_VISUAL_SUMMARY.md",
+        "title": "DStudio Excellence Implementation - Visual Summary",
+        "word_count": 629,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/PATTERN_CLASSIFICATION_RESULTS.md",
+        "title": "Pattern Classification Results - DStudio Excellence Transformation",
+        "word_count": 1769,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/migrations/MIGRATION_GUIDES_COMPLETE.md",
+        "title": "Migration Guides Summary",
+        "word_count": 956,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/METADATA_ENHANCEMENT_REPORT_PHASE2.md",
+        "title": "Metadata Enhancement Report - Phase 2",
+        "word_count": 836,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/IMPLEMENTATION_COMPLETE_REPORT.md",
+        "title": "DStudio Excellence Transformation - Implementation Complete Report",
+        "word_count": 948,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/METADATA_ENHANCEMENT_REPORT.md",
+        "title": "Metadata Enhancement Report - DStudio Excellence Transformation",
+        "word_count": 843,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/IMPLEMENTATION_GAP_ANALYSIS.md",
+        "title": "DStudio Implementation Gap Analysis Report",
+        "word_count": 833,
+        "cross_references": 1
+      },
+      {
+        "path": "excellence/migrations/vector-clocks-to-hlc.md",
+        "title": "Migrating from Vector Clocks to HLC",
+        "word_count": 886,
+        "cross_references": 2
+      },
+      {
+        "path": "excellence/transformation/archive/HEALTH_DASHBOARD_COMPLETE.md",
+        "title": "Pattern Health Dashboard Implementation Complete",
+        "word_count": 756,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/WEEK_1_IMPLEMENTATION_CHECKLIST.md",
+        "title": "Week 1 Implementation Checklist: Pattern Classification Sprint",
+        "word_count": 1311,
+        "cross_references": 1
+      },
+      {
+        "path": "excellence/EXCELLENCE_GUIDES_COMPLETE.md",
+        "title": "Excellence Guides Creation Complete",
+        "word_count": 499,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/TRANSFORMATION_VISUAL_OVERVIEW.md",
+        "title": "DStudio Excellence Transformation - Visual Overview",
+        "word_count": 571,
+        "cross_references": 0
+      },
+      {
+        "path": "excellence/transformation/archive/NAVIGATION_UPDATE_REPORT.md",
+        "title": "Navigation Update Report",
+        "word_count": 747,
+        "cross_references": 0
+      }
+    ],
+    "quantitative": [
+      {
+        "path": "quantitative/computational-geometry.md",
+        "title": "Computational Geometry",
+        "word_count": 142,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/graph-models.md",
+        "title": "Graph Models",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/space-complexity.md",
+        "title": "Space Complexity",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/backpressure-math.md",
+        "title": "Backpressure Mathematics",
+        "word_count": 873,
+        "cross_references": 1
+      },
+      {
+        "path": "quantitative/collision-probability.md",
+        "title": "Collision Probability",
+        "word_count": 883,
+        "cross_references": 2
+      },
+      {
+        "path": "quantitative/time-series.md",
+        "title": "Time-Series Analysis",
+        "word_count": 137,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/power-laws.md",
+        "title": "Power Laws",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/reliability-engineering.md",
+        "title": "Reliability Engineering Mathematics",
+        "word_count": 1115,
+        "cross_references": 4
+      },
+      {
+        "path": "quantitative/haversine.md",
+        "title": "Haversine Formula and Geospatial Calculations",
+        "word_count": 1299,
+        "cross_references": 1
+      },
+      {
+        "path": "quantitative/computer-vision.md",
+        "title": "Computer Vision",
+        "word_count": 144,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/privacy-metrics.md",
+        "title": "Privacy Metrics",
+        "word_count": 131,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/network-model.md",
+        "title": "Network Model",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/markov-chains.md",
+        "title": "Markov Chains",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/comp-geometry.md",
+        "title": "Computational Geometry for Distributed Systems",
+        "word_count": 989,
+        "cross_references": 3
+      },
+      {
+        "path": "quantitative/performance-testing.md",
+        "title": "Performance Testing",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/compression.md",
+        "title": "Compression Algorithms",
+        "word_count": 138,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/blast-radius.md",
+        "title": "Blast Radius",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/information-theory.md",
+        "title": "Information Theory",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/battery-models.md",
+        "title": "Battery Models",
+        "word_count": 1483,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/spatial-stats.md",
+        "title": "Spatial Statistics",
+        "word_count": 135,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/availability.md",
+        "title": "Availability",
+        "word_count": 66,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/cap-theorem-enhanced.md",
+        "title": "CAP Theorem: The Fundamental Trade-off",
+        "word_count": 1548,
+        "cross_references": 1
+      },
+      {
+        "path": "quantitative/queuing-networks.md",
+        "title": "Queuing Networks",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/storage-engines.md",
+        "title": "Storage Engines",
+        "word_count": 117,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/social-networks.md",
+        "title": "Social Networks",
+        "word_count": 148,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/time-complexity.md",
+        "title": "Time Complexity",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/bayesian-reasoning.md",
+        "title": "Bayesian Reasoning",
+        "word_count": 69,
+        "cross_references": 0
+      },
+      {
+        "path": "quantitative/capacity-planning.md",
+        "title": "Capacity Planning Worksheet",
+        "word_count": 2049,
+        "cross_references": 0
+      }
+    ],
+    "google-interview": [
+      {
+        "path": "google-interviews/mock-questions.md",
+        "title": "Mock Interview Questions for Google",
+        "word_count": 1247,
+        "cross_references": 5
+      },
+      {
+        "path": "google-interviews/google-assistant.md",
+        "title": "Design Google Assistant",
+        "word_count": 1289,
+        "cross_references": 1
+      },
+      {
+        "path": "google-interviews/google-assistant-detailed.md",
+        "title": "Google Assistant: Detailed System Design",
+        "word_count": 2584,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/google-search.md",
+        "title": "Design Google Search",
+        "word_count": 1503,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/google-maps.md",
+        "title": "Design Google Maps",
+        "word_count": 2265,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/practice-problems.md",
+        "title": "Google System Design Practice Problems",
+        "word_count": 2742,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/google-photos-detailed.md",
+        "title": "Google Photos: Detailed System Design",
+        "word_count": 2299,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/gmail-walkthrough.md",
+        "title": "Gmail System Design Walkthrough",
+        "word_count": 1570,
+        "cross_references": 6
+      },
+      {
+        "path": "google-interviews/google-calendar.md",
+        "title": "Design Google Calendar",
+        "word_count": 1403,
+        "cross_references": 1
+      },
+      {
+        "path": "google-interviews/google-patterns.md",
+        "title": "Google Design Patterns & Anti-Patterns",
+        "word_count": 2733,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/gmail.md",
+        "title": "Design Gmail",
+        "word_count": 1989,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/tradeoff-analysis.md",
+        "title": "System Design Trade-off Analysis",
+        "word_count": 1572,
+        "cross_references": 1
+      },
+      {
+        "path": "google-interviews/interview-experiences.md",
+        "title": "Google Interview Experiences & Communication Guide",
+        "word_count": 1966,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/evaluation-rubric.md",
+        "title": "Google System Design Interview Evaluation Rubric",
+        "word_count": 2412,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/cheat-sheets.md",
+        "title": "Google System Design Cheat Sheets",
+        "word_count": 114,
+        "cross_references": 1
+      },
+      {
+        "path": "google-interviews/interview-comparison.md",
+        "title": "System Design Interview Comparison Guide",
+        "word_count": 1548,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/google-photos.md",
+        "title": "Design Google Photos",
+        "word_count": 1427,
+        "cross_references": 1
+      },
+      {
+        "path": "google-interviews/tech-mapping.md",
+        "title": "Technology Mapping Guide",
+        "word_count": 1045,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/maps-walkthrough.md",
+        "title": "Google Maps System Design Walkthrough",
+        "word_count": 1442,
+        "cross_references": 5
+      },
+      {
+        "path": "google-interviews/architecture-patterns.md",
+        "title": "Google Architecture Patterns Reference",
+        "word_count": 1594,
+        "cross_references": 1
+      },
+      {
+        "path": "google-interviews/google-docs.md",
+        "title": "Design Google Docs (Collaborative Editing)",
+        "word_count": 2616,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/google-ads.md",
+        "title": "Design Google Ads (AdWords)",
+        "word_count": 1293,
+        "cross_references": 1
+      },
+      {
+        "path": "google-interviews/time-allocation-calculator.md",
+        "title": "Interview Preparation Time Allocation Calculator",
+        "word_count": 2168,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/youtube-walkthrough.md",
+        "title": "YouTube System Design Walkthrough",
+        "word_count": 1292,
+        "cross_references": 6
+      },
+      {
+        "path": "google-interviews/visual-cheatsheets.md",
+        "title": "Visual Cheat Sheets for System Design Interviews",
+        "word_count": 1352,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/time-management.md",
+        "title": "Time Management Template for Google Interviews",
+        "word_count": 1110,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/google-ads-detailed.md",
+        "title": "Google Ads Platform: Detailed System Design",
+        "word_count": 1585,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/google-drive.md",
+        "title": "Design Google Drive",
+        "word_count": 2629,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/bigtable.md",
+        "title": "Design Bigtable",
+        "word_count": 1120,
+        "cross_references": 3
+      },
+      {
+        "path": "google-interviews/focus-selector.md",
+        "title": "Interview Focus Selector & Decision Trees",
+        "word_count": 1536,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/success-strategies.md",
+        "title": "Final Tips and Success Strategies",
+        "word_count": 1561,
+        "cross_references": 1
+      },
+      {
+        "path": "google-interviews/scale-cheatsheet.md",
+        "title": "Google Scale Cheat Sheet",
+        "word_count": 1070,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/youtube.md",
+        "title": "Design YouTube",
+        "word_count": 1961,
+        "cross_references": 0
+      },
+      {
+        "path": "google-interviews/spanner.md",
+        "title": "Design Spanner",
+        "word_count": 1371,
+        "cross_references": 4
+      },
+      {
+        "path": "google-interviews/study-plans.md",
+        "title": "Google System Design Interview Study Plans",
+        "word_count": 144,
+        "cross_references": 0
+      }
+    ],
+    "axiom": [
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/examples.md",
+        "title": "Economics Examples",
+        "word_count": 3559,
+        "cross_references": 1
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/examples.md",
+        "title": "Latency Examples",
+        "word_count": 2163,
+        "cross_references": 4
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/exercises.md",
+        "title": "Capacity Exercises",
+        "word_count": 1724,
+        "cross_references": 5
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/exercises.md",
+        "title": "Coordination Exercises",
+        "word_count": 3223,
+        "cross_references": 7
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/examples.md",
+        "title": "Observability Examples",
+        "word_count": 2809,
+        "cross_references": 1
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/index.md",
+        "title": "Axiom 1: Latency (Speed of Light)",
+        "word_count": 6222,
+        "cross_references": 22
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/examples.md",
+        "title": "Concurrency Examples",
+        "word_count": 2520,
+        "cross_references": 5
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/index.md",
+        "title": "Axiom 5: Cost of Coordination",
+        "word_count": 6170,
+        "cross_references": 6
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/exercises.md",
+        "title": "Concurrency Exercises",
+        "word_count": 2751,
+        "cross_references": 6
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/examples.md",
+        "title": "Human Interface Examples",
+        "word_count": 2610,
+        "cross_references": 1
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/exercises.md",
+        "title": "Human Interface Exercises",
+        "word_count": 3787,
+        "cross_references": 5
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/index.md",
+        "title": "Axiom 4: Concurrency",
+        "word_count": 5703,
+        "cross_references": 6
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/examples.md",
+        "title": "Coordination Examples",
+        "word_count": 4412,
+        "cross_references": 5
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/examples.md",
+        "title": "Capacity Examples",
+        "word_count": 2066,
+        "cross_references": 5
+      },
+      {
+        "path": "part1-axioms/law1-failure/index-enhanced.md",
+        "title": "Law 1: The Law of Inevitable and Correlated Failure \u26a1",
+        "word_count": 2657,
+        "cross_references": 3
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/exercises.md",
+        "title": "Observability Exercises",
+        "word_count": 2937,
+        "cross_references": 6
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/README.md",
+        "title": "Archive: Old 8-Axiom Structure",
+        "word_count": 348,
+        "cross_references": 0
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/exercises.md",
+        "title": "Economics Exercises",
+        "word_count": 3734,
+        "cross_references": 5
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/index.md",
+        "title": "Axiom 6: Observability",
+        "word_count": 4944,
+        "cross_references": 5
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/exercises.md",
+        "title": "Partial Failure Exercises",
+        "word_count": 2455,
+        "cross_references": 7
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/index.md",
+        "title": "Axiom 8: Economic Gradient",
+        "word_count": 3988,
+        "cross_references": 2
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/index.md",
+        "title": "Axiom 2: Finite Capacity",
+        "word_count": 4453,
+        "cross_references": 26
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/index.md",
+        "title": "Axiom 7: Human-System Interface",
+        "word_count": 3256,
+        "cross_references": 2
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/index.md",
+        "title": "Axiom 3: Partial Failure",
+        "word_count": 5817,
+        "cross_references": 30
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/examples.md",
+        "title": "Axiom 3 Examples: When Systems Fail Spectacularly",
+        "word_count": 2286,
+        "cross_references": 4
+      },
+      {
+        "path": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/exercises.md",
+        "title": "Latency Exercises",
+        "word_count": 1308,
+        "cross_references": 5
+      }
+    ],
+    "human-factors": [
+      {
+        "path": "human-factors/team-topologies.md",
+        "title": "Team Topologies for Distributed Systems",
+        "word_count": 2169,
+        "cross_references": 0
+      },
+      {
+        "path": "human-factors/org-structure.md",
+        "title": "Org-Structure Physics",
+        "word_count": 1681,
+        "cross_references": 0
+      },
+      {
+        "path": "human-factors/oncall-culture.md",
+        "title": "On-Call Culture",
+        "word_count": 1631,
+        "cross_references": 0
+      },
+      {
+        "path": "human-factors/incident-response.md",
+        "title": "Incident Response",
+        "word_count": 2866,
+        "cross_references": 0
+      },
+      {
+        "path": "human-factors/blameless-postmortems.md",
+        "title": "Blameless Postmortems",
+        "word_count": 2189,
+        "cross_references": 0
+      },
+      {
+        "path": "human-factors/knowledge-management.md",
+        "title": "Knowledge Management in Distributed Systems",
+        "word_count": 1019,
+        "cross_references": 2
+      },
+      {
+        "path": "human-factors/consistency-tuning.md",
+        "title": "Consistency Tuning in Production",
+        "word_count": 1557,
+        "cross_references": 0
+      },
+      {
+        "path": "human-factors/observability-stacks.md",
+        "title": "Observability Stacks",
+        "word_count": 2261,
+        "cross_references": 0
+      },
+      {
+        "path": "human-factors/runbooks-playbooks.md",
+        "title": "Runbooks & Playbooks",
+        "word_count": 2859,
+        "cross_references": 0
+      }
+    ],
+    "introduction": [
+      {
+        "path": "introduction/interview-prep/behavioral.md",
+        "title": "Behavioral Interview Guide for Distributed Systems Engineers",
+        "word_count": 1918,
+        "cross_references": 2
+      }
+    ],
+    "index": [
+      {
+        "path": "axioms/index.md",
+        "title": "The 7 Fundamental Laws of Distributed Systems",
+        "word_count": 639,
+        "cross_references": 0
+      },
+      {
+        "path": "pillars/index.md",
+        "title": "The 5 Foundational Pillars of Distributed Systems",
+        "word_count": 719,
+        "cross_references": 0
+      }
+    ],
+    "other": [
+      {
+        "path": "includes/breadcrumbs.md",
+        "title": "Breadcrumb Navigation Templates",
+        "word_count": 99,
+        "cross_references": 5
+      },
+      {
+        "path": "tags.md",
+        "title": "Browse by Tags",
+        "word_count": 132,
+        "cross_references": 4
+      },
+      {
+        "path": "navigation-mkdocs-native.md",
+        "title": "Navigation with MkDocs Material Native Features",
+        "word_count": 742,
+        "cross_references": 26
+      },
+      {
+        "path": "test-plan/navigation-test-plan.md",
+        "title": "Navigation Test Plan for DStudio",
+        "word_count": 2176,
+        "cross_references": 0
+      },
+      {
+        "path": "offline.md",
+        "title": "\ud83d\udce1 You're Offline",
+        "word_count": 187,
+        "cross_references": 0
+      }
+    ],
+    "tool": [
+      {
+        "path": "tools/cost-optimizer.md",
+        "title": "Cost Optimization Calculator",
+        "word_count": 1835,
+        "cross_references": 3
+      },
+      {
+        "path": "tools/throughput-calculator.md",
+        "title": "Throughput Optimizer",
+        "word_count": 1313,
+        "cross_references": 4
+      },
+      {
+        "path": "tools/availability-calculator.md",
+        "title": "Availability Calculator",
+        "word_count": 1508,
+        "cross_references": 4
+      }
+    ],
+    "amazon-interview": [
+      {
+        "path": "amazon-interviews/leadership-principles.md",
+        "title": "Amazon's Leadership Principles in System Design",
+        "word_count": 3689,
+        "cross_references": 0
+      },
+      {
+        "path": "amazon-interviews/index.md",
+        "title": "Amazon System Design Interview Guide",
+        "word_count": 1870,
+        "cross_references": 0
+      },
+      {
+        "path": "amazon-interviews/amazon-ecommerce.md",
+        "title": "Design Amazon E-Commerce Platform",
+        "word_count": 1660,
+        "cross_references": 0
+      },
+      {
+        "path": "amazon-interviews/dynamodb.md",
+        "title": "DynamoDB Design Guide",
+        "word_count": 1765,
+        "cross_references": 0
+      },
+      {
+        "path": "amazon-interviews/s3.md",
+        "title": "Designing Amazon S3: Object Storage at Scale",
+        "word_count": 2905,
+        "cross_references": 0
+      },
+      {
+        "path": "amazon-interviews/prime-video.md",
+        "title": "Designing Prime Video: Video Streaming at Scale",
+        "word_count": 4624,
+        "cross_references": 0
+      }
+    ],
+    "pillar": [
+      {
+        "path": "part2-pillars/reflection-journal.md",
+        "title": "Micro-Reflection Journal",
+        "word_count": 490,
+        "cross_references": 0
+      },
+      {
+        "path": "part2-pillars/failure-recap.md",
+        "title": "Failure-Vignette Recap Boxes",
+        "word_count": 542,
+        "cross_references": 0
+      },
+      {
+        "path": "part2-pillars/transition-part3.md",
+        "title": "Transition Page (Part III Preview)",
+        "word_count": 267,
+        "cross_references": 0
+      },
+      {
+        "path": "part2-pillars/pattern-catalog-intro.md",
+        "title": "PATTERN CATALOG INTRO",
+        "word_count": 537,
+        "cross_references": 0
+      },
+      {
+        "path": "part2-pillars/pattern-legend.md",
+        "title": "Pattern Legend & Icons",
+        "word_count": 522,
+        "cross_references": 0
+      },
+      {
+        "path": "part2-pillars/models-comparison.md",
+        "title": "CAST vs SPACE Models",
+        "word_count": 919,
+        "cross_references": 0
+      },
+      {
+        "path": "part2-pillars/pillars-patterns-map.md",
+        "title": "Pillars \u2194 Patterns Mini-Map",
+        "word_count": 621,
+        "cross_references": 0
+      },
+      {
+        "path": "part2-pillars/models-collide.md",
+        "title": "When Models Collide",
+        "word_count": 487,
+        "cross_references": 0
+      }
+    ]
+  },
+  "significant_orphaned": [
+    {
+      "path": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern",
+      "category": "pattern",
+      "word_count": 7284,
+      "cross_references": 7
+    },
+    {
+      "path": "case-studies/notification-system.md",
+      "title": "Distributed Notification System",
+      "category": "case-study",
+      "word_count": 7152,
+      "cross_references": 8
+    },
+    {
+      "path": "case-studies/proximity-service.md",
+      "title": "\ud83d\udccd Proximity Service Design (Yelp/Google Places)",
+      "category": "case-study",
+      "word_count": 6820,
+      "cross_references": 16
+    },
+    {
+      "path": "patterns/archive/key-management.md",
+      "title": "Key Management",
+      "category": "archived-pattern",
+      "word_count": 6277,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)",
+      "category": "axiom",
+      "word_count": 6222,
+      "cross_references": 22
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination",
+      "category": "axiom",
+      "word_count": 6170,
+      "cross_references": 6
+    },
+    {
+      "path": "patterns/fault-tolerance.md",
+      "title": "Fault Tolerance Pattern",
+      "category": "pattern",
+      "word_count": 6047,
+      "cross_references": 3
+    },
+    {
+      "path": "case-studies/google-maps.md",
+      "title": "\ud83d\uddfa Google Maps Architecture Design",
+      "category": "case-study",
+      "word_count": 5944,
+      "cross_references": 17
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure",
+      "category": "axiom",
+      "word_count": 5817,
+      "cross_references": 30
+    },
+    {
+      "path": "case-studies/digital-wallet-enhanced.md",
+      "title": "Digital Wallet - System Design Case Study",
+      "category": "case-study",
+      "word_count": 5762,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/gossip-protocol.md",
+      "title": "Gossip Protocol Pattern",
+      "category": "archived-pattern",
+      "word_count": 5724,
+      "cross_references": 2
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency",
+      "category": "axiom",
+      "word_count": 5703,
+      "cross_references": 6
+    },
+    {
+      "path": "case-studies/search-autocomplete.md",
+      "title": "Search Autocomplete System Design",
+      "category": "case-study",
+      "word_count": 5530,
+      "cross_references": 18
+    },
+    {
+      "path": "patterns/sidecar.md",
+      "title": "Sidecar Pattern",
+      "category": "pattern",
+      "word_count": 5402,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/e2e-encryption.md",
+      "title": "End-to-End Encryption (E2E)",
+      "category": "archived-pattern",
+      "word_count": 5359,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/youtube.md",
+      "title": "YouTube's Video Platform Architecture",
+      "category": "case-study",
+      "word_count": 5282,
+      "cross_references": 23
+    },
+    {
+      "path": "excellence/transformation/archive/DSTUDIO_EXCELLENCE_ULTRA_DETAILED_PLAN.md",
+      "title": "DStudio Excellence Transformation: Ultra-Detailed Implementation Plan",
+      "category": "excellence",
+      "word_count": 5193,
+      "cross_references": 8
+    },
+    {
+      "path": "case-studies/consistent-hashing.md",
+      "title": "Consistent Hashing",
+      "category": "case-study",
+      "word_count": 5141,
+      "cross_references": 18
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/index.md",
+      "title": "Axiom 6: Observability",
+      "category": "axiom",
+      "word_count": 4944,
+      "cross_references": 5
+    },
+    {
+      "path": "patterns/eventual-consistency.md",
+      "title": "Eventual Consistency",
+      "category": "pattern",
+      "word_count": 4828,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/consensus.md",
+      "title": "Consensus Pattern",
+      "category": "pattern",
+      "word_count": 4795,
+      "cross_references": 17
+    },
+    {
+      "path": "patterns/backends-for-frontends.md",
+      "title": "Backends For Frontends (BFF)",
+      "category": "pattern",
+      "word_count": 4738,
+      "cross_references": 0
+    },
+    {
+      "path": "amazon-interviews/prime-video.md",
+      "title": "Designing Prime Video: Video Streaming at Scale",
+      "category": "amazon-interview",
+      "word_count": 4624,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/serverless-faas.md",
+      "title": "Serverless/FaaS (Function-as-a-Service)",
+      "category": "pattern",
+      "word_count": 4498,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity",
+      "category": "axiom",
+      "word_count": 4453,
+      "cross_references": 26
+    },
+    {
+      "path": "case-studies/unique-id-generator.md",
+      "title": "Distributed Unique ID Generator",
+      "category": "case-study",
+      "word_count": 4442,
+      "cross_references": 12
+    },
+    {
+      "path": "patterns/queues-streaming.md",
+      "title": "Queues & Stream Processing",
+      "category": "pattern",
+      "word_count": 4427,
+      "cross_references": 9
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/examples.md",
+      "title": "Coordination Examples",
+      "category": "axiom",
+      "word_count": 4412,
+      "cross_references": 5
+    },
+    {
+      "path": "patterns/archive/distributed-transactions.md",
+      "title": "Distributed Transactions",
+      "category": "archived-pattern",
+      "word_count": 4361,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/security-shortener.md",
+      "title": "URL Shortener Security Pattern",
+      "category": "archived-pattern",
+      "word_count": 4150,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/geo-replication.md",
+      "title": "Geo-Replication Patterns",
+      "category": "pattern",
+      "word_count": 4125,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/distributed-email-enhanced.md",
+      "title": "Distributed Email Service - System Design Case Study",
+      "category": "case-study",
+      "word_count": 4124,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/service-registry.md",
+      "title": "Service Registry Pattern",
+      "category": "pattern",
+      "word_count": 4066,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/distributed-message-queue.md",
+      "title": "\ud83d\udce8 Distributed Message Queue Design (Kafka/RabbitMQ)",
+      "category": "case-study",
+      "word_count": 4028,
+      "cross_references": 18
+    },
+    {
+      "path": "patterns/distributed-queue.md",
+      "title": "Distributed Queue",
+      "category": "pattern",
+      "word_count": 4008,
+      "cross_references": 4
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient",
+      "category": "axiom",
+      "word_count": 3988,
+      "cross_references": 2
+    },
+    {
+      "path": "patterns/observability.md",
+      "title": "Observability Patterns",
+      "category": "pattern",
+      "word_count": 3873,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/read-repair.md",
+      "title": "Read Repair",
+      "category": "pattern",
+      "word_count": 3855,
+      "cross_references": 5
+    },
+    {
+      "path": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern",
+      "category": "pattern",
+      "word_count": 3855,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/hotel-reservation.md",
+      "title": "Design a Hotel Reservation System",
+      "category": "case-study",
+      "word_count": 3799,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/exercises.md",
+      "title": "Human Interface Exercises",
+      "category": "axiom",
+      "word_count": 3787,
+      "cross_references": 5
+    },
+    {
+      "path": "excellence/transformation/archive/DSTUDIO_EXCELLENCE_IMPLEMENTATION_PLAN.md",
+      "title": "DStudio Excellence Implementation Plan",
+      "category": "excellence",
+      "word_count": 3785,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/stock-exchange.md",
+      "title": "Design a Stock Exchange",
+      "category": "case-study",
+      "word_count": 3766,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/exercises.md",
+      "title": "Economics Exercises",
+      "category": "axiom",
+      "word_count": 3734,
+      "cross_references": 5
+    },
+    {
+      "path": "amazon-interviews/leadership-principles.md",
+      "title": "Amazon's Leadership Principles in System Design",
+      "category": "amazon-interview",
+      "word_count": 3689,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/location-privacy.md",
+      "title": "Location Privacy Pattern",
+      "category": "archived-pattern",
+      "word_count": 3621,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/index-new.md",
+      "title": "Distributed Systems Patterns",
+      "category": "pattern",
+      "word_count": 3618,
+      "cross_references": 135
+    },
+    {
+      "path": "case-studies/payment-system.md",
+      "title": "Design a Payment System",
+      "category": "case-study",
+      "word_count": 3571,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/examples.md",
+      "title": "Economics Examples",
+      "category": "axiom",
+      "word_count": 3559,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/request-routing.md",
+      "title": "Request Routing Pattern",
+      "category": "pattern",
+      "word_count": 3393,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface",
+      "category": "axiom",
+      "word_count": 3256,
+      "cross_references": 2
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/exercises.md",
+      "title": "Coordination Exercises",
+      "category": "axiom",
+      "word_count": 3223,
+      "cross_references": 7
+    },
+    {
+      "path": "patterns/archive/consent-management.md",
+      "title": "Consent Management Pattern",
+      "category": "archived-pattern",
+      "word_count": 3130,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/finops.md",
+      "title": "FinOps Patterns",
+      "category": "archived-pattern",
+      "word_count": 3125,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/RT.md",
+      "title": "DStudio Excellence Transformation Blueprint (Final Version)",
+      "category": "excellence",
+      "word_count": 3113,
+      "cross_references": 9
+    },
+    {
+      "path": "patterns/tunable-consistency.md",
+      "title": "Tunable Consistency",
+      "category": "pattern",
+      "word_count": 3092,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/pattern-combinations.md",
+      "title": "Pattern Combination Guide",
+      "category": "archived-pattern",
+      "word_count": 3082,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/ambassador.md",
+      "title": "Ambassador Pattern",
+      "category": "pattern",
+      "word_count": 3013,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/anti-corruption-layer.md",
+      "title": "Anti-Corruption Layer (ACL)",
+      "category": "pattern",
+      "word_count": 2951,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/exercises.md",
+      "title": "Observability Exercises",
+      "category": "axiom",
+      "word_count": 2937,
+      "cross_references": 6
+    },
+    {
+      "path": "amazon-interviews/s3.md",
+      "title": "Designing Amazon S3: Object Storage at Scale",
+      "category": "amazon-interview",
+      "word_count": 2905,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/heartbeat.md",
+      "title": "Heartbeat Pattern",
+      "category": "pattern",
+      "word_count": 2876,
+      "cross_references": 7
+    },
+    {
+      "path": "human-factors/incident-response.md",
+      "title": "Incident Response",
+      "category": "human-factors",
+      "word_count": 2866,
+      "cross_references": 0
+    },
+    {
+      "path": "human-factors/runbooks-playbooks.md",
+      "title": "Runbooks & Playbooks",
+      "category": "human-factors",
+      "word_count": 2859,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/two-phase-commit.md",
+      "title": "Two-Phase Commit (2PC)",
+      "category": "archived-pattern",
+      "word_count": 2855,
+      "cross_references": 18
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/examples.md",
+      "title": "Observability Examples",
+      "category": "axiom",
+      "word_count": 2809,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/archive/politeness.md",
+      "title": "Crawler Politeness",
+      "category": "archived-pattern",
+      "word_count": 2782,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/emergent-leader.md",
+      "title": "Emergent Leader Pattern",
+      "category": "pattern",
+      "word_count": 2769,
+      "cross_references": 16
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/exercises.md",
+      "title": "Concurrency Exercises",
+      "category": "axiom",
+      "word_count": 2751,
+      "cross_references": 6
+    },
+    {
+      "path": "google-interviews/practice-problems.md",
+      "title": "Google System Design Practice Problems",
+      "category": "google-interview",
+      "word_count": 2742,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/google-patterns.md",
+      "title": "Google Design Patterns & Anti-Patterns",
+      "category": "google-interview",
+      "word_count": 2733,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/law1-failure/index-enhanced.md",
+      "title": "Law 1: The Law of Inevitable and Correlated Failure \u26a1",
+      "category": "axiom",
+      "word_count": 2657,
+      "cross_references": 3
+    },
+    {
+      "path": "patterns/archive/read-through-cache.md",
+      "title": "Read-Through Cache Pattern",
+      "category": "archived-pattern",
+      "word_count": 2649,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/single-socket-channel.md",
+      "title": "Single-Socket Channel",
+      "category": "pattern",
+      "word_count": 2645,
+      "cross_references": 14
+    },
+    {
+      "path": "case-studies/paypal-payments.md",
+      "title": "\ud83c\udfe6 PayPal's Payment Processing System",
+      "category": "case-study",
+      "word_count": 2642,
+      "cross_references": 20
+    },
+    {
+      "path": "google-interviews/google-drive.md",
+      "title": "Design Google Drive",
+      "category": "google-interview",
+      "word_count": 2629,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/write-behind-cache.md",
+      "title": "Write-Behind Cache Pattern",
+      "category": "archived-pattern",
+      "word_count": 2619,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/google-docs.md",
+      "title": "Design Google Docs (Collaborative Editing)",
+      "category": "google-interview",
+      "word_count": 2616,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/chunking.md",
+      "title": "Chunking",
+      "category": "pattern",
+      "word_count": 2614,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom7-human/examples.md",
+      "title": "Human Interface Examples",
+      "category": "axiom",
+      "word_count": 2610,
+      "cross_references": 1
+    },
+    {
+      "path": "google-interviews/google-assistant-detailed.md",
+      "title": "Google Assistant: Detailed System Design",
+      "category": "google-interview",
+      "word_count": 2584,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/url-frontier.md",
+      "title": "URL Frontier",
+      "category": "archived-pattern",
+      "word_count": 2574,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/consistency-deep-dive-chat.md",
+      "title": "Deep Dive: Consistency in Chat Systems",
+      "category": "case-study",
+      "word_count": 2557,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/priority-queue.md",
+      "title": "Priority Queue",
+      "category": "pattern",
+      "word_count": 2538,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/examples.md",
+      "title": "Concurrency Examples",
+      "category": "axiom",
+      "word_count": 2520,
+      "cross_references": 5
+    },
+    {
+      "path": "patterns/data-mesh.md",
+      "title": "Data Mesh",
+      "category": "pattern",
+      "word_count": 2509,
+      "cross_references": 11
+    },
+    {
+      "path": "patterns/generation-clock.md",
+      "title": "Generation Clock",
+      "category": "pattern",
+      "word_count": 2504,
+      "cross_references": 16
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/exercises.md",
+      "title": "Partial Failure Exercises",
+      "category": "axiom",
+      "word_count": 2455,
+      "cross_references": 7
+    },
+    {
+      "path": "case-studies/object-storage.md",
+      "title": "Design an S3-like Object Storage System",
+      "category": "case-study",
+      "word_count": 2453,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/spotify-recommendations.md",
+      "title": "\ud83c\udfb5 Spotify's Music Recommendation Engine",
+      "category": "case-study",
+      "word_count": 2440,
+      "cross_references": 26
+    },
+    {
+      "path": "patterns/lease.md",
+      "title": "Lease Pattern",
+      "category": "pattern",
+      "word_count": 2427,
+      "cross_references": 16
+    },
+    {
+      "path": "patterns/low-high-water-marks.md",
+      "title": "Low-Water/High-Water Marks",
+      "category": "pattern",
+      "word_count": 2414,
+      "cross_references": 16
+    },
+    {
+      "path": "google-interviews/evaluation-rubric.md",
+      "title": "Google System Design Interview Evaluation Rubric",
+      "category": "google-interview",
+      "word_count": 2412,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/google-photos-detailed.md",
+      "title": "Google Photos: Detailed System Design",
+      "category": "google-interview",
+      "word_count": 2299,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/write-through-cache.md",
+      "title": "Write-Through Cache Pattern",
+      "category": "archived-pattern",
+      "word_count": 2296,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/examples.md",
+      "title": "Axiom 3 Examples: When Systems Fail Spectacularly",
+      "category": "axiom",
+      "word_count": 2286,
+      "cross_references": 4
+    },
+    {
+      "path": "google-interviews/google-maps.md",
+      "title": "Design Google Maps",
+      "category": "google-interview",
+      "word_count": 2265,
+      "cross_references": 0
+    },
+    {
+      "path": "human-factors/observability-stacks.md",
+      "title": "Observability Stacks",
+      "category": "human-factors",
+      "word_count": 2261,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/consistent-hashing.md",
+      "title": "Consistent Hashing",
+      "category": "pattern",
+      "word_count": 2227,
+      "cross_references": 8
+    },
+    {
+      "path": "patterns/archive/vector-clocks.md",
+      "title": "Vector Clocks Pattern",
+      "category": "archived-pattern",
+      "word_count": 2205,
+      "cross_references": 5
+    },
+    {
+      "path": "human-factors/blameless-postmortems.md",
+      "title": "Blameless Postmortems",
+      "category": "human-factors",
+      "word_count": 2189,
+      "cross_references": 0
+    },
+    {
+      "path": "test-plan/navigation-test-plan.md",
+      "title": "Navigation Test Plan for DStudio",
+      "category": "other",
+      "word_count": 2176,
+      "cross_references": 0
+    },
+    {
+      "path": "human-factors/team-topologies.md",
+      "title": "Team Topologies for Distributed Systems",
+      "category": "human-factors",
+      "word_count": 2169,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/time-allocation-calculator.md",
+      "title": "Interview Preparation Time Allocation Calculator",
+      "category": "google-interview",
+      "word_count": 2168,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/examples.md",
+      "title": "Latency Examples",
+      "category": "axiom",
+      "word_count": 2163,
+      "cross_references": 4
+    },
+    {
+      "path": "patterns/id-generation-scale.md",
+      "title": "ID Generation at Scale",
+      "category": "pattern",
+      "word_count": 2131,
+      "cross_references": 2
+    },
+    {
+      "path": "patterns/url-normalization.md",
+      "title": "URL Normalization",
+      "category": "pattern",
+      "word_count": 2113,
+      "cross_references": 1
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/examples.md",
+      "title": "Capacity Examples",
+      "category": "axiom",
+      "word_count": 2066,
+      "cross_references": 5
+    },
+    {
+      "path": "quantitative/capacity-planning.md",
+      "title": "Capacity Planning Worksheet",
+      "category": "quantitative",
+      "word_count": 2049,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/time-series-ids.md",
+      "title": "Time Series IDs",
+      "category": "pattern",
+      "word_count": 2027,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/byzantine-fault-tolerance.md",
+      "title": "Byzantine Fault Tolerance Pattern",
+      "category": "archived-pattern",
+      "word_count": 2008,
+      "cross_references": 15
+    },
+    {
+      "path": "google-interviews/gmail.md",
+      "title": "Design Gmail",
+      "category": "google-interview",
+      "word_count": 1989,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/pattern-comparison.md",
+      "title": "Pattern Comparison Guide",
+      "category": "archived-pattern",
+      "word_count": 1968,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/interview-experiences.md",
+      "title": "Google Interview Experiences & Communication Guide",
+      "category": "google-interview",
+      "word_count": 1966,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/youtube.md",
+      "title": "Design YouTube",
+      "category": "google-interview",
+      "word_count": 1961,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/google-spanner.md",
+      "title": "Google Spanner: Scale and Architecture Deep Dive",
+      "category": "case-study",
+      "word_count": 1939,
+      "cross_references": 0
+    },
+    {
+      "path": "introduction/interview-prep/behavioral.md",
+      "title": "Behavioral Interview Guide for Distributed Systems Engineers",
+      "category": "introduction",
+      "word_count": 1918,
+      "cross_references": 2
+    },
+    {
+      "path": "patterns/archive/cache-aside.md",
+      "title": "Cache-Aside Pattern",
+      "category": "archived-pattern",
+      "word_count": 1872,
+      "cross_references": 0
+    },
+    {
+      "path": "amazon-interviews/index.md",
+      "title": "Amazon System Design Interview Guide",
+      "category": "amazon-interview",
+      "word_count": 1870,
+      "cross_references": 0
+    },
+    {
+      "path": "tools/cost-optimizer.md",
+      "title": "Cost Optimization Calculator",
+      "category": "tool",
+      "word_count": 1835,
+      "cross_references": 3
+    },
+    {
+      "path": "patterns/publish-subscribe.md",
+      "title": "Publish-Subscribe Pattern",
+      "category": "pattern",
+      "word_count": 1795,
+      "cross_references": 2
+    },
+    {
+      "path": "case-studies/ad-click-aggregation.md",
+      "title": "Design an Ad Click Event Aggregation System",
+      "category": "case-study",
+      "word_count": 1778,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/saga-enhanced.md",
+      "title": "Saga Pattern",
+      "category": "pattern",
+      "word_count": 1770,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/PATTERN_CLASSIFICATION_RESULTS.md",
+      "title": "Pattern Classification Results - DStudio Excellence Transformation",
+      "category": "excellence",
+      "word_count": 1769,
+      "cross_references": 0
+    },
+    {
+      "path": "amazon-interviews/dynamodb.md",
+      "title": "DynamoDB Design Guide",
+      "category": "amazon-interview",
+      "word_count": 1765,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/redis-architecture.md",
+      "title": "Redis Architecture: Scale and Architecture Deep Dive",
+      "category": "case-study",
+      "word_count": 1758,
+      "cross_references": 0
+    },
+    {
+      "path": "examples/law1-failure-enhanced.md",
+      "title": "Law 1: The Law of Inevitable and Correlated Failure",
+      "category": "example",
+      "word_count": 1744,
+      "cross_references": 2
+    },
+    {
+      "path": "patterns/clock-sync.md",
+      "title": "Clock Synchronization Pattern",
+      "category": "pattern",
+      "word_count": 1733,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/segmented-log.md",
+      "title": "Segmented Log Pattern",
+      "category": "pattern",
+      "word_count": 1732,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/exercises.md",
+      "title": "Capacity Exercises",
+      "category": "axiom",
+      "word_count": 1724,
+      "cross_references": 5
+    },
+    {
+      "path": "case-studies/kafka.md",
+      "title": "Apache Kafka: Scale and Architecture Deep Dive",
+      "category": "case-study",
+      "word_count": 1687,
+      "cross_references": 0
+    },
+    {
+      "path": "human-factors/org-structure.md",
+      "title": "Org-Structure Physics",
+      "category": "human-factors",
+      "word_count": 1681,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/cassandra-enhanced.md",
+      "title": "Cassandra: Distributed Database at Scale",
+      "category": "case-study",
+      "word_count": 1681,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/cap-theorem.md",
+      "title": "CAP Theorem",
+      "category": "pattern",
+      "word_count": 1669,
+      "cross_references": 0
+    },
+    {
+      "path": "amazon-interviews/amazon-ecommerce.md",
+      "title": "Design Amazon E-Commerce Platform",
+      "category": "amazon-interview",
+      "word_count": 1660,
+      "cross_references": 0
+    },
+    {
+      "path": "human-factors/oncall-culture.md",
+      "title": "On-Call Culture",
+      "category": "human-factors",
+      "word_count": 1631,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/architecture-patterns.md",
+      "title": "Google Architecture Patterns Reference",
+      "category": "google-interview",
+      "word_count": 1594,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/cas.md",
+      "title": "CAS (Compare-and-Swap)",
+      "category": "pattern",
+      "word_count": 1591,
+      "cross_references": 3
+    },
+    {
+      "path": "google-interviews/google-ads-detailed.md",
+      "title": "Google Ads Platform: Detailed System Design",
+      "category": "google-interview",
+      "word_count": 1585,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/elite-engineering/figma-crdt-collaboration.md",
+      "title": "Figma CRDT Collaboration Case Study",
+      "category": "case-study",
+      "word_count": 1577,
+      "cross_references": 5
+    },
+    {
+      "path": "google-interviews/tradeoff-analysis.md",
+      "title": "System Design Trade-off Analysis",
+      "category": "google-interview",
+      "word_count": 1572,
+      "cross_references": 1
+    },
+    {
+      "path": "google-interviews/gmail-walkthrough.md",
+      "title": "Gmail System Design Walkthrough",
+      "category": "google-interview",
+      "word_count": 1570,
+      "cross_references": 6
+    },
+    {
+      "path": "google-interviews/success-strategies.md",
+      "title": "Final Tips and Success Strategies",
+      "category": "google-interview",
+      "word_count": 1561,
+      "cross_references": 1
+    },
+    {
+      "path": "human-factors/consistency-tuning.md",
+      "title": "Consistency Tuning in Production",
+      "category": "human-factors",
+      "word_count": 1557,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/interview-comparison.md",
+      "title": "System Design Interview Comparison Guide",
+      "category": "google-interview",
+      "word_count": 1548,
+      "cross_references": 0
+    },
+    {
+      "path": "quantitative/cap-theorem-enhanced.md",
+      "title": "CAP Theorem: The Fundamental Trade-off",
+      "category": "quantitative",
+      "word_count": 1548,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/geohashing.md",
+      "title": "Geohashing",
+      "category": "pattern",
+      "word_count": 1547,
+      "cross_references": 1
+    },
+    {
+      "path": "google-interviews/focus-selector.md",
+      "title": "Interview Focus Selector & Decision Trees",
+      "category": "google-interview",
+      "word_count": 1536,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/pattern-selector.md",
+      "title": "Pattern Selection Guide",
+      "category": "archived-pattern",
+      "word_count": 1520,
+      "cross_references": 3
+    },
+    {
+      "path": "patterns/archive/pattern-relationships.md",
+      "title": "\ud83d\udd17 Pattern Relationship Explorer",
+      "category": "archived-pattern",
+      "word_count": 1517,
+      "cross_references": 1
+    },
+    {
+      "path": "tools/availability-calculator.md",
+      "title": "Availability Calculator",
+      "category": "tool",
+      "word_count": 1508,
+      "cross_references": 4
+    },
+    {
+      "path": "google-interviews/google-search.md",
+      "title": "Design Google Search",
+      "category": "google-interview",
+      "word_count": 1503,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/anti-entropy.md",
+      "title": "Anti-Entropy Pattern",
+      "category": "archived-pattern",
+      "word_count": 1501,
+      "cross_references": 2
+    },
+    {
+      "path": "quantitative/battery-models.md",
+      "title": "Battery Models",
+      "category": "quantitative",
+      "word_count": 1483,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/elite-engineering/discord-voice-infrastructure.md",
+      "title": "Discord Voice Infrastructure Case Study",
+      "category": "case-study",
+      "word_count": 1483,
+      "cross_references": 5
+    },
+    {
+      "path": "patterns/strangler-fig.md",
+      "title": "Strangler Fig Pattern",
+      "category": "pattern",
+      "word_count": 1445,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/maps-walkthrough.md",
+      "title": "Google Maps System Design Walkthrough",
+      "category": "google-interview",
+      "word_count": 1442,
+      "cross_references": 5
+    },
+    {
+      "path": "google-interviews/google-photos.md",
+      "title": "Design Google Photos",
+      "category": "google-interview",
+      "word_count": 1427,
+      "cross_references": 1
+    },
+    {
+      "path": "google-interviews/google-calendar.md",
+      "title": "Design Google Calendar",
+      "category": "google-interview",
+      "word_count": 1403,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/service-discovery.md",
+      "title": "Service Discovery Pattern",
+      "category": "pattern",
+      "word_count": 1383,
+      "cross_references": 0
+    },
+    {
+      "path": "examples/mkdocs-responsive-config.md",
+      "title": "MkDocs Responsive Configuration Guide",
+      "category": "example",
+      "word_count": 1375,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/spanner.md",
+      "title": "Design Spanner",
+      "category": "google-interview",
+      "word_count": 1371,
+      "cross_references": 4
+    },
+    {
+      "path": "google-interviews/visual-cheatsheets.md",
+      "title": "Visual Cheat Sheets for System Design Interviews",
+      "category": "google-interview",
+      "word_count": 1352,
+      "cross_references": 0
+    },
+    {
+      "path": "tools/throughput-calculator.md",
+      "title": "Throughput Optimizer",
+      "category": "tool",
+      "word_count": 1313,
+      "cross_references": 4
+    },
+    {
+      "path": "excellence/transformation/archive/WEEK_1_IMPLEMENTATION_CHECKLIST.md",
+      "title": "Week 1 Implementation Checklist: Pattern Classification Sprint",
+      "category": "excellence",
+      "word_count": 1311,
+      "cross_references": 1
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/exercises.md",
+      "title": "Latency Exercises",
+      "category": "axiom",
+      "word_count": 1308,
+      "cross_references": 5
+    },
+    {
+      "path": "quantitative/haversine.md",
+      "title": "Haversine Formula and Geospatial Calculations",
+      "category": "quantitative",
+      "word_count": 1299,
+      "cross_references": 1
+    },
+    {
+      "path": "examples/responsive-layouts-guide.md",
+      "title": "Full-Width Responsive Layouts with Material for MkDocs",
+      "category": "example",
+      "word_count": 1299,
+      "cross_references": 4
+    },
+    {
+      "path": "google-interviews/google-ads.md",
+      "title": "Design Google Ads (AdWords)",
+      "category": "google-interview",
+      "word_count": 1293,
+      "cross_references": 1
+    },
+    {
+      "path": "google-interviews/youtube-walkthrough.md",
+      "title": "YouTube System Design Walkthrough",
+      "category": "google-interview",
+      "word_count": 1292,
+      "cross_references": 6
+    },
+    {
+      "path": "google-interviews/google-assistant.md",
+      "title": "Design Google Assistant",
+      "category": "google-interview",
+      "word_count": 1289,
+      "cross_references": 1
+    },
+    {
+      "path": "examples/material-transformations.md",
+      "title": "Material for MkDocs Content Transformations",
+      "category": "example",
+      "word_count": 1285,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/blue-green-deployment.md",
+      "title": "Blue-Green Deployment",
+      "category": "pattern",
+      "word_count": 1270,
+      "cross_references": 1
+    },
+    {
+      "path": "google-interviews/mock-questions.md",
+      "title": "Mock Interview Questions for Google",
+      "category": "google-interview",
+      "word_count": 1247,
+      "cross_references": 5
+    },
+    {
+      "path": "case-studies/elite-engineering/stripe-api-excellence.md",
+      "title": "Stripe API Excellence Case Study",
+      "category": "case-study",
+      "word_count": 1242,
+      "cross_references": 5
+    },
+    {
+      "path": "examples/circuit-breaker-annotated.md",
+      "title": "Circuit Breaker: Annotated Implementation",
+      "category": "example",
+      "word_count": 1222,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/migrations/gossip-to-service-mesh.md",
+      "title": "Migrating from Gossip Protocol to Service Mesh",
+      "category": "excellence",
+      "word_count": 1185,
+      "cross_references": 0
+    },
+    {
+      "path": "examples/responsive-patterns-showcase.md",
+      "title": "Responsive Pattern Showcase",
+      "category": "example",
+      "word_count": 1176,
+      "cross_references": 9
+    },
+    {
+      "path": "patterns/circuit-breaker-native.md",
+      "title": "Circuit Breaker Pattern",
+      "category": "pattern",
+      "word_count": 1133,
+      "cross_references": 20
+    },
+    {
+      "path": "patterns/materialized-view.md",
+      "title": "Materialized View Pattern",
+      "category": "pattern",
+      "word_count": 1121,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/bigtable.md",
+      "title": "Design Bigtable",
+      "category": "google-interview",
+      "word_count": 1120,
+      "cross_references": 3
+    },
+    {
+      "path": "quantitative/reliability-engineering.md",
+      "title": "Reliability Engineering Mathematics",
+      "category": "quantitative",
+      "word_count": 1115,
+      "cross_references": 4
+    },
+    {
+      "path": "google-interviews/time-management.md",
+      "title": "Time Management Template for Google Interviews",
+      "category": "google-interview",
+      "word_count": 1110,
+      "cross_references": 0
+    },
+    {
+      "path": "reference/navigation-guide.md",
+      "title": "Navigation Implementation Guide",
+      "category": "reference",
+      "word_count": 1106,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/leader-follower.md",
+      "title": "Leader-Follower Pattern",
+      "category": "pattern",
+      "word_count": 1102,
+      "cross_references": 3
+    },
+    {
+      "path": "patterns/split-brain.md",
+      "title": "Split-Brain Detection & Resolution",
+      "category": "pattern",
+      "word_count": 1093,
+      "cross_references": 0
+    },
+    {
+      "path": "examples/material-grid-examples.md",
+      "title": "Material for MkDocs Grid & Layout Examples",
+      "category": "example",
+      "word_count": 1087,
+      "cross_references": 4
+    },
+    {
+      "path": "google-interviews/scale-cheatsheet.md",
+      "title": "Google Scale Cheat Sheet",
+      "category": "google-interview",
+      "word_count": 1070,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/FINAL_STATUS_REPORT.md",
+      "title": "Pattern Documentation - Final Status Report",
+      "category": "archived-pattern",
+      "word_count": 1065,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/circuit-breaker-enhanced.md",
+      "title": "Circuit Breaker Pattern",
+      "category": "pattern",
+      "word_count": 1049,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/tech-mapping.md",
+      "title": "Technology Mapping Guide",
+      "category": "google-interview",
+      "word_count": 1045,
+      "cross_references": 0
+    },
+    {
+      "path": "human-factors/knowledge-management.md",
+      "title": "Knowledge Management in Distributed Systems",
+      "category": "human-factors",
+      "word_count": 1019,
+      "cross_references": 2
+    },
+    {
+      "path": "quantitative/comp-geometry.md",
+      "title": "Computational Geometry for Distributed Systems",
+      "category": "quantitative",
+      "word_count": 989,
+      "cross_references": 3
+    },
+    {
+      "path": "patterns/scatter-gather.md",
+      "title": "Scatter-Gather",
+      "category": "pattern",
+      "word_count": 988,
+      "cross_references": 0
+    },
+    {
+      "path": "examples/material-features-showcase.md",
+      "title": "Material for MkDocs Features Showcase",
+      "category": "example",
+      "word_count": 973,
+      "cross_references": 1
+    },
+    {
+      "path": "excellence/transformation/archive/NEXT_STEPS_ACTION_PLAN.md",
+      "title": "DStudio Excellence Transformation - Next Steps Action Plan",
+      "category": "excellence",
+      "word_count": 959,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/migrations/MIGRATION_GUIDES_COMPLETE.md",
+      "title": "Migration Guides Summary",
+      "category": "excellence",
+      "word_count": 956,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/IMPLEMENTATION_COMPLETE_REPORT.md",
+      "title": "DStudio Excellence Transformation - Implementation Complete Report",
+      "category": "excellence",
+      "word_count": 948,
+      "cross_references": 0
+    },
+    {
+      "path": "templates/page-navigation-native.md",
+      "title": "Page Navigation Template - MkDocs Material Native",
+      "category": "template",
+      "word_count": 939,
+      "cross_references": 24
+    },
+    {
+      "path": "examples/progressive-disclosure.md",
+      "title": "Progressive Disclosure Examples",
+      "category": "example",
+      "word_count": 934,
+      "cross_references": 7
+    },
+    {
+      "path": "patterns/README.md",
+      "title": "Pattern Library - Contributor Guide",
+      "category": "pattern",
+      "word_count": 931,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/FINAL_IMPLEMENTATION_SUMMARY.md",
+      "title": "DStudio Excellence Transformation - Final Implementation Summary",
+      "category": "excellence",
+      "word_count": 926,
+      "cross_references": 0
+    },
+    {
+      "path": "templates/navigation.md",
+      "title": "Navigation Enhancement Templates",
+      "category": "template",
+      "word_count": 922,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/delta-sync.md",
+      "title": "Delta Sync Pattern",
+      "category": "pattern",
+      "word_count": 920,
+      "cross_references": 0
+    },
+    {
+      "path": "part2-pillars/models-comparison.md",
+      "title": "CAST vs SPACE Models",
+      "category": "pillar",
+      "word_count": 919,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/PATTERN_VERIFICATION_REPORT.md",
+      "title": "Pattern Excellence Verification Report",
+      "category": "excellence",
+      "word_count": 899,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/EXCELLENCE_TRANSFORMATION_SUMMARY.md",
+      "title": "DStudio Excellence Transformation - Complete Summary",
+      "category": "excellence",
+      "word_count": 898,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/migrations/vector-clocks-to-hlc.md",
+      "title": "Migrating from Vector Clocks to HLC",
+      "category": "excellence",
+      "word_count": 886,
+      "cross_references": 2
+    },
+    {
+      "path": "quantitative/collision-probability.md",
+      "title": "Collision Probability",
+      "category": "quantitative",
+      "word_count": 883,
+      "cross_references": 2
+    },
+    {
+      "path": "quantitative/backpressure-math.md",
+      "title": "Backpressure Mathematics",
+      "category": "quantitative",
+      "word_count": 873,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/index-navigation.md",
+      "title": "Design Patterns for Distributed Systems",
+      "category": "pattern",
+      "word_count": 866,
+      "cross_references": 30
+    },
+    {
+      "path": "excellence/transformation/archive/METADATA_ENHANCEMENT_REPORT.md",
+      "title": "Metadata Enhancement Report - DStudio Excellence Transformation",
+      "category": "excellence",
+      "word_count": 843,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/METADATA_ENHANCEMENT_REPORT_PHASE2.md",
+      "title": "Metadata Enhancement Report - Phase 2",
+      "category": "excellence",
+      "word_count": 836,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/IMPLEMENTATION_GAP_ANALYSIS.md",
+      "title": "DStudio Implementation Gap Analysis Report",
+      "category": "excellence",
+      "word_count": 833,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/archive/pattern-matrix.md",
+      "title": "Pattern Selection Matrix",
+      "category": "archived-pattern",
+      "word_count": 813,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/data-lake.md",
+      "title": "Data Lake Pattern",
+      "category": "pattern",
+      "word_count": 795,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/TRANSFORMATION_COMPLETE.md",
+      "title": "\ud83c\udf89 DStudio Excellence Transformation Complete!",
+      "category": "excellence",
+      "word_count": 794,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/quality-check-report.md",
+      "title": "Pattern Quality Check Report",
+      "category": "archived-pattern",
+      "word_count": 765,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/HEALTH_DASHBOARD_COMPLETE.md",
+      "title": "Pattern Health Dashboard Implementation Complete",
+      "category": "excellence",
+      "word_count": 756,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/NAVIGATION_UPDATE_REPORT.md",
+      "title": "Navigation Update Report",
+      "category": "excellence",
+      "word_count": 747,
+      "cross_references": 0
+    },
+    {
+      "path": "navigation-mkdocs-native.md",
+      "title": "Navigation with MkDocs Material Native Features",
+      "category": "other",
+      "word_count": 742,
+      "cross_references": 26
+    },
+    {
+      "path": "pillars/index.md",
+      "title": "The 5 Foundational Pillars of Distributed Systems",
+      "category": "index",
+      "word_count": 719,
+      "cross_references": 0
+    },
+    {
+      "path": "axioms/index.md",
+      "title": "The 7 Fundamental Laws of Distributed Systems",
+      "category": "index",
+      "word_count": 639,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/EXCELLENCE_TRANSFORMATION_PROGRESS.md",
+      "title": "DStudio Excellence Transformation Progress Report",
+      "category": "excellence",
+      "word_count": 631,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/IMPLEMENTATION_VISUAL_SUMMARY.md",
+      "title": "DStudio Excellence Implementation - Visual Summary",
+      "category": "excellence",
+      "word_count": 629,
+      "cross_references": 0
+    },
+    {
+      "path": "templates/case-study-template.md",
+      "title": "System Name: Scale and Architecture Deep Dive",
+      "category": "template",
+      "word_count": 627,
+      "cross_references": 0
+    },
+    {
+      "path": "part2-pillars/pillars-patterns-map.md",
+      "title": "Pillars \u2194 Patterns Mini-Map",
+      "category": "pillar",
+      "word_count": 621,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/elite-engineering/index.md",
+      "title": "Elite Engineering Case Studies",
+      "category": "case-study",
+      "word_count": 606,
+      "cross_references": 10
+    },
+    {
+      "path": "patterns/archive/pattern-quiz.md",
+      "title": "Pattern Catalog Quiz",
+      "category": "archived-pattern",
+      "word_count": 598,
+      "cross_references": 0
+    },
+    {
+      "path": "examples/layout-test.md",
+      "title": "Layout Test: Content Boundaries",
+      "category": "example",
+      "word_count": 597,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/IMPLEMENTATION_VERIFICATION_CHECKLIST.md",
+      "title": "DStudio Excellence Implementation - Verification Checklist",
+      "category": "excellence",
+      "word_count": 596,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/CASE_STUDY_TEMPLATE.md",
+      "title": "[System Name] Case Study",
+      "category": "case-study",
+      "word_count": 594,
+      "cross_references": 3
+    },
+    {
+      "path": "patterns/PATTERN_TEMPLATE.md",
+      "title": "[Pattern Name]",
+      "category": "pattern",
+      "word_count": 588,
+      "cross_references": 2
+    },
+    {
+      "path": "excellence/transformation/archive/TRANSFORMATION_VISUAL_OVERVIEW.md",
+      "title": "DStudio Excellence Transformation - Visual Overview",
+      "category": "excellence",
+      "word_count": 571,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/AUDIT_REPORT.md",
+      "title": "Pattern Documentation Audit Report",
+      "category": "archived-pattern",
+      "word_count": 548,
+      "cross_references": 0
+    },
+    {
+      "path": "part2-pillars/failure-recap.md",
+      "title": "Failure-Vignette Recap Boxes",
+      "category": "pillar",
+      "word_count": 542,
+      "cross_references": 0
+    },
+    {
+      "path": "reference/admonition-guide.md",
+      "title": "Admonition Semantic Guide",
+      "category": "reference",
+      "word_count": 537,
+      "cross_references": 1
+    },
+    {
+      "path": "part2-pillars/pattern-catalog-intro.md",
+      "title": "PATTERN CATALOG INTRO",
+      "category": "pillar",
+      "word_count": 537,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/GOLD_PATTERNS_COMPLETE.md",
+      "title": "Gold Patterns Enhancement Complete",
+      "category": "excellence",
+      "word_count": 524,
+      "cross_references": 0
+    },
+    {
+      "path": "part2-pillars/pattern-legend.md",
+      "title": "Pattern Legend & Icons",
+      "category": "pillar",
+      "word_count": 522,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/EXCELLENCE_GUIDES_COMPLETE.md",
+      "title": "Excellence Guides Creation Complete",
+      "category": "excellence",
+      "word_count": 499,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/NAVIGATION_FILTERING_COMPLETE.md",
+      "title": "Navigation Filtering Implementation Complete",
+      "category": "excellence",
+      "word_count": 493,
+      "cross_references": 0
+    },
+    {
+      "path": "part2-pillars/reflection-journal.md",
+      "title": "Micro-Reflection Journal",
+      "category": "pillar",
+      "word_count": 490,
+      "cross_references": 0
+    },
+    {
+      "path": "part2-pillars/models-collide.md",
+      "title": "When Models Collide",
+      "category": "pillar",
+      "word_count": 487,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/EXCELLENCE_STRUCTURE_COMPLETE.md",
+      "title": "Excellence Structure Implementation Complete",
+      "category": "excellence",
+      "word_count": 481,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/PATTERN_CLASSIFICATION_SUMMARY.md",
+      "title": "Pattern Classification Summary - Quick Reference",
+      "category": "excellence",
+      "word_count": 446,
+      "cross_references": 0
+    },
+    {
+      "path": "templates/law-template.md",
+      "title": "Law Name: Descriptive Title",
+      "category": "template",
+      "word_count": 438,
+      "cross_references": 1
+    },
+    {
+      "path": "excellence/transformation/index.md",
+      "title": "Excellence Transformation Documentation",
+      "category": "excellence",
+      "word_count": 437,
+      "cross_references": 1
+    },
+    {
+      "path": "templates/homepage-template.md",
+      "title": "The Compendium of Distributed Systems",
+      "category": "template",
+      "word_count": 411,
+      "cross_references": 4
+    },
+    {
+      "path": "case-studies/elite-engineering/CASE_STUDIES_COMPLETE.md",
+      "title": "Elite Engineering Case Studies - Completion Report",
+      "category": "case-study",
+      "word_count": 365,
+      "cross_references": 0
+    },
+    {
+      "path": "part1-axioms/archive-old-8-axiom-structure/README.md",
+      "title": "Archive: Old 8-Axiom Structure",
+      "category": "axiom",
+      "word_count": 348,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/archive/DEPRECATION_NOTICE.md",
+      "title": "Deprecated Patterns Archive",
+      "category": "archived-pattern",
+      "word_count": 340,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/guides/index.md",
+      "title": "Excellence Guides",
+      "category": "excellence",
+      "word_count": 339,
+      "cross_references": 3
+    },
+    {
+      "path": "excellence/transformation/archive/PATTERN_RESTORATION_COMPLETE.md",
+      "title": "Pattern Restoration Complete Report",
+      "category": "excellence",
+      "word_count": 330,
+      "cross_references": 0
+    },
+    {
+      "path": "templates/law-template-native.md",
+      "title": "Law X: [Law Name]",
+      "category": "template",
+      "word_count": 316,
+      "cross_references": 6
+    },
+    {
+      "path": "case-studies/STUB_CREATION_REPORT.md",
+      "title": "Case Study Stub Creation Report",
+      "category": "case-study",
+      "word_count": 294,
+      "cross_references": 0
+    },
+    {
+      "path": "templates/pattern-template.md",
+      "title": "Pattern Name",
+      "category": "template",
+      "word_count": 279,
+      "cross_references": 3
+    },
+    {
+      "path": "excellence/transformation/archive/LEFT_NAV_CLEANUP_REPORT.md",
+      "title": "Left Navigation Bar Cleanup Report",
+      "category": "excellence",
+      "word_count": 275,
+      "cross_references": 0
+    },
+    {
+      "path": "part2-pillars/transition-part3.md",
+      "title": "Transition Page (Part III Preview)",
+      "category": "pillar",
+      "word_count": 267,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/NAVIGATION_INTEGRATION_COMPLETE.md",
+      "title": "Navigation Integration Complete",
+      "category": "excellence",
+      "word_count": 257,
+      "cross_references": 0
+    },
+    {
+      "path": "templates/abbreviations.md",
+      "title": "Abbreviations",
+      "category": "template",
+      "word_count": 257,
+      "cross_references": 0
+    },
+    {
+      "path": "offline.md",
+      "title": "\ud83d\udce1 You're Offline",
+      "category": "other",
+      "word_count": 187,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/ecommerce-platform.md",
+      "title": "E-commerce Platform Architecture",
+      "category": "case-study",
+      "word_count": 182,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/kappa-architecture.md",
+      "title": "Kappa Architecture",
+      "category": "pattern",
+      "word_count": 180,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/lambda-architecture.md",
+      "title": "Lambda Architecture",
+      "category": "pattern",
+      "word_count": 176,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/video-streaming.md",
+      "title": "Video Streaming Platform Architecture",
+      "category": "case-study",
+      "word_count": 172,
+      "cross_references": 0
+    },
+    {
+      "path": "patterns/tile-caching.md",
+      "title": "Tile Caching",
+      "category": "pattern",
+      "word_count": 163,
+      "cross_references": 2
+    },
+    {
+      "path": "quantitative/social-networks.md",
+      "title": "Social Networks",
+      "category": "quantitative",
+      "word_count": 148,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/strava-heatmaps.md",
+      "title": "Strava Heatmaps Case Study",
+      "category": "case-study",
+      "word_count": 147,
+      "cross_references": 1
+    },
+    {
+      "path": "quantitative/computer-vision.md",
+      "title": "Computer Vision",
+      "category": "quantitative",
+      "word_count": 144,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/study-plans.md",
+      "title": "Google System Design Interview Study Plans",
+      "category": "google-interview",
+      "word_count": 144,
+      "cross_references": 0
+    },
+    {
+      "path": "quantitative/computational-geometry.md",
+      "title": "Computational Geometry",
+      "category": "quantitative",
+      "word_count": 142,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/snap-map.md",
+      "title": "Snap Map Case Study",
+      "category": "case-study",
+      "word_count": 140,
+      "cross_references": 0
+    },
+    {
+      "path": "quantitative/compression.md",
+      "title": "Compression Algorithms",
+      "category": "quantitative",
+      "word_count": 138,
+      "cross_references": 0
+    },
+    {
+      "path": "quantitative/time-series.md",
+      "title": "Time-Series Analysis",
+      "category": "quantitative",
+      "word_count": 137,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/life360.md",
+      "title": "Life360 Case Study",
+      "category": "case-study",
+      "word_count": 136,
+      "cross_references": 0
+    },
+    {
+      "path": "quantitative/spatial-stats.md",
+      "title": "Spatial Statistics",
+      "category": "quantitative",
+      "word_count": 135,
+      "cross_references": 0
+    },
+    {
+      "path": "case-studies/openstreetmap.md",
+      "title": "OpenStreetMap Case Study",
+      "category": "case-study",
+      "word_count": 134,
+      "cross_references": 0
+    },
+    {
+      "path": "tags.md",
+      "title": "Browse by Tags",
+      "category": "other",
+      "word_count": 132,
+      "cross_references": 4
+    },
+    {
+      "path": "quantitative/privacy-metrics.md",
+      "title": "Privacy Metrics",
+      "category": "quantitative",
+      "word_count": 131,
+      "cross_references": 0
+    },
+    {
+      "path": "excellence/transformation/archive/index.md",
+      "title": "Excellence Transformation Archive",
+      "category": "excellence",
+      "word_count": 123,
+      "cross_references": 7
+    },
+    {
+      "path": "quantitative/storage-engines.md",
+      "title": "Storage Engines",
+      "category": "quantitative",
+      "word_count": 117,
+      "cross_references": 0
+    },
+    {
+      "path": "google-interviews/cheat-sheets.md",
+      "title": "Google System Design Cheat Sheets",
+      "category": "google-interview",
+      "word_count": 114,
+      "cross_references": 1
+    },
+    {
+      "path": "patterns/archive/stubs/distributed-dedup.md",
+      "title": "Distributed Deduplication",
+      "category": "archived-pattern",
+      "word_count": 101,
+      "cross_references": 2
+    }
+  ],
+  "missing_files": [
+    "patterns/excellence/scale-pack.md",
+    "patterns/consent-management.md",
+    "patterns/key-management.md",
+    "patterns/excellence/starter-pack.md",
+    "google-interviews/system-design-basics.md",
+    "patterns/excellence/gold-tier-guide.md",
+    "saga.md",
+    "patterns/e2e-encryption.md",
+    "patterns/excellence/bronze-tier-guide.md",
+    "hlc.md",
+    "patterns/excellence/silver-tier-guide.md",
+    "patterns/two-phase-commit.md",
+    "human-factors/observability.md",
+    "patterns/anti-entropy.md",
+    "event-sourcing.md",
+    "patterns/vector-clocks.md",
+    "patterns/excellence/pattern-health-dashboard.md",
+    "patterns/excellence/enterprise-pack.md"
+  ],
+  "all_orphaned": [
+    "amazon-interviews/amazon-ecommerce.md",
+    "amazon-interviews/dynamodb.md",
+    "amazon-interviews/index.md",
+    "amazon-interviews/leadership-principles.md",
+    "amazon-interviews/prime-video.md",
+    "amazon-interviews/s3.md",
+    "axioms/index.md",
+    "case-studies/CASE_STUDY_TEMPLATE.md",
+    "case-studies/STUB_CREATION_REPORT.md",
+    "case-studies/ad-click-aggregation.md",
+    "case-studies/amazon-aurora.md",
+    "case-studies/blockchain.md",
+    "case-studies/cassandra-enhanced.md",
+    "case-studies/consistency-deep-dive-chat.md",
+    "case-studies/consistent-hashing.md",
+    "case-studies/digital-wallet-enhanced.md",
+    "case-studies/distributed-email-enhanced.md",
+    "case-studies/distributed-message-queue.md",
+    "case-studies/ecommerce-platform.md",
+    "case-studies/elite-engineering/CASE_STUDIES_COMPLETE.md",
+    "case-studies/elite-engineering/discord-voice-infrastructure.md",
+    "case-studies/elite-engineering/figma-crdt-collaboration.md",
+    "case-studies/elite-engineering/index.md",
+    "case-studies/elite-engineering/stripe-api-excellence.md",
+    "case-studies/google-maps.md",
+    "case-studies/google-spanner.md",
+    "case-studies/hotel-reservation.md",
+    "case-studies/kafka.md",
+    "case-studies/kubernetes.md",
+    "case-studies/life360.md",
+    "case-studies/mapreduce.md",
+    "case-studies/memcached.md",
+    "case-studies/netflix-chaos.md",
+    "case-studies/notification-system.md",
+    "case-studies/object-storage.md",
+    "case-studies/openstreetmap.md",
+    "case-studies/payment-system.md",
+    "case-studies/paypal-payments.md",
+    "case-studies/prometheus.md",
+    "case-studies/proximity-service.md",
+    "case-studies/redis-architecture.md",
+    "case-studies/redis.md",
+    "case-studies/search-autocomplete.md",
+    "case-studies/snap-map.md",
+    "case-studies/spotify-recommendations.md",
+    "case-studies/stock-exchange.md",
+    "case-studies/strava-heatmaps.md",
+    "case-studies/twitter-timeline.md",
+    "case-studies/unique-id-generator.md",
+    "case-studies/video-streaming.md",
+    "case-studies/youtube.md",
+    "examples/circuit-breaker-annotated.md",
+    "examples/law1-failure-enhanced.md",
+    "examples/layout-test.md",
+    "examples/material-features-showcase.md",
+    "examples/material-grid-examples.md",
+    "examples/material-transformations.md",
+    "examples/mkdocs-responsive-config.md",
+    "examples/progressive-disclosure.md",
+    "examples/responsive-layouts-guide.md",
+    "examples/responsive-patterns-showcase.md",
+    "excellence/EXCELLENCE_GUIDES_COMPLETE.md",
+    "excellence/EXCELLENCE_STRUCTURE_COMPLETE.md",
+    "excellence/guides/index.md",
+    "excellence/migrations/MIGRATION_GUIDES_COMPLETE.md",
+    "excellence/migrations/gossip-to-service-mesh.md",
+    "excellence/migrations/vector-clocks-to-hlc.md",
+    "excellence/transformation/archive/DSTUDIO_EXCELLENCE_IMPLEMENTATION_PLAN.md",
+    "excellence/transformation/archive/DSTUDIO_EXCELLENCE_ULTRA_DETAILED_PLAN.md",
+    "excellence/transformation/archive/EXCELLENCE_TRANSFORMATION_PROGRESS.md",
+    "excellence/transformation/archive/EXCELLENCE_TRANSFORMATION_SUMMARY.md",
+    "excellence/transformation/archive/FINAL_IMPLEMENTATION_SUMMARY.md",
+    "excellence/transformation/archive/GOLD_PATTERNS_COMPLETE.md",
+    "excellence/transformation/archive/HEALTH_DASHBOARD_COMPLETE.md",
+    "excellence/transformation/archive/IMPLEMENTATION_COMPLETE_REPORT.md",
+    "excellence/transformation/archive/IMPLEMENTATION_GAP_ANALYSIS.md",
+    "excellence/transformation/archive/IMPLEMENTATION_VERIFICATION_CHECKLIST.md",
+    "excellence/transformation/archive/IMPLEMENTATION_VISUAL_SUMMARY.md",
+    "excellence/transformation/archive/LEFT_NAV_CLEANUP_REPORT.md",
+    "excellence/transformation/archive/METADATA_ENHANCEMENT_REPORT.md",
+    "excellence/transformation/archive/METADATA_ENHANCEMENT_REPORT_PHASE2.md",
+    "excellence/transformation/archive/NAVIGATION_FILTERING_COMPLETE.md",
+    "excellence/transformation/archive/NAVIGATION_INTEGRATION_COMPLETE.md",
+    "excellence/transformation/archive/NAVIGATION_UPDATE_REPORT.md",
+    "excellence/transformation/archive/NEXT_STEPS_ACTION_PLAN.md",
+    "excellence/transformation/archive/PATTERN_CLASSIFICATION_RESULTS.md",
+    "excellence/transformation/archive/PATTERN_CLASSIFICATION_SUMMARY.md",
+    "excellence/transformation/archive/PATTERN_RESTORATION_COMPLETE.md",
+    "excellence/transformation/archive/PATTERN_VERIFICATION_REPORT.md",
+    "excellence/transformation/archive/RT.md",
+    "excellence/transformation/archive/TRANSFORMATION_COMPLETE.md",
+    "excellence/transformation/archive/TRANSFORMATION_VISUAL_OVERVIEW.md",
+    "excellence/transformation/archive/WEEK_1_IMPLEMENTATION_CHECKLIST.md",
+    "excellence/transformation/archive/index.md",
+    "excellence/transformation/index.md",
+    "google-interviews/architecture-patterns.md",
+    "google-interviews/bigtable.md",
+    "google-interviews/cheat-sheets.md",
+    "google-interviews/evaluation-rubric.md",
+    "google-interviews/focus-selector.md",
+    "google-interviews/gmail-walkthrough.md",
+    "google-interviews/gmail.md",
+    "google-interviews/google-ads-detailed.md",
+    "google-interviews/google-ads.md",
+    "google-interviews/google-assistant-detailed.md",
+    "google-interviews/google-assistant.md",
+    "google-interviews/google-calendar.md",
+    "google-interviews/google-docs.md",
+    "google-interviews/google-drive.md",
+    "google-interviews/google-maps.md",
+    "google-interviews/google-patterns.md",
+    "google-interviews/google-photos-detailed.md",
+    "google-interviews/google-photos.md",
+    "google-interviews/google-search.md",
+    "google-interviews/interview-comparison.md",
+    "google-interviews/interview-experiences.md",
+    "google-interviews/maps-walkthrough.md",
+    "google-interviews/mock-questions.md",
+    "google-interviews/practice-problems.md",
+    "google-interviews/scale-cheatsheet.md",
+    "google-interviews/spanner.md",
+    "google-interviews/study-plans.md",
+    "google-interviews/success-strategies.md",
+    "google-interviews/tech-mapping.md",
+    "google-interviews/time-allocation-calculator.md",
+    "google-interviews/time-management.md",
+    "google-interviews/tradeoff-analysis.md",
+    "google-interviews/visual-cheatsheets.md",
+    "google-interviews/youtube-walkthrough.md",
+    "google-interviews/youtube.md",
+    "human-factors/blameless-postmortems.md",
+    "human-factors/consistency-tuning.md",
+    "human-factors/incident-response.md",
+    "human-factors/knowledge-management.md",
+    "human-factors/observability-stacks.md",
+    "human-factors/oncall-culture.md",
+    "human-factors/org-structure.md",
+    "human-factors/runbooks-playbooks.md",
+    "human-factors/team-topologies.md",
+    "includes/breadcrumbs.md",
+    "introduction/interview-prep/behavioral.md",
+    "navigation-mkdocs-native.md",
+    "offline.md",
+    "part1-axioms/archive-old-8-axiom-structure/README.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/examples.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/exercises.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom1-latency/index.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/examples.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/exercises.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/index.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/examples.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/exercises.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom3-failure/index.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/examples.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/exercises.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/index.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/examples.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/exercises.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/index.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/examples.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/exercises.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom6-observability/index.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom7-human/examples.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom7-human/exercises.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom7-human/index.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/examples.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/exercises.md",
+    "part1-axioms/archive-old-8-axiom-structure/axiom8-economics/index.md",
+    "part1-axioms/law1-failure/index-enhanced.md",
+    "part2-pillars/failure-recap.md",
+    "part2-pillars/models-collide.md",
+    "part2-pillars/models-comparison.md",
+    "part2-pillars/pattern-catalog-intro.md",
+    "part2-pillars/pattern-legend.md",
+    "part2-pillars/pillars-patterns-map.md",
+    "part2-pillars/reflection-journal.md",
+    "part2-pillars/transition-part3.md",
+    "patterns/PATTERN_TEMPLATE.md",
+    "patterns/README.md",
+    "patterns/adaptive-scheduling.md",
+    "patterns/ambassador.md",
+    "patterns/analytics-scale.md",
+    "patterns/anti-corruption-layer.md",
+    "patterns/archive/AUDIT_REPORT.md",
+    "patterns/archive/DEPRECATION_NOTICE.md",
+    "patterns/archive/FINAL_STATUS_REPORT.md",
+    "patterns/archive/anti-entropy.md",
+    "patterns/archive/byzantine-fault-tolerance.md",
+    "patterns/archive/cache-aside.md",
+    "patterns/archive/consent-management.md",
+    "patterns/archive/distributed-transactions.md",
+    "patterns/archive/e2e-encryption.md",
+    "patterns/archive/finops.md",
+    "patterns/archive/gossip-protocol.md",
+    "patterns/archive/key-management.md",
+    "patterns/archive/location-privacy.md",
+    "patterns/archive/pattern-combinations.md",
+    "patterns/archive/pattern-comparison.md",
+    "patterns/archive/pattern-matrix.md",
+    "patterns/archive/pattern-quiz.md",
+    "patterns/archive/pattern-relationships.md",
+    "patterns/archive/pattern-selector.md",
+    "patterns/archive/politeness.md",
+    "patterns/archive/quality-check-report.md",
+    "patterns/archive/read-through-cache.md",
+    "patterns/archive/security-shortener.md",
+    "patterns/archive/stubs/battery-optimization.md",
+    "patterns/archive/stubs/client-library-design.md",
+    "patterns/archive/stubs/client-rendering.md",
+    "patterns/archive/stubs/content-extraction.md",
+    "patterns/archive/stubs/crawler-traps.md",
+    "patterns/archive/stubs/distributed-dedup.md",
+    "patterns/archive/stubs/geofencing.md",
+    "patterns/archive/stubs/graph-algorithms.md",
+    "patterns/archive/stubs/js-crawling.md",
+    "patterns/archive/stubs/metadata-service.md",
+    "patterns/archive/stubs/ml-pipeline.md",
+    "patterns/archive/stubs/network-optimization.md",
+    "patterns/archive/stubs/real-time.md",
+    "patterns/archive/stubs/tile-pyramid.md",
+    "patterns/archive/stubs/trie.md",
+    "patterns/archive/stubs/vector-maps.md",
+    "patterns/archive/stubs/vector-tiles.md",
+    "patterns/archive/two-phase-commit.md",
+    "patterns/archive/url-frontier.md",
+    "patterns/archive/vector-clocks.md",
+    "patterns/archive/write-behind-cache.md",
+    "patterns/archive/write-through-cache.md",
+    "patterns/backends-for-frontends.md",
+    "patterns/blue-green-deployment.md",
+    "patterns/cap-theorem.md",
+    "patterns/cas.md",
+    "patterns/chunking.md",
+    "patterns/circuit-breaker-enhanced.md",
+    "patterns/circuit-breaker-native.md",
+    "patterns/clock-sync.md",
+    "patterns/consensus.md",
+    "patterns/consistent-hashing.md",
+    "patterns/data-lake.md",
+    "patterns/data-mesh.md",
+    "patterns/deduplication.md",
+    "patterns/delta-sync.md",
+    "patterns/distributed-queue.md",
+    "patterns/emergent-leader.md",
+    "patterns/eventual-consistency.md",
+    "patterns/fault-tolerance.md",
+    "patterns/generation-clock.md",
+    "patterns/geo-distribution.md",
+    "patterns/geo-replication.md",
+    "patterns/geohashing.md",
+    "patterns/heartbeat.md",
+    "patterns/id-generation-scale.md",
+    "patterns/idempotent-receiver.md",
+    "patterns/index-navigation.md",
+    "patterns/index-new.md",
+    "patterns/kappa-architecture.md",
+    "patterns/lambda-architecture.md",
+    "patterns/leader-follower.md",
+    "patterns/lease.md",
+    "patterns/low-high-water-marks.md",
+    "patterns/materialized-view.md",
+    "patterns/observability.md",
+    "patterns/priority-queue.md",
+    "patterns/publish-subscribe.md",
+    "patterns/queues-streaming.md",
+    "patterns/rate-limiting.md",
+    "patterns/read-repair.md",
+    "patterns/request-routing.md",
+    "patterns/saga-enhanced.md",
+    "patterns/scatter-gather.md",
+    "patterns/segmented-log.md",
+    "patterns/serverless-faas.md",
+    "patterns/service-discovery.md",
+    "patterns/service-registry.md",
+    "patterns/sidecar.md",
+    "patterns/single-socket-channel.md",
+    "patterns/spatial-indexing.md",
+    "patterns/split-brain.md",
+    "patterns/strangler-fig.md",
+    "patterns/tile-caching.md",
+    "patterns/time-series-ids.md",
+    "patterns/tunable-consistency.md",
+    "patterns/url-normalization.md",
+    "pillars/index.md",
+    "quantitative/availability.md",
+    "quantitative/backpressure-math.md",
+    "quantitative/battery-models.md",
+    "quantitative/bayesian-reasoning.md",
+    "quantitative/blast-radius.md",
+    "quantitative/cap-theorem-enhanced.md",
+    "quantitative/capacity-planning.md",
+    "quantitative/collision-probability.md",
+    "quantitative/comp-geometry.md",
+    "quantitative/compression.md",
+    "quantitative/computational-geometry.md",
+    "quantitative/computer-vision.md",
+    "quantitative/graph-models.md",
+    "quantitative/haversine.md",
+    "quantitative/information-theory.md",
+    "quantitative/markov-chains.md",
+    "quantitative/network-model.md",
+    "quantitative/performance-testing.md",
+    "quantitative/power-laws.md",
+    "quantitative/privacy-metrics.md",
+    "quantitative/queuing-networks.md",
+    "quantitative/reliability-engineering.md",
+    "quantitative/social-networks.md",
+    "quantitative/space-complexity.md",
+    "quantitative/spatial-stats.md",
+    "quantitative/storage-engines.md",
+    "quantitative/time-complexity.md",
+    "quantitative/time-series.md",
+    "reference/admonition-guide.md",
+    "reference/navigation-guide.md",
+    "tags.md",
+    "templates/abbreviations.md",
+    "templates/case-study-template.md",
+    "templates/homepage-template.md",
+    "templates/law-template-native.md",
+    "templates/law-template.md",
+    "templates/navigation.md",
+    "templates/page-navigation-native.md",
+    "templates/pattern-template.md",
+    "test-plan/navigation-test-plan.md",
+    "tools/availability-calculator.md",
+    "tools/cost-optimizer.md",
+    "tools/throughput-calculator.md"
+  ]
+}

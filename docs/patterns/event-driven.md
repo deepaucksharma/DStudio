@@ -28,6 +28,8 @@ production_checklist:
   - "Choose event broker (Kafka for high-throughput, RabbitMQ for reliability)"
   - "Design event schema with versioning strategy"
   - "Implement idempotent event handlers"
+related_laws: [law2-asynchrony, law3-emergence, law4-tradeoffs]
+related_pillars: [work, control]
   - "Configure at-least-once delivery guarantees"
   - "Set up dead letter queues for failed events"
   - "Monitor event lag and processing times"

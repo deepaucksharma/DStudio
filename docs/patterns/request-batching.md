@@ -1,4 +1,40 @@
+---
+title: Request Batching/Pipelining
+description: Group multiple requests together to amortize fixed costs and improve throughput
+type: pattern
+category: performance
+difficulty: intermediate
+reading_time: 25 min
+prerequisites: [queueing-theory, network-protocols, concurrency]
+when_to_use: High-frequency small requests, network-bound operations, database bulk operations, API rate limiting
+when_not_to_use: Real-time systems with strict latency requirements, large individual requests, heterogeneous operations
+status: complete
+last_updated: 2025-01-26
+excellence_tier: silver
+pattern_status: use-with-expertise
+introduced: 2005-03
+current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Dramatically improves throughput for small operations"
+    - "Reduces network overhead and protocol costs"
+    - "Better resource utilization and efficiency"
+  cons:
+    - "Increases latency for individual requests"
+    - "Complex error handling for partial failures"
+    - "Memory overhead from buffering requests"
+best_for:
+  - "Database bulk inserts and updates"
+  - "High-frequency API calls with rate limits"
+  - "Network-bound microservice communication"
+---
+
 # Request Batching/Pipelining
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Massive throughput gains with latency trade-offs** • Use when amortizing fixed costs matters more than individual request latency
+    
+    Request batching can improve throughput by 10-100x for small operations, but adds complexity in error handling and increases p99 latency. Requires careful tuning of batch sizes and timeouts for each use case.
 
 ## The Pattern
 

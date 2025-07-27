@@ -28,6 +28,8 @@ modern_examples:
 production_checklist:
   - "Choose CDC tool (Debezium for open-source, AWS DMS for cloud)"
   - "Configure source database for CDC (enable binlog/WAL)"
+related_laws: [law5-epistemology, law2-asynchrony, law4-tradeoffs]
+related_pillars: [state, truth]
   - "Set up change event schema registry"
   - "Implement exactly-once processing guarantees"
   - "Monitor replication lag (target <1 second)"

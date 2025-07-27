@@ -15,6 +15,8 @@ pattern_status: legacy
 modern_alternatives: ["service-mesh", "serverless-faas", "event-driven"]
 still_valid_for: "Erlang/Elixir systems, specific IoT scenarios, academic study"
 migration_guide: "/excellence/migrations/actor-to-service-mesh"
+related_laws: [law2-asynchrony, law3-emergence, law6-human-api]
+related_pillars: [work, control]
 ---
 
 # Actor Model

@@ -28,6 +28,8 @@ production_checklist:
   - "Implement the three pillars: metrics, logs, traces"
   - "Use structured logging with consistent schema"
   - "Configure distributed tracing with sampling (0.1-1%)"
+related_laws: [law5-epistemology, law6-human-api, law3-emergence]
+related_pillars: [intelligence, truth]
   - "Set up custom metrics for business KPIs"
   - "Implement exemplars linking metrics to traces"
   - "Configure log aggregation with retention policies"

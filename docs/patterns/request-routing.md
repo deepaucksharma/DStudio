@@ -10,10 +10,23 @@ when_to_use: When dealing with specialized challenges
 when_not_to_use: When simpler solutions suffice
 status: partial
 last_updated: 2025-01-23
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1990s
+excellence_tier: silver
+pattern_status: use-with-expertise
+introduced: 1995-01
 current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Enables sophisticated traffic management and routing"
+    - "Supports A/B testing and canary deployments"
+    - "Provides content-based and context-aware routing"
+  cons:
+    - "Adds latency to every request"
+    - "Single point of failure if not properly distributed"
+    - "Complex configuration and maintenance overhead"
+best_for:
+  - "API gateways and microservices architectures"
+  - "Multi-tenant applications with custom routing needs"
+  - "Systems requiring sophisticated traffic management"
 modern_examples:
   - company: Cloudflare
     implementation: "Anycast routing directs requests to nearest of 300+ data centers"
@@ -38,15 +51,10 @@ production_checklist:
 
 # Request Routing Pattern
 
-!!! success "🏆 Gold Standard Pattern"
-    **The Internet's Traffic Controller** • Cloudflare, AWS ALB, Netflix proven
+!!! warning "🥈 Silver Tier Pattern"
+    **Essential but adds complexity** • Use when you need sophisticated traffic management
     
-    Every internet request relies on intelligent routing - from Cloudflare's 45M requests/second across 300+ data centers to Netflix routing 100B daily requests across 1000+ microservices.
-    
-    **Key Success Metrics:**
-    - Cloudflare: 45M+ requests/second routed globally
-    - AWS ALB: Trillions of requests routed daily
-    - Netflix Zuul: 100B+ requests/day across microservices
+    Request routing is fundamental for microservices and API gateways but introduces a critical component that must be highly available. Every request passes through the router, adding latency and creating a potential bottleneck.
 
 **Intelligently directing requests to the right service instances**
 

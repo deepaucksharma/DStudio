@@ -54,17 +54,15 @@ production_checklist:
 !!! abstract "The CRDT Convergence Theorem"
  <p>CRDTs guarantee that all replicas will eventually converge to the same state without requiring coordination, as long as all updates are eventually delivered to all replicas. This property, called Strong Eventual Consistency (SEC), is stronger than regular eventual consistency.</p>
 
-## Overview
+## CRDT Properties at a Glance
 
-CRDTs are data structures that can be replicated across multiple nodes in a distributed system, where updates can be applied concurrently without coordination, and conflicts are automatically resolved. They achieve this through mathematical properties that ensure all operations either commute or can be merged deterministically.
-
-### Key Properties
-
-1. **Convergence**: All replicas eventually reach the same state
-2. **Coordination-free**: No consensus or locking required
-3. **Availability**: Can always accept updates
-4. **Partition tolerance**: Works across network splits
-5. **Automatic conflict resolution**: No manual intervention needed
+| Property | Guarantee | Benefit |
+|----------|-----------|----------|
+| **Convergence** | All replicas reach same state | No divergence |
+| **Coordination-free** | No consensus/locking | High availability |
+| **Always writable** | Accept updates anytime | No blocking |
+| **Partition tolerant** | Works during splits | Network resilience |
+| **Auto conflict resolution** | Mathematical merge | No manual intervention |
 
 ## Visual CRDT Type Hierarchy
 
@@ -100,38 +98,13 @@ graph TB
 
 ### State-based CRDTs (CvRDT)
 
-#### How State-based CRDTs Work
+### State vs Operation vs Delta CRDTs
 
-```mermaid
-sequenceDiagram
- participant R1 as Replica 1
- participant R2 as Replica 2
- participant R3 as Replica 3
- 
- Note over R1,R3: Initial State: All replicas at {}
- 
- R1->>R1: Local update: add("A")
- Note over R1: State: {A}
- 
- R2->>R2: Local update: add("B")
- Note over R2: State: {B}
- 
- R3->>R3: Local update: add("C")
- Note over R3: State: {C}
- 
- Note over R1,R3: Merge Phase
- 
- R1->>R2: Send state {A}
- R2->>R2: Merge: {B} ∪ {A} = {A,B}
- 
- R2->>R3: Send state {A,B}
- R3->>R3: Merge: {C} ∪ {A,B} = {A,B,C}
- 
- R3->>R1: Send state {A,B,C}
- R1->>R1: Merge: {A} ∪ {A,B,C} = {A,B,C}
- 
- Note over R1,R3: Converged: All replicas at {A,B,C}
-```
+| Type | Mechanism | Network Cost | Delivery Requirement |
+|------|-----------|--------------|---------------------|
+| **State-based (CvRDT)** | Send full state | O(state size) | Idempotent |
+| **Operation-based (CmRDT)** | Send operations | O(op size) | Exactly-once, causal |
+| **Delta-based (δ-CRDT)** | Send state changes | O(delta size) | Idempotent |
 
 #### Join Semilattice Structure
 
@@ -219,68 +192,33 @@ graph LR
  style M fill:#4caf50,color:#fff
 ```
 
-#### Python Implementation
+### G-Counter Implementation Pattern
 
-```python
-from typing import Dict, Set
-import copy
-
-class GCounter:
- """Grow-only Counter CRDT"""
- 
- def __init__(self, node_id: str):
- self.node_id = node_id
- self.counts: Dict[str, int] = {}
- 
- def increment(self, value: int = 1):
- """Increment counter for this node"""
- if self.node_id not in self.counts:
- self.counts[self.node_id] = 0
- self.counts[self.node_id] += value
- 
- def value(self) -> int:
- """Get total count across all nodes"""
- return sum(self.counts.values())
- 
- def merge(self, other: 'GCounter') -> 'GCounter':
- """Merge with another G-Counter"""
- merged = GCounter(self.node_id)
- 
-# Take maximum count for each node
- all_nodes = set(self.counts.keys()) | set(other.counts.keys())
- 
- for node in all_nodes:
- merged.counts[node] = max(
- self.counts.get(node, 0),
- other.counts.get(node, 0)
- )
- 
- return merged
- 
- def __repr__(self):
- return f"GCounter({self.counts}, total={self.value()})"
-
-# Example usage
-def demo_gcounter():
-# Three replicas
- counter_a = GCounter("A")
- counter_b = GCounter("B")
- counter_c = GCounter("C")
- 
-# Concurrent increments
- counter_a.increment(5)
- counter_b.increment(3)
- counter_c.increment(2)
- 
- print("Before merge:")
- print(f"A: {counter_a}")
- print(f"B: {counter_b}")
- print(f"C: {counter_c}")
- 
-# Merge all replicas
- merged = counter_a.merge(counter_b).merge(counter_c)
- print(f"\nAfter merge: {merged}")
+```mermaid
+graph LR
+    subgraph "Node State"
+        A["Node A: {A:5, B:0, C:0}"]
+        B["Node B: {A:0, B:3, C:0}"]
+        C["Node C: {A:0, B:0, C:2}"]
+    end
+    
+    subgraph "Merge Operation"
+        M["merge(a,b) = max(a[i], b[i])"]
+    end
+    
+    subgraph "Result"
+        R["All Nodes: {A:5, B:3, C:2}<br/>Total: 10"]
+    end
+    
+    A --> M
+    B --> M
+    C --> M
+    M --> R
+    
+    style R fill:#4caf50,color:#fff
 ```
+
+**Key insight**: Each node tracks all node counts; merge takes maximum per node.
 
 ### 2. PN-Counter (Positive-Negative Counter)
 
@@ -305,36 +243,14 @@ graph TB
  N --> Value
 ```
 
-#### Implementation
+### PN-Counter = Two G-Counters
 
-```python
-class PNCounter:
- """Positive-Negative Counter CRDT"""
- 
- def __init__(self, node_id: str):
- self.node_id = node_id
- self.p_counter = GCounter(node_id) # Positive counts
- self.n_counter = GCounter(node_id) # Negative counts
- 
- def increment(self, value: int = 1):
- """Increment the counter"""
- self.p_counter.increment(value)
- 
- def decrement(self, value: int = 1):
- """Decrement the counter"""
- self.n_counter.increment(value)
- 
- def value(self) -> int:
- """Get the current value"""
- return self.p_counter.value() - self.n_counter.value()
- 
- def merge(self, other: 'PNCounter') -> 'PNCounter':
- """Merge with another PN-Counter"""
- merged = PNCounter(self.node_id)
- merged.p_counter = self.p_counter.merge(other.p_counter)
- merged.n_counter = self.n_counter.merge(other.n_counter)
- return merged
-```
+| Component | Purpose | Operation |
+|-----------|---------|----------|  
+| **P-Counter** | Track increments | `increment()` → P.add |
+| **N-Counter** | Track decrements | `decrement()` → N.add |
+| **Value** | Current count | P.value() - N.value() |
+| **Merge** | Combine states | P.merge(), N.merge() |
 
 ### 3. OR-Set (Observed-Remove Set)
 
@@ -360,55 +276,30 @@ sequenceDiagram
  Note over R1,R2: Add wins over concurrent remove
 ```
 
-#### Implementation with Unique IDs
+### OR-Set Mechanics
 
-```python
-import uuid
-from typing import Set, Tuple, Any
-
-class ORSet:
- """Observed-Remove Set CRDT"""
- 
- def __init__(self):
-# Elements are stored as (element, unique_id) pairs
- self.elements: Set[Tuple[Any, str]] = set()
- self.tombstones: Set[Tuple[Any, str]] = set()
- 
- def add(self, element: Any) -> str:
- """Add element with unique ID"""
- uid = str(uuid.uuid4())
- self.elements.add((element, uid))
- return uid
- 
- def remove(self, element: Any):
- """Remove all instances of element"""
-# Move all pairs with this element to tombstones
- to_remove = {(e, uid) for e, uid in self.elements if e == element}
- self.tombstones.update(to_remove)
- self.elements -= to_remove
- 
- def contains(self, element: Any) -> bool:
- """Check if element exists"""
- return any(e == element for e, _ in self.elements)
- 
- def values(self) -> Set[Any]:
- """Get all unique elements"""
- return {e for e, _ in self.elements}
- 
- def merge(self, other: 'ORSet') -> 'ORSet':
- """Merge with another OR-Set"""
- merged = ORSet()
- 
-# Union of all elements and tombstones
- all_elements = self.elements | other.elements
- all_tombstones = self.tombstones | other.tombstones
- 
-# Remove tombstoned elements
- merged.elements = all_elements - all_tombstones
- merged.tombstones = all_tombstones
- 
- return merged
+```mermaid
+flowchart LR
+    subgraph "Add Operation"
+        A1["add('X')"] --> A2["Store ('X', UUID1)"]
+    end
+    
+    subgraph "Remove Operation"
+        R1["remove('X')"] --> R2["Find all ('X', *)"]
+        R2 --> R3["Move to tombstones"]
+    end
+    
+    subgraph "Merge Resolution"
+        M1["Elements ∪ Elements"] --> M2["Subtract Tombstones"]
+        M2 --> M3["Final Set"]
+    end
+    
+    style A2 fill:#4caf50
+    style R3 fill:#f44336
+    style M3 fill:#2196f3
 ```
+
+**Key**: Unique IDs allow concurrent add/remove of same element without conflicts.
 
 ### 4. LWW-Register (Last-Write-Wins Register)
 
@@ -432,53 +323,21 @@ graph LR
  style Result fill:#4caf50,color:#fff
 ```
 
-#### Implementation with Timestamps
+### LWW-Register Conflict Resolution
 
-```python
-import time
-from typing import Any, Optional, Tuple
+| Scenario | Resolution Rule | Example |
+|----------|----------------|----------|
+| **Different timestamps** | Higher timestamp wins | T2 > T1 → use T2 value |
+| **Same timestamp** | Node ID breaks tie | T1 = T2 → compare node IDs |
+| **Clock skew** | Still deterministic | Works despite time drift |
 
-class LWWRegister:
- """Last-Write-Wins Register CRDT"""
- 
- def __init__(self, node_id: str):
- self.node_id = node_id
- self.value: Optional[Any] = None
- self.timestamp: float = 0
- 
- def set(self, value: Any, timestamp: Optional[float] = None):
- """Set value with timestamp"""
- if timestamp is None:
- timestamp = time.time()
- 
- if timestamp > self.timestamp:
- self.value = value
- self.timestamp = timestamp
- 
- def get(self) -> Optional[Any]:
- """Get current value"""
- return self.value
- 
- def merge(self, other: 'LWWRegister') -> 'LWWRegister':
- """Merge with another LWW-Register"""
- merged = LWWRegister(self.node_id)
- 
-# Choose value with highest timestamp
- if self.timestamp > other.timestamp:
- merged.value = self.value
- merged.timestamp = self.timestamp
- elif other.timestamp > self.timestamp:
- merged.value = other.value
- merged.timestamp = other.timestamp
- else:
-# Tie-breaker: use node_id
- if self.node_id > other.node_id:
- merged.value = self.value
- else:
- merged.value = other.value
- merged.timestamp = self.timestamp
- 
- return merged
+```mermaid
+graph LR
+    W1["Write A @ T=100"] --> C{Compare}
+    W2["Write B @ T=150"] --> C
+    W3["Write C @ T=120"] --> C
+    C --> R["Result: B<br/>(highest timestamp)"]
+    style R fill:#4caf50,color:#fff
 ```
 
 ### 5. MV-Register (Multi-Value Register)
@@ -667,133 +526,39 @@ graph LR
  User2 --> Result
 ```
 
-### 2. Distributed Shopping Cart
+### Real-World CRDT Applications
 
-```python
-class ShoppingCartCRDT:
- """Shopping cart using OR-Set"""
- 
- def __init__(self, user_id: str):
- self.user_id = user_id
- self.items = ORSet()
- self.quantities = {} # item -> PN-Counter
- 
- def add_item(self, item: str, quantity: int = 1):
- """Add item to cart"""
- if item not in self.quantities:
- self.quantities[item] = PNCounter(self.user_id)
- 
- self.items.add(item)
- self.quantities[item].increment(quantity)
- 
- def remove_item(self, item: str):
- """Remove item from cart"""
- self.items.remove(item)
-# Quantity counter remains for history
- 
- def update_quantity(self, item: str, delta: int):
- """Change item quantity"""
- if item in self.quantities:
- if delta > 0:
- self.quantities[item].increment(delta)
- else:
- self.quantities[item].decrement(-delta)
- 
- def get_cart(self) -> Dict[str, int]:
- """Get current cart contents"""
- cart = {}
- for item in self.items.values():
- if item in self.quantities:
- qty = self.quantities[item].value()
- if qty > 0:
- cart[item] = qty
- return cart
- 
- def merge(self, other: 'ShoppingCartCRDT') -> 'ShoppingCartCRDT':
- """Merge with another cart"""
- merged = ShoppingCartCRDT(self.user_id)
- merged.items = self.items.merge(other.items)
- 
-# Merge quantities
- all_items = set(self.quantities.keys()) | set(other.quantities.keys())
- for item in all_items:
- if item in self.quantities and item in other.quantities:
- merged.quantities[item] = self.quantities[item].merge(
- other.quantities[item]
- )
- elif item in self.quantities:
- merged.quantities[item] = self.quantities[item]
- else:
- merged.quantities[item] = other.quantities[item]
- 
- return merged
-```
+| Use Case | CRDT Type | Companies | Scale |
+|----------|-----------|-----------|-------|
+| **Collaborative Editing** | RGA/Treedoc | Figma, Google Docs | Millions concurrent |
+| **Shopping Cart** | OR-Set + PN-Counter | Amazon, Riak | Global scale |
+| **User Presence** | LWW-Register | Discord, Slack | Real-time updates |
+| **Like Counters** | G-Counter | Twitter, Facebook | Billions/day |
+| **Distributed Cache** | LWW-Map | Redis CRDT | Multi-region |
+| **Session Storage** | OR-Set | Cloudflare | Edge computing |
 
-### 3. Distributed Cache with TTL
+### CRDT Design Patterns
 
-```python
-class TTLMap:
- """Time-To-Live Map using LWW-Register per key"""
- 
- def __init__(self, node_id: str):
- self.node_id = node_id
- self.data: Dict[str, LWWRegister] = {}
- self.ttls: Dict[str, float] = {}
- 
- def set(self, key: str, value: Any, ttl: float):
- """Set value with TTL"""
- if key not in self.data:
- self.data[key] = LWWRegister(self.node_id)
- 
- timestamp = time.time()
- self.data[key].set(value, timestamp)
- self.ttls[key] = timestamp + ttl
- 
- def get(self, key: str) -> Optional[Any]:
- """Get value if not expired"""
- if key not in self.data:
- return None
- 
- if key in self.ttls and time.time() > self.ttls[key]:
- return None # Expired
- 
- return self.data[key].get()
- 
- def merge(self, other: 'TTLMap') -> 'TTLMap':
- """Merge with another TTL map"""
- merged = TTLMap(self.node_id)
- 
- all_keys = set(self.data.keys()) | set(other.data.keys())
- 
- for key in all_keys:
- if key in self.data and key in other.data:
- merged.data[key] = self.data[key].merge(other.data[key])
-# Take TTL from the register with higher timestamp
- if self.data[key].timestamp > other.data[key].timestamp:
- merged.ttls[key] = self.ttls.get(key, 0)
- else:
- merged.ttls[key] = other.ttls.get(key, 0)
- elif key in self.data:
- merged.data[key] = self.data[key]
- merged.ttls[key] = self.ttls.get(key, 0)
- else:
- merged.data[key] = other.data[key]
- merged.ttls[key] = other.ttls.get(key, 0)
- 
- return merged
-```
+| Pattern | Composition | Use Case |
+|---------|-------------|----------|  
+| **Composed CRDT** | Multiple basic CRDTs | Shopping cart (OR-Set + PN-Counter) |
+| **Embedded CRDT** | CRDT inside CRDT | Map of Counters |
+| **Causal CRDT** | Add happens-before | Message ordering |
+| **Pure Op-Based** | No state transfer | Low bandwidth |
+| **Delta-State** | Incremental sync | Large datasets |
+| **Merkle-CRDT** | Efficient sync | Minimize transfers |
 
 ## Performance Characteristics
 
-### Space and Time Complexity
+### CRDT Performance Profile
 
-| CRDT Type | Space Complexity | Update Time | Merge Time | Query Time |
-|-----------|------------------|-------------|------------|------------|
-| **G-Counter** | O(n) nodes | O(1) | O(n) | O(n) |
-| **PN-Counter** | O(n) nodes | O(1) | O(n) | O(n) |
-| **OR-Set** | O(m) elements × unique IDs | O(1) | O(m) | O(1) |
-| **LWW-Register** | O(1) | O(1) | O(1) | O(1) |
-| **RGA** | O(m) characters | O(m) | O(m) | O(1) |
+| CRDT Type | Space | Update | Merge | Query | Garbage Collection |
+|-----------|-------|--------|-------|-------|-------------------|
+| **G-Counter** | O(n) nodes | O(1) | O(n) | O(n) | Not needed |
+| **PN-Counter** | O(n) nodes | O(1) | O(n) | O(n) | Not needed |
+| **OR-Set** | O(m×u) elem×ids | O(1) | O(m) | O(1) | Critical (tombstones) |
+| **LWW-Register** | O(1) | O(1) | O(1) | O(1) | Not needed |
+| **RGA** | O(m) positions | O(m) | O(m) | O(1) | Optional |
 
 
 ### Bandwidth Usage Patterns
@@ -847,76 +612,26 @@ graph TD
  SeqCheck -->|Low| Transform[Operational Transform]
 ```
 
-### 2. Garbage Collection Strategies
+### Garbage Collection Strategies
 
-```python
-class GarbageCollectedORSet(ORSet):
- """OR-Set with tombstone garbage collection"""
- 
- def __init__(self, gc_interval: float = 3600):
- super().__init__()
- self.gc_interval = gc_interval
- self.last_gc = time.time()
- self.version_vector = {} # For causal consistency
- 
- def garbage_collect(self):
- """Remove old tombstones"""
- current_time = time.time()
- if current_time - self.last_gc < self.gc_interval:
- return
- 
-# Remove tombstones older than 2 * gc_interval
- cutoff = current_time - (2 * self.gc_interval)
- 
-# In practice, need consensus on what's safe to remove
-# This is simplified for illustration
- self.tombstones = {
- t for t in self.tombstones 
- if self._get_timestamp(t) > cutoff
- }
- 
- self.last_gc = current_time
-```
+| Strategy | Mechanism | Pros | Cons |
+|----------|-----------|------|------|
+| **Timeout-based** | Remove after TTL | Simple | Unsafe if delayed |
+| **Version Vector** | Track causal history | Safe | Memory overhead |
+| **Consensus GC** | Agree on cutoff | Very safe | Coordination required |
+| **Hybrid** | Local + periodic consensus | Balanced | Complex |
+| **Bloom Filter** | Probabilistic tracking | Space efficient | False positives |
 
-### 3. Hybrid Approaches
+### Optimization Techniques
 
-```python
-class HybridCounter:
- """Combine local state with CRDT for efficiency"""
- 
- def __init__(self, node_id: str, sync_threshold: int = 100):
- self.node_id = node_id
- self.crdt = GCounter(node_id)
- self.local_delta = 0
- self.sync_threshold = sync_threshold
- 
- def increment(self, value: int = 1):
- """Buffer increments locally"""
- self.local_delta += value
- 
-# Flush to CRDT when threshold reached
- if self.local_delta >= self.sync_threshold:
- self.flush()
- 
- def flush(self):
- """Push local changes to CRDT"""
- if self.local_delta > 0:
- self.crdt.increment(self.local_delta)
- self.local_delta = 0
- 
- def value(self) -> int:
- """Get current value including local delta"""
- return self.crdt.value() + self.local_delta
- 
- def merge(self, other: 'HybridCounter') -> 'HybridCounter':
- """Merge requiring flush first"""
- self.flush()
- other.flush()
- 
- merged = HybridCounter(self.node_id, self.sync_threshold)
- merged.crdt = self.crdt.merge(other.crdt)
- return merged
-```
+| Technique | Purpose | Trade-off |
+|-----------|---------|-----------|  
+| **Batching** | Reduce sync frequency | Latency vs efficiency |
+| **Compression** | Reduce state size | CPU vs bandwidth |
+| **Hierarchical** | Local + global CRDTs | Complexity vs scale |
+| **Lazy propagation** | Delay non-critical updates | Consistency lag |
+| **State pruning** | Remove old history | Safety vs space |
+| **Delta compression** | Send only changes | Requires reliable delivery |
 
 ## Trade-offs and Limitations
 
@@ -933,22 +648,16 @@ class HybridCounter:
 | **Memory Overhead** | Can be high | Low | Low | Medium |
 
 
-### When CRDTs Are Not Suitable
+### CRDT Limitations Matrix
 
-1. **Strong Consistency Required**
- - Banking transactions requiring ACID
- - Inventory systems with hard limits
- - Booking systems preventing double-booking
-
-2. **Complex Invariants**
- - Business rules spanning multiple objects
- - Conditional updates based on global state
- - Transactions with preconditions
-
-3. **Memory Constraints**
- - Embedded systems with limited memory
- - Systems with unbounded growth concerns
- - High-frequency updates with full history
+| Limitation | Why | Alternative |
+|------------|-----|-------------|
+| **No strong consistency** | Eventually consistent only | Use consensus (Raft/Paxos) |
+| **No global invariants** | Can't enforce constraints | Use transactions |
+| **Memory growth** | Metadata accumulates | Implement GC carefully |
+| **Complex to reason about** | Non-intuitive behavior | Extensive testing needed |
+| **Limited operations** | Not all ops have CRDT | Design around available types |
+| **Network overhead** | State/metadata transfer | Use delta-CRDTs |
 
 ## Related Patterns
 

@@ -58,6 +58,18 @@ production_checklist:
 
 **Control request flow to protect systems and ensure fair resource allocation**
 
+<div class="axiom-box">
+<h4>⚛️ Fundamental Principle: Resource Protection</h4>
+
+Rate limiting embodies the First Law - Correlated Failure Prevention:
+- **Cascade prevention**: One bad actor can't take down the system
+- **Fair allocation**: Resources distributed equitably among users
+- **Predictable degradation**: System fails gracefully, not catastrophically
+- **Economic protection**: Prevents resource exhaustion and cost overruns
+
+**Core truth**: Unlimited access to limited resources always leads to system failure
+</div>
+
 ## Level 1: Intuition
 
 ## Core Concept
@@ -88,6 +100,34 @@ Real System:
 ## Level 2: Foundation
 
 ## Rate Limiting Algorithms
+
+<div class="decision-box">
+<h4>🎯 Choosing the Right Rate Limiting Algorithm</h4>
+
+**Algorithm Selection Guide:**
+
+1. **Token Bucket** → Best for most cases
+   - Allows controlled bursts
+   - Simple to implement
+   - Used by: AWS, Google Cloud
+
+2. **Sliding Window** → Best accuracy/performance trade-off
+   - More accurate than fixed window
+   - Low memory footprint
+   - Used by: GitHub, Stripe
+
+3. **Fixed Window** → Only for simple cases
+   - Easiest to implement
+   - Has boundary issues
+   - Avoid for critical APIs
+
+4. **Leaky Bucket** → When you need steady output
+   - No bursts allowed
+   - Good for streaming
+   - Used by: Video platforms
+
+**Key Decision**: Do you need to allow bursts? Yes → Token Bucket. No → Sliding Window.
+</div>
 
 | Algorithm | Memory | Accuracy | Burst | Best For |
 |-----------|--------|----------|-------|----------|
@@ -1524,6 +1564,40 @@ class StripeIdempotentRateLimiter:
             'infrastructure_capacity_freed': f"{metrics['abusive_percentage_before'] - metrics['abusive_percentage_after']:.1%}",
             'roi_months': 3.2  # Implementation cost recovered in 3.2 months
         }
+
+<div class="truth-box">
+<h4>💡 Rate Limiting Production Wisdom</h4>
+
+**The Golden Rules:**
+
+1. **Start conservative, increase gradually**
+   - Begin with 100 req/min, not 10,000
+   - Monitor real usage patterns
+   - Increase limits based on data
+
+2. **Rate limit by identity, not IP**
+   - IPs are shared (NAT, corporate networks)
+   - API keys provide accountability
+   - Allows better customer support
+
+3. **The 429 Response Trinity**:
+   ```
+   X-RateLimit-Limit: 1000
+   X-RateLimit-Remaining: 0
+   Retry-After: 3600
+   ```
+   Always include all three!
+
+4. **Cost-based quotas beat request counts**
+   - GraphQL query complexity scoring
+   - Database query cost estimation
+   - Prevents clever workarounds
+
+**Production Reality**:
+> "We spent 6 months implementing fancy ML-based rate limiting. Then we went back to token bucket because it just works." - Netflix Engineer
+
+**The 80/20 Rule**: 80% of your rate limit violations come from 20% of users who forgot to implement exponential backoff.
+</div>
 
 ## Production Monitoring Dashboard
 

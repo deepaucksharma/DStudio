@@ -28,6 +28,8 @@ production_checklist:
   - "Choose backpressure strategy (drop, buffer, throttle)"
   - "Set buffer sizes based on memory constraints"
   - "Implement flow control protocols (TCP-like windowing)"
+related_laws: [law1-failure, law3-emergence, law4-tradeoffs]
+related_pillars: [control, work]
   - "Monitor queue depths and processing rates"
   - "Configure timeouts for slow consumers"
   - "Use reactive streams for automatic backpressure"

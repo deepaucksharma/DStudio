@@ -28,6 +28,8 @@ production_checklist:
   - "Design data replication strategy (active-active vs active-passive)"
   - "Implement conflict resolution for concurrent updates"
   - "Configure global load balancing with health checks"
+related_laws: [law1-failure, law2-asynchrony, law4-tradeoffs]
+related_pillars: [state, truth, control]
   - "Set up cross-region monitoring and alerting"
   - "Plan for regional compliance requirements (GDPR, etc.)"
   - "Test regional failover procedures regularly"

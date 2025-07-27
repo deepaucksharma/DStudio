@@ -43,7 +43,7 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
 <div class="tier-summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
     <div style="background: linear-gradient(135deg, #FFD700 0%, #FFF8DC 100%); padding: 1.5rem; border-radius: 8px; text-align: center;">
         <h3 style="margin: 0;">🥇 Gold Tier</h3>
-        <p style="font-size: 2rem; margin: 0.5rem 0;">25</p>
+        <p style="font-size: 2rem; margin: 0.5rem 0;">26</p>
         <p style="margin: 0; font-size: 0.9rem;">Battle-tested at FAANG scale</p>
     </div>
     <div style="background: linear-gradient(135deg, #C0C0C0 0%, #F5F5F5 100%); padding: 1.5rem; border-radius: 8px; text-align: center;">
@@ -53,7 +53,7 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
     </div>
     <div style="background: linear-gradient(135deg, #CD7F32 0%, #F4A460 100%); padding: 1.5rem; border-radius: 8px; text-align: center; color: white;">
         <h3 style="margin: 0;">🥉 Bronze Tier</h3>
-        <p style="font-size: 2rem; margin: 0.5rem 0;">30</p>
+        <p style="font-size: 2rem; margin: 0.5rem 0;">34</p>
         <p style="margin: 0; font-size: 0.9rem;">Well-documented approach</p>
     </div>
 </div>
@@ -160,6 +160,11 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
 | **Read-Through Cache** | 🥉 Bronze | 💾 Data | Medium | ORM systems | Transparent caching | [→](read-through-cache.md) |
 | **Write-Through Cache** | 🥉 Bronze | 💾 Data | Medium | Database caches | Sync writes | [→](write-through-cache.md) |
 | **Write-Behind Cache** | 🥉 Bronze | 💾 Data | Large | High-write systems | Async writes | [→](write-behind-cache.md) |
+| **Shared Database** | 🥉 Bronze | 💾 Data | Small | Legacy systems | Anti-pattern | [→](shared-database.md) |
+| **Stored Procedures** | 🥉 Bronze | 🏗️ Core | Small | Legacy databases | Business in DB | [→](stored-procedures.md) |
+| **Thick Client** | 🥉 Bronze | 🏗️ Core | Small | Desktop apps | Fat client anti-pattern | [→](thick-client.md) |
+| **Singleton Database** | 🥉 Bronze | 💾 Data | Small | Legacy monoliths | Single DB anti-pattern | [→](singleton-database.md) |
+| **Database per Service** | 🥇 Gold | 💾 Data | Medium+ | Microservices | Service autonomy | [→](database-per-service.md) |
 
 </div>
 

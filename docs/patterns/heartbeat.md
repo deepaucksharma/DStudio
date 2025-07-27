@@ -20,10 +20,23 @@ related_pillars:
 status: complete
 last_updated: 2025-07-26
 tags: [failure-detection, liveness, monitoring, distributed-systems, consensus]
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1980s
+excellence_tier: silver
+pattern_status: use-with-expertise
+introduced: 1985-01
 current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Simple and effective failure detection mechanism"
+    - "Low overhead for basic liveness monitoring"
+    - "Well-understood with mature implementations"
+  cons:
+    - "Can generate significant network traffic at scale"
+    - "Susceptible to false positives during network issues"
+    - "Requires careful tuning of intervals and timeouts"
+best_for:
+  - "Cluster membership and failure detection"
+  - "Service health monitoring in distributed systems"
+  - "Leader election and consensus protocols"
 modern_examples:
   - company: Google
     implementation: "Every internal RPC system uses heartbeats for failure detection"
@@ -47,15 +60,10 @@ production_checklist:
 
 # Heartbeat Pattern
 
-!!! success "🏆 Gold Standard Pattern"
-    **The Foundation of Failure Detection** • Google, Kubernetes, Cassandra proven
+!!! warning "🥈 Silver Tier Pattern"
+    **Fundamental but requires careful tuning** • Use when you need reliable failure detection
     
-    Every distributed system needs heartbeats - from Kubernetes managing millions of containers to Cassandra's 150,000+ node clusters at Apple. This fundamental pattern enables reliable failure detection at any scale.
-    
-    **Key Success Metrics:**
-    - Google: Billions of heartbeats/second across global infrastructure
-    - Kubernetes: 10M+ containers managed with 40s failure detection
-    - Cassandra: 150,000+ nodes at Apple using gossip-based heartbeats
+    Heartbeats are essential for distributed systems but come with trade-offs. Too aggressive and you'll get false positives during network hiccups. Too conservative and you'll have slow failure detection. Finding the right balance requires expertise and continuous monitoring.
 
 **The pulse of distributed systems - detecting failures through periodic signals**
 

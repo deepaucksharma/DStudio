@@ -204,6 +204,7 @@ extra_css:
   - stylesheets/hide-toc.css  # Hide right sidebar and enhance navigation
   - stylesheets/pattern-filtering.css  # Interactive pattern filtering
   - stylesheets/calculator.css  # Consistent calculator styling
+  - stylesheets/visual-components.css  # Visual components for patterns
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:
@@ -442,6 +443,8 @@ nav:
     
     - Pattern Excellence:
       - Pattern Catalog: patterns/pattern-catalog.md
+      - Pattern Relationships: patterns/pattern-relationships.md
+      - Pattern Selector Tool: patterns/pattern-selector-tool.md
       - Excellence Guides:
         - Gold Tier Guide: patterns/excellence/gold-tier-guide.md
         - Silver Tier Guide: patterns/excellence/silver-tier-guide.md

@@ -10,10 +10,32 @@ when_to_use: When data exceeds single node capacity or requires high availabilit
 when_not_to_use: When data fits on single node and downtime is acceptable
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: use-with-expertise
+introduced: 2003-10
+current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Horizontal scalability beyond single-node limits"
+    - "High availability through replication"
+    - "Geographic distribution for locality"
+  cons:
+    - "Complex consistency and coordination challenges"
+    - "Higher operational overhead and costs"
+    - "Network partitions and split-brain scenarios"
+best_for:
+  - "Large-scale data that exceeds single node capacity"
+  - "Systems requiring 99.99%+ availability"
+  - "Global applications needing data locality"
 ---
 
 
 # Distributed Storage
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Infinite scale with infinite complexity** • Use when single-node limits are truly exceeded
+    
+    Distributed storage enables petabyte-scale systems but brings CAP theorem trade-offs, complex failure modes, and significant operational overhead. Many systems can achieve their goals with simpler replicated databases before needing true distributed storage.
 
 **Scaling storage beyond single machine limits**
 

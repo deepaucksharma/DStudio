@@ -28,6 +28,8 @@ production_checklist:
   - "Choose between Istio, Linkerd, or Consul based on your needs"
   - "Start with traffic management before adding security features"
   - "Configure mTLS for zero-trust networking between services"
+related_laws: [law4-tradeoffs, law6-human-api, law1-failure]
+related_pillars: [control, intelligence]
   - "Set up distributed tracing for request flow visibility"
   - "Implement circuit breakers and retries at mesh level"
   - "Monitor sidecar proxy resource usage (typically 10-50MB RAM)"

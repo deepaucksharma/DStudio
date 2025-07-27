@@ -4,13 +4,13 @@ description: Prevent indefinite waits and resource exhaustion by setting time li
 type: pattern
 category: resilience
 difficulty: beginner
-reading_time: 30 min
+reading_time: 10 min
 prerequisites: [network-programming, distributed-systems, error-handling]
-when_to_use: Network calls, database queries, API requests, distributed transactions, service-to-service communication, preventing resource leaks, cascading failure prevention
-when_not_to_use: CPU-bound operations, local function calls, operations with unpredictable duration, when retries make timeouts worse, batch processing with checkpoints
+when_to_use: Network calls, database queries, API requests, distributed transactions, service-to-service communication
+when_not_to_use: CPU-bound operations, local function calls, operations with unpredictable duration
 status: complete
-last_updated: 2025-07-21
-tags: [fault-tolerance, resource-management, resilience, network-reliability, failure-handling]
+last_updated: 2025-07-26
+tags: [fault-tolerance, resource-management, resilience, network-reliability]
 excellence_tier: gold
 pattern_status: recommended
 introduced: 1980-01
@@ -29,13 +29,8 @@ production_checklist:
   - "Set appropriate timeout values (p99 latency + buffer)"
   - "Configure connection vs request timeouts separately"
   - "Implement timeout propagation across service calls"
-  - "Add jitter to prevent thundering herd on retry"
   - "Monitor timeout rates and adjust thresholds"
   - "Test timeout behavior under load"
-  - "Configure client-side vs server-side timeouts"
-  - "Implement graceful degradation on timeout"
-  - "Log timeout events with context"
-  - "Consider timeout budgets for distributed operations"
 ---
 
 # Timeout Pattern
@@ -43,228 +38,267 @@ production_checklist:
 !!! success "🏆 Gold Standard Pattern"
     **Fundamental Resilience Control** • Netflix, Amazon, Google proven
     
-    The most basic yet critical resilience pattern. Timeouts prevent resource exhaustion and cascading failures by ensuring no operation waits indefinitely. Essential for every network call in production systems.
-    
-    **Key Success Metrics:**
-    - Netflix Hystrix: Enforces timeouts preventing cascade failures
-    - AWS APIs: Every service protected by configurable timeouts
-    - Google gRPC: Deadline propagation for distributed timeout management
+    The most basic yet critical resilience pattern. Timeouts prevent resource exhaustion and cascading failures by ensuring no operation waits indefinitely.
 
-**Protection against indefinite waits and resource exhaustion**
-
-## Level 1: Intuition
-
-### Core Concept
-
-Like setting a timer when waiting for restaurant service, timeouts prevent systems from waiting forever on operations that may never complete.
-
-### Simple Example
-
-```text
-Without Timeout: Request → Wait... Wait... Wait... (∞) → System frozen
-
-With Timeout: Request → Set 5s timer → Wait → Timeout! → Handle error → Stay responsive
-```
-
-### Timeout Flow Diagram
+## Core Concept
 
 ```mermaid
-flowchart TD
-    Start[Start Operation] --> SetTimer[Set Timeout Timer]
-    SetTimer --> Execute[Execute Operation]
+flowchart LR
+    subgraph "Without Timeout"
+        R1[Request] --> W1[Wait...] --> W2[Wait...] --> W3[∞]
+    end
     
-    Execute --> Race{Race Condition}
+    subgraph "With Timeout"
+        R2[Request] --> T[Timer: 5s] --> E{Expired?}
+        E -->|Yes| H[Handle Error]
+        E -->|No| S[Success]
+    end
     
-    Race -->|Operation Completes| Success[Return Result]
-    Race -->|Timeout Expires| Timeout[Cancel Operation]
-    
-    Timeout --> HandleTimeout[Handle Timeout]
-    HandleTimeout --> Retry{Retry?}
-    
-    Retry -->|Yes| Backoff[Apply Backoff]
-    Retry -->|No| Fail[Return Error]
-    
-    Backoff --> Start
-    
-    Success --> End[Complete]
-    Fail --> End
-    
-    style Success fill:#9f9
-    style Timeout fill:#f99
-    style Fail fill:#f99
+    style W3 fill:#f99
+    style S fill:#9f9
+    style H fill:#ff9
 ```
 
-### Cascading Timeout Hierarchy
+## Timeout Types & Values
+
+| Type | Purpose | Typical Value | Example |
+|------|---------|---------------|---------|  
+| **Connection** | TCP handshake | 1-5s | Database connect |
+| **Read** | Response data | 5-30s | API response |
+| **Write** | Request data | 5-10s | File upload |
+| **Total** | End-to-end | 30-60s | Full transaction |
+| **Idle** | Keep-alive | 60-300s | Connection pool |
+
+## Timeout Strategies
+
+```mermaid
+graph TD
+    subgraph "Strategy Decision Tree"
+        S[Select Strategy] --> Q1{System Type?}
+        
+        Q1 -->|Simple| Fixed[Fixed Timeout<br/>All ops: 30s]
+        Q1 -->|Complex| Q2{Load Pattern?}
+        
+        Q2 -->|Predictable| Tiered[Tiered Timeout<br/>Read: 5s, Write: 30s]
+        Q2 -->|Variable| Q3{Critical Path?}
+        
+        Q3 -->|Yes| Hedged[Hedged Request<br/>Primary: 2s, Backup: 0.5s]
+        Q3 -->|No| Adaptive[Adaptive Timeout<br/>P99 × 1.5]
+    end
+    
+    style Fixed fill:#9f9
+    style Tiered fill:#9ff
+    style Adaptive fill:#ff9
+    style Hedged fill:#f9f
+```
+
+## Cascading Timeouts
 
 ```mermaid
 graph TB
-    subgraph "Request Flow with Timeouts"
-        Client[Client Request<br/>Total: 60s] --> Gateway[API Gateway<br/>Timeout: 50s]
-        
-        Gateway --> ServiceA[Service A<br/>Timeout: 20s]
-        Gateway --> ServiceB[Service B<br/>Timeout: 20s]
-        
-        ServiceA --> DB1[Database<br/>Timeout: 10s]
-        ServiceA --> Cache[Cache<br/>Timeout: 2s]
-        
-        ServiceB --> API[External API<br/>Timeout: 15s]
-        ServiceB --> Queue[Message Queue<br/>Timeout: 5s]
-        
-        Gateway --> Response[Response Assembly<br/>Timeout: 5s]
+    subgraph "Timeout Hierarchy"
+        Client["Client<br/>60s total"] --> Gateway["API Gateway<br/>50s budget"]
+        Gateway --> S1["Service A<br/>20s budget"]
+        Gateway --> S2["Service B<br/>20s budget"]
+        S1 --> DB["Database<br/>10s budget"]
+        S1 --> Cache["Cache<br/>2s budget"]
+        S2 --> API["External API<br/>15s budget"]
     end
     
     style Client fill:#ff9
     style Gateway fill:#9ff
-    style ServiceA fill:#f9f
-    style ServiceB fill:#f9f
 ```
 
-### Basic Implementation
+**Key Rule**: Child timeout < Parent timeout - Network overhead
+
+## Implementation Patterns
+
+### Basic Timeout
 
 ```python
-from typing import Optional, TypeVar, Callable, Any
 import asyncio
+from typing import TypeVar, Callable, Any
 
 T = TypeVar('T')
 
-# Example usage
-async def slow_database_query():
-    """Simulates a slow database operation"""
-    await asyncio.sleep(10)  # Takes 10 seconds
-    return {"user": "john", "status": "active"}
-
-async def main():
+async def with_timeout(
+    operation: Callable[[], T], 
+    seconds: float
+) -> T:
+    """Execute operation with timeout"""
     try:
-# This will timeout after 3 seconds
-        result = await SimpleTimeout.with_timeout(
-            slow_database_query, 
-            timeout_seconds=3
+        return await asyncio.wait_for(
+            operation(), 
+            timeout=seconds
         )
-        print(f"Result: {result}")
-    except TimeoutError as e:
-        print(f"Failed: {e}")
-# Use cached data or default response
-        print("Using cached response instead")
+    except asyncio.TimeoutError:
+        raise TimeoutError(f"Operation timed out after {seconds}s")
 ```
 
----
-
-## Level 2: Foundation
-
-### Timeout Types
-
-| Type | Purpose | Typical Value |
-|------|---------|---------------|
-| **Connection** | TCP handshake | 1-5s |
-| **Read** | Response data | 5-30s |
-| **Write** | Request data | 5-10s |
-| **Total** | End-to-end | 30-60s |
-| **Idle** | Keep-alive | 60-300s |
-
-
-### Timeout Strategy Comparison
-
-| Strategy | Description | Use Case | Example |
-|----------|-------------|----------|---------|
-| **Fixed Timeout** | Same timeout for all operations | Simple systems | All requests: 30s |
-| **Tiered Timeout** | Different timeouts by operation type | Mixed workloads | Read: 5s, Write: 30s |
-| **Adaptive Timeout** | Adjusts based on performance | Dynamic systems | P99 latency × 1.5 |
-| **Cascading Timeout** | Child respects parent timeout | Microservices | Remaining budget |
-| **Hedged Timeout** | Backup request if slow | Critical paths | Primary: 2s, Hedge: 0.5s |
-
-
-### Timeout Hierarchy
-
-```text
-User Request (60s) → API Gateway (50s) → Service A (20s) → Database (10s)
-                                      → Service B (20s) → External API (15s)
-```
-
-Key principle: Child timeouts must be less than parent timeout.
-
-### Calculating Appropriate Timeouts
+### Cascading Timeout Budget
 
 ```python
-from dataclasses import dataclass
-from typing import Dict, List
-import numpy as np
+import time
+from typing import Dict, Any
 
-@dataclass
-class LatencyMetrics:
-    p50: float  # Median
-    p90: float  # 90th percentile
-    p99: float  # 99th percentile
-    p999: float # 99.9th percentile
-
-class TimeoutCalculator:
-    """Calculate optimal timeouts based on historical data"""
+class TimeoutBudget:
+    """Manage timeout budget across service calls"""
     
-    def __init__(self):
-        self.safety_factors = {
-            'critical': 1.5,    # 50% buffer for critical paths
-            'normal': 2.0,      # 100% buffer for normal operations
-            'background': 3.0   # 200% buffer for background tasks
-        }
+    def __init__(self, total_seconds: float):
+        self.total = total_seconds
+        self.start = time.time()
     
-    def calculate_timeout(
-        self, 
-        metrics: LatencyMetrics, 
-        operation_type: str = 'normal',
-        target_success_rate: float = 0.99
-    ) -> float:
-        """Calculate timeout based on historical performance"""
-        
-# Choose percentile based on target success rate
-        if target_success_rate >= 0.999:
-            baseline = metrics.p999
-        elif target_success_rate >= 0.99:
-            baseline = metrics.p99
-        elif target_success_rate >= 0.90:
-            baseline = metrics.p90
-        else:
-            baseline = metrics.p50
-        
-# Apply safety factor
-        safety_factor = self.safety_factors.get(operation_type, 2.0)
-        timeout = baseline * safety_factor
-        
-# Apply bounds
-        min_timeout = 1.0   # Never less than 1 second
-        max_timeout = 300.0 # Never more than 5 minutes
-        
-        return max(min_timeout, min(timeout, max_timeout))
+    def remaining(self) -> float:
+        """Get remaining timeout budget"""
+        elapsed = time.time() - self.start
+        return max(0, self.total - elapsed)
     
-    def analyze_timeout_effectiveness(
-        self, 
-        response_times: List[float], 
-        timeout_value: float
-    ) -> Dict[str, float]:
-        """Analyze how effective a timeout value would be"""
-        
-        total_requests = len(response_times)
-        timed_out = sum(1 for t in response_times if t > timeout_value)
-        
-        return {
-            'timeout_rate': timed_out / total_requests,
-            'avg_response_time': np.mean(response_times),
-            'p99_response_time': np.percentile(response_times, 99),
-            'timeout_value': timeout_value,
-            'headroom': timeout_value - np.percentile(response_times, 99)
-        }
+    def allocate(self, requested: float) -> float:
+        """Allocate timeout from budget"""
+        return min(requested, self.remaining())
 
-# Example usage
-metrics = LatencyMetrics(p50=100, p90=200, p99=500, p999=1000)
-calculator = TimeoutCalculator()
-
-# Calculate timeout for different operation types
-critical_timeout = calculator.calculate_timeout(metrics, 'critical')
-normal_timeout = calculator.calculate_timeout(metrics, 'normal')
-background_timeout = calculator.calculate_timeout(metrics, 'background')
-
-print(f"Critical operation timeout: {critical_timeout}ms")
-print(f"Normal operation timeout: {normal_timeout}ms")
-print(f"Background operation timeout: {background_timeout}ms")
+# Usage
+budget = TimeoutBudget(total_seconds=30)
+db_timeout = budget.allocate(10)  # Get up to 10s
+api_timeout = budget.allocate(15) # Get remaining time
 ```
+
+## Timeout Calculation
+
+| Metric | Formula | Example |
+|--------|---------|---------|  
+| **Basic** | P99 latency × 2 | 500ms × 2 = 1s |
+| **Conservative** | P999 latency × 1.5 | 2s × 1.5 = 3s |
+| **Aggressive** | P95 latency × 1.2 | 300ms × 1.2 = 360ms |
+| **Adaptive** | Recent P99 × (1 + jitter) | Dynamic adjustment |
+
+## Production Patterns
+
+### 1. Timeout with Retry
+
+```python
+async def reliable_call(
+    operation: Callable,
+    timeout: float = 5.0,
+    retries: int = 3
+) -> Any:
+    """Call with timeout and exponential backoff retry"""
+    for attempt in range(retries):
+        try:
+            return await with_timeout(operation, timeout)
+        except TimeoutError:
+            if attempt == retries - 1:
+                raise
+            await asyncio.sleep(2 ** attempt)  # Exponential backoff
+```
+
+### 2. Hedged Requests
+
+```python
+async def hedged_request(
+    primary: Callable,
+    backup: Callable,
+    hedge_delay: float = 0.5
+) -> Any:
+    """Send backup request if primary is slow"""
+    primary_task = asyncio.create_task(primary())
+    
+    # Wait briefly for primary
+    try:
+        return await asyncio.wait_for(primary_task, hedge_delay)
+    except asyncio.TimeoutError:
+        # Primary slow, race both
+        backup_task = asyncio.create_task(backup())
+        done, pending = await asyncio.wait(
+            {primary_task, backup_task},
+            return_when=asyncio.FIRST_COMPLETED
+        )
+        
+        # Cancel loser
+        for task in pending:
+            task.cancel()
+            
+        return await done.pop()
+```
+
+## Monitoring & Alerts
+
+| Metric | Alert Threshold | Action |
+|--------|----------------|--------|
+| **Timeout Rate** | > 1% | Investigate latency |
+| **P99 vs Timeout** | > 80% | Increase timeout |
+| **Timeout Storms** | > 10% in 1min | Circuit breaker |
+| **Budget Exhaustion** | > 5% | Review hierarchy |
+
+## Common Pitfalls
+
+| Anti-Pattern | Problem | Solution |
+|--------------|---------|----------|  
+| **Infinite Timeout** | Resource leak | Always set limits |
+| **One-Size-Fits-All** | Poor performance | Operation-specific values |
+| **No Propagation** | Cascade failures | Pass deadline context |
+| **Tight Timeouts** | False positives | P99 + buffer |
+| **No Monitoring** | Silent failures | Track timeout metrics |
+
+## Decision Framework
+
+```mermaid
+graph TD
+    Start[Configure Timeout] --> Type{Operation Type?}
+    
+    Type -->|User-Facing| UF[1-5 seconds]
+    Type -->|Background| BG[Minutes-Hours]
+    Type -->|External API| EA[10-30 seconds]
+    
+    UF --> Critical{Critical Path?}
+    Critical -->|Yes| Hedge[Add Hedging]
+    Critical -->|No| Monitor[Monitor Only]
+    
+    EA --> Retry{Idempotent?}
+    Retry -->|Yes| AddRetry[Add Retry Logic]
+    Retry -->|No| CB[Circuit Breaker]
+    
+    style UF fill:#9f9
+    style Hedge fill:#f9f
+    style AddRetry fill:#9ff
+```
+
+## Quick Reference
+
+### Essential Timeouts
+```yaml
+# API Gateway
+connection_timeout: 5s
+request_timeout: 30s
+idle_timeout: 60s
+
+# Database
+connect_timeout: 5s
+query_timeout: 10s
+transaction_timeout: 30s
+
+# HTTP Client  
+connect_timeout: 3s
+read_timeout: 10s
+total_timeout: 30s
+```
+
+### Implementation Checklist
+- [ ] Set timeouts for ALL network operations
+- [ ] Configure cascading timeout budgets  
+- [ ] Monitor timeout rates and P99 latency
+- [ ] Test timeout behavior under load
+- [ ] Document timeout values and rationale
+- [ ] Implement graceful degradation
+- [ ] Add timeout context to logs
+- [ ] Review and tune regularly
+
+## See Also
+
+- [Circuit Breaker](circuit-breaker.md) - Prevent cascade failures
+- [Retry & Backoff](retry-backoff.md) - Handle transient failures
+- [Bulkhead](bulkhead.md) - Isolate resources
+- [Timeout Advanced](timeout-advanced.md) - Production optimizations
 
 ---
 

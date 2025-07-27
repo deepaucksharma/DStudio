@@ -11,10 +11,23 @@ when_not_to_use: Stateful applications without proper session handling, legacy m
 status: complete
 last_updated: 2025-07-20
 tags: [elasticity, resource-management, cost-optimization, cloud-native, scalability, performance-optimization]
-excellence_tier: gold
-pattern_status: recommended
+excellence_tier: silver
+pattern_status: use-with-expertise
 introduced: 2006-08
 current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Automatic response to demand changes"
+    - "Cost optimization through right-sizing"
+    - "Handles unpredictable traffic patterns"
+  cons:
+    - "Can cause thrashing if misconfigured"
+    - "Adds complexity to stateful applications"
+    - "Cold start latency impacts performance"
+best_for:
+  - "Stateless web applications and APIs"
+  - "Batch processing with variable workloads"
+  - "Services with predictable traffic patterns"
 modern_examples:
   - company: Netflix
     implementation: "Predictive auto-scaling handles 2x daily traffic variation"
@@ -28,6 +41,8 @@ modern_examples:
 production_checklist:
   - "Set proper scaling metrics (CPU, memory, custom metrics)"
   - "Configure scale-up and scale-down thresholds (e.g., 70% and 30%)"
+related_laws: [law7-economics, law3-emergence, law4-tradeoffs]
+related_pillars: [work, intelligence]
   - "Implement proper warm-up time for new instances"
   - "Use predictive scaling for known patterns"
   - "Set minimum and maximum instance limits"
@@ -38,15 +53,10 @@ production_checklist:
 
 # Auto-scaling Pattern
 
-!!! success "🏆 Gold Standard Pattern"
-    **Dynamic Capacity Management** • Netflix, Spotify, Uber proven
+!!! warning "🥈 Silver Tier Pattern"
+    **Powerful but requires careful tuning** • Use when you have variable workloads
     
-    Auto-scaling is essential for cost-effective operations at scale. It enables systems to handle traffic spikes automatically while minimizing costs during low-demand periods.
-    
-    **Key Success Metrics:**
-    - Netflix: 600K+ instances, millions saved
-    - Spotify: 500M+ users served efficiently
-    - Uber: 5x surge handling capability
+    Auto-scaling can save costs and handle spikes, but misconfiguration leads to thrashing, cold starts, and instability. Requires continuous monitoring and adjustment of scaling policies, thresholds, and cooldown periods to work effectively.
 
 **Dynamic resource allocation based on demand**
 

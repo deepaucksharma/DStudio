@@ -28,6 +28,8 @@ implementations:
   - company: Slack
     scale: "Cell-based architecture for enterprise isolation"
   - company: Amazon
+related_laws: [law1-failure, law3-emergence, law4-tradeoffs]
+related_pillars: [control, work]
     scale: "Used in various AWS services for isolation"
 ---
 

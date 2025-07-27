@@ -38,6 +38,30 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
     
     [:octicons-arrow-right-24: View Guide](batch-to-streaming.md)
 
+-   **🕐 Vector Clocks to HLC**
+
+    ---
+    
+    Modernize distributed timestamps with compact hybrid logical clocks
+    
+    [:octicons-arrow-right-24: View Guide](vector-clocks-to-hlc.md)
+
+-   **🌐 Gossip to Service Mesh**
+
+    ---
+    
+    Replace custom gossip protocols with industry-standard service mesh
+    
+    [:octicons-arrow-right-24: View Guide](gossip-to-service-mesh.md)
+
+-   **🔄 Anti-Entropy to CRDT**
+
+    ---
+    
+    Automatic conflict resolution with mathematically proven data types
+    
+    [:octicons-arrow-right-24: View Guide](anti-entropy-to-crdt.md)
+
 </div>
 
 ## 🎯 Migration Decision Matrix
@@ -48,6 +72,9 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
 | **HTTP Polling** | WebSockets | Low | 1-2 months | Low |
 | **Monolith** | Microservices | High | 6-12 months | High |
 | **Batch Processing** | Stream Processing | Medium | 3-4 months | Medium |
+| **Vector Clocks** | Hybrid Logical Clocks | Medium | 1-2 months | Medium |
+| **Gossip Protocol** | Service Mesh | High | 3-6 months | Medium |
+| **Anti-Entropy** | CRDTs | Medium | 2-3 months | Low |
 
 ## 📊 Migration Selection Guide
 

@@ -4,8 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a MkDocs-based documentation site called "The Compendium of Distributed Systems" - an educational resource that teaches distributed systems from first principles - Maximum conceptual depth with minimum cognitive load through visual
-  organization and progressive disclosure.
+This is a MkDocs-based documentation site called "The Compendium of Distributed Systems" - an educational resource that teaches distributed systems from first principles - Maximum conceptual depth with minimum cognitive load through visual organization and progressive disclosure.
+
+**NOW ENHANCED WITH EXCELLENCE FRAMEWORK**: Interactive pattern discovery with tier-based filtering (Gold/Silver/Bronze), real-world scale examples, and migration guides.
 
 ## Essential Commands
 
@@ -39,11 +40,12 @@ python3 scripts/check-navigation.py
   - `introduction/` - Getting started guides and learning paths
   - `part1-axioms/` - 7 fundamental laws (Correlated Failure, Asynchronous Reality, Emergent Chaos, etc.)
   - `part2-pillars/` - 5 foundational pillars (Work, State, Truth, Control, Intelligence)
-  - `patterns/` - Modern architectural patterns (CQRS, Event Sourcing, Service Mesh, etc.)
+  - `patterns/` - 101 architectural patterns with excellence tiers (Gold/Silver/Bronze)
+  - `excellence/` - Excellence framework with guides, migrations, and case studies
   - `quantitative/` - Mathematical toolkit (Little's Law, Queueing Theory, Scaling Laws, etc.)
   - `human-factors/` - Operational excellence (SRE, Chaos Engineering, Observability, etc.)
-  - `reference/` - Glossary, cheat sheets, recipe cards, security considerations
-  - `stylesheets/extra.css` - Extensive custom styling (should be avoided unless really required)
+  - `reference/` - Glossary, cheat sheets, pattern health dashboard, security considerations
+  - `stylesheets/` - Custom CSS including `extra.css` and `pattern-filtering.css`
 
 ### Content Philosophy
 The documentation follows a unique pedagogical approach:
@@ -61,6 +63,11 @@ The site uses custom-styled components defined in `extra.css`:
 - `.truth-box` - Blue-themed boxes for insights
 - `.journey-container` - Interactive journey map on homepage
 - `.grid.cards` - Navigation card layout
+
+Excellence Framework components in `pattern-filtering.css`:
+- `.pattern-filter-container` - Interactive filtering interface
+- `.excellence-badge` - Gold/Silver/Bronze tier badges
+- `.pattern-card` - Pattern display cards with metadata
 
 ### Design System
 - Primary color: Indigo (#5448C8)
@@ -156,6 +163,16 @@ It is verify important to present highest conceptual clarity with in-depth compr
 - **Architecture diagram**: Visual representation using Mermaid
 - **Decision criteria table**: When to use vs when not to use
 - **Implementation considerations**: Key technical challenges and solutions
+- **Excellence metadata**: Required frontmatter for all patterns:
+  ```yaml
+  excellence_tier: gold|silver|bronze
+  pattern_status: recommended|use-with-expertise|use-with-caution|legacy
+  introduced: YYYY-MM
+  current_relevance: mainstream|growing|declining|niche
+  ```
+- **Gold patterns**: Include `modern_examples` and `production_checklist`
+- **Silver patterns**: Include `trade_offs` (pros/cons) and `best_for`
+- **Bronze patterns**: Include `modern_alternatives` and `deprecation_reason`
 
 #### For Quantitative Topics
 - **Interactive calculators**: Embed calculation tools where applicable
@@ -190,14 +207,45 @@ Before committing any content change, verify:
 - **Interactive elements**: Decision trees, calculators, interactive diagrams where possible
 - **Consistent terminology**: Use established glossary terms and maintain consistency
 
-## Project Roadmap (from IMPROVEMENTS.md)
+## Excellence Framework Status
+
+### Current Progress (as of 2025-01-26)
+- **Pattern Enhancement**: 57 of 101 patterns (57%) enhanced with excellence metadata
+  - 🥇 Gold: 38/38 (100%) - All battle-tested patterns complete
+  - 🥈 Silver: 13/38 (34%) - Trade-offs documented
+  - 🥉 Bronze: 6/25 (24%) - Migration guides started
+- **Infrastructure**: 90% complete (filtering, health dashboard, excellence hub)
+
+### Key Features Implemented
+1. **Interactive Pattern Discovery** at `/patterns/`
+   - Tier-based filtering (Gold/Silver/Bronze)
+   - Full-text search
+   - Problem domain filters
+   - localStorage persistence
+2. **Pattern Health Dashboard** at `/reference/pattern-health-dashboard/`
+   - Real-time adoption metrics
+   - 7-month trend charts
+   - Company adoption tracking
+3. **Excellence Documentation** at `/excellence/`
+   - Guides, migration playbooks, case studies
+
+### Remaining Work
+- Complete pattern enhancement (44 patterns)
+- Create 7 missing excellence guide files
+- Update pattern catalog table
+- Complete migration playbooks and case studies
+
+See `/TRANSFORMATION_STATUS.md` for detailed progress tracking.
+
+## Project Roadmap
 
 Key planned enhancements:
-1. **Security Pillar**: Add 6th pillar for distributed systems security
-2. **Interactive Tools**: Expand beyond calculators to simulators
-3. **End-to-End Case Study**: Ride-sharing app applying all concepts
-4. **Granular Navigation**: Break up monolithic pages into smaller sections
-5. **Learning Reinforcement**: Quizzes, flashcards, capstone project
+1. **Complete Excellence Transformation**: Finish remaining 44 patterns
+2. **Security Pillar**: Add 6th pillar for distributed systems security
+3. **Interactive Tools**: Expand beyond calculators to simulators
+4. **End-to-End Case Study**: Ride-sharing app applying all concepts
+5. **Granular Navigation**: Break up monolithic pages into smaller sections
+6. **Learning Reinforcement**: Quizzes, flashcards, capstone project
 
 ## Important Notes
 
@@ -208,7 +256,10 @@ Currently, there are no automated linting or testing commands for the documentat
 - Validate navigation changes with `python3 scripts/check-navigation.py`
 
 ### Project Statistics
+- **101 Patterns**: Classified into Gold (38), Silver (38), and Bronze (25) tiers
 - **800+ Visual Diagrams**: Created using Mermaid for maximum clarity
 - **330+ Cross-References**: Extensive interlinking between concepts
+- **150+ Real Examples**: From companies like Netflix, Uber, Google at scale
 - **100+ Files**: Enhanced with visual-first approach
 - **40+ Case Studies**: Real-world production failure stories
+- **57 Patterns Enhanced**: With excellence metadata, production checklists, and migration guides

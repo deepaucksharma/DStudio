@@ -28,6 +28,8 @@ production_checklist:
   - "Choose consensus algorithm (Raft preferred over Paxos)"
   - "Configure cluster size (3, 5, or 7 nodes typical)"
   - "Set election timeout (150-300ms recommended)"
+related_laws: [law2-asynchrony, law1-failure, law5-epistemology]
+related_pillars: [truth, control]
   - "Implement leader lease for read optimization"
   - "Monitor leader stability and election frequency"
   - "Configure snapshot frequency for log compaction"

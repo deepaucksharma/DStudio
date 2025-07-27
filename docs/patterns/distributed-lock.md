@@ -28,6 +28,8 @@ production_checklist:
   - "Choose lock backend (Redis with Redlock, Zookeeper, etcd)"
   - "Set appropriate lock timeout (typically 30s-5min)"
   - "Implement lock renewal for long operations"
+related_laws: [law2-asynchrony, law1-failure, law5-epistemology]
+related_pillars: [control, truth]
   - "Use fencing tokens to prevent split-brain"
   - "Monitor lock contention and wait times"
   - "Implement exponential backoff for retries"

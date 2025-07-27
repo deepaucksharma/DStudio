@@ -19,10 +19,23 @@ related_pillars:
   - intelligence
 status: complete
 last_updated: 2025-07-20
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2000s
+excellence_tier: silver
+pattern_status: use-with-expertise
+introduced: 2001-01
 current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Maintains service availability during failures"
+    - "Provides predictable user experience under load"
+    - "Enables granular control over feature availability"
+  cons:
+    - "Complex to implement and test all degradation paths"
+    - "Requires careful prioritization of features"
+    - "Can mask underlying system problems if overused"
+best_for:
+  - "High-traffic consumer applications"
+  - "Systems with clear feature priorities"
+  - "Services with variable load patterns"
 modern_examples:
   - company: Netflix
     implementation: "Degrades to cached content when recommendation service fails"
@@ -46,15 +59,10 @@ production_checklist:
 
 # Graceful Degradation Pattern
 
-!!! success "🏆 Gold Standard Pattern"
-    **Survive Failures, Serve Users** • Netflix, Amazon, Google proven
+!!! warning "🥈 Silver Tier Pattern"
+    **Better degraded than dead** • Use when perfect availability isn't feasible
     
-    The difference between an outage and degraded service can be millions in revenue. From Netflix serving cached content to Amazon's static pages during Prime Day, graceful degradation keeps services alive when components fail.
-    
-    **Key Success Metrics:**
-    - Netflix: 99.99% availability through intelligent degradation
-    - Amazon: 10x traffic handled on Prime Day with fallbacks
-    - Google: 8.5B+ searches/day with feature degradation
+    Graceful degradation trades functionality for availability. While powerful, it adds significant complexity to testing and operations. Every degradation path must be tested, monitored, and maintained. Use when the business impact of partial service outweighs the engineering complexity.
 
 **Maintaining partial functionality when systems fail**
 

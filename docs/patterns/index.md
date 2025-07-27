@@ -38,7 +38,7 @@ type: patterns-index
     <div class="tier-filters" style="display: flex; gap: 1rem; flex-wrap: wrap;">
         <label for="filter-gold" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
             <input type="checkbox" id="filter-gold" checked onchange="applyFilters()"> 
-            <span style="background: #FFD700; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥇 Gold (25 patterns)</span>
+            <span style="background: #FFD700; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥇 Gold (26 patterns)</span>
         </label>
         <label for="filter-silver" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
             <input type="checkbox" id="filter-silver" checked onchange="applyFilters()"> 
@@ -46,7 +46,7 @@ type: patterns-index
         </label>
         <label for="filter-bronze" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
             <input type="checkbox" id="filter-bronze" checked onchange="applyFilters()"> 
-            <span style="background: #CD7F32; padding: 0.25rem 0.75rem; border-radius: 4px; color: white; transition: opacity 0.2s;">🥉 Bronze (30 patterns)</span>
+            <span style="background: #CD7F32; padding: 0.25rem 0.75rem; border-radius: 4px; color: white; transition: opacity 0.2s;">🥉 Bronze (34 patterns)</span>
         </label>
     </div>
     <div style="margin-top: 1rem;">

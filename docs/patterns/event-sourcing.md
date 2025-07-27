@@ -28,6 +28,8 @@ production_checklist:
   - "Design events as immutable facts (OrderPlaced, PaymentReceived)"
   - "Implement event versioning strategy from day one"
   - "Use snapshots for faster state reconstruction (every 100-1000 events)"
+related_laws: [law5-epistemology, law4-tradeoffs, law6-human-api]
+related_pillars: [state, truth]
   - "Plan storage strategy for long-term event retention"
   - "Implement GDPR compliance with event anonymization"
   - "Use event stores like EventStore, Kafka, or Axon"

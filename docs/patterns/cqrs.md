@@ -28,6 +28,8 @@ production_checklist:
   - "Design clear command/query boundaries based on use cases"
   - "Implement eventual consistency handling (typically < 1s lag)"
   - "Use event sourcing for audit trails and replay capability"
+related_laws: [law4-tradeoffs, law5-epistemology, law6-human-api]
+related_pillars: [state, truth, work]
   - "Scale read models independently (often 10:1 read/write ratio)"
   - "Monitor command-to-query synchronization lag"
   - "Implement compensating transactions for failures"

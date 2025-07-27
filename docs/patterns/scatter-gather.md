@@ -10,9 +10,31 @@ when_to_use: When you need to query multiple services in parallel and aggregate 
 when_not_to_use: When sequential processing is required or when the overhead of parallelization exceeds benefits
 status: complete
 last_updated: 2025-01-26
+excellence_tier: silver
+pattern_status: use-with-expertise
+introduced: 2008-06
+current_relevance: mainstream
+trade_offs:
+  pros:
+    - "Reduces overall latency through parallelization"
+    - "Enables graceful degradation with partial results"
+    - "Scales well with independent services"
+  cons:
+    - "Increased resource consumption from parallelism"
+    - "Complex error handling and timeout management"
+    - "Potential for thundering herd problems"
+best_for:
+  - "Search engines aggregating from multiple shards"
+  - "Microservice API composition and aggregation"
+  - "Real-time dashboards pulling from multiple sources"
 ---
 
 # Scatter-Gather
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Parallel power with coordination complexity** • Use when parallelization benefits outweigh orchestration overhead
+    
+    Scatter-Gather can reduce latency by up to 10x for independent service calls but requires careful timeout tuning, error handling strategies, and resource pool management. Consider simpler sequential calls for small request volumes.
 
 !!! success "Problem → Solution"
     **Problem**: Need to query multiple services and aggregate results efficiently  

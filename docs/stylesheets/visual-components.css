@@ -1,0 +1,321 @@
+/* ============================================
+   VISUAL COMPONENTS FOR DISTRIBUTED SYSTEMS
+   Enhanced components for pattern documentation
+   ============================================ */
+
+/* === Core Visual Components === */
+
+/* Axiom Box - For fundamental principles and laws */
+.axiom-box {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%);
+  border-left: 4px solid #5E35B1;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(94, 53, 177, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.axiom-box::before {
+  content: "⚛️";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  opacity: 0.3;
+}
+
+.axiom-box h4 {
+  color: #4A148C;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.axiom-box p {
+  color: #4A148C;
+  margin-bottom: 0.5rem;
+}
+
+.axiom-box ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.axiom-box code {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+}
+
+/* Decision Box - For decision frameworks and criteria */
+.decision-box {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+  border-left: 4px solid #388E3C;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(56, 142, 60, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.decision-box::before {
+  content: "🎯";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  opacity: 0.3;
+}
+
+.decision-box h4 {
+  color: #1B5E20;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.decision-box p {
+  color: #1B5E20;
+  margin-bottom: 0.5rem;
+}
+
+.decision-box ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.decision-box .mermaid {
+  margin: 1rem 0;
+}
+
+/* Failure Vignette - For production failure stories */
+.failure-vignette {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+  border-left: 4px solid #D32F2F;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.failure-vignette::before {
+  content: "💥";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  opacity: 0.3;
+}
+
+.failure-vignette h4 {
+  color: #B71C1C;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.failure-vignette p {
+  color: #B71C1C;
+  margin-bottom: 0.5rem;
+}
+
+.failure-vignette strong {
+  color: #B71C1C;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+}
+
+.failure-vignette ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+  color: #B71C1C;
+}
+
+/* Truth Box - For key insights and best practices */
+.truth-box {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  border-left: 4px solid #1976D2;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.truth-box::before {
+  content: "💡";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  opacity: 0.3;
+}
+
+.truth-box h4 {
+  color: #0D47A1;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.truth-box p {
+  color: #0D47A1;
+  margin-bottom: 0.5rem;
+}
+
+.truth-box ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.truth-box blockquote {
+  border-left: 3px solid #1976D2;
+  margin: 1rem 0;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #0D47A1;
+}
+
+/* === Dark Mode Support === */
+
+[data-md-color-scheme="slate"] .axiom-box {
+  background: linear-gradient(135deg, #4A148C 0%, #6A1B9A 100%);
+  border-left-color: #9575CD;
+  box-shadow: 0 2px 8px rgba(149, 117, 205, 0.3);
+}
+
+[data-md-color-scheme="slate"] .axiom-box h4,
+[data-md-color-scheme="slate"] .axiom-box p {
+  color: #E1BEE7;
+}
+
+[data-md-color-scheme="slate"] .axiom-box code {
+  background: rgba(225, 190, 231, 0.2);
+  color: #E1BEE7;
+}
+
+[data-md-color-scheme="slate"] .decision-box {
+  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+  border-left-color: #81C784;
+  box-shadow: 0 2px 8px rgba(129, 199, 132, 0.3);
+}
+
+[data-md-color-scheme="slate"] .decision-box h4,
+[data-md-color-scheme="slate"] .decision-box p {
+  color: #C8E6C9;
+}
+
+[data-md-color-scheme="slate"] .failure-vignette {
+  background: linear-gradient(135deg, #B71C1C 0%, #C62828 100%);
+  border-left-color: #EF5350;
+  box-shadow: 0 2px 8px rgba(239, 83, 80, 0.3);
+}
+
+[data-md-color-scheme="slate"] .failure-vignette h4,
+[data-md-color-scheme="slate"] .failure-vignette p,
+[data-md-color-scheme="slate"] .failure-vignette strong,
+[data-md-color-scheme="slate"] .failure-vignette ul {
+  color: #FFCDD2;
+}
+
+[data-md-color-scheme="slate"] .truth-box {
+  background: linear-gradient(135deg, #0D47A1 0%, #1565C0 100%);
+  border-left-color: #64B5F6;
+  box-shadow: 0 2px 8px rgba(100, 181, 246, 0.3);
+}
+
+[data-md-color-scheme="slate"] .truth-box h4,
+[data-md-color-scheme="slate"] .truth-box p {
+  color: #BBDEFB;
+}
+
+[data-md-color-scheme="slate"] .truth-box blockquote {
+  border-left-color: #64B5F6;
+  color: #BBDEFB;
+}
+
+/* === Responsive Design === */
+
+@media screen and (max-width: 768px) {
+  .axiom-box,
+  .decision-box,
+  .failure-vignette,
+  .truth-box {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .axiom-box::before,
+  .decision-box::before,
+  .failure-vignette::before,
+  .truth-box::before {
+    font-size: 1.5rem;
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .axiom-box h4,
+  .decision-box h4,
+  .failure-vignette h4,
+  .truth-box h4 {
+    font-size: 1rem;
+  }
+}
+
+/* === Animation Support === */
+
+.axiom-box,
+.decision-box,
+.failure-vignette,
+.truth-box {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Print Styles === */
+
+@media print {
+  .axiom-box,
+  .decision-box,
+  .failure-vignette,
+  .truth-box {
+    border: 2px solid currentColor;
+    box-shadow: none;
+    background: white !important;
+    page-break-inside: avoid;
+  }
+
+  .axiom-box::before,
+  .decision-box::before,
+  .failure-vignette::before,
+  .truth-box::before {
+    display: none;
+  }
+
+  .axiom-box h4,
+  .decision-box h4,
+  .failure-vignette h4,
+  .truth-box h4 {
+    color: black !important;
+  }
+}
