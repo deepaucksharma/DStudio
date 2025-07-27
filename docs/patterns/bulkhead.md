@@ -1834,9 +1834,9 @@ This pattern directly addresses:
 ### Foundational Pillars
 Bulkhead implements:
 
-- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Isolates workloads into separate resource pools
-- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Each bulkhead independently manages its resources
-- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Smart resource allocation and monitoring per bulkhead
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/index.md)**: Isolates workloads into separate resource pools
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/index.md)**: Each bulkhead independently manages its resources
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/index.md)**: Smart resource allocation and monitoring per bulkhead
 
 ---
 

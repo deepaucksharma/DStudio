@@ -299,6 +299,8 @@ nav:
     - Welcome: introduction/index.md
     - Getting Started: introduction/getting-started.md
     - Philosophy: introduction/philosophy.md
+    - Interview Preparation:
+      - Behavioral Questions: introduction/interview-prep/behavioral.md
     
     - Learning Paths:
       - Overview: learning-paths/index.md
@@ -494,18 +496,52 @@ nav:
       # - Consent Management: patterns/consent-management.md  # Archived - overly specific
       - Valet Key: patterns/valet-key.md
     
+    - Geographic & Spatial Patterns:
+      - Geohashing: patterns/geohashing.md
+      - Geo-Replication: patterns/geo-replication.md
+      - Spatial Indexing: patterns/spatial-indexing.md
+      - Tile Caching: patterns/tile-caching.md
+    
+    - Specialized Patterns:
+      - Observability: patterns/observability.md
+      - Time Series IDs: patterns/time-series-ids.md
+      - URL Normalization: patterns/url-normalization.md
+      - ID Generation at Scale: patterns/id-generation-scale.md
+      - Analytics at Scale: patterns/analytics-scale.md
+      - Adaptive Scheduling: patterns/adaptive-scheduling.md
+    
     - Pattern Excellence:
       - Pattern Catalog: patterns/pattern-catalog.md
       - Pattern Relationships: patterns/pattern-relationships.md
       - Pattern Selector Tool: patterns/pattern-selector-tool.md
+    
+    - Browse All Patterns:
+      - All Patterns Index: patterns/index.md
+      - By Category: patterns/pattern-catalog.md#by-category
+      - By Excellence Tier: patterns/pattern-catalog.md#by-tier
+      - By Use Case: patterns/pattern-catalog.md#by-use-case
       - Excellence Guides:
         - Gold Tier Guide: patterns/excellence/gold-tier-guide.md
         - Silver Tier Guide: patterns/excellence/silver-tier-guide.md
         - Bronze Tier Guide: patterns/excellence/bronze-tier-guide.md
+        - Starter Pack: patterns/excellence/starter-pack.md
+        - Migration Guides:
+          - Vector Clocks to HLC: excellence/migrations/vector-clocks-to-hlc.md
+          - Master-Slave to Multi-Primary: excellence/migrations/master-slave-to-multi-primary.md
+          - Shared DB to Microservices: excellence/migrations/shared-database-to-microservices.md
+          - Thick Client to API-First: excellence/migrations/thick-client-to-api-first.md
       - Pattern Packs:
         - Starter Pack: patterns/excellence/starter-pack.md
         # Scale Pack and Enterprise Pack are planned features
       - Pattern Health Dashboard: reference/pattern-health-dashboard.md
+      - Excellence Best Practices:
+        - Data Consistency: excellence/guides/data-consistency.md
+        - Migration Strategies: excellence/guides/migration-strategies.md
+        - Operational Excellence: excellence/guides/operational-excellence.md
+        - Performance Optimization: excellence/guides/performance-optimization.md
+        - Resilience First: excellence/guides/resilience-first.md
+        - Security Patterns: excellence/guides/security-patterns.md
+        - Service Communication: excellence/guides/service-communication.md
     
     - Browse All: patterns/index.md#all-patterns
   
@@ -556,6 +592,7 @@ nav:
     - Economics:
       - Storage Economics: quantitative/storage-economics.md
       - Cache Economics: quantitative/cache-economics.md
+      - Capacity Planning: quantitative/capacity-planning.md
     
     - Advanced Topics:
       - Probabilistic Structures: quantitative/probabilistic-structures.md
@@ -568,6 +605,24 @@ nav:
       - Time Series Analysis: quantitative/time-series.md
       - Bayesian Reasoning: quantitative/bayesian-reasoning.md
       - Power Laws: quantitative/power-laws.md
+      - Network Models: quantitative/network-model.md
+      - Graph Models: quantitative/graph-models.md
+      - Social Networks: quantitative/social-networks.md
+      - Privacy Metrics: quantitative/privacy-metrics.md
+      - Spatial Statistics: quantitative/spatial-stats.md
+      - Computer Vision: quantitative/computer-vision.md
+      - Compression: quantitative/compression.md
+      - Storage Engines: quantitative/storage-engines.md
+      - Time Complexity: quantitative/time-complexity.md
+      - Space Complexity: quantitative/space-complexity.md
+      - Collision Probability: quantitative/collision-probability.md
+      - Backpressure Math: quantitative/backpressure-math.md
+      - Battery Models: quantitative/battery-models.md
+      - Blast Radius: quantitative/blast-radius.md
+      - Performance Testing: quantitative/performance-testing.md
+      - Reliability Engineering: quantitative/reliability-engineering.md
+      - Availability Analysis: quantitative/availability.md
+      - Haversine Distance: quantitative/haversine.md
     
     - Problem Sets: quantitative/problem-set.md
   
@@ -593,6 +648,12 @@ nav:
       - Proximity Service: case-studies/proximity-service.md
       - PayPal Payments: case-studies/paypal-payments.md
       - Spotify Recommendations: case-studies/spotify-recommendations.md
+      - Digital Wallet: case-studies/digital-wallet-enhanced.md
+      - Stock Exchange: case-studies/stock-exchange.md
+      - Hotel Reservation: case-studies/hotel-reservation.md
+      - E-commerce Platform: case-studies/ecommerce-platform.md
+      - Distributed Email: case-studies/distributed-email-enhanced.md
+      - Ad Click Aggregation: case-studies/ad-click-aggregation.md
     
     - Databases:
       - Cassandra: case-studies/cassandra.md
@@ -613,6 +674,11 @@ nav:
       - Message Queue (Kafka): case-studies/kafka.md
       - Redis Architecture: case-studies/redis-architecture.md
       - Memcached: case-studies/memcached.md
+      - MapReduce: case-studies/mapreduce.md
+      - Prometheus: case-studies/prometheus.md
+      - Google Spanner: case-studies/google-spanner.md
+      - Amazon Aurora: case-studies/amazon-aurora.md
+      - Blockchain: case-studies/blockchain.md
     
     - Social Systems:
       - Social Graph: case-studies/social-graph.md
@@ -642,6 +708,11 @@ nav:
       - Apple Maps: case-studies/apple-maps.md
       - HERE Maps: case-studies/here-maps.md
       - Find My Device: case-studies/find-my-device.md
+      - Google Maps: case-studies/google-maps.md
+      - OpenStreetMap: case-studies/openstreetmap.md
+      - Life360: case-studies/life360.md
+      - Snap Map: case-studies/snap-map.md
+      - Strava Heatmaps: case-studies/strava-heatmaps.md
     
     - Security:
       - HashiCorp Vault: case-studies/vault.md
@@ -737,3 +808,7 @@ nav:
     - Security:
       - Security Patterns: reference/security.md
     - Contributing: reference/contributing.md
+    - Documentation Guides:
+      - Navigation Guide: reference/navigation-guide.md
+      - Navigation Maintenance: reference/navigation-maintenance.md
+      - Admonition Guide: reference/admonition-guide.md
