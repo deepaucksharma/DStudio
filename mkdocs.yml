@@ -563,8 +563,14 @@ nav:
       - Master-Slave to Multi-Primary: excellence/migrations/master-slave-to-multi-primary.md
       - Shared DB to Microservices: excellence/migrations/shared-database-to-microservices.md
       - Thick Client to API-First: excellence/migrations/thick-client-to-api-first.md
-      - Gossip to Service Mesh: excellence/migrations/gossip-to-service-mesh.md
-      - Anti-Entropy to CRDT: excellence/migrations/anti-entropy-to-crdt.md
+    
+    - Pattern Comparisons:
+      - Overview: excellence/comparisons/index.md
+      - Messaging Patterns: excellence/comparisons/messaging-patterns-comparison.md
+      - Consistency Patterns: excellence/comparisons/consistency-patterns-comparison.md
+      - Caching Patterns: excellence/comparisons/caching-patterns-comparison.md
+      - Deployment Patterns: excellence/comparisons/deployment-patterns-comparison.md
+      - Resilience Patterns: excellence/comparisons/resilience-patterns-comparison.md
     
     - Case Studies:
       - Overview: excellence/case-studies/index.md
@@ -719,6 +725,8 @@ nav:
     
     - Elite Engineering:
       - Overview: case-studies/elite-engineering/index.md
+      - Netflix Chaos Engineering: case-studies/elite-engineering/netflix-chaos-engineering.md
+      - Amazon DynamoDB Evolution: case-studies/elite-engineering/amazon-dynamodb-evolution.md
       - Discord Voice Infrastructure: case-studies/elite-engineering/discord-voice-infrastructure.md
       - Figma CRDT Collaboration: case-studies/elite-engineering/figma-crdt-collaboration.md
       - Stripe API Excellence: case-studies/elite-engineering/stripe-api-excellence.md

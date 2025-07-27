@@ -376,6 +376,6 @@ P(point in region) = ∫∫ p(x,y) dx dy
 ## Related Topics
 
 - [Spatial Databases](storage-engines.md)
-- [Consistent Hashing](case-studies/consistent-hashing)
-- [Location Services](case-studies/proximity-service)
-- [Load Balancing](patterns/load-balancing)
+- [Consistent Hashing](../case-studies/consistent-hashing.md)
+- [Location Services](../case-studies/proximity-service.md)
+- [Load Balancing](../patterns/load-balancing.md)

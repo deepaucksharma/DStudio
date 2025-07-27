@@ -22,7 +22,7 @@ modern_alternatives:
   - "Cloud-native web applications"
   - "Electron with service layer"
 deprecation_reason: "Deployment nightmares, version management issues, security vulnerabilities with direct DB access, platform lock-in, and inability to scale"
-migration_guide: "[Modernize Desktop to Web](../excellence/migrations/thick-to-thin-client.md)"
+migration_guide: "[Modernize Desktop to Web](../excellence/migrations/thick-client-to-api-first.md)"
 ---
 
 # Thick Client Pattern
@@ -260,6 +260,6 @@ graph TB
 
 - [API Gateway](api-gateway.md) - Central access point
 - [Backends for Frontends](backends-for-frontends.md) - Client-specific APIs
-- [Single Page Application](../excellence/guides/spa-architecture.md) - Modern web pattern
-- [Progressive Web App](../excellence/guides/pwa-architecture.md) - Offline-capable web
-- [Micro Frontends](../excellence/guides/micro-frontends.md) - Modular UI architecture
+- [Single Page Application](../excellence/guides/modern-distributed-systems-2025.md) - Modern web pattern
+- [Progressive Web App](../excellence/guides/modern-distributed-systems-2025.md) - Offline-capable web
+- [Micro Frontends](../excellence/guides/service-communication.md) - Modular UI architecture

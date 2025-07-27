@@ -546,7 +546,7 @@ GROUP BY datacenter
 ## Related Topics
 
 - CAP Theorem (Coming Soon) - The fundamental trade-off
-- [Vector Clocks](patterns/vector-clocks) - Implementing causal consistency
-- [Consensus Algorithms](patterns/consensus-algorithms) - Achieving strong consistency
-- [Eventual Consistency](patterns/eventual-consistency) - Design patterns
-- [CRDT](patterns/crdt) - Conflict-free replicated data types
+- [Vector Clocks](../patterns/vector-clocks.md) - Implementing causal consistency
+- [Consensus Algorithms](../patterns/consensus.md) - Achieving strong consistency
+- [Eventual Consistency](../patterns/eventual-consistency.md) - Design patterns
+- [CRDT](../patterns/crdt.md) - Conflict-free replicated data types

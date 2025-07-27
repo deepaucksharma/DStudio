@@ -505,7 +505,7 @@ graph TB
 - No cascading failures between cells
 - Simplified recovery procedures
 
-This architecture pattern is related to [Bulkhead](patterns/bulkhead) and Cell-Based Architecture (Coming Soon) for isolation.
+This architecture pattern is related to [Bulkhead](../patterns/bulkhead.md) and Cell-Based Architecture (Coming Soon) for isolation.
 
 ## Key Takeaways
 
@@ -520,4 +520,4 @@ Perfect availability is impossible. Design for graceful degradation.
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md)
-- **Patterns**: [Bulkhead](patterns/bulkhead) | [Circuit Breaker](patterns/circuit-breaker) | [Failover](patterns/failover)
+- **Patterns**: [Bulkhead](../patterns/bulkhead.md) | [Circuit Breaker](../patterns/circuit-breaker.md) | [Failover](../patterns/failover.md)

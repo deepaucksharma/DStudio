@@ -392,12 +392,12 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index) - Knowledge consistency across nodes
 
 ### Related Patterns
-- [Consensus Algorithms](patterns/consensus-algorithms) - Achieving agreement despite CAP
-- [Leader Election](patterns/leader-follower) - Maintaining consistency with leaders
-- [Eventual Consistency](patterns/eventual-consistency) - AP system design patterns
-- [Quorum Consensus](patterns/consensus) - Tunable consistency implementations
-- [Vector Clocks](patterns/vector-clocks) - Tracking causality in AP systems
-- [Conflict Resolution](patterns/conflict-resolution) - Handling divergence in AP systems
+- [Consensus Algorithms](../patterns/consensus.md) - Achieving agreement despite CAP
+- [Leader Election](../patterns/leader-follower.md) - Maintaining consistency with leaders
+- [Eventual Consistency](../patterns/eventual-consistency.md) - AP system design patterns
+- [Quorum Consensus](../patterns/consensus.md) - Tunable consistency implementations
+- [Vector Clocks](../patterns/vector-clocks.md) - Tracking causality in AP systems
+- [Conflict Resolution](../patterns/conflict-resolution.md) - Handling divergence in AP systems
 
 ### Quantitative Analysis
 - [Consistency Models](quantitative/consistency-models) - Deep dive into consistency levels
@@ -407,14 +407,14 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [Latency Models](quantitative/latency-models) - Consistency vs latency trade-offs
 
 ### Case Studies
-- [Apache Cassandra](case-studies/cassandra) - Tunable consistency in practice
-- [Amazon DynamoDB](case-studies/amazon-dynamo) - AP system at scale
-- [Google Spanner](case-studies/google-spanner) - CP system with global consistency
-- [MongoDB](case-studies/mongodb) - CP trade-offs in document stores
-- [CockroachDB](case-studies/cockroachdb/) - Modern CP distributed SQL
+- [Apache Cassandra](../case-studies/cassandra.md) - Tunable consistency in practice
+- [Amazon DynamoDB](../case-studies/amazon-dynamo.md) - AP system at scale
+- [Google Spanner](../case-studies/google-spanner.md) - CP system with global consistency
+- [MongoDB](../case-studies/mongodb.md) - CP trade-offs in document stores
+- [CockroachDB](../case-studies/cockroachdb.md) - Modern CP distributed SQL
 
 ### Further Reading
-- [Distributed Database Design](patterns/distributed-database) - Applying CAP to database systems
-- [Multi-Region Architecture](patterns/multi-region) - CAP across geographic regions
-- [Microservices Consistency](patterns/microservices-consistency) - CAP in service architectures
-- [Blockchain Consensus](patterns/blockchain-consensus) - CAP theorem in blockchain systems
+- [Distributed Database Design](../patterns/distributed-database.md) - Applying CAP to database systems
+- [Multi-Region Architecture](../patterns/multi-region.md) - CAP across geographic regions
+- [Microservices Consistency](../patterns/microservices-consistency.md) - CAP in service architectures
+- [Blockchain Consensus](../patterns/blockchain-consensus.md) - CAP theorem in blockchain systems

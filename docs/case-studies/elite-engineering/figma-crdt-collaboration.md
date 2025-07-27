@@ -1,518 +1,671 @@
----
-title: Figma CRDT Collaboration - Real-time Design at Scale
-description: How Figma uses CRDTs to enable seamless real-time collaboration for millions of designers
-type: case-study
-category: elite-engineering
-keywords: [crdt, collaboration, real-time, figma, conflict-resolution]
-status: complete
-last_updated: 2025-01-26
----
+# Figma: CRDTs for Real-Time Design Collaboration
 
-# Figma CRDT Collaboration Case Study
+## Executive Summary
 
-!!! abstract "Executive Summary"
-    🎯 **Figma's CRDT-based architecture enables conflict-free real-time collaboration for millions of users, processing 300M+ operations/day with <100ms latency**
+Figma revolutionized design collaboration by bringing real-time multiplayer editing to the browser. Using Conflict-free Replicated Data Types (CRDTs) and a sophisticated distributed architecture, Figma enables dozens of designers to work simultaneously on the same file with sub-100ms latency. This case study examines how Figma solved one of the hardest problems in distributed systems: real-time collaborative editing at scale.
 
-## At a Glance
+!!! success "Key Achievement"
+    Figma supports 100+ concurrent editors on a single file with 99.9% consistency, processing millions of operations per second while maintaining 60 FPS performance and sub-100ms global latency.
 
-| Metric | Value |
-|--------|-------|
-| **Concurrent Editors** | 100+ per document |
-| **Operations/Day** | 300M+ |
-| **Sync Latency** | <100ms (p95) |
-| **Conflict Rate** | 0% (by design) |
-| **Document Size** | Up to 1GB+ |
-| **Active Users** | 4M+ designers |
+## The Challenge
 
-## Problem Statement & Constraints
+### The Design Tool Revolution
 
-### The Challenge
-- Enable real-time collaborative design editing
-- Support complex design documents with millions of objects
-- Maintain performance with 100+ concurrent editors
-- Zero conflicts or lost work
-- Work seamlessly offline and online
+Traditional design tools faced critical limitations:
 
-### Constraints
-| Constraint | Requirement | Solution |
-|------------|-------------|----------|
-| **Concurrency** | 100+ simultaneous editors | CRDTs for conflict-free merging |
-| **Latency** | <100ms for remote updates | WebSocket + efficient encoding |
-| **Scale** | Documents with 1M+ objects | Lazy loading + virtualization |
-| **Consistency** | Eventually consistent | CRDT convergence guarantees |
-| **Offline** | Full offline capability | Local CRDT operations |
+| Problem | Impact |
+|---------|---------|
+| **File Conflicts** | "Final_final_v2_REALLY_FINAL.sketch" proliferation |
+| **Version Control** | No real-time awareness of changes |
+| **Collaboration Friction** | Export → Email → Import → Merge workflow |
+| **Platform Lock-in** | OS-specific tools limiting team flexibility |
+| **Performance** | Large files bringing systems to knees |
 
-## Why CRDTs Beat Operational Transform
-
-### Operational Transform (OT) Problems
+### Why Multiplayer Design is Hard
 
 ```mermaid
 graph TD
-    subgraph "OT Complexity"
-        A[User A: Insert 'X' at pos 5]
-        B[User B: Delete char at pos 3]
-        
-        T1[Transform A against B]
-        T2[Transform B against A]
-        
-        A --> T1
-        B --> T1
-        A --> T2
-        B --> T2
-        
-        T1 --> C[Complex transformation logic]
-        T2 --> C
-        
-        C --> D[Server coordination required]
-        D --> E[Doesn't work offline]
+    subgraph "Concurrent Editing Challenges"
+        C1[Conflict Resolution<br/>Same object, different changes]
+        C2[Causality Preservation<br/>Order matters for some ops]
+        C3[Performance<br/>60 FPS with network ops]
+        C4[Scale<br/>Files with 100K+ objects]
+        C5[Offline Support<br/>Seamless reconnection]
     end
     
-    style C fill:#ff5252
-    style E fill:#ff5252
+    subgraph "Design-Specific Constraints"
+        D1[Pixel Perfection<br/>No visual glitches]
+        D2[Complex Operations<br/>Boolean ops, masks, effects]
+        D3[Large Assets<br/>Images, fonts, vectors]
+        D4[Undo/Redo<br/>Per-user history]
+        D5[Real-time Preview<br/>See others' cursors]
+    end
+    
+    C1 --> Solution[CRDT-Based Architecture]
+    C2 --> Solution
+    C3 --> Solution
+    C4 --> Solution
+    C5 --> Solution
+    
+    D1 --> Solution
+    D2 --> Solution
+    D3 --> Solution
+    D4 --> Solution
+    D5 --> Solution
 ```
 
-### CRDT Advantages
+## The Solution Architecture
 
-```mermaid
-graph LR
-    subgraph "CRDT Benefits"
-        CR[Conflict-free by Design]
-        DC[Decentralized - No Server]
-        OF[Works Offline]
-        SC[Simple Client Logic]
-        PR[Proven Convergence]
-    end
-    
-    subgraph "Result"
-        R1[No Conflicts Ever]
-        R2[Seamless Offline]
-        R3[Distributed First]
-    end
-    
-    CR --> R1
-    DC --> R2
-    OF --> R2
-    SC --> R3
-    PR --> R1
-    
-    style CR,DC,OF,SC,PR fill:#4CAF50
-    style R1,R2,R3 fill:#2196F3
-```
-
-## Architecture Deep Dive
-
-### CRDT-Based Document Model
+### High-Level System Design
 
 ```mermaid
 graph TB
-    subgraph "Document Structure"
-        DOC[Document CRDT]
-        DOC --> TREE[Object Tree CRDT]
+    subgraph "Client Layer"
+        subgraph "Browser Engine"
+            WA[WebAssembly<br/>Rendering Engine]
+            JS[JavaScript<br/>UI Layer]
+            WGL[WebGL<br/>GPU Acceleration]
+        end
         
-        TREE --> N1[Node: Frame]
-        TREE --> N2[Node: Rectangle]
-        TREE --> N3[Node: Text]
+        subgraph "CRDT Engine"
+            LDS[Local Data Structure]
+            OT[Operation Transform]
+            MS[Merge Strategy]
+        end
         
-        N1 --> P1[Properties CRDT]
-        N2 --> P2[Properties CRDT]
-        N3 --> P3[Properties CRDT]
-        
-        P1 --> X1[X: LWW Register]
-        P1 --> Y1[Y: LWW Register]
-        P1 --> W1[Width: LWW Register]
-        
-        P3 --> T1[Text: RGA CRDT]
-        P3 --> S1[Styles: Map CRDT]
+        subgraph "Networking"
+            WS[WebSocket<br/>Persistent Connection]
+            HTTP[HTTP/2<br/>Asset Loading]
+            P2P[WebRTC<br/>Cursor Sharing]
+        end
     end
     
-    style DOC fill:#5300E8
-    style TREE fill:#0FA958
-    style T1 fill:#F24E1E
+    subgraph "Server Layer"
+        subgraph "Multiplayer Servers"
+            SS[Session Server<br/>Rust]
+            PS[Presence Server<br/>Go]
+            AS[Asset Server<br/>CDN]
+        end
+        
+        subgraph "Document Servers"
+            DS[Document Store<br/>PostgreSQL]
+            CS[Change Stream<br/>Kafka]
+            VS[Version Store<br/>S3]
+        end
+        
+        subgraph "Compute Layer"
+            RE[Render Engine<br/>C++]
+            EX[Export Service<br/>Node.js]
+            TH[Thumbnail Service<br/>Rust]
+        end
+    end
+    
+    WA <--> LDS
+    JS <--> OT
+    LDS <--> OT
+    OT <--> MS
+    
+    MS <--> WS
+    WS <--> SS
+    SS <--> PS
+    SS <--> DS
+    
+    DS --> CS
+    CS --> VS
+    
+    WGL <--> AS
+    HTTP <--> AS
+    
+    SS --> RE
+    RE --> EX
+    RE --> TH
 ```
 
-### Real-time Sync Architecture
+## Key Innovations
+
+### 1. Custom CRDT Implementation
+
+Figma's CRDT is optimized for design operations:
+
+```typescript
+// Simplified Figma CRDT structure
+interface FigmaObject {
+  id: string;
+  type: 'FRAME' | 'TEXT' | 'VECTOR' | 'COMPONENT';
+  properties: CRDTMap<string, any>;
+  children: CRDTArray<FigmaObject>;
+  version: VectorClock;
+}
+
+class CRDTMap<K, V> {
+  private entries: Map<K, { value: V, clock: VectorClock }>;
+  
+  set(key: K, value: V, actor: ActorID, clock: VectorClock) {
+    const existing = this.entries.get(key);
+    
+    if (!existing || clock.happenedAfter(existing.clock)) {
+      this.entries.set(key, { value, clock });
+    } else if (clock.concurrent(existing.clock)) {
+      // Deterministic conflict resolution
+      const winner = this.resolveConflict(
+        { value, clock, actor },
+        { value: existing.value, clock: existing.clock }
+      );
+      this.entries.set(key, winner);
+    }
+  }
+  
+  private resolveConflict(a: Entry, b: Entry): Entry {
+    // Last-write-wins with actor ID as tiebreaker
+    if (a.clock.timestamp > b.clock.timestamp) return a;
+    if (b.clock.timestamp > a.clock.timestamp) return b;
+    return a.actor > b.actor ? a : b;
+  }
+}
+
+class CRDTArray<T> {
+  private elements: Array<{
+    id: string;
+    value: T;
+    position: FractionalIndex;
+    tombstone: boolean;
+  }>;
+  
+  insert(index: number, value: T, actor: ActorID) {
+    const position = this.generatePosition(index);
+    const id = `${actor}:${Date.now()}:${Math.random()}`;
+    
+    this.elements.push({
+      id,
+      value,
+      position,
+      tombstone: false
+    });
+    
+    this.sort();
+  }
+  
+  private generatePosition(index: number): FractionalIndex {
+    // Generate position between neighboring elements
+    const before = index > 0 ? this.elements[index - 1].position : MIN_POSITION;
+    const after = index < this.elements.length ? this.elements[index].position : MAX_POSITION;
+    return FractionalIndex.between(before, after);
+  }
+}
+```
+
+### 2. Operation Types and Transformation
 
 ```mermaid
-sequenceDiagram
-    participant Client1
-    participant Client2
-    participant LiveGraph
-    participant Storage
-    participant CDN
+graph LR
+    subgraph "Operation Categories"
+        subgraph "Property Ops"
+            PO1[Set Fill]
+            PO2[Set Position]
+            PO3[Set Size]
+            PO4[Set Opacity]
+        end
+        
+        subgraph "Structure Ops"
+            SO1[Add Child]
+            SO2[Remove Child]
+            SO3[Reorder Children]
+            SO4[Reparent Node]
+        end
+        
+        subgraph "Complex Ops"
+            CO1[Boolean Operation]
+            CO2[Path Editing]
+            CO3[Text Editing]
+            CO4[Component Update]
+        end
+    end
     
-    Client1->>Client1: Local CRDT Operation
-    Client1->>LiveGraph: Send Operation
+    PO1 --> Transform[Operation Transform]
+    PO2 --> Transform
+    SO1 --> Transform
+    SO2 --> Transform
+    CO1 --> Transform
+    CO2 --> Transform
     
-    LiveGraph->>LiveGraph: Validate & Process
-    LiveGraph->>Storage: Persist Operation
-    LiveGraph->>Client2: Broadcast Operation
-    
-    Client2->>Client2: Apply CRDT Operation
-    Client2->>Client2: Update UI
-    
-    Note over Client1,Client2: Sub-100ms sync
-    
-    Client2->>LiveGraph: Request Missing Ops
-    LiveGraph->>Storage: Fetch History
-    Storage-->>LiveGraph: Operation Log
-    LiveGraph-->>Client2: Missing Operations
-    
-    Note over CDN: Assets served separately
+    Transform --> Broadcast[Broadcast to Clients]
 ```
 
-## CRDT Implementation Details
-
-### 1. Object Tree CRDT
+### 3. Multiplayer Presence System
 
 ```typescript
-// Simplified Figma Object Tree CRDT
-class ObjectTreeCRDT {
-    private objects: Map<ObjectId, SceneNode>;
-    private tombstones: Set<ObjectId>;
-    private clock: LogicalClock;
+// Real-time cursor and selection sharing
+class PresenceManager {
+  private peers: Map<PeerID, PeerState>;
+  private rtcConnections: Map<PeerID, RTCPeerConnection>;
+  
+  async sharePresence(state: LocalPresence) {
+    // Batch updates for efficiency
+    const update = {
+      cursor: state.cursor,
+      selection: state.selection,
+      viewport: state.viewport,
+      user: state.user,
+      timestamp: Date.now()
+    };
     
-    // Add object with unique ID and position
-    addObject(parentId: ObjectId, object: SceneNode): Operation {
-        const id = this.generateId();
-        const timestamp = this.clock.tick();
-        
-        const op: AddOperation = {
-            type: 'add',
-            id,
-            parentId,
-            timestamp,
-            object,
-            position: this.getPosition(parentId)
-        };
-        
-        this.apply(op);
-        return op;
+    // Use WebRTC for ultra-low latency
+    for (const [peerId, connection] of this.rtcConnections) {
+      if (connection.connectionState === 'connected') {
+        const channel = connection.dataChannel;
+        channel.send(JSON.stringify({
+          type: 'presence',
+          data: update
+        }));
+      }
     }
     
-    // Move preserves order across concurrent edits
-    moveObject(objectId: ObjectId, newParentId: ObjectId, position: number): Operation {
-        const timestamp = this.clock.tick();
-        
-        const op: MoveOperation = {
-            type: 'move',
-            objectId,
-            newParentId,
-            position,
-            timestamp
-        };
-        
-        this.apply(op);
-        return op;
+    // Fallback to WebSocket for reliability
+    this.websocket.send({
+      type: 'presence',
+      data: update,
+      recipients: Array.from(this.peers.keys())
+    });
+  }
+  
+  renderPeerCursors() {
+    for (const [peerId, state] of this.peers) {
+      // Interpolate cursor positions for smoothness
+      const interpolated = this.interpolateCursor(
+        state.cursor,
+        state.timestamp,
+        Date.now()
+      );
+      
+      this.renderCursor(interpolated, state.user);
     }
-    
-    // Delete uses tombstones for consistency
-    deleteObject(objectId: ObjectId): Operation {
-        const timestamp = this.clock.tick();
-        
-        const op: DeleteOperation = {
-            type: 'delete',
-            objectId,
-            timestamp
-        };
-        
-        this.tombstones.add(objectId);
-        return op;
-    }
-    
-    // Merge concurrent operations
-    merge(remote: Operation): void {
-        switch (remote.type) {
-            case 'add':
-                this.mergeAdd(remote);
-                break;
-            case 'move':
-                this.mergeMove(remote);
-                break;
-            case 'delete':
-                this.mergeDelete(remote);
-                break;
-        }
-    }
+  }
 }
 ```
 
-### 2. Property CRDTs
-
-```typescript
-// Last-Write-Wins Register for properties
-class LWWRegister<T> {
-    private value: T;
-    private timestamp: Timestamp;
-    private nodeId: string;
-    
-    set(newValue: T): Operation {
-        const timestamp = getCurrentTimestamp();
-        
-        // Include node ID for tie-breaking
-        if (timestamp > this.timestamp || 
-            (timestamp === this.timestamp && nodeId > this.nodeId)) {
-            this.value = newValue;
-            this.timestamp = timestamp;
-        }
-        
-        return {
-            type: 'lww-set',
-            value: newValue,
-            timestamp,
-            nodeId
-        };
-    }
-    
-    merge(remote: LWWOperation<T>): void {
-        if (remote.timestamp > this.timestamp ||
-            (remote.timestamp === this.timestamp && remote.nodeId > this.nodeId)) {
-            this.value = remote.value;
-            this.timestamp = remote.timestamp;
-            this.nodeId = remote.nodeId;
-        }
-    }
-}
-```
-
-### 3. Text CRDT (RGA - Replicated Growable Array)
-
-```typescript
-// Figma's text CRDT for rich text editing
-class TextCRDT {
-    private characters: Character[];
-    private positions: Map<CharId, number>;
-    
-    insert(index: number, text: string, style: TextStyle): Operation[] {
-        const ops: Operation[] = [];
-        
-        for (let i = 0; i < text.length; i++) {
-            const charId = this.generateCharId();
-            const leftId = this.getCharIdAt(index + i - 1);
-            const rightId = this.getCharIdAt(index + i);
-            
-            ops.push({
-                type: 'insert',
-                charId,
-                char: text[i],
-                leftId,
-                rightId,
-                style,
-                timestamp: this.clock.tick()
-            });
-        }
-        
-        return ops;
-    }
-    
-    // Concurrent inserts at same position are ordered by ID
-    mergeInsert(op: InsertOperation): void {
-        const leftPos = this.positions.get(op.leftId) ?? -1;
-        const rightPos = this.positions.get(op.rightId) ?? this.characters.length;
-        
-        // Find correct position between constraints
-        let insertPos = leftPos + 1;
-        
-        // Order concurrent inserts by ID
-        while (insertPos < rightPos) {
-            const existing = this.characters[insertPos];
-            if (existing.id > op.charId) break;
-            insertPos++;
-        }
-        
-        this.characters.splice(insertPos, 0, {
-            id: op.charId,
-            char: op.char,
-            style: op.style
-        });
-        
-        this.updatePositions();
-    }
-}
-```
-
-## Performance Optimizations
-
-### 1. Lazy Loading & Virtualization
+### 4. Performance Optimization Strategies
 
 ```mermaid
 graph TD
-    subgraph "Document Loading Strategy"
-        V[Viewport]
-        V --> VIS[Visible Objects]
-        V --> NEAR[Near Viewport]
-        V --> FAR[Far Objects]
+    subgraph "Rendering Pipeline"
+        subgraph "Immediate Updates"
+            IU1[Local Changes<br/>0ms latency]
+            IU2[Optimistic Updates]
+            IU3[Predictive Rendering]
+        end
         
-        VIS --> |"Load Immediately"| MEM[In Memory]
-        NEAR --> |"Prefetch"| CACHE[Cache]
-        FAR --> |"On Demand"| STORE[Storage]
+        subgraph "Background Sync"
+            BS1[Operation Queue]
+            BS2[Batch Processing]
+            BS3[Compression]
+            BS4[Delta Encoding]
+        end
         
-        STORE --> |"LRU Eviction"| CACHE
-        CACHE --> |"As Needed"| MEM
+        subgraph "GPU Acceleration"
+            GPU1[WebGL Canvas]
+            GPU2[Texture Atlas]
+            GPU3[Instanced Rendering]
+            GPU4[Shader Effects]
+        end
     end
     
-    style VIS fill:#4CAF50
-    style NEAR fill:#FFC107
-    style FAR fill:#F44336
+    IU1 --> BS1
+    IU2 --> BS1
+    BS1 --> BS2
+    BS2 --> BS3
+    BS3 --> BS4
+    
+    BS4 --> Network[Network Layer]
+    
+    IU1 --> GPU1
+    GPU1 --> GPU2
+    GPU2 --> GPU3
+    GPU3 --> GPU4
 ```
 
-### 2. Operation Compression
+## Technical Deep Dive
 
-| Technique | Description | Compression Ratio |
-|-----------|-------------|-------------------|
-| **Delta Encoding** | Send only changes | 10:1 |
-| **Operation Batching** | Group related ops | 5:1 |
-| **Binary Protocol** | Custom wire format | 3:1 |
-| **Deduplication** | Remove redundant ops | 2:1 |
-| **Combined** | All techniques | ~30:1 |
+### Vector Clock Implementation
 
-### 3. Efficient Sync Protocol
+```rust
+// Figma's vector clock for causality tracking
+#[derive(Clone, Debug)]
+struct VectorClock {
+    entries: HashMap<ActorID, u64>,
+}
 
-```python
-# Efficient sync using vector clocks
-class SyncProtocol:
-    def sync_state(self, local_clock: VectorClock, remote_clock: VectorClock):
-        # Find operations to send
-        ops_to_send = []
-        for node_id, local_time in local_clock.items():
-            remote_time = remote_clock.get(node_id, 0)
-            if local_time > remote_time:
-                # Send ops from remote_time + 1 to local_time
-                ops_to_send.extend(
-                    self.get_ops_range(node_id, remote_time + 1, local_time)
-                )
+impl VectorClock {
+    fn increment(&mut self, actor: ActorID) {
+        *self.entries.entry(actor).or_insert(0) += 1;
+    }
+    
+    fn merge(&mut self, other: &VectorClock) {
+        for (actor, &timestamp) in &other.entries {
+            let entry = self.entries.entry(*actor).or_insert(0);
+            *entry = (*entry).max(timestamp);
+        }
+    }
+    
+    fn happened_before(&self, other: &VectorClock) -> bool {
+        self.entries.iter().all(|(actor, &time)| {
+            time <= other.entries.get(actor).copied().unwrap_or(0)
+        }) && self != other
+    }
+    
+    fn concurrent(&self, other: &VectorClock) -> bool {
+        !self.happened_before(other) && !other.happened_before(self)
+    }
+}
+```
+
+### Fractional Indexing for Lists
+
+```typescript
+// Maintain order without reindexing
+class FractionalIndex {
+  private digits: number[];
+  
+  static between(a: FractionalIndex, b: FractionalIndex): FractionalIndex {
+    const result = [];
+    let carry = 0;
+    
+    for (let i = 0; i < Math.max(a.digits.length, b.digits.length); i++) {
+      const digitA = a.digits[i] || 0;
+      const digitB = b.digits[i] || BASE;
+      
+      if (digitA + 1 < digitB) {
+        // Found a gap
+        result.push(Math.floor((digitA + digitB) / 2));
+        break;
+      } else {
+        // Need to go deeper
+        result.push(digitA);
+      }
+    }
+    
+    return new FractionalIndex(result);
+  }
+  
+  compareTo(other: FractionalIndex): number {
+    for (let i = 0; i < Math.max(this.digits.length, other.digits.length); i++) {
+      const a = this.digits[i] || 0;
+      const b = other.digits[i] || 0;
+      if (a !== b) return a - b;
+    }
+    return 0;
+  }
+}
+```
+
+### WebAssembly Rendering Engine
+
+```cpp
+// High-performance rendering in WASM
+class FigmaRenderer {
+private:
+    std::vector<RenderObject> objects;
+    std::unordered_map<ObjectID, uint32_t> texture_cache;
+    
+public:
+    void render_frame(Canvas* canvas) {
+        // Sort by z-index and layer hierarchy
+        std::sort(objects.begin(), objects.end(), 
+            [](const auto& a, const auto& b) {
+                return a.z_order < b.z_order;
+            });
         
-        # Find operations to receive
-        ops_to_receive = []
-        for node_id, remote_time in remote_clock.items():
-            local_time = local_clock.get(node_id, 0)
-            if remote_time > local_time:
-                ops_to_receive.append((node_id, local_time + 1, remote_time))
+        // Batch by material to minimize state changes
+        auto batches = group_by_material(objects);
         
-        return ops_to_send, ops_to_receive
+        for (const auto& batch : batches) {
+            setup_material(batch.material);
+            
+            // Use instanced rendering for repeated elements
+            if (batch.objects.size() > INSTANCE_THRESHOLD) {
+                render_instanced(batch.objects);
+            } else {
+                for (const auto& obj : batch.objects) {
+                    render_object(obj);
+                }
+            }
+        }
+        
+        // Apply post-processing effects
+        apply_blur_effects();
+        apply_shadow_effects();
+    }
+    
+    void render_object(const RenderObject& obj) {
+        switch (obj.type) {
+            case ObjectType::VECTOR:
+                render_vector_path(obj);
+                break;
+            case ObjectType::TEXT:
+                render_text_with_cache(obj);
+                break;
+            case ObjectType::IMAGE:
+                render_image_with_atlas(obj);
+                break;
+        }
+    }
+};
+```
+
+### Intelligent Caching Strategy
+
+```mermaid
+graph LR
+    subgraph "Multi-Level Cache"
+        subgraph "Client Caches"
+            RC[Render Cache<br/>GPU Textures]
+            OC[Object Cache<br/>Deserialized Data]
+            AC[Asset Cache<br/>Images/Fonts]
+        end
+        
+        subgraph "Edge Cache"
+            CDN[CDN<br/>Static Assets]
+            EC[Edge Compute<br/>Dynamic Renders]
+        end
+        
+        subgraph "Server Cache"
+            MC[Memory Cache<br/>Redis]
+            DC[Disk Cache<br/>SSD]
+            SC[S3 Cache<br/>Long-term]
+        end
+    end
+    
+    Request --> RC
+    RC -->|Miss| OC
+    OC -->|Miss| CDN
+    CDN -->|Miss| EC
+    EC -->|Miss| MC
+    MC -->|Miss| DC
+    DC -->|Miss| SC
 ```
 
 ## Lessons Learned
 
-### Architecture Decisions
+### 1. CRDTs Are Not Free
 
-| Decision | Rationale | Impact |
-|----------|-----------|--------|
-| **CRDTs over OT** | Simpler, works offline | Conflict-free collaboration |
-| **Client-side CRDTs** | Reduce server load | Instant local updates |
-| **Custom Binary Protocol** | Performance | 30x bandwidth reduction |
-| **Lazy Loading** | Handle large docs | 1GB+ document support |
-| **WebGL Rendering** | 60fps with many objects | Smooth performance |
+!!! quote "Evan Wallace, Figma CTO"
+    "CRDTs gave us eventual consistency, but we had to build our entire architecture around their constraints."
 
-### Challenges & Solutions
+Trade-offs discovered:
+- **Memory overhead**: 3-5x compared to simple data structures
+- **Computation cost**: O(n log n) for some operations
+- **Complexity**: Debugging distributed state is exponentially harder
+- **Tombstones**: Deleted items must be retained forever
+
+### 2. Hybrid Approach Works Best
+
+| Operation Type | Consistency Model | Rationale |
+|----------------|------------------|-----------|
+| **Cursor Movement** | Best-effort (P2P) | Low latency critical |
+| **Property Changes** | CRDT | Convergence required |
+| **File Operations** | Centralized lock | Avoid corruption |
+| **Asset Upload** | Eventually consistent | Size makes sync expensive |
+| **Permissions** | Strongly consistent | Security critical |
+
+### 3. Performance Perception Matters
 
 ```mermaid
-graph LR
-    subgraph "Challenges"
-        C1[CRDT Memory Overhead]
-        C2[Large Document Sync]
-        C3[Complex Interactions]
-        C4[Performance at Scale]
+graph TD
+    subgraph "Latency Hiding Techniques"
+        L1[Optimistic Updates<br/>Show change immediately]
+        L2[Predictive Rendering<br/>Anticipate next state]
+        L3[Progressive Loading<br/>Show outline first]
+        L4[Interaction Hints<br/>Show others typing]
     end
     
-    subgraph "Solutions"
-        S1[Garbage Collection]
-        S2[Incremental Sync]
-        S3[Operation Composition]
-        S4[WebAssembly]
+    subgraph "Perceived Performance"
+        P1[Instant Feedback<br/>< 16ms]
+        P2[Smooth Animation<br/>60 FPS]
+        P3[Responsive UI<br/>< 100ms]
+        P4[Progress Indication<br/>For long ops]
     end
     
-    C1 --> S1
-    C2 --> S2
-    C3 --> S3
-    C4 --> S4
-    
-    style C1,C2,C3,C4 fill:#ff5252
-    style S1,S2,S3,S4 fill:#4CAF50
+    L1 --> P1
+    L2 --> P2
+    L3 --> P3
+    L4 --> P4
 ```
 
-## Practical Takeaways
+## What You Can Apply
 
-### For Collaborative Systems
+### Building Collaborative Systems
 
-1. **Choose the Right CRDT**
+1. **Choose the Right Consistency Model**
    ```typescript
-   // Decision matrix
-   const crdtSelection = {
-       'last-write-wins': ['colors', 'positions', 'sizes'],
-       'add-remove-set': ['layers', 'pages'],
-       'rga/rgastring': ['text content'],
-       'pn-counter': ['version numbers'],
-       'or-set': ['component instances']
-   };
+   // Decision framework
+   interface ConsistencyDecision {
+     isOrderImportant: boolean;      // Use OT or CRDT
+     canTolerateConflicts: boolean;   // Use CRDT
+     needsImmediateFeedback: boolean; // Use optimistic updates
+     hasComplexMerge: boolean;        // Consider centralized
+   }
+   
+   function selectConsistencyModel(requirements: ConsistencyDecision) {
+     if (!requirements.canTolerateConflicts) {
+       return 'centralized-lock';
+     }
+     if (requirements.isOrderImportant && requirements.hasComplexMerge) {
+       return 'operational-transform';
+     }
+     if (requirements.needsImmediateFeedback) {
+       return 'crdt-with-optimistic';
+     }
+     return 'pure-crdt';
+   }
    ```
 
-2. **Design for Eventual Consistency**
-   - Accept temporary inconsistency
-   - Ensure convergence
-   - Make conflicts impossible by design
+2. **Implement Efficient Sync Protocol**
+   ```mermaid
+   sequenceDiagram
+     participant Client
+     participant Server
+     participant Peers
+     
+     Client->>Client: Local change
+     Client->>Client: Update CRDT
+     Client->>Client: Render optimistically
+     
+     Client->>Server: Send operation
+     Server->>Server: Validate operation
+     Server->>Server: Update server state
+     Server->>Peers: Broadcast to relevant peers
+     
+     Peers->>Peers: Apply operation
+     Peers->>Peers: Resolve conflicts
+     Peers->>Client: Send their operations
+     
+     Client->>Client: Merge peer operations
+     Client->>Client: Re-render if needed
+   ```
 
-3. **Optimize Aggressively**
-   - Compress operations
-   - Batch updates
-   - Use binary protocols
-   - Implement garbage collection
+3. **Design for Offline-First**
+   ```typescript
+   class OfflineManager {
+     private operationQueue: Operation[] = [];
+     private syncInProgress = false;
+     
+     async applyOperation(op: Operation) {
+       // Always apply locally first
+       this.applyLocal(op);
+       
+       // Queue for sync
+       this.operationQueue.push(op);
+       
+       // Try to sync if online
+       if (navigator.onLine && !this.syncInProgress) {
+         await this.syncOperations();
+       }
+     }
+     
+     private async syncOperations() {
+       this.syncInProgress = true;
+       
+       while (this.operationQueue.length > 0) {
+         const batch = this.operationQueue.splice(0, 100);
+         
+         try {
+           await this.sendBatch(batch);
+         } catch (error) {
+           // Re-queue failed operations
+           this.operationQueue.unshift(...batch);
+           break;
+         }
+       }
+       
+       this.syncInProgress = false;
+     }
+   }
+   ```
 
-### Implementation Guidelines
+### Implementation Checklist
 
-| Guideline | Implementation | Benefit |
-|-----------|----------------|---------|
-| **Immutable Operations** | Never modify, only append | Time travel, undo/redo |
-| **Logical Clocks** | Vector clocks or hybrid | Causal ordering |
-| **Tombstones** | Mark deletes, GC later | Consistency |
-| **Idempotent Ops** | Safe to apply multiple times | Network reliability |
+- [ ] **Data Model Design**
+  - [ ] Identify convergent operations
+  - [ ] Design CRDT-friendly schemas
+  - [ ] Plan for tombstone management
+  - [ ] Consider operation granularity
 
-## Related DStudio Patterns
+- [ ] **Network Architecture**
+  - [ ] WebSocket for real-time sync
+  - [ ] HTTP/2 for asset delivery
+  - [ ] WebRTC for presence data
+  - [ ] Fallback mechanisms
 
-| Pattern | Application | Link |
-|---------|------------|------|
-| **Event Sourcing** | Operation log | [/patterns/event-sourcing](/patterns/event-sourcing) |
-| **CQRS** | Read/write separation | [/patterns/cqrs](/patterns/cqrs) |
-| **Eventually Consistent** | CRDT convergence | [/patterns/eventual-consistency](/patterns/eventual-consistency) |
-| **Vector Clocks** | Causality tracking | [/patterns/vector-clocks](/patterns/vector-clocks) |
-| **Optimistic Locking** | Local-first updates | [/patterns/optimistic-locking](/patterns/optimistic-locking) |
+- [ ] **Performance Optimization**
+  - [ ] Optimistic updates everywhere
+  - [ ] Efficient serialization (Protocol Buffers)
+  - [ ] Delta compression
+  - [ ] Intelligent batching
 
-## Scale Evolution
+- [ ] **Conflict Resolution**
+  - [ ] Deterministic merge functions
+  - [ ] User-friendly conflict UI
+  - [ ] Undo/redo per user
+  - [ ] Audit trail for changes
 
-```mermaid
-graph LR
-    subgraph "2016 - Beta"
-        A1[10 concurrent users]
-        A2[OT-based]
-        A3[Server coordination]
-    end
-    
-    subgraph "2017 - CRDT Migration"
-        B1[100 concurrent users]
-        B2[Hybrid OT/CRDT]
-        B3[Testing convergence]
-    end
-    
-    subgraph "2024 - Scale"
-        C1[100+ concurrent users]
-        C2[Pure CRDT]
-        C3[300M+ ops/day]
-    end
-    
-    A1 --> B1 --> C1
-    A2 --> B2 --> C2
-    A3 --> B3 --> C3
-    
-    style C1,C2,C3 fill:#F24E1E,color:#fff
-```
+- [ ] **Scale Considerations**
+  - [ ] Shard by document
+  - [ ] Regional server deployment
+  - [ ] CDN for static assets
+  - [ ] Rate limiting per user
 
-## References & Further Reading
+### Common Pitfalls to Avoid
 
-- [Figma's Multiplayer Technology](https://www.figma.com/blog/how-figmas-multiplayer-technology-works/)
-- [CRDTs: The Hard Parts](https://martin.kleppmann.com/2020/07/06/crdt-hard-parts-hydra.html)
-- [A Comprehensive Study of CRDTs](https://hal.inria.fr/inria-00555588/document)
-- [Figma's Engineering Blog](https://www.figma.com/blog/engineering)
-- [Real-time Collaboration in Figma](https://www.figma.com/blog/real-time-collaboration-for-design-teams/)
+| Pitfall | Impact | Solution |
+|---------|---------|----------|
+| **Unbounded Growth** | Memory exhaustion | Implement garbage collection for tombstones |
+| **Chatty Protocol** | Network saturation | Batch and compress operations |
+| **Complex Merges** | CPU bottleneck | Simplify data model or use server-side merge |
+| **Lock-in to CRDT** | Limited features | Design hybrid architecture from start |
+| **Poor Conflict UX** | User frustration | Show conflicts visually, auto-resolve when possible |
 
----
+## Conclusion
 
-**Key Insight**: Figma's success demonstrates that CRDTs, despite their complexity, enable a fundamentally better collaboration experience than traditional approaches. By investing in the right data structures and optimizations, they created a platform where conflicts are impossible rather than resolved.
+Figma's success demonstrates that real-time collaboration is achievable even for complex, performance-critical applications. Their innovative use of CRDTs, combined with a carefully crafted architecture that prioritizes user experience, has set a new standard for collaborative software. The key insight: CRDTs are powerful but not magic—success comes from understanding their trade-offs and building an entire system architecture that amplifies their strengths while mitigating their weaknesses.
+
+!!! tip "The Figma Way"
+    Start with user experience, design data structures for convergence, optimize relentlessly for performance, and remember that the best distributed system is one users don't notice. This is how you build collaborative tools that feel like magic.
