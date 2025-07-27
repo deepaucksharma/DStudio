@@ -964,4 +964,4 @@ Remember: Little's Law is like gravity - always there!
 
 - **Quantitative**: [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md) | [Availability Math](availability-math.md)
 - **Patterns**: [Rate Limiting](../patterns/rate-limiting.md) | [Bulkhead](../patterns/bulkhead.md) | [Backpressure](../patterns/backpressure.md)
-- **Operations**: [SRE Practices](human-factors/sre-practices) | [Performance Monitoring](human-factors/observability-stacks)
+- **Operations**: [SRE Practices](../human-factors/sre-practices.md) | [Performance Monitoring](../human-factors/observability-stacks.md)
