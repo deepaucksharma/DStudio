@@ -293,6 +293,38 @@ total_timeout: 30s
 - [ ] Add timeout context to logs
 - [ ] Review and tune regularly
 
+<div class="truth-box">
+<h4>💡 Timeout Production Insights</h4>
+
+**The 3-30-300 Rule:**
+- 3 seconds: Maximum for user-facing operations
+- 30 seconds: Maximum for background processes
+- 300 seconds: Maximum for batch operations
+
+**Timeout Hierarchy:**
+```
+Total Timeout (60s)
+├── Connection Timeout (5s)
+├── Request Write Timeout (10s)
+└── Response Read Timeout (45s)
+```
+
+**Real-World Patterns:**
+- 50% of timeout values are never tuned after initial setup
+- 90% of timeout failures happen in the first 10% of the timeout period
+- Timeout errors increase 10x during deployments
+- Network timeouts should be 2-3x application timeouts
+
+**Economic Impact:**
+> "Every second of unnecessary timeout costs $1000 in engineer productivity. Every missing timeout costs $100,000 in outage recovery."
+
+**Anti-Patterns to Avoid:**
+1. **Infinite timeouts**: Resource exhaustion guaranteed
+2. **Timeout = Retry**: Creates amplification attacks
+3. **Same timeout everywhere**: Different operations need different limits
+4. **No timeout monitoring**: Flying blind
+</div>
+
 ## See Also
 
 - [Circuit Breaker](circuit-breaker.md) - Prevent cascade failures

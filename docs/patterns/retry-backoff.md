@@ -2167,10 +2167,10 @@ def calculate_retry_value(your_metrics: Dict) -> Dict:
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Prevents retry storms from causing cascade failures
-- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/)**: Handles network delays and timeouts gracefully
-- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/)**: Jitter prevents synchronized retry storms
-- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Balances retry costs vs success probability
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)**: Prevents retry storms from causing cascade failures
+- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/index.md)**: Handles network delays and timeouts gracefully
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/index.md)**: Jitter prevents synchronized retry storms
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/index.md)**: Balances retry costs vs success probability
 
 ### Foundational Pillars
 Retry & Backoff implements:

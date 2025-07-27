@@ -1159,17 +1159,17 @@ for key, value in roi_analysis.items():
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Ensures backup systems have independent failure modes
-- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/)**: Handles network delays during failover transitions
-- **[Law 5: Distributed Knowledge 🧩](../part1-axioms/law5-epistemology/)**: Manages split-brain scenarios during failover
-- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Balances redundancy costs vs availability benefits
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)**: Ensures backup systems have independent failure modes
+- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/index.md)**: Handles network delays during failover transitions
+- **[Law 5: Distributed Knowledge 🧩](../part1-axioms/law5-epistemology/index.md)**: Manages split-brain scenarios during failover
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/index.md)**: Balances redundancy costs vs availability benefits
 
 ### Foundational Pillars
 Failover implements:
 
-- **[Pillar 2: Distribution of State 📊](../part2-pillars/state/)**: Replicates state across primary and backup systems
-- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Coordinates failover decisions and transitions
-- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Detects failures and orchestrates recovery
+- **[Pillar 2: Distribution of State 📊](../part2-pillars/state/index.md)**: Replicates state across primary and backup systems
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/index.md)**: Coordinates failover decisions and transitions
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/index.md)**: Detects failures and orchestrates recovery
 
 ---
 

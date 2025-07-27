@@ -819,16 +819,16 @@ Optimize for production use:
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Prevents total system failure by selectively dropping load
-- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/)**: Controls emergent overload conditions
-- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/)**: Balances system survival vs request completion
-- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Optimizes resource usage under extreme load
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)**: Prevents total system failure by selectively dropping load
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/index.md)**: Controls emergent overload conditions
+- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)**: Balances system survival vs request completion
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/index.md)**: Optimizes resource usage under extreme load
 
 ### Foundational Pillars
 Load Shedding implements:
 
-- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Intelligently drops work to maintain system health
-- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Makes autonomous decisions about what to shed
-- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Uses smart algorithms to decide what to drop
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/index.md)**: Intelligently drops work to maintain system health
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/index.md)**: Makes autonomous decisions about what to shed
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/index.md)**: Uses smart algorithms to decide what to drop
 
 ---

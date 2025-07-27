@@ -1826,10 +1826,10 @@ def calculate_bulkhead_value(your_metrics: Dict) -> Dict:
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Isolates failures to prevent system-wide cascades
-- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/)**: Controls emergent behavior by limiting resource interactions
-- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/)**: Balances isolation vs resource efficiency
-- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Trade-off between isolation costs and failure impact
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)**: Isolates failures to prevent system-wide cascades
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/index.md)**: Controls emergent behavior by limiting resource interactions
+- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)**: Balances isolation vs resource efficiency
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/index.md)**: Trade-off between isolation costs and failure impact
 
 ### Foundational Pillars
 Bulkhead implements:

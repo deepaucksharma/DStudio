@@ -948,10 +948,10 @@ class AdaptiveDegradation:
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Prevents total system failure by maintaining core functionality
-- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/)**: Balances functionality vs performance under load
-- **[Law 6: Cognitive Load 🧠](../part1-axioms/law6-human-api/)**: Simplifies user experience during degradation
-- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Optimizes resource usage during high load
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)**: Prevents total system failure by maintaining core functionality
+- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)**: Balances functionality vs performance under load
+- **[Law 6: Cognitive Load 🧠](../part1-axioms/law6-human-api/index.md)**: Simplifies user experience during degradation
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/index.md)**: Optimizes resource usage during high load
 
 ### Foundational Pillars
 Graceful Degradation implements:

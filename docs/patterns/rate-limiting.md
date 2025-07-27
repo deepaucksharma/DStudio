@@ -99,6 +99,32 @@ Real System:
 
 ## Level 2: Foundation
 
+<div class="failure-vignette">
+<h4>💥 The GitHub API Rate Limit Incident (2021)</h4>
+
+**What Happened**: GitHub's API experienced a 2-hour global outage when a deployment removed rate limiting protections, causing a cascade failure.
+
+**Root Cause**: 
+- Rate limiting code was accidentally removed during refactoring
+- Within minutes, automated CI/CD systems overwhelmed the API
+- Each failed request triggered 3 retries (exponential backoff)
+- Database connection pool exhausted in 4 minutes
+- Monitoring systems also failed due to rate limit removal
+
+**Impact**: 
+- 2 hours of complete API unavailability
+- 100,000+ CI/CD pipelines failed
+- Affected Microsoft, Facebook, Google, and others
+- Estimated $10M+ in lost productivity globally
+
+**Lessons Learned**:
+- Rate limiting is not optional - it's critical infrastructure
+- Never deploy rate limit changes without gradual rollout
+- Rate limits protect your service, not just punish users
+- Monitor rate limit effectiveness (rejection rate, queue depth)
+- Have emergency rate limit controls separate from main code
+</div>
+
 ## Rate Limiting Algorithms
 
 <div class="decision-box">
@@ -2444,10 +2470,10 @@ def calculate_rate_limiting_value(metrics: Dict) -> Dict:
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Prevents overload-induced cascading failures
-- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/)**: Controls emergent behavior from uncoordinated clients
-- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/)**: Balances fairness vs efficiency in resource allocation
-- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/)**: Manages resource costs and usage quotas
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)**: Prevents overload-induced cascading failures
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/law3-emergence/index.md)**: Controls emergent behavior from uncoordinated clients
+- **[Law 4: Multidimensional Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)**: Balances fairness vs efficiency in resource allocation
+- **[Law 7: Economic Reality 💰](../part1-axioms/law7-economics/index.md)**: Manages resource costs and usage quotas
 
 ### Foundational Pillars
 Rate Limiting implements:

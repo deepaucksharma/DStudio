@@ -941,17 +941,17 @@ stateDiagram-v2
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/)**: Detects node failures to prevent cascade effects
-- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/)**: Handles network delays and timeouts in failure detection
-- **[Law 5: Distributed Knowledge 🧩](../part1-axioms/law5-epistemology/)**: Manages partial knowledge about node liveness
-- **[Law 6: Cognitive Load 🧠](../part1-axioms/law6-human-api/)**: Provides simple alive/dead abstraction for operators
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)**: Detects node failures to prevent cascade effects
+- **[Law 2: Asynchronous Reality ⏱️](../part1-axioms/law2-asynchrony/index.md)**: Handles network delays and timeouts in failure detection
+- **[Law 5: Distributed Knowledge 🧩](../part1-axioms/law5-epistemology/index.md)**: Manages partial knowledge about node liveness
+- **[Law 6: Cognitive Load 🧠](../part1-axioms/law6-human-api/index.md)**: Provides simple alive/dead abstraction for operators
 
 ### Foundational Pillars
 Heartbeat implements:
 
-- **[Pillar 3: Distribution of Truth 🔍](../part2-pillars/truth/)**: Establishes truth about node liveness across the system
-- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Enables decentralized failure detection
-- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Adaptive timeout and interval adjustments
+- **[Pillar 3: Distribution of Truth 🔍](../part2-pillars/truth/index.md)**: Establishes truth about node liveness across the system
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/index.md)**: Enables decentralized failure detection
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/index.md)**: Adaptive timeout and interval adjustments
 
 ---
 

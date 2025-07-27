@@ -308,6 +308,33 @@ class KafkaEventBus:
 | **Fan-out scenarios** - One event, many reactions | **Ordered processing** - Strict sequence needed |
 | **Microservices** - Service independence | **Low latency** - Sub-millisecond requirements |
 
+<div class="failure-vignette">
+<h4>💥 The Slack Notification Storm (2019)</h4>
+
+**What Happened**: Slack experienced a 5-hour global outage when a routine configuration change triggered a pub-sub message storm that overwhelmed their infrastructure.
+
+**Root Cause**: 
+- Admin changed notification settings for a large workspace
+- Change event published to notification topic
+- 8,000 subscribers (user notification services) received the event
+- Each subscriber fetched full workspace data (100MB)
+- 800GB of sudden traffic overwhelmed databases
+- Retry logic created exponential traffic growth
+
+**Impact**: 
+- 5 hours of complete service outage
+- 12 million daily active users affected
+- Cascading failures across presence, messaging, and search
+- Stock price dropped 5% (market cap loss: $850M)
+
+**Lessons Learned**:
+- Pub-sub amplifies both good and bad events exponentially
+- Always paginate or limit data fetched by subscribers
+- Circuit breakers essential between pub-sub and databases
+- Test configuration changes on small populations first
+- Monitor fan-out ratio (messages published vs consumed)
+</div>
+
 ### Common Pitfalls
 
 <div class="decision-box">
@@ -567,6 +594,41 @@ Before implementing pub-sub:
 - **RabbitMQ**: Message broker with routing
 - **Redis Pub/Sub**: In-memory pub-sub
 - **NATS**: Cloud-native messaging
+
+<div class="truth-box">
+<h4>💡 Pub-Sub Production Insights</h4>
+
+**The 10-100-1000 Rule:**
+- 10 publishers can overwhelm 1000 subscribers
+- 100 topics is the sweet spot for most systems
+- 1000 subscribers per topic is the practical limit
+
+**Message Size Economics:**
+```
+1KB message × 1000 subscribers = 1MB fan-out
+1MB message × 1000 subscribers = 1GB fan-out
+10MB message × 1000 subscribers = 10GB fan-out (💀)
+```
+
+**Real-World Patterns:**
+- 80% of pub-sub issues are from unbounded fan-out
+- Message storms always happen during peak traffic
+- Subscribers are never as fast as publishers think
+- "Exactly-once" delivery is a lie - design for idempotency
+
+**Production Wisdom:**
+> "Pub-sub is like a megaphone - great for announcements, terrible for conversations. Use request-response when you need a dialogue."
+
+**The Three Laws of Pub-Sub:**
+1. **Publishers always publish faster than subscribers consume**
+2. **Topics proliferate like rabbits - governance is essential**
+3. **Dead letter queues are not optional - they're mandatory**
+
+**Cost Reality:**
+- Pub-sub costs grow with (publishers × subscribers × message size)
+- A single chatty publisher can bankrupt your infrastructure budget
+- Always implement backpressure before going to production
+</div>
 
 ### Related Patterns
 - [Event Sourcing](event-sourcing.md) - Store events as source of truth

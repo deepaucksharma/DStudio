@@ -57,6 +57,14 @@ production_checklist:
 
 **How do we reliably pass messages between distributed components while handling failures, ensuring ordering, and preventing duplication?**
 
+<div class="axiom-box">
+<h4>⚛️ Law 1: Correlated Failure</h4>
+
+Distributed queues exist because of correlated failure. When producer and consumer lifetimes are coupled, one failure cascades to the other. Queues break this correlation by persisting messages across failures, allowing producers and consumers to fail independently.
+
+**Key Insight**: A queue transforms synchronous coupling (both must be alive) into asynchronous resilience (either can fail and recover).
+</div>
+
 ---
 
 ## Visual Overview
@@ -1116,6 +1124,67 @@ graph TB
 | **Exponential Backoff** | 2s, 4s, 8s, 16s | Network issues | Reduces load effectively | Can delay recovery |
 | **Jittered Backoff** | 2-4s, 3-8s, 6-16s | Distributed systems | Prevents thundering herd | More complex |
 
+<div class="failure-vignette">
+<h4>💥 The RabbitMQ Memory Explosion at Instagram (2017)</h4>
+
+**What Happened**: Instagram's notification system crashed when a RabbitMQ cluster ran out of memory, causing a 6-hour outage of all push notifications.
+
+**Root Cause**: 
+- Celebrity posted to 100M followers
+- Each follow generated a notification message
+- RabbitMQ configured with persistence but no memory limits
+- Messages accumulated faster than consumers could process
+- Memory usage grew from 8GB to 64GB in 30 minutes
+- Cluster entered "flow control" mode, blocking all producers
+
+**Impact**: 
+- 6 hours without push notifications globally
+- 400M users affected
+- Engagement dropped 23% for the day
+- Emergency migration to Kafka initiated
+
+**Lessons Learned**:
+- Always set memory high watermarks (typically 40% of RAM)
+- Implement backpressure before queue limits
+- Monitor queue depth AND memory usage
+- Design for celebrity/viral scenarios
+- Consider log-based queues (Kafka) for high fan-out
+</div>
+
+<div class="decision-box">
+<h4>🎯 Choosing the Right Queue System</h4>
+
+**Use Traditional Queues (RabbitMQ, ActiveMQ) When:**
+- Need complex routing (topic exchanges, headers)
+- Message TTL and priority required
+- Small to medium scale (< 100K msg/s)
+- Enterprise integration patterns
+
+**Use Log-Based Queues (Kafka, Pulsar) When:**
+- High throughput required (> 1M msg/s)
+- Event sourcing or streaming
+- Need message replay capability
+- Multiple consumers per message
+
+**Use Managed Queues (SQS, Azure Service Bus) When:**
+- Don't want operational overhead
+- Cloud-native architecture
+- Cost-effective at moderate scale
+- Integration with cloud services
+
+**Use In-Memory Queues (Redis Streams) When:**
+- Ultra-low latency critical (< 1ms)
+- Temporary message storage acceptable
+- Real-time features (chat, gaming)
+- Already using Redis
+
+**Key Decision Factors:**
+1. Throughput requirements
+2. Durability needs
+3. Ordering guarantees
+4. Operational complexity tolerance
+</div>
+
 ## Real-World Implementations
 
 ### System Comparison Matrix
@@ -1285,6 +1354,41 @@ alerts:
     **[Law 3: Emergent Chaos](../part1-axioms/law3-emergence/index.md)** - Complex behaviors emerge from simple queue operations at scale
     
     **[Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/index.md)** - Balance between throughput, latency, durability, and consistency
+
+<div class="truth-box">
+<h4>💡 Distributed Queue Production Insights</h4>
+
+**The 50-500-5000 Rule:**
+- 50ms: Maximum acceptable latency for user-facing queues
+- 500 messages: Batch size sweet spot for throughput
+- 5000 msg/s: When to start thinking about partitioning
+
+**Queue Depth Algebra:**
+```
+Queue Depth = Arrival Rate × Processing Time
+10K msg/s × 100ms/msg = 1M messages backed up per second!
+```
+
+**Real-World Patterns:**
+- 70% of queue problems are consumer bottlenecks, not queue limits
+- Message size > 1MB is where performance drops off a cliff
+- Poison messages cause 90% of dead letter queue usage
+- "Exactly once" = "At least once" + idempotency
+
+**Production Wisdom:**
+> "A queue is a shock absorber, not a storage system. If messages regularly age out, you're using it wrong."
+
+**The Three Stages of Queue Maturity:**
+1. **Stage 1**: "Just throw it in a queue" (Usually ends badly)
+2. **Stage 2**: "Monitor everything" (Necessary but not sufficient)
+3. **Stage 3**: "Design for backpressure" (True enlightenment)
+
+**Economic Reality:**
+- Queue operations cost: $0.40/million messages (SQS)
+- Engineer debugging poison messages: $200/hour
+- One poison message loop: 1M messages × $0.40 = $400/hour
+- **Always implement circuit breakers!**
+</div>
 
 ## Related Patterns
 - [Queues & Streaming](queues-streaming.md) - General queue concepts
