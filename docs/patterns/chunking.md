@@ -10,9 +10,32 @@ when_to_use: Large data processing, file uploads/downloads, streaming data, memo
 when_not_to_use: Small datasets, atomic operations requiring full consistency, real-time processing with strict latency requirements
 status: complete
 last_updated: 2025-07-24
+excellence_tier: silver
+pattern_status: stable
+introduced: 1990-01
+current_relevance: specialized
+trade_offs:
+  pros:
+    - Reduced memory footprint
+    - Better fault tolerance
+    - Progressive processing
+  cons:
+    - Increased complexity
+    - Chunk boundary handling
+    - Potential performance overhead
+best_for:
+  - File upload/download systems
+  - Large data processing pipelines
+  - Memory-constrained environments
+  - Streaming data processing
 ---
 
 # Chunking
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Data Segmentation Strategy** • Best for large data processing
+    
+    A fundamental pattern for handling large datasets by breaking them into manageable pieces. While essential for certain scenarios, modern streaming frameworks often provide these capabilities out-of-the-box.
 
 
 ## Overview

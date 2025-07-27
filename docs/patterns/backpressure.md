@@ -1,43 +1,10 @@
 ---
 title: Backpressure Pattern
-description: Flow control mechanism to prevent system overload by signaling upstream components to slow down
-type: pattern
 category: resilience
-difficulty: intermediate
-reading_time: 20 min
-prerequisites: 
-when_to_use: Stream processing, reactive systems, preventing cascade failures
-when_not_to_use: Simple request-response systems, unbounded queues acceptable
-status: complete
-last_updated: 2025-07-21
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2013-07
-current_relevance: mainstream
-modern_examples:
-  - company: Netflix
-    implementation: "Reactive Streams backpressure prevents service overload"
-    scale: "150M+ subscribers, handling traffic spikes gracefully"
-  - company: Akka
-    implementation: "Built-in backpressure for actor-based systems"
-    scale: "Powers LinkedIn, PayPal messaging systems"
-  - company: Apache Kafka
-    implementation: "Consumer backpressure prevents memory overflow"
-    scale: "Trillions of messages/day across thousands of companies"
-production_checklist:
-  - "Choose backpressure strategy (drop, buffer, throttle)"
-  - "Set buffer sizes based on memory constraints"
-  - "Implement flow control protocols (TCP-like windowing)"
-related_laws: [law1-failure, law3-emergence, law4-tradeoffs]
-related_pillars: [control, work]
-  - "Monitor queue depths and processing rates"
-  - "Configure timeouts for slow consumers"
-  - "Use reactive streams for automatic backpressure"
-  - "Implement circuit breakers for persistent overload"
-  - "Test with realistic load patterns"
-  - "Set up alerts for backpressure activation"
-  - "Document degradation behavior for operators"
+excellence_tier: silver
+pattern_status: stable
 ---
+
 # Backpressure Pattern
 
 !!! success "🏆 Gold Standard Pattern"
@@ -1055,10 +1022,10 @@ subscriber.request(10) # Request 10 items
 ## Related Resources
 
 ### Patterns
-- [Circuit Breaker](patterns/circuit-breaker) - Fail fast under overload
-- [Bulkhead](patterns/bulkhead) - Resource isolation
-- [Rate Limiting](patterns/rate-limiting) - Request throttling
-- [Queues & Streaming](patterns/queues-streaming) - Message patterns
+- [Circuit Breaker](../patterns/circuit-breaker.md) - Fail fast under overload
+- [Bulkhead](../patterns/bulkhead.md) - Resource isolation
+- [Rate Limiting](../patterns/rate-limiting.md) - Request throttling
+- [Queues & Streaming](../patterns/queues-streaming.md) - Message patterns
 
 ### Laws
 - [Law 4 (Multidimensional Optimization )](part1-axioms/law4-tradeoffs) - Finite resources

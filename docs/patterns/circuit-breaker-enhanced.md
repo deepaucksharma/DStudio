@@ -1,53 +1,10 @@
 ---
-title: "Circuit Breaker Pattern"
-description: "Prevent cascading failures in distributed systems with the Circuit Breaker pattern"
-
-nav:
- learning_path: "senior-engineer"
- 
- sequence:
- current: 3
- total: 10
- 
- prerequisites:
- - title: "Law 1: Correlated Failure"
- path: "/part1-axioms/law1-failure/"
- - title: "State Management in Distributed Systems"
- path: "/part2-pillars/state/"
- - title: "Understanding Timeouts"
- path: "/patterns/timeout/"
- 
- related:
- - title: "Retry with Backoff"
- path: "/patterns/retry-backoff/"
- type: "pattern"
- - title: "Bulkhead Pattern"
- path: "/patterns/bulkhead/"
- type: "pattern"
- - title: "Netflix Chaos Engineering"
- path: "/case-studies/netflix-chaos/"
- type: "case-study"
- - title: "Hystrix Implementation"
- path: "/tools/hystrix/"
- type: "tool"
- 
- next_steps:
- - title: "Basic Circuit Breaker Implementation"
- path: "/tutorials/circuit-breaker-basic/"
- level: "beginner"
- - title: "Production-Ready Circuit Breaker"
- path: "/tutorials/circuit-breaker-production/"
- level: "intermediate"
- - title: "Advanced Circuit Breaker Patterns"
- path: "/tutorials/circuit-breaker-advanced/"
- level: "advanced"
- 
- tags:
- - reliability
- - fault-tolerance
- - pattern
- - essential
+title: Circuit Breaker Pattern
+category: resilience
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Circuit Breaker Pattern
 

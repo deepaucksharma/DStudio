@@ -1,16 +1,23 @@
 ---
 title: Leader-Follower Pattern
-description: Coordination pattern for managing distributed state with a single source of truth
+description: Coordination pattern for managing distributed state with a single source
+  of truth
 type: pattern
 category: coordination
 difficulty: intermediate
 reading_time: 25 min
-prerequisites: [consensus, distributed-state]
+prerequisites:
+- consensus
+- distributed-state
 when_to_use: When you need strong consistency and coordinated updates
-when_not_to_use: When eventual consistency is acceptable or single leader becomes bottleneck
+when_not_to_use: When eventual consistency is acceptable or single leader becomes
+  bottleneck
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 
 # Leader-Follower Pattern

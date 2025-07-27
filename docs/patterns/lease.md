@@ -1,16 +1,22 @@
 ---
 title: Lease Pattern
-description: Time-bound resource ownership with automatic expiration for distributed systems reliability
+description: Time-bound resource ownership with automatic expiration for distributed
+  systems reliability
 type: pattern
 category: distributed-coordination
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: [patterns/distributed-lock.md, patterns/heartbeat.md]
+prerequisites:
+- patterns/distributed-lock.md
+- patterns/heartbeat.md
 when_to_use: Resource management, distributed locks, cache entries, session management
 when_not_to_use: Permanent ownership, strict consistency requirements without renewal
 status: complete
 last_updated: 2025-07-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Lease Pattern
 

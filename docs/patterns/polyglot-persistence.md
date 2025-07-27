@@ -6,11 +6,15 @@ category: data-management
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
-when_to_use: When different parts of your application have different data storage requirements
+when_to_use: When different parts of your application have different data storage
+  requirements
 when_not_to_use: When a single database can meet all requirements effectively
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 
 # Polyglot Persistence

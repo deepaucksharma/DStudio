@@ -10,7 +10,10 @@ when_to_use: When dealing with specialized challenges
 when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-20
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Service Discovery Pattern
 

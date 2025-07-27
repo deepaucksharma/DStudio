@@ -1,14 +1,36 @@
 ---
 title: Service Registry Pattern
-description: Central repository for service metadata, schemas, and versioning in distributed systems
+description: Central repository for service metadata, schemas, and versioning in distributed
+  systems
 type: pattern
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: ["service-discovery"]
-pattern_type: "infrastructure"
+prerequisites:
+- service-discovery
+pattern_type: infrastructure
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: use-with-expertise
+trade_offs:
+  pros:
+  - Central source of truth for service contracts and metadata
+  - Enables service versioning and backward compatibility
+  - Facilitates dependency tracking and impact analysis
+  - Supports automated documentation and client generation
+  cons:
+  - Single point of failure if not properly replicated
+  - Requires strict governance and update processes
+  - Can become bottleneck for service deployments
+  - Schema drift between registry and reality if not automated
+best_for:
+- Microservices architectures with 20+ services
+- Organizations with multiple teams sharing services
+- Systems requiring strict API governance
+- Environments with complex service dependencies
+category: data
 ---
+
 
 
 # Service Registry Pattern
@@ -16,6 +38,11 @@ last_updated: 2025-01-23
 **The authoritative source of truth for service metadata in distributed systems**
 
 > *"A service without a registry is like a phone without a directory—technically functional, but practically unreachable."*
+
+!!! warning "🥈 Silver Pattern - Use with Expertise"
+    **Complexity**: Medium • **Expertise Required**: Service governance experience
+    
+    Service registries require careful governance and automation to prevent schema drift. Manual updates often lead to outdated metadata. Consider simpler service discovery solutions for smaller deployments.
 
 ---
 

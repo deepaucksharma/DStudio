@@ -1,16 +1,23 @@
 ---
 title: Valet Key Pattern
-description: Provide limited direct access to resources without exposing credentials or requiring proxy overhead
+description: Provide limited direct access to resources without exposing credentials
+  or requiring proxy overhead
 type: pattern
 category: security
 difficulty: intermediate
 reading_time: 15 min
-prerequisites: [authentication, cloud-storage]
-when_to_use: Direct client access to resources, temporary permissions, reducing proxy load
+prerequisites:
+- authentication
+- cloud-storage
+when_to_use: Direct client access to resources, temporary permissions, reducing proxy
+  load
 when_not_to_use: Sensitive operations, complex access control, permanent access
 status: complete
 last_updated: 2025-01-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Valet Key Pattern
 
@@ -519,13 +526,13 @@ graph TD
 
 | Resource | Type | Relevance |
 |----------|------|-----------|
-| **[API Gateway Pattern](patterns/api-gateway)** | Pattern | Alternative for complex auth |
-| **[Circuit Breaker](patterns/circuit-breaker)** | Pattern | Protect storage services |
-| **[Rate Limiting](patterns/rate-limiting)** | Pattern | Control valet key generation |
+| **[API Gateway Pattern](../patterns/api-gateway.md)** | Pattern | Alternative for complex auth |
+| **[Circuit Breaker](../patterns/circuit-breaker.md)** | Pattern | Protect storage services |
+| **[Rate Limiting](../patterns/rate-limiting.md)** | Pattern | Control valet key generation |
 | **[Law 7: Economic Reality](part1-axioms/law7-economics/index)** | Axiom | Cost optimization driver |
 | **[Pillar 4: Control](part2-pillars/control/index)** | Pillar | Access control principles |
-| **[CDN Pattern](patterns/cdn)** | Pattern | Combine for global scale |
-| **[Encryption at Rest](patterns/encryption-at-rest)** | Pattern | Secure storage layer |
+| **[CDN Pattern](../patterns/edge-computing.md)** | Pattern | Combine for global scale |
+| **[Encryption at Rest](../patterns/distributed-storage.md#encryption)** | Pattern | Secure storage layer |
 
 ## Summary
 

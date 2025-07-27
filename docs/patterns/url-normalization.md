@@ -1,16 +1,23 @@
 ---
 title: URL Normalization
-description: Standardizing URLs into canonical forms to prevent duplication and improve system efficiency
+description: Standardizing URLs into canonical forms to prevent duplication and improve
+  system efficiency
 type: pattern
 category: specialized
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: [string-processing, regular-expressions, web-protocols]
+prerequisites:
+- string-processing
+- regular-expressions
+- web-protocols
 when_to_use: Web crawlers, URL shorteners, cache systems, deduplication systems
 when_not_to_use: Simple applications without URL processing, internal-only systems
 status: complete
 last_updated: 2025-07-24
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # URL Normalization
 

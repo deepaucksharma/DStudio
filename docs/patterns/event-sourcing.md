@@ -1,41 +1,10 @@
 ---
 title: Event Sourcing
-description: Store all changes as a sequence of events - the log is the database
-type: pattern
-category: distributed-data
-difficulty: advanced
-reading_time: 35 min
-prerequisites: 
-when_to_use: Audit requirements, complex domains, time-travel debugging, event-driven systems
-when_not_to_use: Simple CRUD operations, storage constraints, real-time aggregations
-status: complete
-last_updated: 2025-07-25
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2005-03
-current_relevance: mainstream
-modern_examples:
-  - company: PayPal
-    implementation: "Event sourcing for payment transactions and fraud detection"
-    scale: "350M+ active accounts, complete transaction history"
-  - company: Walmart
-    implementation: "Order management system with full audit trail"
-    scale: "100M+ orders/day with complete event history"
-  - company: Banking Systems
-    implementation: "Financial transactions stored as immutable events"
-    scale: "Trillions in transactions with regulatory compliance"
-production_checklist:
-  - "Design events as immutable facts (OrderPlaced, PaymentReceived)"
-  - "Implement event versioning strategy from day one"
-  - "Use snapshots for faster state reconstruction (every 100-1000 events)"
-related_laws: [law5-epistemology, law4-tradeoffs, law6-human-api]
-related_pillars: [state, truth]
-  - "Plan storage strategy for long-term event retention"
-  - "Implement GDPR compliance with event anonymization"
-  - "Use event stores like EventStore, Kafka, or Axon"
-  - "Monitor event processing lag and replay performance"
-  - "Test event replay and projection rebuilding regularly"
+category: data
+excellence_tier: bronze
+pattern_status: stable
 ---
+
 
 # Event Sourcing
 
@@ -49,7 +18,7 @@ related_pillars: [state, truth]
     - Walmart: 100M+ daily orders tracked
     - Banking: Trillions in compliant transactions
 
-[Home](/) > [Patterns](patterns) > [Core Patterns](patterns/#core-patterns) > Event Sourcing
+[Home](/) > [Patterns](../patterns/) > [Core Patterns](../patterns/index.md#core-patterns) > Event Sourcing
 
 !!! abstract "📊 Data Pattern"
  Store all changes as immutable events to maintain complete audit history while enabling state reconstruction at any point in time.
@@ -797,19 +766,19 @@ Event Sourcing implements:
 ## Related Patterns
 
 ### Core Companions
-- **[CQRS](patterns/cqrs)**: Natural companion for read model separation
-- **[Saga Pattern](patterns/saga)**: Distributed transactions with events
-- **[Event-Driven Architecture](patterns/event-driven)**: Events as first-class citizens
+- **[CQRS](../patterns/cqrs.md)**: Natural companion for read model separation
+- **[Saga Pattern](../patterns/saga.md)**: Distributed transactions with events
+- **[Event-Driven Architecture](../patterns/event-driven.md)**: Events as first-class citizens
 
 ### Implementation Patterns
-- **[Outbox Pattern](patterns/outbox)**: Reliable event publishing
-- **[Event Streaming](patterns/event-streaming)**: Real-time event processing
-- **[Snapshot](patterns/snapshot)**: Performance optimization for long streams
+- **[Outbox Pattern](../patterns/outbox.md)**: Reliable event publishing
+- **[Event Streaming](../patterns/event-streaming.md)**: Real-time event processing
+- **[Snapshot](../patterns/event-sourcing.md#snapshots)**: Performance optimization for long streams
 
 ### Supporting Patterns
-- **[Idempotent Receiver](patterns/idempotent-receiver)**: Handle duplicate events
-- **[Message Queue](patterns/distributed-queue)**: Event distribution
-- **[CDC (Change Data Capture)](patterns/cdc)**: Generate events from state changes
+- **[Idempotent Receiver](../patterns/idempotent-receiver.md)**: Handle duplicate events
+- **[Message Queue](../patterns/distributed-queue.md)**: Event distribution
+- **[CDC (Change Data Capture)](../patterns/cdc.md)**: Generate events from state changes
 
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database
@@ -828,7 +797,7 @@ Event Sourcing implements:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: CQRS](patterns/cqrs) | 
-[:material-arrow-up: Patterns](patterns) | 
-[:material-arrow-right: Saga Pattern](patterns/saga)
+[:material-arrow-left: CQRS](../patterns/cqrs.md) | 
+[:material-arrow-up: Patterns](../patterns/) | 
+[:material-arrow-right: Saga Pattern](../patterns/saga.md)
 </div>

@@ -1,34 +1,38 @@
 ---
 title: Split-Brain Detection & Resolution
-description: Detect and resolve network partitions that divide a distributed system into isolated segments
+description: Detect and resolve network partitions that divide a distributed system
+  into isolated segments
 type: pattern
 category: resilience
 difficulty: advanced
 reading_time: 15 min
 prerequisites:
-  - consensus
-  - leader-election
-  - distributed-lock
+- consensus
+- leader-election
+- distributed-lock
 related_laws:
-  - law1-failure
-  - law2-asynchrony
-  - law5-epistemology
+- law1-failure
+- law2-asynchrony
+- law5-epistemology
 related_pillars:
-  - truth
-  - control
+- truth
+- control
 when_to_use:
-  - Distributed databases with replication
-  - Cluster management systems
-  - Distributed consensus protocols
-  - Multi-master systems
+- Distributed databases with replication
+- Cluster management systems
+- Distributed consensus protocols
+- Multi-master systems
 when_not_to_use:
-  - Single-node systems
-  - Stateless services
-  - Read-only systems
-  - Eventually consistent systems
+- Single-node systems
+- Stateless services
+- Read-only systems
+- Eventually consistent systems
 status: complete
 last_updated: 2025-01-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Split-Brain Detection & Resolution
 

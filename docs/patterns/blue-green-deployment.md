@@ -1,4 +1,41 @@
+---
+title: Blue-Green Deployment
+description: Zero-downtime deployment strategy using two identical environments
+type: pattern
+category: deployment
+difficulty: intermediate
+reading_time: 25 min
+prerequisites: [load-balancing, deployment-basics]
+when_to_use: Zero-downtime deployments, instant rollback requirements, production testing
+when_not_to_use: Database schema changes, stateful applications, resource-constrained environments
+status: complete
+last_updated: 2025-01-27
+excellence_tier: silver
+pattern_status: stable
+introduced: 2005-01
+current_relevance: specialized
+trade_offs:
+  pros:
+    - Zero downtime deployments
+    - Instant rollback capability
+    - Production testing before cutover
+  cons:
+    - Double infrastructure cost
+    - Database migration complexity
+    - Session state challenges
+best_for:
+  - Stateless applications
+  - Critical production systems
+  - Applications requiring instant rollback
+  - A/B testing infrastructure
+---
+
 # Blue-Green Deployment
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Zero-Downtime Deployment Strategy** • Best for critical production systems
+    
+    A proven deployment pattern that eliminates downtime by using two identical environments. While excellent for stateless applications, it requires double infrastructure and careful handling of database changes.
 
 ## The Pattern
 

@@ -1,7 +1,12 @@
 ---
 title: Pattern Relationship Map
-description: Visual guide to pattern dependencies, combinations, and evolution paths in distributed systems
+description: Visual guide to pattern dependencies, combinations, and evolution paths
+  in distributed systems
+category: resilience
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Pattern Relationship Map
 

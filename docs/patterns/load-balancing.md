@@ -1,41 +1,10 @@
 ---
 title: Load Balancing Pattern
-description: Pattern for distributed systems coordination and reliability
-type: pattern
-category: specialized
-difficulty: intermediate
-reading_time: 20 min
-prerequisites: []
-when_to_use: When dealing with specialized challenges
-when_not_to_use: When simpler solutions suffice
-status: complete
-last_updated: 2025-07-20
+category: resilience
 excellence_tier: gold
-pattern_status: recommended
-introduced: 1990-01
-current_relevance: mainstream
-modern_examples:
-  - company: Google
-    implementation: "Maglev load balancer handles all external traffic"
-    scale: "1M+ requests/sec per load balancer instance"
-  - company: AWS
-    implementation: "Elastic Load Balancer serves millions of applications"
-    scale: "Trillions of requests daily across all regions"
-  - company: Cloudflare
-    implementation: "Global load balancing across 300+ cities"
-    scale: "45M+ HTTP requests/sec at peak"
-production_checklist:
-  - "Choose appropriate algorithm (round-robin, least connections, weighted)"
-  - "Implement health checks with proper intervals (typically 5-30s)"
-  - "Configure connection draining for graceful shutdown"
-related_laws: [law4-tradeoffs, law3-emergence, law7-economics]
-related_pillars: [work, control]
-  - "Set up SSL/TLS termination at load balancer"
-  - "Monitor backend server health and response times"
-  - "Implement sticky sessions if needed (prefer stateless)"
-  - "Configure proper timeouts (connect, read, idle)"
-  - "Plan for load balancer high availability (active-passive or active-active)"
+pattern_status: stable
 ---
+
 
 # Load Balancing Pattern
 
@@ -49,20 +18,44 @@ related_pillars: [work, control]
     - AWS ELB: Trillions of daily requests
     - Cloudflare: 45M+ requests/sec globally
 
-[Home](/) > [Patterns](patterns) > [Operational Patterns](patterns/#operational-patterns) > Load Balancing
+<div class="axiom-box">
+<h4>⚛️ Law 1: Correlated Failure</h4>
+
+Load balancing is our primary defense against correlated failure. When one server fails, the load balancer automatically redirects traffic to healthy instances. However, poor load balancing can create correlated failures - overloading remaining servers when one fails, creating a cascade.
+
+**Key Insight**: Effective load balancing must account for the increased load on surviving servers during failures. A system running at 80% capacity with 5 servers will overload the remaining 4 servers (100% load each) if one fails.
+</div>
+
+[Home](/) > [Patterns](../patterns/) > [Operational Patterns](../patterns/index.md#operational-patterns) > Load Balancing
 
 **Distributing work across multiple resources**
 
 > *"Many hands make light work—if coordinated properly."*
 
-<div class="axiom-box">
-<h4>⚛️ Fundamental Principle: Work Distribution</h4>
+<div class="failure-vignette">
+<h4>💥 The GitHub Load Balancer Cascade (2018)</h4>
 
-Load balancing implements the First Pillar of distributed systems - Work Distribution. It ensures:
-- **No single point of failure**: Multiple servers can handle requests
-- **Optimal resource utilization**: Work is distributed based on capacity
-- **Horizontal scalability**: Add more servers to handle more load
-- **Fault tolerance**: Failed servers are automatically removed from rotation
+**What Happened**: GitHub experienced a 24-hour outage when a network partition split their data centers, causing their load balancers to make catastrophic decisions.
+
+**Root Cause**: 
+- Load balancer health checks couldn't reach MySQL cluster during network partition
+- Load balancers marked ALL database servers as unhealthy
+- Automatic failover logic created a "thundering herd" trying to promote new primaries
+- Multiple primaries created split-brain scenario
+- Load balancers kept switching between conflicting primaries
+
+**Impact**: 
+- 24+ hours of degraded service
+- Data inconsistencies requiring manual reconciliation
+- Loss of webhook deliveries and Git operations
+- Estimated $1.5M/hour in lost productivity globally
+
+**Lessons Learned**:
+- Health checks need to distinguish between "server down" vs "network partition"
+- Implement circuit breakers to prevent cascade failures
+- Use quorum-based health decisions, not simple majority
+- Manual override capabilities are essential
+- Never let load balancers make database failover decisions
 </div>
 
 ---
@@ -106,24 +99,38 @@ graph TB
     style S4 fill:#9f9,stroke:#333,stroke-width:2px
 ```
 
-### Algorithm Selection
-
 <div class="decision-box">
 <h4>🎯 Choosing the Right Load Balancing Algorithm</h4>
 
-| Requirement | Algorithm | Reason |
-|-------------|-----------|--------|
-| Session Affinity | IP Hash | Consistent routing |
-| Uniform Capacity | Round Robin | Simple, fair distribution |
-| Varied Capacity | Weighted Round Robin | Proportional distribution |
-| Low Latency | Least Response Time | Performance optimized |
-| Dynamic Load | Least Connections | Real-time awareness |
+**Round Robin (Default Choice):**
+- Use when: All servers have equal capacity
+- Pros: Simple, fair, predictable
+- Cons: Ignores actual server load
+- Best for: Stateless microservices, CDN nodes
 
-**Key Decision Factors:**
-- Application statefulness (stateless preferred)
-- Server capacity variance
-- Traffic patterns (burst vs steady)
-- Session persistence requirements
+**Least Connections (Dynamic Load):**
+- Use when: Request processing time varies
+- Pros: Adapts to actual load
+- Cons: Connection tracking overhead
+- Best for: Database pools, API gateways
+
+**Weighted Round Robin (Heterogeneous):**
+- Use when: Servers have different capacities
+- Pros: Accounts for server power
+- Cons: Requires manual weight tuning
+- Best for: Mixed hardware deployments
+
+**IP Hash (Session Affinity):**
+- Use when: Client needs same server
+- Pros: No session replication needed
+- Cons: Uneven distribution possible
+- Best for: Shopping carts, WebSocket connections
+
+**Least Response Time (Performance):**
+- Use when: Latency is critical
+- Pros: Optimizes for speed
+- Cons: Requires latency monitoring
+- Best for: Real-time applications, gaming
 </div>
 
 
@@ -564,20 +571,32 @@ def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
 - [ ] Monitor distribution fairness
 
 <div class="truth-box">
-<h4>💡 Key Insights from Production</h4>
+<h4>💡 Load Balancing Production Insights</h4>
 
 **The 80/20 Rule of Load Balancing:**
-- 80% of issues come from health check misconfiguration
+- 80% of outages come from health check misconfiguration
 - 20% of servers often handle 80% of traffic (monitor for hot spots)
+- 80% of performance gains come from fixing the slowest 20% of servers
 
-**Production Wisdom:**
-- "Least connections" beats "round robin" for real-world traffic
-- Sticky sessions are evil - design for statelessness
-- Geographic load balancing can save 40-60% on bandwidth costs
-- Always implement connection draining (30-60 seconds typical)
+**Health Check Golden Rules:**
+1. **Shallow checks for L4**: TCP handshake only (1-2 sec timeout)
+2. **Deep checks for L7**: Actual request processing (5-10 sec timeout)
+3. **Never check external dependencies**: That's a cascade failure waiting to happen
+4. **Check frequency**: 3x faster than failure timeout
 
-**Modern Best Practice:**
-> "Treat load balancers as cattle, not pets. Use multiple layers (DNS → L4 → L7) for true resilience."
+**Real-World Wisdom:**
+- "Least connections" beats "round robin" for >90% of workloads
+- Sticky sessions are technical debt - each one costs 10x in complexity
+- Geographic load balancing saves 40-60% on bandwidth costs
+- Connection draining prevents 99% of user-visible errors during deploys
+
+**The Three Layers of Production Load Balancing:**
+1. **DNS** (GeoDNS): Continental routing, 60s TTL
+2. **L4** (Network LB): Datacenter routing, connection-level
+3. **L7** (Application LB): Service routing, request-level
+
+**Economic Reality:**
+> "A single overloaded server costs more than 10 properly balanced servers. Load balancing isn't about distribution - it's about cost optimization."
 </div>
 
 ---
@@ -589,7 +608,7 @@ def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Auto-Scaling](patterns/auto-scaling) | 
-[:material-arrow-up: Patterns](patterns) | 
-[:material-arrow-right: API Gateway](patterns/api-gateway)
+[:material-arrow-left: Auto-Scaling](../patterns/auto-scaling.md) | 
+[:material-arrow-up: Patterns](../patterns/) | 
+[:material-arrow-right: API Gateway](../patterns/api-gateway.md)
 </div>

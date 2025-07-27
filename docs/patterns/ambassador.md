@@ -1,17 +1,43 @@
 ---
 title: Ambassador Pattern
-description: "Create a helper service that sends network requests on behalf of a consumer service, handling complex communication patterns and protocol translations"
+description: Create a helper service that sends network requests on behalf of a consumer
+  service, handling complex communication patterns and protocol translations
 type: pattern
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: []
-pattern_type: "architectural"
+pattern_type: architectural
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
+introduced: 2015-01
+current_relevance: specialized
+trade_offs:
+  pros:
+  - Isolates network communication logic
+  - Simplifies client code
+  - Enables protocol translation
+  cons:
+  - Additional network hop
+  - Single point of failure
+  - Increased complexity
+best_for:
+- Legacy system integration
+- Protocol translation
+- Service mesh sidecars
+- API gateway implementations
+category: integration
 ---
 
 
+
 # Ambassador Pattern
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Service Communication Proxy** • Best for legacy integration and protocol translation
+    
+    A useful pattern for handling complex service communication. While valuable for specific integration scenarios, modern service meshes often provide these capabilities out-of-the-box.
 
 **Your diplomatic representative: Bridging the gap between modern and legacy systems**
 

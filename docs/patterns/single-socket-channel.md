@@ -5,12 +5,18 @@ type: pattern
 category: networking
 difficulty: advanced
 reading_time: 20 min
-prerequisites: [patterns/connection-pooling.md, patterns/multiplexing.md]
-when_to_use: High connection overhead, firewall restrictions, ordered message delivery, connection pooling
+prerequisites:
+- patterns/connection-pooling.md
+- patterns/multiplexing.md
+when_to_use: High connection overhead, firewall restrictions, ordered message delivery,
+  connection pooling
 when_not_to_use: Simple request-response, stateless protocols, when HTTP/2 suffices
 status: complete
 last_updated: 2025-07-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Single-Socket Channel
 
@@ -957,19 +963,19 @@ Single-Socket Channel implements:
 ## Related Patterns
 
 ### Core Dependencies
-- **[Connection Pooling](patterns/connection-pooling)**: Alternative approach
-- **[Protocol Buffers](patterns/protobuf)**: Efficient serialization
-- **[Framing](patterns/framing)**: Message boundaries
+- **[Connection Pooling](../patterns/request-routing.md#connection-pooling)**: Alternative approach
+- **[Protocol Buffers](../patterns/request-batching.md#serialization)**: Efficient serialization
+- **[Framing](../patterns/request-batching.md#message-framing)**: Message boundaries
 
 ### Similar Concepts
-- **[HTTP/2](patterns/http2)**: Standard multiplexing
-- **[WebSockets](patterns/websockets)**: Bidirectional channels
-- **[QUIC](patterns/quic)**: UDP-based multiplexing
+- **[HTTP/2](../patterns/api-gateway.md#http2)**: Standard multiplexing
+- **[WebSockets](../patterns/websocket.md)**: Bidirectional channels
+- **[QUIC](../patterns/api-gateway.md#quic)**: UDP-based multiplexing
 
 ### Supporting Patterns
-- **[Circuit Breaker](patterns/circuit-breaker)**: Per-channel protection
-- **[Backpressure](patterns/backpressure)**: Flow control
-- **[Heartbeat](patterns/heartbeat)**: Keep-alive mechanism
+- **[Circuit Breaker](../patterns/circuit-breaker.md)**: Per-channel protection
+- **[Backpressure](../patterns/backpressure.md)**: Flow control
+- **[Heartbeat](../patterns/heartbeat.md)**: Keep-alive mechanism
 
 ---
 

@@ -1,33 +1,37 @@
 ---
 title: Shared Nothing Architecture
-description: Eliminate resource contention by giving each node exclusive ownership of its data and compute resources
+description: Eliminate resource contention by giving each node exclusive ownership
+  of its data and compute resources
 type: pattern
 category: architectural
 difficulty: intermediate
 reading_time: 15 min
 prerequisites:
-  - sharding
-  - distributed-storage
+- sharding
+- distributed-storage
 related_laws:
-  - law1-failure
-  - law3-emergence
-  - law4-tradeoffs
+- law1-failure
+- law3-emergence
+- law4-tradeoffs
 related_pillars:
-  - work
-  - state
+- work
+- state
 when_to_use:
-  - Building horizontally scalable systems
-  - Eliminating resource contention
-  - Achieving linear scalability
-  - Minimizing coordination overhead
+- Building horizontally scalable systems
+- Eliminating resource contention
+- Achieving linear scalability
+- Minimizing coordination overhead
 when_not_to_use:
-  - Complex transactions across data
-  - Shared state requirements
-  - Small-scale applications
-  - Strong consistency needs
+- Complex transactions across data
+- Shared state requirements
+- Small-scale applications
+- Strong consistency needs
 status: complete
 last_updated: 2025-01-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Shared Nothing Architecture
 

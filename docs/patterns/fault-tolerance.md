@@ -1,16 +1,23 @@
 ---
 title: Fault Tolerance Pattern
-description: Building systems that continue operating properly despite failures of components
+description: Building systems that continue operating properly despite failures of
+  components
 type: pattern
 category: resilience
 difficulty: intermediate
 reading_time: 40 min
-prerequisites: [circuit-breaker, bulkhead, retry-backoff]
+prerequisites:
+- circuit-breaker
+- bulkhead
+- retry-backoff
 when_to_use: Critical systems, high availability requirements, unreliable infrastructure
 when_not_to_use: Simple applications, cost-sensitive deployments, temporary prototypes
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Fault Tolerance Pattern
 

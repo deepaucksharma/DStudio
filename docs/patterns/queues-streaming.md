@@ -1380,10 +1380,10 @@ messaging:
 ## Related Resources
 
 ### Patterns
-- [Event-Driven Architecture](patterns/event-driven) - Built on queues/streams
-- [CQRS](patterns/cqrs) - Commands via queues
-- [Saga Pattern](patterns/saga) - Orchestration via queues
-- [Circuit Breaker](patterns/circuit-breaker) - Protect consumers
+- [Event-Driven Architecture](../patterns/event-driven.md) - Built on queues/streams
+- [CQRS](../patterns/cqrs.md) - Commands via queues
+- [Saga Pattern](../patterns/saga.md) - Orchestration via queues
+- [Circuit Breaker](../patterns/circuit-breaker.md) - Protect consumers
 
 ### Laws
 - [Law 4 (Multidimensional Optimization )](part1-axioms/law4-tradeoffs) - Why buffering matters

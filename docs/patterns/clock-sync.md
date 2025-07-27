@@ -1,16 +1,24 @@
 ---
 title: Clock Synchronization
-description: Achieving consistent time across distributed nodes despite clock drift, network delays, and the impossibility of perfect synchronization
+description: Achieving consistent time across distributed nodes despite clock drift,
+  network delays, and the impossibility of perfect synchronization
 type: pattern
 category: coordination
 difficulty: advanced
 reading_time: 40 min
-prerequisites: [distributed-systems-basics, network-latency, time-complexity]
-when_to_use: When you need wall-clock time consistency, event ordering across nodes, or time-based coordination
+prerequisites:
+- distributed-systems-basics
+- network-latency
+- time-complexity
+when_to_use: When you need wall-clock time consistency, event ordering across nodes,
+  or time-based coordination
 when_not_to_use: When logical ordering is sufficient (use logical clocks instead)
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 
 # Clock Synchronization Pattern

@@ -1,27 +1,31 @@
 ---
 title: Strangler Fig
-description: Incrementally replace legacy systems by gradually routing functionality to new implementations
+description: Incrementally replace legacy systems by gradually routing functionality
+  to new implementations
 type: pattern
 category: architectural
 difficulty: advanced
 reading_time: 20 min
-prerequisites: 
-  - API Gateway
-  - Service Mesh
-  - Anti-Corruption Layer
-when_to_use: 
-  - Migrating monoliths to microservices
-  - Replacing legacy systems incrementally
-  - Modernizing without big-bang rewrites
-  - Risk-averse transformation required
-when_not_to_use: 
-  - Greenfield applications
-  - Simple system replacements
-  - Urgent complete rewrites needed
-  - Legacy system is well-maintained
+prerequisites:
+- API Gateway
+- Service Mesh
+- Anti-Corruption Layer
+when_to_use:
+- Migrating monoliths to microservices
+- Replacing legacy systems incrementally
+- Modernizing without big-bang rewrites
+- Risk-averse transformation required
+when_not_to_use:
+- Greenfield applications
+- Simple system replacements
+- Urgent complete rewrites needed
+- Legacy system is well-maintained
 status: complete
 last_updated: 2025-01-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Strangler Fig Pattern
 

@@ -1,17 +1,50 @@
 ---
 title: Sidecar Pattern
-description: "Deploy auxiliary functionality in a separate container alongside your main application, providing platform-agnostic support services"
+description: Deploy auxiliary functionality in a separate container alongside your
+  main application, providing platform-agnostic support services
 type: pattern
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: []
-pattern_type: "architectural"
+pattern_type: architectural
 status: complete
 last_updated: 2025-01-23
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2016-01
+current_relevance: mainstream
+modern_examples:
+- company: Istio
+  implementation: Service mesh sidecar for traffic management and security
+  scale: Used by thousands of companies in production Kubernetes
+- company: Linkerd
+  implementation: Ultralight service mesh proxy sidecar
+  scale: Sub-millisecond p99 latency overhead
+- company: Envoy
+  implementation: High-performance proxy sidecar for cloud-native apps
+  scale: Powers Lyft, Airbnb, and major cloud providers
+production_checklist:
+- Define clear resource limits for sidecar containers
+- Implement health checks for both main app and sidecar
+- Configure proper startup order and dependencies
+- Monitor sidecar performance impact
+- Implement graceful shutdown coordination
+- Version sidecar and main app independently
+- Configure network policies between containers
+- Set up proper logging and tracing
+- Test failure scenarios (sidecar crash, main app crash)
+- Document sidecar configuration and deployment
+category: resilience
 ---
 
 
+
 # Sidecar Pattern
+
+!!! success "🏆 Gold Standard Pattern"
+    **Container-Based Separation of Concerns** • Istio, Linkerd, Envoy proven
+    
+    The foundation of modern service mesh architectures. Sidecars enable platform-agnostic deployment of cross-cutting concerns like security, observability, and traffic management without modifying application code.
 
 **Your application's trusty companion: A co-pilot that handles the infrastructure complexity**
 

@@ -1,16 +1,24 @@
 ---
 title: Emergent Leader Pattern
-description: Gossip-based leadership emergence without explicit elections in distributed systems
+description: Gossip-based leadership emergence without explicit elections in distributed
+  systems
 type: pattern
 category: distributed-coordination
 difficulty: advanced
 reading_time: 25 min
-prerequisites: [patterns/gossip.md, patterns/phi-accrual.md]
-when_to_use: Decentralized systems, peer-to-peer networks, dynamic membership, eventual consistency acceptable
-when_not_to_use: Strong consistency required, small static clusters, explicit leader election available
+prerequisites:
+- patterns/gossip.md
+- patterns/phi-accrual.md
+when_to_use: Decentralized systems, peer-to-peer networks, dynamic membership, eventual
+  consistency acceptable
+when_not_to_use: Strong consistency required, small static clusters, explicit leader
+  election available
 status: complete
 last_updated: 2025-07-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Emergent Leader Pattern
 

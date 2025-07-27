@@ -1,3 +1,9 @@
+---
+title: Pattern Selector Tool
+category: resilience
+excellence_tier: silver
+pattern_status: stable
+---
 # Pattern Selector Tool
 
 Navigate to the right distributed systems pattern for your use case.

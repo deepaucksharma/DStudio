@@ -1,16 +1,25 @@
 ---
 title: Eventual Consistency
-description: A consistency model where distributed data converges to a consistent state over time
+description: A consistency model where distributed data converges to a consistent
+  state over time
 type: pattern
 category: distributed-data
 difficulty: intermediate
 reading_time: 40 min
-prerequisites: [cap-theorem, consistency-models, distributed-systems-basics]
-when_to_use: When high availability and partition tolerance are more important than immediate consistency
-when_not_to_use: When strong consistency is required for correctness (e.g., financial transactions)
+prerequisites:
+- cap-theorem
+- consistency-models
+- distributed-systems-basics
+when_to_use: When high availability and partition tolerance are more important than
+  immediate consistency
+when_not_to_use: When strong consistency is required for correctness (e.g., financial
+  transactions)
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 
 # Eventual Consistency

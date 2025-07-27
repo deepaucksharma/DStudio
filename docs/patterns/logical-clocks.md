@@ -1,16 +1,25 @@
 ---
 title: Logical Clocks (Lamport Clocks)
-description: Order events in distributed systems without synchronized physical clocks using happens-before relationships
+description: Order events in distributed systems without synchronized physical clocks
+  using happens-before relationships
 type: pattern
 category: coordination
 difficulty: intermediate
 reading_time: 35 min
-prerequisites: [distributed-systems-basics, causality, event-ordering]
-when_to_use: When you need causal ordering of events, don't need wall-clock time, and want a simple solution
-when_not_to_use: When you need to detect concurrent events (use vector clocks) or need actual timestamps
+prerequisites:
+- distributed-systems-basics
+- causality
+- event-ordering
+when_to_use: When you need causal ordering of events, don't need wall-clock time,
+  and want a simple solution
+when_not_to_use: When you need to detect concurrent events (use vector clocks) or
+  need actual timestamps
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 
 # Logical Clocks (Lamport Clocks) Pattern

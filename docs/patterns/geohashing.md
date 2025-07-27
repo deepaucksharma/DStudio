@@ -10,7 +10,10 @@ when_to_use: When building location-based services requiring proximity searches
 when_not_to_use: When precise boundary matching is required
 status: stub
 last_updated: 2025-07-23
+excellence_tier: silver
+pattern_status: stable
 ---
+
 # Geohashing
 
 

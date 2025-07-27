@@ -1,6 +1,7 @@
 ---
 title: State Watch (Change Notification) Pattern
-description: Distributed mechanism for monitoring state changes and notifying interested parties in real-time
+description: Distributed mechanism for monitoring state changes and notifying interested
+  parties in real-time
 type: pattern
 category: coordination
 difficulty: advanced
@@ -10,7 +11,10 @@ when_to_use: When systems need real-time notification of state changes
 when_not_to_use: When polling is sufficient or changes are infrequent
 status: complete
 last_updated: 2025-07-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # State Watch (Change Notification) Pattern
 

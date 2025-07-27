@@ -1,15 +1,30 @@
 ---
-title: Saga Pattern
-description: Manage distributed transactions using coordinated sequences of local transactions with compensations
+title: Saga Pattern (Enhanced)
+description: Advanced variant of Saga pattern with additional complexity and features
 type: pattern
 category: communication
 difficulty: advanced
 reading_time: 35 min
-prerequisites: 
-when_to_use: Cross-service transactions, workflow orchestration, distributed business processes
-when_not_to_use: Simple local transactions, strongly consistent requirements, simple CRUD operations
+prerequisites: [saga, distributed-transactions]
+when_to_use: Complex distributed workflows with advanced requirements
+when_not_to_use: Simple transactions, when basic Saga pattern suffices
 status: complete
 last_updated: 2025-07-21
+excellence_tier: bronze
+pattern_status: legacy
+introduced: 2018-01
+current_relevance: niche
+modern_alternatives:
+  - pattern: Basic Saga Pattern
+    reason: Simpler and sufficient for most use cases
+  - pattern: Event Sourcing + CQRS
+    reason: Better for complex event-driven workflows
+  - pattern: Workflow Engines (Temporal, Cadence)
+    reason: Purpose-built for complex distributed workflows
+deprecation_reason: |
+  The enhanced Saga pattern adds complexity that is rarely justified. Modern workflow engines
+  like Temporal provide better abstractions for complex distributed workflows. For simpler
+  cases, the basic Saga pattern is sufficient.
 
 nav:
   learning_path: "senior-engineer"
@@ -59,7 +74,12 @@ nav:
     - workflow
     - microservices
 ---
-# Saga Pattern
+# Saga Pattern (Enhanced)
+
+!!! danger "🥉 Bronze Tier Pattern"
+    **Over-Engineered Variant** • Consider simpler alternatives
+    
+    An overly complex variant of the Saga pattern. While it adds advanced features, modern workflow engines like Temporal or Cadence provide better solutions for complex distributed workflows. Use the basic Saga pattern for most use cases.
 
 <span class="path-icon">🔄</span>
  <span class="path-name">Senior Engineer Path</span>

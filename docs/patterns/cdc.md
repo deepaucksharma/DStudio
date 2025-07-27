@@ -1,44 +1,10 @@
 ---
 title: Change Data Capture (CDC)
-description: Stream database changes reliably to other systems in real-time
-type: pattern
-category: distributed-data
-difficulty: intermediate
-reading_time: 30 min
-prerequisites: [database-internals, event-streaming, message-queues, data-replication]
-when_to_use: Real-time data synchronization, event sourcing, cache invalidation, data warehousing ETL, audit logging, microservices data sharing, CQRS implementations
-when_not_to_use: Simple batch processing sufficient, no real-time requirements, small data volumes, when source database doesn't support CDC, high-frequency updates causing storms
-status: complete
-last_updated: 2025-07-21
-tags: [event-streaming, data-synchronization, real-time-processing, database-replication, etl]
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2010-01
-current_relevance: mainstream
-modern_examples:
-  - company: Netflix
-    implementation: "CDC streams database changes to Kafka for real-time analytics"
-    scale: "Processes 4 trillion events/day across microservices"
-  - company: Airbnb
-    implementation: "SpinalTap CDC system replicates MySQL changes to data warehouse"
-    scale: "Captures 2B+ database changes daily with <1s latency"
-  - company: Uber
-    implementation: "Schemaless uses CDC for cross-datacenter replication"
-    scale: "Syncs petabytes of data across regions in real-time"
-production_checklist:
-  - "Choose CDC tool (Debezium for open-source, AWS DMS for cloud)"
-  - "Configure source database for CDC (enable binlog/WAL)"
-related_laws: [law5-epistemology, law2-asynchrony, law4-tradeoffs]
-related_pillars: [state, truth]
-  - "Set up change event schema registry"
-  - "Implement exactly-once processing guarantees"
-  - "Monitor replication lag (target <1 second)"
-  - "Handle schema evolution gracefully"
-  - "Configure dead letter queues for failures"
-  - "Implement change event deduplication"
-  - "Set retention policies for change streams"
-  - "Test failover and recovery scenarios"
+category: resilience
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Change Data Capture (CDC)
 

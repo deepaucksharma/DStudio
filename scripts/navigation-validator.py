@@ -12,6 +12,23 @@ from typing import List, Dict, Tuple, Set
 import json
 from datetime import datetime
 
+# Custom YAML constructors to handle MkDocs-specific tags
+class SafeLoaderIgnoreUnknown(yaml.SafeLoader):
+    """A custom YAML loader that ignores unknown tags"""
+    pass
+
+def ignore_unknown(loader, suffix, node):
+    """Ignore unknown tags by returning empty string"""
+    if isinstance(node, yaml.ScalarNode):
+        return ''
+    elif isinstance(node, yaml.SequenceNode):
+        return []
+    elif isinstance(node, yaml.MappingNode):
+        return {}
+    
+# Add constructor for any unknown tag
+SafeLoaderIgnoreUnknown.add_multi_constructor('', ignore_unknown)
+
 class NavigationValidator:
     def __init__(self, project_root: str = "."):
         self.project_root = Path(project_root)
@@ -31,7 +48,8 @@ class NavigationValidator:
         """Load and parse mkdocs.yml"""
         try:
             with open(self.mkdocs_file, 'r') as f:
-                return yaml.safe_load(f)
+                # Use custom loader that ignores unknown tags
+                return yaml.load(f, Loader=SafeLoaderIgnoreUnknown)
         except Exception as e:
             self.issues.append(f"Failed to load mkdocs.yml: {e}")
             return {}

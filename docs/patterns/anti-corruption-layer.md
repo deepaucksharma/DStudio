@@ -1,17 +1,43 @@
 ---
 title: Anti-Corruption Layer (ACL)
-description: "Implement a layer that translates between different subsystems to prevent the spread of undesirable dependencies and maintain clean domain boundaries"
+description: Implement a layer that translates between different subsystems to prevent
+  the spread of undesirable dependencies and maintain clean domain boundaries
 type: pattern
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: []
-pattern_type: "architectural"
+pattern_type: architectural
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
+introduced: 2003-01
+current_relevance: specialized
+trade_offs:
+  pros:
+  - Maintains domain purity
+  - Enables gradual migration
+  - Isolates legacy complexity
+  cons:
+  - Additional translation layer
+  - Performance overhead
+  - Maintenance burden
+best_for:
+- Domain-driven design
+- Legacy system migration
+- Multi-team boundaries
+- Third-party integrations
+category: resilience
 ---
 
 
+
 # Anti-Corruption Layer (ACL)
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Domain Boundary Protection** • Best for DDD and legacy integration
+    
+    A valuable pattern for maintaining clean domain boundaries. Essential in domain-driven design contexts but adds complexity that may not be needed in simpler architectures.
 
 **Your domain's immune system: Protecting clean architecture from foreign concepts**
 

@@ -493,9 +493,8 @@ nav:
         - Bronze Tier Guide: patterns/excellence/bronze-tier-guide.md
       - Pattern Packs:
         - Starter Pack: patterns/excellence/starter-pack.md
-        - Scale Pack: patterns/excellence/scale-pack.md
-        - Enterprise Pack: patterns/excellence/enterprise-pack.md
-      - Pattern Health Dashboard: patterns/excellence/pattern-health-dashboard.md
+        # Scale Pack and Enterprise Pack are planned features
+      - Pattern Health Dashboard: reference/pattern-health-dashboard.md
     
     - Browse All: patterns/index.md#all-patterns
   
@@ -551,6 +550,13 @@ nav:
       - Probabilistic Structures: quantitative/probabilistic-structures.md
       - Graph Theory: quantitative/graph-theory.md
       - Stochastic Processes: quantitative/stochastic-processes.md
+      - Information Theory: quantitative/information-theory.md
+      - Computational Geometry: quantitative/computational-geometry.md
+      - Queueing Networks: quantitative/queuing-networks.md
+      - Markov Chains: quantitative/markov-chains.md
+      - Time Series Analysis: quantitative/time-series.md
+      - Bayesian Reasoning: quantitative/bayesian-reasoning.md
+      - Power Laws: quantitative/power-laws.md
     
     - Problem Sets: quantitative/problem-set.md
   
@@ -565,6 +571,9 @@ nav:
       - Web Crawler: case-studies/web-crawler.md
       - Rate Limiter: case-studies/rate-limiter.md
       - Gaming Leaderboard: case-studies/gaming-leaderboard-enhanced.md
+      - Unique ID Generator: case-studies/unique-id-generator.md
+      - Search Autocomplete: case-studies/search-autocomplete.md
+      - Consistent Hashing: case-studies/consistent-hashing.md
     
     - Advanced Systems:
       - Notification System: case-studies/notification-system.md
@@ -585,9 +594,14 @@ nav:
       - Object Storage (S3): case-studies/s3-object-storage-enhanced.md
       - Apache Spark: case-studies/apache-spark.md
       - Netflix Streaming: case-studies/netflix-streaming.md
+      - Netflix Chaos Engineering: case-studies/netflix-chaos.md
       - Uber Location: case-studies/uber-location.md
       - Uber Maps: case-studies/uber-maps.md
       - ZooKeeper: case-studies/zookeeper.md
+      - Kubernetes: case-studies/kubernetes.md
+      - Message Queue (Kafka): case-studies/kafka.md
+      - Redis Architecture: case-studies/redis-architecture.md
+      - Memcached: case-studies/memcached.md
     
     - Social Systems:
       - Social Graph: case-studies/social-graph.md
@@ -607,6 +621,12 @@ nav:
       - Docs: case-studies/google-systems/google-docs.md
       - Drive: case-studies/google-drive.md
     
+    - Elite Engineering:
+      - Overview: case-studies/elite-engineering/index.md
+      - Discord Voice Infrastructure: case-studies/elite-engineering/discord-voice-infrastructure.md
+      - Figma CRDT Collaboration: case-studies/elite-engineering/figma-crdt-collaboration.md
+      - Stripe API Excellence: case-studies/elite-engineering/stripe-api-excellence.md
+    
     - Location Services:
       - Apple Maps: case-studies/apple-maps.md
       - HERE Maps: case-studies/here-maps.md
@@ -623,13 +643,38 @@ nav:
     - Google Engineering:
       - Preparation:
         - Getting Started: google-interviews/preparation-guide.md
+        - Study Plans: google-interviews/study-plans.md
         - Visual Roadmap: google-interviews/preparation-roadmap.md
         - Common Mistakes: google-interviews/common-mistakes.md
-      - Practice:
-        - System Design Basics: google-interviews/system-design-basics.md
+        - Success Strategies: google-interviews/success-strategies.md
+      
+      - System Design Walkthroughs:
+        - Gmail System: google-interviews/gmail-walkthrough.md
+        - Maps Architecture: google-interviews/maps-walkthrough.md
+        - YouTube Infrastructure: google-interviews/youtube-walkthrough.md
+        - Search Engine: google-interviews/google-search.md
+        - Ads Platform: google-interviews/google-ads.md
+        - Photos Storage: google-interviews/google-photos.md
+      
+      - Google Technologies:
+        - Bigtable: google-interviews/bigtable.md
+        - Spanner: google-interviews/spanner.md
+        - Design Patterns: google-interviews/google-patterns.md
+      
+      - Practice & Resources:
+        - Architecture Patterns: google-interviews/architecture-patterns.md
         - Advanced Techniques: google-interviews/advanced-techniques.md
         - Interview Problems: google-interviews/interview-problems.md
+        - Practice Problems: google-interviews/practice-problems.md
+        - Mock Questions: google-interviews/mock-questions.md
         - Dashboard: google-interviews/dashboard.md
+      
+      - Interview Tools:
+        - Cheat Sheets: google-interviews/cheat-sheets.md
+        - Visual Cheatsheets: google-interviews/visual-cheatsheets.md
+        - Time Management: google-interviews/time-management.md
+        - Evaluation Rubric: google-interviews/evaluation-rubric.md
+        - Trade-off Analysis: google-interviews/tradeoff-analysis.md
     
     - Amazon Engineering:
       - Overview: amazon-interviews/index.md
@@ -644,7 +689,7 @@ nav:
     - Overview: human-factors/index.md
     - SRE Practices: human-factors/sre-practices.md
     - Chaos Engineering: human-factors/chaos-engineering.md
-    - Observability: human-factors/observability.md
+    - Observability: human-factors/observability-stacks.md
   
   - Reference:
     - Overview: reference/index.md
@@ -661,6 +706,9 @@ nav:
       - Consistency Calculator: tools/consistency-calculator.md
       - Latency Calculator: tools/latency-calculator.md
       - Capacity Calculator: tools/capacity-calculator.md
+      - Availability Calculator: tools/availability-calculator.md
+      - Throughput Calculator: tools/throughput-calculator.md
+      - Cost Optimizer: tools/cost-optimizer.md
     - Security:
       - Security Patterns: reference/security.md
     - Contributing: reference/contributing.md

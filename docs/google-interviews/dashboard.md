@@ -175,11 +175,11 @@ graph TD
 ## ✅ Resource Checklist
 
 ### 📚 Preparation Materials
-- [ ] [Complete Study Guide](google-interviews/preparation-guide)
-- [ ] [Pattern Library](google-interviews/../../patterns/index.md) (25 patterns)
-- [ ] [Technical Deep Dives](google-interviews/technical-deep-dives.md)
-- [ ] [Google Papers Collection](google-interviews/references.md#google-papers)
-- [ ] [Architecture Diagrams](google-interviews/references.md#architecture-diagrams)
+- [ ] [Complete Study Guide](preparation-guide.md)
+- [ ] [Pattern Library](../patterns/index.md) (25 patterns)
+- [ ] [Technical Deep Dives](technical-deep-dives.md)
+- [ ] [Google Papers Collection](references.md#google-papers)
+- [ ] [Architecture Diagrams](references.md#architecture-diagrams)
 
 ### Practice Resources
 - [ ] [20 Mock Problems](google-interviews/practice-problems.md)

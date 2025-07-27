@@ -1,41 +1,10 @@
 ---
 title: Service Mesh
-description: Infrastructure layer for managing service-to-service communication with built-in reliability, security, and observability
-type: pattern
-category: architectural
-difficulty: advanced
-reading_time: 45 min
-prerequisites: []
-when_to_use: When dealing with architectural challenges
-when_not_to_use: When simpler solutions suffice
-status: complete
-last_updated: 2025-07-21
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2017-05
-current_relevance: mainstream
-modern_examples:
-  - company: Netflix
-    implementation: "Envoy proxy handles all service-to-service communication"
-    scale: "1000+ microservices, billions of edge requests per day"
-  - company: Uber
-    implementation: "Service mesh unifies 3000+ services with consistent networking"
-    scale: "3000+ services, handling millions of rides daily"
-  - company: Twitter
-    implementation: "Linkerd provides standardized service communication"
-    scale: "Global scale with sub-millisecond overhead"
-production_checklist:
-  - "Choose between Istio, Linkerd, or Consul based on your needs"
-  - "Start with traffic management before adding security features"
-  - "Configure mTLS for zero-trust networking between services"
-related_laws: [law4-tradeoffs, law6-human-api, law1-failure]
-related_pillars: [control, intelligence]
-  - "Set up distributed tracing for request flow visibility"
-  - "Implement circuit breakers and retries at mesh level"
-  - "Monitor sidecar proxy resource usage (typically 10-50MB RAM)"
-  - "Plan for control plane high availability"
-  - "Test canary deployments and traffic splitting"
+category: integration
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Service Mesh
 

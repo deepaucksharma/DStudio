@@ -5,10 +5,14 @@ icon: material/puzzle
 search:
   boost: 2
 tags:
-  - patterns
-  - architecture
-  - design
+- patterns
+- architecture
+- design
+category: resilience
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Design Patterns for Distributed Systems
 
@@ -24,22 +28,22 @@ tags:
     
     <div class="grid cards" markdown>
     
-    - :material-api:{ .lg .middle } **[API Gateway](patterns/api-gateway)**
+    - :material-api:{ .lg .middle } **[API Gateway](../patterns/api-gateway.md)**
         
         ---
         Single entry point for client requests with routing, authentication, and rate limiting
         
-    - :material-lan:{ .lg .middle } **[Service Mesh](patterns/service-mesh)**
+    - :material-lan:{ .lg .middle } **[Service Mesh](../patterns/service-mesh.md)**
         
         ---
         Infrastructure layer for service-to-service communication with observability and security
         
-    - :material-calendar-sync:{ .lg .middle } **[Event-Driven](patterns/event-driven)**
+    - :material-calendar-sync:{ .lg .middle } **[Event-Driven](../patterns/event-driven.md)**
         
         ---
         Asynchronous communication through events for loose coupling
         
-    - :material-book-open-page-variant:{ .lg .middle } **[Event Sourcing](patterns/event-sourcing)**
+    - :material-book-open-page-variant:{ .lg .middle } **[Event Sourcing](../patterns/event-sourcing.md)**
         
         ---
         Store state changes as immutable events for audit and replay
@@ -51,22 +55,22 @@ tags:
     
     <div class="grid cards" markdown>
     
-    - :material-electric-switch:{ .lg .middle } **[Circuit Breaker](patterns/circuit-breaker)**
+    - :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../patterns/circuit-breaker.md)**
         
         ---
         Prevent cascading failures by failing fast when services are unhealthy
         
-    - :material-refresh:{ .lg .middle } **[Retry & Backoff](patterns/retry-backoff)**
+    - :material-refresh:{ .lg .middle } **[Retry & Backoff](../patterns/retry-backoff.md)**
         
         ---
         Handle transient failures with intelligent retry strategies
         
-    - :material-ship:{ .lg .middle } **[Bulkhead](patterns/bulkhead)**
+    - :material-ship:{ .lg .middle } **[Bulkhead](../patterns/bulkhead.md)**
         
         ---
         Isolate resources to prevent total system failure
         
-    - :material-timer-sand:{ .lg .middle } **[Timeout](patterns/timeout)**
+    - :material-timer-sand:{ .lg .middle } **[Timeout](../patterns/timeout.md)**
         
         ---
         Prevent indefinite waiting with appropriate timeout strategies

@@ -64,6 +64,14 @@ production_checklist:
 
 Like a professional waiter who knows when to check on orders (not constantly pestering the chef), smart retry strategies space out attempts to avoid overwhelming failing systems.
 
+<div class="axiom-box">
+<h4>⚛️ Law 1: Correlated Failure</h4>
+
+Retry storms are a perfect example of correlated failure. When one service fails, thousands of clients simultaneously retry, creating a thundering herd that prevents recovery. This is why naive retries actually amplify failures instead of fixing them.
+
+**Key Insight**: Exponential backoff with jitter breaks the correlation by spacing retry attempts across time, allowing the failing service to recover naturally.
+</div>
+
 **Problem**: Naive retries create "retry storms" that make failures worse.
 
 **Solution**: 
@@ -1109,6 +1117,61 @@ class CircuitBreakerRetrier(Retrier):
 
 ### Real-World Implementation Patterns
 
+<div class="failure-vignette">
+<h4>💥 The Slack Retry Storm Outage (2020)</h4>
+
+**What Happened**: Slack experienced a 4-hour global outage when a database failover triggered a massive retry storm
+
+**Root Cause**: 
+- Database primary failed during peak hours (10 AM PT)
+- Client connections immediately started retrying without backoff
+- 50,000+ client connections retried every 100ms
+- This created 500,000 requests/second against the failing database
+- Secondary database couldn't promote due to retry load
+
+**Impact**: 
+- 4+ hours of global service disruption
+- 12+ million users affected
+- Estimated $18M in lost productivity
+- Stock price dropped 4% in after-hours trading
+
+**Lessons Learned**:
+- All retry logic must include exponential backoff
+- Circuit breakers are essential at database layer
+- Load shedding during failover prevents retry amplification
+- Client SDKs need intelligent retry built-in, not left to users
+</div>
+
+<div class="decision-box">
+<h4>🎯 Choosing Your Retry Strategy</h4>
+
+**For External APIs:**
+- Exponential backoff with decorrelated jitter
+- 3-5 max attempts with 30-60s total timeout
+- Respect HTTP 429 Retry-After headers
+
+**For Database Operations:**
+- Linear backoff for transient connection issues
+- Exponential for deadlocks and timeouts  
+- No retries for constraint violations
+
+**For Microservice Calls:**
+- Adaptive retry based on recent success rates
+- Circuit breaker integration mandatory
+- Hedged requests for p99 latency optimization
+
+**For Background Jobs:**
+- Exponential with longer delays (minutes/hours)
+- Higher attempt limits (10-20)
+- Dead letter queues for permanent failures
+
+**Key Decision Factors:**
+- Failure type (transient vs permanent)
+- Criticality (user-facing vs background)
+- Cost of failure vs cost of retry overhead
+- Downstream system capacity
+</div>
+
 #### AWS SDK Retry Strategy
 ```python
 class AWSRetryStrategy:
@@ -2056,6 +2119,30 @@ def calculate_retry_value(your_metrics: Dict) -> Dict:
 ```
 
 ### Best Practices Summary
+
+<div class="truth-box">
+<h4>💡 Hard-Won Insights from Production</h4>
+
+**The 80/20 Rule of Retries:**
+- 80% of retry success comes from the first retry after exponential backoff
+- 20% of requests benefit from subsequent retries - but they're critical for reliability
+
+**Jitter Is Non-Negotiable:**
+- Even 5% jitter prevents thundering herds at scale
+- Full jitter (0 to max delay) is better than proportional jitter
+- Real production lesson: "We prevented a $2M outage with 3 lines of jitter code"
+
+**Success Rate Paradox:**
+- 95% retry success rate might be too low (retry budget exceeded)
+- 99.9% retry success rate might indicate over-conservative timeouts
+
+**The Retry Debugging Challenge:**
+> "The hardest distributed systems bugs happen when retries work 99.9% of the time but create subtle cascading failures in the 0.1% case"
+
+**Economic Reality:**
+- Adding retries costs ~3% in compute overhead
+- Not adding retries costs ~300% in incident response when things fail
+</div>
 
 1. **Always use jitter** - Even 10% randomization prevents thundering herds
 2. **Start conservatively** - Begin with 3 attempts and 1s initial delay

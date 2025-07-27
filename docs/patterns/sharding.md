@@ -1,42 +1,10 @@
 ---
 title: Sharding (Data Partitioning)
-description: Horizontally partition data across multiple databases to improve scalability and performance
-type: pattern
-category: distributed-data
-difficulty: advanced
-reading_time: 30 min
-prerequisites: [database-design, distributed-systems, consistency-models, hashing]
-when_to_use: Dataset exceeds single server capacity, need horizontal scaling, multi-tenant applications, geographic data distribution, high write throughput requirements, isolation between data subsets
-when_not_to_use: Complex cross-shard queries needed, strong consistency requirements across shards, small datasets, high operational complexity not justified, frequent resharding expected
-status: complete
-last_updated: 2025-07-21
-tags: [scalability, partitioning, horizontal-scaling, data-distribution, multi-tenancy, sharding-strategies]
+category: data
 excellence_tier: gold
-pattern_status: recommended
-introduced: 2000-01
-current_relevance: mainstream
-modern_examples:
-  - company: Discord
-    implementation: "MongoDB sharding for messages and guild data"
-    scale: "150M+ users, 1T+ messages across thousands of shards"
-  - company: Pinterest
-    implementation: "MySQL sharding for user data and pins"
-    scale: "450M+ users, 240B+ pins saved"
-  - company: Facebook
-    implementation: "Custom sharding across thousands of MySQL instances"
-    scale: "3B+ users, exabytes of data"
-production_checklist:
-  - "Choose sharding key based on access patterns (user_id, tenant_id)"
-  - "Implement shard routing layer (Vitess, ProxySQL, custom)"
-related_laws: [law4-tradeoffs, law5-epistemology, law7-economics]
-related_pillars: [state, work]
-  - "Plan for resharding from day one (consistent hashing helps)"
-  - "Monitor shard distribution and rebalance hot shards"
-  - "Handle cross-shard queries carefully (avoid when possible)"
-  - "Implement proper backup strategy per shard"
-  - "Use shard replicas for high availability"
-  - "Test shard failure scenarios and recovery"
+pattern_status: stable
 ---
+
 
 # Sharding (Data Partitioning)
 
@@ -50,7 +18,7 @@ related_pillars: [state, work]
     - Pinterest: 240B+ pins distributed globally
     - Facebook: 3B+ users, exabytes of data
 
-[Home](/) > [Patterns](patterns) > [Data Patterns](patterns/#data-patterns) > Sharding
+[Home](/) > [Patterns](../patterns/) > [Data Patterns](../patterns/index.md#data-patterns) > Sharding
 
 **Divide and conquer at planetary scale - How to handle 100B+ records**
 
@@ -1587,18 +1555,18 @@ def should_we_shard(current_metrics):
 ### Foundational Concepts
 - [Consistent Hashing](case-studies/consistent-hashing) - Core algorithm for data distribution
 - [CAP Theorem](quantitative/cap-theorem) - Understanding trade-offs in distributed data
-- [Partitioning Strategies](patterns/partitioning) - Different ways to split data
+- [Partitioning Strategies](../patterns/sharding.md#partitioning-strategies) - Different ways to split data
 
 ### Related Patterns
-- [Database Federation](patterns/federation) - Alternative scaling approach
-- [CQRS](patterns/cqrs) - Separate read/write paths (works well with sharding)
-- [Event Sourcing](patterns/event-sourcing) - Append-only sharding strategy
-- [Cache Sharding](patterns/cache-sharding) - Distributed caching patterns
+- [Database Federation](../patterns/database-per-service.md) - Alternative scaling approach
+- [CQRS](../patterns/cqrs.md) - Separate read/write paths (works well with sharding)
+- [Event Sourcing](../patterns/event-sourcing.md) - Append-only sharding strategy
+- [Cache Sharding](../patterns/caching-strategies.md#distributed-caching) - Distributed caching patterns
 
 ### Implementation Patterns
-- [Service Mesh](patterns/service-mesh) - Managing shard routing at network level
-- [Saga Pattern](patterns/saga) - Distributed transactions across shards
-- [API Gateway](patterns/api-gateway) - Hide sharding complexity from clients
+- [Service Mesh](../patterns/service-mesh.md) - Managing shard routing at network level
+- [Saga Pattern](../patterns/saga.md) - Distributed transactions across shards
+- [API Gateway](../patterns/api-gateway.md) - Hide sharding complexity from clients
 
 ### Case Studies
 - [Discord Message Sharding](case-studies/chat-system) - 1T+ messages
@@ -1614,7 +1582,7 @@ def should_we_shard(current_metrics):
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: CDC](patterns/cdc) | 
-[:material-arrow-up: Patterns](patterns) | 
-[:material-arrow-right: Caching Strategies](patterns/caching-strategies)
+[:material-arrow-left: CDC](../patterns/cdc.md) | 
+[:material-arrow-up: Patterns](../patterns/) | 
+[:material-arrow-right: Caching Strategies](../patterns/caching-strategies.md)
 </div>

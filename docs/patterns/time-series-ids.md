@@ -1,16 +1,25 @@
 ---
 title: Time Series IDs
-description: ID generation strategies optimized for time-series data with chronological ordering and efficient storage
+description: ID generation strategies optimized for time-series data with chronological
+  ordering and efficient storage
 type: pattern
 category: specialized
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: [distributed-systems-basics, time-synchronization, storage-optimization]
-when_to_use: IoT systems, monitoring platforms, event logs, financial trading systems requiring time-ordered data
-when_not_to_use: Non-time-sensitive data, when storage efficiency isn't critical, simple applications
+prerequisites:
+- distributed-systems-basics
+- time-synchronization
+- storage-optimization
+when_to_use: IoT systems, monitoring platforms, event logs, financial trading systems
+  requiring time-ordered data
+when_not_to_use: Non-time-sensitive data, when storage efficiency isn't critical,
+  simple applications
 status: complete
 last_updated: 2025-07-24
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Time Series IDs
 

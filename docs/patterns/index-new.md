@@ -1,8 +1,13 @@
 ---
 title: Distributed Systems Patterns
-description: Curated catalog of ~95 battle-tested patterns for building distributed systems
+description: Curated catalog of ~95 battle-tested patterns for building distributed
+  systems
 type: patterns-index
+category: resilience
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Distributed Systems Patterns
 

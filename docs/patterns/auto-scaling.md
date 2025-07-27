@@ -1,55 +1,10 @@
 ---
 title: Auto-scaling Pattern
-description: Dynamically adjust computing resources based on real-time demand to optimize performance and cost
-type: pattern
-category: performance
-difficulty: beginner
-reading_time: 25 min
-prerequisites: [monitoring, metrics, cloud-infrastructure, load-balancing]
-when_to_use: Variable workloads, traffic spikes, cost optimization needs, seasonal patterns, unpredictable demand, multi-region deployments, microservices architecture
-when_not_to_use: Stateful applications without proper session handling, legacy monoliths, fixed resource requirements, real-time systems with strict latency, applications with slow startup times
-status: complete
-last_updated: 2025-07-20
-tags: [elasticity, resource-management, cost-optimization, cloud-native, scalability, performance-optimization]
+category: data
 excellence_tier: silver
-pattern_status: use-with-expertise
-introduced: 2006-08
-current_relevance: mainstream
-trade_offs:
-  pros:
-    - "Automatic response to demand changes"
-    - "Cost optimization through right-sizing"
-    - "Handles unpredictable traffic patterns"
-  cons:
-    - "Can cause thrashing if misconfigured"
-    - "Adds complexity to stateful applications"
-    - "Cold start latency impacts performance"
-best_for:
-  - "Stateless web applications and APIs"
-  - "Batch processing with variable workloads"
-  - "Services with predictable traffic patterns"
-modern_examples:
-  - company: Netflix
-    implementation: "Predictive auto-scaling handles 2x daily traffic variation"
-    scale: "600K+ instances scaled dynamically, saving millions"
-  - company: Spotify
-    implementation: "Auto-scaling for music streaming and recommendation services"
-    scale: "500M+ users with seamless peak handling"
-  - company: Uber
-    implementation: "Dynamic scaling for ride demand surges and events"
-    scale: "5x traffic spikes handled automatically"
-production_checklist:
-  - "Set proper scaling metrics (CPU, memory, custom metrics)"
-  - "Configure scale-up and scale-down thresholds (e.g., 70% and 30%)"
-related_laws: [law7-economics, law3-emergence, law4-tradeoffs]
-related_pillars: [work, intelligence]
-  - "Implement proper warm-up time for new instances"
-  - "Use predictive scaling for known patterns"
-  - "Set minimum and maximum instance limits"
-  - "Configure gradual scale-down to avoid flapping"
-  - "Monitor scaling events and cost impact"
-  - "Test scaling behavior under load"
+pattern_status: stable
 ---
+
 
 # Auto-scaling Pattern
 

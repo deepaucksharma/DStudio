@@ -1,16 +1,22 @@
 ---
 title: Low-Water/High-Water Marks
-description: Flow control boundaries for distributed systems replication, buffering, and resource management
+description: Flow control boundaries for distributed systems replication, buffering,
+  and resource management
 type: pattern
 category: data-replication
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: [patterns/replication.md, patterns/wal.md]
+prerequisites:
+- patterns/replication.md
+- patterns/wal.md
 when_to_use: Replication lag control, buffer management, flow control, garbage collection
 when_not_to_use: Simple systems without flow control needs, unbounded resources
 status: complete
 last_updated: 2025-07-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Low-Water/High-Water Marks
 
@@ -732,19 +738,19 @@ Water Marks implement:
 ## Related Patterns
 
 ### Core Dependencies
-- **[Backpressure](patterns/backpressure)**: Water marks trigger backpressure
-- **[Circuit Breaker](patterns/circuit-breaker)**: Similar state-based protection
-- **[Rate Limiting](patterns/rate-limiting)**: Enforcement mechanism
+- **[Backpressure](../patterns/backpressure.md)**: Water marks trigger backpressure
+- **[Circuit Breaker](../patterns/circuit-breaker.md)**: Similar state-based protection
+- **[Rate Limiting](../patterns/rate-limiting.md)**: Enforcement mechanism
 
 ### Supporting Patterns
-- **[Queue](patterns/queue)**: Often uses water marks
-- **[Timeout](patterns/timeout)**: Drain timeout at high water
-- **[Bulkhead](patterns/bulkhead)**: Isolate resources with marks
+- **[Queue](../patterns/distributed-queue.md)**: Often uses water marks
+- **[Timeout](../patterns/timeout.md)**: Drain timeout at high water
+- **[Bulkhead](../patterns/bulkhead.md)**: Isolate resources with marks
 
 ### Similar Concepts
-- **[Admission Control](patterns/admission-control)**: Entry-point flow control
-- **[Load Shedding](patterns/load-shedding)**: Beyond high water mark
-- **[Throttling](patterns/throttling)**: Between water marks
+- **[Admission Control](../patterns/rate-limiting.md#admission-control)**: Entry-point flow control
+- **[Load Shedding](../patterns/load-shedding.md)**: Beyond high water mark
+- **[Throttling](../patterns/rate-limiting.md#throttling)**: Between water marks
 
 ---
 

@@ -587,4 +587,4 @@ ML Metrics:
 - Streaming optimization
 - Progressive download
 
-[Return to Google Interview Guide](google-interviews/index.md)
+[Return to Google Interview Guide](index.md)

@@ -1,17 +1,43 @@
 ---
 title: Backends For Frontends (BFF)
-description: "Create purpose-built backend services for specific frontend applications, optimizing API design for each client's unique needs"
+description: Create purpose-built backend services for specific frontend applications,
+  optimizing API design for each client's unique needs
 type: pattern
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: []
-pattern_type: "architectural"
+pattern_type: architectural
 status: complete
 last_updated: 2025-01-23
+excellence_tier: silver
+pattern_status: stable
+introduced: 2015-01
+current_relevance: specialized
+trade_offs:
+  pros:
+  - Optimized APIs for each client type
+  - Independent deployment and scaling
+  - Better separation of concerns
+  cons:
+  - Code duplication across BFFs
+  - Increased operational complexity
+  - More services to maintain
+best_for:
+- Multi-platform applications (web, mobile, TV)
+- Teams with platform-specific requirements
+- Applications with diverse client capabilities
+- Microservices architectures
+category: resilience
 ---
 
 
+
 # Backends For Frontends (BFF)
+
+!!! warning "🥈 Silver Tier Pattern"
+    **Client-Specific API Optimization** • Best for multi-platform applications
+    
+    A specialized pattern for creating tailored backend services for different frontend clients. While valuable for complex multi-platform scenarios, it adds operational overhead that may not be justified for simpler applications.
 
 **One API doesn't fit all: Tailored backends for optimal frontend experiences**
 

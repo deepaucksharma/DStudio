@@ -11,6 +11,24 @@ when_not_to_use: Strong consistency requirements, write-heavy workloads, when im
 status: complete
 last_updated: 2025-07-26
 tags: [consistency, replication, repair, eventual-consistency, distributed-data]
+excellence_tier: silver
+pattern_status: use-with-expertise
+trade_offs:
+  pros:
+    - "Opportunistic healing of inconsistencies during reads"
+    - "No additional background process overhead"
+    - "Improves consistency without dedicated repair cycles"
+    - "Works well with eventual consistency models"
+  cons:
+    - "Adds latency to read operations"
+    - "May not repair rarely-read data"
+    - "Repair storms can overwhelm system during failures"
+    - "Complex to tune repair probability correctly"
+best_for:
+  - "Eventually consistent key-value stores"
+  - "Systems with high read-to-write ratios"
+  - "Multi-datacenter deployments with occasional partitions"
+  - "Applications tolerating temporary inconsistencies"
 ---
 
 # Read Repair
@@ -20,6 +38,11 @@ tags: [consistency, replication, repair, eventual-consistency, distributed-data]
 **Healing inconsistencies one read at a time**
 
 > *"The best time to fix a problem is when you discover it."*
+
+!!! warning "🥈 Silver Pattern - Use with Expertise"
+    **Complexity**: Medium-High • **Expertise Required**: Distributed systems experience
+    
+    Read repair is powerful but comes with significant trade-offs. Incorrect configuration can lead to repair storms, increased read latency, or missed inconsistencies. Consider simpler alternatives like anti-entropy for less critical data.
 
 !!! abstract "Pattern Overview"
     **Problem**: Replicas can become inconsistent due to failures, network partitions, or concurrent updates  

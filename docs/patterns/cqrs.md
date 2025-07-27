@@ -1,41 +1,10 @@
 ---
 title: CQRS (Command Query Responsibility Segregation)
-description: Separate read and write models for optimized performance and scalability
-type: pattern
-category: architectural
-difficulty: advanced
-reading_time: 30 min
-prerequisites: 
-when_to_use: High-performance reads, complex domain logic, different read/write scaling needs
-when_not_to_use: Simple CRUD applications, low traffic systems, small teams
-status: complete
-last_updated: 2025-07-25
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2010-11
-current_relevance: mainstream
-modern_examples:
-  - company: LinkedIn
-    implementation: "CQRS powers the activity feed and messaging systems"
-    scale: "1B+ feed updates per day, 800M+ members"
-  - company: Uber
-    implementation: "Separate command/query for trip management and driver tracking"
-    scale: "20M+ trips per day with real-time tracking"
-  - company: Netflix
-    implementation: "CQRS for viewing history and recommendations"
-    scale: "220M+ subscribers, billions of events daily"
-production_checklist:
-  - "Design clear command/query boundaries based on use cases"
-  - "Implement eventual consistency handling (typically < 1s lag)"
-  - "Use event sourcing for audit trails and replay capability"
-related_laws: [law4-tradeoffs, law5-epistemology, law6-human-api]
-related_pillars: [state, truth, work]
-  - "Scale read models independently (often 10:1 read/write ratio)"
-  - "Monitor command-to-query synchronization lag"
-  - "Implement compensating transactions for failures"
-  - "Consider using Kafka/EventStore for event bus"
-  - "Test with realistic read/write workload patterns"
+category: data
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # CQRS (Command Query Responsibility Segregation)
 
@@ -57,6 +26,14 @@ related_pillars: [state, truth, work]
 ## Problem Statement
 
 **How can we optimize both complex business operations and high-performance queries when they have fundamentally different requirements?**
+
+<div class="axiom-box">
+<h4>🔬 Law 4: Multidimensional Trade-offs</h4>
+
+CQRS embodies the principle that you cannot optimize for all dimensions simultaneously. Traditional CRUD models try to use the same model for both complex writes and high-performance reads, leading to suboptimal solutions.
+
+**Key Insight**: Commands and queries have different consistency, performance, and scalability requirements. Separating them allows independent optimization.
+</div>
 
 ??? tip "When to Use This Pattern (Click to expand)"
 | Scenario | Use CQRS | Alternative |
@@ -196,6 +173,31 @@ graph TB
  ```
 
 ## Implementation Considerations
+
+<div class="decision-box">
+<h4>🎯 CQRS Implementation Strategy</h4>
+
+**Start Simple:**
+- Same database, separate models
+- Shared event store/message bus
+- Synchronous projections initially
+
+**Scale Complexity:**
+- Separate databases for read/write
+- Asynchronous event processing
+- Multiple specialized read models
+
+**Go Full Distributed:**
+- Event sourcing for commands
+- Multiple projection technologies
+- Independent scaling of read/write
+
+**Key Decision Factors:**
+- Read/write ratio (>10:1 favors CQRS)
+- Team expertise with eventual consistency
+- Performance requirements
+- Infrastructure complexity tolerance
+</div>
 
 ### Trade-offs
 

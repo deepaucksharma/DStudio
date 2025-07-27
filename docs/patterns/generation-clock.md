@@ -1,16 +1,23 @@
 ---
 title: Generation Clock
-description: Monotonic counter to detect stale leaders and prevent split-brain in distributed systems
+description: Monotonic counter to detect stale leaders and prevent split-brain in
+  distributed systems
 type: pattern
 category: distributed-coordination
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: [patterns/leader-election.md, patterns/consensus.md]
-when_to_use: Leader election, split-brain prevention, configuration management, cluster membership
+prerequisites:
+- patterns/leader-election.md
+- patterns/consensus.md
+when_to_use: Leader election, split-brain prevention, configuration management, cluster
+  membership
 when_not_to_use: Simple systems without leadership, eventually consistent systems
 status: complete
 last_updated: 2025-07-26
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Generation Clock
 

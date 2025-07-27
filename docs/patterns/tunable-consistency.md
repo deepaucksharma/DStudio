@@ -1,6 +1,7 @@
 ---
 title: Tunable Consistency
-description: Adjust consistency levels dynamically based on application requirements and trade-offs
+description: Adjust consistency levels dynamically based on application requirements
+  and trade-offs
 type: pattern
 category: specialized
 difficulty: advanced
@@ -10,7 +11,10 @@ when_to_use: When dealing with specialized challenges
 when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
+excellence_tier: silver
+pattern_status: stable
 ---
+
 
 # Tunable Consistency
 

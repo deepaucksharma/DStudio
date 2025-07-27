@@ -56,7 +56,7 @@ production_checklist:
     - Airbnb: 2M+ bookings coordinated daily
     - Booking.com: 1.5M+ room nights processed
 
-[Home](/) > [Patterns](patterns) > [Core Patterns](patterns/#core-patterns) > Saga
+[Home](/) > [Patterns](../patterns/) > [Core Patterns](../patterns/index.md#core-patterns) > Saga
 
 ## The Essential Question
 
@@ -1484,20 +1484,20 @@ saga:
 
 ### Foundation Concepts
 - [CAP Theorem](quantitative/cap-theorem) - Why distributed transactions are hard
-- [Two-Phase Commit](patterns/2pc) - Traditional distributed transactions
-- [Event Sourcing](patterns/event-sourcing) - Alternative consistency approach
+- [Two-Phase Commit](../patterns/archive/two-phase-commit.md) - Traditional distributed transactions
+- [Event Sourcing](../patterns/event-sourcing.md) - Alternative consistency approach
 - [ACID vs BASE](concepts/acid-base/) - Consistency model trade-offs
 
 ### Implementation Patterns
-- [Outbox Pattern](patterns/outbox) - Reliable event publishing
-- [Idempotency](patterns/idempotency) - Safe retries in sagas
-- [Circuit Breaker](patterns/circuit-breaker) - Handling service failures
-- [Compensation](patterns/compensation) - Undoing operations
+- [Outbox Pattern](../patterns/outbox.md) - Reliable event publishing
+- [Idempotency](../patterns/idempotent-receiver.md) - Safe retries in sagas
+- [Circuit Breaker](../patterns/circuit-breaker.md) - Handling service failures
+- [Compensation](../patterns/saga.md#compensation) - Undoing operations
 
 ### Related Architectures
 - [Microservices](architectures/microservices/) - Where sagas are essential
 - [Event-Driven Architecture](architectures/event-driven/) - Choreographed sagas
-- [CQRS](patterns/cqrs) - Often used with sagas
+- [CQRS](../patterns/cqrs.md) - Often used with sagas
 
 ### Production Case Studies
 - [Uber Trip Bookings](case-studies/uber-trips/) - 15M sagas/day
@@ -1528,21 +1528,21 @@ saga:
 ## Related Patterns
 
 ### Alternative Transaction Patterns
-- **[Two-Phase Commit](patterns/two-phase-commit)**: Strong consistency alternative
-- **[Event Sourcing](patterns/event-sourcing)**: Natural event log for sagas
-- **[Consensus](patterns/consensus)**: For when strong consistency is required
+- **[Two-Phase Commit](../patterns/archive/two-phase-commit.md)**: Strong consistency alternative
+- **[Event Sourcing](../patterns/event-sourcing.md)**: Natural event log for sagas
+- **[Consensus](../patterns/consensus.md)**: For when strong consistency is required
 
 ### Supporting Patterns
-- **[Outbox Pattern](patterns/outbox)**: Reliable event publishing for choreography
-- **[Idempotent Receiver](patterns/idempotent-receiver)**: Essential for safe retries
-- **[Circuit Breaker](patterns/circuit-breaker)**: Protect saga steps from failures
-- **[Retry with Backoff](patterns/retry-backoff)**: Handle transient failures
+- **[Outbox Pattern](../patterns/outbox.md)**: Reliable event publishing for choreography
+- **[Idempotent Receiver](../patterns/idempotent-receiver.md)**: Essential for safe retries
+- **[Circuit Breaker](../patterns/circuit-breaker.md)**: Protect saga steps from failures
+- **[Retry with Backoff](../patterns/retry-backoff.md)**: Handle transient failures
 
 ### Implementation Patterns
-- **[CQRS](patterns/cqrs)**: Separate saga execution from queries
-- **[Event-Driven Architecture](patterns/event-driven)**: Natural fit for choreography
-- **[Write-Ahead Log](patterns/wal)**: Saga state persistence
-- **[Message Queue](patterns/distributed-queue)**: Async communication between steps
+- **[CQRS](../patterns/cqrs.md)**: Separate saga execution from queries
+- **[Event-Driven Architecture](../patterns/event-driven.md)**: Natural fit for choreography
+- **[Write-Ahead Log](../patterns/wal.md)**: Saga state persistence
+- **[Message Queue](../patterns/distributed-queue.md)**: Async communication between steps
 
 ### Further Reading
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem
@@ -1561,7 +1561,7 @@ saga:
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Event Sourcing](patterns/event-sourcing) | 
-[:material-arrow-up: Patterns](patterns) | 
-[:material-arrow-right: Service Mesh](patterns/service-mesh)
+[:material-arrow-left: Event Sourcing](../patterns/event-sourcing.md) | 
+[:material-arrow-up: Patterns](../patterns/) | 
+[:material-arrow-right: Service Mesh](../patterns/service-mesh.md)
 </div>

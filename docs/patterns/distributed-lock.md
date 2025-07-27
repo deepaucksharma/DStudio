@@ -1,43 +1,10 @@
 ---
 title: Distributed Lock Pattern
-description: Pattern for distributed systems coordination and reliability
-type: pattern
-category: specialized
-difficulty: advanced
-reading_time: 35 min
-prerequisites: []
-when_to_use: When dealing with specialized challenges
-when_not_to_use: When simpler solutions suffice
-status: complete
-last_updated: 2025-07-20
+category: resilience
 excellence_tier: gold
-pattern_status: recommended
-introduced: 2006-11
-current_relevance: mainstream
-modern_examples:
-  - company: Redis
-    implementation: "Redlock algorithm provides distributed locking across Redis nodes"
-    scale: "Used by millions of applications for coordination"
-  - company: Google
-    implementation: "Chubby lock service coordinates distributed systems"
-    scale: "Powers GFS, Bigtable, and core infrastructure"
-  - company: Apache
-    implementation: "Zookeeper provides distributed coordination primitives"
-    scale: "Used by Kafka, HBase, Solr for consensus"
-production_checklist:
-  - "Choose lock backend (Redis with Redlock, Zookeeper, etcd)"
-  - "Set appropriate lock timeout (typically 30s-5min)"
-  - "Implement lock renewal for long operations"
-related_laws: [law2-asynchrony, law1-failure, law5-epistemology]
-related_pillars: [control, truth]
-  - "Use fencing tokens to prevent split-brain"
-  - "Monitor lock contention and wait times"
-  - "Implement exponential backoff for retries"
-  - "Handle clock skew between nodes (use monotonic clocks)"
-  - "Test network partition scenarios"
-  - "Implement deadlock detection/prevention"
-  - "Use unique lock identifiers (UUID) for tracking"
+pattern_status: stable
 ---
+
 
 # Distributed Lock Pattern
 
@@ -60,6 +27,14 @@ related_pillars: [control, truth]
 ## Level 1: Intuition
 
 ### The Bathroom Stall Analogy
+
+<div class="axiom-box">
+<h4>🔬 Law 2: Asynchronous Reality</h4>
+
+Distributed locks must handle the fundamental asynchrony of distributed systems. Unlike local locks that can rely on process death for cleanup, distributed locks must deal with network partitions, clock skew, and partial failures.
+
+**Key Insight**: The hardest part isn't acquiring the lock—it's ensuring the lock is released even when the holder fails or becomes unreachable.
+</div>
 
 A distributed lock is like a public bathroom stall:
 - **Lock acquisition**: Check if door is locked, if not, lock it
@@ -438,6 +413,60 @@ graph TB
 ```
 
 ### Problems with Distributed Locks
+
+<div class="failure-vignette">
+<h4>💥 The MongoDB Global Lock Disaster (2014)</h4>
+
+**What Happened**: A large e-commerce platform used MongoDB's global write lock for inventory management during Black Friday.
+
+**Root Cause**:
+- MongoDB 2.x had database-level write locks
+- All inventory updates serialized through single lock
+- Lock contention increased exponentially with load
+- No timeout or backoff mechanisms implemented
+
+**Impact**:
+- Site went down during peak shopping hours
+- 4 hours of complete unavailability
+- $12M in lost sales
+- Customer trust severely damaged
+
+**The Fix**:
+- Migrated to document-level locking
+- Implemented distributed locks with Redis
+- Added exponential backoff and timeouts
+- Used optimistic concurrency control
+
+**Lesson**: Database locks don't scale—use application-level distributed locks with proper timeouts and fencing.
+</div>
+
+<div class="decision-box">
+<h4>🎯 Distributed Lock Selection Guide</h4>
+
+**Use Database Locks When:**
+- Single database system
+- ACID transactions required
+- Simple coordination needs
+- Low contention scenarios
+
+**Use Redis Locks When:**
+- Performance is critical (< 10ms)
+- Can tolerate eventual consistency
+- Clock synchronization available
+- Moderate availability requirements
+
+**Use ZooKeeper Locks When:**
+- Strong consistency required
+- Ordered lock queues needed
+- High availability essential
+- Can tolerate higher latency (50-200ms)
+
+**Use Consensus Locks When:**
+- Mission-critical correctness
+- Network partitions likely
+- Can accept complexity overhead
+- Need strongest guarantees
+</div>
 
 ### Fencing Tokens for Safety
 

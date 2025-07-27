@@ -89,82 +89,81 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
 | **Eventual Consistency** | 🥇 Gold | 💾 Data | Production-ready | BASE over ACID for scale | [→](eventual-consistency.md) |
 | **Service Discovery** | 🥇 Gold | 🏗️ Core | Production-ready | Dynamic service location | [→](service-discovery.md) |
 | **Idempotent Receiver** | 🥇 Gold | 💾 Data | Production-ready | Handling duplicate messages | [→](idempotent-receiver.md) |
-| **Service Mesh** | 🥈 Silver | 🏗️ Core | Large | Istio, Linkerd | Service communication | [→](service-mesh.md) |
-| **Event-Driven** | 🥈 Silver | 🏗️ Core | Medium+ | Uber, Lyft | Loose coupling | [→](event-driven.md) |
-| **Event Sourcing** | 🥈 Silver | 🏗️ Core | Large | Banking, FinTech | Audit trail | [→](event-sourcing.md) |
-| **Saga Pattern** | 🥈 Silver | 🏗️ Core | Large | Booking.com, Uber | Distributed transactions | [→](saga.md) |
-| **Bulkhead** | 🥈 Silver | 🛡️ Resilience | Medium+ | Netflix (Hystrix) | Resource isolation | [→](bulkhead.md) |
-| **Graceful Degradation** | 🥈 Silver | 🛡️ Resilience | Medium+ | Netflix, Amazon | Feature reduction | [→](graceful-degradation.md) |
-| **Load Shedding** | 🥈 Silver | 🛡️ Resilience | Large | Google, Facebook | Overload protection | [→](load-shedding.md) |
-| **Backpressure** | 🥈 Silver | 🛡️ Resilience | Medium+ | Reactive systems | Flow control | [→](backpressure.md) |
-| **Event Streaming** | 🥈 Silver | 💾 Data | Large | LinkedIn (Kafka) | Real-time processing | [→](event-streaming.md) |
-| **CDC** | 🥈 Silver | 💾 Data | Large | Debezium users | Change capture | [→](cdc.md) |
-| **Outbox Pattern** | 🥈 Silver | 💾 Data | Medium+ | E-commerce | Transactional messaging | [→](outbox.md) |
-| **Distributed Lock** | 🥈 Silver | 🤝 Coordination | Medium+ | Redis, Zookeeper | Mutual exclusion | [→](distributed-lock.md) |
-| **Leader Election** | 🥈 Silver | 🤝 Coordination | Medium+ | Kubernetes, Consul | Single writer | [→](leader-election.md) |
-| **State Watch** | 🥈 Silver | 🤝 Coordination | Medium+ | etcd, Zookeeper | Change notification | [→](state-watch.md) |
-| **Logical Clocks** | 🥈 Silver | 🤝 Coordination | Large | Distributed DBs | Event ordering | [→](logical-clocks.md) |
-| **Multi-Region** | 🥈 Silver | ⚙️ Operational | Large | Netflix, Spotify | Geographic distribution | [→](multi-region.md) |
-| **Cell-Based** | 🥈 Silver | ⚙️ Operational | Large | AWS, Slack | Blast radius control | [→](cell-based.md) |
-| **Edge Computing** | 🥈 Silver | ⚙️ Operational | Large | CloudFlare Workers | Process at edge | [→](edge-computing.md) |
-| **Service Registry** | 🥈 Silver | 🏗️ Core | Medium+ | Consul, Eureka | Service discovery | [→](service-registry.md) |
-| **Sidecar Pattern** | 🥈 Silver | 🏗️ Core | Medium+ | Envoy, Linkerd | Proxy pattern | [→](sidecar.md) |
-| **BFF** | 🥈 Silver | 🏗️ Core | Medium+ | Netflix, SoundCloud | Backend for Frontend | [→](backends-for-frontends.md) |
-| **GraphQL Federation** | 🥈 Silver | 🏗️ Core | Large | Apollo, Netflix | Distributed GraphQL | [→](graphql-federation.md) |
-| **Lambda Architecture** | 🥈 Silver | 💾 Data | Large | LinkedIn, Twitter | Batch + Stream | [→](lambda-architecture.md) |
-| **Materialized View** | 🥈 Silver | 💾 Data | Medium+ | PostgreSQL, Oracle | Precomputed results | [→](materialized-view.md) |
-| **Read Repair** | 🥈 Silver | 💾 Data | Large | Cassandra, Riak | Consistency repair | [→](read-repair.md) |
-| **Tunable Consistency** | 🥈 Silver | 💾 Data | Large | Cassandra, DynamoDB | Configurable consistency | [→](tunable-consistency.md) |
-| **Low/High-Water Marks** | 🥈 Silver | 💾 Data | Medium+ | Kafka, DBs | Flow control | [→](low-high-water-marks.md) |
-| **Generation Clock** | 🥈 Silver | 🤝 Coordination | Medium+ | Distributed systems | Epoch tracking | [→](generation-clock.md) |
-| **Lease** | 🥈 Silver | 🤝 Coordination | Medium+ | HDFS, GFS | Time-bound ownership | [→](lease.md) |
-| **Clock Sync** | 🥈 Silver | 🤝 Coordination | Large | Google Spanner | Time synchronization | [→](clock-sync.md) |
-| **Heartbeat** | 🥈 Silver | 🛡️ Resilience | All | All distributed systems | Failure detection | [→](heartbeat.md) |
-| **Eventual Consistency** | 🥈 Silver | 💾 Data | Large | NoSQL databases | Convergence guarantee | [→](eventual-consistency.md) |
-| **Shared Nothing** | 🥈 Silver | 🏗️ Core | Large | MPP databases | Complete isolation | [→](shared-nothing.md) |
-| **Observability Stack** | 🥈 Silver | ⚙️ Operational | Medium+ | Modern platforms | Full visibility | [→](observability.md) |
-| **Polyglot Persistence** | 🥈 Silver | 💾 Data | Large | Microservices | Multiple databases | [→](polyglot-persistence.md) |
-| **Request Routing** | 🥈 Silver | ⚙️ Operational | Medium+ | Load balancers | Smart routing | [→](request-routing.md) |
-| **Choreography** | 🥈 Silver | 🏗️ Core | Large | Event-driven systems | Decentralized workflow | [→](choreography.md) |
-| **Serverless/FaaS** | 🥉 Bronze | 🏗️ Core | Variable | AWS Lambda | Pay per use | [→](serverless-faas.md) |
-| **Request Batching** | 🥉 Bronze | 💾 Data | Medium+ | GraphQL, DBs | Reduce overhead | [→](request-batching.md) |
-| **LSM Tree** | 🥉 Bronze | 💾 Data | Large | RocksDB, Cassandra | Write optimization | [→](lsm-tree.md) |
-| **Segmented Log** | 🥉 Bronze | 💾 Data | Medium+ | Kafka, DBs | Log management | [→](segmented-log.md) |
-| **Distributed Storage** | 🥉 Bronze | 💾 Data | Large | HDFS, Ceph | Multi-node storage | [→](distributed-storage.md) |
-| **Emergent Leader** | 🥉 Bronze | 🤝 Coordination | Medium+ | Gossip systems | Natural selection | [→](emergent-leader.md) |
-| **Single-Socket Channel** | 🥉 Bronze | 🏗️ Core | Small | Custom protocols | Connection reuse | [→](single-socket-channel.md) |
-| **Ambassador Pattern** | 🥉 Bronze | 🏗️ Core | Medium | Kubernetes | Remote proxy | [→](ambassador.md) |
-| **Actor Model** | 🥉 Bronze | 🏗️ Core | Medium | Erlang, Akka | Message passing | [→](actor-model.md) |
-| **WebSocket Patterns** | 🥉 Bronze | 🏗️ Core | Medium | Real-time apps | Bidirectional comm | [→](websocket.md) |
-| **Data Mesh** | 🥉 Bronze | 💾 Data | Large | ThoughtWorks | Domain-oriented data | [→](data-mesh.md) |
-| **Kappa Architecture** | 🥉 Bronze | 💾 Data | Large | Stream-only systems | Simplified Lambda | [→](kappa-architecture.md) |
-| **Data Lake** | 🥉 Bronze | 💾 Data | Large | Big data platforms | Raw storage | [→](data-lake.md) |
-| **Valet Key** | 🥉 Bronze | 🛡️ Security | Medium | Cloud storage | Temporary access | [→](valet-key.md) |
-| **TCC** | 🥉 Bronze | 💾 Data | Medium | Business systems | Try-Confirm-Cancel | [→](tcc.md) |
-| **Idempotent Receiver** | 🥉 Bronze | 💾 Data | Medium | Message systems | Duplicate handling | [→](idempotent-receiver.md) |
-| **CAS** | 🥉 Bronze | 🤝 Coordination | Medium | Atomic operations | Compare and swap | [→](cas.md) |
-| **Gossip Protocol** | 🥉 Bronze | 🤝 Coordination | Large | Cassandra, Consul | Information spread | [→](gossip-protocol.md) |
-| **Anti-Entropy** | 🥉 Bronze | 💾 Data | Large | Eventually consistent | Repair divergence | [→](anti-entropy.md) |
-| **CRDTs** | 🥉 Bronze | 💾 Data | Large | Collaborative apps | Conflict-free merge | [→](crdt.md) |
-| **Merkle Trees** | 🥉 Bronze | 💾 Data | Large | Git, Blockchain | Efficient comparison | [→](merkle-trees.md) |
-| **Bloom Filter** | 🥉 Bronze | 💾 Data | Large | Databases, Caches | Set membership | [→](bloom-filter.md) |
-| **B-Tree** | 🥉 Bronze | 💾 Data | All | Databases | Ordered storage | [→](btree.md) |
-| **PBFT** | 🥉 Bronze | 🤝 Coordination | Small | Blockchain | Byzantine tolerance | [→](pbft.md) |
-| **Delta Sync** | 🥉 Bronze | 💾 Data | Medium | Mobile apps | Efficient sync | [→](delta-sync.md) |
-| **Compression Patterns** | 🥉 Bronze | ⚙️ Operational | All | Network systems | Bandwidth saving | [→](compression.md) |
-| **Protocol Buffers** | 🥉 Bronze | 🏗️ Core | Medium+ | gRPC, Google | Efficient serialization | [→](protobuf.md) |
-| **RPC Patterns** | 🥉 Bronze | 🏗️ Core | All | Microservices | Remote calls | [→](rpc.md) |
-| **Scheduler Patterns** | 🥉 Bronze | ⚙️ Operational | Large | Kubernetes, Mesos | Resource allocation | [→](scheduler.md) |
-| **Split-Brain Resolution** | 🥉 Bronze | 🛡️ Resilience | Medium+ | Clustered systems | Partition handling | [→](split-brain.md) |
-| **Cache Aside** | 🥉 Bronze | 💾 Data | All | Application caches | Lazy loading | [→](cache-aside.md) |
-| **Read-Through Cache** | 🥉 Bronze | 💾 Data | Medium | ORM systems | Transparent caching | [→](read-through-cache.md) |
-| **Write-Through Cache** | 🥉 Bronze | 💾 Data | Medium | Database caches | Sync writes | [→](write-through-cache.md) |
-| **Write-Behind Cache** | 🥉 Bronze | 💾 Data | Large | High-write systems | Async writes | [→](write-behind-cache.md) |
-| **Shared Database** | 🥉 Bronze | 💾 Data | Small | Legacy systems | Anti-pattern | [→](shared-database.md) |
-| **Stored Procedures** | 🥉 Bronze | 🏗️ Core | Small | Legacy databases | Business in DB | [→](stored-procedures.md) |
-| **Thick Client** | 🥉 Bronze | 🏗️ Core | Small | Desktop apps | Fat client anti-pattern | [→](thick-client.md) |
-| **Singleton Database** | 🥉 Bronze | 💾 Data | Small | Legacy monoliths | Single DB anti-pattern | [→](singleton-database.md) |
-| **Database per Service** | 🥇 Gold | 💾 Data | Medium+ | Microservices | Service autonomy | [→](database-per-service.md) |
+| **Priority Queue** | 🥇 Gold | 💾 Data | Production-ready | Task prioritization at scale | [→](priority-queue.md) |
+| **Geo-Distribution** | 🥇 Gold | ⚙️ Operational | Production-ready | Global data distribution | [→](geo-distribution.md) |
+| **Multi-Region** | 🥇 Gold | ⚙️ Operational | Production-ready | Geographic redundancy | [→](multi-region.md) |
+| **Service Registry** | 🥇 Gold | 🏗️ Core | Production-ready | Service metadata management | [→](service-registry.md) |
+| **Materialized View** | 🥇 Gold | 💾 Data | Production-ready | Precomputed query results | [→](materialized-view.md) |
+| **Polyglot Persistence** | 🥇 Gold | 💾 Data | Production-ready | Right database for right job | [→](polyglot-persistence.md) |
+| **Request Routing** | 🥇 Gold | ⚙️ Operational | Production-ready | Intelligent request distribution | [→](request-routing.md) |
+| **Distributed Storage** | 🥇 Gold | 💾 Data | Production-ready | Scalable storage systems | [→](distributed-storage.md) |
+| **Event-Driven** | 🥇 Gold | 🏗️ Core | Production-ready | Loosely coupled architectures | [→](event-driven.md) |
+| **Leader Election** | 🥇 Gold | 🤝 Coordination | Production-ready | Single coordinator selection | [→](leader-election.md) |
+| **Distributed Lock** | 🥇 Gold | 🤝 Coordination | Production-ready | Mutual exclusion at scale | [→](distributed-lock.md) |
+| **Saga Pattern** | 🥇 Gold | 🏗️ Core | Production-ready | Distributed transactions | [→](saga.md) |
+| **Event Sourcing** | 🥇 Gold | 🏗️ Core | Production-ready | Audit trail and temporal queries | [→](event-sourcing.md) |
+| **Service Mesh** | 🥈 Silver | 🏗️ Core | Production-ready | Service-to-service communication | [→](service-mesh.md) |
+| **Bulkhead** | 🥈 Silver | 🛡️ Resilience | Production-ready | Resource isolation | [→](bulkhead.md) |
+| **Graceful Degradation** | 🥈 Silver | 🛡️ Resilience | Production-ready | Feature reduction under load | [→](graceful-degradation.md) |
+| **Load Shedding** | 🥈 Silver | 🛡️ Resilience | Production-ready | Selective request dropping | [→](load-shedding.md) |
+| **Backpressure** | 🥈 Silver | 🛡️ Resilience | Production-ready | Flow control in streams | [→](backpressure.md) |
+| **Event Streaming** | 🥈 Silver | 💾 Data | Production-ready | Real-time data processing | [→](event-streaming.md) |
+| **CDC** | 🥈 Silver | 💾 Data | Production-ready | Database change capture | [→](cdc.md) |
+| **Outbox Pattern** | 🥈 Silver | 💾 Data | Production-ready | Transactional messaging | [→](outbox.md) |
+| **State Watch** | 🥈 Silver | 🤝 Coordination | Production-ready | Change notifications | [→](state-watch.md) |
+| **Logical Clocks** | 🥈 Silver | 🤝 Coordination | Production-ready | Event ordering | [→](logical-clocks.md) |
+| **Cell-Based** | 🥈 Silver | ⚙️ Operational | Production-ready | Blast radius isolation | [→](cell-based.md) |
+| **Edge Computing** | 🥈 Silver | ⚙️ Operational | Production-ready | Processing at network edge | [→](edge-computing.md) |
+| **Sidecar Pattern** | 🥈 Silver | 🏗️ Core | Production-ready | Service proxy pattern | [→](sidecar.md) |
+| **BFF** | 🥈 Silver | 🏗️ Core | Production-ready | Backend for Frontend | [→](backends-for-frontends.md) |
+| **GraphQL Federation** | 🥈 Silver | 🏗️ Core | Production-ready | Distributed GraphQL | [→](graphql-federation.md) |
+| **Lambda Architecture** | 🥈 Silver | 💾 Data | Production-ready | Batch + Stream processing | [→](lambda-architecture.md) |
+| **Read Repair** | 🥈 Silver | 💾 Data | Production-ready | Consistency repair on read | [→](read-repair.md) |
+| **Tunable Consistency** | 🥈 Silver | 💾 Data | Production-ready | Configurable consistency levels | [→](tunable-consistency.md) |
+| **Low/High-Water Marks** | 🥈 Silver | 💾 Data | Production-ready | Flow control boundaries | [→](low-high-water-marks.md) |
+| **Generation Clock** | 🥈 Silver | 🤝 Coordination | Production-ready | Epoch-based versioning | [→](generation-clock.md) |
+| **Lease** | 🥈 Silver | 🤝 Coordination | Production-ready | Time-bound ownership | [→](lease.md) |
+| **Clock Sync** | 🥈 Silver | 🤝 Coordination | Production-ready | Time synchronization | [→](clock-sync.md) |
+| **Shared Nothing** | 🥈 Silver | 🏗️ Core | Production-ready | Complete isolation | [→](shared-nothing.md) |
+| **Choreography** | 🥈 Silver | 🏗️ Core | Production-ready | Decentralized workflow | [→](choreography.md) |
+| **Request Batching** | 🥈 Silver | 💾 Data | Production-ready | Reducing overhead | [→](request-batching.md) |
+| **Segmented Log** | 🥈 Silver | 💾 Data | Production-ready | Log management | [→](segmented-log.md) |
+| **Strangler Fig** | 🥈 Silver | ⚙️ Operational | Production-ready | Legacy system migration | [→](strangler-fig.md) |
+| **Anti-Corruption Layer** | 🥈 Silver | 🏗️ Core | Production-ready | Domain isolation | [→](anti-corruption-layer.md) |
+| **Scatter-Gather** | 🥈 Silver | 🏗️ Core | Production-ready | Parallel request processing | [→](scatter-gather.md) |
+| **Split-Brain Resolution** | 🥈 Silver | 🛡️ Resilience | Production-ready | Network partition handling | [→](split-brain.md) |
+| **HLC** | 🥈 Silver | 🤝 Coordination | Production-ready | Hybrid logical clocks | [→](hlc.md) |
+| **CRDT** | 🥈 Silver | 💾 Data | Production-ready | Conflict-free data types | [→](crdt.md) |
+| **Merkle Trees** | 🥈 Silver | 💾 Data | Production-ready | Efficient data verification | [→](merkle-trees.md) |
+| **Bloom Filter** | 🥈 Silver | 💾 Data | Production-ready | Probabilistic set membership | [→](bloom-filter.md) |
+| **Geo-Replication** | 🥈 Silver | 💾 Data | Production-ready | Geographic data replication | [→](geo-replication.md) |
+| **Kappa Architecture** | 🥈 Silver | 💾 Data | Production-ready | Stream-only processing | [→](kappa-architecture.md) |
+| **Fault Tolerance** | 🥈 Silver | 🛡️ Resilience | Production-ready | System resilience patterns | [→](fault-tolerance.md) |
+| **Serverless/FaaS** | 🥉 Bronze | 🏗️ Core | Emerging | Event-driven compute | [→](serverless-faas.md) |
+| **LSM Tree** | 🥉 Bronze | 💾 Data | Specialized | Write-optimized storage | [→](lsm-tree.md) |
+| **Emergent Leader** | 🥉 Bronze | 🤝 Coordination | Specialized | Natural leader selection | [→](emergent-leader.md) |
+| **Single-Socket Channel** | 🥉 Bronze | 🏗️ Core | Specialized | Connection multiplexing | [→](single-socket-channel.md) |
+| **Ambassador Pattern** | 🥉 Bronze | 🏗️ Core | Specialized | Remote service proxy | [→](ambassador.md) |
+| **Actor Model** | 🥉 Bronze | 🏗️ Core | Specialized | Message-based concurrency | [→](actor-model.md) |
+| **WebSocket Patterns** | 🥉 Bronze | 🏗️ Core | Specialized | Real-time bidirectional | [→](websocket.md) |
+| **Data Mesh** | 🥉 Bronze | 💾 Data | Emerging | Domain-oriented data | [→](data-mesh.md) |
+| **Data Lake** | 🥉 Bronze | 💾 Data | Specialized | Raw data storage | [→](data-lake.md) |
+| **Valet Key** | 🥉 Bronze | 🛡️ Security | Specialized | Temporary access tokens | [→](valet-key.md) |
+| **CAS** | 🥉 Bronze | 🤝 Coordination | Specialized | Compare-and-swap operations | [→](cas.md) |
+| **Delta Sync** | 🥉 Bronze | 💾 Data | Specialized | Efficient data synchronization | [→](delta-sync.md) |
+| **Shared Database** | 🥉 Bronze | 💾 Data | Anti-pattern | Multiple services, one DB | [→](shared-database.md) |
+| **Stored Procedures** | 🥉 Bronze | 🏗️ Core | Legacy | Business logic in database | [→](stored-procedures.md) |
+| **Thick Client** | 🥉 Bronze | 🏗️ Core | Legacy | Heavy client-side logic | [→](thick-client.md) |
+| **Singleton Database** | 🥉 Bronze | 💾 Data | Anti-pattern | Single point of failure | [→](singleton-database.md) |
+| **Deduplication** | 🥉 Bronze | 💾 Data | Specialized | Removing duplicate data | [→](deduplication.md) |
+| **Chunking** | 🥉 Bronze | 💾 Data | Specialized | Data partitioning | [→](chunking.md) |
+| **Geohashing** | 🥉 Bronze | 💾 Data | Specialized | Spatial indexing | [→](geohashing.md) |
+| **ID Generation at Scale** | 🥉 Bronze | 💾 Data | Specialized | Distributed ID generation | [→](id-generation-scale.md) |
+| **Time-Series IDs** | 🥉 Bronze | 💾 Data | Specialized | Time-based identifiers | [→](time-series-ids.md) |
+| **URL Normalization** | 🥉 Bronze | 💾 Data | Specialized | Canonical URL forms | [→](url-normalization.md) |
+| **Tile Caching** | 🥉 Bronze | 💾 Data | Specialized | Map tile optimization | [→](tile-caching.md) |
+| **Adaptive Scheduling** | 🥉 Bronze | ⚙️ Operational | Specialized | Dynamic task scheduling | [→](adaptive-scheduling.md) |
+| **Analytics at Scale** | 🥉 Bronze | 💾 Data | Specialized | Big data processing | [→](analytics-scale.md) |
 
 </div>
 
@@ -175,23 +174,23 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
         <div style="text-align: center;">
             <h4 style="margin: 0;">🏗️ Core</h4>
-            <p style="font-size: 1.5rem; margin: 0.5rem 0;">22</p>
+            <p style="font-size: 1.5rem; margin: 0.5rem 0;">28</p>
         </div>
         <div style="text-align: center;">
             <h4 style="margin: 0;">🛡️ Resilience</h4>
-            <p style="font-size: 1.5rem; margin: 0.5rem 0;">15</p>
+            <p style="font-size: 1.5rem; margin: 0.5rem 0;">14</p>
         </div>
         <div style="text-align: center;">
             <h4 style="margin: 0;">💾 Data</h4>
-            <p style="font-size: 1.5rem; margin: 0.5rem 0;">35</p>
+            <p style="font-size: 1.5rem; margin: 0.5rem 0;">40</p>
         </div>
         <div style="text-align: center;">
             <h4 style="margin: 0;">🤝 Coordination</h4>
-            <p style="font-size: 1.5rem; margin: 0.5rem 0;">12</p>
+            <p style="font-size: 1.5rem; margin: 0.5rem 0;">10</p>
         </div>
         <div style="text-align: center;">
             <h4 style="margin: 0;">⚙️ Operational</h4>
-            <p style="font-size: 1.5rem; margin: 0.5rem 0;">11</p>
+            <p style="font-size: 1.5rem; margin: 0.5rem 0;">9</p>
         </div>
     </div>
 </div>
@@ -268,11 +267,11 @@ function updateCatalogStats() {
 
 function exportCatalog() {
     const rows = document.querySelectorAll('#catalog-table-container table tbody tr:not([style*="display: none"])');
-    let csv = 'Pattern,Tier,Category,Scale,Companies Using,Key Benefit\n';
+    let csv = 'Pattern,Tier,Category,Status,Use When\n';
     
     rows.forEach(row => {
         const cells = row.cells;
-        csv += `"${cells[0].textContent}","${cells[1].textContent}","${cells[2].textContent}","${cells[3].textContent}","${cells[4].textContent}","${cells[5].textContent}"\n`;
+        csv += `"${cells[0].textContent}","${cells[1].textContent}","${cells[2].textContent}","${cells[3].textContent}","${cells[4].textContent}"\n`;
     });
     
     const blob = new Blob([csv], { type: 'text/csv' });
