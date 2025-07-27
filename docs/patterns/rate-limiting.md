@@ -2478,9 +2478,9 @@ This pattern directly addresses:
 ### Foundational Pillars
 Rate Limiting implements:
 
-- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Controls and distributes workload across time
-- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Enforces access control policies
-- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Adapts limits based on system conditions
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/index.md)**: Controls and distributes workload across time
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/index.md)**: Enforces access control policies
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/index.md)**: Adapts limits based on system conditions
 
 ---
 

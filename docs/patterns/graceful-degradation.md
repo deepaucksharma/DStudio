@@ -956,9 +956,9 @@ This pattern directly addresses:
 ### Foundational Pillars
 Graceful Degradation implements:
 
-- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Prioritizes critical work during resource constraints
-- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Manages feature availability dynamically
-- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Makes intelligent decisions about what to degrade
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/index.md)**: Prioritizes critical work during resource constraints
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/index.md)**: Manages feature availability dynamically
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/index.md)**: Makes intelligent decisions about what to degrade
 
 ---
 

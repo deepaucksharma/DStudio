@@ -2175,9 +2175,9 @@ This pattern directly addresses:
 ### Foundational Pillars
 Retry & Backoff implements:
 
-- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/)**: Distributes retry load over time
-- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/)**: Each service controls its own retry policy
-- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/)**: Adaptive retry strategies learn from failure patterns
+- **[Pillar 1: Distribution of Work 💪](../part2-pillars/work/index.md)**: Distributes retry load over time
+- **[Pillar 4: Distribution of Control 🎮](../part2-pillars/control/index.md)**: Each service controls its own retry policy
+- **[Pillar 5: Distribution of Intelligence 🤖](../part2-pillars/intelligence/index.md)**: Adaptive retry strategies learn from failure patterns
 
 ---
 

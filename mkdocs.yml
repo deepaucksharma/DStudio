@@ -417,7 +417,7 @@ nav:
     
     - Data Patterns:
       - Sharding: patterns/sharding.md
-      # - CRDT: patterns/crdt.md  # Archived - academic pattern
+      - CRDT: patterns/crdt.md
       - Event Streaming: patterns/event-streaming.md
       - CDC: patterns/cdc.md
       - Outbox: patterns/outbox.md
@@ -431,6 +431,11 @@ nav:
       # - Anti-Entropy: patterns/anti-entropy.md  # Deprecated - redirects to event-sourcing.md
       # - Vector Clocks: patterns/vector-clocks.md  # Deprecated - redirects to hlc.md
       - Logical Clocks: patterns/logical-clocks.md
+      - HLC (Hybrid Logical Clocks): patterns/hlc.md
+      - Bloom Filter: patterns/bloom-filter.md
+      - Merkle Trees: patterns/merkle-trees.md
+      - Data Lake: patterns/data-lake.md
+      - Data Mesh: patterns/data-mesh.md
       # - Hybrid Logical Clocks: patterns/hlc.md  # Archived - academic pattern
       - Generation Clock: patterns/generation-clock.md
       - Low-High Water Marks: patterns/low-high-water-marks.md
@@ -476,6 +481,12 @@ nav:
       - Deduplication: patterns/deduplication.md
       - Delta Sync: patterns/delta-sync.md
       - Chunking: patterns/chunking.md
+      - Leader-Follower: patterns/leader-follower.md
+      - Emergent Leader: patterns/emergent-leader.md
+      - Single Socket Channel: patterns/single-socket-channel.md
+      - Singleton Database: patterns/singleton-database.md
+      - Stored Procedures: patterns/stored-procedures.md
+      - Thick Client: patterns/thick-client.md
     
     - Security Patterns:
       # - E2E Encryption: patterns/e2e-encryption.md  # Archived - overly specific
@@ -687,9 +698,23 @@ nav:
   
   - Human Factors:
     - Overview: human-factors/index.md
-    - SRE Practices: human-factors/sre-practices.md
-    - Chaos Engineering: human-factors/chaos-engineering.md
-    - Observability: human-factors/observability-stacks.md
+    
+    - Operational Excellence:
+      - SRE Practices: human-factors/sre-practices.md
+      - Chaos Engineering: human-factors/chaos-engineering.md
+      - Observability: human-factors/observability-stacks.md
+      - Incident Response: human-factors/incident-response.md
+      - Blameless Postmortems: human-factors/blameless-postmortems.md
+      - On-Call Culture: human-factors/oncall-culture.md
+    
+    - Team & Organization:
+      - Team Topologies: human-factors/team-topologies.md
+      - Org Structure: human-factors/org-structure.md
+      - Knowledge Management: human-factors/knowledge-management.md
+    
+    - Operational Guides:
+      - Runbooks & Playbooks: human-factors/runbooks-playbooks.md
+      - Consistency Tuning: human-factors/consistency-tuning.md
   
   - Reference:
     - Overview: reference/index.md
