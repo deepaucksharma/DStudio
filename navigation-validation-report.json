@@ -1,50 +1,34 @@
 {
-  "timestamp": "2025-07-27T12:21:49.344904",
+  "timestamp": "2025-07-27T12:28:59.095068",
   "stats": {
-    "total_files": 550,
-    "files_in_nav": 371,
-    "orphaned_files": 179,
+    "total_files": 555,
+    "files_in_nav": 393,
+    "orphaned_files": 162,
     "broken_links": 0,
     "duplicate_entries": 0
   },
   "percentages": {
-    "navigation_coverage": 67.45,
-    "orphan_rate": 32.55
+    "navigation_coverage": 70.81,
+    "orphan_rate": 29.19
   },
   "issues": [],
-  "warnings": [
-    "Deep navigation nesting (level 4) at: [2]/Patterns[11]/Browse All Patterns[4]/Excellence Guides[4]/Migration Guides",
-    "Deep navigation nesting (level 4) at: [2]/Patterns[11]/Browse All Patterns[4]/Excellence Guides[4]/Migration Guides[0]",
-    "Deep navigation nesting (level 4) at: [2]/Patterns[11]/Browse All Patterns[4]/Excellence Guides[4]/Migration Guides[1]",
-    "Deep navigation nesting (level 4) at: [2]/Patterns[11]/Browse All Patterns[4]/Excellence Guides[4]/Migration Guides[2]",
-    "Deep navigation nesting (level 4) at: [2]/Patterns[11]/Browse All Patterns[4]/Excellence Guides[4]/Migration Guides[3]"
-  ],
+  "warnings": [],
   "broken_links": [],
   "duplicate_entries": [],
   "orphaned_files": [
     "axioms/index.md",
     "case-studies/CASE_STUDY_TEMPLATE.md",
     "case-studies/STUB_CREATION_REPORT.md",
-    "case-studies/cassandra-enhanced.md",
-    "case-studies/consistency-deep-dive-chat.md",
-    "case-studies/distributed-message-queue.md",
     "case-studies/elite-engineering/CASE_STUDIES_COMPLETE.md",
-    "case-studies/object-storage.md",
-    "case-studies/redis.md",
-    "case-studies/twitter-timeline.md",
-    "case-studies/youtube.md",
-    "examples/circuit-breaker-annotated.md",
-    "examples/law1-failure-enhanced.md",
     "examples/layout-test.md",
     "examples/material-features-showcase.md",
     "examples/material-grid-examples.md",
     "examples/material-transformations.md",
     "examples/mkdocs-responsive-config.md",
-    "examples/progressive-disclosure.md",
     "examples/responsive-layouts-guide.md",
-    "examples/responsive-patterns-showcase.md",
     "excellence/EXCELLENCE_GUIDES_COMPLETE.md",
     "excellence/EXCELLENCE_STRUCTURE_COMPLETE.md",
+    "excellence/comparisons/resilience-patterns-comparison.md",
     "excellence/guides/index.md",
     "excellence/migrations/MIGRATION_GUIDES_COMPLETE.md",
     "excellence/transformation/archive/DSTUDIO_EXCELLENCE_IMPLEMENTATION_PLAN.md",
@@ -178,17 +162,10 @@
     "patterns/archive/vector-clocks.md",
     "patterns/archive/write-behind-cache.md",
     "patterns/archive/write-through-cache.md",
-    "patterns/cap-theorem.md",
-    "patterns/circuit-breaker-enhanced.md",
-    "patterns/circuit-breaker-native.md",
     "patterns/excellence/enterprise-pack.md",
     "patterns/excellence/scale-pack.md",
     "patterns/index-navigation.md",
     "patterns/index-new.md",
-    "patterns/queues-streaming.md",
-    "patterns/saga-enhanced.md",
-    "patterns/timeout-advanced.md",
-    "pillars/index.md",
     "quantitative/cap-theorem-enhanced.md",
     "quantitative/comp-geometry.md",
     "tags.md",
@@ -232,7 +209,7 @@
     ]
   },
   "summary": {
-    "health_score": "F",
+    "health_score": "D",
     "recommendation": "HIGH: Review and integrate orphaned files"
   }
 }

@@ -164,6 +164,7 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
 | **Tile Caching** | 🥉 Bronze | 💾 Data | Specialized | Map tile optimization | [→](tile-caching.md) |
 | **Adaptive Scheduling** | 🥉 Bronze | ⚙️ Operational | Specialized | Dynamic task scheduling | [→](adaptive-scheduling.md) |
 | **Analytics at Scale** | 🥉 Bronze | 💾 Data | Specialized | Big data processing | [→](analytics-scale.md) |
+| **Spatial Indexing** | 🥈 Silver | 💾 Data | Production-ready | Efficient geographic queries | [→](spatial-indexing.md) |
 
 </div>
 

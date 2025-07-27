@@ -22,7 +22,7 @@ modern_alternatives:
   - "Database sharding"
   - "Polyglot persistence"
 deprecation_reason: "Single point of failure, no horizontal scaling, availability risks, performance bottlenecks, and inability to handle modern distributed workloads"
-migration_guide: "[Scale Beyond Singleton Database](../excellence/migrations/singleton-to-distributed-data.md)"
+migration_guide: "[Scale Beyond Singleton Database](../excellence/migrations/shared-database-to-microservices.md)"
 ---
 
 # Singleton Database Pattern

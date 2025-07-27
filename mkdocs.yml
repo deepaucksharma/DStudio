@@ -351,6 +351,7 @@ nav:
     
     - The 5 Pillars:
       - Overview: part2-pillars/index.md
+      - Pillars Index: pillars/index.md
       - Pillar 1 - Work Distribution:
         - Concept: part2-pillars/work/index.md
         - Examples: part2-pillars/work/examples.md
@@ -388,9 +389,11 @@ nav:
       - Event Sourcing: patterns/event-sourcing.md
       - CQRS: patterns/cqrs.md
       - Saga: patterns/saga.md
+      - Saga Enhanced: patterns/saga-enhanced.md
       - Choreography: patterns/choreography.md
       - Actor Model: patterns/actor-model.md
       - WebSocket: patterns/websocket.md
+      - Queues & Streaming: patterns/queues-streaming.md
       - GraphQL Federation: patterns/graphql-federation.md
       - Publish-Subscribe: patterns/publish-subscribe.md
       - Distributed Queue: patterns/distributed-queue.md
@@ -401,9 +404,12 @@ nav:
     
     - Resilience Patterns:
       - Circuit Breaker: patterns/circuit-breaker.md
+      - Circuit Breaker Enhanced: patterns/circuit-breaker-enhanced.md
+      - Circuit Breaker Native: patterns/circuit-breaker-native.md
       - Retry & Backoff: patterns/retry-backoff.md
       - Bulkhead: patterns/bulkhead.md
       - Timeout: patterns/timeout.md
+      - Timeout Advanced: patterns/timeout-advanced.md
       - Health Check: patterns/health-check.md
       - Failover: patterns/failover.md
       - Load Shedding: patterns/load-shedding.md
@@ -456,6 +462,7 @@ nav:
       - Materialized View: patterns/materialized-view.md
       - Shared Database: patterns/shared-database.md
       - Database per Service: patterns/database-per-service.md
+      - CAP Theorem: patterns/cap-theorem.md
     
     - Scaling Patterns:
       - Auto-Scaling: patterns/auto-scaling.md
@@ -520,38 +527,32 @@ nav:
       - By Category: patterns/pattern-catalog.md#by-category
       - By Excellence Tier: patterns/pattern-catalog.md#by-tier
       - By Use Case: patterns/pattern-catalog.md#by-use-case
-      - Excellence Guides:
-        - Gold Tier Guide: patterns/excellence/gold-tier-guide.md
-        - Silver Tier Guide: patterns/excellence/silver-tier-guide.md
-        - Bronze Tier Guide: patterns/excellence/bronze-tier-guide.md
-        - Starter Pack: patterns/excellence/starter-pack.md
-        - Migration Guides:
-          - Vector Clocks to HLC: excellence/migrations/vector-clocks-to-hlc.md
-          - Master-Slave to Multi-Primary: excellence/migrations/master-slave-to-multi-primary.md
-          - Shared DB to Microservices: excellence/migrations/shared-database-to-microservices.md
-          - Thick Client to API-First: excellence/migrations/thick-client-to-api-first.md
-      - Pattern Packs:
-        - Starter Pack: patterns/excellence/starter-pack.md
-        # Scale Pack and Enterprise Pack are planned features
       - Pattern Health Dashboard: reference/pattern-health-dashboard.md
-      - Excellence Best Practices:
-        - Data Consistency: excellence/guides/data-consistency.md
-        - Migration Strategies: excellence/guides/migration-strategies.md
-        - Operational Excellence: excellence/guides/operational-excellence.md
-        - Performance Optimization: excellence/guides/performance-optimization.md
-        - Resilience First: excellence/guides/resilience-first.md
-        - Security Patterns: excellence/guides/security-patterns.md
-        - Service Communication: excellence/guides/service-communication.md
     
     - Browse All: patterns/index.md#all-patterns
   
   - Excellence Framework:
     - Overview: excellence/index.md
     - Framework: excellence/framework-overview.md
+    
+    - Pattern Excellence:
+      - Gold Tier Guide: patterns/excellence/gold-tier-guide.md
+      - Silver Tier Guide: patterns/excellence/silver-tier-guide.md
+      - Bronze Tier Guide: patterns/excellence/bronze-tier-guide.md
+      - Starter Pack: patterns/excellence/starter-pack.md
+    
     - Guides:
       - Modern Systems 2025: excellence/guides/modern-distributed-systems-2025.md
       - Platform Engineering: excellence/guides/platform-engineering-playbook.md
       - Quick Start: excellence/guides/quick-start-guide.md
+      - Data Consistency: excellence/guides/data-consistency.md
+      - Operational Excellence: excellence/guides/operational-excellence.md
+      - Performance Optimization: excellence/guides/performance-optimization.md
+      - Resilience First: excellence/guides/resilience-first.md
+      - Security Patterns: excellence/guides/security-patterns.md
+      - Service Communication: excellence/guides/service-communication.md
+      - Migration Strategies: excellence/guides/migration-strategies.md
+    
     - Migration Playbooks:
       - Overview: excellence/migrations/index.md
       - 2PC to Saga: excellence/migrations/2pc-to-saga.md
@@ -559,10 +560,21 @@ nav:
       - Monolith to Microservices: excellence/migrations/monolith-to-microservices.md
       - Batch to Streaming: excellence/migrations/batch-to-streaming.md
       - Vector Clocks to HLC: excellence/migrations/vector-clocks-to-hlc.md
+      - Master-Slave to Multi-Primary: excellence/migrations/master-slave-to-multi-primary.md
+      - Shared DB to Microservices: excellence/migrations/shared-database-to-microservices.md
+      - Thick Client to API-First: excellence/migrations/thick-client-to-api-first.md
       - Gossip to Service Mesh: excellence/migrations/gossip-to-service-mesh.md
       - Anti-Entropy to CRDT: excellence/migrations/anti-entropy-to-crdt.md
+    
     - Case Studies:
       - Overview: excellence/case-studies/index.md
+    
+    - Pattern Comparisons:
+      - Caching Patterns: excellence/comparisons/caching-patterns-comparison.md
+      - Consistency Patterns: excellence/comparisons/consistency-patterns-comparison.md
+      - Deployment Patterns: excellence/comparisons/deployment-patterns-comparison.md
+      - Messaging Patterns: excellence/comparisons/messaging-patterns-comparison.md
+      - Resilience Patterns: excellence/comparisons/resilience-patterns-comparison.md
   
   - Quantitative:
     - Overview: quantitative/index.md
@@ -640,6 +652,10 @@ nav:
       - Unique ID Generator: case-studies/unique-id-generator.md
       - Search Autocomplete: case-studies/search-autocomplete.md
       - Consistent Hashing: case-studies/consistent-hashing.md
+      - Distributed Message Queue: case-studies/distributed-message-queue.md
+      - Object Storage: case-studies/object-storage.md
+      - YouTube Architecture: case-studies/youtube.md
+      - Consistency Deep Dive: case-studies/consistency-deep-dive-chat.md
     
     - Advanced Systems:
       - Notification System: case-studies/notification-system.md
@@ -657,10 +673,12 @@ nav:
     
     - Databases:
       - Cassandra: case-studies/cassandra.md
+      - Cassandra Enhanced: case-studies/cassandra-enhanced.md
       - MongoDB: case-studies/mongodb.md
       - Elasticsearch: case-studies/elasticsearch.md
       - etcd: case-studies/etcd.md
       - Amazon DynamoDB: case-studies/amazon-dynamo.md
+      - Redis: case-studies/redis.md
     
     - Infrastructure:
       - Object Storage (S3): case-studies/s3-object-storage-enhanced.md
@@ -684,6 +702,7 @@ nav:
       - Social Graph: case-studies/social-graph.md
       - Social Media Feed: case-studies/social-media-feed.md
       - Nearby Friends: case-studies/nearby-friends.md
+      - Twitter Timeline: case-studies/twitter-timeline.md
     
     - Monitoring & Observability:
       - Prometheus/Datadog: case-studies/prometheus-datadog-enhanced.md
@@ -812,3 +831,9 @@ nav:
       - Navigation Guide: reference/navigation-guide.md
       - Navigation Maintenance: reference/navigation-maintenance.md
       - Admonition Guide: reference/admonition-guide.md
+    
+    - Examples & Demos:
+      - Circuit Breaker Annotated: examples/circuit-breaker-annotated.md
+      - Law 1 Failure Example: examples/law1-failure-enhanced.md
+      - Progressive Disclosure: examples/progressive-disclosure.md
+      - Responsive Patterns: examples/responsive-patterns-showcase.md

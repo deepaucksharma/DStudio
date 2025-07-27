@@ -22,7 +22,7 @@ modern_alternatives:
   - "Serverless functions"
   - "Stream processing"
 deprecation_reason: "Vendor lock-in, difficult testing, poor version control, no horizontal scaling, mixing concerns between data and business logic"
-migration_guide: "[Extract Business Logic from Database](../excellence/migrations/stored-procedures-to-services.md)"
+migration_guide: "[Extract Business Logic from Database](../excellence/migrations/monolith-to-microservices.md)"
 ---
 
 # Stored Procedures Pattern
@@ -234,8 +234,8 @@ graph LR
 
 ## Related Patterns
 
-- [Domain-Driven Design](../excellence/guides/domain-driven-design.md) - Proper business logic placement
-- [Microservices](../excellence/guides/microservices-architecture.md) - Service-based logic
+- [Domain-Driven Design](../excellence/guides/service-communication.md) - Proper business logic placement
+- [Microservices](../excellence/guides/service-communication.md) - Service-based logic
 - [API Gateway](api-gateway.md) - External interface layer
 - [CQRS](cqrs.md) - Separate read/write models
 - [Event Sourcing](event-sourcing.md) - Audit without stored procedures

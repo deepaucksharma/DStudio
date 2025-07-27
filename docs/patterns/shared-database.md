@@ -21,7 +21,7 @@ modern_alternatives:
   - "API-based data access"
   - "CQRS with separate read models"
 deprecation_reason: "Creates tight coupling between services, violates microservices principles, causes scaling bottlenecks, and prevents independent deployments"
-migration_guide: "[Migrate to Database per Service](../excellence/migrations/shared-to-isolated-databases.md)"
+migration_guide: "[Migrate to Database per Service](../excellence/migrations/shared-database-to-microservices.md)"
 ---
 
 # Shared Database Pattern

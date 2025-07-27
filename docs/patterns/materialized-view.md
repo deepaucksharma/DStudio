@@ -296,6 +296,44 @@ graph TB
 | **Query Rewrite Rate** | < 50% | Optimize rules |
 | **Refresh Failures** | > 2 consecutive | Page on-call |
 
+<div class="truth-box">
+<h4>💡 Materialized View Production Insights</h4>
+
+**The 10-100-1000 Rule:**
+- 10x: Typical query speedup from materialization
+- 100x: Storage cost increase (worth it!)
+- 1000x: Maintenance complexity for real-time views
+
+**Staleness Reality:**
+```
+User Tolerance:
+- Analytics dashboards: 1-24 hours
+- Search results: 1-5 minutes
+- Shopping recommendations: 1 hour
+- Financial reports: End of day
+```
+
+**Real-World Patterns:**
+- 80% of queries hit 20% of materialized views
+- View refresh failures spike during schema changes
+- Incremental refresh breaks more often than full refresh
+- Most "real-time" requirements are actually "near-time"
+
+**Production Wisdom:**
+> "The fastest query is the one that's already been answered. Materialized views are just very patient query results."
+
+**Economic Truth:**
+- Storage cost: $0.023/GB/month (S3)
+- Compute cost: $0.10/hour (refresh job)
+- Engineer debugging stale view: $200/hour
+- Business decision on wrong data: $Millions
+
+**The Three Commandments of Materialization:**
+1. **Monitor staleness religiously** - Users won't tell you
+2. **Version your view schemas** - Migrations are hell
+3. **Plan for refresh failures** - They will happen
+</div>
+
 ## Related Patterns
 
 - [Caching Strategies](caching-strategies.md) - In-memory materialization

@@ -659,6 +659,43 @@ graph TD
 | **Limited operations** | Not all ops have CRDT | Design around available types |
 | **Network overhead** | State/metadata transfer | Use delta-CRDTs |
 
+<div class="truth-box">
+<h4>💡 CRDT Production Insights</h4>
+
+**The 10-100-1000 Rule:**
+- 10KB: Typical CRDT metadata per object
+- 100x: Metadata growth vs. raw data
+- 1000ms: Maximum anti-entropy interval
+
+**Metadata Growth Reality:**
+```
+Simple counter: 100 bytes
+OR-Set (1K items): 50KB
+RGA (10K char doc): 500KB
+Without GC: 10MB+ after a year!
+```
+
+**Real-World Patterns:**
+- 90% of CRDT bugs are in garbage collection
+- Tombstones account for 60% of storage
+- Clock skew causes 25% of "convergence" issues
+- Most apps only need 2-3 CRDT types
+
+**Production Wisdom:**
+> "CRDTs are like mechanical watches - beautiful engineering, but a digital watch tells time just fine. Use the simplest solution that works."
+
+**Economic Reality:**
+- CRDT library: 6-12 months to build correctly
+- Metadata storage: 10-100x raw data cost
+- Network bandwidth: 5-10x increase
+- Bug fix cost: $500K+ per correctness issue
+
+**The Three Laws of CRDTs:**
+1. **Convergence is not correctness** - Can converge to wrong state
+2. **Metadata grows forever** - Plan garbage collection day 1
+3. **Simpler is better** - LWW solves 80% of use cases
+</div>
+
 ## Related Patterns
 
 - [Eventual Consistency](eventual-consistency.md) - The consistency model CRDTs provide
