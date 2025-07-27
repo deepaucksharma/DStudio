@@ -66,26 +66,26 @@ graph TD
 ```
 
 ### Quick Links
-- [Complete Study Guide](google-interviews/preparation-guide) - Start here for comprehensive preparation
-- [Pattern Library](google-interviews/../../patterns/index.md) - Essential Google design patterns
-- [Practice Problems](google-interviews/practice-problems.md) - Real interview scenarios
+- [Complete Study Guide](preparation-guide.md) - Start here for comprehensive preparation
+- [Pattern Library](../patterns/index.md) - Essential Google design patterns
+- [Practice Problems](practice-problems.md) - Real interview scenarios
 - [Evaluation Framework] (Framework Coming Soon) - How you'll be assessed
-- [Common Pitfalls](google-interviews/common-mistakes) - Mistakes to avoid
+- [Common Pitfalls](common-mistakes.md) - Mistakes to avoid
 
 ## Google Systems Coverage Matrix
 
 | System | Difficulty | Prep Time | Key Focus Areas | Resources |
 |--------|------------|-----------|-----------------|-----------|
-| **Search** | ⭐⭐⭐⭐⭐ | 8-10 hrs | PageRank, Indexing, Query Processing | [Guide](google-interviews/google-search) |
-| **Ads** | ⭐⭐⭐⭐⭐ | 8-10 hrs | RTB, CTR Prediction, Auction | [Guide](google-interviews/patterns/application/ads-systems.md) |
-| **YouTube** | ⭐⭐⭐⭐ | 6-8 hrs | Video Processing, CDN, Recommendations | [Guide](google-interviews/patterns/application/media-platforms.md) |
-| **Maps** | ⭐⭐⭐⭐ | 6-8 hrs | Geospatial, Routing, Real-time Updates | [Guide](google-interviews/patterns/infrastructure/geo-systems.md) |
-| **Gmail** | ⭐⭐⭐ | 4-6 hrs | Email Delivery, Spam, Storage | [Guide](google-interviews/patterns/application/communication-systems.md) |
-| **Drive** | ⭐⭐⭐ | 4-6 hrs | File Sync, Collaboration, Versioning | [Guide](google-interviews/patterns/data/storage-systems.md) |
-| **Photos** | ⭐⭐⭐ | 4-6 hrs | ML Pipeline, Storage, Search | [Guide](google-interviews/patterns/data/ml-data-systems.md) |
-| **Play Store** | ⭐⭐⭐ | 4-6 hrs | App Distribution, Updates, Analytics | [Guide](google-interviews/patterns/application/marketplace-systems.md) |
-| **Cloud Platform** | ⭐⭐⭐⭐ | 6-8 hrs | Multi-tenancy, Resource Management | [Guide](google-interviews/patterns/infrastructure/cloud-infrastructure.md) |
-| **Android** | ⭐⭐⭐⭐ | 6-8 hrs | OS Updates, App Framework, Play Services | [Guide](google-interviews/patterns/infrastructure/mobile-platforms.md) |
+| **Search** | ⭐⭐⭐⭐⭐ | 8-10 hrs | PageRank, Indexing, Query Processing | [Guide](google-search.md) |
+| **Ads** | ⭐⭐⭐⭐⭐ | 8-10 hrs | RTB, CTR Prediction, Auction | [Guide](google-ads.md) |
+| **YouTube** | ⭐⭐⭐⭐ | 6-8 hrs | Video Processing, CDN, Recommendations | [Guide](youtube-walkthrough.md) |
+| **Maps** | ⭐⭐⭐⭐ | 6-8 hrs | Geospatial, Routing, Real-time Updates | [Guide](maps-walkthrough.md) |
+| **Gmail** | ⭐⭐⭐ | 4-6 hrs | Email Delivery, Spam, Storage | [Guide](gmail-walkthrough.md) |
+| **Drive** | ⭐⭐⭐ | 4-6 hrs | File Sync, Collaboration, Versioning | [Guide](../case-studies/google-drive.md) |
+| **Photos** | ⭐⭐⭐ | 4-6 hrs | ML Pipeline, Storage, Search | [Guide](google-photos.md) |
+| **Play Store** | ⭐⭐⭐ | 4-6 hrs | App Distribution, Updates, Analytics | [Guide](../case-studies/marketplace-systems.md) |
+| **Cloud Platform** | ⭐⭐⭐⭐ | 6-8 hrs | Multi-tenancy, Resource Management | [Guide](../patterns/multi-region.md) |
+| **Android** | ⭐⭐⭐⭐ | 6-8 hrs | OS Updates, App Framework, Play Services | [Guide](../patterns/edge-computing.md) |
 
 
 ### Difficulty Levels

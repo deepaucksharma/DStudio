@@ -577,6 +577,6 @@ Link to patterns:
 
 - [Distributed Storage](google-interviews/../../patterns/distributed-storage.md) - For email blob storage
 - [Event Sourcing](google-interviews/../../patterns/event-sourcing.md) - For email state changes
-- [CQRS](google-interviews/../../patterns/cqrs.md) - Separate read/write paths
-- [Sharding](google-interviews/../../patterns/sharding.md) - User-based partitioning
-- [The Anatomy of a Large-Scale Email System](google-interviews/https://research.google/pubs/pub123456/) - Google's paper
+- [CQRS](../patterns/cqrs.md) - Separate read/write paths
+- [Sharding](../patterns/sharding.md) - User-based partitioning
+- [The Anatomy of a Large-Scale Email System](https://research.google/pubs/pub123456/) - Google's paper

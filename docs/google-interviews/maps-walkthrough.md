@@ -515,6 +515,6 @@ graph LR
 
 - Spatial Indexing (Coming Soon) - Quadtrees, R-trees, S2
 - [Tile Caching](google-interviews/../../patterns/tile-caching.md) - Map tile optimization
-- [Location Privacy](google-interviews/../../patterns/location-privacy.md) - Privacy-preserving techniques
+- [Location Privacy](../patterns/location-privacy.md) - Privacy-preserving techniques
 - Real-time Processing (Coming Soon) - Traffic stream processing
-- [Google's S2 Library](google-interviews/https://s2geometry.io/) - Spatial indexing at scale
+- [Google's S2 Library](https://s2geometry.io/) - Spatial indexing at scale
