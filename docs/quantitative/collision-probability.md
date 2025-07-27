@@ -308,4 +308,4 @@ Gap: p₁/p₂ > threshold
 - [Hash Functions](../case-studies/consistent-hashing.md)
 - [Probabilistic Data Structures](probabilistic-structures.md)
 - [Information Theory](information-theory.md)
-- [Cryptographic Primitives](reference/security)
+- [Cryptographic Primitives](../reference/security.md)
