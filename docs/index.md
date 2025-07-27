@@ -108,10 +108,6 @@ graph LR
 
  Discover the fundamental laws derived from physics that govern all distributed systems.
 
- <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-     src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/the-7-fundamental-laws-of&color=%23ff5500&inverse=false&auto_play=false&show_user=true">
- </iframe>
-
  [:octicons-arrow-right-24: Explore Laws](part1-axioms)
 
 - :material-pillar:{ .lg .middle } __The 5 Pillars__
