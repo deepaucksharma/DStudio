@@ -64,6 +64,14 @@ production_checklist:
 
 ### Core Concept
 
+<div class="axiom-box">
+<h4>🔬 Law 2: Asynchronous Reality</h4>
+
+Pub-Sub embraces the asynchronous nature of distributed systems. Publishers fire events without waiting for acknowledgment, and subscribers process at their own pace. This decoupling in time and space is fundamental to building scalable systems.
+
+**Key Insight**: In distributed systems, synchronous coupling is the enemy of scale.
+</div>
+
 Publish-Subscribe (Pub-Sub) is like a news broadcast system:
 
 ```
@@ -301,6 +309,27 @@ class KafkaEventBus:
 | **Microservices** - Service independence | **Low latency** - Sub-millisecond requirements |
 
 ### Common Pitfalls
+
+<div class="decision-box">
+<h4>🎯 Pub-Sub Design Decisions</h4>
+
+**Delivery Semantics**:
+- At-most-once: Fire and forget (data loss possible)
+- At-least-once: Retry until ack (duplicates possible)
+- Exactly-once: Complex, requires deduplication
+
+**Ordering Guarantees**:
+- No ordering: Maximum throughput
+- Partition ordering: Order within partition only
+- Total ordering: Severe performance impact
+
+**Subscription Models**:
+- Fan-out: Each subscriber gets all messages
+- Competing consumers: Load balanced within group
+- Content filtering: Subscribe to subset based on criteria
+
+**Choose based on your requirements for consistency vs performance.**
+</div>
 
 1. **Message Ordering**: Pub-sub doesn't guarantee order across partitions
    ```python

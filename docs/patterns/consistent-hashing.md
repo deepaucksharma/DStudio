@@ -87,6 +87,18 @@ related_pillars: [state, work]
 **Key trade-off**: Slightly higher lookup cost (O(log N)) for massive operational flexibility
 </div>
 
+<div class="axiom-box">
+<h4>🔬 Law 3: Emergent Chaos</h4>
+
+Traditional hashing violates the principle of minimal disruption during scaling. When nodes are added or removed, the modulo operation causes a cascade of key remapping:
+
+```
+hash(key) % 3 → hash(key) % 4 = Different node for most keys!
+```
+
+This emergent chaos from simple operations demonstrates why consistent hashing is essential for distributed systems.
+</div>
+
 | Traditional Hash (mod N) | Consistent Hash |
 |--------------------------|-----------------|
 | **Add 1 node**: ~100% keys move | **Add 1 node**: ~1/N keys move |

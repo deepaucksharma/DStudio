@@ -261,32 +261,32 @@ graph TD
 
 ```mermaid
 mindmap
- root((Behavioral Questions))
- Leadership
- Taking Initiative
- Mentoring Others
- Driving Decisions
- Managing Up
- Technical
- System Design
- Debugging Complex Issues
- Performance Optimization
- Architecture Decisions
- Collaboration
- Cross-team Projects
- Stakeholder Management
- Communication Challenges
- Remote Collaboration
- Growth
- Learning New Tech
- Skill Development
- Career Pivots
- Feedback Reception
- Challenges
- Tight Deadlines
- Resource Constraints
- Technical Debt
- Competing Priorities
+  root((Behavioral Questions))
+    Leadership
+      Taking Initiative
+      Mentoring Others
+      Driving Decisions
+      Managing Up
+    Technical
+      System Design
+      Debugging Complex Issues
+      Performance Optimization
+      Architecture Decisions
+    Collaboration
+      Cross-team Projects
+      Stakeholder Management
+      Communication Challenges
+      Remote Collaboration
+    Growth
+      Learning New Tech
+      Skill Development
+      Career Pivots
+      Feedback Reception
+    Challenges
+      Tight Deadlines
+      Resource Constraints
+      Technical Debt
+      Competing Priorities
 ```
 
 ### Response Strategy by Question Type

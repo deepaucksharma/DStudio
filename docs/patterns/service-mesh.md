@@ -59,6 +59,14 @@ related_pillars: [control, intelligence]
 
 ### Core Concept
 
+<div class="truth-box">
+<h4>💡 The Service Mesh Insight</h4>
+
+Service mesh separates **operational concerns** from **business logic**. Your services focus on what they do best (business logic), while the mesh handles how they communicate (networking, security, observability).
+
+This separation is the key to managing microservices at scale - you can update operational policies without touching application code.
+</div>
+
 Service mesh provides a dedicated infrastructure layer that handles all service-to-service communication through intelligent proxies (sidecars) deployed alongside each service:
 
 ```
@@ -336,6 +344,36 @@ def trace_request(request_id: str, spans: list) -> dict:
 ---
 
 ## Level 4: Expert
+
+<div class="failure-vignette">
+<h4>💥 The Uber Microservices Crisis (2016)</h4>
+
+**What Happened**: With 2000+ microservices, Uber faced operational chaos
+
+**Root Causes**:
+- Each service implemented its own retry logic (inconsistent)
+- No unified observability (blind to service dependencies)
+- Manual certificate management (security vulnerabilities)
+- Cascading failures from misconfigured timeouts
+
+**Impact**:
+- Multiple city-wide outages
+- 6+ hours MTTR for issues
+- Engineering productivity plummeted
+- Security audit failures
+
+**Solution**: Implemented service mesh (2017-2018)
+- Unified traffic management
+- Automatic mTLS everywhere
+- Distributed tracing for all calls
+- Centralized policy management
+
+**Results**:
+- 90% reduction in outage frequency
+- MTTR reduced to < 30 minutes
+- Zero security incidents from service communication
+- 3x improvement in developer velocity
+</div>
 
 ### Production Case Study: Uber's Service Mesh
 
