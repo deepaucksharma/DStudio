@@ -38,15 +38,15 @@ type: patterns-index
     <div class="tier-filters" style="display: flex; gap: 1rem; flex-wrap: wrap;">
         <label for="filter-gold" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
             <input type="checkbox" id="filter-gold" checked onchange="applyFilters()"> 
-            <span style="background: #FFD700; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥇 Gold (26 patterns)</span>
+            <span style="background: #FFD700; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥇 Gold (38 patterns)</span>
         </label>
         <label for="filter-silver" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
             <input type="checkbox" id="filter-silver" checked onchange="applyFilters()"> 
-            <span style="background: #C0C0C0; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥈 Silver (40 patterns)</span>
+            <span style="background: #C0C0C0; padding: 0.25rem 0.75rem; border-radius: 4px; transition: opacity 0.2s;">🥈 Silver (38 patterns)</span>
         </label>
         <label for="filter-bronze" style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
             <input type="checkbox" id="filter-bronze" checked onchange="applyFilters()"> 
-            <span style="background: #CD7F32; padding: 0.25rem 0.75rem; border-radius: 4px; color: white; transition: opacity 0.2s;">🥉 Bronze (34 patterns)</span>
+            <span style="background: #CD7F32; padding: 0.25rem 0.75rem; border-radius: 4px; color: white; transition: opacity 0.2s;">🥉 Bronze (25 patterns)</span>
         </label>
     </div>
     <div style="margin-top: 1rem;">
@@ -488,19 +488,19 @@ graph LR
     <h3>Real-time Pattern Implementation Metrics</h3>
     <div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
         <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
-            <h4 style="margin: 0; color: #5448C8;">95</h4>
+            <h4 style="margin: 0; color: #5448C8;">101</h4>
             <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Total Patterns</p>
         </div>
         <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
-            <h4 style="margin: 0; color: #FFD700;">25</h4>
+            <h4 style="margin: 0; color: #FFD700;">38</h4>
             <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Gold Tier</p>
         </div>
         <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
-            <h4 style="margin: 0; color: #C0C0C0;">40</h4>
+            <h4 style="margin: 0; color: #C0C0C0;">38</h4>
             <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Silver Tier</p>
         </div>
         <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">
-            <h4 style="margin: 0; color: #CD7F32;">30</h4>
+            <h4 style="margin: 0; color: #CD7F32;">25</h4>
             <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Bronze Tier</p>
         </div>
         <div style="background: white; padding: 1rem; border-radius: 4px; text-align: center;">

@@ -395,7 +395,7 @@ Link to patterns:
 
 ## Related Resources
 
-- [Event Sourcing Pattern](google-interviews/../../patterns/event-sourcing.md) - For analytics pipeline
-- [Edge Computing Pattern](google-interviews/../../patterns/edge-computing.md) - For content delivery
-- [Sharding Pattern](google-interviews/../../patterns/sharding.md) - For metadata storage
-- [Google's Vitess Paper](google-interviews/https://vitess.io/docs/) - For YouTube's actual MySQL scaling
+- [Event Sourcing Pattern](../patterns/event-sourcing.md) - For analytics pipeline
+- [Edge Computing Pattern](../patterns/edge-computing.md) - For content delivery
+- [Sharding Pattern](../patterns/sharding.md) - For metadata storage
+- [Google's Vitess Paper](https://vitess.io/docs/) - For YouTube's actual MySQL scaling

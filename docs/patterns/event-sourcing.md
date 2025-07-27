@@ -60,6 +60,14 @@ related_pillars: [state, truth]
 
 **How can we maintain a complete, auditable history of all changes while still providing the current state of our system?**
 
+<div class="axiom-box">
+<h4>🔬 Law 5: Distributed Knowledge (Epistemology)</h4>
+
+Event sourcing embraces the reality that in distributed systems, the "truth" is not a single state but a sequence of events. Each event represents a fact that happened at a specific point in time, and the current state is merely a projection of these facts.
+
+**Key Insight**: The event log IS the source of truth, not the current state. State is ephemeral; events are eternal.
+</div>
+
 !!! tip "When to Use This Pattern"
 | Scenario | Use Event Sourcing | Alternative |
  |----------|-------------------|-------------|
@@ -244,6 +252,32 @@ stateDiagram-v2
 
 ### Common Variations
 
+<div class="decision-box">
+<h4>🎯 Event Sourcing Design Decisions</h4>
+
+**Event Granularity**:
+- Fine-grained: Every field change (complete audit)
+- Coarse-grained: Business operations only (simpler)
+- Domain events: Meaningful business facts (recommended)
+
+**Snapshot Strategy**:
+- Fixed interval: Every N events (predictable)
+- Time-based: Daily/weekly snapshots (time-bounded)
+- Size-based: When replay takes > X seconds (performance)
+- Hybrid: Combine multiple strategies (optimal)
+
+**Event Storage**:
+- Single stream: All events together (simple)
+- Stream per aggregate: Isolated boundaries (scalable)
+- Stream per type: Events by category (queryable)
+- Partitioned streams: Sharded by key (massive scale)
+
+**Projection Updates**:
+- Synchronous: Strong consistency, higher latency
+- Asynchronous: Better performance, eventual consistency
+- Hybrid: Critical projections sync, others async
+</div>
+
 1. **ES + Snapshots**: Many events → Storage vs performance
 2. **ES + CQRS**: Complex queries → Consistency vs flexibility
 3. **ES + Projections**: Reporting → Real-time vs eventual consistency
@@ -260,6 +294,36 @@ stateDiagram-v2
 ## Level 4: Expert Practitioner (30 minutes)
 
 ### Advanced Techniques
+
+<div class="failure-vignette">
+<h4>💥 The Blockchain Event Store Disaster (2021)</h4>
+
+**What Happened**: A major cryptocurrency exchange stored all trades as events but didn't implement snapshots or projections properly.
+
+**Root Cause**:
+- 2 billion events accumulated over 3 years
+- No snapshots implemented ("we'll add them later")
+- Account balance calculation required full replay
+- Each user login triggered complete event replay
+
+**Impact**:
+- Login times exceeded 5 minutes
+- System unusable during peak trading
+- $50M in lost trading fees
+- Mass user exodus to competitors
+
+**The Fix**:
+- Emergency snapshot implementation
+- Async projection rebuilding
+- Event stream partitioning by user
+- Implemented event archival strategy
+
+**Lessons Learned**:
+- Snapshots are not optional at scale
+- Event replay must be bounded
+- Projections need careful design
+- Test with realistic event volumes
+</div>
 
 #### Event Versioning and Schema Evolution
 

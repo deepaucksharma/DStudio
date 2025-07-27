@@ -28,8 +28,6 @@ production_checklist:
   - "Choose consensus algorithm (Raft preferred over Paxos)"
   - "Configure cluster size (3, 5, or 7 nodes typical)"
   - "Set election timeout (150-300ms recommended)"
-related_laws: [law2-asynchrony, law1-failure, law5-epistemology]
-related_pillars: [truth, control]
   - "Implement leader lease for read optimization"
   - "Monitor leader stability and election frequency"
   - "Configure snapshot frequency for log compaction"
@@ -37,6 +35,8 @@ related_pillars: [truth, control]
   - "Implement graceful node addition/removal"
   - "Set up monitoring for consensus health"
   - "Plan for split-brain prevention"
+related_laws: [law2-asynchrony, law1-failure, law5-epistemology]
+related_pillars: [truth, control]
 ---
 
 # Consensus Pattern
@@ -60,6 +60,14 @@ related_pillars: [truth, control]
 ## Level 1: Intuition
 
 ### The Jury Deliberation Analogy
+
+<div class="axiom-box">
+<h4>🔬 Law 5: Distributed Knowledge</h4>
+
+Consensus addresses the fundamental epistemological problem in distributed systems: How can multiple nodes agree on "truth" when each has only a partial view of the system?
+
+**Key Insight**: Truth in distributed systems is not what IS, but what the majority AGREES to be true. Consensus algorithms formalize this agreement process.
+</div>
 
 Consensus is like a jury reaching a verdict:
 - **Unanimous decision**: All jurors must agree
@@ -143,6 +151,30 @@ sequenceDiagram
 ## Level 2: Foundation
 
 ### Consensus Properties
+
+<div class="decision-box">
+<h4>🎯 Consensus Algorithm Selection</h4>
+
+**Choose Raft When:**
+- Need understandable implementation
+- Building new system from scratch
+- Want strong leader optimization
+- Single cluster deployment
+
+**Choose Paxos When:**
+- Need theoretical foundation
+- Implementing variants (Fast Paxos)
+- Academic or research context
+- Multi-datacenter deployment
+
+**Choose Byzantine Consensus When:**
+- Don't trust all participants
+- Blockchain/cryptocurrency use case
+- Need protection against malicious nodes
+- Can tolerate high overhead
+
+**For most systems**: Start with Raft. It's easier to implement correctly and has better tooling support.
+</div>
 
 | Property | Description | Why It Matters |
 |----------|-------------|----------------|

@@ -72,6 +72,14 @@ production_checklist:
 
 ### The House Circuit Breaker Analogy
 
+<div class="axiom-box">
+<h4>🔬 Law 1: Correlated Failure Domain</h4>
+
+Circuit breakers embody the principle that failures are rarely isolated. When one service fails, it often triggers a cascade of failures upstream. By "failing fast" at the boundary, circuit breakers prevent correlated failures from spreading through the system.
+
+**Key Insight**: It's better to fail immediately with a clear error than to wait and potentially crash the entire system.
+</div>
+
 Imagine your home's electrical panel:
 
 ```text
@@ -311,6 +319,32 @@ Adjusts thresholds based on system load:
 
 ### Production Considerations
 
+<div class="failure-vignette">
+<h4>💥 The Amazon Prime Day Meltdown (2018)</h4>
+
+**What Happened**: During Prime Day 2018, Amazon's recommendation service failed, causing cascade failures across the entire platform.
+
+**Root Cause**:
+- Recommendation service couldn't handle 10x normal load
+- No circuit breakers between services
+- Each service waited full 30-second timeout
+- Thread pools exhausted across the stack
+
+**Impact**:
+- 63 minutes of degraded service
+- $99M in lost sales
+- Angry customers couldn't add items to cart
+- Internal systems crashed from retry storms
+
+**The Fix**:
+- Implemented circuit breakers on all service boundaries
+- Added fallback to cached recommendations
+- Reduced timeout from 30s to 5s
+- Bulkheaded services with separate thread pools
+
+**Result**: Prime Day 2019 handled 2x more traffic with zero downtime
+</div>
+
 #### 1. Bulkheading with Circuit Breakers
 
 ```mermaid
@@ -386,6 +420,30 @@ Key Metrics to Track:
 - Correlation with deployment events
 
 ### Common Pitfalls and Solutions
+
+<div class="decision-box">
+<h4>🎯 Circuit Breaker Configuration Decisions</h4>
+
+**Failure Threshold**:
+- Conservative (50%): Good for non-critical services
+- Moderate (20%): Balance for most services  
+- Aggressive (5%): Critical services with strict SLAs
+
+**Time Window**:
+- Short (10s): Fast failure detection, risk of flapping
+- Medium (60s): Good balance for most cases
+- Long (5m): Stable but slow to detect issues
+
+**Recovery Strategy**:
+- Fixed timeout: Simple but may cause thundering herd
+- Exponential backoff: Better for overloaded services
+- Adaptive: Adjusts based on success rate
+
+**Volume Threshold**:
+- Low (10 requests): Quick detection, noisy for low traffic
+- Medium (50 requests): Good for moderate traffic services
+- High (200 requests): Stable for high-traffic services
+</div>
 
 <table class="responsive-table">
 <thead>

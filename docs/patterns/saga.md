@@ -74,6 +74,14 @@ production_checklist:
 
 ### The Story
 
+<div class="axiom-box">
+<h4>🔬 Law 2: Asynchronous Reality</h4>
+
+Sagas embrace the asynchronous nature of distributed systems. Unlike ACID transactions that try to create a synchronous illusion, sagas accept that operations happen at different times across different services.
+
+**Key Insight**: You can't have atomic commits across network boundaries. The best you can do is coordinate eventual consistency through compensations.
+</div>
+
 Vacation booking requires: flight, hotel, car, payment. Traditional agents handled all at once - fail anywhere, cancel everything.
 
 But with separate companies per booking, you can't "rollback" United when Hertz fails. You must explicitly cancel each success.
@@ -247,6 +255,30 @@ graph TB
 
 ### Implementation Patterns
 
+<div class="decision-box">
+<h4>🎯 Orchestration vs Choreography Decision</h4>
+
+**Choose Orchestration When:**
+- Central visibility required
+- Complex conditional logic
+- Need to monitor/debug easily
+- Few services involved (<10)
+- Clear business process owner
+
+**Choose Choreography When:**
+- Services are autonomous
+- Simple linear flows
+- High scalability needed
+- Many services (>10)
+- Decoupled architecture priority
+
+**Hybrid Approach:**
+- Use orchestration for critical business flows
+- Use choreography for notifications/analytics
+- Start with orchestration, evolve to choreography
+- Consider team boundaries and ownership
+</div>
+
 #### Saga Execution Flow
 
 ```mermaid
@@ -288,6 +320,18 @@ sequenceDiagram
 ```
 
 #### Core Components
+
+<div class="truth-box">
+<h4>💡 The Saga Compensation Truth</h4>
+
+Not all operations can be perfectly compensated. There are three types of transactions in sagas:
+
+1. **Compensatable**: Can be undone (e.g., reserve inventory → release inventory)
+2. **Pivot**: The go/no-go decision point (e.g., payment authorization)
+3. **Retriable**: Must eventually succeed (e.g., send email notification)
+
+**Key Insight**: Design your saga so the pivot transaction comes after all compensatable transactions but before any retriable ones. This minimizes the compensation complexity.
+</div>
 
 ```mermaid
 classDiagram

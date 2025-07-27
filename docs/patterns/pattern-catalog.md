@@ -5,7 +5,7 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
 
 # Pattern Catalog
 
-**Complete reference of all ~95 distributed systems patterns with excellence tier classifications**
+**Complete reference of all 101 distributed systems patterns with excellence tier classifications**
 
 <div class="catalog-controls" style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
     <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
@@ -43,17 +43,17 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
 <div class="tier-summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
     <div style="background: linear-gradient(135deg, #FFD700 0%, #FFF8DC 100%); padding: 1.5rem; border-radius: 8px; text-align: center;">
         <h3 style="margin: 0;">🥇 Gold Tier</h3>
-        <p style="font-size: 2rem; margin: 0.5rem 0;">26</p>
+        <p style="font-size: 2rem; margin: 0.5rem 0;">38</p>
         <p style="margin: 0; font-size: 0.9rem;">Battle-tested at FAANG scale</p>
     </div>
     <div style="background: linear-gradient(135deg, #C0C0C0 0%, #F5F5F5 100%); padding: 1.5rem; border-radius: 8px; text-align: center;">
         <h3 style="margin: 0;">🥈 Silver Tier</h3>
-        <p style="font-size: 2rem; margin: 0.5rem 0;">40</p>
+        <p style="font-size: 2rem; margin: 0.5rem 0;">38</p>
         <p style="margin: 0; font-size: 0.9rem;">Proven in production</p>
     </div>
     <div style="background: linear-gradient(135deg, #CD7F32 0%, #F4A460 100%); padding: 1.5rem; border-radius: 8px; text-align: center; color: white;">
         <h3 style="margin: 0;">🥉 Bronze Tier</h3>
-        <p style="font-size: 2rem; margin: 0.5rem 0;">34</p>
+        <p style="font-size: 2rem; margin: 0.5rem 0;">25</p>
         <p style="margin: 0; font-size: 0.9rem;">Well-documented approach</p>
     </div>
 </div>
@@ -62,33 +62,33 @@ description: Comprehensive sortable and filterable catalog of all distributed sy
 
 <div id="catalog-table-container">
 
-| Pattern | Tier | Category | Scale | Companies Using | Key Benefit | Link |
-|---------|------|----------|-------|-----------------|-------------|------|
-| **Circuit Breaker** | 🥇 Gold | 🛡️ Resilience | All | Netflix, Amazon, Microsoft | Prevents cascade failures | [→](circuit-breaker.md) |
-| **Retry & Backoff** | 🥇 Gold | 🛡️ Resilience | All | Google, AWS, Azure | Handles transient failures | [→](retry-backoff.md) |
-| **Load Balancing** | 🥇 Gold | ⚙️ Operational | Medium+ | Everyone | Distributes requests evenly | [→](load-balancing.md) |
-| **Caching Strategies** | 🥇 Gold | 💾 Data | All | Facebook, Twitter | Reduces latency | [→](caching-strategies.md) |
-| **Health Check** | 🥇 Gold | ⚙️ Operational | All | Kubernetes, Docker | Monitors service health | [→](health-check.md) |
-| **CQRS** | 🥇 Gold | 🏗️ Core | Large | LinkedIn, Uber | Separates read/write | [→](cqrs.md) |
-| **Sharding** | 🥇 Gold | 💾 Data | Large | Discord, MongoDB | Horizontal scaling | [→](sharding.md) |
-| **API Gateway** | 🥇 Gold | 🏗️ Core | Medium+ | Netflix (Zuul), Kong | Single entry point | [→](api-gateway.md) |
-| **Leader-Follower** | 🥇 Gold | 💾 Data | Medium+ | MySQL, PostgreSQL | Replication strategy | [→](leader-follower.md) |
-| **Consistent Hashing** | 🥇 Gold | 💾 Data | Large | Cassandra, DynamoDB | Dynamic partitioning | [→](consistent-hashing.md) |
-| **Rate Limiting** | 🥇 Gold | 🛡️ Resilience | All | Stripe, GitHub | Prevents overload | [→](rate-limiting.md) |
-| **Timeout** | 🥇 Gold | 🛡️ Resilience | All | All services | Prevents hanging | [→](timeout.md) |
-| **Failover** | 🥇 Gold | 🛡️ Resilience | Medium+ | AWS, Azure | Automatic recovery | [→](failover.md) |
-| **Auto-scaling** | 🥇 Gold | ⚙️ Operational | Medium+ | AWS, Kubernetes | Dynamic capacity | [→](auto-scaling.md) |
-| **Consensus (Raft)** | 🥇 Gold | 🤝 Coordination | Medium+ | etcd, Consul | Distributed agreement | [→](consensus.md) |
-| **Message Queue** | 🥇 Gold | 🏗️ Core | Medium+ | RabbitMQ, SQS | Async communication | [→](distributed-queue.md) |
-| **Pub-Sub** | 🥇 Gold | 🏗️ Core | Medium+ | Redis, Kafka | Event distribution | [→](pub-sub.md) |
-| **Distributed Tracing** | 🥇 Gold | ⚙️ Operational | Large | Jaeger, Zipkin | Request tracking | [→](distributed-tracing.md) |
-| **Metrics Collection** | 🥇 Gold | ⚙️ Operational | All | Prometheus, DataDog | System monitoring | [→](metrics.md) |
-| **Blue-Green Deploy** | 🥇 Gold | ⚙️ Operational | Medium+ | Everyone | Zero downtime | [→](blue-green.md) |
-| **Canary Release** | 🥇 Gold | ⚙️ Operational | Large | Google, Facebook | Risk mitigation | [→](canary.md) |
-| **Feature Flags** | 🥇 Gold | ⚙️ Operational | All | LaunchDarkly, Split | Progressive rollout | [→](feature-flags.md) |
-| **Idempotency** | 🥇 Gold | 💾 Data | All | Stripe, PayPal | Exactly-once semantics | [→](idempotency.md) |
-| **CDN** | 🥇 Gold | ⚙️ Operational | Large | CloudFlare, Akamai | Edge caching | [→](cdn.md) |
-| **WAL** | 🥇 Gold | 💾 Data | Medium+ | PostgreSQL, Kafka | Durability guarantee | [→](wal.md) |
+| Pattern Name | Excellence Tier | Category | Status | Use When | Link |
+|--------------|-----------------|----------|---------|-----------|------|
+| **Circuit Breaker** | 🥇 Gold | 🛡️ Resilience | Production-ready | Preventing cascade failures in microservices | [→](circuit-breaker.md) |
+| **Retry & Backoff** | 🥇 Gold | 🛡️ Resilience | Production-ready | Handling transient failures gracefully | [→](retry-backoff.md) |
+| **Load Balancing** | 🥇 Gold | ⚙️ Operational | Production-ready | Distributing traffic across multiple instances | [→](load-balancing.md) |
+| **Caching Strategies** | 🥇 Gold | 💾 Data | Production-ready | Reducing latency and database load | [→](caching-strategies.md) |
+| **Health Check** | 🥇 Gold | ⚙️ Operational | Production-ready | Monitoring service availability and health | [→](health-check.md) |
+| **CQRS** | 🥇 Gold | 🏗️ Core | Production-ready | Separating read and write operations at scale | [→](cqrs.md) |
+| **Sharding** | 🥇 Gold | 💾 Data | Production-ready | Horizontal data partitioning for scale | [→](sharding.md) |
+| **API Gateway** | 🥇 Gold | 🏗️ Core | Production-ready | Single entry point for microservices | [→](api-gateway.md) |
+| **Leader-Follower** | 🥇 Gold | 💾 Data | Production-ready | Database replication with single writer | [→](leader-follower.md) |
+| **Consistent Hashing** | 🥇 Gold | 💾 Data | Production-ready | Dynamic node addition/removal in clusters | [→](consistent-hashing.md) |
+| **Rate Limiting** | 🥇 Gold | 🛡️ Resilience | Production-ready | Protecting APIs from overload | [→](rate-limiting.md) |
+| **Timeout** | 🥇 Gold | 🛡️ Resilience | Production-ready | Preventing indefinite resource blocking | [→](timeout.md) |
+| **Failover** | 🥇 Gold | 🛡️ Resilience | Production-ready | Automatic recovery from node failures | [→](failover.md) |
+| **Auto-scaling** | 🥇 Gold | ⚙️ Operational | Production-ready | Dynamic capacity based on load | [→](auto-scaling.md) |
+| **Consensus** | 🥇 Gold | 🤝 Coordination | Production-ready | Distributed agreement (Raft/Paxos) | [→](consensus.md) |
+| **Distributed Queue** | 🥇 Gold | 🏗️ Core | Production-ready | Asynchronous task processing | [→](distributed-queue.md) |
+| **Publish-Subscribe** | 🥇 Gold | 🏗️ Core | Production-ready | Event distribution to multiple consumers | [→](publish-subscribe.md) |
+| **Observability** | 🥇 Gold | ⚙️ Operational | Production-ready | Comprehensive system monitoring | [→](observability.md) |
+| **Blue-Green Deployment** | 🥇 Gold | ⚙️ Operational | Production-ready | Zero-downtime deployments | [→](blue-green-deployment.md) |
+| **WAL** | 🥇 Gold | 💾 Data | Production-ready | Durability guarantees for databases | [→](wal.md) |
+| **Database per Service** | 🥇 Gold | 💾 Data | Production-ready | Service autonomy in microservices | [→](database-per-service.md) |
+| **Heartbeat** | 🥇 Gold | 🛡️ Resilience | Production-ready | Failure detection in distributed systems | [→](heartbeat.md) |
+| **Eventual Consistency** | 🥇 Gold | 💾 Data | Production-ready | BASE over ACID for scale | [→](eventual-consistency.md) |
+| **Service Discovery** | 🥇 Gold | 🏗️ Core | Production-ready | Dynamic service location | [→](service-discovery.md) |
+| **Idempotent Receiver** | 🥇 Gold | 💾 Data | Production-ready | Handling duplicate messages | [→](idempotent-receiver.md) |
 | **Service Mesh** | 🥈 Silver | 🏗️ Core | Large | Istio, Linkerd | Service communication | [→](service-mesh.md) |
 | **Event-Driven** | 🥈 Silver | 🏗️ Core | Medium+ | Uber, Lyft | Loose coupling | [→](event-driven.md) |
 | **Event Sourcing** | 🥈 Silver | 🏗️ Core | Large | Banking, FinTech | Audit trail | [→](event-sourcing.md) |

@@ -366,8 +366,8 @@ def update_user(user_id, email, data):
 
 ## References
 
-- [Bigtable: A Distributed Storage System for Structured Data](google-interviews/https://research.google/pubs/pub27898/)
-- [Cloud Bigtable Documentation](google-interviews/https://cloud.google.com/bigtable/docs)
+- [Bigtable: A Distributed Storage System for Structured Data](https://research.google/pubs/pub27898/)
+- [Cloud Bigtable Documentation](https://cloud.google.com/bigtable/docs)
 - Real-world usage at Google scale
 
 [Return to Google Interview Guide](google-interviews/index.md)
