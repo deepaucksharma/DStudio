@@ -47,12 +47,13 @@ failed ███        blocked ──X                  └─┘         total
 
 ## Quick Identification
 
-!!! danger "During an Incident?"
-    1. Look at your dashboard grid - how many cells/services are red?
-    2. Check error correlation - are multiple services failing together?
-    3. Look for these visual patterns in your metrics
-    4. Match to a specter below
-    5. Jump to the [architectural lens](part1-axioms/law1-failure/architectural-lenses/) that counters it
+!!! tip "Learning Exercise: Pattern Recognition"
+    When studying system failures or analyzing case studies:
+    1. Look at failure scope - how many components were affected?
+    2. Check timing - did multiple services fail together or in sequence?
+    3. Look for these visual patterns in incident reports and metrics
+    4. Match the failure to a specter below
+    5. Study the [architectural lens](part1-axioms/law1-failure/architectural-lenses/) that could prevent it
 
 ## 1. BLAST RADIUS – *"If this dies, who cries?"*
 
