@@ -7,35 +7,62 @@ reading_time: 40 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
+
+# Excellence metadata
 excellence_tier: gold
 scale_category: internet-scale
+domain: maps
+company: Uber
+year_implemented: 2015
+current_status: production
+
+# Key metrics
 metrics:
-  - concurrent_users: 40M+
-  - location_updates_per_day: 100M+
-  - data_volume: 50TB/day
-  - availability: 99.99%
+  users: 40M+
+  requests_per_second: 1M+
+  data_volume: 50TB/day
+  availability: 99.99%
+  latency_p99: 200ms
+  regions: 65+
+
+# Pattern usage tracking
 patterns_used:
   gold:
-    - geospatial-indexing: "H3 hexagonal grid for efficient queries"
-    - event-streaming: "Kafka processes 100M+ events/day"
-    - multi-level-cache: "Redis + Cassandra + S3 tiered storage"
-    - edge-computing: "200+ edge locations globally"
-    - time-series-db: "Location history in Cassandra"
+    - geospatial-indexing: "H3 hexagonal grid system open-sourced by Uber"
+    - event-streaming: "Kafka processes 100M+ location events/day"
+    - multi-level-cache: "4-tier cache: device → Redis → Cassandra → S3"
+    - edge-computing: "200+ edge locations for low-latency updates"
+    - time-series-db: "Cassandra stores 90 days of location history"
   silver:
-    - adaptive-sampling: "Dynamic location update frequency"
-    - predictive-caching: "ML-based route prediction"
-    - data-partitioning: "Geospatial sharding by region"
+    - adaptive-sampling: "1Hz when moving, 0.1Hz when stationary"
+    - predictive-caching: "ML predicts next location with 85% accuracy"
+    - data-partitioning: "1024 shards by H3 level 4 for even distribution"
   bronze:
-    - polling: "Started with MySQL polling, migrated to streaming"
+    - polling: "Migrated from 30-second MySQL polling to real-time streaming"
+
+# Excellence connections
 excellence_guides:
-  - real-time-systems
-  - geo-distributed-systems
-  - mobile-optimization
-success_metrics:
-  - location_accuracy: "< 10 meters in urban areas"
-  - update_latency: "< 200ms globally"
-  - matching_time: "< 15 seconds average"
-  - battery_impact: "< 5% daily drain"
+  - scale/real-time-systems
+  - migration/polling-to-streaming
+  - operational/mobile-optimization
+
+# Implementation insights
+key_innovations:
+  - "H3 hexagonal hierarchical spatial index for planet-scale queries"
+  - "Adaptive location sampling reduces battery usage by 60%"
+  - "Edge computing reduces core infrastructure load by 70%"
+  - "Predictive ETA using real-time traffic and historical patterns"
+  - "Fault-tolerant matching algorithm handles city-wide outages"
+
+lessons_learned:
+  - category: "Architecture"
+    lesson: "Hexagonal grid system superior to lat/lng for spatial operations"
+  - category: "Operations"
+    lesson: "Edge servers critical for handling mobile network variability"
+  - category: "Performance"
+    lesson: "Adaptive sampling balances accuracy with battery life"
+  - category: "Scale"
+    lesson: "Geospatial sharding enables linear scaling to millions of drivers"
 ---
 
 # Uber's Real-Time Location System: Scale and Architecture Deep Dive
