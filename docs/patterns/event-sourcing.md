@@ -780,6 +780,36 @@ Event Sourcing implements:
 - **[Message Queue](../patterns/distributed-queue.md)**: Event distribution
 - **[CDC (Change Data Capture)](../patterns/cdc.md)**: Generate events from state changes
 
+## Case Studies
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **Apache Kafka: Event Streaming at Scale**
+    
+    ---
+    
+    How LinkedIn processes 7 trillion messages/day with event sourcing, enabling real-time analytics and replay capabilities.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/kafka.md)
+
+- :material-file-document:{ .lg .middle } **PayPal: Financial Event Sourcing**
+    
+    ---
+    
+    Complete audit trails and temporal queries for payment processing, handling 1B+ transactions with full history.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/paypal-payments.md)
+
+- :material-file-document:{ .lg .middle } **Digital Wallet: CQRS & Event Sourcing**
+    
+    ---
+    
+    Real-world implementation combining event sourcing with CQRS for financial transactions and balance management.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/digital-wallet-enhanced.md)
+
+</div>
+
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database
 - [Martin Fowler on Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) - Clear introduction

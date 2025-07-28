@@ -1544,6 +1544,36 @@ saga:
 - **[Write-Ahead Log](../patterns/wal.md)**: Saga state persistence
 - **[Message Queue](../patterns/distributed-queue.md)**: Async communication between steps
 
+## Case Studies
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **PayPal: Distributed Payment Transactions**
+    
+    ---
+    
+    Orchestrating complex payment flows across multiple systems with compensating transactions and saga patterns.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/paypal-payments.md)
+
+- :material-file-document:{ .lg .middle } **Hotel Reservation: Saga Implementation**
+    
+    ---
+    
+    Real-world choreography saga for booking rooms, payments, and notifications with failure compensation.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/hotel-reservation.md)
+
+- :material-file-document:{ .lg .middle } **Digital Wallet: Financial Saga Patterns**
+    
+    ---
+    
+    Implementing distributed transactions for wallet operations with eventual consistency and compensation logic.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/digital-wallet-enhanced.md)
+
+</div>
+
 ### Further Reading
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem
 - [Microservices.io Saga Pattern](https://microservices.io/patterns/data/saga.html) - Chris Richardson

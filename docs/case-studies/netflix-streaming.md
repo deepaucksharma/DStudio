@@ -239,6 +239,31 @@ graph LR
  2. **Multi-region architecture**: Accelerated move to active-active multi-region deployment
  3. **Circuit breaker patterns**: Implemented comprehensive failure isolation mechanisms
 
+### Circuit Breaker Pattern in Action
+
+!!! info "Pattern Deep Dive: [Circuit Breaker](../patterns/circuit-breaker.md)"
+    Netflix's Hystrix framework implements circuit breakers at massive scale, handling 100B+ requests daily. When a service fails, the circuit breaker opens to prevent cascading failures, allowing the system to degrade gracefully.
+
+```java
+// Hystrix Command Example
+@HystrixCommand(
+    fallbackMethod = "getDefaultRecommendations",
+    commandProperties = {
+        @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "20"),
+        @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
+        @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "5000")
+    }
+)
+public List<Movie> getRecommendations(String userId) {
+    return recommendationService.getForUser(userId);
+}
+```
+
+### Load Balancing at Scale
+
+!!! info "Pattern Deep Dive: [Load Balancing](../patterns/load-balancing.md)"
+    Zuul gateway performs intelligent load balancing across microservices, using real-time metrics to route requests to healthy instances.
+
 ## Performance Characteristics
 
 ### Latency Breakdown
@@ -284,6 +309,33 @@ graph LR
  **Rollout Strategy**: Canary deployments with automated rollback based on key metrics
  **Rollback Time**: < 10 minutes for critical services with automated rollback triggers
  **Feature Flags**: Extensive use for A/B testing and gradual feature rollouts
+
+## Caching Strategy Deep Dive
+
+!!! info "Pattern Deep Dive: [Caching Strategies](../patterns/caching-strategies.md)"
+    Netflix's Open Connect CDN implements multi-level caching with 15,000+ edge servers globally, achieving 95%+ cache hit rates and reducing backbone traffic significantly.
+
+### Cache Hierarchy
+
+```mermaid
+graph TB
+    subgraph "L1: Device Cache"
+        DC[Device Memory]
+    end
+    subgraph "L2: ISP Cache"
+        ISP[Open Connect Appliances]
+    end
+    subgraph "L3: Regional Cache"
+        RC[Regional POPs]
+    end
+    subgraph "L4: Origin"
+        AWS[AWS S3]
+    end
+    
+    DC -->|Miss| ISP
+    ISP -->|Miss| RC
+    RC -->|Miss| AWS
+```
 
 ## Key Innovations
 

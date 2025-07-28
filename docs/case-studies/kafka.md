@@ -26,6 +26,36 @@ last_updated: 2025-07-25
 
 Apache Kafka transformed distributed data movement by treating data as an immutable, append-only log. Originally built at LinkedIn to handle 1 billion events per day, Kafka now processes trillions of events daily across thousands of companies. Its elegant log-centric design provides both messaging queue and distributed storage semantics, demonstrating how simple abstractions can solve complex distributed systems problems.
 
+## Patterns Demonstrated
+
+<div class="grid cards" markdown>
+
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../patterns/event-sourcing.md)** 🥇
+    
+    ---
+    
+    Immutable append-only log as the source of truth
+
+- :material-publish:{ .lg .middle } **[Pub-Sub Messaging](../patterns/pub-sub.md)** 🥇
+    
+    ---
+    
+    Decoupled producers and consumers with topic-based routing
+
+- :material-file-tree:{ .lg .middle } **[Partitioning](../patterns/partitioning.md)** 🥇
+    
+    ---
+    
+    Horizontal scaling through partition distribution
+
+- :material-sync:{ .lg .middle } **[Leader-Follower](../patterns/leader-follower.md)** 🥇
+    
+    ---
+    
+    ISR protocol for fault-tolerant replication
+
+</div>
+
 ## System Overview
 
 ### Business Context
@@ -166,6 +196,34 @@ graph TB
  2. **Pull-Based Consumers**: Consumer-controlled backpressure and batching
  3. **OS Page Cache**: Leverages operating system for caching instead of application-level cache
  4. **Leader-Follower Replication**: ISR protocol ensures data durability with minimal latency impact
+
+### Event Sourcing Implementation
+
+!!! info "Pattern Deep Dive: [Event Sourcing](../patterns/event-sourcing.md)"
+    Kafka's append-only log serves as a perfect implementation of event sourcing, where every state change is captured as an immutable event. This enables event replay, temporal queries, and audit trails.
+
+```java
+// Kafka as Event Store
+public class PaymentEventStore {
+    private final KafkaProducer<String, PaymentEvent> producer;
+    
+    public void saveEvent(PaymentEvent event) {
+        ProducerRecord<String, PaymentEvent> record = new ProducerRecord<>(
+            "payment-events",
+            event.getPaymentId(),  // Key for ordering
+            event
+        );
+        
+        producer.send(record, (metadata, exception) -> {
+            if (exception != null) {
+                log.error("Failed to save event", exception);
+            } else {
+                log.info("Event saved at offset {}", metadata.offset());
+            }
+        });
+    }
+}
+```
 
 ### Scaling Strategy
 
@@ -454,6 +512,31 @@ graph TB
  - Use Avro/Protobuf for schema evolution
  - Version schemas explicitly
  - Test compatibility before deployment
+
+### Pub-Sub Pattern at Scale
+
+!!! info "Pattern Deep Dive: [Pub-Sub Messaging](../patterns/pub-sub.md)"
+    Kafka implements pub-sub with persistent storage, allowing consumers to read at their own pace and replay messages. Topics provide logical separation while partitions enable parallel processing.
+
+### Partitioning Strategy
+
+!!! info "Pattern Deep Dive: [Partitioning](../patterns/partitioning.md)"
+    Kafka partitions topics for horizontal scalability. Each partition maintains order, while parallel partitions increase throughput. Custom partitioners can implement domain-specific routing.
+
+```java
+// Custom Partitioner Example
+public class UserPartitioner implements Partitioner {
+    @Override
+    public int partition(String topic, Object key, byte[] keyBytes, 
+                        Object value, byte[] valueBytes, Cluster cluster) {
+        String userId = (String) key;
+        int numPartitions = cluster.partitionCountForTopic(topic);
+        
+        // Consistent hashing for user affinity
+        return Math.abs(userId.hashCode()) % numPartitions;
+    }
+}
+```
 
 ## Key Innovations
 

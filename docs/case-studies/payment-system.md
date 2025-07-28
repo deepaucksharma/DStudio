@@ -24,6 +24,36 @@ last_updated: 2025-01-21
 
 *Estimated reading time: 25 minutes*
 
+## Patterns Demonstrated
+
+<div class="grid cards" markdown>
+
+- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../patterns/saga-pattern.md)** 🥇
+    
+    ---
+    
+    Distributed transaction management across payment services
+
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../patterns/event-sourcing.md)** 🥇
+    
+    ---
+    
+    Complete audit trail of every payment event
+
+- :material-fingerprint:{ .lg .middle } **[Idempotency](../patterns/idempotency.md)** 🥇
+    
+    ---
+    
+    Preventing duplicate charges with idempotent operations
+
+- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../patterns/double-entry-ledger.md)** 🥇
+    
+    ---
+    
+    Maintaining financial accuracy and compliance
+
+</div>
+
 ## 1. Problem Statement
 
 Design a global payment processing system like Stripe, PayPal, or Square that can:
@@ -274,6 +304,9 @@ class PaymentAggregate:
 
 ### 2. Distributed Transaction Management
 
+!!! info "Pattern Deep Dive: [Saga Pattern](../patterns/saga-pattern.md)"
+    The Saga pattern enables distributed transactions without two-phase commit, using compensating transactions for rollback. Essential for payment systems where atomic cross-service operations are required.
+
 **Saga Pattern Implementation**:
 ```java
 public class PaymentSaga {
@@ -333,6 +366,9 @@ public class PaymentSaga {
 
 ### 3. Idempotency and Exactly-Once Processing
 
+!!! info "Pattern Deep Dive: [Idempotency Pattern](../patterns/idempotency.md)"
+    Idempotency ensures operations can be safely retried without side effects. Critical for payments where network failures could lead to duplicate charges.
+
 ```python
 class IdempotentPaymentProcessor:
     def __init__(self):
@@ -385,6 +421,9 @@ class IdempotentPaymentProcessor:
 ```
 
 ### 4. Double-Entry Bookkeeping
+
+!!! info "Pattern Deep Dive: [Double-Entry Ledger Pattern](../patterns/double-entry-ledger.md)"
+    Double-entry bookkeeping ensures every transaction is balanced with corresponding debits and credits. This pattern is fundamental for financial accuracy and regulatory compliance.
 
 ```sql
 -- Ledger schema for double-entry bookkeeping

@@ -25,6 +25,36 @@ last_updated: 2025-07-25
 
 Redis achieves extraordinary performance through radical architectural simplicity: a single-threaded event loop processing commands sequentially. This eliminates concurrency complexity while custom data structures optimize for both speed and memory efficiency. At scale, Redis Cluster provides transparent sharding across thousands of nodes, demonstrating how simple designs can handle massive workloads.
 
+## Patterns Demonstrated
+
+<div class="grid cards" markdown>
+
+- :material-memory:{ .lg .middle } **[Caching Strategies](../patterns/caching-strategies.md)** 🥇
+    
+    ---
+    
+    In-memory caching with configurable eviction policies
+
+- :material-cached:{ .lg .middle } **[Cache-Aside Pattern](../patterns/cache-aside.md)** 🥇
+    
+    ---
+    
+    Application-managed cache population and invalidation
+
+- :material-content-copy:{ .lg .middle } **[Master-Replica](../patterns/master-replica.md)** 🥇
+    
+    ---
+    
+    Asynchronous replication for read scaling
+
+- :material-hash:{ .lg .middle } **[Consistent Hashing](../patterns/consistent-hashing.md)** 🥇
+    
+    ---
+    
+    Hash slot distribution for cluster sharding
+
+</div>
+
 ## System Overview
 
 ### Business Context
@@ -169,6 +199,44 @@ graph TB
  2. **Custom Data Structures**: Optimized memory layouts for strings, lists, sets, hashes, sorted sets
  3. **Memory-First Design**: All data stored in RAM with optional persistence to disk
  4. **Consistent Hashing**: Redis Cluster uses hash slots for automatic sharding
+
+### Caching Strategy Implementation
+
+!!! info "Pattern Deep Dive: [Caching Strategies](../patterns/caching-strategies.md)"
+    Redis implements multiple caching strategies through configurable eviction policies: LRU (Least Recently Used), LFU (Least Frequently Used), TTL-based, and random eviction.
+
+```python
+# Cache-Aside Pattern Example
+class CacheAsideRepository:
+    def __init__(self, redis_client, database):
+        self.cache = redis_client
+        self.db = database
+    
+    def get_user(self, user_id):
+        # Try cache first
+        cached = self.cache.get(f"user:{user_id}")
+        if cached:
+            return json.loads(cached)
+        
+        # Cache miss - load from database
+        user = self.db.query("SELECT * FROM users WHERE id = %s", user_id)
+        
+        # Populate cache for next time
+        self.cache.setex(
+            f"user:{user_id}",
+            3600,  # 1 hour TTL
+            json.dumps(user)
+        )
+        
+        return user
+    
+    def update_user(self, user_id, data):
+        # Update database
+        self.db.execute("UPDATE users SET ... WHERE id = %s", user_id)
+        
+        # Invalidate cache
+        self.cache.delete(f"user:{user_id}")
+```
 
 ### Scaling Strategy
 
@@ -511,6 +579,35 @@ graph TB
  # 5. Cleanup source
  redis-cli --cluster remove-node source
  ```
+
+### Master-Replica Pattern
+
+!!! info "Pattern Deep Dive: [Master-Replica Pattern](../patterns/master-replica.md)"
+    Redis implements asynchronous replication where replicas continuously sync with the master. This enables read scaling and high availability with automatic failover via Redis Sentinel.
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant M as Master
+    participant R1 as Replica 1
+    participant R2 as Replica 2
+    
+    C->>M: SET key value
+    M->>M: Process command
+    M-->>C: OK
+    
+    Note over M,R2: Async Replication
+    M->>R1: Replication stream
+    M->>R2: Replication stream
+    
+    C->>R1: GET key (read query)
+    R1-->>C: value
+```
+
+### Consistent Hashing for Sharding
+
+!!! info "Pattern Deep Dive: [Consistent Hashing](../patterns/consistent-hashing.md)"
+    Redis Cluster uses 16,384 hash slots distributed across nodes. Keys are mapped to slots using CRC16(key) mod 16384, enabling automatic data distribution and resharding.
 
 ## Key Innovations
 

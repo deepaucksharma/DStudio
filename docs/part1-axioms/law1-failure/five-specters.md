@@ -13,6 +13,14 @@ last_updated: 2025-01-28
 
 *A field-guide for instantly recognising the patterns that turn "a glitch" into an extinction-level event.*
 
+## Visual Language Reference
+```
+STATES:           FLOWS:              RELATIONSHIPS:       IMPACT:
+healthy ░░░       normal ──→          depends │            minimal ·
+degraded ▄▄▄      critical ══►        contains ┌─┐         partial ▪
+failed ███        blocked ──X                  └─┘         total ●
+```
+
 ---
 
 ## The Rosetta Stone
@@ -36,6 +44,15 @@ last_updated: 2025-01-28
     **B**last, **C**ascade, **G**ray, **M**etastable, **C**ommon-Cause – "*Big Cats Growl, Maul & Claw*"
 
 ---
+
+## Quick Identification
+
+!!! danger "During an Incident?"
+    1. Look at your dashboard grid - how many cells/services are red?
+    2. Check error correlation - are multiple services failing together?
+    3. Look for these visual patterns in your metrics
+    4. Match to a specter below
+    5. Jump to the [architectural lens](architectural-lenses.md) that counters it
 
 ## 1. BLAST RADIUS – *"If this dies, who cries?"*
 

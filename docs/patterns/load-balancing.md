@@ -753,6 +753,36 @@ def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
 
 *"Perfect balance is not the goal—effective distribution is."*
 
+## Case Studies
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **Netflix: Multi-Region Load Balancing**
+    
+    ---
+    
+    How Netflix routes 200M+ users globally using Zuul and intelligent load balancing across 3 AWS regions.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/netflix-streaming.md)
+
+- :material-file-document:{ .lg .middle } **Stripe: API Load Balancing Excellence**
+    
+    ---
+    
+    Achieving 99.999% uptime with sophisticated load balancing, health checks, and graceful degradation.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/elite-engineering/stripe-api-excellence.md)
+
+- :material-file-document:{ .lg .middle } **Discord: Voice Server Load Balancing**
+    
+    ---
+    
+    Real-time voice traffic distribution across 13.5M concurrent users with latency-aware routing.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/elite-engineering/discord-voice-infrastructure.md)
+
+</div>
+
 ### Further Reading
 
 #### Books & Papers

@@ -1295,6 +1295,36 @@ cost_per_request = (cache_cost + (miss_rate * db_cost)) / total_requests
 
 *"Cache invalidation is hard. Naming things is harder. Doing both at 3 AM during an outage is impossible."*
 
+## Case Studies
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **Redis at Scale: Architecture Deep Dive**
+    
+    ---
+    
+    Instagram's 300M+ operations/sec with Redis Cluster, demonstrating cache-aside and write-through patterns.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/redis-architecture.md)
+
+- :material-file-document:{ .lg .middle } **Amazon DynamoDB: Caching Evolution**
+    
+    ---
+    
+    From SimpleDB to DynamoDB - how Amazon built a globally distributed cache with consistent millisecond latency.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/elite-engineering/amazon-dynamodb-evolution.md)
+
+- :material-file-document:{ .lg .middle } **Facebook TAO: Social Graph Caching**
+    
+    ---
+    
+    Caching billions of social graph queries with write-through consistency and geographic distribution.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/social-graph.md)
+
+</div>
+
 ### Further Reading
 
 #### Books & Papers
