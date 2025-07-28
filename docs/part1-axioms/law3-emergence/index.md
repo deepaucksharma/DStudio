@@ -1,5 +1,7 @@
 # Law 3: The Law of Emergent Chaos
 
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4k0EdaQuB2KKe98VOuWpio?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
 !!! danger "YOUR SYSTEM IS ALIVE... AND IT WANTS TO KILL YOU"
     **$1 TRILLION vanished in 36 minutes** when trading algorithms created the 2010 Flash Crash. No code was wrong. No component failed. The system underwent a **phase transition**—like water suddenly becoming steam, your distributed system can spontaneously reorganize into a new, often catastrophic state.
 

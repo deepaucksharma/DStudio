@@ -1,12 +1,12 @@
 ---
 title: "Pillar 2: Distribution of State"
-description: "How to manage and distribute state across multiple nodes while maintaining consistency and availability"
+description: "The art of splitting data without splitting your soul - where every byte has three homes and consistency is a carefully negotiated lie"
 type: pillar
 difficulty: advanced
-reading_time: 45 min
+reading_time: 30 min
 prerequisites: []
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-28
 
 nav:
   learning_path: "all"
@@ -57,18 +57,21 @@ nav:
     - partition-tolerance
 ---
 
-
 # Pillar 2: Distribution of State
 
 [Home](/) > [The 5 Pillars](part2-pillars) > Pillar 2: State > Overview
 
-<span class="path-icon">🗂️</span>
-<span class="path-name">Core Pillar</span>
-<span class="path-progress">2/5</span>
-<div class="mini-progress">
-</div>
+<audio controls style="width: 100%; margin: 20px 0;">
+  <source src="https://traffic.libsyn.com/secure/d6eff8e4-ffe2-4c87-bd78-065a6f146557/State_Distribution_Mastery.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
-**Learning Objective**: Master the art of splitting data without splitting reliability.
+## The One-Inch Punch 🥊
+
+```
+YOUR DATABASE ISN'T DISTRIBUTED
+Your FAILURES are.
+```
 
 !!! info
     <h4>📚 Before You Begin</h4>

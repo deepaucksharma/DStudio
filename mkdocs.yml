@@ -20,17 +20,13 @@ theme:
     # Navigation - Optimized for mobile
     - navigation.instant
     - navigation.instant.prefetch
-    - navigation.instant.progress
     - navigation.tracking
     - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
     - navigation.path
     # - navigation.prune        # Remove inactive sections from sidebar (disabled - was hiding Law 1 sub-pages)
     - navigation.indexes
-    - navigation.top          # Back to top button (mobile-friendly)
-    - navigation.footer       # Previous/Next navigation (mobile swipe-friendly)
     
     # Search - Mobile optimized
     - search.suggest
@@ -43,14 +39,7 @@ theme:
     - content.code.select
     - content.action.edit
     - content.action.view
-    - content.tooltips        # Touch-aware tooltips
     - content.tabs.link       # Touch-friendly tabs
-    
-    # Header - Mobile optimization
-    - header.autohide         # Auto-hide header on scroll (saves mobile space)
-    
-    # Announcement bar
-    - announce.dismiss
     
   palette:
     - media: "(prefers-color-scheme)"
@@ -90,21 +79,8 @@ plugins:
         - stemmer
         - stopWordFilter
         - trimmer
-  - macros:
-      module_name: docs/macros
-      include_dir: docs/templates
-      on_error_fail: false
-      on_undefined: strict
   - mermaid2:
       javascript: javascripts/mermaid-init.js
-  - tags
-  - markdown-exec
-  - git-revision-date-localized:
-      enable_creation_date: true
-      type: iso_datetime
-      timezone: UTC
-      locale: en
-      fallback_to_build_date: true
   - minify:
       minify_html: true
       minify_js: true
@@ -131,20 +107,7 @@ markdown_extensions:
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
-  - pymdownx.critic:
-      mode: view
   - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  - pymdownx.magiclink:
-      repo_url_shorthand: true
-      user: deepaucksharma
-      repo: DStudio
-      normalize_issue_symbols: true
-  - pymdownx.mark
-  - pymdownx.smartsymbols
-  - pymdownx.tilde
   
   # PyMdownx Extensions - Code & Syntax
   - pymdownx.highlight:
@@ -187,18 +150,10 @@ markdown_extensions:
   # Additional Advanced Extensions
   - pymdownx.striphtml:
       strip_js_on_attributes: false
-  - pymdownx.progressbar:
-      level_class: true
-      add_classes: "progress-bar"
-  - pymdownx.escapeall:
-      hardbreak: true
-      nbsp: true
-  - nl2br  # Convert newlines to <br> tags
 
 # Extra CSS
 extra_css:
   - stylesheets/custom.css
-  - stylesheets/themes.css
   - stylesheets/responsive-table.css  # Table responsiveness only
   - stylesheets/content-limits.css  # Minimal content overflow prevention
   - stylesheets/hide-toc.css  # Hide right sidebar and enhance navigation
@@ -213,13 +168,8 @@ extra_javascript:
   # MathJax Library - Use specific version for stability
   - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
   
-  # Learning Path Enhancements
-  - javascripts/learning-paths.js
-  
   # Custom Scripts
   - javascripts/custom.js
-  - javascripts/navigation.js
-  - javascripts/keyboard-shortcuts.js
 
 # Extra Configuration
 extra:

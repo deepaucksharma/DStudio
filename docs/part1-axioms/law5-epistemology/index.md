@@ -5,6 +5,8 @@ description: "In distributed systems, truth is local, knowledge is partial, and 
 
 # Law 5: The Law of Distributed Knowledge
 
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/3OBxGB8NjiiTuOCY8OjPun?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
 <div class="axiom-box" style="background: #1a1a1a; border: 3px solid #ff5555;">
 <h2>🚨 Your Database Doesn't Know What Your Database Knows</h2>
 <p>Right now, at this very moment, your "strongly consistent" database has nodes that disagree about the current state. Your blockchain has competing chains. Your distributed cache has stale data that clients think is fresh. <strong>In distributed systems, there is no single source of truth—only competing versions of maybe-truth.</strong></p>
