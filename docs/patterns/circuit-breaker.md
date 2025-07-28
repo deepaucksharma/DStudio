@@ -1829,7 +1829,49 @@ circuit_breaker:
 
 </div>
 
-## Related Topics
+## Case Studies
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **Netflix: Hystrix at Scale**
+    
+    ---
+    
+    How Netflix handles 100B+ requests/day with circuit breakers, preventing cascade failures across 1000+ microservices.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/elite-engineering/netflix-chaos-engineering.md#circuit-breakers)
+
+- :material-file-document:{ .lg .middle } **Amazon Prime Day: Resilience Under Fire**
+    
+    ---
+    
+    Learn how circuit breakers saved Prime Day 2019 after the 2018 meltdown, handling 2x traffic with zero downtime.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/amazon-prime-day.md)
+
+- :material-file-document:{ .lg .middle } **GitHub 2018: Learning from Failure**
+    
+    ---
+    
+    Analysis of GitHub's 24-hour outage and how proper circuit breakers could have prevented the cascade.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/github-outage-2018.md)
+
+- :material-file-document:{ .lg .middle } **Uber: Microservices Protection**
+    
+    ---
+    
+    Circuit breakers protecting 20M+ daily rides across payment, dispatch, and tracking services.
+    
+    [:material-arrow-right: Read Case Study](../case-studies/uber-location.md#resilience)
+
+</div>
+
+### Quick Examples by Industry
+- **E-commerce**: [Shopify Black Friday](../case-studies/shopify-black-friday.md) - 1M+ requests/min
+- **Financial**: [Stripe Payments](../case-studies/stripe-api-excellence.md#circuit-breakers) - 99.999% uptime
+- **Social Media**: [Twitter Timeline](../case-studies/twitter-timeline.md#failure-handling) - Billions of requests
+- **Gaming**: [Fortnite Events](../case-studies/fortnite-events.md) - 12M+ concurrent players
 
 ## Related Patterns
 

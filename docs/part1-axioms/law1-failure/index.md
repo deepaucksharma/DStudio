@@ -186,18 +186,31 @@ placement_constraints:
 
 
 
-## The Five Specters of Failure
+## The Visual Blueprint Series
 
+Master correlation-resistant systems through our four-page visual guide:
+
+### 📄 [Page 2: The Five Specters of Failure](five-specters.md)
 Every correlated failure manifests as one of five patterns:
-
 1. **BLAST RADIUS** – Size of the crater
 2. **CASCADE** – Pebble → Avalanche  
 3. **GRAY FAILURE** – Looks fine, isn't
 4. **METASTABLE** – Self-feeding spiral
 5. **COMMON CAUSE** – One string, many puppets
 
-!!! tip "Deep Dive"
-    **[Master the Five Specters →](five-specters.md)** Learn to instantly recognize which pattern is killing your system.
+### 🏗️ [Page 3: Architectural Lenses](architectural-lenses.md)
+Patterns that break correlation:
+- **Cells** – Island model for blast radius control
+- **Shuffle-Sharding** – Personalized fate mapping
+- **Bulkheads** – Internal watertight doors
+- **Diversity** – True independence through variety
+
+### 🎛️ [Page 4: Operational Sight](operational-sight.md)
+Running and proving correlation-resilience:
+- Dashboard layouts for instant failure recognition
+- Chaos engineering loops
+- On-call playbooks
+- Continuous verification pipelines
 
 ## Key Takeaways
 

@@ -7,6 +7,28 @@ Netflix transformed from a DVD rental service to the world's largest streaming p
 !!! success "Key Achievement"
     Netflix maintains 99.97% availability while deploying code thousands of times per day across a microservices architecture with 1000+ services.
 
+## Patterns Demonstrated
+
+This case study demonstrates the following distributed systems patterns in production:
+
+### Core Resilience Patterns
+- **[Circuit Breaker](../../patterns/circuit-breaker.md)** - Hystrix prevents cascade failures across 1000+ microservices
+- **[Bulkhead](../../patterns/bulkhead.md)** - Thread pool isolation prevents resource exhaustion
+- **[Timeout](../../patterns/timeout.md)** - Aggressive timeouts prevent resource blocking
+- **[Retry with Backoff](../../patterns/retry-backoff.md)** - Intelligent retry logic for transient failures
+
+### Architecture Patterns
+- **[Service Mesh](../../patterns/service-mesh.md)** - Modern implementation of Hystrix patterns
+- **[API Gateway](../../patterns/api-gateway.md)** - Zuul provides edge resilience
+- **[Load Balancing](../../patterns/load-balancing.md)** - Ribbon client-side load balancing
+- **[Health Checks](../../patterns/health-check.md)** - Continuous service health monitoring
+
+### Operational Patterns
+- **[Chaos Engineering](../../human-factors/chaos-engineering.md)** - Continuous failure injection
+- **[Observability](../../patterns/observability.md)** - Deep monitoring and tracing
+- **[Graceful Degradation](../../patterns/graceful-degradation.md)** - Multiple service levels
+- **[Auto-Scaling](../../patterns/auto-scaling.md)** - Automatic capacity management
+
 ## The Challenge
 
 ### Scale Numbers That Matter
@@ -215,7 +237,10 @@ graph TB
     ROUTE --> BH
 ```
 
-### Hystrix: Circuit Breaker Implementation
+### Hystrix: Circuit Breaker Implementation {#circuit-breakers}
+
+!!! info "Pattern Deep Dive"
+    This implementation demonstrates the **[Circuit Breaker Pattern](../../patterns/circuit-breaker.md)** at massive scale, handling 100B+ requests daily across Netflix's microservices.
 
 ```java
 // Simplified Hystrix command pattern
@@ -248,6 +273,12 @@ HystrixCommandProperties.Setter()
     .withExecutionTimeoutInMilliseconds(1000)
     .withFallbackIsolationSemaphoreMaxConcurrentRequests(100);
 ```
+
+**Key Circuit Breaker Metrics at Netflix:**
+- **Request Volume**: 100B+ requests/day protected by circuit breakers
+- **Failure Threshold**: 50% error rate triggers circuit open
+- **Recovery Time**: 5 second sleep window before testing
+- **Success Rate**: 99.97% availability maintained
 
 ### Chaos Engineering Maturity Model
 
