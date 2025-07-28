@@ -1,0 +1,342 @@
+/* Case Study Excellence Styling */
+
+/* Excellence Tier Badges */
+.excellence-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+.excellence-badge.gold {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+  box-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+}
+
+.excellence-badge.silver {
+  background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
+  color: #000;
+  box-shadow: 0 2px 4px rgba(192, 192, 192, 0.3);
+}
+
+.excellence-badge.bronze {
+  background: linear-gradient(135deg, #CD7F32, #B87333);
+  color: #FFF;
+  box-shadow: 0 2px 4px rgba(205, 127, 50, 0.3);
+}
+
+/* Pattern Excellence Cards */
+.pattern-excellence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.pattern-excellence-card {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.pattern-excellence-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--md-accent-fg-color);
+}
+
+.pattern-excellence-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0;
+}
+
+.pattern-excellence-card .scale-metric {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.pattern-excellence-card .scale-metric strong {
+  color: var(--md-accent-fg-color);
+}
+
+/* Migration Box */
+.migration-box {
+  background: linear-gradient(135deg, #f5f5f5, #e8e8e8);
+  border: 2px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.migration-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #CD7F32, #B87333);
+}
+
+.migration-box h4 {
+  margin-top: 0;
+  color: #B87333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.migration-box ol {
+  margin-left: 1.5rem;
+}
+
+.migration-box .key-learning {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Warning Box for Bronze Patterns */
+.warning-box {
+  background: #fff3cd;
+  border: 2px solid #ffeaa7;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+.warning-box h4 {
+  color: #856404;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.warning-box ul {
+  margin-left: 1.5rem;
+}
+
+/* Scale Category Indicators */
+.scale-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--md-code-bg-color);
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.scale-indicator.internet-scale {
+  border-color: #4CAF50;
+  color: #4CAF50;
+}
+
+.scale-indicator.global-scale {
+  border-color: #2196F3;
+  color: #2196F3;
+}
+
+.scale-indicator.regional-scale {
+  border-color: #FF9800;
+  color: #FF9800;
+}
+
+/* Success Metrics Display */
+.success-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--md-code-bg-color);
+  border-radius: 0.5rem;
+}
+
+.success-metric {
+  text-align: center;
+  padding: 1rem;
+  background: var(--md-default-bg-color);
+  border-radius: 0.25rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.success-metric .value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--md-accent-fg-color);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.success-metric .label {
+  font-size: 0.875rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Pattern Stack Visualization */
+.pattern-stack {
+  margin: 2rem 0;
+}
+
+.pattern-tier {
+  margin: 1rem 0;
+}
+
+.pattern-tier h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.pattern-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pattern-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s ease;
+}
+
+.pattern-pill:hover {
+  border-color: var(--md-accent-fg-color);
+  transform: translateY(-1px);
+}
+
+.pattern-pill.gold {
+  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+}
+
+.pattern-pill.silver {
+  border-color: #C0C0C0;
+  background: rgba(192, 192, 192, 0.1);
+}
+
+.pattern-pill.bronze {
+  border-color: #CD7F32;
+  background: rgba(205, 127, 50, 0.1);
+}
+
+/* Case Study Comparison Table */
+.case-study-comparison {
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+.case-study-comparison table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.case-study-comparison th {
+  background: var(--md-code-bg-color);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--md-accent-fg-color);
+}
+
+.case-study-comparison td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.case-study-comparison .company-name {
+  font-weight: 600;
+  color: var(--md-accent-fg-color);
+}
+
+.case-study-comparison .metric-value {
+  font-family: var(--md-code-font-family);
+  color: var(--md-code-fg-color);
+}
+
+/* Excellence Resources Section */
+.excellence-resources {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--md-default-fg-color--lightest);
+}
+
+.excellence-resources h3 {
+  color: var(--md-accent-fg-color);
+  margin-bottom: 1rem;
+}
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.resource-card {
+  padding: 1rem;
+  background: var(--md-code-bg-color);
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.resource-card:hover {
+  border-color: var(--md-accent-fg-color);
+}
+
+.resource-card h4 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.resource-card ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .pattern-excellence-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .success-metrics {
+    grid-template-columns: 1fr;
+  }
+  
+  .case-study-comparison {
+    font-size: 0.875rem;
+  }
+  
+  .pattern-list {
+    flex-direction: column;
+  }
+}

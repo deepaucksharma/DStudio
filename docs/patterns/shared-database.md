@@ -167,6 +167,117 @@ graph LR
 - [ ] Performance degradation affects all services
 - [ ] Security boundaries are unclear
 
+## Excellence Framework Integration
+
+### Migration Path to Modern Patterns
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **To Database per Service**
+    
+    ---
+    
+    The recommended migration path:
+    - Identify service boundaries
+    - Extract service APIs
+    - Gradually separate data
+    - [Full Migration Guide](../excellence/migrations/shared-db-to-database-per-service.md)
+
+- :material-file-document:{ .lg .middle } **To Event-Driven**
+    
+    ---
+    
+    For data synchronization needs:
+    - Implement event sourcing
+    - Use CDC for transition
+    - Eventual consistency
+    - [Migration Guide](../excellence/migrations/shared-db-to-event-driven.md)
+
+- :material-file-document:{ .lg .middle } **To CQRS**
+    
+    ---
+    
+    For read/write separation:
+    - Separate read models
+    - Optimize independently
+    - Scale separately
+    - [Migration Guide](../excellence/migrations/shared-db-to-cqrs.md)
+
+- :material-file-document:{ .lg .middle } **To API-Based**
+    
+    ---
+    
+    For service communication:
+    - Define service contracts
+    - Replace DB joins with API calls
+    - Add caching layer
+    - [Migration Guide](../excellence/migrations/shared-db-to-apis.md)
+
+</div>
+
+### Modern Alternatives Comparison
+
+<table class="responsive-table">
+<thead>
+<tr>
+<th>From Shared DB</th>
+<th>To Pattern</th>
+<th>Migration Effort</th>
+<th>Benefits</th>
+<th>Challenges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="From Shared DB"><strong>Direct queries</strong></td>
+<td data-label="To Pattern">Service APIs</td>
+<td data-label="Migration Effort">Medium</td>
+<td data-label="Benefits">Clear contracts</td>
+<td data-label="Challenges">Network latency</td>
+</tr>
+<tr>
+<td data-label="From Shared DB"><strong>Joins</strong></td>
+<td data-label="To Pattern">API composition</td>
+<td data-label="Migration Effort">High</td>
+<td data-label="Benefits">Service autonomy</td>
+<td data-label="Challenges">N+1 queries</td>
+</tr>
+<tr>
+<td data-label="From Shared DB"><strong>Transactions</strong></td>
+<td data-label="To Pattern">Saga pattern</td>
+<td data-label="Migration Effort">Very High</td>
+<td data-label="Benefits">Distributed resilience</td>
+<td data-label="Challenges">Complexity</td>
+</tr>
+<tr>
+<td data-label="From Shared DB"><strong>Reports</strong></td>
+<td data-label="To Pattern">CQRS/Read models</td>
+<td data-label="Migration Effort">Medium</td>
+<td data-label="Benefits">Optimized queries</td>
+<td data-label="Challenges">Eventual consistency</td>
+</tr>
+<tr>
+<td data-label="From Shared DB"><strong>Real-time</strong></td>
+<td data-label="To Pattern">Event streaming</td>
+<td data-label="Migration Effort">High</td>
+<td data-label="Benefits">Real-time updates</td>
+<td data-label="Challenges">Event ordering</td>
+</tr>
+</tbody>
+</table>
+
+### Case Studies: Successful Migrations
+
+- **[Amazon: Monolith to Services](../excellence/case-studies/amazon-service-migration.md)**: From shared Oracle to 100s of services
+- **[Netflix: Microservices Journey](../excellence/case-studies/netflix-db-migration.md)**: Cassandra per service
+- **[Uber: Domain Separation](../excellence/case-studies/uber-domain-services.md)**: From shared Postgres to Schemaless
+
+### Tools for Migration
+
+- **[Database Migration Toolkit](../excellence/tools/db-migration-toolkit.md)**: Scripts and utilities
+- **[Service Extraction Patterns](../excellence/patterns/service-extraction.md)**: Step-by-step process
+- **[Data Synchronization Strategies](../excellence/guides/data-sync-strategies.md)**: During transition
+
 ## Related Patterns
 
 - [Database per Service](database-per-service.md) - The correct approach
@@ -174,3 +285,15 @@ graph LR
 - [API Gateway](api-gateway.md) - For data aggregation
 - [CQRS](cqrs.md) - For query separation
 - [Saga](saga.md) - For distributed transactions
+
+## Further Reading
+
+### Migration Resources
+- ["Building Microservices" by Sam Newman](https://www.oreilly.com/library/view/building-microservices-2nd/9781492034018/) - Chapter on data
+- ["Monolith to Microservices" by Sam Newman](https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/) - Migration patterns
+- ["Microservices Patterns" by Chris Richardson](https://microservices.io/book) - Data patterns
+
+### Online Resources
+- [Martin Fowler: Database Styles](https://martinfowler.com/articles/microservices.html#DecentralizedDataManagement)
+- [Chris Richardson: Database Architecture](https://microservices.io/patterns/data/database-per-service.html)
+- [ThoughtWorks: Breaking the Monolith](https://www.thoughtworks.com/insights/blog/breaking-monolith)

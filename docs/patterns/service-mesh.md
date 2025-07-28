@@ -8,7 +8,7 @@ pattern_status: stable
 
 # Service Mesh
 
-!!! success "🏆 Gold Standard Pattern"
+!!! info "🥈 Silver Tier Pattern"
     **Microservices Infrastructure Standard** • Netflix, Uber, Twitter production proven
     
     Service mesh has become the de facto standard for managing microservice communication at scale. It provides essential features like mTLS, observability, and traffic management out of the box.
@@ -593,6 +593,101 @@ Data Plane:                          Control Plane:
 3. **Observability is built-in** - Traces, metrics, logs automatically
 4. **Security by default** - mTLS, authorization policies
 5. **Trade latency for features** - ~1ms overhead for massive benefits
+
+## Excellence Framework Integration
+
+### Trade-offs Analysis
+
+#### Pros
+- **Centralized control** of service communication
+- **Automatic mTLS** and security policies
+- **Built-in observability** (traces, metrics, logs)
+- **Traffic management** capabilities
+- **Consistent policies** across services
+
+#### Cons
+- **Operational complexity** to manage
+- **Performance overhead** (~1-2ms latency)
+- **Resource consumption** (sidecars)
+- **Learning curve** for teams
+- **Debugging complexity** with proxies
+
+### Best For
+- **Large microservice deployments** (>20 services)
+- **Multi-team organizations** needing consistency
+- **Zero-trust security** requirements
+- **Complex traffic patterns** (A/B, canary)
+- **Regulatory compliance** needs
+
+### Implementation Guides
+- **[Service Mesh Selection Guide](../excellence/guides/service-mesh-selection.md)**: Istio vs Linkerd vs Consul
+- **[Service Mesh Migration](../excellence/guides/service-mesh-migration.md)**: Gradual rollout strategy
+- **[Service Mesh Operations](../excellence/guides/service-mesh-operations.md)**: Day-2 operations
+
+### Case Studies
+- **[Uber's 3000+ Service Mesh](../excellence/case-studies/uber-service-mesh.md)**: Global scale deployment
+- **[Twitter's Linkerd Journey](../excellence/case-studies/twitter-linkerd.md)**: Performance at scale
+- **[Booking.com Service Mesh](../excellence/case-studies/booking-mesh.md)**: Multi-region mesh
+
+### Pattern Combinations
+<div class="grid cards" markdown>
+
+- :material-puzzle:{ .lg .middle } **With Circuit Breaker**
+    
+    ---
+    
+    Mesh-native resilience:
+    - Centralized circuit breaking policies
+    - No application code changes
+    - [View Integration Guide](../excellence/combinations/mesh-circuit-breaker.md)
+
+- :material-puzzle:{ .lg .middle } **With API Gateway**
+    
+    ---
+    
+    North-south + east-west:
+    - Gateway for external traffic
+    - Mesh for internal communication
+    - [View Integration Guide](../excellence/combinations/mesh-api-gateway.md)
+
+- :material-puzzle:{ .lg .middle } **With Multi-Cluster**
+    
+    ---
+    
+    Cross-cluster communication:
+    - Mesh federation
+    - Consistent policies globally
+    - [View Integration Guide](../excellence/combinations/mesh-multicluster.md)
+
+- :material-puzzle:{ .lg .middle } **With GitOps**
+    
+    ---
+    
+    Policy as code:
+    - Declarative mesh configuration
+    - Version controlled policies
+    - [View Integration Guide](../excellence/combinations/mesh-gitops.md)
+
+</div>
+
+### When to Avoid Service Mesh
+
+<div class="decision-box">
+<h4>⚠️ Service Mesh Anti-Patterns</h4>
+
+**Don't use service mesh when:**
+- Few services (<10)
+- Monolithic architecture
+- Latency-critical applications (<1ms tolerance)
+- Limited operational expertise
+- Simple deployment patterns
+
+**Start with simpler alternatives:**
+- Client libraries for few services
+- API gateway for edge traffic only
+- Cloud provider load balancers
+- Container orchestrator features
+</div>
 
 ---
 

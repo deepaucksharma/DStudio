@@ -1327,6 +1327,29 @@ graph TB
 
 *"In payments, the only acceptable error rate is zero."* - Patrick Collison, Stripe CEO
 
+## Excellence Resources
+
+### Implementation Guides
+- [Financial Systems Excellence](../../excellence/implementation-guides/financial-systems) - Building zero-data-loss payment systems
+- [Regulatory Compliance Guide](../../excellence/implementation-guides/regulatory-compliance) - PCI-DSS, SOX, GDPR compliance
+- [Zero Data Loss Architecture](../../excellence/implementation-guides/zero-data-loss) - Guaranteeing financial accuracy
+
+### Related Case Studies  
+- [Stripe: Modern Payment Infrastructure](paypal-payments.md) - API-first payment processing
+- [Square: Omnichannel Payments](ecommerce-platform.md) - Physical and digital payments
+- [Coinbase: Crypto Payment Rails](blockchain.md) - Blockchain-based payments
+- [Wise: Cross-Border Payments](payment-system.md) - Multi-currency optimization
+
+### Pattern Deep Dives
+- [Event Sourcing for Payments](../../patterns/event-sourcing#financial-systems) - Financial event sourcing
+- [Saga Pattern Examples](../../patterns/saga-pattern#payment-processing) - Payment saga implementations
+- [Idempotency Best Practices](../../patterns/idempotency#payment-systems) - Payment idempotency
+
+### Excellence Journeys
+- [Building a Payment System from Scratch](../../excellence/journeys/payment-system-journey) - Step-by-step guide
+- [Migrating Legacy Payment Systems](../../excellence/journeys/payment-modernization) - Modernization playbook
+- [Scaling to 100K TPS](../../excellence/journeys/payment-scaling) - Scale-up strategies
+
 ## References
 
 - [The Architecture of Open Source Applications: Stripe](http://aosabook.org/en/stripe.html)

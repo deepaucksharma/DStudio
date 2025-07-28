@@ -8,7 +8,7 @@ pattern_status: stable
 
 # CQRS (Command Query Responsibility Segregation)
 
-!!! success "🏆 Gold Standard Pattern"
+!!! info "🥈 Silver Tier Pattern"
     **Read/Write Optimization Champion** • LinkedIn, Uber, Netflix at billion-event scale
     
     CQRS is essential for systems with asymmetric read/write patterns and complex domain logic. It enables independent scaling and optimization of commands and queries.
@@ -317,11 +317,108 @@ CQRS implements:
 - **[CDC (Change Data Capture)](patterns/cdc)**: Database-level sync
 - **[Materialized View](patterns/materialized-view)**: Read model implementation
 
+## Excellence Framework Integration
+
+### Trade-offs Analysis
+
+#### Pros
+- **Independent scaling** of read and write models
+- **Optimized performance** for different workloads
+- **Flexibility** in choosing different databases for reads/writes
+- **Clear separation** of business logic and query logic
+- **Event sourcing** compatibility
+
+#### Cons
+- **Eventual consistency** complexity
+- **Increased infrastructure** costs
+- **Synchronization logic** overhead
+- **Debugging difficulty** across models
+- **Team expertise** requirements
+
+### Best For
+- **High read/write ratio** systems (>10:1)
+- **Complex domain logic** with simple queries
+- **Different consistency** requirements for reads/writes
+- **Multiple view models** of same data
+- **Event-driven** architectures
+
+### Implementation Guides
+- **[CQRS Implementation Guide](../excellence/guides/cqrs-implementation.md)**: Step-by-step setup
+- **[CQRS with Event Sourcing](../excellence/guides/cqrs-event-sourcing.md)**: Advanced patterns
+- **[CQRS Testing Strategies](../excellence/guides/cqrs-testing.md)**: Testing dual models
+
+### Case Studies
+- **[LinkedIn Feed Architecture](../excellence/case-studies/linkedin-feed-cqrs.md)**: 1B+ daily updates
+- **[Uber Trip Management](../excellence/case-studies/uber-trip-cqrs.md)**: Real-time tracking
+- **[Banking Transaction Systems](../excellence/case-studies/banking-cqrs.md)**: Audit and compliance
+
+### Pattern Combinations
+<div class="grid cards" markdown>
+
+- :material-puzzle:{ .lg .middle } **With Event Sourcing**
+    
+    ---
+    
+    Natural fit for write model:
+    - Events as source of truth
+    - Projections for read models
+    - [View Integration Guide](../excellence/combinations/cqrs-event-sourcing.md)
+
+- :material-puzzle:{ .lg .middle } **With Saga Pattern**
+    
+    ---
+    
+    Distributed transaction handling:
+    - Commands trigger sagas
+    - Queries read saga state
+    - [View Integration Guide](../excellence/combinations/cqrs-saga.md)
+
+- :material-puzzle:{ .lg .middle } **With API Gateway**
+    
+    ---
+    
+    Unified interface:
+    - Gateway routes to appropriate model
+    - Aggregates read responses
+    - [View Integration Guide](../excellence/combinations/cqrs-gateway.md)
+
+- :material-puzzle:{ .lg .middle } **With Microservices**
+    
+    ---
+    
+    Service boundaries:
+    - Each service owns its models
+    - Cross-service projections
+    - [View Integration Guide](../excellence/combinations/cqrs-microservices.md)
+
+</div>
+
+### When to Avoid CQRS
+
+<div class="decision-box">
+<h4>⚠️ CQRS Anti-Patterns</h4>
+
+**Don't use CQRS when:**
+- Simple CRUD operations dominate
+- Small team (<3 developers)
+- Low traffic (<1000 requests/day)
+- Domain logic is trivial
+- Consistency is critical everywhere
+
+**Signs you don't need CQRS:**
+- Your models are nearly identical
+- No complex queries or aggregations
+- Single database works fine
+- Team lacks distributed systems experience
+</div>
+
 ## Further Reading
 
 - [Greg Young's CQRS Documents](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf) - Original CQRS papers
 - [Martin Fowler's CQRS Article](https://martinfowler.com/bliki/CQRS.html) - Clear introduction
 - [Microsoft CQRS Journey](https://docs.microsoft.com/en-us#-versions/msp-n-p/jj554200(v=pandp.10)) - Detailed implementation guide
+- [Event Store Documentation](https://eventstore.com/docs/) - CQRS with Event Sourcing
+- [Axon Framework](https://docs.axoniq.io/) - CQRS/ES framework
 
 
 
