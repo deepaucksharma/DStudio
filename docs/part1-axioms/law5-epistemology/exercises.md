@@ -1,684 +1,827 @@
-# Exercises: The Law of Distributed Knowledge
+# Law 5: Exercises - The Truth Dojo 🥋
 
-## Overview
+<div class="axiom-box">
+<h2>Your Mission: Master the Art of Distributed Deception</h2>
+<p>These exercises will rewire your brain to think in probabilities, not certainties. By the end, you'll design systems that thrive on partial knowledge—because that's all you'll ever have.</p>
+</div>
 
-These exercises will help you understand how knowledge is distributed across systems and how nodes reach consensus despite partial information. You'll implement fundamental distributed algorithms and data structures.
+## Your Truth Readiness Test
 
-## Exercise 1: Byzantine Generals Protocol
+```
+CHECK YOUR LEVEL
+═══════════════
 
-### Background
-The Byzantine Generals Problem illustrates the challenge of reaching consensus in a distributed system where some nodes may be faulty or malicious.
+□ Level 0: "The database knows the truth"
+□ Level 1: "OK, nodes can disagree temporarily"
+□ Level 2: "I see truth as eventual consistency"
+□ Level 3: "I design for Byzantine failures"
+□ Level 4: "I embrace probabilistic truth"
+□ Level 5: "I profit from uncertainty"
 
-### Task
-Implement a simple Byzantine Generals protocol where generals must agree on whether to attack or retreat.
-
-```python
-import random
-from typing import List, Dict, Tuple
-from collections import defaultdict
-
-class General:
-    def __init__(self, id: int, is_traitor: bool = False):
-        self.id = id
-        self.is_traitor = is_traitor
-        self.received_messages = defaultdict(list)
-        
-    def send_order(self, order: str, recipients: List['General']):
-        """Commander sends initial order to all lieutenants"""
-        for recipient in recipients:
-            if self.is_traitor:
-# Traitor sends conflicting orders
-                conflicting_order = "retreat" if order == "attack" else "attack"
-                order_to_send = random.choice([order, conflicting_order])
-            else:
-                order_to_send = order
-            recipient.receive_order(self.id, order_to_send)
-    
-    def receive_order(self, sender_id: int, order: str):
-        """Receive an order from another general"""
-        self.received_messages[sender_id].append(order)
-    
-    def relay_orders(self, recipients: List['General']):
-        """Relay received orders to other generals"""
-        for sender_id, orders in self.received_messages.items():
-            for recipient in recipients:
-                if recipient.id != self.id and recipient.id != sender_id:
-                    for order in orders:
-                        if self.is_traitor:
-# Traitor may corrupt the message
-                            order_to_relay = random.choice(["attack", "retreat"])
-                        else:
-                            order_to_relay = order
-                        recipient.receive_order(sender_id, order_to_relay)
-    
-    def decide(self) -> str:
-        """Make a decision based on received messages"""
-        all_orders = []
-        for orders in self.received_messages.values():
-            all_orders.extend(orders)
-        
-        if not all_orders:
-            return "retreat"  # Default to safe option
-        
-# Use majority voting
-        attack_count = all_orders.count("attack")
-        retreat_count = all_orders.count("retreat")
-        
-        return "attack" if attack_count > retreat_count else "retreat"
-
-def byzantine_generals_protocol(num_generals: int, num_traitors: int) -> Dict[int, str]:
-    """
-    Simulate Byzantine Generals Protocol
-    
-    TODO: Complete this implementation
-    1. Create generals (including traitors)
-    2. Commander sends initial order
-    3. Lieutenants relay orders to each other
-    4. Each lieutenant makes a decision
-    5. Return the decisions of all loyal generals
-    """
-# Your implementation here
-    pass
-
-# Test your implementation
-def test_byzantine_generals():
-# Test case 1: 4 generals, 1 traitor
-    decisions = byzantine_generals_protocol(4, 1)
-    print(f"4 generals, 1 traitor: {decisions}")
-    
-# Test case 2: 7 generals, 2 traitors
-    decisions = byzantine_generals_protocol(7, 2)
-    print(f"7 generals, 2 traitors: {decisions}")
-    
-# Verify consensus among loyal generals
-# TODO: Add assertions to verify correctness
-
-if __name__ == "__main__":
-    test_byzantine_generals()
+Start wherever you are. Ascend to mastery.
 ```
 
-### Questions
-1. What is the minimum number of generals needed to tolerate `f` traitors?
-2. How does message complexity grow with the number of generals?
-3. What happens if network messages can be lost or delayed?
+---
 
-## Exercise 2: Building CRDTs (Conflict-free Replicated Data Types)
+## Exercise 1: The Split-Brain Simulator 🧠
 
-### Task A: Implement a G-Counter (Grow-only Counter)
+<div class="decision-box">
+<h3>Build Your Own Network Partition Disaster</h3>
 
 ```python
-from typing import Dict, Set
-import copy
+class DataCenter:
+    def __init__(self, name):
+        self.name = name
+        self.is_primary = False
+        self.data = {}
+        self.peers = []
+        self.network_status = {}
+        
+    def can_reach(self, peer):
+        """Check if we can reach another DC"""
+        return self.network_status.get(peer.name, True)
+        
+    def write(self, key, value):
+        """Accept a write if we think we're primary"""
+        if self.is_primary:
+            self.data[key] = {
+                'value': value,
+                'timestamp': time.time(),
+                'dc': self.name
+            }
+            return True
+        return False
 
-class GCounter:
+class SplitBrainSimulator:
     """
-    A grow-only counter CRDT that can only increment
+    YOUR TASK: Create a split-brain scenario and watch the chaos
     """
-    def __init__(self, node_id: str):
+    def __init__(self):
+        self.dc_west = DataCenter("US-WEST")
+        self.dc_east = DataCenter("US-EAST")
+        self.dc_eu = DataCenter("EU-CENTRAL")
+        
+        # Initially, all can reach each other
+        self.dc_west.peers = [self.dc_east, self.dc_eu]
+        self.dc_east.peers = [self.dc_west, self.dc_eu]
+        self.dc_eu.peers = [self.dc_west, self.dc_east]
+        
+        # DC-WEST starts as primary
+        self.dc_west.is_primary = True
+        
+    def partition_network(self, groups):
+        """
+        Create network partition between groups
+        Example: [[dc_west], [dc_east, dc_eu]]
+        """
+        # TODO: Implement network partitioning
+        # Update each DC's network_status
+        pass
+        
+    def simulate_primary_election(self):
+        """
+        Each partition elects a primary
+        This is where the fun begins...
+        """
+        # TODO: Implement split-brain scenario
+        # Each partition should elect its own primary
+        pass
+        
+    def simulate_writes(self):
+        """
+        Different clients write to different primaries
+        """
+        # Client A (can only reach WEST)
+        self.dc_west.write("user:123", {"name": "Alice", "balance": 100})
+        
+        # Client B (can only reach EAST)
+        self.dc_east.write("user:123", {"name": "Alice", "balance": 50})
+        
+        # THE HORROR: Same key, different values!
+        
+    def heal_partition(self):
+        """
+        Network recovers. Now what?
+        Both DCs have different data for same keys.
+        """
+        # TODO: Implement conflict detection
+        # Which version of user:123 is correct?
+        pass
+
+# YOUR CHALLENGE:
+# 1. Implement the partition logic
+# 2. Create a scenario where data diverges
+# 3. Try to reconcile after healing
+# 4. Feel the pain of distributed truth
+```
+
+<details>
+<summary>💡 Hints for Implementation</summary>
+
+```python
+def partition_network(self, groups):
+    """Create network partition"""
+    for group in groups:
+        for dc in group:
+            # Can reach others in same group
+            for peer in group:
+                if peer != dc:
+                    dc.network_status[peer.name] = True
+            
+            # Cannot reach other groups
+            for other_group in groups:
+                if other_group != group:
+                    for peer in other_group:
+                        dc.network_status[peer.name] = False
+                        
+def detect_conflicts(self):
+    """Find divergent data after healing"""
+    conflicts = []
+    all_keys = set()
+    
+    for dc in [self.dc_west, self.dc_east, self.dc_eu]:
+        all_keys.update(dc.data.keys())
+    
+    for key in all_keys:
+        values = {}
+        for dc in [self.dc_west, self.dc_east, self.dc_eu]:
+            if key in dc.data:
+                values[dc.name] = dc.data[key]
+        
+        if len(set(str(v) for v in values.values())) > 1:
+            conflicts.append((key, values))
+    
+    return conflicts
+```
+</details>
+</div>
+
+### The Learning Questions
+
+1. How would you prevent split-brain with 3 data centers?
+2. What's the minimum number of nodes needed for a quorum?
+3. How does Raft handle this differently than Paxos?
+
+---
+
+## Exercise 2: Byzantine Generals Battle Simulator ⚔️
+
+<div class="failure-vignette">
+<h3>When Nodes Lie (Accidentally or Not)</h3>
+
+```
+THE SCENARIO: Distributed Database Nodes Must Agree on Next Action
+═══════════════════════════════════════════════════════════════
+
+4 Nodes Total, 1 is Byzantine (buggy/malicious)
+
+Node A (Commander): "COMMIT transaction"
+         ↓
+    ┌────┴────┐
+    ▼         ▼
+Node B     Node C (Byzantine)
+"COMMIT"   "ROLLBACK" to some
+           "COMMIT" to others
+    │         │
+    └────┬────┘
+         ▼
+      Node D
+   "What do I do?"
+
+YOUR MISSION: Implement Byzantine Fault Tolerance
+```
+
+```python
+class ByzantineNode:
+    def __init__(self, node_id, is_byzantine=False):
+        self.id = node_id
+        self.is_byzantine = is_byzantine
+        self.received_values = {}
+        self.phase = 0
+        
+    def broadcast_value(self, value, recipients):
+        """Send value to other nodes"""
+        if not self.is_byzantine:
+            # Honest node: send same value to all
+            for node in recipients:
+                node.receive_value(self.id, value, self.phase)
+        else:
+            # Byzantine node: send different values!
+            for i, node in enumerate(recipients):
+                if i % 2 == 0:
+                    node.receive_value(self.id, value, self.phase)
+                else:
+                    # Send opposite value
+                    bad_value = "ROLLBACK" if value == "COMMIT" else "COMMIT"
+                    node.receive_value(self.id, bad_value, self.phase)
+    
+    def receive_value(self, sender_id, value, phase):
+        """Receive and store value from another node"""
+        if phase not in self.received_values:
+            self.received_values[phase] = {}
+        self.received_values[phase][sender_id] = value
+    
+    def echo_phase(self, recipients):
+        """PBFT echo phase - rebroadcast what you heard"""
+        # TODO: Implement echo phase
+        # Each node broadcasts all values it received
+        pass
+    
+    def decide_value(self):
+        """Make final decision based on received values"""
+        # TODO: Implement decision logic
+        # Need 2f+1 matching values to decide
+        pass
+
+class PBFTSimulator:
+    """
+    Practical Byzantine Fault Tolerance Simulator
+    
+    The algorithm:
+    1. Primary broadcasts value
+    2. All nodes echo what they heard
+    3. Nodes decide based on majority
+    """
+    def __init__(self, num_nodes=4, num_byzantine=1):
+        self.nodes = []
+        
+        # Create nodes (make some Byzantine)
+        for i in range(num_nodes):
+            is_byzantine = i < num_byzantine
+            self.nodes.append(ByzantineNode(f"Node_{i}", is_byzantine))
+    
+    def run_consensus(self, value="COMMIT"):
+        """
+        Run PBFT consensus protocol
+        
+        YOUR TASK:
+        1. Primary broadcasts value
+        2. All nodes echo to all others
+        3. Each node decides based on majority
+        4. Verify all honest nodes agree!
+        """
+        # Phase 1: Primary broadcast
+        primary = self.nodes[0]
+        others = self.nodes[1:]
+        primary.broadcast_value(value, others)
+        
+        # Phase 2: Echo phase
+        # TODO: Implement echo phase
+        
+        # Phase 3: Decision
+        # TODO: Each node makes decision
+        
+        # Verify consensus among honest nodes
+        # TODO: Check that all honest nodes decided same value
+        
+        pass
+
+# TEST YOUR IMPLEMENTATION
+simulator = PBFTSimulator(num_nodes=7, num_byzantine=2)
+# Can 7 nodes tolerate 2 Byzantine nodes?
+# Remember: Need n > 3f
+```
+</div>
+
+### Byzantine Scenarios to Test
+
+```
+SCENARIO 1: The Optimistic Traitor
+════════════════════════════════
+Byzantine node always says "COMMIT"
+even when primary said "ROLLBACK"
+
+SCENARIO 2: The Chaos Agent
+═══════════════════════════
+Byzantine node sends random values
+No pattern to the lies
+
+SCENARIO 3: The Smart Adversary
+═══════════════════════════════
+Byzantine node tries to cause maximum
+disagreement by analyzing the network
+
+YOUR CHALLENGE: Make consensus work despite all three!
+```
+
+---
+
+## Exercise 3: Vector Clock Time Machine 🕐
+
+<div class="truth-box">
+<h3>Track Causality in a Distributed System</h3>
+
+```
+THE PROBLEM: Who Edited the Document First?
+═══════════════════════════════════════════
+
+Three users editing same document:
+
+Time →
+Alice: ──[Edit A1]────────[Edit A2]───────────→
+         ↓                    ↓
+Bob:   ────────[Edit B1]──────────[Edit B2]───→
+                  ↓                   ↓
+Carol: ──────────────[Edit C1]────────────────→
+
+Which edits conflict? Which can be auto-merged?
+Vector clocks will tell you!
+```
+
+```python
+class VectorClock:
+    def __init__(self, node_id, num_nodes):
         self.node_id = node_id
-        self.counts: Dict[str, int] = {node_id: 0}
+        self.clock = {f"node_{i}": 0 for i in range(num_nodes)}
     
-    def increment(self, value: int = 1):
-        """Increment the counter for this node"""
-        if value < 0:
-            raise ValueError("G-Counter can only grow")
-        self.counts[self.node_id] += value
+    def tick(self):
+        """Increment local clock"""
+        self.clock[self.node_id] += 1
+        return self.clock.copy()
     
-    def value(self) -> int:
-        """Get the current value of the counter"""
-        return sum(self.counts.values())
+    def update(self, other_clock):
+        """Update clock when receiving message"""
+        # Take max of each component
+        for node, time in other_clock.items():
+            self.clock[node] = max(self.clock.get(node, 0), time)
+        # Then increment local time
+        self.tick()
     
-    def merge(self, other: 'GCounter'):
-        """Merge another G-Counter into this one"""
-# TODO: Implement merge operation
-# Hint: Take the maximum count for each node
+    def happens_before(self, other):
+        """Check if this event happened before other"""
+        # TODO: Implement happens-before relation
+        # A happens-before B if all components A <= B
+        # and at least one component A < B
         pass
     
-    def __repr__(self):
-        return f"GCounter({self.node_id}: {self.counts})"
+    def concurrent_with(self, other):
+        """Check if events are concurrent"""
+        # TODO: Events are concurrent if neither
+        # happens-before the other
+        pass
 
-# Test your G-Counter implementation
-def test_g_counter():
-# Create counters for different nodes
-    counter_a = GCounter("A")
-    counter_b = GCounter("B")
-    counter_c = GCounter("C")
+class CollaborativeDocument:
+    """
+    Simulate collaborative editing with vector clocks
+    """
+    def __init__(self, num_users=3):
+        self.users = {}
+        self.edits = []
+        
+        for i in range(num_users):
+            user_id = f"user_{i}"
+            self.users[user_id] = VectorClock(user_id, num_users)
     
-# Simulate concurrent increments
-    counter_a.increment(5)
-    counter_b.increment(3)
-    counter_c.increment(2)
+    def edit(self, user_id, content, clock=None):
+        """User makes an edit"""
+        user_clock = self.users[user_id]
+        
+        if clock:
+            # Received edit from another user
+            user_clock.update(clock)
+        else:
+            # Local edit
+            user_clock.tick()
+        
+        edit = {
+            'user': user_id,
+            'content': content,
+            'clock': user_clock.clock.copy(),
+            'timestamp': time.time()
+        }
+        self.edits.append(edit)
+        
+        return edit
     
-# Simulate network partitions and merges
-# TODO: Test merge operations and verify convergence
+    def find_conflicts(self):
+        """
+        Find concurrent (conflicting) edits
+        
+        YOUR TASK: Identify which edits happened
+        concurrently and need manual resolution
+        """
+        conflicts = []
+        
+        # TODO: Compare all pairs of edits
+        # If concurrent, they conflict!
+        
+        return conflicts
     
-    print(f"Counter A: {counter_a.value()}")
-    print(f"Counter B: {counter_b.value()}")
-    print(f"Counter C: {counter_c.value()}")
+    def create_total_order(self):
+        """
+        Create a total order of edits
+        respecting causality
+        
+        YOUR TASK: Order edits such that
+        if A happens-before B, A comes first
+        """
+        # TODO: Implement topological sort
+        # based on happens-before relation
+        pass
+
+# SIMULATE COLLABORATIVE EDITING
+doc = CollaborativeDocument(num_users=3)
+
+# Alice starts editing
+edit_a1 = doc.edit("user_0", "Hello world")
+
+# Bob sees Alice's edit and responds
+doc.edit("user_1", "Hello universe", edit_a1['clock'])
+
+# Carol edits independently (concurrent!)
+edit_c1 = doc.edit("user_2", "Goodbye world")
+
+# Find conflicts
+conflicts = doc.find_conflicts()
+print(f"Conflicting edits: {conflicts}")
+
+# YOUR CHALLENGE:
+# 1. Implement happens-before checking
+# 2. Detect concurrent edits
+# 3. Create a causally-consistent order
+# 4. Handle a "time travel" edit (clock from future)
+```
+</div>
+
+---
+
+## Exercise 4: Build Your Own CRDT 🔧
+
+<div class="axiom-box">
+<h3>Conflict-Free Magic Through Math</h3>
+
+```
+THE CHALLENGE: Shopping Cart That Never Loses Items
+═══════════════════════════════════════════════════
+
+Phone adds milk → Server A
+Laptop adds eggs → Server B
+Network partition!
+
+After merge, cart must have BOTH milk and eggs
+No coordination needed!
 ```
 
-### Task B: Implement a PN-Counter (Positive-Negative Counter)
-
 ```python
-class PNCounter:
+class GSet:
     """
-    A counter CRDT that supports both increment and decrement
+    Grow-only Set CRDT
+    The simplest CRDT - can only add, never remove
     """
-    def __init__(self, node_id: str):
+    def __init__(self, node_id):
         self.node_id = node_id
-        self.p_counter = GCounter(node_id)  # Positive counter
-        self.n_counter = GCounter(node_id)  # Negative counter
+        self.elements = set()
     
-    def increment(self, value: int = 1):
-        """Increment the counter"""
-        if value < 0:
-            raise ValueError("Use decrement for negative values")
-# TODO: Implement increment
-        pass
+    def add(self, element):
+        """Add element to set"""
+        self.elements.add((element, self.node_id, time.time()))
     
-    def decrement(self, value: int = 1):
-        """Decrement the counter"""
-        if value < 0:
-            raise ValueError("Use increment for negative values")
-# TODO: Implement decrement
-        pass
+    def merge(self, other):
+        """Merge with another GSet"""
+        # Union of both sets - never loses data!
+        self.elements = self.elements.union(other.elements)
     
-    def value(self) -> int:
-        """Get the current value of the counter"""
-# TODO: Calculate value from p_counter and n_counter
-        pass
-    
-    def merge(self, other: 'PNCounter'):
-        """Merge another PN-Counter into this one"""
-# TODO: Implement merge operation
-        pass
-
-# Test your PN-Counter implementation
-def test_pn_counter():
-# Create counters for different nodes
-    counter_a = PNCounter("A")
-    counter_b = PNCounter("B")
-    
-# Test increment and decrement
-    counter_a.increment(10)
-    counter_a.decrement(3)
-    counter_b.increment(5)
-    counter_b.decrement(7)
-    
-# Test merge and convergence
-# TODO: Complete the test
-```
-
-### Task C: Implement an OR-Set (Observed-Remove Set)
-
-```python
-import uuid
-from typing import Set, Tuple, Any
+    def values(self):
+        """Get unique values in set"""
+        return {elem[0] for elem in self.elements}
 
 class ORSet:
     """
-    An OR-Set CRDT that supports concurrent add and remove operations
+    Observed-Remove Set
+    Can both add AND remove items!
+    
+    YOUR TASK: Implement add-wins semantics
     """
-    def __init__(self, node_id: str):
+    def __init__(self, node_id):
         self.node_id = node_id
-        self.elements: Set[Tuple[Any, str]] = set()  # (element, unique_id)
-        self.tombstones: Set[Tuple[Any, str]] = set()  # Removed elements
+        self.adds = {}  # element -> set of unique tags
+        self.removes = {}  # element -> set of removed tags
     
-    def add(self, element: Any):
-        """Add an element to the set"""
-        unique_id = f"{self.node_id}:{uuid.uuid4()}"
-# TODO: Implement add operation
+    def add(self, element):
+        """Add element with unique tag"""
+        tag = f"{self.node_id}:{time.time()}"
+        
+        if element not in self.adds:
+            self.adds[element] = set()
+        self.adds[element].add(tag)
+        
+        return tag
+    
+    def remove(self, element):
+        """Remove all visible instances of element"""
+        # TODO: Move current tags to removes
         pass
     
-    def remove(self, element: Any):
-        """Remove an element from the set"""
-# TODO: Implement remove operation
-# Hint: Move all instances of element to tombstones
+    def merge(self, other):
+        """Merge another ORSet"""
+        # TODO: Implement merge
+        # Union adds, union removes
+        # Element exists if any tag in adds is not in removes
         pass
     
-    def contains(self, element: Any) -> bool:
-        """Check if element is in the set"""
-# TODO: Implement contains check
-        pass
-    
-    def values(self) -> Set[Any]:
-        """Get all elements currently in the set"""
-# TODO: Return unique elements not in tombstones
-        pass
-    
-    def merge(self, other: 'ORSet'):
-        """Merge another OR-Set into this one"""
-# TODO: Implement merge operation
-# Hint: Union elements, union tombstones, then apply tombstones
+    def contains(self, element):
+        """Check if element exists"""
+        # TODO: Element exists if it has tags not in removes
         pass
 
-# Test your OR-Set implementation
-def test_or_set():
-    set_a = ORSet("A")
-    set_b = ORSet("B")
-    
-# Concurrent adds
-    set_a.add("apple")
-    set_b.add("apple")
-    set_b.add("banana")
-    
-# Concurrent add/remove
-    set_a.remove("apple")
-    set_b.add("apple")  # This should win (add-wins semantics)
-    
-# Test merge and convergence
-# TODO: Complete the test
+class ShoppingCartCRDT:
+    """
+    A shopping cart that handles concurrent updates
+    """
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.items = ORSet(user_id)
+        self.quantities = {}  # Use PN-Counter per item
+        
+    def add_item(self, item, quantity=1):
+        """Add item to cart"""
+        tag = self.items.add(item)
+        
+        # TODO: Implement quantity tracking
+        # Hint: Use a PN-Counter for each item
+        
+    def remove_item(self, item):
+        """Remove item from cart"""
+        self.items.remove(item)
+        
+    def update_quantity(self, item, delta):
+        """Change quantity (can be negative)"""
+        # TODO: Update quantity using CRDT
+        pass
+        
+    def merge(self, other_cart):
+        """Merge with another cart"""
+        self.items.merge(other_cart.items)
+        
+        # TODO: Merge quantities correctly
+        
+    def get_contents(self):
+        """Get current cart contents"""
+        contents = {}
+        for item in self.items.values():
+            # TODO: Get quantity for each item
+            contents[item] = self.quantities.get(item, 0)
+        return contents
+
+# SIMULATE DISTRIBUTED SHOPPING
+alice_cart = ShoppingCartCRDT("alice")
+bob_cart = ShoppingCartCRDT("bob")
+
+# Alice shops on phone
+alice_cart.add_item("milk", 2)
+alice_cart.add_item("bread", 1)
+
+# Bob shops on laptop (same account!)
+bob_cart.add_item("eggs", 12)
+bob_cart.add_item("milk", 1)  # Also adds milk!
+
+# Network partition! They shop independently
+alice_cart.remove_item("bread")  # Changed mind
+bob_cart.add_item("butter", 1)
+
+# Eventually, network heals - merge carts
+alice_cart.merge(bob_cart)
+bob_cart.merge(alice_cart)
+
+# Both should have identical contents!
+print(f"Alice sees: {alice_cart.get_contents()}")
+print(f"Bob sees: {bob_cart.get_contents()}")
+
+# YOUR CHALLENGE:
+# 1. Implement ORSet remove operation
+# 2. Handle quantity conflicts (both added milk)
+# 3. Ensure remove+add of same item works correctly
+# 4. Test with 3-way merge
+```
+</div>
+
+---
+
+## Exercise 5: Distributed Truth Detective 🔍
+
+<div class="decision-box">
+<h3>Debug a Real Distributed System Problem</h3>
+
+```
+THE MYSTERY: The Case of the Vanishing Writes
+═════════════════════════════════════════════
+
+Your distributed database is losing writes.
+Users complain their data disappears.
+Sometimes it comes back later.
+Sometimes it's gone forever.
+
+Your tools:
+- Node logs with Lamport timestamps
+- Network trace showing message delays
+- Client complaints with timestamps
+
+Your mission: Find the truth!
 ```
 
-## Exercise 3: Distributed Consensus Simulator
-
-### Task
-Build a simple Raft consensus simulator to understand leader election and log replication.
-
 ```python
-import time
-import random
-from enum import Enum
-from typing import List, Optional, Dict
-from dataclasses import dataclass
-
-class NodeState(Enum):
-    FOLLOWER = "FOLLOWER"
-    CANDIDATE = "CANDIDATE"
-    LEADER = "LEADER"
-
-@dataclass
-class LogEntry:
-    term: int
-    command: str
-    index: int
-
-class RaftNode:
-    def __init__(self, node_id: int, peers: List[int]):
-        self.node_id = node_id
-        self.peers = peers
-        self.state = NodeState.FOLLOWER
-        self.current_term = 0
-        self.voted_for: Optional[int] = None
-        self.log: List[LogEntry] = []
-        self.commit_index = 0
-        self.last_heartbeat = time.time()
-        self.election_timeout = random.uniform(0.15, 0.3)
-        self.votes_received = 0
-        
-    def start_election(self):
-        """Start a new election"""
-        self.state = NodeState.CANDIDATE
-        self.current_term += 1
-        self.voted_for = self.node_id
-        self.votes_received = 1  # Vote for self
-        
-# TODO: Request votes from peers
-        print(f"Node {self.node_id}: Starting election for term {self.current_term}")
-    
-    def request_vote(self, candidate_id: int, term: int, 
-                    last_log_index: int, last_log_term: int) -> Tuple[int, bool]:
-        """Handle vote request from candidate"""
-# TODO: Implement vote request handling
-# Consider:
-# 1. Is the term valid?
-# 2. Have we already voted in this term?
-# 3. Is the candidate's log at least as up-to-date as ours?
-        pass
-    
-    def append_entries(self, term: int, leader_id: int, prev_log_index: int,
-                      prev_log_term: int, entries: List[LogEntry], 
-                      leader_commit: int) -> Tuple[int, bool]:
-        """Handle append entries RPC from leader"""
-# TODO: Implement log replication
-# Consider:
-# 1. Is the term valid?
-# 2. Does our log match at prev_log_index?
-# 3. How to handle conflicts?
-        pass
-    
-    def tick(self):
-        """Process one time unit"""
-        current_time = time.time()
-        
-        if self.state == NodeState.FOLLOWER:
-# Check for election timeout
-            if current_time - self.last_heartbeat > self.election_timeout:
-                self.start_election()
-        
-        elif self.state == NodeState.CANDIDATE:
-# TODO: Handle election timeout and retry
-            pass
-        
-        elif self.state == NodeState.LEADER:
-# TODO: Send periodic heartbeats
-            pass
-
-def simulate_raft_cluster(num_nodes: int, duration: float):
+class DistributedSystemDebugger:
     """
-    Simulate a Raft cluster
-    
-    TODO: Complete this simulation
-    1. Create nodes
-    2. Simulate network communication
-    3. Inject failures and partitions
-    4. Verify safety properties (only one leader per term)
-    5. Verify liveness properties (eventually elects a leader)
+    Analyze logs to find distributed system bugs
     """
-    nodes = []
-    for i in range(num_nodes):
-        peers = [j for j in range(num_nodes) if j != i]
-        nodes.append(RaftNode(i, peers))
+    def __init__(self):
+        self.events = []
+        self.nodes = {}
+        
+    def parse_log_entry(self, log_line):
+        """
+        Parse a log entry like:
+        [Node_A][Lamport:42] Received WRITE key=user:123 value={"name":"Alice"}
+        """
+        # TODO: Parse log format
+        pass
+        
+    def build_happens_before_graph(self):
+        """
+        Build a graph of causal relationships
+        """
+        # TODO: Use Lamport timestamps to order events
+        pass
+        
+    def detect_anomalies(self):
+        """
+        Find distributed system anomalies:
+        
+        1. Lost writes (write acknowledged but not persisted)
+        2. Stale reads (read returns old value after write)
+        3. Causality violations (effect before cause)
+        4. Split brain (two nodes think they're primary)
+        """
+        anomalies = []
+        
+        # TODO: Implement anomaly detection
+        
+        return anomalies
     
-# Run simulation
-    start_time = time.time()
-    while time.time() - start_time < duration:
-        for node in nodes:
-            node.tick()
-        time.sleep(0.01)  # Small delay
-    
-# Analyze results
-# TODO: Print statistics about elections, leaders, etc.
+    def visualize_timeline(self):
+        """
+        Create ASCII timeline of events
+        """
+        timeline = """
+        Node A: ──W1──────R1────────W2─────────→
+                   ↓       ↑         ↓
+        Node B: ────────W3───R2──────────W4───→
+                          ↓     ↑
+        Node C: ────────────R3───W5──────────→
+        
+        W = Write, R = Read
+        Arrows show causal relationships
+        """
+        # TODO: Generate timeline from events
+        pass
 
-# Test your implementation
-if __name__ == "__main__":
-    simulate_raft_cluster(5, 10.0)  # 5 nodes for 10 seconds
+# SAMPLE DISTRIBUTED SYSTEM LOGS
+logs = [
+    "[Node_A][Lamport:10][Time:1000] Elected as PRIMARY",
+    "[Node_B][Lamport:11][Time:1001] Elected as PRIMARY",  # Uh oh!
+    "[Node_A][Lamport:12][Time:1002] WRITE key=user:1 value={balance:100}",
+    "[Node_B][Lamport:13][Time:1003] WRITE key=user:1 value={balance:50}",
+    "[Client][Time:1004] READ key=user:1 -> {balance:100}",
+    "[Client][Time:1005] READ key=user:1 -> {balance:50}",
+    "[Client][Time:1006] READ key=user:1 -> {balance:100}",  # Flickering!
+]
+
+# YOUR DETECTIVE WORK:
+# 1. Parse the logs
+# 2. Identify the split-brain incident
+# 3. Track down the flickering reads
+# 4. Propose a fix
 ```
+</div>
 
-## Exercise 4: Gossip Protocol Implementation
+---
 
-### Task
-Implement a gossip protocol for information dissemination in a distributed system.
+## Final Boss: Design a Truth-Aware System 🏗️
+
+<div class="truth-box" style="background: #1a1a1a; border: 2px solid #ff5555;">
+<h3>Ultimate Challenge: Build a Distributed Key-Value Store</h3>
 
 ```python
-import random
-import time
-from typing import Set, Dict, Any, List
-from dataclasses import dataclass
-
-@dataclass
-class GossipMessage:
-    node_id: str
-    data: Any
-    version: int
-    timestamp: float
-
-class GossipNode:
-    def __init__(self, node_id: str, peers: List[str]):
+class TruthAwareKVStore:
+    """
+    A key-value store that exposes truth uncertainty
+    
+    Requirements:
+    1. Returns confidence level with each read
+    2. Tracks causality with vector clocks
+    3. Handles Byzantine nodes
+    4. Supports tunable consistency
+    5. Auto-heals after partitions
+    """
+    
+    def __init__(self, node_id, consistency_level="eventual"):
         self.node_id = node_id
-        self.peers = peers
-        self.state: Dict[str, GossipMessage] = {}
-        self.version_vector: Dict[str, int] = {node_id: 0}
-        self.fanout = 3  # Number of peers to gossip to
-        self.gossip_interval = 0.5  # seconds
+        self.consistency_level = consistency_level
+        self.data = {}
+        self.vector_clock = VectorClock(node_id)
+        self.peers = []
         
-    def update_local_state(self, key: str, value: Any):
-        """Update local state and increment version"""
-        self.version_vector[self.node_id] += 1
-        self.state[key] = GossipMessage(
-            node_id=self.node_id,
-            data=value,
-            version=self.version_vector[self.node_id],
-            timestamp=time.time()
-        )
-    
-    def select_gossip_targets(self) -> List[str]:
-        """Select random peers for gossip"""
-# TODO: Implement peer selection
-# Consider: random selection, round-robin, or weighted by staleness
-        pass
-    
-    def create_gossip_payload(self) -> Dict[str, Any]:
-        """Create payload to send to peers"""
-# TODO: Create efficient gossip payload
-# Include: state updates, version vector
-        pass
-    
-    def receive_gossip(self, sender_id: str, payload: Dict[str, Any]):
-        """Process received gossip message"""
-# TODO: Implement gossip reception
-# Consider:
-# 1. How to detect and handle newer information?
-# 2. How to merge version vectors?
-# 3. How to handle conflicts?
-        pass
-    
-    def anti_entropy(self, peer_id: str):
-        """Perform anti-entropy with a specific peer"""
-# TODO: Implement anti-entropy protocol
-# Exchange version vectors and sync missing updates
-        pass
-
-def simulate_gossip_protocol():
-    """
-    Simulate information spread through gossip
-    
-    TODO: Complete this simulation
-    1. Create a network of gossip nodes
-    2. Inject information at random nodes
-    3. Measure convergence time
-    4. Simulate network partitions and healing
-    """
-# Create nodes
-    num_nodes = 10
-    nodes = {}
-    node_ids = [f"node_{i}" for i in range(num_nodes)]
-    
-    for node_id in node_ids:
-        peers = [id for id in node_ids if id != node_id]
-        nodes[node_id] = GossipNode(node_id, peers)
-    
-# Inject some data
-    nodes["node_0"].update_local_state("config", {"replicas": 3})
-    nodes["node_5"].update_local_state("status", "healthy")
-    
-# Run gossip rounds
-# TODO: Implement gossip rounds and measure convergence
-    
-# Verify eventual consistency
-# TODO: Check that all nodes eventually have the same state
-
-# Test your implementation
-if __name__ == "__main__":
-    simulate_gossip_protocol()
-```
-
-## Exercise 5: Simple Blockchain Implementation
-
-### Task
-Build a simple blockchain to understand distributed consensus and cryptographic linking.
-
-```python
-import hashlib
-import json
-import time
-from typing import List, Optional, Dict, Any
-from dataclasses import dataclass, asdict
-
-@dataclass
-class Transaction:
-    sender: str
-    receiver: str
-    amount: float
-    timestamp: float
-
-@dataclass
-class Block:
-    index: int
-    timestamp: float
-    transactions: List[Transaction]
-    previous_hash: str
-    nonce: int = 0
-    hash: str = ""
-    
-    def calculate_hash(self) -> str:
-        """Calculate the hash of this block"""
-        block_data = {
-            "index": self.index,
-            "timestamp": self.timestamp,
-            "transactions": [asdict(t) for t in self.transactions],
-            "previous_hash": self.previous_hash,
-            "nonce": self.nonce
+    def write(self, key, value, required_acks=1):
+        """
+        Write with configurable durability
+        
+        Returns: {
+            'success': bool,
+            'acks': int,
+            'confidence': float,
+            'write_token': str
         }
-        block_string = json.dumps(block_data, sort_keys=True)
-        return hashlib.sha256(block_string.encode()).hexdigest()
-    
-    def mine(self, difficulty: int):
-        """Mine the block with proof-of-work"""
-# TODO: Implement mining algorithm
-# Find nonce such that hash starts with 'difficulty' zeros
+        """
+        # TODO: Implement write with:
+        # - Vector clock updates
+        # - Peer replication
+        # - Acknowledgment counting
+        # - Confidence calculation
         pass
-
-class Blockchain:
-    def __init__(self, difficulty: int = 4):
-        self.chain: List[Block] = []
-        self.difficulty = difficulty
-        self.pending_transactions: List[Transaction] = []
-        self.mining_reward = 100.0
+    
+    def read(self, key, consistency="eventual"):
+        """
+        Read with truth metadata
         
-# Create genesis block
-        self.create_genesis_block()
-    
-    def create_genesis_block(self):
-        """Create the first block in the chain"""
-        genesis = Block(
-            index=0,
-            timestamp=time.time(),
-            transactions=[],
-            previous_hash="0"
-        )
-        genesis.hash = genesis.calculate_hash()
-        self.chain.append(genesis)
-    
-    def get_latest_block(self) -> Block:
-        """Get the most recent block"""
-        return self.chain[-1]
-    
-    def add_transaction(self, transaction: Transaction):
-        """Add a transaction to pending transactions"""
-# TODO: Validate transaction before adding
-        self.pending_transactions.append(transaction)
-    
-    def mine_pending_transactions(self, mining_reward_address: str):
-        """Mine a new block with pending transactions"""
-# TODO: Implement mining process
-# 1. Create reward transaction
-# 2. Create new block with pending transactions
-# 3. Mine the block
-# 4. Add to chain and clear pending transactions
+        Returns: {
+            'value': any,
+            'version': vector_clock,
+            'confidence': 0.0-1.0,
+            'staleness_ms': int,
+            'conflicts': list,
+            'sources': list[node_id]
+        }
+        """
+        # TODO: Implement read with:
+        # - Consistency level handling
+        # - Conflict detection
+        # - Staleness calculation
+        # - Confidence scoring
         pass
     
-    def validate_chain(self) -> bool:
-        """Validate the entire blockchain"""
-# TODO: Implement chain validation
-# Check:
-# 1. Each block's hash is correct
-# 2. Previous hash links are valid
-# 3. Proof-of-work is valid
-        pass
-    
-    def get_balance(self, address: str) -> float:
-        """Calculate balance for an address"""
-# TODO: Scan all transactions to calculate balance
+    def handle_partition_heal(self):
+        """
+        Reconcile state after network partition
+        """
+        # TODO: Implement healing with:
+        # - Anti-entropy protocol
+        # - Conflict resolution
+        # - Version vector merging
         pass
 
-class DistributedBlockchain(Blockchain):
-    """Extended blockchain with network consensus"""
-    
-    def __init__(self, node_id: str, difficulty: int = 4):
-        super().__init__(difficulty)
-        self.node_id = node_id
-        self.peers: List['DistributedBlockchain'] = []
-    
-    def add_peer(self, peer: 'DistributedBlockchain'):
-        """Add a peer node"""
-        self.peers.append(peer)
-    
-    def broadcast_block(self, block: Block):
-        """Broadcast a new block to all peers"""
-# TODO: Implement block broadcasting
-        pass
-    
-    def receive_block(self, block: Block, sender_id: str):
-        """Receive a block from a peer"""
-# TODO: Validate and add block
-# Handle fork resolution if necessary
-        pass
-    
-    def consensus(self):
-        """Achieve consensus with peers (longest chain rule)"""
-# TODO: Implement consensus algorithm
-# 1. Query all peers for their chains
-# 2. Validate received chains
-# 3. Replace chain if a longer valid chain is found
-        pass
-
-# Test your implementation
-def test_blockchain():
-# Create a simple blockchain
-    blockchain = Blockchain(difficulty=4)
-    
-# Add some transactions
-    blockchain.add_transaction(Transaction("Alice", "Bob", 50, time.time()))
-    blockchain.add_transaction(Transaction("Bob", "Charlie", 25, time.time()))
-    
-# Mine a block
-    print("Mining block...")
-    blockchain.mine_pending_transactions("Miner1")
-    
-# Validate the chain
-    print(f"Is chain valid? {blockchain.validate_chain()}")
-    
-# Test distributed blockchain
-    node1 = DistributedBlockchain("Node1", difficulty=4)
-    node2 = DistributedBlockchain("Node2", difficulty=4)
-    node3 = DistributedBlockchain("Node3", difficulty=4)
-    
-# Connect nodes
-    node1.add_peer(node2)
-    node1.add_peer(node3)
-    node2.add_peer(node1)
-    node2.add_peer(node3)
-    node3.add_peer(node1)
-    node3.add_peer(node2)
-    
-# Simulate concurrent mining and consensus
-# TODO: Complete the distributed test
-
-if __name__ == "__main__":
-    test_blockchain()
+# YOUR FINAL CHALLENGE:
+# Build a system that never lies about what it knows
+# When uncertain, it says so
+# When conflicted, it exposes options
+# When partitioned, it degrades gracefully
 ```
+</div>
 
-## Synthesis Questions
+---
 
-After completing these exercises, consider these questions:
+## Reflection & Synthesis
 
-1. **Partial Knowledge**: How do systems make decisions with incomplete information? Compare the approaches in Byzantine Generals vs. Raft consensus.
+<div class="axiom-box">
+<h3>The Truth Master's Checklist</h3>
 
-2. **Eventual Consistency**: How do CRDTs guarantee convergence? What are the trade-offs between strong and eventual consistency?
+After completing these exercises, you should understand:
 
-3. **Consensus Performance**: What factors affect consensus latency? How does the number of nodes impact performance?
+```
+TRUTH MASTERY CHECKLIST
+══════════════════════
 
-4. **Failure Handling**: How do these protocols handle different types of failures (crash, Byzantine, network partition)?
+□ Network partitions create multiple realities
+□ Byzantine failures happen without malice
+□ Vector clocks track causality, not time
+□ CRDTs merge without coordination
+□ Consensus is expensive but sometimes necessary
+□ Probabilistic truth often beats absolute truth
+□ Systems must expose their uncertainty
 
-5. **Scalability**: Which approaches scale better? Compare gossip protocols vs. consensus protocols for different use cases.
+If you checked all boxes, you're ready for:
+THE REAL WORLD
+Where truth is negotiable,
+And the only certainty is uncertainty.
+```
+</div>
 
-## Advanced Challenges
+## Your Homework
 
-1. **Hybrid Approaches**: Combine CRDTs with consensus for a hybrid consistency model.
+<div class="decision-box">
+<h3>This Week's Mission</h3>
 
-2. **Network Simulation**: Add realistic network delays and partitions to your simulations.
+1. **Test your production system** for split-brain scenarios
+2. **Add vector clocks** to your conflict-prone data
+3. **Measure your truth lag** (how long until consistency?)
+4. **Design a CRDT** for your specific use case
+5. **Document your truth assumptions** (and their failure modes)
 
-3. **Visualization**: Create visualizations showing how knowledge propagates through the system.
+Share your findings with your team.
+Watch their certainties crumble. 🤯
+</div>
 
-4. **Performance Analysis**: Measure and graph the relationship between nodes, failures, and convergence time.
+---
 
-5. **Real-World Application**: Design a distributed key-value store using the techniques learned.
+**Remember**: In distributed systems, truth isn't found—it's negotiated.
 
-## Resources for Further Study
-
-- [Raft Visualization](https://raft.github.io/)
-- [CRDT Resources](https://crdt.tech/)
-- [Byzantine Generals Paper](https://lamport.azurewebsites.net/pubs/byz.pdf)
-- [Gossip Protocol Survey](https://www.cs.cornell.edu/home/rvr/papers/GossipSurvey.pdf)
-- [Bitcoin Whitepaper](https://bitcoin.org/bitcoin.pdf)
+**Next Law**: [Law 6: Cognitive Load](../law6-human-api/) - Where human limits meet system complexity
