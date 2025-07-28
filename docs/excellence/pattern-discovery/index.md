@@ -1,604 +1,257 @@
 ---
-title: Pattern Discovery Tool
+title: Pattern Discovery
 description: Find the perfect distributed systems patterns for your specific needs
-hide:
-  - toc
 ---
 
-# 🔍 Pattern Discovery Tool
+# Pattern Discovery
 
-**Find the perfect patterns for your distributed systems challenges in seconds.**
+Find the perfect patterns for your distributed systems challenges.
 
-<div class="pattern-filter-container">
-    <div class="filter-section">
-        <h3>🎯 Filter by Excellence Tier</h3>
-        <div class="tier-filters">
-            <button class="filter-chip tier-gold active" data-tier="gold">
-                🥇 Gold (38)
-                <span class="description">Battle-tested at scale</span>
-            </button>
-            <button class="filter-chip tier-silver active" data-tier="silver">
-                🥈 Silver (38)
-                <span class="description">Production-ready</span>
-            </button>
-            <button class="filter-chip tier-bronze" data-tier="bronze">
-                🥉 Bronze (25)
-                <span class="description">Legacy/Migrating</span>
-            </button>
-        </div>
-    </div>
+## Filter by Excellence Tier
 
-    <div class="filter-section">
-        <h3>🔧 Filter by Problem Domain</h3>
-        <div class="domain-filters">
-            <button class="filter-chip" data-domain="communication">
-                📡 Service Communication
-            </button>
-            <button class="filter-chip" data-domain="data">
-                💾 Data Management
-            </button>
-            <button class="filter-chip" data-domain="resilience">
-                🛡️ Resilience & Reliability
-            </button>
-            <button class="filter-chip" data-domain="performance">
-                ⚡ Performance & Scale
-            </button>
-            <button class="filter-chip" data-domain="operations">
-                🔧 Operations
-            </button>
-        </div>
-    </div>
+<div class="grid cards" markdown>
 
-    <div class="filter-section">
-        <h3>📏 Filter by Scale</h3>
-        <div class="scale-filters">
-            <button class="filter-chip" data-scale="startup">
-                🌱 Startup (<10K users)
-            </button>
-            <button class="filter-chip" data-scale="growth">
-                📈 Growth (10K-100K)
-            </button>
-            <button class="filter-chip" data-scale="enterprise">
-                🏢 Enterprise (100K-1M)
-            </button>
-            <button class="filter-chip" data-scale="hyperscale">
-                🚀 Hyperscale (>1M)
-            </button>
-        </div>
-    </div>
-
-    <div class="search-section">
-        <input type="text" id="pattern-search" placeholder="🔍 Search patterns by name or keyword..." />
-    </div>
-</div>
-
-## 📊 Quick Pattern Selector
-
-<div class="quick-selector">
-    <h3>I need patterns for...</h3>
-    <div class="quick-options">
-        <a href="#" class="quick-option" data-filter="high-availability">
-            🎯 High Availability System
-            <span>Circuit Breaker • Failover • Health Checks</span>
-        </a>
-        <a href="#" class="quick-option" data-filter="real-time">
-            ⚡ Real-time Processing
-            <span>Event Streaming • WebSocket • Pub-Sub</span>
-        </a>
-        <a href="#" class="quick-option" data-filter="microservices">
-            🔗 Microservices Architecture
-            <span>API Gateway • Service Mesh • Saga</span>
-        </a>
-        <a href="#" class="quick-option" data-filter="data-consistency">
-            💾 Data Consistency
-            <span>Event Sourcing • CQRS • Distributed Lock</span>
-        </a>
-        <a href="#" class="quick-option" data-filter="global-scale">
-            🌍 Global Scale
-            <span>Multi-region • CDN • Geo-sharding</span>
-        </a>
-        <a href="#" class="quick-option" data-filter="cost-optimization">
-            💰 Cost Optimization
-            <span>Caching • Compression • Serverless</span>
-        </a>
-    </div>
-</div>
-
-## 🏆 Pattern Results
-
-<div id="pattern-results" class="pattern-grid">
-    <!-- Gold Patterns Section -->
-    <div class="tier-section gold-section">
-        <h3>🥇 Gold Patterns - Battle-tested Excellence</h3>
-        <div class="pattern-cards">
-            <!-- Patterns will be dynamically loaded here -->
-            <div class="pattern-card gold">
-                <h4><a href="../../patterns/circuit-breaker/">Circuit Breaker</a></h4>
-                <p>Prevent cascade failures in distributed systems</p>
-                <div class="pattern-meta">
-                    <span class="tag">Resilience</span>
-                    <span class="tag">All Scales</span>
-                    <span class="success-rate">95% Success</span>
-                </div>
-                <div class="pattern-examples">
-                    <strong>Used by:</strong> Netflix (100B req/day), Amazon, Uber
-                </div>
-            </div>
-            <!-- More pattern cards... -->
-        </div>
-    </div>
-
-    <!-- Silver Patterns Section -->
-    <div class="tier-section silver-section">
-        <h3>🥈 Silver Patterns - Specialized Excellence</h3>
-        <div class="pattern-cards">
-            <!-- Silver patterns... -->
-        </div>
-    </div>
-
-    <!-- Bronze Patterns Section -->
-    <div class="tier-section bronze-section">
-        <h3>🥉 Bronze Patterns - Legacy & Migration Targets</h3>
-        <div class="pattern-cards">
-            <!-- Bronze patterns... -->
-        </div>
-    </div>
-</div>
-
-## 🎯 Pattern Selection Wizard
-
-<div class="wizard-container" id="pattern-wizard">
-    <h3>Answer 3 questions to get personalized recommendations:</h3>
+- **Gold Patterns (38)**
     
-    <div class="wizard-step active" data-step="1">
-        <h4>1. What's your primary challenge?</h4>
-        <div class="wizard-options">
-            <button data-value="reliability">System keeps failing</button>
-            <button data-value="performance">Too slow/can't scale</button>
-            <button data-value="consistency">Data inconsistencies</button>
-            <button data-value="complexity">Too complex to manage</button>
-        </div>
-    </div>
-
-    <div class="wizard-step" data-step="2">
-        <h4>2. What's your scale?</h4>
-        <div class="wizard-options">
-            <button data-value="small">< 10K users</button>
-            <button data-value="medium">10K - 100K users</button>
-            <button data-value="large">100K - 1M users</button>
-            <button data-value="xlarge">> 1M users</button>
-        </div>
-    </div>
-
-    <div class="wizard-step" data-step="3">
-        <h4>3. What's your constraint?</h4>
-        <div class="wizard-options">
-            <button data-value="consistency">Must be consistent</button>
-            <button data-value="availability">Can't have downtime</button>
-            <button data-value="performance">Must be fast</button>
-            <button data-value="cost">Must be cost-effective</button>
-        </div>
-    </div>
-
-    <div class="wizard-results" style="display: none;">
-        <h4>🎯 Recommended Patterns for You:</h4>
-        <div id="wizard-recommendations"></div>
-    </div>
-</div>
-
-## 📊 Pattern Comparison Tool
-
-<div class="comparison-prompt">
-    <h3>Compare Similar Patterns</h3>
-    <div class="comparison-options">
-        <a href="../comparisons/caching-patterns-comparison/" class="comparison-link">
-            💾 Compare Caching Patterns
-            <span>Cache-aside vs Read-through vs Write-through</span>
-        </a>
-        <a href="../comparisons/messaging-patterns-comparison/" class="comparison-link">
-            📨 Compare Messaging Patterns
-            <span>Queue vs Pub-Sub vs Event Streaming</span>
-        </a>
-        <a href="../comparisons/consistency-patterns-comparison/" class="comparison-link">
-            🔄 Compare Consistency Patterns
-            <span>2PC vs Saga vs Event Sourcing</span>
-        </a>
-        <a href="../comparisons/resilience-patterns-comparison/" class="comparison-link">
-            🛡️ Compare Resilience Patterns
-            <span>Circuit Breaker vs Retry vs Timeout</span>
-        </a>
-    </div>
-</div>
-
-## 🚀 Next Steps
-
-<div class="next-steps">
-    <div class="step">
-        <h4>1. Explore Pattern Details</h4>
-        <p>Click any pattern to see implementation guides, examples, and trade-offs</p>
-    </div>
-    <div class="step">
-        <h4>2. Check Case Studies</h4>
-        <p>See how top companies implement these patterns in production</p>
-    </div>
-    <div class="step">
-        <h4>3. Plan Implementation</h4>
-        <p>Use our implementation calculator to estimate effort and timeline</p>
-    </div>
-</div>
-
----
-
-<div class="navigation-links">
-    <a href="gold-patterns/" class="nav-card gold">
-        <h3>🥇 Explore Gold Patterns</h3>
-        <p>Deep dive into battle-tested patterns</p>
-    </a>
-    <a href="silver-patterns/" class="nav-card silver">
-        <h3>🥈 Explore Silver Patterns</h3>
-        <p>Specialized patterns for specific needs</p>
-    </a>
-    <a href="bronze-patterns/" class="nav-card bronze">
-        <h3>🥉 Migration from Bronze</h3>
-        <p>Upgrade paths from legacy patterns</p>
-    </a>
-</div>
-
-<script>
-// Pattern discovery interactivity
-document.addEventListener('DOMContentLoaded', function() {
-    // Filter functionality
-    const filterChips = document.querySelectorAll('.filter-chip');
-    const patternCards = document.querySelectorAll('.pattern-card');
+    ---
     
-    filterChips.forEach(chip => {
-        chip.addEventListener('click', function() {
-            this.classList.toggle('active');
-            applyFilters();
-        });
-    });
+    Battle-tested at scale by FAANG companies. These patterns have proven reliability and performance at massive scale.
+    
+    [:octicons-search-24: View Gold Patterns](#gold-patterns){ .md-button }
 
-    // Search functionality
-    const searchInput = document.getElementById('pattern-search');
-    searchInput.addEventListener('input', function() {
-        applyFilters();
-    });
+- **Silver Patterns (38)**
+    
+    ---
+    
+    Production-ready for specialized use cases. Well-documented with clear implementation guidelines.
+    
+    [:octicons-search-24: View Silver Patterns](#silver-patterns){ .md-button }
 
-    // Quick selector
-    const quickOptions = document.querySelectorAll('.quick-option');
-    quickOptions.forEach(option => {
-        option.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Apply predefined filters
-            const filterSet = this.dataset.filter;
-            applyQuickFilter(filterSet);
-        });
-    });
+- **Bronze Patterns (25)**
+    
+    ---
+    
+    Legacy or transitional patterns. Includes migration paths to modern alternatives.
+    
+    [:octicons-search-24: View Bronze Patterns](#bronze-patterns){ .md-button }
 
-    // Pattern wizard
-    const wizardOptions = document.querySelectorAll('.wizard-options button');
-    wizardOptions.forEach(button => {
-        button.addEventListener('click', function() {
-            const step = this.closest('.wizard-step');
-            const nextStep = step.nextElementSibling;
-            
-            // Store answer
-            const stepNum = step.dataset.step;
-            storeWizardAnswer(stepNum, this.dataset.value);
-            
-            // Move to next step or show results
-            step.classList.remove('active');
-            if (nextStep && nextStep.classList.contains('wizard-step')) {
-                nextStep.classList.add('active');
-            } else {
-                showWizardResults();
-            }
-        });
-    });
+</div>
 
-    function applyFilters() {
-        // Implementation for filtering patterns
-        console.log('Applying filters...');
-    }
+## Filter by Problem Domain
 
-    function applyQuickFilter(filterSet) {
-        // Implementation for quick filters
-        console.log('Applying quick filter:', filterSet);
-    }
+<div class="grid cards" markdown>
 
-    function storeWizardAnswer(step, value) {
-        // Store wizard answers
-        sessionStorage.setItem(`wizard_step_${step}`, value);
-    }
+- **Service Communication**
+    
+    ---
+    
+    Patterns for inter-service communication, API design, and protocol selection.
+    
+    - API Gateway
+    - Service Mesh
+    - GraphQL Federation
+    - gRPC
 
-    function showWizardResults() {
-        // Show personalized recommendations
-        document.querySelector('.wizard-results').style.display = 'block';
-    }
-});
-</script>
+- **Data Management**
+    
+    ---
+    
+    Patterns for distributed data consistency, storage, and synchronization.
+    
+    - Event Sourcing
+    - CQRS
+    - Saga Pattern
+    - Change Data Capture
 
-<style>
-.pattern-filter-container {
-    background: var(--md-code-bg-color);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    margin-bottom: 2rem;
-}
+- **Resilience & Reliability**
+    
+    ---
+    
+    Patterns for building fault-tolerant and self-healing systems.
+    
+    - Circuit Breaker
+    - Bulkhead
+    - Retry with Backoff
+    - Health Checks
 
-.filter-section {
-    margin-bottom: 1.5rem;
-}
+- **Performance & Scale**
+    
+    ---
+    
+    Patterns for optimizing performance and handling massive scale.
+    
+    - Sharding
+    - Caching Strategies
+    - Load Balancing
+    - Read Replicas
 
-.filter-section h3 {
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
+</div>
 
-.tier-filters, .domain-filters, .scale-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
+## Quick Pattern Selector
 
-.filter-chip {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--md-default-fg-color--light);
-    background: var(--md-default-bg-color);
-    border-radius: 2rem;
-    cursor: pointer;
-    transition: all 0.3s;
-}
+### I need patterns for...
 
-.filter-chip:hover {
-    border-color: var(--md-accent-fg-color);
-}
+=== "High Availability"
 
-.filter-chip.active {
-    background: var(--md-accent-bg-color);
-    color: var(--md-accent-fg-color);
-    border-color: var(--md-accent-fg-color);
-}
+    **Recommended Patterns:**
+    
+    | Pattern | Tier | Use Case |
+    |---------|------|----------|
+    | [Circuit Breaker](../../patterns/circuit-breaker) | Gold | Prevent cascading failures |
+    | [Health Checks](../../patterns/health-checks) | Gold | Monitor service health |
+    | [Failover](../../patterns/failover) | Gold | Automatic failure recovery |
+    | [Bulkhead](../../patterns/bulkhead) | Silver | Isolate failures |
 
-.filter-chip .description {
-    display: block;
-    font-size: 0.8rem;
-    opacity: 0.8;
-}
+=== "Real-time Processing"
 
-.tier-gold { border-color: #FFD700; }
-.tier-gold.active { background: #FFD700; color: #000; }
+    **Recommended Patterns:**
+    
+    | Pattern | Tier | Use Case |
+    |---------|------|----------|
+    | [Event Streaming](../../patterns/event-streaming) | Gold | Process data in real-time |
+    | [Pub-Sub](../../patterns/pub-sub) | Gold | Decouple producers/consumers |
+    | [WebSocket](../../patterns/websocket) | Silver | Bidirectional communication |
+    | [Server-Sent Events](../../patterns/server-sent-events) | Silver | Server push updates |
 
-.tier-silver { border-color: #C0C0C0; }
-.tier-silver.active { background: #C0C0C0; color: #000; }
+=== "Microservices"
 
-.tier-bronze { border-color: #CD7F32; }
-.tier-bronze.active { background: #CD7F32; color: #FFF; }
+    **Recommended Patterns:**
+    
+    | Pattern | Tier | Use Case |
+    |---------|------|----------|
+    | [API Gateway](../../patterns/api-gateway) | Gold | Single entry point |
+    | [Service Mesh](../../patterns/service-mesh) | Gold | Service-to-service communication |
+    | [Saga](../../patterns/saga) | Gold | Distributed transactions |
+    | [Sidecar](../../patterns/sidecar) | Silver | Extend service capabilities |
 
-.search-section {
-    margin-top: 1rem;
-}
+=== "Data Consistency"
 
-#pattern-search {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--md-default-fg-color--light);
-    border-radius: 0.25rem;
-    background: var(--md-default-bg-color);
-    font-size: 1rem;
-}
+    **Recommended Patterns:**
+    
+    | Pattern | Tier | Use Case |
+    |---------|------|----------|
+    | [Event Sourcing](../../patterns/event-sourcing) | Gold | Audit trail and replay |
+    | [CQRS](../../patterns/cqrs) | Gold | Separate read/write models |
+    | [Distributed Lock](../../patterns/distributed-lock) | Silver | Coordinate access |
+    | [Two-Phase Commit](../../patterns/two-phase-commit) | Bronze | Strong consistency |
 
-.quick-selector {
-    background: var(--md-default-bg-color);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    margin: 2rem 0;
-}
+## Pattern Selection Matrix
 
-.quick-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
+### By Scale Requirements
 
-.quick-option {
-    padding: 1rem;
-    border: 1px solid var(--md-default-fg-color--light);
-    border-radius: 0.25rem;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: all 0.3s;
-}
+| Scale | Recommended Patterns | Key Considerations |
+|-------|---------------------|-------------------|
+| **Startup** (<10K users) | Monolith-First, Simple Caching, Basic Load Balancing | Focus on development speed |
+| **Growth** (10K-100K) | API Gateway, Circuit Breaker, Read Replicas | Add resilience patterns |
+| **Enterprise** (100K-1M) | Service Mesh, Event Streaming, Sharding | Invest in infrastructure |
+| **Hyperscale** (>1M) | Multi-region, Edge Computing, Custom Solutions | Optimize everything |
 
-.quick-option:hover {
-    border-color: var(--md-accent-fg-color);
-    transform: translateY(-2px);
-}
+### By Consistency Requirements
 
-.quick-option span {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--md-default-fg-color--light);
-    margin-top: 0.5rem;
-}
+| Requirement | Recommended Patterns | Trade-offs |
+|------------|---------------------|------------|
+| **Strong Consistency** | Distributed Lock, Two-Phase Commit | Higher latency, lower availability |
+| **Eventual Consistency** | Event Sourcing, CQRS, Saga | Better performance, complex reconciliation |
+| **Causal Consistency** | Vector Clocks, Lamport Timestamps | Moderate complexity |
+| **Read Your Writes** | Session Consistency, Sticky Sessions | Client affinity required |
 
-.pattern-grid {
-    margin: 2rem 0;
-}
+## Pattern Comparison Tool
 
-.tier-section {
-    margin-bottom: 3rem;
-}
+!!! tip "Compare Similar Patterns"
+    Need help choosing between similar patterns? Use our comparison tool to see side-by-side analysis.
+    
+    [Pattern Comparison Tool →](../comparisons){ .md-button }
 
-.pattern-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
+## Implementation Effort Calculator
 
-.pattern-card {
-    padding: 1.5rem;
-    border: 1px solid var(--md-default-fg-color--light);
-    border-radius: 0.5rem;
-    transition: all 0.3s;
-}
+Estimate the effort required to implement patterns in your system:
 
-.pattern-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
+- **Team Size**: Number of engineers available
+- **Experience Level**: Team's distributed systems expertise
+- **Current Architecture**: Monolith, microservices, or hybrid
+- **Scale Requirements**: Current and projected user base
 
-.pattern-card.gold {
-    border-left: 4px solid #FFD700;
-}
+[Calculate Implementation Effort →](calculator){ .md-button }
 
-.pattern-card.silver {
-    border-left: 4px solid #C0C0C0;
-}
+## Pattern Health Dashboard
 
-.pattern-card.bronze {
-    border-left: 4px solid #CD7F32;
-}
+View real-time adoption metrics and trends for all patterns:
 
-.pattern-meta {
-    margin: 1rem 0;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-}
+[View Pattern Health Dashboard →](../../reference/pattern-health-dashboard){ .md-button }
 
-.tag {
-    padding: 0.25rem 0.5rem;
-    background: var(--md-code-bg-color);
-    border-radius: 0.25rem;
-    font-size: 0.85rem;
-}
+## All Patterns by Category
 
-.success-rate {
-    padding: 0.25rem 0.5rem;
-    background: #4CAF50;
-    color: white;
-    border-radius: 0.25rem;
-    font-size: 0.85rem;
-}
+### Gold Patterns
 
-.pattern-examples {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: var(--md-default-fg-color--light);
-}
+!!! success "Battle-tested at scale"
+    These patterns are proven in production at companies like Google, Amazon, Netflix, and Meta.
 
-.wizard-container {
-    background: var(--md-code-bg-color);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    margin: 2rem 0;
-}
+| Pattern | Category | Companies Using | Learn More |
+|---------|----------|----------------|------------|
+| API Gateway | Communication | Netflix, Amazon | [Details →](../../patterns/api-gateway) |
+| Circuit Breaker | Resilience | Netflix, Uber | [Details →](../../patterns/circuit-breaker) |
+| Event Streaming | Data | LinkedIn, Uber | [Details →](../../patterns/event-streaming) |
+| Service Mesh | Communication | Google, Lyft | [Details →](../../patterns/service-mesh) |
+| Sharding | Performance | Facebook, Discord | [Details →](../../patterns/sharding) |
 
-.wizard-step {
-    display: none;
-}
+[View all 38 Gold Patterns →](../../patterns#gold-tier){ .md-button }
 
-.wizard-step.active {
-    display: block;
-}
+### Silver Patterns
 
-.wizard-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
+!!! info "Production-ready for specialized use cases"
+    These patterns are reliable for specific scenarios with clear implementation guidelines.
 
-.wizard-options button {
-    padding: 1rem;
-    border: 1px solid var(--md-default-fg-color--light);
-    background: var(--md-default-bg-color);
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: all 0.3s;
-}
+| Pattern | Category | Best For | Learn More |
+|---------|----------|----------|------------|
+| GraphQL Federation | Communication | API composition | [Details →](../../patterns/graphql-federation) |
+| Feature Flags | Operations | Progressive rollouts | [Details →](../../patterns/feature-flags) |
+| Blue-Green Deploy | Operations | Zero-downtime updates | [Details →](../../patterns/blue-green-deployment) |
+| Distributed Lock | Data | Coordination | [Details →](../../patterns/distributed-lock) |
+| Priority Queue | Performance | Task scheduling | [Details →](../../patterns/priority-queue) |
 
-.wizard-options button:hover {
-    border-color: var(--md-accent-fg-color);
-    background: var(--md-accent-bg-color);
-}
+[View all 38 Silver Patterns →](../../patterns#silver-tier){ .md-button }
 
-.comparison-prompt {
-    margin: 2rem 0;
-}
+### Bronze Patterns
 
-.comparison-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
+!!! warning "Legacy patterns with migration paths"
+    These patterns are being phased out. Each includes a migration guide to modern alternatives.
 
-.comparison-link {
-    padding: 1rem;
-    border: 1px solid var(--md-default-fg-color--light);
-    border-radius: 0.25rem;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: all 0.3s;
-}
+| Pattern | Category | Migrate To | Learn More |
+|---------|----------|------------|------------|
+| Two-Phase Commit | Data | Saga Pattern | [Migration →](../../patterns/two-phase-commit) |
+| Shared Database | Data | Service-per-DB | [Migration →](../../patterns/shared-database) |
+| Distributed Monolith | Architecture | True Microservices | [Migration →](../../patterns/distributed-monolith) |
+| Fat Client | Architecture | API-First | [Migration →](../../patterns/fat-client) |
+| Database Triggers | Data | Event Streaming | [Migration →](../../patterns/database-triggers) |
 
-.comparison-link:hover {
-    border-color: var(--md-accent-fg-color);
-    transform: translateY(-2px);
-}
+[View all 25 Bronze Patterns →](../../patterns#bronze-tier){ .md-button }
 
-.comparison-link span {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--md-default-fg-color--light);
-    margin-top: 0.5rem;
-}
+## Next Steps
 
-.next-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-    text-align: center;
-}
+<div class="grid cards" markdown>
 
-.navigation-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-}
+- **Ready to implement?**
+    
+    ---
+    
+    Browse our implementation guides for step-by-step instructions.
+    
+    [:octicons-book-24: Implementation Guides](../implementation-guides){ .md-button }
 
-.nav-card {
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s;
-}
+- **Need help choosing?**
+    
+    ---
+    
+    Use our pattern selection wizard for personalized recommendations.
+    
+    [:octicons-wand-24: Selection Wizard](../pattern-selection-wizard){ .md-button }
 
-.nav-card:hover {
-    transform: translateY(-2px);
-}
+- **Want to see examples?**
+    
+    ---
+    
+    Explore real-world case studies from top tech companies.
+    
+    [:octicons-briefcase-24: Case Studies](../real-world-excellence){ .md-button }
 
-.nav-card.gold {
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-    color: #000;
-}
-
-.nav-card.silver {
-    background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%);
-    color: #000;
-}
-
-.nav-card.bronze {
-    background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
-    color: #FFF;
-}
-</style>
+</div>

@@ -1,8 +1,6 @@
 # The Lens: Everything Costs Something 💸
 
-<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/tradeoffs&color=%235448C8&inverse=false&auto_play=false&show_user=true">
-</iframe>
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/e364sej?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 <div class="axiom-box" style="background: #1a1a1a; border: 3px solid #ff5555;">
 <h2>⚡ ONE-INCH PUNCH</h2>

@@ -202,7 +202,6 @@ extra_css:
   - stylesheets/responsive-table.css  # Table responsiveness only
   - stylesheets/content-limits.css  # Minimal content overflow prevention
   - stylesheets/hide-toc.css  # Hide right sidebar and enhance navigation
-  - stylesheets/pattern-filtering.css  # Interactive pattern filtering
   - stylesheets/calculator.css  # Consistent calculator styling
   - stylesheets/visual-components.css  # Visual components for patterns
 
@@ -309,6 +308,7 @@ nav:
     # Pattern Discovery - Interactive Tool
     - 🔍 Pattern Discovery:
       - Find Your Patterns: excellence/pattern-discovery/index.md
+      - Pattern Selection Wizard: excellence/pattern-selection-wizard.md
       - 🥇 Gold Patterns (38): excellence/pattern-discovery/gold-patterns/index.md
       - 🥈 Silver Patterns (38): excellence/pattern-discovery/silver-patterns/index.md
       - 🥉 Bronze Patterns (25): excellence/pattern-discovery/bronze-patterns/index.md
@@ -362,6 +362,7 @@ nav:
         - Master-Slave to Multi-Primary: excellence/migrations/master-slave-to-multi-primary.md
         - Shared DB to Microservices: excellence/migrations/shared-database-to-microservices.md
         - Thick Client to API-First: excellence/migrations/thick-client-to-api-first.md
+      - Migration Playbook Template: excellence/migrations/migration-playbook-template.md
     
     # Pattern Comparisons
     - 📊 Pattern Comparisons:
@@ -375,6 +376,7 @@ nav:
     # Pattern Health & Metrics
     - 📈 Pattern Health:
       - Health Dashboard: reference/pattern-health-dashboard.md
+      - Excellence Dashboard: excellence/excellence-dashboard.md
   
   - Learn:
     - Welcome: introduction/index.md
