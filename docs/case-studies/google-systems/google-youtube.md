@@ -5,6 +5,21 @@ type: system-design-interview
 difficulty: advanced
 reading_time: 60 min
 last_updated: 2025-07-23
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2005-02
+current_relevance: mainstream
+modern_examples:
+  - YouTube (2B+ users)
+  - Netflix
+  - Twitch
+  - TikTok
+production_checklist:
+  - Video transcoding pipeline
+  - CDN distribution strategy
+  - Adaptive bitrate streaming
+  - Recommendation ML pipeline
+  - Copyright detection system
 ---
 
 

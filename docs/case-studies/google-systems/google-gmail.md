@@ -5,6 +5,21 @@ type: system-design-interview
 difficulty: advanced
 reading_time: 60 min
 last_updated: 2025-07-23
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2004-04
+current_relevance: mainstream
+modern_examples:
+  - Gmail (1.5B+ users)
+  - Outlook.com
+  - ProtonMail
+  - FastMail
+production_checklist:
+  - Spam filtering ML pipeline
+  - Email delivery guarantees
+  - Search index optimization
+  - Attachment handling at scale
+  - SMTP/IMAP/POP3 support
 ---
 
 

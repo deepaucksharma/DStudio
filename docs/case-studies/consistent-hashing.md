@@ -10,6 +10,25 @@ prerequisites:
   - patterns/sharding
 status: complete
 last_updated: 2025-07-20
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1997-01
+current_relevance: mainstream
+modern_examples:
+  - company: Amazon
+    usage: "DynamoDB for partition distribution across nodes"
+  - company: Cassandra
+    usage: "Data distribution with virtual nodes for better balance"
+  - company: Discord
+    usage: "Channel and guild distribution across servers"
+production_checklist:
+  - "Virtual nodes for better load distribution (150+ per physical node)"
+  - "Weighted nodes for heterogeneous hardware"
+  - "Efficient ring rebalancing during node changes"
+  - "Client-side caching of ring topology"
+  - "Monitoring for hot spots and uneven distribution"
+  - "Graceful handling of simultaneous node failures"
+  - "Ring synchronization protocol for topology changes"
 ---
 
 # Consistent Hashing

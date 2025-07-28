@@ -1,3 +1,23 @@
+---
+title: Amazon DynamoDB - From Academic Paper to Planet-Scale Database
+description: Evolution from Dynamo paper to database handling 10 trillion requests/day
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2012-01
+current_relevance: mainstream
+modern_examples:
+  - Amazon DynamoDB
+  - Azure Cosmos DB
+  - Google Bigtable
+  - ScyllaDB
+production_checklist:
+  - Consistent hashing implementation
+  - Multi-master replication
+  - Gossip protocol setup
+  - Vector clock conflict resolution
+  - Adaptive capacity management
+---
+
 # Amazon DynamoDB: From Academic Paper to Planet-Scale Database
 
 ## Executive Summary

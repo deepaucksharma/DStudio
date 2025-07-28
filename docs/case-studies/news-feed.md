@@ -1,3 +1,28 @@
+---
+title: "Design a News Feed System"
+description: "Building scalable social media feeds with real-time personalization at billions-scale"
+type: case-study
+difficulty: advanced
+reading_time: 40 min
+prerequisites: ["distributed-caching", "message-queues", "ml-systems"]
+pattern_type: "data-distribution"
+status: complete
+last_updated: 2025-01-28
+excellence_tier: gold
+pattern_status: mainstream
+introduced: 2006-03
+current_relevance: mainstream
+modern_examples: ["Facebook News Feed", "Twitter Timeline", "LinkedIn Feed", "Instagram Explore"]
+production_checklist:
+  - "Multi-tier caching strategy"
+  - "Push/pull hybrid architecture"
+  - "ML ranking pipeline"
+  - "Real-time relevance scoring"
+  - "Content deduplication"
+  - "Privacy controls"
+  - "Abuse detection"
+---
+
 # Design a News Feed System
 
 !!! info "Case Study Overview"

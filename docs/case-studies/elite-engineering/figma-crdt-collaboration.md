@@ -1,3 +1,23 @@
+---
+title: Figma - CRDTs for Real-Time Design Collaboration
+description: How Figma enables 100+ concurrent designers with sub-100ms latency
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2016-09
+current_relevance: mainstream
+modern_examples:
+  - Figma
+  - Miro
+  - Notion
+  - Linear
+production_checklist:
+  - CRDT implementation choice
+  - Multiplayer presence system
+  - Conflict resolution strategy
+  - WebRTC architecture
+  - Offline sync mechanism
+---
+
 # Figma: CRDTs for Real-Time Design Collaboration
 
 ## Executive Summary

@@ -10,6 +10,25 @@ prerequisites:
   - patterns/rate-limiting
 status: complete
 last_updated: 2025-07-20
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2005-01
+current_relevance: mainstream
+modern_examples:
+  - company: Cloudflare
+    usage: "Global rate limiting at edge with 10M+ req/sec"
+  - company: AWS
+    usage: "API Gateway throttling with token bucket algorithm"
+  - company: Stripe
+    usage: "Multi-tier rate limiting with customer-specific limits"
+production_checklist:
+  - "Local caching strategy to minimize distributed calls"
+  - "Graceful degradation when rate limit store unavailable"
+  - "Multiple algorithms (token bucket, sliding window, fixed window)"
+  - "Hot configuration updates without service restart"
+  - "Detailed metrics and alerting on limit breaches"
+  - "Fair queueing to prevent starvation"
+  - "Protection against thundering herd"
 ---
 
 # Distributed Rate Limiter

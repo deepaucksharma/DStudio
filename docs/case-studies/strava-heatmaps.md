@@ -1,6 +1,11 @@
 ---
 title: Strava Heatmaps Case Study
 description: "Analysis of Strava's global activity heatmap and privacy implications"
+excellence_tier: bronze
+architecture_status: use-with-caution
+current_scale: global
+key_patterns: ["gps-aggregation", "differential-privacy", "heatmap-generation"]
+privacy_concerns: "Exposed sensitive military locations in 2018"
 ---
 
 # Strava Heatmaps Case Study

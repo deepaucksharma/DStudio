@@ -1,3 +1,23 @@
+---
+title: Stripe - Building the Gold Standard for APIs
+description: How Stripe created developer-loved APIs processing billions at scale
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2011-09
+current_relevance: mainstream
+modern_examples:
+  - Stripe API
+  - Twilio API
+  - SendGrid API
+  - Plaid API
+production_checklist:
+  - Idempotency key implementation
+  - API versioning strategy
+  - Webhook delivery system
+  - Rate limiting architecture
+  - Developer experience metrics
+---
+
 # Stripe: Building the Gold Standard for APIs
 
 ## Executive Summary

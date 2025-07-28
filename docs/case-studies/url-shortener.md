@@ -11,6 +11,26 @@ prerequisites:
   - patterns/rate-limiting
 status: complete
 last_updated: 2025-07-20
+excellence_tier: silver
+pattern_status: recommended
+introduced: 2006-01
+current_relevance: mainstream
+trade_offs:
+  pros:
+    - Well-understood design patterns
+    - Proven at scale (bit.ly, TinyURL)
+    - Clear performance optimization path
+    - Good learning case for distributed systems
+  cons:
+    - Security concerns with open redirects
+    - Analytics storage can be expensive
+    - Cache invalidation complexity
+    - Custom URL collision handling
+best_for:
+  - Teaching distributed systems concepts
+  - Understanding caching strategies
+  - Learning ID generation techniques
+  - Performance optimization examples
 ---
 
 # URL Shortener Service

@@ -5,6 +5,21 @@ type: system-design-interview
 difficulty: advanced
 reading_time: 60 min
 last_updated: 2025-07-23
+excellence_tier: gold
+pattern_status: recommended
+introduced: 1998-09
+current_relevance: mainstream
+modern_examples:
+  - Google Search (100B+ pages)
+  - Bing
+  - DuckDuckGo
+  - Elasticsearch clusters
+production_checklist:
+  - Inverted index architecture
+  - PageRank implementation
+  - Distributed crawling system
+  - Query processing pipeline
+  - Multi-level caching strategy
 ---
 
 

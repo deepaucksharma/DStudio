@@ -7,6 +7,37 @@ reading_time: 40 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-21
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2009-01
+current_relevance: mainstream
+scale_proven: billions
+companies_using:
+  - WhatsApp
+  - Facebook Messenger
+  - Discord
+  - Slack
+  - Telegram
+production_checklist:
+  - "Implement proper WebSocket connection management"
+  - "Set up message queuing for reliability"
+  - "Configure end-to-end encryption"
+  - "Design efficient message routing"
+  - "Implement offline message delivery"
+  - "Set up push notifications"
+  - "Monitor connection health and latency"
+  - "Implement proper rate limiting"
+  - "Design for mobile battery efficiency"
+modern_examples:
+  - company: WhatsApp
+    scale: "100B+ messages/day, 2B+ users"
+    use_case: "Global messaging with E2E encryption"
+  - company: Discord
+    scale: "4B messages/day, 150M MAU"
+    use_case: "Gaming and community chat"
+  - company: Slack
+    scale: "1B+ messages/week"
+    use_case: "Enterprise team collaboration"
 ---
 
 

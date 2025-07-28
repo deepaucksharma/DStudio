@@ -10,6 +10,25 @@ prerequisites:
   - patterns/leader-election
 status: complete
 last_updated: 2025-07-20
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2010-01
+current_relevance: mainstream
+modern_examples:
+  - company: Twitter
+    usage: "Snowflake ID generator for 500M+ tweets/day"
+  - company: Discord
+    usage: "Modified Snowflake for message and user IDs"
+  - company: Instagram
+    usage: "Sharded ID generation with timestamp encoding"
+production_checklist:
+  - "Clock skew detection and handling"
+  - "Graceful handling of time going backwards"
+  - "Machine ID assignment strategy (static vs dynamic)"
+  - "ID exhaustion monitoring and alerting"
+  - "Performance testing under high concurrency"
+  - "Backup ID generation strategy"
+  - "ID format documentation and versioning"
 ---
 
 # Distributed Unique ID Generator

@@ -429,13 +429,22 @@ nav:
         - Architecture: part1-axioms/law4-tradeoffs/page3-architecture.md
         - Operations: part1-axioms/law4-tradeoffs/page4-operations.md
       - Law 5 - Distributed Knowledge:
-        - Concept: part1-axioms/law5-epistemology/index.md
+        - Overview: part1-axioms/law5-epistemology/index.md
+        - Page 1 - The Lens: part1-axioms/law5-epistemology/page1-lens.md
+        - Page 2 - The Specters: part1-axioms/law5-epistemology/page2-specters.md
+        - Page 3 - Architecture: part1-axioms/law5-epistemology/page3-architecture.md
+        - Page 4 - Operations: part1-axioms/law5-epistemology/page4-operations.md
+        - The Lens (Legacy): part1-axioms/law5-epistemology/the-lens.md
+        - The Patterns (Legacy): part1-axioms/law5-epistemology/the-patterns.md
+        - The Operations (Legacy): part1-axioms/law5-epistemology/the-operations.md
+        - The Solutions (Legacy): part1-axioms/law5-epistemology/the-solutions.md
         - Examples: part1-axioms/law5-epistemology/examples.md
-        - Exercises: part1-axioms/law5-epistemology/exercises.md
       - Law 6 - Cognitive Load:
-        - Concept: part1-axioms/law6-human-api/index.md
-        - Examples: part1-axioms/law6-human-api/examples.md
-        - Exercises: part1-axioms/law6-human-api/exercises.md
+        - Overview: part1-axioms/law6-human-api/index.md
+        - The Lens: part1-axioms/law6-human-api/the-lens.md
+        - The Patterns: part1-axioms/law6-human-api/the-patterns.md
+        - The Operations: part1-axioms/law6-human-api/the-operations.md
+        - Architecture Examples: part1-axioms/law6-human-api/examples.md
       - Law 7 - Economic Reality:
         - Concept: part1-axioms/law7-economics/index.md
         - Examples: part1-axioms/law7-economics/examples.md

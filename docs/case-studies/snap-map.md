@@ -1,6 +1,10 @@
 ---
 title: Snap Map Case Study
 description: "Analysis of Snapchat's real-time social location sharing platform"
+excellence_tier: silver
+architecture_status: recommended
+current_scale: global
+key_patterns: ["real-time-location", "location-clustering", "privacy-controls"]
 ---
 
 # Snap Map Case Study

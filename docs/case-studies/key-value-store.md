@@ -11,6 +11,25 @@ prerequisites:
   - patterns/cdc
 status: complete
 last_updated: 2025-07-20
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2007-01
+current_relevance: mainstream
+modern_examples:
+  - company: Amazon
+    usage: "DynamoDB serving trillions of requests per day"
+  - company: Facebook
+    usage: "RocksDB as storage engine for multiple services"
+  - company: Redis Labs
+    usage: "Redis Enterprise with active-active geo-distribution"
+production_checklist:
+  - "Multi-level caching strategy (memory, SSD, disk)"
+  - "Configurable consistency levels (eventual, quorum, strong)"
+  - "Automatic sharding and rebalancing"
+  - "Hot key detection and mitigation"
+  - "Compaction strategy for LSM trees"
+  - "Backup and point-in-time recovery"
+  - "Multi-tenant isolation and rate limiting"
 ---
 
 # Distributed Key-Value Store

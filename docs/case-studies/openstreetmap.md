@@ -1,6 +1,10 @@
 ---
 title: OpenStreetMap Case Study
 description: "Analysis of OpenStreetMap's crowdsourced distributed mapping infrastructure"
+excellence_tier: silver
+architecture_status: use-with-expertise
+current_scale: global
+key_patterns: ["crowdsourced-data", "distributed-editing", "tile-rendering"]
 ---
 
 # OpenStreetMap Case Study

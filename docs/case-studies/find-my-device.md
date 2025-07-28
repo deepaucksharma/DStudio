@@ -1,6 +1,29 @@
 ---
-title: Find My Device Case Study
+title: "Find My Device Case Study"
 description: "Analysis of Apple and Google's device location tracking systems"
+type: case-study
+difficulty: advanced
+reading_time: 30 min
+prerequisites: ["distributed-systems", "privacy-encryption", "ble-networking"]
+pattern_type: "location-services"
+status: planned
+last_updated: 2025-01-28
+excellence_tier: silver
+pattern_status: growing
+introduced: 2019-04
+current_relevance: growing
+trade_offs:
+  pros:
+    - "Privacy-preserving crowd-sourced location"
+    - "Works without cellular/WiFi connection"
+    - "End-to-end encryption"
+    - "Anti-stalking protections"
+  cons:
+    - "Requires dense network of devices"
+    - "Battery impact on finder devices"
+    - "Complex key rotation scheme"
+    - "Potential privacy concerns"
+best_for: ["Global device tracking", "Privacy-focused location services", "Offline device recovery"]
 ---
 
 # Find My Device Case Study

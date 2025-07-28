@@ -1,3 +1,29 @@
+---
+title: "Distributed Email Service - System Design Case Study"
+description: "Building a global-scale email service with billions of users and petabyte-scale storage"
+type: case-study
+difficulty: advanced
+reading_time: 45 min
+prerequisites: ["distributed-storage", "message-queues", "search-systems", "security"]
+pattern_type: "communication-platform"
+status: complete
+last_updated: 2025-01-28
+excellence_tier: gold
+pattern_status: mainstream
+introduced: 2004-04
+current_relevance: mainstream
+modern_examples: ["Gmail", "Outlook.com", "ProtonMail", "Yahoo Mail", "Fastmail"]
+production_checklist:
+  - "Multi-region storage replication"
+  - "Real-time spam/malware detection"
+  - "Full-text search infrastructure"
+  - "SMTP/IMAP/POP3 protocol support"
+  - "End-to-end encryption options"
+  - "Email deliverability monitoring"
+  - "Anti-phishing measures"
+  - "Storage quota management"
+---
+
 # Distributed Email Service - System Design Case Study
 
 ## 1. Problem Statement

@@ -7,6 +7,25 @@ reading_time: 40 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-21
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2011-01
+current_relevance: mainstream
+modern_examples:
+  - company: LinkedIn
+    usage: "Kafka processing 7 trillion messages per day"
+  - company: Uber
+    usage: "Kafka for real-time trip updates and analytics"
+  - company: Netflix
+    usage: "Event streaming backbone for microservices"
+production_checklist:
+  - "Partition strategy for ordered processing"
+  - "Replication factor configuration (typically 3)"
+  - "Consumer group coordination and rebalancing"
+  - "Dead letter queue handling"
+  - "Message retention and compaction policies"
+  - "Monitoring lag and throughput metrics"
+  - "Schema registry for message evolution"
 ---
 
 

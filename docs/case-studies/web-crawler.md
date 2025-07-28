@@ -11,6 +11,26 @@ prerequisites:
   - patterns/bulkhead
 status: complete
 last_updated: 2025-07-20
+excellence_tier: silver
+pattern_status: use-with-expertise
+introduced: 1993-01
+current_relevance: specialized
+trade_offs:
+  pros:
+    - Scales to billions of pages
+    - Efficient resource utilization
+    - Respects server constraints
+    - Handles dynamic content
+  cons:
+    - Complex politeness management
+    - Resource intensive
+    - Requires careful rate limiting
+    - Legal and ethical considerations
+best_for:
+  - Search engines
+  - Data aggregation services
+  - Price monitoring systems
+  - Research and archival projects
 ---
 
 # Distributed Web Crawler

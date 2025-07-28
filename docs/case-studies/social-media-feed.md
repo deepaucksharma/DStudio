@@ -7,6 +7,25 @@ reading_time: 45 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-24
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2006-01
+current_relevance: mainstream
+modern_examples:
+  - company: Facebook
+    usage: "Serving 3B+ users with personalized feeds"
+  - company: Instagram
+    usage: "Hybrid push/pull model for 2B+ users"
+  - company: Twitter
+    usage: "Real-time timeline generation at scale"
+production_checklist:
+  - "Hybrid push/pull strategy based on user activity"
+  - "Multi-level caching (edge, regional, origin)"
+  - "ML ranking pipeline with feature stores"
+  - "Fan-out optimization for celebrity users"
+  - "Real-time and batch processing integration"
+  - "Feed diversity and freshness algorithms"
+  - "A/B testing infrastructure for ranking"
 ---
 
 
