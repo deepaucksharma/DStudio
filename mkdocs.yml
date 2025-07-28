@@ -398,7 +398,6 @@ nav:
     
     - The 7 Laws:
       - Overview: part1-axioms/index.md
-      - Axioms Index: part1-axioms/axioms-index.md
       - Law Interactions: part1-axioms/law-interactions.md
       - Law 1 - Correlated Failure:
         - Concept: part1-axioms/law1-failure/index.md
