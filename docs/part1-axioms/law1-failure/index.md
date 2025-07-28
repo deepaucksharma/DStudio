@@ -186,6 +186,19 @@ placement_constraints:
 
 
 
+## The Five Specters of Failure
+
+Every correlated failure manifests as one of five patterns:
+
+1. **BLAST RADIUS** – Size of the crater
+2. **CASCADE** – Pebble → Avalanche  
+3. **GRAY FAILURE** – Looks fine, isn't
+4. **METASTABLE** – Self-feeding spiral
+5. **COMMON CAUSE** – One string, many puppets
+
+!!! tip "Deep Dive"
+    **[Master the Five Specters →](five-specters.md)** Learn to instantly recognize which pattern is killing your system.
+
 ## Key Takeaways
 
 !!! abstract "The Core Truth"
