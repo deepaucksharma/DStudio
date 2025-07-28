@@ -1,7 +1,7 @@
 ---
 title: Event Sourcing
 category: data
-excellence_tier: bronze
+excellence_tier: gold
 pattern_status: stable
 ---
 

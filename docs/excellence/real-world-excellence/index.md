@@ -3,7 +3,7 @@ title: Real-World Excellence
 description: Learn from production systems at the world's leading tech companies
 ---
 
-# 🏆 Real-World Excellence
+# Real-World Excellence
 
 **See how the world's best engineering teams implement distributed systems patterns in production.**
 
@@ -11,11 +11,11 @@ description: Learn from production systems at the world's leading tech companies
     <p class="lead">From Netflix's chaos engineering to Uber's real-time dispatch, learn from actual implementations handling billions of requests and millions of users.</p>
 </div>
 
-## 🌟 Elite Engineering Case Studies
+## Elite Engineering Case Studies
 
 <div class="elite-grid">
 
-### 🎬 [Netflix: Resilience at Scale](elite-engineering/netflix-resilience.md)
+### [Netflix: Resilience at Scale](elite-engineering/netflix-resilience.md)
 **260M+ subscribers, 100B+ requests/day**
 
 <div class="case-study-details">
@@ -35,7 +35,7 @@ description: Learn from production systems at the world's leading tech companies
 
 ---
 
-### 🚗 [Uber: Real-Time at Scale](elite-engineering/uber-geo.md)
+### [Uber: Real-Time at Scale](elite-engineering/uber-geo.md)
 **20M+ rides/day across 10,000+ cities**
 
 <div class="case-study-details">
@@ -55,7 +55,7 @@ description: Learn from production systems at the world's leading tech companies
 
 ---
 
-### 🛒 [Amazon DynamoDB: Distributed Database](elite-engineering/amazon-dynamodb.md)
+### [Amazon DynamoDB: Distributed Database](elite-engineering/amazon-dynamodb.md)
 **10T+ requests/day, 99.999% availability**
 
 <div class="case-study-details">
@@ -75,7 +75,7 @@ description: Learn from production systems at the world's leading tech companies
 
 ---
 
-### 💬 [Discord: Voice Infrastructure](elite-engineering/discord-voice.md)
+### [Discord: Voice Infrastructure](elite-engineering/discord-voice.md)
 **5M+ concurrent voice users**
 
 <div class="case-study-details">
@@ -95,7 +95,7 @@ description: Learn from production systems at the world's leading tech companies
 
 ---
 
-### 🎨 [Figma: Collaborative Editing](elite-engineering/figma-collaboration.md)
+### [Figma: Collaborative Editing](elite-engineering/figma-collaboration.md)
 **100+ concurrent editors, real-time sync**
 
 <div class="case-study-details">
@@ -115,7 +115,7 @@ description: Learn from production systems at the world's leading tech companies
 
 ---
 
-### 💳 [Stripe: API Excellence](elite-engineering/stripe-api.md)
+### [Stripe: API Excellence](elite-engineering/stripe-api.md)
 **1B+ API requests/day, 99.999% uptime**
 
 <div class="case-study-details">
@@ -135,63 +135,63 @@ description: Learn from production systems at the world's leading tech companies
 
 </div>
 
-## 📊 Case Studies by Scale
+## Case Studies by Scale
 
 <div class="scale-categories">
 
-### 🚀 Hyperscale (>100M users)
+### Hyperscale (>100M users)
 - [Netflix Video Streaming](../../case-studies/netflix-streaming/) - 260M users
 - [YouTube Architecture](../../case-studies/youtube/) - 2B users
 - [Facebook Feed](../../case-studies/social-media-feed/) - 3B users
 - [Google Search](../../case-studies/google-search/) - Billions of queries
 
-### 🏢 Large Scale (10M-100M users)
+### Large Scale (10M-100M users)
 - [Uber Platform](../../case-studies/uber-location/) - 100M users
 - [Airbnb Marketplace](../../case-studies/ecommerce-platform/) - 150M users
 - [Twitter Timeline](../../case-studies/twitter-timeline/) - 400M users
 - [Spotify Music](../../case-studies/spotify-recommendations/) - 500M users
 
-### 📈 Growth Scale (1M-10M users)
+### Growth Scale (1M-10M users)
 - [Discord Chat](../../case-studies/chat-system/) - 15M users
 - [Figma Design](elite-engineering/figma-collaboration/) - 5M users
 - [Strava Fitness](../../case-studies/strava-heatmaps/) - 10M users
 
-### 🌱 Startup Scale (<1M users)
+### Startup Scale (<1M users)
 - [Early Uber](../../case-studies/uber-location/#early-architecture) - <100K users
 - [URL Shortener](../../case-studies/url-shortener/) - Basic patterns
 - [Chat MVP](../../case-studies/chat-system/#mvp-architecture) - Getting started
 
 </div>
 
-## 🔍 Case Studies by Domain
+## Case Studies by Domain
 
 <div class="domain-grid">
 
-### 💰 E-Commerce & Payments
+### E-Commerce & Payments
 - [Payment Systems](../../case-studies/payment-system/)
 - [Amazon Architecture](elite-engineering/amazon-dynamodb/)
 - [Stripe API Design](elite-engineering/stripe-api/)
 - [Digital Wallet](../../case-studies/digital-wallet-enhanced/)
 
-### 🎥 Media & Streaming
+### Media & Streaming
 - [Netflix Streaming](../../case-studies/netflix-streaming/)
 - [YouTube Platform](../../case-studies/youtube/)
 - [Spotify Recommendations](../../case-studies/spotify-recommendations/)
 - [Video Infrastructure](../../case-studies/video-streaming/)
 
-### 📍 Location & Maps
+### Location & Maps
 - [Uber Location Services](elite-engineering/uber-geo/)
 - [Google Maps](../../case-studies/google-maps/)
 - [Life360 Tracking](../../case-studies/life360/)
 - [Proximity Services](../../case-studies/proximity-service/)
 
-### 💬 Communication & Social
+### Communication & Social
 - [Discord Voice](elite-engineering/discord-voice/)
 - [Chat Systems](../../case-studies/chat-system/)
 - [Twitter Timeline](../../case-studies/twitter-timeline/)
 - [WhatsApp Architecture](../../case-studies/distributed-message-queue/)
 
-### 🏗️ Infrastructure
+### Infrastructure
 - [Kubernetes](../../case-studies/kubernetes/)
 - [Apache Kafka](../../case-studies/kafka/)
 - [Redis Architecture](../../case-studies/redis/)
@@ -199,7 +199,7 @@ description: Learn from production systems at the world's leading tech companies
 
 </div>
 
-## 📈 Pattern Usage Analysis
+## Pattern Usage Analysis
 
 <div class="pattern-analysis">
 
@@ -226,7 +226,7 @@ description: Learn from production systems at the world's leading tech companies
 
 </div>
 
-## 🎓 Learning from Failures
+## Learning from Failures
 
 <div class="failure-studies">
 
@@ -244,7 +244,7 @@ Learn from what doesn't work:
 
 </div>
 
-## 🚀 Apply These Learnings
+## Apply These Learnings
 
 <div class="next-steps">
 

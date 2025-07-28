@@ -44,18 +44,18 @@
 }
 
 .gold-tier {
-  background-color: #FFD700;
-  color: #000;
+  background-color: var(--md-warning-bg-color);
+  color: var(--md-warning-fg-color);
 }
 
 .silver-tier {
-  background-color: #C0C0C0;
-  color: #000;
+  background-color: var(--md-default-fg-color--lighter);
+  color: var(--md-default-bg-color);
 }
 
 .bronze-tier {
-  background-color: #CD7F32;
-  color: #FFF;
+  background-color: var(--md-accent-fg-color--transparent);
+  color: var(--md-accent-fg-color);
 }
 
 /* Pattern status indicators */

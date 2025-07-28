@@ -3,13 +3,13 @@ title: Quick Start Guide
 description: Get started with distributed systems excellence in 30 minutes
 ---
 
-# ⚡ Quick Start: Choose Your Path
+# Quick Start: Choose Your Path
 
 **Master distributed systems excellence in 30 minutes based on your role.**
 
 <div class="role-selector">
 
-## 🏗️ [For Architects](for-architects.md)
+## [For Architects](for-architects.md)
 **Design excellence from the ground up**
 
 - Pattern selection framework
@@ -21,7 +21,7 @@ description: Get started with distributed systems excellence in 30 minutes
 
 ---
 
-## 👥 [For Teams](for-teams.md)
+## [For Teams](for-teams.md)
 **Implement excellence together**
 
 - Team implementation playbooks
@@ -33,7 +33,7 @@ description: Get started with distributed systems excellence in 30 minutes
 
 ---
 
-## 🏢 [For Organizations](for-organizations.md)
+## [For Organizations](for-organizations.md)
 **Scale excellence across teams**
 
 - Organizational transformation
@@ -45,7 +45,7 @@ description: Get started with distributed systems excellence in 30 minutes
 
 </div>
 
-## 🎯 30-Minute Challenges
+## 30-Minute Challenges
 
 Choose a challenge that matches your current needs:
 
@@ -100,7 +100,7 @@ Choose a challenge that matches your current needs:
    - Create implementation timeline
    - Plan first sprint
 
-## 🚀 Next Steps by Experience Level
+## Next Steps by Experience Level
 
 ### New to Distributed Systems?
 1. Start with [Fundamentals](../../part1-axioms/)
@@ -117,7 +117,7 @@ Choose a challenge that matches your current needs:
 2. Build with [Implementation Guides](../implementation-guides/)
 3. Learn from [Elite Engineering](../real-world-excellence/elite-engineering/)
 
-## 📋 Quick Reference Cards
+## Quick Reference Cards
 
 <div class="reference-cards">
 
@@ -144,7 +144,7 @@ Choose a challenge that matches your current needs:
 
 </div>
 
-## 🎓 Certification Path
+## Certification Path
 
 Track your progress towards excellence:
 

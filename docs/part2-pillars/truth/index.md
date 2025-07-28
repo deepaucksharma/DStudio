@@ -332,119 +332,259 @@ ELSE:
 
 ### The Hierarchy of Distributed Truth
 
-```mermaid
-graph TB
-    subgraph "The Hierarchy of Distributed Truth"
-        L5["Level 5: Global Total Order 💰💰💰💰💰<br/>Most expensive<br/>Blockchain, atomic broadcast<br/>Every event has exact position<br/>📊 Use case: Financial ledgers"]
-        
-        L4["Level 4: Causal Order 💰💰💰💰<br/>Preserves cause-and-effect<br/>Vector clocks<br/>If A→B, then A before B everywhere<br/>💬 Use case: Social media comments"]
-        
-        L3["Level 3: Consensus Truth 💰💰💰<br/>Majority agreement<br/>Raft, Paxos<br/>Majority decides the truth<br/>⚙️ Use case: Configuration management"]
-        
-        L2["Level 2: Eventual Truth 💰💰<br/>Converges over time<br/>CRDTs, gossip protocols<br/>Truth emerges eventually<br/>🛒 Use case: Shopping carts"]
-        
-        L1["Level 1: Local Truth 💰<br/>What I believe right now<br/>No coordination needed<br/>Local-only decisions<br/>💾 Use case: Caching"]
-    end
-    
-    L5 -->|Cost ÷10| L4
-    L4 -->|Cost ÷10| L3
-    L3 -->|Cost ÷10| L2
-    L2 -->|Cost ÷10| L1
-    
-    Note["⚠️ Cost increases exponentially with each level"]
-    
-    style L5 fill:#ff6b6b,stroke:#333,stroke-width:3px,color:#fff
-    style L4 fill:#ee5a24,stroke:#333,stroke-width:2px,color:#fff
-    style L3 fill:#fdcb6e,stroke:#333,stroke-width:2px
-    style L2 fill:#6c5ce7,stroke:#333,stroke-width:2px,color:#fff
-    style L1 fill:#00b894,stroke:#333,stroke-width:2px,color:#fff
-    style Note fill:#fffacd,stroke:#333,stroke-width:1px
+```
+┌─────────────────────────────────────────────────────────────┐
+│               TRUTH HIERARCHY (Cost vs Control)             │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Level 5: GLOBAL TOTAL ORDER    💰💰💰💰💰 ($10/GB)        │
+│  └─ Blockchain, Spanner         Every event sequenced      │
+│                                                             │
+│  Level 4: CAUSAL ORDER          💰💰💰💰 ($1/GB)           │
+│  └─ Vector clocks, Dynamo       Preserves cause→effect     │
+│                                                             │
+│  Level 3: CONSENSUS TRUTH       💰💰💰 ($0.25/GB)          │
+│  └─ Raft, Paxos, etcd          Majority decides            │
+│                                                             │
+│  Level 2: EVENTUAL TRUTH        💰💰 ($0.02/GB)            │
+│  └─ S3, CRDTs, Gossip          Converges... eventually     │
+│                                                             │
+│  Level 1: LOCAL TRUTH           💰 ($0.001/GB)             │
+│  └─ Cache, CDN                 What I think right now      │
+│                                                             │
+│  ⚠️ Each level = 10x cost, 10x latency, 10x complexity    │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Failure Vignette: The Bitcoin Double-Spend Attack
+## 🎓 The Concept Map: Truth Distribution
 
-**Date**: March 2013 - The Fork Incident
-**Impact**: 6-hour network split, $1.5M at risk
-
-```mermaid
-gantt
-    title Bitcoin Fork Incident Timeline (March 2013)
-    dateFormat HH:mm
-    axisFormat %H:%M
-    
-    section Network State
-    v0.8 Release                          :milestone, 00:00, 0m
-    Mixed v0.7/v0.8 nodes                 :active, mixed, 00:00, 06:30
-    Large block mined (>900KB)            :crit, block, 00:00, 00:01
-    
-    section v0.8 Chain
-    v0.8 accepts block                    :done, v8accept, 00:01, 06:29
-    v0.8 continues mining                 :active, v8mine, 00:02, 05:58
-    
-    section v0.7 Chain  
-    v0.7 rejects block                    :crit, v7reject, 00:01, 00:01
-    v0.7 continues on old chain           :active, v7mine, 00:02, 06:28
-    
-    section Critical Events
-    Network split detected                :crit, split, 00:02, 00:01
-    Exchanges on different chains         :crit, exch, 00:10, 00:20
-    Double-spend possible                 :crit, dblspend, 00:30, 05:30
-    Dev coordination begins               :done, coord, 06:00, 00:30
-    Network reconverges                   :milestone, reconv, 06:30, 0m
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  TRUTH DISTRIBUTION MAP                     │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│                    DISTRIBUTION OF TRUTH                     │
+│                           │                                  │
+│         ┌────────────────┼────────────────┐                │
+│         │                │                 │                 │
+│    CONSENSUS         TIME/ORDER      CONFLICT RES           │
+│         │                │                 │                 │
+│    ┌────┴────┐     ┌────┴────┐      ┌────┴────┐          │
+│    │ CFT BFT │     │Log Vect │      │LWW CRDT │          │
+│    └─┬────┬──┘     └─┬────┬──┘      └─┬────┬──┘          │
+│      │    │          │    │           │    │               │
+│   Raft  PBFT    Lamport Vector     MVCC  ORSet            │
+│                                                             │
+│  THEOREMS THAT BIND US:                                     │
+│  • FLP: No guaranteed consensus with 1 failure             │
+│  • CAP: Pick 2 of 3 (usually CP or AP)                    │
+│  • CALM: Monotonic = coordination-free                     │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-!!! failure "Key Problems & Resolution"
-    **The Problem:**
-    - Two incompatible versions of "truth"
-    - Each valid according to its rules  
-    - Economic incentives conflicted with technical solution
-    
-    **The Fix:**
-    - Social consensus overrode technical consensus
-    - Miners voluntarily took losses
-    - Proved that Bitcoin consensus is sociotechnical
+## 💥 Case Study: The Bitcoin Fork Crisis
 
-**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Law 6: Law of Cognitive Load](part1-axioms/law6-human-api) - humans remain the ultimate arbiters.
-
-### The FLP Impossibility Result
-
-**Fischer, Lynch, and Paterson (1985/index)** proved that in an asynchronous system with even one faulty process, consensus is impossible.
-
-```mermaid
-flowchart TD
-    Start[System in Bivalent State<br/>Could decide 0 or 1] --> Scheduler[Adversarial Scheduler]
-    
-    Scheduler --> FindCritical[Find Critical Messages<br/>Messages that force decision]
-    
-    FindCritical --> DelayMsgs[Delay Critical Messages<br/>Indefinitely]
-    
-    DelayMsgs --> CheckConsensus{All Nodes<br/>Decided?}
-    
-    CheckConsensus -->|No| Scheduler
-    CheckConsensus -.->|Yes<br/>Unreachable!| Consensus[Consensus Achieved<br/>⚠️ FLP proves this is impossible]
-    
-    subgraph "FLP Impossibility Result"
-        Note["In asynchronous systems with one faulty process,<br/>consensus is impossible to guarantee.<br/>Adversarial scheduling can always prevent agreement."]
-    end
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Consensus fill:#ff6b6b,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5,color:#fff
-    style Note fill:#ffe4b5,stroke:#333,stroke-width:1px
+```
+┌─────────────────────────────────────────────────────────────┐
+│            BITCOIN MARCH 2013 FORK TIMELINE                 │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ 00:00 ─ Block 225,430 mined (>900KB)                      │
+│         ├─ v0.8 nodes: "Valid! Continue mining"            │
+│         └─ v0.7 nodes: "Invalid! Reject block"             │
+│                                                             │
+│ 00:30 ─ Two chains diverge                                 │
+│         ├─ Chain A: v0.8 nodes (60% hashpower)            │
+│         └─ Chain B: v0.7 nodes (40% hashpower)            │
+│                                                             │
+│ 02:00 ─ Exchanges on different chains!                     │
+│         ├─ MtGox: Following v0.7 chain                     │
+│         └─ BitStamp: Following v0.8 chain                  │
+│                                                             │
+│ 04:00 ─ DOUBLE SPEND POSSIBLE 💀                           │
+│         "Send BTC on v0.7, spend same on v0.8"            │
+│                                                             │
+│ 06:00 ─ Human consensus reached                            │
+│         "Downgrade to v0.7, abandon v0.8 chain"           │
+│                                                             │
+│ 06:30 ─ Miners voluntarily orphan 24 blocks                │
+│         Lost rewards: 600 BTC (~$30,000 then)             │
+│                                                             │
+│ LESSON: Even "trustless" systems need social consensus     │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-**Practical Implications**:
-1. **Timeouts are necessary** - Can't distinguish slow from dead
-2. **Probabilistic consensus** - Bitcoin, eventual consistency
-3. **Synchrony assumptions** - Paxos/Raft assume partial synchrony
-4. **Human intervention** - Ultimate fallback for liveness
+## 🏛️ Google Spanner: Engineering Around Physics
 
----
+```
+┌─────────────────────────────────────────────────────────────┐
+│              SPANNER'S TRUETIME ARCHITECTURE                │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   GPS RECEIVERS + ATOMIC CLOCKS → TIME MASTERS             │
+│                        │                                     │
+│                        ▼                                     │
+│              ┌─────────────────┐                           │
+│              │ TrueTime API    │                           │
+│              │ now() → [T-ε,T+ε]│  ε = 1-4ms uncertainty  │
+│              └─────────────────┘                           │
+│                        │                                     │
+│   ┌────────────────────┼────────────────────┐              │
+│   │                    │                     │              │
+│   ▼                    ▼                     ▼              │
+│ NODE A              NODE B               NODE C            │
+│                                                             │
+│ COMMIT PROTOCOL:                                            │
+│ 1. Prepare transaction                                      │
+│ 2. ts = TrueTime.now().latest                             │
+│ 3. Wait until TrueTime.now().earliest > ts                │
+│ 4. Release locks & commit                                  │
+│                                                             │
+│ COST: 1-4ms commit wait for GLOBAL CONSISTENCY!            │
+└─────────────────────────────────────────────────────────────┘
+```
 
-## Level 3: Deep Dive (Master the Patterns) 🌳
+## 🔍 Understanding Raft: Visual State Machine
 
-### Consensus Algorithms: The Truth Makers
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   RAFT CONSENSUS FLOW                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ ELECTION:                                                   │
+│ Follower ─timeout→ Candidate ─majority→ Leader             │
+│    ↑                   │                   │                │
+│    └────discovered─────┴────higher term────┘                │
+│                                                             │
+│ LOG REPLICATION:                                            │
+│                                                             │
+│ Client──┐                                                   │
+│         ▼                                                   │
+│ [LEADER]──AppendEntries──►[FOLLOWER₁]──ACK──┐             │
+│    │                                         │              │
+│    ├─────AppendEntries──►[FOLLOWER₂]──ACK──┼─►Majority?   │
+│    │                                         │      │       │
+│    └─────AppendEntries──►[FOLLOWER₃]──ACK──┘      ▼       │
+│                                                 COMMITTED   │
+│                                                             │
+│ SAFETY PROPERTIES:                                          │
+│ • Election Safety: ≤1 leader per term                      │
+│ • Log Matching: Same log index → same command              │
+│ • Leader Completeness: Committed = never lost              │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### Concept Map: Distribution of Truth
+## 💫 CRDTs: The Magical Convergence
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CRDT OPERATIONS                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ GCOUNTER (Grow-only Counter):                              │
+│ ─────────────────────────────                              │
+│ Node A: [5,0,0] ─┐                                         │
+│ Node B: [0,3,0] ─┼─MERGE([5,3,2])─► Value = 10           │
+│ Node C: [0,0,2] ─┘  max(a,b,c)                            │
+│                                                             │
+│ ORSET (Observed-Remove Set):                               │
+│ ────────────────────────────                               │
+│ A: add(milk,uuid1) ────┐                                   │
+│ B: add(eggs,uuid2) ────┼─MERGE─► {milk:uuid1,eggs:uuid2} │
+│ C: rem(milk,uuid1) ────┘                                   │
+│                                                             │
+│ PROPERTIES:                                                 │
+│ • Commutative: merge(a,b) = merge(b,a)                    │
+│ • Associative: merge(a,merge(b,c)) = merge(merge(a,b),c)  │
+│ • Idempotent: merge(a,a) = a                              │
+│                                                             │
+│ = ALWAYS CONVERGES WITHOUT COORDINATION! 🎉                │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 🎯 Production Anti-Patterns (What NOT to Do)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   TRUTH ANTI-PATTERNS                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ ❌ ANTI-PATTERN 1: Over-Consensus                          │
+│ Every read goes through Raft = 50ms per read!             │
+│ ✅ FIX: Read from leader's stable state                   │
+│                                                             │
+│ ❌ ANTI-PATTERN 2: Ignoring Byzantine Failures             │
+│ "Our nodes won't lie" → Corrupted node poisons cluster    │
+│ ✅ FIX: Use PBFT for critical systems (3f+1 nodes)        │
+│                                                             │
+│ ❌ ANTI-PATTERN 3: Wall Clock Ordering                     │
+│ Using system.currentTimeMillis() for ordering             │
+│ ✅ FIX: Logical clocks (Lamport/Vector/Hybrid)            │
+│                                                             │
+│ ❌ ANTI-PATTERN 4: Split-Brain Amnesia                     │
+│ Partition heals → "Last writer wins" → Data loss          │
+│ ✅ FIX: Version vectors + application-level merge         │
+│                                                             │
+│ ❌ ANTI-PATTERN 5: Infinite Conflict Resolution            │
+│ Showing users: "Pick version A, B, C, D, or E?"           │
+│ ✅ FIX: Automatic resolution with CRDT semantics          │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 🚀 Advanced: Multi-Region Consensus
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│              HIERARCHICAL CONSENSUS AT SCALE                │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│                    GLOBAL COORDINATOR                       │
+│                           │                                  │
+│         ┌─────────────────┼─────────────────┐              │
+│         │                 │                  │              │
+│    [US-EAST]         [EU-WEST]          [ASIA-PAC]         │
+│    Raft Group        Raft Group         Raft Group         │
+│    3-5 nodes         3-5 nodes          3-5 nodes          │
+│         │                 │                  │              │
+│   Local: 1ms        Local: 1ms         Local: 1ms          │
+│   Regional: 10ms    Regional: 10ms     Regional: 10ms      │
+│   Global: 200ms     Global: 200ms      Global: 200ms       │
+│                                                             │
+│ CONSISTENCY LEVELS:                                         │
+│ • LOCAL: Return after local DC commits                     │
+│ • REGIONAL: Return after region quorum                     │
+│ • GLOBAL: Return after global quorum                       │
+│                                                             │
+│ REAL LATENCIES (AWS):                                       │
+│ • US-EAST ↔ US-WEST: 70ms                                 │
+│ • US-EAST ↔ EU-WEST: 80ms                                 │
+│ • US-EAST ↔ ASIA-PAC: 170ms                               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 🧘 The Philosophy: Truth is Negotiated
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                THE FOUR PARADOXES OF TRUTH                  │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│ 1. THE OBSERVER PARADOX                                    │
+│    "Monitoring consensus changes consensus timing"         │
+│                                                             │
+│ 2. THE COORDINATION PARADOX                                │
+│    "To avoid coordination, we must coordinate first"       │
+│                                                             │
+│ 3. THE TRUST PARADOX                                       │
+│    "Trustless systems require trusting the protocol"       │
+│                                                             │
+│ 4. THE FINALITY PARADOX                                    │
+│    "Nothing is final, just very probably won't change"     │
+│                                                             │
+│ WISDOM: Truth in distributed systems is not discovered—    │
+│         it's negotiated through algorithms and trade-offs. │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ```mermaid
 graph TB
