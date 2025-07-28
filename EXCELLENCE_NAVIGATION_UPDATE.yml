@@ -1,0 +1,100 @@
+# Excellence-First Navigation Structure
+# Replace the existing "Excellence Framework" section with this:
+
+  - Excellence Hub:
+    - 🎯 Welcome to Excellence: excellence/index.md
+    - Framework Overview: excellence/framework-overview.md
+    
+    # Quick Start - Primary Entry Point
+    - ⚡ Quick Start:
+      - Choose Your Path: excellence/quick-start/index.md
+      - For Architects: excellence/quick-start/for-architects.md
+      - For Teams: excellence/quick-start/for-teams.md
+      - For Organizations: excellence/quick-start/for-organizations.md
+    
+    # Pattern Discovery - Interactive Tool
+    - 🔍 Pattern Discovery:
+      - Find Your Patterns: excellence/pattern-discovery/index.md
+      - 🥇 Gold Patterns (38): excellence/pattern-discovery/gold-patterns/index.md
+      - 🥈 Silver Patterns (38): excellence/pattern-discovery/silver-patterns/index.md
+      - 🥉 Bronze Patterns (25): excellence/pattern-discovery/bronze-patterns/index.md
+    
+    # Implementation Guides
+    - 📚 Implementation Guides:
+      - All Guides: excellence/implementation-guides/index.md
+      - Resilience First: excellence/implementation-guides/resilience-first.md
+      - Data Consistency: excellence/implementation-guides/data-consistency.md
+      - Performance Optimization: excellence/implementation-guides/performance-optimization.md
+      - Operational Excellence: excellence/implementation-guides/operational-excellence.md
+      - Service Communication: excellence/implementation-guides/service-communication.md
+      - Platform Engineering: excellence/implementation-guides/platform-engineering-playbook.md
+      - Security Patterns: excellence/implementation-guides/security-patterns.md
+      - Modern Systems 2025: excellence/implementation-guides/modern-distributed-systems-2025.md
+      - Migration Strategies: excellence/implementation-guides/migration-strategies.md
+      - Quick Start Guide: excellence/implementation-guides/quick-start-guide.md
+    
+    # Real-World Excellence
+    - 🏆 Real-World Excellence:
+      - Case Study Gallery: excellence/real-world-excellence/index.md
+      - Elite Engineering:
+        - Overview: case-studies/elite-engineering/index.md
+        - Netflix Chaos Engineering: case-studies/elite-engineering/netflix-chaos-engineering.md
+        - Amazon DynamoDB Evolution: case-studies/elite-engineering/amazon-dynamodb-evolution.md
+        - Discord Voice Infrastructure: case-studies/elite-engineering/discord-voice-infrastructure.md
+        - Figma CRDT Collaboration: case-studies/elite-engineering/figma-crdt-collaboration.md
+        - Stripe API Excellence: case-studies/elite-engineering/stripe-api-excellence.md
+    
+    # Excellence Journeys
+    - 🚀 Excellence Journeys:
+      - Choose Your Journey: excellence/excellence-journeys/index.md
+      - Startup to Scale: excellence/excellence-journeys/startup-to-scale.md
+      # - Legacy Modernization: excellence/excellence-journeys/legacy-modernization.md
+      # - Reliability Transformation: excellence/excellence-journeys/reliability-transformation.md
+      # - Performance Excellence: excellence/excellence-journeys/performance-excellence.md
+    
+    # Migration Center
+    - 🔄 Migration Center:
+      - Migration Hub: excellence/migrations/index.md
+      - Pattern Migrations:
+        - 2PC to Saga: excellence/migrations/2pc-to-saga.md
+        - Anti-Entropy to CRDT: excellence/migrations/anti-entropy-to-crdt.md
+        - Gossip to Service Mesh: excellence/migrations/gossip-to-service-mesh.md
+        - Polling to WebSocket: excellence/migrations/polling-to-websocket.md
+        - Vector Clocks to HLC: excellence/migrations/vector-clocks-to-hlc.md
+      - System Transformations:
+        - Monolith to Microservices: excellence/migrations/monolith-to-microservices.md
+        - Batch to Streaming: excellence/migrations/batch-to-streaming.md
+        - Master-Slave to Multi-Primary: excellence/migrations/master-slave-to-multi-primary.md
+        - Shared DB to Microservices: excellence/migrations/shared-database-to-microservices.md
+        - Thick Client to API-First: excellence/migrations/thick-client-to-api-first.md
+    
+    # Pattern Comparisons
+    - 📊 Pattern Comparisons:
+      - Comparison Center: excellence/comparisons/index.md
+      - Messaging Patterns: excellence/comparisons/messaging-patterns-comparison.md
+      - Consistency Patterns: excellence/comparisons/consistency-patterns-comparison.md
+      - Caching Patterns: excellence/comparisons/caching-patterns-comparison.md
+      - Deployment Patterns: excellence/comparisons/deployment-patterns-comparison.md
+      - Resilience Patterns: excellence/comparisons/resilience-patterns-comparison.md
+    
+    # Pattern Health & Metrics
+    - 📈 Pattern Health:
+      - Health Dashboard: reference/pattern-health-dashboard.md
+
+# Move these sections AFTER Excellence Hub in the main navigation:
+
+  # Foundations (Secondary) - Keep after Excellence
+  - Foundations:
+    - The 7 Laws: part1-axioms/index.md
+    - The 5 Pillars: part2-pillars/index.md
+    - Learning Paths: learning-paths/index.md
+
+  # Pattern Library (Reference) - Keep after Foundations  
+  - Pattern Library:
+    - Browse All Patterns: patterns/index.md
+    # ... existing pattern structure ...
+
+  # Case Studies (Reference) - Keep after Pattern Library
+  - Case Studies:
+    - All Case Studies: case-studies/index.md
+    # ... existing case study structure ...

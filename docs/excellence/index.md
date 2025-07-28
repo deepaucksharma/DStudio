@@ -1,191 +1,268 @@
-# Excellence Framework
+---
+title: Excellence Hub
+description: Your gateway to distributed systems excellence - discover, learn, and implement battle-tested patterns
+hide:
+  - toc
+---
 
-The Excellence Framework is your comprehensive guide to building and operating world-class distributed systems. It combines battle-tested patterns, migration strategies, and operational excellence practices from industry leaders.
+# 🎯 Excellence Hub
 
-## 🎯 Quick Navigation
+**Transform your distributed systems with proven patterns and real-world guidance.**
 
-<div class="grid cards" markdown>
+<div class="grid cards">
 
--   **📚 Guides**
+<!-- Quick Start Card -->
+<div class="card">
+    <h2>⚡ Quick Start</h2>
+    <p>Get started in 30 minutes based on your role</p>
+    <div class="button-group">
+        <a href="quick-start/" class="md-button md-button--primary">Choose Your Path</a>
+        <a href="quick-start/for-architects/" class="md-button">For Architects</a>
+        <a href="quick-start/for-teams/" class="md-button">For Teams</a>
+    </div>
+</div>
 
-    ---
-    
-    Essential guides for modern distributed systems
-    
-    [:octicons-arrow-right-24: Browse Guides](guides/)
+<!-- Pattern Discovery Card -->
+<div class="card">
+    <h2>🔍 Pattern Discovery</h2>
+    <p>Find the perfect patterns for your challenges</p>
+    <div class="pattern-stats">
+        <span class="gold-badge">🥇 38 Gold</span>
+        <span class="silver-badge">🥈 38 Silver</span>
+        <span class="bronze-badge">🥉 25 Bronze</span>
+    </div>
+    <a href="pattern-discovery/" class="md-button md-button--primary">Discover Patterns</a>
+</div>
 
--   **🔄 Migrations**
+<!-- Implementation Guides Card -->
+<div class="card">
+    <h2>📚 Implementation Guides</h2>
+    <p>Deep-dive guides for building excellence</p>
+    <ul>
+        <li><a href="implementation-guides/resilience-first/">Resilience First</a></li>
+        <li><a href="implementation-guides/data-consistency/">Data Consistency</a></li>
+        <li><a href="implementation-guides/platform-engineering-playbook/">Platform Engineering</a></li>
+    </ul>
+    <a href="implementation-guides/" class="md-button">All Guides</a>
+</div>
 
-    ---
-    
-    Step-by-step migration playbooks
-    
-    [:octicons-arrow-right-24: Migration Guides](migrations/)
+<!-- Real-World Excellence Card -->
+<div class="card">
+    <h2>🏆 Real-World Excellence</h2>
+    <p>Learn from the best in the industry</p>
+    <div class="case-study-preview">
+        <span>Netflix</span> • <span>Amazon</span> • <span>Google</span> • <span>Uber</span>
+    </div>
+    <a href="real-world-excellence/" class="md-button md-button--primary">View Case Studies</a>
+</div>
 
--   **📊 Case Studies**
+<!-- Excellence Journeys Card -->
+<div class="card">
+    <h2>🚀 Excellence Journeys</h2>
+    <p>Guided paths to transformation</p>
+    <ul>
+        <li><a href="excellence-journeys/startup-to-scale/">Startup to Scale</a></li>
+        <li><a href="excellence-journeys/legacy-modernization/">Legacy Modernization</a></li>
+        <li><a href="excellence-journeys/reliability-transformation/">Reliability Transformation</a></li>
+    </ul>
+    <a href="excellence-journeys/" class="md-button">Start Journey</a>
+</div>
 
-    ---
-    
-    Real-world excellence implementations
-    
-    [:octicons-arrow-right-24: Case Studies](case-studies/)
-
--   **🚀 Quick Start**
-
-    ---
-    
-    Get started in under 30 minutes
-    
-    [:octicons-arrow-right-24: Quick Start Guide](guides/quick-start-guide.md)
+<!-- Pattern Health Dashboard Card -->
+<div class="card">
+    <h2>📊 Pattern Health</h2>
+    <p>Real-time pattern adoption metrics</p>
+    <div class="health-preview">
+        <span class="trending">↗️ Circuit Breaker</span>
+        <span class="trending">↗️ Event Streaming</span>
+    </div>
+    <a href="../reference/pattern-health-dashboard/" class="md-button">View Dashboard</a>
+</div>
 
 </div>
 
-## 🎯 Framework Overview
+## 🎯 What is Excellence?
 
-```mermaid
-graph TB
-    subgraph "Excellence Framework"
-        A[Modern Distributed Systems] --> B[Platform Engineering]
-        B --> C[Migration Strategies]
-        C --> D[Operational Excellence]
-        
-        A --> E[Quick Start Guide]
-        E --> F[Case Studies]
-        
-        style A fill:#e1bee7,stroke:#8e24aa
-        style B fill:#c5e1a5,stroke:#558b2f
-        style C fill:#ffccbc,stroke:#d84315
-        style D fill:#b3e5fc,stroke:#0277bd
-    end
-```
+Excellence in distributed systems means:
 
-## 📖 Essential Guides
+- **🥇 Gold Patterns**: Battle-tested at scale by FAANG companies
+- **🥈 Silver Patterns**: Production-ready for specialized use cases  
+- **🥉 Bronze Patterns**: Legacy or transitional patterns with clear migration paths
 
-### [Modern Distributed Systems 2025](guides/modern-distributed-systems-2025.md)
-The definitive guide to building distributed systems with 2025's best practices, covering:
-- Cloud-native architectures
-- Service mesh patterns
-- Event-driven systems
-- Observability strategies
+## 🚀 Start Your Excellence Journey
 
-### [Platform Engineering Playbook](guides/platform-engineering-playbook.md)
-Build and scale engineering platforms that developers love:
-- Internal developer platforms
-- Golden paths
-- Self-service infrastructure
-- Developer experience metrics
-
-### [Quick Start Guide](guides/quick-start-guide.md)
-Go from zero to production-ready in under 30 minutes:
-- Essential patterns
-- Implementation templates
-- Testing strategies
-- Deployment workflows
-
-## 🔄 Migration Playbooks
-
-### System Transformations
-- [Two-Phase Commit to Saga](migrations/2pc-to-saga.md) - Modernize transaction handling
-- [Polling to WebSocket](migrations/polling-to-websocket.md) - Real-time communication upgrade
-- [Monolith to Microservices](migrations/monolith-to-microservices.md) - Decomposition strategies
-- [Batch to Streaming](migrations/batch-to-streaming.md) - Real-time data processing
-
-## 📊 Excellence Metrics
-
-<div class="grid cards" markdown>
-
--   **⚡ Performance**
-    
-    - P99 < 100ms
-    - 99.99% availability
-    - Linear scalability
-
--   **💰 Cost Efficiency**
-    
-    - 40% cost reduction
-    - Automated optimization
-    - Resource utilization > 70%
-
--   **🛡️ Reliability**
-    
-    - Zero-downtime deployments
-    - Automated failover
-    - Self-healing systems
-
--   **👥 Developer Experience**
-    
-    - < 5 min to deploy
-    - Self-service everything
-    - Instant feedback loops
-
+<div class="journey-selector">
+    <h3>I want to...</h3>
+    <div class="journey-options">
+        <a href="pattern-discovery/" class="journey-option">
+            <strong>Find the right pattern</strong>
+            <p>Discover patterns based on your specific needs</p>
+        </a>
+        <a href="quick-start/" class="journey-option">
+            <strong>Get started quickly</strong>
+            <p>30-minute quick starts for your role</p>
+        </a>
+        <a href="real-world-excellence/" class="journey-option">
+            <strong>Learn from examples</strong>
+            <p>See how top companies implement patterns</p>
+        </a>
+        <a href="excellence-journeys/" class="journey-option">
+            <strong>Transform my system</strong>
+            <p>Follow guided transformation paths</p>
+        </a>
+    </div>
 </div>
 
-## 🎯 Learning Paths
+## 📈 Excellence by the Numbers
 
-```mermaid
-graph LR
-    A[Start Here] --> B{Your Role?}
-    B -->|Developer| C[Quick Start Guide]
-    B -->|Architect| D[Modern Distributed Systems]
-    B -->|Platform Engineer| E[Platform Engineering Playbook]
-    B -->|Migration Lead| F[Migration Guides]
+<div class="excellence-stats">
+    <div class="stat">
+        <h3>101</h3>
+        <p>Patterns Classified</p>
+    </div>
+    <div class="stat">
+        <h3>91</h3>
+        <p>Case Studies</p>
+    </div>
+    <div class="stat">
+        <h3>150+</h3>
+        <p>Real Examples</p>
+    </div>
+    <div class="stat">
+        <h3>800+</h3>
+        <p>Visual Diagrams</p>
+    </div>
+</div>
+
+## 🛠️ Tools & Resources
+
+- **[Pattern Comparison Tool](comparisons/)** - Compare similar patterns side-by-side
+- **[Migration Playbooks](migrations/)** - Step-by-step migration guides
+- **[Implementation Calculator](pattern-discovery/calculator/)** - Estimate effort and ROI
+- **[Pattern Selector Wizard](pattern-discovery/#wizard)** - Interactive pattern recommendations
+
+## 🌟 Featured This Week
+
+!!! tip "Trending Pattern: Event Streaming"
+    Event streaming adoption is up 45% this quarter. Learn why companies are moving from batch to real-time processing.
     
-    C --> G[Case Studies]
-    D --> G
-    E --> G
-    F --> G
+    [Explore Event Streaming →](../patterns/event-streaming/)
+
+!!! example "Success Story: Discord's 5M Concurrent Users"
+    How Discord scaled their voice infrastructure using WebSocket, edge computing, and selective forwarding.
     
-    style A fill:#f9f,stroke:#333,stroke-width:4px
-    style G fill:#9f9,stroke:#333,stroke-width:4px
-```
+    [Read Case Study →](real-world-excellence/elite-engineering/discord-voice/)
 
-## 🚀 Getting Started
+## 🎓 Learning Paths
 
-1. **New to distributed systems?**
-   - Start with the [Quick Start Guide](guides/quick-start-guide.md)
-   - Review fundamental [Axioms](../part1-axioms/) and [Pillars](../part2-pillars/)
+Choose a learning path based on your experience:
 
-2. **Building a new system?**
-   - Follow [Modern Distributed Systems 2025](guides/modern-distributed-systems-2025.md)
-   - Apply patterns from our [Pattern Catalog](../patterns/)
-
-3. **Migrating existing systems?**
-   - Choose your [Migration Guide](migrations/)
-   - Learn from [Case Studies](case-studies/)
-
-4. **Scaling your platform?**
-   - Implement the [Platform Engineering Playbook](guides/platform-engineering-playbook.md)
-   - Adopt [Human Factors](../human-factors/) best practices
-
-## 🎓 Key Principles
-
-### 1. **Start Simple, Scale Smart**
-Begin with the minimum viable architecture and evolve based on actual needs.
-
-### 2. **Measure Everything**
-You can't improve what you don't measure. Instrument early and often.
-
-### 3. **Automate Ruthlessly**
-If you do it twice, automate it. If it can fail, make it self-healing.
-
-### 4. **Design for Failure**
-Systems will fail. Design for graceful degradation and fast recovery.
-
-### 5. **Developer Experience First**
-Happy developers build better systems. Optimize for developer productivity.
-
-## 📚 Related Resources
-
-- [Axioms - Fundamental Laws](../part1-axioms/)
-- [Pillars - Core Concepts](../part2-pillars/)
-- [Patterns - Implementation Guide](../patterns/)
-- [Quantitative Analysis](../quantitative/)
-- [Human Factors](../human-factors/)
+- **[New Graduate Path](../learning-paths/new-graduate/)** - Start with fundamentals
+- **[Senior Engineer Path](../learning-paths/senior-engineer/)** - Advanced patterns and trade-offs
+- **[Architecture Path](../learning-paths/architect/)** - System design and excellence
+- **[Manager Path](../learning-paths/manager/)** - Team and organizational excellence
 
 ---
 
-!!! tip "Pro Tip"
-    Start with the Quick Start Guide to get hands-on experience, then dive deeper into specific topics based on your needs.
+<div class="navigation-footer">
+    <a href="quick-start/" class="md-button md-button--primary">Get Started →</a>
+    <a href="pattern-discovery/" class="md-button">Discover Patterns →</a>
+    <a href="real-world-excellence/" class="md-button">View Case Studies →</a>
+</div>
 
-!!! success "Excellence Awaits"
-    Join thousands of engineers building world-class distributed systems. Your journey to excellence starts here!
+<style>
+.pattern-stats {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.gold-badge, .silver-badge, .bronze-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-weight: 500;
+}
+
+.gold-badge { background: #FFD700; color: #000; }
+.silver-badge { background: #C0C0C0; color: #000; }
+.bronze-badge { background: #CD7F32; color: #FFF; }
+
+.case-study-preview {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: var(--md-default-fg-color--light);
+}
+
+.health-preview {
+    margin: 1rem 0;
+}
+
+.trending {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: var(--md-accent-bg-color);
+    color: var(--md-accent-fg-color);
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+}
+
+.journey-selector {
+    background: var(--md-code-bg-color);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+}
+
+.journey-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.journey-option {
+    background: var(--md-default-bg-color);
+    padding: 1.5rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    transition: all 0.3s;
+}
+
+.journey-option:hover {
+    border-color: var(--md-accent-fg-color);
+    transform: translateY(-2px);
+}
+
+.excellence-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.stat h3 {
+    font-size: 2.5rem;
+    color: var(--md-accent-fg-color);
+    margin: 0;
+}
+
+.stat p {
+    margin: 0;
+    color: var(--md-default-fg-color--light);
+}
+
+.navigation-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+</style>
