@@ -11,10 +11,81 @@ prerequisites:
   - Query Optimization
 status: complete
 last_updated: 2025-01-21
+
+# Excellence metadata
+excellence_tier: silver
+scale_category: enterprise-scale
+domain: monitoring
+company: Datadog
+year_implemented: 2010
+current_status: production
+
+# Key metrics
+metrics:
+  users: 25000+
+  requests_per_second: 10M+
+  data_volume: 100PB+
+  availability: 99.95%
+  latency_p99: 100ms
+  regions: 20+
+
+# Pattern usage tracking
+patterns_used:
+  gold:
+    - time-series-db: "Optimized storage for metrics data"
+    - data-aggregation: "Multi-resolution rollups for long-term storage"
+    - push-pull: "Flexible metric collection strategies"
+    - federation: "Hierarchical monitoring for scale"
+  silver:
+    - rate-limiting: "Protect against metric storms"
+    - circuit-breaker: "Graceful degradation during outages"
+    - sampling: "Statistical sampling for high-cardinality metrics"
+  bronze:
+    - statsd: "Legacy protocol being phased out for OpenTelemetry"
+
+# Excellence connections
+excellence_guides:
+  - scale/observability-platforms
+  - migration/monitoring-systems
+  - operational/metrics-best-practices
+
+# Implementation insights
+key_innovations:
+  - "Adaptive sampling reducing storage by 90% without losing accuracy"
+  - "Multi-dimensional tagging enabling complex queries"
+  - "Distributed query engine processing billions of datapoints/second"
+
+lessons_learned:
+  - category: "Architecture"
+    lesson: "Push vs pull collection models serve different use cases"
+  - category: "Performance"
+    lesson: "Pre-aggregation essential for interactive dashboards"
+  - category: "Operations"
+    lesson: "High cardinality metrics require careful management"
+
+# Trade-offs specific to Silver tier
+trade_offs:
+  pros:
+    - "Comprehensive visibility across entire infrastructure"
+    - "Flexible alerting with complex conditions"
+    - "Rich ecosystem of integrations"
+  cons:
+    - "Storage costs grow with metric cardinality"
+    - "Query complexity impacts performance"
+    - "Requires dedicated team for effective use"
+
+best_for:
+  - "Enterprise infrastructure monitoring"
+  - "Application performance management"
+  - "Multi-cloud environments"
+  - "Teams requiring deep observability"
 ---
 
 
 # Design a Metrics Monitoring and Alerting System
+
+!!! example "Excellence Badge"
+    🥈 **Silver Tier**: Proven at enterprise scale with solid architectural choices
 
 !!! info "Case Study Overview"
     **System**: Prometheus / Datadog  

@@ -19,7 +19,7 @@ tags:
     These seven laws are not design choices or best practices—they are fundamental constraints derived from physics and mathematics. Every distributed system, regardless of implementation, must obey these laws.
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/the-7-fundamental-laws-of&color=%23ff5500&inverse=false&auto_play=false&show_user=true">
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/the-7-fundamental-laws-of&color=%235448C8&inverse=false&auto_play=false&show_user=true">
 </iframe>
 
 ## 📚 Prerequisites & Learning Path

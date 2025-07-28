@@ -48,6 +48,10 @@ failed ███        blocked ──X                  └─┘         total
 !!! quote "Your First Reflex From Now On"
     Where is the **control plane** or other unseen spine that will fell every component at once?
 
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/faliure&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+</iframe>
+
 ## Central Dogma of Reliability – Math vs Reality
 
 ### The Seductive Math Lie

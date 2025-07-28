@@ -11,10 +11,81 @@ prerequisites:
   - Rate Management
 status: complete
 last_updated: 2025-01-21
+
+# Excellence metadata
+excellence_tier: silver
+scale_category: enterprise-scale
+domain: hospitality
+company: Booking.com
+year_implemented: 2007
+current_status: production
+
+# Key metrics
+metrics:
+  users: 150M+
+  requests_per_second: 100K+
+  data_volume: 10PB+
+  availability: 99.95%
+  latency_p99: 500ms
+  regions: 40+
+
+# Pattern usage tracking
+patterns_used:
+  gold:
+    - distributed-locking: "Prevents double-booking across global inventory"
+    - event-sourcing: "Complete audit trail of all booking changes"
+    - caching-strategies: "Multi-level caching for search performance"
+    - saga: "Distributed transactions for booking workflow"
+  silver:
+    - inventory-management: "Real-time inventory synchronization"
+    - rate-limiting: "Protection against bot traffic"
+    - circuit-breaker: "Graceful degradation during partner outages"
+  bronze:
+    - pessimistic-locking: "Legacy approach being migrated"
+
+# Excellence connections
+excellence_guides:
+  - scale/enterprise-scale
+  - migration/inventory-systems
+  - operational/booking-platforms
+
+# Implementation insights
+key_innovations:
+  - "Distributed locking with Redis for inventory consistency"
+  - "Multi-level caching reducing database load by 90%"
+  - "Dynamic pricing engine processing 10M+ price calculations/hour"
+
+lessons_learned:
+  - category: "Architecture"
+    lesson: "Event sourcing critical for financial audit trails"
+  - category: "Operations"
+    lesson: "Channel partner sync failures require circuit breakers"
+  - category: "Performance"
+    lesson: "Search result caching with 5-minute TTL optimal balance"
+
+# Trade-offs specific to Silver tier
+trade_offs:
+  pros:
+    - "Proven at scale with millions of bookings daily"
+    - "Strong consistency guarantees prevent revenue loss"
+    - "Multi-channel synchronization handles complexity"
+  cons:
+    - "Higher operational complexity than simple booking systems"
+    - "Requires significant caching infrastructure"
+    - "Channel partner integrations create dependencies"
+
+best_for:
+  - "Enterprise hotel chains with multiple properties"
+  - "Online travel agencies requiring multi-vendor support"
+  - "Platforms needing strong financial guarantees"
+  - "Systems with complex inventory and pricing rules"
 ---
 
 
 # Design a Hotel Reservation System
+
+!!! example "Excellence Badge"
+    🥈 **Silver Tier**: Proven at enterprise scale with solid architectural choices
 
 !!! info "Case Study Overview"
     **System**: Global Hotel Booking Platform (like Booking.com)  

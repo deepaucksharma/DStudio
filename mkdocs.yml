@@ -403,6 +403,9 @@ nav:
       - Law 1 - Correlated Failure:
         - Concept: part1-axioms/law1-failure/index.md
         - Enhanced: part1-axioms/law1-failure/index-enhanced.md
+        - Five Specters: part1-axioms/law1-failure/five-specters.md
+        - Architectural Lenses: part1-axioms/law1-failure/architectural-lenses.md
+        - Operational Sight: part1-axioms/law1-failure/operational-sight.md
         - Examples: part1-axioms/law1-failure/examples.md
         - Exercises: part1-axioms/law1-failure/exercises.md
       - Law 2 - Asynchronous Reality:

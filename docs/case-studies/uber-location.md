@@ -67,6 +67,9 @@ lessons_learned:
 
 # Uber's Real-Time Location System: Scale and Architecture Deep Dive
 
+!!! success "Excellence Badge"
+    🥇 **Gold Tier**: Battle-tested real-time location tracking at planetary scale
+
 !!! abstract "Quick Facts"
 | Metric | Value |
  |--------|-------|
