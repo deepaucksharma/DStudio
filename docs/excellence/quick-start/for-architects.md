@@ -248,35 +248,3 @@ Essential tools for excellence:
     <a href="../pattern-discovery/" class="md-button md-button--primary">Discover Patterns →</a>
 </div>
 
-<style>
-.tier-overview {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-.tier-overview > div {
-    padding: 1rem;
-    border-radius: 0.5rem;
-}
-
-.navigation-footer {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--md-default-fg-color--lightest);
-}
-
-table {
-    margin: 1rem 0;
-}
-
-code {
-    background: var(--md-code-bg-color);
-    padding: 0.1rem 0.3rem;
-    border-radius: 0.2rem;
-}
-</style>

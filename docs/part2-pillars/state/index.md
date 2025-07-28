@@ -1670,31 +1670,23 @@ Progress: 2 of 5 pillars completed
 
 ## Related Resources
 
-### Foundational Laws
-- [Law 1: Law of Correlated Failure](part1-axioms/law1-failure/index) - Replication for fault tolerance
-- [Law 2: Law of Asynchronous Reality](part1-axioms/law2-asynchrony/index) - How network delays affect state consistency
-- [Law 3: Law of Emergent Chaos](part1-axioms/law3-emergence/index) - Unpredictable state mutations
-- [Law 4: Law of Multidimensional Optimization](part1-axioms/law4-tradeoffs/index) - Why we must distribute state
-- [Law 5: Law of Distributed Knowledge](part1-axioms/law5-epistemology/index) - Synchronizing state updates
-- [Law 7: Law of Economic Reality](part1-axioms/law7-economics/index) - Cost of consistency levels
+### The Laws That Bind Us
+- [Law 1: Correlated Failure](part1-axioms/law1-failure/index) - Why replicas die together
+- [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index) - Why consistency is a lie
+- [Law 4: Multidimensional Optimization](part1-axioms/law4-tradeoffs/index) - Why we distribute
+- [Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index) - Why consensus is hard
 
-### Related Pillars
-- [Pillar 1: Work](part2-pillars/work/index) - Stateless vs stateful computation
-- [Pillar 3: Truth](part2-pillars/truth/index) - Consensus on state values
-- [Pillar 4: Control](part2-pillars/control/index) - Orchestrating state changes
-- [Pillar 5: Intelligence](part2-pillars/intelligence/index) - Smart state placement
+### Your Fellow Pillars
+- [Pillar 1: Work](part2-pillars/work/index) - The stateless paradise
+- [Pillar 3: Truth](part2-pillars/truth/index) - Where we agree to disagree
+- [Pillar 4: Control](part2-pillars/control/index) - Herding distributed cats
+- [Pillar 5: Intelligence](part2-pillars/intelligence/index) - Making systems think
 
-### Implementation Patterns
-- [Event Sourcing](patterns/event-sourcing) - State as event log
-- [CQRS](patterns/cqrs) - Separate read/write state models
-- [Sharding](patterns/sharding) - Horizontal state partitioning
-- Replication (Coming Soon) - State redundancy patterns
-
-### Real-World Case Studies
-- [DynamoDB](case-studies/amazon-dynamo) - Amazon's distributed database
-- [Cassandra](case-studies/cassandra) - Wide-column distributed store
-- [Redis Cluster](case-studies/redis) - In-memory distributed state
-- [MongoDB](case-studies/mongodb) - Document database sharding
+### Battle-Tested Patterns
+- [Event Sourcing](patterns/event-sourcing) - Time travel for databases
+- [CQRS](patterns/cqrs) - Split personality disorder (but useful)
+- [Sharding](patterns/sharding) - Slice and dice your data
+- [Saga Pattern](patterns/saga) - Distributed transactions that work
 
 ---
 
