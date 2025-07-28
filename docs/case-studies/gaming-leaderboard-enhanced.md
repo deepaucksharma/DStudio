@@ -1,3 +1,93 @@
+---
+title: Gaming Leaderboard System
+description: Design a real-time gaming leaderboard system handling millions of concurrent players with anti-cheat mechanisms
+type: case-study
+difficulty: advanced
+reading_time: 35 min
+prerequisites:
+  - Distributed Systems
+  - Real-time Systems
+  - Redis
+  - Anti-cheat Systems
+status: complete
+last_updated: 2025-01-28
+
+# Excellence metadata
+excellence_tier: silver
+scale_category: large-scale
+domain: gaming
+company: Generic
+year_implemented: 2023
+current_status: production
+
+# Key metrics
+metrics:
+  concurrent_players: 100M+
+  score_updates_per_day: 1B+
+  query_latency_p99: 100ms
+  update_latency_p99: 500ms
+  leaderboard_types: 5+
+  anti_cheat_accuracy: 99.5%
+  uptime: 99.99%
+
+# Pattern usage tracking
+patterns_used:
+  gold:
+    - sharding: "Distributed Redis shards for 100M+ players"
+    - caching: "Multi-layer caching for <100ms queries"
+    - event-streaming: "Real-time score updates via Kafka"
+  silver:
+    - consistent-hashing: "Player distribution across shards"
+    - write-through-cache: "Immediate leaderboard updates"
+    - anomaly-detection: "ML-based cheat detection"
+    - rate-limiting: "Anti-spam protection"
+  bronze:
+    - approximation: "Percentile rankings for scale"
+
+# Trade-offs
+trade_offs:
+  pros:
+    - "Real-time updates with <500ms latency"
+    - "Scales to 100M+ concurrent players"
+    - "Robust anti-cheat mechanisms"
+    - "Multiple leaderboard types supported"
+  cons:
+    - "Complex sharding strategy required"
+    - "Memory intensive for real-time rankings"
+    - "Anti-cheat false positives possible"
+    - "Eventual consistency for global rankings"
+
+# Best for
+best_for:
+  - "Competitive multiplayer games"
+  - "Mobile gaming with massive scale"
+  - "E-sports platforms"
+  - "Social gaming with rankings"
+
+# Excellence connections
+excellence_guides:
+  - scale/gaming-systems
+  - patterns/real-time-leaderboards
+  - operational/anti-cheat-systems
+
+# Implementation insights
+key_innovations:
+  - "Hierarchical Redis clustering for scale"
+  - "ML-powered anti-cheat with behavioral analysis"
+  - "Friend leaderboards with social graph integration"
+  - "Seasonal resets with rank decay"
+
+lessons_learned:
+  - category: "Architecture"
+    lesson: "Sharding by game + consistent hashing critical for scale"
+  - category: "Operations"
+    lesson: "Anti-cheat must evolve continuously"
+  - category: "Performance"
+    lesson: "Caching strategy makes or breaks query performance"
+  - category: "User Experience"
+    lesson: "Real-time updates drive engagement"
+---
+
 # Gaming Leaderboard - System Design Case Study
 
 ## 1. Problem Statement

@@ -27,7 +27,7 @@ theme:
     - navigation.sections
     - navigation.expand
     - navigation.path
-    - navigation.prune        # Remove inactive sections from sidebar
+    # - navigation.prune        # Remove inactive sections from sidebar (disabled - was hiding Law 1 sub-pages)
     - navigation.indexes
     - navigation.top          # Back to top button (mobile-friendly)
     - navigation.footer       # Previous/Next navigation (mobile swipe-friendly)
@@ -402,7 +402,7 @@ nav:
       - Law 1 - Correlated Failure:
         - Concept: part1-axioms/law1-failure/index.md
         - Enhanced: part1-axioms/law1-failure/index-enhanced.md
-        - Five Specters: part1-axioms/law1-failure/five-specters.md
+        - Five Specters: part1-axioms/law1-failure/five-specters.md  
         - Architectural Lenses: part1-axioms/law1-failure/architectural-lenses.md
         - Operational Sight: part1-axioms/law1-failure/operational-sight.md
         - Examples: part1-axioms/law1-failure/examples.md

@@ -202,14 +202,14 @@ Give it proudly; culture scales better than configs.
 
 ## Next Steps
 
-- **[Architectural Lenses](architectural-lenses.md)** – Review the patterns
-- **[Five Specters](five-specters.md)** – Master failure recognition
-- **[Law 1 Main](index.md)** – Return to fundamentals
+- **[Architectural Lenses](part1-axioms/law1-failure/architectural-lenses/) – Review the patterns
+- **[Five Specters](part1-axioms/law1-failure/five-specters/) – Master failure recognition
+- **[Law 1 Main](part1-axioms/law1-failure/) – Return to fundamentals
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Architectural Lenses](architectural-lenses.md) | 
+[:material-arrow-left: Architectural Lenses](part1-axioms/law1-failure/architectural-lenses/) | 
 [:material-arrow-up: Top](#) | 
-[:material-arrow-right: Law 2](../law2-asynchrony/index.md)
+[:material-arrow-right: Law 2](part1-axioms/law2-asynchrony/)
 </div>

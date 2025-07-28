@@ -219,14 +219,14 @@ Pin that up — you'll never forget which wrench to grab.
 
 ## Next Steps
 
-- **[Operational Sight](operational-sight.md)** – Dashboards, Litmus Tests, Chaos Loops
-- **[Five Specters](five-specters.md)** – Review the failure patterns
-- **[Law 1 Main](index.md)** – Return to core principles
+- **[Operational Sight](part1-axioms/law1-failure/operational-sight/) – Dashboards, Litmus Tests, Chaos Loops
+- **[Five Specters](part1-axioms/law1-failure/five-specters/) – Review the failure patterns
+- **[Law 1 Main](part1-axioms/law1-failure/) – Return to core principles
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Five Specters](five-specters.md) | 
+[:material-arrow-left: Five Specters](part1-axioms/law1-failure/five-specters/) | 
 [:material-arrow-up: Top](#) | 
-[:material-arrow-right: Operational Sight](operational-sight.md)
+[:material-arrow-right: Operational Sight](part1-axioms/law1-failure/operational-sight/)
 </div>

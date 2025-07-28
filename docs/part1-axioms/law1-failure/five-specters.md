@@ -52,7 +52,7 @@ failed ███        blocked ──X                  └─┘         total
     2. Check error correlation - are multiple services failing together?
     3. Look for these visual patterns in your metrics
     4. Match to a specter below
-    5. Jump to the [architectural lens](architectural-lenses.md) that counters it
+    5. Jump to the [architectural lens](part1-axioms/law1-failure/architectural-lenses/) that counters it
 
 ## 1. BLAST RADIUS – *"If this dies, who cries?"*
 
@@ -198,14 +198,14 @@ C ─┘
 
 ## Next Steps
 
-- **[Architectural Lenses](../architectural-lenses.md)** – Cells, Shuffle-Sharding, and Bulkheads in high-resolution
-- **[Law 1: Correlated Failure](index.md)** – Return to the core principle
-- **[Hands-On Labs](exercises.md)** – Practice identifying specters in real scenarios
+- **[Architectural Lenses](part1-axioms/law1-failure/architectural-lenses/) – Cells, Shuffle-Sharding, and Bulkheads in high-resolution
+- **[Law 1: Correlated Failure](part1-axioms/law1-failure/) – Return to the core principle
+- **[Hands-On Labs](part1-axioms/law1-failure/exercises/) – Practice identifying specters in real scenarios
 
 ---
 
 <div class="page-nav" markdown>
-[:material-arrow-left: Law 1 Main](index.md) | 
+[:material-arrow-left: Law 1 Main](part1-axioms/law1-failure/) | 
 [:material-arrow-up: Top](#) | 
-[:material-arrow-right: Case Studies](examples.md)
+[:material-arrow-right: Case Studies](part1-axioms/law1-failure/examples/)
 </div>

@@ -14,7 +14,7 @@ last_updated: 2025-01-25
 [Home](/) > [The 7 Laws](part1-axioms) > [Law 1: Correlated Failure](part1-axioms/law1-failure/index) > Deep Dive
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-    src="https://soundcloud.com/deepak-sharma-21/faliure&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/faliure&color=%235448C8&inverse=false&auto_play=false&show_user=true">
 </iframe>
 
 !!! danger "🚨 DURING AN INCIDENT? Jump to:"
