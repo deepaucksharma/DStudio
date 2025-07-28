@@ -408,17 +408,26 @@ nav:
         - Examples: part1-axioms/law1-failure/examples.md
         - Exercises: part1-axioms/law1-failure/exercises.md
       - Law 2 - Asynchronous Reality:
-        - Concept: part1-axioms/law2-asynchrony/index.md
+        - Overview: part1-axioms/law2-asynchrony/index.md
+        - Page 1 - The Lens: part1-axioms/law2-asynchrony/page1-lens.md
+        - Page 2 - The Specters: part1-axioms/law2-asynchrony/page2-specters.md
+        - Page 3 - Architecture: part1-axioms/law2-asynchrony/page3-architecture.md
+        - Page 4 - Operations: part1-axioms/law2-asynchrony/page4-operations.md
+        - The Lens (Legacy): part1-axioms/law2-asynchrony/the-lens.md
+        - The Patterns (Legacy): part1-axioms/law2-asynchrony/the-patterns.md
+        - The Operations (Legacy): part1-axioms/law2-asynchrony/the-operations.md
         - Examples: part1-axioms/law2-asynchrony/examples.md
-        - Exercises: part1-axioms/law2-asynchrony/exercises.md
       - Law 3 - Emergent Chaos:
-        - Concept: part1-axioms/law3-emergence/index.md
+        - Overview: part1-axioms/law3-emergence/index.md
+        - The Lens: part1-axioms/law3-emergence/the-lens.md
+        - The Patterns: part1-axioms/law3-emergence/the-patterns.md
+        - The Operations: part1-axioms/law3-emergence/the-operations.md
         - Examples: part1-axioms/law3-emergence/examples.md
-        - Exercises: part1-axioms/law3-emergence/exercises.md
       - Law 4 - Multidimensional Optimization:
-        - Concept: part1-axioms/law4-tradeoffs/index.md
-        - Examples: part1-axioms/law4-tradeoffs/examples.md
-        - Exercises: part1-axioms/law4-tradeoffs/exercises.md
+        - The Lens: part1-axioms/law4-tradeoffs/page1-lens.md
+        - The Specters: part1-axioms/law4-tradeoffs/page2-specters.md
+        - Architecture: part1-axioms/law4-tradeoffs/page3-architecture.md
+        - Operations: part1-axioms/law4-tradeoffs/page4-operations.md
       - Law 5 - Distributed Knowledge:
         - Concept: part1-axioms/law5-epistemology/index.md
         - Examples: part1-axioms/law5-epistemology/examples.md
