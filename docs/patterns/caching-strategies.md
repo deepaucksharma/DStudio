@@ -1142,9 +1142,176 @@ cost_per_request = (cache_cost + (miss_rate * db_cost)) / total_requests
 
 </div>
 
+## Excellence Framework Integration
+
+### Implementation Guides
+- **[Caching Implementation Guide](../excellence/guides/caching-implementation.md)**: Complete caching setup
+- **[Multi-Level Caching Guide](../excellence/guides/multi-level-caching.md)**: L1/L2/L3 cache design
+- **[Cache Invalidation Strategies](../excellence/guides/cache-invalidation.md)**: Solving the hard problem
+
+### Case Studies
+- **[Facebook TAO: Graph Caching at Scale](../excellence/case-studies/facebook-tao.md)**: Trillions of requests
+- **[Netflix EVCache: Video Metadata](../excellence/case-studies/netflix-evcache.md)**: 180M+ subscribers
+- **[Reddit: Front Page Caching](../excellence/case-studies/reddit-caching.md)**: Billions of cached items
+
+### Pattern Combinations
+<div class="grid cards" markdown>
+
+- :material-puzzle:{ .lg .middle } **With CDN**
+    
+    ---
+    
+    Global content distribution:
+    - CDN for geographic distribution
+    - Application cache for dynamic data
+    - [View Integration Guide](../excellence/combinations/caching-cdn.md)
+
+- :material-puzzle:{ .lg .middle } **With Message Queue**
+    
+    ---
+    
+    Async cache warming:
+    - Queue triggers cache updates
+    - Prevents cache stampede
+    - [View Integration Guide](../excellence/combinations/caching-queue.md)
+
+- :material-puzzle:{ .lg .middle } **With Service Mesh**
+    
+    ---
+    
+    Distributed cache coordination:
+    - Mesh handles cache routing
+    - Consistent hashing built-in
+    - [View Integration Guide](../excellence/combinations/caching-mesh.md)
+
+- :material-puzzle:{ .lg .middle } **With Event Sourcing**
+    
+    ---
+    
+    Event-driven cache updates:
+    - Events trigger cache invalidation
+    - Guaranteed consistency
+    - [View Integration Guide](../excellence/combinations/caching-events.md)
+
+</div>
+
+### Comparison with Alternatives
+
+<table class="responsive-table">
+<thead>
+<tr>
+<th>Approach</th>
+<th>Latency</th>
+<th>Consistency</th>
+<th>Complexity</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Approach"><strong>No Caching</strong></td>
+<td data-label="Latency">High (100ms+)</td>
+<td data-label="Consistency">Perfect</td>
+<td data-label="Complexity">Lowest</td>
+<td data-label="Cost">Highest (DB load)</td>
+</tr>
+<tr>
+<td data-label="Approach"><strong>Application Cache</strong></td>
+<td data-label="Latency">Low (1-10ms)</td>
+<td data-label="Consistency">Eventual</td>
+<td data-label="Complexity">Medium</td>
+<td data-label="Cost">Medium</td>
+</tr>
+<tr>
+<td data-label="Approach"><strong>Distributed Cache</strong></td>
+<td data-label="Latency">Very Low (<5ms)</td>
+<td data-label="Consistency">Tunable</td>
+<td data-label="Complexity">High</td>
+<td data-label="Cost">Medium-High</td>
+</tr>
+<tr>
+<td data-label="Approach"><strong>Multi-Level Cache</strong></td>
+<td data-label="Latency">Ultra Low (<1ms)</td>
+<td data-label="Consistency">Complex</td>
+<td data-label="Complexity">Very High</td>
+<td data-label="Cost">High (infrastructure)</td>
+</tr>
+<tr>
+<td data-label="Approach"><strong>Edge Caching</strong></td>
+<td data-label="Latency">Varies by location</td>
+<td data-label="Consistency">Eventually</td>
+<td data-label="Complexity">Medium</td>
+<td data-label="Cost">High (CDN)</td>
+</tr>
+</tbody>
+</table>
+
+## Migration Strategies
+
+### From No Cache to Caching
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **Migration Guide**
+    
+    ---
+    
+    Gradual introduction of caching:
+    - Identify hot paths with profiling
+    - Start with read-through cache
+    - Add cache-aside for flexibility
+    - [Full Migration Guide](../excellence/migrations/adding-caching.md)
+
+- :material-checklist:{ .lg .middle } **Pre-Migration Checklist**
+    
+    ---
+    
+    - [ ] Identify cacheable vs non-cacheable data
+    - [ ] Design cache key strategy
+    - [ ] Plan invalidation approach
+    - [ ] Size cache appropriately
+    - [ ] Set up monitoring
+
+</div>
+
+## Related Patterns
+
+### Data Patterns
+- **[Database per Service](patterns/database-per-service)**: Cache per service
+- **[CQRS](patterns/cqrs)**: Separate read models as cache
+- **[Event Sourcing](patterns/event-sourcing)**: Cache from events
+
+### Infrastructure Patterns
+- **[CDN](patterns/cdn)**: Geographic caching
+- **[API Gateway](patterns/api-gateway)**: Gateway-level caching
+- **[Service Mesh](patterns/service-mesh)**: Mesh-coordinated caching
+
+### Resilience Patterns
+- **[Circuit Breaker](patterns/circuit-breaker)**: Fallback to cache
+- **[Bulkhead](patterns/bulkhead)**: Isolate cache failures
+- **[Retry](patterns/retry-backoff)**: Cache miss handling
+
 ---
 
 *"Cache invalidation is hard. Naming things is harder. Doing both at 3 AM during an outage is impossible."*
+
+### Further Reading
+
+#### Books & Papers
+- ["Computer Architecture: A Quantitative Approach"](https://www.elsevier.com/books/computer-architecture/hennessy/978-0-12-811905-1) - Cache hierarchies
+- ["Scaling Memcache at Facebook"](https://research.facebook.com/publications/scaling-memcache-at-facebook/) - Large-scale caching
+- ["Cache-Oblivious Algorithms"](https://erikdemaine.org/papers/BRICS2002/) - Theoretical foundations
+
+#### Tools & Technologies
+- **In-Memory**: Redis, Memcached, Hazelcast, Apache Ignite
+- **Application-Level**: Ehcache, Caffeine, Guava Cache
+- **Distributed**: Amazon ElastiCache, Azure Cache, GCP Memorystore
+- **CDN**: Cloudflare, Akamai, Fastly, CloudFront
+
+#### Online Resources
+- [Redis Best Practices](https://redis.io/docs/manual/patterns/)
+- [Memcached Wiki](https://github.com/memcached/memcached/wiki)
+- [High Scalability Caching Articles](http://highscalability.com/blog/category/caching)
 
 ---
 

@@ -618,7 +618,7 @@ last_updated: 2025-07-20
 
 5. **Test the Breaker**: Inject failures, Verify opens at threshold, Confirm recovery behavior
 
-**Related Patterns**: [Bulkhead](../patterns/bulkhead.md), [Retry with Backoff](../patterns/retry-backoff)
+**Related Patterns**: [Bulkhead](../patterns/bulkhead.md), [Retry with Backoff](../patterns/retry-backoff.md)
 
 ---
 

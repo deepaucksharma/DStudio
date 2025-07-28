@@ -599,11 +599,177 @@ def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
 > "A single overloaded server costs more than 10 properly balanced servers. Load balancing isn't about distribution - it's about cost optimization."
 </div>
 
+## Excellence Framework Integration
+
+### Implementation Guides
+- **[Load Balancing Implementation Guide](../excellence/guides/load-balancing-implementation.md)**: Complete setup across technologies
+- **[Geographic Load Balancing](../excellence/guides/geographic-load-balancing.md)**: Multi-region strategies
+- **[Advanced Load Balancing Algorithms](../excellence/guides/advanced-load-balancing.md)**: Beyond round-robin
+
+### Case Studies
+- **[Google Maglev: 1M+ RPS Load Balancing](../excellence/case-studies/google-maglev.md)**: Software-defined load balancing
+- **[AWS ELB: Trillion Request Scale](../excellence/case-studies/aws-elb.md)**: Managed load balancing
+- **[Cloudflare: Global Load Balancing](../excellence/case-studies/cloudflare-lb.md)**: 45M+ requests/sec
+
+### Pattern Combinations
+<div class="grid cards" markdown>
+
+- :material-puzzle:{ .lg .middle } **With Auto-Scaling**
+    
+    ---
+    
+    Dynamic capacity management:
+    - LB detects unhealthy instances
+    - Auto-scaling adds/removes servers
+    - [View Integration Guide](../excellence/combinations/lb-autoscaling.md)
+
+- :material-puzzle:{ .lg .middle } **With Circuit Breaker**
+    
+    ---
+    
+    Intelligent failure handling:
+    - LB marks servers down
+    - Circuit breaker prevents cascades
+    - [View Integration Guide](../excellence/combinations/lb-circuit-breaker.md)
+
+- :material-puzzle:{ .lg .middle } **With Service Mesh**
+    
+    ---
+    
+    Advanced traffic management:
+    - Client-side load balancing
+    - Rich routing policies
+    - [View Integration Guide](../excellence/combinations/lb-service-mesh.md)
+
+- :material-puzzle:{ .lg .middle } **With CDN**
+    
+    ---
+    
+    Global content distribution:
+    - CDN for static assets
+    - LB for dynamic content
+    - [View Integration Guide](../excellence/combinations/lb-cdn.md)
+
+</div>
+
+### Comparison with Alternatives
+
+<table class="responsive-table">
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Load Balancer</th>
+<th>DNS Round Robin</th>
+<th>Client-Side LB</th>
+<th>Service Mesh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Aspect"><strong>Health Checking</strong></td>
+<td data-label="Load Balancer">Built-in, configurable</td>
+<td data-label="DNS Round Robin">None</td>
+<td data-label="Client-Side LB">Application-level</td>
+<td data-label="Service Mesh">Sophisticated</td>
+</tr>
+<tr>
+<td data-label="Aspect"><strong>Sticky Sessions</strong></td>
+<td data-label="Load Balancer">Yes (various methods)</td>
+<td data-label="DNS Round Robin">No</td>
+<td data-label="Client-Side LB">Yes (app-controlled)</td>
+<td data-label="Service Mesh">Yes (configurable)</td>
+</tr>
+<tr>
+<td data-label="Aspect"><strong>SSL Termination</strong></td>
+<td data-label="Load Balancer">Yes</td>
+<td data-label="DNS Round Robin">No</td>
+<td data-label="Client-Side LB">No</td>
+<td data-label="Service Mesh">Yes (mTLS)</td>
+</tr>
+<tr>
+<td data-label="Aspect"><strong>Geographic Routing</strong></td>
+<td data-label="Load Balancer">With GSLB</td>
+<td data-label="DNS Round Robin">GeoDNS required</td>
+<td data-label="Client-Side LB">Complex</td>
+<td data-label="Service Mesh">Yes</td>
+</tr>
+<tr>
+<td data-label="Aspect"><strong>Operational Complexity</strong></td>
+<td data-label="Load Balancer">Medium</td>
+<td data-label="DNS Round Robin">Low</td>
+<td data-label="Client-Side LB">High</td>
+<td data-label="Service Mesh">Very High</td>
+</tr>
+</tbody>
+</table>
+
+## Migration Strategies
+
+### From DNS Round Robin to Load Balancer
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **Migration Guide**
+    
+    ---
+    
+    Upgrade from basic DNS to proper load balancing:
+    - Set up load balancer infrastructure
+    - Configure health checks
+    - Gradually shift DNS records
+    - [Full Migration Guide](../excellence/migrations/dns-to-loadbalancer.md)
+
+- :material-alert:{ .lg .middle } **Common Pitfalls**
+    
+    ---
+    
+    - DNS TTL causing slow migration
+    - Missing health check configuration
+    - SSL certificate complications
+    - Session state management
+
+</div>
+
+## Related Patterns
+
+### Core Infrastructure
+- **[Auto-Scaling](patterns/auto-scaling)**: Dynamic capacity management
+- **[Health Checks](patterns/health-check)**: Service availability monitoring
+- **[API Gateway](patterns/api-gateway)**: Entry point load balancing
+
+### Resilience Patterns
+- **[Circuit Breaker](patterns/circuit-breaker)**: Failure protection
+- **[Retry & Backoff](patterns/retry-backoff)**: Transient failure handling
+- **[Bulkhead](patterns/bulkhead)**: Failure isolation
+
+### Advanced Patterns
+- **[Service Mesh](patterns/service-mesh)**: Sophisticated load balancing
+- **[Geographic Distribution](patterns/geographic-distribution)**: Global load balancing
+- **[Multi-Region](patterns/multi-region)**: Cross-region strategies
+
 ---
 
 ---
 
 *"Perfect balance is not the goal—effective distribution is."*
+
+### Further Reading
+
+#### Books & Papers
+- ["The Google File System"](https://research.google/pubs/pub51/) - Load balancing at scale
+- ["Maglev: A Fast and Reliable Software Network Load Balancer"](https://research.google/pubs/pub44824/) - Google's approach
+- ["The Site Reliability Workbook"](https://sre.google/workbook/) - Production load balancing
+
+#### Tools & Technologies
+- **Hardware**: F5 BIG-IP, Citrix ADC, A10 Networks
+- **Software**: HAProxy, NGINX, Envoy, Traefik
+- **Cloud**: AWS ELB/ALB/NLB, GCP Load Balancing, Azure Load Balancer
+- **Service Mesh**: Istio, Linkerd, Consul Connect
+
+#### Online Resources
+- [HAProxy Best Practices](https://www.haproxy.org/download/1.8/doc/management.txt)
+- [NGINX Load Balancing Guide](https://docs.nginx.com/nginx/admin-guide/load-balancer/)
+- [AWS Load Balancing Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/aws-load-balancing/)
 
 ---
 

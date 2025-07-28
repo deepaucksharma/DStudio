@@ -1698,6 +1698,137 @@ circuit_breaker:
 
 ---
 
+## Excellence Framework Integration
+
+### Implementation Guides
+- **[Circuit Breaker Implementation Guide](../excellence/guides/circuit-breaker-implementation.md)**: Step-by-step implementation across languages
+- **[Resilience Patterns Guide](../excellence/guides/resilience-patterns.md)**: Comprehensive resilience strategy
+- **[Service Mesh Circuit Breaking](../excellence/guides/service-mesh-patterns.md#circuit-breaking)**: Mesh-based implementation
+
+### Case Studies
+- **[Netflix Hystrix: Circuit Breakers at Scale](../excellence/case-studies/netflix-hystrix.md)**: 100B+ requests/day
+- **[Amazon Prime Day Resilience](../excellence/case-studies/amazon-prime-resilience.md)**: Surviving 10x traffic
+- **[Uber's Microservices Protection](../excellence/case-studies/uber-microservices.md)**: 3000+ service mesh
+
+### Pattern Combinations
+<div class="grid cards" markdown>
+
+- :material-puzzle:{ .lg .middle } **With Retry Pattern**
+    
+    ---
+    
+    Circuit breaker prevents retry storms. Combine for intelligent failure handling:
+    - Circuit breaker wraps retry logic
+    - Retries happen only when circuit is closed
+    - [View Integration Guide](../excellence/combinations/circuit-breaker-retry.md)
+
+- :material-puzzle:{ .lg .middle } **With Bulkhead Pattern**
+    
+    ---
+    
+    Isolate failures and prevent cascades:
+    - Separate circuit breaker per resource pool
+    - Independent failure domains
+    - [View Integration Guide](../excellence/combinations/circuit-breaker-bulkhead.md)
+
+- :material-puzzle:{ .lg .middle } **With Service Mesh**
+    
+    ---
+    
+    Centralized circuit breaking policy:
+    - Mesh handles circuit breaking transparently
+    - Consistent policies across services
+    - [View Integration Guide](../excellence/combinations/circuit-breaker-mesh.md)
+
+- :material-puzzle:{ .lg .middle } **With Observability**
+    
+    ---
+    
+    Monitor and alert on circuit state:
+    - Track circuit state changes
+    - Measure business impact
+    - [View Integration Guide](../excellence/combinations/circuit-breaker-observability.md)
+
+</div>
+
+### Comparison with Alternatives
+
+<table class="responsive-table">
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Circuit Breaker</th>
+<th>Retry Pattern</th>
+<th>Timeout Pattern</th>
+<th>Rate Limiting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Aspect"><strong>Primary Goal</strong></td>
+<td data-label="Circuit Breaker">Prevent cascade failures</td>
+<td data-label="Retry Pattern">Handle transient failures</td>
+<td data-label="Timeout Pattern">Bound wait time</td>
+<td data-label="Rate Limiting">Prevent overload</td>
+</tr>
+<tr>
+<td data-label="Aspect"><strong>Failure Detection</strong></td>
+<td data-label="Circuit Breaker">Statistical (threshold-based)</td>
+<td data-label="Retry Pattern">Per-request</td>
+<td data-label="Timeout Pattern">Time-based</td>
+<td data-label="Rate Limiting">Volume-based</td>
+</tr>
+<tr>
+<td data-label="Aspect"><strong>Recovery</strong></td>
+<td data-label="Circuit Breaker">Automatic with test traffic</td>
+<td data-label="Retry Pattern">Immediate retry</td>
+<td data-label="Timeout Pattern">No recovery logic</td>
+<td data-label="Rate Limiting">Time window reset</td>
+</tr>
+<tr>
+<td data-label="Aspect"><strong>Resource Protection</strong></td>
+<td data-label="Circuit Breaker">Excellent (fails fast)</td>
+<td data-label="Retry Pattern">Poor (can amplify load)</td>
+<td data-label="Timeout Pattern">Good (bounds resources)</td>
+<td data-label="Rate Limiting">Excellent (hard limits)</td>
+</tr>
+<tr>
+<td data-label="Aspect"><strong>Use Together?</strong></td>
+<td data-label="Circuit Breaker">-</td>
+<td data-label="Retry Pattern">Yes (CB wraps retry)</td>
+<td data-label="Timeout Pattern">Yes (triggers CB)</td>
+<td data-label="Rate Limiting">Yes (different layers)</td>
+</tr>
+</tbody>
+</table>
+
+## Migration from Legacy Approaches
+
+### From Simple Retries to Circuit Breaker
+
+<div class="grid cards" markdown>
+
+- :material-file-document:{ .lg .middle } **Migration Guide**
+    
+    ---
+    
+    Step-by-step migration from retry-only to circuit breaker:
+    - Identify retry loops in code
+    - Wrap with circuit breaker
+    - Configure thresholds
+    - [Full Migration Guide](../excellence/migrations/retry-to-circuit-breaker.md)
+
+- :material-chart-timeline:{ .lg .middle } **Timeline**
+    
+    ---
+    
+    - Week 1-2: Identify critical services
+    - Week 3-4: Implement in dev/staging
+    - Week 5-6: Gradual production rollout
+    - Week 7-8: Tune thresholds
+
+</div>
+
 ## Related Topics
 
 ## Related Patterns
@@ -1751,9 +1882,24 @@ Circuit Breaker implements:
 - [Reliability Theory](quantitative/reliability-theory) - Calculating system reliability with circuit breakers
 
 ### Further Reading
+
+#### Books & Papers
+- ["Release It!" by Michael Nygard](https://pragprog.com/titles/mnee2/release-it-second-edition/) - Original circuit breaker pattern
+- ["Distributed Systems Safety" by Jepsen](https://jepsen.io/analyses) - Failure analysis
+- ["Site Reliability Engineering" by Google](https://sre.google/books/) - Production practices
+
+#### Online Resources
 - [Microservices Resilience Patterns](patterns/microservices-resilience) - Comprehensive resilience strategies
 - [Service Mesh Architecture](patterns/service-mesh) - Circuit breakers in modern service meshes
 - [Chaos Engineering](human-factors/chaos-engineering.md) - Testing circuit breaker effectiveness
+- [Martin Fowler's Circuit Breaker Article](https://martinfowler.com/bliki/CircuitBreaker.html) - Clear introduction
+
+#### Tools & Libraries
+- **Java**: [Resilience4j](https://resilience4j.readme.io/) (modern), [Hystrix](https://github.com/Netflix/Hystrix) (maintenance mode)
+- **Go**: [gobreaker](https://github.com/sony/gobreaker), [circuit](https://github.com/cep21/circuit)
+- **Python**: [pybreaker](https://github.com/danielfm/pybreaker), [circuitbreaker](https://github.com/fabfuel/circuitbreaker)
+- **JavaScript**: [opossum](https://github.com/nodeshift/opossum), [cockatiel](https://github.com/connor4312/cockatiel)
+- **.NET**: [Polly](https://github.com/App-vNext/Polly)
 
 ---
 

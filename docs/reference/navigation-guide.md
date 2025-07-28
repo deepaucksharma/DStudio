@@ -1,45 +1,15 @@
 ---
 title: "Navigation Implementation Guide"
 description: "Comprehensive guide to implementing navigation on every page"
-
-nav:
- learning_path: "reference"
- 
- prerequisites:
- - title: "Understanding MkDocs"
- path: "/reference/mkdocs-basics/"
- - title: "YAML Front Matter"
- path: "/reference/front-matter/"
- 
- related:
- - title: "Navigation Templates"
- path: "/templates/navigation/"
- type: "template"
- - title: "MkDocs Best Practices"
- path: "/reference/mkdocs-best-practices/"
- type: "guide"
- 
- next_steps:
- - title: "Implement Basic Navigation"
- path: "/tutorials/basic-navigation/"
- level: "beginner"
- - title: "Advanced Navigation Features"
- path: "/tutorials/advanced-navigation/"
- level: "intermediate"
- 
- tags:
- - navigation
- - reference
- - implementation
+tags:
+  - navigation
+  - reference
+  - implementation
 ---
 
 # Navigation Implementation Guide
 
-{{ nav_learning_path(page.meta.nav.learning_path) }}
-
 This guide provides a comprehensive approach to implementing navigation on every page of your documentation, ensuring users always know where they are and where they can go next.
-
-{{ nav_prerequisites(page.meta.nav.prerequisites) }}
 
 ## 🎯 Navigation Philosophy
 
