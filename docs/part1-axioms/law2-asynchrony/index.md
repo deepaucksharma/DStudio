@@ -1,5 +1,9 @@
 # Law 2: The Law of Asynchronous Reality
 
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/time-in-distributed-systems&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+</iframe>
+
 <div class="truth-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
   <h2 style="margin: 0; font-size: 2.5em;">⏰ Einstein Was Wrong (About Your Database)</h2>
   <p style="font-size: 1.3em; margin: 1rem 0;">In distributed systems, simultaneous events don't exist. Your perfectly synchronized clocks? They're lying. That atomic operation? It's eventual. Welcome to the reality where time itself becomes your enemy.</p>

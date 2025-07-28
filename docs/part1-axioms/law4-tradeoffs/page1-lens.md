@@ -1,5 +1,9 @@
 # The Lens: Everything Costs Something 💸
 
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/tradeoffs&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+</iframe>
+
 <div class="axiom-box" style="background: #1a1a1a; border: 3px solid #ff5555;">
 <h2>⚡ ONE-INCH PUNCH</h2>
 <h1 style="font-size: 3em; margin: 0; color: #ff5555;">Every 'AND' hides an 'OR' ready to bankrupt you.</h1>
