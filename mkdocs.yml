@@ -317,9 +317,11 @@ nav:
     
     - The 7 Laws:
       - Overview: part1-axioms/index.md
+      - Axioms Index: part1-axioms/axioms-index.md
       - Law Interactions: part1-axioms/law-interactions.md
       - Law 1 - Correlated Failure:
         - Concept: part1-axioms/law1-failure/index.md
+        - Enhanced: part1-axioms/law1-failure/index-enhanced.md
         - Examples: part1-axioms/law1-failure/examples.md
         - Exercises: part1-axioms/law1-failure/exercises.md
       - Law 2 - Asynchronous Reality:
@@ -352,6 +354,16 @@ nav:
     - The 5 Pillars:
       - Overview: part2-pillars/index.md
       - Pillars Index: pillars/index.md
+      - Failure Recap: part2-pillars/failure-recap.md
+      - Models Analysis:
+        - Models Collision: part2-pillars/models-collide.md
+        - Models Comparison: part2-pillars/models-comparison.md
+      - Pattern Resources:
+        - Pattern Catalog Intro: part2-pillars/pattern-catalog-intro.md
+        - Pattern Legend: part2-pillars/pattern-legend.md
+        - Pillars Patterns Map: part2-pillars/pillars-patterns-map.md
+        - Reflection Journal: part2-pillars/reflection-journal.md
+        - Transition to Part 3: part2-pillars/transition-part3.md
       - Pillar 1 - Work Distribution:
         - Concept: part2-pillars/work/index.md
         - Examples: part2-pillars/work/examples.md
@@ -380,6 +392,14 @@ nav:
   
   - Patterns:
     - Overview: patterns/index.md
+    - Pattern Resources:
+      - Alternative Index: patterns/index-new.md
+      - Navigation Index: patterns/index-navigation.md
+      - Pattern Template: patterns/PATTERN_TEMPLATE.md
+      - Repository Guide: patterns/README.md
+    - Status Reports:
+      - Enhancement Status: patterns/EXCELLENCE_METADATA_ENHANCEMENT_COMPLETE.md
+      - Transformation Status: patterns/TRANSFORMATION_STATUS.md
     # Pattern Tools section removed - tools archived
     
     - Communication Patterns:
@@ -540,8 +560,11 @@ nav:
       - Silver Tier Guide: patterns/excellence/silver-tier-guide.md
       - Bronze Tier Guide: patterns/excellence/bronze-tier-guide.md
       - Starter Pack: patterns/excellence/starter-pack.md
+      - Enterprise Pack: patterns/excellence/enterprise-pack.md
+      - Scale Pack: patterns/excellence/scale-pack.md
     
     - Guides:
+      - Overview: excellence/guides/index.md
       - Modern Systems 2025: excellence/guides/modern-distributed-systems-2025.md
       - Platform Engineering: excellence/guides/platform-engineering-playbook.md
       - Quick Start: excellence/guides/quick-start-guide.md
@@ -556,6 +579,8 @@ nav:
     - Migration Playbooks:
       - Overview: excellence/migrations/index.md
       - 2PC to Saga: excellence/migrations/2pc-to-saga.md
+      - Anti-Entropy to CRDT: excellence/migrations/anti-entropy-to-crdt.md
+      - Gossip to Service Mesh: excellence/migrations/gossip-to-service-mesh.md
       - Polling to WebSocket: excellence/migrations/polling-to-websocket.md
       - Monolith to Microservices: excellence/migrations/monolith-to-microservices.md
       - Batch to Streaming: excellence/migrations/batch-to-streaming.md
@@ -574,6 +599,13 @@ nav:
     
     - Case Studies:
       - Overview: excellence/case-studies/index.md
+      - Elite Engineering:
+        - Overview: case-studies/elite-engineering/index.md
+        - Netflix Chaos Engineering: case-studies/elite-engineering/netflix-chaos-engineering.md
+        - Amazon DynamoDB Evolution: case-studies/elite-engineering/amazon-dynamodb-evolution.md
+        - Discord Voice Infrastructure: case-studies/elite-engineering/discord-voice-infrastructure.md
+        - Figma CRDT Collaboration: case-studies/elite-engineering/figma-crdt-collaboration.md
+        - Stripe API Excellence: case-studies/elite-engineering/stripe-api-excellence.md
     
     - Pattern Comparisons:
       - Caching Patterns: excellence/comparisons/caching-patterns-comparison.md
@@ -614,6 +646,8 @@ nav:
     
     - Advanced Topics:
       - Probabilistic Structures: quantitative/probabilistic-structures.md
+      - CAP Theorem Enhanced: quantitative/cap-theorem-enhanced.md
+      - Computational Geometry Alt: quantitative/comp-geometry.md
       - Graph Theory: quantitative/graph-theory.md
       - Stochastic Processes: quantitative/stochastic-processes.md
       - Information Theory: quantitative/information-theory.md
@@ -646,6 +680,9 @@ nav:
   
   - Case Studies:
     - Overview: case-studies/index.md
+    - Resources:
+      - Case Study Template: case-studies/CASE_STUDY_TEMPLATE.md
+      - Stub Creation Report: case-studies/STUB_CREATION_REPORT.md
     
     - System Design Classics:
       - URL Shortener: case-studies/url-shortener.md
@@ -752,6 +789,8 @@ nav:
     - Google Engineering:
       - Preparation:
         - Getting Started: google-interviews/preparation-guide.md
+        - Focus Selector: google-interviews/focus-selector.md
+        - Common Mistakes: google-interviews/common-mistakes.md
         - Study Plans: google-interviews/study-plans.md
         - Visual Roadmap: google-interviews/preparation-roadmap.md
         - Common Mistakes: google-interviews/common-mistakes.md
@@ -770,6 +809,18 @@ nav:
         - Spanner: google-interviews/spanner.md
         - Design Patterns: google-interviews/google-patterns.md
       
+      - Additional Case Studies:
+        - Gmail Alt: google-interviews/gmail.md
+        - Google Ads Detailed: google-interviews/google-ads-detailed.md
+        - Google Assistant: google-interviews/google-assistant.md
+        - Google Assistant Detailed: google-interviews/google-assistant-detailed.md
+        - Google Calendar: google-interviews/google-calendar.md
+        - Google Docs: google-interviews/google-docs.md
+        - Google Drive: google-interviews/google-drive.md
+        - Google Maps: google-interviews/google-maps.md
+        - Google Photos Detailed: google-interviews/google-photos-detailed.md
+        - YouTube: google-interviews/youtube.md
+      
       - Practice & Resources:
         - Architecture Patterns: google-interviews/architecture-patterns.md
         - Advanced Techniques: google-interviews/advanced-techniques.md
@@ -777,6 +828,13 @@ nav:
         - Practice Problems: google-interviews/practice-problems.md
         - Mock Questions: google-interviews/mock-questions.md
         - Dashboard: google-interviews/dashboard.md
+      
+      - Analysis & Tools:
+        - Interview Comparison: google-interviews/interview-comparison.md
+        - Interview Experiences: google-interviews/interview-experiences.md
+        - Scale Cheatsheet: google-interviews/scale-cheatsheet.md
+        - Tech Mapping: google-interviews/tech-mapping.md
+        - Time Allocation Calculator: google-interviews/time-allocation-calculator.md
       
       - Interview Tools:
         - Cheat Sheets: google-interviews/cheat-sheets.md
@@ -816,6 +874,9 @@ nav:
   
   - Reference:
     - Overview: reference/index.md
+    - Excellence Archive:
+      - Structure Complete: excellence/EXCELLENCE_STRUCTURE_COMPLETE.md
+      - Transformation Archive: excellence/transformation/index.md
     - Quick Reference:
       - Glossary: reference/glossary.md
       - Cheat Sheets: reference/cheat-sheets.md
@@ -824,6 +885,23 @@ nav:
       - Keyboard Shortcuts: reference/keyboard-shortcuts.md
       - Pattern Health Dashboard: reference/pattern-health-dashboard.md
       - Pattern Catalog: patterns/pattern-catalog.md
+    - Templates & Includes:
+      - Breadcrumbs: includes/breadcrumbs.md
+      - Navigation Template: templates/navigation.md
+      - Offline Access: reference/offline.md
+      - Content Tags: reference/tags.md
+    
+    - Development Resources:
+      - Templates:
+        - Abbreviations: templates/abbreviations.md
+        - Case Study Template: templates/case-study-template.md
+        - Homepage Template: templates/homepage-template.md
+        - Law Template: templates/law-template.md
+        - Law Template Native: templates/law-template-native.md
+        - Page Navigation: templates/page-navigation-native.md
+        - Pattern Template: templates/pattern-template.md
+      - Test Plans:
+        - Navigation Test Plan: test-plan/navigation-test-plan.md
     - Tools & Calculators:
       - Overview: tools/index.md
       - Consistency Calculator: tools/consistency-calculator.md
@@ -845,3 +923,9 @@ nav:
       - Law 1 Failure Example: examples/law1-failure-enhanced.md
       - Progressive Disclosure: examples/progressive-disclosure.md
       - Responsive Patterns: examples/responsive-patterns-showcase.md
+      - Layout Test: examples/layout-test.md
+      - Material Features: examples/material-features-showcase.md
+      - Material Grid: examples/material-grid-examples.md
+      - Material Transformations: examples/material-transformations.md
+      - MkDocs Config: examples/mkdocs-responsive-config.md
+      - Responsive Layouts: examples/responsive-layouts-guide.md
