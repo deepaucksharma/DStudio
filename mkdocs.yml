@@ -88,8 +88,7 @@ theme:
 plugins:
   - search:
       lang: en
-      separator: '[\s\-\.]+'
-      prebuild_index: true
+      separator: '[\s\-\.]+' 
   - awesome-pages:
       collapse_single_pages: false
       strict: false
@@ -237,9 +236,9 @@ extra:
       tex: {packages: {'[+]': ['gensymb']}}
 
 # Exclude Patterns
-exclude_docs:
-  - templates/
-  - mkdocs.yml
+exclude_docs: |
+  templates/
+  mkdocs.yml
 
 # Navigation - Complete Site Structure
 nav:
@@ -258,7 +257,6 @@ nav:
       - Manager: learning-paths/manager.md
     - Topic Guides:
       - Performance: learning-paths/performance.md
-      - Scale: learning-paths/scale.md
       - Cost Optimization: learning-paths/cost.md
       - Reliability: learning-paths/reliability.md
   
@@ -276,12 +274,11 @@ nav:
         - Exercises: part1-axioms/law1-failure/exercises.md
       - Law 2 - Asynchronous Reality:
         - Overview: part1-axioms/law2-asynchrony/index.md
-        - The Lens: part1-axioms/law2-asynchrony/page1-lens.md
+        - The Lens: part1-axioms/law2-asynchrony/the-lens.md
         - The Specters: part1-axioms/law2-asynchrony/page2-specters.md
         - Architecture: part1-axioms/law2-asynchrony/page3-architecture.md
         - Operations: part1-axioms/law2-asynchrony/page4-operations.md
         - Examples: part1-axioms/law2-asynchrony/examples.md
-        - Exercises: part1-axioms/law2-asynchrony/exercises.md
       - Law 3 - Emergent Chaos:
         - Overview: part1-axioms/law3-emergence/index.md
         - The Lens: part1-axioms/law3-emergence/the-lens.md
@@ -302,6 +299,7 @@ nav:
         - The Specters: part1-axioms/law5-epistemology/page2-specters.md
         - Architecture: part1-axioms/law5-epistemology/page3-architecture.md
         - Operations: part1-axioms/law5-epistemology/page4-operations.md
+        - Examples: part1-axioms/law5-epistemology/examples.md
       - Law 6 - Cognitive Load:
         - Overview: part1-axioms/law6-human-api/index.md
         - The Lens: part1-axioms/law6-human-api/the-lens.md
@@ -317,25 +315,25 @@ nav:
     - The 5 Pillars:
       - Overview: part2-pillars/index.md
       - Pillar 1 - Work Distribution:
-        - Overview: part2-pillars/pillar1-work/index.md
-        - Examples: part2-pillars/pillar1-work/examples.md
-        - Exercises: part2-pillars/pillar1-work/exercises.md
+        - Overview: part2-pillars/work/index.md
+        - Examples: part2-pillars/work/examples.md
+        - Exercises: part2-pillars/work/exercises.md
       - Pillar 2 - State Distribution:
-        - Overview: part2-pillars/pillar2-state/index.md
-        - Examples: part2-pillars/pillar2-state/examples.md
-        - Exercises: part2-pillars/pillar2-state/exercises.md
+        - Overview: part2-pillars/state/index.md
+        - Examples: part2-pillars/state/examples.md
+        - Exercises: part2-pillars/state/exercises.md
       - Pillar 3 - Truth Distribution:
-        - Overview: part2-pillars/pillar3-truth/index.md
-        - Examples: part2-pillars/pillar3-truth/examples.md
-        - Exercises: part2-pillars/pillar3-truth/exercises.md
+        - Overview: part2-pillars/truth/index.md
+        - Examples: part2-pillars/truth/examples.md
+        - Exercises: part2-pillars/truth/exercises.md
       - Pillar 4 - Control Distribution:
-        - Overview: part2-pillars/pillar4-control/index.md
-        - Examples: part2-pillars/pillar4-control/examples.md
-        - Exercises: part2-pillars/pillar4-control/exercises.md
+        - Overview: part2-pillars/control/index.md
+        - Examples: part2-pillars/control/examples.md
+        - Exercises: part2-pillars/control/exercises.md
       - Pillar 5 - Intelligence Distribution:
-        - Overview: part2-pillars/pillar5-intelligence/index.md
-        - Examples: part2-pillars/pillar5-intelligence/examples.md
-        - Exercises: part2-pillars/pillar5-intelligence/exercises.md
+        - Overview: part2-pillars/intelligence/index.md
+        - Examples: part2-pillars/intelligence/examples.md
+        - Exercises: part2-pillars/intelligence/exercises.md
   
   # Patterns
   - Patterns:
@@ -347,72 +345,99 @@ nav:
       - API Gateway: patterns/api-gateway.md
       - GraphQL Federation: patterns/graphql-federation.md
       - Service Mesh: patterns/service-mesh.md
-      - Pub-Sub: patterns/pub-sub.md
-      - Message Queue: patterns/message-queue.md
-      - Request-Reply: patterns/request-reply.md
-      - Webhooks: patterns/webhooks.md
+      - Publish-Subscribe: patterns/publish-subscribe.md
+      - Distributed Queue: patterns/distributed-queue.md
       - WebSocket: patterns/websocket.md
-      - gRPC: patterns/grpc.md
-      - Server-Sent Events: patterns/server-sent-events.md
-      - Long Polling: patterns/long-polling.md
+      - Request Routing: patterns/request-routing.md
+      - Service Discovery: patterns/service-discovery.md
+      - Service Registry: patterns/service-registry.md
       
     - Resilience & Fault Tolerance:
       - Circuit Breaker: patterns/circuit-breaker.md
-      - Retry: patterns/retry.md
+      - Retry & Backoff: patterns/retry-backoff.md
       - Timeout: patterns/timeout.md
       - Bulkhead: patterns/bulkhead.md
-      - Health Checks: patterns/health-checks.md
+      - Health Check: patterns/health-check.md
       - Failover: patterns/failover.md
       - Graceful Degradation: patterns/graceful-degradation.md
-      - Chaos Engineering: patterns/chaos-engineering.md
+      - Heartbeat: patterns/heartbeat.md
+      - Load Shedding: patterns/load-shedding.md
+      - Retry with Backoff: patterns/retry-backoff.md
+      - Split Brain: patterns/split-brain.md
       
     - Data Management:
       - Event Sourcing: patterns/event-sourcing.md
       - CQRS: patterns/cqrs.md
       - Saga: patterns/saga.md
-      - Change Data Capture: patterns/change-data-capture.md
-      - Outbox Pattern: patterns/outbox-pattern.md
-      - Write-Through Cache: patterns/write-through-cache.md
-      - Write-Behind Cache: patterns/write-behind-cache.md
+      - Change Data Capture (CDC): patterns/cdc.md
+      - Outbox Pattern: patterns/outbox.md
       - Distributed Lock: patterns/distributed-lock.md
       - Leader Election: patterns/leader-election.md
-      - Quorum: patterns/quorum.md
+      - Consistent Hashing: patterns/consistent-hashing.md
+      - CRDT: patterns/crdt.md
+      - Eventual Consistency: patterns/eventual-consistency.md
+      - Materialized View: patterns/materialized-view.md
+      - Polyglot Persistence: patterns/polyglot-persistence.md
+      - Read Repair: patterns/read-repair.md
+      - Tunable Consistency: patterns/tunable-consistency.md
+      - Write-Ahead Log: patterns/wal.md
       
     - Scaling & Performance:
       - Load Balancing: patterns/load-balancing.md
       - Sharding: patterns/sharding.md
-      - Read Replicas: patterns/read-replicas.md
       - Caching Strategies: patterns/caching-strategies.md
       - Database per Service: patterns/database-per-service.md
       - Priority Queue: patterns/priority-queue.md
       - Rate Limiting: patterns/rate-limiting.md
       - Backpressure: patterns/backpressure.md
-      - Connection Pooling: patterns/connection-pooling.md
+      - Auto-Scaling: patterns/auto-scaling.md
+      - Request Batching: patterns/request-batching.md
+      - Scatter-Gather: patterns/scatter-gather.md
       
     - Architecture & Design:
-      - Microservices: patterns/microservices.md
-      - Monolith: patterns/monolith.md
-      - Modular Monolith: patterns/modular-monolith.md
-      - Hexagonal Architecture: patterns/hexagonal-architecture.md
       - Sidecar: patterns/sidecar.md
       - Ambassador: patterns/ambassador.md
       - Strangler Fig: patterns/strangler-fig.md
-      - Backend for Frontend: patterns/backend-for-frontend.md
+      - Backends for Frontends: patterns/backends-for-frontends.md
+      - Anti-Corruption Layer: patterns/anti-corruption-layer.md
+      - Cell-Based Architecture: patterns/cell-based.md
+      - Choreography: patterns/choreography.md
+      - Event-Driven Architecture: patterns/event-driven.md
+      - Serverless/FaaS: patterns/serverless-faas.md
+      - Shared Nothing: patterns/shared-nothing.md
       
     - Geographic & Spatial:
       - Multi-Region: patterns/multi-region.md
       - Edge Computing: patterns/edge-computing.md
-      - CDN: patterns/cdn.md
       - Geo-Replication: patterns/geo-replication.md
-      - Geo-Sharding: patterns/geo-sharding.md
       
     - Specialized Solutions:
-      - Blockchain: patterns/blockchain.md
       - Event Streaming: patterns/event-streaming.md
-      - GraphQL: patterns/graphql.md
-      - Feature Flags: patterns/feature-flags.md
       - Service Registry: patterns/service-registry.md
-      - Distributed Tracing: patterns/distributed-tracing.md
+      - Observability: patterns/observability.md
+  
+  # Additional Patterns
+  - Additional Patterns:
+    - Data Structures & Algorithms:
+      - Bloom Filter: patterns/bloom-filter.md
+      - Merkle Trees: patterns/merkle-trees.md
+      - LSM Tree: patterns/lsm-tree.md
+      - Consistent Hashing: patterns/consistent-hashing.md
+    
+    - Consensus & Coordination:
+      - Consensus: patterns/consensus.md
+      - Hybrid Logical Clocks: patterns/hlc.md
+      - Logical Clocks: patterns/logical-clocks.md
+      - Generation Clock: patterns/generation-clock.md
+      - Vector Clocks: patterns/vector-clocks.md
+      - Lease: patterns/lease.md
+    
+    - Specialized Patterns:
+      - Observability: patterns/observability.md
+      - Service Discovery: patterns/service-discovery.md
+      - Deduplication: patterns/deduplication.md
+      - Idempotent Receiver: patterns/idempotent-receiver.md
+      - Valet Key: patterns/valet-key.md
   
   # Excellence Framework
   - Excellence:
@@ -436,9 +461,7 @@ nav:
       - Case Studies: excellence/real-world-excellence/index.md
       - Elite Engineering:
         - Netflix Chaos: case-studies/elite-engineering/netflix-chaos-engineering.md
-        - Amazon DynamoDB: case-studies/elite-engineering/amazon-dynamodb-architecture.md
-        - Google Spanner: case-studies/elite-engineering/google-spanner-truetime.md
-        - Uber H3: case-studies/elite-engineering/uber-h3-spatial-index.md
+        - Amazon DynamoDB: case-studies/elite-engineering/amazon-dynamodb-evolution.md
         - Discord Voice: case-studies/elite-engineering/discord-voice-infrastructure.md
         - Figma CRDT: case-studies/elite-engineering/figma-crdt-collaboration.md
         - Stripe API: case-studies/elite-engineering/stripe-api-excellence.md
@@ -458,6 +481,11 @@ nav:
         - Monolith to Microservices: excellence/migrations/monolith-to-microservices.md
         - Polling to WebSocket: excellence/migrations/polling-to-websocket.md
       - Migration Playbook: excellence/migrations/migration-playbook-template.md
+    
+    - Additional Resources:
+      - Excellence Dashboard: excellence/excellence-dashboard.md
+      - Pattern Selection Wizard: excellence/pattern-selection-wizard.md
+      - Comparisons: excellence/comparisons/index.md
   
   # Case Studies & Examples
   - Case Studies:
@@ -470,11 +498,19 @@ nav:
       - Video Streaming: case-studies/video-streaming.md
       - Uber Location: case-studies/uber-location.md
       - Netflix Streaming: case-studies/netflix-streaming.md
-    - Production Failures:
-      - AWS S3 Outage: case-studies/failures/aws-s3-outage.md
-      - GitHub Outage: case-studies/failures/github-outage.md
-      - Google Cloud Outage: case-studies/failures/google-cloud-outage.md
-      - Cloudflare Outage: case-studies/failures/cloudflare-outage.md
+    
+    - System Deep Dives:
+      - Databases:
+        - Cassandra: case-studies/cassandra.md
+        - Redis: case-studies/redis.md
+        - MongoDB: case-studies/mongodb.md
+        - etcd: case-studies/etcd.md
+      - Message Systems:
+        - Kafka: case-studies/kafka.md
+        - Distributed Message Queue: case-studies/distributed-message-queue.md
+      - Infrastructure:
+        - Kubernetes: case-studies/kubernetes.md
+        - Prometheus: case-studies/prometheus.md
   
   # Quantitative & Theory
   - Quantitative:
@@ -494,6 +530,14 @@ nav:
       - Reliability Theory: quantitative/reliability-theory.md
       - Capacity Planning: quantitative/capacity-planning.md
       - Latency Ladder: quantitative/latency-ladder.md
+      - Consistency Models: quantitative/consistency-models.md
+      - Availability Math: quantitative/availability-math.md
+      - Power Laws: quantitative/power-laws.md
+      - Markov Chains: quantitative/markov-chains.md
+      - Stochastic Processes: quantitative/stochastic-processes.md
+      - Graph Theory: quantitative/graph-theory.md
+      - Computational Geometry: quantitative/computational-geometry.md
+      - Time Series: quantitative/time-series.md
   
   # Human Factors & Operations
   - Human Factors:
@@ -510,8 +554,6 @@ nav:
   - Reference:
     - Glossary: reference/glossary.md
     - Cheat Sheets: reference/cheat-sheets.md
-    - Common Mistakes: reference/common-mistakes.md
-    - Further Reading: reference/further-reading.md
     - Tools & Calculators:
       - Capacity Calculator: quantitative/capacity-planning.md#calculator
       - Latency Calculator: quantitative/latency-ladder.md#calculator
