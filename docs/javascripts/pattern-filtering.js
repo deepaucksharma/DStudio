@@ -325,7 +325,7 @@ function formatCategory(category) {
         'distributed-data': 'Data Management',
         'coordination': 'Coordination',
         'architectural': 'Architecture',
-        'performance': 'Performance',
+        'scaling': 'Scaling',
         'specialized': 'Specialized'
     };
     return categoryMap[category] || category;

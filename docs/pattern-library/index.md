@@ -1,6 +1,6 @@
 # Pattern Library
 
-Explore 106 battle-tested distributed systems patterns organized by problem domain.
+Explore 112 battle-tested distributed systems patterns organized by problem domain.
 
 ## 🔍 Pattern Discovery
 
@@ -32,7 +32,7 @@ Explore 106 battle-tested distributed systems patterns organized by problem doma
                 <button class="filter-btn" data-filter="category" data-value="distributed-data">Data Management</button>
                 <button class="filter-btn" data-filter="category" data-value="coordination">Coordination</button>
                 <button class="filter-btn" data-filter="category" data-value="architectural">Architecture</button>
-                <button class="filter-btn" data-filter="category" data-value="performance">Performance</button>
+                <button class="filter-btn" data-filter="category" data-value="scaling">Scaling</button>
                 <button class="filter-btn" data-filter="category" data-value="specialized">Specialized</button>
             </div>
         </div>
@@ -105,10 +105,10 @@ Explore 106 battle-tested distributed systems patterns organized by problem doma
 
 ## 🏆 Excellence Tiers
 
-### 🥇 Gold Tier (47 patterns)
+### 🥇 Gold Tier (49 patterns)
 Battle-tested patterns used in production by tech giants. Include production checklists and scale examples.
 
-### 🥈 Silver Tier (51 patterns)  
+### 🥈 Silver Tier (55 patterns)  
 Solid patterns with specific use cases. Include detailed trade-offs and implementation guides.
 
 ### 🥉 Bronze Tier (8 patterns)
