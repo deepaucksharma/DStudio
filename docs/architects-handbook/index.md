@@ -10,7 +10,7 @@ This handbook provides practical resources for architects designing and operatin
 
 <div class="grid cards" markdown>
 
-- :material-book-open-variant:{ .lg } **[Case Studies](case-studies/)**
+- :material-book-open-variant:{ .lg } **[Case Studies](case-studies/index)**
     
     ---
     
@@ -34,7 +34,7 @@ This handbook provides practical resources for architects designing and operatin
     
     **Tools**: Little's Law Calculator, CAP Trade-off Analyzer, Cost Estimators
 
-- :material-account-hard-hat:{ .lg } **[Human Factors](human-factors/)**
+- :material-account-hard-hat:{ .lg } **[Human Factors](human-factors/index)**
     
     ---
     
@@ -65,16 +65,16 @@ The Excellence Framework helps you:
 | Tool | Purpose |
 |------|---------|
 | [Capacity Planner](quantitative-analysis/capacity-planning/) | Size your infrastructure |
-| [Pattern Selector](case-studies/pattern-selection/) | Choose the right patterns |
+| [Pattern Selector](implementation-playbooks/pattern-selection-wizard/) | Choose the right patterns |
 | [Migration Checklist](implementation-playbooks/migration-checklist/) | Plan safe transitions |
 | [Cost Calculator](quantitative-analysis/cost-analysis/) | Estimate operational costs |
 
 ## 📖 Featured Resources
 
 ### Recent Case Studies
-- **[Netflix: Handling 200M+ Users](case-studies/netflix-streaming/)** - Microservices at massive scale
-- **[Uber: Real-time Location](case-studies/uber-location/)** - Geo-distributed systems
-- **[Stripe: Payment Processing](case-studies/payment-system/)** - Financial system reliability
+- **[Netflix: Handling 200M+ Users](case-studies/netflix-streaming)** - Microservices at massive scale
+- **[Uber: Real-time Location](case-studies/uber-location)** - Geo-distributed systems
+- **[Stripe: Payment Processing](case-studies/payment-system)** - Financial system reliability
 
 ### Popular Playbooks
 - **[Monolith to Microservices](implementation-playbooks/monolith-to-microservices/)** - Safe decomposition strategies
@@ -83,4 +83,4 @@ The Excellence Framework helps you:
 
 ---
 
-*Start with [Case Studies](case-studies/) to see how industry leaders solve distributed systems challenges.*
+*Start with [Case Studies](case-studies/index) to see how industry leaders solve distributed systems challenges.*

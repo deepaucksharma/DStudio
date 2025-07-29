@@ -1,96 +1,123 @@
 # Quantitative Analysis
 
-Mathematical tools and models for distributed systems design and capacity planning.
+Mathematical tools and models for distributed systems design, capacity planning, and reliability engineering.
 
 ## Overview
 
-This section provides mathematical foundations and practical tools for analyzing distributed systems. Use these resources to:
+This section provides the mathematical foundations every distributed systems architect needs. These quantitative tools help you:
 
-- **Predict Performance** - Model system behavior
+- **Model Performance** - Predict system behavior under load
+- **Ensure Reliability** - Calculate availability and failure scenarios  
 - **Plan Capacity** - Size infrastructure correctly
-- **Analyze Trade-offs** - Quantify design decisions
-- **Optimize Costs** - Balance performance and expenses
+- **Make Trade-offs** - Quantify architectural decisions
 
-## 📊 Core Models
+## 🔬 Fundamental Theorems
 
-### Performance Models
-- **[Little's Law](littles-law/)** - Relate latency, throughput, and concurrency
-- **[Queueing Theory](queueing-theory/)** - Model wait times and utilization
-- **[Universal Scalability Law](universal-scalability/)** - Predict scaling limits
-- **[Amdahl's Law](amdahls-law/)** - Parallel processing limits
+Core mathematical laws that govern distributed systems behavior:
 
-### Reliability Models
-- **[Availability Calculations](availability-math/)** - Compute uptime percentages
-- **[MTBF/MTTR Analysis](mtbf-mttr/)** - Failure and recovery metrics
-- **[Fault Tree Analysis](fault-tree/)** - System failure probabilities
-- **[Markov Chains](markov-reliability/)** - State-based reliability
+### Consistency & Distribution
+- **[CAP Theorem](cap-theorem.md)** - The impossible trinity: Consistency, Availability, Partition tolerance
+- **[PACELC Theorem](../../quantitative/cap-theorem-enhanced.md)** - Extended CAP with latency/consistency trade-offs
+- **[FLP Impossibility](../../quantitative/consensus.md)** - Consensus impossibility in asynchronous systems
 
-### Capacity Models
-- **[Capacity Planning](capacity-planning/)** - Resource requirement estimation
-- **[Cost Modeling](cost-analysis/)** - TCO and unit economics
-- **[Growth Projections](growth-modeling/)** - Scaling timeline planning
-- **[Resource Utilization](utilization-analysis/)** - Efficiency optimization
+### Performance Laws
+- **[Little's Law](littles-law.md)** - Universal relationship: L = λW (queue length = arrival rate × wait time)
+- **[Amdahl's Law](amdahls-law.md)** - Limits of parallelization: speedup bounded by sequential portion
+- **[Universal Scalability Law](universal-scalability.md)** - Contention and coherence limits to scaling
+- **[Queueing Theory](queueing-theory.md)** - M/M/1, M/M/c models for system behavior under load
 
-## 🧮 Interactive Calculators
+## 📊 Performance Analysis
 
-### Performance Calculators
-- **[Latency Calculator](calculators/latency/)** - End-to-end latency estimation
-- **[Throughput Planner](calculators/throughput/)** - System capacity limits
-- **[Queue Depth Analyzer](calculators/queue-depth/)** - Optimal queue sizing
+Tools for modeling and predicting system performance:
 
-### Reliability Calculators
-- **[SLA Calculator](calculators/sla/)** - Availability requirements
-- **[Redundancy Planner](calculators/redundancy/)** - N+1, N+2 analysis
-- **[Blast Radius Estimator](calculators/blast-radius/)** - Failure impact
+### Latency & Throughput
+- **[Latency Numbers](latency-numbers.md)** - Key latencies every architect should know (L1: 0.5ns → Internet: 150ms)
+- **[Performance Modeling](performance-modeling.md)** - End-to-end latency calculation and bottleneck analysis
+- **[Capacity Planning](../../quantitative/capacity-planning.md)** - Resource sizing and growth projections
 
-### Cost Calculators
-- **[Cloud Cost Estimator](calculators/cloud-cost/)** - Multi-cloud pricing
-- **[Data Transfer Calculator](calculators/data-transfer/)** - Bandwidth costs
-- **[Storage Calculator](calculators/storage/)** - Capacity and replication
+### Load Characteristics
+- **[Workload Patterns](../../quantitative/time-series.md)** - Daily, weekly, seasonal variations
+- **[Power Laws](../../quantitative/power-laws.md)** - 80/20 rule, Zipf distributions in real systems
+- **[Traffic Theory](../../quantitative/network-theory.md)** - Poisson arrivals, bursty traffic modeling
 
-## 📈 Real-World Applications
+## 🛡️ Reliability Mathematics
 
-### Case Study: E-commerce Platform
-- Peak load: 100K requests/second
-- Latency target: <200ms p99
-- Availability: 99.95%
-- **Solution**: 50 servers with 70% utilization
+Quantifying and improving system reliability:
 
-### Case Study: Video Streaming
-- Concurrent users: 1M
-- Bandwidth: 5 Mbps/user
-- Cache hit ratio: 80%
-- **Solution**: 100 edge nodes, 20 origin servers
+### Availability Calculations
+- **[Failure Models](failure-models.md)** - Types of failures and their probabilities
+- **[Availability Math](../../quantitative/availability-math.md)** - Computing nines (99.9% = 8.76h/year downtime)
+- **[MTBF/MTTR](../../quantitative/mtbf-mttr.md)** - Mean time between failures and recovery
+
+### Redundancy & Resilience
+- **[N+K Redundancy](../../quantitative/reliability-theory.md)** - Calculating redundancy requirements
+- **[Blast Radius](../../quantitative/blast-radius.md)** - Failure impact analysis and containment
+- **[Markov Models](../../quantitative/markov-chains.md)** - State-based reliability modeling
+
+## 💰 Capacity Planning
+
+Sizing systems for current and future needs:
+
+### Resource Estimation
+- **[Capacity Models](../../quantitative/capacity-planning.md)** - CPU, memory, storage, network sizing
+- **[Growth Projections](../../quantitative/time-series.md)** - Linear, exponential, S-curve growth patterns
+- **[Utilization Targets](../../quantitative/queueing-models.md)** - Why 70% utilization is often optimal
+
+### Cost Optimization
+- **[Cost Models](../../quantitative/storage-economics.md)** - Storage, compute, and bandwidth economics
+- **[Cache Economics](../../quantitative/cache-economics.md)** - When caching saves money
+- **[Trade-off Analysis](../../quantitative/coordination-costs.md)** - Quantifying consistency vs performance costs
 
 ## 🎯 Quick Reference
 
-### Key Formulas
+### Essential Formulas
 
-| Metric | Formula | Use Case |
-|--------|---------|----------|
-| Little's Law | L = λ × W | Queue sizing |
-| Availability | A = MTBF / (MTBF + MTTR) | SLA planning |
-| Utilization | U = λ / μ | Resource planning |
-| Throughput | X = N / T | Capacity planning |
+| Concept | Formula | When to Use |
+|---------|---------|-------------|
+| **Little's Law** | L = λW | Sizing queues, thread pools, connection pools |
+| **Availability** | A = MTBF/(MTBF+MTTR) | SLA calculations, redundancy planning |
+| **Amdahl's Law** | S = 1/(s + p/n) | Evaluating parallelization benefits |
+| **Queue Wait Time** | W = 1/(μ-λ) | Response time under load (M/M/1) |
+| **Failure Probability** | P = 1-(1-p)^n | Independent failure scenarios |
+
+### Key Numbers to Remember
+
+| Metric | Value | Impact |
+|--------|-------|--------|
+| **L1 Cache** | 0.5 ns | 100x faster than RAM |
+| **Network RTT** | 150 ms | Internet round trip |
+| **Disk Seek** | 10 ms | 20,000x slower than RAM |
+| **99.9% Uptime** | 8.76 hours/year | ~1 hour/month downtime |
+| **70% Utilization** | Queue stability | Exponential wait time above this |
 
 ### Rules of Thumb
-- **80/20 Rule**: 80% of load from 20% of users
-- **2x Headroom**: Plan for 2x expected peak
-- **Rule of 3**: 3x redundancy for critical paths
-- **70% Utilization**: Target for stable operation
 
-## 📚 Deep Dives
+1. **Latency Hierarchy**: Cache → Memory → Disk → Network (each 100-1000x slower)
+2. **Redundancy**: N+1 for availability, 2N+1 for consensus, 3x for geo-redundancy
+3. **Load Distribution**: 80% of load from 20% of users (power law)
+4. **Capacity Planning**: Plan for 2x expected peak, monitor at 70% utilization
+5. **Failure Rates**: 1% annual server failure, 0.1% monthly disk failure
 
-### Statistical Analysis
-- **[Percentile Analysis](percentiles/)** - Understanding p50, p95, p99
-- **[Distribution Patterns](distributions/)** - Normal, Poisson, Exponential
-- **[Time Series Analysis](time-series/)** - Trend and seasonality
+## 📈 Interactive Tools
 
-### Advanced Topics
-- **[Chaos Theory](chaos-theory/)** - Non-linear system behavior
-- **[Control Theory](control-theory/)** - Feedback and stability
-- **[Game Theory](game-theory/)** - Multi-agent systems
+### Calculators in This Section
+- Little's Law calculator (in littles-law.md)
+- Availability/uptime calculator (in availability-math.md)
+- Amdahl's Law speedup calculator (in amdahls-law.md)
+- Queue wait time calculator (in queueing-theory.md)
+
+### External Resources
+- [Google SRE Workbook](https://sre.google/workbook/) - Practical reliability calculations
+- [AWS Architecture Center](https://aws.amazon.com/architecture/) - Real-world capacity planning
+- [High Scalability](http://highscalability.com/) - Case studies with numbers
+
+## 🚀 Getting Started
+
+1. **Start with [Little's Law](littles-law.md)** - The most fundamental relationship in systems
+2. **Understand [CAP Theorem](cap-theorem.md)** - Core distributed systems trade-off
+3. **Learn [Latency Numbers](latency-numbers.md)** - Build intuition for system performance
+4. **Master [Queueing Theory](queueing-theory.md)** - Predict behavior under load
 
 ---
 
-*Start with [Little's Law](littles-law/) to understand the fundamental relationship between latency, throughput, and concurrency.*
+*Remember: These models are simplifications of reality. Use them to build intuition and make order-of-magnitude estimates, but always validate with real-world measurements.*

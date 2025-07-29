@@ -39,7 +39,7 @@ DStudio now features an interactive pattern discovery system:
 - **Migration Guides**: Step-by-step paths from legacy to modern
 - **Scale Examples**: Real company implementations with metrics
 
-Visit `/patterns/` to explore the interactive pattern catalog!
+Visit `/pattern-library/` to explore the interactive pattern catalog!
 
 ## 🎨 Visual-First Approach
 
@@ -55,27 +55,30 @@ This documentation has been transformed to prioritize visual learning:
 ```
 docs/
 ├── index.md                    # Homepage with navigation
-├── introduction/               # Getting started and philosophy
-├── part1-axioms/              # 7 fundamental laws
-│   ├── axiom1-latency/        # Latency constraints
-│   ├── axiom2-capacity/       # Finite capacity
-│   ├── axiom3-failure/        # Partial failure
-│   └── ...
-├── part2-pillars/             # 5 foundational pillars
-│   ├── work/                  # Work distribution
-│   ├── state/                 # State management
-│   ├── truth/                 # Distributed truth
-│   ├── control/               # Control flow
-│   └── intelligence/          # Learning systems
-├── patterns/                  # 95 patterns with excellence tiers
-├── excellence/                # NEW: Excellence framework
-│   ├── guides/               # Modern best practices
-│   ├── migrations/           # Legacy to modern guides
-│   └── case-studies/         # Elite engineering stories
-├── case-studies/              # 40+ real-world examples
-├── quantitative/              # Mathematical models
-├── human-factors/             # Operational excellence
-├── reference/                 # Glossary, cheat sheets, health dashboard
+├── core-principles/            # Core principles (laws & pillars)
+│   ├── laws/                  # 7 fundamental laws
+│   │   ├── correlated-failure.md
+│   │   ├── asynchronous-reality.md
+│   │   └── ...
+│   └── pillars/               # 5 foundational pillars
+│       ├── work-distribution.md
+│       ├── state-distribution.md
+│       └── ...
+├── pattern-library/           # 112 patterns with excellence tiers
+│   ├── communication/         # API Gateway, Service Mesh, etc.
+│   ├── resilience/            # Circuit Breaker, Retry, etc.
+│   ├── data-management/       # Event Sourcing, CQRS, etc.
+│   ├── scaling/               # Load Balancing, Sharding, etc.
+│   ├── architecture/          # Microservices, Serverless, etc.
+│   └── coordination/          # Consensus, Leader Election, etc.
+├── architects-handbook/       # Implementation guides & case studies
+│   ├── case-studies/         # 40+ real-world examples
+│   ├── implementation-playbooks/  # Excellence framework
+│   ├── quantitative-analysis/    # Mathematical models
+│   ├── human-factors/            # Operational excellence
+│   └── learning-paths/           # Role-based paths
+├── interview-prep/            # System design interview prep
+├── reference/                 # Glossary, contributing guides
 └── tools/                     # Interactive calculators
 ```
 

@@ -272,7 +272,7 @@ graph LR
         - ✅ Load Balancing
         - ✅ Basic Caching
         
-        [🚀 Get Started](excellence/starter-pack.md)
+        [🚀 Get Started](architects-handbook/implementation-playbooks/starter-pack.md)
     
     - :material-chart-line:{ .lg .middle } **Scale Pack**
         
@@ -289,7 +289,7 @@ graph LR
         - ✅ Auto-scaling
         - ✅ Event Streaming
         
-        [📈 Scale Up](excellence/scale-pack.md)
+        [📈 Scale Up](architects-handbook/implementation-playbooks/scale-pack.md)
     
     - :material-office-building:{ .lg .middle } **Enterprise Pack**
         
@@ -306,7 +306,7 @@ graph LR
         - ✅ Zero-trust Security
         - ✅ Chaos Engineering
         
-        [🏢 Go Enterprise](excellence/enterprise-pack.md)
+        [🏢 Go Enterprise](architects-handbook/implementation-playbooks/enterprise-pack.md)
     
     </div>
 </div>
@@ -690,10 +690,10 @@ gantt
 
 
 ### Case Studies
-- [Netflix](case-studies/netflix-chaos) → Circuit Breaker, Chaos Engineering
-- [Uber](case-studies/uber-location) → Edge Computing, Geo-sharding
-- [Amazon](case-studies/amazon-dynamo) → Tunable Consistency, Sharding
-- [PayPal](case-studies/paypal-payments) → Saga Pattern, Idempotency
+- [Netflix](architects-handbook/case-studies/netflix-streaming) → Circuit Breaker, Chaos Engineering
+- [Uber](architects-handbook/case-studies/uber-location) → Edge Computing, Geo-sharding
+- [Amazon](architects-handbook/case-studies/amazon-dynamo) → Tunable Consistency, Sharding
+- [PayPal](architects-handbook/case-studies/payment-system) → Saga Pattern, Idempotency
 
 ## 📖 References
 

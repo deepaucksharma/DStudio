@@ -136,6 +136,11 @@ plugins:
         'quantitative/littles-law.md': 'architects-handbook/quantitative-analysis/littles-law.md'
         'quantitative/cap-theorem.md': 'architects-handbook/quantitative-analysis/cap-theorem.md'
         'quantitative/amdahl-gustafson.md': 'architects-handbook/quantitative-analysis/amdahl-gustafson.md'
+        'quantitative/universal-scalability.md': 'architects-handbook/quantitative-analysis/universal-scalability.md'
+        'quantitative/queueing-models.md': 'architects-handbook/quantitative-analysis/queueing-models.md'
+        'quantitative/failure-models.md': 'architects-handbook/quantitative-analysis/failure-models.md'
+        'quantitative/performance-modeling.md': 'architects-handbook/quantitative-analysis/performance-modeling.md'
+        'quantitative/latency-ladder.md': 'architects-handbook/quantitative-analysis/latency-ladder.md'
         
         # Human factors
         'human-factors/sre-practices.md': 'architects-handbook/human-factors/sre-practices.md'
@@ -153,6 +158,32 @@ plugins:
         
         # Google interviews
         'google-interviews/dashboard.md': 'interview-prep/frameworks/google-interviews/dashboard.md'
+        
+        # Main section redirects
+        'part1-axioms/index.md': 'core-principles/laws/index.md'
+        'part2-pillars/index.md': 'core-principles/pillars/index.md'
+        'patterns/index.md': 'pattern-library/index.md'
+        'case-studies/index.md': 'architects-handbook/case-studies/index.md'
+        'quantitative/index.md': 'architects-handbook/quantitative-analysis/index.md'
+        'human-factors/index.md': 'architects-handbook/human-factors/index.md'
+        'excellence/index.md': 'architects-handbook/implementation-playbooks/index.md'
+        'learning-paths/index.md': 'architects-handbook/learning-paths/index.md'
+        
+        # Common pattern redirects
+        'patterns/cqrs.md': 'pattern-library/data-management/cqrs.md'
+        'patterns/sharding.md': 'pattern-library/scaling/sharding.md'
+        'patterns/retry-backoff.md': 'pattern-library/resilience/retry-backoff.md'
+        'patterns/timeout.md': 'pattern-library/resilience/timeout.md'
+        'patterns/bulkhead.md': 'pattern-library/resilience/bulkhead.md'
+        'patterns/health-check.md': 'pattern-library/resilience/health-check.md'
+        'patterns/rate-limiting.md': 'pattern-library/scaling/rate-limiting.md'
+        'patterns/backpressure.md': 'pattern-library/scaling/backpressure.md'
+        'patterns/auto-scaling.md': 'pattern-library/scaling/auto-scaling.md'
+        'patterns/consensus.md': 'pattern-library/coordination/consensus.md'
+        'patterns/leader-election.md': 'pattern-library/coordination/leader-election.md'
+        'patterns/cell-architecture.md': 'pattern-library/architecture/cell-based.md'
+        'patterns/observability.md': 'pattern-library/coordination/observability.md'
+        'patterns/chaos-engineering.md': 'architects-handbook/human-factors/chaos-engineering.md'
   - mermaid2:
       version: 10.6.1
       arguments:
@@ -525,30 +556,14 @@ nav:
     # Quantitative Analysis
     - Quantitative Analysis:
       - Overview: architects-handbook/quantitative-analysis/index.md
-      # Core Concepts
-      - Core Concepts:
-        - Little's Law: architects-handbook/quantitative-analysis/littles-law.md
-        - CAP Theorem: architects-handbook/quantitative-analysis/cap-theorem.md
-        - Amdahl's Law: architects-handbook/quantitative-analysis/amdahl-gustafson.md
-        - Universal Scalability Law: architects-handbook/quantitative-analysis/universal-scalability.md
-      # Advanced Topics
-      - Advanced Topics:
-        - Queueing Theory: architects-handbook/quantitative-analysis/queueing-models.md
-        - Failure Models: architects-handbook/quantitative-analysis/failure-models.md
-        - Network Theory: architects-handbook/quantitative-analysis/network-theory.md
-        - Information Theory: architects-handbook/quantitative-analysis/information-theory.md
-        - Performance Modeling: architects-handbook/quantitative-analysis/performance-modeling.md
-        - Reliability Theory: architects-handbook/quantitative-analysis/reliability-theory.md
-        - Capacity Planning: architects-handbook/quantitative-analysis/capacity-planning.md
-        - Latency Ladder: architects-handbook/quantitative-analysis/latency-ladder.md
-        - Consistency Models: architects-handbook/quantitative-analysis/consistency-models.md
-        - Availability Math: architects-handbook/quantitative-analysis/availability-math.md
-        - Power Laws: architects-handbook/quantitative-analysis/power-laws.md
-        - Markov Chains: architects-handbook/quantitative-analysis/markov-chains.md
-        - Stochastic Processes: architects-handbook/quantitative-analysis/stochastic-processes.md
-        - Graph Theory: architects-handbook/quantitative-analysis/graph-theory.md
-        - Computational Geometry: architects-handbook/quantitative-analysis/computational-geometry.md
-        - Time Series: architects-handbook/quantitative-analysis/time-series.md
+      - Little's Law: architects-handbook/quantitative-analysis/littles-law.md
+      - CAP Theorem: architects-handbook/quantitative-analysis/cap-theorem.md
+      - Amdahl's Law: architects-handbook/quantitative-analysis/amdahls-law.md
+      - Universal Scalability Law: architects-handbook/quantitative-analysis/universal-scalability.md
+      - Queueing Theory: architects-handbook/quantitative-analysis/queueing-theory.md
+      - Failure Models: architects-handbook/quantitative-analysis/failure-models.md
+      - Performance Modeling: architects-handbook/quantitative-analysis/performance-modeling.md
+      - Latency Numbers: architects-handbook/quantitative-analysis/latency-numbers.md
     
     # Human Factors
     - Human Factors:

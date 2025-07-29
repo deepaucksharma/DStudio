@@ -996,6 +996,6 @@ You're leaving with the searing realization that distributed state is where phys
 - [Law 4: Multidimensional Optimization](/core-principles/axioms/law4-tradeoffs) - Why we distribute
 - [Law 5: Distributed Knowledge](/core-principles/axioms/law5-epistemology) - Why consensus is hard
 - [Pillar 3: Truth](/core-principles/pillars/truth-distribution) - Where we agree to disagree
-- [Pattern: Event Sourcing](/patterns/event-sourcing) - Time travel for databases
-- [Pattern: CQRS](/patterns/cqrs) - Split personality disorder (but useful)
-- [Pattern: Sharding](/patterns/sharding) - Slice and dice your data
+- [Pattern: Event Sourcing](/pattern-library/data-management/event-sourcing) - Time travel for databases
+- [Pattern: CQRS](/pattern-library/data-management/cqrs) - Split personality disorder (but useful)
+- [Pattern: Sharding](/pattern-library/scaling/sharding) - Slice and dice your data

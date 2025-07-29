@@ -57,7 +57,7 @@ production_checklist:
     - Amazon: Survived 10x Prime Day traffic
     - Uber: 99.99% availability for 20M+ daily rides
 
-[Home](/) > [Patterns](patterns) > [Resilience Patterns](patterns/#resilience-patterns) > Circuit Breaker
+[Home](/) > [Pattern Library](/pattern-library/) > [Resilience Patterns](/pattern-library/resilience/) > Circuit Breaker
 
 **Fail fast, recover gracefully - The electrical metaphor that saves systems**
 

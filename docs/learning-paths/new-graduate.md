@@ -84,17 +84,17 @@ By completing this path, you will:
  
  ---
  
- **Day 1-2**: [Law 1: Correlated Failure](part1-axioms/law1-failure/index)
+ **Day 1-2**: [Law 1: Correlated Failure](../core-principles/laws/correlated-failure)
  - 🎯 Learn: Why redundancy isn't enough
  - 🛠️ Practice: Identify correlated failures in AWS outages
  - ⏱️ Time: 3-4 hours
  
- **Day 3-4**: [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index)
+ **Day 3-4**: [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality)
  - 🎯 Learn: Network delays and timeouts
  - 🛠️ Practice: Build a timeout simulator
  - ⏱️ Time: 3-4 hours
  
- **Day 5-7**: [Law 3: Emergent Chaos](part1-axioms/law3-emergence/index)
+ **Day 5-7**: [Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos)
  - 🎯 Learn: Complex behaviors from simple rules
  - 🛠️ Practice: Trace a cascade failure
  - ⏱️ Time: 4-5 hours
@@ -103,17 +103,17 @@ By completing this path, you will:
  
  ---
  
- **Day 8-9**: [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index)
+ **Day 8-9**: [Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization)
  - 🎯 Learn: CAP theorem in depth
  - 🛠️ Practice: Design trade-off matrices
  - ⏱️ Time: 3-4 hours
  
- **Day 10-11**: [Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index)
+ **Day 10-11**: [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge)
  - 🎯 Learn: Consensus and coordination
  - 🛠️ Practice: Implement vector clocks
  - ⏱️ Time: 4-5 hours
  
- **Day 12-14**: [Law 6: Cognitive Load](part1-axioms/law6-human-api/index)
+ **Day 12-14**: [Law 6: Cognitive Load](../core-principles/laws/cognitive-load)
  - 🎯 Learn: Why simple systems win
  - 🛠️ Practice: Simplify a complex design
  - ⏱️ Time: 3-4 hours
@@ -122,12 +122,12 @@ By completing this path, you will:
  
  ---
  
- **Day 15-16**: [Law 7: Economic Reality](part1-axioms/law7-economics/index)
+ **Day 15-16**: [Law 7: Economic Reality](../core-principles/laws/economic-reality)
  - 🎯 Learn: Cost-driven architecture
  - 🛠️ Practice: Calculate system costs
  - ⏱️ Time: 3-4 hours
  
- **Day 17-21**: [The 5 Pillars Overview](part2-pillars)
+ **Day 17-21**: [The 5 Pillars Overview](../core-principles/pillars/)
  - 🎯 Learn: Distribution strategies
  - 🛠️ Practice: Map pillars to real systems
  - ⏱️ Time: 8-10 hours

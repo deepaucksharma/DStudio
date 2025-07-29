@@ -7,7 +7,12 @@ __pycache__/
 venv/
 ENV/
 env/
-.venv
+.venv/
+*.pyc
+.pytest_cache/
+*.egg-info/
+build/
+dist/
 
 # MkDocs
 site/
@@ -23,6 +28,12 @@ site/
 # OS
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
 
 # Project specific
 archive/
