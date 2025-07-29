@@ -1,7 +1,6 @@
 site_name: The Compendium of Distributed Systems
 site_url: https://deepaucksharma.github.io/DStudio/
-site_description: Master distributed systems through physics-derived principles and
-  battle-tested patterns
+site_description: Master distributed systems through physics-derived principles and battle-tested patterns
 site_author: Deepak Sharma
 copyright: Copyright &copy; 2025 Deepak Sharma
 repo_name: deepaucksharma/DStudio
@@ -237,9 +236,8 @@ extra:
     name: Contact
   consent:
     title: Cookie consent
-    description: We use cookies to recognize your repeated visits and preferences,
-      as well as to measure the effectiveness of our documentation and whether users
-      find what they're searching for. With your consent, you're helping us to make
+    description: We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness
+      of our documentation and whether users find what they're searching for. With your consent, you're helping us to make
       our documentation better.
   version:
     provider: mike
@@ -294,6 +292,8 @@ nav:
     - Service Discovery: pattern-library/communication/service-discovery.md
     - Service Registry: pattern-library/communication/service-registry.md
     - Event Streaming: pattern-library/architecture/event-streaming.md
+    - gRPC: pattern-library/communication/grpc.md
+    - Request-Reply: pattern-library/communication/request-reply.md
   - Resilience Patterns:
     - Overview: pattern-library/resilience/index.md
     - Circuit Breaker: pattern-library/resilience/circuit-breaker.md
@@ -352,6 +352,7 @@ nav:
     - Tile Caching: pattern-library/scaling/tile-caching.md
     - URL Normalization: pattern-library/scaling/url-normalization.md
     - Queues & Streaming: pattern-library/scaling/queues-streaming.md
+    - Database per Service: pattern-library/scaling/database-per-service.md
   - Architecture Patterns:
     - Overview: pattern-library/architecture/index.md
     - Sidecar: pattern-library/architecture/sidecar.md
@@ -378,6 +379,13 @@ nav:
     - Clock Sync: pattern-library/coordination/clock-sync.md
     - CAS (Compare and Swap): pattern-library/coordination/cas.md
     - CAP Theorem: pattern-library/architecture/cap-theorem.md
+    - Actor Model: pattern-library/coordination/actor-model.md
+    - Distributed Lock: pattern-library/coordination/distributed-lock.md
+    - Distributed Queue: pattern-library/coordination/distributed-queue.md
+    - Emergent Leader: pattern-library/coordination/emergent-leader.md
+    - Leader Election: pattern-library/coordination/leader-election.md
+    - Leader Follower: pattern-library/coordination/leader-follower.md
+    - Low High Water Marks: pattern-library/coordination/low-high-water-marks.md
 - Part 3 - Architect's Handbook:
   - Overview: architects-handbook/index.md
   - Case Studies:
@@ -387,6 +395,40 @@ nav:
       - Payment System: architects-handbook/case-studies/financial-commerce/payment-system.md
       - Video Streaming: architects-handbook/case-studies/messaging-streaming/netflix-streaming.md
       - Uber Location: architects-handbook/case-studies/location-services/uber-location.md
+      - Google Maps: architects-handbook/case-studies/location-services/google-maps.md
+      - Apple Maps: architects-handbook/case-studies/location-services/apple-maps.md
+      - Nearby Friends: architects-handbook/case-studies/location-services/nearby-friends.md
+      - Proximity Service: architects-handbook/case-studies/location-services/proximity-service.md
+    - Financial & Commerce:
+      - Ad Click Aggregation: architects-handbook/case-studies/financial-commerce/ad-click-aggregation.md
+      - Digital Wallet Enhanced: architects-handbook/case-studies/financial-commerce/digital-wallet-enhanced.md
+      - Ecommerce Platform: architects-handbook/case-studies/financial-commerce/ecommerce-platform.md
+      - Hotel Reservation: architects-handbook/case-studies/financial-commerce/hotel-reservation.md
+      - Paypal Payments: architects-handbook/case-studies/financial-commerce/paypal-payments.md
+      - Shopify Flash Sales: architects-handbook/case-studies/financial-commerce/shopify-flash-sales.md
+      - Stock Exchange: architects-handbook/case-studies/financial-commerce/stock-exchange.md
+    - Social & Communication:
+      - Chat System: architects-handbook/case-studies/social-communication/chat-system.md
+      - Consistency Deep Dive Chat: architects-handbook/case-studies/social-communication/consistency-deep-dive-chat.md
+      - Distributed Email Enhanced: architects-handbook/case-studies/social-communication/distributed-email-enhanced.md
+      - Google Docs: architects-handbook/case-studies/social-communication/google-docs.md
+      - Google Gmail: architects-handbook/case-studies/social-communication/google-gmail.md
+      - Google Youtube: architects-handbook/case-studies/social-communication/google-youtube.md
+      - Notification System: architects-handbook/case-studies/social-communication/notification-system.md
+      - Slack Infrastructure: architects-handbook/case-studies/social-communication/slack-infrastructure.md
+      - Social Graph: architects-handbook/case-studies/social-communication/social-graph.md
+      - Social Media Feed: architects-handbook/case-studies/social-communication/social-media-feed.md
+      - Twitter Timeline: architects-handbook/case-studies/social-communication/twitter-timeline.md
+      - Video Streaming: architects-handbook/case-studies/social-communication/video-streaming.md
+      - Youtube: architects-handbook/case-studies/social-communication/youtube.md
+    - Search & Analytics:
+      - Elasticsearch: architects-handbook/case-studies/search-analytics/elasticsearch.md
+      - Gaming Leaderboard Enhanced: architects-handbook/case-studies/search-analytics/gaming-leaderboard-enhanced.md
+      - Google Drive: architects-handbook/case-studies/search-analytics/google-drive.md
+      - Google Search Infrastructure: architects-handbook/case-studies/search-analytics/google-search-infrastructure.md
+      - Google Search: architects-handbook/case-studies/search-analytics/google-search.md
+      - Search Autocomplete: architects-handbook/case-studies/search-analytics/search-autocomplete.md
+      - Spotify Recommendations: architects-handbook/case-studies/search-analytics/spotify-recommendations.md
     - Technology Deep Dives:
       - Databases:
         - Cassandra: architects-handbook/case-studies/databases/cassandra.md
@@ -394,12 +436,31 @@ nav:
         - MongoDB: architects-handbook/case-studies/databases/mongodb.md
         - etcd: architects-handbook/case-studies/databases/etcd.md
         - Amazon DynamoDB: architects-handbook/case-studies/databases/amazon-dynamo.md
+        - Google Spanner: architects-handbook/case-studies/databases/google-spanner.md
+        - Amazon Aurora: architects-handbook/case-studies/databases/amazon-aurora.md
+        - ZooKeeper: architects-handbook/case-studies/databases/zookeeper.md
+        - Vault: architects-handbook/case-studies/databases/vault.md
+        - Memcached: architects-handbook/case-studies/databases/memcached.md
+        - Key-Value Store Design: architects-handbook/case-studies/databases/key-value-store.md
       - Message Systems:
         - Kafka: architects-handbook/case-studies/messaging-streaming/kafka.md
         - Distributed Message Queue: architects-handbook/case-studies/messaging-streaming/distributed-message-queue.md
+        - Apache Spark: architects-handbook/case-studies/messaging-streaming/apache-spark.md
+        - MapReduce: architects-handbook/case-studies/messaging-streaming/mapreduce.md
       - Infrastructure:
         - Kubernetes: architects-handbook/case-studies/infrastructure/kubernetes.md
         - Prometheus: architects-handbook/case-studies/monitoring-observability/prometheus.md
+      - Monitoring & Observability:
+        - Metrics Monitoring: architects-handbook/case-studies/monitoring-observability/metrics-monitoring.md
+        - Prometheus Datadog Enhanced: architects-handbook/case-studies/monitoring-observability/prometheus-datadog-enhanced.md
+        - Rate Limiter: architects-handbook/case-studies/monitoring-observability/rate-limiter.md
+    - Elite Engineering:
+      - Amazon DynamoDB Evolution: architects-handbook/case-studies/elite-engineering/amazon-dynamodb-evolution.md
+      - Discord Voice Infrastructure: architects-handbook/case-studies/elite-engineering/discord-voice-infrastructure.md
+      - Figma CRDT Collaboration: architects-handbook/case-studies/elite-engineering/figma-crdt-collaboration.md
+      - Netflix Chaos Engineering: architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering.md
+      - Netflix Chaos: architects-handbook/case-studies/elite-engineering/netflix-chaos.md
+      - Stripe API Excellence: architects-handbook/case-studies/elite-engineering/stripe-api-excellence.md
   - Implementation Playbooks:
     - Overview: architects-handbook/implementation-playbooks/index.md
   - Quantitative Analysis:
@@ -425,3 +486,9 @@ nav:
     - System Design Checklist: interview-prep/cheatsheets/system-design-checklist.md
 - Contributing:
   - How to Contribute: reference/contributing.md
+  - Glossary: reference/glossary.md
+  - Pattern Health Dashboard: reference/pattern-health-dashboard.md
+  - Security Considerations: reference/security.md
+  - Cheat Sheets: reference/cheat-sheets.md
+  - Keyboard Shortcuts: reference/keyboard-shortcuts.md
+  - Tags: reference/tags.md
