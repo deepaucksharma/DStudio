@@ -1,6 +1,6 @@
 # Pattern Library
 
-Explore 101+ battle-tested distributed systems patterns organized by problem domain.
+Explore 106 battle-tested distributed systems patterns organized by problem domain.
 
 ## 🔍 Pattern Discovery
 
@@ -105,13 +105,13 @@ Explore 101+ battle-tested distributed systems patterns organized by problem dom
 
 ## 🏆 Excellence Tiers
 
-### 🥇 Gold Tier (38 patterns)
+### 🥇 Gold Tier (47 patterns)
 Battle-tested patterns used in production by tech giants. Include production checklists and scale examples.
 
-### 🥈 Silver Tier (38 patterns)  
+### 🥈 Silver Tier (51 patterns)  
 Solid patterns with specific use cases. Include detailed trade-offs and implementation guides.
 
-### 🥉 Bronze Tier (25 patterns)
+### 🥉 Bronze Tier (8 patterns)
 Legacy or specialized patterns. Include migration paths to modern alternatives.
 
 ## 📊 Pattern Metadata
