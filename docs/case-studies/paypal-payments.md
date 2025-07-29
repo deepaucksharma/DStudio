@@ -690,7 +690,7 @@ graph TB
 - [SAGA Pattern](../patterns/saga.md)
 - [Event Sourcing](../patterns/event-sourcing.md)
 - Idempotent Receiver (Coming Soon)
-- [Circuit Breaker](../patterns/circuit-breaker.md)
+- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
 
 ### Technical Resources
 - [Distributed Transactions at Scale](https://www.paypal-engineering.com/distributed-transactions)
@@ -717,10 +717,10 @@ graph TB
 - **[SAGA Pattern](../patterns/saga.md)** - Orchestrates distributed transactions with compensation logic
 - **[Event Sourcing](../patterns/event-sourcing.md)** - Immutable event log provides perfect audit trail
 - **Idempotent Receiver (Coming Soon)** - Prevents duplicate payments at every layer
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects against cascading failures to bank networks
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects against cascading failures to bank networks
 - **[Outbox Pattern](../patterns/outbox.md)** - Ensures reliable event publishing with database transactions
-- **[Bulkhead](../patterns/bulkhead.md)** - Isolates payment types and regions for fault containment
-- **[Retry & Backoff](../patterns/retry-backoff.md)** - Handles transient failures in external integrations
+- **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Isolates payment types and regions for fault containment
+- **[Retry & Backoff](../pattern-library/resilience/retry-backoff.md)** - Handles transient failures in external integrations
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Chooses AP with eventual consistency through compensations

@@ -12,5 +12,5 @@ mkdocs-git-revision-date-localized-plugin>=1.2.0
 # Optional Features (uncomment as needed)
 # mkdocs-exclude-search>=0.6.5
 # markdown-include>=0.8.1
-# mkdocs-redirects>=1.2.0
+mkdocs-redirects>=1.2.0
 # mkdocs-awesome-pages-plugin>=2.9.0

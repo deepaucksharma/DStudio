@@ -2072,7 +2072,7 @@ Storage Node      32GB      8 cores  10TB
 - [Law 3: Emergence](../part1-axioms/law3-emergence/index.md) - Massive parallelism patterns
 - [Law 6: Human-API](../part1-axioms/law6-human-api/index.md) - Crawler ethics and robots.txt
 - [Queue Patterns](../patterns/queues-streaming.md) - Priority queue implementations
-- [Bulkhead Pattern](../patterns/bulkhead.md) - Domain isolation strategies
+- [Bulkhead Pattern](../pattern-library/resilience/bulkhead.md) - Domain isolation strategies
 
 **Advanced Topics:**
 - JavaScript Crawling (Coming Soon) - Headless browser techniques

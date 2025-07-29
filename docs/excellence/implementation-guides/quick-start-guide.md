@@ -630,8 +630,8 @@ kubectl rollout undo deployment/api-deployment
 
 ## Resources
 
-- [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
-- [Retry Patterns](../patterns/retry-backoff.md)
+- [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md)
+- [Retry Patterns](../pattern-library/resilience/retry-backoff.md)
 - [Caching Strategies](../patterns/caching-strategies.md)
 - [Auto-scaling Guide](../patterns/auto-scaling.md)
 - [Monitoring Best Practices](../human-factors/observability-stacks.md)

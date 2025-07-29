@@ -51,8 +51,8 @@ Consistent Hashing → Sharding → WebSockets → Edge Computing
 
 | Pattern | When to Use | Code Example |
 |---------|-------------|--------------|
-| **[Circuit Breaker](../patterns/circuit-breaker.md)** | Any external service call | See implementation below |
-| **[Retry with Backoff](../patterns/retry-backoff.md)** | Transient failures expected | Exponential backoff required |
+| **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** | Any external service call | See implementation below |
+| **[Retry with Backoff](../pattern-library/resilience/retry-backoff.md)** | Transient failures expected | Exponential backoff required |
 | **[Rate Limiting](../patterns/rate-limiting.md)** | Public APIs, resource protection | Token bucket recommended |
 | **[Caching](../patterns/caching-strategies.md)** | Read-heavy workloads | Cache-aside pattern |
 

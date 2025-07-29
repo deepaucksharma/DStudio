@@ -527,7 +527,7 @@ graph TD
 | Resource | Type | Relevance |
 |----------|------|-----------|
 | **[API Gateway Pattern](../patterns/api-gateway.md)** | Pattern | Alternative for complex auth |
-| **[Circuit Breaker](../patterns/circuit-breaker.md)** | Pattern | Protect storage services |
+| **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** | Pattern | Protect storage services |
 | **[Rate Limiting](../patterns/rate-limiting.md)** | Pattern | Control valet key generation |
 | **[Law 7: Economic Reality](part1-axioms/law7-economics/index)** | Axiom | Cost optimization driver |
 | **[Pillar 4: Control](part2-pillars/control/index)** | Pillar | Access control principles |

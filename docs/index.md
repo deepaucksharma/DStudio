@@ -17,152 +17,88 @@ hide:
 
 <div class="grid cards" markdown>
 
-- :material-rocket-launch:{ .lg } **Getting Started**
+- :material-atom:{ .lg } **Core Principles**
     
     ---
     
-    New to distributed systems? Start with our comprehensive introduction and choose your learning path.
+    Master the fundamental laws and pillars that govern all distributed systems
     
-    [:octicons-arrow-right-24: Begin Learning](introduction/getting-started){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Learn Principles](core-principles/){ .md-button .md-button--primary }
 
-- :material-compass:{ .lg } **Pattern Discovery**
+- :material-book-open:{ .lg } **Pattern Library**
     
     ---
     
-    Find the perfect patterns for your challenges using our interactive discovery tool.
+    Explore 101+ battle-tested patterns organized by problem domain
     
-    [:octicons-arrow-right-24: Discover Patterns](excellence/pattern-discovery){ .md-button }
+    [:octicons-arrow-right-24: Browse Patterns](pattern-library/){ .md-button }
 
-- :material-book-open:{ .lg } **Browse All Patterns**
+- :material-tools:{ .lg } **Architect's Handbook**
     
     ---
     
-    Explore our complete catalog of 101 patterns organized by excellence tier.
+    Real-world case studies, implementation guides, and quantitative tools
     
-    [:octicons-arrow-right-24: View Patterns](patterns){ .md-button }
+    [:octicons-arrow-right-24: Access Handbook](architects-handbook/){ .md-button }
 
-- :material-chart-line:{ .lg } **Pattern Health**
+- :material-school-outline:{ .lg } **Interview Prep**
     
     ---
     
-    Real-time adoption metrics and trends across the industry.
+    Ace your system design interviews with frameworks and practice problems
     
-    [:octicons-arrow-right-24: View Dashboard](reference/pattern-health-dashboard){ .md-button }
+    [:octicons-arrow-right-24: Start Prep](interview-prep/){ .md-button }
 
 </div>
 
-## Choose Your Learning Path
+## What You'll Learn
 
 <div class="grid cards" markdown>
 
-- :material-school:{ .lg } **New Graduate**
+- **Fundamental Laws**
     
     ---
     
-    12-week foundation path from physics to patterns
+    7 immutable laws derived from physics that shape distributed systems
     
-    [:octicons-arrow-right-24: Start Path](learning-paths/new-graduate){ .md-button }
+    [:octicons-arrow-right-24: Explore Laws](core-principles/laws/){ .md-button }
 
-- :material-code-tags:{ .lg } **Senior Engineer**
+- **Core Pillars**
     
     ---
     
-    8-week deep dive into patterns and trade-offs
+    5 foundational concepts for distributing work, state, truth, control, and intelligence
     
-    [:octicons-arrow-right-24: Start Path](learning-paths/senior-engineer){ .md-button }
+    [:octicons-arrow-right-24: Study Pillars](core-principles/pillars/){ .md-button }
 
-- :material-account-star:{ .lg } **Architect**
+- **Proven Patterns**
     
     ---
     
-    6-week mastery of system design and leadership
+    101+ architectural patterns categorized by excellence tiers (Gold/Silver/Bronze)
     
-    [:octicons-arrow-right-24: Start Path](learning-paths/architect){ .md-button }
+    [:octicons-arrow-right-24: View Patterns](pattern-library/){ .md-button }
 
-- :material-account-group:{ .lg } **Manager**
+- **Real-World Application**
     
     ---
     
-    4-week guide to organizational excellence
+    Case studies from Netflix, Uber, Google, and more
     
-    [:octicons-arrow-right-24: Start Path](learning-paths/manager){ .md-button }
+    [:octicons-arrow-right-24: Read Cases](architects-handbook/case-studies/){ .md-button }
 
 </div>
 
-## Core Foundations
-
-<div class="grid cards" markdown>
-
-- :material-atom:{ .lg } **The 7 Laws**
-    
-    ---
-    
-    Fundamental laws derived from physics that govern all distributed systems
-    
-    [:octicons-arrow-right-24: Explore Laws](part1-axioms){ .md-button }
-
-- :material-pillar:{ .lg } **The 5 Pillars**
-    
-    ---
-    
-    Core concepts for organizing distributed solutions
-    
-    [:octicons-arrow-right-24: Study Pillars](part2-pillars){ .md-button }
-
-</div>
-
-## Excellence Framework
-
-<div class="grid cards" markdown>
-
-- **Implementation Guides**
-    
-    ---
-    
-    Deep-dive guides for building resilient systems
-    
-    [:octicons-arrow-right-24: View Guides](excellence/implementation-guides){ .md-button }
-
-- **Real-World Excellence**
-    
-    ---
-    
-    Learn from Netflix, Amazon, Google, and Uber
-    
-    [:octicons-arrow-right-24: Case Studies](excellence/real-world-excellence){ .md-button }
-
-- **Excellence Journeys**
-    
-    ---
-    
-    Transformation paths for different scenarios
-    
-    [:octicons-arrow-right-24: Start Journey](excellence/excellence-journeys){ .md-button }
-
-- **Migration Center**
-    
-    ---
-    
-    Upgrade from legacy to modern patterns
-    
-    [:octicons-arrow-right-24: Migration Guides](excellence/migrations){ .md-button }
-
-</div>
-
-## Quick Access
+## Quick Links
 
 | Resource | Description |
 |----------|-------------|
-| [Pattern Discovery Tool](excellence/pattern-discovery) | Interactive pattern finder with filters |
-| [Quick Start Guides](excellence/quick-start) | Role-specific 30-minute guides |
-| [Quantitative Models](quantitative) | Mathematical foundations and calculators |
-| [Case Studies](case-studies) | Real-world implementations and failures |
-| [Human Factors](human-factors) | SRE practices and operational excellence |
+| [Getting Started Guide](core-principles/) | Begin your distributed systems journey |
+| [Pattern Discovery Tool](pattern-library/) | Find patterns for your specific challenges |
+| [Excellence Framework](architects-handbook/#excellence-framework) | Build and operate world-class systems |
+| [Learning Paths](core-principles/#learning-paths) | Customized paths for different roles |
+| [Quantitative Analysis](architects-handbook/quantitative-analysis/) | Mathematical tools and calculators |
 
 ---
 
-<div class="grid cards" markdown>
-
-- **Ready to begin?** [:octicons-arrow-right-24: Start with Getting Started](introduction/getting-started){ .md-button .md-button--primary }
-
-</div>
+*Building distributed systems with maximum conceptual depth and minimum cognitive load*

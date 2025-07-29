@@ -1694,7 +1694,7 @@ class DistributedAutocomplete:
 - **Trie Data Structure (Coming Soon)** - Core search structure
 - **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-level caching
 - **[Sharding](../patterns/sharding.md)** - Distribute by prefix
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
 - **[Load Balancing](../patterns/load-balancing.md)** - Distribute queries
 - **[Event Streaming](../patterns/event-streaming.md)** - Real-time updates
 - **[Edge Computing](../patterns/edge-computing.md)** - Global latency optimization

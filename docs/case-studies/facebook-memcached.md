@@ -458,7 +458,7 @@ graph TB
 
 - [Distributed Cache Pattern](../patterns/distributed-cache.md)
 - [Consistent Hashing Pattern](../patterns/consistent-hashing.md)
-- [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
+- [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md)
 - [Scaling Memcached at Facebook](https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf)
 
 ---

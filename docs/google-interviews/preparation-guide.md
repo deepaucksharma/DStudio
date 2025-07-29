@@ -202,7 +202,7 @@ gantt
 **Goal**: Master design patterns used at scale
 
 **Patterns to Study:**
-- [Circuit Breaker](google-interviews/../../patterns/circuit-breaker.md) - Failure isolation
+- [Circuit Breaker](google-interviews/../../pattern-library/resilience/circuit-breaker.md) - Failure isolation
 - [Sharding](google-interviews/../../patterns/sharding.md) - Data partitioning
 - [Event Sourcing](google-interviews/../../patterns/event-sourcing.md) - Event-driven systems
 - [CQRS](google-interviews/../../patterns/cqrs.md) - Read/write separation
@@ -748,7 +748,7 @@ graph LR
 ## 🔗 Quick Links
 
 ### Patterns
-- [Circuit Breaker](google-interviews/../../patterns/circuit-breaker.md)
+- [Circuit Breaker](google-interviews/../../pattern-library/resilience/circuit-breaker.md)
 - [Sharding](google-interviews/../../patterns/sharding.md)
 - [Caching Strategies](google-interviews/../../patterns/caching-strategies.md)
 - [Load Balancing](google-interviews/../../patterns/load-balancing.md)

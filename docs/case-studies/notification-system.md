@@ -2523,7 +2523,7 @@ Analytics Service    8 cores  32GB      10TB
 #### Advanced Topics
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - Asynchronous notification processing
 - **[Queue Systems](../patterns/queues-streaming.md)** - Message queue patterns
-- **[Circuit Breakers](../patterns/circuit-breaker.md)** - Provider failure handling
+- **[Circuit Breakers](../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
 - **[Rate Limiting](../patterns/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
@@ -2552,6 +2552,6 @@ Analytics Service    8 cores  32GB      10TB
 
 **Related Patterns:**
 - [Message Queue](../patterns/queues-streaming.md)
-- [Circuit Breaker](../patterns/circuit-breaker.md)
+- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
 - [Event-Driven Architecture](../patterns/event-driven.md)
 - [Rate Limiting](../patterns/rate-limiting.md)

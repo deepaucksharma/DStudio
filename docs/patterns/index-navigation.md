@@ -55,22 +55,22 @@ pattern_status: stable
     
     <div class="grid cards" markdown>
     
-    - :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../patterns/circuit-breaker.md)**
+    - :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)**
         
         ---
         Prevent cascading failures by failing fast when services are unhealthy
         
-    - :material-refresh:{ .lg .middle } **[Retry & Backoff](../patterns/retry-backoff.md)**
+    - :material-refresh:{ .lg .middle } **[Retry & Backoff](../pattern-library/resilience/retry-backoff.md)**
         
         ---
         Handle transient failures with intelligent retry strategies
         
-    - :material-ship:{ .lg .middle } **[Bulkhead](../patterns/bulkhead.md)**
+    - :material-ship:{ .lg .middle } **[Bulkhead](../pattern-library/resilience/bulkhead.md)**
         
         ---
         Isolate resources to prevent total system failure
         
-    - :material-timer-sand:{ .lg .middle } **[Timeout](../patterns/timeout.md)**
+    - :material-timer-sand:{ .lg .middle } **[Timeout](../pattern-library/resilience/timeout.md)**
         
         ---
         Prevent indefinite waiting with appropriate timeout strategies
@@ -136,10 +136,10 @@ pattern_status: stable
     ### What problem are you trying to solve?
     
     !!! question "I need to handle failures gracefully"
-        - [Circuit Breaker](../patterns/circuit-breaker.md) - Prevent cascade failures
-        - [Retry & Backoff](../patterns/retry-backoff.md) - Handle transient failures
-        - [Bulkhead](../patterns/bulkhead.md) - Isolate failures
-        - [Timeout](../patterns/timeout.md) - Prevent hanging requests
+        - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Prevent cascade failures
+        - [Retry & Backoff](../pattern-library/resilience/retry-backoff.md) - Handle transient failures
+        - [Bulkhead](../pattern-library/resilience/bulkhead.md) - Isolate failures
+        - [Timeout](../pattern-library/resilience/timeout.md) - Prevent hanging requests
     
     !!! question "I need to scale my system"
         - [Sharding](../patterns/sharding.md) - Horizontal data partitioning
@@ -164,15 +164,15 @@ pattern_status: stable
     ### :material-sprout: Beginner Patterns
     Start here if you're new to distributed systems
     
-    - [Timeout Pattern](../patterns/timeout.md) - Basic failure handling
-    - [Retry Pattern](../patterns/retry-backoff.md) - Simple resilience
-    - [Health Check](../patterns/health-check.md) - Service monitoring
+    - [Timeout Pattern](../pattern-library/resilience/timeout.md) - Basic failure handling
+    - [Retry Pattern](../pattern-library/resilience/retry-backoff.md) - Simple resilience
+    - [Health Check](../pattern-library/resilience/health-check.md) - Service monitoring
     - [Load Balancing](../patterns/load-balancing.md) - Request distribution
     
     ### :material-tree: Intermediate Patterns
     Build on the basics with more complex patterns
     
-    - [Circuit Breaker](../patterns/circuit-breaker.md) - Advanced failure handling
+    - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Advanced failure handling
     - [API Gateway](../patterns/api-gateway.md) - Edge services
     - [Caching Strategies](../patterns/caching-strategies.md) - Performance optimization
     - [Sharding](../patterns/sharding.md) - Data partitioning
@@ -212,7 +212,7 @@ Each pattern follows a consistent structure:
 
 Based on community usage and feedback:
 
-1. :material-star: [Circuit Breaker](../patterns/circuit-breaker.md) - Essential for microservices
+1. :material-star: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Essential for microservices
 2. :material-star: [API Gateway](../patterns/api-gateway.md) - Edge service pattern
 3. :material-star: [Saga](../patterns/saga.md) - Distributed transactions
 4. :material-star: [Event Sourcing](../patterns/event-sourcing.md) - Event-driven architecture
@@ -223,10 +223,10 @@ Based on community usage and feedback:
 !!! success "Recommended Learning Sequences"
     
     **For Resilience Engineering:**
-    1. [Timeout](../patterns/timeout.md) → 
-    2. [Retry & Backoff](../patterns/retry-backoff.md) → 
-    3. [Circuit Breaker](../patterns/circuit-breaker.md) → 
-    4. [Bulkhead](../patterns/bulkhead.md)
+    1. [Timeout](../pattern-library/resilience/timeout.md) → 
+    2. [Retry & Backoff](../pattern-library/resilience/retry-backoff.md) → 
+    3. [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) → 
+    4. [Bulkhead](../pattern-library/resilience/bulkhead.md)
     
     **For Data Management:**
     1. [Sharding](../patterns/sharding.md) → 

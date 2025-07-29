@@ -1406,7 +1406,7 @@ Analytics     10M events/s    Kafka throughput
 **Implementation Patterns:**
 - [Database Sharding](../patterns/sharding.md) - Horizontal scaling
 - [Bloom Filters](../patterns/bloom-filter.md) - Space-efficient lookups
-- [Circuit Breakers](../patterns/circuit-breaker.md) - Handling failures
+- [Circuit Breakers](../pattern-library/resilience/circuit-breaker.md) - Handling failures
 - [CQRS](../patterns/cqrs.md) - Read/write separation
 
 ### 📚 References

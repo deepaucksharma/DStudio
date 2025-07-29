@@ -1363,7 +1363,7 @@ Database:
 **Implementation Patterns:**
 - Client Library Design (Coming Soon) - SDK best practices
 - [Service Discovery](../patterns/service-discovery.md) - For ticket server architectures
-- [Graceful Degradation](../patterns/graceful-degradation.md) - Fallback strategies
+- [Graceful Degradation](../pattern-library/resilience/graceful-degradation.md) - Fallback strategies
 
 ### 📚 References
 

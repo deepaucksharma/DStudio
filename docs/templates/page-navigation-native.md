@@ -369,6 +369,6 @@ Instead of generic headings, use specific ones that help with search:
 ## Example Implementation
 
 See the enhanced pages:
-- `/docs/patterns/circuit-breaker-native.md`
+- `/docs/pattern-library/resilience/circuit-breaker.md`
 - `/docs/case-studies/cassandra-native.md`
 - `/docs/quantitative/cap-theorem-native.md`

@@ -1383,7 +1383,7 @@ messaging:
 - [Event-Driven Architecture](../patterns/event-driven.md) - Built on queues/streams
 - [CQRS](../patterns/cqrs.md) - Commands via queues
 - [Saga Pattern](../patterns/saga.md) - Orchestration via queues
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Protect consumers
+- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Protect consumers
 
 ### Laws
 - [Law 4 (Multidimensional Optimization )](part1-axioms/law4-tradeoffs) - Why buffering matters

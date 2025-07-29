@@ -561,5 +561,5 @@ graph TD
 - [Observability Pattern](../../human-factors/observability.md)
 - [Chaos Engineering](../../human-factors/chaos-engineering.md)
 - [SRE Practices](../../human-factors/sre.md)
-- [Health Check Pattern](../../patterns/health-check.md)
-- [Circuit Breaker Pattern](../../patterns/circuit-breaker.md) (Gold)
+- [Health Check Pattern](../../pattern-library/resilience/health-check.md)
+- [Circuit Breaker Pattern](../../pattern-library/resilience/circuit-breaker.md) (Gold)

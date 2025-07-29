@@ -44,13 +44,13 @@ For each case study, add a "Patterns Demonstrated" section:
 This case study demonstrates the following patterns in production:
 
 ### Core Patterns
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Hystrix prevents cascade failures
-- **[Bulkhead](../patterns/bulkhead.md)** - Thread pool isolation
-- **[Timeout](../patterns/timeout.md)** - Request timeout management
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Hystrix prevents cascade failures
+- **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Thread pool isolation
+- **[Timeout](../pattern-library/resilience/timeout.md)** - Request timeout management
 
 ### Supporting Patterns
 - **[Service Mesh](../patterns/service-mesh.md)** - Modern implementation
-- **[Health Checks](../patterns/health-check.md)** - Service health monitoring
+- **[Health Checks](../pattern-library/resilience/health-check.md)** - Service health monitoring
 ```
 
 ### Phase 3: Create Missing Case Studies

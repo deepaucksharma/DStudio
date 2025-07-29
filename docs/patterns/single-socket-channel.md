@@ -973,9 +973,9 @@ Single-Socket Channel implements:
 - **[QUIC](../patterns/api-gateway.md#quic)**: UDP-based multiplexing
 
 ### Supporting Patterns
-- **[Circuit Breaker](../patterns/circuit-breaker.md)**: Per-channel protection
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)**: Per-channel protection
 - **[Backpressure](../patterns/backpressure.md)**: Flow control
-- **[Heartbeat](../patterns/heartbeat.md)**: Keep-alive mechanism
+- **[Heartbeat](../pattern-library/resilience/heartbeat.md)**: Keep-alive mechanism
 
 ---
 

@@ -739,17 +739,17 @@ Water Marks implement:
 
 ### Core Dependencies
 - **[Backpressure](../patterns/backpressure.md)**: Water marks trigger backpressure
-- **[Circuit Breaker](../patterns/circuit-breaker.md)**: Similar state-based protection
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)**: Similar state-based protection
 - **[Rate Limiting](../patterns/rate-limiting.md)**: Enforcement mechanism
 
 ### Supporting Patterns
 - **[Queue](../patterns/distributed-queue.md)**: Often uses water marks
-- **[Timeout](../patterns/timeout.md)**: Drain timeout at high water
-- **[Bulkhead](../patterns/bulkhead.md)**: Isolate resources with marks
+- **[Timeout](../pattern-library/resilience/timeout.md)**: Drain timeout at high water
+- **[Bulkhead](../pattern-library/resilience/bulkhead.md)**: Isolate resources with marks
 
 ### Similar Concepts
 - **[Admission Control](../patterns/rate-limiting.md#admission-control)**: Entry-point flow control
-- **[Load Shedding](../patterns/load-shedding.md)**: Beyond high water mark
+- **[Load Shedding](../pattern-library/resilience/load-shedding.md)**: Beyond high water mark
 - **[Throttling](../patterns/rate-limiting.md#throttling)**: Between water marks
 
 ---

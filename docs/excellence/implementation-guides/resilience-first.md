@@ -340,7 +340,7 @@ graph TD
 
 ## Resources
 
-- [Circuit Breaker Pattern](../../patterns/circuit-breaker.md) (Gold)
-- [Bulkhead Pattern](../../patterns/bulkhead.md) (Gold)
+- [Circuit Breaker Pattern](../../pattern-library/resilience/circuit-breaker.md) (Gold)
+- [Bulkhead Pattern](../../pattern-library/resilience/bulkhead.md) (Gold)
 - [Chaos Engineering](../../human-factors/chaos-engineering.md)
 - [Cell-based Architecture](../../patterns/cell-based.md) (Gold)

@@ -1423,7 +1423,7 @@ graph TB
 - **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-tier caching from edge to origin
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - Video processing pipeline triggered by upload events
 - **[Auto-Scaling](../patterns/auto-scaling.md)** - Dynamic compute allocation for transcoding workloads
-- **[Graceful Degradation](../patterns/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
+- **[Graceful Degradation](../pattern-library/resilience/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
 
 ### Quantitative Models
 - **[Power Laws](../quantitative/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers

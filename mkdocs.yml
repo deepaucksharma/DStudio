@@ -92,10 +92,81 @@ plugins:
 
   - redirects:
       redirect_maps:
-        'patterns/anti-entropy.md': 'patterns/event-sourcing.md'
-        'patterns/vector-clocks.md': 'patterns/hlc.md'
-        'patterns/two-phase-commit.md': 'patterns/saga.md'
-  - mermaid2
+        # Pattern redirects for renamed patterns
+        'patterns/anti-entropy.md': 'pattern-library/data-management/event-sourcing.md'
+        'patterns/vector-clocks.md': 'pattern-library/coordination/hlc.md'
+        'patterns/two-phase-commit.md': 'pattern-library/data-management/saga.md'
+        
+        # Old structure to new structure redirects
+        # Laws
+        'part1-axioms/law1-failure/index.md': 'core-principles/laws/correlated-failure.md'
+        'part1-axioms/law2-asynchrony/index.md': 'core-principles/laws/asynchronous-reality.md'
+        'part1-axioms/law3-emergence/index.md': 'core-principles/laws/emergent-chaos.md'
+        'part1-axioms/law4-tradeoffs/index.md': 'core-principles/laws/multidimensional-optimization.md'
+        'part1-axioms/law5-epistemology/index.md': 'core-principles/laws/distributed-knowledge.md'
+        'part1-axioms/law6-human-api/index.md': 'core-principles/laws/cognitive-load.md'
+        'part1-axioms/law7-economics/index.md': 'core-principles/laws/economic-reality.md'
+        
+        # Pillars
+        'part2-pillars/work/index.md': 'core-principles/pillars/work-distribution.md'
+        'part2-pillars/state/index.md': 'core-principles/pillars/state-distribution.md'
+        'part2-pillars/truth/index.md': 'core-principles/pillars/truth-distribution.md'
+        'part2-pillars/control/index.md': 'core-principles/pillars/control-distribution.md'
+        'part2-pillars/intelligence/index.md': 'core-principles/pillars/intelligence-distribution.md'
+        
+        # Pattern redirects
+        'patterns/api-gateway.md': 'pattern-library/communication/api-gateway.md'
+        'patterns/circuit-breaker.md': 'pattern-library/resilience/circuit-breaker.md'
+        'patterns/event-sourcing.md': 'pattern-library/data-management/event-sourcing.md'
+        'patterns/caching-strategies.md': 'pattern-library/scaling/caching-strategies.md'
+        'patterns/service-mesh.md': 'pattern-library/communication/service-mesh.md'
+        'patterns/saga.md': 'pattern-library/data-management/saga.md'
+        'patterns/load-balancing.md': 'pattern-library/scaling/load-balancing.md'
+        'patterns/distributed-lock.md': 'pattern-library/data-management/distributed-lock.md'
+        
+        # Case studies
+        'case-studies/kafka.md': 'architects-handbook/case-studies/kafka.md'
+        'case-studies/redis-architecture.md': 'architects-handbook/case-studies/redis-architecture.md'
+        'case-studies/payment-system.md': 'architects-handbook/case-studies/payment-system.md'
+        'case-studies/netflix-streaming.md': 'architects-handbook/case-studies/netflix-streaming.md'
+        'case-studies/uber-location.md': 'architects-handbook/case-studies/uber-location.md'
+        'case-studies/amazon-dynamo.md': 'architects-handbook/case-studies/amazon-dynamo.md'
+        
+        # Quantitative
+        'quantitative/littles-law.md': 'architects-handbook/quantitative-analysis/littles-law.md'
+        'quantitative/cap-theorem.md': 'architects-handbook/quantitative-analysis/cap-theorem.md'
+        'quantitative/amdahl-gustafson.md': 'architects-handbook/quantitative-analysis/amdahl-gustafson.md'
+        
+        # Human factors
+        'human-factors/sre-practices.md': 'architects-handbook/human-factors/sre-practices.md'
+        'human-factors/incident-response.md': 'architects-handbook/human-factors/incident-response.md'
+        
+        # Excellence framework
+        'excellence/pattern-selection-wizard.md': 'architects-handbook/implementation-playbooks/pattern-selection-wizard.md'
+        'excellence/excellence-dashboard.md': 'architects-handbook/implementation-playbooks/excellence-dashboard.md'
+        
+        # Learning paths
+        'learning-paths/new-graduate.md': 'architects-handbook/learning-paths/new-graduate.md'
+        'learning-paths/senior-engineer.md': 'architects-handbook/learning-paths/senior-engineer.md'
+        'learning-paths/architect.md': 'architects-handbook/learning-paths/architect.md'
+        'learning-paths/manager.md': 'architects-handbook/learning-paths/manager.md'
+        
+        # Google interviews
+        'google-interviews/dashboard.md': 'interview-prep/frameworks/google-interviews/dashboard.md'
+  - mermaid2:
+      version: 10.6.1
+      arguments:
+        theme: 'default'
+        themeVariables:
+          primaryColor: '#5448C8'
+          primaryTextColor: '#ffffff'
+          primaryBorderColor: '#5448C8'
+          lineColor: '#6366f1'
+          sectionBkgColor: '#f8fafc'
+          altSectionBkgColor: '#f1f5f9'
+          gridColor: '#e2e8f0'
+          secondaryColor: '#00BCD4'
+          tertiaryColor: '#f3f4f6'
   - minify:
       minify_html: true
       minify_js: true
@@ -172,8 +243,8 @@ extra_javascript:
   # Core custom functionality
   - javascripts/custom.js
   
-  # Mermaid Diagrams
-  - javascripts/mermaid-init.js
+  # Pattern filtering system
+  - javascripts/pattern-filtering.js
 
 # Extra Configuration
 extra:
@@ -231,10 +302,6 @@ extra:
     options:
       loader: {load: ['[tex]/gensymb']}
       tex: {packages: {'[+]': ['gensymb']}}
-      
-  # Mermaid
-  mermaid:
-    javascript: javascripts/mermaid-init.js
 
 # Exclude Patterns
 exclude_docs: |
@@ -245,307 +312,334 @@ exclude_docs: |
 nav:
   - Home: index.md
   
-  # Getting Started & Learning
-  - Getting Started:
-    - Introduction: introduction/index.md
-    - Getting Started Guide: introduction/getting-started.md
-    - Core Philosophy: introduction/philosophy.md
-    - Learning Paths:
-      - Choose Your Path: learning-paths/index.md
-      - New Graduate: learning-paths/new-graduate.md
-      - Senior Engineer: learning-paths/senior-engineer.md
-      - Architect: learning-paths/architect.md
-      - Manager: learning-paths/manager.md
-    - Topic Guides:
-      - Performance: learning-paths/performance.md
-      - Cost Optimization: learning-paths/cost.md
-      - Reliability: learning-paths/reliability.md
-  
-  # Core Fundamentals
-  - Fundamentals:
+  # Part 1: Core Principles
+  - Part 1 - Core Principles:
+    - Overview: core-principles/index.md
+    
+    # The 7 Laws
     - The 7 Laws:
-      - Overview: part1-axioms/index.md
-      - Law Interactions: part1-axioms/law-interactions.md
-      - Law 1 - Correlated Failure:
-        - Concept: part1-axioms/law1-failure/index.md
-        - Five Specters: part1-axioms/law1-failure/five-specters.md
-        - Architectural Lenses: part1-axioms/law1-failure/architectural-lenses.md
-        - Operational Sight: part1-axioms/law1-failure/operational-sight.md
-        - Examples: part1-axioms/law1-failure/examples.md
-        - Exercises: part1-axioms/law1-failure/exercises.md
-      - Law 2 - Asynchronous Reality:
-        - Overview: part1-axioms/law2-asynchrony/index.md
-        - The Lens: part1-axioms/law2-asynchrony/the-lens.md
-        - The Specters: part1-axioms/law2-asynchrony/page2-specters.md
-        - Architecture: part1-axioms/law2-asynchrony/page3-architecture.md
-        - Operations: part1-axioms/law2-asynchrony/page4-operations.md
-        - Examples: part1-axioms/law2-asynchrony/examples.md
-      - Law 3 - Emergent Chaos:
-        - Overview: part1-axioms/law3-emergence/index.md
-        - The Lens: part1-axioms/law3-emergence/the-lens.md
-        - The Patterns: part1-axioms/law3-emergence/the-patterns.md
-        - The Operations: part1-axioms/law3-emergence/the-operations.md
-        - Examples: part1-axioms/law3-emergence/examples.md
-      - Law 4 - Multidimensional Optimization:
-        - Overview: part1-axioms/law4-tradeoffs/index.md
-        - The Lens: part1-axioms/law4-tradeoffs/page1-lens.md
-        - The Specters: part1-axioms/law4-tradeoffs/page2-specters.md
-        - Architecture: part1-axioms/law4-tradeoffs/page3-architecture.md
-        - Operations: part1-axioms/law4-tradeoffs/page4-operations.md
-        - Examples: part1-axioms/law4-tradeoffs/examples.md
-        - Exercises: part1-axioms/law4-tradeoffs/exercises.md
-      - Law 5 - Distributed Knowledge:
-        - Overview: part1-axioms/law5-epistemology/index.md
-        - The Lens: part1-axioms/law5-epistemology/page1-lens.md
-        - The Specters: part1-axioms/law5-epistemology/page2-specters.md
-        - Architecture: part1-axioms/law5-epistemology/page3-architecture.md
-        - Operations: part1-axioms/law5-epistemology/page4-operations.md
-        - Examples: part1-axioms/law5-epistemology/examples.md
-      - Law 6 - Cognitive Load:
-        - Overview: part1-axioms/law6-human-api/index.md
-        - The Lens: part1-axioms/law6-human-api/the-lens.md
-        - The Patterns: part1-axioms/law6-human-api/the-patterns.md
-        - The Operations: part1-axioms/law6-human-api/the-operations.md
-        - Examples: part1-axioms/law6-human-api/examples.md
-        - Exercises: part1-axioms/law6-human-api/exercises.md
-      - Law 7 - Economic Reality:
-        - Overview: part1-axioms/law7-economics/index.md
-        - Examples: part1-axioms/law7-economics/examples.md
-        - Exercises: part1-axioms/law7-economics/exercises.md
+      - All Laws Overview: core-principles/laws/index.md
+      - Law 1 - Correlated Failure: core-principles/laws/correlated-failure.md
+      - Law 2 - Asynchronous Reality: core-principles/laws/asynchronous-reality.md
+      - Law 3 - Emergent Chaos: core-principles/laws/emergent-chaos.md
+      - Law 4 - Multidimensional Optimization: core-principles/laws/multidimensional-optimization.md
+      - Law 5 - Distributed Knowledge: core-principles/laws/distributed-knowledge.md
+      - Law 6 - Cognitive Load: core-principles/laws/cognitive-load.md
+      - Law 7 - Economic Reality: core-principles/laws/economic-reality.md
     
+    # The 5 Pillars
     - The 5 Pillars:
-      - Overview: part2-pillars/index.md
-      - Pillar 1 - Work Distribution:
-        - Overview: part2-pillars/work/index.md
-        - Examples: part2-pillars/work/examples.md
-        - Exercises: part2-pillars/work/exercises.md
-      - Pillar 2 - State Distribution:
-        - Overview: part2-pillars/state/index.md
-        - Examples: part2-pillars/state/examples.md
-        - Exercises: part2-pillars/state/exercises.md
-      - Pillar 3 - Truth Distribution:
-        - Overview: part2-pillars/truth/index.md
-        - Examples: part2-pillars/truth/examples.md
-        - Exercises: part2-pillars/truth/exercises.md
-      - Pillar 4 - Control Distribution:
-        - Overview: part2-pillars/control/index.md
-        - Examples: part2-pillars/control/examples.md
-        - Exercises: part2-pillars/control/exercises.md
-      - Pillar 5 - Intelligence Distribution:
-        - Overview: part2-pillars/intelligence/index.md
-        - Examples: part2-pillars/intelligence/examples.md
-        - Exercises: part2-pillars/intelligence/exercises.md
+      - All Pillars Overview: core-principles/pillars/index.md
+      - Pillar 1 - Work Distribution: core-principles/pillars/work-distribution.md
+      - Pillar 2 - State Distribution: core-principles/pillars/state-distribution.md
+      - Pillar 3 - Truth Distribution: core-principles/pillars/truth-distribution.md
+      - Pillar 4 - Control Distribution: core-principles/pillars/control-distribution.md
+      - Pillar 5 - Intelligence Distribution: core-principles/pillars/intelligence-distribution.md
   
-  # Patterns
-  - Patterns:
-    - All Patterns: patterns/index.md
-    - Pattern Discovery: excellence/pattern-discovery/index.md
-    - Pattern Health: reference/pattern-health-dashboard.md
+  # Part 2: Pattern Library
+  - Part 2 - Pattern Library:
+    - Overview: pattern-library/index.md
     
-    - Communication & Messaging:
-      - API Gateway: patterns/api-gateway.md
-      - GraphQL Federation: patterns/graphql-federation.md
-      - Service Mesh: patterns/service-mesh.md
-      - Publish-Subscribe: patterns/publish-subscribe.md
-      - Distributed Queue: patterns/distributed-queue.md
-      - WebSocket: patterns/websocket.md
-      - Request Routing: patterns/request-routing.md
-      - Service Discovery: patterns/service-discovery.md
-      - Service Registry: patterns/service-registry.md
-      
-    - Resilience & Fault Tolerance:
-      - Circuit Breaker: patterns/circuit-breaker.md
-      - Retry & Backoff: patterns/retry-backoff.md
-      - Timeout: patterns/timeout.md
-      - Bulkhead: patterns/bulkhead.md
-      - Health Check: patterns/health-check.md
-      - Failover: patterns/failover.md
-      - Graceful Degradation: patterns/graceful-degradation.md
-      - Heartbeat: patterns/heartbeat.md
-      - Load Shedding: patterns/load-shedding.md
-      - Retry with Backoff: patterns/retry-backoff.md
-      - Split Brain: patterns/split-brain.md
-      
-    - Data Management:
-      - Event Sourcing: patterns/event-sourcing.md
-      - CQRS: patterns/cqrs.md
-      - Saga: patterns/saga.md
-      - Change Data Capture (CDC): patterns/cdc.md
-      - Outbox Pattern: patterns/outbox.md
-      - Distributed Lock: patterns/distributed-lock.md
-      - Leader Election: patterns/leader-election.md
-      - Consistent Hashing: patterns/consistent-hashing.md
-      - CRDT: patterns/crdt.md
-      - Eventual Consistency: patterns/eventual-consistency.md
-      - Materialized View: patterns/materialized-view.md
-      - Polyglot Persistence: patterns/polyglot-persistence.md
-      - Read Repair: patterns/read-repair.md
-      - Tunable Consistency: patterns/tunable-consistency.md
-      - Write-Ahead Log: patterns/wal.md
-      
-    - Scaling & Performance:
-      - Load Balancing: patterns/load-balancing.md
-      - Sharding: patterns/sharding.md
-      - Caching Strategies: patterns/caching-strategies.md
-      - Database per Service: patterns/database-per-service.md
-      - Priority Queue: patterns/priority-queue.md
-      - Rate Limiting: patterns/rate-limiting.md
-      - Backpressure: patterns/backpressure.md
-      - Auto-Scaling: patterns/auto-scaling.md
-      - Request Batching: patterns/request-batching.md
-      - Scatter-Gather: patterns/scatter-gather.md
-      
-    - Architecture & Design:
-      - Sidecar: patterns/sidecar.md
-      - Ambassador: patterns/ambassador.md
-      - Strangler Fig: patterns/strangler-fig.md
-      - Backends for Frontends: patterns/backends-for-frontends.md
-      - Anti-Corruption Layer: patterns/anti-corruption-layer.md
-      - Cell-Based Architecture: patterns/cell-based.md
-      - Choreography: patterns/choreography.md
-      - Event-Driven Architecture: patterns/event-driven.md
-      - Serverless/FaaS: patterns/serverless-faas.md
-      - Shared Nothing: patterns/shared-nothing.md
-      
-    - Geographic & Spatial:
-      - Multi-Region: patterns/multi-region.md
-      - Edge Computing: patterns/edge-computing.md
-      - Geo-Replication: patterns/geo-replication.md
-      
-    - Specialized Solutions:
-      - Event Streaming: patterns/event-streaming.md
-      - Service Registry: patterns/service-registry.md
-      - Observability: patterns/observability.md
+    # Communication Patterns
+    - Communication Patterns:
+      - Overview: pattern-library/communication/index.md
+      - API Gateway: pattern-library/communication/api-gateway.md
+      - GraphQL Federation: pattern-library/communication/graphql-federation.md
+      - Service Mesh: pattern-library/communication/service-mesh.md
+      - Publish-Subscribe: pattern-library/communication/publish-subscribe.md
+      - Distributed Queue: pattern-library/communication/distributed-queue.md
+      - WebSocket: pattern-library/communication/websocket.md
+      - Request Routing: pattern-library/communication/request-routing.md
+      - Service Discovery: pattern-library/communication/service-discovery.md
+      - Service Registry: pattern-library/communication/service-registry.md
+      - Event Streaming: pattern-library/communication/event-streaming.md
+    
+    # Resilience Patterns
+    - Resilience Patterns:
+      - Overview: pattern-library/resilience/index.md
+      - Circuit Breaker: pattern-library/resilience/circuit-breaker.md
+      - Retry & Backoff: pattern-library/resilience/retry-backoff.md
+      - Timeout: pattern-library/resilience/timeout.md
+      - Bulkhead: pattern-library/resilience/bulkhead.md
+      - Health Check: pattern-library/resilience/health-check.md
+      - Failover: pattern-library/resilience/failover.md
+      - Graceful Degradation: pattern-library/resilience/graceful-degradation.md
+      - Heartbeat: pattern-library/resilience/heartbeat.md
+      - Load Shedding: pattern-library/resilience/load-shedding.md
+      - Split Brain: pattern-library/resilience/split-brain.md
+      - Fault Tolerance: pattern-library/resilience/fault-tolerance.md
+    
+    # Data Management Patterns
+    - Data Management Patterns:
+      - Overview: pattern-library/data-management/index.md
+      - Event Sourcing: pattern-library/data-management/event-sourcing.md
+      - CQRS: pattern-library/data-management/cqrs.md
+      - Saga: pattern-library/data-management/saga.md
+      - Change Data Capture (CDC): pattern-library/data-management/cdc.md
+      - Outbox Pattern: pattern-library/data-management/outbox.md
+      - Distributed Lock: pattern-library/data-management/distributed-lock.md
+      - Leader Election: pattern-library/data-management/leader-election.md
+      - Consistent Hashing: pattern-library/data-management/consistent-hashing.md
+      - CRDT: pattern-library/data-management/crdt.md
+      - Eventual Consistency: pattern-library/data-management/eventual-consistency.md
+      - Materialized View: pattern-library/data-management/materialized-view.md
+      - Polyglot Persistence: pattern-library/data-management/polyglot-persistence.md
+      - Read Repair: pattern-library/data-management/read-repair.md
+      - Tunable Consistency: pattern-library/data-management/tunable-consistency.md
+      - Write-Ahead Log: pattern-library/data-management/wal.md
+      - Shared Database: pattern-library/data-management/shared-database.md
+      - Database per Service: pattern-library/data-management/database-per-service.md
+      - Deduplication: pattern-library/data-management/deduplication.md
+      - Idempotent Receiver: pattern-library/data-management/idempotent-receiver.md
+      - Bloom Filter: pattern-library/data-management/bloom-filter.md
+      - Merkle Trees: pattern-library/data-management/merkle-trees.md
+      - LSM Tree: pattern-library/data-management/lsm-tree.md
+      - Distributed Storage: pattern-library/data-management/distributed-storage.md
+      - Data Lake: pattern-library/data-management/data-lake.md
+      - Delta Sync: pattern-library/data-management/delta-sync.md
+      - Time Series IDs: pattern-library/data-management/time-series-ids.md
+      - Segmented Log: pattern-library/data-management/segmented-log.md
+      - Low-High Water Marks: pattern-library/data-management/low-high-water-marks.md
+    
+    # Scaling Patterns
+    - Scaling Patterns:
+      - Overview: pattern-library/scaling/index.md
+      - Load Balancing: pattern-library/scaling/load-balancing.md
+      - Sharding: pattern-library/scaling/sharding.md
+      - Caching Strategies: pattern-library/scaling/caching-strategies.md
+      - Priority Queue: pattern-library/scaling/priority-queue.md
+      - Rate Limiting: pattern-library/scaling/rate-limiting.md
+      - Backpressure: pattern-library/scaling/backpressure.md
+      - Auto-Scaling: pattern-library/scaling/auto-scaling.md
+      - Request Batching: pattern-library/scaling/request-batching.md
+      - Scatter-Gather: pattern-library/scaling/scatter-gather.md
+      - Multi-Region: pattern-library/scaling/multi-region.md
+      - Edge Computing: pattern-library/scaling/edge-computing.md
+      - Geo-Replication: pattern-library/scaling/geo-replication.md
+      - Geo-Distribution: pattern-library/scaling/geo-distribution.md
+      - Geohashing: pattern-library/scaling/geohashing.md
+      - ID Generation at Scale: pattern-library/scaling/id-generation-scale.md
+      - Analytics at Scale: pattern-library/scaling/analytics-scale.md
+      - Chunking: pattern-library/scaling/chunking.md
+      - Tile Caching: pattern-library/scaling/tile-caching.md
+      - URL Normalization: pattern-library/scaling/url-normalization.md
+      - Queues & Streaming: pattern-library/scaling/queues-streaming.md
+    
+    # Architecture Patterns
+    - Architecture Patterns:
+      - Overview: pattern-library/architecture/index.md
+      - Sidecar: pattern-library/architecture/sidecar.md
+      - Ambassador: pattern-library/architecture/ambassador.md
+      - Strangler Fig: pattern-library/architecture/strangler-fig.md
+      - Backends for Frontends: pattern-library/architecture/backends-for-frontends.md
+      - Anti-Corruption Layer: pattern-library/architecture/anti-corruption-layer.md
+      - Cell-Based Architecture: pattern-library/architecture/cell-based.md
+      - Choreography: pattern-library/architecture/choreography.md
+      - Event-Driven Architecture: pattern-library/architecture/event-driven.md
+      - Serverless/FaaS: pattern-library/architecture/serverless-faas.md
+      - Shared Nothing: pattern-library/architecture/shared-nothing.md
+      - Lambda Architecture: pattern-library/architecture/lambda-architecture.md
+      - Kappa Architecture: pattern-library/architecture/kappa-architecture.md
+      - Data Mesh: pattern-library/architecture/data-mesh.md
+      - Actor Model: pattern-library/architecture/actor-model.md
+      - Leader-Follower: pattern-library/architecture/leader-follower.md
+      - Emergent Leader: pattern-library/architecture/emergent-leader.md
+      - Thick Client: pattern-library/architecture/thick-client.md
+      - Stored Procedures: pattern-library/architecture/stored-procedures.md
+      - Singleton Database: pattern-library/architecture/singleton-database.md
+      - Blue-Green Deployment: pattern-library/architecture/blue-green-deployment.md
+    
+    # Coordination Patterns
+    - Coordination Patterns:
+      - Overview: pattern-library/coordination/index.md
+      - Consensus: pattern-library/coordination/consensus.md
+      - Hybrid Logical Clocks: pattern-library/coordination/hlc.md
+      - Logical Clocks: pattern-library/coordination/logical-clocks.md
+      - Generation Clock: pattern-library/coordination/generation-clock.md
+      - Lease: pattern-library/coordination/lease.md
+      - Observability: pattern-library/coordination/observability.md
+      - Valet Key: pattern-library/coordination/valet-key.md
+      - State Watch: pattern-library/coordination/state-watch.md
+      - Single Socket Channel: pattern-library/coordination/single-socket-channel.md
+      - Clock Sync: pattern-library/coordination/clock-sync.md
+      - CAS (Compare and Swap): pattern-library/coordination/cas.md
+      - Adaptive Scheduling: pattern-library/coordination/adaptive-scheduling.md
+      - CAP Theorem: pattern-library/coordination/cap-theorem.md
   
-  # Additional Patterns
-  - Additional Patterns:
-    - Data Structures & Algorithms:
-      - Bloom Filter: patterns/bloom-filter.md
-      - Merkle Trees: patterns/merkle-trees.md
-      - LSM Tree: patterns/lsm-tree.md
-      - Consistent Hashing: patterns/consistent-hashing.md
+  # Part 3: Architect's Handbook
+  - Part 3 - Architect's Handbook:
+    - Overview: architects-handbook/index.md
     
-    - Consensus & Coordination:
-      - Consensus: patterns/consensus.md
-      - Hybrid Logical Clocks: patterns/hlc.md
-      - Logical Clocks: patterns/logical-clocks.md
-      - Generation Clock: patterns/generation-clock.md
-      - Lease: patterns/lease.md
+    # Case Studies
+    - Case Studies:
+      - Overview: architects-handbook/case-studies/index.md
+      # System Design Case Studies
+      - System Design:
+        - News Feed: architects-handbook/case-studies/news-feed.md
+        - Payment System: architects-handbook/case-studies/payment-system.md
+        - Video Streaming: architects-handbook/case-studies/video-streaming.md
+        - Uber Location: architects-handbook/case-studies/uber-location.md
+        - Netflix Streaming: architects-handbook/case-studies/netflix-streaming.md
+      # Technology Deep Dives
+      - Technology Deep Dives:
+        - Databases:
+          - Cassandra: architects-handbook/case-studies/cassandra.md
+          - Redis Architecture: architects-handbook/case-studies/redis-architecture.md
+          - MongoDB: architects-handbook/case-studies/mongodb.md
+          - etcd: architects-handbook/case-studies/etcd.md
+          - Amazon DynamoDB: architects-handbook/case-studies/amazon-dynamo.md
+        - Message Systems:
+          - Kafka: architects-handbook/case-studies/kafka.md
+          - Distributed Message Queue: architects-handbook/case-studies/distributed-message-queue.md
+        - Infrastructure:
+          - Kubernetes: architects-handbook/case-studies/kubernetes.md
+          - Prometheus: architects-handbook/case-studies/prometheus.md
     
-    - Specialized Patterns:
-      - Observability: patterns/observability.md
-      - Service Discovery: patterns/service-discovery.md
-      - Deduplication: patterns/deduplication.md
-      - Idempotent Receiver: patterns/idempotent-receiver.md
-      - Valet Key: patterns/valet-key.md
+    # Implementation Playbooks
+    - Implementation Playbooks:
+      - Overview: architects-handbook/implementation-playbooks/index.md
+      - Getting Started Guide: architects-handbook/implementation-playbooks/getting-started.md
+      # Excellence Framework Integration
+      - Excellence Framework:
+        - Pattern Discovery: architects-handbook/implementation-playbooks/pattern-discovery.md
+        - Pattern Selection Wizard: architects-handbook/implementation-playbooks/pattern-selection-wizard.md
+        - Excellence Dashboard: architects-handbook/implementation-playbooks/excellence-dashboard.md
+      # Implementation Guides
+      - Implementation Guides:
+        - Resilience First: architects-handbook/implementation-playbooks/resilience-first.md
+        - Data Consistency: architects-handbook/implementation-playbooks/data-consistency.md
+        - Performance Optimization: architects-handbook/implementation-playbooks/performance-optimization.md
+        - Operational Excellence: architects-handbook/implementation-playbooks/operational-excellence.md
+        - Service Communication: architects-handbook/implementation-playbooks/service-communication.md
+        - Platform Engineering: architects-handbook/implementation-playbooks/platform-engineering-playbook.md
+        - Security Patterns: architects-handbook/implementation-playbooks/security-patterns.md
+      # Migration Guides
+      - Migration Guides:
+        - Migration Hub: architects-handbook/implementation-playbooks/migrations/index.md
+        - 2PC to Saga: architects-handbook/implementation-playbooks/migrations/2pc-to-saga.md
+        - Batch to Streaming: architects-handbook/implementation-playbooks/migrations/batch-to-streaming.md
+        - Monolith to Microservices: architects-handbook/implementation-playbooks/migrations/monolith-to-microservices.md
+        - Polling to WebSocket: architects-handbook/implementation-playbooks/migrations/polling-to-websocket.md
+        - Migration Playbook Template: architects-handbook/implementation-playbooks/migrations/migration-playbook-template.md
+    
+    # Quantitative Analysis
+    - Quantitative Analysis:
+      - Overview: architects-handbook/quantitative-analysis/index.md
+      # Core Concepts
+      - Core Concepts:
+        - Little's Law: architects-handbook/quantitative-analysis/littles-law.md
+        - CAP Theorem: architects-handbook/quantitative-analysis/cap-theorem.md
+        - Amdahl's Law: architects-handbook/quantitative-analysis/amdahl-gustafson.md
+        - Universal Scalability Law: architects-handbook/quantitative-analysis/universal-scalability.md
+      # Advanced Topics
+      - Advanced Topics:
+        - Queueing Theory: architects-handbook/quantitative-analysis/queueing-models.md
+        - Failure Models: architects-handbook/quantitative-analysis/failure-models.md
+        - Network Theory: architects-handbook/quantitative-analysis/network-theory.md
+        - Information Theory: architects-handbook/quantitative-analysis/information-theory.md
+        - Performance Modeling: architects-handbook/quantitative-analysis/performance-modeling.md
+        - Reliability Theory: architects-handbook/quantitative-analysis/reliability-theory.md
+        - Capacity Planning: architects-handbook/quantitative-analysis/capacity-planning.md
+        - Latency Ladder: architects-handbook/quantitative-analysis/latency-ladder.md
+        - Consistency Models: architects-handbook/quantitative-analysis/consistency-models.md
+        - Availability Math: architects-handbook/quantitative-analysis/availability-math.md
+        - Power Laws: architects-handbook/quantitative-analysis/power-laws.md
+        - Markov Chains: architects-handbook/quantitative-analysis/markov-chains.md
+        - Stochastic Processes: architects-handbook/quantitative-analysis/stochastic-processes.md
+        - Graph Theory: architects-handbook/quantitative-analysis/graph-theory.md
+        - Computational Geometry: architects-handbook/quantitative-analysis/computational-geometry.md
+        - Time Series: architects-handbook/quantitative-analysis/time-series.md
+    
+    # Human Factors
+    - Human Factors:
+      - Overview: architects-handbook/human-factors/index.md
+      - SRE Practices: architects-handbook/human-factors/sre-practices.md
+      - On-Call Culture: architects-handbook/human-factors/oncall-culture.md
+      - Incident Response: architects-handbook/human-factors/incident-response.md
+      - Blameless Postmortems: architects-handbook/human-factors/blameless-postmortems.md
+    
+    # Learning Paths
+    - Learning Paths:
+      - Choose Your Path: architects-handbook/learning-paths/index.md
+      - New Graduate: architects-handbook/learning-paths/new-graduate.md
+      - Senior Engineer: architects-handbook/learning-paths/senior-engineer.md
+      - Architect: architects-handbook/learning-paths/architect.md
+      - Manager: architects-handbook/learning-paths/manager.md
+      # Topic-Based Paths
+      - Topic Guides:
+        - Performance: architects-handbook/learning-paths/performance.md
+        - Cost Optimization: architects-handbook/learning-paths/cost.md
+        - Reliability: architects-handbook/learning-paths/reliability.md
+        - Consistency: architects-handbook/learning-paths/consistency.md
   
-  # Excellence Framework
-  - Excellence:
-    - Quick Start:
-      - Overview: excellence/quick-start/index.md
-      - For Architects: excellence/quick-start/for-architects.md
-      - For Teams: excellence/quick-start/for-teams.md
-      - For Organizations: excellence/quick-start/for-organizations.md
+  # Part 4: Interview Preparation
+  - Part 4 - Interview Preparation:
+    - Overview: interview-prep/index.md
     
-    - Implementation Guides:
-      - All Guides: excellence/implementation-guides/index.md
-      - Resilience First: excellence/implementation-guides/resilience-first.md
-      - Data Consistency: excellence/implementation-guides/data-consistency.md
-      - Performance Optimization: excellence/implementation-guides/performance-optimization.md
-      - Operational Excellence: excellence/implementation-guides/operational-excellence.md
-      - Service Communication: excellence/implementation-guides/service-communication.md
-      - Platform Engineering: excellence/implementation-guides/platform-engineering-playbook.md
-      - Security Patterns: excellence/implementation-guides/security-patterns.md
+    # System Design Framework
+    - System Design Framework:
+      - Overview: interview-prep/frameworks/index.md
+      - Google Interview Framework: interview-prep/frameworks/google-interviews/dashboard.md
+      - Approach & Methodology: interview-prep/frameworks/approach-methodology.md
+      - Requirements Gathering: interview-prep/frameworks/requirements-gathering.md
+      - Capacity Estimation: interview-prep/frameworks/capacity-estimation.md
+      - API Design: interview-prep/frameworks/api-design.md
+      - Data Model Design: interview-prep/frameworks/data-model-design.md
+      - High-Level Design: interview-prep/frameworks/high-level-design.md
+      - Detailed Design: interview-prep/frameworks/detailed-design.md
+      - Scale Discussion: interview-prep/frameworks/scale-discussion.md
     
-    - Real-World Excellence:
-      - Case Studies: excellence/real-world-excellence/index.md
-      - Elite Engineering:
-        - Netflix Chaos: case-studies/elite-engineering/netflix-chaos-engineering.md
-        - Amazon DynamoDB: case-studies/elite-engineering/amazon-dynamodb-evolution.md
-        - Discord Voice: case-studies/elite-engineering/discord-voice-infrastructure.md
-        - Figma CRDT: case-studies/elite-engineering/figma-crdt-collaboration.md
-        - Stripe API: case-studies/elite-engineering/stripe-api-excellence.md
-    
-    - Excellence Journeys:
-      - Choose Journey: excellence/excellence-journeys/index.md
-      - Startup to Scale: excellence/excellence-journeys/startup-to-scale.md
-      - Legacy Modernization: excellence/excellence-journeys/legacy-modernization.md
-      - Reliability Transformation: excellence/excellence-journeys/reliability-transformation.md
-      - Performance Excellence: excellence/excellence-journeys/performance-excellence.md
-    
-    - Migration Center:
-      - Migration Hub: excellence/migrations/index.md
-      - Pattern Migrations:
-        - 2PC to Saga: excellence/migrations/2pc-to-saga.md
-        - Batch to Streaming: excellence/migrations/batch-to-streaming.md
-        - Monolith to Microservices: excellence/migrations/monolith-to-microservices.md
-        - Polling to WebSocket: excellence/migrations/polling-to-websocket.md
-      - Migration Playbook: excellence/migrations/migration-playbook-template.md
-    
-    - Additional Resources:
-      - Excellence Dashboard: excellence/excellence-dashboard.md
-      - Pattern Selection Wizard: excellence/pattern-selection-wizard.md
-      - Comparisons: excellence/comparisons/index.md
-  
-  # Case Studies & Examples
-  - Case Studies:
-    - All Case Studies: case-studies/index.md
-    - System Design:
-      - News Feed: case-studies/news-feed.md
-      - Payment System: case-studies/payment-system.md
-      - Video Streaming: case-studies/video-streaming.md
-      - Uber Location: case-studies/uber-location.md
-      - Netflix Streaming: case-studies/netflix-streaming.md
-    
-    - System Deep Dives:
-      - Databases:
-        - Cassandra: case-studies/cassandra.md
-        - Redis: case-studies/redis.md
-        - MongoDB: case-studies/mongodb.md
-        - etcd: case-studies/etcd.md
-      - Message Systems:
-        - Kafka: case-studies/kafka.md
-        - Distributed Message Queue: case-studies/distributed-message-queue.md
+    # Common Problems
+    - Common Problems:
+      - Overview: interview-prep/common-problems/index.md
+      # Social Media Systems
+      - Social Media:
+        - News Feed Design: interview-prep/common-problems/news-feed.md
+        - Twitter Timeline: interview-prep/common-problems/twitter-timeline.md
+        - Instagram Stories: interview-prep/common-problems/instagram-stories.md
+      # Communication Systems
+      - Communication:
+        - Chat Application: interview-prep/common-problems/chat-application.md
+        - Video Conferencing: interview-prep/common-problems/video-conferencing.md
+        - Notification System: interview-prep/common-problems/notification-system.md
+      # E-commerce & Payments
+      - E-commerce:
+        - Payment System: interview-prep/common-problems/payment-system.md
+        - Shopping Cart: interview-prep/common-problems/shopping-cart.md
+        - Inventory Management: interview-prep/common-problems/inventory-management.md
+      # Media & Content
+      - Media Systems:
+        - Video Streaming (YouTube): interview-prep/common-problems/video-streaming.md
+        - Music Streaming (Spotify): interview-prep/common-problems/music-streaming.md
+        - CDN Design: interview-prep/common-problems/cdn-design.md
+      # Infrastructure
       - Infrastructure:
-        - Kubernetes: case-studies/kubernetes.md
-        - Prometheus: case-studies/prometheus.md
+        - URL Shortener: interview-prep/common-problems/url-shortener.md
+        - Rate Limiter: interview-prep/common-problems/rate-limiter.md
+        - Distributed Cache: interview-prep/common-problems/distributed-cache.md
+        - Message Queue: interview-prep/common-problems/message-queue.md
+        - Task Scheduler: interview-prep/common-problems/task-scheduler.md
+      # Location-Based
+      - Location Services:
+        - Ride Sharing (Uber/Lyft): interview-prep/common-problems/ride-sharing.md
+        - Maps & Navigation: interview-prep/common-problems/maps-navigation.md
+        - Nearby Friends: interview-prep/common-problems/nearby-friends.md
+    
+    # Cheatsheets
+    - Cheatsheets:
+      - Overview: interview-prep/cheatsheets/index.md
+      - Pattern Quick Reference: interview-prep/cheatsheets/pattern-quick-reference.md
+      - Scaling Numbers: interview-prep/cheatsheets/scaling-numbers.md
+      - Database Comparison: interview-prep/cheatsheets/database-comparison.md
+      - Message Queue Comparison: interview-prep/cheatsheets/message-queue-comparison.md
+      - Consistency Models: interview-prep/cheatsheets/consistency-models.md
+      - CAP Trade-offs: interview-prep/cheatsheets/cap-tradeoffs.md
+      - API Design Best Practices: interview-prep/cheatsheets/api-design.md
+      - System Design Checklist: interview-prep/cheatsheets/system-design-checklist.md
   
-  # Quantitative & Theory
-  - Quantitative:
-    - Overview: quantitative/index.md
-    - Core Concepts:
-      - Little's Law: quantitative/littles-law.md
-      - CAP Theorem: quantitative/cap-theorem.md
-      - Amdahl's Law: quantitative/amdahl-gustafson.md
-      - Universal Scalability Law: quantitative/universal-scalability.md
-    - Advanced Topics:
-      - Queueing Theory: quantitative/queueing-models.md
-      - Failure Models: quantitative/failure-models.md
-      - Network Theory: quantitative/network-theory.md
-      - Information Theory: quantitative/information-theory.md
-      - Performance Modeling: quantitative/performance-modeling.md
-      - Reliability Theory: quantitative/reliability-theory.md
-      - Capacity Planning: quantitative/capacity-planning.md
-      - Latency Ladder: quantitative/latency-ladder.md
-      - Consistency Models: quantitative/consistency-models.md
-      - Availability Math: quantitative/availability-math.md
-      - Power Laws: quantitative/power-laws.md
-      - Markov Chains: quantitative/markov-chains.md
-      - Stochastic Processes: quantitative/stochastic-processes.md
-      - Graph Theory: quantitative/graph-theory.md
-      - Computational Geometry: quantitative/computational-geometry.md
-      - Time Series: quantitative/time-series.md
-  
-  # Human Factors & Operations
-  - Human Factors:
-    - Overview: human-factors/index.md
-    - SRE Practices: human-factors/sre-practices.md
-    - On-Call Culture: human-factors/oncall-culture.md
-    - Incident Response: human-factors/incident-response.md
-    - Blameless Postmortems: human-factors/blameless-postmortems.md
-  
-  # Reference & Tools
-  - Reference:
-    - Glossary: reference/glossary.md
-    - Cheat Sheets: reference/cheat-sheets.md
-    - Contributing: reference/contributing.md
+  # Contributing
+  - Contributing:
+    - How to Contribute: reference/contributing.md
+    - Style Guide: reference/style-guide.md
+    - Pattern Template: reference/pattern-template.md
+    - Case Study Template: reference/case-study-template.md

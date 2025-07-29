@@ -54,7 +54,7 @@ Isolation pattern preventing failures from spreading between components.
 
 **Implementation**: Separate thread pools, connection pools, compute resources
 
-**Related**: [Circuit Breaker](../patterns/circuit-breaker.md), [Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)
+**Related**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)
 
 ### Byzantine Fault
 Components behave arbitrarily, sending conflicting information to different parts.
@@ -77,7 +77,7 @@ Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **States**: Closed (normal), Open (failing fast), Half-Open (testing recovery)
 
-**Implementation**: [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
+**Implementation**: [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md)
 
 ### Consensus
 **Definition**: Agreement among distributed nodes on a single value or state, even in the presence of failures.

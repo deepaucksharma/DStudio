@@ -645,10 +645,10 @@ graph TB
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
 - **[CQRS](../patterns/cqrs.md)** - Separate paths for collecting user signals vs serving recommendations
 - **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-level caches for popular recommendations and user preferences
-- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Graceful degradation when ML models fail
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Graceful degradation when ML models fail
 - **Service Mesh (Coming Soon)** - Microservices architecture for different recommendation algorithms
 - **[Load Balancing](../patterns/load-balancing.md)** - GPU load distribution for model inference
-- **[Bulkhead](../patterns/bulkhead.md)** - Isolate experimental models from production traffic
+- **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Isolate experimental models from production traffic
 
 ### Quantitative Models
 - **[Little's Law](../quantitative/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
