@@ -97,8 +97,7 @@ plugins:
         'patterns/anti-entropy.md': 'patterns/event-sourcing.md'
         'patterns/vector-clocks.md': 'patterns/hlc.md'
         'patterns/two-phase-commit.md': 'patterns/saga.md'
-  - mermaid2:
-      javascript: javascripts/mermaid-init.js
+  - mermaid2
   - minify:
       minify_html: true
       minify_js: true
@@ -234,6 +233,10 @@ extra:
     options:
       loader: {load: ['[tex]/gensymb']}
       tex: {packages: {'[+]': ['gensymb']}}
+      
+  # Mermaid
+  mermaid:
+    javascript: javascripts/mermaid-init.js
 
 # Exclude Patterns
 exclude_docs: |
@@ -429,7 +432,6 @@ nav:
       - Hybrid Logical Clocks: patterns/hlc.md
       - Logical Clocks: patterns/logical-clocks.md
       - Generation Clock: patterns/generation-clock.md
-      - Vector Clocks: patterns/vector-clocks.md
       - Lease: patterns/lease.md
     
     - Specialized Patterns:
@@ -493,8 +495,6 @@ nav:
     - System Design:
       - News Feed: case-studies/news-feed.md
       - Payment System: case-studies/payment-system.md
-      - Real-time Chat: case-studies/real-time-chat.md
-      - E-commerce: case-studies/e-commerce.md
       - Video Streaming: case-studies/video-streaming.md
       - Uber Location: case-studies/uber-location.md
       - Netflix Streaming: case-studies/netflix-streaming.md
@@ -518,8 +518,7 @@ nav:
     - Core Concepts:
       - Little's Law: quantitative/littles-law.md
       - CAP Theorem: quantitative/cap-theorem.md
-      - PACELC: quantitative/pacelc-theorem.md
-      - Amdahl's Law: quantitative/amdahls-law.md
+      - Amdahl's Law: quantitative/amdahl-gustafson.md
       - Universal Scalability Law: quantitative/universal-scalability.md
     - Advanced Topics:
       - Queueing Theory: quantitative/queueing-models.md
@@ -546,16 +545,9 @@ nav:
     - On-Call Culture: human-factors/oncall-culture.md
     - Incident Response: human-factors/incident-response.md
     - Blameless Postmortems: human-factors/blameless-postmortems.md
-    - Observability: human-factors/observability.md
-    - Toil Reduction: human-factors/toil-reduction.md
-    - Documentation: human-factors/documentation.md
   
   # Reference & Tools
   - Reference:
     - Glossary: reference/glossary.md
     - Cheat Sheets: reference/cheat-sheets.md
-    - Tools & Calculators:
-      - Capacity Calculator: quantitative/capacity-planning.md#calculator
-      - Latency Calculator: quantitative/latency-ladder.md#calculator
-      - Availability Calculator: quantitative/reliability-theory.md#calculator
     - Contributing: reference/contributing.md
