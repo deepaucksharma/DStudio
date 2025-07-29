@@ -352,7 +352,6 @@ nav:
     - Tile Caching: pattern-library/scaling/tile-caching.md
     - URL Normalization: pattern-library/scaling/url-normalization.md
     - Queues & Streaming: pattern-library/scaling/queues-streaming.md
-    - Database per Service: pattern-library/scaling/database-per-service.md
   - Architecture Patterns:
     - Overview: pattern-library/architecture/index.md
     - Sidecar: pattern-library/architecture/sidecar.md
@@ -399,6 +398,14 @@ nav:
       - Apple Maps: architects-handbook/case-studies/location-services/apple-maps.md
       - Nearby Friends: architects-handbook/case-studies/location-services/nearby-friends.md
       - Proximity Service: architects-handbook/case-studies/location-services/proximity-service.md
+      - Find My Device: architects-handbook/case-studies/location-services/find-my-device.md
+      - HERE Maps: architects-handbook/case-studies/location-services/here-maps.md
+      - Life360: architects-handbook/case-studies/location-services/life360.md
+      - Snap Map: architects-handbook/case-studies/location-services/snap-map.md
+      - Strava Heatmaps: architects-handbook/case-studies/location-services/strava-heatmaps.md
+      - OpenStreetMap: architects-handbook/case-studies/location-services/openstreetmap.md
+      - Uber Maps: architects-handbook/case-studies/location-services/uber-maps.md
+      - Google Maps System: architects-handbook/case-studies/location-services/google-maps-system.md
     - Financial & Commerce:
       - Ad Click Aggregation: architects-handbook/case-studies/financial-commerce/ad-click-aggregation.md
       - Digital Wallet Enhanced: architects-handbook/case-studies/financial-commerce/digital-wallet-enhanced.md
@@ -447,9 +454,20 @@ nav:
         - Distributed Message Queue: architects-handbook/case-studies/messaging-streaming/distributed-message-queue.md
         - Apache Spark: architects-handbook/case-studies/messaging-streaming/apache-spark.md
         - MapReduce: architects-handbook/case-studies/messaging-streaming/mapreduce.md
+        - Batch to Streaming: architects-handbook/case-studies/messaging-streaming/batch-to-streaming.md
+        - Polling to Event Driven: architects-handbook/case-studies/messaging-streaming/polling-to-event-driven.md
       - Infrastructure:
         - Kubernetes: architects-handbook/case-studies/infrastructure/kubernetes.md
         - Prometheus: architects-handbook/case-studies/monitoring-observability/prometheus.md
+        - URL Shortener: architects-handbook/case-studies/infrastructure/url-shortener.md
+        - Web Crawler: architects-handbook/case-studies/infrastructure/web-crawler.md
+        - Object Storage: architects-handbook/case-studies/infrastructure/object-storage.md
+        - S3 Object Storage: architects-handbook/case-studies/infrastructure/s3-object-storage-enhanced.md
+        - Unique ID Generator: architects-handbook/case-studies/infrastructure/unique-id-generator.md
+        - Blockchain: architects-handbook/case-studies/infrastructure/blockchain.md
+        - Consistent Hashing: architects-handbook/case-studies/infrastructure/consistent-hashing.md
+        - Zoom Scaling: architects-handbook/case-studies/infrastructure/zoom-scaling.md
+        - Monolith to Microservices: architects-handbook/case-studies/infrastructure/monolith-to-microservices.md
       - Monitoring & Observability:
         - Metrics Monitoring: architects-handbook/case-studies/monitoring-observability/metrics-monitoring.md
         - Prometheus Datadog Enhanced: architects-handbook/case-studies/monitoring-observability/prometheus-datadog-enhanced.md
@@ -473,8 +491,48 @@ nav:
     - Failure Models: architects-handbook/quantitative-analysis/failure-models.md
     - Performance Modeling: architects-handbook/quantitative-analysis/performance-modeling.md
     - Latency Numbers: architects-handbook/quantitative-analysis/latency-numbers.md
+    - Advanced Topics:
+      - Graph Theory: architects-handbook/quantitative-analysis/graph-theory.md
+      - Queueing Networks: architects-handbook/quantitative-analysis/queuing-networks.md
+      - Markov Chains: architects-handbook/quantitative-analysis/markov-chains.md
+      - Bayesian Reasoning: architects-handbook/quantitative-analysis/bayesian-reasoning.md
+      - Information Theory: architects-handbook/quantitative-analysis/information-theory.md
+      - Network Theory: architects-handbook/quantitative-analysis/network-theory.md
+      - Reliability Theory: architects-handbook/quantitative-analysis/reliability-theory.md
+      - Storage Economics: architects-handbook/quantitative-analysis/storage-economics.md
+      - Cache Economics: architects-handbook/quantitative-analysis/cache-economics.md
+      - Computational Geometry: architects-handbook/quantitative-analysis/computational-geometry.md
   - Human Factors:
     - Overview: architects-handbook/human-factors/index.md
+    - Knowledge Management: architects-handbook/human-factors/knowledge-management.md
+    - Runbooks & Playbooks: architects-handbook/human-factors/runbooks-playbooks.md
+    - Observability Stacks: architects-handbook/human-factors/observability-stacks.md
+    - Org Structure: architects-handbook/human-factors/org-structure.md
+    - Chaos Engineering: architects-handbook/human-factors/chaos-engineering.md
+    - Blameless Postmortems: architects-handbook/human-factors/blameless-postmortems.md
+    - On-Call Culture: architects-handbook/human-factors/oncall-culture.md
+    - Incident Response: architects-handbook/human-factors/incident-response.md
+    - SRE Practices: architects-handbook/human-factors/sre-practices.md
+    - Team Topologies: architects-handbook/human-factors/team-topologies.md
+    - Consistency Tuning: architects-handbook/human-factors/consistency-tuning.md
+  - Learning Paths:
+    - Overview: architects-handbook/learning-paths/index.md
+    - New Graduate Path: architects-handbook/learning-paths/new-graduate.md
+    - Senior Engineer Path: architects-handbook/learning-paths/senior-engineer.md
+    - Architect Path: architects-handbook/learning-paths/architect.md
+    - Manager Path: architects-handbook/learning-paths/manager.md
+    - Performance Focus: architects-handbook/learning-paths/performance.md
+    - Reliability Focus: architects-handbook/learning-paths/reliability.md
+    - Consistency Focus: architects-handbook/learning-paths/consistency.md
+    - Cost Optimization: architects-handbook/learning-paths/cost.md
+  - Interactive Tools:
+    - Overview: architects-handbook/tools/index.md
+    - Availability Calculator: architects-handbook/tools/availability-calculator.md
+    - Capacity Calculator: architects-handbook/tools/capacity-calculator.md
+    - Consistency Calculator: architects-handbook/tools/consistency-calculator.md
+    - Cost Optimizer: architects-handbook/tools/cost-optimizer.md
+    - Latency Calculator: architects-handbook/tools/latency-calculator.md
+    - Throughput Calculator: architects-handbook/tools/throughput-calculator.md
 - Part 4 - Interview Preparation:
   - Overview: interview-prep/index.md
   - System Design Framework:
@@ -492,3 +550,9 @@ nav:
   - Cheat Sheets: reference/cheat-sheets.md
   - Keyboard Shortcuts: reference/keyboard-shortcuts.md
   - Tags: reference/tags.md
+  - Navigation Guide: reference/navigation-guide.md
+  - Navigation Maintenance: reference/navigation-maintenance.md
+  - Law Mapping Guide: reference/law-mapping-guide.md
+  - Admonition Guide: reference/admonition-guide.md
+  - Recipe Cards: reference/recipe-cards.md
+  - Offline Support: reference/offline.md
