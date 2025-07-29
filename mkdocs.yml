@@ -1,6 +1,6 @@
-site_name: The Compendium of Distributed Systems
+site_name: Excellence Patterns Hub - The Compendium of Distributed Systems
 site_url: https://deepaucksharma.github.io/DStudio/
-site_description: Learn distributed systems from first principles through physics and mathematics
+site_description: Master distributed systems through physics-derived principles and battle-tested patterns
 site_author: Deepak Sharma
 
 # Copyright
@@ -244,19 +244,27 @@ watch:
 nav:
   - Home: index.md
   
-  - Excellence Hub:
-    - 🎯 Welcome to Excellence: excellence/index.md
-    - Framework Overview: excellence/framework-overview.md
-    
-    # Quick Start - Primary Entry Point
-    - ⚡ Quick Start:
+  # Learning & Introduction
+  - Getting Started:
+    - Introduction: introduction/index.md
+    - Getting Started Guide: introduction/getting-started.md
+    - Core Philosophy: introduction/philosophy.md
+    - Learning Paths:
+      - Choose Your Path: learning-paths/index.md
+      - New Graduate: learning-paths/new-graduate.md
+      - Senior Engineer: learning-paths/senior-engineer.md
+      - Architect: learning-paths/architect.md
+      - Manager: learning-paths/manager.md
+  
+  # Excellence Framework
+  - ⚡ Quick Start:
       - Choose Your Path: excellence/quick-start/index.md
       - For Architects: excellence/quick-start/for-architects.md
       - For Teams: excellence/quick-start/for-teams.md
       - For Organizations: excellence/quick-start/for-organizations.md
     
-    # Pattern Discovery - Interactive Tool
-    - 🔍 Pattern Discovery:
+  # Pattern Discovery - Interactive Tool
+  - 🔍 Pattern Discovery:
       - Find Your Patterns: excellence/pattern-discovery/index.md
       - Pattern Selection Wizard: excellence/pattern-selection-wizard.md
       - 🥇 Gold Patterns (38): excellence/pattern-discovery/gold-patterns/index.md
@@ -264,8 +272,8 @@ nav:
       - 🥉 Bronze Patterns (25): excellence/pattern-discovery/bronze-patterns/index.md
       - Pattern Usage Index: excellence/pattern-usage-index.md
     
-    # Implementation Guides
-    - 📚 Implementation Guides:
+  # Implementation Guides
+  - 📚 Implementation Guides:
       - All Guides: excellence/implementation-guides/index.md
       - Resilience First: excellence/implementation-guides/resilience-first.md
       - Data Consistency: excellence/implementation-guides/data-consistency.md
@@ -278,8 +286,8 @@ nav:
       - Migration Strategies: excellence/implementation-guides/migration-strategies.md
       - Quick Start Guide: excellence/implementation-guides/quick-start-guide.md
     
-    # Real-World Excellence
-    - 🏆 Real-World Excellence:
+  # Real-World Excellence
+  - 🏆 Real-World Excellence:
       - Case Study Gallery: excellence/real-world-excellence/index.md
       - Elite Engineering:
         - Overview: case-studies/elite-engineering/index.md
@@ -289,16 +297,16 @@ nav:
         - Figma CRDT Collaboration: case-studies/elite-engineering/figma-crdt-collaboration.md
         - Stripe API Excellence: case-studies/elite-engineering/stripe-api-excellence.md
     
-    # Excellence Journeys
-    - 🚀 Excellence Journeys:
+  # Excellence Journeys
+  - 🚀 Excellence Journeys:
       - Choose Your Journey: excellence/excellence-journeys/index.md
       - Startup to Scale: excellence/excellence-journeys/startup-to-scale.md
       - Legacy Modernization: excellence/excellence-journeys/legacy-modernization.md
       - Reliability Transformation: excellence/excellence-journeys/reliability-transformation.md
       - Performance Excellence: excellence/excellence-journeys/performance-excellence.md
     
-    # Migration Center
-    - 🔄 Migration Center:
+  # Migration Center
+  - 🔄 Migration Center:
       - Migration Hub: excellence/migrations/index.md
       - Pattern Migrations:
         - 2PC to Saga: excellence/migrations/2pc-to-saga.md
@@ -314,8 +322,8 @@ nav:
         - Thick Client to API-First: excellence/migrations/thick-client-to-api-first.md
       - Migration Playbook Template: excellence/migrations/migration-playbook-template.md
     
-    # Pattern Comparisons
-    - 📊 Pattern Comparisons:
+  # Pattern Comparisons
+  - 📊 Pattern Comparisons:
       - Comparison Center: excellence/comparisons/index.md
       - Messaging Patterns: excellence/comparisons/messaging-patterns-comparison.md
       - Consistency Patterns: excellence/comparisons/consistency-patterns-comparison.md
@@ -323,8 +331,8 @@ nav:
       - Deployment Patterns: excellence/comparisons/deployment-patterns-comparison.md
       - Resilience Patterns: excellence/comparisons/resilience-patterns-comparison.md
     
-    # Pattern Health & Metrics
-    - 📈 Pattern Health:
+  # Pattern Health & Metrics
+  - 📈 Pattern Health:
       - Health Dashboard: reference/pattern-health-dashboard.md
       - Excellence Dashboard: excellence/excellence-dashboard.md
   
@@ -353,7 +361,6 @@ nav:
       - Law Interactions: part1-axioms/law-interactions.md
       - Law 1 - Correlated Failure:
         - Concept: part1-axioms/law1-failure/index.md
-        - Enhanced: part1-axioms/law1-failure/index-enhanced.md
         - Five Specters: part1-axioms/law1-failure/five-specters.md  
         - Architectural Lenses: part1-axioms/law1-failure/architectural-lenses.md
         - Operational Sight: part1-axioms/law1-failure/operational-sight.md
@@ -376,10 +383,13 @@ nav:
         - The Operations: part1-axioms/law3-emergence/the-operations.md
         - Examples: part1-axioms/law3-emergence/examples.md
       - Law 4 - Multidimensional Optimization:
+        - Overview: part1-axioms/law4-tradeoffs/index.md
         - The Lens: part1-axioms/law4-tradeoffs/page1-lens.md
         - The Specters: part1-axioms/law4-tradeoffs/page2-specters.md
         - Architecture: part1-axioms/law4-tradeoffs/page3-architecture.md
         - Operations: part1-axioms/law4-tradeoffs/page4-operations.md
+        - Examples: part1-axioms/law4-tradeoffs/examples.md
+        - Exercises: part1-axioms/law4-tradeoffs/exercises.md
       - Law 5 - Distributed Knowledge:
         - Overview: part1-axioms/law5-epistemology/index.md
         - Page 1 - The Lens: part1-axioms/law5-epistemology/page1-lens.md

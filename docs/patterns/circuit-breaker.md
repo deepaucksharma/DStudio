@@ -1701,14 +1701,14 @@ circuit_breaker:
 ## Excellence Framework Integration
 
 ### Implementation Guides
-- **[Circuit Breaker Implementation Guide](../excellence/guides/circuit-breaker-implementation.md)**: Step-by-step implementation across languages
-- **[Resilience Patterns Guide](../excellence/guides/resilience-patterns.md)**: Comprehensive resilience strategy
-- **[Service Mesh Circuit Breaking](../excellence/guides/service-mesh-patterns.md#circuit-breaking)**: Mesh-based implementation
+- **[Circuit Breaker Implementation Guide](../excellence/implementation-guides/circuit-breaker-implementation.md)**: Step-by-step implementation across languages
+- **[Resilience Patterns Guide](../excellence/implementation-guides/resilience-patterns.md)**: Comprehensive resilience strategy
+- **[Service Mesh Circuit Breaking](../excellence/implementation-guides/service-mesh-patterns.md#circuit-breaking)**: Mesh-based implementation
 
 ### Case Studies
-- **[Netflix Hystrix: Circuit Breakers at Scale](../excellence/case-studies/netflix-hystrix.md)**: 100B+ requests/day
-- **[Amazon Prime Day Resilience](../excellence/case-studies/amazon-prime-resilience.md)**: Surviving 10x traffic
-- **[Uber's Microservices Protection](../excellence/case-studies/uber-microservices.md)**: 3000+ service mesh
+- **[Netflix Hystrix: Circuit Breakers at Scale](../case-studies/netflix-hystrix.md)**: 100B+ requests/day
+- **[Amazon Prime Day Resilience](../case-studies/amazon-prime-resilience.md)**: Surviving 10x traffic
+- **[Uber's Microservices Protection](../case-studies/uber-microservices.md)**: 3000+ service mesh
 
 ### Pattern Combinations
 <div class="grid cards" markdown>

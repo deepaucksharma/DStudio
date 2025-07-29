@@ -9,6 +9,180 @@ reading_time: 8 min
 !!! quote "Core Insight"
     **You can't fix what you can't see. Learn to spot cognitive overload before it kills your system.**
 
+## The Comprehensive Cognitive Load Scoring Framework
+
+### Foundation: Miller's Law and Modern Research
+
+```
+COGNITIVE CAPACITY RESEARCH TIMELINE
+═══════════════════════════════════
+
+1956 - Miller's Law: 7±2 items
+│
+1974 - Baddeley's Working Memory Model
+│     └─ Central Executive (attention)
+│     └─ Phonological Loop (verbal)
+│     └─ Visuospatial Sketchpad
+│
+1988 - Sweller's Cognitive Load Theory
+│     └─ Intrinsic (task complexity)
+│     └─ Extraneous (poor design)
+│     └─ Germane (learning)
+│
+2020 - Modern SRE Studies
+      └─ Stress reduces to 2-3 items
+      └─ Context switches: -23 min
+      └─ Sleep deprivation: -60%
+```
+
+### The Complete Scoring System
+
+```python
+class CognitiveLoadScorer:
+    """Comprehensive cognitive load assessment"""
+    
+    def __init__(self):
+        self.categories = {
+            'information_architecture': 0.20,
+            'operational_complexity': 0.25,
+            'tool_fragmentation': 0.15,
+            'decision_complexity': 0.20,
+            'stress_multipliers': 0.20
+        }
+    
+    def score_information_architecture(self, metrics):
+        """
+        How information is organized and presented
+        """
+        score = 0
+        
+        # Dashboard sprawl
+        score += min(metrics['total_dashboards'] / 10, 10)
+        
+        # Metric overload (>7 key metrics = overload)
+        score += max(0, metrics['key_metrics'] - 7) * 0.5
+        
+        # Navigation depth (>3 clicks = lost)
+        score += max(0, metrics['avg_clicks_to_info'] - 3) * 2
+        
+        # Documentation scatter
+        score += metrics['doc_locations'] * 0.5
+        
+        return score * self.categories['information_architecture']
+    
+    def score_operational_complexity(self, metrics):
+        """
+        Complexity of operating the system
+        """
+        score = 0
+        
+        # Service maze
+        score += min(metrics['services'] / 20, 10)
+        
+        # Dependency hell
+        score += min(metrics['avg_dependencies'] / 10, 10)
+        
+        # State explosion
+        score += math.log10(metrics['possible_states'] + 1)
+        
+        # Change risk
+        score += metrics['avg_blast_radius'] * 2
+        
+        return score * self.categories['operational_complexity']
+    
+    def score_tool_fragmentation(self, metrics):
+        """
+        Context switching overhead
+        """
+        score = 0
+        
+        # Tool count (>5 = fragmented)
+        score += max(0, metrics['tools_required'] - 5) * 2
+        
+        # Context switches per incident
+        score += metrics['avg_context_switches'] * 0.5
+        
+        # Credential/access complexity
+        score += metrics['different_auth_systems'] * 1.5
+        
+        return score * self.categories['tool_fragmentation']
+    
+    def score_decision_complexity(self, metrics):
+        """
+        Difficulty of making correct decisions
+        """
+        score = 0
+        
+        # Runbook complexity
+        score += max(0, metrics['avg_runbook_steps'] - 10) * 0.5
+        
+        # Decision branches
+        score += metrics['avg_decision_points'] * 1.5
+        
+        # Ambiguous alerts
+        score += metrics['unclear_alert_ratio'] * 10
+        
+        # Missing context
+        score += (1 - metrics['alerts_with_context']) * 10
+        
+        return score * self.categories['decision_complexity']
+    
+    def score_stress_multipliers(self, metrics):
+        """
+        Factors that amplify cognitive load under stress
+        """
+        score = 0
+        
+        # Time pressure
+        score += max(0, 30 - metrics['avg_mttr']) / 3
+        
+        # Night pages
+        score += metrics['night_pages_per_month'] * 0.5
+        
+        # Simultaneity
+        score += metrics['concurrent_incidents'] * 3
+        
+        # Criticality
+        score += metrics['revenue_impact_incidents'] * 2
+        
+        return score * self.categories['stress_multipliers']
+
+# Usage example:
+scorer = CognitiveLoadScorer()
+result = scorer.calculate_total_score(team_metrics)
+```
+
+### Real-Time Scoring Dashboard
+
+```
+COGNITIVE LOAD MONITOR
+═════════════════════
+
+Current Load: 32/40 🔴 CRITICAL
+
+┌───────────────────────────────────────┐
+│ Information Architecture    ████████░░ 8/10│
+│ └─ 47 dashboards (target: <10)        │
+│                                        │
+│ Operational Complexity     █████████░ 9/10│
+│ └─ 173 services (target: <50)         │
+│                                        │
+│ Tool Fragmentation        ██████░░░░ 6/10│
+│ └─ 12 tools required (target: <5)     │
+│                                        │
+│ Decision Complexity       ███████░░░ 7/10│
+│ └─ 23% alerts lack context            │
+│                                        │
+│ Stress Multipliers        ████████░░ 8/10│
+│ └─ 3.2 night pages/week               │
+└───────────────────────────────────────┘
+
+Top 3 Actions to Reduce Load:
+1. Consolidate dashboards (-4 points)
+2. Reduce night pages (-3 points)
+3. Add alert context (-2 points)
+```
+
 ## The Magic Number: 7±2
 
 ```

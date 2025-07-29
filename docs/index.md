@@ -1,254 +1,254 @@
 ---
-title: The Compendium of Distributed Systems
-description: Learn distributed systems from first principles through physics and mathematics
-hide:
- - navigation
- - toc
-search:
-  exclude: true
+title: Excellence Patterns Hub
+description: Master distributed systems through physics-derived principles and battle-tested patterns
 ---
 
-# The Compendium of Distributed Systems
+# Excellence Patterns Hub
 
-!!! abstract "Core Philosophy"
-    🎯 **Derive distributed systems from physics laws, not memorize patterns**
+**Transform your distributed systems with physics-based understanding and proven patterns.**
+
+## Pattern Excellence Tiers
+
+<div class="grid cards" markdown>
+
+- **Gold Patterns (38)**
     
-    **7 Fundamental Laws** • **5 Core Pillars** • **50+ Production Patterns** • **100+ Real Failures**
+    ---
+    
+    Battle-tested at scale by FAANG companies. Production-ready with extensive documentation, monitoring guides, and proven ROI.
 
-## Your Learning Journey
+- **Silver Patterns (38)**
+    
+    ---
+    
+    Production-ready for specialized use cases. Well-documented with clear trade-offs and implementation guidance.
+
+- **Bronze Patterns (25)**
+    
+    ---
+    
+    Legacy or transitional patterns. Includes migration paths to modern alternatives and deprecation timelines.
+
+</div>
+
+## Getting Started
+
+<div class="grid cards" markdown>
+
+- **New to Distributed Systems?**
+    
+    ---
+    
+    Start with our comprehensive introduction and guided learning paths tailored to your experience level.
+    
+    [:octicons-arrow-right-24: Introduction](introduction/getting-started){ .md-button .md-button--primary }
+
+- **Pattern Discovery**
+    
+    ---
+    
+    Find the perfect patterns for your challenges using our interactive search and filtering tools.
+    
+    [:octicons-arrow-right-24: Discover Patterns](excellence/pattern-discovery){ .md-button }
+
+- **Implementation Guides**
+    
+    ---
+    
+    Deep-dive guides for building resilient, scalable distributed systems.
+    
+    [:octicons-arrow-right-24: View Guides](excellence/implementation-guides){ .md-button }
+
+- **Pattern Health Dashboard**
+    
+    ---
+    
+    Real-time adoption metrics and trend analysis across the industry.
+    
+    [:octicons-arrow-right-24: View Dashboard](reference/pattern-health-dashboard){ .md-button }
+
+</div>
+
+## Excellence Resources
+
+<div class="grid cards" markdown>
+
+- **Real-World Examples**
+    
+    ---
+    
+    Learn from Netflix, Amazon, Google, and Uber's production implementations.
+    
+    [:octicons-arrow-right-24: Case Studies](excellence/real-world-excellence){ .md-button }
+
+- **Excellence Journeys**
+    
+    ---
+    
+    Guided transformation paths for startups, enterprises, and legacy systems.
+    
+    [:octicons-arrow-right-24: Start Journey](excellence/excellence-journeys){ .md-button }
+
+- **Migration Center**
+    
+    ---
+    
+    Step-by-step guides for migrating from legacy to modern patterns.
+    
+    [:octicons-arrow-right-24: Migration Guides](excellence/migrations){ .md-button }
+
+- **Quick Start Guides**
+    
+    ---
+    
+    Role-specific quick start guides for architects, teams, and organizations.
+    
+    [:octicons-arrow-right-24: Quick Start](excellence/quick-start){ .md-button }
+
+</div>
+
+## Learning Paths by Role
+
+=== "New Graduate"
+
+    **Foundation Excellence Path** (12 weeks)
+    
+    1. **Weeks 1-2**: Master the 7 Fundamental Laws
+    2. **Week 3**: Understand the 5 Core Pillars
+    3. **Weeks 4-7**: Explore Gold Patterns with examples
+    4. **Weeks 8-10**: Study real-world implementations
+    5. **Weeks 11-12**: Build your first distributed system
+    
+    [:octicons-arrow-right-24: Start Learning](learning-paths/new-graduate){ .md-button }
+
+=== "Mid-Level Engineer"
+
+    **Pattern Practitioner Path** (8 weeks)
+    
+    1. **Weeks 1-3**: Gold Pattern deep dives with hands-on labs
+    2. **Weeks 4-5**: Implementation guides and best practices
+    3. **Weeks 6-7**: Laws & Pillars theoretical foundation
+    4. **Week 8**: Excellence project implementation
+    
+    [:octicons-arrow-right-24: Start Learning](learning-paths/senior-engineer){ .md-button }
+
+=== "Senior Engineer"
+
+    **Excellence Architect Path** (6 weeks)
+    
+    1. **Weeks 1-2**: Pattern selection and trade-off analysis
+    2. **Weeks 3-4**: Architecture excellence and system design
+    3. **Week 5**: Migration strategies and modernization
+    4. **Week 6**: Technical leadership and team enablement
+    
+    [:octicons-arrow-right-24: Start Learning](learning-paths/architect){ .md-button }
+
+=== "Engineering Manager"
+
+    **Excellence Leader Path** (4 weeks)
+    
+    1. **Week 1**: Excellence strategy and organizational alignment
+    2. **Week 2**: Pattern economics and ROI analysis
+    3. **Week 3**: Team enablement and skill development
+    4. **Week 4**: Metrics, monitoring, and continuous improvement
+    
+    [:octicons-arrow-right-24: Start Learning](learning-paths/manager){ .md-button }
+
+## Core Foundations
+
+<div class="grid cards" markdown>
+
+- **The 7 Fundamental Laws**
+    
+    ---
+    
+    Physics-derived principles that govern all distributed systems:
+    
+    - Correlated Failure
+    - Asynchronous Reality
+    - Emergent Chaos
+    - Multidimensional Optimization
+    - Distributed Knowledge
+    - Cognitive Load
+    - Economic Reality
+    
+    [:octicons-arrow-right-24: Explore Laws](part1-axioms){ .md-button }
+
+- **The 5 Core Pillars**
+    
+    ---
+    
+    Fundamental concepts for organizing distributed solutions:
+    
+    - Work Distribution
+    - State Distribution
+    - Truth Distribution
+    - Control Distribution
+    - Intelligence Distribution
+    
+    [:octicons-arrow-right-24: Study Pillars](part2-pillars){ .md-button }
+
+</div>
+
+## Tools & Resources
+
+- [**Pattern Comparison Tool**](excellence/comparisons) - Compare similar patterns side-by-side
+- [**Migration Playbooks**](excellence/migrations) - Step-by-step migration guides
+- [**Implementation Calculator**](excellence/pattern-discovery/calculator) - Estimate effort and ROI
+- [**Pattern Selector Wizard**](excellence/pattern-discovery/#wizard) - Interactive recommendations
+
+## Excellence Metrics
+
+| Metric | Value | Trend |
+|--------|-------|-------|
+| Total Patterns | 101 | - |
+| Enhanced with Excellence | 57 | ↑ |
+| Case Studies | 91 | ↑ |
+| Real Examples | 150+ | ↑ |
+| Visual Diagrams | 800+ | ↑ |
+| Companies Featured | 50+ | ↑ |
+
+## Featured This Week
+
+!!! tip "Trending: Event Streaming"
+    Event streaming adoption is up 45% this quarter. Companies are moving from batch to real-time processing for better responsiveness and scalability.
+    
+    [Explore Event Streaming →](patterns/event-streaming)
+
+!!! example "Case Study: Discord's 5M Concurrent Users"
+    How Discord scaled their voice infrastructure using WebSocket, edge computing, and selective forwarding units.
+    
+    [Read Full Analysis →](excellence/real-world-excellence/elite-engineering/discord-voice)
+
+## Excellence Journey Roadmap
 
 ```mermaid
 graph LR
-    subgraph "Week 1-2: Foundation"
-        A[Speed of Light] --> B[CAP Theorem]
-        B --> C[FLP Result]
-        C --> D[7 Laws]
-    end
+    A[Start] --> B[Learn Fundamentals]
+    B --> C[Discover Patterns]
+    C --> D[Implement Solutions]
+    D --> E[Measure & Iterate]
+    E --> F[Share Knowledge]
     
-    subgraph "Week 3-6: Patterns"
-        D --> E[Load Balancing]
-        E --> F[Sharding]
-        F --> G[Consensus]
-        G --> H[50+ More]
-    end
+    B --> G[7 Laws & 5 Pillars]
+    C --> H[Pattern Discovery Tool]
+    D --> I[Implementation Guides]
+    E --> J[Health Dashboard]
+    F --> K[Case Studies]
     
-    subgraph "Week 7-12: Mastery"
-        H --> I[Build Twitter Clone]
-        I --> J[Design Uber]
-        J --> K[Create New Patterns]
-    end
-    
-    style A fill:#4CAF50,color:#fff
-    style D fill:#2196F3,color:#fff
-    style H fill:#FF9800,color:#fff
-    style K fill:#9C27B0,color:#fff
+    style A fill:#f9f9f9,stroke:#333
+    style F fill:#f9f9f9,stroke:#333
 ```
 
-<div class="grid cards" markdown>
+## Get Started
 
-- :material-rocket-launch:{ .lg } **Start Learning**
-    
-    ---
-    
-    [:octicons-arrow-right-24: Choose Your Path](introduction/getting-started){ .md-button .md-button--primary }
-
-- :material-compass:{ .lg } **Quick Navigator**
-    
-    ---
-    
-    [:octicons-arrow-right-24: Pattern Selector](patterns/pattern-matrix){ .md-button }
-
-</div>
-
-## What You'll Master
+Choose your path to distributed systems excellence:
 
 <div class="grid cards" markdown>
 
-- :material-atom:{ .lg .middle } **Foundation**
-    
-    ---
-    
-    **7 Fundamental Laws** derived from physics  
-    **5 Core Pillars** organizing all patterns  
-    **Mathematical proofs** for impossibility results
-
-- :material-puzzle:{ .lg .middle } **Application**
-    
-    ---
-    
-    **50+ Patterns** from Google, Amazon, Netflix  
-    **100+ Failures** analyzed with root causes  
-    **Decision frameworks** for architecture choices
-
-- :material-rocket:{ .lg .middle } **Outcome**
-    
-    ---
-    
-    **Design** systems that scale to millions  
-    **Debug** any distributed system failure  
-    **Lead** technical architecture decisions
+- [:octicons-search-24: Discover Patterns](excellence/pattern-discovery){ .md-button .md-button--primary }
+- [:octicons-book-24: Implementation Guides](excellence/implementation-guides){ .md-button }
+- [:octicons-graph-24: Pattern Health](reference/pattern-health-dashboard){ .md-button }
+- [:octicons-people-24: Case Studies](excellence/real-world-excellence){ .md-button }
 
 </div>
-
-## Start Here
-
-<div class="grid cards" markdown>
-
-- :material-play-circle:{ .lg .middle } __Getting Started__
-
- ---
-
- New to distributed systems? Start with our guided learning paths tailored to your experience level.
-
- [:octicons-arrow-right-24: Get Started](introduction/getting-started)
-
-- :material-scale-balance:{ .lg .middle } __The 7 Laws__
-
- ---
-
- Discover the fundamental laws derived from physics that govern all distributed systems.
-
- [:octicons-arrow-right-24: Explore Laws](part1-axioms)
-
-- :material-pillar:{ .lg .middle } __The 5 Pillars__
-
- ---
-
- Learn how to organize solutions around fundamental distributed concepts.
-
- [:octicons-arrow-right-24: Study Pillars](part2-pillars)
-
-- :material-puzzle:{ .lg .middle } __Design Patterns__
-
- ---
-
- Explore battle-tested patterns for building resilient, scalable distributed systems.
-
- [:octicons-arrow-right-24: Browse Patterns](patterns)
-
-</div>
-
-## 🎯 Choose Your Learning Path
-
-=== ":material-school: New Graduate"
-
-    !!! success "Foundation Builder Path"
-        
-        **Duration:** 12 weeks | **Focus:** Laws → Patterns → Implementation
-        
-        Build deep understanding from physics up. Perfect for those with time to invest in fundamentals.
-        
-        [:octicons-arrow-right-24: Start Foundation Path](introduction/getting-started#path-1-foundation-builder-new-graduates){ .md-button }
-
-=== ":material-code-tags: Mid-Level"
-
-    !!! info "Practical Problem Solver Path"
-        
-        **Duration:** 8 weeks | **Focus:** Patterns → Laws → Advanced Topics
-        
-        Apply patterns immediately while building theoretical foundation.
-        
-        [:octicons-arrow-right-24: Start Practical Path](introduction/getting-started#path-2-practical-problem-solver-mid-level-engineers){ .md-button }
-
-=== ":material-account-star: Senior"
-
-    !!! tip "System Designer Path"
-        
-        **Duration:** 6 weeks | **Focus:** Advanced Patterns → Trade-offs → Architecture
-        
-        Master complex patterns and architectural decision-making.
-        
-        [:octicons-arrow-right-24: Start Advanced Path](introduction/getting-started#path-3-system-designer-senior-engineers){ .md-button }
-
-=== ":material-account-group: Manager"
-
-    !!! example "Technical Leader Path"
-        
-        **Duration:** 4 weeks | **Focus:** Strategy → Economics → Team Building
-        
-        Strategic overview for technical decision makers.
-        
-        [:octicons-arrow-right-24: Start Leadership Path](introduction/getting-started#path-4-technical-leader-managersarchitects){ .md-button }
-
-
-## Why This Approach?
-
-<div class="grid cards" markdown>
-
-- :material-atom:{ .lg .middle } __Physics-Based__
-
- ---
-
- Every concept derives from fundamental constraints like the speed of light and thermodynamics.
-
-- :material-infinity:{ .lg .middle } __Timeless Principles__
-
- ---
-
- Learn principles that remain true regardless of technology trends or vendor solutions.
-
-- :material-cog:{ .lg .middle } __Practical Application__
-
- ---
-
- Each concept includes real-world case studies, failure scenarios, and implementation guidance.
-
-</div>
-
-## What You'll Learn
-
-<div class="grid cards" markdown>
-
-- :material-foundation:{ .lg .middle } __Foundations__
-
- ---
-
- - The 7 fundamental laws that govern all distributed systems
- - The 5 pillars of distributed system design 
- - How physics constrains what's possible
-
-- :material-tools:{ .lg .middle } __Practical Skills__
-
- ---
-
- - Choosing the right consistency model
- - Designing for failure and partition tolerance
- - Scaling systems from 1 to 1 billion users
- - Debugging complex distributed failures
-
-- :material-rocket-launch:{ .lg .middle } __Advanced Topics__
-
- ---
-
- - Consensus algorithms and their trade-offs
- - Global-scale system design
- - Edge computing architectures
- - Quantum-resistant distributed systems
-
-</div>
-
-## Latest Updates
-
-!!! tip "Latest Updates"
-    
-    === "New Features"
-        
-        - :material-new-box: **Interactive Consistency Calculator** - Calculate CAP trade-offs visually
-        - :material-chart-line: **Performance Visualizer** - See scaling laws in action
-        - :material-calculator: **Capacity Planner** - Right-size your distributed system
-    
-    === "Updated Content"
-        
-        - :material-refresh: **Google Interview Guide** - Updated with 2025 questions
-        - :material-file-document-edit: **Kubernetes Patterns** - Added service mesh examples
-        - :material-bug-check: **Debugging Guide** - New distributed tracing section
-    
-    === "Case Studies"
-        
-        - :material-alert-circle: **AWS S3 Outage (2024)** - Cascading failure analysis
-        - :material-server-network-off: **Meta WhatsApp Incident** - Split-brain recovery
-        - :material-database-alert: **Cloudflare Memory Leak** - Performance degradation patterns
-
-## Ready to Begin?
-
-[Start Learning :fontawesome-solid-graduation-cap:](introduction/getting-started){ .md-button .md-button--primary .md-button--stretch }

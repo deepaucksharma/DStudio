@@ -51,6 +51,82 @@ Cascading delays: 400 flights
 Cost: $47 million
 ```
 
+## Dashboard Design for Minimal Cognitive Load
+
+### The 3 AM Dashboard Design Principles
+
+```
+DESIGN RULES FOR TIRED BRAINS
+═════════════════════════════
+
+1. GLANCEABLE (2-second rule)
+   ✓ Binary status indicators
+   ✓ Color coding: Green/Red only
+   ✓ Single number metrics
+   ✗ Complex graphs
+   ✗ Multiple interpretations
+
+2. HIERARCHICAL (Progressive disclosure)
+   Level 1: Is it broken? [🟢/🔴]
+   Level 2: What's broken? [Component]
+   Level 3: Why? [Root cause]
+   Level 4: How to fix? [Action]
+
+3. CONTEXTUAL (No memory required)
+   ✓ Show normal vs current
+   ✓ Include historical patterns
+   ✓ Highlight anomalies
+   ✗ Assume prior knowledge
+
+4. ACTIONABLE (Clear next steps)
+   ✓ One-click remediation
+   ✓ Runbook links inline
+   ✓ Escalation path visible
+   ✗ "Monitor and wait"
+
+5. FOCUSED (Attention preservation)
+   ✓ Max 5 items on screen
+   ✓ Related items grouped
+   ✓ Critical info prominent
+   ✗ Information democracy
+```
+
+### Real Dashboard Transformations
+
+```
+BEFORE: Information Overload
+══════════════════════════
+
+┌───────────────────────────────────────────┐
+│ System Metrics Dashboard (Page 1 of 12)      │
+│ CPU: 73.2% MEM: 8.1GB DISK: 45% NET: 1.2Gbps│
+│ ▁▂▃▄▅▆▇█ ▁▂▃▄▅▆▇█ ▁▂▃▄▅▆▇█ ▁▂▃▄▅▆▇█ │
+│ ▁▂▃▄▅▆▇█ ▁▂▃▄▅▆▇█ ▁▂▃▄▅▆▇█ ▁▂▃▄▅▆▇█ │
+│ P50:42ms P90:98ms P95:142ms P99:501ms       │
+│ RPM:12,832 EPM:23 Success:99.82% Queue:1,234│
+│ [48 more metrics below...]                   │
+└───────────────────────────────────────────┘
+
+Cognitive Load: 147 items competing for attention
+Time to Understanding: Never
+
+AFTER: Clarity Under Stress
+════════════════════════
+
+┌───────────────────────────────────────────┐
+│ SYSTEM STATUS: 🟢 HEALTHY                    │
+│                                              │
+│ User Impact: 0% (All systems operational)    │
+│ Response Time: 45ms (Normal: 40-50ms)        │
+│ Active Users: 45,231 (Typical for 3 PM)      │
+│                                              │
+│ [🔍 Investigate Issue] (If needed)          │
+└───────────────────────────────────────────┘
+
+Cognitive Load: 5 items maximum
+Time to Understanding: 2 seconds
+```
+
 ## The Science of Stress-Resistant Design
 
 ### The Cognitive Budget Allocator
@@ -174,6 +250,57 @@ Result: Incident response time down 73%
 
 ### Pattern 1: The North Star Dashboard
 
+```python
+class NorthStarDashboard:
+    """Single metric that captures system health"""
+    
+    def calculate_north_star(self, metrics):
+        # Example: E-commerce site
+        # North Star = Successful checkouts per minute
+        
+        components = {
+            'user_traffic': metrics['active_users'],
+            'conversion': metrics['checkout_success_rate'],
+            'performance': metrics['response_time_ok'],
+            'availability': metrics['service_health']
+        }
+        
+        # Single score that matters
+        north_star = (
+            components['user_traffic'] *
+            components['conversion'] *
+            components['performance'] *
+            components['availability']
+        )
+        
+        return {
+            'score': north_star,
+            'status': self.get_status(north_star),
+            'trend': self.calculate_trend(north_star),
+            'action': self.recommend_action(north_star)
+        }
+
+# Implementation example:
+"""
+SHOPIFY'S BLACK FRIDAY DASHBOARD
+═══════════════════════════════
+
+Instead of 200 metrics, they show:
+
+┌───────────────────────────────────────────┐
+│ CHECKOUTS PER SECOND: 12,847 🟢            │
+│ ▁▁▂▃▄▅▆▇█▇▆▅▄▅▆▇██▇▆▅ (last hour)     │
+│                                              │
+│ vs Normal: +847% 🚀                         │
+│ vs Capacity: 67% ✅                          │
+│                                              │
+│ Everything else is noise during peak.        │
+└───────────────────────────────────────────┘
+
+Drill down only if this number drops.
+"""
+```
+
 ```
 ONE METRIC TO RULE THEM ALL
 ═══════════════════════════
@@ -191,6 +318,38 @@ Everything else is secondary detail.
 ```
 
 ### Pattern 2: The Decision Tree Display
+
+```
+INTERACTIVE DECISION TREES
+════════════════════════
+
+Example: Payment System Troubleshooting
+
+┌───────────────────────────────────────────┐
+│ PAYMENTS FAILING?                            │
+│                                              │
+│ [🔴 YES - Fix Now]  [🟢 NO - All Good]     │
+└───────────────────────────────────────────┘
+                    ↓
+┌───────────────────────────────────────────┐
+│ ALL PAYMENTS OR SPECIFIC TYPE?               │
+│                                              │
+│ [🔴 ALL]  [🟡 SOME CARDS]  [🟡 SOME REGIONS]│
+└───────────────────────────────────────────┘
+      ↓
+┌───────────────────────────────────────────┐
+│ CRITICAL: Payment Gateway Unreachable        │
+│                                              │
+│ [EXECUTE FAILOVER] Takes 30 seconds          │
+│                                              │
+│ This will:                                   │
+│ • Switch to backup gateway                   │
+│ • Notify payment team                        │
+│ • Create incident ticket                     │
+└───────────────────────────────────────────┘
+
+No thinking. Just clicking. Perfect for 3 AM.
+```
 
 ```
 GUIDE THE OPERATOR:
@@ -214,6 +373,73 @@ No thinking required. Just follow the tree.
 ```
 
 ### Pattern 3: The Incident Commander View
+
+```python
+class IncidentCommanderDashboard:
+    """Everything needed for incident response in one view"""
+    
+    def render_incident_view(self, incident):
+        return {
+            'header': {
+                'id': incident.id,
+                'severity': incident.severity,
+                'duration': incident.elapsed_time,
+                'status': incident.current_status
+            },
+            'impact': {
+                'users_affected': incident.calculate_user_impact(),
+                'revenue_loss': incident.calculate_revenue_impact(),
+                'sla_status': incident.check_sla_breach(),
+                'trend': incident.impact_trend  # Getting better/worse?
+            },
+            'current_state': {
+                'problem': incident.problem_summary,
+                'root_cause': incident.identified_root_cause,
+                'mitigation': incident.mitigation_status,
+                'eta': incident.estimated_resolution
+            },
+            'assignments': {
+                'ic': incident.commander,
+                'tech_lead': incident.tech_lead,
+                'comms': incident.comms_lead,
+                'tasks': incident.active_tasks
+            },
+            'next_actions': incident.get_next_actions(),
+            'escalation': incident.escalation_path
+        }
+
+# Real implementation at PagerDuty:
+"""
+PAGERDUTY'S INCIDENT COMMAND DASHBOARD
+════════════════════════════════════
+
+┌─────────────────────────────────────────────┐
+│ INC-2847 | SEV-1 | 23 min | MITIGATING        │
+├─────────────────────────────────────────────┤
+│ IMPACT                                         │
+│ • 3,421 users unable to login (2.3%)          │
+│ • $47K/min revenue impact                     │
+│ • SLA: 7 min remaining ⚠️                      │
+│ • Trend: Improving ↘️                          │
+├─────────────────────────────────────────────┤
+│ CURRENT STATE                                  │
+│ Problem: Auth service can't reach user DB      │
+│ Cause: Network partition in us-east-1          │
+│ Fix: Failing over to us-west-2 (67% complete) │
+│ ETA: 3 minutes                                 │
+├─────────────────────────────────────────────┤
+│ ASSIGNMENTS                                    │
+│ IC: @sarah • Tech: @mike • Comms: @lisa      │
+│                                                │
+│ Active Tasks:                                  │
+│ ☐ Monitor failover completion (@mike)         │
+│ ☐ Update status page (@lisa)                  │
+│ ☐ Prepare RCA draft (@sarah)                  │
+└─────────────────────────────────────────────┘
+
+All critical info. No hunting. No confusion.
+"""
+```
 
 ```
 EVERYTHING FOR INCIDENT RESPONSE:

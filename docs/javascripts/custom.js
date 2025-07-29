@@ -1,109 +1,7 @@
-/* Custom JavaScript for The Compendium of Distributed Systems */
-/* Performance-optimized and following best practices */
+/* Minimal Custom JavaScript for The Compendium of Distributed Systems */
 
 (function() {
   'use strict';
-
-  // === Performance Monitoring ===
-  
-  // Log performance metrics
-  window.addEventListener('load', function() {
-    if ('performance' in window) {
-      const perfData = window.performance.timing;
-      const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-      const connectTime = perfData.responseEnd - perfData.requestStart;
-      const renderTime = perfData.domComplete - perfData.domLoading;
-      
-      console.log('Performance Metrics:', {
-        'Page Load Time': pageLoadTime + 'ms',
-        'Connect Time': connectTime + 'ms',
-        'Render Time': renderTime + 'ms'
-      });
-    }
-  });
-
-  // === Reading Progress Indicator ===
-  
-  function createProgressBar() {
-    // Check if page has enough content to scroll
-    const isScrollable = document.documentElement.scrollHeight > window.innerHeight * 1.5;
-    if (!isScrollable) return; // Don't show progress bar on short pages
-    
-    const progress = document.createElement('div');
-    progress.className = 'reading-progress';
-    document.body.appendChild(progress);
-    
-    // Add ARIA attributes for accessibility
-    progress.setAttribute('role', 'progressbar');
-    progress.setAttribute('aria-label', 'Reading progress');
-    progress.setAttribute('aria-valuemin', '0');
-    progress.setAttribute('aria-valuemax', '100');
-    
-    function updateProgress() {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = height > 0 ? (winScroll / height) : 0;
-      const percentage = Math.round(scrolled * 100);
-      
-      // Update progress bar
-      progress.style.transform = `scaleX(${scrolled})`;
-      
-      // Update percentage for tooltip
-      progress.setAttribute('data-progress', percentage);
-      progress.setAttribute('aria-valuenow', percentage);
-      
-      // Hide progress bar when at top
-      if (percentage === 0) {
-        progress.style.opacity = '0';
-      } else {
-        progress.style.opacity = '1';
-      }
-    }
-    
-    // Throttle scroll events for performance
-    let ticking = false;
-    function requestTick() {
-      if (!ticking) {
-        window.requestAnimationFrame(updateProgress);
-        ticking = true;
-        setTimeout(() => ticking = false, 50); // Reduced delay for smoother updates
-      }
-    }
-    
-    // Initial update
-    updateProgress();
-    
-    // Listen to scroll events
-    window.addEventListener('scroll', requestTick, { passive: true });
-    
-    // Update on window resize
-    window.addEventListener('resize', () => {
-      // Re-check if page is still scrollable
-      const stillScrollable = document.documentElement.scrollHeight > window.innerHeight * 1.5;
-      if (!stillScrollable && progress.parentNode) {
-        progress.remove();
-      } else if (stillScrollable && !progress.parentNode) {
-        document.body.appendChild(progress);
-      }
-      updateProgress();
-    });
-    
-    // Handle instant navigation (MkDocs Material feature)
-    if (window.location$ && window.location$.subscribe) {
-      window.location$.subscribe(() => {
-        // Small delay to ensure DOM is updated
-        setTimeout(() => {
-          const isNewPageScrollable = document.documentElement.scrollHeight > window.innerHeight * 1.5;
-          if (isNewPageScrollable && !progress.parentNode) {
-            document.body.appendChild(progress);
-          } else if (!isNewPageScrollable && progress.parentNode) {
-            progress.remove();
-          }
-          updateProgress();
-        }, 100);
-      });
-    }
-  }
 
   // === Enhanced Search Experience ===
   
@@ -125,80 +23,6 @@
     });
   }
 
-  // === Copy Code Enhancement ===
-  
-  function enhanceCodeBlocks() {
-    // Add filename display to code blocks with title
-    document.querySelectorAll('pre > code').forEach(block => {
-      const pre = block.parentElement;
-      const title = pre.getAttribute('title');
-      
-      if (title) {
-        const filename = document.createElement('span');
-        filename.className = 'filename';
-        filename.textContent = title;
-        pre.appendChild(filename);
-      }
-    });
-    
-    // Enhance copy button feedback
-    document.addEventListener('click', function(e) {
-      if (e.target.matches('.md-clipboard')) {
-        const button = e.target;
-        const originalTitle = button.getAttribute('title');
-        
-        button.setAttribute('title', 'Copied!');
-        button.classList.add('copied');
-        
-        setTimeout(() => {
-          button.setAttribute('title', originalTitle);
-          button.classList.remove('copied');
-        }, 2000);
-      }
-    });
-  }
-
-  // === Navigation Enhancement ===
-  // All navigation now consolidated in left sidebar
-
-  // === Fix Navigation for Instant Loading ===
-  
-  function fixInstantNavigation() {
-    // Listen for navigation changes
-    if (window.location$ && window.location$.subscribe) {
-      window.location$.subscribe(() => {
-        // Small delay to ensure DOM is updated
-        setTimeout(() => {
-          // Update active navigation items in left sidebar
-          const activeNavItem = document.querySelector('.md-nav__item--active');
-          if (activeNavItem) {
-            activeNavItem.scrollIntoView({ block: 'center' });
-          }
-        }, 100);
-      });
-    }
-  }
-
-  // === Lazy Loading for Images ===
-  
-  function setupLazyLoading() {
-    if ('IntersectionObserver' in window) {
-      const images = document.querySelectorAll('img[loading="lazy"]');
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src || img.src;
-            img.classList.add('loaded');
-            observer.unobserve(img);
-          }
-        });
-      });
-      
-      images.forEach(img => imageObserver.observe(img));
-    }
-  }
-
   // === External Link Enhancement ===
   
   function enhanceExternalLinks() {
@@ -211,37 +35,11 @@
     });
   }
 
-  // === Keyboard Navigation ===
-  
-  function setupKeyboardNav() {
-    document.addEventListener('keydown', function(e) {
-      // Navigate between pages with arrow keys
-      if (e.altKey) {
-        if (e.key === 'ArrowLeft') {
-          const prevLink = document.querySelector('.md-footer__link--prev');
-          if (prevLink) prevLink.click();
-        } else if (e.key === 'ArrowRight') {
-          const nextLink = document.querySelector('.md-footer__link--next');
-          if (nextLink) nextLink.click();
-        }
-      }
-    });
-  }
-
   // === Initialize Everything ===
   
   function initialize() {
-    createProgressBar();
     enhanceSearch();
-    enhanceCodeBlocks();
-    // TOC functions removed - using left navigation only
-    fixInstantNavigation();
-    setupLazyLoading();
     enhanceExternalLinks();
-    setupKeyboardNav();
-    
-    // Add loaded class for CSS animations
-    document.body.classList.add('loaded');
   }
 
   // Wait for DOM to be ready
@@ -249,16 +47,6 @@
     document.addEventListener('DOMContentLoaded', initialize);
   } else {
     initialize();
-  }
-
-  // === Service Worker for Offline Support ===
-  
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch(() => {
-        // Service worker registration failed, which is fine
-      });
-    });
   }
 
 })();

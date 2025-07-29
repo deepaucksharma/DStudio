@@ -1544,6 +1544,36 @@ saga:
 - **[Write-Ahead Log](../patterns/wal.md)**: Saga state persistence
 - **[Message Queue](../patterns/distributed-queue.md)**: Async communication between steps
 
+## Excellence Framework Integration
+
+### Implementation Guides
+- **[Saga Pattern Implementation Guide](../excellence/implementation-guides/saga-implementation.md)**: Step-by-step saga implementation
+- **[Distributed Transaction Patterns](../excellence/implementation-guides/distributed-transactions.md)**: Comprehensive transaction strategies
+- **[Compensation Design Guide](../excellence/implementation-guides/compensation-patterns.md)**: Designing effective compensations
+
+### Pattern Combinations
+<div class="grid cards" markdown>
+
+- :material-puzzle:{ .lg .middle } **With Event Sourcing**
+    
+    ---
+    
+    Natural fit for saga state management:
+    - Events track saga progress
+    - Easy compensation replay
+    - [View Integration Guide](../excellence/combinations/saga-event-sourcing.md)
+
+- :material-puzzle:{ .lg .middle } **With Circuit Breaker**
+    
+    ---
+    
+    Protect saga steps from failures:
+    - Circuit breakers on each step
+    - Fail fast with compensations
+    - [View Integration Guide](../excellence/combinations/saga-circuit-breaker.md)
+
+</div>
+
 ## Case Studies
 
 <div class="grid cards" markdown>

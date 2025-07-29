@@ -387,39 +387,3 @@ Use these to get leadership buy-in:
     <a href="../../implementation-guides/platform-engineering-playbook/" class="md-button md-button--primary">Platform Engineering Guide →</a>
 </div>
 
-<style>
-.maturity-matrix {
-    margin: 2rem 0;
-    overflow-x: auto;
-}
-
-.maturity-matrix table {
-    min-width: 800px;
-}
-
-.platform-components {
-    background: var(--md-code-bg-color);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    margin: 1rem 0;
-}
-
-.governance-framework {
-    display: grid;
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.navigation-footer {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--md-default-fg-color--lightest);
-}
-
-.mermaid {
-    text-align: center;
-}
-</style>

@@ -1139,6 +1139,38 @@ POST /circuit-breakers/{service}/reset
 
 ---
 
+## Excellence Framework Integration
+
+### Implementation Guides
+- **[API Gateway Implementation Guide](../excellence/implementation-guides/api-gateway-implementation.md)**: Complete implementation guide
+- **[Gateway Security Patterns](../excellence/implementation-guides/gateway-security.md)**: Authentication and authorization
+- **[Gateway Performance Optimization](../excellence/implementation-guides/gateway-performance.md)**: Scaling and optimization
+
+### Pattern Combinations
+<div class="grid cards" markdown>
+
+- :material-puzzle:{ .lg .middle } **With Circuit Breaker**
+    
+    ---
+    
+    Protect backend services from cascading failures:
+    - Per-route circuit breakers
+    - Graceful degradation
+    - [View Integration Guide](../excellence/combinations/gateway-circuit-breaker.md)
+
+- :material-puzzle:{ .lg .middle } **With Service Mesh**
+    
+    ---
+    
+    Modern gateway architectures:
+    - Gateway as mesh ingress
+    - Distributed rate limiting
+    - [View Integration Guide](../excellence/combinations/gateway-service-mesh.md)
+
+</div>
+
+---
+
 ## Related Resources
 
 ### Patterns
