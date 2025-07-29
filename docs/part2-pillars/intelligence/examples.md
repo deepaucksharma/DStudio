@@ -12,6 +12,31 @@ last_updated: 2025-07-20
 
 # Intelligence & Learning Examples
 
+## ⚡ The One-Inch Punch
+
+<div class="axiom-box">
+<h3>💥 Intelligence Truth</h3>
+<p><strong>"Smart systems learn from the past. / Genius systems / predict the future."</strong></p>
+<p>That's why Amazon scales BEFORE Black Friday hits.</p>
+</div>
+
+## 🧭 Your 10-Second Understanding
+
+```
+STATIC SYSTEM                     INTELLIGENT SYSTEM
+═════════════                     ══════════════════
+
+┌────────────┐                    ┌────────────┐
+│ IF X > 100 │                    │   LEARNS   │
+│ THEN SCALE │                    │ PATTERNS   │
+└────────────┘                    └─────┬──────┘
+      │                                 │
+      ▼                                 ▼
+Always late to respond           Predicts and prepares
+Same mistakes forever            Gets better over time
+Can't handle new patterns        Adapts to change
+```
+
 ## Real-World Case Studies
 
 ### 1. Google's Borg: Learning from History

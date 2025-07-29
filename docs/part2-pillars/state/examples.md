@@ -101,34 +101,37 @@ sequenceDiagram
     Coordinator-->>Client: Resolved value
 ```
 
-#### Quorum Math: The Secret Sauce
+### The Quorum Math That Runs Amazon 🧮
 
-| Formula | What It Means | Example (N=3) | Result |
-|---------|---------------|---------------|--------|
-| W + R > N | Strong consistency | W=2, R=2 > 3 | ✅ Always see latest |
-| W + R ≤ N | Eventual consistency | W=1, R=1 ≤ 3 | 🔄 May see old data |
-| W = N | All replicas must write | W=3 | ⚠️ No write availability if any node fails |
-| R = 1 | Fastest reads | R=1 | ⚡ Sub-ms latency |
-
-
-#### Production Impact
-
-```mermaid
-graph LR
-    subgraph "Scale Achieved"
-        M1["10T requests/day"]
-        M2["< 10ms p99 latency"]
-        M3["99.999% uptime"]
-        M4["100K+ customers"]
-    end
-    
-    M1 --> Success["Powers Amazon.com<br/>Netflix, Lyft, Airbnb"]
-    M2 --> Success
-    M3 --> Success  
-    M4 --> Success
-    
-    style Success fill:#4ecdc4
 ```
+THE FORMULA THAT PRINTS MONEY
+════════════════════════════════
+
+N = 3 (replicas)
+W = Write quorum
+R = Read quorum
+
+SCENARIO 1: "I NEED SPEED"          W=1, R=1
+  Write: 5ms ⚡                      1+1 ≤ 3
+  Read:  5ms ⚡                      Result: EVENTUAL
+  Cart might show old items          (That's OK!)
+
+SCENARIO 2: "I NEED CORRECTNESS"    W=2, R=2  
+  Write: 10ms                        2+2 > 3
+  Read:  10ms                        Result: STRONG
+  Always see latest cart             (Banks love this)
+
+SCENARIO 3: "I'M PARANOID"          W=3, R=1
+  Write: 15ms 🐌                     3+1 > 3
+  Read:  5ms ⚡                      Result: STRONG
+  But one node down = no writes!     (Nobody does this)
+
+AMAZON'S CHOICE: W=1, R=1
+"Better to show a stale cart than no cart"
+$300B/year says they're right
+```
+
+
 
 ### 2. Google Spanner: The Impossible Made Possible
 
