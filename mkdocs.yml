@@ -89,9 +89,7 @@ plugins:
   - search:
       lang: en
       separator: '[\s\-\.]+' 
-  - awesome-pages:
-      collapse_single_pages: false
-      strict: false
+
   - redirects:
       redirect_maps:
         'patterns/anti-entropy.md': 'patterns/event-sourcing.md'
