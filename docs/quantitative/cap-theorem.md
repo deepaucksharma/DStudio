@@ -386,10 +386,10 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](part1-axioms/law1-failure/index) - Network partitions and failure modes
-- [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index) - Time and consistency challenges
-- [Law 4: Multidimensional Optimization](part1-axioms/law4-tradeoffs/index) - CAP trade-offs in practice
-- [Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index) - Knowledge consistency across nodes
+- [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) - Network partitions and failure modes
+- [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md) - Time and consistency challenges
+- [Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/index.md) - CAP trade-offs in practice
+- [Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/index.md) - Knowledge consistency across nodes
 
 ### Related Patterns
 - [Consensus Algorithms](../patterns/consensus.md) - Achieving agreement despite CAP
@@ -400,11 +400,11 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [Conflict Resolution](../patterns/conflict-resolution.md) - Handling divergence in AP systems
 
 ### Quantitative Analysis
-- [Consistency Models](quantitative/consistency-models) - Deep dive into consistency levels
-- [PACELC Analysis](quantitative/pacelc-analysis) - Extended CAP theorem implications
-- [Network Theory](quantitative/network-theory) - Understanding partition probabilities
-- [Availability Math](quantitative/availability-math) - Calculating system availability
-- [Latency Models](quantitative/latency-models) - Consistency vs latency trade-offs
+- [Consistency Models](consistency-models.md) - Deep dive into consistency levels
+- [PACELC Analysis](pacelc-analysis.md) - Extended CAP theorem implications
+- [Network Theory](network-theory.md) - Understanding partition probabilities
+- [Availability Math](availability-math.md) - Calculating system availability
+- [Latency Models](latency-models.md) - Consistency vs latency trade-offs
 
 ### Case Studies
 - [Apache Cassandra](../case-studies/cassandra.md) - Tunable consistency in practice

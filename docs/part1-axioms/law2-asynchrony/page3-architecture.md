@@ -33,7 +33,7 @@ graph LR
 
 ### Implementation Blueprint
 
-```python
+```python title="Idempotency Implementation"
 # ❌ WRONG: New ID per retry
 def retry_payment(amount):
     for attempt in range(3):
@@ -116,15 +116,18 @@ graph TD
 ```
 
 ### Lamport Clock Rules
-```python
+
+```python title="Lamport Clock Implementation"
 class LamportClock:
     def __init__(self):
         self.time = 0
     
     def tick(self):
+        """Increment local time for internal events"""
         self.time += 1
         
     def update(self, received_time):
+        """Update time when receiving a message"""
         self.time = max(self.time, received_time) + 1
         
     def send_message(self, msg):

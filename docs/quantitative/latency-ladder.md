@@ -443,7 +443,7 @@ graph LR
  style D fill:#ffcccc
 ```
 
-Every operation proves [Law 1](part1-axioms/law1-failure) - even L1 cache (0.5ns/index) > 0.
+Every operation proves [Law 1](../part1-axioms/law1-failure/index.md) - even L1 cache (0.5ns/index) > 0.
 
 ### Law 4: Trade-offs
 !!! danger "📈 Latency Under Load"

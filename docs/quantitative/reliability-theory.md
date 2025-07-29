@@ -511,4 +511,4 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
 
 - **Theory**: [Failure Models](failure-models.md) | [MTBF/MTTR](mtbf-mttr.md) | [Availability Math](availability-math.md)
 - **Practice**: [Fault Tolerance](../patterns/fault-tolerance.md) | [Chaos Engineering](../human-factors/chaos-engineering.md)
-- **Laws**: [Law 1: Correlated Failure](part1-axioms/law1-failure/index) | [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index)
+- **Laws**: [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) | [Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
