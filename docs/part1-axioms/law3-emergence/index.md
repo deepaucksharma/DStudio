@@ -118,6 +118,12 @@ graph LR
     • Just emergence
     ```
 
+!!! danger "🚨 SYSTEM ENTERING PHASE TRANSITION? Crisis Checklist:"
+    1. **[Check Critical Indicators](the-operations.md#emergence-detection)** – Load, correlation, feedback loops?
+    2. **[Identify Emergence Pattern](the-patterns.md)** – Retry-Storm/Thundering-Herd/Death-Spiral/Metastable?
+    3. **[Apply Circuit Breakers](the-patterns.md#defense-patterns)** – Break feedback loops NOW
+    4. **[Activate Load Shedding](the-operations.md#emergency-controls)** – Move away from critical point
+
 ## Your Journey Through This Law
 
 === "The Lens"

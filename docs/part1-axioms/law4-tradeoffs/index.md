@@ -31,6 +31,12 @@ LESSON: The universe has laws. Even PayPal must obey them.
 ```
 </div>
 
+!!! danger "🚨 FACING IMPOSSIBLE TRADE-OFFS? Decision Framework:"
+    1. **[Map the Triangle](page1-lens.md#impossible-triangles)** – What 3 dimensions compete?
+    2. **[Calculate Real Costs](page3-architecture.md#tradeoff-calculators)** – Quantify each dimension
+    3. **[Choose Your Sacrifice](page2-specters.md)** – Pick 2, sacrifice 1 wisely
+    4. **[Monitor Balance](page4-operations.md#tradeoff-monitoring)** – Track drift over time
+
 ## Your Journey Through Trade-offs
 
 <div class="axiom-box">

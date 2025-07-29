@@ -19,6 +19,12 @@ LESSON: They built a Ferrari when they needed a Toyota
 ```
 </div>
 
+!!! danger "🚨 COSTS SPIRALING OUT OF CONTROL? Financial First Aid:"
+    1. **[Run Cost Analysis](examples.md#cost-calculators)** – Use the cascade calculator
+    2. **[Identify Money Drain](examples.md#cost-patterns)** – Over-engineering/Vendor-lock/Hidden-costs?
+    3. **[Apply Cost Pattern](examples.md#cost-optimization)** – Right-sizing/Reserved/Spot/Simplification
+    4. **[Track Burn Rate](exercises.md#cost-monitoring)** – Set up financial alerts
+
 ## The Shocking Financial Reality of Distributed Systems
 
 <div class="axiom-box" style="background: #1a1a1a; border-left: 4px solid #f39c12;">
@@ -38,7 +44,56 @@ print(f"That $2K shortcut now costs: ${final_cost:,.0f}")
 
 ## Real Cost Calculators That Will Terrify You
 
-### 1. The Cloud Cost Cascade Calculator
+### 🧮 Interactive Cloud Cost Calculator
+
+<div id="cloud-cost-calculator" style="background: #f4f4f4; padding: 20px; border-radius: 8px; margin: 20px 0;">
+<h4>Calculate Your REAL Cloud Costs</h4>
+<form onsubmit="calculateCloudCost(event); return false;">
+<label>Base Service Cost ($/month): <input type="number" id="base-cost" value="1000" min="0" style="width: 100px;"></label><br><br>
+<button type="submit" style="background: #5448C8; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Calculate True Cost</button>
+</form>
+<div id="cost-results" style="margin-top: 20px; display: none;">
+<h5>💸 The Shocking Truth:</h5>
+<div id="cost-breakdown"></div>
+</div>
+</div>
+
+<script>
+function calculateCloudCost(e) {
+    e.preventDefault();
+    const baseCost = parseFloat(document.getElementById('base-cost').value);
+    
+    const costs = {
+        'Base Service': baseCost,
+        'Data Transfer (15%)': baseCost * 0.15,
+        'Monitoring (10%)': baseCost * 0.10,
+        'Logging (8%)': baseCost * 0.08,
+        'Backup (12%)': baseCost * 0.12,
+        'Security (5%)': baseCost * 0.05,
+        'Support (10%)': baseCost * 0.10,
+        'Ops Overhead (25%)': baseCost * 0.25
+    };
+    
+    const total = Object.values(costs).reduce((a, b) => a + b, 0);
+    const multiplier = total / baseCost;
+    
+    let html = '<table style="width: 100%; border-collapse: collapse;">';
+    for (const [name, cost] of Object.entries(costs)) {
+        html += `<tr><td style="padding: 5px; border-bottom: 1px solid #ddd;">${name}</td><td style="text-align: right; padding: 5px;">$${cost.toFixed(2)}</td></tr>`;
+    }
+    html += `<tr style="font-weight: bold; background: #e0e0e0;"><td style="padding: 5px;">TOTAL MONTHLY</td><td style="text-align: right; padding: 5px;">$${total.toFixed(2)}</td></tr>`;
+    html += `<tr style="font-weight: bold;"><td style="padding: 5px;">TOTAL ANNUAL</td><td style="text-align: right; padding: 5px;">$${(total * 12).toFixed(2)}</td></tr>`;
+    html += '</table>';
+    html += `<div style="margin-top: 15px; padding: 15px; background: #ff6b6b; color: white; border-radius: 4px; text-align: center; font-size: 18px;">`;
+    html += `Your $${baseCost}/mo service actually costs <strong>$${total.toFixed(0)}/mo</strong> (×${multiplier.toFixed(1)})`;
+    html += '</div>';
+    
+    document.getElementById('cost-breakdown').innerHTML = html;
+    document.getElementById('cost-results').style.display = 'block';
+}
+</script>
+
+### 1. The Cloud Cost Cascade Calculator (Python Reference)
 
 ```python
 class CloudCostCascade:
@@ -74,7 +129,60 @@ print(result['shock_message'])
 # Output: Your $1,000/mo service actually costs $1,850/mo (×1.9)
 ```
 
-### 2. Technical Debt Compound Interest Visualizer
+### 🧮 Interactive Technical Debt Calculator
+
+<div id="tech-debt-calculator" style="background: #f4f4f4; padding: 20px; border-radius: 8px; margin: 20px 0;">
+<h4>Calculate Your Technical Debt Growth</h4>
+<form onsubmit="calculateTechDebt(event); return false;">
+<label>Initial Time Saved (hours): <input type="number" id="time-saved" value="40" min="1" style="width: 80px;"></label><br><br>
+<label>Weekly Interest Rate (%): <input type="number" id="interest-rate" value="5" min="1" max="20" style="width: 80px;"></label><br><br>
+<label>Time Period (weeks): <input type="number" id="weeks" value="52" min="1" max="104" style="width: 80px;"></label><br><br>
+<button type="submit" style="background: #5448C8; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">Calculate Debt Growth</button>
+</form>
+<div id="debt-results" style="margin-top: 20px; display: none;">
+<h5>📈 Technical Debt Projection:</h5>
+<div id="debt-breakdown"></div>
+</div>
+</div>
+
+<script>
+function calculateTechDebt(e) {
+    e.preventDefault();
+    const timeSaved = parseFloat(document.getElementById('time-saved').value);
+    const weeklyRate = parseFloat(document.getElementById('interest-rate').value) / 100;
+    const weeks = parseInt(document.getElementById('weeks').value);
+    const hourlyRate = 150; // $150/hour fully loaded cost
+    
+    // Calculate compound growth
+    const finalDebt = timeSaved * Math.pow(1 + weeklyRate, weeks);
+    const initialCost = timeSaved * hourlyRate;
+    const finalCost = finalDebt * hourlyRate;
+    
+    // Key milestones
+    const double = Math.log(2) / Math.log(1 + weeklyRate);
+    const quadruple = Math.log(4) / Math.log(1 + weeklyRate);
+    
+    let html = '<table style="width: 100%; border-collapse: collapse;">';
+    html += `<tr><td style="padding: 8px; border-bottom: 1px solid #ddd;">Initial "Savings"</td><td style="text-align: right;">${timeSaved} hours ($${initialCost.toLocaleString()})</td></tr>`;
+    html += `<tr><td style="padding: 8px; border-bottom: 1px solid #ddd;">Weekly Interest Rate</td><td style="text-align: right;">${(weeklyRate * 100).toFixed(0)}%</td></tr>`;
+    html += `<tr><td style="padding: 8px; border-bottom: 1px solid #ddd;">Time to Double</td><td style="text-align: right;">${double.toFixed(1)} weeks</td></tr>`;
+    html += `<tr><td style="padding: 8px; border-bottom: 1px solid #ddd;">Time to Quadruple</td><td style="text-align: right;">${quadruple.toFixed(1)} weeks</td></tr>`;
+    html += `<tr style="font-weight: bold; background: #e0e0e0;"><td style="padding: 8px;">After ${weeks} weeks</td><td style="text-align: right;">${finalDebt.toFixed(0)} hours ($${finalCost.toLocaleString()})</td></tr>`;
+    html += '</table>';
+    
+    // Warning message
+    const multiplier = finalDebt / timeSaved;
+    html += `<div style="margin-top: 15px; padding: 15px; background: #ff6b6b; color: white; border-radius: 4px; text-align: center;">`;
+    html += `<strong style="font-size: 20px;">⚠️ ${multiplier.toFixed(1)}× Growth!</strong><br>`;
+    html += `Your ${timeSaved}-hour shortcut now costs ${finalDebt.toFixed(0)} hours ($${finalCost.toLocaleString()})`;
+    html += '</div>';
+    
+    document.getElementById('debt-breakdown').innerHTML = html;
+    document.getElementById('debt-results').style.display = 'block';
+}
+</script>
+
+### 2. Technical Debt Compound Interest Visualizer (Python Reference)
 
 ```python
 import matplotlib.pyplot as plt

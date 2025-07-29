@@ -39,6 +39,12 @@ The "decentralized" network needed emergency central coordination.
 **The Lesson**: Even systems designed specifically to solve the distributed truth problem can have multiple incompatible truths.
 </div>
 
+!!! danger "🚨 EXPERIENCING SPLIT-BRAIN OR INCONSISTENCY? Truth Triage:"
+    1. **[Identify Truth Level](page1-lens.md#truth-spectrum)** – Local/Eventual/Causal/Consensus?
+    2. **[Check Knowledge Specter](page2-specters.md)** – Split-Brain/Byzantine/Clock-Drift/Uncommitted?
+    3. **[Apply Consensus Pattern](page3-architecture.md)** – Raft/Paxos/CRDT/Vector-Clocks?
+    4. **[Monitor Truth Budget](page4-operations.md#consistency-monitoring)** – How stale is acceptable?
+
 ## Why Truth Is the Hardest Problem
 
 <div class="truth-box">

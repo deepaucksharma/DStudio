@@ -39,6 +39,12 @@ Result: Routers disagree on network state
 <strong>The Lesson:</strong> A 500ms timing difference destroyed global connectivity.
 </div>
 
+!!! danger "🚨 EXPERIENCING ASYNC ISSUES? Your Emergency Response:"
+    1. **[Check Time Sync Status](page4-operations.md#time-sync-monitoring)** – Are your clocks drifting?
+    2. **[Identify Async Specter](page2-specters.md)** – Race/Timeout/Clock-Drift/Order/Split-Brain/Lost-Update?
+    3. **[Apply Async Pattern](page3-architecture.md)** – Vector-Clocks/Lamport/Consensus/Eventual-Consistency
+    4. **[Measure Time Budget](page4-operations.md#timeout-budgets)** – Where is latency hiding?
+
 ## Your Journey Through Asynchronous Reality
 
 <div class="axiom-box">

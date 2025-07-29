@@ -1,0 +1,426 @@
+/* Enhanced Material Theme Customizations for Distributed Systems Compendium */
+
+/* ============================================
+   ROOT VARIABLES & THEME INTEGRATION
+   ============================================ */
+
+:root {
+  /* Custom accent colors that work with Material palette */
+  --md-law-color: var(--md-deep-purple-700);
+  --md-pillar-color: var(--md-teal-700);
+  --md-pattern-color: var(--md-blue-700);
+  
+  /* Visual component colors */
+  --md-axiom-bg: var(--md-primary-fg-color--transparent);
+  --md-decision-bg: var(--md-accent-fg-color--transparent);
+  --md-failure-bg: color-mix(in srgb, var(--md-error-fg-color) 10%, transparent);
+  --md-truth-bg: color-mix(in srgb, var(--md-info-fg-color) 10%, transparent);
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] {
+  --md-axiom-bg: color-mix(in srgb, var(--md-primary-fg-color) 20%, transparent);
+  --md-decision-bg: color-mix(in srgb, var(--md-accent-fg-color) 20%, transparent);
+  --md-failure-bg: color-mix(in srgb, var(--md-error-fg-color) 20%, transparent);
+  --md-truth-bg: color-mix(in srgb, var(--md-info-fg-color) 20%, transparent);
+}
+
+/* ============================================
+   NAVIGATION ENHANCEMENTS
+   ============================================ */
+
+/* Sticky navigation tabs with better visibility */
+.md-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  backdrop-filter: blur(10px);
+  background-color: color-mix(in srgb, var(--md-default-bg-color) 95%, transparent);
+}
+
+/* Enhanced breadcrumbs using Material's path feature */
+.md-path {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-path__item {
+  color: var(--md-primary-fg-color);
+  transition: color 0.2s;
+}
+
+.md-path__item:hover {
+  color: var(--md-accent-fg-color);
+}
+
+/* Better TOC styling */
+.md-nav--secondary {
+  border-left: 3px solid var(--md-primary-fg-color--light);
+}
+
+.md-nav__item--active > .md-nav__link {
+  color: var(--md-primary-fg-color);
+  font-weight: 700;
+}
+
+/* ============================================
+   VISUAL COMPONENTS WITH MATERIAL INTEGRATION
+   ============================================ */
+
+/* Base component styling */
+.axiom-box,
+.decision-box,
+.failure-vignette,
+.truth-box {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Individual component styles */
+.axiom-box {
+  background-color: var(--md-axiom-bg);
+  border-left: 4px solid var(--md-primary-fg-color);
+}
+
+.axiom-box::before {
+  content: "⚡";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  opacity: 0.1;
+}
+
+.decision-box {
+  background-color: var(--md-decision-bg);
+  border-left: 4px solid var(--md-accent-fg-color);
+}
+
+.decision-box::before {
+  content: "🎯";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  opacity: 0.1;
+}
+
+.failure-vignette {
+  background-color: var(--md-failure-bg);
+  border-left: 4px solid var(--md-error-fg-color);
+}
+
+.failure-vignette h3 {
+  color: var(--md-error-fg-color);
+  margin-top: 0;
+}
+
+.truth-box {
+  background-color: var(--md-truth-bg);
+  border-left: 4px solid var(--md-info-fg-color);
+}
+
+/* ============================================
+   ENHANCED ADMONITIONS
+   ============================================ */
+
+/* Custom admonition for incident response */
+.md-typeset .admonition.danger,
+.md-typeset details.danger {
+  border-color: var(--md-error-fg-color);
+}
+
+.md-typeset .danger > .admonition-title,
+.md-typeset .danger > summary {
+  background-color: color-mix(in srgb, var(--md-error-fg-color) 20%, transparent);
+  border-color: var(--md-error-fg-color);
+}
+
+/* Quick access links in danger admonitions */
+.md-typeset .danger ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.md-typeset .danger ol li {
+  margin: 0.5rem 0;
+}
+
+.md-typeset .danger a {
+  color: var(--md-error-fg-color);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ============================================
+   RESPONSIVE TABLES WITH MATERIAL STYLING
+   ============================================ */
+
+.md-typeset table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+}
+
+.md-typeset table:not([class]) {
+  background-color: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: var(--md-primary-fg-color--transparent);
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* ============================================
+   CODE BLOCKS WITH BETTER FORMATTING
+   ============================================ */
+
+/* Enhanced code blocks */
+.highlight {
+  position: relative;
+  margin: 1rem 0;
+  border-radius: 4px;
+  overflow: visible;
+}
+
+/* Language indicator */
+.highlight::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0 4px 0 4px;
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--light);
+  z-index: 1;
+}
+
+/* Line numbers styling */
+.highlight .linenos {
+  color: var(--md-default-fg-color--light);
+  user-select: none;
+  padding-right: 1rem;
+  border-right: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* ============================================
+   INTERACTIVE CALCULATORS
+   ============================================ */
+
+#cloud-cost-calculator,
+#tech-debt-calculator {
+  background-color: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+#cloud-cost-calculator h4,
+#tech-debt-calculator h4 {
+  color: var(--md-primary-fg-color);
+  margin-top: 0;
+}
+
+#cloud-cost-calculator input,
+#tech-debt-calculator input {
+  padding: 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 4px;
+  background-color: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  margin-left: 0.5rem;
+}
+
+#cloud-cost-calculator button,
+#tech-debt-calculator button {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+#cloud-cost-calculator button:hover,
+#tech-debt-calculator button:hover {
+  background-color: var(--md-primary-fg-color--dark);
+}
+
+/* ============================================
+   EXCELLENCE BADGES
+   ============================================ */
+
+.excellence-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 0.25rem;
+}
+
+.gold-tier {
+  background-color: #FFD700;
+  color: #1a1a1a;
+}
+
+.silver-tier {
+  background-color: #C0C0C0;
+  color: #1a1a1a;
+}
+
+.bronze-tier {
+  background-color: #CD7F32;
+  color: white;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Mobile optimizations */
+@media screen and (max-width: 76.1875em) {
+  /* Better mobile navigation */
+  .md-nav--primary .md-nav__title {
+    background-color: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+  }
+  
+  /* Responsive tables */
+  .md-typeset table {
+    font-size: 0.875rem;
+  }
+  
+  /* Smaller visual components on mobile */
+  .axiom-box,
+  .decision-box,
+  .failure-vignette,
+  .truth-box {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  /* Hide decorative elements */
+  .axiom-box::before,
+  .decision-box::before {
+    display: none;
+  }
+}
+
+/* Tablet optimizations */
+@media screen and (min-width: 60em) and (max-width: 76.1875em) {
+  /* Adjust TOC width */
+  .md-sidebar--secondary {
+    width: 12.5rem;
+  }
+}
+
+/* Large screen optimizations */
+@media screen and (min-width: 88.25em) {
+  /* Wider content area */
+  .md-content__inner {
+    max-width: 50rem;
+  }
+  
+  /* Better spacing for visual components */
+  .axiom-box,
+  .decision-box,
+  .failure-vignette,
+  .truth-box {
+    margin: 2rem 0;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  /* Hide navigation */
+  .md-header,
+  .md-tabs,
+  .md-sidebar,
+  .md-footer {
+    display: none;
+  }
+  
+  /* Full width content */
+  .md-content {
+    max-width: 100%;
+  }
+  
+  /* Ensure visual components print well */
+  .axiom-box,
+  .decision-box,
+  .failure-vignette,
+  .truth-box {
+    break-inside: avoid;
+    border: 2px solid #000;
+  }
+  
+  /* Better link printing */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Focus styles */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -84,6 +84,12 @@ When they break, everything breaks.
 And they're breaking right now.
 ```
 
+!!! danger "🚨 TEAM BURNING OUT? Cognitive Load Emergency Kit:"
+    1. **[Measure Current Load](the-lens.md#cognitive-load-metrics)** – Use the 7±2 assessment
+    2. **[Identify Overload Pattern](the-patterns.md)** – Alert-Fatigue/Hero-Culture/Toil-Spiral?
+    3. **[Apply Human-Centric Fix](the-patterns.md#cognitive-defenses)** – Progressive-Disclosure/Automation/Simplification
+    4. **[Monitor Team Health](the-operations.md#team-metrics)** – Track stress indicators
+
 ### 📊 The Cognitive Load Calculator & Alert Fatigue Analyzer
 
 ```python
