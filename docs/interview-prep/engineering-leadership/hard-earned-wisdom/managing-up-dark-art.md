@@ -62,6 +62,32 @@ Your job is to be a shit umbrella - chaos rains down from above, and you ensure 
 
 ## 🎪 The Political Game You Must Play
 
+### Level-Specific Power Dynamics
+
+#### L6/Senior Manager Power Sources
+- **Technical Credibility**: Still close enough to code to have authority
+- **Team Loyalty**: Direct reports who trust you
+- **Peer Network**: Other L6s who need your help
+- **Skip-Level Relationships**: L7s who see your potential
+
+**Power Play**: Position yourself as the "execution engine" - the one who delivers
+
+#### L7/Director Power Sources  
+- **Strategic Vision**: Ability to see 2+ years ahead
+- **Cross-Functional Influence**: Product, Sales, Marketing allies
+- **Manager Network**: L6s who depend on you
+- **Executive Access**: Regular face time with L8+
+
+**Power Play**: Become the "strategic translator" - connecting exec vision to reality
+
+#### L8/Senior Director Power Sources
+- **P&L Ownership**: Direct business impact
+- **External Presence**: Industry recognition
+- **Talent Pipeline**: Ability to hire/promote stars
+- **Board Relationships**: Skip-level to CEO/board
+
+**Power Play**: Be the "business leader who gets tech" - speak both languages fluently
+
 ### Building Your Power Base
 
 **1. The Coffee Network**
@@ -191,6 +217,91 @@ Get defensive, argue in the moment, show anger
 
 I recommend Option A with this mitigation plan..."
 
+### Complex Multi-Principle Scenarios
+
+**Scenario 4: The Executive Pet Project vs. Technical Debt**
+
+**The Setup**: 
+- CEO wants shiny new ML feature (their Stanford buddy's startup does it)
+- Your platform is held together with duct tape
+- Team morale is already low from firefighting
+- Board meeting in 6 weeks where CEO wants to demo
+
+**Principles in Conflict**:
+- Value Creation: ML feature has questionable ROI
+- Systems Thinking: Platform instability affects everything
+- Human Behavior: Team burnout risk
+- Integrity: Can't honestly commit to quality
+
+**Master-Level Response**:
+1. **Reframe using Strategy**: "I love the ML vision. Let me show how we can build a sustainable competitive advantage..."
+2. **Propose Phased Approach**:
+   - Phase 1: "ML Proof of Concept" (actually fixing critical platform issues)
+   - Phase 2: "ML Infrastructure" (actually more platform work)
+   - Phase 3: "ML at Scale" (the actual feature, on solid foundation)
+3. **Create Win-Win Demo**: Show POC that works but "needs platform investment to scale"
+4. **Manage Risk**: "Here's how competitors failed by moving too fast on ML..."
+
+**Scenario 5: The Acquisition Integration Nightmare**
+
+**The Setup**:
+- Company acquired competitor for $500M
+- CEO promises "seamless integration in 6 months"
+- Their codebase is a dumpster fire
+- Your team is already overloaded
+- Cultural clash between teams
+
+**Principles at Play**:
+- Value Creation: $500M needs to show ROI
+- Decision-Making: Integration approach critical
+- Human Behavior: Two tribes, one team
+- Systems Thinking: Technical and cultural systems
+- Integrity: Honest timeline vs. CEO promise
+
+**Orchestra Conductor Response**:
+1. **Create Integration Tiger Team**: Mix both companies' stars
+2. **Dual-Track Strategy**:
+   - Track 1: Quick wins (SSO integration, shared dashboards)
+   - Track 2: Real integration (18-month reality)
+3. **Cultural Bridge Building**:
+   - Joint architecture reviews
+   - Paired programming across teams
+   - Celebrate both companies' strengths
+4. **Executive Communication**:
+   - Weekly "Integration Velocity" metrics
+   - Show progress on Track 1 prominently
+   - Educate on Track 2 complexity gradually
+5. **Risk Mitigation**:
+   - Keep systems separate initially
+   - Feature flags for everything
+   - Rollback plans for each phase
+
+**Scenario 6: The Board Metrics Manipulation**
+
+**The Setup**:
+- Board obsessed with "developer productivity"
+- They want to see 20% improvement quarterly
+- Your boss suggests "creative accounting"
+- Team is actually doing critical security work
+- Next board meeting in 2 weeks
+
+**Ethical Tightrope Walk**:
+1. **Redefine the Metrics**:
+   - "Let me show you what productivity means for security work..."
+   - Shift from lines of code to vulnerabilities prevented
+   - Create "Security Debt Burndown" metrics
+2. **The Judo Move**:
+   - "Great news! We prevented 3 potential breaches"
+   - "Each breach would have cost $10M"
+   - "That's $30M in productivity!"
+3. **Build Board Ally**:
+   - Find the board member who understands tech
+   - Pre-brief them on reality
+   - Have them ask the right questions
+4. **Document Everything**:
+   - Email: "As discussed, here's how we're measuring productivity..."
+   - Create audit trail for when this blows up
+
 ## 🎯 Executive Relationship Patterns
 
 ### The Five Executive Archetypes
@@ -253,6 +364,104 @@ I recommend Option A with this mitigation plan..."
 2. **Negotiate Exit**: Get package, time to find new role, references
 3. **Internal Transfer**: Use network to move laterally
 4. **Malicious Compliance**: Do exactly as told, document failures
+
+## 🧠 Advanced Mental Models for Managing Up
+
+### The OODA Loop for Executive Management
+**Observe → Orient → Decide → Act** (borrowed from military strategy)
+
+**Application to Managing Up**:
+1. **Observe**: Read executive body language, meeting dynamics, email tone
+2. **Orient**: What's their current pressure? Board meeting? Bad quarter?
+3. **Decide**: Choose your approach based on their state
+4. **Act**: Execute with precision, then loop back
+
+**Example**: Notice CEO is tense → Earnings call tomorrow → Delay big ask → Offer quick win instead
+
+### The Stakeholder Power/Interest Grid
+
+```
+High Power  | Keep Satisfied | Manage Closely
+           |  (Your skip)   | (Your boss)
+           |----------------|----------------
+Low Power   | Monitor Only   | Keep Informed
+           | (Peer teams)   | (Your team)
+           Low Interest     High Interest
+```
+
+**Strategic Moves**:
+- Move stakeholders right (increase interest) before moving up
+- Never let anyone move from "Manage Closely" to "Keep Satisfied"
+- Convert "Monitor Only" to allies before you need them
+
+### The Trust Equation for Executives
+
+```
+Trust = (Credibility + Reliability + Intimacy) / Self-Orientation
+```
+
+**Managing Up Application**:
+- **Credibility**: Demonstrate business acumen, not just technical
+- **Reliability**: Never surprise them, deliver what you promise
+- **Intimacy**: Understand their personal wins/fears
+- **Self-Orientation**: Always frame in terms of their success
+
+### The Executive Attention Portfolio
+
+Executives allocate attention like VCs allocate capital:
+
+| Investment Type | Attention % | Your Strategy |
+|----------------|-------------|---------------|
+| Fire-fighting | 40% | Be the fire preventer |
+| Strategic initiatives | 30% | Align your work here |
+| People issues | 20% | Never be the issue |
+| Innovation | 10% | Package innovation as strategic |
+
+### The Information Asymmetry Framework
+
+**Levels of Information**:
+1. **What you know** (100%)
+2. **What your boss knows** (40%)
+3. **What your skip-level knows** (10%)
+4. **What the CEO knows** (2%)
+
+**Strategic Implications**:
+- Control information flow to maintain relevance
+- Share enough to build trust, not enough to be bypassed
+- Create "information occasions" that require your interpretation
+
+### The Political Capital Model
+
+Political capital works like a bank account:
+
+**Deposits**:
+- Delivering ahead of schedule (+10)
+- Making boss look good (+20)
+- Solving their personal pain (+30)
+- Taking blame for their mistake (+50)
+
+**Withdrawals**:
+- Missing commitments (-20)
+- Surprising them publicly (-40)
+- Going around them (-60)
+- Making them look bad (-100)
+
+**Strategy**: Maintain 100+ balance before making big asks
+
+### The Organizational Antibody Theory
+
+Organizations resist change like immune systems resist infection:
+
+**Antibody Types**:
+- **Process Antibodies**: "That's not how we do things"
+- **Political Antibodies**: "Who authorized this?"
+- **Cultural Antibodies**: "This isn't our DNA"
+
+**Immunosuppression Strategies**:
+1. Start small (below antibody threshold)
+2. Get executive sponsor (diplomatic immunity)
+3. Frame as evolution, not revolution
+4. Show early wins to convert antibodies
 
 ## 💣 The Nuclear Options
 

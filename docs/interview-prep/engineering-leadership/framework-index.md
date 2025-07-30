@@ -212,6 +212,22 @@ How each level contributes to success:
    - [System Design](level-4-interview-execution/system-org-design/): Platform architecture
    - [Principle Hooks](level-4-interview-execution/tools/principle-hooks/): Demonstrating depth
 
+## Beyond the Framework: Hard-Earned Wisdom
+
+For those ready to confront the harsh realities, explore our **[Hard-Earned Wisdom](hard-earned-wisdom/)** section—where pristine frameworks meet messy reality:
+
+- What happens when principles conflict with each other
+- How to navigate when all options are bad
+- The truth about organizational politics and power
+- The human cost that ROI calculations miss
+- Wisdom that only comes from painful experience
+
+This advanced content shows how experienced leaders navigate when:
+- Following principles perfectly makes things worse
+- Integrity means breaking promises
+- You must destroy value to save the company
+- The right decision still destroys people
+
 ---
 
-*Ready to begin? Choose your entry point based on your current needs and learning style. Remember: mastery comes from understanding not just what to do, but why it matters.*
+*Ready to begin? Choose your entry point based on your current needs and learning style. For the full truth about engineering leadership, brave the [Hard-Earned Wisdom](hard-earned-wisdom/) section. Remember: mastery comes from understanding not just what to do, but why it matters—and what happens when it all goes wrong.*
