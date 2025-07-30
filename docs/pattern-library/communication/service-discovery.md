@@ -1,480 +1,479 @@
 ---
 title: Service Discovery Pattern
-description: Pattern for distributed systems coordination and reliability
+description: Dynamic service location in distributed systems
 type: pattern
 category: communication
-difficulty: advanced
-reading-time: 25 min
-prerequisites: []
-when-to-use: When dealing with specialized challenges
-when-not-to-use: When simpler solutions suffice
-status: complete
-last-updated: 2025-07-20
+difficulty: intermediate
+reading-time: 20 min
 excellence_tier: silver
 pattern_status: recommended
 introduced: 2024-01
 current_relevance: mainstream
 trade-offs:
-  pros: []
-  cons: []
-best-for: []
+  pros:
+  - Dynamic service registration/deregistration
+  - Automatic failover and load balancing
+  - No hardcoded endpoints
+  - Health-aware routing
+  - Service metadata support
+  cons:
+  - Additional infrastructure complexity
+  - Single point of failure risk
+  - Network overhead for lookups
+  - Consistency challenges
+  - Cache invalidation complexity
+best-for:
+- Microservices architectures
+- Cloud-native applications
+- Dynamic scaling environments
+- Multi-region deployments
+- Container orchestration
 ---
-
-
 
 # Service Discovery Pattern
 
-**Finding services in a dynamic distributed system**
+!!! info "🥈 Silver Tier Pattern"
+    **Dynamic Service Location** • Netflix Eureka, Consul, etcd proven
+    
+    Essential for microservices at scale. Service discovery enables services to find and communicate with each other dynamically, eliminating hardcoded endpoints and enabling elastic scaling.
+    
+    **Key Success Metrics:**
+    - Netflix: 100k+ service instances discovered
+    - Uber: 5000+ services registered
+    - Kubernetes: De facto standard for containers
 
-> *"In a world where services come and go, discovery is not a luxury—it's a necessity."*
+## Essential Question
+**How do services find each other in a dynamic environment where instances come and go?**
 
----
+## When to Use / When NOT to Use
 
-## Level 1: Intuition
+### ✅ Use When
+| Scenario | Why | Example |
+|----------|-----|---------|
+| **Dynamic scaling** | Instances change frequently | Auto-scaling groups |
+| **Microservices** | Many services to coordinate | Netflix architecture |
+| **Multi-environment** | Dev/staging/prod configs | Kubernetes namespaces |
+| **Health-based routing** | Skip unhealthy instances | Circuit breaker integration |
 
-### Core Concept
+### ❌ DON'T Use When
+| Scenario | Why | Alternative |
+|----------|-----|-------------|
+| **Static infrastructure** | Endpoints don't change | Configuration files |
+| **< 5 services** | Overhead not justified | Direct connection |
+| **Monolithic apps** | Single deployment | Load balancer |
+| **Latency critical** | Lookup adds delay | Client-side caching |
 
-Service discovery enables services to find and communicate with each other dynamically, like a constantly updated phone directory for microservices.
+## Level 1: Intuition (5 min)
+
+### The Phone Directory Analogy
+Service discovery is like a dynamic phone directory. Instead of memorizing everyone's phone number (IP addresses), you look them up by name when needed. As people change numbers (instances scale), the directory updates automatically.
+
+### Visual Architecture
+
+```mermaid
+graph TD
+    subgraph "Without Service Discovery"
+        C1[Client] -->|hardcoded| S1[Service A :8080]
+        C1 -->|hardcoded| S2[Service B :9090]
+        Note1[Problems:<br/>- Manual updates<br/>- No failover<br/>- Static config]
+    end
+    
+    subgraph "With Service Discovery"
+        C2[Client] -->|lookup| SD[Service Registry]
+        SD -->|returns| List[Available Instances]
+        
+        S3[Service A-1] -->|register| SD
+        S4[Service A-2] -->|register| SD
+        S5[Service B-1] -->|register| SD
+        
+        C2 -.->|dynamic| S3
+        C2 -.->|routing| S4
+        C2 -.->|with LB| S5
+        
+        Note2[Benefits:<br/>- Auto updates<br/>- Health checks<br/>- Load balancing]
+    end
+    
+    style SD fill:#818cf8,stroke:#6366f1,stroke-width:2px
+```
+
+### Core Value
+| Aspect | Hardcoded | Service Discovery |
+|--------|-----------|-------------------|
+| **Flexibility** | Change requires redeploy | Dynamic updates |
+| **Scaling** | Manual config updates | Automatic registration |
+| **Failover** | No built-in support | Health-based routing |
+| **Configuration** | Per-environment files | Centralized registry |
+
+## Level 2: Foundation (10 min)
+
+### Architecture Patterns
+
+```mermaid
+graph LR
+    subgraph "Client-Side Discovery"
+        C1[Client] --> R1[Registry]
+        C1 --> S1[Service]
+        Note1[Client queries & routes]
+    end
+    
+    subgraph "Server-Side Discovery"
+        C2[Client] --> LB[Load Balancer]
+        LB --> R2[Registry]
+        LB --> S2[Service]
+        Note2[LB handles discovery]
+    end
+    
+    style R1 fill:#00BCD4,stroke:#0097a7
+    style R2 fill:#00BCD4,stroke:#0097a7
+```
+
+### Implementation Approaches
+
+| Pattern | Description | Trade-offs |
+|---------|-------------|------------|
+| **Client-Side** | Clients query registry directly | More client logic, less hops |
+| **Server-Side** | Load balancer queries registry | Simple clients, extra hop |
+| **DNS-Based** | DNS as service registry | Standard protocol, limited metadata |
+| **Platform-Native** | K8s Services, AWS ELB | Tight coupling, less flexibility |
 
 ### Basic Implementation
 
 ```python
-class SimpleServiceRegistry:
+class ServiceRegistry:
     def __init__(self):
-        self.services = {}  # service_name -> list of instances
-
-    def register(self, service_name: str, instance_id: str, address: str, port: int):
-        """Register a service instance"""
-        if service_name not in self.services:
-            self.services[service_name] = []
-        
-        self.services[service_name].append({
-            'id': instance_id,
-            'address': address,
+        self.services = {}  # name -> [instances]
+        self.health_checks = {}
+    
+    def register(self, name, host, port, metadata=None):
+        """Register service instance"""
+        instance = {
+            'id': f"{name}-{host}:{port}",
+            'host': host,
             'port': port,
+            'metadata': metadata or {},
+            'registered_at': time.time(),
             'last_heartbeat': time.time()
-        })
-
-    def discover(self, service_name: str) -> List[dict]:
-        """Find all instances of a service"""
-        return self.services.get(service_name, [])
-
-    def discover_one(self, service_name: str) -> Optional[dict]:
-        """Get single instance with round-robin"""
-        instances = self.discover(service_name)
-        if instances:
-# Rotate for round-robin
-            self.services[service_name].append(
-                self.services[service_name].pop(0)
-            )
-            return instances[0]
-        return None
-```
-
----
-
-## Level 2: Foundation
-
-| Pattern | Description | Trade-offs |
-|---------|-------------|------------|
-| **Client-Side** | Clients query registry | Complex clients, simple infra |
-| **Server-Side** | Load balancer queries | Simple clients, complex infra |
-| **DNS-Based** | DNS as registry | Limited metadata, caching |
-| **Gossip-Based** | P2P discovery | Eventually consistent |
-
-
-### Architecture Patterns
-
-```
-Client-Side Discovery:             Server-Side Discovery:
-
-Client → Registry                 Client → Load Balancer
-  ↓         ↓                              ↓
-  ↓    [instances]                    Registry
-  ↓                                        ↓
-Service A, B, C                      Service A, B, C
-
-Client handles routing               LB handles routing
-```
-
-### Client-Side Discovery
-
-```python
-class ServiceDiscoveryClient:
-    def __init__(self, registry_url: str):
-        self.registry_url = registry_url
-        self.cache = {}  # Local cache
-        self.cache_ttl = 30  # seconds
-
-    def get_service_instances(self, service_name: str) -> List[dict]:
-        """Get instances with caching"""
-# Check cache first
-        if service_name in self.cache:
-            entry = self.cache[service_name]
-            if time.time() - entry['cached_at'] < self.cache_ttl:
-                return entry['instances']
-
-# Fetch from registry
-        response = requests.get(f"{self.registry_url}/services/{service_name}")
-        instances = response.json()['instances']
-        
-# Cache results
-        self.cache[service_name] = {
-            'instances': instances,
-            'cached_at': time.time()
         }
-        return instances
-
-    def call_service(self, service_name: str, endpoint: str) -> Response:
-        """Call service with auto-discovery and retry"""
-        instances = self.get_service_instances(service_name)
         
-# Try up to 3 instances
-        for attempt in range(min(3, len(instances))):
-            instance = random.choice(instances)
-            try:
-                url = f"http://{instance['address']}:{instance['port']}{endpoint}"
-                return requests.get(url)
-            except:
-                instances.remove(instance)  # Remove failed
+        if name not in self.services:
+            self.services[name] = []
+        self.services[name].append(instance)
         
-        raise Exception(f"All instances failed for {service_name}")
-```
-
-### Health-Aware Discovery
-
-```python
-class HealthAwareRegistry:
-    def __init__(self):
-        self.services = {}
-        self.health_check_interval = 30  # seconds
-
-    def register_with_health(self, service: str, instance: dict, health_endpoint: str):
-        instance['health_endpoint'] = health_endpoint
-        instance['health_status'] = 'unknown'
-        instance['last_check'] = 0
+        return instance['id']
+    
+    def discover(self, name):
+        """Get healthy instances of service"""
+        if name not in self.services:
+            return []
         
-        if service not in self.services:
-            self.services[service] = []
-        self.services[service].append(instance)
-
-    def get_healthy_instances(self, service: str) -> List[dict]:
-        """Return only healthy instances"""
+        # Filter healthy instances
         healthy = []
-        
-        for instance in self.services.get(service, []):
-# Check health if stale
-            if time.time() - instance['last_check'] > self.health_check_interval:
-                self._check_health(instance)
-            
-            if instance['health_status'] == 'healthy':
+        for instance in self.services[name]:
+            if self._is_healthy(instance):
                 healthy.append(instance)
         
         return healthy
     
-    def _check_health(self, instance: dict):
-        try:
-            url = f"http://{instance['address']}:{instance['port']}{instance['health_endpoint']}"
-            response = requests.get(url, timeout=5)
-            instance['health_status'] = 'healthy' if response.status_code == 200 else 'unhealthy'
-        except:
-            instance['health_status'] = 'unhealthy'
-        instance['last_check'] = time.time()
+    def _is_healthy(self, instance):
+        # Check heartbeat recency
+        return time.time() - instance['last_heartbeat'] < 30
 ```
 
----
+## Level 3: Deep Dive (15 min)
 
-## Level 3: Deep Dive
+### Decision Matrix
 
-### Advanced Discovery Patterns
-
-#### Service Mesh Discovery
-
-```python
-def mesh_discovery(service_name: str, request_headers: dict) -> dict:
-    """Service discovery in mesh with routing rules"""
-# Virtual service routing
-    virtual_service = get_virtual_service(service_name)
-    if virtual_service:
-# Apply header-based routing
-        for route in virtual_service['routes']:
-            if matches_headers(request_headers, route['match']):
-                return route['destination']
+```mermaid
+graph TD
+    Start[Need Service Discovery?] --> Q1{Services<br/>Scale?}
+    Q1 -->|Static| Config[Use Config Files]
+    Q1 -->|Dynamic| Q2{Deployment<br/>Platform?}
     
-# Fall back to standard discovery
-    return discover_service(service_name)
-
-def create_destination_rule(service: str, policy: dict) -> dict:
-    """Configure load balancing and circuit breakers"""
-    return {
-        'host': service,
-        'trafficPolicy': {
-            'loadBalancer': {'simple': policy.get('lb', 'ROUND_ROBIN')},
-            'connectionPool': {'tcp': {'maxConnections': 100}},
-            'outlierDetection': {'consecutiveErrors': 5}
-        }
-    }
+    Q2 -->|Kubernetes| K8s[Use K8s Services]
+    Q2 -->|Cloud| Q3{Multi-Region?}
+    Q2 -->|On-Prem| Consul[Use Consul/etcd]
+    
+    Q3 -->|Yes| GlobalSD[Global Service Discovery<br/>(Route53, Global LB)]
+    Q3 -->|No| CloudSD[Cloud Service Discovery<br/>(ECS, Cloud Map)]
+    
+    style K8s fill:#4ade80,stroke:#16a34a
+    style Consul fill:#4ade80,stroke:#16a34a
+    style CloudSD fill:#4ade80,stroke:#16a34a
 ```
 
-#### Multi-Region Discovery
+### Advanced Features
 
 ```python
-def discover_multi_region(service: str, client_region: str) -> List[dict]:
-    """Discover across regions with latency awareness"""
-    all_instances = []
+class AdvancedServiceDiscovery:
+    def __init__(self):
+        self.registry = ServiceRegistry()
+        self.watchers = {}  # service -> [callbacks]
     
-    for region, registry in REGIONAL_REGISTRIES.items():
-        try:
-            instances = registry.discover(service)
+    def register_with_health_check(self, service, endpoint):
+        """Register with health endpoint"""
+        instance_id = self.registry.register(
+            service['name'],
+            service['host'],
+            service['port'],
+            {'health_endpoint': endpoint}
+        )
+        
+        # Start health checking
+        asyncio.create_task(
+            self._health_check_loop(instance_id)
+        )
+        
+        return instance_id
+    
+    def discover_with_criteria(self, name, criteria):
+        """Discover with filtering"""
+        instances = self.registry.discover(name)
+        
+        # Apply criteria filters
+        filtered = []
+        for inst in instances:
+            if self._matches_criteria(inst, criteria):
+                filtered.append(inst)
+        
+        return filtered
+    
+    def watch(self, service, callback):
+        """Watch for service changes"""
+        if service not in self.watchers:
+            self.watchers[service] = []
+        self.watchers[service].append(callback)
+        
+        # Start watching
+        asyncio.create_task(
+            self._watch_loop(service)
+        )
+```
+
+### Common Pitfalls
+
+| Pitfall | Impact | Solution |
+|---------|--------|----------|
+| **Stale cache** | Routing to dead instances | TTL + health checks |
+| **Thundering herd** | Registry overload | Jittered polling |
+| **Split brain** | Inconsistent views | Consensus protocols |
+| **DNS caching** | Slow failover | Short TTLs |
+
+## Level 4: Expert (20 min)
+
+### Production Patterns
+
+```yaml
+# Consul service definition
+services:
+  - name: payment-service
+    port: 8080
+    tags:
+      - primary
+      - v2.1.0
+    check:
+      http: http://localhost:8080/health
+      interval: 10s
+      timeout: 5s
+      deregister_critical_service_after: 30s
+    
+    # Advanced health criteria
+    checks:
+      - name: deep_health
+        http: http://localhost:8080/health/deep
+        interval: 30s
+      - name: dependencies
+        script: /opt/check-deps.sh
+        interval: 60s
+```
+
+### Multi-Region Discovery
+
+```python
+class GlobalServiceDiscovery:
+    def __init__(self, regions):
+        self.regions = regions
+        self.local_region = self._detect_region()
+    
+    def discover_global(self, service, strategy='nearest'):
+        """Discover across regions"""
+        all_instances = []
+        
+        # Gather from all regions
+        for region in self.regions:
+            instances = self._discover_region(
+                service, region
+            )
             for inst in instances:
                 inst['region'] = region
-                inst['latency'] = REGION_LATENCY[client_region][region]
+                inst['latency'] = self._measure_latency(
+                    region
+                )
             all_instances.extend(instances)
-        except:
-            continue  # Skip failed regions
-    
-# Sort by latency, then health
-    return sorted(all_instances, key=lambda x: (
-        x['latency'],
-        0 if x.get('health') == 'healthy' else 1
-    ))
-
-def geo_routing(service: str, client_location: dict) -> dict:
-    """Route to nearest healthy instance"""
-    instances = discover_multi_region(service, get_region(client_location))
-    
-# Find nearest healthy instance with capacity
-    for instance in instances:
-        if (instance.get('health') == 'healthy' and 
-            instance.get('capacity', 100) > 10):
-            return instance
-    
-    raise Exception(f"No healthy instances for {service}")
+        
+        # Apply strategy
+        if strategy == 'nearest':
+            return sorted(
+                all_instances, 
+                key=lambda x: x['latency']
+            )
+        elif strategy == 'round_robin':
+            return self._round_robin_regions(
+                all_instances
+            )
 ```
 
-### Discovery Flow
+### Integration Patterns
 
-```
-1. Service Registration:
-   Service → Registry: Register(name, address, health_endpoint)
+| Integration | Purpose | Implementation |
+|-------------|---------|----------------|
+| **Circuit Breaker** | Fail fast on unhealthy | Track success rates |
+| **Load Balancer** | Distribute requests | Weighted round-robin |
+| **Service Mesh** | Advanced routing | Envoy integration |
+| **Tracing** | Request flow | Correlation IDs |
 
-2. Health Monitoring:
-   Health Checker → Service: GET /health (every 30s)
-   Health Checker → Registry: Update status
+## Level 5: Mastery (30 min)
 
-3. Service Discovery:
-   Client → Registry: Discover("payment-service")
-   Registry → Client: [healthy instances]
-   Client → Service: Call selected instance
-```
+### Case Study: Netflix Eureka
 
----
+!!! info "🏢 Real-World Implementation"
+    **Scale**: 100k+ instances, 800+ services
+    **Challenge**: AWS doesn't provide mid-tier load balancing
+    **Solution**: Client-side discovery with Eureka
+    
+    **Architecture**:
+    - Regional Eureka clusters
+    - 30-second heartbeats
+    - Client-side caching
+    - Zone-aware routing
+    
+    **Results**:
+    - < 1s discovery time
+    - 99.99% registry availability
+    - Seamless auto-scaling
+    - Cross-region failover
 
-## Level 4: Expert
-
-### Production Systems
-
-#### Consul Integration
+### Performance Optimization
 
 ```python
-def consul_register(name: str, address: str, port: int, health_endpoint: str):
-    """Register service with Consul"""
-    consul_client = consul.Consul()
+class OptimizedDiscoveryClient:
+    def __init__(self, registry_url):
+        self.registry_url = registry_url
+        self.cache = {}
+        self.cache_ttl = 30
+        self.prefetch_services = set()
+        
+        # Start background refresh
+        asyncio.create_task(self._refresh_loop())
     
-    health_check = consul.Check.http(
-        f"http://{address}:{port}{health_endpoint}",
-        interval="30s",
-        timeout="3s"
-    )
-    
-    consul_client.agent.service.register(
-        name=name,
-        service_id=f"{name}-{address}-{port}",
-        address=address,
-        port=port,
-        check=health_check
-    )
-
-def consul_discover(service: str, tag: str = None) -> List[dict]:
-    """Discover healthy services"""
-    consul_client = consul.Consul()
-    _, services = consul_client.health.service(service, tag=tag, passing=True)
-    
-    return [{
-        'address': s['Service']['Address'],
-        'port': s['Service']['Port'],
-        'tags': s['Service']['Tags']
-    } for s in services]
-```
-#### Kubernetes Discovery
-
-```python
-def k8s_discover_service(service_name: str, namespace: str = "default") -> List[dict]:
-    """Discover via Kubernetes endpoints"""
-    k8s = client.CoreV1Api()
-    
-    endpoints = k8s.read_namespaced_endpoints(service_name, namespace)
-    instances = []
-    
-    for subset in endpoints.subsets:
-        for addr in subset.addresses:
-            for port in subset.ports:
-                instances.append({
-                    'ip': addr.ip,
-                    'port': port.port,
-                    'pod': addr.target_ref.name if addr.target_ref else None
-                })
-    
-    return instances
-
-def k8s_discover_by_label(label: str) -> List[dict]:
-    """Discover pods by label"""
-    k8s = client.CoreV1Api()
-    pods = k8s.list_pod_for_all_namespaces(label_selector=label)
-    
-    return [{
-        'name': pod.metadata.name,
-        'ip': pod.status.pod_ip,
-        'namespace': pod.metadata.namespace
-    } for pod in pods.items if pod.status.phase == "Running"]
-```
-#### Netflix Eureka
-
-```python
-def eureka_register(app_name: str, port: int, eureka_url: str):
-    """Register with Eureka"""
-    instance = {
-        "instance": {
-            "instanceId": f"{app_name}-{socket.gethostname()}-{port}",
-            "app": app_name.upper(),
-            "hostName": socket.gethostname(),
-            "ipAddr": socket.gethostbyname(socket.gethostname()),
-            "status": "UP",
-            "port": {"$": port, "@enabled": "true"},
-            "vipAddress": app_name.lower(),
-            "dataCenterInfo": {
-                "@class": "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo",
-                "name": "MyOwn"
-            }
+    async def discover_fast(self, service):
+        """Optimized discovery with caching"""
+        # Try cache first
+        if service in self.cache:
+            entry = self.cache[service]
+            if time.time() - entry['updated'] < self.cache_ttl:
+                return entry['instances']
+        
+        # Cache miss - fetch async
+        instances = await self._fetch_instances(service)
+        
+        # Update cache
+        self.cache[service] = {
+            'instances': instances,
+            'updated': time.time()
         }
-    }
-    
-    response = requests.post(f"{eureka_url}/eureka/apps/{app_name.upper()}", json=instance)
-    return response.status_code == 204
-
-def eureka_discover(app_name: str, eureka_url: str) -> List[dict]:
-    """Discover from Eureka"""
-    response = requests.get(f"{eureka_url}/eureka/apps/{app_name.upper()}")
-    
-    if response.status_code == 200:
-        app = response.json().get('application', {})
-        return [{
-            'ip': inst['ipAddr'],
-            'port': inst['port']['$']
-        } for inst in app.get('instance', []) if inst['status'] == 'UP']
-    
-    return []
-```
----
-
-## Level 5: Mastery
-
-### Theoretical Foundations
-
-#### Discovery Overhead Analysis
-
-```python
-def calculate_discovery_overhead(num_services: int, num_instances: int) -> dict:
-    """Calculate theoretical overhead"""
-# Protocol overheads
-    gossip_bandwidth = num_services * num_instances * math.log(num_instances) * 64  # bytes/sec
-    consensus_bandwidth = num_services * num_instances * (num_instances - 1) * 128
-    
-# Caching reduces load by ~90%
-    cache_hit_rate = 0.9
-    effective_query_rate = query_rate * (1 - cache_hit_rate)
-    
-    return {
-        'gossip_bandwidth': gossip_bandwidth,
-        'consensus_bandwidth': consensus_bandwidth,
-        'registry_queries_per_sec': effective_query_rate,
-        'client_memory_mb': num_services * num_instances * 0.25  # 256 bytes per instance
-    }
-```
-
-#### Bloom Filter Optimization
-
-```python
-def bloom_filter_discovery(services: dict) -> dict:
-    """Use Bloom filters for O(1) tag lookups"""
-    bloom_filters = {}
-    
-    for service, instances in services.items():
-        bf = BloomFilter(capacity=len(instances) * 10, error_rate=0.01)
         
-        for instance in instances:
-            bf.add(f"{instance['ip']}:{instance['port']}")
-            for tag in instance.get('tags', []):
-                bf.add(f"{service}:{tag}")
+        # Add to prefetch if frequently used
+        self._track_usage(service)
         
-        bloom_filters[service] = bf
+        return instances
     
-    return bloom_filters
+    async def _refresh_loop(self):
+        """Proactive cache refresh"""
+        while True:
+            for service in self.prefetch_services:
+                try:
+                    await self.discover_fast(service)
+                except Exception as e:
+                    logger.error(f"Refresh failed: {e}")
+            
+            await asyncio.sleep(self.cache_ttl / 2)
 ```
-
-### Future Directions
-
-- **ML-Driven Discovery**: Predict optimal instances based on historical patterns
-- **Blockchain Registry**: Decentralized, tamper-proof service registry
-- **Zero-Knowledge Discovery**: Privacy-preserving service lookups
-- **Edge Computing**: Discovery at network edge for ultra-low latency
-
----
 
 ## Quick Reference
 
-### Discovery Method Selection
+### Production Checklist ✓
+- [ ] **Registration**
+  - [ ] Unique instance IDs
+  - [ ] Metadata for routing
+  - [ ] Graceful deregistration
+  - [ ] Heartbeat mechanism
+  
+- [ ] **Discovery**
+  - [ ] Client-side caching
+  - [ ] Fallback mechanisms
+  - [ ] Load balancing strategy
+  - [ ] Health filtering
+  
+- [ ] **Reliability**
+  - [ ] Registry high availability
+  - [ ] Network partition handling
+  - [ ] Consistent health checks
+  - [ ] Monitoring/alerting
+  
+- [ ] **Performance**
+  - [ ] Connection pooling
+  - [ ] Batch operations
+  - [ ] Async discovery
+  - [ ] Regional awareness
 
-| Scenario | Recommended | Rationale |
-|----------|-------------|------------|
-| Kubernetes | K8s DNS/API | Native integration |
-| Multi-cloud | Consul/Istio | Cloud agnostic |
-| Small scale | Eureka | Simple setup |
-| Large scale | Custom + cache | Performance |
-| Global | Federation | Locality aware |
+### Common Configurations
 
+```yaml
+# Kubernetes Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+spec:
+  selector:
+    app: payment
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer
 
-### Multi-Region Architecture
-
+---
+# Consul Connect
+Kind = "service-defaults"
+Name = "payment-service"
+Protocol = "http"
+MeshGateway = {
+  Mode = "local"
+}
+HealthCheck = {
+  Interval = "10s"
+  Timeout = "5s"
+}
 ```
-US-East:                    EU-West:
-[Registry] ←→ [Services]    [Registry] ←→ [Services]
-    ↓                           ↓
-    ↓      Global Registry      ↓
-    └───────────[🌐]───────────┘
-              
-- Regional registries sync to global
-- Clients prefer local, fallback to remote
-- Latency-aware routing
-```
 
-### Implementation Checklist
+## Related Patterns
 
-- [ ] Choose discovery pattern (client-side vs server-side)
-- [ ] Implement health checks (HTTP/TCP)
-- [ ] Add caching (TTL: 30-60s typical)
-- [ ] Handle failures (retry, circuit breaker)
-- [ ] Monitor metrics (discovery latency, cache hit rate)
-- [ ] Define naming convention (e.g., service.namespace.cluster)
-- [ ] Test failure scenarios
-- [ ] Plan registry HA
+- **[Service Mesh](service-mesh.md)** - Advanced service discovery with traffic management
+- **[Load Balancing](../scaling/load-balancing.md)** - Distribute discovered instances
+- **[Circuit Breaker](../resilience/circuit-breaker.md)** - Handle discovery failures
+- **[Health Check](../observability/health-check.md)** - Determine instance availability
+- **[API Gateway](api-gateway.md)** - Centralized service discovery
+- **[Configuration Management](../architecture/configuration-management.md)** - Dynamic configuration
+
+## References
+
+- [Netflix Eureka](https://github.com/Netflix/eureka/wiki)
+- [Consul by HashiCorp](https://www.consul.io/)
+- [Kubernetes Service Discovery](https://kubernetes.io/docs/concepts/services-networking/service/)
+- [AWS Cloud Map](https://aws.amazon.com/cloud-map/)
 
 ---
 
----
-
-*"In distributed systems, finding a service is half the battle—the other half is finding it healthy."*
-
----
-
-**Previous**: [← Serverless/FaaS (Function-as-a-Service)](serverless-faas.md) | **Next**: Service Mesh → (Coming Soon)
+**Previous**: [Publish-Subscribe Pattern](publish-subscribe.md) | **Next**: [WebSocket Pattern](websocket.md)
