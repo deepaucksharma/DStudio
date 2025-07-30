@@ -90,14 +90,70 @@ Like your home's electrical panel that trips to prevent fires, software circuit 
 ```mermaid
 stateDiagram-v2
     [*] --> Closed: Start
-    Closed --> Open: Failures > Threshold
-    Open --> HalfOpen: Recovery Timeout
-    HalfOpen --> Closed: Test Success
-    HalfOpen --> Open: Test Failure
+    Closed --> Open: Failures > Threshold<br/>(e.g., 5 failures in 10s)
+    Open --> HalfOpen: Recovery Timeout<br/>(e.g., wait 30s)
+    HalfOpen --> Closed: Test Success<br/>(e.g., 3 consecutive)
+    HalfOpen --> Open: Test Failure<br/>(any failure)
     
-    Closed: 🟢 CLOSED<br/>All requests pass through<br/>Monitor for failures
-    Open: 🔴 OPEN<br/>Reject all requests<br/>Return fallback immediately
-    HalfOpen: 🟡 HALF-OPEN<br/>Allow test requests<br/>Check if recovered
+    Closed: 🟢 CLOSED<br/>All requests pass through<br/>Monitor for failures<br/>Count: 0/5
+    Open: 🔴 OPEN<br/>Reject all requests<br/>Return fallback immediately<br/>Timer: 30s
+    HalfOpen: 🟡 HALF-OPEN<br/>Allow test requests<br/>Check if recovered<br/>Success: 0/3
+    
+    note right of Closed: Normal operation<br/>Track error rate<br/>Reset on success
+    note right of Open: Protection mode<br/>Fail fast<br/>Prevent cascade
+    note right of HalfOpen: Recovery test<br/>Limited traffic<br/>Verify health
+```
+
+### Enhanced State Transition Diagram
+```mermaid
+graph TB
+    subgraph "Circuit Breaker State Machine"
+        subgraph "CLOSED State"
+            C1[Request Arrives]
+            C2{Success?}
+            C3[Reset Counter]
+            C4[Increment Failure]
+            C5{Threshold<br/>Exceeded?}
+            C1 --> C2
+            C2 -->|Yes| C3
+            C2 -->|No| C4
+            C4 --> C5
+        end
+        
+        subgraph "OPEN State"
+            O1[Request Arrives]
+            O2[Reject Immediately]
+            O3[Return Fallback]
+            O4{Timeout<br/>Elapsed?}
+            O1 --> O2
+            O2 --> O3
+            O3 -.-> O4
+        end
+        
+        subgraph "HALF-OPEN State"
+            H1[Test Request]
+            H2{Success?}
+            H3[Increment Success]
+            H4{Enough<br/>Successes?}
+            H5[Reset to Closed]
+            H6[Back to Open]
+            H1 --> H2
+            H2 -->|Yes| H3
+            H3 --> H4
+            H4 -->|Yes| H5
+            H4 -->|No| H1
+            H2 -->|No| H6
+        end
+        
+        C5 -->|Yes| O1
+        O4 -->|Yes| H1
+        H5 --> C1
+        H6 --> O1
+    end
+    
+    style C1 fill:#4ade80,stroke:#16a34a
+    style O2 fill:#f87171,stroke:#dc2626
+    style H1 fill:#fbbf24,stroke:#f59e0b
 ```
 
 ### Core Value
@@ -123,8 +179,48 @@ graph TD
     B -->|Time| E[Response Time<br/>P99 > 5s = open]
     B -->|Hybrid| F[Combined Metrics<br/>Any threshold = open]
     
+    C --> C1[Example: Payment API<br/>5 consecutive timeouts]
+    D --> D1[Example: User Service<br/>51% errors in 10s window]
+    E --> E1[Example: Search Service<br/>P99 latency > 5s]
+    F --> F1[Example: Critical Path<br/>3 failures OR 30% error rate]
+    
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style F fill:#9f9,stroke:#333,stroke-width:2px
+    style C1 fill:#e0e7ff,stroke:#818cf8
+    style D1 fill:#e0e7ff,stroke:#818cf8
+    style E1 fill:#e0e7ff,stroke:#818cf8
+    style F1 fill:#e0e7ff,stroke:#818cf8
+```
+
+### Real-Time Circuit Breaker Monitoring Dashboard
+```mermaid
+graph TB
+    subgraph "Circuit Breaker Dashboard"
+        subgraph "Service A - Payment Gateway"
+            A1[State: CLOSED 🟢]
+            A2[Success Rate: 98.5%]
+            A3[Failures: 2/100]
+            A4[Last State Change: 2h ago]
+        end
+        
+        subgraph "Service B - User Service"
+            B1[State: OPEN 🔴]
+            B2[Success Rate: 15.2%]
+            B3[Failures: 85/100]
+            B4[Recovery In: 15s]
+        end
+        
+        subgraph "Service C - Inventory"
+            C1[State: HALF-OPEN 🟡]
+            C2[Test Success: 2/3]
+            C3[Recovery Progress: 66%]
+            C4[Next Test: 2s]
+        end
+    end
+    
+    style A1 fill:#4ade80,stroke:#16a34a
+    style B1 fill:#f87171,stroke:#dc2626
+    style C1 fill:#fbbf24,stroke:#f59e0b
 ```
 
 ### State Behavior Table

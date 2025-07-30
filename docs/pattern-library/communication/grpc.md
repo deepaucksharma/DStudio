@@ -56,501 +56,446 @@ production-checklist:
     - Netflix: 10x throughput increase over REST
     - Uber: Millions of concurrent streams for real-time updates
 
-**Modern RPC framework with Protocol Buffers and HTTP/2**
+## Essential Questions This Pattern Answers
 
-> *"gRPC: Because JSON over HTTP/1.1 is so 2010."*
+!!! question "Critical Decision Points"
+    1. **Do you need high-performance service-to-service communication?**
+       - If yes → gRPC with binary Protocol Buffers
+       - If no → Consider REST for simplicity
+    
+    2. **Do you require real-time streaming capabilities?**
+       - If yes → gRPC supports 4 streaming patterns
+       - If no → Simple request-response may suffice
+    
+    3. **Is your system polyglot with multiple languages?**
+       - If yes → gRPC generates type-safe clients for 10+ languages
+       - If no → Language-specific RPC might be simpler
+    
+    4. **Do you control both client and server?**
+       - If yes → gRPC works perfectly
+       - If no → REST/GraphQL for public APIs
 
 ---
 
-## Level 1: Intuition
+## When to Use vs When NOT to Use
 
-### Core Concept
+### Use gRPC When:
+✅ **Internal microservices** need low-latency communication
+✅ **Real-time streaming** requirements (chat, telemetry, live updates)
+✅ **Polyglot services** need type-safe contracts
+✅ **Mobile/IoT backends** require efficient bandwidth usage
+✅ **High throughput** systems (>10K requests/second)
 
-gRPC is like having a direct function call to another service, but over the network. It uses:
-- **Protocol Buffers**: Compact binary format (10x smaller than JSON)
-- **HTTP/2**: Multiplexing, streaming, header compression
-- **Code Generation**: Type-safe clients in any language
+### DON'T Use gRPC When:
+❌ **Browser clients** need direct access (use gRPC-Web or REST gateway)
+❌ **Public APIs** for third parties (REST is more accessible)
+❌ **Simple CRUD** operations (REST is simpler)
+❌ **Debugging with curl** is needed (binary protocol)
+❌ **Proxy/firewall** restrictions exist (some don't support HTTP/2)
 
-### Visual Comparison
+## Level 1: Core Architecture
 
+### gRPC Communication Flow
+
+```mermaid
+graph TB
+    subgraph "Client"
+        A[Application Code]
+        B[Generated Stub]
+        C[gRPC Client]
+        D[HTTP/2 Transport]
+    end
+    
+    subgraph "Network"
+        E[Binary Protocol Buffers]
+        F[Multiplexed Streams]
+    end
+    
+    subgraph "Server"
+        G[HTTP/2 Transport]
+        H[gRPC Server]
+        I[Service Implementation]
+        J[Business Logic]
+    end
+    
+    A -->|"Method Call"| B
+    B -->|"Serialize"| C
+    C -->|"Frame"| D
+    D -->|"Send"| E
+    E -->|"HTTP/2"| F
+    F -->|"Receive"| G
+    G -->|"Deserialize"| H
+    H -->|"Dispatch"| I
+    I -->|"Execute"| J
+    
+    style A fill:#e1f5fe
+    style J fill:#e1f5fe
+    style E fill:#fff3e0
+    style F fill:#fff3e0
 ```
-REST API:                       gRPC:
-                               
-GET /users/123 HTTP/1.1        service.GetUser(request)
-Accept: application/json           ↓
-    ↓                          Binary Protocol Buffer
-Text JSON Response                 ↓
-    ↓                          HTTP/2 Multiplexing
-Parse JSON                         ↓
-    ↓                          Generated Client Code
-Manual Mapping                     ↓
-                               Type-Safe Response
 
-Overhead: High                 Overhead: Minimal
-Speed: Slower                  Speed: 10x faster
-```
+### Performance Comparison Matrix
+
+| Aspect | REST/JSON | gRPC/Protobuf | GraphQL | WebSocket |
+|--------|-----------|---------------|----------|----------|
+| **Serialization Speed** | 150μs | 15μs ⚡ | 200μs | 100μs |
+| **Message Size** | 1KB | 100B ⚡ | 800B | 500B |
+| **Throughput** | 10K/s | 100K/s ⚡ | 8K/s | 50K/s |
+| **CPU Usage** | 80% | 20% ⚡ | 85% | 40% |
+| **Streaming** | ❌ | ✅ (4 types) | ✅ (subscriptions) | ✅ |
+| **Type Safety** | ❌ | ✅ | ✅ | ❌ |
+| **Browser Support** | ✅ | ⚠️ (needs proxy) | ✅ | ✅ |
 
 ---
 
-## Level 2: Foundation
+## Level 2: Implementation Patterns
 
-### The Problem
+### gRPC Communication Patterns
 
-Traditional REST APIs suffer from:
-- Text-based overhead (JSON/XML)
-- No streaming support
-- Manual client implementation
-- Loose contracts
-- HTTP/1.1 limitations
-
-### Basic Implementation
-
-```protobuf
-// user.proto - Service definition
-syntax = "proto3";
-
-package user.v1;
-
-service UserService {
-  // Unary RPC
-  rpc GetUser(GetUserRequest) returns (User);
-  
-  // Server streaming
-  rpc ListUsers(ListUsersRequest) returns (stream User);
-  
-  // Client streaming
-  rpc CreateUsers(stream CreateUserRequest) returns (CreateUsersResponse);
-  
-  // Bidirectional streaming
-  rpc ChatStream(stream ChatMessage) returns (stream ChatMessage);
-}
-
-message GetUserRequest {
-  string user_id = 1;
-}
-
-message User {
-  string id = 1;
-  string name = 2;
-  string email = 3;
-  int64 created_at = 4;
-}
-
-message ChatMessage {
-  string user_id = 1;
-  string message = 2;
-  int64 timestamp = 3;
-}
+```mermaid
+graph LR
+    subgraph "Unary RPC"
+        A1[Client] -->|Request| B1[Server]
+        B1 -->|Response| A1
+    end
+    
+    subgraph "Server Streaming"
+        A2[Client] -->|Request| B2[Server]
+        B2 -->|Stream| A2
+        B2 -->|Stream| A2
+        B2 -->|Stream| A2
+    end
+    
+    subgraph "Client Streaming"
+        A3[Client] -->|Stream| B3[Server]
+        A3 -->|Stream| B3
+        A3 -->|Stream| B3
+        B3 -->|Response| A3
+    end
+    
+    subgraph "Bidirectional Streaming"
+        A4[Client] <-->|Stream| B4[Server]
+    end
 ```
 
-### Server Implementation
+### Decision Matrix: Which Pattern to Use?
 
-```python
-import grpc
-from concurrent import futures
-import user_pb2
-import user_pb2_grpc
+| Use Case | Pattern | Example | Why |
+|----------|---------|---------|-----|
+| **Simple request-response** | Unary | GetUser(id) | Traditional RPC, easiest to reason about |
+| **Real-time updates** | Server Streaming | Stock prices, logs | Server pushes data as available |
+| **Bulk upload** | Client Streaming | File upload, batch insert | Client controls data flow |
+| **Real-time chat** | Bidirectional | Chat, gaming | Both sides send independently |
 
-class UserService(user_pb2_grpc.UserServiceServicer):
-    def __init__(self):
-        self.users = {}  # In-memory storage
-        
-    def GetUser(self, request, context):
-        """Unary RPC - single request, single response"""
-        user_id = request.user_id
-        
-        if user_id not in self.users:
-            context.abort(grpc.StatusCode.NOT_FOUND, f"User {user_id} not found")
-            
-        return self.users[user_id]
-        
-    def ListUsers(self, request, context):
-        """Server streaming - single request, stream of responses"""
-        for user in self.users.values():
-            # Check if client is still connected
-            if context.is_active():
-                yield user
-            else:
-                break
-                
-    def CreateUsers(self, request_iterator, context):
-        """Client streaming - stream of requests, single response"""
-        created_count = 0
-        
-        for create_request in request_iterator:
-            user = user_pb2.User(
-                id=create_request.id,
-                name=create_request.name,
-                email=create_request.email,
-                created_at=int(time.time())
-            )
-            self.users[user.id] = user
-            created_count += 1
-            
-        return user_pb2.CreateUsersResponse(created_count=created_count)
-        
-    def ChatStream(self, request_iterator, context):
-        """Bidirectional streaming - stream in, stream out"""
-        for message in request_iterator:
-            # Echo back with server timestamp
-            response = user_pb2.ChatMessage(
-                user_id=message.user_id,
-                message=f"Echo: {message.message}",
-                timestamp=int(time.time())
-            )
-            yield response
+### Protocol Buffer Schema Design
 
-def serve():
-    # Create server with thread pool
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+```mermaid
+graph TB
+    subgraph "Schema Evolution"
+        A[user.proto v1] -->|Add field| B[user.proto v2]
+        B -->|Deprecate field| C[user.proto v3]
+        
+        D["Rule 1: Never change field numbers"]
+        E["Rule 2: Add optional fields only"]
+        F["Rule 3: Use reserved for deleted fields"]
+        
+        A --> D
+        B --> E
+        C --> F
+    end
     
-    # Add service
-    user_pb2_grpc.add_UserServiceServicer_to_server(UserService(), server)
-    
-    # Configure server
-    server.add_insecure_port('[::]:50051')
-    server.start()
-    server.wait_for_termination()
+    style D fill:#ffe0b2
+    style E fill:#ffe0b2
+    style F fill:#ffe0b2
 ```
 
-### Client Implementation
+### Production Architecture
 
-```python
-import grpc
-import user_pb2
-import user_pb2_grpc
-
-class UserClient:
-    def __init__(self, server_address='localhost:50051'):
-        # Create channel with options
-        self.channel = grpc.insecure_channel(
-            server_address,
-            options=[
-                ('grpc.keepalive_time_ms', 10000),
-                ('grpc.keepalive_timeout_ms', 5000),
-                ('grpc.http2.max_pings_without_data', 0),
-            ]
-        )
-        self.stub = user_pb2_grpc.UserServiceStub(self.channel)
+```mermaid
+graph TB
+    subgraph "Production gRPC Setup"
+        subgraph "Client Side"
+            C1[Client App]
+            C2[Connection Pool]
+            C3[Load Balancer]
+            C4[Retry Logic]
+        end
         
-    def get_user(self, user_id: str) -> user_pb2.User:
-        """Unary call with timeout and error handling"""
-        try:
-            request = user_pb2.GetUserRequest(user_id=user_id)
-            response = self.stub.GetUser(request, timeout=5.0)
-            return response
-        except grpc.RpcError as e:
-            if e.code() == grpc.StatusCode.NOT_FOUND:
-                raise UserNotFoundError(f"User {user_id} not found")
-            raise
-            
-    def list_users(self):
-        """Server streaming with cancellation"""
-        request = user_pb2.ListUsersRequest()
+        subgraph "Network Layer"
+            N1[TLS/mTLS]
+            N2[HTTP/2 Multiplexing]
+            N3[Protocol Buffers]
+        end
         
-        try:
-            for user in self.stub.ListUsers(request):
-                yield user
-        except grpc.RpcError as e:
-            print(f"Stream error: {e.code()}: {e.details()}")
-            
-    async def chat_stream(self, messages):
-        """Bidirectional streaming"""
-        def message_generator():
-            for msg in messages:
-                yield user_pb2.ChatMessage(
-                    user_id=msg['user_id'],
-                    message=msg['message'],
-                    timestamp=int(time.time())
-                )
-                
-        responses = self.stub.ChatStream(message_generator())
+        subgraph "Server Side"
+            S1[Envoy/Nginx]
+            S2[gRPC Server Pool]
+            S3[Health Checks]
+            S4[Metrics Collection]
+        end
         
-        for response in responses:
-            print(f"{response.user_id}: {response.message}")
-```
-
-### Communication Patterns
-
-| Pattern | Description | Use Case |
-|---------|-------------|----------|
-| **Unary** | Request → Response | Traditional RPC |
-| **Server Streaming** | Request → Stream | Real-time updates |
-| **Client Streaming** | Stream → Response | File upload |
-| **Bidirectional** | Stream ↔ Stream | Chat, gaming |
-
----
-
-## Level 3: Deep Dive
-
-### Advanced Features
-
-```python
-class AdvancedGRPCServer:
-    """Production-ready gRPC server"""
+        C1 --> C2
+        C2 --> C3
+        C3 --> C4
+        C4 --> N1
+        N1 --> N2
+        N2 --> N3
+        N3 --> S1
+        S1 --> S2
+        S2 --> S3
+        S3 --> S4
+    end
     
-    def __init__(self):
-        self.server = None
-        self.health_servicer = health.HealthServicer()
-        
-    def configure_server(self):
-        """Configure with interceptors and options"""
-        # Server interceptors
-        interceptors = [
-            LoggingInterceptor(),
-            AuthenticationInterceptor(),
-            RateLimitInterceptor(),
-            MetricsInterceptor(),
-        ]
-        
-        # Create server
-        self.server = grpc.server(
-            futures.ThreadPoolExecutor(max_workers=100),
-            interceptors=interceptors,
-            options=[
-                ('grpc.max_send_message_length', 100 * 1024 * 1024),  # 100MB
-                ('grpc.max_receive_message_length', 100 * 1024 * 1024),
-                ('grpc.keepalive_time_ms', 30000),
-                ('grpc.keepalive_timeout_ms', 10000),
-                ('grpc.http2.min_time_between_pings_ms', 30000),
-            ]
-        )
-        
-    def add_services(self):
-        """Add application and infrastructure services"""
-        # Application services
-        user_pb2_grpc.add_UserServiceServicer_to_server(
-            UserService(), self.server
-        )
-        
-        # Health checking
-        health_pb2_grpc.add_HealthServicer_to_server(
-            self.health_servicer, self.server
-        )
-        
-        # Reflection for debugging
-        reflection.enable_server_reflection(SERVICE_NAMES, self.server)
-
-class AuthenticationInterceptor(grpc.ServerInterceptor):
-    """JWT authentication interceptor"""
-    
-    def intercept_service(self, continuation, handler_call_details):
-        # Extract metadata
-        metadata = dict(handler_call_details.invocation_metadata)
-        
-        # Skip auth for health checks
-        if handler_call_details.method.endswith('Health/Check'):
-            return continuation(handler_call_details)
-            
-        # Verify token
-        token = metadata.get('authorization', '').replace('Bearer ', '')
-        
-        try:
-            claims = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
-            # Add user context
-            handler_call_details.invocation_metadata.append(
-                ('user_id', claims['sub'])
-            )
-        except jwt.InvalidTokenError:
-            return self._unauthorized_response
-            
-        return continuation(handler_call_details)
-        
-    def _unauthorized_response(self, request, context):
-        context.abort(grpc.StatusCode.UNAUTHENTICATED, 'Invalid token')
+    style C1 fill:#e3f2fd
+    style S2 fill:#e8f5e9
+    style N1 fill:#fff3e0
 ```
 
 ### Load Balancing Strategies
 
-```python
-class GRPCClientWithLB:
-    """Client with load balancing"""
+```mermaid
+graph LR
+    subgraph "Client-Side LB"
+        C[gRPC Client] --> LB[Client LB]
+        LB --> S1[Server 1]
+        LB --> S2[Server 2]
+        LB --> S3[Server 3]
+    end
     
-    def __init__(self, service_name: str):
-        # DNS-based load balancing
-        self.channel = grpc.insecure_channel(
-            f'{service_name}:50051',
-            options=[
-                ('grpc.lb_policy_name', 'round_robin'),
-                ('grpc.dns_min_time_between_resolutions_ms', 5000),
-            ]
-        )
-        
-    def with_client_side_lb(self, servers: List[str]):
-        """Client-side load balancing"""
-        # Create multiple channels
-        channels = [
-            grpc.insecure_channel(server) for server in servers
-        ]
-        
-        # Round-robin selection
-        self.current = 0
-        
-        def get_next_channel():
-            channel = channels[self.current]
-            self.current = (self.current + 1) % len(channels)
-            return channel
-            
-        return get_next_channel
+    subgraph "Proxy-Based LB"
+        C2[gRPC Client] --> P[Envoy/Nginx]
+        P --> S4[Server 1]
+        P --> S5[Server 2]
+        P --> S6[Server 3]
+    end
+    
+    subgraph "Look-Aside LB"
+        C3[gRPC Client] <--> D[Service Discovery]
+        C3 --> S7[Server 1]
+        C3 --> S8[Server 2]
+        C3 --> S9[Server 3]
+    end
 ```
 
-### Performance Optimization
+### Error Handling Strategy
 
-```python
-class PerformantGRPCService:
-    """Optimized gRPC service"""
-    
-    def __init__(self):
-        self.connection_pool = []
-        self.response_cache = TTLCache(maxsize=1000, ttl=60)
-        
-    async def stream_large_dataset(self, request, context):
-        """Efficient streaming of large datasets"""
-        # Use async generator for better memory usage
-        page_size = 1000
-        offset = 0
-        
-        while True:
-            # Fetch page from database
-            results = await self.db.fetch_page(offset, page_size)
-            
-            if not results:
-                break
-                
-            # Stream results
-            for item in results:
-                # Check backpressure
-                if context.is_active():
-                    yield self.serialize_item(item)
-                else:
-                    return
-                    
-            offset += page_size
-            
-            # Yield control periodically
-            await asyncio.sleep(0)
-    
-    def compress_response(self, response):
-        """Enable compression for large responses"""
-        context.set_compression(grpc.Compression.Gzip)
-        return response
-```
+| Status Code | Meaning | Retry? | Client Action |
+|-------------|---------|--------|---------------|
+| `OK` | Success | No | Process response |
+| `CANCELLED` | Client cancelled | No | Clean up resources |
+| `DEADLINE_EXCEEDED` | Timeout | Maybe | Increase timeout or optimize |
+| `NOT_FOUND` | Resource missing | No | Handle missing resource |
+| `UNAVAILABLE` | Service down | Yes | Exponential backoff |
+| `RESOURCE_EXHAUSTED` | Rate limited | Yes | Backoff with jitter |
+| `INTERNAL` | Server error | Maybe | Log and alert |
 
 ---
 
-## Level 4: Expert Practitioner
+## Level 3: Production Considerations
 
-### Production Deployment
+### Security Architecture
 
-```yaml
-# Kubernetes deployment with Envoy proxy
-apiVersion: v1
-kind: Service
-metadata:
-  name: user-service
-  annotations:
-    service.alpha.kubernetes.io/app-protocols: '{"grpc":"HTTP2"}'
-spec:
-  ports:
-  - name: grpc
-    port: 50051
-    targetPort: 50051
-  selector:
-    app: user-service
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: user-service
-spec:
-  replicas: 3
-  template:
-    spec:
-      containers:
-      - name: user-service
-        image: user-service:latest
-        ports:
-        - containerPort: 50051
-          name: grpc
-        env:
-        - name: GRPC_GO_LOG_VERBOSITY_LEVEL
-          value: "99"
-        - name: GRPC_GO_LOG_SEVERITY_LEVEL
-          value: "info"
-        livenessProbe:
-          grpc:
-            port: 50051
-          initialDelaySeconds: 10
-        readinessProbe:
-          grpc:
-            port: 50051
-          initialDelaySeconds: 5
+```mermaid
+graph TB
+    subgraph "Security Layers"
+        A[Client] -->|"1. TLS/mTLS"| B[Edge Proxy]
+        B -->|"2. Auth Token"| C[Auth Interceptor]
+        C -->|"3. Authorization"| D[Service]
+        D -->|"4. Data Encryption"| E[Database]
+        
+        F["🔒 Transport Security: TLS 1.3"]
+        G["🔑 Authentication: JWT/OAuth2"]
+        H["🛡️ Authorization: RBAC/ABAC"]
+        I["🔐 Data Security: Field-level encryption"]
+        
+        B --> F
+        C --> G
+        D --> H
+        E --> I
+    end
+    
+    style F fill:#ffebee
+    style G fill:#ffebee
+    style H fill:#ffebee
+    style I fill:#ffebee
+```
+
+### Interceptor Chain Pattern
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant RateLimiter
+    participant Auth
+    participant Logger
+    participant Service
+    
+    Client->>RateLimiter: Request
+    RateLimiter->>RateLimiter: Check limits
+    RateLimiter->>Auth: Forward
+    Auth->>Auth: Verify token
+    Auth->>Logger: Forward
+    Logger->>Logger: Log request
+    Logger->>Service: Forward
+    Service->>Service: Process
+    Service-->>Logger: Response
+    Logger-->>Auth: Forward
+    Auth-->>RateLimiter: Forward
+    RateLimiter-->>Client: Response
 ```
 
 ### Monitoring & Observability
 
-```python
-# Prometheus metrics
-grpc_server_handled_total = Counter(
-    'grpc_server_handled_total',
-    'Total number of RPCs completed',
-    ['grpc_service', 'grpc_method', 'grpc_code']
-)
+```mermaid
+graph TB
+    subgraph "Observability Stack"
+        subgraph "Metrics"
+            M1[Request Rate]
+            M2[Error Rate]
+            M3[Duration]
+            M4[Message Size]
+        end
+        
+        subgraph "Tracing"
+            T1[Request Flow]
+            T2[Service Dependencies]
+            T3[Latency Breakdown]
+        end
+        
+        subgraph "Logging"
+            L1[Request/Response]
+            L2[Errors]
+            L3[Performance]
+        end
+        
+        M1 --> P[Prometheus]
+        T1 --> J[Jaeger]
+        L1 --> E[ELK Stack]
+        
+        P --> G[Grafana]
+        J --> G
+        E --> G
+    end
+    
+    style P fill:#e8f5e9
+    style J fill:#e3f2fd
+    style E fill:#fff3e0
+    style G fill:#f3e5f5
+```
 
-grpc_server_handling_seconds = Histogram(
-    'grpc_server_handling_seconds',
-    'RPC handling duration',
-    ['grpc_service', 'grpc_method']
-)
+### Performance Optimization Strategies
 
-# OpenTelemetry tracing
-from opentelemetry import trace
-from opentelemetry.instrumentation.grpc import GrpcInstrumentorServer
+| Optimization | Impact | Implementation | Trade-off |
+|--------------|--------|----------------|-----------||
+| **Connection Pooling** | 50% latency reduction | Reuse HTTP/2 connections | Memory overhead |
+| **Message Compression** | 70% bandwidth saving | gzip/snappy compression | CPU overhead |
+| **Streaming vs Unary** | 90% memory reduction | Use for large datasets | Complexity |
+| **Client-side caching** | 95% fewer requests | Cache immutable data | Stale data risk |
+| **Batch requests** | 80% overhead reduction | Combine multiple calls | Latency increase |
 
-GrpcInstrumentorServer().instrument()
+### Resource Limits Configuration
+
+```mermaid
+graph LR
+    subgraph "Resource Management"
+        A[Connection Limits] -->|"Max: 1000"| B[Thread Pool]
+        B -->|"Workers: 100"| C[Request Queue]
+        C -->|"Size: 10000"| D[Message Size]
+        D -->|"Max: 100MB"| E[Timeout]
+        E -->|"Default: 30s"| F[Keepalive]
+        F -->|"Interval: 60s"| A
+    end
+    
+    style A fill:#ffebee
+    style D fill:#fff3e0
+    style E fill:#e3f2fd
 ```
 
 ---
 
-## Quick Reference
+## Level 4: Migration & Evolution
 
-### When to Use
-- ✅ Microservices communication
-- ✅ Real-time streaming
-- ✅ Polyglot environments
-- ✅ Mobile backends
-- ✅ High-performance requirements
+### REST to gRPC Migration Strategy
 
-### When to Avoid
-- ❌ Browser clients (use gRPC-Web)
-- ❌ Simple CRUD APIs
-- ❌ Human-readable needed
-- ❌ Firewall restrictions
+```mermaid
+graph LR
+    subgraph "Phase 1: Parallel Run"
+        R1[REST API] --> S1[Service]
+        G1[gRPC API] --> S1
+    end
+    
+    subgraph "Phase 2: Gateway"
+        C[Clients] --> GW[API Gateway]
+        GW --> R2[REST]
+        GW --> G2[gRPC]
+    end
+    
+    subgraph "Phase 3: Full gRPC"
+        C2[Clients] --> G3[gRPC Only]
+    end
+    
+    Phase1 -->|"Test & Validate"| Phase2
+    Phase2 -->|"Gradual Migration"| Phase3
+```
 
-### Performance Comparison
+### Version Evolution Pattern
 
-| Metric | REST/JSON | gRPC/Protobuf | Improvement |
-|--------|-----------|---------------|-------------|
-| Serialization | 150μs | 15μs | 10x |
-| Message Size | 1KB | 100B | 10x |
-| Throughput | 10K/s | 100K/s | 10x |
-| CPU Usage | 80% | 20% | 4x |
+| Stage | Action | Example | Backward Compatible |
+|-------|--------|---------|--------------------|
+| **1. Add Field** | Add optional field | `string middle_name = 5;` | ✅ Yes |
+| **2. Deprecate Field** | Mark as deprecated | `string name = 2 [deprecated=true];` | ✅ Yes |
+| **3. New Service Version** | Create v2 service | `package user.v2;` | ✅ Yes |
+| **4. Remove Old Version** | After migration | Delete v1 files | ❌ No |
 
-### Best Practices
+---
 
-1. **Version your proto files** - Use packages (e.g., `user.v1`)
-2. **Set deadlines** - Propagate timeouts through call chain
-3. **Use streaming wisely** - Not everything needs to stream
-4. **Implement retries** - With exponential backoff
-5. **Monitor everything** - Latency, errors, message sizes
+## Production Readiness Checklist
 
-### Common Mistakes
+### Essential Implementation
 
-- 🚫 Ignoring proto versioning
-- 🚫 No timeout propagation
-- 🚫 Blocking in stream handlers
-- 🚫 Large unary messages
-- 🚫 No health checks
+| Component | Required | Configuration | Validation |
+|-----------|----------|---------------|------------|
+| **Protocol Buffers** | ✅ | Version strategy, field numbers | Proto lint |
+| **TLS/mTLS** | ✅ | Certificates, rotation | Security scan |
+| **Health Checks** | ✅ | Liveness, readiness | Continuous monitoring |
+| **Timeouts** | ✅ | Client: 5-30s, Server: 30-60s | Load testing |
+| **Retries** | ✅ | Exponential backoff, max 3 | Error rate analysis |
+| **Load Balancing** | ✅ | Client-side or proxy | Distribution metrics |
+| **Monitoring** | ✅ | Metrics, traces, logs | Dashboard alerts |
+| **Rate Limiting** | ✅ | Per-client quotas | Throttle testing |
+
+### Common Pitfalls & Solutions
+
+```mermaid
+graph TD
+    subgraph "Pitfalls"
+        P1[Large Messages]
+        P2[No Timeouts]
+        P3[Memory Leaks]
+        P4[Version Conflicts]
+    end
+    
+    subgraph "Solutions"
+        S1[Use Streaming]
+        S2[Deadline Propagation]
+        S3[Context Cancellation]
+        S4[Semantic Versioning]
+    end
+    
+    P1 --> S1
+    P2 --> S2
+    P3 --> S3
+    P4 --> S4
+    
+    style P1 fill:#ffebee
+    style P2 fill:#ffebee
+    style P3 fill:#ffebee
+    style P4 fill:#ffebee
+    style S1 fill:#e8f5e9
+    style S2 fill:#e8f5e9
+    style S3 fill:#e8f5e9
+    style S4 fill:#e8f5e9
+```
 
 ---
 

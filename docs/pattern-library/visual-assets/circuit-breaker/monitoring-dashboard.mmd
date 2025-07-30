@@ -1,0 +1,54 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#5448C8',
+    'primaryTextColor': '#fff',
+    'primaryBorderColor': '#3f33a6',
+    'lineColor': '#64748b',
+    'background': '#f8fafc'
+  }
+}}%%
+
+graph TB
+    subgraph "Circuit Breaker Real-Time Dashboard"
+        subgraph "Service A - Payment Gateway"
+            A1[State: CLOSED 🟢]
+            A2[Success Rate: 98.5%]
+            A3[Failures: 2/100]
+            A4[Last State Change: 2h ago]
+            A5[Request Rate: 1250 req/s]
+            A6[Avg Latency: 45ms]
+        end
+        
+        subgraph "Service B - User Service"
+            B1[State: OPEN 🔴]
+            B2[Success Rate: 15.2%]
+            B3[Failures: 85/100]
+            B4[Recovery In: 15s]
+            B5[Fallback Active: Yes]
+            B6[Impact: 3500 users/min]
+        end
+        
+        subgraph "Service C - Inventory"
+            C1[State: HALF-OPEN 🟡]
+            C2[Test Success: 2/3]
+            C3[Recovery Progress: 66%]
+            C4[Next Test: 2s]
+            C5[Test Traffic: 10%]
+            C6[Health Score: Rising]
+        end
+        
+        subgraph "Service D - Search API"
+            D1[State: CLOSED 🟢]
+            D2[Success Rate: 99.9%]
+            D3[Failures: 0/100]
+            D4[Last State Change: 12h ago]
+            D5[Request Rate: 850 req/s]
+            D6[Avg Latency: 120ms]
+        end
+    end
+    
+    style A1 fill:#4ade80,stroke:#16a34a
+    style B1 fill:#f87171,stroke:#dc2626
+    style C1 fill:#fbbf24,stroke:#f59e0b
+    style D1 fill:#4ade80,stroke:#16a34a

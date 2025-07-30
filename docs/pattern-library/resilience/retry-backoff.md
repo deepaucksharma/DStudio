@@ -107,6 +107,68 @@ graph LR
     style K fill:#95e1d3
 ```
 
+### Exponential Backoff Visualization
+```mermaid
+graph TB
+    subgraph "Exponential Backoff Timeline"
+        T0["0s: Initial Request<br/>❌ Failed"]
+        T1["1s: Retry 1<br/>❌ Failed<br/>(wait = 1s)"]
+        T2["3s: Retry 2<br/>❌ Failed<br/>(wait = 2s)"]
+        T3["7s: Retry 3<br/>✅ Success!<br/>(wait = 4s)"]
+        
+        T0 -.->|"1s delay"| T1
+        T1 -.->|"2s delay"| T2
+        T2 -.->|"4s delay"| T3
+    end
+    
+    subgraph "With Jitter (±25%)" 
+        J0["0s: Request ❌"]
+        J1["0.8s: Retry ❌<br/>(1s - 20%)"]
+        J2["3.2s: Retry ❌<br/>(2s + 20%)"]
+        J3["6.5s: Retry ✅<br/>(4s - 18%)"]
+        
+        J0 -.->|"0.8s"| J1
+        J1 -.->|"2.4s"| J2
+        J2 -.->|"3.3s"| J3
+    end
+    
+    style T3 fill:#4ade80,stroke:#16a34a
+    style J3 fill:#4ade80,stroke:#16a34a
+```
+
+### Thundering Herd Prevention
+```mermaid
+graph TB
+    subgraph "Without Jitter - Synchronized Storm"
+        S1["Service Fails<br/>at t=0"]
+        C1["1000 clients<br/>retry at t=1s"]
+        C2["1000 clients<br/>retry at t=3s"]
+        C3["1000 clients<br/>retry at t=7s"]
+        CRASH["Service Crashes<br/>from load spikes"]
+        
+        S1 --> C1
+        C1 --> C2
+        C2 --> C3
+        C3 --> CRASH
+    end
+    
+    subgraph "With Jitter - Distributed Load"
+        S2["Service Fails<br/>at t=0"]
+        J1["~200 clients at 0.8s<br/>~200 at 0.9s<br/>~200 at 1.0s<br/>~200 at 1.1s<br/>~200 at 1.2s"]
+        J2["Load spread<br/>2.4s - 3.6s"]
+        J3["Load spread<br/>5.6s - 8.4s"]
+        RECOVER["Service Recovers<br/>gradually"]
+        
+        S2 --> J1
+        J1 --> J2
+        J2 --> J3
+        J3 --> RECOVER
+    end
+    
+    style CRASH fill:#f87171,stroke:#dc2626
+    style RECOVER fill:#4ade80,stroke:#16a34a
+```
+
 ### Core Insight
 <div class="axiom-box">
 <h4>⚛️ Without Jitter = Thundering Herd</h4>
@@ -181,6 +243,31 @@ graph TD
     B -->|Timeout| I{Request Type?}
     I -->|GET| E
     I -->|POST/PUT| G
+    
+    style C fill:#f87171,stroke:#dc2626
+    style E fill:#4ade80,stroke:#16a34a
+    style F fill:#f87171,stroke:#dc2626
+    style H fill:#fbbf24,stroke:#f59e0b
+```
+
+### Retry Strategy Comparison
+```mermaid
+graph TB
+    subgraph "Fixed Retry - Predictable Load Spikes"
+        F1["Fail"] --> F2["1s"] --> F3["Retry"] --> F4["1s"] --> F5["Retry"] --> F6["1s"] --> F7["Retry"]
+    end
+    
+    subgraph "Linear Backoff - Gradual Increase"
+        L1["Fail"] --> L2["1s"] --> L3["Retry"] --> L4["2s"] --> L5["Retry"] --> L6["3s"] --> L7["Retry"]
+    end
+    
+    subgraph "Exponential Backoff - Rapid Increase"
+        E1["Fail"] --> E2["1s"] --> E3["Retry"] --> E4["2s"] --> E5["Retry"] --> E6["4s"] --> E7["Retry"]
+    end
+    
+    subgraph "Decorrelated Jitter - AWS Recommended"
+        D1["Fail"] --> D2["0.5-1.5s"] --> D3["Retry"] --> D4["0-3s"] --> D5["Retry"] --> D6["0-7s"] --> D7["Retry"]
+    end
 ```
 
 ### Common Pitfalls

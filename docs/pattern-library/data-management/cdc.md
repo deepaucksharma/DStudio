@@ -154,57 +154,24 @@ graph TB
 
 ## Level 3: Deep Dive (15 min)
 
-### Implementation Patterns
+### CDC Implementation Flow
 
-```python
-# Log-based CDC implementation
-class MySQLBinlogCDC:
-    def __init__(self, connection_params, kafka_producer):
-        self.mysql = mysql.connector.connect(**connection_params)
-        self.stream = BinLogStreamReader(
-            connection_settings=connection_params,
-            server_id=100,
-            blocking=True,
-            resume_stream=True,
-            only_events=[WriteRowsEvent, UpdateRowsEvent, DeleteRowsEvent]
-        )
-        self.producer = kafka_producer
+```mermaid
+sequenceDiagram
+    participant DB as Database
+    participant LOG as Transaction Log
+    participant CDC as CDC Processor
+    participant K as Kafka
+    participant C as Consumers
     
-    def process_events(self):
-        for binlog_event in self.stream:
-            # Convert binlog event to CDC event
-            cdc_event = self.parse_event(binlog_event)
-            
-            # Add metadata
-            cdc_event['timestamp'] = binlog_event.timestamp
-            cdc_event['position'] = f"{self.stream.log_file}:{self.stream.log_pos}"
-            cdc_event['operation'] = binlog_event.__class__.__name__
-            
-            # Send to Kafka
-            self.producer.send(
-                topic=f"cdc.{cdc_event['database']}.{cdc_event['table']}",
-                key=cdc_event['primary_key'],
-                value=json.dumps(cdc_event),
-                headers=[('schema_version', cdc_event['schema_version'])]
-            )
+    DB->>LOG: Write transaction
+    LOG->>CDC: Read binlog/WAL
+    CDC->>CDC: Parse & Transform
+    CDC->>K: Publish event
+    K->>C: Distribute to consumers
     
-    def parse_event(self, event):
-        if isinstance(event, WriteRowsEvent):
-            return {
-                'operation': 'INSERT',
-                'after': event.rows[0]['values'],
-                'table': event.table,
-                'database': event.schema
-            }
-        elif isinstance(event, UpdateRowsEvent):
-            return {
-                'operation': 'UPDATE',
-                'before': event.rows[0]['before_values'],
-                'after': event.rows[0]['after_values'],
-                'table': event.table,
-                'database': event.schema
-            }
-        # Handle DELETE similarly
+    Note over LOG: Zero impact on DB
+    Note over K: Decouple producers/consumers
 ```
 
 ### CDC Event Format
@@ -252,44 +219,16 @@ class MySQLBinlogCDC:
 
 ## Level 4: Expert (20 min)
 
-### Advanced Techniques
+### CDC Pipeline Configuration
 
-```yaml
-# Production CDC configuration
-cdc_pipeline:
-  source:
-    type: mysql_binlog
-    server_id: 10001
-    binlog_position: "mysql-bin.000123:4567"
-    
-  processing:
-    parallelism: 16
-    buffer_size: 10000
-    checkpoint_interval: 30s
-    
-  transformations:
-    - type: filter
-      include_tables: ["orders.*", "customers.*"]
-      exclude_operations: ["TRUNCATE"]
-      
-    - type: enrich
-      join_with: customer_cache
-      fields: ["customer_name", "customer_tier"]
-      
-    - type: mask
-      fields: ["ssn", "credit_card"]
-      method: sha256
-      
-  sinks:
-    - type: kafka
-      topic_pattern: "cdc.${database}.${table}"
-      compression: snappy
-      batch_size: 1000
-      
-    - type: elasticsearch
-      index_pattern: "${table}_${yyyy_MM}"
-      document_id: "${primary_key}"
-```
+| Component | Configuration | Purpose |
+|-----------|---------------|---------|
+| **Source** | Binlog position tracking | Resume after failure |
+| **Parallelism** | 16 threads | Scale throughput |
+| **Filtering** | Table/operation patterns | Reduce noise |
+| **Enrichment** | Join with cache | Add context |
+| **Masking** | PII fields | Compliance |
+| **Routing** | Topic per table | Organized consumption |
 
 ### Performance Optimization
 
@@ -301,25 +240,14 @@ cdc_pipeline:
 | **Filtering** | Early in pipeline | Reduce load |
 | **Caching** | Recent positions | Fast recovery |
 
-### Monitoring Metrics
+### Critical CDC Metrics
 
-```python
-class CDCMonitoring:
-    def __init__(self):
-        self.metrics = {
-            'lag_seconds': Gauge('cdc_lag_seconds'),
-            'events_processed': Counter('cdc_events_total'),
-            'errors': Counter('cdc_errors_total'),
-            'throughput': Histogram('cdc_throughput_eps')
-        }
-    
-    def track_lag(self, source_timestamp):
-        lag = time.time() - source_timestamp
-        self.metrics['lag_seconds'].set(lag)
-        
-        if lag > 60:  # 1 minute threshold
-            alert("CDC lag exceeds threshold", lag=lag)
-```
+| Metric | Alert Threshold | Impact |
+|--------|----------------|--------|
+| **Replication lag** | > 60 seconds | Stale data |
+| **Error rate** | > 0.1% | Data loss risk |
+| **Throughput drop** | < 80% baseline | Bottleneck |
+| **Queue depth** | > 100k events | Memory pressure |
 
 ## Level 5: Mastery (30 min)
 

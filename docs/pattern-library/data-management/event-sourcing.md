@@ -41,7 +41,9 @@ production-checklist:
 
 ## Essential Question
 
-**How can we capture every change as an immutable fact while still answering "what's the current state?"**
+**How can we preserve the complete history of all changes while maintaining fast access to current state?**
+
+The genius of event sourcing: Instead of storing just current state (balance = $100), we store the sequence of events that led there (opened, deposited $150, withdrew $50). This enables time travel, audit trails, and debugging capabilities impossible with traditional CRUD.
 
 ## When to Use / When NOT to Use
 
@@ -168,100 +170,57 @@ graph TB
 5. **Events are versioned** - Schema evolution support
 </div>
 
-### Implementation Example
+### Event Flow Architecture
 
-```python
-# Event definition
-@dataclass
-class OrderPlaced(Event):
-    order_id: str
-    customer_id: str
-    items: List[OrderItem]
-    total_amount: Decimal
-    placed_at: datetime
+```mermaid
+sequenceDiagram
+    participant C as Command
+    participant A as Aggregate
+    participant E as Event Store
+    participant P as Projections
+    participant R as Read Model
     
-    # Event metadata
-    event_version: int = 1
-    event_type: str = "OrderPlaced"
-
-# Aggregate with event sourcing
-class Order(Aggregate):
-    def __init__(self):
-        self.id = None
-        self.status = None
-        self.items = []
-        self.events = []
+    C->>A: PlaceOrder command
+    A->>A: Validate business rules
+    A->>E: Save OrderPlaced event
+    E->>P: Publish event
+    P->>R: Update read model
     
-    def place_order(self, customer_id, items):
-        # Business validation
-        if not items:
-            raise ValueError("Order must have items")
-        
-        # Generate event
-        event = OrderPlaced(
-            order_id=generate_id(),
-            customer_id=customer_id,
-            items=items,
-            total_amount=calculate_total(items),
-            placed_at=datetime.utcnow()
-        )
-        
-        # Apply event
-        self.apply(event)
-        return event
-    
-    def apply(self, event):
-        # Update state from event
-        if isinstance(event, OrderPlaced):
-            self.id = event.order_id
-            self.status = "placed"
-            self.items = event.items
-        
-        # Record event
-        self.events.append(event)
-
-# Event store implementation
-class EventStore:
-    async def save_events(self, aggregate_id, events, expected_version):
-        # Optimistic concurrency control
-        current_version = await self.get_version(aggregate_id)
-        if current_version != expected_version:
-            raise ConcurrencyException()
-        
-        # Append events atomically
-        for event in events:
-            await self.append_event(
-                stream_id=f"order-{aggregate_id}",
-                event_type=event.event_type,
-                event_data=serialize(event),
-                event_version=current_version + 1
-            )
+    Note over E: Events are immutable facts
+    Note over R: Optimized for queries
 ```
 
-### Projection Patterns
+### Event Design Pattern
 
-```python
-# Projection handler
-class OrderProjectionHandler:
-    def __init__(self, read_db):
-        self.db = read_db
-    
-    async def handle(self, event):
-        if isinstance(event, OrderPlaced):
-            await self.db.orders.insert({
-                'order_id': event.order_id,
-                'customer_id': event.customer_id,
-                'status': 'placed',
-                'total': event.total_amount,
-                'created_at': event.placed_at
-            })
+```mermaid
+graph TB
+    subgraph "Event Structure"
+        E[Event] --> M[Metadata]
+        E --> P[Payload]
         
-        elif isinstance(event, OrderShipped):
-            await self.db.orders.update(
-                {'order_id': event.order_id},
-                {'$set': {'status': 'shipped'}}
-            )
+        M --> ID[Event ID]
+        M --> TS[Timestamp]
+        M --> V[Version]
+        M --> T[Type]
+        
+        P --> D[Domain Data]
+        P --> B[Before State]
+        P --> A[After State]
+    end
+    
+    subgraph "Example: OrderPlaced"
+        OP[OrderPlaced Event] --> OM[order_id: 12345<br/>customer_id: 789<br/>total: $99.99<br/>items: [...]]
+    end
 ```
+
+### Projection Update Strategies
+
+| Strategy | Consistency | Performance | Use Case |
+|----------|-------------|-------------|----------|
+| **Synchronous** | Strong | Slower writes | Critical views |
+| **Asynchronous** | Eventual | Fast writes | Analytics, search |
+| **Scheduled** | Delayed | Batch efficiency | Reports, summaries |
+| **On-demand** | Lazy | No overhead | Rarely accessed data |
 
 ### Snapshot Strategy
 
@@ -289,26 +248,14 @@ graph LR
 | **Multiple Versions** | Breaking changes | Support both versions |
 | **Event Migration** | Major refactoring | Replay with transformation |
 
-### Performance Optimization
+### Performance Optimization Matrix
 
-```yaml
-# Production optimizations
-optimizations:
-  snapshots:
-    frequency: 100  # Every 100 events
-    async: true
-    compression: snappy
-  
-  projections:
-    parallel_handlers: 4
-    batch_size: 1000
-    checkpoint_interval: 5s
-  
-  event_store:
-    partition_by: aggregate_id
-    retention_days: 2555  # 7 years
-    archive_to: s3
-```
+| Component | Optimization | Impact | Trade-off |
+|-----------|--------------|--------|-----------|
+| **Snapshots** | Every 100 events | 10x faster replay | Storage overhead |
+| **Projections** | Parallel processing | 4x throughput | Complexity |
+| **Partitioning** | By aggregate ID | Linear scaling | Cross-aggregate queries |
+| **Archival** | Old events to S3 | 90% cost reduction | Retrieval latency |
 
 ### Common Pitfalls
 

@@ -1,0 +1,65 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'actorTextColor': '#333',
+    'actorLineColor': '#5448C8',
+    'signalColor': '#333',
+    'signalTextColor': '#333',
+    'sequenceNumberColor': '#fff'
+  }
+}}%%
+
+sequenceDiagram
+    %% Enable automatic numbering
+    autonumber
+    
+    %% Define participants with emojis for visual appeal
+    participant C as Client 📱
+    participant GW as Gateway 🌐
+    participant S1 as Service 1 🔧
+    participant S2 as Service 2 🔨
+    participant DB as Database 💾
+    
+    %% Main flow
+    C->>GW: Request with parameters
+    
+    %% Grouped operations with background
+    rect rgb(255, 235, 205)
+        Note over GW: Pre-processing Phase
+        GW->>GW: Validate request
+        GW->>GW: Check authentication
+    end
+    
+    %% Parallel operations
+    rect rgb(205, 235, 255)
+        Note over GW,S2: Parallel Processing
+        par Service 1 Call
+            GW->>S1: Get data A
+            S1->>DB: Query for A
+            DB-->>S1: Return A data
+            S1-->>GW: Response A
+        and Service 2 Call
+            GW->>S2: Get data B
+            S2->>DB: Query for B
+            DB-->>S2: Return B data
+            S2-->>GW: Response B
+        end
+    end
+    
+    %% Alternative flows
+    alt Success Case
+        GW-->>C: 200 OK with combined data
+    else Partial Failure
+        GW-->>C: 206 Partial Content
+    else Complete Failure
+        GW-->>C: 503 Service Unavailable
+    end
+    
+    %% Loop example
+    loop Retry up to 3 times
+        C->>GW: Retry request
+        GW-->>C: Response
+    end
+    
+    %% Notes for important information
+    Note over C,DB: Total processing time: ~150ms

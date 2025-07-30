@@ -1,0 +1,51 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#5448C8',
+    'primaryTextColor': '#333',
+    'lineColor': '#64748b'
+  }
+}}%%
+
+graph TB
+    subgraph "Thundering Herd Problem Visualization"
+        subgraph "Without Jitter - Synchronized Storm 🌩️"
+            S1["Service Fails<br/>at t=0<br/>📉"]
+            C1["1000 clients<br/>ALL retry at t=1s<br/>⚡ 1000 req/s spike"]
+            C2["1000 clients<br/>ALL retry at t=3s<br/>⚡ 1000 req/s spike"]
+            C3["1000 clients<br/>ALL retry at t=7s<br/>⚡ 1000 req/s spike"]
+            CRASH["💥 Service Crashes<br/>from repeated<br/>load spikes"]
+            
+            S1 ==> C1
+            C1 ==> C2
+            C2 ==> C3
+            C3 ==> CRASH
+        end
+        
+        subgraph "With Jitter - Distributed Load 🌤️"
+            S2["Service Fails<br/>at t=0<br/>📉"]
+            J1["Load spread evenly:<br/>~200 clients at 0.8s<br/>~200 at 0.9s<br/>~200 at 1.0s<br/>~200 at 1.1s<br/>~200 at 1.2s<br/>📊 ~200 req/s sustained"]
+            J2["Load spread<br/>across 2.4s - 3.6s<br/>📊 ~400 req/s max"]
+            J3["Load spread<br/>across 5.6s - 8.4s<br/>📊 ~350 req/s max"]
+            RECOVER["✅ Service Recovers<br/>gradually under<br/>manageable load"]
+            
+            S2 --> J1
+            J1 --> J2
+            J2 --> J3
+            J3 --> RECOVER
+        end
+        
+        subgraph "Load Pattern Comparison"
+            subgraph "No Jitter"
+                NJ["1000 →│←│←│← 1000 →│←│←│← 1000"]
+            end
+            subgraph "With Jitter"
+                WJ["200→200→200→200→200→300→400→350→300→200"]
+            end
+        end
+    end
+    
+    style CRASH fill:#f87171,stroke:#dc2626,stroke-width:3px
+    style RECOVER fill:#4ade80,stroke:#16a34a,stroke-width:3px
+    style S1 fill:#fbbf24,stroke:#f59e0b
+    style S2 fill:#fbbf24,stroke:#f59e0b

@@ -1,5 +1,7 @@
 ---
 title: API Gateway Pattern
+essential_question: How do we unify microservice access while handling auth, routing, and protocols?
+tagline: Single entry point for all your microservices - routing, auth, and more
 description: Unified entry point for microservices providing routing, authentication,
   and cross-cutting concerns
 type: pattern
@@ -48,17 +50,9 @@ related-pillars:
 # API Gateway Pattern
 
 !!! success "🏆 Gold Standard Pattern"
-    **Microservices Entry Point** • Netflix, Amazon, Uber proven
+    **Single entry point for all your microservices** • Netflix, Amazon, Uber proven at 50B+ scale
     
-    The essential pattern for managing microservices at scale. API Gateway provides the single entry point that handles routing, authentication, rate limiting, and protocol translation - proven to handle billions of requests daily.
-    
-    **Key Success Metrics:**
-    - Netflix Zuul: 50B+ requests/day with sub-100ms p99 latency
-    - AWS API Gateway: Trillions of calls annually with 99.95% availability
-    - Uber Edge Gateway: Routes to 3000+ services handling 18M+ daily trips
-
-## Essential Question
-**How do we unify microservice access while handling auth, routing, and protocols?**
+    Simplifies client interactions by providing unified access to microservices with centralized authentication, routing, and protocol translation.
 
 ## When to Use / When NOT to Use
 
@@ -116,6 +110,114 @@ graph TD
     class GW gateway
     class AS,US,OS,PS,IS,US2,OS2,PS2,IS2 service
     class AUTH crosscutting
+```
+
+### API Gateway Request Flow
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant GW as API Gateway
+    participant Auth as Auth Service
+    participant RL as Rate Limiter
+    participant Cache as Cache Layer
+    participant US as User Service
+    participant OS as Order Service
+    
+    C->>GW: GET /api/user/123/orders
+    
+    rect rgb(255, 235, 205)
+        Note over GW: Gateway Processing
+        GW->>RL: Check rate limit
+        RL-->>GW: OK (45/60 req)
+        GW->>Auth: Validate JWT
+        Auth-->>GW: Valid (user:123)
+        GW->>Cache: Check cache
+        Cache-->>GW: MISS
+    end
+    
+    rect rgb(205, 235, 255)
+        Note over GW,OS: Backend Calls
+        par Parallel Requests
+            GW->>US: GET /users/123
+        and
+            GW->>OS: GET /orders?userId=123
+        end
+        US-->>GW: User data
+        OS-->>GW: Orders list
+    end
+    
+    rect rgb(205, 255, 205)
+        Note over GW: Response Processing
+        GW->>GW: Aggregate responses
+        GW->>Cache: Store result (TTL:60s)
+        GW-->>C: 200 OK + Combined data
+    end
+```
+
+### API Gateway Components Architecture
+```mermaid
+graph TB
+    subgraph "API Gateway Internal Architecture"
+        subgraph "Ingress Layer"
+            LB[Load Balancer]
+            TLS[TLS Termination]
+            DDoS[DDoS Protection]
+        end
+        
+        subgraph "Security Layer"
+            AUTH[Authentication<br/>JWT/OAuth2]
+            AUTHZ[Authorization<br/>RBAC/ABAC]
+            WAF[Web Application<br/>Firewall]
+        end
+        
+        subgraph "Control Layer"
+            RL[Rate Limiting<br/>Token Bucket]
+            QOS[QoS/Priority<br/>Queue]
+            CB[Circuit Breaker]
+        end
+        
+        subgraph "Processing Layer"
+            ROUTE[Request Router]
+            TRANS[Protocol<br/>Translation]
+            AGG[Response<br/>Aggregation]
+        end
+        
+        subgraph "Performance Layer"
+            CACHE[Response Cache<br/>Redis/Memcached]
+            COMP[Compression<br/>gzip/brotli]
+            CDN[CDN Integration]
+        end
+        
+        subgraph "Backend Layer"
+            SD[Service Discovery<br/>Consul/etcd]
+            LB2[Load Balancing<br/>Round-robin/Least-conn]
+            POOL[Connection Pooling]
+        end
+        
+        CLIENT[Clients] --> LB
+        LB --> TLS
+        TLS --> DDoS
+        DDoS --> AUTH
+        AUTH --> AUTHZ
+        AUTHZ --> WAF
+        WAF --> RL
+        RL --> QOS
+        QOS --> CB
+        CB --> ROUTE
+        ROUTE --> TRANS
+        TRANS --> AGG
+        AGG --> CACHE
+        CACHE --> COMP
+        COMP --> SD
+        SD --> LB2
+        LB2 --> POOL
+        POOL --> SERVICES[Microservices]
+    end
+    
+    style AUTH fill:#ff6b6b,stroke:#c92a2a
+    style RL fill:#4ecdc4,stroke:#38d9a9
+    style CACHE fill:#95e1d3,stroke:#63e6be
+    style CB fill:#f3a683,stroke:#ee5a24
 ```
 
 **Key Insight**: Multiple connections vs. single entry point - Simple client interface instead of complex client logic
@@ -197,6 +299,26 @@ graph TD
     style WBFF fill:#00BCD4,stroke:#0097a7,stroke-width:2px
     style MBFF fill:#00BCD4,stroke:#0097a7,stroke-width:2px
 ```
+
+### Pattern Selection Matrix
+
+| Pattern | When to Use | Pros | Cons | Example |
+|---------|-------------|------|------|----------|
+| **Single Gateway** | <10 teams<br/>Uniform clients | Simple to manage<br/>Consistent policies | Single point of failure<br/>Bottleneck risk | Small startups |
+| **BFF (Backend for Frontend)** | Multiple client types<br/>Different data needs | Optimized per client<br/>Independent evolution | More components<br/>Potential duplication | Netflix, Uber |
+| **Federated Gateways** | Large organizations<br/>Team autonomy | Decentralized control<br/>Team ownership | Policy consistency<br/>Complex routing | Amazon, Microsoft |
+| **Micro Gateway** | Edge locations<br/>Geographic distribution | Low latency<br/>Resilient | Synchronization<br/>Management overhead | CDN providers |
+
+### Decision Matrix: Gateway Pattern Selection
+
+| Factor | Single Gateway | BFF Pattern | Federated Gateway | Service Mesh |
+|--------|----------------|-------------|-------------------|---------------|
+| **Team Structure** | Centralized | Client teams | Domain teams | Platform team |
+| **Client Diversity** | Low | High | Medium | N/A |
+| **Deployment Complexity** | Low | Medium | High | Very High |
+| **Customization** | Limited | Per-client | Per-domain | Per-service |
+| **Operational Overhead** | Low | Medium | High | Highest |
+| **Best For** | Start-ups | Mobile+Web | Large orgs | Service-to-service |
 
 ### Decision Matrix
 

@@ -1,0 +1,133 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#5448C8',
+    'primaryTextColor': '#fff',
+    'primaryBorderColor': '#3f33a6',
+    'lineColor': '#64748b',
+    'secondaryColor': '#00BCD4',
+    'tertiaryColor': '#81c784'
+  }
+}}%%
+
+graph TB
+    subgraph "API Gateway Comprehensive Architecture"
+        subgraph "Client Layer"
+            WEB[Web Apps 🌐]
+            MOB[Mobile Apps 📱]
+            IOT[IoT Devices 📡]
+            PART[Partner APIs 🤝]
+        end
+        
+        subgraph "Edge Layer"
+            CDN[CDN/PoPs 🌍<br/>Global Distribution]
+            WAF[WAF 🛡️<br/>DDoS Protection]
+        end
+        
+        subgraph "Gateway Core"
+            subgraph "Ingress"
+                LB[Load Balancer<br/>🔄 Round-robin/Least-conn]
+                TLS[TLS Termination<br/>🔒 SSL/TLS 1.3]
+            end
+            
+            subgraph "Security"
+                AUTH[Authentication<br/>🔐 JWT/OAuth2/API Keys]
+                AUTHZ[Authorization<br/>👮 RBAC/ABAC/Policies]
+                THREAT[Threat Detection<br/>🚨 Anomaly Detection]
+            end
+            
+            subgraph "Traffic Control"
+                RL[Rate Limiting<br/>⏱️ Token Bucket<br/>1000 req/min]
+                QOS[QoS/Priority<br/>📊 Traffic Shaping]
+                QUOTA[Quota Management<br/>📈 Usage Tracking]
+            end
+            
+            subgraph "Routing & Transform"
+                ROUTE[Smart Router<br/>🧭 Path/Header/Content]
+                TRANS[Protocol Translation<br/>🔄 REST↔gRPC↔GraphQL]
+                AGG[Response Aggregation<br/>🔗 Parallel Fetching]
+                ADAPT[Request/Response<br/>🎭 Transformation]
+            end
+            
+            subgraph "Resilience"
+                CB[Circuit Breaker<br/>🔌 Per-service]
+                RETRY[Retry Logic<br/>🔁 Exponential Backoff]
+                TIMEOUT[Timeout Handler<br/>⏰ Cascading Timeouts]
+                FALLBACK[Fallback Logic<br/>🪂 Graceful Degradation]
+            end
+            
+            subgraph "Performance"
+                CACHE[Response Cache<br/>💾 Redis/Memcached]
+                COMP[Compression<br/>🗜️ gzip/brotli]
+                BATCH[Request Batching<br/>📦 Reduce Round-trips]
+            end
+            
+            subgraph "Observability"
+                TRACE[Distributed Tracing<br/>🔍 OpenTelemetry]
+                METRIC[Metrics Collection<br/>📊 Prometheus]
+                LOG[Structured Logging<br/>📝 ELK Stack]
+                ALERT[Alerting<br/>🚨 PagerDuty/Slack]
+            end
+        end
+        
+        subgraph "Backend Integration"
+            SD[Service Discovery<br/>🔍 Consul/etcd/K8s]
+            POOL[Connection Pooling<br/>🏊 Persistent Connections]
+            HEALTH[Health Checks<br/>💚 Active/Passive]
+        end
+        
+        subgraph "Microservices"
+            MS1[User Service]
+            MS2[Order Service]
+            MS3[Payment Service]
+            MS4[Inventory Service]
+            MSN[... N Services]
+        end
+        
+        %% Connections
+        WEB --> CDN
+        MOB --> CDN
+        IOT --> CDN
+        PART --> CDN
+        
+        CDN --> WAF
+        WAF --> LB
+        LB --> TLS
+        TLS --> AUTH
+        AUTH --> AUTHZ
+        AUTHZ --> THREAT
+        THREAT --> RL
+        RL --> QOS
+        QOS --> QUOTA
+        QUOTA --> ROUTE
+        ROUTE --> TRANS
+        TRANS --> AGG
+        AGG --> ADAPT
+        ADAPT --> CB
+        CB --> RETRY
+        RETRY --> TIMEOUT
+        TIMEOUT --> FALLBACK
+        FALLBACK --> CACHE
+        CACHE --> COMP
+        COMP --> BATCH
+        BATCH --> SD
+        SD --> POOL
+        POOL --> HEALTH
+        HEALTH --> MS1
+        HEALTH --> MS2
+        HEALTH --> MS3
+        HEALTH --> MS4
+        HEALTH --> MSN
+        
+        %% Observability connections (dotted)
+        ROUTE -.-> TRACE
+        CB -.-> METRIC
+        AUTH -.-> LOG
+        RL -.-> ALERT
+    end
+    
+    style AUTH fill:#ff6b6b,stroke:#c92a2a
+    style RL fill:#4ecdc4,stroke:#38d9a9
+    style CACHE fill:#95e1d3,stroke:#63e6be
+    style CB fill:#f3a683,stroke:#ee5a24
+    style ROUTE fill:#00BCD4,stroke:#0097a7,stroke-width:3px

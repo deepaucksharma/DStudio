@@ -29,6 +29,10 @@ Contains strategic planning documents for pattern library improvements:
 | `PATTERN_LIBRARY_CRITICAL_REVIEW.md` | Critical review of the pattern library |
 | `PATTERN_QUALITY_RUBRIC.md` | Quality rubric for evaluating patterns |
 | `PATTERN_TRANSFORMATION_EXAMPLES.md` | Examples of pattern transformations |
+| `PATTERN_STRATEGY_2025.md` | Strategic plan for pattern library transformation |
+| `PATTERN_EXECUTION_PLAN.md` | Detailed 4-week execution plan |
+| `PATTERN_PRIORITY_MATRIX.md` | Impact vs effort prioritization matrix |
+| `PATTERN_PLANNING_SUMMARY.md` | Executive summary of all planning documents |
 
 *Note: Podcast-related summaries and planning documents have been moved to `/podcast-content/` for better organization.*
 

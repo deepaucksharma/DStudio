@@ -40,6 +40,11 @@ best-for:
 
 **How can we optimize both complex writes and high-performance reads when they need completely different data models?**
 
+**CQRS vs Event Sourcing**: These patterns are often confused but serve different purposes:
+- **CQRS**: Separates read and write models for performance (can use any storage)
+- **Event Sourcing**: Stores state as event history (can use single model)
+- **Together**: Event sourcing naturally provides the events that CQRS uses to build read models
+
 ## When to Use / When NOT to Use
 
 ### Use CQRS When ✅
@@ -141,62 +146,39 @@ graph TB
 
 ## Level 3: Deep Dive (15 min)
 
-### Implementation Example
+### CQRS Data Flow
 
-```python
-# Command side - optimized for business logic
-class CreateOrderCommand:
-    def __init__(self, customer_id, items):
-        self.customer_id = customer_id
-        self.items = items
-
-class OrderCommandHandler:
-    def handle(self, command: CreateOrderCommand):
-        # Complex business logic
-        order = Order()
-        order.validate_customer(command.customer_id)
-        order.check_inventory(command.items)
-        order.calculate_pricing()
-        order.apply_discounts()
-        
-        # Save to write store
-        self.repository.save(order)
-        
-        # Publish events
-        events = order.get_uncommitted_events()
-        self.event_bus.publish_batch(events)
-
-# Query side - optimized for performance
-class OrderSummaryProjection:
-    """Denormalized read model for fast queries"""
+```mermaid
+graph LR
+    subgraph "Write Side"
+        CMD[Command] --> VAL[Validate<br/>Business Rules]
+        VAL --> WM[Write Model<br/>Normalized]
+        WM --> EVT[Publish Events]
+    end
     
-    def handle_order_created(self, event):
-        # Create denormalized view
-        summary = {
-            'order_id': event.order_id,
-            'customer_name': event.customer_name,  # Denormalized
-            'total_amount': event.total_amount,
-            'item_count': len(event.items),
-            'status': 'pending',
-            'created_at': event.timestamp
-        }
-        self.read_db.order_summaries.insert(summary)
+    subgraph "Read Side"
+        EVT --> PROJ[Projections]
+        PROJ --> RM1[Customer View<br/>Denormalized]
+        PROJ --> RM2[Admin View<br/>Aggregated]
+        PROJ --> RM3[Search Index<br/>Full-text]
+    end
     
-    def handle_order_shipped(self, event):
-        # Update read model
-        self.read_db.order_summaries.update(
-            {'order_id': event.order_id},
-            {'$set': {'status': 'shipped', 'shipped_at': event.timestamp}}
-        )
-
-# Query handler - simple and fast
-class OrderQueryHandler:
-    def get_customer_orders(self, customer_id):
-        # Direct query on optimized read model
-        return self.read_db.order_summaries.find({
-            'customer_id': customer_id
-        }).sort('created_at', -1)
+    subgraph "Queries"
+        Q1[Customer API] --> RM1
+        Q2[Admin Dashboard] --> RM2
+        Q3[Search API] --> RM3
+    end
 ```
+
+### Model Comparison
+
+| Aspect | Write Model | Read Model |
+|--------|-------------|------------|
+| **Structure** | Normalized, 3NF | Denormalized |
+| **Optimization** | Business logic | Query performance |
+| **Consistency** | ACID | Eventually consistent |
+| **Storage** | Relational DB | NoSQL, Search, Cache |
+| **Updates** | Through commands | Through projections |
 
 ### Synchronization Strategies
 
@@ -244,26 +226,14 @@ graph TD
 | **Retroactive Events** | Fix historical data | Event replay |
 | **Multi-Version Models** | A/B testing | Parallel projections |
 
-### Performance Patterns
+### Performance Optimization
 
-```yaml
-# Production optimization strategies
-optimizations:
-  write_side:
-    batch_size: 1000
-    async_validation: true
-    command_queue: true
-    
-  read_side:
-    projection_parallelism: 8
-    cache_layer: redis
-    index_strategy: covering
-    
-  synchronization:
-    strategy: "eventual"
-    max_lag_ms: 1000
-    consistency_check: true
-```
+| Component | Technique | Impact |
+|-----------|-----------|--------|
+| **Write batching** | Queue commands | 10x throughput |
+| **Projection parallelism** | Multiple workers | Linear scaling |
+| **Read caching** | Redis layer | <10ms latency |
+| **Smart indexing** | Covering indexes | 100x query speed |
 
 ### Common Pitfalls
 

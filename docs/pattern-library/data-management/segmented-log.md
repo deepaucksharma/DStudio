@@ -1,18 +1,7 @@
 ---
 title: Segmented Log
 description: Breaking append-only logs into manageable segments for efficient storage, compaction, and retention
-type: pattern
 category: data-management
-difficulty: intermediate
-reading-time: 30 min
-prerequisites:
-- wal
-- storage-engines
-- file-systems
-when-to-use: When you need scalable append-only logs, log retention policies, or efficient log compaction
-when-not-to-use: For small logs that fit in a single file, or when immediate random access is required
-status: complete
-last-updated: 2025-01-30
 excellence_tier: silver
 pattern_status: recommended
 introduced: 2004-11
@@ -158,92 +147,36 @@ stateDiagram-v2
 
 ## Level 3: Deep Dive (15 min)
 
-### Implementation Example
+### Segment Operations
 
-```python
-class SegmentedLog:
-    def __init__(self, base_dir, segment_size=100*1024*1024):  # 100MB
-        self.base_dir = base_dir
-        self.segment_size = segment_size
-        self.active_segment = None
-        self.sealed_segments = []
-        self.index = {}  # offset -> segment mapping
-        self._recover()
+```mermaid
+sequenceDiagram
+    participant W as Writer
+    participant AS as Active Segment
+    participant IDX as Segment Index
+    participant POL as Retention Policy
     
-    def append(self, record):
-        # Ensure active segment exists
-        if not self.active_segment or self.active_segment.size >= self.segment_size:
-            self._roll_segment()
-        
-        # Append to active segment
-        offset = self.active_segment.append(record)
-        
-        # Update index
-        self.index[offset] = self.active_segment.id
-        
-        return offset
+    W->>AS: Append record
+    AS->>AS: Check size limit
+    alt Segment full
+        AS->>AS: Seal segment
+        AS->>IDX: Update index
+        AS->>AS: Create new active
+    end
     
-    def read(self, offset, count):
-        # Find starting segment
-        segment_id = self.index.get(offset)
-        if not segment_id:
-            raise ValueError(f"Invalid offset: {offset}")
-        
-        records = []
-        current_segment = self._get_segment(segment_id)
-        
-        # Read across segments if needed
-        while len(records) < count and current_segment:
-            batch = current_segment.read_from(offset, count - len(records))
-            records.extend(batch)
-            
-            if len(records) < count:
-                current_segment = self._get_next_segment(current_segment)
-                offset = current_segment.base_offset if current_segment else None
-        
-        return records
-    
-    def _roll_segment(self):
-        # Seal current segment
-        if self.active_segment:
-            self.active_segment.seal()
-            self.sealed_segments.append(self.active_segment)
-        
-        # Create new active segment
-        next_id = len(self.sealed_segments)
-        base_offset = self.active_segment.next_offset if self.active_segment else 0
-        
-        self.active_segment = Segment(
-            id=next_id,
-            base_offset=base_offset,
-            file_path=f"{self.base_dir}/segment_{next_id:04d}.log"
-        )
-
-class Segment:
-    def __init__(self, id, base_offset, file_path):
-        self.id = id
-        self.base_offset = base_offset
-        self.file_path = file_path
-        self.file = open(file_path, 'ab+')
-        self.size = 0
-        self.next_offset = base_offset
-        self.index = []  # (offset, position) pairs
-    
-    def append(self, record):
-        # Write record
-        position = self.file.tell()
-        serialized = self._serialize(record)
-        self.file.write(serialized)
-        self.file.flush()
-        
-        # Update metadata
-        offset = self.next_offset
-        self.index.append((offset, position))
-        self.size += len(serialized)
-        self.next_offset += 1
-        
-        return offset
+    POL->>IDX: Check old segments
+    IDX->>POL: Return expired
+    POL->>POL: Delete segments
 ```
+
+### Key Implementation Decisions
+
+| Decision | Options | Trade-off |
+|----------|---------|-----------|
+| **Segment trigger** | Size (1GB) vs Time (1hr) | Predictability vs Uniformity |
+| **Index location** | Memory vs Disk | Speed vs Durability |
+| **Compaction** | Online vs Offline | Availability vs Efficiency |
+| **File format** | Raw vs Compressed | Speed vs Space |
 
 ### Compaction Strategies
 
@@ -303,68 +236,24 @@ log:
 | **Encryption** | Security | Encrypt at rest |
 | **Cloud tiering** | Cost optimization | Old segments to S3 |
 
-### Performance Optimization
+### Performance Optimizations
 
-```python
-class OptimizedSegmentedLog:
-    def __init__(self):
-        self.write_buffer = []
-        self.buffer_size = 0
-        self.max_buffer = 1024 * 1024  # 1MB
-        
-    def append_batch(self, records):
-        """Batched writes for better performance"""
-        for record in records:
-            self.write_buffer.append(record)
-            self.buffer_size += len(record)
-            
-            if self.buffer_size >= self.max_buffer:
-                self._flush_buffer()
-        
-        # Don't leave data in buffer
-        if self.write_buffer:
-            self._flush_buffer()
-    
-    def _flush_buffer(self):
-        """Write entire buffer in one syscall"""
-        if not self.write_buffer:
-            return
-            
-        # Single write for entire batch
-        batch_data = b''.join(self._serialize(r) for r in self.write_buffer)
-        self.active_segment.file.write(batch_data)
-        
-        # Update indices
-        for record in self.write_buffer:
-            self._update_index(record)
-        
-        # Clear buffer
-        self.write_buffer.clear()
-        self.buffer_size = 0
-```
+| Technique | Implementation | Benefit |
+|-----------|----------------|---------|
+| **Memory-mapping** | mmap() sealed segments | 10x read speed |
+| **Batch writes** | Buffer before flush | 5x write throughput |
+| **Parallel compaction** | Background threads | Zero downtime |
+| **Compression** | LZ4 on sealed segments | 70% space saving |
+| **Zero-copy** | sendfile() for reads | CPU efficiency |
 
-### Monitoring & Operations
+### Key Metrics
 
-```python
-class SegmentMetrics:
-    def __init__(self):
-        self.metrics = {
-            'segments_created': Counter(),
-            'segments_deleted': Counter(),
-            'segments_compacted': Counter(),
-            'active_segment_size': Gauge(),
-            'total_segments': Gauge(),
-            'oldest_segment_age': Gauge(),
-        }
-    
-    def report_health(self):
-        return {
-            'fragmentation': self.calculate_fragmentation(),
-            'compaction_backlog': self.get_compaction_candidates(),
-            'retention_pressure': self.check_retention_pressure(),
-            'write_amplification': self.calculate_write_amp()
-        }
-```
+| Metric | Alert When | Action |
+|--------|------------|--------|
+| **Segment count** | > 10,000 | Increase segment size |
+| **Compaction lag** | > 1 hour | Add compaction threads |
+| **Recovery time** | > SLA | Reduce segment size |
+| **Fragmentation** | > 50% | Trigger compaction |
 
 ## Level 5: Mastery (30 min)
 

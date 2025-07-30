@@ -1,0 +1,33 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#5448C8',
+    'primaryTextColor': '#fff',
+    'primaryBorderColor': '#3f33a6',
+    'lineColor': '#64748b',
+    'secondaryColor': '#4ade80',
+    'tertiaryColor': '#f87171',
+    'background': '#f8fafc',
+    'mainBkg': '#ffffff',
+    'secondBkg': '#f1f5f9'
+  }
+}}%%
+
+stateDiagram-v2
+    %% Define states
+    [*] --> State1: Initial Transition
+    State1 --> State2: Condition A
+    State1 --> State3: Condition B
+    State2 --> State3: Condition C
+    State3 --> State1: Reset Condition
+    State3 --> [*]: Terminal Condition
+    
+    %% State descriptions
+    State1: State 1 Name<br/>Description line 1<br/>Description line 2
+    State2: State 2 Name<br/>Description line 1<br/>Description line 2
+    State3: State 3 Name<br/>Description line 1<br/>Description line 2
+    
+    %% Add notes for context
+    note right of State1: Explanation of<br/>what happens in<br/>this state
+    note left of State2: Important<br/>considerations
+    note right of State3: Exit conditions<br/>and cleanup

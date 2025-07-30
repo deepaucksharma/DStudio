@@ -1,0 +1,29 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#5448C8',
+    'primaryTextColor': '#fff',
+    'primaryBorderColor': '#3f33a6',
+    'lineColor': '#64748b',
+    'secondaryColor': '#4ade80',
+    'tertiaryColor': '#f87171',
+    'background': '#f8fafc',
+    'mainBkg': '#ffffff',
+    'secondBkg': '#f1f5f9'
+  }
+}}%%
+
+stateDiagram-v2
+    [*] --> Closed: Start
+    Closed --> Open: Failures > Threshold<br/>(e.g., 5 failures in 10s)
+    Open --> HalfOpen: Recovery Timeout<br/>(e.g., wait 30s)
+    HalfOpen --> Closed: Test Success<br/>(e.g., 3 consecutive)
+    HalfOpen --> Open: Test Failure<br/>(any failure)
+    
+    Closed: 🟢 CLOSED<br/>All requests pass through<br/>Monitor for failures<br/>Count: 0/5
+    Open: 🔴 OPEN<br/>Reject all requests<br/>Return fallback immediately<br/>Timer: 30s
+    HalfOpen: 🟡 HALF-OPEN<br/>Allow test requests<br/>Check if recovered<br/>Success: 0/3
+    
+    note right of Closed: Normal operation<br/>Track error rate<br/>Reset on success
+    note right of Open: Protection mode<br/>Fail fast<br/>Prevent cascade
+    note right of HalfOpen: Recovery test<br/>Limited traffic<br/>Verify health

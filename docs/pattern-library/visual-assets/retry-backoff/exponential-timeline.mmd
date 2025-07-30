@@ -1,0 +1,50 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#5448C8',
+    'primaryTextColor': '#333',
+    'primaryBorderColor': '#3f33a6',
+    'lineColor': '#64748b',
+    'background': '#f8fafc'
+  }
+}}%%
+
+graph TB
+    subgraph "Exponential Backoff Timeline Comparison"
+        subgraph "Standard Exponential Backoff"
+            T0["⏱️ 0s: Initial Request<br/>❌ Failed"]
+            T1["⏱️ 1s: Retry 1<br/>❌ Failed<br/>(waited 1s)"]
+            T2["⏱️ 3s: Retry 2<br/>❌ Failed<br/>(waited 2s)"]
+            T3["⏱️ 7s: Retry 3<br/>✅ Success!<br/>(waited 4s)"]
+            
+            T0 -.->|"🕐 1s delay"| T1
+            T1 -.->|"🕑 2s delay"| T2
+            T2 -.->|"🕓 4s delay"| T3
+        end
+        
+        subgraph "With Jitter (±25%)" 
+            J0["⏱️ 0s: Request ❌"]
+            J1["⏱️ 0.8s: Retry ❌<br/>(1s - 20%)"]
+            J2["⏱️ 3.2s: Retry ❌<br/>(2s + 20%)"]
+            J3["⏱️ 6.5s: Retry ✅<br/>(4s - 18%)"]
+            
+            J0 -.->|"🎲 0.8s"| J1
+            J1 -.->|"🎲 2.4s"| J2
+            J2 -.->|"🎲 3.3s"| J3
+        end
+        
+        subgraph "Decorrelated Jitter (AWS)"
+            D0["⏱️ 0s: Request ❌"]
+            D1["⏱️ 0.5s: Retry ❌<br/>(random 0-1s)"]
+            D2["⏱️ 2.1s: Retry ❌<br/>(random 0-3s)"]
+            D3["⏱️ 5.7s: Retry ✅<br/>(random 0-7s)"]
+            
+            D0 -.->|"🎲 0.5s"| D1
+            D1 -.->|"🎲 1.6s"| D2
+            D2 -.->|"🎲 3.6s"| D3
+        end
+    end
+    
+    style T3 fill:#4ade80,stroke:#16a34a
+    style J3 fill:#4ade80,stroke:#16a34a
+    style D3 fill:#4ade80,stroke:#16a34a

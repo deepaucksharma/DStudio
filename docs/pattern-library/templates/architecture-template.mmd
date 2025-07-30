@@ -1,0 +1,85 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#5448C8',
+    'primaryTextColor': '#fff',
+    'primaryBorderColor': '#3f33a6',
+    'lineColor': '#64748b',
+    'secondaryColor': '#00BCD4',
+    'tertiaryColor': '#81c784',
+    'background': '#f8fafc'
+  }
+}}%%
+
+graph TB
+    %% Define subgraphs for logical grouping
+    subgraph "Client Layer"
+        C1[Web Client 🌐]
+        C2[Mobile Client 📱]
+        C3[API Client 🔌]
+    end
+    
+    subgraph "Edge Layer"
+        LB[Load Balancer<br/>🔄 Round-robin]
+        CDN[CDN<br/>🌍 Global Cache]
+    end
+    
+    subgraph "Application Layer"
+        subgraph "API Gateway"
+            GW[Gateway Core<br/>🚪 Entry Point]
+            AUTH[Auth Module<br/>🔐 JWT/OAuth]
+            RL[Rate Limiter<br/>⏱️ 1000 req/min]
+        end
+        
+        subgraph "Services"
+            S1[Service A<br/>📊 Business Logic]
+            S2[Service B<br/>🔧 Processing]
+            S3[Service C<br/>📈 Analytics]
+        end
+    end
+    
+    subgraph "Data Layer"
+        DB1[(Primary DB<br/>🗄️ PostgreSQL)]
+        DB2[(Cache<br/>💾 Redis)]
+        Q1[Message Queue<br/>📬 RabbitMQ]
+    end
+    
+    %% Define connections
+    C1 --> CDN
+    C2 --> CDN
+    C3 --> LB
+    
+    CDN --> LB
+    LB --> GW
+    
+    GW --> AUTH
+    AUTH --> RL
+    RL --> S1
+    RL --> S2
+    RL --> S3
+    
+    S1 --> DB1
+    S1 --> DB2
+    S2 --> Q1
+    S3 --> DB2
+    
+    %% Bidirectional connections
+    S1 <--> S2
+    
+    %% Dotted lines for async/optional
+    S2 -.-> S3
+    Q1 -.-> S3
+    
+    %% Style important components
+    style GW fill:#00BCD4,stroke:#0097a7,stroke-width:3px
+    style DB1 fill:#ffb74d,stroke:#f57c00,stroke-width:2px
+    style AUTH fill:#ff6b6b,stroke:#c92a2a
+    
+    %% Style groups
+    classDef clientStyle fill:#5448C8,stroke:#3f33a6,color:#fff
+    classDef serviceStyle fill:#81c784,stroke:#388e3c
+    classDef dataStyle fill:#ffb74d,stroke:#f57c00
+    
+    class C1,C2,C3 clientStyle
+    class S1,S2,S3 serviceStyle
+    class DB1,DB2,Q1 dataStyle

@@ -1,0 +1,63 @@
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'actorTextColor': '#333',
+    'actorLineColor': '#5448C8',
+    'signalColor': '#333',
+    'signalTextColor': '#333',
+    'sequenceNumberColor': '#fff'
+  }
+}}%%
+
+sequenceDiagram
+    autonumber
+    participant C as Client 📱
+    participant GW as API Gateway 🌐
+    participant Auth as Auth Service 🔐
+    participant RL as Rate Limiter ⏱️
+    participant Cache as Cache Layer 💾
+    participant CB as Circuit Breaker 🔌
+    participant US as User Service 👤
+    participant OS as Order Service 📦
+    participant Logs as Logging 📊
+
+    C->>GW: GET /api/user/123/orders<br/>Headers: Authorization: Bearer JWT
+    
+    rect rgb(255, 235, 205)
+        Note over GW: Gateway Pre-processing
+        GW->>RL: Check rate limit for client
+        RL-->>GW: OK (45/60 requests this minute)
+        GW->>Auth: Validate JWT token
+        Auth-->>GW: Valid (userId: 123, role: customer)
+        GW->>Cache: Check for cached response
+        Cache-->>GW: MISS - no cached data
+    end
+    
+    rect rgb(205, 235, 255)
+        Note over GW,OS: Backend Service Calls
+        GW->>CB: Check circuit status
+        CB-->>GW: All services CLOSED (healthy)
+        
+        par Parallel Backend Requests
+            GW->>US: GET /internal/users/123
+            Note right of US: Fetch user details
+        and
+            GW->>OS: GET /internal/orders?userId=123
+            Note right of OS: Fetch user orders
+        end
+        
+        US-->>GW: 200 OK<br/>{name: "John Doe", tier: "Premium"}
+        OS-->>GW: 200 OK<br/>[{orderId: 456, total: $99}, {orderId: 789, total: $150}]
+    end
+    
+    rect rgb(205, 255, 205)
+        Note over GW: Response Processing
+        GW->>GW: Aggregate responses<br/>Transform to client format
+        GW->>Cache: Store result<br/>TTL: 60 seconds
+        Cache-->>GW: Cached
+        GW->>Logs: Log request metrics
+        Logs-->>GW: Logged
+        GW-->>C: 200 OK<br/>{user: {...}, orders: [...]}
+    end
+    
+    Note over C,Logs: Total time: 145ms<br/>Cache will serve next 60s
