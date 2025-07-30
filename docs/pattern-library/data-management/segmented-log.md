@@ -1,7 +1,6 @@
 ---
 title: Segmented Log
-description: Breaking append-only logs into manageable segments for efficient storage,
-  compaction, and retention
+description: Breaking append-only logs into manageable segments for efficient storage, compaction, and retention
 type: pattern
 category: data-management
 difficulty: intermediate
@@ -10,630 +9,515 @@ prerequisites:
 - wal
 - storage-engines
 - file-systems
-when-to-use: When you need scalable append-only logs, log retention policies, or efficient
-  log compaction
-when-not-to-use: For small logs that fit in a single file, or when immediate random
-  access is required
+when-to-use: When you need scalable append-only logs, log retention policies, or efficient log compaction
+when-not-to-use: For small logs that fit in a single file, or when immediate random access is required
 status: complete
-last-updated: 2025-01-26
+last-updated: 2025-01-30
 excellence_tier: silver
 pattern_status: recommended
-introduced: 2024-01
+introduced: 2004-11
 current_relevance: mainstream
 trade-offs:
-  pros: []
-  cons: []
-best-for: []
+  pros:
+  - Efficient old data cleanup via segment deletion
+  - Parallel operations on different segments
+  - Bounded recovery time per segment
+  - Natural unit for replication and backup
+  cons:
+  - Additional complexity vs single file
+  - Segment management overhead
+  - Cross-segment query complexity
+  - Metadata management required
+best-for:
+- Message queues and event stores
+- Database write-ahead logs
+- Time-series data storage
+- Distributed logs like Kafka
 ---
-
-
 
 # Segmented Log Pattern
 
-<div class="pattern-type">Data Management Pattern
- Split a continuously growing append-only log into fixed-size segments, enabling efficient cleanup, compaction, and parallel operations while maintaining sequential write performance.
+!!! info "🥈 Silver Tier Pattern"
+    **Log Scalability Champion** • Kafka, RocksDB, Cassandra proven
+    
+    Essential pattern for managing continuously growing append-only logs. Enables efficient cleanup, parallel operations, and bounded recovery times by splitting logs into fixed-size segments.
+    
+    **Key Success Metrics:**
+    - Kafka: 7 trillion messages/day across segments
+    - RocksDB: Powers Meta's massive databases
+    - Cassandra: Petabyte-scale with segment compaction
+
+## Essential Question
+
+**How do we manage infinitely growing append-only logs while enabling efficient cleanup, compaction, and bounded operations?**
+
+## When to Use / When NOT to Use
+
+### Use Segmented Log When ✅
+
+| Scenario | Why | Example |
+|----------|-----|---------|
+| **Continuous growth** | Can't keep everything in one file | Message queues, event logs |
+| **Retention policies** | Delete old data efficiently | "Keep 7 days" - delete old segments |
+| **Log compaction needed** | Remove duplicates/tombstones | Key-value stores, Kafka |
+| **Parallel operations** | Read/write different segments | Multi-threaded recovery |
+| **Bounded recovery** | Limit replay scope | Database WAL recovery |
+
+### DON'T Use When ❌
+
+| Scenario | Why | Alternative |
+|----------|-----|-------------|
+| **Small logs** | Overhead not justified | Single file |
+| **Random access needed** | Sequential segments | B-tree, LSM-tree |
+| **Frequent updates** | Append-only design | Update-in-place storage |
+| **Simple use case** | Complexity overhead | Basic file append |
+
+## Level 1: Intuition (5 min)
+
+### The Newspaper Archive Analogy
+
+<div class="axiom-box">
+<h4>🔬 Law 5: Distributed Knowledge</h4>
+
+Segmented logs recognize that not all data has equal value over time. Recent data is hot, old data is cold, and infinite retention is impossible.
+
+**Key Insight**: Breaking logs into time or size-based chunks enables independent lifecycle management.
 </div>
 
-## Problem Context
-
-!!! warning "🎯 The Challenge"
-
- Append-only logs face scalability challenges:
- - **Unbounded growth** - Single log file grows indefinitely
- - **Inefficient cleanup** - Can't delete old data from middle of file
- - **Recovery time** - Scanning large logs takes too long
- - **Compaction difficulty** - Hard to remove duplicate or deleted entries
- - **Backup complexity** - Moving large files is problematic
-
- Segmented logs solve this by dividing the log into manageable chunks.
-
-## Core Architecture
-
-```mermaid
-graph TB
- subgraph "Segmented Log Structure"
- subgraph "Active Segment"
- Write[New Writes] --> Active[segment-00042.log<br/>Currently Appending]
- end
- 
- subgraph "Sealed Segments"
- S1[segment-00039.log<br/>100MB - Sealed]
- S2[segment-00040.log<br/>100MB - Sealed]
- S3[segment-00041.log<br/>100MB - Sealed]
- end
- 
- subgraph "Compacted/Archived"
- C1[segment-00001.log<br/>Compacted]
- C2[segment-00002.log<br/>Archived to S3]
- end
- 
- Active -->|Size Limit| S3
- S3 -->|Age/Policy| C1
- end
- 
- style Active fill:#5448C8,color:#fff
- style Write fill:#4CAF50,color:#fff
-```
-
-## How Segmented Logs Work
-
-### 1. Segment Lifecycle
-
-```mermaid
-stateDiagram-v2
- [*] --> Active: Create New Segment
- Active --> Sealed: Size/Time Limit
- Sealed --> Compacting: Compaction Triggered
- Compacting --> Compacted: Remove Duplicates
- Compacted --> Archived: Age Policy
- Archived --> Deleted: Retention Expired
- Deleted --> [*]
- 
- note right of Active: Accepting writes
- note right of Sealed: Read-only
- note right of Compacted: Optimized for reads
- note right of Archived: Cold storage
-```
-
-### 2. Write Process
-
-```mermaid
-sequenceDiagram
- participant Client
- participant LogManager
- participant ActiveSegment
- participant FileSystem
- participant Index
- 
- Client->>LogManager: Append(record)
- LogManager->>ActiveSegment: Check current segment
- 
- alt Segment has space
- ActiveSegment->>FileSystem: Append to file
- ActiveSegment->>Index: Update index
- ActiveSegment-->>Client: Return offset
- else Segment full
- LogManager->>LogManager: Roll to new segment
- LogManager->>ActiveSegment: Create new file
- LogManager->>ActiveSegment: Write record
- LogManager-->>Client: Return offset
- end
-```
-
-### 3. Read Process
+### Visual Architecture
 
 ```mermaid
 graph LR
- subgraph "Read by Offset"
- Offset[Offset: 4,294,967,296] --> Parse[Parse Offset]
- Parse --> Segment[Segment: 40<br/>Local: 94,967,296]
- Segment --> File[Open segment-00040.log]
- File --> Seek[Seek to position]
- Seek --> Read[Read record]
- end
- 
- style Offset fill:#ff6b6b
- style Read fill:#4CAF50
+    subgraph "Single Log (Problems)"
+        W1[Writers] --> L1[Giant Log File]
+        L1 --> P1[Can't delete middle]
+        L1 --> P2[Slow recovery]
+        L1 --> P3[Unbounded growth]
+    end
+    
+    subgraph "Segmented Log (Solution)"
+        W2[Writers] --> AC[Active Segment]
+        AC --> S1[Segment 1<br/>Sealed]
+        S1 --> S2[Segment 2<br/>Sealed]
+        S2 --> S3[Segment 3<br/>Sealed]
+        
+        S1 --> D[Delete old]
+        S2 --> C[Compact]
+        AC --> R[Fast recovery]
+    end
 ```
-## Implementation
 
-### Basic Segmented Log
+## Level 2: Foundation (10 min)
+
+### Core Architecture
+
+```mermaid
+graph TB
+    subgraph "Write Path"
+        W[Writer] --> AS[Active Segment]
+        AS -->|Size/Time Limit| SEAL[Seal Segment]
+        SEAL --> NEW[New Active Segment]
+        SEAL --> IDX[Update Index]
+    end
+    
+    subgraph "Segments"
+        S0[segment_0000.log<br/>0-1M]
+        S1[segment_0001.log<br/>1M-2M]
+        S2[segment_0002.log<br/>2M-3M]
+        ACTIVE[segment_0003.log<br/>3M-current]
+    end
+    
+    subgraph "Management"
+        IDX[Segment Index] --> MAP[Offset → File Map]
+        POL[Retention Policy] --> DEL[Delete Old]
+        COMP[Compaction] --> MERGE[Merge/Clean]
+    end
+```
+
+### Key Design Decisions
+
+| Decision | Options | Trade-offs |
+|----------|---------|------------|
+| **Segment size** | Time-based vs Size-based | Predictability vs Uniformity |
+| **Naming scheme** | Sequential vs Timestamp | Ordering vs Time correlation |
+| **Index structure** | Memory vs Disk | Speed vs Durability |
+| **Compaction strategy** | Online vs Offline | Availability vs Efficiency |
+
+### Segment Lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Active: Create
+    Active --> Sealed: Size/Time limit
+    Sealed --> Compacting: Compaction triggered
+    Compacting --> Compacted: Merge complete
+    Sealed --> Deleted: Retention expired
+    Compacted --> Deleted: Retention expired
+    Deleted --> [*]
+```
+
+## Level 3: Deep Dive (15 min)
+
+### Implementation Example
 
 ```python
 class SegmentedLog:
- def __init__(self, log_dir, segment_size=100*1024*1024): # 100MB
- self.log_dir = log_dir
- self.segment_size = segment_size
- self.segments = self._load_segments()
- self.active_segment = self._get_or_create_active_segment()
- 
- def append(self, record):
- """Append record to active segment"""
- # Check if current segment has space
- if self.active_segment.size + len(record) > self.segment_size:
- # Roll to new segment
- self._roll_segment()
- 
- # Write to active segment
- offset = self.active_segment.append(record)
- 
- # Return global offset
- return self._to_global_offset(
- self.active_segment.id, 
- offset
- )
- 
- def read(self, global_offset):
- """Read record at global offset"""
- segment_id, local_offset = self._parse_offset(global_offset)
- segment = self._get_segment(segment_id)
- return segment.read(local_offset)
- 
- def _roll_segment(self):
- """Create new active segment"""
- # Seal current segment
- self.active_segment.seal()
- 
- # Create new segment
- new_id = self.active_segment.id + 1
- self.active_segment = Segment(
- self.log_dir, 
- new_id
- )
- self.segments[new_id] = self.active_segment
- 
- # Trigger background compaction if needed
- self._maybe_compact()
+    def __init__(self, base_dir, segment_size=100*1024*1024):  # 100MB
+        self.base_dir = base_dir
+        self.segment_size = segment_size
+        self.active_segment = None
+        self.sealed_segments = []
+        self.index = {}  # offset -> segment mapping
+        self._recover()
+    
+    def append(self, record):
+        # Ensure active segment exists
+        if not self.active_segment or self.active_segment.size >= self.segment_size:
+            self._roll_segment()
+        
+        # Append to active segment
+        offset = self.active_segment.append(record)
+        
+        # Update index
+        self.index[offset] = self.active_segment.id
+        
+        return offset
+    
+    def read(self, offset, count):
+        # Find starting segment
+        segment_id = self.index.get(offset)
+        if not segment_id:
+            raise ValueError(f"Invalid offset: {offset}")
+        
+        records = []
+        current_segment = self._get_segment(segment_id)
+        
+        # Read across segments if needed
+        while len(records) < count and current_segment:
+            batch = current_segment.read_from(offset, count - len(records))
+            records.extend(batch)
+            
+            if len(records) < count:
+                current_segment = self._get_next_segment(current_segment)
+                offset = current_segment.base_offset if current_segment else None
+        
+        return records
+    
+    def _roll_segment(self):
+        # Seal current segment
+        if self.active_segment:
+            self.active_segment.seal()
+            self.sealed_segments.append(self.active_segment)
+        
+        # Create new active segment
+        next_id = len(self.sealed_segments)
+        base_offset = self.active_segment.next_offset if self.active_segment else 0
+        
+        self.active_segment = Segment(
+            id=next_id,
+            base_offset=base_offset,
+            file_path=f"{self.base_dir}/segment_{next_id:04d}.log"
+        )
 
 class Segment:
- def __init__(self, base_dir, segment_id):
- self.id = segment_id
- self.base_dir = base_dir
- self.file_path = f"{base_dir}/segment-{segment_id:05d}.log"
- self.index_path = f"{base_dir}/segment-{segment_id:05d}.idx"
- self.size = 0
- self.sealed = False
- self.file = open(self.file_path, 'ab')
- self.index = OffsetIndex(self.index_path)
- 
- def append(self, record):
- """Append record to segment file"""
- if self.sealed:
- raise Exception("Cannot write to sealed segment")
- 
- # Current position is the offset
- offset = self.file.tell()
- 
- # Write length-prefixed record
- length = len(record)
- self.file.write(length.to_bytes(4, 'big'))
- self.file.write(record)
- 
- # Update index periodically
- if offset % 4096 == 0: # Every 4KB
- self.index.add_entry(offset, self.size)
- 
- self.size += 4 + length
- return offset
- 
- def read(self, offset):
- """Read record at offset"""
- with open(self.file_path, 'rb') as f:
- f.seek(offset)
- length = int.from_bytes(f.read(4), 'big')
- return f.read(length)
- 
- def seal(self):
- """Mark segment as sealed"""
- self.sealed = True
- self.file.close()
- self.index.close()
+    def __init__(self, id, base_offset, file_path):
+        self.id = id
+        self.base_offset = base_offset
+        self.file_path = file_path
+        self.file = open(file_path, 'ab+')
+        self.size = 0
+        self.next_offset = base_offset
+        self.index = []  # (offset, position) pairs
+    
+    def append(self, record):
+        # Write record
+        position = self.file.tell()
+        serialized = self._serialize(record)
+        self.file.write(serialized)
+        self.file.flush()
+        
+        # Update metadata
+        offset = self.next_offset
+        self.index.append((offset, position))
+        self.size += len(serialized)
+        self.next_offset += 1
+        
+        return offset
 ```
 
-### Log Compaction
+### Compaction Strategies
+
+<div class="decision-box">
+<h4>🎯 Compaction Approaches</h4>
+
+**Log Compaction** (Kafka-style)
+- Keep only latest value per key
+- Good for: Key-value stores, config
+
+**Time-based Compaction**
+- Merge segments within time window
+- Good for: Time-series data
+
+**Size-based Compaction**
+- Merge small segments
+- Good for: Write-heavy workloads
+
+**Tiered Compaction**
+- Different strategies by age
+- Good for: Mixed workloads
+</div>
+
+### Production Patterns
+
+```yaml
+# Kafka-style configuration
+log:
+  segment:
+    bytes: 1073741824  # 1GB
+    ms: 604800000      # 7 days
+    
+  retention:
+    bytes: -1          # No limit
+    ms: 604800000      # 7 days
+    check_interval_ms: 300000
+    
+  compaction:
+    enabled: true
+    min_cleanable_ratio: 0.5
+    threads: 1
+    
+  index:
+    interval_bytes: 4096
+    size_max_bytes: 10485760
+```
+
+## Level 4: Expert (20 min)
+
+### Advanced Techniques
+
+| Technique | Purpose | Implementation |
+|-----------|---------|----------------|
+| **Memory-mapped segments** | Fast random access | mmap() sealed segments |
+| **Parallel compaction** | Reduce downtime | Background thread pool |
+| **Compression** | Reduce storage | Compress sealed segments |
+| **Encryption** | Security | Encrypt at rest |
+| **Cloud tiering** | Cost optimization | Old segments to S3 |
+
+### Performance Optimization
 
 ```python
-class LogCompactor:
- def __init__(self, retention_ms=7*24*60*60*1000): # 7 days
- self.retention_ms = retention_ms
- 
- def compact_segments(self, segments):
- """Compact sealed segments"""
- compacted = []
- 
- for segment in segments:
- if not segment.sealed:
- continue
- 
- if self._should_compact(segment):
- compacted_segment = self._compact_segment(segment)
- compacted.append((segment, compacted_segment))
- 
- return compacted
- 
- def _compact_segment(self, segment):
- """Remove duplicates and deleted records"""
- # Read all records
- records = self._read_all_records(segment)
- 
- # Keep only latest version of each key
- latest = {}
- for offset, key, value in records:
- if value is not None: # Not a delete marker
- latest[key] = (offset, value)
- 
- # Write compacted segment
- new_segment = Segment(
- segment.base_dir,
- f"{segment.id}-compacted"
- )
- 
- for key, (offset, value) in sorted(latest.items()):
- new_segment.append(f"{key}:{value}".encode())
- 
- new_segment.seal()
- return new_segment
- 
- def _should_compact(self, segment):
- """Decide if segment needs compaction"""
- # Compact if:
- # 1. Segment is old enough
- # 2. Has significant duplicates/deletes
- # 3. Size reduction would be significant
- 
- age = time.time() * 1000 - segment.created_time
- if age < self.retention_ms / 2:
- return False
- 
- # Estimate duplicate ratio
- duplicate_ratio = self._estimate_duplicates(segment)
- return duplicate_ratio > 0.3
+class OptimizedSegmentedLog:
+    def __init__(self):
+        self.write_buffer = []
+        self.buffer_size = 0
+        self.max_buffer = 1024 * 1024  # 1MB
+        
+    def append_batch(self, records):
+        """Batched writes for better performance"""
+        for record in records:
+            self.write_buffer.append(record)
+            self.buffer_size += len(record)
+            
+            if self.buffer_size >= self.max_buffer:
+                self._flush_buffer()
+        
+        # Don't leave data in buffer
+        if self.write_buffer:
+            self._flush_buffer()
+    
+    def _flush_buffer(self):
+        """Write entire buffer in one syscall"""
+        if not self.write_buffer:
+            return
+            
+        # Single write for entire batch
+        batch_data = b''.join(self._serialize(r) for r in self.write_buffer)
+        self.active_segment.file.write(batch_data)
+        
+        # Update indices
+        for record in self.write_buffer:
+            self._update_index(record)
+        
+        # Clear buffer
+        self.write_buffer.clear()
+        self.buffer_size = 0
 ```
 
-### Offset Management
+### Monitoring & Operations
 
 ```python
-class OffsetManager:
- """Manage global offsets across segments"""
- 
- def __init__(self, bytes_per_segment=100*1024*1024):
- self.bytes_per_segment = bytes_per_segment
- 
- def to_global_offset(self, segment_id, local_offset):
- """Convert segment + local offset to global offset"""
- # Global offset = segment_id * max_segment_size + local_offset
- return segment_id * self.bytes_per_segment + local_offset
- 
- def parse_global_offset(self, global_offset):
- """Parse global offset into segment and local offset"""
- segment_id = global_offset // self.bytes_per_segment
- local_offset = global_offset % self.bytes_per_segment
- return segment_id, local_offset
- 
- def get_segment_for_offset(self, global_offset, segments):
- """Find segment containing the global offset"""
- segment_id, local_offset = self.parse_global_offset(global_offset)
- 
- # Handle compacted segments
- if segment_id not in segments:
- # Search for compacted version
- compacted_id = f"{segment_id}-compacted"
- if compacted_id in segments:
- return segments[compacted_id], local_offset
- 
- return segments.get(segment_id), local_offset
+class SegmentMetrics:
+    def __init__(self):
+        self.metrics = {
+            'segments_created': Counter(),
+            'segments_deleted': Counter(),
+            'segments_compacted': Counter(),
+            'active_segment_size': Gauge(),
+            'total_segments': Gauge(),
+            'oldest_segment_age': Gauge(),
+        }
+    
+    def report_health(self):
+        return {
+            'fragmentation': self.calculate_fragmentation(),
+            'compaction_backlog': self.get_compaction_candidates(),
+            'retention_pressure': self.check_retention_pressure(),
+            'write_amplification': self.calculate_write_amp()
+        }
 ```
 
-## Advanced Features
+## Level 5: Mastery (30 min)
 
-### 1. Time-Based Rolling
-
-```python
-class TimeBasedSegmentation:
- def __init__(self, roll_interval_ms=3600000): # 1 hour
- self.roll_interval_ms = roll_interval_ms
- self.last_roll_time = time.time() * 1000
- 
- def should_roll(self, current_segment):
- """Check if time to roll segment"""
- current_time = time.time() * 1000
- time_since_roll = current_time - self.last_roll_time
- 
- return (time_since_roll >= self.roll_interval_ms or
- current_segment.size >= self.size_limit)
- 
- def roll_segment(self):
- """Roll to new segment with timestamp"""
- timestamp = int(time.time() * 1000)
- segment_name = f"segment-{timestamp}.log"
- self.last_roll_time = timestamp
- return segment_name
-```
-
-### 2. Index Structure
+### Case Study: Apache Kafka's Segment Implementation
 
 ```mermaid
 graph TB
- subgraph "Segment Index"
- subgraph "Sparse Index"
- I1[Offset: 0<br/>Position: 0]
- I2[Offset: 4096<br/>Position: 4096]
- I3[Offset: 8192<br/>Position: 8192]
- end
- 
- subgraph "Time Index"
- T1[Time: 1640001000<br/>Offset: 0]
- T2[Time: 1640001060<br/>Offset: 4096]
- T3[Time: 1640001120<br/>Offset: 8192]
- end
- 
- subgraph "Key Index (Optional)"
- K1[Key: "user:123"<br/>Offset: 1024]
- K2[Key: "user:456"<br/>Offset: 5120]
- end
- end
+    subgraph "Kafka Partition"
+        P[Producer] --> L[Leader]
+        
+        subgraph "Log Structure"
+            L --> AS[Active Segment]
+            AS --> S1[segment_0000.log<br/>+ .index<br/>+ .timeindex]
+            S1 --> S2[segment_0001.log<br/>+ .index<br/>+ .timeindex]
+            S2 --> S3[segment_0002.log<br/>+ .index<br/>+ .timeindex]
+        end
+        
+        subgraph "Background Tasks"
+            LC[Log Cleaner] --> S1
+            LC --> S2
+            RET[Retention] --> S3
+        end
+    end
+    
+    subgraph "Replication"
+        L --> F1[Follower 1]
+        L --> F2[Follower 2]
+    end
 ```
 
-### 3. Parallel Segment Operations
+**Kafka's Design Decisions**:
+- 1GB default segment size
+- Separate index files for offset/timestamp lookup
+- Memory-mapped index files
+- Zero-copy transfer for reads
+- Log compaction for keyed topics
+
+**Results at Scale**:
+- 7 trillion messages/day at LinkedIn
+- Petabyte-scale storage
+- Millisecond latency
+- Automatic rebalancing
+
+### Economic Analysis
 
 ```python
-class ParallelSegmentReader:
- def __init__(self, segments, num_threads=4):
- self.segments = segments
- self.executor = ThreadPoolExecutor(max_workers=num_threads)
- 
- def read_range(self, start_offset, end_offset):
- """Read records in parallel from multiple segments"""
- # Determine segments to read
- segments_to_read = self._get_segments_in_range(
- start_offset, end_offset
- )
- 
- # Read each segment in parallel
- futures = []
- for segment, start, end in segments_to_read:
- future = self.executor.submit(
- self._read_segment_range,
- segment, start, end
- )
- futures.append(future)
- 
- # Collect results
- results = []
- for future in futures:
- results.extend(future.result())
- 
- # Sort by offset
- return sorted(results, key=lambda x: x[0])
+def segment_size_optimizer(
+    write_rate_mb_per_sec,
+    retention_days,
+    recovery_time_sla_minutes
+):
+    """Calculate optimal segment size"""
+    
+    # Smaller segments = faster recovery but more files
+    max_segment_for_recovery = (recovery_time_sla_minutes * 60) * 100  # 100MB/s read
+    
+    # Larger segments = fewer files but slower operations
+    files_per_day = (write_rate_mb_per_sec * 86400) / segment_size_mb
+    total_files = files_per_day * retention_days
+    
+    # Find balance
+    optimal_size = min(
+        max_segment_for_recovery,
+        1024,  # 1GB max for manageability
+        max(128, 86400 / 1000)  # At least 128MB, at most 1000 files/day
+    )
+    
+    return {
+        'optimal_segment_mb': optimal_size,
+        'files_per_day': files_per_day,
+        'recovery_time_minutes': optimal_size / 100 / 60
+    }
 ```
 
-## Real-World Examples
+## Quick Reference
 
-### Apache Kafka
-
-<h4>Kafka's Log Segments</h4>
-
-```mermaid
-graph TB
- subgraph "Kafka Partition"
- subgraph "Active Segment"
- AS[00000000000000000100.log<br/>Active - 50MB]
- AI[00000000000000000100.index]
- AT[00000000000000000100.timeindex]
- end
- 
- subgraph "Sealed Segments"
- S1[00000000000000000000.log<br/>100MB]
- S2[00000000000000000050.log<br/>100MB]
- end
- 
- subgraph "Cleanup"
- Policy[Retention: 7 days<br/>or 1GB total]
- Policy --> Delete[Delete old segments]
- Policy --> Compact[Compact by key]
- end
- end
-```
-
-- Default segment size: 1GB
-- Time-based rolling: 7 days
-- Parallel log cleaning
-- Zero-copy data transfer
-
-### Distributed Databases
-
-<h4>RocksDB WAL Segments</h4>
-
-- Fixed-size WAL segments
-- Background archival
-- Point-in-time recovery
-- Parallel recovery from segments
-
-## Performance Characteristics
-
-<table class="responsive-table">
-<thead>
-<tr>
-<th>Operation</th>
-<th>Latency</th>
-<th>Throughput</th>
-<th>Bottleneck</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Operation"><strong>Append</strong></td>
-<td data-label="Latency">< 1ms</td>
-<td data-label="Throughput">100MB/s+</td>
-<td data-label="Bottleneck">Disk sequential write</td>
-</tr>
-<tr>
-<td data-label="Operation"><strong>Read Recent</strong></td>
-<td data-label="Latency">< 1ms</td>
-<td data-label="Throughput">1GB/s+</td>
-<td data-label="Bottleneck">Page cache hit</td>
-</tr>
-<tr>
-<td data-label="Operation"><strong>Read Old</strong></td>
-<td data-label="Latency">5-10ms</td>
-<td data-label="Throughput">100MB/s</td>
-<td data-label="Bottleneck">Disk seek + read</td>
-</tr>
-<tr>
-<td data-label="Operation"><strong>Compaction</strong></td>
-<td data-label="Latency">Minutes</td>
-<td data-label="Throughput">50MB/s</td>
-<td data-label="Bottleneck">CPU + I/O</td>
-</tr>
-</tbody>
-</table>
-
-## Configuration Patterns
-
-### Segment Size Selection
+### Decision Matrix
 
 ```mermaid
 graph TD
- Start[Choose Segment Size] --> Small{Small Segments<br/>10-100MB?}
- Small -->|Yes| SP[Pros:<br/>- Fast recovery<br/>- Fine-grained deletion<br/>- Easy to transfer]
- Small -->|Yes| SC[Cons:<br/>- Many files<br/>- Index overhead<br/>- Metadata cost]
- 
- Start --> Large{Large Segments<br/>1-10GB?}
- Large -->|Yes| LP[Pros:<br/>- Fewer files<br/>- Efficient I/O<br/>- Less metadata]
- Large -->|Yes| LC[Cons:<br/>- Slow recovery<br/>- Coarse deletion<br/>- Memory pressure]
- 
- SP --> Decision[Balance based on:<br/>- Recovery time<br/>- Retention granularity<br/>- Operational overhead]
- SC --> Decision
- LP --> Decision
- LC --> Decision
+    Start[Design log storage] --> Q1{Unbounded<br/>growth?}
+    Q1 -->|No| Single[Single file<br/>sufficient]
+    Q1 -->|Yes| Q2{Need<br/>retention?}
+    
+    Q2 -->|No| Q3{Random<br/>access?}
+    Q2 -->|Yes| Segment[Use segmented<br/>log]
+    
+    Q3 -->|Yes| LSM[Consider<br/>LSM tree]
+    Q3 -->|No| Segment
 ```
 
-### Retention Strategies
+### Implementation Checklist ✓
 
-<table class="responsive-table">
-<thead>
-<tr>
-<th>Strategy</th>
-<th>Use Case</th>
-<th>Implementation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Strategy"><strong>Time-based</strong></td>
-<td data-label="Use Case">Compliance, logs</td>
-<td data-label="Implementation">Delete segments older than X days</td>
-</tr>
-<tr>
-<td data-label="Strategy"><strong>Size-based</strong></td>
-<td data-label="Use Case">Bounded storage</td>
-<td data-label="Implementation">Keep only last N GB</td>
-</tr>
-<tr>
-<td data-label="Strategy"><strong>Count-based</strong></td>
-<td data-label="Use Case">Event limits</td>
-<td data-label="Implementation">Keep last M segments</td>
-</tr>
-<tr>
-<td data-label="Strategy"><strong>Compaction</strong></td>
-<td data-label="Use Case">Key-value stores</td>
-<td data-label="Implementation">Keep only latest per key</td>
-</tr>
-</tbody>
-</table>
-## Common Pitfalls
+- [ ] Define segment size strategy (time vs size)
+- [ ] Implement segment rolling logic
+- [ ] Create index for offset lookup
+- [ ] Add retention policy enforcement
+- [ ] Implement compaction (if needed)
+- [ ] Set up monitoring for segments
+- [ ] Plan recovery procedures
+- [ ] Test segment deletion
+- [ ] Document operational procedures
 
-### 1. Segment Leaks
+### Configuration Template
 
-!!! danger "⚠️ Segments Not Deleted"
- **Problem**: Segments accumulate indefinitely
- **Causes**:
- - Broken cleanup logic
- - References preventing deletion
- - Clock skew in time-based deletion
- 
- **Solution**:
- - Monitor segment count
- - Forced cleanup on startup
- - Use monotonic clocks
-
-### 2. Offset Gaps
-
-```python
-def handle_offset_gaps(self):
- """Handle gaps from deleted segments"""
- # Problem: Segment 5 deleted, offset 500MB-600MB invalid
- 
- # Solution 1: Maintain offset mapping
- self.valid_offsets = IntervalTree()
- for segment in self.segments:
- self.valid_offsets.add(
- segment.start_offset,
- segment.end_offset
- )
- 
- # Solution 2: Return error for invalid offsets
- def read(self, offset):
- if not self.valid_offsets.contains(offset):
- raise OffsetOutOfRangeError(offset)
+```yaml
+segmented_log:
+  segments:
+    size_bytes: 1073741824      # 1GB
+    time_ms: 86400000           # 24 hours
+    index_interval: 4096        # Bytes between index entries
+    
+  retention:
+    time_ms: 604800000          # 7 days
+    size_bytes: 107374182400    # 100GB
+    check_interval: 300000      # 5 minutes
+    
+  compaction:
+    enabled: true
+    strategy: "delete"          # or "compact"
+    min_ratio: 0.5
+    threads: 2
+    
+  performance:
+    mmap_indices: true
+    zero_copy: true
+    compression: "lz4"          # For sealed segments
 ```
-
-### 3. Compaction Loops
-
-!!! warning "Infinite Compaction"
- **Scenario**: Compaction triggers more compaction
- **Fix**: Implement backoff and limits:
- ```python
- max_compaction_ratio = 0.5 # Max 50% of time compacting
- min_segment_age = 3600 # Don't compact segments < 1 hour old
- ```
-
-## Trade-offs
-
-<table class="responsive-table">
-<thead>
-<tr>
-<th>Aspect</th>
-<th>Benefits</th>
-<th>Costs</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Aspect"><strong>Manageability</strong></td>
-<td data-label="Benefits">Easy deletion<br/>Parallel operations<br/>Efficient backup</td>
-<td data-label="Costs">Multiple files<br/>Index overhead<br/>Segment coordination</td>
-</tr>
-<tr>
-<td data-label="Aspect"><strong>Performance</strong></td>
-<td data-label="Benefits">Sequential writes<br/>Parallel reads<br/>Cache-friendly</td>
-<td data-label="Costs">Segment roll overhead<br/>Cross-segment reads<br/>Compaction CPU</td>
-</tr>
-<tr>
-<td data-label="Aspect"><strong>Scalability</strong></td>
-<td data-label="Benefits">Unbounded growth<br/>Old data cleanup<br/>Compression friendly</td>
-<td data-label="Costs">Metadata growth<br/>Offset management<br/>Recovery complexity</td>
-</tr>
-</tbody>
-</table>
-
-
-| **High-throughput streaming** | 1-2 GB | Balance rotation overhead |
-| **Time-series metrics** | 100-500 MB | Align with time windows |
-| **Event sourcing** | 500 MB - 1 GB | Snapshot boundaries |
-| **Message queue** | 1 GB | Standard practice |
-
 
 ## Related Patterns
 
-- [Write-Ahead Log (WAL)](wal.md) - Often uses segmentation
-- [LSM Tree](lsm-tree.md) - Segments as SSTable files
-- [Event Sourcing](event-sourcing.md) - Segmented event storage
-- [Partitioning](partitioning.md) - Segment distribution
+### Foundation Patterns
+- **[Write-Ahead Log](./wal.md)**: Often implemented as segmented
+- **[Append-Only Store](../patterns/append-only.md)**: Base concept
+- **[Log Structured Storage](./lsm-tree.md)**: Uses segments internally
 
-## References
+### Complementary Patterns
+- **[Snapshot](../patterns/snapshot.md)**: Reduce recovery time
+- **[Compaction](../patterns/compaction.md)**: Clean up segments
+- **[Replication Log](../patterns/replication-log.md)**: Segment-based replication
 
-- "The Log: What every software engineer should know" - Jay Kreps
-- Apache Kafka Design Documentation
-- "Segment-Based Log Structured Storage" - Various papers
-- Production experiences from LinkedIn, Uber, Netflix
+### Applications
+- **[Kafka](../case-studies/kafka.md)**: Canonical implementation
+- **[RocksDB](../case-studies/rocksdb.md)**: LSM with segments
+- **[Cassandra](../case-studies/cassandra.md)**: SSTables as segments
+
+## Further Reading
+
+- [Kafka Log Implementation](https://kafka.apache.org/documentation/#log)
+- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
+- [RocksDB Architecture](https://github.com/facebook/rocksdb/wiki/RocksDB-Overview)
+
+### Implementation Resources
+- [Building a Distributed Log](https://bravenewgeek.com/building-a-distributed-log-from-scratch-part-1-storage-mechanics/)
+- [Segment Compaction Strategies](https://www.confluent.io/blog/log-compaction-highlights-in-the-apache-kafka-and-stream-processing-community/)
+- [Storage Engine Design](https://www.databass.dev/)

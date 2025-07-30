@@ -1,28 +1,27 @@
 ---
 title: Health Check Pattern
-description: Monitor and verify service health status to enable automated recovery
-  and intelligent load balancing
+excellence_tier: gold
+essential_question: How do we distinguish between liveness and readiness to enable intelligent load balancing and auto-recovery?
+tagline: Know thy service health - enable automated recovery and intelligent routing
+description: Monitor and verify service health status to enable automated recovery and intelligent load balancing
 type: pattern
 category: resilience
 difficulty: advanced
-reading-time: 10 min
+reading-time: 15 min
 prerequisites:
 - monitoring
 - service-discovery
 - load-balancing
-when-to-use: Microservices, load balancers, container orchestration, service mesh,
-  auto-healing systems
-when-not-to-use: Single-instance apps, dev environments, systems without automated
-  recovery
+when-to-use: Microservices, load balancers, container orchestration, service mesh, auto-healing systems
+when-not-to-use: Single-instance apps, dev environments, systems without automated recovery
 status: complete
-last-updated: 2025-07-26
+last-updated: 2025-01-30
 tags:
 - observability
 - reliability
 - service-health
 - monitoring
 - fault-detection
-excellence_tier: gold
 pattern_status: recommended
 introduced: 2000-01
 current_relevance: mainstream
@@ -36,395 +35,440 @@ modern-examples:
 - company: Netflix
   implementation: Eureka service registry with health status propagation
   scale: Thousands of services with real-time health tracking
-production-checklist: []
+production-checklist:
+- Distinguish between liveness and readiness checks
+- Set appropriate check intervals and timeouts
+- Implement deep health checks for critical services
+- Configure failure thresholds before action
+- Monitor health check latency impact
+- Implement graceful startup periods
+- Add dependency checks to readiness
+- Use separate endpoints for each check type
+- Include version/build info in health response
+- Test health check failure scenarios
 ---
-
 
 # Health Check Pattern
 
 !!! success "🏆 Gold Standard Pattern"
     **Service Health Monitoring** • Kubernetes, AWS, Netflix proven
     
-    Essential for automated recovery and load balancing. Health checks enable systems to detect and route around failures automatically.
+    Essential for automated recovery and load balancing. Health checks enable systems to detect and route around failures automatically. Foundation of self-healing infrastructure.
 
+## Essential Question
+**How do we distinguish between "alive but not ready" and "ready to serve" to enable intelligent traffic management?**
+
+## When to Use / When NOT to Use
+
+### Use When
+| Scenario | Example | Check Type |
+|----------|---------|------------|
+| Container orchestration | Kubernetes pods | Liveness + Readiness |
+| Load balancing | AWS ELB | HTTP/TCP checks |
+| Service discovery | Consul/Eureka | Service registration |
+| Auto-scaling | Based on health | Readiness checks |
+| Circuit breakers | Health-based trips | Deep health checks |
+
+### DON'T Use When
+| Scenario | Why | Alternative |
+|----------|-----|-------------|
+| Single instance | No routing needed | Local monitoring |
+| Development | Overhead | Simple logging |
+| Batch jobs | Not long-running | Job status |
+| Static content | Always available | Uptime monitoring |
+| Internal tools | Low criticality | Manual checks |
+
+## Level 1: Intuition (5 min)
+
+### The Hospital Triage Analogy
 <div class="axiom-box">
-<h4>⚛️ Law 3: Emergent Chaos</h4>
-
-Health checks are our defense against emergent chaos in distributed systems. A single unhealthy service can cascade through dependencies, creating system-wide failures. By continuously monitoring health and automatically removing unhealthy instances, we contain chaos before it spreads.
-
-**Key Insight**: Health is not binary in distributed systems - services can be partially healthy, degraded, or in various states of failure. Sophisticated health checks must reflect this reality.
+Like a hospital emergency room: First check if the patient is alive (pulse/breathing), then check if they can walk/talk/function. Services need the same two-stage health assessment.
 </div>
 
-## Health Check Types
-
-| Type | Purpose | Frequency | Timeout | Failure Action |
-|------|---------|-----------|---------|----------------|
-| **Liveness** | Process alive? | 10-30s | 1-2s | Restart container |
-| **Readiness** | Can handle traffic? | 5-10s | 2-5s | Remove from LB |
-| **Startup** | Initialization done? | 1-5s | 30-60s | Delay traffic |
-| **Deep** | Full dependency check | 30-60s | 10-20s | Alert + degrade |
-
-## Health Check Flow
-
+### Health Check Types Comparison
 ```mermaid
-flowchart TD
-    subgraph "Health Check Decision Tree"
-        Request[Health Request] --> Type{Check Type?}
-        
-        Type -->|Liveness| L[Process Check]
-        Type -->|Readiness| R[Dependencies]
-        Type -->|Startup| S[Init Status]
-        
-        L -->|Pass| L200[200 OK]
-        L -->|Fail| L503[503 → Restart]
-        
-        R -->|All OK| R200[200 OK]
-        R -->|Partial| R503[503 → No Traffic]
-        
-        S -->|Complete| S200[200 → Ready]
-        S -->|Pending| S503[503 → Wait]
-    end
+graph TD
+    A[Health Checks] --> B[Liveness]
+    A --> C[Readiness]
+    A --> D[Startup]
     
-    style L200 fill:#9f9
-    style R200 fill:#9f9
-    style S200 fill:#9f9
-    style L503 fill:#f99
-    style R503 fill:#ff9
-    style S503 fill:#ff9
+    B --> E[Is process alive?<br/>Can recover if restarted?]
+    C --> F[Can handle traffic?<br/>Dependencies ready?]
+    D --> G[Still initializing?<br/>Need more time?]
+    
+    style B fill:#81c784
+    style C fill:#64b5f6
+    style D fill:#ffb74d
 ```
 
-## Health States
+### Critical Distinction
+| Check Type | Question | Failure Action | Example |
+|------------|----------|----------------|---------|
+| **Liveness** | "Are you alive?" | Restart container | Process deadlock |
+| **Readiness** | "Can you work?" | Remove from LB | Database down |
+| **Startup** | "Still booting?" | Wait longer | Cache warming |
 
-```mermaid
-stateDiagram-v2
-    [*] --> Starting
-    Starting --> Ready: Checks Pass
-    Starting --> Failed: Timeout
-    
-    Ready --> Healthy: Traffic On
-    Healthy --> Degraded: Partial Fail
-    Healthy --> Unhealthy: Critical Fail
-    
-    Degraded --> Healthy: Recover
-    Degraded --> Unhealthy: Worsen
-    
-    Unhealthy --> Degraded: Improve
-    Unhealthy --> Failed: Terminal
-    
-    Failed --> [*]
-```
+## Level 2: Foundation (10 min)
 
-## Response Format
+### Health Check Response Levels
 
+#### 1. Basic (Binary)
 ```json
+// Simple alive check
+GET /health
+200 OK
+```
+
+#### 2. Standard (Status)
+```json
+GET /health
 {
-  "status": "healthy|degraded|unhealthy",
-  "version": "1.2.3",
-  "timestamp": "2024-01-15T10:30:00Z",
-  "checks": {
+  "status": "UP",
+  "timestamp": "2024-01-20T10:30:00Z"
+}
+```
+
+#### 3. Detailed (Components)
+```json
+GET /health
+{
+  "status": "UP",
+  "components": {
+    "database": "UP",
+    "cache": "UP",
+    "messageQueue": "DOWN"
+  },
+  "version": "2.1.0"
+}
+```
+
+#### 4. Deep (Metrics)
+```json
+GET /health/deep
+{
+  "status": "DEGRADED",
+  "components": {
     "database": {
-      "status": "healthy",
-      "response_time_ms": 45
+      "status": "UP",
+      "responseTime": "15ms",
+      "connectionPool": "8/10"
     },
     "cache": {
-      "status": "degraded",
-      "message": "High latency",
-      "response_time_ms": 250
+      "status": "UP",
+      "hitRate": "92%",
+      "memory": "2.1GB/4GB"
     }
   }
 }
 ```
 
-## Dependency Aggregation
+### Configuration Parameters
+| Parameter | Liveness | Readiness | Startup |
+|-----------|----------|-----------|---------|
+| **Initial Delay** | 30-60s | 0-10s | 0s |
+| **Check Interval** | 10-30s | 5-10s | 1-5s |
+| **Timeout** | 1-3s | 3-5s | 5-10s |
+| **Success Threshold** | 1 | 1-3 | 1 |
+| **Failure Threshold** | 3-5 | 1-3 | 10-30 |
 
+### Health Check Decision Tree
 ```mermaid
-flowchart LR
-    subgraph "Health Score Calculation"
-        Service[Service] --> DB[DB<br/>Weight: 1.0<br/>Required]
-        Service --> Cache[Cache<br/>Weight: 0.5<br/>Optional]
-        Service --> API[API<br/>Weight: 0.7<br/>Optional]
-        
-        DB -->|✓| Score[Score = Σ(weight × status)]
-        Cache -->|~| Score
-        API -->|✓| Score
-        
-        Score --> Status{Health Status}
-        Status -->|≥0.9| H[Healthy]
-        Status -->|≥0.7| D[Degraded]
-        Status -->|<0.7| U[Unhealthy]
-    end
+graph TD
+    A[Service Starts] --> B[Startup Probe]
+    B -->|Pass| C[Liveness Probe]
+    B -->|Fail| D[Keep Waiting]
+    C -->|Pass| E[Readiness Probe]
+    C -->|Fail| F[Restart Pod]
+    E -->|Pass| G[Receive Traffic]
+    E -->|Fail| H[No Traffic]
     
-    style H fill:#9f9
-    style D fill:#ff9
-    style U fill:#f99
+    G --> I{Continuous Checks}
+    I -->|Liveness Fail| F
+    I -->|Readiness Fail| H
+    I -->|All Pass| G
 ```
 
-<div class="failure-vignette">
-<h4>💥 The Amazon Prime Day Health Check Failure (2018)</h4>
+## Level 3: Deep Dive (15 min)
 
-**What Happened**: Amazon's auto-scaling system failed during Prime Day due to a misconfigured health check, causing widespread outages
+### Implementation Patterns
 
-**Root Cause**: 
-- Health checks were configured with overly aggressive timeouts (1 second)
-- During peak load, services took 1.2-1.5 seconds to respond
-- Auto-scaler marked healthy instances as unhealthy
-- System terminated good instances during highest load
-- Death spiral: fewer instances → more load → more "failures"
-
-**Impact**: 
-- 63 minutes of degraded service during peak shopping
-- Estimated $72M in lost sales
-- Cascading failures across 15+ services
-- Emergency manual intervention required
-
-**Lessons Learned**:
-- Health check timeouts must account for peak load response times
-- Separate health check endpoints from business logic
-- Use gradual health transitions (healthy → degraded → unhealthy)
-- Circuit breakers on health check failures themselves
-</div>
-
-<div class="decision-box">
-<h4>🎯 Health Check Design Strategy</h4>
-
-**Shallow Health Checks (Fast):**
-- Simple process alive check
-- Memory/CPU within bounds
-- Can accept connections
-- Use for: Load balancers, quick failure detection
-- Timeout: 1-2 seconds, Frequency: 5-10 seconds
-
-**Deep Health Checks (Thorough):**
-- Database connectivity verified
-- Critical dependencies reachable
-- Cache connections healthy
-- Use for: Readiness probes, startup checks
-- Timeout: 5-10 seconds, Frequency: 30-60 seconds
-
-**Dependency Health Checks (Smart):**
-- Weighted scoring system
-- Non-critical dependencies = degraded
-- Critical dependencies = unhealthy
-- Use for: Complex microservices
-- Implement circuit breakers per dependency
-
-**Synthetic Health Checks (Proactive):**
-- Execute real user journey
-- Verify end-to-end functionality
-- Measure business metrics
-- Use for: Critical user paths
-- Run continuously from multiple regions
-</div>
-
-## Implementation Patterns
-
-### Basic Health Check
-
-```python
-from typing import Dict, List
-import asyncio
-import time
-
-class HealthChecker:
-    def __init__(self):
-        self.checks = {}
-        
-    def register_check(self, name: str, check_fn, timeout: float = 5.0):
-        """Register a health check function"""
-        self.checks[name] = {
-            'function': check_fn,
-            'timeout': timeout
-        }
-    
-    async def check_health(self) -> Dict:
-        """Run all health checks"""
-        results = {}
-        start_time = time.time()
-        
-        # Run checks in parallel
-        tasks = []
-        for name, config in self.checks.items():
-            task = self._run_check(name, config)
-            tasks.append(task)
-        
-        check_results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        # Aggregate results
-        all_healthy = True
-        for name, result in zip(self.checks.keys(), check_results):
-            if isinstance(result, Exception):
-                results[name] = {
-                    'status': 'unhealthy',
-                    'error': str(result)
-                }
-                all_healthy = False
-            else:
-                results[name] = result
-                if result['status'] != 'healthy':
-                    all_healthy = False
-        
-        return {
-            'status': 'healthy' if all_healthy else 'unhealthy',
-            'timestamp': time.time(),
-            'duration_ms': (time.time() - start_time) * 1000,
-            'checks': results
-        }
-```
-
-### Weighted Dependencies
-
-```python
-class WeightedHealthChecker:
-    def __init__(self):
-        self.dependencies = []
-        
-    def add_dependency(
-        self, 
-        name: str, 
-        check_fn,
-        weight: float = 1.0,
-        required: bool = False
-    ):
-        self.dependencies.append({
-            'name': name,
-            'check': check_fn,
-            'weight': weight,
-            'required': required
-        })
-    
-    async def calculate_health_score(self) -> Dict:
-        """Calculate weighted health score"""
-        total_weight = 0
-        healthy_weight = 0
-        
-        for dep in self.dependencies:
-            result = await dep['check']()
-            
-            if dep['required'] and result['status'] != 'healthy':
-                return {'status': 'unhealthy', 'score': 0}
-            
-            total_weight += dep['weight']
-            if result['status'] == 'healthy':
-                healthy_weight += dep['weight']
-        
-        score = healthy_weight / total_weight if total_weight > 0 else 0
-        
-        if score >= 0.9:
-            status = 'healthy'
-        elif score >= 0.7:
-            status = 'degraded'
-        else:
-            status = 'unhealthy'
-            
-        return {'status': status, 'score': score}
-```
-
-## Kubernetes Health Probes
-
+#### 1. Kubernetes Health Checks
 ```yaml
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-  - name: app
-    livenessProbe:
-      httpGet:
-        path: /health/liveness
-        port: 8080
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 1
-      failureThreshold: 3
-      
-    readinessProbe:
-      httpGet:
-        path: /health/readiness
-        port: 8080
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      timeoutSeconds: 2
-      failureThreshold: 1
-      
-    startupProbe:
-      httpGet:
-        path: /health/startup
-        port: 8080
-      initialDelaySeconds: 0
-      periodSeconds: 1
-      timeoutSeconds: 30
-      failureThreshold: 30
+livenessProbe:
+  httpGet:
+    path: /health/live
+    port: 8080
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: 8080
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 2
+
+startupProbe:
+  httpGet:
+    path: /health/startup
+    port: 8080
+  periodSeconds: 5
+  failureThreshold: 30
 ```
 
-## Best Practices vs Anti-Patterns
+#### 2. Health Check Endpoints
+```mermaid
+graph LR
+    A[/health/live] --> B[Process Check<br/>Memory Check<br/>Deadlock Check]
+    C[/health/ready] --> D[Database Connected<br/>Cache Warmed<br/>Config Loaded]
+    E[/health/startup] --> F[Migrations Done<br/>Indexes Built<br/>Plugins Loaded]
+```
 
-| Best Practice | Anti-Pattern | Why |
-|---------------|--------------|-----|
-| Simple liveness checks | Expensive operations | Avoid false restarts |
-| Timeout all checks | No timeouts | Prevent blocking |
-| Cache expensive results | Repeat costly checks | Reduce load |
-| Support degraded state | Binary up/down | Graceful degradation |
-| Isolate check failures | Cascading failures | Fault isolation |
+#### 3. Dependency Health Aggregation
+| Service Health | DB | Cache | Queue | Result |
+|----------------|-----|-------|--------|---------|
+| UP | UP | UP | UP | UP |
+| UP | UP | DOWN | UP | DEGRADED |
+| UP | DOWN | - | - | DOWN |
+| UP | UP | UP | DOWN | Depends on criticality |
 
-## Production Strategies
+### Common Patterns & Anti-Patterns
 
-| Strategy | Use Case | Complexity |
-|----------|----------|------------|
-| **Adaptive Checks** | Variable load | High |
-| **Circuit Breaker** | Cascading failures | Medium |
-| **Weighted Dependencies** | Complex systems | Medium |
-| **Predictive Health** | Large scale | High |
+#### Do's ✓
+- Separate liveness and readiness endpoints
+- Keep health checks lightweight
+- Include dependency checks in readiness
+- Cache health check results briefly
+- Return appropriate HTTP status codes
 
-## Monitoring Dashboard
+#### Don'ts ✗
+- Heavy computation in health checks
+- Checking external dependencies in liveness
+- Same endpoint for all check types
+- Infinite timeouts
+- Ignoring health check costs
 
-| Metric | Alert Threshold | Action |
-|--------|-----------------|--------|
-| **Check Latency** | > 5s | Investigate slow checks |
-| **Failure Rate** | > 5% | Review thresholds |
-| **Flapping** | > 3 changes/min | Increase stability |
-| **Coverage** | < 90% | Add missing checks |
+## Level 4: Expert (20 min)
 
-<div class="truth-box">
-<h4>💡 Health Check Production Insights</h4>
+### Advanced Health Check Strategies
 
-**The 3-5-10 Rule:**
-- 3 seconds: Maximum acceptable health check response time
-- 5 retries: Before marking instance unhealthy
-- 10 seconds: Minimum interval between checks
+#### 1. Graduated Health States
+```mermaid
+stateDiagram-v2
+    [*] --> Starting: Service starts
+    Starting --> Warming: Basic init done
+    Warming --> Ready: Cache warmed
+    Ready --> Serving: All checks pass
+    Serving --> Degraded: Partial failure
+    Degraded --> Serving: Recovery
+    Serving --> Failing: Major issue
+    Failing --> [*]: Shutdown
+    
+    note right of Degraded: Serve with limitations
+    note right of Failing: Stop taking traffic
+```
 
-**Health Check Paradoxes:**
-- Healthy instances can fail health checks under load
-- Unhealthy instances can pass shallow health checks
-- The healthiest instance might have the worst health score (it's handling the most traffic)
+#### 2. Circuit Breaker Integration
+| Health Status | Circuit State | Action |
+|---------------|---------------|---------|
+| UP | Closed | Normal operation |
+| DEGRADED | Half-Open | Limited traffic |
+| DOWN | Open | Reject requests |
 
-**Production Reality:**
-> "A health check that never fails is probably not checking anything important. A health check that always fails is checking too much."
+#### 3. Smart Health Aggregation
+```yaml
+health_aggregation:
+  critical_services:
+    - database: weight=1.0, required=true
+    - auth: weight=1.0, required=true
+  
+  important_services:
+    - cache: weight=0.5, required=false
+    - search: weight=0.3, required=false
+  
+  nice_to_have:
+    - analytics: weight=0.1, required=false
+    - recommendations: weight=0.1, required=false
+  
+  thresholds:
+    healthy: score >= 0.9
+    degraded: 0.5 <= score < 0.9
+    unhealthy: score < 0.5
+```
 
-**Economic Truth:**
-- Cost of false positive (killing healthy instance): ~$1000/incident
-- Cost of false negative (keeping unhealthy instance): ~$10,000/hour
-- Always bias toward keeping instances alive during uncertainty
+### Production Monitoring
 
-**The Three Stages of Health Check Maturity:**
-1. **Binary**: "Is it up?" (Usually insufficient)
-2. **Graduated**: "Healthy/Degraded/Unhealthy" (Good for most)
-3. **Scored**: "73% healthy with these specific issues" (Best for complex systems)
-</div>
+#### Health Check Metrics
+| Metric | Purpose | Alert Threshold |
+|--------|---------|----------------|
+| Check Latency | Performance impact | > 100ms |
+| Check Failure Rate | Stability | > 5% |
+| State Changes/min | Flapping detection | > 10 |
+| Time to Ready | Startup performance | > 2min |
 
-## Implementation Checklist
+#### Dashboard Example
+```
+Service Health Overview
+├── Liveness: 99.9% (last 1h)
+├── Readiness: 98.5% (last 1h) 
+├── Average Check Latency: 45ms
+├── State Transitions: 3 (last 1h)
+└── Dependencies:
+    ├── Database: UP (15ms)
+    ├── Cache: UP (3ms)
+    └── Queue: DEGRADED (timeout)
+```
 
-- [ ] Separate liveness/readiness/startup endpoints
-- [ ] Configure appropriate timeouts (1-5s)
-- [ ] Set check intervals (5-30s based on type)
-- [ ] Implement dependency health aggregation
-- [ ] Add circuit breaker integration
-- [ ] Cache expensive health checks
-- [ ] Monitor check latency and success rate
-- [ ] Document what each check validates
-- [ ] Test failure scenarios
+## Level 5: Mastery (25 min)
 
-## See Also
+### Real-World Implementations
 
-- [Circuit Breaker](circuit-breaker.md) - Prevent cascade failures
-- [Service Discovery](service-discovery.md) - Health-aware routing
-- [Load Balancing](load-balancing.md) - Health-based distribution
-- [Observability](observability.md) - Monitoring patterns
+#### Netflix's Eureka Health Model
+```java
+@HealthIndicator
+public class ServiceHealth {
+    @Override
+    public Health health() {
+        if (isDatabaseUp() && isCacheUp()) {
+            return Health.up()
+                .withDetail("services", getServiceStats())
+                .build();
+        } else if (isDatabaseUp()) {
+            return Health.degraded()
+                .withDetail("cache", "unavailable")
+                .build();
+        } else {
+            return Health.down()
+                .withDetail("database", "connection failed")
+                .build();
+        }
+    }
+}
+```
+
+#### AWS ELB Health Checks
+- **HTTP/HTTPS**: Check specific path
+- **TCP**: Port connectivity only
+- **Custom**: Lambda-based checks
+- **Deep**: Multi-region health aggregation
+
+#### Kubernetes Advanced Patterns
+1. **Exec Probes**: Run scripts for complex checks
+2. **TCP Probes**: Simple port checks
+3. **gRPC Probes**: Native gRPC health protocol
+4. **Probe Priorities**: Startup → Liveness → Readiness
+
+### Migration Guide
+
+#### Phase 1: Basic Health (Week 1)
+```python
+# Simple liveness check
+@app.route('/health/live')
+def liveness():
+    return {'status': 'UP'}, 200
+
+# Basic readiness  
+@app.route('/health/ready')
+def readiness():
+    if database.ping():
+        return {'status': 'UP'}, 200
+    return {'status': 'DOWN'}, 503
+```
+
+#### Phase 2: Component Health (Week 2)
+```python
+@app.route('/health/ready')
+def readiness():
+    components = {
+        'database': check_database(),
+        'cache': check_cache(),
+        'queue': check_queue()
+    }
+    
+    status = 'UP' if all(components.values()) else 'DOWN'
+    code = 200 if status == 'UP' else 503
+    
+    return {
+        'status': status,
+        'components': components
+    }, code
+```
+
+#### Phase 3: Advanced Health (Week 3-4)
+- Add startup probes
+- Implement health caching
+- Add dependency weights
+- Create health dashboards
+- Set up alerts
+
+### Best Practices Matrix
+
+| Aspect | Good | Better | Best |
+|--------|------|--------|------|
+| **Endpoints** | Single /health | Separate live/ready | + startup + deep |
+| **Checks** | Process only | + Critical deps | + Weighted scoring |
+| **Response** | Binary | Status + timestamp | + Components + metrics |
+| **Monitoring** | Check pass/fail | + Latency | + Business impact |
+
+## Quick Reference
+
+### Health Check Configuration
+```yaml
+# Production-ready defaults
+health_checks:
+  liveness:
+    path: /health/live
+    interval: 10s
+    timeout: 3s
+    failures: 3
+    
+  readiness:
+    path: /health/ready
+    interval: 5s
+    timeout: 5s
+    failures: 2
+    
+  startup:
+    path: /health/startup
+    interval: 2s
+    timeout: 10s
+    failures: 30
+```
+
+### Status Code Standards
+| Status | HTTP Code | Load Balancer Action |
+|--------|-----------|---------------------|
+| UP | 200 | Route traffic |
+| DEGRADED | 200 | Route with care |
+| DOWN | 503 | Stop routing |
+| UNKNOWN | 503 | Stop routing |
+
+### Production Checklist ✓
+- [ ] Implement separate liveness/readiness endpoints
+- [ ] Add startup probe for slow-starting services
+- [ ] Include critical dependencies in readiness
+- [ ] Keep liveness checks simple and fast
+- [ ] Configure appropriate timeouts and thresholds
+- [ ] Monitor health check impact on performance
+- [ ] Test failure scenarios thoroughly
+- [ ] Document health check behavior
+- [ ] Set up alerting for health degradation
+- [ ] Review and tune thresholds regularly
+
+## Related Patterns
+- **[Circuit Breaker](./circuit-breaker.md)**: Uses health status for state decisions
+- **[Service Discovery](../coordination/service-discovery.md)**: Registers healthy instances
+- **[Load Balancing](../scaling/load-balancing.md)**: Routes based on health
+- **[Graceful Shutdown](./graceful-shutdown.md)**: Coordinates with health checks
+- **[Monitoring](../observability/monitoring.md)**: Tracks health metrics
+
+## References
+1. Kubernetes (2023). "Configure Liveness, Readiness and Startup Probes"
+2. AWS (2023). "ELB Health Checks" - Elastic Load Balancing Guide
+3. Netflix (2019). "Eureka Health Checks" - Wiki
+4. Google (2022). "Health Checking gRPC Services" - gRPC Documentation
+5. Microsoft (2023). "Health checks in ASP.NET Core" - Documentation
