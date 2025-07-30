@@ -100,7 +100,7 @@ jobs:
     
     - name: Upload validation report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pattern-validation-report
         path: |
@@ -290,7 +290,7 @@ jobs:
         echo "::endgroup::"
     
     - name: Upload comprehensive reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nightly-validation-reports
         path: |
