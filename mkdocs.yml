@@ -591,6 +591,11 @@ nav:
   - How to Contribute: reference/contributing.md
   - Glossary: reference/glossary.md
   - Pattern Health Dashboard: reference/pattern-health-dashboard.md
+  - Pattern Meta-Analysis: reference/pattern-meta-analysis.md
+  - Pattern Dependency Graph: reference/pattern-dependency-graph.md
+  - Pattern Evolution Timeline: reference/pattern-evolution-timeline.md
+  - Pattern Selection Cheatsheet: reference/pattern-selection-cheatsheet.md
+  - Pattern Template: reference/pattern-template.md
   - Security Considerations: reference/security.md
   - Cheat Sheets: reference/cheat-sheets.md
   - Keyboard Shortcuts: reference/keyboard-shortcuts.md
