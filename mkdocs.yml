@@ -535,13 +535,49 @@ nav:
     - Throughput Calculator: architects-handbook/tools/throughput-calculator.md
 - Part 4 - Interview Preparation:
   - Overview: interview-prep/index.md
-  - System Design Framework:
-    - Overview: interview-prep/frameworks/index.md
-  - Common Problems:
-    - Overview: interview-prep/common-problems/index.md
-  - Cheatsheets:
-    - Overview: interview-prep/cheatsheets/index.md
-    - System Design Checklist: interview-prep/cheatsheets/system-design-checklist.md
+  
+  # Engineering Leadership Interviews
+  - Engineering Leadership:
+    - Overview: interview-prep/engineering-leadership/index.md
+    
+    - Behavioral Interviews:
+      - STAR+ Method: interview-prep/engineering-leadership/behavioral-interviews/star-method-advanced.md
+    
+    - People Management:
+      - Managing Underperformers: interview-prep/engineering-leadership/practice-scenarios/underperformer-scenario.md
+      - Team Conflict Resolution: interview-prep/engineering-leadership/practice-scenarios/team-conflict-scenario.md
+    
+    - Technical Leadership:
+      - Technical Strategy: interview-prep/engineering-leadership/technical-leadership/technical-strategy.md
+    
+    - Organizational Design:
+      - Team Topologies: interview-prep/engineering-leadership/organizational-design/team-topologies.md
+    
+    - Business Acumen:
+      - Business Metrics Mastery: interview-prep/engineering-leadership/business-product/business-metrics.md
+    
+    - Company Specific:
+      - Amazon Leadership Principles: interview-prep/engineering-leadership/company-specific/amazon/index.md
+    
+    - Level Expectations:
+      - Level Guide Across Companies: interview-prep/engineering-leadership/level-specific/level-expectations.md
+    
+    - Interactive Tools:
+      - Overview: interview-prep/engineering-leadership/interactive-tools/index.md
+      - Interview Timer: interview-prep/engineering-leadership/interactive-tools/interview-timer.md
+      - Self-Assessment: interview-prep/engineering-leadership/interactive-tools/self-assessment.md
+      - Decision Trees: interview-prep/engineering-leadership/interactive-tools/decision-trees.md
+      - STAR Story Matcher: interview-prep/engineering-leadership/interactive-tools/star-matcher.md
+      - Question Bank: interview-prep/engineering-leadership/interactive-tools/question-bank.md
+  
+  # IC System Design Interviews
+  - IC System Design:
+    - Overview: interview-prep/ic-interviews/index.md
+    - Frameworks: interview-prep/ic-interviews/frameworks/index.md
+    - Common Problems: interview-prep/ic-interviews/common-problems/index.md
+    - Cheatsheets:
+      - Overview: interview-prep/ic-interviews/cheatsheets/index.md
+      - System Design Checklist: interview-prep/ic-interviews/cheatsheets/system-design-checklist.md
 - Contributing:
   - How to Contribute: reference/contributing.md
   - Glossary: reference/glossary.md
