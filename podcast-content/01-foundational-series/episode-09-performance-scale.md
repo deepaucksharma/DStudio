@@ -82,9 +82,419 @@ Individual Request Optimization ←→ System Scale Optimization
         Rich Responses            ←→  Bandwidth Explosions
         Synchronous Processing    ←→  Thread Pool Exhaustion
         Strong Consistency        ←→  Coordination Overhead
+        Fast Average Response     ←→  Tail Latency Explosions
 ```
 
 Today we'll explore both sides of this paradox and learn how elite engineering teams solve it.
+
+### The Tail Latency Crisis
+
+**Google's research revealed the brutal truth**: 1% of your slowest requests dominate user experience. When you have millions of requests, that 1% becomes your reality.
+
+**The Mathematics of Tail Latency**:
+```python
+# Why P99 latency matters more than average
+import numpy as np
+
+def simulate_request_latencies():
+    """Simulate real-world request latency distribution"""
+    
+    # Most requests are fast (log-normal distribution)
+    normal_requests = np.random.lognormal(mean=2.3, sigma=0.5, size=9900)  # ~10ms median
+    
+    # But 1% hit slow paths (database locks, GC pauses, network hiccups)
+    slow_requests = np.random.lognormal(mean=5.3, sigma=0.8, size=100)    # ~200ms median
+    
+    all_requests = np.concatenate([normal_requests, slow_requests])
+    
+    return {
+        'mean': np.mean(all_requests),
+        'p50': np.percentile(all_requests, 50),
+        'p90': np.percentile(all_requests, 90), 
+        'p95': np.percentile(all_requests, 95),
+        'p99': np.percentile(all_requests, 99),
+        'p99.9': np.percentile(all_requests, 99.9)
+    }
+
+latencies = simulate_request_latencies()
+print(f"Mean: {latencies['mean']:.1f}ms")      # ~15ms - looks good!
+print(f"P50:  {latencies['p50']:.1f}ms")       # ~10ms - looks good!
+print(f"P90:  {latencies['p90']:.1f}ms")       # ~25ms - still okay
+print(f"P95:  {latencies['p95']:.1f}ms")       # ~45ms - getting worse
+print(f"P99:  {latencies['p99']:.1f}ms")       # ~180ms - users notice!
+print(f"P99.9: {latencies['p99.9']:.1f}ms")    # ~400ms - users abandon!
+
+# The insight: Average latency is a lie. P99 is what users experience.
+```
+
+**At scale, tail latency becomes the norm**:
+- Web page loading 100 microservices? P99 of ANY becomes your P50
+- Mobile app making 20 API calls? 1% slow calls = 18% of users affected
+- Database query across 10 shards? Slowest shard determines response time
+
+### Tail Latency Mitigation Strategies
+
+**1. Hedged Requests: Fighting Latency with Redundancy**
+
+```python
+import asyncio
+import time
+from typing import List, Any
+
+class HedgedRequestManager:
+    """Implement hedged requests to combat tail latency"""
+    
+    def __init__(self, hedge_delay_ms: int = 95):
+        self.hedge_delay = hedge_delay_ms / 1000.0  # Convert to seconds
+        
+    async def hedged_request(self, request_func, *args, **kwargs) -> Any:
+        """Send hedged request if initial request is slow"""
+        
+        # Start primary request
+        primary_task = asyncio.create_task(request_func(*args, **kwargs))
+        
+        try:
+            # Wait for either completion or hedge delay
+            result = await asyncio.wait_for(primary_task, timeout=self.hedge_delay)
+            return result
+        except asyncio.TimeoutError:
+            # Primary is slow - send hedge request
+            hedge_task = asyncio.create_task(request_func(*args, **kwargs))
+            
+            # Return whichever completes first
+            done, pending = await asyncio.wait(
+                [primary_task, hedge_task], 
+                return_when=asyncio.FIRST_COMPLETED
+            )
+            
+            # Cancel the slower request
+            for task in pending:
+                task.cancel()
+            
+            # Return the faster result
+            return done.pop().result()
+
+# Usage example
+hedge_manager = HedgedRequestManager(hedge_delay_ms=95)
+
+async def fetch_user_data(user_id: str):
+    """Fetch user data with hedged requests"""
+    return await hedge_manager.hedged_request(
+        database.get_user, user_id
+    )
+
+# Result: P99 latency drops from 500ms to ~100ms
+# Cost: ~5% additional load (only when needed)
+```
+
+**2. Tail-Cutting: Abandoning the Slowest Requests**
+
+```python
+class TailCuttingService:
+    """Implement tail-cutting to improve P99 latency"""
+    
+    def __init__(self, timeout_percentile: float = 0.95):
+        self.timeout_percentile = timeout_percentile
+        self.recent_latencies = []
+        self.max_samples = 1000
+        
+    async def request_with_tail_cutting(self, request_func, *args, **kwargs):
+        """Execute request with dynamic timeout based on recent latencies"""
+        
+        # Calculate dynamic timeout from recent latencies
+        timeout = self._calculate_timeout()
+        
+        start_time = time.time()
+        
+        try:
+            result = await asyncio.wait_for(
+                request_func(*args, **kwargs),
+                timeout=timeout
+            )
+            
+            # Record successful latency
+            latency = time.time() - start_time
+            self._record_latency(latency)
+            
+            return result
+            
+        except asyncio.TimeoutError:
+            # Request cut - return cached/default response
+            self._record_timeout()
+            return await self._get_fallback_response(*args, **kwargs)
+    
+    def _calculate_timeout(self) -> float:
+        """Calculate timeout based on recent latency percentile"""
+        if len(self.recent_latencies) < 10:
+            return 1.0  # Default 1 second
+        
+        return np.percentile(self.recent_latencies, self.timeout_percentile * 100)
+    
+    def _record_latency(self, latency: float):
+        """Record successful request latency"""
+        self.recent_latencies.append(latency)
+        if len(self.recent_latencies) > self.max_samples:
+            self.recent_latencies.pop(0)
+    
+    async def _get_fallback_response(self, *args, **kwargs):
+        """Return cached or simplified response when tail-cutting"""
+        # Try cache first
+        cached = await cache.get(f"fallback:{args[0]}")
+        if cached:
+            return cached
+        
+        # Return simplified response
+        return {"status": "partial", "message": "Full data temporarily unavailable"}
+
+# Usage
+tail_cutter = TailCuttingService(timeout_percentile=0.95)
+
+async def get_recommendations(user_id: str):
+    """Get recommendations with tail-cutting"""
+    return await tail_cutter.request_with_tail_cutting(
+        ml_service.get_recommendations, user_id
+    )
+
+# Result: P99 latency becomes P95 latency
+# Trade-off: 5% of requests get fallback responses
+```
+
+**3. Replicated Queries: Fighting Variability with Parallelism**
+
+```python
+class ReplicatedQueryManager:
+    """Send queries to multiple replicas and return fastest result"""
+    
+    def __init__(self, replica_services: List, min_responses: int = 1):
+        self.replicas = replica_services
+        self.min_responses = min_responses
+        
+    async def replicated_query(self, query_func, *args, **kwargs):
+        """Send query to all replicas, return fastest response"""
+        
+        # Send query to all replicas
+        tasks = [
+            asyncio.create_task(replica.query(query_func, *args, **kwargs))
+            for replica in self.replicas
+        ]
+        
+        try:
+            # Wait for minimum number of responses
+            done, pending = await asyncio.wait(
+                tasks, 
+                return_when=asyncio.FIRST_COMPLETED
+            )
+            
+            # Cancel remaining requests to save resources
+            for task in pending:
+                task.cancel()
+                
+            # Return first successful result
+            return done.pop().result()
+            
+        except Exception as e:
+            # If primary approach fails, wait for any successful response
+            if pending:
+                try:
+                    done, remaining = await asyncio.wait(
+                        pending, 
+                        return_when=asyncio.FIRST_COMPLETED,
+                        timeout=0.1  # Short additional wait
+                    )
+                    return done.pop().result()
+                except:
+                    pass
+            
+            raise e
+
+# Usage for read queries
+read_replicas = [database_replica_1, database_replica_2, database_replica_3]
+replica_manager = ReplicatedQueryManager(read_replicas)
+
+async def get_product_details(product_id: str):
+    """Get product details from fastest replica"""
+    return await replica_manager.replicated_query(
+        lambda db: db.get_product(product_id)
+    )
+
+# Result: Tail latency limited by fastest replica, not slowest
+# Cost: 3x read load on replicas
+```
+
+### The Coordinated Omission Problem
+
+**The measurement error that hides your worst performance problems.**
+
+Most benchmarking tools lie to you. When your system slows down, they slow down their request rate too, missing the exact moments when users suffer most.
+
+```python
+import time
+import asyncio
+from collections import deque
+import threading
+
+class CoordinatedOmissionDemo:
+    """Demonstrate the coordinated omission problem"""
+    
+    def __init__(self):
+        self.response_times = []
+        self.lock = threading.Lock()
+        
+    async def naive_benchmark(self, service_func, target_rps: int, duration_seconds: int):
+        """Naive benchmark that suffers from coordinated omission"""
+        
+        request_interval = 1.0 / target_rps
+        end_time = time.time() + duration_seconds
+        
+        while time.time() < end_time:
+            start_time = time.time()
+            
+            # Send request and wait for response
+            try:
+                await service_func()
+                response_time = time.time() - start_time
+                with self.lock:
+                    self.response_times.append(response_time)
+            except Exception as e:
+                response_time = time.time() - start_time
+                with self.lock:
+                    self.response_times.append(response_time)
+                    
+            # PROBLEM: If service_func takes 2 seconds, we wait 2 seconds
+            # before sending next request. This HIDES the queue buildup!
+            await asyncio.sleep(request_interval)
+            
+        return self._calculate_percentiles()
+    
+    async def corrected_benchmark(self, service_func, target_rps: int, duration_seconds: int):
+        """Corrected benchmark that avoids coordinated omission"""
+        
+        request_interval = 1.0 / target_rps
+        start_time = time.time()
+        end_time = start_time + duration_seconds
+        next_request_time = start_time
+        
+        while time.time() < end_time:
+            current_time = time.time()
+            
+            # Send request at scheduled time regardless of previous response
+            if current_time >= next_request_time:
+                # Calculate intended start time (not actual start time)
+                intended_start = next_request_time
+                
+                # Send request
+                actual_start = time.time()
+                try:
+                    await service_func()
+                    response_time = time.time() - actual_start
+                    
+                    # CRITICAL: Include queueing delay in measurement
+                    total_latency = time.time() - intended_start
+                    
+                    with self.lock:
+                        self.response_times.append(total_latency)
+                        
+                except Exception as e:
+                    total_latency = time.time() - intended_start
+                    with self.lock:
+                        self.response_times.append(total_latency)
+                
+                # Schedule next request at fixed interval
+                next_request_time += request_interval
+            else:
+                # Short sleep to prevent busy waiting
+                await asyncio.sleep(0.001)
+                
+        return self._calculate_percentiles()
+    
+    def _calculate_percentiles(self):
+        """Calculate latency percentiles"""
+        if not self.response_times:
+            return {}
+            
+        import numpy as np
+        times = np.array(self.response_times)
+        
+        return {
+            'count': len(times),
+            'mean': np.mean(times),
+            'p50': np.percentile(times, 50),
+            'p90': np.percentile(times, 90),
+            'p95': np.percentile(times, 95),
+            'p99': np.percentile(times, 99),
+            'p99.9': np.percentile(times, 99.9),
+            'max': np.max(times)
+        }
+
+# Simulate a service that occasionally gets slow
+class FlakeyService:
+    def __init__(self):
+        self.request_count = 0
+        
+    async def handle_request(self):
+        """Service that gets slow under load"""
+        self.request_count += 1
+        
+        # Every 100th request takes much longer (simulates DB lock, GC pause, etc.)
+        if self.request_count % 100 == 0:
+            await asyncio.sleep(2.0)  # 2 second hiccup
+        else:
+            await asyncio.sleep(0.01)  # Normal 10ms response
+
+# Demonstrate the difference
+async def demonstrate_coordinated_omission():
+    service = FlakeyService()
+    
+    # Naive benchmark (WRONG)
+    naive_demo = CoordinatedOmissionDemo()
+    print("Running naive benchmark...")
+    naive_results = await naive_demo.naive_benchmark(
+        service.handle_request, 
+        target_rps=50,  # 50 requests per second
+        duration_seconds=10
+    )
+    
+    # Reset service
+    service.request_count = 0
+    
+    # Corrected benchmark (RIGHT)
+    corrected_demo = CoordinatedOmissionDemo()
+    print("Running corrected benchmark...")
+    corrected_results = await corrected_demo.corrected_benchmark(
+        service.handle_request,
+        target_rps=50,
+        duration_seconds=10
+    )
+    
+    print("\nNaive Benchmark Results (MISLEADING):")
+    for metric, value in naive_results.items():
+        if metric == 'count':
+            print(f"{metric}: {value}")
+        else:
+            print(f"{metric}: {value*1000:.1f}ms")
+    
+    print("\nCorrected Benchmark Results (ACCURATE):")
+    for metric, value in corrected_results.items():
+        if metric == 'count':
+            print(f"{metric}: {value}")
+        else:
+            print(f"{metric}: {value*1000:.1f}ms")
+    
+    print(f"\nThe naive benchmark HIDES the fact that users experience:")
+    print(f"  - Much higher P99 latency ({corrected_results['p99']*1000:.0f}ms vs {naive_results['p99']*1000:.0f}ms)")
+    print(f"  - Queueing delays that build up during slow periods")
+    print(f"  - The true impact of system hiccups on user experience")
+
+# Run the demonstration
+# await demonstrate_coordinated_omission()
+
+# Real-world connection to observability:
+# Most APM tools suffer from coordinated omission!
+# They measure "request duration" but miss "time in queue"
+# Always measure from the user's perspective, not the server's
+```
+
+**Key Insight**: Your monitoring system might be lying to you. If you're only measuring "request processing time" and not "time from user click to response", you're missing the queueing delays that dominate user experience during overload.
 
 ### The Mathematical Foundation
 
@@ -662,6 +1072,241 @@ print(f"Latency: {routing['base_latency_ms']:.0f} ms")
 print(f"With load factor: {routing['effective_latency_ms']:.0f} ms")
 ```
 
+### Advanced Load Balancing: Beyond Round Robin
+
+**Why sophisticated algorithms matter at scale.**
+
+#### Round Robin vs Weighted vs Adaptive Algorithms
+
+```python
+import time
+import random
+import heapq
+from dataclasses import dataclass
+from typing import List, Dict
+import threading
+
+@dataclass
+class ServerMetrics:
+    """Real-time server performance metrics"""
+    id: str
+    cpu_usage: float
+    memory_usage: float
+    active_connections: int
+    avg_response_time: float
+    capacity_weight: int
+    health_score: float = 1.0
+    
+    def calculate_load_score(self) -> float:
+        """Calculate overall load score (lower is better)"""
+        # Weighted combination of metrics
+        load_score = (
+            self.cpu_usage * 0.3 +
+            self.memory_usage * 0.2 +
+            (self.active_connections / 100) * 0.3 +
+            (self.avg_response_time / 1000) * 0.2
+        )
+        return load_score / self.health_score
+
+class AdaptiveLoadBalancer:
+    """Advanced load balancer that adapts to real-time server performance"""
+    
+    def __init__(self, servers: List[ServerMetrics]):
+        self.servers = {s.id: s for s in servers}
+        self.request_history = {}  # Track recent requests per server
+        self.metrics_lock = threading.Lock()
+        
+        # Start background metrics collection
+        self._start_metrics_collection()
+    
+    def select_server_least_loaded(self) -> ServerMetrics:
+        """Select server with lowest current load"""
+        with self.metrics_lock:
+            healthy_servers = [s for s in self.servers.values() if s.health_score > 0.1]
+            
+            if not healthy_servers:
+                raise Exception("No healthy servers available")
+            
+            # Select server with lowest load score
+            best_server = min(healthy_servers, key=lambda s: s.calculate_load_score())
+            
+            # Update connection count
+            best_server.active_connections += 1
+            
+            return best_server
+    
+    def select_server_power_of_two(self) -> ServerMetrics:
+        """Use Power of Two Choices algorithm"""
+        with self.metrics_lock:
+            healthy_servers = [s for s in self.servers.values() if s.health_score > 0.1]
+            
+            if len(healthy_servers) < 2:
+                return healthy_servers[0] if healthy_servers else None
+            
+            # Pick two random servers
+            choice1, choice2 = random.sample(healthy_servers, 2)
+            
+            # Return the one with lower load
+            if choice1.calculate_load_score() <= choice2.calculate_load_score():
+                choice1.active_connections += 1
+                return choice1
+            else:
+                choice2.active_connections += 1
+                return choice2
+    
+    def select_server_consistent_hash_with_load(self, key: str) -> ServerMetrics:
+        """Consistent hashing with load awareness"""
+        # Get primary server from consistent hash
+        primary_server = self._get_primary_server_for_key(key)
+        
+        with self.metrics_lock:
+            # Check if primary server is overloaded
+            if primary_server.calculate_load_score() > 0.8:  # 80% threshold
+                # Find alternative servers in the same hash ring region
+                alternatives = self._get_alternative_servers(key, exclude=primary_server.id)
+                
+                # Pick least loaded alternative
+                if alternatives:
+                    best_alternative = min(alternatives, key=lambda s: s.calculate_load_score())
+                    best_alternative.active_connections += 1
+                    return best_alternative
+            
+            # Use primary server
+            primary_server.active_connections += 1
+            return primary_server
+    
+    def select_server_weighted_response_time(self) -> ServerMetrics:
+        """Weight selection by inverse response time"""
+        with self.metrics_lock:
+            healthy_servers = [s for s in self.servers.values() if s.health_score > 0.1]
+            
+            if not healthy_servers:
+                raise Exception("No healthy servers available")
+            
+            # Calculate weights (inverse of response time)
+            weights = []
+            for server in healthy_servers:
+                # Avoid division by zero, minimum response time 1ms
+                response_time = max(server.avg_response_time, 1.0)
+                weight = (1.0 / response_time) * server.capacity_weight * server.health_score
+                weights.append(weight)
+            
+            # Weighted random selection
+            total_weight = sum(weights)
+            if total_weight == 0:
+                return random.choice(healthy_servers)
+            
+            r = random.uniform(0, total_weight)
+            cumulative = 0
+            
+            for server, weight in zip(healthy_servers, weights):
+                cumulative += weight
+                if r <= cumulative:
+                    server.active_connections += 1
+                    return server
+            
+            # Fallback
+            return healthy_servers[-1]
+    
+    def _get_primary_server_for_key(self, key: str) -> ServerMetrics:
+        """Get primary server for key using consistent hashing"""
+        # Simplified consistent hashing implementation
+        hash_value = hash(key) % len(self.servers)
+        server_id = list(self.servers.keys())[hash_value]
+        return self.servers[server_id]
+    
+    def _get_alternative_servers(self, key: str, exclude: str) -> List[ServerMetrics]:
+        """Get alternative servers for consistent hashing fallback"""
+        return [s for s in self.servers.values() if s.id != exclude and s.health_score > 0.1]
+    
+    def release_connection(self, server_id: str):
+        """Release connection from server"""
+        with self.metrics_lock:
+            if server_id in self.servers:
+                self.servers[server_id].active_connections -= 1
+    
+    def _start_metrics_collection(self):
+        """Start background thread to collect server metrics"""
+        # In real implementation, this would collect metrics from servers
+        # For demo, we'll simulate changing metrics
+        pass
+
+# Comparison of different algorithms
+class LoadBalancerComparison:
+    """Compare different load balancing algorithms"""
+    
+    def __init__(self):
+        # Create servers with different capabilities
+        self.servers = [
+            ServerMetrics("server1", 0.2, 0.3, 10, 50, 100),   # Fast server
+            ServerMetrics("server2", 0.5, 0.6, 25, 100, 80),   # Medium server  
+            ServerMetrics("server3", 0.8, 0.9, 45, 200, 60),   # Slow server
+            ServerMetrics("server4", 0.1, 0.2, 5, 30, 120),    # Fastest server
+        ]
+        
+        self.balancer = AdaptiveLoadBalancer(self.servers)
+    
+    def simulate_requests(self, algorithm: str, num_requests: int = 1000):
+        """Simulate requests using different algorithms"""
+        
+        server_counts = {s.id: 0 for s in self.servers}
+        total_response_time = 0
+        
+        for _ in range(num_requests):
+            if algorithm == "least_loaded":
+                server = self.balancer.select_server_least_loaded()
+            elif algorithm == "power_of_two":
+                server = self.balancer.select_server_power_of_two()
+            elif algorithm == "weighted_response_time":
+                server = self.balancer.select_server_weighted_response_time()
+            else:
+                # Round robin fallback
+                server = self.servers[_ % len(self.servers)]
+            
+            server_counts[server.id] += 1
+            total_response_time += server.avg_response_time
+            
+            # Simulate request completion
+            time.sleep(0.001)  # 1ms simulation
+            self.balancer.release_connection(server.id)
+        
+        avg_response_time = total_response_time / num_requests
+        
+        return {
+            'algorithm': algorithm,
+            'server_distribution': server_counts,
+            'avg_response_time': avg_response_time,
+            'load_balance_score': self._calculate_balance_score(server_counts)
+        }
+    
+    def _calculate_balance_score(self, server_counts: Dict[str, int]) -> float:
+        """Calculate how well balanced the load is (lower is better)"""
+        counts = list(server_counts.values())
+        if not counts:
+            return float('inf')
+        
+        mean_count = sum(counts) / len(counts)
+        variance = sum((c - mean_count) ** 2 for c in counts) / len(counts)
+        return variance / mean_count if mean_count > 0 else float('inf')
+
+# Run comparison
+comparison = LoadBalancerComparison()
+
+algorithms = ["least_loaded", "power_of_two", "weighted_response_time"]
+for algorithm in algorithms:
+    result = comparison.simulate_requests(algorithm, 1000)
+    print(f"\n{algorithm.upper()} Results:")
+    print(f"  Server distribution: {result['server_distribution']}")
+    print(f"  Average response time: {result['avg_response_time']:.1f}ms")
+    print(f"  Load balance score: {result['load_balance_score']:.2f}")
+```
+
+**Key Insights**:
+- **Round Robin**: Simple but ignores server capacity differences
+- **Least Loaded**: Adapts to current load but requires real-time metrics
+- **Power of Two**: 90% of the benefit with 10% of the complexity
+- **Weighted Response Time**: Best for heterogeneous server farms
+
 ### Consistent Hashing: The Scalable Solution
 
 **The algorithm that powers distributed caches and databases:**
@@ -770,6 +1415,159 @@ Consistent hashing: adding 1 server to 4 servers moves ~20% of keys
 
 ## Part III: Caching Strategies and Cache Coherence (25 minutes)
 
+### The Caching-Consistency Paradox
+
+**Phil Karlton's famous quote**: "There are only two hard things in Computer Science: cache invalidation and naming things."
+
+He was more right than he knew. Caching creates a fundamental tension with Episode 8's consistency models. **Every cache is a consistency trade-off**.
+
+```python
+import time
+import math
+
+# The cache-consistency spectrum
+class CacheConsistencySpectrum:
+    """Demonstrate the trade-offs between cache performance and consistency"""
+    
+    def __init__(self):
+        self.cache = {}
+        self.database = {}
+        self.cache_stats = {'hits': 0, 'misses': 0, 'invalidations': 0}
+    
+    async def strong_consistency_cache(self, key: str, value=None):
+        """Cache with strong consistency - always fresh but slow"""
+        if value is not None:
+            # Write: Update database first, then cache
+            self.database[key] = value
+            self.cache[key] = value
+            return value
+        
+        # Read: Always check database for latest value
+        if key in self.database:
+            latest_value = self.database[key]
+            self.cache[key] = latest_value  # Update cache
+            return latest_value
+        
+        return None
+        
+        # Performance: Slow (database hit every read)
+        # Consistency: Perfect
+    
+    async def eventual_consistency_cache(self, key: str, value=None, ttl=300):
+        """Cache with eventual consistency - fast but possibly stale"""
+        if value is not None:
+            # Write: Update database and cache
+            self.database[key] = value
+            self.cache[key] = {'value': value, 'expires': time.time() + ttl}
+            return value
+        
+        # Read: Use cache if not expired
+        if key in self.cache:
+            cache_entry = self.cache[key]
+            if time.time() < cache_entry['expires']:
+                self.cache_stats['hits'] += 1
+                return cache_entry['value']  # May be stale!
+        
+        # Cache miss or expired - go to database
+        self.cache_stats['misses'] += 1
+        if key in self.database:
+            fresh_value = self.database[key]
+            self.cache[key] = {'value': fresh_value, 'expires': time.time() + ttl}
+            return fresh_value
+        
+        return None
+        
+        # Performance: Fast (cache hits avoid database)
+        # Consistency: Eventually consistent within TTL window
+
+# The cache invalidation complexity
+class CacheInvalidationChallenge:
+    """Demonstrate why cache invalidation is so hard"""
+    
+    def __init__(self):
+        self.user_cache = {}      # User data cache
+        self.post_cache = {}      # Post data cache
+        self.feed_cache = {}      # User feed cache (derived data!)
+        self.database = {}
+    
+    async def update_user_name(self, user_id: str, new_name: str):
+        """Update user name - shows cache invalidation cascade"""
+        
+        # 1. Update database
+        self.database[f"user:{user_id}"] = {'name': new_name}
+        
+        # 2. Invalidate user cache (obvious)
+        if f"user:{user_id}" in self.user_cache:
+            del self.user_cache[f"user:{user_id}"]
+        
+        # 3. Find and invalidate ALL posts by this user (harder)
+        posts_to_invalidate = []
+        for post_key in self.post_cache:
+            post = self.post_cache[post_key]
+            if post['author_id'] == user_id:
+                posts_to_invalidate.append(post_key)
+        
+        for post_key in posts_to_invalidate:
+            del self.post_cache[post_key]
+        
+        # 4. Find and invalidate ALL feeds containing this user's posts (hardest!)
+        feeds_to_invalidate = []
+        for feed_key in self.feed_cache:
+            feed = self.feed_cache[feed_key]
+            for post in feed['posts']:
+                if post['author_id'] == user_id:
+                    feeds_to_invalidate.append(feed_key)
+                    break
+        
+        for feed_key in feeds_to_invalidate:
+            del self.feed_cache[feed_key]
+        
+        print(f"User name update triggered:")
+        print(f"  - 1 user cache invalidation")
+        print(f"  - {len(posts_to_invalidate)} post cache invalidations")
+        print(f"  - {len(feeds_to_invalidate)} feed cache invalidations")
+        print(f"  - Total: {1 + len(posts_to_invalidate) + len(feeds_to_invalidate)} cache invalidations for 1 data change!")
+
+# Cache coherency equations
+def cache_freshness_vs_consistency_window():
+    """Mathematical relationship between cache freshness and consistency"""
+    
+    # Given:
+    # - Data changes at rate λ (changes per second)
+    # - Cache TTL = T seconds
+    # - Request rate = R requests per second
+    
+    lambda_change_rate = 0.1  # 0.1 changes per second (1 change per 10 seconds)
+    ttl_seconds = 300         # 5 minute TTL
+    request_rate = 100        # 100 requests per second
+    
+    # Probability that cache contains stale data at any moment
+    staleness_probability = 1 - math.exp(-lambda_change_rate * ttl_seconds)
+    
+    # Expected number of requests served stale data per second
+    stale_requests_per_second = request_rate * staleness_probability
+    
+    # Average staleness age (how old is stale data on average)
+    average_staleness_age = ttl_seconds / 2  # Uniform distribution assumption
+    
+    print(f"Cache Analysis:")
+    print(f"  Change rate: {lambda_change_rate} changes/sec")
+    print(f"  Cache TTL: {ttl_seconds} seconds")
+    print(f"  Request rate: {request_rate} requests/sec")
+    print(f"  Staleness probability: {staleness_probability:.1%}")
+    print(f"  Stale requests/sec: {stale_requests_per_second:.1f}")
+    print(f"  Average staleness age: {average_staleness_age:.0f} seconds")
+    
+    return {
+        'staleness_probability': staleness_probability,
+        'stale_requests_rate': stale_requests_per_second,
+        'average_staleness': average_staleness_age
+    }
+
+# The brutal trade-off
+analysis = cache_freshness_vs_consistency_window()
+```
+
 ### The Caching Hierarchy
 
 Modern systems use multiple cache layers, each with different characteristics:
@@ -777,6 +1575,8 @@ Modern systems use multiple cache layers, each with different characteristics:
 ```
 Browser Cache (100ms-days TTL) → CDN (minutes-hours) → Reverse Proxy (seconds-minutes) → Application Cache (seconds) → Database Cache (milliseconds) → CPU Cache (nanoseconds)
 ```
+
+**The consistency challenge**: Each layer can have different data versions! A user might see their own update in the app cache but not in the CDN cache, creating a confusing experience.
 
 ### Cache-Aside Pattern: The Workhorse
 
@@ -2151,7 +2951,425 @@ print(f"Final price: ${price_info['final_price']:.2f}")
 
 ---
 
-## Part VI: Modern Performance Patterns and Anti-Patterns (15 minutes)
+## Part VI: Backpressure and Load-Shedding: Extreme Load Resilience (20 minutes)
+
+**Essential patterns for preventing system collapse under extreme load.**
+
+#### Backpressure: Controlling Flow at the Source
+
+```python
+import asyncio
+import time
+from enum import Enum
+import logging
+
+class BackpressureState(Enum):
+    NORMAL = "normal"
+    PUSHBACK = "pushback" 
+    SHEDDING = "shedding"
+
+class BackpressureController:
+    """Implement backpressure to prevent system overload"""
+    
+    def __init__(self, max_queue_size=1000, pushback_threshold=0.7, shed_threshold=0.9):
+        self.max_queue_size = max_queue_size
+        self.pushback_threshold = int(max_queue_size * pushback_threshold)
+        self.shed_threshold = int(max_queue_size * shed_threshold)
+        
+        self.request_queue = asyncio.Queue(maxsize=max_queue_size)
+        self.processing_workers = []
+        self.metrics = {
+            'requests_received': 0,
+            'requests_processed': 0,
+            'requests_rejected': 0,
+            'backpressure_events': 0
+        }
+        
+        # Start worker processes
+        for _ in range(10):  # 10 workers
+            worker = asyncio.create_task(self._process_requests())
+            self.processing_workers.append(worker)
+    
+    async def handle_request(self, request_data):
+        """Handle incoming request with backpressure"""
+        
+        self.metrics['requests_received'] += 1
+        current_queue_size = self.request_queue.qsize()
+        
+        # Determine backpressure state
+        if current_queue_size >= self.shed_threshold:
+            # SHEDDING: Reject requests to prevent collapse
+            self.metrics['requests_rejected'] += 1
+            raise BackpressureError("Service overloaded - request shed", 
+                                   retry_after=30, 
+                                   http_status=503)
+        
+        elif current_queue_size >= self.pushback_threshold:
+            # PUSHBACK: Accept but signal client to slow down
+            self.metrics['backpressure_events'] += 1
+            
+            try:
+                # Still try to queue, but with timeout
+                await asyncio.wait_for(
+                    self.request_queue.put(request_data), 
+                    timeout=0.1
+                )
+                
+                # Signal backpressure to client
+                return BackpressureResponse(
+                    status="accepted_with_delay",
+                    expected_delay_ms=current_queue_size * 10,  # Estimate
+                    suggested_retry_delay=5
+                )
+                
+            except asyncio.TimeoutError:
+                # Queue full even with timeout
+                self.metrics['requests_rejected'] += 1
+                raise BackpressureError("Queue full", retry_after=10, http_status=503)
+        
+        else:
+            # NORMAL: Accept request normally
+            await self.request_queue.put(request_data)
+            return {"status": "accepted", "queue_position": current_queue_size}
+    
+    async def _process_requests(self):
+        """Background worker to process queued requests"""
+        
+        while True:
+            try:
+                request_data = await self.request_queue.get()
+                
+                # Process request
+                start_time = time.time()
+                result = await self._process_single_request(request_data)
+                processing_time = time.time() - start_time
+                
+                # Update metrics
+                self.metrics['requests_processed'] += 1
+                
+                # Mark task done
+                self.request_queue.task_done()
+                
+            except Exception as e:
+                logging.error(f"Request processing failed: {e}")
+    
+    async def _process_single_request(self, request_data):
+        """Process a single request (simulate work)"""
+        # Simulate processing time
+        await asyncio.sleep(0.1)
+        
+        return {"result": "processed", "data": request_data}
+
+class BackpressureError(Exception):
+    """Exception raised when backpressure forces request rejection"""
+    
+    def __init__(self, message, retry_after=None, http_status=503):
+        super().__init__(message)
+        self.retry_after = retry_after
+        self.http_status = http_status
+
+# Integration with Little's Law for queue management
+class QueueBasedLoadShedding:
+    """Use Little's Law to predict when to start shedding"""
+    
+    def __init__(self, target_latency_ms: float, processing_rate_per_second: float):
+        self.target_latency = target_latency_ms / 1000.0  # Convert to seconds
+        self.processing_rate = processing_rate_per_second
+        
+        # From Little's Law: L = λ × W
+        # To maintain target latency W, max queue size L = λ × W
+        self.max_healthy_queue_size = self.processing_rate * self.target_latency
+        
+    def should_shed_based_on_queue(self, current_queue_size: int, arrival_rate: float) -> tuple[bool, float]:
+        """Determine shedding based on predicted latency"""
+        
+        # Predict latency using current queue size and arrival rate
+        if self.processing_rate <= arrival_rate:
+            # System is unstable - shed aggressively
+            return True, 0.8
+        
+        # Calculate predicted wait time using M/M/1 model
+        utilization = arrival_rate / self.processing_rate
+        avg_queue_size = utilization / (1 - utilization)
+        predicted_latency = avg_queue_size / arrival_rate
+        
+        if predicted_latency > self.target_latency:
+            # Need to shed to maintain latency target
+            excess_latency = predicted_latency - self.target_latency
+            shed_rate = min(excess_latency / self.target_latency, 0.9)
+            return True, shed_rate
+        
+        return False, 0.0
+
+# HTTP 503 strategies for graceful overload handling
+class GracefulOverloadHandler:
+    """Handle HTTP 503 responses with proper retry logic"""
+    
+    def __init__(self):
+        self.overload_start_time = None
+        self.consecutive_503s = 0
+        
+    def generate_503_response(self, reason: str, queue_depth: int) -> dict:
+        """Generate proper HTTP 503 response"""
+        
+        self.consecutive_503s += 1
+        if self.overload_start_time is None:
+            self.overload_start_time = time.time()
+        
+        # Calculate retry delay based on queue depth and consecutive rejections
+        base_retry_delay = min(30, queue_depth * 0.1)  # 0.1s per queued request, max 30s
+        backoff_multiplier = min(4, self.consecutive_503s * 0.5)
+        retry_after = int(base_retry_delay * backoff_multiplier)
+        
+        return {
+            'status': 503,
+            'headers': {
+                'Retry-After': str(retry_after),
+                'X-Queue-Depth': str(queue_depth),
+                'X-Overload-Reason': reason,
+                'Connection': 'close'  # Don't keep connections open during overload
+            },
+            'body': {
+                'error': 'Service temporarily overloaded',
+                'retry_after_seconds': retry_after,
+                'queue_depth': queue_depth,
+                'reason': reason
+            }
+        }
+    
+    def reset_overload_state(self):
+        """Reset overload state when system recovers"""
+        self.overload_start_time = None  
+        self.consecutive_503s = 0
+```
+
+**Key Insights**:
+- **Backpressure**: Control flow at the source rather than letting queues explode
+- **HTTP 503**: Better to reject some requests cleanly than to fail all requests
+- **Bounded Queues**: Prevent memory exhaustion with finite queue sizes
+- **Little's Law**: Use queueing theory to predict when to start shedding
+- **Graceful Degradation**: System should degrade gracefully, not collapse catastrophically
+
+---
+
+## Part VII: System vs Component Optimization: The Holistic View (15 minutes)
+
+### The Component Optimization Trap
+
+**The dangerous fallacy**: Optimizing individual components can hurt overall system performance.
+
+```python
+import time
+import asyncio
+from typing import List
+import statistics
+
+class ComponentOptimizationDemo:
+    """Demonstrate how component optimization can hurt system performance"""
+    
+    def __init__(self):
+        # Simulate microservices with different characteristics
+        self.services = {
+            'auth': {'latency_ms': 50, 'capacity_rps': 1000},
+            'profile': {'latency_ms': 100, 'capacity_rps': 500}, 
+            'recommendations': {'latency_ms': 200, 'capacity_rps': 200},
+            'analytics': {'latency_ms': 500, 'capacity_rps': 100}
+        }
+    
+    async def simulate_request_pipeline(self, optimized_service=None):
+        """Simulate a request that hits multiple services"""
+        
+        services_to_call = ['auth', 'profile', 'recommendations', 'analytics']
+        service_times = []
+        
+        for service_name in services_to_call:
+            service = self.services[service_name]
+            
+            # If this service is "optimized", make it much faster
+            if service_name == optimized_service:
+                latency = service['latency_ms'] * 0.1  # 10x faster!
+            else:
+                latency = service['latency_ms']
+            
+            # Simulate service call
+            start_time = time.time()
+            await asyncio.sleep(latency / 1000.0)  # Convert to seconds
+            actual_time = (time.time() - start_time) * 1000  # Back to ms
+            
+            service_times.append(actual_time)
+        
+        total_time = sum(service_times)
+        return {
+            'total_time_ms': total_time,
+            'service_breakdown': dict(zip(services_to_call, service_times)),
+            'bottleneck': services_to_call[service_times.index(max(service_times))]
+        }
+    
+    async def compare_optimizations(self, num_requests=100):
+        """Compare different optimization strategies"""
+        
+        results = {}
+        
+        # Baseline - no optimizations
+        baseline_times = []
+        for _ in range(num_requests):
+            result = await self.simulate_request_pipeline()
+            baseline_times.append(result['total_time_ms'])
+        
+        results['baseline'] = {
+            'p50': statistics.median(baseline_times),
+            'p95': statistics.quantiles(baseline_times, n=20)[18],  # 95th percentile
+            'mean': statistics.mean(baseline_times)
+        }
+        
+        # Try optimizing each service individually
+        for service_name in self.services:
+            optimized_times = []
+            for _ in range(num_requests):
+                result = await self.simulate_request_pipeline(optimized_service=service_name)
+                optimized_times.append(result['total_time_ms'])
+            
+            results[f'optimized_{service_name}'] = {
+                'p50': statistics.median(optimized_times),
+                'p95': statistics.quantiles(optimized_times, n=20)[18],
+                'mean': statistics.mean(optimized_times),
+                'improvement': results['baseline']['p50'] - statistics.median(optimized_times)
+            }
+        
+        return results
+
+# Little's Law across the pipeline
+class PipelineLatencyAnalysis:
+    """Analyze how Little's Law applies across service pipelines"""
+    
+    def __init__(self):
+        # Each service has different processing characteristics
+        self.pipeline_services = [
+            {'name': 'load_balancer', 'processing_time_ms': 5, 'queue_capacity': 10000},
+            {'name': 'auth_service', 'processing_time_ms': 50, 'queue_capacity': 1000},
+            {'name': 'business_logic', 'processing_time_ms': 100, 'queue_capacity': 500},
+            {'name': 'database', 'processing_time_ms': 20, 'queue_capacity': 200},
+            {'name': 'response_formatting', 'processing_time_ms': 10, 'queue_capacity': 2000}
+        ]
+    
+    def calculate_pipeline_bottleneck(self, request_rate_rps: int):
+        """Find the bottleneck service in the pipeline"""
+        
+        bottleneck_analysis = []
+        
+        for service in self.pipeline_services:
+            # Calculate service capacity
+            service_capacity_rps = 1000.0 / service['processing_time_ms']  # Convert ms to RPS
+            
+            # Calculate utilization
+            utilization = request_rate_rps / service_capacity_rps
+            
+            # Calculate queue size using Little's Law: L = λ × W
+            if utilization >= 1.0:
+                # Unstable system
+                avg_queue_size = float('inf')
+                avg_response_time = float('inf')
+            else:
+                # M/M/1 queue formulas
+                avg_queue_size = utilization / (1 - utilization)
+                avg_response_time = service['processing_time_ms'] / (1 - utilization)
+            
+            bottleneck_analysis.append({
+                'service': service['name'],
+                'capacity_rps': service_capacity_rps,
+                'utilization': utilization,
+                'avg_queue_size': avg_queue_size,
+                'avg_response_time_ms': avg_response_time,
+                'is_bottleneck': utilization > 0.8,  # 80% threshold
+                'stability': 'stable' if utilization < 1.0 else 'unstable'
+            })
+        
+        # Sort by utilization to find worst bottleneck
+        bottleneck_analysis.sort(key=lambda x: x['utilization'], reverse=True)
+        
+        return bottleneck_analysis
+    
+    def demonstrate_optimization_impact(self):
+        """Show how optimizing wrong component wastes effort"""
+        
+        request_rates = [50, 100, 200, 300, 400, 500]
+        
+        for rate in request_rates:
+            print(f"\n=== Request Rate: {rate} RPS ===")
+            analysis = self.calculate_pipeline_bottleneck(rate)
+            
+            stable_services = [s for s in analysis if s['stability'] == 'stable']
+            unstable_services = [s for s in analysis if s['stability'] == 'unstable']
+            
+            if unstable_services:
+                print(f"⚠️  UNSTABLE SERVICES: {[s['service'] for s in unstable_services]}")
+                print(f"   System will collapse - infinite queues!")
+            
+            # Show top 3 bottlenecks
+            print("Top bottlenecks:")
+            for i, service in enumerate(analysis[:3]):
+                if service['utilization'] == float('inf'):
+                    util_str = "∞"
+                else:
+                    util_str = f"{service['utilization']:.1%}"
+                
+                print(f"  {i+1}. {service['service']}: {util_str} utilization")
+                
+                if service['avg_response_time_ms'] != float('inf'):
+                    print(f"     → Response time: {service['avg_response_time_ms']:.1f}ms")
+                    print(f"     → Queue size: {service['avg_queue_size']:.1f}")
+            
+            # Optimization advice
+            worst_bottleneck = analysis[0]
+            if worst_bottleneck['utilization'] > 0.8:
+                print(f"\n💡 OPTIMIZATION ADVICE:")
+                print(f"   Focus on: {worst_bottleneck['service']}")
+                print(f"   Why: {worst_bottleneck['utilization']:.1%} utilization")
+                print(f"   Impact: Optimizing other services will have minimal effect")
+
+# Demonstrate the concepts
+async def run_optimization_demo():
+    """Run the component optimization demonstration"""
+    
+    print("=== Component vs System Optimization Demo ===\n")
+    
+    demo = ComponentOptimizationDemo()
+    results = await demo.compare_optimizations(num_requests=50)
+    
+    print("Optimization Results (P50 latency):")
+    baseline_p50 = results['baseline']['p50']  
+    print(f"Baseline: {baseline_p50:.1f}ms")
+    
+    for key, data in results.items():
+        if key.startswith('optimized_'):
+            service_name = key.replace('optimized_', '')
+            improvement = data['improvement']
+            improvement_pct = (improvement / baseline_p50) * 100
+            
+            print(f"{service_name}: {data['p50']:.1f}ms ({improvement_pct:+.1f}% improvement)")
+    
+    print(f"\n🔍 Key Insight: Optimizing the slowest service (analytics) gives biggest impact")
+    print(f"   Optimizing fast services (auth) barely helps overall latency")
+
+# Pipeline analysis
+pipeline_analyzer = PipelineLatencyAnalysis()
+pipeline_analyzer.demonstrate_optimization_impact()
+
+# Run the demo
+# await run_optimization_demo()
+```
+
+**The Critical Insight**: Service A: 5ms, Service B: 100ms P95 → user feels 100ms+
+
+**System optimization beats component optimization**:
+- Optimize the bottleneck, not the fastest component
+- Profile the entire request path, not individual services
+- Consider queue interactions between services
+- Focus on end-to-end latency, not service-level latency
+
+---
+
+## Part VIII: Modern Performance Patterns and Anti-Patterns (15 minutes)
 
 ### Anti-Pattern 1: The N+1 Query Problem
 
@@ -2545,27 +3763,34 @@ Performance and scale are not afterthoughts—they're architectural decisions th
    - Memory capacity
 
 2. **Where are my bottlenecks?**
-   - Measure, don't guess
+   - Measure, don't guess (avoid coordinated omission)
    - Profile hot paths
    - Monitor queue depths
+   - Focus on P99 latency, not averages
 
 3. **What's my scaling strategy?**
    - Vertical vs horizontal
    - Read replicas vs sharding
    - Caching vs computation
+   - System-level vs component-level optimization
 
 4. **How do I handle peak load?**
-   - Load balancing algorithms
-   - Circuit breakers
-   - Graceful degradation
+   - Advanced load balancing algorithms (power of two choices)
+   - Backpressure and load shedding
+   - Tail latency mitigation (hedged requests, tail cutting)
+   - Circuit breakers and graceful degradation
 
 ### The Mental Models That Matter
 
 **Performance Cliff**: Response time explodes exponentially near capacity utilization
+**Tail Latency Dominance**: P99 latency becomes your user experience at scale
 **N+1 Problem**: The most expensive query is often the one you don't see
-**Cache Coherence**: Fast local state vs consistent global state
+**Cache-Consistency Paradox**: Every cache is a consistency trade-off (Phil Karlton's problem)
+**Coordinated Omission**: Your monitoring might be lying about worst-case performance
+**System vs Component**: Optimizing the fastest service rarely helps overall latency
 **Sync vs Async**: Blocking I/O is the enemy of scale
 **Connection Pooling**: Connection establishment cost dominates at scale
+**Backpressure Principle**: Control flow at the source, not the destination
 
 ### The Tools in Your Toolkit
 

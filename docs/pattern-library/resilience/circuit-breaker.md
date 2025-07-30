@@ -59,6 +59,17 @@ production_checklist:
 
 [Home](/) > [Pattern Library](/pattern-library/) > [Resilience Patterns](/pattern-library/resilience/) > Circuit Breaker
 
+## Pattern Summary
+
+| Aspect | Detail |
+|--------|--------|
+| **Problem Solved** | Prevent cascade failures when services are unhealthy |
+| **When to Use** | External service calls, database connections, microservice communication |
+| **Key Benefits** | Fast failure detection, resource protection, automatic recovery |
+| **Trade-offs** | Added complexity, eventual consistency during failures |
+| **Time to Read** | 45 minutes |
+| **Implementation** | Intermediate difficulty |
+
 **Fail fast, recover gracefully - The electrical metaphor that saves systems**
 
 > *"Like a house circuit breaker that trips to prevent fires, software circuit breakers trip to prevent cascade failures."*
@@ -114,14 +125,22 @@ Imagine your home's electrical panel:
 ```mermaid
 stateDiagram-v2
     [*] --> Closed
-    Closed --> Open: Failure Threshold Met
-    Open --> HalfOpen: Recovery Timeout
-    HalfOpen --> Closed: Test Success
-    HalfOpen --> Open: Test Failure
+    Closed --> Open: Failure Threshold Met<br/>(e.g., 5 failures in 10 requests)
+    Open --> HalfOpen: Recovery Timeout<br/>(e.g., after 30 seconds)
+    HalfOpen --> Closed: Test Success<br/>(e.g., 3 consecutive successes)
+    HalfOpen --> Open: Test Failure<br/>(any test request fails)
     
-    Closed: Allow all requests<br/>Monitor failures
-    Open: Block all requests<br/>Fail fast
-    HalfOpen: Allow test requests<br/>Check if recovered
+    Closed: 🟢 CLOSED<br/>Allow all requests<br/>Monitor failures
+    Open: 🔴 OPEN<br/>Block all requests<br/>Fail fast with fallback
+    HalfOpen: 🟡 HALF-OPEN<br/>Allow limited test requests<br/>Check if service recovered
+    
+    classDef closedState fill:#81c784,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef openState fill:#ef5350,stroke:#c62828,stroke-width:2px,color:#fff
+    classDef halfOpenState fill:#ffb74d,stroke:#f57c00,stroke-width:2px,color:#000
+    
+    class Closed closedState
+    class Open openState
+    class HalfOpen halfOpenState
 ```
 
 ### Simple State Machine
@@ -1433,42 +1452,41 @@ Clear runbooks for when circuits open:
 
 ### Decision Framework
 
-<table class="responsive-table">
-<thead>
-<tr>
-<th>Question</th>
-<th>Yes → Use Circuit Breaker</th>
-<th>No → Alternative</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Question">Calling external services?</td>
-<td data-label="Yes → Use Circuit Breaker">✅ Essential</td>
-<td data-label="No → Alternative">⚠️ Consider for internal services</td>
-</tr>
-<tr>
-<td data-label="Question">Risk of cascade failures?</td>
-<td data-label="Yes → Use Circuit Breaker">✅ High priority</td>
-<td data-label="No → Alternative">⚠️ Simple retry may suffice</td>
-</tr>
-<tr>
-<td data-label="Question">Can implement fallbacks?</td>
-<td data-label="Yes → Use Circuit Breaker">✅ Maximum benefit</td>
-<td data-label="No → Alternative">⚠️ Still valuable for fast failure</td>
-</tr>
-<tr>
-<td data-label="Question">Service has SLA?</td>
-<td data-label="Yes → Use Circuit Breaker">✅ Protect your SLA</td>
-<td data-label="No → Alternative">⚠️ Monitor and alert instead</td>
-</tr>
-<tr>
-<td data-label="Question">High traffic volume?</td>
-<td data-label="Yes → Use Circuit Breaker">✅ Prevents resource exhaustion</td>
-<td data-label="No → Alternative">⚠️ Simple timeout may work</td>
-</tr>
-</tbody>
-</table>
+```mermaid
+graph TD
+    A[Need failure protection?] --> B{Calling external<br/>services?}
+    B -->|Yes| C{Risk of cascade<br/>failures?}
+    B -->|No| D[Consider simple<br/>timeout]
+    
+    C -->|Yes| E{Can implement<br/>fallbacks?}
+    C -->|No| F[Use retry pattern]
+    
+    E -->|Yes| G[✅ Use Circuit Breaker<br/>Maximum benefit]
+    E -->|No| H[✅ Use Circuit Breaker<br/>Still valuable for<br/>fast failure]
+    
+    G --> I{High traffic<br/>volume?}
+    H --> I
+    
+    I -->|Yes| J[Advanced Circuit Breaker<br/>with distributed state]
+    I -->|No| K[Basic Circuit Breaker<br/>single instance]
+    
+    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef alternative fill:#ffb74d,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef avoid fill:#ef5350,stroke:#c62828,stroke-width:2px,color:#fff
+    
+    class G,H,J,K recommended
+    class D,F alternative
+```
+
+### Quick Decision Matrix
+
+| Question | Yes → Use Circuit Breaker | No → Alternative |
+|----------|--------------------------|------------------|
+| **Calling external services?** | ✅ Essential | ⚠️ Consider for internal services |
+| **Risk of cascade failures?** | ✅ High priority | ⚠️ Simple retry may suffice |
+| **Can implement fallbacks?** | ✅ Maximum benefit | ⚠️ Still valuable for fast failure |
+| **Service has SLA?** | ✅ Protect your SLA | ⚠️ Monitor and alert instead |
+| **High traffic volume?** | ✅ Prevents resource exhaustion | ⚠️ Simple timeout may work |
 
 
 ### Implementation Checklist
@@ -1876,10 +1894,10 @@ circuit_breaker:
 ## Related Patterns
 
 ### Resilience Patterns
-- **[Retry & Backoff](patterns/retry-backoff)**: Works together for handling transient failures
-- **[Bulkhead Pattern](patterns/bulkhead)**: Isolates resources to complement circuit breaking
-- **[Timeout Pattern](patterns/timeout)**: Triggers circuit breaker state changes
-- **[Fallback Pattern](patterns/graceful-degradation)**: Provides degraded functionality when open
+- **[Retry & Backoff](../resilience/retry-backoff.md)**: Handles transient failures - circuit breaker prevents retry storms by wrapping retry logic
+- **[Bulkhead Pattern](../resilience/bulkhead.md)**: Isolates resource pools - use separate circuit breakers per bulkhead for fine-grained failure isolation
+- **[Timeout Pattern](../resilience/timeout.md)**: Bounds wait time - timeouts trigger circuit breaker failures and state transitions
+- **[Graceful Degradation](../resilience/graceful-degradation.md)**: Provides fallback functionality - essential for meaningful circuit breaker behavior when open
 
 ### Prevention Patterns
 - **[Rate Limiting](patterns/rate-limiting)**: Prevents overload before circuit trips

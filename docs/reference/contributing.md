@@ -59,66 +59,53 @@ tags:
 
 </div>
 
+## :material-rocket: Getting Started
+
+### Quick Setup
+1. **Fork** the repository on GitHub
+2. **Install** MkDocs: `pip install -r requirements.txt`  
+3. **Test locally**: `mkdocs serve` (access at http://127.0.0.1:8000)
+4. **Make changes** and verify they render correctly
+5. **Submit** a pull request
+
 ## :material-format-list-checks: Contribution Process
 
-### 1. Before You Start
+| Step | Action | Details |
+|------|--------|---------|
+| 🔍 **1. Research** | Check existing issues | Review [open issues](https://github.com/deepaucksharma/DStudio/issues) and ongoing work |
+| 🔧 **2. Setup** | Fork and clone repository | Create your development environment |
+| ✏️ **3. Create** | Make your changes | Follow our quality standards (see below) |
+| 🧪 **4. Test** | Verify locally | Run `mkdocs serve` and check all changes |
+| 📤 **5. Submit** | Create pull request | Use our template and checklist |
 
-!!! tip "Check First"
-    - Review existing [issues](https://github.com/deepaucksharma/DStudio/issues)
-    - Check if your contribution is already being worked on
-    - For major changes, open an issue for discussion first
+### Quality Standards Checklist
 
-### 2. Making Changes
-
-```bash
-# Fork and clone the repository
-git clone https://github.com/YOUR-USERNAME/DStudio.git
-cd DStudio
-
-# Create a feature branch
-git checkout -b feature/your-contribution
-
-# Make your changes
-# Test locally with: mkdocs serve
-
-# Commit with clear message
-git commit -m "Add: Clear description of change"
-```
-
-### 3. Submission Guidelines
-
-!!! warning "Quality Standards"
+!!! success "All contributions must meet these standards"
     
-    All contributions must:
+    **Technical Requirements**
+    - [ ] Follows existing markdown formatting and style
+    - [ ] Includes proper metadata (title, description, tags)
+    - [ ] All links work correctly (no broken references)
+    - [ ] Diagrams use consistent Mermaid syntax
+    - [ ] Builds successfully with `mkdocs build`
     
-    - Follow existing formatting and style
-    - Include proper navigation (breadcrumbs, prev#)
-    - Add appropriate tags and metadata
-    - Pass build tests
-    - Be technically accurate
+    **Content Requirements**
+    - [ ] Technically accurate and current
+    - [ ] Uses clear, concise language
+    - [ ] Includes relevant examples or diagrams
+    - [ ] Cross-references related concepts appropriately
+    - [ ] Maintains consistent terminology with glossary
 
-### 4. Pull Request Template
+### Pull Request Template
 
-```markdown
-## Description
-Brief description of changes
+When submitting a PR, please include:
 
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Documentation update
-- [ ] Performance improvement
-
-## Testing
-- [ ] Tested locally with `mkdocs serve`
-- [ ] Verified navigation works
-- [ ] Checked responsive design
-
-## Checklist
-- [ ] Follows style guidelines
-- [ ] Self-review completed
-- [ ] No broken links
-```
+| Section | Required Info |
+|---------|---------------|
+| **Description** | Clear summary of what changed and why |
+| **Type** | Bug fix, new feature, documentation, or performance |
+| **Testing** | Confirmation that `mkdocs serve` works locally |
+| **Self-Review** | You've checked your own changes thoroughly |
 
 ## :material-pencil: Content Guidelines
 
@@ -165,6 +152,24 @@ tags:
 [Navigation footer]
 ```
 
+### Visual Content Guidelines
+
+!!! tip "Diagrams and Images"
+    
+    **Preferred**: Use Mermaid diagrams for consistency
+    ```mermaid
+    graph LR
+        A[Component A] --> B[Component B]
+        B --> C[Component C]
+    ```
+    
+    **Requirements**:
+    - Use consistent color schemes and styling
+    - Include alt text for accessibility  
+    - Keep file sizes reasonable (<1MB for images)
+    - Use SVG format when possible
+    - Test rendering on different screen sizes
+
 ### Code Examples
 
 !!! example "Code Standards"
@@ -177,10 +182,11 @@ tags:
         return "result"
     ```
     
-    - Include language hints
-    - Keep examples focused
-    - Show both good and bad practices
-    - Test all code
+    **Requirements**:
+    - Include appropriate language hints
+    - Keep examples focused and practical
+    - Test all code for accuracy
+    - Use realistic variable names and scenarios
 
 ## :material-shield-check: Legal
 

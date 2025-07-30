@@ -18,14 +18,25 @@ pattern_status: stable
     - Uber: 20M+ trips with real-time tracking
     - Netflix: Billions of events processed
 
+## Pattern Summary
+
+| Aspect | Detail |
+|--------|--------|
+| **Problem Solved** | Optimize different workloads by separating read and write models |
+| **When to Use** | High read/write ratios (>10:1), complex domain logic, different scaling needs |
+| **Key Benefits** | Independent scaling, optimized performance, multiple view models |
+| **Trade-offs** | Eventual consistency, infrastructure complexity, synchronization overhead |
+| **Time to Read** | 30 minutes |
+| **Implementation** | Advanced difficulty |
+
 !!! abstract "⚙️ Architectural Pattern"
  Separate read and write models to independently optimize complex business operations and high-performance queries.
  
  **Connected Laws**: Law 2 (Asynchronous Reality) • Law 4 (Multidimensional Optimization)
 
-## Problem Statement
+## The Essential Question
 
-**How can we optimize both complex business operations and high-performance queries when they have fundamentally different requirements?**
+**How can we optimize both complex writes and high-performance reads when they need completely different data models?**
 
 <div class="axiom-box">
 <h4>🔬 Law 4: Multidimensional Trade-offs</h4>

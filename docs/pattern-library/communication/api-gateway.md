@@ -54,7 +54,7 @@ related_pillars: [control, work]
 
 ## The Essential Question
 
-**How can we provide a unified interface to multiple microservices while handling cross-cutting concerns like authentication, rate limiting, and protocol translation?**
+**How can clients make a single request and let the platform handle routing, security, and protocol conversion?**
 
 <div class="axiom-box">
 <h4>⚛️ Fundamental Principle: Control Distribution</h4>
@@ -80,18 +80,37 @@ API Gateway works the same way: clients make requests to one endpoint, and the g
 
 ### Visual Metaphor
 
+```mermaid
+graph TD
+    subgraph "Without API Gateway"
+        C1[Client] --> AS[Auth Service]
+        C1 --> US[User Service]
+        C1 --> OS[Order Service]
+        C1 --> PS[Payment Service]
+        C1 --> IS[Inventory Service]
+    end
+    
+    subgraph "With API Gateway"
+        C2[Client] --> GW[API Gateway]
+        GW -.-> AUTH[Auth: Handled]
+        GW --> US2[User Service]
+        GW --> OS2[Order Service]
+        GW --> PS2[Payment Service]
+        GW --> IS2[Inventory Service]
+    end
+    
+    classDef client fill:#5448C8,stroke:#3f33a6,color:#fff
+    classDf gateway fill:#00BCD4,stroke:#0097a7,color:#fff
+    classDef service fill:#81c784,stroke:#388e3c,color:#000
+    classDef crosscutting fill:#ffb74d,stroke:#f57c00,color:#000
+    
+    class C1,C2 client
+    class GW gateway
+    class AS,US,OS,PS,IS,US2,OS2,PS2,IS2 service
+    class AUTH crosscutting
 ```
-Without API Gateway: With API Gateway:
 
-Client → Auth Service Client → API Gateway
- → User Service ├─→ Auth (handled)
- → Order Service ├─→ User Service
- → Payment Service ├─→ Order Service
- → Inventory Service └─→ Payment Service
- 
-Multiple connections Single entry point
-Complex client logic Simple client interface
-```
+**Key Insight**: Multiple connections vs. single entry point - Simple client interface instead of complex client logic
 
 ### In One Sentence
 
@@ -1174,10 +1193,10 @@ POST /circuit-breakers/{service}/reset
 ## Related Resources
 
 ### Patterns
-- Service Mesh (Coming Soon) - Service-to-service communication
-- [Circuit Breaker](../resilience/circuit-breaker.md) - Handling downstream failures
-- [Rate Limiting](../resilience/rate-limiting.md) - Protecting backend services
-- [Saga Pattern](../coordination/saga.md) - Distributed transactions through gateway
+- **[Service Mesh](../architecture/service-mesh.md)**: Service-to-service communication - complements API Gateway for internal traffic management
+- **[Circuit Breaker](../resilience/circuit-breaker.md)**: Prevents cascade failures - essential for protecting backend services from API Gateway
+- **[Rate Limiting](../scaling/rate-limiting.md)**: Controls request flow - implement at gateway level to protect all downstream services
+- **[Saga Pattern](../coordination/saga.md)**: Manages distributed transactions - API Gateway can coordinate saga execution across services
 
 ### Laws
 - [Law 6 (Cognitive Load )](part1-axioms/law6-human-api) - API design principles

@@ -8,10 +8,12 @@ hide:
 
 # The Compendium of Distributed Systems
 
-!!! abstract "Excellence Patterns Hub"
-    **Transform your distributed systems with physics-based understanding and proven patterns.**
+!!! abstract "Comprehensive Guide for Engineers & Architects Building Distributed Systems"
+    **Master distributed systems through physics-derived principles and battle-tested patterns.**
     
-    **7 Fundamental Laws** • **5 Core Pillars** • **101 Design Patterns** • **150+ Real Examples**
+    **7 Fundamental Laws** • **5 Core Pillars** • **112 Design Patterns** • **150+ Real Examples**
+
+Welcome to the definitive resource for understanding distributed systems from first principles. This compendium organizes complex concepts into a physics-based framework that reveals the immutable laws governing all distributed architectures. Whether you're a new graduate learning the fundamentals or a senior architect designing systems at scale, this guide provides maximum conceptual depth with minimum cognitive load.
 
 ## Start Your Journey
 
@@ -21,7 +23,7 @@ hide:
     
     ---
     
-    Master the fundamental laws and pillars that govern all distributed systems
+    Master the 7 fundamental laws derived from physics and 5 core pillars that govern all distributed systems
     
     [:octicons-arrow-right-24: Learn Principles](core-principles/){ .md-button .md-button--primary }
 
@@ -29,25 +31,25 @@ hide:
     
     ---
     
-    Explore 101+ battle-tested patterns organized by problem domain
+    Discover 112 battle-tested patterns with interactive filtering by excellence tier and problem domain
     
-    [:octicons-arrow-right-24: Browse Patterns](pattern-library/){ .md-button }
+    [:octicons-arrow-right-24: Browse Patterns](pattern-library/){ .md-button .md-button--primary }
 
 - :material-tools:{ .lg } **Architect's Handbook**
     
     ---
     
-    Real-world case studies, implementation guides, and quantitative tools
+    Apply your knowledge with real case studies, implementation playbooks, and analytical tools
     
-    [:octicons-arrow-right-24: Access Handbook](architects-handbook/){ .md-button }
+    [:octicons-arrow-right-24: Access Handbook](architects-handbook/){ .md-button .md-button--primary }
 
 - :material-school-outline:{ .lg } **Interview Prep**
     
     ---
     
-    Ace your system design interviews with frameworks and practice problems
+    Excel in system design interviews with proven frameworks and practice problems from FAANG companies
     
-    [:octicons-arrow-right-24: Start Prep](interview-prep/){ .md-button }
+    [:octicons-arrow-right-24: Start Prep](interview-prep/){ .md-button .md-button--primary }
 
 </div>
 
@@ -91,13 +93,13 @@ hide:
 
 ## Quick Links
 
-| Resource | Description |
-|----------|-------------|
-| [Getting Started Guide](core-principles/) | Begin your distributed systems journey |
-| [Pattern Discovery Tool](pattern-library/) | Find patterns for your specific challenges |
-| [Excellence Framework](architects-handbook/#excellence-framework) | Build and operate world-class systems |
-| [Learning Paths](core-principles/#learning-paths) | Customized paths for different roles |
-| [Quantitative Analysis](architects-handbook/quantitative-analysis/) | Mathematical tools and calculators |
+| Priority | Resource | Description |
+|----------|----------|-------------|
+| 🚀 | [Getting Started Guide](core-principles/) | Essential first steps - start here if you're new to distributed systems |
+| 🔍 | [Pattern Discovery Tool](pattern-library/) | Interactive filtering to find patterns for your specific architecture challenges |
+| 🎯 | [Learning Paths](core-principles/#learning-paths) | Role-specific curricula for graduates, seniors, architects, and managers |
+| 🏆 | [Excellence Framework](architects-handbook/#excellence-framework) | Maturity assessment and roadmaps for building world-class systems |
+| 📊 | [Quantitative Analysis](architects-handbook/quantitative-analysis/) | Calculators for capacity planning, performance modeling, and cost estimation |
 
 ---
 
