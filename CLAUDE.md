@@ -36,16 +36,33 @@ python3 scripts/check-navigation.py
 - `mkdocs.yml` - Main configuration defining site structure, theme, plugins, and navigation
 - `requirements.txt` - Python dependencies for MkDocs and plugins
 - `.github/workflows/deploy.yml` - GitHub Actions workflow for automatic deployment to GitHub Pages
+- `CONTRIBUTING.md` - Contribution guidelines for the project
 - `docs/` - All documentation content organized hierarchically:
   - `introduction/` - Getting started guides and learning paths
   - `part1-axioms/` - 7 fundamental laws (Correlated Failure, Asynchronous Reality, Emergent Chaos, etc.)
   - `part2-pillars/` - 5 foundational pillars (Work, State, Truth, Control, Intelligence)
   - `patterns/` - 101 architectural patterns with excellence tiers (Gold/Silver/Bronze)
+  - `pattern-library/` - Individual pattern documentation organized by category
   - `excellence/` - Excellence framework with guides, migrations, and case studies
   - `quantitative/` - Mathematical toolkit (Little's Law, Queueing Theory, Scaling Laws, etc.)
   - `human-factors/` - Operational excellence (SRE, Chaos Engineering, Observability, etc.)
   - `reference/` - Glossary, cheat sheets, pattern health dashboard, security considerations
   - `stylesheets/` - Custom CSS including `extra.css` and `pattern-filtering.css`
+
+### Supporting Directories
+- `podcast-content/` - Podcast episodes and related content:
+  - `01-foundational-series/` - Core concept episodes
+  - `02-pattern-mastery-series/` - Pattern deep-dives
+  - `03-architecture-deep-dives-series/` - Company architecture analyses
+  - `enhancement-summaries/` - Episode enhancement documentation
+  - `series-planning/` - Future series planning documents
+- `project-docs/` - Internal project documentation:
+  - `tracking/` - Progress tracking files
+  - `summaries/` - Project summaries
+  - `pattern-planning/` - Pattern library improvement plans
+- `reports/` - Project status reports and analysis
+- `scripts/` - Utility scripts for validation and maintenance
+- `data/` - Data files for pattern health metrics
 
 ### Content Philosophy
 The documentation follows a unique pedagogical approach:
@@ -250,6 +267,16 @@ Key planned enhancements:
 6. **Excellence Framework Phase 2**: Advanced features like pattern combinations, architecture templates
 
 ## Important Notes
+
+### Repository Organization
+The repository follows a clean structure with clear separation of concerns:
+- **User-facing documentation**: All in `docs/` directory
+- **Internal project files**: Organized in `project-docs/`
+- **Podcast content**: Centralized in `podcast-content/`
+- **Reports and analysis**: Maintained in `reports/` with archive
+- **Root directory**: Contains only essential files (README, CONTRIBUTING, CLAUDE, mkdocs.yml, requirements.txt)
+
+For detailed repository structure, see `REPOSITORY_ORGANIZATION.md`
 
 ### Lint and Testing
 Currently, there are no automated linting or testing commands for the documentation. When modifying content:
