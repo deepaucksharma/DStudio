@@ -322,43 +322,82 @@ class RequestReplyGateway:
             await self.broker.subscribe(service_name, handler)
 ```
 
-### Performance Optimization
+### Performance Optimization Strategies
 
-| Technique | Impact | Implementation |
-|-----------|--------|----------------|
-| **Connection Pooling** | 10x throughput | Reuse reply channels |
-| **Batch Requests** | 5x efficiency | Group related requests |
-| **Reply Caching** | 90% hit rate | Cache frequent replies |
-| **Async Processing** | 3x concurrency | Non-blocking handlers |
+| Strategy | Technique | Impact | Trade-off |
+|----------|-----------|--------|-----------||
+| **Batching** | Group requests | 5x less overhead | Higher latency |
+| **Pooling** | Reuse connections | 10x throughput | Memory usage |
+| **Caching** | Store frequent replies | 90% hit rate | Stale data risk |
+| **Prefetch** | Anticipate requests | 50% faster | Wasted work |
+| **Compression** | Compress large replies | 70% bandwidth | CPU overhead |
+
+### Monitoring & Observability
+
+```mermaid
+graph LR
+    subgraph "Key Metrics"
+        M1[Request Rate]
+        M2[Reply Rate]
+        M3[Timeout Rate]
+        M4[Correlation Table Size]
+        M5[Reply Queue Depth]
+    end
+    
+    subgraph "Alerts"
+        A1[High Timeout Rate > 5%]
+        A2[Correlation Leak > 10K]
+        A3[Queue Buildup > 1K]
+    end
+    
+    M3 --> A1
+    M4 --> A2
+    M5 --> A3
+    
+    style A1 fill:#ffebee
+    style A2 fill:#ffebee
+    style A3 fill:#ffebee
+```
 
 ---
 
-## Quick Reference
+## Production Checklist
 
-### When to Use
-- ✅ Long-running operations
-- ✅ Service integration
-- ✅ Batch processing
-- ✅ Workflow orchestration
+### Essential Implementation
 
-### When to Avoid
-- ❌ Simple synchronous calls
-- ❌ Real-time requirements
-- ❌ Stateless operations
-- ❌ High-frequency trading
+| Component | Required | Configuration | Validation |
+|-----------|----------|---------------|------------|
+| **Correlation IDs** | ✅ | UUID or business key | Uniqueness test |
+| **Timeouts** | ✅ | 30s default, configurable | Load testing |
+| **Reply Queues** | ✅ | Auto-delete, exclusive | Queue metrics |
+| **Error Handling** | ✅ | Timeout, error replies | Error scenarios |
+| **Monitoring** | ✅ | Correlation table size | Leak detection |
+| **Cleanup** | ✅ | TTL-based eviction | Memory profiling |
+| **Retries** | ✅ | Exponential backoff | Circuit breaker |
+| **Idempotency** | ✅ | Dedup by correlation | Duplicate tests |
 
-### Best Practices
-1. **Always set timeouts** - Prevent resource leaks
-2. **Use correlation IDs** - Track request-reply pairs
-3. **Handle failures gracefully** - Timeouts, errors, retries
-4. **Clean up resources** - Delete temporary queues
-5. **Monitor correlation table** - Detect leaks
+### Decision Matrix
 
-### Common Mistakes
-- 🚫 Forgetting timeouts
-- 🚫 Not handling duplicates
-- 🚫 Synchronous mindset
-- 🚫 Ignoring ordering
+```mermaid
+graph TD
+    Start[Need Request-Response?] --> Q1{Over Message Queue?}
+    Q1 -->|No| REST[Use REST/RPC]
+    Q1 -->|Yes| Q2{Long Running?}
+    
+    Q2 -->|No| Q3{Simple Pattern?}
+    Q2 -->|Yes| RR[Use Request-Reply]
+    
+    Q3 -->|Yes| SYNC[Consider Sync Over Queue]
+    Q3 -->|No| RR
+    
+    RR --> Q4{Multiple Replies?}
+    Q4 -->|Yes| STREAM[Streaming Pattern]
+    Q4 -->|No| SINGLE[Single Reply Pattern]
+    
+    style RR fill:#4ade80
+    style REST fill:#60a5fa
+    style SYNC fill:#fbbf24
+```
 
 ---
 

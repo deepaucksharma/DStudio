@@ -56,8 +56,25 @@ production-checklist:
     - Redis Pub/Sub: Microsecond latency for real-time features
     - Google Pub/Sub: 500M messages/sec with global distribution
 
-## Essential Question
-**How do we broadcast events to multiple consumers without coupling producers to consumers?**
+## Essential Questions This Pattern Answers
+
+!!! question "Critical Decision Points"
+    1. **Do you need to broadcast events to multiple consumers?**
+       - If yes → Pub-sub provides 1-to-many communication
+       - If no → Consider point-to-point messaging or RPC
+    
+    2. **Should publishers and subscribers be decoupled?**
+       - If yes → Pub-sub allows independent evolution
+       - If no → Direct service calls might be simpler
+    
+    3. **Do consumers process at different rates?**
+       - If yes → Pub-sub provides temporal decoupling
+       - If no → Synchronous patterns might work
+    
+    4. **Is eventual consistency acceptable?**
+       - If yes → Pub-sub works perfectly
+       - If no → Need synchronous, transactional patterns
+
 
 ## When to Use / When NOT to Use
 
