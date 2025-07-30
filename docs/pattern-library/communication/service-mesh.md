@@ -1,9 +1,19 @@
 ---
 title: Service Mesh
-category: integration
+category: communication
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Infrastructure layer providing service-to-service communication, security,
+  and observability
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
+
 
 
 # Service Mesh

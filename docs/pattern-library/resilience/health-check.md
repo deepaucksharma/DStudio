@@ -1,31 +1,44 @@
 ---
 title: Health Check Pattern
-description: Monitor and verify service health status to enable automated recovery and intelligent load balancing
+description: Monitor and verify service health status to enable automated recovery
+  and intelligent load balancing
 type: pattern
 category: resilience
 difficulty: advanced
-reading_time: 10 min
-prerequisites: [monitoring, service-discovery, load-balancing]
-when_to_use: Microservices, load balancers, container orchestration, service mesh, auto-healing systems
-when_not_to_use: Single-instance apps, dev environments, systems without automated recovery
+reading-time: 10 min
+prerequisites:
+- monitoring
+- service-discovery
+- load-balancing
+when-to-use: Microservices, load balancers, container orchestration, service mesh,
+  auto-healing systems
+when-not-to-use: Single-instance apps, dev environments, systems without automated
+  recovery
 status: complete
-last_updated: 2025-07-26
-tags: [observability, reliability, service-health, monitoring, fault-detection]
+last-updated: 2025-07-26
+tags:
+- observability
+- reliability
+- service-health
+- monitoring
+- fault-detection
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2000-01
 current_relevance: mainstream
-modern_examples:
-  - company: Kubernetes
-    implementation: "Liveness and readiness probes for pod health management"
-    scale: "Millions of containers monitored globally"
-  - company: AWS
-    implementation: "ELB health checks route traffic only to healthy instances"
-    scale: "Trillions of health checks daily across all regions"
-  - company: Netflix
-    implementation: "Eureka service registry with health status propagation"
-    scale: "Thousands of services with real-time health tracking"
+modern-examples:
+- company: Kubernetes
+  implementation: Liveness and readiness probes for pod health management
+  scale: Millions of containers monitored globally
+- company: AWS
+  implementation: ELB health checks route traffic only to healthy instances
+  scale: Trillions of health checks daily across all regions
+- company: Netflix
+  implementation: Eureka service registry with health status propagation
+  scale: Thousands of services with real-time health tracking
+production-checklist: []
 ---
+
 
 # Health Check Pattern
 

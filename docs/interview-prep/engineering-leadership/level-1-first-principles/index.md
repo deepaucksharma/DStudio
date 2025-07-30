@@ -132,6 +132,39 @@ Mastering first principles is a career-long journey. Start by deeply understandi
 **Living the principles = Leader**  
 **Teaching the principles = Executive**
 
+## Cross-Principle Integration
+
+The power of first principles comes from their interconnection:
+
+- **[Value Creation](value-creation/) + [Decision-Making](decision-making/)**: Every decision should maximize value
+- **[Decision-Making](decision-making/) + [Human Behavior](human-behavior/)**: Great decisions need buy-in to succeed
+- **[Human Behavior](human-behavior/) + [Systems Thinking](systems-thinking/)**: People adapt to system incentives
+- **[Systems Thinking](systems-thinking/) + [Integrity](integrity-ethics/)**: Ethical systems produce ethical outcomes
+- **[Integrity](integrity-ethics/) + [Value Creation](value-creation/)**: Trust enables sustainable value
+
+## Next Steps
+
+### For New Engineering Managers
+1. Start with [Human Behavior](human-behavior/) - your biggest challenge will be people
+2. Add [Decision-Making](decision-making/) - learn to make quality decisions quickly
+3. Study [Value Creation](value-creation/) - connect your work to business impact
+
+### For Senior Managers
+1. Focus on [Systems Thinking](systems-thinking/) - see the bigger picture
+2. Deepen [Value Creation](value-creation/) - quantify and maximize impact
+3. Master [Integrity & Ethics](integrity-ethics/) - build lasting trust
+
+### For Directors and Above
+1. Lead with [Integrity & Ethics](integrity-ethics/) - set the cultural tone
+2. Apply [Systems Thinking](systems-thinking/) - design organizational systems
+3. Integrate all principles in your leadership philosophy
+
+### Interview Preparation Path
+1. **Week 1**: Read all five principles, identify personal examples
+2. **Week 2**: Map your best stories to multiple principles
+3. **Week 3**: Practice using principle language in mock interviews
+4. **Week 4**: Refine and polish your principle-based narratives
+
 ---
 
-*Ready to dive deep? Choose a principle to explore, or continue to [Level II: Core Business Concepts](../level-2-core-business/) to see how these principles become actionable disciplines.*
+*Ready to dive deep? Choose a principle to explore, or continue to [Level II: Core Business Concepts](../level-2-core-business/) to see how these principles become actionable disciplines. For hands-on application, jump to [Level III: Engineering Applications](../level-3-applications/).*

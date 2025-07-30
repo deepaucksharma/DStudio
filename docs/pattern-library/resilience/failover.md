@@ -1,43 +1,47 @@
 ---
 title: Failover Pattern
-description: Automatic switching to backup systems during failures to maintain high availability
+description: Automatic switching to backup systems during failures to maintain high
+  availability
 type: pattern
 category: resilience
 difficulty: intermediate
-reading_time: 35 min
-prerequisites: [health-check, load-balancing]
-when_to_use: High availability requirements, critical systems, disaster recovery scenarios
-when_not_to_use: Low-criticality systems, cost-sensitive deployments, simple applications
-related_laws:
-  - law1-failure
-  - law2-asynchrony
-  - law5-epistemology
-  - law7-economics
-related_pillars:
-  - state
-  - control
-  - intelligence
+reading-time: 35 min
+prerequisites:
+- health-check
+- load-balancing
+when-to-use: High availability requirements, critical systems, disaster recovery scenarios
+when-not-to-use: Low-criticality systems, cost-sensitive deployments, simple applications
+related-laws:
+- law1-failure
+- law2-asynchrony
+- law5-epistemology
+- law7-economics
+related-pillars:
+- state
+- control
+- intelligence
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: use-with-context
+pattern_status: use-with-expertise
 introduced: 1990-01
-current_relevance: stable
-trade_offs:
+current_relevance: mainstream
+trade-offs:
   pros:
-    - "Provides automatic recovery from failures"
-    - "Maintains service availability"
-    - "Well-understood and mature pattern"
+  - Provides automatic recovery from failures
+  - Maintains service availability
+  - Well-understood and mature pattern
   cons:
-    - "Often part of larger HA strategies"
-    - "Split-brain risks without proper fencing"
-    - "Data consistency challenges during switchover"
-best_for: "Database clusters, network equipment, simple active-passive setups"
-modern_alternatives: 
-  - "Multi-region active-active (for global scale)"
-  - "Service mesh with automatic retry (for microservices)"
-  - "Chaos engineering for proactive resilience"
+  - Often part of larger HA strategies
+  - Split-brain risks without proper fencing
+  - Data consistency challenges during switchover
+best-for: Database clusters, network equipment, simple active-passive setups
+modern-alternatives:
+- Multi-region active-active (for global scale)
+- Service mesh with automatic retry (for microservices)
+- Chaos engineering for proactive resilience
 ---
+
 
 # Failover Pattern
 

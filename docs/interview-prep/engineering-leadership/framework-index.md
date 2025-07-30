@@ -157,21 +157,23 @@ Embed framework language:
 
 ## Navigation Guide
 
-### By Experience Level
-- **New Managers (L5→L6)**: Start with Level III applications, then deepen with Levels I-II
-- **Senior Managers (L6→L7)**: Focus on Level II concepts and Level IV execution
-- **Directors+ (L7→L8+)**: Master Level I principles and their cascading effects
+> 📍 **For detailed navigation help**: See our comprehensive **[🧭 Navigation Guide](navigation-guide.md)** with personalized learning paths, time-based plans, and visual roadmaps.
+
+### Quick Overview by Experience Level
+- **New Managers (L5→L6)**: Start with [Level III applications](level-3-applications/), then deepen with [Levels I](level-1-first-principles/)-[II](level-2-core-business/)
+- **Senior Managers (L6→L7)**: Focus on [Level II concepts](level-2-core-business/) and [Level IV execution](level-4-interview-execution/)
+- **Directors+ (L7→L8+)**: Master [Level I principles](level-1-first-principles/) and their cascading effects
 
 ### By Interview Timeline
-- **12 Weeks Out**: Study Levels I-II deeply
-- **8 Weeks Out**: Practice Level III applications
-- **4 Weeks Out**: Polish Level IV execution
+- **12 Weeks Out**: Study [Levels I](level-1-first-principles/)-[II](level-2-core-business/) deeply
+- **8 Weeks Out**: Practice [Level III applications](level-3-applications/)
+- **4 Weeks Out**: Polish [Level IV execution](level-4-interview-execution/)
 - **1 Week Out**: Rehearse with framework language
 
 ### By Learning Style
-- **Conceptual Learners**: I → II → III → IV
-- **Practical Learners**: III → IV → II → I
-- **Case-Based Learners**: Start with Level IV stories, work backward
+- **Conceptual Learners**: [I](level-1-first-principles/) → [II](level-2-core-business/) → [III](level-3-applications/) → [IV](level-4-interview-execution/)
+- **Practical Learners**: [III](level-3-applications/) → [IV](level-4-interview-execution/) → [II](level-2-core-business/) → [I](level-1-first-principles/)
+- **Case-Based Learners**: Start with [Level IV stories](level-4-interview-execution/tools/story-portfolio/), work backward
 
 ## The Integration Challenge
 
@@ -182,6 +184,33 @@ The power of this framework isn't in its individual components—it's in how the
 - **Level III**: People management (morale) + Technical operations (reliability)
 - **Level II**: Operations (MTTR) + Leadership (team sustainability)
 - **Level I**: Human Behavior (burnout) + Value Creation (uptime = revenue)
+
+---
+
+## Cross-Level Examples
+
+### Example: Building a Platform Team
+How each level contributes to success:
+
+1. **Level I - First Principles**:
+   - [Value Creation](level-1-first-principles/value-creation/): Platform as force multiplier
+   - [Systems Thinking](level-1-first-principles/systems-thinking/): Understanding organizational dependencies
+   - [Human Behavior](level-1-first-principles/human-behavior/): Motivating platform adoption
+
+2. **Level II - Business Concepts**:
+   - [Strategy](level-2-core-business/strategy/): Platform as competitive advantage
+   - [Operations](level-2-core-business/operations/): Operational excellence through standardization
+   - [Leadership](level-2-core-business/leadership/): Leading without authority
+
+3. **Level III - Applications**:
+   - [Technical Leadership](level-3-applications/technical-leadership/): Architecture and standards
+   - [Organizational Design](level-3-applications/organizational-design/): Platform team topology
+   - [People Management](level-3-applications/people-management/): Hiring platform engineers
+
+4. **Level IV - Execution**:
+   - [Behavioral Story](level-4-interview-execution/behavioral/): "Tell me about building a new team"
+   - [System Design](level-4-interview-execution/system-org-design/): Platform architecture
+   - [Principle Hooks](level-4-interview-execution/tools/principle-hooks/): Demonstrating depth
 
 ---
 

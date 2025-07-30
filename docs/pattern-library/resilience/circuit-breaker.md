@@ -1,49 +1,52 @@
 ---
 title: Circuit Breaker Pattern
-description: Prevent cascade failures in distributed systems by failing fast when services are unhealthy
+description: Prevent cascade failures in distributed systems by failing fast when
+  services are unhealthy
 type: pattern
 category: resilience
 difficulty: intermediate
-reading_time: 45 min
+reading-time: 45 min
 prerequisites: []
-when_to_use: External service calls, microservice communication, database connections
-when_not_to_use: Internal method calls, non-network operations, CPU-bound tasks
-related_laws:
-  - law1-failure
-  - law2-asynchrony
-  - law3-emergence
-  - law4-tradeoffs
-  - law6-human-api
-related_pillars:
-  - truth
-  - control
-  - intelligence
+when-to-use: External service calls, microservice communication, database connections
+when-not-to-use: Internal method calls, non-network operations, CPU-bound tasks
+related-laws:
+- law1-failure
+- law2-asynchrony
+- law3-emergence
+- law4-tradeoffs
+- law6-human-api
+related-pillars:
+- truth
+- control
+- intelligence
 status: complete
-last_updated: 2025-07-20
+last-updated: 2025-07-20
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2007-03
 current_relevance: mainstream
-modern_examples:
-  - company: Netflix
-    implementation: "Hystrix handles 100B+ requests/day with circuit breaker protection"
-    scale: "100B+ requests/day across thousands of microservices"
-  - company: Amazon
-    implementation: "Circuit breakers protect Prime Day traffic surges and prevent cascade failures"
-    scale: "10x normal load handled gracefully during Prime Day 2018"
-  - company: Uber
-    implementation: "Circuit breakers on all critical paths including payments and dispatch"
-    scale: "20M+ rides/day with 99.99% availability"
-production_checklist:
-  - "Configure failure thresholds based on service SLA (typically 50% error rate)"
-  - "Set appropriate recovery timeout (30-60 seconds for most services)"
-  - "Implement meaningful fallback strategies (cache, default values, queues)"
-  - "Monitor circuit state changes and business impact metrics"
-  - "Test circuit breakers weekly with chaos engineering"
-  - "Use distributed state for multi-instance consistency"
-  - "Add jitter to recovery timeouts to prevent thundering herd"
-  - "Configure different thresholds for different error types"
+modern-examples:
+- company: Netflix
+  implementation: Hystrix handles 100B+ requests/day with circuit breaker protection
+  scale: 100B+ requests/day across thousands of microservices
+- company: Amazon
+  implementation: Circuit breakers protect Prime Day traffic surges and prevent cascade
+    failures
+  scale: 10x normal load handled gracefully during Prime Day 2018
+- company: Uber
+  implementation: Circuit breakers on all critical paths including payments and dispatch
+  scale: 20M+ rides/day with 99.99% availability
+production-checklist:
+- Configure failure thresholds based on service SLA (typically 50% error rate)
+- Set appropriate recovery timeout (30-60 seconds for most services)
+- Implement meaningful fallback strategies (cache, default values, queues)
+- Monitor circuit state changes and business impact metrics
+- Test circuit breakers weekly with chaos engineering
+- Use distributed state for multi-instance consistency
+- Add jitter to recovery timeouts to prevent thundering herd
+- Configure different thresholds for different error types
 ---
+
 
 # Circuit Breaker Pattern
 

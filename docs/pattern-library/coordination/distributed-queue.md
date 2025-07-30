@@ -1,39 +1,47 @@
 ---
 title: Distributed Queue
-description: Reliable message queuing across multiple nodes with guarantees for ordering, delivery, and fault tolerance
+description: Reliable message queuing across multiple nodes with guarantees for ordering,
+  delivery, and fault tolerance
 type: pattern
-category: communication
+category: coordination
 difficulty: intermediate
-reading_time: 35 min
-prerequisites: [consensus, replication, failure-handling]
-when_to_use: Asynchronous processing, decoupling services, load leveling, reliable message delivery
-when_not_to_use: Low-latency requirements, simple single-node scenarios, synchronous communication
+reading-time: 35 min
+prerequisites:
+- consensus
+- replication
+- failure-handling
+when-to-use: Asynchronous processing, decoupling services, load leveling, reliable
+  message delivery
+when-not-to-use: Low-latency requirements, simple single-node scenarios, synchronous
+  communication
 status: complete
-last_updated: 2025-07-24
+last-updated: 2025-07-24
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2006-11
 current_relevance: mainstream
-modern_examples:
-  - company: AWS
-    implementation: "Amazon SQS handles trillions of messages annually with at-least-once delivery"
-    scale: "Trillions of messages/year, millions of queues"
-  - company: LinkedIn
-    implementation: "Apache Kafka processes 7 trillion messages/day for stream processing"
-    scale: "7 trillion messages/day, 100,000+ partitions"
-  - company: RabbitMQ
-    implementation: "Used by Reddit, Mozilla, AT&T for reliable message delivery"
-    scale: "1M+ messages/second sustained throughput"
-production_checklist:
-  - "Choose delivery guarantee: at-most-once, at-least-once, or exactly-once"
-  - "Configure replication factor (typically 3 for production)"
-  - "Set appropriate message TTL and dead letter queues"
-  - "Implement consumer groups for parallel processing"
-  - "Monitor queue depth and consumer lag metrics"
-  - "Use message batching for throughput optimization"
-  - "Configure persistence for durability requirements"
-  - "Implement poison message handling and DLQ strategies"
+modern-examples:
+- company: AWS
+  implementation: Amazon SQS handles trillions of messages annually with at-least-once
+    delivery
+  scale: Trillions of messages/year, millions of queues
+- company: LinkedIn
+  implementation: Apache Kafka processes 7 trillion messages/day for stream processing
+  scale: 7 trillion messages/day, 100,000+ partitions
+- company: RabbitMQ
+  implementation: Used by Reddit, Mozilla, AT&T for reliable message delivery
+  scale: 1M+ messages/second sustained throughput
+production-checklist:
+- 'Choose delivery guarantee: at-most-once, at-least-once, or exactly-once'
+- Configure replication factor (typically 3 for production)
+- Set appropriate message TTL and dead letter queues
+- Implement consumer groups for parallel processing
+- Monitor queue depth and consumer lag metrics
+- Use message batching for throughput optimization
+- Configure persistence for durability requirements
+- Implement poison message handling and DLQ strategies
 ---
+
 
 # Distributed Queue
 

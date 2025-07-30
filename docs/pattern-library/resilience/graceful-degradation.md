@@ -4,58 +4,59 @@ description: Pattern for distributed systems coordination and reliability
 type: pattern
 category: resilience
 difficulty: beginner
-reading_time: 20 min
+reading-time: 20 min
 prerequisites: []
-when_to_use: When dealing with resilience challenges
-when_not_to_use: When simpler solutions suffice
-related_laws:
-  - law1-failure
-  - law4-tradeoffs
-  - law6-human-api
-  - law7-economics
-related_pillars:
-  - work
-  - control
-  - intelligence
+when-to-use: When dealing with resilience challenges
+when-not-to-use: When simpler solutions suffice
+related-laws:
+- law1-failure
+- law4-tradeoffs
+- law6-human-api
+- law7-economics
+related-pillars:
+- work
+- control
+- intelligence
 status: complete
-last_updated: 2025-07-20
+last-updated: 2025-07-20
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 2001-01
 current_relevance: mainstream
-trade_offs:
+trade-offs:
   pros:
-    - "Maintains service availability during failures"
-    - "Provides predictable user experience under load"
-    - "Enables granular control over feature availability"
+  - Maintains service availability during failures
+  - Provides predictable user experience under load
+  - Enables granular control over feature availability
   cons:
-    - "Complex to implement and test all degradation paths"
-    - "Requires careful prioritization of features"
-    - "Can mask underlying system problems if overused"
-best_for:
-  - "High-traffic consumer applications"
-  - "Systems with clear feature priorities"
-  - "Services with variable load patterns"
-modern_examples:
-  - company: Netflix
-    implementation: "Degrades to cached content when recommendation service fails"
-    scale: "Maintains 99.99% availability for 200M+ users"
-  - company: Amazon
-    implementation: "Fallback to static product pages during peak loads"
-    scale: "Handles 10x traffic during Prime Day without outages"
-  - company: Google
-    implementation: "Search degrades features but maintains core functionality"
-    scale: "Processes 8.5B+ searches/day with graceful feature degradation"
-production_checklist:
-  - "Identify core vs optional features for degradation hierarchy"
-  - "Implement feature flags for dynamic degradation control"
-  - "Design fallback strategies for each service dependency"
-  - "Monitor degradation events and user impact metrics"
-  - "Test degradation scenarios in production regularly"
-  - "Document degradation behavior for operations team"
-  - "Set up alerts for automatic vs manual degradation triggers"
-  - "Measure business impact of degraded operations"
+  - Complex to implement and test all degradation paths
+  - Requires careful prioritization of features
+  - Can mask underlying system problems if overused
+best-for:
+- High-traffic consumer applications
+- Systems with clear feature priorities
+- Services with variable load patterns
+modern-examples:
+- company: Netflix
+  implementation: Degrades to cached content when recommendation service fails
+  scale: Maintains 99.99% availability for 200M+ users
+- company: Amazon
+  implementation: Fallback to static product pages during peak loads
+  scale: Handles 10x traffic during Prime Day without outages
+- company: Google
+  implementation: Search degrades features but maintains core functionality
+  scale: Processes 8.5B+ searches/day with graceful feature degradation
+production-checklist:
+- Identify core vs optional features for degradation hierarchy
+- Implement feature flags for dynamic degradation control
+- Design fallback strategies for each service dependency
+- Monitor degradation events and user impact metrics
+- Test degradation scenarios in production regularly
+- Document degradation behavior for operations team
+- Set up alerts for automatic vs manual degradation triggers
+- Measure business impact of degraded operations
 ---
+
 
 # Graceful Degradation Pattern
 

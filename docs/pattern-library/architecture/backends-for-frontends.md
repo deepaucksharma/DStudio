@@ -4,16 +4,16 @@ description: Create purpose-built backend services for specific frontend applica
   optimizing API design for each client's unique needs
 type: pattern
 difficulty: intermediate
-reading_time: 45 min
+reading-time: 45 min
 prerequisites: []
-pattern_type: architectural
+pattern-type: architectural
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
 introduced: 2015-01
-current_relevance: specialized
-trade_offs:
+current_relevance: niche
+trade-offs:
   pros:
   - Optimized APIs for each client type
   - Independent deployment and scaling
@@ -22,13 +22,14 @@ trade_offs:
   - Code duplication across BFFs
   - Increased operational complexity
   - More services to maintain
-best_for:
+best-for:
 - Multi-platform applications (web, mobile, TV)
 - Teams with platform-specific requirements
 - Applications with diverse client capabilities
 - Microservices architectures
-category: resilience
+category: architecture
 ---
+
 
 
 

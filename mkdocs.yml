@@ -282,109 +282,142 @@ nav:
     - Pillar 5 - Intelligence Distribution: core-principles/pillars/intelligence-distribution.md
 - Part 2 - Pattern Library:
   - Overview: pattern-library/index.md
+  - Pattern Tools & Resources:
+    - Pattern Synthesis Guide: pattern-library/pattern-synthesis-guide.md
+    - Pattern Relationship Map: pattern-library/pattern-relationship-map.md
+    - Pattern Decision Matrix: pattern-library/pattern-decision-matrix.md
+    - Pattern Comparison Tool: pattern-library/pattern-comparison-tool.md
+    - Pattern Combination Recipes: pattern-library/pattern-combination-recipes.md
+    - Anti-Patterns Guide: pattern-library/pattern-antipatterns-guide.md
+    - Implementation Roadmap: pattern-library/pattern-implementation-roadmap.md
+    - Pattern Migration Guides: pattern-library/pattern-migration-guides.md
   - Communication Patterns:
     - Overview: pattern-library/communication/index.md
     - API Gateway: pattern-library/communication/api-gateway.md
-    - GraphQL Federation: pattern-library/architecture/graphql-federation.md
     - Service Mesh: pattern-library/communication/service-mesh.md
     - Publish-Subscribe: pattern-library/communication/publish-subscribe.md
     - WebSocket: pattern-library/communication/websocket.md
     - Service Discovery: pattern-library/communication/service-discovery.md
     - Service Registry: pattern-library/communication/service-registry.md
-    - Event Streaming: pattern-library/architecture/event-streaming.md
     - gRPC: pattern-library/communication/grpc.md
     - Request-Reply: pattern-library/communication/request-reply.md
   - Resilience Patterns:
     - Overview: pattern-library/resilience/index.md
-    - Circuit Breaker: pattern-library/resilience/circuit-breaker.md
-    - Retry & Backoff: pattern-library/resilience/retry-backoff.md
-    - Timeout: pattern-library/resilience/timeout.md
-    - Bulkhead: pattern-library/resilience/bulkhead.md
-    - Health Check: pattern-library/resilience/health-check.md
-    - Failover: pattern-library/resilience/failover.md
-    - Graceful Degradation: pattern-library/resilience/graceful-degradation.md
-    - Heartbeat: pattern-library/resilience/heartbeat.md
-    - Load Shedding: pattern-library/resilience/load-shedding.md
-    - Split Brain: pattern-library/resilience/split-brain.md
-    - Fault Tolerance: pattern-library/resilience/fault-tolerance.md
+    - Request Management:
+      - Circuit Breaker: pattern-library/resilience/circuit-breaker.md
+      - Retry & Backoff: pattern-library/resilience/retry-backoff.md
+      - Timeout: pattern-library/resilience/timeout.md
+    - System Protection:
+      - Bulkhead: pattern-library/resilience/bulkhead.md
+      - Load Shedding: pattern-library/resilience/load-shedding.md
+      - Graceful Degradation: pattern-library/resilience/graceful-degradation.md
+    - Health & Monitoring:
+      - Health Check: pattern-library/resilience/health-check.md
+      - Heartbeat: pattern-library/resilience/heartbeat.md
+    - Failure Handling:
+      - Failover: pattern-library/resilience/failover.md
+      - Split Brain: pattern-library/resilience/split-brain.md
+      - Fault Tolerance: pattern-library/resilience/fault-tolerance.md
   - Data Management Patterns:
     - Overview: pattern-library/data-management/index.md
-    - Event Sourcing: pattern-library/data-management/event-sourcing.md
-    - CQRS: pattern-library/data-management/cqrs.md
-    - Saga: pattern-library/data-management/saga.md
-    - Change Data Capture (CDC): pattern-library/data-management/cdc.md
-    - Outbox Pattern: pattern-library/data-management/outbox.md
-    - Consistent Hashing: pattern-library/data-management/consistent-hashing.md
-    - CRDT: pattern-library/data-management/crdt.md
-    - Eventual Consistency: pattern-library/data-management/eventual-consistency.md
-    - Materialized View: pattern-library/data-management/materialized-view.md
-    - Polyglot Persistence: pattern-library/data-management/polyglot-persistence.md
-    - Read Repair: pattern-library/data-management/read-repair.md
-    - Tunable Consistency: pattern-library/data-management/tunable-consistency.md
-    - Write-Ahead Log: pattern-library/data-management/write-ahead-log.md
-    - Shared Database: pattern-library/data-management/shared-database.md
-    - Deduplication: pattern-library/data-management/deduplication.md
-    - Bloom Filter: pattern-library/data-management/bloom-filter.md
-    - Merkle Trees: pattern-library/data-management/merkle-trees.md
-    - LSM Tree: pattern-library/data-management/lsm-tree.md
-    - Distributed Storage: pattern-library/data-management/distributed-storage.md
-    - Data Lake: pattern-library/data-management/data-lake.md
-    - Delta Sync: pattern-library/data-management/delta-sync.md
-    - Segmented Log: pattern-library/data-management/segmented-log.md
+    - Event & Command Patterns:
+      - Event Sourcing: pattern-library/data-management/event-sourcing.md
+      - CQRS: pattern-library/data-management/cqrs.md
+      - Saga: pattern-library/data-management/saga.md
+      - Change Data Capture (CDC): pattern-library/data-management/cdc.md
+      - Outbox Pattern: pattern-library/data-management/outbox.md
+    - Consistency & Synchronization:
+      - Eventual Consistency: pattern-library/data-management/eventual-consistency.md
+      - Tunable Consistency: pattern-library/data-management/tunable-consistency.md
+      - Read Repair: pattern-library/data-management/read-repair.md
+      - CRDT: pattern-library/data-management/crdt.md
+      - Delta Sync: pattern-library/data-management/delta-sync.md
+    - Storage & Distribution:
+      - Consistent Hashing: pattern-library/data-management/consistent-hashing.md
+      - Distributed Storage: pattern-library/data-management/distributed-storage.md
+      - Polyglot Persistence: pattern-library/data-management/polyglot-persistence.md
+      - Data Lake: pattern-library/data-management/data-lake.md
+      - Shared Database: pattern-library/data-management/shared-database.md
+    - Data Structures & Optimization:
+      - Bloom Filter: pattern-library/data-management/bloom-filter.md
+      - Merkle Trees: pattern-library/data-management/merkle-trees.md
+      - LSM Tree: pattern-library/data-management/lsm-tree.md
+      - Materialized View: pattern-library/data-management/materialized-view.md
+      - Segmented Log: pattern-library/data-management/segmented-log.md
+    - Data Quality & Processing:
+      - Write-Ahead Log: pattern-library/data-management/write-ahead-log.md
+      - Deduplication: pattern-library/data-management/deduplication.md
   - Scaling Patterns:
     - Overview: pattern-library/scaling/index.md
-    - Load Balancing: pattern-library/scaling/load-balancing.md
-    - Sharding: pattern-library/scaling/sharding.md
-    - Caching Strategies: pattern-library/scaling/caching-strategies.md
-    - Priority Queue: pattern-library/scaling/priority-queue.md
-    - Rate Limiting: pattern-library/scaling/rate-limiting.md
-    - Backpressure: pattern-library/scaling/backpressure.md
-    - Auto-Scaling: pattern-library/scaling/auto-scaling.md
-    - Request Batching: pattern-library/scaling/request-batching.md
-    - Scatter-Gather: pattern-library/scaling/scatter-gather.md
-    - Multi-Region: pattern-library/scaling/multi-region.md
-    - Edge Computing: pattern-library/scaling/edge-computing.md
-    - Geo-Replication: pattern-library/scaling/geo-replication.md
-    - Geo-Distribution: pattern-library/scaling/geo-distribution.md
-    - ID Generation at Scale: pattern-library/scaling/id-generation-scale.md
-    - Analytics at Scale: pattern-library/scaling/analytics-scale.md
-    - Chunking: pattern-library/scaling/chunking.md
-    - Tile Caching: pattern-library/scaling/tile-caching.md
-    - URL Normalization: pattern-library/scaling/url-normalization.md
-    - Queues & Streaming: pattern-library/scaling/queues-streaming.md
+    - Load Distribution:
+      - Load Balancing: pattern-library/scaling/load-balancing.md
+      - Sharding: pattern-library/scaling/sharding.md
+      - Scatter-Gather: pattern-library/scaling/scatter-gather.md
+    - Caching & Performance:
+      - Caching Strategies: pattern-library/scaling/caching-strategies.md
+      - Tile Caching: pattern-library/scaling/tile-caching.md
+    - Resource Management:
+      - Auto-Scaling: pattern-library/scaling/auto-scaling.md
+      - Rate Limiting: pattern-library/scaling/rate-limiting.md
+      - Backpressure: pattern-library/scaling/backpressure.md
+      - Priority Queue: pattern-library/scaling/priority-queue.md
+    - Geographic Distribution:
+      - Multi-Region: pattern-library/scaling/multi-region.md
+      - Edge Computing: pattern-library/scaling/edge-computing.md
+      - Geo-Replication: pattern-library/scaling/geo-replication.md
+      - Geo-Distribution: pattern-library/scaling/geo-distribution.md
+    - Data Processing:
+      - Request Batching: pattern-library/scaling/request-batching.md
+      - Chunking: pattern-library/scaling/chunking.md
+      - Queues & Streaming: pattern-library/scaling/queues-streaming.md
+    - Domain-Specific Scaling:
+      - ID Generation at Scale: pattern-library/scaling/id-generation-scale.md
+      - Analytics at Scale: pattern-library/scaling/analytics-scale.md
+      - URL Normalization: pattern-library/scaling/url-normalization.md
   - Architecture Patterns:
     - Overview: pattern-library/architecture/index.md
-    - Sidecar: pattern-library/architecture/sidecar.md
-    - Ambassador: pattern-library/architecture/ambassador.md
-    - Strangler Fig: pattern-library/architecture/strangler-fig.md
-    - Backends for Frontends: pattern-library/architecture/backends-for-frontends.md
-    - Anti-Corruption Layer: pattern-library/architecture/anti-corruption-layer.md
-    - Cell-Based Architecture: pattern-library/architecture/cell-based.md
-    - Choreography: pattern-library/architecture/choreography.md
-    - Event-Driven Architecture: pattern-library/architecture/event-driven.md
-    - Serverless/FaaS: pattern-library/architecture/serverless-faas.md
-    - Shared Nothing: pattern-library/architecture/shared-nothing.md
-    - Lambda Architecture: pattern-library/architecture/lambda-architecture.md
-    - Kappa Architecture: pattern-library/architecture/kappa-architecture.md
+    - Service Patterns:
+      - Sidecar: pattern-library/architecture/sidecar.md
+      - Ambassador: pattern-library/architecture/ambassador.md
+      - Backends for Frontends: pattern-library/architecture/backends-for-frontends.md
+      - Anti-Corruption Layer: pattern-library/architecture/anti-corruption-layer.md
+      - Strangler Fig: pattern-library/architecture/strangler-fig.md
+    - System Patterns:
+      - Cell-Based Architecture: pattern-library/architecture/cell-based.md
+      - Shared Nothing: pattern-library/architecture/shared-nothing.md
+      - Serverless/FaaS: pattern-library/architecture/serverless-faas.md
+    - Event & Data Patterns:
+      - Event-Driven Architecture: pattern-library/architecture/event-driven.md
+      - Event Streaming: pattern-library/architecture/event-streaming.md
+      - Choreography: pattern-library/architecture/choreography.md
+      - Lambda Architecture: pattern-library/architecture/lambda-architecture.md
+      - Kappa Architecture: pattern-library/architecture/kappa-architecture.md
+    - API & Integration:
+      - GraphQL Federation: pattern-library/architecture/graphql-federation.md
+      - Valet Key: pattern-library/architecture/valet-key.md
+    - Theory & Fundamentals:
+      - CAP Theorem: pattern-library/architecture/cap-theorem.md
   - Coordination Patterns:
     - Overview: pattern-library/coordination/index.md
-    - Consensus: pattern-library/coordination/consensus.md
-    - Hybrid Logical Clocks: pattern-library/coordination/hlc.md
-    - Logical Clocks: pattern-library/coordination/logical-clocks.md
-    - Generation Clock: pattern-library/coordination/generation-clock.md
-    - Lease: pattern-library/coordination/lease.md
-    - Valet Key: pattern-library/architecture/valet-key.md
-    - State Watch: pattern-library/coordination/state-watch.md
-    - Clock Sync: pattern-library/coordination/clock-sync.md
-    - CAS (Compare and Swap): pattern-library/coordination/cas.md
-    - CAP Theorem: pattern-library/architecture/cap-theorem.md
-    - Actor Model: pattern-library/coordination/actor-model.md
-    - Distributed Lock: pattern-library/coordination/distributed-lock.md
-    - Distributed Queue: pattern-library/coordination/distributed-queue.md
-    - Emergent Leader: pattern-library/coordination/emergent-leader.md
-    - Leader Election: pattern-library/coordination/leader-election.md
-    - Leader Follower: pattern-library/coordination/leader-follower.md
-    - Low High Water Marks: pattern-library/coordination/low-high-water-marks.md
+    - Time & Ordering:
+      - Hybrid Logical Clocks: pattern-library/coordination/hlc.md
+      - Logical Clocks: pattern-library/coordination/logical-clocks.md
+      - Generation Clock: pattern-library/coordination/generation-clock.md
+      - Clock Sync: pattern-library/coordination/clock-sync.md
+    - Leadership & Consensus:
+      - Consensus: pattern-library/coordination/consensus.md
+      - Leader Election: pattern-library/coordination/leader-election.md
+      - Leader Follower: pattern-library/coordination/leader-follower.md
+      - Emergent Leader: pattern-library/coordination/emergent-leader.md
+    - Synchronization:
+      - Distributed Lock: pattern-library/coordination/distributed-lock.md
+      - Lease: pattern-library/coordination/lease.md
+      - CAS (Compare and Swap): pattern-library/coordination/cas.md
+    - Communication & State:
+      - Actor Model: pattern-library/coordination/actor-model.md
+      - Distributed Queue: pattern-library/coordination/distributed-queue.md
+      - State Watch: pattern-library/coordination/state-watch.md
+      - Low High Water Marks: pattern-library/coordination/low-high-water-marks.md
 - Part 3 - Architect's Handbook:
   - Overview: architects-handbook/index.md
   - Case Studies:
@@ -539,36 +572,74 @@ nav:
   # Engineering Leadership Interviews
   - Engineering Leadership:
     - Overview: interview-prep/engineering-leadership/index.md
+    - 🧭 Navigation Guide: interview-prep/engineering-leadership/navigation-guide.md
+    - Framework Overview: interview-prep/engineering-leadership/framework-index.md
     
-    - Behavioral Interviews:
-      - STAR+ Method: interview-prep/engineering-leadership/behavioral-interviews/star-method-advanced.md
+    # Level I: First Principles
+    - First Principles:
+      - Overview: interview-prep/engineering-leadership/level-1-first-principles/index.md
+      - Value Creation: interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md
+      - Decision-Making: interview-prep/engineering-leadership/level-1-first-principles/decision-making/index.md
+      - Human Behavior: interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md
+      - Systems Thinking: interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md
+      - Integrity & Ethics: interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md
     
-    - People Management:
-      - Managing Underperformers: interview-prep/engineering-leadership/practice-scenarios/underperformer-scenario.md
-      - Team Conflict Resolution: interview-prep/engineering-leadership/practice-scenarios/team-conflict-scenario.md
+    # Level II: Core Business Concepts
+    - Core Business Concepts:
+      - Overview: interview-prep/engineering-leadership/level-2-core-business/index.md
+      - Strategy: interview-prep/engineering-leadership/level-2-core-business/strategy/index.md
+      - Leadership: interview-prep/engineering-leadership/level-2-core-business/leadership/index.md
+      - Operations: interview-prep/engineering-leadership/level-2-core-business/operations/index.md
+      - Finance: interview-prep/engineering-leadership/level-2-core-business/finance/index.md
+      - Risk & Governance: interview-prep/engineering-leadership/level-2-core-business/risk-governance/index.md
     
-    - Technical Leadership:
-      - Technical Strategy: interview-prep/engineering-leadership/technical-leadership/technical-strategy.md
+    # Level III: Applications
+    - Engineering Applications:
+      - Overview: interview-prep/engineering-leadership/level-3-applications/index.md
+      - People Management:
+        - Overview: interview-prep/engineering-leadership/level-3-applications/people-management/index.md
+        - Hiring & Interviewing: interview-prep/engineering-leadership/level-3-applications/people-management/hiring-interviewing.md
+        - Team Building & Culture: interview-prep/engineering-leadership/level-3-applications/people-management/team-building-culture.md
+        - Performance Management: interview-prep/engineering-leadership/level-3-applications/people-management/performance-management.md
+        - Practice Scenarios:
+          - Managing Underperformers: interview-prep/engineering-leadership/practice-scenarios/underperformer-scenario.md
+          - Team Conflict Resolution: interview-prep/engineering-leadership/practice-scenarios/team-conflict-scenario.md
+      - Technical Leadership:
+        - Overview: interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md
+        - Technical Strategy: interview-prep/engineering-leadership/level-3-applications/technical-leadership/technical-strategy.md
+      - Organizational Design:
+        - Overview: interview-prep/engineering-leadership/level-3-applications/organizational-design/index.md
+        - Team Topologies: interview-prep/engineering-leadership/level-3-applications/organizational-design/team-topologies.md
+      - Business Acumen:
+        - Overview: interview-prep/engineering-leadership/level-3-applications/business-acumen/index.md
+        - Business Metrics: interview-prep/engineering-leadership/level-3-applications/business-acumen/business-metrics.md
     
-    - Organizational Design:
-      - Team Topologies: interview-prep/engineering-leadership/organizational-design/team-topologies.md
+    # Level IV: Interview Execution
+    - Interview Execution:
+      - Overview: interview-prep/engineering-leadership/level-4-interview-execution/index.md
+      - Behavioral Mastery: interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index.md
+      - Technical Leadership: interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index.md
+      - System & Org Design: interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index.md
+      - Culture & Values: interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index.md
+      - Execution Tools:
+        - Overview: interview-prep/engineering-leadership/level-4-interview-execution/tools/index.md
+        - STAR+ Framework: interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index.md
+        - Story Portfolio: interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md
+        - Principle Hooks: interview-prep/engineering-leadership/level-4-interview-execution/tools/principle-hooks/index.md
+        - Mock Interview Guide: interview-prep/engineering-leadership/level-4-interview-execution/tools/mock-interview-guide.md
+        - Interactive Tools:
+          - Interview Timer: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer.md
+          - Self-Assessment: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md
+          - Decision Trees: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees.md
+          - STAR Story Matcher: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/star-matcher.md
+          - Question Bank: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank.md
     
-    - Business Acumen:
-      - Business Metrics Mastery: interview-prep/engineering-leadership/business-product/business-metrics.md
-    
+    # Additional Resources
     - Company Specific:
       - Amazon Leadership Principles: interview-prep/engineering-leadership/company-specific/amazon/index.md
     
     - Level Expectations:
       - Level Guide Across Companies: interview-prep/engineering-leadership/level-specific/level-expectations.md
-    
-    - Interactive Tools:
-      - Overview: interview-prep/engineering-leadership/interactive-tools/index.md
-      - Interview Timer: interview-prep/engineering-leadership/interactive-tools/interview-timer.md
-      - Self-Assessment: interview-prep/engineering-leadership/interactive-tools/self-assessment.md
-      - Decision Trees: interview-prep/engineering-leadership/interactive-tools/decision-trees.md
-      - STAR Story Matcher: interview-prep/engineering-leadership/interactive-tools/star-matcher.md
-      - Question Bank: interview-prep/engineering-leadership/interactive-tools/question-bank.md
     
     - Hard-Earned Wisdom:
       - Overview: interview-prep/engineering-leadership/hard-earned-wisdom/index.md

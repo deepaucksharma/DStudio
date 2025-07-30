@@ -4,15 +4,15 @@ description: Central repository for service metadata, schemas, and versioning in
   systems
 type: pattern
 difficulty: intermediate
-reading_time: 30 min
+reading-time: 30 min
 prerequisites:
 - service-discovery
-pattern_type: infrastructure
+pattern-type: infrastructure
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
 pattern_status: use-with-expertise
-trade_offs:
+trade-offs:
   pros:
   - Central source of truth for service contracts and metadata
   - Enables service versioning and backward compatibility
@@ -23,13 +23,16 @@ trade_offs:
   - Requires strict governance and update processes
   - Can become bottleneck for service deployments
   - Schema drift between registry and reality if not automated
-best_for:
+best-for:
 - Microservices architectures with 20+ services
 - Organizations with multiple teams sharing services
 - Systems requiring strict API governance
 - Environments with complex service dependencies
-category: data
+category: communication
+introduced: 2024-01
+current_relevance: mainstream
 ---
+
 
 
 

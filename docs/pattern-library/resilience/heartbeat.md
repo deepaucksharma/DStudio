@@ -1,62 +1,75 @@
 ---
 title: Heartbeat Pattern
-description: Fundamental mechanism for failure detection and liveness monitoring in distributed systems
+description: Fundamental mechanism for failure detection and liveness monitoring in
+  distributed systems
 type: pattern
 category: resilience
 difficulty: intermediate
-reading_time: 30 min
-prerequisites: [distributed-systems, networking, failure-detection]
-when_to_use: Node health monitoring, failure detection, membership protocols, leader election, service discovery
-when_not_to_use: Single-node systems, synchronous request-response only, stateless ephemeral services
-related_laws:
-  - law1-failure
-  - law2-asynchrony
-  - law5-epistemology
-  - law6-human-api
-related_pillars:
-  - truth
-  - control
-  - intelligence
+reading-time: 30 min
+prerequisites:
+- distributed-systems
+- networking
+- failure-detection
+when-to-use: Node health monitoring, failure detection, membership protocols, leader
+  election, service discovery
+when-not-to-use: Single-node systems, synchronous request-response only, stateless
+  ephemeral services
+related-laws:
+- law1-failure
+- law2-asynchrony
+- law5-epistemology
+- law6-human-api
+related-pillars:
+- truth
+- control
+- intelligence
 status: complete
-last_updated: 2025-07-26
-tags: [failure-detection, liveness, monitoring, distributed-systems, consensus]
+last-updated: 2025-07-26
+tags:
+- failure-detection
+- liveness
+- monitoring
+- distributed-systems
+- consensus
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 1985-01
 current_relevance: mainstream
-trade_offs:
+trade-offs:
   pros:
-    - "Simple and effective failure detection mechanism"
-    - "Low overhead for basic liveness monitoring"
-    - "Well-understood with mature implementations"
+  - Simple and effective failure detection mechanism
+  - Low overhead for basic liveness monitoring
+  - Well-understood with mature implementations
   cons:
-    - "Can generate significant network traffic at scale"
-    - "Susceptible to false positives during network issues"
-    - "Requires careful tuning of intervals and timeouts"
-best_for:
-  - "Cluster membership and failure detection"
-  - "Service health monitoring in distributed systems"
-  - "Leader election and consensus protocols"
-modern_examples:
-  - company: Google
-    implementation: "Every internal RPC system uses heartbeats for failure detection"
-    scale: "Billions of heartbeats/second across global infrastructure"
-  - company: Kubernetes
-    implementation: "Kubelet heartbeats to API server every 10s, node eviction after 40s"
-    scale: "Manages 10M+ containers globally across all K8s clusters"
-  - company: Apache Cassandra
-    implementation: "Gossip protocol with Phi Accrual failure detector"
-    scale: "Apple runs 150,000+ Cassandra nodes with gossip heartbeats"
-production_checklist:
-  - "Set heartbeat interval based on network latency (typically 1-10s)"
-  - "Use timeout of 3-5x heartbeat interval to prevent false positives"
-  - "Implement jitter (±10-20%) to prevent heartbeat storms"
-  - "Monitor heartbeat success rate and alert on >10% failures"
-  - "Use monotonic clocks to avoid time sync issues"
-  - "Implement multi-path verification for critical services"
-  - "Add sequence numbers to detect reordered heartbeats"
-  - "Configure different intervals for LAN vs WAN deployments"
+  - Can generate significant network traffic at scale
+  - Susceptible to false positives during network issues
+  - Requires careful tuning of intervals and timeouts
+best-for:
+- Cluster membership and failure detection
+- Service health monitoring in distributed systems
+- Leader election and consensus protocols
+modern-examples:
+- company: Google
+  implementation: Every internal RPC system uses heartbeats for failure detection
+  scale: Billions of heartbeats/second across global infrastructure
+- company: Kubernetes
+  implementation: Kubelet heartbeats to API server every 10s, node eviction after
+    40s
+  scale: Manages 10M+ containers globally across all K8s clusters
+- company: Apache Cassandra
+  implementation: Gossip protocol with Phi Accrual failure detector
+  scale: Apple runs 150,000+ Cassandra nodes with gossip heartbeats
+production-checklist:
+- Set heartbeat interval based on network latency (typically 1-10s)
+- Use timeout of 3-5x heartbeat interval to prevent false positives
+- "Implement jitter (\xB110-20%) to prevent heartbeat storms"
+- Monitor heartbeat success rate and alert on >10% failures
+- Use monotonic clocks to avoid time sync issues
+- Implement multi-path verification for critical services
+- Add sequence numbers to detect reordered heartbeats
+- Configure different intervals for LAN vs WAN deployments
 ---
+
 
 # Heartbeat Pattern
 

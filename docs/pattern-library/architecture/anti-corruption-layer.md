@@ -4,16 +4,16 @@ description: Implement a layer that translates between different subsystems to p
   the spread of undesirable dependencies and maintain clean domain boundaries
 type: pattern
 difficulty: intermediate
-reading_time: 45 min
+reading-time: 45 min
 prerequisites: []
-pattern_type: architectural
+pattern-type: architectural
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
 introduced: 2003-01
-current_relevance: specialized
-trade_offs:
+current_relevance: niche
+trade-offs:
   pros:
   - Maintains domain purity
   - Enables gradual migration
@@ -22,13 +22,14 @@ trade_offs:
   - Additional translation layer
   - Performance overhead
   - Maintenance burden
-best_for:
+best-for:
 - Domain-driven design
 - Legacy system migration
 - Multi-team boundaries
 - Third-party integrations
-category: resilience
+category: architecture
 ---
+
 
 
 

@@ -1,37 +1,44 @@
 ---
 title: LSM Tree (Log-Structured Merge Tree)
-description: Write-optimized storage engine that converts random writes to sequential writes through buffering and merging
+description: Write-optimized storage engine that converts random writes to sequential
+  writes through buffering and merging
 type: pattern
 category: data-management
 difficulty: intermediate
-reading_time: 40 min
-prerequisites: [storage-engines, wal, sorting-algorithms]
-when_to_use: When you need high write throughput, can tolerate read amplification, and have write-heavy workloads
-when_not_to_use: When you need consistent read performance or immediate read-after-write consistency
+reading-time: 40 min
+prerequisites:
+- storage-engines
+- wal
+- sorting-algorithms
+when-to-use: When you need high write throughput, can tolerate read amplification,
+  and have write-heavy workloads
+when-not-to-use: When you need consistent read performance or immediate read-after-write
+  consistency
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: specialized-use
+pattern_status: use-with-expertise
 introduced: 1996-01
-current_relevance: stable
-trade_offs:
+current_relevance: mainstream
+trade-offs:
   pros:
-    - "Excellent write performance"
-    - "Sequential I/O friendly"
-    - "Good for write-heavy workloads"
+  - Excellent write performance
+  - Sequential I/O friendly
+  - Good for write-heavy workloads
   cons:
-    - "Read amplification issues"
-    - "Complex compaction tuning"
-    - "Database internals - not for app developers"
-best_for: "NoSQL databases, time-series databases, write-heavy applications"
+  - Read amplification issues
+  - Complex compaction tuning
+  - Database internals - not for app developers
+best-for: NoSQL databases, time-series databases, write-heavy applications
 implementations:
-  - company: RocksDB
-    scale: "Facebook's embedded key-value store"
-  - company: Cassandra
-    scale: "Distributed database using LSM"
-  - company: LevelDB
-    scale: "Google's embedded database"
+- company: RocksDB
+  scale: Facebook's embedded key-value store
+- company: Cassandra
+  scale: Distributed database using LSM
+- company: LevelDB
+  scale: Google's embedded database
 ---
+
 
 
 # LSM Tree (Log-Structured Merge Tree)

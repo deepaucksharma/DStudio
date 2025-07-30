@@ -17,7 +17,7 @@ Distributed systems are governed by **7 immutable laws** derived from physics an
 graph TB
     Physics[Physical Constraints] --> Laws[7 Fundamental Laws]
     Laws --> Pillars[5 Core Pillars]
-    Pillars --> Patterns[112+ Design Patterns]
+    Pillars --> Patterns[91+ Design Patterns]
     Patterns --> Systems[Production Systems]
     
     Laws --> L1[Correlated Failure]

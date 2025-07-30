@@ -1,40 +1,53 @@
 ---
 title: Geo-Replication Patterns
-description: Replicate data across geographical regions for global availability and disaster recovery
+description: Replicate data across geographical regions for global availability and
+  disaster recovery
 type: pattern
-category: distributed-data
+category: scaling
 difficulty: advanced
-reading_time: 45 min
-prerequisites: [distributed-systems, consistency-models, network-latency, conflict-resolution]
-when_to_use: Global applications, disaster recovery requirements, data sovereignty compliance, reducing user latency, multi-region availability, follow-the-sun operations
-when_not_to_use: Single-region applications, strong consistency requirements, limited bandwidth, cost-sensitive deployments, simple backup needs
+reading-time: 45 min
+prerequisites:
+- distributed-systems
+- consistency-models
+- network-latency
+- conflict-resolution
+when-to-use: Global applications, disaster recovery requirements, data sovereignty
+  compliance, reducing user latency, multi-region availability, follow-the-sun operations
+when-not-to-use: Single-region applications, strong consistency requirements, limited
+  bandwidth, cost-sensitive deployments, simple backup needs
 status: complete
-last_updated: 2025-07-21
-tags: [multi-region, disaster-recovery, global-scale, data-replication, availability]
+last-updated: 2025-07-21
+tags:
+- multi-region
+- disaster-recovery
+- global-scale
+- data-replication
+- availability
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2007-05
 current_relevance: mainstream
-modern_examples:
-  - company: Netflix
-    implementation: "Multi-region active-active deployment across 190+ countries"
-    scale: "200M+ subscribers with <100ms latency globally"
-  - company: CockroachDB
-    implementation: "Geo-partitioned replicas with configurable replication zones"
-    scale: "Serves global banks with 99.999% availability"
-  - company: DynamoDB Global Tables
-    implementation: "Multi-master replication across all AWS regions"
-    scale: "Petabytes of data with single-digit millisecond latency"
-production_checklist:
-  - "Design conflict resolution strategy (LWW, CRDT, or custom)"
-  - "Configure replication topology (master-slave, multi-master, or hierarchical)"
-  - "Set up monitoring for replication lag across all regions"
-  - "Implement region failover with <5 minute RTO"
-  - "Plan for network partitions between regions"
-  - "Configure read/write routing based on user geography"
-  - "Test disaster recovery procedures quarterly"
-  - "Monitor cross-region bandwidth costs and optimize"
+modern-examples:
+- company: Netflix
+  implementation: Multi-region active-active deployment across 190+ countries
+  scale: 200M+ subscribers with <100ms latency globally
+- company: CockroachDB
+  implementation: Geo-partitioned replicas with configurable replication zones
+  scale: Serves global banks with 99.999% availability
+- company: DynamoDB Global Tables
+  implementation: Multi-master replication across all AWS regions
+  scale: Petabytes of data with single-digit millisecond latency
+production-checklist:
+- Design conflict resolution strategy (LWW, CRDT, or custom)
+- Configure replication topology (master-slave, multi-master, or hierarchical)
+- Set up monitoring for replication lag across all regions
+- Implement region failover with <5 minute RTO
+- Plan for network partitions between regions
+- Configure read/write routing based on user geography
+- Test disaster recovery procedures quarterly
+- Monitor cross-region bandwidth costs and optimize
 ---
+
 
 # Geo-Replication Patterns
 

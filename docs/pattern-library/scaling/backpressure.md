@@ -1,9 +1,18 @@
 ---
 title: Backpressure Pattern
-category: resilience
+category: scaling
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Flow control mechanism that prevents system overload by limiting upstream
+  request rates
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 # Backpressure Pattern
 

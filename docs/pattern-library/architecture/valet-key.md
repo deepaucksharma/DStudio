@@ -3,20 +3,27 @@ title: Valet Key Pattern
 description: Provide limited direct access to resources without exposing credentials
   or requiring proxy overhead
 type: pattern
-category: security
+category: architecture
 difficulty: intermediate
-reading_time: 15 min
+reading-time: 15 min
 prerequisites:
 - authentication
 - cloud-storage
-when_to_use: Direct client access to resources, temporary permissions, reducing proxy
+when-to-use: Direct client access to resources, temporary permissions, reducing proxy
   load
-when_not_to_use: Sensitive operations, complex access control, permanent access
+when-not-to-use: Sensitive operations, complex access control, permanent access
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # Valet Key Pattern

@@ -3,19 +3,26 @@ title: Low-Water/High-Water Marks
 description: Flow control boundaries for distributed systems replication, buffering,
   and resource management
 type: pattern
-category: data-replication
+category: coordination
 difficulty: intermediate
-reading_time: 20 min
+reading-time: 20 min
 prerequisites:
 - patterns/replication.md
 - patterns/wal.md
-when_to_use: Replication lag control, buffer management, flow control, garbage collection
-when_not_to_use: Simple systems without flow control needs, unbounded resources
+when-to-use: Replication lag control, buffer management, flow control, garbage collection
+when-not-to-use: Simple systems without flow control needs, unbounded resources
 status: complete
-last_updated: 2025-07-26
+last-updated: 2025-07-26
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # Low-Water/High-Water Marks

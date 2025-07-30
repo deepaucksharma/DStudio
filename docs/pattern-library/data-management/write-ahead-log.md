@@ -1,37 +1,42 @@
 ---
 title: Write-Ahead Log (WAL)
-description: Ensuring durability by logging changes before applying them - the foundation of crash recovery in databases
+description: Ensuring durability by logging changes before applying them - the foundation
+  of crash recovery in databases
 type: pattern
-category: data
+category: data-management
 difficulty: intermediate
-reading_time: 35 min
-prerequisites: [durability, acid-properties, fsync]
-when_to_use: When you need crash recovery, transaction support, or durable writes
-when_not_to_use: For read-only systems or when durability isn't critical
+reading-time: 35 min
+prerequisites:
+- durability
+- acid-properties
+- fsync
+when-to-use: When you need crash recovery, transaction support, or durable writes
+when-not-to-use: For read-only systems or when durability isn't critical
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: specialized-use
+pattern_status: use-with-expertise
 introduced: 1992-01
-current_relevance: stable
-trade_offs:
+current_relevance: mainstream
+trade-offs:
   pros:
-    - "Guarantees durability and crash recovery"
-    - "Enables transaction rollback"
-    - "Sequential I/O performance"
+  - Guarantees durability and crash recovery
+  - Enables transaction rollback
+  - Sequential I/O performance
   cons:
-    - "Low-level implementation detail"
-    - "Write amplification overhead"
-    - "Complex recovery procedures"
-best_for: "Database implementers, understanding ACID properties"
+  - Low-level implementation detail
+  - Write amplification overhead
+  - Complex recovery procedures
+best-for: Database implementers, understanding ACID properties
 implementations:
-  - company: PostgreSQL
-    scale: "WAL-based replication and recovery"
-  - company: MySQL/InnoDB
-    scale: "Redo logs for crash recovery"
-  - company: etcd
-    scale: "WAL for distributed consensus"
+- company: PostgreSQL
+  scale: WAL-based replication and recovery
+- company: MySQL/InnoDB
+  scale: Redo logs for crash recovery
+- company: etcd
+  scale: WAL for distributed consensus
 ---
+
 
 
 # Write-Ahead Log (WAL) Pattern

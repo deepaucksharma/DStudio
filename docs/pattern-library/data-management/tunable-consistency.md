@@ -3,17 +3,24 @@ title: Tunable Consistency
 description: Adjust consistency levels dynamically based on application requirements
   and trade-offs
 type: pattern
-category: specialized
+category: data-management
 difficulty: advanced
-reading_time: 45 min
+reading-time: 45 min
 prerequisites: []
-when_to_use: When dealing with specialized challenges
-when_not_to_use: When simpler solutions suffice
+when-to-use: When dealing with specialized challenges
+when-not-to-use: When simpler solutions suffice
 status: complete
-last_updated: 2025-07-21
+last-updated: 2025-07-21
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # Tunable Consistency

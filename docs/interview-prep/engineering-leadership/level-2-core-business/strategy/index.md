@@ -365,13 +365,41 @@ Learning: Strategic insights gained
 - "Crossing the Chasm" - Moore
 - High Scalability blog for technical strategies
 
-## Connection to Other Concepts
+## Connection to First Principles
 
-- **Leadership**: Strategy without execution is hallucination
-- **Operations**: Strategy guides operational choices
-- **Finance**: Strategy must be economically viable
-- **Risk**: Strategic choices create new risks
+- **[Value Creation](../../level-1-first-principles/value-creation/)**: Strategy determines how we create unique value
+- **[Decision-Making](../../level-1-first-principles/decision-making/)**: Strategic choices are the highest-impact decisions
+- **[Systems Thinking](../../level-1-first-principles/systems-thinking/)**: Strategy requires understanding competitive systems
+- **[Human Behavior](../../level-1-first-principles/human-behavior/)**: Strategy must account for organizational capability
+- **[Integrity & Ethics](../../level-1-first-principles/integrity-ethics/)**: Sustainable strategy requires ethical foundation
+
+## Connection to Other Business Concepts
+
+- **[Leadership](../leadership/)**: Strategy without execution is hallucination
+- **[Operations](../operations/)**: Strategy guides operational choices
+- **[Finance](../finance/)**: Strategy must be economically viable
+- **[Risk & Governance](../risk-governance/)**: Strategic choices create new risks
+
+## Application in Level III
+
+- **[Technical Leadership](../../level-3-applications/technical-leadership/)**: Translating business strategy to technical strategy
+- **[Organizational Design](../../level-3-applications/organizational-design/)**: Aligning structure with strategy (Conway's Law)
+- **[Business Acumen](../../level-3-applications/business-acumen/)**: Connecting engineering to strategic outcomes
+- **[People Management](../../level-3-applications/people-management/)**: Building teams for strategic capabilities
+
+## Interview Application (Level IV)
+
+- **[Technical Leadership Interviews](../../level-4-interview-execution/technical-leadership/)**: Demonstrating strategic technical thinking
+- **[System Design](../../level-4-interview-execution/system-org-design/)**: Strategic approach to architecture
+- **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Showing strategic impact
+
+## Next Steps
+
+1. **This Week**: Analyze your current technical strategy using Porter's Five Forces
+2. **This Month**: Create a one-page technical strategy for your area
+3. **This Quarter**: Present strategy to non-technical stakeholders
+4. **For Interviews**: Prepare 3 stories demonstrating strategic thinking
 
 ---
 
-*Next: Explore how [Leadership](../leadership/) transforms strategic vision into organizational reality.*
+*Continue your journey: Explore how [Leadership](../leadership/) transforms strategic vision into organizational reality, or see how [Technical Leadership](../../level-3-applications/technical-leadership/) applies strategic thinking in practice.*

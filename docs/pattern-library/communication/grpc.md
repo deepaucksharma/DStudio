@@ -1,41 +1,48 @@
 ---
 title: gRPC Pattern
-description: High-performance, cross-platform RPC framework using Protocol Buffers and HTTP/2
+description: High-performance, cross-platform RPC framework using Protocol Buffers
+  and HTTP/2
 type: pattern
 category: communication
 difficulty: intermediate
-reading_time: 30 min
-prerequisites: [rpc, protocol-buffers, http2]
-when_to_use: Microservices communication, polyglot systems, streaming data, mobile backends
-when_not_to_use: Browser clients, simple REST APIs, text-based protocols needed
+reading-time: 30 min
+prerequisites:
+- rpc
+- protocol-buffers
+- http2
+when-to-use: Microservices communication, polyglot systems, streaming data, mobile
+  backends
+when-not-to-use: Browser clients, simple REST APIs, text-based protocols needed
 status: complete
-last_updated: 2025-07-29
+last-updated: 2025-07-29
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2015-08
 current_relevance: mainstream
-modern_examples:
-  - company: Google
-    implementation: "Powers all internal service communication, open-sourced for public use"
-    scale: "Billions of RPCs per second across thousands of services"
-  - company: Netflix
-    implementation: "Migrated from REST to gRPC for internal service communication"
-    scale: "10x throughput improvement, 75% latency reduction"
-  - company: Uber
-    implementation: "gRPC for real-time location updates and driver dispatch"
-    scale: "Millions of concurrent streams for live tracking"
-production_checklist:
-  - "Define .proto files with versioning strategy"
-  - "Implement proper error handling with status codes"
-  - "Configure deadline propagation (typically 5-30s)"
-  - "Enable connection pooling and multiplexing"
-  - "Implement retry with exponential backoff"
-  - "Set up load balancing (client-side or proxy)"
-  - "Monitor metrics (latency, errors, throughput)"
-  - "Use TLS for production (mTLS for zero-trust)"
-  - "Implement graceful shutdown"
-  - "Test with realistic network conditions"
+modern-examples:
+- company: Google
+  implementation: Powers all internal service communication, open-sourced for public
+    use
+  scale: Billions of RPCs per second across thousands of services
+- company: Netflix
+  implementation: Migrated from REST to gRPC for internal service communication
+  scale: 10x throughput improvement, 75% latency reduction
+- company: Uber
+  implementation: gRPC for real-time location updates and driver dispatch
+  scale: Millions of concurrent streams for live tracking
+production-checklist:
+- Define .proto files with versioning strategy
+- Implement proper error handling with status codes
+- Configure deadline propagation (typically 5-30s)
+- Enable connection pooling and multiplexing
+- Implement retry with exponential backoff
+- Set up load balancing (client-side or proxy)
+- Monitor metrics (latency, errors, throughput)
+- Use TLS for production (mTLS for zero-trust)
+- Implement graceful shutdown
+- Test with realistic network conditions
 ---
+
 
 # gRPC Pattern
 

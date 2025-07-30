@@ -1,0 +1,91 @@
+# Markdown linting configuration for pattern library
+# Customized for documentation standards
+
+# Default state for all rules
+default: true
+
+# Rule customizations
+rules:
+  # Line length - allow longer lines for tables and links
+  MD013:
+    line_length: 120
+    heading_line_length: 100
+    code_block_line_length: 120
+    tables: false
+    headings: false
+    headers: false
+
+  # Trailing spaces - allow 2 spaces for line breaks
+  MD009:
+    br_spaces: 2
+    list_item_empty_lines: false
+    strict: false
+
+  # Multiple headings with same content - allow for pattern structure
+  MD024:
+    siblings_only: true
+    allow_different_nesting: true
+
+  # Inline HTML - allow for custom components and styling
+  MD033:
+    allowed_elements:
+      - div
+      - span
+      - br
+      - img
+      - a
+      - strong
+      - em
+      - code
+      - pre
+      - table
+      - tr
+      - td
+      - th
+      - thead
+      - tbody
+      - ul
+      - ol
+      - li
+      - h1
+      - h2
+      - h3
+      - h4
+      - h5
+      - h6
+      - p
+      - blockquote
+      - hr
+
+  # Bare URLs - allow for reference links
+  MD034: false
+
+  # First line in file - allow for YAML frontmatter
+  MD041: false
+
+  # Required headings - disable as patterns have varied structures
+  MD043: false
+
+  # Proper names - disable as we use many technical terms
+  MD044: false
+
+  # Images with alt text - allow empty alt for decorative images
+  MD045: false
+
+  # Code fence style - prefer backticks
+  MD046:
+    style: fenced
+
+  # Single trailing newline
+  MD047: true
+
+  # Code fence info - require language specification where appropriate
+  MD048:
+    style: backtick
+
+# Exclude certain files from linting
+exclude:
+  - 'templates/**'
+  - 'node_modules/**'
+  - '.github/**'
+  - 'site/**'

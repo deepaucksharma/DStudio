@@ -354,10 +354,10 @@ teams to fix the technical system
 
 ## Connection to Other Principles
 
-- **Value Creation**: Value flows through systems
-- **Decision-Making**: Decisions have system-wide impacts
-- **Human Behavior**: Humans adapt to system incentives
-- **Integrity**: Systems must be designed ethically
+- **[Value Creation](../value-creation/)**: Value flows through systems - optimize the whole value stream, not local parts
+- **[Decision-Making](../decision-making/)**: Decisions have system-wide impacts - consider ripple effects before choosing
+- **[Human Behavior](../human-behavior/)**: Humans adapt to system incentives - design systems that bring out the best in people
+- **[Integrity & Ethics](../integrity-ethics/)**: Systems must be designed ethically - embed fairness and transparency in structures
 
 ## Red Flags: When You're Not Thinking in Systems
 
@@ -381,6 +381,29 @@ Systems that gain from disorder.
 Systems with emergent properties that can't be predicted from components.
 **Examples**: Market dynamics, large-scale software systems, organizational culture.
 
+## Application in Other Levels
+
+### Level II: Core Business Concepts
+- **[Strategy](../../level-2-core-business/strategy/)**: Strategic thinking requires systems perspective
+- **[Operations](../../level-2-core-business/operations/)**: Operational excellence through systems optimization
+- **[Risk & Governance](../../level-2-core-business/risk-governance/)**: Managing systemic risks
+
+### Level III: Engineering Applications
+- **[Organizational Design](../../level-3-applications/organizational-design/)**: Designing organizations as systems
+- **[Technical Leadership](../../level-3-applications/technical-leadership/)**: Architecture as system design
+- **[Business Acumen](../../level-3-applications/business-acumen/)**: Understanding business as a system
+
+### Level IV: Interview Execution
+- **[System Design](../../level-4-interview-execution/system-org-design/)**: Demonstrating systems thinking live
+- **[Technical Leadership](../../level-4-interview-execution/technical-leadership/)**: Showing architectural systems mastery
+
+## Next Steps
+
+1. **Today**: Draw a system diagram of your current challenge
+2. **This Week**: Identify one negative feedback loop to break
+3. **This Month**: Teach systems thinking to your team
+4. **For Interviews**: Prepare 3-5 stories showing systems mastery
+
 ---
 
-*Next: Explore how [Integrity & Ethics](../integrity-ethics/) provides the moral foundation for sustainable systems.*
+*Continue your journey: Explore how [Integrity & Ethics](../integrity-ethics/) provides the moral foundation for sustainable systems, or see how [Operations](../../level-2-core-business/operations/) applies systems thinking to execution.*

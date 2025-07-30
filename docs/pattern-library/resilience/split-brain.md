@@ -5,33 +5,40 @@ description: Detect and resolve network partitions that divide a distributed sys
 type: pattern
 category: resilience
 difficulty: advanced
-reading_time: 15 min
+reading-time: 15 min
 prerequisites:
 - consensus
 - leader-election
 - distributed-lock
-related_laws:
+related-laws:
 - law1-failure
 - law2-asynchrony
 - law5-epistemology
-related_pillars:
+related-pillars:
 - truth
 - control
-when_to_use:
+when-to-use:
 - Distributed databases with replication
 - Cluster management systems
 - Distributed consensus protocols
 - Multi-master systems
-when_not_to_use:
+when-not-to-use:
 - Single-node systems
 - Stateless services
 - Read-only systems
 - Eventually consistent systems
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # Split-Brain Detection & Resolution

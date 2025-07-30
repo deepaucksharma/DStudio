@@ -1,37 +1,48 @@
 ---
 title: Timeout Pattern
-description: Prevent indefinite waits and resource exhaustion by setting time limits on operations
+description: Prevent indefinite waits and resource exhaustion by setting time limits
+  on operations
 type: pattern
 category: resilience
 difficulty: beginner
-reading_time: 10 min
-prerequisites: [network-programming, distributed-systems, error-handling]
-when_to_use: Network calls, database queries, API requests, distributed transactions, service-to-service communication
-when_not_to_use: CPU-bound operations, local function calls, operations with unpredictable duration
+reading-time: 10 min
+prerequisites:
+- network-programming
+- distributed-systems
+- error-handling
+when-to-use: Network calls, database queries, API requests, distributed transactions,
+  service-to-service communication
+when-not-to-use: CPU-bound operations, local function calls, operations with unpredictable
+  duration
 status: complete
-last_updated: 2025-07-26
-tags: [fault-tolerance, resource-management, resilience, network-reliability]
+last-updated: 2025-07-26
+tags:
+- fault-tolerance
+- resource-management
+- resilience
+- network-reliability
 excellence_tier: gold
 pattern_status: recommended
 introduced: 1980-01
 current_relevance: mainstream
-modern_examples:
-  - company: Netflix
-    implementation: "Hystrix library enforces timeouts on all service calls"
-    scale: "Billions of requests/day with 99.99% availability"
-  - company: Amazon
-    implementation: "Every AWS API has configurable timeouts"
-    scale: "Prevents cascade failures across millions of EC2 instances"
-  - company: Google
-    implementation: "gRPC deadline propagation across service boundaries"
-    scale: "Sub-second timeouts for billions of RPC calls"
-production_checklist:
-  - "Set appropriate timeout values (p99 latency + buffer)"
-  - "Configure connection vs request timeouts separately"
-  - "Implement timeout propagation across service calls"
-  - "Monitor timeout rates and adjust thresholds"
-  - "Test timeout behavior under load"
+modern-examples:
+- company: Netflix
+  implementation: Hystrix library enforces timeouts on all service calls
+  scale: Billions of requests/day with 99.99% availability
+- company: Amazon
+  implementation: Every AWS API has configurable timeouts
+  scale: Prevents cascade failures across millions of EC2 instances
+- company: Google
+  implementation: gRPC deadline propagation across service boundaries
+  scale: Sub-second timeouts for billions of RPC calls
+production-checklist:
+- Set appropriate timeout values (p99 latency + buffer)
+- Configure connection vs request timeouts separately
+- Implement timeout propagation across service calls
+- Monitor timeout rates and adjust thresholds
+- Test timeout behavior under load
 ---
+
 
 # Timeout Pattern
 

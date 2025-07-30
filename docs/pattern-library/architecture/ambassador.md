@@ -4,16 +4,16 @@ description: Create a helper service that sends network requests on behalf of a 
   service, handling complex communication patterns and protocol translations
 type: pattern
 difficulty: intermediate
-reading_time: 45 min
+reading-time: 45 min
 prerequisites: []
-pattern_type: architectural
+pattern-type: architectural
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
 introduced: 2015-01
-current_relevance: specialized
-trade_offs:
+current_relevance: niche
+trade-offs:
   pros:
   - Isolates network communication logic
   - Simplifies client code
@@ -22,13 +22,14 @@ trade_offs:
   - Additional network hop
   - Single point of failure
   - Increased complexity
-best_for:
+best-for:
 - Legacy system integration
 - Protocol translation
 - Service mesh sidecars
 - API gateway implementations
-category: integration
+category: architecture
 ---
+
 
 
 

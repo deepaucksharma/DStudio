@@ -1,9 +1,16 @@
 ---
 title: Sharding (Data Partitioning)
-category: data
+category: scaling
 excellence_tier: gold
-pattern_status: stable
+pattern_status: recommended
+description: Data partitioning technique that horizontally distributes data across
+  multiple database instances
+introduced: 2024-01
+current_relevance: mainstream
+modern-examples: []
+production-checklist: []
 ---
+
 
 
 # Sharding (Data Partitioning)

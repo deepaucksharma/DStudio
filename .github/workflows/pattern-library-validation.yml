@@ -1,0 +1,339 @@
+name: Pattern Library Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/pattern-library/**'
+      - 'mkdocs.yml'
+      - 'scripts/**'
+      - '.github/workflows/pattern-library-validation.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'docs/pattern-library/**'
+      - 'mkdocs.yml'
+      - 'scripts/**'
+      - '.github/workflows/pattern-library-validation.yml'
+
+jobs:
+  validate-patterns:
+    name: Validate Pattern Library
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history for comprehensive validation
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies  
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyyaml requests
+    
+    - name: Validate pattern metadata
+      id: metadata
+      run: |
+        echo "::group::Pattern Metadata Validation"
+        python3 scripts/comprehensive-pattern-validator.py --verbose --report=markdown > pattern-validation-report.md
+        echo "validation_exit_code=$?" >> $GITHUB_OUTPUT
+        echo "::endgroup::"
+      continue-on-error: true
+    
+    - name: Validate excellence framework
+      id: excellence
+      run: |
+        echo "::group::Excellence Framework Validation"
+        python3 scripts/validate-excellence-framework.py --verbose
+        echo "excellence_exit_code=$?" >> $GITHUB_OUTPUT
+        echo "::endgroup::"
+      continue-on-error: true
+    
+    - name: Validate pattern counts
+      id: counts
+      run: |
+        echo "::group::Pattern Count Validation"
+        bash scripts/validate-pattern-counts.sh --verbose
+        echo "counts_exit_code=$?" >> $GITHUB_OUTPUT
+        echo "::endgroup::"
+      continue-on-error: true
+    
+    - name: Validate navigation consistency
+      id: navigation
+      run: |
+        echo "::group::Navigation Consistency Validation"
+        python3 scripts/check-navigation.py
+        echo "navigation_exit_code=$?" >> $GITHUB_OUTPUT
+        echo "::endgroup::"
+      continue-on-error: true
+    
+    - name: Run link validation
+      id: links
+      run: |
+        echo "::group::Internal Link Validation"
+        python3 scripts/verify-links.py --pattern-links-only --max-errors=10
+        echo "links_exit_code=$?" >> $GITHUB_OUTPUT
+        echo "::endgroup::"
+      continue-on-error: true
+    
+    - name: Generate pattern statistics
+      run: |
+        echo "::group::Pattern Library Statistics"
+        python3 scripts/pattern-manager.py stats --format=table
+        echo "::endgroup::"
+    
+    - name: Upload validation report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: pattern-validation-report
+        path: |
+          pattern-validation-report.md
+          *.json
+        retention-days: 30
+    
+    - name: Comment PR with validation results
+      if: github.event_name == 'pull_request' && always()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          
+          // Read validation report if it exists
+          let report = '';
+          try {
+            report = fs.readFileSync('pattern-validation-report.md', 'utf8');
+          } catch (error) {
+            report = 'Validation report not generated due to errors.';
+          }
+          
+          // Collect exit codes
+          const results = {
+            metadata: '${{ steps.metadata.outputs.validation_exit_code }}' || '1',
+            excellence: '${{ steps.excellence.outputs.excellence_exit_code }}' || '1', 
+            counts: '${{ steps.counts.outputs.counts_exit_code }}' || '1',
+            navigation: '${{ steps.navigation.outputs.navigation_exit_code }}' || '1',
+            links: '${{ steps.links.outputs.links_exit_code }}' || '1'
+          };
+          
+          // Generate status summary
+          const statusEmoji = (code) => code === '0' ? '✅' : '❌';
+          const statusText = (code) => code === '0' ? 'PASS' : 'FAIL';
+          
+          const summary = `
+          ## 🔍 Pattern Library Validation Results
+          
+          | Check | Status | Result |
+          |-------|--------|---------|
+          | Pattern Metadata | ${statusEmoji(results.metadata)} | ${statusText(results.metadata)} |
+          | Excellence Framework | ${statusEmoji(results.excellence)} | ${statusText(results.excellence)} |
+          | Pattern Counts | ${statusEmoji(results.counts)} | ${statusText(results.counts)} |
+          | Navigation Consistency | ${statusEmoji(results.navigation)} | ${statusText(results.navigation)} |
+          | Internal Links | ${statusEmoji(results.links)} | ${statusText(results.links)} |
+          
+          <details>
+          <summary>📋 Detailed Validation Report</summary>
+          
+          \`\`\`
+          ${report}
+          \`\`\`
+          
+          </details>
+          
+          ${Object.values(results).every(code => code === '0') 
+            ? '🎉 All validations passed! The pattern library is consistent and ready for merge.' 
+            : '⚠️ Some validations failed. Please review the issues above before merging.'}
+          `;
+          
+          // Post comment
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: summary
+          });
+    
+    - name: Check overall validation status
+      run: |
+        EXIT_CODE=0
+        
+        # Check each validation step
+        if [ "${{ steps.metadata.outputs.validation_exit_code }}" != "0" ]; then
+          echo "❌ Pattern metadata validation failed"
+          EXIT_CODE=1
+        fi
+        
+        if [ "${{ steps.excellence.outputs.excellence_exit_code }}" != "0" ]; then
+          echo "❌ Excellence framework validation failed"
+          EXIT_CODE=1
+        fi
+        
+        if [ "${{ steps.counts.outputs.counts_exit_code }}" != "0" ]; then
+          echo "❌ Pattern count validation failed"
+          EXIT_CODE=1
+        fi
+        
+        if [ "${{ steps.navigation.outputs.navigation_exit_code }}" != "0" ]; then
+          echo "❌ Navigation validation failed"
+          EXIT_CODE=1
+        fi
+        
+        if [ "${{ steps.links.outputs.links_exit_code }}" != "0" ]; then
+          echo "⚠️ Link validation failed (non-blocking)"
+          # Don't fail the build for link issues
+        fi
+        
+        if [ $EXIT_CODE -eq 0 ]; then
+          echo "✅ All critical validations passed!"
+        else
+          echo "❌ Critical validations failed. Please fix the issues above."
+        fi
+        
+        exit $EXIT_CODE
+
+  # Optional: Test build to ensure patterns don't break MkDocs
+  test-build:
+    name: Test Documentation Build
+    runs-on: ubuntu-latest
+    needs: validate-patterns
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Build documentation
+      run: |
+        echo "::group::Building documentation"
+        mkdocs build --strict
+        echo "::endgroup::"
+    
+    - name: Check for broken builds
+      run: |
+        if [ ! -d "site" ]; then
+          echo "❌ Documentation build failed - no site directory generated"
+          exit 1
+        fi
+        
+        if [ ! -f "site/index.html" ]; then
+          echo "❌ Documentation build incomplete - no index.html generated"
+          exit 1
+        fi
+        
+        echo "✅ Documentation build successful"
+
+  # Nightly comprehensive validation (more thorough)
+  nightly-validation:
+    name: Nightly Comprehensive Validation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyyaml requests beautifulsoup4
+    
+    - name: Run comprehensive validation
+      run: |
+        echo "::group::Comprehensive Pattern Validation"
+        python3 scripts/comprehensive-pattern-validator.py --verbose --report=json > validation-report.json
+        echo "::endgroup::"
+        
+        echo "::group::Pattern Quality Check"
+        python3 scripts/pattern-manager.py quality --format=json > quality-report.json
+        echo "::endgroup::"
+        
+        echo "::group::External Link Validation"
+        python3 scripts/verify-links.py --external-links --timeout=30 > link-report.txt
+        echo "::endgroup::"
+    
+    - name: Generate health dashboard data
+      run: |
+        echo "::group::Generating Pattern Health Data"
+        python3 scripts/health-tracking/pattern-health-dashboard.py --update
+        echo "::endgroup::"
+    
+    - name: Upload comprehensive reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: nightly-validation-reports
+        path: |
+          validation-report.json
+          quality-report.json
+          link-report.txt
+          data/health-data/
+        retention-days: 90
+    
+    - name: Create issue for validation failures
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `Pattern Library Validation Failure - ${new Date().toISOString().split('T')[0]}`,
+            body: `
+            ## 🚨 Nightly Pattern Validation Failed
+            
+            The comprehensive pattern library validation failed during the nightly run.
+            
+            **Date**: ${new Date().toISOString()}
+            **Workflow**: ${context.workflow}
+            **Run ID**: ${context.runId}
+            
+            Please check the workflow logs and validation reports for details.
+            
+            ### Quick Actions
+            - [ ] Review validation errors in the workflow logs
+            - [ ] Check pattern metadata consistency  
+            - [ ] Verify excellence framework compliance
+            - [ ] Fix any broken links or navigation issues
+            - [ ] Update pattern counts if needed
+            
+            **Auto-generated by GitHub Actions**
+            `,
+            labels: ['bug', 'validation', 'pattern-library']
+          });
+
+# Scheduled nightly validation
+on:
+  schedule:
+    # Run at 2 AM UTC every day
+    - cron: '0 2 * * *'

@@ -1,42 +1,49 @@
 ---
 title: Bulkhead Pattern
-description: Isolate system resources to prevent cascading failures, inspired by ship compartmentalization
+description: Isolate system resources to prevent cascading failures, inspired by ship
+  compartmentalization
 type: pattern
 category: resilience
 difficulty: intermediate
-reading_time: 45 min
-prerequisites: [failure, capacity, concurrency]
-when_to_use: Shared resource pools, multi-tenant systems, microservices, preventing cascade failures
-when_not_to_use: Simple applications, single-purpose services, when isolation overhead exceeds benefits
-related_laws:
-  - law1-failure
-  - law3-emergence
-  - law4-tradeoffs
-  - law7-economics
-related_pillars:
-  - work
-  - control
-  - intelligence
+reading-time: 45 min
+prerequisites:
+- failure
+- capacity
+- concurrency
+when-to-use: Shared resource pools, multi-tenant systems, microservices, preventing
+  cascade failures
+when-not-to-use: Simple applications, single-purpose services, when isolation overhead
+  exceeds benefits
+related-laws:
+- law1-failure
+- law3-emergence
+- law4-tradeoffs
+- law7-economics
+related-pillars:
+- work
+- control
+- intelligence
 status: complete
-last_updated: 2025-01-21
+last-updated: 2025-01-21
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 2012-01
 current_relevance: mainstream
-trade_offs:
-  pros: 
-    - "Excellent fault isolation between components"
-    - "Prevents cascading failures effectively"
-    - "Enables independent scaling of resources"
+trade-offs:
+  pros:
+  - Excellent fault isolation between components
+  - Prevents cascading failures effectively
+  - Enables independent scaling of resources
   cons:
-    - "Increased complexity compared to simpler patterns"
-    - "Resource overhead from isolation boundaries"
-    - "Requires careful capacity planning per bulkhead"
-best_for:
-  - "Multi-tenant systems requiring strict isolation"
-  - "Services with mixed criticality levels"
-  - "Protecting critical resources from less important workloads"
+  - Increased complexity compared to simpler patterns
+  - Resource overhead from isolation boundaries
+  - Requires careful capacity planning per bulkhead
+best-for:
+- Multi-tenant systems requiring strict isolation
+- Services with mixed criticality levels
+- Protecting critical resources from less important workloads
 ---
+
 
 # Bulkhead Pattern
 

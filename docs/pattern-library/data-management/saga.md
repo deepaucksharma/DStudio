@@ -1,49 +1,54 @@
 ---
 title: Saga Pattern
-description: Manage distributed transactions using coordinated sequences of local transactions with compensations
+description: Manage distributed transactions using coordinated sequences of local
+  transactions with compensations
 type: pattern
-category: data
+category: data-management
 difficulty: advanced
-reading_time: 35 min
-prerequisites: 
-when_to_use: Cross-service transactions, workflow orchestration, distributed business processes
-when_not_to_use: Simple local transactions, strongly consistent requirements, simple CRUD operations
-related_laws:
-  - law2-asynchrony
-  - law3-emergence
-  - law4-tradeoffs
-  - law5-epistemology
-related_pillars:
-  - state
-  - truth
-  - control
-  - intelligence
+reading-time: 35 min
+prerequisites: null
+when-to-use: Cross-service transactions, workflow orchestration, distributed business
+  processes
+when-not-to-use: Simple local transactions, strongly consistent requirements, simple
+  CRUD operations
+related-laws:
+- law2-asynchrony
+- law3-emergence
+- law4-tradeoffs
+- law5-epistemology
+related-pillars:
+- state
+- truth
+- control
+- intelligence
 status: complete
-last_updated: 2025-07-21
+last-updated: 2025-07-21
 excellence_tier: gold
 pattern_status: recommended
 introduced: 1987-12
 current_relevance: mainstream
-modern_examples:
-  - company: Uber
-    implementation: "Saga orchestrates ride booking across payment, dispatch, and driver services"
-    scale: "20M+ distributed transactions daily"
-  - company: Airbnb
-    implementation: "Booking saga coordinates inventory, payment, and notification services"
-    scale: "2M+ bookings per day across global inventory"
-  - company: Booking.com
-    implementation: "Complex travel booking sagas with multi-vendor coordination"
-    scale: "1.5M+ room nights booked daily"
-production_checklist:
-  - "Choose orchestration vs choreography based on complexity"
-  - "Design compensating transactions for every step"
-  - "Implement idempotent operations to handle retries"
-  - "Use state machines to track saga progress"
-  - "Monitor saga completion rates and failure patterns"
-  - "Set timeouts for each saga step (typically 30s-5min)"
-  - "Store saga state durably (database or event store)"
-  - "Test failure scenarios and compensation flows"
+modern-examples:
+- company: Uber
+  implementation: Saga orchestrates ride booking across payment, dispatch, and driver
+    services
+  scale: 20M+ distributed transactions daily
+- company: Airbnb
+  implementation: Booking saga coordinates inventory, payment, and notification services
+  scale: 2M+ bookings per day across global inventory
+- company: Booking.com
+  implementation: Complex travel booking sagas with multi-vendor coordination
+  scale: 1.5M+ room nights booked daily
+production-checklist:
+- Choose orchestration vs choreography based on complexity
+- Design compensating transactions for every step
+- Implement idempotent operations to handle retries
+- Use state machines to track saga progress
+- Monitor saga completion rates and failure patterns
+- Set timeouts for each saga step (typically 30s-5min)
+- Store saga state durably (database or event store)
+- Test failure scenarios and compensation flows
 ---
+
 # Saga Pattern
 
 !!! success "🏆 Gold Standard Pattern"

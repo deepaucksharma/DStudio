@@ -5,18 +5,25 @@ description: Building systems that continue operating properly despite failures 
 type: pattern
 category: resilience
 difficulty: intermediate
-reading_time: 40 min
+reading-time: 40 min
 prerequisites:
 - circuit-breaker
 - bulkhead
 - retry-backoff
-when_to_use: Critical systems, high availability requirements, unreliable infrastructure
-when_not_to_use: Simple applications, cost-sensitive deployments, temporary prototypes
+when-to-use: Critical systems, high availability requirements, unreliable infrastructure
+when-not-to-use: Simple applications, cost-sensitive deployments, temporary prototypes
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # Fault Tolerance Pattern

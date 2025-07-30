@@ -1,46 +1,54 @@
 ---
 title: Delta Sync Pattern
-description: Synchronize data by transmitting only changes (deltas) instead of full datasets to minimize bandwidth and improve performance
+description: Synchronize data by transmitting only changes (deltas) instead of full
+  datasets to minimize bandwidth and improve performance
 type: pattern
-category: distributed-data
+category: data-management
 difficulty: intermediate
-reading_time: 15 min
-prerequisites: [change-tracking, version-control, conflict-resolution]
-when_to_use: Mobile app sync, file synchronization, database replication, bandwidth-constrained networks, large datasets with small changes, offline-first applications
-when_not_to_use: Small datasets, initial sync scenarios, when change tracking overhead exceeds benefits, real-time streaming data
+reading-time: 15 min
+prerequisites:
+- change-tracking
+- version-control
+- conflict-resolution
+when-to-use: Mobile app sync, file synchronization, database replication, bandwidth-constrained
+  networks, large datasets with small changes, offline-first applications
+when-not-to-use: Small datasets, initial sync scenarios, when change tracking overhead
+  exceeds benefits, real-time streaming data
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: silver
-pattern_status: use_with_caution
+pattern_status: use-with-caution
 introduced: 1990-01
 current_relevance: mainstream
-modern_examples:
-  - company: Dropbox
-    implementation: "Block-level delta sync for file changes"
-    scale: "700M+ users syncing billions of files"
-  - company: Google Drive
-    implementation: "Incremental sync with operational transforms"
-    scale: "2B+ users with real-time collaboration"
-  - company: WhatsApp
-    implementation: "Message delta sync for offline/online transitions"
-    scale: "2B+ users with seamless message delivery"
-trade_offs:
+modern-examples:
+- company: Dropbox
+  implementation: Block-level delta sync for file changes
+  scale: 700M+ users syncing billions of files
+- company: Google Drive
+  implementation: Incremental sync with operational transforms
+  scale: 2B+ users with real-time collaboration
+- company: WhatsApp
+  implementation: Message delta sync for offline/online transitions
+  scale: 2B+ users with seamless message delivery
+trade-offs:
   pros:
-    - "Minimal bandwidth usage (90%+ reduction)"
-    - "Faster sync times"
-    - "Supports offline scenarios"
+  - Minimal bandwidth usage (90%+ reduction)
+  - Faster sync times
+  - Supports offline scenarios
   cons:
-    - "Complex conflict resolution"
-    - "Requires change tracking infrastructure"
-    - "Version management overhead"
-related_laws:
-  - law2-asynchrony
-  - law4-tradeoffs
-  - law5-epistemology
-related_pillars:
-  - state
-  - truth
+  - Complex conflict resolution
+  - Requires change tracking infrastructure
+  - Version management overhead
+related-laws:
+- law2-asynchrony
+- law4-tradeoffs
+- law5-epistemology
+related-pillars:
+- state
+- truth
+best-for: []
 ---
+
 
 # Delta Sync Pattern
 

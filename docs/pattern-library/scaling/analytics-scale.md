@@ -2,33 +2,34 @@
 title: Analytics Scale
 description: This topic is under development
 type: pattern
-category: specialized
+category: scaling
 difficulty: intermediate
-reading_time: 30 min
+reading-time: 30 min
 prerequisites: []
-when_to_use: When dealing with specialized challenges
-when_not_to_use: When simpler solutions suffice
+when-to-use: When dealing with specialized challenges
+when-not-to-use: When simpler solutions suffice
 status: stub
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
 introduced: 2008-01
-current_relevance: specialized
-trade_offs:
+current_relevance: niche
+trade-offs:
   pros:
-    - Handles massive data volumes
-    - Distributed processing
-    - Cost-effective for big data
+  - Handles massive data volumes
+  - Distributed processing
+  - Cost-effective for big data
   cons:
-    - Complex infrastructure
-    - Batch processing latency
-    - Steep learning curve
-best_for:
-  - Data warehousing
-  - Business intelligence
-  - Log analysis
-  - ETL pipelines
+  - Complex infrastructure
+  - Batch processing latency
+  - Steep learning curve
+best-for:
+- Data warehousing
+- Business intelligence
+- Log analysis
+- ETL pipelines
 ---
+
 
 
 # Analytics Scale

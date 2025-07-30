@@ -1,4 +1,4 @@
-# Pattern Library: 112 Battle-Tested Solutions
+# Pattern Library: 91 Battle-Tested Solutions
 
 <div class="pattern-hero">
     <h2>🏗️ Build Reliable Distributed Systems with Proven Patterns</h2>
@@ -79,14 +79,14 @@ graph LR
 <div class="pattern-explorer-enhanced">
     <div class="explorer-header">
         <h3>🎯 Smart Pattern Discovery</h3>
-        <p>Find the right pattern based on our analysis of 112 patterns across 60 years of distributed systems</p>
+        <p>Find the right pattern based on our analysis of 91 patterns across 60 years of distributed systems</p>
     </div>
     
     <div class="pattern-filter-container">
         <div class="filter-header">
             <input type="text" id="pattern-search" placeholder="Try: 'failure', 'scale', 'netflix', 'consistency', 'real-time'..." />
             <div class="pattern-count">
-                Showing <span id="filtered-count">0</span> of <span id="total-count">112</span> patterns
+                Showing <span id="filtered-count">0</span> of <span id="total-count">91</span> patterns
             </div>
         </div>
         
@@ -210,7 +210,7 @@ graph LR
 
 <div class="stats-grid">
     <div class="stat-card">
-        <div class="stat-number">112</div>
+        <div class="stat-number">91</div>
         <div class="stat-label">Total Patterns</div>
         <div class="stat-detail">Covering all distributed systems challenges</div>
     </div>
@@ -386,7 +386,7 @@ Each pattern includes:
     <div class="resource-card">
         <h3>📖 Learning Resources</h3>
         <ul>
-            <li><a href="pattern-synthesis-guide/">Pattern Synthesis Guide</a> - Understand 112 patterns</li>
+            <li><a href="pattern-synthesis-guide/">Pattern Synthesis Guide</a> - Understand 91 patterns</li>
             <li><a href="pattern-relationship-map/">Relationship Map</a> - See connections</li>
             <li><a href="../reference/pattern-template/">Pattern Template</a> - Documentation standard</li>
             <li><a href="../reference/pattern-evolution-timeline/">Evolution Timeline</a> - 60 years of patterns</li>

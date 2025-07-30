@@ -1,9 +1,19 @@
 ---
 title: Consistent Hashing
-category: data
+category: data-management
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Load distribution algorithm that minimizes reorganization when nodes
+  are added or removed
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
+
 
 
 # Consistent Hashing

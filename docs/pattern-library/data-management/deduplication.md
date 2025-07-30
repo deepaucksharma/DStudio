@@ -1,33 +1,40 @@
 ---
 title: Deduplication
-description: Eliminate duplicate data through content-based identification and storage optimization
+description: Eliminate duplicate data through content-based identification and storage
+  optimization
 type: pattern
 category: data-management
 difficulty: intermediate
-reading_time: 30 min
-prerequisites: [hashing, content-addressing, distributed-systems]
-when_to_use: Storage systems, backup solutions, message processing, data pipelines with duplicate data
-when_not_to_use: Real-time systems with strict latency requirements, small datasets, when duplicates are rare
+reading-time: 30 min
+prerequisites:
+- hashing
+- content-addressing
+- distributed-systems
+when-to-use: Storage systems, backup solutions, message processing, data pipelines
+  with duplicate data
+when-not-to-use: Real-time systems with strict latency requirements, small datasets,
+  when duplicates are rare
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 2008-01
 current_relevance: mainstream
-trade_offs:
+trade-offs:
   pros:
-    - "Significant storage savings (often 10-100x)"
-    - "Reduced network bandwidth for transfers"
-    - "Improved cache efficiency"
+  - Significant storage savings (often 10-100x)
+  - Reduced network bandwidth for transfers
+  - Improved cache efficiency
   cons:
-    - "CPU overhead for fingerprinting/hashing"
-    - "Complex garbage collection and reference counting"
-    - "Potential for hash collisions requiring verification"
-best_for:
-  - "Backup and archival systems"
-  - "Cloud storage providers reducing costs"
-  - "Message queues preventing duplicate processing"
+  - CPU overhead for fingerprinting/hashing
+  - Complex garbage collection and reference counting
+  - Potential for hash collisions requiring verification
+best-for:
+- Backup and archival systems
+- Cloud storage providers reducing costs
+- Message queues preventing duplicate processing
 ---
+
 
 # Deduplication
 

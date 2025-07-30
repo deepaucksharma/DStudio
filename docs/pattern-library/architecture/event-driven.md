@@ -1,9 +1,19 @@
 ---
 title: Event-Driven Architecture
-category: resilience
+category: architecture
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Architectural pattern where components communicate through events, enabling
+  loose coupling and scalability
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
+
 
 
 # Event-Driven Architecture

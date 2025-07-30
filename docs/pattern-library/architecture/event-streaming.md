@@ -1,37 +1,44 @@
 ---
 title: Event Streaming
-description: Process infinite streams of events in real-time with scalable, fault-tolerant architectures
+description: Process infinite streams of events in real-time with scalable, fault-tolerant
+  architectures
 type: pattern
-category: data-processing
+category: architecture
 difficulty: advanced
-reading_time: 45 min
-prerequisites: [distributed-systems, message-queues, event-driven-architecture]
-when_to_use: When you need real-time processing, continuous computation, or event-driven architectures at scale
-when_not_to_use: For simple request-response patterns or when batch processing is sufficient
+reading-time: 45 min
+prerequisites:
+- distributed-systems
+- message-queues
+- event-driven-architecture
+when-to-use: When you need real-time processing, continuous computation, or event-driven
+  architectures at scale
+when-not-to-use: For simple request-response patterns or when batch processing is
+  sufficient
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 2011-01
 current_relevance: mainstream
-trade_offs:
+trade-offs:
   pros:
-    - "Enables real-time processing and analytics"
-    - "Handles unbounded data streams"
-    - "Powerful for event-driven architectures"
+  - Enables real-time processing and analytics
+  - Handles unbounded data streams
+  - Powerful for event-driven architectures
   cons:
-    - "Steep learning curve and operational complexity"
-    - "Requires expertise in distributed systems"
-    - "Difficult to debug and test"
-best_for: "Real-time analytics, IoT data processing, event-driven microservices"
+  - Steep learning curve and operational complexity
+  - Requires expertise in distributed systems
+  - Difficult to debug and test
+best-for: Real-time analytics, IoT data processing, event-driven microservices
 implementations:
-  - company: LinkedIn
-    scale: "Apache Kafka creator, 7T messages/day"
-  - company: Uber
-    scale: "Flink for dynamic pricing"
-  - company: Netflix
-    scale: "Keystone platform, 500B events/day"
+- company: LinkedIn
+  scale: Apache Kafka creator, 7T messages/day
+- company: Uber
+  scale: Flink for dynamic pricing
+- company: Netflix
+  scale: Keystone platform, 500B events/day
 ---
+
 
 # Event Streaming Pattern
 

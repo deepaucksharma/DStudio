@@ -225,6 +225,33 @@ Remember: You don't need an MBA, but you do need MBA-level thinking. These conce
 
 **Success looks like**: Seamlessly integrating business thinking into technical leadership, creating value that's both innovative and sustainable.
 
+## Connecting Business Concepts to First Principles
+
+Each business concept operationalizes multiple first principles:
+
+- **[Strategy](strategy/)** applies **[Value Creation](../level-1-first-principles/value-creation/)** and **[Systems Thinking](../level-1-first-principles/systems-thinking/)**
+- **[Leadership](leadership/)** centers on **[Human Behavior](../level-1-first-principles/human-behavior/)** and **[Integrity](../level-1-first-principles/integrity-ethics/)**
+- **[Operations](operations/)** delivers **[Value Creation](../level-1-first-principles/value-creation/)** through **[Systems Thinking](../level-1-first-principles/systems-thinking/)**
+- **[Finance](finance/)** quantifies **[Value Creation](../level-1-first-principles/value-creation/)** and guides **[Decision-Making](../level-1-first-principles/decision-making/)**
+- **[Risk & Governance](risk-governance/)** protects through **[Systems Thinking](../level-1-first-principles/systems-thinking/)** and **[Integrity](../level-1-first-principles/integrity-ethics/)**
+
+## Next Steps
+
+### For Engineering Managers
+1. Start with **[Finance](finance/)** - Learn to speak the language of business
+2. Add **[Strategy](strategy/)** - Think beyond your immediate team
+3. Deepen **[Leadership](leadership/)** - Scale your impact through others
+
+### For Senior Managers & Directors
+1. Master **[Strategy](strategy/)** - Shape technical direction
+2. Excel at **[Operations](operations/)** - Build scalable systems
+3. Understand **[Risk & Governance](risk-governance/)** - Protect value creation
+
+### Interview Preparation
+1. **Week 1-2**: Study each concept deeply
+2. **Week 3**: Map your experiences to concepts
+3. **Week 4**: Practice using business language
+
 ---
 
-*Ready to dive deeper? Choose a discipline to explore, or continue to [Level III: Engineering Leadership Applications](../level-3-applications/) to see these concepts in action.*
+*Ready to dive deeper? Choose a discipline to explore, or continue to [Level III: Engineering Leadership Applications](../level-3-applications/) to see these concepts in action. For foundational understanding, revisit [Level I: First Principles](../level-1-first-principles/).*

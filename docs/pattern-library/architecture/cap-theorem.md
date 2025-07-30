@@ -2,24 +2,28 @@
 title: CAP Theorem
 description: Understanding the fundamental trade-offs in distributed systems design
 type: pattern
-category: theory
+category: architecture
 difficulty: intermediate
-reading_time: 30 min
+reading-time: 30 min
 prerequisites: []
-when_to_use: When designing distributed systems architecture
-when_not_to_use: When working with single-node systems
+when-to-use: When designing distributed systems architecture
+when-not-to-use: When working with single-node systems
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: bronze
-pattern_status: educational-only
+pattern_status: use-with-caution
 introduced: 2000-07
-current_relevance: theoretical
-modern_context:
-  - "PACELC theorem provides more nuanced view"
-  - "Modern systems offer tunable consistency"
-  - "Cloud providers abstract many CAP concerns"
-educational_value: "Important for understanding distributed systems theory but not directly actionable"
+current_relevance: niche
+modern-context:
+- PACELC theorem provides more nuanced view
+- Modern systems offer tunable consistency
+- Cloud providers abstract many CAP concerns
+educational-value: Important for understanding distributed systems theory but not
+  directly actionable
+modern-alternatives: []
+deprecation-reason: Consider modern alternatives for new implementations
 ---
+
 
 
 # CAP Theorem

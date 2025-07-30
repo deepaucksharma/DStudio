@@ -5,15 +5,22 @@ description: Distributed mechanism for monitoring state changes and notifying in
 type: pattern
 category: coordination
 difficulty: advanced
-reading_time: 40 min
+reading-time: 40 min
 prerequisites: []
-when_to_use: When systems need real-time notification of state changes
-when_not_to_use: When polling is sufficient or changes are infrequent
+when-to-use: When systems need real-time notification of state changes
+when-not-to-use: When polling is sufficient or changes are infrequent
 status: complete
-last_updated: 2025-07-26
+last-updated: 2025-07-26
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # State Watch (Change Notification) Pattern

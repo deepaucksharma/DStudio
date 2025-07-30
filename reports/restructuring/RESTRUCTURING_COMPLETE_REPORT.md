@@ -2,10 +2,10 @@
 
 ## Executive Summary
 
-The Compendium of Distributed Systems has undergone a comprehensive restructuring to transform it from a content-heavy documentation site into a modern, interactive learning platform. This migration introduced the Excellence Framework, enhanced all 112 patterns with production-ready metadata, and implemented visual-first content presentation throughout the entire site.
+The Compendium of Distributed Systems has undergone a comprehensive restructuring to transform it from a content-heavy documentation site into a modern, interactive learning platform. This migration introduced the Excellence Framework, enhanced all 91 patterns with production-ready metadata, and implemented visual-first content presentation throughout the entire site.
 
 ### Key Transformation Highlights
-- **100% Pattern Enhancement**: All 112 patterns now classified with excellence tiers (Gold/Silver/Bronze)
+- **100% Pattern Enhancement**: All 91 patterns now classified with excellence tiers (Gold/Silver/Bronze)
 - **Interactive Discovery**: New pattern filtering system with full-text search and problem domain filters
 - **Visual-First Content**: 800+ Mermaid diagrams replacing verbose text descriptions
 - **Production Focus**: Every Gold pattern includes production checklists and real-world examples
@@ -19,7 +19,7 @@ docs/
 ├── introduction.md           # Single massive file
 ├── axioms.md                # All 7 axioms in one page
 ├── pillars.md               # All 5 pillars together
-├── patterns.md              # 112 patterns in one file
+├── patterns.md              # 91 patterns in one file
 └── reference.md             # Mixed reference content
 ```
 
@@ -38,7 +38,7 @@ docs/
 │   ├── 01-work/
 │   ├── 02-state/
 │   └── ... (3 more pillars)
-├── patterns/                # 112 patterns organized
+├── patterns/                # 91 patterns organized
 │   ├── index.md            # Interactive discovery hub
 │   ├── work-distribution/
 │   ├── state-management/
@@ -141,7 +141,7 @@ docs/
 - Save filter preferences for future visits
 
 ### 4. **Comprehensive Coverage**
-- 112 patterns covering all distributed systems domains
+- 91 patterns covering all distributed systems domains
 - Mathematical foundations in Quantitative Toolkit
 - Human factors and operational excellence
 - Security considerations throughout
@@ -204,4 +204,4 @@ This transformation positions The Compendium as the definitive resource for dist
 
 *Report Generated: January 29, 2025*  
 *Project Duration: 4 weeks*  
-*Total Enhancements: 250+ pages, 800+ diagrams, 112 patterns*
+*Total Enhancements: 250+ pages, 800+ diagrams, 91 patterns*

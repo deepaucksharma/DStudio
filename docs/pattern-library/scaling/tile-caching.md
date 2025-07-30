@@ -3,19 +3,24 @@ title: Tile Caching
 description: Efficient caching strategy for map tiles and spatial data at multiple
   zoom levels
 type: pattern
-category: caching
+category: scaling
 difficulty: intermediate
-reading_time: 25 min
+reading-time: 25 min
 prerequisites:
 - caching
 - spatial-indexing
-when_to_use: Map applications, GIS systems, spatial data visualization
-when_not_to_use: Non-spatial data, dynamic content that changes frequently
+when-to-use: Map applications, GIS systems, spatial data visualization
+when-not-to-use: Non-spatial data, dynamic content that changes frequently
 status: stub
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: gold
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+modern-examples: []
+production-checklist: []
 ---
+
 
 
 # Tile Caching

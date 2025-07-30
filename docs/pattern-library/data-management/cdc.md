@@ -1,9 +1,18 @@
 ---
 title: Change Data Capture (CDC)
-category: data
+category: data-management
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Data synchronization pattern that captures and propagates database changes
+  in real-time
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # Change Data Capture (CDC)

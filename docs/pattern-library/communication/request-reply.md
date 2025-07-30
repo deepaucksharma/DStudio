@@ -4,33 +4,37 @@ description: Asynchronous request-response communication pattern for distributed
 type: pattern
 category: communication
 difficulty: intermediate
-reading_time: 25 min
-prerequisites: [message-queues, distributed-systems]
-when_to_use: Asynchronous operations, decoupled services, callback-based workflows
-when_not_to_use: Simple synchronous operations, real-time requirements, stateless operations
+reading-time: 25 min
+prerequisites:
+- message-queues
+- distributed-systems
+when-to-use: Asynchronous operations, decoupled services, callback-based workflows
+when-not-to-use: Simple synchronous operations, real-time requirements, stateless
+  operations
 status: complete
-last_updated: 2025-07-29
+last-updated: 2025-07-29
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 1990-01
 current_relevance: mainstream
-trade_offs:
+trade-offs:
   pros:
-    - Decouples client from server temporally
-    - Enables asynchronous processing
-    - Better resource utilization
-    - Handles long-running operations
+  - Decouples client from server temporally
+  - Enables asynchronous processing
+  - Better resource utilization
+  - Handles long-running operations
   cons:
-    - More complex than synchronous calls
-    - Requires correlation management
-    - Potential for lost replies
-    - State management overhead
-best_for:
-  - Long-running operations
-  - Batch processing systems
-  - Integration with legacy systems
-  - Queue-based architectures
+  - More complex than synchronous calls
+  - Requires correlation management
+  - Potential for lost replies
+  - State management overhead
+best-for:
+- Long-running operations
+- Batch processing systems
+- Integration with legacy systems
+- Queue-based architectures
 ---
+
 
 # Request-Reply Pattern
 

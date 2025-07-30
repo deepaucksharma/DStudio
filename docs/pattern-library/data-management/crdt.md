@@ -2,40 +2,43 @@
 title: CRDT (Conflict-free Replicated Data Types)
 description: Data structures that automatically resolve conflicts in distributed systems
 type: pattern
-category: distributed-data
+category: data-management
 difficulty: advanced
-reading_time: 40 min
-prerequisites: [eventual-consistency, vector-clocks]
-when_to_use: When you need automatic conflict resolution without coordination
-when_not_to_use: When strong consistency is required or simpler solutions suffice
+reading-time: 40 min
+prerequisites:
+- eventual-consistency
+- vector-clocks
+when-to-use: When you need automatic conflict resolution without coordination
+when-not-to-use: When strong consistency is required or simpler solutions suffice
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2011-01
 current_relevance: mainstream
-modern_examples:
-  - company: Figma
-    implementation: "CRDTs power real-time collaborative design editing"
-    scale: "Millions of concurrent design sessions"
-  - company: Riak
-    implementation: "Built-in CRDT support for distributed data"
-    scale: "Petabyte-scale deployments with automatic conflict resolution"
-  - company: Redis
-    implementation: "Redis CRDT for geo-distributed active-active databases"
-    scale: "Sub-millisecond replication across continents"
-production_checklist:
-  - "Choose appropriate CRDT type for your use case"
-  - "Implement garbage collection for tombstones"
-  - "Monitor memory growth from metadata"
-  - "Plan for causal delivery of operations"
-  - "Test convergence under network partitions"
-  - "Implement state compression techniques"
-  - "Configure anti-entropy protocols"
-  - "Document merge semantics for developers"
-  - "Monitor divergence metrics between replicas"
-  - "Plan for CRDT type migrations"
+modern-examples:
+- company: Figma
+  implementation: CRDTs power real-time collaborative design editing
+  scale: Millions of concurrent design sessions
+- company: Riak
+  implementation: Built-in CRDT support for distributed data
+  scale: Petabyte-scale deployments with automatic conflict resolution
+- company: Redis
+  implementation: Redis CRDT for geo-distributed active-active databases
+  scale: Sub-millisecond replication across continents
+production-checklist:
+- Choose appropriate CRDT type for your use case
+- Implement garbage collection for tombstones
+- Monitor memory growth from metadata
+- Plan for causal delivery of operations
+- Test convergence under network partitions
+- Implement state compression techniques
+- Configure anti-entropy protocols
+- Document merge semantics for developers
+- Monitor divergence metrics between replicas
+- Plan for CRDT type migrations
 ---
+
 
 # CRDT (Conflict-free Replicated Data Types)
 

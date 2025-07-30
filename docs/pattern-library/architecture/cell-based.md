@@ -2,8 +2,18 @@
 title: Cell-Based Architecture Pattern
 category: architecture
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Architecture pattern that isolates failures by partitioning systems into
+  independent cells with shared-nothing design
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
+
 
 
 # Cell-Based Architecture Pattern

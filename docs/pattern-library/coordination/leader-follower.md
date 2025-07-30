@@ -5,18 +5,25 @@ description: Coordination pattern for managing distributed state with a single s
 type: pattern
 category: coordination
 difficulty: intermediate
-reading_time: 25 min
+reading-time: 25 min
 prerequisites:
 - consensus
 - distributed-state
-when_to_use: When you need strong consistency and coordinated updates
-when_not_to_use: When eventual consistency is acceptable or single leader becomes
+when-to-use: When you need strong consistency and coordinated updates
+when-not-to-use: When eventual consistency is acceptable or single leader becomes
   bottleneck
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 

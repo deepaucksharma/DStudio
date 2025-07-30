@@ -166,10 +166,10 @@ Learning: [How this informed future decisions]
 
 Value Creation doesn't exist in isolation:
 
-- **Decision-Making**: Value guides what to decide
-- **Human Behavior**: People motivated by creating value
-- **Systems Thinking**: Value flows through systems
-- **Integrity**: Sustainable value requires trust
+- **[Decision-Making](../decision-making/)**: Value guides what to decide - every decision should optimize for value creation
+- **[Human Behavior](../human-behavior/)**: People are motivated by creating meaningful value - align individual purpose with organizational value
+- **[Systems Thinking](../systems-thinking/)**: Value flows through systems - optimize the whole value stream, not just parts
+- **[Integrity & Ethics](../integrity-ethics/)**: Sustainable value requires trust - ethical practices create long-term value
 
 ## Self-Reflection Questions
 
@@ -196,6 +196,29 @@ Value Creation doesn't exist in isolation:
 - Tie performance reviews to value delivered
 - Build value creation into your hiring process
 
+## Application in Other Levels
+
+### Level II: Core Business Concepts
+- **[Strategy](../../level-2-core-business/strategy/)**: Value creation drives strategic choices
+- **[Finance](../../level-2-core-business/finance/)**: Quantifying and measuring value
+- **[Operations](../../level-2-core-business/operations/)**: Delivering value efficiently
+
+### Level III: Engineering Applications
+- **[Technical Leadership](../../level-3-applications/technical-leadership/)**: Technical decisions that maximize value
+- **[Business Acumen](../../level-3-applications/business-acumen/)**: Connecting engineering to business value
+- **[People Management](../../level-3-applications/people-management/)**: Building teams that create value
+
+### Level IV: Interview Execution
+- **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Demonstrating value creation impact
+- **[Technical Leadership](../../level-4-interview-execution/technical-leadership/)**: Articulating technical value
+
+## Next Steps
+
+1. **Immediate**: Audit your current projects through the value lens
+2. **This Week**: Practice quantifying value in your daily decisions
+3. **This Month**: Develop value metrics for your team
+4. **For Interviews**: Prepare 3-5 stories showcasing value creation
+
 ---
 
-*Next: Explore how [Decision-Making](../decision-making/) operationalizes value creation through structured choices.*
+*Continue your journey: Explore how [Decision-Making](../decision-making/) operationalizes value creation through structured choices, or see how [Strategy](../../level-2-core-business/strategy/) builds on value creation principles.*

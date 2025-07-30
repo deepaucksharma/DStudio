@@ -11,7 +11,7 @@ hide:
 !!! abstract "Comprehensive Guide for Engineers & Architects Building Distributed Systems"
     **Master distributed systems through physics-derived principles and battle-tested patterns.**
     
-    **7 Fundamental Laws** • **5 Core Pillars** • **112 Design Patterns** • **150+ Real Examples**
+    **7 Fundamental Laws** • **5 Core Pillars** • **91 Design Patterns** • **150+ Real Examples**
 
 Welcome to the definitive resource for understanding distributed systems from first principles. This compendium organizes complex concepts into a physics-based framework that reveals the immutable laws governing all distributed architectures. Whether you're a new graduate learning the fundamentals or a senior architect designing systems at scale, this guide provides maximum conceptual depth with minimum cognitive load.
 
@@ -31,7 +31,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     ---
     
-    Discover 112 battle-tested patterns with interactive filtering by excellence tier and problem domain
+    Discover 91 battle-tested patterns with interactive filtering by excellence tier and problem domain
     
     [:octicons-arrow-right-24: Browse Patterns](pattern-library/){ .md-button .md-button--primary }
 

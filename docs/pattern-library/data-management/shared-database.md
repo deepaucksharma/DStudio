@@ -2,27 +2,38 @@
 title: Shared Database Pattern
 description: Multiple services share a single database instance for data persistence
 type: pattern
-category: distributed-data
+category: data-management
 difficulty: beginner
-reading_time: 15 min
-prerequisites: [database-basics, service-architecture, data-modeling]
-when_to_use: Small systems, tight budgets, simple data sharing needs, monolith-to-microservices transition
-when_not_to_use: Microservices architecture, high scale systems, when services need autonomy, polyglot persistence requirements
+reading-time: 15 min
+prerequisites:
+- database-basics
+- service-architecture
+- data-modeling
+when-to-use: Small systems, tight budgets, simple data sharing needs, monolith-to-microservices
+  transition
+when-not-to-use: Microservices architecture, high scale systems, when services need
+  autonomy, polyglot persistence requirements
 status: complete
-last_updated: 2025-01-27
-tags: [anti-pattern, legacy, data-coupling, monolithic]
+last-updated: 2025-01-27
+tags:
+- anti-pattern
+- legacy
+- data-coupling
+- monolithic
 excellence_tier: bronze
 pattern_status: legacy
 introduced: 1990-01
 current_relevance: declining
-modern_alternatives: 
-  - "Database per Service pattern"
-  - "Event-driven data sharing"
-  - "API-based data access"
-  - "CQRS with separate read models"
-deprecation_reason: "Creates tight coupling between services, violates microservices principles, causes scaling bottlenecks, and prevents independent deployments"
-migration_guide: "[Migrate to Database per Service](../excellence/migrations/shared-database-to-microservices.md)"
+modern-alternatives:
+- Database per Service pattern
+- Event-driven data sharing
+- API-based data access
+- CQRS with separate read models
+deprecation-reason: Creates tight coupling between services, violates microservices
+  principles, causes scaling bottlenecks, and prevents independent deployments
+migration-guide: '[Migrate to Database per Service](../excellence/migrations/shared-database-to-microservices.md)'
 ---
+
 
 # Shared Database Pattern
 

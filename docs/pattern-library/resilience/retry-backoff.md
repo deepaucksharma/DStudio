@@ -1,48 +1,53 @@
 ---
 title: Retry & Backoff Strategies
-description: Master the art of intelligent failure recovery with exponential backoff, jitter, and adaptive retry policies
+description: Master the art of intelligent failure recovery with exponential backoff,
+  jitter, and adaptive retry policies
 type: pattern
 category: resilience
 difficulty: intermediate
-reading_time: 45 min
-prerequisites: [latency, failure, capacity]
-when_to_use: Network calls, external APIs, distributed services, temporary failures
-when_not_to_use: Permanent failures, business logic errors, data validation failures
-related_laws:
-  - law1-failure
-  - law2-asynchrony
-  - law3-emergence
-  - law7-economics
-related_pillars:
-  - work
-  - control
-  - intelligence
+reading-time: 45 min
+prerequisites:
+- latency
+- failure
+- capacity
+when-to-use: Network calls, external APIs, distributed services, temporary failures
+when-not-to-use: Permanent failures, business logic errors, data validation failures
+related-laws:
+- law1-failure
+- law2-asynchrony
+- law3-emergence
+- law7-economics
+related-pillars:
+- work
+- control
+- intelligence
 status: complete
-last_updated: 2025-01-21
+last-updated: 2025-01-21
 excellence_tier: gold
 pattern_status: recommended
 introduced: 1980-01
 current_relevance: mainstream
-modern_examples:
-  - company: AWS
-    implementation: "Built into every AWS SDK with exponential backoff and jitter"
-    scale: "Every API call across millions of customers"
-  - company: Google Cloud
-    implementation: "Automatic retries with intelligent backoff in all client libraries"
-    scale: "Billions of API requests with transient failure handling"
-  - company: Azure
-    implementation: "Smart retry policies in Azure SDK with circuit breaker integration"
-    scale: "Global cloud infrastructure resilience"
-production_checklist:
-  - "Implement exponential backoff (2^attempt * base_delay)"
-  - "Add jitter to prevent thundering herd (±20% randomization)"
-  - "Set maximum retry attempts (typically 3-5)"
-  - "Configure maximum backoff time (usually 30-60 seconds)"
-  - "Identify retryable vs non-retryable errors"
-  - "Monitor retry rates and success rates"
-  - "Implement per-service retry budgets"
-  - "Use idempotency tokens for safe retries"
+modern-examples:
+- company: AWS
+  implementation: Built into every AWS SDK with exponential backoff and jitter
+  scale: Every API call across millions of customers
+- company: Google Cloud
+  implementation: Automatic retries with intelligent backoff in all client libraries
+  scale: Billions of API requests with transient failure handling
+- company: Azure
+  implementation: Smart retry policies in Azure SDK with circuit breaker integration
+  scale: Global cloud infrastructure resilience
+production-checklist:
+- Implement exponential backoff (2^attempt * base_delay)
+- "Add jitter to prevent thundering herd (\xB120% randomization)"
+- Set maximum retry attempts (typically 3-5)
+- Configure maximum backoff time (usually 30-60 seconds)
+- Identify retryable vs non-retryable errors
+- Monitor retry rates and success rates
+- Implement per-service retry budgets
+- Use idempotency tokens for safe retries
 ---
+
 
 # Retry & Backoff Strategies
 

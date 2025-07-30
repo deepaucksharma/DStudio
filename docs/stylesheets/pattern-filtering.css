@@ -1,4 +1,4 @@
-/* Pattern Filtering System Styles */
+/* Pattern Filtering System Styles - Enhanced for Pattern Library */
 
 /* Container and Layout */
 .pattern-filter-container {
@@ -304,4 +304,554 @@
 
 [data-md-color-scheme="slate"] .filter-btn:hover {
     background: rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced Pattern Library Features */
+
+/* Pattern Hero Section */
+.pattern-hero {
+    background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
+    color: white;
+    padding: 48px;
+    border-radius: 16px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.pattern-hero h2 {
+    margin: 0 0 16px 0;
+    font-size: 2.5em;
+}
+
+.pattern-hero p {
+    margin: 0;
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* Quick Navigation Grid */
+.quick-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.nav-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    background: var(--md-code-bg-color);
+    border-radius: 12px;
+    border: 2px solid transparent;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.nav-card:hover {
+    border-color: var(--md-primary-fg-color);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.nav-card .icon {
+    font-size: 2.5em;
+    margin-bottom: 8px;
+}
+
+.nav-card .label {
+    font-weight: 600;
+    color: var(--md-default-fg-color);
+    margin-bottom: 4px;
+}
+
+.nav-card .desc {
+    font-size: 0.9em;
+    color: var(--md-default-fg-color--light);
+}
+
+/* Statistics Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+}
+
+.stat-card {
+    padding: 24px;
+    background: var(--md-code-bg-color);
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid var(--md-default-fg-color--lightest);
+}
+
+.stat-card.gold {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.stat-card.silver {
+    border-color: #c0c0c0;
+    background: rgba(192, 192, 192, 0.1);
+}
+
+.stat-card.bronze {
+    border-color: #cd7f32;
+    background: rgba(205, 127, 50, 0.1);
+}
+
+.stat-number {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--md-primary-fg-color);
+}
+
+.stat-label {
+    font-size: 1.1em;
+    margin: 8px 0;
+    font-weight: 600;
+}
+
+.stat-detail {
+    font-size: 0.9em;
+    color: var(--md-default-fg-color--light);
+}
+
+/* Elite Patterns Grid */
+.elite-patterns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin: 24px 0;
+}
+
+.elite-category {
+    padding: 20px;
+    background: var(--md-code-bg-color);
+    border-radius: 12px;
+    border-left: 4px solid var(--md-primary-fg-color);
+}
+
+.elite-category h4 {
+    margin: 0 0 12px 0;
+    color: var(--md-primary-fg-color);
+}
+
+.elite-category ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.elite-category li {
+    margin: 8px 0;
+}
+
+/* Enhanced Pattern Explorer */
+.pattern-explorer-enhanced {
+    margin: 32px 0;
+}
+
+.explorer-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.quick-filters {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.quick-filter-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid var(--md-primary-fg-color);
+    background: transparent;
+    color: var(--md-primary-fg-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.quick-filter-btn:hover {
+    background: var(--md-primary-fg-color);
+    color: white;
+}
+
+/* Pattern Insights */
+.pattern-insights {
+    margin: 24px 0;
+}
+
+.insight-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--md-accent-fg-color--transparent);
+    border-radius: 8px;
+    border-left: 4px solid var(--md-accent-fg-color);
+}
+
+.insight-icon {
+    font-size: 1.5em;
+}
+
+.insight-text {
+    flex: 1;
+    font-size: 0.95em;
+}
+
+/* Grid Header Controls */
+.pattern-grid-enhanced {
+    margin: 32px 0;
+}
+
+.grid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sort-controls label {
+    font-weight: 600;
+    margin: 0;
+}
+
+.sort-controls select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid var(--md-default-fg-color--lightest);
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+}
+
+.view-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.view-btn {
+    padding: 8px;
+    border: 2px solid var(--md-default-fg-color--lightest);
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-btn.active {
+    background: var(--md-primary-fg-color);
+    color: white;
+    border-color: var(--md-primary-fg-color);
+}
+
+/* Resource Grid */
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+}
+
+.resource-card {
+    padding: 24px;
+    background: var(--md-code-bg-color);
+    border-radius: 12px;
+    border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.resource-card h3 {
+    margin: 0 0 16px 0;
+    color: var(--md-primary-fg-color);
+}
+
+.resource-card ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.resource-card li {
+    margin: 8px 0;
+}
+
+/* Problem Selector */
+.problem-selector {
+    margin: 24px 0;
+}
+
+.problem-selector details {
+    margin: 8px 0;
+    padding: 16px;
+    background: var(--md-code-bg-color);
+    border-radius: 8px;
+    border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.problem-selector summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--md-primary-fg-color);
+}
+
+.problem-selector p {
+    margin: 12px 0 0 0;
+}
+
+/* Pattern CTA */
+.pattern-cta {
+    text-align: center;
+    padding: 48px;
+    background: var(--md-code-bg-color);
+    border-radius: 16px;
+    margin: 48px 0;
+}
+
+.pattern-cta h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.8em;
+}
+
+/* Comparison Tool Styles */
+.quick-compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.compare-btn {
+    padding: 12px 20px;
+    border: 2px solid var(--md-primary-fg-color);
+    background: transparent;
+    color: var(--md-primary-fg-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.compare-btn:hover {
+    background: var(--md-primary-fg-color);
+    color: white;
+}
+
+.pattern-comparison-container {
+    margin: 32px 0;
+}
+
+.comparison-selectors {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.selector-box {
+    flex: 1;
+    min-width: 200px;
+}
+
+.selector-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.selector-box select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--md-default-fg-color--lightest);
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+}
+
+.vs-indicator {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--md-accent-fg-color);
+}
+
+.comparison-results {
+    margin-top: 32px;
+}
+
+.comparison-placeholder {
+    text-align: center;
+    padding: 60px;
+    background: var(--md-code-bg-color);
+    border-radius: 12px;
+    color: var(--md-default-fg-color--light);
+}
+
+/* Anti-Pattern Guide Styles */
+.warning-banner {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+    color: white;
+    padding: 32px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.warning-banner h2 {
+    margin: 0 0 8px 0;
+}
+
+.diagnostic-tool {
+    background: var(--md-code-bg-color);
+    padding: 32px;
+    border-radius: 12px;
+    margin: 24px 0;
+}
+
+.checklist {
+    margin: 16px 0;
+}
+
+.checklist label {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.checklist input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.risk-assessment {
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--md-default-bg-color);
+    border-radius: 8px;
+    border-left: 4px solid var(--md-accent-fg-color);
+}
+
+/* Recipe Finder Styles */
+.recipe-finder {
+    margin: 24px 0;
+}
+
+.recipe-categories {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.recipe-cat-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 2px solid var(--md-primary-fg-color);
+    background: transparent;
+    color: var(--md-primary-fg-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.recipe-cat-btn:hover,
+.recipe-cat-btn.active {
+    background: var(--md-primary-fg-color);
+    color: white;
+}
+
+/* Roadmap Generator Styles */
+.roadmap-generator {
+    background: var(--md-code-bg-color);
+    padding: 32px;
+    border-radius: 12px;
+    margin: 32px 0;
+}
+
+.generator-form {
+    display: grid;
+    gap: 24px;
+}
+
+.form-section {
+    padding: 20px;
+    background: var(--md-default-bg-color);
+    border-radius: 8px;
+}
+
+.form-section h4 {
+    margin: 0 0 16px 0;
+    color: var(--md-primary-fg-color);
+}
+
+.form-section label {
+    display: block;
+    margin: 12px 0 4px 0;
+    font-weight: 600;
+}
+
+.form-section select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid var(--md-default-fg-color--lightest);
+    background: var(--md-default-bg-color);
+    color: var(--md-default-fg-color);
+    margin-bottom: 12px;
+}
+
+.generate-btn {
+    padding: 16px 32px;
+    background: var(--md-primary-fg-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.generate-btn:hover {
+    background: var(--md-primary-fg-color--dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.generated-roadmap {
+    margin-top: 32px;
+}
+
+/* Dark mode adjustments for new features */
+[data-md-color-scheme="slate"] .pattern-hero {
+    background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
+}
+
+[data-md-color-scheme="slate"] .nav-card,
+[data-md-color-scheme="slate"] .stat-card,
+[data-md-color-scheme="slate"] .elite-category,
+[data-md-color-scheme="slate"] .resource-card,
+[data-md-color-scheme="slate"] .problem-selector details,
+[data-md-color-scheme="slate"] .pattern-cta,
+[data-md-color-scheme="slate"] .comparison-placeholder,
+[data-md-color-scheme="slate"] .diagnostic-tool,
+[data-md-color-scheme="slate"] .roadmap-generator {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-md-color-scheme="slate"] .form-section {
+    background: rgba(0, 0, 0, 0.3);
 }

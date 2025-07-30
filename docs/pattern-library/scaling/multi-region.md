@@ -1,9 +1,19 @@
 ---
 title: Multi-Region Architecture
-category: resilience
+category: scaling
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Deployment pattern that spans multiple geographic regions for disaster
+  recovery and latency optimization
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
+
 
 # Multi-Region Architecture
 

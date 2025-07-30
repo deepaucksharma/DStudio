@@ -1,35 +1,50 @@
 ---
 title: Read Repair
-description: A technique for detecting and fixing data inconsistencies during read operations in distributed systems
+description: A technique for detecting and fixing data inconsistencies during read
+  operations in distributed systems
 type: pattern
-category: distributed-data
+category: data-management
 difficulty: intermediate
-reading_time: 25 min
-prerequisites: [eventual-consistency, replication, vector-clocks, distributed-systems-basics]
-when_to_use: Eventually consistent systems, multi-replica databases, high read-to-write ratios, when strong consistency is not required but data should converge
-when_not_to_use: Strong consistency requirements, write-heavy workloads, when immediate consistency is critical, low-latency read requirements
+reading-time: 25 min
+prerequisites:
+- eventual-consistency
+- replication
+- vector-clocks
+- distributed-systems-basics
+when-to-use: Eventually consistent systems, multi-replica databases, high read-to-write
+  ratios, when strong consistency is not required but data should converge
+when-not-to-use: Strong consistency requirements, write-heavy workloads, when immediate
+  consistency is critical, low-latency read requirements
 status: complete
-last_updated: 2025-07-26
-tags: [consistency, replication, repair, eventual-consistency, distributed-data]
+last-updated: 2025-07-26
+tags:
+- consistency
+- replication
+- repair
+- eventual-consistency
+- distributed-data
 excellence_tier: silver
 pattern_status: use-with-expertise
-trade_offs:
+trade-offs:
   pros:
-    - "Opportunistic healing of inconsistencies during reads"
-    - "No additional background process overhead"
-    - "Improves consistency without dedicated repair cycles"
-    - "Works well with eventual consistency models"
+  - Opportunistic healing of inconsistencies during reads
+  - No additional background process overhead
+  - Improves consistency without dedicated repair cycles
+  - Works well with eventual consistency models
   cons:
-    - "Adds latency to read operations"
-    - "May not repair rarely-read data"
-    - "Repair storms can overwhelm system during failures"
-    - "Complex to tune repair probability correctly"
-best_for:
-  - "Eventually consistent key-value stores"
-  - "Systems with high read-to-write ratios"
-  - "Multi-datacenter deployments with occasional partitions"
-  - "Applications tolerating temporary inconsistencies"
+  - Adds latency to read operations
+  - May not repair rarely-read data
+  - Repair storms can overwhelm system during failures
+  - Complex to tune repair probability correctly
+best-for:
+- Eventually consistent key-value stores
+- Systems with high read-to-write ratios
+- Multi-datacenter deployments with occasional partitions
+- Applications tolerating temporary inconsistencies
+introduced: 2024-01
+current_relevance: mainstream
 ---
+
 
 # Read Repair
 

@@ -2,24 +2,26 @@
 title: Kappa Architecture
 description: This topic is under development
 type: pattern
-category: architectural
+category: architecture
 difficulty: intermediate
-reading_time: 30 min
+reading-time: 30 min
 prerequisites: []
-when_to_use: When dealing with architectural challenges
-when_not_to_use: When simpler solutions suffice
+when-to-use: When dealing with architectural challenges
+when-not-to-use: When simpler solutions suffice
 status: stub
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: bronze
 pattern_status: legacy
 introduced: 2014-07
-current_relevance: historical
-modern_alternatives: 
-  - "Unified stream processing (Apache Beam, Flink)"
-  - "Event streaming platforms (Kafka Streams)"
-  - "Cloud-native streaming (AWS Kinesis Analytics)"
-deprecation_reason: "Lambda architecture's batch+stream approach proved more practical; pure streaming has limitations for historical reprocessing"
+current_relevance: declining
+modern-alternatives:
+- Unified stream processing (Apache Beam, Flink)
+- Event streaming platforms (Kafka Streams)
+- Cloud-native streaming (AWS Kinesis Analytics)
+deprecation-reason: Lambda architecture's batch+stream approach proved more practical;
+  pure streaming has limitations for historical reprocessing
 ---
+
 
 
 # Kappa Architecture

@@ -4,24 +4,31 @@ description: Pattern for distributed systems coordination and reliability
 type: pattern
 category: resilience
 difficulty: beginner
-reading_time: 25 min
+reading-time: 25 min
 prerequisites: []
-when_to_use: When dealing with resilience challenges
-when_not_to_use: When simpler solutions suffice
-related_laws:
+when-to-use: When dealing with resilience challenges
+when-not-to-use: When simpler solutions suffice
+related-laws:
 - law1-failure
 - law3-emergence
 - law4-tradeoffs
 - law7-economics
-related_pillars:
+related-pillars:
 - work
 - control
 - intelligence
 status: complete
-last_updated: 2025-07-20
+last-updated: 2025-07-20
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # Load Shedding Pattern

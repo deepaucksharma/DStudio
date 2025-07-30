@@ -18,7 +18,7 @@ You'll typically spend 45-60 minutes designing systems like Twitter, Uber, or Ne
 This compendium's physics-based approach gives you a unique advantage:
 
 1. **🧠 Mental Models** - The 7 Laws provide intuitive frameworks for reasoning about scale
-2. **🔧 Pattern Library** - 112 battle-tested patterns solve common design challenges  
+2. **🔧 Pattern Library** - 91 battle-tested patterns solve common design challenges  
 3. **📊 Quantitative Skills** - Mathematical tools help you size systems accurately
 4. **🏆 Real Examples** - Case studies show how companies actually solve these problems
 

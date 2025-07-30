@@ -1,43 +1,50 @@
 ---
 title: API Gateway Pattern
-description: Unified entry point for microservices providing routing, authentication, and cross-cutting concerns
+description: Unified entry point for microservices providing routing, authentication,
+  and cross-cutting concerns
 type: pattern
 category: communication
 difficulty: intermediate
-reading_time: 20 min
-prerequisites: 
-when_to_use: Microservices architectures, mobile backends, third-party API access
-when_not_to_use: Monolithic applications, simple architectures, low-latency requirements
+reading-time: 20 min
+prerequisites: null
+when-to-use: Microservices architectures, mobile backends, third-party API access
+when-not-to-use: Monolithic applications, simple architectures, low-latency requirements
 status: complete
-last_updated: 2025-07-21
+last-updated: 2025-07-21
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2011-10
 current_relevance: mainstream
-modern_examples:
-  - company: Netflix
-    implementation: "Zuul gateway handles 50B+ requests daily across edge devices"
-    scale: "50B+ API requests/day, 130M+ subscribers"
-  - company: Amazon
-    implementation: "AWS API Gateway manages APIs for Prime Video, Alexa, and retail"
-    scale: "Trillions of API calls annually"
-  - company: Uber
-    implementation: "Edge gateway routes requests across 3000+ microservices"
-    scale: "18M+ trips daily across 10,000+ cities"
-production_checklist:
-  - "Implement request/response logging with correlation IDs"
-  - "Configure rate limiting per client (typical: 1000 req/min)"
-  - "Enable circuit breakers for backend services (50% error threshold)"
-  - "Set up authentication/authorization (OAuth2/JWT)"
-  - "Configure caching for frequently accessed data (TTL: 5-60s)"
-  - "Implement request/response transformation as needed"
-  - "Monitor latency percentiles (p50, p95, p99)"
-  - "Configure timeouts for each backend service (typically 5-30s)"
-  - "Set up health checks for all backend services"
-  - "Implement gradual rollout for configuration changes"
-related_laws: [law4-tradeoffs, law6-human-api, law7-economics]
-related_pillars: [control, work]
+modern-examples:
+- company: Netflix
+  implementation: Zuul gateway handles 50B+ requests daily across edge devices
+  scale: 50B+ API requests/day, 130M+ subscribers
+- company: Amazon
+  implementation: AWS API Gateway manages APIs for Prime Video, Alexa, and retail
+  scale: Trillions of API calls annually
+- company: Uber
+  implementation: Edge gateway routes requests across 3000+ microservices
+  scale: 18M+ trips daily across 10,000+ cities
+production-checklist:
+- Implement request/response logging with correlation IDs
+- 'Configure rate limiting per client (typical: 1000 req/min)'
+- Enable circuit breakers for backend services (50% error threshold)
+- Set up authentication/authorization (OAuth2/JWT)
+- 'Configure caching for frequently accessed data (TTL: 5-60s)'
+- Implement request/response transformation as needed
+- Monitor latency percentiles (p50, p95, p99)
+- Configure timeouts for each backend service (typically 5-30s)
+- Set up health checks for all backend services
+- Implement gradual rollout for configuration changes
+related-laws:
+- law4-tradeoffs
+- law6-human-api
+- law7-economics
+related-pillars:
+- control
+- work
 ---
+
 # API Gateway Pattern
 
 !!! success "🏆 Gold Standard Pattern"

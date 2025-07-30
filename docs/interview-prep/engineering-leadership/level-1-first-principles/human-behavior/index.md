@@ -270,10 +270,10 @@ Learning: Technical recovery requires emotional recovery first
 
 ## Connection to Other Principles
 
-- **Value Creation**: Motivated humans create more value
-- **Decision-Making**: Emotions drive decisions, not just logic  
-- **Systems Thinking**: Humans are part of the system
-- **Integrity**: Trust is the foundation of human cooperation
+- **[Value Creation](../value-creation/)**: Motivated humans create exponentially more value - align purpose with profit
+- **[Decision-Making](../decision-making/)**: Emotions drive decisions, not just logic - account for human factors in every choice
+- **[Systems Thinking](../systems-thinking/)**: Humans are part of the system - Conway's Law shows how org structure shapes architecture
+- **[Integrity & Ethics](../integrity-ethics/)**: Trust is the foundation of human cooperation - psychological safety requires ethical leadership
 
 ## Self-Development Plan
 
@@ -292,6 +292,29 @@ Learning: Technical recovery requires emotional recovery first
 - Design team charter with behavioral norms
 - Measure and improve team psychological safety
 
+## Application in Other Levels
+
+### Level II: Core Business Concepts
+- **[Leadership](../../level-2-core-business/leadership/)**: Leading humans requires understanding behavior
+- **[Operations](../../level-2-core-business/operations/)**: Human factors in operational excellence
+- **[Risk & Governance](../../level-2-core-business/risk-governance/)**: Managing human risks and compliance
+
+### Level III: Engineering Applications
+- **[People Management](../../level-3-applications/people-management/)**: Direct application of human behavior principles
+- **[Organizational Design](../../level-3-applications/organizational-design/)**: Structures that enhance human performance
+- **[Technical Leadership](../../level-3-applications/technical-leadership/)**: Leading technical humans effectively
+
+### Level IV: Interview Execution
+- **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Demonstrating people leadership
+- **[Culture Fit](../../level-4-interview-execution/culture-values/)**: Showing cultural awareness
+
+## Next Steps
+
+1. **Today**: Observe team dynamics through the human behavior lens
+2. **This Week**: Conduct one-on-ones focused on human connection
+3. **This Month**: Implement one psychological safety practice
+4. **For Interviews**: Prepare 5 stories showcasing human behavior mastery
+
 ---
 
-*Next: Discover how [Systems Thinking](../systems-thinking/) reveals the hidden connections between human behavior and organizational outcomes.*
+*Continue your journey: Discover how [Systems Thinking](../systems-thinking/) reveals the hidden connections between human behavior and organizational outcomes, or explore [Leadership](../../level-2-core-business/leadership/) for frameworks to mobilize human potential.*

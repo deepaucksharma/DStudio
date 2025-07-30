@@ -1,9 +1,16 @@
 ---
 title: Distributed Lock Pattern
-category: data
+category: coordination
 excellence_tier: gold
-pattern_status: stable
+pattern_status: recommended
+description: Mutual exclusion primitive for coordinating access to shared resources
+introduced: 2024-01
+current_relevance: mainstream
+modern-examples: []
+production-checklist: []
 ---
+
+
 
 
 # Distributed Lock Pattern

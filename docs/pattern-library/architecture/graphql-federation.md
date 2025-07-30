@@ -1,37 +1,39 @@
 ---
 title: GraphQL Federation
-description: Compose multiple GraphQL services into a unified API gateway to reduce client round trips
+description: Compose multiple GraphQL services into a unified API gateway to reduce
+  client round trips
 type: pattern
-category: communication
+category: architecture
 difficulty: intermediate
-reading_time: 20 min
+reading-time: 20 min
 prerequisites: []
-when_to_use: When dealing with communication challenges
-when_not_to_use: When simpler solutions suffice
+when-to-use: When dealing with communication challenges
+when-not-to-use: When simpler solutions suffice
 status: complete
-last_updated: 2025-07-21
+last-updated: 2025-07-21
 excellence_tier: silver
 pattern_status: use-with-caution
 introduced: 2019-07
 current_relevance: growing
-trade_offs:
+trade-offs:
   pros:
-    - "Single endpoint for multiple services"
-    - "Reduced client complexity"
-    - "Flexible data fetching"
+  - Single endpoint for multiple services
+  - Reduced client complexity
+  - Flexible data fetching
   cons:
-    - "Performance concerns at scale"
-    - "Complex caching strategies"
-    - "Debugging federated queries is difficult"
-best_for: "API gateways, mobile apps needing flexible data fetching"
+  - Performance concerns at scale
+  - Complex caching strategies
+  - Debugging federated queries is difficult
+best-for: API gateways, mobile apps needing flexible data fetching
 implementations:
-  - company: Netflix
-    scale: "Federation for internal microservices"
-  - company: Airbnb
-    scale: "GraphQL gateway for mobile apps"
-  - company: PayPal
-    scale: "Federated APIs across business units"
+- company: Netflix
+  scale: Federation for internal microservices
+- company: Airbnb
+  scale: GraphQL gateway for mobile apps
+- company: PayPal
+  scale: Federated APIs across business units
 ---
+
 
 # GraphQL Federation
 

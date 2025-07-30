@@ -1,30 +1,38 @@
 ---
 title: Priority Queue
-description: Distributed priority queue systems that process messages based on importance rather than arrival order
+description: Distributed priority queue systems that process messages based on importance
+  rather than arrival order
 type: pattern
-category: communication
+category: scaling
 difficulty: intermediate
-reading_time: 30 min
-prerequisites: [message-queues, distributed-systems, data-structures]
-when_to_use: Task scheduling, resource allocation, emergency systems, web crawling, job processing
-when_not_to_use: Simple FIFO processing, when all messages have equal importance, low-latency requirements
+reading-time: 30 min
+prerequisites:
+- message-queues
+- distributed-systems
+- data-structures
+when-to-use: Task scheduling, resource allocation, emergency systems, web crawling,
+  job processing
+when-not-to-use: Simple FIFO processing, when all messages have equal importance,
+  low-latency requirements
 status: complete
-last_updated: 2025-07-24
+last-updated: 2025-07-24
 excellence_tier: silver
 pattern_status: use-with-caution
 introduced: 1960s
-current_relevance: essential
-trade_offs:
-  pros: 
-    - "Ensures critical tasks processed first"
-    - "Flexible priority schemes"
-    - "Better resource utilization"
+current_relevance: mainstream
+trade-offs:
+  pros:
+  - Ensures critical tasks processed first
+  - Flexible priority schemes
+  - Better resource utilization
   cons:
-    - "Risk of low-priority starvation"
-    - "Complex distributed implementation"
-    - "Priority inversion problems"
-best_for: "Emergency systems, job schedulers, web crawlers, resource allocators where importance varies significantly"
+  - Risk of low-priority starvation
+  - Complex distributed implementation
+  - Priority inversion problems
+best-for: Emergency systems, job schedulers, web crawlers, resource allocators where
+  importance varies significantly
 ---
+
 
 # Priority Queue
 

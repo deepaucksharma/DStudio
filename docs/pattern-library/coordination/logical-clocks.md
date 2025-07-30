@@ -5,20 +5,27 @@ description: Order events in distributed systems without synchronized physical c
 type: pattern
 category: coordination
 difficulty: intermediate
-reading_time: 35 min
+reading-time: 35 min
 prerequisites:
 - distributed-systems-basics
 - causality
 - event-ordering
-when_to_use: When you need causal ordering of events, don't need wall-clock time,
+when-to-use: When you need causal ordering of events, don't need wall-clock time,
   and want a simple solution
-when_not_to_use: When you need to detect concurrent events (use vector clocks) or
+when-not-to-use: When you need to detect concurrent events (use vector clocks) or
   need actual timestamps
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 

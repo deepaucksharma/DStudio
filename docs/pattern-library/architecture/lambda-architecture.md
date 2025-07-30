@@ -2,24 +2,26 @@
 title: Lambda Architecture
 description: This topic is under development
 type: pattern
-category: architectural
+category: architecture
 difficulty: intermediate
-reading_time: 30 min
+reading-time: 30 min
 prerequisites: []
-when_to_use: When dealing with architectural challenges
-when_not_to_use: When simpler solutions suffice
+when-to-use: When dealing with architectural challenges
+when-not-to-use: When simpler solutions suffice
 status: stub
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: bronze
 pattern_status: legacy
 introduced: 2011-01
-current_relevance: historical
-modern_alternatives:
-  - "Unified processing (Apache Beam)"
-  - "Stream-first architectures"
-  - "Lakehouse architectures (Delta Lake, Iceberg)"
-deprecation_reason: "Maintaining two parallel pipelines (batch and stream) proved too complex; modern frameworks unify batch and stream processing"
+current_relevance: declining
+modern-alternatives:
+- Unified processing (Apache Beam)
+- Stream-first architectures
+- Lakehouse architectures (Delta Lake, Iceberg)
+deprecation-reason: Maintaining two parallel pipelines (batch and stream) proved too
+  complex; modern frameworks unify batch and stream processing
 ---
+
 
 
 # Lambda Architecture

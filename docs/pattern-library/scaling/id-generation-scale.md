@@ -1,39 +1,45 @@
 ---
 title: ID Generation at Scale
-description: Strategies for generating unique identifiers in distributed systems at massive scale
+description: Strategies for generating unique identifiers in distributed systems at
+  massive scale
 type: pattern
-category: specialized
+category: scaling
 difficulty: intermediate
-reading_time: 30 min
-prerequisites: [distributed-systems-basics, sharding, time-synchronization]
-when_to_use: URL shorteners, social media platforms, e-commerce systems requiring billions of unique IDs
-when_not_to_use: Single-node applications, low-throughput systems, when UUIDs suffice
+reading-time: 30 min
+prerequisites:
+- distributed-systems-basics
+- sharding
+- time-synchronization
+when-to-use: URL shorteners, social media platforms, e-commerce systems requiring
+  billions of unique IDs
+when-not-to-use: Single-node applications, low-throughput systems, when UUIDs suffice
 status: complete
-last_updated: 2025-07-24
+last-updated: 2025-07-24
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2010-10
 current_relevance: mainstream
-modern_examples:
-  - company: Twitter
-    implementation: "Snowflake algorithm generates billions of tweet IDs with time ordering"
-    scale: "500M+ tweets/day, billions of IDs generated"
-  - company: Instagram
-    implementation: "Modified Snowflake with PostgreSQL sharding for photo IDs"
-    scale: "95M+ photos/day requiring unique IDs"
-  - company: Discord
-    implementation: "Snowflake-based IDs for messages, users, and channels"
-    scale: "15B+ messages/month with globally unique IDs"
-production_checklist:
-  - "Choose ID structure: timestamp + worker ID + sequence (Snowflake pattern)"
-  - "Allocate bits carefully: 41-bit timestamp, 10-bit worker, 12-bit sequence"
-  - "Implement clock synchronization with NTP (< 1ms drift)"
-  - "Handle clock rollback scenarios gracefully"
-  - "Monitor ID generation rate and sequence exhaustion"
-  - "Plan for epoch rollover (41 bits = ~69 years)"
-  - "Test uniqueness across all worker nodes"
-  - "Implement ID validation and parsing utilities"
+modern-examples:
+- company: Twitter
+  implementation: Snowflake algorithm generates billions of tweet IDs with time ordering
+  scale: 500M+ tweets/day, billions of IDs generated
+- company: Instagram
+  implementation: Modified Snowflake with PostgreSQL sharding for photo IDs
+  scale: 95M+ photos/day requiring unique IDs
+- company: Discord
+  implementation: Snowflake-based IDs for messages, users, and channels
+  scale: 15B+ messages/month with globally unique IDs
+production-checklist:
+- 'Choose ID structure: timestamp + worker ID + sequence (Snowflake pattern)'
+- 'Allocate bits carefully: 41-bit timestamp, 10-bit worker, 12-bit sequence'
+- Implement clock synchronization with NTP (< 1ms drift)
+- Handle clock rollback scenarios gracefully
+- Monitor ID generation rate and sequence exhaustion
+- Plan for epoch rollover (41 bits = ~69 years)
+- Test uniqueness across all worker nodes
+- Implement ID validation and parsing utilities
 ---
+
 
 # ID Generation at Scale
 

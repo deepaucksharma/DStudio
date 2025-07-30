@@ -4,27 +4,29 @@ description: Lock-free atomic operation for concurrent data structures
 type: pattern
 category: coordination
 difficulty: intermediate
-reading_time: 30 min
+reading-time: 30 min
 prerequisites: []
-when_to_use: When building lock-free concurrent data structures
-when_not_to_use: When locks are simpler and sufficient
+when-to-use: When building lock-free concurrent data structures
+when-not-to-use: When locks are simpler and sufficient
 status: complete
-last_updated: 2025-07-23
+last-updated: 2025-07-23
 excellence_tier: silver
 pattern_status: use-with-caution
 introduced: 1970s
 current_relevance: niche
-trade_offs:
+trade-offs:
   pros:
-    - "Lock-free performance"
-    - "No deadlock possibility"
-    - "Fine-grained concurrency"
+  - Lock-free performance
+  - No deadlock possibility
+  - Fine-grained concurrency
   cons:
-    - "ABA problem complexity"
-    - "Limited to single-word updates"
-    - "Difficult to debug"
-best_for: "High-performance concurrent data structures, atomic counters, lock-free algorithms where contention is moderate"
+  - ABA problem complexity
+  - Limited to single-word updates
+  - Difficult to debug
+best-for: High-performance concurrent data structures, atomic counters, lock-free
+  algorithms where contention is moderate
 ---
+
 # CAS (Compare-and-Swap)
 
 !!! warning "🥈 Silver Tier Pattern"

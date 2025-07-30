@@ -1,45 +1,52 @@
 ---
 title: Materialized View Pattern
-description: Pre-compute and store query results for instant access to complex aggregations and joins
+description: Pre-compute and store query results for instant access to complex aggregations
+  and joins
 type: pattern
-category: data
+category: data-management
 difficulty: intermediate
-reading_time: 15 min
-prerequisites: [database-views, query-optimization, data-warehousing]
-when_to_use: Analytics dashboards, reporting systems, expensive query optimization, real-time aggregations, denormalization for read performance
-when_not_to_use: Frequently changing data, small datasets, simple queries, when storage cost exceeds benefit
+reading-time: 15 min
+prerequisites:
+- database-views
+- query-optimization
+- data-warehousing
+when-to-use: Analytics dashboards, reporting systems, expensive query optimization,
+  real-time aggregations, denormalization for read performance
+when-not-to-use: Frequently changing data, small datasets, simple queries, when storage
+  cost exceeds benefit
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: gold
 pattern_status: recommended
 introduced: 1990-01
 current_relevance: mainstream
-modern_examples:
-  - company: Google BigQuery
-    implementation: "Materialized views for real-time analytics on petabytes of data"
-    scale: "Processes 110TB/second with pre-computed results"
-  - company: Amazon Redshift
-    implementation: "Automatic query optimization with materialized views"
-    scale: "Thousands of customers querying exabytes of data"
-  - company: Snowflake
-    implementation: "Zero-maintenance materialized views with automatic refresh"
-    scale: "Serves 7,800+ customers with instant query results"
-production_checklist:
-  - "Identify expensive queries that benefit from materialization"
-  - "Design refresh strategy (incremental vs full, scheduled vs triggered)"
-  - "Monitor storage costs vs query performance gains"
-  - "Implement staleness monitoring and alerts"
-  - "Plan for view maintenance during schema changes"
-  - "Set up automatic refresh based on data change patterns"
-  - "Configure query rewrite rules for optimizer"
-  - "Test impact on write performance and storage"
-related_laws:
-  - law4-tradeoffs
-  - law7-economics
-related_pillars:
-  - state
-  - work
+modern-examples:
+- company: Google BigQuery
+  implementation: Materialized views for real-time analytics on petabytes of data
+  scale: Processes 110TB/second with pre-computed results
+- company: Amazon Redshift
+  implementation: Automatic query optimization with materialized views
+  scale: Thousands of customers querying exabytes of data
+- company: Snowflake
+  implementation: Zero-maintenance materialized views with automatic refresh
+  scale: Serves 7,800+ customers with instant query results
+production-checklist:
+- Identify expensive queries that benefit from materialization
+- Design refresh strategy (incremental vs full, scheduled vs triggered)
+- Monitor storage costs vs query performance gains
+- Implement staleness monitoring and alerts
+- Plan for view maintenance during schema changes
+- Set up automatic refresh based on data change patterns
+- Configure query rewrite rules for optimizer
+- Test impact on write performance and storage
+related-laws:
+- law4-tradeoffs
+- law7-economics
+related-pillars:
+- state
+- work
 ---
+
 
 # Materialized View Pattern
 

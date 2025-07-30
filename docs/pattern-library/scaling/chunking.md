@@ -1,34 +1,41 @@
 ---
 title: Chunking
-description: Break large datasets or operations into smaller, manageable pieces for improved performance, memory usage, and fault tolerance
+description: Break large datasets or operations into smaller, manageable pieces for
+  improved performance, memory usage, and fault tolerance
 type: pattern
-category: performance
+category: scaling
 difficulty: intermediate
-reading_time: 30 min
-prerequisites: [streaming, batching, memory-management]
-when_to_use: Large data processing, file uploads/downloads, streaming data, memory-constrained environments
-when_not_to_use: Small datasets, atomic operations requiring full consistency, real-time processing with strict latency requirements
+reading-time: 30 min
+prerequisites:
+- streaming
+- batching
+- memory-management
+when-to-use: Large data processing, file uploads/downloads, streaming data, memory-constrained
+  environments
+when-not-to-use: Small datasets, atomic operations requiring full consistency, real-time
+  processing with strict latency requirements
 status: complete
-last_updated: 2025-07-24
+last-updated: 2025-07-24
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
 introduced: 1990-01
-current_relevance: specialized
-trade_offs:
+current_relevance: niche
+trade-offs:
   pros:
-    - Reduced memory footprint
-    - Better fault tolerance
-    - Progressive processing
+  - Reduced memory footprint
+  - Better fault tolerance
+  - Progressive processing
   cons:
-    - Increased complexity
-    - Chunk boundary handling
-    - Potential performance overhead
-best_for:
-  - File upload/download systems
-  - Large data processing pipelines
-  - Memory-constrained environments
-  - Streaming data processing
+  - Increased complexity
+  - Chunk boundary handling
+  - Potential performance overhead
+best-for:
+- File upload/download systems
+- Large data processing pipelines
+- Memory-constrained environments
+- Streaming data processing
 ---
+
 
 # Chunking
 

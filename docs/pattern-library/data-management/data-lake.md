@@ -1,35 +1,50 @@
 ---
 title: Data Lake Pattern
-description: Centralized repository storing vast amounts of raw data in native format for flexible analysis
+description: Centralized repository storing vast amounts of raw data in native format
+  for flexible analysis
 type: pattern
-category: distributed-data
+category: data-management
 difficulty: intermediate
-reading_time: 20 min
-prerequisites: [big-data, distributed-storage, data-governance, etl-pipelines]
-when_to_use: Big data analytics, machine learning datasets, multi-format data storage, exploratory data analysis, regulatory compliance archiving, IoT data collection
-when_not_to_use: Real-time transactional systems, structured data only, small datasets, when data governance is weak, without proper data catalog
+reading-time: 20 min
+prerequisites:
+- big-data
+- distributed-storage
+- data-governance
+- etl-pipelines
+when-to-use: Big data analytics, machine learning datasets, multi-format data storage,
+  exploratory data analysis, regulatory compliance archiving, IoT data collection
+when-not-to-use: Real-time transactional systems, structured data only, small datasets,
+  when data governance is weak, without proper data catalog
 status: complete
-last_updated: 2025-01-26
-tags: [big-data, analytics, data-storage, unstructured-data, data-governance]
+last-updated: 2025-01-26
+tags:
+- big-data
+- analytics
+- data-storage
+- unstructured-data
+- data-governance
 excellence_tier: bronze
-pattern_status: use_with_caution
+pattern_status: use-with-caution
 introduced: 2010-01
-current_relevance: evolving
-modern_examples:
-  - company: Netflix
-    implementation: "S3-based data lake for viewing analytics and ML training"
-    scale: "500TB+ daily ingestion"
-  - company: Uber
-    implementation: "Multi-region data lake for trip analytics and surge pricing"
-    scale: "100PB+ total storage"
-related_laws:
-  - law4-tradeoffs
-  - law5-epistemology
-  - law7-economics
-related_pillars:
-  - state
-  - intelligence
+current_relevance: growing
+modern-examples:
+- company: Netflix
+  implementation: S3-based data lake for viewing analytics and ML training
+  scale: 500TB+ daily ingestion
+- company: Uber
+  implementation: Multi-region data lake for trip analytics and surge pricing
+  scale: 100PB+ total storage
+related-laws:
+- law4-tradeoffs
+- law5-epistemology
+- law7-economics
+related-pillars:
+- state
+- intelligence
+modern-alternatives: []
+deprecation-reason: Consider modern alternatives for new implementations
 ---
+
 
 # Data Lake Pattern
 

@@ -1,9 +1,19 @@
 ---
 title: Auto-scaling Pattern
-category: data
+category: scaling
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Dynamic resource management pattern that adjusts capacity based on demand
+  metrics
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
+
 
 
 # Auto-scaling Pattern

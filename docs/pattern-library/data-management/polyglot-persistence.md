@@ -4,16 +4,23 @@ description: Using different data storage technologies for different domain requ
 type: pattern
 category: data-management
 difficulty: intermediate
-reading_time: 30 min
+reading-time: 30 min
 prerequisites: []
-when_to_use: When different parts of your application have different data storage
+when-to-use: When different parts of your application have different data storage
   requirements
-when_not_to_use: When a single database can meet all requirements effectively
+when-not-to-use: When a single database can meet all requirements effectively
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 

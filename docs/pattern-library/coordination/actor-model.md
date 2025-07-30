@@ -1,23 +1,40 @@
 ---
 title: Actor Model
-description: Message-passing concurrency model with isolated actors communicating asynchronously
+description: Message-passing concurrency model with isolated actors communicating
+  asynchronously
 type: pattern
-category: concurrency
+category: coordination
 difficulty: advanced
-reading_time: 15 min
-prerequisites: [concurrency, distributed-systems]
-when_to_use: Building highly concurrent, fault-tolerant systems with millions of independent entities
-when_not_to_use: Simple request-response applications, systems requiring shared mutable state
+reading-time: 15 min
+prerequisites:
+- concurrency
+- distributed-systems
+when-to-use: Building highly concurrent, fault-tolerant systems with millions of independent
+  entities
+when-not-to-use: Simple request-response applications, systems requiring shared mutable
+  state
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: bronze
 pattern_status: legacy
-modern_alternatives: ["service-mesh", "serverless-faas", "event-driven"]
-still_valid_for: "Erlang/Elixir systems, specific IoT scenarios, academic study"
-migration_guide: "/excellence/migrations/actor-to-service-mesh"
-related_laws: [law2-asynchrony, law3-emergence, law6-human-api]
-related_pillars: [work, control]
+modern-alternatives:
+- service-mesh
+- serverless-faas
+- event-driven
+still-valid-for: Erlang/Elixir systems, specific IoT scenarios, academic study
+migration-guide: /excellence/migrations/actor-to-service-mesh
+related-laws:
+- law2-asynchrony
+- law3-emergence
+- law6-human-api
+related-pillars:
+- work
+- control
+introduced: 2024-01
+current_relevance: mainstream
+deprecation-reason: Consider modern alternatives for new implementations
 ---
+
 
 # Actor Model
 

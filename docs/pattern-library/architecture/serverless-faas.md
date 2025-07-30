@@ -1,37 +1,39 @@
 ---
 title: Serverless/FaaS (Function-as-a-Service)
-description: Execute code without managing servers, paying only for actual compute time with automatic scaling
+description: Execute code without managing servers, paying only for actual compute
+  time with automatic scaling
 type: pattern
-category: specialized
+category: architecture
 difficulty: intermediate
-reading_time: 45 min
+reading-time: 45 min
 prerequisites: []
-when_to_use: When dealing with specialized challenges
-when_not_to_use: When simpler solutions suffice
+when-to-use: When dealing with specialized challenges
+when-not-to-use: When simpler solutions suffice
 status: complete
-last_updated: 2025-07-21
+last-updated: 2025-07-21
 excellence_tier: silver
-pattern_status: use-with-context
+pattern_status: use-with-expertise
 introduced: 2014-11
 current_relevance: mainstream
-trade_offs:
+trade-offs:
   pros:
-    - "Zero server management and automatic scaling"
-    - "Pay only for actual execution time"
-    - "Rapid development and deployment"
+  - Zero server management and automatic scaling
+  - Pay only for actual execution time
+  - Rapid development and deployment
   cons:
-    - "Vendor lock-in concerns"
-    - "Cold start latency issues"
-    - "Limited execution time and resources"
-best_for: "Event-driven workloads, APIs with variable traffic, batch jobs, webhooks"
+  - Vendor lock-in concerns
+  - Cold start latency issues
+  - Limited execution time and resources
+best-for: Event-driven workloads, APIs with variable traffic, batch jobs, webhooks
 implementations:
-  - company: iRobot
-    scale: "Processes millions of IoT events from Roomba vacuums"
-  - company: Coca-Cola
-    scale: "Vending machine payments via AWS Lambda"
-  - company: Netflix
-    scale: "Video encoding and media processing pipelines"
+- company: iRobot
+  scale: Processes millions of IoT events from Roomba vacuums
+- company: Coca-Cola
+  scale: Vending machine payments via AWS Lambda
+- company: Netflix
+  scale: Video encoding and media processing pipelines
 ---
+
 
 # Serverless/FaaS (Function-as-a-Service)
 

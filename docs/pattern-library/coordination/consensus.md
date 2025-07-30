@@ -2,42 +2,48 @@
 title: Consensus Pattern
 description: Achieving agreement among distributed nodes in the presence of failures
 type: pattern
-category: specialized
+category: coordination
 difficulty: advanced
-reading_time: 30 min
+reading-time: 30 min
 prerequisites: []
-when_to_use: Leader election, distributed configuration, replicated state machines
-when_not_to_use: High-throughput data processing, eventually consistent systems
+when-to-use: Leader election, distributed configuration, replicated state machines
+when-not-to-use: High-throughput data processing, eventually consistent systems
 status: complete
-last_updated: 2025-07-20
+last-updated: 2025-07-20
 excellence_tier: gold
 pattern_status: recommended
 introduced: 1989-01
 current_relevance: mainstream
-modern_examples:
-  - company: etcd
-    implementation: "Raft consensus for Kubernetes configuration management"
-    scale: "Powers millions of Kubernetes clusters globally"
-  - company: Apache Kafka
-    implementation: "KRaft consensus replacing Zookeeper dependency"
-    scale: "Manages metadata for trillions of messages/day"
-  - company: CockroachDB
-    implementation: "Raft consensus for distributed SQL transactions"
-    scale: "Handles billions of transactions with strong consistency"
-production_checklist:
-  - "Choose consensus algorithm (Raft preferred over Paxos)"
-  - "Configure cluster size (3, 5, or 7 nodes typical)"
-  - "Set election timeout (150-300ms recommended)"
-  - "Implement leader lease for read optimization"
-  - "Monitor leader stability and election frequency"
-  - "Configure snapshot frequency for log compaction"
-  - "Test network partition scenarios"
-  - "Implement graceful node addition/removal"
-  - "Set up monitoring for consensus health"
-  - "Plan for split-brain prevention"
-related_laws: [law2-asynchrony, law1-failure, law5-epistemology]
-related_pillars: [truth, control]
+modern-examples:
+- company: etcd
+  implementation: Raft consensus for Kubernetes configuration management
+  scale: Powers millions of Kubernetes clusters globally
+- company: Apache Kafka
+  implementation: KRaft consensus replacing Zookeeper dependency
+  scale: Manages metadata for trillions of messages/day
+- company: CockroachDB
+  implementation: Raft consensus for distributed SQL transactions
+  scale: Handles billions of transactions with strong consistency
+production-checklist:
+- Choose consensus algorithm (Raft preferred over Paxos)
+- Configure cluster size (3, 5, or 7 nodes typical)
+- Set election timeout (150-300ms recommended)
+- Implement leader lease for read optimization
+- Monitor leader stability and election frequency
+- Configure snapshot frequency for log compaction
+- Test network partition scenarios
+- Implement graceful node addition/removal
+- Set up monitoring for consensus health
+- Plan for split-brain prevention
+related-laws:
+- law2-asynchrony
+- law1-failure
+- law5-epistemology
+related-pillars:
+- truth
+- control
 ---
+
 
 # Consensus Pattern
 

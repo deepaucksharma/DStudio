@@ -5,20 +5,27 @@ description: Breaking append-only logs into manageable segments for efficient st
 type: pattern
 category: data-management
 difficulty: intermediate
-reading_time: 30 min
+reading-time: 30 min
 prerequisites:
 - wal
 - storage-engines
 - file-systems
-when_to_use: When you need scalable append-only logs, log retention policies, or efficient
+when-to-use: When you need scalable append-only logs, log retention policies, or efficient
   log compaction
-when_not_to_use: For small logs that fit in a single file, or when immediate random
+when-not-to-use: For small logs that fit in a single file, or when immediate random
   access is required
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # Segmented Log Pattern

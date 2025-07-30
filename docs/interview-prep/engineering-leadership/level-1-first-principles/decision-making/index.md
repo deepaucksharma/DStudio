@@ -278,11 +278,34 @@ Learning: What you'd do differently
 
 ## Connection to Other Principles
 
-- **Value Creation**: Decisions should maximize value
-- **Human Behavior**: Consider how decisions affect people
-- **Systems Thinking**: Understand decision ripple effects
-- **Integrity**: Make decisions you can defend publicly
+- **[Value Creation](../value-creation/)**: Every decision should maximize value - use value as your north star metric
+- **[Human Behavior](../human-behavior/)**: Consider how decisions affect people - great decisions with poor buy-in fail
+- **[Systems Thinking](../systems-thinking/)**: Understand decision ripple effects - local optimization can harm the whole
+- **[Integrity & Ethics](../integrity-ethics/)**: Make decisions you can defend publicly - trust accelerates future decisions
+
+## Application in Other Levels
+
+### Level II: Core Business Concepts
+- **[Strategy](../../level-2-core-business/strategy/)**: Strategic decisions shape organizational direction
+- **[Leadership](../../level-2-core-business/leadership/)**: Leaders create decision-making systems
+- **[Risk & Governance](../../level-2-core-business/risk-governance/)**: Managing decision risks and accountability
+
+### Level III: Engineering Applications
+- **[Technical Leadership](../../level-3-applications/technical-leadership/)**: Architecture decisions and technical trade-offs
+- **[Organizational Design](../../level-3-applications/organizational-design/)**: Structuring teams for effective decisions
+- **[People Management](../../level-3-applications/people-management/)**: Empowering teams to make quality decisions
+
+### Level IV: Interview Execution
+- **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Showcasing decision-making prowess
+- **[System Design](../../level-4-interview-execution/system-org-design/)**: Real-time decision-making under pressure
+
+## Next Steps
+
+1. **Today**: Document a recent major decision using the journal template
+2. **This Week**: Apply RAPID framework to a current decision
+3. **This Month**: Build decision-making culture in your team
+4. **For Interviews**: Prepare 5 decision stories across different contexts
 
 ---
 
-*Next: Explore how [Human Behavior](../human-behavior/) shapes the execution of our decisions.*
+*Continue your journey: Explore how [Human Behavior](../human-behavior/) shapes the execution of our decisions, or dive into [Leadership](../../level-2-core-business/leadership/) to build decision-making systems.*

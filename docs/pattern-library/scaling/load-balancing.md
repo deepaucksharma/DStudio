@@ -1,9 +1,17 @@
 ---
 title: Load Balancing Pattern
-category: resilience
+category: scaling
 excellence_tier: gold
-pattern_status: stable
+pattern_status: recommended
+description: Traffic distribution pattern that spreads requests across multiple backend
+  instances
+introduced: 2024-01
+current_relevance: mainstream
+modern-examples: []
+production-checklist: []
 ---
+
+
 
 
 # Load Balancing Pattern

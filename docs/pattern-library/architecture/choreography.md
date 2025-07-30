@@ -1,41 +1,46 @@
 ---
 title: Choreography Pattern
-description: Decentralized coordination where services react to events without central orchestration
+description: Decentralized coordination where services react to events without central
+  orchestration
 type: pattern
-category: communication
+category: architecture
 difficulty: intermediate
-reading_time: 15 min
+reading-time: 15 min
 prerequisites:
-  - event-driven
-  - saga
-  - event-sourcing
-related_laws:
-  - law2-asynchrony
-  - law3-emergence
-  - law5-epistemology
-related_pillars:
-  - control
-  - intelligence
-when_to_use:
-  - Loosely coupled microservices
-  - Event-driven architectures
-  - Autonomous service operations
-  - High scalability requirements
-when_not_to_use:
-  - Complex workflows needing visibility
-  - Strict ordering requirements
-  - Centralized error handling needed
-  - Business process monitoring required
+- event-driven
+- saga
+- event-sourcing
+related-laws:
+- law2-asynchrony
+- law3-emergence
+- law5-epistemology
+related-pillars:
+- control
+- intelligence
+when-to-use:
+- Loosely coupled microservices
+- Event-driven architectures
+- Autonomous service operations
+- High scalability requirements
+when-not-to-use:
+- Complex workflows needing visibility
+- Strict ordering requirements
+- Centralized error handling needed
+- Business process monitoring required
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: bronze
 pattern_status: legacy
 introduced: 2000s
 current_relevance: declining
-deprecation_reason: "Debugging complexity and lack of visibility in distributed workflows"
-modern_alternatives: ["Event Streaming (Kafka)", "Service Mesh", "Saga Orchestration"]
-migration_guide: "/excellence/migrations/choreography-to-event-streaming"
+deprecation-reason: Debugging complexity and lack of visibility in distributed workflows
+modern-alternatives:
+- Event Streaming (Kafka)
+- Service Mesh
+- Saga Orchestration
+migration-guide: /excellence/migrations/choreography-to-event-streaming
 ---
+
 
 # Choreography Pattern
 

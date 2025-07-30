@@ -4,16 +4,16 @@ description: Deploy auxiliary functionality in a separate container alongside yo
   main application, providing platform-agnostic support services
 type: pattern
 difficulty: intermediate
-reading_time: 45 min
+reading-time: 45 min
 prerequisites: []
-pattern_type: architectural
+pattern-type: architectural
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2016-01
 current_relevance: mainstream
-modern_examples:
+modern-examples:
 - company: Istio
   implementation: Service mesh sidecar for traffic management and security
   scale: Used by thousands of companies in production Kubernetes
@@ -23,7 +23,7 @@ modern_examples:
 - company: Envoy
   implementation: High-performance proxy sidecar for cloud-native apps
   scale: Powers Lyft, Airbnb, and major cloud providers
-production_checklist:
+production-checklist:
 - Define clear resource limits for sidecar containers
 - Implement health checks for both main app and sidecar
 - Configure proper startup order and dependencies
@@ -34,8 +34,9 @@ production_checklist:
 - Set up proper logging and tracing
 - Test failure scenarios (sidecar crash, main app crash)
 - Document sidecar configuration and deployment
-category: resilience
+category: architecture
 ---
+
 
 
 

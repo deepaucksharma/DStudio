@@ -1,42 +1,54 @@
 ---
 title: Bloom Filter Pattern
-description: Space-efficient probabilistic data structure for fast set membership testing with controlled false positive rates
+description: Space-efficient probabilistic data structure for fast set membership
+  testing with controlled false positive rates
 type: pattern
-category: distributed-data
+category: data-management
 difficulty: intermediate
-reading_time: 25 min
-prerequisites: [hashing, probability, bit-arrays]
-when_to_use: Large-scale deduplication, cache lookups, distributed system membership checks, spam filtering, database query optimization, preventing expensive lookups
-when_not_to_use: When false positives are unacceptable, small datasets that fit in memory, when deletion is required, when exact counts are needed
+reading-time: 25 min
+prerequisites:
+- hashing
+- probability
+- bit-arrays
+when-to-use: Large-scale deduplication, cache lookups, distributed system membership
+  checks, spam filtering, database query optimization, preventing expensive lookups
+when-not-to-use: When false positives are unacceptable, small datasets that fit in
+  memory, when deletion is required, when exact counts are needed
 status: complete
-last_updated: 2025-01-23
-tags: [probabilistic-data-structures, space-optimization, membership-testing, deduplication, caching]
+last-updated: 2025-01-23
+tags:
+- probabilistic-data-structures
+- space-optimization
+- membership-testing
+- deduplication
+- caching
 excellence_tier: gold
 pattern_status: recommended
 introduced: 1970-01
 current_relevance: mainstream
-modern_examples:
-  - company: Google Chrome
-    implementation: "Bloom filters for malicious URL detection"
-    scale: "Protects 3B+ users with minimal memory overhead"
-  - company: Apache Cassandra
-    implementation: "Bloom filters to avoid unnecessary disk reads"
-    scale: "95%+ reduction in disk I/O for non-existent keys"
-  - company: Medium
-    implementation: "Bloom filters for recommendation deduplication"
-    scale: "Prevents duplicate content for millions of readers"
-production_checklist:
-  - "Calculate optimal size based on expected elements and FP rate"
-  - "Choose appropriate number of hash functions (typically 3-7)"
-  - "Implement counting bloom filters if deletion needed"
-  - "Monitor false positive rate in production"
-  - "Plan for filter regeneration as it fills"
-  - "Use consistent hashing for distributed filters"
-  - "Implement filter persistence and loading"
-  - "Test with production data volumes"
-  - "Document false positive impact on system"
-  - "Consider scalable bloom filters for growth"
+modern-examples:
+- company: Google Chrome
+  implementation: Bloom filters for malicious URL detection
+  scale: Protects 3B+ users with minimal memory overhead
+- company: Apache Cassandra
+  implementation: Bloom filters to avoid unnecessary disk reads
+  scale: 95%+ reduction in disk I/O for non-existent keys
+- company: Medium
+  implementation: Bloom filters for recommendation deduplication
+  scale: Prevents duplicate content for millions of readers
+production-checklist:
+- Calculate optimal size based on expected elements and FP rate
+- Choose appropriate number of hash functions (typically 3-7)
+- Implement counting bloom filters if deletion needed
+- Monitor false positive rate in production
+- Plan for filter regeneration as it fills
+- Use consistent hashing for distributed filters
+- Implement filter persistence and loading
+- Test with production data volumes
+- Document false positive impact on system
+- Consider scalable bloom filters for growth
 ---
+
 
 # Bloom Filter Pattern
 

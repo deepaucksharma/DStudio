@@ -1,5 +1,5 @@
 ---
-title: Pattern Synthesis Guide - Making Sense of 112 Patterns
+title: Pattern Synthesis Guide - Making Sense of 91 Patterns
 description: A comprehensive framework for understanding and applying distributed systems patterns
 icon: material/molecule
 tags:
@@ -9,9 +9,9 @@ tags:
   - mental-models
 ---
 
-# Pattern Synthesis Guide: Making Sense of 112 Patterns
+# Pattern Synthesis Guide: Making Sense of 91 Patterns
 
-With 112 distributed systems patterns, the challenge isn't finding solutions—it's understanding which patterns work together, when to use them, and how they relate. This guide synthesizes the entire pattern library into digestible mental models.
+With 91 distributed systems patterns, the challenge isn't finding solutions—it's understanding which patterns work together, when to use them, and how they relate. This guide synthesizes the entire pattern library into digestible mental models.
 
 ## 🧠 The Core Mental Model: The Distributed Systems Stack
 
@@ -383,7 +383,7 @@ If you implement nothing else, these patterns provide immediate value:
 
 ## 📚 Pattern Categories Simplified
 
-Instead of 6 categories with 112 patterns, think in terms of problems:
+Instead of 6 categories with 91 patterns, think in terms of problems:
 
 ### 🛡️ "Keep it Running" Patterns (Resilience)
 Circuit Breaker, Retry, Timeout, Bulkhead, Health Check

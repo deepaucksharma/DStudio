@@ -1,0 +1,50 @@
+name: Validate Pattern Metadata
+
+on:
+  push:
+    paths:
+      - 'docs/pattern-library/**/*.md'
+  pull_request:
+    paths:
+      - 'docs/pattern-library/**/*.md'
+
+jobs:
+  validate-patterns:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml
+        
+    - name: Validate pattern metadata
+      run: |
+        python scripts/validate-pattern-metadata.py
+        
+    - name: Check for validation errors
+      run: |
+        # Exit with error code if validation found issues
+        if grep -q "Total errors: [1-9]" pattern_metadata_validation_report.json; then
+          echo "❌ Pattern metadata validation failed!"
+          echo "Please run: python scripts/fix-pattern-metadata.py"
+          echo "Then commit the fixes"
+          exit 1
+        else
+          echo "✅ All pattern metadata is valid!"
+        fi
+        
+    - name: Upload validation report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: pattern-validation-report
+        path: pattern_metadata_validation_report.json

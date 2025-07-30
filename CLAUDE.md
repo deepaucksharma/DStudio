@@ -210,7 +210,7 @@ Before committing any content change, verify:
 ## Excellence Framework Status
 
 ### Current Progress (as of 2025-01-29)
-- **Pattern Enhancement**: 112 of 112 patterns (100%) enhanced with excellence metadata ✅
+- **Pattern Enhancement**: 91 of 91 patterns (100%) enhanced with excellence metadata ✅
   - 🥇 Gold: 31 patterns - Battle-tested, production-ready patterns
   - 🥈 Silver: 70 patterns - Specialized patterns with clear trade-offs
   - 🥉 Bronze: 11 patterns - Legacy patterns with modern alternatives
@@ -258,7 +258,7 @@ Currently, there are no automated linting or testing commands for the documentat
 - Validate navigation changes with `python3 scripts/check-navigation.py`
 
 ### Project Statistics
-- **112 Patterns**: All enhanced with excellence metadata - Gold (31), Silver (70), Bronze (11)
+- **91 Patterns**: All enhanced with excellence metadata - Gold (31), Silver (70), Bronze (11)
 - **800+ Visual Diagrams**: Created using Mermaid for maximum clarity
 - **330+ Cross-References**: Extensive interlinking between concepts
 - **150+ Real Examples**: From companies like Netflix, Uber, Google at scale

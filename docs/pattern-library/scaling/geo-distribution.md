@@ -1,9 +1,19 @@
 ---
 title: Geo-Distribution
-category: uncategorized
+category: scaling
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Scaling pattern that distributes data and compute across geographic regions
+  for performance and compliance
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
+
 
 # Geo-Distribution
 

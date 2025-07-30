@@ -5,19 +5,26 @@ description: Achieving consistent time across distributed nodes despite clock dr
 type: pattern
 category: coordination
 difficulty: advanced
-reading_time: 40 min
+reading-time: 40 min
 prerequisites:
 - distributed-systems-basics
 - network-latency
 - time-complexity
-when_to_use: When you need wall-clock time consistency, event ordering across nodes,
+when-to-use: When you need wall-clock time consistency, event ordering across nodes,
   or time-based coordination
-when_not_to_use: When logical ordering is sufficient (use logical clocks instead)
+when-not-to-use: When logical ordering is sufficient (use logical clocks instead)
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 

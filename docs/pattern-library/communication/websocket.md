@@ -1,41 +1,48 @@
 ---
 title: WebSocket Pattern
-description: Full-duplex, bidirectional communication over a single TCP connection for real-time applications
+description: Full-duplex, bidirectional communication over a single TCP connection
+  for real-time applications
 type: pattern
 category: communication
 difficulty: intermediate
-reading_time: 30 min
-prerequisites: [tcp, http, network-protocols]
-when_to_use: Real-time updates, chat applications, live notifications, collaborative editing, gaming, financial tickers
-when_not_to_use: Simple request-response, one-way data flow, stateless operations, resource-constrained clients
+reading-time: 30 min
+prerequisites:
+- tcp
+- http
+- network-protocols
+when-to-use: Real-time updates, chat applications, live notifications, collaborative
+  editing, gaming, financial tickers
+when-not-to-use: Simple request-response, one-way data flow, stateless operations,
+  resource-constrained clients
 status: complete
-last_updated: 2025-07-24
+last-updated: 2025-07-24
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2011-12
 current_relevance: mainstream
-modern_examples:
-  - company: Discord
-    implementation: "WebSocket infrastructure handles voice/text for 150M+ active users"
-    scale: "15M concurrent WebSocket connections"
-  - company: Slack
-    implementation: "Real-time messaging across millions of workspaces"
-    scale: "12M+ daily active users with instant message delivery"
-  - company: Binance
-    implementation: "WebSocket streams for real-time crypto trading data"
-    scale: "90M+ users, 1.2M messages/second peak"
-production_checklist:
-  - "Implement connection pooling and reuse"
-  - "Configure heartbeat/ping-pong (typically 30-60s intervals)"
-  - "Set up automatic reconnection with exponential backoff"
-  - "Implement message queuing for offline clients"
-  - "Configure proper load balancing (sticky sessions)"
-  - "Monitor connection count and message throughput"
-  - "Implement rate limiting per connection"
-  - "Use compression for large messages (permessage-deflate)"
-  - "Handle connection lifecycle events properly"
-  - "Test with realistic network conditions (latency, packet loss)"
+modern-examples:
+- company: Discord
+  implementation: WebSocket infrastructure handles voice/text for 150M+ active users
+  scale: 15M concurrent WebSocket connections
+- company: Slack
+  implementation: Real-time messaging across millions of workspaces
+  scale: 12M+ daily active users with instant message delivery
+- company: Binance
+  implementation: WebSocket streams for real-time crypto trading data
+  scale: 90M+ users, 1.2M messages/second peak
+production-checklist:
+- Implement connection pooling and reuse
+- Configure heartbeat/ping-pong (typically 30-60s intervals)
+- Set up automatic reconnection with exponential backoff
+- Implement message queuing for offline clients
+- Configure proper load balancing (sticky sessions)
+- Monitor connection count and message throughput
+- Implement rate limiting per connection
+- Use compression for large messages (permessage-deflate)
+- Handle connection lifecycle events properly
+- Test with realistic network conditions (latency, packet loss)
 ---
+
 
 # WebSocket Pattern
 

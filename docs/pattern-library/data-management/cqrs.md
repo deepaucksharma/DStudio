@@ -1,9 +1,18 @@
 ---
 title: CQRS (Command Query Responsibility Segregation)
-category: data
+category: data-management
 excellence_tier: silver
-pattern_status: stable
+pattern_status: recommended
+description: Architectural pattern separating read and write operations to optimize
+  performance and scalability
+introduced: 2024-01
+current_relevance: mainstream
+trade-offs:
+  pros: []
+  cons: []
+best-for: []
 ---
+
 
 
 # CQRS (Command Query Responsibility Segregation)

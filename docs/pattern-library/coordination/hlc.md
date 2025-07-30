@@ -1,42 +1,56 @@
 ---
 title: Hybrid Logical Clocks (HLC)
-description: Combine physical timestamps with logical counters to achieve causally consistent timestamps that are close to wall-clock time while handling clock skew
+description: Combine physical timestamps with logical counters to achieve causally
+  consistent timestamps that are close to wall-clock time while handling clock skew
 type: pattern
 category: coordination
 difficulty: advanced
-reading_time: 35 min
-prerequisites: [logical-clocks, vector-clocks, clock-sync, distributed-systems]
-when_to_use: When you need both wall-clock time approximation and causal consistency, distributed databases with global transactions, event ordering with human-readable timestamps
-when_not_to_use: When pure logical ordering suffices, systems with perfect clock sync, when vector clock overhead is acceptable
+reading-time: 35 min
+prerequisites:
+- logical-clocks
+- vector-clocks
+- clock-sync
+- distributed-systems
+when-to-use: When you need both wall-clock time approximation and causal consistency,
+  distributed databases with global transactions, event ordering with human-readable
+  timestamps
+when-not-to-use: When pure logical ordering suffices, systems with perfect clock sync,
+  when vector clock overhead is acceptable
 status: complete
-last_updated: 2025-07-26
-tags: [time-synchronization, causality, distributed-clocks, hybrid-time, global-transactions]
+last-updated: 2025-07-26
+tags:
+- time-synchronization
+- causality
+- distributed-clocks
+- hybrid-time
+- global-transactions
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2014-01
 current_relevance: mainstream
-modern_examples:
-  - company: CockroachDB
-    implementation: "HLC for distributed SQL with global consistency"
-    scale: "Petabyte-scale clusters with microsecond precision"
-  - company: MongoDB
-    implementation: "Cluster-wide logical timestamps for causal consistency"
-    scale: "Millions of operations/sec with session guarantees"
-  - company: YugabyteDB
-    implementation: "HLC-based multi-version concurrency control"
-    scale: "Global deployments with consistent snapshots"
-production_checklist:
-  - "Configure NTP with tight bounds (<100ms drift)"
-  - "Set appropriate clock uncertainty windows"
-  - "Implement clock jump detection and handling"
-  - "Monitor clock skew between nodes"
-  - "Configure HLC tick interval (typically 1-10ms)"
-  - "Implement timestamp persistence across restarts"
-  - "Test behavior under clock adjustments"
-  - "Set up alerts for excessive clock drift"
-  - "Plan for timestamp overflow (64-bit limits)"
-  - "Document timestamp ordering guarantees"
+modern-examples:
+- company: CockroachDB
+  implementation: HLC for distributed SQL with global consistency
+  scale: Petabyte-scale clusters with microsecond precision
+- company: MongoDB
+  implementation: Cluster-wide logical timestamps for causal consistency
+  scale: Millions of operations/sec with session guarantees
+- company: YugabyteDB
+  implementation: HLC-based multi-version concurrency control
+  scale: Global deployments with consistent snapshots
+production-checklist:
+- Configure NTP with tight bounds (<100ms drift)
+- Set appropriate clock uncertainty windows
+- Implement clock jump detection and handling
+- Monitor clock skew between nodes
+- Configure HLC tick interval (typically 1-10ms)
+- Implement timestamp persistence across restarts
+- Test behavior under clock adjustments
+- Set up alerts for excessive clock drift
+- Plan for timestamp overflow (64-bit limits)
+- Document timestamp ordering guarantees
 ---
+
 
 # Hybrid Logical Clocks (HLC) Pattern
 

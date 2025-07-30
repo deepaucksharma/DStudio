@@ -22,7 +22,7 @@ Transforming distributed systems education through premium 3-hour comprehensive 
 - Comprehensive assessment and certification pathways
 
 **Content Repository Analysis:**
-- **112 Patterns** with excellence metadata across 6 categories
+- **91 Patterns** with excellence metadata across 6 categories
 - **80+ Case Studies** covering major tech companies and failure scenarios
 - **50+ Quantitative Models** with mathematical foundations
 - **Excellence Framework** with migrations, guides, and real-world implementations
@@ -53,7 +53,7 @@ Each series builds naturally on foundational knowledge while targeting specific 
 **Hour 3: Strategic Mastery** - Business impact, migration strategies, organizational transformation
 
 ### Series Overview
-Deep exploration of the 112 patterns in the DStudio repository, organized by excellence tier and practical application complexity. Each episode combines pattern theory with production implementation guides.
+Deep exploration of the 91 patterns in the DStudio repository, organized by excellence tier and practical application complexity. Each episode combines pattern theory with production implementation guides.
 
 ### WORLD-CLASS QUALITY BENCHMARKS
 - **Battle-Tested Production Code**: Full implementations from Fortune 500 companies with performance profiles
@@ -527,7 +527,7 @@ Cutting-edge distributed systems technologies, evaluated through the lens of fun
 ### For Each Series:
 
 **Pattern Mastery Series**
-- Only podcast series covering all 112+ patterns with production code
+- Only podcast series covering all 91+ patterns with production code
 - Excellence tier framework provides clear implementation guidance
 - Migration strategies connect patterns to real transformation projects
 

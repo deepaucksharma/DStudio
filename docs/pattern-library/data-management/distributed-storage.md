@@ -1,33 +1,39 @@
 ---
 title: Distributed Storage
-description: Patterns and techniques for storing and managing data across multiple nodes in distributed systems
+description: Patterns and techniques for storing and managing data across multiple
+  nodes in distributed systems
 type: pattern
-category: distributed-data
+category: data-management
 difficulty: intermediate
-reading_time: 45 min
-prerequisites: [consistency-models, replication, partitioning]
-when_to_use: When data exceeds single node capacity or requires high availability and fault tolerance
-when_not_to_use: When data fits on single node and downtime is acceptable
+reading-time: 45 min
+prerequisites:
+- consistency-models
+- replication
+- partitioning
+when-to-use: When data exceeds single node capacity or requires high availability
+  and fault tolerance
+when-not-to-use: When data fits on single node and downtime is acceptable
 status: complete
-last_updated: 2025-01-23
+last-updated: 2025-01-23
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 2003-10
 current_relevance: mainstream
-trade_offs:
+trade-offs:
   pros:
-    - "Horizontal scalability beyond single-node limits"
-    - "High availability through replication"
-    - "Geographic distribution for locality"
+  - Horizontal scalability beyond single-node limits
+  - High availability through replication
+  - Geographic distribution for locality
   cons:
-    - "Complex consistency and coordination challenges"
-    - "Higher operational overhead and costs"
-    - "Network partitions and split-brain scenarios"
-best_for:
-  - "Large-scale data that exceeds single node capacity"
-  - "Systems requiring 99.99%+ availability"
-  - "Global applications needing data locality"
+  - Complex consistency and coordination challenges
+  - Higher operational overhead and costs
+  - Network partitions and split-brain scenarios
+best-for:
+- Large-scale data that exceeds single node capacity
+- Systems requiring 99.99%+ availability
+- Global applications needing data locality
 ---
+
 
 
 # Distributed Storage

@@ -20,7 +20,7 @@ DStudio is an educational resource that teaches distributed systems through:
 
 - **7 Fundamental Laws**: Starting from physics (speed of light, thermodynamics)
 - **5 Foundational Pillars**: Building up to practical system design
-- **95 Patterns**: Classified by excellence tiers (Gold/Silver/Bronze)
+- **91 Patterns**: Classified by excellence tiers (Gold/Silver/Bronze)
 - **40+ Case Studies**: Real-world systems analyzed and visualized
 - **800+ Visual Diagrams**: Complex concepts made accessible
 
@@ -64,7 +64,7 @@ docs/
 │       ├── work-distribution.md
 │       ├── state-distribution.md
 │       └── ...
-├── pattern-library/           # 112 patterns with excellence tiers
+├── pattern-library/           # 91 patterns with excellence tiers
 │   ├── communication/         # API Gateway, Service Mesh, etc.
 │   ├── resilience/            # Circuit Breaker, Retry, etc.
 │   ├── data-management/       # Event Sourcing, CQRS, etc.

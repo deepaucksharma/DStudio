@@ -2,6 +2,44 @@
 
 > Master the art of Engineering Manager and Director interviews at FAANG and top tech companies
 
+## 🚀 The Four-Level Framework
+
+Our comprehensive guide is built on a principled framework that integrates elite business school concepts with engineering leadership practice:
+
+<div class="framework-overview">
+
+### [📐 Level I: First Principles](level-1-first-principles/)
+**The Foundational "Why"** - Universal truths that justify every leadership action
+- [Value Creation](level-1-first-principles/value-creation/): Business exists to solve problems profitably
+- [Decision-Making](level-1-first-principles/decision-making/): Progress requires quality choices under uncertainty
+- [Human Behavior](level-1-first-principles/human-behavior/): Culture and motivation drive execution
+- [Systems Thinking](level-1-first-principles/systems-thinking/): Organizations are interconnected systems
+- [Integrity & Ethics](level-1-first-principles/integrity-ethics/): Trust is the ultimate advantage
+
+### [💼 Level II: Core Business Concepts](level-2-core-business/)  
+**The Strategic "How"** - MBA-level disciplines for creating competitive advantage
+- [Strategy](level-2-core-business/strategy/): Making integrated choices for unique value
+- [Leadership](level-2-core-business/leadership/): Mobilizing humans toward shared goals
+- [Operations](level-2-core-business/operations/): Building the engine of execution
+- [Finance](level-2-core-business/finance/): Understanding and creating economic value
+- [Risk & Governance](level-2-core-business/risk-governance/): Managing uncertainty and accountability
+
+### [⚙️ Level III: Engineering Applications](level-3-applications/)
+**The Practical "What"** - Day-to-day domains where leaders apply principles
+- [People Management](level-3-applications/people-management/): Hire → Inspire → Grow → Retain
+- [Technical Leadership](level-3-applications/technical-leadership/): Innovate → Build → Stabilize
+- [Organizational Design](level-3-applications/organizational-design/): Structure → Align → Evolve
+- [Business Acumen](level-3-applications/business-acumen/): Translate → Partner → Influence
+
+### [🎯 Level IV: Interview Execution](level-4-interview-execution/)
+**The "Proof"** - Demonstrating mastery under interview pressure
+- [Behavioral](level-4-interview-execution/behavioral/): Past performance predicting future
+- [Technical Leadership](level-4-interview-execution/technical-leadership/): Depth meets breadth
+- [System Design](level-4-interview-execution/system-org-design/): Architecture and organization
+- [Culture Fit](level-4-interview-execution/culture-values/): Authentic alignment
+
+</div>
+
 ## 🎯 Who This Guide Is For
 
 This comprehensive guide is designed for:
@@ -10,11 +48,59 @@ This comprehensive guide is designed for:
 - **Senior Managers** aspiring to Director roles (L7→L8)
 - **Directors** preparing for Senior Director or VP positions (L8+)
 
+## 🗺️ Start Your Journey
+
+<div class="grid cards" markdown>
+
+- :material-navigation:{ .lg } **[🧭 Navigation Guide](navigation-guide.md)**
+    
+    ---
+    
+    **NEW!** Find your personalized learning path based on experience level and timeline
+
+- :material-compass:{ .lg } **[Framework Overview](framework-index.md)**
+    
+    ---
+    
+    Understand the complete 4-level system and how principles flow into practice
+
+- :material-rocket-launch-outline:{ .lg } **[Quick Start Guide](level-4-interview-execution/)**
+    
+    ---
+    
+    Jump straight to interview preparation if you're short on time
+
+- :material-school:{ .lg } **[First Principles](level-1-first-principles/)**
+    
+    ---
+    
+    Build deep understanding from foundational concepts
+
+- :material-briefcase:{ .lg } **[Business Concepts](level-2-core-business/)**
+    
+    ---
+    
+    Master strategy, finance, operations, and leadership
+
+- :material-hammer-wrench:{ .lg } **[Practical Applications](level-3-applications/)**
+    
+    ---
+    
+    Apply concepts to real engineering leadership challenges
+
+- :material-timer:{ .lg } **[Interactive Practice](level-4-interview-execution/tools/interactive/)**
+    
+    ---
+    
+    Use timers, assessments, and tools to prepare
+
+</div>
+
 ## 📊 Interview Components Breakdown
 
 <div class="grid cards" markdown>
 
-- :material-account-group:{ .lg } **[People Management](people-management/)** - 40%
+- :material-account-group:{ .lg } **[People Management](level-3-applications/people-management/)** - 40%
     
     ---
     
@@ -22,7 +108,7 @@ This comprehensive guide is designed for:
     
     **Key Topics**: Team building, conflict resolution, performance coaching, diversity & inclusion
 
-- :material-rocket-launch:{ .lg } **[Technical Leadership](technical-leadership/)** - 25%
+- :material-rocket-launch:{ .lg } **[Technical Leadership](level-3-applications/technical-leadership/)** - 25%
     
     ---
     
@@ -30,7 +116,7 @@ This comprehensive guide is designed for:
     
     **Key Topics**: Architecture reviews, technical strategy, platform thinking, innovation
 
-- :material-sitemap:{ .lg } **[Organizational Design](organizational-design/)** - 15%
+- :material-sitemap:{ .lg } **[Organizational Design](level-3-applications/organizational-design/)** - 15%
     
     ---
     
@@ -38,7 +124,7 @@ This comprehensive guide is designed for:
     
     **Key Topics**: Team topologies, Conway's Law, communication patterns, decision frameworks
 
-- :material-chart-line:{ .lg } **[Business Acumen](business-product/)** - 10%
+- :material-chart-line:{ .lg } **[Business Acumen](level-3-applications/business-acumen/)** - 10%
     
     ---
     
@@ -46,7 +132,7 @@ This comprehensive guide is designed for:
     
     **Key Topics**: OKRs, resource allocation, cost optimization, stakeholder management
 
-- :material-architecture:{ .lg } **[System Design](system-design-leadership/)** - 10%
+- :material-architecture:{ .lg } **[System Design](level-4-interview-execution/system-org-design/)** - 10%
     
     ---
     
@@ -95,19 +181,19 @@ This comprehensive guide is designed for:
 ## 🎓 Preparation Journey
 
 ### Phase 1: Foundation (Weeks 1-4)
-1. **Gap Analysis** - Assess your experience against target level
-2. **Story Building** - Develop 15-20 STAR stories
+1. **Principles Study** - Master [First Principles](level-1-first-principles/) and [Business Concepts](level-2-core-business/)
+2. **Story Building** - Develop 20-30 stories using the [Story Portfolio Framework](level-4-interview-execution/tools/story-portfolio/)
 3. **Company Research** - Deep dive into culture and values
 4. **Technical Refresh** - Update on latest technologies
 
 ### Phase 2: Practice (Weeks 5-8)
 1. **Mock Interviews** - 2-3 per week with peers
-2. **Case Studies** - Work through scenarios
+2. **Case Studies** - Work through [practice scenarios](practice-scenarios/)
 3. **Presentation Skills** - Executive communication
 4. **Feedback Integration** - Iterate on weak areas
 
 ### Phase 3: Final Prep (Weeks 9-12)
-1. **Company Specific** - Tailor stories to each company
+1. **Company Specific** - Tailor stories using [Principle Hooks](level-4-interview-execution/tools/principle-hooks/)
 2. **Question Practice** - 100+ behavioral questions
 3. **System Design** - Leadership-focused problems
 4. **Confidence Building** - Visualization and prep
@@ -129,91 +215,114 @@ This comprehensive guide is designed for:
 - ✓ Develop future leaders
 - ✓ Create multiplier effects
 - ✓ Influence without authority
+- ✓ **Think in first principles**
+- ✓ **Apply business frameworks**
 
 ## 📚 Essential Resources
 
-### Must-Read Books
-1. **"The Manager's Path"** by Camille Fournier
-2. **"An Elegant Puzzle"** by Will Larson
-3. **"Team Topologies"** by Skelton & Pais
-4. **"Accelerate"** by Forsgren, Humble & Kim
-5. **"The Culture Map"** by Erin Meyer
+### Core Reading by Level
+**Level I - First Principles**:
+- "Good Strategy Bad Strategy" - Rumelt
+- "Thinking, Fast and Slow" - Kahneman
+
+**Level II - Business Concepts**:
+- "The Manager's Path" - Fournier
+- "An Elegant Puzzle" - Larson
+
+**Level III - Applications**:
+- "Team Topologies" - Skelton & Pais
+- "Accelerate" - Forsgren, Humble & Kim
+
+**Level IV - Execution**:
+- "Crucial Conversations" - Patterson et al.
+- "The Culture Map" - Meyer
 
 ### Online Resources
 - **[StaffEng.com](https://staffeng.com)** - Staff+ engineering stories
 - **[LeadDev.com](https://leaddev.com)** - Engineering leadership content
 - **[The Pragmatic Engineer](https://blog.pragmaticengineer.com)** - Industry insights
 
-## 🚀 Quick Start Guide
+## 🎯 Interactive Practice Tools
 
-### Week 1 Checklist
-- [ ] Complete [Level Assessment](level-specific/level-expectations)
-- [ ] Read [Company Cultures Overview](company-specific/)
-- [ ] Start [Story Portfolio](behavioral-interviews/leadership-stories-framework)
-- [ ] Review [Common Anti-patterns](assessment-rubrics/red-flags)
+Enhance your preparation with our execution tools:
 
-### First Mock Interview
-1. Choose a [Practice Scenario](practice-scenarios/)
-2. Use [STAR+ Framework](behavioral-interviews/star-method-advanced)
-3. Record yourself for review
-4. Get feedback from peers
+<div class="grid cards" markdown>
+
+- :material-timer-outline:{ .lg } **[Interview Timer](level-4-interview-execution/tools/interactive/interview-timer.md)**
+    
+    ---
+    
+    Practice with realistic time constraints
+
+- :material-clipboard-check:{ .lg } **[Self-Assessment](level-4-interview-execution/tools/interactive/self-assessment.md)**
+    
+    ---
+    
+    Score yourself against FAANG criteria
+
+- :material-sitemap:{ .lg } **[Decision Trees](level-4-interview-execution/tools/interactive/decision-trees.md)**
+    
+    ---
+    
+    Navigate complex scenarios
+
+- :material-magnify:{ .lg } **[STAR Story Matcher](level-4-interview-execution/tools/interactive/star-matcher.md)**
+    
+    ---
+    
+    Match experiences to questions
+
+- :material-database:{ .lg } **[Question Bank](level-4-interview-execution/tools/interactive/question-bank.md)**
+    
+    ---
+    
+    Browse 500+ real questions
+
+</div>
 
 ## 💡 Pro Tips
 
 ### From Successful Candidates
 
-> "The key is showing system-level thinking. Every story should demonstrate impact beyond your immediate team." - *L7 at Google*
+> "Understanding first principles like Value Creation changed how I approached every answer. Instead of just describing what I did, I could explain why it mattered." - *L7 at Google*
 
-> "They want to see that you can handle ambiguity. Don't always have the perfect answer ready." - *Director at Meta*
+> "The business concepts framework gave me the vocabulary to speak like an executive. Finance and strategy fluency made all the difference." - *Director at Meta*
 
-> "Culture fit is real. I spent 40% of my prep time understanding Amazon's leadership principles deeply." - *Senior Manager at Amazon*
+> "The story portfolio system was game-changing. Having 30 stories mapped to principles meant I was never caught off-guard." - *Senior Manager at Amazon*
 
-## 🎯 Interactive Practice Tools
+## 🌟 Hard-Earned Wisdom
 
-Enhance your preparation with our interactive components:
-
-<div class="grid cards" markdown>
-
-- :material-timer-outline:{ .lg } **[Interview Timer](interactive-tools/interview-timer.md)**
-    
-    ---
-    
-    Practice with realistic time constraints for each interview round
-
-- :material-clipboard-check:{ .lg } **[Self-Assessment Tool](interactive-tools/self-assessment.md)**
-    
-    ---
-    
-    Score yourself against FAANG interview criteria
-
-- :material-sitemap:{ .lg } **[Decision Tree Navigator](interactive-tools/decision-trees.md)**
-    
-    ---
-    
-    Navigate complex behavioral scenarios with guided choices
-
-- :material-magnify:{ .lg } **[STAR Story Matcher](interactive-tools/star-matcher.md)**
-    
-    ---
-    
-    Match your experiences to common interview questions
-
-- :material-database:{ .lg } **[Question Bank Explorer](interactive-tools/question-bank.md)**
-    
-    ---
-    
-    Browse 500+ real interview questions by category and level
-
-</div>
-
-## 📱 Mobile Practice
-
-Access our [Mobile Practice App](interactive-tools/mobile-app.md) for on-the-go preparation with:
-- Daily question notifications
-- Voice recording for practice
-- Progress tracking
-- Offline access
+For those ready to go deeper, explore our [Hard-Earned Wisdom](hard-earned-wisdom/) section covering the realities rarely discussed:
+- Managing up and organizational politics
+- Performance management truths
+- Crisis leadership under pressure
+- The human cost of leadership
 
 ---
 
-**Ready to begin?** Start with [Understanding Interview Formats](interview-formats/) or jump directly to [Behavioral Interview Mastery](behavioral-interviews/).
+## 🌟 Quick Start Paths
+
+### "I have an interview in 2 weeks"
+🏃 Fast Track:
+1. [Level IV: Interview Execution](level-4-interview-execution/) - Interview formats and expectations
+2. [STAR+ Framework](level-4-interview-execution/tools/star-framework/) - Structure your stories
+3. [Interactive Tools](level-4-interview-execution/tools/interactive/) - Practice with timers and assessments
+4. [Company Guides](company-specific/) - Tailor to your target
+
+### "I want to deeply prepare"
+🏊 Comprehensive Path:
+1. [Framework Overview](framework-index.md) - Understand the full system
+2. [First Principles](level-1-first-principles/) - Build your foundation
+3. [Practice Scenarios](practice-scenarios/) - Apply your knowledge
+4. [Story Portfolio](level-4-interview-execution/tools/story-portfolio/) - Organize experiences
+
+### "I'm growing as a leader"
+🌱 Development Path:
+1. [Self-Assessment](level-4-interview-execution/tools/interactive/self-assessment.md) - Identify gaps
+2. [Level III Applications](level-3-applications/) - Target weak areas
+3. [Hard-Earned Wisdom](hard-earned-wisdom/) - Learn from experience
+4. Apply in your current role
+
+---
+
+**Ready to begin?** Choose your path above, or explore the [complete Framework Overview](framework-index.md) to understand how all pieces connect. Remember: The framework is designed to be navigated in any direction—start where you need it most.

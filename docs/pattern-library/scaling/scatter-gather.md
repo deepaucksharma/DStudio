@@ -1,33 +1,39 @@
 ---
 title: Scatter-Gather
-description: Parallel request distribution and result aggregation pattern for efficient distributed processing
+description: Parallel request distribution and result aggregation pattern for efficient
+  distributed processing
 type: pattern
-category: communication
+category: scaling
 difficulty: intermediate
-reading_time: 15 min
-prerequisites: [async-messaging, load-balancing, circuit-breaker]
-when_to_use: When you need to query multiple services in parallel and aggregate results
-when_not_to_use: When sequential processing is required or when the overhead of parallelization exceeds benefits
+reading-time: 15 min
+prerequisites:
+- async-messaging
+- load-balancing
+- circuit-breaker
+when-to-use: When you need to query multiple services in parallel and aggregate results
+when-not-to-use: When sequential processing is required or when the overhead of parallelization
+  exceeds benefits
 status: complete
-last_updated: 2025-01-26
+last-updated: 2025-01-26
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 2008-06
 current_relevance: mainstream
-trade_offs:
+trade-offs:
   pros:
-    - "Reduces overall latency through parallelization"
-    - "Enables graceful degradation with partial results"
-    - "Scales well with independent services"
+  - Reduces overall latency through parallelization
+  - Enables graceful degradation with partial results
+  - Scales well with independent services
   cons:
-    - "Increased resource consumption from parallelism"
-    - "Complex error handling and timeout management"
-    - "Potential for thundering herd problems"
-best_for:
-  - "Search engines aggregating from multiple shards"
-  - "Microservice API composition and aggregation"
-  - "Real-time dashboards pulling from multiple sources"
+  - Increased resource consumption from parallelism
+  - Complex error handling and timeout management
+  - Potential for thundering herd problems
+best-for:
+- Search engines aggregating from multiple shards
+- Microservice API composition and aggregation
+- Real-time dashboards pulling from multiple sources
 ---
+
 
 # Scatter-Gather
 

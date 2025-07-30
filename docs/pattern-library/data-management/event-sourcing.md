@@ -1,9 +1,17 @@
 ---
 title: Event Sourcing
-category: data
+category: data-management
 excellence_tier: gold
-pattern_status: stable
+pattern_status: recommended
+description: Data management pattern that stores all changes as immutable events,
+  enabling audit trails and time travel
+introduced: 2024-01
+current_relevance: mainstream
+modern-examples: []
+production-checklist: []
 ---
+
+
 
 
 # Event Sourcing
