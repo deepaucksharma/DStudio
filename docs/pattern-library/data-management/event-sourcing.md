@@ -18,16 +18,27 @@ pattern_status: stable
     - Walmart: 100M+ daily orders tracked
     - Banking: Trillions in compliant transactions
 
-[Home](/) > [Patterns](../patterns/) > [Core Patterns](../patterns/index.md#core-patterns) > Event Sourcing
+[Home](/) > [Pattern Library](../) > [Data Management Patterns](./) > Event Sourcing
+
+## Pattern Summary
+
+| Aspect | Detail |
+|--------|--------|
+| **Problem Solved** | Maintain complete audit trail while enabling time travel and state reconstruction |
+| **When to Use** | Audit requirements, complex domains, regulatory compliance, event-driven systems |
+| **Key Benefits** | Complete history, time travel debugging, natural event publishing, audit compliance |
+| **Trade-offs** | Storage growth, query complexity, eventual consistency, event versioning |
+| **Time to Read** | 35 minutes |
+| **Implementation** | Advanced difficulty |
 
 !!! abstract "📊 Data Pattern"
  Store all changes as immutable events to maintain complete audit history while enabling state reconstruction at any point in time.
  
  **Connected Laws**: Law 5 (Distributed Knowledge) • Law 3 (Emergent Chaos)
 
-## Problem Statement
+## The Essential Question
 
-**How can we maintain a complete, auditable history of all changes while still providing the current state of our system?**
+**How can we capture every change as an immutable fact while still answering "what's the current state?"**
 
 <div class="axiom-box">
 <h4>🔬 Law 5: Distributed Knowledge (Epistemology)</h4>

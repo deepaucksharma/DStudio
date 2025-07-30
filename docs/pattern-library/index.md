@@ -2,6 +2,16 @@
 
 Explore 112 battle-tested distributed systems patterns organized by problem domain.
 
+## 🚀 Quick Start Guide
+
+**New to distributed systems patterns?** Follow this path:
+
+1. **🟢 Start Here**: Browse Gold patterns in [Resilience](resilience/) (Circuit Breaker, Retry)
+2. **🟡 Then Explore**: Look at [Communication](communication/) patterns (API Gateway, Message Queue)
+3. **🟠 Advanced**: Dive into [Data Management](data-management/) (Event Sourcing, CQRS)
+
+**Looking for specific solutions?** Use the pattern discovery tool below to filter by your needs.
+
 ## 🔍 Pattern Discovery
 
 <div class="pattern-filter-container">
@@ -48,14 +58,18 @@ Explore 112 battle-tested distributed systems patterns organized by problem doma
 
 ## 📚 Pattern Categories
 
-!!! info "How to Use the Pattern Discovery Tool"
-    **Filter by excellence tier**: Gold patterns are battle-tested at scale, Silver patterns are solid with specific use cases, Bronze patterns are legacy with modern alternatives.
+!!! info "📖 Pattern Discovery Guide"
+    **🥇 Gold Tier**: Battle-tested at massive scale (Netflix, Google, Amazon). Start here for production systems.
     
-    **Filter by category**: Focus on your specific problem domain (communication, resilience, data, etc.).
+    **🥈 Silver Tier**: Proven in specific domains with clear trade-offs. Use when Gold patterns don't fit.
     
-    **Search patterns**: Use keywords to find patterns for your exact challenge.
+    **🥉 Bronze Tier**: Legacy patterns with modern alternatives. Avoid in new systems.
     
-    **Preferences saved**: Your filter selections persist locally across browser sessions.
+    **🔍 Smart Search**: Try keywords like "failure", "scale", "async", or "consistency" to find relevant patterns.
+    
+    **💾 Auto-Save**: Your filter preferences are saved automatically and persist across browser sessions.
+    
+    **🔄 Reset**: Click "Reset Filters" to clear all selections and start fresh.
 
 <div class="grid cards" markdown>
 

@@ -26,7 +26,22 @@ Load balancing is our primary defense against correlated failure. When one serve
 **Key Insight**: Effective load balancing must account for the increased load on surviving servers during failures. A system running at 80% capacity with 5 servers will overload the remaining 4 servers (100% load each) if one fails.
 </div>
 
-[Home](/) > [Patterns](../patterns/) > [Operational Patterns](../patterns/index.md#operational-patterns) > Load Balancing
+[Home](/) > [Pattern Library](../) > [Scaling Patterns](./) > Load Balancing
+
+## Pattern Summary
+
+| Aspect | Detail |
+|--------|--------|
+| **Problem Solved** | Distribute requests across multiple servers to prevent overload and ensure availability |
+| **When to Use** | Multiple server instances, high traffic volumes, need for fault tolerance |
+| **Key Benefits** | High availability, horizontal scaling, optimal resource utilization |
+| **Trade-offs** | Single point of failure (unless redundant), session management complexity |
+| **Time to Read** | 25 minutes |
+| **Implementation** | Intermediate difficulty |
+
+## The Essential Question
+
+**How can we ensure no single server gets overwhelmed while automatically handling server failures?**
 
 **Distributing work across multiple resources**
 
