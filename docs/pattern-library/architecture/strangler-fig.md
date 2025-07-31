@@ -126,6 +126,8 @@ graph LR
     style N2 fill:#51cf66
 ```
 
+### Strategy Comparison
+
 | Feature | Edge Proxy | Branch by Abstraction | Parallel Run |
 |---------|------------|----------------------|--------------|
 | **Deployment Risk** | Low | Medium | Low |
@@ -133,6 +135,26 @@ graph LR
 | **Performance Impact** | +5-10ms latency | Minimal | 2x resource usage |
 | **Code Complexity** | External | Internal refactoring | Comparison logic |
 | **Best For** | API-based systems | Monolithic codebases | Critical systems |
+
+### Migration Decision Tree
+
+```mermaid
+graph TD
+    Start[Legacy System] --> Q1{API<br/>Gateway<br/>Possible?}
+    Q1 -->|Yes| EP[Edge Proxy<br/>Strategy]
+    Q1 -->|No| Q2{Can Modify<br/>Code?}
+    
+    Q2 -->|Yes| BA[Branch by<br/>Abstraction]
+    Q2 -->|No| Q3{High Risk<br/>System?}
+    
+    Q3 -->|Yes| PR[Parallel<br/>Run]
+    Q3 -->|No| BB[Big Bang<br/>risky]
+    
+    style EP fill:#4ade80
+    style BA fill:#60a5fa
+    style PR fill:#fbbf24
+    style BB fill:#f87171
+```
 
 ### 2. Branch by Abstraction Strategy
 

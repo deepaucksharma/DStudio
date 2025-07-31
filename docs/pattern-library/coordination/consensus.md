@@ -57,71 +57,126 @@ related-pillars:
     - Kafka KRaft: Manages metadata for trillions of messages
     - CockroachDB: Strong consistency for global SQL databases
 
-**Agreement in a world of unreliable networks and failing nodes**
+## The Essential Question
 
-> *"Consensus is impossibly hard in theory, merely very hard in practice."*
+**How can distributed nodes agree on a single value when networks are unreliable, nodes can fail, and there's no global clock?**
+
+## When to Use / When NOT to Use
+
+<div class="decision-box">
+<h4>🎯 Consensus Algorithm Selection</h4>
+
+**Use Consensus When:**
+- Leader election required (single coordinator)
+- Configuration management (consistent view)
+- Distributed transactions (atomic commit)
+- Replicated state machines (log replication)
+- Strong consistency essential (no split-brain)
+
+**Don't Use Consensus When:**
+- Eventually consistent is acceptable → Use CRDTs/Gossip
+- Single node can decide → Use local algorithms
+- Read-heavy workload → Use caching/replication
+- Partition tolerance > consistency → Use AP systems
+- Latency critical (< 10ms) → Use local decisions
+
+**Algorithm Choice:**
+- **Raft**: New systems, understandability critical
+- **Multi-Paxos**: Proven systems, need flexibility
+- **PBFT**: Byzantine faults possible
+- **Blockchain**: Permissionless environments
+</div>
+
+### Decision Framework
+
+```mermaid
+flowchart TD
+    Start[Need Agreement?] --> Q1{Strong<br/>Consistency?}
+    Q1 -->|Yes| Q2{Byzantine<br/>Faults?}
+    Q1 -->|No| EC[Use Eventual<br/>Consistency]
+    
+    Q2 -->|Yes| BFT{Scale?}
+    Q2 -->|No| CFT{Performance<br/>Priority?}
+    
+    BFT -->|Small| PBFT[Use PBFT]
+    BFT -->|Large| HS[Use HotStuff/<br/>Tendermint]
+    
+    CFT -->|Latency| FP[Use EPaxos/<br/>Fast Paxos]
+    CFT -->|Simplicity| Raft[Use Raft]
+    CFT -->|Flexibility| MP[Use Multi-Paxos]
+    
+    EC --> CRDT[CRDTs]
+    EC --> Gossip[Gossip Protocol]
+    
+    style Start fill:#e0e7ff,stroke:#6366f1,stroke-width:3px
+    style Raft fill:#10b981,stroke:#059669,stroke-width:2px
+    style PBFT fill:#f59e0b,stroke:#d97706,stroke-width:2px
+    style CRDT fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px
+```
 
 ---
 
-## Level 1: Intuition
-
-### The Jury Deliberation Analogy
-
-<div class="axiom-box">
-<h4>🔬 Law 5: Distributed Knowledge</h4>
-
-Consensus addresses the fundamental epistemological problem in distributed systems: How can multiple nodes agree on "truth" when each has only a partial view of the system?
-
-**Key Insight**: Truth in distributed systems is not what IS, but what the majority AGREES to be true. Consensus algorithms formalize this agreement process.
-</div>
-
-Consensus is like a jury reaching a verdict:
-- **Unanimous decision**: All jurors must agree
-- **Majority rule**: More than half must agree
-- **Discussion rounds**: Multiple rounds of voting
-- **No changing minds**: Once decided, verdict stands
-
-The challenge: What if some jurors leave mid-deliberation?
-
-### Basic Consensus Concepts
+## Visual Overview: Consensus State Machine
 
 ```mermaid
-flowchart TB
-    subgraph "Consensus State Machine"
-        F[FOLLOWER]
-        C[CANDIDATE]
-        L[LEADER]
-        
-        F -->|"Election timeout"| C
-        C -->|"Receive majority votes"| L
-        C -->|"Lose election/Higher term"| F
-        L -->|"Discover higher term"| F
-        C -->|"Split vote"| C
-    end
+stateDiagram-v2
+    [*] --> Follower: Start
     
-    subgraph "Consensus Process"
-        P1[Leader Proposes Value]
-        P2[Broadcast to Peers]
-        P3[Collect Votes]
-        P4{Majority?}
-        P5[Commit Value]
-        P6[Broadcast Commit]
-        P7[Reject Proposal]
-        
-        P1 --> P2
-        P2 --> P3
-        P3 --> P4
-        P4 -->|Yes| P5
-        P5 --> P6
-        P4 -->|No| P7
-    end
+    Follower --> Candidate: Election<br/>Timeout
     
-    style F fill:#94a3b8,stroke:#475569,stroke-width:2px
-    style C fill:#f59e0b,stroke:#d97706,stroke-width:2px
-    style L fill:#10b981,stroke:#059669,stroke-width:2px
+    Candidate --> Leader: Receive<br/>Majority
+    Candidate --> Follower: Higher Term/<br/>Lost Election
+    Candidate --> Candidate: Split Vote<br/>(New Election)
+    
+    Leader --> Follower: Higher Term<br/>Discovered
+    
+    note right of Follower
+        • Accept leader's decisions
+        • Vote in elections
+        • Timeout → trigger election
+    end note
+    
+    note right of Candidate
+        • Increment term
+        • Vote for self
+        • Request votes
+    end note
+    
+    note right of Leader
+        • Propose values
+        • Replicate to followers
+        • Heartbeat to maintain
+    end note
 ```
 
-### Consensus Data Flow
+## Level 1: Intuition
+
+### The Essential Concepts
+
+<div class="axiom-box">
+<h4>🔬 Core Consensus Properties</h4>
+
+1. **Agreement**: All nodes decide the same value
+2. **Validity**: Decided value was proposed by someone
+3. **Termination**: Eventually a decision is made
+4. **Integrity**: Each node decides at most once
+
+**The FLP Result**: In asynchronous systems with one faulty process, no algorithm can guarantee both safety (agreement) and liveness (termination). Real systems choose safety and use timeouts for practical liveness.
+</div>
+
+### Algorithm Comparison Matrix
+
+| Aspect | Raft | Multi-Paxos | EPaxos | PBFT |
+|--------|------|-------------|--------|------|
+| **Understandability** | ✅ Excellent | 🟡 Complex | 🔴 Very Complex | 🔴 Very Complex |
+| **Leader-based** | ✅ Yes (efficient) | ✅ Yes (efficient) | ❌ No (optimal latency) | ✅ Yes (primary) |
+| **Byzantine Tolerance** | ❌ None | ❌ None | ❌ None | ✅ Full |
+| **Message Complexity** | O(n) | O(n) | O(n) | O(n²) |
+| **Latency (stable)** | 1 RTT | 1 RTT | 1 RTT | 2-3 RTT |
+| **Conflict Resolution** | Leader decides | Leader decides | Complex ordering | View changes |
+| **Production Use** | etcd, Consul | Chubby, Spanner | Research | Blockchain |
+
+### Visual Algorithm Flow: Raft in Action
 
 ```mermaid
 sequenceDiagram
@@ -130,101 +185,131 @@ sequenceDiagram
     participant F2 as Follower 2
     participant F3 as Follower 3
     
-    Note over L: State = LEADER
+    rect rgb(240, 248, 255)
+        Note over L,F3: Phase 1: Leader proposes value
+        L->>L: AppendEntries(value, term=5)
+        L->>F1: Replicate(value, term=5)
+        L->>F2: Replicate(value, term=5)
+        L->>F3: Replicate(value, term=5)
+    end
     
-    L->>L: Propose value
-    L->>F1: Request vote(value)
-    L->>F2: Request vote(value)
-    L->>F3: Request vote(value)
+    rect rgb(240, 255, 240)
+        Note over L,F3: Phase 2: Followers acknowledge
+        F1->>F1: Append to log
+        F1-->>L: Success(term=5)
+        F2->>F2: Append to log
+        F2-->>L: Success(term=5)
+        F3->>F3: Network delay...
+    end
     
-    F1-->>L: Vote YES
-    F2-->>L: Vote YES
-    F3-->>L: Vote NO
+    rect rgb(255, 250, 240)
+        Note over L,F3: Phase 3: Leader commits
+        Note over L: 3/4 = Majority ✓
+        L->>L: Commit index++
+        L->>F1: Committed(index)
+        L->>F2: Committed(index)
+        F3-->>L: Success(term=5)
+        L->>F3: Committed(index)
+    end
     
-    Note over L: Votes = 3 (self + 2)
-    Note over L: Majority achieved!
-    
-    L->>L: Commit to log
-    L->>F1: Broadcast commit
-    L->>F2: Broadcast commit
-    L->>F3: Broadcast commit
-    
-    Note over F1,F3: Apply to state machine
-```
+    Note over L,F3: ✅ Consensus achieved!
 
 ---
 
 ## Level 2: Foundation
 
-### Consensus Properties
-
-<div class="decision-box">
-<h4>🎯 Consensus Algorithm Selection</h4>
-
-**Choose Raft When:**
-- Need understandable implementation
-- Building new system from scratch
-- Want strong leader optimization
-- Single cluster deployment
-
-**Choose Paxos When:**
-- Need theoretical foundation
-- Implementing variants (Fast Paxos)
-- Academic or research context
-- Multi-datacenter deployment
-
-**Choose Byzantine Consensus When:**
-- Don't trust all participants
-- Blockchain/cryptocurrency use case
-- Need protection against malicious nodes
-- Can tolerate high overhead
-
-**For most systems**: Start with Raft. It's easier to implement correctly and has better tooling support.
-</div>
-
-| Property | Description | Why It Matters |
-|----------|-------------|----------------|
-| **Agreement** | All nodes decide same value | Consistency |
-| **Validity** | Decided value was proposed | No arbitrary decisions |
-| **Termination** | Eventually decides | Progress guarantee |
-| **Integrity** | Decide at most once | No flip-flopping |
-
-
-### Implementing Basic Paxos
+### Visual Paxos State Machine
 
 ```mermaid
-sequenceDiagram
-    participant P as Proposer
-    participant A1 as Acceptor 1
-    participant A2 as Acceptor 2
-    participant A3 as Acceptor 3
+stateDiagram-v2
+    [*] --> Idle: Initialize
     
-    rect rgba(240, 240, 240, 0.1)
-        Note over P,A3: Phase 1: Prepare
-        P->>A1: Prepare(n=42)
-        P->>A2: Prepare(n=42)
-        P->>A3: Prepare(n=42)
+    state "Proposer States" as PS {
+        Idle --> Preparing: propose(value)
+        Preparing --> Proposing: promises ≥ majority
+        Proposing --> Accepted: accepts ≥ majority
+        Preparing --> Failed: promises < majority
+        Proposing --> Failed: accepts < majority
+        Failed --> Idle: retry
+    }
+    
+    state "Acceptor States" as AS {
+        Ready --> Promised: prepare(n) where n > minProposal
+        Promised --> Accepted2: accept(n,v) where n ≥ minProposal
+        Accepted2 --> Promised: prepare(n') where n' > n
+    }
+    
+    note right of PS
+        Proposer drives
+        consensus forward
+    end note
+    
+    note left of AS
+        Acceptor ensures
+        safety properties
+    end note
+```
+
+### Key Differences: Paxos vs Raft
+
+| Aspect | Paxos | Raft |
+|--------|-------|------|
+| **Mental Model** | Message-passing slots | Replicated log |
+| **Phases** | Prepare + Accept | AppendEntries only |
+| **Leader** | Optional optimization | Core to algorithm |
+| **Understandability** | Complex proofs | Designed for clarity |
+| **Log Compaction** | Not specified | Snapshots built-in |
+| **Membership Changes** | Complex | Joint consensus |
+
+
+### Visual Comparison: Single vs Multi-Paxos
+
+```mermaid
+graph TB
+    subgraph "Single Paxos (Per Decision)"
+        SP1[Decision 1] -->|Phase 1| SP1P[Prepare]
+        SP1P -->|Phase 2| SP1A[Accept]
+        SP2[Decision 2] -->|Phase 1| SP2P[Prepare]
+        SP2P -->|Phase 2| SP2A[Accept]
+        SP3[Decision 3] -->|Phase 1| SP3P[Prepare]
+        SP3P -->|Phase 2| SP3A[Accept]
         
-        A1-->>P: Promise(n=42, accepted=null)
-        A2-->>P: Promise(n=42, accepted={n:10,v:"X"})
-        A3-->>P: Promise(n=42, accepted=null)
-        
-        Note over P: Quorum reached (3/3)
-        Note over P: Must use value "X" from n=10
+        SPCost[6 message rounds for 3 decisions]
     end
     
-    rect rgba(230, 250, 240, 0.1)
-        Note over P,A3: Phase 2: Accept
-        P->>A1: Accept(n=42, v="X")
-        P->>A2: Accept(n=42, v="X")
-        P->>A3: Accept(n=42, v="X")
+    subgraph "Multi-Paxos (Optimized)"
+        MP1[Elect Leader] -->|Phase 1| MPL[Leader Selected]
+        MPL -->|Phase 2 only| MPD1[Decision 1]
+        MPL -->|Phase 2 only| MPD2[Decision 2]
+        MPL -->|Phase 2 only| MPD3[Decision 3]
         
-        A1-->>P: Accepted(n=42)
-        A2-->>P: Accepted(n=42)
-        A3-->>P: Accepted(n=42)
+        MPCost[4 message rounds for 3 decisions]
+    end
+    
+    style SPCost fill:#ef4444,stroke:#dc2626
+    style MPCost fill:#10b981,stroke:#059669
+```
+
+### Practical Implementation Patterns
+
+```mermaid
+flowchart LR
+    subgraph "Implementation Choices"
+        Start[Need Consensus?]
         
-        Note over P: Consensus achieved!
-        Note over P: Value "X" is chosen
+        Start -->|Production System| Prod{Complexity OK?}
+        Start -->|Research/Learning| Academic
+        
+        Prod -->|No| UseLib[Use etcd/Consul]
+        Prod -->|Yes| Impl{Byzantine?}
+        
+        Impl -->|No| Raft[Implement Raft]
+        Impl -->|Yes| BFT[Use Tendermint]
+        
+        Academic --> Paxos[Study Paxos]
+        
+        style UseLib fill:#10b981,stroke:#059669,stroke-width:3px
+        style Raft fill:#3b82f6,stroke:#2563eb,stroke-width:2px
     end
 ```
 

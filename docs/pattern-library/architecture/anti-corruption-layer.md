@@ -46,52 +46,122 @@ category: architecture
 
 ---
 
-## Level 1: Intuition
+## Essential Questions for Architects
 
-### The Immigration Control Analogy
+### 🤔 Key Decision Points
 
-```
-Country A (Your Domain)          Border Control (ACL)         Country B (External System)
-     Clean Laws                   Translation                  Different Laws
-     Pure Culture          ←→     Validation           ←→      Foreign Culture
-     Local Currency               Quarantine                   Foreign Currency
-     
-     
-Your Domain:                     Anti-Corruption Layer:        External System:
-┌─────────────────┐             ┌─────────────────┐          ┌─────────────────┐
-│  Clean Models   │             │   Translators   │          │  Legacy Models  │
-│  Domain Logic   │◀───────────▶│   Validators    │◀────────▶│  Complex APIs   │
-│  Pure Language  │             │   Adapters      │          │  External Rules │
-└─────────────────┘             └─────────────────┘          └─────────────────┘
-       Safe                          Checkpoint                    Dangerous
-```
+1. **Do you have legacy systems with incompatible models?**
+   - If yes → ACL provides essential isolation
+   - If no → May be over-engineering
 
-### Visual Architecture Comparison
+2. **Are you practicing Domain-Driven Design?**
+   - If yes → ACL maintains bounded context integrity
+   - If no → Consider simpler integration patterns
+
+3. **How different are the external models from yours?**
+   - Completely different → Full ACL needed
+   - Minor differences → Simple adapters may suffice
+   - Same models → Direct integration possible
+
+4. **What's your tolerance for external changes?**
+   - Zero tolerance → ACL is mandatory
+   - Some flexibility → Partial ACL approach
+   - High tolerance → Direct integration with monitoring
+
+5. **What's the cost of domain pollution?**
+   - Business-critical domain → Invest in ACL
+   - Support system → Balance cost vs benefit
+   - Prototype → Skip ACL initially
+
+---
+
+## Decision Criteria Matrix
+
+| Criterion | Use ACL | Use Adapter | Direct Integration |
+|-----------|---------|-------------|--------------------|
+| **Model Compatibility** | Incompatible | Similar with differences | Identical |
+| **Change Frequency** | High external changes | Moderate changes | Stable interfaces |
+| **Domain Criticality** | Core domain | Supporting domain | Generic subdomain |
+| **Team Boundaries** | Different organizations | Different teams | Same team |
+| **Technical Debt** | High in external | Moderate | Low |
+| **Performance Needs** | Can tolerate overhead | Some overhead OK | Minimal latency |
+
+---
+
+## Architectural Decision Framework
 
 ```mermaid
-graph TB
-    subgraph "Without ACL - Domain Contamination"
-        YD1[Your Domain] -->|Direct Integration| ES1[External System 1]
-        YD1 -->|Foreign Concepts Leak In| ES2[External System 2]
-        YD1 -->|Coupled to External Models| ES3[External System 3]
-        
-        ES1 -.->|Pollution| YD1
-        ES2 -.->|Corruption| YD1
-        ES3 -.->|Dependencies| YD1
-    end
+graph TD
+    Start[Integration Need] --> Q1{Legacy System?}
     
-    subgraph "With ACL - Protected Domain"
-        YD2[Your Domain<br/>Clean & Pure] --> ACL[Anti-Corruption Layer<br/>━━━━━━━━━━━<br/>• Translation<br/>• Validation<br/>• Isolation]
-        
-        ACL --> ES4[External System 1]
-        ACL --> ES5[External System 2]
-        ACL --> ES6[External System 3]
-    end
+    Q1 -->|Yes| Q2{Incompatible Models?}
+    Q1 -->|No| Q3{External API?}
     
-    style YD1 fill:#faa,stroke:#333,stroke-width:2px
-    style YD2 fill:#afa,stroke:#333,stroke-width:2px
+    Q2 -->|Yes| ACL[Full ACL Pattern]
+    Q2 -->|No| Adapter[Simple Adapter]
+    
+    Q3 -->|Yes| Q4{Stable Contract?}
+    Q3 -->|No| Q5{Same Team?}
+    
+    Q4 -->|No| ACL
+    Q4 -->|Yes| Q6{Performance Critical?}
+    
+    Q5 -->|Yes| Direct[Direct Integration]
+    Q5 -->|No| Adapter
+    
+    Q6 -->|Yes| Adapter
+    Q6 -->|No| ACL
+    
     style ACL fill:#f9f,stroke:#333,stroke-width:4px
+    style Adapter fill:#9ff,stroke:#333,stroke-width:2px
+    style Direct fill:#9f9,stroke:#333,stroke-width:2px
 ```
+
+---
+
+## Level 1: Intuition
+
+### Core Architecture Pattern
+
+```mermaid
+graph LR
+    subgraph "Your Domain"
+        DM[Domain Model]
+        DS[Domain Services]
+        DR[Domain Rules]
+    end
+    
+    subgraph "ACL Components"
+        T[Translator<br/>Model Mapping]
+        V[Validator<br/>Rule Enforcement]
+        A[Adapter<br/>Protocol Handling]
+    end
+    
+    subgraph "External System"
+        EM[External Model]
+        ES[External Services]
+        ER[External Rules]
+    end
+    
+    DM <--> T <--> EM
+    DS <--> V <--> ES
+    DR <--> A <--> ER
+    
+    style T fill:#f9f,stroke:#333,stroke-width:2px
+    style V fill:#9ff,stroke:#333,stroke-width:2px
+    style A fill:#ff9,stroke:#333,stroke-width:2px
+```
+
+### Architecture Trade-offs
+
+| Aspect | Without ACL | With ACL |
+|--------|-------------|----------|
+| **Domain Purity** | ❌ Contaminated with external concepts | ✅ Clean domain model |
+| **Change Impact** | ❌ Ripples through entire system | ✅ Isolated to ACL layer |
+| **Complexity** | ✅ Simpler initial implementation | ❌ Additional translation layer |
+| **Performance** | ✅ Direct calls, lower latency | ❌ Translation overhead |
+| **Maintenance** | ❌ Hard to evolve independently | ✅ Easy to modify mappings |
+| **Testing** | ❌ Coupled tests | ✅ Isolated testing |
 
 ### Real-World Examples
 
@@ -104,29 +174,35 @@ graph TB
 | **Airbnb** | Property System ACL | Isolate from partner feeds | Consistent data model |
 
 
-### Common ACL Scenarios
+### Implementation Strategies Comparison
 
-```
-Scenario 1: Legacy System Integration
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Modern    │────▶│     ACL     │────▶│   Legacy    │
-│  Microservice│     │ Translates  │     │  Mainframe  │
-│   (DDD)     │◀────│   Models    │◀────│  (COBOL)    │
-└─────────────┘     └─────────────┘     └─────────────┘
+| Strategy | When to Use | Complexity | Performance Impact |
+|----------|-------------|------------|--------------------|
+| **Full ACL** | Legacy systems, incompatible models | High | 10-20ms overhead |
+| **Lightweight Adapter** | Minor differences, same team | Low | 1-2ms overhead |
+| **Facade Pattern** | Multiple similar services | Medium | 5-10ms overhead |
+| **Direct Integration** | Compatible models, stable API | None | No overhead |
 
-Scenario 2: Third-Party API Protection
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│    Your     │────▶│     ACL     │────▶│  External   │
-│   Domain    │     │  Validates  │     │    API      │
-│   Models    │◀────│  & Adapts   │◀────│ (Unstable)  │
-└─────────────┘     └─────────────┘     └─────────────┘
+### Common Integration Scenarios
 
-Scenario 3: Multi-System Aggregation
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│    Core     │────▶│     ACL     │────▶│  System A   │
-│  Business   │     │ Orchestrates│────▶│  System B   │
-│   Logic     │◀────│ & Combines  │────▶│  System C   │
-└─────────────┘     └─────────────┘     └─────────────┘
+```mermaid
+graph TB
+    subgraph "Scenario 1: Legacy Integration"
+        MS[Microservice] --> ACL1[Full ACL]
+        ACL1 --> LG[Legacy COBOL]
+    end
+    
+    subgraph "Scenario 2: Partner API"
+        YD[Your Domain] --> ACL2[Validation ACL]
+        ACL2 --> PA[Partner API]
+    end
+    
+    subgraph "Scenario 3: Multi-System"
+        BL[Business Logic] --> ACL3[Aggregation ACL]
+        ACL3 --> S1[System A]
+        ACL3 --> S2[System B]
+        ACL3 --> S3[System C]
+    end
 ```
 
 ---

@@ -55,454 +55,331 @@ production-checklist:
 
 > *"In edge computing, every millisecond saved is a life saved, every byte reduced is a dollar earned, and every computation at the edge is a cloud server unburdened."*
 
----
+## Decision Matrix: Where to Process Your Data
 
-## Level 1: Intuition
-
-### The Hospital Network Analogy
-
-```
-Traditional Cloud (Central Hospital):        Edge Computing (Distributed Care):
-
-🏥 Main Hospital                            🏥 Main Hospital
-    ↑                                           ↑
-    | (Ambulance: 30min)                       | (Complex cases only)
-    ↑                                           ↑
-🚑 Emergency                                🏪 Local Clinics → 🚑 Ambulances
-    ↑                                           ↑                ↑
-    | (Wait time)                              | (1min)         | (Immediate)
-    ↑                                           ↑                ↑
-🤕 Patient                                  🤕 Patient      🤕 Patient
-
-Result: Every emergency                     Result: Most cases handled
-goes to main hospital                       locally, faster response
-```
-
-```
-The Edge Computing Hierarchy:
-
-☁️ Cloud (Brain)
-   ↓ Strategic decisions, deep analysis
-🏢 Regional DC (Regional HQ)
-   ↓ Coordination, aggregation
-📡 Edge Server (Local Manager)
-   ↓ Real-time processing, caching
-📱 Device (Worker)
-   ↓ Immediate actions, sensing
-🌍 Physical World
-
-Latency: 200ms → 50ms → 10ms → 1ms → 0ms
-```
-
-### Real-World Examples
-
-| Scenario | Without Edge | With Edge | Impact |
-|----------|--------------|-----------|---------|
-| **Self-driving car** | 100ms cloud round-trip | 1ms local decision | 8.8ft vs 0.088ft blind spot at 60mph |
-| **Security camera** | Stream to cloud, analyze | Detect locally, alert | 99% bandwidth reduction |
-| **Factory sensor** | Send all data to cloud | Process anomalies locally | $1000/month → $10/month data costs |
-| **AR glasses** | Cloud rendering | Edge rendering | 20ms → 5ms latency (no nausea) |
-| **Smart city traffic** | Central control | Intersection decisions | 30% traffic flow improvement |
-
-
-### Basic Implementation
-
-```python
-class EdgeComputingSystem:
-    def __init__(self):
-        self.edge_nodes = {}
-        self.cloud_endpoint = CloudService()
-        self.local_ml_models = {}
-        
-    def process_iot_data(self, device_id: str, data: dict) -> dict:
-        """Process IoT data with edge intelligence"""
-        
-        if self.requires_immediate_action(data):
-            action = self.make_edge_decision(data)
-            self.execute_locally(action)
-            
-            self.notify_cloud_async({
-                'device': device_id,
-                'action': action,
-                'timestamp': time.time()
-            })
-            
-            return {'processed_at': 'edge', 'latency_ms': 0.8}
-        
-        if self.can_process_at_edge(data):
-            processed = self.edge_analytics(data)
-            
-            if processed['significance'] > 0.7:
-                self.cloud_endpoint.send_insight(processed)
-            
-            return {'processed_at': 'edge', 'latency_ms': 5}
-        
-        return self.cloud_endpoint.process(data)
+```mermaid
+graph TD
+    Start[Data Generated] --> Size{Data Size?}
     
-    def make_edge_decision(self, data: dict) -> str:
-        """Ultra-low latency decision making"""
-        
-        if data['type'] == 'lidar':
-            obstacles = self.detect_obstacles_locally(data['point_cloud'])
-            if obstacles['distance'] < 10:
-                return 'EMERGENCY_BRAKE'
-            elif obstacles['distance'] < 30:
-                return 'SLOW_DOWN'
-        elif data['type'] == 'temperature' and data['value'] > 100:
-            return 'SHUTDOWN_EQUIPMENT'
-        
-        return 'CONTINUE'
+    Size -->|>1GB/hour| Edge1[Process at Edge]
+    Size -->|<100MB/hour| Latency{Latency Critical?}
     
-    def edge_analytics(self, data: dict) -> dict:
-        """Process data at edge before cloud"""
-        
-        model_name = f"{data['type']}_edge_model"
-        if model_name not in self.local_ml_models:
-            self.local_ml_models[model_name] = self.load_edge_model(model_name)
-        
-        model = self.local_ml_models[model_name]
-        prediction = model.predict(data['values'])
-        
-        return {
-            'type': data['type'],
-            'prediction': prediction,
-            'confidence': model.confidence,
-            'significance': self.calculate_significance(prediction),
-            'summary_stats': self.summarize(data['values'])
-        }
-
-# Example usage
-edge_system = EdgeComputingSystem()
-
-sensor_data = {
-    'type': 'vibration',
-    'values': [0.1, 0.2, 0.8, 2.5, 0.3],
-    'timestamp': time.time()
-}
-
-result = edge_system.process_iot_data('sensor_001', sensor_data)
-print(f"Processed at: {result['processed_at']}, Latency: {result['latency_ms']}ms")
+    Latency -->|<10ms required| Edge2[Process at Edge]
+    Latency -->|>100ms OK| Privacy{Privacy Sensitive?}
+    
+    Privacy -->|Yes| Edge3[Process at Edge]
+    Privacy -->|No| Bandwidth{Bandwidth Cost?}
+    
+    Bandwidth -->|>$100/month| Edge4[Process at Edge]
+    Bandwidth -->|<$10/month| Cloud[Process in Cloud]
+    
+    Edge1 --> Filter[Filter & Compress]
+    Edge2 --> React[Real-time Response]
+    Edge3 --> Local[Local Processing]
+    Edge4 --> Aggregate[Aggregate & Batch]
+    
+    Filter --> Cloud
+    React --> Cloud
+    Local --> Cloud
+    Aggregate --> Cloud
+    
+    style Edge1 fill:#9f9
+    style Edge2 fill:#9f9
+    style Edge3 fill:#9f9
+    style Edge4 fill:#9f9
+    style Cloud fill:#f9f
 ```
 
----
+## Architecture Patterns
 
-## Level 2: Foundation
-
-### Edge Architecture Components
+### Pattern 1: Hierarchical Edge Processing
 
 ```mermaid
 graph TB
-    subgraph "Cloud Layer"
-        Cloud[Cloud Services]
-        ML[ML Training]
-        Storage[Long-term Storage]
-        Analytics[Deep Analytics]
+    subgraph "Layer 4: Cloud"
+        Cloud[Global Analytics<br/>ML Training<br/>Long-term Storage]
     end
     
-    subgraph "Edge Layer"
-        Gateway[IoT Gateway]
-        EdgeServer[Edge Server]
-        Cache[Local Cache]
-        EdgeML[Edge ML Models]
+    subgraph "Layer 3: Regional Edge"
+        Regional1[Regional DC 1<br/>50ms latency]
+        Regional2[Regional DC 2<br/>50ms latency]
     end
     
-    subgraph "Device Layer"
-        Sensor1[Temperature Sensor]
-        Sensor2[Motion Sensor]
-        Camera[Smart Camera]
-        Vehicle[Autonomous Vehicle]
+    subgraph "Layer 2: Local Edge"
+        Edge1[Edge Server 1<br/>10ms latency]
+        Edge2[Edge Server 2<br/>10ms latency]
+        Edge3[Edge Server 3<br/>10ms latency]
     end
     
-    Sensor1 --> Gateway
-    Sensor2 --> Gateway
-    Camera --> EdgeServer
-    Vehicle --> EdgeServer
+    subgraph "Layer 1: Device Edge"
+        Device1[IoT Gateway<br/>1ms latency]
+        Device2[Smart Camera<br/>1ms latency]
+        Device3[Industrial PLC<br/>1ms latency]
+    end
     
-    Gateway --> EdgeServer
-    EdgeServer <--> Cloud
-    EdgeServer --> Cache
-    EdgeServer --> EdgeML
+    Device1 --> Edge1
+    Device2 --> Edge2
+    Device3 --> Edge3
     
-    Cloud --> ML
-    Cloud --> Storage
-    Cloud --> Analytics
+    Edge1 --> Regional1
+    Edge2 --> Regional1
+    Edge3 --> Regional2
     
-    style Cloud fill:#f9f,stroke:#333,stroke-width:4px
-    style EdgeServer fill:#9f9,stroke:#333,stroke-width:4px
+    Regional1 --> Cloud
+    Regional2 --> Cloud
+    
+    style Cloud fill:#f9f
+    style Regional1 fill:#ff9
+    style Regional2 fill:#ff9
+    style Edge1 fill:#9f9
+    style Edge2 fill:#9f9
+    style Edge3 fill:#9f9
+    style Device1 fill:#9ff
+    style Device2 fill:#9ff
+    style Device3 fill:#9ff
 ```
 
-### Edge Processing Decision Flow
+### Pattern 2: Edge-Cloud Hybrid Processing
+
+| Processing Stage | Location | Latency | Purpose | Example |
+|-----------------|----------|---------|---------|---------|
+| **Immediate Response** | Device Edge | <1ms | Safety-critical decisions | Emergency brake |
+| **Real-time Analytics** | Local Edge | <10ms | Pattern detection | Anomaly detection |
+| **Aggregation** | Regional Edge | <50ms | Data reduction | Hourly summaries |
+| **Deep Learning** | Cloud | 100ms+ | Model training | Update ML models |
+| **Historical Analysis** | Cloud | Seconds | Business insights | Monthly reports |
+
+
+## Real-World Deployment Examples
+
+### Example 1: Tesla Autopilot Edge Architecture
+
+| Component | Specification | Purpose | Latency |
+|-----------|--------------|---------|----------|
+| **FSD Computer** | 2x Neural chips, 144 TOPS | AI inference | <10ms |
+| **Cameras** | 8x 1280×960 @ 36fps | 360° vision | 1ms processing |
+| **Memory** | 16GB LPDDR4 | Model storage | 0.1ms access |
+| **Storage** | 256GB NVMe | Telemetry buffer | Write: 1ms |
+| **Decisions/sec** | 2,500+ | Path planning | Must complete in 10ms |
+
+### Example 2: Cloudflare Workers Edge Network
 
 ```mermaid
-flowchart TD
-    Start[IoT Data Received] --> Urgent{Urgent?}
+graph LR
+    subgraph "User Request Flow"
+        User[User Browser] -->|~10ms| Edge1[Nearest Edge<br/>275+ locations]
+        Edge1 -->|Cache Hit| Response1[Cached Response<br/>~10ms total]
+        Edge1 -->|Cache Miss| Worker[Edge Worker<br/>+5-10ms]
+        Worker -->|Need Origin| Origin[Origin Server<br/>+50-200ms]
+        Worker --> Response2[Computed Response<br/>~20ms total]
+        Origin --> Response3[Origin Response<br/>~100ms+ total]
+    end
     
-    Urgent -->|Yes <1ms| Edge[Process at Edge]
-    Urgent -->|No| Complex{Complex?}
-    
-    Complex -->|Yes| Cloud[Send to Cloud]
-    Complex -->|No| Filter{Significant?}
-    
-    Filter -->|Yes| Aggregate[Aggregate at Edge]
-    Filter -->|No| Discard[Discard]
-    
-    Edge --> Action[Take Immediate Action]
-    Edge --> Notify[Async Notify Cloud]
-    
-    Aggregate --> Batch[Batch Upload]
-    
-    Cloud --> DeepAnalysis[Deep Analysis]
-    
-    style Edge fill:#9f9,stroke:#333,stroke-width:4px
-    style Cloud fill:#f9f,stroke:#333,stroke-width:4px
-    style Action fill:#f99,stroke:#333,stroke-width:4px
+    style Edge1 fill:#9f9
+    style Worker fill:#ff9
+    style Origin fill:#f9f
 ```
 
-### Core Patterns
+### Example 3: AWS IoT Greengrass Deployment
 
-#### 1. Hierarchical Processing
+| Deployment Size | Edge Nodes | Devices/Node | Local Processing | Cloud Sync | Monthly Cost |
+|----------------|------------|--------------|------------------|------------|------------|
+| **Small Factory** | 5 | 200 | Rules engine | Every 5 min | $250 |
+| **Smart Building** | 20 | 500 | ML inference | Every 1 min | $1,000 |
+| **Oil Platform** | 50 | 1,000 | Full analytics | On-demand | $5,000 |
+| **Smart City** | 500 | 10,000 | Distributed AI | Real-time | $50,000 |
 
-```python
-class HierarchicalProcessor:
-    """Process data at the right level of the hierarchy"""
+## Edge Infrastructure Components
+
+### Hardware Selection Guide
+
+| Use Case | Device Type | CPU/GPU | Memory | Power | Example Hardware | Unit Cost |
+|----------|-------------|---------|--------|-------|-----------------|----------|
+| **IoT Gateway** | ARM-based | 4-core 1.5GHz | 2GB | 5W | Raspberry Pi 4 | $75 |
+| **Video Analytics** | GPU-enabled | Jetson Nano | 4GB | 10W | NVIDIA Jetson | $99 |
+| **Industrial Edge** | x86 Rugged | i5/8-core | 16GB | 35W | Dell Edge Gateway | $1,500 |
+| **Telco MEC** | Server-grade | Xeon/32-core | 128GB | 250W | HPE Edgeline | $15,000 |
+| **AI Inference** | TPU/NPU | Google Coral | 1GB | 2W | Coral Dev Board | $150 |
+
+### Software Stack Comparison
+
+| Platform | Strengths | Limitations | Best For | Learning Curve |
+|----------|-----------|-------------|----------|----------------|
+| **AWS Greengrass** | AWS integration, Lambda | AWS lock-in | Existing AWS users | Medium |
+| **Azure IoT Edge** | Azure services, Docker | Windows-centric | Enterprise IoT | Medium |
+| **K3s/KubeEdge** | Kubernetes-native | Complex setup | Container workloads | High |
+| **EdgeX Foundry** | Open source, modular | Limited ML | IoT gateways | Medium |
+| **OpenVINO** | Intel optimization | Intel hardware only | Computer vision | Low |
+
+## Core Implementation Patterns
+
+### Pattern 1: Smart Data Filtering
+
+```mermaid
+graph LR
+    subgraph "Data Flow"
+        Raw[Raw Data<br/>1GB/hour] --> Filter{Edge Filter}
+        Filter -->|Anomalies<br/>1MB/hour| Priority[Priority Queue]
+        Filter -->|Aggregated<br/>10MB/hour| Batch[Batch Queue]
+        Filter -->|Discarded<br/>989MB/hour| Drop[/dev/null]
+        
+        Priority -->|Real-time| Cloud1[Cloud Analytics]
+        Batch -->|Every 5min| Cloud2[Cloud Storage]
+    end
     
-    def __init__(self):
-        self.levels = {
-            'device': DeviceLevel(),      # Microseconds
-            'edge': EdgeLevel(),          # Milliseconds  
-            'fog': FogLevel(),           # 10s of milliseconds
-            'cloud': CloudLevel()        # 100s of milliseconds
-        }
-        
-    def process(self, data: dict) -> dict:
-        """Route to appropriate processing level"""
-        
-# Determine urgency and complexity
-        urgency = self.calculate_urgency(data)
-        complexity = self.calculate_complexity(data)
-        
-# Decision matrix
-        if urgency > 0.9 and complexity < 0.3:
-# Urgent + Simple = Device level
-            return self.levels['device'].process(data)
-            
-        elif urgency > 0.7 and complexity < 0.6:
-# Moderate urgency + Moderate complexity = Edge
-            return self.levels['edge'].process(data)
-            
-        elif urgency < 0.5 and complexity > 0.8:
-# Low urgency + High complexity = Cloud
-            return self.levels['cloud'].process(data)
-            
-        else:
-# Default to fog layer
-            return self.levels['fog'].process(data)
+    style Filter fill:#9f9
+    style Priority fill:#f99
+    style Cloud1 fill:#f9f
+    style Cloud2 fill:#f9f
 ```
 
-#### 2. Store and Forward Pattern
+| Data Type | Filter Logic | Reduction | Cloud Sync | Example |
+|-----------|-------------|-----------|------------|----------|
+| **Sensor Readings** | Only changes >5% | 95% | 1 min batch | Temperature |
+| **Video Stream** | Motion detection | 99% | On event | Security |
+| **Vibration Data** | FFT + threshold | 90% | 5 min summary | Machinery |
+| **Log Files** | Error/warning only | 98% | Real-time | System logs |
+| **Metrics** | Statistical summary | 80% | 1 min aggregate | Performance |
 
-```python
-class StoreAndForward:
-    """Handle intermittent connectivity gracefully"""
+### Pattern 2: Store-and-Forward for Resilience
+
+```mermaid
+stateDiagram-v2
+    [*] --> Receive: Data Arrives
+    Receive --> Store: Persist Locally
+    Store --> Check: Check Connection
     
-    def __init__(self, storage_path: str):
-        self.storage = PersistentQueue(storage_path)
-        self.uplink = UplinkConnection()
-        self.metrics = ConnectionMetrics()
-        
-    async def send(self, data: dict, priority: str = 'normal'):
-        """Store locally and forward when possible"""
-        
-# Always persist first
-        entry = {
-            'id': str(uuid.uuid4()),
-            'data': data,
-            'priority': priority,
-            'timestamp': time.time(),
-            'attempts': 0
-        }
-        
-        await self.storage.put(entry)
-        
-# Try immediate send if connected
-        if self.uplink.is_connected():
-            await self.forward_queued_data()
-        else:
-# Schedule for later
-            self.schedule_retry()
+    Check --> Send: Connected
+    Check --> Wait: Disconnected
     
-    async def forward_queued_data(self):
-        """Forward data with priority and retry logic"""
-        
-# Process by priority
-        for priority in ['critical', 'high', 'normal', 'low']:
-            while True:
-                entry = await self.storage.get_by_priority(priority)
-                if not entry:
-                    break
-                    
-                try:
-# Adaptive compression based on bandwidth
-                    bandwidth = self.metrics.get_bandwidth()
-                    if bandwidth < 100:  # KB/s
-                        entry['data'] = self.compress(entry['data'])
-                    
-# Send with timeout
-                    await self.uplink.send(
-                        entry['data'],
-                        timeout=self.calculate_timeout(entry)
-                    )
-                    
-# Success - remove from queue
-                    await self.storage.remove(entry['id'])
-                    
-                except Exception as e:
-# Failure - update retry count
-                    entry['attempts'] += 1
-                    
-                    if entry['attempts'] > self.max_retries(entry['priority']):
-# Move to dead letter queue
-                        await self.storage.move_to_dlq(entry)
-                    else:
-# Return to queue with backoff
-                        await self.storage.update(entry)
-                        break  # Try next priority
+    Send --> Success: ACK Received
+    Send --> Retry: Failed/Timeout
+    
+    Success --> [*]: Complete
+    Retry --> Check: Backoff
+    
+    Wait --> Check: Periodic Retry
+    
+    note right of Store: SQLite/RocksDB
+    note right of Retry: Exponential Backoff
+    note right of Wait: 30s → 1m → 5m → 15m
 ```
 
-#### 3. Edge ML Optimization
+| Priority | Max Retries | Initial Timeout | Backoff | TTL | Compression |
+|----------|-------------|-----------------|---------|-----|-------------|
+| **Critical** | Infinite | 5s | 2x (max 5min) | Never | None |
+| **High** | 10 | 10s | 2x (max 1hr) | 24hr | LZ4 |
+| **Normal** | 5 | 30s | 3x (max 1hr) | 7d | ZSTD |
+| **Low** | 3 | 60s | 4x (max 4hr) | 30d | ZSTD-9 |
 
-```python
-class EdgeMLOptimizer:
-    """Optimize ML models for edge deployment"""
+### Pattern 3: Edge ML Model Optimization
+
+| Optimization | Technique | Size Reduction | Speed Gain | Accuracy Loss | Best For |
+|-------------|-----------|----------------|------------|--------------|----------|
+| **Quantization** | FP32→INT8 | 75% | 2-4x | <1% | All models |
+| **Pruning** | Remove weights | 50-90% | 1.5-3x | 1-3% | CNNs |
+| **Distillation** | Teacher→Student | 80-95% | 5-10x | 2-5% | Complex models |
+| **Compilation** | Hardware-specific | 0% | 2-5x | 0% | Deployment |
+
+### Edge ML Framework Comparison
+
+```mermaid
+graph TB
+    subgraph "Model Journey"
+        Cloud[Cloud Model<br/>500MB FP32] --> Q[Quantization<br/>125MB INT8]
+        Q --> P[Pruning<br/>50MB INT8]
+        P --> D[Distillation<br/>10MB INT8]
+        D --> C[Compilation<br/>10MB Optimized]
+        
+        Cloud -.->|Accuracy: 95%| Metrics1[Cloud Metrics]
+        C -.->|Accuracy: 92%<br/>Speed: 10x| Metrics2[Edge Metrics]
+    end
     
-    @staticmethod
-    def prepare_for_edge(cloud_model, target_device: str):
-        """Convert cloud model to edge-optimized version"""
-        
-# 1. Model Quantization (FP32 → INT8)
-        quantized_model = quantize_model(
-            cloud_model,
-            calibration_data=get_calibration_data(),
-            target_dtype='int8'
-        )
-        
-# 2. Model Pruning (remove small weights)
-        pruned_model = prune_model(
-            quantized_model,
-            sparsity=0.7,  # 70% sparsity
-            structured=True  # Hardware-friendly pruning
-        )
-        
-# 3. Knowledge Distillation (teacher-student)
-        edge_model = distill_model(
-            teacher=cloud_model,
-            student_architecture=get_edge_architecture(target_device),
-            temperature=5.0
-        )
-        
-# 4. Hardware-specific compilation
-        if target_device == 'nvidia_jetson':
-            compiled = tensorrt_optimize(edge_model)
-        elif target_device == 'google_coral':
-            compiled = edgetpu_compile(edge_model)
-        elif target_device == 'intel_ncs':
-            compiled = openvino_optimize(edge_model)
-        else:
-            compiled = onnx_optimize(edge_model)
-        
-# 5. Benchmark and validate
-        metrics = {
-            'original_size_mb': get_model_size(cloud_model),
-            'edge_size_mb': get_model_size(compiled),
-            'compression_ratio': get_model_size(cloud_model) / get_model_size(compiled),
-            'inference_time_ms': benchmark_inference(compiled, target_device),
-            'accuracy_drop': validate_accuracy(cloud_model, compiled)
-        }
-        
-        return EdgeModel(
-            model=compiled,
-            metrics=metrics,
-            target_device=target_device
-        )
+    style Cloud fill:#f9f
+    style C fill:#9f9
 ```
 
-### Edge-Specific Data Management
+| Framework | Hardware | Languages | Model Format | Strengths | Limitations |
+|-----------|----------|-----------|--------------|-----------|-------------|
+| **TensorFlow Lite** | Mobile/ARM | Python/Java/C++ | .tflite | Wide support | Limited ops |
+| **ONNX Runtime** | Cross-platform | Python/C++/C# | .onnx | Interoperable | Generic optimization |
+| **TensorRT** | NVIDIA | Python/C++ | .engine | Fastest on GPU | NVIDIA only |
+| **OpenVINO** | Intel | Python/C++ | .xml/.bin | Intel optimized | Intel only |
+| **Core ML** | Apple | Swift/ObjC | .mlmodel | iOS integration | Apple only |
 
-```python
-class EdgeDataManager:
-    """Manage data lifecycle at the edge"""
+## Data Management Strategy
+
+### Edge Storage Tiering
+
+| Tier | Storage Type | Capacity | Access Time | Retention | Use Case |
+|------|-------------|----------|-------------|-----------|----------|
+| **Hot** | RAM | 1-4GB | <1ms | Minutes | Real-time processing |
+| **Warm** | SSD/eMMC | 32-256GB | <10ms | Hours-Days | Recent analytics |
+| **Cold** | Cloud | Unlimited | >100ms | Years | Historical data |
+
+### Data Lifecycle Management
+
+```mermaid
+graph LR
+    subgraph "Edge Data Flow"
+        New[New Data] --> Hot{Hot Storage}
+        Hot -->|Age > 5min| Warm[Warm Storage]
+        Hot -->|Critical| Cloud1[Immediate Cloud]
+        
+        Warm -->|Age > 24hr| Cold[Cold Storage]
+        Warm -->|Batch| Cloud2[Batch Cloud]
+        
+        Cold -->|Age > 30d| Archive[Archive/Delete]
+        
+        Hot -.->|Query| Results1[Fast Results]
+        Warm -.->|Query| Results2[Medium Results]
+        Cloud2 -.->|Query| Results3[Slow Results]
+    end
     
-    def __init__(self, config: dict):
-        self.hot_storage = InMemoryStore(
-            max_size_mb=config['hot_storage_mb']
-        )
-        self.warm_storage = LocalDisk(
-            path=config['warm_storage_path'],
-            max_size_gb=config['warm_storage_gb']
-        )
-        self.cold_storage = CloudStorage(
-            endpoint=config['cloud_endpoint']
-        )
-        
-    def ingest(self, data: dict):
-        """Smart data tiering based on value and age"""
-        
-# Classify data importance
-        importance = self.classify_importance(data)
-        
-        if importance > 0.8:
-# High importance - keep hot
-            self.hot_storage.store(data)
-            
-# Replicate to cloud immediately
-            self.replicate_to_cloud(data, priority='high')
-            
-        elif importance > 0.5:
-# Medium importance - warm storage
-            self.warm_storage.store(
-                self.compress(data),
-                ttl=3600 * 24  # 1 day
-            )
-            
-# Batch upload to cloud
-            self.schedule_batch_upload(data)
-            
-        else:
-# Low importance - aggregate only
-            self.aggregate_and_discard(data)
-    
-    def query(self, query: dict) -> list:
-        """Query across storage tiers"""
-        
-        results = []
-        
-# 1. Check hot storage (fastest)
-        hot_results = self.hot_storage.query(query)
-        if hot_results and len(hot_results) >= query.get('limit', 100):
-            return hot_results
-        
-        results.extend(hot_results)
-        
-# 2. Check warm storage if needed
-        if len(results) < query.get('limit', 100):
-            warm_results = self.warm_storage.query(query)
-            results.extend(self.decompress(warm_results))
-        
-# 3. Fetch from cloud if still needed
-        if len(results) < query.get('limit', 100) and query.get('include_cloud', False):
-            cloud_results = self.cold_storage.query(query)
-            results.extend(cloud_results)
-        
-        return results[:query.get('limit', 100)]
+    style Hot fill:#f99
+    style Warm fill:#ff9
+    style Cold fill:#99f
 ```
 
----
+## Security Considerations
 
-## Level 3: Deep Dive
+### Edge Security Threats & Mitigations
 
-### Advanced Edge Patterns
+| Threat | Risk Level | Impact | Mitigation | Implementation |
+|--------|-----------|---------|------------|----------------|
+| **Physical Access** | High | Device tampering | TPM + Secure Boot | Hardware security module |
+| **Network Attacks** | High | Data interception | mTLS + VPN | Certificate pinning |
+| **Malware** | Medium | Compromised edge | Signed containers | Runtime protection |
+| **Data Leakage** | High | Privacy breach | Encryption at rest | AES-256 + key rotation |
+| **DDoS** | Medium | Service outage | Rate limiting | Edge firewall rules |
 
-#### Federated Learning at the Edge
+### Security Architecture
+
+```mermaid
+graph TB
+    subgraph "Security Layers"
+        Physical[Physical Security<br/>Locked cabinets, cameras]
+        Hardware[Hardware Security<br/>TPM, Secure Boot]
+        OS[OS Hardening<br/>SELinux, AppArmor]
+        Runtime[Runtime Security<br/>Container isolation]
+        Network[Network Security<br/>mTLS, IPSec]
+        App[Application Security<br/>RBAC, API keys]
+    end
+    
+    Physical --> Hardware
+    Hardware --> OS
+    OS --> Runtime
+    Runtime --> Network
+    Network --> App
+    
+    style Physical fill:#f99
+    style Hardware fill:#f99
+    style Network fill:#9f9
+```
+
+## Advanced Deployment Patterns
+
+### Pattern 1: Federated Learning Architecture
 
 ```mermaid
 graph TB
@@ -535,1031 +412,355 @@ graph TB
     style AGG fill:#ff9,stroke:#333,stroke-width:2px
 ```
 
-```python
-class FederatedLearningCoordinator:
-    """Coordinate ML training across edge nodes"""
-    
-    def __init__(self):
-        self.nodes = {}
-        self.global_model = None
-        self.round_number = 0
-        
-    async def federated_round(self):
-        """Execute one round of federated learning"""
-        
-        self.round_number += 1
-        
-        participants = self.select_participants(
-            min_data_points=1000,
-            min_battery=20,
-            max_nodes=100
-        )
-        
-        model_version = self.get_model_version()
-        
-        tasks = [
-            self.send_model_to_node(node_id, self.global_model, model_version)
-            for node_id in participants
-        ]
-        await asyncio.gather(*tasks)
-        
-        updates = await self.collect_updates(participants, timeout=300)
-        aggregated_update = self.secure_aggregate(updates)
-        
-        self.global_model = self.apply_update(self.global_model, aggregated_update)
-        self.global_model = self.add_privacy_noise(self.global_model, epsilon=1.0)
-        
-        return {
-            'round': self.round_number,
-            'participants': len(participants),
-            'model_version': model_version + 1,
-            'metrics': self.evaluate_model(self.global_model)
-        }
-    
-    def secure_aggregate(self, updates: list) -> dict:
-        """Aggregate updates with privacy preservation"""
-        
-        total_examples = sum(u['num_examples'] for u in updates)
-        
-        aggregated = {}
-        for layer_name in updates[0]['weights'].keys():
-            weighted_sum = sum(
-                update['weights'][layer_name] * (update['num_examples'] / total_examples)
-                for update in updates
-            )
-            aggregated[layer_name] = weighted_sum
-        
-        return aggregated
-
-class EdgeNode:
-    """Edge node participating in federated learning"""
-    
-    async def train_local_model(self, global_model, config: dict):
-        """Train on local data"""
-        
-        local_data = self.load_private_data()
-        local_model = copy.deepcopy(global_model)
-        
-        optimizer = torch.optim.SGD(
-            local_model.parameters(),
-            lr=config['learning_rate']
-        )
-        
-        for epoch in range(config['local_epochs']):
-            for batch in self.get_batches(local_data):
-                loss = local_model(batch)
-                optimizer.zero_grad()
-                loss.backward()
-                torch.nn.utils.clip_grad_norm_(local_model.parameters(), max_norm=1.0)
-                optimizer.step()
-        
-        update = self.compute_update(global_model, local_model)
-        update = self.add_local_noise(update, sensitivity=0.1)
-        
-        return {
-            'node_id': self.node_id,
-            'weights': update,
-            'num_examples': len(local_data),
-            'metrics': self.evaluate_locally(local_model)
-        }
-```
-
-#### Edge Orchestration
-
-```python
-class EdgeOrchestrator:
-    """Intelligent workload placement across edge nodes"""
-    
-    def __init__(self):
-        self.nodes = {}
-        self.workloads = {}
-        self.network_topology = NetworkTopology()
-        
-    def place_workload(self, workload: Workload) -> Placement:
-        """Optimally place workload on edge infrastructure"""
-        
-        requirements = {
-            'compute': workload.cpu_requirements,
-            'memory': workload.memory_requirements,
-            'latency': workload.max_latency_ms,
-            'bandwidth': workload.bandwidth_requirements,
-            'data_locality': workload.data_sources
-        }
-        
-        scores = {
-            node_id: self.calculate_placement_score(
-                node, requirements, current_load=self.get_node_load(node_id)
-            )
-            for node_id, node in self.nodes.items()
-        }
-        
-        if workload.anti_affinity:
-            self.apply_anti_affinity(scores, workload.anti_affinity)
-        
-        self.apply_network_costs(scores, workload)
-        
-        selected_nodes = (
-            self.select_multiple_nodes(scores, count=workload.replicas, spread_across_zones=True)
-            if workload.replicas > 1
-            else [max(scores, key=scores.get)]
-        )
-        
-        return Placement(
-            workload_id=workload.id,
-            nodes=selected_nodes,
-            strategy='network_optimized',
-            estimated_latency=self.estimate_latency(selected_nodes, workload)
-        )
-    
-    def calculate_placement_score(self, node: Node, requirements: dict, current_load: dict) -> float:
-        """Multi-criteria scoring for placement"""
-        
-        scores = {
-            'cpu': (node.cpu_capacity - current_load['cpu']) / requirements['compute'],
-            'memory': (node.memory_capacity - current_load['memory']) / requirements['memory'],
-            'latency': 1 - (self.estimate_latency_to_node(node) / requirements['latency']),
-            'bandwidth': min(1, node.available_bandwidth / requirements['bandwidth']),
-            'data_locality': self.calculate_data_locality_score(node, requirements['data_locality']),
-            'reliability': node.uptime_percentage / 100,
-            'cost': 1 - (node.cost_per_hour / self.max_acceptable_cost)
-        }
-        
-        weights = {
-            'cpu': 0.2, 'memory': 0.2, 'latency': 0.25,
-            'bandwidth': 0.15, 'data_locality': 0.1,
-            'reliability': 0.05, 'cost': 0.05
-        }
-        
-        return sum(scores[k] * weights[k] for k in scores)
-```
-
-#### Edge Security
-
-```python
-class EdgeSecurityManager:
-    """Comprehensive security for edge deployments"""
-    
-    def __init__(self):
-        self.tpm = TrustedPlatformModule()
-        self.attestation_service = AttestationService()
-        
-    def secure_edge_node(self, node_id: str) -> dict:
-        """Complete security hardening for edge node"""
-        
-        return {
-            'node_id': node_id,
-            'security_score': self.calculate_security_score(node_id),
-            'configurations': {
-                'hardware': {
-                    'secure_boot': self.enable_secure_boot(node_id),
-                    'tpm_enabled': self.tpm.initialize(node_id),
-                    'encrypted_storage': self.setup_encrypted_storage(node_id)
-                },
-                'runtime': {
-                    'container_isolation': self.setup_container_security(node_id),
-                    'network_policies': self.configure_network_policies(node_id),
-                    'intrusion_detection': self.deploy_ids(node_id)
-                },
-                'data': {
-                    'encryption_at_rest': self.configure_encryption_at_rest(node_id),
-                    'encryption_in_transit': self.setup_mtls(node_id),
-                    'data_sanitization': self.configure_secure_deletion(node_id)
-                },
-                'access': {
-                    'identity_management': self.setup_edge_identity(node_id),
-                    'rbac_policies': self.configure_rbac(node_id),
-                    'api_authentication': self.setup_api_security(node_id)
-                },
-                'monitoring': {
-                    'security_monitoring': self.deploy_security_monitoring(node_id),
-                    'audit_logging': self.configure_audit_logs(node_id),
-                    'compliance_scanning': self.setup_compliance_checks(node_id)
-                }
-            }
-        }
-    
-    def handle_compromised_node(self, node_id: str):
-        """Incident response for compromised edge node"""
-        
-# 1. Immediate isolation
-        self.network_isolate_node(node_id)
-        
-# 2. Workload migration
-        affected_workloads = self.get_node_workloads(node_id)
-        for workload in affected_workloads:
-            self.emergency_migrate(workload)
-        
-# 3. Evidence collection
-        self.collect_forensic_data(node_id)
-        
-# 4. Node remediation
-        self.quarantine_and_reimage(node_id)
-        
-# 5. Re-attestation before rejoining
-        self.require_attestation(node_id)
-```
-
----
-
-## Level 4: Expert
-
-### Production Case Study: Tesla's Edge AI for Autopilot
-
-Tesla processes 1.4 billion miles of driving data annually, with each vehicle making 2,500+ decisions per second at the edge.
-
-```python
-class TeslaAutopilotEdge:
-    """
-    Tesla's edge computing for autonomous driving
-    - 8 cameras processing 1.2GB/s
-    - Neural network inference in 10ms
-    - 99.999% uptime requirement
-    """
-    
-    def __init__(self):
-        self.hw3_computer = {
-            'neural_processors': 2,
-            'cpu_cores': 12,
-            'gpu': 'custom_fsd_chip',
-            'memory_gb': 16,
-            'storage_gb': 256
-        }
-        self.models = self.load_edge_models()
-        
-    def process_sensor_fusion(self, sensor_data: dict) -> dict:
-        """
-        Real-time sensor fusion and decision making
-        Must complete in <10ms for 100Hz operation
-        """
-        
-        start_time = time.perf_counter()
-        
-# 1. Camera processing (8 cameras, 36fps each)
-        camera_features = self.process_cameras_parallel(
-            sensor_data['cameras']  # 8x1280x960 @ 36fps
-        )
-        
-# 2. Radar processing (redundant with vision)
-        radar_features = self.process_radar(
-            sensor_data['radar']  # 160m range
-        )
-        
-# 3. Ultrasonic for close range
-        ultrasonic_features = self.process_ultrasonic(
-            sensor_data['ultrasonic']  # 12 sensors, 8m range
-        )
-        
-# 4. Sensor fusion neural network
-        fused_perception = self.fusion_network.predict({
-            'vision': camera_features,
-            'radar': radar_features,
-            'ultrasonic': ultrasonic_features,
-            'vehicle_state': sensor_data['vehicle_state']
-        })
-        
-# 5. Planning and control
-        trajectory = self.planning_network.predict(fused_perception)
-        control_commands = self.control_network.predict(trajectory)
-        
-# 6. Safety validation
-        validated_commands = self.safety_monitor.validate(
-            control_commands,
-            sensor_data,
-            fused_perception
-        )
-        
-        processing_time = (time.perf_counter() - start_time) * 1000
-        
-# Ensure we meet timing requirements
-        if processing_time > 10:
-            self.log_timing_violation(processing_time)
-# Fall back to conservative behavior
-            validated_commands = self.safe_fallback(validated_commands)
-        
-        return {
-            'commands': validated_commands,
-            'processing_time_ms': processing_time,
-            'perception': fused_perception,
-            'confidence': self.calculate_confidence(fused_perception)
-        }
-    
-    def edge_model_update(self, update_package: dict):
-        """
-        Over-the-air model updates with safety validation
-        """
-        
-# 1. Download update package (can be slow)
-        new_models = self.download_models(update_package)
-        
-# 2. Validate on test scenarios
-        validation_results = self.validate_models(
-            new_models,
-            test_scenarios=self.get_safety_critical_scenarios()
-        )
-        
-        if validation_results['pass_rate'] < 0.999:
-            self.reject_update('Safety validation failed')
-            return
-        
-# 3. A/B test deployment
-        self.shadow_mode_deployment(new_models, duration_hours=24)
-        
-# 4. Gradual rollout
-        self.phased_deployment(new_models, phases=[
-            {'percentage': 1, 'duration_hours': 24},
-            {'percentage': 10, 'duration_hours': 72},
-            {'percentage': 50, 'duration_hours': 168},
-            {'percentage': 100, 'duration_hours': None}
-        ])
-```
-
-### Edge Infrastructure at Scale
-
-```python
-class CloudflareEdgeNetwork:
-    """
-    Cloudflare's global edge network
-    - 250+ cities
-    - 10ms to 95% of internet users
-    - 45Tbps network capacity
-    """
-    
-    def __init__(self):
-        self.edge_locations = self.load_edge_locations()
-        self.anycast_network = AnycastNetwork()
-        self.workers = {}  # Edge compute workers
-        
-    def deploy_edge_worker(self, worker_code: str) -> dict:
-        """Deploy JavaScript worker to all edge locations"""
-        
-# 1. Validate and compile worker
-        compiled_worker = self.compile_worker(worker_code)
-        
-# 2. Security sandbox
-        sandboxed_worker = self.create_v8_isolate(compiled_worker)
-        
-# 3. Resource limits
-        resource_limits = {
-            'cpu_ms': 10,  # 10ms CPU time per request
-            'memory_mb': 128,  # 128MB memory
-            'subrequests': 50,  # Max 50 subrequests
-            'duration_ms': 30  # 30ms wall time
-        }
-        
-# 4. Deploy globally
-        deployment_result = {}
-        
-        for location in self.edge_locations:
-            result = self.deploy_to_location(
-                location,
-                sandboxed_worker,
-                resource_limits
-            )
-            deployment_result[location] = result
-        
-# 5. Configure routing
-        self.anycast_network.update_routing({
-            'worker_id': sandboxed_worker.id,
-            'routes': ['example.com/*'],
-            'fallback': 'origin'
-        })
-        
-        return {
-            'worker_id': sandboxed_worker.id,
-            'locations': len(deployment_result),
-            'success_rate': self.calculate_success_rate(deployment_result),
-            'global_latency_p50': self.measure_global_latency()
-        }
-    
-    def handle_request_at_edge(self, request: Request) -> Response:
-        """Process HTTP request at nearest edge location"""
-        
-# 1. Determine closest edge location
-        edge_location = self.anycast_network.get_location(request.ip)
-        
-# 2. Load balancing within location
-        edge_server = self.select_edge_server(edge_location)
-        
-# 3. Cache lookup
-        cache_key = self.generate_cache_key(request)
-        cached_response = edge_server.cache.get(cache_key)
-        
-        if cached_response and not cached_response.is_stale():
-            return cached_response
-        
-# 4. Execute edge worker
-        worker = self.workers.get(request.hostname)
-        if worker:
-            try:
-                response = worker.handle_request(request)
-                
-# Cache if appropriate
-                if response.cache_control.is_public():
-                    edge_server.cache.set(
-                        cache_key,
-                        response,
-                        ttl=response.cache_control.max_age
-                    )
-                
-                return response
-                
-            except WorkerTimeout:
-# Fall back to origin
-                pass
-        
-# 5. Origin request with connection pooling
-        origin_response = edge_server.fetch_from_origin(request)
-        
-# 6. Cache at edge
-        if origin_response.is_cacheable():
-            edge_server.cache.set(cache_key, origin_response)
-        
-        return origin_response
-```
-
-### Advanced Edge Patterns
-
-```python
-class EdgeVideoAnalytics:
-    """
-    Real-time video analytics at the edge
-    Used in smart cities, retail, manufacturing
-    """
-    
-    def __init__(self):
-        self.detection_models = {
-            'person': self.load_model('yolov5s'),  # 7ms inference
-            'vehicle': self.load_model('vehicle_detector'),
-            'face': self.load_model('face_detector'),
-            'anomaly': self.load_model('anomaly_detector')
-        }
-        self.trackers = {}
-        
-    def process_video_stream(self, camera_id: str, frame: np.ndarray) -> dict:
-        """Process single video frame at edge"""
-        
-# 1. Multi-scale detection
-        detections = self.run_detection_cascade(frame)
-        
-# 2. Object tracking
-        if camera_id not in self.trackers:
-            self.trackers[camera_id] = MultiObjectTracker()
-        
-        tracked_objects = self.trackers[camera_id].update(detections)
-        
-# 3. Event detection
-        events = self.detect_events(tracked_objects)
-        
-# 4. Privacy preservation
-        if self.privacy_mode_enabled():
-            frame = self.apply_privacy_filters(frame, detections)
-        
-# 5. Selective upload
-        upload_decision = self.decide_upload(events, tracked_objects)
-        
-        results = {
-            'camera_id': camera_id,
-            'timestamp': time.time(),
-            'object_count': len(tracked_objects),
-            'events': events,
-            'upload_frame': upload_decision['upload'],
-            'metadata_only': not upload_decision['include_video']
-        }
-        
-# 6. Compression for upload
-        if upload_decision['upload']:
-            if upload_decision['include_video']:
-                results['compressed_frame'] = self.compress_frame(frame)
-            results['metadata'] = self.extract_metadata(tracked_objects, events)
-        
-        return results
-    
-    def run_detection_cascade(self, frame: np.ndarray) -> list:
-        """Cascade of increasingly complex models"""
-        
-        detections = []
-        
-# 1. Fast person detection
-        person_detector = self.detection_models['person']
-        persons = person_detector.detect(frame, conf_threshold=0.5)
-        detections.extend(persons)
-        
-# 2. If persons detected, run face detection
-        if persons:
-            for person_bbox in persons:
-                person_crop = crop_image(frame, person_bbox)
-                faces = self.detection_models['face'].detect(person_crop)
-                detections.extend(adjust_bbox(faces, person_bbox))
-        
-# 3. Vehicle detection in parallel
-        vehicles = self.detection_models['vehicle'].detect(frame)
-        detections.extend(vehicles)
-        
-# 4. Anomaly detection on full scene
-        anomaly_score = self.detection_models['anomaly'].predict(frame)
-        if anomaly_score > 0.8:
-            detections.append({
-                'type': 'anomaly',
-                'score': anomaly_score,
-                'bbox': [0, 0, frame.shape[1], frame.shape[0]]
-            })
-        
-        return detections
-
-class EdgeDataPipeline:
-    """Efficient data pipeline for edge-to-cloud"""
-    
-    def __init__(self):
-        self.compression = AdaptiveCompression()
-        self.scheduler = UploadScheduler()
-        self.bandwidth_monitor = BandwidthMonitor()
-        
-    async def process_iot_data(self, data_stream: AsyncIterator) -> None:
-        """Process continuous IoT data stream"""
-        
-        buffer = []
-        buffer_size = 0
-        max_buffer_size = 1024 * 1024  # 1MB
-        
-        async for data_point in data_stream:
-# 1. Local processing
-            processed = self.process_locally(data_point)
-            
-# 2. Filtering
-            if not self.should_upload(processed):
-                continue
-            
-# 3. Batching
-            buffer.append(processed)
-            buffer_size += len(processed)
-            
-# 4. Adaptive upload
-            if buffer_size >= max_buffer_size or self.is_critical(processed):
-                await self.upload_batch(buffer)
-                buffer = []
-                buffer_size = 0
-        
-# Upload remaining data
-        if buffer:
-            await self.upload_batch(buffer)
-    
-    async def upload_batch(self, batch: list) -> None:
-        """Smart batch upload with compression"""
-        
-# 1. Measure available bandwidth
-        bandwidth = await self.bandwidth_monitor.get_current()
-        
-# 2. Choose compression level
-        if bandwidth < 100:  # KB/s
-            compression_level = 9  # Maximum compression
-        elif bandwidth < 1000:
-            compression_level = 6  # Balanced
-        else:
-            compression_level = 1  # Fast compression
-        
-# 3. Compress batch
-        compressed = self.compression.compress(
-            batch,
-            level=compression_level,
-            algorithm='zstd'  # Better than gzip for IoT data
-        )
-        
-# 4. Upload with retry
-        await self.upload_with_retry(compressed)
-```
-
----
-
-## Level 5: Mastery
-
-### Theoretical Foundations
-
-#### Edge Computing Theory
-
-```python
-class EdgeComputingTheory:
-    """
-    Mathematical models for edge computing optimization
-    """
-    
-    def model_edge_latency(self, 
-                          data_size: float,
-                          computation_complexity: float,
-                          network_distance: float) -> dict:
-        """
-        Model total latency for edge vs cloud processing
-        
-        L_total = L_network + L_compute + L_queue
-        """
-        
-# Network latency (ms)
-        c = 3e8  # Speed of light m/s
-        propagation_delay = (network_distance / c) * 1000  # ms
-        transmission_delay = (data_size * 8) / (bandwidth * 1e6) * 1000  # ms
-        
-        edge_network_latency = propagation_delay * 0.1 + transmission_delay  # 10% distance
-        cloud_network_latency = propagation_delay + transmission_delay
-        
-# Compute latency (ms)
-        edge_compute_latency = computation_complexity / edge_compute_power
-        cloud_compute_latency = computation_complexity / cloud_compute_power
-        
-# Queuing latency (M/M/1 queue)
-        edge_utilization = arrival_rate / edge_service_rate
-        cloud_utilization = arrival_rate / cloud_service_rate
-        
-        edge_queue_latency = 1 / (edge_service_rate - arrival_rate)
-        cloud_queue_latency = 1 / (cloud_service_rate - arrival_rate)
-        
-        return {
-            'edge_total': edge_network_latency + edge_compute_latency + edge_queue_latency,
-            'cloud_total': cloud_network_latency + cloud_compute_latency + cloud_queue_latency,
-            'edge_advantage': cloud_total - edge_total,
-            'break_even_distance': self.calculate_break_even_distance()
-        }
-    
-    def optimize_edge_placement(self, 
-                               nodes: list,
-                               workloads: list,
-                               constraints: dict) -> dict:
-        """
-        Optimal placement using Integer Linear Programming
-        
-        Minimize: Sum of latencies + Sum of costs
-        Subject to: Capacity constraints, QoS requirements
-        """
-        
-# Decision variables
-# x[i,j] = 1 if workload i placed on node j
-        
-# Objective function
-# min sum(latency[i,j] * x[i,j]) + sum(cost[j] * y[j])
-        
-        model = OptimizationModel()
-        
-# Variables
-        x = {}
-        for i, workload in enumerate(workloads):
-            for j, node in enumerate(nodes):
-                x[i,j] = model.add_binary_variable(f'x_{i}_{j}')
-        
-# Constraints
-# Each workload placed exactly once
-        for i in range(len(workloads)):
-            model.add_constraint(
-                sum(x[i,j] for j in range(len(nodes))) == 1
-            )
-        
-# Node capacity constraints
-        for j in range(len(nodes)):
-            model.add_constraint(
-                sum(workloads[i].resource_demand * x[i,j] 
-                    for i in range(len(workloads))) <= nodes[j].capacity
-            )
-        
-# QoS constraints
-        for i, workload in enumerate(workloads):
-            for j, node in enumerate(nodes):
-                if self.calculate_latency(workload, node) > workload.max_latency:
-                    model.add_constraint(x[i,j] == 0)
-        
-# Solve
-        solution = model.solve()
-        
-        return self.extract_placement(solution, x, workloads, nodes)
-```
-
-#### Information Theory at the Edge
-
-```python
-class EdgeInformationTheory:
-    """Information theoretic approach to edge computing"""
-    
-    def calculate_information_value(self, data: np.ndarray) -> float:
-        """
-        Calculate information content to decide processing location
-        Using Shannon entropy
-        """
-        
-# Entropy H(X) = -sum(p(x) * log(p(x)))
-        hist, _ = np.histogram(data, bins=256)
-        prob = hist / hist.sum()
-        prob = prob[prob > 0]  # Remove zeros
-        
-        entropy = -np.sum(prob * np.log2(prob))
-        
-# Normalized entropy (0-1)
-        max_entropy = np.log2(len(hist))
-        normalized_entropy = entropy / max_entropy
-        
-        return normalized_entropy
-    
-    def optimal_data_reduction(self, 
-                              raw_data: np.ndarray,
-                              bandwidth_bps: float,
-                              latency_requirement_ms: float) -> dict:
-        """
-        Determine optimal data reduction for edge upload
-        """
-        
-# Rate-distortion theory
-# R(D) = minimum bits needed for distortion D
-        
-        original_size = raw_data.nbytes * 8  # bits
-        upload_time_ms = (original_size / bandwidth_bps) * 1000
-        
-        if upload_time_ms <= latency_requirement_ms:
-# No compression needed
-            return {'method': 'raw', 'size': original_size}
-        
-# Try different compression methods
-        methods = {
-            'sampling': self.downsample_data,
-            'quantization': self.quantize_data,
-            'transform': self.transform_compress,
-            'semantic': self.semantic_compress
-        }
-        
-        best_method = None
-        best_quality = 0
-        
-        for method_name, method_func in methods.items():
-            compressed = method_func(raw_data)
-            size = compressed.nbytes * 8
-            upload_time = (size / bandwidth_bps) * 1000
-            
-            if upload_time <= latency_requirement_ms:
-                quality = self.measure_quality(raw_data, compressed)
-                if quality > best_quality:
-                    best_method = method_name
-                    best_quality = quality
-        
-        return {
-            'method': best_method,
-            'quality': best_quality,
-            'compression_ratio': original_size / size
-        }
-```
-
-### Future Directions
-
-#### 6G Edge Computing
-
-```python
-class SixGEdgeComputing:
-    """
-    Next-generation edge computing with 6G networks
-    - Sub-millisecond latency
-    - AI-native architecture
-    - Holographic communications
-    """
-    
-    def __init__(self):
-        self.terahertz_radio = TerahertzRadio()  # 0.1-10 THz
-        self.ai_processor = NeuromorphicProcessor()
-        self.quantum_security = QuantumKeyDistribution()
-        
-    def ultra_reliable_low_latency(self, request: dict) -> dict:
-        """
-        URLLC with 99.9999% reliability and <1ms latency
-        """
-        
-# 1. Predictive processing
-# Start processing before request arrives
-        predicted_request = self.ai_processor.predict_next_request()
-        pre_computed = self.pre_compute(predicted_request)
-        
-# 2. Parallel multipath
-        paths = self.terahertz_radio.establish_paths(count=3)
-        
-# 3. Send on all paths
-        responses = []
-        for path in paths:
-            response = path.send(request, pre_computed)
-            responses.append(response)
-        
-# 4. Use first valid response
-        return self.first_valid_response(responses)
-    
-    def holographic_edge_rendering(self, user_position: dict) -> dict:
-        """
-        Real-time holographic rendering at edge
-        """
-        
-# 1. Capture from multiple angles
-        captures = self.capture_volumetric_data(user_position)
-        
-# 2. Edge AI processing
-        hologram = self.ai_processor.generate_hologram(
-            captures,
-            quality='16K',  # 16K per eye
-            fps=120,
-            latency_budget_ms=5
-        )
-        
-# 3. Compress using neural codec
-        compressed = self.neural_compress(
-            hologram,
-            target_bitrate_gbps=10
-        )
-        
-# 4. Stream with guaranteed QoS
-        return self.stream_hologram(compressed)
-```
-
-#### Neuromorphic Edge Computing
-
-```python
-class NeuromorphicEdge:
-    """
-    Brain-inspired computing at the edge
-    - Event-driven processing
-    - Ultra-low power (<1W)
-    - Continuous learning
-    """
-    
-    def __init__(self):
-        self.spiking_processor = SpikingNeuralProcessor()
-        self.event_camera = EventCamera()  # 1M events/second
-        
-    def process_event_stream(self, event_stream: Iterator) -> None:
-        """
-        Process asynchronous event stream
-        """
-        
-        for event in event_stream:
-# Events only on change (no redundant data)
-            if event.type == 'pixel_change':
-# Spike-based processing
-                spikes = self.encode_to_spikes(event)
-                
-# Asynchronous neural computation
-                result = self.spiking_processor.process(
-                    spikes,
-                    power_budget_mw=100  # 100mW
-                )
-                
-# Only act on significant patterns
-                if result.confidence > 0.8:
-                    self.trigger_action(result)
-    
-    def continuous_learning_at_edge(self, new_pattern: np.ndarray):
-        """
-        Learn new patterns without forgetting old ones
-        """
-        
-# Hebbian learning: "Neurons that fire together wire together"
-        self.spiking_processor.hebbian_update(
-            pattern=new_pattern,
-            learning_rate=0.01,
-            homeostasis=True  # Prevent runaway excitation
-        )
-        
-# Consolidate important patterns
-        self.memory_consolidation()
-```
-
-### Economic Impact
-
-```python
-class EdgeEconomics:
-    """Economic analysis of edge computing"""
-    
-    def calculate_edge_roi(self, deployment: dict) -> dict:
-        """
-        ROI calculation for edge deployment
-        """
-        
-# Costs
-        edge_infrastructure = deployment['edge_nodes'] * 50000  # $50K per edge node
-        bandwidth_savings = deployment['data_reduction'] * 0.10  # $0.10 per GB
-        cloud_compute_savings = deployment['edge_compute_hours'] * 0.05  # $0.05 per hour
-        
-# Benefits
-        latency_value = self.calculate_latency_value(
-            deployment['latency_reduction_ms'],
-            deployment['use_case']
-        )
-        
-        downtime_reduction = deployment['availability_improvement'] * 100000  # $100K per 1%
-        
-# 5-year projection
-        five_year_savings = (bandwidth_savings + cloud_compute_savings) * 5 * 365
-        five_year_benefits = (latency_value + downtime_reduction) * 5
-        
-        roi = ((five_year_benefits - edge_infrastructure) / edge_infrastructure) * 100
-        
-        return {
-            'initial_investment': edge_infrastructure,
-            'annual_savings': five_year_savings / 5,
-            'annual_benefits': five_year_benefits / 5,
-            'payback_months': edge_infrastructure / ((five_year_savings + five_year_benefits) / 60),
-            'five_year_roi': roi
-        }
-    
-    def calculate_latency_value(self, latency_reduction_ms: float, use_case: str) -> float:
-        """
-        Business value of latency reduction
-        """
-        
-        values = {
-            'autonomous_vehicle': 1000 * latency_reduction_ms,  # $1000 per ms (safety)
-            'ar_vr': 100 * latency_reduction_ms,  # $100 per ms (user experience)
-            'industrial_iot': 500 * latency_reduction_ms,  # $500 per ms (productivity)
-            'video_analytics': 50 * latency_reduction_ms,  # $50 per ms (efficiency)
-            'smart_city': 200 * latency_reduction_ms  # $200 per ms (public service)
-        }
-        
-        return values.get(use_case, 100 * latency_reduction_ms)
-```
-
----
-
-## Quick Reference
-
-### Decision Framework
-
-| Factor | Use Edge Computing | Use Cloud Computing |
-|--------|-------------------|---------------------|
-| **Latency** | <10ms required | >100ms acceptable |
-| **Bandwidth** | Limited/expensive | Abundant/cheap |
-| **Data Volume** | High volume, low value | Low volume, high value |
-| **Privacy** | Local processing required | Cloud processing OK |
-| **Reliability** | Must work offline | Always connected |
-| **Computing** | Simple inference | Complex training |
-
-
-### Edge-to-Cloud Data Pipeline
+| Component | Role | Requirements | Scale |
+|-----------|------|--------------|-------|
+| **Central Server** | Model aggregation | 100GB RAM, 32 cores | 1 per deployment |
+| **Edge Nodes** | Local training | 4GB RAM, GPU optional | 10-10,000 nodes |
+| **Communication** | Model updates | 10-100MB per round | Async, compressed |
+| **Privacy** | Differential privacy | ε=1.0, δ=10^-5 | Per-user guarantees |
 
 ```mermaid
 sequenceDiagram
-    participant D as Device
-    participant E as Edge Node
-    participant C as Cloud
+    participant S as Central Server
+    participant E1 as Edge Node 1
+    participant E2 as Edge Node 2
+    participant E3 as Edge Node 3
     
-    Note over D,C: Continuous Data Stream
+    S->>E1: Global Model v1
+    S->>E2: Global Model v1
+    S->>E3: Global Model v1
     
-    loop Every 100ms
-        D->>E: Raw sensor data (1MB/s)
-        E->>E: Filter & compress
-        E->>E: Local ML inference
-        
-        alt Critical event detected
-            E->>D: Immediate response (<1ms)
-            E->>C: Alert with context
-        else Normal operation
-            E->>E: Aggregate data
-        end
-    end
+    Note over E1,E3: Local Training (5 epochs)
     
-    Note over E,C: Periodic batch upload
+    E1->>E1: Train on Local Data
+    E2->>E2: Train on Local Data
+    E3->>E3: Train on Local Data
     
-    loop Every 1 minute
-        E->>C: Compressed batch (10KB)
-        C->>C: Deep analysis
-        C->>E: Model update
-    end
+    E1-->>S: Model Update + Metrics
+    E2-->>S: Model Update + Metrics
+    E3-->>S: Model Update + Metrics
     
-    Note over E: 99% data reduction
+    S->>S: Secure Aggregation
+    S->>S: Apply Differential Privacy
+    
+    Note over S: Global Model v2 Ready
 ```
 
-### Implementation Checklist
+### Pattern 2: Intelligent Workload Placement
 
-- [ ] Identify latency requirements
-- [ ] Assess bandwidth constraints
-- [ ] Evaluate data privacy needs
-- [ ] Design hierarchical architecture
-- [ ] Select edge hardware
-- [ ] Optimize models for edge
-- [ ] Implement data tiering
-- [ ] Set up edge orchestration
-- [ ] Configure security measures
-- [ ] Plan OTA updates
-- [ ] Monitor edge health
-- [ ] Design fallback strategies
+| Factor | Weight | Score Calculation | Example |
+|--------|--------|------------------|----------|
+| **CPU Available** | 20% | (Available / Required) | 8 cores free / 2 needed = 4.0 |
+| **Memory Available** | 20% | (Available / Required) | 16GB free / 4GB needed = 4.0 |
+| **Network Latency** | 25% | 1 - (Actual / Max) | 1 - (5ms / 10ms) = 0.5 |
+| **Bandwidth** | 15% | min(1, Available / Required) | min(1, 1Gbps / 100Mbps) = 1.0 |
+| **Data Locality** | 10% | Data on same node | 1.0 if local, 0.5 if regional |
+| **Reliability** | 5% | Uptime percentage | 99.9% = 0.999 |
+| **Cost** | 5% | 1 - (Cost / Budget) | 1 - ($0.10 / $1.00) = 0.9 |
 
-### Common Anti-Patterns
+```mermaid
+graph TB
+    subgraph "Placement Decision"
+        W[Workload] --> Analyze[Analyze Requirements]
+        Analyze --> Score[Score All Nodes]
+        
+        Score --> N1[Node 1<br/>Score: 0.85]
+        Score --> N2[Node 2<br/>Score: 0.72]
+        Score --> N3[Node 3<br/>Score: 0.91]
+        
+        N3 -->|Highest Score| Deploy[Deploy to Node 3]
+        
+        Deploy --> Monitor[Monitor Performance]
+        Monitor -->|SLA Violation| Rebalance[Rebalance]
+        Rebalance --> Score
+    end
+    
+    style N3 fill:#9f9
+    style Deploy fill:#9f9
+```
 
-1. **Over-provisioning edge** - Too much compute at edge
-2. **Under-estimating complexity** - Edge management is hard
-3. **Ignoring security** - Edge nodes are vulnerable
-4. **No offline strategy** - Assuming always connected
-5. **Monolithic edge apps** - Not modular enough
+### Pattern 3: Zero-Trust Edge Security
 
----
+```mermaid
+stateDiagram-v2
+    [*] --> Boot: Power On
+    Boot --> Attestation: Secure Boot
+    Attestation --> Verify: TPM Check
+    
+    Verify --> Trusted: Pass
+    Verify --> Quarantine: Fail
+    
+    Trusted --> Operational: Load Workloads
+    Operational --> Monitor: Continuous
+    
+    Monitor --> Operational: Normal
+    Monitor --> Incident: Anomaly Detected
+    
+    Incident --> Isolate: Network Isolation
+    Isolate --> Migrate: Move Workloads
+    Migrate --> Remediate: Reimage Node
+    Remediate --> Attestation: Rejoin Attempt
+    
+    Quarantine --> Remediate: Admin Action
+```
+
+| Security Layer | Implementation | Overhead | Protection Level |
+|----------------|----------------|----------|------------------|
+| **Hardware** | TPM 2.0 + Secure Boot | <1ms boot delay | Root of trust |
+| **OS** | SELinux/AppArmor | 2-5% CPU | Kernel protection |
+| **Container** | gVisor/Kata | 10-20% overhead | Process isolation |
+| **Network** | mTLS + IPSec | 5-10% bandwidth | Data protection |
+| **Application** | OAuth2 + RBAC | <10ms per request | Access control |
+
+## Production Case Studies
+
+### Case Study 1: Tesla Autopilot Edge AI
+
+| Metric | Specification | Challenge | Solution |
+|--------|--------------|-----------|----------|
+| **Data Rate** | 1.2GB/s from 8 cameras | Bandwidth | Local processing only |
+| **Latency** | <10ms for 100Hz control | Compute speed | Custom FSD chip |
+| **Reliability** | 99.999% uptime | Hardware failure | Triple redundancy |
+| **Updates** | OTA model deployment | Safety validation | Shadow mode testing |
+| **Scale** | 1M+ vehicles | Coordination | Fleet learning |
+
+### Edge Processing Pipeline
+
+```mermaid
+graph LR
+    subgraph "Tesla FSD Computer"
+        C1[Camera 1] --> NPU1[Neural Processor 1]
+        C2[Camera 2] --> NPU1
+        C3[Camera 3] --> NPU1
+        C4[Camera 4] --> NPU1
+        
+        C5[Camera 5] --> NPU2[Neural Processor 2]
+        C6[Camera 6] --> NPU2
+        C7[Camera 7] --> NPU2
+        C8[Camera 8] --> NPU2
+        
+        NPU1 --> Fusion[Sensor Fusion]
+        NPU2 --> Fusion
+        
+        Radar[Radar] --> Fusion
+        Ultra[Ultrasonic] --> Fusion
+        
+        Fusion --> Plan[Planning]
+        Plan --> Control[Control]
+        Control --> CAN[CAN Bus]
+    end
+    
+    style NPU1 fill:#9f9
+    style NPU2 fill:#9f9
+    style Fusion fill:#ff9
+```
+
+### Case Study 2: Cloudflare Workers Global Edge
+
+| Metric | Scale | Technology | Impact |
+|--------|-------|------------|--------|
+| **Locations** | 275+ cities | Anycast network | <50ms globally |
+| **Capacity** | 45Tbps | 100Gbps+ per location | No congestion |
+| **Compute** | 10M+ req/sec | V8 isolates | Serverless at edge |
+| **Deployment** | <15 seconds | Global KV store | Instant updates |
+| **Cost** | $0.50/million requests | Shared infrastructure | 90% cheaper than VMs |
+
+### Request Flow Architecture
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant E as Edge Location
+    participant W as Worker
+    participant C as Cache
+    participant O as Origin
+    
+    U->>E: HTTP Request
+    E->>E: Anycast routing
+    
+    E->>C: Check cache
+    alt Cache Hit
+        C-->>U: Cached response (10ms)
+    else Cache Miss
+        E->>W: Execute Worker
+        alt Worker handles
+            W->>W: Process request
+            W-->>U: Worker response (20ms)
+            W->>C: Update cache
+        else Need origin
+            W->>O: Fetch from origin
+            O-->>W: Origin data
+            W->>W: Transform response
+            W-->>U: Final response (100ms)
+            W->>C: Cache response
+        end
+    end
+```
+
+### Case Study 3: Smart City Video Analytics
+
+| Component | Specification | Processing | Result |
+|-----------|--------------|------------|--------|
+| **Cameras** | 10,000 @ 4K 30fps | Edge AI inference | 95% local processing |
+| **Edge Nodes** | 500 distributed | Object detection | <100ms response |
+| **Bandwidth** | 100TB/day raw | Compression + filtering | 1TB/day to cloud |
+| **Privacy** | GDPR compliant | Face blurring | On-device processing |
+| **Alerts** | Real-time | Local decision | <1 second response |
+
+## Cost Analysis
+
+### Edge vs Cloud Cost Comparison
+
+| Factor | Cloud Only | Edge + Cloud | Savings |
+|--------|-----------|--------------|----------|
+| **Bandwidth** | $10,000/month | $100/month | 99% |
+| **Compute** | $5,000/month | $2,000/month | 60% |
+| **Storage** | $3,000/month | $500/month | 83% |
+| **Infrastructure** | $0 | $50,000 one-time | - |
+| **5-Year TCO** | $1,080,000 | $266,000 | 75% |
+
+### ROI Calculation
+
+```mermaid
+graph TB
+    subgraph "Investment & Returns"
+        I[Initial Investment<br/>$50,000] --> Y1[Year 1<br/>Save $156,000]
+        Y1 --> Y2[Year 2<br/>Save $216,000]
+        Y2 --> Y3[Year 3<br/>Save $216,000]
+        Y3 --> Y4[Year 4<br/>Save $216,000]
+        Y4 --> Y5[Year 5<br/>Save $216,000]
+        
+        Y5 --> ROI[5-Year ROI<br/>1,940%]
+    end
+    
+    style I fill:#f99
+    style ROI fill:#9f9
+```
+
+## Implementation Checklist
+
+### Pre-Deployment Planning
+- [ ] **Latency Requirements**: Measure actual latency needs (<10ms, <100ms, >100ms)
+- [ ] **Data Volume Analysis**: Calculate daily data generation (GB/day per device)
+- [ ] **Bandwidth Costs**: Current cloud egress costs ($/GB)
+- [ ] **Offline Requirements**: Maximum tolerable disconnection time
+- [ ] **Privacy Constraints**: Data residency and processing requirements
+
+### Hardware Selection
+- [ ] **Compute Requirements**: CPU/GPU/TPU needs for workload
+- [ ] **Environmental Factors**: Temperature, humidity, vibration tolerance
+- [ ] **Power Budget**: Available power and cooling capacity
+- [ ] **Physical Security**: Tamper-proof enclosures if needed
+- [ ] **Redundancy**: N+1 or 2N redundancy for critical applications
+
+### Software Architecture
+- [ ] **Edge Platform**: Choose platform (Greengrass, Azure IoT, K3s, custom)
+- [ ] **ML Framework**: Select edge ML framework (TF Lite, ONNX, OpenVINO)
+- [ ] **Data Store**: Local storage strategy (SQLite, RocksDB, time-series DB)
+- [ ] **Message Queue**: Store-and-forward implementation
+- [ ] **Monitoring**: Edge monitoring and alerting strategy
+
+### Security Implementation
+- [ ] **Hardware Security**: TPM/HSM for key storage
+- [ ] **Secure Boot**: Verified boot chain
+- [ ] **Network Security**: VPN/mTLS for edge-to-cloud
+- [ ] **Access Control**: RBAC and API authentication
+- [ ] **Update Mechanism**: Secure OTA updates
+
+### Operational Readiness
+- [ ] **Deployment Automation**: Zero-touch provisioning
+- [ ] **Remote Management**: Out-of-band management
+- [ ] **Backup Strategy**: Local and cloud backup
+- [ ] **Disaster Recovery**: Failover procedures
+- [ ] **Compliance**: Audit logging and reporting
+
+## Common Pitfalls & Solutions
+
+| Pitfall | Impact | Solution | Prevention |
+|---------|---------|----------|------------|
+| **Underestimating management complexity** | Operational overhead | Centralized orchestration | Start small, automate early |
+| **Ignoring security** | Compromised devices | Defense in depth | Security by design |
+| **Over-provisioning edge** | Wasted resources | Right-sizing analysis | Pilot deployments |
+| **No offline strategy** | Service outages | Store-and-forward | Design for disconnection |
+| **Monolithic edge apps** | Update difficulties | Microservices | Modular architecture |
+
+## Future Trends
+
+### Emerging Edge Technologies
+
+| Technology | Timeline | Impact | Use Cases |
+|------------|----------|---------|-----------|
+| **5G MEC** | Now-2025 | 1ms latency | AR/VR, Gaming |
+| **AI Chips** | 2024-2026 | 100x efficiency | Real-time AI |
+| **Quantum Edge** | 2028-2030 | Unbreakable security | Finance, Defense |
+| **6G Integration** | 2030+ | 0.1ms latency | Holographic comm |
+| **Neuromorphic** | 2025-2030 | 1000x power efficiency | Always-on AI |
+
+## Quick Reference Card
+
+### Edge vs Cloud Decision Matrix
+
+```mermaid
+graph TD
+    subgraph "Quick Decision Guide"
+        Q1{Latency<br/><10ms?} -->|Yes| Edge1[Use Edge]
+        Q1 -->|No| Q2{Bandwidth<br/>Expensive?}
+        
+        Q2 -->|Yes| Edge2[Use Edge]
+        Q2 -->|No| Q3{Offline<br/>Required?}
+        
+        Q3 -->|Yes| Edge3[Use Edge]
+        Q3 -->|No| Q4{Privacy<br/>Critical?}
+        
+        Q4 -->|Yes| Edge4[Use Edge]
+        Q4 -->|No| Cloud[Use Cloud]
+    end
+    
+    style Edge1 fill:#9f9
+    style Edge2 fill:#9f9
+    style Edge3 fill:#9f9
+    style Edge4 fill:#9f9
+    style Cloud fill:#f9f
+```
+
+### Resource Requirements by Scale
+
+| Scale | Devices | Edge Nodes | Bandwidth | Investment | Example |
+|-------|---------|------------|-----------|------------|----------|
+| **Pilot** | 10-100 | 1-5 | 10 Mbps | <$10K | PoC |
+| **Small** | 100-1K | 5-20 | 100 Mbps | $10-50K | Single site |
+| **Medium** | 1K-10K | 20-100 | 1 Gbps | $50-500K | Multi-site |
+| **Large** | 10K-100K | 100-1K | 10 Gbps | $500K-5M | Regional |
+| **XLarge** | 100K+ | 1K+ | 100 Gbps | >$5M | Global |
 
 ## 🎓 Key Takeaways
 
-1. **Physics drives architecture** - Speed of light is immutable
-2. **Hierarchy matters** - Process at the right level
-3. **Edge ≠ Cloud** - Different constraints, different solutions
-4. **Security is harder** - Physical access to edge nodes
-5. **Economics vary** - Calculate ROI for your use case
+### Technical Insights
+1. **Latency is King**: Every millisecond matters - design for physics, not convenience
+2. **Data Gravity**: Process data where it's generated to minimize movement
+3. **Hierarchy is Essential**: Device → Edge → Regional → Cloud, each with its role
+4. **Security by Design**: Physical access changes the threat model fundamentally
+5. **Economics Drive Adoption**: 75%+ cost savings possible with proper implementation
+
+### Strategic Considerations
+1. **Start Small**: Pilot with one use case, prove ROI, then scale
+2. **Automate Early**: Manual edge management doesn't scale
+3. **Plan for Offline**: Design for disconnection as the norm, not exception
+4. **Monitor Everything**: Visibility is harder at the edge
+5. **Update Carefully**: OTA updates need rigorous testing
+
+### Remember
+> *"The best edge architecture is one where users get instant responses without knowing why, and operators save money without complexity."*
 
 ---
 
-*"The best edge computing is invisible to users but invaluable to the business."*
+**Next Steps**:
+- Calculate your bandwidth costs to justify edge investment
+- Identify your most latency-sensitive workloads
+- Run a pilot with 5-10 edge nodes
+- Measure actual latency improvements and cost savings
+- Scale based on proven ROI
 
 ---
 
-**Previous**: [← Distributed Lock Pattern](distributed-lock.md) | **Next**: [Event-Driven Architecture →](event-driven.md)
+**Previous**: [← Sharding Pattern](sharding.md) | **Next**: [Gateway Pattern →](../architecture/gateway.md)
