@@ -25,10 +25,10 @@ from datetime import datetime
 class PodcastEpisodeGenerator:
     """Generates podcast episodes by concatenating and formatting content files."""
     
-    def __init__(self, base_path: str = "\\wsl.localhost\\Ubuntu\\home\\deepak\\DStudio"):
+    def __init__(self, base_path: str = "/home/deepak/DStudio"):
         self.base_path = Path(base_path)
         self.docs_path = self.base_path / "docs"
-        self.output_path = self.base_path / "podcast-content"
+        self.output_path = self.base_path / "podcast-content" / "episodes"
         
         # Ensure output directories exist
         self.ensure_output_structure()
@@ -288,7 +288,7 @@ def main():
     parser.add_argument('--series', help='Series name (foundational/patterns/cases/etc.)')
     parser.add_argument('--episode', type=int, help='Episode number')
     parser.add_argument('--interactive', action='store_true', help='Interactive mode')
-    parser.add_argument('--base-path', default="\\wsl.localhost\\Ubuntu\\home\\deepak\\DStudio", 
+    parser.add_argument('--base-path', default="/home/deepak/DStudio", 
                        help='Base path to DStudio repository')
     
     args = parser.parse_args()

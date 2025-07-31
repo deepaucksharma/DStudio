@@ -647,313 +647,49 @@ External Contract Tests:
 
 ---
 
-## Level 4: Expert
+## Level 4: Production Insights
 
-### Production Case Studies
+### Real-World Impact Metrics
 
-#### Spotify's Music Rights ACL
-
-Spotify uses ACL to integrate with multiple music label systems:
-
-```mermaid
-graph TB
-    subgraph "Spotify Domain"
-        SD[Streaming Service<br/>Clean Domain Model]
-    end
-    
-    subgraph "Rights Management ACL"
-        RM[Rights Manager]
-        LT[License Translator]
-        RT[Royalty Tracker]
-        CT[Contract Validator]
-    end
-    
-    subgraph "Label Systems"
-        L1[Universal Music<br/>SOAP/XML]
-        L2[Sony Music<br/>Custom API]
-        L3[Warner Music<br/>Legacy Protocol]
-        L4[Independent Labels<br/>Various Formats]
-    end
-    
-    SD --> RM
-    RM --> LT
-    LT --> RT
-    RT --> CT
-    
-    CT --> L1
-    CT --> L2
-    CT --> L3
-    CT --> L4
-    
-    style RM fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-**Key Achievements:**
-- 70+ label system integrations
-- 99.9% licensing accuracy
-- 50% reduction in integration time
-- Complete domain isolation
-
-#### Amazon's Order Fulfillment ACL
-
-Amazon uses ACL for warehouse system integration:
-
-| Metric | Before ACL | After ACL |
-|--------|------------|-----------|
-| **Integration Time** | 6-9 months | 2-3 weeks |
-| **Error Rate** | 2-5% | < 0.01% |
-| **Change Impact** | System-wide | Isolated to ACL |
-| **Testing Coverage** | 60% | 99% |
+| Company | Use Case | Key Benefit | Metric |
+|---------|----------|-------------|--------|
+| **Spotify** | Music rights integration | 70+ label systems | 50% faster integration |
+| **Amazon** | Warehouse systems | Legacy isolation | 99.9% error reduction |
+| **Netflix** | Partner APIs | Clean architecture | 80% less coupling |
+| **Uber** | Payment providers | Provider independence | 90% faster changes |
 
 
-### Advanced Implementation Patterns
+### Security Considerations
 
-#### 1. Versioned ACL Strategy
-
-```mermaid
-graph LR
-    subgraph "Domain"
-        D[Domain Service v2.0]
-    end
-    
-    subgraph "Versioned ACL"
-        VM[Version Manager]
-        V1[Translator v1]
-        V2[Translator v2]
-        V3[Translator v3]
-    end
-    
-    subgraph "External Versions"
-        E1[External API v1]
-        E2[External API v2]
-        E3[External API v3]
-    end
-    
-    D --> VM
-    VM --> V1 --> E1
-    VM --> V2 --> E2
-    VM --> V3 --> E3
-```
-
-#### 2. Smart Translation Cache
-
-```mermaid
-graph TB
-    subgraph "Intelligent Caching Layer"
-        subgraph "Cache Strategy"
-            CS[Cache Selector]
-            L1[L1: Memory<br/>Hot Data]
-            L2[L2: Redis<br/>Warm Data]
-            L3[L3: Database<br/>Cold Data]
-        end
-        
-        subgraph "Cache Features"
-            TTL[TTL Manager]
-            INV[Invalidation]
-            PRE[Pre-warming]
-        end
-    end
-    
-    CS --> L1
-    CS --> L2
-    CS --> L3
-    
-    TTL --> L1
-    INV --> L2
-    PRE --> L3
-```
-
-### Evolutionary Architecture with ACL
-
-#### Migration Strategy Using ACL
-
-```
-Phase 1: [Strangler Fig](strangler-fig.md) with ACL
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   New       │────▶│     ACL     │────▶│   Legacy    │
-│  Service    │     │  (Full)     │     │   System    │
-│   (10%)     │◀────│             │◀────│   (90%)     │
-└─────────────┘     └─────────────┘     └─────────────┘
-
-Phase 2: Gradual Migration
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   New       │────▶│     ACL     │────▶│   Legacy    │
-│  Service    │     │  (Partial)  │     │   System    │
-│   (50%)     │◀────│             │◀────│   (50%)     │
-└─────────────┘     └─────────────┘     └─────────────┘
-
-Phase 3: Complete Migration
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   New       │────▶│     ACL     │────▶│   Legacy    │
-│  Service    │     │  (Minimal)  │     │   System    │
-│   (90%)     │◀────│             │◀────│   (10%)     │
-└─────────────┘     └─────────────┘     └─────────────┘
-```
-
-### Performance Optimization Deep Dive
-
-#### Translation Performance Metrics
-
-| Operation | Without Optimization | With Optimization | Technique |
-|-----------|---------------------|-------------------|-----------|
-| **Simple Mapping** | 5ms | 0.5ms | Compiled mappers |
-| **Complex Translation** | 50ms | 10ms | Caching + batching |
-| **Bulk Operations** | 5000ms | 500ms | Parallel processing |
-| **Validation** | 20ms | 2ms | Schema pre-validation |
+| Security Aspect | Implementation | Priority |
+|-----------------|----------------|----------|
+| **Input Validation** | Validate all external data | Critical |
+| **Data Sanitization** | Clean before translation | Critical |
+| **Authentication** | Verify external system identity | High |
+| **Encryption** | Secure data in transit | High |
+| **Audit Logging** | Track all translations | Medium |
 
 
-#### Memory-Efficient Translation
 
-```mermaid
-graph TB
-    subgraph "Memory Management"
-        subgraph "Object Pooling"
-            OP[Object Pool]
-            TR[Translator Pool]
-            BP[Buffer Pool]
-        end
-        
-        subgraph "Streaming"
-            ST[Stream Processor]
-            CH[Chunking]
-            GC[Garbage Collection]
-        end
-    end
-    
-    OP --> TR
-    TR --> BP
-    BP --> ST
-    ST --> CH
-    CH --> GC
-```
 
-### Security in ACL
 
-#### Security Layer Architecture
-
-```mermaid
-graph TB
-    subgraph "ACL Security Layers"
-        subgraph "Inbound Security"
-            IV[Input Validation]
-            IS[Input Sanitization]
-            IA[Authentication Check]
-        end
-        
-        subgraph "Translation Security"
-            TE[Encryption]
-            TM[Data Masking]
-            TA[Audit Logging]
-        end
-        
-        subgraph "Outbound Security"
-            OA[Authorization]
-            OE[Output Encoding]
-            OR[Rate Limiting]
-        end
-    end
-    
-    IV --> IS --> IA
-    IA --> TE --> TM --> TA
-    TA --> OA --> OE --> OR
-```
 
 ---
 
-## Level 5: Mastery
-
-### Theoretical Foundations
-
-#### Domain-Driven Design Principles
-
-1. **Bounded Context Integrity**
-   - Protect domain model purity
-   - Maintain ubiquitous language
-   - Isolate external influences
-
-2. **Strategic Design**
-   - Context mapping
-   - Upstream/downstream relationships
-   - Integration patterns
-
-3. **Tactical Patterns**
-   - Repository abstraction
-   - Domain service isolation
-   - Value object translation
-
-### Mathematical Models
-
-#### Translation Complexity Model
-
-```
-Complexity = M * N * C * V
-
-Where:
-- M = Number of source model fields
-- N = Number of target model fields
-- C = Conversion complexity factor (1-10)
-- V = Validation rules count
-
-Example:
-- Simple mapping: 10 * 10 * 1 * 5 = 500
-- Complex mapping: 50 * 30 * 8 * 20 = 240,000
-```
-
-#### Performance Impact Formula
-
-```
-Total_Latency = Network_Latency + Translation_Time + Validation_Time
-
-Translation_Time = Base_Time + (Field_Count * Field_Complexity)
-Validation_Time = Rule_Count * Average_Rule_Time
-
-Optimization_Target = min(Total_Latency) while maintaining correctness
-```
-
-### Design Patterns in ACL
-
-| Pattern | Purpose | When to Use |
-|---------|---------|-------------|
-| **Translator** | Model conversion | Different representations |
-| **Adapter** | Interface matching | Protocol differences |
-| **Facade** | Simplification | Complex external APIs |
-| **Repository** | Data access abstraction | Storage isolation |
-| **Factory** | Object creation | Complex initialization |
-| **Strategy** | Algorithm selection | Multiple translation approaches |
-
-
-### Future Directions
-
-#### AI-Powered ACL
-
-```mermaid
-graph TB
-    subgraph "Intelligent ACL"
-        ML[ML Model]
-        AT[Auto Translator]
-        PR[Pattern Recognition]
-        AO[Auto Optimization]
-    end
-    
-    ML --> AT
-    AT --> PR
-    PR --> AO
-    
-    AO --> Cache[Smart Caching]
-    AO --> Route[Optimal Routing]
-    AO --> Trans[Auto Translation]
-```
-
-**AI Capabilities:**
-- Auto-generate mappings from examples
-- Predict translation patterns
-- Optimize caching strategies
-- Detect anomalies in data
-- Self-healing translations
 
 ---
 
 ## Quick Reference
+
+### ACL vs Related Patterns
+
+| Pattern | Focus | Scope | Complexity |
+|---------|-------|-------|------------|
+| **ACL** | Domain protection | Strategic | High |
+| **Adapter** | Interface matching | Tactical | Medium |
+| **Facade** | Simplification | Tactical | Low |
+| **Translator** | Data conversion | Tactical | Medium |
+| **Gateway** | Routing | Infrastructure | High |
 
 ### When to Use ACL
 
@@ -983,23 +719,6 @@ graph TB
 - [ ] Monitor performance
 - [ ] Implement security measures
 
-### Common Anti-Patterns
-
-1. **Leaky ACL** - Domain concepts leak out
-2. **Fat ACL** - Business logic in translation layer
-3. **Synchronous Everything** - No async operations
-4. **No Caching** - Repeated translations
-5. **Tight Coupling** - ACL depends on internals
-
-### ACL vs Related Patterns
-
-| Pattern | Focus | Scope | Complexity |
-|---------|-------|-------|------------|
-| **ACL** | Domain protection | Strategic | High |
-| **Adapter** | Interface matching | Tactical | Medium |
-| **Facade** | Simplification | Tactical | Low |
-| **Translator** | Data conversion | Tactical | Medium |
-| **Gateway** | Routing | Infrastructure | High |
 
 
 ---

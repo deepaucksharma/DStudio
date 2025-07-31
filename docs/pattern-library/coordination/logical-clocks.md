@@ -21,9 +21,21 @@ pattern_status: recommended
 introduced: 2024-01
 current_relevance: mainstream
 trade-offs:
-  pros: []
-  cons: []
-best-for: []
+  pros:
+  - Simple algorithm (just increment counter)
+  - Constant space overhead (single integer)
+  - No clock synchronization needed
+  - Preserves causality relationships
+  cons:
+  - Cannot detect concurrent events
+  - No relation to wall-clock time
+  - Counter can grow unbounded
+  - Requires total ordering tie-breaker
+best-for:
+- Distributed logs and event ordering
+- Replicated state machines
+- Distributed debugging traces
+- Causal consistency implementations
 ---
 
 
@@ -31,527 +43,518 @@ best-for: []
 
 # Logical Clocks (Lamport Clocks) Pattern
 
-<div class="pattern-type">Coordination Pattern
- Establish a partial ordering of events in a distributed system using logical timestamps that respect causality without requiring synchronized physical clocks.
-</div>
+!!! question "Essential Questions for Distributed Coordination"
+    - **Q: How do you order events when clocks aren't synchronized?**  
+      A: Use logical timestamps based on causality, not physical time
+    - **Q: What's the minimum information needed to preserve causality?**  
+      A: A single monotonic counter per process plus message timestamps
+    - **Q: How do you create total order from partial order?**  
+      A: Add process IDs as tie-breakers for events with same timestamp
 
-## Problem Context
-
-!!! warning "🎯 The Challenge"
-
- In distributed systems, we often need to order events, but:
- - **Physical clocks are unreliable**: They drift and require synchronization
- - **Network delays are variable**: Can't use arrival time for ordering
- - **Causality matters**: If event A caused event B, A must come before B
- - **Total ordering needed**: For replicated state machines, logs, etc.
-
- Lamport clocks solve this by creating a logical notion of time based on causality.
-
-## Core Concept
-
-### The Happens-Before Relation (→)
+<div class="decision-box">
+<h3>🎯 When to Use Logical Clocks</h3>
 
 ```mermaid
 graph TD
- subgraph "Happens-Before Definition"
- A[Event A] -->|1. Same Process| B[Event B]
- C[Send Message] -->|2. Communication| D[Receive Message]
- E[Event E] -->|3. Transitivity| F[Event F]
- F --> G[Event G]
- E --> G
- end
- 
- subgraph "Examples"
- P1E1[P1: Write X] --> P1E2[P1: Write Y]
- P1E3[P1: Send M] --> P2E1[P2: Receive M]
- P2E1 --> P2E2[P2: Write Z]
- P1E3 --> P2E2
- end
+    Start[Need Event Ordering?] --> Concurrent{Need to Detect<br/>Concurrent Events?}
+    Concurrent -->|Yes| VC[Use Vector Clocks]
+    Concurrent -->|No| Time{Need Wall<br/>Clock Time?}
+    Time -->|Yes| HLC[Use Hybrid Logical Clocks]
+    Time -->|No| Total{Need Total<br/>Ordering?}
+    Total -->|Yes| LC[✓ Use Lamport Clocks]
+    Total -->|No| Partial[Partial Order Sufficient]
+    
+    style LC fill:#90EE90
+```
+</div>
+
+## Core Concept: Logical Time
+
+### Visual: Physical vs Logical Time
+
+```mermaid
+graph TB
+    subgraph "Physical Time Problems"
+        PC1[Clock 1: 10:00:00] 
+        PC2[Clock 2: 10:00:05]
+        PC3[Clock 3: 09:59:58]
+        Skew[⚠️ Clock Skew:<br/>Can't agree on "now"]
+        PC1 --> Skew
+        PC2 --> Skew
+        PC3 --> Skew
+    end
+    
+    subgraph "Logical Time Solution"
+        LC1[Process 1: Counter = 0]
+        LC2[Process 2: Counter = 0]
+        LC3[Process 3: Counter = 0]
+        Logic[✓ Start at 0<br/>Increment on events]
+        LC1 --> Logic
+        LC2 --> Logic
+        LC3 --> Logic
+    end
+    
+    style Skew fill:#FFB6C1
+    style Logic fill:#90EE90
 ```
 
-!!! abstract "🔑 Lamport's Insight"
+### The Happens-Before Relation (→)
 
- If we can't synchronize physical clocks perfectly, let's abandon physical time altogether and use logical time based on causality:
+<div class="axiom-box">
+<h4>🔑 Lamport's Three Rules</h4>
 
- **If A → B (A happens-before B), then Clock(A) < Clock(B)**
+1. **Same Process**: If A and B are events in the same process, and A comes before B, then A → B
+2. **Message Passing**: If A is sending a message and B is receiving that message, then A → B  
+3. **Transitivity**: If A → B and B → C, then A → C
 
- This preserves causality without needing synchronized clocks!
+</div>
 
-## How Lamport Clocks Work
-
-### Algorithm Rules
-
-```python
-class LamportClock:
- def __init__(self):
- self.clock = 0
- 
- def local_event(self):
- """Rule 1: Before any local event, increment clock"""
- self.clock += 1
- return self.clock
- 
- def send_message(self, message):
- """Rule 2: Before sending, increment clock and attach timestamp"""
- self.clock += 1
- message['timestamp'] = self.clock
- return message
- 
- def receive_message(self, message):
- """Rule 3: On receive, update clock to max(local, received) + 1"""
- self.clock = max(self.clock, message['timestamp']) + 1
- return self.clock
-```
-
-### Visual Example
+### Visual Timeline Example
 
 ```mermaid
 sequenceDiagram
- participant P1
- participant P2
- participant P3
- 
- Note over P1,P3: Initial clocks: 0
- 
- P1->>P1: Local event<br/>C1 = 1
- P2->>P2: Local event<br/>C2 = 1
- 
- P1->>P2: Send M1<br/>timestamp = 1
- Note over P2: Receive M1<br/>C2 = max(1,1)+1 = 2
- 
- P2->>P3: Send M2<br/>timestamp = 3
- P2->>P2: Local event<br/>C2 = 4
- 
- Note over P3: Receive M2<br/>C3 = max(0,3)+1 = 4
- 
- P3->>P1: Send M3<br/>timestamp = 5
- Note over P1: Receive M3<br/>C1 = max(1,5)+1 = 6
+    participant P1 as Process 1
+    participant P2 as Process 2
+    participant P3 as Process 3
+    
+    Note over P1,P3: All start with Clock = 0
+    
+    P1->>P1: Event A (Clock: 0→1)
+    P1->>P2: Send M1 with timestamp 1
+    Note over P2: Receive M1<br/>Clock = max(0,1)+1 = 2
+    P2->>P2: Event B (Clock: 2→3)
+    P2->>P3: Send M2 with timestamp 3
+    Note over P3: Receive M2<br/>Clock = max(0,3)+1 = 4
+    P3->>P3: Event C (Clock: 4→5)
+    
+    Note over P1,P3: Final ordering: A(1) → M1 → B(3) → M2 → C(5)
+```
+
+## Algorithm: Three Simple Rules
+
+<div class="grid">
+<div class="card">
+<h4>📝 Rule 1: Local Event</h4>
+
+```mermaid
+graph LR
+    Event[Local Event] --> Inc[Clock++]
+    Inc --> New[New Timestamp]
+    
+    Example[Example: Clock 5 → 6]
+```
+
+**Before any local event, increment your clock**
+</div>
+
+<div class="card">
+<h4>📤 Rule 2: Send Message</h4>
+
+```mermaid
+graph LR
+    Send[Send Message] --> Inc[Clock++]
+    Inc --> Attach[Attach Timestamp]
+    Attach --> Transmit[Send with TS]
+    
+    Example[Example: Send(data, ts=6)]
+```
+
+**Increment clock and attach timestamp to message**
+</div>
+
+<div class="card">
+<h4>📥 Rule 3: Receive Message</h4>
+
+```mermaid
+graph LR
+    Recv[Receive TS] --> Max[max(local, received)]
+    Max --> Inc[Result + 1]
+    Inc --> Update[Update Clock]
+    
+    Example[Example: max(5,8)+1 = 9]
+```
+
+**Set clock to max(local, received) + 1**
+</div>
+</div>
+
+### Visual Algorithm in Action
+
+```mermaid
+graph TB
+    subgraph "Process States"
+        P1_0[P1: Clock=0]
+        P2_0[P2: Clock=0]
+        P3_0[P3: Clock=0]
+    end
+    
+    subgraph "Step 1: Local Events"
+        P1_1[P1: Event A<br/>Clock=0→1]
+        P2_1[P2: Event B<br/>Clock=0→1]
+        P3_1[P3: Clock=0]
+    end
+    
+    subgraph "Step 2: P1 sends to P2"
+        P1_2[P1: Send M1<br/>Clock=1]
+        P2_2[P2: Recv M1<br/>Clock=max(1,1)+1=2]
+        P3_2[P3: Clock=0]
+    end
+    
+    subgraph "Step 3: P2 sends to P3"
+        P1_3[P1: Clock=1]
+        P2_3[P2: Send M2<br/>Clock=2→3]
+        P3_3[P3: Recv M2<br/>Clock=max(0,3)+1=4]
+    end
+    
+    P1_0 --> P1_1 --> P1_2 --> P1_3
+    P2_0 --> P2_1 --> P2_2 --> P2_3
+    P3_0 --> P3_1 --> P3_2 --> P3_3
+    
+    style P1_1 fill:#E3F2FD
+    style P2_1 fill:#E3F2FD
+    style P2_2 fill:#C5E1A5
+    style P3_3 fill:#C5E1A5
 ```
 
 ## Implementation
 
-### Basic Lamport Clock
+### Simple Python Implementation
 
 ```python
-import threading
-from dataclasses import dataclass
-from typing import Dict, Any
+class LamportClock:
+    def __init__(self):
+        self.clock = 0
+    
+    def tick(self):
+        """Rule 1: Increment on local event"""
+        self.clock += 1
+        return self.clock
+    
+    def send(self):
+        """Rule 2: Increment and return timestamp for message"""
+        self.clock += 1
+        return self.clock
+    
+    def receive(self, timestamp):
+        """Rule 3: Update to max(local, received) + 1"""
+        self.clock = max(self.clock, timestamp) + 1
+        return self.clock
 
-@dataclass
-class Event:
- process_id: str
- event_type: str
- timestamp: int
- data: Any = None
+# Example usage
+p1_clock = LamportClock()
+p2_clock = LamportClock()
 
-class DistributedProcess:
- def __init__(self, process_id: str):
- self.process_id = process_id
- self.clock = LamportClock()
- self.event_log = []
- self.lock = threading.Lock()
- 
- def execute_local_operation(self, operation: str) -> Event:
- """Execute a local operation"""
- with self.lock:
- timestamp = self.clock.local_event()
- event = Event(
- process_id=self.process_id,
- event_type="local",
- timestamp=timestamp,
- data=operation
- )
- self.event_log.append(event)
- return event
- 
- def send_message(self, recipient: 'DistributedProcess', 
- content: Any) -> Event:
- """Send a message to another process"""
- with self.lock:
- message = {'content': content}
- self.clock.send_message(message)
- 
- event = Event(
- process_id=self.process_id,
- event_type="send",
- timestamp=message['timestamp'],
- data={'to': recipient.process_id, 'content': content}
- )
- self.event_log.append(event)
- 
-# Simulate network delay
- recipient.receive_message(self.process_id, message)
- return event
- 
- def receive_message(self, sender_id: str, message: Dict) -> Event:
- """Receive a message from another process"""
- with self.lock:
- timestamp = self.clock.receive_message(message)
- 
- event = Event(
- process_id=self.process_id,
- event_type="receive",
- timestamp=timestamp,
- data={'from': sender_id, 'content': message['content']}
- )
- self.event_log.append(event)
- return event
+# P1 does local work
+p1_clock.tick()  # P1 clock = 1
+
+# P1 sends message to P2
+msg_timestamp = p1_clock.send()  # P1 clock = 2, sends ts=2
+
+# P2 receives message
+p2_clock.receive(msg_timestamp)  # P2 clock = max(0,2)+1 = 3
 ```
 
-### Total Ordering with Process IDs
+### Total Ordering: Breaking Ties
+
+<div class="axiom-box">
+<h4>⚖️ Creating Total Order from Partial Order</h4>
+
+When two events have the same Lamport timestamp, we need a tie-breaker:
+- Use process IDs as secondary sort key
+- Event (timestamp=5, process=A) < Event (timestamp=5, process=B)
+
+</div>
 
 ```python
-class TotallyOrderedLamportClock(LamportClock):
- """Extended Lamport Clock with total ordering"""
- 
- def __init__(self, process_id: int):
- super().__init__()
- self.process_id = process_id
- 
- def get_timestamp(self) -> tuple:
- """Return (clock, process_id) for total ordering"""
- return (self.clock, self.process_id)
- 
- def compare_events(self, e1: Event, e2: Event) -> int:
- """
- Compare two events for total ordering
- Returns: -1 if e1 < e2, 0 if equal, 1 if e1 > e2
- """
-# First compare logical timestamps
- if e1.timestamp < e2.timestamp:
- return -1
- elif e1.timestamp > e2.timestamp:
- return 1
- else:
-# Break ties with process ID
- if e1.process_id < e2.process_id:
- return -1
- elif e1.process_id > e2.process_id:
- return 1
- else:
- return 0
+def total_order(event1, event2):
+    """Compare events for total ordering"""
+    if event1.timestamp != event2.timestamp:
+        return event1.timestamp < event2.timestamp
+    else:
+        # Break ties with process ID
+        return event1.process_id < event2.process_id
 ```
 
 ## Practical Applications
 
-### 1. Distributed Mutual Exclusion
+### Application Comparison Matrix
 
-```python
-class LamportMutex:
- """Lamport's distributed mutual exclusion algorithm"""
- 
- def __init__(self, process_id: int, num_processes: int):
- self.process_id = process_id
- self.clock = TotallyOrderedLamportClock(process_id)
- self.request_queue = [] # Priority queue of requests
- self.replies_received = set()
- self.num_processes = num_processes
- 
- def request_critical_section(self):
- """Request access to critical section"""
-# 1. Send timestamped request to all processes
- timestamp = self.clock.local_event()
- request = {
- 'type': 'REQUEST',
- 'process_id': self.process_id,
- 'timestamp': timestamp
- }
- 
- self.request_queue.append(request)
- self.request_queue.sort(key=lambda r: (r['timestamp'], r['process_id']))
- 
-# Broadcast request to all other processes
- self.broadcast(request)
- 
-# 2. Wait for replies from all processes
- while len(self.replies_received) < self.num_processes - 1:
- time.sleep(0.01)
- 
-# 3. Enter CS when request is at head of queue
- while (self.request_queue[0]['process_id'] != self.process_id or
- not self.all_replies_received()):
- time.sleep(0.01)
- 
- def release_critical_section(self):
- """Release critical section"""
-# Remove own request from queue
- self.request_queue = [r for r in self.request_queue 
- if r['process_id'] != self.process_id]
- 
-# Send RELEASE to all processes
- release_msg = {
- 'type': 'RELEASE',
- 'process_id': self.process_id,
- 'timestamp': self.clock.local_event()
- }
- self.broadcast(release_msg)
- 
- self.replies_received.clear()
-```
+| Use Case | Why Lamport Clocks? | Alternative | Trade-off |
+|----------|-------------------|-------------|-----------|
+| **Distributed Logs** | Order log entries causally | Physical timestamps | No clock sync needed |
+| **State Machine Replication** | Ensure same operation order | Vector clocks | Simpler, less space |
+| **Distributed Debugging** | Trace causality chains | No ordering | See cause-effect |
+| **Database Replication** | Order updates consistently | 2PC | Eventually consistent |
+| **Message Queues** | FIFO with causality | Sequence numbers | Handles partitions |
 
-### 2. Consistent Snapshots
-
-```python
-class SnapshotProcess:
- """Process participating in consistent snapshot algorithm"""
- 
- def __init__(self, process_id: str):
- self.process_id = process_id
- self.clock = LamportClock()
- self.state = {}
- self.snapshot_clock = None
- self.recorded_state = None
- 
- def initiate_snapshot(self):
- """Initiate a consistent snapshot"""
- self.snapshot_clock = self.clock.clock
- self.recorded_state = self.state.copy()
- 
-# Send marker messages to all neighbors
- marker = {
- 'type': 'MARKER',
- 'snapshot_id': f"{self.process_id}:{self.snapshot_clock}"
- }
- self.broadcast_marker(marker)
- 
- def receive_marker(self, marker, sender_id):
- """Handle snapshot marker"""
- if self.snapshot_clock is None:
-# First marker: record local state
- self.snapshot_clock = self.clock.clock
- self.recorded_state = self.state.copy()
- 
-# Forward marker to all other neighbors
- self.broadcast_marker(marker)
- 
-# Record channel state (messages in transit)
- self.record_channel_state(sender_id)
-```
-
-## Limitations and Solutions
-
-### Limitation 1: Can't Detect Concurrent Events
+### Visual: Distributed Mutual Exclusion
 
 ```mermaid
-graph TD
- subgraph "Concurrent Events Problem"
- P1A[P1: Event A<br/>Clock = 1]
- P2B[P2: Event B<br/>Clock = 1]
- 
- Note1[A and B are concurrent<br/>but have same timestamp!]
- end
- 
- subgraph "Solution: Vector Clocks"
- P1A2[P1: Event A<br/>VC = [1,0]]
- P2B2[P2: Event B<br/>VC = [0,1]]
- 
- Note2[Vector clocks can<br/>detect concurrency]
- end
+sequenceDiagram
+    participant P1
+    participant P2
+    participant P3
+    
+    Note over P1,P3: Using Lamport timestamps for request ordering
+    
+    P1->>P2: REQUEST(ts=5)
+    P1->>P3: REQUEST(ts=5)
+    P2->>P1: REPLY
+    P2->>P3: REQUEST(ts=8)
+    P3->>P1: REPLY
+    P3->>P2: REPLY
+    
+    Note over P1: P1 enters CS<br/>(lowest timestamp)
+    P1->>P1: In Critical Section
+    
+    P1->>P2: RELEASE
+    P1->>P3: RELEASE
+    
+    Note over P2: P2 enters CS<br/>(next lowest)
 ```
 
-### Limitation 2: Clock Values Grow Unbounded
+### Real-World Example: Distributed Log Ordering
 
-```python
-class BoundedLamportClock(LamportClock):
- """Lamport clock with periodic reset"""
- 
- def __init__(self, epoch_size=1000000):
- super().__init__()
- self.epoch = 0
- self.epoch_size = epoch_size
- 
- def increment(self):
- """Increment with epoch management"""
- self.clock += 1
- 
- if self.clock >= self.epoch_size:
-# Start new epoch
- self.epoch += 1
- self.clock = 0
- 
- def get_full_timestamp(self):
- """Return (epoch, clock) tuple"""
- return (self.epoch, self.clock)
+```mermaid
+graph TB
+    subgraph "Without Lamport Clocks"
+        L1[Server A: User login @ 10:00:01]
+        L2[Server B: Update profile @ 10:00:00]
+        L3[Server C: Logout @ 10:00:02]
+        
+        Problem[❌ Profile updated before login?<br/>Clock skew causes wrong order]
+        
+        L1 --> Problem
+        L2 --> Problem
+        L3 --> Problem
+    end
+    
+    subgraph "With Lamport Clocks"
+        LL1[Server A: User login (LC=5)]
+        LL2[Server B: Update profile (LC=8)]
+        LL3[Server C: Logout (LC=12)]
+        
+        Correct[✓ Correct causal order:<br/>Login → Update → Logout]
+        
+        LL1 --> Correct
+        LL2 --> Correct
+        LL3 --> Correct
+    end
+    
+    style Problem fill:#FFB6C1
+    style Correct fill:#90EE90
 ```
 
-## Comparison with Other Clock Types
+## Limitations & Solutions
 
-<table class="responsive-table">
-<thead>
-<tr>
-<th>Feature</th>
-<th>Physical Clocks</th>
-<th>Lamport Clocks</th>
-<th>Vector Clocks</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Feature"><strong>Purpose</strong></td>
-<td data-label="Physical Clocks">Wall-clock time</td>
-<td data-label="Lamport Clocks">Causal ordering</td>
-<td data-label="Vector Clocks">Detect concurrency</td>
-</tr>
-<tr>
-<td data-label="Feature"><strong>Space</strong></td>
-<td data-label="Physical Clocks">O(1)</td>
-<td data-label="Lamport Clocks">O(1)</td>
-<td data-label="Vector Clocks">O(N)</td>
-</tr>
-<tr>
-<td data-label="Feature"><strong>Sync Required</strong></td>
-<td data-label="Physical Clocks">Yes</td>
-<td data-label="Lamport Clocks">No</td>
-<td data-label="Vector Clocks">No</td>
-</tr>
-<tr>
-<td data-label="Feature"><strong>Concurrent Events</strong></td>
-<td data-label="Physical Clocks">Same time</td>
-<td data-label="Lamport Clocks">Arbitrary order</td>
-<td data-label="Vector Clocks">Detected</td>
-</tr>
-<tr>
-<td data-label="Feature"><strong>Use Case</strong></td>
-<td data-label="Physical Clocks">Timestamps</td>
-<td data-label="Lamport Clocks">Total order</td>
-<td data-label="Vector Clocks">Conflict detection</td>
-</tr>
-</tbody>
-</table>
+### Visual: Key Limitations
+
+```mermaid
+graph TB
+    subgraph "Limitation 1: No Concurrency Detection"
+        E1[Event A: LC=5]
+        E2[Event B: LC=5]
+        Q1[Are A and B concurrent?<br/>Can't tell!]
+        E1 --> Q1
+        E2 --> Q1
+    end
+    
+    subgraph "Limitation 2: Unbounded Growth"
+        Clock[Clock Value]
+        Growth[Keeps growing: 1→2→3→...→∞]
+        Clock --> Growth
+    end
+    
+    subgraph "Limitation 3: No Real Time"
+        LC[LC=1000]
+        Time[What time is it?<br/>No idea!]
+        LC --> Time
+    end
+    
+    style Q1 fill:#FFE0B2
+    style Growth fill:#FFCDD2
+    style Time fill:#E1BEE7
+```
+
+### Solutions Overview
+
+<div class="grid">
+<div class="card">
+<h4>🔍 Need Concurrency Detection?</h4>
+
+**Use Vector Clocks**
+- Tracks per-process counters
+- Can detect concurrent events
+- Higher space overhead O(n)
+</div>
+
+<div class="card">
+<h4>⏰ Need Wall Clock Time?</h4>
+
+**Use Hybrid Logical Clocks**
+- Combines physical + logical time
+- Bounded drift from real time
+- Best of both worlds
+</div>
+
+<div class="card">
+<h4>♾️ Worried About Overflow?</h4>
+
+**Use Epoch-based Clocks**
+- Reset counter periodically
+- Track epoch number
+- (epoch, counter) tuple
+</div>
+</div>
+
+## Clock Type Comparison
+
+| Feature | Physical Clock | Lamport Clock | Vector Clock | Hybrid Clock |
+|---------|---------------|---------------|--------------|--------------|
+| **Space Complexity** | O(1) | O(1) | O(n) processes | O(1) |
+| **Time Relation** | ✓ Wall time | ✗ No | ✗ No | ✓ Approximate |
+| **Causality** | ✗ May violate | ✓ Preserves | ✓ Preserves | ✓ Preserves |
+| **Concurrency Detection** | ✗ No | ✗ No | ✓ Yes | ✗ No |
+| **Clock Sync Needed** | ✓ Yes (NTP) | ✗ No | ✗ No | ~ Beneficial |
+| **Main Use Case** | Timestamps | Event ordering | Conflict detection | Modern databases |
+
+### Visual Clock Comparison
+
+```mermaid
+graph LR
+    subgraph "Event Ordering Need"
+        Simple[Simple Ordering] --> LC[Lamport Clock]
+        Concurrent[Detect Concurrent] --> VC[Vector Clock]
+        RealTime[Need Real Time] --> HLC[Hybrid Clock]
+    end
+    
+    subgraph "System Properties"
+        Small[Few Nodes] --> VC
+        Large[Many Nodes] --> LC
+        Modern[Modern System] --> HLC
+    end
+    
+    style LC fill:#E3F2FD
+    style VC fill:#F3E5F5
+    style HLC fill:#E8F5E9
+```
 
 ## Best Practices
 
-!!! info "🎯 Lamport Clock Guidelines"
- 1. **Increment before events**: Never forget to increment
- 2. **Thread safety**: Protect clock updates in concurrent systems
- 3. **Message validation**: Check timestamp validity on receive
- 4. **Overflow handling**: Plan for clock value overflow
- 5. **Total ordering**: Use process IDs to break ties
- 6. **Persistence**: Save clock value across restarts
- 7. **Monitoring**: Track clock skew between processes
+<div class="grid">
+<div class="card">
+<h4>✅ Do's</h4>
 
-## Real-World Usage
+- **Always increment** before any event
+- **Thread-safe** updates (use locks/CAS)
+- **Include timestamp** in all messages
+- **Persist clock** value across restarts
+- **Use process ID** for total ordering
+</div>
 
-### Amazon DynamoDB
+<div class="card">
+<h4>❌ Don'ts</h4>
 
-```python
-class DynamoDBVersionVector:
- """Simplified version of DynamoDB's versioning"""
- 
- def __init__(self, node_id):
- self.node_id = node_id
- self.clock = LamportClock()
- self.vector = {} # node_id -> clock value
- 
- def update(self, key, value):
- """Update with version vector"""
- timestamp = self.clock.local_event()
- self.vector[self.node_id] = timestamp
- 
- return {
- 'key': key,
- 'value': value,
- 'version': self.vector.copy(),
- 'timestamp': timestamp
- }
+- **Don't forget** to increment
+- **Don't compare** with wall clock
+- **Don't assume** synchronization
+- **Don't ignore** overflow possibility
+- **Don't use** for concurrency detection
+</div>
+</div>
+
+## Real-World Examples
+
+### Example 1: Distributed Log Aggregation
+
+```mermaid
+graph TB
+    subgraph "Log Collection System"
+        App1[App Server 1<br/>LC: 100-150]
+        App2[App Server 2<br/>LC: 200-250]
+        App3[App Server 3<br/>LC: 300-350]
+        
+        Aggregator[Log Aggregator<br/>Sorts by LC]
+        
+        App1 -->|Logs with LC| Aggregator
+        App2 -->|Logs with LC| Aggregator
+        App3 -->|Logs with LC| Aggregator
+        
+        Output[Causally Ordered<br/>Log Stream]
+        Aggregator --> Output
+    end
+    
+    style Aggregator fill:#FFE082
+    style Output fill:#90EE90
 ```
 
-### Distributed Databases
+### Example 2: Replicated State Machine
 
 ```python
-class DistributedTransaction:
- """Transaction with Lamport timestamp ordering"""
- 
- def __init__(self, transaction_id):
- self.transaction_id = transaction_id
- self.timestamp = None
- self.operations = []
- 
- def begin(self, clock):
- """Begin transaction with timestamp"""
- self.timestamp = clock.local_event()
- 
- def add_operation(self, op):
- """Add operation to transaction"""
- self.operations.append({
- 'op': op,
- 'timestamp': self.timestamp
- })
- 
- def commit_order(self, other_txn):
- """Determine commit order based on timestamps"""
- if self.timestamp < other_txn.timestamp:
- return -1 # This transaction first
- elif self.timestamp > other_txn.timestamp:
- return 1 # Other transaction first
- else:
-# Use transaction ID to break ties
- return -1 if self.transaction_id < other_txn.transaction_id else 1
+class ReplicatedStateMachine:
+    def __init__(self, node_id):
+        self.clock = LamportClock()
+        self.state = {}
+        self.operation_log = []
+    
+    def apply_operation(self, op):
+        # Assign Lamport timestamp
+        timestamp = self.clock.tick()
+        
+        # Log operation with timestamp
+        self.operation_log.append({
+            'timestamp': timestamp,
+            'node_id': self.node_id,
+            'operation': op
+        })
+        
+        # Apply to state machine
+        self.execute(op)
+    
+    def sync_with_peer(self, peer_ops):
+        # Merge operations maintaining causal order
+        all_ops = self.operation_log + peer_ops
+        all_ops.sort(key=lambda x: (x['timestamp'], x['node_id']))
+        
+        # Rebuild state from ordered operations
+        self.rebuild_state(all_ops)
 ```
 
-## Key Insights
+## Summary
 
-!!! note "When to Use Lamport Clocks"
- ✅ **Use when**:
- - Need total ordering of events
- - Don't need to detect concurrent events
- - Want simple, low-overhead solution
- - Building replicated state machines
- ❌ **Don't use when**:
- - Need to detect concurrent updates (use vector clocks)
- - Need actual wall-clock time (use NTP)
- - System has high churn (clock values lost)
+<div class="axiom-box">
+<h3>🎯 Lamport Clocks in a Nutshell</h3>
+
+**What**: A simple counter that creates logical time from causality  
+**Why**: Order events without synchronized clocks  
+**How**: Three rules - increment, send, receive  
+**When**: Need total order, don't need concurrency detection  
+**Cost**: Single integer per process, simple algorithm  
+
+Remember: *"Time is an illusion, causality is real"* - Lamport clocks capture what matters.
+</div>
 
 ## Implementation Checklist
 
-- [ ] Implement basic clock increment rules
-- [ ] Add thread safety for concurrent access
-- [ ] Handle message timestamps properly
-- [ ] Implement total ordering with process IDs
-- [ ] Add persistence across restarts
-- [ ] Monitor clock values for overflow
-- [ ] Test with concurrent operations
-- [ ] Document ordering guarantees
+| Step | Task | Why |
+|------|------|-----|
+| ☐ | Choose clock storage (int32/int64) | Prevent overflow |
+| ☐ | Add thread synchronization | Concurrent safety |
+| ☐ | Implement three rules | Core algorithm |
+| ☐ | Add process ID for ties | Total ordering |
+| ☐ | Persist clock value | Survive restarts |
+| ☐ | Monitor clock growth | Detect issues |
+| ☐ | Test concurrent scenarios | Verify correctness |
 
 ## Related Patterns
 
 - [Vector Clocks](vector-clocks.md) - Detect concurrent events
-- [Clock Synchronization](clock-sync.md) - Physical time sync
-- Hybrid Logical Clocks (Coming Soon) - Combine physical and logical
-- [Event Sourcing](event-sourcing.md) - Ordered event streams
+- [Hybrid Logical Clocks](hlc.md) - Add wall-clock approximation
+- [Generation Clock](generation-clock.md) - Leadership epochs
+- [Event Sourcing](../data-management/event-sourcing.md) - Ordered event streams
 
 ## References
 
-- "Time, Clocks, and the Ordering of Events in a Distributed System" - Leslie Lamport (1978)
-- "Distributed Systems: Principles and Paradigms" - Tanenbaum & Van Steen
-- "Distributed Mutual Exclusion Algorithms" - Singhal & Shivaratri
-
-## Use Cases
-
-- Event ordering in distributed logs
-- Distributed debugging
-- Causal consistency
-- Database replication
-
-## Limitations
-
-- Can't detect concurrent events
-- No notion of real time
-- Requires message passing for synchronization
-
-## Related Laws
-
-This pattern directly addresses:
-
-- **[Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/)** - Logical clocks handle the absence of global time by creating a logical ordering based on causality rather than physical time
-- **[Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/)** - No single node knows the global state; logical clocks help establish a consistent ordering despite this limitation
-
-## Related Patterns
-
-- [Vector Clocks](vector-clocks.md) - Extension for concurrency detection
-- [Consensus](consensus.md)
-- [Event Sourcing](event-sourcing.md)
-
----
-
-*This is a stub page. Full content coming soon.*
+- ["Time, Clocks, and the Ordering of Events"](https://lamport.azurewebsites.net/pubs/time-clocks.pdf) - Lamport's original paper
+- [The TLA+ Book](https://lamport.azurewebsites.net/tla/book.html) - Formal specification by Lamport
+- ["Distributed Systems for Fun and Profit"](http://book.mixu.net/distsys/) - Chapter on time and order
