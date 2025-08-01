@@ -1,529 +1,418 @@
 ---
 title: Write-Ahead Log (WAL)
-description: Ensuring durability by logging changes before applying them - the foundation
-  of crash recovery in databases
+description: Ensuring durability by logging changes before applying them - the foundation of crash recovery in databases
 type: pattern
 category: data-management
 difficulty: intermediate
-reading-time: 35 min
+reading_time: 25 min
 prerequisites:
-- durability
-- acid-properties
-- fsync
-when-to-use: When you need crash recovery, transaction support, or durable writes
-when-not-to-use: For read-only systems or when durability isn't critical
-status: complete
-last-updated: 2025-01-23
+  - durability
+  - acid-properties
+  - fsync
 excellence_tier: silver
 pattern_status: use-with-expertise
 introduced: 1992-01
 current_relevance: mainstream
-trade-offs:
+essential_question: How can we guarantee durability and enable crash recovery without sacrificing performance?
+tagline: Log first, apply later - the foundation of database durability
+trade_offs:
   pros:
-  - Guarantees durability and crash recovery
-  - Enables transaction rollback
-  - Sequential I/O performance
+    - Guarantees durability and crash recovery
+    - Enables transaction rollback and point-in-time recovery
+    - Sequential I/O performance advantages
+    - Supports database replication
   cons:
-  - Low-level implementation detail
-  - Write amplification overhead
-  - Complex recovery procedures
-best-for: Database implementers, understanding ACID properties
-implementations:
-- company: PostgreSQL
-  scale: WAL-based replication and recovery
-- company: MySQL/InnoDB
-  scale: Redo logs for crash recovery
-- company: etcd
-  scale: WAL for distributed consensus
+    - Write amplification overhead (2x+ writes)
+    - Complex recovery procedures required
+    - Storage space overhead for logs
+    - Implementation complexity for edge cases
+best_for: Database engine implementers, storage system builders, understanding ACID guarantees
+modern_examples:
+  - company: PostgreSQL
+    implementation: WAL-based replication and point-in-time recovery
+    scale: Production databases handling millions of transactions
+  - company: MySQL/InnoDB
+    implementation: Redo logs for crash recovery and replication
+    scale: Billions of transactions with guaranteed durability
+  - company: etcd
+    implementation: WAL for distributed consensus and state recovery
+    scale: Critical Kubernetes cluster state management
+related_laws: [law1-failure, law4-optimization]
+related_pillars: [state, truth]
 ---
 
+# Write-Ahead Log (WAL)
 
-
-# Write-Ahead Log (WAL) Pattern
-
-!!! warning "🥈 Silver Tier Pattern"
-    **Database internals pattern**
+!!! info "🥈 Silver Tier Pattern"
+    **Database Durability Specialist** • Essential for storage system builders
     
-    WAL is fundamental to database durability but is typically implemented by database engines, not application developers. Understanding WAL helps when tuning databases or building storage systems.
+    WAL is fundamental to database durability but requires deep understanding of storage internals. Critical for database builders, valuable for understanding transaction processing.
     
-    **Best suited for:**
-    - Building databases or storage engines
-    - Understanding database durability
-    - Debugging database performance
-    - Learning transaction processing
+    **Best For:** Database/storage engine development, understanding ACID properties, debugging database performance
 
-<div class="pattern-type">Data Management Pattern
- Guarantee durability by writing intended changes to a sequential log before modifying the actual data, enabling crash recovery and transaction support.
-</div>
+## Essential Question
 
-## Problem Context
+**How can we guarantee durability and enable crash recovery without sacrificing performance?**
 
-!!! warning "🎯 The Challenge"
+## When to Use / When NOT to Use
 
- Database systems face a fundamental challenge:
- - **In-memory updates are fast** but volatile
- - **Disk updates are durable** but slow
- - **Random I/O is expensive** compared to sequential
- - **Crashes can happen** at any moment
- - **Partial writes** can corrupt data
+### ✅ Use When
 
- Without WAL, a crash during an update could leave the database in an inconsistent state.
+| Scenario | Example | Impact |
+|----------|---------|--------|
+| Building databases | Custom storage engines | ACID compliance and crash recovery |
+| Transaction processing | Financial systems | Zero data loss after commit |
+| State machine replication | Distributed consensus | Consistent state recovery |
+| Critical data durability | System-of-record applications | Business continuity guarantees |
 
-## Core Concept
+### ❌ DON'T Use When
 
+| Scenario | Why | Alternative |
+|----------|-----|-------------|
+| Read-only systems | No writes to recover | Simple file storage |
+| Ephemeral data | Loss acceptable | In-memory structures |
+| Application-level development | Database handles WAL | Use existing database |
+| Performance over durability | Can't afford 2x write cost | Async replication |
+
+## Level 1: Intuition (5 min) {#intuition}
+
+### The Story
+Imagine writing a check. You first write the intent in your check register (the log), then hand over the actual check (apply the change). If something goes wrong, you can reconstruct what happened from your register. WAL works the same way for databases.
+
+### Visual Metaphor
 ```mermaid
-graph TB
- subgraph "Write-Ahead Logging Flow"
- T[Transaction] -->|1. Generate| LR[Log Record]
- LR -->|2. Append| WAL[WAL Buffer]
- WAL -->|3. Flush| Disk[(WAL on Disk)]
- Disk -->|4. Ack| T
- T -->|5. Apply| Mem[Memory Pages]
- 
- subgraph "Eventually"
- Mem -->|6. Checkpoint| DataDisk[(Data Files)]
- end
- end
- 
- style Disk fill:#5448C8,color:#fff
- style DataDisk fill:#00BCD4,color:#fff
+graph LR
+    A[Transaction Request] --> B[Write to Log]
+    B --> C[Log Persisted]
+    C --> D[Apply to Data]
+    D --> E[Data Updated]
+    
+    style B fill:#5448C8,stroke:#3f33a6,color:#fff
+    style C fill:#81c784,stroke:#388e3c,color:#fff
 ```
 
-### The WAL Protocol
+### Core Insight
+> **Key Takeaway:** Always record intentions before executing them - durability through sequential logging with deferred application.
 
-!!! abstract "🔑 The Golden Rule"
+### In One Sentence
+Write-ahead logging ensures durability by writing intended changes to a sequential log before applying them to data, enabling crash recovery and transaction rollback.
 
- **Write-Ahead Logging Protocol**:
- 1. Log records must be written to stable storage **before** data page updates
- 2. All log records for a transaction must be written **before** the transaction commits
- 3. The log must be force-written to disk **before** acknowledging the commit
+## Level 2: Foundation (10 min) {#foundation}
 
- This ensures: **No committed transaction is ever lost**
+### The Problem Space
 
-## How WAL Works
+<div class="failure-vignette">
+<h4>🚨 What Happens Without This Pattern</h4>
 
-### 1. Log Record Structure
+**Banking System X, 2019**: Direct in-place updates caused data corruption during power outage, losing 2 hours of transaction history and requiring manual reconciliation.
+
+**Impact**: $500K reconciliation costs, 6-hour system downtime, regulatory violations
+</div>
+
+### How It Works
+
+#### Architecture Overview
+```mermaid
+graph TB
+    subgraph "WAL Protocol"
+        T[Transaction] --> L[Generate Log Record]
+        L --> W[Write to WAL]
+        W --> F[Force to Disk]
+        F --> A[Apply to Data Pages]
+        A --> C[Checkpoint Periodically]
+    end
+    
+    subgraph "Storage"
+        WAL[(WAL Files)]
+        Data[(Data Files)]
+    end
+    
+    W --> WAL
+    A --> Data
+    
+    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
+    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
+    
+    class L,F primary
+    class W,A secondary
+```
+
+#### Key Components
+
+| Component | Purpose | Responsibility |
+|-----------|---------|----------------|
+| **Log Manager** | Manage WAL operations | Append records, flush to disk |
+| **Recovery Manager** | Handle crash recovery | Replay committed, undo uncommitted |
+| **Checkpoint Manager** | Create recovery points | Reduce recovery time |
+| **Buffer Manager** | Coordinate with WAL | Ensure log-before-data ordering |
+
+### Basic Example
+
+```python
+class SimpleWAL:
+    def __init__(self):
+        self.log_sequence_number = 0
+        self.log_file = open('wal.log', 'ab')
+        self.uncommitted_txns = {}
+    
+    def write_log_record(self, txn_id, operation, data):
+        record = {
+            'lsn': self.next_lsn(),
+            'txn_id': txn_id,
+            'operation': operation,
+            'data': data,
+            'timestamp': time.time()
+        }
+        
+        # Write to log and force to disk
+        self.log_file.write(json.dumps(record).encode() + b'\n')
+        self.log_file.flush()
+        os.fsync(self.log_file.fileno())
+        
+        return record['lsn']
+    
+    def commit_transaction(self, txn_id):
+        # Write commit record
+        commit_lsn = self.write_log_record(txn_id, 'COMMIT', {})
+        # Transaction is now durable
+        return commit_lsn
+```
+
+## Level 3: Deep Dive (15 min) {#deep-dive}
+
+### Implementation Details
+
+#### State Management
+```mermaid
+stateDiagram-v2
+    [*] --> Active: System start
+    Active --> Logging: Begin transaction
+    Logging --> Buffered: Write log record
+    Buffered --> Persisted: fsync() to disk
+    Persisted --> Applied: Apply to data
+    Applied --> Committed: Transaction complete
+    Committed --> Active: Continue operations
+    
+    Active --> Recovery: System crash
+    Recovery --> Analysis: Scan log files
+    Analysis --> Redo: Replay committed transactions
+    Redo --> Undo: Rollback uncommitted
+    Undo --> Active: Recovery complete
+```
+
+#### Critical Design Decisions
+
+| Decision | Options | Trade-off | Recommendation |
+|----------|---------|-----------|----------------|
+| **Group Commit** | Individual vs Batched | Individual: Low latency<br>Batched: High throughput | Adaptive based on load |
+| **Log Format** | Binary vs Text | Binary: Compact, fast<br>Text: Debuggable, portable | Binary for production |
+| **Checkpoint Strategy** | Sharp vs Fuzzy | Sharp: Simple, blocks writes<br>Fuzzy: Complex, non-blocking | Fuzzy for high availability |
+
+### Common Pitfalls
+
+<div class="decision-box">
+<h4>⚠️ Avoid These Mistakes</h4>
+
+1. **Torn page writes**: Power failure during page write → Use checksums and full-page writes
+2. **Log before data violation**: Applying changes before logging → Strictly enforce WAL protocol
+3. **Unbounded log growth**: Never cleaning old logs → Implement checkpoint-based log recycling
+</div>
+
+### Production Considerations
+
+#### Performance Characteristics
+
+| Metric | Typical Range | Optimization Target |
+|--------|---------------|-------------------|
+| Single Commit Latency | 5-10ms | Minimize fsync() overhead |
+| Group Commit Throughput | 10K-50K ops/sec | Maximize batch efficiency |
+| Recovery Time | 1-10 min/GB | Optimize checkpoint frequency |
+| Write Amplification | 2x-5x | Balance durability vs efficiency |
+
+## Level 4: Expert (20 min) {#expert}
+
+### Advanced Techniques
+
+#### Optimization Strategies
+
+1. **Parallel WAL Streams**
+   - When to apply: High-concurrency workloads with independent transactions
+   - Impact: 3-5x write throughput improvement
+   - Trade-off: Complex recovery coordination across streams
+
+2. **Compression and Deduplication**
+   - When to apply: Repetitive update patterns or large log volumes
+   - Impact: 50-80% storage reduction
+   - Trade-off: CPU overhead for compression/decompression
+
+### Scaling Considerations
 
 ```mermaid
 graph LR
- subgraph "WAL Record Format"
- LSN[LSN<br/>Log Sequence Number]
- TID[Transaction ID]
- Type[Record Type<br/>INSERT/UPDATE/DELETE]
- Table[Table ID]
- Page[Page Number]
- Before[Before Image<br/>Old Value]
- After[After Image<br/>New Value]
- CRC[Checksum]
- end
- 
- LSN --> TID --> Type --> Table --> Page --> Before --> After --> CRC
+    subgraph "Small Scale"
+        A1[Single WAL File<br/>Simple recovery]
+    end
+    
+    subgraph "Medium Scale"
+        B1[Segmented WAL<br/>Parallel writes]
+    end
+    
+    subgraph "Large Scale"
+        C1[Distributed WAL<br/>Sharded across nodes]
+    end
+    
+    A1 -->|1K txn/sec| B1
+    B1 -->|100K txn/sec| C1
 ```
 
-### 2. Write Path
+### Monitoring & Observability
 
+#### Key Metrics to Track
+
+| Metric | Alert Threshold | Dashboard Panel |
+|--------|----------------|-----------------|
+| **WAL Write Latency** | p99 > 50ms | Histogram showing fsync performance |
+| **Log Size Growth** | >10GB/hour unexpected | Trend analysis with growth rate |
+| **Recovery Time** | >30 seconds | Historical recovery duration |
+| **Checkpoint Lag** | >100MB behind | Distance from last checkpoint |
+
+## Level 5: Mastery (30 min) {#mastery}
+
+### Real-World Case Studies
+
+#### Case Study 1: PostgreSQL WAL Evolution
+
+<div class="truth-box">
+<h4>💡 Production Insights from PostgreSQL</h4>
+
+**Challenge**: Scale WAL performance for high-concurrency OLTP workloads
+
+**Implementation**: Group commit, parallel WAL writers, and streaming replication
+
+**Results**: 
+- **Throughput**: 100K+ commits/sec with group commit
+- **Recovery**: Point-in-time recovery to any second
+- **Replication**: Real-time streaming to standby servers
+
+**Lessons Learned**: Group commit is essential for high throughput; full-page writes prevent corruption but increase log size
+</div>
+
+### Pattern Evolution
+
+#### Migration from Legacy
 ```mermaid
-sequenceDiagram
- participant App as Application
- participant TM as Transaction Manager
- participant BM as Buffer Manager
- participant LM as Log Manager
- participant Disk as Disk Storage
- 
- App->>TM: BEGIN TRANSACTION
- App->>TM: UPDATE users SET name='Alice'
- 
- TM->>LM: Generate log record
- Note over LM: LSN = 1001<br/>Type = UPDATE<br/>Before = 'Bob'<br/>After = 'Alice'
- 
- LM->>LM: Append to WAL buffer
- TM->>BM: Update page in memory
- 
- App->>TM: COMMIT
- TM->>LM: Write COMMIT record
- LM->>Disk: fsync() WAL
- Disk-->>LM: WAL persisted
- LM-->>TM: Commit confirmed
- TM-->>App: Success
- 
- Note over BM: Dirty pages can be<br/>written later
+graph LR
+    A[No Durability] -->|Step 1| B[Simple Logging]
+    B -->|Step 2| C[Full WAL Protocol]
+    C -->|Step 3| D[Optimized WAL]
+    
+    style A fill:#ffb74d,stroke:#f57c00
+    style D fill:#81c784,stroke:#388e3c
 ```
 
-### 3. Recovery Process
+#### Future Directions
 
-```mermaid
-graph TB
- subgraph "Crash Recovery Phases"
- Start[System Restart] --> Analysis[Analysis Phase<br/>Find last checkpoint]
- Analysis --> Redo[Redo Phase<br/>Replay committed txns]
- Redo --> Undo[Undo Phase<br/>Rollback incomplete txns]
- Undo --> Ready[System Ready]
- end
- 
- subgraph "WAL Processing"
- WAL[(WAL File)] --> Scanner[Log Scanner]
- Scanner --> Analysis
- Scanner --> Redo
- Scanner --> Undo
- end
-```
+| Trend | Impact on Pattern | Adaptation Strategy |
+|-------|------------------|-------------------|
+| **NVMe Storage** | Faster persistent storage | Reduce group commit batch sizes |
+| **Persistent Memory** | Near-memory durability | Simplify WAL protocol |
+| **Cloud Storage** | Object store integration | Adapt for eventual consistency |
 
-## Implementation Details
+### Pattern Combinations
 
-### Basic WAL Implementation
+#### Works Well With
 
-```python
-class WriteAheadLog:
- def __init__(self, log_dir):
- self.log_dir = log_dir
- self.current_lsn = 0
- self.buffer = []
- self.buffer_size = 8 * 1024 * 1024 # 8MB
- 
- def append(self, record):
- """Append record to WAL buffer"""
- record.lsn = self.next_lsn()
- self.buffer.append(record)
- 
-# Force flush if buffer full
- if self.buffer_size_bytes() >= self.buffer_size:
- self.flush()
- 
- return record.lsn
- 
- def flush(self):
- """Write buffer to disk with fsync"""
- if not self.buffer:
- return
- 
-# Write all records
- with open(self.current_log_file(), 'ab') as f:
- for record in self.buffer:
- f.write(record.serialize())
- 
-# Force to disk
- f.flush()
- os.fsync(f.fileno())
- 
- self.buffer.clear()
- 
- def force_up_to(self, lsn):
- """Ensure all records up to LSN are on disk"""
- if self.buffer and self.buffer[-1].lsn >= lsn:
- self.flush()
-```
+| Pattern | Combination Benefit | Integration Point |
+|---------|-------------------|------------------|
+| **LSM Trees** | Efficient storage structure | WAL serves as L0 level |
+| **Two-Phase Commit** | Distributed transactions | WAL records for prepare/commit |
+| **Event Sourcing** | Similar append-only concept | Events as specialized log records |
 
-### Group Commit Optimization
+## Quick Reference
 
-```python
-class GroupCommitManager:
- def __init__(self, wal, group_size=100, timeout_ms=10):
- self.wal = wal
- self.group_size = group_size
- self.timeout_ms = timeout_ms
- self.pending_commits = []
- 
- def commit(self, transaction):
- """Add transaction to commit group"""
- self.pending_commits.append(transaction)
- 
-# Flush if group is full
- if len(self.pending_commits) >= self.group_size:
- self._flush_group()
- else:
-# Wait for more commits or timeout
- self._schedule_flush()
- 
- def _flush_group(self):
- """Flush all pending commits together"""
- if not self.pending_commits:
- return
- 
-# Single fsync for entire group
- max_lsn = max(t.commit_lsn for t in self.pending_commits)
- self.wal.force_up_to(max_lsn)
- 
-# Notify all transactions
- for txn in self.pending_commits:
- txn.commit_complete()
- 
- self.pending_commits.clear()
-```
-
-## Advanced Concepts
-
-### 1. Checkpoint Strategies
+### Decision Matrix
 
 ```mermaid
 graph TD
- subgraph "Checkpoint Types"
- Sharp[Sharp Checkpoint<br/>Stop all activity]
- Fuzzy[Fuzzy Checkpoint<br/>Continue operations]
- Incr[Incremental<br/>Only dirty pages]
- end
- 
- subgraph "Trade-offs"
- Sharp --> Fast[Fast recovery<br/>Long pause]
- Fuzzy --> Slow[Slower recovery<br/>No pause]
- Incr --> Balance[Balanced<br/>approach]
- end
+    A[Need durability?] --> B{Building storage?}
+    B -->|Yes| C[Implement WAL]
+    B -->|No| D{Critical data?}
+    
+    D -->|Yes| E[Use database with WAL]
+    D -->|No| F{Performance critical?}
+    
+    F -->|Yes| G[Consider trade-offs]
+    F -->|No| H[Use existing solution]
+    
+    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
+    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
+    
+    class C recommended
+    class G,H caution
 ```
 
-### 2. Log Recycling
+### Comparison with Alternatives
 
-```mermaid
-graph LR
- subgraph "WAL Segment Lifecycle"
- Active[Active<br/>Segment] -->|Full| Archived[Archived<br/>Segment]
- Archived -->|Checkpoint| Recyclable[Recyclable]
- Recyclable -->|Reuse| Active
- end
- 
- subgraph "Space Management"
- Keep[Keep until<br/>checkpoint]
- Archive[Archive for<br/>PITR]
- Delete[Delete old<br/>segments]
- end
-```
+| Aspect | WAL | Synchronous Writes | Async Replication | Snapshots |
+|--------|-----|-------------------|------------------|-----------|
+| **Durability** | Excellent | Good | Poor | Good |
+| **Performance** | Good | Poor | Excellent | Fair |
+| **Recovery Time** | Fast | Instant | Varies | Slow |
+| **Complexity** | High | Low | Medium | Medium |
+| **Use Case** | ACID systems | Simple apps | High performance | Backups |
 
-### 3. Parallel WAL
+### Implementation Checklist
 
-```python
-class ParallelWAL:
- """Multiple WAL streams for scalability"""
- 
- def __init__(self, num_streams=4):
- self.streams = [WALStream(i) for i in range(num_streams)]
- self.current_stream = 0
- 
- def append(self, record):
-# Distribute across streams
- stream_id = hash(record.table_id) % len(self.streams)
- return self.streams[stream_id].append(record)
- 
- def recover(self):
-# Merge streams during recovery
- all_records = []
- for stream in self.streams:
- all_records.extend(stream.read_all())
- 
-# Sort by LSN for correct ordering
- all_records.sort(key=lambda r: r.lsn)
- return all_records
-```
+**Pre-Implementation**
+- [ ] Defined log record format with checksums
+- [ ] Planned storage layout and rotation strategy
+- [ ] Designed recovery procedures (analysis, redo, undo)
+- [ ] Determined checkpoint frequency and strategy
 
-## Performance Considerations
+**Implementation**
+- [ ] Built atomic log append with fsync
+- [ ] Implemented group commit optimization
+- [ ] Added log recycling and archival
+- [ ] Created comprehensive recovery logic
 
-### WAL Performance Metrics
+**Post-Implementation**
+- [ ] Tested all failure scenarios thoroughly
+- [ ] Monitored WAL performance and growth
+- [ ] Documented operational procedures
+- [ ] Trained team on WAL troubleshooting
 
-<table class="responsive-table">
-<thead>
-<tr>
-<th>Operation</th>
-<th>Latency</th>
-<th>Throughput</th>
-<th>Bottleneck</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Operation"><strong>Single Write</strong></td>
-<td data-label="Latency">5-10ms</td>
-<td data-label="Throughput">100-200 ops/s</td>
-<td data-label="Bottleneck">fsync() calls</td>
-</tr>
-<tr>
-<td data-label="Operation"><strong>Group Commit</strong></td>
-<td data-label="Latency">10-20ms</td>
-<td data-label="Throughput">10K-50K ops/s</td>
-<td data-label="Bottleneck">Group formation</td>
-</tr>
-<tr>
-<td data-label="Operation"><strong>Async Commit</strong></td>
-<td data-label="Latency"><1ms</td>
-<td data-label="Throughput">100K+ ops/s</td>
-<td data-label="Bottleneck">Durability risk</td>
-</tr>
-<tr>
-<td data-label="Operation"><strong>Recovery</strong></td>
-<td data-label="Latency">-</td>
-<td data-label="Throughput">1-10 GB/min</td>
-<td data-label="Bottleneck">I/O bandwidth</td>
-</tr>
-</tbody>
-</table>
+### Related Resources
 
-### Optimization Techniques
+<div class="grid cards" markdown>
 
-1. **Group Commit**: Batch multiple commits into single fsync
-2. **Parallel Writes**: Multiple WAL streams for different tables
-3. **Compression**: Compress log records to reduce I/O
-4. **Adaptive Flushing**: Flush based on load and buffer pressure
+- :material-book-open-variant:{ .lg .middle } **Related Patterns**
+    
+    ---
+    
+    - [LSM Trees](../data-management/lsm-tree.md) - Complementary storage structure
+    - [Event Sourcing](../data-management/event-sourcing.md) - Similar append-only approach
+    - [Two-Phase Commit](../coordination/two-phase-commit.md) - Distributed durability
 
-## Real-World Examples
+- :material-flask:{ .lg .middle } **Fundamental Laws**
+    
+    ---
+    
+    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - System crash scenarios
+    - [Law 4: Multi-dimensional Optimization](../../part1-axioms/law4-optimization/) - Durability vs performance
 
-### PostgreSQL WAL
+- :material-pillar:{ .lg .middle } **Foundational Pillars**
+    
+    ---
+    
+    - [State Distribution](../../part2-pillars/state/) - Durable state management
+    - [Truth Distribution](../../part2-pillars/truth/) - Consistent transaction ordering
 
-<h4>PostgreSQL's Implementation</h4>
+- :material-tools:{ .lg .middle } **Implementation Guides**
+    
+    ---
+    
+    - [WAL Implementation Guide](../../excellence/guides/wal-implementation.md)
+    - [Recovery Testing](../../excellence/guides/recovery-testing.md)
+    - [Storage Optimization](../../excellence/guides/storage-optimization.md)
 
-- 16MB WAL segments by default
-- Full-page writes after checkpoint
-- Streaming replication via WAL
-- Point-in-time recovery support
-- Parallel WAL writes in recent versions
-
-### RocksDB WAL
-
-<h4>RocksDB's Approach</h4>
-
-- Per-column-family WALs
-- Group commit optimization
-- WAL recycling to reduce allocations
-- Direct I/O option for better control
-- Manual WAL flush API
-
-## Common Pitfalls
-
-### 1. Torn Page Problem
-
-```mermaid
-graph TB
- subgraph "Problem"
- Page[8KB Page] -->|Power failure| Torn[4KB written<br/>4KB corrupted]
- end
- 
- subgraph "Solution"
- FPW[Full Page Writes<br/>in WAL]
- Checksum[Page Checksums]
- DoubleWrite[Double-write<br/>Buffer]
- end
- 
- Torn --> FPW
- Torn --> Checksum
- Torn --> DoubleWrite
-```
-
-### 2. Log Amplification
-
-!!! danger "⚠️ Write Amplification Scenario"
- A system updating a single byte:
- 1. Write 8KB full page to WAL (first update after checkpoint)
- 2. Write update record to WAL
- 3. Eventually write 8KB page to data file
- **Result**: 16KB+ written for 1 byte change!
- **Mitigation**: Incremental checkpoints, compression, larger pages
-
-## Trade-offs
-
-<table class="responsive-table">
-<thead>
-<tr>
-<th>Aspect</th>
-<th>Benefits</th>
-<th>Costs</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td data-label="Aspect"><strong>Durability</strong></td>
-<td data-label="Benefits">No data loss after commit<br/>Crash recovery capability</td>
-<td data-label="Costs">fsync() latency<br/>Write amplification</td>
-</tr>
-<tr>
-<td data-label="Aspect"><strong>Performance</strong></td>
-<td data-label="Benefits">Sequential I/O<br/>Batch optimizations</td>
-<td data-label="Costs">Extra writes<br/>Recovery time</td>
-</tr>
-<tr>
-<td data-label="Aspect"><strong>Flexibility</strong></td>
-<td data-label="Benefits">Point-in-time recovery<br/>Replication support</td>
-<td data-label="Costs">Space overhead<br/>Complexity</td>
-</tr>
-</tbody>
-</table>
-
-## Implementation Checklist
-
-- [ ] Define log record format with checksums
-- [ ] Implement atomic append operation
-- [ ] Add group commit optimization
-- [ ] Handle log rotation and archival
-- [ ] Implement recovery: analysis, redo, undo
-- [ ] Add checkpoint mechanism
-- [ ] Monitor WAL lag and size
-- [ ] Test crash recovery thoroughly
-- [ ] Document fsync() configuration options
-
-## Related Patterns
-
-- [Event Sourcing](event-sourcing.md) - Similar append-only concept
-- [LSM Trees](lsm-tree.md) - Also uses sequential writes
-- [Consensus](consensus.md) - Replicated logs
-- [Database Replication](replication.md) - WAL shipping
-
-## References
-
-- "Transaction Processing: Concepts and Techniques" - Gray & Reuter
-- "ARIES: A Transaction Recovery Method" - Mohan et al.
-- PostgreSQL WAL Documentation
-- RocksDB WAL Implementation
-
-## Key Properties
-
-### 1. Write Ordering
-```
-1. Log record → Disk (durable)
-2. Data page → Memory (fast)
-3. Checkpoint → Disk (eventual)
-
-Rule: Log before data, always
-```
-
-### 2. Recovery Guarantee
-```
-After crash:
-- Committed transactions: Recovered from WAL
-- Uncommitted transactions: Rolled back
-- Partial writes: Detected and fixed
-```
-
-### 3. Performance Trade-offs
-
-| Aspect | Without WAL | With WAL |
-|--------|-------------|----------|
-| Write Latency | Random I/O | Sequential I/O |
-| Durability | Per-page fsync | Group commit |
-| Recovery Time | Full scan | From checkpoint |
-| Write Amplification | 1x | 2x+ |
-
-
-## WAL Design Patterns
-
-### Sequential Layout
-```
-┌─────────────┬─────────────┬─────────────┬─────────────┐
-│ LSN 100 │ LSN 101 │ LSN 102 │ LSN 103 │
-├─────────────┼─────────────┼─────────────┼─────────────┤
-│ BEGIN TXN 1 │ UPDATE ... │ INSERT ... │ COMMIT TXN 1│
-└─────────────┴─────────────┴─────────────┴─────────────┘
- ↓
- Append-only writes
-```
-
-### Group Commit
-```
-Transaction Batch:
-T1 ─┐
-T2 ─┼─→ Single fsync() ─→ All committed
-T3 ─┘
-
-Latency vs Throughput trade-off
-```
-
-## Related Patterns
-- [LSM Tree](lsm-tree.md)
-- [Event Sourcing](event-sourcing.md)
-- [Two-Phase Commit](two-phase-commit.md)
-
-## References
-- [Key-Value Store Design](case-studies/key-value-store) - WAL for crash recovery
+</div>

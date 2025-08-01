@@ -38,6 +38,22 @@
   background-color: color-mix(in srgb, var(--md-default-bg-color) 95%, transparent);
 }
 
+/* Fix navigation tab colors for better contrast */
+.md-tabs__link {
+  color: var(--md-default-fg-color) !important;
+  opacity: 0.7;
+}
+
+.md-tabs__link:hover {
+  color: var(--md-primary-fg-color) !important;
+  opacity: 1;
+}
+
+.md-tabs__link--active {
+  color: var(--md-primary-fg-color) !important;
+  opacity: 1;
+}
+
 /* Enhanced breadcrumbs using Material's path feature */
 .md-path {
   margin-bottom: 1rem;
@@ -62,6 +78,29 @@
 .md-nav__item--active > .md-nav__link {
   color: var(--md-primary-fg-color);
   font-weight: 700;
+}
+
+/* Fix sidebar navigation colors */
+.md-nav__link {
+  color: var(--md-default-fg-color);
+}
+
+.md-nav__link:hover {
+  color: var(--md-primary-fg-color);
+}
+
+/* Fix primary navigation colors */
+.md-nav--primary .md-nav__link {
+  color: var(--md-default-fg-color);
+}
+
+.md-nav--primary .md-nav__link:hover {
+  color: var(--md-primary-fg-color);
+}
+
+.md-nav--primary .md-nav__item--active > .md-nav__link {
+  color: var(--md-primary-fg-color);
+  font-weight: 600;
 }
 
 /* ============================================

@@ -176,8 +176,8 @@ markdown_extensions:
 - pymdownx.caret
 - pymdownx.details
 - pymdownx.emoji:
-    emoji_index: ''
-    emoji_generator: ''
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
 - pymdownx.highlight:
     anchor_linenums: true
     line_spans: __span
@@ -195,11 +195,13 @@ markdown_extensions:
     custom_fences:
     - name: mermaid
       class: mermaid
-      format: ''
+      format: !!python/name:pymdownx.superfences.fence_code_format
 - pymdownx.tabbed:
     alternate_style: true
     combine_header_slug: true
-    slugify: {}
+    slugify: !!python/object/apply:pymdownx.slugs.slugify
+      kwds:
+        case: lower
 - pymdownx.tasklist:
     custom_checkbox: true
 - pymdownx.tilde
@@ -514,27 +516,98 @@ nav:
       - Stripe API Excellence: architects-handbook/case-studies/elite-engineering/stripe-api-excellence.md
   - Implementation Playbooks:
     - Overview: architects-handbook/implementation-playbooks/index.md
+  - Excellence Framework:
+    - Overview: excellence/framework-overview.md
+    - Implementation Guides:
+      - Overview: excellence/implementation-guides/index.md
+      - Quick Start Guide: excellence/implementation-guides/quick-start-guide.md
+      - Modern Distributed Systems 2025: excellence/implementation-guides/modern-distributed-systems-2025.md
+      - Data Consistency: excellence/implementation-guides/data-consistency.md
+      - Migration Strategies: excellence/implementation-guides/migration-strategies.md
+      - Operational Excellence: excellence/implementation-guides/operational-excellence.md
+      - Performance Optimization: excellence/implementation-guides/performance-optimization.md
+      - Platform Engineering Playbook: excellence/implementation-guides/platform-engineering-playbook.md
+      - Resilience First: excellence/implementation-guides/resilience-first.md
+      - Security Patterns: excellence/implementation-guides/security-patterns.md
+      - Service Communication: excellence/implementation-guides/service-communication.md
+    - Pattern Discovery:
+      - Overview: excellence/pattern-discovery/index.md
+      - Gold Patterns: excellence/pattern-discovery/gold-patterns/index.md
+      - Silver Patterns: excellence/pattern-discovery/silver-patterns/index.md
+      - Bronze Patterns: excellence/pattern-discovery/bronze-patterns/index.md
+    - Migration Guides:
+      - Overview: excellence/migrations/index.md
+      - Migration Playbook Template: excellence/migrations/migration-playbook-template.md
+      - 2PC to Saga: excellence/migrations/2pc-to-saga.md
+      - Anti-Entropy to CRDT: excellence/migrations/anti-entropy-to-crdt.md
+      - Batch to Streaming: excellence/migrations/batch-to-streaming.md
+      - Gossip to Service Mesh: excellence/migrations/gossip-to-service-mesh.md
+      - Master-Slave to Multi-Primary: excellence/migrations/master-slave-to-multi-primary.md
+      - Monolith to Microservices: excellence/migrations/monolith-to-microservices.md
+      - Polling to WebSocket: excellence/migrations/polling-to-websocket.md
+      - Shared Database to Microservices: excellence/migrations/shared-database-to-microservices.md
+      - Thick Client to API First: excellence/migrations/thick-client-to-api-first.md
+      - Vector Clocks to HLC: excellence/migrations/vector-clocks-to-hlc.md
   - Quantitative Analysis:
     - Overview: architects-handbook/quantitative-analysis/index.md
-    - Little's Law: architects-handbook/quantitative-analysis/littles-law.md
-    - CAP Theorem: architects-handbook/quantitative-analysis/cap-theorem.md
-    - Amdahl's Law: architects-handbook/quantitative-analysis/amdahls-law.md
-    - Universal Scalability Law: architects-handbook/quantitative-analysis/universal-scalability.md
-    - Queueing Theory: architects-handbook/quantitative-analysis/queueing-theory.md
-    - Failure Models: architects-handbook/quantitative-analysis/failure-models.md
-    - Performance Modeling: architects-handbook/quantitative-analysis/performance-modeling.md
-    - Latency Numbers: architects-handbook/quantitative-analysis/latency-numbers.md
-    - Advanced Topics:
-      - Graph Theory: architects-handbook/quantitative-analysis/graph-theory.md
+    - Core Laws & Principles:
+      - Little's Law: architects-handbook/quantitative-analysis/littles-law.md
+      - CAP Theorem: architects-handbook/quantitative-analysis/cap-theorem.md
+      - CAP Theorem Enhanced: architects-handbook/quantitative-analysis/cap-theorem-enhanced.md
+      - Amdahl's Law: architects-handbook/quantitative-analysis/amdahls-law.md
+      - Amdahl-Gustafson: architects-handbook/quantitative-analysis/amdahl-gustafson.md
+      - Universal Scalability Law: architects-handbook/quantitative-analysis/universal-scalability.md
+    - Performance & Queueing:
+      - Queueing Theory: architects-handbook/quantitative-analysis/queueing-theory.md
+      - Queueing Models: architects-handbook/quantitative-analysis/queueing-models.md
       - Queueing Networks: architects-handbook/quantitative-analysis/queuing-networks.md
+      - Performance Modeling: architects-handbook/quantitative-analysis/performance-modeling.md
+      - Performance Testing: architects-handbook/quantitative-analysis/performance-testing.md
+      - Latency Numbers: architects-handbook/quantitative-analysis/latency-numbers.md
+      - Latency Ladder: architects-handbook/quantitative-analysis/latency-ladder.md
+      - Backpressure Math: architects-handbook/quantitative-analysis/backpressure-math.md
+    - Reliability & Availability:
+      - Failure Models: architects-handbook/quantitative-analysis/failure-models.md
+      - Availability: architects-handbook/quantitative-analysis/availability.md
+      - Availability Math: architects-handbook/quantitative-analysis/availability-math.md
+      - MTBF/MTTR: architects-handbook/quantitative-analysis/mtbf-mttr.md
+      - Reliability Engineering: architects-handbook/quantitative-analysis/reliability-engineering.md
+      - Reliability Theory: architects-handbook/quantitative-analysis/reliability-theory.md
+      - Blast Radius: architects-handbook/quantitative-analysis/blast-radius.md
+    - Data & Storage:
+      - Storage Engines: architects-handbook/quantitative-analysis/storage-engines.md
+      - Storage Economics: architects-handbook/quantitative-analysis/storage-economics.md
+      - Cache Economics: architects-handbook/quantitative-analysis/cache-economics.md
+      - Compression: architects-handbook/quantitative-analysis/compression.md
+      - Consistency Models: architects-handbook/quantitative-analysis/consistency-models.md
+      - Coordination Costs: architects-handbook/quantitative-analysis/coordination-costs.md
+    - Mathematics & Algorithms:
+      - Graph Theory: architects-handbook/quantitative-analysis/graph-theory.md
+      - Graph Models: architects-handbook/quantitative-analysis/graph-models.md
       - Markov Chains: architects-handbook/quantitative-analysis/markov-chains.md
+      - Stochastic Processes: architects-handbook/quantitative-analysis/stochastic-processes.md
       - Bayesian Reasoning: architects-handbook/quantitative-analysis/bayesian-reasoning.md
       - Information Theory: architects-handbook/quantitative-analysis/information-theory.md
       - Network Theory: architects-handbook/quantitative-analysis/network-theory.md
-      - Reliability Theory: architects-handbook/quantitative-analysis/reliability-theory.md
-      - Storage Economics: architects-handbook/quantitative-analysis/storage-economics.md
-      - Cache Economics: architects-handbook/quantitative-analysis/cache-economics.md
+      - Network Model: architects-handbook/quantitative-analysis/network-model.md
       - Computational Geometry: architects-handbook/quantitative-analysis/computational-geometry.md
+      - Comp Geometry: architects-handbook/quantitative-analysis/comp-geometry.md
+      - Time Complexity: architects-handbook/quantitative-analysis/time-complexity.md
+      - Space Complexity: architects-handbook/quantitative-analysis/space-complexity.md
+      - Power Laws: architects-handbook/quantitative-analysis/power-laws.md
+    - Specialized Topics:
+      - Collision Probability: architects-handbook/quantitative-analysis/collision-probability.md
+      - Probabilistic Structures: architects-handbook/quantitative-analysis/probabilistic-structures.md
+      - Haversine: architects-handbook/quantitative-analysis/haversine.md
+      - Spatial Stats: architects-handbook/quantitative-analysis/spatial-stats.md
+      - Time Series: architects-handbook/quantitative-analysis/time-series.md
+      - Social Networks: architects-handbook/quantitative-analysis/social-networks.md
+      - Computer Vision: architects-handbook/quantitative-analysis/computer-vision.md
+      - Battery Models: architects-handbook/quantitative-analysis/battery-models.md
+      - Privacy Metrics: architects-handbook/quantitative-analysis/privacy-metrics.md
+      - Capacity Planning: architects-handbook/quantitative-analysis/capacity-planning.md
+    - Practice & Application:
+      - Problem Set: architects-handbook/quantitative-analysis/problem-set.md
   - Human Factors:
     - Overview: architects-handbook/human-factors/index.md
     - Knowledge Management: architects-handbook/human-factors/knowledge-management.md
@@ -663,6 +736,9 @@ nav:
   - Glossary: reference/glossary.md
   - Pattern Health Dashboard: reference/pattern-health-dashboard.md
   - Pattern Meta-Analysis: reference/pattern-meta-analysis.md
+  - Pattern Consistency Report: reference/pattern-consistency-report.md
+  - Pattern Library Fix Plan: reference/pattern-library-fix-plan.md
+  - Pattern Library Issues Summary: reference/pattern-library-issues-summary.md
   - Pattern Dependency Graph: reference/pattern-dependency-graph.md
   - Pattern Evolution Timeline: reference/pattern-evolution-timeline.md
   - Pattern Selection Cheatsheet: reference/pattern-selection-cheatsheet.md

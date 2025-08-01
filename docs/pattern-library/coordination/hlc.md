@@ -148,46 +148,13 @@ sequenceDiagram
     Note over C: Receive @ now=102<br/>max(100,101,102)=102<br/>Physical time wins<br/>HLC: 102.0
 ```
 
-### Simple Rules
+### The Three Rules
 
-<div class="grid">
-<div class="card">
-<h4>Rule 1: Local Event</h4>
-
-```python
-if now > pt:
-    pt = now
-    c = 0
-else:
-    c = c + 1
-```
-</div>
-
-<div class="card">
-<h4>Rule 2: Send Message</h4>
-
-```python
-# Update local HLC first
-hlc_update_local()
-# Attach timestamp
-msg.hlc = (pt, c)
-```
-</div>
-
-<div class="card">
-<h4>Rule 3: Receive Message</h4>
-
-```python
-pt_new = max(pt_local, pt_msg, now)
-if pt_new == now:
-    c = 0
-elif pt_new == pt_local == pt_msg:
-    c = max(c_local, c_msg) + 1
-else:
-    c = c_of_max + 1
-```
-</div>
-</div>
+| Event | Rule | HLC Update |
+|-------|------|------------|
+| **Local Event** | `if now > pt: pt=now, c=0 else: c++` | Advance physical or logical |
+| **Send Message** | `update_local(); attach(pt,c)` | Update then send |
+| **Receive Message** | `pt = max(pt_local, pt_msg, now)` | Take maximum, increment logical |
 
 ## Key Properties
 
@@ -355,34 +322,11 @@ Trade-off: TrueTime guarantees external consistency, HLC provides best-effort wi
 
 ## Common Pitfalls
 
-<div class="grid">
-<div class="card">
-<h4>❌ Clock Skew Assumptions</h4>
-
-**Don't**: Assume ±1ms sync  
-**Reality**: Can be ±30s+  
-**Do**: Monitor actual skew  
-**Alert**: When > threshold
-</div>
-
-<div class="card">
-<h4>❌ Counter Overflow</h4>
-
-**Don't**: Ignore at high rate  
-**Problem**: 65K events = overflow  
-**Do**: Use μs precision  
-**Or**: Implement wait logic
-</div>
-
-<div class="card">
-<h4>❌ Physical Comparison</h4>
-
-**Don't**: Compare HLC to wall clock  
-**Why**: HLC can be "ahead"  
-**Do**: Use HLC everywhere  
-**Or**: Track drift separately
-</div>
-</div>
+| Mistake | Problem | Solution |
+|---------|---------|----------|
+| **Assume tight clock sync** | ±30s+ skew reality | Monitor actual drift |
+| **Ignore counter overflow** | 65K events/65ms limit | Use microsecond precision |
+| **Mix HLC with wall clock** | HLC can be "ahead" | Use HLC consistently |
 
 ## Summary
 

@@ -17,15 +17,15 @@ These case studies examine how leading technology companies have built and evolv
 ### 🗄️ Databases & Storage
 - **[Amazon Aurora](databases/amazon-aurora.md)** - MySQL/PostgreSQL-compatible relational database
 - **[Amazon Dynamo](databases/amazon-dynamo.md)** - The original eventually consistent key-value store
-- **[Amazon DynamoDB](databases/amazon-dynamodb.md)** - Distributed NoSQL database handling 10T+ requests/day
+- **[Amazon DynamoDB](databases/amazon-dynamo.md)** - Distributed NoSQL database handling 10T+ requests/day
 - **[Apache Cassandra](databases/cassandra.md)** - Wide-column distributed database for high write throughput
 - **[etcd](databases/etcd.md)** - Distributed key-value store for service discovery
-- **[Facebook Memcached](databases/facebook-memcached.md)** - Scaling memcached for social graphs
+- **[Facebook Memcached](databases/memcached.md)** - Scaling memcached for social graphs
 - **[Google Spanner](databases/google-spanner.md)** - Globally distributed relational database with external consistency
 - **[Key-Value Store Design](databases/key-value-store.md)** - Building distributed key-value stores
 - **[Memcached Architecture](databases/memcached.md)** - Distributed memory caching system
 - **[MongoDB](databases/mongodb.md)** - Document-oriented distributed database
-- **[Redis Architecture](databases/redis.md)** - In-memory data structure store with sub-millisecond latency
+- **[Redis Architecture](databases/redis-architecture.md)** - In-memory data structure store with sub-millisecond latency
 - **[Redis Deep Dive](databases/redis-architecture.md)** - Advanced Redis patterns and internals
 - **[HashiCorp Vault](databases/vault.md)** - Secrets management and data protection
 - **[Apache ZooKeeper](databases/zookeeper.md)** - Distributed coordination service
