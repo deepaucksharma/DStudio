@@ -414,85 +414,95 @@ graph TB
     style Recommend fill:#9f6
 ```
 
----
+## Quick Reference
 
-## 🎴 Quick Reference Cards
+### Decision Matrix
 
-### CAP Choice Cheat Sheet
+```mermaid
+graph TD
+    A["Need distributed system?"] --> B{"Can tolerate partitions?"}
+    B -->|No| C["Single-node system<br/>(Not truly distributed)"]
+    B -->|Yes| D{"Business Priority?"}
+    
+    D -->|"Data Correctness"| E["CP System<br/>Strong consistency"]
+    D -->|"Always Available"| F["AP System<br/>Eventual consistency"]
+    D -->|"Mixed Requirements"| G["Hybrid System<br/>Per-service choices"]
+    
+    E --> H["ZooKeeper, etcd<br/>Banking, Config"]
+    F --> I["Cassandra, DynamoDB<br/>Social, Analytics"]
+    G --> J["Netflix, Amazon<br/>E-commerce, Streaming"]
+    
+    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
+    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
+    
+    class G,J recommended
+    class C caution
+```
 
-<div>
+### Comparison with Alternatives
 
-**Choose CP When:**
-- Data correctness is critical (banking, inventory)
-- Can tolerate temporary unavailability
-- Strong consistency requirements
-- Transactions must be ACID
-
-**Choose AP When:**
-- System must always respond
-- Can handle eventual consistency
-- User experience prioritized
-- Read-heavy workloads
-
-**Choose CA When:**
-- Single datacenter deployment
-- No network partitions expected
-- Traditional monolithic architecture
-- Not truly distributed!
-
-</div>
+| Aspect | CAP Theorem | PACELC | Tunable Consistency | CRDTs |
+|--------|-------------|--------|-------------------|-------|
+| Complexity | Simple | Medium | High | Very High |
+| Practicality | Educational | High | Very High | Specialized |
+| Latency Focus | No | Yes | Yes | Yes |
+| Conflict Handling | None | Limited | Configurable | Automatic |
+| When to use | Learning | Architecture design | Production systems | Collaborative apps |
 
 ### Implementation Checklist
 
-<div>
+**Pre-Implementation**
+- [ ] Identified which data requires strong consistency
+- [ ] Mapped network partition scenarios for your infrastructure
+- [ ] Defined acceptable availability targets per service
+- [ ] Chosen appropriate consistency models per use case
 
-**Before Choosing Your CAP Strategy:**
-- [ ] Identify critical data that needs strong consistency
-- [ ] Determine acceptable downtime for each service
-- [ ] Map network partition scenarios
-- [ ] Design conflict resolution strategies
-- [ ] Plan monitoring for split-brain detection
-- [ ] Document consistency guarantees per API
-- [ ] Test partition scenarios in staging
-- [ ] Train team on consistency models
+**Implementation**
+- [ ] Implemented partition detection mechanisms
+- [ ] Added graceful degradation during partitions
+- [ ] Built conflict resolution strategies
+- [ ] Added monitoring for consistency/availability metrics
+
+**Post-Implementation**
+- [ ] Tested partition scenarios in staging environment
+- [ ] Trained team on CAP trade-offs and monitoring
+- [ ] Documented consistency guarantees per API
+- [ ] Established runbooks for partition handling
+
+### Related Resources
+
+<div class="grid cards" markdown>
+
+- :material-book-open-variant:{ .lg .middle } **Related Patterns**
+    
+    ---
+    
+    - [Eventual Consistency](../data-management/eventual-consistency.md) - AP system implementation
+    - [Consensus](../coordination/consensus.md) - CP system coordination
+    - [Circuit Breaker](../resilience/circuit-breaker.md) - Partition handling
+
+- :material-flask:{ .lg .middle } **Fundamental Laws**
+    
+    ---
+    
+    - [Law 2: Asynchronous Reality](../../part1-axioms/law2/) - Network delays
+    - [Law 3: Emergent Chaos](../../part1-axioms/law3/) - Partition inevitability
+
+- :material-pillar:{ .lg .middle } **Foundational Pillars**
+    
+    ---
+    
+    - [State Distribution](../../part2-pillars/state/) - Data consistency models
+    - [Truth Distribution](../../part2-pillars/truth/) - Consensus mechanisms
+
+- :material-tools:{ .lg .middle } **Modern Alternatives**
+    
+    ---
+    
+    - [PACELC Analysis Guide](../../excellence/guides/pacelc-analysis.md)
+    - [Tunable Consistency Setup](../../excellence/guides/tunable-consistency.md)
+    - [CRDT Implementation Guide](../../excellence/guides/crdt-setup.md)
 
 </div>
 
-### Common Patterns by Industry
-
-| Industry | Typical Choice | Reasoning | Example Systems |
-|----------|---------------|-----------|-----------------|
-| **Banking** | CP | Zero tolerance for inconsistency | Core banking, Payments |
-| **E-commerce** | Hybrid | Inventory (CP), Catalog (AP) | Amazon, eBay |
-| **Social Media** | AP | User experience over consistency | Facebook, Twitter |
-| **Gaming** | AP | Low latency critical | Leaderboards, Stats |
-| **Healthcare** | CP | Patient safety critical | Medical records |
-| **Analytics** | AP | Eventual accuracy acceptable | Metrics, Dashboards |
-
-
 ---
-
-## 🎓 Key Takeaways
-
-1. **CAP is a spectrum**, not a binary choice - most systems are "mostly CP" or "mostly AP"
-2. **Partition tolerance is non-negotiable** in distributed systems
-3. **Different parts of your system can make different CAP choices**
-4. **Consistency has many levels** - choose the weakest that meets your needs
-5. **Monitor and measure** your actual consistency and availability
-
----
-
-## 📚 Related Patterns
-
-- [Eventual Consistency](eventual-consistency.md) - AP system implementation
-- [Consensus](consensus.md) - Achieving CP with multiple nodes
-- [Circuit Breaker](circuit-breaker.md) - Handling partitions gracefully
-- [Saga Pattern](saga.md) - Managing distributed transactions
-
----
-
-*"In distributed systems, the question is not whether you will have network partitions, but when."*
-
----
-
-**Previous**: [← Bulkhead Pattern](bulkhead.md) | **Next**: [CAS Operations →](cas.md)
