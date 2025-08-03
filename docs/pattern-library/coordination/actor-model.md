@@ -1,299 +1,437 @@
 ---
 title: Actor Model
-description: Message-passing concurrency model with isolated actors communicating
-  asynchronously
+description: Message-passing concurrency model with isolated actors communicating asynchronously
 type: pattern
 category: coordination
 difficulty: advanced
-reading-time: 15 min
-prerequisites:
-- concurrency
-- distributed-systems
-when-to-use: Building highly concurrent, fault-tolerant systems with millions of independent
-  entities
-when-not-to-use: Simple request-response applications, systems requiring shared mutable
-  state
-status: complete
-last-updated: 2025-01-26
+reading_time: 25 min
+prerequisites: 
+  - concurrency
+  - distributed-systems
 excellence_tier: bronze
 pattern_status: legacy
-modern-alternatives:
-- service-mesh
-- serverless-faas
-- event-driven
-still-valid-for: Erlang/Elixir systems, specific IoT scenarios, academic study
-migration-guide: /excellence/migrations/actor-to-service-mesh
-related-laws:
-- law2-asynchrony
-- law3-emergence
-- law6-human-api
-related-pillars:
-- work
-- control
-introduced: 2024-01
-current_relevance: mainstream
-deprecation-reason: Consider modern alternatives for new implementations
+introduced: 1973-01
+current_relevance: niche
+essential_question: How do we handle millions of concurrent entities without shared state complexity?
+tagline: Isolated actors communicate through messages for fault-tolerant concurrency
+modern_alternatives:
+  - "Service Mesh for microservice communication"
+  - "Serverless Functions for isolated compute"
+  - "Event-Driven Architecture for async processing"
+deprecation_reason: "Modern alternatives provide better developer experience with clearer patterns"
+related_laws:
+  - law2-asynchrony
+  - law3-emergence
+  - law6-human-api
+related_pillars:
+  - work
+  - control
 ---
-
 
 # Actor Model
 
-!!! info "🥉 Bronze Tier Pattern"
-    **Legacy pattern with limited modern applicability**
+!!! warning "🥉 Bronze Tier Pattern"
+    **Legacy concurrency model - Consider modern alternatives** • Modern patterns provide better solutions
     
-    While the Actor Model pioneered important concurrency concepts, modern alternatives like service mesh and serverless provide better solutions for most use cases. The complexity without clear benefits makes it unsuitable for new projects.
+    While the Actor Model pioneered important concurrency concepts, service mesh, serverless, and event-driven architectures provide better solutions for most use cases. The complexity without clear benefits makes it unsuitable for new projects.
     
-    **Consider instead:**
-    - **Service Mesh** for microservice communication
-    - **Serverless Functions** for isolated compute
-    - **Event-Driven Architecture** for async processing
+    **Migration Path:** See [Service Mesh](../architecture/service-mesh.md) or [Event-Driven Architecture](../architecture/event-driven.md) for current best practices
 
-> *"Don't communicate by sharing memory; share memory by communicating."* - The actor model takes this principle to its logical extreme.
+## Essential Question
 
-## Core Principles
+**How do we handle millions of concurrent entities without shared state complexity?**
+
+## When to Use / When NOT to Use
+
+### ✅ Use When
+
+| Scenario | Example | Impact |
+|----------|---------|--------|
+| **Erlang/Elixir Systems** | Existing BEAM VM infrastructure | Leverage ecosystem strengths |
+| **Massive Entity Simulation** | IoT device simulation with millions of entities | Natural entity-per-actor mapping |
+| **Telecoms/Messaging** | WhatsApp-style messaging systems | Proven at massive scale |
+
+### ❌ DON'T Use When
+
+| Scenario | Why | Alternative |
+|----------|-----|-------------|
+| **Microservices** | Service mesh provides better patterns | [Service Mesh](../architecture/service-mesh.md) |
+| **Serverless Workloads** | Functions are simpler isolated units | [Serverless Functions](../scaling/serverless.md) |
+| **Event Processing** | Stream processing is more efficient | [Event-Driven Architecture](../architecture/event-driven.md) |
+| **Simple CRUD** | Over-engineered for basic operations | Traditional REST APIs |
+| **Team Learning** | Steep learning curve without clear benefits | Start with proven patterns |
+
+## Level 1: Intuition (5 min) {#intuition}
+
+### The Story
+
+Imagine a massive office building where employees never share documents or talk face-to-face. Instead, they only communicate by sending memos through pneumatic tubes. Each employee works independently in their office, processes memos one at a time, and can send memos to any other employee. If someone quits, their supervisor hires a replacement instantly.
+
+### Visual Metaphor
+
+```mermaid
+graph LR
+    subgraph "Actor World"
+        A1[Actor 1] -->|Message| A2[Actor 2]
+        A2 -->|Reply| A1
+        A3[Actor 3] -->|Message| A2
+        A4[Actor 4] -->|Message| A3
+    end
+    
+    subgraph "No Direct Access"
+        A1 -.X.- S1[Shared State]
+        A2 -.X.- S1
+        A3 -.X.- S1
+    end
+    
+    style A1 fill:#81c784,stroke:#388e3c
+    style A2 fill:#64b5f6,stroke:#1976d2
+    style S1 fill:#ffcdd2,stroke:#d32f2f
+```
+
+### Core Insight
+
+> **Key Takeaway:** The Actor Model eliminates shared state complexity by making everything a message-passing entity, but modern patterns achieve the same goals with less complexity.
+
+### In One Sentence
+
+The Actor Model handles concurrency by creating isolated entities that communicate only through asynchronous messages, providing fault tolerance through supervision hierarchies.
+
+## Level 2: Foundation (10 min) {#foundation}
+
+### The Problem Space
+
+<div class="failure-vignette">
+<h4>🚨 What Happens Without Isolation</h4>
+
+**Traditional Threading, 2020**: E-commerce platform using shared state for inventory management experienced race conditions during Black Friday. Multiple threads updating inventory counters led to overselling products.
+
+**Impact**: 15% of orders oversold, $2M in losses from order cancellations and expedited shipping costs to fulfill promises.
+</div>
+
+### How It Works
+
+#### Actor System Architecture
 
 ```mermaid
 graph TB
-    subgraph "Actor Model Principles"
-        A1[No Shared State] --> B1[Message Passing Only]
-        A2[Location Transparency] --> B2[Actors Can Be Anywhere]
-        A3[Asynchronous Processing] --> B3[Non-blocking Operations]
-        A4[Supervision Hierarchy] --> B4[Fault Isolation]
-    end
-    
-    style A1 fill:#e8f5e9
-    style A2 fill:#e3f2fd
-    style A3 fill:#fff3e0
-    style A4 fill:#fce4ec
-```
-
-## Actor Hierarchy & Supervision
-
-```mermaid
-graph TD
-    subgraph "Actor System"
+    subgraph "Actor System Hierarchy"
         Root[Root Guardian]
         Root --> User[User Guardian]
         Root --> System[System Guardian]
         
-        User --> S1[Supervisor 1]
-        User --> S2[Supervisor 2]
+        User --> S1[Order Supervisor]
+        User --> S2[Payment Supervisor]
         
-        S1 --> W1[Worker 1]
-        S1 --> W2[Worker 2]
-        S1 --> W3[Worker 3]
+        S1 --> O1[Order Actor 1]
+        S1 --> O2[Order Actor 2]
+        S1 --> O3[Order Actor 3]
         
-        S2 --> DB1[DB Actor 1]
-        S2 --> DB2[DB Actor 2]
+        S2 --> P1[Payment Actor 1]
+        S2 --> P2[Payment Actor 2]
         
-        System --> Logger[Logger Actor]
-        System --> Metrics[Metrics Actor]
+        System --> Logger[Logger]
+        System --> Metrics[Metrics]
     end
     
-    style Root fill:#b39ddb
-    style User fill:#90caf9
-    style System fill:#a5d6a7
+    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
+    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
+    
+    class Root,S1,S2 primary
+    class O1,O2,O3,P1,P2 secondary
 ```
 
-## Message Flow Architecture
+#### Key Components
+
+| Component | Purpose | Responsibility |
+|-----------|---------|----------------|
+| **Actor** | Isolated processing unit | Maintain state, process messages sequentially |
+| **Mailbox** | Message queue | Store incoming messages, enforce ordering |
+| **Supervisor** | Fault management | Monitor children, restart on failure |
+| **Message** | Communication unit | Immutable data passed between actors |
+
+### Basic Example
+
+```python
+# Conceptual actor implementation
+class Actor:
+    def __init__(self):
+        self.mailbox = Queue()
+        self.state = {}
+        
+    def send(self, message):
+        """Non-blocking message send"""
+        self.mailbox.put(message)
+        
+    def receive(self):
+        """Process one message"""
+        message = self.mailbox.get()
+        self.handle_message(message)
+```
+
+## Level 3: Deep Dive (15 min) {#deep-dive}
+
+### Implementation Details
+
+#### Message Flow Patterns
 
 ```mermaid
 sequenceDiagram
     participant Client
-    participant Router as Router Actor
-    participant Worker1 as Worker Actor 1
-    participant Worker2 as Worker Actor 2
-    participant DB as Database Actor
+    participant Router
+    participant Worker1
+    participant Worker2
+    participant DB
     
     Client->>Router: Request(id: 123)
-    Router->>Router: Select worker
+    Note over Router: Route to available worker
     Router->>Worker1: Process(id: 123)
-    Worker1->>DB: Query(id: 123)
+    Worker1->>DB: QueryActor.Query(id: 123)
     DB-->>Worker1: Result(data)
     Worker1-->>Router: Response(data)
     Router-->>Client: Response(data)
     
-    Note over Worker2: Idle - Can process<br/>other requests
-    
-    Router->>Worker2: Process(id: 456)
-    Note over Worker1,Worker2: Concurrent processing
+    par Concurrent Processing
+        Client->>Router: Request(id: 456)
+        Router->>Worker2: Process(id: 456)
+    end
 ```
 
-## Actor Implementation Components
+#### Critical Design Decisions
 
-| Component | Purpose | Key Features |
-|-----------|---------|--------------|
-| **Mailbox** | Message queue for actor | - FIFO or priority ordering<br/>- Bounded/unbounded options<br/>- Overflow strategies |
-| **Message Handler** | Process incoming messages | - Pattern matching<br/>- State transitions<br/>- Side effect isolation |
-| **Supervision Strategy** | Handle child failures | - One-for-one restart<br/>- All-for-one restart<br/>- Escalate to parent |
-| **Actor Context** | Runtime environment | - Self reference<br/>- Parent/children refs<br/>- System access |
-| **Dispatcher** | Thread management | - Thread pool config<br/>- Scheduling strategy<br/>- Blocking I/O handling |
+| Decision | Options | Trade-off | Recommendation |
+|----------|---------|-----------|----------------|
+| **Mailbox Type** | Bounded<br>Unbounded | Bounded: Memory safe, backpressure<br>Unbounded: Risk of OOM | Bounded with overflow strategy |
+| **Message Ordering** | FIFO<br>Priority | FIFO: Simple, fair<br>Priority: Complex but flexible | FIFO unless priority needed |
+| **Supervision Strategy** | One-for-One<br>All-for-One | One: Isolated failures<br>All: Consistent state | One-for-One for independence |
 
-## Concurrency Models Comparison
+### Common Pitfalls
 
-| Aspect | Actor Model | Thread-Based | CSP (Channels) | Event Loop |
-|--------|-------------|--------------|----------------|------------|
-| **Communication** | Async messages | Shared memory + locks | Synchronous channels | Callbacks/Promises |
-| **Isolation** | Complete | Manual via locks | Channel-based | Single thread |
-| **Scalability** | Millions of actors | Limited by OS threads | Good | Limited by one thread |
-| **Fault Tolerance** | Built-in supervision | Manual try-catch | Manual | Error callbacks |
-| **Debugging** | Message traces | Thread dumps | Channel monitoring | Stack traces |
-| **Use Case** | Distributed systems | CPU-bound tasks | Pipeline processing | I/O-bound tasks |
+<div class="decision-box">
+<h4>⚠️ Avoid These Mistakes</h4>
 
-## Supervision Strategies
+1. **Blocking Operations**: Never block message processing → Use separate actors for I/O
+2. **Large Messages**: Avoid copying big data → Send references or use streaming
+3. **Synchronous Patterns**: Don't wait for replies → Embrace async messaging
+</div>
+
+### Production Considerations
+
+#### Performance Characteristics
+
+| Metric | Typical Range | Optimization Target |
+|--------|---------------|-------------------|
+| Message Latency | 1-100 μs | < 10 μs for local actors |
+| Throughput | 1M-50M msgs/sec | Depends on message complexity |
+| Memory per Actor | 300B-2KB | Minimize state size |
+| Actor Creation | 1M actors/sec | Pool reuse for short-lived actors |
+
+## Level 4: Expert (20 min) {#expert}
+
+### Advanced Techniques
+
+#### Optimization Strategies
+
+1. **Actor Pooling**
+   - When to apply: High actor churn scenarios
+   - Impact: 10x reduction in allocation overhead
+   - Trade-off: More complex lifecycle management
+
+2. **Message Batching**
+   - When to apply: High message volume with processing overhead
+   - Impact: 3-5x throughput improvement
+   - Trade-off: Increased latency for individual messages
+
+### Scaling Considerations
 
 ```mermaid
 graph LR
-    subgraph "Failure Handling"
-        F[Child Failure] --> D{Supervision<br/>Decision}
-        D -->|Resume| R[Continue Processing]
-        D -->|Restart| RS[Restart Child]
-        D -->|Stop| S[Stop Child]
-        D -->|Escalate| E[Propagate to Parent]
-        
-        RS --> ST{Strategy}
-        ST -->|One-for-One| O1[Restart Failed Only]
-        ST -->|All-for-One| A1[Restart All Children]
-        ST -->|Rest-for-One| R1[Restart Failed + Later]
+    subgraph "Single Node"
+        A1[Local Actors]
+        A1 --> A2[In-Memory Messages]
     end
     
-    style F fill:#ffcdd2
-    style D fill:#fff9c4
-    style E fill:#ffccbc
+    subgraph "Cluster"
+        B1[Node 1<br/>Actors A-F]
+        B2[Node 2<br/>Actors G-M]
+        B3[Node 3<br/>Actors N-Z]
+        
+        B1 <-->|Network Messages| B2
+        B2 <-->|Network Messages| B3
+        B3 <-->|Network Messages| B1
+    end
+    
+    subgraph "Geographic Distribution"
+        C1[US East<br/>User Actors]
+        C2[US West<br/>User Actors]
+        C3[EU<br/>User Actors]
+        
+        C1 <-->|WAN Messages| C2
+        C2 <-->|WAN Messages| C3
+    end
+    
+    A1 -->|Scale Up| B1
+    B1 -->|Scale Out| C1
 ```
 
-## Real-World Implementations
+### Monitoring & Observability
 
-### Erlang/Elixir (BEAM VM)
+#### Key Metrics to Track
 
-<div class="decision-box">
-<h4>WhatsApp Architecture</h4>
+| Metric | Alert Threshold | Dashboard Panel |
+|--------|----------------|-----------------|
+| Mailbox Depth | > 10,000 messages | Histogram with P95/P99 |
+| Message Processing Time | > 100ms P95 | Time series by actor type |
+| Actor Restart Rate | > 10 restarts/min | Counter with cause breakdown |
+| Memory per Actor | > 10KB average | Memory usage distribution |
 
-- **2M connections/server** using Erlang actors
-- **Supervision trees** for 99.999% uptime
-- **Hot code swapping** without downtime
-- **Pattern**: One actor per user session
+## Level 5: Mastery (30 min) {#mastery}
 
+### Real-World Case Studies
+
+#### Case Study 1: WhatsApp at Scale
+
+<div class="truth-box">
+<h4>💡 Production Insights from WhatsApp</h4>
+
+**Challenge**: Handle 2 million concurrent connections per server with 99.999% uptime
+
+**Implementation**: 
+- One Erlang actor per user session
+- Supervision trees for automatic recovery
+- Hot code deployment without downtime
+
+**Results**: 
+- **Concurrent Users**: 2M connections/server
+- **Uptime**: 99.999% availability
+- **Staff Efficiency**: 50 engineers supporting 900M users
+
+**Lessons Learned**: Actor model excels when each entity has natural state isolation and the platform (BEAM VM) is designed for it.
 </div>
 
-### Akka (JVM)
+### Pattern Evolution
 
-```scala
-// Actor definition
-class OrderProcessor extends Actor {
-  def receive = {
-    case Order(id, items) =>
-      val total = items.map(_.price).sum
-      sender() ! OrderConfirmation(id, total)
-    case Cancel(id) =>
-      // Handle cancellation
-  }
-}
-
-// Supervision
-class OrderSupervisor extends Actor {
-  override val supervisorStrategy = 
-    OneForOneStrategy(maxNrOfRetries = 10) {
-      case _: SQLException => Restart
-      case _: Exception => Escalate
-    }
-}
-```
-
-### Orleans (Virtual Actors)
-
-| Feature | Orleans Approach | Traditional Actors |
-|---------|------------------|-------------------|
-| **Lifecycle** | Automatic activation/deactivation | Manual management |
-| **Location** | Transparent migration | Fixed placement |
-| **Persistence** | Built-in state management | Manual implementation |
-| **Concurrency** | Turn-based (single-threaded) | Message interleaving |
-
-## Message Patterns
+#### Migration from Legacy
 
 ```mermaid
-graph TB
-    subgraph "Common Patterns"
-        P1[Request-Reply] --> D1[Correlation IDs]
-        P2[Publish-Subscribe] --> D2[Event Bus Actor]
-        P3[Scatter-Gather] --> D3[Aggregator Actor]
-        P4[Routing Slip] --> D4[Chain of Actors]
-        P5[Saga] --> D5[Coordinator Actor]
-    end
+graph LR
+    A[Shared State<br/>Threading] -->|Step 1| B[Message Passing<br/>Actors]
+    B -->|Step 2| C[Service Mesh<br/>Microservices]
+    C -->|Step 3| D[Serverless<br/>Functions]
     
-    style P1 fill:#e1f5fe
-    style P2 fill:#f3e5f5
-    style P3 fill:#e8f5e9
-    style P4 fill:#fff8e1
-    style P5 fill:#fce4ec
+    style A fill:#ffb74d,stroke:#f57c00
+    style B fill:#81c784,stroke:#388e3c
+    style C fill:#4fc3f7,stroke:#0288d1
+    style D fill:#ba68c8,stroke:#7b1fa2
 ```
 
-## When to Use Actor Model
+#### Future Directions
 
-<div class="axiom-box">
-<h4>Use Actor Model When:</h4>
+| Trend | Impact on Pattern | Adaptation Strategy |
+|-------|------------------|-------------------|
+| **Serverless Computing** | Functions replace actors | Migrate to event-driven serverless |
+| **Service Mesh** | Better microservice patterns | Use mesh for service communication |
+| **Edge Computing** | Need for lighter patterns | Consider reactive streams |
 
-✅ **High Concurrency**: Millions of independent entities  
-✅ **Fault Tolerance**: Isolated failure domains required  
-✅ **Distribution**: Natural fit for distributed systems  
-✅ **State Encapsulation**: Each entity owns its state  
-✅ **Event-Driven**: Async message processing fits domain  
+### Pattern Combinations
+
+#### Works Well With
+
+| Pattern | Combination Benefit | Integration Point |
+|---------|-------------------|------------------|
+| [Event Sourcing](../data-management/event-sourcing.md) | Actors naturally emit events | Actor state changes → events |
+| [CQRS](../architecture/cqrs.md) | Actors handle commands | Command actors + query services |
+| [Circuit Breaker](../resilience/circuit-breaker.md) | Protect external calls | Wrap external services in actors |
+
+## Quick Reference
+
+### Decision Matrix
+
+```mermaid
+graph TD
+    A[Need Concurrency?] --> B{Platform?}
+    B -->|BEAM VM| C[Use Actors]
+    B -->|JVM/CLR| D{Scale?}
+    B -->|Other| E[Consider Alternatives]
+    
+    D -->|< 10K entities| F[Use Threads]
+    D -->|> 10K entities| G[Maybe Actors]
+    
+    C --> H[Erlang/Elixir Ecosystem]
+    G --> I[Evaluate vs Service Mesh]
+    E --> J[Event-Driven Architecture]
+    
+    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
+    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
+    classDef avoid fill:#ffcdd2,stroke:#d32f2f,stroke-width:2px
+    
+    class C recommended
+    class I caution
+    class J,E avoid
+```
+
+### Comparison with Alternatives
+
+| Aspect | Actor Model | Service Mesh | Serverless | Event-Driven |
+|--------|-------------|--------------|------------|--------------|
+| **Complexity** | High | Medium | Low | Medium |
+| **Learning Curve** | Steep | Moderate | Gentle | Moderate |
+| **Scalability** | Excellent | Excellent | Excellent | Good |
+| **Ecosystem** | Limited | Growing | Mature | Mature |
+| **When to use** | BEAM platforms | Microservices | Event-driven workloads | Async processing |
+
+### Implementation Checklist
+
+**Pre-Implementation**
+- [ ] Validated that entity isolation is natural for the domain
+- [ ] Confirmed team has expertise or can invest in learning
+- [ ] Evaluated modern alternatives (service mesh, serverless)
+- [ ] Assessed platform ecosystem (Erlang/Akka/Orleans)
+
+**Implementation**
+- [ ] Designed supervision hierarchy
+- [ ] Defined message protocols (immutable)
+- [ ] Configured mailbox strategies
+- [ ] Implemented monitoring and metrics
+
+**Post-Implementation**
+- [ ] Load tested message throughput
+- [ ] Validated fault tolerance scenarios
+- [ ] Created operational runbooks
+- [ ] Planned migration to modern patterns if needed
+
+### Related Resources
+
+<div class="grid cards" markdown>
+
+- :material-book-open-variant:{ .lg .middle } **Modern Alternatives**
+    
+    ---
+    
+    - [Service Mesh](../architecture/service-mesh.md) - Better for microservices
+    - [Serverless Functions](../scaling/serverless.md) - Simpler isolation
+    - [Event-Driven Architecture](../architecture/event-driven.md) - Modern async patterns
+
+- :material-flask:{ .lg .middle } **Fundamental Laws**
+    
+    ---
+    
+    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - Message passing nature
+    - [Law 3: Emergent Chaos](../../part1-axioms/law3-emergence/) - Supervision hierarchies
+
+- :material-pillar:{ .lg .middle } **Foundational Pillars**
+    
+    ---
+    
+    - [Work Distribution](../../part2-pillars/work/) - Actor-based work distribution
+    - [Control Distribution](../../part2-pillars/control/) - Supervision patterns
+
+- :material-tools:{ .lg .middle } **Migration Guides**
+    
+    ---
+    
+    - [Actor to Service Mesh](../../excellence/migrations/actor-to-service-mesh.md)
+    - [Actor to Serverless](../../excellence/migrations/actor-to-serverless.md)
+    - [Modern Concurrency Patterns](../../excellence/guides/modern-concurrency.md)
 
 </div>
-
-<div class="failure-vignette">
-<h4>Avoid Actor Model When:</h4>
-
-❌ **Shared State**: Need efficient shared data structures  
-❌ **Synchronous Operations**: Require immediate responses  
-❌ **Simple CRUD**: Over-engineering for basic operations  
-❌ **Data Processing**: Better suited for stream processing  
-❌ **Team Expertise**: Steep learning curve for teams  
-
-</div>
-
-## Performance Characteristics
-
-| Metric | Typical Range | Factors |
-|--------|---------------|---------|
-| **Message Throughput** | 1M-50M msgs/sec | Mailbox implementation, message size |
-| **Actor Creation** | 1M actors/sec | Memory allocation, supervision setup |
-| **Latency** | 1-100 μs | Message passing overhead, scheduling |
-| **Memory/Actor** | 300B-2KB | State size, mailbox depth |
-
-## Anti-Patterns to Avoid
-
-<div class="failure-vignette">
-<h4>Common Actor Model Mistakes</h4>
-
-1. **Blocking Operations**: Never block in message handler
-2. **Shared Mutable State**: Breaks isolation guarantees  
-3. **Synchronous Asks**: Defeats async benefits
-4. **Deep Hierarchies**: Hard to reason about failures
-5. **Large Messages**: Use references for big data
-
-</div>
-
-## Implementation Checklist
-
-- [ ] **Message Protocol**: Define immutable message types
-- [ ] **Supervision Tree**: Design failure handling hierarchy
-- [ ] **Mailbox Strategy**: Choose bounded vs unbounded
-- [ ] **Dispatcher Config**: Tune thread pools for workload
-- [ ] **Monitoring**: Add metrics for mailbox depth, processing time
-- [ ] **Testing**: Use test probes for message verification
-- [ ] **Deployment**: Plan for actor distribution across nodes
-
-## Related Patterns
-
-- [Event Sourcing](event-sourcing.md) - Natural fit for actor state
-- [CQRS](cqrs.md) - Actors for command processing
-- [Saga](saga.md) - Coordinate with actor supervisors
-- [Circuit Breaker](circuit-breaker.md) - Protect external calls
-
-## References
-
-- [Hewitt's Original Paper (1973)](https://doi.org/10.3233/978-1-58603-578-1-151)
-- [Akka Documentation](https://doc.akka.io/)
-- [Orleans Documentation](https://dotnet.github.io/orleans/)
-- [Erlang OTP Principles](https://erlang.org/doc/design_principles/des_princ.html)

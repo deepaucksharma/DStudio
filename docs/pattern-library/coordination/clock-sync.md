@@ -93,8 +93,16 @@ graph TD
         T1 --> T2
     end
     
+    subgraph "Synchronization Process"
+        S1[Check Time Server] --> S2[Calculate Offset]
+        S2 --> S3[Adjust Clock Gradually]
+        S3 --> S4[Monitor Drift]
+        S4 --> S1
+    end
+    
     style T0 fill:#81c784,stroke:#388e3c
     style T2 fill:#ef5350,stroke:#c62828
+    style S3 fill:#64b5f6,stroke:#1976d2
 ```
 
 ### Core Insight
@@ -155,29 +163,49 @@ graph TB
 ```python
 # Simplified NTP client implementation
 def sync_with_time_server(server_address):
-    """Basic time synchronization"""
-    # Record local time before request
-    t1 = time.time()
+    """Basic time synchronization with NTP protocol"""
+    # Record timestamps (NTP 4-timestamp model)
+    t1 = time.time()  # Client send time
+    server_time = request_time(server_address)  # t2, t3 from server
+    t4 = time.time()  # Client receive time
     
-    # Request time from server
-    server_time = request_time(server_address)
+    # Calculate network delay and clock offset
+    delay = (t4 - t1) - (server_time['t3'] - server_time['t2'])
+    offset = ((server_time['t2'] - t1) + (server_time['t3'] - t4)) / 2
     
-    # Record local time after response
-    t4 = time.time()
+    # Gradual clock adjustment (slewing)
+    if abs(offset) < 0.5:  # Small adjustments
+        adjust_clock_rate(offset)
+    else:  # Large adjustments
+        step_clock(offset)
     
-    # Calculate round-trip time and offset
-    rtt = t4 - t1
-    estimated_offset = server_time - t1 - (rtt / 2)
-    
-    # Adjust local clock gradually
-    adjust_system_clock(estimated_offset)
-    
-    return estimated_offset, rtt / 2  # offset, accuracy
+    return offset, delay / 2
 ```
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
+
+#### NTP Protocol Timing Sequence
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Server
+    
+    Note over C: T1: Client timestamp
+    C->>S: NTP Request (T1: 10:00:00.000)
+    
+    Note over S: T2: Server receive (10:00:00.050)
+    Note over S: T3: Server transmit (10:00:00.052)
+    S->>C: NTP Response (T2, T3, Server Time)
+    
+    Note over C: T4: Client receive (10:00:00.102)
+    
+    Note over C: Calculate:<br/>Delay = (T4-T1) - (T3-T2)<br/>Offset = ((T2-T1) + (T3-T4)) / 2
+    
+    C->>C: Adjust local clock by offset
+```
 
 #### NTP Protocol State Machine
 
