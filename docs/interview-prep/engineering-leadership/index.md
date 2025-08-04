@@ -6,6 +6,33 @@
 
 Our comprehensive guide is built on a principled framework that integrates elite business school concepts with engineering leadership practice:
 
+```mermaid
+graph TD
+    subgraph "Engineering Leadership Framework"
+        IV["🎯 Level IV: Interview Execution<br/>THE PROOF<br/>• Behavioral Mastery<br/>• Technical Leadership<br/>• System & Org Design<br/>• Culture Alignment"] 
+        
+        III["⚙️ Level III: Engineering Applications<br/>THE PRACTICAL 'WHAT'<br/>• People Management<br/>• Technical Leadership<br/>• Organizational Design<br/>• Business Acumen"]
+        
+        II["💼 Level II: Core Business Concepts<br/>THE STRATEGIC 'HOW'<br/>• Strategy & Leadership<br/>• Operations & Finance<br/>• Risk & Governance"]
+        
+        I["📐 Level I: First Principles<br/>THE FOUNDATIONAL 'WHY'<br/>• Value Creation<br/>• Decision Making<br/>• Human Behavior<br/>• Systems Thinking<br/>• Integrity & Ethics"]
+    end
+    
+    I --> II
+    II --> III
+    III --> IV
+    
+    classDef level1 fill:#e8f4fd,stroke:#1976d2,stroke-width:3px
+    classDef level2 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    classDef level3 fill:#e8f5e8,stroke:#388e3c,stroke-width:3px
+    classDef level4 fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+    
+    class I level1
+    class II level2
+    class III level3
+    class IV level4
+```
+
 <div class="framework-overview">
 
 ### [📐 Level I: First Principles](level-1-first-principles/)
@@ -200,23 +227,23 @@ This comprehensive guide is designed for:
 
 ## 🔑 Key Differentiators
 
-### What Separates Good from Great
+### 🎯 What Separates Good from Great
 
-#### Good Candidates
-- ✓ Manage teams effectively
-- ✓ Deliver projects on time
-- ✓ Handle day-to-day operations
-- ✓ Resolve conflicts
+!!! info "✅ Good Candidates - Operational Excellence"
+    - **Manage teams effectively** - Keep people productive and aligned
+    - **Deliver projects on time** - Execute reliably within scope
+    - **Handle day-to-day operations** - Maintain stable systems and processes
+    - **Resolve conflicts** - Address interpersonal and technical issues
 
-#### Great Candidates
-- ✓ Transform organizations
-- ✓ Drive strategic initiatives
-- ✓ Build lasting cultures
-- ✓ Develop future leaders
-- ✓ Create multiplier effects
-- ✓ Influence without authority
-- ✓ **Think in first principles**
-- ✓ **Apply business frameworks**
+!!! tip "🌟 Great Candidates - Transformational Leadership"
+    - **Transform organizations** - Drive meaningful change at scale
+    - **Drive strategic initiatives** - Lead cross-functional efforts
+    - **Build lasting cultures** - Create environments where people thrive
+    - **Develop future leaders** - Multiply impact through others
+    - **Create multiplier effects** - Generate value beyond direct reports
+    - **Influence without authority** - Lead through vision and expertise
+    - **Think in first principles** - Apply foundational reasoning frameworks
+    - **Apply business frameworks** - Connect engineering to business outcomes
 
 ## 📚 Essential Resources
 
@@ -322,6 +349,36 @@ For those ready to go deeper, explore our [Hard-Earned Wisdom](hard-earned-wisdo
 2. [Level III Applications](level-3-applications/) - Target weak areas
 3. [Hard-Earned Wisdom](hard-earned-wisdom/) - Learn from experience
 4. Apply in your current role
+
+## 🔗 Related Resources
+
+### For Individual Contributors
+If you're still in an IC role or want to strengthen your technical foundation:
+
+<div class="grid cards" markdown>
+
+- :material-code-tags:{ .lg } **[IC Interviews Guide](../ic-interviews/)**
+    
+    ---
+    
+    Complete guide for Software Engineer interviews (L3-L5)
+    
+    **Covers**: System design, behavioral interviews, technical leadership without authority
+
+- :material-graph-outline:{ .lg } **[System Design for Leaders](../ic-interviews/frameworks/)**
+    
+    ---
+    
+    Design thinking frameworks that apply to both IC and leadership roles
+    
+    **Essential**: Architecture thinking scales from code to organizations
+
+</div>
+
+### Career Transition Resources
+- **IC → Manager**: Focus on [People Management](level-3-applications/people-management/) first
+- **Strong IC → Staff+**: Use both guides - technical depth + leadership influence
+- **Manager → IC**: [System Design refresher](../ic-interviews/common-problems/) + technical credibility
 
 ---
 

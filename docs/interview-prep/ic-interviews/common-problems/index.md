@@ -45,6 +45,15 @@ This collection includes the most common system design problems asked in technic
 - **[Inventory Management](inventory/)** - Stock tracking
 - **[Shopping Cart](shopping-cart/)** - Cart service
 
+### Storage & Collaboration Systems
+- **[Cloud Storage](cloud-storage/)** - Dropbox/Google Drive clone
+- **[Collaborative Editor](collaborative-editor/)** - Google Docs real-time editing
+
+### Development & Infrastructure
+- **[CI/CD Pipeline](cicd-pipeline/)** - Jenkins/GitHub Actions clone
+- **[IoT Platform](iot-platform/)** - Device management and data processing
+- **[ML Serving System](ml-serving/)** - Model deployment and inference
+
 ### Transportation Systems
 - **[Uber/Lyft](ride-sharing/)** - Ride matching
 - **[Uber Eats](food-delivery/)** - Food delivery
@@ -74,6 +83,9 @@ This collection includes the most common system design problems asked in technic
 | News Feed | Timeline generation, ranking |
 | Video Upload | Encoding, storage, CDN |
 | Payment System | Transactions, consistency |
+| **[Cloud Storage](cloud-storage/)** | File sync, deduplication, conflict resolution |
+| **[Collaborative Editor](collaborative-editor/)** | Real-time sync, operational transforms |
+| **[CI/CD Pipeline](cicd-pipeline/)** | Job orchestration, artifact management |
 
 ### Advanced (60+ min)
 | Problem | Key Concepts |
@@ -82,6 +94,8 @@ This collection includes the most common system design problems asked in technic
 | Search Engine | Indexing, ranking, crawling |
 | Social Network | Graph algorithms, scaling |
 | Live Streaming | Low latency, distribution |
+| **[IoT Platform](iot-platform/)** | Device management, stream processing |
+| **[ML Serving System](ml-serving/)** | Model lifecycle, feature stores, A/B testing |
 
 ## 📊 Common Patterns Used
 
@@ -94,6 +108,11 @@ This collection includes the most common system design problems asked in technic
 | Storage | Sharding, Replication, Caching |
 | Streaming | CDN, Encoding, Adaptive Bitrate |
 | Transactions | Saga, 2PC, Event Sourcing |
+| **Collaboration** | **Operational Transforms, CRDTs, WebSocket Scaling** |
+| **File Systems** | **Content Addressable Storage, Deduplication, Conflict Resolution** |
+| **DevOps** | **Event-Driven Architecture, Job Queues, Circuit Breaker** |
+| **IoT** | **Stream Processing, Time Series DB, Device Management** |
+| **ML Systems** | **Model Versioning, Feature Store, A/B Testing** |
 
 ## 🏃 Practice Strategy
 
@@ -112,10 +131,10 @@ This collection includes the most common system design problems asked in technic
 - Day 3-4: E-commerce
 - Day 5-7: Transportation
 
-### Week 4: Advanced
-- Day 1-2: Search systems
-- Day 3-4: Complex workflows
-- Day 5-7: Mock interviews
+### Week 4: Advanced & Specialized
+- Day 1-2: IoT and ML serving systems
+- Day 3-4: Collaboration and real-time systems
+- Day 5-7: Mock interviews with new problems
 
 ## 💡 Problem-Solving Framework
 
@@ -148,4 +167,16 @@ This collection includes the most common system design problems asked in technic
 
 ---
 
-*Start with [URL Shortener](url-shortener/) for a classic introductory problem, or jump to a domain you're interested in.*
+## 🆕 Recently Added Problems
+
+The following advanced system design problems have been added to cover modern distributed systems challenges:
+
+- **[Cloud Storage System](cloud-storage/)** - File synchronization, deduplication, and conflict resolution
+- **[IoT Platform](iot-platform/)** - Device management and real-time data processing at scale  
+- **[ML Serving System](ml-serving/)** - Model lifecycle management and inference serving
+- **[Collaborative Editor](collaborative-editor/)** - Real-time collaborative editing with operational transforms
+- **[CI/CD Pipeline](cicd-pipeline/)** - Build orchestration and deployment automation
+
+---
+
+*Start with [URL Shortener](url-shortener/) for a classic introductory problem, or explore the new specialized problems for modern system design challenges.*

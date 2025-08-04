@@ -679,8 +679,14 @@ nav:
         - Team Building & Culture: interview-prep/engineering-leadership/level-3-applications/people-management/team-building-culture.md
         - Performance Management: interview-prep/engineering-leadership/level-3-applications/people-management/performance-management.md
         - Practice Scenarios:
+          - Overview: interview-prep/engineering-leadership/practice-scenarios/index.md
           - Managing Underperformers: interview-prep/engineering-leadership/practice-scenarios/underperformer-scenario.md
           - Team Conflict Resolution: interview-prep/engineering-leadership/practice-scenarios/team-conflict-scenario.md
+          - Tight Deadline Crunch: interview-prep/engineering-leadership/practice-scenarios/tight-deadline-scenario.md
+          - Reorganization Leadership: interview-prep/engineering-leadership/practice-scenarios/reorg-scenario.md
+          - Delivering Bad News: interview-prep/engineering-leadership/practice-scenarios/bad-news-scenario.md
+          - Stakeholder Negotiation: interview-prep/engineering-leadership/practice-scenarios/stakeholder-negotiation-scenario.md
+          - Managing Up: interview-prep/engineering-leadership/practice-scenarios/managing-up-scenario.md
       - Technical Leadership:
         - Overview: interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md
         - Technical Strategy: interview-prep/engineering-leadership/level-3-applications/technical-leadership/technical-strategy.md
@@ -714,6 +720,11 @@ nav:
     # Additional Resources
     - Company Specific:
       - Amazon Leadership Principles: interview-prep/engineering-leadership/company-specific/amazon/index.md
+      - Google Engineering Excellence: interview-prep/engineering-leadership/company-specific/google/index.md
+      - Meta Move Fast Culture: interview-prep/engineering-leadership/company-specific/meta/index.md
+      - Apple Functional Excellence: interview-prep/engineering-leadership/company-specific/apple/index.md
+      - Microsoft Growth Mindset: interview-prep/engineering-leadership/company-specific/microsoft/index.md
+      - Netflix High Performance: interview-prep/engineering-leadership/company-specific/netflix/index.md
     
     - Level Expectations:
       - Level Guide Across Companies: interview-prep/engineering-leadership/level-specific/level-expectations.md
@@ -727,14 +738,31 @@ nav:
       - Impossible Decisions: interview-prep/engineering-leadership/hard-earned-wisdom/impossible-decisions.md
       - The Human Cost: interview-prep/engineering-leadership/hard-earned-wisdom/human-cost-leadership.md
   
-  # IC System Design Interviews
-  - IC System Design:
+  # IC Interviews (System Design + Behavioral)
+  - IC Interviews:
     - Overview: interview-prep/ic-interviews/index.md
-    - Frameworks: interview-prep/ic-interviews/frameworks/index.md
-    - Common Problems: interview-prep/ic-interviews/common-problems/index.md
-    - Cheatsheets:
-      - Overview: interview-prep/ic-interviews/cheatsheets/index.md
-      - System Design Checklist: interview-prep/ic-interviews/cheatsheets/system-design-checklist.md
+    - Behavioral Interviews:
+      - Overview: interview-prep/ic-interviews/behavioral/index.md
+      - Scenario Deep-Dives: interview-prep/ic-interviews/behavioral/scenarios.md
+      - Level-Specific Prep: interview-prep/ic-interviews/behavioral/by-level.md
+    - System Design:
+      - Frameworks: interview-prep/ic-interviews/frameworks/index.md
+      - Common Problems: 
+        - Overview: interview-prep/ic-interviews/common-problems/index.md
+        - Cloud Storage System: interview-prep/ic-interviews/common-problems/cloud-storage.md
+        - IoT Platform: interview-prep/ic-interviews/common-problems/iot-platform.md
+        - ML Serving System: interview-prep/ic-interviews/common-problems/ml-serving.md
+        - Collaborative Editor: interview-prep/ic-interviews/common-problems/collaborative-editor.md
+        - CI/CD Pipeline: interview-prep/ic-interviews/common-problems/cicd-pipeline.md
+      - Cheatsheets:
+        - Overview: interview-prep/ic-interviews/cheatsheets/index.md
+        - System Design Checklist: interview-prep/ic-interviews/cheatsheets/system-design-checklist.md
+  
+  # Coding Interviews (Quick Reference)
+  - Coding Interviews:
+    - Overview: interview-prep/coding-interviews/index.md
+    - Algorithm Patterns: interview-prep/coding-interviews/algorithm-patterns.md
+    - Interview Tips: interview-prep/coding-interviews/interview-tips.md
 - Reference:
   - Overview: reference/index.md
   - How to Contribute: reference/contributing.md

@@ -21,6 +21,101 @@ Decision-Making is the engine that converts potential into reality. It's the dis
 
 </div>
 
+## Real-World Decision-Making Stories
+
+### Case Study 1: The AWS S3 "Eventually Consistent" Decision That Changed Everything
+
+**Context**: 2006, Amazon was building S3. The team faced a critical architectural choice: strong consistency (familiar) vs. eventual consistency (radical).
+
+**The Stakes**: 
+- Strong consistency: Familiar to developers, slower performance, harder to scale
+- Eventual consistency: Confusing to developers, faster performance, massive scale potential
+- Decision would affect millions of future applications
+
+**Decision Process**:
+1. **Type Classification**: Type 1 (one-way door) - changing later would be nearly impossible
+2. **Stakeholder Input**: 
+   - Developers: "Eventual consistency is too weird"
+   - Infrastructure: "Strong consistency won't scale"
+   - Product: "Customers want speed and reliability"
+3. **Future Modeling**: Asked "What happens in 10 years if we're successful?"
+   - Strong consistency: S3 becomes a bottleneck limiting entire AWS ecosystem
+   - Eventual consistency: S3 becomes foundation for global-scale applications
+
+**The Courage Decision**: Werner Vogels (CTO) chose eventual consistency despite team concerns. His reasoning: "We're not building for today's developers. We're building for tomorrow's scale."
+
+**Result**: 
+- S3 became foundation of modern cloud computing
+- Enabled applications at previously impossible scale
+- $70B+ annual AWS revenue
+- Changed how entire industry thinks about consistency
+
+**Wisdom from the Field**: "The best architectural decisions optimize for the problem you'll have, not the problem you have."
+
+### Case Study 2: Instagram's "No Android" Decision - When Timing Trumps Features
+
+**Context**: 2010, Instagram had 2 engineers and limited runway. Android had 25% market share and growing. The team debated: build Android app or perfect iOS?
+
+**Decision Matrix**:
+```
+Option A: Build Android App
+Pros: 25% more market, competitive parity
+Cons: Split engineering focus, slower iOS iteration
+
+Option B: Perfect iOS First  
+Pros: Best user experience, faster iteration
+Cons: Missing 25% of market, competitive risk
+```
+
+**Critical Insight**: Kevin Systrom realized this was about learning velocity, not market coverage. His logic: "We can learn faster with one perfect product than two mediocre ones."
+
+**Decision Framework Applied**:
+- **ICE Analysis**: Perfect iOS had higher confidence (100% vs 70%) and lower effort
+- **Two-Way Door**: Could build Android later if needed
+- **Learning Priority**: Faster feedback loops > broader coverage
+
+**Result**: 
+- iOS app gained 1M users in 2 months
+- Perfect product-market fit before competitors arrived
+- $1B Facebook acquisition (partly due to iOS excellence)
+- Android app later built with deep market understanding
+
+**Wisdom from the Field**: "In resource-constrained environments, excellence beats breadth. Better to own one platform perfectly than serve two platforms poorly."
+
+### Case Study 3: Slack's Database Migration - The $10M Weekend Decision
+
+**Context**: 2015, Slack's growth was outpacing their database. Every weekend, they hit scaling limits. Two options emerged:
+
+**Option A**: Gradual migration over 6 months
+- Pros: Lower risk, normal operations continue
+- Cons: 6 months of weekend outages, customer frustration
+
+**Option B**: Big-bang migration over one weekend
+- Pros: Solves problem immediately, shows customer commitment
+- Cons: If it fails, company could be dead Monday
+
+**The $10M Calculation**: 
+- Each weekend outage cost $500K in customer churn
+- 24 weekends × $500K = $12M cost of gradual approach
+- Big-bang failure risk: 30% chance of major issues
+- Expected value: Big-bang was better despite higher single-point risk
+
+**Decision Process**:
+1. **Risk Mitigation**: Built complete rollback plan, tested on staging 50 times
+2. **Team Buy-in**: Entire engineering team volunteered for weekend work
+3. **Customer Communication**: Transparent about risks and reasons
+4. **Success Metrics**: Defined exactly what "success" looked like
+
+**The Weekend**: 48 hours of intense work, minor issues but rollback plan worked perfectly.
+
+**Result**: 
+- Zero customer-facing downtime
+- Database scaling issues solved permanently  
+- Team confidence in big decisions increased
+- Customer trust deepened (they saw Slack prioritize their success)
+
+**Wisdom from the Field**: "Sometimes the highest-risk decision is actually the lowest-risk option when you factor in the cost of inaction."
+
 ## Core Decision-Making Frameworks
 
 ### 1. The RAPID Framework (Bain & Company)
@@ -299,12 +394,59 @@ Learning: What you'd do differently
 - **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Showcasing decision-making prowess
 - **[System Design](../../level-4-interview-execution/system-org-design/)**: Real-time decision-making under pressure
 
+## The Decision-Making Interview Toolkit
+
+### Five Essential Decision Stories to Prepare
+
+1. **The Technical Architecture Decision**
+   - Example: Database choice, framework selection, deployment strategy
+   - Shows: Technical judgment, trade-off analysis, future thinking
+
+2. **The Resource Allocation Decision**
+   - Example: Team size, hiring vs. consulting, build vs. buy
+   - Shows: Business acumen, ROI thinking, constraint management
+
+3. **The Crisis Response Decision**
+   - Example: Production outage, security breach, critical bug
+   - Shows: Pressure management, stakeholder communication, learning
+
+4. **The People Decision**
+   - Example: Hiring, promotion, team restructuring, difficult conversation
+   - Shows: Human judgment, cultural awareness, leadership courage
+
+5. **The Strategic Pivot Decision**
+   - Example: Technology change, product direction, market response
+   - Shows: Vision, adaptability, change management
+
+### Decision-Making Power Phrases for Interviews
+
+- "Given the irreversible nature of this choice, I slowed down to gather more data..."
+- "The decision framework I applied was..."
+- "To maximize learning velocity while minimizing risk..."
+- "The key stakeholders I needed alignment from were..."
+- "When I realized this was actually a systems problem, not a technology problem..."
+- "The unintended consequences I anticipated and mitigated were..."
+- "My decision criteria were weighted as follows..."
+
+### The "Decision Archaeology" Exercise
+
+For each story, be ready to explain:
+1. **Context**: What made this decision necessary and urgent?
+2. **Options**: What alternatives did you consider? (Always have 3+)
+3. **Framework**: What decision-making process did you use?
+4. **Stakeholders**: Who did you involve and how?
+5. **Trade-offs**: What did you sacrifice and why?
+6. **Risk Mitigation**: How did you handle uncertainty?
+7. **Outcome**: What actually happened vs. what you expected?
+8. **Learning**: What would you do differently?
+
 ## Next Steps
 
 1. **Today**: Document a recent major decision using the journal template
 2. **This Week**: Apply RAPID framework to a current decision
 3. **This Month**: Build decision-making culture in your team
-4. **For Interviews**: Prepare 5 decision stories across different contexts
+4. **For Interviews**: Prepare 5 decision stories across different contexts using the toolkit above
+5. **Advanced**: Practice "decision archaeology" on a decision that didn't go as planned
 
 ---
 
