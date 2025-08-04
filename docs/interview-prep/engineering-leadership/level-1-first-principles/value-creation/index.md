@@ -22,6 +22,7 @@ Break any link in this chain, and the entire system fails.
 **Definition**: The benefit customers receive minus the cost (money, time, effort) they pay.
 
 **Engineering Applications**:
+
 - Performance improvements (faster = more value)
 - Reliability engineering (uptime = trust = value)  
 - User experience (easier = more adoption = more value)
@@ -74,16 +75,16 @@ This equation reveals why engineering leaders must balance:
 ## Anti-Patterns That Destroy Value
 
 ### 1. The Over-Engineering Trap
-Building for theoretical scale that never materializes while competitors capture the market.
+- Building for theoretical scale that never materializes while competitors capture the market
 
 ### 2. The Technical Purity Prison
-Pursuing architectural perfection while business opportunities expire.
+- Pursuing architectural perfection while business opportunities expire
 
 ### 3. The Feature Factory
-Shipping features without validating customer value, creating complexity without benefit.
+- Shipping features without validating customer value, creating complexity without benefit
 
 ### 4. The Innovation Theater
-Chasing trendy technologies that don't solve real problems.
+- Chasing trendy technologies that don't solve real problems
 
 ## Real-World Value Creation Stories
 

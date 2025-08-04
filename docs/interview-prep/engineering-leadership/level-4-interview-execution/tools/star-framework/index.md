@@ -172,4 +172,4 @@ Highlight velocity and scale:
 
 ---
 
-**Next Steps**: Build your story portfolio using our [Leadership Stories Framework](leadership-stories-framework) and practice with [Common Behavioral Questions](../practice-scenarios/).
+**Next Steps**: Build your story portfolio using our [Story Portfolio Tool](../story-portfolio/) and practice with [Common Behavioral Questions](../../practice-scenarios/).

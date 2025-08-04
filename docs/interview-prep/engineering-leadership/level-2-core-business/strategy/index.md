@@ -49,16 +49,15 @@ Creating uncontested market space:
 
 How new technologies overturn established players:
 
-```
-Performance
-    ^
-    |     Sustaining Innovation
-    |    /
-    |   / Market Needs
-    |  /  ---------------
-    | /  /
-    |/  / Disruptive Innovation
-    +-----------------------> Time
+```mermaid
+graph LR
+    A[Time] --> B[Performance]
+    C["Sustaining Innovation (steep slope)"] --> D["Market Needs Trajectory"]
+    E["Disruptive Innovation (gentle slope)"] --> F["Eventually Exceeds Market Needs"]
+    
+    style C fill:#e1f5fe
+    style E fill:#fff3e0
+    style D fill:#f3e5f5
 ```
 
 **Engineering Implications**:
@@ -118,16 +117,17 @@ Building ecosystems that create network effects:
 
 ### 2. The Strategy Stack
 
-```
-Business Strategy
-    ↓ (informs)
-Product Strategy  
-    ↓ (enables)
-Technical Strategy
-    ↓ (guides)
-Team Strategy
-    ↓ (executes)
-Individual Growth
+```mermaid
+flowchart TD
+    A[Business Strategy] --> B[Product Strategy]
+    B --> C[Technical Strategy]
+    C --> D[Team Strategy]
+    D --> E[Individual Growth]
+    
+    A -.->|informs| B
+    B -.->|enables| C
+    C -.->|guides| D
+    D -.->|executes| E
 ```
 
 Each level must align with and enable the level above.

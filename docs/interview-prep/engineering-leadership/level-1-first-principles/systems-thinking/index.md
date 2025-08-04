@@ -158,39 +158,57 @@ graph LR
 ### 2. System Archetypes
 
 #### Tragedy of the Commons
-**Pattern**: Shared resource depleted by individual optimization
-**Engineering Example**: Everyone using the production database for testing
-**Solution**: Create sustainable policies and alternatives
+
+| Element | Description |
+|---------|-------------|
+| **Pattern** | Shared resource depleted by individual optimization |
+| **Engineering Example** | Everyone using the production database for testing |
+| **Solution** | Create sustainable policies and alternatives |
+| **Warning Signs** | Resource contention, performance degradation, blame games |
 
 #### Shifting the Burden
-**Pattern**: Quick fixes prevent addressing root causes
-**Engineering Example**: Constantly restarting services instead of fixing memory leaks
-**Solution**: Invest in permanent solutions despite short-term pain
+
+| Element | Description |
+|---------|-------------|
+| **Pattern** | Quick fixes prevent addressing root causes |
+| **Engineering Example** | Constantly restarting services instead of fixing memory leaks |
+| **Solution** | Invest in permanent solutions despite short-term pain |
+| **Warning Signs** | Recurring incidents, firefighting culture, technical debt accumulation |
 
 #### Limits to Growth
-**Pattern**: Growth creates constraints that limit further growth
-**Engineering Example**: Monolith grows until deploy time makes iteration impossible
-**Solution**: Recognize and address constraints before they bind
+
+| Element | Description |
+|---------|-------------|
+| **Pattern** | Growth creates constraints that limit further growth |
+| **Engineering Example** | Monolith grows until deploy time makes iteration impossible |
+| **Solution** | Recognize and address constraints before they bind |
+| **Warning Signs** | Slowing velocity, increasing complexity, scaling bottlenecks |
 
 ### 3. Emergence
 
 Properties that arise from interactions, not components:
-- **Conway's Law**: System architecture mirrors organizational structure
-- **Culture**: Emerges from thousands of daily interactions
-- **Technical Debt**: Emerges from accumulated shortcuts
-- **Innovation**: Emerges from psychological safety + slack time
+
+| Emergent Property | Source | Engineering Impact |
+|-------------------|--------|-------------------|
+| **Conway's Law** | Team communication patterns | System architecture mirrors org structure |
+| **Culture** | Daily interactions and decisions | Determines what behaviors are rewarded |
+| **Technical Debt** | Accumulated shortcuts | Slows future development velocity |
+| **Innovation** | Psychological safety + slack time | Enables breakthrough solutions |
 
 ### 4. Leverage Points (Donella Meadows)
 
-Where to intervene in a system (increasing impact):
-1. **Numbers** (constants, parameters) - Least impact
-2. **Material flows** (who can access what)
-3. **Regulating loops** (controls and feedback)
-4. **Information flows** (who knows what when)
-5. **Rules** (incentives, constraints)
-6. **Distributing power** (who makes rules)
-7. **Goals** (purpose of system)
-8. **Paradigms** (mindset creating system) - Most impact
+Where to intervene in a system (ordered by increasing impact):
+
+| Level | Leverage Point | Engineering Example | Impact |
+|-------|----------------|--------------------|---------|
+| 1 | **Numbers** | Server capacity, timeouts | Least |
+| 2 | **Material flows** | Code access, deployment permissions | Low |
+| 3 | **Regulating loops** | Code reviews, CI/CD pipelines | Medium |
+| 4 | **Information flows** | Metrics dashboards, post-mortems | Medium-High |
+| 5 | **Rules** | Development standards, incentives | High |
+| 6 | **Distributing power** | Decision rights, team autonomy | Very High |
+| 7 | **Goals** | Product vision, success metrics | Very High |
+| 8 | **Paradigms** | Engineering culture, mental models | Highest |
 
 ## Systems Thinking in Engineering Leadership
 

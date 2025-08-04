@@ -10,26 +10,29 @@ Integrity & Ethics is the commitment to doing what's right, especially when it's
 
 ### Trust as Competitive Advantage
 
-```
-High Trust Organizations:
-- 2.5x more likely to be high-performing
-- 74% less stress for employees
-- 50% higher productivity
-- 13% less sick days
-- 76% more engagement
-
-Low Trust Organizations:
-- 3x more likely to face regulatory action
-- 2x employee turnover
-- 4x more time spent on CYA activities
-- Reduced innovation (fear of failure)
-```
+| Trust Level | Metric | Impact |
+|-------------|--------|---------|
+| **High Trust** | Performance | 2.5x more likely to be high-performing |
+| | Stress | 74% less stress for employees |
+| | Productivity | 50% higher productivity |
+| | Health | 13% fewer sick days |
+| | Engagement | 76% more engagement |
+| **Low Trust** | Regulatory Risk | 3x more likely to face regulatory action |
+| | Turnover | 2x employee turnover |
+| | Efficiency | 4x more time spent on CYA activities |
+| | Innovation | Reduced (fear of failure) |
 
 ### The Compound Effect of Trust
 
-```
-Trust × Time = Exponential Returns
-Mistrust × Time = Exponential Costs
+```mermaid
+graph LR
+    A[Trust × Time] --> B[Exponential Returns]
+    C[Mistrust × Time] --> D[Exponential Costs]
+    
+    style A fill:#e8f5e8
+    style B fill:#c8e6c9
+    style C fill:#ffebee
+    style D fill:#ffcdd2
 ```
 
 One lie can destroy years of credibility. One ethical stand can define a career.
@@ -40,14 +43,16 @@ One lie can destroy years of credibility. One ethical stand can define a career.
 
 **Definition**: Building systems that do what they claim, reliably and safely.
 
-**Manifestations**:
+**Manifestations:**
+
 - Accurate metrics and monitoring
 - Honest technical debt assessment
 - Realistic timeline estimates
 - Transparent about limitations
 - Proper error handling and user communication
 
-**Anti-patterns**:
+**Anti-patterns:**
+
 - "Resume-driven development"
 - Hiding system problems
 - Overpromising capabilities
@@ -69,23 +74,20 @@ One lie can destroy years of credibility. One ethical stand can define a career.
 
 **Definition**: Aligning actions with stated values.
 
-**The Say-Do Gap**:
-```
-What We Say: "People are our greatest asset"
-What We Do: First to cut in downturns
+**The Say-Do Gap:**
 
-What We Say: "We value work-life balance"  
-What We Do: Reward only those who work weekends
-
-What We Say: "We embrace failure"
-What We Do: Punish those who take risks
-```
+| What We Say | What We Do |
+|-------------|------------|
+| "People are our greatest asset" | First to cut in downturns |
+| "We value work-life balance" | Reward only those who work weekends |
+| "We embrace failure" | Punish those who take risks |
 
 ### 4. Personal Integrity
 
 **The Leadership Mirror**: Your team will follow your example, not your words.
 
-**Daily Tests**:
+**Daily Tests:**
+
 - Taking credit vs. giving credit
 - Admitting mistakes vs. blame-shifting
 - Hard conversations vs. avoidance
@@ -114,6 +116,7 @@ graph TD
 ### 2. The Stakeholder Impact Analysis
 
 For any decision, consider impact on:
+
 1. **Users/Customers**: Privacy, safety, value
 2. **Employees**: Fairness, growth, well-being
 3. **Company**: Reputation, sustainability
@@ -138,7 +141,8 @@ Short-term gains from ethical compromises rarely age well.
 
 **Context**: 2011, Black Friday. Every company was pushing maximum consumption. Patagonia did something radical.
 
-**The Pressure**: 
+**The Pressure:**
+
 - Black Friday = biggest revenue day of year
 - Board expected maximum sales push
 - Marketing team had campaigns ready
@@ -146,7 +150,8 @@ Short-term gains from ethical compromises rarely age well.
 
 **The Integrity Decision**: Patagonia ran a full-page New York Times ad: "Don't Buy This Jacket" - encouraging customers to buy only what they needed and repair what they had.
 
-**The Business Case Against**:
+**The Business Case Against:**
+
 - Could reduce sales by 30-50%
 - Shareholders might revolt
 - Marketing team thought it was insane
@@ -155,6 +160,7 @@ Short-term gains from ethical compromises rarely age well.
 **The Long-Term Thinking**: CEO Yvon Chouinard said: "Our mission is to save the planet. Selling more stuff doesn't save the planet. Building products that last and encouraging responsible consumption does."
 
 **The Results** (5-year impact):
+
 - Sales increased 30% (customers trusted the brand more)
 - Customer loyalty scores became industry-leading
 - Brand value increased $1B+
@@ -167,20 +173,23 @@ Short-term gains from ethical compromises rarely age well.
 
 **Context**: 2014, Facebook's data science team wanted to test emotional contagion - whether seeing negative posts made users post negative content.
 
-**The Experiment**: 
+**The Experiment:**
+
 - Manipulated 689,000 users' news feeds
 - Showed some users more negative content
 - Showed others more positive content
 - Measured emotional response in their posts
 - No consent, no notification
 
-**The Business Pressure**: 
+**The Business Pressure:**
+
 - Could unlock billions in targeted advertising
 - Competitors were doing similar research
 - Legal team said it was technically allowed
 - Research could "improve user experience"
 
-**The Ethical Dilemma**: 
+**The Ethical Dilemma:**
+
 - Users didn't consent to psychological experimentation
 - Could cause real emotional harm
 - Violated trust relationship with users
@@ -189,12 +198,14 @@ Short-term gains from ethical compromises rarely age well.
 **What Happened**: The study was published, public outrage followed, regulators investigated, and user trust plummeted.
 
 **The Integrity Alternative** (what could have been done):
+
 1. **Transparent Consent**: "We'd like to study emotional responses to content. Opt in?"
 2. **Ethical Review Board**: External review of experiment ethics
 3. **User Benefit Focus**: "How can we help users feel better?" not "How can we manipulate emotions?"
 4. **Harm Prevention**: Built-in safeguards for vulnerable users
 
-**The Actual Cost of the Integrity Failure**:
+**The Actual Cost of the Integrity Failure:**
+
 - $119B stock value lost in following months
 - Congressional hearings and regulatory scrutiny
 - Years of reputation repair
@@ -209,36 +220,46 @@ Short-term gains from ethical compromises rarely age well.
 
 **Context**: 2017, Equifax discovered a massive data breach affecting 147 million Americans. The engineering team faced a cascade of integrity choices.
 
-**The Initial Integrity Failure**: 
+**The Initial Integrity Failure:**
+
 - Vulnerability existed for 2 months before discovery
 - Patch was available but not applied
 - Security team understaffed and under-resourced
 - Executives prioritized features over security
 
 **The Cover-Up Temptation**: Once discovered, leadership faced:
+
 - Regulatory requirements to disclose within 72 hours
 - Stock price would crater (executives had planned stock sales)
 - Customer trust would be destroyed
 - Competitive advantage would be lost
 
 **The Integrity Choice Tree**:
-```
-Discovery → Immediate Disclosure vs. Delay
-              ↓                    ↓
-         Trustworthy            Stock Sales
-         Response              Executive Trades
-              ↓                    ↓
-         Reputation            Criminal
-         Damage Control        Liability
+```mermaid
+flowchart TD
+    A[Discovery] --> B[Immediate Disclosure]
+    A --> C[Delay]
+    B --> D[Trustworthy Response]
+    C --> E[Stock Sales & Executive Trades]
+    D --> F[Reputation Damage Control]
+    E --> G[Criminal Liability]
+    
+    style B fill:#e8f5e8
+    style D fill:#c8e6c9
+    style C fill:#ffebee
+    style E fill:#ffcdd2
+    style G fill:#f44336
 ```
 
 **What Actually Happened** (the integrity failures):
+
 - Delayed disclosure by 6 weeks
 - Executives sold $1.8M in stock before disclosure
 - Hired external firm to minimize legal liability
 - Blamed "sophisticated attackers" instead of basic security failures
 
-**The Compounding Costs**:
+**The Compounding Costs:**
+
 - $4B+ in fines and settlements
 - CEO, CTO, and CSO forced to resign
 - Congressional investigation
@@ -247,6 +268,7 @@ Discovery → Immediate Disclosure vs. Delay
 - Industry regulation increased
 
 **The Integrity Alternative** (what should have happened):
+
 1. **Immediate Disclosure**: "We discovered a breach, here's what we know, here's what we're doing"
 2. **Full Transparency**: "This was our security failure, not a sophisticated attack"
 3. **Customer-First Response**: Free credit monitoring, identity theft protection
@@ -258,6 +280,16 @@ Discovery → Immediate Disclosure vs. Delay
 **Wisdom from the Field**: "In crisis, your integrity is tested not by the initial mistake, but by how you respond to it. Transparency early is painful; transparency late is catastrophic."
 
 ## Common Ethical Dilemmas in Engineering
+
+### Frequent Scenarios Engineering Leaders Face
+
+| Dilemma Category | Common Scenarios | Ethical Tension |
+|------------------|------------------|----------------|
+| **Technical Debt** | Ship buggy feature vs. miss deadline | Short-term pressure vs. long-term quality |
+| **Data Privacy** | Collect useful data vs. respect privacy | Business value vs. user rights |
+| **Resource Allocation** | Feature development vs. security/accessibility | Revenue generation vs. responsible development |
+| **Team Pressure** | Unrealistic deadlines vs. sustainable pace | Business demands vs. human wellbeing |
+| **Algorithmic Fairness** | Optimize for engagement vs. prevent bias | Performance metrics vs. social responsibility |
 
 ## Building Ethical Engineering Cultures
 
@@ -306,13 +338,12 @@ Discovery → Immediate Disclosure vs. Delay
 ## The Cost of Integrity Failures
 
 ### Technical Debt Analogy
-```
-Ethical Debt = Shortcuts in Integrity
+**Ethical Debt = Shortcuts in Integrity**
+
 - Compounds faster than technical debt
 - Harder to refactor
 - Can bankrupt suddenly
 - Affects entire system
-```
 
 ### Case Studies in Engineering Ethics Failures
 
@@ -471,6 +502,7 @@ because the question is whether it's designed to be fair."
 ## Red Flags: Integrity at Risk
 
 ### Personal Warning Signs
+
 - Rationalizing questionable decisions
 - "Everyone else is doing it"
 - Hiding information from stakeholders
@@ -478,6 +510,7 @@ because the question is whether it's designed to be fair."
 - Dreading discovery
 
 ### Organizational Warning Signs
+
 - Shooting messengers
 - Reward systems misaligned with values
 - High turnover in ethics-related roles
@@ -487,6 +520,7 @@ because the question is whether it's designed to be fair."
 ## Building Your Integrity Practice
 
 ### Daily Habits
+
 - Start meetings with integrity check
 - End day with reflection: "Am I proud?"
 - Document decisions and reasoning
@@ -494,12 +528,14 @@ because the question is whether it's designed to be fair."
 - Admit one thing you don't know
 
 ### Weekly Rituals
+
 - Team integrity temperature check
 - Review decisions against values
 - Celebrate integrity wins
 - Address integrity concerns
 
 ### Monthly Investments
+
 - Ethics scenario training
 - Cross-functional integrity reviews
 - Update policies based on learnings
@@ -509,12 +545,24 @@ because the question is whether it's designed to be fair."
 
 ### Integrity Compounds
 
-```
-Year 1: Small daily choices
-Year 3: Reputation for reliability
-Year 5: Go-to person for hard decisions
-Year 7: Sought after for leadership
-Year 10: Legacy of trust
+```mermaid
+timeline
+    title Integrity Development Timeline
+    
+    Year 1 : Small daily choices
+           : Building foundation
+    
+    Year 3 : Reputation for reliability
+           : Consistent behavior patterns
+    
+    Year 5 : Go-to person for hard decisions
+           : Trusted advisor status
+    
+    Year 7 : Sought after for leadership
+           : Recognized integrity leader
+    
+    Year 10 : Legacy of trust
+            : Institutional impact
 ```
 
 ### The Ultimate Test
@@ -583,6 +631,7 @@ Not "What did you build?" but "What foundation did you build on?"
 ### The "Integrity Under Pressure" Framework
 
 For each story, demonstrate:
+
 1. **Ethical Recognition**: How did you identify the integrity issue?
 2. **Stakeholder Analysis**: Who would be affected by different choices?
 3. **Pressure Points**: What forces pushed you toward compromise?
@@ -594,14 +643,16 @@ For each story, demonstrate:
 
 ### Red Flags Interviewers Look For
 
-❌ **Avoid These**:
+❌ **Avoid These:**
+
 - "I've never faced an ethical dilemma" (shows lack of awareness)
 - "I just follow company policy" (shows lack of moral reasoning)
 - "Everyone was doing it" (shows weakness under pressure)
 - "I didn't want to rock the boat" (shows lack of courage)
 - "It wasn't technically illegal" (shows minimum ethical standard)
 
-✅ **Show These Instead**:
+✅ **Show These Instead:**
+
 - Clear ethical reasoning process
 - Courage to do right thing despite cost
 - Proactive integrity (building ethical systems)

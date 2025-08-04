@@ -216,16 +216,37 @@ graph LR
 
 ## Behavioral Patterns in Engineering Teams
 
+### Common Patterns by Context
+
+| Situation | Human Reality | Leadership Response |
+|-----------|---------------|--------------------|
+| **High-pressure release** | Team stress leads to shortcuts | Build sustainable pace, not hero culture |
+| **Technical failure** | Individual blame vs. learning | Focus on systems, not people |
+| **Rapid growth** | Loss of intimacy and trust | Intentionally scale culture practices |
+| **Remote work** | Isolation and communication barriers | Over-communicate and create connection rituals |
+| **Skill gaps** | Impostor syndrome and fear | Normalize learning and celebrate growth |
+
+### Psychological Patterns to Recognize
+
+- **Learned Helplessness**: "Nothing we try works" - Team has given up trying to improve
+- **Groupthink**: False consensus to avoid conflict - Dangerous in technical decisions
+- **Blame Culture**: Focus on "who" instead of "how to prevent" - Destroys psychological safety
+- **Hero Worship**: Dependency on individuals - Creates bottlenecks and burnout
+- **Innovation Paralysis**: Fear of failure stops experimentation - Kills competitive advantage
+
 ## Frameworks for Managing Human Behavior
 
 ### 1. The SCARF Model (David Rock)
 
 People's behavior is driven by five domains:
-- **Status**: Relative importance
-- **Certainty**: Ability to predict
-- **Autonomy**: Sense of control
-- **Relatedness**: Safety with others
-- **Fairness**: Just exchanges
+
+| Domain | Definition | Engineering Application |
+|--------|------------|------------------------|
+| **Status** | Relative importance | Public recognition, career growth paths |
+| **Certainty** | Ability to predict | Clear roadmaps, consistent processes |
+| **Autonomy** | Sense of control | Ownership over solutions, flexible work |
+| **Relatedness** | Safety with others | Team bonding, shared goals |
+| **Fairness** | Just exchanges | Transparent decisions, equitable treatment |
 
 **Application**: Design processes that enhance, not threaten, each domain.
 

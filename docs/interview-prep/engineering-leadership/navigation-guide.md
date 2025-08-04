@@ -35,27 +35,13 @@ graph TD
 **Your Challenge**: Transitioning from individual contributor to people leader
 
 #### Recommended 12-Week Path
-```
-Weeks 1-3: Foundation
-├── Level 3: People Management basics
-├── Level 3: Team building & culture
-└── Practice: Conflict resolution scenarios
 
-Weeks 4-6: Core Skills
-├── Level 2: Leadership concepts
-├── Level 2: Operations fundamentals
-└── Practice: Performance management cases
-
-Weeks 7-9: Technical Leadership
-├── Level 3: Technical strategy
-├── Level 3: Architecture decisions
-└── Practice: Tech debt prioritization
-
-Weeks 10-12: Interview Prep
-├── Level 4: STAR story development
-├── Level 4: Behavioral practice
-└── Company-specific preparation
-```
+| Phase | Weeks | Focus Areas | Practice Activities |
+|-------|-------|-------------|--------------------|
+| **Foundation** | 1-3 | • Level 3: People Management basics<br>• Level 3: Team building & culture | • Conflict resolution scenarios<br>• One-on-one frameworks |
+| **Core Skills** | 4-6 | • Level 2: Leadership concepts<br>• Level 2: Operations fundamentals | • Performance management cases<br>• Team scaling exercises |
+| **Technical Leadership** | 7-9 | • Level 3: Technical strategy<br>• Level 3: Architecture decisions | • Tech debt prioritization<br>• System design practice |
+| **Interview Prep** | 10-12 | • Level 4: STAR story development<br>• Level 4: Behavioral practice | • Company-specific preparation<br>• Mock interviews |
 
 **Essential Resources**:
 - [People Management Fundamentals](level-3-applications/people-management/)
@@ -66,27 +52,13 @@ Weeks 10-12: Interview Prep
 **Your Challenge**: Scaling from team to organization leadership
 
 #### Recommended 8-Week Path
-```
-Weeks 1-2: Strategic Foundation
-├── Level 1: All first principles
-├── Level 2: Strategy & finance
-└── Practice: Business case development
 
-Weeks 3-4: Organizational Excellence
-├── Level 3: Org design patterns
-├── Level 3: Scaling playbooks
-└── Practice: Reorg scenarios
-
-Weeks 5-6: Executive Skills
-├── Level 2: Leadership at scale
-├── Hard-earned wisdom section
-└── Practice: Executive communication
-
-Weeks 7-8: Interview Excellence
-├── Level 4: System design (org focus)
-├── Level 4: Advanced behavioral
-└── Mock interviews with L8+ leaders
-```
+| Phase | Weeks | Focus Areas | Practice Activities |
+|-------|-------|-------------|--------------------|
+| **Strategic Foundation** | 1-2 | • Level 1: All first principles<br>• Level 2: Strategy & finance | • Business case development<br>• ROI calculations |
+| **Organizational Excellence** | 3-4 | • Level 3: Org design patterns<br>• Level 3: Scaling playbooks | • Reorg scenarios<br>• Team topology design |
+| **Executive Skills** | 5-6 | • Level 2: Leadership at scale<br>• Hard-earned wisdom section | • Executive communication<br>• Stakeholder management |
+| **Interview Excellence** | 7-8 | • Level 4: System design (org focus)<br>• Level 4: Advanced behavioral | • Mock interviews with L8+ leaders<br>• Board-level presentations |
 
 **Essential Resources**:
 - [Organizational Design](level-3-applications/organizational-design/)
@@ -97,22 +69,12 @@ Weeks 7-8: Interview Excellence
 **Your Challenge**: Operating at executive level with P&L responsibility
 
 #### Recommended 6-Week Path
-```
-Weeks 1-2: Executive Mindset
-├── Level 1: Deep dive on value creation
-├── Level 2: Finance & risk governance
-└── Business acumen mastery
 
-Weeks 3-4: Transformation Leadership
-├── Organizational transformation cases
-├── M&A and integration scenarios
-└── Board-level communication
-
-Weeks 5-6: Interview Mastery
-├── Executive presence coaching
-├── Vision & strategy presentations
-└── C-suite mock interviews
-```
+| Phase | Weeks | Focus Areas | Practice Activities |
+|-------|-------|-------------|--------------------|
+| **Executive Mindset** | 1-2 | • Level 1: Deep dive on value creation<br>• Level 2: Finance & risk governance | • Business acumen mastery<br>• P&L analysis |
+| **Transformation Leadership** | 3-4 | • Organizational transformation cases<br>• M&A and integration scenarios | • Board-level communication<br>• Change management |
+| **Interview Mastery** | 5-6 | • Executive presence coaching<br>• Vision & strategy presentations | • C-suite mock interviews<br>• Executive storytelling |
 
 **Essential Resources**:
 - [Executive Decision Making](level-1-first-principles/decision-making/)
@@ -148,10 +110,11 @@ Weeks 5-6: Interview Mastery
 | **Excellence** | 7-8 | • Mock interviews<br>• Feedback integration<br>• Final preparation |
 
 **Weekly Milestones**:
-- Week 2: Complete framework understanding
-- Week 4: 15+ polished stories
-- Week 6: Company-specific preparation done
-- Week 8: Interview ready with confidence
+
+- **Week 2**: Complete framework understanding
+- **Week 4**: 15+ polished stories developed
+- **Week 6**: Company-specific preparation completed
+- **Week 8**: Interview ready with confidence
 
 ### 🎓 12-Week Mastery Track
 **For**: Career transition or level jump preparation
@@ -163,10 +126,11 @@ Weeks 5-6: Interview Mastery
 | **Month 3** | Interview Excellence | • Polish execution<br>• Company specific<br>• Multiple mock interviews |
 
 **Monthly Goals**:
-1. Read 2 leadership books
-2. Complete 10 practice scenarios
-3. Conduct 5 mock interviews
-4. Develop 30 STAR stories
+
+- **Month 1**: Read 2 leadership books
+- **Month 2**: Complete 10 practice scenarios
+- **Month 3**: Conduct 5 mock interviews
+- **All Months**: Develop 30 STAR stories total
 
 ## 🗺️ Topic-Based Navigation
 
@@ -278,25 +242,25 @@ The [Hard-Earned Wisdom](hard-earned-wisdom/) section provides unvarnished truth
 
 ### Weekly Checklist
 
-#### Week 1-2 Foundation
+#### Weeks 1-2: Foundation
 - [ ] Read all Level 1 first principles
 - [ ] Complete self-assessment
 - [ ] Identify experience gaps
 - [ ] Start story brainstorming
 
-#### Week 3-4 Building
+#### Weeks 3-4: Building
 - [ ] Study Level 2 concepts
 - [ ] Develop 10 STAR stories
 - [ ] Practice with timer
 - [ ] Get peer feedback
 
-#### Week 5-6 Applying
+#### Weeks 5-6: Applying
 - [ ] Complete Level 3 applications
 - [ ] Expand to 20 stories
 - [ ] Do mock interviews
 - [ ] Research target companies
 
-#### Week 7-8 Mastering
+#### Weeks 7-8: Mastering
 - [ ] Polish top stories
 - [ ] Company-specific prep
 - [ ] Executive presence

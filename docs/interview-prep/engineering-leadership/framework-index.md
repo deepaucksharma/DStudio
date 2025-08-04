@@ -26,36 +26,51 @@ These are the five universal laws that govern effective leadership and business.
 <div class="principles-grid">
 
 ### 1. [Value Creation](level-1-first-principles/value-creation/)
-**Essence**: Business exists to solve real customer problems profitably.  
-**Elite Insight**: Stanford's Customer Value Proposition model; Peter Drucker's dictum.  
+
+**Essence**: Business exists to solve real customer problems profitably.
+
+**Elite Insight**: Stanford's Customer Value Proposition model; Peter Drucker's dictum.
+
 **Engineering Behaviors**:
 - Tie every roadmap item to revenue, retention, or cost leverage
 - Measure team impact in customer and business metrics, not just technical ones
 
 ### 2. [Decision-Making](level-1-first-principles/decision-making/)
-**Essence**: Progress requires timely, informed choices under uncertainty.  
-**Elite Insight**: Harvard/Wharton work on bounded rationality; Jeff Bezos' one-way vs. two-way doors.  
+
+**Essence**: Progress requires timely, informed choices under uncertainty.
+
+**Elite Insight**: Harvard/Wharton work on bounded rationality; Jeff Bezos' one-way vs. two-way doors.
+
 **Engineering Behaviors**:
 - Use structured trade-off tools (NPV, risk matrices, decision trees)
 - Default to action on reversible bets; gather data for irreversible ones
 
 ### 3. [Human Behavior](level-1-first-principles/human-behavior/)
-**Essence**: Culture and motivation determine the quality of execution.  
-**Elite Insight**: Amy Edmondson's Psychological Safety research; Herzberg's Two-Factor Theory.  
+
+**Essence**: Culture and motivation determine the quality of execution.
+
+**Elite Insight**: Amy Edmondson's Psychological Safety research; Herzberg's Two-Factor Theory.
+
 **Engineering Behaviors**:
 - Design rituals that reinforce trust (blameless post-mortems)
 - Coach to unlock intrinsic motivation, not just manage tasks
 
 ### 4. [Systems Thinking](level-1-first-principles/systems-thinking/)
-**Essence**: Organizations are interdependent, feedback-rich systems.  
-**Elite Insight**: MIT Sloan System Dynamics; Conway's Law.  
+
+**Essence**: Organizations are interdependent, feedback-rich systems.
+
+**Elite Insight**: MIT Sloan System Dynamics; Conway's Law.
+
 **Engineering Behaviors**:
 - Align team topology with desired system architecture
 - Fix root-cause processes, not just surface symptoms
 
 ### 5. [Integrity & Ethics](level-1-first-principles/integrity-ethics/)
-**Essence**: Sustained trust is the ultimate competitive advantage.  
-**Elite Insight**: HBS governance cases; Kohlberg's moral development.  
+
+**Essence**: Sustained trust is the ultimate competitive advantage.
+
+**Elite Insight**: HBS governance cases; Kohlberg's moral development.
+
 **Engineering Behaviors**:
 - Disclose incidents with transparency ("assume sunlight")
 - Apply fair, consistent, documented performance standards
@@ -85,28 +100,40 @@ These are the four key domains where engineering leaders apply principles and co
 <div class="applications-grid">
 
 ### 1. [People Management](level-3-applications/people-management/)
-**Hire → Inspire → Grow → Retain**
+
+**Core Process**: Hire → Inspire → Grow → Retain
+
+**Key Components**:
 - Structured hiring loops and onboarding playbooks
 - GROW coaching framework and SBI feedback
 - DEI scorecards and inclusive team rituals
 - [Practice Scenarios](level-3-applications/people-management/scenarios/)
 
 ### 2. [Technical Leadership & Strategy](level-3-applications/technical-leadership/)
-**Innovate → Build → Stabilize**
+
+**Core Process**: Innovate → Build → Stabilize
+
+**Key Components**:
 - Evolutionary design with Strangler Fig patterns
 - Technical debt management with Debt Quadrant
 - Innovation operating models (10-20% capacity)
 - [Architecture Decisions](level-3-applications/technical-leadership/architecture/)
 
 ### 3. [Organizational Design & Scaling](level-3-applications/organizational-design/)
-**Structure → Align → Evolve**
+
+**Core Process**: Structure → Align → Evolve
+
+**Key Components**:
 - Team Topologies (Stream-aligned, Platform, etc.)
 - API contracts between teams
 - Leadership pipeline development
 - [Scaling Playbooks](level-3-applications/organizational-design/scaling/)
 
 ### 4. [Business Acumen & Cross-Functional](level-3-applications/business-acumen/)
-**Translate → Partner → Influence**
+
+**Core Process**: Translate → Partner → Influence
+
+**Key Components**:
 - Connect DORA metrics to business KPIs
 - Joint OKRs with Product/GTM teams
 - Executive narrative for QBRs
@@ -135,18 +162,21 @@ Demonstrating your mastery of the framework under pressure.
 Enhanced storytelling: Situation, Task, Action, Result + **Impact** (quantified) + **Insight** (learnings)
 
 #### [Portfolio of 8-10 Signature Stories](level-4-interview-execution/tools/story-portfolio/)
+
 Map each experience to:
 - At least 2 principles
 - At least 2 business concepts
 - Appropriate scope level (Manager → Team; Director → Org; VP → Company)
 
 #### [First-Principle Hooks](level-4-interview-execution/tools/principle-hooks/)
+
 Embed framework language:
 - "To maximize Value Creation, we focused on..."
 - "Because this was a reversible decision..."
 - "My priority was Integrity, so we owned the outage..."
 
 #### [Interactive Practice Tools](level-4-interview-execution/tools/interactive/)
+
 - [Interview Timer](level-4-interview-execution/tools/interview-timer.md)
 - [Self-Assessment](level-4-interview-execution/tools/self-assessment.md)
 - [Decision Trees](level-4-interview-execution/tools/decision-trees.md)

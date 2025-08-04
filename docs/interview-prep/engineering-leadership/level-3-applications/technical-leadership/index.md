@@ -133,15 +133,12 @@ graph TD
 
 ## Technical Leadership Toolkit
 
-### Frameworks
-- [Technology Radar Template](frameworks/tech-radar.md)
-- [Architecture Review Process](frameworks/arch-review.md)
-- [Technical Debt Assessment](frameworks/tech-debt.md)
-
-### Communication Tools
-- [Technical Proposal Template](templates/tech-proposal.md)
-- [Architecture Diagram Standards](templates/arch-diagrams.md)
-- [Technical Decision Log](templates/decision-log.md)
+### Key Resources
+- Technology Radar Framework - Assess and communicate technology choices
+- Architecture Review Process - Structured evaluation of design decisions  
+- Technical Debt Assessment - Quantify and prioritize technical improvements
+- Technical Proposal Templates - Document and communicate technical decisions
+- Architecture Documentation Standards - Maintain clear system documentation
 
 ## Practice Exercises
 

@@ -119,30 +119,41 @@ Cons: Missing 25% of market, competitive risk
 ## Core Decision-Making Frameworks
 
 ### 1. The RAPID Framework (Bain & Company)
-- **R**ecommend: Who proposes solutions?
-- **A**gree: Who must agree for success?
-- **P**erform: Who executes the decision?
-- **I**nput: Who provides crucial information?
-- **D**ecide: Who makes the final call?
+
+| Role | Responsibility | Description |
+|------|----------------|-------------|
+| **R**ecommend | Propose solutions | Who researches and proposes options? |
+| **A**gree | Must agree for success | Who has veto power or must buy in? |
+| **P**erform | Execute the decision | Who actually does the work? |
+| **I**nput | Provide crucial information | Who has essential expertise/data? |
+| **D**ecide | Make the final call | Who has ultimate accountability? |
 
 **Engineering Application**: Technical design decisions
-```
-Recommend: Tech Lead
-Agree: Security, Platform teams
-Perform: Development team
-Input: Product, SRE, Architecture
-Decide: Engineering Manager
-```
+
+| Role | Owner |
+|------|-------|
+| **Recommend** | Tech Lead |
+| **Agree** | Security, Platform teams |
+| **Perform** | Development team |
+| **Input** | Product, SRE, Architecture |
+| **Decide** | Engineering Manager |
 
 ### 2. The ICE Prioritization Model
-**Impact × Confidence × Ease = Priority Score**
+
+**Formula**: Impact × Confidence × Ease = Priority Score
+
+| Factor | Scale | Definition |
+|--------|-------|------------|
+| **Impact** | 1-10 | Value creation potential |
+| **Confidence** | 0-100% | Success probability |
+| **Ease** | 1-10 | Inverse of effort/complexity |
 
 Applied to technical decisions:
 ```python
 def calculate_priority(decision):
-    impact = estimate_value_creation()  # 1-10 scale
+    impact = estimate_value_creation()      # 1-10 scale
     confidence = assess_success_probability()  # 0-100%
-    ease = 11 - estimate_effort()  # Inverse of effort (1-10)
+    ease = 11 - estimate_effort()          # Inverse of effort (1-10)
     return impact * confidence * ease
 ```
 

@@ -69,7 +69,7 @@ graph TD
 
 <div class="grid cards" markdown>
 
-- :material-puzzle:{ .lg } **[Common Problems](common-problems/)** (50+ scenarios)
+- :material-puzzle:{ .lg } **[Common Problems](ic-interviews/common-problems/)** (50+ scenarios)
     
     ---
     
@@ -77,11 +77,11 @@ graph TD
     
     | Problem | Complexity | Key Challenges |
     |---------|------------|----------------|
-    | [URL Shortener](common-problems/url-shortener/) | 🟢 Beginner | Hashing, caching, simple scale |
-    | [Chat System](common-problems/chat-system/) | 🟡 Intermediate | Real-time messaging, WebSocket scaling |
-    | [Video Streaming](common-problems/video-streaming/) | 🔴 Advanced | CDN design, encoding pipelines, global scale |
+    | [Cloud Storage](ic-interviews/common-problems/cloud-storage/) | 🟢 Beginner | Object storage, metadata, global scale |
+    | [Collaborative Editor](ic-interviews/common-problems/collaborative-editor/) | 🟡 Intermediate | Real-time sync, conflict resolution |
+    | [ML Serving Platform](ic-interviews/common-problems/ml-serving/) | 🔴 Advanced | Model inference, scaling, monitoring |
 
-- :material-compass-outline:{ .lg } **[Design Frameworks](frameworks/)**
+- :material-compass-outline:{ .lg } **[Design Frameworks](ic-interviews/frameworks/)**
     
     ---
     
@@ -89,7 +89,7 @@ graph TD
     
     **Methods**: RADIO, 4S, Problem-First Design, Trade-off Analysis
 
-- :material-card-text:{ .lg } **[Cheatsheets](cheatsheets/)**
+- :material-card-text:{ .lg } **[Cheatsheets](ic-interviews/cheatsheets/)**
     
     ---
     
@@ -160,23 +160,23 @@ Practice problems organized by time commitment and complexity level.
 ### 30-Minute Designs (Beginner-Friendly)
 | Problem | Key Challenge | Patterns Used |
 |---------|---------------|---------------|
-| **[URL Shortener](common-problems/url-shortener/)** | Base62 encoding, cache strategy | Consistent Hashing, Cache-Aside |
-| **[Rate Limiter](common-problems/rate-limiter/)** | Algorithm selection, distributed counting | Token Bucket, Sliding Window |
-| **[Key-Value Store](common-problems/key-value-store/)** | Partitioning, replication | Consistent Hashing, Gossip Protocol |
+| **[Cloud Storage](ic-interviews/common-problems/cloud-storage/)** | Object storage, metadata management | Consistent Hashing, Sharding |
+| **[IoT Platform](ic-interviews/common-problems/iot-platform/)** | Device management, data ingestion | Event Streaming, Time Series |
+| **[CI/CD Pipeline](ic-interviews/common-problems/cicd-pipeline/)** | Build automation, deployment | Queue Management, Auto-scaling |
 
 ### 45-Minute Designs (Intermediate)
 | Problem | Key Challenge | Patterns Used |
 |---------|---------------|---------------|
-| **[Chat Application](common-problems/chat-application/)** | Real-time delivery, online presence | WebSocket, Message Queues, Heartbeat |
-| **[News Feed](common-problems/news-feed/)** | Timeline generation, personalization | Fan-out, Caching Strategies, Load Balancing |
-| **[Video Streaming](common-problems/video-streaming/)** | Content delivery, adaptive bitrate | CDN, Edge Computing, Load Balancing |
+| **[Collaborative Editor](ic-interviews/common-problems/collaborative-editor/)** | Real-time sync, conflict resolution | Operational Transform, WebSocket |
+| **[ML Serving Platform](ic-interviews/common-problems/ml-serving/)** | Model inference, A/B testing | Load Balancing, Caching, Auto-scaling |
+| **[IoT Platform](ic-interviews/common-problems/iot-platform/)** | Device connectivity, data processing | Message Queues, Stream Processing |
 
 ### 60-Minute Designs (Advanced)
 | Problem | Key Challenge | Patterns Used |
 |---------|---------------|---------------|
-| **[Ride Sharing](common-problems/ride-sharing/)** | Real-time matching, location tracking | Geo-hashing, Event Sourcing, CQRS |
-| **[Distributed Search](common-problems/search-engine/)** | Index distribution, ranking | Sharding, MapReduce, Consistent Hashing |
-| **[Payment System](common-problems/payment-system/)** | ACID compliance, fraud detection | Saga, Two-Phase Commit, Event Sourcing |
+| **[CI/CD Pipeline](ic-interviews/common-problems/cicd-pipeline/)** | Build orchestration, deployment strategies | Workflow Management, Container Orchestration |
+| **[Cloud Storage](ic-interviews/common-problems/cloud-storage/)** | Global distribution, consistency | Sharding, Replication, Eventual Consistency |
+| **[ML Serving Platform](ic-interviews/common-problems/ml-serving/)** | Model versioning, performance optimization | Circuit Breaker, Feature Store, A/B Testing |
 
 ## 💡 Interview Tips
 
@@ -244,19 +244,19 @@ timeline
 
 ### 1 Week Before
 - **📚 Study**: Review [Core Principles](../core-principles/) and key [Pattern Library](../pattern-library/) patterns
-- **💪 Practice**: Complete 2-3 [Common Problems](common-problems/) daily, focusing on different complexities
+- **💪 Practice**: Complete 2-3 [Common Problems](ic-interviews/common-problems/) daily, focusing on different complexities
 - **🎯 Research**: Study company-specific systems using our [Case Studies](../architects-handbook/case-studies/)
 
 ### 3 Days Before  
-- **🎭 Mock Interviews**: Practice with peers using [Design Frameworks](frameworks/)
-- **📋 Review**: Study [Cheatsheets](cheatsheets/) and [System Design Checklist](cheatsheets/system-design-checklist/)
+- **🎭 Mock Interviews**: Practice with peers using [Design Frameworks](ic-interviews/frameworks/)
+- **📋 Review**: Study [Cheatsheets](ic-interviews/cheatsheets/) and [System Design Checklist](ic-interviews/cheatsheets/system-design-checklist/)
 - **😌 Rest**: Get adequate sleep and reduce study intensity
 
 ### Day Of Interview
-- **🧠 Quick Review**: Scan [Design Frameworks](frameworks/) and [Numbers to Know](cheatsheets/)
+- **🧠 Quick Review**: Scan [Design Frameworks](ic-interviews/frameworks/) and [Numbers to Know](ic-interviews/cheatsheets/)
 - **🧘 Stay Calm**: Trust your preparation and physics-based mental models
 - **💬 Think Aloud**: Verbalize your thought process throughout the interview
 
 ---
 
-*Start with [Common Problems](common-problems/) to practice with real interview questions, or jump to [Frameworks](frameworks/) to learn systematic approaches.*
+*Start with [Common Problems](ic-interviews/common-problems/) to practice with real interview questions, or jump to [Frameworks](ic-interviews/frameworks/) to learn systematic approaches.*
