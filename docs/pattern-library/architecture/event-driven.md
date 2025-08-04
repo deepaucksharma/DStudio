@@ -17,9 +17,6 @@ trade-offs:
 ---
 
 
-
-
-
 # Event-Driven Architecture
 
 !!! success "🏆 Gold Standard Pattern"
@@ -82,392 +79,35 @@ Event-driven architecture embraces the fundamental truth that in distributed sys
 
 ### The News Broadcasting Analogy
 
-```
-Traditional (Request-Response):          Event-Driven:
+Think of event-driven architecture like a news broadcasting system:
 
-📱 Phone Calls                          📻 Radio Broadcast
-Person A → calls → Person B             Station → broadcasts → Many listeners
-Person A → calls → Person C             
-Person A → calls → Person D             Events flow to all interested parties
-                                        
-Problems:                               Benefits:
-- A must know B, C, D exist            - Listeners tune in when ready
-- Sequential, slow                      - Broadcaster doesn't know listeners
-- If B is busy, A waits                - Parallel, fast
-- Tight coupling                        - Loose coupling
-```
-
-```
-Synchronous Architecture:               Event-Driven Architecture:
-
-Order Service                          Order Service
-    ↓                                      ↓
-    ├→ Payment Service                [Order Placed Event]
-    |     ↓                                ↓    ↓    ↓
-    ├→ Inventory Service            Payment  Inventory  Email
-    |     ↓                         Service  Service   Service
-    └→ Email Service                (async)  (async)   (async)
-
-Chain of dependencies                 Independent reactions
-```
-
-### Real-World Examples
-
-| System | Events | Scale |
-|--------|--------|-------|
-| **Netflix** | Video started, paused, completed | 150B events/day |
-| **Uber** | Trip requested, driver assigned, trip completed | 50M trips/day |
-| **LinkedIn** | Post created, connection made, message sent | 1B+ events/day |
-| **Spotify** | Song played, playlist created, artist followed | 100M+ users |
-
-
-### Event Flow Visualization
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-sequenceDiagram
-    participant OS as Order Service
-    participant EB as Event Bus
-    participant PS as Payment Service
-    participant IS as Inventory Service
-    participant ES as Email Service
-    participant AS as Analytics Service
-    
-    OS->>EB: Publish(OrderPlaced)
-    Note over EB: Event Router
-    
-    par Parallel Processing
-        EB->>PS: OrderPlaced Event
-        PS->>PS: Process Payment
-        PS->>EB: Publish(PaymentCompleted)
-    and
-        EB->>IS: OrderPlaced Event
-        IS->>IS: Reserve Inventory
-        IS->>EB: Publish(InventoryReserved)
-    and
-        EB->>ES: OrderPlaced Event
-        ES->>ES: Send Confirmation
-    and
-        EB->>AS: OrderPlaced Event
-        AS->>AS: Update Metrics
-    end
-    
-    Note over OS,AS: All handlers process independently
-```
-
-</details>
-
-### Event-Driven Patterns
-
-| Pattern | Description | Use Case |
-|---------|-------------|----------|
-| **Event Notification** | Simple "something happened" | User logged in |
-| **Event-Carried State Transfer** | Full data in event | Order details in OrderPlaced |
-| **Event Sourcing** | Events as source of truth | Audit trail, replay |
-| **CQRS** | Separate read/write models | High-performance queries |
-| **Saga** | Distributed transactions | Multi-service workflows |
-
-
-### Architecture Comparison
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Traditional Request-Response"
-        O1[Order Service] -->|API Call| P1[Payment Service]
-        P1 -->|Response| O1
-        O1 -->|API Call| I1[Inventory Service]
-        I1 -->|Response| O1
-        O1 -->|API Call| E1[Email Service]
-        E1 -->|Response| O1
-        
-        Note1[Sequential, Blocking,<br/>Tightly Coupled]
-    end
-    
-    subgraph "Event-Driven Architecture"
-        O2[Order Service] -->|Publish Event| EB[Event Bus]
-        EB -->|Async| P2[Payment Service]
-        EB -->|Async| I2[Inventory Service]
-        EB -->|Async| E2[Email Service]
-        EB -->|Async| A2[Analytics Service]
-        
-        Note2[Parallel, Non-blocking,<br/>Loosely Coupled]
-    end
-    
-    style EB fill:#818cf8,stroke:#6366f1,stroke-width:3px
-    style Note1 fill:#fee2e2
-    style Note2 fill:#dcfce7
-```
-
-</details>
-
-### Event-Driven Decision Matrix
-
-| Pattern | When to Use | Complexity | Consistency | Performance |
-|---------|-------------|------------|-------------|-------------|
-| **Event Notification** | Simple state changes | Low | Eventual | High |
-| **Event-Carried State** | Reduce queries | Medium | Eventual | Very High |
-| **Event Sourcing** | Audit requirements | High | Strong* | Medium |
-| **CQRS** | Read/write separation | High | Eventual | Very High |
-| **Saga** | Distributed transactions | Very High | Eventual | Medium |
-
-*With proper implementation
-
----
-
-## Level 2: Foundation
-
-### Core Concepts
-
-#### Event Types and Patterns
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TD
-    subgraph "Event Types"
-        E1[Domain Events<br/>Business facts]
-        E2[Integration Events<br/>Cross-service]
-        E3[System Events<br/>Technical]
-    end
-    
-    subgraph "Communication Patterns"
-        P1[Event Notification<br/>Something happened]
-        P2[Event-Carried State<br/>Here's the data]
-        P3[Event Sourcing<br/>Events as truth]
-    end
-    
-    subgraph "Delivery Guarantees"
-        D1[At-most-once<br/>Fire and forget]
-        D2[At-least-once<br/>May duplicate]
-        D3[Exactly-once<br/>Complex]
-    end
-    
-    E1 --> P1
-    E2 --> P2
-    E3 --> P3
-    
-    P1 --> D1
-    P2 --> D2
-    P3 --> D3
-```
-
-</details>
-
-#### Event Design Principles
-
-| Principle | Description | Example |
-|-----------|-------------|---------|
-| **Immutability** | Events represent facts, never change | OrderPlaced can't be modified |
-| **Self-Contained** | Include all necessary data | Don't force lookups |
-| **Time-Ordered** | Clear temporal sequence | Use timestamps/versions |
-| **Business-Focused** | Model domain concepts | OrderShipped not RecordUpdated |
-| **Versioned** | Support schema evolution | Include version in metadata |
-
-
-### Event Store Architecture
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Event Store Pattern"
-        CMD[Command] --> AGG[Aggregate]
-        AGG --> EVT[Events]
-        EVT --> ES[(Event Store)]
-        ES --> PROJ[Projections]
-        PROJ --> READ[Read Models]
-        
-        ES --> REPLAY[Event Replay]
-        REPLAY --> AGG
-        
-        subgraph "Event Stream"
-            ES --> E1[Event 1: OrderCreated]
-            E1 --> E2[Event 2: ItemAdded]
-            E2 --> E3[Event 3: PaymentReceived]
-            E3 --> E4[Event 4: OrderShipped]
-        end
-    end
-    
-    style ES fill:#bbf,stroke:#333,stroke-width:3px
-    style AGG fill:#f9f,stroke:#333,stroke-width:2px
-```
-
-</details>
-
-### Key Architecture Decisions
-
-| Decision | Options | Trade-offs |
-|----------|---------|------------|
-| **Event Bus** | Kafka, RabbitMQ, AWS EventBridge | Throughput vs simplicity |
-| **Serialization** | JSON, Avro, Protobuf | Readability vs performance |
-| **Ordering** | Per-partition, Global, None | Consistency vs scalability |
-| **Retention** | 7 days, 30 days, Forever | Cost vs replay capability |
-| **Delivery** | At-least-once, At-most-once | Duplicates vs data loss |
-
-### Event Processing Patterns
+- **Publisher (News Station)**: Broadcasts events without knowing who's listening
+- **Subscribers (Viewers)**: Tune in to topics they care about
+- **Event Bus (Airwaves)**: Delivers messages to all interested parties
+- **Asynchronous**: Viewers watch on their own schedule, not in real time
 
 ```mermaid
 graph LR
-    subgraph "Delivery Guarantees"
-        AM[At-Most-Once<br/>Fire & Forget<br/>May lose events]
-        AL[At-Least-Once<br/>Retry on failure<br/>May duplicate]
-        EO[Exactly-Once<br/>Idempotency required<br/>Most complex]
+    subgraph "Traditional Coupling"
+        A1[Order Service] -->|HTTP Call| B1[Inventory]
+        A1 -->|HTTP Call| C1[Payment]
+        A1 -->|HTTP Call| D1[Email]
     end
     
-    subgraph "Processing Models"
-        SP[Single Processor<br/>Simple, ordered<br/>Limited scale]
-        CP[Competing Consumers<br/>Parallel processing<br/>Load balanced]
-        PS[Partitioned Stream<br/>Ordered per key<br/>Scalable]
+    subgraph "Event-Driven Decoupling"
+        A2[Order Service] -->|Order Placed Event| E[Event Bus]
+        E --> B2[Inventory]
+        E --> C2[Payment]
+        E --> D2[Email]
+        E --> F[Analytics]
     end
+    
+    classDef service fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef event fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    
+    class A1,B1,C1,D1,A2,B2,C2,D2,F service
+    class E event
 ```
-
-| Pattern | Guarantee | Use Case | Implementation |
-|---------|-----------|----------|----------------|
-| **Fire & Forget** | None | Logging, metrics | No acks, no retries |
-| **At-Least-Once** | Delivery | Most systems | Acks + retries |
-| **Exactly-Once** | Processing | Financial | Idempotency keys |
-| **Ordered** | Sequence | Event sourcing | Single partition |
-
-### Event-Driven Saga Pattern
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-stateDiagram-v2
-    [*] --> Started: Saga Initiated
-    Started --> Processing: Begin Execution
-    
-    Processing --> InventoryReserved: Reserve Inventory
-    InventoryReserved --> PaymentProcessed: Process Payment
-    PaymentProcessed --> OrderConfirmed: Confirm Order
-    OrderConfirmed --> Completed: Success
-    
-    Processing --> Compensating: Any Step Fails
-    InventoryReserved --> Compensating: Payment Fails
-    PaymentProcessed --> Compensating: Confirmation Fails
-    
-    Compensating --> Failed: After Compensation
-    Completed --> [*]: Success End
-    Failed --> [*]: Failure End
-    
-    note right of Compensating
-        Reverse all completed
-        steps in order
-    end note
-```
-
-</details>
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-sequenceDiagram
-    participant S as Saga Coordinator
-    participant IS as Inventory Service
-    participant PS as Payment Service
-    participant OS as Order Service
-    
-    S->>IS: ReserveInventory Command
-    IS-->>S: InventoryReserved Event
-    
-    S->>PS: ProcessPayment Command
-    PS-->>S: PaymentProcessed Event
-    
-    S->>OS: ConfirmOrder Command
-    
-    alt Success
-        OS-->>S: OrderConfirmed Event
-        S->>S: Mark Completed
-    else Failure
-        OS-->>S: OrderFailed Event
-        S->>S: Begin Compensation
-        S->>PS: RefundPayment Command
-        S->>IS: ReleaseInventory Command
-    end
-```
-
-</details>
 
 ### Saga Pattern Comparison
 
@@ -548,43 +188,35 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
+    subgraph "Command Side (Write)"
+        CMD[Commands] --> AGG[Aggregates]
+        AGG --> ES[Event Store]
+        ES --> EVT[Events Published]
+    end
     
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
+    subgraph "Query Side (Read)"
+        EVT --> PROJ[Projections]
+        PROJ --> RM1[Read Model 1]
+        PROJ --> RM2[Read Model 2]
+        PROJ --> RM3[Read Model N]
+    end
+    
+    subgraph "Event Processing"
+        EVT --> CEP[Complex Event Processing]
+        CEP --> ALERTS[Alerts]
+        CEP --> ANALYTICS[Analytics]
+    end
+    
+    classDef command fill:#ffecb3,stroke:#f57c00,stroke-width:2px
+    classDef event fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef query fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    
+    class CMD,AGG command
+    class ES,EVT,CEP event
+    class PROJ,RM1,RM2,RM3,ALERTS,ANALYTICS query
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Write Side"
-        CMD[Commands] --> AGG[Domain Model]
-        AGG --> ES[(Event Store)]
-    end
-    
-    subgraph "Read Side"
-        ES --> PROJ[Projection Handler]
-        PROJ --> V1[Customer View]
-        PROJ --> V2[Order List View]
-        PROJ --> V3[Analytics View]
-    end
-    
-    subgraph "Query Side"
-        Q[Queries] --> V1
-        Q --> V2
-        Q --> V3
-    end
-    
-    style ES fill:#818cf8,stroke:#6366f1,stroke-width:3px
-```
-
-</details>
 
 | Component | Purpose | Storage | Update Frequency |
 |-----------|---------|---------|------------------|
@@ -594,28 +226,6 @@ graph TB
 | **Read Models** | UI/API serving | Various DBs | Near real-time |
 
 ### Complex Event Processing Patterns
-
-```mermaid
-graph LR
-    subgraph "Event Patterns"
-        S[Simple Event<br/>Single occurrence]
-        C[Complex Event<br/>Pattern matching]
-        D[Derived Event<br/>Calculated from others]
-    end
-    
-    subgraph "Detection Windows"
-        T[Tumbling<br/>Non-overlapping]
-        SL[Sliding<br/>Overlapping]
-        SE[Session<br/>Activity-based]
-    end
-    
-    subgraph "Actions"
-        A[Alert]
-        F[Filter]
-        E[Enrich]
-        R[Route]
-    end
-```
 
 | Use Case | Pattern Type | Window | Example |
 |----------|--------------|--------|---------||
@@ -627,20 +237,40 @@ graph LR
 ### Stream Processing Architecture
 
 ```mermaid
-graph LR
-    subgraph "Stream Processing Pipeline"
-        I[Input<br/>Events] --> F[Filter<br/>Select relevant]
-        F --> M[Map<br/>Transform]
-        M --> W[Window<br/>Group by time]
-        W --> A[Aggregate<br/>Calculate]
-        A --> O[Output<br/>Results]
+graph TB
+    subgraph "Data Sources"
+        API[API Events]
+        DB[Database Changes]
+        LOG[Application Logs]
+        IOT[IoT Sensors]
     end
     
-    subgraph "Window Types"
-        W --> TW[Tumbling<br/>Fixed, non-overlap]
-        W --> SW[Sliding<br/>Fixed, overlap]
-        W --> SES[Session<br/>Activity gap]
+    subgraph "Stream Processing Pipeline"
+        API --> KAFKA[Kafka Cluster]
+        DB --> KAFKA
+        LOG --> KAFKA
+        IOT --> KAFKA
+        
+        KAFKA --> STREAM[Stream Processors]
+        STREAM --> ENRICH[Enrichment]
+        ENRICH --> FILTER[Filtering]
+        FILTER --> AGG[Aggregation]
     end
+    
+    subgraph "Outputs"
+        AGG --> DASH[Dashboards]
+        AGG --> ALERT[Alerts]
+        AGG --> ML[ML Models]
+        AGG --> STORE[Data Stores]
+    end
+    
+    classDef source fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef processing fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef output fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    
+    class API,DB,LOG,IOT source
+    class KAFKA,STREAM,ENRICH,FILTER,AGG processing
+    class DASH,ALERT,ML,STORE output
 ```
 
 ---
@@ -685,22 +315,6 @@ graph LR
 
 ### Event Store Design Decisions
 
-```mermaid
-graph TB
-    subgraph "Storage Strategy"
-        ES[(Event Store)]
-        ES --> HOT[Hot Storage<br/>Recent events<br/>SSD, 7 days]
-        ES --> WARM[Warm Storage<br/>Recent history<br/>HDD, 30 days]
-        ES --> COLD[Cold Storage<br/>Archive<br/>S3, Forever]
-    end
-    
-    subgraph "Optimization"
-        SNAP[Snapshots<br/>Every 100 events]
-        PROJ[Projections<br/>Read models]
-        IDX[Indexes<br/>By time, type]
-    end
-```
-
 | Storage Tier | Retention | Access Pattern | Cost |
 |--------------|-----------|----------------|------|
 | **Hot** | 7 days | Real-time queries | $$$ |
@@ -711,44 +325,38 @@ graph TB
 ### Production Monitoring Strategy
 
 ```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
 graph TB
-    subgraph "Key Metrics"
-        M1[Event Rate<br/>Events/sec]
-        M2[Processing Latency<br/>p50, p95, p99]
-        M3[Consumer Lag<br/>Messages behind]
-        M4[Error Rate<br/>Failed events]
+    subgraph "Event Flow Monitoring"
+        PROD[Producers] --> MON1[Rate Monitor]
+        MON1 --> KAFKA[Event Bus]
+        KAFKA --> MON2[Lag Monitor]
+        MON2 --> CONS[Consumers]
     end
     
-    subgraph "Alerts"
-        A1[Lag > 100k]
-        A2[Latency > 1s]
-        A3[Errors > 1%]
-        A4[DLQ growing]
+    subgraph "Health Monitoring"
+        MON1 --> METRICS[Metrics Store]
+        MON2 --> METRICS
+        CONS --> MON3[Error Monitor]
+        MON3 --> METRICS
     end
     
-    subgraph "Dashboards"
-        D1[Event Flow]
-        D2[Service Health]
-        D3[Performance]
+    subgraph "Alerting"
+        METRICS --> ALERT[Alert Manager]
+        ALERT --> PAGE[Paging]
+        ALERT --> DASH[Dashboards]
+        ALERT --> DLQ[Dead Letter Queue]
     end
+    
+    classDef producer fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef monitoring fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    classDef alerting fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    
+    class PROD,KAFKA,CONS producer
+    class MON1,MON2,MON3,METRICS monitoring
+    class ALERT,PAGE,DASH,DLQ alerting
 ```
 
-</details>
+
 
 ### Critical Monitoring Points
 
@@ -767,27 +375,6 @@ graph TB
 
 ### Event Ordering Guarantees
 
-```mermaid
-graph LR
-    subgraph "Ordering Types"
-        NO[No Ordering<br/>Best performance]
-        PK[Partition Key<br/>Order per key]
-        GO[Global Ordering<br/>Total order]
-    end
-    
-    subgraph "Implementation"
-        NO --> P1[Parallel partitions]
-        PK --> P2[Hash partitioning]
-        GO --> P3[Single partition]
-    end
-    
-    subgraph "Trade-offs"
-        P1 --> T1[Max throughput<br/>No guarantees]
-        P2 --> T2[Good throughput<br/>Partial order]
-        P3 --> T3[Limited throughput<br/>Total order]
-    end
-```
-
 ### Performance Modeling
 
 | Model | Formula | Use Case |
@@ -799,78 +386,57 @@ graph LR
 
 ### Capacity Planning
 
-```mermaid
-graph LR
-    subgraph "Input Metrics"
-        AR[Arrival Rate<br/>1000 events/sec]
-        PR[Processing Rate<br/>100 events/sec/handler]
-        RT[Response Time<br/>< 100ms target]
-    end
-    
-    subgraph "Calculations"
-        U[Utilization = AR/(n*PR)]
-        N[Handlers = ceil(AR/PR * 1.5)]
-        Q[Queue Length = ρ²/(1-ρ)]
-    end
-    
-    subgraph "Output"
-        H[Need 15 handlers]
-        E[Expected 67% utilization]
-        L[Avg queue: 5 events]
-    end
-```
-
 ### Future Directions
 
 ### Event Mesh Architecture (Future)
 
 ```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
 graph TB
-    subgraph "Edge Layer"
-        E1[IoT Devices]
-        E2[Mobile Apps]
-        E3[Edge Compute]
+    subgraph "Cloud Region 1"
+        EB1[Event Broker 1]
+        APP1[Applications]
+        APP1 --> EB1
     end
     
-    subgraph "Gateway Layer"
-        G1[5G Towers]
-        G2[CDN PoPs]
-        G3[Edge Aggregators]
+    subgraph "Cloud Region 2"
+        EB2[Event Broker 2]
+        APP2[Applications]
+        APP2 --> EB2
     end
     
-    subgraph "Regional Layer"
-        R1[Stream Processing]
-        R2[ML Inference]
-        R3[Regional Storage]
+    subgraph "Edge Locations"
+        EB3[Edge Broker]
+        IOT[IoT Devices]
+        MOBILE[Mobile Apps]
+        IOT --> EB3
+        MOBILE --> EB3
     end
     
-    subgraph "Global Layer"
-        C1[Central Analytics]
-        C2[Long-term Storage]
-        C3[Global Coordination]
+    subgraph "Event Mesh Layer"
+        MESH[Event Mesh Controller]
+        DISCOVERY[Service Discovery]
+        ROUTING[Smart Routing]
+        SECURITY[Security Policies]
     end
     
-    E1 & E2 & E3 --> G1 & G2 & G3
-    G1 & G2 & G3 --> R1 & R2 & R3
-    R1 & R2 & R3 --> C1 & C2 & C3
+    EB1 <--> MESH
+    EB2 <--> MESH
+    EB3 <--> MESH
+    
+    MESH --> DISCOVERY
+    MESH --> ROUTING
+    MESH --> SECURITY
+    
+    classDef broker fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef app fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef mesh fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    
+    class EB1,EB2,EB3 broker
+    class APP1,APP2,IOT,MOBILE app
+    class MESH,DISCOVERY,ROUTING,SECURITY mesh
 ```
 
-</details>
+
 
 ### AI-Enhanced Event Processing
 
@@ -940,21 +506,6 @@ graph TB
 #
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -1002,3 +553,4 @@ graph TD
 ---
 
 **Previous**: [← Edge Computing/IoT Patterns](edge-computing.md) | **Next**: [Event Sourcing Pattern →](event-sourcing.md)
+

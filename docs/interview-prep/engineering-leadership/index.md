@@ -2,7 +2,7 @@
 
 > Master the art of Engineering Manager and Director interviews at FAANG and top tech companies
 
-## 🚀 The Four-Level Framework
+## The Four-Level Framework {#framework-overview}
 
 Our comprehensive guide is built on a principled framework that integrates elite business school concepts with engineering leadership practice:
 
@@ -35,31 +35,31 @@ graph TD
 
 <div class="framework-overview">
 
-### [📐 Level I: First Principles](level-1-first-principles/)
-**The Foundational "Why"** - Universal truths that justify every leadership action
+### Level I: First Principles {#level-1}
+**The Foundational "Why"** — Universal truths that justify every leadership action
 - [Value Creation](level-1-first-principles/value-creation/): Business exists to solve problems profitably
 - [Decision-Making](level-1-first-principles/decision-making/): Progress requires quality choices under uncertainty
 - [Human Behavior](level-1-first-principles/human-behavior/): Culture and motivation drive execution
 - [Systems Thinking](level-1-first-principles/systems-thinking/): Organizations are interconnected systems
 - [Integrity & Ethics](level-1-first-principles/integrity-ethics/): Trust is the ultimate advantage
 
-### [💼 Level II: Core Business Concepts](level-2-core-business/)  
-**The Strategic "How"** - MBA-level disciplines for creating competitive advantage
+### Level II: Core Business Concepts {#level-2}
+**The Strategic "How"** — MBA-level disciplines for creating competitive advantage
 - [Strategy](level-2-core-business/strategy/): Making integrated choices for unique value
 - [Leadership](level-2-core-business/leadership/): Mobilizing humans toward shared goals
 - [Operations](level-2-core-business/operations/): Building the engine of execution
 - [Finance](level-2-core-business/finance/): Understanding and creating economic value
 - [Risk & Governance](level-2-core-business/risk-governance/): Managing uncertainty and accountability
 
-### [⚙️ Level III: Engineering Applications](level-3-applications/)
-**The Practical "What"** - Day-to-day domains where leaders apply principles
+### Level III: Engineering Applications {#level-3}
+**The Practical "What"** — Day-to-day domains where leaders apply principles
 - [People Management](level-3-applications/people-management/): Hire → Inspire → Grow → Retain
 - [Technical Leadership](level-3-applications/technical-leadership/): Innovate → Build → Stabilize
 - [Organizational Design](level-3-applications/organizational-design/): Structure → Align → Evolve
 - [Business Acumen](level-3-applications/business-acumen/): Translate → Partner → Influence
 
-### [🎯 Level IV: Interview Execution](level-4-interview-execution/)
-**The "Proof"** - Demonstrating mastery under interview pressure
+### Level IV: Interview Execution {#level-4}
+**The "Proof"** — Demonstrating mastery under interview pressure
 - [Behavioral](level-4-interview-execution/behavioral/): Past performance predicting future
 - [Technical Leadership](level-4-interview-execution/technical-leadership/): Depth meets breadth
 - [System Design](level-4-interview-execution/system-org-design/): Architecture and organization
@@ -67,7 +67,7 @@ graph TD
 
 </div>
 
-## 🎯 Who This Guide Is For
+## Who This Guide Is For {#target-audience}
 
 This comprehensive guide is designed for:
 - **Senior Engineers** transitioning to Engineering Manager roles (L5→L6)
@@ -75,7 +75,7 @@ This comprehensive guide is designed for:
 - **Senior Managers** aspiring to Director roles (L7→L8)
 - **Directors** preparing for Senior Director or VP positions (L8+)
 
-## 🗺️ Start Your Journey
+## Start Your Journey {#start-journey}
 
 <div class="grid cards" markdown>
 
@@ -123,7 +123,7 @@ This comprehensive guide is designed for:
 
 </div>
 
-## 📊 Interview Components Breakdown
+## Interview Components Breakdown {#components-breakdown}
 
 <div class="grid cards" markdown>
 
@@ -169,7 +169,7 @@ This comprehensive guide is designed for:
 
 </div>
 
-## 🏢 Company-Specific Preparation
+## Company-Specific Preparation {#company-specific}
 
 <div class="grid cards" markdown>
 
@@ -182,7 +182,7 @@ This comprehensive guide is designed for:
 
 </div>
 
-## 📈 Success Metrics You'll Need to Demonstrate
+## Success Metrics You'll Need to Demonstrate {#success-metrics}
 
 ### Engineering Productivity
 | Metric | Senior Manager | Director | Senior Director |
@@ -205,7 +205,7 @@ This comprehensive guide is designed for:
 - **Diversity**: 30%+ underrepresented groups
 - **Engagement**: 80%+ satisfaction scores
 
-## 🎓 Preparation Journey
+## Preparation Journey {#preparation-phases}
 
 ### Phase 1: Foundation (Weeks 1-4)
 1. **Principles Study** - Master [First Principles](level-1-first-principles/) and [Business Concepts](level-2-core-business/)
@@ -225,9 +225,9 @@ This comprehensive guide is designed for:
 3. **System Design** - Leadership-focused problems
 4. **Confidence Building** - Visualization and prep
 
-## 🔑 Key Differentiators
+## Key Differentiators {#differentiators}
 
-### 🎯 What Separates Good from Great
+### What Separates Good from Great {#good-vs-great}
 
 !!! info "✅ Good Candidates - Operational Excellence"
     - **Manage teams effectively** - Keep people productive and aligned
@@ -245,7 +245,7 @@ This comprehensive guide is designed for:
     - **Think in first principles** - Apply foundational reasoning frameworks
     - **Apply business frameworks** - Connect engineering to business outcomes
 
-## 📚 Essential Resources
+## Essential Resources {#resources}
 
 ### Core Reading by Level
 **Level I - First Principles**:
@@ -269,7 +269,7 @@ This comprehensive guide is designed for:
 - **[LeadDev.com](https://leaddev.com)** - Engineering leadership content
 - **[The Pragmatic Engineer](https://blog.pragmaticengineer.com)** - Industry insights
 
-## 🎯 Interactive Practice Tools
+## Interactive Practice Tools {#practice-tools}
 
 Enhance your preparation with our execution tools:
 
@@ -307,7 +307,7 @@ Enhance your preparation with our execution tools:
 
 </div>
 
-## 💡 Pro Tips
+## Pro Tips {#pro-tips}
 
 ### From Successful Candidates
 
@@ -317,7 +317,7 @@ Enhance your preparation with our execution tools:
 
 > "The story portfolio system was game-changing. Having 30 stories mapped to principles meant I was never caught off-guard." - *Senior Manager at Amazon*
 
-## 🌟 Hard-Earned Wisdom
+## Hard-Earned Wisdom {#wisdom}
 
 For those ready to go deeper, explore our [Hard-Earned Wisdom](hard-earned-wisdom/) section covering the realities rarely discussed:
 - Managing up and organizational politics
@@ -327,7 +327,7 @@ For those ready to go deeper, explore our [Hard-Earned Wisdom](hard-earned-wisdo
 
 ---
 
-## 🌟 Quick Start Paths
+## Quick Start Paths {#quick-start}
 
 ### "I have an interview in 2 weeks"
 🏃 Fast Track:
@@ -350,7 +350,7 @@ For those ready to go deeper, explore our [Hard-Earned Wisdom](hard-earned-wisdo
 3. [Hard-Earned Wisdom](hard-earned-wisdom/) - Learn from experience
 4. Apply in your current role
 
-## 🔗 Related Resources
+## Related Resources {#related-resources}
 
 ### For Individual Contributors
 If you're still in an IC role or want to strengthen your technical foundation:
