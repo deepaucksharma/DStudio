@@ -486,7 +486,7 @@ last_updated: 2025-07-20
 
 5. **Monitor and Alert**: Trace duration P99, Error traces, Missing spans
 
-**Related Patterns**: [Observability](../patterns/observability.md), [Service Mesh](../patterns/service-mesh.md)
+**Related Patterns**: [Observability](../pattern-library/resilience/health-check.md), [Service Mesh](../pattern-library/communication/service-mesh.md)
 
 ---
 
@@ -692,9 +692,9 @@ last_updated: 2025-07-20
 4. **Share your recipes** - contribute back improvements
 
 For deeper understanding:
-- [Patterns](../patterns/index.md) - Detailed architectural patterns
-- [Case Studies](../case-studies/index.md) - Real-world implementations
-- [Tools](../tools/index.md) - Interactive calculators
+- [Patterns](../pattern-library/index.md) - Detailed architectural patterns
+- [Case Studies](../architects-handbook/case-studies/index.md) - Real-world implementations
+- [Tools](../architects-handbook/tools/index.md) - Interactive calculators
 - [Cheat Sheets](cheat-sheets.md) - Quick reference
 
 ---

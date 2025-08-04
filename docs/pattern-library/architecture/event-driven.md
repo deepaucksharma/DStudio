@@ -1,17 +1,21 @@
 ---
-title: Event-Driven Architecture
+best-for: []
 category: architecture
-excellence_tier: silver
-pattern_status: recommended
+current_relevance: mainstream
 description: Architectural pattern where components communicate through events, enabling
   loose coupling and scalability
+essential_question: How do we structure our system architecture to leverage event-driven
+  architecture?
+excellence_tier: silver
 introduced: 2024-01
-current_relevance: mainstream
+pattern_status: recommended
+tagline: Master event-driven architecture for distributed systems success
+title: Event-Driven Architecture
 trade-offs:
-  pros: []
   cons: []
-best-for: []
+  pros: []
 ---
+
 
 
 
@@ -120,6 +124,21 @@ Chain of dependencies                 Independent reactions
 ### Event Flow Visualization
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 sequenceDiagram
     participant OS as Order Service
     participant EB as Event Bus
@@ -150,6 +169,8 @@ sequenceDiagram
     Note over OS,AS: All handlers process independently
 ```
 
+</details>
+
 ### Event-Driven Patterns
 
 | Pattern | Description | Use Case |
@@ -162,6 +183,21 @@ sequenceDiagram
 
 
 ### Architecture Comparison
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -191,6 +227,8 @@ graph TB
     style Note2 fill:#dcfce7
 ```
 
+</details>
+
 ### Event-Driven Decision Matrix
 
 | Pattern | When to Use | Complexity | Consistency | Performance |
@@ -210,6 +248,21 @@ graph TB
 ### Core Concepts
 
 #### Event Types and Patterns
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TD
@@ -240,6 +293,8 @@ graph TD
     P3 --> D3
 ```
 
+</details>
+
 #### Event Design Principles
 
 | Principle | Description | Example |
@@ -252,6 +307,21 @@ graph TD
 
 
 ### Event Store Architecture
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -276,6 +346,8 @@ graph TB
     style ES fill:#bbf,stroke:#333,stroke-width:3px
     style AGG fill:#f9f,stroke:#333,stroke-width:2px
 ```
+
+</details>
 
 ### Key Architecture Decisions
 
@@ -314,6 +386,21 @@ graph LR
 ### Event-Driven Saga Pattern
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 stateDiagram-v2
     [*] --> Started: Saga Initiated
     Started --> Processing: Begin Execution
@@ -336,6 +423,23 @@ stateDiagram-v2
         steps in order
     end note
 ```
+
+</details>
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 sequenceDiagram
@@ -362,6 +466,8 @@ sequenceDiagram
         S->>IS: ReleaseInventory Command
     end
 ```
+
+</details>
 
 ### Saga Pattern Comparison
 
@@ -441,6 +547,21 @@ sequenceDiagram
 ### CQRS with Event Sourcing
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Write Side"
         CMD[Commands] --> AGG[Domain Model]
@@ -462,6 +583,8 @@ graph TB
     
     style ES fill:#818cf8,stroke:#6366f1,stroke-width:3px
 ```
+
+</details>
 
 | Component | Purpose | Storage | Update Frequency |
 |-----------|---------|---------|------------------|
@@ -588,6 +711,21 @@ graph TB
 ### Production Monitoring Strategy
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Key Metrics"
         M1[Event Rate<br/>Events/sec]
@@ -609,6 +747,8 @@ graph TB
         D3[Performance]
     end
 ```
+
+</details>
 
 ### Critical Monitoring Points
 
@@ -685,6 +825,21 @@ graph LR
 ### Event Mesh Architecture (Future)
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Edge Layer"
         E1[IoT Devices]
@@ -714,6 +869,8 @@ graph TB
     G1 & G2 & G3 --> R1 & R2 & R3
     R1 & R2 & R3 --> C1 & C2 & C3
 ```
+
+</details>
 
 ### AI-Enhanced Event Processing
 
@@ -780,7 +937,34 @@ graph TB
 | Complex workflows? | ✅ Event-driven saga | ⚠️ Orchestration service |
 
 
-### Implementation Checklist
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Checklist
 
 - [ ] Define event schema and versioning strategy
 - [ ] Choose event bus/broker (Kafka, RabbitMQ, etc.)

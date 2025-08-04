@@ -1335,30 +1335,30 @@ class ConsistentHashRing:
 - [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages)
 
 **Related Patterns:**
-- [Virtual Nodes](patterns/sharding)
+- [Virtual Nodes](../../../pattern-library/sharding)
 - Gossip Protocol
 - Vector Clocks
 - Replication (Coming Soon)
 
 ## Related Concepts & Deep Dives
 
-### 📚 Relevant Laws (Part I)
-- **[Law 1: Correlated Failure ](../part1-axioms/law1-failure/index.md)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Law 2: Asynchronous Reality ](../part1-axioms/law2-asynchrony/index.md)** - O(log n/index) lookup time with client-side caching reduces routing latency
-- **[Law 3: Emergent Chaos ](../part1-axioms/law3-emergence/index.md)** - Ring lookups are lock-free read operations
-- **[Law 4: Multidimensional Trade-offs ](../part1-axioms/law4-tradeoffs/index.md)** - Even distribution prevents capacity hot spots across nodes
-- **[Law 5: Distributed Knowledge ](../part1-axioms/law5-epistemology/index.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
-- **[Law 6: Cognitive Load ](../part1-axioms/law6-human-api/index.md)** - Visual ring representation aids debugging and operations
-- **[Law 7: Economic Reality ](../part1-axioms/law7-economics/index.md)** - Efficient scaling without full data redistribution saves bandwidth
+### 📚 Relevant Laws (Part I.md)
+- **[Law 1: Correlated Failure ](../../../core-principles/laws/correlated-failure.md)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 2: Asynchronous Reality ](../../../core-principles/laws/asynchronous-reality.md)** - O(log n/index) lookup time with client-side caching reduces routing latency
+- **[Law 3: Emergent Chaos ](../../../core-principles/laws/emergent-chaos.md)** - Ring lookups are lock-free read operations
+- **[Law 4: Multidimensional Trade-offs ](../../../core-principles/laws/multidimensional-optimization.md)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 5: Distributed Knowledge ](../../../core-principles/laws/distributed-knowledge.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Cognitive Load ](../../../core-principles/laws/cognitive-load.md)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economic Reality ](../../../core-principles/laws/economic-reality.md)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Sharding & Partitioning](patterns/sharding)** - Consistent hashing is the foundation for data sharding
-- **[Load Balancing](patterns/load-balancing)** - Ring-based routing distributes requests evenly
-- **[Service Discovery](patterns/service-discovery)** - Ring topology changes propagate via gossip
-- **Replication (Coming Soon)** - Successor lists define replica placement
-- **[Health Check](patterns/health-check)** - Node failures trigger ring rebalancing
-- **[Caching Strategies](patterns/caching-strategies)** - Client-side topology caching reduces lookups
-- **[Leader Election](patterns/leader-election)** - Ring position can determine partition ownership
+- **[Sharding & Partitioning](../../../pattern-library/sharding.md)** - Consistent hashing is the foundation for data sharding
+- **[Load Balancing](../../../pattern-library/load-balancing.md)** - Ring-based routing distributes requests evenly
+- **[Service Discovery](../../../pattern-library/service-discovery)** - Ring topology changes propagate via gossip
+- **Replication (Coming Soon.md)** - Successor lists define replica placement
+- **[Health Check](../../../pattern-library/health-check.md)** - Node failures trigger ring rebalancing
+- **[Caching Strategies](../../../pattern-library/caching-strategies.md)** - Client-side topology caching reduces lookups
+- **[Leader Election](../../../pattern-library/leader-election.md)** - Ring position can determine partition ownership
 
 ### Quantitative Models
 - **Ring Theory** - Mathematical foundation for hash rings
@@ -1376,4 +1376,4 @@ class ConsistentHashRing:
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Production implementation of consistent hashing at scale
 - **[Rate Limiter Design](rate-limiter.md)** - Uses consistent hashing for distributed rate limit state
 - **[News Feed System](news-feed.md)** - Shards user timelines using consistent hashing
-- **[PayPal Payments](paypal-payments.md)** - Routes payment processing using consistent hashing
+- **[PayPal Payments](paypal-payments.md.md)** - Routes payment processing using consistent hashing

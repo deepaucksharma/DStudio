@@ -25,7 +25,7 @@ This case study would explore OpenStreetMap's unique crowdsourced approach to gl
 ## Related Case Studies
 - [Google Maps](google-maps.md) - Centralized mapping approach
 - [Web Crawler](web-crawler.md) - Distributed data collection patterns
-- [Consistent Hashing](consistent-hashing.md) - Tile server distribution
+- [Consistent Hashing](consistent-hashing.md.md) - Tile server distribution
 
 ## External Resources
 - [OpenStreetMap Wiki - Architecture](https://wiki.openstreetmap.org/wiki/Component_overview)

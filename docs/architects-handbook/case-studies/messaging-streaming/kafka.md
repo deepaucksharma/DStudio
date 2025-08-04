@@ -89,7 +89,7 @@ Apache Kafka transformed distributed data movement by treating data as an immuta
 
 <div class="grid cards" markdown>
 
-- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../patterns/event-sourcing.md)** 🥇
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)** 🥇
     
     ---
     
@@ -258,7 +258,7 @@ graph TB
 
 ### Event Sourcing Implementation
 
-!!! info "Pattern Deep Dive: [Event Sourcing](../patterns/event-sourcing.md)"
+!!! info "Pattern Deep Dive: [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)"
     Kafka's append-only log serves as a perfect implementation of event sourcing, where every state change is captured as an immutable event. This enables event replay, temporal queries, and audit trails.
 
 ```java

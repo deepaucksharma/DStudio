@@ -1414,25 +1414,25 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Epistemology ](../part1-axioms/law5-epistemology/) - Consensus and distributed coordination
-- [Law 1: Failure ](../part1-axioms/law1-failure/) - Failure modes and recovery strategies
-- [Consistent Hashing Pattern](../patterns/consistent-hashing) - Data distribution technique
-- [CAP Theorem](../quantitative/cap-theorem) - Fundamental trade-offs
+- [Law 5: Epistemology ](../../../core-principles/laws/distributed-knowledge.md) - Consensus and distributed coordination
+- [Law 1: Failure ](../../../core-principles/laws/correlated-failure.md) - Failure modes and recovery strategies
+- [Consistent Hashing Pattern](../../../pattern-library/data-management/consistent-hashing.md) - Data distribution technique
+- [CAP Theorem](../../quantitative-analysis/cap-theorem.md) - Fundamental trade-offs
 
 **Advanced Topics:**
 - Multi-Region Replication (Coming Soon) - Global distribution strategies
 - Hybrid Logical Clocks (Coming Soon) - Better than vector clocks for some use cases
-- [CRDT Integration](../patterns/crdt) - Conflict-free replicated data types
-- [Storage Engine Internals](../quantitative/storage-engines) - LSM vs B-Tree deep dive
+- [CRDT Integration](../../../pattern-library/crdt.md) - Conflict-free replicated data types
+- [Storage Engine Internals](../../quantitative-analysis/storage-engines.md) - LSM vs B-Tree deep dive
 
 **Related Case Studies:**
 - [Amazon DynamoDB](amazon-dynamo) - Production implementation of these concepts
 - [Google Spanner](google-spanner) - Globally consistent alternative approach
-- [Redis Architecture](redis) - In-memory KV store design
+- [Redis Architecture](redis.md) - In-memory KV store design
 
 **Performance Optimization:**
-- [Caching Strategies](../patterns/caching-strategies) - Multi-level cache design
-- [Compression Algorithms](../quantitative/compression) - Storage optimization
+- [Caching Strategies](../../../pattern-library/caching-strategies.md) - Multi-level cache design
+- [Compression Algorithms](../../quantitative-analysis/compression.md) - Storage optimization
 - Network Optimization (Coming Soon) - Reducing network overhead
 
 ### 📚 References
@@ -1450,8 +1450,8 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 - [FoundationDB Architecture](https://apple.github.io/foundationdb/architecture.html)
 
 **Related Patterns:**
-- [LSM-Tree](../patterns/lsm-tree)
+- [LSM-Tree](../../../pattern-library/data-management/lsm-tree.md)
 - Write-Ahead Logging (Coming Soon)
-- [Quorum Consensus](../patterns/consensus)
-- [Vector Clocks](../patterns/vector-clocks)
+- [Quorum Consensus](../../../pattern-library/coordination/consensus.md)
+- [Vector Clocks](../../../pattern-library/coordination/logical-clocks.md)
 - Anti-Entropy (Coming Soon)

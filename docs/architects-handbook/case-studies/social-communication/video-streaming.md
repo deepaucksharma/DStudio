@@ -86,7 +86,7 @@ This case study would explore the architecture of large-scale video streaming pl
 ## Related Case Studies
 - [Netflix Streaming](netflix-streaming.md) - Netflix's specific implementation
 - [YouTube](youtube.md) - User-generated video at scale
-- Multi-Region Pattern (Coming Soon) - Global distribution strategies
+- Multi-Region Pattern (Coming Soon.md) - Global distribution strategies
 
 ## External Resources
 - Netflix Technology Blog on Open Connect

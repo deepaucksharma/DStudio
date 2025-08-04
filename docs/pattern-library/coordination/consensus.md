@@ -1,19 +1,13 @@
 ---
-title: Consensus Pattern
-description: Achieving agreement among distributed nodes in the presence of failures
-type: pattern
 category: coordination
-difficulty: advanced
-reading-time: 30 min
-prerequisites: []
-when-to-use: Leader election, distributed configuration, replicated state machines
-when-not-to-use: High-throughput data processing, eventually consistent systems
-status: complete
-last-updated: 2025-07-20
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1989-01
 current_relevance: mainstream
+description: Achieving agreement among distributed nodes in the presence of failures
+difficulty: advanced
+essential_question: How do we coordinate distributed components effectively using
+  consensus pattern?
+excellence_tier: gold
+introduced: 1989-01
+last-updated: 2025-07-20
 modern-examples:
 - company: etcd
   implementation: Raft consensus for Kubernetes configuration management
@@ -24,6 +18,8 @@ modern-examples:
 - company: CockroachDB
   implementation: Raft consensus for distributed SQL transactions
   scale: Handles billions of transactions with strong consistency
+pattern_status: recommended
+prerequisites: []
 production-checklist:
 - Choose consensus algorithm (Raft preferred over Paxos)
 - Configure cluster size (3, 5, or 7 nodes typical)
@@ -35,6 +31,7 @@ production-checklist:
 - Implement graceful node addition/removal
 - Set up monitoring for consensus health
 - Plan for split-brain prevention
+reading-time: 30 min
 related-laws:
 - law2-asynchrony
 - law1-failure
@@ -42,7 +39,17 @@ related-laws:
 related-pillars:
 - truth
 - control
+status: complete
+tagline: Master consensus pattern for distributed systems success
+title: Consensus Pattern
+type: pattern
+when-not-to-use: High-throughput data processing, eventually consistent systems
+when-to-use: Leader election, distributed configuration, replicated state machines
 ---
+
+## Essential Question
+
+**How do we coordinate distributed components effectively using consensus pattern?**
 
 
 # Consensus Pattern
@@ -90,6 +97,21 @@ related-pillars:
 ### Decision Framework
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 flowchart TD
     Start[Need Agreement?] --> Q1{Strong<br/>Consistency?}
     Q1 -->|Yes| Q2{Byzantine<br/>Faults?}
@@ -114,9 +136,26 @@ flowchart TD
     style CRDT fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px
 ```
 
+</details>
+
 ---
 
 ## Visual Overview: Consensus State Machine
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 stateDiagram-v2
@@ -149,6 +188,8 @@ stateDiagram-v2
     end note
 ```
 
+</details>
+
 ## Level 1: Intuition
 
 ### The Essential Concepts
@@ -177,6 +218,21 @@ stateDiagram-v2
 | **Production Use** | etcd, Consul | Chubby, Spanner | Research | Blockchain |
 
 ### Visual Algorithm Flow: Raft in Action
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 sequenceDiagram
@@ -220,7 +276,9 @@ sequenceDiagram
 
 ### Visual Paxos State Machine
 
-```mermaid
+```
+
+</details>mermaid
 stateDiagram-v2
     [*] --> Idle: Initialize
     
@@ -452,6 +510,21 @@ flowchart TD
     style RAFT2 fill:#9f6,stroke:#333,stroke-width:2px
     style PBFT fill:#f96,stroke:#333,stroke-width:2px
     style HBFT fill:#fc6,stroke:#333,stroke-width:2px
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```
 
 ### Consensus Trade-off Calculator
@@ -474,7 +547,9 @@ flowchart TD
 
 ### Leader Election Strategy Selector
 
-```mermaid
+```
+
+</details>mermaid
 graph TD
     subgraph "Election Trigger Analysis"
         ET[Election Needed] --> Q1{Current State?}
@@ -603,7 +678,22 @@ PBFT:
         B3 -.->|Cross-check| B1
         
         style P fill:#ef4444,stroke:#dc2626,stroke-width:3px
-    ```
+    ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```
     
     **Characteristics**:
     - ✅ Tolerates Byzantine faults
@@ -624,7 +714,9 @@ PBFT:
 
     **Best for**: Academic study and research
     
-    ```mermaid
+    ```
+
+</details>mermaid
     graph LR
         C[Client] --> PM[Primary]
         PM --> B1[Backup 1]
@@ -632,7 +724,22 @@ PBFT:
         PM --> B3[Backup 3]
         
         style PM fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px
-    ```
+    ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```
     
     **Characteristics**:
     - ✅ Historical significance
@@ -649,7 +756,34 @@ PBFT:
     - Comparing algorithm designs
     - Teaching distributed systems
 
-#### Implementation Checklist
+##
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Checklist
 
 <div>
 
@@ -686,7 +820,9 @@ PBFT:
 
 ### Raft Consensus Algorithm
 
-```mermaid
+```
+
+</details>mermaid
 stateDiagram-v2
     [*] --> Follower: Start
     
@@ -1575,6 +1711,21 @@ gantt
     EPaxos                  :2013, 2020
     Flexible Paxos          :2016, 2024
     Compartmentalized Paxos :2020, 2024
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```
 
 ### Consensus Cost Analysis
@@ -1600,7 +1751,34 @@ gantt
 | Blockchain | PoS/PoW | Permissionless |
 
 
-### Implementation Checklist
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Checklist
 
 - [ ] Define failure model (crash vs Byzantine)
 - [ ] Choose algorithm based on requirements
@@ -1615,7 +1793,9 @@ gantt
 
 ### Visual Summary: Consensus Decision Tree
 
-```mermaid
+```
+
+</details>mermaid
 flowchart TD
     Start[Need Consensus?]
     
@@ -1678,7 +1858,34 @@ Consensus implements:
 - **[Saga Pattern](patterns/saga)**: Alternative to consensus for long-running transactions
 - **[Event Sourcing](patterns/event-sourcing)**: Can use consensus for ordering events
 
-### Implementation Patterns
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Patterns
 - **[Write-Ahead Log](patterns/wal)**: Critical for consensus durability
 - **[Gossip Protocol](patterns/gossip-protocol)**: Alternative for eventual consistency
 - **[Vector Clocks](patterns/vector-clocks)**: Track causality without consensus

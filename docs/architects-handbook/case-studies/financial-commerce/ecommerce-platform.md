@@ -52,7 +52,7 @@ This case study would explore the architecture of large-scale e-commerce platfor
 - [Amazon DynamoDB](amazon-dynamo.md) - Amazon's distributed database
 - [Payment System](payment-system.md) - Payment processing architecture
 - [Hotel Reservation](hotel-reservation.md) - Similar booking system challenges
-- [Stock Exchange](stock-exchange.md) - High-frequency transaction processing
+- [Stock Exchange](stock-exchange.md.md) - High-frequency transaction processing
 
 ## External Resources
 - Amazon's Service-Oriented Architecture papers

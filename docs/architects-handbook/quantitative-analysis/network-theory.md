@@ -465,5 +465,5 @@ def network_latency(distance_km, processing_ms=1, queuing_ms=0):
 ## Related Topics
 
 - **Theory**: [Graph Theory](graph-theory.md) | [Queueing Networks](queuing-networks.md) | [Information Theory](information-theory.md)
-- **Practice**: [Network Protocols](../patterns/network-protocols.md) | [Consensus](../patterns/consensus.md) | [P2P Systems](../patterns/p2p.md)
-- **Laws**: [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md) | [Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/index.md)
+- **Practice**: [Network Protocols](../patterns/network-protocols.md) | [Consensus](../pattern-library/coordination/consensus.md) | [P2P Systems](../patterns/p2p.md)
+- **Laws**: [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) | [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge.md)

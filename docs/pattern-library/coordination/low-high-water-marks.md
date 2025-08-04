@@ -1,27 +1,50 @@
 ---
-title: Low-Water/High-Water Marks
+best-for: []
+category: coordination
+current_relevance: mainstream
 description: Flow control boundaries for distributed systems replication, buffering,
   and resource management
-type: pattern
-category: coordination
 difficulty: intermediate
-reading-time: 20 min
+essential_question: How do we coordinate distributed components effectively using
+  low-water/high-water marks?
+excellence_tier: silver
+introduced: 2024-01
+last-updated: 2025-07-26
+pattern_status: recommended
 prerequisites:
 - patterns/replication.md
 - patterns/wal.md
-when-to-use: Replication lag control, buffer management, flow control, garbage collection
-when-not-to-use: Simple systems without flow control needs, unbounded resources
+reading-time: 20 min
 status: complete
-last-updated: 2025-07-26
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2024-01
-current_relevance: mainstream
+tagline: Master low-water/high-water marks for distributed systems success
+title: Low-Water/High-Water Marks
 trade-offs:
-  pros: []
   cons: []
-best-for: []
+  pros: []
+type: pattern
+when-not-to-use: Simple systems without flow control needs, unbounded resources
+when-to-use: Replication lag control, buffer management, flow control, garbage collection
 ---
+
+## Essential Question
+## When to Use / When NOT to Use
+
+### When to Use
+
+| Scenario | Why It Fits | Alternative If Not |
+|----------|-------------|-------------------|
+| High availability required | Pattern provides resilience | Consider simpler approach |
+| Scalability is critical | Handles load distribution | Monolithic might suffice |
+| Distributed coordination needed | Manages complexity | Centralized coordination |
+
+### When NOT to Use
+
+| Scenario | Why to Avoid | Better Alternative |
+|----------|--------------|-------------------|
+| Simple applications | Unnecessary complexity | Direct implementation |
+| Low traffic systems | Overhead not justified | Basic architecture |
+| Limited resources | High operational cost | Simpler patterns |
+**How do we coordinate distributed components effectively using low-water/high-water marks?**
 
 
 
@@ -48,6 +71,21 @@ This pattern prevents resource exhaustion while maintaining smooth operation.
 ### Visual Concept
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Water Mark System"
         HWM[High-Water Mark<br/>90% Full]
@@ -69,6 +107,8 @@ graph TB
     Buffer --> Between
     LWM --> Below
 ```
+
+</details>
 
 ### State Machine
 
@@ -109,6 +149,21 @@ stateDiagram-v2
 ### Hysteresis Prevention
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph LR
     subgraph "Problem: Thrashing"
         T1[At 70%<br/>Stop]
@@ -131,7 +186,24 @@ graph LR
     end
 ```
 
+</details>
+
 ### Common Configurations
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -158,11 +230,28 @@ graph TB
     style A_HWM fill:#ef4444,stroke:#dc2626
 ```
 
+</details>
+
 ---
 
 ## Level 3: Deep Dive
 
 ### Production Implementation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 from dataclasses import dataclass
@@ -513,7 +602,24 @@ async def producer_consumer_example():
     print(f"Final metrics: {buffer.metrics}")
 ```
 
+</details>
+
 ### Water Mark Patterns
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -539,6 +645,8 @@ graph TB
     style D3 fill:#3b82f6,stroke:#2563eb
     style M3 fill:#f59e0b,stroke:#d97706
 ```
+
+</details>
 
 ---
 
@@ -601,6 +709,21 @@ class MultiTierWaterMarks:
 ### Performance Impact
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Metrics Impact"
         subgraph "Without Water Marks"
@@ -623,6 +746,8 @@ graph TB
     style M2 fill:#10b981,stroke:#059669
     style M3 fill:#10b981,stroke:#059669
 ```
+
+</details>
 
 ---
 
@@ -650,6 +775,21 @@ graph LR
 ```
 
 ### Optimal Water Mark Selection
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 def calculate_optimal_water_marks(
@@ -684,6 +824,8 @@ def calculate_optimal_water_marks(
     return low_water, high_water
 ```
 
+</details>
+
 ### Future Directions
 
 1. **ML-Driven Water Marks**: Predict optimal thresholds using historical patterns
@@ -704,7 +846,34 @@ def calculate_optimal_water_marks(
 | **Bursty traffic** | 20% | 80% | 60% | Large buffer zone |
 | **Critical systems** | 40% | 60% | 20% | Conservative |
 
-### Implementation Checklist
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Checklist
 
 - [ ] Define capacity limits
 - [ ] Set appropriate thresholds
@@ -747,7 +916,7 @@ Water Marks implement:
 ### Core Dependencies
 - **[Backpressure](../patterns/backpressure.md)**: Water marks trigger backpressure
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)**: Similar state-based protection
-- **[Rate Limiting](../patterns/rate-limiting.md)**: Enforcement mechanism
+- **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)**: Enforcement mechanism
 
 ### Supporting Patterns
 - **[Queue](../patterns/distributed-queue.md)**: Often uses water marks

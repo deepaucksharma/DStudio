@@ -19,14 +19,14 @@ last_updated: 2025-07-20
 ### Law
 Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws.
 
-**Examples**: [Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/law4-tradeoffs/index.md)
+**Examples**: [Asynchronous Reality ⏳](../core-principles/laws/asynchronous-reality.md), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization.md)
 
 ### At-Least-Once Delivery
 Messages may be delivered multiple times but will not be lost. Requires idempotent processing.
 
 **Trade-offs**: Higher reliability vs. duplicate handling complexity
 
-**Related**: Idempotent Receiver (Coming Soon), [Outbox Pattern](../patterns/outbox.md)
+**Related**: Idempotent Receiver (Coming Soon), [Outbox Pattern](../pattern-library/data-management/outbox.md)
 
 ### Availability
 Percentage of time a system is operational. Often measured as "nines".
@@ -54,14 +54,14 @@ Isolation pattern preventing failures from spreading between components.
 
 **Implementation**: Separate thread pools, connection pools, compute resources
 
-**Related**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md)
+**Related**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Correlated Failure ⛓️](../core-principles/laws/correlated-failure.md)
 
 ### Byzantine Fault
 Components behave arbitrarily, sending conflicting information to different parts.
 
 **Examples**: Malicious actors, hardware corruption, inconsistent software behavior
 
-**Related**: [Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md), consensus algorithms
+**Related**: [Correlated Failure ⛓️](../core-principles/laws/correlated-failure.md), consensus algorithms
 
 ## C
 
@@ -70,7 +70,7 @@ Distributed systems can provide at most two of: Consistency, Availability, Parti
 
 **Implication**: Must choose between consistency and availability during partitions
 
-**Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/law4-tradeoffs/index.md)
+**Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization.md)
 
 ### Circuit Breaker
 Prevents cascade failures by failing fast when error thresholds exceeded.
@@ -86,7 +86,7 @@ Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **Trade-offs**: Strong consistency vs. availability and performance
 
-**Related**: [Multidimensional Optimization ⚖️](../part1-axioms/law4-tradeoffs/index.md), [Leader Election](../patterns/leader-election.md)
+**Related**: [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization.md), [Leader Election](../pattern-library/coordination/leader-election.md)
 
 ### Consistent Hashing
 Distributes data across nodes with minimal disruption when adding/removing nodes.
@@ -100,7 +100,7 @@ Separates read and write operations into different models.
 
 **Benefits**: Optimized read/write paths, scalability, flexibility
 
-**Implementation**: [CQRS Pattern](../patterns/cqrs.md)
+**Implementation**: [CQRS Pattern](../pattern-library/data-management/cqrs.md)
 
 ### CRDT (Conflict-free Replicated Data Type)
 Replicated data structure updated independently without coordination.
@@ -139,7 +139,7 @@ Stores state changes as sequence of events rather than current state.
 
 **Benefits**: Audit trail, temporal queries, replay capability
 
-**Implementation**: [Event Sourcing Pattern](../patterns/event-sourcing.md)
+**Implementation**: [Event Sourcing Pattern](../pattern-library/data-management/event-sourcing.md)
 
 ## F
 
@@ -176,7 +176,7 @@ Failures that are subtle, partial, or inconsistent across different observers.
 
 **Detection**: Multi-perspective monitoring, synthetic transactions
 
-**Related**: [Correlated Failure ⛓️](../part1-axioms/law1-failure/index.md), [Observability](../patterns/observability.md)
+**Related**: [Correlated Failure ⛓️](../core-principles/laws/correlated-failure.md), [Observability](../pattern-library/resilience/health-check.md)
 
 ## H
 
@@ -224,14 +224,14 @@ Choosing single coordinator node to avoid split-brain.
 
 **Algorithms**: Bully, Ring, Raft
 
-**Implementation**: [Leader Election Pattern](../patterns/leader-election.md)
+**Implementation**: [Leader Election Pattern](../pattern-library/coordination/leader-election.md)
 
 ### Little's Law
 **Formula**: L = λW (queue length = arrival rate × wait time)
 
 **Applications**: Capacity planning, performance analysis
 
-**Related**: [Quantitative Toolkit](../quantitative/littles-law.md)
+**Related**: [Quantitative Toolkit](../architects-handbook/quantitative-analysis/littles-law.md)
 
 ### Logical Clock
 Orders events without physical time synchronization.
@@ -258,7 +258,7 @@ System state where minor triggers cause cascading performance collapse.
 
 **Prevention**: Circuit breakers, admission control, jitter in retries
 
-**Related**: [Emergent Chaos 🌪️](../part1-axioms/law3-emergence/index.md), [Case Study: Facebook's Metastable Failures](../case-studies/consistent-hashing.md)
+**Related**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos.md), [Case Study: Facebook's Metastable Failures](../architects-handbook/case-studies/infrastructure/consistent-hashing.md)
 
 ### Microservices
 Small, independently deployable services.
@@ -284,7 +284,7 @@ Stores outgoing messages in same transaction as business data.
 
 **Benefits**: Transactional guarantees, reliable delivery
 
-**Implementation**: [Outbox Pattern](../patterns/outbox.md)
+**Implementation**: [Outbox Pattern](../pattern-library/data-management/outbox.md)
 
 ## P
 
@@ -300,7 +300,7 @@ Extension of CAP theorem including latency considerations.
 - PC/EC: MongoDB, HBase (consistent, higher latency)
 - PA/EC: Some configurations prioritize availability but consistency when stable
 
-**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](../part1-axioms/law4-tradeoffs/index.md)
+**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization.md)
 
 ### Partition Tolerance
 Continues operating despite network partitions.
@@ -312,7 +312,7 @@ Continues operating despite network partitions.
 ### Pillar
 Five foundational concepts: Work, State, Truth, Control, Intelligence.
 
-**Reference**: [Part II: Pillars](../part2-pillars/index.md)
+**Reference**: [Part II: Pillars](../core-principles/pillars/index.md)
 
 ## Q
 
@@ -330,7 +330,7 @@ Understandable consensus algorithm.
 
 **Components**: Leader election, log replication, safety
 
-**Implementation**: [Leader Election pattern](../patterns/leader-election.md)
+**Implementation**: [Leader Election pattern](../pattern-library/coordination/leader-election.md)
 
 ### Read Repair
 Fixes inconsistencies during reads by updating stale replicas.
@@ -351,7 +351,7 @@ Manages distributed transactions through local transactions with compensations.
 
 **Types**: Choreography (event-driven), Orchestration (centralized)
 
-**Implementation**: [Saga Pattern](../patterns/saga.md)
+**Implementation**: [Saga Pattern](../pattern-library/data-management/saga.md)
 
 ### Sharding
 Horizontal partitioning across databases/servers.
@@ -383,7 +383,7 @@ Captures causality relationships between events.
 
 **Format**: Array of counters, one per node
 
-**Implementation**: [Emergent Chaos 🌪️](../part1-axioms/law3-emergence/index.md)
+**Implementation**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos.md)
 
 ## W
 

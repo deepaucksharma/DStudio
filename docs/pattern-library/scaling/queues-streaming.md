@@ -1,20 +1,13 @@
 ---
-title: Queues & Stream Processing
-description: Decouple producers from consumers using message queues and event streams
-type: pattern
 category: scaling
-difficulty: intermediate
-reading-time: 35 min
-prerequisites: null
-when-to-use: Handling traffic spikes, decoupling services, event streaming, work distribution
-when-not-to-use: Synchronous request-response, low latency requirements, simple direct
-  calls
-status: complete
-last-updated: 2025-07-21
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2011-01
 current_relevance: mainstream
+description: Decouple producers from consumers using message queues and event streams
+difficulty: intermediate
+essential_question: How do we handle increasing load without sacrificing performance
+  using queues & stream processing?
+excellence_tier: gold
+introduced: 2011-01
+last-updated: 2025-07-21
 modern-examples:
 - company: Uber
   implementation: Apache Kafka processes all trip events and driver matching
@@ -25,6 +18,8 @@ modern-examples:
 - company: Netflix
   implementation: Amazon Kinesis for real-time viewing analytics
   scale: 500B+ events/day for personalization
+pattern_status: recommended
+prerequisites: null
 production-checklist:
 - Choose between queues (SQS/RabbitMQ) vs streams (Kafka/Kinesis)
 - Design partition strategy for parallel processing
@@ -34,7 +29,35 @@ production-checklist:
 - Set up dead letter queues for failed messages
 - Plan for exactly-once vs at-least-once semantics
 - Implement backpressure and flow control mechanisms
+reading-time: 35 min
+status: complete
+tagline: Master queues & stream processing for distributed systems success
+title: Queues & Stream Processing
+type: pattern
+when-not-to-use: Synchronous request-response, low latency requirements, simple direct
+  calls
+when-to-use: Handling traffic spikes, decoupling services, event streaming, work distribution
 ---
+
+## Essential Question
+## When to Use / When NOT to Use
+
+### When to Use
+
+| Scenario | Why It Fits | Alternative If Not |
+|----------|-------------|-------------------|
+| High availability required | Pattern provides resilience | Consider simpler approach |
+| Scalability is critical | Handles load distribution | Monolithic might suffice |
+| Distributed coordination needed | Manages complexity | Centralized coordination |
+
+### When NOT to Use
+
+| Scenario | Why to Avoid | Better Alternative |
+|----------|--------------|-------------------|
+| Simple applications | Unnecessary complexity | Direct implementation |
+| Low traffic systems | Overhead not justified | Basic architecture |
+| Limited resources | High operational cost | Simpler patterns |
+**How do we handle increasing load without sacrificing performance using queues & stream processing?**
 
 # Queues & Stream Processing
 
@@ -113,6 +136,21 @@ Queue/stream benefits:
 ### Basic Architecture
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph LR
  subgraph "Queue Patterns"
  subgraph "Point-to-Point"
@@ -140,6 +178,8 @@ graph LR
  style T fill:#f9f,stroke:#333,stroke-width:2px
  style L fill:#9f9,stroke:#333,stroke-width:2px
 ```
+
+</details>
 
 ### Message Flow Patterns
 
@@ -187,6 +227,21 @@ sequenceDiagram
 ## Level 3: Deep Dive (20 minutes)
 
 ### Detailed Architecture
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -255,11 +310,28 @@ graph TB
  style DLQ fill:#f99,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 ### Implementation Patterns
 
 #### Queue Implementation Patterns
 
 ##### Message Flow Sequence
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 sequenceDiagram
@@ -288,6 +360,8 @@ sequenceDiagram
  end
 ```
 
+</details>
+
 ##### Queue State Machine
 
 ```mermaid
@@ -312,6 +386,21 @@ stateDiagram-v2
 ```
 
 ##### Core Queue Operations
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 from abc import ABC, abstractmethod
@@ -461,7 +550,9 @@ class InMemoryQueue(Queue):
 
 ##### Stream Processing Architecture
 
-```mermaid
+```
+
+</details>mermaid
 graph TB
  subgraph "Stream Processing Flow"
  P[Producers] --> PS[Partitioned Stream]
@@ -512,6 +603,21 @@ sequenceDiagram
  P1-->>CG: Events from offset 41
  CG->>CG: Process events
  CG->>S: Commit offset 42
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```
 
 # Stream Processing Implementation
@@ -600,6 +706,8 @@ class EventStream:
  return events
 ```
 
+</details>
+
 ### Queue Technology Comparison
 
 | Technology | Type | Throughput | Latency | Durability | Best For |
@@ -625,6 +733,21 @@ class EventStream:
 
 
 #### Production-Ready Implementation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 import asyncio
@@ -893,9 +1016,26 @@ class StreamAggregator:
  return datetime.fromtimestamp(window_start_epoch)
 ```
 
+</details>
+
 ### State Management
 
 Queue and stream systems manage state differently:
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 stateDiagram-v2
@@ -923,6 +1063,8 @@ stateDiagram-v2
  for poison messages
  end note
 ```
+
+</details>
 
 ### Queue vs Stream Comparison
 
@@ -958,6 +1100,21 @@ stateDiagram-v2
 ### Advanced Techniques
 
 #### Exactly-Once Processing
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ExactlyOnceProcessor:
@@ -1013,7 +1170,24 @@ class PriorityQueue:
  return None
 ```
 
+</details>
+
 #### Stream Joins and Windows
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class StreamJoiner:
@@ -1054,6 +1228,8 @@ class StreamJoiner:
  return results
 ```
 
+</details>
+
 ### Performance Optimization
 
 !!! note "🎯 Performance Tuning Checklist"
@@ -1069,6 +1245,21 @@ class StreamJoiner:
 ### Monitoring & Observability
 
 Key metrics to track:
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 metrics:
@@ -1111,6 +1302,8 @@ metrics:
  description: Uneven partition distribution
  alert_threshold: > 50%
 ```
+
+</details>
 
 ### Common Pitfalls
 
@@ -1160,6 +1353,21 @@ metrics:
 ### Economic Analysis
 
 #### Cost Model
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 def calculate_queue_roi(
@@ -1214,6 +1422,8 @@ print(f"ROI: ${roi['monthly_savings']:,.0f}/month, "
  f"Peak reduction: {roi['peak_capacity_reduction']:.0f}%")
 ```
 
+</details>
+
 #### When It Pays Off
 
 - **Break-even**: 3x peak ratio or 1% failure rate
@@ -1221,6 +1431,21 @@ print(f"ROI: ${roi['monthly_savings']:,.0f}/month, "
 - **Low ROI**: Constant low traffic, simple request-response, latency-sensitive gaming
 
 ### Pattern Evolution
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 timeline
@@ -1251,6 +1476,8 @@ timeline
  : Multi-cloud streaming
  : Edge message routing
 ```
+
+</details>
 
 ### Law Connections
 
@@ -1309,6 +1536,21 @@ graph TD
 
 ### Command Cheat Sheet
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```bash
 # Queue Operations
 queue send <queue> <message> # Send message
@@ -1333,7 +1575,24 @@ queue delete <name> # Delete queue
 queue policy <name> --dlq --retries=3 # Set policies
 ```
 
+</details>
+
 ### Configuration Template
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 # Production Queue/Stream configuration
@@ -1377,14 +1636,16 @@ messaging:
  age_threshold: 300s
 ```
 
+</details>
+
 ---
 
 ## Related Resources
 
 ### Patterns
 - [Event-Driven Architecture](../patterns/event-driven.md) - Built on queues/streams
-- [CQRS](../patterns/cqrs.md) - Commands via queues
-- [Saga Pattern](../patterns/saga.md) - Orchestration via queues
+- [CQRS](../pattern-library/data-management/cqrs.md) - Commands via queues
+- [Saga Pattern](../pattern-library/data-management/saga.md) - Orchestration via queues
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Protect consumers
 
 ### Laws

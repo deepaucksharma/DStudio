@@ -136,8 +136,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: [Leader-Follower Replication](../patterns/leader-follower)
 - Pattern: [Partitioning](../patterns/sharding) - Topic partitions
-- 🏛 Pillar: [State Distribution](../part2-pillars/state/) - Distributed logs
-- 🏛 Pillar: [Truth Distribution](../part2-pillars/truth/) - Ordered delivery
+- 🏛 Pillar: [State Distribution](../../../core-principles/pillars/state-distribution.md) - Distributed logs
+- 🏛 Pillar: [Truth Distribution](../../../core-principles/pillars/truth-distribution.md) - Ordered delivery
 
 ### Phase 4: Modern Streaming Platform (2014-Present)
 
@@ -1295,13 +1295,13 @@ graph LR
 ## 🔗 Related Concepts & Deep Dives
 
 ### Laws Applied
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/)** - Network RTT dominates replication latency
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/)** - Partitioning for horizontal scaling
-- **[Law 1: Failure](../part1-axioms/law1-failure/)** - Replication for fault tolerance
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/)** - Producer and consumer parallelism
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/)** - Consumer group coordination and monitoring
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/)** - Simple producer/consumer API
-- **[Law 7: Economics](../part1-axioms/law7-economics/)** - Cost-effective storage with compression
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - Network RTT dominates replication latency
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Partitioning for horizontal scaling
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Replication for fault tolerance
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Producer and consumer parallelism
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Consumer group coordination and monitoring
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Simple producer/consumer API
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Cost-effective storage with compression
 
 ### Related Patterns
 - 📨 **[Event-Driven Architecture](../patterns/event-driven)** - Kafka as event backbone

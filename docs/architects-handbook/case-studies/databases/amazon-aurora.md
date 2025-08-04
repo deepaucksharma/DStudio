@@ -77,7 +77,7 @@ Coming soon...
 
 ## Related Topics
 
-- See other [case-studies](index.md)
+- See other [case-studies](index.md.md)
 
 ---
 

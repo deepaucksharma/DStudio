@@ -271,7 +271,7 @@ graph LR
 
 ### Circuit Breaker Pattern in Action
 
-!!! info "Pattern Deep Dive: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)"
+!!! info "Pattern Deep Dive: [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)"
     Netflix's Hystrix framework implements circuit breakers at massive scale, handling 100B+ requests daily. When a service fails, the circuit breaker opens to prevent cascading failures, allowing the system to degrade gracefully.
 
 ```java
@@ -291,7 +291,7 @@ public List<Movie> getRecommendations(String userId) {
 
 ### Load Balancing at Scale
 
-!!! info "Pattern Deep Dive: [Load Balancing](../patterns/load-balancing.md)"
+!!! info "Pattern Deep Dive: [Load Balancing](../../../pattern-library/scaling/load-balancing.md)"
     Zuul gateway performs intelligent load balancing across microservices, using real-time metrics to route requests to healthy instances.
 
 ## Performance Characteristics
@@ -342,7 +342,7 @@ public List<Movie> getRecommendations(String userId) {
 
 ## Caching Strategy Deep Dive
 
-!!! info "Pattern Deep Dive: [Caching Strategies](../patterns/caching-strategies.md)"
+!!! info "Pattern Deep Dive: [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)"
     Netflix's Open Connect CDN implements multi-level caching with 15,000+ edge servers globally, achieving 95%+ cache hit rates and reducing backbone traffic significantly.
 
 ### Cache Hierarchy
@@ -486,7 +486,7 @@ Netflix started with a monolith and migrated to microservices over 3 years:
 ### Related Case Studies
 - [YouTube: Video at Scale](youtube.md) - Compare with YouTube's architecture
 - [Spotify: Music Streaming](spotify-recommendations.md) - Similar challenges, different domain
-- [Disney+: Launch at Scale](video-streaming.md) - Learning from Netflix's playbook
+- [Disney+: Launch at Scale](video-streaming.md.md) - Learning from Netflix's playbook
 
 ### Pattern Deep Dives
 - [Circuit Breaker Pattern](../../patterns/circuit-breaker) - Detailed implementation guide

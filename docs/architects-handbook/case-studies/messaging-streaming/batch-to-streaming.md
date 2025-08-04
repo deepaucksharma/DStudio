@@ -603,7 +603,7 @@ def modern_data_architecture():
 
 - [Stream Processing Pattern](../patterns/stream-processing.md)
 - [Lambda Architecture](../patterns/lambda-architecture.md)
-- [Event Sourcing Pattern](../patterns/event-sourcing.md)
+- [Event Sourcing Pattern](../../../pattern-library/data-management/event-sourcing.md)
 - [Streaming Systems Book](https://www.oreilly.com/library/view/streaming-systems/9781491983867/)
 
 ---

@@ -81,10 +81,10 @@ Explore CAP theorem trade-offs, calculate consistency guarantees, and compare co
 
 Each calculator is based on solid mathematical foundations:
 
-- **[Little's Law](../quantitative/littles-law.md)** - Foundation for latency and throughput calculations
+- **[Little's Law](../../quantitative-analysis/littles-law.md)** - Foundation for latency and throughput calculations
 - **[Queueing Theory](../quantitative/queueing-theory.md)** - Models for performance analysis
 - **[Availability Math](../quantitative/reliability-theory.md)** - Reliability calculations
-- **[CAP Theorem](../quantitative/cap-theorem.md)** - Consistency trade-offs
+- **[CAP Theorem](../../quantitative-analysis/cap-theorem.md)** - Consistency trade-offs
 - **[Universal Scalability Law](../quantitative/universal-scalability.md)** - Scaling predictions
 
 ## How to Use These Tools

@@ -2310,25 +2310,25 @@ Regional servers reduce latency; cross-region replication; compliance ready
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - WebSocket for real-time, regional servers
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Connection pooling, message queuing
-- **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Offline queue, retry mechanisms
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Actor model, parallel delivery
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Group state sync, message ordering, and monitoring
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Connection pooling, message queuing
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Actor model, parallel delivery
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Typing indicators, read receipts
 
 ### 🏛 Related Patterns
 - **WebSocket (Coming Soon)** - Persistent connections
 - **Distributed Queue (Coming Soon)** - Reliable delivery
 - **Actor Model (Coming Soon)** - Concurrent message handling
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
-- **[Event Sourcing](../patterns/event-sourcing.md)** - Message history
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
+- **[Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)** - Message history
 - **[CRDT](../patterns/crdt.md)** - Distributed state sync
-- **[Saga Pattern](../patterns/saga.md)** - Group operations
+- **[Saga Pattern](../../../pattern-library/data-management/saga.md)** - Group operations
 
 ### Quantitative Models
-- **[Little's Law](../quantitative/littles-law.md)** - Connection pool sizing
-- **[Queueing Theory](../quantitative/queueing-models.md)** - Message queue capacity
+- **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - Connection pool sizing
+- **[Queueing Theory](../../quantitative-analysis/queueing-models.md.md)** - Message queue capacity
 - **CAP Theorem (Coming Soon)** - Consistency vs availability
 - **[Network Theory](../quantitative/network-theory.md)** - Optimal server placement
 

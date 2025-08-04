@@ -30,12 +30,12 @@ patterns_used:
   gold:
     - consistent-hashing: "Virtual nodes for data distribution"
     - quorum-consensus: "Tunable consistency with R+W>N"
-    - vector-clocks: "Conflict resolution mechanism"
+    - coordination/logical-clocks.md: "Conflict resolution mechanism"
     - merkle-trees: "Anti-entropy synchronization"
     - circuit-breaker: "Prevents cascade failures"
     - hinted-handoff: "Temporary storage for down nodes"
   silver:
-    - gossip-protocol: "Membership and failure detection"
+    - communication/publish-subscribe.md: "Membership and failure detection"
     - write-ahead-log: "Durability guarantees"
   bronze:
     - masterless: "Eliminates single points of failure"
@@ -217,7 +217,7 @@ graph TB
  1. **Consistent Hashing**: Minimizes data movement during scaling, enables infinite horizontal scaling
  2. **Quorum System**: R+W>N guarantees consistency, allows tunable latency vs consistency trade-offs
  3. **Vector Clocks**: Tracks causality for conflict resolution, preserves data during network partitions
- 4. **Merkle Trees**: Efficient anti-entropy for background synchronization and repair
+ 4. **Merkle Trees**: Efficient data-management/read-repair.md for background synchronization and repair
 
 ### Scaling Strategy
 
@@ -353,63 +353,63 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../patterns/circuit-breaker)**
+- :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)**
     
     ---
     
     Prevents cascade failures in distributed request routing
     
-    [Learn more →](../patterns/circuit-breaker)
+    [Learn more →](../../../pattern-library/resilience/circuit-breaker.md)
 
-- :material-rotate-3d:{ .lg .middle } **[Consistent Hashing](../patterns/consistent-hashing)**
+- :material-rotate-3d:{ .lg .middle } **[Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md)**
     
     ---
     
     Enables elastic scaling with minimal data movement
     
-    [Learn more →](../patterns/consistent-hashing)
+    [Learn more →](../../../pattern-library/data-management/consistent-hashing.md)
 
-- :material-vote:{ .lg .middle } **[Quorum Consensus](../patterns/consensus)**
+- :material-vote:{ .lg .middle } **[Quorum Consensus](../../../pattern-library/coordination/consensus.md)**
     
     ---
     
     Balances consistency and availability trade-offs
     
-    [Learn more →](../patterns/consensus)
+    [Learn more →](../../../pattern-library/coordination/consensus.md)
 
-- :material-sync:{ .lg .middle } **[Anti-Entropy](../patterns/anti-entropy)**
+- :material-sync:{ .lg .middle } **[Anti-Entropy](../../../pattern-library/data-management/read-repair.md)**
     
     ---
     
     Background synchronization using Merkle trees
     
-    [Learn more →](../patterns/anti-entropy)
+    [Learn more →](../../../pattern-library/data-management/read-repair.md)
 
 </div>
 
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](../part1-axioms/law1-failure/) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/) - Eventually consistent by design
-- [Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/) - AP choice in CAP theorem
-- [Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/) - Gossip protocol for membership
+- [Law 1: Correlated Failure](../../../core-principles/laws/correlated-failure.md) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md) - Eventually consistent by design
+- [Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization.md) - AP choice in CAP theorem
+- [Law 5: Distributed Knowledge](../../../core-principles/laws/distributed-knowledge.md) - Gossip protocol for membership
 
 ### Related Patterns
-- [Consistent Hashing](../patterns/consistent-hashing/) - Virtual nodes for data distribution
-- [Vector Clocks](../patterns/vector-clocks/) - Conflict resolution mechanism
-- [Merkle Trees](../patterns/merkle-trees/) - Anti-entropy synchronization
-- [Quorum Consensus](../patterns/consensus/) - Tunable consistency levels
+- [Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md) - Virtual nodes for data distribution
+- [Vector Clocks](../../../pattern-library/coordination/logical-clocks.md) - Conflict resolution mechanism
+- [Merkle Trees](../../../pattern-library/data-management/merkle-trees.md) - Anti-entropy synchronization
+- [Quorum Consensus](../../../pattern-library/coordination/consensus.md) - Tunable consistency levels
 
 ### Related Pillars
-- [Pillar 2: State](../part2-pillars/state/) - Eventually consistent state management
-- [Pillar 3: Truth](../part2-pillars/truth/) - Multiple versions of truth
-- [Pillar 4: Control](../part2-pillars/control/) - Decentralized control plane
+- [Pillar 2: State](../../../core-principles/pillars/state-distribution.md) - Eventually consistent state management
+- [Pillar 3: Truth](../../../core-principles/pillars/truth-distribution.md) - Multiple versions of truth
+- [Pillar 4: Control](../../../core-principles/pillars/control-distribution.md) - Decentralized control plane
 
 ### Case Studies
-- [Apache Cassandra](../case-studies/cassandra/) - Similar eventual consistency model
-- [Redis Cluster](../case-studies/redis/) - Alternative distributed key-value store
-- [Spanner](../case-studies/google-spanner/) - Contrasting strongly consistent approach
+- [Apache Cassandra](../cassandra/) - Similar eventual consistency model
+- [Redis Cluster](../redis/) - Alternative distributed key-value store
+- [Spanner](../google-spanner/) - Contrasting strongly consistent approach
 
 ## Decision Guide
 
@@ -443,6 +443,6 @@ graph LR
 ## Discussion Questions
 
 1. How would you modify DynamoDB's consistency model for a financial trading system?
-2. What are the cost-benefit trade-offs of DynamoDB's multi-region replication strategy?
+2. What are the cost-benefit trade-offs of DynamoDB's scaling/multi-region.md replication strategy?
 3. Could DynamoDB's architecture handle 10x current load with the same latency guarantees?
 4. How does DynamoDB's eventual consistency model impact application design patterns?

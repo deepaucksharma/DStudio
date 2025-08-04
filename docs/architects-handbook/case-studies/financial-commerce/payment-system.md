@@ -87,25 +87,25 @@ lessons_learned:
 
 <div class="grid cards" markdown>
 
-- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../patterns/saga-pattern.md)** 🥇
+- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../../../pattern-library/data-management/saga.md)** 🥇
     
     ---
     
     Distributed transaction management across payment services
 
-- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../patterns/event-sourcing.md)** 🥇
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)** 🥇
     
     ---
     
     Complete audit trail of every payment event
 
-- :material-fingerprint:{ .lg .middle } **[Idempotency](../patterns/idempotency.md)** 🥇
+- :material-fingerprint:{ .lg .middle } **[Idempotency](../../../pattern-library/#idempotency-pattern.md)** 🥇
     
     ---
     
     Preventing duplicate charges with idempotent operations
 
-- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../patterns/double-entry-ledger.md)** 🥇
+- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../../../pattern-library/#double-entry-ledger-pattern.md)** 🥇
     
     ---
     
@@ -363,7 +363,7 @@ class PaymentAggregate:
 
 ### 2. Distributed Transaction Management
 
-!!! info "Pattern Deep Dive: [Saga Pattern](../patterns/saga-pattern.md)"
+!!! info "Pattern Deep Dive: [Saga Pattern](../../../pattern-library/data-management/saga.md)"
     The Saga pattern enables distributed transactions without two-phase commit, using compensating transactions for rollback. Essential for payment systems where atomic cross-service operations are required.
 
 **Saga Pattern Implementation**:
@@ -425,7 +425,7 @@ public class PaymentSaga {
 
 ### 3. Idempotency and Exactly-Once Processing
 
-!!! info "Pattern Deep Dive: [Idempotency Pattern](../patterns/idempotency.md)"
+!!! info "Pattern Deep Dive: [Idempotency Pattern](../../../pattern-library/#idempotency-pattern)"
     Idempotency ensures operations can be safely retried without side effects. Critical for payments where network failures could lead to duplicate charges.
 
 ```python
@@ -476,12 +476,12 @@ class IdempotentPaymentProcessor:
         if saga_result.is_success:
             return PaymentResult.success(payment_id, saga_result.data)
         else:
-            return PaymentResult.failed(payment_id, saga_result.error)
+            return PaymentResult.failed(payment_id, saga_result.error.md)
 ```
 
 ### 4. Double-Entry Bookkeeping
 
-!!! info "Pattern Deep Dive: [Double-Entry Ledger Pattern](../patterns/double-entry-ledger.md)"
+!!! info "Pattern Deep Dive: [Double-Entry Ledger Pattern](../../../pattern-library/#double-entry-ledger-pattern)"
     Double-entry bookkeeping ensures every transaction is balanced with corresponding debits and credits. This pattern is fundamental for financial accuracy and regulatory compliance.
 
 ```sql
@@ -622,7 +622,7 @@ public class CurrencyExchangeService {
         }
         
         CurrencyPair pair = new CurrencyPair(amount.getCurrency(), targetCurrency);
-        BigDecimal rate = getExchangeRate(pair);
+        BigDecimal rate = getExchangeRate(pair.md);
         
         // Use banker's rounding for financial calculations
         BigDecimal converted = amount.getValue()
@@ -1436,7 +1436,7 @@ graph TB
 - [Stripe: Modern Payment Infrastructure](paypal-payments.md) - API-first payment processing
 - [Square: Omnichannel Payments](ecommerce-platform.md) - Physical and digital payments
 - [Coinbase: Crypto Payment Rails](blockchain.md) - Blockchain-based payments
-- [Wise: Cross-Border Payments](payment-system.md) - Multi-currency optimization
+- [Wise: Cross-Border Payments](payment-system.md.md) - Multi-currency optimization
 
 ### Pattern Deep Dives
 - [Event Sourcing for Payments](../../patterns/event-sourcing#financial-systems) - Financial event sourcing

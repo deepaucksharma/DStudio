@@ -1,19 +1,14 @@
 ---
-title: Sidecar Pattern
-excellence_tier: gold
-essential_question: How do we add infrastructure capabilities without modifying application code?
-tagline: Deploy auxiliary functionality alongside your main application
-description: Container-based separation of concerns for cross-cutting infrastructure capabilities
-type: pattern
-difficulty: intermediate
-reading-time: 15 min
-prerequisites: []
-pattern-type: architectural
-status: complete
-last-updated: 2025-01-30
-pattern_status: recommended
-introduced: 2016-01
+category: architecture
 current_relevance: mainstream
+description: Container-based separation of concerns for cross-cutting infrastructure
+  capabilities
+difficulty: intermediate
+essential_question: How do we add infrastructure capabilities without modifying application
+  code?
+excellence_tier: gold
+introduced: 2016-01
+last-updated: 2025-01-30
 modern-examples:
 - company: Istio
   implementation: Service mesh sidecar for traffic management and security
@@ -24,6 +19,9 @@ modern-examples:
 - company: Envoy
   implementation: High-performance proxy sidecar for cloud-native apps
   scale: Powers Lyft, Airbnb, and major cloud providers
+pattern-type: architectural
+pattern_status: recommended
+prerequisites: []
 production-checklist:
 - Define clear resource limits for sidecar containers
 - Implement health checks for both main app and sidecar
@@ -35,8 +33,13 @@ production-checklist:
 - Set up proper logging and tracing
 - Test failure scenarios (sidecar crash, main app crash)
 - Document sidecar configuration and deployment
-category: architecture
+reading-time: 15 min
+status: complete
+tagline: Deploy auxiliary functionality alongside your main application
+title: Sidecar Pattern
+type: pattern
 ---
+
 
 # Sidecar Pattern
 
@@ -66,6 +69,21 @@ Both work together but remain independent - you can upgrade the sidecar without 
 ## Architecture Overview
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Pod/VM Boundary"
         subgraph "Main Container"
@@ -87,6 +105,8 @@ graph TB
     style A fill:#4CAF50
     style B fill:#2196F3
 ```
+
+</details>
 
 ## Sidecar vs Alternatives
 
@@ -138,7 +158,106 @@ graph LR
     end
 ```
 
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
 ## Implementation Example
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 apiVersion: v1
@@ -188,6 +307,8 @@ spec:
     configMap:
       name: envoy-config
 ```
+
+</details>
 
 ## Traffic Flow Patterns
 

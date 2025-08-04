@@ -1344,8 +1344,8 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Distributed Knowledge ](../part1-axioms/law5-epistemology/index.md) - Node ID assignment and consensus
-- [Law 6: Cognitive Load ](../part1-axioms/law6-human-api/index.md) - Developer experience considerations
+- [Law 5: Distributed Knowledge ](../../../core-principles/laws/distributed-knowledge.md) - Node ID assignment and consensus
+- [Law 6: Cognitive Load ](../../../core-principles/laws/cognitive-load.md) - Developer experience considerations
 - [Clock Synchronization](../patterns/clock-sync.md) - NTP and time coordination
 - [Logical Clocks](../patterns/logical-clocks.md) - Alternative to wall-clock time
 
@@ -1356,14 +1356,14 @@ Database:
 - [Collision Probability Math](../quantitative/collision-probability.md) - Birthday paradox applied
 
 **Related Case Studies:**
-- [URL Shortener](url-shortener.md) - Uses ID generation for short codes
+- [URL Shortener](url-shortener.md.md) - Uses ID generation for short codes
 <!-- TODO: Add distributed tracing case study -->
-- [Event Sourcing](../patterns/event-sourcing.md) - Event ID generation patterns
+- [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md) - Event ID generation patterns
 
 **Implementation Patterns:**
 - Client Library Design (Coming Soon) - SDK best practices
-- [Service Discovery](../patterns/service-discovery.md) - For ticket server architectures
-- [Graceful Degradation](../pattern-library/resilience/graceful-degradation.md) - Fallback strategies
+- [Service Discovery](../../../pattern-library/communication/service-discovery.md) - For ticket server architectures
+- [Graceful Degradation](../../../pattern-library/resilience/graceful-degradation.md) - Fallback strategies
 
 ### 📚 References
 
@@ -1381,6 +1381,6 @@ Database:
 
 **Related Patterns:**
 - [Lamport Timestamps](../patterns/logical-clocks.md)
-- [Vector Clocks](../patterns/vector-clocks.md)
-- [Consistent Hashing](consistent-hashing.md)
-- [Leader Election](../patterns/leader-election.md)
+- [Vector Clocks](../../../pattern-library/coordination/logical-clocks.md)
+- [Consistent Hashing](consistent-hashing.md.md)
+- [Leader Election](../../../pattern-library/coordination/leader-election.md)

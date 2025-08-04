@@ -2069,10 +2069,10 @@ Storage Node      32GB      8 cores  10TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 3: Emergence](../part1-axioms/law3-emergence/index.md) - Massive parallelism patterns
-- [Law 6: Human-API](../part1-axioms/law6-human-api/index.md) - Crawler ethics and robots.txt
+- [Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md) - Massive parallelism patterns
+- [Law 6: Human-API](../../../core-principles/laws/cognitive-load.md) - Crawler ethics and robots.txt
 - [Queue Patterns](../patterns/queues-streaming.md) - Priority queue implementations
-- [Bulkhead Pattern](../pattern-library/resilience/bulkhead.md) - Domain isolation strategies
+- [Bulkhead Pattern](../../../pattern-library/resilience/bulkhead.md) - Domain isolation strategies
 
 **Advanced Topics:**
 - JavaScript Crawling (Coming Soon) - Headless browser techniques
@@ -2086,7 +2086,7 @@ Storage Node      32GB      8 cores  10TB
 <!-- TODO: Add price monitor case study -->
 
 **Implementation Patterns:**
-- [Rate Limiting](../patterns/rate-limiting.md) - Respectful crawling rate control
+- [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md) - Respectful crawling rate control
 - [URL Normalization](../patterns/url-normalization.md) - Canonical URLs
 - Content Extraction (Coming Soon) - Parsing strategies
 - [Distributed Queue](../patterns/distributed-queue.md) - Scalable queue design
@@ -2106,6 +2106,6 @@ Storage Node      32GB      8 cores  10TB
 
 **Related Patterns:**
 - URL Frontier Management (Coming Soon)
-- [Politeness Policy](../patterns/rate-limiting.md)
+- [Politeness Policy](../../../pattern-library/scaling/rate-limiting.md)
 - [Duplicate Detection](../patterns/bloom-filter.md)
-- [Distributed Coordination](../patterns/leader-election.md)
+- [Distributed Coordination](../../../pattern-library/coordination/leader-election.md)

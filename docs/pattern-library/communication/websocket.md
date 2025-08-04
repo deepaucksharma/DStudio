@@ -1,15 +1,13 @@
 ---
-title: WebSocket Pattern
+category: communication
+current_relevance: mainstream
 description: Full-duplex, bidirectional communication over a single TCP connection
   for real-time applications
-type: pattern
-category: communication
 difficulty: intermediate
-reading-time: 25 min
+essential_question: How do we enable efficient communication between services using
+  websocket pattern?
 excellence_tier: gold
-pattern_status: recommended
 introduced: 2011-12
-current_relevance: mainstream
 modern-examples:
 - company: Discord
   implementation: WebSocket infrastructure handles voice/text for 150M+ active users
@@ -20,6 +18,7 @@ modern-examples:
 - company: Binance
   implementation: WebSocket streams for real-time crypto trading data
   scale: 90M+ users, 1.2M messages/second peak
+pattern_status: recommended
 production-checklist:
 - Implement connection pooling and reuse
 - Configure heartbeat/ping-pong (typically 30-60s intervals)
@@ -31,7 +30,12 @@ production-checklist:
 - Use compression for large messages (permessage-deflate)
 - Handle connection lifecycle events properly
 - Test with realistic network conditions (latency, packet loss)
+reading-time: 25 min
+tagline: Master websocket pattern for distributed systems success
+title: WebSocket Pattern
+type: pattern
 ---
+
 
 # WebSocket Pattern
 
@@ -74,6 +78,21 @@ HTTP is like sending letters - you send a request and wait for a response. WebSo
 ### Visual Architecture
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Traditional HTTP"
         C1[Client] -->|Request 1| S1[Server]
@@ -96,6 +115,8 @@ graph TB
     style C2 fill:#4ade80,stroke:#16a34a
     style S2 fill:#4ade80,stroke:#16a34a
 ```
+
+</details>
 
 ### Core Value
 | Aspect | HTTP | WebSocket |
@@ -131,6 +152,21 @@ sequenceDiagram
 ```
 
 ### Basic Implementation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 # Server (using websockets library)
@@ -188,6 +224,8 @@ ws.onerror = (error) => {
 };
 ```
 
+</details>
+
 ## Level 3: Deep Dive (15 min)
 
 ### Message Patterns
@@ -212,6 +250,21 @@ graph LR
 ```
 
 ### Advanced Features
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class AdvancedWebSocketServer:
@@ -281,6 +334,8 @@ class AdvancedWebSocketServer:
             await asyncio.gather(*tasks, return_exceptions=True)
 ```
 
+</details>
+
 ### Connection Management
 
 | Challenge | Solution | Implementation |
@@ -293,6 +348,21 @@ class AdvancedWebSocketServer:
 ## Level 4: Expert (20 min)
 
 ### Scaling WebSockets
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 # Horizontal scaling with Redis pub/sub
@@ -346,7 +416,24 @@ class ScalableWebSocketServer:
         await asyncio.gather(*tasks, return_exceptions=True)
 ```
 
+</details>
+
 ### Production Patterns
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 # Load balancer configuration (nginx)
@@ -372,6 +459,8 @@ server {
     }
 }
 ```
+
+</details>
 
 ### Performance Optimization
 
@@ -409,6 +498,21 @@ server {
     - Handles 1M+ events/second per node
 
 ### Advanced Reconnection
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```javascript
 class ResilientWebSocket {
@@ -508,6 +612,8 @@ class ResilientWebSocket {
 }
 ```
 
+</details>
+
 ## Quick Reference
 
 ### Production Checklist ✓
@@ -574,3 +680,29 @@ Single server capacity:
 ---
 
 **Previous**: [Service Discovery Pattern](service-discovery.md) | **Next**: [Communication Patterns Index](index.md)
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |

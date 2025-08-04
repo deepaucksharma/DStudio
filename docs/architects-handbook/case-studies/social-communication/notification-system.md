@@ -2515,21 +2515,21 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ](../part1-axioms/law1-failure/index.md)** - Foundation for reliable delivery
-- **[Law 5: Epistemology ](../part1-axioms/law5-epistemology/index.md)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ](../part1-axioms/law2-asynchrony/index.md)** - Real-time delivery constraints
-- **[Law 7: Economics ](../part1-axioms/law7-economics/index.md)** - Cost optimization strategies
+- **[Law 1: Failure ](../../../core-principles/laws/correlated-failure.md)** - Foundation for reliable delivery
+- **[Law 5: Epistemology ](../../../core-principles/laws/distributed-knowledge.md)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ](../../../core-principles/laws/asynchronous-reality.md)** - Real-time delivery constraints
+- **[Law 7: Economics ](../../../core-principles/laws/economic-reality.md)** - Cost optimization strategies
 
 #### Advanced Topics
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - Asynchronous notification processing
 - **[Queue Systems](../patterns/queues-streaming.md)** - Message queue patterns
-- **[Circuit Breakers](../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
-- **[Rate Limiting](../patterns/rate-limiting.md)** - Preventing notification storms
+- **[Circuit Breakers](../../../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
+- **[Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
 - **[Chat System](chat-system.md)** - Real-time messaging patterns
 - **[Search Autocomplete](search-autocomplete.md)** - Low-latency requirements
-- **[Spotify Recommendations](spotify-recommendations.md)** - Personalization at scale
+- **[Spotify Recommendations](spotify-recommendations.md.md)** - Personalization at scale
 <!-- TODO: Add workflow engine case study -->
 
 #### Implementation Patterns
@@ -2552,6 +2552,6 @@ Analytics Service    8 cores  32GB      10TB
 
 **Related Patterns:**
 - [Message Queue](../patterns/queues-streaming.md)
-- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
+- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
 - [Event-Driven Architecture](../patterns/event-driven.md)
-- [Rate Limiting](../patterns/rate-limiting.md)
+- [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)

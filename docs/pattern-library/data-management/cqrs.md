@@ -1,28 +1,34 @@
 ---
-title: CQRS (Command Query Responsibility Segregation)
-category: data-management
-excellence_tier: silver
-pattern_status: recommended
-description: Architectural pattern separating read and write operations to optimize performance and scalability
-introduced: 2010-06
-current_relevance: mainstream
-trade-offs:
-  pros:
-  - Independent scaling of reads and writes
-  - Optimized data models for each use case
-  - Natural fit with event sourcing
-  - Simplified complex domain logic
-  cons:
-  - Eventual consistency complexity
-  - Infrastructure overhead
-  - Synchronization challenges
-  - Increased operational complexity
 best-for:
 - Systems with asymmetric read/write patterns (10:1 or higher)
 - Complex domains requiring different models
 - Applications needing multiple read representations
 - High-performance query requirements
+category: data-management
+current_relevance: mainstream
+description: Architectural pattern separating read and write operations to optimize
+  performance and scalability
+essential_question: How do we ensure data consistency and reliability with cqrs (command
+  query responsibility segregation)?
+excellence_tier: silver
+introduced: 2010-06
+pattern_status: recommended
+tagline: Master cqrs (command query responsibility segregation) for distributed systems
+  success
+title: CQRS (Command Query Responsibility Segregation)
+trade-offs:
+  cons:
+  - Eventual consistency complexity
+  - Infrastructure overhead
+  - Synchronization challenges
+  - Increased operational complexity
+  pros:
+  - Independent scaling of reads and writes
+  - Optimized data models for each use case
+  - Natural fit with event sourcing
+  - Simplified complex domain logic
 ---
+
 
 # CQRS (Command Query Responsibility Segregation)
 
@@ -101,6 +107,21 @@ graph LR
 ### CQRS Architecture
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Write Side"
         CMD[Commands] --> CH[Command Handlers]
@@ -124,6 +145,8 @@ graph TB
         QH --> RS3
     end
 ```
+
+</details>
 
 ### Key Components
 
@@ -249,6 +272,21 @@ graph TD
 ### Case Study: LinkedIn Feed Architecture
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Write Path"
         P[Post Service] -->|Create| ES[(Event Store)]
@@ -271,6 +309,8 @@ graph TB
     end
 ```
 
+</details>
+
 **Scale Metrics**:
 - 1B+ feed updates daily
 - 100ms P99 read latency
@@ -278,6 +318,21 @@ graph TB
 - Geographic distribution
 
 ### Economic Analysis
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 def cqrs_roi_calculator(
@@ -304,6 +359,8 @@ def cqrs_roi_calculator(
         'complexity_increase': 2.5  # Rough estimate
     }
 ```
+
+</details>
 
 ## Quick Reference
 
@@ -336,6 +393,21 @@ graph TD
 
 ### Configuration Template
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```yaml
 cqrs:
   command_side:
@@ -359,6 +431,8 @@ cqrs:
     track_lag: true
     alert_threshold_ms: 1000
 ```
+
+</details>
 
 ## Related Patterns
 

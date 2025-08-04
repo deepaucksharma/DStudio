@@ -476,9 +476,9 @@ val wordCounts = textFile
 
 - [Apache Spark](apache-spark) - Next-generation replacement
 - [Apache Flink](flink) - Stream-first processing
-- [HDFS](hdfs) - Distributed file system
+- [HDFS](hdfs.md) - Distributed file system
 - [Distributed Computing](../patterns/distributed-computing) - Core concepts
-- [Google File System](gfs) - Storage layer
+- [Google File System](gfs.md) - Storage layer
 
 ## References
 

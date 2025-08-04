@@ -1,36 +1,59 @@
 ---
-title: Strangler Fig
+best-for: []
+category: architecture
+current_relevance: mainstream
 description: Incrementally replace legacy systems by gradually routing functionality
   to new implementations
-type: pattern
-category: architecture
 difficulty: advanced
-reading-time: 20 min
+essential_question: How do we structure our system architecture to leverage strangler
+  fig?
+excellence_tier: silver
+introduced: 2024-01
+last-updated: 2025-01-26
+pattern_status: recommended
 prerequisites:
 - API Gateway
 - Service Mesh
 - Anti-Corruption Layer
-when-to-use:
-- Migrating monoliths to microservices
-- Replacing legacy systems incrementally
-- Modernizing without big-bang rewrites
-- Risk-averse transformation required
+reading-time: 20 min
+status: complete
+tagline: Master strangler fig for distributed systems success
+title: Strangler Fig
+trade-offs:
+  cons: []
+  pros: []
+type: pattern
 when-not-to-use:
 - Greenfield applications
 - Simple system replacements
 - Urgent complete rewrites needed
 - Legacy system is well-maintained
-status: complete
-last-updated: 2025-01-26
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2024-01
-current_relevance: mainstream
-trade-offs:
-  pros: []
-  cons: []
-best-for: []
+when-to-use:
+- Migrating monoliths to microservices
+- Replacing legacy systems incrementally
+- Modernizing without big-bang rewrites
+- Risk-averse transformation required
 ---
+
+## Essential Question
+## When to Use / When NOT to Use
+
+### When to Use
+
+| Scenario | Why It Fits | Alternative If Not |
+|----------|-------------|-------------------|
+| High availability required | Pattern provides resilience | Consider simpler approach |
+| Scalability is critical | Handles load distribution | Monolithic might suffice |
+| Distributed coordination needed | Manages complexity | Centralized coordination |
+
+### When NOT to Use
+
+| Scenario | Why to Avoid | Better Alternative |
+|----------|--------------|-------------------|
+| Simple applications | Unnecessary complexity | Direct implementation |
+| Low traffic systems | Overhead not justified | Basic architecture |
+| Limited resources | High operational cost | Simpler patterns |
+**How do we structure our system architecture to leverage strangler fig?**
 
 
 
@@ -54,6 +77,21 @@ best-for: []
 </div>
 
 ## Solution Overview
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -91,9 +129,110 @@ graph TB
     style N3 fill:#51cf66
 ```
 
+</details>
+
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
 ## Implementation Strategies
 
 ### 1. Edge Proxy Strategy
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph LR
@@ -125,6 +264,8 @@ graph LR
     style N1 fill:#51cf66
     style N2 fill:#51cf66
 ```
+
+</details>
 
 ### Strategy Comparison
 
@@ -159,6 +300,21 @@ graph TD
 ### 2. Branch by Abstraction Strategy
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Step 1: Create Abstraction"
         C1[Client Code] --> O1[Order Logic]
@@ -182,7 +338,24 @@ graph TB
     end
 ```
 
+</details>
+
 ### 3. Parallel Run Strategy
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -208,6 +381,8 @@ graph TB
     style L fill:#ff6b6b
     style N fill:#51cf66
 ```
+
+</details>
 
 ## Progressive Migration Patterns
 
@@ -286,6 +461,21 @@ graph LR
 ### Example 2: Netflix Billing System Evolution
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 timeline
     title Netflix Billing System Migration Timeline
     
@@ -314,6 +504,8 @@ timeline
             : 99.99% availability
             : 200M subscribers
 ```
+
+</details>
 
 ## Anti-Patterns to Avoid
 
@@ -383,6 +575,90 @@ graph LR
     T --> G[Grafana Dashboard]
 ```
 
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
 ## Implementation Checklist
 
 <div class="decision-box">
@@ -414,6 +690,21 @@ graph LR
 ## Monitoring and Observability
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Key Metrics"
         M1[Request Success Rate]
@@ -441,6 +732,8 @@ graph TB
     D3 --> A3[Performance Alerts]
     D4 --> A4[Auto Rollback]
 ```
+
+</details>
 
 ## Success Criteria
 

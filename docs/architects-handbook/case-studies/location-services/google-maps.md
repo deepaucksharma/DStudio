@@ -854,7 +854,7 @@ graph TB
 ```
 
 **Key Design Decision: Tile Pyramid System**
-- **Trade-off**: Storage vs Computation (Pillar: [State Distribution](../part2-pillars/state/))
+- **Trade-off**: Storage vs Computation (Pillar: [State Distribution](../../../core-principles/pillars/state-distribution.md))
 - **Choice**: Pre-render popular zoom levels
 - **Result**: 100x faster map loads
 - **Pattern Applied**: Tile Pyramid
@@ -908,8 +908,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: Vector Tiles - Resolution independence
 - Pattern: Client Rendering - GPU acceleration
-- 🏛 Pillar: [Work Distribution](../part2-pillars/work/) - Client computation
-- 🏛 Pillar: [Intelligence](../part2-pillars/intelligence/) - ML map generation
+- 🏛 Pillar: [Work Distribution](../../../core-principles/pillars/work-distribution.md) - Client computation
+- 🏛 Pillar: [Intelligence](../../../core-principles/pillars/intelligence-distribution.md) - ML map generation
 
 ### Phase 4: Modern Real-time Platform (2015-Present)
 
@@ -1827,13 +1827,13 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/)** - Tile serving, routing speed
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/)** - Petabyte-scale storage
-- **[Law 1: Failure](../part1-axioms/law1-failure/)** - Multi-region redundancy
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/)** - Parallel tile generation
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/)** - Global data consistency and traffic accuracy metrics
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/)** - Intuitive navigation
-- **[Law 7: Economics](../part1-axioms/law7-economics/)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - Tile serving, routing speed
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Petabyte-scale storage
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Multi-region redundancy
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Parallel tile generation
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Global data consistency and traffic accuracy metrics
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Intuitive navigation
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Infrastructure costs
 
 ### 🏛 Related Patterns
 - **Tile Pyramid** - Multi-zoom tiles
@@ -1864,4 +1864,4 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 2. SIGGRAPH: "Google Street View: Capturing the World at Street Level" (2018)
 3. Research Paper: "Engineering the Google Maps Road Graph" (2020)
 4. Google AI Blog: "Real-time Traffic Prediction with Graph Neural Networks" (2021)
-5. ACM Paper: "Efficient Route Planning Using Contraction Hierarchies" (2019)
+5. ACM Paper: "Efficient Route Planning Using Contraction Hierarchies" (2019.md)

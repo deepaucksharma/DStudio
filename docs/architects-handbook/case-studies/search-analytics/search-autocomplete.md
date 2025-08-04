@@ -1078,10 +1078,10 @@ graph TB
 - Personalized suggestions
 
 **Patterns & Pillars Applied**:
-- Pattern: [Sharding](../patterns/sharding.md) - Prefix-based partitioning
-- Pattern: [Cache-Aside](../patterns/caching-strategies.md) - Redis for hot queries
-- 🏛 Pillar: [Work Distribution](../part2-pillars/work/) - Parallel prefix search
-- 🏛 Pillar: [Intelligence](../part2-pillars/intelligence/) - ML ranking
+- Pattern: [Sharding](../../../pattern-library/scaling/sharding.md) - Prefix-based partitioning
+- Pattern: [Cache-Aside](../../../pattern-library/scaling/caching-strategies.md) - Redis for hot queries
+- 🏛 Pillar: [Work Distribution](../../../core-principles/pillars/work-distribution.md) - Parallel prefix search
+- 🏛 Pillar: [Intelligence](../../../core-principles/pillars/intelligence-distribution.md) - ML ranking
 
 ### Phase 4: Modern Multi-Model Architecture (2015-Present)
 
@@ -1681,27 +1681,27 @@ class DistributedAutocomplete:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/)** - Sub-100ms response critical for UX
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/)** - Memory limits drive sharding
-- **[Law 1: Failure](../part1-axioms/law1-failure/)** - Graceful degradation strategies
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/)** - Lock-free trie operations
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/)** - Distributed trie updates
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/)** - Query performance tracking
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/)** - Typo tolerance, personalization
-- **[Law 7: Economics](../part1-axioms/law7-economics/)** - Memory cost vs latency
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - Sub-100ms response critical for UX
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Memory limits drive sharding
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Graceful degradation strategies
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Lock-free trie operations
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Distributed trie updates
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Query performance tracking
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Typo tolerance, personalization
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Memory cost vs latency
 
 ### 🏛 Related Patterns
 - **Trie Data Structure (Coming Soon)** - Core search structure
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-level caching
-- **[Sharding](../patterns/sharding.md)** - Distribute by prefix
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
-- **[Load Balancing](../patterns/load-balancing.md)** - Distribute queries
+- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** - Multi-level caching
+- **[Sharding](../../../pattern-library/scaling/sharding.md)** - Distribute by prefix
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
+- **[Load Balancing](../../../pattern-library/scaling/load-balancing.md)** - Distribute queries
 - **[Event Streaming](../patterns/event-streaming.md)** - Real-time updates
-- **[Edge Computing](../patterns/edge-computing.md)** - Global latency optimization
+- **[Edge Computing](../../../pattern-library/scaling/edge-computing.md)** - Global latency optimization
 
 ### Quantitative Models
 - **[Information Theory](../quantitative/information-theory.md)** - Entropy in prefix trees
-- **[Queueing Theory](../quantitative/queueing-models.md)** - Server capacity planning
+- **[Queueing Theory](../../quantitative-analysis/queueing-models.md.md)** - Server capacity planning
 - **Probability Theory (Coming Soon)** - Bloom filter false positives
 - **Machine Learning (ML Ranking Coming Soon)** - Learning to rank
 
@@ -1723,4 +1723,4 @@ class DistributedAutocomplete:
 
 ## Conclusion
 
-Search autocomplete systems push the boundaries of latency-sensitive distributed systems. By leveraging tries for sub-millisecond prefix matching, multi-level caching for global scale, and ML for personalization, these systems deliver suggestions that feel instantaneous. The hybrid architecture balances the speed of in-memory tries with the sophistication of ML ranking, while maintaining fallback strategies for resilience. The key insight is that different query types (common vs. rare, short vs. long) benefit from different architectural paths, and a production system must intelligently route queries to optimize both latency and relevance.
+Search autocomplete systems push the boundaries of latency-sensitive distributed systems. By leveraging tries for sub-millisecond prefix matching, multi-level caching for global scale, and ML for personalization, these systems deliver suggestions that feel instantaneous. The hybrid architecture balances the speed of in-memory tries with the sophistication of ML ranking, while maintaining fallback strategies for resilience. The key insight is that different query types (common vs. rare, short vs. long.md) benefit from different architectural paths, and a production system must intelligently route queries to optimize both latency and relevance.

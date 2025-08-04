@@ -722,7 +722,7 @@ graph LR
  style C fill:#ff6b6b
 ```
 
-**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md).
+**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../core-principles/laws/asynchronous-reality.md).
 
 ### Law 4: Trade-offs
 !!! danger "⚠️ Capacity Overflow Scenario"
@@ -963,5 +963,5 @@ Remember: Little's Law is like gravity - always there!
 ## Related Concepts
 
 - **Quantitative**: [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md) | [Availability Math](availability-math.md)
-- **Patterns**: [Rate Limiting](../patterns/rate-limiting.md) | [Bulkhead](../pattern-library/resilience/bulkhead.md) | [Backpressure](../patterns/backpressure.md)
+- **Patterns**: [Rate Limiting](../pattern-library/scaling/rate-limiting.md) | [Bulkhead](../pattern-library/resilience/bulkhead.md) | [Backpressure](../patterns/backpressure.md)
 - **Operations**: [SRE Practices](../human-factors/sre-practices.md) | [Performance Monitoring](../human-factors/observability-stacks.md)

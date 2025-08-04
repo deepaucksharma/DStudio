@@ -123,7 +123,7 @@ graph TB
 ## Related Case Studies
 - [Nearby Friends](nearby-friends.md) - Location sharing patterns
 - [Apple Maps](apple-maps.md) - Apple's privacy architecture
-- E2E Encryption (Coming Soon) - Encryption patterns
+- E2E Encryption (Coming Soon.md) - Encryption patterns
 
 ## External Resources
 - [Apple Find My Network](https://support.apple.com/guide/security/find-my-network-security-sec973b83216/)

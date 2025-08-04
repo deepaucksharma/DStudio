@@ -1,28 +1,33 @@
 ---
-title: Segmented Log
-description: Breaking append-only logs into manageable segments for efficient storage, compaction, and retention
-category: data-management
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2004-11
-current_relevance: mainstream
-trade-offs:
-  pros:
-  - Efficient old data cleanup via segment deletion
-  - Parallel operations on different segments
-  - Bounded recovery time per segment
-  - Natural unit for replication and backup
-  cons:
-  - Additional complexity vs single file
-  - Segment management overhead
-  - Cross-segment query complexity
-  - Metadata management required
 best-for:
 - Message queues and event stores
 - Database write-ahead logs
 - Time-series data storage
 - Distributed logs like Kafka
+category: data-management
+current_relevance: mainstream
+description: Breaking append-only logs into manageable segments for efficient storage,
+  compaction, and retention
+essential_question: How do we ensure data consistency and reliability with segmented
+  log?
+excellence_tier: silver
+introduced: 2004-11
+pattern_status: recommended
+tagline: Master segmented log for distributed systems success
+title: Segmented Log
+trade-offs:
+  cons:
+  - Additional complexity vs single file
+  - Segment management overhead
+  - Cross-segment query complexity
+  - Metadata management required
+  pros:
+  - Efficient old data cleanup via segment deletion
+  - Parallel operations on different segments
+  - Bounded recovery time per segment
+  - Natural unit for replication and backup
 ---
+
 
 # Segmented Log Pattern
 
@@ -101,6 +106,21 @@ graph LR
 ### Core Architecture
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Write Path"
         W[Writer] --> AS[Active Segment]
@@ -122,6 +142,8 @@ graph TB
         COMP[Compaction] --> MERGE[Merge/Clean]
     end
 ```
+
+</details>
 
 ### Key Design Decisions
 
@@ -260,6 +282,21 @@ log:
 ### Case Study: Apache Kafka's Segment Implementation
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Kafka Partition"
         P[Producer] --> L[Leader]
@@ -284,6 +321,8 @@ graph TB
     end
 ```
 
+</details>
+
 **Kafka's Design Decisions**:
 - 1GB default segment size
 - Separate index files for offset/timestamp lookup
@@ -298,6 +337,21 @@ graph TB
 - Automatic rebalancing
 
 ### Economic Analysis
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 def segment_size_optimizer(
@@ -327,6 +381,8 @@ def segment_size_optimizer(
         'recovery_time_minutes': optimal_size / 100 / 60
     }
 ```
+
+</details>
 
 ## Quick Reference
 
@@ -359,6 +415,21 @@ graph TD
 
 ### Configuration Template
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```yaml
 segmented_log:
   segments:
@@ -382,6 +453,8 @@ segmented_log:
     zero_copy: true
     compression: "lz4"          # For sealed segments
 ```
+
+</details>
 
 ## Related Patterns
 

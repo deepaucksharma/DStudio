@@ -283,7 +283,7 @@ graph TD
 
 - [MapReduce Pattern](../patterns/mapreduce.md)
 - [Distributed Cache Pattern](../patterns/distributed-cache.md)
-- [Sharding Pattern](../patterns/sharding.md)
+- [Sharding Pattern](../../../pattern-library/scaling/sharding.md)
 - [Google Papers](https://research.google/pubs/)
 
 ---

@@ -1391,14 +1391,14 @@ class SpatialCacheWarmer:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - Sub-100ms spatial queries
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Index memory limits
-- **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Redundant indices
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Parallel spatial queries
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Index consistency
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Query pattern analysis
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - Intuitive results
-- **[Law 7: Economics](../part1-axioms/law7-economics/index.md)** - Index storage costs
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - Sub-100ms spatial queries
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Index memory limits
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Redundant indices
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Parallel spatial queries
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Index consistency
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Query pattern analysis
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Intuitive results
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Index storage costs
 
 ### 🏛 Related Patterns
 - **Spatial Indexing (Coming Soon)** - R-tree, QuadTree, KD-tree
@@ -1406,7 +1406,7 @@ class SpatialCacheWarmer:
 - **[Caching Strategies](../patterns/caching-strategies)** - Multi-level caches
 - **[Sharding](../patterns/sharding)** - Geographic partitioning
 - **[Load Balancing](../patterns/load-balancing)** - Query distribution
-- **[Circuit Breaker](../patterns/circuit-breaker)** - Service protection
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
 - **[Edge Computing](../patterns/edge-computing)** - Regional processing
 
 ### Quantitative Models
@@ -1419,7 +1419,7 @@ class SpatialCacheWarmer:
 - **[Uber's H3 System] (Case Study Coming Soon)** - Hexagonal spatial indexing
 - **[Google Maps](google-maps.md)** - Global mapping infrastructure
 - **[Foursquare Venues] (Case Study Coming Soon)** - Location recommendations
-- **[Pokemon Go] (Case Study Coming Soon)** - Real-time AR locations
+- **[Pokemon Go] (Case Study Coming Soon.md)** - Real-time AR locations
 
 ## Part 3: Architecture Alternatives - Exploring the Design Space
 

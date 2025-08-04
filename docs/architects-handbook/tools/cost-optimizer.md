@@ -169,7 +169,7 @@
 
 ## Related Resources
 
-- [Economic Reality Law](part1-axioms/law7-economics)
+- [Economic Reality Law](../../core-principles/laws/law7-economics)
 - FinOps Best Practices (Coming Soon)
 - Multi-Region Architecture (Coming Soon/index)
 - [Storage Economics](quantitative/storage-economics)

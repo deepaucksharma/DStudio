@@ -1,30 +1,13 @@
 ---
-title: Serverless/FaaS (Function-as-a-Service)
+best-for: Event-driven workloads, APIs with variable traffic, batch jobs, webhooks
+category: architecture
+current_relevance: mainstream
 description: Execute code without managing servers, paying only for actual compute
   time with automatic scaling
-type: pattern
-category: architecture
 difficulty: intermediate
-reading-time: 45 min
-prerequisites: []
-when-to-use: When dealing with specialized challenges
-when-not-to-use: When simpler solutions suffice
-status: complete
-last-updated: 2025-07-21
+essential_question: How do we structure our system architecture to leverage serverless/faas
+  (function-as-a-service)?
 excellence_tier: silver
-pattern_status: use-with-expertise
-introduced: 2014-11
-current_relevance: mainstream
-trade-offs:
-  pros:
-  - Zero server management and automatic scaling
-  - Pay only for actual execution time
-  - Rapid development and deployment
-  cons:
-  - Vendor lock-in concerns
-  - Cold start latency issues
-  - Limited execution time and resources
-best-for: Event-driven workloads, APIs with variable traffic, batch jobs, webhooks
 implementations:
 - company: iRobot
   scale: Processes millions of IoT events from Roomba vacuums
@@ -32,7 +15,47 @@ implementations:
   scale: Vending machine payments via AWS Lambda
 - company: Netflix
   scale: Video encoding and media processing pipelines
+introduced: 2014-11
+last-updated: 2025-07-21
+pattern_status: use-with-expertise
+prerequisites: []
+reading-time: 45 min
+status: complete
+tagline: Master serverless/faas (function-as-a-service) for distributed systems success
+title: Serverless/FaaS (Function-as-a-Service)
+trade-offs:
+  cons:
+  - Vendor lock-in concerns
+  - Cold start latency issues
+  - Limited execution time and resources
+  pros:
+  - Zero server management and automatic scaling
+  - Pay only for actual execution time
+  - Rapid development and deployment
+type: pattern
+when-not-to-use: When simpler solutions suffice
+when-to-use: When dealing with specialized challenges
 ---
+
+## Essential Question
+## When to Use / When NOT to Use
+
+### When to Use
+
+| Scenario | Why It Fits | Alternative If Not |
+|----------|-------------|-------------------|
+| High availability required | Pattern provides resilience | Consider simpler approach |
+| Scalability is critical | Handles load distribution | Monolithic might suffice |
+| Distributed coordination needed | Manages complexity | Centralized coordination |
+
+### When NOT to Use
+
+| Scenario | Why to Avoid | Better Alternative |
+|----------|--------------|-------------------|
+| Simple applications | Unnecessary complexity | Direct implementation |
+| Low traffic systems | Overhead not justified | Basic architecture |
+| Limited resources | High operational cost | Simpler patterns |
+**How do we structure our system architecture to leverage serverless/faas (function-as-a-service)?**
 
 
 # Serverless/FaaS (Function-as-a-Service)
@@ -102,6 +125,21 @@ Scale: Manual                             Scale: 0 → 1000000 automatically
 
 ### Basic Implementation
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```python
 # AWS Lambda function - the simplest serverless
 def lambda_handler(event, context):
@@ -148,11 +186,28 @@ def create_thumbnail(event, context):
 # Pricing: 0 uploads = $0, 1M uploads = ~$20
 ```
 
+</details>
+
 ---
 
 ## Level 2: Foundation
 
 ### Core Concepts
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -179,6 +234,8 @@ graph TB
     style Execute fill:#9f9,stroke:#333,stroke-width:4px
 ```
 
+</details>
+
 ### Serverless Cost Comparison
 
 ```mermaid
@@ -204,6 +261,21 @@ graph LR
 ### Serverless Patterns
 
 #### 1. Request-Response Pattern
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessAPI:
@@ -277,7 +349,24 @@ def create_user(event, context):
 lambda_handler = api.handle
 ```
 
+</details>
+
 #### 2. Event-Driven Pattern
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class EventDrivenProcessor:
@@ -353,7 +442,24 @@ def handle_cron(event, context):
     send_daily_reports()
 ```
 
+</details>
+
 #### 3. Stream Processing Pattern
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class StreamProcessor:
@@ -414,7 +520,24 @@ class StreamProcessor:
         })
 ```
 
+</details>
+
 ### Cold Start Optimization
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ColdStartOptimizer:
@@ -479,6 +602,8 @@ def optimized_handler(event, context):
     return process_request(event, db)
 ```
 
+</details>
+
 ---
 
 ## Level 3: Deep Dive
@@ -486,6 +611,21 @@ def optimized_handler(event, context):
 ### Advanced Patterns
 
 #### Step Functions Orchestration
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessWorkflow:
@@ -637,7 +777,24 @@ def create_order_workflow():
     return workflow
 ```
 
+</details>
+
 #### Serverless Event Sourcing
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessEventStore:
@@ -751,7 +908,24 @@ def project_payment(event):
     )
 ```
 
+</details>
+
 #### Serverless WebSockets
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessWebSocket:
@@ -840,6 +1014,8 @@ class ServerlessWebSocket:
         return {'statusCode': 200}
 ```
 
+</details>
+
 ---
 
 ## Level 4: Expert
@@ -847,6 +1023,21 @@ class ServerlessWebSocket:
 ### Production Case Study: Netflix's Serverless Encoding
 
 Netflix processes millions of hours of video content using serverless architecture, scaling from 0 to thousands of encoding functions in seconds.
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class NetflixVideoEncoding:
@@ -1080,7 +1271,24 @@ def create_encoding_workflow():
     }
 ```
 
+</details>
+
 ### Step Functions Workflow Visualization
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 stateDiagram-v2
@@ -1118,7 +1326,24 @@ stateDiagram-v2
     UpdateCatalog --> [*]: Complete
 ```
 
+</details>
+
 ### Performance Optimization
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessPerformance:
@@ -1252,6 +1477,8 @@ class ServerlessPerformance:
             return process_request(event, db, model, config)
 ```
 
+</details>
+
 ---
 
 ## Level 5: Mastery
@@ -1259,6 +1486,21 @@ class ServerlessPerformance:
 ### Theoretical Foundations
 
 #### Serverless Economics
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessEconomics:
@@ -1369,7 +1611,24 @@ class ServerlessEconomics:
         }
 ```
 
+</details>
+
 #### Queueing Theory for Serverless
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessQueueingTheory:
@@ -1436,9 +1695,26 @@ class ServerlessQueueingTheory:
             return "Cold starts are negligible for your traffic pattern"
 ```
 
+</details>
+
 ### Future Directions
 
 #### Edge Functions
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class EdgeServerless:
@@ -1506,7 +1782,24 @@ class EdgeServerless:
         }
 ```
 
+</details>
+
 #### Serverless Containers
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessContainers:
@@ -1569,7 +1862,24 @@ class ServerlessContainers:
         }
 ```
 
+</details>
+
 ### Economic Impact
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class ServerlessROI:
@@ -1625,6 +1935,8 @@ class ServerlessROI:
         }
 ```
 
+</details>
+
 ---
 
 ## Quick Reference
@@ -1642,6 +1954,21 @@ class ServerlessROI:
 
 
 ### Serverless Event Sources
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -1678,7 +2005,36 @@ graph TB
     style DDB fill:#9f6,stroke:#333,stroke-width:2px
 ```
 
-### Implementation Checklist
+</details>
+
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Checklist
 
 - [ ] Identify stateless workloads
 - [ ] Design event-driven architecture  

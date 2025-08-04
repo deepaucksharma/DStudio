@@ -374,8 +374,8 @@ Browser → Apache Server → Local Files → Flash Player
 - Flash dependency
 
 **Patterns Violated**: 
-- No [Load Balancing](../patterns/load-balancing.md)
-- No [Caching Strategy](../patterns/caching-strategies.md)
+- No [Load Balancing](../../../pattern-library/scaling/load-balancing.md)
+- No [Caching Strategy](../../../pattern-library/scaling/caching-strategies.md)
 - No [Fault Tolerance](../patterns/fault-tolerance.md)
 
 ### Phase 2: Basic CDN Integration (2006-2008)
@@ -412,7 +412,7 @@ graph TB
 - **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](../part2-pillars/work/index.md))
 - **Choice**: Pay for CDN to achieve global scale
 - **Result**: 70% reduction in origin bandwidth
-- **Pattern Applied**: [Edge Computing](../patterns/edge-computing.md)
+- **Pattern Applied**: [Edge Computing](../../../pattern-library/scaling/edge-computing.md)
 
 According to Google's reports¹, this reduced average latency from 800ms to 200ms globally.
 
@@ -1407,34 +1407,34 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
-- **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Millions of concurrent uploads/views require distributed processing pipelines
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - Global CDN cache invalidation and content synchronization challenges
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - Adaptive UI for different devices and network conditions
-- **[Law 7: Economics](../part1-axioms/law7-economics/index.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Millions of concurrent uploads/views require distributed processing pipelines
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Global CDN cache invalidation and content synchronization challenges
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Adaptive UI for different devices and network conditions
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
 
 ### 🏛 Related Patterns (Part III)
-- **[Edge Computing](../patterns/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs
+- **[Edge Computing](../../../pattern-library/scaling/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs
 - **CDN Strategy (Coming Soon)** - Multi-CDN architecture with intelligent routing
-- **[Load Balancing](../patterns/load-balancing.md)** - Anycast routing and geo-aware traffic distribution
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-tier caching from edge to origin
+- **[Load Balancing](../../../pattern-library/scaling/load-balancing.md)** - Anycast routing and geo-aware traffic distribution
+- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** - Multi-tier caching from edge to origin
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - Video processing pipeline triggered by upload events
-- **[Auto-Scaling](../patterns/auto-scaling.md)** - Dynamic compute allocation for transcoding workloads
-- **[Graceful Degradation](../pattern-library/resilience/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
+- **[Auto-Scaling](../../../pattern-library/scaling/auto-scaling.md)** - Dynamic compute allocation for transcoding workloads
+- **[Graceful Degradation](../../../pattern-library/resilience/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
 
 ### Quantitative Models
 - **[Power Laws](../quantitative/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers
-- **[Little's Law](../quantitative/littles-law.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
-- **[Queueing Theory](../quantitative/queueing-models.md)** - Transcoding queue optimization for different video priorities
+- **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
+- **[Queueing Theory](../../quantitative-analysis/queueing-models.md.md)** - Transcoding queue optimization for different video priorities
 - **[Information Theory](../quantitative/information-theory.md)** - Video compression algorithms and bandwidth optimization
 
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices.md)** - Managing global video infrastructure at scale
 - **[Capacity Planning](../quantitative/capacity-planning.md)** - Predicting and provisioning for viral videos
-- **[Incident Response](../human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
+- **[Incident Response](../../human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
 - **[Observability Tools](../human-factors/observability-stacks.md)** - Video quality metrics and viewer experience monitoring
 
 ### Similar Case Studies
@@ -1455,4 +1455,4 @@ graph TB
 
 ## Conclusion
 
-YouTube's architecture demonstrates how fundamental distributed systems principles scale to handle humanity's video consumption. By carefully managing latency through edge caching, handling exabyte-scale capacity with tiered storage, building resilience at every layer, and optimizing economics through adaptive quality, YouTube delivers billions of hours of video daily. The multi-tier architecture balances the needs of live streaming, popular content, and long-tail videos while continuously optimizing through machine learning. The key insight is that different types of content (live vs. recorded, popular vs. niche) require different architectural treatments, and success comes from intelligently routing content through the optimal pipeline.
+YouTube's architecture demonstrates how fundamental distributed systems principles scale to handle humanity's video consumption. By carefully managing latency through edge caching, handling exabyte-scale capacity with tiered storage, building resilience at every layer, and optimizing economics through adaptive quality, YouTube delivers billions of hours of video daily. The multi-tier architecture balances the needs of live streaming, popular content, and long-tail videos while continuously optimizing through machine learning. The key insight is that different types of content (live vs. recorded, popular vs. niche.md) require different architectural treatments, and success comes from intelligently routing content through the optimal pipeline.

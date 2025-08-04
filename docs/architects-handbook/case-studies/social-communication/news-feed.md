@@ -1259,7 +1259,7 @@ The hybrid architecture balances the trade-offs between different approaches, us
 - **[Event-Driven Architecture](../patterns/event-driven)** - Post creation triggers fanout pipeline
 - **[CQRS](../patterns/cqrs)** - Separate write (fanout) and read (feed generation) paths
 - **[Caching Strategies](../patterns/caching-strategies)** - Multi-tier caching from edge to application layer
-- **[Circuit Breaker](../patterns/circuit-breaker)** - Protects against celebrity storm cascading failures
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Protects against celebrity storm cascading failures
 - **[Bulkhead](../patterns/bulkhead)** - Isolates celebrity fanout from normal users
 - **[Load Balancing](../patterns/load-balancing)** - Distributes feed generation across worker pools
 - **[Sharding](../patterns/sharding)** - User-based sharding for timeline storage
@@ -1280,4 +1280,4 @@ The hybrid architecture balances the trade-offs between different approaches, us
 - **[Spotify Recommendations](spotify-recommendations.md)** - Similar ML personalization challenges
 - **[YouTube's Video Platform](youtube.md)** - Content distribution and recommendation parallels
 - **[Rate Limiter Design](rate-limiter.md)** - Protecting feed generation from abuse
-- **[Uber's Location System](uber-location.md)** - Real-time data processing patterns
+- **[Uber's Location System](uber-location.md.md)** - Real-time data processing patterns

@@ -1,11 +1,12 @@
 ---
-title: Change Data Capture (CDC)
 category: data-management
-excellence_tier: gold
-pattern_status: recommended
-description: Data synchronization pattern that captures and propagates database changes in real-time
-introduced: 2008-03
 current_relevance: mainstream
+description: Data synchronization pattern that captures and propagates database changes
+  in real-time
+essential_question: How do we ensure data consistency and reliability with change
+  data capture (cdc)?
+excellence_tier: gold
+introduced: 2008-03
 modern-examples:
 - company: Netflix
   implementation: Captures MySQL/Cassandra changes for real-time personalization
@@ -16,6 +17,7 @@ modern-examples:
 - company: Uber
   implementation: Schemaless database with CDC for global replication
   scale: Petabyte-scale cross-region replication
+pattern_status: recommended
 production-checklist:
 - Choose CDC method based on database capabilities
 - Handle schema evolution gracefully
@@ -25,7 +27,10 @@ production-checklist:
 - Set up dead letter queues for failures
 - Test failover and recovery scenarios
 - Document data lineage and dependencies
+tagline: Master change data capture (cdc) for distributed systems success
+title: Change Data Capture (CDC)
 ---
+
 
 # Change Data Capture (CDC)
 
@@ -176,6 +181,21 @@ sequenceDiagram
 
 ### CDC Event Format
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```json
 {
   "schema": {
@@ -207,6 +227,8 @@ sequenceDiagram
   }
 }
 ```
+
+</details>
 
 ### Common Patterns
 
@@ -254,6 +276,21 @@ sequenceDiagram
 ### Case Study: Netflix's CDC Pipeline
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Source Databases"
         MySQL[(MySQL)]
@@ -286,6 +323,8 @@ graph TB
     end
 ```
 
+</details>
+
 **Scale Achievements**:
 - 4 trillion events/day
 - Sub-second end-to-end latency
@@ -293,6 +332,21 @@ graph TB
 - Automatic schema evolution
 
 ### Economic Analysis
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 def cdc_vs_batch_roi(
@@ -321,6 +375,8 @@ def cdc_vs_batch_roi(
         'worth_it': value_gain > cost_increase
     }
 ```
+
+</details>
 
 ## Quick Reference
 
@@ -370,7 +426,7 @@ graph TD
 
 ### Core Combinations
 - **[Event Sourcing](./event-sourcing.md)**: CDC provides the events
-- **[Outbox Pattern](../patterns/outbox.md)**: Transactional CDC
+- **[Outbox Pattern](../pattern-library/data-management/outbox.md)**: Transactional CDC
 - **[Saga Pattern](./saga.md)**: CDC triggers distributed transactions
 
 ### Supporting Patterns

@@ -633,25 +633,25 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure](../part1-axioms/law1-failure/index.md)** - Fallback to popular playlists when recommendation service fails
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/index.md)** - Millions of concurrent users require lock-free serving infrastructure
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)** - A/B testing framework measures recommendation quality in real-time
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/index.md)** - UI design balances algorithmic recommendations with user control
-- **[Law 7: Economics](../part1-axioms/law7-economics/index.md)** - Recommendation quality directly impacts user retention and revenue
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Fallback to popular playlists when recommendation service fails
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - A/B testing framework measures recommendation quality in real-time
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - UI design balances algorithmic recommendations with user control
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Recommendation quality directly impacts user retention and revenue
 
 ### 🏛 Related Patterns
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
-- **[CQRS](../patterns/cqrs.md)** - Separate paths for collecting user signals vs serving recommendations
-- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-level caches for popular recommendations and user preferences
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Graceful degradation when ML models fail
+- **[CQRS](../../../pattern-library/data-management/cqrs.md)** - Separate paths for collecting user signals vs serving recommendations
+- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** - Multi-level caches for popular recommendations and user preferences
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Graceful degradation when ML models fail
 - **Service Mesh (Coming Soon)** - Microservices architecture for different recommendation algorithms
-- **[Load Balancing](../patterns/load-balancing.md)** - GPU load distribution for model inference
-- **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Isolate experimental models from production traffic
+- **[Load Balancing](../../../pattern-library/scaling/load-balancing.md)** - GPU load distribution for model inference
+- **[Bulkhead](../../../pattern-library/resilience/bulkhead.md)** - Isolate experimental models from production traffic
 
 ### Quantitative Models
-- **[Little's Law](../quantitative/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
+- **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
 - **[Amdahl's Law](../quantitative/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
 - **[Power Laws](../quantitative/power-laws.md)** - Long-tail content distribution affects recommendation strategy
 - **[Information Theory](../quantitative/information-theory.md)** - Entropy measures for recommendation diversity
@@ -659,7 +659,7 @@ graph TB
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices.md)** - ML model deployment requires specialized SRE workflows
 - **[Observability Tools](../human-factors/observability-stacks.md)** - Real-time dashboards track recommendation performance metrics
-- **[On-Call Culture](../human-factors/oncall-culture.md)** - Data scientists on-call for model quality issues
+- **[On-Call Culture](../../human-factors/oncall-culture.md)** - Data scientists on-call for model quality issues
 - **[Post-Mortem Culture](../human-factors/blameless-postmortems.md)** - Learning from recommendation failures and filter bubbles
 
 ### Similar Case Studies

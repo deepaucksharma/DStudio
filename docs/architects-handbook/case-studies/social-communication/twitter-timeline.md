@@ -474,7 +474,7 @@ graph TD
 
 - [Fanout Pattern](../patterns/fanout.md)
 - [Cache-aside Pattern](../patterns/cache-aside.md)
-- [Sharding Pattern](../patterns/sharding.md)
+- [Sharding Pattern](../../../pattern-library/scaling/sharding.md)
 - [Twitter Engineering Blog](https://blog.twitter.com/engineering/)
 
 ---

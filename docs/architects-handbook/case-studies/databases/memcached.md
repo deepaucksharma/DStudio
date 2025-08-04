@@ -479,11 +479,11 @@ def get_with_fallback(key, fallback_func):
 
 ## Related Topics
 
-- [Redis Architecture](redis-architecture) - Modern alternative
-- [Consistent Hashing](../patterns/consistent-hashing) - Core distribution
-- [Caching Strategies](../patterns/caching-strategies) - Cache patterns
-- [Facebook Infrastructure](facebook-memcached) - Largest deployment
-- [Circuit Breaker](../patterns/circuit-breaker) - Failure handling
+- [Redis Architecture](redis-architecture.md) - Modern alternative
+- [Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md) - Core distribution
+- [Caching Strategies](../../../pattern-library/caching-strategies) - Cache patterns
+- [Facebook Infrastructure](facebook-memcached.md.md) - Largest deployment
+- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md) - Failure handling
 
 ## References
 

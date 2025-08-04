@@ -1,17 +1,24 @@
 ---
-title: Consistent Hashing
+best-for: []
 category: data-management
-excellence_tier: silver
-pattern_status: recommended
+current_relevance: mainstream
 description: Load distribution algorithm that minimizes reorganization when nodes
   are added or removed
+essential_question: How do we ensure data consistency and reliability with consistent
+  hashing?
+excellence_tier: silver
 introduced: 2024-01
-current_relevance: mainstream
+pattern_status: recommended
+tagline: Master consistent hashing for distributed systems success
+title: Consistent Hashing
 trade-offs:
-  pros: []
   cons: []
-best-for: []
+  pros: []
 ---
+
+## Essential Question
+
+**How do we ensure data consistency and reliability with consistent hashing?**
 
 
 
@@ -113,6 +120,21 @@ Only ~25% of keys move to the new node
 ### Data Flow Visualization
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Traditional Hashing - Add Node Problem"
         Before["3 Nodes<br/>hash(key) % 3"]
@@ -144,6 +166,8 @@ graph TB
     end
 ```
 
+</details>
+
 ---
 
 ## Level 2: Foundation
@@ -167,6 +191,21 @@ flowchart LR
 ```
 
 ### Core Algorithm Implementation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 import hashlib
@@ -269,7 +308,24 @@ print(ch.get_node('user:123'))  # Might change
 print(ch.get_node('order:456'))  # Might stay same
 ```
 
+</details>
+
 ### Virtual Nodes Impact
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -309,6 +365,8 @@ graph TB
         style B4 fill:#9ff,stroke:#333,stroke-width:2px
     end
 ```
+
+</details>
 
 ### Virtual Nodes Configuration Guide
 
@@ -356,6 +414,21 @@ def jump_consistent_hash(key: int, num_buckets: int) -> int:
 
 ### Bounded Load Consistent Hashing
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```python
 class BoundedConsistentHash(ConsistentHash):
     """Consistent hashing with bounded loads"""
@@ -392,7 +465,24 @@ class BoundedConsistentHash(ConsistentHash):
         return min(self.load_tracker.items(), key=lambda x: x[1])[0]
 ```
 
+</details>
+
 ### Maglev Hashing
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class MaglevHash:
@@ -448,6 +538,8 @@ class MaglevHash:
         return self.backends[backend_index]
 ```
 
+</details>
+
 ---
 
 ## Level 4: Production Patterns
@@ -478,6 +570,21 @@ class MaglevHash:
 </div>
 
 ### Multi-Ring Consistent Hashing
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class MultiRingConsistentHash:
@@ -514,6 +621,8 @@ class MultiRingConsistentHash:
         }
 ```
 
+</details>
+
 <div class="truth-box">
 <h4>💡 Consistent Hashing Production Wisdom</h4>
 
@@ -538,6 +647,21 @@ class MultiRingConsistentHash:
 </div>
 
 ### Token-Aware Routing
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class TokenAwareRouter:
@@ -584,11 +708,28 @@ class TokenAwareRouter:
         return []
 ```
 
+</details>
+
 ---
 
 ## Level 5: Real-World Applications
 
 ### Case Study: Distributed Cache
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class DistributedCache:
@@ -669,6 +810,8 @@ class DistributedCache:
         return len(affected_keys)
 ```
 
+</details>
+
 ### Production Deployment Checklist
 
 ```mermaid
@@ -698,6 +841,33 @@ flowchart TD
 
 ---
 
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
 ## Implementation Checklist
 
 - [ ] Choose hash function (MD5, SHA-1, MurmurHash)
@@ -715,9 +885,9 @@ flowchart TD
 ## Related Patterns
 
 ### Core Concepts
-- [Sharding](../patterns/sharding.md) - Uses consistent hashing for distribution
-- [Load Balancing](../patterns/load-balancing.md) - Consistent hashing for sticky sessions
-- [Distributed Caching](../patterns/caching-strategies.md) - Key distribution strategy
+- [Sharding](../pattern-library/scaling/sharding.md) - Uses consistent hashing for distribution
+- [Load Balancing](../pattern-library/scaling/load-balancing.md) - Consistent hashing for sticky sessions
+- [Distributed Caching](../pattern-library/scaling/caching-strategies.md) - Key distribution strategy
 
 ### Case Studies
 - [Cassandra Architecture](case-studies/cassandra) - Token ring implementation

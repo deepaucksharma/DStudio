@@ -1,34 +1,38 @@
 ---
-title: Anti-Corruption Layer (ACL)
-description: Implement a layer that translates between different subsystems to prevent
-  the spread of undesirable dependencies and maintain clean domain boundaries
-type: pattern
-difficulty: intermediate
-reading-time: 45 min
-prerequisites: []
-pattern-type: architectural
-status: complete
-last-updated: 2025-01-23
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2003-01
-current_relevance: niche
-trade-offs:
-  pros:
-  - Maintains domain purity
-  - Enables gradual migration
-  - Isolates legacy complexity
-  cons:
-  - Additional translation layer
-  - Performance overhead
-  - Maintenance burden
 best-for:
 - Domain-driven design
 - Legacy system migration
 - Multi-team boundaries
 - Third-party integrations
 category: architecture
+current_relevance: niche
+description: Implement a layer that translates between different subsystems to prevent
+  the spread of undesirable dependencies and maintain clean domain boundaries
+difficulty: intermediate
+essential_question: How do we structure our system architecture to leverage anti-corruption
+  layer (acl)?
+excellence_tier: silver
+introduced: 2003-01
+last-updated: 2025-01-23
+pattern-type: architectural
+pattern_status: recommended
+prerequisites: []
+reading-time: 45 min
+status: complete
+tagline: Master anti-corruption layer (acl) for distributed systems success
+title: Anti-Corruption Layer (ACL)
+trade-offs:
+  cons:
+  - Additional translation layer
+  - Performance overhead
+  - Maintenance burden
+  pros:
+  - Maintains domain purity
+  - Enables gradual migration
+  - Isolates legacy complexity
+type: pattern
 ---
+
 
 
 
@@ -92,6 +96,21 @@ category: architecture
 
 ```mermaid
 graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
+graph TD
     Start[Integration Need] --> Q1{Legacy System?}
     
     Q1 -->|Yes| Q2{Incompatible Models?}
@@ -117,11 +136,28 @@ graph TD
     style Direct fill:#9f9,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 ---
 
 ## Level 1: Intuition
 
 ### Core Architecture Pattern
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph LR
@@ -152,6 +188,8 @@ graph LR
     style A fill:#ff9,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 ### Architecture Trade-offs
 
 | Aspect | Without ACL | With ACL |
@@ -174,7 +212,34 @@ graph LR
 | **Airbnb** | Property System ACL | Isolate from partner feeds | Consistent data model |
 
 
-### Implementation Strategies Comparison
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Strategies Comparison
 
 | Strategy | When to Use | Complexity | Performance Impact |
 |----------|-------------|------------|--------------------|
@@ -210,6 +275,21 @@ graph TB
 ## Level 2: Foundation
 
 ### Core Concepts
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -252,6 +332,8 @@ graph TB
     style F fill:#9f9,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 ### ACL Pattern Components
 
 | Component | Purpose | Responsibility | Example |
@@ -287,6 +369,21 @@ graph LR
 #### 2. Data Flow Patterns
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 sequenceDiagram
     participant D as Domain
     participant ACL as Anti-Corruption Layer
@@ -312,9 +409,53 @@ sequenceDiagram
     ACL->>D: Response with Domain Model
 ```
 
-### Implementation Patterns
+</details>
+
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Patterns
 
 #### 1. Repository Pattern with ACL
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```
 Domain Layer:
@@ -347,7 +488,24 @@ External System:
 └─────────────────────────────────┘
 ```
 
+</details>
+
 #### 2. Event Translation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -376,6 +534,8 @@ graph TB
     EE3 --> ET --> DE3
 ```
 
+</details>
+
 ### Common Translation Challenges
 
 | Challenge | Problem | ACL Solution |
@@ -394,6 +554,21 @@ graph TB
 ### Advanced ACL Patterns
 
 #### 1. Context Mapping with ACL
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -421,6 +596,8 @@ graph TB
     
     style ACL1 fill:#f9f,stroke:#333,stroke-width:4px
 ```
+
+</details>
 
 #### 2. Multi-Layer Translation
 
@@ -470,6 +647,21 @@ Mapping Rules:
 #### 2. Validation and Enrichment Pipeline
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 sequenceDiagram
     participant E as External Data
     participant V as Validator
@@ -499,9 +691,26 @@ sequenceDiagram
     T->>D: Clean Domain Object
 ```
 
+</details>
+
 ### Complex Integration Scenarios
 
 #### 1. Aggregating Multiple External Systems
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -534,7 +743,24 @@ graph TB
     C --> V --> DS
 ```
 
+</details>
+
 #### 2. Event Stream Translation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph LR
@@ -559,6 +785,8 @@ graph LR
     ET --> ER
     ER --> DE
 ```
+
+</details>
 
 ### Performance Optimization Strategies
 
@@ -587,6 +815,21 @@ graph LR
 #### Failure Isolation
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Failure Containment"
         D[Domain]
@@ -609,6 +852,8 @@ graph TB
         E -->|Failure| CB
     end
 ```
+
+</details>
 
 ### Testing Strategies for ACL
 
@@ -706,7 +951,34 @@ External Contract Tests:
 - Performance is critical
 - Overhead exceeds benefits
 
-### Implementation Checklist
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Checklist
 
 - [ ] Define bounded context boundaries
 - [ ] Map external models to domain

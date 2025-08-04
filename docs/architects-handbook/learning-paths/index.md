@@ -361,7 +361,7 @@ graph TD
 
 !!! success "Your First Step"
     
-    No matter which path you choose, start with [Law 1: The Inevitability of Failure](part1-axioms/law1-failure/index).
+    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../../core-principles/laws/law1-failure/index).
     It's the foundation everything else builds upon.
     
-    [:octicons-arrow-right-24: Begin Your Journey](part1-axioms/law1-failure/index){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Begin Your Journey](../../core-principles/laws/law1-failure/index){ .md-button .md-button--primary }

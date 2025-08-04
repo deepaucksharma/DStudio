@@ -1,11 +1,12 @@
 ---
-title: Geo-Replication Pattern
 category: scaling
-excellence_tier: gold
-pattern_status: recommended
-description: Replicate data across geographical regions for global availability and disaster recovery
-introduced: 2007-05
 current_relevance: mainstream
+description: Replicate data across geographical regions for global availability and
+  disaster recovery
+essential_question: How do we handle increasing load without sacrificing performance
+  using geo-replication pattern?
+excellence_tier: gold
+introduced: 2007-05
 modern_examples:
 - company: Netflix
   implementation: Multi-region active-active deployment across 190+ countries
@@ -16,6 +17,7 @@ modern_examples:
 - company: DynamoDB Global Tables
   implementation: Multi-master replication across all AWS regions
   scale: Petabytes of data with single-digit millisecond latency
+pattern_status: recommended
 production_checklist:
 - Design conflict resolution strategy (LWW, CRDT, or custom)
 - Configure replication topology (master-slave, multi-master, or hierarchical)
@@ -25,7 +27,10 @@ production_checklist:
 - Configure read/write routing based on user geography
 - Test disaster recovery procedures quarterly
 - Monitor cross-region bandwidth costs and optimize
+tagline: Master geo-replication pattern for distributed systems success
+title: Geo-Replication Pattern
 ---
+
 
 # Geo-Replication Pattern
 
@@ -70,6 +75,21 @@ production_checklist:
 
 ```mermaid
 graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
+graph TD
     Start[Need Global Data?] --> Users{User Distribution?}
     
     Users -->|Regional| Regional[Multi-Region<br/>within Continent]
@@ -94,6 +114,8 @@ graph TD
     style CRDT fill:#96CEB4
 ```
 
+</details>
+
 ## Core Replication Strategies
 
 ### Strategy Comparison Matrix
@@ -107,6 +129,21 @@ graph TD
 | **CRDT** | Low | Eventual | None | Very High | Collaborative editing |
 
 ### Replication Topology Patterns
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -141,6 +178,8 @@ graph TB
     style M3 fill:#4ECDC4
     style C1 fill:#45B7D1
 ```
+
+</details>
 
 ## Geographic Latency Reality
 
@@ -180,6 +219,21 @@ graph LR
 ### When Conflicts Occur
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 sequenceDiagram
     participant US as US User
     participant EU as EU User  
@@ -204,6 +258,8 @@ sequenceDiagram
     Note over USD,EUD: Final: {name: "Johnny", age: 26}
 ```
 
+</details>
+
 ### Resolution Strategy Comparison
 
 | Strategy | Complexity | Data Loss | Use Case | Example |
@@ -215,6 +271,21 @@ sequenceDiagram
 | **Manual Resolution** | Low | None | Critical data | Git merge conflicts |
 
 ### CRDT Examples for Common Data Types
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -239,9 +310,26 @@ graph TB
     end
 ```
 
+</details>
+
 ## Production Implementation Patterns
 
 ### Netflix: Content Distribution Architecture
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -273,6 +361,8 @@ graph TB
     style EU fill:#4ECDC4
     style Asia fill:#4ECDC4
 ```
+
+</details>
 
 **Key Metrics:**
 - 15,000+ content servers globally
@@ -326,6 +416,21 @@ ALTER PARTITION asia CONFIGURE ZONE USING
 ### ROI Calculation Framework
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph LR
     subgraph "Costs"
         C1[Infrastructure<br/>$100K/year]
@@ -347,6 +452,8 @@ graph LR
     style TB fill:#4ECDC4
     style ROI fill:#96CEB4
 ```
+
+</details>
 
 ## Monitoring & Operations
 
@@ -391,6 +498,90 @@ stateDiagram-v2
 | **Bandwidth Explosion** | High costs | Full dataset replication | Selective/filtered replication |
 | **Operational Complexity** | Human errors | Too many moving parts | Automation and runbooks |
 
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
 ## Implementation Roadmap
 
 ### Phase 1: Foundation (Month 1-2)
@@ -415,6 +606,21 @@ stateDiagram-v2
 
 ```mermaid
 graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
+graph TD
     A[Global Application?] --> B{User Distribution?}
     B -->|Single Continent| C[Multi-AZ in Region]
     B -->|Global| D{Consistency Requirements?}
@@ -436,6 +642,8 @@ graph TD
     style H fill:#87CEEB
     style I fill:#DDA0DD
 ```
+
+</details>
 
 ## Quick Reference
 

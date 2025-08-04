@@ -1,34 +1,38 @@
 ---
-title: Service Discovery Pattern
-description: Dynamic service location in distributed systems
-type: pattern
-category: communication
-difficulty: intermediate
-reading-time: 20 min
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2024-01
-current_relevance: mainstream
-trade-offs:
-  pros:
-  - Dynamic service registration/deregistration
-  - Automatic failover and load balancing
-  - No hardcoded endpoints
-  - Health-aware routing
-  - Service metadata support
-  cons:
-  - Additional infrastructure complexity
-  - Single point of failure risk
-  - Network overhead for lookups
-  - Consistency challenges
-  - Cache invalidation complexity
 best-for:
 - Microservices architectures
 - Cloud-native applications
 - Dynamic scaling environments
 - Multi-region deployments
 - Container orchestration
+category: communication
+current_relevance: mainstream
+description: Dynamic service location in distributed systems
+difficulty: intermediate
+essential_question: How do we enable efficient communication between services using
+  service discovery pattern?
+excellence_tier: silver
+introduced: 2024-01
+pattern_status: recommended
+reading-time: 20 min
+tagline: Master service discovery pattern for distributed systems success
+title: Service Discovery Pattern
+trade-offs:
+  cons:
+  - Additional infrastructure complexity
+  - Single point of failure risk
+  - Network overhead for lookups
+  - Consistency challenges
+  - Cache invalidation complexity
+  pros:
+  - Dynamic service registration/deregistration
+  - Automatic failover and load balancing
+  - No hardcoded endpoints
+  - Health-aware routing
+  - Service metadata support
+type: pattern
 ---
+
 
 # Service Discovery Pattern
 
@@ -72,6 +76,21 @@ Service discovery is like a dynamic phone directory. Instead of memorizing every
 
 ```mermaid
 graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
+graph TD
     subgraph "Without Service Discovery"
         C1[Client] -->|hardcoded| S1[Service A :8080]
         C1 -->|hardcoded| S2[Service B :9090]
@@ -95,6 +114,8 @@ graph TD
     
     style SD fill:#818cf8,stroke:#6366f1,stroke-width:2px
 ```
+
+</details>
 
 ### Core Value
 | Aspect | Hardcoded | Service Discovery |
@@ -138,6 +159,21 @@ graph LR
 
 ### Basic Implementation
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```python
 class ServiceRegistry:
     def __init__(self):
@@ -179,6 +215,8 @@ class ServiceRegistry:
         return time.time() - instance['last_heartbeat'] < 30
 ```
 
+</details>
+
 ## Level 3: Deep Dive (15 min)
 
 ### Decision Matrix
@@ -202,6 +240,21 @@ graph TD
 ```
 
 ### Advanced Features
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class AdvancedServiceDiscovery:
@@ -249,6 +302,8 @@ class AdvancedServiceDiscovery:
         )
 ```
 
+</details>
+
 ### Common Pitfalls
 
 | Pitfall | Impact | Solution |
@@ -261,6 +316,21 @@ class AdvancedServiceDiscovery:
 ## Level 4: Expert (20 min)
 
 ### Production Patterns
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 # Consul service definition
@@ -286,7 +356,24 @@ services:
         interval: 60s
 ```
 
+</details>
+
 ### Multi-Region Discovery
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class GlobalServiceDiscovery:
@@ -322,6 +409,8 @@ class GlobalServiceDiscovery:
             )
 ```
 
+</details>
+
 ### Integration Patterns
 
 | Integration | Purpose | Implementation |
@@ -353,6 +442,21 @@ class GlobalServiceDiscovery:
     - Cross-region failover
 
 ### Performance Optimization
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class OptimizedDiscoveryClient:
@@ -399,6 +503,8 @@ class OptimizedDiscoveryClient:
             await asyncio.sleep(self.cache_ttl / 2)
 ```
 
+</details>
+
 ## Quick Reference
 
 ### Production Checklist ✓
@@ -427,6 +533,21 @@ class OptimizedDiscoveryClient:
   - [ ] Regional awareness
 
 ### Common Configurations
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 # Kubernetes Service
@@ -457,6 +578,8 @@ HealthCheck = {
   Timeout = "5s"
 }
 ```
+
+</details>
 
 ## Related Patterns
 

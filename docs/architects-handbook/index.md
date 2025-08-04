@@ -30,7 +30,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-book-open-variant:{ .lg } **[Case Studies](case-studies/index.md)** (80+ real systems)
+- :material-book-open-variant:{ .lg } **[Case Studies](../index.md)** (80+ real systems)
     
     ---
     
@@ -56,7 +56,7 @@ graph LR
     
     Mathematical foundations and interactive calculators for system design
     
-    **🔢 Live Tools**: [Capacity Planner](quantitative-analysis/capacity-planning.md), [Latency Calculator](../tools/latency-calculator.md), [Cost Estimator](quantitative-analysis/storage-economics.md)
+    **🔢 Live Tools**: [Capacity Planner](quantitative-analysis/capacity-planning.md), [Latency Calculator](../../tools/latency-calculator.md), [Cost Estimator](quantitative-analysis/storage-economics.md)
 
 - :material-account-hard-hat:{ .lg } **[Human Factors](human-factors/index.md)** (12+ practices)
     
@@ -125,4 +125,4 @@ graph TB
 
 ---
 
-*Start with [Case Studies](case-studies/index.md) to see how industry leaders solve distributed systems challenges.*
+*Start with [Case Studies](../index.md) to see how industry leaders solve distributed systems challenges.*

@@ -523,7 +523,7 @@ http_request_duration_seconds{quantile="0.99"} # Link to Jaeger
 - [Service Discovery](../patterns/service-discovery) - Dynamic targets
 - [Observability](../patterns/observability) - Metrics pillar
 - [Grafana](grafana) - Visualization layer
-- [OpenTelemetry](opentelemetry) - Unified observability
+- [OpenTelemetry](opentelemetry.md) - Unified observability
 
 ## References
 

@@ -1,13 +1,36 @@
 ---
-title: Saga Pattern
-description: Manage distributed transactions using coordinated sequences of local transactions with compensations
-type: pattern
 category: data-management
+current_relevance: mainstream
+description: Manage distributed transactions using coordinated sequences of local
+  transactions with compensations
 difficulty: advanced
-reading-time: 35 min
+essential_question: How do we ensure data consistency and reliability with saga pattern?
+excellence_tier: gold
+introduced: 1987-12
+last-updated: 2025-01-30
+modern-examples:
+- company: Uber
+  implementation: Saga orchestrates ride booking across payment, dispatch, and driver
+    services
+  scale: 20M+ distributed transactions daily
+- company: Airbnb
+  implementation: Booking saga coordinates inventory, payment, and notification services
+  scale: 2M+ bookings per day across global inventory
+- company: Booking.com
+  implementation: Complex travel booking sagas with multi-vendor coordination
+  scale: 1.5M+ room nights booked daily
+pattern_status: recommended
 prerequisites: null
-when-to-use: Cross-service transactions, workflow orchestration, distributed business processes
-when-not-to-use: Simple local transactions, strongly consistent requirements, simple CRUD operations
+production-checklist:
+- Choose orchestration vs choreography based on complexity
+- Design compensating transactions for every step
+- Implement idempotent operations to handle retries
+- Use state machines to track saga progress
+- Monitor saga completion rates and failure patterns
+- Set timeouts for each saga step (typically 30s-5min)
+- Store saga state durably (database or event store)
+- Test failure scenarios and compensation flows
+reading-time: 35 min
 related-laws:
 - law2-asynchrony
 - law3-emergence
@@ -19,31 +42,15 @@ related-pillars:
 - control
 - intelligence
 status: complete
-last-updated: 2025-01-30
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1987-12
-current_relevance: mainstream
-modern-examples:
-- company: Uber
-  implementation: Saga orchestrates ride booking across payment, dispatch, and driver services
-  scale: 20M+ distributed transactions daily
-- company: Airbnb
-  implementation: Booking saga coordinates inventory, payment, and notification services
-  scale: 2M+ bookings per day across global inventory
-- company: Booking.com
-  implementation: Complex travel booking sagas with multi-vendor coordination
-  scale: 1.5M+ room nights booked daily
-production-checklist:
-- Choose orchestration vs choreography based on complexity
-- Design compensating transactions for every step
-- Implement idempotent operations to handle retries
-- Use state machines to track saga progress
-- Monitor saga completion rates and failure patterns
-- Set timeouts for each saga step (typically 30s-5min)
-- Store saga state durably (database or event store)
-- Test failure scenarios and compensation flows
+tagline: Master saga pattern for distributed systems success
+title: Saga Pattern
+type: pattern
+when-not-to-use: Simple local transactions, strongly consistent requirements, simple
+  CRUD operations
+when-to-use: Cross-service transactions, workflow orchestration, distributed business
+  processes
 ---
+
 
 # Saga Pattern
 
@@ -173,6 +180,21 @@ graph TB
 ### Saga Execution Flow
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 sequenceDiagram
     participant C as Client
     participant SO as Saga Orchestrator
@@ -207,6 +229,8 @@ sequenceDiagram
     SO-->>C: Order Failed (Compensated)
 ```
 
+</details>
+
 ### Transaction Types
 
 <div class="truth-box">
@@ -220,6 +244,21 @@ sequenceDiagram
 </div>
 
 ### State Persistence Strategy
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```sql
 -- Production schema from Uber
@@ -246,6 +285,8 @@ CREATE TABLE saga_execution_log (
     started_at TIMESTAMP DEFAULT NOW()
 );
 ```
+
+</details>
 
 ### Idempotency Pattern
 
@@ -378,6 +419,21 @@ graph TD
 
 ### Configuration Template
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```yaml
 # Production saga configuration
 saga:
@@ -402,6 +458,8 @@ saga:
     trace_sampling: 0.1
 ```
 
+</details>
+
 ### Production Checklist ✓
 
 - [ ] Idempotency for all steps
@@ -418,7 +476,7 @@ saga:
 ### Core Dependencies
 - **[Two-Phase Commit](../patterns/archive/two-phase-commit.md)**: Strong consistency alternative
 - **[Event Sourcing](./event-sourcing.md)**: Natural event log for sagas
-- **[Outbox Pattern](../patterns/outbox.md)**: Reliable event publishing
+- **[Outbox Pattern](../pattern-library/data-management/outbox.md)**: Reliable event publishing
 
 ### Supporting Patterns
 - **[Idempotent Receiver](../patterns/idempotent-receiver.md)**: Safe retries

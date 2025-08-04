@@ -295,7 +295,7 @@ graph TD
  style F fill:#ffd700
 ```
 
-**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
+**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](../core-principles/laws/correlated-failure.md) - we can't prevent failures, but we can design systems that survive them.
 
 ### Law 4: Trade-offs
 - Redundancy requires 2x resources for high availability

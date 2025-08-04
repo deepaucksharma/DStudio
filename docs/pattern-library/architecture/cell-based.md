@@ -1,32 +1,33 @@
 ---
-title: Cell-Based Architecture Pattern
+best-for:
+- Multi-tenant SaaS platforms
+- Services requiring compliance isolation
+- Systems where blast radius must be minimized
+- Organizations with mature engineering practices
 category: architecture
-excellence_tier: silver
-pattern_status: recommended
+current_relevance: mainstream
 description: Architecture pattern that isolates failures by partitioning systems into
   independent cells with shared-nothing design
+essential_question: How do we limit the blast radius of failures to a subset of users?
+excellence_tier: silver
 introduced: 2024-01
-current_relevance: mainstream
+pattern_status: recommended
+title: Cell-Based Architecture Pattern
 trade-offs:
-  pros:
-  - Complete failure isolation between cells
-  - Independent scaling per cell
-  - Predictable blast radius
-  - Simplified capacity planning
-  - Easier compliance boundaries
   cons:
   - Higher infrastructure cost
   - Complex cell routing logic
   - Cross-cell operations difficult
   - Data consistency challenges
   - Operational complexity
-best-for:
-- Multi-tenant SaaS platforms
-- Services requiring compliance isolation
-- Systems where blast radius must be minimized
-- Organizations with mature engineering practices
-essential_question: How do we limit the blast radius of failures to a subset of users?
+  pros:
+  - Complete failure isolation between cells
+  - Independent scaling per cell
+  - Predictable blast radius
+  - Simplified capacity planning
+  - Easier compliance boundaries
 ---
+
 
 # Cell-Based Architecture Pattern
 
@@ -77,6 +78,21 @@ essential_question: How do we limit the blast radius of failures to a subset of 
 | **Frequent cross-tenant** | Cell boundaries problematic | Shared services |
 
 ## Architecture Overview
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -147,6 +163,8 @@ graph TB
     style CP fill:#fbbf24,stroke:#f59e0b,stroke-width:3px
 ```
 
+</details>
+
 ## Cell Design Principles
 
 ### 1. Complete Isolation
@@ -199,9 +217,108 @@ graph TB
     V --> FALLBACK
 ```
 
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
 ## Implementation Patterns
 
 ### Cell Router Implementation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 # Cell routing configuration
@@ -243,7 +360,24 @@ cell_routing:
       timeout: 30s
 ```
 
+</details>
+
 ### Cell Capacity Planning
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph LR
@@ -267,6 +401,8 @@ graph LR
         B3[Quick activation<br/>for growth/failure]
     end
 ```
+
+</details>
 
 ## Cross-Cell Operations
 
@@ -305,6 +441,21 @@ graph TB
 ## Migration Strategies
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph LR
     subgraph "Phase 1: Preparation"
         P1[Identify cell boundaries]
@@ -332,6 +483,8 @@ graph LR
     
     P1 --> P2 --> P3 --> F1 --> F2 --> F3 --> R1 --> R2 --> R3 --> C1 --> C2 --> C3
 ```
+
+</details>
 
 ## Real-World Examples
 
@@ -369,6 +522,21 @@ graph LR
 ### Monitoring Strategy
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Cell Metrics"
         CM1[Health per cell]
@@ -394,6 +562,8 @@ graph TB
     GM1 & GM2 --> D2
     GM3 & GM4 --> D3
 ```
+
+</details>
 
 ### Cell Operations Playbook
 

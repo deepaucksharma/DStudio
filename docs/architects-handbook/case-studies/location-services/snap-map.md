@@ -26,7 +26,7 @@ This case study would explore Snap Map's architecture for real-time location sha
 - [Nearby Friends](nearby-friends.md) - Similar location sharing
 - [Life360](life360.md) - Family location tracking
 - [Social Media Feed](social-media-feed.md) - Social content distribution
-- Geohashing (Coming Soon) - Location clustering
+- Geohashing (Coming Soon.md) - Location clustering
 
 ## External Resources
 - [Snap Map Privacy](https://support.snapchat.com/en-US/article/snap-map-privacy-settings)

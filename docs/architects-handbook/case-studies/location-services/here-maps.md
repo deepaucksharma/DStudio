@@ -25,7 +25,7 @@ This case study would analyze HERE Maps' architecture designed for automotive ap
 ## Related Case Studies
 - [Google Maps](google-maps.md) - Consumer mapping comparison
 - [Uber Maps](uber-maps.md) - Ride-hailing specific features
-- Real-time Systems (Coming Soon) - Traffic data processing
+- Real-time Systems (Coming Soon.md) - Traffic data processing
 
 ## External Resources
 - [HERE Developer Documentation](https://developer.here.com/)

@@ -525,4 +525,4 @@ graph LR
 
 - **Theory**: [Little's Law](littles-law.md) | [Queueing Models](queueing-models.md) | [Universal Scalability](universal-scalability.md)
 - **Practice**: [Capacity Planning](capacity-planning.md) | [Load Testing](load-testing.md) | [Monitoring](../patterns/observability.md)
-- **Laws**: [Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md) | [Law 7: Economics](../part1-axioms/law7-economics/index.md)
+- **Laws**: [Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization.md) | [Law 7: Economics](../core-principles/laws/economic-reality.md)

@@ -1558,7 +1558,7 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 - **[CRDT](../patterns/crdt)** - Conflict-free collaboration
 - **[Event Sourcing](../patterns/event-sourcing)** - File history
 - **[Saga Pattern](../patterns/saga)** - Multi-step operations
-- **[Circuit Breaker](../patterns/circuit-breaker)** - Service resilience
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service resilience
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Sync consistency trade-offs

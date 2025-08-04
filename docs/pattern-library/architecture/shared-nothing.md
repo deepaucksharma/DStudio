@@ -1,14 +1,20 @@
 ---
-title: Shared Nothing Architecture
+best-for: []
+category: architecture
+current_relevance: mainstream
 description: Eliminate resource contention by giving each node exclusive ownership
   of its data and compute resources
-type: pattern
-category: architecture
 difficulty: intermediate
-reading-time: 15 min
+essential_question: How do we structure our system architecture to leverage shared
+  nothing architecture?
+excellence_tier: silver
+introduced: 2024-01
+last-updated: 2025-01-26
+pattern_status: recommended
 prerequisites:
 - sharding
 - distributed-storage
+reading-time: 15 min
 related-laws:
 - law1-failure
 - law3-emergence
@@ -16,27 +22,44 @@ related-laws:
 related-pillars:
 - work
 - state
-when-to-use:
-- Building horizontally scalable systems
-- Eliminating resource contention
-- Achieving linear scalability
-- Minimizing coordination overhead
+status: complete
+tagline: Master shared nothing architecture for distributed systems success
+title: Shared Nothing Architecture
+trade-offs:
+  cons: []
+  pros: []
+type: pattern
 when-not-to-use:
 - Complex transactions across data
 - Shared state requirements
 - Small-scale applications
 - Strong consistency needs
-status: complete
-last-updated: 2025-01-26
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2024-01
-current_relevance: mainstream
-trade-offs:
-  pros: []
-  cons: []
-best-for: []
+when-to-use:
+- Building horizontally scalable systems
+- Eliminating resource contention
+- Achieving linear scalability
+- Minimizing coordination overhead
 ---
+
+## Essential Question
+## When to Use / When NOT to Use
+
+### When to Use
+
+| Scenario | Why It Fits | Alternative If Not |
+|----------|-------------|-------------------|
+| High availability required | Pattern provides resilience | Consider simpler approach |
+| Scalability is critical | Handles load distribution | Monolithic might suffice |
+| Distributed coordination needed | Manages complexity | Centralized coordination |
+
+### When NOT to Use
+
+| Scenario | Why to Avoid | Better Alternative |
+|----------|--------------|-------------------|
+| Simple applications | Unnecessary complexity | Direct implementation |
+| Low traffic systems | Overhead not justified | Basic architecture |
+| Limited resources | High operational cost | Simpler patterns |
+**How do we structure our system architecture to leverage shared nothing architecture?**
 
 
 
@@ -46,6 +69,21 @@ best-for: []
 
 !!! tip "Core Concept"
     Each node in the system owns its data and compute exclusively - no shared memory, no shared disk, no shared anything. Communication happens only through the network.
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -73,6 +111,8 @@ graph TB
     end
 ```
 
+</details>
+
 ## 🔍 Intuition: The Restaurant Kitchen Analogy
 
 Imagine two restaurant kitchen designs:
@@ -96,6 +136,21 @@ The station kitchen scales linearly - add more chefs, get proportionally more ou
 ## 🏗️ Implementation Patterns
 
 ### 1. Data Partitioning Strategy
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph LR
@@ -126,7 +181,24 @@ graph LR
     R -->|"User 2500"| NC
 ```
 
+</details>
+
 ### 2. Request Routing Implementation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class SharedNothingRouter:
@@ -166,7 +238,24 @@ class Node:
         return Response(data)
 ```
 
+</details>
+
 ### 3. Cross-Partition Operations
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 sequenceDiagram
@@ -196,6 +285,8 @@ sequenceDiagram
     Router-->>Client: {k1: v1, k2: v2, k3: v3}
 ```
 
+</details>
+
 ## 💥 Failure Modes & Mitigation
 
 ### 1. Node Failure Handling
@@ -214,6 +305,21 @@ stateDiagram-v2
 ```
 
 ### 2. Network Partition Handling
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class PartitionTolerantNode(Node):
@@ -256,6 +362,8 @@ class PartitionTolerantNode(Node):
                     
         return results, failed_keys
 ```
+
+</details>
 
 ## 🎯 Design Decisions
 
@@ -318,3 +426,86 @@ graph LR
 - **[Consistent Hashing](consistent-hashing.md)**: Partition assignment
 - **[Service Mesh](service-mesh.md)**: Inter-node communication
 - **[Bulkhead](bulkhead.md)**: Fault isolation principle
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |

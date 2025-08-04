@@ -1,30 +1,13 @@
 ---
-title: GraphQL Federation
+best-for: API gateways, mobile apps needing flexible data fetching
+category: architecture
+current_relevance: growing
 description: Compose multiple GraphQL services into a unified API gateway to reduce
   client round trips
-type: pattern
-category: architecture
 difficulty: intermediate
-reading-time: 20 min
-prerequisites: []
-when-to-use: When dealing with communication challenges
-when-not-to-use: When simpler solutions suffice
-status: complete
-last-updated: 2025-07-21
+essential_question: How do we structure our system architecture to leverage graphql
+  federation?
 excellence_tier: silver
-pattern_status: use-with-caution
-introduced: 2019-07
-current_relevance: growing
-trade-offs:
-  pros:
-  - Single endpoint for multiple services
-  - Reduced client complexity
-  - Flexible data fetching
-  cons:
-  - Performance concerns at scale
-  - Complex caching strategies
-  - Debugging federated queries is difficult
-best-for: API gateways, mobile apps needing flexible data fetching
 implementations:
 - company: Netflix
   scale: Federation for internal microservices
@@ -32,7 +15,31 @@ implementations:
   scale: GraphQL gateway for mobile apps
 - company: PayPal
   scale: Federated APIs across business units
+introduced: 2019-07
+last-updated: 2025-07-21
+pattern_status: use-with-caution
+prerequisites: []
+reading-time: 20 min
+status: complete
+tagline: Master graphql federation for distributed systems success
+title: GraphQL Federation
+trade-offs:
+  cons:
+  - Performance concerns at scale
+  - Complex caching strategies
+  - Debugging federated queries is difficult
+  pros:
+  - Single endpoint for multiple services
+  - Reduced client complexity
+  - Flexible data fetching
+type: pattern
+when-not-to-use: When simpler solutions suffice
+when-to-use: When dealing with communication challenges
 ---
+
+## Essential Question
+
+**How do we structure our system architecture to leverage graphql federation?**
 
 
 # GraphQL Federation
@@ -119,6 +126,21 @@ Imagine an orchestra where each section (strings, brass, woodwinds) plays indepe
 ### Visual Comparison
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Traditional: API Chaos"
         C1[Mobile App] -->|5 calls| S1[Users]
@@ -144,7 +166,24 @@ graph TB
     style Note2 fill:#e8f5e9,stroke:#4CAF50
 ```
 
+</details>
+
 ### Real Impact Example
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```javascript
 // ❌ Without Federation: Mobile battery drain
@@ -174,6 +213,8 @@ const PRODUCT_QUERY = `
 // Result: 1 call, 200ms total, exact data needed
 ```
 
+</details>
+
 ---
 
 ## Level 2: Foundation
@@ -196,6 +237,21 @@ const PRODUCT_QUERY = `
 | **Federation** | Services self-declare | True autonomy, scalable | Learning curve, complexity |
 
 ### Federation Architecture
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -249,7 +305,24 @@ graph TB
     style QP fill:#2196F3,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 ### Basic Federation Example
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```graphql
 # User Service - Owns user data
@@ -296,11 +369,28 @@ type User {
 }
 ```
 
+</details>
+
 ---
 
 ## Level 3: Deep Dive
 
 ### Query Planning & Execution
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 sequenceDiagram
@@ -336,6 +426,8 @@ sequenceDiagram
     Gateway->>Client: Assembled Response
 ```
 
+</details>
+
 ### Performance Optimization Strategies
 
 | Strategy | Implementation | Impact |
@@ -349,6 +441,21 @@ sequenceDiagram
 ### Advanced Federation Patterns
 
 #### 1. Entity Resolution with Caching
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 class FederatedEntityResolver:
@@ -392,6 +499,8 @@ class FederatedEntityResolver:
                 for ref in references]
 ```
 
+</details>
+
 #### 2. Query Complexity Analysis
 
 ```graphql
@@ -434,6 +543,21 @@ Formula: `complexity = basesCost × depth × multipliers`
 ### Production Architecture Patterns
 
 #### Netflix's Federated GraphQL
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -486,6 +610,8 @@ graph TB
     style Cache fill:#2196F3,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 <div class="failure-vignette">
 <h4>💥 Netflix's Federation Migration (2019-2021)</h4>
 
@@ -519,6 +645,21 @@ graph TB
 ### Advanced Optimization Techniques
 
 #### 1. Automatic Persisted Queries (APQ)
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```javascript
 // Client-side APQ implementation
@@ -563,7 +704,24 @@ class APQClient {
 // Result: 100-byte hash instead of 10KB query
 ```
 
+</details>
+
 #### 2. Response Caching Strategy
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 # Multi-layer caching configuration
@@ -593,6 +751,8 @@ caching:
     invalidation: "automatic"
 ```
 
+</details>
+
 ---
 
 ## Level 5: Mastery
@@ -614,6 +774,21 @@ This maps to category theory where services are categories and federation is a f
 ### Production Patterns at Scale
 
 #### 1. Multi-Region Federation
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -649,6 +824,8 @@ graph TB
         Regional3 <--> Global
     end
 ```
+
+</details>
 
 #### 2. Schema Evolution Strategies
 
@@ -715,6 +892,21 @@ Where:
 
 ### Economic Analysis
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```python
 def calculate_federation_roi():
     # Costs
@@ -749,11 +941,28 @@ def calculate_federation_roi():
 # Result: 6-month payback, 400% 5-year ROI
 ```
 
+</details>
+
 ---
 
 ## 📚 Quick Reference
 
 ### Federation Cheat Sheet
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```graphql
 # Entity Definition
@@ -778,6 +987,8 @@ _entities(representations: [_Any!]!): [_Entity]!
 @requires(fields: "id")   # Required fields
 @provides(fields: "name") # Optimization hint
 ```
+
+</details>
 
 ### Common Pitfalls & Solutions
 

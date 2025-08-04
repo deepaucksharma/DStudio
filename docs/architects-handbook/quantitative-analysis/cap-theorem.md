@@ -386,17 +386,17 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) - Network partitions and failure modes
-- [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md) - Time and consistency challenges
-- [Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/index.md) - CAP trade-offs in practice
-- [Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/index.md) - Knowledge consistency across nodes
+- [Law 1: Correlated Failure](../core-principles/laws/correlated-failure.md) - Network partitions and failure modes
+- [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) - Time and consistency challenges
+- [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization.md) - CAP trade-offs in practice
+- [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge.md) - Knowledge consistency across nodes
 
 ### Related Patterns
-- [Consensus Algorithms](../patterns/consensus.md) - Achieving agreement despite CAP
+- [Consensus Algorithms](../pattern-library/coordination/consensus.md) - Achieving agreement despite CAP
 - [Leader Election](../patterns/leader-follower.md) - Maintaining consistency with leaders
 - [Eventual Consistency](../patterns/eventual-consistency.md) - AP system design patterns
-- [Quorum Consensus](../patterns/consensus.md) - Tunable consistency implementations
-- [Vector Clocks](../patterns/vector-clocks.md) - Tracking causality in AP systems
+- [Quorum Consensus](../pattern-library/coordination/consensus.md) - Tunable consistency implementations
+- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Tracking causality in AP systems
 - [Conflict Resolution](../patterns/conflict-resolution.md) - Handling divergence in AP systems
 
 ### Quantitative Analysis

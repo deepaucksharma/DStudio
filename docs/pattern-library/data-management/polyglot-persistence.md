@@ -1,25 +1,48 @@
 ---
-title: Polyglot Persistence
-description: Using different data storage technologies for different domain requirements
-type: pattern
+best-for: []
 category: data-management
+current_relevance: mainstream
+description: Using different data storage technologies for different domain requirements
 difficulty: intermediate
-reading-time: 30 min
+essential_question: How do we ensure data consistency and reliability with polyglot
+  persistence?
+excellence_tier: silver
+introduced: 2024-01
+last-updated: 2025-01-23
+pattern_status: recommended
 prerequisites: []
+reading-time: 30 min
+status: complete
+tagline: Master polyglot persistence for distributed systems success
+title: Polyglot Persistence
+trade-offs:
+  cons: []
+  pros: []
+type: pattern
+when-not-to-use: When a single database can meet all requirements effectively
 when-to-use: When different parts of your application have different data storage
   requirements
-when-not-to-use: When a single database can meet all requirements effectively
-status: complete
-last-updated: 2025-01-23
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2024-01
-current_relevance: mainstream
-trade-offs:
-  pros: []
-  cons: []
-best-for: []
 ---
+
+## Essential Question
+## When to Use / When NOT to Use
+
+### When to Use
+
+| Scenario | Why It Fits | Alternative If Not |
+|----------|-------------|-------------------|
+| High availability required | Pattern provides resilience | Consider simpler approach |
+| Scalability is critical | Handles load distribution | Monolithic might suffice |
+| Distributed coordination needed | Manages complexity | Centralized coordination |
+
+### When NOT to Use
+
+| Scenario | Why to Avoid | Better Alternative |
+|----------|--------------|-------------------|
+| Simple applications | Unnecessary complexity | Direct implementation |
+| Low traffic systems | Overhead not justified | Basic architecture |
+| Limited resources | High operational cost | Simpler patterns |
+**How do we ensure data consistency and reliability with polyglot persistence?**
 
 
 
@@ -47,6 +70,21 @@ Similarly, using one database for all data:
 - **Graph traversal**: RDBMS disaster! ❌
 
 ### Visual Overview
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -82,6 +120,8 @@ graph TB
     end
 ```
 
+</details>
+
 ---
 
 ## Level 2: Foundation
@@ -100,6 +140,21 @@ graph TB
 
 
 ### Common Polyglot Architectures
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph LR
@@ -126,11 +181,28 @@ graph LR
     end
 ```
 
+</details>
+
 ---
 
 ## Interactive Decision Support Tools
 
 ### Data Storage Decision Tree
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 flowchart TD
@@ -163,6 +235,8 @@ flowchart TD
     style CF fill:#c9f,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 ### Database Selection Calculator
 
 | Factor | Your Requirements | Best Fit Score |
@@ -192,6 +266,21 @@ flowchart TD
 
 ```mermaid
 graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
+graph TD
     subgraph "Migration Pattern Analysis"
         MP[Migration Pattern] --> Q1{Data Volume?}
         
@@ -213,6 +302,8 @@ graph TD
     style DUAL fill:#69f,stroke:#333,stroke-width:2px
     style CDC fill:#fc6,stroke:#333,stroke-width:2px
 ```
+
+</details>
 
 ### Cost Comparison Matrix
 
@@ -271,7 +362,34 @@ Where N = number of different databases
 
 </div>
 
-#### Implementation Patterns
+##
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Patterns
 
 <div>
 
@@ -318,6 +436,21 @@ Where N = number of different databases
 ### Real-World Polyglot Architecture: Netflix
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Netflix Data Architecture"
         subgraph "Online Systems"
@@ -350,6 +483,8 @@ graph TB
     style DYNAMO fill:#9f6
     style MYSQL fill:#69f
 ```
+
+</details>
 
 ### Data Synchronization Strategies
 
@@ -398,6 +533,21 @@ graph LR
 #### 3. Event Sourcing Approach
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Write Path"
         CMD[Commands] --> VALIDATE[Validation]
@@ -423,6 +573,8 @@ graph TB
         API --> CACHE
     end
 ```
+
+</details>
 
 ### Consistency Management
 
@@ -454,6 +606,21 @@ stateDiagram-v2
 ## Level 4: Expert Implementation
 
 ### Production-Ready Polyglot Architecture
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 # Example: E-commerce platform with polyglot persistence
@@ -713,7 +880,24 @@ class ProductService:
         return products
 ```
 
+</details>
+
 ### Monitoring and Operations
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 # Polyglot monitoring configuration
@@ -782,6 +966,8 @@ monitoring:
         target: elasticsearch.products
         max_lag_seconds: 60
 ```
+
+</details>
 
 ---
 

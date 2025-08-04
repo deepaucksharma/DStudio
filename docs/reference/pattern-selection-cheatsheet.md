@@ -272,9 +272,9 @@ Scaling challenges?
 
 ## 💾 Downloadable Resources
 
-- **[Pattern Selection Matrix (PDF)](pattern-selection-matrix.pdf)** - Printable decision matrix
-- **[Architecture Checklist (PDF)](architecture-checklist.pdf)** - Implementation checklist
-- **[Troubleshooting Guide (PDF)](troubleshooting-guide.pdf)** - Common problems and solutions
+- **[Pattern Selection Matrix (PDF)](#pattern-selection-matrix)** - Printable decision matrix
+- **[Architecture Checklist (PDF)](#architecture-checklist)** - Implementation checklist
+- **[Troubleshooting Guide (PDF)](#troubleshooting-guide)** - Common problems and solutions
 
 ---
 

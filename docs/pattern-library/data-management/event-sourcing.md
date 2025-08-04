@@ -1,11 +1,11 @@
 ---
-title: Event Sourcing
 category: data-management
-excellence_tier: gold
-pattern_status: recommended
-description: Data management pattern that stores all changes as immutable events, enabling audit trails and time travel
-introduced: 2005-05
 current_relevance: mainstream
+description: Data management pattern that stores all changes as immutable events,
+  enabling audit trails and time travel
+essential_question: How do we ensure data consistency and reliability with event sourcing?
+excellence_tier: gold
+introduced: 2005-05
 modern-examples:
 - company: PayPal
   implementation: Event-driven transaction processing for 350M+ accounts
@@ -16,6 +16,7 @@ modern-examples:
 - company: Goldman Sachs
   implementation: Trading platform with complete transaction history
   scale: Trillions in daily volume with microsecond-level event capture
+pattern_status: recommended
 production-checklist:
 - Design event schema with forward compatibility
 - Implement event versioning strategy from day one
@@ -25,7 +26,10 @@ production-checklist:
 - Implement GDPR-compliant event anonymization
 - Test replay scenarios and recovery procedures
 - Design projection update strategies
+tagline: Master event sourcing for distributed systems success
+title: Event Sourcing
 ---
+
 
 # Event Sourcing
 
@@ -112,6 +116,21 @@ graph LR
 ### Event Sourcing Architecture
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Write Path"
         CMD[Commands] --> CH[Command Handlers]
@@ -136,6 +155,8 @@ graph TB
         TR --> HS[Historical State]
     end
 ```
+
+</details>
 
 ### Key Components
 
@@ -355,6 +376,21 @@ graph TD
 
 ### Configuration Template
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```yaml
 event_sourcing:
   event_store:
@@ -378,6 +414,8 @@ event_sourcing:
     measure_projection_lag: true
     alert_on_replay_failure: true
 ```
+
+</details>
 
 ## Related Patterns
 

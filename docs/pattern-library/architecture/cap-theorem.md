@@ -1,28 +1,50 @@
 ---
-title: CAP Theorem
-description: Understanding the fundamental trade-offs in distributed systems design
-type: pattern
 category: architecture
-difficulty: intermediate
-reading-time: 30 min
-prerequisites: []
-when-to-use: When designing distributed systems architecture
-when-not-to-use: When working with single-node systems
-status: complete
-last-updated: 2025-01-23
-excellence_tier: bronze
-pattern_status: use-with-caution
-introduced: 2000-07
 current_relevance: niche
+deprecation-reason: Consider modern alternatives for new implementations
+description: Understanding the fundamental trade-offs in distributed systems design
+difficulty: intermediate
+educational-value: Important for understanding distributed systems theory but not
+  directly actionable
+essential_question: How do we structure our system architecture to leverage cap theorem?
+excellence_tier: bronze
+introduced: 2000-07
+last-updated: 2025-01-23
+modern-alternatives: []
 modern-context:
 - PACELC theorem provides more nuanced view
 - Modern systems offer tunable consistency
 - Cloud providers abstract many CAP concerns
-educational-value: Important for understanding distributed systems theory but not
-  directly actionable
-modern-alternatives: []
-deprecation-reason: Consider modern alternatives for new implementations
+pattern_status: use-with-caution
+prerequisites: []
+reading-time: 30 min
+status: complete
+tagline: Master cap theorem for distributed systems success
+title: CAP Theorem
+type: pattern
+when-not-to-use: When working with single-node systems
+when-to-use: When designing distributed systems architecture
 ---
+
+## Essential Question
+## When to Use / When NOT to Use
+
+### When to Use
+
+| Scenario | Why It Fits | Alternative If Not |
+|----------|-------------|-------------------|
+| High availability required | Pattern provides resilience | Consider simpler approach |
+| Scalability is critical | Handles load distribution | Monolithic might suffice |
+| Distributed coordination needed | Manages complexity | Centralized coordination |
+
+### When NOT to Use
+
+| Scenario | Why to Avoid | Better Alternative |
+|----------|--------------|-------------------|
+| Simple applications | Unnecessary complexity | Direct implementation |
+| Low traffic systems | Overhead not justified | Basic architecture |
+| Limited resources | High operational cost | Simpler patterns |
+**How do we structure our system architecture to leverage cap theorem?**
 
 
 
@@ -60,6 +82,21 @@ When the phone lines go down (network partition), each location must choose:
 ### Visual Understanding
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "CAP Triangle"
         C[Consistency<br/>All nodes see same data]
@@ -81,6 +118,8 @@ graph TB
         CA[CA Systems<br/>Consistent & Available<br/>Single node only]
     end
 ```
+
+</details>
 
 ---
 
@@ -135,6 +174,21 @@ graph LR
 The system continues to operate despite network failures between nodes.
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Network Partition"
         subgraph "Partition A"
@@ -160,6 +214,8 @@ graph TB
     style N3 fill:#f96
     style N4 fill:#f96
 ```
+
+</details>
 
 ---
 
@@ -319,6 +375,21 @@ Many systems allow you to tune consistency per operation:
 #### 2. Hybrid Approaches
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Hybrid System"
         subgraph "CP Subsystem"
@@ -345,6 +416,8 @@ graph TB
     style AP2 fill:#9f6
     style AP3 fill:#9f6
 ```
+
+</details>
 
 ---
 
@@ -382,6 +455,21 @@ graph TD
 #### Microservices and CAP
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Service Mesh"
         subgraph "CP Services"
@@ -413,6 +501,8 @@ graph TB
     style Catalog fill:#9f6
     style Recommend fill:#9f6
 ```
+
+</details>
 
 ## Quick Reference
 

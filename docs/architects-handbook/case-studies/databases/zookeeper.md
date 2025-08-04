@@ -399,11 +399,11 @@ for wresp := range rch {
 
 ## Related Topics
 
-- [etcd Case Study](etcd) - Modern alternative
-- [Consensus Patterns](../patterns/consensus) - Raft vs ZAB
-- [Leader Election](../patterns/leader-election) - Common ZK recipe
-- [Service Discovery](../patterns/service-discovery) - ZK patterns
-- [Distributed Locks](../patterns/distributed-lock) - Lock recipes
+- [etcd Case Study](etcd.md) - Modern alternative
+- [Consensus Patterns](../../../pattern-library/coordination/consensus.md) - Raft vs ZAB
+- [Leader Election](../../../pattern-library/leader-election.md) - Common ZK recipe
+- [Service Discovery](../../../pattern-library/service-discovery.md) - ZK patterns
+- [Distributed Locks](../../../pattern-library/distributed-lock.md) - Lock recipes
 
 ## References
 

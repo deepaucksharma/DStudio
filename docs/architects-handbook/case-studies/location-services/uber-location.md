@@ -463,15 +463,15 @@ Uber's location system evolution (2009-2015):
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) - Multi-region prevents city-wide outages
-- [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md) - Edge servers handle network latency
-- [Law 3: Emergent Chaos](../part1-axioms/law3-emergence/index.md) - Event-driven handles 1M updates/sec
-- [Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/index.md) - Battery vs accuracy trade-offs
+- [Law 1: Correlated Failure](../../../core-principles/laws/correlated-failure.md) - Multi-region prevents city-wide outages
+- [Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md) - Edge servers handle network latency
+- [Law 3: Emergent Chaos](../../../core-principles/laws/emergent-chaos.md) - Event-driven handles 1M updates/sec
+- [Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization.md) - Battery vs accuracy trade-offs
 
 ### Related Patterns
 - [Geospatial Indexing](../patterns/spatial-indexing.md) - H3 hexagonal grid system
 - [Event Streaming](../patterns/event-streaming.md) - Kafka processing 100M events/day
-- [Edge Computing](../patterns/edge-computing.md) - 200+ edge locations globally
+- [Edge Computing](../../../pattern-library/scaling/edge-computing.md) - 200+ edge locations globally
 - [Time-Series Storage](../patterns/time-series-ids.md) - Cassandra for location history
 
 ### Related Pillars
@@ -494,14 +494,14 @@ Uber's location system evolution (2009-2015):
 
 ## Cross-References to Fundamental Laws
 
-### Related Laws (Part I)
-- **[Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md)** - Multi-region deployment prevents city-wide service outages during infrastructure failures
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - Edge servers and predictive updates compensate for mobile network latency
-- **[Law 3: Emergent Chaos](../part1-axioms/law3-emergence/index.md)** - Event-driven architecture handles millions of concurrent location updates
-- **[Law 4: Multidimensional Optimization](../part1-axioms/law4-tradeoffs/index.md)** - Balance battery life, accuracy, and real-time requirements through adaptive algorithms
-- **[Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/index.md)** - Comprehensive monitoring of location quality and system health across global infrastructure
-- **[Law 6: Cognitive Load](../part1-axioms/law6-human-api/index.md)** - H3 indexing simplifies complex geospatial operations for developers
-- **[Law 7: Economic Reality](../part1-axioms/law7-economics/index.md)** - Edge computing and compression optimize mobile data costs
+### Related Laws (Part I.md)
+- **[Law 1: Correlated Failure](../../../core-principles/laws/correlated-failure.md)** - Multi-region deployment prevents city-wide service outages during infrastructure failures
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - Edge servers and predictive updates compensate for mobile network latency
+- **[Law 3: Emergent Chaos](../../../core-principles/laws/emergent-chaos.md)** - Event-driven architecture handles millions of concurrent location updates
+- **[Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization.md)** - Balance battery life, accuracy, and real-time requirements through adaptive algorithms
+- **[Law 5: Distributed Knowledge](../../../core-principles/laws/distributed-knowledge.md)** - Comprehensive monitoring of location quality and system health across global infrastructure
+- **[Law 6: Cognitive Load](../../../core-principles/laws/cognitive-load.md)** - H3 indexing simplifies complex geospatial operations for developers
+- **[Law 7: Economic Reality](../../../core-principles/laws/economic-reality.md)** - Edge computing and compression optimize mobile data costs
 
 ### Related Pillars (Part II)
 - **[Work Distribution](../part2-pillars/work/index.md)** - Geospatial sharding distributes location processing across regions
@@ -524,7 +524,7 @@ Uber's location system evolution (2009-2015):
 - [Google Maps: Planet-Scale Mapping](google-maps.md) - Compare geospatial approaches
 - [Lyft: Competitive Location Platform](proximity-service.md) - Similar scale, different architecture
 - [Life360: Family Location Sharing](life360.md) - Consumer-scale location tracking
-- [Strava: Athletic Performance Tracking](strava-heatmaps.md) - High-frequency location updates
+- [Strava: Athletic Performance Tracking](strava-heatmaps.md.md) - High-frequency location updates
 
 ### Pattern Comparisons
 - [H3 vs S2 vs Geohash](../../excellence/comparisons/geospatial-indexing) - Choosing the right spatial index

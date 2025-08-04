@@ -1,34 +1,41 @@
 ---
-title: Ambassador Pattern
-description: Create a helper service that sends network requests on behalf of a consumer
-  service, handling complex communication patterns and protocol translations
-type: pattern
-difficulty: intermediate
-reading-time: 45 min
-prerequisites: []
-pattern-type: architectural
-status: complete
-last-updated: 2025-01-23
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2015-01
-current_relevance: niche
-trade-offs:
-  pros:
-  - Isolates network communication logic
-  - Simplifies client code
-  - Enables protocol translation
-  cons:
-  - Additional network hop
-  - Single point of failure
-  - Increased complexity
 best-for:
 - Legacy system integration
 - Protocol translation
 - Service mesh sidecars
 - API gateway implementations
 category: architecture
+current_relevance: niche
+description: Create a helper service that sends network requests on behalf of a consumer
+  service, handling complex communication patterns and protocol translations
+difficulty: intermediate
+essential_question: How do we structure our system architecture to leverage ambassador
+  pattern?
+excellence_tier: silver
+introduced: 2015-01
+last-updated: 2025-01-23
+pattern-type: architectural
+pattern_status: recommended
+prerequisites: []
+reading-time: 45 min
+status: complete
+tagline: Master ambassador pattern for distributed systems success
+title: Ambassador Pattern
+trade-offs:
+  cons:
+  - Additional network hop
+  - Single point of failure
+  - Increased complexity
+  pros:
+  - Isolates network communication logic
+  - Simplifies client code
+  - Enables protocol translation
+type: pattern
 ---
+
+## Essential Question
+
+**How do we structure our system architecture to leverage ambassador pattern?**
 
 
 
@@ -49,6 +56,21 @@ category: architecture
 ## Level 1: Intuition
 
 ### The Embassy Analogy
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```
 Citizen in Country A                    Embassy (Ambassador)
@@ -73,7 +95,24 @@ REST/JSON                             Translates to:
                                      (Complex protocols)
 ```
 
+</details>
+
 ### Visual Architecture Comparison
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -98,6 +137,8 @@ graph TB
     style LS1 fill:#faa,stroke:#333,stroke-width:2px
     style LS2 fill:#faa,stroke:#333,stroke-width:2px
 ```
+
+</details>
 
 ### Real-World Examples
 
@@ -141,6 +182,21 @@ Scenario 3: Retry & Circuit Breaking
 ### Core Concepts
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Ambassador Pattern Architecture"
         subgraph "Client Side"
@@ -172,6 +228,8 @@ graph TB
     
     style AMB fill:#f9f,stroke:#333,stroke-width:4px
 ```
+
+</details>
 
 ### Ambassador Pattern Types
 
@@ -215,7 +273,34 @@ graph TD
 | **Binary** | Ambassador | Ambassador | Ambassador | Ambassador | ✓ |
 
 
-### Implementation Strategies
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Strategies
 
 #### 1. Standalone Service Ambassador
 
@@ -332,6 +417,21 @@ sequenceDiagram
 #### 1. Multi-Protocol Ambassador
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Multi-Protocol Translation"
         subgraph "Input Protocols"
@@ -371,6 +471,8 @@ graph TB
     end
 ```
 
+</details>
+
 #### 2. Intelligent Retry Ambassador
 
 ```mermaid
@@ -409,6 +511,21 @@ graph LR
 
 #### Translation Example Flow
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```
 REST Request:
 POST /api/orders
@@ -440,9 +557,26 @@ SOAP Request:
 </soap:Envelope>
 ```
 
+</details>
+
 ### Performance Optimization Strategies
 
 #### 1. Connection Pooling
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph TB
@@ -477,6 +611,8 @@ graph TB
         CP --> C3 --> LS
     end
 ```
+
+</details>
 
 #### 2. Request Batching
 
@@ -534,6 +670,21 @@ stateDiagram-v2
 #### Authentication Translation
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Modern Auth"
         JWT[JWT Token]
@@ -564,6 +715,8 @@ graph TB
     Generator --> Kerberos
     Generator --> Basic
 ```
+
+</details>
 
 ### Monitoring and Observability
 
@@ -611,6 +764,21 @@ sequenceDiagram
 Netflix uses Zuul as an ambassador pattern implementation at the edge:
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Netflix Architecture"
         subgraph "Clients"
@@ -644,6 +812,8 @@ graph TB
     
     style Zuul fill:#f9f,stroke:#333,stroke-width:4px
 ```
+
+</details>
 
 **Key Achievements:**
 - 100+ billion requests per day
@@ -766,6 +936,21 @@ sequenceDiagram
 #### Zero-Trust Ambassador
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Security Layers"
         subgraph "Ingress"
@@ -794,6 +979,8 @@ graph TB
     Audit --> mTLS
     mTLS --> Secrets
 ```
+
+</details>
 
 ### Deployment Strategies
 
@@ -917,7 +1104,34 @@ graph TB
 - Direct integration is possible
 - Overhead not justified
 
-### Implementation Checklist
+#
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+## Implementation Checklist
 
 - [ ] Define translation requirements
 - [ ] Choose deployment model

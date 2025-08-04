@@ -10,7 +10,7 @@ Deep dives into distributed database architectures from industry leaders.
 - **[MongoDB](mongodb.md)** - Document-oriented distributed database
 
 ### SQL Systems  
-- **[Amazon Aurora](amazon-aurora.md)** - MySQL/PostgreSQL-compatible relational database
+- **[Amazon Aurora](amazon-aurora.md.md)** - MySQL/PostgreSQL-compatible relational database
 - **[Google Spanner](google-spanner.md)** - Globally distributed relational database
 
 ### Caching Systems
@@ -23,7 +23,7 @@ Deep dives into distributed database architectures from industry leaders.
 
 ### Specialized Systems
 - **[HashiCorp Vault](vault.md)** - Secrets management and data protection
-- **[Key-Value Store Design](key-value-store.md)** - Building distributed key-value stores
+- **[Key-Value Store Design](key-value-store.md.md)** - Building distributed key-value stores
 
 ---
 

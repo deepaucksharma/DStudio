@@ -1,38 +1,45 @@
 ---
-title: Distributed Storage
-description: Patterns and techniques for storing and managing data across multiple
-  nodes in distributed systems
-type: pattern
-category: data-management
-difficulty: intermediate
-reading-time: 45 min
-prerequisites:
-- consistency-models
-- replication
-- partitioning
-when-to-use: When data exceeds single node capacity or requires high availability
-  and fault tolerance
-when-not-to-use: When data fits on single node and downtime is acceptable
-status: complete
-last-updated: 2025-01-23
-excellence_tier: silver
-pattern_status: use-with-expertise
-introduced: 2003-10
-current_relevance: mainstream
-trade-offs:
-  pros:
-  - Horizontal scalability beyond single-node limits
-  - High availability through replication
-  - Geographic distribution for locality
-  cons:
-  - Complex consistency and coordination challenges
-  - Higher operational overhead and costs
-  - Network partitions and split-brain scenarios
 best-for:
 - Large-scale data that exceeds single node capacity
 - Systems requiring 99.99%+ availability
 - Global applications needing data locality
+category: data-management
+current_relevance: mainstream
+description: Patterns and techniques for storing and managing data across multiple
+  nodes in distributed systems
+difficulty: intermediate
+essential_question: How do we ensure data consistency and reliability with distributed
+  storage?
+excellence_tier: silver
+introduced: 2003-10
+last-updated: 2025-01-23
+pattern_status: use-with-expertise
+prerequisites:
+- consistency-models
+- replication
+- partitioning
+reading-time: 45 min
+status: complete
+tagline: Master distributed storage for distributed systems success
+title: Distributed Storage
+trade-offs:
+  cons:
+  - Complex consistency and coordination challenges
+  - Higher operational overhead and costs
+  - Network partitions and split-brain scenarios
+  pros:
+  - Horizontal scalability beyond single-node limits
+  - High availability through replication
+  - Geographic distribution for locality
+type: pattern
+when-not-to-use: When data fits on single node and downtime is acceptable
+when-to-use: When data exceeds single node capacity or requires high availability
+  and fault tolerance
 ---
+
+## Essential Question
+
+**How do we ensure data consistency and reliability with distributed storage?**
 
 # Distributed Storage
 
@@ -97,6 +104,21 @@ best-for:
 ### Data Distribution Flow
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 flowchart TB
     subgraph "Write Path"
         Client[Client Write] --> Router[Storage Router]
@@ -122,6 +144,8 @@ flowchart TB
         Detect --> Replicate[Re-replicate Data]
     end
 ```
+
+</details>
 
 ## Level 2: Distribution Strategies
 
@@ -312,6 +336,90 @@ graph LR
 | **Split brain** | Data loss | Proper quorum configuration |
 | **Replication storms** | Network saturation | Rate limit re-replication |
 | **Zombie data** | Wasted space | Garbage collection process |
+
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
 
 ## Implementation Decision Tree
 

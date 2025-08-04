@@ -46,15 +46,15 @@ As an engineering manager, you will:
  Focus on high-impact knowledge:
  
  - [The 7 Laws Overview](axioms/) - Quick understanding
- - [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index) - Decision making
- - [Law 7: Economic Reality](part1-axioms/law7-economics/index) - Cost implications
+ - [Law 4: Trade-offs](../../core-principles/laws/law4-tradeoffs/index) - Decision making
+ - [Law 7: Economic Reality](../../core-principles/laws/law7-economics/index) - Cost implications
 
 - **Week 2: Practical Implications**
  
  Understand operational realities:
  
- - [Law 1: Correlated Failure](part1-axioms/law1-failure/index) - Risk management
- - [Law 6: Cognitive Load](part1-axioms/law6-human-api/index) - Team capacity
+ - [Law 1: Correlated Failure](../../core-principles/laws/law1-failure/index) - Risk management
+ - [Law 6: Cognitive Load](../../core-principles/laws/law6-human-api/index) - Team capacity
  - [The 5 Pillars](pillars/) - Architectural choices
 
 </div>
@@ -68,30 +68,30 @@ As an engineering manager, you will:
 
 === "Reliability Patterns"
  Understand how teams ensure system reliability:
- - [Circuit Breaker](patterns/circuit-breaker) - Failure isolation
- - [Retry & Backoff](patterns/retry-backoff) - Handling failures
- - [Health Checks](patterns/health-check) - System monitoring
+ - [Circuit Breaker](../../../pattern-library/circuit-breaker) - Failure isolation
+ - [Retry & Backoff](../../../pattern-library/retry-backoff) - Handling failures
+ - [Health Checks](../../../pattern-library/health-check) - System monitoring
 
 === "Scaling Patterns"
  Know how systems grow:
- - [Load Balancing](patterns/load-balancing) - Traffic distribution
- - [Caching](patterns/caching-strategies) - Performance optimization
- - [Sharding](patterns/sharding) - Data partitioning
+ - [Load Balancing](../../../pattern-library/load-balancing) - Traffic distribution
+ - [Caching](../../../pattern-library/caching-strategies) - Performance optimization
+ - [Sharding](../../../pattern-library/sharding) - Data partitioning
 
 === "Architecture Patterns"
  Understand system organization:
- - [Service Mesh](patterns/service-mesh) - Microservices management
- - [API Gateway](patterns/api-gateway) - External interfaces
- - [Event-Driven](patterns/event-driven) - Async architectures
+ - [Service Mesh](../../../pattern-library/service-mesh) - Microservices management
+ - [API Gateway](../../../pattern-library/api-gateway) - External interfaces
+ - [Event-Driven](../../../pattern-library/event-driven) - Async architectures
 
 #### Week 4: Advanced Patterns
 
 Focus on patterns with significant business impact:
 
-- [CQRS](patterns/cqrs) - Read/write optimization
-- [Saga Pattern](patterns/saga) - Distributed transactions
-- [Event Sourcing](patterns/event-sourcing) - Audit trails
-- [Multi-Region](patterns/multi-region) - Global deployment
+- [CQRS](../../../pattern-library/cqrs) - Read/write optimization
+- [Saga Pattern](../../../pattern-library/saga) - Distributed transactions
+- [Event Sourcing](../../../pattern-library/event-sourcing) - Audit trails
+- [Multi-Region](../../../pattern-library/multi-region) - Global deployment
 
 ### Phase 3: Operational Excellence (2-3 weeks)
 
@@ -131,19 +131,19 @@ Essential metrics and models:
 #### Week 7-8: Management Perspectives
 
 === "Organizational Lessons"
- - [Netflix Culture](case-studies/netflix-chaos) - Innovation through chaos
- - [Amazon's Two-Pizza Teams](case-studies/amazon-dynamo) - Team structure
- - [Google's SRE Model](case-studies/google-sre/) - Operational excellence
+ - [Netflix Culture](../netflix-chaos) - Innovation through chaos
+ - [Amazon's Two-Pizza Teams](../amazon-dynamo) - Team structure
+ - [Google's SRE Model](../google-sre/) - Operational excellence
 
 === "Technical Decisions"
- - [Twitter's Fail Whale](case-studies/twitter-timeline) - Scaling challenges
- - [Facebook's Move Fast](case-studies/facebook-tao/) - Speed vs stability
- - [Uber's Microservices](case-studies/uber-location) - Service proliferation
+ - [Twitter's Fail Whale](../twitter-timeline) - Scaling challenges
+ - [Facebook's Move Fast](../facebook-tao/) - Speed vs stability
+ - [Uber's Microservices](../uber-location) - Service proliferation
 
 === "Cost Optimization"
- - [Spotify's Migration](case-studies/spotify-recommendations) - Cloud costs
- - [Airbnb's Architecture](case-studies/hotel-reservation) - Growth management
- - [Pinterest's Sharding](case-studies/pinterest-sharding/) - Data costs
+ - [Spotify's Migration](../spotify-recommendations) - Cloud costs
+ - [Airbnb's Architecture](../hotel-reservation) - Growth management
+ - [Pinterest's Sharding](../pinterest-sharding/) - Data costs
 
 ## 📊 Manager's Decision Framework
 

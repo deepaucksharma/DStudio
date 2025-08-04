@@ -1,25 +1,14 @@
 ---
-title: Publish-Subscribe Pattern
+category: communication
+current_relevance: mainstream
 description: Decoupled messaging pattern where publishers send messages to topics
   and subscribers receive messages based on their interests
-type: pattern
-category: communication
 difficulty: intermediate
-reading-time: 35 min
-prerequisites:
-- message-queues
-- event-driven
-- distributed-systems
-when-to-use: Event-driven architectures, real-time notifications, decoupled microservices,
-  multi-consumer scenarios
-when-not-to-use: Point-to-point communication, request-response patterns, transactional
-  consistency requirements
-status: initial
-last-updated: 2025-07-26
+essential_question: How do we enable efficient communication between services using
+  publish-subscribe pattern?
 excellence_tier: gold
-pattern_status: recommended
 introduced: 1987-01
-current_relevance: mainstream
+last-updated: 2025-07-26
 modern-examples:
 - company: Apache Kafka
   implementation: Distributed pub-sub for event streaming at LinkedIn, Uber, Netflix
@@ -30,6 +19,11 @@ modern-examples:
 - company: Google Cloud Pub/Sub
   implementation: Globally distributed message service
   scale: 500M messages/second, 99.95% SLA
+pattern_status: recommended
+prerequisites:
+- message-queues
+- event-driven
+- distributed-systems
 production-checklist:
 - Choose delivery semantics (at-least-once, at-most-once, exactly-once)
 - Configure topic partitioning for scalability
@@ -41,7 +35,17 @@ production-checklist:
 - Set up topic-based access control
 - Plan for message schema evolution
 - Test fan-out performance under load
+reading-time: 35 min
+status: initial
+tagline: Master publish-subscribe pattern for distributed systems success
+title: Publish-Subscribe Pattern
+type: pattern
+when-not-to-use: Point-to-point communication, request-response patterns, transactional
+  consistency requirements
+when-to-use: Event-driven architectures, real-time notifications, decoupled microservices,
+  multi-consumer scenarios
 ---
+
 
 
 # Publish-Subscribe Pattern
@@ -126,6 +130,21 @@ Traditional Direct Communication:        Pub-Sub Communication:
 
 ```mermaid
 graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
+graph TD
     subgraph "Publishers"
         P1[Order Service]
         P2[Payment Service]
@@ -164,6 +183,8 @@ graph TD
     style T3 fill:#3b82f6,stroke:#1e40af,stroke-width:2px
 ```
 
+</details>
+
 ### Core Value
 | Aspect | Direct Communication | Pub-Sub |
 |--------|---------------------|----------|
@@ -195,6 +216,21 @@ graph TD
 ```
 
 ### Basic Structure
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 from collections import defaultdict
@@ -240,7 +276,24 @@ class PubSubBroker:
                 print(f"Subscriber {subscriber_id} error: {e}")
 ```
 
+</details>
+
 ### Architecture Diagram
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 flowchart TB
@@ -284,11 +337,28 @@ flowchart TB
     style SM fill:#10b981,stroke:#059669,stroke-width:2px
 ```
 
+</details>
+
 ## Level 3: Deep Dive (15 min)
 
 ### Production Example: Apache Kafka
 
 Kafka implements distributed pub-sub at massive scale:
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```python
 from kafka import KafkaProducer, KafkaConsumer
@@ -334,6 +404,8 @@ class KafkaEventBus:
                 logging.error(f"Processing error: {e}")
                 # Message will be redelivered
 ```
+
+</details>
 
 ### Implementation Strategies
 
@@ -433,6 +505,21 @@ class KafkaEventBus:
 
 ```mermaid
 graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
+graph TD
     subgraph "Basic Pub-Sub"
         BP[Publisher] --> BT[Topic] --> BS[Subscribers]
     end
@@ -457,6 +544,8 @@ graph TD
     style HT1 fill:#f59e0b,stroke:#d97706
     style FT fill:#10b981,stroke:#059669
 ```
+
+</details>
 
 ### Integration with Other Patterns
 
@@ -502,6 +591,21 @@ class CQRSEventBus:
 ### Distributed Pub-Sub Challenges
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 flowchart LR
     subgraph "Challenge: Network Partition"
         subgraph "Partition A"
@@ -532,6 +636,8 @@ flowchart LR
         B3 -.->|gossip| B1
     end
 ```
+
+</details>
 
 ### Mathematical Model
 
@@ -631,6 +737,21 @@ metrics = {
 
 ### Common Configurations
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```yaml
 # Kafka Configuration Example
 kafka:
@@ -653,6 +774,8 @@ kafka:
     batch-size: 16384
     linger-ms: 10
 ```
+
+</details>
 
 <div class="truth-box">
 <h4>💡 Pub-Sub Production Insights</h4>

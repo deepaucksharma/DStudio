@@ -1,29 +1,32 @@
 ---
-title: Geo-Distribution
-category: scaling
-excellence_tier: silver
-pattern_status: recommended
-description: Distributes data and compute across geographic regions for performance, availability, and compliance
-essential_question: How do we minimize latency and meet compliance requirements while maintaining data consistency across regions?
-introduced: 2010-01
-current_relevance: mainstream
-trade-offs:
-  pros:
-    - Sub-100ms latency for regional users
-    - Data sovereignty compliance (GDPR, etc.)
-    - Disaster recovery across continents
-    - Follow-the-sun operations
-  cons:
-    - Complex consistency models
-    - Higher infrastructure costs (3-5x)
-    - Cross-region network charges
-    - Operational complexity increases exponentially
 best-for:
-  - Global consumer applications
-  - Multi-national enterprises
-  - Compliance-driven systems
-  - Latency-sensitive services
+- Global consumer applications
+- Multi-national enterprises
+- Compliance-driven systems
+- Latency-sensitive services
+category: scaling
+current_relevance: mainstream
+description: Distributes data and compute across geographic regions for performance,
+  availability, and compliance
+essential_question: How do we minimize latency and meet compliance requirements while
+  maintaining data consistency across regions?
+excellence_tier: silver
+introduced: 2010-01
+pattern_status: recommended
+title: Geo-Distribution
+trade-offs:
+  cons:
+  - Complex consistency models
+  - Higher infrastructure costs (3-5x)
+  - Cross-region network charges
+  - Operational complexity increases exponentially
+  pros:
+  - Sub-100ms latency for regional users
+  - Data sovereignty compliance (GDPR, etc.)
+  - Disaster recovery across continents
+  - Follow-the-sun operations
 ---
+
 
 # Geo-Distribution
 
@@ -72,6 +75,21 @@ best-for:
 ## Architecture Overview
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "US-East Region"
         USE[Load Balancer]
@@ -117,6 +135,8 @@ graph TB
     style GR fill:#87CEEB
 ```
 
+</details>
+
 ## Geo-Distribution Strategy Matrix
 
 | Strategy | Consistency | Latency | Complexity | Cost | Best For |
@@ -128,6 +148,21 @@ graph TB
 | **Multi-Master** | Conflict-prone | Low | Very High | $$$$$ | Collaborative apps |
 
 ## Data Consistency Models
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph LR
@@ -153,6 +188,92 @@ graph LR
     end
 ```
 
+</details>
+
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
 ## Implementation Strategies
 
 ### 1. Database Geo-Distribution
@@ -166,6 +287,21 @@ graph LR
 | **Time-Series** | Regional buckets | InfluxDB, TimescaleDB | Eventual |
 
 ### 2. Application Layer Distribution
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 flowchart TD
@@ -192,6 +328,8 @@ flowchart TD
     L -->|Commit| N
     M -->|Async| N
 ```
+
+</details>
 
 ### 3. State Management Across Regions
 

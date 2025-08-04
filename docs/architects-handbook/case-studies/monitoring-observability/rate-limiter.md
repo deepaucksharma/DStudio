@@ -1030,24 +1030,24 @@ graph TD
 
 **Related Patterns:**
 - [Token Bucket Algorithm](../patterns/rate-limiting)
-- [Circuit Breaker](../patterns/circuit-breaker)
+- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
 - [Consistent Hashing](consistent-hashing)
 - Gossip Protocol (Coming Soon)
 
 ## Related Concepts & Deep Dives
 
-### 📚 Relevant Laws (Part I)
-- **[Law 1: Correlated Failure ](../part1-axioms/law1-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 2: Asynchronous Reality ](../part1-axioms/law2-asynchrony/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 3: Emergent Chaos ](../part1-axioms/law3-emergence/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 4: Multidimensional Trade-offs ](../part1-axioms/law4-tradeoffs/index.md)** - Rate limiting protects backend capacity from overload
-- **[Law 5: Distributed Knowledge ](../part1-axioms/law5-epistemology/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Cognitive Load ](../part1-axioms/law6-human-api/index.md)** - Clear error messages with retry-after headers and operational dashboards
-- **[Law 7: Economic Reality ](../part1-axioms/law7-economics/index.md)** - Local caching reduces infrastructure costs by 80%
+### 📚 Relevant Laws (Part I.md)
+- **[Law 1: Correlated Failure ](../../../core-principles/laws/correlated-failure.md)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 2: Asynchronous Reality ](../../../core-principles/laws/asynchronous-reality.md)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 3: Emergent Chaos ](../../../core-principles/laws/emergent-chaos.md)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 4: Multidimensional Trade-offs ](../../../core-principles/laws/multidimensional-optimization.md)** - Rate limiting protects backend capacity from overload
+- **[Law 5: Distributed Knowledge ](../../../core-principles/laws/distributed-knowledge.md)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Cognitive Load ](../../../core-principles/laws/cognitive-load.md)** - Clear error messages with retry-after headers and operational dashboards
+- **[Law 7: Economic Reality ](../../../core-principles/laws/economic-reality.md)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛 Related Patterns (Part III/index)
 - **[Rate Limiting](../patterns/rate-limiting)** - Core pattern implemented with token bucket algorithm
-- **[Circuit Breaker](../patterns/circuit-breaker)** - Protects rate limiter from Redis failures
+- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Protects rate limiter from Redis failures
 - **[Bulkhead](../patterns/bulkhead)** - Isolates rate limit pools per tenant/API
 - **[Consistent Hashing](../patterns/sharding)** - Distributes users across rate limiter nodes
 - **[Caching Strategies](../patterns/caching-strategies)** - Local cache with TTL for performance
@@ -1070,4 +1070,4 @@ graph TD
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Similar distributed counting challenges
 - **[PayPal Payments](paypal-payments.md)** - Rate limiting prevents payment fraud
 - **[Consistent Hashing](consistent-hashing.md)** - Core technique for distributing rate limit state
-- **[News Feed System](news-feed.md)** - Rate limiting API calls for feed generation
+- **[News Feed System](news-feed.md.md)** - Rate limiting API calls for feed generation

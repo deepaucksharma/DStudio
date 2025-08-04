@@ -1,32 +1,36 @@
 ---
-title: Service Mesh
-category: communication
-excellence_tier: silver
-pattern_status: recommended
-description: Infrastructure layer providing service-to-service communication, security,
-  and observability
-introduced: 2024-01
-current_relevance: mainstream
-trade-offs:
-  pros:
-  - Centralized control of service communication
-  - Automatic mTLS and security policies
-  - Built-in observability (traces, metrics, logs)
-  - Traffic management capabilities
-  - Consistent policies across services
-  cons:
-  - Operational complexity to manage
-  - Performance overhead (~1-2ms latency)
-  - Resource consumption (sidecars)
-  - Learning curve for teams
-  - Debugging complexity with proxies
 best-for:
 - Large microservice deployments (>20 services)
 - Multi-team organizations needing consistency
 - Zero-trust security requirements
 - Complex traffic patterns (A/B, canary)
 - Regulatory compliance needs
+category: communication
+current_relevance: mainstream
+description: Infrastructure layer providing service-to-service communication, security,
+  and observability
+essential_question: How do we enable efficient communication between services using
+  service mesh?
+excellence_tier: silver
+introduced: 2024-01
+pattern_status: recommended
+tagline: Master service mesh for distributed systems success
+title: Service Mesh
+trade-offs:
+  cons:
+  - Operational complexity to manage
+  - Performance overhead (~1-2ms latency)
+  - Resource consumption (sidecars)
+  - Learning curve for teams
+  - Debugging complexity with proxies
+  pros:
+  - Centralized control of service communication
+  - Automatic mTLS and security policies
+  - Built-in observability (traces, metrics, logs)
+  - Traffic management capabilities
+  - Consistent policies across services
 ---
+
 
 # Service Mesh
 
@@ -70,6 +74,21 @@ Service mesh is like a modern phone network. You don't build telephone infrastru
 
 ```mermaid
 graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
+graph TD
     subgraph "Without Service Mesh"
         A1[Service A] <--> B1[Service B]
         A1 <--> C1[Service C]
@@ -98,6 +117,8 @@ graph TD
     style PB fill:#00BCD4,stroke:#0097a7
     style PC fill:#00BCD4,stroke:#0097a7
 ```
+
+</details>
 
 ### Core Value
 | Aspect | Without Mesh | With Mesh |
@@ -144,6 +165,21 @@ graph TB
 | **Policy** | Rate limiting, access control | Governance |
 
 ### Basic Configuration
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```yaml
 # Service mesh traffic policy
 apiVersion: networking.istio.io/v1beta1
@@ -172,6 +208,8 @@ spec:
       weight: 10  # 10% canary
 ```
 
+</details>
+
 ## Level 3: Deep Dive (15 min)
 
 ### Traffic Management Patterns
@@ -199,6 +237,21 @@ graph LR
 
 ### Security Implementation
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```python
 # Automatic mTLS configuration
 class ServiceMeshSecurity:
@@ -225,6 +278,8 @@ class ServiceMeshSecurity:
         }
 ```
 
+</details>
+
 ### Observability Stack
 
 | Layer | Tools | Metrics |
@@ -237,6 +292,21 @@ class ServiceMeshSecurity:
 ## Level 4: Expert (20 min)
 
 ### Advanced Traffic Management
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```yaml
 # Sophisticated canary deployment
@@ -272,6 +342,8 @@ spec:
         subset: v2
       weight: 5  # 5% random canary
 ```
+
+</details>
 
 ### Multi-Cluster Mesh
 
@@ -329,6 +401,21 @@ graph TB
 
 ### Production Patterns
 
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
 ```python
 # Health-aware load balancing
 class MeshLoadBalancer:
@@ -353,6 +440,8 @@ class MeshLoadBalancer:
             "minHealthPercent": 30
         }
 ```
+
+</details>
 
 ### Decision Matrix
 

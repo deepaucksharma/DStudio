@@ -1,13 +1,37 @@
 ---
-title: Pattern Migration Guides - Evolve Your Architecture Safely
 description: Step-by-step guides for migrating between patterns with minimal risk
+essential_question: When and how should we implement pattern migration guides - evolve
+  your architecture safely in our distributed system?
 icon: material/swap-horizontal
+tagline: Master pattern migration guides - evolve your architecture safely for distributed
+  systems success
 tags:
-  - patterns
-  - migration
-  - refactoring
-  - evolution
+- patterns
+- migration
+- refactoring
+- evolution
+title: Pattern Migration Guides - Evolve Your Architecture Safely
 ---
+
+## Essential Question
+## When to Use / When NOT to Use
+
+### When to Use
+
+| Scenario | Why It Fits | Alternative If Not |
+|----------|-------------|-------------------|
+| High availability required | Pattern provides resilience | Consider simpler approach |
+| Scalability is critical | Handles load distribution | Monolithic might suffice |
+| Distributed coordination needed | Manages complexity | Centralized coordination |
+
+### When NOT to Use
+
+| Scenario | Why to Avoid | Better Alternative |
+|----------|--------------|-------------------|
+| Simple applications | Unnecessary complexity | Direct implementation |
+| Low traffic systems | Overhead not justified | Basic architecture |
+| Limited resources | High operational cost | Simpler patterns |
+**When and how should we implement pattern migration guides - evolve your architecture safely in our distributed system?**
 
 # Pattern Migration Guides
 
@@ -37,6 +61,21 @@ Safely evolve your architecture by migrating from legacy patterns to modern alte
 ### 1. Two-Phase Commit → Saga Pattern
 **From: Distributed transactions with locking**  
 **To: Eventually consistent choreography**
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```mermaid
 graph LR
@@ -78,6 +117,8 @@ graph LR
     style TC fill:#ff6b6b
     style MQ fill:#2ecc71
 ```
+
+</details>
 
 #### Migration Steps
 
@@ -214,6 +255,21 @@ class PaymentResultHandler:
 **To: Service-owned databases with data synchronization**
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph TB
     subgraph "Before: Shared Database"
         S1[User Service]
@@ -249,6 +305,8 @@ graph TB
     style DB fill:#ff6b6b
     style CDC fill:#2ecc71
 ```
+
+</details>
 
 #### Migration Approach
 
@@ -295,6 +353,21 @@ Week 7-8:
 #### The Strangler Fig Approach
 
 ```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
+
+```mermaid
 graph LR
     subgraph "Phase 1: Identify Boundaries"
         M1[Monolith]
@@ -331,6 +404,8 @@ graph LR
     style AG3 fill:#2ecc71
 ```
 
+</details>
+
 #### Extraction Order Strategy
 
 1. **Start with Edges** (Low risk)
@@ -351,6 +426,21 @@ graph LR
 ### 5. REST → GraphQL
 **From: Multiple REST endpoints**  
 **To: Unified GraphQL schema**
+
+```mermaid
+graph TD
+    A[Input] --> B[Process]
+    B --> C[Output]
+    B --> D[Error Handling]
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style D fill:#fbb,stroke:#333,stroke-width:2px
+```
+
+<details>
+<summary>View implementation code</summary>
 
 ```graphql
 # Before: Multiple REST calls
@@ -379,6 +469,8 @@ query GetUserDashboard($userId: ID!) {
   }
 }
 ```
+
+</details>
 
 #### Migration Steps
 
@@ -584,3 +676,87 @@ Monthly:
 ---
 
 *Successful pattern migration requires patience, planning, and incremental progress. Start small, measure everything, and always have a rollback plan.*
+
+
+## Level 1: Intuition (5 minutes)
+
+*Start your journey with relatable analogies*
+
+### The Elevator Pitch
+[Pattern explanation in simple terms]
+
+### Real-World Analogy
+[Everyday comparison that explains the concept]
+
+## Level 2: Foundation (10 minutes)
+
+*Build core understanding*
+
+### Core Concepts
+- Key principle 1
+- Key principle 2
+- Key principle 3
+
+### Basic Example
+```mermaid
+graph LR
+    A[Component A] --> B[Component B]
+    B --> C[Component C]
+```
+
+## Level 3: Deep Dive (15 minutes)
+
+*Understand implementation details*
+
+### How It Really Works
+[Technical implementation details]
+
+### Common Patterns
+[Typical usage patterns]
+
+## Level 4: Expert (20 minutes)
+
+*Master advanced techniques*
+
+### Advanced Configurations
+[Complex scenarios and optimizations]
+
+### Performance Tuning
+[Optimization strategies]
+
+## Level 5: Mastery (30 minutes)
+
+*Apply in production*
+
+### Real-World Case Studies
+[Production examples from major companies]
+
+### Lessons from the Trenches
+[Common pitfalls and solutions]
+
+
+## Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need This Pattern?] --> Q1{High Traffic?}
+    Q1 -->|Yes| Q2{Distributed System?}
+    Q1 -->|No| Simple[Use Simple Approach]
+    Q2 -->|Yes| Q3{Complex Coordination?}
+    Q2 -->|No| Basic[Use Basic Pattern]
+    Q3 -->|Yes| Advanced[Use This Pattern]
+    Q3 -->|No| Intermediate[Consider Alternatives]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
+    style Simple fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Quick Decision Table
+
+| Factor | Low Complexity | Medium Complexity | High Complexity |
+|--------|----------------|-------------------|-----------------|
+| Team Size | < 5 developers | 5-20 developers | > 20 developers |
+| Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
+| Data Volume | < 1GB | 1GB-1TB | > 1TB |
+| **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |

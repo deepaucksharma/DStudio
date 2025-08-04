@@ -432,7 +432,7 @@ public:
         std::sort(objects.begin(), objects.end(), 
             [](const auto& a, const auto& b) {
                 return a.z_order < b.z_order;
-            });
+            }.md);
         
         // Batch by material to minimize state changes
         auto batches = group_by_material(objects);

@@ -1,0 +1,2733 @@
+{
+  "generated": "2025-08-03T21:32:43.771460",
+  "summary": {
+    "total_patterns": 93,
+    "passed": 0,
+    "failed": 93,
+    "total_issues": 170,
+    "total_warnings": 6
+  },
+  "patterns": [
+    {
+      "name": "ambassador",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/ambassador.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1179 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "when_not_position",
+          "message": "\"When NOT to Use\" at line 301 (should be < 200)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 58.2% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1179,
+        "code_lines": 686,
+        "code_percentage": 0.5818490245971162,
+        "diagram_count": 28,
+        "table_count": 93,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 301,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "anti-corruption-layer",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/anti-corruption-layer.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1012 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Level 4: Expert, Level 5: Mastery",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 55.3% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1012,
+        "code_lines": 560,
+        "code_percentage": 0.5533596837944664,
+        "diagram_count": 27,
+        "table_count": 102,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 197,
+        "missing_sections": [
+          "Level 4: Expert",
+          "Level 5: Mastery"
+        ]
+      }
+    },
+    {
+      "name": "backends-for-frontends",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/backends-for-frontends.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Level 3: Deep Dive, Level 4: Expert, Level 5: Mastery",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 29.5% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 424,
+        "code_lines": 125,
+        "code_percentage": 0.294811320754717,
+        "diagram_count": 6,
+        "table_count": 82,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 190,
+        "missing_sections": [
+          "Level 4: Expert",
+          "Level 5: Mastery",
+          "Level 3: Deep Dive"
+        ]
+      }
+    },
+    {
+      "name": "cap-theorem",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/cap-theorem.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Level 5: Mastery",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 54.0% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 598,
+        "code_lines": 323,
+        "code_percentage": 0.540133779264214,
+        "diagram_count": 17,
+        "table_count": 35,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 30,
+        "missing_sections": [
+          "Level 5: Mastery"
+        ]
+      }
+    },
+    {
+      "name": "cell-based",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/cell-based.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 54.3% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 648,
+        "code_lines": 352,
+        "code_percentage": 0.5432098765432098,
+        "diagram_count": 16,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 58,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "choreography",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/choreography.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 25.6% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 387,
+        "code_lines": 99,
+        "code_percentage": 0.2558139534883721,
+        "diagram_count": 6,
+        "table_count": 50,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 48,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "event-driven",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/event-driven.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1004 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 47.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1004,
+        "code_lines": 476,
+        "code_percentage": 0.47410358565737054,
+        "diagram_count": 25,
+        "table_count": 120,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 51,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "event-streaming",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/event-streaming.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 24.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 406,
+        "code_lines": 99,
+        "code_percentage": 0.2438423645320197,
+        "diagram_count": 6,
+        "table_count": 54,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 63,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "graphql-federation",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/graphql-federation.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1024 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 60.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1024,
+        "code_lines": 619,
+        "code_percentage": 0.6044921875,
+        "diagram_count": 18,
+        "table_count": 58,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 68,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "kappa-architecture",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/kappa-architecture.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "diagram_count",
+          "message": "Only 2 diagrams found (min: 3)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 165,
+        "code_lines": 19,
+        "code_percentage": 0.11515151515151516,
+        "diagram_count": 2,
+        "table_count": 16,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 49,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "lambda-architecture",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/lambda-architecture.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 25.2% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 528,
+        "code_lines": 133,
+        "code_percentage": 0.2518939393939394,
+        "diagram_count": 9,
+        "table_count": 69,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 37,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "serverless-faas",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/serverless-faas.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 2076 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 82.9% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 2076,
+        "code_lines": 1720,
+        "code_percentage": 0.8285163776493256,
+        "diagram_count": 23,
+        "table_count": 31,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 41,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "shared-nothing",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/shared-nothing.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 50.0% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 512,
+        "code_lines": 256,
+        "code_percentage": 0.5,
+        "diagram_count": 12,
+        "table_count": 29,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 45,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "sidecar",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/sidecar.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 39.2% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 474,
+        "code_lines": 186,
+        "code_percentage": 0.3924050632911392,
+        "diagram_count": 9,
+        "table_count": 29,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 133,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "strangler-fig",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/strangler-fig.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 48.9% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 760,
+        "code_lines": 372,
+        "code_percentage": 0.48947368421052634,
+        "diagram_count": 22,
+        "table_count": 49,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 39,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "valet-key",
+      "file": "/home/deepak/DStudio/docs/pattern-library/architecture/valet-key.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "when_not_position",
+          "message": "\"When NOT to Use\" at line 201 (should be < 200)",
+          "severity": "error"
+        },
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 55.5% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 830,
+        "code_lines": 461,
+        "code_percentage": 0.555421686746988,
+        "diagram_count": 18,
+        "table_count": 51,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 201,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "api-gateway",
+      "file": "/home/deepak/DStudio/docs/pattern-library/communication/api-gateway.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 48.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 643,
+        "code_lines": 311,
+        "code_percentage": 0.48367029548989116,
+        "diagram_count": 6,
+        "table_count": 53,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 64,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "grpc",
+      "file": "/home/deepak/DStudio/docs/pattern-library/communication/grpc.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 48.2% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 641,
+        "code_lines": 309,
+        "code_percentage": 0.48205928237129486,
+        "diagram_count": 6,
+        "table_count": 53,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 64,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "publish-subscribe",
+      "file": "/home/deepak/DStudio/docs/pattern-library/communication/publish-subscribe.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 54.5% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 827,
+        "code_lines": 451,
+        "code_percentage": 0.5453446191051995,
+        "diagram_count": 12,
+        "table_count": 43,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 83,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "request-reply",
+      "file": "/home/deepak/DStudio/docs/pattern-library/communication/request-reply.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 45.0% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 591,
+        "code_lines": 266,
+        "code_percentage": 0.4500846023688663,
+        "diagram_count": 6,
+        "table_count": 53,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 59,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "service-discovery",
+      "file": "/home/deepak/DStudio/docs/pattern-library/communication/service-discovery.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 58.3% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 602,
+        "code_lines": 351,
+        "code_percentage": 0.5830564784053156,
+        "diagram_count": 10,
+        "table_count": 36,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 52,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "service-mesh",
+      "file": "/home/deepak/DStudio/docs/pattern-library/communication/service-mesh.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 54.2% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 518,
+        "code_lines": 281,
+        "code_percentage": 0.5424710424710425,
+        "diagram_count": 10,
+        "table_count": 37,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 50,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "service-registry",
+      "file": "/home/deepak/DStudio/docs/pattern-library/communication/service-registry.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 41.9% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 554,
+        "code_lines": 232,
+        "code_percentage": 0.4187725631768953,
+        "diagram_count": 6,
+        "table_count": 53,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 58,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "websocket",
+      "file": "/home/deepak/DStudio/docs/pattern-library/communication/websocket.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 62.5% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 709,
+        "code_lines": 443,
+        "code_percentage": 0.6248236953455572,
+        "diagram_count": 10,
+        "table_count": 42,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 55,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "actor-model",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/actor-model.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 33.2% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 437,
+        "code_lines": 145,
+        "code_percentage": 0.3318077803203661,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 44,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "cas",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/cas.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 33.2% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 446,
+        "code_lines": 148,
+        "code_percentage": 0.33183856502242154,
+        "diagram_count": 6,
+        "table_count": 51,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 51,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "clock-sync",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/clock-sync.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 32.7% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 449,
+        "code_lines": 147,
+        "code_percentage": 0.3273942093541203,
+        "diagram_count": 7,
+        "table_count": 53,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 52,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "consensus",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/consensus.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1895 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Level 2: Foundation, Level 3: Deep Dive, Level 4: Expert, Level 5: Mastery, Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 36.5% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1895,
+        "code_lines": 692,
+        "code_percentage": 0.36517150395778364,
+        "diagram_count": 41,
+        "table_count": 9,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 71,
+        "missing_sections": [
+          "Quick Reference",
+          "Level 2: Foundation",
+          "Level 5: Mastery",
+          "Level 3: Deep Dive",
+          "Level 4: Expert"
+        ]
+      }
+    },
+    {
+      "name": "distributed-lock",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/distributed-lock.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 26.1% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 417,
+        "code_lines": 109,
+        "code_percentage": 0.26139088729016785,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 56,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "distributed-queue",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/distributed-queue.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 37.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 503,
+        "code_lines": 188,
+        "code_percentage": 0.37375745526838966,
+        "diagram_count": 6,
+        "table_count": 55,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 62,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "emergent-leader",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/emergent-leader.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1145 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 72.7% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1145,
+        "code_lines": 832,
+        "code_percentage": 0.7266375545851529,
+        "diagram_count": 17,
+        "table_count": 40,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 60,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "generation-clock",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/generation-clock.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1004 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 60.2% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1004,
+        "code_lines": 604,
+        "code_percentage": 0.601593625498008,
+        "diagram_count": 11,
+        "table_count": 62,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 59,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "hlc",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/hlc.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "when_not_position",
+          "message": "\"When NOT to Use\" at line 410 (should be < 200)",
+          "severity": "error"
+        },
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 33.1% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 525,
+        "code_lines": 174,
+        "code_percentage": 0.3314285714285714,
+        "diagram_count": 10,
+        "table_count": 44,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 410,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "leader-election",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/leader-election.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 27.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 424,
+        "code_lines": 116,
+        "code_percentage": 0.27358490566037735,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 56,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "leader-follower",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/leader-follower.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "when_not_position",
+          "message": "\"When NOT to Use\" at line 301 (should be < 200)",
+          "severity": "error"
+        },
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 38.7% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 630,
+        "code_lines": 244,
+        "code_percentage": 0.3873015873015873,
+        "diagram_count": 14,
+        "table_count": 12,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 301,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "lease",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/lease.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 70.9% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 890,
+        "code_lines": 631,
+        "code_percentage": 0.7089887640449438,
+        "diagram_count": 7,
+        "table_count": 38,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 54,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "logical-clocks",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/logical-clocks.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 47.7% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 870,
+        "code_lines": 415,
+        "code_percentage": 0.47701149425287354,
+        "diagram_count": 23,
+        "table_count": 46,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 45,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "low-high-water-marks",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/low-high-water-marks.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 70.5% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [
+        {
+          "check": "line_count",
+          "message": "File has 933 lines (approaching max of 1000)",
+          "severity": "warning"
+        }
+      ],
+      "metrics": {
+        "total_lines": 933,
+        "code_lines": 658,
+        "code_percentage": 0.7052518756698821,
+        "diagram_count": 16,
+        "table_count": 35,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 30,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "state-watch",
+      "file": "/home/deepak/DStudio/docs/pattern-library/coordination/state-watch.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1232 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 75.4% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1232,
+        "code_lines": 929,
+        "code_percentage": 0.7540584415584416,
+        "diagram_count": 21,
+        "table_count": 42,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 29,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "bloom-filter",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/bloom-filter.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 25.6% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 399,
+        "code_lines": 102,
+        "code_percentage": 0.2556390977443609,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 59,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "cdc",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/cdc.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 42.9% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 452,
+        "code_lines": 194,
+        "code_percentage": 0.42920353982300885,
+        "diagram_count": 8,
+        "table_count": 53,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 51,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "consistent-hashing",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/consistent-hashing.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Level 3: Deep Dive, Level 4: Expert, Level 5: Mastery, Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 63.7% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [
+        {
+          "check": "line_count",
+          "message": "File has 909 lines (approaching max of 1000)",
+          "severity": "warning"
+        }
+      ],
+      "metrics": {
+        "total_lines": 909,
+        "code_lines": 579,
+        "code_percentage": 0.636963696369637,
+        "diagram_count": 13,
+        "table_count": 30,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 48,
+        "missing_sections": [
+          "Level 4: Expert",
+          "Quick Reference",
+          "Level 5: Mastery",
+          "Level 3: Deep Dive"
+        ]
+      }
+    },
+    {
+      "name": "cqrs",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/cqrs.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 42.7% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 464,
+        "code_lines": 198,
+        "code_percentage": 0.4267241379310345,
+        "diagram_count": 10,
+        "table_count": 51,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 54,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "crdt",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/crdt.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 51.7% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [
+        {
+          "check": "line_count",
+          "message": "File has 962 lines (approaching max of 1000)",
+          "severity": "warning"
+        }
+      ],
+      "metrics": {
+        "total_lines": 962,
+        "code_lines": 497,
+        "code_percentage": 0.5166320166320166,
+        "diagram_count": 26,
+        "table_count": 109,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 47,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "data-lake",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/data-lake.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 34.6% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 541,
+        "code_lines": 187,
+        "code_percentage": 0.3456561922365989,
+        "diagram_count": 10,
+        "table_count": 49,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 52,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "deduplication",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/deduplication.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 38.5% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 514,
+        "code_lines": 198,
+        "code_percentage": 0.3852140077821012,
+        "diagram_count": 14,
+        "table_count": 46,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 53,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "delta-sync",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/delta-sync.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 29.9% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 421,
+        "code_lines": 126,
+        "code_percentage": 0.2992874109263658,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 57,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "distributed-storage",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/distributed-storage.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 41.0% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 463,
+        "code_lines": 190,
+        "code_percentage": 0.4103671706263499,
+        "diagram_count": 11,
+        "table_count": 45,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 66,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "event-sourcing",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/event-sourcing.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 42.1% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 447,
+        "code_lines": 188,
+        "code_percentage": 0.42058165548098436,
+        "diagram_count": 9,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 52,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "eventual-consistency",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/eventual-consistency.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1487 lines (max: 1000)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1487,
+        "code_lines": 241,
+        "code_percentage": 0.1620712844653665,
+        "diagram_count": 8,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 55,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "lsm-tree",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/lsm-tree.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 30.3% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 423,
+        "code_lines": 128,
+        "code_percentage": 0.30260047281323876,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 57,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "materialized-view",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/materialized-view.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 30.6% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 526,
+        "code_lines": 161,
+        "code_percentage": 0.3060836501901141,
+        "diagram_count": 9,
+        "table_count": 64,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 62,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "merkle-trees",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/merkle-trees.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 30.0% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 424,
+        "code_lines": 127,
+        "code_percentage": 0.29952830188679247,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 59,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "outbox",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/outbox.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 27.3% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 421,
+        "code_lines": 115,
+        "code_percentage": 0.27315914489311166,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 54,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "polyglot-persistence",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/polyglot-persistence.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1100 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 63.7% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1100,
+        "code_lines": 701,
+        "code_percentage": 0.6372727272727273,
+        "diagram_count": 19,
+        "table_count": 60,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 28,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "read-repair",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/read-repair.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 27.7% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 423,
+        "code_lines": 117,
+        "code_percentage": 0.2765957446808511,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 54,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "saga",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/saga.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 42.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 502,
+        "code_lines": 213,
+        "code_percentage": 0.4243027888446215,
+        "diagram_count": 9,
+        "table_count": 37,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 71,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "segmented-log",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/segmented-log.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 46.0% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 485,
+        "code_lines": 223,
+        "code_percentage": 0.45979381443298967,
+        "diagram_count": 10,
+        "table_count": 45,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 48,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "shared-database",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/shared-database.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 22.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 451,
+        "code_lines": 101,
+        "code_percentage": 0.22394678492239467,
+        "diagram_count": 6,
+        "table_count": 31,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 41,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "tunable-consistency",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/tunable-consistency.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1053 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 57.0% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1053,
+        "code_lines": 600,
+        "code_percentage": 0.5698005698005698,
+        "diagram_count": 30,
+        "table_count": 68,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 62,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "write-ahead-log",
+      "file": "/home/deepak/DStudio/docs/pattern-library/data-management/write-ahead-log.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 29.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 418,
+        "code_lines": 123,
+        "code_percentage": 0.2942583732057416,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 57,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "bulkhead",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/bulkhead.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 36.8% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 348,
+        "code_lines": 128,
+        "code_percentage": 0.367816091954023,
+        "diagram_count": 6,
+        "table_count": 37,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 45,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "circuit-breaker",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/circuit-breaker.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 46.5% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 473,
+        "code_lines": 220,
+        "code_percentage": 0.46511627906976744,
+        "diagram_count": 8,
+        "table_count": 49,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 62,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "failover",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/failover.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 42.8% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 388,
+        "code_lines": 166,
+        "code_percentage": 0.42783505154639173,
+        "diagram_count": 6,
+        "table_count": 36,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 45,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "fault-tolerance",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/fault-tolerance.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 43.6% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 392,
+        "code_lines": 171,
+        "code_percentage": 0.4362244897959184,
+        "diagram_count": 6,
+        "table_count": 37,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 45,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "graceful-degradation",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/graceful-degradation.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 52.7% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 452,
+        "code_lines": 238,
+        "code_percentage": 0.5265486725663717,
+        "diagram_count": 7,
+        "table_count": 30,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 45,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "health-check",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/health-check.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 46.2% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 474,
+        "code_lines": 219,
+        "code_percentage": 0.4620253164556962,
+        "diagram_count": 4,
+        "table_count": 55,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 61,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "heartbeat",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/heartbeat.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 45.5% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 409,
+        "code_lines": 186,
+        "code_percentage": 0.4547677261613692,
+        "diagram_count": 6,
+        "table_count": 36,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 45,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "load-shedding",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/load-shedding.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 44.2% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 396,
+        "code_lines": 175,
+        "code_percentage": 0.44191919191919193,
+        "diagram_count": 5,
+        "table_count": 37,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 45,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "retry-backoff",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/retry-backoff.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 58.8% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 568,
+        "code_lines": 334,
+        "code_percentage": 0.5880281690140845,
+        "diagram_count": 5,
+        "table_count": 41,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 66,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "split-brain",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/split-brain.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 50.0% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 416,
+        "code_lines": 208,
+        "code_percentage": 0.5,
+        "diagram_count": 6,
+        "table_count": 24,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 45,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "timeout",
+      "file": "/home/deepak/DStudio/docs/pattern-library/resilience/timeout.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 36.6% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 393,
+        "code_lines": 144,
+        "code_percentage": 0.366412213740458,
+        "diagram_count": 5,
+        "table_count": 50,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 60,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "analytics-scale",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/analytics-scale.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 31.1% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 418,
+        "code_lines": 130,
+        "code_percentage": 0.31100478468899523,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 44,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "auto-scaling",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/auto-scaling.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 30.1% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 412,
+        "code_lines": 124,
+        "code_percentage": 0.30097087378640774,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 44,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "backpressure",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/backpressure.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 30.0% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 427,
+        "code_lines": 128,
+        "code_percentage": 0.2997658079625293,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 54,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "caching-strategies",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/caching-strategies.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 30.6% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 432,
+        "code_lines": 132,
+        "code_percentage": 0.3055555555555556,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 54,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "chunking",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/chunking.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 50.5% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 721,
+        "code_lines": 364,
+        "code_percentage": 0.5048543689320388,
+        "diagram_count": 13,
+        "table_count": 33,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 71,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "edge-computing",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/edge-computing.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 47.9% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [
+        {
+          "check": "line_count",
+          "message": "File has 983 lines (approaching max of 1000)",
+          "severity": "warning"
+        }
+      ],
+      "metrics": {
+        "total_lines": 983,
+        "code_lines": 471,
+        "code_percentage": 0.47914547304170907,
+        "diagram_count": 25,
+        "table_count": 153,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 45,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "geo-distribution",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/geo-distribution.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 43.3% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 536,
+        "code_lines": 232,
+        "code_percentage": 0.43283582089552236,
+        "diagram_count": 11,
+        "table_count": 48,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 53,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "geo-replication",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/geo-replication.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 49.0% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 677,
+        "code_lines": 332,
+        "code_percentage": 0.49039881831610044,
+        "diagram_count": 18,
+        "table_count": 81,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 52,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "id-generation-scale",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/id-generation-scale.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Level 4: Expert, Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 48.4% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [
+        {
+          "check": "line_count",
+          "message": "File has 997 lines (approaching max of 1000)",
+          "severity": "warning"
+        }
+      ],
+      "metrics": {
+        "total_lines": 997,
+        "code_lines": 483,
+        "code_percentage": 0.4844533600802407,
+        "diagram_count": 15,
+        "table_count": 27,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 81,
+        "missing_sections": [
+          "Level 4: Expert",
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "load-balancing",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/load-balancing.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 29.7% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 427,
+        "code_lines": 127,
+        "code_percentage": 0.297423887587822,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 54,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "multi-region",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/multi-region.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 52.3% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 682,
+        "code_lines": 357,
+        "code_percentage": 0.5234604105571847,
+        "diagram_count": 13,
+        "table_count": 43,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 32,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "priority-queue",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/priority-queue.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 60.6% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 853,
+        "code_lines": 517,
+        "code_percentage": 0.6060961313012896,
+        "diagram_count": 15,
+        "table_count": 29,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 32,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "queues-streaming",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/queues-streaming.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "line_count",
+          "message": "File has 1677 lines (max: 1000)",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 68.9% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 1677,
+        "code_lines": 1156,
+        "code_percentage": 0.6893261776982708,
+        "diagram_count": 23,
+        "table_count": 42,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 43,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "rate-limiting",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/rate-limiting.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 30.2% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 430,
+        "code_lines": 130,
+        "code_percentage": 0.3023255813953488,
+        "diagram_count": 6,
+        "table_count": 52,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 54,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "request-batching",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/request-batching.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 30.3% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 664,
+        "code_lines": 201,
+        "code_percentage": 0.30271084337349397,
+        "diagram_count": 16,
+        "table_count": 67,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 42,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "scatter-gather",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/scatter-gather.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "when_not_position",
+          "message": "\"When NOT to Use\" at line 239 (should be < 200)",
+          "severity": "error"
+        },
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 52.3% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 665,
+        "code_lines": 348,
+        "code_percentage": 0.5233082706766917,
+        "diagram_count": 18,
+        "table_count": 31,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 239,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "sharding",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/sharding.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 46.2% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 463,
+        "code_lines": 214,
+        "code_percentage": 0.46220302375809935,
+        "diagram_count": 6,
+        "table_count": 70,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 46,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "tile-caching",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/tile-caching.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "diagram_count",
+          "message": "Only 2 diagrams found (min: 3)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 159,
+        "code_lines": 19,
+        "code_percentage": 0.11949685534591195,
+        "diagram_count": 2,
+        "table_count": 16,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 40,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    },
+    {
+      "name": "url-normalization",
+      "file": "/home/deepak/DStudio/docs/pattern-library/scaling/url-normalization.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 59.8% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 859,
+        "code_lines": 514,
+        "code_percentage": 0.5983701979045402,
+        "diagram_count": 17,
+        "table_count": 24,
+        "has_essential_question": true,
+        "has_decision_matrix": false,
+        "when_not_position": 32,
+        "missing_sections": []
+      }
+    },
+    {
+      "name": "RENDERING_INSTRUCTIONS",
+      "file": "/home/deepak/DStudio/docs/pattern-library/visual-assets/RENDERING_INSTRUCTIONS.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "essential_question",
+          "message": "Missing essential question section",
+          "severity": "error"
+        },
+        {
+          "check": "when_not_position",
+          "message": "Missing \"When NOT to Use\" section",
+          "severity": "error"
+        },
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Essential Question, Level 1: Intuition, Level 2: Foundation, Level 3: Deep Dive, Level 4: Expert, Level 5: Mastery, Quick Reference, When to Use / When NOT to Use",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 66.3% of content (max: 20%)",
+          "severity": "error"
+        },
+        {
+          "check": "diagram_count",
+          "message": "Only 0 diagrams found (min: 3)",
+          "severity": "error"
+        },
+        {
+          "check": "decision_matrix",
+          "message": "No decision matrix/comparison table found",
+          "severity": "error"
+        }
+      ],
+      "warnings": [
+        {
+          "check": "table_usage",
+          "message": "Only 0 tables found - consider using more tables for comparisons",
+          "severity": "warning"
+        }
+      ],
+      "metrics": {
+        "total_lines": 184,
+        "code_lines": 122,
+        "code_percentage": 0.6630434782608695,
+        "diagram_count": 0,
+        "table_count": 0,
+        "has_essential_question": false,
+        "has_decision_matrix": false,
+        "when_not_position": null,
+        "missing_sections": [
+          "Quick Reference",
+          "Essential Question",
+          "Level 2: Foundation",
+          "Level 1: Intuition",
+          "Level 5: Mastery",
+          "Level 3: Deep Dive",
+          "Level 4: Expert",
+          "When to Use / When NOT to Use"
+        ]
+      }
+    },
+    {
+      "name": "pattern-selection-matrix",
+      "file": "/home/deepak/DStudio/docs/pattern-library/visual-assets/pattern-selection-matrix.md",
+      "passed": false,
+      "issues": [
+        {
+          "check": "template_sections",
+          "message": "Missing required sections: Quick Reference",
+          "severity": "error"
+        },
+        {
+          "check": "code_percentage",
+          "message": "Code makes up 31.1% of content (max: 20%)",
+          "severity": "error"
+        }
+      ],
+      "warnings": [],
+      "metrics": {
+        "total_lines": 225,
+        "code_lines": 70,
+        "code_percentage": 0.3111111111111111,
+        "diagram_count": 4,
+        "table_count": 43,
+        "has_essential_question": true,
+        "has_decision_matrix": true,
+        "when_not_position": 7,
+        "missing_sections": [
+          "Quick Reference"
+        ]
+      }
+    }
+  ]
+}
