@@ -417,6 +417,56 @@ class PaymentIdempotencyExample:
 **INFRASTRUCTURE LEAD - Interview**:
 "Rate limiting isn't about punishing users - it's about ensuring fair access for everyone. During Black Friday, we need to prevent any single merchant from consuming all resources."
 
+#### Why Not Simple Rate Limiting?
+
+**PERFORMANCE ARCHITECT - Interview**: "Basic token bucket algorithms don't work for financial APIs. You need adaptive limits with business context."
+
+**Decision Matrix - Rate Limiting Algorithms**:
+```
+TRADE-OFF AXIS: Fairness vs Complexity vs Burst Handling
+
+FIXED WINDOW:
+- Fairness: Poor - allows bursts at window boundaries
+- Complexity: Simple implementation
+- Burst Handling: Bad - thundering herd at window reset
+- Rejection reason: Unfair distribution causes system instability
+
+TOKEN BUCKET:
+- Fairness: Good - smooth rate limiting
+- Complexity: Moderate - requires token refill logic
+- Burst Handling: Good - allows configured burst size
+- Use case: Base rate limiting, but needs business logic overlay
+
+ADAPTIVE MULTI-TIER:
+- Fairness: Excellent - business-aware limits
+- Complexity: High - multiple algorithms with context
+- Burst Handling: Excellent - dynamic burst allowances
+- Selection reason: Only approach handling payment seasonality and merchant tiers
+```
+
+#### Rate Limiting Implementation Details
+
+**MULTI-TIER RATE LIMITING INTERNALS**:
+```
+Tier-Based Limits:
+- Starter accounts: 100 requests/second, 1K/hour
+- Professional: 1K requests/second, 100K/hour  
+- Enterprise: 10K requests/second, 10M/hour
+- Dynamic adjustment: Real-time limit changes based on payment volume
+
+Surge Protection Algorithm:
+- Baseline calculation: 7-day rolling average request rate
+- Surge detection: >3x baseline triggers protection mode
+- Adaptive scaling: Limits reduced by surge factor (2x surge = 50% limit reduction)
+- Recovery: Gradual limit restoration over 15-minute window
+
+Distributed Rate Limiting:
+- Coordination: Redis cluster with lua scripts for atomic operations
+- Consistency: Eventually consistent across 15 global regions
+- Failover: Local limits when Redis unavailable (degraded mode)
+- Performance: <1ms overhead per request for limit checking
+```
+
 #### Advanced Rate Limiting
 
 **RATE LIMITING ARCHITECTURE**:

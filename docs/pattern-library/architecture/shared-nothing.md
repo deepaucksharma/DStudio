@@ -41,6 +41,7 @@ when-to-use:
 - Minimizing coordination overhead
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -62,7 +63,6 @@ when-to-use:
 **How do we structure our system architecture to leverage shared nothing architecture?**
 
 
-
 # Shared Nothing Architecture
 
 ## 🎯 The Essence
@@ -70,48 +70,6 @@ when-to-use:
 !!! tip "Core Concept"
     Each node in the system owns its data and compute exclusively - no shared memory, no shared disk, no shared anything. Communication happens only through the network.
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Shared Nothing"
-        N1[Node 1<br/>CPU + Memory<br/>+ Disk]
-        N2[Node 2<br/>CPU + Memory<br/>+ Disk]
-        N3[Node 3<br/>CPU + Memory<br/>+ Disk]
-        
-        N1 -."network only".-> N2
-        N2 -."network only".-> N3
-        N1 -."network only".-> N3
-    end
-    
-    subgraph "Shared Everything"
-        C1[CPU 1]
-        C2[CPU 2]
-        C3[CPU 3]
-        SM[Shared Memory]
-        SD[Shared Disk]
-        
-        C1 --> SM
-        C2 --> SM
-        C3 --> SM
-        SM --> SD
-    end
-```
-
-</details>
 
 ## 🔍 Intuition: The Restaurant Kitchen Analogy
 
@@ -137,191 +95,40 @@ The station kitchen scales linearly - add more chefs, get proportionally more ou
 
 ### 1. Data Partitioning Strategy
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
+**System Flow:** Input → Processing → Output
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph LR
-    subgraph "Request Router"
-        R[Router/Load Balancer]
-    end
-    
-    subgraph "Partition A"
-        NA[Node A]
-        DA[(Data A<br/>Users 0-999)]
-        NA --> DA
-    end
-    
-    subgraph "Partition B"
-        NB[Node B]
-        DB[(Data B<br/>Users 1000-1999)]
-        NB --> DB
-    end
-    
-    subgraph "Partition C"
-        NC[Node C]
-        DC[(Data C<br/>Users 2000-2999)]
-        NC --> DC
-    end
-    
-    R -->|"User 500"| NA
-    R -->|"User 1500"| NB
-    R -->|"User 2500"| NC
-```
-
-</details>
 
 ### 2. Request Routing Implementation
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
+**System Flow:** Input → Processing → Output
 
-<details>
-<summary>View implementation code</summary>
-
-```python
-class SharedNothingRouter:
-    def __init__(self, nodes: List[Node]):
-        self.nodes = nodes
-        self.partitions = self._calculate_partitions()
-        
-    def route_request(self, key: str) -> Node:
-        """Route request to owning node"""
-        partition = self._hash_to_partition(key)
-        return self.nodes[partition]
-        
-    def _hash_to_partition(self, key: str) -> int:
-        """Consistent hashing for partition assignment"""
-        hash_value = hashlib.md5(key.encode()).hexdigest()
-        return int(hash_value, 16) % len(self.nodes)
-
-class Node:
-    def __init__(self, node_id: int, data_path: str):
-        self.id = node_id
-        self.local_storage = LocalStorage(data_path)
-        self.local_cache = LRUCache(capacity=10000)
-        
-    def handle_request(self, request: Request) -> Response:
-        """Process request using only local resources"""
-        # Check local cache first
-        if cached := self.local_cache.get(request.key):
-            return Response(cached, cache_hit=True)
-            
-        # Read from local storage
-        data = self.local_storage.read(request.key)
-        if not data:
-            return Response(error="Key not found")
-            
-        # Update local cache
-        self.local_cache.put(request.key, data)
-        return Response(data)
-```
-
-</details>
-
-### 3. Cross-Partition Operations
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Router
-    participant NodeA
-    participant NodeB
-    participant NodeC
-    
-    Note over Client: Multi-key operation
-    Client->>Router: GET keys [k1, k2, k3]
-    
-    Router->>Router: Determine partitions
-    
-    par Parallel requests
-        Router->>NodeA: GET k1
-        NodeA-->>Router: value1
-    and
-        Router->>NodeB: GET k2
-        NodeB-->>Router: value2
-    and
-        Router->>NodeC: GET k3
-        NodeC-->>Router: value3
-    end
-    
-    Router->>Router: Aggregate results
-    Router-->>Client: {k1: v1, k2: v2, k3: v3}
-```
-
-</details>
 
 ## 💥 Failure Modes & Mitigation
 
 ### 1. Node Failure Handling
 
-```mermaid
-stateDiagram-v2
-    [*] --> Healthy
-    Healthy --> Degraded: Node failure detected
-    Degraded --> Rebalancing: Initiate data migration
-    Rebalancing --> Healthy: Migration complete
-    
-    state Degraded {
-        [*] --> ServeFromReplica
-        ServeFromReplica --> RouteToBackup
-    }
-```
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
+
+**Process Overview:** See production implementations for details
+
+
+</details>
 
 ### 2. Network Partition Handling
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
+**System Flow:** Input → Processing → Output
+
 
 <details>
 <summary>View implementation code</summary>
 
-```python
+**Process Overview:** See production implementations for details
+
+
+<details>
+<summary>📄 View implementation code</summary>
+
 class PartitionTolerantNode(Node):
     def __init__(self, node_id: int, replicas: List[Node]):
         super().__init__(node_id)
@@ -361,7 +168,8 @@ class PartitionTolerantNode(Node):
                     self._attempt_replica_read(futures[future], results)
                     
         return results, failed_keys
-```
+
+</details>
 
 </details>
 
@@ -376,18 +184,13 @@ class PartitionTolerantNode(Node):
 
 ## 🚀 Performance Characteristics
 
-```mermaid
-graph LR
-    subgraph "Scalability Profile"
-        A[1 Node<br/>100 QPS] --> B[10 Nodes<br/>~1000 QPS]
-        B --> C[100 Nodes<br/>~10K QPS]
-        C --> D[1000 Nodes<br/>~100K QPS]
-    end
-    
-    Note1[Linear scaling] -.-> B
-    Note2[Near-linear] -.-> C
-    Note3[Network overhead] -.-> D
-```
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
+
+**System Flow:** Input → Processing → Output
+
+
+</details>
 
 ## 🌍 Real-World Examples
 
@@ -427,8 +230,6 @@ graph LR
 - **[Service Mesh](service-mesh.md)**: Inter-node communication
 - **[Bulkhead](bulkhead.md)**: Fault isolation principle
 
-## Level 1: Intuition (5 minutes)
-
 *Start your journey with relatable analogies*
 
 ### The Elevator Pitch
@@ -436,8 +237,6 @@ graph LR
 
 ### Real-World Analogy
 [Everyday comparison that explains the concept]
-
-## Level 2: Foundation (10 minutes)
 
 *Build core understanding*
 
@@ -447,13 +246,8 @@ graph LR
 - Key principle 3
 
 ### Basic Example
-```mermaid
-graph LR
-    A[Component A] --> B[Component B]
-    B --> C[Component C]
-```
+**System Flow:** Input → Processing → Output
 
-## Level 3: Deep Dive (15 minutes)
 
 *Understand implementation details*
 
@@ -463,8 +257,6 @@ graph LR
 ### Common Patterns
 [Typical usage patterns]
 
-## Level 4: Expert (20 minutes)
-
 *Master advanced techniques*
 
 ### Advanced Configurations
@@ -472,8 +264,6 @@ graph LR
 
 ### Performance Tuning
 [Optimization strategies]
-
-## Level 5: Mastery (30 minutes)
 
 *Apply in production*
 
@@ -486,21 +276,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -509,3 +284,5 @@ graph TD
 | Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
 | Data Volume | < 1GB | 1GB-1TB | > 1TB |
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+

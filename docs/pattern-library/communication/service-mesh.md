@@ -65,60 +65,11 @@ trade-offs:
 | **Ultra-low latency** | Proxy adds 1-2ms | Direct communication |
 | **Limited expertise** | Operational burden | Cloud load balancers |
 
-## Level 1: Intuition (5 min)
-
 ### The Phone Network Analogy
 Service mesh is like a modern phone network. You don't build telephone infrastructure into every phone - you use the network's built-in features (routing, quality, security). Similarly, service mesh provides networking features without modifying your services.
 
 ### Visual Architecture
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TD
-    subgraph "Without Service Mesh"
-        A1[Service A] <--> B1[Service B]
-        A1 <--> C1[Service C]
-        B1 <--> C1
-        Note1[Each service handles:<br/>- Retries<br/>- Load balancing<br/>- Security<br/>- Monitoring]
-    end
-    
-    subgraph "With Service Mesh"
-        A2[Service A] <--> PA[Proxy A]
-        B2[Service B] <--> PB[Proxy B]  
-        C2[Service C] <--> PC[Proxy C]
-        PA <--> PB
-        PB <--> PC
-        PA <--> PC
-        
-        CP[Control Plane]
-        CP -.-> PA
-        CP -.-> PB
-        CP -.-> PC
-        
-        Note2[Proxies handle everything:<br/>Zero application changes]
-    end
-    
-    style CP fill:#818cf8,stroke:#6366f1,stroke-width:2px
-    style PA fill:#00BCD4,stroke:#0097a7
-    style PB fill:#00BCD4,stroke:#0097a7
-    style PC fill:#00BCD4,stroke:#0097a7
-```
-
-</details>
 
 ### Core Value
 | Aspect | Without Mesh | With Mesh |
@@ -128,32 +79,6 @@ graph TD
 | **Observability** | Code instrumentation | Built-in |
 | **Traffic control** | Custom code | Policy files |
 | **Updates** | Redeploy services | Update config |
-
-## Level 2: Foundation (10 min)
-
-### Architecture Components
-
-```mermaid
-graph TB
-    subgraph "Data Plane"
-        direction LR
-        S1[Service] <--> P1[Envoy Proxy]
-        S2[Service] <--> P2[Envoy Proxy]
-        P1 <-.-> P2
-    end
-    
-    subgraph "Control Plane"
-        CP[API Server]
-        SD[Service Discovery]
-        CA[Certificate Authority]
-        PM[Policy Engine]
-        TM[Telemetry]
-    end
-    
-    P1 & P2 -.-> CP
-    
-    style CP fill:#818cf8,stroke:#6366f1,stroke-width:3px
-```
 
 ### Key Features Matrix
 
@@ -165,209 +90,13 @@ graph TB
 | **Policy** | Rate limiting, access control | Governance |
 
 ### Basic Configuration
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
+**System Flow:** Input → Processing → Output
 
-<details>
-<summary>View implementation code</summary>
-
-```yaml
-# Service mesh traffic policy
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: productpage
-spec:
-  http:
-  - match:
-    - headers:
-        version:
-          exact: v2
-    route:
-    - destination:
-        host: productpage
-        subset: v2
-      weight: 100
-  - route:
-    - destination:
-        host: productpage
-        subset: v1
-      weight: 90
-    - destination:
-        host: productpage
-        subset: v2
-      weight: 10  # 10% canary
-```
-
-</details>
-
-## Level 3: Deep Dive (15 min)
-
-### Traffic Management Patterns
-
-```mermaid
-graph LR
-    subgraph "Load Balancing"
-        LB[Proxy] --> S1[Instance 1]
-        LB --> S2[Instance 2]
-        LB --> S3[Instance 3]
-    end
-    
-    subgraph "Circuit Breaking"
-        CB[Proxy] --> H1[Healthy]
-        CB -.x.-> U1[Unhealthy]
-        CB --> H2[Healthy]
-    end
-    
-    subgraph "Retry Logic"
-        R[Proxy] -->|Attempt 1| F1[Failed]
-        R -->|Attempt 2| F2[Failed]
-        R -->|Attempt 3| S[Success]
-    end
-```
 
 ### Security Implementation
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
+**System Flow:** Input → Processing → Output
 
-<details>
-<summary>View implementation code</summary>
-
-```python
-# Automatic mTLS configuration
-class ServiceMeshSecurity:
-    def configure_mtls(self, namespace):
-        return {
-            "apiVersion": "security.istio.io/v1beta1",
-            "kind": "PeerAuthentication",
-            "metadata": {"name": "default", "namespace": namespace},
-            "spec": {"mtls": {"mode": "STRICT"}}
-        }
-    
-    def configure_authorization(self, service, allowed_clients):
-        return {
-            "apiVersion": "security.istio.io/v1beta1",
-            "kind": "AuthorizationPolicy",
-            "metadata": {"name": f"{service}-authz"},
-            "spec": {
-                "selector": {"matchLabels": {"app": service}},
-                "rules": [{
-                    "from": [{"source": {"principals": allowed_clients}}],
-                    "to": [{"operation": {"methods": ["GET", "POST"]}}]
-                }]
-            }
-        }
-```
-
-</details>
-
-### Observability Stack
-
-| Layer | Tools | Metrics |
-|-------|-------|---------|
-| **Metrics** | Prometheus | Request rate, error rate, latency |
-| **Tracing** | Jaeger/Zipkin | Request flow, bottlenecks |
-| **Logs** | Fluentd/ELK | Application logs, access logs |
-| **Dashboards** | Grafana/Kiali | Visual topology, health |
-
-## Level 4: Expert (20 min)
-
-### Advanced Traffic Management
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```yaml
-# Sophisticated canary deployment
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: reviews
-spec:
-  http:
-  - match:
-    - headers:
-        user-agent:
-          regex: ".*Chrome.*"
-    route:
-    - destination:
-        host: reviews
-        subset: v3  # Chrome users get v3
-  - match:
-    - headers:
-        cookie:
-          regex: "^(.*?;)?(canary=true)(;.*)?$"
-    route:
-    - destination:
-        host: reviews
-        subset: v2  # Canary testers
-  - route:
-    - destination:
-        host: reviews
-        subset: v1
-      weight: 95
-    - destination:
-        host: reviews
-        subset: v2
-      weight: 5  # 5% random canary
-```
-
-</details>
-
-### Multi-Cluster Mesh
-
-```mermaid
-graph TB
-    subgraph "Cluster 1 (US-East)"
-        CP1[Control Plane]
-        S1A[Service A] --> P1A[Proxy]
-        S1B[Service B] --> P1B[Proxy]
-    end
-    
-    subgraph "Cluster 2 (EU-West)"
-        CP2[Control Plane]
-        S2A[Service A] --> P2A[Proxy]
-        S2C[Service C] --> P2C[Proxy]
-    end
-    
-    CP1 <-.-> CP2
-    P1A <-.-> P2A
-    P1B <-.-> P2C
-    
-    style CP1 fill:#818cf8
-    style CP2 fill:#818cf8
-```
 
 ### Performance Optimization
 
@@ -377,8 +106,6 @@ graph TB
 | **Circuit Breaking** | Prevent cascades | `outlierDetection.consecutiveErrors` |
 | **Retry Budgets** | Controlled retries | `retry.perTryTimeout` |
 | **Load Balancing** | Even distribution | `consistentHash.httpCookie` |
-
-## Level 5: Mastery (30 min)
 
 ### Case Study: Uber's Service Mesh Journey
 
@@ -401,22 +128,18 @@ graph TB
 
 ### Production Patterns
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
+**System Flow:** Input → Processing → Output
+
 
 <details>
 <summary>View implementation code</summary>
 
-```python
+**Process Overview:** See production implementations for details
+
+
+<details>
+<summary>📄 View implementation code</summary>
+
 # Health-aware load balancing
 class MeshLoadBalancer:
     def configure_health_checking(self):
@@ -439,30 +162,12 @@ class MeshLoadBalancer:
             "maxEjectionPercent": 50,
             "minHealthPercent": 30
         }
-```
+
+</details>
 
 </details>
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    Start[Evaluating Service Mesh?] --> Size{Service<br/>Count?}
-    Size -->|< 10| No[Skip mesh:<br/>Use libraries]
-    Size -->|10-50| Maybe{Traffic<br/>Patterns?}
-    Size -->|> 50| Yes[Adopt mesh]
-    
-    Maybe -->|Simple| APIGw[API Gateway<br/>sufficient]
-    Maybe -->|Complex| YesMesh[Consider mesh]
-    
-    YesMesh --> Team{Team<br/>Expertise?}
-    Team -->|Low| Managed[Managed mesh<br/>(AWS App Mesh)]
-    Team -->|High| Self[Self-managed<br/>(Istio/Linkerd)]
-    
-    style Yes fill:#4ade80
-    style YesMesh fill:#4ade80
-    style No fill:#f87171
-```
 
 ## Quick Reference
 
@@ -485,34 +190,9 @@ graph TD
   - [ ] Capacity planning for proxies
 
 ### Common Pitfalls
-1. **Starting too big** - Begin with non-critical services
-2. **Ignoring overhead** - Each proxy uses ~50MB RAM
-3. **Over-engineering** - Start simple, add features gradually
-4. **Poor observability** - Set up monitoring first
+**Process Steps:**
+- Initialize system
+- Process requests
+- Handle responses
+- Manage failures
 
-### Performance Impact
-```
-Latency overhead: 0.5-2ms per hop
-Memory per proxy: 50-100MB
-CPU per proxy: 0.1-0.5 cores
-Network overhead: 5-10% (mTLS + headers)
-```
-
-## Related Patterns
-
-- **[API Gateway](api-gateway.md)** - North-south traffic complement
-- **[Circuit Breaker](../resilience/circuit-breaker.md)** - Built-in resilience
-- **[Service Discovery](service-discovery.md)** - Automatic registration
-- **[Distributed Tracing](../observability/distributed-tracing.md)** - Request flow visibility
-- **[Zero Trust Networking](../security/zero-trust.md)** - Security foundation
-
-## References
-
-- [Istio Documentation](https://istio.io/latest/docs/)
-- [Linkerd Documentation](https://linkerd.io/2/overview/)
-- [Envoy Proxy](https://www.envoyproxy.io/)
-- [CNCF Service Mesh Landscape](https://landscape.cncf.io/card-mode?category=service-mesh)
-
----
-
-**Previous**: [API Gateway Pattern](api-gateway.md) | **Next**: [Publish-Subscribe Pattern](publish-subscribe.md)

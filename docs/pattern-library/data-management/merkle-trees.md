@@ -1,44 +1,50 @@
 ---
-title: Merkle Trees Pattern
-description: Cryptographic tree structure for efficient data verification and synchronization
-type: pattern
 category: data-management
-difficulty: intermediate
-reading_time: 30 min
-prerequisites:
-  - hashing
-  - cryptography-basics
-  - tree-data-structures
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1979-01
 current_relevance: mainstream
-essential_question: How can we efficiently verify data integrity and detect changes in large datasets?
-tagline: Cryptographic trees for tamper-evident data verification
+description: Cryptographic tree structure for efficient data verification and synchronization
+difficulty: intermediate
+essential_question: How can we efficiently verify data integrity and detect changes
+  in large datasets?
+excellence_tier: gold
+introduced: 1979-01
 modern_examples:
-  - company: Git
-    implementation: Merkle trees for efficient repository synchronization
-    scale: Millions of repositories with billions of commits
-  - company: Bitcoin
-    implementation: Merkle trees for transaction verification in blocks
-    scale: 700K+ blocks with trillions in value secured
-  - company: Amazon DynamoDB
-    implementation: Anti-entropy protocol using Merkle trees
-    scale: Petabytes of data synchronized globally
+- company: Git
+  implementation: Merkle trees for efficient repository synchronization
+  scale: Millions of repositories with billions of commits
+- company: Bitcoin
+  implementation: Merkle trees for transaction verification in blocks
+  scale: 700K+ blocks with trillions in value secured
+- company: Amazon DynamoDB
+  implementation: Anti-entropy protocol using Merkle trees
+  scale: Petabytes of data synchronized globally
+pattern_status: recommended
+prerequisites:
+- hashing
+- cryptography-basics
+- tree-data-structures
 production_checklist:
-  - Choose appropriate hash function (SHA-256 recommended)
-  - Balance tree depth vs verification efficiency
-  - Implement efficient tree construction algorithms
-  - Cache intermediate hashes for performance
-  - Plan for tree rebalancing on updates
-  - Implement Merkle proof generation and verification
-  - Monitor tree depth and node distribution
-  - Test performance with target data volumes
-  - Document hash collision handling strategy
-  - Implement secure tree serialization
-related_laws: [law4-optimization, law5-knowledge]
-related_pillars: [state, truth]
+- Choose appropriate hash function (SHA-256 recommended)
+- Balance tree depth vs verification efficiency
+- Implement efficient tree construction algorithms
+- Cache intermediate hashes for performance
+- Plan for tree rebalancing on updates
+- Implement Merkle proof generation and verification
+- Monitor tree depth and node distribution
+- Test performance with target data volumes
+- Document hash collision handling strategy
+- Implement secure tree serialization
+reading_time: 30 min
+related_laws:
+- law4-optimization
+- law5-knowledge
+related_pillars:
+- state
+- truth
+tagline: Cryptographic trees for tamper-evident data verification
+title: Merkle Trees Pattern
+type: pattern
 ---
+
 
 # Merkle Trees Pattern
 
@@ -82,20 +88,6 @@ related_pillars: [state, truth]
 Imagine a library with millions of books. Instead of checking every book for changes, you create a summary system: group books by shelf, create a summary for each shelf, then create a summary of all shelf summaries. Any change bubbles up through the hierarchy, making detection instant.
 
 ### Visual Metaphor
-```mermaid
-graph TD
-    A[Complete Library Summary] --> B[Fiction Wing Summary]
-    A --> C[Non-Fiction Wing Summary]
-    B --> D[Shelf 1-10]
-    B --> E[Shelf 11-20]
-    C --> F[Shelf 21-30]
-    C --> G[Shelf 31-40]
-    
-    style A fill:#5448C8,stroke:#3f33a6,color:#fff
-    style B,C fill:#00BCD4,stroke:#0097a7,color:#fff
-    style D,E,F,G fill:#81c784,stroke:#388e3c,color:#fff
-```
-
 ### Core Insight
 > **Key Takeaway:** Build hierarchical summaries where any change propagates upward - detect massive changes with minimal computation.
 
@@ -117,31 +109,6 @@ Merkle trees create hierarchical hash structures where data changes bubble up th
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Merkle Tree Structure"
-        R[Root Hash] --> L1[Level 1 Hashes]
-        L1 --> L2[Level 2 Hashes]
-        L2 --> D[Data Blocks]
-    end
-    
-    subgraph "Verification Process"
-        P[Generate Proof]
-        V[Verify Against Root]
-        C[Confirm Integrity]
-    end
-    
-    D --> P
-    P --> V
-    V --> C
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class R,C primary
-    class L1,L2,P,V secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -153,7 +120,25 @@ graph TB
 
 ### Basic Example
 
-```python
+```mermaid
+classDiagram
+    class Component2 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler2 {
+        +handle() Result
+        +configure() void
+    }
+    Component2 --> Handler2 : uses
+    
+    note for Component2 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 import hashlib
 
 class MerkleTree:
@@ -185,13 +170,17 @@ class MerkleTree:
             else:
                 current_hash = self.hash_data(current_hash + sibling_hash)
         return current_hash == root_hash
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
+
 ```mermaid
 stateDiagram-v2
     [*] --> Building: Construct tree
@@ -204,6 +193,8 @@ stateDiagram-v2
     Complete --> Updating: Data changes
     Updating --> Building: Rebuild affected path
 ```
+
+</details>
 
 #### Critical Design Decisions
 
@@ -252,24 +243,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale"
-        A1[Binary Tree<br/>1K-1M items]
-    end
-    
-    subgraph "Medium Scale"
-        B1[Cached Tree<br/>1M-1B items]
-    end
-    
-    subgraph "Large Scale"
-        C1[Distributed Tree<br/>Sharded across nodes]
-    end
-    
-    A1 -->|Memory limits| B1
-    B1 -->|Single node limits| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -305,6 +278,9 @@ graph LR
 ### Pattern Evolution
 
 #### Migration from Legacy
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Simple Checksums] -->|Step 1| B[Hash Lists]
@@ -314,6 +290,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -336,26 +314,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need data verification?] --> B{Dataset size?}
-    B -->|< 1MB| C[Simple checksum]
-    B -->|1MB-1GB| D{Change frequency?}
-    B -->|> 1GB| E[Use Merkle tree]
-    
-    D -->|Rare| F[Static Merkle tree]
-    D -->|Frequent| G{Update pattern?}
-    
-    G -->|Localized| H[Incremental Merkle tree]
-    G -->|Distributed| I[Sparse Merkle tree]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class E,F,H,I recommended
-    class C caution
-```
 
 ### Comparison with Alternatives
 
@@ -422,3 +380,4 @@ graph TD
     - [Proof System Design](../../excellence/guides/proof-systems.md)
 
 </div>
+

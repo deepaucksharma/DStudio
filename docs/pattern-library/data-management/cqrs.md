@@ -86,67 +86,11 @@ CQRS embodies that you cannot optimize for all dimensions simultaneously. Tradit
 
 ### Visual Architecture
 
-```mermaid
-graph LR
-    subgraph "Traditional CRUD"
-        U1[User] -->|Read/Write| M1[Single Model]
-        M1 --> DB1[(One Database)]
-    end
-    
-    subgraph "CQRS Pattern"
-        U2[User] -->|Commands| CM[Command Model]
-        U2 -->|Queries| QM[Query Model]
-        CM --> WDB[(Write Store)]
-        WDB -->|Sync| RDB[(Read Store)]
-        QM --> RDB
-    end
-```
-
 ## Level 2: Foundation (10 min)
 
 ### CQRS Architecture
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Write Side"
-        CMD[Commands] --> CH[Command Handlers]
-        CH --> DM[Domain Model]
-        DM --> WS[(Write Store)]
-        WS --> EB[Event Bus]
-    end
-    
-    subgraph "Read Side"
-        EB --> P1[Feed Projector]
-        EB --> P2[Search Projector]
-        EB --> P3[Analytics Projector]
-        
-        P1 --> RS1[(Feed DB)]
-        P2 --> RS2[(Search Index)]
-        P3 --> RS3[(Analytics DB)]
-        
-        Q[Queries] --> QH[Query Handlers]
-        QH --> RS1
-        QH --> RS2
-        QH --> RS3
-    end
-```
-
-</details>
 
 ### Key Components
 
@@ -170,28 +114,6 @@ graph TB
 ## Level 3: Deep Dive (15 min)
 
 ### CQRS Data Flow
-
-```mermaid
-graph LR
-    subgraph "Write Side"
-        CMD[Command] --> VAL[Validate<br/>Business Rules]
-        VAL --> WM[Write Model<br/>Normalized]
-        WM --> EVT[Publish Events]
-    end
-    
-    subgraph "Read Side"
-        EVT --> PROJ[Projections]
-        PROJ --> RM1[Customer View<br/>Denormalized]
-        PROJ --> RM2[Admin View<br/>Aggregated]
-        PROJ --> RM3[Search Index<br/>Full-text]
-    end
-    
-    subgraph "Queries"
-        Q1[Customer API] --> RM1
-        Q2[Admin Dashboard] --> RM2
-        Q3[Search API] --> RM3
-    end
-```
 
 ### Model Comparison
 
@@ -225,91 +147,7 @@ graph LR
 
 ### Common Patterns
 
-```mermaid
-graph TD
-    subgraph "Update Patterns"
-        E[Event] --> S1[Synchronous Projection]
-        E --> S2[Async Projection]
-        E --> S3[Scheduled Rebuild]
-        
-        S1 -->|Immediate| R1[Read Model]
-        S2 -->|Eventually| R2[Read Model]
-        S3 -->|Periodic| R3[Read Model]
-    end
-```
 
-## Level 4: Expert (20 min)
-
-### Advanced Techniques
-
-| Technique | Use Case | Implementation |
-|-----------|----------|----------------|
-| **Snapshot Views** | Complex aggregations | Periodic materialization |
-| **Live Projections** | Real-time updates | Stream processing |
-| **Retroactive Events** | Fix historical data | Event replay |
-| **Multi-Version Models** | A/B testing | Parallel projections |
-
-### Performance Optimization
-
-| Component | Technique | Impact |
-|-----------|-----------|--------|
-| **Write batching** | Queue commands | 10x throughput |
-| **Projection parallelism** | Multiple workers | Linear scaling |
-| **Read caching** | Redis layer | <10ms latency |
-| **Smart indexing** | Covering indexes | 100x query speed |
-
-### Common Pitfalls
-
-| Pitfall | Impact | Solution |
-|---------|--------|----------|
-| **Projection lag** | Stale reads | Monitor + SLAs |
-| **Event ordering** | Incorrect state | Sequence numbers |
-| **Model drift** | Inconsistency | Regular validation |
-| **Complex queries** | Poor performance | Better projections |
-
-## Level 5: Mastery (30 min)
-
-### Case Study: LinkedIn Feed Architecture
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Write Path"
-        P[Post Service] -->|Create| ES[(Event Store)]
-        ES --> K[Kafka]
-    end
-    
-    subgraph "Read Path"
-        K --> FP[Feed Projector]
-        K --> SP[Search Projector]
-        K --> AP[Analytics Projector]
-        
-        FP --> C[(Cassandra)]
-        SP --> E[(Elasticsearch)]
-        AP --> H[(Hadoop)]
-    end
-    
-    subgraph "Query"
-        API[Feed API] --> C
-        API --> E
-    end
-```
-
-</details>
 
 **Scale Metrics**:
 - 1B+ feed updates daily
@@ -331,108 +169,13 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```python
-def cqrs_roi_calculator(
-    daily_reads, 
-    daily_writes,
-    avg_query_complexity
-):
-    """Calculate ROI for CQRS implementation"""
-    
-    read_write_ratio = daily_reads / daily_writes
-    
-    # Traditional approach costs
-    traditional_db_size = daily_writes * 365 * 1.5  # Normalized
-    traditional_query_cost = avg_query_complexity * daily_reads
-    
-    # CQRS approach costs
-    write_db_size = daily_writes * 365  # Optimized
-    read_db_size = daily_writes * 365 * 2  # Denormalized
-    cqrs_query_cost = daily_reads * 0.1  # 10x faster queries
-    
-    return {
-        'worth_it': read_write_ratio > 10,
-        'performance_gain': traditional_query_cost / cqrs_query_cost,
-        'complexity_increase': 2.5  # Rough estimate
-    }
-```
-
-</details>
 
 ## Quick Reference
 
 ### Decision Matrix
 
-```mermaid
-graph TD
-    Start[Analyze workload] --> Q1{Read/Write<br/>ratio > 10:1?}
-    Q1 -->|No| Trad[Traditional<br/>Architecture]
-    Q1 -->|Yes| Q2{Complex<br/>domain?}
-    
-    Q2 -->|No| Cache[Add caching<br/>layer]
-    Q2 -->|Yes| Q3{Multiple read<br/>models needed?}
-    
-    Q3 -->|No| RR[Read replicas<br/>sufficient]
-    Q3 -->|Yes| CQRS[Implement<br/>CQRS]
-```
 
-### Implementation Checklist ✓
-
-- [ ] Identify command vs query operations
-- [ ] Design command model (business logic)
-- [ ] Design query models (denormalized)
-- [ ] Choose synchronization strategy
-- [ ] Implement projection handlers
-- [ ] Set up monitoring for lag
-- [ ] Plan for eventual consistency
-- [ ] Test failure scenarios
-- [ ] Document model mappings
-
-### Configuration Template
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```yaml
-cqrs:
-  command_side:
-    database: postgresql
-    validation: strict
-    event_store: true
-    
-  query_side:
-    databases:
-      - type: elasticsearch  # Full-text search
-      - type: redis         # Hot data
-      - type: mongodb       # Flexible queries
-    
-  synchronization:
-    method: event_driven
-    bus: kafka
-    guarantees: at_least_once
-    max_lag_seconds: 5
-    
-  monitoring:
-    track_lag: true
-    alert_threshold_ms: 1000
-```
-
-</details>
 
 ## Related Patterns
 
@@ -462,3 +205,4 @@ cqrs:
 - **Eventuate** (Multiple languages): CQRS/ES platform
 - **Commanded** (Elixir): CQRS/ES for Elixir
 - **Lagom** (Scala/Java): Microservices with CQRS
+

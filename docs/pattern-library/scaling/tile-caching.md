@@ -29,7 +29,6 @@ when-to-use: Map applications, GIS systems, spatial data visualization
 **How do we handle increasing load without sacrificing performance using tile caching?**
 
 
-
 # Tile Caching
 
 **Optimize map rendering with pre-computed tile pyramids**

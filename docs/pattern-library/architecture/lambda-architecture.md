@@ -34,6 +34,7 @@ when-to-use:
 - Have complex reprocessing requirements
 ---
 
+
 ## When to Use / When NOT to Use
 
 ### When to Use
@@ -115,83 +116,11 @@ when-to-use:
 
 ## Architectural Decision Framework
 
-```mermaid
-graph TD
-    Start[Analytics Need] --> Q1{Historical Data?}
-    
-    Q1 -->|No| Stream[Stream-Only]
-    Q1 -->|Yes| Q2{Real-time Also?}
-    
-    Q2 -->|No| Batch[Batch-Only]
-    Q2 -->|Yes| Q3{Operational Capacity?}
-    
-    Q3 -->|Limited| Unified[Unified Processing]
-    Q3 -->|Strong| Q4{Consistency Needs?}
-    
-    Q4 -->|Eventual OK| Lambda[Lambda Architecture]
-    Q4 -->|Strong| Unified
-    
-    style Lambda fill:#f9f,stroke:#333,stroke-width:4px
-    style Unified fill:#9ff,stroke:#333,stroke-width:4px
-    style Stream fill:#ff9,stroke:#333,stroke-width:4px
-```
-
 ---
 
 ## Core Architecture Pattern
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Lambda Architecture"
-        subgraph "Data Sources"
-            DS[Data Stream]
-        end
-        
-        subgraph "Speed Layer"
-            RT[Real-time Processing<br/>Low latency<br/>Recent data]
-            RV[Real-time Views]
-        end
-        
-        subgraph "Batch Layer"
-            BL[Batch Processing<br/>High accuracy<br/>All historical data]
-            BV[Batch Views]
-        end
-        
-        subgraph "Serving Layer"
-            SL[Query Service<br/>Merges batch + real-time]
-            Cache[Result Cache]
-        end
-        
-        DS --> RT
-        DS --> BL
-        RT --> RV
-        BL --> BV
-        RV --> SL
-        BV --> SL
-        SL --> Cache
-    end
-    
-    style RT fill:#ff9,stroke:#333,stroke-width:2px
-    style BL fill:#9ff,stroke:#333,stroke-width:2px
-    style SL fill:#f9f,stroke:#333,stroke-width:2px
-```
-
-</details>
 
 ---
 
@@ -268,21 +197,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -317,27 +231,6 @@ graph TD
 ## Migration to Modern Architectures
 
 ### From Lambda to Unified
-
-```mermaid
-graph LR
-    subgraph "Current: Lambda"
-        L1[Batch Pipeline]
-        L2[Stream Pipeline]
-        L3[Two Codebases]
-    end
-    
-    subgraph "Target: Unified"
-        U1[Single Pipeline<br/>Batch + Stream]
-        U2[One Codebase]
-        U3[Configurable Processing]
-    end
-    
-    L1 --> U1
-    L2 --> U1
-    L3 --> U2
-    
-    style U1 fill:#9f9,stroke:#333,stroke-width:2px
-```
 
 ### Migration Strategies
 
@@ -433,21 +326,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -499,6 +377,9 @@ graph TD
 
 ### Decision Tree
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph TD
     Q1{Need reprocessing?} -->|No| Stream[Stream-only]
@@ -508,6 +389,8 @@ graph TD
     Q3 -->|No| Modern[Modern Lakehouse]
     Q3 -->|Yes| Lambda[Lambda Architecture]
 ```
+
+</details>
 
 ---
 
@@ -526,3 +409,4 @@ graph TD
 ---
 
 **Previous**: ← GraphQL Federation | **Next**: → Kappa Architecture
+

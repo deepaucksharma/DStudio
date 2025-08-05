@@ -68,45 +68,7 @@ Both work together but remain independent - you can upgrade the sidecar without 
 
 ## Architecture Overview
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Pod/VM Boundary"
-        subgraph "Main Container"
-            A[Application<br/>Business Logic]
-        end
-        
-        subgraph "Sidecar Container"
-            B[Proxy/Agent<br/>Infrastructure]
-        end
-        
-        A <--> |localhost| B
-    end
-    
-    C[Incoming Traffic] --> B
-    B --> D[Service Mesh]
-    B --> E[Monitoring]
-    B --> F[Other Services]
-    
-    style A fill:#4CAF50
-    style B fill:#2196F3
-```
-
-</details>
 
 ## Sidecar vs Alternatives
 
@@ -138,26 +100,6 @@ graph TB
 - **Monolithic apps**: Use libraries instead
 
 ## Common Sidecar Types
-
-```mermaid
-graph LR
-    subgraph "Service Mesh Proxy"
-        SM[Envoy/Linkerd<br/>• mTLS<br/>• Load balancing<br/>• Circuit breaking]
-    end
-    
-    subgraph "Observability Agent"
-        OA[Fluentd/Telegraf<br/>• Log collection<br/>• Metrics export<br/>• Trace injection]
-    end
-    
-    subgraph "Security Scanner"
-        SS[Falco/OPA<br/>• Runtime protection<br/>• Policy enforcement<br/>• Threat detection]
-    end
-    
-    subgraph "Protocol Adapter"
-        PA[Custom Proxy<br/>• HTTP → gRPC<br/>• REST → GraphQL<br/>• Legacy → Modern]
-    end
-```
-
 
 ## Level 1: Intuition (5 minutes)
 
@@ -218,21 +160,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -256,83 +183,9 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: app-with-sidecar
-spec:
-  containers:
-  # Main application
-  - name: app
-    image: myapp:1.0
-    ports:
-    - containerPort: 8080
-    resources:
-      requests:
-        cpu: 800m
-        memory: 1Gi
-    
-  # Envoy sidecar proxy
-  - name: envoy
-    image: envoyproxy/envoy:v1.24
-    ports:
-    - containerPort: 15001
-    resources:
-      requests:
-        cpu: 100m
-        memory: 128Mi
-    volumeMounts:
-    - name: envoy-config
-      mountPath: /etc/envoy
-      
-  # Init container for traffic interception
-  initContainers:
-  - name: init-iptables
-    image: istio/pilot
-    securityContext:
-      capabilities:
-        add: ["NET_ADMIN"]
-    command:
-    - sh
-    - -c
-    - |
-      iptables -t nat -A OUTPUT -p tcp -j REDIRECT --to-port 15001
-      
-  volumes:
-  - name: envoy-config
-    configMap:
-      name: envoy-config
-```
-
-</details>
 
 ## Traffic Flow Patterns
-
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Sidecar
-    participant App
-    participant External
-    
-    Note over Client,External: Inbound Traffic
-    Client->>Sidecar: HTTPS request
-    Sidecar->>Sidecar: Terminate TLS
-    Sidecar->>App: HTTP to localhost:8080
-    App->>Sidecar: Response
-    Sidecar->>Client: HTTPS response
-    
-    Note over Client,External: Outbound Traffic
-    App->>Sidecar: HTTP request
-    Sidecar->>Sidecar: Add auth, retry logic
-    Sidecar->>External: HTTPS with mTLS
-    External->>Sidecar: Response
-    Sidecar->>App: Processed response
-```
 
 ## Production Considerations
 
@@ -346,25 +199,6 @@ sequenceDiagram
 | **Total Pod** | **950m** | **1300m** | **1.2Gi** | **2.4Gi** |
 
 ### Critical Design Decisions
-
-```mermaid
-graph TD
-    A[Sidecar Design] --> B{Startup Order?}
-    B -->|App First| C[Use readiness probes]
-    B -->|Sidecar First| D[Init containers]
-    
-    A --> E{Communication?}
-    E -->|Transparent| F[iptables redirect]
-    E -->|Explicit| G[localhost proxy]
-    
-    A --> H{Updates?}
-    H -->|Independent| I[Separate images]
-    H -->|Coupled| J[Version constraints]
-    
-    A --> K{Failure Mode?}
-    K -->|Fail Open| L[App continues]
-    K -->|Fail Closed| M[Pod terminates]
-```
 
 ## Real-World Examples
 
@@ -418,25 +252,6 @@ graph TD
 
 ## Quick Decision Framework
 
-```mermaid
-graph TD
-    Start[Need infrastructure<br/>capabilities?] --> Lang{Polyglot<br/>environment?}
-    Lang -->|Yes| Sidecar[Use Sidecar]
-    Lang -->|No| Perf{Performance<br/>critical?}
-    
-    Perf -->|Yes| Lib[Use Library]
-    Perf -->|No| Scale{> 10 services?}
-    
-    Scale -->|Yes| Sidecar
-    Scale -->|No| Legacy{Legacy<br/>app?}
-    
-    Legacy -->|Yes| Sidecar
-    Legacy -->|No| Lib
-    
-    style Sidecar fill:#4CAF50
-    style Lib fill:#FFC107
-```
-
 ## Production Checklist ✓
 
 **Before Deployment:**
@@ -472,3 +287,4 @@ graph TD
 - [Envoy Proxy Architecture](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/intro/intro)
 - [Kubernetes Sidecar Containers](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/)
 - [Service Mesh Comparison](https://servicemesh.io/)
+

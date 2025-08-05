@@ -41,6 +41,7 @@ when-to-use: When you need causal ordering of events, don't need wall-clock time
   and want a simple solution
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -62,8 +63,6 @@ when-to-use: When you need causal ordering of events, don't need wall-clock time
 **How do we coordinate distributed components effectively using logical clocks (lamport clocks)?**
 
 
-
-
 # Logical Clocks (Lamport Clocks) Pattern
 
 !!! question "Essential Questions for Distributed Coordination"
@@ -77,66 +76,7 @@ when-to-use: When you need causal ordering of events, don't need wall-clock time
 <div class="decision-box">
 <h3>🎯 When to Use Logical Clocks</h3>
 
-```mermaid
-graph TD
-    Start[Need Event Ordering?] --> Concurrent{Need to Detect<br/>Concurrent Events?}
-    Concurrent -->|Yes| VC[Use Vector Clocks]
-    Concurrent -->|No| Time{Need Wall<br/>Clock Time?}
-    Time -->|Yes| HLC[Use Hybrid Logical Clocks]
-    Time -->|No| Total{Need Total<br/>Ordering?}
-    Total -->|Yes| LC[✓ Use Lamport Clocks]
-    Total -->|No| Partial[Partial Order Sufficient]
-    
-    style LC fill:#90EE90
-```
-</div>
 
-## Core Concept: Logical Time
-
-### Visual: Physical vs Logical Time
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Physical Time Problems"
-        PC1[Clock 1: 10:00:00] 
-        PC2[Clock 2: 10:00:05]
-        PC3[Clock 3: 09:59:58]
-        Skew[⚠️ Clock Skew:<br/>Can't agree on "now"]
-        PC1 --> Skew
-        PC2 --> Skew
-        PC3 --> Skew
-    end
-    
-    subgraph "Logical Time Solution"
-        LC1[Process 1: Counter = 0]
-        LC2[Process 2: Counter = 0]
-        LC3[Process 3: Counter = 0]
-        Logic[✓ Start at 0<br/>Increment on events]
-        LC1 --> Logic
-        LC2 --> Logic
-        LC3 --> Logic
-    end
-    
-    style Skew fill:#FFB6C1
-    style Logic fill:#90EE90
-```
-
-</details>
 
 ### The Happens-Before Relation (→)
 
@@ -150,25 +90,6 @@ graph TB
 </div>
 
 ### Visual Timeline Example
-
-```mermaid
-sequenceDiagram
-    participant P1 as Process 1
-    participant P2 as Process 2
-    participant P3 as Process 3
-    
-    Note over P1,P3: All start with Clock = 0
-    
-    P1->>P1: Event A (Clock: 0→1)
-    P1->>P2: Send M1 with timestamp 1
-    Note over P2: Receive M1<br/>Clock = max(0,1)+1 = 2
-    P2->>P2: Event B (Clock: 2→3)
-    P2->>P3: Send M2 with timestamp 3
-    Note over P3: Receive M2<br/>Clock = max(0,3)+1 = 4
-    P3->>P3: Event C (Clock: 4→5)
-    
-    Note over P1,P3: Final ordering: A(1) → M1 → B(3) → M2 → C(5)
-```
 
 ## Algorithm: Three Simple Rules
 
@@ -190,88 +111,7 @@ graph LR
 <div class="card">
 <h4>📤 Rule 2: Send Message</h4>
 
-```mermaid
-graph LR
-    Send[Send Message] --> Inc[Clock++]
-    Inc --> Attach[Attach Timestamp]
-    Attach --> Transmit[Send with TS]
-    
-    Example[Example: Send(data, ts=6)]
-```
 
-**Increment clock and attach timestamp to message**
-</div>
-
-<div class="card">
-<h4>📥 Rule 3: Receive Message</h4>
-
-```mermaid
-graph LR
-    Recv[Receive TS] --> Max[max(local, received)]
-    Max --> Inc[Result + 1]
-    Inc --> Update[Update Clock]
-    
-    Example[Example: max(5,8)+1 = 9]
-```
-
-**Set clock to max(local, received) + 1**
-</div>
-</div>
-
-### Visual Algorithm in Action
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Process States"
-        P1_0[P1: Clock=0]
-        P2_0[P2: Clock=0]
-        P3_0[P3: Clock=0]
-    end
-    
-    subgraph "Step 1: Local Events"
-        P1_1[P1: Event A<br/>Clock=0→1]
-        P2_1[P2: Event B<br/>Clock=0→1]
-        P3_1[P3: Clock=0]
-    end
-    
-    subgraph "Step 2: P1 sends to P2"
-        P1_2[P1: Send M1<br/>Clock=1]
-        P2_2[P2: Recv M1<br/>Clock=max(1,1)+1=2]
-        P3_2[P3: Clock=0]
-    end
-    
-    subgraph "Step 3: P2 sends to P3"
-        P1_3[P1: Clock=1]
-        P2_3[P2: Send M2<br/>Clock=2→3]
-        P3_3[P3: Recv M2<br/>Clock=max(0,3)+1=4]
-    end
-    
-    P1_0 --> P1_1 --> P1_2 --> P1_3
-    P2_0 --> P2_1 --> P2_2 --> P2_3
-    P3_0 --> P3_1 --> P3_2 --> P3_3
-    
-    style P1_1 fill:#E3F2FD
-    style P2_1 fill:#E3F2FD
-    style P2_2 fill:#C5E1A5
-    style P3_3 fill:#C5E1A5
-```
-
-</details>
 
 
 ## Level 1: Intuition (5 minutes)
@@ -333,21 +173,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -373,120 +198,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```python
-class LamportClock:
-    def __init__(self):
-        self.clock = 0
-    
-    def tick(self):
-        """Rule 1: Increment on local event"""
-        self.clock += 1
-        return self.clock
-    
-    def send(self):
-        """Rule 2: Increment and return timestamp for message"""
-        self.clock += 1
-        return self.clock
-    
-    def receive(self, timestamp):
-        """Rule 3: Update to max(local, received) + 1"""
-        self.clock = max(self.clock, timestamp) + 1
-        return self.clock
-
-# Example usage
-p1_clock = LamportClock()
-p2_clock = LamportClock()
-
-# P1 does local work
-p1_clock.tick()  # P1 clock = 1
-
-# P1 sends message to P2
-msg_timestamp = p1_clock.send()  # P1 clock = 2, sends ts=2
-
-# P2 receives message
-p2_clock.receive(msg_timestamp)  # P2 clock = max(0,2)+1 = 3
-```
-
-</details>
-
-### Total Ordering: Breaking Ties
-
-<div class="axiom-box">
-<h4>⚖️ Creating Total Order from Partial Order</h4>
-
-When two events have the same Lamport timestamp, we need a tie-breaker:
-- Use process IDs as secondary sort key
-- Event (timestamp=5, process=A) < Event (timestamp=5, process=B)
-
-</div>
-
-```python
-def total_order(event1, event2):
-    """Compare events for total ordering"""
-    if event1.timestamp != event2.timestamp:
-        return event1.timestamp < event2.timestamp
-    else:
-        # Break ties with process ID
-        return event1.process_id < event2.process_id
-```
-
-## Practical Applications
-
-### Application Comparison Matrix
-
-| Use Case | Why Lamport Clocks? | Alternative | Trade-off |
-|----------|-------------------|-------------|-----------|
-| **Distributed Logs** | Order log entries causally | Physical timestamps | No clock sync needed |
-| **State Machine Replication** | Ensure same operation order | Vector clocks | Simpler, less space |
-| **Distributed Debugging** | Trace causality chains | No ordering | See cause-effect |
-| **Database Replication** | Order updates consistently | 2PC | Eventually consistent |
-| **Message Queues** | FIFO with causality | Sequence numbers | Handles partitions |
-
-### Visual: Distributed Mutual Exclusion
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-sequenceDiagram
-    participant P1
-    participant P2
-    participant P3
-    
-    Note over P1,P3: Using Lamport timestamps for request ordering
-    
-    P1->>P2: REQUEST(ts=5)
-    P1->>P3: REQUEST(ts=5)
-    P2->>P1: REPLY
-    P2->>P3: REQUEST(ts=8)
-    P3->>P1: REPLY
-    P3->>P2: REPLY
-    
-    Note over P1: P1 enters CS<br/>(lowest timestamp)
-    P1->>P1: In Critical Section
-    
-    P1->>P2: RELEASE
-    P1->>P3: RELEASE
-    
-    Note over P2: P2 enters CS<br/>(next lowest)
-```
-
-</details>
 
 ### Real-World Example: Distributed Log Ordering
 
@@ -502,40 +214,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Without Lamport Clocks"
-        L1[Server A: User login @ 10:00:01]
-        L2[Server B: Update profile @ 10:00:00]
-        L3[Server C: Logout @ 10:00:02]
-        
-        Problem[❌ Profile updated before login?<br/>Clock skew causes wrong order]
-        
-        L1 --> Problem
-        L2 --> Problem
-        L3 --> Problem
-    end
-    
-    subgraph "With Lamport Clocks"
-        LL1[Server A: User login (LC=5)]
-        LL2[Server B: Update profile (LC=8)]
-        LL3[Server C: Logout (LC=12)]
-        
-        Correct[✓ Correct causal order:<br/>Login → Update → Logout]
-        
-        LL1 --> Correct
-        LL2 --> Correct
-        LL3 --> Correct
-    end
-    
-    style Problem fill:#FFB6C1
-    style Correct fill:#90EE90
-```
-
-</details>
 
 ## Limitations & Solutions
 
@@ -553,37 +232,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Limitation 1: No Concurrency Detection"
-        E1[Event A: LC=5]
-        E2[Event B: LC=5]
-        Q1[Are A and B concurrent?<br/>Can't tell!]
-        E1 --> Q1
-        E2 --> Q1
-    end
-    
-    subgraph "Limitation 2: Unbounded Growth"
-        Clock[Clock Value]
-        Growth[Keeps growing: 1→2→3→...→∞]
-        Clock --> Growth
-    end
-    
-    subgraph "Limitation 3: No Real Time"
-        LC[LC=1000]
-        Time[What time is it?<br/>No idea!]
-        LC --> Time
-    end
-    
-    style Q1 fill:#FFE0B2
-    style Growth fill:#FFCDD2
-    style Time fill:#E1BEE7
-```
-
-</details>
 
 ### Solutions Overview
 
@@ -629,25 +278,6 @@ graph TB
 
 ### Visual Clock Comparison
 
-```mermaid
-graph LR
-    subgraph "Event Ordering Need"
-        Simple[Simple Ordering] --> LC[Lamport Clock]
-        Concurrent[Detect Concurrent] --> VC[Vector Clock]
-        RealTime[Need Real Time] --> HLC[Hybrid Clock]
-    end
-    
-    subgraph "System Properties"
-        Small[Few Nodes] --> VC
-        Large[Many Nodes] --> LC
-        Modern[Modern System] --> HLC
-    end
-    
-    style LC fill:#E3F2FD
-    style VC fill:#F3E5F5
-    style HLC fill:#E8F5E9
-```
-
 ## Best Practices
 
 <div class="grid">
@@ -676,27 +306,6 @@ graph LR
 
 ### Example 1: Distributed Log Aggregation
 
-```mermaid
-graph TB
-    subgraph "Log Collection System"
-        App1[App Server 1<br/>LC: 100-150]
-        App2[App Server 2<br/>LC: 200-250]
-        App3[App Server 3<br/>LC: 300-350]
-        
-        Aggregator[Log Aggregator<br/>Sorts by LC]
-        
-        App1 -->|Logs with LC| Aggregator
-        App2 -->|Logs with LC| Aggregator
-        App3 -->|Logs with LC| Aggregator
-        
-        Output[Causally Ordered<br/>Log Stream]
-        Aggregator --> Output
-    end
-    
-    style Aggregator fill:#FFE082
-    style Output fill:#90EE90
-```
-
 ### Example 2: Replicated State Machine
 
 ```mermaid
@@ -714,7 +323,25 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```python
+```mermaid
+classDiagram
+    class Component23 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler23 {
+        +handle() Result
+        +configure() void
+    }
+    Component23 --> Handler23 : uses
+    
+    note for Component23 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 class ReplicatedStateMachine:
     def __init__(self, node_id):
         self.clock = LamportClock()
@@ -742,7 +369,8 @@ class ReplicatedStateMachine:
         
         # Rebuild state from ordered operations
         self.rebuild_state(all_ops)
-```
+
+</details>
 
 </details>
 
@@ -820,21 +448,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -868,3 +481,4 @@ graph TD
 - ["Time, Clocks, and the Ordering of Events"](https://lamport.azurewebsites.net/pubs/time-clocks.pdf) - Lamport's original paper
 - [The TLA+ Book](https://lamport.azurewebsites.net/tla/book.html) - Formal specification by Lamport
 - ["Distributed Systems for Fun and Profit"](http://book.mixu.net/distsys/) - Chapter on time and order
+

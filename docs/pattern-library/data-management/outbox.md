@@ -1,42 +1,55 @@
 ---
-title: Outbox Pattern
-description: Reliable event publishing pattern that ensures database changes and event publishing happen atomically
-type: pattern
+best_for: Event-driven microservices, CQRS implementations, saga coordination, audit
+  logging
 category: data-management
-difficulty: intermediate
-reading_time: 18 min
-prerequisites: ["acid-transactions", "event-driven-architecture", "cdc-basics"]
-excellence_tier: silver
-pattern_status: use-with-expertise
-introduced: 2015-01
 current_relevance: mainstream
-essential_question: How do we guarantee that database changes and event publishing happen together or not at all?
-tagline: Transactional messaging that solves the dual-write problem
-trade_offs:
-  pros:
-    - "Guarantees consistency between database and events"
-    - "No distributed transactions needed"
-    - "Works with any ACID database"
-    - "Handles network failures gracefully"
-  cons:
-    - "Requires polling or CDC infrastructure"
-    - "Eventual consistency for events"
-    - "Database-specific implementation complexity"
-    - "Additional storage overhead"
-best_for: "Event-driven microservices, CQRS implementations, saga coordination, audit logging"
+description: Reliable event publishing pattern that ensures database changes and event
+  publishing happen atomically
+difficulty: intermediate
+essential_question: How do we guarantee that database changes and event publishing
+  happen together or not at all?
+excellence_tier: silver
+introduced: 2015-01
 modern_examples:
-  - company: Netflix
-    implementation: "CDC-based outbox for microservice event publishing"
-    scale: "Processes billions of events daily across 1000+ services"
-  - company: Uber
-    implementation: "Outbox pattern for ride state changes and driver notifications"
-    scale: "Handles 15M+ rides daily with guaranteed event delivery"
-  - company: Shopify
-    implementation: "Outbox for order processing and inventory updates"
-    scale: "Processes millions of orders with 99.9% event reliability"
-related_laws: ["law1-failure", "law2-asynchrony", "law4-tradeoffs"]
-related_pillars: ["state", "truth", "work"]
+- company: Netflix
+  implementation: CDC-based outbox for microservice event publishing
+  scale: Processes billions of events daily across 1000+ services
+- company: Uber
+  implementation: Outbox pattern for ride state changes and driver notifications
+  scale: Handles 15M+ rides daily with guaranteed event delivery
+- company: Shopify
+  implementation: Outbox for order processing and inventory updates
+  scale: Processes millions of orders with 99.9% event reliability
+pattern_status: use-with-expertise
+prerequisites:
+- acid-transactions
+- event-driven-architecture
+- cdc-basics
+reading_time: 18 min
+related_laws:
+- law1-failure
+- law2-asynchrony
+- law4-tradeoffs
+related_pillars:
+- state
+- truth
+- work
+tagline: Transactional messaging that solves the dual-write problem
+title: Outbox Pattern
+trade_offs:
+  cons:
+  - Requires polling or CDC infrastructure
+  - Eventual consistency for events
+  - Database-specific implementation complexity
+  - Additional storage overhead
+  pros:
+  - Guarantees consistency between database and events
+  - No distributed transactions needed
+  - Works with any ACID database
+  - Handles network failures gracefully
+type: pattern
 ---
+
 
 # Outbox Pattern
 
@@ -79,21 +92,6 @@ The outbox pattern is like a restaurant's order system. When you place an order,
 
 ### Visual Metaphor
 
-```mermaid
-graph LR
-    A[Order Placed] --> B[Write to Database]
-    B --> C[Write Event to Outbox]
-    C --> D[Commit Transaction]
-    
-    E[Background Process] --> F[Read Outbox]
-    F --> G[Publish Events]
-    G --> H[Mark as Processed]
-    
-    style A fill:#81c784,stroke:#388e3c
-    style D fill:#64b5f6,stroke:#1976d2
-    style G fill:#ffb74d,stroke:#f57c00
-```
-
 ### Core Insight
 
 > **Key Takeaway:** Store the event as data, not a side effect—then publish it reliably later.
@@ -118,26 +116,6 @@ Outbox Pattern **solves the dual-write problem** by **storing events in the same
 
 #### Architecture Overview
 
-```mermaid
-graph TB
-    subgraph "Outbox Pattern Architecture"
-        A[Application] --> B[Database Transaction]
-        B --> C[Business Data]
-        B --> D[Outbox Table]
-        
-        E[Event Publisher] --> D
-        E --> F[Message Broker]
-        
-        G[Event Consumer] --> F
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class B,C primary
-    class D,F secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -149,45 +127,11 @@ graph TB
 
 ### Basic Example
 
-```python
-# Simplified outbox implementation
-def create_order(order_data):
-    with database.transaction():
-        # Save business data
-        order = Order.create(order_data)
-        
-        # Store event in outbox
-        event = OutboxEvent(
-            event_type="OrderCreated",
-            payload=order.to_json(),
-            created_at=datetime.now()
-        )
-        event.save()
-        
-        # Both succeed or both fail
-        return order
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-
-```mermaid
-stateDiagram-v2
-    [*] --> Pending
-    Pending --> Processing: publisher_picks_up
-    Processing --> Published: successfully_sent
-    Processing --> Failed: publish_error
-    Failed --> Pending: retry_backoff
-    Published --> Archived: cleanup_process
-    
-    note right of Published
-        Event successfully
-        delivered to broker
-    end note
-```
 
 #### Critical Design Decisions
 
@@ -236,31 +180,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale"
-        A1[Single Outbox Table]
-        A2[Single Publisher]
-        A1 --> A2
-    end
-    
-    subgraph "Medium Scale"
-        B1[Partitioned Outbox]
-        B2[Multiple Publishers]
-        B1 --> B2
-    end
-    
-    subgraph "Large Scale"
-        C1[Per-Service Outbox]
-        C2[CDC Pipeline]
-        C3[Event Streaming]
-        C1 --> C2 --> C3
-    end
-    
-    A1 -->|1K events/sec| B1
-    B1 -->|10K events/sec| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -302,6 +221,9 @@ graph LR
 
 #### Migration from Legacy
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Synchronous Events] -->|Step 1| B[Async with Retry]
@@ -311,6 +233,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -333,24 +257,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Event Reliability?] --> B{Event Volume?}
-    B -->|< 1K/sec| C[Polling Outbox]
-    B -->|1K-10K/sec| D[CDC Outbox]
-    B -->|> 10K/sec| E[Event Sourcing]
-    
-    C --> F[Simple and reliable]
-    D --> G[High performance]
-    E --> H[Ultimate scalability]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class D recommended
-    class E caution
-```
 
 ### Comparison with Alternatives
 
@@ -419,3 +325,4 @@ graph TD
 </div>
 
 ---
+

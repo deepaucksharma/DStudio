@@ -1,41 +1,55 @@
 ---
-title: Leader Election Pattern
-description: Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios
-type: pattern
 category: coordination
-difficulty: advanced
-reading_time: 25 min
-prerequisites: ["consensus-basics", "distributed-systems-fundamentals", "cap-theorem"]
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1998-01
 current_relevance: mainstream
-essential_question: How do we ensure exactly one node has authority to make decisions in a distributed system?
-tagline: Preventing split-brain through coordinated leadership with automatic failover
+description: Distributed coordination pattern for selecting a single node to perform
+  critical operations and avoid split-brain scenarios
+difficulty: advanced
+essential_question: How do we ensure exactly one node has authority to make decisions
+  in a distributed system?
+excellence_tier: gold
+introduced: 1998-01
 modern_examples:
-  - company: Kubernetes
-    implementation: "etcd-based leader election for controller managers preventing split-brain control"
-    scale: "Manages millions of clusters globally with sub-second failover"
-  - company: Apache Kafka
-    implementation: "Controller election for partition metadata management using ZooKeeper"
-    scale: "Coordinates thousands of brokers handling trillion+ messages daily"
-  - company: MongoDB
-    implementation: "Replica set primary election using Raft-like protocol for write coordination"
-    scale: "Powers millions of databases with automatic failover in under 30 seconds"
+- company: Kubernetes
+  implementation: etcd-based leader election for controller managers preventing split-brain
+    control
+  scale: Manages millions of clusters globally with sub-second failover
+- company: Apache Kafka
+  implementation: Controller election for partition metadata management using ZooKeeper
+  scale: Coordinates thousands of brokers handling trillion+ messages daily
+- company: MongoDB
+  implementation: Replica set primary election using Raft-like protocol for write
+    coordination
+  scale: Powers millions of databases with automatic failover in under 30 seconds
+pattern_status: recommended
+prerequisites:
+- consensus-basics
+- distributed-systems-fundamentals
+- cap-theorem
 production_checklist:
-  - "Choose election mechanism (Raft for safety, lease-based for availability)"
-  - "Configure election timeout (2-5x network RTT, typically 5-15 seconds)"
-  - "Implement split-brain prevention with fencing tokens or quorum"
-  - "Set up continuous health checks for leader liveness detection"
-  - "Monitor election frequency (frequent elections indicate instability)"
-  - "Implement graceful leader shutdown with handoff procedure"
-  - "Configure leader lease renewal intervals (timeout/3)"
-  - "Test network partition scenarios thoroughly"
-  - "Set up alerts for leadership changes and extended elections"
-  - "Document clear leader responsibilities and decision boundaries"
-related_laws: ["law4-tradeoffs", "law2-asynchrony", "law3-emergence"]
-related_pillars: ["control", "truth", "state"]
+- Choose election mechanism (Raft for safety, lease-based for availability)
+- Configure election timeout (2-5x network RTT, typically 5-15 seconds)
+- Implement split-brain prevention with fencing tokens or quorum
+- Set up continuous health checks for leader liveness detection
+- Monitor election frequency (frequent elections indicate instability)
+- Implement graceful leader shutdown with handoff procedure
+- Configure leader lease renewal intervals (timeout/3)
+- Test network partition scenarios thoroughly
+- Set up alerts for leadership changes and extended elections
+- Document clear leader responsibilities and decision boundaries
+reading_time: 25 min
+related_laws:
+- law4-tradeoffs
+- law2-asynchrony
+- law3-emergence
+related_pillars:
+- control
+- truth
+- state
+tagline: Preventing split-brain through coordinated leadership with automatic failover
+title: Leader Election Pattern
+type: pattern
 ---
+
 
 # Leader Election Pattern
 
@@ -81,23 +95,6 @@ Leader election is like choosing a team captain before a game. Everyone could po
 
 ### Visual Metaphor
 
-```mermaid
-graph TB
-    A[Node A: "I should lead!"] --> D[Election Process]
-    B[Node B: "No, me!"] --> D
-    C[Node C: "Actually, me!"] --> D
-    
-    D --> E[👑 Node B Wins]
-    E --> F["Others become followers"]
-    
-    G[Node B fails] --> H[New Election]
-    H --> I[👑 Node A becomes leader]
-    
-    style E fill:#81c784,stroke:#388e3c
-    style I fill:#81c784,stroke:#388e3c
-    style F fill:#64b5f6,stroke:#1976d2
-```
-
 ### Core Insight
 
 > **Key Takeaway:** Better to have brief periods with no leader than multiple leaders causing chaos.
@@ -122,24 +119,6 @@ Leader Election **prevents split-brain scenarios** by **coordinating node consen
 
 #### Architecture Overview
 
-```mermaid
-graph TB
-    subgraph "Leader Election Architecture"
-        A[Nodes] --> B[Election Service]
-        B --> C[Vote Storage]
-        B --> D[Term Management]
-        
-        E[Health Monitor] --> B
-        F[Leader Registry] --> B
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class B,C primary
-    class D,F secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -151,7 +130,25 @@ graph TB
 
 ### Basic Example
 
-```python
+```mermaid
+classDiagram
+    class Component2 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler2 {
+        +handle() Result
+        +configure() void
+    }
+    Component2 --> Handler2 : uses
+    
+    note for Component2 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 # Simplified leader election state machine
 class NodeState:
     def __init__(self):
@@ -165,30 +162,14 @@ class NodeState:
         self.current_term += 1
         self.voted_for = self.node_id
         # Request votes from other nodes
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-
-```mermaid
-stateDiagram-v2
-    [*] --> Follower
-    Follower --> Candidate: election_timeout
-    Candidate --> Leader: majority_votes
-    Candidate --> Follower: higher_term_seen
-    Leader --> Follower: higher_term_seen
-    Follower --> Follower: heartbeat_received
-    
-    note right of Leader
-        Responsibilities:
-        • Send heartbeats
-        • Handle client requests
-        • Manage state changes
-    end note
-```
 
 #### Critical Design Decisions
 
@@ -237,31 +218,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Cluster"
-        A1[3-5 Nodes]
-        A2[Single Region]
-        A1 --- A2
-    end
-    
-    subgraph "Medium Cluster"
-        B1[5-9 Nodes]
-        B2[Multi-AZ]
-        B1 --- B2
-    end
-    
-    subgraph "Large Scale"
-        C1[Hierarchical Elections]
-        C2[Regional Leaders]
-        C3[Global Coordinator]
-        C1 --- C2 --- C3
-    end
-    
-    A1 -->|More nodes| B1
-    B1 -->|Global scale| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -303,6 +259,9 @@ graph LR
 
 #### Migration from Legacy
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Manual Failover] -->|Step 1| B[Simple Health Checks]
@@ -312,6 +271,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -334,26 +295,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Leader Election?] --> B{Safety Critical?}
-    B -->|Yes| C[Raft/Paxos]
-    B -->|No| D{Network Stable?}
-    
-    D -->|Yes| E[Bully Algorithm]
-    D -->|No| F[Lease-based]
-    
-    C --> G[Strongest safety guarantees]
-    E --> H[Simple and fast]
-    F --> I[Best availability]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class C recommended
-    class F caution
-```
 
 ### Comparison with Alternatives
 
@@ -422,3 +363,4 @@ graph TD
 </div>
 
 ---
+

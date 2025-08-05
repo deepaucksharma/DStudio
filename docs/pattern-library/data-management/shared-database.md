@@ -37,6 +37,7 @@ when-to-use: Small systems, tight budgets, simple data sharing needs, monolith-t
   transition
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -69,56 +70,7 @@ when-to-use: Small systems, tight budgets, simple data sharing needs, monolith-t
 
 ## Visual Architecture
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Services"
-        S1[Order Service]
-        S2[Inventory Service]
-        S3[Customer Service]
-        S4[Payment Service]
-    end
-    
-    subgraph "Shared Database"
-        DB[(Single Database)]
-        T1[Orders Table]
-        T2[Inventory Table]
-        T3[Customers Table]
-        T4[Payments Table]
-    end
-    
-    S1 --> DB
-    S2 --> DB
-    S3 --> DB
-    S4 --> DB
-    
-    DB --> T1
-    DB --> T2
-    DB --> T3
-    DB --> T4
-    
-    style DB fill:#FF6B6B
-    style S1 fill:#FFE4B5
-    style S2 fill:#FFE4B5
-    style S3 fill:#FFE4B5
-    style S4 fill:#FFE4B5
-```
-
-</details>
 
 ## Why This Pattern is Problematic
 
@@ -161,38 +113,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Phase 1: Identify"
-        A1[Map Service<br/>Dependencies]
-        A2[Identify<br/>Shared Tables]
-        A3[Find Cross-Service<br/>Queries]
-    end
-    
-    subgraph "Phase 2: Decouple"
-        B1[Add Service<br/>APIs]
-        B2[Replace Direct<br/>DB Access]
-        B3[Implement<br/>Events]
-    end
-    
-    subgraph "Phase 3: Separate"
-        C1[Create Service<br/>Databases]
-        C2[Migrate Data]
-        C3[Remove Shared<br/>Access]
-    end
-    
-    A1 --> B1
-    B1 --> C1
-    
-    style A1 fill:#FFE4B5
-    style B1 fill:#87CEEB
-    style C1 fill:#90EE90
-```
-
-</details>
 
 ## When Shared Database Might Be Acceptable
 
@@ -425,21 +346,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -448,3 +354,5 @@ graph TD
 | Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
 | Data Volume | < 1GB | 1GB-1TB | > 1TB |
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+

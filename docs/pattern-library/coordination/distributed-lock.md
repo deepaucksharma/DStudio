@@ -1,41 +1,52 @@
 ---
-title: Distributed Lock Pattern
-description: Mutual exclusion primitive for coordinating access to shared resources across distributed nodes
-type: pattern
 category: coordination
-difficulty: intermediate
-reading_time: 20 min
-prerequisites: ["consensus-basics", "distributed-systems-fundamentals"]
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2024-01
 current_relevance: mainstream
-essential_question: How do we ensure only one process can access a shared resource across multiple distributed nodes?
-tagline: Safe mutual exclusion in distributed systems with automatic failover
+description: Mutual exclusion primitive for coordinating access to shared resources
+  across distributed nodes
+difficulty: intermediate
+essential_question: How do we ensure only one process can access a shared resource
+  across multiple distributed nodes?
+excellence_tier: gold
+introduced: 2024-01
 modern_examples:
-  - company: Google
-    implementation: "Chubby lock service powers BigTable, GFS, and MapReduce coordination"
-    scale: "99.99% availability handling millions of locks across global infrastructure"
-  - company: Netflix
-    implementation: "etcd-based locks for microservice coordination and leader election"
-    scale: "Coordinates 1000+ microservices with sub-second failover"
-  - company: Uber
-    implementation: "Redis-based distributed locks for ride matching and fraud prevention"
-    scale: "Handles 15M+ trips daily with <10ms lock acquisition"
+- company: Google
+  implementation: Chubby lock service powers BigTable, GFS, and MapReduce coordination
+  scale: 99.99% availability handling millions of locks across global infrastructure
+- company: Netflix
+  implementation: etcd-based locks for microservice coordination and leader election
+  scale: Coordinates 1000+ microservices with sub-second failover
+- company: Uber
+  implementation: Redis-based distributed locks for ride matching and fraud prevention
+  scale: Handles 15M+ trips daily with <10ms lock acquisition
+pattern_status: recommended
+prerequisites:
+- consensus-basics
+- distributed-systems-fundamentals
 production_checklist:
-  - "Choose appropriate lock backend (Redis for speed, etcd for safety)"
-  - "Implement fencing tokens to prevent split-brain scenarios"
-  - "Set TTL timeouts (5-30s) based on operation duration"
-  - "Add lock renewal for long-running operations"
-  - "Monitor lock contention and acquisition latency"
-  - "Test network partition scenarios thoroughly"
-  - "Implement graceful degradation when lock service unavailable"
-  - "Document lock hierarchy to prevent deadlocks"
-  - "Set up alerting on stuck or expired locks"
-  - "Plan for lock service scaling and failover"
-related_laws: ["law2-asynchrony", "law3-emergence", "law5-epistemology"]
-related_pillars: ["truth", "control", "state"]
+- Choose appropriate lock backend (Redis for speed, etcd for safety)
+- Implement fencing tokens to prevent split-brain scenarios
+- Set TTL timeouts (5-30s) based on operation duration
+- Add lock renewal for long-running operations
+- Monitor lock contention and acquisition latency
+- Test network partition scenarios thoroughly
+- Implement graceful degradation when lock service unavailable
+- Document lock hierarchy to prevent deadlocks
+- Set up alerting on stuck or expired locks
+- Plan for lock service scaling and failover
+reading_time: 20 min
+related_laws:
+- law2-asynchrony
+- law3-emergence
+- law5-epistemology
+related_pillars:
+- truth
+- control
+- state
+tagline: Safe mutual exclusion in distributed systems with automatic failover
+title: Distributed Lock Pattern
+type: pattern
 ---
+
 
 # Distributed Lock Pattern
 
@@ -81,20 +92,6 @@ A distributed lock is like a public bathroom with a special key system. Multiple
 
 ### Visual Metaphor
 
-```mermaid
-graph LR
-    A[Node A: "I need the resource!"] --> B[Lock Service]
-    C[Node B: "Me too!"] --> B
-    D[Node C: "Me three!"] --> B
-    
-    B --> E["🔐 Only Node A gets the key"]
-    E --> F["Others wait in line"]
-    
-    style A fill:#81c784,stroke:#388e3c
-    style E fill:#64b5f6,stroke:#1976d2
-    style F fill:#ffb74d,stroke:#f57c00
-```
-
 ### Core Insight
 
 > **Key Takeaway:** The hardest part isn't getting the lock—it's ensuring it's released when the holder fails.
@@ -119,24 +116,6 @@ Distributed Lock **ensures mutual exclusion** by **coordinating through a centra
 
 #### Architecture Overview
 
-```mermaid
-graph TB
-    subgraph "Distributed Lock Architecture"
-        A[Client Nodes] --> B[Lock Service]
-        B --> C[Lock Storage]
-        B --> D[Lease Manager]
-        
-        E[Monitoring] --> B
-        F[Fencing Token Store] --> B
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class B,C primary
-    class D,F secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -147,6 +126,9 @@ graph TB
 | Fencing Token Store | Split-brain prevention | Generate monotonic tokens for safety |
 
 ### Basic Example
+
+<details>
+<summary>📄 View python code (10 lines)</summary>
 
 ```python
 # Minimal distributed lock implementation
@@ -161,28 +143,13 @@ def acquire_lock(resource_id, ttl_seconds=30):
     return None  # Lock already held
 ```
 
+</details>
+
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-
-```mermaid
-stateDiagram-v2
-    [*] --> Available
-    Available --> Locked: acquire(client_id, ttl)
-    Locked --> Available: release(client_id)
-    Locked --> Available: timeout_expired
-    Locked --> Locked: renew_lease(client_id)
-    
-    note right of Locked
-        Contains:
-        • Owner ID
-        • Expiry timestamp
-        • Resource identifier
-        • Fencing token
-    end note
-```
 
 #### Critical Design Decisions
 
@@ -231,30 +198,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale"
-        A1[Single Redis]
-    end
-    
-    subgraph "Medium Scale"
-        B1[Redis Cluster]
-        B2[Backup Redis]
-        B1 -.->|replication| B2
-    end
-    
-    subgraph "Large Scale"
-        C1[etcd Cluster]
-        C2[Regional Clusters]
-        C3[Global Coordinator]
-        C3 --> C1
-        C3 --> C2
-    end
-    
-    A1 -->|100 locks/sec| B1
-    B1 -->|10K locks/sec| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -296,6 +239,9 @@ graph LR
 
 #### Migration from Legacy
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Database Locks] -->|Step 1| B[Hybrid: DB + Redis]
@@ -305,6 +251,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -327,26 +275,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Distributed Lock?] --> B{Consistency Requirements?}
-    B -->|Eventually OK| C[Redis Locks]
-    B -->|Strong Consistency| D{Performance Critical?}
-    
-    D -->|Yes| E[etcd with Caching]
-    D -->|No| F[ZooKeeper/Consul]
-    
-    C --> G[Fast but may have races]
-    E --> H[Best of both worlds]
-    F --> I[Strongest guarantees]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class E recommended
-    class G caution
-```
 
 ### Comparison with Alternatives
 
@@ -415,3 +343,4 @@ graph TD
 </div>
 
 ---
+

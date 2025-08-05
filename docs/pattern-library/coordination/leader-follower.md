@@ -27,11 +27,10 @@ when-not-to-use: When eventual consistency is acceptable or single leader become
 when-to-use: When you need strong consistency and coordinated updates
 ---
 
+
 ## Essential Question
 
 **How do we coordinate distributed components effectively using leader-follower pattern?**
-
-
 
 
 # Leader-Follower Pattern
@@ -54,77 +53,11 @@ when-to-use: When you need strong consistency and coordinated updates
 
 ## Solution Architecture
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
- subgraph "Write Path"
- Client1[Client 1] -->|Write| Leader[Leader Node]
- Client2[Client 2] -->|Write| Leader
- Client3[Client 3] -->|Write| Leader
- end
- 
- subgraph "Replication"
- Leader -->|Replicate| F1[Follower 1]
- Leader -->|Replicate| F2[Follower 2]
- Leader -->|Replicate| F3[Follower 3]
- end
- 
- subgraph "Read Path"
- Client4[Client 4] -->|Read| F1
- Client5[Client 5] -->|Read| F2
- Client6[Client 6] -->|Read| F3
- end
- 
- classDef leader fill:#5448C8,stroke:#333,stroke-width:3px,color:#fff
- classDef follower fill:#00BCD4,stroke:#333,stroke-width:2px,color:#fff
- classDef client fill:#FFF3E0,stroke:#333,stroke-width:2px
- 
- class Leader leader
- class F1,F2,F3 follower
- class Client1,Client2,Client3,Client4,Client5,Client6 client
-```
-
-</details>
 
 ## How It Works
 
 ### 1. Leader Election Process
-
-```mermaid
-stateDiagram-v2
- [*] --> Follower: Start
- Follower --> Candidate: Election timeout
- Candidate --> Leader: Receive majority votes
- Candidate --> Follower: Lose election
- Leader --> Follower: Discover higher term
- Follower --> Follower: Receive heartbeat
- Leader --> Leader: Send heartbeats
- 
- note right of Candidate
- Request votes from
- other nodes
- end note
- 
- note right of Leader
- Periodically send
- heartbeats to maintain
- leadership
- end note
-```
 
 ### 2. Write Operation Flow
 
@@ -140,42 +73,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-sequenceDiagram
- participant C as Client
- participant L as Leader
- participant F1 as Follower 1
- participant F2 as Follower 2
- participant F3 as Follower 3
- 
- C->>L: Write Request
- L->>L: Append to log
- 
- par Replication
- L->>F1: Replicate entry
- and
- L->>F2: Replicate entry
- and
- L->>F3: Replicate entry
- end
- 
- F1-->>L: Ack
- F2-->>L: Ack
- F3-->>L: Ack
- 
- Note over L: Majority achieved
- L->>L: Commit entry
- L-->>C: Success
- 
- L->>F1: Commit notification
- L->>F2: Commit notification
- L->>F3: Commit notification
-```
-
-</details>
 
 ### 3. Read Strategies
 
@@ -276,21 +174,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -304,7 +187,25 @@ graph TD
 
 ### Pattern 1: Synchronous Replication
 
-```python
+```mermaid
+classDiagram
+    class Component7 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler7 {
+        +handle() Result
+        +configure() void
+    }
+    Component7 --> Handler7 : uses
+    
+    note for Component7 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 class SynchronousLeader:
  def write(self, key, value):
 # Write to leader's log
@@ -323,11 +224,30 @@ class SynchronousLeader:
  else:
  self.rollback(key)
  return False
-```
+
+</details>
 
 ### Pattern 2: Asynchronous Replication
 
-```python
+```mermaid
+classDiagram
+    class Component8 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler8 {
+        +handle() Result
+        +configure() void
+    }
+    Component8 --> Handler8 : uses
+    
+    note for Component8 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 class AsynchronousLeader:
  def write(self, key, value):
 # Write locally first
@@ -341,41 +261,14 @@ class AsynchronousLeader:
  })
  
  return True # Immediate success
-```
+
+</details>
 
 ### Pattern 3: Chain Replication
-
-```mermaid
-graph LR
- Client -->|Write| Head[Head<br/>Leader]
- Head -->|Replicate| M1[Middle 1]
- M1 -->|Replicate| M2[Middle 2]
- M2 -->|Replicate| Tail[Tail]
- Tail -->|Ack| Client
- 
- Client2[Read Client] -->|Read| Tail
- 
- style Head fill:#5448C8,color:#fff
- style Tail fill:#4CAF50,color:#fff
-```
 
 ## Failure Handling
 
 ### Leader Failure Detection
-
-```mermaid
-graph TB
- subgraph "Heartbeat Mechanism"
- Leader[Leader] -->|Heartbeat| F1[Follower 1]
- Leader -->|Heartbeat| F2[Follower 2]
- Leader -->|Timeout!| F3[Follower 3]
- 
- F3 -->|Start Election| Election[New Leader Election]
- end
- 
- style F3 fill:#ff6b6b
- style Election fill:#ffd700
-```
 
 ### Split Brain Prevention
 
@@ -386,44 +279,9 @@ graph TB
  2. **Fencing tokens**: Monotonically increasing leader epochs
  3. **External arbitrator**: ZooKeeper or etcd for coordination
  4. **Lease-based leadership**: Time-bound leader terms
- ```mermaid
- graph TB
- subgraph "Partition A"
- L1[Old Leader
- 3 nodes]
- end
- subgraph "Partition B"
- L2[New Leader
- 2 nodes]
- end
- L1 -->|Has Majority| Active[Remains Active]
- L2 -->|No Majority| Inactive[Steps Down]
- style L1 fill:#4CAF50,color:#fff
- style L2 fill:#ff6b6b,color:#fff
- ```
-
-## Performance Considerations
+ ## Performance Considerations
 
 ### Scalability Limits
-
-```mermaid
-graph LR
- subgraph "Bottlenecks"
- WB[Write Bottleneck<br/>Single Leader]
- RB[Replication Lag<br/>Network Delay]
- FB[Failover Time<br/>Detection + Election]
- end
- 
- subgraph "Mitigations"
- Shard[Sharding<br/>Multiple Leaders]
- Async[Async Replication<br/>Trade Consistency]
- Fast[Fast Elections<br/>Pre-voting]
- end
- 
- WB --> Shard
- RB --> Async
- FB --> Fast
-```
 
 ### Optimization Strategies
 
@@ -438,6 +296,9 @@ graph LR
 
 <h4>MySQL/PostgreSQL Replication</h4>
 
+<details>
+<summary>📄 View mermaid code (8 lines)</summary>
+
 ```mermaid
 graph TB
  Master[(Master DB)] -->|Binary Log| Slave1[(Slave 1)]
@@ -448,6 +309,8 @@ graph TB
  LB --> Slave1
  LB --> Slave2
 ```
+
+</details>
 
 - Single master for writes
 - Multiple slaves for read scaling
@@ -580,21 +443,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -628,3 +476,4 @@ graph TD
 - **[Law 1: Correlated Failure](part1-axioms/law1-failure/index)**: Leader failure affects all writes
 - **[Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index)**: Consistency vs availability balance
 - **[Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index)**: Split-brain from partial knowledge
+

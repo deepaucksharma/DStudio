@@ -1,30 +1,14 @@
 ---
-title: Health Check Pattern
-excellence_tier: gold
-essential_question: How do we distinguish between liveness and readiness to enable intelligent load balancing and auto-recovery?
-tagline: Know thy service health - enable automated recovery and intelligent routing
-description: Monitor and verify service health status to enable automated recovery and intelligent load balancing
-type: pattern
 category: resilience
-difficulty: advanced
-reading-time: 15 min
-prerequisites:
-- monitoring
-- service-discovery
-- load-balancing
-when-to-use: Microservices, load balancers, container orchestration, service mesh, auto-healing systems
-when-not-to-use: Single-instance apps, dev environments, systems without automated recovery
-status: complete
-last-updated: 2025-01-30
-tags:
-- observability
-- reliability
-- service-health
-- monitoring
-- fault-detection
-pattern_status: recommended
-introduced: 2000-01
 current_relevance: mainstream
+description: Monitor and verify service health status to enable automated recovery
+  and intelligent load balancing
+difficulty: advanced
+essential_question: How do we distinguish between liveness and readiness to enable
+  intelligent load balancing and auto-recovery?
+excellence_tier: gold
+introduced: 2000-01
+last-updated: 2025-01-30
 modern-examples:
 - company: Kubernetes
   implementation: Liveness and readiness probes for pod health management
@@ -35,6 +19,11 @@ modern-examples:
 - company: Netflix
   implementation: Eureka service registry with health status propagation
   scale: Thousands of services with real-time health tracking
+pattern_status: recommended
+prerequisites:
+- monitoring
+- service-discovery
+- load-balancing
 production-checklist:
 - Distinguish between liveness and readiness checks
 - Set appropriate check intervals and timeouts
@@ -46,7 +35,23 @@ production-checklist:
 - Use separate endpoints for each check type
 - Include version/build info in health response
 - Test health check failure scenarios
+reading-time: 15 min
+status: complete
+tagline: Know thy service health - enable automated recovery and intelligent routing
+tags:
+- observability
+- reliability
+- service-health
+- monitoring
+- fault-detection
+title: Health Check Pattern
+type: pattern
+when-not-to-use: Single-instance apps, dev environments, systems without automated
+  recovery
+when-to-use: Microservices, load balancers, container orchestration, service mesh,
+  auto-healing systems
 ---
+
 
 # Health Check Pattern
 
@@ -78,6 +83,18 @@ production-checklist:
 | Static content | Always available | Uptime monitoring |
 | Internal tools | Low criticality | Manual checks |
 
+### Decision Matrix
+
+| Factor | Score (1-5) | Reasoning |
+|--------|-------------|-----------|
+| **Complexity** | 3 | Moderate complexity implementing different check types, monitoring, and integration with orchestration |
+| **Performance Impact** | 4 | Enables automated recovery and intelligent routing with minimal overhead for health endpoints |
+| **Operational Overhead** | 3 | Requires configuring check intervals, monitoring health metrics, and tuning thresholds |
+| **Team Expertise Required** | 3 | Understanding of liveness vs readiness concepts, health check patterns, and infrastructure integration |
+| **Scalability** | 5 | Essential for scalable systems - enables automatic failure detection and recovery at any scale |
+
+**Overall Recommendation**: ✅ **RECOMMENDED** - Gold standard pattern essential for container orchestration, load balancing, and automated recovery systems.
+
 ## Level 1: Intuition (5 min)
 
 ### The Hospital Triage Analogy
@@ -86,21 +103,6 @@ Like a hospital emergency room: First check if the patient is alive (pulse/breat
 </div>
 
 ### Health Check Types Comparison
-```mermaid
-graph TD
-    A[Health Checks] --> B[Liveness]
-    A --> C[Readiness]
-    A --> D[Startup]
-    
-    B --> E[Is process alive?<br/>Can recover if restarted?]
-    C --> F[Can handle traffic?<br/>Dependencies ready?]
-    D --> G[Still initializing?<br/>Need more time?]
-    
-    style B fill:#81c784
-    style C fill:#64b5f6
-    style D fill:#ffb74d
-```
-
 ### Critical Distinction
 | Check Type | Question | Failure Action | Example |
 |------------|----------|----------------|---------|
@@ -129,6 +131,9 @@ GET /health
 ```
 
 #### 3. Detailed (Components)
+<details>
+<summary>📄 View json code (10 lines)</summary>
+
 ```json
 GET /health
 {
@@ -142,26 +147,9 @@ GET /health
 }
 ```
 
-#### 4. Deep (Metrics)
-```json
-GET /health/deep
-{
-  "status": "DEGRADED",
-  "components": {
-    "database": {
-      "status": "UP",
-      "responseTime": "15ms",
-      "connectionPool": "8/10"
-    },
-    "cache": {
-      "status": "UP",
-      "hitRate": "92%",
-      "memory": "2.1GB/4GB"
-    }
-  }
-}
-```
+</details>
 
+#### 4. Deep (Metrics)
 ### Configuration Parameters
 | Parameter | Liveness | Readiness | Startup |
 |-----------|----------|-----------|---------|
@@ -172,54 +160,11 @@ GET /health/deep
 | **Failure Threshold** | 3-5 | 1-3 | 10-30 |
 
 ### Health Check Decision Tree
-```mermaid
-graph TD
-    A[Service Starts] --> B[Startup Probe]
-    B -->|Pass| C[Liveness Probe]
-    B -->|Fail| D[Keep Waiting]
-    C -->|Pass| E[Readiness Probe]
-    C -->|Fail| F[Restart Pod]
-    E -->|Pass| G[Receive Traffic]
-    E -->|Fail| H[No Traffic]
-    
-    G --> I{Continuous Checks}
-    I -->|Liveness Fail| F
-    I -->|Readiness Fail| H
-    I -->|All Pass| G
-```
-
 ## Level 3: Deep Dive (15 min)
 
 ### Implementation Patterns
 
 #### 1. Kubernetes Health Checks
-```yaml
-livenessProbe:
-  httpGet:
-    path: /health/live
-    port: 8080
-  initialDelaySeconds: 60
-  periodSeconds: 10
-  timeoutSeconds: 3
-  failureThreshold: 3
-
-readinessProbe:
-  httpGet:
-    path: /health/ready
-    port: 8080
-  initialDelaySeconds: 5
-  periodSeconds: 5
-  timeoutSeconds: 3
-  failureThreshold: 2
-
-startupProbe:
-  httpGet:
-    path: /health/startup
-    port: 8080
-  periodSeconds: 5
-  failureThreshold: 30
-```
-
 #### 2. Health Check Endpoints
 ```mermaid
 graph LR
@@ -257,21 +202,6 @@ graph LR
 ### Advanced Health Check Strategies
 
 #### 1. Graduated Health States
-```mermaid
-stateDiagram-v2
-    [*] --> Starting: Service starts
-    Starting --> Warming: Basic init done
-    Warming --> Ready: Cache warmed
-    Ready --> Serving: All checks pass
-    Serving --> Degraded: Partial failure
-    Degraded --> Serving: Recovery
-    Serving --> Failing: Major issue
-    Failing --> [*]: Shutdown
-    
-    note right of Degraded: Serve with limitations
-    note right of Failing: Stop taking traffic
-```
-
 #### 2. Circuit Breaker Integration
 | Health Status | Circuit State | Action |
 |---------------|---------------|---------|
@@ -280,26 +210,6 @@ stateDiagram-v2
 | DOWN | Open | Reject requests |
 
 #### 3. Smart Health Aggregation
-```yaml
-health_aggregation:
-  critical_services:
-    - database: weight=1.0, required=true
-    - auth: weight=1.0, required=true
-  
-  important_services:
-    - cache: weight=0.5, required=false
-    - search: weight=0.3, required=false
-  
-  nice_to_have:
-    - analytics: weight=0.1, required=false
-    - recommendations: weight=0.1, required=false
-  
-  thresholds:
-    healthy: score >= 0.9
-    degraded: 0.5 <= score < 0.9
-    unhealthy: score < 0.5
-```
-
 ### Production Monitoring
 
 #### Health Check Metrics
@@ -311,6 +221,9 @@ health_aggregation:
 | Time to Ready | Startup performance | > 2min |
 
 #### Dashboard Example
+<details>
+<summary>📄 View  code (9 lines)</summary>
+
 ```
 Service Health Overview
 ├── Liveness: 99.9% (last 1h)
@@ -323,12 +236,16 @@ Service Health Overview
     └── Queue: DEGRADED (timeout)
 ```
 
+</details>
+
 ## Level 5: Mastery (25 min)
 
 ### Real-World Implementations
 
 #### Netflix's Eureka Health Model
-```java
+<details>
+<summary>📄 View decision logic</summary>
+
 @HealthIndicator
 public class ServiceHealth {
     @Override
@@ -348,7 +265,8 @@ public class ServiceHealth {
         }
     }
 }
-```
+
+</details>
 
 #### AWS ELB Health Checks
 - **HTTP/HTTPS**: Check specific path
@@ -365,22 +283,10 @@ public class ServiceHealth {
 ### Migration Guide
 
 #### Phase 1: Basic Health (Week 1)
-```python
-# Simple liveness check
-@app.route('/health/live')
-def liveness():
-    return {'status': 'UP'}, 200
-
-# Basic readiness  
-@app.route('/health/ready')
-def readiness():
-    if database.ping():
-        return {'status': 'UP'}, 200
-    return {'status': 'DOWN'}, 503
-```
-
 #### Phase 2: Component Health (Week 2)
-```python
+<details>
+<summary>📄 View decision logic</summary>
+
 @app.route('/health/ready')
 def readiness():
     components = {
@@ -396,7 +302,8 @@ def readiness():
         'status': status,
         'components': components
     }, code
-```
+
+</details>
 
 #### Phase 3: Advanced Health (Week 3-4)
 - Add startup probes
@@ -417,28 +324,6 @@ def readiness():
 ## Quick Reference
 
 ### Health Check Configuration
-```yaml
-# Production-ready defaults
-health_checks:
-  liveness:
-    path: /health/live
-    interval: 10s
-    timeout: 3s
-    failures: 3
-    
-  readiness:
-    path: /health/ready
-    interval: 5s
-    timeout: 5s
-    failures: 2
-    
-  startup:
-    path: /health/startup
-    interval: 2s
-    timeout: 10s
-    failures: 30
-```
-
 ### Status Code Standards
 | Status | HTTP Code | Load Balancer Action |
 |--------|-----------|---------------------|
@@ -472,3 +357,4 @@ health_checks:
 3. Netflix (2019). "Eureka Health Checks" - Wiki
 4. Google (2022). "Health Checking gRPC Services" - gRPC Documentation
 5. Microsoft (2023). "Health checks in ASP.NET Core" - Documentation
+

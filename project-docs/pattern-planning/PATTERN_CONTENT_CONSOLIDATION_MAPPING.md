@@ -12,7 +12,7 @@ Analysis reveals 60-70% content redundancy across the pattern library's guide do
 
 **Current Locations**:
 - `pattern-synthesis-guide.md` - Section: "Pattern Relationship Map" (lines 96-150)
-- `pattern-relationship-map.md` - Entire document focusing on visual relationships
+- `pattern-relationship-map.md` - Entire document (SEVERELY BROKEN: 12 instances of "See Implementation Example X in Appendix" with no actual appendix)
 - `pattern-combination-recipes.md` - Section: "How Patterns Work Together" 
 - Individual pattern pages - "Relationships" sections (91 instances)
 
@@ -20,6 +20,7 @@ Analysis reveals 60-70% content redundancy across the pattern library's guide do
 - Resilience Trinity (Circuit Breaker + Retry + Timeout) explained 4 times
 - Communication patterns relationships described in 3 places
 - Data consistency journey repeated across multiple docs
+- Pattern-relationship-map.md contains placeholder text instead of actual implementations
 
 **Consolidation Target**: 
 - **Primary**: `/guides/synthesis.md` (comprehensive relationships + visual maps)
@@ -105,7 +106,7 @@ Analysis reveals 60-70% content redundancy across the pattern library's guide do
 
 | Source Documents | Target Document | Content to Merge | Content to Remove |
 |-----------------|-----------------|------------------|-------------------|
-| pattern-synthesis-guide.md<br/>pattern-relationship-map.md | /guides/synthesis.md | - All relationship diagrams<br/>- Mental models<br/>- Pattern dependencies<br/>- 15 essential patterns | - Duplicate relationship explanations<br/>- Redundant diagrams<br/>- Overlapping mental models |
+| pattern-synthesis-guide.md<br/>pattern-relationship-map.md | /guides/synthesis.md | - All relationship diagrams<br/>- Mental models<br/>- Pattern dependencies<br/>- 15 essential patterns<br/>- Fix broken placeholders | - Duplicate relationship explanations<br/>- Redundant diagrams<br/>- Overlapping mental models<br/>- All "See Implementation Example" placeholders |
 | pattern-decision-matrix.md<br/>pattern-comparison-tool.md | /tools/explorer.md | - Decision matrices<br/>- Comparison logic<br/>- Scenario mappings | - Static comparison tables<br/>- Non-interactive elements<br/>- Duplicate scenarios |
 | pattern-combination-recipes.md<br/>Anti-recipes sections | /guides/recipes.md | - All battle-tested stacks<br/>- Recipe categories<br/>- Success factors<br/>- Anti-recipes | - Duplicate stack descriptions<br/>- Redundant combination advice<br/>- Generic guidance |
 | pattern-antipatterns-guide.md<br/>Pitfall sections | /guides/anti-patterns.md | - Top 10 dangerous anti-patterns<br/>- Detection checklists<br/>- Fixes and alternatives | - Duplicate anti-pattern descriptions<br/>- Scattered warnings<br/>- Redundant examples |
@@ -187,7 +188,7 @@ def consolidate_pattern_relationships():
     """Extract and merge relationship content"""
     sources = [
         'pattern-synthesis-guide.md',
-        'pattern-relationship-map.md',
+        'pattern-relationship-map.md',  # Needs special handling for broken content
         'pattern-combination-recipes.md'
     ]
     
@@ -198,9 +199,21 @@ def consolidate_pattern_relationships():
         'mental_models': []
     }
     
+    # Special handling for pattern-relationship-map.md
+    def fix_broken_placeholders(content):
+        """Replace placeholder text with actual implementations"""
+        placeholders = re.findall(r'See Implementation Example \d+ in Appendix', content)
+        for i, placeholder in enumerate(placeholders):
+            # Generate actual implementation based on context
+            actual_impl = generate_implementation_from_context(content, i)
+            content = content.replace(placeholder, actual_impl)
+        return content
+    
     # Extract unique content
     for source in sources:
         content = extract_relationships(source)
+        if source == 'pattern-relationship-map.md':
+            content = fix_broken_placeholders(content)
         deduplicate_and_merge(extracted_content, content)
     
     # Generate consolidated output
@@ -268,6 +281,7 @@ const PatternSelector = {
 |--------|---------|--------|---------|
 | Total documentation lines | 180,000+ | 108,000 | Line count |
 | Redundant content | 60-70% | <10% | Content analysis |
+| Broken placeholders | 12+ | 0 | Pattern validation |
 | Cross-references | 330 (many broken) | 500+ (all valid) | Link checker |
 | Page load time | 5-10s | <2s | Performance test |
 | Navigation depth | 5-7 clicks | 2-3 clicks | User testing |

@@ -1,32 +1,45 @@
 ---
-title: Analytics at Scale Pattern
-description: High-performance analytics architecture for processing massive datasets with low latency insights
-type: pattern
+best_for: Organizations processing >1TB daily with >100 analysts requiring real-time
+  insights for business-critical decisions
 category: scaling
-difficulty: advanced
-reading_time: 20 min
-prerequisites: [data-modeling, stream-processing, distributed-storage]
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2008-01
 current_relevance: mainstream
-essential_question: How do we process petabyte-scale datasets to deliver sub-second insights to thousands of concurrent analysts?
+description: High-performance analytics architecture for processing massive datasets
+  with low latency insights
+difficulty: advanced
+essential_question: How do we process petabyte-scale datasets to deliver sub-second
+  insights to thousands of concurrent analysts?
+excellence_tier: silver
+introduced: 2008-01
+pattern_status: recommended
+prerequisites:
+- data-modeling
+- stream-processing
+- distributed-storage
+reading_time: 20 min
+related_laws:
+- law2-asynchrony
+- law4-tradeoffs
+- law7-economics
+related_pillars:
+- state
+- work
+- intelligence
 tagline: Petabyte-scale data processing with sub-second query performance
+title: Analytics at Scale Pattern
 trade_offs:
-  pros:
-    - Handles petabyte-scale datasets with horizontal scaling
-    - Sub-second query performance on complex aggregations
-    - Cost-effective per query at massive scale
-    - Supports thousands of concurrent analysts
   cons:
-    - Complex infrastructure requiring specialized expertise  
-    - Data consistency challenges across distributed systems
-    - Expensive initial setup ($100K+ infrastructure investment)
-    - Steep learning curve for implementation and operations
-best_for: Organizations processing >1TB daily with >100 analysts requiring real-time insights for business-critical decisions
-related_laws: [law2-asynchrony, law4-tradeoffs, law7-economics]
-related_pillars: [state, work, intelligence]
+  - Complex infrastructure requiring specialized expertise
+  - Data consistency challenges across distributed systems
+  - Expensive initial setup ($100K+ infrastructure investment)
+  - Steep learning curve for implementation and operations
+  pros:
+  - Handles petabyte-scale datasets with horizontal scaling
+  - Sub-second query performance on complex aggregations
+  - Cost-effective per query at massive scale
+  - Supports thousands of concurrent analysts
+type: pattern
 ---
+
 
 # Analytics at Scale Pattern
 
@@ -69,6 +82,9 @@ related_pillars: [state, work, intelligence]
 Imagine Netflix needs to analyze viewing patterns from 200 million subscribers generating 500TB of data daily. Traditional databases would collapse under this load, but an analytics-at-scale system processes this data in real-time, powering personalized recommendations and business dashboards that help Netflix make million-dollar content decisions in seconds.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Raw Data<br/>Rivers] --> B[Processing<br/>Factories]
@@ -78,6 +94,8 @@ graph LR
     style B fill:#ffb74d,stroke:#f57c00  
     style C fill:#64b5f6,stroke:#1976d2
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Analytics at scale transforms massive data rivers into instant insights through distributed processing and intelligent storage strategies.
@@ -100,45 +118,6 @@ Analytics at Scale processes petabyte datasets by distributing computation acros
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Data Sources"
-        A[Event Streams<br/>1M events/sec]
-        B[Operational DBs<br/>100TB]
-        C[External APIs<br/>Various]
-    end
-    
-    subgraph "Processing Layer"
-        D[Stream Processing<br/>Kafka + Flink]
-        E[Batch Processing<br/>Spark Clusters]
-    end
-    
-    subgraph "Storage Layer"
-        F[Data Lake<br/>Petabyte S3/HDFS]
-        G[OLAP Cubes<br/>Druid/ClickHouse]
-    end
-    
-    subgraph "Query Layer"
-        H[Query Engine<br/>Presto/Trino]
-        I[Caching Layer<br/>Redis/Memcached]
-    end
-    
-    A --> D
-    B --> E
-    C --> E
-    D --> F
-    E --> F
-    F --> G
-    G --> H
-    H --> I
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class D,E primary
-    class F,G,H secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -150,45 +129,11 @@ graph TB
 
 ### Basic Example
 
-```python
-# Analytics pipeline core concept
-def analytics_pipeline():
-    """Shows essential analytics at scale flow"""
-    # 1. Ingest streaming data
-    stream = kafka_consumer.consume("events")
-    
-    # 2. Process in micro-batches
-    processed = spark.process(stream, batch_size="10s")
-    
-    # 3. Store in columnar format
-    processed.write.parquet("s3://datalake/events/")
-    
-    # 4. Query with distributed engine
-    result = presto.query("SELECT * FROM events WHERE...")
-    
-    return result
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-```mermaid
-stateDiagram-v2
-    [*] --> Ingesting
-    Ingesting --> Processing: Batch Ready
-    Processing --> Storing: Processing Complete
-    Storing --> Indexing: Data Persisted
-    Indexing --> Serving: Indexes Built
-    Serving --> Querying: Ready for Queries
-    Querying --> Serving: Query Complete
-    Serving --> [*]: System Idle
-    
-    Processing --> Failed: Error
-    Failed --> Processing: Retry
-```
-
 #### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -236,32 +181,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (1-10TB)"
-        A1[Cloud Warehouse<br/>BigQuery/Snowflake]
-    end
-    
-    subgraph "Medium Scale (10-100TB)"
-        B1[Data Lake<br/>S3/HDFS]
-        B2[Query Engine<br/>Presto/Trino]
-        B3[Caching Layer<br/>Redis]
-        B1 --> B2
-        B2 --> B3
-    end
-    
-    subgraph "Large Scale (100TB+)"
-        C1[Multi-Region Lake<br/>Global Distribution]
-        C2[Federated Queries<br/>Cross-region]
-        C3[Edge Caching<br/>Geographic CDN]
-        C1 --> C2
-        C2 --> C3
-    end
-    
-    A1 -->|100 queries/hour| B2
-    B2 -->|10K queries/hour| C2
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -301,6 +220,9 @@ graph LR
 
 #### Migration from Legacy
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Traditional DW<br/>Monolithic] -->|Step 1| B[Hybrid Cloud<br/>Lift & Shift]
@@ -310,6 +232,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -332,24 +256,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Analytics?] --> B{Data Volume?}
-    B -->|<100GB| C[SQL Database + BI Tool]
-    B -->|100GB-10TB| D[Cloud Data Warehouse]
-    B -->|>10TB| E[Analytics at Scale]
-    
-    E --> F{Real-time Required?}
-    F -->|Yes| G[Lambda Architecture]
-    F -->|No| H[Batch Processing]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class D recommended
-    class E,G caution
-```
 
 ### Comparison with Alternatives
 
@@ -416,3 +322,4 @@ graph TD
     - [Cost Management](../../excellence/guides/analytics-cost-control.md)
 
 </div>
+

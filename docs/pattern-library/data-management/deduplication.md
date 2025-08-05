@@ -37,6 +37,7 @@ when-to-use: Storage systems, backup solutions, message processing, data pipelin
   with duplicate data
 ---
 
+
 ## Essential Question
 
 **How do we ensure data consistency and reliability with deduplication?**
@@ -76,46 +77,7 @@ Deduplication identifies and eliminates redundant copies of data, storing each u
 
 ### Deduplication Strategies
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "File-Level"
-        F1[File A] -->|Hash| H1[SHA-256: abc123]
-        F2[File A Copy] -->|Hash| H2[SHA-256: abc123]
-        H1 --> S1[Store Once]
-        H2 -.->|Reference| S1
-    end
-    
-    subgraph "Block-Level"
-        B1[Block 1] -->|Hash| BH1[Hash: def456]
-        B2[Block 2] -->|Hash| BH2[Hash: ghi789]
-        B3[Block 1 Dup] -->|Hash| BH3[Hash: def456]
-        BH1 --> BS1[Store Block 1]
-        BH2 --> BS2[Store Block 2]
-        BH3 -.->|Reference| BS1
-    end
-    
-    subgraph "Variable-Size Chunking"
-        V1[Content] -->|Rolling Hash| C1[Chunk Boundaries]
-        C1 --> VC1[Variable Chunks]
-    end
-```
-
-</details>
 
 | Strategy | Granularity | Dedup Ratio | CPU Cost | Use Case |
 |----------|-------------|-------------|----------|----------|
@@ -125,22 +87,6 @@ graph TB
 | **Byte-Level** | Individual bytes | Maximum | Very High | Specialized |
 
 ### Content Fingerprinting
-
-```mermaid
-flowchart LR
-    Data[Input Data] --> Hash{Hash Function}
-    
-    Hash --> MD5[MD5<br/>128-bit<br/>Fast, Weak]
-    Hash --> SHA1[SHA-1<br/>160-bit<br/>Deprecated]
-    Hash --> SHA256[SHA-256<br/>256-bit<br/>Secure]
-    Hash --> XXH[xxHash<br/>64-bit<br/>Very Fast]
-    
-    SHA256 --> FP[Fingerprint]
-    FP --> Lookup{Exists?}
-    Lookup -->|Yes| Ref[Add Reference]
-    Lookup -->|No| Store[Store New]
-```
-
 
 ## Level 1: Intuition (5 minutes)
 
@@ -201,21 +147,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -237,40 +168,9 @@ graph TD
 
 ### Reference Management
 
-```mermaid
-graph TB
-    subgraph "Reference Counting"
-        D1[Data Block] -->|Ref: 3| R1[File A]
-        D1 --> R2[File B]
-        D1 --> R3[File C]
-        R3 -->|Delete| D1
-        D1 -->|Ref: 2| D1
-    end
-    
-    subgraph "Garbage Collection"
-        GC[GC Process] -->|Mark| Live[Live Blocks]
-        GC -->|Sweep| Dead[Dead Blocks]
-        Dead -->|Reclaim| Free[Free Space]
-    end
-```
-
 ## Deduplication Algorithms
 
 ### Content-Defined Chunking (CDC)
-
-```mermaid
-flowchart TD
-    Start[Data Stream] --> Window[Sliding Window]
-    Window --> Hash[Rolling Hash]
-    Hash --> Check{Boundary<br/>Condition?}
-    Check -->|Yes| Cut[Create Chunk]
-    Check -->|No| Slide[Slide Window]
-    Slide --> Hash
-    Cut --> Fingerprint[Generate SHA-256]
-    Fingerprint --> Store{New<br/>Chunk?}
-    Store -->|Yes| Save[Store Chunk]
-    Store -->|No| Reference[Update References]
-```
 
 **Rabin Fingerprinting Example**:
 - Average chunk size: 8KB
@@ -279,6 +179,9 @@ flowchart TD
 - Boundary when: `hash & 0x1FFF == 0x1FFF`
 
 ### Delta Compression
+
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
 
 ```mermaid
 graph LR
@@ -293,28 +196,11 @@ graph LR
     Restore --> V2R[Version 2 Restored]
 ```
 
+</details>
+
 ## Performance Optimization
 
 ### Deduplication Index
-
-```mermaid
-graph TB
-    subgraph "Hierarchical Index"
-        L1[L1: Memory<br/>Hot Entries]
-        L2[L2: SSD<br/>Warm Entries]
-        L3[L3: Disk<br/>Cold Entries]
-        
-        Query[Fingerprint Query] --> L1
-        L1 -->|Miss| L2
-        L2 -->|Miss| L3
-        L3 -->|Miss| NewEntry[New Entry]
-    end
-    
-    subgraph "Bloom Filters"
-        BF[Bloom Filter<br/>Probabilistic] -->|Maybe| Index[Check Index]
-        BF -->|Definitely Not| Skip[Skip Lookup]
-    end
-```
 
 ### Sampling Strategies
 
@@ -329,47 +215,7 @@ graph TB
 
 ### Storage Systems
 
-```mermaid
-graph TB
-    subgraph "ZFS Dedup"
-        Z1[Write] -->|SHA256| Z2[DDT<br/>Dedup Table]
-        Z2 -->|Exists| Z3[Reference]
-        Z2 -->|New| Z4[Store]
-    end
-    
-    subgraph "Data Domain"
-        D1[Stream] -->|Segment| D2[Variable Chunks]
-        D2 -->|Fingerprint| D3[Index Lookup]
-        D3 -->|Inline| D4[Compress & Store]
-    end
-    
-    subgraph "Veeam"
-        V1[Backup] -->|Source-side| V2[Dedup]
-        V2 -->|WAN| V3[Target]
-        V3 -->|Verify| V4[Store]
-    end
-```
-
 ### Message Deduplication
-
-```mermaid
-sequenceDiagram
-    participant P as Producer
-    participant Q as Queue
-    participant C as Consumer
-    participant S as State Store
-    
-    P->>Q: Message(ID: 123)
-    Q->>S: Check ID 123
-    S-->>Q: Not Seen
-    Q->>S: Store ID 123
-    Q->>C: Deliver Message
-    
-    P->>Q: Message(ID: 123) Retry
-    Q->>S: Check ID 123
-    S-->>Q: Already Seen
-    Q->>Q: Drop Duplicate
-```
 
 ## Common Pitfalls
 
@@ -382,22 +228,6 @@ sequenceDiagram
 ## Design Decisions
 
 ### Choosing Deduplication Strategy
-
-```mermaid
-flowchart TD
-    Start[Data Characteristics] --> Type{Data Type?}
-    Type -->|Structured| Block[Block-Level]
-    Type -->|Unstructured| Content[Content-Defined]
-    Type -->|Messages| Exact[Exact Match]
-    
-    Block --> Size{Change Size?}
-    Size -->|Small| Fixed[Fixed Blocks]
-    Size -->|Large| Variable[Variable Blocks]
-    
-    Content --> Pattern{Access Pattern?}
-    Pattern -->|Sequential| Stream[Stream-based]
-    Pattern -->|Random| Index[Index-based]
-```
 
 #
 ## Level 1: Intuition (5 minutes)
@@ -459,21 +289,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -512,3 +327,4 @@ graph TD
 
 ## References
 - [Google Drive Case Study](case-studies/google-drive)
+

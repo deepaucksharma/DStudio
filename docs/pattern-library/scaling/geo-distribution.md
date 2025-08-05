@@ -74,68 +74,7 @@ trade-offs:
 
 ## Architecture Overview
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "US-East Region"
-        USE[Load Balancer]
-        USEA[App Servers]
-        USED[(Primary DB)]
-        USEC[Cache Layer]
-    end
-    
-    subgraph "EU-West Region"
-        EUW[Load Balancer]
-        EUWA[App Servers]
-        EUWD[(Regional DB)]
-        EUWC[Cache Layer]
-    end
-    
-    subgraph "APAC Region"
-        APC[Load Balancer]
-        APCA[App Servers]
-        APCD[(Regional DB)]
-        APCC[Cache Layer]
-    end
-    
-    subgraph "Global Services"
-        GR[Global Router]
-        SM[Service Mesh]
-        MM[Message Bus]
-        GS[(Global State)]
-    end
-    
-    Users -->|GeoDNS| GR
-    GR -->|Closest Region| USE & EUW & APC
-    
-    USE --> USEA --> USED & USEC
-    EUW --> EUWA --> EUWD & EUWC
-    APC --> APCA --> APCD & APCC
-    
-    USED -.->|Async Replication| EUWD & APCD
-    USEA & EUWA & APCA <-->|East-West Traffic| SM
-    USEA & EUWA & APCA -->|Events| MM
-    
-    style USE fill:#90EE90
-    style USED fill:#FFD700
-    style GR fill:#87CEEB
-```
-
-</details>
 
 ## Geo-Distribution Strategy Matrix
 
@@ -161,34 +100,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Strong Consistency"
-        A[Write] -->|Sync| B[Region A]
-        A -->|Sync| C[Region B]
-        A -->|Sync| D[Region C]
-        B & C & D -->|ACK| E[Client]
-    end
-    
-    subgraph "Eventual Consistency"
-        F[Write] -->|Async| G[Region A]
-        G -->|Queue| H[Region B]
-        G -->|Queue| I[Region C]
-        F -->|Immediate| J[Client ACK]
-    end
-    
-    subgraph "Causal Consistency"
-        K[Write 1] -->|Vector Clock| L[Region A]
-        M[Write 2] -->|Vector Clock| L
-        L -->|Ordered| N[Region B]
-        L -->|Ordered| O[Region C]
-    end
-```
-
-</details>
 
 
 ## Level 1: Intuition (5 minutes)
@@ -250,21 +162,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -300,36 +197,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-flowchart TD
-    A[Global Load Balancer] -->|Health Checks| B{Routing Decision}
-    B -->|Latency-based| C[Nearest Healthy Region]
-    B -->|Geo-based| D[User's Geographic Region]
-    B -->|Weighted| E[Traffic Distribution]
-    B -->|Failover| F[Backup Region]
-    
-    C --> G[Regional App Cluster]
-    D --> G
-    E --> G
-    F --> H[Standby App Cluster]
-    
-    G -->|Read| I[(Local Cache)]
-    G -->|Read| J[(Regional DB)]
-    G -->|Write| K{Write Strategy}
-    
-    K -->|Local First| J
-    K -->|Global Sync| L[Consensus Protocol]
-    K -->|Queue| M[Message Bus]
-    
-    J -.->|Replicate| N[(Other Regions)]
-    L -->|Commit| N
-    M -->|Async| N
-```
-
-</details>
 
 ### 3. State Management Across Regions
 
@@ -356,49 +224,7 @@ flowchart TD
   - [ ] Monitoring in each region
 
 ### Phase 2: Data Architecture
-```yaml
-Regional Data Classification:
-  Hot Data: 
-    - User sessions
-    - Recent transactions
-    - Active configurations
-    Strategy: Multi-master or regional primary
-    
-  Warm Data:
-    - User profiles
-    - Historical orders
-    - Audit logs
-    Strategy: Async replication with conflict resolution
-    
-  Cold Data:
-    - Archives
-    - Backups
-    - Compliance records
-    Strategy: Regional storage with cross-region backup
-```
-
 ### Phase 3: Traffic Management
-
-```mermaid
-flowchart LR
-    subgraph "Traffic Routing"
-        A[GeoDNS] -->|1. Resolve| B[Regional IPs]
-        B -->|2. Connect| C[Regional LB]
-        C -->|3. Health Check| D{Service Status}
-        D -->|Healthy| E[Local Service]
-        D -->|Degraded| F[Fallback Region]
-        D -->|Down| G[Disaster Recovery]
-    end
-    
-    subgraph "Failover Logic"
-        H[Monitor Latency]
-        I[Monitor Errors]
-        J[Monitor Capacity]
-        H & I & J -->|Threshold| K[Trigger Failover]
-        K -->|DNS Update| A
-        K -->|Traffic Shift| C
-    end
-```
 
 ## Real-World Examples
 
@@ -433,21 +259,6 @@ flowchart LR
 ## Common Pitfalls
 
 ### 1. Data Consistency Conflicts
-```mermaid
-sequenceDiagram
-    participant US as US User
-    participant EU as EU User
-    participant USD as US DB
-    participant EUD as EU DB
-    
-    US->>USD: Update Profile
-    EU->>EUD: Update Profile
-    Note over USD,EUD: Conflict!
-    USD-->>EUD: Replicate
-    EUD-->>USD: Replicate
-    Note over USD,EUD: Resolution Needed
-```
-
 **Solution**: Implement CRDT or last-write-wins with vector clocks
 
 ### 2. Cascading Failures
@@ -461,23 +272,6 @@ sequenceDiagram
 ## Monitoring & Operations
 
 ### Key Metrics Dashboard
-```yaml
-Regional Health:
-  - Latency: p50, p95, p99 per region
-  - Error Rate: 4xx, 5xx by region
-  - Saturation: CPU, memory, connections
-  
-Cross-Region:
-  - Replication Lag: seconds behind primary
-  - Network RTT: between all region pairs
-  - Consistency Violations: conflict rate
-  
-Business Metrics:
-  - User Distribution: active users per region
-  - Transaction Volume: RPM by region
-  - Revenue Impact: $ per minute downtime
-```
-
 ## Migration Playbook
 
 ### From Single Region to Geo-Distributed
@@ -504,24 +298,6 @@ Business Metrics:
 
 ## Decision Framework
 
-```mermaid
-flowchart TD
-    A[Start] --> B{Users in Multiple Continents?}
-    B -->|No| C[Single Region + CDN]
-    B -->|Yes| D{Latency Sensitive?}
-    D -->|No| E{Compliance Required?}
-    D -->|Yes| F{Strong Consistency?}
-    E -->|No| C
-    E -->|Yes| G[Regional Isolation]
-    F -->|Yes| H[Active-Passive]
-    F -->|No| I[Active-Active]
-    G --> J[Implement Geo-Distribution]
-    H --> J
-    I --> J
-    C --> K[End]
-    J --> K
-```
-
 ## Related Patterns
 - [Multi-Region](../architecture/multi-region.md) - Architecture patterns for multi-region systems
 - [Edge Computing](edge-computing.md) - Computation at network edge
@@ -534,3 +310,4 @@ flowchart TD
 - [Stripe's Data Residency](https://stripe.com/guides/data-residency)
 - [Google Spanner Paper](https://research.google/pubs/pub39966/)
 - [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/)
+

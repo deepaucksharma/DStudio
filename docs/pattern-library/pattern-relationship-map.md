@@ -14,6 +14,7 @@ tags:
 title: Pattern Relationship Map - Visual Guide to Pattern Connections
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -42,6 +43,24 @@ Understanding how patterns relate is crucial for building effective distributed 
 
 This comprehensive map shows all major pattern relationships:
 
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph TD
     A[Input] --> B[Process]
@@ -54,109 +73,22 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
+</details>
+
+</details>
+
+</details>
+
+</details>
+
+</details>
+
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Entry Points"
-        Client[Client Request]
-        Event[Event/Message]
-        Data[Data Change]
-    end
-    
-    subgraph "Communication Layer"
-        AG[API Gateway]
-        LB[Load Balancer]
-        SM[Service Mesh]
-        MQ[Message Queue]
-        PS[Pub/Sub]
-        WS[WebSocket]
-    end
-    
-    subgraph "Resilience Layer"
-        CB[Circuit Breaker]
-        RT[Retry]
-        TO[Timeout]
-        BH[Bulkhead]
-        GD[Graceful Degradation]
-        HC[Health Check]
-    end
-    
-    subgraph "Data Layer"
-        ES[Event Sourcing]
-        CQRS[CQRS]
-        CDC[CDC]
-        Saga[Saga]
-        Cache[Cache]
-        Shard[Sharding]
-    end
-    
-    subgraph "Coordination Layer"
-        LE[Leader Election]
-        DL[Distributed Lock]
-        CON[Consensus]
-        DQ[Distributed Queue]
-    end
-    
-    subgraph "Scale Layer"
-        AS[Auto-scaling]
-        CDN[CDN]
-        EC[Edge Computing]
-        RL[Rate Limiting]
-    end
-    
-    %% Entry connections
-    Client --> AG
-    Client --> LB
-    Event --> MQ
-    Event --> PS
-    Data --> CDC
-    
-    %% Communication to Resilience
-    AG --> CB
-    LB --> HC
-    SM --> CB
-    SM --> RT
-    
-    %% Resilience combinations
-    CB -.-> RT
-    RT -.-> TO
-    CB --> GD
-    
-    %% Communication to Data
-    AG --> Cache
-    MQ --> ES
-    PS --> ES
-    
-    %% Data relationships
-    ES --> CQRS
-    CQRS --> Saga
-    CDC --> ES
-    
-    %% Scale relationships
-    LB --> AS
-    Cache --> CDN
-    CDN --> EC
-    AG --> RL
-    
-    %% Coordination usage
-    Saga --> DL
-    Shard --> LE
-    ES --> DQ
-    
-    classDef communication fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
-    classDef resilience fill:#ffebee,stroke:#c62828,stroke-width:3px
-    classDef data fill:#e8f5e9,stroke:#388e3c,stroke-width:3px
-    classDef coordination fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
-    classDef scale fill:#fff3e0,stroke:#f57c00,stroke-width:3px
-    
-    class AG,LB,SM,MQ,PS,WS communication
-    class CB,RT,TO,BH,GD,HC resilience
-    class ES,CQRS,CDC,Saga,Cache,Shard data
-    class LE,DL,CON,DQ coordination
-    class AS,CDN,EC,RL scale
-```
+*See Implementation Example 1 in Appendix*
 
 </details>
 
@@ -180,37 +112,7 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Detection"
-        HC[Health Check]
-        TO[Timeout]
-    end
-    
-    subgraph "Response"
-        CB[Circuit Breaker]
-        RT[Retry]
-    end
-    
-    subgraph "Fallback"
-        GD[Graceful Degradation]
-        Cache[Cache]
-    end
-    
-    HC -->|monitors| Service[Service]
-    TO -->|detects slow| Service
-    
-    Service -->|fails| CB
-    CB -->|closed| RT
-    CB -->|open| GD
-    
-    RT -->|exhausted| GD
-    GD -->|uses| Cache
-    
-    style HC fill:#4caf50
-    style CB fill:#f44336
-    style GD fill:#ff9800
-```
+*See Implementation Example 2 in Appendix*
 
 </details>
 
@@ -240,35 +142,7 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TD
-    subgraph "Write Path"
-        Write[Write Request] --> ES[Event Sourcing]
-        ES --> EventStore[(Event Store)]
-    end
-    
-    subgraph "Propagation"
-        EventStore --> CDC[CDC]
-        EventStore --> MQ[Message Queue]
-        CDC --> Projections[Projections]
-        MQ --> Projections
-    end
-    
-    subgraph "Read Path"
-        Projections --> CQRS[CQRS Read Model]
-        CQRS --> Cache[Cache]
-        Cache --> Read[Read Request]
-    end
-    
-    subgraph "Transactions"
-        ES -.-> Saga[Saga]
-        Saga -.-> Compensation[Compensation]
-    end
-    
-    style ES fill:#2196f3
-    style CQRS fill:#4caf50
-    style Saga fill:#ff9800
-```
+*See Implementation Example 3 in Appendix*
 
 </details>
 
@@ -290,37 +164,7 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Traffic Distribution"
-        DNS[GeoDNS] --> CDN[CDN]
-        CDN --> LB[Load Balancer]
-        LB --> AG[API Gateway]
-    end
-    
-    subgraph "Service Layer"
-        AG --> SM[Service Mesh]
-        SM --> Services[Services]
-        Services --> AS[Auto-scaling]
-    end
-    
-    subgraph "Data Distribution"
-        Services --> Shard[Sharding]
-        Shard --> Partition[Partitioning]
-        Services --> Cache[Distributed Cache]
-    end
-    
-    subgraph "Edge"
-        CDN -.-> EC[Edge Computing]
-        EC -.-> Cache
-    end
-    
-    AS <-.-> Metrics[Metrics]
-    
-    style CDN fill:#ff9800
-    style LB fill:#2196f3
-    style Shard fill:#4caf50
-```
+*See Implementation Example 4 in Appendix*
 
 </details>
 
@@ -342,53 +186,12 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    User[User] --> CDN[CDN<br/>Static Assets]
-    CDN --> AG[API Gateway<br/>Single Entry]
-    AG --> CB[Circuit Breaker<br/>Resilience]
-    
-    AG --> Cart[Cart Service]
-    AG --> Product[Product Service]
-    AG --> Payment[Payment Service]
-    
-    Cart --> Cache1[Redis Cache]
-    Product --> Cache2[Redis Cache]
-    Payment --> Saga[Saga<br/>Transactions]
-    
-    Saga --> ES[Event Sourcing<br/>Audit Trail]
-    ES --> MQ[Message Queue]
-    MQ --> Analytics[Analytics]
-    
-    style AG fill:#2196f3
-    style Saga fill:#ff9800
-    style ES fill:#4caf50
-```
+*See Implementation Example 5 in Appendix*
 
 </details>
 
 ### Real-Time Chat System
-```mermaid
-graph LR
-    Mobile[Mobile App] --> WS[WebSocket<br/>Real-time]
-    Web[Web App] --> WS
-    
-    WS --> LB[Load Balancer<br/>Sticky Sessions]
-    LB --> Gateway[Gateway Servers]
-    
-    Gateway --> PS[Pub/Sub<br/>Message Routing]
-    PS --> MQ[Message Queue<br/>Persistence]
-    
-    Gateway --> Presence[Presence Service]
-    Presence --> DL[Distributed Lock<br/>Consistency]
-    
-    MQ --> History[Message History]
-    History --> ES[Event Sourcing]
-    
-    style WS fill:#ff9800
-    style PS fill:#2196f3
-    style ES fill:#4caf50
-```
+*See Implementation Example 6 in Appendix*
 
 ### Financial Trading System
 ```mermaid
@@ -406,34 +209,16 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    Orders[Orders] --> Validate[Validation<br/>Service]
-    
-    Validate --> DL[Distributed Lock<br/>Prevent Duplicates]
-    DL --> ES[Event Sourcing<br/>Audit Log]
-    
-    ES --> Saga[Saga<br/>Transaction Flow]
-    Saga --> Risk[Risk Check]
-    Saga --> Ledger[Ledger Update]
-    Saga --> Notify[Notifications]
-    
-    Risk --> CB[Circuit Breaker]
-    Ledger --> CQRS[CQRS<br/>Read/Write Split]
-    
-    CQRS --> Reports[Reporting<br/>Service]
-    Reports --> MV[Materialized Views]
-    
-    style ES fill:#f44336
-    style Saga fill:#2196f3
-    style DL fill:#ff9800
-```
+*See Implementation Example 7 in Appendix*
 
 </details>
 
 ## 🔄 Pattern Dependencies
 
 ### Hard Dependencies (Required)
+<details>
+<summary>📄 View mermaid code (8 lines)</summary>
+
 ```mermaid
 graph LR
     subgraph "Must Have Together"
@@ -445,7 +230,12 @@ graph LR
     end
 ```
 
+</details>
+
 ### Soft Dependencies (Recommended)
+<details>
+<summary>📄 View mermaid code (8 lines)</summary>
+
 ```mermaid
 graph LR
     subgraph "Work Better Together"
@@ -457,49 +247,15 @@ graph LR
     end
 ```
 
+</details>
+
 ## 🎯 Pattern Selection by Problem
 
 ### "My service is slow"
-```mermaid
-graph TD
-    Slow[Service is Slow] --> Q1{Database<br/>queries slow?}
-    
-    Q1 -->|Yes| Cache[Add Caching]
-    Cache --> CQRS[Consider CQRS]
-    CQRS --> MV[Materialized Views]
-    
-    Q1 -->|No| Q2{Network<br/>latency?}
-    
-    Q2 -->|Yes| CDN[Add CDN]
-    CDN --> EC[Edge Computing]
-    
-    Q2 -->|No| Q3{CPU bound?}
-    
-    Q3 -->|Yes| AS[Auto-scaling]
-    AS --> LB[Load Balancer]
-    
-    Q3 -->|No| Profile[Profile Code]
-```
+*See Implementation Example 8 in Appendix*
 
 ### "My system keeps crashing"
-```mermaid
-graph TD
-    Crash[System Crashes] --> Q1{Cascade<br/>failures?}
-    
-    Q1 -->|Yes| CB[Circuit Breaker]
-    CB --> BH[Bulkhead]
-    
-    Q1 -->|No| Q2{Resource<br/>exhaustion?}
-    
-    Q2 -->|Yes| RL[Rate Limiting]
-    RL --> AS[Auto-scaling]
-    
-    Q2 -->|No| Q3{Dependencies<br/>failing?}
-    
-    Q3 -->|Yes| TO[Timeouts]
-    TO --> RT[Retry Logic]
-    TO --> GD[Graceful Degradation]
-```
+*See Implementation Example 9 in Appendix*
 
 ## 🏗️ Building Blocks: Pattern Stacks
 
@@ -542,39 +298,10 @@ graph LR
 ```
 
 ### Phase 2: Simple Microservices
-```mermaid
-graph LR
-    Client --> AG[API Gateway]
-    AG --> Service1[Service 1]
-    AG --> Service2[Service 2]
-    AG --> Service3[Service 3]
-    
-    Service1 --> DB1[(DB 1)]
-    Service2 --> DB2[(DB 2)]
-    Service3 --> DB3[(DB 3)]
-    
-    Service1 -.-> Cache
-    Service2 -.-> Cache
-```
+*See Implementation Example 10 in Appendix*
 
 ### Phase 3: Advanced Architecture
-```mermaid
-graph TB
-    Client --> CDN
-    CDN --> AG[API Gateway]
-    
-    AG --> SM[Service Mesh]
-    
-    SM --> Services[Microservices]
-    Services --> ES[Event Sourcing]
-    ES --> CQRS
-    
-    Services --> Saga[Saga Orchestration]
-    
-    CQRS --> Cache[Distributed Cache]
-    ES --> MQ[Message Queue]
-    MQ --> Analytics[Analytics Pipeline]
-```
+*See Implementation Example 11 in Appendix*
 
 ## 🔍 Pattern Discovery Questions
 
@@ -650,20 +377,7 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
+*See Implementation Example 12 in Appendix*
 
 ### Quick Decision Table
 
@@ -673,3 +387,395 @@ graph TD
 | Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
 | Data Volume | < 1GB | 1GB-1TB | > 1TB |
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+*See Implementation Example 1 in Appendix*
+
+### Implementation Example 2
+
+*See Implementation Example 2 in Appendix*
+
+### Implementation Example 3
+
+*See Implementation Example 3 in Appendix*
+
+### Implementation Example 4
+
+*See Implementation Example 4 in Appendix*
+
+### Implementation Example 5
+
+*See Implementation Example 5 in Appendix*
+
+### Implementation Example 6
+
+*See Implementation Example 6 in Appendix*
+
+### Implementation Example 7
+
+*See Implementation Example 7 in Appendix*
+
+### Implementation Example 8
+
+*See Implementation Example 8 in Appendix*
+
+### Implementation Example 9
+
+*See Implementation Example 9 in Appendix*
+
+### Implementation Example 10
+
+*See Implementation Example 10 in Appendix*
+
+### Implementation Example 11
+
+*See Implementation Example 11 in Appendix*
+
+### Implementation Example 12
+
+*See Implementation Example 12 in Appendix*
+
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+```mermaid
+graph TB
+    subgraph "Component 1"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 2
+
+```mermaid
+graph TB
+    subgraph "Component 3"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 3
+
+```mermaid
+graph TB
+    subgraph "Component 5"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 4
+
+```mermaid
+graph TB
+    subgraph "Component 7"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 5
+
+```mermaid
+graph TB
+    subgraph "Component 9"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 6
+
+```mermaid
+graph TB
+    subgraph "Component 10"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 7
+
+```mermaid
+graph TB
+    subgraph "Component 12"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 8
+
+```mermaid
+graph TB
+    subgraph "Component 15"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 9
+
+```mermaid
+graph TB
+    subgraph "Component 16"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 10
+
+```mermaid
+graph TB
+    subgraph "Component 21"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 11
+
+```mermaid
+graph TB
+    subgraph "Component 22"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 12
+
+```mermaid
+graph TB
+    subgraph "Component 24"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+

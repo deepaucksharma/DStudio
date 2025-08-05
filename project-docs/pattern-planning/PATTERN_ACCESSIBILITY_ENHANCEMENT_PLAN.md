@@ -1,11 +1,11 @@
 # Pattern Library Accessibility Enhancement Plan
 **Date**: 2025-08-03  
-**Goal**: Achieve WCAG 2.1 AAA compliance and create an inclusive experience for all users  
+**Goal**: Achieve WCAG 2.1 AA compliance with selected AAA features for an inclusive experience  
 **Priority**: High - Accessibility is not optional
 
 ## Executive Summary
 
-The current pattern library has significant accessibility gaps that exclude users with disabilities and create poor experiences on assistive technologies. This plan provides a comprehensive roadmap to achieve WCAG 2.1 AAA compliance while improving usability for everyone through better visual design, keyboard navigation, screen reader support, and alternative content formats.
+The current pattern library has significant accessibility gaps that exclude users with disabilities and create poor experiences on assistive technologies. This plan provides a comprehensive roadmap to achieve WCAG 2.1 AA compliance with enhanced features, improving usability for everyone through better visual design, keyboard navigation, screen reader support, and alternative content formats.
 
 ## Current Accessibility Issues
 
@@ -44,7 +44,7 @@ The current pattern library has significant accessibility gaps that exclude user
 - **Poor offline support**: No graceful degradation
 - **Heavy page weight**: Slow on assistive tech
 
-## WCAG 2.1 AAA Target Compliance
+## WCAG 2.1 AA Target Compliance with Enhanced Features
 
 ### Level A (Minimum)
 - ✅ Images have alt text
@@ -60,7 +60,7 @@ The current pattern library has significant accessibility gaps that exclude user
 - ❌ Focus visible
 - ❌ Headings and labels descriptive
 
-### Level AAA (Enhanced)
+### Level AAA (Optional Enhancements)
 - ❌ Color contrast 7:1 for normal text
 - ❌ Color contrast 4.5:1 for large text
 - ❌ No background audio
@@ -220,7 +220,7 @@ class AccessibleDiagram {
   --color-warning: #a36200;
   --color-error: #d32f2f;
   
-  /* Pattern tiers - WCAG AAA */
+  /* Pattern tiers - WCAG AA+ */
   --color-tier-gold: #b8860b;
   --color-tier-silver: #71797e;
   --color-tier-bronze: #804a00;
@@ -246,7 +246,7 @@ class AccessibleDiagram {
   }
 }
 
-/* Dark mode with AAA contrast */
+/* Dark mode with enhanced contrast */
 @media (prefers-color-scheme: dark) {
   :root {
     --color-text: #f8f9fa;
@@ -1108,7 +1108,7 @@ class AccessibilityTester {
     const { default: axe } = await import('axe-core');
     this.axe = axe;
     
-    // Configure for AAA compliance
+    // Configure for AA compliance with enhancements
     this.axe.configure({
       rules: [
         { id: 'color-contrast', enabled: true },
@@ -1198,7 +1198,7 @@ class AccessibilityTester {
 ### Visual Testing
 - [ ] 200% zoom without horizontal scroll
 - [ ] Colors not sole indicator
-- [ ] Contrast ratios meet AAA (7:1)
+- [ ] Contrast ratios meet AA (4.5:1) with AAA options
 - [ ] Focus indicators high contrast
 - [ ] Animations respect prefers-reduced-motion
 - [ ] High contrast mode functional
@@ -1447,7 +1447,7 @@ td {
 | Metric | Current | Target | Tool |
 |--------|---------|--------|------|
 | WCAG violations | Unknown | 0 | axe-core |
-| Color contrast | Failing | AAA (7:1) | Lighthouse |
+| Color contrast | Failing | AA (4.5:1) | Lighthouse |
 | Keyboard accessible | Partial | 100% | Manual |
 | Screen reader compatible | Poor | Excellent | NVDA/JAWS |
 | Mobile accessible | 60% | 95% | Manual |

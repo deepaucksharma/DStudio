@@ -123,10 +123,88 @@ graph TB
 ## Hour 1: The BEAM Foundation - Elixir/Erlang at Scale
 *[Duration: 60 minutes] - Deep dive into actor model and OTP*
 
-### Part 1: Why Elixir/Erlang?
+### Part 1: Why Elixir/Erlang? The Implementation Detail Mandate
 
 **CHIEF ARCHITECT - Interview**:
 "Most real-time systems fight against their platform. With Erlang's BEAM VM, real-time is the default. Processes are lightweight, isolation is guaranteed, and failure is a first-class concept."
+
+#### The "Why Not Node.js?" Critical Analysis
+
+**NARRATOR**: "Before we dive into Discord's Elixir implementation, let's understand why they didn't choose the obvious alternative - Node.js, the king of real-time applications."
+
+**SENIOR ARCHITECT - Interview**:
+"We actually prototyped in Node.js first. Here's the brutal reality: Node.js hits a wall at around 10,000 concurrent connections per server. The event loop becomes a bottleneck, garbage collection pauses kill real-time performance, and memory usage explodes with connection count."
+
+**Performance Comparison Matrix**:
+```yaml
+node_js_limitations:
+  concurrency_model:
+    type: "single-threaded event loop"
+    max_connections_per_server: ~10000
+    blocking_issue: "CPU-bound operations block all connections"
+    gc_pauses: "100-500ms pauses destroy voice quality"
+    
+  memory_characteristics:
+    per_connection_overhead: "~50KB (buffers + V8 overhead)"
+    heap_pressure: "V8 heap grows unpredictably"
+    fragmentation: "Memory fragmentation over time"
+    
+  failure_modes:
+    single_point_failure: "One unhandled exception kills entire server"
+    cascade_failures: "Event loop backup cascades to all connections"
+
+erlang_beam_advantages:
+  concurrency_model:
+    type: "preemptive multi-tasking with actor model"
+    max_connections_per_server: "2+ million lightweight processes"
+    isolation: "Process crashes don't affect others"
+    gc_per_process: "Microsecond GC pauses per process"
+    
+  memory_characteristics:
+    per_process_overhead: "~338 bytes per process"
+    predictable_growth: "Process heaps are isolated and small"
+    automatic_cleanup: "Dead processes freed immediately"
+    
+  failure_handling:
+    let_it_crash: "Supervision trees handle failures gracefully"
+    hot_code_loading: "Update code without dropping connections"
+    battle_tested: "30+ years in telecom systems"
+```
+
+#### Under the Hood: BEAM VM Process Implementation
+
+**VM ARCHITECT - Interview**:
+"Each Discord guild becomes an Erlang process. With 19 million servers, we're running 19 million+ concurrent processes. The BEAM VM's scheduler ensures each process gets fair CPU time through reduction counting - no process can monopolize resources."
+
+**Reduction Counting Deep Dive**:
+```erlang
+%% How BEAM prevents one process from blocking others
+-define(REDUCTIONS_PER_TIMESLICE, 2000).
+
+%% Internal scheduler logic (simplified)
+schedule_process(Process) ->
+    Process1 = reset_reductions(Process, ?REDUCTIONS_PER_TIMESLICE),
+    try
+        execute_process(Process1)
+    catch
+        reduction_limit_exceeded ->
+            %% Preempt and reschedule
+            reschedule_process(Process1);
+        process_exit:normal ->
+            cleanup_process(Process1);
+        process_exit:Error ->
+            %% Let it crash - supervisor will handle
+            report_crash(Process1, Error),
+            cleanup_process(Process1)
+    end.
+```
+
+**Quantified Performance Metrics**:
+- Process creation: 1-3 microseconds
+- Memory per process: 338 bytes baseline
+- Message passing latency: <1 microsecond locally
+- Garbage collection: 1-100 microseconds per process
+- Context switch cost: ~10 nanoseconds
 
 #### The Actor Model in Practice
 

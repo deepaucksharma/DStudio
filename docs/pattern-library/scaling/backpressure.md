@@ -1,39 +1,51 @@
 ---
-title: Backpressure Pattern
-description: Flow control mechanism that prevents system overload by limiting upstream request rates
-type: pattern
 category: scaling
-difficulty: intermediate
-reading_time: 18 min
-prerequisites: [distributed-systems, message-queues, concurrency]
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1988-01
 current_relevance: mainstream
-essential_question: How do we prevent fast producers from overwhelming slow consumers in distributed systems?
-tagline: Flow control that prevents system overload through upstream rate limiting
+description: Flow control mechanism that prevents system overload by limiting upstream
+  request rates
+difficulty: intermediate
+essential_question: How do we prevent fast producers from overwhelming slow consumers
+  in distributed systems?
+excellence_tier: gold
+introduced: 1988-01
 modern_examples:
-  - company: Netflix
-    implementation: "Hystrix backpressure for service mesh stability"
-    scale: "Handles 4x traffic spikes without degradation"
-  - company: LinkedIn
-    implementation: "Kafka consumer lag monitoring with adaptive throttling"
-    scale: "7 trillion messages/day with 99.99% delivery"
-  - company: Discord
-    implementation: "Multi-tier backpressure from gateway to database"
-    scale: "15M concurrent users, 4M messages/second"
+- company: Netflix
+  implementation: Hystrix backpressure for service mesh stability
+  scale: Handles 4x traffic spikes without degradation
+- company: LinkedIn
+  implementation: Kafka consumer lag monitoring with adaptive throttling
+  scale: 7 trillion messages/day with 99.99% delivery
+- company: Discord
+  implementation: Multi-tier backpressure from gateway to database
+  scale: 15M concurrent users, 4M messages/second
+pattern_status: recommended
+prerequisites:
+- distributed-systems
+- message-queues
+- concurrency
 production_checklist:
-  - "Implement bounded queues with appropriate capacity (2x peak burst)"
-  - "Configure timeout policies (3x p99 processing time)"
-  - "Monitor queue depth, drop rate, and block time continuously"
-  - "Test failure modes and recovery scenarios with chaos engineering"
-  - "Set up adaptive rate adjustment based on downstream capacity"
-  - "Implement graceful degradation when backpressure is applied"
-  - "Design isolation boundaries to prevent cascade propagation"
-  - "Configure multi-tier drop policies to minimize data loss"
-related_laws: [law1-failure, law2-asynchrony, law4-tradeoffs]
-related_pillars: [work, control, truth]
+- Implement bounded queues with appropriate capacity (2x peak burst)
+- Configure timeout policies (3x p99 processing time)
+- Monitor queue depth, drop rate, and block time continuously
+- Test failure modes and recovery scenarios with chaos engineering
+- Set up adaptive rate adjustment based on downstream capacity
+- Implement graceful degradation when backpressure is applied
+- Design isolation boundaries to prevent cascade propagation
+- Configure multi-tier drop policies to minimize data loss
+reading_time: 18 min
+related_laws:
+- law1-failure
+- law2-asynchrony
+- law4-tradeoffs
+related_pillars:
+- work
+- control
+- truth
+tagline: Flow control that prevents system overload through upstream rate limiting
+title: Backpressure Pattern
+type: pattern
 ---
+
 
 # Backpressure Pattern
 
@@ -79,6 +91,9 @@ related_pillars: [work, control, truth]
 Imagine a highway where cars (messages) flow from a 6-lane highway (fast producer) to a single-lane tunnel (slow consumer). Without traffic control, cars pile up and create gridlock. Backpressure is like having traffic lights that slow down cars entering the highway when the tunnel gets congested, preventing crashes and maintaining steady flow.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Fast Producer<br/>🚗🚗🚗🚗🚗🚗] --> B[Traffic Control<br/>🚦]
@@ -88,6 +103,8 @@ graph LR
     style B fill:#4ecdc4,stroke:#45a29e  
     style C fill:#45b7d1,stroke:#3a9bc1
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Backpressure prevents system overload by making fast producers slow down when slow consumers can't keep up, maintaining stability over raw throughput.
@@ -110,39 +127,6 @@ Backpressure signals upstream producers to reduce their rate when downstream con
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Producer Layer"
-        A[Event Generator<br/>1000 msg/s]
-        B[API Endpoints<br/>Multiple Sources]
-    end
-    
-    subgraph "Flow Control Layer"
-        C[Backpressure Controller<br/>Monitor & Signal]
-        D[Bounded Queue<br/>Buffer & Policy]
-        E[Rate Limiter<br/>Throttle Upstream]
-    end
-    
-    subgraph "Consumer Layer"
-        F[Processing Engine<br/>100 msg/s capacity]
-        G[Health Monitor<br/>Performance Tracking]
-    end
-    
-    A --> C
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> C
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class C,D primary
-    class E,F secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -154,7 +138,9 @@ graph TB
 
 ### Basic Example
 
-```python
+<details>
+<summary>📄 View decision logic</summary>
+
 # Backpressure core concept
 def backpressure_control():
     """Shows essential backpressure flow control"""
@@ -169,29 +155,14 @@ def backpressure_control():
         signal_throttle(adaptive=True)
     else:
         signal_normal_rate()
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-```mermaid
-stateDiagram-v2
-    [*] --> Normal
-    Normal --> Pressure_Building: Queue >70% full
-    Pressure_Building --> Backpressure_Active: Queue >85% full
-    Backpressure_Active --> Pressure_Building: Queue <70% full
-    Pressure_Building --> Normal: Queue <50% full
-    Backpressure_Active --> Critical: Queue 100% full
-    Critical --> Backpressure_Active: Queue <95% full
-    
-    Normal: Normal flow
-    Pressure_Building: Gentle rate reduction
-    Backpressure_Active: Aggressive throttling
-    Critical: Drop/block policy
-```
-
 #### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -239,32 +210,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (1-10 services)"
-        A1[Simple Queue<br/>Blocking Strategy]
-    end
-    
-    subgraph "Medium Scale (10-100 services)"
-        B1[Credit-Based<br/>Flow Control]
-        B2[Service Mesh<br/>Integration]
-        B3[Adaptive Rate<br/>Adjustment]
-        B1 --> B2
-        B2 --> B3
-    end
-    
-    subgraph "Large Scale (100+ services)"
-        C1[Distributed<br/>Backpressure]
-        C2[ML-based<br/>Prediction]
-        C3[Global Rate<br/>Coordination]
-        C1 --> C2
-        C2 --> C3
-    end
-    
-    A1 -->|Growth| B1
-    B3 -->|Scale| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -305,6 +250,9 @@ graph LR
 
 #### Migration from No Flow Control
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[No Control<br/>Frequent Crashes] -->|Step 1| B[Simple Blocking<br/>Basic Stability]
@@ -314,6 +262,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -336,29 +286,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Flow Control?] --> B{Producer Faster?}
-    B -->|No| C[No Backpressure Needed]
-    B -->|Yes| D{Can Lose Messages?}
-    
-    D -->|Yes| E[Drop Strategy]
-    D -->|No| F{Latency Sensitive?}
-    
-    F -->|Yes| G[Credit-Based Control]
-    F -->|No| H[Blocking Strategy]
-    
-    E --> I[Adaptive Rate Control]
-    G --> I
-    H --> I
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class I recommended
-    class E,G caution
-```
 
 ### Comparison with Alternatives
 
@@ -425,3 +352,4 @@ graph TD
     - [Performance Tuning](../../excellence/guides/backpressure-optimization.md)
 
 </div>
+

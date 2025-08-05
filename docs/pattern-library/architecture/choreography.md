@@ -1,36 +1,49 @@
 ---
-title: Choreography Pattern
-description: Decentralized coordination where services react to events without central orchestration
-type: pattern
+best_for: Simple, linear event-driven workflows where service autonomy is critical
+  and debugging complexity is acceptable
 category: architecture
-difficulty: intermediate
-reading_time: 20 min
-prerequisites: ["event-driven-architecture", "microservices", "distributed-systems"]
-excellence_tier: bronze
-pattern_status: legacy
-introduced: 2005-01
 current_relevance: declining
-essential_question: How do we coordinate distributed workflows without central control while maintaining observability?
-tagline: Decentralized service coordination through event-driven reactions
+deprecation_reason: Debugging complexity, lack of workflow visibility, and difficult
+  error handling make pure choreography unsuitable for complex business processes
+description: Decentralized coordination where services react to events without central
+  orchestration
+difficulty: intermediate
+essential_question: How do we coordinate distributed workflows without central control
+  while maintaining observability?
+excellence_tier: bronze
+introduced: 2005-01
 modern_alternatives:
-  - "Event Streaming platforms (Apache Kafka, Pulsar) for better event ordering and replay"
-  - "Saga Orchestration patterns for complex workflow visibility and control"
-  - "Service Mesh (Istio, Linkerd) for traffic management and observability"
-  - "Workflow engines (Temporal, Zeebe) for explicit business process management"
-deprecation_reason: "Debugging complexity, lack of workflow visibility, and difficult error handling make pure choreography unsuitable for complex business processes"
+- Event Streaming platforms (Apache Kafka, Pulsar) for better event ordering and replay
+- Saga Orchestration patterns for complex workflow visibility and control
+- Service Mesh (Istio, Linkerd) for traffic management and observability
+- Workflow engines (Temporal, Zeebe) for explicit business process management
+pattern_status: legacy
+prerequisites:
+- event-driven-architecture
+- microservices
+- distributed-systems
+reading_time: 20 min
+related_laws:
+- law2-asynchrony
+- law3-emergence
+- law5-epistemology
+related_pillars:
+- control
+- intelligence
+tagline: Decentralized service coordination through event-driven reactions
+title: Choreography Pattern
 trade_offs:
-  pros:
-    - "Maximum service autonomy and loose coupling"
-    - "Excellent horizontal scalability"
-    - "No single point of failure in coordination"
   cons:
-    - "Extremely difficult to debug distributed workflows"
-    - "Poor visibility into business process state"
-    - "Complex error handling and compensation logic"
-best_for: "Simple, linear event-driven workflows where service autonomy is critical and debugging complexity is acceptable"
-related_laws: ["law2-asynchrony", "law3-emergence", "law5-epistemology"]
-related_pillars: ["control", "intelligence"]
+  - Extremely difficult to debug distributed workflows
+  - Poor visibility into business process state
+  - Complex error handling and compensation logic
+  pros:
+  - Maximum service autonomy and loose coupling
+  - Excellent horizontal scalability
+  - No single point of failure in coordination
+type: pattern
 ---
+
 
 # Choreography Pattern
 
@@ -71,6 +84,9 @@ related_pillars: ["control", "intelligence"]
 Imagine a flash mob where dancers coordinate without a visible choreographer. Each dancer watches for cues from others and responds with their moves. It looks magical when it works, but when someone misses a cue, the entire performance falls apart—and no one knows who to blame or how to fix it.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph LR
     subgraph "Choreography Flow"
@@ -82,6 +98,8 @@ graph LR
     style A fill:#81c784,stroke:#388e3c
     style D fill:#64b5f6,stroke:#1976d2
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Choreography trades workflow visibility for service autonomy—great for simple flows, problematic for complex business processes.
@@ -104,24 +122,6 @@ Choreography coordinates distributed services through event reactions without ce
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Choreography Architecture"
-        A[Order Service] --> B[Event Bus]
-        C[Inventory Service] --> B
-        D[Payment Service] --> B
-        E[Shipping Service] --> B
-        
-        B --> F["Event Reactions<br/>No Central Control"]
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class B primary
-    class A,C,D,E secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -131,6 +131,9 @@ graph TB
 | **Event Schema** | Message format | Defines event structure and versioning |
 
 ### Basic Example
+
+<details>
+<summary>📄 View python code (10 lines)</summary>
 
 ```python
 # Choreography event handling (simplified)
@@ -145,25 +148,13 @@ def handle_order_created(event):
         publish_event("ShipmentCreated", event.order_id)
 ```
 
+</details>
+
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-```mermaid
-stateDiagram-v2
-    [*] --> OrderCreated
-    OrderCreated --> InventoryReserved: Service reaction
-    OrderCreated --> InventoryFailed: Out of stock
-    InventoryReserved --> PaymentProcessed: Service reaction
-    InventoryReserved --> PaymentFailed: Card declined
-    PaymentProcessed --> OrderShipped: Service reaction
-    OrderShipped --> [*]: Success
-    InventoryFailed --> OrderCancelled: Compensation
-    PaymentFailed --> InventoryReleased: Compensation
-    OrderCancelled --> [*]: Failed
-```
-
 #### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -211,27 +202,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (2-5 services)"
-        A1["Event Bus<br/>RabbitMQ"]
-        A2["Simple Events<br/>JSON messages"]
-    end
-    
-    subgraph "Medium Scale (5-20 services)"
-        B1["Apache Kafka<br/>Event Streaming"]
-        B2["Schema Registry<br/>Event Evolution"]
-    end
-    
-    subgraph "Large Scale (20+ services)"
-        C1["Multi-Region Kafka<br/>Global Event Bus"]
-        C2["Event Mesh<br/>Cross-cluster routing"]
-    end
-    
-    A1 -->|"1K events/sec"| B1
-    B1 -->|"100K events/sec"| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -268,6 +238,9 @@ graph LR
 
 #### Migration from Legacy
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A["Monolithic Workflows<br/>(Centralized Processing)"] -->|"Step 1"| B["Event-Driven Services<br/>(Choreography)"]
@@ -277,6 +250,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -299,24 +274,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A["Need service coordination?"] --> B{"Workflow complexity?"}
-    B -->|"Simple & Linear"| C["Consider Choreography<br/>(with strong monitoring)"]
-    B -->|"Complex & Branching"| D["Use Orchestration<br/>(Temporal, Zeebe)"]
-    B -->|"Mixed Requirements"| E["Event Streaming<br/>(Kafka + KSQL)"]
-    
-    C --> F["High autonomy<br/>Debugging challenges"]
-    D --> G["Central control<br/>Clear visibility"]
-    E --> H["Balanced approach<br/>Modern tooling"]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class E,H recommended
-    class C,F caution
-```
 
 ### Comparison with Alternatives
 
@@ -385,3 +342,4 @@ graph TD
 </div>
 
 ---
+

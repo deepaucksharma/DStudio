@@ -1,20 +1,13 @@
 ---
-title: Materialized View Pattern
-description: Pre-compute and store query results for instant access to complex aggregations and joins
-type: pattern
 category: data-management
-difficulty: intermediate
-reading_time: 20 min
-prerequisites:
-- database-views
-- query-optimization
-- data-warehousing
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1990-01
 current_relevance: mainstream
-essential_question: How do we eliminate expensive query computation by pre-calculating and storing results for instant access?
-tagline: Pre-compute once, query instantly at scale
+description: Pre-compute and store query results for instant access to complex aggregations
+  and joins
+difficulty: intermediate
+essential_question: How do we eliminate expensive query computation by pre-calculating
+  and storing results for instant access?
+excellence_tier: gold
+introduced: 1990-01
 modern_examples:
 - company: Google BigQuery
   implementation: Materialized views for real-time analytics on petabytes of data
@@ -25,6 +18,11 @@ modern_examples:
 - company: Snowflake
   implementation: Zero-maintenance materialized views with automatic refresh
   scale: Serves 7,800+ customers with instant query results
+pattern_status: recommended
+prerequisites:
+- database-views
+- query-optimization
+- data-warehousing
 production_checklist:
 - Identify expensive queries that benefit from materialization
 - Design refresh strategy (incremental vs full, scheduled vs triggered)
@@ -34,12 +32,16 @@ production_checklist:
 - Set up automatic refresh based on data change patterns
 - Configure query rewrite rules for optimizer
 - Test impact on write performance and storage
+reading_time: 20 min
 related_laws:
 - law4-tradeoffs
 - law7-economics
 related_pillars:
 - state
 - work
+tagline: Pre-compute once, query instantly at scale
+title: Materialized View Pattern
+type: pattern
 ---
 
 
@@ -87,24 +89,6 @@ Imagine a coffee shop that serves complex drinks. Instead of making each latte f
 
 ### Visual Metaphor
 
-```mermaid
-graph LR
-    subgraph "Without Materialized View"
-        A[Query] --> B[Scan 1B rows]
-        B --> C[Join 5 tables]
-        C --> D[Aggregate]
-        D --> E[30 seconds ⏰]
-    end
-    
-    subgraph "With Materialized View"
-        F[Query] --> G[Read pre-computed]
-        G --> H[50ms ⚡]
-    end
-    
-    style E fill:#ffb74d,stroke:#f57c00
-    style H fill:#81c784,stroke:#388e3c
-```
-
 ### Core Insight
 
 > **Key Takeaway:** Trading storage space and refresh complexity for dramatically faster query performance.
@@ -129,26 +113,6 @@ Materialized views pre-compute expensive query results and store them physically
 
 #### Architecture Overview
 
-```mermaid
-graph TB
-    subgraph "Materialized View System"
-        QE[Query Engine] --> QO[Query Optimizer]
-        QO --> MV[(Materialized View)]
-        QO --> BT[(Base Tables)]
-        
-        BT --> RF[Refresh Process]
-        RF --> MV
-        
-        MV --> QR[Query Results]
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class QE,QR primary
-    class MV,RF,QO secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -160,28 +124,14 @@ graph TB
 
 ### Basic Example
 
-```sql
--- Create materialized view for sales analytics
-CREATE MATERIALIZED VIEW daily_sales_summary AS
-SELECT 
-    DATE(order_date) as sale_date,
-    product_category,
-    COUNT(*) as order_count,
-    SUM(amount) as total_revenue,
-    AVG(amount) as avg_order_value
-FROM orders o
-JOIN products p ON o.product_id = p.id
-GROUP BY DATE(order_date), product_category;
-
--- Refresh every hour
-REFRESH MATERIALIZED VIEW daily_sales_summary;
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
+
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
 
 ```mermaid
 stateDiagram-v2
@@ -195,6 +145,8 @@ stateDiagram-v2
     Failed --> Refreshing: Retry refresh
     Ready --> [*]: Drop view
 ```
+
+</details>
 
 #### Critical Design Decisions
 
@@ -243,26 +195,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (GB)"
-        A1[Simple Aggregation MV] --> A2[Hourly Refresh]
-    end
-    
-    subgraph "Medium Scale (TB)"
-        B1[Layered MV Hierarchy] --> B2[Incremental Refresh]
-        B2 --> B3[Partition Management]
-    end
-    
-    subgraph "Large Scale (PB)"
-        C1[Distributed MVs] --> C2[Stream Processing]
-        C2 --> C3[Global Coordination]
-    end
-    
-    A2 -->|100GB/hour| B1
-    B3 -->|10TB/hour| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -299,6 +231,9 @@ graph LR
 
 #### Migration from Regular Views
 
+<details>
+<summary>📄 View mermaid code (8 lines)</summary>
+
 ```mermaid
 graph LR
     A[Regular Views] -->|Step 1| B[Identify Slow Queries]
@@ -309,6 +244,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style E fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -331,27 +268,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Slow Query?] --> B{Query Frequency?}
-    B -->|High| C{Data Change Rate?}
-    B -->|Low| D[Optimize Query Instead]
-    
-    C -->|Low| E[Perfect for MV]
-    C -->|Medium| F[Incremental MV]
-    C -->|High| G[Consider Real-time Aggregation]
-    
-    E --> H[Full Refresh Strategy]
-    F --> I[CDC-based Refresh]
-    G --> J[Stream Processing]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class E,F recommended
-    class G,D caution
-```
 
 ### Comparison with Alternatives
 
@@ -422,6 +338,9 @@ graph TD
 ---
 
 *Next: [Event Sourcing](event-sourcing.md) - Storing state as a sequence of events*
+<details>
+<summary>📄 View sql code (10 lines)</summary>
+
 ```sql
 -- Drop and recreate
 CREATE MATERIALIZED VIEW sales_summary AS
@@ -435,7 +354,12 @@ FROM orders
 GROUP BY 1, 2;
 ```
 
+</details>
+
 ### 2. Incremental Refresh
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
+
 ```mermaid
 sequenceDiagram
     participant Base as Base Table
@@ -448,6 +372,8 @@ sequenceDiagram
     Query->>MV: Read data
     Note over MV: Only new data processed
 ```
+
+</details>
 
 ### 3. Real-time Materialization
 
@@ -475,31 +401,6 @@ sequenceDiagram
 
 ## Cost-Benefit Analysis
 
-```mermaid
-graph LR
-    subgraph "Costs"
-        C1[Storage Space]
-        C2[Refresh Compute]
-        C3[Maintenance Effort]
-        C4[Staleness Risk]
-    end
-    
-    subgraph "Benefits"
-        B1[Query Speed]
-        B2[Reduced Load]
-        B3[User Experience]
-        B4[Cost Savings]
-    end
-    
-    subgraph "ROI Calculation"
-        Formula[ROI = (Query Cost Saved - Storage Cost) × Query Frequency]
-    end
-    
-    C1 --> Formula
-    B1 --> Formula
-    B4 --> Formula
-```
-
 ## Common Pitfalls
 
 <div class="failure-vignette">
@@ -523,3 +424,5 @@ graph TD
     Expensive -->|No| Skip[Don't Materialize]
     Expensive -->|Yes| Frequency{Run > 100x/day?}
     
+
+

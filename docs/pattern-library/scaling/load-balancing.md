@@ -1,39 +1,51 @@
 ---
-title: Load Balancing Pattern
-description: Traffic distribution pattern that spreads requests across multiple backend instances
-type: pattern
 category: scaling
-difficulty: intermediate
-reading_time: 18 min
-prerequisites: [networking, distributed-systems, high-availability]
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1990-01
 current_relevance: mainstream
-essential_question: How do we distribute incoming requests across multiple servers to achieve high availability and horizontal scalability?
-tagline: Traffic distribution foundation for scalable systems
+description: Traffic distribution pattern that spreads requests across multiple backend
+  instances
+difficulty: intermediate
+essential_question: How do we distribute incoming requests across multiple servers
+  to achieve high availability and horizontal scalability?
+excellence_tier: gold
+introduced: 1990-01
 modern_examples:
-  - company: Google
-    implementation: "Maglev software load balancer with consistent hashing"
-    scale: "1M+ requests/sec per instance with zero downtime"
-  - company: AWS
-    implementation: "Elastic Load Balancer with automatic scaling"
-    scale: "Trillions of requests daily across global infrastructure"
-  - company: Cloudflare
-    implementation: "Global anycast load balancing with edge routing"
-    scale: "45M+ requests/sec globally with <50ms latency"
+- company: Google
+  implementation: Maglev software load balancer with consistent hashing
+  scale: 1M+ requests/sec per instance with zero downtime
+- company: AWS
+  implementation: Elastic Load Balancer with automatic scaling
+  scale: Trillions of requests daily across global infrastructure
+- company: Cloudflare
+  implementation: Global anycast load balancing with edge routing
+  scale: 45M+ requests/sec globally with <50ms latency
+pattern_status: recommended
+prerequisites:
+- networking
+- distributed-systems
+- high-availability
 production_checklist:
-  - "Implement multi-layer health checks (L4 + L7)"
-  - "Choose appropriate algorithm (least connections for most workloads)"
-  - "Configure connection draining for graceful deployments"
-  - "Set up SSL termination and certificate management"
-  - "Enable geographic routing for global applications"
-  - "Monitor backend distribution and performance metrics"
-  - "Configure circuit breakers to prevent cascade failures"
-  - "Implement session management strategy (stateless preferred)"
-related_laws: [law1-failure, law2-asynchrony, law4-tradeoffs]
-related_pillars: [work, control, truth]
+- Implement multi-layer health checks (L4 + L7)
+- Choose appropriate algorithm (least connections for most workloads)
+- Configure connection draining for graceful deployments
+- Set up SSL termination and certificate management
+- Enable geographic routing for global applications
+- Monitor backend distribution and performance metrics
+- Configure circuit breakers to prevent cascade failures
+- Implement session management strategy (stateless preferred)
+reading_time: 18 min
+related_laws:
+- law1-failure
+- law2-asynchrony
+- law4-tradeoffs
+related_pillars:
+- work
+- control
+- truth
+tagline: Traffic distribution foundation for scalable systems
+title: Load Balancing Pattern
+type: pattern
 ---
+
 
 # Load Balancing Pattern
 
@@ -79,6 +91,9 @@ related_pillars: [work, control, truth]
 Imagine a busy restaurant with multiple chefs. Without a maitre d' (load balancer), customers would randomly pick chefs, causing some to be overwhelmed while others stay idle. The maitre d' intelligently distributes orders based on each chef's current workload, ensuring faster service and happier customers. Load balancing works the same way for web traffic.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Client Requests<br/>🌊] --> B[Load Balancer<br/>⚖️]
@@ -88,6 +103,8 @@ graph LR
     style B fill:#4ecdc4,stroke:#45a29e  
     style C fill:#45b7d1,stroke:#3a9bc1
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Load balancing transforms multiple servers into a single, more powerful and reliable system by intelligently distributing work.
@@ -110,41 +127,6 @@ Load balancing distributes incoming requests across multiple backend servers usi
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Client Layer"
-        A[Web Clients<br/>Mobile Apps]
-    end
-    
-    subgraph "Load Balancing Layer"
-        B[Load Balancer<br/>Algorithm Engine]
-        C[Health Monitor<br/>Backend Status]
-        D[Session Manager<br/>Sticky/Stateless]
-    end
-    
-    subgraph "Backend Layer"
-        E[Server 1<br/>Active]
-        F[Server 2<br/>Active]
-        G[Server 3<br/>Backup]
-    end
-    
-    A --> B
-    B --> C
-    B --> D
-    C --> B
-    D --> B
-    
-    B --> E
-    B --> F
-    B --> G
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class B,C primary
-    class E,F,G secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -156,7 +138,25 @@ graph TB
 
 ### Basic Example
 
-```python
+```mermaid
+classDiagram
+    class Component2 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler2 {
+        +handle() Result
+        +configure() void
+    }
+    Component2 --> Handler2 : uses
+    
+    note for Component2 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 # Load balancing core concept
 class LoadBalancer:
     def __init__(self):
@@ -175,13 +175,17 @@ class LoadBalancer:
         server = self.servers[self.current]
         self.current = (self.current + 1) % len(self.servers)
         return server
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
+
 ```mermaid
 stateDiagram-v2
     [*] --> Request_Received
@@ -194,6 +198,8 @@ stateDiagram-v2
     Update_Metrics --> [*]: Complete
     Fallback_Server --> [*]: Emergency response
 ```
+
+</details>
 
 #### Critical Design Decisions
 
@@ -242,32 +248,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (< 10K req/s)"
-        A1[Single LB<br/>NGINX/HAProxy]
-    end
-    
-    subgraph "Medium Scale (10K-100K req/s)"
-        B1[Multiple LBs<br/>Active-Passive]
-        B2[Health Monitoring<br/>Advanced Checks]
-        B3[SSL Termination<br/>Certificate Management]
-        B1 --> B2
-        B2 --> B3
-    end
-    
-    subgraph "Large Scale (>100K req/s)"
-        C1[Global LB<br/>GeoDNS]
-        C2[Regional LBs<br/>Multi-datacenter]
-        C3[Edge LBs<br/>CDN Integration]
-        C1 --> C2
-        C2 --> C3
-    end
-    
-    A1 -->|Growth| B1
-    B3 -->|Scale| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -309,6 +289,9 @@ graph LR
 
 #### Migration from Single Server
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Single Server<br/>No Redundancy] -->|Step 1| B[Basic LB<br/>Round-Robin]
@@ -318,6 +301,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -340,25 +325,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Load Balancing?] --> B{Traffic Pattern?}
-    B -->|HTTP/HTTPS| C[Layer 7 Load Balancer]
-    B -->|TCP/UDP| D[Layer 4 Load Balancer]
-    
-    C --> E{Session Requirements?}
-    E -->|Stateless| F[Least Connections Algorithm]
-    E -->|Sticky| G[IP Hash or Cookie-based]
-    
-    D --> H[Round Robin for Equal Servers]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class F,H recommended
-    class G caution
-```
 
 ### Comparison with Alternatives
 
@@ -425,3 +391,4 @@ graph TD
     - [SSL Termination Guide](../../excellence/guides/ssl-termination.md)
 
 </div>
+

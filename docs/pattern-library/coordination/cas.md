@@ -1,39 +1,42 @@
 ---
-title: CAS (Compare-and-Swap)
-description: Lock-free atomic operation for concurrent data structures
-type: pattern
+best_for: High-performance counters, lock-free data structures, low-contention atomic
+  updates
 category: coordination
-difficulty: intermediate
-reading_time: 25 min
-prerequisites: 
-  - concurrency
-  - memory-models
-excellence_tier: silver
-pattern_status: use-with-caution
-introduced: 1972-01
 current_relevance: niche
-essential_question: How do we achieve thread-safe updates without locks and their overhead?
-tagline: Lock-free atomic operations with compare-and-swap semantics
-trade_offs:
-  pros:
-    - "Lock-free performance eliminates blocking"
-    - "No deadlock or priority inversion possible"
-    - "Fine-grained concurrency control"
-    - "Composable with other lock-free structures"
-  cons:
-    - "ABA problem creates subtle correctness issues"
-    - "Limited to single-word atomic updates"
-    - "Difficult debugging and reasoning"
-    - "Livelock under high contention"
-best_for: "High-performance counters, lock-free data structures, low-contention atomic updates"
+description: Lock-free atomic operation for concurrent data structures
+difficulty: intermediate
+essential_question: How do we achieve thread-safe updates without locks and their
+  overhead?
+excellence_tier: silver
+introduced: 1972-01
+pattern_status: use-with-caution
+prerequisites:
+- concurrency
+- memory-models
+reading_time: 25 min
 related_laws:
-  - law2-asynchrony
-  - law4-optimization
-  - law7-economics
+- law2-asynchrony
+- law4-optimization
+- law7-economics
 related_pillars:
-  - work
-  - state
+- work
+- state
+tagline: Lock-free atomic operations with compare-and-swap semantics
+title: CAS (Compare-and-Swap)
+trade_offs:
+  cons:
+  - ABA problem creates subtle correctness issues
+  - Limited to single-word atomic updates
+  - Difficult debugging and reasoning
+  - Livelock under high contention
+  pros:
+  - Lock-free performance eliminates blocking
+  - No deadlock or priority inversion possible
+  - Fine-grained concurrency control
+  - Composable with other lock-free structures
+type: pattern
 ---
+
 
 # CAS (Compare-and-Swap)
 
@@ -75,27 +78,6 @@ Imagine updating a shared scoreboard at a sports stadium. The traditional approa
 
 ### Visual Metaphor
 
-```mermaid
-graph LR
-    subgraph "CAS Operation"
-        A[Read Value: 10] --> B{Compare: 10 == 10?}
-        B -->|Yes| C[Swap to 15]
-        B -->|No| D[Retry with new value]
-        C --> E[Success]
-        D --> A
-    end
-    
-    subgraph "Lock-based"
-        F[Acquire Lock] --> G[Read & Modify]
-        G --> H[Release Lock]
-        I[Other threads wait] -.-> F
-    end
-    
-    style C fill:#81c784,stroke:#388e3c
-    style E fill:#64b5f6,stroke:#1976d2
-    style I fill:#ffcdd2,stroke:#d32f2f
-```
-
 ### Core Insight
 
 > **Key Takeaway:** CAS trades the guaranteed success of locks for optimistic, retry-based operations that avoid blocking but require careful handling of failures.
@@ -120,34 +102,6 @@ CAS atomically checks if a memory location contains an expected value and update
 
 #### CAS Operation Flow
 
-```mermaid
-sequenceDiagram
-    participant T1 as Thread 1
-    participant T2 as Thread 2
-    participant M as Memory Location
-    
-    Note over M: Initial value: 100
-    
-    T1->>M: Read value (100)
-    T2->>M: Read value (100)
-    
-    Note over T1: Calculate new value: 105
-    Note over T2: Calculate new value: 110
-    
-    T1->>M: CAS(expected: 100, new: 105)
-    Note over M: 100 == 100 ✓, set to 105
-    M-->>T1: Success ✅
-    
-    T2->>M: CAS(expected: 100, new: 110)
-    Note over M: 105 != 100 ✗
-    M-->>T2: Failure ❌
-    
-    T2->>M: Read new value (105)
-    Note over T2: Recalculate: 105 + 10 = 115
-    T2->>M: CAS(expected: 105, new: 115)
-    M-->>T2: Success ✅
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -159,52 +113,11 @@ sequenceDiagram
 
 ### Basic Example
 
-```cpp
-// Simple CAS-based counter
-class AtomicCounter {
-    std::atomic<int> value{0};
-    
-public:
-    int increment() {
-        int current = value.load();
-        int next;
-        do {
-            next = current + 1;
-        } while (!value.compare_exchange_weak(current, next));
-        return next;
-    }
-};
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### CAS vs Traditional Locking
-
-```mermaid
-graph TB
-    subgraph "CAS Approach"
-        C1[Thread reads value] --> C2[Computes new value]
-        C2 --> C3{CAS succeeds?}
-        C3 -->|Yes| C4[Operation complete]
-        C3 -->|No| C1
-    end
-    
-    subgraph "Lock Approach"
-        L1[Thread acquires lock] --> L2[Reads & modifies]
-        L2 --> L3[Releases lock]
-        L4[Other threads blocked] -.-> L1
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    classDef blocked fill:#ffcdd2,stroke:#d32f2f
-    
-    class C1,C2,C4 primary
-    class L1,L2,L3 secondary
-    class L4 blocked
-```
 
 #### Critical Design Decisions
 
@@ -253,35 +166,6 @@ graph TB
 
 ### Lock-Free Data Structures
 
-```mermaid
-graph TB
-    subgraph "Lock-Free Stack"
-        S1[Top Pointer] --> S2[Node 1]
-        S2 --> S3[Node 2]
-        S3 --> S4[Node 3]
-        S4 --> S5[null]
-        
-        S6[Push: CAS top pointer] --> S1
-        S7[Pop: CAS top to next] --> S1
-    end
-    
-    subgraph "Lock-Free Queue"
-        Q1[Head] --> Q2[Node A]
-        Q2 --> Q3[Node B]
-        Q3 --> Q4[Node C]
-        Q5[Tail] --> Q4
-        
-        Q6[Enqueue: CAS tail->next] --> Q5
-        Q7[Dequeue: CAS head pointer] --> Q1
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class S1,Q1,Q5 primary
-    class S2,S3,S4,Q2,Q3,Q4 secondary
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -321,6 +205,9 @@ graph TB
 
 #### From Locks to Lock-Free
 
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph LR
     A[Coarse-Grained<br/>Locks] -->|Step 1| B[Fine-Grained<br/>Locks]
@@ -332,6 +219,8 @@ graph LR
     style C fill:#81c784,stroke:#388e3c
     style D fill:#64b5f6,stroke:#1976d2
 ```
+
+</details>
 
 #### Future Directions
 
@@ -354,30 +243,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Atomic Update?] --> B{Contention Level?}
-    B -->|Low| C[Use CAS]
-    B -->|Medium| D{Operation Complexity?}
-    B -->|High| E[Use Locks]
-    
-    D -->|Simple| F[CAS with backoff]
-    D -->|Complex| G[Consider STM]
-    
-    C --> H[Atomic primitives]
-    F --> I[Retry with exponential backoff]
-    E --> J[Traditional synchronization]
-    G --> K[Software Transactional Memory]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    classDef avoid fill:#ffcdd2,stroke:#d32f2f,stroke-width:2px
-    
-    class C,H recommended
-    class F,I caution
-    class E,J avoid
-```
 
 ### Comparison with Alternatives
 
@@ -444,3 +309,4 @@ graph TD
     - [Performance Testing Guide](../../excellence/guides/concurrency-testing.md)
 
 </div>
+

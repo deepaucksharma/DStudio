@@ -1,44 +1,51 @@
 ---
-title: Bloom Filter Pattern
-description: Space-efficient probabilistic data structure for fast set membership testing with controlled false positive rates
-type: pattern
 category: data-management
-difficulty: intermediate
-reading_time: 25 min
-prerequisites:
-  - hashing
-  - probability
-  - bit-arrays
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1970-01
 current_relevance: mainstream
-essential_question: How can we test set membership using minimal memory when false positives are acceptable?
-tagline: Space-efficient set membership with controlled uncertainty
+description: Space-efficient probabilistic data structure for fast set membership
+  testing with controlled false positive rates
+difficulty: intermediate
+essential_question: How can we test set membership using minimal memory when false
+  positives are acceptable?
+excellence_tier: gold
+introduced: 1970-01
 modern_examples:
-  - company: Google Chrome
-    implementation: Bloom filters for malicious URL detection
-    scale: Protects 3B+ users with minimal memory overhead
-  - company: Apache Cassandra
-    implementation: Bloom filters to avoid unnecessary disk reads
-    scale: 95%+ reduction in disk I/O for non-existent keys
-  - company: Medium
-    implementation: Bloom filters for recommendation deduplication
-    scale: Prevents duplicate content for millions of readers
+- company: Google Chrome
+  implementation: Bloom filters for malicious URL detection
+  scale: Protects 3B+ users with minimal memory overhead
+- company: Apache Cassandra
+  implementation: Bloom filters to avoid unnecessary disk reads
+  scale: 95%+ reduction in disk I/O for non-existent keys
+- company: Medium
+  implementation: Bloom filters for recommendation deduplication
+  scale: Prevents duplicate content for millions of readers
+pattern_status: recommended
+prerequisites:
+- hashing
+- probability
+- bit-arrays
 production_checklist:
-  - Calculate optimal size based on expected elements and FP rate
-  - Choose appropriate number of hash functions (typically 3-7)
-  - Implement counting bloom filters if deletion needed
-  - Monitor false positive rate in production
-  - Plan for filter regeneration as it fills
-  - Use consistent hashing for distributed filters
-  - Implement filter persistence and loading
-  - Test with production data volumes
-  - Document false positive impact on system
-  - Consider scalable bloom filters for growth
-related_laws: [law4-optimization, law5-knowledge]
-related_pillars: [state, intelligence]
+- Calculate optimal size based on expected elements and FP rate
+- Choose appropriate number of hash functions (typically 3-7)
+- Implement counting bloom filters if deletion needed
+- Monitor false positive rate in production
+- Plan for filter regeneration as it fills
+- Use consistent hashing for distributed filters
+- Implement filter persistence and loading
+- Test with production data volumes
+- Document false positive impact on system
+- Consider scalable bloom filters for growth
+reading_time: 25 min
+related_laws:
+- law4-optimization
+- law5-knowledge
+related_pillars:
+- state
+- intelligence
+tagline: Space-efficient set membership with controlled uncertainty
+title: Bloom Filter Pattern
+type: pattern
 ---
+
 
 # Bloom Filter Pattern
 
@@ -82,6 +89,9 @@ related_pillars: [state, intelligence]
 Imagine a bouncer at an exclusive club with a simple rule: "If your name isn't on my list, you definitely can't enter. If it is on my list, you probably can enter, but I might need to double-check." The bouncer's list is tiny compared to all possible names, but it catches all the definite "no" cases instantly.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph LR
     A[Element] --> B[Hash Functions]
@@ -93,6 +103,8 @@ graph LR
     style E fill:#ff6b6b,stroke:#d63031,color:#fff
     style F fill:#ffeaa7,stroke:#fdcb6e,color:#333
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Trade perfect accuracy for massive space savings - know "definitely not" with certainty, "maybe yes" with probability.
@@ -115,25 +127,6 @@ Bloom filters use multiple hash functions to set bits in a compact array, enabli
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Bloom Filter Components"
-        I[Input Element] --> H1[Hash Func 1]
-        I --> H2[Hash Func 2]
-        I --> H3[Hash Func 3]
-        H1 --> B[Bit Array]
-        H2 --> B
-        H3 --> B
-        B --> R[Result: Maybe/No]
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class I,B primary
-    class H1,H2,H3 secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -145,7 +138,25 @@ graph TB
 
 ### Basic Example
 
-```python
+```mermaid
+classDiagram
+    class Component2 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler2 {
+        +handle() Result
+        +configure() void
+    }
+    Component2 --> Handler2 : uses
+    
+    note for Component2 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 class BloomFilter:
     def __init__(self, size, hash_count):
         self.size = size
@@ -163,13 +174,17 @@ class BloomFilter:
             if self.bit_array[index] == 0:
                 return False  # Definitely not in set
         return True  # Maybe in set
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 stateDiagram-v2
     [*] --> Empty: Initialize
@@ -179,6 +194,8 @@ stateDiagram-v2
     Populated --> Saturated: Too many elements
     Saturated --> [*]: Rebuild required
 ```
+
+</details>
 
 #### Critical Design Decisions
 
@@ -227,24 +244,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale"
-        A1[Single Filter<br/>1MB, 1M elements]
-    end
-    
-    subgraph "Medium Scale" 
-        B1[Partitioned Filter<br/>100MB, 100M elements]
-    end
-    
-    subgraph "Large Scale"
-        C1[Distributed Filters<br/>10GB, 10B elements]
-    end
-    
-    A1 -->|1M items/sec| B1
-    B1 -->|100M items/sec| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -280,6 +279,9 @@ graph LR
 ### Pattern Evolution
 
 #### Migration from Legacy
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Full Hash Table] -->|Step 1| B[Hybrid: Hash + Bloom]
@@ -289,6 +291,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -311,26 +315,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need membership test?] --> B{Dataset size?}
-    B -->|< 100K| C[Use HashSet]
-    B -->|100K-100M| D{FP tolerance?}
-    B -->|> 100M| E[Use Bloom Filter]
-    
-    D -->|No| F[Use Exact Structure]
-    D -->|Yes| G{Space critical?}
-    
-    G -->|No| H[Consider alternatives]
-    G -->|Yes| I[Use Bloom Filter]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class I,E recommended
-    class C caution
-```
 
 ### Comparison with Alternatives
 
@@ -397,3 +381,4 @@ graph TD
     - [Performance Testing](../../excellence/guides/bloom-testing.md)
 
 </div>
+

@@ -1,32 +1,45 @@
 ---
-title: Auto-scaling Pattern
-description: Dynamic resource management pattern that adjusts capacity based on demand metrics
-type: pattern
+best_for: Variable workloads with >3x daily variation, cloud-native applications,
+  cost-sensitive environments requiring automatic capacity management
 category: scaling
-difficulty: intermediate
-reading_time: 15 min
-prerequisites: [cloud-computing, load-balancing, monitoring]
-excellence_tier: silver
-pattern_status: recommended
-introduced: 2009-01
 current_relevance: mainstream
-essential_question: How do we automatically adjust system capacity to match fluctuating demand while minimizing costs and maintaining performance?
+description: Dynamic resource management pattern that adjusts capacity based on demand
+  metrics
+difficulty: intermediate
+essential_question: How do we automatically adjust system capacity to match fluctuating
+  demand while minimizing costs and maintaining performance?
+excellence_tier: silver
+introduced: 2009-01
+pattern_status: recommended
+prerequisites:
+- cloud-computing
+- load-balancing
+- monitoring
+reading_time: 15 min
+related_laws:
+- law2-asynchrony
+- law4-tradeoffs
+- law7-economics
+related_pillars:
+- work
+- control
+- intelligence
 tagline: Dynamic resource scaling that adapts to demand patterns
+title: Auto-scaling Pattern
 trade_offs:
-  pros:
-    - Cost optimization through right-sizing (20-60% savings)
-    - Handles traffic spikes automatically without manual intervention
-    - Reduces operational overhead for capacity management
-    - Improves resource utilization efficiency
   cons:
-    - Configuration complexity requiring careful tuning
-    - Cold start latency during scale-up events
-    - Potential for oscillation and flapping
-    - Requires stateless applications for effectiveness
-best_for: Variable workloads with >3x daily variation, cloud-native applications, cost-sensitive environments requiring automatic capacity management
-related_laws: [law2-asynchrony, law4-tradeoffs, law7-economics]
-related_pillars: [work, control, intelligence]
+  - Configuration complexity requiring careful tuning
+  - Cold start latency during scale-up events
+  - Potential for oscillation and flapping
+  - Requires stateless applications for effectiveness
+  pros:
+  - Cost optimization through right-sizing (20-60% savings)
+  - Handles traffic spikes automatically without manual intervention
+  - Reduces operational overhead for capacity management
+  - Improves resource utilization efficiency
+type: pattern
 ---
+
 
 # Auto-scaling Pattern
 
@@ -69,6 +82,9 @@ related_pillars: [work, control, intelligence]
 Imagine a restaurant that automatically adds tables during busy hours and removes them when quiet. Auto-scaling works similarly - when your application sees increased traffic (hungry customers), it automatically spins up more servers (adds tables). When traffic decreases, it removes unnecessary servers to save money, just like the restaurant storing unused tables.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Traffic Load<br/>📈] --> B[Auto-scaler<br/>⚖️]
@@ -78,6 +94,8 @@ graph LR
     style B fill:#4ecdc4,stroke:#45a29e  
     style C fill:#45b7d1,stroke:#3a9bc1
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Auto-scaling automatically matches resource capacity to actual demand, reducing costs during low usage while maintaining performance during spikes.
@@ -100,41 +118,6 @@ Auto-scaling monitors system metrics and automatically adds or removes compute r
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Monitoring Layer"
-        A[Metrics Collection<br/>CPU, Memory, Requests]
-        B[Health Checks<br/>Application Status]
-    end
-    
-    subgraph "Decision Engine"
-        C[Threshold Evaluation<br/>Scale Rules]
-        D[Scaling Policies<br/>Up/Down Actions]
-        E[Cooldown Management<br/>Prevent Oscillation]
-    end
-    
-    subgraph "Infrastructure Layer"
-        F[Load Balancer<br/>Traffic Distribution]
-        G[Instances<br/>📦📦📦]
-        H[Service Discovery<br/>Registration]
-    end
-    
-    A --> C
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H
-    H --> A
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class C,D primary
-    class F,G secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -146,43 +129,11 @@ graph TB
 
 ### Basic Example
 
-```python
-# Auto-scaling core concept
-def auto_scaling_logic():
-    """Shows essential auto-scaling decision flow"""
-    # 1. Collect current metrics
-    cpu_usage = get_average_cpu_usage()
-    instance_count = get_current_instances()
-    
-    # 2. Apply scaling rules
-    if cpu_usage > 80 and not in_cooldown():
-        scale_out(instance_count * 1.5)  # 50% increase
-    elif cpu_usage < 30 and instance_count > min_instances:
-        scale_in(instance_count * 0.8)   # 20% decrease
-    
-    # 3. Start cooldown period
-    start_cooldown(minutes=5)
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-```mermaid
-stateDiagram-v2
-    [*] --> Monitoring
-    Monitoring --> Evaluating: Metrics Collected
-    Evaluating --> Scaling: Threshold Breached
-    Evaluating --> Monitoring: Within Range
-    Scaling --> Provisioning: Scale Decision Made
-    Provisioning --> Cooldown: Instances Changed
-    Cooldown --> Monitoring: Period Expired
-    
-    Provisioning --> Failed: Infrastructure Error
-    Failed --> Monitoring: Retry Logic
-```
-
 #### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -230,32 +181,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (2-10 instances)"
-        A1[Simple CPU-based<br/>Reactive Scaling]
-    end
-    
-    subgraph "Medium Scale (10-100 instances)"
-        B1[Multi-metric<br/>Policies]
-        B2[Predictive<br/>Components]
-        B3[Zone Distribution<br/>Awareness]
-        B1 --> B2
-        B2 --> B3
-    end
-    
-    subgraph "Large Scale (100+ instances)"
-        C1[ML-based<br/>Forecasting]
-        C2[Cross-region<br/>Coordination]
-        C3[Cost-optimized<br/>Instance Mix]
-        C1 --> C2
-        C2 --> C3
-    end
-    
-    A1 -->|Growth| B1
-    B3 -->|Scale| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -295,6 +220,9 @@ graph LR
 
 #### Migration from Fixed Capacity
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Fixed Overprovisioning<br/>High Cost] -->|Step 1| B[Basic Reactive<br/>CPU-based]
@@ -304,6 +232,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -326,24 +256,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Scaling?] --> B{Load Variation?}
-    B -->|<2x daily| C[Fixed Capacity]
-    B -->|2-5x daily| D[Basic Auto-scaling]
-    B -->|>5x or unpredictable| E[Advanced Auto-scaling]
-    
-    E --> F{Predictable Pattern?}
-    F -->|Yes| G[Predictive + Reactive]
-    F -->|No| H[Reactive Only]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class D recommended
-    class E,G caution
-```
 
 ### Comparison with Alternatives
 
@@ -410,3 +322,4 @@ graph TD
     - [Cost Optimization Guide](../../excellence/guides/scaling-cost-optimization.md)
 
 </div>
+

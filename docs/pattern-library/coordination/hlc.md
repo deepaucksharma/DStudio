@@ -54,6 +54,7 @@ when-to-use: When you need both wall-clock time approximation and causal consist
   timestamps
 ---
 
+
 ## Essential Question
 
 **How do we coordinate distributed components effectively using hybrid logical clocks (hlc)?**
@@ -77,66 +78,7 @@ when-to-use: When you need both wall-clock time approximation and causal consist
 <div class="decision-box">
 <h3>🎯 When to Use HLC</h3>
 
-```mermaid
-graph TD
-    Start[Need Distributed<br/>Timestamps?] --> Wall{Need Wall<br/>Clock Time?}
-    Wall -->|No| Lamport[Use Lamport Clocks]
-    Wall -->|Yes| Causal{Need Causal<br/>Consistency?}
-    Causal -->|No| NTP[Use NTP Timestamps]
-    Causal -->|Yes| Hardware{Have Special<br/>Hardware?}
-    Hardware -->|Yes| TT[Use TrueTime]
-    Hardware -->|No| HLC[✓ Use HLC]
-    
-    style HLC fill:#90EE90
-```
-</div>
 
-## The Problem: Physical vs Logical Time
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph LR
-    subgraph "Physical Clocks"
-        P1[Node 1: 10:00:00]
-        P2[Node 2: 10:00:05]
-        P3[Node 3: 09:59:58]
-        ProbP[❌ Clock Skew<br/>❌ Wrong Ordering<br/>❌ Causality Violations]
-    end
-    
-    subgraph "Logical Clocks"
-        L1[Node 1: LC=100]
-        L2[Node 2: LC=200]
-        L3[Node 3: LC=150]
-        ProbL[❌ No Real Time<br/>❌ Not Human Readable<br/>❌ Can't Correlate Events]
-    end
-    
-    subgraph "HLC Solution"
-        H1[Node 1: 10:00:00.001]
-        H2[Node 2: 10:00:00.002]
-        H3[Node 3: 10:00:00.003]
-        Sol[✓ Close to Real Time<br/>✓ Preserves Causality<br/>✓ Total Ordering]
-    end
-    
-    style ProbP fill:#FFB6C1
-    style ProbL fill:#FFB6C1
-    style Sol fill:#90EE90
-```
-
-</details>
 
 ## HLC Core Concept
 
@@ -154,23 +96,6 @@ graph LR
 ## The Three HLC Rules
 
 ### Visual Algorithm
-
-```mermaid
-sequenceDiagram
-    participant A as Node A
-    participant B as Node B
-    participant C as Node C
-    
-    Note over A,C: Initial: All at physical time 100
-    
-    A->>A: Local Event<br/>now=101 > pt=100<br/>HLC: 101.0
-    
-    A->>B: Send msg @ 101.0
-    Note over B: Receive @ now=100<br/>max(100,101,100)=101<br/>Same as received<br/>HLC: 101.1
-    
-    B->>C: Send msg @ 101.1
-    Note over C: Receive @ now=102<br/>max(100,101,102)=102<br/>Physical time wins<br/>HLC: 102.0
-```
 
 ### The Three Rules
 
@@ -198,20 +123,6 @@ Where ε = max_clock_error + max_message_delay
 
 ### Property 2: Causality Preservation
 
-```mermaid
-graph LR
-    A[Event A: HLC=100.5] -->|causes| B[Event B: HLC=100.8]
-    B -->|causes| C[Event C: HLC=101.0]
-    
-    Result[✓ Causality: 100.5 < 100.8 < 101.0]
-    
-    A --> Result
-    B --> Result
-    C --> Result
-    
-    style Result fill:#90EE90
-```
-
 ## Clock Type Comparison
 
 | Feature | Physical | Lamport | Vector | **HLC** |
@@ -236,127 +147,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```python
-class HLC:
-    def __init__(self):
-        self.pt = 0  # physical time
-        self.c = 0   # logical counter
-    
-    def update(self, msg_pt=None, msg_c=None):
-        """Update HLC for local event or message"""
-        now = current_time_ms()
-        
-        if msg_pt is None:  # Local event
-            if now > self.pt:
-                self.pt = now
-                self.c = 0
-            else:
-                self.c += 1
-        else:  # Receive message
-            new_pt = max(self.pt, msg_pt, now)
-            
-            if new_pt == now:
-                self.c = 0
-            elif new_pt == self.pt == msg_pt:
-                self.c = max(self.c, msg_c) + 1
-            else:
-                self.c = (self.c if new_pt == self.pt else msg_c) + 1
-            
-            self.pt = new_pt
-        
-        return (self.pt, self.c)
-```
-
-</details>
-
-## Production Considerations
-
-<div class="grid">
-<div class="card">
-<h4>⚠️ Counter Overflow</h4>
-
-**Problem**: 16-bit counter = 65,535 max  
-**At 1M events/sec**: Overflow in 65ms  
-**Solution**: Wait for physical time tick  
-**Better**: Use microsecond precision
-</div>
-
-<div class="card">
-<h4>💾 Persistence</h4>
-
-**Problem**: Clock reset on restart  
-**Impact**: Causality violations  
-**Solution**: Save HLC to disk  
-**On restart**: max(saved, current_time)
-</div>
-
-<div class="card">
-<h4>🕐 Clock Jumps</h4>
-
-**Problem**: NTP adjustments  
-**Forward jump**: Accept if < 1 min  
-**Backward jump**: Keep using old time  
-**Monitor**: Alert on large jumps
-</div>
-</div>
-
-## Real-World Examples
-
-### Production Usage Patterns
-
-| System | HLC Usage | Scale | Key Benefit |
-|--------|-----------|-------|-------------|
-| **CockroachDB** | MVCC timestamps | Petabyte clusters | Global consistency |
-| **MongoDB** | Session consistency | Millions ops/sec | Causal reads |
-| **YugabyteDB** | Transaction ordering | Global deployment | ACID guarantees |
-| **Kafka** | Event timestamps | Trillion events/day | Order preservation |
-
-### Visual: HLC in Distributed Database
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Write Transaction"
-        W1[Client Write]
-        W2[Assign HLC: 1000.5]
-        W3[Replicate with HLC]
-        W4[Commit at HLC]
-    end
-    
-    subgraph "Read Transaction"
-        R1[Client Read]
-        R2[Choose HLC: 1000.3]
-        R3[Read MVCC at HLC]
-        R4[Consistent Snapshot]
-    end
-    
-    W1 --> W2 --> W3 --> W4
-    R1 --> R2 --> R3 --> R4
-    
-    Note[HLC ensures read sees<br/>consistent snapshot]
-    
-    style W2 fill:#87CEEB
-    style R2 fill:#87CEEB
-```
-
-</details>
 
 ## HLC vs TrueTime
 
@@ -473,21 +264,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -523,3 +299,4 @@ graph TD
 - [YugabyteDB Hybrid Time](https://docs.yugabyte.com/preview/architecture/transactions/transactions-overview/#hybrid-time-as-an-mvcc-timestamp)
 - [Time, Clocks, and the Ordering of Events](https://lamport.azurewebsites.net/pubs/time-clocks.pdf) - Lamport's foundational work
 - [Spanner: Google's Globally-Distributed Database](https://research.google/pubs/pub39966/) - TrueTime comparison
+

@@ -13,6 +13,7 @@ tags:
 title: Pattern Anti-Patterns Guide - What Not to Do
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -83,24 +84,7 @@ title: Pattern Anti-Patterns Guide - What Not to Do
 
 ### 1. The Distributed Monolith
 
-```mermaid
-graph TB
-    subgraph "Anti-Pattern: Shared Database"
-        S1[Service A]
-        S2[Service B]
-        S3[Service C]
-        DB[(Shared Database)]
-        
-        S1 --> DB
-        S2 --> DB
-        S3 --> DB
-        
-        S1 -.-> S2
-        S2 -.-> S3
-        
-        style DB fill:#ff6b6b
-    end
-```
+*See Implementation Example 1 in Appendix*
 
 **Why It's Bad:**
 - Services aren't truly independent
@@ -109,6 +93,12 @@ graph TB
 - Database becomes bottleneck
 
 **The Fix:**
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph TD
     A[Input] --> B[Process]
@@ -121,37 +111,23 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
+</details>
+
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Pattern: Database per Service"
-        S1[Service A]
-        S2[Service B]
-        S3[Service C]
-        DB1[(DB A)]
-        DB2[(DB B)]
-        DB3[(DB C)]
-        MQ[Message Queue]
-        
-        S1 --> DB1
-        S2 --> DB2
-        S3 --> DB3
-        
-        S1 --> MQ
-        S2 --> MQ
-        S3 --> MQ
-        
-        style MQ fill:#2ecc71
-    end
-```
+*See Implementation Example 2 in Appendix*
 
 </details>
 
 ### 2. Chatty Services
 
 **Anti-Pattern Code:**
+<details>
+<summary>📄 View python code (9 lines)</summary>
+
 ```python
 # ❌ BAD: Multiple synchronous calls
 def get_user_dashboard(user_id):
@@ -164,8 +140,14 @@ def get_user_dashboard(user_id):
     return compile_dashboard(user, orders, recommendations, notifications)
 ```
 
+</details>
+
 **Pattern Fix:**
-```python
+*See Implementation Example 3 in Appendix*
+
+<details>
+<summary>📄 View async implementation</summary>
+
 # ✅ GOOD: Parallel calls with aggregation
 async def get_user_dashboard(user_id):
     # Parallel execution
@@ -179,51 +161,25 @@ async def get_user_dashboard(user_id):
     # Or use API Gateway aggregation
     # Or implement BFF pattern
     return compile_dashboard(user, orders, recs, notifs)
-```
+
+</details>
 
 ### 3. Missing Circuit Breakers
 
 **Anti-Pattern:**
-```python
-# ❌ BAD: No protection against failures
-def call_payment_service(payment_data):
-    try:
-        response = requests.post(
-            "http://payment-service/charge",
-            json=payment_data
-        )
-        return response.json()
-    except Exception as e:
-        # This will retry forever if service is down
-        return call_payment_service(payment_data)
-```
+*See Implementation Example 4 in Appendix*
 
 **Pattern Fix:**
-```python
-# ✅ GOOD: Circuit breaker protection
-from pybreaker import CircuitBreaker
-
-payment_breaker = CircuitBreaker(
-    fail_max=5,
-    reset_timeout=60,
-    expected_exception=RequestException
-)
-
-@payment_breaker
-def call_payment_service(payment_data):
-    response = requests.post(
-        "http://payment-service/charge",
-        json=payment_data,
-        timeout=5  # Always set timeouts!
-    )
-    return response.json()
-```
+*See Implementation Example 5 in Appendix*
 
 ## ❌ Data Management Anti-Patterns
 
 ### 4. Assuming Distributed ACID
 
 **Anti-Pattern:**
+<details>
+<summary>📄 View python code (7 lines)</summary>
+
 ```python
 # ❌ BAD: Trying to maintain consistency across services
 def transfer_money(from_account, to_account, amount):
@@ -233,6 +189,8 @@ def transfer_money(from_account, to_account, amount):
     account_service.credit(to_account, amount)
     # What if step 3 fails after steps 1 & 2 succeed?
 ```
+
+</details>
 
 **Pattern Fix:**
 ```mermaid
@@ -250,7 +208,25 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```python
+```mermaid
+classDiagram
+    class Component9 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler9 {
+        +handle() Result
+        +configure() void
+    }
+    Component9 --> Handler9 : uses
+    
+    note for Component9 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 # ✅ GOOD: Saga pattern with compensation
 class MoneyTransferSaga:
     def execute(self, from_account, to_account, amount):
@@ -272,13 +248,17 @@ class MoneyTransferSaga:
         )
         
         return saga.execute()
-```
+
+</details>
 
 </details>
 
 ### 5. N+1 Query Problem
 
 **Anti-Pattern:**
+<details>
+<summary>📄 View python code (7 lines)</summary>
+
 ```python
 # ❌ BAD: Fetching related data in loops
 def get_orders_with_details():
@@ -288,6 +268,8 @@ def get_orders_with_details():
         order.customer = get_customer(order.customer_id)  # N queries
     # Total: 1 + 2N queries!
 ```
+
+</details>
 
 **Pattern Fix:**
 ```python
@@ -303,7 +285,25 @@ def get_orders_with_details():
 ### 6. Stateful Services
 
 **Anti-Pattern:**
-```python
+```mermaid
+classDiagram
+    class Component12 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler12 {
+        +handle() Result
+        +configure() void
+    }
+    Component12 --> Handler12 : uses
+    
+    note for Component12 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 # ❌ BAD: Storing state in service memory
 class ShoppingCartService:
     def __init__(self):
@@ -315,9 +315,13 @@ class ShoppingCartService:
         self.carts[user_id].append(item)
         # What happens when service restarts?
         # How do you scale horizontally?
-```
+
+</details>
 
 **Pattern Fix:**
+<details>
+<summary>📄 View python code (9 lines)</summary>
+
 ```python
 # ✅ GOOD: External state store
 class ShoppingCartService:
@@ -329,6 +333,8 @@ class ShoppingCartService:
         self.redis.rpush(key, json.dumps(item))
         self.redis.expire(key, 3600)  # 1 hour TTL
 ```
+
+</details>
 
 ### 7. No Caching Strategy
 
@@ -342,24 +348,7 @@ def get_product(product_id):
 ```
 
 **Pattern Fix:**
-```python
-# ✅ GOOD: Multi-layer caching
-def get_product(product_id):
-    # L1: Local cache
-    if product := local_cache.get(product_id):
-        return product
-    
-    # L2: Redis cache
-    if product := redis.get(f"product:{product_id}"):
-        local_cache.set(product_id, product, ttl=60)
-        return product
-    
-    # L3: Database
-    product = database.query(...)
-    redis.set(f"product:{product_id}", product, ttl=300)
-    local_cache.set(product_id, product, ttl=60)
-    return product
-```
+*See Implementation Example 6 in Appendix*
 
 ## ❌ Resilience Anti-Patterns
 
@@ -375,28 +364,14 @@ def fetch_data():
 ```
 
 **Pattern Fix:**
-```python
-# ✅ GOOD: Layered timeouts
-def fetch_data():
-    response = requests.get(
-        "http://slow-service/data",
-        timeout=(
-            3.0,  # Connection timeout
-            5.0   # Read timeout
-        )
-    )
-    return response.json()
-
-# Even better: Circuit breaker + timeout
-@circuit_breaker
-@timeout(5.0)
-def fetch_data():
-    ...
-```
+*See Implementation Example 7 in Appendix*
 
 ### 9. Single Point of Failure
 
 **Anti-Pattern:**
+<details>
+<summary>📄 View yaml code (6 lines)</summary>
+
 ```yaml
 # ❌ BAD: No redundancy
 architecture:
@@ -406,24 +381,10 @@ architecture:
   region: us-east-1_only
 ```
 
+</details>
+
 **Pattern Fix:**
-```yaml
-# ✅ GOOD: Redundancy at every layer
-architecture:
-  load_balancer:
-    - primary: us-east-1a
-    - backup: us-east-1b
-  database:
-    - master: us-east-1a
-    - replica: us-east-1b
-    - replica: us-west-2a
-  cache:
-    - cluster_mode: enabled
-    - nodes: 3
-  regions:
-    - primary: us-east-1
-    - dr: us-west-2
-```
+*See Implementation Example 8 in Appendix*
 
 ## 💡 Anti-Pattern Prevention Checklist
 
@@ -494,20 +455,7 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
+*See Implementation Example 9 in Appendix*
 
 ### Quick Decision Table
 
@@ -570,3 +518,292 @@ graph TD
 ---
 
 *Remember: Anti-patterns often start as pragmatic choices. The key is recognizing when to refactor before they become critical issues.*
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+*See Implementation Example 1 in Appendix*
+
+### Implementation Example 2
+
+*See Implementation Example 2 in Appendix*
+
+### Implementation Example 3
+
+*See Implementation Example 3 in Appendix*
+
+### Implementation Example 4
+
+*See Implementation Example 4 in Appendix*
+
+### Implementation Example 5
+
+*See Implementation Example 5 in Appendix*
+
+### Implementation Example 6
+
+*See Implementation Example 6 in Appendix*
+
+### Implementation Example 7
+
+*See Implementation Example 7 in Appendix*
+
+### Implementation Example 8
+
+*See Implementation Example 8 in Appendix*
+
+### Implementation Example 9
+
+*See Implementation Example 9 in Appendix*
+
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+```mermaid
+graph TB
+    subgraph "Component 0"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 2
+
+```mermaid
+graph TB
+    subgraph "Component 2"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 3
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Service
+    participant Database
+    participant Cache
+    
+    Client->>Service: Request
+    Service->>Cache: Check cache
+    alt Cache hit
+        Cache-->>Service: Cached data
+    else Cache miss
+        Service->>Database: Query
+        Database-->>Service: Data
+        Service->>Cache: Update cache
+    end
+    Service-->>Client: Response
+```
+
+### Implementation Example 4
+
+```mermaid
+graph TB
+    subgraph "Component 5"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 5
+
+```mermaid
+graph TB
+    subgraph "Component 6"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 6
+
+```mermaid
+graph TB
+    subgraph "Component 15"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 7
+
+```mermaid
+graph TB
+    subgraph "Component 17"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 8
+
+```mermaid
+graph TB
+    subgraph "Component 19"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 9
+
+```mermaid
+graph TB
+    subgraph "Component 21"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+

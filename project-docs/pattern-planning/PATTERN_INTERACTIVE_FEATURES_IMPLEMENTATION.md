@@ -101,7 +101,25 @@ class PatternExplorer {
     try {
       const response = await fetch('/data/patterns.json');
       const data = await response.json();
-      this.patterns = data.patterns;
+      
+      // Validate and fix broken patterns
+      this.patterns = data.patterns.map(pattern => {
+        // Check for broken content indicators
+        if (pattern.content && pattern.content.includes('See Implementation Example') && 
+            pattern.content.includes('in Appendix') && 
+            !pattern.appendix) {
+          pattern.quality_issues = pattern.quality_issues || [];
+          pattern.quality_issues.push('Missing implementation examples');
+          pattern.needs_fix = true;
+        }
+        return pattern;
+      });
+      
+      // Log quality issues for monitoring
+      const brokenPatterns = this.patterns.filter(p => p.needs_fix);
+      if (brokenPatterns.length > 0) {
+        console.warn(`Found ${brokenPatterns.length} patterns with quality issues`, brokenPatterns);
+      }
     } catch (error) {
       console.error('Failed to load patterns:', error);
       this.showError('Failed to load patterns. Please refresh.');

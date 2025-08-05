@@ -37,6 +37,7 @@ when-to-use: When data exceeds single node capacity or requires high availabilit
   and fault tolerance
 ---
 
+
 ## Essential Question
 
 **How do we ensure data consistency and reliability with distributed storage?**
@@ -103,73 +104,11 @@ when-to-use: When data exceeds single node capacity or requires high availabilit
 
 ### Data Distribution Flow
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-flowchart TB
-    subgraph "Write Path"
-        Client[Client Write] --> Router[Storage Router]
-        Router --> Hash[Consistent Hash]
-        Hash --> Primary[Primary Node]
-        Primary --> Rep1[Replica 1]
-        Primary --> Rep2[Replica 2]
-        Primary --> Ack[Acknowledge]
-    end
-    
-    subgraph "Read Path"
-        ReadClient[Client Read] --> ReadRouter[Storage Router]
-        ReadRouter --> Quorum[Quorum Read]
-        Quorum --> N1[Node 1]
-        Quorum --> N2[Node 2]
-        Quorum --> N3[Node 3]
-        Quorum --> Reconcile[Reconcile Versions]
-    end
-    
-    subgraph "Failure Handling"
-        Monitor[Health Monitor] --> Detect[Detect Failure]
-        Detect --> Reroute[Reroute Traffic]
-        Detect --> Replicate[Re-replicate Data]
-    end
-```
-
-</details>
 
 ## Level 2: Distribution Strategies
 
 ### Partitioning Methods
-
-```mermaid
-graph TB
-    subgraph "Hash Partitioning"
-        HK[Key: user123] --> HF[Hash Function]
-        HF --> HP[Partition 7]
-        HP --> HN[Node C]
-    end
-    
-    subgraph "Range Partitioning"
-        RK[Key: user123] --> RR[Range A-M]
-        RR --> RP[Partition 1]
-        RP --> RN[Node A]
-    end
-    
-    subgraph "Geographic Partitioning"
-        GK[Key: us-west-user] --> GR[Region: US-West]
-        GR --> GP[West Coast Nodes]
-    end
-```
 
 ### Replication Strategies
 
@@ -184,26 +123,6 @@ graph TB
 
 ### Quorum-Based Storage
 
-```mermaid
-flowchart LR
-    subgraph "Write Quorum (W=2)"
-        W[Write Request] --> W1[Node 1 ✓]
-        W --> W2[Node 2 ✓]
-        W --> W3[Node 3 ✗]
-        W1 --> WS[Success]
-        W2 --> WS
-    end
-    
-    subgraph "Read Quorum (R=2)"
-        R[Read Request] --> R1[Node 1: v2]
-        R --> R2[Node 2: v2]
-        R --> R3[Node 3: v1]
-        R1 --> RR[Return v2]
-        R2 --> RR
-        RR --> RRepair[Repair Node 3]
-    end
-```
-
 ### Consistency Levels
 
 | Level | Write | Read | Latency | Consistency | Use Case |
@@ -214,28 +133,6 @@ flowchart LR
 | **LOCAL_ONE** | 1 in DC | 1 in DC | Low | DC-local | Multi-DC |
 
 ### Storage Efficiency Comparison
-
-```mermaid
-graph TB
-    subgraph "3x Replication"
-        D1[1GB Data] --> R1[Node 1: 1GB]
-        D1 --> R2[Node 2: 1GB]
-        D1 --> R3[Node 3: 1GB]
-        R1 --> T1[Total: 3GB]
-    end
-    
-    subgraph "Erasure Coding (6+3)"
-        D2[1GB Data] --> Split[Split into 6 parts]
-        Split --> P1[Data 1: 167MB]
-        Split --> P2[Data 2: 167MB]
-        Split --> P3[Data 3: 167MB]
-        Split --> P4[Data 4: 167MB]
-        Split --> P5[Data 5: 167MB]
-        Split --> P6[Data 6: 167MB]
-        Split --> Parity[3 Parity: 500MB]
-        P6 --> T2[Total: 1.5GB]
-    end
-```
 
 ## Level 4: Real-World Systems
 
@@ -251,49 +148,9 @@ graph TB
 
 ### Failure Scenarios
 
-```mermaid
-flowchart TB
-    subgraph "Node Failure"
-        NF[Node Dies] --> Detect[Detection: 10s]
-        Detect --> Mark[Mark Dead]
-        Mark --> Rereplicate[Re-replicate: 1-60min]
-    end
-    
-    subgraph "Network Partition"
-        Part[Network Split] --> Brain[Split Brain]
-        Brain --> Quorum[Quorum Decision]
-        Quorum --> Minority[Minority: Read Only]
-        Quorum --> Majority[Majority: Read/Write]
-    end
-    
-    subgraph "Corruption"
-        Corrupt[Data Corruption] --> Checksum[Checksum Fail]
-        Checksum --> Replica[Use Replica]
-        Replica --> Repair[Repair Corrupt]
-    end
-```
-
 ## Level 5: Production Considerations
 
 ### Operational Checklist
-
-```mermaid
-flowchart TD
-    Deploy[Deploy Storage] --> Monitor
-    
-    Monitor[Monitor Health] --> Metrics{Key Metrics}
-    Metrics --> Disk[Disk Usage > 80%?]
-    Metrics --> Replication[Replication Lag?]
-    Metrics --> Failures[Node Failures?]
-    
-    Disk --> AddNodes[Add Nodes]
-    Replication --> Investigate[Check Network]
-    Failures --> Replace[Replace Nodes]
-    
-    AddNodes --> Rebalance[Rebalance Data]
-    Replace --> Rebalance
-    Rebalance --> Monitor
-```
 
 ### Cost Analysis
 
@@ -306,26 +163,6 @@ flowchart TD
 | **Access Latency** | Direct read | Decode required | Replication wins |
 
 ### Monitoring Dashboard
-
-```mermaid
-graph LR
-    subgraph "Health Metrics"
-        Nodes[Active Nodes: 47/50]
-        Space[Used Space: 78%]
-        Repl[Under-replicated: 2.1%]
-    end
-    
-    subgraph "Performance"
-        Read[Read Latency: 12ms p99]
-        Write[Write Latency: 45ms p99]
-        Through[Throughput: 1.2GB/s]
-    end
-    
-    subgraph "Alerts"
-        DiskAlert[❗ Node23: 92% full]
-        RepAlert[❗ 1,234 blocks under-replicated]
-    end
-```
 
 ## Common Pitfalls
 
@@ -397,21 +234,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -422,25 +244,6 @@ graph TD
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
 
 ## Implementation Decision Tree
-
-```mermaid
-flowchart TD
-    Start[Need Distributed Storage?] --> Size{Data Size?}
-    
-    Size -->|< 1TB| Single[Use Single Node + Backup]
-    Size -->|1-10TB| Replicated[Use Simple Replication]
-    Size -->|10TB-1PB| Sharded[Use Sharding + Replication]
-    Size -->|> 1PB| Full[Full Distributed System]
-    
-    Full --> Consistency{Consistency Needs?}
-    Consistency -->|Strong| HBase[HBase/Spanner]
-    Consistency -->|Eventual| Cassandra[Cassandra/S3]
-    
-    Full --> Access{Access Pattern?}
-    Access -->|File| HDFS[HDFS/Ceph]
-    Access -->|Object| S3Style[S3/Swift]
-    Access -->|Block| Ceph[Ceph/EBS]
-```
 
 ## 🎓 Key Takeaways
 
@@ -461,3 +264,4 @@ flowchart TD
 ---
 
 *Next: [Eventual Consistency](eventual-consistency.md) - Managing consistency in distributed systems*
+

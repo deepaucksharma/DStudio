@@ -43,6 +43,7 @@ when-not-to-use: When strong consistency is required or simpler solutions suffic
 when-to-use: When you need automatic conflict resolution without coordination
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -93,50 +94,7 @@ when-to-use: When you need automatic conflict resolution without coordination
 
 ## Visual CRDT Type Hierarchy
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
- CRDT[CRDT<br/>Conflict-free Replicated Data Type]
- 
- CRDT --> StateBased[State-based<br/>CvRDT]
- CRDT --> OpBased[Operation-based<br/>CmRDT]
- CRDT --> DeltaBased[Delta-based<br/>δ-CRDT]
- 
- StateBased --> GCounter[G-Counter<br/>Grow-only Counter]
- StateBased --> PNCounter[PN-Counter<br/>Positive-Negative Counter]
- StateBased --> GSet[G-Set<br/>Grow-only Set]
- StateBased --> TwoPSet[2P-Set<br/>Two-Phase Set]
- StateBased --> LWWReg[LWW-Register<br/>Last-Write-Wins]
- StateBased --> MVReg[MV-Register<br/>Multi-Value]
- 
- OpBased --> ORSet[OR-Set<br/>Observed-Remove Set]
- OpBased --> RGA[RGA<br/>Replicated Growing Array]
- OpBased --> Treedoc[Treedoc<br/>Tree-based Sequence]
- 
- DeltaBased --> DeltaCounter[Delta Counter]
- DeltaBased --> DeltaMap[Delta Map]
- 
- style CRDT fill:#e8f5e9
- style StateBased fill:#e3f2fd
- style OpBased fill:#fff3e0
- style DeltaBased fill:#fce4ec
-```
-
-</details>
 
 ## CRDT Types and Convergence
 
@@ -164,63 +122,11 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph BT
- Empty["{}"]
- A["{A}"]
- B["{B}"]
- C["{C}"]
- AB["{A,B}"]
- AC["{A,C}"]
- BC["{B,C}"]
- ABC["{A,B,C}"]
- 
- Empty --> A
- Empty --> B
- Empty --> C
- A --> AB
- A --> AC
- B --> AB
- B --> BC
- C --> AC
- C --> BC
- AB --> ABC
- AC --> ABC
- BC --> ABC
- 
- style ABC fill:#4caf50,color:#fff
- style Empty fill:#f44336,color:#fff
-```
-
-</details>
 
 ### Operation-based CRDTs (CmRDT)
 
 #### How Operation-based CRDTs Work
-
-```mermaid
-sequenceDiagram
- participant R1 as Replica 1
- participant R2 as Replica 2
- participant R3 as Replica 3
- participant Network as Network Layer
- 
- Note over R1,R3: Initial: All replicas empty
- 
- R1->>Network: op: add("X", timestamp1)
- R2->>Network: op: add("Y", timestamp2)
- 
- Network->>R1: deliver: add("Y", timestamp2)
- Network->>R2: deliver: add("X", timestamp1)
- Network->>R3: deliver: add("X", timestamp1)
- Network->>R3: deliver: add("Y", timestamp2)
- 
- Note over R1,R3: All operations commute
- Note over R1,R3: Final state: {X, Y} at all replicas
-```
 
 ## Detailed CRDT Type Implementations
 
@@ -240,35 +146,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
- subgraph "Replica A"
- A1["A: 5<br/>B: 0<br/>C: 0<br/>Total: 5"]
- end
- 
- subgraph "Replica B"
- B1["A: 0<br/>B: 3<br/>C: 0<br/>Total: 3"]
- end
- 
- subgraph "Replica C"
- C1["A: 0<br/>B: 0<br/>C: 2<br/>Total: 2"]
- end
- 
- subgraph "After Merge"
- M["A: 5<br/>B: 3<br/>C: 2<br/>Total: 10"]
- end
- 
- A1 --> M
- B1 --> M
- C1 --> M
- 
- style M fill:#4caf50,color:#fff
-```
-
-</details>
 
 ### G-Counter Implementation Pattern
 
@@ -284,59 +162,13 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Node State"
-        A["Node A: {A:5, B:0, C:0}"]
-        B["Node B: {A:0, B:3, C:0}"]
-        C["Node C: {A:0, B:0, C:2}"]
-    end
-    
-    subgraph "Merge Operation"
-        M["merge(a,b) = max(a[i], b[i])"]
-    end
-    
-    subgraph "Result"
-        R["All Nodes: {A:5, B:3, C:2}<br/>Total: 10"]
-    end
-    
-    A --> M
-    B --> M
-    C --> M
-    M --> R
-    
-    style R fill:#4caf50,color:#fff
-```
-
-</details>
 
 **Key insight**: Each node tracks all node counts; merge takes maximum per node.
 
 ### 2. PN-Counter (Positive-Negative Counter)
 
 #### Visual Representation
-
-```mermaid
-graph TB
- subgraph "PN-Counter Structure"
- PNC[PN-Counter]
- PNC --> P[P: Positive Counter<br/>G-Counter]
- PNC --> N[N: Negative Counter<br/>G-Counter]
- 
- Value["Value = P.value() - N.value()"]
- end
- 
- subgraph "Operations"
- Inc[increment()] --> P
- Dec[decrement()] --> N
- end
- 
- P --> Value
- N --> Value
-```
 
 ### PN-Counter = Two G-Counters
 
@@ -351,72 +183,13 @@ graph TB
 
 #### Convergence Visualization
 
-```mermaid
-sequenceDiagram
- participant R1 as Replica 1
- participant R2 as Replica 2
- 
- Note over R1,R2: Both start with {A}
- 
- R1->>R1: add(B, uid1)
- R2->>R2: remove(A)
- 
- Note over R1: {A, B}
- Note over R2: {}
- 
- R1->>R2: sync: add(B, uid1)
- R2->>R1: sync: remove(A)
- 
- Note over R1,R2: After sync: {B}
- Note over R1,R2: Add wins over concurrent remove
-```
-
 ### OR-Set Mechanics
-
-```mermaid
-flowchart LR
-    subgraph "Add Operation"
-        A1["add('X')"] --> A2["Store ('X', UUID1)"]
-    end
-    
-    subgraph "Remove Operation"
-        R1["remove('X')"] --> R2["Find all ('X', *)"]
-        R2 --> R3["Move to tombstones"]
-    end
-    
-    subgraph "Merge Resolution"
-        M1["Elements ∪ Elements"] --> M2["Subtract Tombstones"]
-        M2 --> M3["Final Set"]
-    end
-    
-    style A2 fill:#4caf50
-    style R3 fill:#f44336
-    style M3 fill:#2196f3
-```
 
 **Key**: Unique IDs allow concurrent add/remove of same element without conflicts.
 
 ### 4. LWW-Register (Last-Write-Wins Register)
 
 #### Conflict Resolution Visualization
-
-```mermaid
-graph LR
- subgraph "Time-based Resolution"
- W1["Write 'A'<br/>Time: 100"] 
- W2["Write 'B'<br/>Time: 150"]
- W3["Write 'C'<br/>Time: 120"]
- 
- Result["Final Value: 'B'<br/>(highest timestamp)"]
- 
- W1 --> Result
- W2 --> Result
- W3 --> Result
- end
- 
- style W2 fill:#4caf50
- style Result fill:#4caf50,color:#fff
-```
 
 ### LWW-Register Conflict Resolution
 
@@ -426,104 +199,7 @@ graph LR
 | **Same timestamp** | Node ID breaks tie | T1 = T2 → compare node IDs |
 | **Clock skew** | Still deterministic | Works despite time drift |
 
-```mermaid
-graph LR
-    W1["Write A @ T=100"] --> C{Compare}
-    W2["Write B @ T=150"] --> C
-    W3["Write C @ T=120"] --> C
-    C --> R["Result: B<br/>(highest timestamp)"]
-    style R fill:#4caf50,color:#fff
-```
 
-### 5. MV-Register (Multi-Value Register)
-
-#### Concurrent Value Handling
-
-```mermaid
-graph TB
- subgraph "Concurrent Writes"
- R1["Replica 1<br/>writes 'A'"]
- R2["Replica 2<br/>writes 'B'"]
- end
- 
- subgraph "MV-Register State"
- MV["Values: {'A', 'B'}<br/>Concurrent values preserved"]
- end
- 
- subgraph "Resolution"
- App["Application chooses:<br/>- Show both<br/>- User picks<br/>- Domain logic"]
- end
- 
- R1 --> MV
- R2 --> MV
- MV --> App
-```
-
-## CRDT Comparison Table
-
-| CRDT Type | Operations | Use Case | Memory Overhead | Convergence Speed |
-|-----------|------------|----------|-----------------|------------------|
-| **G-Counter** | increment only | Page views, likes | Low (O(nodes)) | Fast |
-| **PN-Counter** | increment, decrement | Account balances | Medium (2×G-Counter) | Fast |
-| **G-Set** | add only | Append-only logs | Grows unbounded | Fast |
-| **2P-Set** | add, remove once | Tombstoned items | Grows unbounded | Fast |
-| **OR-Set** | add, remove | Shopping carts | High (unique IDs) | Fast |
-| **LWW-Register** | set | Last value wins | Low | Fast |
-| **MV-Register** | set | Preserve conflicts | Medium | Fast |
-| **RGA** | insert, delete | Text editing | High | Medium |
-
-
-## Network Partition Scenarios
-
-### Partition Tolerance Visualization
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
- subgraph "Before Partition"
- N1A[Node 1] <--> N2A[Node 2]
- N2A <--> N3A[Node 3]
- N1A <--> N3A
- end
- 
- subgraph "During Partition"
- subgraph "Partition A"
- N1B[Node 1]
- N2B[Node 2]
- N1B <--> N2B
- end
- 
- subgraph "Partition B"
- N3B[Node 3]
- end
- 
- N1B -.X.- N3B
- N2B -.X.- N3B
- end
- 
- subgraph "After Healing"
- N1C[Node 1] <--> N2C[Node 2]
- N2C <--> N3C[Node 3]
- N1C <--> N3C
- Note["CRDTs automatically converge<br/>No conflicts or data loss"]
- end
-```
-
-</details>
 
 ### Handling Network Partitions
 
@@ -539,101 +215,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```python
-class PartitionTolerantCounter:
- """Example showing CRDT behavior during partition"""
- 
- def simulate_partition():
-# Three nodes start synchronized
- node1 = GCounter("node1")
- node2 = GCounter("node2")
- node3 = GCounter("node3")
- 
-# Initial increments
- node1.increment(10)
- 
-# Sync before partition
- node2 = node2.merge(node1)
- node3 = node3.merge(node1)
- 
- print("Before partition:", node1.value())
- 
-# PARTITION OCCURS
-# Nodes 1,2 can communicate
-# Node 3 is isolated
- 
-# Operations during partition
- node1.increment(5) # Only seen by node1,2
- node2.increment(3) # Only seen by node1,2
- node3.increment(7) # Only seen by node3
- 
-# Partial sync (1 and 2 only)
- node1 = node1.merge(node2)
- node2 = node2.merge(node1)
- 
- print("During partition:")
- print(f"Nodes 1,2: {node1.value()}")
- print(f"Node 3: {node3.value()}")
- 
-# PARTITION HEALS
-# Full sync
- merged = node1.merge(node3)
- node1 = node2 = node3 = merged
- 
- print(f"After healing: {merged.value()}")
- print("All nodes converged!")
-```
-
-</details>
-
-## Mathematical Properties
-
-### Convergence Properties Visualized
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph LR
- subgraph "Commutativity"
- C1["A ⊕ B = B ⊕ A"]
- end
- 
- subgraph "Associativity"
- A1["(A ⊕ B) ⊕ C = A ⊕ (B ⊕ C)"]
- end
- 
- subgraph "Idempotence"
- I1["A ⊕ A = A"]
- end
- 
- subgraph "Result"
- R["Strong Eventual Consistency"]
- end
- 
- C1 --> R
- A1 --> R
- I1 --> R
- 
- style R fill:#4caf50,color:#fff
-```
-
-</details>
 
 ### Join Semilattice Requirements
 
@@ -649,28 +231,6 @@ graph LR
 ### 1. Collaborative Text Editing
 
 #### RGA (Replicated Growing Array) Structure
-
-```mermaid
-graph LR
- subgraph "Document Structure"
- Start["◆"] --> H["H<br/>id:1.1"]
- H --> E["e<br/>id:1.2"]
- E --> L1["l<br/>id:1.3"]
- L1 --> L2["l<br/>id:1.4"]
- L2 --> O["o<br/>id:1.5"]
- O --> End["◆"]
- end
- 
- subgraph "Concurrent Insert"
- User1["User 1: insert 'i' after 'H'"]
- User2["User 2: insert 'a' after 'H'"]
- 
- Result["'H' → 'a' → 'i' → 'e' → 'l' → 'l' → 'o'<br/>(deterministic ordering by ID)"]
- end
- 
- User1 --> Result
- User2 --> Result
-```
 
 ### Real-World CRDT Applications
 
@@ -708,28 +268,6 @@ graph LR
 
 
 ### Bandwidth Usage Patterns
-
-```mermaid
-graph LR
- subgraph "State-based CRDTs"
- S1["Full State<br/>O(state size)"]
- S2["Anti-entropy<br/>Periodic sync"]
- end
- 
- subgraph "Operation-based CRDTs"
- O1["Operations only<br/>O(op size)"]
- O2["Causal delivery<br/>required"]
- end
- 
- subgraph "Delta-based CRDTs"
- D1["State deltas<br/>O(changes)"]
- D2["Best of both<br/>worlds"]
- end
- 
- style D1 fill:#4caf50
- style D2 fill:#4caf50
-```
-
 
 ## Level 1: Intuition (5 minutes)
 
@@ -790,21 +328,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -830,34 +353,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TD
- Start[Choose CRDT Type]
- 
- Start --> DataType{What data type?}
- 
- DataType -->|Counter| CounterCheck{Need decrement?}
- CounterCheck -->|No| GCounter[G-Counter]
- CounterCheck -->|Yes| PNCounter[PN-Counter]
- 
- DataType -->|Set| SetCheck{Need remove?}
- SetCheck -->|No| GSet[G-Set]
- SetCheck -->|Yes, once| TwoPSet[2P-Set]
- SetCheck -->|Yes, multiple| ORSet[OR-Set]
- 
- DataType -->|Register| RegCheck{Conflict resolution?}
- RegCheck -->|Last write wins| LWWReg[LWW-Register]
- RegCheck -->|Keep all values| MVReg[MV-Register]
- 
- DataType -->|Sequence| SeqCheck{Complexity tolerance?}
- SeqCheck -->|High| RGA[RGA/Treedoc]
- SeqCheck -->|Low| Transform[Operational Transform]
-```
-
-</details>
 
 ### Garbage Collection Strategies
 
@@ -960,3 +456,4 @@ Without GC: 10MB+ after a year!
 ---
 
 *Next: [Vector Clocks](vector-clocks.md) - Understanding causality in distributed systems*
+

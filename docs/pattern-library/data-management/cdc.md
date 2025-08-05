@@ -83,24 +83,6 @@ CDC treats the database transaction log as the source of truth, turning state ch
 
 ### Visual Architecture
 
-```mermaid
-graph LR
-    subgraph "Traditional Batch"
-        DB1[(Database)] -->|Daily ETL| DW1[(Data Warehouse)]
-        DB1 -->|Polling| C1[Cache]
-        DB1 -->|Batch| S1[Search]
-    end
-    
-    subgraph "CDC Pattern"
-        DB2[(Database)] -->|Transaction Log| CDC[CDC Processor]
-        CDC -->|Stream| K[Kafka]
-        K --> DW2[(Data Warehouse)]
-        K --> C2[Cache Invalidation]
-        K --> S2[Search Index]
-        K --> ML[ML Pipeline]
-    end
-```
-
 ## Level 2: Foundation (10 min)
 
 ### CDC Methods Comparison
@@ -113,28 +95,6 @@ graph LR
 | **Timestamp-based** | Track modified_at | Easy setup | Can miss updates | Audit not critical |
 
 ### Architecture Components
-
-```mermaid
-graph TB
-    subgraph "Source"
-        APP[Application] --> DB[(Database)]
-        DB --> LOG[Transaction Log]
-    end
-    
-    subgraph "CDC Pipeline"
-        LOG --> READER[Log Reader]
-        READER --> PARSER[Event Parser]
-        PARSER --> ROUTER[Event Router]
-        ROUTER --> BUFFER[Buffer/Queue]
-    end
-    
-    subgraph "Consumers"
-        BUFFER --> ES[Elasticsearch]
-        BUFFER --> CACHE[Redis Cache]
-        BUFFER --> DW[Data Warehouse]
-        BUFFER --> STREAM[Stream Processing]
-    end
-```
 
 ### Key Design Decisions
 
@@ -161,74 +121,9 @@ graph TB
 
 ### CDC Implementation Flow
 
-```mermaid
-sequenceDiagram
-    participant DB as Database
-    participant LOG as Transaction Log
-    participant CDC as CDC Processor
-    participant K as Kafka
-    participant C as Consumers
-    
-    DB->>LOG: Write transaction
-    LOG->>CDC: Read binlog/WAL
-    CDC->>CDC: Parse & Transform
-    CDC->>K: Publish event
-    K->>C: Distribute to consumers
-    
-    Note over LOG: Zero impact on DB
-    Note over K: Decouple producers/consumers
-```
-
 ### CDC Event Format
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```json
-{
-  "schema": {
-    "type": "struct",
-    "name": "order_change",
-    "version": 1
-  },
-  "payload": {
-    "before": {
-      "order_id": 12345,
-      "status": "pending",
-      "total": 99.99
-    },
-    "after": {
-      "order_id": 12345,
-      "status": "confirmed",
-      "total": 99.99
-    },
-    "source": {
-      "database": "orders",
-      "table": "orders",
-      "server_id": 223344,
-      "binlog_file": "mysql-bin.000003",
-      "binlog_position": 154789,
-      "timestamp": 1634567890
-    },
-    "op": "u",
-    "ts_ms": 1634567890000
-  }
-}
-```
-
-</details>
 
 ### Common Patterns
 
@@ -287,43 +182,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Source Databases"
-        MySQL[(MySQL)]
-        CASS[(Cassandra)]
-        DDB[(DynamoDB)]
-    end
-    
-    subgraph "CDC Layer"
-        MySQL --> DBZ[Debezium]
-        CASS --> CSC[Cassandra CDC]
-        DDB --> DS[DynamoDB Streams]
-        
-        DBZ --> KC[Kafka Connect]
-        CSC --> KC
-        DS --> KC
-    end
-    
-    subgraph "Stream Processing"
-        KC --> KAFKA[Kafka<br/>4T events/day]
-        KAFKA --> FLINK[Flink]
-        FLINK --> FILTER[Filter/Route]
-        FILTER --> ENRICH[Enrichment]
-    end
-    
-    subgraph "Consumers"
-        ENRICH --> ES[Elasticsearch<br/>Search]
-        ENRICH --> RS[Recommendations<br/>Real-time]
-        ENRICH --> CACHE[EVCache<br/>Invalidation]
-        ENRICH --> S3[S3<br/>Data Lake]
-    end
-```
-
-</details>
 
 **Scale Achievements**:
 - 4 trillion events/day
@@ -345,59 +204,11 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```python
-def cdc_vs_batch_roi(
-    daily_changes,
-    data_freshness_value_per_hour,
-    num_consumers
-):
-    # Batch approach
-    batch_delay_hours = 12  # Twice daily
-    batch_lost_value = batch_delay_hours * data_freshness_value_per_hour
-    batch_infra_cost = 1000  # Simplified
-    
-    # CDC approach  
-    cdc_delay_minutes = 1
-    cdc_lost_value = (cdc_delay_minutes/60) * data_freshness_value_per_hour
-    cdc_infra_cost = 3000  # Higher infrastructure
-    
-    # ROI calculation
-    value_gain = batch_lost_value - cdc_lost_value
-    cost_increase = cdc_infra_cost - batch_infra_cost
-    
-    return {
-        'monthly_value_gain': value_gain * 30,
-        'monthly_cost_increase': cost_increase,
-        'roi_months': cost_increase / (value_gain * 30),
-        'worth_it': value_gain > cost_increase
-    }
-```
-
-</details>
 
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    Start[Analyze needs] --> Q1{Real-time<br/>required?}
-    Q1 -->|No| Batch[Use ETL/ELT]
-    Q1 -->|Yes| Q2{Source DB<br/>supports CDC?}
-    
-    Q2 -->|No| Q3{Can add<br/>triggers?}
-    Q2 -->|Yes| LogCDC[Use log-based<br/>CDC]
-    
-    Q3 -->|No| Poll[Timestamp<br/>polling]
-    Q3 -->|Yes| Trigger[Trigger-based<br/>CDC]
-    
-    LogCDC --> Q4{Multiple<br/>consumers?}
-    Q4 -->|Yes| Stream[Add streaming<br/>platform]
-    Q4 -->|No| Direct[Direct<br/>connection]
-```
 
 ### Implementation Checklist ✓
 
@@ -450,3 +261,4 @@ graph TD
 - [Netflix: DBLog Framework](https://netflixtechblog.com/dblog-a-generic-change-data-capture-framework-69351fb9099b)
 - [Airbnb: SpinalTap](https://medium.com/airbnb-engineering/capturing-data-evolution-in-a-service-oriented-architecture-72f7c643ee6f)
 - [Uber: Schemaless CDC](https://eng.uber.com/schemaless-rewrite/)
+

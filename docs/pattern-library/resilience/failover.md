@@ -1,33 +1,41 @@
 ---
-title: Failover Pattern
-description: Automatic switching to backup systems during failures to maintain high availability
-type: pattern
+best_for: Database clusters, network equipment, and traditional active-passive setups
 category: resilience
-difficulty: intermediate
-reading_time: 15 min
-prerequisites:
-  - health-monitoring
-  - state-replication
-  - network-routing
-excellence_tier: silver
-pattern_status: use-with-expertise
-introduced: 1990-01
 current_relevance: mainstream
-essential_question: How do we automatically switch to backup systems when primary systems fail without losing user requests?
+description: Automatic switching to backup systems during failures to maintain high
+  availability
+difficulty: intermediate
+essential_question: How do we automatically switch to backup systems when primary
+  systems fail without losing user requests?
+excellence_tier: silver
+introduced: 1990-01
+pattern_status: use-with-expertise
+prerequisites:
+- health-monitoring
+- state-replication
+- network-routing
+reading_time: 15 min
+related_laws:
+- law1-failure
+- law2-asynchrony
+- law5-epistemology
+related_pillars:
+- state
+- control
 tagline: Seamless switching to backup systems when primary systems fail
+title: Failover Pattern
 trade_offs:
-  pros:
-    - "Provides automatic recovery from failures"
-    - "Maintains service availability during outages"
-    - "Well-understood and mature pattern"
   cons:
-    - "Requires redundant infrastructure (cost)"
-    - "Split-brain risks without proper fencing"
-    - "Data consistency challenges during switchover"
-best_for: "Database clusters, network equipment, and traditional active-passive setups"
-related_laws: [law1-failure, law2-asynchrony, law5-epistemology]
-related_pillars: [state, control]
+  - Requires redundant infrastructure (cost)
+  - Split-brain risks without proper fencing
+  - Data consistency challenges during switchover
+  pros:
+  - Provides automatic recovery from failures
+  - Maintains service availability during outages
+  - Well-understood and mature pattern
+type: pattern
 ---
+
 
 # Failover Pattern
 
@@ -66,23 +74,6 @@ related_pillars: [state, control]
 
 ### Hospital Emergency Power Analogy
 
-```mermaid
-graph LR
-    subgraph "Normal Operation"
-        U1[Users] --> P1[Primary Power]
-        P1 --> H1[Hospital]
-    end
-    
-    subgraph "Power Failure"
-        U2[Users] --> X[❌ Primary Failed]
-        G[Generator] --> H2[Hospital]
-        D[Detection: < 1 sec] --> S[Switch: < 5 sec]
-    end
-    
-    style X fill:#ff6b6b,stroke:#c92a2a
-    style G fill:#51cf66,stroke:#2f9e44
-```
-
 ### Core Insight
 > **Key Takeaway:** Failover trades resource efficiency for availability - you pay for idle backups to ensure continuous service.
 
@@ -100,32 +91,6 @@ graph LR
 
 ### Failover Architecture Types
 
-```mermaid
-graph TB
-    subgraph "Active-Passive"
-        AP_U[Users] --> AP_LB[Load Balancer]
-        AP_LB --> AP_P[Primary: Active]
-        AP_LB -.-> AP_B[Backup: Standby]
-        AP_P --> AP_DB[(Primary DB)]
-        AP_B -.-> AP_DB2[(Replica DB)]
-        AP_DB --> |Replication| AP_DB2
-    end
-    
-    subgraph "Active-Active"
-        AA_U[Users] --> AA_LB[Load Balancer]
-        AA_LB --> AA_P1[Primary 1: Active]
-        AA_LB --> AA_P2[Primary 2: Active]
-        AA_P1 --> AA_DB[(Shared Storage)]
-        AA_P2 --> AA_DB
-    end
-    
-    classDef active fill:#51cf66,stroke:#2f9e44
-    classDef standby fill:#868e96,stroke:#495057
-    
-    class AP_P,AA_P1,AA_P2 active
-    class AP_B standby
-```
-
 ### Failover Timing Comparison
 
 | Type | Detection Time | Switch Time | Total RTO | Data Loss (RPO) | Cost |
@@ -139,23 +104,6 @@ graph TB
 
 ### Failover State Machine
 
-```mermaid
-stateDiagram-v2
-    [*] --> Healthy: System Start
-    Healthy --> Degraded: Performance Drop
-    Healthy --> Failed: Crash/Network Loss
-    Degraded --> Failed: Threshold Exceeded
-    Degraded --> Healthy: Recovery
-    Failed --> Failing_Over: Trigger Failover
-    Failing_Over --> Backup_Active: Switch Complete
-    Backup_Active --> Recovering: Primary Returns
-    Recovering --> Healthy: Failback Complete
-    
-    note right of Failed: Detection:<br/>- Health checks fail<br/>- Timeouts exceed<br/>- Error rate spike
-    
-    note right of Failing_Over: Actions:<br/>1. Stop traffic to primary<br/>2. Verify backup ready<br/>3. Update routing<br/>4. Sync final state
-```
-
 ### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -164,6 +112,18 @@ stateDiagram-v2
 | **Switchover Trigger** | Automatic<br>Manual approval | Speed vs. Control | Automatic with manual override |
 | **State Handling** | Sync replication<br>Async replication | Performance vs. Consistency | Async with bounded lag |
 | **Failback Policy** | Automatic<br>Scheduled<br>Manual | Risk vs. Convenience | Scheduled during low traffic |
+
+## Decision Matrix
+
+| Factor | Score (1-5) | Reasoning |
+|--------|-------------|-----------|
+| **Complexity** | 4 | State synchronization, split-brain prevention, health monitoring, failback logic |
+| **Performance Impact** | 3 | Replication overhead, but enables high availability and disaster recovery |
+| **Operational Overhead** | 4 | Monitoring health, testing failover, managing state sync, capacity planning |
+| **Team Expertise Required** | 4 | Understanding of distributed state, networking, monitoring, disaster recovery |
+| **Scalability** | 3 | Provides availability scaling but resource duplication limits efficiency |
+
+**Overall Recommendation: ⚠️ USE WITH EXPERTISE** - Critical for HA but requires careful design to prevent split-brain scenarios.
 
 ### Common Pitfalls
 
@@ -182,77 +142,7 @@ stateDiagram-v2
 
 #### Multi-Region Failover Architecture
 
-```mermaid
-graph TB
-    subgraph "Global Traffic Manager"
-        GTM[Route 53/Traffic Manager]
-    end
-    
-    subgraph "Region US-East"
-        USE_LB[Load Balancer]
-        USE_AS[App Servers]
-        USE_DB[(Primary DB)]
-        USE_LB --> USE_AS --> USE_DB
-    end
-    
-    subgraph "Region US-West"
-        USW_LB[Load Balancer]
-        USW_AS[App Servers]
-        USW_DB[(Replica DB)]
-        USW_LB --> USW_AS --> USW_DB
-    end
-    
-    subgraph "Region EU"
-        EU_LB[Load Balancer]
-        EU_AS[App Servers]
-        EU_DB[(Replica DB)]
-        EU_LB --> EU_AS --> EU_DB
-    end
-    
-    GTM --> USE_LB
-    GTM -.-> USW_LB
-    GTM -.-> EU_LB
-    
-    USE_DB --> |Cross-region replication| USW_DB
-    USE_DB --> |Cross-region replication| EU_DB
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#868e96,stroke:#495057
-    
-    class USE_LB,USE_AS,USE_DB primary
-    class USW_LB,USW_AS,USW_DB,EU_LB,EU_AS,EU_DB secondary
-```
-
 ### Failover Decision Algorithm
-
-```yaml
-failover_policy:
-  health_check:
-    interval: 10s
-    timeout: 5s
-    healthy_threshold: 2
-    unhealthy_threshold: 3
-    
-  triggers:
-    - type: health_check_failure
-      threshold: 3 consecutive
-      action: immediate_failover
-      
-    - type: error_rate
-      threshold: 5%
-      window: 60s
-      action: evaluate_failover
-      
-    - type: latency
-      threshold: p99 > 1000ms
-      window: 300s
-      action: gradual_failover
-      
-  constraints:
-    min_time_between_failovers: 300s
-    require_quorum: true
-    max_failover_attempts: 3
-```
 
 ### Monitoring & Alerting
 
@@ -298,52 +188,9 @@ failover_policy:
 
 ### Testing Strategies
 
-```mermaid
-graph LR
-    subgraph "Testing Pyramid"
-        UT[Unit Tests<br/>Component isolation]
-        IT[Integration Tests<br/>Failover paths]
-        CT[Chaos Tests<br/>Random failures]
-        DT[Disaster Tests<br/>Full region down]
-    end
-    
-    UT --> IT --> CT --> DT
-    
-    subgraph "Frequency"
-        F1[Every commit]
-        F2[Daily]
-        F3[Weekly]
-        F4[Monthly]
-    end
-    
-    UT -.-> F1
-    IT -.-> F2
-    CT -.-> F3
-    DT -.-> F4
-```
-
 ## Quick Reference
 
 ### Decision Flowchart
-
-```mermaid
-graph TD
-    A[Need High Availability?] --> B{RTO Requirement?}
-    B -->|< 1 min| C[Active-Active]
-    B -->|1-5 min| D[Active-Passive]
-    B -->|> 5 min| E[Pilot Light]
-    
-    C --> F{Budget?}
-    D --> F
-    E --> F
-    
-    F -->|High| G[Multi-Region]
-    F -->|Medium| H[Single Region + Backup]
-    F -->|Low| I[Warm Standby]
-    
-    classDef recommended fill:#51cf66,stroke:#2f9e44
-    class D,H recommended
-```
 
 ### Implementation Checklist
 
@@ -386,3 +233,4 @@ graph TD
     - [Law 5: Distributed Knowledge](../../part1-axioms/law5-epistemology/) - Prevent split-brain
 
 </div>
+

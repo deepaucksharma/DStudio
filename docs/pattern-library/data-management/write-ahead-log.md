@@ -1,45 +1,53 @@
 ---
-title: Write-Ahead Log (WAL)
-description: Ensuring durability by logging changes before applying them - the foundation of crash recovery in databases
-type: pattern
+best_for: Database engine implementers, storage system builders, understanding ACID
+  guarantees
 category: data-management
-difficulty: intermediate
-reading_time: 25 min
-prerequisites:
-  - durability
-  - acid-properties
-  - fsync
-excellence_tier: silver
-pattern_status: use-with-expertise
-introduced: 1992-01
 current_relevance: mainstream
-essential_question: How can we guarantee durability and enable crash recovery without sacrificing performance?
-tagline: Log first, apply later - the foundation of database durability
-trade_offs:
-  pros:
-    - Guarantees durability and crash recovery
-    - Enables transaction rollback and point-in-time recovery
-    - Sequential I/O performance advantages
-    - Supports database replication
-  cons:
-    - Write amplification overhead (2x+ writes)
-    - Complex recovery procedures required
-    - Storage space overhead for logs
-    - Implementation complexity for edge cases
-best_for: Database engine implementers, storage system builders, understanding ACID guarantees
+description: Ensuring durability by logging changes before applying them - the foundation
+  of crash recovery in databases
+difficulty: intermediate
+essential_question: How can we guarantee durability and enable crash recovery without
+  sacrificing performance?
+excellence_tier: silver
+introduced: 1992-01
 modern_examples:
-  - company: PostgreSQL
-    implementation: WAL-based replication and point-in-time recovery
-    scale: Production databases handling millions of transactions
-  - company: MySQL/InnoDB
-    implementation: Redo logs for crash recovery and replication
-    scale: Billions of transactions with guaranteed durability
-  - company: etcd
-    implementation: WAL for distributed consensus and state recovery
-    scale: Critical Kubernetes cluster state management
-related_laws: [law1-failure, law4-optimization]
-related_pillars: [state, truth]
+- company: PostgreSQL
+  implementation: WAL-based replication and point-in-time recovery
+  scale: Production databases handling millions of transactions
+- company: MySQL/InnoDB
+  implementation: Redo logs for crash recovery and replication
+  scale: Billions of transactions with guaranteed durability
+- company: etcd
+  implementation: WAL for distributed consensus and state recovery
+  scale: Critical Kubernetes cluster state management
+pattern_status: use-with-expertise
+prerequisites:
+- durability
+- acid-properties
+- fsync
+reading_time: 25 min
+related_laws:
+- law1-failure
+- law4-optimization
+related_pillars:
+- state
+- truth
+tagline: Log first, apply later - the foundation of database durability
+title: Write-Ahead Log (WAL)
+trade_offs:
+  cons:
+  - Write amplification overhead (2x+ writes)
+  - Complex recovery procedures required
+  - Storage space overhead for logs
+  - Implementation complexity for edge cases
+  pros:
+  - Guarantees durability and crash recovery
+  - Enables transaction rollback and point-in-time recovery
+  - Sequential I/O performance advantages
+  - Supports database replication
+type: pattern
 ---
+
 
 # Write-Ahead Log (WAL)
 
@@ -80,6 +88,9 @@ related_pillars: [state, truth]
 Imagine writing a check. You first write the intent in your check register (the log), then hand over the actual check (apply the change). If something goes wrong, you can reconstruct what happened from your register. WAL works the same way for databases.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (8 lines)</summary>
+
 ```mermaid
 graph LR
     A[Transaction Request] --> B[Write to Log]
@@ -90,6 +101,8 @@ graph LR
     style B fill:#5448C8,stroke:#3f33a6,color:#fff
     style C fill:#81c784,stroke:#388e3c,color:#fff
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Always record intentions before executing them - durability through sequential logging with deferred application.
@@ -112,31 +125,6 @@ Write-ahead logging ensures durability by writing intended changes to a sequenti
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "WAL Protocol"
-        T[Transaction] --> L[Generate Log Record]
-        L --> W[Write to WAL]
-        W --> F[Force to Disk]
-        F --> A[Apply to Data Pages]
-        A --> C[Checkpoint Periodically]
-    end
-    
-    subgraph "Storage"
-        WAL[(WAL Files)]
-        Data[(Data Files)]
-    end
-    
-    W --> WAL
-    A --> Data
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class L,F primary
-    class W,A secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -148,7 +136,25 @@ graph TB
 
 ### Basic Example
 
-```python
+```mermaid
+classDiagram
+    class Component2 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler2 {
+        +handle() Result
+        +configure() void
+    }
+    Component2 --> Handler2 : uses
+    
+    note for Component2 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 class SimpleWAL:
     def __init__(self):
         self.log_sequence_number = 0
@@ -176,30 +182,14 @@ class SimpleWAL:
         commit_lsn = self.write_log_record(txn_id, 'COMMIT', {})
         # Transaction is now durable
         return commit_lsn
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-```mermaid
-stateDiagram-v2
-    [*] --> Active: System start
-    Active --> Logging: Begin transaction
-    Logging --> Buffered: Write log record
-    Buffered --> Persisted: fsync() to disk
-    Persisted --> Applied: Apply to data
-    Applied --> Committed: Transaction complete
-    Committed --> Active: Continue operations
-    
-    Active --> Recovery: System crash
-    Recovery --> Analysis: Scan log files
-    Analysis --> Redo: Replay committed transactions
-    Redo --> Undo: Rollback uncommitted
-    Undo --> Active: Recovery complete
-```
-
 #### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -247,24 +237,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale"
-        A1[Single WAL File<br/>Simple recovery]
-    end
-    
-    subgraph "Medium Scale"
-        B1[Segmented WAL<br/>Parallel writes]
-    end
-    
-    subgraph "Large Scale"
-        C1[Distributed WAL<br/>Sharded across nodes]
-    end
-    
-    A1 -->|1K txn/sec| B1
-    B1 -->|100K txn/sec| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -300,6 +272,9 @@ graph LR
 ### Pattern Evolution
 
 #### Migration from Legacy
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[No Durability] -->|Step 1| B[Simple Logging]
@@ -309,6 +284,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -331,25 +308,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need durability?] --> B{Building storage?}
-    B -->|Yes| C[Implement WAL]
-    B -->|No| D{Critical data?}
-    
-    D -->|Yes| E[Use database with WAL]
-    D -->|No| F{Performance critical?}
-    
-    F -->|Yes| G[Consider trade-offs]
-    F -->|No| H[Use existing solution]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class C recommended
-    class G,H caution
-```
 
 ### Comparison with Alternatives
 
@@ -416,3 +374,4 @@ graph TD
     - [Storage Optimization](../../excellence/guides/storage-optimization.md)
 
 </div>
+

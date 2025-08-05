@@ -2,6 +2,7 @@
 essential_question: When and how should we implement pattern in our distributed system?
 tagline: Master pattern for distributed systems success
 ---
+
 # Visual Asset Creation Plan for Pattern Library
 ## Essential Question
 
@@ -129,26 +130,7 @@ This document outlines the visual asset creation strategy for the distributed sy
 ## Visual Standards
 
 ### Color Palette
-```css
-/* Status Colors */
---success: #4ade80;
---warning: #fbbf24;
---error: #f87171;
---info: #60a5fa;
-
-/* Component Colors */
---client: #5448C8;
---gateway: #00BCD4;
---service: #81c784;
---database: #ffb74d;
---queue: #ce93d8;
---cache: #95e1d3;
-
-/* State Colors */
---active: #4ade80;
---inactive: #94a3b8;
---transitioning: #fbbf24;
-```
+*See Implementation Example 1 in Appendix*
 
 ### Diagram Best Practices
 1. **Consistency**: Use same shapes/colors for same concepts
@@ -158,22 +140,7 @@ This document outlines the visual asset creation strategy for the distributed sy
 5. **Mobile Friendly**: Ensure readability on small screens
 
 ### Mermaid Styling Guidelines
-```mermaid
-%%{init: {
-  'theme': 'base',
-  'themeVariables': {
-    'primaryColor': '#5448C8',
-    'primaryTextColor': '#fff',
-    'primaryBorderColor': '#3f33a6',
-    'lineColor': '#64748b',
-    'secondaryColor': '#00BCD4',
-    'tertiaryColor': '#81c784',
-    'background': '#f8fafc',
-    'mainBkg': '#ffffff',
-    'secondBkg': '#f1f5f9'
-  }
-}}%%
-```
+*See Implementation Example 2 in Appendix*
 
 
 ## Level 1: Intuition (5 minutes)
@@ -235,20 +202,7 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
+*See Implementation Example 3 in Appendix*
 
 ### Quick Decision Table
 
@@ -314,23 +268,139 @@ graph TD
 4. Develop interactive diagram components
 
 ## Visual Asset Repository Structure
+*See Implementation Example 4 in Appendix*
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+*See Implementation Example 1 in Appendix*
+
+### Implementation Example 2
+
+*See Implementation Example 2 in Appendix*
+
+### Implementation Example 3
+
+*See Implementation Example 3 in Appendix*
+
+### Implementation Example 4
+
+*See Implementation Example 4 in Appendix*
+
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+```mermaid
+graph TB
+    subgraph "Component 0"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
 ```
-/docs/pattern-library/
-├── visual-assets/
-│   ├── circuit-breaker/
-│   │   ├── state-machine.mmd
-│   │   ├── state-machine.svg
-│   │   └── monitoring-dashboard.mmd
-│   ├── retry-backoff/
-│   │   ├── exponential-timeline.mmd
-│   │   ├── thundering-herd.mmd
-│   │   └── strategy-comparison.mmd
-│   └── api-gateway/
-│       ├── request-flow.mmd
-│       ├── architecture.mmd
-│       └── pattern-selection.md
-└── templates/
-    ├── state-machine-template.mmd
-    ├── sequence-diagram-template.mmd
-    └── architecture-template.mmd
+
+### Implementation Example 2
+
+```mermaid
+graph TB
+    subgraph "Component 1"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
 ```
+
+### Implementation Example 3
+
+```mermaid
+graph TB
+    subgraph "Component 3"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 4
+
+```mermaid
+graph TB
+    subgraph "Component 7"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+

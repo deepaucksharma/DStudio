@@ -1,47 +1,51 @@
 ---
-title: Distributed Queue
-description: Reliable message queuing across multiple nodes with guarantees for ordering, delivery, and fault tolerance
-type: pattern
 category: coordination
-difficulty: intermediate
-reading_time: 30 min
-prerequisites:
-  - consensus
-  - replication
-  - failure-handling
-excellence_tier: gold
-pattern_status: recommended
-introduced: 2006-11
 current_relevance: mainstream
-essential_question: How do we reliably pass messages between distributed components while handling failures, ensuring ordering, and preventing duplication?
-tagline: The backbone of asynchronous communication at scale
+description: Reliable message queuing across multiple nodes with guarantees for ordering,
+  delivery, and fault tolerance
+difficulty: intermediate
+essential_question: How do we reliably pass messages between distributed components
+  while handling failures, ensuring ordering, and preventing duplication?
+excellence_tier: gold
+introduced: 2006-11
 modern_examples:
-  - company: AWS
-    implementation: "Amazon SQS handles trillions of messages annually with at-least-once delivery"
-    scale: "Trillions of messages/year, millions of queues"
-  - company: LinkedIn
-    implementation: "Apache Kafka processes 7 trillion messages/day for stream processing"
-    scale: "7 trillion messages/day, 100,000+ partitions"
-  - company: RabbitMQ
-    implementation: "Used by Reddit, Mozilla, AT&T for reliable message delivery"
-    scale: "1M+ messages/second sustained throughput"
+- company: AWS
+  implementation: Amazon SQS handles trillions of messages annually with at-least-once
+    delivery
+  scale: Trillions of messages/year, millions of queues
+- company: LinkedIn
+  implementation: Apache Kafka processes 7 trillion messages/day for stream processing
+  scale: 7 trillion messages/day, 100,000+ partitions
+- company: RabbitMQ
+  implementation: Used by Reddit, Mozilla, AT&T for reliable message delivery
+  scale: 1M+ messages/second sustained throughput
+pattern_status: recommended
+prerequisites:
+- consensus
+- replication
+- failure-handling
 production_checklist:
-  - "Choose delivery guarantee: at-most-once, at-least-once, or exactly-once"
-  - "Configure replication factor (typically 3 for production)"
-  - "Set appropriate message TTL and dead letter queues"
-  - "Implement consumer groups for parallel processing"
-  - "Monitor queue depth and consumer lag metrics" 
-  - "Use message batching for throughput optimization"
-  - "Configure persistence for durability requirements"
-  - "Implement poison message handling and DLQ strategies"
+- 'Choose delivery guarantee: at-most-once, at-least-once, or exactly-once'
+- Configure replication factor (typically 3 for production)
+- Set appropriate message TTL and dead letter queues
+- Implement consumer groups for parallel processing
+- Monitor queue depth and consumer lag metrics
+- Use message batching for throughput optimization
+- Configure persistence for durability requirements
+- Implement poison message handling and DLQ strategies
+reading_time: 30 min
 related_laws:
-  - law2-asynchrony
-  - law1-failure
-  - law7-economics
+- law2-asynchrony
+- law1-failure
+- law7-economics
 related_pillars:
-  - work
-  - state
+- work
+- state
+tagline: The backbone of asynchronous communication at scale
+title: Distributed Queue
+type: pattern
 ---
+
 
 # Distributed Queue
 
@@ -89,29 +93,6 @@ Imagine you're running a busy restaurant. Without a queuing system, customers wo
 
 ### Visual Metaphor
 
-```mermaid
-graph TB
-    subgraph "Without Queue: Chaos"
-        A1[Service A] -->|Direct Call| B1[Service B]
-        A1 -->|❌ B is down| X[Request Fails]
-        A2[Service A2] -->|Overloads| B1
-        Note1[⚠️ Both must be online<br/>⚠️ Synchronous blocking<br/>⚠️ No retry logic]
-    end
-    
-    subgraph "With Queue: Order"
-        A3[Service A] -->|Send Message| Q[Distributed Queue]
-        A4[Service A2] -->|Send Message| Q
-        Q -->|Poll Messages| B2[Service B]
-        Q -->|Persistent Storage| S[(Storage)]
-        Note2[✅ Temporal decoupling<br/>✅ Automatic retries<br/>✅ Load leveling]
-    end
-    
-    style Q fill:#81c784,stroke:#388e3c
-    style X fill:#ef5350,color:#fff
-    style Note1 fill:#ffebee,stroke:#f44336
-    style Note2 fill:#e8f5e9,stroke:#4caf50
-```
-
 ### Core Insight
 
 > **Key Takeaway:** Distributed queues transform fragile synchronous coupling into resilient asynchronous communication, enabling systems to handle failures gracefully and scale independently.
@@ -136,61 +117,6 @@ Distributed queues provide reliable, ordered message delivery between services w
 
 #### Queue Architecture Components
 
-```mermaid
-graph TB
-    subgraph "Distributed Queue System"
-        subgraph "Producers"
-            P1[Order Service]
-            P2[User Service]
-            P3[Analytics Service]
-        end
-        
-        subgraph "Queue Cluster"
-            subgraph "Queue Nodes"
-                Q1[Queue Node 1<br/>Primary]
-                Q2[Queue Node 2<br/>Replica]
-                Q3[Queue Node 3<br/>Replica]
-            end
-            
-            subgraph "Persistent Storage"
-                S1[(Messages)]
-                S2[(Metadata)]
-                S3[(DLQ)]
-            end
-        end
-        
-        subgraph "Consumers"
-            subgraph "Consumer Group A"
-                C1[Payment Worker]
-                C2[Payment Worker]
-            end
-            subgraph "Consumer Group B" 
-                C3[Email Worker]
-                C4[SMS Worker]
-            end
-        end
-        
-        P1 --> Q1
-        P2 --> Q1
-        P3 --> Q1
-        
-        Q1 --> S1
-        Q1 -.->|Replicate| Q2
-        Q1 -.->|Replicate| Q3
-        
-        S1 --> C1
-        S1 --> C2
-        S1 --> C3
-        S1 --> C4
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class Q1,S1 primary
-    class Q2,Q3,C1,C2,C3,C4 secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -202,7 +128,25 @@ graph TB
 
 ### Basic Example
 
-```python
+```mermaid
+classDiagram
+    class Component2 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler2 {
+        +handle() Result
+        +configure() void
+    }
+    Component2 --> Handler2 : uses
+    
+    note for Component2 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 # Simple distributed queue interface
 class DistributedQueue:
     async def send(self, message: dict, queue_name: str) -> str:
@@ -231,40 +175,14 @@ class DistributedQueue:
             await self._set_visibility_timeout(msg['id'], 30)  # 30 seconds
         
         return messages
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### Message Delivery Guarantees
-
-```mermaid
-graph TB
-    subgraph "At-Most-Once (Fire & Forget)"
-        AM1[Send Message] --> AM2[Delete Immediately]
-        AM2 --> AM3[Process Message]
-        AM3 -.->|Process Fails| AM4[❌ Message Lost]
-    end
-    
-    subgraph "At-Least-Once (Retry on Failure)" 
-        AL1[Send Message] --> AL2[Process Message]
-        AL2 -->|Success| AL3[Delete Message]
-        AL2 -.->|Failure| AL4[Retry Processing]
-        AL4 --> AL5[⚠️ Possible Duplicates]
-    end
-    
-    subgraph "Exactly-Once (Idempotent Processing)"
-        EO1[Send + Unique ID] --> EO2[Check if Processed]
-        EO2 -->|New| EO3[Process Message]
-        EO2 -->|Duplicate| EO4[Skip Processing]
-        EO3 --> EO5[Mark as Processed]
-    end
-    
-    style AM4 fill:#ffcdd2,stroke:#d32f2f
-    style AL5 fill:#fff3e0,stroke:#f57c00
-    style EO5 fill:#e8f5e9,stroke:#388e3c
-```
 
 #### Critical Design Decisions
 
@@ -314,32 +232,6 @@ graph TB
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (< 1K msgs/sec)"
-        A1[Single Queue<br/>Instance]
-        A2[Few Consumers]
-        A1 --> A2
-    end
-    
-    subgraph "Medium Scale (1K-100K msgs/sec)"
-        B1[Queue Cluster<br/>3 nodes]
-        B2[Consumer Groups<br/>Auto-scaling]
-        B1 --> B2
-    end
-    
-    subgraph "Large Scale (> 100K msgs/sec)"
-        C1[Multi-Region<br/>Queue Clusters]
-        C2[Hundreds of<br/>Consumer Instances]
-        C3[Advanced<br/>Partitioning]
-        C1 --> C2
-        C1 --> C3
-    end
-    
-    A1 -->|Growth| B1
-    B1 -->|Growth| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -381,6 +273,9 @@ graph LR
 
 #### Migration Path from Synchronous to Queue-based
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Synchronous<br/>Coupling] -->|Step 1| B[Add Queue<br/>Layer]
@@ -390,6 +285,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -412,29 +309,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Messaging?] --> B{Throughput Needs?}
-    B -->|< 1K msgs/sec| C[Any Queue System]
-    B -->|1K-100K msgs/sec| D{Ordering Required?}
-    B -->|> 100K msgs/sec| E[Kafka/Pulsar]
-    
-    D -->|Global Order| F[Single Partition]
-    D -->|Per-Key Order| G[Partitioned Queue]
-    D -->|No Order| H[Standard Queue]
-    
-    C --> I[RabbitMQ/SQS]
-    F --> J[Lower Throughput]
-    G --> K[Kafka/Pulsar]
-    H --> L[SQS/Cloud Queues]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class G,K recommended
-    class F,J caution
-```
 
 ### Comparison with Alternatives
 
@@ -501,3 +375,4 @@ graph TD
     - [DLQ Strategies](../../excellence/guides/dlq-patterns.md)
 
 </div>
+

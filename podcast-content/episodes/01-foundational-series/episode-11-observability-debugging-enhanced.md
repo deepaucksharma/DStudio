@@ -141,21 +141,41 @@ class ObservabilityInformationTheory:
         return min(optimal_rate, 1.0)  # Never sample > 100%
 ```
 
-### The Three Pillars Are Not Enough
+### Beyond the Three Pillars - Why the Industry Got It Wrong
 
 *[Sound: Ancient Greek columns crumbling]*
 
-**Narrator**: The industry teaches three pillars of observability: Metrics, Logs, and Traces. But that's like saying a house needs walls, a roof, and a floor. What about the foundation? What about the furniture? What about the people living inside?
+**Why Not Just Metrics, Logs, and Traces?** The three pillars model oversimplifies. The trade-off axis is **Conceptual Simplicity vs Operational Reality**. In production, you need seven interconnected observability dimensions:
 
-**The Seven Pillars of True Observability**:
+**The Seven Pillars of True Observability** (based on Google's SRE practices and Netflix's observability evolution):
 
 1. **Metrics** (The What) - Aggregated numerical data
 2. **Logs** (The When) - Discrete events  
 3. **Traces** (The Where) - Request flow
-4. **Profiles** (The Why) - Code-level performance
-5. **Events** (The How) - Business occurrences
-6. **Topology** (The Who) - Service dependencies
-7. **Synthetics** (The Could) - Proactive testing
+4. **Profiles** (The Why) - Code-level performance with microsecond precision
+5. **Events** (The How) - Business occurrences with causal ordering
+6. **Topology** (The Who) - Service dependencies with real-time discovery
+7. **Synthetics** (The Could) - Proactive testing with failure injection
+
+**Implementation Details for Each Pillar**:
+
+**Profiles**: Continuous profiling presents unique challenges:
+- **CPU profiling overhead**: Statistical sampling at 100Hz adds 1-3% CPU overhead
+- **Memory profiling precision**: Go's heap profiler samples every 512KB allocation
+- **Concurrency issues**: Profiling concurrent programs requires stop-the-world coordination
+- **Symbolication performance**: Debug symbol lookup can add 50-100ms to crash reporting
+
+**Events**: Business event processing has ordering and consistency challenges:
+- **Clock skew handling**: NTP drift can be 100-500ms across data centers
+- **Event deduplication**: Exactly-once semantics require distributed consensus
+- **Causal ordering**: Vector clocks grow linearly with participant count
+- **Schema evolution**: Event format changes require backward compatibility
+
+**Topology**: Service discovery faces the split-brain problem:
+- **Partition tolerance**: Network splits can cause duplicate service registrations
+- **Consistency models**: CP systems block during partitions, AP systems allow drift
+- **Health check accuracy**: False positives cause unnecessary traffic shifts
+- **Discovery latency**: DNS propagation can take 30-300 seconds globally
 
 ### The Observability Maturity Model
 

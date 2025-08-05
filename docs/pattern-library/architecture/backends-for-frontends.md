@@ -34,9 +34,6 @@ type: pattern
 ---
 
 
-
-
-
 # Backends For Frontends (BFF)
 
 !!! warning "🥈 Silver Tier Pattern"
@@ -95,93 +92,13 @@ type: pattern
 
 ## Architectural Decision Framework
 
-```mermaid
-graph TD
-    Start[API Design Need] --> Q1{Multiple Clients?}
-    
-    Q1 -->|No| Single[Single API]
-    Q1 -->|Yes| Q2{Different Needs?}
-    
-    Q2 -->|Similar| Gateway[API Gateway]
-    Q2 -->|Very Different| Q3{Separate Teams?}
-    
-    Q3 -->|No| Q4{Performance Critical?}
-    Q3 -->|Yes| BFF[BFF Pattern]
-    
-    Q4 -->|No| Gateway
-    Q4 -->|Yes| BFF
-    
-    style BFF fill:#f9f,stroke:#333,stroke-width:4px
-    style Gateway fill:#9ff,stroke:#333,stroke-width:2px
-    style Single fill:#9f9,stroke:#333,stroke-width:2px
-```
-
 ---
 
 ## Level 1: Intuition
 
 ### Core Architecture Pattern
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "BFF Architecture"
-        subgraph "Clients"
-            M[Mobile App]
-            W[Web App]
-            T[TV App]
-            V[Voice Assistant]
-        end
-        
-        subgraph "BFF Layer"
-            MB[Mobile BFF<br/>Optimized payload<br/>Offline support]
-            WB[Web BFF<br/>Rich features<br/>SEO data]
-            TB[TV BFF<br/>Navigation focus<br/>Large UI]
-            VB[Voice BFF<br/>NLP integration<br/>Audio responses]
-        end
-        
-        subgraph "Core Services"
-            PS[Product Service]
-            US[User Service]
-            OS[Order Service]
-        end
-        
-        M --> MB
-        W --> WB
-        T --> TB
-        V --> VB
-        
-        MB --> PS
-        MB --> US
-        WB --> PS
-        WB --> US
-        WB --> OS
-        TB --> PS
-        VB --> PS
-        VB --> OS
-    end
-    
-    style MB fill:#f9f,stroke:#333,stroke-width:2px
-    style WB fill:#9ff,stroke:#333,stroke-width:2px
-    style TB fill:#ff9,stroke:#333,stroke-width:2px
-    style VB fill:#9f9,stroke:#333,stroke-width:2px
-```
-
-</details>
 
 ### Architecture Trade-offs
 
@@ -219,24 +136,6 @@ graph TB
 | **IoT** | Minimal data | Event-driven, telemetry | Power constraints |
 
 ### Data Aggregation Strategies
-
-```mermaid
-graph LR
-    subgraph "Without BFF"
-        C1[Client] --> S1[Service 1]
-        C1 --> S2[Service 2]
-        C1 --> S3[Service 3]
-        C1 --> S4[Service 4]
-    end
-    
-    subgraph "With BFF"
-        C2[Client] --> BFF[BFF]
-        BFF --> S5[Service 1]
-        BFF --> S6[Service 2]
-        BFF --> S7[Service 3]
-        BFF --> S8[Service 4]
-    end
-```
 
 ### BFF Responsibilities Matrix
 
@@ -358,21 +257,6 @@ graph LR
 #
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -383,27 +267,6 @@ graph TD
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
 
 ## Implementation Patterns
-
-```mermaid
-graph TB
-    subgraph "Pattern 1: Dedicated BFF"
-        C1[Mobile] --> BFF1[Mobile BFF]
-        C2[Web] --> BFF2[Web BFF]
-        BFF1 --> S1[Services]
-        BFF2 --> S1
-    end
-    
-    subgraph "Pattern 2: Shared Core"
-        C3[iOS] --> BFF3[Mobile Core BFF]
-        C4[Android] --> BFF3
-        BFF3 --> S2[Services]
-    end
-    
-    subgraph "Pattern 3: GraphQL BFF"
-        C5[Any Client] --> GQL[GraphQL BFF]
-        GQL --> S3[Services]
-    end
-```
 
 ---
 
@@ -422,3 +285,4 @@ graph TB
 ---
 
 **Previous**: Anti-Corruption Layer ← | **Next**: → Choreography
+

@@ -1,42 +1,54 @@
 ---
-title: Read Repair Pattern
-description: Technique for detecting and fixing data inconsistencies opportunistically during read operations
-type: pattern
+best_for: Eventually consistent key-value stores, multi-datacenter systems, high read-to-write
+  workloads, partition-tolerant applications
 category: data-management
-difficulty: intermediate
-reading_time: 15 min
-prerequisites: ["eventual-consistency", "replication", "vector-clocks"]
-excellence_tier: silver
-pattern_status: use-with-expertise
-introduced: 2024-01
 current_relevance: mainstream
-essential_question: How do we heal data inconsistencies without dedicated background processes?
-tagline: Opportunistic consistency repair during read operations
-trade_offs:
-  pros:
-    - "Opportunistic healing during normal read operations"
-    - "No additional background processes required"
-    - "Improves consistency over time"
-    - "Works well with high read-to-write ratios"
-  cons:
-    - "Adds latency to read operations"
-    - "May not repair rarely-read data"
-    - "Risk of repair storms during failures"
-    - "Complex tuning of repair probability"
-best_for: "Eventually consistent key-value stores, multi-datacenter systems, high read-to-write workloads, partition-tolerant applications"
+description: Technique for detecting and fixing data inconsistencies opportunistically
+  during read operations
+difficulty: intermediate
+essential_question: How do we heal data inconsistencies without dedicated background
+  processes?
+excellence_tier: silver
+introduced: 2024-01
 modern_examples:
-  - company: Amazon
-    implementation: "DynamoDB uses read repair for global table consistency"
-    scale: "Trillions of requests across hundreds of regions"
-  - company: Netflix
-    implementation: "Cassandra read repair for content metadata consistency"
-    scale: "Petabytes of data with 99.9% consistency SLA"
-  - company: LinkedIn
-    implementation: "Voldemort read repair for member profile data"
-    scale: "Billions of profiles with eventual consistency"
-related_laws: ["law2-asynchrony", "law4-tradeoffs", "law6-cognitive-load"]
-related_pillars: ["state", "truth"]
+- company: Amazon
+  implementation: DynamoDB uses read repair for global table consistency
+  scale: Trillions of requests across hundreds of regions
+- company: Netflix
+  implementation: Cassandra read repair for content metadata consistency
+  scale: Petabytes of data with 99.9% consistency SLA
+- company: LinkedIn
+  implementation: Voldemort read repair for member profile data
+  scale: Billions of profiles with eventual consistency
+pattern_status: use-with-expertise
+prerequisites:
+- eventual-consistency
+- replication
+- vector-clocks
+reading_time: 15 min
+related_laws:
+- law2-asynchrony
+- law4-tradeoffs
+- law6-cognitive-load
+related_pillars:
+- state
+- truth
+tagline: Opportunistic consistency repair during read operations
+title: Read Repair Pattern
+trade_offs:
+  cons:
+  - Adds latency to read operations
+  - May not repair rarely-read data
+  - Risk of repair storms during failures
+  - Complex tuning of repair probability
+  pros:
+  - Opportunistic healing during normal read operations
+  - No additional background processes required
+  - Improves consistency over time
+  - Works well with high read-to-write ratios
+type: pattern
 ---
+
 
 # Read Repair Pattern
 
@@ -79,22 +91,6 @@ Read repair is like a librarian who fixes books while checking them out. When so
 
 ### Visual Metaphor
 
-```mermaid
-graph TB
-    A[Read Request] --> B[Query All Replicas]
-    B --> C[Replica 1: v2]
-    B --> D[Replica 2: v1]
-    B --> E[Replica 3: v2]
-    
-    F[Compare Versions] --> G[v2 is newest]
-    G --> H[Update Replica 2]
-    H --> I[Return v2 to Client]
-    
-    style G fill:#81c784,stroke:#388e3c
-    style H fill:#64b5f6,stroke:#1976d2
-    style I fill:#ffb74d,stroke:#f57c00
-```
-
 ### Core Insight
 
 > **Key Takeaway:** Turn every read into an opportunity to heal the system.
@@ -119,27 +115,6 @@ Read Repair **detects inconsistencies during reads** by **comparing replica vers
 
 #### Architecture Overview
 
-```mermaid
-graph TB
-    subgraph "Read Repair Architecture"
-        A[Client] --> B[Coordinator Node]
-        B --> C[Replica 1]
-        B --> D[Replica 2]
-        B --> E[Replica 3]
-        
-        F[Version Comparison] --> B
-        G[Repair Process] --> C
-        G --> D
-        G --> E
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class B,F primary
-    class G secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -151,45 +126,11 @@ graph TB
 
 ### Basic Example
 
-```python
-# Simplified read repair implementation
-def read_with_repair(key, consistency_level):
-    replicas = get_replicas_for_key(key)
-    
-    # Read from multiple replicas
-    results = []
-    for replica in replicas:
-        version, data = replica.get(key)
-        results.append((replica, version, data))
-    
-    # Find the latest version
-    latest_version = max(results, key=lambda x: x[1])
-    
-    # Repair stale replicas (background)
-    repair_stale_replicas(results, latest_version)
-    
-    return latest_version[2]  # Return latest data
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-
-```mermaid
-stateDiagram-v2
-    [*] --> ReadRequest
-    ReadRequest --> QueryReplicas: fetch_all
-    QueryReplicas --> CompareVersions
-    CompareVersions --> ConsistentData: all_match
-    CompareVersions --> InconsistentData: versions_differ
-    InconsistentData --> RepairReplicas
-    RepairReplicas --> ReturnLatest
-    ConsistentData --> ReturnData
-    ReturnData --> [*]
-    ReturnLatest --> [*]
-```
 
 #### Critical Design Decisions
 
@@ -238,31 +179,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale"
-        A1[All reads repair]
-        A2[3 replicas]
-        A1 --- A2
-    end
-    
-    subgraph "Medium Scale"
-        B1[10% repair probability]
-        B2[5-7 replicas]
-        B1 --- B2
-    end
-    
-    subgraph "Large Scale"
-        C1[Regional coordination]
-        C2[Adaptive repair rates]
-        C3[Repair throttling]
-        C1 --- C2 --- C3
-    end
-    
-    A1 -->|More load| B1
-    B1 -->|Global scale| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -304,6 +220,9 @@ graph LR
 
 #### Migration from Legacy
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[No Repair] -->|Step 1| B[Manual Fixes]
@@ -313,6 +232,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -335,24 +256,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Inconsistency Acceptable?] --> B{Read/Write Ratio?}
-    B -->|High Reads| C[Read Repair]
-    B -->|High Writes| D[Anti-Entropy]
-    B -->|Balanced| E[Hybrid Approach]
-    
-    C --> F[Gradual healing]
-    D --> G[Comprehensive repair]
-    E --> H[Best of both]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class C recommended
-    class E caution
-```
 
 ### Comparison with Alternatives
 
@@ -421,3 +324,4 @@ graph TD
 </div>
 
 ---
+

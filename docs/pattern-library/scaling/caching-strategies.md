@@ -1,39 +1,51 @@
 ---
-title: Caching Strategies
-description: Optimize performance by storing frequently accessed data in fast storage layers
-type: pattern
 category: scaling
-difficulty: intermediate
-reading_time: 25 min
-prerequisites: [database-design, performance-optimization, distributed-systems]
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1960-01
 current_relevance: mainstream
-essential_question: How do we achieve sub-millisecond data access while managing the trade-offs between speed, freshness, and cost?
-tagline: Strategic data storage for blazing performance through intelligent caching
+description: Optimize performance by storing frequently accessed data in fast storage
+  layers
+difficulty: intermediate
+essential_question: How do we achieve sub-millisecond data access while managing the
+  trade-offs between speed, freshness, and cost?
+excellence_tier: gold
+introduced: 1960-01
 modern_examples:
-  - company: Facebook
-    implementation: "Memcached at massive scale for social graph caching"
-    scale: "Trillions of cache requests daily, PB of RAM"
-  - company: Netflix
-    implementation: "EVCache for video metadata and personalization"
-    scale: "180M+ subscribers, 30+ cache clusters"
-  - company: Reddit
-    implementation: "Redis caching for front page and comments"
-    scale: "52M+ daily active users, billions of cached items"
+- company: Facebook
+  implementation: Memcached at massive scale for social graph caching
+  scale: Trillions of cache requests daily, PB of RAM
+- company: Netflix
+  implementation: EVCache for video metadata and personalization
+  scale: 180M+ subscribers, 30+ cache clusters
+- company: Reddit
+  implementation: Redis caching for front page and comments
+  scale: 52M+ daily active users, billions of cached items
+pattern_status: recommended
+prerequisites:
+- database-design
+- performance-optimization
+- distributed-systems
 production_checklist:
-  - "Choose appropriate caching layer (CDN, application, database)"
-  - "Implement cache-aside or write-through based on consistency needs"
-  - "Set proper TTLs based on data volatility (seconds to days)"
-  - "Monitor cache hit ratio (target 80%+ for most use cases)"
-  - "Implement cache warming for critical data"
-  - "Handle cache stampede with locks or probabilistic expiry"
-  - "Size cache appropriately (20% of dataset often sufficient)"
-  - "Plan cache invalidation strategy carefully"
-related_laws: [law1-failure, law4-tradeoffs, law7-economics]
-related_pillars: [state, work, intelligence]
+- Choose appropriate caching layer (CDN, application, database)
+- Implement cache-aside or write-through based on consistency needs
+- Set proper TTLs based on data volatility (seconds to days)
+- Monitor cache hit ratio (target 80%+ for most use cases)
+- Implement cache warming for critical data
+- Handle cache stampede with locks or probabilistic expiry
+- Size cache appropriately (20% of dataset often sufficient)
+- Plan cache invalidation strategy carefully
+reading_time: 25 min
+related_laws:
+- law1-failure
+- law4-tradeoffs
+- law7-economics
+related_pillars:
+- state
+- work
+- intelligence
+tagline: Strategic data storage for blazing performance through intelligent caching
+title: Caching Strategies
+type: pattern
 ---
+
 
 # Caching Strategies
 
@@ -79,6 +91,9 @@ related_pillars: [state, work, intelligence]
 Imagine a library where popular books are kept at your desk (L1 cache), frequently used books on a nearby shelf (L2 cache), and rarely accessed books in the archives (database). Instead of walking to archives every time, you strategically place books closer based on usage patterns. Caching works the same way - frequently accessed data stays close and fast.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Database Query<br/>🐌 500ms] --> B[Smart Caching<br/>⚡]
@@ -88,6 +103,8 @@ graph LR
     style B fill:#4ecdc4,stroke:#45a29e  
     style C fill:#45b7d1,stroke:#3a9bc1
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Caching trades memory for speed by keeping frequently accessed data in faster but more expensive storage layers.
@@ -110,45 +127,6 @@ Caching stores frequently accessed data in fast memory to reduce latency and dat
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Client Layer"
-        A[User Request]
-        B[Browser Cache]
-    end
-    
-    subgraph "Edge Layer"
-        C[CDN Cache<br/>Global Distribution]
-        D[Edge Servers]
-    end
-    
-    subgraph "Application Layer"
-        E[Load Balancer]
-        F[App Server<br/>Local Cache]
-        G[Redis/Memcached<br/>Shared Cache]
-    end
-    
-    subgraph "Data Layer"
-        H[Database<br/>Query Cache]
-        I[Storage<br/>Disk Cache]
-    end
-    
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    F --> G
-    G --> H
-    H --> I
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class F,G primary
-    class C,H secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -160,47 +138,11 @@ graph TB
 
 ### Basic Example
 
-```python
-# Caching core concept
-def get_user_profile(user_id):
-    """Shows essential caching pattern"""
-    cache_key = f"user_profile:{user_id}"
-    
-    # 1. Check cache first
-    cached_data = cache.get(cache_key)
-    if cached_data:
-        return cached_data
-    
-    # 2. Cache miss - fetch from database
-    user_data = database.get_user(user_id)
-    
-    # 3. Store in cache for future requests
-    if user_data:
-        cache.set(cache_key, user_data, ttl=300)  # 5 minutes
-    
-    return user_data
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-```mermaid
-stateDiagram-v2
-    [*] --> Cache_Check
-    Cache_Check --> Cache_Hit: Data found
-    Cache_Check --> Cache_Miss: Data not found
-    Cache_Hit --> Return_Data: Fresh data
-    Cache_Miss --> Fetch_Data: Query database
-    Fetch_Data --> Update_Cache: Store result
-    Update_Cache --> Return_Data: Serve response
-    Return_Data --> [*]: Complete
-    
-    Cache_Hit --> Expired: TTL exceeded
-    Expired --> Fetch_Data: Refresh data
-```
-
 #### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -248,32 +190,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (< 1M requests/day)"
-        A1[Single Redis<br/>Instance]
-    end
-    
-    subgraph "Medium Scale (1M-100M requests/day)"
-        B1[Redis Cluster<br/>Partitioned]
-        B2[CDN Integration<br/>Geographic Caching]
-        B3[Application Cache<br/>Multi-tier]
-        B1 --> B2
-        B2 --> B3
-    end
-    
-    subgraph "Large Scale (100M+ requests/day)"
-        C1[Global CDN<br/>Edge Caching]
-        C2[Regional Redis<br/>Clusters]
-        C3[ML-based<br/>Cache Warming]
-        C1 --> C2
-        C2 --> C3
-    end
-    
-    A1 -->|Growth| B1
-    B3 -->|Scale| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -315,6 +231,9 @@ graph LR
 
 #### Migration from Direct Database Access
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Direct DB Access<br/>High Latency] -->|Step 1| B[Application Cache<br/>Cache-Aside]
@@ -324,6 +243,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -346,24 +267,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Performance Boost?] --> B{Read/Write Ratio?}
-    B -->|Read Heavy (>80%)| C[Cache-Aside Strategy]
-    B -->|Balanced (50-80%)| D[Write-Through Strategy]
-    B -->|Write Heavy (<50%)| E[Write-Behind Strategy]
-    
-    C --> F{Data Freshness?}
-    F -->|Critical| G[Short TTL + Refresh-Ahead]
-    F -->|Acceptable| H[Standard TTL]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class C,H recommended
-    class D,E caution
-```
 
 ### Comparison with Alternatives
 
@@ -430,3 +333,4 @@ graph TD
     - [Monitoring Guide](../../excellence/guides/cache-monitoring.md)
 
 </div>
+

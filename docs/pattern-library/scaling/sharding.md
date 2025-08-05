@@ -1,22 +1,23 @@
 ---
-title: Sharding (Data Partitioning)
 category: scaling
-excellence_tier: gold
-pattern_status: recommended
-description: Horizontally partition data across multiple databases to scale beyond single-machine limits
-essential_question: How do we scale beyond single-machine database limits while maintaining query performance?
-introduced: 2000-01
 current_relevance: mainstream
+description: Horizontally partition data across multiple databases to scale beyond
+  single-machine limits
+essential_question: How do we scale beyond single-machine database limits while maintaining
+  query performance?
+excellence_tier: gold
+introduced: 2000-01
 modern-examples:
 - company: Discord
   implementation: Channel-based sharding for messages
   scale: 1T+ messages, 4,096 logical shards on 177 Cassandra nodes
-- company: Pinterest  
+- company: Pinterest
   implementation: User-based sharding with virtual buckets
   scale: 240B+ pins on 8,192 virtual shards across 800 MySQL servers
 - company: YouTube/Vitess
   implementation: Automatic sharding proxy for MySQL
   scale: 100,000+ MySQL instances handling exabytes of data
+pattern_status: recommended
 production-checklist:
 - Choose sharding key matching access patterns (user_id, tenant_id)
 - Start with more virtual shards than needed (easier to merge than split)
@@ -26,7 +27,9 @@ production-checklist:
 - Build cross-shard query capabilities carefully
 - Use consistent hashing for stable assignment
 - Implement distributed transactions only if essential
+title: Sharding (Data Partitioning)
 ---
+
 
 # Sharding (Data Partitioning)
 
@@ -63,33 +66,6 @@ production-checklist:
 
 ## Sharding Decision Framework
 
-```mermaid
-flowchart TD
-    Start["Database Scaling Need"] --> Size{"Data > 5TB?"}
-    Size -->|No| Vertical["Vertical Scaling"]
-    Size -->|Yes| Writes{"Writes > 10K/s?"}
-    
-    Writes -->|No| Replicas["Read Replicas"]
-    Writes -->|Yes| Joins{"Complex JOINs?"}
-    
-    Joins -->|Yes| Denorm["Denormalize First"]
-    Joins -->|No| Team{"Ops Team Ready?"}
-    
-    Team -->|No| Managed["Use Managed Service"]
-    Team -->|Yes| Pattern{"Access Pattern?"}
-    
-    Pattern -->|By User| UserShard["User-based Sharding"]
-    Pattern -->|By Time| TimeShard["Time-based Sharding"]
-    Pattern -->|By Location| GeoShard["Geographic Sharding"]
-    Pattern -->|Complex| Composite["Composite Sharding"]
-    
-    style Start fill:#ffd
-    style UserShard fill:#9f9
-    style TimeShard fill:#9f9
-    style GeoShard fill:#9f9
-    style Composite fill:#9f9
-```
-
 ## Level 1: Intuition
 
 ### The Library Card Catalog Analogy
@@ -112,27 +88,6 @@ Each catalog is smaller, faster to search, and can be updated independently.
 
 ### Visual Architecture
 
-```mermaid
-graph TB
-    subgraph "Before: Single Database"
-        C1[Clients] --> DB[(100M users<br/>10TB data<br/>🔥 Overloaded)]
-    end
-    
-    subgraph "After: Sharded"
-        C2[Clients] --> R[Router]
-        R --> S1[(Shard 1<br/>25M users<br/>2.5TB)]
-        R --> S2[(Shard 2<br/>25M users<br/>2.5TB)]
-        R --> S3[(Shard 3<br/>25M users<br/>2.5TB)]
-        R --> S4[(Shard 4<br/>25M users<br/>2.5TB)]
-    end
-    
-    style DB fill:#f99
-    style S1 fill:#9f9
-    style S2 fill:#9f9
-    style S3 fill:#9f9
-    style S4 fill:#9f9
-```
-
 ## Level 2: Foundation
 
 ### Sharding Strategy Comparison Matrix
@@ -147,56 +102,7 @@ graph TB
 
 ### Sharding Key Selection Guide
 
-```mermaid
-flowchart TD
-    Start["Choose Sharding Key"] --> Access{"Primary Access Pattern?"}
-    
-    Access -->|"By User"|  User["user_id"]
-    Access -->|"By Time"| Time["timestamp"]
-    Access -->|"By Location"| Geo["region_id"]
-    Access -->|"By Tenant"| Tenant["tenant_id"]
-    
-    User --> UserCheck{"Even Distribution?"}
-    UserCheck -->|"No"| Composite1["hash(user_id)"]
-    UserCheck -->|"Yes"| Final1["✓ Use user_id"]
-    
-    Time --> TimeCheck{"Query Pattern?"}
-    TimeCheck -->|"Recent Data"| Recent["year_month partition"]
-    TimeCheck -->|"Any Period"| Final2["✓ Use timestamp"]
-    
-    Geo --> GeoCheck{"Compliance Needs?"}
-    GeoCheck -->|"Yes"| Final3["✓ Use region_id"]
-    GeoCheck -->|"No"| Consider["Consider hash(user_id)"]
-    
-    style Final1 fill:#9f9
-    style Final2 fill:#9f9
-    style Final3 fill:#9f9
-```
-
 ### Core Implementation Patterns
-
-```python
-# Virtual bucket mapping (Discord-style)
-def get_shard_with_buckets(key: str, buckets=4096, shards=128):
-    bucket = hash(key) % buckets
-    # Dynamic mapping allows rebalancing
-    shard = bucket_to_shard_map.get(bucket, bucket % shards)
-    return f"db_{shard}"
-
-# Consistent hashing (DynamoDB-style)  
-def get_shard_consistent(key: str):
-    hash_ring = sorted(shard_positions.items())
-    key_hash = hash(key) % (2**32)
-    for position, shard in hash_ring:
-        if key_hash <= position:
-            return shard
-    return hash_ring[0][1]  # Wrap around
-
-# Directory-based (Slack-style)
-def get_shard_directory(tenant_id: str):
-    # Centralized mapping for flexibility
-    return shard_directory.lookup(tenant_id)
-```
 
 ## Level 3: Deep Dive
 
@@ -211,26 +117,6 @@ def get_shard_directory(tenant_id: str):
 | **Read-Write Split** | Medium | None | Gradual migration with verification |
 
 ### Rebalancing Decision Flow
-
-```mermaid
-flowchart TD
-    Start["Shard Imbalance Detected"] --> Check{"Using Virtual Shards?"}
-    Check -->|Yes| Remap["Remap Virtual→Physical<br/>Zero downtime"]
-    Check -->|No| Size{"Imbalance > 50%?"}
-    
-    Size -->|No| Monitor["Increase monitoring<br/>Plan for future"]
-    Size -->|Yes| Critical{"Business Critical?"}
-    
-    Critical -->|No| Split["Schedule split<br/>during maintenance"]
-    Critical -->|Yes| Shadow["Shadow writes<br/>+ gradual migration"]
-    
-    Remap --> Done["Monitor Balance"]
-    Shadow --> Done
-    Split --> Done
-    
-    style Start fill:#ffd
-    style Done fill:#9f9
-```
 
 ### Cross-Shard Query Patterns
 
@@ -284,41 +170,7 @@ After:  channel_id → bucket (1 of 4096) → shard (1 of 128)
 
 ### Discord's Virtual Shard Mapping
 
-```python
-# Conceptual implementation
-def get_shard_for_channel(channel_id: str) -> str:
-    # Step 1: Stable bucket assignment
-    bucket = hash(channel_id) % 4096
-    
-    # Step 2: Dynamic bucket→shard mapping
-    # Can be rebalanced without changing bucket
-    shard = bucket_to_shard_map[bucket]
-    
-    # Step 3: Time-based sub-partition for hot buckets
-    if is_hot_bucket(bucket):
-        month = get_current_month()
-        shard = f"{shard}_{month}"
-    
-    return f"cassandra-{shard}"
-```
-
 ### Vitess Architecture (YouTube)
-
-```mermaid
-flowchart LR
-    App["Application"] --> VTGate["VTGate<br/>(Query Router)"]
-    VTGate --> VS["VSchema<br/>(Sharding Rules)"]
-    VTGate --> S1["Shard -80"]
-    VTGate --> S2["Shard 80-"]
-    
-    S1 --> M1[("MySQL<br/>Primary")]
-    S1 --> R1[("MySQL<br/>Replica")]
-    S2 --> M2[("MySQL<br/>Primary")]
-    S2 --> R2[("MySQL<br/>Replica")]
-    
-    style VTGate fill:#ff9
-    style VS fill:#9ff
-```
 
 ## Level 5: Mastery
 
@@ -338,62 +190,7 @@ flowchart LR
 
 ### Zero-Downtime Migration Playbook
 
-```mermaid
-flowchart LR
-    subgraph "Week 1-2: Setup"
-        A[Analyze Traffic] --> B[Choose Shard Key]
-        B --> C[Size Virtual Shards]
-    end
-    
-    subgraph "Week 3-6: Dual Write"
-        D[Deploy Router] --> E[Enable Shadow Writes]
-        E --> F[Backfill Historical]
-    end
-    
-    subgraph "Week 7-8: Cutover"
-        G[Verify Integrity] --> H[Switch Reads 10%]
-        H --> I[Gradual Increase]
-        I --> J[100% on Shards]
-    end
-    
-    subgraph "Week 9-10: Cleanup"
-        K[Stop Dual Writes] --> L[Archive Old DB]
-    end
-    
-    C --> D
-    F --> G
-    J --> K
-```
-
 ### Production-Ready Configurations
-
-```yaml
-# Discord-style bucket sharding
-sharding:
-  strategy: virtual_buckets
-  buckets: 4096
-  initial_shards: 128
-  rebalance_threshold: 0.3  # 30% imbalance
-  hot_bucket_detection:
-    threshold_qps: 1000
-    auto_split: true
-
-# Pinterest-style range sharding  
-sharding:
-  strategy: id_range
-  virtual_shards: 8192
-  physical_servers: 800
-  replication_factor: 3
-  shard_size_target: 50GB
-  
-# Vitess auto-sharding
-sharding:
-  strategy: hash
-  auto_split_size: 100GB
-  min_shards: 2
-  max_shards: 1024
-  resharding_workflow: online
-```
 
 ## Quick Reference
 
@@ -409,20 +206,6 @@ sharding:
 | Global users | Geographic sharding |
 
 ### Common Commands
-
-```sql
--- Check shard balance
-SELECT shard_id, COUNT(*) as records, 
-       SUM(data_size) as total_size
-FROM shard_metadata
-GROUP BY shard_id;
-
--- Find hot shards
-SELECT shard_id, queries_per_sec, avg_latency_ms
-FROM shard_metrics
-WHERE queries_per_sec > 1000
-ORDER BY queries_per_sec DESC;
-```
 
 ### Key Metrics to Monitor
 
@@ -461,3 +244,4 @@ ORDER BY queries_per_sec DESC;
 ---
 
 *"The best shard key is the one you'll never need to change."*
+

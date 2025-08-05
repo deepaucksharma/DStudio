@@ -1,41 +1,27 @@
 ---
-title: Circuit Breaker Pattern
-excellence_tier: gold
-essential_question: How do we detect service failures quickly and prevent cascade failures from spreading?
-tagline: Fail fast, recover gracefully - stop cascade failures in their tracks
-description: Prevent cascade failures in distributed systems by failing fast when services are unhealthy
-type: pattern
 category: resilience
-difficulty: intermediate
-reading-time: 20 min
-prerequisites: []
-when-to-use: External service calls, microservice communication, database connections
-when-not-to-use: Internal method calls, non-network operations, CPU-bound tasks
-related-laws:
-- law1-failure
-- law2-asynchrony
-- law3-emergence
-- law4-tradeoffs
-- law6-human-api
-related-pillars:
-- truth
-- control
-- intelligence
-status: complete
-last-updated: 2025-01-30
-pattern_status: recommended
-introduced: 2007-03
 current_relevance: mainstream
+description: Prevent cascade failures in distributed systems by failing fast when
+  services are unhealthy
+difficulty: intermediate
+essential_question: How do we detect service failures quickly and prevent cascade
+  failures from spreading?
+excellence_tier: gold
+introduced: 2007-03
+last-updated: 2025-01-30
 modern-examples:
 - company: Netflix
   implementation: Hystrix handles 100B+ requests/day with circuit breaker protection
   scale: 100B+ requests/day across thousands of microservices
 - company: Amazon
-  implementation: Circuit breakers protect Prime Day traffic surges and prevent cascade failures
+  implementation: Circuit breakers protect Prime Day traffic surges and prevent cascade
+    failures
   scale: 10x normal load handled gracefully during Prime Day
 - company: Uber
   implementation: Circuit breakers on all critical paths including payments and dispatch
   scale: 20M+ rides/day with 99.99% availability
+pattern_status: recommended
+prerequisites: []
 production-checklist:
 - Configure failure thresholds based on service SLA (typically 50% error rate)
 - Set appropriate recovery timeout (30-60 seconds for most services)
@@ -47,7 +33,25 @@ production-checklist:
 - Configure different thresholds for different error types
 - Implement half-open state testing logic
 - Set up alerting for circuit state transitions
+reading-time: 20 min
+related-laws:
+- law1-failure
+- law2-asynchrony
+- law3-emergence
+- law4-tradeoffs
+- law6-human-api
+related-pillars:
+- truth
+- control
+- intelligence
+status: complete
+tagline: Fail fast, recover gracefully - stop cascade failures in their tracks
+title: Circuit Breaker Pattern
+type: pattern
+when-not-to-use: Internal method calls, non-network operations, CPU-bound tasks
+when-to-use: External service calls, microservice communication, database connections
 ---
+
 
 # Circuit Breaker Pattern
 
@@ -79,6 +83,18 @@ production-checklist:
 | Dev/test environments | Complex setup | Mock failures |
 | Stateless operations | No resource exhaustion | Direct retry |
 
+## Decision Matrix
+
+| Factor | Score (1-5) | Reasoning |
+|--------|-------------|-----------|
+| **Complexity** | 3 | State machine logic with configurable thresholds, but well-established patterns |
+| **Performance Impact** | 2 | Minimal overhead - just state checks and counters, ~1ms added latency |
+| **Operational Overhead** | 3 | Requires monitoring circuit state, tuning thresholds, and fallback strategies |
+| **Team Expertise Required** | 3 | Understanding of failure modes, state machines, and distributed systems concepts |
+| **Scalability** | 5 | Scales linearly, prevents resource exhaustion, essential for high-traffic systems |
+
+**Overall Recommendation: ✅ RECOMMENDED** - Essential resilience pattern for any distributed system handling external dependencies.
+
 ## Level 1: Intuition (5 min)
 
 ### The Electrical Circuit Breaker
@@ -87,75 +103,7 @@ Like your home's electrical panel that trips to prevent fires, software circuit 
 </div>
 
 ### State Machine Visualization
-```mermaid
-stateDiagram-v2
-    [*] --> Closed: Start
-    Closed --> Open: Failures > Threshold<br/>(e.g., 5 failures in 10s)
-    Open --> HalfOpen: Recovery Timeout<br/>(e.g., wait 30s)
-    HalfOpen --> Closed: Test Success<br/>(e.g., 3 consecutive)
-    HalfOpen --> Open: Test Failure<br/>(any failure)
-    
-    Closed: 🟢 CLOSED<br/>All requests pass through<br/>Monitor for failures<br/>Count: 0/5
-    Open: 🔴 OPEN<br/>Reject all requests<br/>Return fallback immediately<br/>Timer: 30s
-    HalfOpen: 🟡 HALF-OPEN<br/>Allow test requests<br/>Check if recovered<br/>Success: 0/3
-    
-    note right of Closed: Normal operation<br/>Track error rate<br/>Reset on success
-    note right of Open: Protection mode<br/>Fail fast<br/>Prevent cascade
-    note right of HalfOpen: Recovery test<br/>Limited traffic<br/>Verify health
-```
-
 ### Enhanced State Transition Diagram
-```mermaid
-graph TB
-    subgraph "Circuit Breaker State Machine"
-        subgraph "CLOSED State"
-            C1[Request Arrives]
-            C2{Success?}
-            C3[Reset Counter]
-            C4[Increment Failure]
-            C5{Threshold<br/>Exceeded?}
-            C1 --> C2
-            C2 -->|Yes| C3
-            C2 -->|No| C4
-            C4 --> C5
-        end
-        
-        subgraph "OPEN State"
-            O1[Request Arrives]
-            O2[Reject Immediately]
-            O3[Return Fallback]
-            O4{Timeout<br/>Elapsed?}
-            O1 --> O2
-            O2 --> O3
-            O3 -.-> O4
-        end
-        
-        subgraph "HALF-OPEN State"
-            H1[Test Request]
-            H2{Success?}
-            H3[Increment Success]
-            H4{Enough<br/>Successes?}
-            H5[Reset to Closed]
-            H6[Back to Open]
-            H1 --> H2
-            H2 -->|Yes| H3
-            H3 --> H4
-            H4 -->|Yes| H5
-            H4 -->|No| H1
-            H2 -->|No| H6
-        end
-        
-        C5 -->|Yes| O1
-        O4 -->|Yes| H1
-        H5 --> C1
-        H6 --> O1
-    end
-    
-    style C1 fill:#4ade80,stroke:#16a34a
-    style O2 fill:#f87171,stroke:#dc2626
-    style H1 fill:#fbbf24,stroke:#f59e0b
-```
-
 ### Core Value
 **Without Circuit Breaker**: Cascading timeouts → Resource exhaustion → Total system failure  
 **With Circuit Breaker**: Fast failure → Resource protection → Partial degradation only
@@ -171,58 +119,7 @@ graph TB
 | **Request Volume** | Minimum traffic | 20 requests/window | Stripe: 100 req/min |
 
 ### Failure Detection Strategies
-```mermaid
-graph TD
-    A[Failure Detection] --> B{Strategy?}
-    B -->|Count| C[Consecutive Failures<br/>5 failures = open]
-    B -->|Rate| D[Error Percentage<br/>50% errors = open]
-    B -->|Time| E[Response Time<br/>P99 > 5s = open]
-    B -->|Hybrid| F[Combined Metrics<br/>Any threshold = open]
-    
-    C --> C1[Example: Payment API<br/>5 consecutive timeouts]
-    D --> D1[Example: User Service<br/>51% errors in 10s window]
-    E --> E1[Example: Search Service<br/>P99 latency > 5s]
-    F --> F1[Example: Critical Path<br/>3 failures OR 30% error rate]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style F fill:#9f9,stroke:#333,stroke-width:2px
-    style C1 fill:#e0e7ff,stroke:#818cf8
-    style D1 fill:#e0e7ff,stroke:#818cf8
-    style E1 fill:#e0e7ff,stroke:#818cf8
-    style F1 fill:#e0e7ff,stroke:#818cf8
-```
-
 ### Real-Time Circuit Breaker Monitoring Dashboard
-```mermaid
-graph TB
-    subgraph "Circuit Breaker Dashboard"
-        subgraph "Service A - Payment Gateway"
-            A1[State: CLOSED 🟢]
-            A2[Success Rate: 98.5%]
-            A3[Failures: 2/100]
-            A4[Last State Change: 2h ago]
-        end
-        
-        subgraph "Service B - User Service"
-            B1[State: OPEN 🔴]
-            B2[Success Rate: 15.2%]
-            B3[Failures: 85/100]
-            B4[Recovery In: 15s]
-        end
-        
-        subgraph "Service C - Inventory"
-            C1[State: HALF-OPEN 🟡]
-            C2[Test Success: 2/3]
-            C3[Recovery Progress: 66%]
-            C4[Next Test: 2s]
-        end
-    end
-    
-    style A1 fill:#4ade80,stroke:#16a34a
-    style B1 fill:#f87171,stroke:#dc2626
-    style C1 fill:#fbbf24,stroke:#f59e0b
-```
-
 ### State Behavior Table
 | State | Request Handling | Monitoring | Transition Trigger |
 |-------|-----------------|------------|-------------------|
@@ -233,6 +130,9 @@ graph TB
 ## Level 3: Deep Dive (15 min)
 
 ### Threshold Configuration Guide
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph TD
     A[Service Type] --> B{Criticality?}
@@ -245,9 +145,14 @@ graph TD
     E --> H[Recommendations]
 ```
 
+</details>
+
 ### Common Implementation Patterns
 
 #### 1. Distributed Circuit Breaker
+<details>
+<summary>📄 View yaml code (6 lines)</summary>
+
 ```yaml
 # Shared state across instances
 circuit_breaker:
@@ -257,21 +162,9 @@ circuit_breaker:
   sync_interval: 1s
 ```
 
-#### 2. Per-Operation Breakers
-```yaml
-# Different thresholds per operation
-operations:
-  read:
-    threshold: 20%
-    timeout: 10s
-  write:
-    threshold: 50%
-    timeout: 30s
-  delete:
-    threshold: 80%
-    timeout: 60s
-```
+</details>
 
+#### 2. Per-Operation Breakers
 #### 3. Cascading Timeouts
 | Layer | Timeout | Circuit Timeout | Buffer |
 |-------|---------|----------------|--------|
@@ -281,21 +174,6 @@ operations:
 | Database | 4s | - | - |
 
 ### Fallback Strategy Decision Tree
-```mermaid
-graph TD
-    A[Circuit Open] --> B{Data Type?}
-    B -->|Static| C[Return Cache]
-    B -->|Dynamic| D{Criticality?}
-    D -->|High| E[Queue for Retry]
-    D -->|Medium| F[Default Value]
-    D -->|Low| G[Skip Feature]
-    
-    C --> H[Cached Response]
-    E --> I[Async Processing]
-    F --> J[Degraded Experience]
-    G --> K[Feature Disabled]
-```
-
 ## Level 4: Expert (20 min)
 
 ### Advanced Patterns
@@ -308,20 +186,6 @@ graph TD
 | Heavy (>70%) | 80% | 60s | Protect system |
 
 #### 2. Multi-Level Circuit Breakers
-```mermaid
-graph TD
-    A[Client Request] --> B[L1: Method Circuit]
-    B --> C{Open?}
-    C -->|No| D[L2: Service Circuit]
-    C -->|Yes| E[Method Fallback]
-    D --> F{Open?}
-    F -->|No| G[L3: Resource Circuit]
-    F -->|Yes| H[Service Fallback]
-    G --> I{Open?}
-    I -->|No| J[Execute]
-    I -->|Yes| K[Resource Fallback]
-```
-
 #### 3. Circuit Breaker Metrics
 | Metric | Purpose | Alert Threshold |
 |--------|---------|----------------|
@@ -349,20 +213,6 @@ graph TD
 ### Real-World Implementations
 
 #### Netflix Hystrix Configuration
-```java
-@HystrixCommand(
-    fallbackMethod = "getDefaultUser",
-    commandProperties = {
-        @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "20"),
-        @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
-        @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "30000")
-    }
-)
-public User getUser(String id) {
-    return userService.findById(id);
-}
-```
-
 #### Amazon's Multi-Region Strategy
 - Primary region circuit breaker at 50% error rate
 - Fallback to secondary region
@@ -410,6 +260,9 @@ public User getUser(String id) {
 ## Quick Reference
 
 ### Decision Flowchart
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
+
 ```mermaid
 graph TD
     A[Start] --> B{External<br/>Dependency?}
@@ -423,29 +276,9 @@ graph TD
     G -->|No| I[Aggressive CB<br/>20% threshold]
 ```
 
-### Configuration Cheat Sheet
-```yaml
-# Production-Ready Defaults
-circuit_breaker:
-  # Detection
-  error_threshold_percentage: 50
-  request_volume_threshold: 20
-  rolling_window_seconds: 10
-  
-  # Recovery
-  sleep_window_seconds: 30
-  half_open_max_requests: 10
-  success_threshold: 3
-  
-  # Timeouts
-  timeout_seconds: 5
-  fallback_timeout_seconds: 1
-  
-  # Monitoring
-  metrics_rolling_statistical_window: 60000
-  metrics_health_snapshot_interval: 500
-```
+</details>
 
+### Configuration Cheat Sheet
 ### Production Checklist ✓
 - [ ] Identify all external dependencies
 - [ ] Define failure thresholds per service
@@ -471,3 +304,4 @@ circuit_breaker:
 3. Fowler, M. (2014). Circuit Breaker Pattern
 4. AWS (2019). Circuit Breaker Pattern in Microservices
 5. Google (2018). Site Reliability Engineering: Circuit Breaking
+

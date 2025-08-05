@@ -34,9 +34,6 @@ type: pattern
 ---
 
 
-
-
-
 # Anti-Corruption Layer (ACL)
 
 !!! warning "🥈 Silver Tier Pattern"
@@ -94,49 +91,7 @@ type: pattern
 
 ## Architectural Decision Framework
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TD
-    Start[Integration Need] --> Q1{Legacy System?}
-    
-    Q1 -->|Yes| Q2{Incompatible Models?}
-    Q1 -->|No| Q3{External API?}
-    
-    Q2 -->|Yes| ACL[Full ACL Pattern]
-    Q2 -->|No| Adapter[Simple Adapter]
-    
-    Q3 -->|Yes| Q4{Stable Contract?}
-    Q3 -->|No| Q5{Same Team?}
-    
-    Q4 -->|No| ACL
-    Q4 -->|Yes| Q6{Performance Critical?}
-    
-    Q5 -->|Yes| Direct[Direct Integration]
-    Q5 -->|No| Adapter
-    
-    Q6 -->|Yes| Adapter
-    Q6 -->|No| ACL
-    
-    style ACL fill:#f9f,stroke:#333,stroke-width:4px
-    style Adapter fill:#9ff,stroke:#333,stroke-width:2px
-    style Direct fill:#9f9,stroke:#333,stroke-width:2px
-```
-
-</details>
 
 ---
 
@@ -156,39 +111,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Your Domain"
-        DM[Domain Model]
-        DS[Domain Services]
-        DR[Domain Rules]
-    end
-    
-    subgraph "ACL Components"
-        T[Translator<br/>Model Mapping]
-        V[Validator<br/>Rule Enforcement]
-        A[Adapter<br/>Protocol Handling]
-    end
-    
-    subgraph "External System"
-        EM[External Model]
-        ES[External Services]
-        ER[External Rules]
-    end
-    
-    DM <--> T <--> EM
-    DS <--> V <--> ES
-    DR <--> A <--> ER
-    
-    style T fill:#f9f,stroke:#333,stroke-width:2px
-    style V fill:#9ff,stroke:#333,stroke-width:2px
-    style A fill:#ff9,stroke:#333,stroke-width:2px
-```
-
-</details>
 
 ### Architecture Trade-offs
 
@@ -215,21 +138,6 @@ graph LR
 #
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -250,26 +158,6 @@ graph TD
 
 ### Common Integration Scenarios
 
-```mermaid
-graph TB
-    subgraph "Scenario 1: Legacy Integration"
-        MS[Microservice] --> ACL1[Full ACL]
-        ACL1 --> LG[Legacy COBOL]
-    end
-    
-    subgraph "Scenario 2: Partner API"
-        YD[Your Domain] --> ACL2[Validation ACL]
-        ACL2 --> PA[Partner API]
-    end
-    
-    subgraph "Scenario 3: Multi-System"
-        BL[Business Logic] --> ACL3[Aggregation ACL]
-        ACL3 --> S1[System A]
-        ACL3 --> S2[System B]
-        ACL3 --> S3[System C]
-    end
-```
-
 ---
 
 ## Level 2: Foundation
@@ -288,51 +176,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Anti-Corruption Layer Architecture"
-        subgraph "Your Domain (Bounded Context)"
-            DE[Domain Entities]
-            DS[Domain Services]
-            DR[Domain Repositories]
-        end
-        
-        subgraph "ACL Components"
-            T[Translators<br/>Model Mapping]
-            V[Validators<br/>Rule Enforcement]
-            A[Adapters<br/>Protocol Handling]
-            F[Facades<br/>Simplified Interface]
-        end
-        
-        subgraph "External Systems"
-            L1[Legacy System]
-            L2[Partner API]
-            L3[Third-party Service]
-        end
-        
-        DE --> DS
-        DS --> DR
-        DR --> F
-        
-        F --> T
-        T --> V
-        V --> A
-        
-        A --> L1
-        A --> L2
-        A --> L3
-    end
-    
-    style T fill:#f9f,stroke:#333,stroke-width:2px
-    style V fill:#9ff,stroke:#333,stroke-width:2px
-    style A fill:#ff9,stroke:#333,stroke-width:2px
-    style F fill:#9f9,stroke:#333,stroke-width:2px
-```
-
-</details>
 
 ### ACL Pattern Components
 
@@ -349,23 +193,6 @@ graph TB
 
 #### 1. Model Translation Matrix
 
-```mermaid
-graph LR
-    subgraph "Domain Model"
-        DM[Customer<br/>━━━━━━━<br/>• id: UUID<br/>• email: Email<br/>• name: Name<br/>• tier: CustomerTier]
-    end
-    
-    subgraph "Translation Layer"
-        TL[Translator<br/>━━━━━━━<br/>• mapToDomain()<br/>• mapToExternal()<br/>• validate()]
-    end
-    
-    subgraph "External Model"
-        EM[USER_RECORD<br/>━━━━━━━<br/>• USER_ID: NUMBER<br/>• EMAIL_ADDR: VARCHAR<br/>• FIRST_NM: VARCHAR<br/>• LAST_NM: VARCHAR<br/>• CUST_TYPE: CHAR]
-    end
-    
-    DM <--> TL <--> EM
-```
-
 #### 2. Data Flow Patterns
 
 ```mermaid
@@ -380,54 +207,10 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-sequenceDiagram
-    participant D as Domain
-    participant ACL as Anti-Corruption Layer
-    participant E as External System
-    
-    D->>ACL: Request with Domain Model
-    
-    Note over ACL: Validate Domain Data
-    ACL->>ACL: Check Business Rules
-    
-    Note over ACL: Translate to External
-    ACL->>ACL: Map Domain → External Model
-    
-    ACL->>E: External Format Request
-    E->>ACL: External Format Response
-    
-    Note over ACL: Translate to Domain
-    ACL->>ACL: Map External → Domain Model
-    
-    Note over ACL: Apply Domain Rules
-    ACL->>ACL: Enrich with Domain Logic
-    
-    ACL->>D: Response with Domain Model
-```
-
-</details>
 
 #
 ## Decision Matrix
-
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
 
 ### Quick Decision Table
 
@@ -454,41 +237,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```
-Domain Layer:
-┌─────────────────────────────────┐
-│   CustomerRepository            │
-│   (Interface)                   │
-│   ━━━━━━━━━━━━━━━━━━━         │
-│   + find(CustomerId): Customer  │
-│   + save(Customer): void        │
-└─────────────────────────────────┘
-                ↓
-ACL Implementation:
-┌─────────────────────────────────┐
-│   LegacyCustomerRepository      │
-│   (ACL Implementation)          │
-│   ━━━━━━━━━━━━━━━━━━━         │
-│   - translator: Translator      │
-│   - legacyClient: LegacyAPI     │
-│   ─────────────────────         │
-│   + find(CustomerId): Customer  │
-│   + save(Customer): void        │
-└─────────────────────────────────┘
-                ↓
-External System:
-┌─────────────────────────────────┐
-│   LegacyDatabaseAPI             │
-│   ━━━━━━━━━━━━━━━━━           │
-│   + SELECT_USER(ID): USER_REC   │
-│   + UPDATE_USER(USER_REC): BOOL │
-└─────────────────────────────────┘
-```
-
-</details>
 
 #### 2. Event Translation
 
@@ -504,37 +253,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Domain Events"
-        DE1[OrderPlaced]
-        DE2[PaymentReceived]
-        DE3[OrderShipped]
-    end
-    
-    subgraph "ACL Event Translator"
-        ET[Event Translator<br/>━━━━━━━━━━━<br/>• Domain → External<br/>• External → Domain<br/>• Event Enrichment]
-    end
-    
-    subgraph "External Events"
-        EE1[ORDER_CREATED_V1]
-        EE2[PAYMENT_NOTIFICATION]
-        EE3[SHIPMENT_UPDATE]
-    end
-    
-    DE1 --> ET --> EE1
-    DE2 --> ET --> EE2
-    DE3 --> ET --> EE3
-    
-    EE1 --> ET --> DE1
-    EE2 --> ET --> DE2
-    EE3 --> ET --> DE3
-```
-
-</details>
 
 ### Common Translation Challenges
 
@@ -567,82 +286,13 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Bounded Context Relationships"
-        subgraph "Your Context"
-            YC[Core Domain<br/>Clean Architecture]
-        end
-        
-        subgraph "Upstream Context"
-            UC[External System<br/>Their Models]
-        end
-        
-        subgraph "Relationship Types"
-            CF[Conformist<br/>You adapt to them]
-            ACL1[Anti-Corruption Layer<br/>You protect yourself]
-            OHS[Open Host Service<br/>They provide clean API]
-            PL[Published Language<br/>Shared schema]
-        end
-        
-        UC --> CF --> YC
-        UC --> ACL1 --> YC
-        UC --> OHS --> YC
-        UC --> PL --> YC
-    end
-    
-    style ACL1 fill:#f9f,stroke:#333,stroke-width:4px
-```
-
-</details>
 
 #### 2. Multi-Layer Translation
-
-```mermaid
-graph LR
-    subgraph "Complex Translation Pipeline"
-        DM[Domain Model]
-        
-        subgraph "ACL Layers"
-            L1[Business Rule Layer<br/>Domain Validation]
-            L2[Semantic Layer<br/>Concept Mapping]
-            L3[Structural Layer<br/>Format Conversion]
-            L4[Protocol Layer<br/>Communication]
-        end
-        
-        EM[External Model]
-        
-        DM --> L1 --> L2 --> L3 --> L4 --> EM
-        EM --> L4 --> L3 --> L2 --> L1 --> DM
-    end
-```
 
 ### Translation Patterns Deep Dive
 
 #### 1. Bidirectional Mapping Strategy
-
-```
-Domain → External Mapping:
-┌────────────────────┐         ┌────────────────────┐
-│   Order            │         │   PURCHASE_ORDER    │
-│   ────────────     │         │   ─────────────    │
-│   orderId: UUID    │   →→→   │   PO_NUM: CHAR(10) │
-│   customer: Customer│   →→→   │   CUST_ID: NUMBER  │
-│   items: LineItem[] │   →→→   │   (Separate table) │
-│   total: Money     │   →→→   │   TOTAL_AMT: DECIMAL│
-│   status: Status   │   →→→   │   STATUS_CD: CHAR(1)│
-└────────────────────┘         └────────────────────┘
-
-Mapping Rules:
-• UUID → Legacy ID (lookup table)
-• Customer → Customer ID only
-• LineItems → Separate PO_LINES table
-• Money → Decimal (currency conversion)
-• Status Enum → Status Code
-```
 
 #### 2. Validation and Enrichment Pipeline
 
@@ -658,40 +308,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-sequenceDiagram
-    participant E as External Data
-    participant V as Validator
-    participant E2 as Enricher
-    participant T as Translator
-    participant D as Domain
-    
-    E->>V: Raw External Data
-    
-    Note over V: Structural Validation
-    V->>V: Check required fields
-    V->>V: Verify data types
-    
-    V->>E2: Valid Structure
-    
-    Note over E2: Data Enrichment
-    E2->>E2: Add missing defaults
-    E2->>E2: Calculate derived fields
-    E2->>E2: Fetch related data
-    
-    E2->>T: Enriched Data
-    
-    Note over T: Domain Translation
-    T->>T: Map to domain model
-    T->>T: Apply business rules
-    
-    T->>D: Clean Domain Object
-```
-
-</details>
 
 ### Complex Integration Scenarios
 
@@ -709,41 +326,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Domain Service"
-        DS[Order Service]
-    end
-    
-    subgraph "ACL Orchestration"
-        O[Orchestrator]
-        C[Combiner]
-        V[Validator]
-    end
-    
-    subgraph "External Systems"
-        ES1[Inventory System]
-        ES2[Pricing System]
-        ES3[Shipping System]
-    end
-    
-    DS --> O
-    
-    O --> ES1
-    O --> ES2
-    O --> ES3
-    
-    ES1 --> C
-    ES2 --> C
-    ES3 --> C
-    
-    C --> V --> DS
-```
-
-</details>
 
 #### 2. Event Stream Translation
 
@@ -759,34 +342,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "External Event Stream"
-        EE[Legacy Events<br/>XML Format]
-    end
-    
-    subgraph "ACL Event Processor"
-        EP[Event Parser]
-        EF[Event Filter]
-        ET[Event Translator]
-        ER[Event Router]
-    end
-    
-    subgraph "Domain Event Bus"
-        DE[Domain Events<br/>Clean Format]
-    end
-    
-    EE --> EP
-    EP --> EF
-    EF --> ET
-    ET --> ER
-    ER --> DE
-```
-
-</details>
 
 ### Performance Optimization Strategies
 
@@ -826,58 +382,11 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Failure Containment"
-        D[Domain]
-        
-        subgraph "ACL with Circuit Breaker"
-            CB[Circuit Breaker]
-            FH[Fallback Handler]
-            RT[Retry Logic]
-        end
-        
-        E[External System]
-        
-        D --> CB
-        CB -->|Open| FH
-        CB -->|Closed| RT
-        RT --> E
-        
-        FH --> D
-        E -->|Success| D
-        E -->|Failure| CB
-    end
-```
-
-</details>
 
 ### Testing Strategies for ACL
 
 #### 1. Contract Testing
-
-```
-External Contract Tests:
-┌─────────────────────────┐
-│   Contract Test Suite   │
-│   ─────────────────    │
-│   • Request Format      │
-│   • Response Format     │
-│   • Error Scenarios     │
-│   • Edge Cases          │
-└───────────┬─────────────┘
-            │
-            ▼
-┌─────────────────────────┐
-│   ACL Implementation    │
-│   ─────────────────    │
-│   ✓ Validates contracts │
-│   ✓ Handles all cases   │
-└─────────────────────────┘
-```
 
 #### 2. Translation Testing Matrix
 
@@ -915,10 +424,6 @@ External Contract Tests:
 | **Audit Logging** | Track all translations | Medium |
 
 
-
-
-
-
 ---
 
 
@@ -954,21 +459,6 @@ External Contract Tests:
 #
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -992,7 +482,6 @@ graph TD
 - [ ] Implement security measures
 
 
-
 ---
 
 ## 🎓 Key Takeaways
@@ -1010,3 +499,4 @@ graph TD
 ---
 
 **Previous**: [← Sidecar](sidecar.md) | **Next**: GraphQL Federation → (Coming Soon)
+

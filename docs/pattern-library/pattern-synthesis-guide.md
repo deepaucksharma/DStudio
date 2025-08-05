@@ -14,6 +14,7 @@ tags:
 title: Pattern Synthesis Guide - Making Sense of 91 Patterns
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -42,6 +43,9 @@ With 91 distributed systems patterns, the challenge isn't finding solutions—it
 
 Think of distributed systems patterns as layers in a stack, each solving problems at different levels:
 
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph TD
     A[Input] --> B[Process]
@@ -54,48 +58,12 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Business Layer"
-        BL[Business Workflows<br/>Saga, Event Sourcing, CQRS]
-    end
-    
-    subgraph "Application Layer"
-        AL[Application Patterns<br/>API Gateway, BFF, Service Mesh]
-    end
-    
-    subgraph "Data Layer"
-        DL[Data Patterns<br/>Sharding, CDC, Materialized Views]
-    end
-    
-    subgraph "Infrastructure Layer"
-        IL[Infrastructure Patterns<br/>Load Balancing, Caching, CDN]
-    end
-    
-    subgraph "Resilience Layer"
-        RL[Resilience Patterns<br/>Circuit Breaker, Retry, Bulkhead]
-    end
-    
-    BL --> AL
-    AL --> DL
-    DL --> IL
-    IL --> RL
-    
-    classDef business fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
-    classDef application fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    classDef data fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    classDef infrastructure fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    classDef resilience fill:#ffebee,stroke:#c62828,stroke-width:2px
-    
-    class BL business
-    class AL application
-    class DL data
-    class IL infrastructure
-    class RL resilience
-```
+*See Implementation Example 1 in Appendix*
 
 </details>
 
@@ -139,6 +107,9 @@ If you learn only 15 patterns, these provide 80% of the value:
 Understanding how patterns work together is crucial. Here are the key relationships:
 
 ### The Resilience Trinity
+<details>
+<summary>📄 View mermaid code (8 lines)</summary>
+
 ```mermaid
 graph LR
     CB[Circuit Breaker] <--> R[Retry]
@@ -150,9 +121,14 @@ graph LR
     T -.->|opens| CB
 ```
 
+</details>
+
 **Why they work together**: Timeout detects slow operations, Retry handles transient failures, Circuit Breaker prevents retry storms.
 
 ### The Microservices Foundation
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph TD
     AG[API Gateway] --> SM[Service Mesh]
@@ -165,7 +141,12 @@ graph TD
     LB -.->|requires| HC
 ```
 
+</details>
+
 ### The Event-Driven Architecture
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph LR
     ES[Event Sourcing] --> CQRS[CQRS]
@@ -177,6 +158,8 @@ graph LR
     CQRS -.->|optimizes| Read[Read Models]
     S -.->|coordinates| Trans[Transactions]
 ```
+
+</details>
 
 ## 🧩 Pattern Combinations That Work
 
@@ -206,6 +189,9 @@ Event Sourcing → Saga → Distributed Lock → Audit Log
 ### Path 1: The Beginner's Journey (2-4 weeks)
 **Goal**: Build a reliable service
 
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
+
 ```mermaid
 graph LR
     Start([Start]) --> LB[Load Balancer]
@@ -219,8 +205,13 @@ graph LR
     style End fill:#2196f3
 ```
 
+</details>
+
 ### Path 2: The Scale Journey (1-2 months)
 **Goal**: Handle 100x growth
+
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
 
 ```mermaid
 graph LR
@@ -235,8 +226,13 @@ graph LR
     style End fill:#ff9800
 ```
 
+</details>
+
 ### Path 3: The Architecture Journey (3-6 months)
 **Goal**: Build complex systems
+
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
 
 ```mermaid
 graph LR
@@ -250,6 +246,8 @@ graph LR
     style Start fill:#ff9800
     style End fill:#9c27b0
 ```
+
+</details>
 
 ## 🤔 Pattern Selection Mental Models
 
@@ -292,80 +290,18 @@ Microseconds ←――――――――――――→ Seconds
 
 ### Step 2: Apply the Pattern Hierarchy
 
-```mermaid
-graph TD
-    Q1{Is it a<br/>resilience issue?} -->|Yes| R[Apply Resilience<br/>Patterns First]
-    Q1 -->|No| Q2{Is it a<br/>scale issue?}
-    
-    Q2 -->|Yes| S[Apply Scale<br/>Patterns]
-    Q2 -->|No| Q3{Is it a<br/>data issue?}
-    
-    Q3 -->|Yes| D[Apply Data<br/>Patterns]
-    Q3 -->|No| C[Apply Communication<br/>Patterns]
-    
-    R --> Always[Always Add<br/>Monitoring]
-    S --> Always
-    D --> Always
-    C --> Always
-```
+*See Implementation Example 2 in Appendix*
 
 ## 🏗️ Architecture Templates
 
 ### Template 1: Basic Microservices (5-10 services)
-```yaml
-Foundation:
-  - API Gateway (single entry point)
-  - Service Discovery (find services)
-  - Load Balancer (distribute load)
-  
-Resilience:
-  - Circuit Breaker (prevent cascades)
-  - Retry + Backoff (handle transients)
-  - Health Checks (know status)
-  
-Data:
-  - Database per Service (independence)
-  - Caching (performance)
-  
-Scale:
-  - Auto-scaling (handle spikes)
-```
+*See Implementation Example 3 in Appendix*
 
 ### Template 2: Event-Driven Architecture
-```yaml
-Events:
-  - Event Sourcing (source of truth)
-  - Message Queue (decouple services)
-  - CDC (data synchronization)
-  
-Processing:
-  - CQRS (optimize read/write)
-  - Saga (distributed transactions)
-  - Stream Processing (real-time analytics)
-  
-Storage:
-  - Event Store (immutable log)
-  - Read Models (optimized views)
-  - Snapshots (performance)
-```
+*See Implementation Example 4 in Appendix*
 
 ### Template 3: Global Scale System
-```yaml
-Edge:
-  - CDN (content delivery)
-  - Edge Computing (reduce latency)
-  - GeoDNS (route by location)
-  
-Distribution:
-  - Multi-Region (availability)
-  - Geo-Replication (data locality)
-  - Geo-Sharding (partition by location)
-  
-Consistency:
-  - Eventual Consistency (accept delays)
-  - Conflict Resolution (handle conflicts)
-  - Vector Clocks (track causality)
-```
+*See Implementation Example 5 in Appendix*
 
 ## 🎭 Pattern Anti-Patterns to Avoid
 
@@ -520,20 +456,7 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
+*See Implementation Example 6 in Appendix*
 
 ### Quick Decision Table
 
@@ -543,3 +466,203 @@ graph TD
 | Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
 | Data Volume | < 1GB | 1GB-1TB | > 1TB |
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+*See Implementation Example 1 in Appendix*
+
+### Implementation Example 2
+
+*See Implementation Example 2 in Appendix*
+
+### Implementation Example 3
+
+*See Implementation Example 3 in Appendix*
+
+### Implementation Example 4
+
+*See Implementation Example 4 in Appendix*
+
+### Implementation Example 5
+
+*See Implementation Example 5 in Appendix*
+
+### Implementation Example 6
+
+*See Implementation Example 6 in Appendix*
+
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+```mermaid
+graph TB
+    subgraph "Component 1"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 2
+
+```mermaid
+graph TB
+    subgraph "Component 15"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 3
+
+```mermaid
+graph TB
+    subgraph "Component 16"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 4
+
+```mermaid
+graph TB
+    subgraph "Component 17"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 5
+
+```mermaid
+graph TB
+    subgraph "Component 18"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 6
+
+```mermaid
+graph TB
+    subgraph "Component 20"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+

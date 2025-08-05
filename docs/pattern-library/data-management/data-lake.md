@@ -48,6 +48,7 @@ when-to-use: Big data analytics, machine learning datasets, multi-format data st
   exploratory data analysis, regulatory compliance archiving, IoT data collection
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -82,60 +83,7 @@ when-to-use: Big data analytics, machine learning datasets, multi-format data st
 
 ## Visual Architecture
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Data Sources"
-        S1[Structured<br/>Databases]
-        S2[Semi-structured<br/>Logs, JSON]
-        S3[Unstructured<br/>Images, Video]
-        S4[Streaming<br/>IoT, Events]
-    end
-    
-    subgraph "Data Lake Zones"
-        Raw[Raw Zone<br/>Original Format]
-        Curated[Curated Zone<br/>Cleaned Data]
-        Consumption[Consumption Zone<br/>Analytics Ready]
-    end
-    
-    subgraph "Processing"
-        ETL[ETL/ELT<br/>Pipelines]
-        ML[ML Training]
-        Analytics[Analytics<br/>Queries]
-    end
-    
-    S1 --> Raw
-    S2 --> Raw
-    S3 --> Raw
-    S4 --> Raw
-    
-    Raw --> ETL
-    ETL --> Curated
-    Curated --> Consumption
-    
-    Consumption --> ML
-    Consumption --> Analytics
-    
-    style Raw fill:#FFB6C1
-    style Curated fill:#87CEEB
-    style Consumption fill:#90EE90
-```
-
-</details>
 
 ## Data Lake vs Data Warehouse vs Data Mesh
 
@@ -163,46 +111,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Landing Zone"
-        L1[Raw Files]
-        L2[No Processing]
-        L3[Immutable]
-    end
-    
-    subgraph "Bronze Zone"
-        B1[Validated]
-        B2[Cataloged]
-        B3[Compressed]
-    end
-    
-    subgraph "Silver Zone"
-        S1[Cleaned]
-        S2[Deduplicated]
-        S3[Partitioned]
-    end
-    
-    subgraph "Gold Zone"
-        G1[Aggregated]
-        G2[Business Logic]
-        G3[Report Ready]
-    end
-    
-    L1 --> B1
-    B1 --> S1
-    S1 --> G1
-    
-    style L1 fill:#FFE4B5
-    style B1 fill:#CD853F
-    style S1 fill:#C0C0C0
-    style G1 fill:#FFD700
-```
-
-</details>
 
 ## Common Pitfalls
 
@@ -234,29 +143,19 @@ graph LR
 | **Query** | Athena | Synapse | BigQuery | Presto/Trino |
 | **Governance** | Lake Formation | Purview | Dataplex | Apache Ranger |
 
-## Decision Framework
+## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Data Strategy] --> Volume{Data Volume?}
-    
-    Volume -->|< 10TB| DW[Use Data Warehouse]
-    Volume -->|> 10TB| Format{Data Formats?}
-    
-    Format -->|Structured Only| DW2[Consider Data Warehouse]
-    Format -->|Mixed Formats| Gov{Governance Maturity?}
-    
-    Gov -->|Low| Risk[High Risk of<br/>Data Swamp]
-    Gov -->|High| Lake[Data Lake Appropriate]
-    
-    Lake --> Mesh{Multiple Domains?}
-    Mesh -->|Yes| DM[Consider Data Mesh]
-    Mesh -->|No| Implement[Implement Data Lake]
-    
-    style Risk fill:#FF6B6B
-    style Lake fill:#90EE90
-    style DM fill:#87CEEB
-```
+| Factor | Score (1-5) | Reasoning |
+|--------|-------------|-----------|
+| **Complexity** | 5 | Data governance, cataloging, multi-format support, lifecycle management |
+| **Performance Impact** | 3 | Good for batch analytics, poor for real-time; query performance varies |
+| **Operational Overhead** | 5 | Data governance, quality monitoring, catalog maintenance, access control |
+| **Team Expertise Required** | 4 | Data engineering, governance frameworks, query optimization, security |
+| **Scalability** | 4 | Excellent storage scaling, but query performance can degrade without partitioning |
+
+**Overall Recommendation: ⚠️ USE WITH CAUTION** - Consider Data Mesh or modern data platform architectures for new implementations.
+
+## Decision Framework
 
 ## Level 4: Expert (20 min) {#expert}
 
@@ -275,28 +174,6 @@ graph TD
    - Trade-off: Requires organizational change and tooling investment
 
 ### Scaling Considerations
-
-```mermaid
-graph LR
-    subgraph "Traditional Scaling Issues"
-        A1["Single Lake"] --> A2["Centralized Bottleneck"]
-        A2 --> A3["Data Swamp"]
-    end
-    
-    subgraph "Modern Scaling Approach"
-        B1["Domain Lakes"] --> B2["Federated Governance"]
-        B2 --> B3["Data Products"]
-    end
-    
-    subgraph "Migration Path"
-        C1["Assess Current State"] --> C2["Identify Domains"]
-        C2 --> C3["Implement Governance"]
-        C3 --> C4["Migrate Gradually"]
-    end
-    
-    A3 -->|Refactor| C1
-    C4 --> B1
-```
 
 ### Monitoring & Observability
 
@@ -337,81 +214,7 @@ graph LR
 
 #### Migration from Data Lake to Modern Architecture
 
-```mermaid
-graph LR
-    A["Legacy Data Lake"] -->|Step 1| B["Add Governance Layer"]
-    B -->|Step 2| C["Identify Data Domains"]
-    C -->|Step 3| D["Implement Data Products"]
-    D -->|Step 4| E["Full Data Mesh"]
-    
-    style A fill:#ffb74d,stroke:#f57c00
-    style E fill:#81c784,stroke:#388e3c
-```
 
-#### Future Directions
-
-| Trend | Impact on Pattern | Adaptation Strategy |
-|-------|------------------|-------------------|
-| Real-time Analytics | Batch processing becomes insufficient | Stream-first architectures with CDC |
-| AI/ML Democratization | Need for feature stores and model governance | ML-native data platforms |
-| Data Privacy Regulations | Compliance complexity in centralized lakes | Privacy-by-design in federated systems |
-
-### Pattern Combinations
-
-#### Works Well With
-
-| Pattern | Combination Benefit | Integration Point |
-|---------|-------------------|------------------|
-| **Event Sourcing** | Real-time data updates | Event streams feed lake zones |
-| **CQRS** | Separate read/write models | Lake serves as read model source |
-| **Microservices** | Domain-aligned data boundaries | Each service contributes domain data |
-
-## Quick Reference
-
-### Decision Matrix
-
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
-
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TD
-    A[Need Big Data Storage?] --> B{Strong Governance Available?}
-    B -->|No| C[❌ Avoid Data Lake]
-    B -->|Yes| D{Real-time Requirements?}
-    
-    D -->|Yes| E[Consider Stream Processing]
-    D -->|No| F{New Project?}
-    
-    F -->|Yes| G[Use Data Mesh/Lakehouse]
-    F -->|No| H[Existing Lake Migration]
-    
-    C --> I[Use Purpose-Built DBs]
-    E --> J[Event-Driven Architecture] 
-    G --> K[Domain Data Products]
-    H --> L[Gradual Domain Migration]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    classDef avoid fill:#f44336,stroke:#d32f2f,stroke-width:2px
-    
-    class K,L recommended
-    class J caution
-    class C,I avoid
-```
-
-</details>
 
 ### Comparison with Alternatives
 
@@ -539,3 +342,4 @@ graph LR
 ---
 
 *Next: [Data Mesh](../../excellence/guides/data-mesh-patterns.md) - Modern domain-oriented data architecture*
+

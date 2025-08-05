@@ -1,51 +1,64 @@
 ---
-title: Event Streaming
-description: Process infinite streams of events in real-time with scalable, fault-tolerant streaming architectures
-type: pattern
+best_for: Real-time analytics, IoT data processing, event-driven microservices, and
+  continuous computation scenarios where low latency is critical
 category: architecture
-difficulty: advanced
-reading_time: 30 min
-prerequisites: ["distributed-systems", "event-driven-architecture", "message-queues"]
-excellence_tier: silver
-pattern_status: use-with-expertise
-introduced: 2011-01
 current_relevance: mainstream
-essential_question: How do we process unbounded streams of real-time events while handling late data, maintaining state, and ensuring exactly-once semantics?
-tagline: Real-time processing of infinite event streams with fault tolerance
-trade_offs:
-  pros:
-    - "Enables real-time processing and analytics with sub-second latency"
-    - "Handles unbounded data streams and high-throughput scenarios"
-    - "Powerful foundation for event-driven microservices architecture"
-  cons:
-    - "Steep learning curve and significant operational complexity"
-    - "Requires expertise in distributed systems and streaming concepts"
-    - "Difficult to debug, test, and reason about stateful operations"
-best_for: "Real-time analytics, IoT data processing, event-driven microservices, and continuous computation scenarios where low latency is critical"
+description: Process infinite streams of events in real-time with scalable, fault-tolerant
+  streaming architectures
+difficulty: advanced
+essential_question: How do we process unbounded streams of real-time events while
+  handling late data, maintaining state, and ensuring exactly-once semantics?
+excellence_tier: silver
+introduced: 2011-01
 modern_examples:
-  - company: "LinkedIn"
-    implementation: "Apache Kafka creator processing 7 trillion messages/day"
-    scale: "20 TB/sec peak throughput across 4000+ Kafka clusters"
-  - company: "Uber"
-    implementation: "Apache Flink for real-time dynamic pricing and supply-demand matching"
-    scale: "1M+ events/sec processed for pricing decisions globally"
-  - company: "Netflix"
-    implementation: "Keystone streaming platform for user behavior analytics"
-    scale: "500B+ events/day processed for personalization and recommendations"
+- company: LinkedIn
+  implementation: Apache Kafka creator processing 7 trillion messages/day
+  scale: 20 TB/sec peak throughput across 4000+ Kafka clusters
+- company: Uber
+  implementation: Apache Flink for real-time dynamic pricing and supply-demand matching
+  scale: 1M+ events/sec processed for pricing decisions globally
+- company: Netflix
+  implementation: Keystone streaming platform for user behavior analytics
+  scale: 500B+ events/day processed for personalization and recommendations
+pattern_status: use-with-expertise
+prerequisites:
+- distributed-systems
+- event-driven-architecture
+- message-queues
 production_checklist:
-  - "Define event schemas with evolution strategy (Avro/Protobuf)"
-  - "Implement proper time semantics (event time vs processing time)"
-  - "Configure watermarks and allowed lateness for late data handling"
-  - "Set up state management with appropriate checkpointing intervals"
-  - "Monitor lag, throughput, and error rates with alerting"
-  - "Plan capacity for peak loads and implement backpressure handling"
-  - "Design exactly-once semantics for critical business operations"
-  - "Implement proper error handling and dead letter queues"
-  - "Set up distributed tracing for debugging streaming pipelines"
-  - "Create disaster recovery procedures for state and checkpoint restoration"
-related_laws: ["law2-asynchrony", "law3-emergence", "law6-cognitive"]
-related_pillars: ["work", "state", "intelligence"]
+- Define event schemas with evolution strategy (Avro/Protobuf)
+- Implement proper time semantics (event time vs processing time)
+- Configure watermarks and allowed lateness for late data handling
+- Set up state management with appropriate checkpointing intervals
+- Monitor lag, throughput, and error rates with alerting
+- Plan capacity for peak loads and implement backpressure handling
+- Design exactly-once semantics for critical business operations
+- Implement proper error handling and dead letter queues
+- Set up distributed tracing for debugging streaming pipelines
+- Create disaster recovery procedures for state and checkpoint restoration
+reading_time: 30 min
+related_laws:
+- law2-asynchrony
+- law3-emergence
+- law6-cognitive
+related_pillars:
+- work
+- state
+- intelligence
+tagline: Real-time processing of infinite event streams with fault tolerance
+title: Event Streaming
+trade_offs:
+  cons:
+  - Steep learning curve and significant operational complexity
+  - Requires expertise in distributed systems and streaming concepts
+  - Difficult to debug, test, and reason about stateful operations
+  pros:
+  - Enables real-time processing and analytics with sub-second latency
+  - Handles unbounded data streams and high-throughput scenarios
+  - Powerful foundation for event-driven microservices architecture
+type: pattern
 ---
+
 
 # Event Streaming
 
@@ -89,17 +102,17 @@ related_pillars: ["work", "state", "intelligence"]
 Imagine a security guard monitoring a building with hundreds of cameras. Instead of reviewing footage later (batch), they watch live feeds and react instantly to suspicious activity. Event streaming is like having AI that can watch all feeds simultaneously, detect patterns, and alert immediately.
 
 ### Visual Metaphor
-```mermaid
-graph LR
-    subgraph "Stream Processing Flow"
-        A["📡 Infinite Events<br/>Never-ending stream"] --> B["⚡ Real-time Processing<br/>Process as they arrive"]
-        B --> C["🧠 Stateful Operations<br/>Remember & correlate"]
-        C --> D["🎯 Immediate Actions<br/>Alerts, updates, decisions"]
-    end
-    
-    style A fill:#81c784,stroke:#388e3c
-    style D fill:#64b5f6,stroke:#1976d2
-```
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+**Architecture Components:**
+- Service layer
+- Processing components
+- Data storage
+- External integrations
+
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Stream processing turns data into intelligence in real-time, enabling immediate responses to events as they happen.
@@ -122,24 +135,6 @@ Event streaming processes infinite sequences of events in real-time, maintaining
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Event Streaming Architecture"
-        A[Event Sources] --> B[Stream Ingestion]
-        B --> C[Stream Processing Engine]
-        C --> D[State Management]
-        C --> E[Output Sinks]
-        
-        F[Monitoring & Control] --> C
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class C primary
-    class A,B,D,E,F secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -151,26 +146,14 @@ graph TB
 
 ### Basic Example
 
-```python
-# Stream processing fraud detection (simplified)
-def process_transaction_stream(stream):
-    """Shows basic stream processing concepts"""
-    return (
-        stream
-        .filter(lambda tx: tx.amount > 1000)  # Focus on large transactions
-        .window(minutes=5)  # Group by 5-minute windows
-        .group_by(lambda tx: tx.user_id)  # Group by user
-        .aggregate(lambda txs: sum(tx.amount for tx in txs))  # Sum amounts
-        .filter(lambda total: total > 10000)  # Alert threshold
-        .map(lambda result: create_fraud_alert(result))  # Create alerts
-    )
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 stateDiagram-v2
     [*] --> EventArrival
@@ -182,6 +165,8 @@ stateDiagram-v2
     StateCheckpoint --> Recovery: System failure
     Recovery --> StateUpdate: Restore from checkpoint
 ```
+
+</details>
 
 #### Critical Design Decisions
 
@@ -230,27 +215,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (1K-10K events/sec)"
-        A1["Single Machine<br/>In-memory processing"]
-        A2["Simple Windowing<br/>Basic aggregations"]
-    end
-    
-    subgraph "Medium Scale (10K-1M events/sec)"
-        B1["Distributed Cluster<br/>Apache Flink/Kafka Streams"]
-        B2["Persistent State<br/>RocksDB backend"]
-    end
-    
-    subgraph "Large Scale (1M+ events/sec)"
-        C1["Multi-Region Setup<br/>Global event streaming"]
-        C2["Advanced Features<br/>ML integration, CEP"]
-    end
-    
-    A1 -->|"Scale up"| B1
-    B1 -->|"Scale out"| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -287,6 +251,9 @@ graph LR
 
 #### Migration from Legacy
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A["Batch ETL<br/>(Hours delay)"] -->|"Step 1"| B["Micro-batches<br/>(Minutes delay)"]
@@ -296,6 +263,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -318,24 +287,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A["Need to process data?"] --> B{"Volume & Velocity?"}
-    B -->|"Low Volume"| C["Message Queue<br/>(RabbitMQ, SQS)"]
-    B -->|"High Volume + Real-time"| D["Event Streaming<br/>(Kafka + Flink)"]
-    B -->|"High Volume + Batch OK"| E["Batch Processing<br/>(Spark, Hadoop)"]
-    
-    D --> F{"Complexity Level?"}
-    F -->|"Simple"| G["Kafka Streams<br/>Java/Scala applications"]
-    F -->|"Complex"| H["Apache Flink<br/>Advanced streaming"]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef specialized fill:#64b5f6,stroke:#1976d2,stroke-width:2px
-    
-    class D,H recommended
-    class G specialized
-```
 
 ### Comparison with Alternatives
 
@@ -404,3 +355,4 @@ graph TD
 </div>
 
 ---
+

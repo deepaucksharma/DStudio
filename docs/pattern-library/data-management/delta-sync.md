@@ -1,45 +1,54 @@
 ---
-title: Delta Sync Pattern
-description: Synchronize data by transmitting only changes (deltas) instead of full datasets to minimize bandwidth and improve performance
-type: pattern
+best_for: Large datasets with infrequent changes, bandwidth-constrained environments,
+  offline-first applications, file synchronization systems
 category: data-management
-difficulty: intermediate
-reading_time: 15 min
-prerequisites:
-  - change-tracking
-  - version-control
-  - conflict-resolution
-excellence_tier: silver
-pattern_status: use-with-caution
-introduced: 1990-01
 current_relevance: mainstream
-essential_question: How can we synchronize large datasets efficiently by sending only what changed?
-tagline: Bandwidth-efficient synchronization through change-only transmission
+description: Synchronize data by transmitting only changes (deltas) instead of full
+  datasets to minimize bandwidth and improve performance
+difficulty: intermediate
+essential_question: How can we synchronize large datasets efficiently by sending only
+  what changed?
+excellence_tier: silver
+introduced: 1990-01
 modern_examples:
-  - company: Dropbox
-    implementation: Block-level delta sync for file changes
-    scale: 700M+ users syncing billions of files
-  - company: Google Drive
-    implementation: Incremental sync with operational transforms
-    scale: 2B+ users with real-time collaboration
-  - company: WhatsApp
-    implementation: Message delta sync for offline/online transitions
-    scale: 2B+ users with seamless message delivery
+- company: Dropbox
+  implementation: Block-level delta sync for file changes
+  scale: 700M+ users syncing billions of files
+- company: Google Drive
+  implementation: Incremental sync with operational transforms
+  scale: 2B+ users with real-time collaboration
+- company: WhatsApp
+  implementation: Message delta sync for offline/online transitions
+  scale: 2B+ users with seamless message delivery
+pattern_status: use-with-caution
+prerequisites:
+- change-tracking
+- version-control
+- conflict-resolution
+reading_time: 15 min
+related_laws:
+- law2-asynchrony
+- law4-optimization
+- law5-knowledge
+related_pillars:
+- state
+- truth
+tagline: Bandwidth-efficient synchronization through change-only transmission
+title: Delta Sync Pattern
 trade_offs:
-  pros:
-    - Minimal bandwidth usage (90%+ reduction)
-    - Faster sync times for large datasets
-    - Supports offline scenarios effectively
-    - Scales with dataset size
   cons:
-    - Complex conflict resolution required
-    - Change tracking infrastructure overhead
-    - Version management complexity
-    - Higher computational requirements
-best_for: Large datasets with infrequent changes, bandwidth-constrained environments, offline-first applications, file synchronization systems
-related_laws: [law2-asynchrony, law4-optimization, law5-knowledge]
-related_pillars: [state, truth]
+  - Complex conflict resolution required
+  - Change tracking infrastructure overhead
+  - Version management complexity
+  - Higher computational requirements
+  pros:
+  - Minimal bandwidth usage (90%+ reduction)
+  - Faster sync times for large datasets
+  - Supports offline scenarios effectively
+  - Scales with dataset size
+type: pattern
 ---
+
 
 # Delta Sync Pattern
 
@@ -80,6 +89,9 @@ related_pillars: [state, truth]
 Imagine mailing a 500-page manuscript to your editor. If you change just one paragraph, would you mail the entire manuscript again? Delta sync is like sending only the page that changed, with a note saying "replace page 247."
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Original Document<br/>📄📄📄📄📄] --> B[Changed Document<br/>📄📄📝📄📄]
@@ -89,6 +101,8 @@ graph LR
     style C fill:#81c784,stroke:#388e3c,color:#fff
     style D fill:#64b5f6,stroke:#1976d2,color:#fff
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Send only differences, not entire datasets - massive bandwidth savings with controlled complexity increase.
@@ -111,33 +125,6 @@ Delta sync minimizes data transfer by identifying, transmitting, and applying on
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Delta Sync Process"
-        O[Original State] --> T[Track Changes]
-        T --> D[Generate Delta]
-        D --> S[Send Delta]
-        S --> A[Apply Changes]
-        A --> N[New State]
-    end
-    
-    subgraph "Change Detection"
-        V[Version Tracking]
-        C[Checksums]
-        M[Modification Time]
-    end
-    
-    T --> V
-    T --> C
-    T --> M
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class O,N primary
-    class D,S secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -149,7 +136,25 @@ graph TB
 
 ### Basic Example
 
-```python
+```mermaid
+classDiagram
+    class Component2 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler2 {
+        +handle() Result
+        +configure() void
+    }
+    Component2 --> Handler2 : uses
+    
+    note for Component2 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 class DeltaSync:
     def __init__(self):
         self.versions = {}
@@ -178,29 +183,14 @@ class DeltaSync:
             else:
                 current_data[key] = value  # Add/Update
         return current_data
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-```mermaid
-stateDiagram-v2
-    [*] --> Tracking: Begin change detection
-    Tracking --> Modified: Changes detected
-    Modified --> Computing: Generate delta
-    Computing --> Sending: Transmit changes
-    Sending --> Applying: Receive and apply
-    Applying --> Resolved: Handle conflicts
-    Resolved --> Synced: Sync complete
-    Synced --> Tracking: Continue monitoring
-    
-    Modified --> Conflict: Concurrent changes
-    Conflict --> Manual: User intervention
-    Manual --> Resolved: Conflict resolved
-```
-
 #### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -248,24 +238,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale"
-        A1[File-level Deltas<br/>Simple diffs]
-    end
-    
-    subgraph "Medium Scale"
-        B1[Block-level Deltas<br/>Chunked processing]
-    end
-    
-    subgraph "Large Scale"
-        C1[Distributed Deltas<br/>Sharded sync coordination]
-    end
-    
-    A1 -->|1K files| B1
-    B1 -->|1M files| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -301,6 +273,9 @@ graph LR
 ### Pattern Evolution
 
 #### Migration from Legacy
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Full Sync Only] -->|Step 1| B[Hybrid Sync]
@@ -310,6 +285,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -332,27 +309,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need to sync data?] --> B{Dataset size?}
-    B -->|< 1MB| C[Use Full Sync]
-    B -->|1MB-1GB| D{Change rate?}
-    B -->|> 1GB| E[Use Delta Sync]
-    
-    D -->|< 10%| F[Use Delta Sync]
-    D -->|> 50%| G[Use Full Sync]
-    D -->|10-50%| H{Complexity tolerance?}
-    
-    H -->|High| I[Use Delta Sync]
-    H -->|Low| J[Use Full Sync]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class F,E,I recommended
-    class C,G,J caution
-```
 
 ### Comparison with Alternatives
 
@@ -419,3 +375,4 @@ graph TD
     - [Sync Performance Testing](../../excellence/guides/sync-testing.md)
 
 </div>
+

@@ -1,32 +1,36 @@
 ---
-title: Actor Model
-description: Message-passing concurrency model with isolated actors communicating asynchronously
-type: pattern
 category: coordination
-difficulty: advanced
-reading_time: 25 min
-prerequisites: 
-  - concurrency
-  - distributed-systems
-excellence_tier: bronze
-pattern_status: legacy
-introduced: 1973-01
 current_relevance: niche
-essential_question: How do we handle millions of concurrent entities without shared state complexity?
-tagline: Isolated actors communicate through messages for fault-tolerant concurrency
+deprecation_reason: Modern alternatives provide better developer experience with clearer
+  patterns
+description: Message-passing concurrency model with isolated actors communicating
+  asynchronously
+difficulty: advanced
+essential_question: How do we handle millions of concurrent entities without shared
+  state complexity?
+excellence_tier: bronze
+introduced: 1973-01
 modern_alternatives:
-  - "Service Mesh for microservice communication"
-  - "Serverless Functions for isolated compute"
-  - "Event-Driven Architecture for async processing"
-deprecation_reason: "Modern alternatives provide better developer experience with clearer patterns"
+- Service Mesh for microservice communication
+- Serverless Functions for isolated compute
+- Event-Driven Architecture for async processing
+pattern_status: legacy
+prerequisites:
+- concurrency
+- distributed-systems
+reading_time: 25 min
 related_laws:
-  - law2-asynchrony
-  - law3-emergence
-  - law6-human-api
+- law2-asynchrony
+- law3-emergence
+- law6-human-api
 related_pillars:
-  - work
-  - control
+- work
+- control
+tagline: Isolated actors communicate through messages for fault-tolerant concurrency
+title: Actor Model
+type: pattern
 ---
+
 
 # Actor Model
 
@@ -69,26 +73,6 @@ Imagine a massive office building where employees never share documents or talk 
 
 ### Visual Metaphor
 
-```mermaid
-graph LR
-    subgraph "Actor World"
-        A1[Actor 1] -->|Message| A2[Actor 2]
-        A2 -->|Reply| A1
-        A3[Actor 3] -->|Message| A2
-        A4[Actor 4] -->|Message| A3
-    end
-    
-    subgraph "No Direct Access"
-        A1 -.X.- S1[Shared State]
-        A2 -.X.- S1
-        A3 -.X.- S1
-    end
-    
-    style A1 fill:#81c784,stroke:#388e3c
-    style A2 fill:#64b5f6,stroke:#1976d2
-    style S1 fill:#ffcdd2,stroke:#d32f2f
-```
-
 ### Core Insight
 
 > **Key Takeaway:** The Actor Model eliminates shared state complexity by making everything a message-passing entity, but modern patterns achieve the same goals with less complexity.
@@ -113,34 +97,6 @@ The Actor Model handles concurrency by creating isolated entities that communica
 
 #### Actor System Architecture
 
-```mermaid
-graph TB
-    subgraph "Actor System Hierarchy"
-        Root[Root Guardian]
-        Root --> User[User Guardian]
-        Root --> System[System Guardian]
-        
-        User --> S1[Order Supervisor]
-        User --> S2[Payment Supervisor]
-        
-        S1 --> O1[Order Actor 1]
-        S1 --> O2[Order Actor 2]
-        S1 --> O3[Order Actor 3]
-        
-        S2 --> P1[Payment Actor 1]
-        S2 --> P2[Payment Actor 2]
-        
-        System --> Logger[Logger]
-        System --> Metrics[Metrics]
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class Root,S1,S2 primary
-    class O1,O2,O3,P1,P2 secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -152,7 +108,25 @@ graph TB
 
 ### Basic Example
 
-```python
+```mermaid
+classDiagram
+    class Component2 {
+        +process() void
+        +validate() bool
+        -state: State
+    }
+    class Handler2 {
+        +handle() Result
+        +configure() void
+    }
+    Component2 --> Handler2 : uses
+    
+    note for Component2 "Core processing logic"
+```
+
+<details>
+<summary>📄 View implementation code</summary>
+
 # Conceptual actor implementation
 class Actor:
     def __init__(self):
@@ -167,35 +141,14 @@ class Actor:
         """Process one message"""
         message = self.mailbox.get()
         self.handle_message(message)
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### Message Flow Patterns
-
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Router
-    participant Worker1
-    participant Worker2
-    participant DB
-    
-    Client->>Router: Request(id: 123)
-    Note over Router: Route to available worker
-    Router->>Worker1: Process(id: 123)
-    Worker1->>DB: QueryActor.Query(id: 123)
-    DB-->>Worker1: Result(data)
-    Worker1-->>Router: Response(data)
-    Router-->>Client: Response(data)
-    
-    par Concurrent Processing
-        Client->>Router: Request(id: 456)
-        Router->>Worker2: Process(id: 456)
-    end
-```
 
 #### Critical Design Decisions
 
@@ -244,36 +197,6 @@ sequenceDiagram
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Single Node"
-        A1[Local Actors]
-        A1 --> A2[In-Memory Messages]
-    end
-    
-    subgraph "Cluster"
-        B1[Node 1<br/>Actors A-F]
-        B2[Node 2<br/>Actors G-M]
-        B3[Node 3<br/>Actors N-Z]
-        
-        B1 <-->|Network Messages| B2
-        B2 <-->|Network Messages| B3
-        B3 <-->|Network Messages| B1
-    end
-    
-    subgraph "Geographic Distribution"
-        C1[US East<br/>User Actors]
-        C2[US West<br/>User Actors]
-        C3[EU<br/>User Actors]
-        
-        C1 <-->|WAN Messages| C2
-        C2 <-->|WAN Messages| C3
-    end
-    
-    A1 -->|Scale Up| B1
-    B1 -->|Scale Out| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -313,6 +236,9 @@ graph LR
 
 #### Migration from Legacy
 
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph LR
     A[Shared State<br/>Threading] -->|Step 1| B[Message Passing<br/>Actors]
@@ -324,6 +250,8 @@ graph LR
     style C fill:#4fc3f7,stroke:#0288d1
     style D fill:#ba68c8,stroke:#7b1fa2
 ```
+
+</details>
 
 #### Future Directions
 
@@ -346,29 +274,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Concurrency?] --> B{Platform?}
-    B -->|BEAM VM| C[Use Actors]
-    B -->|JVM/CLR| D{Scale?}
-    B -->|Other| E[Consider Alternatives]
-    
-    D -->|< 10K entities| F[Use Threads]
-    D -->|> 10K entities| G[Maybe Actors]
-    
-    C --> H[Erlang/Elixir Ecosystem]
-    G --> I[Evaluate vs Service Mesh]
-    E --> J[Event-Driven Architecture]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    classDef avoid fill:#ffcdd2,stroke:#d32f2f,stroke-width:2px
-    
-    class C recommended
-    class I caution
-    class J,E avoid
-```
 
 ### Comparison with Alternatives
 
@@ -435,3 +340,4 @@ graph TD
     - [Modern Concurrency Patterns](../../excellence/guides/modern-concurrency.md)
 
 </div>
+

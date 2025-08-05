@@ -1,40 +1,44 @@
 ---
-title: Clock Synchronization
-description: Achieving consistent time across distributed nodes despite clock drift and network delays
-type: pattern
+best_for: Time-sensitive coordination, distributed databases, event ordering, audit
+  logs, financial systems where wall-clock time matters
 category: coordination
-difficulty: advanced
-reading_time: 35 min
-prerequisites:
-  - distributed-systems-basics
-  - network-latency
-  - time-complexity
-excellence_tier: silver
-pattern_status: recommended
-introduced: 1980-01
 current_relevance: mainstream
-essential_question: How do you maintain consistent time across distributed nodes when clocks drift and network delays are variable?
-tagline: Coordinated time despite physical impossibility of perfect synchronization
-trade_offs:
-  pros:
-    - Enables wall-clock time consistency
-    - Supports time-based coordination
-    - Critical for audit and compliance
-    - Enables external time correlation
-  cons:
-    - Cannot achieve perfect synchronization
-    - Requires network overhead
-    - Complex failure handling
-    - Vulnerable to network partitions
-best_for: Time-sensitive coordination, distributed databases, event ordering, audit logs, financial systems where wall-clock time matters
+description: Achieving consistent time across distributed nodes despite clock drift
+  and network delays
+difficulty: advanced
+essential_question: How do you maintain consistent time across distributed nodes when
+  clocks drift and network delays are variable?
+excellence_tier: silver
+introduced: 1980-01
+pattern_status: recommended
+prerequisites:
+- distributed-systems-basics
+- network-latency
+- time-complexity
+reading_time: 35 min
 related_laws:
-  - law2-asynchrony
-  - law1-failure
-  - law7-economics
+- law2-asynchrony
+- law1-failure
+- law7-economics
 related_pillars:
-  - truth
-  - control
+- truth
+- control
+tagline: Coordinated time despite physical impossibility of perfect synchronization
+title: Clock Synchronization
+trade_offs:
+  cons:
+  - Cannot achieve perfect synchronization
+  - Requires network overhead
+  - Complex failure handling
+  - Vulnerable to network partitions
+  pros:
+  - Enables wall-clock time consistency
+  - Supports time-based coordination
+  - Critical for audit and compliance
+  - Enables external time correlation
+type: pattern
 ---
+
 
 # Clock Synchronization
 
@@ -82,29 +86,6 @@ Clock synchronization is like getting an orchestra to play in perfect time:
 
 ### Visual Metaphor
 
-```mermaid
-graph TD
-    subgraph "Clock Drift Over Time"
-        T0[Time 0<br/>All clocks: 12:00:00]
-        T1[After 1 hour<br/>Node A: 12:00:00<br/>Node B: 12:00:03<br/>Node C: 11:59:57]
-        T2[After 1 day<br/>Node A: 12:00:00<br/>Node B: 12:01:12<br/>Node C: 11:58:08]
-        
-        T0 --> T1
-        T1 --> T2
-    end
-    
-    subgraph "Synchronization Process"
-        S1[Check Time Server] --> S2[Calculate Offset]
-        S2 --> S3[Adjust Clock Gradually]
-        S3 --> S4[Monitor Drift]
-        S4 --> S1
-    end
-    
-    style T0 fill:#81c784,stroke:#388e3c
-    style T2 fill:#ef5350,stroke:#c62828
-    style S3 fill:#64b5f6,stroke:#1976d2
-```
-
 ### Core Insight
 
 > **Key Takeaway:** Perfect synchronization is physically impossible, but bounded accuracy is achievable for most practical purposes.
@@ -129,26 +110,6 @@ Clock Synchronization maintains approximate time consistency across distributed 
 
 #### Architecture Overview
 
-```mermaid
-graph TB
-    subgraph "NTP Hierarchy"
-        S0[Stratum 0<br/>Atomic Clocks/GPS]
-        S1[Stratum 1<br/>Primary Servers]
-        S2[Stratum 2<br/>Secondary Servers]
-        S3[Stratum 3<br/>Client Nodes]
-        
-        S0 -->|Direct Connection| S1
-        S1 -->|Network Sync| S2
-        S2 -->|Network Sync| S3
-    end
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class S0,S2 primary
-    class S1,S3 secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -160,7 +121,9 @@ graph TB
 
 ### Basic Example
 
-```python
+<details>
+<summary>📄 View decision logic</summary>
+
 # Simplified NTP client implementation
 def sync_with_time_server(server_address):
     """Basic time synchronization with NTP protocol"""
@@ -180,7 +143,8 @@ def sync_with_time_server(server_address):
         step_clock(offset)
     
     return offset, delay / 2
-```
+
+</details>
 
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
@@ -188,26 +152,10 @@ def sync_with_time_server(server_address):
 
 #### NTP Protocol Timing Sequence
 
-```mermaid
-sequenceDiagram
-    participant C as Client
-    participant S as Server
-    
-    Note over C: T1: Client timestamp
-    C->>S: NTP Request (T1: 10:00:00.000)
-    
-    Note over S: T2: Server receive (10:00:00.050)
-    Note over S: T3: Server transmit (10:00:00.052)
-    S->>C: NTP Response (T2, T3, Server Time)
-    
-    Note over C: T4: Client receive (10:00:00.102)
-    
-    Note over C: Calculate:<br/>Delay = (T4-T1) - (T3-T2)<br/>Offset = ((T2-T1) + (T3-T4)) / 2
-    
-    C->>C: Adjust local clock by offset
-```
-
 #### NTP Protocol State Machine
+
+<details>
+<summary>📄 View mermaid code (8 lines)</summary>
 
 ```mermaid
 stateDiagram-v2
@@ -219,6 +167,8 @@ stateDiagram-v2
     Spike --> Synchronized: Spike filtered
     Spike --> Unsynchronized: Persistent error
 ```
+
+</details>
 
 #### Critical Design Decisions
 
@@ -266,36 +216,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (< 100 nodes)"
-        A1[Public NTP Servers]
-        A2[Client Nodes]
-        A1 --> A2
-    end
-    
-    subgraph "Medium Scale (100-10K nodes)"
-        B1[Local NTP Servers]
-        B2[Stratum 2 Pool]
-        B3[Client Nodes]
-        B1 --> B2
-        B2 --> B3
-    end
-    
-    subgraph "Large Scale (> 10K nodes)"
-        C1[GPS Time Source]
-        C2[Stratum 1 Servers]
-        C3[Regional Pools]
-        C4[Client Nodes]
-        C1 --> C2
-        C2 --> C3
-        C3 --> C4
-    end
-    
-    A1 -->|Reliability needs| B1
-    B2 -->|Scale demands| C2
-```
-
 ### Key Metrics
 
 | Metric | Threshold | Action |
@@ -330,6 +250,9 @@ graph LR
 
 #### Migration from Basic NTP
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[Basic NTP] -->|Step 1| B[Redundant Servers]
@@ -339,6 +262,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -361,26 +286,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Time Coordination?] --> B{Accuracy Requirement?}
-    B -->|< 1 second| C[NTP over Internet]
-    B -->|< 100ms| D[Local NTP Servers]
-    B -->|< 1ms| E[PTP with Hardware]
-    B -->|< 100μs| F[GPS + Atomic Clocks]
-    
-    C --> G[Cost: Free]
-    D --> H[Cost: Low]
-    E --> I[Cost: Medium]
-    F --> J[Cost: High]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class D recommended
-    class F caution
-```
 
 ### Comparison with Alternatives
 
@@ -447,3 +352,4 @@ graph TD
     - [Time Monitoring](../../excellence/guides/time-monitoring.md)
 
 </div>
+

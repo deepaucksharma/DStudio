@@ -1,29 +1,14 @@
 ---
-title: Timeout Pattern
-excellence_tier: gold
-essential_question: How do we prevent indefinite waits and cascading resource exhaustion in distributed systems?
-tagline: Bound every operation - protect resources from infinite waits
-description: Prevent indefinite waits and resource exhaustion by setting time limits on operations
-type: pattern
 category: resilience
-difficulty: beginner
-reading-time: 15 min
-prerequisites:
-- network-programming
-- distributed-systems
-- error-handling
-when-to-use: Network calls, database queries, API requests, distributed transactions, service-to-service communication
-when-not-to-use: CPU-bound operations, local function calls, operations with unpredictable duration
-status: complete
-last-updated: 2025-01-30
-tags:
-- fault-tolerance
-- resource-management
-- resilience
-- network-reliability
-pattern_status: recommended
-introduced: 1980-01
 current_relevance: mainstream
+description: Prevent indefinite waits and resource exhaustion by setting time limits
+  on operations
+difficulty: beginner
+essential_question: How do we prevent indefinite waits and cascading resource exhaustion
+  in distributed systems?
+excellence_tier: gold
+introduced: 1980-01
+last-updated: 2025-01-30
 modern-examples:
 - company: Netflix
   implementation: Hystrix library enforces timeouts on all service calls
@@ -34,6 +19,11 @@ modern-examples:
 - company: Google
   implementation: gRPC deadline propagation across service boundaries
   scale: Sub-second timeouts for billions of RPC calls
+pattern_status: recommended
+prerequisites:
+- network-programming
+- distributed-systems
+- error-handling
 production-checklist:
 - Set appropriate timeout values (p99 latency + buffer)
 - Configure connection vs request timeouts separately
@@ -45,7 +35,22 @@ production-checklist:
 - Implement graceful timeout handling
 - Configure different timeouts for read/write operations
 - Set up alerts for timeout spikes
+reading-time: 15 min
+status: complete
+tagline: Bound every operation - protect resources from infinite waits
+tags:
+- fault-tolerance
+- resource-management
+- resilience
+- network-reliability
+title: Timeout Pattern
+type: pattern
+when-not-to-use: CPU-bound operations, local function calls, operations with unpredictable
+  duration
+when-to-use: Network calls, database queries, API requests, distributed transactions,
+  service-to-service communication
 ---
+
 
 # Timeout Pattern
 
@@ -85,25 +90,6 @@ You're at a restaurant. If the waiter doesn't return in 30 minutes, you don't wa
 </div>
 
 ### Timeout Types Visualization
-```mermaid
-graph TD
-    A[Request Start] --> B[Connection Timeout]
-    B --> C{Connected?}
-    C -->|No| D[Connection Failed]
-    C -->|Yes| E[Request Timeout]
-    E --> F{Response?}
-    F -->|No| G[Request Failed]
-    F -->|Yes| H[Read Timeout]
-    H --> I{Complete?}
-    I -->|No| J[Read Failed]
-    I -->|Yes| K[Success]
-    
-    style D fill:#f99
-    style G fill:#f99
-    style J fill:#f99
-    style K fill:#9f9
-```
-
 ### Core Value
 **Without Timeouts**: Thread hangs → Resource leak → Service degradation → Cascade failure  
 **With Timeouts**: Bounded wait → Quick failure → Resource recovery → System stability
@@ -120,6 +106,9 @@ graph TD
 | **Idle** | Keep-alive | 60-300s | Connection pool |
 
 ### Cascading Timeout Pattern
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph LR
     A[Client: 30s] --> B[Gateway: 25s]
@@ -132,9 +121,14 @@ graph LR
     style D fill:#4fc3f7
 ```
 
+</details>
+
 **Key Rule**: Each layer's timeout < caller's timeout - buffer
 
 ### Timeout Strategy Decision Tree
+<details>
+<summary>📄 View mermaid code (8 lines)</summary>
+
 ```mermaid
 graph TD
     A[Select Strategy] --> B{System Type?}
@@ -145,6 +139,8 @@ graph TD
     F -->|High| G[Adaptive Timeout<br/>P99 × 1.5]
     F -->|Low| H[Aggressive Timeout<br/>P50 + 1s]
 ```
+
+</details>
 
 ## Level 3: Deep Dive (15 min)
 
@@ -158,24 +154,10 @@ graph TD
 | **Aggressive** | P90 + 10% | Non-critical features |
 
 #### 2. Service-Specific Timeouts
-```yaml
-timeouts:
-  services:
-    payment:
-      connection: 5s
-      request: 30s
-      total: 45s
-    search:
-      connection: 1s
-      request: 3s
-      total: 5s
-    analytics:
-      connection: 2s
-      request: 60s
-      total: 90s
-```
-
 #### 3. Dynamic Timeout Adjustment
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph TD
     A[Measure Latency] --> B{Performance?}
@@ -185,6 +167,8 @@ graph TD
     C --> F[Min: P50]
     E --> G[Max: P99 × 2]
 ```
+
+</details>
 
 ### Common Pitfalls & Solutions
 
@@ -201,23 +185,6 @@ graph TD
 ### Advanced Patterns
 
 #### 1. Deadline Propagation
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Gateway
-    participant Service
-    participant Database
-    
-    Client->>Gateway: Request (deadline: 30s)
-    Gateway->>Service: Request (deadline: 25s)
-    Service->>Database: Query (deadline: 20s)
-    Database-->>Service: Response (15s)
-    Service-->>Gateway: Response (18s)
-    Gateway-->>Client: Response (22s)
-    
-    Note over Client,Database: Each hop reduces deadline
-```
-
 #### 2. Hedged Requests
 | Strategy | Primary Timeout | Backup Timeout | Use Case |
 |----------|----------------|----------------|-----------|
@@ -226,6 +193,9 @@ sequenceDiagram
 | **Tail Hedge** | P95 | P90 | Latency-sensitive |
 
 #### 3. Timeout Budgets
+<details>
+<summary>📄 View yaml code (8 lines)</summary>
+
 ```yaml
 request_budget:
   total: 30s
@@ -236,6 +206,8 @@ request_budget:
     database: 5s (17%)
     response: 2s (6%)
 ```
+
+</details>
 
 ### Production Monitoring
 
@@ -252,6 +224,9 @@ request_budget:
 ### Real-World Implementations
 
 #### Netflix's Timeout Strategy
+<details>
+<summary>📄 View java code (10 lines)</summary>
+
 ```java
 @HystrixCommand(
     commandProperties = {
@@ -264,6 +239,8 @@ public List<Movie> getRecommendations(String userId) {
     // Service call with 3s timeout
 }
 ```
+
+</details>
 
 #### Google's gRPC Deadlines
 ```go
@@ -283,6 +260,9 @@ response, err := client.GetUser(ctx, request)
 ### Migration Guide
 
 #### Phase 1: Measurement (Week 1)
+<details>
+<summary>📄 View sql code (8 lines)</summary>
+
 ```sql
 -- Analyze current latencies
 SELECT 
@@ -293,6 +273,8 @@ SELECT
 FROM request_logs
 GROUP BY endpoint;
 ```
+
+</details>
 
 #### Phase 2: Implementation (Week 2-3)
 1. Add default timeouts (P99 + 50%)
@@ -332,32 +314,6 @@ GROUP BY endpoint;
 ## Quick Reference
 
 ### Timeout Cheat Sheet
-```yaml
-# Service Timeout Defaults
-api_gateway:
-  connection: 5s
-  request: 25s
-  idle: 300s
-
-microservice:
-  connection: 2s
-  request: 20s
-  idle: 120s
-
-database:
-  connection: 3s
-  query: 15s
-  transaction: 30s
-
-cache:
-  connection: 1s
-  get: 100ms
-  set: 500ms
-
-# Cascading Formula
-next_timeout = current_timeout * 0.8
-```
-
 ### Decision Matrix
 | Service Type | Connection | Request | Total | Strategy |
 |--------------|------------|---------|--------|----------|
@@ -391,3 +347,4 @@ next_timeout = current_timeout * 0.8
 3. Netflix (2018). "Timeout Patterns in Microservices" - Tech Blog
 4. Nygard, M. (2018). "Release It!" - Timeout Patterns
 5. Fowler, M. (2019). "Microservices Timeout Strategies"
+

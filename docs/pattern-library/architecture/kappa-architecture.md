@@ -30,7 +30,6 @@ when-to-use: When dealing with architectural challenges
 **How do we structure our system architecture to leverage kappa architecture?**
 
 
-
 # Kappa Architecture
 
 !!! danger "🥉 Bronze Tier Pattern"

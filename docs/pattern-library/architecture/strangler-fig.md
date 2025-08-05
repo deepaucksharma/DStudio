@@ -35,6 +35,7 @@ when-to-use:
 - Risk-averse transformation required
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -54,7 +55,6 @@ when-to-use:
 | Low traffic systems | Overhead not justified | Basic architecture |
 | Limited resources | High operational cost | Simpler patterns |
 **How do we structure our system architecture to leverage strangler fig?**
-
 
 
 # Strangler Fig Pattern
@@ -78,58 +78,7 @@ when-to-use:
 
 ## Solution Overview
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Phase 1: Initial State"
-        U1[Users] --> L1[Legacy System]
-    end
-    
-    subgraph "Phase 2: Introduce Façade"
-        U2[Users] --> F[Façade/Router]
-        F --> L2[Legacy System]
-    end
-    
-    subgraph "Phase 3: Gradual Migration"
-        U3[Users] --> R[Router]
-        R -->|80%| L3[Legacy]
-        R -->|20%| N1[New Service A]
-    end
-    
-    subgraph "Phase 4: Majority Migrated"
-        U4[Users] --> R2[Router]
-        R2 -->|20%| L4[Legacy]
-        R2 -->|80%| N2[New Services]
-    end
-    
-    subgraph "Phase 5: Complete"
-        U5[Users] --> N3[New System]
-    end
-    
-    style L1 fill:#ff6b6b
-    style L2 fill:#ff6b6b
-    style L3 fill:#ffa94d
-    style L4 fill:#ffd43b
-    style N1 fill:#51cf66
-    style N2 fill:#51cf66
-    style N3 fill:#51cf66
-```
-
-</details>
 
 
 ## Level 1: Intuition (5 minutes)
@@ -191,21 +140,6 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
-
 ### Quick Decision Table
 
 | Factor | Low Complexity | Medium Complexity | High Complexity |
@@ -231,41 +165,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Client Layer"
-        C[Clients]
-    end
-    
-    subgraph "Proxy Layer"
-        P[Edge Proxy]
-        RT[Route Table]
-        P --> RT
-    end
-    
-    subgraph "Service Layer"
-        L[Legacy System]
-        N1[New Service 1]
-        N2[New Service 2]
-        N3[New Service 3]
-    end
-    
-    C --> P
-    P -->|"/orders/*"| N1
-    P -->|"/inventory/*"| N2
-    P -->|"/customers/*"| L
-    P -->|"/*"| L
-    
-    style P fill:#4c6ef5
-    style L fill:#ff6b6b
-    style N1 fill:#51cf66
-    style N2 fill:#51cf66
-```
-
-</details>
 
 ### Strategy Comparison
 
@@ -278,24 +178,6 @@ graph LR
 | **Best For** | API-based systems | Monolithic codebases | Critical systems |
 
 ### Migration Decision Tree
-
-```mermaid
-graph TD
-    Start[Legacy System] --> Q1{API<br/>Gateway<br/>Possible?}
-    Q1 -->|Yes| EP[Edge Proxy<br/>Strategy]
-    Q1 -->|No| Q2{Can Modify<br/>Code?}
-    
-    Q2 -->|Yes| BA[Branch by<br/>Abstraction]
-    Q2 -->|No| Q3{High Risk<br/>System?}
-    
-    Q3 -->|Yes| PR[Parallel<br/>Run]
-    Q3 -->|No| BB[Big Bang<br/>risky]
-    
-    style EP fill:#4ade80
-    style BA fill:#60a5fa
-    style PR fill:#fbbf24
-    style BB fill:#f87171
-```
 
 ### 2. Branch by Abstraction Strategy
 
@@ -311,34 +193,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Step 1: Create Abstraction"
-        C1[Client Code] --> O1[Order Logic]
-    end
-    
-    subgraph "Step 2: Introduce Interface"
-        C2[Client Code] --> I[IOrderService]
-        I --> O2[Order Logic]
-    end
-    
-    subgraph "Step 3: Toggle Implementation"
-        C3[Client Code] --> I2[IOrderService]
-        I2 --> T[Toggle]
-        T -->|"flag=old"| O3[Legacy Order]
-        T -->|"flag=new"| N[New Order Service]
-    end
-    
-    subgraph "Step 4: Remove Legacy"
-        C4[Client Code] --> I3[IOrderService]
-        I3 --> N2[New Order Service]
-    end
-```
-
-</details>
 
 ### 3. Parallel Run Strategy
 
@@ -354,79 +209,13 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Production Traffic"
-        R[Request] --> D[Dispatcher]
-        D --> L[Legacy System]
-        D --> N[New System]
-        
-        L --> LC[Legacy Response]
-        N --> NC[New Response]
-        
-        LC --> C[Comparator]
-        NC --> C
-        
-        C --> M[Metrics]
-        C --> A[Alerts]
-        
-        LC --> CR[Client Response]
-    end
-    
-    style D fill:#4c6ef5
-    style C fill:#fab005
-    style L fill:#ff6b6b
-    style N fill:#51cf66
-```
-
-</details>
 
 ## Progressive Migration Patterns
 
 ### Database Strangling
 
-```mermaid
-graph TB
-    subgraph "Phase 1: Shared Database"
-        LS1[Legacy Service] --> DB1[(Shared DB)]
-        NS1[New Service] --> DB1
-    end
-    
-    subgraph "Phase 2: Synchronized Databases"
-        LS2[Legacy Service] --> LDB[(Legacy DB)]
-        NS2[New Service] --> NDB[(New DB)]
-        LDB <--> S[Sync] <--> NDB
-    end
-    
-    subgraph "Phase 3: New Primary"
-        NS3[New Service] --> NDB2[(New DB)]
-        LS3[Legacy Service] --> API[API Calls]
-        API --> NS3
-    end
-```
-
 ### Feature Toggle Evolution
-
-```mermaid
-graph LR
-    subgraph "Toggle Configuration"
-        TC[Toggle Config]
-        TC --> F1[Feature A: 10%]
-        TC --> F2[Feature B: 50%]
-        TC --> F3[Feature C: 100%]
-        TC --> F4[Feature D: 0%]
-    end
-    
-    subgraph "Traffic Distribution"
-        F1 --> P1[10% New / 90% Legacy]
-        F2 --> P2[50% New / 50% Legacy]
-        F3 --> P3[100% New]
-        F4 --> P4[100% Legacy]
-    end
-```
 
 ## Risk Mitigation Matrix
 
@@ -472,59 +261,11 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-timeline
-    title Netflix Billing System Migration Timeline
-    
-    2018 Q1 : Monolithic Billing System
-            : 15M subscribers
-            : 99.9% availability
-    
-    2018 Q3 : Introduce API Gateway
-            : Route 100% through proxy
-            : No functional changes
-    
-    2019 Q1 : Extract Payment Service
-            : 5% traffic to new service
-            : Parallel run validation
-    
-    2019 Q3 : Extract Subscription Service
-            : 40% traffic migrated
-            : Legacy handling edge cases
-    
-    2020 Q1 : Extract Invoice Service
-            : 80% traffic on new platform
-            : Legacy for reconciliation only
-    
-    2020 Q3 : Complete Migration
-            : 100% microservices
-            : 99.99% availability
-            : 200M subscribers
-```
-
-</details>
 
 ## Anti-Patterns to Avoid
 
 ### 1. The Incomplete Strangler
-
-```mermaid
-graph TB
-    subgraph "Anti-Pattern: Abandoned Migration"
-        U[Users] --> P[Proxy]
-        P --> L[Legacy 60%]
-        P --> N[New 40%]
-        
-        L -.-> X1[Never Migrated]
-        N -.-> X2[Permanent Dual Maintenance]
-    end
-    
-    style X1 fill:#ff6b6b,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
-    style X2 fill:#ff6b6b,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5
-```
 
 ### 2. The Feature Disparity Trap
 
@@ -539,42 +280,7 @@ graph TB
 
 ### API Gateway Integration
 
-```mermaid
-graph TB
-    subgraph "API Gateway Pattern"
-        AG[API Gateway]
-        AG --> RT[Route Table]
-        AG --> RL[Rate Limiter]
-        AG --> AU[Auth]
-    end
-    
-    subgraph "Strangler Implementation"
-        RT --> OLD[Legacy Routes<br/>70%]
-        RT --> NEW[New Routes<br/>30%]
-    end
-    
-    AG --> M[Metrics]
-    M --> D[Migration Dashboard]
-```
-
 ### Service Mesh Enhancement
-
-```mermaid
-graph LR
-    subgraph "Service Mesh"
-        SM[Sidecar Proxy]
-        SM --> TC[Traffic Control]
-        SM --> CB[Circuit Breaker]
-        SM --> RT[Retry Logic]
-    end
-    
-    TC --> LS[Legacy Service<br/>Weight: 60]
-    TC --> NS[New Service<br/>Weight: 40]
-    
-    SM --> T[Telemetry]
-    T --> G[Grafana Dashboard]
-```
-
 
 ## Level 1: Intuition (5 minutes)
 
@@ -634,21 +340,6 @@ graph LR
 
 
 ## Decision Matrix
-
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
 
 ### Quick Decision Table
 
@@ -701,39 +392,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Key Metrics"
-        M1[Request Success Rate]
-        M2[Response Time p99]
-        M3[Error Rate Delta]
-        M4[Data Consistency]
-        M5[Resource Usage]
-    end
-    
-    subgraph "Dashboards"
-        D1[Migration Progress]
-        D2[Comparison Results]
-        D3[Performance Trends]
-        D4[Rollback Triggers]
-    end
-    
-    M1 --> D1
-    M2 --> D3
-    M3 --> D2
-    M4 --> D2
-    M5 --> D3
-    
-    D1 --> A1[Progress Alerts]
-    D2 --> A2[Inconsistency Alerts]
-    D3 --> A3[Performance Alerts]
-    D4 --> A4[Auto Rollback]
-```
-
-</details>
 
 ## Success Criteria
 
@@ -758,3 +417,4 @@ graph TB
 - Martin Fowler's original [Strangler Fig Application](https://martinfowler.com/bliki/StranglerFigApplication.html)
 - [Monolith to Microservices](https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/) by Sam Newman
 - AWS [Strangler Fig Pattern Guide](https://docs.aws.amazon.com/prescriptive-guidance/latest/modernization-aspnet-web-services/fig-pattern.html)
+

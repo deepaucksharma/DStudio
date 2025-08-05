@@ -2,6 +2,7 @@
 essential_question: When and how should we implement pattern in our distributed system?
 tagline: Master pattern for distributed systems success
 ---
+
 # Pattern Selection Matrices
 ## Essential Question
 ## When to Use / When NOT to Use
@@ -94,6 +95,9 @@ WebSocket + Pub-Sub + Circuit Breaker + Bulkhead
 
 ## Quick Decision Flowchart
 
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph TD
     A[Input] --> B[Process]
@@ -106,37 +110,12 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TD
-    Start[System Design Need] --> Q1{External<br/>Clients?}
-    Q1 -->|Yes| Q2{Multiple<br/>Client Types?}
-    Q1 -->|No| Q3{Service<br/>Count?}
-    
-    Q2 -->|Yes| BFF[Use BFF Pattern]
-    Q2 -->|No| GW[Use API Gateway]
-    
-    Q3 -->|<5| Direct[Direct Communication]
-    Q3 -->|>10| Mesh[Use Service Mesh]
-    
-    GW --> Q4{Failure<br/>Handling?}
-    Mesh --> Q4
-    BFF --> Q4
-    
-    Q4 -->|Critical| CB[Add Circuit Breaker]
-    Q4 -->|Transient| Retry[Add Retry Logic]
-    
-    CB --> Q5{Load<br/>Issues?}
-    Retry --> Q5
-    
-    Q5 -->|Yes| RL[Add Rate Limiting]
-    Q5 -->|No| Done[Complete Architecture]
-    
-    style Start fill:#5448C8,stroke:#3f33a6,color:#fff
-    style Done fill:#4ade80,stroke:#16a34a
-```
+*See Implementation Example 1 in Appendix*
 
 </details>
 
@@ -199,20 +178,7 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
+*See Implementation Example 2 in Appendix*
 
 ### Quick Decision Table
 
@@ -222,3 +188,75 @@ graph TD
 | Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
 | Data Volume | < 1GB | 1GB-1TB | > 1TB |
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+*See Implementation Example 1 in Appendix*
+
+### Implementation Example 2
+
+*See Implementation Example 2 in Appendix*
+
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+```mermaid
+graph TB
+    subgraph "Component 5"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 2
+
+```mermaid
+graph TB
+    subgraph "Component 7"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+

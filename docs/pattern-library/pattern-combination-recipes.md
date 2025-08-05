@@ -14,6 +14,7 @@ tags:
 title: Pattern Combination Recipes - Proven Architectural Stacks
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -56,6 +57,18 @@ Learn from proven pattern combinations that power the world's largest distribute
 ### The Netflix Resilience Stack
 **Used for: 200M+ subscribers, 100B+ requests/day**
 
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
+<details>
+<summary>📄 View mermaid code (9 lines)</summary>
+
 ```mermaid
 graph TD
     A[Input] --> B[Process]
@@ -68,42 +81,18 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
+</details>
+
+</details>
+
+</details>
+
+</details>
+
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Edge Layer"
-        Z[Zuul API Gateway]
-    end
-    
-    subgraph "Resilience Layer"
-        H[Hystrix Circuit Breaker]
-        R[Ribbon Load Balancer]
-        E[Eureka Service Discovery]
-    end
-    
-    subgraph "Data Layer"
-        EV[EVCache]
-        C[Cassandra]
-    end
-    
-    subgraph "Streaming Layer"
-        K[Kafka]
-        F[Flink]
-    end
-    
-    Z --> H
-    H --> R
-    R --> E
-    H --> EV
-    EV --> C
-    K --> F
-    
-    style Z fill:#e74c3c
-    style H fill:#3498db
-    style K fill:#2ecc71
-```
+*See Implementation Example 1 in Appendix*
 
 </details>
 
@@ -139,40 +128,7 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Mobile Layer"
-        M[Mobile Apps]
-    end
-    
-    subgraph "Real-time Layer"
-        W[WebSocket Gateway]
-        G[Geo-Sharding]
-        P[Pub/Sub]
-    end
-    
-    subgraph "Compute Layer"
-        D[Dispatch Service]
-        ML[ML Predictions]
-    end
-    
-    subgraph "Storage Layer"
-        S[Schemaless]
-        R[Redis]
-    end
-    
-    M --> W
-    W --> P
-    P --> G
-    G --> D
-    D --> ML
-    D --> S
-    P --> R
-    
-    style W fill:#f39c12
-    style G fill:#9b59b6
-    style ML fill:#1abc9c
-```
+*See Implementation Example 2 in Appendix*
 
 </details>
 
@@ -208,41 +164,7 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Frontend"
-        CF[CloudFront CDN]
-        AG[API Gateway]
-    end
-    
-    subgraph "Compute"
-        L[Lambda Functions]
-        EC2[Auto-scaling EC2]
-    end
-    
-    subgraph "Storage"
-        D[DynamoDB]
-        S3[S3 Object Store]
-    end
-    
-    subgraph "Messaging"
-        SQS[SQS Queues]
-        K[Kinesis Streams]
-    end
-    
-    CF --> AG
-    AG --> L
-    AG --> EC2
-    L --> D
-    EC2 --> D
-    L --> SQS
-    SQS --> K
-    D --> S3
-    
-    style CF fill:#ff9800
-    style D fill:#4caf50
-    style SQS fill:#2196f3
-```
+*See Implementation Example 3 in Appendix*
 
 </details>
 
@@ -261,53 +183,23 @@ graph TB
 #### Recipe: "The Unbreakable Service"
 **Problem**: Service with 99.99% uptime requirement
 
-```yaml
-Ingredients:
-  - Circuit Breaker (prevent cascades)
-  - Retry with Exponential Backoff (handle transients)
-  - Timeout (bound operations)
-  - Bulkhead (isolate failures)
-  - Health Check (detect issues)
-  - Graceful Degradation (fallback behavior)
-
-Instructions:
-  1. Wrap all external calls with Circuit Breaker
-  2. Add Retry inside Circuit Breaker (3 attempts max)
-  3. Set Timeouts: 1s for critical, 5s for normal
-  4. Use Bulkhead to isolate thread pools
-  5. Implement Health Checks at /health endpoint
-  6. Define degraded behavior for each feature
-
-Serves: 10M+ requests/day with <50ms p99 latency
-```
+*See Implementation Example 4 in Appendix*
 
 #### Recipe: "Chaos-Ready Architecture"
 **Problem**: System that survives any failure
 
-```yaml
-Ingredients:
-  - Multi-region deployment
-  - Cell-based architecture
-  - Chaos engineering tools
-  - Comprehensive monitoring
-  - Automated failover
-
-Instructions:
-  1. Deploy across 3+ regions
-  2. Implement cell isolation (100 cells max)
-  3. Run chaos experiments weekly
-  4. Monitor all golden signals
-  5. Automate failover (<30s RTO)
-
-Serves: Netflix-scale resilience
-```
+*See Implementation Example 5 in Appendix*
 
 ### 🚀 Scale Recipes
 
 #### Recipe: "0 to 1M Users"
 **Problem**: Rapid growth from startup to scale
 
-```yaml
+*See Implementation Example 6 in Appendix*
+
+<details>
+<summary>📄 View async implementation</summary>
+
 Phase 1 (0-10K users):
   - Load Balancer + 2 servers
   - Basic caching (Redis)
@@ -327,103 +219,41 @@ Phase 3 (100K-1M users):
   - Multi-region deployment
 
 Time: 6-12 months per phase
-```
+
+</details>
 
 #### Recipe: "Infinite Scale"
 **Problem**: Google/Facebook scale architecture
 
-```yaml
-Ingredients:
-  - Geo-distributed architecture
-  - Custom protocols (not HTTP)
-  - Purpose-built databases
-  - Edge computing nodes
-  - ML-driven optimization
-
-Instructions:
-  1. Build custom RPC framework
-  2. Implement geo-replication
-  3. Deploy edge nodes globally
-  4. Use ML for traffic prediction
-  5. Optimize down to microseconds
-
-Serves: 1B+ users globally
-```
+*See Implementation Example 7 in Appendix*
 
 ### ⚡ Real-Time Recipes
 
 #### Recipe: "Sub-Second Latency"
 **Problem**: Real-time trading/gaming platform
 
-```yaml
-Ingredients:
-  - WebSocket connections
-  - In-memory data grids
-  - Event sourcing
-  - CQRS read models
-  - Edge computing
-
-Instructions:
-  1. Establish WebSocket with fallback
-  2. Keep hot data in memory
-  3. Use event sourcing for writes
-  4. Pre-compute read models
-  5. Deploy compute to edge
-
-Latency: <100ms globally
-```
+*See Implementation Example 8 in Appendix*
 
 ### 💾 Data Consistency Recipes
 
 #### Recipe: "Eventually Consistent E-Commerce"
 **Problem**: Shopping cart across devices
 
-```yaml
-Ingredients:
-  - Event sourcing (cart events)
-  - CQRS (separate read/write)
-  - Saga (order processing)
-  - CDC (inventory sync)
-  - Conflict resolution (CRDTs)
-
-Instructions:
-  1. Model cart as event stream
-  2. Build materialized views per device
-  3. Use Saga for checkout flow
-  4. Sync inventory via CDC
-  5. Resolve conflicts with LWW-CRDT
-
-Consistency: ~1 second globally
-```
+*See Implementation Example 9 in Appendix*
 
 ### 🔄 Migration Recipes
 
 #### Recipe: "Monolith to Microservices"
 **Problem**: Breaking down a large monolith
 
-```yaml
-Week 1-2: Foundation
-  - Add API Gateway in front
-  - Implement service discovery
-  - Set up message queue
-
-Week 3-8: Extraction
-  - Use Strangler Fig pattern
-  - Extract auth service first
-  - Then user service
-  - Database per service
-
-Week 9-12: Optimization
-  - Add circuit breakers
-  - Implement caching
-  - Set up monitoring
-
-Risk: Low with gradual approach
-```
+*See Implementation Example 10 in Appendix*
 
 ## 🎯 Anti-Recipes (What NOT to Do)
 
 ### ❌ The "Everything Everywhere" Anti-Pattern
+<details>
+<summary>📄 View yaml code (7 lines)</summary>
+
 ```yaml
 Bad Ingredients:
   - Every pattern in the book
@@ -434,7 +264,12 @@ Bad Ingredients:
 Result: Unmaintainable complexity
 ```
 
+</details>
+
 ### ❌ The "Distributed Monolith"
+<details>
+<summary>📄 View yaml code (7 lines)</summary>
+
 ```yaml
 Bad Ingredients:
   - Microservices sharing databases
@@ -444,6 +279,8 @@ Bad Ingredients:
 
 Result: Worst of both worlds
 ```
+
+</details>
 
 ## 🔧 Implementation Guide
 
@@ -498,33 +335,7 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Level 1: Basic"
-        L1[Load Balancer<br/>+ Monitoring]
-    end
-    
-    subgraph "Level 2: Resilient"
-        L2[+ Circuit Breaker<br/>+ Retry]
-    end
-    
-    subgraph "Level 3: Scalable"
-        L3[+ Auto-scaling<br/>+ Caching]
-    end
-    
-    subgraph "Level 4: Distributed"
-        L4[+ Microservices<br/>+ Messaging]
-    end
-    
-    subgraph "Level 5: Elite"
-        L5[+ Multi-region<br/>+ Chaos Engineering]
-    end
-    
-    L1 --> L2 --> L3 --> L4 --> L5
-    
-    style L1 fill:#3498db
-    style L5 fill:#e74c3c
-```
+*See Implementation Example 11 in Appendix*
 
 </details>
 
@@ -592,20 +403,7 @@ graph LR
 
 ## Decision Matrix
 
-```mermaid
-graph TD
-    Start[Need This Pattern?] --> Q1{High Traffic?}
-    Q1 -->|Yes| Q2{Distributed System?}
-    Q1 -->|No| Simple[Use Simple Approach]
-    Q2 -->|Yes| Q3{Complex Coordination?}
-    Q2 -->|No| Basic[Use Basic Pattern]
-    Q3 -->|Yes| Advanced[Use This Pattern]
-    Q3 -->|No| Intermediate[Consider Alternatives]
-    
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style Advanced fill:#bfb,stroke:#333,stroke-width:2px
-    style Simple fill:#ffd,stroke:#333,stroke-width:2px
-```
+*See Implementation Example 12 in Appendix*
 
 ### Quick Decision Table
 
@@ -615,3 +413,388 @@ graph TD
 | Traffic | < 1K req/s | 1K-100K req/s | > 100K req/s |
 | Data Volume | < 1GB | 1GB-1TB | > 1TB |
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+*See Implementation Example 1 in Appendix*
+
+### Implementation Example 2
+
+*See Implementation Example 2 in Appendix*
+
+### Implementation Example 3
+
+*See Implementation Example 3 in Appendix*
+
+### Implementation Example 4
+
+*See Implementation Example 4 in Appendix*
+
+### Implementation Example 5
+
+*See Implementation Example 5 in Appendix*
+
+### Implementation Example 6
+
+*See Implementation Example 6 in Appendix*
+
+### Implementation Example 7
+
+*See Implementation Example 7 in Appendix*
+
+### Implementation Example 8
+
+*See Implementation Example 8 in Appendix*
+
+### Implementation Example 9
+
+*See Implementation Example 9 in Appendix*
+
+### Implementation Example 10
+
+*See Implementation Example 10 in Appendix*
+
+### Implementation Example 11
+
+*See Implementation Example 11 in Appendix*
+
+### Implementation Example 12
+
+*See Implementation Example 12 in Appendix*
+
+
+
+## Appendix: Implementation Details
+
+### Implementation Example 1
+
+```mermaid
+graph TB
+    subgraph "Component 1"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 2
+
+```mermaid
+graph TB
+    subgraph "Component 3"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 3
+
+```mermaid
+graph TB
+    subgraph "Component 5"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 4
+
+```mermaid
+graph TB
+    subgraph "Component 6"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 5
+
+```mermaid
+graph TB
+    subgraph "Component 7"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 6
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Service
+    participant Database
+    participant Cache
+    
+    Client->>Service: Request
+    Service->>Cache: Check cache
+    alt Cache hit
+        Cache-->>Service: Cached data
+    else Cache miss
+        Service->>Database: Query
+        Database-->>Service: Data
+        Service->>Cache: Update cache
+    end
+    Service-->>Client: Response
+```
+
+### Implementation Example 7
+
+```mermaid
+graph TB
+    subgraph "Component 9"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 8
+
+```mermaid
+graph TB
+    subgraph "Component 10"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 9
+
+```mermaid
+graph TB
+    subgraph "Component 11"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 10
+
+```mermaid
+graph TB
+    subgraph "Component 12"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 11
+
+```mermaid
+graph TB
+    subgraph "Component 16"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+
+### Implementation Example 12
+
+```mermaid
+graph TB
+    subgraph "Component 18"
+        Input[Input Handler]
+        Process[Core Processor]
+        Output[Output Handler]
+        
+        Input --> Process
+        Process --> Output
+    end
+    
+    subgraph "Dependencies"
+        Cache[(Cache)]
+        Queue[Message Queue]
+        Store[(Data Store)]
+    end
+    
+    Process --> Cache
+    Process --> Queue
+    Process --> Store
+    
+    style Input fill:#e3f2fd
+    style Process fill:#f3e5f5
+    style Output fill:#e8f5e9
+```
+

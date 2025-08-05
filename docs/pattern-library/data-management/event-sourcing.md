@@ -86,21 +86,6 @@ Event sourcing embraces that "truth" is not a single state but a sequence of eve
 
 ### Visual Architecture
 
-```mermaid
-graph LR
-    subgraph "Traditional CRUD"
-        U1[User] -->|UPDATE| DB1[(Current State)]
-        DB1 -->|Lost| H1[History ❌]
-    end
-    
-    subgraph "Event Sourcing"
-        U2[User] -->|Command| ES[Event Store]
-        ES -->|Append| EL[(Event Log)]
-        EL -->|Project| CS[(Current State)]
-        EL -->|Replay| HS[(Any Point in Time)]
-    end
-```
-
 ### Core Concept
 
 **Bank Account Example**:
@@ -115,48 +100,7 @@ graph LR
 
 ### Event Sourcing Architecture
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TB
-    subgraph "Write Path"
-        CMD[Commands] --> CH[Command Handlers]
-        CH --> AR[Aggregate Root]
-        AR --> EV[Generate Events]
-        EV --> ES[(Event Store)]
-    end
-    
-    subgraph "Read Path"
-        ES --> EB[Event Bus]
-        EB --> P1[Current State Projector]
-        EB --> P2[Search Projector]
-        EB --> P3[Analytics Projector]
-        
-        P1 --> RS1[(Read Model 1)]
-        P2 --> RS2[(Search Index)]
-        P3 --> RS3[(Analytics DB)]
-    end
-    
-    subgraph "Time Travel"
-        ES --> TR[Replay Events]
-        TR --> HS[Historical State]
-    end
-```
-
-</details>
 
 ### Key Components
 
@@ -193,46 +137,7 @@ graph TB
 
 ### Event Flow Architecture
 
-```mermaid
-sequenceDiagram
-    participant C as Command
-    participant A as Aggregate
-    participant E as Event Store
-    participant P as Projections
-    participant R as Read Model
-    
-    C->>A: PlaceOrder command
-    A->>A: Validate business rules
-    A->>E: Save OrderPlaced event
-    E->>P: Publish event
-    P->>R: Update read model
-    
-    Note over E: Events are immutable facts
-    Note over R: Optimized for queries
-```
-
 ### Event Design Pattern
-
-```mermaid
-graph TB
-    subgraph "Event Structure"
-        E[Event] --> M[Metadata]
-        E --> P[Payload]
-        
-        M --> ID[Event ID]
-        M --> TS[Timestamp]
-        M --> V[Version]
-        M --> T[Type]
-        
-        P --> D[Domain Data]
-        P --> B[Before State]
-        P --> A[After State]
-    end
-    
-    subgraph "Example: OrderPlaced"
-        OP[OrderPlaced Event] --> OM[order_id: 12345<br/>customer_id: 789<br/>total: $99.99<br/>items: [...]]
-    end
-```
 
 ### Projection Update Strategies
 
@@ -244,6 +149,9 @@ graph TB
 | **On-demand** | Lazy | No overhead | Rarely accessed data |
 
 ### Snapshot Strategy
+
+<details>
+<summary>📄 View mermaid code (10 lines)</summary>
 
 ```mermaid
 graph LR
@@ -257,6 +165,8 @@ graph LR
     R[Replay] -->|Skip to| S1
     S1 -->|Then apply| E101
 ```
+
+</details>
 
 ## Level 4: Expert (20 min)
 
@@ -291,27 +201,6 @@ graph LR
 
 ### Case Study: Walmart's Inventory System
 
-```mermaid
-graph TB
-    subgraph "Event Flow"
-        ST[Store Systems] -->|Sales Events| K[Kafka]
-        WH[Warehouse] -->|Shipment Events| K
-        ON[Online Orders] -->|Order Events| K
-        
-        K --> ES[(Event Store)]
-        
-        ES --> IP[Inventory Projection]
-        ES --> AP[Analytics Projection]
-        ES --> RP[Replenishment Projection]
-    end
-    
-    subgraph "Scale"
-        M1[11,000 Stores]
-        M2[100M Events/Day]
-        M3[Sub-second Updates]
-    end
-```
-
 **Implementation Details**:
 - Partitioned by store + SKU
 - 30-day hot storage, S3 archival
@@ -320,46 +209,9 @@ graph TB
 
 ### Economic Analysis
 
-```python
-def event_sourcing_roi(events_per_day, retention_years, team_size):
-    """Calculate ROI for event sourcing implementation"""
-    
-    # Storage costs
-    event_size_kb = 1
-    daily_storage_gb = (events_per_day * event_size_kb) / 1_000_000
-    yearly_storage_tb = (daily_storage_gb * 365) / 1000
-    storage_cost = yearly_storage_tb * retention_years * 50  # $50/TB/year
-    
-    # Benefits
-    audit_compliance_savings = 100_000  # Avoid manual audit
-    debugging_time_savings = team_size * 20 * 2000  # 20 hrs/year @ $100/hr
-    
-    return {
-        'yearly_cost': storage_cost,
-        'yearly_savings': audit_compliance_savings + debugging_time_savings,
-        'break_even': events_per_day > 10_000
-    }
-```
-
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    Start[Need audit trail?] --> Q1{Compliance<br/>required?}
-    Q1 -->|Yes| ES[Use Event<br/>Sourcing]
-    Q1 -->|No| Q2{Complex state<br/>transitions?}
-    
-    Q2 -->|Yes| Q3{Need time<br/>travel?}
-    Q2 -->|No| CRUD[Use CRUD<br/>+ audit log]
-    
-    Q3 -->|Yes| ES
-    Q3 -->|No| Q4{Event-driven<br/>architecture?}
-    
-    Q4 -->|Yes| ES
-    Q4 -->|No| AL[Audit tables<br/>sufficient]
-```
 
 ### Implementation Checklist ✓
 
@@ -391,7 +243,9 @@ graph TD
 <details>
 <summary>View implementation code</summary>
 
-```yaml
+<details>
+<summary>📄 View async implementation</summary>
+
 event_sourcing:
   event_store:
     type: "kafka"  # or eventstore, postgres
@@ -413,7 +267,8 @@ event_sourcing:
     track_event_types: true
     measure_projection_lag: true
     alert_on_replay_failure: true
-```
+
+</details>
 
 </details>
 
@@ -445,3 +300,4 @@ event_sourcing:
 - **Event Stores**: EventStore, Axon Server, Kafka
 - **Frameworks**: Axon (Java), Eventide (Ruby), Commanded (Elixir)
 - **Databases**: PostgreSQL with JSONB, MongoDB
+

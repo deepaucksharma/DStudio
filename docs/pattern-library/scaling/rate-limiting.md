@@ -1,39 +1,51 @@
 ---
-title: Rate Limiting Pattern
-description: Control request flow to protect systems from overload while ensuring fair resource allocation
-type: pattern
 category: scaling
-difficulty: intermediate
-reading_time: 20 min
-prerequisites: [api-design, distributed-systems, caching]
-excellence_tier: gold
-pattern_status: recommended
-introduced: 1990-01
 current_relevance: mainstream
-essential_question: How do we protect our systems from overload while ensuring fair access to resources across users and clients?
-tagline: Request flow control that prevents abuse while maintaining system availability
+description: Control request flow to protect systems from overload while ensuring
+  fair resource allocation
+difficulty: intermediate
+essential_question: How do we protect our systems from overload while ensuring fair
+  access to resources across users and clients?
+excellence_tier: gold
+introduced: 1990-01
 modern_examples:
-  - company: Stripe
-    implementation: "Sophisticated rate limiting for payment API protection"
-    scale: "Billions of API requests with fair queuing"
-  - company: Twitter
-    implementation: "Rate limiting for API endpoints and tweet creation"
-    scale: "500M+ tweets/day, API rate limits per endpoint"
-  - company: GitHub
-    implementation: "GraphQL and REST API rate limiting with cost-based quotas"
-    scale: "100M+ developers, preventing API abuse"
+- company: Stripe
+  implementation: Sophisticated rate limiting for payment API protection
+  scale: Billions of API requests with fair queuing
+- company: Twitter
+  implementation: Rate limiting for API endpoints and tweet creation
+  scale: 500M+ tweets/day, API rate limits per endpoint
+- company: GitHub
+  implementation: GraphQL and REST API rate limiting with cost-based quotas
+  scale: 100M+ developers, preventing API abuse
+pattern_status: recommended
+prerequisites:
+- api-design
+- distributed-systems
+- caching
 production_checklist:
-  - "Choose algorithm based on use case (token bucket, sliding window)"
-  - "Implement multiple rate limit tiers (per-user, per-IP, global)"
-  - "Return proper headers (X-RateLimit-Limit, X-RateLimit-Remaining)"
-  - "Use distributed rate limiting for multi-instance deployments"
-  - "Configure graceful degradation for rate limit breaches"
-  - "Monitor rate limit metrics and adjust thresholds"
-  - "Implement retry-after headers for client guidance"
-  - "Consider cost-based quotas for expensive operations"
-related_laws: [law1-failure, law3-chaos, law7-economics]
-related_pillars: [control, work, truth]
+- Choose algorithm based on use case (token bucket, sliding window)
+- Implement multiple rate limit tiers (per-user, per-IP, global)
+- Return proper headers (X-RateLimit-Limit, X-RateLimit-Remaining)
+- Use distributed rate limiting for multi-instance deployments
+- Configure graceful degradation for rate limit breaches
+- Monitor rate limit metrics and adjust thresholds
+- Implement retry-after headers for client guidance
+- Consider cost-based quotas for expensive operations
+reading_time: 20 min
+related_laws:
+- law1-failure
+- law3-chaos
+- law7-economics
+related_pillars:
+- control
+- work
+- truth
+tagline: Request flow control that prevents abuse while maintaining system availability
+title: Rate Limiting Pattern
+type: pattern
 ---
+
 
 # Rate Limiting Pattern
 
@@ -79,6 +91,9 @@ related_pillars: [control, work, truth]
 Imagine a popular restaurant that can serve 100 customers per hour. Without reservations or waiting limits, 1000 people might show up during lunch, creating chaos and poor service for everyone. Rate limiting is like a reservation system - it controls how many requests (customers) can access your service (restaurant) within a time window, ensuring quality service for legitimate users.
 
 ### Visual Metaphor
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[High Traffic<br/>🚗🚗🚗🚗🚗] --> B[Rate Limiter<br/>🚦]
@@ -88,6 +103,8 @@ graph LR
     style B fill:#4ecdc4,stroke:#45a29e  
     style C fill:#45b7d1,stroke:#3a9bc1
 ```
+
+</details>
 
 ### Core Insight
 > **Key Takeaway:** Rate limiting trades some request acceptance for system stability, protecting your service from being overwhelmed while maintaining predictable performance.
@@ -110,41 +127,6 @@ Rate limiting controls the number of requests a client can make within a time wi
 ### How It Works
 
 #### Architecture Overview
-```mermaid
-graph TB
-    subgraph "Client Layer"
-        A[Client Requests<br/>Variable Rate]
-    end
-    
-    subgraph "Rate Limiting Layer"
-        B[Rate Limiter<br/>Algorithm Engine]
-        C[Token Store<br/>Redis/Memory]
-        D[Quota Manager<br/>User/IP Tracking]
-    end
-    
-    subgraph "Application Layer"
-        E[Protected Service<br/>Stable Load]
-        F[Monitoring<br/>Metrics Collection]
-    end
-    
-    A --> B
-    B --> C
-    B --> D
-    C --> B
-    D --> B
-    
-    B -->|Allowed| E
-    B -->|429 Rate Limited| A
-    E --> F
-    F --> D
-    
-    classDef primary fill:#5448C8,stroke:#3f33a6,color:#fff
-    classDef secondary fill:#00BCD4,stroke:#0097a7,color:#fff
-    
-    class B,D primary
-    class C,E secondary
-```
-
 #### Key Components
 
 | Component | Purpose | Responsibility |
@@ -156,47 +138,11 @@ graph TB
 
 ### Basic Example
 
-```python
-# Rate limiting core concept
-def rate_limit_check(user_id, endpoint):
-    """Shows essential rate limiting logic"""
-    key = f"rate_limit:{user_id}:{endpoint}"
-    current_time = time.time()
-    window_start = current_time - 3600  # 1 hour window
-    
-    # 1. Get current request count in window
-    request_count = redis.zcount(key, window_start, current_time)
-    
-    # 2. Check against limit
-    if request_count >= 1000:  # 1000 requests per hour
-        return False, 429, "Rate limit exceeded"
-    
-    # 3. Record this request
-    redis.zadd(key, {current_time: current_time})
-    redis.expire(key, 3600)
-    
-    return True, 200, "Request allowed"
-```
-
 ## Level 3: Deep Dive (15 min) {#deep-dive}
 
 ### Implementation Details
 
 #### State Management
-```mermaid
-stateDiagram-v2
-    [*] --> Request_Received
-    Request_Received --> Check_Quota: Extract client ID
-    Check_Quota --> Under_Limit: Count < Limit
-    Check_Quota --> Over_Limit: Count >= Limit
-    Under_Limit --> Allow_Request: Increment counter
-    Over_Limit --> Reject_Request: Return 429
-    Allow_Request --> Forward_Request: Process normally
-    Reject_Request --> Send_Headers: Include retry-after
-    Forward_Request --> [*]: Complete
-    Send_Headers --> [*]: Complete
-```
-
 #### Critical Design Decisions
 
 | Decision | Options | Trade-off | Recommendation |
@@ -244,32 +190,6 @@ stateDiagram-v2
 
 ### Scaling Considerations
 
-```mermaid
-graph LR
-    subgraph "Small Scale (<10K req/s)"
-        A1[Single Redis<br/>Global Limits]
-    end
-    
-    subgraph "Medium Scale (10K-100K req/s)"
-        B1[Redis Cluster<br/>Sharded Keys]
-        B2[Local Cache<br/>Performance]
-        B3[Multiple Tiers<br/>User/IP/Global]
-        B1 --> B2
-        B2 --> B3
-    end
-    
-    subgraph "Large Scale (>100K req/s)"
-        C1[Distributed<br/>Rate Limiters]
-        C2[Edge-based<br/>Limiting]
-        C3[ML-based<br/>Adaptive Limits]
-        C1 --> C2
-        C2 --> C3
-    end
-    
-    A1 -->|Growth| B1
-    B3 -->|Scale| C1
-```
-
 ### Monitoring & Observability
 
 #### Key Metrics to Track
@@ -311,6 +231,9 @@ graph LR
 
 #### Migration from No Rate Limiting
 
+<details>
+<summary>📄 View mermaid code (7 lines)</summary>
+
 ```mermaid
 graph LR
     A[No Protection<br/>Vulnerable to Abuse] -->|Step 1| B[Basic Global<br/>Request Limiting]
@@ -320,6 +243,8 @@ graph LR
     style A fill:#ffb74d,stroke:#f57c00
     style D fill:#81c784,stroke:#388e3c
 ```
+
+</details>
 
 #### Future Directions
 
@@ -342,26 +267,6 @@ graph LR
 ## Quick Reference
 
 ### Decision Matrix
-
-```mermaid
-graph TD
-    A[Need Rate Limiting?] --> B{API Type?}
-    B -->|Public| C[Mandatory Protection]
-    B -->|Internal| D{Abuse Risk?}
-    
-    C --> E{Traffic Pattern?}
-    D -->|High| C
-    D -->|Low| F[Optional - Consider Circuit Breaker]
-    
-    E -->|Bursty| G[Token Bucket Algorithm]
-    E -->|Steady| H[Sliding Window Algorithm]
-    
-    classDef recommended fill:#81c784,stroke:#388e3c,stroke-width:2px
-    classDef caution fill:#ffb74d,stroke:#f57c00,stroke-width:2px
-    
-    class G,H recommended
-    class F caution
-```
 
 ### Comparison with Alternatives
 
@@ -428,3 +333,4 @@ graph TD
     - [Monitoring Guide](../../excellence/guides/rate-limiting-monitoring.md)
 
 </div>
+

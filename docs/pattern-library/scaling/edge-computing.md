@@ -41,6 +41,7 @@ when-not-to-use: When simpler solutions suffice
 when-to-use: When dealing with architectural challenges
 ---
 
+
 ## Essential Question
 ## When to Use / When NOT to Use
 
@@ -80,55 +81,7 @@ when-to-use: When dealing with architectural challenges
 
 ## Decision Matrix: Where to Process Your Data
 
-```mermaid
-graph TD
-    A[Input] --> B[Process]
-    B --> C[Output]
-    B --> D[Error Handling]
-    
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
-    style C fill:#bfb,stroke:#333,stroke-width:2px
-    style D fill:#fbb,stroke:#333,stroke-width:2px
-```
 
-<details>
-<summary>View implementation code</summary>
-
-```mermaid
-graph TD
-    Start[Data Generated] --> Size{Data Size?}
-    
-    Size -->|>1GB/hour| Edge1[Process at Edge]
-    Size -->|<100MB/hour| Latency{Latency Critical?}
-    
-    Latency -->|<10ms required| Edge2[Process at Edge]
-    Latency -->|>100ms OK| Privacy{Privacy Sensitive?}
-    
-    Privacy -->|Yes| Edge3[Process at Edge]
-    Privacy -->|No| Bandwidth{Bandwidth Cost?}
-    
-    Bandwidth -->|>$100/month| Edge4[Process at Edge]
-    Bandwidth -->|<$10/month| Cloud[Process in Cloud]
-    
-    Edge1 --> Filter[Filter & Compress]
-    Edge2 --> React[Real-time Response]
-    Edge3 --> Local[Local Processing]
-    Edge4 --> Aggregate[Aggregate & Batch]
-    
-    Filter --> Cloud
-    React --> Cloud
-    Local --> Cloud
-    Aggregate --> Cloud
-    
-    style Edge1 fill:#9f9
-    style Edge2 fill:#9f9
-    style Edge3 fill:#9f9
-    style Edge4 fill:#9f9
-    style Cloud fill:#f9f
-```
-
-</details>
 
 ## Architecture Patterns
 
@@ -146,55 +99,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Layer 4: Cloud"
-        Cloud[Global Analytics<br/>ML Training<br/>Long-term Storage]
-    end
-    
-    subgraph "Layer 3: Regional Edge"
-        Regional1[Regional DC 1<br/>50ms latency]
-        Regional2[Regional DC 2<br/>50ms latency]
-    end
-    
-    subgraph "Layer 2: Local Edge"
-        Edge1[Edge Server 1<br/>10ms latency]
-        Edge2[Edge Server 2<br/>10ms latency]
-        Edge3[Edge Server 3<br/>10ms latency]
-    end
-    
-    subgraph "Layer 1: Device Edge"
-        Device1[IoT Gateway<br/>1ms latency]
-        Device2[Smart Camera<br/>1ms latency]
-        Device3[Industrial PLC<br/>1ms latency]
-    end
-    
-    Device1 --> Edge1
-    Device2 --> Edge2
-    Device3 --> Edge3
-    
-    Edge1 --> Regional1
-    Edge2 --> Regional1
-    Edge3 --> Regional2
-    
-    Regional1 --> Cloud
-    Regional2 --> Cloud
-    
-    style Cloud fill:#f9f
-    style Regional1 fill:#ff9
-    style Regional2 fill:#ff9
-    style Edge1 fill:#9f9
-    style Edge2 fill:#9f9
-    style Edge3 fill:#9f9
-    style Device1 fill:#9ff
-    style Device2 fill:#9ff
-    style Device3 fill:#9ff
-```
-
-</details>
 
 ### Pattern 2: Edge-Cloud Hybrid Processing
 
@@ -220,22 +125,6 @@ graph TB
 | **Decisions/sec** | 2,500+ | Path planning | Must complete in 10ms |
 
 ### Example 2: Cloudflare Workers Edge Network
-
-```mermaid
-graph LR
-    subgraph "User Request Flow"
-        User[User Browser] -->|~10ms| Edge1[Nearest Edge<br/>275+ locations]
-        Edge1 -->|Cache Hit| Response1[Cached Response<br/>~10ms total]
-        Edge1 -->|Cache Miss| Worker[Edge Worker<br/>+5-10ms]
-        Worker -->|Need Origin| Origin[Origin Server<br/>+50-200ms]
-        Worker --> Response2[Computed Response<br/>~20ms total]
-        Origin --> Response3[Origin Response<br/>~100ms+ total]
-    end
-    
-    style Edge1 fill:#9f9
-    style Worker fill:#ff9
-    style Origin fill:#f9f
-```
 
 ### Example 3: AWS IoT Greengrass Deployment
 
@@ -272,24 +161,6 @@ graph LR
 
 ### Pattern 1: Smart Data Filtering
 
-```mermaid
-graph LR
-    subgraph "Data Flow"
-        Raw[Raw Data<br/>1GB/hour] --> Filter{Edge Filter}
-        Filter -->|Anomalies<br/>1MB/hour| Priority[Priority Queue]
-        Filter -->|Aggregated<br/>10MB/hour| Batch[Batch Queue]
-        Filter -->|Discarded<br/>989MB/hour| Drop[/dev/null]
-        
-        Priority -->|Real-time| Cloud1[Cloud Analytics]
-        Batch -->|Every 5min| Cloud2[Cloud Storage]
-    end
-    
-    style Filter fill:#9f9
-    style Priority fill:#f99
-    style Cloud1 fill:#f9f
-    style Cloud2 fill:#f9f
-```
-
 | Data Type | Filter Logic | Reduction | Cloud Sync | Example |
 |-----------|-------------|-----------|------------|----------|
 | **Sensor Readings** | Only changes >5% | 95% | 1 min batch | Temperature |
@@ -299,28 +170,6 @@ graph LR
 | **Metrics** | Statistical summary | 80% | 1 min aggregate | Performance |
 
 ### Pattern 2: Store-and-Forward for Resilience
-
-```mermaid
-stateDiagram-v2
-    [*] --> Receive: Data Arrives
-    Receive --> Store: Persist Locally
-    Store --> Check: Check Connection
-    
-    Check --> Send: Connected
-    Check --> Wait: Disconnected
-    
-    Send --> Success: ACK Received
-    Send --> Retry: Failed/Timeout
-    
-    Success --> [*]: Complete
-    Retry --> Check: Backoff
-    
-    Wait --> Check: Periodic Retry
-    
-    note right of Store: SQLite/RocksDB
-    note right of Retry: Exponential Backoff
-    note right of Wait: 30s → 1m → 5m → 15m
-```
 
 | Priority | Max Retries | Initial Timeout | Backoff | TTL | Compression |
 |----------|-------------|-----------------|---------|-----|-------------|
@@ -339,22 +188,6 @@ stateDiagram-v2
 | **Compilation** | Hardware-specific | 0% | 2-5x | 0% | Deployment |
 
 ### Edge ML Framework Comparison
-
-```mermaid
-graph TB
-    subgraph "Model Journey"
-        Cloud[Cloud Model<br/>500MB FP32] --> Q[Quantization<br/>125MB INT8]
-        Q --> P[Pruning<br/>50MB INT8]
-        P --> D[Distillation<br/>10MB INT8]
-        D --> C[Compilation<br/>10MB Optimized]
-        
-        Cloud -.->|Accuracy: 95%| Metrics1[Cloud Metrics]
-        C -.->|Accuracy: 92%<br/>Speed: 10x| Metrics2[Edge Metrics]
-    end
-    
-    style Cloud fill:#f9f
-    style C fill:#9f9
-```
 
 | Framework | Hardware | Languages | Model Format | Strengths | Limitations |
 |-----------|----------|-----------|--------------|-----------|-------------|
@@ -376,28 +209,6 @@ graph TB
 
 ### Data Lifecycle Management
 
-```mermaid
-graph LR
-    subgraph "Edge Data Flow"
-        New[New Data] --> Hot{Hot Storage}
-        Hot -->|Age > 5min| Warm[Warm Storage]
-        Hot -->|Critical| Cloud1[Immediate Cloud]
-        
-        Warm -->|Age > 24hr| Cold[Cold Storage]
-        Warm -->|Batch| Cloud2[Batch Cloud]
-        
-        Cold -->|Age > 30d| Archive[Archive/Delete]
-        
-        Hot -.->|Query| Results1[Fast Results]
-        Warm -.->|Query| Results2[Medium Results]
-        Cloud2 -.->|Query| Results3[Slow Results]
-    end
-    
-    style Hot fill:#f99
-    style Warm fill:#ff9
-    style Cold fill:#99f
-```
-
 ## Security Considerations
 
 ### Edge Security Threats & Mitigations
@@ -411,28 +222,6 @@ graph LR
 | **DDoS** | Medium | Service outage | Rate limiting | Edge firewall rules |
 
 ### Security Architecture
-
-```mermaid
-graph TB
-    subgraph "Security Layers"
-        Physical[Physical Security<br/>Locked cabinets, cameras]
-        Hardware[Hardware Security<br/>TPM, Secure Boot]
-        OS[OS Hardening<br/>SELinux, AppArmor]
-        Runtime[Runtime Security<br/>Container isolation]
-        Network[Network Security<br/>mTLS, IPSec]
-        App[Application Security<br/>RBAC, API keys]
-    end
-    
-    Physical --> Hardware
-    Hardware --> OS
-    OS --> Runtime
-    Runtime --> Network
-    Network --> App
-    
-    style Physical fill:#f99
-    style Hardware fill:#f99
-    style Network fill:#9f9
-```
 
 ## Advanced Deployment Patterns
 
@@ -450,41 +239,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TB
-    subgraph "Federated Learning Round"
-        GM[Global Model v1]
-        
-        subgraph "Edge Nodes"
-            E1[Edge Node 1<br/>Local Data]
-            E2[Edge Node 2<br/>Local Data]
-            E3[Edge Node 3<br/>Local Data]
-        end
-        
-        GM -->|Distribute| E1
-        GM -->|Distribute| E2
-        GM -->|Distribute| E3
-        
-        E1 -->|Local Training| U1[Update 1]
-        E2 -->|Local Training| U2[Update 2]
-        E3 -->|Local Training| U3[Update 3]
-        
-        U1 -->|Secure Aggregation| AGG[Aggregator]
-        U2 -->|Secure Aggregation| AGG
-        U3 -->|Secure Aggregation| AGG
-        
-        AGG -->|Apply Updates| GM2[Global Model v2]
-    end
-    
-    style GM fill:#f9f,stroke:#333,stroke-width:2px
-    style GM2 fill:#9f9,stroke:#333,stroke-width:2px
-    style AGG fill:#ff9,stroke:#333,stroke-width:2px
-```
-
-</details>
 
 | Component | Role | Requirements | Scale |
 |-----------|------|--------------|-------|
@@ -505,37 +260,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-sequenceDiagram
-    participant S as Central Server
-    participant E1 as Edge Node 1
-    participant E2 as Edge Node 2
-    participant E3 as Edge Node 3
-    
-    S->>E1: Global Model v1
-    S->>E2: Global Model v1
-    S->>E3: Global Model v1
-    
-    Note over E1,E3: Local Training (5 epochs)
-    
-    E1->>E1: Train on Local Data
-    E2->>E2: Train on Local Data
-    E3->>E3: Train on Local Data
-    
-    E1-->>S: Model Update + Metrics
-    E2-->>S: Model Update + Metrics
-    E3-->>S: Model Update + Metrics
-    
-    S->>S: Secure Aggregation
-    S->>S: Apply Differential Privacy
-    
-    Note over S: Global Model v2 Ready
-```
-
-</details>
 
 ### Pattern 2: Intelligent Workload Placement
 
@@ -548,27 +273,6 @@ sequenceDiagram
 | **Data Locality** | 10% | Data on same node | 1.0 if local, 0.5 if regional |
 | **Reliability** | 5% | Uptime percentage | 99.9% = 0.999 |
 | **Cost** | 5% | 1 - (Cost / Budget) | 1 - ($0.10 / $1.00) = 0.9 |
-
-```mermaid
-graph TB
-    subgraph "Placement Decision"
-        W[Workload] --> Analyze[Analyze Requirements]
-        Analyze --> Score[Score All Nodes]
-        
-        Score --> N1[Node 1<br/>Score: 0.85]
-        Score --> N2[Node 2<br/>Score: 0.72]
-        Score --> N3[Node 3<br/>Score: 0.91]
-        
-        N3 -->|Highest Score| Deploy[Deploy to Node 3]
-        
-        Deploy --> Monitor[Monitor Performance]
-        Monitor -->|SLA Violation| Rebalance[Rebalance]
-        Rebalance --> Score
-    end
-    
-    style N3 fill:#9f9
-    style Deploy fill:#9f9
-```
 
 ### Pattern 3: Zero-Trust Edge Security
 
@@ -584,33 +288,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-stateDiagram-v2
-    [*] --> Boot: Power On
-    Boot --> Attestation: Secure Boot
-    Attestation --> Verify: TPM Check
-    
-    Verify --> Trusted: Pass
-    Verify --> Quarantine: Fail
-    
-    Trusted --> Operational: Load Workloads
-    Operational --> Monitor: Continuous
-    
-    Monitor --> Operational: Normal
-    Monitor --> Incident: Anomaly Detected
-    
-    Incident --> Isolate: Network Isolation
-    Isolate --> Migrate: Move Workloads
-    Migrate --> Remediate: Reimage Node
-    Remediate --> Attestation: Rejoin Attempt
-    
-    Quarantine --> Remediate: Admin Action
-```
-
-</details>
 
 | Security Layer | Implementation | Overhead | Protection Level |
 |----------------|----------------|----------|------------------|
@@ -646,39 +324,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph LR
-    subgraph "Tesla FSD Computer"
-        C1[Camera 1] --> NPU1[Neural Processor 1]
-        C2[Camera 2] --> NPU1
-        C3[Camera 3] --> NPU1
-        C4[Camera 4] --> NPU1
-        
-        C5[Camera 5] --> NPU2[Neural Processor 2]
-        C6[Camera 6] --> NPU2
-        C7[Camera 7] --> NPU2
-        C8[Camera 8] --> NPU2
-        
-        NPU1 --> Fusion[Sensor Fusion]
-        NPU2 --> Fusion
-        
-        Radar[Radar] --> Fusion
-        Ultra[Ultrasonic] --> Fusion
-        
-        Fusion --> Plan[Planning]
-        Plan --> Control[Control]
-        Control --> CAN[CAN Bus]
-    end
-    
-    style NPU1 fill:#9f9
-    style NPU2 fill:#9f9
-    style Fusion fill:#ff9
-```
-
-</details>
 
 ### Case Study 2: Cloudflare Workers Global Edge
 
@@ -704,40 +350,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant E as Edge Location
-    participant W as Worker
-    participant C as Cache
-    participant O as Origin
-    
-    U->>E: HTTP Request
-    E->>E: Anycast routing
-    
-    E->>C: Check cache
-    alt Cache Hit
-        C-->>U: Cached response (10ms)
-    else Cache Miss
-        E->>W: Execute Worker
-        alt Worker handles
-            W->>W: Process request
-            W-->>U: Worker response (20ms)
-            W->>C: Update cache
-        else Need origin
-            W->>O: Fetch from origin
-            O-->>W: Origin data
-            W->>W: Transform response
-            W-->>U: Final response (100ms)
-            W->>C: Cache response
-        end
-    end
-```
-
-</details>
 
 ### Case Study 3: Smart City Video Analytics
 
@@ -762,23 +375,6 @@ sequenceDiagram
 | **5-Year TCO** | $1,080,000 | $266,000 | 75% |
 
 ### ROI Calculation
-
-```mermaid
-graph TB
-    subgraph "Investment & Returns"
-        I[Initial Investment<br/>$50,000] --> Y1[Year 1<br/>Save $156,000]
-        Y1 --> Y2[Year 2<br/>Save $216,000]
-        Y2 --> Y3[Year 3<br/>Save $216,000]
-        Y3 --> Y4[Year 4<br/>Save $216,000]
-        Y4 --> Y5[Year 5<br/>Save $216,000]
-        
-        Y5 --> ROI[5-Year ROI<br/>1,940%]
-    end
-    
-    style I fill:#f99
-    style ROI fill:#9f9
-```
-
 
 ## Level 1: Intuition (5 minutes)
 
@@ -911,33 +507,7 @@ graph TD
     style D fill:#fbb,stroke:#333,stroke-width:2px
 ```
 
-<details>
-<summary>View implementation code</summary>
 
-```mermaid
-graph TD
-    subgraph "Quick Decision Guide"
-        Q1{Latency<br/><10ms?} -->|Yes| Edge1[Use Edge]
-        Q1 -->|No| Q2{Bandwidth<br/>Expensive?}
-        
-        Q2 -->|Yes| Edge2[Use Edge]
-        Q2 -->|No| Q3{Offline<br/>Required?}
-        
-        Q3 -->|Yes| Edge3[Use Edge]
-        Q3 -->|No| Q4{Privacy<br/>Critical?}
-        
-        Q4 -->|Yes| Edge4[Use Edge]
-        Q4 -->|No| Cloud[Use Cloud]
-    end
-    
-    style Edge1 fill:#9f9
-    style Edge2 fill:#9f9
-    style Edge3 fill:#9f9
-    style Edge4 fill:#9f9
-    style Cloud fill:#f9f
-```
-
-</details>
 
 ### Resource Requirements by Scale
 
@@ -980,3 +550,5 @@ graph TD
 ---
 
 **Previous**: [← Sharding Pattern](sharding.md) | **Next**: [Gateway Pattern →](../architecture/gateway.md)
+
+
