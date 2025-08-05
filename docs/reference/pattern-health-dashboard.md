@@ -361,7 +361,7 @@ type: reference
   // Load health data from JSON
   async function loadHealthData() {
     try {
-      const response = await fetch('/DStudio/tools/health-data/pattern-health-metrics.json');
+      const response = await fetch('/DStudio/data/health-data/pattern-health-metrics.json');
       if (!response.ok) throw new Error('Failed to load health data');
       
       healthData = await response.json();

@@ -138,7 +138,7 @@ plugins:
       patterns/observability.md: architects-handbook/human-factors/observability-stacks.md
       patterns/chaos-engineering.md: architects-handbook/human-factors/chaos-engineering.md
 - mermaid2:
-    version: 10.6.1
+    version: 10.9.1
     arguments:
       theme: default
       themeVariables:
@@ -210,6 +210,7 @@ extra_css:
 extra_javascript:
 - javascripts/mathjax-config.js
 - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+- https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js
 - javascripts/custom.js
 - javascripts/pattern-filtering.js
 - javascripts/progress-tracker.js
