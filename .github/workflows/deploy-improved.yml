@@ -1,0 +1,270 @@
+name: Deploy MkDocs to GitHub Pages (Improved)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Quick validation for PRs
+  quick-validate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Quick structural validation
+      run: |
+        echo "Running quick structural checks..."
+        python scripts/deep-structure-analyzer.py || true
+        
+    - name: Build MkDocs (non-strict for PR)
+      run: |
+        # For PRs, we build without --strict to see if it builds at all
+        # This allows PRs that add new content with some broken links
+        mkdocs build 2>&1 | tee build.log || true
+        
+        # Count warnings for feedback
+        WARNING_COUNT=$(grep -c "WARNING" build.log || echo "0")
+        echo "Build completed with $WARNING_COUNT warnings"
+        
+        # Fail if build completely fails (not just warnings)
+        if ! mkdocs build > /dev/null 2>&1; then
+          echo "❌ Build failed completely"
+          exit 1
+        fi
+        
+        echo "✅ Build succeeded (warnings allowed in PRs)"
+
+  # Full validation and build for main branch
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run structural analysis
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "🔍 Running comprehensive structural analysis..."
+        python scripts/deep-structure-analyzer.py > structure-report.txt 2>&1 || true
+        
+        # Extract key metrics
+        if [ -f "DEEP_STRUCTURE_ISSUES.json" ]; then
+          echo "📊 Structural Analysis Results:"
+          python -c "
+import json
+with open('DEEP_STRUCTURE_ISSUES.json') as f:
+    data = json.load(f)
+    print(f'  - Files without frontmatter: {len(data.get(\"no_frontmatter\", []))}')
+    print(f'  - Files with invalid YAML: {len(data.get(\"invalid_yaml\", []))}')
+            print(f'  - Old law references: {len(data.get(\"old_law_references\", []))}')
+            print(f'  - Pillar path issues: {len(data.get(\"pillar_path_confusion\", []))}')
+          " || echo "Could not parse analysis results"
+        fi
+    
+    - name: Build MkDocs
+      run: |
+        echo "🏗️ Building MkDocs site..."
+        
+        # For main branch, we want to know about issues but not fail deployment
+        if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+          mkdocs build 2>&1 | tee build.log || true
+          
+          # Count and report warnings
+          WARNING_COUNT=$(grep -c "WARNING" build.log || echo "0")
+          ERROR_COUNT=$(grep -c "ERROR" build.log || echo "0")
+          
+          echo "📊 Build Statistics:"
+          echo "  - Warnings: $WARNING_COUNT"
+          echo "  - Errors: $ERROR_COUNT"
+          
+          # Create a simple report
+          echo "# MkDocs Build Report" > build-report.md
+          echo "" >> build-report.md
+          echo "- **Total Warnings**: $WARNING_COUNT" >> build-report.md
+          echo "- **Total Errors**: $ERROR_COUNT" >> build-report.md
+          echo "" >> build-report.md
+          
+          # Extract warning categories
+          echo "## Warning Categories" >> build-report.md
+          echo '```' >> build-report.md
+          grep "WARNING" build.log | cut -d'-' -f2- | sort | uniq -c | sort -nr | head -20 >> build-report.md || true
+          echo '```' >> build-report.md
+          
+          # Ensure site was actually built
+          if [ ! -d "site" ]; then
+            echo "❌ Site directory not created - build failed"
+            exit 1
+          fi
+          
+          echo "✅ Site built successfully (with warnings)"
+        else
+          # For non-main branches, use strict mode
+          mkdocs build --strict
+        fi
+    
+    - name: Check for critical issues
+      run: |
+        # Define critical patterns that should fail the build
+        CRITICAL_PATTERNS=(
+          "law1-failure"
+          "law2-asynchrony"
+          "law3-chaos"
+          "/pillars/work/"
+          "/pillars/state/"
+          "best-for:"  # Should be best_for:
+        )
+        
+        echo "🔍 Checking for critical structural issues..."
+        FOUND_CRITICAL=false
+        
+        for pattern in "${CRITICAL_PATTERNS[@]}"; do
+          if grep -r "$pattern" docs/ --include="*.md" > /dev/null 2>&1; then
+            echo "❌ Found critical issue: $pattern"
+            FOUND_CRITICAL=true
+          fi
+        done
+        
+        if [ "$FOUND_CRITICAL" = true ]; then
+          echo "⚠️ Critical structural issues found but not blocking deployment"
+          # In future, could fail here: exit 1
+        else
+          echo "✅ No critical structural issues found"
+        fi
+    
+    - name: Upload build artifacts
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-artifacts
+        path: |
+          build.log
+          build-report.md
+          structure-report.txt
+          DEEP_STRUCTURE_ISSUES.json
+        retention-days: 30
+    
+    - name: Upload site
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: './site'
+
+  # Deploy job remains the same
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+  # New job for periodic health checks
+  health-check:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run comprehensive health check
+      run: |
+        echo "🏥 Running documentation health check..."
+        
+        # Run all our maintenance scripts
+        python scripts/deep-structure-analyzer.py || true
+        python scripts/analyze-unrecognized-links.py || true
+        
+        # Create health report
+        echo "# Documentation Health Report" > health-report.md
+        echo "Date: $(date)" >> health-report.md
+        echo "" >> health-report.md
+        
+        # Add metrics from our analysis
+        if [ -f "DEEP_STRUCTURE_ISSUES.json" ]; then
+          python -c "
+import json
+with open('DEEP_STRUCTURE_ISSUES.json') as f:
+    data = json.load(f)
+    total_issues = sum(len(v) if isinstance(v, list) else 0 for v in data.values())
+    print(f'## Total Structural Issues: {total_issues}')
+          " >> health-report.md
+        fi
+        
+    - name: Create issue if problems found
+      if: github.event_name == 'schedule'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          // Read health report
+          const fs = require('fs');
+          const report = fs.readFileSync('health-report.md', 'utf8');
+          
+          // Only create issue if significant problems
+          if (report.includes('Total Structural Issues: 0')) {
+            console.log('No issues found - skipping issue creation');
+            return;
+          }
+          
+          // Create issue
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `Documentation Health Check - ${new Date().toISOString().split('T')[0]}`,
+            body: report,
+            labels: ['documentation', 'maintenance']
+          });

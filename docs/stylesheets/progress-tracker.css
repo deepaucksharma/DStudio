@@ -1,0 +1,367 @@
+/* Progress Tracker Styles */
+
+/* Navigation progress indicators */
+.md-nav__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.md-nav__link.visited {
+    opacity: 0.9;
+}
+
+.progress-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    padding-left: 8px;
+    color: #4CAF50;
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.progress-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00BCD4 0%, #5448C8 100%);
+    transition: width 0.3s ease;
+    border-radius: 1px;
+}
+
+/* Header progress summary */
+.progress-summary {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0 16px;
+    font-size: 14px;
+}
+
+.progress-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.progress-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.progress-label {
+    font-size: 11px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.progress-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--md-primary-fg-color);
+}
+
+.progress-dashboard-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    border-radius: 50%;
+    background: var(--md-primary-fg-color--light);
+    color: var(--md-primary-fg-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.progress-dashboard-link:hover {
+    background: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+    transform: scale(1.1);
+}
+
+/* Achievement notifications */
+.achievement-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    background: var(--md-code-bg-color);
+    border: 2px solid var(--md-primary-fg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    max-width: 360px;
+}
+
+.achievement-notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.achievement-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+}
+
+.achievement-content {
+    flex: 1;
+}
+
+.achievement-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--md-primary-fg-color);
+}
+
+.achievement-description {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Progress dashboard page styles */
+.progress-dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.progress-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.progress-card {
+    background: var(--md-code-bg-color);
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.progress-card-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--md-primary-fg-color);
+    margin-bottom: 8px;
+}
+
+.progress-card-label {
+    font-size: 14px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.progress-ring {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 16px;
+}
+
+.progress-ring svg {
+    transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+    fill: none;
+    stroke: var(--md-default-fg-color--lightest);
+    stroke-width: 20;
+}
+
+.progress-ring-fill {
+    fill: none;
+    stroke: var(--md-primary-fg-color);
+    stroke-width: 20;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-ring-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--md-primary-fg-color);
+}
+
+.progress-categories {
+    margin-bottom: 48px;
+}
+
+.category-progress {
+    margin-bottom: 24px;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.category-name {
+    font-weight: 600;
+}
+
+.category-stats {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.category-bar {
+    height: 24px;
+    background: var(--md-code-bg-color);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.category-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00BCD4 0%, #5448C8 100%);
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.category-bar-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+}
+
+.achievement-card {
+    background: var(--md-code-bg-color);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid var(--md-default-fg-color--lightest);
+    transition: all 0.2s ease;
+}
+
+.achievement-card.earned {
+    border-color: var(--md-primary-fg-color);
+    background: var(--md-primary-fg-color--light);
+}
+
+.achievement-card.locked {
+    opacity: 0.5;
+}
+
+.achievement-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.achievement-card-icon {
+    font-size: 24px;
+}
+
+.achievement-card-title {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.achievement-card-description {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Progress controls */
+.progress-controls {
+    display: flex;
+    gap: 16px;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.progress-button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--md-primary-fg-color);
+    background: transparent;
+    color: var(--md-primary-fg-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.progress-button:hover {
+    background: var(--md-primary-fg-color);
+    color: var(--md-primary-bg-color);
+}
+
+.progress-button.danger {
+    border-color: #f44336;
+    color: #f44336;
+}
+
+.progress-button.danger:hover {
+    background: #f44336;
+    color: white;
+}
+
+/* Mobile responsive adjustments */
+@media screen and (max-width: 768px) {
+    .progress-summary {
+        padding: 0 8px;
+        font-size: 12px;
+    }
+    
+    .progress-stats {
+        gap: 16px;
+    }
+    
+    .progress-label {
+        font-size: 10px;
+    }
+    
+    .progress-value {
+        font-size: 14px;
+    }
+    
+    .achievement-notification {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+    
+    .progress-overview {
+        grid-template-columns: 1fr;
+    }
+}

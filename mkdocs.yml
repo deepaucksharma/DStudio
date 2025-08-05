@@ -206,11 +206,13 @@ markdown_extensions:
 extra_css:
 - stylesheets/extra.css
 - stylesheets/pattern-filtering.css
+- stylesheets/progress-tracker.css
 extra_javascript:
 - javascripts/mathjax-config.js
 - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
 - javascripts/custom.js
 - javascripts/pattern-filtering.js
+- javascripts/progress-tracker.js
 extra:
   generator: false
   alternate:
@@ -747,6 +749,7 @@ nav:
   - Formatting Guide: reference/formatting-guide.md
   - Validation Guide: reference/validation-guide.md
   - Pattern Health Dashboard: reference/pattern-health-dashboard.md
+  - Your Progress: progress.md
   - Pattern Meta-Analysis: reference/pattern-meta-analysis.md
   - Pattern Consistency Report: reference/pattern-consistency-report.md
   - Pattern Library Fix Plan: reference/pattern-library-fix-plan.md

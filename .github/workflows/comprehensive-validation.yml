@@ -34,7 +34,7 @@ jobs:
     
     - name: Upload Validation Report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: mkdocs-validation-report
         path: mkdocs-validation-report.json
@@ -63,7 +63,7 @@ jobs:
         
     - name: Upload Analysis Report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: structure-analysis-report
         path: DEEP_STRUCTURE_ISSUES.json
