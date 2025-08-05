@@ -116,6 +116,61 @@ Cons: Missing 25% of market, competitive risk
 
 **Wisdom from the Field**: "Sometimes the highest-risk decision is actually the lowest-risk option when you factor in the cost of inaction."
 
+## Distributed Decision-Making Systems
+
+### The Modern Reality: Decision Distribution
+
+**Traditional Model**: Hierarchical decisions flow up for approval
+**Modern Model**: Distributed decisions flow to the most informed person
+
+```mermaid
+graph TB
+    subgraph "Traditional Hierarchy"
+        A1[Team Member] --> B1[Lead]
+        B1 --> C1[Manager]
+        C1 --> D1[Director]
+        D1 --> E1[VP]
+    end
+    
+    subgraph "Distributed Network"
+        A2[Domain Expert]
+        B2[Customer Advocate]
+        C2[Technical Expert]
+        D2[Business Expert]
+        A2 <--> B2
+        B2 <--> C2
+        C2 <--> D2
+        D2 <--> A2
+    end
+```
+
+**Key Insight**: In distributed systems, the best decisions happen closest to the information, not highest in the hierarchy.
+
+### Team Topologies for Decision Rights
+
+**Based on Team Topologies by Matthew Skelton & Manuel Pais**
+
+| Team Type | Decision Authority | Examples | Autonomy Level |
+|-----------|-------------------|----------|----------------|
+| **Stream-Aligned** | Feature delivery, tech stack choices | Product teams, service teams | High - Own their value stream |
+| **Platform** | Infrastructure standards, developer experience | DevOps, Internal tools | Medium - Enable other teams |
+| **Complicated Subsystem** | Deep technical domain decisions | ML platform, payment processing | High - Domain expertise |
+| **Enabling** | Best practice recommendations | Architecture, security guidance | Low - Advisory role |
+
+**Decision Escalation Matrix**:
+
+```mermaid
+flowchart TD
+    A[Decision Needed] --> B{Local or Global Impact?}
+    B -->|Local| C[Stream Team Decides]
+    B -->|Global| D{Technical or Business?}
+    D -->|Technical| E[Platform/Architecture Team]
+    D -->|Business| F[Product/Business Team]
+    C --> G[Document in ADR]
+    E --> G
+    F --> G
+```
+
 ## Core Decision-Making Frameworks
 
 ### 1. The RAPID Framework (Bain & Company)
@@ -170,6 +225,32 @@ def calculate_priority(decision):
 
 </div>
 
+### 4. Decision Frameworks That Enable Autonomy
+
+**The Autonomy-Authority Matrix**: Match decision-making authority with required autonomy level
+
+| Decision Type | Authority Level | Tools | Example |
+|---------------|----------------|-------|----------|
+| **Reversible, Low Impact** | Individual | Personal judgment | Code style, minor refactoring |
+| **Reversible, High Impact** | Team consensus | RFC, team vote | Architecture experiment |
+| **Irreversible, Low Impact** | Team lead | Consultation | Library choice |
+| **Irreversible, High Impact** | Stakeholder alignment | ADR, formal review | Platform migration |
+
+**Autonomy Enablement Framework**:
+
+1. **Clear Context**: Provide business context and constraints
+2. **Defined Boundaries**: Specify what teams can/cannot decide
+3. **Decision Principles**: Share decision-making criteria
+4. **Escalation Paths**: Clear routes for complex decisions
+5. **Learning Loops**: Regular review and adjustment
+
+**Example: Netflix's "Keeper Test" Decision Framework**:
+- **Context**: Maintain high performance culture
+- **Principle**: Keep only those you'd fight to retain
+- **Authority**: Managers decide, with HR partnership
+- **Boundaries**: Must follow legal/ethical guidelines
+- **Review**: Regular calibration across teams
+
 ## Decision Velocity vs. Decision Quality
 
 ### The Speed-Quality Trade-off
@@ -221,18 +302,177 @@ graph LR
 
 ## Building Decision-Making Systems
 
-### 1. The Decision Journal
-Track your major decisions:
+### 1. Architecture Decision Records (ADRs)
+
+**Modern Decision Documentation**: ADRs provide lightweight, version-controlled decision tracking.
+
+**ADR Template**:
 ```markdown
-## Decision: [Title]
-Date: [When]
-Context: [Situation requiring decision]
-Options Considered: [A, B, C with pros/cons]
-Decision Made: [Choice and rationale]
-Success Criteria: [How we'll measure]
-Review Date: [When to assess outcome]
-Outcome: [What actually happened]
-Learnings: [What to do differently]
+# ADR-023: Migrate to Event Sourcing for Order Service
+
+## Status
+Accepted - 2024-01-15
+
+## Context
+- Current order system can't handle audit requirements
+- Regulatory compliance needs full history
+- System experiencing data consistency issues
+- Need to support complex business rule changes
+
+## Decision
+Implement Event Sourcing pattern for order management
+
+## Alternatives Considered
+1. **Database triggers + audit tables** - Simple but fragile
+2. **Change Data Capture (CDC)** - Good for existing systems
+3. **Event Sourcing** - Full auditability and flexibility
+4. **Do nothing** - Accept compliance risk
+
+## Consequences
+### Positive
+- Complete audit trail by design
+- Easy to replay events for debugging
+- Support for temporal queries
+- Better scalability through event streams
+
+### Negative
+- Learning curve for team
+- More complex query patterns
+- Eventual consistency challenges
+- Additional infrastructure complexity
+
+### Neutral
+- Need event store infrastructure
+- Requires event versioning strategy
+
+## Implementation Plan
+- Week 1-2: Event store setup (EventStore DB)
+- Week 3-4: Event models and aggregates
+- Week 5-6: Command handlers
+- Week 7-8: Read model projections
+- Week 9-10: Migration and testing
+
+## Success Metrics
+- 100% audit compliance (vs. current 60%)
+- <200ms query response time maintained
+- Zero data consistency issues
+- Team velocity maintained after 4 weeks
+
+## Review Date
+2024-04-15 (3 months post-implementation)
+
+## Related ADRs
+- ADR-019: Microservices Architecture
+- ADR-021: CQRS Implementation
+```
+
+**ADR Tools and Integration**:
+- **Storage**: Git repository with docs/adr/ folder
+- **Templates**: adr-tools, ADR Manager
+- **Review Process**: PR-based with stakeholder approval
+- **Discovery**: Searchable, tagged, cross-referenced
+
+### 2. Request for Comments (RFC) Process
+
+**For Complex, Cross-Team Decisions**
+
+**RFC Template**:
+```markdown
+# RFC: Standardize API Authentication Across Services
+
+## Summary
+Propose OAuth 2.0 + JWT standard for all internal APIs
+
+## Motivation
+- 15 different auth mechanisms across services
+- Security audit found 3 vulnerable implementations
+- Developer onboarding takes 2x longer due to auth complexity
+- Cannot implement proper RBAC without standardization
+
+## Detailed Design
+### Authentication Flow
+[Detailed technical design]
+
+### Migration Strategy
+[Step-by-step migration plan]
+
+### Backward Compatibility
+[How to maintain existing integrations]
+
+## Alternatives Considered
+1. **Status Quo** - Keep existing diverse approaches
+2. **Custom SSO** - Build internal solution
+3. **OAuth 2.0 Standard** - (Proposed)
+4. **Service Mesh Auth** - Istio/Envoy-based
+
+## Unresolved Questions
+- Token refresh strategy for long-running services?
+- Performance impact on high-frequency API calls?
+
+## Timeline
+- RFC Review Period: 2 weeks
+- Implementation: 8 weeks
+- Migration: 12 weeks
+
+## Stakeholders
+- Security Team (approval required)
+- Platform Team (implementation)
+- All service teams (migration)
+```
+
+**RFC Process Flow**:
+1. **Draft**: Author creates RFC document
+2. **Review**: 2-week stakeholder review period
+3. **Discussion**: Async comments, sync meetings
+4. **Decision**: Accept/Reject/Iterate
+5. **Implementation**: Track progress against RFC
+
+### 3. The Enhanced Decision Journal
+
+**Individual Decision Tracking with Modern Tools**:
+
+```markdown
+## Decision: [Title] - [Date]
+
+### Context & Constraints
+- Business context: [Why now?]
+- Technical constraints: [What limits us?]
+- Resource constraints: [Time, people, budget]
+- Stakeholder views: [Who cares and why?]
+
+### Options Analysis
+| Option | Pros | Cons | Risk Level | Effort |
+|--------|------|------|------------|--------|
+| A | [Benefits] | [Downsides] | [H/M/L] | [Weeks] |
+| B | [Benefits] | [Downsides] | [H/M/L] | [Weeks] |
+| C | [Benefits] | [Downsides] | [H/M/L] | [Weeks] |
+
+### Decision Framework Applied
+- **Type**: [One-way/Two-way door]
+- **Domain**: [Simple/Complicated/Complex/Chaotic]
+- **Authority**: [Who has final say?]
+- **Timeframe**: [When must we decide?]
+
+### Decision Made
+**Choice**: [Selected option]
+**Rationale**: [Why this option?]
+**Assumptions**: [What we're betting on]
+
+### Success Criteria
+- Leading indicators: [Early signals]
+- Lagging indicators: [Final outcomes]
+- Review triggers: [When to reassess]
+
+### Risk Mitigation
+- **Top Risk**: [Biggest threat]
+- **Mitigation**: [How we'll handle it]
+- **Fallback Plan**: [If it goes wrong]
+
+### Review & Learning
+**Review Date**: [When to assess]
+**Actual Outcome**: [What happened]
+**Key Learnings**: [What we learned]
+**Would Do Differently**: [Next time changes]
 ```
 
 ### 2. The Pre-Mortem Technique
@@ -382,6 +622,46 @@ Learning: What you'd do differently
 - Analyze a famous good/bad decision
 - Teach decision-making to your team
 
+## Decision-Making in Remote-First Organizations
+
+### Async-First Decision Making
+
+**Challenge**: Traditional decision-making assumes synchronous collaboration. Modern distributed teams need async-friendly processes.
+
+**Async Decision Framework**:
+
+| Phase | Duration | Activities | Tools |
+|-------|----------|------------|-------|
+| **Context Setting** | 1-2 days | Document problem, constraints, stakeholders | Notion, Confluence |
+| **Option Generation** | 3-5 days | Parallel research, individual proposals | Miro, FigJam |
+| **Async Review** | 5-7 days | Written feedback, questions, concerns | Google Docs, Linear |
+| **Sync Alignment** | 1-2 hours | Final discussion, decision | Zoom, Slack Huddle |
+| **Documentation** | 1 day | Record decision, next steps | ADR, RFC |
+
+**Benefits of Async Decision Making**:
+- **Inclusion**: All voices heard regardless of timezone
+- **Quality**: More thoughtful, researched input
+- **Documentation**: Built-in decision trail
+- **Scalability**: Doesn't require everyone in same meeting
+
+### Decision Velocity in Distributed Teams
+
+**Speed vs. Inclusion Trade-off**:
+
+```mermaid
+graph LR
+    A[Decision Speed] <--> B[Stakeholder Inclusion]
+    C[Decision Quality] --> D[Long-term Success]
+    A --> D
+    B --> D
+```
+
+**Optimization Strategies**:
+1. **Clear Decision Rights**: Who decides what?
+2. **Default to Async**: Sync only when necessary
+3. **Time-boxed Input**: Deadline for feedback
+4. **Escalation Clarity**: When to make call without consensus
+
 ## Connection to Other Principles
 
 - **[Value Creation](../value-creation/)**: Every decision should maximize value - use value as your north star metric
@@ -453,11 +733,31 @@ For each story, be ready to explain:
 
 ## Next Steps
 
-1. **Today**: Document a recent major decision using the journal template
-2. **This Week**: Apply RAPID framework to a current decision
-3. **This Month**: Build decision-making culture in your team
-4. **For Interviews**: Prepare 5 decision stories across different contexts using the toolkit above
-5. **Advanced**: Practice "decision archaeology" on a decision that didn't go as planned
+### Implementation Roadmap
+
+1. **Today**: Document a recent major decision using the enhanced journal template
+2. **This Week**: 
+   - Apply RAPID framework to a current decision
+   - Set up ADR repository for your team
+3. **This Month**: 
+   - Implement RFC process for architectural decisions
+   - Define decision rights matrix using team topologies
+   - Build decision-making culture in your team
+4. **This Quarter**:
+   - Measure decision velocity and quality
+   - Train team on distributed decision-making
+   - Implement async-first decision processes
+5. **For Interviews**: Prepare 5 decision stories across different contexts using the toolkit above
+6. **Advanced**: Practice "decision archaeology" on a decision that didn't go as planned
+
+### Modern Decision-Making Toolkit
+
+**Essential Tools to Implement**:
+- **ADR Repository**: Version-controlled decision tracking
+- **RFC Process**: Cross-team alignment on complex decisions  
+- **Decision Rights Matrix**: Clear authority and accountability
+- **Async Decision Templates**: Remote-friendly processes
+- **Decision Metrics**: Velocity, quality, and outcome tracking
 
 ---
 

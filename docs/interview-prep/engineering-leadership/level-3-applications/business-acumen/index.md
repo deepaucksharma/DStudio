@@ -20,7 +20,7 @@ Business acumen for engineering leaders means understanding how technical decisi
 - **ROI Analysis**: Quantify engineering investment returns
 - **Resource Allocation**: Optimize people and technology spend
 
-[Engineering Economics →](financial-management.md)
+[Engineering Economics →](#financial-literacy)
 
 ### 3. Stakeholder Management
 - **Executive Communication**: Present to C-suite effectively
@@ -44,7 +44,7 @@ Business acumen for engineering leaders means understanding how technical decisi
 - **Time-to-Market**: Optimize delivery speed vs quality
 - **Customer Focus**: Build with user needs in mind
 
-[Product Partnership →](product-partnership.md)
+[Product Partnership →](#product-business-alignment)
 
 ## Common Scenarios
 
@@ -185,4 +185,4 @@ graph TD
 
 - Complete [Business Acumen Assessment](../../interactive-tools/self-assessment.md#business)
 - Review [Business Metrics Guide](business-metrics.md)
-- Practice [Executive Communication](../../practice-scenarios/exec-presentation.md)
+- Practice [Stakeholder Negotiation](../../practice-scenarios/stakeholder-negotiation-scenario.md)
