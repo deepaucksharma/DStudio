@@ -117,6 +117,15 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v3
+      continue-on-error: true
+    
+    - name: Check deployment status
+      if: failure() || steps.deployment.outcome == 'failure'
+      run: |
+        echo "::warning::GitHub Pages deployment failed. Please ensure GitHub Pages is enabled:"
+        echo "::warning::1. Go to https://github.com/deepaucksharma/DStudio/settings/pages"
+        echo "::warning::2. Under 'Source', select 'GitHub Actions'"
+        echo "::warning::3. Save the settings and re-run this workflow"
     
     - name: Add deployment summary
       run: |

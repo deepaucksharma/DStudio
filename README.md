@@ -95,8 +95,21 @@ mkdocs serve
 
 # Build static site
 mkdocs build
+```
 
-# Deploy to GitHub Pages
+### Deployment to GitHub Pages
+
+The site automatically deploys to GitHub Pages when changes are pushed to the main branch.
+
+**First-time Setup:**
+1. Go to [Repository Settings > Pages](https://github.com/deepaucksharma/DStudio/settings/pages)
+2. Under "Source", select "GitHub Actions"
+3. Save the settings
+4. Push to main branch to trigger deployment
+
+**Manual Deployment:**
+```bash
+# Deploy to GitHub Pages manually
 mkdocs gh-deploy
 ```
 
