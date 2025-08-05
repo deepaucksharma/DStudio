@@ -25,9 +25,9 @@ Graph theory provides fundamental mathematical tools for analyzing network struc
 - Service dependency analysis
 
 ## Related Models
-- [Network Theory](/architects-handbook/quantitative-analysis/network-theory/)
-- [Graph Models](/architects-handbook/quantitative-analysis/graph-models/)
-- [Social Networks](/architects-handbook/quantitative-analysis/social-networks/)
+- [Network Theory](../../architects-handbook/quantitative-analysis/network-theory.md)
+- [Graph Models](../../architects-handbook/quantitative-analysis/graph-models.md)
+- [Social Networks](../../architects-handbook/quantitative-analysis/social-networks.md)
 
 ## References
 - "Introduction to Graph Theory" - West (2017)

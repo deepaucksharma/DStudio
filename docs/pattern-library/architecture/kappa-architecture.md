@@ -1,28 +1,26 @@
 ---
-category: architecture
-current_relevance: declining
-deprecation-reason: Lambda architecture's batch+stream approach proved more practical;
-  pure streaming has limitations for historical reprocessing
+title: Kappa Architecture
 description: This topic is under development
+type: pattern
 difficulty: intermediate
-essential_question: How do we structure our system architecture to leverage kappa
-  architecture?
+reading_time: 30 min
 excellence_tier: bronze
-introduced: 2014-07
-last-updated: 2025-01-23
-modern-alternatives:
-- Unified stream processing (Apache Beam, Flink)
-- Event streaming platforms (Kafka Streams)
-- Cloud-native streaming (AWS Kinesis Analytics)
 pattern_status: legacy
-prerequisites: []
-reading-time: 30 min
+introduced: 2014-07
+current_relevance: declining
+category: architecture
+deprecation_reason: Lambda architecture's batch+stream approach proved more practical; pure streaming has limitations for historical reprocessing
+essential_question: How do we structure our system architecture to leverage kappa architecture?
+last_updated: 2025-01-23
+modern_alternatives:
+  - Unified stream processing (Apache Beam, Flink)
+  - Event streaming platforms (Kafka Streams)
+  - Cloud-native streaming (AWS Kinesis Analytics)
+prerequisites:
 status: stub
 tagline: Master kappa architecture for distributed systems success
-title: Kappa Architecture
-type: pattern
-when-not-to-use: When simpler solutions suffice
-when-to-use: When dealing with architectural challenges
+when_not_to_use: When simpler solutions suffice
+when_to_use: When dealing with architectural challenges
 ---
 
 ## Essential Question
@@ -73,7 +71,7 @@ Coming soon...
 
 ## Related Topics
 
-- See other [patterns](/index/)
+- See other [patterns](../../index.md)
 
 ---
 

@@ -1,3 +1,9 @@
+---
+title: Business Metrics Mastery for Engineering Leaders
+description: Engineering leaders at L6+ must fluently speak the language of business. This guide covers essential metrics, how to connect engineering work to busin
+type: interview-guide
+---
+
 # Business Metrics Mastery for Engineering Leaders
 
 ## Overview

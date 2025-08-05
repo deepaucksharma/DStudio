@@ -341,7 +341,7 @@ nav:
  
  prerequisites:
  - title: "Circuit Breaker Basics"
- path: "/pattern-library/circuit-breaker"
+ path: "/pattern-library/resilience/circuit-breaker"
  - title: "State Machines"
  path: "/concepts/state-machines/"
  - title: "Failure Detection"

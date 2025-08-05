@@ -458,7 +458,7 @@ graph TD
 
 ## Related Resources
 
-- [Fanout Pattern](../patterns/fanout.md)
+- [Fanout Pattern](../pattern-library/fanout.md)
 - [Cache-aside Pattern](../pattern-library/scaling/caching-strategies.md.md)
 - [Sharding Pattern](../pattern-library/scaling/sharding.md)
 - [Twitter Engineering Blog](https://blog.twitter.com/engineering/)

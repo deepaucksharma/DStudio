@@ -355,8 +355,8 @@ graph LR
     ---
     
     - [Cuckoo Hashing](../data-management/cuckoo-hashing.md) - Complementary probabilistic structure
-    - [LSM Trees](/pattern-library/data-management/lsm-tree/) - Common usage pattern
-    - [Consistent Hashing](/pattern-library/data-management/consistent-hashing/) - Distribution strategy
+    - [LSM Trees](../../pattern-library/data-management/lsm-tree.md) - Common usage pattern
+    - [Consistent Hashing](../../pattern-library/data-management/consistent-hashing.md) - Distribution strategy
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -369,14 +369,14 @@ graph LR
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state/) - Efficient state representation
-    - [Intelligence Distribution](../../core-principles/pillars/intelligence/) - Smart pre-filtering
+    - [State Distribution](../../core-principles/pillars/state-distribution/) - Efficient state representation
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution/) - Smart pre-filtering
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Bloom Filter Calculator](../../quantitative/bloom-calculator.md)
+    - [Bloom Filter Calculator](../../quantitative-analysis/bloom-calculator.md)
     - [Hash Function Selection](../../excellence/guides/hash-functions.md)
     - [Performance Testing](../../excellence/guides/bloom-testing.md)
 

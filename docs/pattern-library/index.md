@@ -1,3 +1,10 @@
+---
+type: pattern
+category: pattern-library
+title: Index
+description: 'TODO: Add description'
+---
+
 # Pattern Library: 91 Battle-Tested Solutions
 
 <div class="pattern-hero">
@@ -310,7 +317,7 @@ graph LR
     
     💡 **Best For**: High-availability systems, failure recovery, system stability
 
-- :material-database:{ .lg } **[Data Management Patterns](/pattern-library/data-management/cdc)** (22 patterns)
+- :material-database:{ .lg } **[Data Management Patterns](../pattern-library/data-management/cdc.md)** (22 patterns)
     
     ---
     
@@ -320,7 +327,7 @@ graph LR
     
     💡 **Best For**: Large-scale data, eventual consistency, complex transactions
 
-- :material-arrow-expand-all:{ .lg } **[Scaling Patterns](/zoom-scaling)** (21 patterns)
+- :material-arrow-expand-all:{ .lg } **[Scaling Patterns](../zoom-scaling.md)** (21 patterns)
     
     ---
     
@@ -330,7 +337,7 @@ graph LR
     
     💡 **Best For**: High-traffic systems, performance optimization, cost efficiency
 
-- :material-sitemap:{ .lg } **[Architecture Patterns](/redis-architecture)** (17 patterns)
+- :material-sitemap:{ .lg } **[Architecture Patterns](../redis-architecture.md)** (17 patterns)
     
     ---
     
@@ -340,7 +347,7 @@ graph LR
     
     💡 **Best For**: System decomposition, deployment flexibility, maintainability
 
-- :material-sync:{ .lg } **[Coordination Patterns](/coordination-costs)** (15 patterns)
+- :material-sync:{ .lg } **[Coordination Patterns](../coordination-costs.md)** (15 patterns)
     
     ---
     

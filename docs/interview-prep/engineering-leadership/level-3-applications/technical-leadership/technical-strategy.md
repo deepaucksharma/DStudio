@@ -1,3 +1,9 @@
+---
+title: Technical Strategy for Engineering Leaders
+description: As an engineering leader at L6+, you must balance staying technical enough to make informed decisions while operating at a strategic level. This guide
+type: interview-guide
+---
+
 # Technical Strategy for Engineering Leaders
 
 ## Overview

@@ -1,36 +1,28 @@
 ---
-best-for:
-- Domain-driven design
-- Legacy system migration
-- Multi-team boundaries
-- Third-party integrations
-category: architecture
-current_relevance: niche
-description: Implement a layer that translates between different subsystems to prevent
-  the spread of undesirable dependencies and maintain clean domain boundaries
+title: Anti-Corruption Layer (ACL)
+description: Implement a layer that translates between different subsystems to prevent the spread of undesirable dependencies and maintain clean domain boundaries
+type: pattern
 difficulty: intermediate
-essential_question: How do we structure our system architecture to leverage anti-corruption
-  layer (acl)?
+reading_time: 45 min
 excellence_tier: silver
-introduced: 2003-01
-last-updated: 2025-01-23
-pattern-type: architectural
 pattern_status: recommended
-prerequisites: []
-reading-time: 45 min
+best_for:
+  - Domain-driven design
+  - Legacy system migration
+  - Multi-team boundaries
+  - Third-party integrations
+introduced: 2003-01
+current_relevance: niche
+category: architecture
+essential_question: How do we structure our system architecture to leverage anti-corruption layer (acl)?
+last_updated: 2025-01-23
+pattern_type: architectural
+prerequisites:
 status: complete
 tagline: Master anti-corruption layer (acl) for distributed systems success
-title: Anti-Corruption Layer (ACL)
-trade-offs:
-  cons:
-  - Additional translation layer
-  - Performance overhead
-  - Maintenance burden
-  pros:
-  - Maintains domain purity
-  - Enables gradual migration
-  - Isolates legacy complexity
-type: pattern
+trade_offs:
+  cons: ['Additional translation layer', 'Performance overhead', 'Maintenance burden']
+  pros: ['Maintains domain purity', 'Enables gradual migration', 'Isolates legacy complexity']
 ---
 
 
@@ -498,5 +490,5 @@ graph TD
 
 ---
 
-**Previous**: [← Sidecar](/pattern-library/architecture/sidecar/) | **Next**: GraphQL Federation → (Coming Soon)
+**Previous**: [← Sidecar](../../pattern-library/architecture/sidecar.md) | **Next**: GraphQL Federation → (Coming Soon)
 

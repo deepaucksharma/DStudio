@@ -1,3 +1,8 @@
+---
+title: Decision Making
+description: Decision Making overview and navigation
+---
+
 # First Principle #2: Decision-Making
 
 > "In any moment of decision, the best thing you can do is the right thing, the next best thing is the wrong thing, and the worst thing you can do is nothing." - Theodore Roosevelt
@@ -664,26 +669,26 @@ graph LR
 
 ## Connection to Other Principles
 
-- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Every decision should maximize value - use value as your north star metric
-- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)**: Consider how decisions affect people - great decisions with poor buy-in fail
-- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**: Understand decision ripple effects - local optimization can harm the whole
-- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Make decisions you can defend publicly - trust accelerates future decisions
+- **[Value Creation](../../../../interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md)**: Every decision should maximize value - use value as your north star metric
+- **[Human Behavior](../../../../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Consider how decisions affect people - great decisions with poor buy-in fail
+- **[Systems Thinking](../../../../interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Understand decision ripple effects - local optimization can harm the whole
+- **[Integrity & Ethics](../../../../interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Make decisions you can defend publicly - trust accelerates future decisions
 
 ## Application in Other Levels
 
 ### Level II: Core Business Concepts
-- **[Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index/)**: Strategic decisions shape organizational direction
-- **[Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/)**: Leaders create decision-making systems
-- **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index/)**: Managing decision risks and accountability
+- **[Strategy](../../../../interview-prep/engineering-leadership/level-2-core-business/strategy/index.md)**: Strategic decisions shape organizational direction
+- **[Leadership](../../../../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md)**: Leaders create decision-making systems
+- **[Risk & Governance](../../../../interview-prep/engineering-leadership/level-2-core-business/risk-governance/index.md)**: Managing decision risks and accountability
 
 ### Level III: Engineering Applications
-- **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)**: Architecture decisions and technical trade-offs
-- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Structuring teams for effective decisions
-- **[People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/)**: Empowering teams to make quality decisions
+- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md)**: Architecture decisions and technical trade-offs
+- **[Organizational Design](../../../../interview-prep/engineering-leadership/level-3-applications/organizational-design/index.md)**: Structuring teams for effective decisions
+- **[People Management](../../../../interview-prep/engineering-leadership/level-3-applications/people-management/index.md)**: Empowering teams to make quality decisions
 
 ### Level IV: Interview Execution
-- **[Behavioral Stories](/interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index/)**: Showcasing decision-making prowess
-- **[System Design](/interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index/)**: Real-time decision-making under pressure
+- **[Behavioral Stories](../../../../interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Showcasing decision-making prowess
+- **[System Design](../../../../interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index.md)**: Real-time decision-making under pressure
 
 ## The Decision-Making Interview Toolkit
 
@@ -761,4 +766,4 @@ For each story, be ready to explain:
 
 ---
 
-*Continue your journey: Explore how [Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/) shapes the execution of our decisions, or dive into [Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/) to build decision-making systems.*
+*Continue your journey: Explore how [Human Behavior](../../../../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md) shapes the execution of our decisions, or dive into [Leadership](../../../../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md) to build decision-making systems.*

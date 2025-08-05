@@ -378,7 +378,7 @@ graph TD
 
 ---
 
-**Related Patterns**: [Multi-Region](/pattern-library/scaling/multi-region/) | [CDN](../performance/cdn.md) | [Event Sourcing](/pattern-library/data-management/event-sourcing/)
+**Related Patterns**: [Multi-Region](../../pattern-library/scaling/multi-region.md) | [CDN](../performance/cdn.md) | [Event Sourcing](../../pattern-library/data-management/event-sourcing.md)
 
-**Next**: [ID Generation at Scale →](/pattern-library/scaling/id-generation-scale/)
+**Next**: [ID Generation at Scale →](../../pattern-library/scaling/id-generation-scale.md)
 

@@ -1,3 +1,9 @@
+---
+title: Master-Slave to Multi-Primary Migration Guide
+description: Migrating from Master-Slave to Multi-Primary replication transforms your database architecture from a single write point to multiple active write node
+type: documentation
+---
+
 # Master-Slave to Multi-Primary Migration Guide
 
 ## Overview
@@ -391,7 +397,7 @@ monitor-health.sh --duration=30m --alert-on-error
 
 ## Additional Resources
 
-- [Multi-Primary Replication Patterns](/pattern-library/multi-primary.md)
-- [Conflict-Free Replicated Data Types](/pattern-library/data-management/crdt.md)
-- [Geographic Distribution Strategies](/pattern-library/scaling/geo-replication.md)
-- [Database Monitoring Best Practices](/human-factors/observability.md)
+- [Multi-Primary Replication Patterns](../../pattern-library/multi-primary.md)
+- [Conflict-Free Replicated Data Types](../../pattern-library/data-management/crdt.md)
+- [Geographic Distribution Strategies](../../pattern-library/scaling/geo-replication.md)
+- [Database Monitoring Best Practices](../../human-factors/observability.md)

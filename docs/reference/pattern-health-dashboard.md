@@ -1,3 +1,9 @@
+---
+title: Pattern Health Dashboard
+description: .health-dashboard { padding: 24px; max-width: 1400px; margin: 0 auto; }
+type: reference
+---
+
 # Pattern Health Dashboard
 
 <div class="health-dashboard">

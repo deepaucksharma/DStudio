@@ -1397,7 +1397,7 @@ Analytics     10M events/s    Kafka throughput
 - [Edge Computing Patterns](../pattern-library/scaling/edge-computing.md) - Building at the edge
 - Analytics at Scale (Coming Soon) - Handling billions of events
 - Geo-Distribution (Coming Soon) - Global service deployment
-- [Security Patterns](../patterns/security-shortener.md) - Preventing abuse and attacks
+- [Security Patterns](../pattern-library/security-shortener.md) - Preventing abuse and attacks
 
 **Related Case Studies:**
 <!-- TODO: Add CDN design case study -->
@@ -1406,7 +1406,7 @@ Analytics     10M events/s    Kafka throughput
 
 **Implementation Patterns:**
 - [Database Sharding](../pattern-library/scaling/sharding.md) - Horizontal scaling
-- [Bloom Filters](../pattern-library/bloom-filter.md) - Space-efficient lookups
+- [Bloom Filters](../pattern-library/data-management/bloom-filter.md) - Space-efficient lookups
 - [Circuit Breakers](../pattern-library/resilience/circuit-breaker.md) - Handling failures
 - [CQRS](../pattern-library/data-management/cqrs.md) - Read/write separation
 

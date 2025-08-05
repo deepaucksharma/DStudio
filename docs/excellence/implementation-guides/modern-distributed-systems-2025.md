@@ -1,3 +1,9 @@
+---
+title: Modern Distributed Systems in 2025: The Gold Standard
+description: ```mermaid graph TD A[Starting Point] --> B{What's Your Scale?} B -->|< 1M users| C[Foundation Pack] B -->|1M-10M users| D[Scale Pack]
+type: guide
+---
+
 # Modern Distributed Systems in 2025: The Gold Standard
 
 ## Start Here: Your Pattern Journey
@@ -116,7 +122,7 @@ graph TD
 | Pattern | When to Use | Implementation Complexity |
 |---------|-------------|--------------------------|
 | **[Saga](../pattern-library/data-management/saga.md)** | Distributed transactions | High - needs coordinator |
-| **[Multi-region](../pattern-library/multi-region.md)** | Global users, DR | Very High - data sync |
+| **[Multi-region](../pattern-library/scaling/multi-region.md)** | Global users, DR | Very High - data sync |
 | **[CDC](../pattern-library/data-management/cdc.md)** | Real-time sync | Medium - Debezium |
 | **[Event Sourcing](../pattern-library/data-management/event-sourcing.md)** | Audit requirements | High - event store |
 
@@ -338,6 +344,6 @@ Kafka (Event Streaming) + CQRS + CDC + Materialized Views
 
 ## Resources
 
-- [Pattern Deep Dives](../patterns/architects-handbook/case-studies/index.md)
+- [Pattern Deep Dives](../pattern-library/architects-handbook/case-studies/index.md)
 - [Quantitative Models](../architects-handbook/quantitative-analysis/index.md)
 - [Human Factors](../human-factors/index.md)

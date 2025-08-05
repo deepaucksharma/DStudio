@@ -1,3 +1,9 @@
+---
+title: Thick Client to API-First Migration Guide
+description: Migrating from thick client architectures to API-first design transforms tightly coupled, desktop-centric applications into flexible, platform-agnosti
+type: documentation
+---
+
 # Thick Client to API-First Migration Guide
 
 ## Overview
@@ -521,7 +527,7 @@ monitor-legacy-system.sh --duration=24h
 
 ## Additional Resources
 
-- [API Design Best Practices](/pattern-library/api-design.md)
-- [RESTful Architecture](/pattern-library/rest.md)
-- [GraphQL Patterns](/pattern-library/architecture/graphql-federation.md)
-- [Authentication Patterns](/pattern-library/auth-patterns.md)
+- [API Design Best Practices](../../pattern-library/api-design.md)
+- [RESTful Architecture](../../pattern-library/rest.md)
+- [GraphQL Patterns](../../pattern-library/architecture/graphql-federation.md)
+- [Authentication Patterns](../../pattern-library/auth-patterns.md)

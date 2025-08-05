@@ -25,7 +25,7 @@ Coming soon...
 
 ## Related Topics
 
-- See other [quantitative](/index/)
+- See other [quantitative](../../index.md)
 
 ---
 

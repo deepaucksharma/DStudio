@@ -1,3 +1,9 @@
+---
+title: Tight Deadline Pressure - Practice Scenario
+description: Your CEO has committed to demonstrating a major feature to the board in 3 weeks, but your team estimates it will take 8 weeks to build properly. The c
+type: interview-guide
+---
+
 # Tight Deadline Pressure - Practice Scenario
 
 ## Scenario Overview

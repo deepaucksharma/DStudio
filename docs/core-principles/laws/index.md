@@ -1,3 +1,8 @@
+---
+title: Laws
+description: Laws overview and navigation
+---
+
 # The 7 Fundamental Laws
 
 > Immutable laws derived from physics that govern all distributed systems

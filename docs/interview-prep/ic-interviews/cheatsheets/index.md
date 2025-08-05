@@ -1,3 +1,8 @@
+---
+title: Cheatsheets
+description: Cheatsheets overview and navigation
+---
+
 # System Design Cheatsheets
 
 Quick reference guides for system design interviews.
@@ -10,7 +15,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
 
 <div class="grid cards" markdown>
 
-- :material-rocket-launch:{ .lg .middle } **[Scalability Cheatsheet](/index/)**
+- :material-rocket-launch:{ .lg .middle } **[Scalability Cheatsheet](../../../index.md)**
     
     ---
     
@@ -18,7 +23,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
     
     Perfect for capacity planning and performance discussions
 
-- :material-checkbox-multiple-marked:{ .lg .middle } **[System Design Checklist](/interview-prep/ic-interviews/cheatsheets/system-design-checklist/)**
+- :material-checkbox-multiple-marked:{ .lg .middle } **[System Design Checklist](../../../interview-prep/ic-interviews/cheatsheets/system-design-checklist.md)**
     
     ---
     
@@ -26,7 +31,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
     
     Never miss a critical component again
 
-- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](/index/)**
+- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](../../../index.md)**
     
     ---
     

@@ -1,3 +1,9 @@
+---
+title: Crisis Leadership: When Everything is On Fire
+description: Every engineering leader will face moments where everything goes catastrophically wrong. Not "the build is broken" wrong. The "company might not exist
+type: interview-guide
+---
+
 # Crisis Leadership: When Everything is On Fire
 
 ## The Truth About Crisis

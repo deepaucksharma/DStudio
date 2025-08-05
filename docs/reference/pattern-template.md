@@ -38,7 +38,7 @@ modern_examples:
 production_checklist:
   - "Checklist item 1"
   - "Checklist item 2"
-related_laws: [correlated-failure, law2-asynchrony, etc.]
+related_laws: [correlated-failure, asynchronous-reality, etc.]
 related_pillars: [work, state, truth, control, intelligence]
 ---
 ```

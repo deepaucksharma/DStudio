@@ -1,54 +1,44 @@
 ---
-category: resilience
-current_relevance: mainstream
-description: Prevent indefinite waits and resource exhaustion by setting time limits
-  on operations
+title: Timeout Pattern
+description: Prevent indefinite waits and resource exhaustion by setting time limits on operations
+type: pattern
 difficulty: beginner
-essential_question: How do we prevent indefinite waits and cascading resource exhaustion
-  in distributed systems?
+reading_time: 15 min
 excellence_tier: gold
-introduced: 1980-01
-last-updated: 2025-01-30
-modern-examples:
-- company: Netflix
-  implementation: Hystrix library enforces timeouts on all service calls
-  scale: Billions of requests/day with 99.99% availability
-- company: Amazon
-  implementation: Every AWS API has configurable timeouts
-  scale: Prevents cascade failures across millions of EC2 instances
-- company: Google
-  implementation: gRPC deadline propagation across service boundaries
-  scale: Sub-second timeouts for billions of RPC calls
 pattern_status: recommended
+introduced: 1980-01
+current_relevance: mainstream
+tags:
+  - fault-tolerance
+  - resource-management
+  - resilience
+  - network-reliability
+category: resilience
+essential_question: How do we prevent indefinite waits and cascading resource exhaustion in distributed systems?
+last_updated: 2025-01-30
+modern_examples:
+  - {'company': 'Netflix', 'implementation': 'Hystrix library enforces timeouts on all service calls', 'scale': 'Billions of requests/day with 99.99% availability'}
+  - {'company': 'Amazon', 'implementation': 'Every AWS API has configurable timeouts', 'scale': 'Prevents cascade failures across millions of EC2 instances'}
+  - {'company': 'Google', 'implementation': 'gRPC deadline propagation across service boundaries', 'scale': 'Sub-second timeouts for billions of RPC calls'}
 prerequisites:
-- network-programming
-- distributed-systems
-- error-handling
-production-checklist:
-- Set appropriate timeout values (p99 latency + buffer)
-- Configure connection vs request timeouts separately
-- Implement timeout propagation across service calls
-- Monitor timeout rates and adjust thresholds
-- Test timeout behavior under load
-- Use cascading timeouts (each layer shorter)
-- Add timeout context to error messages
-- Implement graceful timeout handling
-- Configure different timeouts for read/write operations
-- Set up alerts for timeout spikes
-reading-time: 15 min
+  - network-programming
+  - distributed-systems
+  - error-handling
+production_checklist:
+  - Set appropriate timeout values (p99 latency + buffer)
+  - Configure connection vs request timeouts separately
+  - Implement timeout propagation across service calls
+  - Monitor timeout rates and adjust thresholds
+  - Test timeout behavior under load
+  - Use cascading timeouts (each layer shorter)
+  - Add timeout context to error messages
+  - Implement graceful timeout handling
+  - Configure different timeouts for read/write operations
+  - Set up alerts for timeout spikes
 status: complete
 tagline: Bound every operation - protect resources from infinite waits
-tags:
-- fault-tolerance
-- resource-management
-- resilience
-- network-reliability
-title: Timeout Pattern
-type: pattern
-when-not-to-use: CPU-bound operations, local function calls, operations with unpredictable
-  duration
-when-to-use: Network calls, database queries, API requests, distributed transactions,
-  service-to-service communication
+when_not_to_use: CPU-bound operations, local function calls, operations with unpredictable duration
+when_to_use: Network calls, database queries, API requests, distributed transactions, service-to-service communication
 ---
 
 

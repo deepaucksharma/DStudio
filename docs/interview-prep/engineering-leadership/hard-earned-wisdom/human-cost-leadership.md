@@ -1,3 +1,9 @@
+---
+title: The Human Cost: Mental Health, Burnout, and the Reality of Leading Humans
+description: Leadership books talk about strategy and execution. They don't talk about the 2 AM panic attacks, the Sunday night dread, or holding someone while the
+type: interview-guide
+---
+
 # The Human Cost: Mental Health, Burnout, and the Reality of Leading Humans
 
 ## The Truth They Don't Tell You

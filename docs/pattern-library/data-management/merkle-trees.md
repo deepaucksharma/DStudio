@@ -353,9 +353,9 @@ graph LR
     
     ---
     
-    - [Bloom Filter](/pattern-library/data-management/bloom-filter/) - Complementary verification structure
-    - [Consistent Hashing](/pattern-library/data-management/consistent-hashing/) - Hash-based distribution
-    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Verifiable event logs
+    - [Bloom Filter](../../pattern-library/data-management/bloom-filter.md) - Complementary verification structure
+    - [Consistent Hashing](../../pattern-library/data-management/consistent-hashing.md) - Hash-based distribution
+    - [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Verifiable event logs
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -368,8 +368,8 @@ graph LR
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state/) - Distributed data integrity
-    - [Truth Distribution](../../core-principles/pillars/truth/) - Consensus on data validity
+    - [State Distribution](../../core-principles/pillars/state-distribution/) - Distributed data integrity
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consensus on data validity
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

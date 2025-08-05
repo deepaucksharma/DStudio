@@ -1,3 +1,9 @@
+---
+title: Google Interview Guide
+description: > **Note**: This company-specific guide is under construction.
+type: documentation
+---
+
 # Google Interview Guide
 
 > **Note**: This company-specific guide is under construction.
@@ -16,6 +22,6 @@ This guide will provide detailed insights into Google's engineering leadership i
 ---
 
 **Related Resources:**
-- [Engineering Leadership Framework](/interview-prep/engineering-leadership/)
-- [Interview Execution Guide](/interview-prep/engineering-leadership/level-4-interview-execution/)
-- [Practice Scenarios](/interview-prep/engineering-leadership/practice-scenarios/)
+- [Engineering Leadership Framework](../../interview-prep/engineering-leadership/index.md)
+- [Interview Execution Guide](../../interview-prep/engineering-leadership/level-4-interview-execution/index.md)
+- [Practice Scenarios](../../interview-prep/engineering-leadership/practice-scenarios/index.md)

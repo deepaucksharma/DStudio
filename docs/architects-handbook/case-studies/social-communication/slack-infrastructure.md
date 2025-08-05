@@ -442,7 +442,7 @@ graph LR
 ## Related Resources
 
 - [WebSocket Pattern](../pattern-library/communication/websocket.md)
-- [Message Queue Pattern](../patterns/message-queue.md)
+- [Message Queue Pattern](../pattern-library/message-queue.md)
 - [Sharding Pattern](../pattern-library/scaling/sharding.md)
 - [Building Slack's Architecture](https://slack.engineering/)
 

@@ -1,3 +1,8 @@
+---
+title: Pillars
+description: Pillars overview and navigation
+---
+
 # The 5 Core Pillars
 
 Foundational concepts for organizing distributed solutions.

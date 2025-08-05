@@ -1,31 +1,21 @@
 ---
-best-for:
-- Message queues and event stores
-- Database write-ahead logs
-- Time-series data storage
-- Distributed logs like Kafka
-category: data-management
-current_relevance: mainstream
-description: Breaking append-only logs into manageable segments for efficient storage,
-  compaction, and retention
-essential_question: How do we ensure data consistency and reliability with segmented
-  log?
-excellence_tier: silver
-introduced: 2004-11
-pattern_status: recommended
-tagline: Master segmented log for distributed systems success
 title: Segmented Log
-trade-offs:
-  cons:
-  - Additional complexity vs single file
-  - Segment management overhead
-  - Cross-segment query complexity
-  - Metadata management required
-  pros:
-  - Efficient old data cleanup via segment deletion
-  - Parallel operations on different segments
-  - Bounded recovery time per segment
-  - Natural unit for replication and backup
+description: Breaking append-only logs into manageable segments for efficient storage, compaction, and retention
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+  - Message queues and event stores
+  - Database write-ahead logs
+  - Time-series data storage
+  - Distributed logs like Kafka
+introduced: 2004-11
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with segmented log?
+tagline: Master segmented log for distributed systems success
+trade_offs:
+  cons: ['Additional complexity vs single file', 'Segment management overhead', 'Cross-segment query complexity', 'Metadata management required']
+  pros: ['Efficient old data cleanup via segment deletion', 'Parallel operations on different segments', 'Bounded recovery time per segment', 'Natural unit for replication and backup']
 ---
 
 
@@ -138,13 +128,13 @@ graph TD
 
 ### Foundation Patterns
 - **[Write-Ahead Log](./wal.md)**: Often implemented as segmented
-- **[Append-Only Store](../patterns/append-only.md)**: Base concept
+- **[Append-Only Store](../pattern-library/append-only.md)**: Base concept
 - **[Log Structured Storage](./lsm-tree.md)**: Uses segments internally
 
 ### Complementary Patterns
-- **[Snapshot](../patterns/snapshot.md)**: Reduce recovery time
-- **[Compaction](../patterns/compaction.md)**: Clean up segments
-- **[Replication Log](../patterns/replication-log.md)**: Segment-based replication
+- **[Snapshot](../pattern-library/snapshot.md)**: Reduce recovery time
+- **[Compaction](../pattern-library/compaction.md)**: Clean up segments
+- **[Replication Log](../pattern-library/replication-log.md)**: Segment-based replication
 
 ### Applications
 - **[Kafka](../case-studies/kafka.md)**: Canonical implementation

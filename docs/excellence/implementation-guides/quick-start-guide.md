@@ -1,3 +1,9 @@
+---
+title: Quick Start Guide: From Zero to Production Excellence
+description: ```mermaid timeline title From Startup to Scale: Your 90-Day Roadmap
+type: guide
+---
+
 # Quick Start Guide: From Zero to Production Excellence
 
 ## Your 90-Day Journey to Distributed Systems Excellence

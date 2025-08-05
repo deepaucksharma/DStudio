@@ -1,3 +1,9 @@
+---
+title: Organizational Politics: The Game You Must Master
+description: Technical excellence gets you to senior engineer. People management gets you to manager. But mastering organizational politics? That's what separates
+type: interview-guide
+---
+
 # Organizational Politics: The Game You Must Master
 
 ## The Uncomfortable Truth

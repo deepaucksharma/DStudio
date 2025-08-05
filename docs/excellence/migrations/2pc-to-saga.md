@@ -1,3 +1,9 @@
+---
+title: Two-Phase Commit to Saga Migration Guide
+description: Migrating from Two-Phase Commit (2PC) to Saga pattern transforms your distributed transactions from synchronous, blocking operations to asynchronous,
+type: documentation
+---
+
 # Two-Phase Commit to Saga Migration Guide
 
 ## Overview
@@ -302,7 +308,7 @@ kubectl patch configmap app-config --patch '{"data":{"transaction.mode":"2pc"}}'
 
 ## Additional Resources
 
-- [Saga Pattern Deep Dive](/pattern-library/saga-pattern.md)
-- [Distributed Transaction Patterns](/pattern-library/distributed-transactions.md)
-- [Message Broker Selection Guide](/infrastructure/message-brokers.md)
-- [Monitoring Distributed Systems](/human-factors/observability.md)
+- [Saga Pattern Deep Dive](../../pattern-library/saga-pattern.md)
+- [Distributed Transaction Patterns](../../pattern-library/distributed-transactions.md)
+- [Message Broker Selection Guide](../../infrastructure/message-brokers.md)
+- [Monitoring Distributed Systems](../../human-factors/observability.md)

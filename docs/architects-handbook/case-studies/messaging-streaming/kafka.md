@@ -88,13 +88,13 @@ Apache Kafka transformed distributed data movement by treating data as an immuta
     
     Immutable append-only log as the source of truth
 
-- :material-publish:{ .lg .middle } **[Pub-Sub Messaging](../patterns/pub-sub.md)** 🥇
+- :material-publish:{ .lg .middle } **[Pub-Sub Messaging](../pattern-library/communication/pub-sub.md)** 🥇
     
     ---
     
     Decoupled producers and consumers with topic-based routing
 
-- :material-file-tree:{ .lg .middle } **[Partitioning](../patterns/partitioning.md)** 🥇
+- :material-file-tree:{ .lg .middle } **[Partitioning](../pattern-library/partitioning.md)** 🥇
     
     ---
     
@@ -567,12 +567,12 @@ public class PaymentEventStore {
 
 ### Pub-Sub Pattern at Scale
 
-!!! info "Pattern Deep Dive: [Pub-Sub Messaging](../patterns/pub-sub.md)"
+!!! info "Pattern Deep Dive: [Pub-Sub Messaging](../pattern-library/communication/pub-sub.md)"
     Kafka implements pub-sub with persistent storage, allowing consumers to read at their own pace and replay messages. Topics provide logical separation while partitions enable parallel processing.
 
 ### Partitioning Strategy
 
-!!! info "Pattern Deep Dive: [Partitioning](../patterns/partitioning.md)"
+!!! info "Pattern Deep Dive: [Partitioning](../pattern-library/partitioning.md)"
     Kafka partitions topics for horizontal scalability. Each partition maintains order, while parallel partitions increase throughput. Custom partitioners can implement domain-specific routing.
 
 ```java
@@ -599,19 +599,19 @@ public class UserPartitioner implements Partitioner {
 ## Applicable Patterns
 
 <div class="grid" markdown>
- <a href="../patterns/leader-follower/" class="pattern-card">
+ <a href="../pattern-library/leader-follower/" class="pattern-card">
  <h3 class="pattern-card__title">Leader-Follower</h3>
  <p class="pattern-card__description">ISR protocol for partition replication and failover</p>
  </a>
- <a href="../patterns/event-streaming" class="pattern-card">
+ <a href="../pattern-library/architecture/event-streaming" class="pattern-card">
  <h3 class="pattern-card__title">Event Streaming</h3>
  <p class="pattern-card__description">Append-only log as foundation for event-driven systems</p>
  </a>
- <a href="../patterns/partitioning/" class="pattern-card">
+ <a href="../pattern-library/partitioning/" class="pattern-card">
  <h3 class="pattern-card__title">Partitioning</h3>
  <p class="pattern-card__description">Horizontal scaling through message partitioning</p>
  </a>
- <a href="../patterns/exactly-once/" class="pattern-card">
+ <a href="../pattern-library/exactly-once/" class="pattern-card">
  <h3 class="pattern-card__title">Exactly-Once</h3>
  <p class="pattern-card__description">Idempotent producers and transactional consumers</p>
  </a>

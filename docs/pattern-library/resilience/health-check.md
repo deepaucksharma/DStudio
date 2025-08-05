@@ -1,55 +1,45 @@
 ---
-category: resilience
-current_relevance: mainstream
-description: Monitor and verify service health status to enable automated recovery
-  and intelligent load balancing
+title: Health Check Pattern
+description: Monitor and verify service health status to enable automated recovery and intelligent load balancing
+type: pattern
 difficulty: advanced
-essential_question: How do we distinguish between liveness and readiness to enable
-  intelligent load balancing and auto-recovery?
+reading_time: 15 min
 excellence_tier: gold
-introduced: 2000-01
-last-updated: 2025-01-30
-modern-examples:
-- company: Kubernetes
-  implementation: Liveness and readiness probes for pod health management
-  scale: Millions of containers monitored globally
-- company: AWS
-  implementation: ELB health checks route traffic only to healthy instances
-  scale: Trillions of health checks daily across all regions
-- company: Netflix
-  implementation: Eureka service registry with health status propagation
-  scale: Thousands of services with real-time health tracking
 pattern_status: recommended
+introduced: 2000-01
+current_relevance: mainstream
+tags:
+  - observability
+  - reliability
+  - service-health
+  - monitoring
+  - fault-detection
+category: resilience
+essential_question: How do we distinguish between liveness and readiness to enable intelligent load balancing and auto-recovery?
+last_updated: 2025-01-30
+modern_examples:
+  - {'company': 'Kubernetes', 'implementation': 'Liveness and readiness probes for pod health management', 'scale': 'Millions of containers monitored globally'}
+  - {'company': 'AWS', 'implementation': 'ELB health checks route traffic only to healthy instances', 'scale': 'Trillions of health checks daily across all regions'}
+  - {'company': 'Netflix', 'implementation': 'Eureka service registry with health status propagation', 'scale': 'Thousands of services with real-time health tracking'}
 prerequisites:
-- monitoring
-- service-discovery
-- load-balancing
-production-checklist:
-- Distinguish between liveness and readiness checks
-- Set appropriate check intervals and timeouts
-- Implement deep health checks for critical services
-- Configure failure thresholds before action
-- Monitor health check latency impact
-- Implement graceful startup periods
-- Add dependency checks to readiness
-- Use separate endpoints for each check type
-- Include version/build info in health response
-- Test health check failure scenarios
-reading-time: 15 min
+  - monitoring
+  - service-discovery
+  - load-balancing
+production_checklist:
+  - Distinguish between liveness and readiness checks
+  - Set appropriate check intervals and timeouts
+  - Implement deep health checks for critical services
+  - Configure failure thresholds before action
+  - Monitor health check latency impact
+  - Implement graceful startup periods
+  - Add dependency checks to readiness
+  - Use separate endpoints for each check type
+  - Include version/build info in health response
+  - Test health check failure scenarios
 status: complete
 tagline: Know thy service health - enable automated recovery and intelligent routing
-tags:
-- observability
-- reliability
-- service-health
-- monitoring
-- fault-detection
-title: Health Check Pattern
-type: pattern
-when-not-to-use: Single-instance apps, dev environments, systems without automated
-  recovery
-when-to-use: Microservices, load balancers, container orchestration, service mesh,
-  auto-healing systems
+when_not_to_use: Single-instance apps, dev environments, systems without automated recovery
+when_to_use: Microservices, load balancers, container orchestration, service mesh, auto-healing systems
 ---
 
 
@@ -347,7 +337,7 @@ def readiness():
 ## Related Patterns
 - **[Circuit Breaker](./circuit-breaker.md)**: Uses health status for state decisions
 - **[Service Discovery](../coordination/service-discovery.md)**: Registers healthy instances
-- **[Load Balancing](/pattern-library/scaling/load-balancing/)**: Routes based on health
+- **[Load Balancing](../../pattern-library/scaling/load-balancing.md)**: Routes based on health
 - **[Graceful Shutdown](./graceful-shutdown.md)**: Coordinates with health checks
 - **[Monitoring](../observability/monitoring.md)**: Tracks health metrics
 

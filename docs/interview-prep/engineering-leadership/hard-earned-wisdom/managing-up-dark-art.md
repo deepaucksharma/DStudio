@@ -1,3 +1,9 @@
+---
+title: Managing Up: The Dark Art Nobody Teaches You
+description: Your ability to manage up determines 70% of your team's success. Technical excellence means nothing if your VP thinks you're "not strategic enough" or
+type: interview-guide
+---
+
 # Managing Up: The Dark Art Nobody Teaches You
 
 ## The Brutal Truth

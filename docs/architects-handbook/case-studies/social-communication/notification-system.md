@@ -2513,8 +2513,8 @@ Analytics Service    8 cores  32GB      10TB
 - **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
-- **[Chat System](/architects-handbook/case-studies/social-communication/chat-system/)** - Real-time messaging patterns
-- **[Search Autocomplete](/architects-handbook/case-studies/search-analytics/search-autocomplete/)** - Low-latency requirements
+- **[Chat System](../../../architects-handbook/case-studies/social-communication/chat-system.md)** - Real-time messaging patterns
+- **[Search Autocomplete](../../../architects-handbook/case-studies/search-analytics/search-autocomplete.md)** - Low-latency requirements
 - **[Spotify Recommendations](spotify-recommendations.md.md)** - Personalization at scale
 <!-- TODO: Add workflow engine case study -->
 

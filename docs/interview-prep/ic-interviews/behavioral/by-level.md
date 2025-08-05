@@ -1,3 +1,9 @@
+---
+title: Level-Specific IC Behavioral Preparation
+description: **Primary Emphasis**: Execution, learning, basic collaboration - **Technical Growth**: Demonstrating rapid learning and skill development
+type: interview-guide
+---
+
 # Level-Specific IC Behavioral Preparation
 
 ## L3 (Junior/Mid-Level) - SDE I/II, E3/E4
@@ -432,4 +438,4 @@ Prepare 3-4 stories for each category:
 
 ---
 
-*Next: [Scenario Deep-Dives](/scenarios) | [Behavioral Framework](/index) | [System Design](../)*
+*Next: [Scenario Deep-Dives](scenarios.md) | [Behavioral Framework](index.md) | [System Design](../)*

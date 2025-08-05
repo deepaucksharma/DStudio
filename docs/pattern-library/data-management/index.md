@@ -1,3 +1,10 @@
+---
+type: pattern
+category: data-management
+title: Index
+description: 'TODO: Add description'
+---
+
 # Data Management Patterns
 
 Patterns for storage, replication, consistency, and caching in distributed systems.

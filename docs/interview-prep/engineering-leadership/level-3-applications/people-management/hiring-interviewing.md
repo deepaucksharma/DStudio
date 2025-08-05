@@ -1,3 +1,9 @@
+---
+title: Hiring & Interviewing Excellence
+description: Hiring is the highest-leverage activity for engineering leaders. Every hire shapes team culture, capability, and trajectory. This guide covers the ful
+type: interview-guide
+---
+
 # Hiring & Interviewing Excellence
 
 ## Building World-Class Engineering Teams Through Strategic Hiring

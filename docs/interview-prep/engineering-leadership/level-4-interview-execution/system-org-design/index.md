@@ -1,3 +1,8 @@
+---
+title: System Org Design
+description: System Org Design overview and navigation
+---
+
 # System & Organizational Design Interview Guide
 
 ## Overview
@@ -390,4 +395,4 @@ Deliverables:
 
 ---
 
-**Next Steps**: Practice with real scenarios from [Company-Specific Guides](/company-specific/), and use [Interactive Tools](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index/) for timed practice.
+**Next Steps**: Practice with real scenarios from [Company-Specific Guides](../../../../company-specific/index.md), and use [Interactive Tools](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index.md) for timed practice.

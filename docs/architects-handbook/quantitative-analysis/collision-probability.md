@@ -1,3 +1,9 @@
+---
+title: Collision Probability
+description: Collision probability is fundamental to distributed systems design, affecting everything from hash tables to distributed consensus. Understanding the
+type: documentation
+---
+
 # Collision Probability
 
 ## Overview
@@ -306,6 +312,6 @@ Gap: p₁/p₂ > threshold
 ## Related Topics
 
 - [Hash Functions](../case-studies/consistent-hashing.md)
-- [Probabilistic Data Structures](/architects-handbook/quantitative-analysis/probabilistic-structures/)
-- [Information Theory](/architects-handbook/quantitative-analysis/information-theory/)
+- [Probabilistic Data Structures](../../architects-handbook/quantitative-analysis/probabilistic-structures.md)
+- [Information Theory](../../architects-handbook/quantitative-analysis/information-theory.md)
 - [Cryptographic Primitives](../reference/security.md)

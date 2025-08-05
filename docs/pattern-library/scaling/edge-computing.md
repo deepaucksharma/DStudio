@@ -1,44 +1,36 @@
 ---
-category: scaling
-current_relevance: mainstream
-description: Optimize distributed systems for edge devices and IoT deployments where
-  latency and connectivity matter
+title: Edge Computing/IoT Patterns
+description: Optimize distributed systems for edge devices and IoT deployments where latency and connectivity matter
+type: pattern
 difficulty: advanced
-essential_question: How do we handle increasing load without sacrificing performance
-  using edge computing/iot patterns?
+reading_time: 45 min
 excellence_tier: gold
-introduced: 2015-01
-last-updated: 2025-07-21
-modern-examples:
-- company: Cloudflare Workers
-  implementation: JavaScript/WASM execution at 275+ edge locations globally
-  scale: 10M+ requests/second, <50ms latency worldwide
-- company: AWS IoT Greengrass
-  implementation: Edge computing for 100M+ IoT devices
-  scale: Local processing reducing cloud traffic by 95%
-- company: Microsoft Azure IoT Edge
-  implementation: AI/ML models running on edge devices
-  scale: Billions of IoT devices, sub-10ms response times
 pattern_status: recommended
-prerequisites: []
-production-checklist:
-- Design edge node deployment strategy (CDN, IoT gateways)
-- Implement edge-to-cloud synchronization protocols
-- Configure local data processing and filtering rules
-- Set up edge node monitoring and remote management
-- Plan for intermittent connectivity scenarios
-- Implement edge security (encryption, authentication)
-- Optimize for resource constraints (CPU, memory, power)
-- Configure data aggregation and compression
-- Test edge failover and recovery procedures
-- Monitor edge-to-cloud bandwidth usage and costs
-reading-time: 45 min
+introduced: 2015-01
+current_relevance: mainstream
+category: scaling
+essential_question: How do we handle increasing load without sacrificing performance using edge computing/iot patterns?
+last_updated: 2025-07-21
+modern_examples:
+  - {'company': 'Cloudflare Workers', 'implementation': 'JavaScript/WASM execution at 275+ edge locations globally', 'scale': '10M+ requests/second, <50ms latency worldwide'}
+  - {'company': 'AWS IoT Greengrass', 'implementation': 'Edge computing for 100M+ IoT devices', 'scale': 'Local processing reducing cloud traffic by 95%'}
+  - {'company': 'Microsoft Azure IoT Edge', 'implementation': 'AI/ML models running on edge devices', 'scale': 'Billions of IoT devices, sub-10ms response times'}
+prerequisites:
+production_checklist:
+  - Design edge node deployment strategy (CDN, IoT gateways)
+  - Implement edge-to-cloud synchronization protocols
+  - Configure local data processing and filtering rules
+  - Set up edge node monitoring and remote management
+  - Plan for intermittent connectivity scenarios
+  - Implement edge security (encryption, authentication)
+  - Optimize for resource constraints (CPU, memory, power)
+  - Configure data aggregation and compression
+  - Test edge failover and recovery procedures
+  - Monitor edge-to-cloud bandwidth usage and costs
 status: complete
 tagline: Master edge computing/iot patterns for distributed systems success
-title: Edge Computing/IoT Patterns
-type: pattern
-when-not-to-use: When simpler solutions suffice
-when-to-use: When dealing with architectural challenges
+when_not_to_use: When simpler solutions suffice
+when_to_use: When dealing with architectural challenges
 ---
 
 
@@ -549,6 +541,6 @@ graph TD
 
 ---
 
-**Previous**: [← Sharding Pattern](/pattern-library/scaling/sharding/) | **Next**: [Gateway Pattern →](../architecture/gateway.md)
+**Previous**: [← Sharding Pattern](../../pattern-library/scaling/sharding.md) | **Next**: [Gateway Pattern →](../architecture/gateway.md)
 
 

@@ -260,9 +260,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | Cascading failure prevention | Rate limits trigger circuit opening |
+| [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | Cascading failure prevention | Rate limits trigger circuit opening |
 | [API Gateway](../architecture/api-gateway.md) | Centralized policy enforcement | Gateway handles all rate limiting logic |
-| [Bulkhead](/pattern-library/resilience/bulkhead/) | Resource isolation | Separate limits per resource pool |
+| [Bulkhead](../../pattern-library/resilience/bulkhead.md) | Resource isolation | Separate limits per resource pool |
 
 ## Quick Reference
 
@@ -306,9 +306,9 @@ graph LR
     
     ---
     
-    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Complementary failure protection
+    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Complementary failure protection
     - [API Gateway](../architecture/api-gateway.md) - Centralized rate limiting
-    - [Bulkhead](/pattern-library/resilience/bulkhead/) - Resource isolation
+    - [Bulkhead](../../pattern-library/resilience/bulkhead.md) - Resource isolation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -321,8 +321,8 @@ graph LR
     
     ---
     
-    - [Control Distribution](../../core-principles/pillars/control/) - Distributed rate limiting coordination
-    - [Work Distribution](../../core-principles/pillars/work/) - Fair resource allocation
+    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Distributed rate limiting coordination
+    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Fair resource allocation
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

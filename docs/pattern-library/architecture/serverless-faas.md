@@ -1,40 +1,29 @@
 ---
-best-for: Event-driven workloads, APIs with variable traffic, batch jobs, webhooks
-category: architecture
-current_relevance: mainstream
-description: Execute code without managing servers, paying only for actual compute
-  time with automatic scaling
+title: Serverless/FaaS (Function-as-a-Service)
+description: Execute code without managing servers, paying only for actual compute time with automatic scaling
+type: pattern
 difficulty: intermediate
-essential_question: How do we structure our system architecture to leverage serverless/faas
-  (function-as-a-service)?
+reading_time: 45 min
 excellence_tier: silver
-implementations:
-- company: iRobot
-  scale: Processes millions of IoT events from Roomba vacuums
-- company: Coca-Cola
-  scale: Vending machine payments via AWS Lambda
-- company: Netflix
-  scale: Video encoding and media processing pipelines
-introduced: 2014-11
-last-updated: 2025-07-21
 pattern_status: use-with-expertise
-prerequisites: []
-reading-time: 45 min
+best_for: Event-driven workloads, APIs with variable traffic, batch jobs, webhooks
+introduced: 2014-11
+current_relevance: mainstream
+category: architecture
+essential_question: How do we structure our system architecture to leverage serverless/faas (function-as-a-service)?
+implementations:
+  - {'company': 'iRobot', 'scale': 'Processes millions of IoT events from Roomba vacuums'}
+  - {'company': 'Coca-Cola', 'scale': 'Vending machine payments via AWS Lambda'}
+  - {'company': 'Netflix', 'scale': 'Video encoding and media processing pipelines'}
+last_updated: 2025-07-21
+prerequisites:
 status: complete
 tagline: Master serverless/faas (function-as-a-service) for distributed systems success
-title: Serverless/FaaS (Function-as-a-Service)
-trade-offs:
-  cons:
-  - Vendor lock-in concerns
-  - Cold start latency issues
-  - Limited execution time and resources
-  pros:
-  - Zero server management and automatic scaling
-  - Pay only for actual execution time
-  - Rapid development and deployment
-type: pattern
-when-not-to-use: When simpler solutions suffice
-when-to-use: When dealing with specialized challenges
+trade_offs:
+  cons: ['Vendor lock-in concerns', 'Cold start latency issues', 'Limited execution time and resources']
+  pros: ['Zero server management and automatic scaling', 'Pay only for actual execution time', 'Rapid development and deployment']
+when_not_to_use: When simpler solutions suffice
+when_to_use: When dealing with specialized challenges
 ---
 
 
@@ -204,5 +193,5 @@ graph TD
 
 ---
 
-**Previous**: [← Saga (Distributed Transactions)](/pattern-library/data-management/saga/) | **Next**: [Service Discovery Pattern →](/pattern-library/communication/service-discovery/)
+**Previous**: [← Saga (Distributed Transactions)](../../pattern-library/data-management/saga.md) | **Next**: [Service Discovery Pattern →](../../pattern-library/communication/service-discovery.md)
 

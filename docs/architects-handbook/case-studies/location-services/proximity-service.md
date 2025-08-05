@@ -1394,33 +1394,33 @@ class SpatialCacheWarmer:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)** - Sub-100ms spatial queries
-- **[Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/)** - Index memory limits
-- **[Law 1: Failure](/core-principles/laws/correlated-failure/)** - Redundant indices
-- **[Law 3: Emergence](/core-principles/laws/emergent-chaos/)** - Parallel spatial queries
-- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - Index consistency
-- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - Query pattern analysis
-- **[Law 6: Human-API](/core-principles/laws/cognitive-load/)** - Intuitive results
-- **[Law 7: Economics](/core-principles/laws/economic-reality/)** - Index storage costs
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality/)** - Sub-100ms spatial queries
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization/)** - Index memory limits
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure/)** - Redundant indices
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos/)** - Parallel spatial queries
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge/)** - Index consistency
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge/)** - Query pattern analysis
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load/)** - Intuitive results
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality/)** - Index storage costs
 
 ### 🏛 Related Patterns
 - **Spatial Indexing (Coming Soon)** - R-tree, QuadTree, KD-tree
 - **Geohashing (Coming Soon/index)** - Location encoding
-- **[Caching Strategies](../patterns/caching-strategies)** - Multi-level caches
-- **[Sharding](../patterns/sharding)** - Geographic partitioning
-- **[Load Balancing](../patterns/load-balancing)** - Query distribution
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies)** - Multi-level caches
+- **[Sharding](../pattern-library/scaling/sharding)** - Geographic partitioning
+- **[Load Balancing](../pattern-library/scaling/load-balancing)** - Query distribution
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
-- **[Edge Computing](../patterns/edge-computing)** - Regional processing
+- **[Edge Computing](../pattern-library/scaling/edge-computing)** - Regional processing
 
 ### Quantitative Models
-- **[Haversine Distance](../quantitative/haversine)** - Accurate Earth distances
-- **[Spatial Statistics](../quantitative/spatial-stats)** - Clustering, hot spots
-- **[Computational Geometry](../quantitative/comp-geometry)** - Polygon operations
-- **[Graph Theory](../quantitative/graph-theory)** - Network analysis
+- **[Haversine Distance](../quantitative-analysis/haversine)** - Accurate Earth distances
+- **[Spatial Statistics](../quantitative-analysis/spatial-stats)** - Clustering, hot spots
+- **[Computational Geometry](../quantitative-analysis/comp-geometry)** - Polygon operations
+- **[Graph Theory](../quantitative-analysis/graph-theory)** - Network analysis
 
 ### Similar Case Studies
 - **[Uber's H3 System] (Case Study Coming Soon)** - Hexagonal spatial indexing
-- **[Google Maps](/architects-handbook/case-studies/location-services/google-maps/)** - Global mapping infrastructure
+- **[Google Maps](../../../architects-handbook/case-studies/location-services/google-maps.md)** - Global mapping infrastructure
 - **[Foursquare Venues] (Case Study Coming Soon)** - Location recommendations
 - **[Pokemon Go] (Case Study Coming Soon.md)** - Real-time AR locations
 

@@ -1336,7 +1336,7 @@ class ConsistentHashRing:
 - [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages)
 
 **Related Patterns:**
-- [Virtual Nodes](../patterns/sharding)
+- [Virtual Nodes](../pattern-library/scaling/sharding)
 - Gossip Protocol
 - Vector Clocks
 - Replication (Coming Soon)
@@ -1355,7 +1355,7 @@ class ConsistentHashRing:
 ### 🏛 Related Patterns (Part III/index)
 - **[Sharding & Partitioning](../pattern-library/scaling/sharding.md)** - Consistent hashing is the foundation for data sharding
 - **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Ring-based routing distributes requests evenly
-- **[Service Discovery](../patterns/service-discovery)** - Ring topology changes propagate via gossip
+- **[Service Discovery](../pattern-library/communication/service-discovery)** - Ring topology changes propagate via gossip
 - **Replication (Coming Soon.md)** - Successor lists define replica placement
 - **[Health Check](../pattern-library/resilience/health-check.md)** - Node failures trigger ring rebalancing
 - **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Client-side topology caching reduces lookups
@@ -1369,12 +1369,12 @@ class ConsistentHashRing:
 
 ### 👥 Human Factors Considerations
 - **[Capacity Planning](quantitative/capacity-planning)** - Node weights must match actual capacity
-- **[Observability Tools](/architects-handbook/human-factors/observability-stacks)** - Ring visualizers essential for operations
-- **[Incident Response](/architects-handbook/human-factors/incident-response)** - Hot spot detection and mitigation procedures
-- **[On-Call Culture](/architects-handbook/human-factors/oncall-culture)** - Understanding ring rebalancing critical for operators
+- **[Observability Tools](../../../architects-handbook/human-factors/observability-stacks.md)** - Ring visualizers essential for operations
+- **[Incident Response](../../../architects-handbook/human-factors/incident-response.md)** - Hot spot detection and mitigation procedures
+- **[On-Call Culture](../../../architects-handbook/human-factors/oncall-culture.md)** - Understanding ring rebalancing critical for operators
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](/architects-handbook/case-studies/databases/amazon-dynamo/)** - Production implementation of consistent hashing at scale
-- **[Rate Limiter Design](/architects-handbook/case-studies/monitoring-observability/rate-limiter/)** - Uses consistent hashing for distributed rate limit state
-- **[News Feed System](/architects-handbook/case-studies/social-communication/news-feed/)** - Shards user timelines using consistent hashing
+- **[Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Production implementation of consistent hashing at scale
+- **[Rate Limiter Design](../../../architects-handbook/case-studies/monitoring-observability/rate-limiter.md)** - Uses consistent hashing for distributed rate limit state
+- **[News Feed System](../../../architects-handbook/case-studies/social-communication/news-feed.md)** - Shards user timelines using consistent hashing
 - **[PayPal Payments](paypal-payments.md.md)** - Routes payment processing using consistent hashing

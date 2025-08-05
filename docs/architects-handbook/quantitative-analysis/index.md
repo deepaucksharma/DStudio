@@ -1,3 +1,8 @@
+---
+title: Quantitative Analysis
+description: Quantitative Analysis overview and navigation
+---
+
 # Quantitative Analysis
 
 Mathematical tools and models for distributed systems design, capacity planning, and reliability engineering.
@@ -16,57 +21,57 @@ This section provides the mathematical foundations every distributed systems arc
 Core mathematical laws that govern distributed systems behavior:
 
 ### Consistency & Distribution
-- **[CAP Theorem](/pattern-library/architecture/cap-theorem/)** - The impossible trinity: Consistency, Availability, Partition tolerance
-- **[PACELC Theorem](../../quantitative/cap-theorem-enhanced.md)** - Extended CAP with latency/consistency trade-offs
-- **[FLP Impossibility](../../quantitative/consensus.md)** - Consensus impossibility in asynchronous systems
+- **[CAP Theorem](../../pattern-library/architecture/cap-theorem.md)** - The impossible trinity: Consistency, Availability, Partition tolerance
+- **[PACELC Theorem](../../quantitative-analysis/cap-theorem-enhanced.md)** - Extended CAP with latency/consistency trade-offs
+- **[FLP Impossibility](../../quantitative-analysis/consensus.md)** - Consensus impossibility in asynchronous systems
 
 ### Performance Laws
-- **[Little's Law](/architects-handbook/quantitative-analysis/littles-law/)** - Universal relationship: L = λW (queue length = arrival rate × wait time)
-- **[Amdahl's Law](/architects-handbook/quantitative-analysis/amdahls-law/)** - Limits of parallelization: speedup bounded by sequential portion
-- **[Universal Scalability Law](/architects-handbook/quantitative-analysis/universal-scalability/)** - Contention and coherence limits to scaling
-- **[Queueing Theory](/architects-handbook/quantitative-analysis/queueing-theory/)** - M/M/1, M/M/c models for system behavior under load
+- **[Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md)** - Universal relationship: L = λW (queue length = arrival rate × wait time)
+- **[Amdahl's Law](../../architects-handbook/quantitative-analysis/amdahls-law.md)** - Limits of parallelization: speedup bounded by sequential portion
+- **[Universal Scalability Law](../../architects-handbook/quantitative-analysis/universal-scalability.md)** - Contention and coherence limits to scaling
+- **[Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-theory.md)** - M/M/1, M/M/c models for system behavior under load
 
 ## 📊 Performance Analysis
 
 Tools for modeling and predicting system performance:
 
 ### Latency & Throughput
-- **[Latency Numbers](/architects-handbook/quantitative-analysis/latency-numbers/)** - Key latencies every architect should know (L1: 0.5ns → Internet: 150ms)
-- **[Performance Modeling](/architects-handbook/quantitative-analysis/performance-modeling/)** - End-to-end latency calculation and bottleneck analysis
-- **[Capacity Planning](../../quantitative/capacity-planning.md)** - Resource sizing and growth projections
+- **[Latency Numbers](../../architects-handbook/quantitative-analysis/latency-numbers.md)** - Key latencies every architect should know (L1: 0.5ns → Internet: 150ms)
+- **[Performance Modeling](../../architects-handbook/quantitative-analysis/performance-modeling.md)** - End-to-end latency calculation and bottleneck analysis
+- **[Capacity Planning](../../quantitative-analysis/capacity-planning.md)** - Resource sizing and growth projections
 
 ### Load Characteristics
-- **[Workload Patterns](../../quantitative/time-series.md)** - Daily, weekly, seasonal variations
-- **[Power Laws](../../quantitative/power-laws.md)** - 80/20 rule, Zipf distributions in real systems
-- **[Traffic Theory](../../quantitative/network-theory.md)** - Poisson arrivals, bursty traffic modeling
+- **[Workload Patterns](../../quantitative-analysis/time-series.md)** - Daily, weekly, seasonal variations
+- **[Power Laws](../../quantitative-analysis/power-laws.md)** - 80/20 rule, Zipf distributions in real systems
+- **[Traffic Theory](../../quantitative-analysis/network-theory.md)** - Poisson arrivals, bursty traffic modeling
 
 ## 🛡️ Reliability Mathematics
 
 Quantifying and improving system reliability:
 
 ### Availability Calculations
-- **[Failure Models](/architects-handbook/quantitative-analysis/failure-models/)** - Types of failures and their probabilities
-- **[Availability Math](../../quantitative/availability-math.md)** - Computing nines (99.9% = 8.76h/year downtime)
-- **[MTBF/MTTR](../../quantitative/mtbf-mttr.md)** - Mean time between failures and recovery
+- **[Failure Models](../../architects-handbook/quantitative-analysis/failure-models.md)** - Types of failures and their probabilities
+- **[Availability Math](../../quantitative-analysis/availability-math.md)** - Computing nines (99.9% = 8.76h/year downtime)
+- **[MTBF/MTTR](../../quantitative-analysis/mtbf-mttr.md)** - Mean time between failures and recovery
 
 ### Redundancy & Resilience
-- **[N+K Redundancy](../../quantitative/reliability-theory.md)** - Calculating redundancy requirements
-- **[Blast Radius](../../quantitative/blast-radius.md)** - Failure impact analysis and containment
-- **[Markov Models](../../quantitative/markov-chains.md)** - State-based reliability modeling
+- **[N+K Redundancy](../../quantitative-analysis/reliability-theory.md)** - Calculating redundancy requirements
+- **[Blast Radius](../../quantitative-analysis/blast-radius.md)** - Failure impact analysis and containment
+- **[Markov Models](../../quantitative-analysis/markov-chains.md)** - State-based reliability modeling
 
 ## 💰 Capacity Planning
 
 Sizing systems for current and future needs:
 
 ### Resource Estimation
-- **[Capacity Models](../../quantitative/capacity-planning.md)** - CPU, memory, storage, network sizing
-- **[Growth Projections](../../quantitative/time-series.md)** - Linear, exponential, S-curve growth patterns
-- **[Utilization Targets](../../quantitative/queueing-models.md)** - Why 70% utilization is often optimal
+- **[Capacity Models](../../quantitative-analysis/capacity-planning.md)** - CPU, memory, storage, network sizing
+- **[Growth Projections](../../quantitative-analysis/time-series.md)** - Linear, exponential, S-curve growth patterns
+- **[Utilization Targets](../../quantitative-analysis/queueing-models.md)** - Why 70% utilization is often optimal
 
 ### Cost Optimization
-- **[Cost Models](../../quantitative/storage-economics.md)** - Storage, compute, and bandwidth economics
-- **[Cache Economics](../../quantitative/cache-economics.md)** - When caching saves money
-- **[Trade-off Analysis](../../quantitative/coordination-costs.md)** - Quantifying consistency vs performance costs
+- **[Cost Models](../../quantitative-analysis/storage-economics.md)** - Storage, compute, and bandwidth economics
+- **[Cache Economics](../../quantitative-analysis/cache-economics.md)** - When caching saves money
+- **[Trade-off Analysis](../../quantitative-analysis/coordination-costs.md)** - Quantifying consistency vs performance costs
 
 ## 🎯 Quick Reference
 
@@ -113,10 +118,10 @@ Sizing systems for current and future needs:
 
 ## 🚀 Getting Started
 
-1. **Start with [Little's Law](/architects-handbook/quantitative-analysis/littles-law/)** - The most fundamental relationship in systems
-2. **Understand [CAP Theorem](/pattern-library/architecture/cap-theorem/)** - Core distributed systems trade-off
-3. **Learn [Latency Numbers](/architects-handbook/quantitative-analysis/latency-numbers/)** - Build intuition for system performance
-4. **Master [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-theory/)** - Predict behavior under load
+1. **Start with [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md)** - The most fundamental relationship in systems
+2. **Understand [CAP Theorem](../../pattern-library/architecture/cap-theorem.md)** - Core distributed systems trade-off
+3. **Learn [Latency Numbers](../../architects-handbook/quantitative-analysis/latency-numbers.md)** - Build intuition for system performance
+4. **Master [Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-theory.md)** - Predict behavior under load
 
 ---
 

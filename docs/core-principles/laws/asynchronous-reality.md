@@ -1,3 +1,11 @@
+---
+title: Law 2: The Law of Asynchronous Reality
+description: src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/time-in-distributed-systems&color=%235448C8&inverse=false&auto_pla
+type: law
+difficulty: intermediate
+reading_time: 7 min
+---
+
 # Law 2: The Law of Asynchronous Reality
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"

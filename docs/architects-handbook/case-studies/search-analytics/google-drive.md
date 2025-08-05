@@ -875,7 +875,7 @@ Web Browser → Web Server → File System → Database
 **Patterns Violated**: 
 - No Deduplication (Coming Soon)
 - No Delta Sync (Coming Soon)
-- No [Distributed Storage](../patterns/distributed-storage)
+- No [Distributed Storage](../pattern-library/data-management/distributed-storage)
 
 ### Phase 2: Basic Sync Architecture (2008-2010)
 
@@ -965,7 +965,7 @@ graph TB
 - Immutable storage simplifies replication
 
 **Patterns & Pillars Applied**:
-- Pattern: [Content-Addressed Storage](../patterns/cas) - Deduplication
+- Pattern: [Content-Addressed Storage](../pattern-library/coordination/cas) - Deduplication
 - Pattern: Chunking (Coming Soon) - Large file handling
 - 🏛 Pillar: [State Distribution](../core-principles/pillars/state) - Sharded metadata
 - 🏛 Pillar: [Work Distribution](../core-principles/pillars/work) - Parallel uploads
@@ -1553,19 +1553,19 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 - **[Law 7: Economics](../core-principles/laws/economic-reality)** - Storage costs, tiering strategy
 
 ### 🏛 Related Patterns
-- **[Content-Addressed Storage](../patterns/cas)** - Deduplication foundation
+- **[Content-Addressed Storage](../pattern-library/coordination/cas)** - Deduplication foundation
 - **Delta Sync (Coming Soon)** - Efficient synchronization
 - **Merkle Trees (Coming Soon)** - File verification
-- **[CRDT](../patterns/crdt)** - Conflict-free collaboration
-- **[Event Sourcing](../patterns/event-sourcing)** - File history
-- **[Saga Pattern](../patterns/saga)** - Multi-step operations
+- **[CRDT](../pattern-library/data-management/crdt)** - Conflict-free collaboration
+- **[Event Sourcing](../pattern-library/data-management/event-sourcing)** - File history
+- **[Saga Pattern](../pattern-library/data-management/saga)** - Multi-step operations
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service resilience
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Sync consistency trade-offs
-- **[Information Theory](../quantitative/information-theory)** - Compression limits
-- **[Queueing Theory](../quantitative/queueing-models)** - Upload/download capacity
-- **[Storage Economics](../quantitative/storage-economics)** - Cost optimization
+- **[Information Theory](../quantitative-analysis/information-theory)** - Compression limits
+- **[Queueing Theory](../quantitative-analysis/queueing-models)** - Upload/download capacity
+- **[Storage Economics](../quantitative-analysis/storage-economics)** - Cost optimization
 
 ### Similar Case Studies
 <!-- TODO: Add when available

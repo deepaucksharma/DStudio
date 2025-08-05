@@ -1,3 +1,8 @@
+---
+title: Organizational Design
+description: Organizational Design overview and navigation
+---
+
 # Organizational Design
 
 ## Scaling Engineering Organizations for Maximum Impact
@@ -20,7 +25,7 @@ Organizational design encompasses the structures, processes, and systems that en
 - **Cognitive Load Management**: Optimize team responsibilities for human limitations
 - **Team Autonomy**: Balance independence with coordination
 
-[Team Topologies Guide →](/architects-handbook/human-factors/team-topologies/)
+[Team Topologies Guide →](../../../../architects-handbook/human-factors/team-topologies.md)
 
 ### 3. Cognitive Load Optimization
 - **Load Assessment**: Measure and monitor team cognitive burden
@@ -493,6 +498,6 @@ graph LR
 
 ## Next Steps
 
-- Complete [Self-Assessment](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/)
-- Study [Team Topologies](/architects-handbook/human-factors/team-topologies/)
-- Practice [Reorg Scenarios](/interview-prep/engineering-leadership/practice-scenarios/reorg-scenario/)
+- Complete [Self-Assessment](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md)
+- Study [Team Topologies](../../../../architects-handbook/human-factors/team-topologies.md)
+- Practice [Reorg Scenarios](../../../../interview-prep/engineering-leadership/practice-scenarios/reorg-scenario.md)

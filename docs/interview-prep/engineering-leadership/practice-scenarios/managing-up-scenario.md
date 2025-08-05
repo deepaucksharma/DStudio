@@ -1,3 +1,9 @@
+---
+title: Practice Scenario: Managing Up - Dealing with a Difficult Boss
+description: You're an Engineering Manager reporting to a VP who:
+type: interview-guide
+---
+
 # Practice Scenario: Managing Up - Dealing with a Difficult Boss
 
 ## 🎯 Scenario Setup

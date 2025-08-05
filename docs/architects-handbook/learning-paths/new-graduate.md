@@ -179,22 +179,22 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 22-23**: [Timeout](../patterns/timeout)
+ **Day 22-23**: [Timeout](../pattern-library/resilience/timeout)
  - 🎯 Problem: Hanging requests
  - 🛠️ Build: Timeout wrapper function
  - 📊 Success: Handle 95% of network issues
  
- **Day 24-25**: [Retry & Backoff](../patterns/retry-backoff)
+ **Day 24-25**: [Retry & Backoff](../pattern-library/resilience/retry-backoff)
  - 🎯 Problem: Transient failures
  - 🛠️ Build: Exponential backoff library
  - 📊 Success: Recover from 80% of failures
  
- **Day 26-28**: [Circuit Breaker](../patterns/circuit-breaker)
+ **Day 26-28**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker)
  - 🎯 Problem: Cascade failures
  - 🛠️ Build: Circuit breaker class
  - 📊 Success: Prevent system-wide outages
  
- **Day 29-30**: [Health Check](../patterns/health-check)
+ **Day 29-30**: [Health Check](../pattern-library/resilience/health-check)
  - 🎯 Problem: Silent failures
  - 🛠️ Build: Health monitoring endpoint
  - 📊 Success: Detect issues in < 30s
@@ -207,17 +207,17 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 31-32**: [Caching Strategies](../patterns/caching-strategies)
+ **Day 31-32**: [Caching Strategies](../pattern-library/scaling/caching-strategies)
  - 🎯 Problem: Slow repeated queries
  - 🛠️ Build: LRU cache with TTL
  - 📊 Success: 10x performance boost
  
- **Day 33-35**: [CQRS](../patterns/cqrs)
+ **Day 33-35**: [CQRS](../pattern-library/data-management/cqrs)
  - 🎯 Problem: Read/write conflicts
  - 🛠️ Build: Separate read/write models
  - 📊 Success: Scale reads independently
  
- **Day 36-37**: [Event Sourcing](../patterns/event-sourcing)
+ **Day 36-37**: [Event Sourcing](../pattern-library/data-management/event-sourcing)
  - 🎯 Problem: Lost state changes
  - 🛠️ Build: Event log system
  - 📊 Success: Complete audit trail
@@ -230,17 +230,17 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 38-39**: [Load Balancing](../patterns/load-balancing)
+ **Day 38-39**: [Load Balancing](../pattern-library/scaling/load-balancing)
  - 🎯 Problem: Uneven work distribution
  - 🛠️ Build: Round-robin balancer
  - 📊 Success: Even load across servers
  
- **Day 40-41**: [Service Discovery](../patterns/service-discovery)
+ **Day 40-41**: [Service Discovery](../pattern-library/communication/service-discovery)
  - 🎯 Problem: Finding services
  - 🛠️ Build: Service registry
  - 📊 Success: Dynamic service location
  
- **Day 42**: [API Gateway](../patterns/api-gateway)
+ **Day 42**: [API Gateway](../pattern-library/communication/api-gateway)
  - 🎯 Problem: Multiple entry points
  - 🛠️ Build: Simple gateway
  - 📊 Success: Single API surface
@@ -458,7 +458,7 @@ Use this checklist to track your progress:
     
     **Ready for More?**
     
-    ➡️ [Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer)
+    ➡️ [Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md)
     - Advanced patterns
     - Performance optimization  
     - Leading design reviews
@@ -468,7 +468,7 @@ Use this checklist to track your progress:
     - Real-time architectures
     - Data infrastructure
     
-    ➡️ [Architecture Path](/architects-handbook/learning-paths/architect)
+    ➡️ [Architecture Path](../../architects-handbook/learning-paths/architect.md)
     - Enterprise patterns
     - Cost optimization
     - Migration strategies
@@ -554,12 +554,12 @@ Remember: This is a marathon, not a sprint. Take time to deeply understand each 
  
  ---
  
- [Learning Paths Overview](/architects-handbook/learning-paths/cost)
+ [Learning Paths Overview](../../architects-handbook/learning-paths/cost.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer)
+ [Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md)
 
 </div>

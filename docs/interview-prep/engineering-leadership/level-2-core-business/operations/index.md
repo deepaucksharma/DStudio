@@ -1,3 +1,8 @@
+---
+title: Operations
+description: Operations overview and navigation
+---
+
 # Business Concept #3: Operations
 
 > "Excellence is not a singular act, but a habit. You are what you repeatedly do." - Aristotle (via Will Durant)
@@ -444,4 +449,4 @@ Learning: Operational insights
 
 ---
 
-*Next: Explore how [Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index/) provides the language and tools to quantify operational value.*
+*Next: Explore how [Finance](../../../../interview-prep/engineering-leadership/level-2-core-business/finance/index.md) provides the language and tools to quantify operational value.*

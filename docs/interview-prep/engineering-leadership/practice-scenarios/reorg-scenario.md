@@ -1,3 +1,9 @@
+---
+title: Practice Scenario: Managing Through Reorganization
+description: You've been managing a team of 12 engineers working on a core platform service. The company just announced a major reorganization:
+type: interview-guide
+---
+
 # Practice Scenario: Managing Through Reorganization
 
 ## 🔄 Scenario Setup

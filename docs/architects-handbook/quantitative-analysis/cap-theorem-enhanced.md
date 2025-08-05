@@ -21,16 +21,16 @@ nav:
     path: /introduction/networking-basics/
   related:
   - title: PACELC Theorem
-    path: /quantitative/pacelc/
+    path: /quantitative-analysis/pacelc/
     type: theory
   - title: Consistency Models
-    path: /quantitative/consistency-models/
+    path: /quantitative-analysis/consistency-models/
     type: theory
   - title: Cassandra Case Study
     path: /case-studies/cassandra/
     type: case-study
   - title: Two-Phase Commit
-    path: /pattern-library/two-phase-commit/
+    path: /pattern-library/coordination/two-phase-commit/
     type: pattern
   next_steps:
   - title: CAP Theorem Calculator
@@ -440,12 +440,12 @@ def quorum_parameters(N=5):
  <span class="item-title">Zookeeper (CP)</span>
  <span class="item-type">case-study</span>
  </a>
- <a href="/pattern-library/two-phase-commit/" class="related-item">
+ <a href="/pattern-library/coordination/two-phase-commit/" class="related-item">
  <span class="item-icon">🤝</span>
  <span class="item-title">Two-Phase Commit</span>
  <span class="item-type">pattern</span>
  </a>
- <a href="/quantitative/pacelc/" class="related-item">
+ <a href="/quantitative-analysis/pacelc/" class="related-item">
  <span class="item-icon">⚖️</span>
  <span class="item-title">PACELC Theorem</span>
  <span class="item-type">theory</span>

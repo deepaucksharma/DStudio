@@ -1,3 +1,9 @@
+---
+title: Platform Engineering Playbook: Building Developer Excellence
+description: ```mermaid graph TD A[Platform Team] --> B{Platform Products} B --> C[Self-Service Portal] B --> D[Golden Paths]
+type: guide
+---
+
 # Platform Engineering Playbook: Building Developer Excellence
 
 ## Platform as a Product Mindset

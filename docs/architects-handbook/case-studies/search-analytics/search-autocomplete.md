@@ -1081,8 +1081,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: [Sharding](../pattern-library/scaling/sharding.md) - Prefix-based partitioning
 - Pattern: [Cache-Aside](../pattern-library/scaling/caching-strategies.md) - Redis for hot queries
-- 🏛 Pillar: [Work Distribution](/core-principles/pillars/work-distribution/) - Parallel prefix search
-- 🏛 Pillar: [Intelligence](/core-principles/pillars/intelligence-distribution/) - ML ranking
+- 🏛 Pillar: [Work Distribution](../../../core-principles/pillars/work-distribution.md) - Parallel prefix search
+- 🏛 Pillar: [Intelligence](../../../core-principles/pillars/intelligence-distribution.md) - ML ranking
 
 ### Phase 4: Modern Multi-Model Architecture (2015-Present)
 
@@ -1682,14 +1682,14 @@ class DistributedAutocomplete:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)** - Sub-100ms response critical for UX
-- **[Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/)** - Memory limits drive sharding
-- **[Law 1: Failure](/core-principles/laws/correlated-failure/)** - Graceful degradation strategies
-- **[Law 3: Emergence](/core-principles/laws/emergent-chaos/)** - Lock-free trie operations
-- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - Distributed trie updates
-- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - Query performance tracking
-- **[Law 6: Human-API](/core-principles/laws/cognitive-load/)** - Typo tolerance, personalization
-- **[Law 7: Economics](/core-principles/laws/economic-reality/)** - Memory cost vs latency
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality/)** - Sub-100ms response critical for UX
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization/)** - Memory limits drive sharding
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure/)** - Graceful degradation strategies
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos/)** - Lock-free trie operations
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge/)** - Distributed trie updates
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge/)** - Query performance tracking
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load/)** - Typo tolerance, personalization
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality/)** - Memory cost vs latency
 
 ### 🏛 Related Patterns
 - **Trie Data Structure (Coming Soon)** - Core search structure
@@ -1701,7 +1701,7 @@ class DistributedAutocomplete:
 - **[Edge Computing](../pattern-library/scaling/edge-computing.md)** - Global latency optimization
 
 ### Quantitative Models
-- **[Information Theory](../quantitative/information-theory.md)** - Entropy in prefix trees
+- **[Information Theory](../quantitative-analysis/information-theory.md)** - Entropy in prefix trees
 - **[Queueing Theory](../../quantitative-analysis/queueing-models.md.md)** - Server capacity planning
 - **Probability Theory (Coming Soon)** - Bloom filter false positives
 - **Machine Learning (ML Ranking Coming Soon)** - Learning to rank

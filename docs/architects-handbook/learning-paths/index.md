@@ -41,7 +41,7 @@ graph TD
 
 <div class="grid cards" markdown>
 
-- :material-school:{ .lg .middle } **[New Graduate Path](/architects-handbook/learning-paths/new-graduate/)**
+- :material-school:{ .lg .middle } **[New Graduate Path](../../architects-handbook/learning-paths/new-graduate.md)**
     
     ---
     
@@ -60,9 +60,9 @@ graph TD
     - Want structured foundation
     - Preparing for first distributed systems role
     
-    [**→ Start Your Journey**](/architects-handbook/learning-paths/new-graduate/)
+    [**→ Start Your Journey**](../../architects-handbook/learning-paths/new-graduate.md)
 
-- :material-code-tags:{ .lg .middle } **[Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer/)**
+- :material-code-tags:{ .lg .middle } **[Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md)**
     
     ---
     
@@ -81,9 +81,9 @@ graph TD
     - Leading technical decisions
     - Moving to staff engineer role
     
-    [**→ Level Up**](/architects-handbook/learning-paths/senior-engineer/)
+    [**→ Level Up**](../../architects-handbook/learning-paths/senior-engineer.md)
 
-- :material-account-tie:{ .lg .middle } **[Engineering Manager Path](/architects-handbook/learning-paths/manager/)**
+- :material-account-tie:{ .lg .middle } **[Engineering Manager Path](../../architects-handbook/learning-paths/manager.md)**
     
     ---
     
@@ -102,9 +102,9 @@ graph TD
     - Making build vs buy decisions
     - Balancing tech debt
     
-    [**→ Lead Effectively**](/architects-handbook/learning-paths/manager/)
+    [**→ Lead Effectively**](../../architects-handbook/learning-paths/manager.md)
 
-- :material-city:{ .lg .middle } **[System Architect Path](/architects-handbook/learning-paths/architect/)**
+- :material-city:{ .lg .middle } **[System Architect Path](../../architects-handbook/learning-paths/architect.md)**
     
     ---
     
@@ -123,7 +123,7 @@ graph TD
     - Leading architecture reviews
     - Setting technical direction
     
-    [**→ Architect at Scale**](/architects-handbook/learning-paths/architect/)
+    [**→ Architect at Scale**](../../architects-handbook/learning-paths/architect.md)
 
 </div>
 
@@ -140,7 +140,7 @@ graph TD
 
 <div class="grid cards" markdown>
 
-- :material-sync:{ .lg .middle } **[Consistency & Coordination](/architects-handbook/learning-paths/consistency/)**
+- :material-sync:{ .lg .middle } **[Consistency & Coordination](../../architects-handbook/learning-paths/consistency.md)**
     
     ---
     
@@ -148,9 +148,9 @@ graph TD
     
     **For:** Database engineers, FinTech developers
     
-    [:octicons-arrow-right-24: Learn Consistency](/architects-handbook/learning-paths/consistency/){ .md-button }
+    [:octicons-arrow-right-24: Learn Consistency](../../architects-handbook/learning-paths/consistency.md){ .md-button }
 
-- :material-speedometer:{ .lg .middle } **[Performance & Scale](/architects-handbook/learning-paths/performance/)**
+- :material-speedometer:{ .lg .middle } **[Performance & Scale](../../architects-handbook/learning-paths/performance.md)**
     
     ---
     
@@ -158,9 +158,9 @@ graph TD
     
     **For:** Performance engineers, SREs
     
-    [:octicons-arrow-right-24: Scale Systems](/architects-handbook/learning-paths/performance/){ .md-button }
+    [:octicons-arrow-right-24: Scale Systems](../../architects-handbook/learning-paths/performance.md){ .md-button }
 
-- :material-currency-usd:{ .lg .middle } **[Cost Optimization](/architects-handbook/learning-paths/cost/)**
+- :material-currency-usd:{ .lg .middle } **[Cost Optimization](../../architects-handbook/learning-paths/cost.md)**
     
     ---
     
@@ -168,9 +168,9 @@ graph TD
     
     **For:** FinOps, Engineering leaders
     
-    [:octicons-arrow-right-24: Optimize Costs](/architects-handbook/learning-paths/cost/){ .md-button }
+    [:octicons-arrow-right-24: Optimize Costs](../../architects-handbook/learning-paths/cost.md){ .md-button }
 
-- :material-shield-check:{ .lg .middle } **[Reliability & Resilience](/architects-handbook/learning-paths/reliability/)**
+- :material-shield-check:{ .lg .middle } **[Reliability & Resilience](../../architects-handbook/learning-paths/reliability.md)**
     
     ---
     
@@ -178,7 +178,7 @@ graph TD
     
     **For:** SREs, Platform teams
     
-    [:octicons-arrow-right-24: Ensure Reliability](/architects-handbook/learning-paths/reliability/){ .md-button }
+    [:octicons-arrow-right-24: Ensure Reliability](../../architects-handbook/learning-paths/reliability.md){ .md-button }
 
 </div>
 
@@ -188,7 +188,7 @@ graph TD
 
     !!! tip "Start with visuals and work toward concepts"
         
-        1. **Architecture Diagrams** in [Case Studies](/architects-handbook/case-studies/index)
+        1. **Architecture Diagrams** in [Case Studies](../../architects-handbook/case-studies/index.md)
         2. **Trade-off Matrices** in each pattern
         3. **Visual Decision Trees** throughout
         4. **Mermaid Diagrams** explaining concepts
@@ -234,24 +234,24 @@ graph TD
     
     === "By Experience"
         
-        - **New to distributed systems?** → [New Graduate Path](/architects-handbook/learning-paths/new-graduate/)
-        - **Building services already?** → [Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer/)
-        - **Leading teams?** → [Manager Path](/architects-handbook/learning-paths/manager/)
-        - **Designing architectures?** → [Architect Path](/architects-handbook/learning-paths/architect/)
+        - **New to distributed systems?** → [New Graduate Path](../../architects-handbook/learning-paths/new-graduate.md)
+        - **Building services already?** → [Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md)
+        - **Leading teams?** → [Manager Path](../../architects-handbook/learning-paths/manager.md)
+        - **Designing architectures?** → [Architect Path](../../architects-handbook/learning-paths/architect.md)
     
     === "By Topic"
         
-        - **Need consistency?** → [Consistency Path](/architects-handbook/learning-paths/consistency/)
-        - **Need performance?** → [Performance Path](/architects-handbook/learning-paths/performance/)
-        - **Need reliability?** → [Reliability Path](/architects-handbook/learning-paths/reliability/)
-        - **Need cost control?** → [Cost Path](/architects-handbook/learning-paths/cost/)
+        - **Need consistency?** → [Consistency Path](../../architects-handbook/learning-paths/consistency.md)
+        - **Need performance?** → [Performance Path](../../architects-handbook/learning-paths/performance.md)
+        - **Need reliability?** → [Reliability Path](../../architects-handbook/learning-paths/reliability.md)
+        - **Need cost control?** → [Cost Path](../../architects-handbook/learning-paths/cost.md)
     
     === "By Time"
         
         - **1 hour/day** → Pick a topic path
         - **2+ hours/day** → Choose a role path
         - **Full time** → Complete foundation path
-        - **Just browsing** → Start with [Case Studies](/architects-handbook/case-studies/index)
+        - **Just browsing** → Start with [Case Studies](../../architects-handbook/case-studies/index.md)
 
 ## 🗺️ Visual Learning Journey
 
@@ -362,7 +362,7 @@ graph TD
 
 !!! success "Your First Step"
     
-    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../../core-principles/laws/correlated-failure.md).
+    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../../core-principles/laws/correlated-failure/).
     It's the foundation everything else builds upon.
     
-    [:octicons-arrow-right-24: Begin Your Journey](../../core-principles/laws/correlated-failure.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Begin Your Journey](../../core-principles/laws/correlated-failure/){ .md-button .md-button--primary }

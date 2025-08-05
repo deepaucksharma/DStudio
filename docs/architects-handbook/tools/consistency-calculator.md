@@ -1,3 +1,9 @@
+---
+title: Consistency Calculator
+description: *Number of data replicas*
+type: documentation
+---
+
 # Consistency Calculator
 
 !!! info "Interactive Calculator"
@@ -299,8 +305,8 @@ P(available) = Σ(k=R to N) C(N,k) × p^k × (1-p)^(N-k)
 ## Related Resources
 
 - [CAP Theorem Deep Dive](../../core-principles/laws/distributed-knowledge)
-- [State Distribution Patterns](../../core-principles/pillars/state/index)
-- [Truth Distribution](../../core-principles/pillars/truth/index)
+- [State Distribution Patterns](../../core-principles/pillars/state-distribution/)
+- [Truth Distribution](../../core-principles/pillars/truth-distribution/)
 - [PACELC Framework](quantitative/cap-theorem)
 
 <script>

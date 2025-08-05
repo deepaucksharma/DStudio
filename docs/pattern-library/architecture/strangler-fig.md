@@ -1,38 +1,36 @@
 ---
-best-for: []
-category: architecture
-current_relevance: mainstream
-description: Incrementally replace legacy systems by gradually routing functionality
-  to new implementations
+title: Strangler Fig
+description: Incrementally replace legacy systems by gradually routing functionality to new implementations
+type: pattern
 difficulty: advanced
-essential_question: How do we structure our system architecture to leverage strangler
-  fig?
+reading_time: 20 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-01-26
 pattern_status: recommended
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: architecture
+essential_question: How do we structure our system architecture to leverage strangler fig?
+last_updated: 2025-01-26
 prerequisites:
-- API Gateway
-- Service Mesh
-- Anti-Corruption Layer
-reading-time: 20 min
+  - API Gateway
+  - Service Mesh
+  - Anti-Corruption Layer
 status: complete
 tagline: Master strangler fig for distributed systems success
-title: Strangler Fig
-trade-offs:
+trade_offs:
   cons: []
   pros: []
-type: pattern
-when-not-to-use:
-- Greenfield applications
-- Simple system replacements
-- Urgent complete rewrites needed
-- Legacy system is well-maintained
-when-to-use:
-- Migrating monoliths to microservices
-- Replacing legacy systems incrementally
-- Modernizing without big-bang rewrites
-- Risk-averse transformation required
+when_not_to_use:
+  - Greenfield applications
+  - Simple system replacements
+  - Urgent complete rewrites needed
+  - Legacy system is well-maintained
+when_to_use:
+  - Migrating monoliths to microservices
+  - Replacing legacy systems incrementally
+  - Modernizing without big-bang rewrites
+  - Risk-averse transformation required
 ---
 
 
@@ -406,11 +404,11 @@ graph TD
 
 ## Related Patterns
 
-- [API Gateway](/pattern-library/communication/api-gateway/) - Front-door for routing during migration
-- [Service Mesh](/pattern-library/communication/service-mesh/) - Traffic management and observability
-- [Anti-Corruption Layer](/pattern-library/architecture/anti-corruption-layer/) - Protect new services from legacy
-- [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Capture all changes for replay
-- [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Protect during partial failures
+- [API Gateway](../../pattern-library/communication/api-gateway.md) - Front-door for routing during migration
+- [Service Mesh](../../pattern-library/communication/service-mesh.md) - Traffic management and observability
+- [Anti-Corruption Layer](../../pattern-library/architecture/anti-corruption-layer.md) - Protect new services from legacy
+- [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Capture all changes for replay
+- [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Protect during partial failures
 
 ## References
 

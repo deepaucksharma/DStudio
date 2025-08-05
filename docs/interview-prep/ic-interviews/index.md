@@ -1,3 +1,8 @@
+---
+title: Ic Interviews
+description: Ic Interviews overview and navigation
+---
+
 # IC Interviews Guide
 
 > Master both system design and behavioral interviews for Individual Contributor roles (L3-L5)
@@ -47,7 +52,7 @@ graph TB
 
 <div class="grid cards" markdown>
 
-- :material-account-voice:{ .lg } **[Behavioral Interviews](/interview-prep/ic-interviews/behavioral/index)**
+- :material-account-voice:{ .lg } **[Behavioral Interviews](../../interview-prep/ic-interviews/behavioral/index.md)**
     
     ---
     
@@ -55,7 +60,7 @@ graph TB
     
     **Topics**: Technical leadership, mentoring, cross-team collaboration, conflict resolution
 
-- :material-compass-outline:{ .lg } **[Design Frameworks](/interview-prep/ic-interviews/frameworks/index)**
+- :material-compass-outline:{ .lg } **[Design Frameworks](../../interview-prep/ic-interviews/frameworks/index.md)**
     
     ---
     
@@ -63,7 +68,7 @@ graph TB
     
     **Methods**: RADIO framework, 4S method, Problem-First design
 
-- :material-puzzle:{ .lg } **[Common Problems](/interview-prep/ic-interviews/common-problems/index)**
+- :material-puzzle:{ .lg } **[Common Problems](../../interview-prep/ic-interviews/common-problems/index.md)**
     
     ---
     
@@ -71,7 +76,7 @@ graph TB
     
     **Popular**: URL Shortener, Chat System, Video Streaming, News Feed
 
-- :material-card-text:{ .lg } **[Cheatsheets](/interview-prep/ic-interviews/cheatsheets/index)**
+- :material-card-text:{ .lg } **[Cheatsheets](../../interview-prep/ic-interviews/cheatsheets/index.md)**
     
     ---
     
@@ -224,17 +229,17 @@ graph LR
 ## 🚀 Quick Start
 
 ### For Behavioral Interviews
-1. Read [IC Behavioral Guide](/interview-prep/ic-interviews/behavioral/index) to understand key themes
+1. Read [IC Behavioral Guide](../../interview-prep/ic-interviews/behavioral/index.md) to understand key themes
 2. Prepare 8-10 STAR stories covering technical leadership scenarios
-3. Practice [level-specific scenarios](/interview-prep/ic-interviews/behavioral/by-level/) for your target role
-4. Review [common mistakes](/interview-prep/ic-interviews/behavioral/index#common-ic-behavioral-mistakes) to avoid
+3. Practice [level-specific scenarios](../../interview-prep/ic-interviews/behavioral/by-level.md) for your target role
+4. Review [common mistakes](../../interview-prep/ic-interviews/behavioral/index#common-ic-behavioral-mistakes.md) to avoid
 
 ### For System Design Interviews
-1. Review [Design Frameworks](/interview-prep/ic-interviews/frameworks/index) to learn structured approaches
-2. Practice 2-3 [Common Problems](/interview-prep/ic-interviews/common-problems/index) per week
-3. Keep [Cheatsheets](/interview-prep/ic-interviews/cheatsheets/index) handy for quick reference
+1. Review [Design Frameworks](../../interview-prep/ic-interviews/frameworks/index.md) to learn structured approaches
+2. Practice 2-3 [Common Problems](../../interview-prep/ic-interviews/common-problems/index.md) per week
+3. Keep [Cheatsheets](../../interview-prep/ic-interviews/cheatsheets/index.md) handy for quick reference
 4. Do mock interviews focusing on communication and trade-offs
 
 ---
 
-*For Engineering Manager/Director interviews, see [Engineering Leadership](/interview-prep/engineering-leadership/index/) section.*'''
+*For Engineering Manager/Director interviews, see [Engineering Leadership](../../interview-prep/engineering-leadership/index.md) section.*'''

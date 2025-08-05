@@ -516,9 +516,9 @@ http_request_duration_seconds{quantile="0.99"} # Link to Jaeger
 
 ## Related Topics
 
-- [Time Series Databases](../patterns/time-series-db) - TSDB design
-- [Service Discovery](../patterns/service-discovery) - Dynamic targets
-- [Observability](../patterns/observability) - Metrics pillar
+- [Time Series Databases](../pattern-library/time-series-db) - TSDB design
+- [Service Discovery](../pattern-library/communication/service-discovery) - Dynamic targets
+- [Observability](../pattern-library/observability) - Metrics pillar
 - [Grafana](grafana) - Visualization layer
 - [OpenTelemetry](opentelemetry.md) - Unified observability
 

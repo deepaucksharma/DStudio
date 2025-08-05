@@ -1,3 +1,8 @@
+---
+title: Interactive
+description: Interactive overview and navigation
+---
+
 # Interactive Interview Practice Tools
 
 > Enhance your engineering leadership interview preparation with hands-on interactive tools
@@ -6,7 +11,7 @@
 
 <div class="grid cards" markdown>
 
-- :material-timer:{ .lg } **[Interview Timer](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer/)**
+- :material-timer:{ .lg } **[Interview Timer](../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer.md)**
     
     ---
     
@@ -14,7 +19,7 @@
     
     **Features**: Round-specific timers, phase tracking, visual alerts
 
-- :material-clipboard-check:{ .lg } **[Self-Assessment Tool](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/)**
+- :material-clipboard-check:{ .lg } **[Self-Assessment Tool](../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md)**
     
     ---
     
@@ -22,7 +27,7 @@
     
     **Features**: Competency scoring, gap analysis, action planning
 
-- :material-sitemap:{ .lg } **[Decision Tree Navigator](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees/)**
+- :material-sitemap:{ .lg } **[Decision Tree Navigator](../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees.md)**
     
     ---
     
@@ -30,7 +35,7 @@
     
     **Features**: 5 detailed scenarios, outcome analysis, alternative paths
 
-- :material-magnify:{ .lg } **[STAR Story Matcher](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/star-matcher/)**
+- :material-magnify:{ .lg } **[STAR Story Matcher](../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/star-matcher.md)**
     
     ---
     
@@ -38,7 +43,7 @@
     
     **Features**: Story builder, question matching, coverage analysis
 
-- :material-database:{ .lg } **[Question Bank Explorer](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank/)**
+- :material-database:{ .lg } **[Question Bank Explorer](../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank.md)**
     
     ---
     

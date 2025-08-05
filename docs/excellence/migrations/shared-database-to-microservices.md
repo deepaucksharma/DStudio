@@ -1,3 +1,9 @@
+---
+title: Shared Database to Microservices Migration Guide
+description: Migrating from a shared database to microservices with isolated data stores is one of the most challenging architectural transformations. This guide p
+type: documentation
+---
+
 # Shared Database to Microservices Migration Guide
 
 ## Overview
@@ -529,7 +535,7 @@ kubectl scale deployments -l type=microservice --replicas=0
 
 ## Additional Resources
 
-- [Domain-Driven Design Patterns](/pattern-library/ddd.md)
-- [Microservices Data Patterns](/pattern-library/microservices-data.md)
-- [Event Sourcing Guide](/pattern-library/data-management/event-sourcing.md)
-- [Service Mesh Implementation](/pattern-library/communication/service-mesh.md)
+- [Domain-Driven Design Patterns](../../pattern-library/ddd.md)
+- [Microservices Data Patterns](../../pattern-library/microservices-data.md)
+- [Event Sourcing Guide](../../pattern-library/data-management/event-sourcing.md)
+- [Service Mesh Implementation](../../pattern-library/communication/service-mesh.md)

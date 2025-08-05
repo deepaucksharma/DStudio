@@ -1,3 +1,9 @@
+---
+title: Common Algorithm Patterns
+description: This reference covers the most frequently tested algorithmic patterns in coding interviews.
+type: interview-guide
+---
+
 # Common Algorithm Patterns
 
 This reference covers the most frequently tested algorithmic patterns in coding interviews.

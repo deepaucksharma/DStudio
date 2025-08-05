@@ -1,3 +1,9 @@
+---
+title: Performance Optimization Guide: Speed at Scale
+description: ```mermaid graph TD A[Performance Optimization] --> B[Measure] A --> C[Analyze] A --> D[Optimize] A --> E[Validate]
+type: guide
+---
+
 # Performance Optimization Guide: Speed at Scale
 
 ## Performance Optimization Framework

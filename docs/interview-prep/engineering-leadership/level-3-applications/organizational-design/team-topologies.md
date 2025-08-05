@@ -1,3 +1,9 @@
+---
+title: Team Topology Patterns for Engineering Leaders
+description: As an engineering leader, one of your most impactful decisions is how to organize teams. The wrong structure can create friction, slow velocity, and f
+type: interview-guide
+---
+
 # Team Topology Patterns for Engineering Leaders
 
 ## Overview

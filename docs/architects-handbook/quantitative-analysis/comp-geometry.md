@@ -1,3 +1,9 @@
+---
+title: Computational Geometry for Distributed Systems
+description: Computational geometry provides essential algorithms for spatial data processing in distributed systems, from geospatial queries to load balancing in
+type: documentation
+---
+
 # Computational Geometry for Distributed Systems
 
 ## Overview
@@ -375,7 +381,7 @@ P(point in region) = ∫∫ p(x,y) dx dy
 
 ## Related Topics
 
-- [Spatial Databases](/architects-handbook/quantitative-analysis/storage-engines/)
+- [Spatial Databases](../../architects-handbook/quantitative-analysis/storage-engines.md)
 - [Consistent Hashing](../case-studies/consistent-hashing.md)
 - [Location Services](../case-studies/proximity-service.md)
 - [Load Balancing](../pattern-library/scaling/load-balancing.md)

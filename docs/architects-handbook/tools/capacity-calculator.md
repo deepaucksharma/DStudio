@@ -1,3 +1,9 @@
+---
+title: Capacity Planning Calculator
+description: *Peak traffic as multiple of average*
+type: documentation
+---
+
 # Capacity Planning Calculator
 
 !!! info "Interactive Calculator"
@@ -171,8 +177,8 @@ Watch for these indicators that capacity planning is needed:
 - [Little's Law](quantitative/littles-law)
 - [Universal Scalability Law](quantitative/universal-scalability)
 - [Capacity Planning Guide](quantitative/capacity-planning)
-- [Auto-Scaling Pattern](../patterns/auto-scaling)
-- [Load Balancing Pattern](../patterns/load-balancing)
+- [Auto-Scaling Pattern](../pattern-library/scaling/auto-scaling)
+- [Load Balancing Pattern](../pattern-library/scaling/load-balancing)
 
 <script>
 // Enhanced capacity calculator with input validation and real-time updates

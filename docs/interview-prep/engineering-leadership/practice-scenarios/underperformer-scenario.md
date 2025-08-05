@@ -1,3 +1,9 @@
+---
+title: Managing Underperformers - Practice Scenario
+description: You have a senior engineer (L5/E5) on your team who was previously a high performer but has been underperforming for the past 3 months. Their code qua
+type: interview-guide
+---
+
 # Managing Underperformers - Practice Scenario
 
 ## Scenario Overview

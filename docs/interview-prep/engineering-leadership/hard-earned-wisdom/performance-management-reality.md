@@ -1,3 +1,9 @@
+---
+title: Performance Management: Beyond the HR Fairy Tales
+description: HR will tell you performance management is about "growth and development." The reality? It's about protecting the company from lawsuits while getting
+type: interview-guide
+---
+
 # Performance Management: Beyond the HR Fairy Tales
 
 ## The Ugly Truth About Performance

@@ -1,3 +1,8 @@
+---
+title: Core Principles
+description: Core Principles overview and navigation
+---
+
 # Core Principles
 
 Master the fundamental laws and pillars that govern all distributed systems.

@@ -1,44 +1,42 @@
 ---
-best-for: []
-category: architecture
-current_relevance: mainstream
-description: Eliminate resource contention by giving each node exclusive ownership
-  of its data and compute resources
+title: Shared Nothing Architecture
+description: Eliminate resource contention by giving each node exclusive ownership of its data and compute resources
+type: pattern
 difficulty: intermediate
-essential_question: How do we structure our system architecture to leverage shared
-  nothing architecture?
+reading_time: 15 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-01-26
 pattern_status: recommended
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+related_laws:
+  - correlated-failure
+  - emergent-chaos
+  - multidimensional-optimization
+category: architecture
+essential_question: How do we structure our system architecture to leverage shared nothing architecture?
+last_updated: 2025-01-26
 prerequisites:
-- sharding
-- distributed-storage
-reading-time: 15 min
-related-laws:
-- correlated-failure
-- emergent-chaos
-- multidimensional-optimization
-related-pillars:
-- work
-- state
+  - sharding
+  - distributed-storage
+related_pillars:
+  - work
+  - state
 status: complete
 tagline: Master shared nothing architecture for distributed systems success
-title: Shared Nothing Architecture
-trade-offs:
+trade_offs:
   cons: []
   pros: []
-type: pattern
-when-not-to-use:
-- Complex transactions across data
-- Shared state requirements
-- Small-scale applications
-- Strong consistency needs
-when-to-use:
-- Building horizontally scalable systems
-- Eliminating resource contention
-- Achieving linear scalability
-- Minimizing coordination overhead
+when_not_to_use:
+  - Complex transactions across data
+  - Shared state requirements
+  - Small-scale applications
+  - Strong consistency needs
+when_to_use:
+  - Building horizontally scalable systems
+  - Eliminating resource contention
+  - Achieving linear scalability
+  - Minimizing coordination overhead
 ---
 
 
@@ -225,10 +223,10 @@ class PartitionTolerantNode(Node):
 
 ## 🔗 Related Patterns
 
-- **[Sharding](/pattern-library/scaling/sharding/)**: Data partitioning strategy
-- **[Consistent Hashing](/pattern-library/data-management/consistent-hashing/)**: Partition assignment
-- **[Service Mesh](/pattern-library/communication/service-mesh/)**: Inter-node communication
-- **[Bulkhead](/pattern-library/resilience/bulkhead/)**: Fault isolation principle
+- **[Sharding](../../pattern-library/scaling/sharding.md)**: Data partitioning strategy
+- **[Consistent Hashing](../../pattern-library/data-management/consistent-hashing.md)**: Partition assignment
+- **[Service Mesh](../../pattern-library/communication/service-mesh.md)**: Inter-node communication
+- **[Bulkhead](../../pattern-library/resilience/bulkhead.md)**: Fault isolation principle
 
 *Start your journey with relatable analogies*
 

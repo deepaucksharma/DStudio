@@ -109,9 +109,9 @@ graph TB
 - Grid-based quantization
 
 **Patterns & Pillars Applied**:
-- Pattern: [Location Privacy](../patterns/location-privacy) - K-anonymity
-- Pattern: [Consent Management](../patterns/consent-management) - Mutual opt-in
-- 🏛 Pillar: [Control Distribution](../core-principles/pillars/control/index) - Privacy UX
+- Pattern: [Location Privacy](../pattern-library/location-privacy) - K-anonymity
+- Pattern: [Consent Management](../pattern-library/consent-management) - Mutual opt-in
+- 🏛 Pillar: [Control Distribution](../core-principles/pillars/control-distribution/) - Privacy UX
 - 🏛 Pillar: [Truth Distribution](../core-principles/pillars/truth) - Location accuracy
 
 ### Phase 4: Modern Distributed Architecture (2018-Present)
@@ -1696,32 +1696,32 @@ class PrivacyDashboard:
 
 ### 📚 Relevant Laws
 - **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality)** - Real-time location updates
-- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index)** - Battery and bandwidth limits
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/)** - Battery and bandwidth limits
 - **[Law 1: Failure](../core-principles/laws/correlated-failure)** - Privacy fail-safes
-- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index)** - Parallel proximity checks
-- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index)** - Consent synchronization and privacy analytics
-- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index)** - Privacy UX, battery life
-- **[Law 7: Economics](../core-principles/laws/economic-reality/index)** - Infrastructure costs
+- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/)** - Parallel proximity checks
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/)** - Consent synchronization and privacy analytics
+- **[Law 6: Human-API](../core-principles/laws/cognitive-load/)** - Privacy UX, battery life
+- **[Law 7: Economics](../core-principles/laws/economic-reality/)** - Infrastructure costs
 
 ### 🏛 Related Patterns
-- **[Location Privacy](../patterns/location-privacy)** - K-anonymity, fuzzing
-- **[Consent Management](../patterns/consent-management)** - GDPR compliance
-- **[Stream Processing](../patterns/queues-streaming)** - Real-time events
-- **[Edge Computing](../patterns/edge-computing)** - Regional processing
+- **[Location Privacy](../pattern-library/location-privacy)** - K-anonymity, fuzzing
+- **[Consent Management](../pattern-library/consent-management)** - GDPR compliance
+- **[Stream Processing](../pattern-library/scaling/queues-streaming)** - Real-time events
+- **[Edge Computing](../pattern-library/scaling/edge-computing)** - Regional processing
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
 - **Geofencing (Coming Soon)** - Location triggers
 - **Battery Optimization (Coming Soon)** - Mobile efficiency
 
 ### Quantitative Models
-- **[Privacy Metrics](../quantitative/privacy-metrics)** - K-anonymity, l-diversity
-- **[Battery Models](../quantitative/battery-models)** - Power consumption
-- **[Social Networks](../quantitative/social-networks)** - Friend graphs
-- **[Spatial Statistics](../quantitative/spatial-stats)** - Location clustering
+- **[Privacy Metrics](../quantitative-analysis/privacy-metrics)** - K-anonymity, l-diversity
+- **[Battery Models](../quantitative-analysis/battery-models)** - Power consumption
+- **[Social Networks](../quantitative-analysis/social-networks)** - Friend graphs
+- **[Spatial Statistics](../quantitative-analysis/spatial-stats)** - Location clustering
 
 ### Similar Case Studies
 - **[Find My Device](find-my-device.md.md)** - Apple/Google location
-- **[Snap Map](/architects-handbook/case-studies/location-services/snap-map/)** - Social location sharing
-- **[Life360](/architects-handbook/case-studies/location-services/life360/)** - Family location tracking
+- **[Snap Map](../../../architects-handbook/case-studies/location-services/snap-map.md)** - Social location sharing
+- **[Life360](../../../architects-handbook/case-studies/location-services/life360.md)** - Family location tracking
 - **[Strava Heatmaps](strava-heatmaps.md.md)** - Activity location privacy
 
 ## Implementation Best Practices

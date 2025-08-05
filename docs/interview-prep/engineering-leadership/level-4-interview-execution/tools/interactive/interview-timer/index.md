@@ -1,3 +1,8 @@
+---
+title: Interview Timer
+description: Interview Timer overview and navigation
+---
+
 # Interview Timer
 
 > **Note**: This interactive tool is under development.
@@ -16,6 +21,6 @@ The Interview Timer tool will help you practice and prepare for engineering lead
 ---
 
 **Related Tools:**
-- [All Interactive Tools](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/)
-- [STAR Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/)
-- [Practice Scenarios](/interview-prep/engineering-leadership/practice-scenarios/)
+- [All Interactive Tools](../../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index.md)
+- [STAR Framework](../../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index.md)
+- [Practice Scenarios](../../../../../../interview-prep/engineering-leadership/practice-scenarios/index.md)

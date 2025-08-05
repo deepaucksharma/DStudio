@@ -1,17 +1,15 @@
 ---
-best-for: []
-category: architecture
-current_relevance: mainstream
-description: Architectural pattern where components communicate through events, enabling
-  loose coupling and scalability
-essential_question: How do we structure our system architecture to leverage event-driven
-  architecture?
-excellence_tier: silver
-introduced: 2024-01
-pattern_status: recommended
-tagline: Master event-driven architecture for distributed systems success
 title: Event-Driven Architecture
-trade-offs:
+description: Architectural pattern where components communicate through events, enabling loose coupling and scalability
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: architecture
+essential_question: How do we structure our system architecture to leverage event-driven architecture?
+tagline: Master event-driven architecture for distributed systems success
+trade_offs:
   cons: []
   pros: []
 ---
@@ -552,5 +550,5 @@ graph TB
 
 ---
 
-**Previous**: [← Edge Computing/IoT Patterns](/pattern-library/scaling/edge-computing/) | **Next**: [Event Sourcing Pattern →](/pattern-library/data-management/event-sourcing/)
+**Previous**: [← Edge Computing/IoT Patterns](../../pattern-library/scaling/edge-computing.md) | **Next**: [Event Sourcing Pattern →](../../pattern-library/data-management/event-sourcing.md)
 

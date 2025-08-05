@@ -1,3 +1,8 @@
+---
+title: Finance
+description: Finance overview and navigation
+---
+
 # Finance for Engineering Leaders
 
 > "The best engineering decisions are financially sound business decisions." - Werner Vogels, CTO, Amazon

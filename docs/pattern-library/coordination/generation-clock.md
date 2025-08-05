@@ -1,42 +1,31 @@
 ---
-best-for:
-- Leader election protocols (Raft, Paxos)
-- Configuration versioning
-- Cluster membership changes
-- Database primary selection
-category: coordination
-current_relevance: mainstream
-description: Monotonic counter to detect stale leaders and prevent split-brain in
-  distributed systems
+title: Generation Clock
+description: Monotonic counter to detect stale leaders and prevent split-brain in distributed systems
+type: pattern
 difficulty: intermediate
-essential_question: How do we coordinate distributed components effectively using
-  generation clock?
+reading_time: 20 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-07-26
 pattern_status: recommended
+best_for:
+  - Leader election protocols (Raft, Paxos)
+  - Configuration versioning
+  - Cluster membership changes
+  - Database primary selection
+introduced: 2024-01
+current_relevance: mainstream
+category: coordination
+essential_question: How do we coordinate distributed components effectively using generation clock?
+last_updated: 2025-07-26
 prerequisites:
-- pattern-library/leader-election.md
-- pattern-library/consensus.md
-reading-time: 20 min
+  - pattern-library/leader-election.md
+  - pattern-library/consensus.md
 status: complete
 tagline: Master generation clock for distributed systems success
-title: Generation Clock
-trade-offs:
-  cons:
-  - Requires persistent storage
-  - Can grow unbounded
-  - No relation to real time
-  - Needs consensus for updates
-  pros:
-  - Simple monotonic counter
-  - Prevents split-brain scenarios
-  - No clock synchronization needed
-  - Survives network partitions
-type: pattern
-when-not-to-use: Simple systems without leadership, eventually consistent systems
-when-to-use: Leader election, split-brain prevention, configuration management, cluster
-  membership
+trade_offs:
+  cons: ['Requires persistent storage', 'Can grow unbounded', 'No relation to real time', 'Needs consensus for updates']
+  pros: ['Simple monotonic counter', 'Prevents split-brain scenarios', 'No clock synchronization needed', 'Survives network partitions']
+when_not_to_use: Simple systems without leadership, eventually consistent systems
+when_to_use: Leader election, split-brain prevention, configuration management, cluster membership
 ---
 
 ## Essential Question
@@ -69,7 +58,7 @@ when-to-use: Leader election, split-brain prevention, configuration management, 
 |----------|---------|-------------|
 | Eventually Consistent Systems | Unnecessary ordering overhead | [Vector Clocks](vector-clock.md) |
 | Single Node Systems | No leadership needed | Local counters |
-| Real-time Requirements | Logical ordering insufficient | [Physical Timestamps](/pattern-library/coordination/clock-sync/) |
+| Real-time Requirements | Logical ordering insufficient | [Physical Timestamps](../../pattern-library/coordination/clock-sync.md) |
 | Simple Request-Response | No coordination needed | Session tokens |
 
 ## Decision Matrix

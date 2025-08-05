@@ -1,57 +1,46 @@
 ---
-category: coordination
-current_relevance: mainstream
-description: Combine physical timestamps with logical counters to achieve causally
-  consistent timestamps that are close to wall-clock time while handling clock skew
+title: Hybrid Logical Clocks (HLC)
+description: Combine physical timestamps with logical counters to achieve causally consistent timestamps that are close to wall-clock time while handling clock skew
+type: pattern
 difficulty: advanced
-essential_question: How do we coordinate distributed components effectively using
-  hybrid logical clocks (hlc)?
+reading_time: 35 min
 excellence_tier: gold
-introduced: 2014-01
-last-updated: 2025-07-26
-modern-examples:
-- company: CockroachDB
-  implementation: HLC for distributed SQL with global consistency
-  scale: Petabyte-scale clusters with microsecond precision
-- company: MongoDB
-  implementation: Cluster-wide logical timestamps for causal consistency
-  scale: Millions of operations/sec with session guarantees
-- company: YugabyteDB
-  implementation: HLC-based multi-version concurrency control
-  scale: Global deployments with consistent snapshots
 pattern_status: recommended
+introduced: 2014-01
+current_relevance: mainstream
+tags:
+  - time-synchronization
+  - causality
+  - distributed-clocks
+  - hybrid-time
+  - global-transactions
+category: coordination
+essential_question: How do we coordinate distributed components effectively using hybrid logical clocks (hlc)?
+last_updated: 2025-07-26
+modern_examples:
+  - {'company': 'CockroachDB', 'implementation': 'HLC for distributed SQL with global consistency', 'scale': 'Petabyte-scale clusters with microsecond precision'}
+  - {'company': 'MongoDB', 'implementation': 'Cluster-wide logical timestamps for causal consistency', 'scale': 'Millions of operations/sec with session guarantees'}
+  - {'company': 'YugabyteDB', 'implementation': 'HLC-based multi-version concurrency control', 'scale': 'Global deployments with consistent snapshots'}
 prerequisites:
-- logical-clocks
-- vector-clocks
-- clock-sync
-- distributed-systems
-production-checklist:
-- Configure NTP with tight bounds (<100ms drift)
-- Set appropriate clock uncertainty windows
-- Implement clock jump detection and handling
-- Monitor clock skew between nodes
-- Configure HLC tick interval (typically 1-10ms)
-- Implement timestamp persistence across restarts
-- Test behavior under clock adjustments
-- Set up alerts for excessive clock drift
-- Plan for timestamp overflow (64-bit limits)
-- Document timestamp ordering guarantees
-reading-time: 35 min
+  - logical-clocks
+  - vector-clocks
+  - clock-sync
+  - distributed-systems
+production_checklist:
+  - Configure NTP with tight bounds (<100ms drift)
+  - Set appropriate clock uncertainty windows
+  - Implement clock jump detection and handling
+  - Monitor clock skew between nodes
+  - Configure HLC tick interval (typically 1-10ms)
+  - Implement timestamp persistence across restarts
+  - Test behavior under clock adjustments
+  - Set up alerts for excessive clock drift
+  - Plan for timestamp overflow (64-bit limits)
+  - Document timestamp ordering guarantees
 status: complete
 tagline: Master hybrid logical clocks (hlc) for distributed systems success
-tags:
-- time-synchronization
-- causality
-- distributed-clocks
-- hybrid-time
-- global-transactions
-title: Hybrid Logical Clocks (HLC)
-type: pattern
-when-not-to-use: When pure logical ordering suffices, systems with perfect clock sync,
-  when vector clock overhead is acceptable
-when-to-use: When you need both wall-clock time approximation and causal consistency,
-  distributed databases with global transactions, event ordering with human-readable
-  timestamps
+when_not_to_use: When pure logical ordering suffices, systems with perfect clock sync, when vector clock overhead is acceptable
+when_to_use: When you need both wall-clock time approximation and causal consistency, distributed databases with global transactions, event ordering with human-readable timestamps
 ---
 
 
@@ -286,11 +275,11 @@ graph LR
 
 ## Related Patterns
 
-- [Logical Clocks](/pattern-library/coordination/logical-clocks/) - Simpler causality tracking
-- [Vector Clocks](/pattern-library/coordination/logical-clocks/) - Full concurrency detection
-- [Clock Synchronization](/pattern-library/coordination/clock-sync/) - Physical time coordination
-- [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Event streams with HLC
-- [Consensus](/pattern-library/coordination/consensus/) - Often combined with HLC
+- [Logical Clocks](../../pattern-library/coordination/logical-clocks.md) - Simpler causality tracking
+- [Vector Clocks](../../pattern-library/coordination/logical-clocks.md) - Full concurrency detection
+- [Clock Synchronization](../../pattern-library/coordination/clock-sync.md) - Physical time coordination
+- [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Event streams with HLC
+- [Consensus](../../pattern-library/coordination/consensus.md) - Often combined with HLC
 
 ## References
 

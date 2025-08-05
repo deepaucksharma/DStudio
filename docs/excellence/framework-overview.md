@@ -1,3 +1,9 @@
+---
+title: Excellence Framework Visual Overview
+description: ```mermaid graph TB subgraph "Foundation Layer" A1[7 Axioms] --> A2[5 Pillars] A2 --> A3[Core Patterns]
+type: documentation
+---
+
 # Excellence Framework Visual Overview
 
 ## 🎯 The Complete Excellence Journey

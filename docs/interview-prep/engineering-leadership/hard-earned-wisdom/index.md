@@ -1,3 +1,8 @@
+---
+title: Hard Earned Wisdom
+description: Hard Earned Wisdom overview and navigation
+---
+
 # Hard-Earned Wisdom: The Unwritten Rules of Engineering Leadership
 
 > What they don't teach you in management training - learned through years of mistakes, failures, and eventual success
@@ -45,7 +50,7 @@ This wisdom builds upon and challenges the foundational principles:
 
 <div class="grid cards" markdown>
 
-- :material-fire:{ .lg } **[Managing Up: The Dark Art](/interview-prep/engineering-leadership/hard-earned-wisdom/managing-up-dark-art/)**
+- :material-fire:{ .lg } **[Managing Up: The Dark Art](../../../interview-prep/engineering-leadership/hard-earned-wisdom/managing-up-dark-art.md)**
     
     ---
     
@@ -54,7 +59,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: Decision-Making, Systems Thinking, Integrity
     **Reality Level**: Brutal
 
-- :material-skull:{ .lg } **[Performance Management: Beyond the Textbook](/interview-prep/engineering-leadership/hard-earned-wisdom/performance-management-reality/)**
+- :material-skull:{ .lg } **[Performance Management: Beyond the Textbook](../../../interview-prep/engineering-leadership/hard-earned-wisdom/performance-management-reality.md)**
     
     ---
     
@@ -63,7 +68,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: Human Behavior, Value Creation, Ethics
     **Reality Level**: Harsh
 
-- :material-bomb:{ .lg } **[Crisis Leadership: When Everything Burns](/interview-prep/engineering-leadership/hard-earned-wisdom/crisis-leadership-reality/)**
+- :material-bomb:{ .lg } **[Crisis Leadership: When Everything Burns](../../../interview-prep/engineering-leadership/hard-earned-wisdom/crisis-leadership-reality.md)**
     
     ---
     
@@ -72,7 +77,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: All Five Principles Under Fire
     **Reality Level**: Critical
 
-- :material-chess:{ .lg } **[Organizational Politics: Playing the Game](/interview-prep/engineering-leadership/hard-earned-wisdom/organizational-politics-mastery/)**
+- :material-chess:{ .lg } **[Organizational Politics: Playing the Game](../../../interview-prep/engineering-leadership/hard-earned-wisdom/organizational-politics-mastery.md)**
     
     ---
     
@@ -81,7 +86,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: Systems Thinking, Human Behavior, Strategy
     **Reality Level**: Essential
 
-- :material-scale-balance:{ .lg } **[Impossible Decisions: No-Win Scenarios](/interview-prep/engineering-leadership/hard-earned-wisdom/impossible-decisions/)**
+- :material-scale-balance:{ .lg } **[Impossible Decisions: No-Win Scenarios](../../../interview-prep/engineering-leadership/hard-earned-wisdom/impossible-decisions.md)**
     
     ---
     
@@ -90,7 +95,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: Decision-Making, Integrity, Value Creation
     **Reality Level**: Soul-crushing
 
-- :material-heart-broken:{ .lg } **[The Human Cost: Mental Health & Burnout](/interview-prep/engineering-leadership/hard-earned-wisdom/human-cost-leadership/)**
+- :material-heart-broken:{ .lg } **[The Human Cost: Mental Health & Burnout](../../../interview-prep/engineering-leadership/hard-earned-wisdom/human-cost-leadership.md)**
     
     ---
     
@@ -181,12 +186,12 @@ No matter how hard you try, you will let someone down. The question is whether y
 4. **Maintain Perspective**: Remember why you lead
 
 ### Navigation by Situation
-- **Facing a Crisis?** → Start with [Crisis Leadership](/interview-prep/engineering-leadership/hard-earned-wisdom/crisis-leadership-reality/)
-- **Political Warfare?** → See [Organizational Politics](/interview-prep/engineering-leadership/hard-earned-wisdom/organizational-politics-mastery/)
-- **Impossible Choice?** → Read [Impossible Decisions](/interview-prep/engineering-leadership/hard-earned-wisdom/impossible-decisions/)
-- **Team Issues?** → Check [Performance Management](/interview-prep/engineering-leadership/hard-earned-wisdom/performance-management-reality/)
-- **Executive Problems?** → Study [Managing Up](/interview-prep/engineering-leadership/hard-earned-wisdom/managing-up-dark-art/)
-- **Personal Cost?** → Visit [Human Cost](/interview-prep/engineering-leadership/hard-earned-wisdom/human-cost-leadership/)
+- **Facing a Crisis?** → Start with [Crisis Leadership](../../../interview-prep/engineering-leadership/hard-earned-wisdom/crisis-leadership-reality.md)
+- **Political Warfare?** → See [Organizational Politics](../../../interview-prep/engineering-leadership/hard-earned-wisdom/organizational-politics-mastery.md)
+- **Impossible Choice?** → Read [Impossible Decisions](../../../interview-prep/engineering-leadership/hard-earned-wisdom/impossible-decisions.md)
+- **Team Issues?** → Check [Performance Management](../../../interview-prep/engineering-leadership/hard-earned-wisdom/performance-management-reality.md)
+- **Executive Problems?** → Study [Managing Up](../../../interview-prep/engineering-leadership/hard-earned-wisdom/managing-up-dark-art.md)
+- **Personal Cost?** → Visit [Human Cost](../../../interview-prep/engineering-leadership/hard-earned-wisdom/human-cost-leadership.md)
 
 ## ⚠️ Warning
 

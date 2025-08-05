@@ -399,7 +399,7 @@ graph TB
 ```
 
 **Key Design Decision: CDN for Static Content**
-- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](../core-principles/pillars/work/index.md))
+- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](../core-principles/pillars/work-distribution/index.md))
 - **Choice**: Pay for CDN to achieve global scale
 - **Result**: 70% reduction in origin bandwidth
 - **Pattern Applied**: [Edge Computing](../pattern-library/scaling/edge-computing.md)
@@ -1397,14 +1397,14 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
-- **[Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
-- **[Law 1: Failure](/core-principles/laws/correlated-failure/)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
-- **[Law 3: Emergence](/core-principles/laws/emergent-chaos/)** - Millions of concurrent uploads/views require distributed processing pipelines
-- **[Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/)** - Global CDN cache invalidation and content synchronization challenges
-- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - Real-time monitoring of video quality, buffering, and viewer engagement
-- **[Law 6: Human-API](/core-principles/laws/cognitive-load/)** - Adaptive UI for different devices and network conditions
-- **[Law 7: Economics](/core-principles/laws/economic-reality/)** - Bandwidth costs (40% of total) drive compression and quality optimization
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality/)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization/)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure/)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos/)** - Millions of concurrent uploads/views require distributed processing pipelines
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization/)** - Global CDN cache invalidation and content synchronization challenges
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge/)** - Real-time monitoring of video quality, buffering, and viewer engagement
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load/)** - Adaptive UI for different devices and network conditions
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality/)** - Bandwidth costs (40% of total) drive compression and quality optimization
 
 ### 🏛 Related Patterns (Part III)
 - **[Edge Computing](../pattern-library/scaling/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs
@@ -1416,22 +1416,22 @@ graph TB
 - **[Graceful Degradation](../pattern-library/resilience/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
 
 ### Quantitative Models
-- **[Power Laws](../quantitative/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers
+- **[Power Laws](../quantitative-analysis/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers
 - **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
 - **[Queueing Theory](../../quantitative-analysis/queueing-models.md.md)** - Transcoding queue optimization for different video priorities
-- **[Information Theory](../quantitative/information-theory.md)** - Video compression algorithms and bandwidth optimization
+- **[Information Theory](../quantitative-analysis/information-theory.md)** - Video compression algorithms and bandwidth optimization
 
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices.md)** - Managing global video infrastructure at scale
-- **[Capacity Planning](../quantitative/capacity-planning.md)** - Predicting and provisioning for viral videos
-- **[Incident Response](/architects-handbook/human-factors/incident-response/)** - Handling regional CDN failures and live stream issues
+- **[Capacity Planning](../quantitative-analysis/capacity-planning.md)** - Predicting and provisioning for viral videos
+- **[Incident Response](../../../architects-handbook/human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
 - **[Observability Tools](../human-factors/observability-stacks.md)** - Video quality metrics and viewer experience monitoring
 
 ### Similar Case Studies
-- **[Spotify Recommendations](/architects-handbook/case-studies/search-analytics/spotify-recommendations/)** - Similar ML-driven content discovery challenges
-- **[News Feed System](/architects-handbook/case-studies/social-communication/news-feed/)** - Personalized content distribution at scale
-- **[Uber's Location System](/architects-handbook/case-studies/location-services/uber-location/)** - Real-time data processing for live streaming
-- **[Amazon DynamoDB](/architects-handbook/case-studies/databases/amazon-dynamo/)** - Metadata storage for billions of videos requires similar scale
+- **[Spotify Recommendations](../../../architects-handbook/case-studies/search-analytics/spotify-recommendations.md)** - Similar ML-driven content discovery challenges
+- **[News Feed System](../../../architects-handbook/case-studies/social-communication/news-feed.md)** - Personalized content distribution at scale
+- **[Uber's Location System](../../../architects-handbook/case-studies/location-services/uber-location.md)** - Real-time data processing for live streaming
+- **[Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Metadata storage for billions of videos requires similar scale
 
 ---
 

@@ -1,28 +1,25 @@
 ---
-best-for: []
-category: coordination
-current_relevance: mainstream
-description: Distributed mechanism for monitoring state changes and notifying interested
-  parties in real-time
-difficulty: advanced
-essential_question: How do we coordinate distributed components effectively using
-  state watch (change notification) pattern?
-excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-07-26
-pattern_status: recommended
-prerequisites: []
-reading-time: 40 min
-status: complete
-tagline: Master state watch (change notification) pattern for distributed systems
-  success
 title: State Watch (Change Notification) Pattern
-trade-offs:
+description: Distributed mechanism for monitoring state changes and notifying interested parties in real-time
+type: pattern
+difficulty: advanced
+reading_time: 40 min
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: coordination
+essential_question: How do we coordinate distributed components effectively using state watch (change notification) pattern?
+last_updated: 2025-07-26
+prerequisites:
+status: complete
+tagline: Master state watch (change notification) pattern for distributed systems success
+trade_offs:
   cons: []
   pros: []
-type: pattern
-when-not-to-use: When polling is sufficient or changes are infrequent
-when-to-use: When systems need real-time notification of state changes
+when_not_to_use: When polling is sufficient or changes are infrequent
+when_to_use: When systems need real-time notification of state changes
 ---
 
 
@@ -204,11 +201,11 @@ graph TD
 
 ## Related Patterns
 
-- [Distributed Lock](/pattern-library/coordination/distributed-lock/) - Often uses watches for efficiency
-- [Leader Election](/pattern-library/coordination/leader-election/) - Watches detect leader changes
-- [Service Discovery](/pattern-library/communication/service-discovery/) - Real-time service updates
-- [Consensus](/pattern-library/coordination/consensus/) - Watch for consensus state changes
-- [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Alternative to state watching
+- [Distributed Lock](../../pattern-library/coordination/distributed-lock.md) - Often uses watches for efficiency
+- [Leader Election](../../pattern-library/coordination/leader-election.md) - Watches detect leader changes
+- [Service Discovery](../../pattern-library/communication/service-discovery.md) - Real-time service updates
+- [Consensus](../../pattern-library/coordination/consensus.md) - Watch for consensus state changes
+- [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Alternative to state watching
 
 ---
 

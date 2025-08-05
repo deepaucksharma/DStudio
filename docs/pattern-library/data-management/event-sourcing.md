@@ -1,33 +1,26 @@
 ---
-category: data-management
-current_relevance: mainstream
-description: Data management pattern that stores all changes as immutable events,
-  enabling audit trails and time travel
-essential_question: How do we ensure data consistency and reliability with event sourcing?
-excellence_tier: gold
-introduced: 2005-05
-modern-examples:
-- company: PayPal
-  implementation: Event-driven transaction processing for 350M+ accounts
-  scale: Billions of events daily with complete audit history
-- company: Walmart
-  implementation: Inventory and order management across 11,000+ stores
-  scale: 100M+ daily order events with real-time analytics
-- company: Goldman Sachs
-  implementation: Trading platform with complete transaction history
-  scale: Trillions in daily volume with microsecond-level event capture
-pattern_status: recommended
-production-checklist:
-- Design event schema with forward compatibility
-- Implement event versioning strategy from day one
-- Set up snapshot mechanisms for performance
-- Plan storage retention policies and archiving
-- Monitor event store growth and query performance
-- Implement GDPR-compliant event anonymization
-- Test replay scenarios and recovery procedures
-- Design projection update strategies
-tagline: Master event sourcing for distributed systems success
 title: Event Sourcing
+description: Data management pattern that stores all changes as immutable events, enabling audit trails and time travel
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2005-05
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with event sourcing?
+modern_examples:
+  - {'company': 'PayPal', 'implementation': 'Event-driven transaction processing for 350M+ accounts', 'scale': 'Billions of events daily with complete audit history'}
+  - {'company': 'Walmart', 'implementation': 'Inventory and order management across 11,000+ stores', 'scale': '100M+ daily order events with real-time analytics'}
+  - {'company': 'Goldman Sachs', 'implementation': 'Trading platform with complete transaction history', 'scale': 'Trillions in daily volume with microsecond-level event capture'}
+production_checklist:
+  - Design event schema with forward compatibility
+  - Implement event versioning strategy from day one
+  - Set up snapshot mechanisms for performance
+  - Plan storage retention policies and archiving
+  - Monitor event store growth and query performance
+  - Implement GDPR-compliant event anonymization
+  - Test replay scenarios and recovery procedures
+  - Design projection update strategies
+tagline: Master event sourcing for distributed systems success
 ---
 
 
@@ -285,13 +278,13 @@ event_sourcing:
 - **[Event-Driven Architecture](../communication/event-driven.md)**: Foundation for event flow
 
 ### Supporting Patterns
-- **[Snapshot](../patterns/snapshot.md)**: Performance optimization
-- **[Memento](../patterns/memento.md)**: State reconstruction
-- **[Message Store](../patterns/message-store.md)**: Event persistence
+- **[Snapshot](../pattern-library/snapshot.md)**: Performance optimization
+- **[Memento](../pattern-library/memento.md)**: State reconstruction
+- **[Message Store](../pattern-library/message-store.md)**: Event persistence
 
 ### Alternative Approaches
 - **[Change Data Capture](./cdc.md)**: Database-level event capture
-- **[Audit Log](../patterns/audit-log.md)**: Simpler alternative
+- **[Audit Log](../pattern-library/audit-log.md)**: Simpler alternative
 - **[Write-Ahead Log](./wal.md)**: Similar append-only concept
 
 ## Further Reading

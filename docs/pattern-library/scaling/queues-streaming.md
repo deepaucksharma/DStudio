@@ -1,42 +1,34 @@
 ---
-category: scaling
-current_relevance: mainstream
+title: Queues & Stream Processing
 description: Decouple producers from consumers using message queues and event streams
+type: pattern
 difficulty: intermediate
-essential_question: How do we handle increasing load without sacrificing performance
-  using queues & stream processing?
+reading_time: 35 min
 excellence_tier: gold
-introduced: 2011-01
-last-updated: 2025-07-21
-modern-examples:
-- company: Uber
-  implementation: Apache Kafka processes all trip events and driver matching
-  scale: 1M+ messages/second for real-time trip processing
-- company: LinkedIn
-  implementation: Kafka Streams for real-time member activity processing
-  scale: 7 trillion messages/day across all pipelines
-- company: Netflix
-  implementation: Amazon Kinesis for real-time viewing analytics
-  scale: 500B+ events/day for personalization
 pattern_status: recommended
-prerequisites: null
-production-checklist:
-- Choose between queues (SQS/RabbitMQ) vs streams (Kafka/Kinesis)
-- Design partition strategy for parallel processing
-- Configure retention period based on replay requirements
-- Implement consumer group management for scaling
-- Monitor consumer lag and throughput metrics
-- Set up dead letter queues for failed messages
-- Plan for exactly-once vs at-least-once semantics
-- Implement backpressure and flow control mechanisms
-reading-time: 35 min
+introduced: 2011-01
+current_relevance: mainstream
+category: scaling
+essential_question: How do we handle increasing load without sacrificing performance using queues & stream processing?
+last_updated: 2025-07-21
+modern_examples:
+  - {'company': 'Uber', 'implementation': 'Apache Kafka processes all trip events and driver matching', 'scale': '1M+ messages/second for real-time trip processing'}
+  - {'company': 'LinkedIn', 'implementation': 'Kafka Streams for real-time member activity processing', 'scale': '7 trillion messages/day across all pipelines'}
+  - {'company': 'Netflix', 'implementation': 'Amazon Kinesis for real-time viewing analytics', 'scale': '500B+ events/day for personalization'}
+prerequisites: None
+production_checklist:
+  - Choose between queues (SQS/RabbitMQ) vs streams (Kafka/Kinesis)
+  - Design partition strategy for parallel processing
+  - Configure retention period based on replay requirements
+  - Implement consumer group management for scaling
+  - Monitor consumer lag and throughput metrics
+  - Set up dead letter queues for failed messages
+  - Plan for exactly-once vs at-least-once semantics
+  - Implement backpressure and flow control mechanisms
 status: complete
 tagline: Master queues & stream processing for distributed systems success
-title: Queues & Stream Processing
-type: pattern
-when-not-to-use: Synchronous request-response, low latency requirements, simple direct
-  calls
-when-to-use: Handling traffic spikes, decoupling services, event streaming, work distribution
+when_not_to_use: Synchronous request-response, low latency requirements, simple direct calls
+when_to_use: Handling traffic spikes, decoupling services, event streaming, work distribution
 ---
 
 
@@ -313,7 +305,7 @@ graph TD
  2. **[Law 2 (Asynchronous Reality ⏳/index)](../../core-principles/laws/asynchronous-reality)**: Decoupling reduces blocking
  3. **[Law 1 (Correlated Failure ⛓️/index)](../../core-principles/laws/correlated-failure)**: Messages survive consumer failures
  4. **[Law 4 (Multidimensional Optimization ⚖️/index)](../../core-principles/laws/multidimensional-optimization)**: Async coordination via messages
- 5. **[Law 5 (Distributed Knowledge 🧠/index)](core-principles/laws/distributed-knowledge/index)**: Message flow visibility
+ 5. **[Law 5 (Distributed Knowledge 🧠/index)](core-principles/laws/distributed-knowledge/)**: Message flow visibility
 
 ### Future Directions
 
@@ -367,7 +359,7 @@ graph TD
 ### Laws
 - [Law 4 (Multidimensional Optimization )](../../core-principles/laws/multidimensional-optimization) - Why buffering matters
 - [Law 2 (Asynchronous Reality /index)](../../core-principles/laws/asynchronous-reality) - Async vs sync trade-offs
-- [Law 1 (Correlated Failure /index)](core-principles/laws/correlated-failure/index) - Message durability
+- [Law 1 (Correlated Failure /index)](core-principles/laws/correlated-failure/) - Message durability
 
 ### Further Reading
 - [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly
@@ -389,6 +381,6 @@ graph TD
 
 <div class="prev-link">
 <a href="/pattern-library/index.md">← Previous: Patterns Overview</a>
-<a href="/pattern-library/cqrs">Next: CQRS →</a>
+<a href="/pattern-library/data-management/cqrs">Next: CQRS →</a>
 </div>
 

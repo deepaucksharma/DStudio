@@ -1,3 +1,10 @@
+---
+type: pattern
+category: scaling
+title: Index
+description: 'TODO: Add description'
+---
+
 # Scaling Patterns
 
 Patterns for horizontal scaling, load distribution, and performance optimization.
@@ -70,4 +77,4 @@ For a typical scaling journey:
 
 ---
 
-*Return to the [Pattern Library](../) or explore [Data Management Patterns](/pattern-library/data-management/index/).*
+*Return to the [Pattern Library](../) or explore [Data Management Patterns](../../pattern-library/data-management/index.md).*

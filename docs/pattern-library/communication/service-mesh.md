@@ -1,34 +1,22 @@
 ---
-best-for:
-- Large microservice deployments (>20 services)
-- Multi-team organizations needing consistency
-- Zero-trust security requirements
-- Complex traffic patterns (A/B, canary)
-- Regulatory compliance needs
-category: communication
-current_relevance: mainstream
-description: Infrastructure layer providing service-to-service communication, security,
-  and observability
-essential_question: How do we enable efficient communication between services using
-  service mesh?
-excellence_tier: silver
-introduced: 2024-01
-pattern_status: recommended
-tagline: Master service mesh for distributed systems success
 title: Service Mesh
-trade-offs:
-  cons:
-  - Operational complexity to manage
-  - Performance overhead (~1-2ms latency)
-  - Resource consumption (sidecars)
-  - Learning curve for teams
-  - Debugging complexity with proxies
-  pros:
-  - Centralized control of service communication
-  - Automatic mTLS and security policies
-  - Built-in observability (traces, metrics, logs)
-  - Traffic management capabilities
-  - Consistent policies across services
+description: Infrastructure layer providing service-to-service communication, security, and observability
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+  - Large microservice deployments (>20 services)
+  - Multi-team organizations needing consistency
+  - Zero-trust security requirements
+  - Complex traffic patterns (A/B, canary)
+  - Regulatory compliance needs
+introduced: 2024-01
+current_relevance: mainstream
+category: communication
+essential_question: How do we enable efficient communication between services using service mesh?
+tagline: Master service mesh for distributed systems success
+trade_offs:
+  cons: ['Operational complexity to manage', 'Performance overhead (~1-2ms latency)', 'Resource consumption (sidecars)', 'Learning curve for teams', 'Debugging complexity with proxies']
+  pros: ['Centralized control of service communication', 'Automatic mTLS and security policies', 'Built-in observability (traces, metrics, logs)', 'Traffic management capabilities', 'Consistent policies across services']
 ---
 
 

@@ -1,3 +1,9 @@
+---
+title: Resilience-First Engineering: Building Systems That Survive
+description: ```mermaid graph TD A[Resilience Foundation] --> B[Failure Detection] A --> C[Failure Isolation] A --> D[Failure Recovery]
+type: guide
+---
+
 # Resilience-First Engineering: Building Systems That Survive
 
 ## The Resilience Pyramid
@@ -343,4 +349,4 @@ graph TD
 - [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md) (Gold)
 - [Bulkhead Pattern](../pattern-library/resilience/bulkhead.md) (Gold)
 - [Chaos Engineering](../../human-factors/chaos-engineering.md)
-- [Cell-based Architecture](../pattern-library/cell-based.md) (Gold)
+- [Cell-based Architecture](../pattern-library/architecture/cell-based.md) (Gold)

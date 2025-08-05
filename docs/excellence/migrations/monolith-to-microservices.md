@@ -1,3 +1,9 @@
+---
+title: Monolith to Microservices Migration Guide
+description: This guide focuses on migrating monolithic applications to microservices using proven patterns and avoiding common pitfalls. The key is not to blindly
+type: documentation
+---
+
 # Monolith to Microservices Migration Guide
 
 ## Overview
@@ -719,7 +725,7 @@ success_metrics:
 
 ## Additional Resources
 
-- [Domain-Driven Design](/pattern-library/domain-driven-design.md)
-- [Service Mesh Patterns](/pattern-library/communication/service-mesh.md)
-- [Event-Driven Architecture](/pattern-library/architecture/event-driven.md)
-- [Microservices Security](/security/microservices-security.md)
+- [Domain-Driven Design](../../pattern-library/domain-driven-design.md)
+- [Service Mesh Patterns](../../pattern-library/communication/service-mesh.md)
+- [Event-Driven Architecture](../../pattern-library/architecture/event-driven.md)
+- [Microservices Security](../../security/microservices-security.md)

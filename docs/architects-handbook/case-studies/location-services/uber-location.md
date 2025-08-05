@@ -344,7 +344,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-hexagon-multiple:{ .lg .middle } **[Geospatial Indexing](../patterns/spatial-indexing)** 🥇
+- :material-hexagon-multiple:{ .lg .middle } **[Geospatial Indexing](../pattern-library/spatial-indexing)** 🥇
     
     ---
     
@@ -356,7 +356,7 @@ graph LR
     
     **Open Source**: [H3 Library](https://h3geo.org)
 
-- :material-broadcast:{ .lg .middle } **[Event Streaming](../patterns/event-streaming)** 🥇
+- :material-broadcast:{ .lg .middle } **[Event Streaming](../pattern-library/architecture/event-streaming)** 🥇
     
     ---
     
@@ -368,7 +368,7 @@ graph LR
     
     **Key Learning**: Partitioned by geohash for locality
 
-- :material-layers-triple:{ .lg .middle } **[Multi-Level Cache](../patterns/caching-strategies)** 🥇
+- :material-layers-triple:{ .lg .middle } **[Multi-Level Cache](../pattern-library/scaling/caching-strategies)** 🥇
     
     ---
     
@@ -380,7 +380,7 @@ graph LR
     
     **Success Metric**: 95% L1/L2 hit rate
 
-- :material-cloud-outline:{ .lg .middle } **[Edge Computing](../patterns/edge-computing)** 🥇
+- :material-cloud-outline:{ .lg .middle } **[Edge Computing](../pattern-library/scaling/edge-computing)** 🥇
     
     ---
     
@@ -396,7 +396,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-sine-wave:{ .lg .middle } **[Adaptive Sampling](../patterns/adaptive-sampling)** 🥈
+- :material-sine-wave:{ .lg .middle } **[Adaptive Sampling](../pattern-library/adaptive-sampling)** 🥈
     
     ---
     
@@ -406,7 +406,7 @@ graph LR
     
     **Trade-off**: Slight accuracy loss when accelerating
 
-- :material-crystal-ball:{ .lg .middle } **[Predictive Caching](../patterns/predictive-caching)** 🥈
+- :material-crystal-ball:{ .lg .middle } **[Predictive Caching](../pattern-library/predictive-caching)** 🥈
     
     ---
     
@@ -416,7 +416,7 @@ graph LR
     
     **Trade-off**: 20% more cache storage needed
 
-- :material-puzzle:{ .lg .middle } **[Data Partitioning](../patterns/data-partitioning)** 🥈
+- :material-puzzle:{ .lg .middle } **[Data Partitioning](../pattern-library/data-partitioning)** 🥈
     
     ---
     
@@ -453,26 +453,26 @@ Uber's location system evolution (2009-2015):
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](/core-principles/laws/correlated-failure/) - Multi-region prevents city-wide outages
-- [Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/) - Edge servers handle network latency
-- [Law 3: Emergent Chaos](/core-principles/laws/emergent-chaos/) - Event-driven handles 1M updates/sec
-- [Law 4: Multidimensional Optimization](/core-principles/laws/multidimensional-optimization/) - Battery vs accuracy trade-offs
+- [Law 1: Correlated Failure](../../../core-principles/laws/correlated-failure/) - Multi-region prevents city-wide outages
+- [Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality/) - Edge servers handle network latency
+- [Law 3: Emergent Chaos](../../../core-principles/laws/emergent-chaos/) - Event-driven handles 1M updates/sec
+- [Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization/) - Battery vs accuracy trade-offs
 
 ### Related Patterns
-- [Geospatial Indexing](../patterns/spatial-indexing.md) - H3 hexagonal grid system
+- [Geospatial Indexing](../pattern-library/spatial-indexing.md) - H3 hexagonal grid system
 - [Event Streaming](../pattern-library/architecture/event-streaming.md) - Kafka processing 100M events/day
 - [Edge Computing](../pattern-library/scaling/edge-computing.md) - 200+ edge locations globally
-- [Time-Series Storage](../patterns/time-series-ids.md) - Cassandra for location history
+- [Time-Series Storage](../pattern-library/time-series-ids.md) - Cassandra for location history
 
 ### Related Pillars
-- [Pillar 1: Work](../core-principles/pillars/work/index.md) - Geospatial sharding across regions
-- [Pillar 2: State](../core-principles/pillars/state/index.md) - Multi-layer location caching
-- [Pillar 5: Intelligence](../core-principles/pillars/intelligence/index.md) - ML-based ETA prediction
+- [Pillar 1: Work](../core-principles/pillars/work-distribution/index.md) - Geospatial sharding across regions
+- [Pillar 2: State](../core-principles/pillars/state-distribution/index.md) - Multi-layer location caching
+- [Pillar 5: Intelligence](../core-principles/pillars/intelligence-distribution/index.md) - ML-based ETA prediction
 
 ### Case Studies
-- [Google Maps](/architects-handbook/case-studies/location-services/google-maps/) - Similar scale location challenges
-- [Uber Maps](/architects-handbook/case-studies/location-services/uber-maps/) - Mapping infrastructure for location services
-- [Nearby Friends](/architects-handbook/case-studies/location-services/nearby-friends/) - Location-based proximity service
+- [Google Maps](../../../architects-handbook/case-studies/location-services/google-maps.md) - Similar scale location challenges
+- [Uber Maps](../../../architects-handbook/case-studies/location-services/uber-maps.md) - Mapping infrastructure for location services
+- [Nearby Friends](../../../architects-handbook/case-studies/location-services/nearby-friends.md) - Location-based proximity service
 
 ## Takeaways for Your System
 
@@ -485,23 +485,23 @@ Uber's location system evolution (2009-2015):
 ## Cross-References to Fundamental Laws
 
 ### Related Laws (Part I.md)
-- **[Law 1: Correlated Failure](/core-principles/laws/correlated-failure/)** - Multi-region deployment prevents city-wide service outages during infrastructure failures
-- **[Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)** - Edge servers and predictive updates compensate for mobile network latency
-- **[Law 3: Emergent Chaos](/core-principles/laws/emergent-chaos/)** - Event-driven architecture handles millions of concurrent location updates
-- **[Law 4: Multidimensional Optimization](/core-principles/laws/multidimensional-optimization/)** - Balance battery life, accuracy, and real-time requirements through adaptive algorithms
-- **[Law 5: Distributed Knowledge](/core-principles/laws/distributed-knowledge/)** - Comprehensive monitoring of location quality and system health across global infrastructure
-- **[Law 6: Cognitive Load](/core-principles/laws/cognitive-load/)** - H3 indexing simplifies complex geospatial operations for developers
-- **[Law 7: Economic Reality](/core-principles/laws/economic-reality/)** - Edge computing and compression optimize mobile data costs
+- **[Law 1: Correlated Failure](../../../core-principles/laws/correlated-failure/)** - Multi-region deployment prevents city-wide service outages during infrastructure failures
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality/)** - Edge servers and predictive updates compensate for mobile network latency
+- **[Law 3: Emergent Chaos](../../../core-principles/laws/emergent-chaos/)** - Event-driven architecture handles millions of concurrent location updates
+- **[Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization/)** - Balance battery life, accuracy, and real-time requirements through adaptive algorithms
+- **[Law 5: Distributed Knowledge](../../../core-principles/laws/distributed-knowledge/)** - Comprehensive monitoring of location quality and system health across global infrastructure
+- **[Law 6: Cognitive Load](../../../core-principles/laws/cognitive-load/)** - H3 indexing simplifies complex geospatial operations for developers
+- **[Law 7: Economic Reality](../../../core-principles/laws/economic-reality/)** - Edge computing and compression optimize mobile data costs
 
 ### Related Pillars (Part II)
-- **[Work Distribution](../core-principles/pillars/work/index.md)** - Geospatial sharding distributes location processing across regions
-- **[State Distribution](../core-principles/pillars/state/index.md)** - Multi-layered caching strategy for location data at different time scales
-- **[Intelligence Distribution](../core-principles/pillars/intelligence/index.md)** - ML-based prediction algorithms deployed at edge locations
+- **[Work Distribution](../core-principles/pillars/work-distribution/index.md)** - Geospatial sharding distributes location processing across regions
+- **[State Distribution](../core-principles/pillars/state-distribution/index.md)** - Multi-layered caching strategy for location data at different time scales
+- **[Intelligence Distribution](../core-principles/pillars/intelligence-distribution/index.md)** - ML-based prediction algorithms deployed at edge locations
 
 ### Related Patterns (Part III)
-- **[Geospatial Indexing](../patterns/spatial-indexing.md)** - H3 hexagonal grid system for efficient spatial queries
-- **[Event Streaming](../patterns/event-streaming)** - Kafka-based real-time location update pipeline
-- **[Multi-Level Caching](../patterns/caching-strategies)** - Hot/warm/cold storage architecture for location data
+- **[Geospatial Indexing](../pattern-library/spatial-indexing.md)** - H3 hexagonal grid system for efficient spatial queries
+- **[Event Streaming](../pattern-library/architecture/event-streaming)** - Kafka-based real-time location update pipeline
+- **[Multi-Level Caching](../pattern-library/scaling/caching-strategies)** - Hot/warm/cold storage architecture for location data
 
 ## Excellence Resources
 
@@ -511,9 +511,9 @@ Uber's location system evolution (2009-2015):
 - [Mobile Optimization Playbook](../../excellence/implementation-guides/mobile-optimization) - Battery and bandwidth optimization
 
 ### Related Case Studies
-- [Google Maps: Planet-Scale Mapping](/architects-handbook/case-studies/location-services/google-maps/) - Compare geospatial approaches
-- [Lyft: Competitive Location Platform](/architects-handbook/case-studies/location-services/proximity-service/) - Similar scale, different architecture
-- [Life360: Family Location Sharing](/architects-handbook/case-studies/location-services/life360/) - Consumer-scale location tracking
+- [Google Maps: Planet-Scale Mapping](../../../architects-handbook/case-studies/location-services/google-maps.md) - Compare geospatial approaches
+- [Lyft: Competitive Location Platform](../../../architects-handbook/case-studies/location-services/proximity-service.md) - Similar scale, different architecture
+- [Life360: Family Location Sharing](../../../architects-handbook/case-studies/location-services/life360.md) - Consumer-scale location tracking
 - [Strava: Athletic Performance Tracking](strava-heatmaps.md.md) - High-frequency location updates
 
 ### Pattern Comparisons

@@ -1,3 +1,9 @@
+---
+title: Impossible Decisions: No-Win Scenarios in Engineering Leadership
+description: Some decisions have no good options. No framework helps. No mentor has the answer. You'll make the choice, live with the consequences, and carry the w
+type: interview-guide
+---
+
 # Impossible Decisions: No-Win Scenarios in Engineering Leadership
 
 ## The Weight of Command

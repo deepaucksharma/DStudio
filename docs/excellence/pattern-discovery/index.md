@@ -97,10 +97,10 @@ Find the perfect patterns for your distributed systems challenges.
     
     | Pattern | Tier | Use Case |
     |---------|------|----------|
-    | [Circuit Breaker](../patterns/circuit-breaker) | Gold | Prevent cascading failures |
-    | [Health Checks](../patterns/health-checks) | Gold | Monitor service health |
-    | [Failover](../patterns/failover) | Gold | Automatic failure recovery |
-    | [Bulkhead](../patterns/bulkhead) | Silver | Isolate failures |
+    | [Circuit Breaker](../pattern-library/resilience/circuit-breaker) | Gold | Prevent cascading failures |
+    | [Health Checks](../pattern-library/resilience/health-check) | Gold | Monitor service health |
+    | [Failover](../pattern-library/resilience/failover) | Gold | Automatic failure recovery |
+    | [Bulkhead](../pattern-library/resilience/bulkhead) | Silver | Isolate failures |
 
 === "Real-time Processing"
 
@@ -108,10 +108,10 @@ Find the perfect patterns for your distributed systems challenges.
     
     | Pattern | Tier | Use Case |
     |---------|------|----------|
-    | [Event Streaming](../patterns/event-streaming) | Gold | Process data in real-time |
-    | [Pub-Sub](../patterns/pub-sub) | Gold | Decouple producers/consumers |
-    | [WebSocket](../patterns/websocket) | Silver | Bidirectional communication |
-    | [Server-Sent Events](../patterns/server-sent-events) | Silver | Server push updates |
+    | [Event Streaming](../pattern-library/architecture/event-streaming) | Gold | Process data in real-time |
+    | [Pub-Sub](../pattern-library/communication/pub-sub) | Gold | Decouple producers/consumers |
+    | [WebSocket](../pattern-library/communication/websocket) | Silver | Bidirectional communication |
+    | [Server-Sent Events](../pattern-library/communication/server-sent-events) | Silver | Server push updates |
 
 === "Microservices"
 
@@ -119,10 +119,10 @@ Find the perfect patterns for your distributed systems challenges.
     
     | Pattern | Tier | Use Case |
     |---------|------|----------|
-    | [API Gateway](../patterns/api-gateway) | Gold | Single entry point |
-    | [Service Mesh](../patterns/service-mesh) | Gold | Service-to-service communication |
-    | [Saga](../patterns/saga) | Gold | Distributed transactions |
-    | [Sidecar](../patterns/sidecar) | Silver | Extend service capabilities |
+    | [API Gateway](../pattern-library/communication/api-gateway) | Gold | Single entry point |
+    | [Service Mesh](../pattern-library/communication/service-mesh) | Gold | Service-to-service communication |
+    | [Saga](../pattern-library/data-management/saga) | Gold | Distributed transactions |
+    | [Sidecar](../pattern-library/architecture/sidecar) | Silver | Extend service capabilities |
 
 === "Data Consistency"
 
@@ -130,10 +130,10 @@ Find the perfect patterns for your distributed systems challenges.
     
     | Pattern | Tier | Use Case |
     |---------|------|----------|
-    | [Event Sourcing](../patterns/event-sourcing) | Gold | Audit trail and replay |
-    | [CQRS](../patterns/cqrs) | Gold | Separate read/write models |
-    | [Distributed Lock](../patterns/distributed-lock) | Silver | Coordinate access |
-    | [Two-Phase Commit](../patterns/two-phase-commit) | Bronze | Strong consistency |
+    | [Event Sourcing](../pattern-library/data-management/event-sourcing) | Gold | Audit trail and replay |
+    | [CQRS](../pattern-library/data-management/cqrs) | Gold | Separate read/write models |
+    | [Distributed Lock](../pattern-library/coordination/distributed-lock) | Silver | Coordinate access |
+    | [Two-Phase Commit](../pattern-library/coordination/two-phase-commit) | Bronze | Strong consistency |
 
 ## Pattern Selection Matrix
 
@@ -171,13 +171,13 @@ Estimate the effort required to implement patterns in your system:
 - **Current Architecture**: Monolith, microservices, or hybrid
 - **Scale Requirements**: Current and projected user base
 
-[Calculate Implementation Effort →](/latency-calculator){ .md-button }
+[Calculate Implementation Effort →](../../latency-calculator.md){ .md-button }
 
 ## Pattern Health Dashboard
 
 View real-time adoption metrics and trends for all patterns:
 
-[View Pattern Health Dashboard →](/reference/pattern-health-dashboard/){ .md-button }
+[View Pattern Health Dashboard →](../../reference/pattern-health-dashboard.md){ .md-button }
 
 ## All Patterns by Category
 
@@ -188,13 +188,13 @@ View real-time adoption metrics and trends for all patterns:
 
 | Pattern | Category | Companies Using | Learn More |
 |---------|----------|----------------|------------|
-| API Gateway | Communication | Netflix, Amazon | [Details →](../patterns/api-gateway) |
-| Circuit Breaker | Resilience | Netflix, Uber | [Details →](../patterns/circuit-breaker) |
-| Event Streaming | Data | LinkedIn, Uber | [Details →](../patterns/event-streaming) |
-| Service Mesh | Communication | Google, Lyft | [Details →](../patterns/service-mesh) |
-| Sharding | Performance | Facebook, Discord | [Details →](../patterns/sharding) |
+| API Gateway | Communication | Netflix, Amazon | [Details →](../pattern-library/communication/api-gateway) |
+| Circuit Breaker | Resilience | Netflix, Uber | [Details →](../pattern-library/resilience/circuit-breaker) |
+| Event Streaming | Data | LinkedIn, Uber | [Details →](../pattern-library/architecture/event-streaming) |
+| Service Mesh | Communication | Google, Lyft | [Details →](../pattern-library/communication/service-mesh) |
+| Sharding | Performance | Facebook, Discord | [Details →](../pattern-library/scaling/sharding) |
 
-[View all 38 Gold Patterns →](/patterns/#gold-tier){ .md-button }
+[View all 38 Gold Patterns →](../../pattern-library/#gold-tier.md){ .md-button }
 
 ### Silver Patterns
 
@@ -203,13 +203,13 @@ View real-time adoption metrics and trends for all patterns:
 
 | Pattern | Category | Best For | Learn More |
 |---------|----------|----------|------------|
-| GraphQL Federation | Communication | API composition | [Details →](../patterns/graphql-federation) |
-| Feature Flags | Operations | Progressive rollouts | [Details →](../patterns/feature-flags) |
-| Blue-Green Deploy | Operations | Zero-downtime updates | [Details →](../patterns/blue-green-deployment) |
-| Distributed Lock | Data | Coordination | [Details →](../patterns/distributed-lock) |
-| Priority Queue | Performance | Task scheduling | [Details →](../patterns/priority-queue) |
+| GraphQL Federation | Communication | API composition | [Details →](../pattern-library/architecture/graphql-federation) |
+| Feature Flags | Operations | Progressive rollouts | [Details →](../pattern-library/scaling/feature-flags) |
+| Blue-Green Deploy | Operations | Zero-downtime updates | [Details →](../pattern-library/blue-green-deployment) |
+| Distributed Lock | Data | Coordination | [Details →](../pattern-library/coordination/distributed-lock) |
+| Priority Queue | Performance | Task scheduling | [Details →](../pattern-library/scaling/priority-queue) |
 
-[View all 38 Silver Patterns →](/patterns/#silver-tier){ .md-button }
+[View all 38 Silver Patterns →](../../pattern-library/#silver-tier.md){ .md-button }
 
 ### Bronze Patterns
 
@@ -218,13 +218,13 @@ View real-time adoption metrics and trends for all patterns:
 
 | Pattern | Category | Migrate To | Learn More |
 |---------|----------|------------|------------|
-| Two-Phase Commit | Data | Saga Pattern | [Migration →](../patterns/two-phase-commit) |
-| Shared Database | Data | Service-per-DB | [Migration →](../patterns/shared-database) |
-| Distributed Monolith | Architecture | True Microservices | [Migration →](../patterns/distributed-monolith) |
-| Fat Client | Architecture | API-First | [Migration →](../patterns/fat-client) |
-| Database Triggers | Data | Event Streaming | [Migration →](../patterns/database-triggers) |
+| Two-Phase Commit | Data | Saga Pattern | [Migration →](../pattern-library/coordination/two-phase-commit) |
+| Shared Database | Data | Service-per-DB | [Migration →](../pattern-library/data-management/shared-database) |
+| Distributed Monolith | Architecture | True Microservices | [Migration →](../pattern-library/architecture/distributed-monolith) |
+| Fat Client | Architecture | API-First | [Migration →](../pattern-library/architecture/fat-client) |
+| Database Triggers | Data | Event Streaming | [Migration →](../pattern-library/data-management/database-triggers) |
 
-[View all 25 Bronze Patterns →](/patterns/#bronze-tier){ .md-button }
+[View all 25 Bronze Patterns →](../../pattern-library/#bronze-tier.md){ .md-button }
 
 ## Next Steps
 
@@ -236,7 +236,7 @@ View real-time adoption metrics and trends for all patterns:
     
     Browse our implementation guides for step-by-step instructions.
     
-    [:octicons-book-24: Implementation Guides](/excellence/implementation-guides/index/){ .md-button }
+    [:octicons-book-24: Implementation Guides](../../excellence/implementation-guides/index.md){ .md-button }
 
 - **Need help choosing?**
     

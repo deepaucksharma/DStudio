@@ -1,3 +1,9 @@
+---
+title: Data Consistency Guide: Choosing the Right Patterns
+description: ```mermaid graph LR A[Eventual Consistency] --> B[Causal Consistency] B --> C[Session Consistency] C --> D[Bounded Staleness]
+type: guide
+---
+
 # Data Consistency Guide: Choosing the Right Patterns
 
 ## Consistency Spectrum

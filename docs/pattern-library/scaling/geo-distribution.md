@@ -1,30 +1,20 @@
 ---
-best-for:
-- Global consumer applications
-- Multi-national enterprises
-- Compliance-driven systems
-- Latency-sensitive services
-category: scaling
-current_relevance: mainstream
-description: Distributes data and compute across geographic regions for performance,
-  availability, and compliance
-essential_question: How do we minimize latency and meet compliance requirements while
-  maintaining data consistency across regions?
-excellence_tier: silver
-introduced: 2010-01
-pattern_status: recommended
 title: Geo-Distribution
-trade-offs:
-  cons:
-  - Complex consistency models
-  - Higher infrastructure costs (3-5x)
-  - Cross-region network charges
-  - Operational complexity increases exponentially
-  pros:
-  - Sub-100ms latency for regional users
-  - Data sovereignty compliance (GDPR, etc.)
-  - Disaster recovery across continents
-  - Follow-the-sun operations
+description: Distributes data and compute across geographic regions for performance, availability, and compliance
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+  - Global consumer applications
+  - Multi-national enterprises
+  - Compliance-driven systems
+  - Latency-sensitive services
+introduced: 2010-01
+current_relevance: mainstream
+category: scaling
+essential_question: How do we minimize latency and meet compliance requirements while maintaining data consistency across regions?
+trade_offs:
+  cons: ['Complex consistency models', 'Higher infrastructure costs (3-5x)', 'Cross-region network charges', 'Operational complexity increases exponentially']
+  pros: ['Sub-100ms latency for regional users', 'Data sovereignty compliance (GDPR, etc.)', 'Disaster recovery across continents', 'Follow-the-sun operations']
 ---
 
 
@@ -300,7 +290,7 @@ graph TD
 
 ## Related Patterns
 - [Multi-Region](../architecture/multi-region.md) - Architecture patterns for multi-region systems
-- [Edge Computing](/pattern-library/scaling/edge-computing/) - Computation at network edge
+- [Edge Computing](../../pattern-library/scaling/edge-computing.md) - Computation at network edge
 - [CDN Pattern](../performance/cdn.md) - Content delivery networks
 - [Database Replication](../data-management/replication.md) - Data replication strategies
 - [Global Load Balancing](../architecture/global-load-balancing.md) - Traffic distribution

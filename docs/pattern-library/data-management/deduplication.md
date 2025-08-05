@@ -1,40 +1,31 @@
 ---
-best-for:
-- Backup and archival systems
-- Cloud storage providers reducing costs
-- Message queues preventing duplicate processing
-category: data-management
-current_relevance: mainstream
-description: Eliminate duplicate data through content-based identification and storage
-  optimization
+title: Deduplication
+description: Eliminate duplicate data through content-based identification and storage optimization
+type: pattern
 difficulty: intermediate
-essential_question: How do we ensure data consistency and reliability with deduplication?
+reading_time: 30 min
 excellence_tier: silver
-introduced: 2008-01
-last-updated: 2025-01-26
 pattern_status: use-with-expertise
+best_for:
+  - Backup and archival systems
+  - Cloud storage providers reducing costs
+  - Message queues preventing duplicate processing
+introduced: 2008-01
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with deduplication?
+last_updated: 2025-01-26
 prerequisites:
-- hashing
-- content-addressing
-- distributed-systems
-reading-time: 30 min
+  - hashing
+  - content-addressing
+  - distributed-systems
 status: complete
 tagline: Master deduplication for distributed systems success
-title: Deduplication
-trade-offs:
-  cons:
-  - CPU overhead for fingerprinting/hashing
-  - Complex garbage collection and reference counting
-  - Potential for hash collisions requiring verification
-  pros:
-  - Significant storage savings (often 10-100x)
-  - Reduced network bandwidth for transfers
-  - Improved cache efficiency
-type: pattern
-when-not-to-use: Real-time systems with strict latency requirements, small datasets,
-  when duplicates are rare
-when-to-use: Storage systems, backup solutions, message processing, data pipelines
-  with duplicate data
+trade_offs:
+  cons: ['CPU overhead for fingerprinting/hashing', 'Complex garbage collection and reference counting', 'Potential for hash collisions requiring verification']
+  pros: ['Significant storage savings (often 10-100x)', 'Reduced network bandwidth for transfers', 'Improved cache efficiency']
+when_not_to_use: Real-time systems with strict latency requirements, small datasets, when duplicates are rare
+when_to_use: Storage systems, backup solutions, message processing, data pipelines with duplicate data
 ---
 
 

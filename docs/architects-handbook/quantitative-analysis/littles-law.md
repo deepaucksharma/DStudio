@@ -723,7 +723,7 @@ graph LR
  style C fill:#ff6b6b
 ```
 
-**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../core-principles/laws/asynchronous-reality.md).
+**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../core-principles/laws/asynchronous-reality/).
 
 ### Law 4: Trade-offs
 !!! danger "⚠️ Capacity Overflow Scenario"
@@ -948,9 +948,9 @@ Recommendations:
 
 ## Connections to Other Concepts
 
-- **[Queueing Models](/architects-handbook/quantitative-analysis/queueing-models/)**: $L = L_q + L_s$, utilization $\rho = \lambda/\mu$ affects $W$
-- **[Latency Ladder](/architects-handbook/quantitative-analysis/latency-ladder/)**: $W$ includes all ladder latencies
-- **[Availability Math](/architects-handbook/quantitative-analysis/availability-math/)**: Failures spike $\lambda$ (retries), predict cascades
+- **[Queueing Models](../../architects-handbook/quantitative-analysis/queueing-models.md)**: $L = L_q + L_s$, utilization $\rho = \lambda/\mu$ affects $W$
+- **[Latency Ladder](../../architects-handbook/quantitative-analysis/latency-ladder.md)**: $W$ includes all ladder latencies
+- **[Availability Math](../../architects-handbook/quantitative-analysis/availability-math.md)**: Failures spike $\lambda$ (retries), predict cascades
 - **Patterns**: Rate limiting controls λ, circuit breakers prevent retry storms
 
 ## Key Insights & Pitfalls
@@ -963,6 +963,6 @@ Remember: Little's Law is like gravity - always there!
 
 ## Related Concepts
 
-- **Quantitative**: [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-models/) | [Latency Ladder](/architects-handbook/quantitative-analysis/latency-ladder/) | [Availability Math](/architects-handbook/quantitative-analysis/availability-math/)
+- **Quantitative**: [Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-models.md) | [Latency Ladder](../../architects-handbook/quantitative-analysis/latency-ladder.md) | [Availability Math](../../architects-handbook/quantitative-analysis/availability-math.md)
 - **Patterns**: [Rate Limiting](../pattern-library/scaling/rate-limiting.md) | [Bulkhead](../pattern-library/resilience/bulkhead.md) | [Backpressure](../pattern-library/scaling/backpressure.md)
-- **Operations**: [SRE Practices](/architects-handbook/human-factors/sre-practices/) | [Performance Monitoring](/architects-handbook/human-factors/observability-stacks/)
+- **Operations**: [SRE Practices](../../architects-handbook/human-factors/sre-practices.md) | [Performance Monitoring](../../architects-handbook/human-factors/observability-stacks.md)

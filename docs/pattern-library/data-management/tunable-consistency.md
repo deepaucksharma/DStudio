@@ -1,27 +1,25 @@
 ---
-best-for: []
-category: data-management
-current_relevance: mainstream
-description: Adjust consistency levels dynamically based on application requirements
-  and trade-offs
+title: Tunable Consistency
+description: Adjust consistency levels dynamically based on application requirements and trade-offs
+type: pattern
 difficulty: advanced
-essential_question: How do we ensure data consistency and reliability with tunable
-  consistency?
+reading_time: 45 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-07-21
 pattern_status: recommended
-prerequisites: []
-reading-time: 45 min
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with tunable consistency?
+last_updated: 2025-07-21
+prerequisites:
 status: complete
 tagline: Master tunable consistency for distributed systems success
-title: Tunable Consistency
-trade-offs:
+trade_offs:
   cons: []
   pros: []
-type: pattern
-when-not-to-use: When simpler solutions suffice
-when-to-use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+when_to_use: When dealing with specialized challenges
 ---
 
 

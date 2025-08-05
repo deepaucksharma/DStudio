@@ -302,9 +302,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Event Sourcing](/pattern-library/data-management/event-sourcing/) | Events flow through queues | Queue as event transport |
+| [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) | Events flow through queues | Queue as event transport |
 | [Saga Pattern](../coordination/saga.md) | Coordinate distributed transactions | Queue for saga orchestration |
-| [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | Protect downstream services | Circuit breaker in consumers |
+| [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | Protect downstream services | Circuit breaker in consumers |
 
 ## Quick Reference
 
@@ -348,9 +348,9 @@ graph LR
     
     ---
     
-    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Events through queues
+    - [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Events through queues
     - [Saga Pattern](../coordination/saga.md) - Distributed transactions
-    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Consumer protection
+    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Consumer protection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -363,8 +363,8 @@ graph LR
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work/) - Queue-based work distribution
-    - [State Distribution](../../core-principles/pillars/state/) - Message state management
+    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Queue-based work distribution
+    - [State Distribution](../../core-principles/pillars/state-distribution/) - Message state management
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

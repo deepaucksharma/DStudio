@@ -1,3 +1,8 @@
+---
+title: Question Bank
+description: Question Bank overview and navigation
+---
+
 # Question Bank
 
 > **Note**: This interactive tool is under development.
@@ -16,6 +21,6 @@ The Question Bank tool will help you practice and prepare for engineering leader
 ---
 
 **Related Tools:**
-- [All Interactive Tools](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/)
-- [STAR Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/)
-- [Practice Scenarios](/interview-prep/engineering-leadership/practice-scenarios/)
+- [All Interactive Tools](../../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index.md)
+- [STAR Framework](../../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index.md)
+- [Practice Scenarios](../../../../../../interview-prep/engineering-leadership/practice-scenarios/index.md)

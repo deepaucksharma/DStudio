@@ -1,54 +1,44 @@
 ---
-category: data-management
-current_relevance: mainstream
-description: Manage distributed transactions using coordinated sequences of local
-  transactions with compensations
+title: Saga Pattern
+description: Manage distributed transactions using coordinated sequences of local transactions with compensations
+type: pattern
 difficulty: advanced
-essential_question: How do we ensure data consistency and reliability with saga pattern?
+reading_time: 35 min
 excellence_tier: gold
-introduced: 1987-12
-last-updated: 2025-01-30
-modern-examples:
-- company: Uber
-  implementation: Saga orchestrates ride booking across payment, dispatch, and driver
-    services
-  scale: 20M+ distributed transactions daily
-- company: Airbnb
-  implementation: Booking saga coordinates inventory, payment, and notification services
-  scale: 2M+ bookings per day across global inventory
-- company: Booking.com
-  implementation: Complex travel booking sagas with multi-vendor coordination
-  scale: 1.5M+ room nights booked daily
 pattern_status: recommended
-prerequisites: null
-production-checklist:
-- Choose orchestration vs choreography based on complexity
-- Design compensating transactions for every step
-- Implement idempotent operations to handle retries
-- Use state machines to track saga progress
-- Monitor saga completion rates and failure patterns
-- Set timeouts for each saga step (typically 30s-5min)
-- Store saga state durably (database or event store)
-- Test failure scenarios and compensation flows
-reading-time: 35 min
-related-laws:
-- asynchronous-reality
-- emergent-chaos
-- multidimensional-optimization
-- distributed-knowledge
-related-pillars:
-- state
-- truth
-- control
-- intelligence
+introduced: 1987-12
+current_relevance: mainstream
+related_laws:
+  - asynchronous-reality
+  - emergent-chaos
+  - multidimensional-optimization
+  - distributed-knowledge
+category: data-management
+essential_question: How do we ensure data consistency and reliability with saga pattern?
+last_updated: 2025-01-30
+modern_examples:
+  - {'company': 'Uber', 'implementation': 'Saga orchestrates ride booking across payment, dispatch, and driver services', 'scale': '20M+ distributed transactions daily'}
+  - {'company': 'Airbnb', 'implementation': 'Booking saga coordinates inventory, payment, and notification services', 'scale': '2M+ bookings per day across global inventory'}
+  - {'company': 'Booking.com', 'implementation': 'Complex travel booking sagas with multi-vendor coordination', 'scale': '1.5M+ room nights booked daily'}
+prerequisites: None
+production_checklist:
+  - Choose orchestration vs choreography based on complexity
+  - Design compensating transactions for every step
+  - Implement idempotent operations to handle retries
+  - Use state machines to track saga progress
+  - Monitor saga completion rates and failure patterns
+  - Set timeouts for each saga step (typically 30s-5min)
+  - Store saga state durably (database or event store)
+  - Test failure scenarios and compensation flows
+related_pillars:
+  - state
+  - truth
+  - control
+  - intelligence
 status: complete
 tagline: Master saga pattern for distributed systems success
-title: Saga Pattern
-type: pattern
-when-not-to-use: Simple local transactions, strongly consistent requirements, simple
-  CRUD operations
-when-to-use: Cross-service transactions, workflow orchestration, distributed business
-  processes
+when_not_to_use: Simple local transactions, strongly consistent requirements, simple CRUD operations
+when_to_use: Cross-service transactions, workflow orchestration, distributed business processes
 ---
 
 
@@ -209,8 +199,8 @@ graph TD
 - **[Outbox Pattern](../pattern-library/data-management/outbox.md)**: Reliable event publishing
 
 ### Supporting Patterns
-- **[Idempotent Receiver](../patterns/idempotent-receiver.md)**: Safe retries
-- **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)**: Protect saga steps
+- **[Idempotent Receiver](../pattern-library/idempotent-receiver.md)**: Safe retries
+- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)**: Protect saga steps
 - **[CQRS](./cqrs.md)**: Separate saga execution from queries
 
 #

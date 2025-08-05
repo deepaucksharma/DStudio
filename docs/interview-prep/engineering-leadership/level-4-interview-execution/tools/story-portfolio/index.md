@@ -1,3 +1,8 @@
+---
+title: Story Portfolio
+description: Story Portfolio overview and navigation
+---
+
 # Leadership Story Portfolio Framework
 
 ## Overview

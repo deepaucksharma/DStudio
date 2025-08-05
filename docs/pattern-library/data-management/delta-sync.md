@@ -348,9 +348,9 @@ graph LR
     
     ---
     
-    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Natural delta representation
-    - [CRDT](/pattern-library/data-management/crdt/) - Conflict-free synchronization  
-    - [Write-Ahead Log](/pattern-library/data-management/write-ahead-log/) - Change tracking
+    - [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Natural delta representation
+    - [CRDT](../../pattern-library/data-management/crdt.md) - Conflict-free synchronization  
+    - [Write-Ahead Log](../../pattern-library/data-management/write-ahead-log.md) - Change tracking
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -363,8 +363,8 @@ graph LR
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state/) - Efficient state synchronization
-    - [Truth Distribution](../../core-principles/pillars/truth/) - Consistency across replicas
+    - [State Distribution](../../core-principles/pillars/state-distribution/) - Efficient state synchronization
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consistency across replicas
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

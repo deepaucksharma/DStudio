@@ -20,14 +20,14 @@ last_updated: 2025-07-20
 ### Law
 Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws.
 
-**Examples**: [Asynchronous Reality ⏳](/core-principles/laws/asynchronous-reality/), [Multidimensional Optimization ⚖️](/core-principles/laws/multidimensional-optimization/)
+**Examples**: [Asynchronous Reality ⏳](../core-principles/laws/asynchronous-reality/), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization/)
 
 ### At-Least-Once Delivery
 Messages may be delivered multiple times but will not be lost. Requires idempotent processing.
 
 **Trade-offs**: Higher reliability vs. duplicate handling complexity
 
-**Related**: Idempotent Receiver (Coming Soon), [Outbox Pattern](/pattern-library/data-management/outbox/)
+**Related**: Idempotent Receiver (Coming Soon), [Outbox Pattern](../pattern-library/data-management/outbox.md)
 
 ### Availability
 Percentage of time a system is operational. Often measured as "nines".
@@ -55,14 +55,14 @@ Isolation pattern preventing failures from spreading between components.
 
 **Implementation**: Separate thread pools, connection pools, compute resources
 
-**Related**: [Circuit Breaker](/pattern-library/resilience/circuit-breaker/), [Correlated Failure ⛓️](/core-principles/laws/correlated-failure/)
+**Related**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Correlated Failure ⛓️](../core-principles/laws/correlated-failure/)
 
 ### Byzantine Fault
 Components behave arbitrarily, sending conflicting information to different parts.
 
 **Examples**: Malicious actors, hardware corruption, inconsistent software behavior
 
-**Related**: [Correlated Failure ⛓️](/core-principles/laws/correlated-failure/), consensus algorithms
+**Related**: [Correlated Failure ⛓️](../core-principles/laws/correlated-failure/), consensus algorithms
 
 ## C
 
@@ -71,14 +71,14 @@ Distributed systems can provide at most two of: Consistency, Availability, Parti
 
 **Implication**: Must choose between consistency and availability during partitions
 
-**Related**: [Truth Pillar](../core-principles/pillars/truth/index.md), [Multidimensional Optimization ⚖️](/core-principles/laws/multidimensional-optimization/)
+**Related**: [Truth Pillar](../core-principles/pillars/truth-distribution/index.md), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization/)
 
 ### Circuit Breaker
 Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **States**: Closed (normal), Open (failing fast), Half-Open (testing recovery)
 
-**Implementation**: [Circuit Breaker Pattern](/pattern-library/resilience/circuit-breaker/)
+**Implementation**: [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md)
 
 ### Consensus
 **Definition**: Agreement among distributed nodes on a single value or state, even in the presence of failures.
@@ -87,7 +87,7 @@ Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **Trade-offs**: Strong consistency vs. availability and performance
 
-**Related**: [Multidimensional Optimization ⚖️](/core-principles/laws/multidimensional-optimization/), [Leader Election](/pattern-library/coordination/leader-election/)
+**Related**: [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization/), [Leader Election](../pattern-library/coordination/leader-election.md)
 
 ### Consistent Hashing
 Distributes data across nodes with minimal disruption when adding/removing nodes.
@@ -101,7 +101,7 @@ Separates read and write operations into different models.
 
 **Benefits**: Optimized read/write paths, scalability, flexibility
 
-**Implementation**: [CQRS Pattern](/pattern-library/data-management/cqrs/)
+**Implementation**: [CQRS Pattern](../pattern-library/data-management/cqrs.md)
 
 ### CRDT (Conflict-free Replicated Data Type)
 Replicated data structure updated independently without coordination.
@@ -140,7 +140,7 @@ Stores state changes as sequence of events rather than current state.
 
 **Benefits**: Audit trail, temporal queries, replay capability
 
-**Implementation**: [Event Sourcing Pattern](/pattern-library/data-management/event-sourcing/)
+**Implementation**: [Event Sourcing Pattern](../pattern-library/data-management/event-sourcing.md)
 
 ## F
 
@@ -177,7 +177,7 @@ Failures that are subtle, partial, or inconsistent across different observers.
 
 **Detection**: Multi-perspective monitoring, synthetic transactions
 
-**Related**: [Correlated Failure ⛓️](/core-principles/laws/correlated-failure/), [Observability](/pattern-library/resilience/health-check/)
+**Related**: [Correlated Failure ⛓️](../core-principles/laws/correlated-failure/), [Observability](../pattern-library/resilience/health-check.md)
 
 ## H
 
@@ -225,14 +225,14 @@ Choosing single coordinator node to avoid split-brain.
 
 **Algorithms**: Bully, Ring, Raft
 
-**Implementation**: [Leader Election Pattern](/pattern-library/coordination/leader-election/)
+**Implementation**: [Leader Election Pattern](../pattern-library/coordination/leader-election.md)
 
 ### Little's Law
 **Formula**: L = λW (queue length = arrival rate × wait time)
 
 **Applications**: Capacity planning, performance analysis
 
-**Related**: [Quantitative Toolkit](/architects-handbook/quantitative-analysis/littles-law/)
+**Related**: [Quantitative Toolkit](../architects-handbook/quantitative-analysis/littles-law.md)
 
 ### Logical Clock
 Orders events without physical time synchronization.
@@ -259,7 +259,7 @@ System state where minor triggers cause cascading performance collapse.
 
 **Prevention**: Circuit breakers, admission control, jitter in retries
 
-**Related**: [Emergent Chaos 🌪️](/core-principles/laws/emergent-chaos/), [Case Study: Facebook's Metastable Failures](/architects-handbook/case-studies/index/)
+**Related**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos/), [Case Study: Facebook's Metastable Failures](../architects-handbook/case-studies/index.md)
 
 ### Microservices
 Small, independently deployable services.
@@ -285,7 +285,7 @@ Stores outgoing messages in same transaction as business data.
 
 **Benefits**: Transactional guarantees, reliable delivery
 
-**Implementation**: [Outbox Pattern](/pattern-library/data-management/outbox/)
+**Implementation**: [Outbox Pattern](../pattern-library/data-management/outbox.md)
 
 ## P
 
@@ -301,7 +301,7 @@ Extension of CAP theorem including latency considerations.
 - PC/EC: MongoDB, HBase (consistent, higher latency)
 - PA/EC: Some configurations prioritize availability but consistency when stable
 
-**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](/core-principles/laws/multidimensional-optimization/)
+**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization/)
 
 ### Partition Tolerance
 Continues operating despite network partitions.
@@ -313,7 +313,7 @@ Continues operating despite network partitions.
 ### Pillar
 Five foundational concepts: Work, State, Truth, Control, Intelligence.
 
-**Reference**: [Part II: Pillars](/core-principles/pillars/index/)
+**Reference**: [Part II: Pillars](../core-principles/pillars/index.md)
 
 ## Q
 
@@ -331,7 +331,7 @@ Understandable consensus algorithm.
 
 **Components**: Leader election, log replication, safety
 
-**Implementation**: [Leader Election pattern](/pattern-library/coordination/leader-election/)
+**Implementation**: [Leader Election pattern](../pattern-library/coordination/leader-election.md)
 
 ### Read Repair
 Fixes inconsistencies during reads by updating stale replicas.
@@ -352,7 +352,7 @@ Manages distributed transactions through local transactions with compensations.
 
 **Types**: Choreography (event-driven), Orchestration (centralized)
 
-**Implementation**: [Saga Pattern](/pattern-library/data-management/saga/)
+**Implementation**: [Saga Pattern](../pattern-library/data-management/saga.md)
 
 ### Sharding
 Horizontal partitioning across databases/servers.
@@ -384,7 +384,7 @@ Captures causality relationships between events.
 
 **Format**: Array of counters, one per node
 
-**Implementation**: [Emergent Chaos 🌪️](/core-principles/laws/emergent-chaos/)
+**Implementation**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos/)
 
 ## W
 

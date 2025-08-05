@@ -1,3 +1,9 @@
+---
+title: Engineering Leadership Levels Across Tech Companies
+description: | Level | Amazon | Google | Meta | Apple | Microsoft | Typical Scope | |-------|--------|--------|------|-------|-----------|--------------|
+type: interview-guide
+---
+
 # Engineering Leadership Levels Across Tech Companies
 
 ## Level Mapping Across Companies

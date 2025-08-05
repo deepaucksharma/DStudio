@@ -1,3 +1,9 @@
+---
+title: Coding Interview Strategy & Tips
+description: | Aspect | Coding Interviews | System Design Interviews | |--------|-------------------|--------------------------|
+type: interview-guide
+---
+
 # Coding Interview Strategy & Tips
 
 ## Coding vs System Design Interviews

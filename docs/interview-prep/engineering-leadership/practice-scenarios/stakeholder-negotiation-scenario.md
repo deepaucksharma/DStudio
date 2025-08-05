@@ -1,3 +1,9 @@
+---
+title: Practice Scenario: Negotiating with Difficult Stakeholders
+description: You're leading the platform team responsible for the company's core API infrastructure. A powerful VP from the Sales organization is demanding a "quic
+type: interview-guide
+---
+
 # Practice Scenario: Negotiating with Difficult Stakeholders
 
 ## 🤝 Scenario Setup

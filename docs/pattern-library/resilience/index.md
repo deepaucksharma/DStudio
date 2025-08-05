@@ -1,3 +1,10 @@
+---
+type: pattern
+category: resilience
+title: Index
+description: 'TODO: Add description'
+---
+
 # Resilience Patterns
 
 Patterns for fault tolerance, recovery, and system stability.
@@ -14,20 +21,20 @@ Resilience patterns help systems survive and recover from failures. They address
 ## Available Patterns
 
 ### Core Resilience Patterns
-- **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)** - Prevent cascade failures by detecting service failures
-- **[Retry & Backoff](/pattern-library/resilience/retry-backoff/)** - Handle transient failures with intelligent retries
-- **[Timeout](/pattern-library/resilience/timeout/)** - Prevent indefinite waits and resource exhaustion
-- **[Bulkhead](/pattern-library/resilience/bulkhead/)** - Isolate resources to contain failures
+- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)** - Prevent cascade failures by detecting service failures
+- **[Retry & Backoff](../../pattern-library/resilience/retry-backoff.md)** - Handle transient failures with intelligent retries
+- **[Timeout](../../pattern-library/resilience/timeout.md)** - Prevent indefinite waits and resource exhaustion
+- **[Bulkhead](../../pattern-library/resilience/bulkhead.md)** - Isolate resources to contain failures
 
 ### Health & Monitoring
-- **[Health Check](/pattern-library/resilience/health-check/)** - Monitor and report service health status
-- **[Heartbeat](/pattern-library/resilience/heartbeat/)** - Detect service liveness through periodic signals
+- **[Health Check](../../pattern-library/resilience/health-check.md)** - Monitor and report service health status
+- **[Heartbeat](../../pattern-library/resilience/heartbeat.md)** - Detect service liveness through periodic signals
 
 ### Failure Handling
-- **[Failover](/pattern-library/resilience/failover/)** - Switch to backup systems when primary fails
-- **[Graceful Degradation](/pattern-library/resilience/graceful-degradation/)** - Maintain partial functionality during failures
-- **[Load Shedding](/pattern-library/resilience/load-shedding/)** - Drop requests to prevent overload
-- **[Split Brain](/pattern-library/resilience/split-brain/)** - Handle network partitions in distributed systems
+- **[Failover](../../pattern-library/resilience/failover.md)** - Switch to backup systems when primary fails
+- **[Graceful Degradation](../../pattern-library/resilience/graceful-degradation.md)** - Maintain partial functionality during failures
+- **[Load Shedding](../../pattern-library/resilience/load-shedding.md)** - Drop requests to prevent overload
+- **[Split Brain](../../pattern-library/resilience/split-brain.md)** - Handle network partitions in distributed systems
 
 ### Advanced Topics
 - **[Timeout Advanced](timeout-advanced.md)** - Production-grade timeout strategies
@@ -36,14 +43,14 @@ Resilience patterns help systems survive and recover from failures. They address
 
 | Failure Type | Pattern | When to Use |
 |--------------|---------|-------------|
-| Service unresponsive | [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | External service calls |
-| Temporary network issues | [Retry with Backoff](/pattern-library/resilience/retry-backoff/) | Transient failures expected |
-| Resource exhaustion | [Bulkhead](/pattern-library/resilience/bulkhead/) | Shared resource protection |
-| Slow dependency | [Timeout](/pattern-library/resilience/timeout/) | Any network operation |
-| Complete service failure | [Failover](/pattern-library/resilience/failover/) | Critical services |
-| Overload conditions | [Load Shedding](/pattern-library/resilience/load-shedding/) | High traffic scenarios |
-| Service health monitoring | [Health Check](/pattern-library/resilience/health-check/) | All services |
-| Network partition | [Split Brain](/pattern-library/resilience/split-brain/) | Distributed consensus |
+| Service unresponsive | [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | External service calls |
+| Temporary network issues | [Retry with Backoff](../../pattern-library/resilience/retry-backoff.md) | Transient failures expected |
+| Resource exhaustion | [Bulkhead](../../pattern-library/resilience/bulkhead.md) | Shared resource protection |
+| Slow dependency | [Timeout](../../pattern-library/resilience/timeout.md) | Any network operation |
+| Complete service failure | [Failover](../../pattern-library/resilience/failover.md) | Critical services |
+| Overload conditions | [Load Shedding](../../pattern-library/resilience/load-shedding.md) | High traffic scenarios |
+| Service health monitoring | [Health Check](../../pattern-library/resilience/health-check.md) | All services |
+| Network partition | [Split Brain](../../pattern-library/resilience/split-brain.md) | Distributed consensus |
 
 ## Pattern Relationships
 
@@ -74,13 +81,13 @@ graph TD
 
 For new systems, implement patterns in this order:
 
-1. **[Timeout](/pattern-library/resilience/timeout/)** - Foundation for all network calls
-2. **[Health Check](/pattern-library/resilience/health-check/)** - Know when services are unhealthy
-3. **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)** - Prevent cascade failures
-4. **[Retry & Backoff](/pattern-library/resilience/retry-backoff/)** - Handle transient failures
-5. **[Bulkhead](/pattern-library/resilience/bulkhead/)** - Isolate critical resources
-6. **[Graceful Degradation](/pattern-library/resilience/graceful-degradation/)** - Maintain partial service
+1. **[Timeout](../../pattern-library/resilience/timeout.md)** - Foundation for all network calls
+2. **[Health Check](../../pattern-library/resilience/health-check.md)** - Know when services are unhealthy
+3. **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)** - Prevent cascade failures
+4. **[Retry & Backoff](../../pattern-library/resilience/retry-backoff.md)** - Handle transient failures
+5. **[Bulkhead](../../pattern-library/resilience/bulkhead.md)** - Isolate critical resources
+6. **[Graceful Degradation](../../pattern-library/resilience/graceful-degradation.md)** - Maintain partial service
 
 ---
 
-*Return to the [Pattern Library](../) or explore [Communication Patterns](/pattern-library/communication/index/).*
+*Return to the [Pattern Library](../) or explore [Communication Patterns](../../pattern-library/communication/index.md).*

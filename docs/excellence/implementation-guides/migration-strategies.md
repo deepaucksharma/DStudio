@@ -1,3 +1,9 @@
+---
+title: Migration Strategies Guide: Evolving Systems Safely
+description: ```mermaid graph TD A[Migration Strategy] --> B[Assessment] A --> C[Planning] A --> D[Execution] A --> E[Validation]
+type: guide
+---
+
 # Migration Strategies Guide: Evolving Systems Safely
 
 ## Migration Planning Framework
@@ -576,8 +582,8 @@ class MigrationDashboard:
 
 ## Resources
 
-- [Strangler Fig Pattern](../pattern-library/strangler-fig.md)
-- [Blue-Green Deployment](../patterns/blue-green-deployment.md)
-- [Migration Playbooks](/excellence/migrations/index/)
+- [Strangler Fig Pattern](../pattern-library/architecture/strangler-fig.md)
+- [Blue-Green Deployment](../pattern-library/blue-green-deployment.md)
+- [Migration Playbooks](../../excellence/migrations/index.md)
 - [Case Studies](../architects-handbook/case-studies/index.md)
 - [Saga Pattern](../pattern-library/data-management/saga.md) (Gold)

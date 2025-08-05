@@ -1,3 +1,9 @@
+---
+title: Complete Engineering Leadership Mock Interview Guide
+description: This guide provides a full mock interview experience for Engineering Manager/Director positions at FAANG companies. Use this to practice with peers or
+type: interview-guide
+---
+
 # Complete Engineering Leadership Mock Interview Guide
 
 ## Overview

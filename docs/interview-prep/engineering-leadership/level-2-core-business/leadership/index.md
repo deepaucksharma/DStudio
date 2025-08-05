@@ -1,3 +1,8 @@
+---
+title: Leadership
+description: Leadership overview and navigation
+---
+
 # Business Concept #2: Leadership
 
 > "Leadership is not about being in charge. It's about taking care of those in your charge." - Simon Sinek
@@ -422,31 +427,31 @@ Each level requires letting go of the previous level's strengths.
 
 ## Connection to First Principles
 
-- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)**: Leadership is fundamentally about understanding and motivating humans
-- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Leaders align human effort toward value
-- **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index/)**: Leaders create decision-making systems
-- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**: Leaders shape organizational systems
-- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Leadership requires moral authority
+- **[Human Behavior](../../../../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Leadership is fundamentally about understanding and motivating humans
+- **[Value Creation](../../../../interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md)**: Leaders align human effort toward value
+- **[Decision-Making](../../../../interview-prep/engineering-leadership/level-1-first-principles/decision-making/index.md)**: Leaders create decision-making systems
+- **[Systems Thinking](../../../../interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Leaders shape organizational systems
+- **[Integrity & Ethics](../../../../interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Leadership requires moral authority
 
 ## Connection to Other Business Concepts
 
-- **[Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index/)**: Leadership executes strategy through people
-- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/)**: Leaders build operational excellence
-- **[Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index/)**: Leaders manage resources efficiently
-- **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index/)**: Leaders navigate uncertainty
+- **[Strategy](../../../../interview-prep/engineering-leadership/level-2-core-business/strategy/index.md)**: Leadership executes strategy through people
+- **[Operations](../../../../interview-prep/engineering-leadership/level-2-core-business/operations/index.md)**: Leaders build operational excellence
+- **[Finance](../../../../interview-prep/engineering-leadership/level-2-core-business/finance/index.md)**: Leaders manage resources efficiently
+- **[Risk & Governance](../../../../interview-prep/engineering-leadership/level-2-core-business/risk-governance/index.md)**: Leaders navigate uncertainty
 
 ## Application in Level III
 
-- **[People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/)**: Direct application of leadership principles
-- **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)**: Leading through technical excellence
-- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Designing systems for leadership
-- **[Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index/)**: Leading across functions
+- **[People Management](../../../../interview-prep/engineering-leadership/level-3-applications/people-management/index.md)**: Direct application of leadership principles
+- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md)**: Leading through technical excellence
+- **[Organizational Design](../../../../interview-prep/engineering-leadership/level-3-applications/organizational-design/index.md)**: Designing systems for leadership
+- **[Business Acumen](../../../../interview-prep/engineering-leadership/level-3-applications/business-acumen/index.md)**: Leading across functions
 
 ## Interview Application (Level IV)
 
-- **[Behavioral Interviews](/interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index/)**: Demonstrating leadership impact
-- **[Culture Fit](/interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index/)**: Showing leadership alignment
-- **[Technical Leadership](/interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index/)**: Leading technical initiatives
+- **[Behavioral Interviews](../../../../interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Demonstrating leadership impact
+- **[Culture Fit](../../../../interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Showing leadership alignment
+- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index.md)**: Leading technical initiatives
 
 ## Next Steps
 
@@ -457,4 +462,4 @@ Each level requires letting go of the previous level's strengths.
 
 ---
 
-*Continue your journey: Explore how [Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/) transforms leadership vision into reliable execution at scale, or dive into [People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/) for practical leadership application.*
+*Continue your journey: Explore how [Operations](../../../../interview-prep/engineering-leadership/level-2-core-business/operations/index.md) transforms leadership vision into reliable execution at scale, or dive into [People Management](../../../../interview-prep/engineering-leadership/level-3-applications/people-management/index.md) for practical leadership application.*

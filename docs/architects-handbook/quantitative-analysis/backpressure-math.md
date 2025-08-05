@@ -1,3 +1,9 @@
+---
+title: Backpressure Mathematics
+description: Backpressure is a flow control mechanism that prevents system overload by propagating capacity constraints upstream. This page explores the mathematic
+type: documentation
+---
+
 # Backpressure Mathematics
 
 ## Overview
@@ -358,7 +364,7 @@ Service_rate_i = weight_i × total_capacity / Σ(weights)
 
 ## Related Topics
 
-- [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-models/)
+- [Queueing Theory](../../architects-handbook/quantitative-analysis/queueing-models.md)
 - [Flow Control Patterns](../pattern-library/scaling/backpressure.md)
-- [Little's Law](/architects-handbook/quantitative-analysis/littles-law/)
-- [Performance Modeling](/architects-handbook/quantitative-analysis/performance-modeling/)
+- [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md)
+- [Performance Modeling](../../architects-handbook/quantitative-analysis/performance-modeling.md)

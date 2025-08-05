@@ -1,44 +1,32 @@
 ---
-best-for:
-- Distributed logs and event ordering
-- Replicated state machines
-- Distributed debugging traces
-- Causal consistency implementations
-category: coordination
-current_relevance: mainstream
-description: Order events in distributed systems without synchronized physical clocks
-  using happens-before relationships
+title: Logical Clocks (Lamport Clocks)
+description: Order events in distributed systems without synchronized physical clocks using happens-before relationships
+type: pattern
 difficulty: intermediate
-essential_question: How do we coordinate distributed components effectively using
-  logical clocks (lamport clocks)?
+reading_time: 35 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-01-23
 pattern_status: recommended
+best_for:
+  - Distributed logs and event ordering
+  - Replicated state machines
+  - Distributed debugging traces
+  - Causal consistency implementations
+introduced: 2024-01
+current_relevance: mainstream
+category: coordination
+essential_question: How do we coordinate distributed components effectively using logical clocks (lamport clocks)?
+last_updated: 2025-01-23
 prerequisites:
-- distributed-systems-basics
-- causality
-- event-ordering
-reading-time: 35 min
+  - distributed-systems-basics
+  - causality
+  - event-ordering
 status: complete
 tagline: Master logical clocks (lamport clocks) for distributed systems success
-title: Logical Clocks (Lamport Clocks)
-trade-offs:
-  cons:
-  - Cannot detect concurrent events
-  - No relation to wall-clock time
-  - Counter can grow unbounded
-  - Requires total ordering tie-breaker
-  pros:
-  - Simple algorithm (just increment counter)
-  - Constant space overhead (single integer)
-  - No clock synchronization needed
-  - Preserves causality relationships
-type: pattern
-when-not-to-use: When you need to detect concurrent events (use vector clocks) or
-  need actual timestamps
-when-to-use: When you need causal ordering of events, don't need wall-clock time,
-  and want a simple solution
+trade_offs:
+  cons: ['Cannot detect concurrent events', 'No relation to wall-clock time', 'Counter can grow unbounded', 'Requires total ordering tie-breaker']
+  pros: ['Simple algorithm (just increment counter)', 'Constant space overhead (single integer)', 'No clock synchronization needed', 'Preserves causality relationships']
+when_not_to_use: When you need to detect concurrent events (use vector clocks) or need actual timestamps
+when_to_use: When you need causal ordering of events, don't need wall-clock time, and want a simple solution
 ---
 
 
@@ -471,10 +459,10 @@ graph LR
 
 ## Related Patterns
 
-- [Vector Clocks](/pattern-library/coordination/logical-clocks/) - Detect concurrent events
-- [Hybrid Logical Clocks](/pattern-library/coordination/hlc/) - Add wall-clock approximation
-- [Generation Clock](/pattern-library/coordination/generation-clock/) - Leadership epochs
-- [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Ordered event streams
+- [Vector Clocks](../../pattern-library/coordination/logical-clocks.md) - Detect concurrent events
+- [Hybrid Logical Clocks](../../pattern-library/coordination/hlc.md) - Add wall-clock approximation
+- [Generation Clock](../../pattern-library/coordination/generation-clock.md) - Leadership epochs
+- [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Ordered event streams
 
 ## References
 

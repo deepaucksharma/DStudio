@@ -1,3 +1,9 @@
+---
+title: Polling to WebSocket/SSE Migration Guide
+description: Migrating from polling to WebSocket or Server-Sent Events (SSE) dramatically reduces server load and improves real-time user experience. This guide pr
+type: documentation
+---
+
 # Polling to WebSocket/SSE Migration Guide
 
 ## Overview
@@ -699,7 +705,7 @@ ORDER BY 1 DESC;
 
 ## Additional Resources
 
-- [WebSocket Protocol Deep Dive](/protocols/websocket.md)
-- [Server-Sent Events Guide](/protocols/sse.md)
-- [Real-time Architecture Patterns](/pattern-library/realtime-architecture.md)
-- [Load Balancing WebSockets](/infrastructure/websocket-load-balancing.md)
+- [WebSocket Protocol Deep Dive](../../protocols/websocket.md)
+- [Server-Sent Events Guide](../../protocols/sse.md)
+- [Real-time Architecture Patterns](../../pattern-library/realtime-architecture.md)
+- [Load Balancing WebSockets](../../infrastructure/websocket-load-balancing.md)

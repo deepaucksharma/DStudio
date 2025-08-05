@@ -1,3 +1,9 @@
+---
+title: Practice Scenario: Delivering Bad News
+description: You're the Engineering Manager for a team that's been working on a major product initiative for 8 months. The project involves:
+type: interview-guide
+---
+
 # Practice Scenario: Delivering Bad News
 
 ## 📰 Scenario Setup

@@ -1,3 +1,8 @@
+---
+title: Risk Governance
+description: Risk Governance overview and navigation
+---
+
 # Business Concept #5: Risk & Governance
 
 > "The biggest risk is not taking any risk. In a world that's changing really quickly, the only strategy that is guaranteed to fail is not taking risks." - Mark Zuckerberg
@@ -581,4 +586,4 @@ Learning: Governance improvements made
 
 ---
 
-*This completes the Level II Core Business concepts. Next, explore [Level III Applications](/interview-prep/engineering-leadership/level-3-applications/index/) to see how these fundamentals combine in real-world scenarios.*
+*This completes the Level II Core Business concepts. Next, explore [Level III Applications](../../../../interview-prep/engineering-leadership/level-3-applications/index.md) to see how these fundamentals combine in real-world scenarios.*

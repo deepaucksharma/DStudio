@@ -365,11 +365,11 @@ graph LR
 
 ## Related Topics
 
-- [Service Discovery](../patterns/service-discovery) - Core Kubernetes pattern
-- [Health Checks](../patterns/health-check) - Liveness and readiness probes
-- [Leader Election](../patterns/leader-election) - Used by control plane
-- [Sidecar Pattern](../patterns/sidecar) - Common in Kubernetes
-- [Blue-Green Deployment](../patterns/blue-green-deployment) - Kubernetes native
+- [Service Discovery](../pattern-library/communication/service-discovery) - Core Kubernetes pattern
+- [Health Checks](../pattern-library/resilience/health-check) - Liveness and readiness probes
+- [Leader Election](../pattern-library/coordination/leader-election) - Used by control plane
+- [Sidecar Pattern](../pattern-library/architecture/sidecar) - Common in Kubernetes
+- [Blue-Green Deployment](../pattern-library/blue-green-deployment) - Kubernetes native
 
 ## References
 

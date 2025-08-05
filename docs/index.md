@@ -26,7 +26,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     Master the 7 fundamental laws derived from physics and 5 core pillars that govern all distributed systems
     
-    [:octicons-arrow-right-24: Learn Principles](/core-principles/index/){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Learn Principles](core-principles/index.md){ .md-button .md-button--primary }
 
 - :material-book-open:{ .lg } **Pattern Library**
     
@@ -34,7 +34,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     Discover 91 battle-tested patterns with interactive filtering by excellence tier and problem domain
     
-    [:octicons-arrow-right-24: Browse Patterns](/pattern-library/index/){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Browse Patterns](pattern-library/index.md){ .md-button .md-button--primary }
 
 - :material-tools:{ .lg } **Architect's Handbook**
     
@@ -42,7 +42,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     Apply your knowledge with real case studies, implementation playbooks, and analytical tools
     
-    [:octicons-arrow-right-24: Access Handbook](/architects-handbook/index/){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Access Handbook](architects-handbook/index.md){ .md-button .md-button--primary }
 
 - :material-school-outline:{ .lg } **Interview Prep**
     
@@ -50,7 +50,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     Excel in system design interviews with proven frameworks and practice problems from FAANG companies
     
-    [:octicons-arrow-right-24: Start Prep](/interview-prep/index/){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Start Prep](interview-prep/index.md){ .md-button .md-button--primary }
 
 </div>
 
@@ -64,7 +64,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     7 immutable laws derived from physics that shape distributed systems
     
-    [:octicons-arrow-right-24: Explore Laws](/core-principles/laws/index/){ .md-button }
+    [:octicons-arrow-right-24: Explore Laws](core-principles/laws/index.md){ .md-button }
 
 - **Core Pillars**
     
@@ -72,7 +72,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     5 foundational concepts for distributing work, state, truth, control, and intelligence
     
-    [:octicons-arrow-right-24: Study Pillars](/core-principles/pillars/index/){ .md-button }
+    [:octicons-arrow-right-24: Study Pillars](core-principles/pillars/index.md){ .md-button }
 
 - **Proven Patterns**
     
@@ -80,7 +80,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     101+ architectural patterns categorized by excellence tiers (Gold/Silver/Bronze)
     
-    [:octicons-arrow-right-24: View Patterns](/pattern-library/index/){ .md-button }
+    [:octicons-arrow-right-24: View Patterns](pattern-library/index.md){ .md-button }
 
 - **Real-World Application**
     
@@ -88,7 +88,7 @@ Welcome to the definitive resource for understanding distributed systems from fi
     
     Case studies from Netflix, Uber, Google, and more
     
-    [:octicons-arrow-right-24: Read Cases](/architects-handbook/case-studies/index/){ .md-button }
+    [:octicons-arrow-right-24: Read Cases](architects-handbook/case-studies/index.md){ .md-button }
 
 </div>
 
@@ -96,11 +96,11 @@ Welcome to the definitive resource for understanding distributed systems from fi
 
 | Priority | Resource | Description |
 |----------|----------|-------------|
-| 🚀 | [Getting Started Guide](/core-principles/index/) | Essential first steps - start here if you're new to distributed systems |
-| 🔍 | [Pattern Discovery Tool](/pattern-library/index/) | Interactive filtering to find patterns for your specific architecture challenges |
-| 🎯 | [Learning Paths](/core-principles/index/#learning-paths) | Role-specific curricula for graduates, seniors, architects, and managers |
-| 🏆 | [Excellence Framework](/architects-handbook/index/#excellence-framework) | Maturity assessment and roadmaps for building world-class systems |
-| 📊 | [Quantitative Analysis](/architects-handbook/quantitative-analysis/index/) | Calculators for capacity planning, performance modeling, and cost estimation |
+| 🚀 | [Getting Started Guide](core-principles/index.md) | Essential first steps - start here if you're new to distributed systems |
+| 🔍 | [Pattern Discovery Tool](pattern-library/index.md) | Interactive filtering to find patterns for your specific architecture challenges |
+| 🎯 | [Learning Paths](core-principles/index/#learning-paths.md) | Role-specific curricula for graduates, seniors, architects, and managers |
+| 🏆 | [Excellence Framework](architects-handbook/index/#excellence-framework.md) | Maturity assessment and roadmaps for building world-class systems |
+| 📊 | [Quantitative Analysis](architects-handbook/quantitative-analysis/index.md) | Calculators for capacity planning, performance modeling, and cost estimation |
 
 ---
 

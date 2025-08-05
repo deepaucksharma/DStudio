@@ -75,7 +75,7 @@ last_updated: 2025-07-20
 
 **Scaling**: Linear O(n), Database O(n log n), Coordination O(n²)
 
-**Learn More**: [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md), [Scaling Laws](../quantitative/universal-scalability.md)
+**Learn More**: [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md), [Scaling Laws](../quantitative-analysis/universal-scalability.md)
 
 ---
 
@@ -291,7 +291,7 @@ What becomes easier or harder because of this change?
 
 ## Next Steps
 
-- Review [Patterns Index](../patterns/tools/consistency-calculator.md) for specific scenarios
+- Review [Patterns Index](../pattern-library/tools/consistency-calculator.md) for specific scenarios
 - Practice with [Case Studies](../architects-handbook/case-studies/index.md) 
 - Build mental models with [Recipe Cards](recipe-cards.md)
 

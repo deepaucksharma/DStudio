@@ -1,31 +1,21 @@
 ---
-best-for:
-- Emergency systems with critical vs routine tasks
-- Job schedulers with varying importance
-- Web crawlers with priority URLs
-- Resource allocators where importance varies significantly
-category: scaling
-current_relevance: mainstream
-description: Distributed priority queue systems that process messages based on importance
-  rather than arrival order
-essential_question: How do we handle increasing load without sacrificing performance
-  using priority queue?
-excellence_tier: silver
-introduced: 1960s
-pattern_status: use-with-caution
-tagline: Master priority queue for distributed systems success
 title: Priority Queue
-trade-offs:
-  cons:
-  - Risk of low-priority starvation
-  - Complex distributed implementation
-  - Priority inversion problems
-  - Hard to tune correctly
-  pros:
-  - Ensures critical tasks processed first
-  - Flexible priority schemes
-  - Better resource utilization under load
-  - Supports emergency escalation
+description: Distributed priority queue systems that process messages based on importance rather than arrival order
+excellence_tier: silver
+pattern_status: use-with-caution
+best_for:
+  - Emergency systems with critical vs routine tasks
+  - Job schedulers with varying importance
+  - Web crawlers with priority URLs
+  - Resource allocators where importance varies significantly
+introduced: 1960s
+current_relevance: mainstream
+category: scaling
+essential_question: How do we handle increasing load without sacrificing performance using priority queue?
+tagline: Master priority queue for distributed systems success
+trade_offs:
+  cons: ['Risk of low-priority starvation', 'Complex distributed implementation', 'Priority inversion problems', 'Hard to tune correctly']
+  pros: ['Ensures critical tasks processed first', 'Flexible priority schemes', 'Better resource utilization under load', 'Supports emergency escalation']
 ---
 
 

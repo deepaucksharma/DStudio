@@ -1,29 +1,27 @@
 ---
-best-for: []
-category: coordination
-current_relevance: mainstream
-description: Flow control boundaries for distributed systems replication, buffering,
-  and resource management
+title: Low-Water/High-Water Marks
+description: Flow control boundaries for distributed systems replication, buffering, and resource management
+type: pattern
 difficulty: intermediate
-essential_question: How do we coordinate distributed components effectively using
-  low-water/high-water marks?
+reading_time: 20 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-07-26
 pattern_status: recommended
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: coordination
+essential_question: How do we coordinate distributed components effectively using low-water/high-water marks?
+last_updated: 2025-07-26
 prerequisites:
-- pattern-library/replication.md
-- pattern-library/wal.md
-reading-time: 20 min
+  - pattern-library/replication.md
+  - pattern-library/wal.md
 status: complete
 tagline: Master low-water/high-water marks for distributed systems success
-title: Low-Water/High-Water Marks
-trade-offs:
+trade_offs:
   cons: []
   pros: []
-type: pattern
-when-not-to-use: Simple systems without flow control needs, unbounded resources
-when-to-use: Replication lag control, buffer management, flow control, garbage collection
+when_not_to_use: Simple systems without flow control needs, unbounded resources
+when_to_use: Replication lag control, buffer management, flow control, garbage collection
 ---
 
 
@@ -250,17 +248,17 @@ graph TD
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/index)**: Prevents cascade from overload
+- **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/)**: Prevents cascade from overload
 - **[Law 2: Asynchronous Reality ⏱️](../../core-principles/laws/asynchronous-reality/)**: Buffers handle timing variations
 - **[Law 3: Emergent Chaos 🌪️](core-principles/laws/emergent-chaos/)**: Simple rules create stable behavior
-- **[Law 7: Economic Reality 💰](core-principles/laws/economic-reality/index)**: Balance resource usage vs rejection
+- **[Law 7: Economic Reality 💰](core-principles/laws/economic-reality/)**: Balance resource usage vs rejection
 
 ### Foundational Pillars
 Water Marks implement:
 
-- **[Pillar 1: Distribution of Work 🔨](core-principles/pillars/work/index)**: Control work distribution rate
-- **[Pillar 4: Distribution of Control 🎮](core-principles/pillars/control/index)**: Decentralized flow control
-- **[Pillar 2: Distribution of State 🗃️](core-principles/pillars/state/index)**: Buffer state management
+- **[Pillar 1: Distribution of Work 🔨](core-principles/core-principles/pillars/work-distribution/)**: Control work distribution rate
+- **[Pillar 4: Distribution of Control 🎮](core-principles/core-principles/pillars/control-distribution/)**: Decentralized flow control
+- **[Pillar 2: Distribution of State 🗃️](core-principles/core-principles/pillars/state-distribution/)**: Buffer state management
 
 ## Related Patterns
 
@@ -275,9 +273,9 @@ Water Marks implement:
 - **[Bulkhead](../pattern-library/resilience/bulkhead.md)**: Isolate resources with marks
 
 ### Similar Concepts
-- **[Admission Control](../pattern-library/rate-limiting.md#admission-control)**: Entry-point flow control
-- **[Load Shedding](../pattern-library/load-shedding.md)**: Beyond high water mark
-- **[Throttling](../pattern-library/rate-limiting.md#throttling)**: Between water marks
+- **[Admission Control](../pattern-library/scaling/rate-limiting/#admission-control)**: Entry-point flow control
+- **[Load Shedding](../pattern-library/resilience/load-shedding.md)**: Beyond high water mark
+- **[Throttling](../pattern-library/scaling/rate-limiting/#throttling)**: Between water marks
 
 ---
 

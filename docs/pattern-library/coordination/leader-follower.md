@@ -1,30 +1,27 @@
 ---
-best-for: []
-category: coordination
-current_relevance: mainstream
-description: Coordination pattern for managing distributed state with a single source
-  of truth
+title: Leader-Follower Pattern
+description: Coordination pattern for managing distributed state with a single source of truth
+type: pattern
 difficulty: intermediate
-essential_question: How do we coordinate distributed components effectively using
-  leader-follower pattern?
+reading_time: 25 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-01-23
 pattern_status: recommended
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: coordination
+essential_question: How do we coordinate distributed components effectively using leader-follower pattern?
+last_updated: 2025-01-23
 prerequisites:
-- consensus
-- distributed-state
-reading-time: 25 min
+  - consensus
+  - distributed-state
 status: complete
 tagline: Master leader-follower pattern for distributed systems success
-title: Leader-Follower Pattern
-trade-offs:
+trade_offs:
   cons: []
   pros: []
-type: pattern
-when-not-to-use: When eventual consistency is acceptable or single leader becomes
-  bottleneck
-when-to-use: When you need strong consistency and coordinated updates
+when_not_to_use: When eventual consistency is acceptable or single leader becomes bottleneck
+when_to_use: When you need strong consistency and coordinated updates
 ---
 
 
@@ -465,15 +462,15 @@ graph LR
 
 ## Related Patterns
 
-- [Leader Election](/pattern-library/coordination/leader-election/) - Choosing the leader
-- [Consensus](/pattern-library/coordination/consensus/) - Agreement protocols
+- [Leader Election](../../pattern-library/coordination/leader-election.md) - Choosing the leader
+- [Consensus](../../pattern-library/coordination/consensus.md) - Agreement protocols
 - [Primary-Backup](primary-backup.md) - Similar but simpler
 - [Multi-Master](multi-master.md) - Alternative approach
 - [Chain Replication](chain-replication.md) - Variation
 
 ## Law Connections
 
-- **[Law 1: Correlated Failure](core-principles/laws/correlated-failure/index)**: Leader failure affects all writes
-- **[Law 4: Trade-offs](core-principles/laws/multidimensional-optimization/index)**: Consistency vs availability balance
-- **[Law 5: Distributed Knowledge](core-principles/laws/distributed-knowledge/index)**: Split-brain from partial knowledge
+- **[Law 1: Correlated Failure](core-principles/laws/correlated-failure/)**: Leader failure affects all writes
+- **[Law 4: Trade-offs](core-principles/laws/multidimensional-optimization/)**: Consistency vs availability balance
+- **[Law 5: Distributed Knowledge](core-principles/laws/distributed-knowledge/)**: Split-brain from partial knowledge
 

@@ -1,3 +1,8 @@
+---
+title: Technical Leadership
+description: Technical Leadership overview and navigation
+---
+
 # Technical Leadership Interview Guide
 
 ## Overview
@@ -302,4 +307,4 @@ Week 5-6: Integration
 
 ---
 
-**Next Steps**: Review [System & Org Design](/interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index/) for organizational aspects, and practice with the [Interactive Tools](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index/).
+**Next Steps**: Review [System & Org Design](../../../../interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index.md) for organizational aspects, and practice with the [Interactive Tools](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index.md).

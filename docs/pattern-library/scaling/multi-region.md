@@ -1,31 +1,21 @@
 ---
-best-for:
-- Global applications with geographically distributed users
-- Systems requiring disaster recovery across regions
-- Applications with regulatory data residency requirements
-- High-traffic services needing load distribution
-category: scaling
-current_relevance: mainstream
-description: Deployment pattern that spans multiple geographic regions for disaster
-  recovery and latency optimization
-essential_question: How do we handle increasing load without sacrificing performance
-  using multi-region architecture?
-excellence_tier: silver
-introduced: 2024-01
-pattern_status: recommended
-tagline: Master multi-region architecture for distributed systems success
 title: Multi-Region Architecture
-trade-offs:
-  cons:
-  - Complex data consistency challenges
-  - High operational overhead
-  - Increased infrastructure costs
-  - Cross-region latency for coordination
-  pros:
-  - Global latency optimization
-  - Disaster recovery capability
-  - Regulatory compliance support
-  - Load distribution across regions
+description: Deployment pattern that spans multiple geographic regions for disaster recovery and latency optimization
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+  - Global applications with geographically distributed users
+  - Systems requiring disaster recovery across regions
+  - Applications with regulatory data residency requirements
+  - High-traffic services needing load distribution
+introduced: 2024-01
+current_relevance: mainstream
+category: scaling
+essential_question: How do we handle increasing load without sacrificing performance using multi-region architecture?
+tagline: Master multi-region architecture for distributed systems success
+trade_offs:
+  cons: ['Complex data consistency challenges', 'High operational overhead', 'Increased infrastructure costs', 'Cross-region latency for coordination']
+  pros: ['Global latency optimization', 'Disaster recovery capability', 'Regulatory compliance support', 'Load distribution across regions']
 ---
 
 

@@ -334,8 +334,8 @@ graph LR
     
     ---
     
-    - [Distributed Lock](/pattern-library/coordination/distributed-lock/) - Uses election for coordination
-    - [Consensus](/pattern-library/coordination/consensus/) - Foundation for safe elections
+    - [Distributed Lock](../../pattern-library/coordination/distributed-lock.md) - Uses election for coordination
+    - [Consensus](../../pattern-library/coordination/consensus.md) - Foundation for safe elections
     - [Heartbeat](../communication/heartbeat.md) - Failure detection mechanism
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
@@ -349,8 +349,8 @@ graph LR
     
     ---
     
-    - [Pillar 4: Control Distribution](../../core-principles/pillars/control/) - Centralized decision making
-    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth/) - Single source of authority
+    - [Pillar 4: Control Distribution](../../core-principles/pillars/control-distribution/) - Centralized decision making
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/) - Single source of authority
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

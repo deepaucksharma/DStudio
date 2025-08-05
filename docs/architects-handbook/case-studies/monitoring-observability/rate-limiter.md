@@ -1030,9 +1030,9 @@ graph TD
 - [Gubernator](https://github.com/mailgun/gubernator) - High-performance distributed rate limiting
 
 **Related Patterns:**
-- [Token Bucket Algorithm](../patterns/rate-limiting)
+- [Token Bucket Algorithm](../pattern-library/scaling/rate-limiting)
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
-- [Consistent Hashing](/consistent-hashing)
+- [Consistent Hashing](../../../consistent-hashing.md)
 - Gossip Protocol (Coming Soon)
 
 ## Related Concepts & Deep Dives
@@ -1047,28 +1047,28 @@ graph TD
 - **[Law 7: Economic Reality ](../../core-principles/laws/economic-reality/)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Rate Limiting](../patterns/rate-limiting)** - Core pattern implemented with token bucket algorithm
+- **[Rate Limiting](../pattern-library/scaling/rate-limiting)** - Core pattern implemented with token bucket algorithm
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects rate limiter from Redis failures
-- **[Bulkhead](../patterns/bulkhead)** - Isolates rate limit pools per tenant/API
-- **[Consistent Hashing](../patterns/sharding)** - Distributes users across rate limiter nodes
-- **[Caching Strategies](../patterns/caching-strategies)** - Local cache with TTL for performance
-- **[Health Check](../patterns/health-check)** - Monitors Redis connectivity and accuracy
-- **[Load Shedding](../patterns/load-shedding)** - Drops low-priority requests under extreme load
+- **[Bulkhead](../pattern-library/resilience/bulkhead)** - Isolates rate limit pools per tenant/API
+- **[Consistent Hashing](../pattern-library/scaling/sharding)** - Distributes users across rate limiter nodes
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies)** - Local cache with TTL for performance
+- **[Health Check](../pattern-library/resilience/health-check)** - Monitors Redis connectivity and accuracy
+- **[Load Shedding](../pattern-library/resilience/load-shedding)** - Drops low-priority requests under extreme load
 
 ### Quantitative Models
-- **[Little's Law](../quantitative/littles-law)** - Queue depth = arrival rate × processing time for pending checks
-- **[Queueing Theory](../quantitative/queueing-models)** - M/M/c model for rate limiter node sizing
+- **[Little's Law](../quantitative-analysis/littles-law)** - Queue depth = arrival rate × processing time for pending checks
+- **[Queueing Theory](../quantitative-analysis/queueing-models)** - M/M/c model for rate limiter node sizing
 - **CAP Theorem (Coming Soon)** - AP choice: available during partitions with approximate counts
-- **[Bloom Filters](../quantitative/probabilistic-structures)** - Space-efficient first-time user detection
+- **[Bloom Filters](../quantitative-analysis/probabilistic-structures)** - Space-efficient first-time user detection
 
 ### 👥 Human Factors Considerations
 - **[On-Call Culture](../human-factors/oncall-culture)** - Rate limiter failures directly impact users
 - **[Incident Response](../human-factors/incident-response)** - Runbooks for common scenarios (Redis failure, DDoS)
 - **[Observability Tools](../human-factors/observability-stacks)** - Dashboards show rate limit utilization per API/user
-- **[Capacity Planning](../quantitative/capacity-planning)** - Predicting rate limit needs based on growth
+- **[Capacity Planning](../quantitative-analysis/capacity-planning)** - Predicting rate limit needs based on growth
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](/architects-handbook/case-studies/databases/amazon-dynamo/)** - Similar distributed counting challenges
-- **[PayPal Payments](/architects-handbook/case-studies/financial-commerce/paypal-payments/)** - Rate limiting prevents payment fraud
-- **[Consistent Hashing](/pattern-library/data-management/consistent-hashing/)** - Core technique for distributing rate limit state
+- **[Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Similar distributed counting challenges
+- **[PayPal Payments](../../../architects-handbook/case-studies/financial-commerce/paypal-payments.md)** - Rate limiting prevents payment fraud
+- **[Consistent Hashing](../../../../pattern-library/data-management/consistent-hashing.md)** - Core technique for distributing rate limit state
 - **[News Feed System](news-feed.md.md)** - Rate limiting API calls for feed generation

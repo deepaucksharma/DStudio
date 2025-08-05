@@ -1,31 +1,47 @@
 # Scripts Directory
 
-This directory contains various Python scripts used for maintaining and optimizing the documentation site.
+This directory contains utility scripts for the DStudio documentation project.
 
-## Available Scripts
+## Validation Scripts (Primary)
 
-### CSS Conversion Scripts
-- `convert_custom_css_to_material.py` - Converts custom CSS components to Material for MkDocs
-- `convert_custom_css_comprehensive.py` - Comprehensive CSS conversion tool
-- `final_material_conversion.py` - Final Material theme conversion
-- `verify_material_conversion.py` - Verifies Material conversion completeness
+These are the core validation scripts used in CI/CD:
 
-### Navigation Scripts
-- `update-navigation.py` - Updates navigation structure
-- `add-breadcrumbs.py` - Adds breadcrumb navigation
-- `check-navigation.py` - Validates navigation configuration
+- **`mkdocs-validator.py`** - Primary validation using MkDocs build --strict
+- **`deep-structure-analyzer.py`** - Deep analysis of documentation structure
+- **`validate-frontmatter.py`** - Validates frontmatter consistency
+- **`validate-law-references.py`** - Validates law naming conventions
+- **`validate-paths.py`** - Checks for outdated path references
+- **`check-broken-links.py`** - Detailed broken link analysis
 
-### Utility Scripts
-- `clean_emojis.py` - Removes or standardizes emoji usage
-- `get-pip.py` - Python pip installation script
+See `README-validation.md` for detailed documentation on the validation approach.
 
-## Usage
+## Pattern Management
 
-Most scripts can be run directly with Python:
+- **`pattern-manager.py`** - Interactive pattern management tool
+- **`comprehensive_metadata_summary.py`** - Pattern metadata analysis
 
-```bash
-python3 scripts/script-name.py
-```
+## Content Enhancement
 
-## Note
-These scripts were used during the site optimization process. Some may need updates before reuse. Always backup your content before running any conversion scripts.
+- **`extract_mermaid_diagrams.py`** - Extract Mermaid diagrams from markdown
+- **`render_mermaid_diagrams.py`** - Render Mermaid diagrams to images
+- **`replace_mermaid_blocks.py`** - Replace Mermaid blocks with rendered images
+- **`monitor_diagram_conversion.py`** - Monitor diagram conversion progress
+
+## Template Management
+
+- **`template_v2_transformer_enhanced.py`** - Transform content to V2 templates
+
+## Navigation
+
+- **`add-missing-descriptions.py`** - Add missing descriptions to pages
+- **`analyze-patterns.py`** - Analyze pattern organization
+- **`tier_section_validator.py`** - Validate tier sections
+
+## Utilities
+
+- **`cleanup-project.py`** - Project cleanup utilities
+- **`setup_diagram_tools.sh`** - Setup diagram rendering tools
+
+## Archived Scripts
+
+Legacy and one-time use scripts have been moved to `scripts/archive/` to keep the main directory clean and focused.

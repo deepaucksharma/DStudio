@@ -1,27 +1,25 @@
 ---
-best-for: []
-category: data-management
-current_relevance: mainstream
+title: Polyglot Persistence
 description: Using different data storage technologies for different domain requirements
+type: pattern
 difficulty: intermediate
-essential_question: How do we ensure data consistency and reliability with polyglot
-  persistence?
+reading_time: 30 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-01-23
 pattern_status: recommended
-prerequisites: []
-reading-time: 30 min
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with polyglot persistence?
+last_updated: 2025-01-23
+prerequisites:
 status: complete
 tagline: Master polyglot persistence for distributed systems success
-title: Polyglot Persistence
-trade-offs:
+trade_offs:
   cons: []
   pros: []
-type: pattern
-when-not-to-use: When a single database can meet all requirements effectively
-when-to-use: When different parts of your application have different data storage
-  requirements
+when_not_to_use: When a single database can meet all requirements effectively
+when_to_use: When different parts of your application have different data storage requirements
 ---
 
 
@@ -437,10 +435,10 @@ Based on access patterns, automatically move data to optimal stores:
 
 ## 📚 Related Patterns
 
-- [CQRS](/pattern-library/data-management/cqrs/) - Separate read and write models
-- [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Event-driven polyglot sync
-- [Saga Pattern](/pattern-library/data-management/saga/) - Distributed transactions
-- [Database per Service](/pattern-library/architecture/backends-for-frontends/) - Microservices data isolation
+- [CQRS](../../pattern-library/data-management/cqrs.md) - Separate read and write models
+- [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Event-driven polyglot sync
+- [Saga Pattern](../../pattern-library/data-management/saga.md) - Distributed transactions
+- [Database per Service](../../pattern-library/architecture/backends-for-frontends.md) - Microservices data isolation
 
 ---
 
@@ -448,5 +446,5 @@ Based on access patterns, automatically move data to optimal stores:
 
 ---
 
-**Previous**: [← Outbox Pattern](/pattern-library/data-management/outbox/) | **Next**: Priority Queue → (Coming Soon)
+**Previous**: [← Outbox Pattern](../../pattern-library/data-management/outbox.md) | **Next**: Priority Queue → (Coming Soon)
 

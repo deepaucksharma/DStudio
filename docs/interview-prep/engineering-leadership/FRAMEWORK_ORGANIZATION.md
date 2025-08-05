@@ -1,3 +1,9 @@
+---
+title: Engineering Leadership Interview Framework Organization
+description: The engineering leadership interview preparation content is organized using a principled 4-level framework that builds from foundational truths to pra
+type: interview-guide
+---
+
 # Engineering Leadership Interview Framework Organization
 
 ## Overview

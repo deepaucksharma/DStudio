@@ -249,9 +249,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Load Balancing](/pattern-library/scaling/load-balancing/) | Traffic distribution during scaling | Instance registration/deregistration |
-| [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | Graceful degradation during scale-up | Prevent cascade failures |
-| [Health Check](/pattern-library/resilience/health-check/) | Instance readiness validation | Safe traffic routing |
+| [Load Balancing](../../pattern-library/scaling/load-balancing.md) | Traffic distribution during scaling | Instance registration/deregistration |
+| [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | Graceful degradation during scale-up | Prevent cascade failures |
+| [Health Check](../../pattern-library/resilience/health-check.md) | Instance readiness validation | Safe traffic routing |
 
 ## Quick Reference
 
@@ -295,9 +295,9 @@ graph LR
     
     ---
     
-    - [Load Balancing](/pattern-library/scaling/load-balancing/) - Traffic distribution foundation
-    - [Health Check](/pattern-library/resilience/health-check/) - Instance readiness validation
-    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Failure protection during scaling
+    - [Load Balancing](../../pattern-library/scaling/load-balancing.md) - Traffic distribution foundation
+    - [Health Check](../../pattern-library/resilience/health-check.md) - Instance readiness validation
+    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Failure protection during scaling
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -310,8 +310,8 @@ graph LR
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work/) - Distributing load across instances
-    - [Control Distribution](../../core-principles/pillars/control/) - Distributed scaling decisions
+    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Distributing load across instances
+    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Distributed scaling decisions
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

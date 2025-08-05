@@ -56,9 +56,9 @@ when-to-use: When designing distributed systems architecture
     CAP theorem is important for understanding distributed systems theory but doesn't provide actionable guidance. Modern systems offer more nuanced approaches like tunable consistency and PACELC considerations.
     
     **For practical guidance, see:**
-    - **[Tunable Consistency](/pattern-library/data-management/tunable-consistency/)** for flexible trade-offs
-    - **[Consensus Patterns](/pattern-library/coordination/consensus/)** for agreement protocols
-    - **[Multi-Region Architecture](/pattern-library/scaling/multi-region/)** for real-world CAP decisions
+    - **[Tunable Consistency](../../pattern-library/data-management/tunable-consistency.md)** for flexible trade-offs
+    - **[Consensus Patterns](../../pattern-library/coordination/consensus.md)** for agreement protocols
+    - **[Multi-Region Architecture](../../pattern-library/scaling/multi-region.md)** for real-world CAP decisions
 
 **You can't have your cake and eat it too - The fundamental trade-off in distributed systems**
 
@@ -261,9 +261,9 @@ graph TD
     
     ---
     
-    - [Eventual Consistency](/pattern-library/data-management/eventual-consistency/) - AP system implementation
-    - [Consensus](/pattern-library/coordination/consensus/) - CP system coordination
-    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Partition handling
+    - [Eventual Consistency](../../pattern-library/data-management/eventual-consistency.md) - AP system implementation
+    - [Consensus](../../pattern-library/coordination/consensus.md) - CP system coordination
+    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Partition handling
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -276,8 +276,8 @@ graph TD
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state/) - Data consistency models
-    - [Truth Distribution](../../core-principles/pillars/truth/) - Consensus mechanisms
+    - [State Distribution](../../core-principles/pillars/state-distribution/) - Data consistency models
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consensus mechanisms
 
 - :material-tools:{ .lg .middle } **Modern Alternatives**
     

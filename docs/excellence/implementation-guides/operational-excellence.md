@@ -1,3 +1,9 @@
+---
+title: Operational Excellence Guide: Running Systems at Scale
+description: ```mermaid graph TD A[Level 1: Reactive] --> B[Level 2: Proactive] B --> C[Level 3: Predictive] C --> D[Level 4: Adaptive]
+type: guide
+---
+
 # Operational Excellence Guide: Running Systems at Scale
 
 ## Operations Maturity Model

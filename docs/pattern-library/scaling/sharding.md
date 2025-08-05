@@ -1,33 +1,25 @@
 ---
-category: scaling
-current_relevance: mainstream
-description: Horizontally partition data across multiple databases to scale beyond
-  single-machine limits
-essential_question: How do we scale beyond single-machine database limits while maintaining
-  query performance?
-excellence_tier: gold
-introduced: 2000-01
-modern-examples:
-- company: Discord
-  implementation: Channel-based sharding for messages
-  scale: 1T+ messages, 4,096 logical shards on 177 Cassandra nodes
-- company: Pinterest
-  implementation: User-based sharding with virtual buckets
-  scale: 240B+ pins on 8,192 virtual shards across 800 MySQL servers
-- company: YouTube/Vitess
-  implementation: Automatic sharding proxy for MySQL
-  scale: 100,000+ MySQL instances handling exabytes of data
-pattern_status: recommended
-production-checklist:
-- Choose sharding key matching access patterns (user_id, tenant_id)
-- Start with more virtual shards than needed (easier to merge than split)
-- Implement shard-aware connection pooling and routing
-- Monitor shard balance continuously (hot spot detection)
-- Plan resharding strategy from day one
-- Build cross-shard query capabilities carefully
-- Use consistent hashing for stable assignment
-- Implement distributed transactions only if essential
 title: Sharding (Data Partitioning)
+description: Horizontally partition data across multiple databases to scale beyond single-machine limits
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2000-01
+current_relevance: mainstream
+category: scaling
+essential_question: How do we scale beyond single-machine database limits while maintaining query performance?
+modern_examples:
+  - {'company': 'Discord', 'implementation': 'Channel-based sharding for messages', 'scale': '1T+ messages, 4,096 logical shards on 177 Cassandra nodes'}
+  - {'company': 'Pinterest', 'implementation': 'User-based sharding with virtual buckets', 'scale': '240B+ pins on 8,192 virtual shards across 800 MySQL servers'}
+  - {'company': 'YouTube/Vitess', 'implementation': 'Automatic sharding proxy for MySQL', 'scale': '100,000+ MySQL instances handling exabytes of data'}
+production_checklist:
+  - Choose sharding key matching access patterns (user_id, tenant_id)
+  - Start with more virtual shards than needed (easier to merge than split)
+  - Implement shard-aware connection pooling and routing
+  - Monitor shard balance continuously (hot spot detection)
+  - Plan resharding strategy from day one
+  - Build cross-shard query capabilities carefully
+  - Use consistent hashing for stable assignment
+  - Implement distributed transactions only if essential
 ---
 
 
@@ -237,8 +229,8 @@ After:  channel_id → bucket (1 of 4096) → shard (1 of 128)
 - [CQRS](../data/cqrs.md) - Separate read/write sharding strategies
 
 ### Operations  
-- [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Handle shard failures
-- [Bulkhead](/pattern-library/resilience/bulkhead/) - Isolate shard impacts
+- [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Handle shard failures
+- [Bulkhead](../../pattern-library/resilience/bulkhead.md) - Isolate shard impacts
 - [Service Mesh](../infrastructure/service-mesh.md) - Shard-aware routing
 
 ### Case Studies

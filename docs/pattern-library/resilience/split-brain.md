@@ -278,8 +278,8 @@ class GenerationBasedResolver:
     
     ---
     
-    - [Leader Election](/pattern-library/coordination/leader-election/) - Choose single leader
-    - [Consensus](/pattern-library/coordination/consensus/) - Agreement protocols
+    - [Leader Election](../../pattern-library/coordination/leader-election.md) - Choose single leader
+    - [Consensus](../../pattern-library/coordination/consensus.md) - Agreement protocols
     - [Fencing Tokens](../coordination/fencing.md) - Prevent old leaders
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**

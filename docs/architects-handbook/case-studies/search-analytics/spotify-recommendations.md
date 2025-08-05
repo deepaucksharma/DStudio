@@ -623,13 +623,13 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure](/core-principles/laws/correlated-failure/)** - Fallback to popular playlists when recommendation service fails
-- **[Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
-- **[Law 3: Emergence](/core-principles/laws/emergent-chaos/)** - Millions of concurrent users require lock-free serving infrastructure
-- **[Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/)** - GPU clusters and feature store synchronization balance multiple trade-offs
-- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - A/B testing framework measures recommendation quality in real-time
-- **[Law 6: Human-API](/core-principles/laws/cognitive-load/)** - UI design balances algorithmic recommendations with user control
-- **[Law 7: Economics](/core-principles/laws/economic-reality/)** - Recommendation quality directly impacts user retention and revenue
+- **[Law 1: Failure](../../../core-principles/laws/correlated-failure/)** - Fallback to popular playlists when recommendation service fails
+- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality/)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos/)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization/)** - GPU clusters and feature store synchronization balance multiple trade-offs
+- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge/)** - A/B testing framework measures recommendation quality in real-time
+- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load/)** - UI design balances algorithmic recommendations with user control
+- **[Law 7: Economics](../../../core-principles/laws/economic-reality/)** - Recommendation quality directly impacts user retention and revenue
 
 ### 🏛 Related Patterns
 - **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
@@ -642,14 +642,14 @@ graph TB
 
 ### Quantitative Models
 - **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
-- **[Amdahl's Law](../quantitative/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
-- **[Power Laws](../quantitative/power-laws.md)** - Long-tail content distribution affects recommendation strategy
-- **[Information Theory](../quantitative/information-theory.md)** - Entropy measures for recommendation diversity
+- **[Amdahl's Law](../quantitative-analysis/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
+- **[Power Laws](../quantitative-analysis/power-laws.md)** - Long-tail content distribution affects recommendation strategy
+- **[Information Theory](../quantitative-analysis/information-theory.md)** - Entropy measures for recommendation diversity
 
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices.md)** - ML model deployment requires specialized SRE workflows
 - **[Observability Tools](../human-factors/observability-stacks.md)** - Real-time dashboards track recommendation performance metrics
-- **[On-Call Culture](/architects-handbook/human-factors/oncall-culture/)** - Data scientists on-call for model quality issues
+- **[On-Call Culture](../../../architects-handbook/human-factors/oncall-culture.md)** - Data scientists on-call for model quality issues
 - **[Post-Mortem Culture](../human-factors/blameless-postmortems.md)** - Learning from recommendation failures and filter bubbles
 
 ### Similar Case Studies

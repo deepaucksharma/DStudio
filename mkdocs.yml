@@ -92,13 +92,13 @@ plugins:
       patterns/service-mesh.md: pattern-library/communication/service-mesh.md
       patterns/saga.md: pattern-library/data-management/saga.md
       patterns/load-balancing.md: pattern-library/scaling/load-balancing.md
-      patterns/distributed-lock.md: pattern-library/data-management/distributed-lock.md
-      case-studies/kafka.md: architects-handbook/case-studies/kafka.md
-      case-studies/redis-architecture.md: architects-handbook/case-studies/redis-architecture.md
-      case-studies/payment-system.md: architects-handbook/case-studies/payment-system.md
-      case-studies/netflix-streaming.md: architects-handbook/case-studies/netflix-streaming.md
-      case-studies/uber-location.md: architects-handbook/case-studies/uber-location.md
-      case-studies/amazon-dynamo.md: architects-handbook/case-studies/amazon-dynamo.md
+      patterns/distributed-lock.md: pattern-library/coordination/distributed-lock.md
+      case-studies/kafka.md: architects-handbook/case-studies/messaging-streaming/kafka.md
+      case-studies/redis-architecture.md: architects-handbook/case-studies/databases/redis-architecture.md
+      case-studies/payment-system.md: architects-handbook/case-studies/financial-commerce/payment-system.md
+      case-studies/netflix-streaming.md: architects-handbook/case-studies/messaging-streaming/netflix-streaming.md
+      case-studies/uber-location.md: architects-handbook/case-studies/location-services/uber-location.md
+      case-studies/amazon-dynamo.md: architects-handbook/case-studies/databases/amazon-dynamo.md
       quantitative/littles-law.md: architects-handbook/quantitative-analysis/littles-law.md
       quantitative/cap-theorem.md: architects-handbook/quantitative-analysis/cap-theorem.md
       quantitative/amdahl-gustafson.md: architects-handbook/quantitative-analysis/amdahl-gustafson.md
@@ -109,13 +109,12 @@ plugins:
       quantitative/latency-ladder.md: architects-handbook/quantitative-analysis/latency-ladder.md
       human-factors/sre-practices.md: architects-handbook/human-factors/sre-practices.md
       human-factors/incident-response.md: architects-handbook/human-factors/incident-response.md
-      excellence/pattern-selection-wizard.md: architects-handbook/implementation-playbooks/pattern-selection-wizard.md
-      excellence/excellence-dashboard.md: architects-handbook/implementation-playbooks/excellence-dashboard.md
+      # Removed non-existent redirects for pattern-selection-wizard and excellence-dashboard
       learning-paths/new-graduate.md: architects-handbook/learning-paths/new-graduate.md
       learning-paths/senior-engineer.md: architects-handbook/learning-paths/senior-engineer.md
       learning-paths/architect.md: architects-handbook/learning-paths/architect.md
       learning-paths/manager.md: architects-handbook/learning-paths/manager.md
-      google-interviews/dashboard.md: interview-prep/frameworks/google-interviews/dashboard.md
+      # Removed non-existent redirect for google-interviews/dashboard
       part1-axioms/index.md: core-principles/laws/index.md
       part2-pillars/index.md: core-principles/pillars/index.md
       patterns/index.md: pattern-library/index.md
@@ -136,7 +135,7 @@ plugins:
       patterns/consensus.md: pattern-library/coordination/consensus.md
       patterns/leader-election.md: pattern-library/coordination/leader-election.md
       patterns/cell-architecture.md: pattern-library/architecture/cell-based.md
-      patterns/observability.md: pattern-library/coordination/observability.md
+      patterns/observability.md: architects-handbook/human-factors/observability-stacks.md
       patterns/chaos-engineering.md: architects-handbook/human-factors/chaos-engineering.md
 - mermaid2:
     version: 10.6.1
@@ -196,7 +195,7 @@ markdown_extensions:
     custom_fences:
     - name: mermaid
       class: mermaid
-      format: null
+      format: !!python/name:mermaid2.fence_mermaid
 - pymdownx.tabbed:
     alternate_style: true
     combine_header_slug: true

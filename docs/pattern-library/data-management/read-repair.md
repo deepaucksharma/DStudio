@@ -297,7 +297,7 @@ graph LR
     
     - [Anti-Entropy](../data-management/anti-entropy.md) - Comprehensive consistency repair
     - [Vector Clocks](../data-management/vector-clocks.md) - Version comparison
-    - [Merkle Trees](/pattern-library/data-management/merkle-trees/) - Efficient difference detection
+    - [Merkle Trees](../../pattern-library/data-management/merkle-trees.md) - Efficient difference detection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -310,8 +310,8 @@ graph LR
     
     ---
     
-    - [Pillar 2: State Distribution](../../core-principles/pillars/state/) - Managing distributed state
-    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth/) - Determining authoritative data
+    - [Pillar 2: State Distribution](../../core-principles/pillars/state-distribution/) - Managing distributed state
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/) - Determining authoritative data
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

@@ -1,3 +1,9 @@
+---
+title: Service Communication Guide: Patterns for Scale
+description: ```mermaid graph TD A[Service Communication] --> B[Synchronous] A --> C[Asynchronous]
+type: guide
+---
+
 # Service Communication Guide: Patterns for Scale
 
 ## Communication Pattern Hierarchy
@@ -519,5 +525,5 @@ graph TD
 - [Service Mesh Pattern](../pattern-library/communication/service-mesh.md) (Gold)
 - [API Gateway Pattern](../pattern-library/communication/api-gateway.md) (Gold)
 - [Event-Driven Pattern](../pattern-library/architecture/event-driven.md) (Gold)
-- [gRPC Best Practices](../pattern-library/grpc.md)
+- [gRPC Best Practices](../pattern-library/communication/grpc.md)
 - [WebSocket Pattern](../pattern-library/communication/websocket.md) (Silver)

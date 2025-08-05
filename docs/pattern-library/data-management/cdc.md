@@ -1,34 +1,26 @@
 ---
-category: data-management
-current_relevance: mainstream
-description: Data synchronization pattern that captures and propagates database changes
-  in real-time
-essential_question: How do we ensure data consistency and reliability with change
-  data capture (cdc)?
-excellence_tier: gold
-introduced: 2008-03
-modern-examples:
-- company: Netflix
-  implementation: Captures MySQL/Cassandra changes for real-time personalization
-  scale: 4 trillion events/day enabling sub-second updates
-- company: Airbnb
-  implementation: SpinalTap CDC system for cross-service data synchronization
-  scale: 2B+ changes daily with sub-second latency
-- company: Uber
-  implementation: Schemaless database with CDC for global replication
-  scale: Petabyte-scale cross-region replication
-pattern_status: recommended
-production-checklist:
-- Choose CDC method based on database capabilities
-- Handle schema evolution gracefully
-- Implement exactly-once or at-least-once delivery
-- Monitor replication lag continuously
-- Plan for initial data loads and backfills
-- Set up dead letter queues for failures
-- Test failover and recovery scenarios
-- Document data lineage and dependencies
-tagline: Master change data capture (cdc) for distributed systems success
 title: Change Data Capture (CDC)
+description: Data synchronization pattern that captures and propagates database changes in real-time
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2008-03
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with change data capture (cdc)?
+modern_examples:
+  - {'company': 'Netflix', 'implementation': 'Captures MySQL/Cassandra changes for real-time personalization', 'scale': '4 trillion events/day enabling sub-second updates'}
+  - {'company': 'Airbnb', 'implementation': 'SpinalTap CDC system for cross-service data synchronization', 'scale': '2B+ changes daily with sub-second latency'}
+  - {'company': 'Uber', 'implementation': 'Schemaless database with CDC for global replication', 'scale': 'Petabyte-scale cross-region replication'}
+production_checklist:
+  - Choose CDC method based on database capabilities
+  - Handle schema evolution gracefully
+  - Implement exactly-once or at-least-once delivery
+  - Monitor replication lag continuously
+  - Plan for initial data loads and backfills
+  - Set up dead letter queues for failures
+  - Test failover and recovery scenarios
+  - Document data lineage and dependencies
+tagline: Master change data capture (cdc) for distributed systems success
 ---
 
 
@@ -241,14 +233,14 @@ graph TD
 - **[Saga Pattern](./saga.md)**: CDC triggers distributed transactions
 
 ### Supporting Patterns
-- **[Stream Processing](../patterns/stream-processing.md)**: Process CDC events
+- **[Stream Processing](../pattern-library/stream-processing.md)**: Process CDC events
 - **[CQRS](./cqrs.md)**: CDC updates read models
-- **[Cache Invalidation](../patterns/cache-invalidation.md)**: Real-time cache updates
+- **[Cache Invalidation](../pattern-library/cache-invalidation.md)**: Real-time cache updates
 
 ### Alternatives
-- **[Batch ETL](../patterns/etl.md)**: When real-time not needed
-- **[Database Replication](../patterns/replication.md)**: Full database sync
-- **[Polling](../patterns/polling.md)**: Simple but less efficient
+- **[Batch ETL](../pattern-library/etl.md)**: When real-time not needed
+- **[Database Replication](../pattern-library/replication.md)**: Full database sync
+- **[Polling](../pattern-library/polling.md)**: Simple but less efficient
 
 ## Further Reading
 

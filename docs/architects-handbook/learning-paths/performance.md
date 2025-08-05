@@ -90,10 +90,10 @@ By completing this path, you will:
 
 #### Week 3: Load Distribution
 
-- [Load Balancing](../patterns/load-balancing) - Traffic distribution
-- [Sharding](../patterns/sharding) - Data partitioning
-- [Request Routing](../patterns/request-routing) - Smart routing
-- [Scatter Gather](../patterns/scatter-gather) - Parallel processing
+- [Load Balancing](../pattern-library/scaling/load-balancing) - Traffic distribution
+- [Sharding](../pattern-library/scaling/sharding) - Data partitioning
+- [Request Routing](../pattern-library/request-routing) - Smart routing
+- [Scatter Gather](../pattern-library/scaling/scatter-gather) - Parallel processing
 
 ### Phase 3: Scaling Strategies (2 weeks)
 
@@ -104,22 +104,22 @@ By completing this path, you will:
 
 === "Service Scaling"
  Scale your application tier:
- - [Auto-Scaling](../patterns/auto-scaling) - Dynamic capacity
- - [Service Mesh](../patterns/service-mesh) - Service management
- - [Bulkhead](../patterns/bulkhead) - Resource isolation
+ - [Auto-Scaling](../pattern-library/scaling/auto-scaling) - Dynamic capacity
+ - [Service Mesh](../pattern-library/communication/service-mesh) - Service management
+ - [Bulkhead](../pattern-library/resilience/bulkhead) - Resource isolation
  - **Case Study**: [Netflix Architecture](../netflix-streaming)
 
 === "Data Scaling"
  Scale your data tier:
- - [Geo-Replication](../patterns/geo-replication) - Global distribution
- - [Multi-Region](../patterns/multi-region) - Active-active
+ - [Geo-Replication](../pattern-library/scaling/geo-replication) - Global distribution
+ - [Multi-Region](../pattern-library/scaling/multi-region) - Active-active
  - Database sharding strategies
  - **Case Study**: [Cassandra at Scale](../cassandra)
 
 === "Message Scaling"
  Scale your messaging layer:
- - [Event Streaming](../patterns/event-streaming) - High throughput
- - [Distributed Queue](../patterns/distributed-queue) - Work distribution
+ - [Event Streaming](../pattern-library/architecture/event-streaming) - High throughput
+ - [Distributed Queue](../pattern-library/coordination/distributed-queue) - Work distribution
  - Partitioned topics (Kafka)
  - **Case Study**: [LinkedIn Kafka](../kafka)
 
@@ -127,10 +127,10 @@ By completing this path, you will:
 
 Advanced optimization patterns:
 
-- [CQRS](../patterns/cqrs) - Optimize reads and writes separately
-- [Event Sourcing](../patterns/event-sourcing) - Async processing
-- [Lambda Architecture](../patterns/lambda-architecture) - Batch + real-time
-- [Edge Computing](../patterns/edge-computing) - Move compute closer
+- [CQRS](../pattern-library/data-management/cqrs) - Optimize reads and writes separately
+- [Event Sourcing](../pattern-library/data-management/event-sourcing) - Async processing
+- [Lambda Architecture](../pattern-library/architecture/lambda-architecture) - Batch + real-time
+- [Edge Computing](../pattern-library/scaling/edge-computing) - Move compute closer
 
 ### Phase 4: Production Performance (1 week)
 
@@ -142,7 +142,7 @@ Advanced optimization patterns:
 <div class="grid cards" markdown>
 
 - **Performance Monitoring**
- - [Observability](../patterns/observability)
+ - [Observability](../pattern-library/observability)
  - Distributed tracing
  - Performance profiling
  - Anomaly detection
@@ -384,12 +384,12 @@ efficiency_targets:
  
  ---
  
- [Consistency Path](/architects-handbook/learning-paths/consistency)
+ [Consistency Path](../../architects-handbook/learning-paths/consistency.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Cost Optimization Path](/architects-handbook/learning-paths/cost)
+ [Cost Optimization Path](../../architects-handbook/learning-paths/cost.md)
 
 </div>

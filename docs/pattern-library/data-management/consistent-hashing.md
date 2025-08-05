@@ -1,17 +1,15 @@
 ---
-best-for: []
-category: data-management
-current_relevance: mainstream
-description: Load distribution algorithm that minimizes reorganization when nodes
-  are added or removed
-essential_question: How do we ensure data consistency and reliability with consistent
-  hashing?
-excellence_tier: silver
-introduced: 2024-01
-pattern_status: recommended
-tagline: Master consistent hashing for distributed systems success
 title: Consistent Hashing
-trade-offs:
+description: Load distribution algorithm that minimizes reorganization when nodes are added or removed
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with consistent hashing?
+tagline: Master consistent hashing for distributed systems success
+trade_offs:
   cons: []
   pros: []
 ---
@@ -37,7 +35,7 @@ trade-offs:
 !!! success "🏆 Silver Excellence Pattern"
 **Implementation available in production systems**
 
-[Home](/) > [Patterns](/pattern-library/) > [Data Patterns](../patterns/index.md#data-patterns) > Consistent Hashing
+[Home](/) > [Patterns](../../pattern-library/index.md) > [Data Patterns](../pattern-library/index/#data-patterns) > Consistent Hashing
 
 !!! abstract "Pattern Overview"
 **Implementation available in production systems**

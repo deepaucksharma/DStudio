@@ -1,3 +1,8 @@
+---
+title: Hiring Interviewing
+description: Hiring Interviewing overview and navigation
+---
+
 # Hiring Interviewing
 
 > **Note**: This section is under construction.
@@ -20,5 +25,5 @@ Check back soon for detailed content on this topic.
 ---
 
 **Related Resources:**
-- [Engineering Leadership Home](/interview-prep/engineering-leadership/)
-- [Framework Overview](/interview-prep/engineering-leadership/framework-index/)
+- [Engineering Leadership Home](../../../../../interview-prep/engineering-leadership/index.md)
+- [Framework Overview](../../../../../interview-prep/engineering-leadership/framework-index.md)

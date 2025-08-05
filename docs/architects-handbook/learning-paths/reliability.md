@@ -56,7 +56,7 @@ By completing this path, you will:
  Quantitative approach:
  
  - [Reliability Theory](quantitative/reliability-theory) - MTBF, MTTR
- - [SRE Practices](/architects-handbook/human-factors/sre-practices/) - Google's approach
+ - [SRE Practices](../../architects-handbook/human-factors/sre-practices.md) - Google's approach
  - [Error Budgets](quantitative/error-budgets) - Managing risk
 
 </div>
@@ -70,33 +70,33 @@ By completing this path, you will:
 
 === "Failure Isolation"
  Prevent cascade failures:
- - [Circuit Breaker](../patterns/circuit-breaker) - Stop cascades
- - [Bulkhead](../patterns/bulkhead) - Resource isolation
- - [Timeout](../patterns/timeout) - Bounded waiting
+ - [Circuit Breaker](../pattern-library/resilience/circuit-breaker) - Stop cascades
+ - [Bulkhead](../pattern-library/resilience/bulkhead) - Resource isolation
+ - [Timeout](../pattern-library/resilience/timeout) - Bounded waiting
  - **Project**: Implement circuit breaker library
 
 === "Recovery Patterns"
  Graceful failure handling:
- - [Retry & Backoff](../patterns/retry-backoff) - Transient failures
- - [Graceful Degradation](../patterns/graceful-degradation) - Feature flags
- - [Failover](../patterns/failover) - Automatic recovery
+ - [Retry & Backoff](../pattern-library/resilience/retry-backoff) - Transient failures
+ - [Graceful Degradation](../pattern-library/resilience/graceful-degradation) - Feature flags
+ - [Failover](../pattern-library/resilience/failover) - Automatic recovery
  - **Project**: Build retry with jitter
 
 === "Overload Protection"
  Handle traffic spikes:
- - [Rate Limiting](../patterns/rate-limiting) - Request caps
- - [Load Shedding](../patterns/load-shedding) - Selective drops
- - [Backpressure](../patterns/backpressure) - Flow control
+ - [Rate Limiting](../pattern-library/scaling/rate-limiting) - Request caps
+ - [Load Shedding](../pattern-library/resilience/load-shedding) - Selective drops
+ - [Backpressure](../pattern-library/scaling/backpressure) - Flow control
  - **Project**: Implement adaptive rate limiter
 
 #### Week 3: Advanced Patterns
 
 System-level resilience:
 
-- [Health Check](../patterns/health-check) - Liveness and readiness
-- [Idempotent Receiver](../patterns/idempotent-receiver) - Safe retries
-- [Split Brain](../patterns/split-brain) - Network partition handling
-- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering) - Proactive testing
+- [Health Check](../pattern-library/resilience/health-check) - Liveness and readiness
+- [Idempotent Receiver](../pattern-library/idempotent-receiver) - Safe retries
+- [Split Brain](../pattern-library/resilience/split-brain) - Network partition handling
+- [Chaos Engineering](../../architects-handbook/human-factors/chaos-engineering.md) - Proactive testing
 
 ### Phase 3: High Availability Architecture (2 weeks)
 
@@ -114,14 +114,14 @@ System-level resilience:
 
 === "Data Resilience"
  Protect your data:
- - [Multi-Region](../patterns/multi-region) - Global deployment
- - [Geo-Replication](../patterns/geo-replication) - Data distribution
+ - [Multi-Region](../pattern-library/scaling/multi-region) - Global deployment
+ - [Geo-Replication](../pattern-library/scaling/geo-replication) - Data distribution
  - Backup and restore strategies
  - **Case Study**: [Amazon S3 Durability](../s3-object-storage-enhanced)
 
 === "Service Mesh"
  Infrastructure-level resilience:
- - [Service Mesh](../patterns/service-mesh) - Istio/Linkerd
+ - [Service Mesh](../pattern-library/communication/service-mesh) - Istio/Linkerd
  - Automatic retries and timeouts
  - Circuit breaking at mesh level
  - **Project**: Deploy Istio with resilience policies
@@ -145,25 +145,25 @@ Prepare for the worst:
 <div class="grid cards" markdown>
 
 - **Monitoring & Alerting**
- - [Observability](../patterns/observability)
+ - [Observability](../pattern-library/observability)
  - SLI/SLO/SLA definition
  - Alert fatigue reduction
  - Synthetic monitoring
 
 - **Incident Management**
- - [Incident Response](/architects-handbook/human-factors/incident-response)
+ - [Incident Response](../../architects-handbook/human-factors/incident-response.md)
  - On-call rotation
  - Runbook creation
  - War room protocols
 
 - **Chaos Engineering**
- - [Chaos Practices](/architects-handbook/human-factors/chaos-engineering/)
+ - [Chaos Practices](../../architects-handbook/human-factors/chaos-engineering.md)
  - Game days
  - Failure injection
  - Hypothesis testing
 
 - **Post-Incident**
- - [Blameless Postmortems](/architects-handbook/human-factors/blameless-postmortems)
+ - [Blameless Postmortems](../../architects-handbook/human-factors/blameless-postmortems.md)
  - Root cause analysis
  - Action item tracking
  - Knowledge sharing
@@ -418,12 +418,12 @@ operational_metrics:
  
  ---
  
- [Cost Optimization Path](/architects-handbook/learning-paths/cost)
+ [Cost Optimization Path](../../architects-handbook/learning-paths/cost.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Learning Paths Overview](/architects-handbook/learning-paths/cost)
+ [Learning Paths Overview](../../architects-handbook/learning-paths/cost.md)
 
 </div>

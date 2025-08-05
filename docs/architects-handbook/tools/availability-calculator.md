@@ -1,3 +1,9 @@
+---
+title: Availability Calculator
+description: *Mean Time Between Failures*
+type: documentation
+---
+
 # Availability Calculator
 
 !!! info "Interactive Calculator"
@@ -202,9 +208,9 @@ A_total = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
 
 - [Availability Math Deep Dive](quantitative/availability-math)
 - [MTBF and MTTR Explained](quantitative/mtbf-mttr)
-- [Failover Pattern](../patterns/failover)
+- [Failover Pattern](../pattern-library/resilience/failover)
 - Multi-Region Architecture (Coming Soon)
-- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
+- [Chaos Engineering](../../architects-handbook/human-factors/chaos-engineering.md)
 
 <script>
 // Enhanced availability calculator with validation and visualizations

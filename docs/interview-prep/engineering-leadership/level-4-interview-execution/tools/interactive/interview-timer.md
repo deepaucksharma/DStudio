@@ -1,3 +1,9 @@
+---
+title: Interview Timer - Practice with Real Constraints
+description: Practice interviews under realistic time pressure. Each interview type has specific timing patterns that successful candidates master.
+type: interview-guide
+---
+
 # Interview Timer - Practice with Real Constraints
 
 ## Overview

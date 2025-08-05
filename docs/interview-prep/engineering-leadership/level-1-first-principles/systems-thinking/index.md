@@ -1,3 +1,8 @@
+---
+title: Systems Thinking
+description: Systems Thinking overview and navigation
+---
+
 # First Principle #4: Systems Thinking
 
 > "A system is never the sum of its parts. It's the product of their interactions." - Russell Ackoff
@@ -792,10 +797,10 @@ teams to fix the technical system
 
 ## Connection to Other Principles
 
-- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Value flows through systems - optimize the whole value stream, not local parts
-- **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index/)**: Decisions have system-wide impacts - consider ripple effects before choosing
-- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)**: Humans adapt to system incentives - design systems that bring out the best in people
-- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Systems must be designed ethically - embed fairness and transparency in structures
+- **[Value Creation](../../../../interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md)**: Value flows through systems - optimize the whole value stream, not local parts
+- **[Decision-Making](../../../../interview-prep/engineering-leadership/level-1-first-principles/decision-making/index.md)**: Decisions have system-wide impacts - consider ripple effects before choosing
+- **[Human Behavior](../../../../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Humans adapt to system incentives - design systems that bring out the best in people
+- **[Integrity & Ethics](../../../../interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Systems must be designed ethically - embed fairness and transparency in structures
 
 ## Red Flags: When You're Not Thinking in Systems
 
@@ -999,18 +1004,18 @@ Systems with emergent properties that can't be predicted from components.
 ## Application in Other Levels
 
 ### Level II: Core Business Concepts
-- **[Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index/)**: Strategic thinking requires systems perspective
-- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/)**: Operational excellence through systems optimization
-- **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index/)**: Managing systemic risks
+- **[Strategy](../../../../interview-prep/engineering-leadership/level-2-core-business/strategy/index.md)**: Strategic thinking requires systems perspective
+- **[Operations](../../../../interview-prep/engineering-leadership/level-2-core-business/operations/index.md)**: Operational excellence through systems optimization
+- **[Risk & Governance](../../../../interview-prep/engineering-leadership/level-2-core-business/risk-governance/index.md)**: Managing systemic risks
 
 ### Level III: Engineering Applications
-- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Designing organizations as systems
-- **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)**: Architecture as system design
-- **[Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index/)**: Understanding business as a system
+- **[Organizational Design](../../../../interview-prep/engineering-leadership/level-3-applications/organizational-design/index.md)**: Designing organizations as systems
+- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md)**: Architecture as system design
+- **[Business Acumen](../../../../interview-prep/engineering-leadership/level-3-applications/business-acumen/index.md)**: Understanding business as a system
 
 ### Level IV: Interview Execution
-- **[System Design](/interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index/)**: Demonstrating systems thinking live
-- **[Technical Leadership](/interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index/)**: Showing architectural systems mastery
+- **[System Design](../../../../interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index.md)**: Demonstrating systems thinking live
+- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index.md)**: Showing architectural systems mastery
 
 ## Interview-Ready Systems Thinking Framework
 
@@ -1383,4 +1388,4 @@ Before your next systems discussion or interview, verify you can:
 
 ---
 
-*Continue your journey: Explore how [Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/) provides the moral foundation for sustainable systems, or see how [Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/) applies systems thinking to execution.*
+*Continue your journey: Explore how [Integrity & Ethics](../../../../interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md) provides the moral foundation for sustainable systems, or see how [Operations](../../../../interview-prep/engineering-leadership/level-2-core-business/operations/index.md) applies systems thinking to execution.*

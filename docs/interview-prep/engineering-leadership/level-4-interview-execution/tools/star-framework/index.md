@@ -1,3 +1,8 @@
+---
+title: Star Framework
+description: Star Framework overview and navigation
+---
+
 # STAR+ Method for Leadership Scenarios
 
 ## Overview
@@ -172,4 +177,4 @@ Highlight velocity and scale:
 
 ---
 
-**Next Steps**: Build your story portfolio using our [Story Portfolio Tool](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index/) and practice with [Common Behavioral Questions](../../practice-scenarios/).
+**Next Steps**: Build your story portfolio using our [Story Portfolio Tool](../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md) and practice with [Common Behavioral Questions](../../practice-scenarios/).

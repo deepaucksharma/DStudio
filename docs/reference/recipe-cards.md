@@ -432,7 +432,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 4 (Multidimensional Optimization ⚖️) for trade-offs, Law 7 (Economic Reality 💰) for cost planning
 
-**Tools**: [Capacity Planning Calculator](/architects-handbook/tools/capacity-calculator), [Little's Law Calculator](/architects-handbook/tools/latency-calculator)
+**Tools**: [Capacity Planning Calculator](../architects-handbook/tools/capacity-calculator.md), [Little's Law Calculator](../architects-handbook/tools/latency-calculator.md)
 
 ---
 
@@ -487,7 +487,7 @@ last_updated: 2025-07-20
 
 5. **Monitor and Alert**: Trace duration P99, Error traces, Missing spans
 
-**Related Patterns**: [Observability](/pattern-library/resilience/health-check/), [Service Mesh](/pattern-library/communication/service-mesh/)
+**Related Patterns**: [Observability](../pattern-library/resilience/health-check.md), [Service Mesh](../pattern-library/communication/service-mesh.md)
 
 ---
 
@@ -619,7 +619,7 @@ last_updated: 2025-07-20
 
 5. **Test the Breaker**: Inject failures, Verify opens at threshold, Confirm recovery behavior
 
-**Related Patterns**: [Bulkhead](/pattern-library/resilience/bulkhead/), [Retry with Backoff](/pattern-library/resilience/retry-backoff/)
+**Related Patterns**: [Bulkhead](../pattern-library/resilience/bulkhead.md), [Retry with Backoff](../pattern-library/resilience/retry-backoff.md)
 
 ---
 
@@ -693,9 +693,9 @@ last_updated: 2025-07-20
 4. **Share your recipes** - contribute back improvements
 
 For deeper understanding:
-- [Patterns](../patterns/architects-handbook/case-studies/index.md) - Real-world implementations
-- [Tools](/architects-handbook/tools/index/) - Interactive calculators
-- [Cheat Sheets](/reference/cheat-sheets/) - Quick reference
+- [Patterns](../pattern-library/architects-handbook/case-studies/index.md) - Real-world implementations
+- [Tools](../architects-handbook/tools/index.md) - Interactive calculators
+- [Cheat Sheets](../reference/cheat-sheets.md) - Quick reference
 
 ---
 

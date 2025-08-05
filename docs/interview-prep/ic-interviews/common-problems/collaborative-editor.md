@@ -362,7 +362,7 @@ CREATE TABLE operation_queue (
 ### Core Patterns
 
 #### 1. Operational Transforms (OT)
-**Pattern**: [Operational Transforms](/pattern-library/data-management/crdt/)
+**Pattern**: [Operational Transforms](../../../../pattern-library/data-management/crdt.md)
 - Transform conflicting operations to maintain consistency
 - Preserve user intent across concurrent edits
 - Handle complex document structures
@@ -383,19 +383,19 @@ graph TB
 ```
 
 #### 2. Conflict-Free Replicated Data Types (CRDTs)
-**Pattern**: [CRDTs](/pattern-library/data-management/crdt/)
+**Pattern**: [CRDTs](../../../../pattern-library/data-management/crdt.md)
 - Alternative to OT for simpler conflict resolution
 - Mathematically guaranteed convergence
 - Better for peer-to-peer scenarios
 
 #### 3. WebSocket Scaling
-**Pattern**: [WebSocket Scaling](/pattern-library/communication/websocket/)
+**Pattern**: [WebSocket Scaling](../../../../pattern-library/communication/websocket.md)
 - Scale real-time connections across servers
 - Sticky sessions and connection routing
 - Message broadcasting across server instances
 
 #### 4. Event Sourcing
-**Pattern**: [Event Sourcing](/pattern-library/data-management/event-sourcing/)
+**Pattern**: [Event Sourcing](../../../../pattern-library/data-management/event-sourcing.md)
 - Store all document operations as events
 - Enable perfect audit trails and replay
 - Support complex undo/redo scenarios
@@ -403,19 +403,19 @@ graph TB
 ### Supporting Patterns
 
 #### 5. Publish-Subscribe
-**Pattern**: [Pub/Sub](/pattern-library/communication/publish-subscribe/)
+**Pattern**: [Pub/Sub](../../../../pattern-library/communication/publish-subscribe.md)
 - Real-time change notifications
 - Presence and cursor updates
 - Comment and suggestion notifications
 
 #### 6. Caching
-**Pattern**: [Caching](/pattern-library/scaling/caching-strategies/)
+**Pattern**: [Caching](../../../../pattern-library/scaling/caching-strategies.md)
 - Cache frequently accessed documents
 - Cache user permissions and sessions
 - Cache search results and metadata
 
 #### 7. Rate Limiting
-**Pattern**: [Rate Limiting](/pattern-library/scaling/rate-limiting/)
+**Pattern**: [Rate Limiting](../../../../pattern-library/scaling/rate-limiting.md)
 - Prevent abuse of editing operations
 - Limit WebSocket message rates
 - Protect against spam comments

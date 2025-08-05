@@ -1,50 +1,43 @@
 ---
-category: coordination
-current_relevance: mainstream
+title: Consensus Pattern
 description: Achieving agreement among distributed nodes in the presence of failures
+type: pattern
 difficulty: advanced
-essential_question: How do we coordinate distributed components effectively using
-  consensus pattern?
+reading_time: 30 min
 excellence_tier: gold
-introduced: 1989-01
-last-updated: 2025-07-20
-modern-examples:
-- company: etcd
-  implementation: Raft consensus for Kubernetes configuration management
-  scale: Powers millions of Kubernetes clusters globally
-- company: Apache Kafka
-  implementation: KRaft consensus replacing Zookeeper dependency
-  scale: Manages metadata for trillions of messages/day
-- company: CockroachDB
-  implementation: Raft consensus for distributed SQL transactions
-  scale: Handles billions of transactions with strong consistency
 pattern_status: recommended
-prerequisites: []
-production-checklist:
-- Choose consensus algorithm (Raft preferred over Paxos)
-- Configure cluster size (3, 5, or 7 nodes typical)
-- Set election timeout (150-300ms recommended)
-- Implement leader lease for read optimization
-- Monitor leader stability and election frequency
-- Configure snapshot frequency for log compaction
-- Test network partition scenarios
-- Implement graceful node addition/removal
-- Set up monitoring for consensus health
-- Plan for split-brain prevention
-reading-time: 30 min
-related-laws:
-- asynchronous-reality
-- correlated-failure
-- distributed-knowledge
-related-pillars:
-- truth
-- control
+introduced: 1989-01
+current_relevance: mainstream
+related_laws:
+  - asynchronous-reality
+  - correlated-failure
+  - distributed-knowledge
+category: coordination
+essential_question: How do we coordinate distributed components effectively using consensus pattern?
+last_updated: 2025-07-20
+modern_examples:
+  - {'company': 'etcd', 'implementation': 'Raft consensus for Kubernetes configuration management', 'scale': 'Powers millions of Kubernetes clusters globally'}
+  - {'company': 'Apache Kafka', 'implementation': 'KRaft consensus replacing Zookeeper dependency', 'scale': 'Manages metadata for trillions of messages/day'}
+  - {'company': 'CockroachDB', 'implementation': 'Raft consensus for distributed SQL transactions', 'scale': 'Handles billions of transactions with strong consistency'}
+prerequisites:
+production_checklist:
+  - Choose consensus algorithm (Raft preferred over Paxos)
+  - Configure cluster size (3, 5, or 7 nodes typical)
+  - Set election timeout (150-300ms recommended)
+  - Implement leader lease for read optimization
+  - Monitor leader stability and election frequency
+  - Configure snapshot frequency for log compaction
+  - Test network partition scenarios
+  - Implement graceful node addition/removal
+  - Set up monitoring for consensus health
+  - Plan for split-brain prevention
+related_pillars:
+  - truth
+  - control
 status: complete
 tagline: Master consensus pattern for distributed systems success
-title: Consensus Pattern
-type: pattern
-when-not-to-use: High-throughput data processing, eventually consistent systems
-when-to-use: Leader election, distributed configuration, replicated state machines
+when_not_to_use: High-throughput data processing, eventually consistent systems
+when_to_use: Leader election, distributed configuration, replicated state machines
 ---
 
 
@@ -331,18 +324,18 @@ No deterministic consensus algorithm can guarantee both safety and liveness in a
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/index)**: Consensus handles node failures and network partitions
+- **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/)**: Consensus handles node failures and network partitions
 - **[Law 2: Asynchronous Reality ⏱️](../../core-principles/laws/asynchronous-reality/)**: FLP impossibility shows async consensus limits
-- **[Law 3: Emergent Chaos 🌪️](core-principles/laws/emergent-chaos/index)**: Multiple consensus attempts create emergent behaviors
-- **[Law 4: Multidimensional Optimization ⚖️](core-principles/laws/multidimensional-optimization/index)**: CAP theorem trade-offs in consensus
-- **[Law 5: Distributed Knowledge 🧠](core-principles/laws/distributed-knowledge/index)**: No single node knows complete state
+- **[Law 3: Emergent Chaos 🌪️](core-principles/laws/emergent-chaos/)**: Multiple consensus attempts create emergent behaviors
+- **[Law 4: Multidimensional Optimization ⚖️](core-principles/laws/multidimensional-optimization/)**: CAP theorem trade-offs in consensus
+- **[Law 5: Distributed Knowledge 🧠](core-principles/laws/distributed-knowledge/)**: No single node knows complete state
 
 ### Foundational Pillars
 Consensus implements:
 
-- **[Pillar 2: Distribution of State 🗃️](core-principles/pillars/state/index)**: Replicated state machines
-- **[Pillar 3: Distribution of Truth 🔍](core-principles/pillars/truth/index)**: Agreement on single truth
-- **[Pillar 4: Distribution of Control 🎮](core-principles/pillars/control/index)**: Leader election and coordination
+- **[Pillar 2: Distribution of State 🗃️](core-principles/core-principles/pillars/state-distribution/)**: Replicated state machines
+- **[Pillar 3: Distribution of Truth 🔍](core-principles/core-principles/pillars/truth-distribution/)**: Agreement on single truth
+- **[Pillar 4: Distribution of Control 🎮](core-principles/core-principles/pillars/control-distribution/)**: Leader election and coordination
 
 ## Related Patterns
 
@@ -374,4 +367,4 @@ Consensus implements:
 
 ---
 
-**Previous**: [← Circuit Breaker Pattern](/pattern-library/resilience/circuit-breaker/) | **Next**: [CQRS (Command Query Responsibility Segregation) →](/pattern-library/data-management/cqrs/)
+**Previous**: [← Circuit Breaker Pattern](../../pattern-library/resilience/circuit-breaker.md) | **Next**: [CQRS (Command Query Responsibility Segregation) →](../../pattern-library/data-management/cqrs.md)

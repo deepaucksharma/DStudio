@@ -250,8 +250,8 @@ graph LR
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
 | [CQRS](../architecture/cqrs.md) | Separate read/write models | Query-optimized analytics storage |
-| [Event Sourcing](/pattern-library/data-management/event-sourcing/) | Complete audit trail | Event streams feed analytics pipeline |
-| [Cache-Aside](/pattern-library/scaling/caching-strategies/) | Faster query response | Cache frequent analytical results |
+| [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) | Complete audit trail | Event streams feed analytics pipeline |
+| [Cache-Aside](../../pattern-library/scaling/caching-strategies.md) | Faster query response | Cache frequent analytical results |
 
 ## Quick Reference
 
@@ -297,7 +297,7 @@ graph LR
     
     - [Stream Processing](../data-management/streaming.md) - Real-time data ingestion
     - [CQRS](../architecture/cqrs.md) - Separate analytics queries  
-    - [Data Lake](/pattern-library/data-management/data-lake/) - Massive storage foundation
+    - [Data Lake](../../pattern-library/data-management/data-lake.md) - Massive storage foundation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -310,8 +310,8 @@ graph LR
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state/) - Distributed data storage
-    - [Work Distribution](../../core-principles/pillars/work/) - Parallel query processing
+    - [State Distribution](../../core-principles/pillars/state-distribution/) - Distributed data storage
+    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Parallel query processing
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

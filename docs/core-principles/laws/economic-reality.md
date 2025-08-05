@@ -1,3 +1,11 @@
+---
+title: Law 7: The Law of Economic Reality 💰
+description: > "The best architecture that bankrupts your company is still a failure."
+type: law
+difficulty: beginner
+reading_time: 10 min
+---
+
 # Law 7: The Law of Economic Reality 💰
 
 > "The best architecture that bankrupts your company is still a failure."

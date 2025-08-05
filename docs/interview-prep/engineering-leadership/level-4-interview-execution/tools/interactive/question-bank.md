@@ -1,3 +1,9 @@
+---
+title: Engineering Leadership Question Bank Explorer
+description: Browse 500+ real interview questions from FAANG and top tech companies, organized by category, level, and company. Practice with actual questions aske
+type: interview-guide
+---
+
 # Engineering Leadership Question Bank Explorer
 
 ## Overview

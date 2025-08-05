@@ -1,40 +1,29 @@
 ---
-best-for: API gateways, mobile apps needing flexible data fetching
-category: architecture
-current_relevance: growing
-description: Compose multiple GraphQL services into a unified API gateway to reduce
-  client round trips
+title: GraphQL Federation
+description: Compose multiple GraphQL services into a unified API gateway to reduce client round trips
+type: pattern
 difficulty: intermediate
-essential_question: How do we structure our system architecture to leverage graphql
-  federation?
+reading_time: 20 min
 excellence_tier: silver
-implementations:
-- company: Netflix
-  scale: Federation for internal microservices
-- company: Airbnb
-  scale: GraphQL gateway for mobile apps
-- company: PayPal
-  scale: Federated APIs across business units
-introduced: 2019-07
-last-updated: 2025-07-21
 pattern_status: use-with-caution
-prerequisites: []
-reading-time: 20 min
+best_for: API gateways, mobile apps needing flexible data fetching
+introduced: 2019-07
+current_relevance: growing
+category: architecture
+essential_question: How do we structure our system architecture to leverage graphql federation?
+implementations:
+  - {'company': 'Netflix', 'scale': 'Federation for internal microservices'}
+  - {'company': 'Airbnb', 'scale': 'GraphQL gateway for mobile apps'}
+  - {'company': 'PayPal', 'scale': 'Federated APIs across business units'}
+last_updated: 2025-07-21
+prerequisites:
 status: complete
 tagline: Master graphql federation for distributed systems success
-title: GraphQL Federation
-trade-offs:
-  cons:
-  - Performance concerns at scale
-  - Complex caching strategies
-  - Debugging federated queries is difficult
-  pros:
-  - Single endpoint for multiple services
-  - Reduced client complexity
-  - Flexible data fetching
-type: pattern
-when-not-to-use: When simpler solutions suffice
-when-to-use: When dealing with communication challenges
+trade_offs:
+  cons: ['Performance concerns at scale', 'Complex caching strategies', 'Debugging federated queries is difficult']
+  pros: ['Single endpoint for multiple services', 'Reduced client complexity', 'Flexible data fetching']
+when_not_to_use: When simpler solutions suffice
+when_to_use: When dealing with communication challenges
 ---
 
 
@@ -243,5 +232,5 @@ This maps to category theory where services are categories and federation is a f
 
 ---
 
-**Previous**: [← API Gateway](../architecture/api-gateway.md) | **Next**: [Event Streaming →](/pattern-library/architecture/event-streaming/)
+**Previous**: [← API Gateway](../architecture/api-gateway.md) | **Next**: [Event Streaming →](../../pattern-library/architecture/event-streaming.md)
 

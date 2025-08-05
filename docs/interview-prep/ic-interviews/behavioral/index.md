@@ -1,3 +1,8 @@
+---
+title: Behavioral
+description: Behavioral overview and navigation
+---
+
 # IC Behavioral Interview Guide
 
 ## Overview
@@ -384,4 +389,4 @@ For each story:
 
 ---
 
-*Continue with: [Scenario Deep-Dives](/scenarios) | [Level-Specific Guides](/by-level) | [System Design](../)*
+*Continue with: [Scenario Deep-Dives](scenarios.md) | [Level-Specific Guides](by-level.md) | [System Design](../)*

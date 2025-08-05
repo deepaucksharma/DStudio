@@ -313,9 +313,9 @@ graph LR
     
     ---
     
-    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Audit trail for choreography
+    - [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Audit trail for choreography
     - [Saga Pattern](../coordination/saga.md) - Orchestrated alternative
-    - [CQRS](/pattern-library/data-management/cqrs/) - Event-driven read/write separation
+    - [CQRS](../../pattern-library/data-management/cqrs.md) - Event-driven read/write separation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -328,8 +328,8 @@ graph LR
     
     ---
     
-    - [Control Distribution](../../core-principles/pillars/control/) - Coordination mechanisms
-    - [Intelligence Distribution](../../core-principles/pillars/intelligence/) - Distributed decision making
+    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Coordination mechanisms
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution/) - Distributed decision making
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     

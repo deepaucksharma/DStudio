@@ -1,31 +1,21 @@
 ---
-best-for:
-- Web crawlers avoiding duplicate content
-- URL shorteners preventing duplicate mappings
-- Cache systems maximizing hit rates
-- Analytics platforms aggregating metrics accurately
-category: scaling
-current_relevance: mainstream
-description: Standardizing URLs into canonical forms to prevent duplication and improve
-  system efficiency
-essential_question: How do we handle increasing load without sacrificing performance
-  using url normalization?
-excellence_tier: silver
-introduced: 2024-01
-pattern_status: recommended
-tagline: Master url normalization for distributed systems success
 title: URL Normalization
-trade-offs:
-  cons:
-  - Complex implementation for edge cases
-  - Risk of over-normalization losing semantics
-  - Performance overhead for processing
-  - Difficult to handle dynamic parameters
-  pros:
-  - Eliminates duplicate URL processing
-  - Improves cache hit rates significantly
-  - Reduces storage requirements
-  - Enables accurate analytics aggregation
+description: Standardizing URLs into canonical forms to prevent duplication and improve system efficiency
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+  - Web crawlers avoiding duplicate content
+  - URL shorteners preventing duplicate mappings
+  - Cache systems maximizing hit rates
+  - Analytics platforms aggregating metrics accurately
+introduced: 2024-01
+current_relevance: mainstream
+category: scaling
+essential_question: How do we handle increasing load without sacrificing performance using url normalization?
+tagline: Master url normalization for distributed systems success
+trade_offs:
+  cons: ['Complex implementation for edge cases', 'Risk of over-normalization losing semantics', 'Performance overhead for processing', 'Difficult to handle dynamic parameters']
+  pros: ['Eliminates duplicate URL processing', 'Improves cache hit rates significantly', 'Reduces storage requirements', 'Enables accurate analytics aggregation']
 ---
 
 

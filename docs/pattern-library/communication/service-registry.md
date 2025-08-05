@@ -73,10 +73,10 @@ type: pattern
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| Simple service architectures | < 10 services with minimal interdependencies | [Service Discovery](/pattern-library/communication/service-discovery/) |
+| Simple service architectures | < 10 services with minimal interdependencies | [Service Discovery](../../pattern-library/communication/service-discovery.md) |
 | Same-team ownership | All services owned by single team | Direct configuration management |
 | Rapid prototyping | Need fast iteration without governance | Embedded service metadata |
-| Simple request-response | Basic API calls without complex contracts | [API Gateway](/pattern-library/communication/api-gateway/) routing |
+| Simple request-response | Basic API calls without complex contracts | [API Gateway](../../pattern-library/communication/api-gateway.md) routing |
 
 ### The Story
 

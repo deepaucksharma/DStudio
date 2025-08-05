@@ -1,3 +1,8 @@
+---
+title: Frameworks
+description: Frameworks overview and navigation
+---
+
 # System Design Frameworks
 
 Structured approaches to tackle any system design problem systematically.
@@ -206,4 +211,4 @@ Create your own framework for:
 
 ---
 
-*Start with the [RADIO Framework](/index/) for a comprehensive approach, or explore [4S Method](/index/) for a simpler alternative.*
+*Start with the [RADIO Framework](../../../index.md) for a comprehensive approach, or explore [4S Method](../../../index.md) for a simpler alternative.*

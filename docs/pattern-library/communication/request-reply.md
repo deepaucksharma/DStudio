@@ -28,9 +28,9 @@ pattern_status: stable
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| Simple synchronous calls | Added complexity without benefit | [gRPC](/pattern-library/communication/grpc/) or REST |
-| Real-time requirements | Messaging adds latency | [WebSocket](/pattern-library/communication/websocket/) |
-| Stateless operations | No need for response correlation | [Publish-Subscribe](/pattern-library/communication/publish-subscribe/) |
+| Simple synchronous calls | Added complexity without benefit | [gRPC](../../pattern-library/communication/grpc.md) or REST |
+| Real-time requirements | Messaging adds latency | [WebSocket](../../pattern-library/communication/websocket.md) |
+| Stateless operations | No need for response correlation | [Publish-Subscribe](../../pattern-library/communication/publish-subscribe.md) |
 | High-frequency trading | Every millisecond matters | Direct TCP connections |
 
 ### The Story

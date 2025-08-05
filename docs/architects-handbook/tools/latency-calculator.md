@@ -1,3 +1,9 @@
+---
+title: Latency Calculator
+description: *Speed of light in fiber: ~200,000 km/s*
+type: documentation
+---
+
 # Latency Calculator
 
 !!! info "Interactive Calculator"
@@ -161,7 +167,7 @@ Total = Network + Queueing + Processing + Serialization + I/O
 
 - [Little's Law in Practice](quantitative/littles-law)
 - [Latency Numbers Every Programmer Should Know](quantitative/latency-ladder)
-- [Performance Patterns](../patterns/#performance)
+- [Performance Patterns](../pattern-library/#performance)
 - Network Optimization Pattern (Coming Soon)
 
 <script>

@@ -1,41 +1,31 @@
 ---
-best-for:
-- Database bulk inserts and updates
-- High-frequency API calls with rate limits
-- Network-bound microservice communication
-category: scaling
-current_relevance: mainstream
-description: Group multiple requests together to amortize fixed costs and improve
-  throughput
+title: Request Batching/Pipelining
+description: Group multiple requests together to amortize fixed costs and improve throughput
+type: pattern
 difficulty: intermediate
-essential_question: How do we handle increasing load without sacrificing performance
-  using request batching/pipelining?
+reading_time: 25 min
 excellence_tier: silver
-introduced: 2005-03
-last-updated: 2025-01-26
 pattern_status: use-with-expertise
+best_for:
+  - Database bulk inserts and updates
+  - High-frequency API calls with rate limits
+  - Network-bound microservice communication
+introduced: 2005-03
+current_relevance: mainstream
+category: scaling
+essential_question: How do we handle increasing load without sacrificing performance using request batching/pipelining?
+last_updated: 2025-01-26
 prerequisites:
-- queueing-theory
-- network-protocols
-- concurrency
-reading-time: 25 min
+  - queueing-theory
+  - network-protocols
+  - concurrency
 status: complete
 tagline: Master request batching/pipelining for distributed systems success
-title: Request Batching/Pipelining
-trade-offs:
-  cons:
-  - Increases latency for individual requests
-  - Complex error handling for partial failures
-  - Memory overhead from buffering requests
-  pros:
-  - Dramatically improves throughput for small operations
-  - Reduces network overhead and protocol costs
-  - Better resource utilization and efficiency
-type: pattern
-when-not-to-use: Real-time systems with strict latency requirements, large individual
-  requests, heterogeneous operations
-when-to-use: High-frequency small requests, network-bound operations, database bulk
-  operations, API rate limiting
+trade_offs:
+  cons: ['Increases latency for individual requests', 'Complex error handling for partial failures', 'Memory overhead from buffering requests']
+  pros: ['Dramatically improves throughput for small operations', 'Reduces network overhead and protocol costs', 'Better resource utilization and efficiency']
+when_not_to_use: Real-time systems with strict latency requirements, large individual requests, heterogeneous operations
+when_to_use: High-frequency small requests, network-bound operations, database bulk operations, API rate limiting
 ---
 
 
@@ -530,10 +520,10 @@ graph TB
 ## Related Patterns
 
 - [Work Distribution](../core-principles/pillars/1-work-distribution/index.md) - Batching as work distribution strategy
-- [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Protecting batch processors
-- [Bulkhead](/pattern-library/resilience/bulkhead/) - Isolating batch processing
+- [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Protecting batch processors
+- [Bulkhead](../../pattern-library/resilience/bulkhead.md) - Isolating batch processing
 - [Queue-Based Load Leveling](queue-load-leveling.md) - Buffering for batches
-- [Saga Pattern](/pattern-library/data-management/saga/) - Managing batch transactions
+- [Saga Pattern](../../pattern-library/data-management/saga.md) - Managing batch transactions
 
 ## References
 
@@ -551,6 +541,6 @@ graph TB
 
 - [Little's Law](../architects-handbook/quantitative-analysis/littles-law.md) - Queue theory for batch systems
 - [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md) - Mathematical foundations
-- [Capacity Planning](../quantitative/capacity-planning.md) - Sizing batch systems
+- [Capacity Planning](../quantitative-analysis/capacity-planning.md) - Sizing batch systems
 - [Performance Testing](../human-factors/performance-testing.md) - Validating batch performance
 

@@ -314,9 +314,9 @@ graph LR
     
     ---
     
-    - [Leader Election](/pattern-library/coordination/leader-election/) - Uses locks for coordination
-    - [Consensus](/pattern-library/coordination/consensus/) - Foundation for safe locks
-    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Protect against lock failures
+    - [Leader Election](../../pattern-library/coordination/leader-election.md) - Uses locks for coordination
+    - [Consensus](../../pattern-library/coordination/consensus.md) - Foundation for safe locks
+    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Protect against lock failures
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -329,8 +329,8 @@ graph LR
     
     ---
     
-    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth/) - Single source of lock truth
-    - [Pillar 4: Control Distribution](../../core-principles/pillars/control/) - Coordinated access control
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/) - Single source of lock truth
+    - [Pillar 4: Control Distribution](../../core-principles/pillars/control-distribution/) - Coordinated access control
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

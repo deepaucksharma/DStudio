@@ -1,51 +1,43 @@
 ---
-category: data-management
-current_relevance: growing
-deprecation-reason: Consider modern alternatives for new implementations
-description: Centralized repository storing vast amounts of raw data in native format
-  for flexible analysis
+title: Data Lake Pattern
+description: Centralized repository storing vast amounts of raw data in native format for flexible analysis
+type: pattern
 difficulty: intermediate
-essential_question: How do we ensure data consistency and reliability with data lake
-  pattern?
+reading_time: 20 min
 excellence_tier: bronze
-introduced: 2010-01
-last-updated: 2025-01-26
-modern-alternatives: []
-modern-examples:
-- company: Netflix
-  implementation: S3-based data lake for viewing analytics and ML training
-  scale: 500TB+ daily ingestion
-- company: Uber
-  implementation: Multi-region data lake for trip analytics and surge pricing
-  scale: 100PB+ total storage
 pattern_status: use-with-caution
+introduced: 2010-01
+current_relevance: growing
+tags:
+  - big-data
+  - analytics
+  - data-storage
+  - unstructured-data
+  - data-governance
+related_laws:
+  - multidimensional-optimization
+  - distributed-knowledge
+  - economic-reality
+category: data-management
+deprecation_reason: Consider modern alternatives for new implementations
+essential_question: How do we ensure data consistency and reliability with data lake pattern?
+last_updated: 2025-01-26
+modern_alternatives:
+modern_examples:
+  - {'company': 'Netflix', 'implementation': 'S3-based data lake for viewing analytics and ML training', 'scale': '500TB+ daily ingestion'}
+  - {'company': 'Uber', 'implementation': 'Multi-region data lake for trip analytics and surge pricing', 'scale': '100PB+ total storage'}
 prerequisites:
-- big-data
-- distributed-storage
-- data-governance
-- etl-pipelines
-reading-time: 20 min
-related-laws:
-- multidimensional-optimization
-- distributed-knowledge
-- economic-reality
-related-pillars:
-- state
-- intelligence
+  - big-data
+  - distributed-storage
+  - data-governance
+  - etl-pipelines
+related_pillars:
+  - state
+  - intelligence
 status: complete
 tagline: Master data lake pattern for distributed systems success
-tags:
-- big-data
-- analytics
-- data-storage
-- unstructured-data
-- data-governance
-title: Data Lake Pattern
-type: pattern
-when-not-to-use: Real-time transactional systems, structured data only, small datasets,
-  when data governance is weak, without proper data catalog
-when-to-use: Big data analytics, machine learning datasets, multi-format data storage,
-  exploratory data analysis, regulatory compliance archiving, IoT data collection
+when_not_to_use: Real-time transactional systems, structured data only, small datasets, when data governance is weak, without proper data catalog
+when_to_use: Big data analytics, machine learning datasets, multi-format data storage, exploratory data analysis, regulatory compliance archiving, IoT data collection
 ---
 
 
@@ -326,8 +318,8 @@ graph LR
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state/) - Distributed data management
-    - [Intelligence Distribution](../../core-principles/pillars/intelligence/) - Analytics and ML patterns
+    - [State Distribution](../../core-principles/pillars/state-distribution/) - Distributed data management
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution/) - Analytics and ML patterns
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     

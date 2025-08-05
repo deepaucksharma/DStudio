@@ -1,3 +1,9 @@
+---
+title: Documentation Formatting & Style Guide
+description: > Comprehensive guide for maintaining consistent formatting and mobile responsiveness across the documentation
+type: reference
+---
+
 # Documentation Formatting & Style Guide
 
 > Comprehensive guide for maintaining consistent formatting and mobile responsiveness across the documentation

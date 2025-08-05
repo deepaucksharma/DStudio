@@ -1,3 +1,9 @@
+---
+title: Team Conflict Resolution - Practice Scenario
+description: Two of your senior engineers (both L5/E5) are in an escalating conflict that's affecting team morale. Sarah (frontend lead) and Mike (backend lead) fu
+type: interview-guide
+---
+
 # Team Conflict Resolution - Practice Scenario
 
 ## Scenario Overview

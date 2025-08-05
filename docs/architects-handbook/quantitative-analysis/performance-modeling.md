@@ -527,6 +527,6 @@ graph LR
 
 ## Related Topics
 
-- **Theory**: [Little's Law](/architects-handbook/quantitative-analysis/littles-law/) | [Queueing Models](/architects-handbook/quantitative-analysis/queueing-models/) | [Universal Scalability](/architects-handbook/quantitative-analysis/universal-scalability/)
-- **Practice**: [Capacity Planning](/architects-handbook/quantitative-analysis/capacity-planning/) | [Load Testing](load-testing.md) | [Monitoring](../patterns/observability.md)
-- **Laws**: [Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization.md) | [Law 7: Economics](../core-principles/laws/economic-reality.md)
+- **Theory**: [Little's Law](../../architects-handbook/quantitative-analysis/littles-law.md) | [Queueing Models](../../architects-handbook/quantitative-analysis/queueing-models.md) | [Universal Scalability](../../architects-handbook/quantitative-analysis/universal-scalability.md)
+- **Practice**: [Capacity Planning](../../architects-handbook/quantitative-analysis/capacity-planning.md) | [Load Testing](load-testing.md) | [Monitoring](../pattern-library/observability.md)
+- **Laws**: [Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/) | [Law 7: Economics](../core-principles/laws/economic-reality/)

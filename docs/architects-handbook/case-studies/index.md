@@ -1,3 +1,8 @@
+---
+title: Case Studies
+description: Case Studies overview and navigation
+---
+
 # Case Studies
 
 Learn from real distributed systems implementations at scale.
@@ -15,105 +20,105 @@ These case studies examine how leading technology companies have built and evolv
 ## 📚 Case Studies by Domain
 
 ### 🗄️ Databases & Storage
-- **[Amazon Aurora](/architects-handbook/case-studies/databases/amazon-aurora/)** - MySQL/PostgreSQL-compatible relational database
-- **[Amazon Dynamo](/architects-handbook/case-studies/databases/amazon-dynamo/)** - The original eventually consistent key-value store
-- **[Amazon DynamoDB](/architects-handbook/case-studies/databases/amazon-dynamo/)** - Distributed NoSQL database handling 10T+ requests/day
-- **[Apache Cassandra](/architects-handbook/case-studies/databases/cassandra/)** - Wide-column distributed database for high write throughput
-- **[etcd](/architects-handbook/case-studies/databases/etcd/)** - Distributed key-value store for service discovery
-- **[Facebook Memcached](/architects-handbook/case-studies/databases/memcached/)** - Scaling memcached for social graphs
-- **[Google Spanner](/architects-handbook/case-studies/databases/google-spanner/)** - Globally distributed relational database with external consistency
-- **[Key-Value Store Design](/architects-handbook/case-studies/databases/key-value-store/)** - Building distributed key-value stores
-- **[Memcached Architecture](/architects-handbook/case-studies/databases/memcached/)** - Distributed memory caching system
-- **[MongoDB](/architects-handbook/case-studies/databases/mongodb/)** - Document-oriented distributed database
-- **[Redis Architecture](/architects-handbook/case-studies/databases/redis-architecture/)** - In-memory data structure store with sub-millisecond latency
-- **[Redis Deep Dive](/architects-handbook/case-studies/databases/redis-architecture/)** - Advanced Redis patterns and internals
-- **[HashiCorp Vault](/architects-handbook/case-studies/databases/vault/)** - Secrets management and data protection
-- **[Apache ZooKeeper](/architects-handbook/case-studies/databases/zookeeper/)** - Distributed coordination service
+- **[Amazon Aurora](../../architects-handbook/case-studies/databases/amazon-aurora.md)** - MySQL/PostgreSQL-compatible relational database
+- **[Amazon Dynamo](../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - The original eventually consistent key-value store
+- **[Amazon DynamoDB](../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Distributed NoSQL database handling 10T+ requests/day
+- **[Apache Cassandra](../../architects-handbook/case-studies/databases/cassandra.md)** - Wide-column distributed database for high write throughput
+- **[etcd](../../architects-handbook/case-studies/databases/etcd.md)** - Distributed key-value store for service discovery
+- **[Facebook Memcached](../../architects-handbook/case-studies/databases/memcached.md)** - Scaling memcached for social graphs
+- **[Google Spanner](../../architects-handbook/case-studies/databases/google-spanner.md)** - Globally distributed relational database with external consistency
+- **[Key-Value Store Design](../../architects-handbook/case-studies/databases/key-value-store.md)** - Building distributed key-value stores
+- **[Memcached Architecture](../../architects-handbook/case-studies/databases/memcached.md)** - Distributed memory caching system
+- **[MongoDB](../../architects-handbook/case-studies/databases/mongodb.md)** - Document-oriented distributed database
+- **[Redis Architecture](../../architects-handbook/case-studies/databases/redis-architecture.md)** - In-memory data structure store with sub-millisecond latency
+- **[Redis Deep Dive](../../architects-handbook/case-studies/databases/redis-architecture.md)** - Advanced Redis patterns and internals
+- **[HashiCorp Vault](../../architects-handbook/case-studies/databases/vault.md)** - Secrets management and data protection
+- **[Apache ZooKeeper](../../architects-handbook/case-studies/databases/zookeeper.md)** - Distributed coordination service
 
 ### 📨 Messaging & Streaming
-- **[Apache Kafka](/architects-handbook/case-studies/messaging-streaming/kafka/)** - Distributed streaming platform processing trillions of events/day
-- **[Apache Spark](/architects-handbook/case-studies/messaging-streaming/apache-spark/)** - Unified analytics engine for big data
-- **[Batch to Streaming Migration](/architects-handbook/case-studies/messaging-streaming/batch-to-streaming/)** - Transitioning from batch to real-time
-- **[Distributed Message Queue](/architects-handbook/case-studies/messaging-streaming/distributed-message-queue/)** - Building scalable message queues
-- **[MapReduce](/architects-handbook/case-studies/messaging-streaming/mapreduce/)** - Large-scale data processing framework
-- **[Netflix Streaming Platform](/architects-handbook/case-studies/messaging-streaming/netflix-streaming/)** - 260M+ users, microservices, chaos engineering
-- **[Event-Driven Architecture](/architects-handbook/case-studies/messaging-streaming/polling-to-event-driven/)** - Moving from polling to events
+- **[Apache Kafka](../../architects-handbook/case-studies/messaging-streaming/kafka.md)** - Distributed streaming platform processing trillions of events/day
+- **[Apache Spark](../../architects-handbook/case-studies/messaging-streaming/apache-spark.md)** - Unified analytics engine for big data
+- **[Batch to Streaming Migration](../../architects-handbook/case-studies/messaging-streaming/batch-to-streaming.md)** - Transitioning from batch to real-time
+- **[Distributed Message Queue](../../architects-handbook/case-studies/messaging-streaming/distributed-message-queue.md)** - Building scalable message queues
+- **[MapReduce](../../architects-handbook/case-studies/messaging-streaming/mapreduce.md)** - Large-scale data processing framework
+- **[Netflix Streaming Platform](../../architects-handbook/case-studies/messaging-streaming/netflix-streaming.md)** - 260M+ users, microservices, chaos engineering
+- **[Event-Driven Architecture](../../architects-handbook/case-studies/messaging-streaming/polling-to-event-driven.md)** - Moving from polling to events
 
 ### 📍 Location Services
-- **[Apple Maps](/architects-handbook/case-studies/location-services/apple-maps/)** - Mapping platform serving billions of queries
-- **[Find My Device](/architects-handbook/case-studies/location-services/find-my-device/)** - Global device tracking at scale
-- **[Google Maps](/architects-handbook/case-studies/location-services/google-maps/)** - World's largest mapping service
-- **[Google Maps System Design](/architects-handbook/case-studies/location-services/google-maps-system/)** - Deep dive into Maps architecture
-- **[HERE Maps](/architects-handbook/case-studies/location-services/here-maps/)** - Real-time traffic and navigation
-- **[Life360](/architects-handbook/case-studies/location-services/life360/)** - Family location sharing platform
-- **[Nearby Friends](/architects-handbook/case-studies/location-services/nearby-friends/)** - Proximity detection at scale
-- **[OpenStreetMap](/architects-handbook/case-studies/location-services/openstreetmap/)** - Crowd-sourced mapping infrastructure
-- **[Proximity Service](/architects-handbook/case-studies/location-services/proximity-service/)** - Building location-aware services
-- **[Snap Map](/architects-handbook/case-studies/location-services/snap-map/)** - Real-time location sharing for social
-- **[Strava Heatmaps](/architects-handbook/case-studies/location-services/strava-heatmaps/)** - Aggregating athletic activity data
-- **[Uber Location Services](/architects-handbook/case-studies/location-services/uber-location/)** - Real-time geo-distributed system
-- **[Uber Maps](/architects-handbook/case-studies/location-services/uber-maps/)** - Custom mapping for ride-sharing
+- **[Apple Maps](../../architects-handbook/case-studies/location-services/apple-maps.md)** - Mapping platform serving billions of queries
+- **[Find My Device](../../architects-handbook/case-studies/location-services/find-my-device.md)** - Global device tracking at scale
+- **[Google Maps](../../architects-handbook/case-studies/location-services/google-maps.md)** - World's largest mapping service
+- **[Google Maps System Design](../../architects-handbook/case-studies/location-services/google-maps-system.md)** - Deep dive into Maps architecture
+- **[HERE Maps](../../architects-handbook/case-studies/location-services/here-maps.md)** - Real-time traffic and navigation
+- **[Life360](../../architects-handbook/case-studies/location-services/life360.md)** - Family location sharing platform
+- **[Nearby Friends](../../architects-handbook/case-studies/location-services/nearby-friends.md)** - Proximity detection at scale
+- **[OpenStreetMap](../../architects-handbook/case-studies/location-services/openstreetmap.md)** - Crowd-sourced mapping infrastructure
+- **[Proximity Service](../../architects-handbook/case-studies/location-services/proximity-service.md)** - Building location-aware services
+- **[Snap Map](../../architects-handbook/case-studies/location-services/snap-map.md)** - Real-time location sharing for social
+- **[Strava Heatmaps](../../architects-handbook/case-studies/location-services/strava-heatmaps.md)** - Aggregating athletic activity data
+- **[Uber Location Services](../../architects-handbook/case-studies/location-services/uber-location.md)** - Real-time geo-distributed system
+- **[Uber Maps](../../architects-handbook/case-studies/location-services/uber-maps.md)** - Custom mapping for ride-sharing
 
 ### 🏗️ Infrastructure & Platform
-- **[Blockchain Systems](/architects-handbook/case-studies/infrastructure/blockchain/)** - Distributed ledger technology
-- **[Consistent Hashing](/architects-handbook/case-studies/infrastructure/consistent-hashing/)** - Scalable data distribution
-- **[Kubernetes](/architects-handbook/case-studies/infrastructure/kubernetes/)** - Container orchestration at scale
-- **[Monolith to Microservices](/architects-handbook/case-studies/infrastructure/monolith-to-microservices/)** - Architecture migration patterns
-- **[Object Storage](/architects-handbook/case-studies/infrastructure/object-storage/)** - Building scalable storage systems
-- **[S3 Architecture](/architects-handbook/case-studies/infrastructure/s3-object-storage-enhanced/)** - Amazon S3 design deep dive
-- **[Unique ID Generation](/architects-handbook/case-studies/infrastructure/unique-id-generator/)** - Distributed ID generation strategies
-- **[URL Shortener](/architects-handbook/case-studies/infrastructure/url-shortener/)** - High-scale URL shortening service
-- **[Web Crawler](/architects-handbook/case-studies/infrastructure/web-crawler/)** - Distributed web crawling architecture
-- **[Zoom Scaling](/architects-handbook/case-studies/infrastructure/zoom-scaling/)** - Video conferencing at massive scale
+- **[Blockchain Systems](../../architects-handbook/case-studies/infrastructure/blockchain.md)** - Distributed ledger technology
+- **[Consistent Hashing](../../architects-handbook/case-studies/infrastructure/consistent-hashing.md)** - Scalable data distribution
+- **[Kubernetes](../../architects-handbook/case-studies/infrastructure/kubernetes.md)** - Container orchestration at scale
+- **[Monolith to Microservices](../../architects-handbook/case-studies/infrastructure/monolith-to-microservices.md)** - Architecture migration patterns
+- **[Object Storage](../../architects-handbook/case-studies/infrastructure/object-storage.md)** - Building scalable storage systems
+- **[S3 Architecture](../../architects-handbook/case-studies/infrastructure/s3-object-storage-enhanced.md)** - Amazon S3 design deep dive
+- **[Unique ID Generation](../../architects-handbook/case-studies/infrastructure/unique-id-generator.md)** - Distributed ID generation strategies
+- **[URL Shortener](../../architects-handbook/case-studies/infrastructure/url-shortener.md)** - High-scale URL shortening service
+- **[Web Crawler](../../architects-handbook/case-studies/infrastructure/web-crawler.md)** - Distributed web crawling architecture
+- **[Zoom Scaling](../../architects-handbook/case-studies/infrastructure/zoom-scaling.md)** - Video conferencing at massive scale
 
 ### 💬 Social & Communication
-- **[Chat System Architecture](/architects-handbook/case-studies/social-communication/chat-system/)** - Building real-time messaging
-- **[Chat Consistency Deep Dive](/architects-handbook/case-studies/social-communication/consistency-deep-dive-chat/)** - Message ordering guarantees
-- **[Distributed Email](/architects-handbook/case-studies/social-communication/distributed-email-enhanced/)** - Email infrastructure at scale
-- **[Google Docs](/architects-handbook/case-studies/social-communication/google-docs/)** - Real-time collaborative editing
-- **[Gmail Architecture](/architects-handbook/case-studies/social-communication/google-gmail/)** - Email service for billions
-- **[YouTube Platform](/architects-handbook/case-studies/social-communication/google-youtube/)** - Video sharing at massive scale
-- **[News Feed System](/architects-handbook/case-studies/social-communication/news-feed/)** - Building personalized feeds
-- **[Notification System](/architects-handbook/case-studies/social-communication/notification-system/)** - Push notifications at scale
-- **[Slack Infrastructure](/architects-handbook/case-studies/social-communication/slack-infrastructure/)** - Enterprise messaging platform
-- **[Social Graph](/architects-handbook/case-studies/social-communication/social-graph/)** - Managing social connections
-- **[Social Media Feed](/architects-handbook/case-studies/social-communication/social-media-feed/)** - Timeline generation at scale
-- **[Twitter Timeline](/architects-handbook/case-studies/social-communication/twitter-timeline/)** - Real-time feed architecture
-- **[Video Streaming](/architects-handbook/case-studies/social-communication/video-streaming/)** - Live and on-demand video
-- **[YouTube Architecture](/architects-handbook/case-studies/social-communication/youtube/)** - Video platform deep dive
+- **[Chat System Architecture](../../architects-handbook/case-studies/social-communication/chat-system.md)** - Building real-time messaging
+- **[Chat Consistency Deep Dive](../../architects-handbook/case-studies/social-communication/consistency-deep-dive-chat.md)** - Message ordering guarantees
+- **[Distributed Email](../../architects-handbook/case-studies/social-communication/distributed-email-enhanced.md)** - Email infrastructure at scale
+- **[Google Docs](../../architects-handbook/case-studies/social-communication/google-docs.md)** - Real-time collaborative editing
+- **[Gmail Architecture](../../architects-handbook/case-studies/social-communication/google-gmail.md)** - Email service for billions
+- **[YouTube Platform](../../architects-handbook/case-studies/social-communication/google-youtube.md)** - Video sharing at massive scale
+- **[News Feed System](../../architects-handbook/case-studies/social-communication/news-feed.md)** - Building personalized feeds
+- **[Notification System](../../architects-handbook/case-studies/social-communication/notification-system.md)** - Push notifications at scale
+- **[Slack Infrastructure](../../architects-handbook/case-studies/social-communication/slack-infrastructure.md)** - Enterprise messaging platform
+- **[Social Graph](../../architects-handbook/case-studies/social-communication/social-graph.md)** - Managing social connections
+- **[Social Media Feed](../../architects-handbook/case-studies/social-communication/social-media-feed.md)** - Timeline generation at scale
+- **[Twitter Timeline](../../architects-handbook/case-studies/social-communication/twitter-timeline.md)** - Real-time feed architecture
+- **[Video Streaming](../../architects-handbook/case-studies/social-communication/video-streaming.md)** - Live and on-demand video
+- **[YouTube Architecture](../../architects-handbook/case-studies/social-communication/youtube.md)** - Video platform deep dive
 
 ### 💰 Financial & Commerce
-- **[Ad Click Aggregation](/architects-handbook/case-studies/financial-commerce/ad-click-aggregation/)** - Real-time ad analytics
-- **[Digital Wallet](/architects-handbook/case-studies/financial-commerce/digital-wallet-enhanced/)** - Payment infrastructure design
-- **[E-commerce Platform](/architects-handbook/case-studies/financial-commerce/ecommerce-platform/)** - Building online marketplaces
-- **[Hotel Reservation](/architects-handbook/case-studies/financial-commerce/hotel-reservation/)** - Booking system architecture
-- **[Payment System Architecture](/architects-handbook/case-studies/financial-commerce/payment-system/)** - Building reliable payment processing
-- **[PayPal Payments](/architects-handbook/case-studies/financial-commerce/paypal-payments/)** - Global payment platform
-- **[Shopify Flash Sales](/architects-handbook/case-studies/financial-commerce/shopify-flash-sales/)** - Handling traffic spikes
-- **[Stock Exchange](/architects-handbook/case-studies/financial-commerce/stock-exchange/)** - High-frequency trading systems
+- **[Ad Click Aggregation](../../architects-handbook/case-studies/financial-commerce/ad-click-aggregation.md)** - Real-time ad analytics
+- **[Digital Wallet](../../architects-handbook/case-studies/financial-commerce/digital-wallet-enhanced.md)** - Payment infrastructure design
+- **[E-commerce Platform](../../architects-handbook/case-studies/financial-commerce/ecommerce-platform.md)** - Building online marketplaces
+- **[Hotel Reservation](../../architects-handbook/case-studies/financial-commerce/hotel-reservation.md)** - Booking system architecture
+- **[Payment System Architecture](../../architects-handbook/case-studies/financial-commerce/payment-system.md)** - Building reliable payment processing
+- **[PayPal Payments](../../architects-handbook/case-studies/financial-commerce/paypal-payments.md)** - Global payment platform
+- **[Shopify Flash Sales](../../architects-handbook/case-studies/financial-commerce/shopify-flash-sales.md)** - Handling traffic spikes
+- **[Stock Exchange](../../architects-handbook/case-studies/financial-commerce/stock-exchange.md)** - High-frequency trading systems
 
 ### 🔍 Search & Analytics
-- **[Elasticsearch](/architects-handbook/case-studies/search-analytics/elasticsearch/)** - Distributed search and analytics
-- **[Gaming Leaderboard](/architects-handbook/case-studies/search-analytics/gaming-leaderboard-enhanced/)** - Real-time ranking systems
-- **[Google Drive](/architects-handbook/case-studies/search-analytics/google-drive/)** - Cloud storage and sync
-- **[Google Search](/architects-handbook/case-studies/search-analytics/google-search/)** - Web search at planetary scale
-- **[Google Search Infrastructure](/architects-handbook/case-studies/search-analytics/google-search-infrastructure/)** - Search system deep dive
-- **[Search Autocomplete](/architects-handbook/case-studies/search-analytics/search-autocomplete/)** - Type-ahead search systems
-- **[Spotify Recommendations](/architects-handbook/case-studies/search-analytics/spotify-recommendations/)** - ML-powered music discovery
+- **[Elasticsearch](../../architects-handbook/case-studies/search-analytics/elasticsearch.md)** - Distributed search and analytics
+- **[Gaming Leaderboard](../../architects-handbook/case-studies/search-analytics/gaming-leaderboard-enhanced.md)** - Real-time ranking systems
+- **[Google Drive](../../architects-handbook/case-studies/search-analytics/google-drive.md)** - Cloud storage and sync
+- **[Google Search](../../architects-handbook/case-studies/search-analytics/google-search.md)** - Web search at planetary scale
+- **[Google Search Infrastructure](../../architects-handbook/case-studies/search-analytics/google-search-infrastructure.md)** - Search system deep dive
+- **[Search Autocomplete](../../architects-handbook/case-studies/search-analytics/search-autocomplete.md)** - Type-ahead search systems
+- **[Spotify Recommendations](../../architects-handbook/case-studies/search-analytics/spotify-recommendations.md)** - ML-powered music discovery
 
 ### 📊 Monitoring & Observability
-- **[Metrics Monitoring](/architects-handbook/case-studies/monitoring-observability/metrics-monitoring/)** - Time-series data at scale
-- **[Prometheus Architecture](/architects-handbook/case-studies/monitoring-observability/prometheus/)** - Open-source monitoring
-- **[Prometheus vs DataDog](/architects-handbook/case-studies/monitoring-observability/prometheus-datadog-enhanced/)** - Monitoring comparison
-- **[Rate Limiter](/architects-handbook/case-studies/monitoring-observability/rate-limiter/)** - API rate limiting strategies
+- **[Metrics Monitoring](../../architects-handbook/case-studies/monitoring-observability/metrics-monitoring.md)** - Time-series data at scale
+- **[Prometheus Architecture](../../architects-handbook/case-studies/monitoring-observability/prometheus.md)** - Open-source monitoring
+- **[Prometheus vs DataDog](../../architects-handbook/case-studies/monitoring-observability/prometheus-datadog-enhanced.md)** - Monitoring comparison
+- **[Rate Limiter](../../architects-handbook/case-studies/monitoring-observability/rate-limiter.md)** - API rate limiting strategies
 
 ### 🏆 Elite Engineering
-- **[Amazon DynamoDB Evolution](/architects-handbook/case-studies/elite-engineering/amazon-dynamodb-evolution/)** - 15+ years of scaling
-- **[Discord Voice Infrastructure](/architects-handbook/case-studies/elite-engineering/discord-voice-infrastructure/)** - Low-latency voice chat
-- **[Figma CRDT Collaboration](/architects-handbook/case-studies/elite-engineering/figma-crdt-collaboration/)** - Real-time design collaboration
-- **[Netflix Chaos Engineering](/architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering/)** - Resilience through chaos
-- **[Netflix Chaos Practices](/architects-handbook/case-studies/elite-engineering/netflix-chaos/)** - Chaos engineering implementation
-- **[Stripe API Excellence](/architects-handbook/case-studies/elite-engineering/stripe-api-excellence/)** - Developer-first API design
+- **[Amazon DynamoDB Evolution](../../architects-handbook/case-studies/elite-engineering/amazon-dynamodb-evolution.md)** - 15+ years of scaling
+- **[Discord Voice Infrastructure](../../architects-handbook/case-studies/elite-engineering/discord-voice-infrastructure.md)** - Low-latency voice chat
+- **[Figma CRDT Collaboration](../../architects-handbook/case-studies/elite-engineering/figma-crdt-collaboration.md)** - Real-time design collaboration
+- **[Netflix Chaos Engineering](../../architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering.md)** - Resilience through chaos
+- **[Netflix Chaos Practices](../../architects-handbook/case-studies/elite-engineering/netflix-chaos.md)** - Chaos engineering implementation
+- **[Stripe API Excellence](../../architects-handbook/case-studies/elite-engineering/stripe-api-excellence.md)** - Developer-first API design
 
 ## 🎯 By Problem Domain
 
@@ -181,12 +186,12 @@ These case studies examine how leading technology companies have built and evolv
 
 ## 📚 Quick Navigation
 
-- **New to Distributed Systems?** Start with [URL Shortener](/architects-handbook/case-studies/infrastructure/url-shortener/) or [Key-Value Store](/architects-handbook/case-studies/databases/key-value-store/)
-- **Building Social Platforms?** See [Chat System](/architects-handbook/case-studies/social-communication/chat-system/) and [News Feed](/architects-handbook/case-studies/social-communication/news-feed/)
-- **E-commerce Systems?** Check [Payment System](/architects-handbook/case-studies/financial-commerce/payment-system/) and [E-commerce Platform](/architects-handbook/case-studies/financial-commerce/ecommerce-platform/)
-- **Real-time Systems?** Explore [Video Streaming](/architects-handbook/case-studies/social-communication/video-streaming/) and [Notification System](/architects-handbook/case-studies/social-communication/notification-system/)
-- **Data Infrastructure?** Study [Kafka](/architects-handbook/case-studies/messaging-streaming/kafka/), [Elasticsearch](/architects-handbook/case-studies/search-analytics/elasticsearch/), and [Cassandra](/architects-handbook/case-studies/databases/cassandra/)
+- **New to Distributed Systems?** Start with [URL Shortener](../../architects-handbook/case-studies/infrastructure/url-shortener.md) or [Key-Value Store](../../architects-handbook/case-studies/databases/key-value-store.md)
+- **Building Social Platforms?** See [Chat System](../../architects-handbook/case-studies/social-communication/chat-system.md) and [News Feed](../../architects-handbook/case-studies/social-communication/news-feed.md)
+- **E-commerce Systems?** Check [Payment System](../../architects-handbook/case-studies/financial-commerce/payment-system.md) and [E-commerce Platform](../../architects-handbook/case-studies/financial-commerce/ecommerce-platform.md)
+- **Real-time Systems?** Explore [Video Streaming](../../architects-handbook/case-studies/social-communication/video-streaming.md) and [Notification System](../../architects-handbook/case-studies/social-communication/notification-system.md)
+- **Data Infrastructure?** Study [Kafka](../../architects-handbook/case-studies/messaging-streaming/kafka.md), [Elasticsearch](../../architects-handbook/case-studies/search-analytics/elasticsearch.md), and [Cassandra](../../architects-handbook/case-studies/databases/cassandra.md)
 
 ---
 
-*Total: 84 case studies across 8 domains. Start with [Netflix Streaming Platform](/architects-handbook/case-studies/messaging-streaming/netflix-streaming/) for a comprehensive look at microservices and chaos engineering at massive scale.*
+*Total: 84 case studies across 8 domains. Start with [Netflix Streaming Platform](../../architects-handbook/case-studies/messaging-streaming/netflix-streaming.md) for a comprehensive look at microservices and chaos engineering at massive scale.*

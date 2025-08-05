@@ -1,40 +1,31 @@
 ---
-best-for:
-- Large-scale data that exceeds single node capacity
-- Systems requiring 99.99%+ availability
-- Global applications needing data locality
-category: data-management
-current_relevance: mainstream
-description: Patterns and techniques for storing and managing data across multiple
-  nodes in distributed systems
+title: Distributed Storage
+description: Patterns and techniques for storing and managing data across multiple nodes in distributed systems
+type: pattern
 difficulty: intermediate
-essential_question: How do we ensure data consistency and reliability with distributed
-  storage?
+reading_time: 45 min
 excellence_tier: silver
-introduced: 2003-10
-last-updated: 2025-01-23
 pattern_status: use-with-expertise
+best_for:
+  - Large-scale data that exceeds single node capacity
+  - Systems requiring 99.99%+ availability
+  - Global applications needing data locality
+introduced: 2003-10
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with distributed storage?
+last_updated: 2025-01-23
 prerequisites:
-- consistency-models
-- replication
-- partitioning
-reading-time: 45 min
+  - consistency-models
+  - replication
+  - partitioning
 status: complete
 tagline: Master distributed storage for distributed systems success
-title: Distributed Storage
-trade-offs:
-  cons:
-  - Complex consistency and coordination challenges
-  - Higher operational overhead and costs
-  - Network partitions and split-brain scenarios
-  pros:
-  - Horizontal scalability beyond single-node limits
-  - High availability through replication
-  - Geographic distribution for locality
-type: pattern
-when-not-to-use: When data fits on single node and downtime is acceptable
-when-to-use: When data exceeds single node capacity or requires high availability
-  and fault tolerance
+trade_offs:
+  cons: ['Complex consistency and coordination challenges', 'Higher operational overhead and costs', 'Network partitions and split-brain scenarios']
+  pros: ['Horizontal scalability beyond single-node limits', 'High availability through replication', 'Geographic distribution for locality']
+when_not_to_use: When data fits on single node and downtime is acceptable
+when_to_use: When data exceeds single node capacity or requires high availability and fault tolerance
 ---
 
 
@@ -67,7 +58,7 @@ when-to-use: When data exceeds single node capacity or requires high availabilit
     - ❌ Complex consistency guarantees
     - ❌ Network partition handling
 
-[Home](/) > [Patterns](/pattern-library/) > [Data Patterns](../patterns/index.md#data-patterns) > Distributed Storage
+[Home](/) > [Patterns](../../pattern-library/index.md) > [Data Patterns](../pattern-library/index/#data-patterns) > Distributed Storage
 
 ## When to Use / When NOT to Use
 
@@ -255,13 +246,13 @@ graph LR
 
 ## Related Patterns
 
-- [Consistent Hashing](/pattern-library/data-management/consistent-hashing/) - Distribute data evenly
-- [Eventual Consistency](/pattern-library/data-management/eventual-consistency/) - Consistency models
-- [CRDT](/pattern-library/data-management/crdt/) - Conflict-free data types
-- [Sharding](/pattern-library/scaling/sharding/) - Partition strategies
-- [Leader-Follower](/pattern-library/coordination/leader-follower/) - Replication patterns
+- [Consistent Hashing](../../pattern-library/data-management/consistent-hashing.md) - Distribute data evenly
+- [Eventual Consistency](../../pattern-library/data-management/eventual-consistency.md) - Consistency models
+- [CRDT](../../pattern-library/data-management/crdt.md) - Conflict-free data types
+- [Sharding](../../pattern-library/scaling/sharding.md) - Partition strategies
+- [Leader-Follower](../../pattern-library/coordination/leader-follower.md) - Replication patterns
 
 ---
 
-*Next: [Eventual Consistency](/pattern-library/data-management/eventual-consistency/) - Managing consistency in distributed systems*
+*Next: [Eventual Consistency](../../pattern-library/data-management/eventual-consistency.md) - Managing consistency in distributed systems*
 

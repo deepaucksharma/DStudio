@@ -1,3 +1,9 @@
+---
+title: Haversine Formula and Geospatial Calculations
+description: The Haversine formula calculates the great-circle distance between two points on a sphere, essential for location-based services in distributed system
+type: documentation
+---
+
 # Haversine Formula and Geospatial Calculations
 
 ## Overview
@@ -436,7 +442,7 @@ def adaptive_distance(lat1, lon1, lat2, lon2, max_error_km=0.1):
 
 ## Related Topics
 
-- [Computational Geometry](/architects-handbook/quantitative-analysis/comp-geometry/)
+- [Computational Geometry](../../architects-handbook/quantitative-analysis/comp-geometry.md)
 - Spatial Indexing (Coming Soon)
 - [Location Services](../case-studies/proximity-service.md)
-- [Performance Optimization](/architects-handbook/quantitative-analysis/performance-modeling/)
+- [Performance Optimization](../../architects-handbook/quantitative-analysis/performance-modeling.md)

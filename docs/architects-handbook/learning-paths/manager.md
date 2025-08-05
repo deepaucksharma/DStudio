@@ -45,7 +45,7 @@ As an engineering manager, you will:
  
  Focus on high-impact knowledge:
  
- - [The 7 Laws Overview](axioms/) - Quick understanding
+ - [The 7 Laws Overview](../../core-principles/laws/) - Quick understanding
  - [Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization) - Decision making
  - [Law 7: Economic Reality](../../core-principles/laws/economic-reality) - Cost implications
 
@@ -54,8 +54,8 @@ As an engineering manager, you will:
  Understand operational realities:
  
  - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure) - Risk management
- - [Law 6: Cognitive Load](../../core-principles/laws/cognitive-load/index) - Team capacity
- - [The 5 Pillars](/core-principles/pillars/index) - Architectural choices
+ - [Law 6: Cognitive Load](../../core-principles/laws/cognitive-load/) - Team capacity
+ - [The 5 Pillars](../../core-principles/pillars/index.md) - Architectural choices
 
 </div>
 
@@ -68,30 +68,30 @@ As an engineering manager, you will:
 
 === "Reliability Patterns"
  Understand how teams ensure system reliability:
- - [Circuit Breaker](../patterns/circuit-breaker) - Failure isolation
- - [Retry & Backoff](../patterns/retry-backoff) - Handling failures
- - [Health Checks](../patterns/health-check) - System monitoring
+ - [Circuit Breaker](../pattern-library/resilience/circuit-breaker) - Failure isolation
+ - [Retry & Backoff](../pattern-library/resilience/retry-backoff) - Handling failures
+ - [Health Checks](../pattern-library/resilience/health-check) - System monitoring
 
 === "Scaling Patterns"
  Know how systems grow:
- - [Load Balancing](../patterns/load-balancing) - Traffic distribution
- - [Caching](../patterns/caching-strategies) - Performance optimization
- - [Sharding](../patterns/sharding) - Data partitioning
+ - [Load Balancing](../pattern-library/scaling/load-balancing) - Traffic distribution
+ - [Caching](../pattern-library/scaling/caching-strategies) - Performance optimization
+ - [Sharding](../pattern-library/scaling/sharding) - Data partitioning
 
 === "Architecture Patterns"
  Understand system organization:
- - [Service Mesh](../patterns/service-mesh) - Microservices management
- - [API Gateway](../patterns/api-gateway) - External interfaces
- - [Event-Driven](../patterns/event-driven) - Async architectures
+ - [Service Mesh](../pattern-library/communication/service-mesh) - Microservices management
+ - [API Gateway](../pattern-library/communication/api-gateway) - External interfaces
+ - [Event-Driven](../pattern-library/architecture/event-driven) - Async architectures
 
 #### Week 4: Advanced Patterns
 
 Focus on patterns with significant business impact:
 
-- [CQRS](../patterns/cqrs) - Read/write optimization
-- [Saga Pattern](../patterns/saga) - Distributed transactions
-- [Event Sourcing](../patterns/event-sourcing) - Audit trails
-- [Multi-Region](../patterns/multi-region) - Global deployment
+- [CQRS](../pattern-library/data-management/cqrs) - Read/write optimization
+- [Saga Pattern](../pattern-library/data-management/saga) - Distributed transactions
+- [Event Sourcing](../pattern-library/data-management/event-sourcing) - Audit trails
+- [Multi-Region](../pattern-library/scaling/multi-region) - Global deployment
 
 ### Phase 3: Operational Excellence (2-3 weeks)
 
@@ -103,14 +103,14 @@ Focus on patterns with significant business impact:
 <div class="grid cards" markdown>
 
 - **Team Dynamics**
- - [SRE Practices](/architects-handbook/human-factors/sre-practices/)
- - [Team Topologies](/architects-handbook/human-factors/team-topologies)
- - [On-Call Rotation](/architects-handbook/human-factors/incident-response)
+ - [SRE Practices](../../architects-handbook/human-factors/sre-practices.md)
+ - [Team Topologies](../../architects-handbook/human-factors/team-topologies.md)
+ - [On-Call Rotation](../../architects-handbook/human-factors/incident-response.md)
 
 - **Engineering Culture**
- - [Blameless Postmortems](/architects-handbook/human-factors/blameless-postmortems)
- - [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering/)
- - [Observability Culture](/architects-handbook/human-factors/observability-stacks)
+ - [Blameless Postmortems](../../architects-handbook/human-factors/blameless-postmortems.md)
+ - [Chaos Engineering](../../architects-handbook/human-factors/chaos-engineering.md)
+ - [Observability Culture](../../architects-handbook/human-factors/observability-stacks.md)
 
 </div>
 
@@ -297,7 +297,7 @@ change_failure_rate:
 
 After completing this path:
 
-1. **Deeper Dive**: Explore [Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer) for technical depth
+1. **Deeper Dive**: Explore [Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md) for technical depth
 2. **Specialization**: Focus on specific domains (FinTech, Gaming, etc.)
 3. **Strategic Leadership**: Move towards director/VP roles
 4. **Cross-Functional**: Work with product and business teams
@@ -319,12 +319,12 @@ Remember: Great engineering managers balance technical knowledge with people lea
  
  ---
  
- [Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer)
+ [Senior Engineer Path](../../architects-handbook/learning-paths/senior-engineer.md)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Solution Architect Path](/architects-handbook/learning-paths/architect)
+ [Solution Architect Path](../../architects-handbook/learning-paths/architect.md)
 
 </div>

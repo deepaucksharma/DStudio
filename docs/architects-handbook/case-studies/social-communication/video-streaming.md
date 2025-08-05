@@ -74,8 +74,8 @@ This case study would explore the architecture of large-scale video streaming pl
 - Peak traffic management (new releases, live events)
 
 ## Related Case Studies
-- [Netflix Streaming](/architects-handbook/case-studies/messaging-streaming/netflix-streaming/) - Netflix's specific implementation
-- [YouTube](/architects-handbook/case-studies/social-communication/youtube/) - User-generated video at scale
+- [Netflix Streaming](../../../architects-handbook/case-studies/messaging-streaming/netflix-streaming.md) - Netflix's specific implementation
+- [YouTube](../../../architects-handbook/case-studies/social-communication/youtube.md) - User-generated video at scale
 - Multi-Region Pattern (Coming Soon.md) - Global distribution strategies
 
 ## External Resources

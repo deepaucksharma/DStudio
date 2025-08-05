@@ -1352,8 +1352,8 @@ Database:
 **Advanced Topics:**
 - [Jepsen Analysis of ID Generators] (Jepsen Analysis Coming Soon) - Correctness testing
 - [ID Generation at Scale](../pattern-library/scaling/id-generation-scale.md) - Billion+ IDs/second
-- [Time-Series IDs](../patterns/time-series-ids.md) - Optimized for time-series data
-- [Collision Probability Math](../quantitative/collision-probability.md) - Birthday paradox applied
+- [Time-Series IDs](../pattern-library/time-series-ids.md) - Optimized for time-series data
+- [Collision Probability Math](../quantitative-analysis/collision-probability.md) - Birthday paradox applied
 
 **Related Case Studies:**
 - [URL Shortener](url-shortener.md.md) - Uses ID generation for short codes

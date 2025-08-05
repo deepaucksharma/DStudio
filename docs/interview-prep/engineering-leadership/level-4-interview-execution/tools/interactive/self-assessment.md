@@ -1,3 +1,9 @@
+---
+title: Engineering Leadership Self-Assessment Tool
+description: Score yourself against actual FAANG interview criteria. This tool helps identify strengths and gaps in your preparation.
+type: interview-guide
+---
+
 # Engineering Leadership Self-Assessment Tool
 
 ## Overview

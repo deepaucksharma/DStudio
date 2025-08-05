@@ -1,9 +1,4 @@
 ---
-best-for:
-- File upload/download systems
-- Large data processing pipelines
-- Memory-constrained environments
-- Streaming data processing
 category: scaling
 current_relevance: mainstream
 description: Break large datasets or operations into smaller, manageable pieces for
@@ -37,6 +32,11 @@ when-not-to-use: Small datasets, atomic operations requiring full consistency, r
   processing with strict latency requirements
 when-to-use: Large data processing, file uploads/downloads, streaming data, memory-constrained
   environments
+best_for:
+- File upload/download systems
+- Large data processing pipelines
+- Memory-constrained environments
+- Streaming data processing
 ---
 
 

@@ -239,7 +239,7 @@ type: pattern
     ---
     
     - [Circuit Breaker](./circuit-breaker.md) - Fail fast when bulkhead is full
-    - [Rate Limiting](/pattern-library/scaling/rate-limiting/) - Control flow into bulkheads
+    - [Rate Limiting](../../pattern-library/scaling/rate-limiting.md) - Control flow into bulkheads
     - [Timeout](./timeout.md) - Prevent resource hogging within bulkheads
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**

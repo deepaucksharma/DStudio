@@ -1,3 +1,8 @@
+---
+title: People Management
+description: People Management overview and navigation
+---
+
 # People Management
 
 ## Building and Leading High-Performing Engineering Teams
@@ -7,16 +12,16 @@ People management forms the foundation of engineering leadership, encompassing t
 ## Connection to Framework Levels
 
 ### First Principles Foundation
-- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)**: Understanding what motivates and engages people
-- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Aligning human potential with business value
-- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Building trust through fair and ethical practices
-- **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index/)**: Empowering teams to make quality decisions
-- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**: Seeing teams as complex adaptive systems
+- **[Human Behavior](../../../../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Understanding what motivates and engages people
+- **[Value Creation](../../../../interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md)**: Aligning human potential with business value
+- **[Integrity & Ethics](../../../../interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Building trust through fair and ethical practices
+- **[Decision-Making](../../../../interview-prep/engineering-leadership/level-1-first-principles/decision-making/index.md)**: Empowering teams to make quality decisions
+- **[Systems Thinking](../../../../interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Seeing teams as complex adaptive systems
 
 ### Business Concepts Applied
-- **[Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/)**: Applying leadership frameworks to team management
-- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/)**: Building operational excellence through people
-- **[Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index/)**: Developing team capabilities for strategic advantage
+- **[Leadership](../../../../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md)**: Applying leadership frameworks to team management
+- **[Operations](../../../../interview-prep/engineering-leadership/level-2-core-business/operations/index.md)**: Building operational excellence through people
+- **[Strategy](../../../../interview-prep/engineering-leadership/level-2-core-business/strategy/index.md)**: Developing team capabilities for strategic advantage
 
 ## Core Competencies
 
@@ -26,7 +31,7 @@ People management forms the foundation of engineering leadership, encompassing t
 - **Hiring Decisions**: Balance team needs with candidate potential
 - **Diversity & Inclusion**: Build inclusive hiring practices
 
-[Hiring & Interviewing Guide →](/interview-prep/engineering-leadership/level-3-applications/people-management/hiring-interviewing/)
+[Hiring & Interviewing Guide →](../../../../interview-prep/engineering-leadership/level-3-applications/people-management/hiring-interviewing.md)
 
 ### 2. Performance Management
 - **Goal Setting**: Define clear, measurable objectives
@@ -48,7 +53,7 @@ People management forms the foundation of engineering leadership, encompassing t
 - **Values Implementation**: Making desired behaviors the path of least resistance
 - **Culture Measurement**: Tracking cultural health and evolution
 
-[Team Building & Culture →](/interview-prep/engineering-leadership/level-3-applications/people-management/team-building-culture/)
+[Team Building & Culture →](../../../../interview-prep/engineering-leadership/level-3-applications/people-management/team-building-culture.md)
 
 ### 5. Performance Metrics & SPACE Framework
 - **SPACE Dimensions**: Satisfaction, Performance, Activity, Communication, Efficiency
@@ -392,38 +397,38 @@ Approach: Systematic hiring process with team involvement
 
 ## Links to Other Applications
 
-- **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)**: Balancing people leadership with technical excellence
-- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Structuring teams for optimal performance
-- **[Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index/)**: Connecting people decisions to business outcomes
+- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md)**: Balancing people leadership with technical excellence
+- **[Organizational Design](../../../../interview-prep/engineering-leadership/level-3-applications/organizational-design/index.md)**: Structuring teams for optimal performance
+- **[Business Acumen](../../../../interview-prep/engineering-leadership/level-3-applications/business-acumen/index.md)**: Connecting people decisions to business outcomes
 
 ## Interview Execution (Level IV)
 
-- **[Behavioral Interviews](/interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index/)**: Demonstrating people leadership through stories
-- **[Culture Fit](/interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index/)**: Showing alignment with company values
-- **[STAR Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index/)**: Structuring people management stories
+- **[Behavioral Interviews](../../../../interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Demonstrating people leadership through stories
+- **[Culture Fit](../../../../interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Showing alignment with company values
+- **[STAR Framework](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index.md)**: Structuring people management stories
 
 ## Next Steps
 
 ### Immediate Actions
 1. Audit your current people management practices against first principles
-2. Identify one area where you can better apply [Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/) insights
-3. Practice explaining a people decision using [Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/) language
+2. Identify one area where you can better apply [Human Behavior](../../../../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md) insights
+3. Practice explaining a people decision using [Value Creation](../../../../interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md) language
 4. Assess your team's psychological safety level using Google's Project Aristotle framework
 5. Identify 2-3 rituals that could better reinforce your team's desired culture
 6. Evaluate your current performance metrics against the SPACE framework dimensions
 
 ### This Week
-- Complete [People Management Self-Assessment](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/)
-- Review [Team Conflict Scenario](/interview-prep/engineering-leadership/practice-scenarios/team-conflict-scenario/)
-- Study [Underperformer Scenario](/interview-prep/engineering-leadership/practice-scenarios/underperformer-scenario/)
+- Complete [People Management Self-Assessment](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md)
+- Review [Team Conflict Scenario](../../../../interview-prep/engineering-leadership/practice-scenarios/team-conflict-scenario.md)
+- Study [Underperformer Scenario](../../../../interview-prep/engineering-leadership/practice-scenarios/underperformer-scenario.md)
 - Assess your team's psychological safety using Project Aristotle criteria
 - Design one culture ritual that reinforces your team's desired values
 - Map your current metrics to the SPACE framework dimensions
 
 ### For Interviews
 - Prepare 5-7 people management stories mapped to principles
-- Practice with [Question Bank](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank/)
-- Use [STAR Story Matcher](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/star-matcher/) to align stories
+- Practice with [Question Bank](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank.md)
+- Use [STAR Story Matcher](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/star-matcher.md) to align stories
 - Develop specific examples of creating psychological safety + intellectual honesty
 - Prepare stories about culture design through rituals and systems
 - Practice explaining SPACE framework implementation in your context

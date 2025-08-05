@@ -1,36 +1,28 @@
 ---
-best-for:
-- Legacy system integration
-- Protocol translation
-- Service mesh sidecars
-- API gateway implementations
-category: architecture
-current_relevance: niche
-description: Create a helper service that sends network requests on behalf of a consumer
-  service, handling complex communication patterns and protocol translations
+title: Ambassador Pattern
+description: Create a helper service that sends network requests on behalf of a consumer service, handling complex communication patterns and protocol translations
+type: pattern
 difficulty: intermediate
-essential_question: How do we structure our system architecture to leverage ambassador
-  pattern?
+reading_time: 45 min
 excellence_tier: silver
-introduced: 2015-01
-last-updated: 2025-01-23
-pattern-type: architectural
 pattern_status: recommended
-prerequisites: []
-reading-time: 45 min
+best_for:
+  - Legacy system integration
+  - Protocol translation
+  - Service mesh sidecars
+  - API gateway implementations
+introduced: 2015-01
+current_relevance: niche
+category: architecture
+essential_question: How do we structure our system architecture to leverage ambassador pattern?
+last_updated: 2025-01-23
+pattern_type: architectural
+prerequisites:
 status: complete
 tagline: Master ambassador pattern for distributed systems success
-title: Ambassador Pattern
-trade-offs:
-  cons:
-  - Additional network hop
-  - Single point of failure
-  - Increased complexity
-  pros:
-  - Isolates network communication logic
-  - Simplifies client code
-  - Enables protocol translation
-type: pattern
+trade_offs:
+  cons: ['Additional network hop', 'Single point of failure', 'Increased complexity']
+  pros: ['Isolates network communication logic', 'Simplifies client code', 'Enables protocol translation']
 ---
 
 
@@ -494,5 +486,5 @@ graph TD
 
 ---
 
-**Previous**: [← Backends for Frontends](/pattern-library/architecture/backends-for-frontends/) | **Next**: Anti-Corruption Layer → (Coming Soon)
+**Previous**: [← Backends for Frontends](../../pattern-library/architecture/backends-for-frontends.md) | **Next**: Anti-Corruption Layer → (Coming Soon)
 

@@ -1,40 +1,31 @@
 ---
-best-for:
-- Search engines aggregating from multiple shards
-- Microservice API composition and aggregation
-- Real-time dashboards pulling from multiple sources
-category: scaling
-current_relevance: mainstream
-description: Parallel request distribution and result aggregation pattern for efficient
-  distributed processing
+title: Scatter-Gather
+description: Parallel request distribution and result aggregation pattern for efficient distributed processing
+type: pattern
 difficulty: intermediate
-essential_question: How do we handle increasing load without sacrificing performance
-  using scatter-gather?
+reading_time: 15 min
 excellence_tier: silver
-introduced: 2008-06
-last-updated: 2025-01-26
 pattern_status: use-with-expertise
+best_for:
+  - Search engines aggregating from multiple shards
+  - Microservice API composition and aggregation
+  - Real-time dashboards pulling from multiple sources
+introduced: 2008-06
+current_relevance: mainstream
+category: scaling
+essential_question: How do we handle increasing load without sacrificing performance using scatter-gather?
+last_updated: 2025-01-26
 prerequisites:
-- async-messaging
-- load-balancing
-- circuit-breaker
-reading-time: 15 min
+  - async-messaging
+  - load-balancing
+  - circuit-breaker
 status: complete
 tagline: Master scatter-gather for distributed systems success
-title: Scatter-Gather
-trade-offs:
-  cons:
-  - Increased resource consumption from parallelism
-  - Complex error handling and timeout management
-  - Potential for thundering herd problems
-  pros:
-  - Reduces overall latency through parallelization
-  - Enables graceful degradation with partial results
-  - Scales well with independent services
-type: pattern
-when-not-to-use: When sequential processing is required or when the overhead of parallelization
-  exceeds benefits
-when-to-use: When you need to query multiple services in parallel and aggregate results
+trade_offs:
+  cons: ['Increased resource consumption from parallelism', 'Complex error handling and timeout management', 'Potential for thundering herd problems']
+  pros: ['Reduces overall latency through parallelization', 'Enables graceful degradation with partial results', 'Scales well with independent services']
+when_not_to_use: When sequential processing is required or when the overhead of parallelization exceeds benefits
+when_to_use: When you need to query multiple services in parallel and aggregate results
 ---
 
 
@@ -264,8 +255,8 @@ when-to-use: When you need to query multiple services in parallel and aggregate 
 
 ## Related Patterns
 
-- [**Circuit Breaker**](/pattern-library/resilience/circuit-breaker/) - Protect against service failures
-- [**Load Balancing**](/pattern-library/scaling/load-balancing/) - Distribute scatter requests
-- [**Saga**](/pattern-library/data-management/saga/) - Coordinate distributed transactions
-- [**API Gateway**](/pattern-library/communication/api-gateway/) - Common implementation location
+- [**Circuit Breaker**](../../pattern-library/resilience/circuit-breaker.md) - Protect against service failures
+- [**Load Balancing**](../../pattern-library/scaling/load-balancing.md) - Distribute scatter requests
+- [**Saga**](../../pattern-library/data-management/saga.md) - Coordinate distributed transactions
+- [**API Gateway**](../../pattern-library/communication/api-gateway.md) - Common implementation location
 

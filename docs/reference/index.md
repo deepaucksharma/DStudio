@@ -32,7 +32,7 @@ last_updated: 2025-07-20
     
     400+ terms defined with comprehensive definitions
     
-    [Learn more →](/reference/glossary/)
+    [Learn more →](../reference/glossary.md)
 
 - :material-clipboard-text:{ .lg .middle } **Cheat Sheets**
     
@@ -40,7 +40,7 @@ last_updated: 2025-07-20
     
     Quick reference guides for formulas & decisions
     
-    [Learn more →](/reference/cheat-sheets/)
+    [Learn more →](../reference/cheat-sheets.md)
 
 - :material-chef-hat:{ .lg .middle } **Recipe Cards**
     
@@ -48,7 +48,7 @@ last_updated: 2025-07-20
     
     Step-by-step guides for implementation patterns
     
-    [Learn more →](/reference/recipe-cards/)
+    [Learn more →](../reference/recipe-cards.md)
 
 - :material-lock:{ .lg .middle } **Security Guide**
     
@@ -56,7 +56,7 @@ last_updated: 2025-07-20
     
     Security patterns, vulnerabilities & defenses
     
-    [Learn more →](/reference/security/)
+    [Learn more →](../reference/security.md)
 
 - :material-map:{ .lg .middle } **Law Mapping**
     
@@ -64,25 +64,25 @@ last_updated: 2025-07-20
     
     Framework evolution and 7-law structure guide
     
-    [Learn more →](/reference/law-mapping-guide/)
+    [Learn more →](../reference/law-mapping-guide.md)
 
 </div>
 
 ## Reference by Category
 
-### [Glossary](/reference/glossary/)
+### [Glossary](../reference/glossary.md)
 Definitions of all distributed systems terms. From "Law" to "Vector Clock". Updated for the 7-law framework.
 
-### [Cheat Sheets](/reference/cheat-sheets/)
+### [Cheat Sheets](../reference/cheat-sheets.md)
 Quick reference for calculations, decisions, and pattern selection. Aligned with the 7 fundamental laws.
 
-### [Recipe Cards](/reference/recipe-cards/)
+### [Recipe Cards](../reference/recipe-cards.md)
 Step-by-step procedures for implementing patterns and debugging. Cross-referenced with relevant laws.
 
-### [Security Considerations](/reference/security/)
+### [Security Considerations](../reference/security.md)
 Security implications, vulnerabilities, and defensive strategies. Mapped to the fundamental laws.
 
-### [Law Mapping Guide](/reference/law-mapping-guide/)
+### [Law Mapping Guide](../reference/law-mapping-guide.md)
 Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 ---
@@ -93,39 +93,39 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 <div class="term-category">
  <h4>Consistency Models</h4>
  <ul>
- <li><a href="glossary.md#cap-theorem">CAP Theorem</a></li>
- <li><a href="glossary.md#pacelc-theorem">PACELC Theorem</a></li>
- <li><a href="glossary.md#base-principles">BASE Principles</a></li>
- <li><a href="glossary.md#linearizability">Linearizability</a></li>
- <li><a href="glossary.md#sequential-consistency">Sequential Consistency</a></li>
- <li><a href="glossary.md#eventual-consistency">Eventual Consistency</a></li>
+ <li><a href="glossary/#cap-theorem">CAP Theorem</a></li>
+ <li><a href="glossary/#pacelc-theorem">PACELC Theorem</a></li>
+ <li><a href="glossary/#base-principles">BASE Principles</a></li>
+ <li><a href="glossary/#linearizability">Linearizability</a></li>
+ <li><a href="glossary/#sequential-consistency">Sequential Consistency</a></li>
+ <li><a href="glossary/#eventual-consistency">Eventual Consistency</a></li>
  </ul>
  
  <h4>Time & Ordering</h4>
  <ul>
- <li><a href="glossary.md#vector-clock">Vector Clocks</a></li>
- <li><a href="glossary.md#lamport-timestamp">Lamport Timestamps</a></li>
- <li><a href="glossary.md#hybrid-logical-clock">Hybrid Logical Clocks</a></li>
- <li><a href="glossary.md#happens-before">Happens-Before Relation</a></li>
- <li><a href="glossary.md#causality">Causality</a></li>
+ <li><a href="glossary/#vector-clock">Vector Clocks</a></li>
+ <li><a href="glossary/#lamport-timestamp">Lamport Timestamps</a></li>
+ <li><a href="glossary/#hybrid-logical-clock">Hybrid Logical Clocks</a></li>
+ <li><a href="glossary/#happens-before">Happens-Before Relation</a></li>
+ <li><a href="glossary/#causality">Causality</a></li>
  </ul>
  
  <h4>Failure Types</h4>
  <ul>
- <li><a href="glossary.md#byzantine-failure">Byzantine Failures</a></li>
- <li><a href="glossary.md#metastable-failure">Metastable Failures</a></li>
- <li><a href="glossary.md#gray-failure">Gray Failures</a></li>
- <li><a href="glossary.md#cascading-failure">Cascading Failures</a></li>
- <li><a href="glossary.md#correlated-failure">Correlated Failures</a></li>
+ <li><a href="glossary/#byzantine-failure">Byzantine Failures</a></li>
+ <li><a href="glossary/#metastable-failure">Metastable Failures</a></li>
+ <li><a href="glossary/#gray-failure">Gray Failures</a></li>
+ <li><a href="glossary/#cascading-failure">Cascading Failures</a></li>
+ <li><a href="glossary/#correlated-failure">Correlated Failures</a></li>
  </ul>
  
  <h4>Key Patterns</h4>
  <ul>
- <li><a href="../patterns/circuit-breaker.md">Circuit Breaker</a></li>
- <li><a href="../patterns/saga.md">Saga Pattern</a></li>
- <li><a href="../patterns/data-management/event-sourcing.md">Event Sourcing</a></li>
- <li><a href="../patterns/cqrs.md">CQRS</a></li>
- <li><a href="../patterns/consensus.md">Consensus Protocols</a></li>
+ <li><a href="../pattern-library/resilience/circuit-breaker.md">Circuit Breaker</a></li>
+ <li><a href="../pattern-library/data-management/saga.md">Saga Pattern</a></li>
+ <li><a href="../pattern-library/data-management/event-sourcing.md">Event Sourcing</a></li>
+ <li><a href="../pattern-library/data-management/cqrs.md">CQRS</a></li>
+ <li><a href="../pattern-library/coordination/consensus.md">Consensus Protocols</a></li>
  </ul>
 </div>
 
@@ -140,27 +140,27 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
  </thead>
  <tbody>
  <tr>
- <td data-label="Formula"><a href="cheat-sheets.md#littles-law">Little's Law</a></td>
+ <td data-label="Formula"><a href="cheat-sheets/#littles-law">Little's Law</a></td>
  <td data-label="Description">L = λW (Queue length = Arrival rate × Wait time)</td>
  <td data-label="When to Use">Capacity planning, queue analysis</td>
  </tr>
  <tr>
- <td data-label="Formula"><a href="cheat-sheets.md#availability-math">Availability</a></td>
+ <td data-label="Formula"><a href="cheat-sheets/#availability-math">Availability</a></td>
  <td data-label="Description">A = MTTF / (MTTF + MTTR)</td>
  <td data-label="When to Use">SLA calculations, redundancy planning</td>
  </tr>
  <tr>
- <td data-label="Formula"><a href="cheat-sheets.md#amdahls-law">Amdahl's Law</a></td>
+ <td data-label="Formula"><a href="cheat-sheets/#amdahls-law">Amdahl's Law</a></td>
  <td data-label="Description">S = 1 / (s + p/n)</td>
  <td data-label="When to Use">Parallelization limits</td>
  </tr>
  <tr>
- <td data-label="Formula"><a href="cheat-sheets.md#universal-scalability">USL</a></td>
+ <td data-label="Formula"><a href="cheat-sheets/#universal-scalability">USL</a></td>
  <td data-label="Description">C(N) = N / (1 + α(N-1) + βN(N-1))</td>
  <td data-label="When to Use">Scalability modeling</td>
  </tr>
  <tr>
- <td data-label="Formula"><a href="../quantitative/queueing-models.md">M/M/1 Queue</a></td>
+ <td data-label="Formula"><a href="../quantitative-analysis/queueing-models.md">M/M/1 Queue</a></td>
  <td data-label="Description">W = 1 / (μ - λ)</td>
  <td data-label="When to Use">Service time estimation</td>
  </tr>
@@ -171,34 +171,34 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 <div class="procedure-category">
  <h4>Implementation Guides</h4>
  <ul>
- <li><a href="recipe-cards.md#recipe-implementing-circuit-breaker">Implementing Circuit Breaker</a></li>
- <li><a href="recipe-cards.md#recipe-implementing-rate-limiter">Building Rate Limiter</a></li>
- <li><a href="recipe-cards.md#recipe-distributed-tracing">Setting Up Distributed Tracing</a></li>
- <li><a href="recipe-cards.md#recipe-implementing-saga">Implementing Saga Pattern</a></li>
+ <li><a href="recipe-cards/#recipe-implementing-circuit-breaker">Implementing Circuit Breaker</a></li>
+ <li><a href="recipe-cards/#recipe-implementing-rate-limiter">Building Rate Limiter</a></li>
+ <li><a href="recipe-cards/#recipe-distributed-tracing">Setting Up Distributed Tracing</a></li>
+ <li><a href="recipe-cards/#recipe-implementing-saga">Implementing Saga Pattern</a></li>
  </ul>
  
  <h4>Debugging & Troubleshooting</h4>
  <ul>
- <li><a href="recipe-cards.md#recipe-debugging-distributed-failures">Debugging Distributed Failures</a></li>
- <li><a href="recipe-cards.md#recipe-performance-investigation">Performance Investigation</a></li>
- <li><a href="recipe-cards.md#recipe-troubleshooting-cascading-failures">Handling Cascading Failures</a></li>
- <li><a href="recipe-cards.md#recipe-debugging-consistency-issues">Debugging Consistency Issues</a></li>
+ <li><a href="recipe-cards/#recipe-debugging-distributed-failures">Debugging Distributed Failures</a></li>
+ <li><a href="recipe-cards/#recipe-performance-investigation">Performance Investigation</a></li>
+ <li><a href="recipe-cards/#recipe-troubleshooting-cascading-failures">Handling Cascading Failures</a></li>
+ <li><a href="recipe-cards/#recipe-debugging-consistency-issues">Debugging Consistency Issues</a></li>
  </ul>
  
  <h4>Operations & Monitoring</h4>
  <ul>
- <li><a href="recipe-cards.md#recipe-essential-observability-stack">Essential Observability Stack</a></li>
- <li><a href="recipe-cards.md#recipe-monitoring-setup">Monitoring Setup Guide</a></li>
- <li><a href="recipe-cards.md#recipe-incident-response">Incident Response Process</a></li>
- <li><a href="recipe-cards.md#recipe-chaos-engineering">Chaos Engineering Setup</a></li>
+ <li><a href="recipe-cards/#recipe-essential-observability-stack">Essential Observability Stack</a></li>
+ <li><a href="recipe-cards/#recipe-monitoring-setup">Monitoring Setup Guide</a></li>
+ <li><a href="recipe-cards/#recipe-incident-response">Incident Response Process</a></li>
+ <li><a href="recipe-cards/#recipe-chaos-engineering">Chaos Engineering Setup</a></li>
  </ul>
  
  <h4>Planning & Design</h4>
  <ul>
- <li><a href="recipe-cards.md#recipe-capacity-planning">Capacity Planning Process</a></li>
- <li><a href="recipe-cards.md#recipe-architecture-review">Architecture Review Checklist</a></li>
- <li><a href="recipe-cards.md#recipe-migration-planning">Migration Planning Guide</a></li>
- <li><a href="recipe-cards.md#recipe-disaster-recovery">Disaster Recovery Planning</a></li>
+ <li><a href="recipe-cards/#recipe-capacity-planning">Capacity Planning Process</a></li>
+ <li><a href="recipe-cards/#recipe-architecture-review">Architecture Review Checklist</a></li>
+ <li><a href="recipe-cards/#recipe-migration-planning">Migration Planning Guide</a></li>
+ <li><a href="recipe-cards/#recipe-disaster-recovery">Disaster Recovery Planning</a></li>
  </ul>
 </div>
 
@@ -211,7 +211,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
  <li>Need causal relationships? → <strong>Causal Consistency</strong></li>
  <li>Session guarantees enough? → <strong>Session Consistency</strong></li>
  </ul>
- <a href="cheat-sheets.md#consistency-model-selection">Full decision tree →</a>
+ <a href="cheat-sheets/#consistency-model-selection">Full decision tree →</a>
  
  !!! note "🔧 Which Pattern to Use?"
  <ul>
@@ -220,7 +220,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
  <li>Event history needed? → <strong>Event Sourcing</strong></li>
  <li>Read/write separation? → <strong>CQRS</strong></li>
  </ul>
- <a href="cheat-sheets.md#pattern-selection-guide">Full pattern selector →</a>
+ <a href="cheat-sheets/#pattern-selection-guide">Full pattern selector →</a>
 
 ## 📖 How to Use These References
 
@@ -272,7 +272,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
         ← [Human Factors](../human-factors/index.md)
     </div>
     <div class="navigation-next">
-        [Glossary](/reference/glossary/) →
+        [Glossary](../reference/glossary.md) →
     </div>
 </div>
 

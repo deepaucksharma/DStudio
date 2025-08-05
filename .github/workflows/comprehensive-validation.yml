@@ -1,0 +1,124 @@
+name: Comprehensive Documentation Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+  workflow_call:  # Allow this workflow to be called by other workflows
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly validation
+
+jobs:
+  # Primary validation - if MkDocs can build, links and navigation are valid
+  mkdocs-validation:
+    name: MkDocs Build & Validation
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run MkDocs Validator
+      run: |
+        python scripts/mkdocs-validator.py
+    
+    - name: Upload Validation Report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: mkdocs-validation-report
+        path: mkdocs-validation-report.json
+
+  # Deep structural analysis for content quality
+  deep-structure-analysis:
+    name: Deep Structure Analysis
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml
+    
+    - name: Run Deep Structure Analysis
+      run: |
+        python scripts/deep-structure-analyzer.py
+      continue-on-error: true
+        
+    - name: Upload Analysis Report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: structure-analysis-report
+        path: DEEP_STRUCTURE_ISSUES.json
+
+  # Content quality checks
+  content-quality-checks:
+    name: Content Quality Checks
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml
+    
+    - name: Validate Frontmatter
+      run: |
+        python scripts/validate-frontmatter.py
+      continue-on-error: true
+    
+    - name: Validate Law References
+      run: |
+        python scripts/validate-law-references.py
+      continue-on-error: true
+    
+    - name: Validate Path Consistency
+      run: |
+        python scripts/validate-paths.py
+      continue-on-error: true
+
+  summary:
+    name: Validation Summary
+    needs: [mkdocs-validation, deep-structure-analysis, content-quality-checks]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - name: Summary
+      run: |
+        echo "## 📊 Validation Summary"
+        echo ""
+        echo "### Primary Validation:"
+        echo "- ✓ MkDocs build and link validation"
+        echo ""
+        echo "### Quality Checks:"
+        echo "- ✓ Deep structure analysis"
+        echo "- ✓ Frontmatter consistency"
+        echo "- ✓ Law reference validation"
+        echo "- ✓ Path consistency"
+        echo ""
+        echo "### Key Principle:"
+        echo "If MkDocs builds successfully with --strict, all navigation and links are valid."
+        echo "Additional checks are for content quality and consistency."

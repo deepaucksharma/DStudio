@@ -1,46 +1,38 @@
 ---
-category: data-management
-current_relevance: mainstream
-description: Data structures that automatically resolve conflicts in distributed systems
-difficulty: advanced
-essential_question: How do we ensure data consistency and reliability with crdt (conflict-free
-  replicated data types)?
-excellence_tier: gold
-introduced: 2011-01
-last-updated: 2025-01-23
-modern-examples:
-- company: Figma
-  implementation: CRDTs power real-time collaborative design editing
-  scale: Millions of concurrent design sessions
-- company: Riak
-  implementation: Built-in CRDT support for distributed data
-  scale: Petabyte-scale deployments with automatic conflict resolution
-- company: Redis
-  implementation: Redis CRDT for geo-distributed active-active databases
-  scale: Sub-millisecond replication across continents
-pattern_status: recommended
-prerequisites:
-- eventual-consistency
-- vector-clocks
-production-checklist:
-- Choose appropriate CRDT type for your use case
-- Implement garbage collection for tombstones
-- Monitor memory growth from metadata
-- Plan for causal delivery of operations
-- Test convergence under network partitions
-- Implement state compression techniques
-- Configure anti-entropy protocols
-- Document merge semantics for developers
-- Monitor divergence metrics between replicas
-- Plan for CRDT type migrations
-reading-time: 40 min
-status: complete
-tagline: Master crdt (conflict-free replicated data types) for distributed systems
-  success
 title: CRDT (Conflict-free Replicated Data Types)
+description: Data structures that automatically resolve conflicts in distributed systems
 type: pattern
-when-not-to-use: When strong consistency is required or simpler solutions suffice
-when-to-use: When you need automatic conflict resolution without coordination
+difficulty: advanced
+reading_time: 40 min
+excellence_tier: gold
+pattern_status: recommended
+introduced: 2011-01
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with crdt (conflict-free replicated data types)?
+last_updated: 2025-01-23
+modern_examples:
+  - {'company': 'Figma', 'implementation': 'CRDTs power real-time collaborative design editing', 'scale': 'Millions of concurrent design sessions'}
+  - {'company': 'Riak', 'implementation': 'Built-in CRDT support for distributed data', 'scale': 'Petabyte-scale deployments with automatic conflict resolution'}
+  - {'company': 'Redis', 'implementation': 'Redis CRDT for geo-distributed active-active databases', 'scale': 'Sub-millisecond replication across continents'}
+prerequisites:
+  - eventual-consistency
+  - vector-clocks
+production_checklist:
+  - Choose appropriate CRDT type for your use case
+  - Implement garbage collection for tombstones
+  - Monitor memory growth from metadata
+  - Plan for causal delivery of operations
+  - Test convergence under network partitions
+  - Implement state compression techniques
+  - Configure anti-entropy protocols
+  - Document merge semantics for developers
+  - Monitor divergence metrics between replicas
+  - Plan for CRDT type migrations
+status: complete
+tagline: Master crdt (conflict-free replicated data types) for distributed systems success
+when_not_to_use: When strong consistency is required or simpler solutions suffice
+when_to_use: When you need automatic conflict resolution without coordination
 ---
 
 
@@ -441,8 +433,8 @@ Without GC: 10MB+ after a year!
 
 ## Related Patterns
 
-- [Eventual Consistency](/pattern-library/data-management/eventual-consistency/) - The consistency model CRDTs provide
-- [Vector Clocks](/pattern-library/coordination/logical-clocks/) - Used in some CRDT implementations
+- [Eventual Consistency](../../pattern-library/data-management/eventual-consistency.md) - The consistency model CRDTs provide
+- [Vector Clocks](../../pattern-library/coordination/logical-clocks.md) - Used in some CRDT implementations
 - Gossip Protocol (Coming Soon) - Common dissemination method
 - Anti-Entropy (Coming Soon) - Synchronization mechanism
 
@@ -455,5 +447,5 @@ Without GC: 10MB+ after a year!
 
 ---
 
-*Next: [Vector Clocks](/pattern-library/coordination/logical-clocks/) - Understanding causality in distributed systems*
+*Next: [Vector Clocks](../../pattern-library/coordination/logical-clocks.md) - Understanding causality in distributed systems*
 

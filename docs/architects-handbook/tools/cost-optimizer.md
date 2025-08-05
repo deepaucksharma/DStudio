@@ -1,3 +1,9 @@
+---
+title: Cost Optimization Calculator
+description: *Peak traffic as multiple of average*
+type: documentation
+---
+
 # Cost Optimization Calculator
 
 !!! info "Interactive Calculator"

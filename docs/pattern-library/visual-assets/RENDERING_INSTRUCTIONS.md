@@ -1,3 +1,10 @@
+---
+type: pattern
+category: visual-assets
+title: Rendering_Instructions
+description: 'TODO: Add description'
+---
+
 # Visual Asset Rendering Instructions
 
 ## Prerequisites

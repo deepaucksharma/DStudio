@@ -347,8 +347,8 @@ graph LR
     
     ---
     
-    - [LSM Trees](/pattern-library/data-management/lsm-tree/) - Complementary storage structure
-    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Similar append-only approach
+    - [LSM Trees](../../pattern-library/data-management/lsm-tree.md) - Complementary storage structure
+    - [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Similar append-only approach
     - [Two-Phase Commit](../coordination/two-phase-commit.md) - Distributed durability
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
@@ -362,8 +362,8 @@ graph LR
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state/) - Durable state management
-    - [Truth Distribution](../../core-principles/pillars/truth/) - Consistent transaction ordering
+    - [State Distribution](../../core-principles/pillars/state-distribution/) - Durable state management
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution/) - Consistent transaction ordering
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

@@ -318,9 +318,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Auto-scaling](/pattern-library/scaling/auto-scaling/) | Dynamic capacity management | LB triggers scaling events |
-| [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | Cascade failure prevention | Circuit state affects routing |
-| [Health Check](/pattern-library/resilience/health-check/) | Service monitoring | Health status drives routing decisions |
+| [Auto-scaling](../../pattern-library/scaling/auto-scaling.md) | Dynamic capacity management | LB triggers scaling events |
+| [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) | Cascade failure prevention | Circuit state affects routing |
+| [Health Check](../../pattern-library/resilience/health-check.md) | Service monitoring | Health status drives routing decisions |
 
 ## Quick Reference
 
@@ -364,9 +364,9 @@ graph LR
     
     ---
     
-    - [Auto-scaling](/pattern-library/scaling/auto-scaling/) - Dynamic capacity management
-    - [Health Check](/pattern-library/resilience/health-check/) - Backend monitoring
-    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Failure protection
+    - [Auto-scaling](../../pattern-library/scaling/auto-scaling.md) - Dynamic capacity management
+    - [Health Check](../../pattern-library/resilience/health-check.md) - Backend monitoring
+    - [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Failure protection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -379,8 +379,8 @@ graph LR
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work/) - Distributing requests across servers
-    - [Control Distribution](../../core-principles/pillars/control/) - Distributed routing decisions
+    - [Work Distribution](../../core-principles/pillars/work-distribution/) - Distributing requests across servers
+    - [Control Distribution](../../core-principles/pillars/control-distribution/) - Distributed routing decisions
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

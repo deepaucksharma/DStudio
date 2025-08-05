@@ -1,3 +1,9 @@
+---
+title: Interactive Decision Tree Navigator
+description: Navigate complex behavioral scenarios with guided decision trees. Practice making leadership decisions and see the consequences of different approache
+type: interview-guide
+---
+
 # Interactive Decision Tree Navigator
 
 ## Overview

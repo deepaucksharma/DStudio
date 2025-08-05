@@ -1,3 +1,8 @@
+---
+title: Principle Hooks
+description: Principle Hooks overview and navigation
+---
+
 # Principle Hooks: Aligning Stories with Company Values
 
 ## Overview
@@ -290,4 +295,4 @@ For each target company:
 
 ---
 
-**Next Steps**: Practice integrating principle hooks with your [Story Portfolio](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index/), then test authenticity with mock interviews.
+**Next Steps**: Practice integrating principle hooks with your [Story Portfolio](../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md), then test authenticity with mock interviews.

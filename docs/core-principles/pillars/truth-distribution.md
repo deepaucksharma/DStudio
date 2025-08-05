@@ -19,7 +19,7 @@ audio_widget: '<iframe style="border-radius:12px" src="https://open.spotify.com/
 
 # Truth Distribution: Consensus in Distributed Systems
 
-[Home](/) > [Core Principles](/core-principles/) > [The 5 Pillars](/core-principles/pillars/) > Truth Distribution
+[Home](/) > [Core Principles](../../core-principles/index.md) > [The 5 Pillars](../../core-principles/pillars/index.md) > Truth Distribution
 
 <div class="truth-box">
 <h2>⚡ The One-Inch Punch</h2>

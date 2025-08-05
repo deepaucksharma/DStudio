@@ -1,3 +1,8 @@
+---
+title: Strategy
+description: Strategy overview and navigation
+---
+
 # Business Concept #1: Strategy
 
 > "Strategy is about making choices, trade-offs; it's about deliberately choosing to be different." - Michael Porter
@@ -367,31 +372,31 @@ Learning: Strategic insights gained
 
 ## Connection to First Principles
 
-- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Strategy determines how we create unique value
-- **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index/)**: Strategic choices are the highest-impact decisions
-- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**: Strategy requires understanding competitive systems
-- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)**: Strategy must account for organizational capability
-- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Sustainable strategy requires ethical foundation
+- **[Value Creation](../../../../interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md)**: Strategy determines how we create unique value
+- **[Decision-Making](../../../../interview-prep/engineering-leadership/level-1-first-principles/decision-making/index.md)**: Strategic choices are the highest-impact decisions
+- **[Systems Thinking](../../../../interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Strategy requires understanding competitive systems
+- **[Human Behavior](../../../../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Strategy must account for organizational capability
+- **[Integrity & Ethics](../../../../interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Sustainable strategy requires ethical foundation
 
 ## Connection to Other Business Concepts
 
-- **[Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/)**: Strategy without execution is hallucination
-- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/)**: Strategy guides operational choices
-- **[Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index/)**: Strategy must be economically viable
-- **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index/)**: Strategic choices create new risks
+- **[Leadership](../../../../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md)**: Strategy without execution is hallucination
+- **[Operations](../../../../interview-prep/engineering-leadership/level-2-core-business/operations/index.md)**: Strategy guides operational choices
+- **[Finance](../../../../interview-prep/engineering-leadership/level-2-core-business/finance/index.md)**: Strategy must be economically viable
+- **[Risk & Governance](../../../../interview-prep/engineering-leadership/level-2-core-business/risk-governance/index.md)**: Strategic choices create new risks
 
 ## Application in Level III
 
-- **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)**: Translating business strategy to technical strategy
-- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Aligning structure with strategy (Conway's Law)
-- **[Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index/)**: Connecting engineering to strategic outcomes
-- **[People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/)**: Building teams for strategic capabilities
+- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md)**: Translating business strategy to technical strategy
+- **[Organizational Design](../../../../interview-prep/engineering-leadership/level-3-applications/organizational-design/index.md)**: Aligning structure with strategy (Conway's Law)
+- **[Business Acumen](../../../../interview-prep/engineering-leadership/level-3-applications/business-acumen/index.md)**: Connecting engineering to strategic outcomes
+- **[People Management](../../../../interview-prep/engineering-leadership/level-3-applications/people-management/index.md)**: Building teams for strategic capabilities
 
 ## Interview Application (Level IV)
 
-- **[Technical Leadership Interviews](/interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index/)**: Demonstrating strategic technical thinking
-- **[System Design](/interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index/)**: Strategic approach to architecture
-- **[Behavioral Stories](/interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index/)**: Showing strategic impact
+- **[Technical Leadership Interviews](../../../../interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index.md)**: Demonstrating strategic technical thinking
+- **[System Design](../../../../interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index.md)**: Strategic approach to architecture
+- **[Behavioral Stories](../../../../interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Showing strategic impact
 
 ## Next Steps
 
@@ -402,4 +407,4 @@ Learning: Strategic insights gained
 
 ---
 
-*Continue your journey: Explore how [Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/) transforms strategic vision into organizational reality, or see how [Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/) applies strategic thinking in practice.*
+*Continue your journey: Explore how [Leadership](../../../../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md) transforms strategic vision into organizational reality, or see how [Technical Leadership](../../../../interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md) applies strategic thinking in practice.*

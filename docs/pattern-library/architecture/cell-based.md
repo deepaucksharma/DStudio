@@ -1,31 +1,20 @@
 ---
-best-for:
-- Multi-tenant SaaS platforms
-- Services requiring compliance isolation
-- Systems where blast radius must be minimized
-- Organizations with mature engineering practices
-category: architecture
-current_relevance: mainstream
-description: Architecture pattern that isolates failures by partitioning systems into
-  independent cells with shared-nothing design
-essential_question: How do we limit the blast radius of failures to a subset of users?
-excellence_tier: silver
-introduced: 2024-01
-pattern_status: recommended
 title: Cell-Based Architecture Pattern
-trade-offs:
-  cons:
-  - Higher infrastructure cost
-  - Complex cell routing logic
-  - Cross-cell operations difficult
-  - Data consistency challenges
-  - Operational complexity
-  pros:
-  - Complete failure isolation between cells
-  - Independent scaling per cell
-  - Predictable blast radius
-  - Simplified capacity planning
-  - Easier compliance boundaries
+description: Architecture pattern that isolates failures by partitioning systems into independent cells with shared-nothing design
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+  - Multi-tenant SaaS platforms
+  - Services requiring compliance isolation
+  - Systems where blast radius must be minimized
+  - Organizations with mature engineering practices
+introduced: 2024-01
+current_relevance: mainstream
+category: architecture
+essential_question: How do we limit the blast radius of failures to a subset of users?
+trade_offs:
+  cons: ['Higher infrastructure cost', 'Complex cell routing logic', 'Cross-cell operations difficult', 'Data consistency challenges', 'Operational complexity']
+  pros: ['Complete failure isolation between cells', 'Independent scaling per cell', 'Predictable blast radius', 'Simplified capacity planning', 'Easier compliance boundaries']
 ---
 
 
@@ -304,11 +293,11 @@ graph TD
 
 ## Related Patterns
 
-- **[Bulkhead Pattern](/pattern-library/resilience/bulkhead/)** - Isolation within services
-- **[Sharding](/pattern-library/scaling/sharding/)** - Data partitioning strategy
-- **[Multi-Region](/pattern-library/scaling/multi-region/)** - Geographic distribution
-- **[Service Mesh](/pattern-library/communication/service-mesh/)** - Network-level isolation
-- **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)** - Failure handling
+- **[Bulkhead Pattern](../../pattern-library/resilience/bulkhead.md)** - Isolation within services
+- **[Sharding](../../pattern-library/scaling/sharding.md)** - Data partitioning strategy
+- **[Multi-Region](../../pattern-library/scaling/multi-region.md)** - Geographic distribution
+- **[Service Mesh](../../pattern-library/communication/service-mesh.md)** - Network-level isolation
+- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)** - Failure handling
 
 ## References
 

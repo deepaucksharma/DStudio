@@ -1,8 +1,13 @@
+---
+title: Tools
+description: Tools overview and navigation
+---
+
 # Interactive Tools & Calculators
 
 <div class="tools-intro">
 <h2>🛠️ Distributed Systems Calculators</h2>
-<p>Interactive tools to help you make data-driven decisions for your distributed systems. Based on the mathematical principles from our <a href="../quantitative/index.md">Quantitative Toolkit</a>.</p>
+<p>Interactive tools to help you make data-driven decisions for your distributed systems. Based on the mathematical principles from our <a href="../quantitative-analysis/index.md">Quantitative Toolkit</a>.</p>
 
 <h3>📊 Performance & Capacity</h3>
 <div class="tools-grid">
@@ -82,10 +87,10 @@ Explore CAP theorem trade-offs, calculate consistency guarantees, and compare co
 Each calculator is based on solid mathematical foundations:
 
 - **[Little's Law](../../quantitative-analysis/littles-law.md)** - Foundation for latency and throughput calculations
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - Models for performance analysis
-- **[Availability Math](../quantitative/reliability-theory.md)** - Reliability calculations
+- **[Queueing Theory](../quantitative-analysis/queueing-theory.md)** - Models for performance analysis
+- **[Availability Math](../quantitative-analysis/reliability-theory.md)** - Reliability calculations
 - **[CAP Theorem](../../quantitative-analysis/cap-theorem.md)** - Consistency trade-offs
-- **[Universal Scalability Law](../quantitative/universal-scalability.md)** - Scaling predictions
+- **[Universal Scalability Law](../quantitative-analysis/universal-scalability.md)** - Scaling predictions
 
 ## How to Use These Tools
 

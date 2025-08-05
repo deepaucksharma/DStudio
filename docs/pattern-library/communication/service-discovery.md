@@ -1,36 +1,25 @@
 ---
-best-for:
-- Microservices architectures
-- Cloud-native applications
-- Dynamic scaling environments
-- Multi-region deployments
-- Container orchestration
-category: communication
-current_relevance: mainstream
-description: Dynamic service location in distributed systems
-difficulty: intermediate
-essential_question: How do we enable efficient communication between services using
-  service discovery pattern?
-excellence_tier: silver
-introduced: 2024-01
-pattern_status: recommended
-reading-time: 20 min
-tagline: Master service discovery pattern for distributed systems success
 title: Service Discovery Pattern
-trade-offs:
-  cons:
-  - Additional infrastructure complexity
-  - Single point of failure risk
-  - Network overhead for lookups
-  - Consistency challenges
-  - Cache invalidation complexity
-  pros:
-  - Dynamic service registration/deregistration
-  - Automatic failover and load balancing
-  - No hardcoded endpoints
-  - Health-aware routing
-  - Service metadata support
+description: Dynamic service location in distributed systems
 type: pattern
+difficulty: intermediate
+reading_time: 20 min
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+  - Microservices architectures
+  - Cloud-native applications
+  - Dynamic scaling environments
+  - Multi-region deployments
+  - Container orchestration
+introduced: 2024-01
+current_relevance: mainstream
+category: communication
+essential_question: How do we enable efficient communication between services using service discovery pattern?
+tagline: Master service discovery pattern for distributed systems success
+trade_offs:
+  cons: ['Additional infrastructure complexity', 'Single point of failure risk', 'Network overhead for lookups', 'Consistency challenges', 'Cache invalidation complexity']
+  pros: ['Dynamic service registration/deregistration', 'Automatic failover and load balancing', 'No hardcoded endpoints', 'Health-aware routing', 'Service metadata support']
 ---
 
 
@@ -143,11 +132,11 @@ graph TD
 
 ## Related Patterns
 
-- **[Service Mesh](/pattern-library/communication/service-mesh/)** - Advanced service discovery with traffic management
-- **[Load Balancing](/pattern-library/scaling/load-balancing/)** - Distribute discovered instances
-- **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)** - Handle discovery failures
+- **[Service Mesh](../../pattern-library/communication/service-mesh.md)** - Advanced service discovery with traffic management
+- **[Load Balancing](../../pattern-library/scaling/load-balancing.md)** - Distribute discovered instances
+- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)** - Handle discovery failures
 - **[Health Check](../observability/health-check.md)** - Determine instance availability
-- **[API Gateway](/pattern-library/communication/api-gateway/)** - Centralized service discovery
+- **[API Gateway](../../pattern-library/communication/api-gateway.md)** - Centralized service discovery
 - **[Configuration Management](../architecture/configuration-management.md)** - Dynamic configuration
 
 ## References
@@ -159,5 +148,5 @@ graph TD
 
 ---
 
-**Previous**: [Publish-Subscribe Pattern](/pattern-library/communication/publish-subscribe/) | **Next**: [WebSocket Pattern](/pattern-library/communication/websocket/)
+**Previous**: [Publish-Subscribe Pattern](../../pattern-library/communication/publish-subscribe.md) | **Next**: [WebSocket Pattern](../../pattern-library/communication/websocket.md)
 

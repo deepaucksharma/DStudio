@@ -1,3 +1,9 @@
+---
+title: STAR Story Matcher - Find Your Perfect Interview Stories
+description: Match your experiences to common interview questions. This tool helps you identify which stories from your career best demonstrate specific leadership
+type: interview-guide
+---
+
 # STAR Story Matcher - Find Your Perfect Interview Stories
 
 ## Overview

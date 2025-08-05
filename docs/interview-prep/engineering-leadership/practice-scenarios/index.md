@@ -1,3 +1,8 @@
+---
+title: Practice Scenarios
+description: Practice Scenarios overview and navigation
+---
+
 # Engineering Leadership Practice Scenarios
 
 Master behavioral interviews through realistic leadership scenarios that test your experience, judgment, and communication skills.
@@ -152,7 +157,7 @@ Partner with a colleague to practice these scenarios:
 
 ## 📚 Related Resources
 
-- [STAR Framework Guide](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index/) - Master the answer structure
-- [Story Portfolio Tool](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index/) - Organize your experiences
-- [Leadership Principles](/interview-prep/engineering-leadership/level-1-first-principles/index/) - Understand underlying concepts
-- [Mock Interview Guide](/interview-prep/engineering-leadership/level-4-interview-execution/tools/mock-interview-guide/) - Practice with partners
+- [STAR Framework Guide](../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index.md) - Master the answer structure
+- [Story Portfolio Tool](../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md) - Organize your experiences
+- [Leadership Principles](../../../interview-prep/engineering-leadership/level-1-first-principles/index.md) - Understand underlying concepts
+- [Mock Interview Guide](../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/mock-interview-guide.md) - Practice with partners

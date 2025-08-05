@@ -1,43 +1,35 @@
 ---
-category: architecture
-current_relevance: mainstream
-description: Container-based separation of concerns for cross-cutting infrastructure
-  capabilities
+title: Sidecar Pattern
+description: Container-based separation of concerns for cross-cutting infrastructure capabilities
+type: pattern
 difficulty: intermediate
-essential_question: How do we add infrastructure capabilities without modifying application
-  code?
+reading_time: 15 min
 excellence_tier: gold
-introduced: 2016-01
-last-updated: 2025-01-30
-modern-examples:
-- company: Istio
-  implementation: Service mesh sidecar for traffic management and security
-  scale: Used by thousands of companies in production Kubernetes
-- company: Linkerd
-  implementation: Ultralight service mesh proxy sidecar
-  scale: Sub-millisecond p99 latency overhead
-- company: Envoy
-  implementation: High-performance proxy sidecar for cloud-native apps
-  scale: Powers Lyft, Airbnb, and major cloud providers
-pattern-type: architectural
 pattern_status: recommended
-prerequisites: []
-production-checklist:
-- Define clear resource limits for sidecar containers
-- Implement health checks for both main app and sidecar
-- Configure proper startup order and dependencies
-- Monitor sidecar performance impact
-- Implement graceful shutdown coordination
-- Version sidecar and main app independently
-- Configure network policies between containers
-- Set up proper logging and tracing
-- Test failure scenarios (sidecar crash, main app crash)
-- Document sidecar configuration and deployment
-reading-time: 15 min
+introduced: 2016-01
+current_relevance: mainstream
+category: architecture
+essential_question: How do we add infrastructure capabilities without modifying application code?
+last_updated: 2025-01-30
+modern_examples:
+  - {'company': 'Istio', 'implementation': 'Service mesh sidecar for traffic management and security', 'scale': 'Used by thousands of companies in production Kubernetes'}
+  - {'company': 'Linkerd', 'implementation': 'Ultralight service mesh proxy sidecar', 'scale': 'Sub-millisecond p99 latency overhead'}
+  - {'company': 'Envoy', 'implementation': 'High-performance proxy sidecar for cloud-native apps', 'scale': 'Powers Lyft, Airbnb, and major cloud providers'}
+pattern_type: architectural
+prerequisites:
+production_checklist:
+  - Define clear resource limits for sidecar containers
+  - Implement health checks for both main app and sidecar
+  - Configure proper startup order and dependencies
+  - Monitor sidecar performance impact
+  - Implement graceful shutdown coordination
+  - Version sidecar and main app independently
+  - Configure network policies between containers
+  - Set up proper logging and tracing
+  - Test failure scenarios (sidecar crash, main app crash)
+  - Document sidecar configuration and deployment
 status: complete
 tagline: Deploy auxiliary functionality alongside your main application
-title: Sidecar Pattern
-type: pattern
 ---
 
 
@@ -277,9 +269,9 @@ graph TD
 ## Related Patterns
 
 - **[Service Mesh](../architecture/service-mesh.md)**: Orchestrates multiple sidecars
-- **[Ambassador](/pattern-library/architecture/ambassador/)**: Specialized proxy pattern
-- **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)**: Often implemented in sidecars
-- **[Bulkhead](/pattern-library/resilience/bulkhead/)**: Isolation via sidecars
+- **[Ambassador](../../pattern-library/architecture/ambassador.md)**: Specialized proxy pattern
+- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)**: Often implemented in sidecars
+- **[Bulkhead](../../pattern-library/resilience/bulkhead.md)**: Isolation via sidecars
 - **[API Gateway](../architecture/api-gateway.md)**: Centralized alternative
 
 ## References

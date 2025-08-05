@@ -1,36 +1,28 @@
 ---
-best-for:
-- Multi-platform applications (web, mobile, TV)
-- Teams with platform-specific requirements
-- Applications with diverse client capabilities
-- Microservices architectures
-category: architecture
-current_relevance: niche
-description: Create purpose-built backend services for specific frontend applications,
-  optimizing API design for each client's unique needs
+title: Backends For Frontends (BFF)
+description: Create purpose-built backend services for specific frontend applications, optimizing API design for each client's unique needs
+type: pattern
 difficulty: intermediate
-essential_question: How do we structure our system architecture to leverage backends
-  for frontends (bff)?
+reading_time: 45 min
 excellence_tier: silver
-introduced: 2015-01
-last-updated: 2025-01-23
-pattern-type: architectural
 pattern_status: recommended
-prerequisites: []
-reading-time: 45 min
+best_for:
+  - Multi-platform applications (web, mobile, TV)
+  - Teams with platform-specific requirements
+  - Applications with diverse client capabilities
+  - Microservices architectures
+introduced: 2015-01
+current_relevance: niche
+category: architecture
+essential_question: How do we structure our system architecture to leverage backends for frontends (bff)?
+last_updated: 2025-01-23
+pattern_type: architectural
+prerequisites:
 status: complete
 tagline: Master backends for frontends (bff) for distributed systems success
-title: Backends For Frontends (BFF)
-trade-offs:
-  cons:
-  - Code duplication across BFFs
-  - Increased operational complexity
-  - More services to maintain
-  pros:
-  - Optimized APIs for each client type
-  - Independent deployment and scaling
-  - Better separation of concerns
-type: pattern
+trade_offs:
+  cons: ['Code duplication across BFFs', 'Increased operational complexity', 'More services to maintain']
+  pros: ['Optimized APIs for each client type', 'Independent deployment and scaling', 'Better separation of concerns']
 ---
 
 

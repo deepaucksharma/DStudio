@@ -390,7 +390,7 @@ CREATE TABLE runner_health (
 ### Core Patterns
 
 #### 1. Event-Driven Architecture
-**Pattern**: [Event-Driven Architecture](/pattern-library/architecture/event-driven/)
+**Pattern**: [Event-Driven Architecture](../../../../pattern-library/architecture/event-driven.md)
 - Pipeline events trigger downstream actions
 - Loose coupling between pipeline stages
 - Asynchronous processing for scalability
@@ -416,19 +416,19 @@ graph TB
 ```
 
 #### 2. Job Queue Pattern
-**Pattern**: [Message Queue](/pattern-library/coordination/distributed-queue/)
+**Pattern**: [Message Queue](../../../../pattern-library/coordination/distributed-queue.md)
 - Reliable job scheduling and execution
 - Priority-based job processing
 - Load balancing across build runners
 
 #### 3. Circuit Breaker
-**Pattern**: [Circuit Breaker](/pattern-library/resilience/circuit-breaker/)
+**Pattern**: [Circuit Breaker](../../../../pattern-library/resilience/circuit-breaker.md)
 - Protect against external service failures
 - Graceful degradation when Git providers fail
 - Fast failure detection and recovery
 
 #### 4. Bulkhead Pattern
-**Pattern**: [Bulkhead](/pattern-library/resilience/bulkhead/)
+**Pattern**: [Bulkhead](../../../../pattern-library/resilience/bulkhead.md)
 - Isolate different types of builds
 - Prevent resource starvation
 - Separate critical and non-critical workloads
@@ -436,19 +436,19 @@ graph TB
 ### Supporting Patterns
 
 #### 5. Saga Pattern
-**Pattern**: [Saga](/pattern-library/data-management/saga/)
+**Pattern**: [Saga](../../../../pattern-library/data-management/saga.md)
 - Multi-stage deployment workflows
 - Compensation for failed deployments
 - Distributed transaction management
 
 #### 6. Database Sharding
-**Pattern**: [Database Sharding](/pattern-library/scaling/sharding/)
+**Pattern**: [Database Sharding](../../../../pattern-library/scaling/sharding.md)
 - Partition pipeline data by repository or organization
 - Scale metadata storage horizontally
 - Improve query performance
 
 #### 7. Caching
-**Pattern**: [Caching](/pattern-library/scaling/caching-strategies/)
+**Pattern**: [Caching](../../../../pattern-library/scaling/caching-strategies.md)
 - Cache build dependencies and artifacts
 - Reduce build times through intelligent caching
 - Cache pipeline configurations and metadata

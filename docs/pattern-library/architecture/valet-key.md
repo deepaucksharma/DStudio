@@ -1,30 +1,27 @@
 ---
-best-for: []
-category: architecture
-current_relevance: mainstream
-description: Provide limited direct access to resources without exposing credentials
-  or requiring proxy overhead
+title: Valet Key Pattern
+description: Provide limited direct access to resources without exposing credentials or requiring proxy overhead
+type: pattern
 difficulty: intermediate
-essential_question: How do we structure our system architecture to leverage valet
-  key pattern?
+reading_time: 15 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-01-26
 pattern_status: recommended
+best_for:
+introduced: 2024-01
+current_relevance: mainstream
+category: architecture
+essential_question: How do we structure our system architecture to leverage valet key pattern?
+last_updated: 2025-01-26
 prerequisites:
-- authentication
-- cloud-storage
-reading-time: 15 min
+  - authentication
+  - cloud-storage
 status: complete
 tagline: Master valet key pattern for distributed systems success
-title: Valet Key Pattern
-trade-offs:
+trade_offs:
   cons: []
   pros: []
-type: pattern
-when-not-to-use: Sensitive operations, complex access control, permanent access
-when-to-use: Direct client access to resources, temporary permissions, reducing proxy
-  load
+when_not_to_use: Sensitive operations, complex access control, permanent access
+when_to_use: Direct client access to resources, temporary permissions, reducing proxy load
 ---
 
 
@@ -305,10 +302,10 @@ graph TD
 | **[API Gateway Pattern](../pattern-library/communication/api-gateway.md)** | Pattern | Alternative for complex auth |
 | **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** | Pattern | Protect storage services |
 | **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** | Pattern | Control valet key generation |
-| **[Law 7: Economic Reality](core-principles/laws/economic-reality/index)** | Axiom | Cost optimization driver |
-| **[Pillar 4: Control](core-principles/pillars/control/index)** | Pillar | Access control principles |
+| **[Law 7: Economic Reality](core-principles/laws/economic-reality/)** | Axiom | Cost optimization driver |
+| **[Pillar 4: Control](core-principles/core-principles/pillars/control-distribution/)** | Pillar | Access control principles |
 | **[CDN Pattern](../pattern-library/scaling/edge-computing.md)** | Pattern | Combine for global scale |
-| **[Encryption at Rest](../pattern-library/distributed-storage.md#encryption)** | Pattern | Secure storage layer |
+| **[Encryption at Rest](../pattern-library/data-management/distributed-storage/#encryption)** | Pattern | Secure storage layer |
 
 ## Summary
 

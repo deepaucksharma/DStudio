@@ -694,13 +694,13 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ](/core-principles/laws/correlated-failure/)** - SAGA compensations handle partial failures in distributed transactions
-- **[Law 2: Asynchronous Reality ](/core-principles/laws/asynchronous-reality/)** - 234ms average latency balances fraud checks with user experience
-- **[Law 3: Emergence ](/core-principles/laws/emergent-chaos/)** - Optimistic locking prevents double-spending without blocking
-- **[Law 4: Trade-offs ](/core-principles/laws/multidimensional-optimization/)** - Cell architecture and event-driven choreography balance multiple trade-offs
-- **[Law 5: Epistemology ](/core-principles/laws/distributed-knowledge/)** - Distributed tracing tracks payments across 20+ services
-- **[Law 6: Human-API ](/core-principles/laws/cognitive-load/)** - Clear error messages and status updates reduce support calls
-- **[Law 7: Economics ](/core-principles/laws/economic-reality/)** - Processing costs optimized through batching and routing
+- **[Law 1: Failure ](../../../core-principles/laws/correlated-failure/)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ](../../../core-principles/laws/asynchronous-reality/)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergence ](../../../core-principles/laws/emergent-chaos/)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Trade-offs ](../../../core-principles/laws/multidimensional-optimization/)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Epistemology ](../../../core-principles/laws/distributed-knowledge/)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Human-API ](../../../core-principles/laws/cognitive-load/)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economics ](../../../core-principles/laws/economic-reality/)** - Processing costs optimized through batching and routing
 
 ### 🏛 Related Patterns
 - **[SAGA Pattern](../pattern-library/data-management/saga.md)** - Orchestrates distributed transactions with compensation logic
@@ -718,16 +718,16 @@ graph TB
 - **[Two-Phase Commit](../../quantitative-analysis/consistency-models.md.md)** - Rejected due to availability and latency constraints
 
 ### 👥 Human Factors Considerations
-- **[Incident Response](/architects-handbook/human-factors/incident-response/)** - Payment failures require immediate response procedures
-- **[On-Call Culture](/architects-handbook/human-factors/oncall-culture/)** - 24/7 global payments need follow-the-sun support
-- **[Post-Mortem Culture](/architects-handbook/human-factors/blameless-postmortems/)** - Every payment failure analyzed for systemic improvements
+- **[Incident Response](../../../architects-handbook/human-factors/incident-response.md)** - Payment failures require immediate response procedures
+- **[On-Call Culture](../../../architects-handbook/human-factors/oncall-culture.md)** - 24/7 global payments need follow-the-sun support
+- **[Post-Mortem Culture](../../../architects-handbook/human-factors/blameless-postmortems.md)** - Every payment failure analyzed for systemic improvements
 - **[Security Considerations](../reference/security.md)** - PCI compliance and fraud prevention are paramount
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](/architects-handbook/case-studies/databases/amazon-dynamo/)** - Similar high-availability requirements for financial data
-- **[Uber's Location System](/architects-handbook/case-studies/location-services/uber-location/)** - Real-time processing at similar scale
-- **[Rate Limiter Design](/architects-handbook/case-studies/monitoring-observability/rate-limiter/)** - Prevents payment fraud through intelligent throttling
-- **[Consistent Hashing](/pattern-library/data-management/consistent-hashing/)** - Used for routing payments to processing cells
+- **[Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Similar high-availability requirements for financial data
+- **[Uber's Location System](../../../architects-handbook/case-studies/location-services/uber-location.md)** - Real-time processing at similar scale
+- **[Rate Limiter Design](../../../architects-handbook/case-studies/monitoring-observability/rate-limiter.md)** - Prevents payment fraud through intelligent throttling
+- **[Consistent Hashing](../../../../pattern-library/data-management/consistent-hashing.md)** - Used for routing payments to processing cells
 
 ---
 

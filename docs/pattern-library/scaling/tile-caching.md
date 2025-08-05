@@ -1,27 +1,25 @@
 ---
-category: scaling
-current_relevance: mainstream
-description: Efficient caching strategy for map tiles and spatial data at multiple
-  zoom levels
+title: Tile Caching
+description: Efficient caching strategy for map tiles and spatial data at multiple zoom levels
+type: pattern
 difficulty: intermediate
-essential_question: How do we handle increasing load without sacrificing performance
-  using tile caching?
+reading_time: 25 min
 excellence_tier: gold
-introduced: 2024-01
-last-updated: 2025-01-23
-modern-examples: []
 pattern_status: recommended
+introduced: 2024-01
+current_relevance: mainstream
+category: scaling
+essential_question: How do we handle increasing load without sacrificing performance using tile caching?
+last_updated: 2025-01-23
+modern_examples:
 prerequisites:
-- caching
-- spatial-indexing
-production-checklist: []
-reading-time: 25 min
+  - caching
+  - spatial-indexing
+production_checklist:
 status: stub
 tagline: Master tile caching for distributed systems success
-title: Tile Caching
-type: pattern
-when-not-to-use: Non-spatial data, dynamic content that changes frequently
-when-to-use: Map applications, GIS systems, spatial data visualization
+when_not_to_use: Non-spatial data, dynamic content that changes frequently
+when_to_use: Map applications, GIS systems, spatial data visualization
 ---
 
 ## Essential Question
@@ -65,7 +63,7 @@ Tile caching optimizes the storage and delivery of map tiles by pre-rendering an
 - **Invalidation Strategy**: Updating tiles when data changes
 
 ## Related Patterns
-- [CDN Pattern](pattern-library/edge-computing)
+- [CDN Pattern](../scaling/edge-computing)
 - [Cache-Aside](cache-aside.md)
 - Spatial Indexing (Coming Soon)
 - Vector Maps (Coming Soon)

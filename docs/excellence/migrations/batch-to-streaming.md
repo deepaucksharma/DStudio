@@ -1,3 +1,9 @@
+---
+title: Batch to Streaming Migration Guide
+description: Migrating from batch processing to stream processing transforms how your system handles data - from periodic bulk operations to continuous, real-time
+type: documentation
+---
+
 # Batch to Streaming Migration Guide
 
 ## Overview
@@ -1013,7 +1019,7 @@ ORDER BY hour DESC;
 
 ## Additional Resources
 
-- [Stream Processing Patterns](/pattern-library/stream-processing.md)
-- [State Management in Streaming](/pattern-library/stateful-streaming.md)
-- [Kafka Best Practices](/infrastructure/kafka-operations.md)
-- [Flink Production Guide](/infrastructure/flink-production.md)
+- [Stream Processing Patterns](../../pattern-library/stream-processing.md)
+- [State Management in Streaming](../../pattern-library/stateful-streaming.md)
+- [Kafka Best Practices](../../infrastructure/kafka-operations.md)
+- [Flink Production Guide](../../infrastructure/flink-production.md)

@@ -1,3 +1,9 @@
+---
+title: Engineering Leadership Interview Framework for FAANG/Big Tech
+description: Engineering Manager (EM) and Director-level interviews at FAANG companies are fundamentally different from IC interviews. They assess your ability to
+type: interview-guide
+---
+
 # Engineering Leadership Interview Framework for FAANG/Big Tech
 
 ## Overview

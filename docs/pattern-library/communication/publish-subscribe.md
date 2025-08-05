@@ -1,49 +1,39 @@
 ---
-category: communication
-current_relevance: mainstream
-description: Decoupled messaging pattern where publishers send messages to topics
-  and subscribers receive messages based on their interests
+title: Publish-Subscribe Pattern
+description: Decoupled messaging pattern where publishers send messages to topics and subscribers receive messages based on their interests
+type: pattern
 difficulty: intermediate
-essential_question: How do we enable efficient communication between services using
-  publish-subscribe pattern?
+reading_time: 35 min
 excellence_tier: gold
-introduced: 1987-01
-last-updated: 2025-07-26
-modern-examples:
-- company: Apache Kafka
-  implementation: Distributed pub-sub for event streaming at LinkedIn, Uber, Netflix
-  scale: 7 trillion messages/day at LinkedIn
-- company: Redis
-  implementation: In-memory pub-sub for real-time features
-  scale: Millions of messages/sec with microsecond latency
-- company: Google Cloud Pub/Sub
-  implementation: Globally distributed message service
-  scale: 500M messages/second, 99.95% SLA
 pattern_status: recommended
+introduced: 1987-01
+current_relevance: mainstream
+category: communication
+essential_question: How do we enable efficient communication between services using publish-subscribe pattern?
+last_updated: 2025-07-26
+modern_examples:
+  - {'company': 'Apache Kafka', 'implementation': 'Distributed pub-sub for event streaming at LinkedIn, Uber, Netflix', 'scale': '7 trillion messages/day at LinkedIn'}
+  - {'company': 'Redis', 'implementation': 'In-memory pub-sub for real-time features', 'scale': 'Millions of messages/sec with microsecond latency'}
+  - {'company': 'Google Cloud Pub/Sub', 'implementation': 'Globally distributed message service', 'scale': '500M messages/second, 99.95% SLA'}
 prerequisites:
-- message-queues
-- event-driven
-- distributed-systems
-production-checklist:
-- Choose delivery semantics (at-least-once, at-most-once, exactly-once)
-- Configure topic partitioning for scalability
-- Implement message ordering guarantees where needed
-- Set up dead letter queues for failed messages
-- Configure retention policies (hours to days)
-- Monitor consumer lag and backpressure
-- Implement idempotent consumers
-- Set up topic-based access control
-- Plan for message schema evolution
-- Test fan-out performance under load
-reading-time: 35 min
+  - message-queues
+  - event-driven
+  - distributed-systems
+production_checklist:
+  - Choose delivery semantics (at-least-once, at-most-once, exactly-once)
+  - Configure topic partitioning for scalability
+  - Implement message ordering guarantees where needed
+  - Set up dead letter queues for failed messages
+  - Configure retention policies (hours to days)
+  - Monitor consumer lag and backpressure
+  - Implement idempotent consumers
+  - Set up topic-based access control
+  - Plan for message schema evolution
+  - Test fan-out performance under load
 status: initial
 tagline: Master publish-subscribe pattern for distributed systems success
-title: Publish-Subscribe Pattern
-type: pattern
-when-not-to-use: Point-to-point communication, request-response patterns, transactional
-  consistency requirements
-when-to-use: Event-driven architectures, real-time notifications, decoupled microservices,
-  multi-consumer scenarios
+when_not_to_use: Point-to-point communication, request-response patterns, transactional consistency requirements
+when_to_use: Event-driven architectures, real-time notifications, decoupled microservices, multi-consumer scenarios
 ---
 
 

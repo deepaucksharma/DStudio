@@ -1256,36 +1256,36 @@ The hybrid architecture balances the trade-offs between different approaches, us
 
 ### 📚 Relevant Laws (Part I)
 - **[Law 2: Asynchronous Reality ](../core-principles/laws/asynchronous-reality)** - Pre-computed feeds and edge caching achieve <100ms load times
-- **[Law 4: Trade-offs ](../core-principles/laws/multidimensional-optimization/index)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
+- **[Law 4: Trade-offs ](../core-principles/laws/multidimensional-optimization/)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
 - **[Law 1: Failure ](../core-principles/laws/correlated-failure)** - Multiple fallback strategies ensure feed availability
-- **[Law 3: Emergence ](../core-principles/laws/emergent-chaos/index)** - Async fanout and parallel timeline merging handle scale
-- **[Law 5: Epistemology ](../core-principles/laws/distributed-knowledge/index)** - Eventually consistent timelines with causal ordering and engagement metrics
-- **[Law 6: Human-API ](../core-principles/laws/cognitive-load/index)** - Personalization and pacing optimize for human attention
-- **[Law 7: Economics ](../core-principles/laws/economic-reality/index)** - Ad placement and infrastructure costs drive architectural decisions
+- **[Law 3: Emergence ](../core-principles/laws/emergent-chaos/)** - Async fanout and parallel timeline merging handle scale
+- **[Law 5: Epistemology ](../core-principles/laws/distributed-knowledge/)** - Eventually consistent timelines with causal ordering and engagement metrics
+- **[Law 6: Human-API ](../core-principles/laws/cognitive-load/)** - Personalization and pacing optimize for human attention
+- **[Law 7: Economics ](../core-principles/laws/economic-reality/)** - Ad placement and infrastructure costs drive architectural decisions
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Event-Driven Architecture](../patterns/event-driven)** - Post creation triggers fanout pipeline
-- **[CQRS](../patterns/cqrs)** - Separate write (fanout) and read (feed generation) paths
-- **[Caching Strategies](../patterns/caching-strategies)** - Multi-tier caching from edge to application layer
+- **[Event-Driven Architecture](../pattern-library/architecture/event-driven)** - Post creation triggers fanout pipeline
+- **[CQRS](../pattern-library/data-management/cqrs)** - Separate write (fanout) and read (feed generation) paths
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies)** - Multi-tier caching from edge to application layer
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects against celebrity storm cascading failures
-- **[Bulkhead](../patterns/bulkhead)** - Isolates celebrity fanout from normal users
-- **[Load Balancing](../patterns/load-balancing)** - Distributes feed generation across worker pools
-- **[Sharding](../patterns/sharding)** - User-based sharding for timeline storage
+- **[Bulkhead](../pattern-library/resilience/bulkhead)** - Isolates celebrity fanout from normal users
+- **[Load Balancing](../pattern-library/scaling/load-balancing)** - Distributes feed generation across worker pools
+- **[Sharding](../pattern-library/scaling/sharding)** - User-based sharding for timeline storage
 
 ### Quantitative Models
-- **[Little's Law](../quantitative/littles-law)** - Feed generation capacity: concurrent requests = arrival rate × processing time
-- **[Queueing Theory](../quantitative/queueing-models)** - M/M/c model for fanout worker pools
-- **[Power Laws](../quantitative/power-laws)** - Celebrity follower distribution drives hybrid architecture
-- **[Information Theory](../quantitative/information-theory)** - Relevance scoring and diversity optimization
+- **[Little's Law](../quantitative-analysis/littles-law)** - Feed generation capacity: concurrent requests = arrival rate × processing time
+- **[Queueing Theory](../quantitative-analysis/queueing-models)** - M/M/c model for fanout worker pools
+- **[Power Laws](../quantitative-analysis/power-laws)** - Celebrity follower distribution drives hybrid architecture
+- **[Information Theory](../quantitative-analysis/information-theory)** - Relevance scoring and diversity optimization
 
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices)** - Managing feed generation SLOs and error budgets
 - **[On-Call Culture](../human-factors/oncall-culture)** - 24/7 monitoring for feed availability
-- **[Capacity Planning](../quantitative/capacity-planning)** - Predicting growth and viral content spikes
+- **[Capacity Planning](../quantitative-analysis/capacity-planning)** - Predicting growth and viral content spikes
 - **[Post-Mortem Culture](../human-factors/blameless-postmortems)** - Learning from feed outages and relevance drops
 
 ### Similar Case Studies
-- **[Spotify Recommendations](/architects-handbook/case-studies/search-analytics/spotify-recommendations/)** - Similar ML personalization challenges
-- **[YouTube's Video Platform](/architects-handbook/case-studies/social-communication/youtube/)** - Content distribution and recommendation parallels
-- **[Rate Limiter Design](/architects-handbook/case-studies/monitoring-observability/rate-limiter/)** - Protecting feed generation from abuse
+- **[Spotify Recommendations](../../../architects-handbook/case-studies/search-analytics/spotify-recommendations.md)** - Similar ML personalization challenges
+- **[YouTube's Video Platform](../../../architects-handbook/case-studies/social-communication/youtube.md)** - Content distribution and recommendation parallels
+- **[Rate Limiter Design](../../../architects-handbook/case-studies/monitoring-observability/rate-limiter.md)** - Protecting feed generation from abuse
 - **[Uber's Location System](uber-location.md.md)** - Real-time data processing patterns

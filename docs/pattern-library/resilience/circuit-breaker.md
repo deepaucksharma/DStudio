@@ -1,55 +1,46 @@
 ---
-category: resilience
-current_relevance: mainstream
-description: Prevent cascade failures in distributed systems by failing fast when
-  services are unhealthy
+title: Circuit Breaker Pattern
+description: Prevent cascade failures in distributed systems by failing fast when services are unhealthy
+type: pattern
 difficulty: intermediate
-essential_question: How do we detect service failures quickly and prevent cascade
-  failures from spreading?
+reading_time: 20 min
 excellence_tier: gold
-introduced: 2007-03
-last-updated: 2025-01-30
-modern-examples:
-- company: Netflix
-  implementation: Hystrix handles 100B+ requests/day with circuit breaker protection
-  scale: 100B+ requests/day across thousands of microservices
-- company: Amazon
-  implementation: Circuit breakers protect Prime Day traffic surges and prevent cascade
-    failures
-  scale: 10x normal load handled gracefully during Prime Day
-- company: Uber
-  implementation: Circuit breakers on all critical paths including payments and dispatch
-  scale: 20M+ rides/day with 99.99% availability
 pattern_status: recommended
-prerequisites: []
-production-checklist:
-- Configure failure thresholds based on service SLA (typically 50% error rate)
-- Set appropriate recovery timeout (30-60 seconds for most services)
-- Implement meaningful fallback strategies (cache, default values, queues)
-- Monitor circuit state changes and business impact metrics
-- Test circuit breakers weekly with chaos engineering
-- Use distributed state for multi-instance consistency
-- Add jitter to recovery timeouts to prevent thundering herd
-- Configure different thresholds for different error types
-- Implement half-open state testing logic
-- Set up alerting for circuit state transitions
-reading-time: 20 min
-related-laws:
-- correlated-failure
-- asynchronous-reality
-- emergent-chaos
-- multidimensional-optimization
-- cognitive-load
-related-pillars:
-- truth
-- control
-- intelligence
+introduced: 2007-03
+current_relevance: mainstream
+related_laws:
+  - correlated-failure
+  - asynchronous-reality
+  - emergent-chaos
+  - multidimensional-optimization
+  - cognitive-load
+category: resilience
+essential_question: How do we detect service failures quickly and prevent cascade failures from spreading?
+last_updated: 2025-01-30
+modern_examples:
+  - {'company': 'Netflix', 'implementation': 'Hystrix handles 100B+ requests/day with circuit breaker protection', 'scale': '100B+ requests/day across thousands of microservices'}
+  - {'company': 'Amazon', 'implementation': 'Circuit breakers protect Prime Day traffic surges and prevent cascade failures', 'scale': '10x normal load handled gracefully during Prime Day'}
+  - {'company': 'Uber', 'implementation': 'Circuit breakers on all critical paths including payments and dispatch', 'scale': '20M+ rides/day with 99.99% availability'}
+prerequisites:
+production_checklist:
+  - Configure failure thresholds based on service SLA (typically 50% error rate)
+  - Set appropriate recovery timeout (30-60 seconds for most services)
+  - Implement meaningful fallback strategies (cache, default values, queues)
+  - Monitor circuit state changes and business impact metrics
+  - Test circuit breakers weekly with chaos engineering
+  - Use distributed state for multi-instance consistency
+  - Add jitter to recovery timeouts to prevent thundering herd
+  - Configure different thresholds for different error types
+  - Implement half-open state testing logic
+  - Set up alerting for circuit state transitions
+related_pillars:
+  - truth
+  - control
+  - intelligence
 status: complete
 tagline: Fail fast, recover gracefully - stop cascade failures in their tracks
-title: Circuit Breaker Pattern
-type: pattern
-when-not-to-use: Internal method calls, non-network operations, CPU-bound tasks
-when-to-use: External service calls, microservice communication, database connections
+when_not_to_use: Internal method calls, non-network operations, CPU-bound tasks
+when_to_use: External service calls, microservice communication, database connections
 ---
 
 

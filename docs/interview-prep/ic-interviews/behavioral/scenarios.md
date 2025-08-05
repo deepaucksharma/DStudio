@@ -1,3 +1,9 @@
+---
+title: IC Behavioral Scenarios Deep-Dive
+description: **Example Question**: "Tell me about a time you handled a critical production issue."
+type: interview-guide
+---
+
 # IC Behavioral Scenarios Deep-Dive
 
 ## Advanced Scenario Practice
@@ -381,4 +387,4 @@ Result:
 
 ---
 
-*Next: [Level-Specific Preparation](/by-level) | [Behavioral Framework](/index) | [System Design](../)*
+*Next: [Level-Specific Preparation](by-level.md) | [Behavioral Framework](index.md) | [System Design](../)*

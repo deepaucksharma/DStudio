@@ -1,3 +1,9 @@
+---
+title: Team Building & Culture Development
+description: Culture isn't ping-pong tables and free snacks—it's the shared values, behaviors, and practices that determine how teams operate, innovate, and delive
+type: interview-guide
+---
+
 # Team Building & Culture Development
 
 ## Creating High-Performance Engineering Cultures

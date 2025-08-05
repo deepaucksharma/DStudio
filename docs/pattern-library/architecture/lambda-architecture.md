@@ -1,37 +1,34 @@
 ---
-category: architecture
-current_relevance: declining
-deprecation-reason: Maintaining two parallel pipelines (batch and stream) proved too
-  complex; modern frameworks unify batch and stream processing
-description: Hybrid approach combining batch and stream processing to handle both
-  historical and real-time data with eventual consistency
+title: Lambda Architecture
+description: Hybrid approach combining batch and stream processing to handle both historical and real-time data with eventual consistency
+type: pattern
 difficulty: advanced
-essential_question: How do we structure our system architecture to leverage lambda
-  architecture?
+reading_time: 30 min
 excellence_tier: bronze
-introduced: 2011-01
-last-updated: 2025-01-31
-modern-alternatives:
-- Unified processing (Apache Beam)
-- Stream-first architectures
-- Lakehouse architectures (Delta Lake, Iceberg)
 pattern_status: legacy
+introduced: 2011-01
+current_relevance: declining
+category: architecture
+deprecation_reason: Maintaining two parallel pipelines (batch and stream) proved too complex; modern frameworks unify batch and stream processing
+essential_question: How do we structure our system architecture to leverage lambda architecture?
+last_updated: 2025-01-31
+modern_alternatives:
+  - Unified processing (Apache Beam)
+  - Stream-first architectures
+  - Lakehouse architectures (Delta Lake, Iceberg)
 prerequisites:
-- event-streaming
-- batch-processing
-reading-time: 30 min
+  - event-streaming
+  - batch-processing
 status: complete
 tagline: Master lambda architecture for distributed systems success
-title: Lambda Architecture
-type: pattern
-when-not-to-use:
-- Real-time consistency required
-- Simple analytics needs
-- Limited operational capacity
-when-to-use:
-- Need both real-time and historical analytics
-- Can tolerate eventual consistency
-- Have complex reprocessing requirements
+when_not_to_use:
+  - Real-time consistency required
+  - Simple analytics needs
+  - Limited operational capacity
+when_to_use:
+  - Need both real-time and historical analytics
+  - Can tolerate eventual consistency
+  - Have complex reprocessing requirements
 ---
 
 

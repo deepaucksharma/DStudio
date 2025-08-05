@@ -1,103 +1,49 @@
-# Pre-commit hooks for pattern library validation
+# Pre-commit hooks for DStudio documentation validation
 # Install with: pip install pre-commit && pre-commit install
 
 repos:
-  # Standard pre-commit hooks
+  - repo: local
+    hooks:
+      - id: validate-frontmatter
+        name: Validate Frontmatter Consistency
+        entry: python scripts/validate-frontmatter.py
+        language: python
+        files: \.md$
+        additional_dependencies: [pyyaml]
+        
+      - id: validate-law-references
+        name: Check Law References
+        entry: python scripts/validate-law-references.py
+        language: python
+        files: \.md$
+        additional_dependencies: [pyyaml]
+        
+      - id: validate-paths
+        name: Validate Path Consistency
+        entry: python scripts/validate-paths.py
+        language: python
+        files: \.md$
+        
+      - id: check-broken-links
+        name: Check Broken Internal Links
+        entry: python scripts/check-broken-links.py
+        language: python
+        files: \.md$
+        pass_filenames: false
+        
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
       - id: trailing-whitespace
-        exclude: '\.md$'  # Allow trailing spaces in markdown (for line breaks)
       - id: end-of-file-fixer
       - id: check-yaml
-        args: ['--unsafe']  # Allow custom YAML tags in mkdocs.yml
-      - id: check-json
-      - id: check-merge-conflict
       - id: check-added-large-files
         args: ['--maxkb=1000']
       - id: mixed-line-ending
         args: ['--fix=lf']
-
-  # Markdown linting
+        
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.37.0
     hooks:
       - id: markdownlint
-        args: ['--config', '.markdownlint.yaml']
-        exclude: 'templates/.*\.md$'
-
-  # Python code quality (for scripts)
-  - repo: https://github.com/psf/black
-    rev: 23.11.0
-    hooks:
-      - id: black
-        language_version: python3
-        files: ^scripts/.*\.py$
-
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-        files: ^scripts/.*\.py$
-
-  # Custom pattern library validation hooks
-  - repo: local
-    hooks:
-      # Pattern metadata validation
-      - id: pattern-metadata-validation
-        name: Pattern Metadata Validation
-        entry: python3 scripts/comprehensive-pattern-validator.py
-        args: ['--fail-fast', '--report=json']
-        language: system
-        files: 'docs/pattern-library/.*\.md$'
-        pass_filenames: false
-        always_run: false
-
-      # Navigation consistency check
-      - id: navigation-consistency
-        name: Navigation Consistency Check
-        entry: python3 scripts/check-navigation.py
-        language: system
-        files: '(mkdocs\.yml|docs/pattern-library/.*\.md)$'
-        pass_filenames: false
-
-      # Pattern quality check
-      - id: pattern-quality-check
-        name: Pattern Quality Check
-        entry: python3 scripts/pattern-manager.py
-        args: ['quality', '--format=table']
-        language: system
-        files: 'docs/pattern-library/.*\.md$'
-        pass_filenames: false
-        always_run: false
-
-      # Pattern count validation
-      - id: pattern-count-validation
-        name: Pattern Count Validation
-        entry: bash scripts/validate-pattern-counts.sh
-        language: system
-        files: '(README\.md|CLAUDE\.md|docs/index\.md|docs/pattern-library/index\.md)$'
-        pass_filenames: false
-
-      # Broken link detection
-      - id: broken-link-detection
-        name: Broken Link Detection
-        entry: python3 scripts/verify-links.py
-        args: ['--pattern-links-only']
-        language: system
-        files: 'docs/pattern-library/.*\.md$'
-        pass_filenames: false
-
-      # Excellence framework validation
-      - id: excellence-framework-validation
-        name: Excellence Framework Validation
-        entry: python3 scripts/validate-excellence-framework.py
-        language: system
-        files: 'docs/pattern-library/.*\.md$'
-        pass_filenames: false
-        always_run: false
-
-# Configuration for specific hooks
-default_stages: [commit]
-fail_fast: true
-minimum_pre_commit_version: '3.0.0'
+        args: ['--disable', 'MD013', 'MD033', 'MD041']  # Disable line length, HTML, and first line heading

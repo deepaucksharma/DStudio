@@ -271,8 +271,8 @@ graph TD
 
 ## Related Resources
 
-- [MapReduce Pattern](../patterns/mapreduce.md)
-- [Distributed Cache Pattern](../patterns/distributed-cache.md)
+- [MapReduce Pattern](../pattern-library/mapreduce.md)
+- [Distributed Cache Pattern](../pattern-library/distributed-cache.md)
 - [Sharding Pattern](../pattern-library/scaling/sharding.md)
 - [Google Papers](https://research.google/pubs/)
 

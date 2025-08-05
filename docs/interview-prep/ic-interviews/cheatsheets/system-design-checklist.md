@@ -1,3 +1,9 @@
+---
+title: System Design Checklist
+description: - [ ] **Core Features** (3-5 main functions) - [ ] Primary use cases identified - [ ] User types defined
+type: interview-guide
+---
+
 # System Design Checklist
 
 ## ✅ Complete System Design Checklist

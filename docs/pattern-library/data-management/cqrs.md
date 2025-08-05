@@ -1,32 +1,21 @@
 ---
-best-for:
-- Systems with asymmetric read/write patterns (10:1 or higher)
-- Complex domains requiring different models
-- Applications needing multiple read representations
-- High-performance query requirements
-category: data-management
-current_relevance: mainstream
-description: Architectural pattern separating read and write operations to optimize
-  performance and scalability
-essential_question: How do we ensure data consistency and reliability with cqrs (command
-  query responsibility segregation)?
-excellence_tier: silver
-introduced: 2010-06
-pattern_status: recommended
-tagline: Master cqrs (command query responsibility segregation) for distributed systems
-  success
 title: CQRS (Command Query Responsibility Segregation)
-trade-offs:
-  cons:
-  - Eventual consistency complexity
-  - Infrastructure overhead
-  - Synchronization challenges
-  - Increased operational complexity
-  pros:
-  - Independent scaling of reads and writes
-  - Optimized data models for each use case
-  - Natural fit with event sourcing
-  - Simplified complex domain logic
+description: Architectural pattern separating read and write operations to optimize performance and scalability
+excellence_tier: silver
+pattern_status: recommended
+best_for:
+  - Systems with asymmetric read/write patterns (10:1 or higher)
+  - Complex domains requiring different models
+  - Applications needing multiple read representations
+  - High-performance query requirements
+introduced: 2010-06
+current_relevance: mainstream
+category: data-management
+essential_question: How do we ensure data consistency and reliability with cqrs (command query responsibility segregation)?
+tagline: Master cqrs (command query responsibility segregation) for distributed systems success
+trade_offs:
+  cons: ['Eventual consistency complexity', 'Infrastructure overhead', 'Synchronization challenges', 'Increased operational complexity']
+  pros: ['Independent scaling of reads and writes', 'Optimized data models for each use case', 'Natural fit with event sourcing', 'Simplified complex domain logic']
 ---
 
 
@@ -192,12 +181,12 @@ graph TD
 ### Supporting Patterns
 - **[Materialized View](../pattern-library/data-management/materialized-view.md)**: Read model implementation
 - **[Cache-Aside](../pattern-library/scaling/caching-strategies.md.md)**: Speed up queries
-- **[Database per Service](../patterns/database-per-service.md)**: Isolate models
+- **[Database per Service](../pattern-library/database-per-service.md)**: Isolate models
 
 ### Alternatives
-- **[Read Replicas](../patterns/read-replicas.md)**: Simpler scaling
+- **[Read Replicas](../pattern-library/read-replicas.md)**: Simpler scaling
 - **[Caching](../pattern-library/scaling/caching-strategies.md)**: Less complexity
-- **[API Composition](../patterns/api-composition.md)**: Query federation
+- **[API Composition](../pattern-library/api-composition.md)**: Query federation
 
 ## Further Reading
 

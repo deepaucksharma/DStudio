@@ -1,3 +1,9 @@
+---
+title: Security Patterns Guide: Building Secure Distributed Systems
+description: ```mermaid graph TD A[Security Layers] --> B[Network Security] A --> C[Application Security] A --> D[Data Security]
+type: guide
+---
+
 # Security Patterns Guide: Building Secure Distributed Systems
 
 ## Security-First Architecture
@@ -499,8 +505,8 @@ class SecurityMonitor:
 
 ## Resources
 
-- [Zero Trust Architecture](../patterns/zero-trust.md)
+- [Zero Trust Architecture](../pattern-library/zero-trust.md)
 - [API Gateway Pattern](../pattern-library/communication/api-gateway.md) (Gold)
 - [Service Mesh Pattern](../pattern-library/communication/service-mesh.md) (Gold)
-- [Valet Key Pattern](../pattern-library/valet-key.md)
-- [Security Best Practices](/reference/security/)
+- [Valet Key Pattern](../pattern-library/architecture/valet-key.md)
+- [Security Best Practices](../../reference/security.md)

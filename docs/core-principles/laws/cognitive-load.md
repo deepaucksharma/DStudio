@@ -1,3 +1,11 @@
+---
+title: Law 6: The Law of Cognitive Load - Your Humans Are Not Machines
+description: **Your engineers are not servers. They don't scale horizontally. They have 7±2 slots of working memory, not 64GB of RAM. They need sleep, not just dis
+type: law
+difficulty: beginner
+reading_time: 10 min
+---
+
 # Law 6: The Law of Cognitive Load - Your Humans Are Not Machines
 
 !!! quote "The Human Truth That Changes Everything"

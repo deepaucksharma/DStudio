@@ -1,43 +1,31 @@
 ---
-best-for:
-- Peer-to-peer systems
-- IoT device coordination
-- Microservice mesh leadership
-- Content delivery networks
-category: coordination
-current_relevance: mainstream
-description: Gossip-based leadership emergence without explicit elections in distributed
-  systems
+title: Emergent Leader Pattern
+description: Gossip-based leadership emergence without explicit elections in distributed systems
+type: pattern
 difficulty: advanced
-essential_question: How do we coordinate distributed components effectively using
-  emergent leader pattern?
+reading_time: 25 min
 excellence_tier: silver
-introduced: 2024-01
-last-updated: 2025-07-26
 pattern_status: recommended
+best_for:
+  - Peer-to-peer systems
+  - IoT device coordination
+  - Microservice mesh leadership
+  - Content delivery networks
+introduced: 2024-01
+current_relevance: mainstream
+category: coordination
+essential_question: How do we coordinate distributed components effectively using emergent leader pattern?
+last_updated: 2025-07-26
 prerequisites:
-- pattern-library/gossip.md
-- pattern-library/phi-accrual.md
-reading-time: 25 min
+  - pattern-library/gossip.md
+  - pattern-library/phi-accrual.md
 status: complete
 tagline: Master emergent leader pattern for distributed systems success
-title: Emergent Leader Pattern
-trade-offs:
-  cons:
-  - Slower convergence than elections
-  - Potential for temporary split leadership
-  - Score function design complexity
-  - Network overhead for gossip
-  pros:
-  - No single point of failure in election
-  - Self-organizing and adaptive
-  - Handles dynamic membership well
-  - High fault tolerance
-type: pattern
-when-not-to-use: Strong consistency required, small static clusters, explicit leader
-  election available
-when-to-use: Decentralized systems, peer-to-peer networks, dynamic membership, eventual
-  consistency acceptable
+trade_offs:
+  cons: ['Slower convergence than elections', 'Potential for temporary split leadership', 'Score function design complexity', 'Network overhead for gossip']
+  pros: ['No single point of failure in election', 'Self-organizing and adaptive', 'Handles dynamic membership well', 'High fault tolerance']
+when_not_to_use: Strong consistency required, small static clusters, explicit leader election available
+when_to_use: Decentralized systems, peer-to-peer networks, dynamic membership, eventual consistency acceptable
 ---
 
 
@@ -72,10 +60,10 @@ when-to-use: Decentralized systems, peer-to-peer networks, dynamic membership, e
 
 | Scenario | Why Not | Alternative |
 |----------|---------|-------------|
-| Strong Consistency Required | Slow convergence | [Consensus Algorithms](/pattern-library/coordination/consensus/) |
-| Small Static Clusters | Election overhead minimal | [Leader Election](/pattern-library/coordination/leader-election/) |
-| Byzantine Environment | Score manipulation possible | [PBFT Consensus](/pattern-library/coordination/consensus/) |
-| Immediate Leader Needed | Emergence takes time | [Bully Algorithm](/pattern-library/coordination/leader-election/) |
+| Strong Consistency Required | Slow convergence | [Consensus Algorithms](../../pattern-library/coordination/consensus.md) |
+| Small Static Clusters | Election overhead minimal | [Leader Election](../../pattern-library/coordination/leader-election.md) |
+| Byzantine Environment | Score manipulation possible | [PBFT Consensus](../../pattern-library/coordination/consensus.md) |
+| Immediate Leader Needed | Emergence takes time | [Bully Algorithm](../../pattern-library/coordination/leader-election.md) |
 
 ## Decision Matrix
 
