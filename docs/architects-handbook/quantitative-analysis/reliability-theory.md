@@ -509,6 +509,6 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
 
 ## Related Topics
 
-- **Theory**: [Failure Models](failure-models.md) | [MTBF/MTTR](mtbf-mttr.md) | [Availability Math](availability-math.md)
-- **Practice**: [Fault Tolerance](../pattern-library/resilience/fault-tolerance.md) | [Chaos Engineering](../human-factors/chaos-engineering.md)
+- **Theory**: [Failure Models](/architects-handbook/quantitative-analysis/failure-models/) | [MTBF/MTTR](/architects-handbook/quantitative-analysis/mtbf-mttr/) | [Availability Math](/architects-handbook/quantitative-analysis/availability-math/)
+- **Practice**: [Fault Tolerance](../pattern-library/resilience/fault-tolerance.md) | [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering/)
 - **Laws**: [Law 1: Correlated Failure](../core-principles/laws/correlated-failure.md) | [Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization.md)

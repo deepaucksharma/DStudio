@@ -55,7 +55,7 @@ As an engineering manager, you will:
  
  - [Law 1: Correlated Failure](../../core-principles/laws/law1-failure/index) - Risk management
  - [Law 6: Cognitive Load](../../core-principles/laws/law6-human-api/index) - Team capacity
- - [The 5 Pillars](pillars/) - Architectural choices
+ - [The 5 Pillars](/core-principles/pillars/index) - Architectural choices
 
 </div>
 
@@ -68,30 +68,30 @@ As an engineering manager, you will:
 
 === "Reliability Patterns"
  Understand how teams ensure system reliability:
- - [Circuit Breaker](../pattern-library/circuit-breaker) - Failure isolation
- - [Retry & Backoff](../pattern-library/retry-backoff) - Handling failures
- - [Health Checks](../pattern-library/health-check) - System monitoring
+ - [Circuit Breaker](../patterns/circuit-breaker) - Failure isolation
+ - [Retry & Backoff](../patterns/retry-backoff) - Handling failures
+ - [Health Checks](../patterns/health-check) - System monitoring
 
 === "Scaling Patterns"
  Know how systems grow:
- - [Load Balancing](../pattern-library/load-balancing) - Traffic distribution
- - [Caching](../pattern-library/caching-strategies) - Performance optimization
- - [Sharding](../pattern-library/sharding) - Data partitioning
+ - [Load Balancing](../patterns/load-balancing) - Traffic distribution
+ - [Caching](../patterns/caching-strategies) - Performance optimization
+ - [Sharding](../patterns/sharding) - Data partitioning
 
 === "Architecture Patterns"
  Understand system organization:
- - [Service Mesh](../pattern-library/service-mesh) - Microservices management
- - [API Gateway](../pattern-library/api-gateway) - External interfaces
- - [Event-Driven](../pattern-library/event-driven) - Async architectures
+ - [Service Mesh](../patterns/service-mesh) - Microservices management
+ - [API Gateway](../patterns/api-gateway) - External interfaces
+ - [Event-Driven](../patterns/event-driven) - Async architectures
 
 #### Week 4: Advanced Patterns
 
 Focus on patterns with significant business impact:
 
-- [CQRS](../pattern-library/cqrs) - Read/write optimization
-- [Saga Pattern](../pattern-library/saga) - Distributed transactions
-- [Event Sourcing](../pattern-library/event-sourcing) - Audit trails
-- [Multi-Region](../pattern-library/multi-region) - Global deployment
+- [CQRS](../patterns/cqrs) - Read/write optimization
+- [Saga Pattern](../patterns/saga) - Distributed transactions
+- [Event Sourcing](../patterns/event-sourcing) - Audit trails
+- [Multi-Region](../patterns/multi-region) - Global deployment
 
 ### Phase 3: Operational Excellence (2-3 weeks)
 
@@ -103,14 +103,14 @@ Focus on patterns with significant business impact:
 <div class="grid cards" markdown>
 
 - **Team Dynamics**
- - [SRE Practices](human-factors/sre-practices.md)
- - [Team Topologies](human-factors/team-topologies/)
- - [On-Call Rotation](human-factors/incident-response)
+ - [SRE Practices](/architects-handbook/human-factors/sre-practices/)
+ - [Team Topologies](/architects-handbook/human-factors/team-topologies)
+ - [On-Call Rotation](/architects-handbook/human-factors/incident-response)
 
 - **Engineering Culture**
- - [Blameless Postmortems](human-factors/blameless-postmortems/)
- - [Chaos Engineering](human-factors/chaos-engineering.md)
- - [Observability Culture](human-factors/observability-stacks/)
+ - [Blameless Postmortems](/architects-handbook/human-factors/blameless-postmortems)
+ - [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering/)
+ - [Observability Culture](/architects-handbook/human-factors/observability-stacks)
 
 </div>
 
@@ -297,7 +297,7 @@ change_failure_rate:
 
 After completing this path:
 
-1. **Deeper Dive**: Explore [Senior Engineer Path](learning-paths/senior-engineer) for technical depth
+1. **Deeper Dive**: Explore [Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer) for technical depth
 2. **Specialization**: Focus on specific domains (FinTech, Gaming, etc.)
 3. **Strategic Leadership**: Move towards director/VP roles
 4. **Cross-Functional**: Work with product and business teams
@@ -319,12 +319,12 @@ Remember: Great engineering managers balance technical knowledge with people lea
  
  ---
  
- [Senior Engineer Path](learning-paths/senior-engineer)
+ [Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Solution Architect Path](learning-paths/architect)
+ [Solution Architect Path](/architects-handbook/learning-paths/architect)
 
 </div>

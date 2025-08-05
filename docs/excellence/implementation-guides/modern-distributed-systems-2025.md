@@ -338,6 +338,6 @@ Kafka (Event Streaming) + CQRS + CDC + Materialized Views
 
 ## Resources
 
-- [Pattern Deep Dives](../pattern-library/architects-handbook/case-studies/index.md)
+- [Pattern Deep Dives](../patterns/architects-handbook/case-studies/index.md)
 - [Quantitative Models](../architects-handbook/quantitative-analysis/index.md)
 - [Human Factors](../human-factors/index.md)

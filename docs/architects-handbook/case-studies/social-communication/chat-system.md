@@ -2310,12 +2310,12 @@ Regional servers reduce latency; cross-region replication; compliance ready
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - WebSocket for real-time, regional servers
-- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Connection pooling, message queuing
-- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Offline queue, retry mechanisms
-- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Actor model, parallel delivery
-- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Group state sync, message ordering, and monitoring
-- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/)** - Connection pooling, message queuing
+- **[Law 1: Failure](/core-principles/laws/correlated-failure/)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence](/core-principles/laws/emergent-chaos/)** - Actor model, parallel delivery
+- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API](/core-principles/laws/cognitive-load/)** - Typing indicators, read receipts
 
 ### 🏛 Related Patterns
 - **WebSocket (Coming Soon)** - Persistent connections

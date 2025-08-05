@@ -291,7 +291,7 @@ What becomes easier or harder because of this change?
 
 ## Next Steps
 
-- Review [Patterns Index](../pattern-library/tools/consistency-calculator.md) for specific scenarios
+- Review [Patterns Index](../patterns/tools/consistency-calculator.md) for specific scenarios
 - Practice with [Case Studies](../architects-handbook/case-studies/index.md) 
 - Build mental models with [Recipe Cards](recipe-cards.md)
 

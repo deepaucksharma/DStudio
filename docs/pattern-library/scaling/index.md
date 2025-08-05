@@ -70,4 +70,4 @@ For a typical scaling journey:
 
 ---
 
-*Return to the [Pattern Library](../) or explore [Data Management Patterns](../data-management/).*
+*Return to the [Pattern Library](../) or explore [Data Management Patterns](/pattern-library/data-management/index/).*

@@ -80,7 +80,7 @@ type: pattern
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
 | < 5 services | Overkill complexity | Direct service communication |
-| Ultra-low latency needs | Extra hop adds 5-10ms | [Service Mesh](communication/service-mesh.md) sidecar |
+| Ultra-low latency needs | Extra hop adds 5-10ms | [Service Mesh](/pattern-library/communication/service-mesh/) sidecar |
 | Internal services only | Wrong abstraction level | Service mesh for service-to-service |
 | Simple proxying | Too heavyweight | nginx/HAProxy |
 

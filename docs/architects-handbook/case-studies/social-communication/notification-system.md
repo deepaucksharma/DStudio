@@ -2515,10 +2515,10 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ](../../../core-principles/laws/correlated-failure.md)** - Foundation for reliable delivery
-- **[Law 5: Epistemology ](../../../core-principles/laws/distributed-knowledge.md)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ](../../../core-principles/laws/asynchronous-reality.md)** - Real-time delivery constraints
-- **[Law 7: Economics ](../../../core-principles/laws/economic-reality.md)** - Cost optimization strategies
+- **[Law 1: Failure ](/core-principles/laws/correlated-failure/)** - Foundation for reliable delivery
+- **[Law 5: Epistemology ](/core-principles/laws/distributed-knowledge/)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ](/core-principles/laws/asynchronous-reality/)** - Real-time delivery constraints
+- **[Law 7: Economics ](/core-principles/laws/economic-reality/)** - Cost optimization strategies
 
 #### Advanced Topics
 - **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - Asynchronous notification processing
@@ -2527,8 +2527,8 @@ Analytics Service    8 cores  32GB      10TB
 - **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
-- **[Chat System](chat-system.md)** - Real-time messaging patterns
-- **[Search Autocomplete](search-autocomplete.md)** - Low-latency requirements
+- **[Chat System](/architects-handbook/case-studies/social-communication/chat-system/)** - Real-time messaging patterns
+- **[Search Autocomplete](/architects-handbook/case-studies/search-analytics/search-autocomplete/)** - Low-latency requirements
 - **[Spotify Recommendations](spotify-recommendations.md.md)** - Personalization at scale
 <!-- TODO: Add workflow engine case study -->
 

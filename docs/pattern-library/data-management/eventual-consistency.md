@@ -322,9 +322,9 @@ graph LR
     
     ---
     
-    - [CRDT](data-management/crdt.md) - Conflict-free replicated data types
+    - [CRDT](/pattern-library/data-management/crdt/) - Conflict-free replicated data types
     - [Vector Clocks](../coordination/vector-clocks.md) - Causality tracking
-    - [Read Repair](read-repair.md) - Fixing inconsistencies during reads
+    - [Read Repair](/pattern-library/data-management/read-repair/) - Fixing inconsistencies during reads
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -352,7 +352,7 @@ graph LR
 
 ---
 
-*Next: [CRDT](data-management/crdt.md) - Conflict-free replicated data types for automatic conflict resolution*
+*Next: [CRDT](/pattern-library/data-management/crdt/) - Conflict-free replicated data types for automatic conflict resolution*
 
 ### Advanced Implementation Examples
 

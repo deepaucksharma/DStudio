@@ -390,10 +390,10 @@ graph LR
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](../../../core-principles/laws/correlated-failure.md) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md) - Eventually consistent by design
-- [Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization.md) - AP choice in CAP theorem
-- [Law 5: Distributed Knowledge](../../../core-principles/laws/distributed-knowledge.md) - Gossip protocol for membership
+- [Law 1: Correlated Failure](/core-principles/laws/correlated-failure/) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/) - Eventually consistent by design
+- [Law 4: Multidimensional Optimization](/core-principles/laws/multidimensional-optimization/) - AP choice in CAP theorem
+- [Law 5: Distributed Knowledge](/core-principles/laws/distributed-knowledge/) - Gossip protocol for membership
 
 ### Related Patterns
 - [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Virtual nodes for data distribution
@@ -402,9 +402,9 @@ graph LR
 - [Quorum Consensus](../pattern-library/coordination/consensus.md) - Tunable consistency levels
 
 ### Related Pillars
-- [Pillar 2: State](../../../core-principles/pillars/state-distribution.md) - Eventually consistent state management
-- [Pillar 3: Truth](../../../core-principles/pillars/truth-distribution.md) - Multiple versions of truth
-- [Pillar 4: Control](../../../core-principles/pillars/control-distribution.md) - Decentralized control plane
+- [Pillar 2: State](/core-principles/pillars/state-distribution/) - Eventually consistent state management
+- [Pillar 3: Truth](/core-principles/pillars/truth-distribution/) - Multiple versions of truth
+- [Pillar 4: Control](/core-principles/pillars/control-distribution/) - Decentralized control plane
 
 ### Case Studies
 - [Apache Cassandra](../cassandra/) - Similar eventual consistency model

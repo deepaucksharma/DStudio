@@ -304,11 +304,11 @@ graph TD
 
 ## Related Patterns
 
-- **[Bulkhead Pattern](../resilience/bulkhead.md)** - Isolation within services
-- **[Sharding](../scaling/sharding.md)** - Data partitioning strategy
-- **[Multi-Region](../scaling/multi-region.md)** - Geographic distribution
-- **[Service Mesh](communication/service-mesh.md)** - Network-level isolation
-- **[Circuit Breaker](../resilience/circuit-breaker.md)** - Failure handling
+- **[Bulkhead Pattern](/pattern-library/resilience/bulkhead/)** - Isolation within services
+- **[Sharding](/pattern-library/scaling/sharding/)** - Data partitioning strategy
+- **[Multi-Region](/pattern-library/scaling/multi-region/)** - Geographic distribution
+- **[Service Mesh](/pattern-library/communication/service-mesh/)** - Network-level isolation
+- **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)** - Failure handling
 
 ## References
 

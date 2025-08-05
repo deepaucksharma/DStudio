@@ -441,8 +441,8 @@ Without GC: 10MB+ after a year!
 
 ## Related Patterns
 
-- [Eventual Consistency](data-management/eventual-consistency.md) - The consistency model CRDTs provide
-- [Vector Clocks](coordination/logical-clocks.md) - Used in some CRDT implementations
+- [Eventual Consistency](/pattern-library/data-management/eventual-consistency/) - The consistency model CRDTs provide
+- [Vector Clocks](/pattern-library/coordination/logical-clocks/) - Used in some CRDT implementations
 - Gossip Protocol (Coming Soon) - Common dissemination method
 - Anti-Entropy (Coming Soon) - Synchronization mechanism
 
@@ -455,5 +455,5 @@ Without GC: 10MB+ after a year!
 
 ---
 
-*Next: [Vector Clocks](coordination/logical-clocks.md) - Understanding causality in distributed systems*
+*Next: [Vector Clocks](/pattern-library/coordination/logical-clocks/) - Understanding causality in distributed systems*
 

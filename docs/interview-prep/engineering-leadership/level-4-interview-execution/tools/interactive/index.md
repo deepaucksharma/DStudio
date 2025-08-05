@@ -6,7 +6,7 @@
 
 <div class="grid cards" markdown>
 
-- :material-timer:{ .lg } **[Interview Timer](interview-timer.md)**
+- :material-timer:{ .lg } **[Interview Timer](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer/)**
     
     ---
     
@@ -14,7 +14,7 @@
     
     **Features**: Round-specific timers, phase tracking, visual alerts
 
-- :material-clipboard-check:{ .lg } **[Self-Assessment Tool](self-assessment.md)**
+- :material-clipboard-check:{ .lg } **[Self-Assessment Tool](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/)**
     
     ---
     
@@ -22,7 +22,7 @@
     
     **Features**: Competency scoring, gap analysis, action planning
 
-- :material-sitemap:{ .lg } **[Decision Tree Navigator](decision-trees.md)**
+- :material-sitemap:{ .lg } **[Decision Tree Navigator](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees/)**
     
     ---
     
@@ -30,7 +30,7 @@
     
     **Features**: 5 detailed scenarios, outcome analysis, alternative paths
 
-- :material-magnify:{ .lg } **[STAR Story Matcher](star-matcher.md)**
+- :material-magnify:{ .lg } **[STAR Story Matcher](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/star-matcher/)**
     
     ---
     
@@ -38,7 +38,7 @@
     
     **Features**: Story builder, question matching, coverage analysis
 
-- :material-database:{ .lg } **[Question Bank Explorer](question-bank.md)**
+- :material-database:{ .lg } **[Question Bank Explorer](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank/)**
     
     ---
     

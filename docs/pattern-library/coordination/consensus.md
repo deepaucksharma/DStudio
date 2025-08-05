@@ -374,4 +374,4 @@ Consensus implements:
 
 ---
 
-**Previous**: [← Circuit Breaker Pattern](resilience/circuit-breaker.md) | **Next**: [CQRS (Command Query Responsibility Segregation) →](data-management/cqrs.md)
+**Previous**: [← Circuit Breaker Pattern](/pattern-library/resilience/circuit-breaker/) | **Next**: [CQRS (Command Query Responsibility Segregation) →](/pattern-library/data-management/cqrs/)

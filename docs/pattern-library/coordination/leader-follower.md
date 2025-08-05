@@ -465,8 +465,8 @@ graph LR
 
 ## Related Patterns
 
-- [Leader Election](coordination/leader-election.md) - Choosing the leader
-- [Consensus](coordination/consensus.md) - Agreement protocols
+- [Leader Election](/pattern-library/coordination/leader-election/) - Choosing the leader
+- [Consensus](/pattern-library/coordination/consensus/) - Agreement protocols
 - [Primary-Backup](primary-backup.md) - Similar but simpler
 - [Multi-Master](multi-master.md) - Alternative approach
 - [Chain Replication](chain-replication.md) - Variation

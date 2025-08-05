@@ -6,7 +6,7 @@ This toolkit provides practical frameworks and interactive tools to transform yo
 
 ## Core Frameworks
 
-### 1. [STAR+ Framework](star-framework/)
+### 1. [STAR+ Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index)
 The enhanced STAR method specifically designed for leadership interviews, adding Scale, Learning, and Impact dimensions.
 
 **Use When**:
@@ -21,7 +21,7 @@ The enhanced STAR method specifically designed for leadership interviews, adding
 - Power phrases for impact
 - Practice templates
 
-### 2. [Story Portfolio](story-portfolio/)
+### 2. [Story Portfolio](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index)
 A comprehensive system for building, organizing, and deploying 20-30 leadership stories that demonstrate your full range.
 
 **Use When**:
@@ -36,7 +36,7 @@ A comprehensive system for building, organizing, and deploying 20-30 leadership 
 - Company values mapping
 - Story refinement process
 
-### 3. [Principle Hooks](principle-hooks/)
+### 3. [Principle Hooks](/interview-prep/engineering-leadership/level-4-interview-execution/tools/principle-hooks/index)
 Strategic techniques for authentically connecting your experiences to company values and principles.
 
 **Use When**:
@@ -51,7 +51,7 @@ Strategic techniques for authentically connecting your experiences to company va
 - Authenticity framework
 - Advanced hook patterns
 
-### 4. [Mock Interview Guide](mock-interview-guide.md)
+### 4. [Mock Interview Guide](/interview-prep/engineering-leadership/level-4-interview-execution/tools/mock-interview-guide/)
 Complete mock interview experience with questions, answers, and evaluation rubrics.
 
 **Use When**:
@@ -68,7 +68,7 @@ Complete mock interview experience with questions, answers, and evaluation rubri
 
 ## Interactive Tools
 
-### 5. [Interactive Practice Tools](interactive/)
+### 5. [Interactive Practice Tools](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index)
 Digital tools for hands-on interview preparation and practice.
 
 **Available Tools**:
@@ -127,19 +127,19 @@ graph LR
 ## Quick Start Guide
 
 ### For Behavioral Interviews
-1. Start with [Story Portfolio](story-portfolio/) - Build your story bank
-2. Apply [STAR+ Framework](star-framework/) - Structure responses
-3. Use [Question Bank](interactive/question-bank.md) - Practice variety
+1. Start with [Story Portfolio](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index) - Build your story bank
+2. Apply [STAR+ Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index) - Structure responses
+3. Use [Question Bank](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank/) - Practice variety
 
 ### For Culture Interviews
-1. Study [Principle Hooks](principle-hooks/) - Understand alignment
-2. Map stories to values using [Story Portfolio](story-portfolio/)
-3. Practice with [Self-Assessment](interactive/self-assessment.md)
+1. Study [Principle Hooks](/interview-prep/engineering-leadership/level-4-interview-execution/tools/principle-hooks/index) - Understand alignment
+2. Map stories to values using [Story Portfolio](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index)
+3. Practice with [Self-Assessment](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/)
 
 ### For Technical Leadership
-1. Review [STAR+ Framework](star-framework/) for technical stories
-2. Use [Decision Trees](interactive/decision-trees.md) for scenarios
-3. Time management with [Interview Timer](interactive/interview-timer.md)
+1. Review [STAR+ Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index) for technical stories
+2. Use [Decision Trees](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees/) for scenarios
+3. Time management with [Interview Timer](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer/)
 
 ## Tool Selection Matrix
 
@@ -223,4 +223,4 @@ Form study groups to:
 
 ---
 
-**Next Steps**: Begin with the [Story Portfolio](story-portfolio/) to build your foundation, then layer in other tools as you progress through your preparation journey.
+**Next Steps**: Begin with the [Story Portfolio](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index) to build your foundation, then layer in other tools as you progress through your preparation journey.

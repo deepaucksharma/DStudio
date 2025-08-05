@@ -292,7 +292,7 @@ CREATE TABLE device_sync_state (
 ### Core Patterns
 
 #### 1. Content Addressable Storage
-**Pattern**: [Content Addressable Storage](../../../pattern-library/data-management/merkle-trees.md)
+**Pattern**: [Content Addressable Storage](/pattern-library/data-management/merkle-trees/)
 - Store files by content hash (SHA-256)
 - Enables deduplication automatically
 - Immutable storage with versioning
@@ -310,7 +310,7 @@ graph LR
 ```
 
 #### 2. Event Sourcing for Sync
-**Pattern**: [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)
+**Pattern**: [Event Sourcing](/pattern-library/data-management/event-sourcing/)
 - Track all file operations as events
 - Enables conflict resolution and audit trails
 - Supports offline synchronization
@@ -335,13 +335,13 @@ graph TB
 ```
 
 #### 3. CQRS for Read/Write Separation
-**Pattern**: [CQRS](../../../pattern-library/data-management/cqrs.md)
+**Pattern**: [CQRS](/pattern-library/data-management/cqrs/)
 - Separate read and write models
 - Optimize reads for file browsing
 - Optimize writes for file operations
 
 #### 4. Database Sharding
-**Pattern**: [Database Sharding](../../../pattern-library/scaling/sharding.md)
+**Pattern**: [Database Sharding](/pattern-library/scaling/sharding/)
 - Shard by user_id for data locality
 - Ensures user data stays together
 - Scales metadata operations
@@ -349,17 +349,17 @@ graph TB
 ### Supporting Patterns
 
 #### 5. Circuit Breaker
-**Pattern**: [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
+**Pattern**: [Circuit Breaker](/pattern-library/resilience/circuit-breaker/)
 - Protect against storage provider failures
 - Graceful degradation when services unavailable
 
 #### 6. Rate Limiting
-**Pattern**: [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)
+**Pattern**: [Rate Limiting](/pattern-library/scaling/rate-limiting/)
 - Prevent abuse of upload/download APIs
 - Per-user and per-API endpoint limits
 
 #### 7. Publish-Subscribe
-**Pattern**: [Pub/Sub](../../../pattern-library/communication/publish-subscribe.md)
+**Pattern**: [Pub/Sub](/pattern-library/communication/publish-subscribe/)
 - Real-time file change notifications
 - Device synchronization events
 

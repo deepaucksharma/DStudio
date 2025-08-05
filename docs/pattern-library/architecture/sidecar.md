@@ -277,9 +277,9 @@ graph TD
 ## Related Patterns
 
 - **[Service Mesh](../architecture/service-mesh.md)**: Orchestrates multiple sidecars
-- **[Ambassador](../architecture/ambassador.md)**: Specialized proxy pattern
-- **[Circuit Breaker](../resilience/circuit-breaker.md)**: Often implemented in sidecars
-- **[Bulkhead](../resilience/bulkhead.md)**: Isolation via sidecars
+- **[Ambassador](/pattern-library/architecture/ambassador/)**: Specialized proxy pattern
+- **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)**: Often implemented in sidecars
+- **[Bulkhead](/pattern-library/resilience/bulkhead/)**: Isolation via sidecars
 - **[API Gateway](../architecture/api-gateway.md)**: Centralized alternative
 
 ## References

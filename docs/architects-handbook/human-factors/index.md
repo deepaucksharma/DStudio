@@ -15,7 +15,7 @@ Building successful distributed systems isn't just about technology—it's about
 - **[Release Engineering](release-engineering/)** - Safe deployment practices
 
 ### Incident Management
-- **[Incident Response](incident-response/)** - Handling production issues
+- **[Incident Response](/incident-response)** - Handling production issues
 - **[Postmortem Culture](postmortem-culture/)** - Learning from failures
 - **[Runbook Development](runbook-development/)** - Standardized procedures
 - **[War Room Protocols](war-room-protocols/)** - Crisis coordination
@@ -47,9 +47,9 @@ Building successful distributed systems isn't just about technology—it's about
 - **[Blameless Culture](blameless-culture/)** - Psychological safety
 
 ### Skills Development
-- **[Learning Paths](../learning-paths/)** - Career progression
+- **[Learning Paths](/architects-handbook/learning-paths/index/)** - Career progression
 - **[Mentorship Programs](mentorship/)** - Knowledge transfer
-- **[Chaos Engineering](chaos-engineering/)** - Building confidence
+- **[Chaos Engineering](/chaos-engineering)** - Building confidence
 - **[Game Days](game-days/)** - Practice scenarios
 
 ## 📊 Metrics & KPIs

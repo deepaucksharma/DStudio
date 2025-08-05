@@ -664,26 +664,26 @@ graph LR
 
 ## Connection to Other Principles
 
-- **[Value Creation](../value-creation/)**: Every decision should maximize value - use value as your north star metric
-- **[Human Behavior](../human-behavior/)**: Consider how decisions affect people - great decisions with poor buy-in fail
-- **[Systems Thinking](../systems-thinking/)**: Understand decision ripple effects - local optimization can harm the whole
-- **[Integrity & Ethics](../integrity-ethics/)**: Make decisions you can defend publicly - trust accelerates future decisions
+- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Every decision should maximize value - use value as your north star metric
+- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)**: Consider how decisions affect people - great decisions with poor buy-in fail
+- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**: Understand decision ripple effects - local optimization can harm the whole
+- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Make decisions you can defend publicly - trust accelerates future decisions
 
 ## Application in Other Levels
 
 ### Level II: Core Business Concepts
-- **[Strategy](../../level-2-core-business/strategy/)**: Strategic decisions shape organizational direction
-- **[Leadership](../../level-2-core-business/leadership/)**: Leaders create decision-making systems
-- **[Risk & Governance](../../level-2-core-business/risk-governance/)**: Managing decision risks and accountability
+- **[Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index/)**: Strategic decisions shape organizational direction
+- **[Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/)**: Leaders create decision-making systems
+- **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index/)**: Managing decision risks and accountability
 
 ### Level III: Engineering Applications
-- **[Technical Leadership](../../level-3-applications/technical-leadership/)**: Architecture decisions and technical trade-offs
-- **[Organizational Design](../../level-3-applications/organizational-design/)**: Structuring teams for effective decisions
-- **[People Management](../../level-3-applications/people-management/)**: Empowering teams to make quality decisions
+- **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)**: Architecture decisions and technical trade-offs
+- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Structuring teams for effective decisions
+- **[People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/)**: Empowering teams to make quality decisions
 
 ### Level IV: Interview Execution
-- **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Showcasing decision-making prowess
-- **[System Design](../../level-4-interview-execution/system-org-design/)**: Real-time decision-making under pressure
+- **[Behavioral Stories](/interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index/)**: Showcasing decision-making prowess
+- **[System Design](/interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index/)**: Real-time decision-making under pressure
 
 ## The Decision-Making Interview Toolkit
 
@@ -761,4 +761,4 @@ For each story, be ready to explain:
 
 ---
 
-*Continue your journey: Explore how [Human Behavior](../human-behavior/) shapes the execution of our decisions, or dive into [Leadership](../../level-2-core-business/leadership/) to build decision-making systems.*
+*Continue your journey: Explore how [Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/) shapes the execution of our decisions, or dive into [Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/) to build decision-making systems.*

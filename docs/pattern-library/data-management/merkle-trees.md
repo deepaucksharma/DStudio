@@ -353,9 +353,9 @@ graph LR
     
     ---
     
-    - [Bloom Filter](../data-management/bloom-filter.md) - Complementary verification structure
-    - [Consistent Hashing](../data-management/consistent-hashing.md) - Hash-based distribution
-    - [Event Sourcing](../data-management/event-sourcing.md) - Verifiable event logs
+    - [Bloom Filter](/pattern-library/data-management/bloom-filter/) - Complementary verification structure
+    - [Consistent Hashing](/pattern-library/data-management/consistent-hashing/) - Hash-based distribution
+    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Verifiable event logs
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

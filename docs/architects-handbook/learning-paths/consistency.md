@@ -52,9 +52,9 @@ By completing this path, you will:
  
  Understanding ordering:
  
- - [Logical Clocks](../pattern-library/logical-clocks) - Lamport timestamps
- - [Vector Clocks](../pattern-library/vector-clocks) - Causality tracking
- - [Hybrid Logical Clocks](../pattern-library/hlc) - Best of both worlds
+ - [Logical Clocks](../patterns/logical-clocks) - Lamport timestamps
+ - [Vector Clocks](../patterns/vector-clocks) - Causality tracking
+ - [Hybrid Logical Clocks](../patterns/hlc) - Best of both worlds
 
 </div>
 
@@ -88,10 +88,10 @@ By completing this path, you will:
 
 #### Week 3: Coordination Patterns
 
-- [Leader Election](../pattern-library/leader-election) - Choosing coordinators
-- [Distributed Lock](../pattern-library/distributed-lock) - Mutual exclusion
-- [Consensus](../pattern-library/consensus) - Agreement protocols
-- [Two-Phase Commit](../pattern-library/two-phase-commit) - Atomic commits
+- [Leader Election](../patterns/leader-election) - Choosing coordinators
+- [Distributed Lock](../patterns/distributed-lock) - Mutual exclusion
+- [Consensus](../patterns/consensus) - Agreement protocols
+- [Two-Phase Commit](../patterns/two-phase-commit) - Atomic commits
 
 ### Phase 3: Consistency in Practice (2 weeks)
 
@@ -123,10 +123,10 @@ By completing this path, you will:
 
 #### Week 5: Advanced Patterns
 
-- [CRDT](../pattern-library/crdt) - Conflict-free replicated data types
-- [Saga Pattern](../pattern-library/saga) - Distributed transactions
-- [Event Sourcing](../pattern-library/event-sourcing) - Immutable event logs
-- [Outbox Pattern](../pattern-library/outbox) - Reliable messaging
+- [CRDT](../patterns/crdt) - Conflict-free replicated data types
+- [Saga Pattern](../patterns/saga) - Distributed transactions
+- [Event Sourcing](../patterns/event-sourcing) - Immutable event logs
+- [Outbox Pattern](../patterns/outbox) - Reliable messaging
 
 ### Phase 4: Production Challenges (1 week)
 
@@ -138,13 +138,13 @@ By completing this path, you will:
 <div class="grid cards" markdown>
 
 - **Split-Brain Scenarios**
- - [Split-Brain Pattern](../pattern-library/split-brain)
+ - [Split-Brain Pattern](../patterns/split-brain)
  - Quorum strategies
  - Fencing tokens
  - STONITH approaches
 
 - **Clock Synchronization**
- - [Clock Sync Pattern](../pattern-library/clock-sync)
+ - [Clock Sync Pattern](../patterns/clock-sync)
  - NTP configuration
  - Clock skew handling
  - Time-based ordering
@@ -301,12 +301,12 @@ graph TD
  
  ---
  
- [Learning Paths Overview](learning-paths/)
+ [Learning Paths Overview](/architects-handbook/learning-paths/cost)
 
 - :material-arrow-right:{ .lg .middle } **Next**
  
  ---
  
- [Performance & Scale Path](learning-paths/performance)
+ [Performance & Scale Path](/architects-handbook/learning-paths/performance)
 
 </div>

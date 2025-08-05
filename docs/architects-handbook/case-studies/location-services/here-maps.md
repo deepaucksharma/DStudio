@@ -23,8 +23,8 @@ This case study would analyze HERE Maps' architecture designed for automotive ap
 - Fleet tracking and optimization
 
 ## Related Case Studies
-- [Google Maps](google-maps.md) - Consumer mapping comparison
-- [Uber Maps](uber-maps.md) - Ride-hailing specific features
+- [Google Maps](/architects-handbook/case-studies/location-services/google-maps/) - Consumer mapping comparison
+- [Uber Maps](/architects-handbook/case-studies/location-services/uber-maps/) - Ride-hailing specific features
 - Real-time Systems (Coming Soon.md) - Traffic data processing
 
 ## External Resources

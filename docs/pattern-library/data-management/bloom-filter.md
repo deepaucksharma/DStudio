@@ -355,8 +355,8 @@ graph LR
     ---
     
     - [Cuckoo Hashing](../data-management/cuckoo-hashing.md) - Complementary probabilistic structure
-    - [LSM Trees](../data-management/lsm-tree.md) - Common usage pattern
-    - [Consistent Hashing](../data-management/consistent-hashing.md) - Distribution strategy
+    - [LSM Trees](/pattern-library/data-management/lsm-tree/) - Common usage pattern
+    - [Consistent Hashing](/pattern-library/data-management/consistent-hashing/) - Distribution strategy
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

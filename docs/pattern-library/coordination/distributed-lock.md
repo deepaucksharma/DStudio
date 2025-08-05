@@ -314,9 +314,9 @@ graph LR
     
     ---
     
-    - [Leader Election](../coordination/leader-election.md) - Uses locks for coordination
-    - [Consensus](../coordination/consensus.md) - Foundation for safe locks
-    - [Circuit Breaker](../resilience/circuit-breaker.md) - Protect against lock failures
+    - [Leader Election](/pattern-library/coordination/leader-election/) - Uses locks for coordination
+    - [Consensus](/pattern-library/coordination/consensus/) - Foundation for safe locks
+    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Protect against lock failures
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

@@ -1,6 +1,6 @@
 {
-  "files_fixed": 152,
-  "total_fixes": 325,
+  "files_fixed": 111,
+  "total_fixes": 123,
   "pattern_mappings": {
     "circuit-breaker.md": "resilience/circuit-breaker.md",
     "bulkhead.md": "resilience/bulkhead.md",
@@ -104,12 +104,17 @@
   "all_fixes": [
     {
       "file": "docs/interview-prep/ic-interviews/common-problems/index.md",
-      "old": "../patterns/",
-      "new": "../pattern-library/"
+      "old": "../pattern-library/",
+      "new": "../patterns/"
     },
     {
       "file": "docs/interview-prep/ic-interviews/common-problems/index.md",
-      "old": "../pattern-library/",
+      "old": "../../pattern-library/",
+      "new": "../patterns/"
+    },
+    {
+      "file": "docs/interview-prep/ic-interviews/common-problems/index.md",
+      "old": "../../../pattern-library/",
       "new": "../patterns/"
     },
     {
@@ -549,11 +554,6 @@
     },
     {
       "file": "docs/excellence/migrations/index.md",
-      "old": "../patterns/",
-      "new": "../pattern-library/"
-    },
-    {
-      "file": "docs/excellence/migrations/index.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
     },
@@ -579,28 +579,8 @@
     },
     {
       "file": "docs/excellence/implementation-guides/migration-strategies.md",
-      "old": "../pattern-library/saga.md",
-      "new": "../pattern-library/data-management/saga.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/migration-strategies.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/data-consistency.md",
-      "old": "../pattern-library/cqrs.md",
-      "new": "../pattern-library/data-management/cqrs.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/data-consistency.md",
-      "old": "../pattern-library/saga.md",
-      "new": "../pattern-library/data-management/saga.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/data-consistency.md",
-      "old": "../pattern-library/cdc.md",
-      "new": "../pattern-library/data-management/cdc.md"
     },
     {
       "file": "docs/excellence/implementation-guides/data-consistency.md",
@@ -614,128 +594,18 @@
     },
     {
       "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/retry-backoff.md",
-      "new": "../pattern-library/resilience/retry-backoff.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/rate-limiting.md",
-      "new": "../pattern-library/scaling/rate-limiting.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/caching-strategies.md",
-      "new": "../pattern-library/scaling/caching-strategies.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/sharding.md",
-      "new": "../pattern-library/scaling/sharding.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/load-balancing.md",
-      "new": "../pattern-library/scaling/load-balancing.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/auto-scaling.md",
-      "new": "../pattern-library/scaling/auto-scaling.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/distributed-queue.md",
-      "new": "../pattern-library/coordination/distributed-queue.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/saga.md",
-      "new": "../pattern-library/data-management/saga.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/cdc.md",
-      "new": "../pattern-library/data-management/cdc.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/cqrs.md",
-      "new": "../pattern-library/data-management/cqrs.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/materialized-view.md",
-      "new": "../pattern-library/data-management/materialized-view.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
-      "old": "../pattern-library/consistent-hashing.md",
-      "new": "../pattern-library/data-management/consistent-hashing.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/modern-distributed-systems-2025.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
     },
     {
       "file": "docs/excellence/implementation-guides/security-patterns.md",
-      "old": "../pattern-library/api-gateway.md",
-      "new": "../pattern-library/communication/api-gateway.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/security-patterns.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
     },
     {
       "file": "docs/excellence/implementation-guides/performance-optimization.md",
-      "old": "../pattern-library/caching-strategies.md",
-      "new": "../pattern-library/scaling/caching-strategies.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/performance-optimization.md",
-      "old": "../pattern-library/load-balancing.md",
-      "new": "../pattern-library/scaling/load-balancing.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/performance-optimization.md",
-      "old": "../pattern-library/auto-scaling.md",
-      "new": "../pattern-library/scaling/auto-scaling.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/performance-optimization.md",
-      "old": "../pattern-library/edge-computing.md",
-      "new": "../pattern-library/scaling/edge-computing.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/performance-optimization.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/quick-start-guide.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/quick-start-guide.md",
-      "old": "../pattern-library/retry-backoff.md",
-      "new": "../pattern-library/resilience/retry-backoff.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/quick-start-guide.md",
-      "old": "../pattern-library/caching-strategies.md",
-      "new": "../pattern-library/scaling/caching-strategies.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/quick-start-guide.md",
-      "old": "../pattern-library/auto-scaling.md",
-      "new": "../pattern-library/scaling/auto-scaling.md"
     },
     {
       "file": "docs/excellence/implementation-guides/quick-start-guide.md",
@@ -749,113 +619,8 @@
     },
     {
       "file": "docs/excellence/implementation-guides/service-communication.md",
-      "old": "../pattern-library/api-gateway.md",
-      "new": "../pattern-library/communication/api-gateway.md"
-    },
-    {
-      "file": "docs/excellence/implementation-guides/service-communication.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/pattern-library/architecture/anti-corruption-layer.md",
-      "old": "sidecar.md",
-      "new": "architecture/sidecar.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/shared-nothing.md",
-      "old": "sharding.md",
-      "new": "scaling/sharding.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/shared-nothing.md",
-      "old": "consistent-hashing.md",
-      "new": "data-management/consistent-hashing.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/shared-nothing.md",
-      "old": "service-mesh.md",
-      "new": "communication/service-mesh.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/shared-nothing.md",
-      "old": "bulkhead.md",
-      "new": "resilience/bulkhead.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/index.md",
-      "old": "event-driven.md",
-      "new": "architecture/event-driven.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/index.md",
-      "old": "sidecar.md",
-      "new": "architecture/sidecar.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/cell-based.md",
-      "old": "service-mesh.md",
-      "new": "communication/service-mesh.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/cap-theorem.md",
-      "old": "consensus.md",
-      "new": "coordination/consensus.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/event-driven.md",
-      "old": "edge-computing.md",
-      "new": "scaling/edge-computing.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/event-driven.md",
-      "old": "event-sourcing.md",
-      "new": "data-management/event-sourcing.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/strangler-fig.md",
-      "old": "api-gateway.md",
-      "new": "communication/api-gateway.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/strangler-fig.md",
-      "old": "service-mesh.md",
-      "new": "communication/service-mesh.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/strangler-fig.md",
-      "old": "event-sourcing.md",
-      "new": "data-management/event-sourcing.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/strangler-fig.md",
-      "old": "circuit-breaker.md",
-      "new": "resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/event-streaming.md",
-      "old": "event-driven.md",
-      "new": "architecture/event-driven.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/valet-key.md",
-      "old": "../pattern-library/api-gateway.md",
-      "new": "../pattern-library/communication/api-gateway.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/valet-key.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/valet-key.md",
-      "old": "../pattern-library/rate-limiting.md",
-      "new": "../pattern-library/scaling/rate-limiting.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/valet-key.md",
-      "old": "../pattern-library/edge-computing.md",
-      "new": "../pattern-library/scaling/edge-computing.md"
     },
     {
       "file": "docs/pattern-library/architecture/valet-key.md",
@@ -863,304 +628,14 @@
       "new": "../patterns/"
     },
     {
-      "file": "docs/pattern-library/architecture/serverless-faas.md",
-      "old": "saga.md",
-      "new": "data-management/saga.md"
-    },
-    {
-      "file": "docs/pattern-library/architecture/serverless-faas.md",
-      "old": "service-discovery.md",
-      "new": "communication/service-discovery.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/hlc.md",
-      "old": "logical-clocks.md",
-      "new": "coordination/logical-clocks.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/hlc.md",
-      "old": "vector-clocks.md",
-      "new": "coordination/logical-clocks.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/hlc.md",
-      "old": "clock-sync.md",
-      "new": "coordination/clock-sync.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/hlc.md",
-      "old": "event-sourcing.md",
-      "new": "data-management/event-sourcing.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/hlc.md",
-      "old": "consensus.md",
-      "new": "coordination/consensus.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/index.md",
-      "old": "consensus.md",
-      "new": "coordination/consensus.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/index.md",
-      "old": "leader-election.md",
-      "new": "coordination/leader-election.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/index.md",
-      "old": "logical-clocks.md",
-      "new": "coordination/logical-clocks.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/index.md",
-      "old": "hlc.md",
-      "new": "coordination/hlc.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/index.md",
-      "old": "clock-sync.md",
-      "new": "coordination/clock-sync.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/index.md",
-      "old": "distributed-lock.md",
-      "new": "coordination/distributed-lock.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/emergent-leader.md",
-      "old": "consensus.md",
-      "new": "coordination/consensus.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/emergent-leader.md",
-      "old": "leader-election.md",
-      "new": "coordination/leader-election.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/emergent-leader.md",
-      "old": "consensus.md",
-      "new": "coordination/consensus.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/emergent-leader.md",
-      "old": "leader-election.md",
-      "new": "coordination/leader-election.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/leader-follower.md",
-      "old": "leader-election.md",
-      "new": "coordination/leader-election.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/leader-follower.md",
-      "old": "consensus.md",
-      "new": "coordination/consensus.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/consensus.md",
-      "old": "circuit-breaker.md",
-      "new": "resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/consensus.md",
-      "old": "cqrs.md",
-      "new": "data-management/cqrs.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/generation-clock.md",
-      "old": "clock-sync.md",
-      "new": "coordination/clock-sync.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/logical-clocks.md",
-      "old": "vector-clocks.md",
-      "new": "coordination/logical-clocks.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/logical-clocks.md",
-      "old": "hlc.md",
-      "new": "coordination/hlc.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/state-watch.md",
-      "old": "distributed-lock.md",
-      "new": "coordination/distributed-lock.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/state-watch.md",
-      "old": "leader-election.md",
-      "new": "coordination/leader-election.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/state-watch.md",
-      "old": "service-discovery.md",
-      "new": "communication/service-discovery.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/state-watch.md",
-      "old": "consensus.md",
-      "new": "coordination/consensus.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/state-watch.md",
-      "old": "event-sourcing.md",
-      "new": "data-management/event-sourcing.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/clock-sync.md",
-      "old": "logical-clocks.md",
-      "new": "coordination/logical-clocks.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/clock-sync.md",
-      "old": "consensus.md",
-      "new": "coordination/consensus.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/clock-sync.md",
-      "old": "distributed-lock.md",
-      "new": "coordination/distributed-lock.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/clock-sync.md",
-      "old": "logical-clocks.md",
-      "new": "coordination/logical-clocks.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/clock-sync.md",
-      "old": "hlc.md",
-      "new": "coordination/hlc.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/low-high-water-marks.md",
-      "old": "../pattern-library/backpressure.md",
-      "new": "../pattern-library/scaling/backpressure.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/low-high-water-marks.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/low-high-water-marks.md",
-      "old": "../pattern-library/rate-limiting.md",
-      "new": "../pattern-library/scaling/rate-limiting.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/low-high-water-marks.md",
-      "old": "../pattern-library/distributed-queue.md",
-      "new": "../pattern-library/coordination/distributed-queue.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/low-high-water-marks.md",
-      "old": "../pattern-library/timeout.md",
-      "new": "../pattern-library/resilience/timeout.md"
-    },
-    {
-      "file": "docs/pattern-library/coordination/low-high-water-marks.md",
-      "old": "../pattern-library/bulkhead.md",
-      "new": "../pattern-library/resilience/bulkhead.md"
-    },
-    {
       "file": "docs/pattern-library/coordination/low-high-water-marks.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/pattern-library/data-management/shared-database.md",
-      "old": "event-driven.md",
-      "new": "architecture/event-driven.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/shared-database.md",
-      "old": "api-gateway.md",
-      "new": "communication/api-gateway.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/shared-database.md",
-      "old": "cqrs.md",
-      "new": "data-management/cqrs.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/shared-database.md",
-      "old": "saga.md",
-      "new": "data-management/saga.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/polyglot-persistence.md",
-      "old": "cqrs.md",
-      "new": "data-management/cqrs.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/polyglot-persistence.md",
-      "old": "event-sourcing.md",
-      "new": "data-management/event-sourcing.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/polyglot-persistence.md",
-      "old": "saga.md",
-      "new": "data-management/saga.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/polyglot-persistence.md",
-      "old": "microservices.md",
-      "new": "architecture/backends-for-frontends.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/polyglot-persistence.md",
-      "old": "outbox.md",
-      "new": "data-management/outbox.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/distributed-storage.md",
-      "old": "consistent-hashing.md",
-      "new": "data-management/consistent-hashing.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/distributed-storage.md",
-      "old": "eventual-consistency.md",
-      "new": "data-management/eventual-consistency.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/distributed-storage.md",
-      "old": "crdt.md",
-      "new": "data-management/crdt.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/distributed-storage.md",
-      "old": "eventual-consistency.md",
-      "new": "data-management/eventual-consistency.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/eventual-consistency.md",
-      "old": "crdt.md",
-      "new": "data-management/crdt.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/eventual-consistency.md",
-      "old": "crdt.md",
-      "new": "data-management/crdt.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/cdc.md",
-      "old": "../pattern-library/outbox.md",
-      "new": "../pattern-library/data-management/outbox.md"
     },
     {
       "file": "docs/pattern-library/data-management/cdc.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/pattern-library/data-management/saga.md",
-      "old": "../pattern-library/archive/two-phase-commit.md",
-      "new": "../pattern-library/data-management/saga.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/saga.md",
-      "old": "../pattern-library/outbox.md",
-      "new": "../pattern-library/data-management/outbox.md"
     },
     {
       "file": "docs/pattern-library/data-management/saga.md",
@@ -1178,359 +653,14 @@
       "new": "../patterns/"
     },
     {
-      "file": "docs/pattern-library/data-management/materialized-view.md",
-      "old": "event-sourcing.md",
-      "new": "data-management/event-sourcing.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/materialized-view.md",
-      "old": "cqrs.md",
-      "new": "data-management/cqrs.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/materialized-view.md",
-      "old": "event-sourcing.md",
-      "new": "data-management/event-sourcing.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/cqrs.md",
-      "old": "../pattern-library/materialized-view.md",
-      "new": "../pattern-library/data-management/materialized-view.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/cqrs.md",
-      "old": "../pattern-library/cache-aside.md",
-      "new": "../pattern-library/scaling/caching-strategies.md.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/cqrs.md",
-      "old": "../pattern-library/caching.md",
-      "new": "../pattern-library/scaling/caching-strategies.md"
-    },
-    {
       "file": "docs/pattern-library/data-management/cqrs.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
     },
     {
-      "file": "docs/pattern-library/data-management/crdt.md",
-      "old": "eventual-consistency.md",
-      "new": "data-management/eventual-consistency.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/crdt.md",
-      "old": "vector-clocks.md",
-      "new": "coordination/logical-clocks.md"
-    },
-    {
-      "file": "docs/pattern-library/data-management/crdt.md",
-      "old": "vector-clocks.md",
-      "new": "coordination/logical-clocks.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/caching-strategies.md",
-      "old": "sharding.md",
-      "new": "scaling/sharding.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/geo-distribution.md",
-      "old": "edge-computing.md",
-      "new": "scaling/edge-computing.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/backpressure.md",
-      "old": "rate-limiting.md",
-      "new": "scaling/rate-limiting.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/backpressure.md",
-      "old": "rate-limiting.md",
-      "new": "scaling/rate-limiting.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/queues-streaming.md",
-      "old": "../pattern-library/cqrs.md",
-      "new": "../pattern-library/data-management/cqrs.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/queues-streaming.md",
-      "old": "../pattern-library/saga.md",
-      "new": "../pattern-library/data-management/saga.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/queues-streaming.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
       "file": "docs/pattern-library/scaling/queues-streaming.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/pattern-library/scaling/geo-replication.md",
-      "old": "id-generation-scale.md",
-      "new": "scaling/id-generation-scale.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/auto-scaling.md",
-      "old": "load-balancing.md",
-      "new": "scaling/load-balancing.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/auto-scaling.md",
-      "old": "load-balancing.md",
-      "new": "scaling/load-balancing.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/edge-computing.md",
-      "old": "sharding.md",
-      "new": "scaling/sharding.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/request-batching.md",
-      "old": "circuit-breaker.md",
-      "new": "resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/request-batching.md",
-      "old": "bulkhead.md",
-      "new": "resilience/bulkhead.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/request-batching.md",
-      "old": "saga.md",
-      "new": "data-management/saga.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/load-balancing.md",
-      "old": "auto-scaling.md",
-      "new": "scaling/auto-scaling.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/load-balancing.md",
-      "old": "auto-scaling.md",
-      "new": "scaling/auto-scaling.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/scatter-gather.md",
-      "old": "circuit-breaker.md",
-      "new": "resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/scatter-gather.md",
-      "old": "load-balancing.md",
-      "new": "scaling/load-balancing.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/scatter-gather.md",
-      "old": "saga.md",
-      "new": "data-management/saga.md"
-    },
-    {
-      "file": "docs/pattern-library/scaling/scatter-gather.md",
-      "old": "api-gateway.md",
-      "new": "communication/api-gateway.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/api-gateway.md",
-      "old": "service-mesh.md",
-      "new": "communication/service-mesh.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "publish-subscribe.md",
-      "new": "communication/publish-subscribe.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "websocket.md",
-      "new": "communication/websocket.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "service-discovery.md",
-      "new": "communication/service-discovery.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "api-gateway.md",
-      "new": "communication/api-gateway.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "service-mesh.md",
-      "new": "communication/service-mesh.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "publish-subscribe.md",
-      "new": "communication/publish-subscribe.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "websocket.md",
-      "new": "communication/websocket.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "api-gateway.md",
-      "new": "communication/api-gateway.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "service-mesh.md",
-      "new": "communication/service-mesh.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/index.md",
-      "old": "service-discovery.md",
-      "new": "communication/service-discovery.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/request-reply.md",
-      "old": "websocket.md",
-      "new": "communication/websocket.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/request-reply.md",
-      "old": "publish-subscribe.md",
-      "new": "communication/publish-subscribe.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/service-registry.md",
-      "old": "service-discovery.md",
-      "new": "communication/service-discovery.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/service-registry.md",
-      "old": "api-gateway.md",
-      "new": "communication/api-gateway.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/websocket.md",
-      "old": "service-discovery.md",
-      "new": "communication/service-discovery.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/grpc.md",
-      "old": "websocket.md",
-      "new": "communication/websocket.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/service-discovery.md",
-      "old": "service-mesh.md",
-      "new": "communication/service-mesh.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/service-discovery.md",
-      "old": "api-gateway.md",
-      "new": "communication/api-gateway.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/service-discovery.md",
-      "old": "publish-subscribe.md",
-      "new": "communication/publish-subscribe.md"
-    },
-    {
-      "file": "docs/pattern-library/communication/service-discovery.md",
-      "old": "websocket.md",
-      "new": "communication/websocket.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "circuit-breaker.md",
-      "new": "resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "retry-backoff.md",
-      "new": "resilience/retry-backoff.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "timeout.md",
-      "new": "resilience/timeout.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "bulkhead.md",
-      "new": "resilience/bulkhead.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "health-check.md",
-      "new": "resilience/health-check.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "failover.md",
-      "new": "resilience/failover.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "graceful-degradation.md",
-      "new": "resilience/graceful-degradation.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "circuit-breaker.md",
-      "new": "resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "retry-backoff.md",
-      "new": "resilience/retry-backoff.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "bulkhead.md",
-      "new": "resilience/bulkhead.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "timeout.md",
-      "new": "resilience/timeout.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "failover.md",
-      "new": "resilience/failover.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "health-check.md",
-      "new": "resilience/health-check.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "timeout.md",
-      "new": "resilience/timeout.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "health-check.md",
-      "new": "resilience/health-check.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "circuit-breaker.md",
-      "new": "resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "retry-backoff.md",
-      "new": "resilience/retry-backoff.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "bulkhead.md",
-      "new": "resilience/bulkhead.md"
-    },
-    {
-      "file": "docs/pattern-library/resilience/index.md",
-      "old": "graceful-degradation.md",
-      "new": "resilience/graceful-degradation.md"
     },
     {
       "file": "docs/reference/index.md",
@@ -1539,78 +669,8 @@
     },
     {
       "file": "docs/reference/recipe-cards.md",
-      "old": "../pattern-library/health-check.md",
-      "new": "../pattern-library/resilience/health-check.md"
-    },
-    {
-      "file": "docs/reference/recipe-cards.md",
-      "old": "../pattern-library/bulkhead.md",
-      "new": "../pattern-library/resilience/bulkhead.md"
-    },
-    {
-      "file": "docs/reference/recipe-cards.md",
-      "old": "../pattern-library/retry-backoff.md",
-      "new": "../pattern-library/resilience/retry-backoff.md"
-    },
-    {
-      "file": "docs/reference/recipe-cards.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/outbox.md",
-      "new": "../pattern-library/data-management/outbox.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/leader-election.md",
-      "new": "../pattern-library/coordination/leader-election.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/cqrs.md",
-      "new": "../pattern-library/data-management/cqrs.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/health-check.md",
-      "new": "../pattern-library/resilience/health-check.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/leader-election.md",
-      "new": "../pattern-library/coordination/leader-election.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../architects-handbook/case-studies/infrastructure/consistent-hashing.md",
-      "new": "../architects-handbook/case-studies/index.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/outbox.md",
-      "new": "../pattern-library/data-management/outbox.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/leader-election.md",
-      "new": "../pattern-library/coordination/leader-election.md"
-    },
-    {
-      "file": "docs/reference/glossary.md",
-      "old": "../pattern-library/saga.md",
-      "new": "../pattern-library/data-management/saga.md"
     },
     {
       "file": "docs/reference/glossary.md",
@@ -1629,53 +689,13 @@
     },
     {
       "file": "docs/core-principles/laws/cognitive-load.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/core-principles/laws/cognitive-load.md",
-      "old": "../pattern-library/bulkhead.md",
-      "new": "../pattern-library/resilience/bulkhead.md"
-    },
-    {
-      "file": "docs/core-principles/laws/cognitive-load.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
     },
     {
       "file": "docs/core-principles/laws/emergent-chaos.md",
-      "old": "../pattern-library/circuit-breaker.md",
-      "new": "../pattern-library/resilience/circuit-breaker.md"
-    },
-    {
-      "file": "docs/core-principles/laws/emergent-chaos.md",
-      "old": "../pattern-library/bulkhead.md",
-      "new": "../pattern-library/resilience/bulkhead.md"
-    },
-    {
-      "file": "docs/core-principles/laws/emergent-chaos.md",
-      "old": "../pattern-library/load-balancing.md",
-      "new": "../pattern-library/scaling/load-balancing.md"
-    },
-    {
-      "file": "docs/core-principles/laws/emergent-chaos.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/core-principles/laws/economic-reality.md",
-      "old": "../pattern-library/cost-optimization.md",
-      "new": "../pattern-library/scaling/auto-scaling.md"
-    },
-    {
-      "file": "docs/core-principles/laws/economic-reality.md",
-      "old": "../pattern-library/multi-cloud.md",
-      "new": "../pattern-library/scaling/multi-region.md"
-    },
-    {
-      "file": "docs/core-principles/laws/economic-reality.md",
-      "old": "../pattern-library/serverless.md",
-      "new": "../pattern-library/architecture/serverless-faas.md"
     },
     {
       "file": "docs/core-principles/laws/economic-reality.md",
@@ -1684,43 +704,13 @@
     },
     {
       "file": "docs/core-principles/laws/distributed-knowledge.md",
-      "old": "../pattern-library/raft.md",
-      "new": "../pattern-library/coordination/consensus.md"
-    },
-    {
-      "file": "docs/core-principles/laws/distributed-knowledge.md",
-      "old": "../pattern-library/paxos.md",
-      "new": "../pattern-library/coordination/consensus.md"
-    },
-    {
-      "file": "docs/core-principles/laws/distributed-knowledge.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
     },
     {
       "file": "docs/core-principles/laws/asynchronous-reality.md",
-      "old": "../pattern-library/saga.md",
-      "new": "../pattern-library/data-management/saga.md"
-    },
-    {
-      "file": "docs/core-principles/laws/asynchronous-reality.md",
-      "old": "../pattern-library/cqrs.md",
-      "new": "../pattern-library/data-management/cqrs.md"
-    },
-    {
-      "file": "docs/core-principles/laws/asynchronous-reality.md",
       "old": "../pattern-library/",
       "new": "../patterns/"
-    },
-    {
-      "file": "docs/core-principles/laws/multidimensional-optimization.md",
-      "old": "../pattern-library/cqrs.md",
-      "new": "../pattern-library/data-management/cqrs.md"
-    },
-    {
-      "file": "docs/core-principles/laws/multidimensional-optimization.md",
-      "old": "../pattern-library/sharding.md",
-      "new": "../pattern-library/scaling/sharding.md"
     },
     {
       "file": "docs/core-principles/laws/multidimensional-optimization.md",

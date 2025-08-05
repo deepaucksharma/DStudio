@@ -290,7 +290,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-lan:{ .lg } **[Communication Patterns](communication/)** (9 patterns)
+- :material-lan:{ .lg } **[Communication Patterns](/service-communication)** (9 patterns)
     
     ---
     
@@ -300,7 +300,7 @@ graph LR
     
     💡 **Best For**: Microservices, real-time systems, event-driven architectures
 
-- :material-shield-check:{ .lg } **[Resilience Patterns](resilience/)** (12 patterns)
+- :material-shield-check:{ .lg } **[Resilience Patterns](/resilience-first)** (12 patterns)
     
     ---
     
@@ -310,7 +310,7 @@ graph LR
     
     💡 **Best For**: High-availability systems, failure recovery, system stability
 
-- :material-database:{ .lg } **[Data Management Patterns](data-management/)** (22 patterns)
+- :material-database:{ .lg } **[Data Management Patterns](/pattern-library/data-management/cdc)** (22 patterns)
     
     ---
     
@@ -320,7 +320,7 @@ graph LR
     
     💡 **Best For**: Large-scale data, eventual consistency, complex transactions
 
-- :material-arrow-expand-all:{ .lg } **[Scaling Patterns](scaling/)** (21 patterns)
+- :material-arrow-expand-all:{ .lg } **[Scaling Patterns](/zoom-scaling)** (21 patterns)
     
     ---
     
@@ -330,7 +330,7 @@ graph LR
     
     💡 **Best For**: High-traffic systems, performance optimization, cost efficiency
 
-- :material-sitemap:{ .lg } **[Architecture Patterns](architecture/)** (17 patterns)
+- :material-sitemap:{ .lg } **[Architecture Patterns](/redis-architecture)** (17 patterns)
     
     ---
     
@@ -340,7 +340,7 @@ graph LR
     
     💡 **Best For**: System decomposition, deployment flexibility, maintainability
 
-- :material-sync:{ .lg } **[Coordination Patterns](coordination/)** (15 patterns)
+- :material-sync:{ .lg } **[Coordination Patterns](/coordination-costs)** (15 patterns)
     
     ---
     

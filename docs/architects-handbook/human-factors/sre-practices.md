@@ -648,13 +648,13 @@ graph LR
 ## SRE Tools & Practices
 
 ### Chaos Engineering
-See: [Chaos Engineering Guide](chaos-engineering.md)
+See: [Chaos Engineering Guide](/architects-handbook/human-factors/chaos-engineering/)
 
 ### Observability
-See: [Observability Stacks](observability-stacks.md)
+See: [Observability Stacks](/architects-handbook/human-factors/observability-stacks/)
 
 ### Runbooks
-See: [Runbooks & Playbooks](runbooks-playbooks.md)
+See: [Runbooks & Playbooks](/architects-handbook/human-factors/runbooks-playbooks/)
 
 ## Best Practices (Law 6: Human-API Aware)
 

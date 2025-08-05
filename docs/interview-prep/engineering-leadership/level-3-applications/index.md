@@ -10,25 +10,25 @@ Level III transforms theoretical knowledge into practical application through fo
     
     Build and lead high-performing engineering teams through effective hiring, performance management, career development, and culture building.
     
-    [Explore People Management →](people-management/index.md)
+    [Explore People Management →](/interview-prep/engineering-leadership/level-3-applications/people-management/index/)
 
 -   :material-rocket-launch: **Technical Leadership**
     
     Drive technical excellence through architecture decisions, technology strategy, innovation management, and engineering best practices.
     
-    [Explore Technical Leadership →](technical-leadership/index.md)
+    [Explore Technical Leadership →](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)
 
 -   :material-sitemap: **Organizational Design**
     
     Scale engineering organizations through effective team structures, communication systems, process optimization, and change management.
     
-    [Explore Organizational Design →](organizational-design/index.md)
+    [Explore Organizational Design →](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)
 
 -   :material-chart-line: **Business Acumen**
     
     Align engineering with business objectives through metrics, stakeholder management, resource allocation, and strategic planning.
     
-    [Explore Business Acumen →](business-acumen/index.md)
+    [Explore Business Acumen →](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index/)
 
 </div>
 
@@ -121,34 +121,34 @@ graph TD
 
 ## Foundation in First Principles
 
-Each application domain is grounded in [Level I: First Principles](../level-1-first-principles/):
+Each application domain is grounded in [Level I: First Principles](/interview-prep/engineering-leadership/level-1-first-principles/index/):
 
-- **People Management** centers on [Human Behavior](../level-1-first-principles/human-behavior/)
-- **Technical Leadership** maximizes [Value Creation](../level-1-first-principles/value-creation/)
-- **Organizational Design** applies [Systems Thinking](../level-1-first-principles/systems-thinking/)
+- **People Management** centers on [Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)
+- **Technical Leadership** maximizes [Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)
+- **Organizational Design** applies [Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)
 - **Business Acumen** integrates all principles for impact
 
 ## Powered by Business Concepts
 
-Applications leverage [Level II: Core Business Concepts](../level-2-core-business/):
+Applications leverage [Level II: Core Business Concepts](/interview-prep/engineering-leadership/level-2-core-business/index/):
 
-- **[Leadership](../level-2-core-business/leadership/)** frameworks guide people management
-- **[Strategy](../level-2-core-business/strategy/)** informs technical direction
-- **[Operations](../level-2-core-business/operations/)** enables organizational scale
-- **[Finance](../level-2-core-business/finance/)** drives business acumen
+- **[Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/)** frameworks guide people management
+- **[Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index/)** informs technical direction
+- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/)** enables organizational scale
+- **[Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index/)** drives business acumen
 
 ## Quick Links
 
 ### Domain Deep Dives
-- [People Management](people-management/index.md) - Build high-performing teams
-- [Technical Leadership](technical-leadership/index.md) - Drive technical excellence
-- [Organizational Design](organizational-design/index.md) - Scale effectively
-- [Business Acumen](business-acumen/index.md) - Connect to business value
+- [People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/) - Build high-performing teams
+- [Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/) - Drive technical excellence
+- [Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/) - Scale effectively
+- [Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index/) - Connect to business value
 
 ### Practice & Preparation
-- [Cross-Domain Scenarios](../practice-scenarios/) - Real-world challenges
-- [Interview Execution Guide](../level-4-interview-execution/) - Demonstrate mastery
-- [Hard-Earned Wisdom](../hard-earned-wisdom/) - Learn from experience
+- [Cross-Domain Scenarios](/interview-prep/engineering-leadership/practice-scenarios/index/) - Real-world challenges
+- [Interview Execution Guide](/interview-prep/engineering-leadership/level-4-interview-execution/index/) - Demonstrate mastery
+- [Hard-Earned Wisdom](/interview-prep/engineering-leadership/hard-earned-wisdom/index/) - Learn from experience
 
 ## Next Steps
 

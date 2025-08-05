@@ -494,5 +494,5 @@ graph TD
 
 ---
 
-**Previous**: [← Backends for Frontends](backends-for-frontends.md) | **Next**: Anti-Corruption Layer → (Coming Soon)
+**Previous**: [← Backends for Frontends](/pattern-library/architecture/backends-for-frontends/) | **Next**: Anti-Corruption Layer → (Coming Soon)
 

@@ -270,10 +270,10 @@ graph TD
 ## Related Patterns
 
 - [Database per Service](database-per-service.md) - The correct approach
-- [Event-Driven](architecture/event-driven.md) - For data synchronization
-- [API Gateway](communication/api-gateway.md) - For data aggregation
-- [CQRS](data-management/cqrs.md) - For query separation
-- [Saga](data-management/saga.md) - For distributed transactions
+- [Event-Driven](/pattern-library/architecture/event-driven/) - For data synchronization
+- [API Gateway](/pattern-library/communication/api-gateway/) - For data aggregation
+- [CQRS](/pattern-library/data-management/cqrs/) - For query separation
+- [Saga](/pattern-library/data-management/saga/) - For distributed transactions
 
 ## Further Reading
 

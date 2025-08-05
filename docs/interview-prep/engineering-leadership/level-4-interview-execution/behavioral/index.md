@@ -9,22 +9,22 @@ Behavioral interviews form the backbone of engineering leadership assessments. T
 Great behavioral answers demonstrate mastery of:
 
 ### First Principles (Level I)
-- **[Human Behavior](../../level-1-first-principles/human-behavior/)**: Show deep understanding of people dynamics
-- **[Value Creation](../../level-1-first-principles/value-creation/)**: Quantify business and customer impact
-- **[Decision-Making](../../level-1-first-principles/decision-making/)**: Demonstrate structured thinking
-- **[Systems Thinking](../../level-1-first-principles/systems-thinking/)**: Show awareness of ripple effects
-- **[Integrity & Ethics](../../level-1-first-principles/integrity-ethics/)**: Display ethical leadership
+- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)**: Show deep understanding of people dynamics
+- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Quantify business and customer impact
+- **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index/)**: Demonstrate structured thinking
+- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**: Show awareness of ripple effects
+- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Display ethical leadership
 
 ### Business Concepts (Level II)
-- **[Leadership](../../level-2-core-business/leadership/)**: Apply leadership frameworks
-- **[Strategy](../../level-2-core-business/strategy/)**: Show strategic thinking
-- **[Operations](../../level-2-core-business/operations/)**: Demonstrate execution excellence
+- **[Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/)**: Apply leadership frameworks
+- **[Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index/)**: Show strategic thinking
+- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/)**: Demonstrate execution excellence
 
 ### Applications (Level III)
-- **[People Management](../../level-3-applications/people-management/)**: Team building and development
-- **[Technical Leadership](../../level-3-applications/technical-leadership/)**: Technical decision stories
-- **[Organizational Design](../../level-3-applications/organizational-design/)**: Scaling and structure
-- **[Business Acumen](../../level-3-applications/business-acumen/)**: Business impact focus
+- **[People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/)**: Team building and development
+- **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)**: Technical decision stories
+- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Scaling and structure
+- **[Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index/)**: Business impact focus
 
 ## Interview Structure & Expectations
 
@@ -332,16 +332,16 @@ Be prepared for these probing questions:
 
 ## Practice Resources
 
-- **[Practice Scenarios](../../practice-scenarios/)**: Work through common situations
-- **[Question Bank](../tools/interactive/question-bank.md)**: 500+ behavioral questions
-- **[Interview Timer](../tools/interactive/interview-timer.md)**: Practice with time pressure
-- **[Self-Assessment](../tools/interactive/self-assessment.md)**: Evaluate your readiness
+- **[Practice Scenarios](/interview-prep/engineering-leadership/practice-scenarios/index/)**: Work through common situations
+- **[Question Bank](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank/)**: 500+ behavioral questions
+- **[Interview Timer](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer/)**: Practice with time pressure
+- **[Self-Assessment](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/)**: Evaluate your readiness
 
 ## Next Steps
 
-1. **Map Your Stories**: Connect your experiences to principles using the [Story Portfolio Framework](../tools/story-portfolio/)
-2. **Structure Responses**: Master the [STAR+ Method](../tools/star-framework/) for clear delivery
-3. **Practice Principles**: Use [Principle Hooks](../tools/principle-hooks/) to demonstrate depth
+1. **Map Your Stories**: Connect your experiences to principles using the [Story Portfolio Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index/)
+2. **Structure Responses**: Master the [STAR+ Method](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index/) for clear delivery
+3. **Practice Principles**: Use [Principle Hooks](/interview-prep/engineering-leadership/level-4-interview-execution/tools/principle-hooks/index/) to demonstrate depth
 4. **Mock Interviews**: Practice with peers using scenarios from each level
 
 ---

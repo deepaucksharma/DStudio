@@ -40,7 +40,7 @@ graph TD
 
 <div class="grid cards" markdown>
 
-- :material-school:{ .lg .middle } **[New Graduate Path](new-graduate.md)**
+- :material-school:{ .lg .middle } **[New Graduate Path](/architects-handbook/learning-paths/new-graduate/)**
     
     ---
     
@@ -59,9 +59,9 @@ graph TD
     - Want structured foundation
     - Preparing for first distributed systems role
     
-    [**→ Start Your Journey**](new-graduate.md)
+    [**→ Start Your Journey**](/architects-handbook/learning-paths/new-graduate/)
 
-- :material-code-tags:{ .lg .middle } **[Senior Engineer Path](senior-engineer.md)**
+- :material-code-tags:{ .lg .middle } **[Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer/)**
     
     ---
     
@@ -80,9 +80,9 @@ graph TD
     - Leading technical decisions
     - Moving to staff engineer role
     
-    [**→ Level Up**](senior-engineer.md)
+    [**→ Level Up**](/architects-handbook/learning-paths/senior-engineer/)
 
-- :material-account-tie:{ .lg .middle } **[Engineering Manager Path](manager.md)**
+- :material-account-tie:{ .lg .middle } **[Engineering Manager Path](/architects-handbook/learning-paths/manager/)**
     
     ---
     
@@ -101,9 +101,9 @@ graph TD
     - Making build vs buy decisions
     - Balancing tech debt
     
-    [**→ Lead Effectively**](manager.md)
+    [**→ Lead Effectively**](/architects-handbook/learning-paths/manager/)
 
-- :material-city:{ .lg .middle } **[System Architect Path](architect.md)**
+- :material-city:{ .lg .middle } **[System Architect Path](/architects-handbook/learning-paths/architect/)**
     
     ---
     
@@ -122,7 +122,7 @@ graph TD
     - Leading architecture reviews
     - Setting technical direction
     
-    [**→ Architect at Scale**](architect.md)
+    [**→ Architect at Scale**](/architects-handbook/learning-paths/architect/)
 
 </div>
 
@@ -139,7 +139,7 @@ graph TD
 
 <div class="grid cards" markdown>
 
-- :material-sync:{ .lg .middle } **[Consistency & Coordination](consistency.md)**
+- :material-sync:{ .lg .middle } **[Consistency & Coordination](/architects-handbook/learning-paths/consistency/)**
     
     ---
     
@@ -147,9 +147,9 @@ graph TD
     
     **For:** Database engineers, FinTech developers
     
-    [:octicons-arrow-right-24: Learn Consistency](consistency.md){ .md-button }
+    [:octicons-arrow-right-24: Learn Consistency](/architects-handbook/learning-paths/consistency/){ .md-button }
 
-- :material-speedometer:{ .lg .middle } **[Performance & Scale](performance.md)**
+- :material-speedometer:{ .lg .middle } **[Performance & Scale](/architects-handbook/learning-paths/performance/)**
     
     ---
     
@@ -157,9 +157,9 @@ graph TD
     
     **For:** Performance engineers, SREs
     
-    [:octicons-arrow-right-24: Scale Systems](performance.md){ .md-button }
+    [:octicons-arrow-right-24: Scale Systems](/architects-handbook/learning-paths/performance/){ .md-button }
 
-- :material-currency-usd:{ .lg .middle } **[Cost Optimization](cost.md)**
+- :material-currency-usd:{ .lg .middle } **[Cost Optimization](/architects-handbook/learning-paths/cost/)**
     
     ---
     
@@ -167,9 +167,9 @@ graph TD
     
     **For:** FinOps, Engineering leaders
     
-    [:octicons-arrow-right-24: Optimize Costs](cost.md){ .md-button }
+    [:octicons-arrow-right-24: Optimize Costs](/architects-handbook/learning-paths/cost/){ .md-button }
 
-- :material-shield-check:{ .lg .middle } **[Reliability & Resilience](reliability.md)**
+- :material-shield-check:{ .lg .middle } **[Reliability & Resilience](/architects-handbook/learning-paths/reliability/)**
     
     ---
     
@@ -177,7 +177,7 @@ graph TD
     
     **For:** SREs, Platform teams
     
-    [:octicons-arrow-right-24: Ensure Reliability](reliability.md){ .md-button }
+    [:octicons-arrow-right-24: Ensure Reliability](/architects-handbook/learning-paths/reliability/){ .md-button }
 
 </div>
 
@@ -187,7 +187,7 @@ graph TD
 
     !!! tip "Start with visuals and work toward concepts"
         
-        1. **Architecture Diagrams** in [Case Studies](case-studies)
+        1. **Architecture Diagrams** in [Case Studies](/architects-handbook/case-studies/index)
         2. **Trade-off Matrices** in each pattern
         3. **Visual Decision Trees** throughout
         4. **Mermaid Diagrams** explaining concepts
@@ -233,24 +233,24 @@ graph TD
     
     === "By Experience"
         
-        - **New to distributed systems?** → [New Graduate Path](new-graduate.md)
-        - **Building services already?** → [Senior Engineer Path](senior-engineer.md)
-        - **Leading teams?** → [Manager Path](manager.md)
-        - **Designing architectures?** → [Architect Path](architect.md)
+        - **New to distributed systems?** → [New Graduate Path](/architects-handbook/learning-paths/new-graduate/)
+        - **Building services already?** → [Senior Engineer Path](/architects-handbook/learning-paths/senior-engineer/)
+        - **Leading teams?** → [Manager Path](/architects-handbook/learning-paths/manager/)
+        - **Designing architectures?** → [Architect Path](/architects-handbook/learning-paths/architect/)
     
     === "By Topic"
         
-        - **Need consistency?** → [Consistency Path](consistency.md)
-        - **Need performance?** → [Performance Path](performance.md)
-        - **Need reliability?** → [Reliability Path](reliability.md)
-        - **Need cost control?** → [Cost Path](cost.md)
+        - **Need consistency?** → [Consistency Path](/architects-handbook/learning-paths/consistency/)
+        - **Need performance?** → [Performance Path](/architects-handbook/learning-paths/performance/)
+        - **Need reliability?** → [Reliability Path](/architects-handbook/learning-paths/reliability/)
+        - **Need cost control?** → [Cost Path](/architects-handbook/learning-paths/cost/)
     
     === "By Time"
         
         - **1 hour/day** → Pick a topic path
         - **2+ hours/day** → Choose a role path
         - **Full time** → Complete foundation path
-        - **Just browsing** → Start with [Case Studies](case-studies)
+        - **Just browsing** → Start with [Case Studies](/architects-handbook/case-studies/index)
 
 ## 🗺️ Visual Learning Journey
 

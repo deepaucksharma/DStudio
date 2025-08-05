@@ -68,7 +68,7 @@ type: pattern
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| Pure Event Ordering | Logical ordering sufficient | [Logical Clocks](coordination/logical-clocks.md) |
+| Pure Event Ordering | Logical ordering sufficient | [Logical Clocks](/pattern-library/coordination/logical-clocks/) |
 | High-Performance Local Systems | Synchronization overhead unnecessary | Local monotonic clocks |
 | Causality Tracking | Vector clocks more accurate | [Vector Clocks](../data-management/vector-clocks.md) |
 | Simple Request-Response | No coordination needed | Application-level timestamps |
@@ -279,9 +279,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Consensus](coordination/consensus.md) | Timestamp-ordered proposals | Leader election with time bounds |
-| [Event Sourcing](../data-management/event-sourcing.md) | Consistent event timestamps | Global event ordering |
-| [Distributed Locking](coordination/distributed-lock.md) | Time-based lease expiration | Lease timeout coordination |
+| [Consensus](/pattern-library/coordination/consensus/) | Timestamp-ordered proposals | Leader election with time bounds |
+| [Event Sourcing](/pattern-library/data-management/event-sourcing/) | Consistent event timestamps | Global event ordering |
+| [Distributed Locking](/pattern-library/coordination/distributed-lock/) | Time-based lease expiration | Lease timeout coordination |
 
 ## Quick Reference
 
@@ -325,9 +325,9 @@ graph LR
     
     ---
     
-    - [Logical Clocks](coordination/logical-clocks.md) - Event ordering without time
-    - [HLC](coordination/hlc.md) - Hybrid physical-logical approach  
-    - [Generation Clock](generation-clock.md) - Epoch-based coordination
+    - [Logical Clocks](/pattern-library/coordination/logical-clocks/) - Event ordering without time
+    - [HLC](/pattern-library/coordination/hlc/) - Hybrid physical-logical approach  
+    - [Generation Clock](/pattern-library/coordination/generation-clock/) - Epoch-based coordination
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

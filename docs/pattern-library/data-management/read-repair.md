@@ -297,7 +297,7 @@ graph LR
     
     - [Anti-Entropy](../data-management/anti-entropy.md) - Comprehensive consistency repair
     - [Vector Clocks](../data-management/vector-clocks.md) - Version comparison
-    - [Merkle Trees](../data-management/merkle-trees.md) - Efficient difference detection
+    - [Merkle Trees](/pattern-library/data-management/merkle-trees/) - Efficient difference detection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

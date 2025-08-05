@@ -232,8 +232,8 @@ After:  channel_id → bucket (1 of 4096) → shard (1 of 128)
 - [CQRS](../data/cqrs.md) - Separate read/write sharding strategies
 
 ### Operations  
-- [Circuit Breaker](../resilience/circuit-breaker.md) - Handle shard failures
-- [Bulkhead](../resilience/bulkhead.md) - Isolate shard impacts
+- [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Handle shard failures
+- [Bulkhead](/pattern-library/resilience/bulkhead/) - Isolate shard impacts
 - [Service Mesh](../infrastructure/service-mesh.md) - Shard-aware routing
 
 ### Case Studies

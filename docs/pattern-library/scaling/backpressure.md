@@ -279,9 +279,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Circuit Breaker](../resilience/circuit-breaker.md) | Prevent cascade failures | Backpressure triggers circuit opening |
-| [Bulkhead](../resilience/bulkhead.md) | Resource isolation | Independent backpressure per partition |
-| [Rate Limiting](scaling/rate-limiting.md) | Gateway traffic control | Coordinated upstream and downstream limits |
+| [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | Prevent cascade failures | Backpressure triggers circuit opening |
+| [Bulkhead](/pattern-library/resilience/bulkhead/) | Resource isolation | Independent backpressure per partition |
+| [Rate Limiting](/pattern-library/scaling/rate-limiting/) | Gateway traffic control | Coordinated upstream and downstream limits |
 
 ## Quick Reference
 
@@ -325,9 +325,9 @@ graph LR
     
     ---
     
-    - [Circuit Breaker](../resilience/circuit-breaker.md) - Fail fast during overload
-    - [Rate Limiting](scaling/rate-limiting.md) - Request throttling at boundaries
-    - [Bulkhead](../resilience/bulkhead.md) - Resource isolation
+    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Fail fast during overload
+    - [Rate Limiting](/pattern-library/scaling/rate-limiting/) - Request throttling at boundaries
+    - [Bulkhead](/pattern-library/resilience/bulkhead/) - Resource isolation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

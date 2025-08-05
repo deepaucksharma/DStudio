@@ -71,35 +71,35 @@ Systems thinker Donella Meadows identified where leaders can create maximum chan
 
 <div class="principles-overview">
 
-### 1. [Value Creation](value-creation/)
+### 1. [Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index)
 **The Prime Directive**: Business exists to solve real customer problems profitably.
 
 Every line of code, every hire, every decision must ultimately create value for customers in a way that sustains the business. This principle anchors all others.
 
 *Systems View*: Value flows through your organization like energy through an ecosystem. Map the value streams to understand where energy is created, stored, or dissipated.
 
-### 2. [Decision-Making](decision-making/) 
+### 2. [Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index) 
 **The Engine of Progress**: Progress requires timely, informed choices under uncertainty.
 
 Perfect information never exists. Great leaders develop frameworks for making high-quality decisions quickly, distinguishing reversible from irreversible choices.
 
 *Systems View*: Decision-making is a distributed capability, not a centralized function. Design information flows and decision rights to enable good choices throughout the system.
 
-### 3. [Human Behavior](human-behavior/)
+### 3. [Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index)
 **The Execution Multiplier**: Culture and motivation determine the quality of execution.
 
 Systems are built by humans, for humans. Understanding and optimizing human behavior is not "soft"—it's the hardest and most leveraged part of leadership.
 
 *Systems View*: People adapt rationally to the system you've designed. If you see "people problems," look for system design issues. Behavior emerges from structure.
 
-### 4. [Systems Thinking](systems-thinking/)
+### 4. [Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index)
 **The Hidden Architecture**: Organizations are interdependent, feedback-rich systems.
 
 Local optimizations often create global failures. Leaders must see and design for the whole system, including delayed effects and unintended consequences.
 
 *Systems View*: This is your core leadership capability—seeing the organization as a complex adaptive system and designing interventions that leverage natural system dynamics.
 
-### 5. [Integrity & Ethics](integrity-ethics/)
+### 5. [Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index)
 **The Trust Foundation**: Sustained trust is the ultimate competitive advantage.
 
 In a world of infinite games, reputation and trust compound. Ethical behavior isn't just right—it's the optimal long-term strategy.
@@ -343,27 +343,27 @@ This is not about controlling people—it's about architecting systems where the
 
 The power of first principles comes from their interconnection:
 
-- **[Value Creation](value-creation/) + [Decision-Making](decision-making/)**: Every decision should maximize value
-- **[Decision-Making](decision-making/) + [Human Behavior](human-behavior/)**: Great decisions need buy-in to succeed
-- **[Human Behavior](human-behavior/) + [Systems Thinking](systems-thinking/)**: People adapt to system incentives
-- **[Systems Thinking](systems-thinking/) + [Integrity](integrity-ethics/)**: Ethical systems produce ethical outcomes
-- **[Integrity](integrity-ethics/) + [Value Creation](value-creation/)**: Trust enables sustainable value
+- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index) + [Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index)**: Every decision should maximize value
+- **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index) + [Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index)**: Great decisions need buy-in to succeed
+- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index) + [Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index)**: People adapt to system incentives
+- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index) + [Integrity](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index)**: Ethical systems produce ethical outcomes
+- **[Integrity](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index) + [Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index)**: Trust enables sustainable value
 
 ## Next Steps
 
 ### For New Engineering Managers
-1. Start with [Human Behavior](human-behavior/) - your biggest challenge will be people
-2. Add [Decision-Making](decision-making/) - learn to make quality decisions quickly
-3. Study [Value Creation](value-creation/) - connect your work to business impact
+1. Start with [Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index) - your biggest challenge will be people
+2. Add [Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index) - learn to make quality decisions quickly
+3. Study [Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index) - connect your work to business impact
 
 ### For Senior Managers
-1. Focus on [Systems Thinking](systems-thinking/) - see the bigger picture
-2. Deepen [Value Creation](value-creation/) - quantify and maximize impact
-3. Master [Integrity & Ethics](integrity-ethics/) - build lasting trust
+1. Focus on [Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index) - see the bigger picture
+2. Deepen [Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index) - quantify and maximize impact
+3. Master [Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index) - build lasting trust
 
 ### For Directors and Above
-1. Lead with [Integrity & Ethics](integrity-ethics/) - set the cultural tone
-2. Apply [Systems Thinking](systems-thinking/) - design organizational systems
+1. Lead with [Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index) - set the cultural tone
+2. Apply [Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index) - design organizational systems
 3. Integrate all principles in your leadership philosophy
 
 ### Interview Preparation Path
@@ -374,4 +374,4 @@ The power of first principles comes from their interconnection:
 
 ---
 
-*Ready to dive deep? Choose a principle to explore, or continue to [Level II: Core Business Concepts](../level-2-core-business/) to see how these principles become actionable disciplines. For hands-on application, jump to [Level III: Engineering Applications](../level-3-applications/).*
+*Ready to dive deep? Choose a principle to explore, or continue to [Level II: Core Business Concepts](/interview-prep/engineering-leadership/level-2-core-business/index/) to see how these principles become actionable disciplines. For hands-on application, jump to [Level III: Engineering Applications](/interview-prep/engineering-leadership/level-3-applications/index/).*

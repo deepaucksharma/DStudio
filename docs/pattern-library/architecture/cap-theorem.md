@@ -56,9 +56,9 @@ when-to-use: When designing distributed systems architecture
     CAP theorem is important for understanding distributed systems theory but doesn't provide actionable guidance. Modern systems offer more nuanced approaches like tunable consistency and PACELC considerations.
     
     **For practical guidance, see:**
-    - **[Tunable Consistency](tunable-consistency.md)** for flexible trade-offs
-    - **[Consensus Patterns](coordination/consensus.md)** for agreement protocols
-    - **[Multi-Region Architecture](multi-region.md)** for real-world CAP decisions
+    - **[Tunable Consistency](/pattern-library/data-management/tunable-consistency/)** for flexible trade-offs
+    - **[Consensus Patterns](/pattern-library/coordination/consensus/)** for agreement protocols
+    - **[Multi-Region Architecture](/pattern-library/scaling/multi-region/)** for real-world CAP decisions
 
 **You can't have your cake and eat it too - The fundamental trade-off in distributed systems**
 
@@ -261,9 +261,9 @@ graph TD
     
     ---
     
-    - [Eventual Consistency](../data-management/eventual-consistency.md) - AP system implementation
-    - [Consensus](../coordination/consensus.md) - CP system coordination
-    - [Circuit Breaker](../resilience/circuit-breaker.md) - Partition handling
+    - [Eventual Consistency](/pattern-library/data-management/eventual-consistency/) - AP system implementation
+    - [Consensus](/pattern-library/coordination/consensus/) - CP system coordination
+    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Partition handling
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

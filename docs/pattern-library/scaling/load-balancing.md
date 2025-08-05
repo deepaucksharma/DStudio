@@ -318,9 +318,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Auto-scaling](scaling/auto-scaling.md) | Dynamic capacity management | LB triggers scaling events |
-| [Circuit Breaker](../resilience/circuit-breaker.md) | Cascade failure prevention | Circuit state affects routing |
-| [Health Check](../resilience/health-check.md) | Service monitoring | Health status drives routing decisions |
+| [Auto-scaling](/pattern-library/scaling/auto-scaling/) | Dynamic capacity management | LB triggers scaling events |
+| [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | Cascade failure prevention | Circuit state affects routing |
+| [Health Check](/pattern-library/resilience/health-check/) | Service monitoring | Health status drives routing decisions |
 
 ## Quick Reference
 
@@ -364,9 +364,9 @@ graph LR
     
     ---
     
-    - [Auto-scaling](scaling/auto-scaling.md) - Dynamic capacity management
-    - [Health Check](../resilience/health-check.md) - Backend monitoring
-    - [Circuit Breaker](../resilience/circuit-breaker.md) - Failure protection
+    - [Auto-scaling](/pattern-library/scaling/auto-scaling/) - Dynamic capacity management
+    - [Health Check](/pattern-library/resilience/health-check/) - Backend monitoring
+    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Failure protection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

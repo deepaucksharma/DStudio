@@ -7,16 +7,16 @@ Technical leadership transcends individual coding ability to encompass architect
 ## Connection to Framework Levels
 
 ### First Principles Foundation
-- **[Value Creation](../../level-1-first-principles/value-creation/)**: Technology decisions must create business value
-- **[Decision-Making](../../level-1-first-principles/decision-making/)**: Architecture choices are high-impact decisions
-- **[Systems Thinking](../../level-1-first-principles/systems-thinking/)**: Technical systems are complex adaptive systems
-- **[Integrity & Ethics](../../level-1-first-principles/integrity-ethics/)**: Building secure, reliable systems users can trust
-- **[Human Behavior](../../level-1-first-principles/human-behavior/)**: Technical decisions affect developer experience
+- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Technology decisions must create business value
+- **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index/)**: Architecture choices are high-impact decisions
+- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**: Technical systems are complex adaptive systems
+- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Building secure, reliable systems users can trust
+- **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)**: Technical decisions affect developer experience
 
 ### Business Concepts Applied
-- **[Strategy](../../level-2-core-business/strategy/)**: Technical strategy enables business strategy
-- **[Operations](../../level-2-core-business/operations/)**: Technical excellence drives operational excellence
-- **[Risk & Governance](../../level-2-core-business/risk-governance/)**: Managing technical risks and compliance
+- **[Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index/)**: Technical strategy enables business strategy
+- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/)**: Technical excellence drives operational excellence
+- **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index/)**: Managing technical risks and compliance
 
 ## Core Competencies
 
@@ -34,7 +34,7 @@ Technical leadership transcends individual coding ability to encompass architect
 - **Platform Strategy**: Build reusable platforms and tools
 - **Migration Planning**: Orchestrate major technical transitions
 
-[Technical Strategy Guide →](technical-strategy.md)
+[Technical Strategy Guide →](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/technical-strategy/)
 
 ### 3. Engineering Excellence
 - **Code Quality**: Establish and maintain quality standards
@@ -371,15 +371,15 @@ graph TD
 
 ## Links to Other Applications
 
-- **[People Management](../people-management/)**: Leading technical teams effectively
-- **[Organizational Design](../organizational-design/)**: Conway's Law - architecture reflects organization
-- **[Business Acumen](../business-acumen/)**: Translating technical decisions to business impact
+- **[People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/)**: Leading technical teams effectively
+- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Conway's Law - architecture reflects organization
+- **[Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index/)**: Translating technical decisions to business impact
 
 ## Interview Execution (Level IV)
 
-- **[Technical Leadership Interviews](../../level-4-interview-execution/technical-leadership/)**: Demonstrating technical depth and breadth
-- **[System Design](../../level-4-interview-execution/system-org-design/)**: Architectural thinking under pressure
-- **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Technical leadership impact stories
+- **[Technical Leadership Interviews](/interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index/)**: Demonstrating technical depth and breadth
+- **[System Design](/interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index/)**: Architectural thinking under pressure
+- **[Behavioral Stories](/interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index/)**: Technical leadership impact stories
 
 ## Architecture Patterns
 
@@ -414,5 +414,5 @@ graph TD
 ### For Interviews
 - Prepare 5-7 technical leadership stories
 - Practice system design with business context
-- Use [Decision Trees](../../level-4-interview-execution/tools/interactive/decision-trees.md) for architecture choices
-- Review [Company-Specific Technical Bars](../../../company-specific/)
+- Use [Decision Trees](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees/) for architecture choices
+- Review [Company-Specific Technical Bars](/company-specific/)

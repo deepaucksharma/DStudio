@@ -947,9 +947,9 @@ Recommendations:
 
 ## Connections to Other Concepts
 
-- **[Queueing Models](queueing-models.md)**: $L = L_q + L_s$, utilization $\rho = \lambda/\mu$ affects $W$
-- **[Latency Ladder](latency-ladder.md)**: $W$ includes all ladder latencies
-- **[Availability Math](availability-math.md)**: Failures spike $\lambda$ (retries), predict cascades
+- **[Queueing Models](/architects-handbook/quantitative-analysis/queueing-models/)**: $L = L_q + L_s$, utilization $\rho = \lambda/\mu$ affects $W$
+- **[Latency Ladder](/architects-handbook/quantitative-analysis/latency-ladder/)**: $W$ includes all ladder latencies
+- **[Availability Math](/architects-handbook/quantitative-analysis/availability-math/)**: Failures spike $\lambda$ (retries), predict cascades
 - **Patterns**: Rate limiting controls λ, circuit breakers prevent retry storms
 
 ## Key Insights & Pitfalls
@@ -962,6 +962,6 @@ Remember: Little's Law is like gravity - always there!
 
 ## Related Concepts
 
-- **Quantitative**: [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md) | [Availability Math](availability-math.md)
+- **Quantitative**: [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-models/) | [Latency Ladder](/architects-handbook/quantitative-analysis/latency-ladder/) | [Availability Math](/architects-handbook/quantitative-analysis/availability-math/)
 - **Patterns**: [Rate Limiting](../pattern-library/scaling/rate-limiting.md) | [Bulkhead](../pattern-library/resilience/bulkhead.md) | [Backpressure](../pattern-library/scaling/backpressure.md)
-- **Operations**: [SRE Practices](../human-factors/sre-practices.md) | [Performance Monitoring](../human-factors/observability-stacks.md)
+- **Operations**: [SRE Practices](/architects-handbook/human-factors/sre-practices/) | [Performance Monitoring](/architects-handbook/human-factors/observability-stacks/)

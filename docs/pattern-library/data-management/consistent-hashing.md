@@ -37,7 +37,7 @@ trade-offs:
 !!! success "🏆 Silver Excellence Pattern"
 **Implementation available in production systems**
 
-[Home](/) > [Patterns](../pattern-library/) > [Data Patterns](../pattern-library/index.md#data-patterns) > Consistent Hashing
+[Home](/) > [Patterns](/pattern-library/) > [Data Patterns](../patterns/index.md#data-patterns) > Consistent Hashing
 
 !!! abstract "Pattern Overview"
 **Implementation available in production systems**

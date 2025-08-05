@@ -461,10 +461,10 @@ class BatteryTestHarness:
 ```
 
 ## Related Models
-- [Performance Modeling](performance-modeling.md) - CPU frequency scaling
-- [Network Theory](network-theory.md) - Radio power models
-- [Markov Chains](markov-chains.md) - State transition modeling
-- [Queueing Theory](queueing-theory.md) - Request batching analysis
+- [Performance Modeling](/architects-handbook/quantitative-analysis/performance-modeling/) - CPU frequency scaling
+- [Network Theory](/architects-handbook/quantitative-analysis/network-theory/) - Radio power models
+- [Markov Chains](/architects-handbook/quantitative-analysis/markov-chains/) - State transition modeling
+- [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-theory/) - Request batching analysis
 
 ## References
 - "Energy Efficient Mobile Computing" - Google Research

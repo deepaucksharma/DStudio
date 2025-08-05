@@ -1,6 +1,7 @@
 site_name: The Compendium of Distributed Systems
 site_url: https://deepaucksharma.github.io/DStudio/
-site_description: Master distributed systems through physics-derived principles and battle-tested patterns
+site_description: Master distributed systems through physics-derived principles and
+  battle-tested patterns
 site_author: Deepak Sharma
 copyright: Copyright &copy; 2025 Deepak Sharma
 repo_name: deepaucksharma/DStudio
@@ -195,13 +196,11 @@ markdown_extensions:
     custom_fences:
     - name: mermaid
       class: mermaid
-      format: !!python/name:pymdownx.superfences.fence_code_format
+      format: null
 - pymdownx.tabbed:
     alternate_style: true
     combine_header_slug: true
-    slugify: !!python/object/apply:pymdownx.slugs.slugify
-      kwds:
-        case: lower
+    slugify: null
 - pymdownx.tasklist:
     custom_checkbox: true
 - pymdownx.tilde
@@ -511,13 +510,6 @@ nav:
         - Metrics Monitoring: architects-handbook/case-studies/monitoring-observability/metrics-monitoring.md
         - Prometheus Datadog Enhanced: architects-handbook/case-studies/monitoring-observability/prometheus-datadog-enhanced.md
         - Rate Limiter: architects-handbook/case-studies/monitoring-observability/rate-limiter.md
-    - Elite Engineering:
-      - Amazon DynamoDB Evolution: architects-handbook/case-studies/elite-engineering/amazon-dynamodb-evolution.md
-      - Discord Voice Infrastructure: architects-handbook/case-studies/elite-engineering/discord-voice-infrastructure.md
-      - Figma CRDT Collaboration: architects-handbook/case-studies/elite-engineering/figma-crdt-collaboration.md
-      - Netflix Chaos Engineering: architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering.md
-      - Netflix Chaos: architects-handbook/case-studies/elite-engineering/netflix-chaos.md
-      - Stripe API Excellence: architects-handbook/case-studies/elite-engineering/stripe-api-excellence.md
   - Implementation Playbooks:
     - Overview: architects-handbook/implementation-playbooks/index.md
   - Excellence Framework:
@@ -646,16 +638,12 @@ nav:
     - Throughput Calculator: architects-handbook/tools/throughput-calculator.md
 - Part 4 - Interview Preparation:
   - Overview: interview-prep/index.md
-  
-  # Engineering Leadership Interviews
   - Engineering Leadership:
     - Overview: interview-prep/engineering-leadership/index.md
     - Interview Framework: interview-prep/ENGINEERING_LEADERSHIP_INTERVIEW_FRAMEWORK.md
     - Framework Organization: interview-prep/engineering-leadership/FRAMEWORK_ORGANIZATION.md
     - 🧭 Navigation Guide: interview-prep/engineering-leadership/navigation-guide.md
     - Framework Overview: interview-prep/engineering-leadership/framework-index.md
-    
-    # Level I: First Principles
     - First Principles:
       - Overview: interview-prep/engineering-leadership/level-1-first-principles/index.md
       - Value Creation: interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md
@@ -663,8 +651,6 @@ nav:
       - Human Behavior: interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md
       - Systems Thinking: interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md
       - Integrity & Ethics: interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md
-    
-    # Level II: Core Business Concepts
     - Core Business Concepts:
       - Overview: interview-prep/engineering-leadership/level-2-core-business/index.md
       - Strategy: interview-prep/engineering-leadership/level-2-core-business/strategy/index.md
@@ -672,8 +658,6 @@ nav:
       - Operations: interview-prep/engineering-leadership/level-2-core-business/operations/index.md
       - Finance: interview-prep/engineering-leadership/level-2-core-business/finance/index.md
       - Risk & Governance: interview-prep/engineering-leadership/level-2-core-business/risk-governance/index.md
-    
-    # Level III: Applications
     - Engineering Applications:
       - Overview: interview-prep/engineering-leadership/level-3-applications/index.md
       - People Management:
@@ -699,8 +683,6 @@ nav:
       - Business Acumen:
         - Overview: interview-prep/engineering-leadership/level-3-applications/business-acumen/index.md
         - Business Metrics: interview-prep/engineering-leadership/level-3-applications/business-acumen/business-metrics.md
-    
-    # Level IV: Interview Execution
     - Interview Execution:
       - Overview: interview-prep/engineering-leadership/level-4-interview-execution/index.md
       - Behavioral Mastery: interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index.md
@@ -720,8 +702,6 @@ nav:
           - Decision Trees: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees.md
           - STAR Story Matcher: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/star-matcher.md
           - Question Bank: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank.md
-    
-    # Additional Resources
     - Company Specific:
       - Amazon Leadership Principles: interview-prep/engineering-leadership/company-specific/amazon/index.md
       - Google Engineering Excellence: interview-prep/engineering-leadership/company-specific/google/index.md
@@ -729,20 +709,16 @@ nav:
       - Apple Functional Excellence: interview-prep/engineering-leadership/company-specific/apple/index.md
       - Microsoft Growth Mindset: interview-prep/engineering-leadership/company-specific/microsoft/index.md
       - Netflix High Performance: interview-prep/engineering-leadership/company-specific/netflix/index.md
-    
     - Level Expectations:
       - Level Guide Across Companies: interview-prep/engineering-leadership/level-specific/level-expectations.md
-    
     - Hard-Earned Wisdom:
       - Overview: interview-prep/engineering-leadership/hard-earned-wisdom/index.md
-      - "Managing Up: The Dark Art": interview-prep/engineering-leadership/hard-earned-wisdom/managing-up-dark-art.md
+      - 'Managing Up: The Dark Art': interview-prep/engineering-leadership/hard-earned-wisdom/managing-up-dark-art.md
       - Performance Management Reality: interview-prep/engineering-leadership/hard-earned-wisdom/performance-management-reality.md
       - Crisis Leadership Reality: interview-prep/engineering-leadership/hard-earned-wisdom/crisis-leadership-reality.md
       - Organizational Politics Mastery: interview-prep/engineering-leadership/hard-earned-wisdom/organizational-politics-mastery.md
       - Impossible Decisions: interview-prep/engineering-leadership/hard-earned-wisdom/impossible-decisions.md
       - The Human Cost: interview-prep/engineering-leadership/hard-earned-wisdom/human-cost-leadership.md
-  
-  # IC Interviews (System Design + Behavioral)
   - IC Interviews:
     - Overview: interview-prep/ic-interviews/index.md
     - Behavioral Interviews:
@@ -751,7 +727,7 @@ nav:
       - Level-Specific Prep: interview-prep/ic-interviews/behavioral/by-level.md
     - System Design:
       - Frameworks: interview-prep/ic-interviews/frameworks/index.md
-      - Common Problems: 
+      - Common Problems:
         - Overview: interview-prep/ic-interviews/common-problems/index.md
         - Cloud Storage System: interview-prep/ic-interviews/common-problems/cloud-storage.md
         - IoT Platform: interview-prep/ic-interviews/common-problems/iot-platform.md
@@ -761,8 +737,6 @@ nav:
       - Cheatsheets:
         - Overview: interview-prep/ic-interviews/cheatsheets/index.md
         - System Design Checklist: interview-prep/ic-interviews/cheatsheets/system-design-checklist.md
-  
-  # Coding Interviews (Quick Reference)
   - Coding Interviews:
     - Overview: interview-prep/coding-interviews/index.md
     - Algorithm Patterns: interview-prep/coding-interviews/algorithm-patterns.md
@@ -792,3 +766,16 @@ nav:
   - Admonition Guide: reference/admonition-guide.md
   - Recipe Cards: reference/recipe-cards.md
   - Offline Support: reference/offline.md
+strict: false
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    absolute_links: warn
+    unrecognized_links: warn
+use_directory_urls: true
+docs_dir: docs
+site_dir: site

@@ -152,7 +152,7 @@ Partner with a colleague to practice these scenarios:
 
 ## 📚 Related Resources
 
-- [STAR Framework Guide](../level-4-interview-execution/tools/star-framework/) - Master the answer structure
-- [Story Portfolio Tool](../level-4-interview-execution/tools/story-portfolio/) - Organize your experiences
-- [Leadership Principles](../level-1-first-principles/) - Understand underlying concepts
-- [Mock Interview Guide](../level-4-interview-execution/tools/mock-interview-guide/) - Practice with partners
+- [STAR Framework Guide](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index/) - Master the answer structure
+- [Story Portfolio Tool](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index/) - Organize your experiences
+- [Leadership Principles](/interview-prep/engineering-leadership/level-1-first-principles/index/) - Understand underlying concepts
+- [Mock Interview Guide](/interview-prep/engineering-leadership/level-4-interview-execution/tools/mock-interview-guide/) - Practice with partners

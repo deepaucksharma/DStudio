@@ -471,10 +471,10 @@ graph LR
 
 ## Related Patterns
 
-- [Vector Clocks](coordination/logical-clocks.md) - Detect concurrent events
-- [Hybrid Logical Clocks](coordination/hlc.md) - Add wall-clock approximation
-- [Generation Clock](generation-clock.md) - Leadership epochs
-- [Event Sourcing](../data-management/event-sourcing.md) - Ordered event streams
+- [Vector Clocks](/pattern-library/coordination/logical-clocks/) - Detect concurrent events
+- [Hybrid Logical Clocks](/pattern-library/coordination/hlc/) - Add wall-clock approximation
+- [Generation Clock](/pattern-library/coordination/generation-clock/) - Leadership epochs
+- [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Ordered event streams
 
 ## References
 

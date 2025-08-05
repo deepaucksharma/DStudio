@@ -313,9 +313,9 @@ graph LR
     
     ---
     
-    - [Event Sourcing](../data-management/event-sourcing.md) - Audit trail for choreography
+    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Audit trail for choreography
     - [Saga Pattern](../coordination/saga.md) - Orchestrated alternative
-    - [CQRS](../data-management/cqrs.md) - Event-driven read/write separation
+    - [CQRS](/pattern-library/data-management/cqrs/) - Event-driven read/write separation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

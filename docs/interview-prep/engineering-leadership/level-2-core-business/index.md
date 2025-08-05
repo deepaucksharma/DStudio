@@ -8,35 +8,35 @@ Core Business Concepts are the essential disciplines taught in elite MBA program
 
 ## The Five Essential Disciplines
 
-<div class=\"disciplines-grid\">\n\n### 1. [Strategy](strategy/)
+<div class=\"disciplines-grid\">\n\n### 1. [Strategy](/technical-strategy)
 **Creating and Capturing Sustainable Value**
 
 Strategy is the art of making integrated choices about where to play and how to win. For engineering leaders, this means building technical capabilities that create lasting competitive advantage.
 
 **Key Frameworks**: Porter's Five Forces, Blue Ocean, Disruption Theory, Platform Strategy
 
-### 2. [Leadership](leadership/)  
+### 2. [Leadership](/human-cost-leadership)  
 **Mobilizing Humans Toward Shared Goals**
 
 Leadership transforms individual capability into collective achievement. It's about vision, influence, and creating environments where talented people do their best work.
 
 **Key Frameworks**: Situational Leadership, Servant Leadership, Kotter's Change Model, Multipliers
 
-### 3. [Operations](operations/)
+### 3. [Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index)
 **Building the Engine of Execution**
 
 Operations is the science of delivering value efficiently and reliably. For engineering, this encompasses everything from system architecture to deployment pipelines to incident response.
 
 **Key Frameworks**: Lean, Theory of Constraints, Six Sigma, DevOps, SRE Principles
 
-### 4. [Finance](finance/)
+### 4. [Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index)
 **Understanding and Creating Economic Value**
 
 Finance provides the language of business and tools for investment decisions. Engineering leaders must speak this language to secure resources and demonstrate impact.
 
 **Key Frameworks**: NPV/ROI, Unit Economics, Cost of Capital, Real Options, Budget Management
 
-### 5. [Risk & Governance](risk-governance/)
+### 5. [Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index)
 **Managing Uncertainty and Ensuring Accountability**
 
 Risk management and governance create the guardrails for sustainable growth. This includes technical risk, security, compliance, and organizational controls.
@@ -229,23 +229,23 @@ Remember: You don't need an MBA, but you do need MBA-level thinking. These conce
 
 Each business concept operationalizes multiple first principles:
 
-- **[Strategy](strategy/)** applies **[Value Creation](../level-1-first-principles/value-creation/)** and **[Systems Thinking](../level-1-first-principles/systems-thinking/)**
-- **[Leadership](leadership/)** centers on **[Human Behavior](../level-1-first-principles/human-behavior/)** and **[Integrity](../level-1-first-principles/integrity-ethics/)**
-- **[Operations](operations/)** delivers **[Value Creation](../level-1-first-principles/value-creation/)** through **[Systems Thinking](../level-1-first-principles/systems-thinking/)**
-- **[Finance](finance/)** quantifies **[Value Creation](../level-1-first-principles/value-creation/)** and guides **[Decision-Making](../level-1-first-principles/decision-making/)**
-- **[Risk & Governance](risk-governance/)** protects through **[Systems Thinking](../level-1-first-principles/systems-thinking/)** and **[Integrity](../level-1-first-principles/integrity-ethics/)**
+- **[Strategy](/technical-strategy)** applies **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)** and **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**
+- **[Leadership](/human-cost-leadership)** centers on **[Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index/)** and **[Integrity](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**
+- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index)** delivers **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)** through **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**
+- **[Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index)** quantifies **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)** and guides **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index/)**
+- **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index)** protects through **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)** and **[Integrity](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**
 
 ## Next Steps
 
 ### For Engineering Managers
-1. Start with **[Finance](finance/)** - Learn to speak the language of business
-2. Add **[Strategy](strategy/)** - Think beyond your immediate team
-3. Deepen **[Leadership](leadership/)** - Scale your impact through others
+1. Start with **[Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index)** - Learn to speak the language of business
+2. Add **[Strategy](/technical-strategy)** - Think beyond your immediate team
+3. Deepen **[Leadership](/human-cost-leadership)** - Scale your impact through others
 
 ### For Senior Managers & Directors
-1. Master **[Strategy](strategy/)** - Shape technical direction
-2. Excel at **[Operations](operations/)** - Build scalable systems
-3. Understand **[Risk & Governance](risk-governance/)** - Protect value creation
+1. Master **[Strategy](/technical-strategy)** - Shape technical direction
+2. Excel at **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index)** - Build scalable systems
+3. Understand **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index)** - Protect value creation
 
 ### Interview Preparation
 1. **Week 1-2**: Study each concept deeply
@@ -254,4 +254,4 @@ Each business concept operationalizes multiple first principles:
 
 ---
 
-*Ready to dive deeper? Choose a discipline to explore, or continue to [Level III: Engineering Leadership Applications](../level-3-applications/) to see these concepts in action. For foundational understanding, revisit [Level I: First Principles](../level-1-first-principles/).*
+*Ready to dive deeper? Choose a discipline to explore, or continue to [Level III: Engineering Leadership Applications](/interview-prep/engineering-leadership/level-3-applications/index/) to see these concepts in action. For foundational understanding, revisit [Level I: First Principles](/interview-prep/engineering-leadership/level-1-first-principles/index/).*

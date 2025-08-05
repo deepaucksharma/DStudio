@@ -290,4 +290,4 @@ For each target company:
 
 ---
 
-**Next Steps**: Practice integrating principle hooks with your [Story Portfolio](../story-portfolio/), then test authenticity with mock interviews.
+**Next Steps**: Practice integrating principle hooks with your [Story Portfolio](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index/), then test authenticity with mock interviews.

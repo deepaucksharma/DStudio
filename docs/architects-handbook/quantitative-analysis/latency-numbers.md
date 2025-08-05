@@ -492,7 +492,7 @@ Every operation proves [Law 1](../core-principles/laws/correlated-failure.md) - 
  ⚠️ <strong>Key Insight</strong>: Latency grows exponentially as utilization approaches 100%. Keep systems under 80% utilization for predictable performance!
 </div>
 
-See [Queueing Theory](queueing-models.md): utilization → 100% = latency → ∞
+See [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-models/): utilization → 100% = latency → ∞
 
 ### Law 1: Failure
 Timeouts, cascading failures, retry storms from high latency.
@@ -623,7 +623,7 @@ Total Budget: 200ms (Fast Experience)
 └── Buffer: 23ms [███████░░░] 11.5%
 ```
 
-This budget allocation relates to [Little's Law](littles-law.md) - as latency (W) increases, the number of concurrent requests (L) increases proportionally.
+This budget allocation relates to [Little's Law](/architects-handbook/quantitative-analysis/littles-law/) - as latency (W) increases, the number of concurrent requests (L) increases proportionally.
 
 ## Key Takeaways
 
@@ -639,6 +639,6 @@ You can't beat physics, but you can work with it.
 
 ## Related Concepts
 
-- **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Availability Math](availability-math.md)
+- **Quantitative**: [Little's Law](/architects-handbook/quantitative-analysis/littles-law/) | [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-models/) | [Availability Math](/architects-handbook/quantitative-analysis/availability-math/)
 - **Patterns**: [Caching Strategies](../pattern-library/scaling/caching-strategies.md) | [Edge Computing](../pattern-library/scaling/edge-computing.md)
 ---

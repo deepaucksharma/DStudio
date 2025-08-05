@@ -269,7 +269,7 @@ class AdaptiveLoadShedder:
     
     ---
     
-    - [Rate Limiting](../scaling/rate-limiting.md) - Prevent overload
+    - [Rate Limiting](/pattern-library/scaling/rate-limiting/) - Prevent overload
     - [Circuit Breaker](./circuit-breaker.md) - Fail fast
     - [Backpressure](../communication/backpressure.md) - Flow control
 

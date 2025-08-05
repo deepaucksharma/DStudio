@@ -134,10 +134,10 @@ graph TB
 - Pagecache usage
 
 **Patterns & Pillars Applied**:
-- Pattern: [Leader-Follower Replication](../pattern-library/leader-follower)
-- Pattern: [Partitioning](../pattern-library/sharding) - Topic partitions
-- 🏛 Pillar: [State Distribution](../../../core-principles/pillars/state-distribution.md) - Distributed logs
-- 🏛 Pillar: [Truth Distribution](../../../core-principles/pillars/truth-distribution.md) - Ordered delivery
+- Pattern: [Leader-Follower Replication](../patterns/leader-follower)
+- Pattern: [Partitioning](../patterns/sharding) - Topic partitions
+- 🏛 Pillar: [State Distribution](/core-principles/pillars/state-distribution/) - Distributed logs
+- 🏛 Pillar: [Truth Distribution](/core-principles/pillars/truth-distribution/) - Ordered delivery
 
 ### Phase 4: Modern Streaming Platform (2014-Present)
 
@@ -1295,19 +1295,19 @@ graph LR
 ## 🔗 Related Concepts & Deep Dives
 
 ### Laws Applied
-- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - Network RTT dominates replication latency
-- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Partitioning for horizontal scaling
-- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Replication for fault tolerance
-- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Producer and consumer parallelism
-- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Consumer group coordination and monitoring
-- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Simple producer/consumer API
-- **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Cost-effective storage with compression
+- **[Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)** - Network RTT dominates replication latency
+- **[Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/)** - Partitioning for horizontal scaling
+- **[Law 1: Failure](/core-principles/laws/correlated-failure/)** - Replication for fault tolerance
+- **[Law 3: Emergence](/core-principles/laws/emergent-chaos/)** - Producer and consumer parallelism
+- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - Consumer group coordination and monitoring
+- **[Law 6: Human-API](/core-principles/laws/cognitive-load/)** - Simple producer/consumer API
+- **[Law 7: Economics](/core-principles/laws/economic-reality/)** - Cost-effective storage with compression
 
 ### Related Patterns
-- 📨 **[Event-Driven Architecture](../pattern-library/event-driven)** - Kafka as event backbone
-- **[Event Sourcing](../pattern-library/event-sourcing)** - Log as source of truth
-- **[Saga Pattern](../pattern-library/saga)** - Distributed transactions over messaging
-- **[CQRS](../pattern-library/cqrs)** - Separate read/write paths with Kafka
+- 📨 **[Event-Driven Architecture](../patterns/event-driven)** - Kafka as event backbone
+- **[Event Sourcing](../patterns/event-sourcing)** - Log as source of truth
+- **[Saga Pattern](../patterns/saga)** - Distributed transactions over messaging
+- **[CQRS](../patterns/cqrs)** - Separate read/write paths with Kafka
 
 ### Quantitative Models
 - **[Little's Law](../quantitative/littles-law)** - Queue depth and latency relationship
@@ -1315,7 +1315,7 @@ graph LR
 - **[Universal Scalability Law](../quantitative/universal-scalability)** - Coordination overhead in consumer groups
 
 ### Similar Case Studies
-- **[Event Sourcing System](../pattern-library/event-sourcing)** - Using Kafka for event store
+- **[Event Sourcing System](../patterns/event-sourcing)** - Using Kafka for event store
 - **Real-time Analytics (Coming Soon)** - Stream processing with Kafka Streams
 - **Multi-Region Replication (Coming Soon)** - Cross-DC messaging
 

@@ -9,7 +9,7 @@ These case studies examine how the world's top technology companies solved compl
 
 ## Featured Case Studies
 
-### 🎯 [Netflix: Pioneering Chaos Engineering](netflix-chaos-engineering.md)
+### 🎯 [Netflix: Pioneering Chaos Engineering](/architects-handbook/case-studies/elite-engineering/netflix-chaos-engineering/)
 **Scale**: 260M+ subscribers, 15% of global internet bandwidth
 
 How Netflix built systems that embrace failure as a feature, pioneering chaos engineering practices that revolutionized the industry's approach to resilience.
@@ -48,7 +48,7 @@ How Discord built real-time voice chat that scales to millions while maintaining
 
 ---
 
-### 🎨 [Figma: CRDTs for Real-Time Collaboration](figma-crdt-collaboration.md)
+### 🎨 [Figma: CRDTs for Real-Time Collaboration](/architects-handbook/case-studies/elite-engineering/figma-crdt-collaboration/)
 **Scale**: 100+ concurrent editors, 60 FPS performance
 
 How Figma uses Conflict-free Replicated Data Types to enable real-time collaborative design with pixel-perfect accuracy and instant updates.

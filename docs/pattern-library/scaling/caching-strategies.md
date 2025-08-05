@@ -261,7 +261,7 @@ graph LR
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
 | [CQRS](../architecture/cqrs.md) | Separate read/write caching | Cache query models separately |
-| [Event Sourcing](../data-management/event-sourcing.md) | Event-driven invalidation | Cache computed projections |
+| [Event Sourcing](/pattern-library/data-management/event-sourcing/) | Event-driven invalidation | Cache computed projections |
 | [CDN](../infrastructure/cdn.md) | Geographic caching | Global content distribution |
 
 ## Quick Reference
@@ -307,7 +307,7 @@ graph LR
     ---
     
     - [CDN](../infrastructure/cdn.md) - Geographic edge caching
-    - [Sharding](scaling/sharding.md) - Cache per shard strategy
+    - [Sharding](/pattern-library/scaling/sharding/) - Cache per shard strategy
     - [CQRS](../architecture/cqrs.md) - Separate read model caching
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**

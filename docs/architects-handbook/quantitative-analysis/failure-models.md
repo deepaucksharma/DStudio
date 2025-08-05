@@ -436,5 +436,5 @@ budgets = {
 
 - **Laws**: [Law 1: Correlated Failure](../core-principles/laws/correlated-failure.md) | [Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos.md)
 - **Patterns**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) | [Bulkhead](../pattern-library/resilience/bulkhead.md) | [Timeout](../pattern-library/resilience/timeout.md)
-- **Quantitative**: [Availability Math](availability-math.md) | [Reliability Theory](reliability-theory.md)
+- **Quantitative**: [Availability Math](/architects-handbook/quantitative-analysis/availability-math/) | [Reliability Theory](/architects-handbook/quantitative-analysis/reliability-theory/)
 - **Case Studies**: [Netflix Chaos](../case-studies/netflix-chaos.md) | [AWS Outages](../case-studies/aws-outages.md)

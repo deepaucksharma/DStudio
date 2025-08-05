@@ -854,7 +854,7 @@ graph TB
 ```
 
 **Key Design Decision: Tile Pyramid System**
-- **Trade-off**: Storage vs Computation (Pillar: [State Distribution](../../../core-principles/pillars/state-distribution.md))
+- **Trade-off**: Storage vs Computation (Pillar: [State Distribution](/core-principles/pillars/state-distribution/))
 - **Choice**: Pre-render popular zoom levels
 - **Result**: 100x faster map loads
 - **Pattern Applied**: Tile Pyramid
@@ -908,8 +908,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: Vector Tiles - Resolution independence
 - Pattern: Client Rendering - GPU acceleration
-- 🏛 Pillar: [Work Distribution](../../../core-principles/pillars/work-distribution.md) - Client computation
-- 🏛 Pillar: [Intelligence](../../../core-principles/pillars/intelligence-distribution.md) - ML map generation
+- 🏛 Pillar: [Work Distribution](/core-principles/pillars/work-distribution/) - Client computation
+- 🏛 Pillar: [Intelligence](/core-principles/pillars/intelligence-distribution/) - ML map generation
 
 ### Phase 4: Modern Real-time Platform (2015-Present)
 
@@ -1827,21 +1827,21 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md)** - Tile serving, routing speed
-- **[Law 4: Trade-offs](../../../core-principles/laws/multidimensional-optimization.md)** - Petabyte-scale storage
-- **[Law 1: Failure](../../../core-principles/laws/correlated-failure.md)** - Multi-region redundancy
-- **[Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md)** - Parallel tile generation
-- **[Law 5: Epistemology](../../../core-principles/laws/distributed-knowledge.md)** - Global data consistency and traffic accuracy metrics
-- **[Law 6: Human-API](../../../core-principles/laws/cognitive-load.md)** - Intuitive navigation
-- **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)** - Tile serving, routing speed
+- **[Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/)** - Petabyte-scale storage
+- **[Law 1: Failure](/core-principles/laws/correlated-failure/)** - Multi-region redundancy
+- **[Law 3: Emergence](/core-principles/laws/emergent-chaos/)** - Parallel tile generation
+- **[Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)** - Global data consistency and traffic accuracy metrics
+- **[Law 6: Human-API](/core-principles/laws/cognitive-load/)** - Intuitive navigation
+- **[Law 7: Economics](/core-principles/laws/economic-reality/)** - Infrastructure costs
 
 ### 🏛 Related Patterns
 - **Tile Pyramid** - Multi-zoom tiles
 - **Vector Tiles** - Efficient map data
 - **Spatial Indexing** - R-tree, QuadTree
 - **Graph Algorithms** - Routing algorithms
-- **[Stream Processing](../pattern-library/queues-streaming)** - Traffic updates
-- **[Edge Computing](../pattern-library/edge-computing)** - Global CDN
+- **[Stream Processing](../patterns/queues-streaming)** - Traffic updates
+- **[Edge Computing](../patterns/edge-computing)** - Global CDN
 - **ML Pipeline** - Map generation
 
 ### Quantitative Models
@@ -1851,10 +1851,10 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 - **[Computer Vision](../quantitative/computer-vision)** - Image processing
 
 ### Similar Case Studies
-- **[Uber Maps](uber-maps.md)** - Ride-hailing focused maps
-- **[Apple Maps](apple-maps.md)** - Privacy-focused mapping
-- **[OpenStreetMap](openstreetmap.md)** - Crowdsourced maps
-- **[HERE Maps](here-maps.md)** - Automotive mapping
+- **[Uber Maps](/architects-handbook/case-studies/location-services/uber-maps/)** - Ride-hailing focused maps
+- **[Apple Maps](/architects-handbook/case-studies/location-services/apple-maps/)** - Privacy-focused mapping
+- **[OpenStreetMap](/architects-handbook/case-studies/location-services/openstreetmap/)** - Crowdsourced maps
+- **[HERE Maps](/architects-handbook/case-studies/location-services/here-maps/)** - Automotive mapping
 
 ---
 

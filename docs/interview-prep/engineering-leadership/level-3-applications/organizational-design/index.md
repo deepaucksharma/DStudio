@@ -20,7 +20,7 @@ Organizational design encompasses the structures, processes, and systems that en
 - **Cognitive Load Management**: Optimize team responsibilities for human limitations
 - **Team Autonomy**: Balance independence with coordination
 
-[Team Topologies Guide →](team-topologies.md)
+[Team Topologies Guide →](/architects-handbook/human-factors/team-topologies/)
 
 ### 3. Cognitive Load Optimization
 - **Load Assessment**: Measure and monitor team cognitive burden
@@ -493,6 +493,6 @@ graph LR
 
 ## Next Steps
 
-- Complete [Self-Assessment](../../level-4-interview-execution/tools/interactive/self-assessment.md)
-- Study [Team Topologies](team-topologies.md)
-- Practice [Reorg Scenarios](../../practice-scenarios/reorg-scenario.md)
+- Complete [Self-Assessment](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/)
+- Study [Team Topologies](/architects-handbook/human-factors/team-topologies/)
+- Practice [Reorg Scenarios](/interview-prep/engineering-leadership/practice-scenarios/reorg-scenario/)

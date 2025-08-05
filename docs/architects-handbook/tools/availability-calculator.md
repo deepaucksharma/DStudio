@@ -202,9 +202,9 @@ A_total = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
 
 - [Availability Math Deep Dive](quantitative/availability-math)
 - [MTBF and MTTR Explained](quantitative/mtbf-mttr)
-- [Failover Pattern](../pattern-library/failover)
+- [Failover Pattern](../patterns/failover)
 - Multi-Region Architecture (Coming Soon)
-- [Chaos Engineering](human-factors/chaos-engineering)
+- [Chaos Engineering](/architects-handbook/human-factors/chaos-engineering)
 
 <script>
 // Enhanced availability calculator with validation and visualizations

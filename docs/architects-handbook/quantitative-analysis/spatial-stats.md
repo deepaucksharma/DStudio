@@ -25,9 +25,9 @@ Spatial statistics provides mathematical frameworks for analyzing geographic dat
 - Geographic load balancing
 
 ## Related Models
-- [Graph Models](graph-models.md)
-- [Network Theory](network-theory.md)
-- [Stochastic Processes](stochastic-processes.md)
+- [Graph Models](/architects-handbook/quantitative-analysis/graph-models/)
+- [Network Theory](/architects-handbook/quantitative-analysis/network-theory/)
+- [Stochastic Processes](/architects-handbook/quantitative-analysis/stochastic-processes/)
 
 ## References
 - "Spatial Data Analysis: Theory and Practice" - Haining (2003)

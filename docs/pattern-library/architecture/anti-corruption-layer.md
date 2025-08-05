@@ -498,5 +498,5 @@ graph TD
 
 ---
 
-**Previous**: [← Sidecar](architecture/sidecar.md) | **Next**: GraphQL Federation → (Coming Soon)
+**Previous**: [← Sidecar](/pattern-library/architecture/sidecar/) | **Next**: GraphQL Federation → (Coming Soon)
 

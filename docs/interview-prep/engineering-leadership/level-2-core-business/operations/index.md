@@ -444,4 +444,4 @@ Learning: Operational insights
 
 ---
 
-*Next: Explore how [Finance](../finance/) provides the language and tools to quantify operational value.*
+*Next: Explore how [Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index/) provides the language and tools to quantify operational value.*

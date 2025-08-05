@@ -439,10 +439,10 @@ comfort or growth."
 
 ## Connection to Other Principles
 
-- **[Value Creation](../value-creation/)**: Motivated humans create exponentially more value - align purpose with profit
-- **[Decision-Making](../decision-making/)**: Emotions drive decisions, not just logic - account for human factors in every choice
-- **[Systems Thinking](../systems-thinking/)**: Humans are part of the system - Conway's Law shows how org structure shapes architecture
-- **[Integrity & Ethics](../integrity-ethics/)**: Trust is the foundation of human cooperation - psychological safety requires ethical leadership
+- **[Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index/)**: Motivated humans create exponentially more value - align purpose with profit
+- **[Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index/)**: Emotions drive decisions, not just logic - account for human factors in every choice
+- **[Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/)**: Humans are part of the system - Conway's Law shows how org structure shapes architecture
+- **[Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index/)**: Trust is the foundation of human cooperation - psychological safety requires ethical leadership
 
 ## Human Behavior Interview Toolkit
 
@@ -511,18 +511,18 @@ For each story, be ready to explain:
 ## Application in Other Levels
 
 ### Level II: Core Business Concepts
-- **[Leadership](../../level-2-core-business/leadership/)**: Leading humans requires understanding behavior
-- **[Operations](../../level-2-core-business/operations/)**: Human factors in operational excellence
-- **[Risk & Governance](../../level-2-core-business/risk-governance/)**: Managing human risks and compliance
+- **[Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/)**: Leading humans requires understanding behavior
+- **[Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index/)**: Human factors in operational excellence
+- **[Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index/)**: Managing human risks and compliance
 
 ### Level III: Engineering Applications
-- **[People Management](../../level-3-applications/people-management/)**: Direct application of human behavior principles
-- **[Organizational Design](../../level-3-applications/organizational-design/)**: Structures that enhance human performance
-- **[Technical Leadership](../../level-3-applications/technical-leadership/)**: Leading technical humans effectively
+- **[People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index/)**: Direct application of human behavior principles
+- **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index/)**: Structures that enhance human performance
+- **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index/)**: Leading technical humans effectively
 
 ### Level IV: Interview Execution
-- **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Demonstrating people leadership
-- **[Culture Fit](../../level-4-interview-execution/culture-values/)**: Showing cultural awareness
+- **[Behavioral Stories](/interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index/)**: Demonstrating people leadership
+- **[Culture Fit](/interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index/)**: Showing cultural awareness
 
 ## Next Steps
 
@@ -533,4 +533,4 @@ For each story, be ready to explain:
 
 ---
 
-*Continue your journey: Discover how [Systems Thinking](../systems-thinking/) reveals the hidden connections between human behavior and organizational outcomes, or explore [Leadership](../../level-2-core-business/leadership/) for frameworks to mobilize human potential.*
+*Continue your journey: Discover how [Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index/) reveals the hidden connections between human behavior and organizational outcomes, or explore [Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index/) for frameworks to mobilize human potential.*

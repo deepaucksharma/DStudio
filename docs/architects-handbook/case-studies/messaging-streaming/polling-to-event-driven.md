@@ -492,7 +492,7 @@ total_event_cost = event_delivery_cost + streaming_infrastructure + reduced_serv
 ## Related Resources
 
 - [Event-Driven Architecture Pattern](../pattern-library/architecture/event-driven.md)
-- [Webhook Pattern](../pattern-library/webhook.md)
+- [Webhook Pattern](../patterns/webhook.md)
 - [Migration Best Practices](../excellence/migration-guide.md)
 - [Anti-Patterns Guide](../reference/anti-patterns.md)
 

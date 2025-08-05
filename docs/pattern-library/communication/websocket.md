@@ -136,7 +136,7 @@ class ResilientWebSocket {
 
 ---
 
-**Previous**: [Service Discovery Pattern](communication/service-discovery.md) | **Next**: [Communication Patterns Index](index.md)
+**Previous**: [Service Discovery Pattern](/pattern-library/communication/service-discovery/) | **Next**: [Communication Patterns Index](/index/)
 
 ## Decision Matrix
 

@@ -295,7 +295,7 @@ class PhiAccrualDetector:
     
     - [Health Check](./health-check.md) - Application-level health
     - [Circuit Breaker](./circuit-breaker.md) - Failure handling
-    - [Leader Election](../coordination/leader-election.md) - Uses heartbeats
+    - [Leader Election](/pattern-library/coordination/leader-election/) - Uses heartbeats
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

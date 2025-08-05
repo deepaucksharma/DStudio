@@ -204,5 +204,5 @@ graph TD
 
 ---
 
-**Previous**: [← Saga (Distributed Transactions)](data-management/saga.md) | **Next**: [Service Discovery Pattern →](communication/service-discovery.md)
+**Previous**: [← Saga (Distributed Transactions)](/pattern-library/data-management/saga/) | **Next**: [Service Discovery Pattern →](/pattern-library/communication/service-discovery/)
 

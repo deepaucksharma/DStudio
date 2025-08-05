@@ -69,7 +69,7 @@ graph TD
 
 <div class="grid cards" markdown>
 
-- :material-puzzle:{ .lg } **[Common Problems](ic-interviews/common-problems/)** (50+ scenarios)
+- :material-puzzle:{ .lg } **[Common Problems](/interview-prep/ic-interviews/common-problems/index)** (50+ scenarios)
     
     ---
     
@@ -77,11 +77,11 @@ graph TD
     
     | Problem | Complexity | Key Challenges |
     |---------|------------|----------------|
-    | [Cloud Storage](ic-interviews/common-problems/cloud-storage/) | 🟢 Beginner | Object storage, metadata, global scale |
-    | [Collaborative Editor](ic-interviews/common-problems/collaborative-editor/) | 🟡 Intermediate | Real-time sync, conflict resolution |
-    | [ML Serving Platform](ic-interviews/common-problems/ml-serving/) | 🔴 Advanced | Model inference, scaling, monitoring |
+    | [Cloud Storage](/interview-prep/ic-interviews/common-problems/cloud-storage) | 🟢 Beginner | Object storage, metadata, global scale |
+    | [Collaborative Editor](/interview-prep/ic-interviews/common-problems/collaborative-editor) | 🟡 Intermediate | Real-time sync, conflict resolution |
+    | [ML Serving Platform](/interview-prep/ic-interviews/common-problems/ml-serving) | 🔴 Advanced | Model inference, scaling, monitoring |
 
-- :material-compass-outline:{ .lg } **[Design Frameworks](ic-interviews/frameworks/)**
+- :material-compass-outline:{ .lg } **[Design Frameworks](/interview-prep/ic-interviews/frameworks/index)**
     
     ---
     
@@ -89,7 +89,7 @@ graph TD
     
     **Methods**: RADIO, 4S, Problem-First Design, Trade-off Analysis
 
-- :material-card-text:{ .lg } **[Cheatsheets](ic-interviews/cheatsheets/)**
+- :material-card-text:{ .lg } **[Cheatsheets](/interview-prep/ic-interviews/cheatsheets/index)**
     
     ---
     
@@ -97,7 +97,7 @@ graph TD
     
     **Includes**: Numbers to know, patterns reference, decision trees
 
-- :material-code-tags:{ .lg } **[Coding Interviews](coding-interviews/)** (Quick Reference)
+- :material-code-tags:{ .lg } **[Coding Interviews](/interview-prep/coding-interviews/index)** (Quick Reference)
     
     ---
     
@@ -160,23 +160,23 @@ Practice problems organized by time commitment and complexity level.
 ### 30-Minute Designs (Beginner-Friendly)
 | Problem | Key Challenge | Patterns Used |
 |---------|---------------|---------------|
-| **[Cloud Storage](ic-interviews/common-problems/cloud-storage/)** | Object storage, metadata management | Consistent Hashing, Sharding |
-| **[IoT Platform](ic-interviews/common-problems/iot-platform/)** | Device management, data ingestion | Event Streaming, Time Series |
-| **[CI/CD Pipeline](ic-interviews/common-problems/cicd-pipeline/)** | Build automation, deployment | Queue Management, Auto-scaling |
+| **[Cloud Storage](/interview-prep/ic-interviews/common-problems/cloud-storage)** | Object storage, metadata management | Consistent Hashing, Sharding |
+| **[IoT Platform](/interview-prep/ic-interviews/common-problems/iot-platform)** | Device management, data ingestion | Event Streaming, Time Series |
+| **[CI/CD Pipeline](/interview-prep/ic-interviews/common-problems/cicd-pipeline)** | Build automation, deployment | Queue Management, Auto-scaling |
 
 ### 45-Minute Designs (Intermediate)
 | Problem | Key Challenge | Patterns Used |
 |---------|---------------|---------------|
-| **[Collaborative Editor](ic-interviews/common-problems/collaborative-editor/)** | Real-time sync, conflict resolution | Operational Transform, WebSocket |
-| **[ML Serving Platform](ic-interviews/common-problems/ml-serving/)** | Model inference, A/B testing | Load Balancing, Caching, Auto-scaling |
-| **[IoT Platform](ic-interviews/common-problems/iot-platform/)** | Device connectivity, data processing | Message Queues, Stream Processing |
+| **[Collaborative Editor](/interview-prep/ic-interviews/common-problems/collaborative-editor)** | Real-time sync, conflict resolution | Operational Transform, WebSocket |
+| **[ML Serving Platform](/interview-prep/ic-interviews/common-problems/ml-serving)** | Model inference, A/B testing | Load Balancing, Caching, Auto-scaling |
+| **[IoT Platform](/interview-prep/ic-interviews/common-problems/iot-platform)** | Device connectivity, data processing | Message Queues, Stream Processing |
 
 ### 60-Minute Designs (Advanced)
 | Problem | Key Challenge | Patterns Used |
 |---------|---------------|---------------|
-| **[CI/CD Pipeline](ic-interviews/common-problems/cicd-pipeline/)** | Build orchestration, deployment strategies | Workflow Management, Container Orchestration |
-| **[Cloud Storage](ic-interviews/common-problems/cloud-storage/)** | Global distribution, consistency | Sharding, Replication, Eventual Consistency |
-| **[ML Serving Platform](ic-interviews/common-problems/ml-serving/)** | Model versioning, performance optimization | Circuit Breaker, Feature Store, A/B Testing |
+| **[CI/CD Pipeline](/interview-prep/ic-interviews/common-problems/cicd-pipeline)** | Build orchestration, deployment strategies | Workflow Management, Container Orchestration |
+| **[Cloud Storage](/interview-prep/ic-interviews/common-problems/cloud-storage)** | Global distribution, consistency | Sharding, Replication, Eventual Consistency |
+| **[ML Serving Platform](/interview-prep/ic-interviews/common-problems/ml-serving)** | Model versioning, performance optimization | Circuit Breaker, Feature Store, A/B Testing |
 
 ## 💡 Interview Tips
 
@@ -243,19 +243,19 @@ timeline
 ## 📈 Preparation Timeline
 
 ### 1 Week Before
-- **📚 Study**: Review [Core Principles](../core-principles/) and key [Pattern Library](../interview-prep/ic-interviews/common-problems/) daily, focusing on different complexities
-- **🎯 Research**: Study company-specific systems using our [Case Studies](../architects-handbook/case-studies/)
+- **📚 Study**: Review [Core Principles](/core-principles/index/) and key [Pattern Library](/interview-prep/ic-interviews/common-problems/index/) daily, focusing on different complexities
+- **🎯 Research**: Study company-specific systems using our [Case Studies](/architects-handbook/case-studies/index/)
 
 ### 3 Days Before  
-- **🎭 Mock Interviews**: Practice with peers using [Design Frameworks](ic-interviews/frameworks/)
-- **📋 Review**: Study [Cheatsheets](ic-interviews/cheatsheets/) and [System Design Checklist](ic-interviews/cheatsheets/system-design-checklist/)
+- **🎭 Mock Interviews**: Practice with peers using [Design Frameworks](/interview-prep/ic-interviews/frameworks/index)
+- **📋 Review**: Study [Cheatsheets](/interview-prep/ic-interviews/cheatsheets/index) and [System Design Checklist](/interview-prep/ic-interviews/cheatsheets/system-design-checklist)
 - **😌 Rest**: Get adequate sleep and reduce study intensity
 
 ### Day Of Interview
-- **🧠 Quick Review**: Scan [Design Frameworks](ic-interviews/frameworks/) and [Numbers to Know](ic-interviews/cheatsheets/)
+- **🧠 Quick Review**: Scan [Design Frameworks](/interview-prep/ic-interviews/frameworks/index) and [Numbers to Know](/interview-prep/ic-interviews/cheatsheets/index)
 - **🧘 Stay Calm**: Trust your preparation and physics-based mental models
 - **💬 Think Aloud**: Verbalize your thought process throughout the interview
 
 ---
 
-*Start with [Common Problems](ic-interviews/common-problems/) to practice with real interview questions, or jump to [Frameworks](ic-interviews/frameworks/) to learn systematic approaches.*
+*Start with [Common Problems](/interview-prep/ic-interviews/common-problems/index) to practice with real interview questions, or jump to [Frameworks](/interview-prep/ic-interviews/frameworks/index) to learn systematic approaches.*

@@ -581,9 +581,9 @@ spark.conf.set("spark.task.resource.gpu.amount", "0.25")
 
 ## Related Topics
 
-- [MapReduce](mapreduce.md) - Predecessor comparison
-- [Distributed Computing](../pattern-library/distributed-computing) - Core concepts
-- [Stream Processing](../pattern-library/stream-processing) - Streaming patterns
+- [MapReduce](/architects-handbook/case-studies/messaging-streaming/mapreduce/) - Predecessor comparison
+- [Distributed Computing](../patterns/distributed-computing) - Core concepts
+- [Stream Processing](../patterns/stream-processing) - Streaming patterns
 - [Apache Flink](flink) - Alternative engine
 - [Databricks](databricks.md) - Commercial Spark platform
 

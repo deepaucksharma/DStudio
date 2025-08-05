@@ -397,13 +397,13 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [Eventual Consistency](../pattern-library/data-management/eventual-consistency.md) - AP system design patterns
 - [Quorum Consensus](../pattern-library/coordination/consensus.md) - Tunable consistency implementations
 - [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Tracking causality in AP systems
-- [Conflict Resolution](../pattern-library/conflict-resolution.md) - Handling divergence in AP systems
+- [Conflict Resolution](../patterns/conflict-resolution.md) - Handling divergence in AP systems
 
 ### Quantitative Analysis
-- [Consistency Models](consistency-models.md) - Deep dive into consistency levels
+- [Consistency Models](/architects-handbook/quantitative-analysis/consistency-models/) - Deep dive into consistency levels
 - [PACELC Analysis](pacelc-analysis.md) - Extended CAP theorem implications
-- [Network Theory](network-theory.md) - Understanding partition probabilities
-- [Availability Math](availability-math.md) - Calculating system availability
+- [Network Theory](/architects-handbook/quantitative-analysis/network-theory/) - Understanding partition probabilities
+- [Availability Math](/architects-handbook/quantitative-analysis/availability-math/) - Calculating system availability
 - [Latency Models](latency-models.md) - Consistency vs latency trade-offs
 
 ### Case Studies
@@ -414,7 +414,7 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [CockroachDB](../case-studies/cockroachdb.md) - Modern CP distributed SQL
 
 ### Further Reading
-- [Distributed Database Design](../pattern-library/distributed-database.md) - Applying CAP to database systems
+- [Distributed Database Design](../patterns/distributed-database.md) - Applying CAP to database systems
 - [Multi-Region Architecture](../pattern-library/multi-region.md) - CAP across geographic regions
-- [Microservices Consistency](../pattern-library/microservices-consistency.md) - CAP in service architectures
-- [Blockchain Consensus](../pattern-library/blockchain-consensus.md) - CAP theorem in blockchain systems
+- [Microservices Consistency](../patterns/microservices-consistency.md) - CAP in service architectures
+- [Blockchain Consensus](../patterns/blockchain-consensus.md) - CAP theorem in blockchain systems

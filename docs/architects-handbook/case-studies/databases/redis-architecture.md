@@ -689,19 +689,19 @@ sequenceDiagram
 ## Applicable Patterns
 
 <div class="grid" markdown>
- <a href="../pattern-library/caching/" class="pattern-card">
+ <a href="../patterns/caching/" class="pattern-card">
  <h3 class="pattern-card__title">Caching</h3>
  <p class="pattern-card__description">In-memory data storage for fast access patterns</p>
  </a>
- <a href="../pattern-library/leader-follower/" class="pattern-card">
+ <a href="../patterns/leader-follower/" class="pattern-card">
  <h3 class="pattern-card__title">Master-Replica</h3>
  <p class="pattern-card__description">Asynchronous replication for high availability</p>
  </a>
- <a href="../pattern-library/consistent-hashing/" class="pattern-card">
+ <a href="../patterns/consistent-hashing/" class="pattern-card">
  <h3 class="pattern-card__title">Hash Slots</h3>
  <p class="pattern-card__description">Consistent hashing for automatic data distribution</p>
  </a>
- <a href="../pattern-library/event-loop/" class="pattern-card">
+ <a href="../patterns/event-loop/" class="pattern-card">
  <h3 class="pattern-card__title">Event Loop</h3>
  <p class="pattern-card__description">Single-threaded non-blocking I/O processing</p>
  </a>

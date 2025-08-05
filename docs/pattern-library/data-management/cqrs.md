@@ -187,12 +187,12 @@ graph TD
 ### Supporting Patterns
 - **[Materialized View](../pattern-library/data-management/materialized-view.md)**: Read model implementation
 - **[Cache-Aside](../pattern-library/scaling/caching-strategies.md.md)**: Speed up queries
-- **[Database per Service](../pattern-library/database-per-service.md)**: Isolate models
+- **[Database per Service](../patterns/database-per-service.md)**: Isolate models
 
 ### Alternatives
-- **[Read Replicas](../pattern-library/read-replicas.md)**: Simpler scaling
+- **[Read Replicas](../patterns/read-replicas.md)**: Simpler scaling
 - **[Caching](../pattern-library/scaling/caching-strategies.md)**: Less complexity
-- **[API Composition](../pattern-library/api-composition.md)**: Query federation
+- **[API Composition](../patterns/api-composition.md)**: Query federation
 
 ## Further Reading
 

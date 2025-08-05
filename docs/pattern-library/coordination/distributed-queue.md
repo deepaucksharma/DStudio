@@ -302,9 +302,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Event Sourcing](../data-management/event-sourcing.md) | Events flow through queues | Queue as event transport |
+| [Event Sourcing](/pattern-library/data-management/event-sourcing/) | Events flow through queues | Queue as event transport |
 | [Saga Pattern](../coordination/saga.md) | Coordinate distributed transactions | Queue for saga orchestration |
-| [Circuit Breaker](../resilience/circuit-breaker.md) | Protect downstream services | Circuit breaker in consumers |
+| [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | Protect downstream services | Circuit breaker in consumers |
 
 ## Quick Reference
 
@@ -348,9 +348,9 @@ graph LR
     
     ---
     
-    - [Event Sourcing](../data-management/event-sourcing.md) - Events through queues
+    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Events through queues
     - [Saga Pattern](../coordination/saga.md) - Distributed transactions
-    - [Circuit Breaker](../resilience/circuit-breaker.md) - Consumer protection
+    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Consumer protection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

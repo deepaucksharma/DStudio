@@ -348,9 +348,9 @@ graph LR
     
     ---
     
-    - [Event Sourcing](../data-management/event-sourcing.md) - Natural delta representation
-    - [CRDT](../data-management/crdt.md) - Conflict-free synchronization  
-    - [Write-Ahead Log](../data-management/write-ahead-log.md) - Change tracking
+    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Natural delta representation
+    - [CRDT](/pattern-library/data-management/crdt/) - Conflict-free synchronization  
+    - [Write-Ahead Log](/pattern-library/data-management/write-ahead-log/) - Change tracking
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

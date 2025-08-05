@@ -297,8 +297,8 @@ graph LR
     ---
     
     - [Saga Pattern](../coordination/saga.md) - Uses outbox for step coordination
-    - [CQRS](../data-management/cqrs.md) - Outbox for command events
-    - [Event Sourcing](../data-management/event-sourcing.md) - Alternative approach
+    - [CQRS](/pattern-library/data-management/cqrs/) - Outbox for command events
+    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Alternative approach
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

@@ -326,9 +326,9 @@ graph LR
     
     ---
     
-    - [Event-Driven Architecture](architecture/event-driven.md) - Foundation for streaming systems
-    - [Event Sourcing](../data-management/event-sourcing.md) - Stream-based data storage
-    - [CQRS](../data-management/cqrs.md) - Read/write separation with streams
+    - [Event-Driven Architecture](/pattern-library/architecture/event-driven/) - Foundation for streaming systems
+    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Stream-based data storage
+    - [CQRS](/pattern-library/data-management/cqrs/) - Read/write separation with streams
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

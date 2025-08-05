@@ -73,7 +73,7 @@ Coming soon...
 
 ## Related Topics
 
-- See other [patterns](index.md)
+- See other [patterns](/index/)
 
 ---
 

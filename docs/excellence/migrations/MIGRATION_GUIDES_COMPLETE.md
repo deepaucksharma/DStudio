@@ -6,7 +6,7 @@ This directory contains comprehensive migration guides for transitioning from Br
 
 ## Available Migration Guides
 
-### 1. [Two-Phase Commit to Saga Migration](2pc-to-saga.md)
+### 1. [Two-Phase Commit to Saga Migration](/excellence/migrations/2pc-to-saga/)
 
 **Purpose:** Transform distributed transactions from synchronous, blocking 2PC to asynchronous, eventually consistent Saga pattern.
 
@@ -29,7 +29,7 @@ This directory contains comprehensive migration guides for transitioning from Br
 
 ---
 
-### 2. [Polling to WebSocket/SSE Migration](polling-to-websocket.md)
+### 2. [Polling to WebSocket/SSE Migration](/excellence/migrations/polling-to-websocket/)
 
 **Purpose:** Reduce server load and improve real-time user experience by migrating from resource-intensive polling to efficient WebSocket or Server-Sent Events.
 
@@ -54,7 +54,7 @@ This directory contains comprehensive migration guides for transitioning from Br
 
 ---
 
-### 3. [Monolith to Microservices Migration](monolith-to-microservices.md)
+### 3. [Monolith to Microservices Migration](/excellence/migrations/monolith-to-microservices/)
 
 **Purpose:** Properly decompose monolithic applications into microservices using Domain-Driven Design and avoiding common anti-patterns.
 
@@ -79,7 +79,7 @@ This directory contains comprehensive migration guides for transitioning from Br
 
 ---
 
-### 4. [Batch to Streaming Migration](batch-to-streaming.md)
+### 4. [Batch to Streaming Migration](/excellence/migrations/batch-to-streaming/)
 
 **Purpose:** Transform batch processing systems to real-time stream processing for immediate insights and reduced latency.
 

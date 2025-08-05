@@ -260,9 +260,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Circuit Breaker](../resilience/circuit-breaker.md) | Cascading failure prevention | Rate limits trigger circuit opening |
+| [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) | Cascading failure prevention | Rate limits trigger circuit opening |
 | [API Gateway](../architecture/api-gateway.md) | Centralized policy enforcement | Gateway handles all rate limiting logic |
-| [Bulkhead](../resilience/bulkhead.md) | Resource isolation | Separate limits per resource pool |
+| [Bulkhead](/pattern-library/resilience/bulkhead/) | Resource isolation | Separate limits per resource pool |
 
 ## Quick Reference
 
@@ -306,9 +306,9 @@ graph LR
     
     ---
     
-    - [Circuit Breaker](../resilience/circuit-breaker.md) - Complementary failure protection
+    - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Complementary failure protection
     - [API Gateway](../architecture/api-gateway.md) - Centralized rate limiting
-    - [Bulkhead](../resilience/bulkhead.md) - Resource isolation
+    - [Bulkhead](/pattern-library/resilience/bulkhead/) - Resource isolation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

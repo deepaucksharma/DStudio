@@ -222,7 +222,7 @@ type: pattern
     
     - [Health Check](./health-check.md) - Detect when failover needed
     - [Circuit Breaker](./circuit-breaker.md) - Prevent cascading failures
-    - [Load Balancing](../scaling/load-balancing.md) - Distribute during normal operation
+    - [Load Balancing](/pattern-library/scaling/load-balancing/) - Distribute during normal operation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     

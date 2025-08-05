@@ -264,8 +264,8 @@ when-to-use: When you need to query multiple services in parallel and aggregate 
 
 ## Related Patterns
 
-- [**Circuit Breaker**](resilience/circuit-breaker.md) - Protect against service failures
-- [**Load Balancing**](scaling/load-balancing.md) - Distribute scatter requests
-- [**Saga**](data-management/saga.md) - Coordinate distributed transactions
-- [**API Gateway**](communication/api-gateway.md) - Common implementation location
+- [**Circuit Breaker**](/pattern-library/resilience/circuit-breaker/) - Protect against service failures
+- [**Load Balancing**](/pattern-library/scaling/load-balancing/) - Distribute scatter requests
+- [**Saga**](/pattern-library/data-management/saga/) - Coordinate distributed transactions
+- [**API Gateway**](/pattern-library/communication/api-gateway/) - Common implementation location
 

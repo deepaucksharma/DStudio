@@ -1029,30 +1029,30 @@ graph TD
 - [Gubernator](https://github.com/mailgun/gubernator) - High-performance distributed rate limiting
 
 **Related Patterns:**
-- [Token Bucket Algorithm](../pattern-library/rate-limiting)
+- [Token Bucket Algorithm](../patterns/rate-limiting)
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
-- [Consistent Hashing](consistent-hashing)
+- [Consistent Hashing](/consistent-hashing)
 - Gossip Protocol (Coming Soon)
 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I.md)
-- **[Law 1: Correlated Failure ](../../../core-principles/laws/correlated-failure.md)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 2: Asynchronous Reality ](../../../core-principles/laws/asynchronous-reality.md)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 3: Emergent Chaos ](../../../core-principles/laws/emergent-chaos.md)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 4: Multidimensional Trade-offs ](../../../core-principles/laws/multidimensional-optimization.md)** - Rate limiting protects backend capacity from overload
-- **[Law 5: Distributed Knowledge ](../../../core-principles/laws/distributed-knowledge.md)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Cognitive Load ](../../../core-principles/laws/cognitive-load.md)** - Clear error messages with retry-after headers and operational dashboards
-- **[Law 7: Economic Reality ](../../../core-principles/laws/economic-reality.md)** - Local caching reduces infrastructure costs by 80%
+- **[Law 1: Correlated Failure ](/core-principles/laws/correlated-failure/)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 2: Asynchronous Reality ](/core-principles/laws/asynchronous-reality/)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 3: Emergent Chaos ](/core-principles/laws/emergent-chaos/)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 4: Multidimensional Trade-offs ](/core-principles/laws/multidimensional-optimization/)** - Rate limiting protects backend capacity from overload
+- **[Law 5: Distributed Knowledge ](/core-principles/laws/distributed-knowledge/)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Cognitive Load ](/core-principles/laws/cognitive-load/)** - Clear error messages with retry-after headers and operational dashboards
+- **[Law 7: Economic Reality ](/core-principles/laws/economic-reality/)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Rate Limiting](../pattern-library/rate-limiting)** - Core pattern implemented with token bucket algorithm
+- **[Rate Limiting](../patterns/rate-limiting)** - Core pattern implemented with token bucket algorithm
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects rate limiter from Redis failures
-- **[Bulkhead](../pattern-library/bulkhead)** - Isolates rate limit pools per tenant/API
-- **[Consistent Hashing](../pattern-library/sharding)** - Distributes users across rate limiter nodes
-- **[Caching Strategies](../pattern-library/caching-strategies)** - Local cache with TTL for performance
-- **[Health Check](../pattern-library/health-check)** - Monitors Redis connectivity and accuracy
-- **[Load Shedding](../pattern-library/load-shedding)** - Drops low-priority requests under extreme load
+- **[Bulkhead](../patterns/bulkhead)** - Isolates rate limit pools per tenant/API
+- **[Consistent Hashing](../patterns/sharding)** - Distributes users across rate limiter nodes
+- **[Caching Strategies](../patterns/caching-strategies)** - Local cache with TTL for performance
+- **[Health Check](../patterns/health-check)** - Monitors Redis connectivity and accuracy
+- **[Load Shedding](../patterns/load-shedding)** - Drops low-priority requests under extreme load
 
 ### Quantitative Models
 - **[Little's Law](../quantitative/littles-law)** - Queue depth = arrival rate × processing time for pending checks
@@ -1067,7 +1067,7 @@ graph TD
 - **[Capacity Planning](../quantitative/capacity-planning)** - Predicting rate limit needs based on growth
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](amazon-dynamo.md)** - Similar distributed counting challenges
-- **[PayPal Payments](paypal-payments.md)** - Rate limiting prevents payment fraud
-- **[Consistent Hashing](data-management/consistent-hashing.md)** - Core technique for distributing rate limit state
+- **[Amazon DynamoDB](/architects-handbook/case-studies/databases/amazon-dynamo/)** - Similar distributed counting challenges
+- **[PayPal Payments](/architects-handbook/case-studies/financial-commerce/paypal-payments/)** - Rate limiting prevents payment fraud
+- **[Consistent Hashing](/pattern-library/data-management/consistent-hashing/)** - Core technique for distributing rate limit state
 - **[News Feed System](news-feed.md.md)** - Rate limiting API calls for feed generation

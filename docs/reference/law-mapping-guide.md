@@ -39,7 +39,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Formal temporal logic and partial ordering
 - The unknowability of the present in distributed systems
 
-**Find it here:** [Law of Asynchronous Reality](../core-principles/laws/asynchronous-reality.md)
+**Find it here:** [Law of Asynchronous Reality](/core-principles/laws/asynchronous-reality/)
 
 ### Old Law 2: Finite Capacity → Distributed Across Multiple Laws
 
@@ -65,7 +65,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Metastable failure states
 - Cascading failure analysis
 
-**Find it here:** [Law of Correlated Failure](../core-principles/laws/correlated-failure.md)
+**Find it here:** [Law of Correlated Failure](/core-principles/laws/correlated-failure/)
 
 ### Old Law 4: Concurrency → New Law 3: Emergence
 
@@ -79,7 +79,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Non-linear dynamics and tipping points
 - Chaos engineering as a response to emergence
 
-**Find it here:** [Law of Emergent Chaos](../core-principles/laws/emergent-chaos.md)
+**Find it here:** [Law of Emergent Chaos](/core-principles/laws/emergent-chaos/)
 
 ### Old Law 5: Coordination → New Law 4: Trade-offs
 
@@ -93,7 +93,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Non-linear trade-off surfaces
 - Context-dependent optimization
 
-**Find it here:** [Law of Multidimensional Optimization](../core-principles/laws/multidimensional-optimization.md)
+**Find it here:** [Law of Multidimensional Optimization](/core-principles/laws/multidimensional-optimization/)
 
 ### Old Law 6: Observability → New Law 5: Epistemology
 
@@ -107,7 +107,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Probabilistic certainty (Bloom filters, HyperLogLog/index)
 - The cost of certainty in distributed systems
 
-**Find it here:** [Law of Distributed Knowledge](../core-principles/laws/distributed-knowledge.md)
+**Find it here:** [Law of Distributed Knowledge](/core-principles/laws/distributed-knowledge/)
 
 ### Old Law 7: Human Interface → New Law 6: Human-API
 
@@ -121,7 +121,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Cognitive load of different consistency models
 - Observability as user interface design
 
-**Find it here:** [Law of Cognitive Load](../core-principles/laws/cognitive-load.md)
+**Find it here:** [Law of Cognitive Load](/core-principles/laws/cognitive-load/)
 
 ### Old Law 7: Economics → New Law 7: Economics
 
@@ -135,7 +135,7 @@ This guide helps users familiar with the original 8-law framework navigate to th
 - Economic modeling of architectural choices
 - Cost-aware system design
 
-**Find it here:** [Law of Economic Reality](../core-principles/laws/economic-reality.md)
+**Find it here:** [Law of Economic Reality](/core-principles/laws/economic-reality/)
 
 ## Why the Framework Was Restructured
 
@@ -189,19 +189,19 @@ The old laws were empirical observations. The new laws are grounded in formal th
 
 ### If you're looking for content on...
 
-- **Latency, RTT, speed of light** → [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality.md)
-- **Capacity planning, limits** → [Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization.md) and [Law 7: Economics](../core-principles/laws/economic-reality.md)
-- **Failure modes, fault tolerance** → [Law 1: Failure](../core-principles/laws/correlated-failure.md)
-- **Race conditions, concurrency** → [Law 3: Emergence](../core-principles/laws/emergent-chaos.md)
-- **Consensus, coordination** → [Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization.md) and [Law 5: Knowledge](../core-principles/laws/distributed-knowledge.md)
-- **Monitoring, observability** → [Law 5: Epistemology](../core-principles/laws/distributed-knowledge.md)
-- **UX, operations, tooling** → [Law 6: Human-API](../core-principles/laws/cognitive-load.md)
-- **Cost, resources, scaling** → [Law 7: Economics](../core-principles/laws/economic-reality.md)
+- **Latency, RTT, speed of light** → [Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/)
+- **Capacity planning, limits** → [Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/) and [Law 7: Economics](/core-principles/laws/economic-reality/)
+- **Failure modes, fault tolerance** → [Law 1: Failure](/core-principles/laws/correlated-failure/)
+- **Race conditions, concurrency** → [Law 3: Emergence](/core-principles/laws/emergent-chaos/)
+- **Consensus, coordination** → [Law 4: Trade-offs](/core-principles/laws/multidimensional-optimization/) and [Law 5: Knowledge](/core-principles/laws/distributed-knowledge/)
+- **Monitoring, observability** → [Law 5: Epistemology](/core-principles/laws/distributed-knowledge/)
+- **UX, operations, tooling** → [Law 6: Human-API](/core-principles/laws/cognitive-load/)
+- **Cost, resources, scaling** → [Law 7: Economics](/core-principles/laws/economic-reality/)
 
 ## Archived Content
 
 The original 8-law content is preserved in the archive for reference:
-- [Archive: Old 8-Law Structure](../part1-axioms/archive-old-8-law-structure/README.md)
+- [Archive: Old 8-Law Structure](../part1-axioms/archive-old-8-law-structure/index.md)
 
 ## Summary: What You Gain with the New Framework
 

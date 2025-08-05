@@ -406,11 +406,11 @@ graph TD
 
 ## Related Patterns
 
-- [API Gateway](communication/api-gateway.md) - Front-door for routing during migration
-- [Service Mesh](communication/service-mesh.md) - Traffic management and observability
-- [Anti-Corruption Layer](anti-corruption-layer.md) - Protect new services from legacy
-- [Event Sourcing](data-management/event-sourcing.md) - Capture all changes for replay
-- [Circuit Breaker](resilience/circuit-breaker.md) - Protect during partial failures
+- [API Gateway](/pattern-library/communication/api-gateway/) - Front-door for routing during migration
+- [Service Mesh](/pattern-library/communication/service-mesh/) - Traffic management and observability
+- [Anti-Corruption Layer](/pattern-library/architecture/anti-corruption-layer/) - Protect new services from legacy
+- [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Capture all changes for replay
+- [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Protect during partial failures
 
 ## References
 

@@ -10,7 +10,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
 
 <div class="grid cards" markdown>
 
-- :material-rocket-launch:{ .lg .middle } **[Scalability Cheatsheet](index.md)**
+- :material-rocket-launch:{ .lg .middle } **[Scalability Cheatsheet](/index/)**
     
     ---
     
@@ -18,7 +18,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
     
     Perfect for capacity planning and performance discussions
 
-- :material-checkbox-multiple-marked:{ .lg .middle } **[System Design Checklist](system-design-checklist.md)**
+- :material-checkbox-multiple-marked:{ .lg .middle } **[System Design Checklist](/interview-prep/ic-interviews/cheatsheets/system-design-checklist/)**
     
     ---
     
@@ -26,7 +26,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
     
     Never miss a critical component again
 
-- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](index.md)**
+- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](/index/)**
     
     ---
     

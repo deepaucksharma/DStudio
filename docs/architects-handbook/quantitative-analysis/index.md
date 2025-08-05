@@ -16,23 +16,23 @@ This section provides the mathematical foundations every distributed systems arc
 Core mathematical laws that govern distributed systems behavior:
 
 ### Consistency & Distribution
-- **[CAP Theorem](architecture/cap-theorem.md)** - The impossible trinity: Consistency, Availability, Partition tolerance
+- **[CAP Theorem](/pattern-library/architecture/cap-theorem/)** - The impossible trinity: Consistency, Availability, Partition tolerance
 - **[PACELC Theorem](../../quantitative/cap-theorem-enhanced.md)** - Extended CAP with latency/consistency trade-offs
 - **[FLP Impossibility](../../quantitative/consensus.md)** - Consensus impossibility in asynchronous systems
 
 ### Performance Laws
-- **[Little's Law](littles-law.md)** - Universal relationship: L = λW (queue length = arrival rate × wait time)
-- **[Amdahl's Law](amdahls-law.md)** - Limits of parallelization: speedup bounded by sequential portion
-- **[Universal Scalability Law](universal-scalability.md)** - Contention and coherence limits to scaling
-- **[Queueing Theory](queueing-theory.md)** - M/M/1, M/M/c models for system behavior under load
+- **[Little's Law](/architects-handbook/quantitative-analysis/littles-law/)** - Universal relationship: L = λW (queue length = arrival rate × wait time)
+- **[Amdahl's Law](/architects-handbook/quantitative-analysis/amdahls-law/)** - Limits of parallelization: speedup bounded by sequential portion
+- **[Universal Scalability Law](/architects-handbook/quantitative-analysis/universal-scalability/)** - Contention and coherence limits to scaling
+- **[Queueing Theory](/architects-handbook/quantitative-analysis/queueing-theory/)** - M/M/1, M/M/c models for system behavior under load
 
 ## 📊 Performance Analysis
 
 Tools for modeling and predicting system performance:
 
 ### Latency & Throughput
-- **[Latency Numbers](latency-numbers.md)** - Key latencies every architect should know (L1: 0.5ns → Internet: 150ms)
-- **[Performance Modeling](performance-modeling.md)** - End-to-end latency calculation and bottleneck analysis
+- **[Latency Numbers](/architects-handbook/quantitative-analysis/latency-numbers/)** - Key latencies every architect should know (L1: 0.5ns → Internet: 150ms)
+- **[Performance Modeling](/architects-handbook/quantitative-analysis/performance-modeling/)** - End-to-end latency calculation and bottleneck analysis
 - **[Capacity Planning](../../quantitative/capacity-planning.md)** - Resource sizing and growth projections
 
 ### Load Characteristics
@@ -45,7 +45,7 @@ Tools for modeling and predicting system performance:
 Quantifying and improving system reliability:
 
 ### Availability Calculations
-- **[Failure Models](failure-models.md)** - Types of failures and their probabilities
+- **[Failure Models](/architects-handbook/quantitative-analysis/failure-models/)** - Types of failures and their probabilities
 - **[Availability Math](../../quantitative/availability-math.md)** - Computing nines (99.9% = 8.76h/year downtime)
 - **[MTBF/MTTR](../../quantitative/mtbf-mttr.md)** - Mean time between failures and recovery
 
@@ -113,10 +113,10 @@ Sizing systems for current and future needs:
 
 ## 🚀 Getting Started
 
-1. **Start with [Little's Law](littles-law.md)** - The most fundamental relationship in systems
-2. **Understand [CAP Theorem](architecture/cap-theorem.md)** - Core distributed systems trade-off
-3. **Learn [Latency Numbers](latency-numbers.md)** - Build intuition for system performance
-4. **Master [Queueing Theory](queueing-theory.md)** - Predict behavior under load
+1. **Start with [Little's Law](/architects-handbook/quantitative-analysis/littles-law/)** - The most fundamental relationship in systems
+2. **Understand [CAP Theorem](/pattern-library/architecture/cap-theorem/)** - Core distributed systems trade-off
+3. **Learn [Latency Numbers](/architects-handbook/quantitative-analysis/latency-numbers/)** - Build intuition for system performance
+4. **Master [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-theory/)** - Predict behavior under load
 
 ---
 

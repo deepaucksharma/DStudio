@@ -1387,8 +1387,8 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md) - CDN and caching strategies
-- [Law 7: Economic Reality](../../../core-principles/laws/economic-reality.md) - Cost optimization techniques
+- [Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/) - CDN and caching strategies
+- [Law 7: Economic Reality](/core-principles/laws/economic-reality/) - Cost optimization techniques
 - [Caching Strategies](../pattern-library/scaling/caching-strategies.md) - Multi-level cache design
 - [Rate Limiting](../pattern-library/scaling/rate-limiting.md) - Protecting against abuse
 
@@ -1396,7 +1396,7 @@ Analytics     10M events/s    Kafka throughput
 - [Edge Computing Patterns](../pattern-library/scaling/edge-computing.md) - Building at the edge
 - Analytics at Scale (Coming Soon) - Handling billions of events
 - Geo-Distribution (Coming Soon) - Global service deployment
-- [Security Patterns](../pattern-library/security-shortener.md) - Preventing abuse and attacks
+- [Security Patterns](../patterns/security-shortener.md) - Preventing abuse and attacks
 
 **Related Case Studies:**
 <!-- TODO: Add CDN design case study -->

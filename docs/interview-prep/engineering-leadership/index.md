@@ -37,33 +37,33 @@ graph TD
 
 ### Level I: First Principles {#level-1}
 **The Foundational "Why"** — Universal truths that justify every leadership action
-- [Value Creation](level-1-first-principles/value-creation/): Business exists to solve problems profitably
-- [Decision-Making](level-1-first-principles/decision-making/): Progress requires quality choices under uncertainty
-- [Human Behavior](level-1-first-principles/human-behavior/): Culture and motivation drive execution
-- [Systems Thinking](level-1-first-principles/systems-thinking/): Organizations are interconnected systems
-- [Integrity & Ethics](level-1-first-principles/integrity-ethics/): Trust is the ultimate advantage
+- [Value Creation](/interview-prep/engineering-leadership/level-1-first-principles/value-creation/index): Business exists to solve problems profitably
+- [Decision-Making](/interview-prep/engineering-leadership/level-1-first-principles/decision-making/index): Progress requires quality choices under uncertainty
+- [Human Behavior](/interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index): Culture and motivation drive execution
+- [Systems Thinking](/interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index): Organizations are interconnected systems
+- [Integrity & Ethics](/interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index): Trust is the ultimate advantage
 
 ### Level II: Core Business Concepts {#level-2}
 **The Strategic "How"** — MBA-level disciplines for creating competitive advantage
-- [Strategy](level-2-core-business/strategy/): Making integrated choices for unique value
-- [Leadership](level-2-core-business/leadership/): Mobilizing humans toward shared goals
-- [Operations](level-2-core-business/operations/): Building the engine of execution
-- [Finance](level-2-core-business/finance/): Understanding and creating economic value
-- [Risk & Governance](level-2-core-business/risk-governance/): Managing uncertainty and accountability
+- [Strategy](/interview-prep/engineering-leadership/level-2-core-business/strategy/index): Making integrated choices for unique value
+- [Leadership](/interview-prep/engineering-leadership/level-2-core-business/leadership/index): Mobilizing humans toward shared goals
+- [Operations](/interview-prep/engineering-leadership/level-2-core-business/operations/index): Building the engine of execution
+- [Finance](/interview-prep/engineering-leadership/level-2-core-business/finance/index): Understanding and creating economic value
+- [Risk & Governance](/interview-prep/engineering-leadership/level-2-core-business/risk-governance/index): Managing uncertainty and accountability
 
 ### Level III: Engineering Applications {#level-3}
 **The Practical "What"** — Day-to-day domains where leaders apply principles
-- [People Management](level-3-applications/people-management/): Hire → Inspire → Grow → Retain
-- [Technical Leadership](level-3-applications/technical-leadership/): Innovate → Build → Stabilize
-- [Organizational Design](level-3-applications/organizational-design/): Structure → Align → Evolve
-- [Business Acumen](level-3-applications/business-acumen/): Translate → Partner → Influence
+- [People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index): Hire → Inspire → Grow → Retain
+- [Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index): Innovate → Build → Stabilize
+- [Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index): Structure → Align → Evolve
+- [Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index): Translate → Partner → Influence
 
 ### Level IV: Interview Execution {#level-4}
 **The "Proof"** — Demonstrating mastery under interview pressure
-- [Behavioral](level-4-interview-execution/behavioral/): Past performance predicting future
-- [Technical Leadership](level-4-interview-execution/technical-leadership/): Depth meets breadth
-- [System Design](level-4-interview-execution/system-org-design/): Architecture and organization
-- [Culture Fit](level-4-interview-execution/culture-values/): Authentic alignment
+- [Behavioral](/interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index): Past performance predicting future
+- [Technical Leadership](/interview-prep/engineering-leadership/level-4-interview-execution/technical-leadership/index): Depth meets breadth
+- [System Design](/interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index): Architecture and organization
+- [Culture Fit](/interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index): Authentic alignment
 
 </div>
 
@@ -79,43 +79,43 @@ This comprehensive guide is designed for:
 
 <div class="grid cards" markdown>
 
-- :material-navigation:{ .lg } **[🧭 Navigation Guide](navigation-guide.md)**
+- :material-navigation:{ .lg } **[🧭 Navigation Guide](/reference/navigation-guide/)**
     
     ---
     
     **NEW!** Find your personalized learning path based on experience level and timeline
 
-- :material-compass:{ .lg } **[Framework Overview](framework-index.md)**
+- :material-compass:{ .lg } **[Framework Overview](/interview-prep/engineering-leadership/framework-index/)**
     
     ---
     
     Understand the complete 4-level system and how principles flow into practice
 
-- :material-rocket-launch-outline:{ .lg } **[Quick Start Guide](level-4-interview-execution/)**
+- :material-rocket-launch-outline:{ .lg } **[Quick Start Guide](/interview-prep/engineering-leadership/level-4-interview-execution/index)**
     
     ---
     
     Jump straight to interview preparation if you're short on time
 
-- :material-school:{ .lg } **[First Principles](level-1-first-principles/)**
+- :material-school:{ .lg } **[First Principles](/interview-prep/engineering-leadership/level-1-first-principles/index)**
     
     ---
     
     Build deep understanding from foundational concepts
 
-- :material-briefcase:{ .lg } **[Business Concepts](level-2-core-business/)**
+- :material-briefcase:{ .lg } **[Business Concepts](/interview-prep/engineering-leadership/level-2-core-business/index)**
     
     ---
     
     Master strategy, finance, operations, and leadership
 
-- :material-hammer-wrench:{ .lg } **[Practical Applications](level-3-applications/)**
+- :material-hammer-wrench:{ .lg } **[Practical Applications](/interview-prep/engineering-leadership/level-3-applications/index)**
     
     ---
     
     Apply concepts to real engineering leadership challenges
 
-- :material-timer:{ .lg } **[Interactive Practice](level-4-interview-execution/tools/interactive/)**
+- :material-timer:{ .lg } **[Interactive Practice](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index)**
     
     ---
     
@@ -127,7 +127,7 @@ This comprehensive guide is designed for:
 
 <div class="grid cards" markdown>
 
-- :material-account-group:{ .lg } **[People Management](level-3-applications/people-management/)** - 40%
+- :material-account-group:{ .lg } **[People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index)** - 40%
     
     ---
     
@@ -135,7 +135,7 @@ This comprehensive guide is designed for:
     
     **Key Topics**: Team building, conflict resolution, performance coaching, diversity & inclusion
 
-- :material-rocket-launch:{ .lg } **[Technical Leadership](level-3-applications/technical-leadership/)** - 25%
+- :material-rocket-launch:{ .lg } **[Technical Leadership](/interview-prep/engineering-leadership/level-3-applications/technical-leadership/index)** - 25%
     
     ---
     
@@ -143,7 +143,7 @@ This comprehensive guide is designed for:
     
     **Key Topics**: Architecture reviews, technical strategy, platform thinking, innovation
 
-- :material-sitemap:{ .lg } **[Organizational Design](level-3-applications/organizational-design/)** - 15%
+- :material-sitemap:{ .lg } **[Organizational Design](/interview-prep/engineering-leadership/level-3-applications/organizational-design/index)** - 15%
     
     ---
     
@@ -151,7 +151,7 @@ This comprehensive guide is designed for:
     
     **Key Topics**: Team topologies, Conway's Law, communication patterns, decision frameworks
 
-- :material-chart-line:{ .lg } **[Business Acumen](level-3-applications/business-acumen/)** - 10%
+- :material-chart-line:{ .lg } **[Business Acumen](/interview-prep/engineering-leadership/level-3-applications/business-acumen/index)** - 10%
     
     ---
     
@@ -159,7 +159,7 @@ This comprehensive guide is designed for:
     
     **Key Topics**: OKRs, resource allocation, cost optimization, stakeholder management
 
-- :material-architecture:{ .lg } **[System Design](level-4-interview-execution/system-org-design/)** - 10%
+- :material-architecture:{ .lg } **[System Design](/interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index)** - 10%
     
     ---
     
@@ -173,12 +173,12 @@ This comprehensive guide is designed for:
 
 <div class="grid cards" markdown>
 
-- **[Amazon](company-specific/amazon/)** - Leadership Principles mastery
-- **[Google](company-specific/google/)** - Googleyness & technical excellence  
-- **[Meta](company-specific/meta/)** - Move fast culture & impact
-- **[Apple](company-specific/apple/)** - Quality bar & functional excellence
-- **[Microsoft](company-specific/microsoft/)** - Growth mindset & transformation
-- **[Netflix](company-specific/netflix/)** - Freedom & responsibility culture
+- **[Amazon](/interview-prep/engineering-leadership/company-specific/amazon/index)** - Leadership Principles mastery
+- **[Google](/interview-prep/engineering-leadership/company-specific/google/index)** - Googleyness & technical excellence  
+- **[Meta](/interview-prep/engineering-leadership/company-specific/meta/index)** - Move fast culture & impact
+- **[Apple](/interview-prep/engineering-leadership/company-specific/apple/index)** - Quality bar & functional excellence
+- **[Microsoft](/interview-prep/engineering-leadership/company-specific/microsoft/index)** - Growth mindset & transformation
+- **[Netflix](/interview-prep/engineering-leadership/company-specific/netflix/index)** - Freedom & responsibility culture
 
 </div>
 
@@ -208,19 +208,19 @@ This comprehensive guide is designed for:
 ## Preparation Journey {#preparation-phases}
 
 ### Phase 1: Foundation (Weeks 1-4)
-1. **Principles Study** - Master [First Principles](level-1-first-principles/) and [Business Concepts](level-2-core-business/)
-2. **Story Building** - Develop 20-30 stories using the [Story Portfolio Framework](level-4-interview-execution/tools/story-portfolio/)
+1. **Principles Study** - Master [First Principles](/interview-prep/engineering-leadership/level-1-first-principles/index) and [Business Concepts](/interview-prep/engineering-leadership/level-2-core-business/index)
+2. **Story Building** - Develop 20-30 stories using the [Story Portfolio Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index)
 3. **Company Research** - Deep dive into culture and values
 4. **Technical Refresh** - Update on latest technologies
 
 ### Phase 2: Practice (Weeks 5-8)
 1. **Mock Interviews** - 2-3 per week with peers
-2. **Case Studies** - Work through [practice scenarios](practice-scenarios/)
+2. **Case Studies** - Work through [practice scenarios](/interview-prep/engineering-leadership/practice-scenarios/index)
 3. **Presentation Skills** - Executive communication
 4. **Feedback Integration** - Iterate on weak areas
 
 ### Phase 3: Final Prep (Weeks 9-12)
-1. **Company Specific** - Tailor stories using [Principle Hooks](level-4-interview-execution/tools/principle-hooks/)
+1. **Company Specific** - Tailor stories using [Principle Hooks](/interview-prep/engineering-leadership/level-4-interview-execution/tools/principle-hooks/index)
 2. **Question Practice** - 100+ behavioral questions
 3. **System Design** - Leadership-focused problems
 4. **Confidence Building** - Visualization and prep
@@ -275,31 +275,31 @@ Enhance your preparation with our execution tools:
 
 <div class="grid cards" markdown>
 
-- :material-timer-outline:{ .lg } **[Interview Timer](level-4-interview-execution/tools/interactive/interview-timer.md)**
+- :material-timer-outline:{ .lg } **[Interview Timer](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer/)**
     
     ---
     
     Practice with realistic time constraints
 
-- :material-clipboard-check:{ .lg } **[Self-Assessment](level-4-interview-execution/tools/interactive/self-assessment.md)**
+- :material-clipboard-check:{ .lg } **[Self-Assessment](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/)**
     
     ---
     
     Score yourself against FAANG criteria
 
-- :material-sitemap:{ .lg } **[Decision Trees](level-4-interview-execution/tools/interactive/decision-trees.md)**
+- :material-sitemap:{ .lg } **[Decision Trees](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees/)**
     
     ---
     
     Navigate complex scenarios
 
-- :material-magnify:{ .lg } **[STAR Story Matcher](level-4-interview-execution/tools/interactive/star-matcher.md)**
+- :material-magnify:{ .lg } **[STAR Story Matcher](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/star-matcher/)**
     
     ---
     
     Match experiences to questions
 
-- :material-database:{ .lg } **[Question Bank](level-4-interview-execution/tools/interactive/question-bank.md)**
+- :material-database:{ .lg } **[Question Bank](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/question-bank/)**
     
     ---
     
@@ -319,7 +319,7 @@ Enhance your preparation with our execution tools:
 
 ## Hard-Earned Wisdom {#wisdom}
 
-For those ready to go deeper, explore our [Hard-Earned Wisdom](hard-earned-wisdom/) section covering the realities rarely discussed:
+For those ready to go deeper, explore our [Hard-Earned Wisdom](/interview-prep/engineering-leadership/hard-earned-wisdom/index) section covering the realities rarely discussed:
 - Managing up and organizational politics
 - Performance management truths
 - Crisis leadership under pressure
@@ -331,23 +331,23 @@ For those ready to go deeper, explore our [Hard-Earned Wisdom](hard-earned-wisdo
 
 ### "I have an interview in 2 weeks"
 🏃 Fast Track:
-1. [Level IV: Interview Execution](level-4-interview-execution/) - Interview formats and expectations
-2. [STAR+ Framework](level-4-interview-execution/tools/star-framework/) - Structure your stories
-3. [Interactive Tools](level-4-interview-execution/tools/interactive/) - Practice with timers and assessments
-4. [Company Guides](../../../company-specific/) - Tailor to your target
+1. [Level IV: Interview Execution](/interview-prep/engineering-leadership/level-4-interview-execution/index) - Interview formats and expectations
+2. [STAR+ Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index) - Structure your stories
+3. [Interactive Tools](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index) - Practice with timers and assessments
+4. [Company Guides](/company-specific/) - Tailor to your target
 
 ### "I want to deeply prepare"
 🏊 Comprehensive Path:
-1. [Framework Overview](framework-index.md) - Understand the full system
-2. [First Principles](level-1-first-principles/) - Build your foundation
-3. [Practice Scenarios](practice-scenarios/) - Apply your knowledge
-4. [Story Portfolio](level-4-interview-execution/tools/story-portfolio/) - Organize experiences
+1. [Framework Overview](/interview-prep/engineering-leadership/framework-index/) - Understand the full system
+2. [First Principles](/interview-prep/engineering-leadership/level-1-first-principles/index) - Build your foundation
+3. [Practice Scenarios](/interview-prep/engineering-leadership/practice-scenarios/index) - Apply your knowledge
+4. [Story Portfolio](/interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index) - Organize experiences
 
 ### "I'm growing as a leader"
 🌱 Development Path:
-1. [Self-Assessment](level-4-interview-execution/tools/interactive/self-assessment.md) - Identify gaps
-2. [Level III Applications](level-3-applications/) - Target weak areas
-3. [Hard-Earned Wisdom](hard-earned-wisdom/) - Learn from experience
+1. [Self-Assessment](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment/) - Identify gaps
+2. [Level III Applications](/interview-prep/engineering-leadership/level-3-applications/index) - Target weak areas
+3. [Hard-Earned Wisdom](/interview-prep/engineering-leadership/hard-earned-wisdom/index) - Learn from experience
 4. Apply in your current role
 
 ## Related Resources {#related-resources}
@@ -357,7 +357,7 @@ If you're still in an IC role or want to strengthen your technical foundation:
 
 <div class="grid cards" markdown>
 
-- :material-code-tags:{ .lg } **[IC Interviews Guide](../ic-interviews/)**
+- :material-code-tags:{ .lg } **[IC Interviews Guide](/interview-prep/ic-interviews/index/)**
     
     ---
     
@@ -365,7 +365,7 @@ If you're still in an IC role or want to strengthen your technical foundation:
     
     **Covers**: System design, behavioral interviews, technical leadership without authority
 
-- :material-graph-outline:{ .lg } **[System Design for Leaders](../ic-interviews/frameworks/)**
+- :material-graph-outline:{ .lg } **[System Design for Leaders](/interview-prep/ic-interviews/frameworks/index/)**
     
     ---
     
@@ -376,10 +376,10 @@ If you're still in an IC role or want to strengthen your technical foundation:
 </div>
 
 ### Career Transition Resources
-- **IC → Manager**: Focus on [People Management](level-3-applications/people-management/) first
+- **IC → Manager**: Focus on [People Management](/interview-prep/engineering-leadership/level-3-applications/people-management/index) first
 - **Strong IC → Staff+**: Use both guides - technical depth + leadership influence
-- **Manager → IC**: [System Design refresher](../ic-interviews/common-problems/) + technical credibility
+- **Manager → IC**: [System Design refresher](/interview-prep/ic-interviews/common-problems/index/) + technical credibility
 
 ---
 
-**Ready to begin?** Choose your path above, or explore the [complete Framework Overview](framework-index.md) to understand how all pieces connect. Remember: The framework is designed to be navigated in any direction—start where you need it most.
+**Ready to begin?** Choose your path above, or explore the [complete Framework Overview](/interview-prep/engineering-leadership/framework-index/) to understand how all pieces connect. Remember: The framework is designed to be navigated in any direction—start where you need it most.

@@ -65,7 +65,7 @@ type: pattern
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| **High Contention** | Causes livelock and performance degradation | [Locks with backoff](../coordination/distributed-lock.md) |
+| **High Contention** | Causes livelock and performance degradation | [Locks with backoff](/pattern-library/coordination/distributed-lock/) |
 | **Complex Operations** | Multi-step updates can't be atomic | [Transactional Memory](../coordination/stm.md) |
 | **Team Inexperience** | Subtle bugs are hard to debug | Traditional synchronization primitives |
 | **General Purpose** | Locks provide better guarantees | Standard mutex/semaphore patterns |
@@ -237,8 +237,8 @@ graph LR
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
 | [Optimistic Locking](../data-management/optimistic-locking.md) | Version-based conflict resolution | CAS for version updates |
-| [CRDT](../data-management/crdt.md) | Conflict-free concurrent updates | CAS for operation ordering |
-| [Event Sourcing](../data-management/event-sourcing.md) | Append-only conflict resolution | CAS for sequence numbers |
+| [CRDT](/pattern-library/data-management/crdt/) | Conflict-free concurrent updates | CAS for operation ordering |
+| [Event Sourcing](/pattern-library/data-management/event-sourcing/) | Append-only conflict resolution | CAS for sequence numbers |
 
 ## Quick Reference
 
@@ -283,7 +283,7 @@ graph LR
     ---
     
     - [Optimistic Locking](../data-management/optimistic-locking.md) - Database-level CAS
-    - [CRDT](../data-management/crdt.md) - Conflict-free updates
+    - [CRDT](/pattern-library/data-management/crdt/) - Conflict-free updates
     - [Atomic Broadcast](../coordination/atomic-broadcast.md) - Ordered operations
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**

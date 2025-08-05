@@ -307,9 +307,9 @@ graph LR
     
     ---
     
-    - [Event Sourcing](data-management/event-sourcing.md) - Natural source for incremental refresh
-    - [CQRS](data-management/cqrs.md) - MVs as optimized read models
-    - [Data Lake](data-lake.md) - Raw data to structured views
+    - [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Natural source for incremental refresh
+    - [CQRS](/pattern-library/data-management/cqrs/) - MVs as optimized read models
+    - [Data Lake](/pattern-library/data-management/data-lake/) - Raw data to structured views
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
@@ -337,7 +337,7 @@ graph LR
 
 ---
 
-*Next: [Event Sourcing](data-management/event-sourcing.md) - Storing state as a sequence of events*
+*Next: [Event Sourcing](/pattern-library/data-management/event-sourcing/) - Storing state as a sequence of events*
 <details>
 <summary>📄 View sql code (10 lines)</summary>
 

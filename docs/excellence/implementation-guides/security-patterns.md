@@ -499,8 +499,8 @@ class SecurityMonitor:
 
 ## Resources
 
-- [Zero Trust Architecture](../pattern-library/zero-trust.md)
+- [Zero Trust Architecture](../patterns/zero-trust.md)
 - [API Gateway Pattern](../pattern-library/communication/api-gateway.md) (Gold)
 - [Service Mesh Pattern](../pattern-library/communication/service-mesh.md) (Gold)
 - [Valet Key Pattern](../pattern-library/valet-key.md)
-- [Security Best Practices](../../reference/security.md)
+- [Security Best Practices](/reference/security/)

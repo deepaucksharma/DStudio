@@ -581,4 +581,4 @@ Learning: Governance improvements made
 
 ---
 
-*This completes the Level II Core Business concepts. Next, explore [Level III Applications](../../level-3-applications/) to see how these fundamentals combine in real-world scenarios.*
+*This completes the Level II Core Business concepts. Next, explore [Level III Applications](/interview-prep/engineering-leadership/level-3-applications/index/) to see how these fundamentals combine in real-world scenarios.*

@@ -24,9 +24,9 @@ Mathematical analysis of probabilistic data structures that trade accuracy for s
 - Analytics and monitoring
 
 ## Related Models
-- [Information Theory](information-theory.md)
-- [Space Complexity](space-complexity.md)
-- [Cache Economics](cache-economics.md)
+- [Information Theory](/architects-handbook/quantitative-analysis/information-theory/)
+- [Space Complexity](/architects-handbook/quantitative-analysis/space-complexity/)
+- [Cache Economics](/architects-handbook/quantitative-analysis/cache-economics/)
 
 ## References
 - Bloom filter mathematics (Bloom, 1970)

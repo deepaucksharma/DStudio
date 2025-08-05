@@ -1335,7 +1335,7 @@ class ConsistentHashRing:
 - [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages)
 
 **Related Patterns:**
-- [Virtual Nodes](../pattern-library/sharding)
+- [Virtual Nodes](../patterns/sharding)
 - Gossip Protocol
 - Vector Clocks
 - Replication (Coming Soon)
@@ -1343,18 +1343,18 @@ class ConsistentHashRing:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I.md)
-- **[Law 1: Correlated Failure ](../../../core-principles/laws/correlated-failure.md)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Law 2: Asynchronous Reality ](../../../core-principles/laws/asynchronous-reality.md)** - O(log n/index) lookup time with client-side caching reduces routing latency
-- **[Law 3: Emergent Chaos ](../../../core-principles/laws/emergent-chaos.md)** - Ring lookups are lock-free read operations
-- **[Law 4: Multidimensional Trade-offs ](../../../core-principles/laws/multidimensional-optimization.md)** - Even distribution prevents capacity hot spots across nodes
-- **[Law 5: Distributed Knowledge ](../../../core-principles/laws/distributed-knowledge.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
-- **[Law 6: Cognitive Load ](../../../core-principles/laws/cognitive-load.md)** - Visual ring representation aids debugging and operations
-- **[Law 7: Economic Reality ](../../../core-principles/laws/economic-reality.md)** - Efficient scaling without full data redistribution saves bandwidth
+- **[Law 1: Correlated Failure ](/core-principles/laws/correlated-failure/)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 2: Asynchronous Reality ](/core-principles/laws/asynchronous-reality/)** - O(log n/index) lookup time with client-side caching reduces routing latency
+- **[Law 3: Emergent Chaos ](/core-principles/laws/emergent-chaos/)** - Ring lookups are lock-free read operations
+- **[Law 4: Multidimensional Trade-offs ](/core-principles/laws/multidimensional-optimization/)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 5: Distributed Knowledge ](/core-principles/laws/distributed-knowledge/)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Cognitive Load ](/core-principles/laws/cognitive-load/)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economic Reality ](/core-principles/laws/economic-reality/)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛 Related Patterns (Part III/index)
 - **[Sharding & Partitioning](../pattern-library/scaling/sharding.md)** - Consistent hashing is the foundation for data sharding
 - **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Ring-based routing distributes requests evenly
-- **[Service Discovery](../pattern-library/service-discovery)** - Ring topology changes propagate via gossip
+- **[Service Discovery](../patterns/service-discovery)** - Ring topology changes propagate via gossip
 - **Replication (Coming Soon.md)** - Successor lists define replica placement
 - **[Health Check](../pattern-library/resilience/health-check.md)** - Node failures trigger ring rebalancing
 - **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Client-side topology caching reduces lookups
@@ -1368,12 +1368,12 @@ class ConsistentHashRing:
 
 ### 👥 Human Factors Considerations
 - **[Capacity Planning](quantitative/capacity-planning)** - Node weights must match actual capacity
-- **[Observability Tools](human-factors/observability-stacks)** - Ring visualizers essential for operations
-- **[Incident Response](human-factors/incident-response)** - Hot spot detection and mitigation procedures
-- **[On-Call Culture](human-factors/oncall-culture)** - Understanding ring rebalancing critical for operators
+- **[Observability Tools](/architects-handbook/human-factors/observability-stacks)** - Ring visualizers essential for operations
+- **[Incident Response](/architects-handbook/human-factors/incident-response)** - Hot spot detection and mitigation procedures
+- **[On-Call Culture](/architects-handbook/human-factors/oncall-culture)** - Understanding ring rebalancing critical for operators
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](amazon-dynamo.md)** - Production implementation of consistent hashing at scale
-- **[Rate Limiter Design](rate-limiter.md)** - Uses consistent hashing for distributed rate limit state
-- **[News Feed System](news-feed.md)** - Shards user timelines using consistent hashing
+- **[Amazon DynamoDB](/architects-handbook/case-studies/databases/amazon-dynamo/)** - Production implementation of consistent hashing at scale
+- **[Rate Limiter Design](/architects-handbook/case-studies/monitoring-observability/rate-limiter/)** - Uses consistent hashing for distributed rate limit state
+- **[News Feed System](/architects-handbook/case-studies/social-communication/news-feed/)** - Shards user timelines using consistent hashing
 - **[PayPal Payments](paypal-payments.md.md)** - Routes payment processing using consistent hashing

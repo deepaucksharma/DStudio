@@ -474,10 +474,10 @@ val wordCounts = textFile
 
 ## Related Topics
 
-- [Apache Spark](apache-spark) - Next-generation replacement
+- [Apache Spark](/apache-spark) - Next-generation replacement
 - [Apache Flink](flink) - Stream-first processing
 - [HDFS](hdfs.md) - Distributed file system
-- [Distributed Computing](../pattern-library/distributed-computing) - Core concepts
+- [Distributed Computing](../patterns/distributed-computing) - Core concepts
 - [Google File System](gfs.md) - Storage layer
 
 ## References

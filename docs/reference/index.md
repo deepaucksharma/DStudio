@@ -31,7 +31,7 @@ last_updated: 2025-07-20
     
     400+ terms defined with comprehensive definitions
     
-    [Learn more →](glossary.md)
+    [Learn more →](/reference/glossary/)
 
 - :material-clipboard-text:{ .lg .middle } **Cheat Sheets**
     
@@ -39,7 +39,7 @@ last_updated: 2025-07-20
     
     Quick reference guides for formulas & decisions
     
-    [Learn more →](cheat-sheets.md)
+    [Learn more →](/reference/cheat-sheets/)
 
 - :material-chef-hat:{ .lg .middle } **Recipe Cards**
     
@@ -47,7 +47,7 @@ last_updated: 2025-07-20
     
     Step-by-step guides for implementation patterns
     
-    [Learn more →](recipe-cards.md)
+    [Learn more →](/reference/recipe-cards/)
 
 - :material-lock:{ .lg .middle } **Security Guide**
     
@@ -55,7 +55,7 @@ last_updated: 2025-07-20
     
     Security patterns, vulnerabilities & defenses
     
-    [Learn more →](security.md)
+    [Learn more →](/reference/security/)
 
 - :material-map:{ .lg .middle } **Law Mapping**
     
@@ -63,25 +63,25 @@ last_updated: 2025-07-20
     
     Framework evolution and 7-law structure guide
     
-    [Learn more →](law-mapping-guide.md)
+    [Learn more →](/reference/law-mapping-guide/)
 
 </div>
 
 ## Reference by Category
 
-### [Glossary](glossary.md)
+### [Glossary](/reference/glossary/)
 Definitions of all distributed systems terms. From "Law" to "Vector Clock". Updated for the 7-law framework.
 
-### [Cheat Sheets](cheat-sheets.md)
+### [Cheat Sheets](/reference/cheat-sheets/)
 Quick reference for calculations, decisions, and pattern selection. Aligned with the 7 fundamental laws.
 
-### [Recipe Cards](recipe-cards.md)
+### [Recipe Cards](/reference/recipe-cards/)
 Step-by-step procedures for implementing patterns and debugging. Cross-referenced with relevant laws.
 
-### [Security Considerations](security.md)
+### [Security Considerations](/reference/security/)
 Security implications, vulnerabilities, and defensive strategies. Mapped to the fundamental laws.
 
-### [Law Mapping Guide](law-mapping-guide.md)
+### [Law Mapping Guide](/reference/law-mapping-guide/)
 Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 ---
@@ -120,11 +120,11 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
  
  <h4>Key Patterns</h4>
  <ul>
- <li><a href="../pattern-library/circuit-breaker.md">Circuit Breaker</a></li>
- <li><a href="../pattern-library/saga.md">Saga Pattern</a></li>
- <li><a href="../pattern-library/event-sourcing.md">Event Sourcing</a></li>
- <li><a href="../pattern-library/cqrs.md">CQRS</a></li>
- <li><a href="../pattern-library/consensus.md">Consensus Protocols</a></li>
+ <li><a href="../patterns/circuit-breaker.md">Circuit Breaker</a></li>
+ <li><a href="../patterns/saga.md">Saga Pattern</a></li>
+ <li><a href="../patterns/data-management/event-sourcing.md">Event Sourcing</a></li>
+ <li><a href="../patterns/cqrs.md">CQRS</a></li>
+ <li><a href="../patterns/consensus.md">Consensus Protocols</a></li>
  </ul>
 </div>
 
@@ -271,7 +271,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
         ← [Human Factors](../human-factors/index.md)
     </div>
     <div class="navigation-next">
-        [Glossary](glossary.md) →
+        [Glossary](/reference/glossary/) →
     </div>
 </div>
 

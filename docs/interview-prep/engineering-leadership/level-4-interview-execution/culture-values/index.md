@@ -400,4 +400,4 @@ Round 3: Ethical scenarios (30 min)
 
 ---
 
-**Next Steps**: Complete the values alignment worksheet for your target companies, then practice with the [Principle Hooks Framework](../tools/principle-hooks/).
+**Next Steps**: Complete the values alignment worksheet for your target companies, then practice with the [Principle Hooks Framework](/interview-prep/engineering-leadership/level-4-interview-execution/tools/principle-hooks/index/).

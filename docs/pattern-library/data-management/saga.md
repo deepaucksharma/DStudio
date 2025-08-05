@@ -209,8 +209,8 @@ graph TD
 - **[Outbox Pattern](../pattern-library/data-management/outbox.md)**: Reliable event publishing
 
 ### Supporting Patterns
-- **[Idempotent Receiver](../pattern-library/idempotent-receiver.md)**: Safe retries
-- **[Circuit Breaker](../resilience/circuit-breaker.md)**: Protect saga steps
+- **[Idempotent Receiver](../patterns/idempotent-receiver.md)**: Safe retries
+- **[Circuit Breaker](/pattern-library/resilience/circuit-breaker/)**: Protect saga steps
 - **[CQRS](./cqrs.md)**: Separate saga execution from queries
 
 #

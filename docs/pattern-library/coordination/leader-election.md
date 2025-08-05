@@ -334,8 +334,8 @@ graph LR
     
     ---
     
-    - [Distributed Lock](../coordination/distributed-lock.md) - Uses election for coordination
-    - [Consensus](../coordination/consensus.md) - Foundation for safe elections
+    - [Distributed Lock](/pattern-library/coordination/distributed-lock/) - Uses election for coordination
+    - [Consensus](/pattern-library/coordination/consensus/) - Foundation for safe elections
     - [Heartbeat](../communication/heartbeat.md) - Failure detection mechanism
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**

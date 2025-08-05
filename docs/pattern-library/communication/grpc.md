@@ -80,7 +80,7 @@ type: pattern
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| Browser clients | No native browser support | [WebSocket](communication/websocket.md) or gRPC-Web |
+| Browser clients | No native browser support | [WebSocket](/pattern-library/communication/websocket/) or gRPC-Web |
 | Public APIs | Binary protocol not human-readable | REST with OpenAPI |
 | Simple CRUD operations | Overkill complexity | REST for straightforward operations |
 | Debugging with curl | Binary protocol not curl-friendly | HTTP/JSON for troubleshooting ease |

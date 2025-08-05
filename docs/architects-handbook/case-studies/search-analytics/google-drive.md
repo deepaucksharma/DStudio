@@ -874,7 +874,7 @@ Web Browser → Web Server → File System → Database
 **Patterns Violated**: 
 - No Deduplication (Coming Soon)
 - No Delta Sync (Coming Soon)
-- No [Distributed Storage](../pattern-library/distributed-storage)
+- No [Distributed Storage](../patterns/distributed-storage)
 
 ### Phase 2: Basic Sync Architecture (2008-2010)
 
@@ -964,7 +964,7 @@ graph TB
 - Immutable storage simplifies replication
 
 **Patterns & Pillars Applied**:
-- Pattern: [Content-Addressed Storage](../pattern-library/cas) - Deduplication
+- Pattern: [Content-Addressed Storage](../patterns/cas) - Deduplication
 - Pattern: Chunking (Coming Soon) - Large file handling
 - 🏛 Pillar: [State Distribution](../part2-pillars/state) - Sharded metadata
 - 🏛 Pillar: [Work Distribution](../part2-pillars/work) - Parallel uploads
@@ -1552,12 +1552,12 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 - **[Law 7: Economics](../part1-axioms/law7-economics)** - Storage costs, tiering strategy
 
 ### 🏛 Related Patterns
-- **[Content-Addressed Storage](../pattern-library/cas)** - Deduplication foundation
+- **[Content-Addressed Storage](../patterns/cas)** - Deduplication foundation
 - **Delta Sync (Coming Soon)** - Efficient synchronization
 - **Merkle Trees (Coming Soon)** - File verification
-- **[CRDT](../pattern-library/crdt)** - Conflict-free collaboration
-- **[Event Sourcing](../pattern-library/event-sourcing)** - File history
-- **[Saga Pattern](../pattern-library/saga)** - Multi-step operations
+- **[CRDT](../patterns/crdt)** - Conflict-free collaboration
+- **[Event Sourcing](../patterns/event-sourcing)** - File history
+- **[Saga Pattern](../patterns/saga)** - Multi-step operations
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service resilience
 
 ### Quantitative Models

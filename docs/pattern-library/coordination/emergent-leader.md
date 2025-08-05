@@ -72,10 +72,10 @@ when-to-use: Decentralized systems, peer-to-peer networks, dynamic membership, e
 
 | Scenario | Why Not | Alternative |
 |----------|---------|-------------|
-| Strong Consistency Required | Slow convergence | [Consensus Algorithms](coordination/consensus.md) |
-| Small Static Clusters | Election overhead minimal | [Leader Election](coordination/leader-election.md) |
-| Byzantine Environment | Score manipulation possible | [PBFT Consensus](coordination/consensus.md) |
-| Immediate Leader Needed | Emergence takes time | [Bully Algorithm](coordination/leader-election.md) |
+| Strong Consistency Required | Slow convergence | [Consensus Algorithms](/pattern-library/coordination/consensus/) |
+| Small Static Clusters | Election overhead minimal | [Leader Election](/pattern-library/coordination/leader-election/) |
+| Byzantine Environment | Score manipulation possible | [PBFT Consensus](/pattern-library/coordination/consensus/) |
+| Immediate Leader Needed | Emergence takes time | [Bully Algorithm](/pattern-library/coordination/leader-election/) |
 
 ## Decision Matrix
 

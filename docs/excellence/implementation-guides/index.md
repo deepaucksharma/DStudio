@@ -18,7 +18,7 @@
     
     45 min • 12 patterns • Netflix, Amazon
     
-    [:octicons-arrow-right-24: Learn Resilience](resilience-first.md)
+    [:octicons-arrow-right-24: Learn Resilience](/excellence/implementation-guides/resilience-first/)
 
 -   **Data Consistency**
 
@@ -28,7 +28,7 @@
     
     60 min • 15 patterns • Uber, PayPal
     
-    [:octicons-arrow-right-24: Master Data](data-consistency.md)
+    [:octicons-arrow-right-24: Master Data](/excellence/implementation-guides/data-consistency/)
 
 -   **Performance Optimization**
 
@@ -38,7 +38,7 @@
     
     50 min • 10 patterns • Facebook, LinkedIn
     
-    [:octicons-arrow-right-24: Optimize Performance](performance-optimization.md)
+    [:octicons-arrow-right-24: Optimize Performance](/excellence/implementation-guides/performance-optimization/)
 
 -   **Operational Excellence**
 
@@ -48,7 +48,7 @@
     
     40 min • 8 patterns • Google, Microsoft
     
-    [:octicons-arrow-right-24: Excel at Ops](operational-excellence.md)
+    [:octicons-arrow-right-24: Excel at Ops](/excellence/implementation-guides/operational-excellence/)
 
 -   **Service Communication**
 
@@ -58,7 +58,7 @@
     
     55 min • 14 patterns • Netflix, Uber
     
-    [:octicons-arrow-right-24: Connect Services](service-communication.md)
+    [:octicons-arrow-right-24: Connect Services](/excellence/implementation-guides/service-communication/)
 
 -   **Platform Engineering Playbook**
 
@@ -68,7 +68,7 @@
     
     35 min • 7 patterns • Spotify, Zalando
     
-    [:octicons-arrow-right-24: Build Platforms](platform-engineering-playbook.md)
+    [:octicons-arrow-right-24: Build Platforms](/excellence/implementation-guides/platform-engineering-playbook/)
 
 -   **Security Patterns**
 
@@ -78,7 +78,7 @@
     
     40 min • 9 patterns • Banks, Healthcare
     
-    [:octicons-arrow-right-24: Secure Systems](security-patterns.md)
+    [:octicons-arrow-right-24: Secure Systems](/excellence/implementation-guides/security-patterns/)
 
 -   **Modern Distributed Systems 2025**
 
@@ -88,7 +88,7 @@
     
     30 min • 6 patterns • Trending ↗️ 45%
     
-    [:octicons-arrow-right-24: Future Ready](modern-distributed-systems-2025.md)
+    [:octicons-arrow-right-24: Future Ready](/excellence/implementation-guides/modern-distributed-systems-2025/)
 
 -   **Quick Start Guide**
 
@@ -98,7 +98,7 @@
     
     30 min • 5 patterns • Perfect for beginners
     
-    [:octicons-arrow-right-24: Start Now](quick-start-guide.md)
+    [:octicons-arrow-right-24: Start Now](/excellence/implementation-guides/quick-start-guide/)
 
 </div>
 
@@ -172,4 +172,4 @@ graph TB
 
 ---
 
-[:octicons-arrow-left-24: Back to Excellence](../index.md) | [:octicons-arrow-right-24: Start with Quick Start Guide](quick-start-guide.md)
+[:octicons-arrow-left-24: Back to Excellence](../index.md) | [:octicons-arrow-right-24: Start with Quick Start Guide](/excellence/implementation-guides/quick-start-guide/)

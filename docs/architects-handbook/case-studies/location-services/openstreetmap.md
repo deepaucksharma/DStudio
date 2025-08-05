@@ -23,8 +23,8 @@ This case study would explore OpenStreetMap's unique crowdsourced approach to gl
 - Community governance and vandalism prevention
 
 ## Related Case Studies
-- [Google Maps](google-maps.md) - Centralized mapping approach
-- [Web Crawler](web-crawler.md) - Distributed data collection patterns
+- [Google Maps](/architects-handbook/case-studies/location-services/google-maps/) - Centralized mapping approach
+- [Web Crawler](/architects-handbook/case-studies/infrastructure/web-crawler/) - Distributed data collection patterns
 - [Consistent Hashing](consistent-hashing.md.md) - Tile server distribution
 
 ## External Resources

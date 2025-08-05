@@ -16,28 +16,28 @@ This collection includes the most common system design problems asked in technic
 ## 📚 Available Problems
 
 ### Storage & Collaboration Systems
-- **[Cloud Storage System](cloud-storage.md)** - Dropbox/Google Drive clone
-- **[Collaborative Document Editor](collaborative-editor.md)** - Google Docs real-time editing
+- **[Cloud Storage System](/interview-prep/ic-interviews/common-problems/cloud-storage/)** - Dropbox/Google Drive clone
+- **[Collaborative Document Editor](/interview-prep/ic-interviews/common-problems/collaborative-editor/)** - Google Docs real-time editing
 
 ### Development & Infrastructure
-- **[CI/CD Pipeline System](cicd-pipeline.md)** - Jenkins/GitHub Actions clone
-- **[IoT Platform](iot-platform.md)** - Device management and data processing
-- **[ML Serving System](ml-serving.md)** - Model deployment and inference
+- **[CI/CD Pipeline System](/interview-prep/ic-interviews/common-problems/cicd-pipeline/)** - Jenkins/GitHub Actions clone
+- **[IoT Platform](/interview-prep/ic-interviews/common-problems/iot-platform/)** - Device management and data processing
+- **[ML Serving System](/interview-prep/ic-interviews/common-problems/ml-serving/)** - Model deployment and inference
 
 ## 🎯 Difficulty Levels
 
 ### Intermediate (45-60 min)
 | Problem | Key Concepts |
 |---------|--------------|
-| [Cloud Storage](cloud-storage.md) | File sync, deduplication, conflict resolution |
-| [Collaborative Editor](collaborative-editor.md) | Real-time sync, operational transforms |
-| [CI/CD Pipeline](cicd-pipeline.md) | Job orchestration, artifact management |
+| [Cloud Storage](/interview-prep/ic-interviews/common-problems/cloud-storage/) | File sync, deduplication, conflict resolution |
+| [Collaborative Editor](/interview-prep/ic-interviews/common-problems/collaborative-editor/) | Real-time sync, operational transforms |
+| [CI/CD Pipeline](/interview-prep/ic-interviews/common-problems/cicd-pipeline/) | Job orchestration, artifact management |
 
 ### Advanced (60+ min)
 | Problem | Key Concepts |
 |---------|--------------|
-| [IoT Platform](iot-platform.md) | Device management, stream processing, time series data |
-| [ML Serving System](ml-serving.md) | Model lifecycle, feature stores, A/B testing |
+| [IoT Platform](/interview-prep/ic-interviews/common-problems/iot-platform/) | Device management, stream processing, time series data |
+| [ML Serving System](/interview-prep/ic-interviews/common-problems/ml-serving/) | Model lifecycle, feature stores, A/B testing |
 
 ## 📊 Common Patterns Used
 
@@ -140,12 +140,12 @@ We're actively expanding this collection. Future problems will include:
 ## 📖 Study Resources
 
 ### Before Practice
-- Review [System Design Frameworks](../frameworks/)
-- Study [Common Patterns](../../../pattern-library/)
-- Check [Scalability Numbers](../cheatsheets/)
+- Review [System Design Frameworks](/interview-prep/ic-interviews/frameworks/index/)
+- Study [Common Patterns](/pattern-library/)
+- Check [Scalability Numbers](/interview-prep/ic-interviews/cheatsheets/index/)
 
 ### During Practice
-- Use [System Design Checklist](../cheatsheets/system-design-checklist.md)
+- Use [System Design Checklist](/interview-prep/ic-interviews/cheatsheets/system-design-checklist/)
 - Follow consistent approach
 - Time yourself
 

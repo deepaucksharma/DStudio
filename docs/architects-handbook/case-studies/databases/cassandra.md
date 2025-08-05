@@ -902,13 +902,13 @@ Understanding Cassandra's approach to distributed data management provides insig
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](../../../core-principles/laws/correlated-failure.md) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](../../../core-principles/laws/asynchronous-reality.md) - Gossip protocol and eventual consistency
-- [Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization.md) - CAP theorem trade-offs in Cassandra
-- [Law 5: Distributed Knowledge](../../../core-principles/laws/distributed-knowledge.md) - Gossip-based membership and failure detection
+- [Law 1: Correlated Failure](/core-principles/laws/correlated-failure/) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/) - Gossip protocol and eventual consistency
+- [Law 4: Multidimensional Optimization](/core-principles/laws/multidimensional-optimization/) - CAP theorem trade-offs in Cassandra
+- [Law 5: Distributed Knowledge](/core-principles/laws/distributed-knowledge/) - Gossip-based membership and failure detection
 
 ### Related Patterns
-- [Consistent Hashing](data-management/consistent-hashing.md) - Core data distribution mechanism
+- [Consistent Hashing](/pattern-library/data-management/consistent-hashing/) - Core data distribution mechanism
 - [Gossip Protocol](../pattern-library/communication/publish-subscribe.md) - Membership and failure detection
 - [Merkle Trees](../pattern-library/data-management/merkle-trees.md) - Anti-entropy repair mechanism
 - [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Conflict resolution in distributed writes
@@ -916,20 +916,20 @@ Understanding Cassandra's approach to distributed data management provides insig
 - [Bloom Filters](../pattern-library/data-management/bloom-filter.md) - Read optimization
 
 ### Related Pillars
-- [Pillar 2: State](../../../core-principles/pillars/state-distribution.md) - Distributed state management at scale
-- [Pillar 3: Truth](../../../core-principles/pillars/truth-distribution.md) - Tunable consistency levels
-- [Pillar 4: Control](../../../core-principles/pillars/control-distribution.md) - Masterless coordination
+- [Pillar 2: State](/core-principles/pillars/state-distribution/) - Distributed state management at scale
+- [Pillar 3: Truth](/core-principles/pillars/truth-distribution/) - Tunable consistency levels
+- [Pillar 4: Control](/core-principles/pillars/control-distribution/) - Masterless coordination
 
 ### Quantitative Analysis
-- [CAP Theorem](../../quantitative-analysis/cap-theorem.md) - Understanding Cassandra's AP choice
-- [Consistency Models](../../quantitative-analysis/consistency-models.md) - Tunable consistency mathematics
-- [Performance Modeling](../../quantitative-analysis/performance-modeling.md) - Linear scalability analysis
-- [Failure Models](../../quantitative-analysis/failure-models.md) - Understanding failure domains
+- [CAP Theorem](/architects-handbook/quantitative-analysis/cap-theorem/) - Understanding Cassandra's AP choice
+- [Consistency Models](/architects-handbook/quantitative-analysis/consistency-models/) - Tunable consistency mathematics
+- [Performance Modeling](/architects-handbook/quantitative-analysis/performance-modeling/) - Linear scalability analysis
+- [Failure Models](/architects-handbook/quantitative-analysis/failure-models/) - Understanding failure domains
 
 ### Case Studies
-- [Amazon DynamoDB](amazon-dynamo) - Similar dynamo-style architecture
-- [Netflix at Scale](netflix-chaos) - Using Cassandra for global streaming
-- [Discord Messages](chat-system) - Storing billions of messages
+- [Amazon DynamoDB](/amazon-dynamo) - Similar dynamo-style architecture
+- [Netflix at Scale](/netflix-chaos) - Using Cassandra for global streaming
+- [Discord Messages](/chat-system) - Storing billions of messages
 - [ScyllaDB](scylladb.md) - C++ reimplementation of Cassandra
 
 ### Further Reading

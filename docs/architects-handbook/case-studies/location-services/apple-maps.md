@@ -23,8 +23,8 @@ This case study would examine Apple Maps' architecture with a focus on privacy-p
 - Look Around (Street View alternative) infrastructure
 
 ## Related Case Studies
-- [Google Maps](google-maps.md) - Comparison with Google's approach
-- [Find My Device](find-my-device.md) - Apple's location tracking system
+- [Google Maps](/architects-handbook/case-studies/location-services/google-maps/) - Comparison with Google's approach
+- [Find My Device](/architects-handbook/case-studies/location-services/find-my-device/) - Apple's location tracking system
 - [Nearby Friends](nearby-friends.md.md) - Privacy-preserving location sharing
 
 ## External Resources

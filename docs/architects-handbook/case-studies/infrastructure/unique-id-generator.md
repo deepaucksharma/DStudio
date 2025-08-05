@@ -1344,15 +1344,15 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Distributed Knowledge ](../../../core-principles/laws/distributed-knowledge.md) - Node ID assignment and consensus
-- [Law 6: Cognitive Load ](../../../core-principles/laws/cognitive-load.md) - Developer experience considerations
+- [Law 5: Distributed Knowledge ](/core-principles/laws/distributed-knowledge/) - Node ID assignment and consensus
+- [Law 6: Cognitive Load ](/core-principles/laws/cognitive-load/) - Developer experience considerations
 - [Clock Synchronization](../pattern-library/coordination/clock-sync.md) - NTP and time coordination
 - [Logical Clocks](../pattern-library/coordination/logical-clocks.md) - Alternative to wall-clock time
 
 **Advanced Topics:**
 - [Jepsen Analysis of ID Generators] (Jepsen Analysis Coming Soon) - Correctness testing
 - [ID Generation at Scale](../pattern-library/scaling/id-generation-scale.md) - Billion+ IDs/second
-- [Time-Series IDs](../pattern-library/time-series-ids.md) - Optimized for time-series data
+- [Time-Series IDs](../patterns/time-series-ids.md) - Optimized for time-series data
 - [Collision Probability Math](../quantitative/collision-probability.md) - Birthday paradox applied
 
 **Related Case Studies:**

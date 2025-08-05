@@ -519,5 +519,5 @@ Perfect availability is impossible. Design for graceful degradation.
 
 ## Related Concepts
 
-- **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md)
+- **Quantitative**: [Little's Law](/architects-handbook/quantitative-analysis/littles-law/) | [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-models/) | [Latency Ladder](/architects-handbook/quantitative-analysis/latency-ladder/)
 - **Patterns**: [Bulkhead](../pattern-library/resilience/bulkhead.md) | [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) | [Failover](../pattern-library/resilience/failover.md)

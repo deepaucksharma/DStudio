@@ -35,10 +35,10 @@ description: Patterns to migrate away from, with clear paths to modern alternati
 
 <div class="pattern-category bronze-danger">
 
-#### [Two-Phase Commit (2PC)](../pattern-library/two-phase-commit/)
+#### [Two-Phase Commit (2PC)](../patterns/two-phase-commit/)
 **Distributed ACID transactions**
 - ⚠️ **Issues**: Blocking, coordinator failure, poor performance
-- ✅ **Migrate to**: [Saga Pattern](../pattern-library/saga/)
+- ✅ **Migrate to**: [Saga Pattern](../patterns/saga/)
 - 📊 **Migration Effort**: High
 - 💡 **Still Valid For**: Small-scale, same-datacenter transactions
 
@@ -51,10 +51,10 @@ graph LR
     D --> E[Saga Pattern]
 ```
 
-#### [Distributed Locks](../pattern-library/distributed-lock/)
+#### [Distributed Locks](../patterns/distributed-lock/)
 **Global mutex across services**
 - ⚠️ **Issues**: Single point of failure, deadlocks, performance
-- ✅ **Migrate to**: [Optimistic Concurrency](../pattern-library/optimistic-locking/)
+- ✅ **Migrate to**: [Optimistic Concurrency](../patterns/optimistic-locking/)
 - 📊 **Migration Effort**: Medium
 - 💡 **Still Valid For**: Leader election, short-held locks
 
@@ -64,10 +64,10 @@ graph LR
 
 <div class="pattern-category bronze-legacy">
 
-#### [Shared Database](../pattern-library/shared-database/)
+#### [Shared Database](../patterns/shared-database/)
 **Multiple services share one database**
 - ⚠️ **Issues**: Tight coupling, no isolation, scaling limits
-- ✅ **Migrate to**: [Database per Service](../pattern-library/database-per-service/)
+- ✅ **Migrate to**: [Database per Service](../patterns/database-per-service/)
 - 📊 **Migration Effort**: Very High
 - 💡 **Still Valid For**: Small, simple systems
 
@@ -78,14 +78,14 @@ graph LR
 4. Implement sync mechanisms
 5. Cut over service by service
 
-#### [Thick Client](../pattern-library/thick-client/)
+#### [Thick Client](../patterns/thick-client/)
 **Heavy business logic in client**
 - ⚠️ **Issues**: Update nightmare, security risks, platform lock-in
-- ✅ **Migrate to**: [API-First](../pattern-library/api-gateway/) + Thin Client
+- ✅ **Migrate to**: [API-First](../patterns/api-gateway/) + Thin Client
 - 📊 **Migration Effort**: High
 - 💡 **Still Valid For**: Specialized desktop apps
 
-#### [Stored Procedures](../pattern-library/stored-procedures/)
+#### [Stored Procedures](../patterns/stored-procedures/)
 **Business logic in database**
 - ⚠️ **Issues**: Testing difficulty, version control, vendor lock-in
 - ✅ **Migrate to**: Application layer logic
@@ -98,24 +98,24 @@ graph LR
 
 <div class="pattern-category bronze-comm">
 
-#### [Polling](../pattern-library/polling/)
+#### [Polling](../patterns/polling/)
 **Repeatedly check for updates**
 - ⚠️ **Issues**: Inefficient, latency, resource waste
-- ✅ **Migrate to**: [WebSocket](../pattern-library/websocket/) or [SSE](../pattern-library/server-sent-events/)
+- ✅ **Migrate to**: [WebSocket](../patterns/websocket/) or [SSE](../patterns/server-sent-events/)
 - 📊 **Migration Effort**: Low-Medium
 - 💡 **Still Valid For**: Infrequent checks, simple integrations
 
-#### [SOAP/XML-RPC](../pattern-library/soap/)
+#### [SOAP/XML-RPC](../patterns/soap/)
 **Heavy protocol for service communication**
 - ⚠️ **Issues**: Complexity, performance, tooling
 - ✅ **Migrate to**: REST or gRPC
 - 📊 **Migration Effort**: Medium
 - 💡 **Still Valid For**: Enterprise integrations
 
-#### [File-Based Integration](../pattern-library/file-integration/)
+#### [File-Based Integration](../patterns/file-integration/)
 **Share data via files**
 - ⚠️ **Issues**: Latency, error handling, monitoring
-- ✅ **Migrate to**: [Event Streaming](../pattern-library/event-streaming/)
+- ✅ **Migrate to**: [Event Streaming](../patterns/event-streaming/)
 - 📊 **Migration Effort**: Medium-High
 - 💡 **Still Valid For**: Batch processing, legacy systems
 
@@ -125,14 +125,14 @@ graph LR
 
 <div class="pattern-category bronze-ops">
 
-#### [Manual Scaling](../pattern-library/manual-scaling/)
+#### [Manual Scaling](../patterns/manual-scaling/)
 **Human-operated capacity changes**
 - ⚠️ **Issues**: Slow response, human error, cost
-- ✅ **Migrate to**: [Auto-Scaling](../pattern-library/auto-scaling/)
+- ✅ **Migrate to**: [Auto-Scaling](../patterns/auto-scaling/)
 - 📊 **Migration Effort**: Low
 - 💡 **Still Valid For**: Predictable workloads
 
-#### [Singleton Pattern](../pattern-library/singleton/)
+#### [Singleton Pattern](../patterns/singleton/)
 **Single instance globally**
 - ⚠️ **Issues**: Testing, concurrency, scalability
 - ✅ **Migrate to**: Dependency injection
@@ -217,17 +217,17 @@ graph LR
 
 <div class="specific-guides">
 
-**[2PC → Saga Migration Guide](../../migrations/2pc-to-saga/)**
+**[2PC → Saga Migration Guide](/excellence/migrations/2pc-to-saga/)**
 - Boundary identification
 - Compensation design
 - Testing strategies
 
-**[Shared DB → Database per Service](../../migrations/shared-database-to-microservices/)**
+**[Shared DB → Database per Service](/excellence/migrations/shared-database-to-microservices/)**
 - Service extraction
 - Data synchronization
 - Consistency patterns
 
-**[Polling → WebSocket Migration](../../migrations/polling-to-websocket/)**
+**[Polling → WebSocket Migration](/excellence/migrations/polling-to-websocket/)**
 - Protocol upgrade
 - Fallback handling
 - Client updates

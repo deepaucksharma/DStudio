@@ -390,4 +390,4 @@ Deliverables:
 
 ---
 
-**Next Steps**: Practice with real scenarios from [Company-Specific Guides](../../../company-specific/), and use [Interactive Tools](../tools/interactive/) for timed practice.
+**Next Steps**: Practice with real scenarios from [Company-Specific Guides](/company-specific/), and use [Interactive Tools](/interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index/) for timed practice.

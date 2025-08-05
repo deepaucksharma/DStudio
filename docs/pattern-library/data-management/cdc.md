@@ -241,14 +241,14 @@ graph TD
 - **[Saga Pattern](./saga.md)**: CDC triggers distributed transactions
 
 ### Supporting Patterns
-- **[Stream Processing](../pattern-library/stream-processing.md)**: Process CDC events
+- **[Stream Processing](../patterns/stream-processing.md)**: Process CDC events
 - **[CQRS](./cqrs.md)**: CDC updates read models
-- **[Cache Invalidation](../pattern-library/cache-invalidation.md)**: Real-time cache updates
+- **[Cache Invalidation](../patterns/cache-invalidation.md)**: Real-time cache updates
 
 ### Alternatives
-- **[Batch ETL](../pattern-library/etl.md)**: When real-time not needed
-- **[Database Replication](../pattern-library/replication.md)**: Full database sync
-- **[Polling](../pattern-library/polling.md)**: Simple but less efficient
+- **[Batch ETL](../patterns/etl.md)**: When real-time not needed
+- **[Database Replication](../patterns/replication.md)**: Full database sync
+- **[Polling](../patterns/polling.md)**: Simple but less efficient
 
 ## Further Reading
 

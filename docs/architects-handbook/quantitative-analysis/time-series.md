@@ -26,9 +26,9 @@ Time-series analysis provides mathematical techniques for understanding temporal
 - SLA violation prediction
 
 ## Related Models
-- [Stochastic Processes](stochastic-processes.md)
-- [Markov Chains](markov-chains.md)
-- [Queueing Theory](queueing-models.md)
+- [Stochastic Processes](/architects-handbook/quantitative-analysis/stochastic-processes/)
+- [Markov Chains](/architects-handbook/quantitative-analysis/markov-chains/)
+- [Queueing Theory](/architects-handbook/quantitative-analysis/queueing-models/)
 
 ## References
 - "Time Series Analysis and Its Applications" - Shumway & Stoffer (2017)

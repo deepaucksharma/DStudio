@@ -106,8 +106,8 @@ graph TB
 - Grid-based quantization
 
 **Patterns & Pillars Applied**:
-- Pattern: [Location Privacy](../pattern-library/location-privacy) - K-anonymity
-- Pattern: [Consent Management](../pattern-library/consent-management) - Mutual opt-in
+- Pattern: [Location Privacy](../patterns/location-privacy) - K-anonymity
+- Pattern: [Consent Management](../patterns/consent-management) - Mutual opt-in
 - 🏛 Pillar: [Control Distribution](../part2-pillars/control/index) - Privacy UX
 - 🏛 Pillar: [Truth Distribution](../part2-pillars/truth) - Location accuracy
 
@@ -1701,10 +1701,10 @@ class PrivacyDashboard:
 - **[Law 7: Economics](../part1-axioms/law7-economics/index)** - Infrastructure costs
 
 ### 🏛 Related Patterns
-- **[Location Privacy](../pattern-library/location-privacy)** - K-anonymity, fuzzing
-- **[Consent Management](../pattern-library/consent-management)** - GDPR compliance
-- **[Stream Processing](../pattern-library/queues-streaming)** - Real-time events
-- **[Edge Computing](../pattern-library/edge-computing)** - Regional processing
+- **[Location Privacy](../patterns/location-privacy)** - K-anonymity, fuzzing
+- **[Consent Management](../patterns/consent-management)** - GDPR compliance
+- **[Stream Processing](../patterns/queues-streaming)** - Real-time events
+- **[Edge Computing](../patterns/edge-computing)** - Regional processing
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
 - **Geofencing (Coming Soon)** - Location triggers
 - **Battery Optimization (Coming Soon)** - Mobile efficiency
@@ -1717,8 +1717,8 @@ class PrivacyDashboard:
 
 ### Similar Case Studies
 - **[Find My Device](find-my-device.md.md)** - Apple/Google location
-- **[Snap Map](snap-map.md)** - Social location sharing
-- **[Life360](life360.md)** - Family location tracking
+- **[Snap Map](/architects-handbook/case-studies/location-services/snap-map/)** - Social location sharing
+- **[Life360](/architects-handbook/case-studies/location-services/life360/)** - Family location tracking
 - **[Strava Heatmaps](strava-heatmaps.md.md)** - Activity location privacy
 
 ## Implementation Best Practices
