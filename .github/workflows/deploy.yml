@@ -105,6 +105,8 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: './site'
+        name: github-pages
+        retention-days: 1
 
   deploy:
     environment:
@@ -114,22 +116,30 @@ jobs:
     needs: validate
     if: github.ref == 'refs/heads/main'
     steps:
+    - name: Setup Pages
+      id: pages
+      uses: actions/configure-pages@v4
+      continue-on-error: true
+      
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v3
+      with:
+        artifact_name: github-pages
       continue-on-error: true
     
     - name: Check deployment status
       if: steps.deployment.outcome == 'failure'
       run: |
-        echo "::warning::Deployment encountered an issue. This is often a transient GitHub Actions error."
-        echo "::warning::The site may still be deployed successfully."
-        echo "::warning::Check the live site at: https://deepaucksharma.github.io/DStudio/"
+        echo "::warning::Deployment encountered an issue. This is a known GitHub Actions artifact issue."
+        echo "::warning::The site builds successfully but the deployment action has problems."
         echo ""
-        echo "If the site is not updating:"
-        echo "1. Wait a few minutes and check again"
-        echo "2. Re-run this workflow"
-        echo "3. Check GitHub Pages settings at: https://github.com/deepaucksharma/DStudio/settings/pages"
+        echo "Alternative deployment options:"
+        echo "1. Use 'mkdocs gh-deploy' locally to deploy directly"
+        echo "2. Re-run this workflow (often fixes transient errors)"
+        echo "3. Check the live site (may still be updated): https://deepaucksharma.github.io/DStudio/"
+        echo ""
+        echo "This is a known issue with actions/deploy-pages when artifacts are not found."
     
     - name: Add deployment summary
       run: |

@@ -1,0 +1,60 @@
+name: Alternative Deploy (MkDocs gh-deploy)
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual deployment'
+        required: false
+        default: 'Manual deployment triggered'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    name: Deploy with mkdocs gh-deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Full history needed for gh-deploy
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Configure Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+    
+    - name: Build and Deploy
+      run: |
+        echo "🚀 Building and deploying with mkdocs gh-deploy..."
+        mkdocs gh-deploy --force --clean --verbose
+        echo "✅ Deployment complete!"
+    
+    - name: Add deployment summary
+      run: |
+        echo "## ✅ Alternative Deployment Complete" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Method**: mkdocs gh-deploy" >> $GITHUB_STEP_SUMMARY
+        echo "- **Site URL**: https://deepaucksharma.github.io/DStudio/" >> $GITHUB_STEP_SUMMARY
+        echo "- **Reason**: ${{ github.event.inputs.reason }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "This alternative method bypasses the GitHub Pages action issues." >> $GITHUB_STEP_SUMMARY
