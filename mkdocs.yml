@@ -137,10 +137,106 @@ plugins:
       patterns/cell-architecture.md: pattern-library/architecture/cell-based.md
       patterns/observability.md: architects-handbook/human-factors/observability-stacks.md
       patterns/chaos-engineering.md: architects-handbook/human-factors/chaos-engineering.md
-- mermaid2:
-    version: 10.9.1
-    javascript: https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js
+
+      patterns/ambassador.md: pattern-library/architecture/ambassador.md
+      patterns/anti-corruption-layer.md: pattern-library/architecture/anti-corruption-layer.md
+      patterns/backends-for-frontends.md: pattern-library/architecture/backends-for-frontends.md
+      patterns/cap-theorem.md: pattern-library/architecture/cap-theorem.md
+      patterns/cell-based.md: pattern-library/architecture/cell-based.md
+      patterns/choreography.md: pattern-library/architecture/choreography.md
+      patterns/event-driven.md: pattern-library/architecture/event-driven.md
+      patterns/event-streaming.md: pattern-library/architecture/event-streaming.md
+      patterns/graphql-federation.md: pattern-library/architecture/graphql-federation.md
+      patterns/kappa-architecture.md: pattern-library/architecture/kappa-architecture.md
+      patterns/lambda-architecture.md: pattern-library/architecture/lambda-architecture.md
+      patterns/serverless-faas.md: pattern-library/architecture/serverless-faas.md
+      patterns/shared-nothing.md: pattern-library/architecture/shared-nothing.md
+      patterns/sidecar.md: pattern-library/architecture/sidecar.md
+      patterns/strangler-fig.md: pattern-library/architecture/strangler-fig.md
+      patterns/valet-key.md: pattern-library/architecture/valet-key.md
+      patterns/api-gateway.md: pattern-library/communication/api-gateway.md
+      patterns/grpc.md: pattern-library/communication/grpc.md
+      patterns/publish-subscribe.md: pattern-library/communication/publish-subscribe.md
+      patterns/request-reply.md: pattern-library/communication/request-reply.md
+      patterns/service-discovery.md: pattern-library/communication/service-discovery.md
+      patterns/service-mesh.md: pattern-library/communication/service-mesh.md
+      patterns/service-registry.md: pattern-library/communication/service-registry.md
+      patterns/websocket.md: pattern-library/communication/websocket.md
+      patterns/actor-model.md: pattern-library/coordination/actor-model.md
+      patterns/cas.md: pattern-library/coordination/cas.md
+      patterns/clock-sync.md: pattern-library/coordination/clock-sync.md
+      patterns/consensus.md: pattern-library/coordination/consensus.md
+      patterns/distributed-lock.md: pattern-library/coordination/distributed-lock.md
+      patterns/distributed-queue.md: pattern-library/coordination/distributed-queue.md
+      patterns/emergent-leader.md: pattern-library/coordination/emergent-leader.md
+      patterns/generation-clock.md: pattern-library/coordination/generation-clock.md
+      patterns/hlc.md: pattern-library/coordination/hlc.md
+      patterns/leader-election.md: pattern-library/coordination/leader-election.md
+      patterns/leader-follower.md: pattern-library/coordination/leader-follower.md
+      patterns/lease.md: pattern-library/coordination/lease.md
+      patterns/logical-clocks.md: pattern-library/coordination/logical-clocks.md
+      patterns/low-high-water-marks.md: pattern-library/coordination/low-high-water-marks.md
+      patterns/state-watch.md: pattern-library/coordination/state-watch.md
+      patterns/bloom-filter.md: pattern-library/data-management/bloom-filter.md
+      patterns/cdc.md: pattern-library/data-management/cdc.md
+      patterns/consistent-hashing.md: pattern-library/data-management/consistent-hashing.md
+      patterns/cqrs.md: pattern-library/data-management/cqrs.md
+      patterns/crdt.md: pattern-library/data-management/crdt.md
+      patterns/data-lake.md: pattern-library/data-management/data-lake.md
+      patterns/deduplication.md: pattern-library/data-management/deduplication.md
+      patterns/delta-sync.md: pattern-library/data-management/delta-sync.md
+      patterns/distributed-storage.md: pattern-library/data-management/distributed-storage.md
+      patterns/event-sourcing.md: pattern-library/data-management/event-sourcing.md
+      patterns/eventual-consistency.md: pattern-library/data-management/eventual-consistency.md
+      patterns/lsm-tree.md: pattern-library/data-management/lsm-tree.md
+      patterns/materialized-view.md: pattern-library/data-management/materialized-view.md
+      patterns/merkle-trees.md: pattern-library/data-management/merkle-trees.md
+      patterns/outbox.md: pattern-library/data-management/outbox.md
+      patterns/polyglot-persistence.md: pattern-library/data-management/polyglot-persistence.md
+      patterns/read-repair.md: pattern-library/data-management/read-repair.md
+      patterns/saga.md: pattern-library/data-management/saga.md
+      patterns/segmented-log.md: pattern-library/data-management/segmented-log.md
+      patterns/shared-database.md: pattern-library/data-management/shared-database.md
+      patterns/tunable-consistency.md: pattern-library/data-management/tunable-consistency.md
+      patterns/write-ahead-log.md: pattern-library/data-management/write-ahead-log.md
+      patterns/bulkhead.md: pattern-library/resilience/bulkhead.md
+      patterns/circuit-breaker.md: pattern-library/resilience/circuit-breaker.md
+      patterns/failover.md: pattern-library/resilience/failover.md
+      patterns/fault-tolerance.md: pattern-library/resilience/fault-tolerance.md
+      patterns/graceful-degradation.md: pattern-library/resilience/graceful-degradation.md
+      patterns/health-check.md: pattern-library/resilience/health-check.md
+      patterns/heartbeat.md: pattern-library/resilience/heartbeat.md
+      patterns/load-shedding.md: pattern-library/resilience/load-shedding.md
+      patterns/retry-backoff.md: pattern-library/resilience/retry-backoff.md
+      patterns/split-brain.md: pattern-library/resilience/split-brain.md
+      patterns/timeout.md: pattern-library/resilience/timeout.md
+      patterns/analytics-scale.md: pattern-library/scaling/analytics-scale.md
+      patterns/auto-scaling.md: pattern-library/scaling/auto-scaling.md
+      patterns/backpressure.md: pattern-library/scaling/backpressure.md
+      patterns/caching-strategies.md: pattern-library/scaling/caching-strategies.md
+      patterns/chunking.md: pattern-library/scaling/chunking.md
+      patterns/content-delivery-network.md: pattern-library/scaling/content-delivery-network.md
+      patterns/database-per-service.md: pattern-library/scaling/database-per-service.md
+      patterns/database-sharding.md: pattern-library/scaling/database-sharding.md
+      patterns/edge-computing.md: pattern-library/scaling/edge-computing.md
+      patterns/geo-distribution.md: pattern-library/scaling/geo-distribution.md
+      patterns/geo-replication.md: pattern-library/scaling/geo-replication.md
+      patterns/geographic-load-balancing.md: pattern-library/scaling/geographic-load-balancing.md
+      patterns/horizontal-pod-autoscaler.md: pattern-library/scaling/horizontal-pod-autoscaler.md
+      patterns/id-generation-scale.md: pattern-library/scaling/id-generation-scale.md
+      patterns/load-balancing.md: pattern-library/scaling/load-balancing.md
+      patterns/multi-region.md: pattern-library/scaling/multi-region.md
+      patterns/priority-queue.md: pattern-library/scaling/priority-queue.md
+      patterns/queues-streaming.md: pattern-library/scaling/queues-streaming.md
+      patterns/rate-limiting.md: pattern-library/scaling/rate-limiting.md
+      patterns/request-batching.md: pattern-library/scaling/request-batching.md
+      patterns/scatter-gather.md: pattern-library/scaling/scatter-gather.md
+      patterns/sharding.md: pattern-library/scaling/sharding.md
+      patterns/tile-caching.md: pattern-library/scaling/tile-caching.md
+      patterns/url-normalization.md: pattern-library/scaling/url-normalization.md- mermaid2:
+    javascript: https://unpkg.com/mermaid@10.9.1/dist/mermaid.esm.min.mjs
     arguments:
+      securityLevel: 'loose'
       startOnLoad: true
       theme: default
       themeVariables:
@@ -197,7 +293,7 @@ markdown_extensions:
     custom_fences:
     - name: mermaid
       class: mermaid
-      format: !!python/name:mermaid2.fence_mermaid
+      format: !!python/name:mermaid2.fence_mermaid_custom
 - pymdownx.tabbed:
     alternate_style: true
     combine_header_slug: true
