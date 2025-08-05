@@ -390,4 +390,4 @@ Deliverables:
 
 ---
 
-**Next Steps**: Practice with real scenarios from [Company-Specific Guides](../../company-specific/), and use [Interactive Tools](../tools/interactive/) for timed practice.
+**Next Steps**: Practice with real scenarios from [Company-Specific Guides](../../../company-specific/), and use [Interactive Tools](../tools/interactive/) for timed practice.

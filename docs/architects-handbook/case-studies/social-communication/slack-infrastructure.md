@@ -62,7 +62,7 @@ best_for:
 # Excellence connections
 excellence_guides:
   - scale/large-scale
-  - patterns/real-time-systems
+  - pattern-library/real-time-systems
   - architecture/messaging
 
 # Implementation insights
@@ -455,9 +455,9 @@ graph LR
 
 ## Related Resources
 
-- [WebSocket Pattern](../patterns/websocket.md)
-- [Message Queue Pattern](../patterns/message-queue.md)
-- [Sharding Pattern](../../../pattern-library/scaling/sharding.md)
+- [WebSocket Pattern](../pattern-library/communication/websocket.md)
+- [Message Queue Pattern](../pattern-library/message-queue.md)
+- [Sharding Pattern](../pattern-library/scaling/sharding.md)
 - [Building Slack's Architecture](https://slack.engineering/)
 
 ---

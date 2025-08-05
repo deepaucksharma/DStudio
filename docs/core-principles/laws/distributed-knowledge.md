@@ -471,4 +471,4 @@ Remember: **Your system already has multiple truths. The question is whether you
 - **[Law 2: Asynchronous Reality](asynchronous-reality.md)** - Time uncertainty creates truth uncertainty
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Truth conflicts trigger emergence
 - **[Law 4: Multidimensional Optimization](multidimensional-optimization.md)** - Consistency vs availability trade-offs
-- **Patterns**: [Raft Consensus](../../pattern-library/raft.md), [Paxos](../../pattern-library/paxos.md), [Event Sourcing](../../pattern-library/event-sourcing.md)
+- **Patterns**: [Raft Consensus](../pattern-library/coordination/consensus.md), [Paxos](../pattern-library/coordination/consensus.md), [Event Sourcing](../pattern-library/data-management/event-sourcing.md)

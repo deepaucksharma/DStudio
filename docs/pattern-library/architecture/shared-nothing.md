@@ -225,10 +225,10 @@ class PartitionTolerantNode(Node):
 
 ## 🔗 Related Patterns
 
-- **[Sharding](sharding.md)**: Data partitioning strategy
-- **[Consistent Hashing](consistent-hashing.md)**: Partition assignment
-- **[Service Mesh](service-mesh.md)**: Inter-node communication
-- **[Bulkhead](bulkhead.md)**: Fault isolation principle
+- **[Sharding](scaling/sharding.md)**: Data partitioning strategy
+- **[Consistent Hashing](data-management/consistent-hashing.md)**: Partition assignment
+- **[Service Mesh](communication/service-mesh.md)**: Inter-node communication
+- **[Bulkhead](resilience/bulkhead.md)**: Fault isolation principle
 
 *Start your journey with relatable analogies*
 

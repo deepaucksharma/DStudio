@@ -62,7 +62,7 @@ best_for:
 # Excellence connections
 excellence_guides:
   - scale/traffic-spikes
-  - patterns/video-streaming
+  - pattern-library/video-streaming
   - operational/auto-scaling
 
 # Implementation insights
@@ -470,9 +470,9 @@ def calculate_required_capacity(historical_data, growth_rate, peak_factor):
 
 ## Related Resources
 
-- [Auto-scaling Pattern](../../../pattern-library/scaling/auto-scaling.md)
-- [Geo-distribution Pattern](../patterns/geo-distribution.md)
-- [Circuit Breaker Pattern](../../../pattern-library/resilience/circuit-breaker.md)
+- [Auto-scaling Pattern](../pattern-library/scaling/auto-scaling.md)
+- [Geo-distribution Pattern](../pattern-library/scaling/geo-distribution.md)
+- [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md)
 - [Zoom Engineering Blog](https://medium.com/zoom-developer-blog)
 
 ---

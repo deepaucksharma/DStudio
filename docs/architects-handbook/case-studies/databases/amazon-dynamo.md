@@ -353,37 +353,37 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)**
+- :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)**
     
     ---
     
     Prevents cascade failures in distributed request routing
     
-    [Learn more →](../../../pattern-library/resilience/circuit-breaker.md)
+    [Learn more →](../pattern-library/resilience/circuit-breaker.md)
 
-- :material-rotate-3d:{ .lg .middle } **[Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md)**
+- :material-rotate-3d:{ .lg .middle } **[Consistent Hashing](../pattern-library/data-management/consistent-hashing.md)**
     
     ---
     
     Enables elastic scaling with minimal data movement
     
-    [Learn more →](../../../pattern-library/data-management/consistent-hashing.md)
+    [Learn more →](../pattern-library/data-management/consistent-hashing.md)
 
-- :material-vote:{ .lg .middle } **[Quorum Consensus](../../../pattern-library/coordination/consensus.md)**
+- :material-vote:{ .lg .middle } **[Quorum Consensus](../pattern-library/coordination/consensus.md)**
     
     ---
     
     Balances consistency and availability trade-offs
     
-    [Learn more →](../../../pattern-library/coordination/consensus.md)
+    [Learn more →](../pattern-library/coordination/consensus.md)
 
-- :material-sync:{ .lg .middle } **[Anti-Entropy](../../../pattern-library/data-management/read-repair.md)**
+- :material-sync:{ .lg .middle } **[Anti-Entropy](../pattern-library/data-management/read-repair.md)**
     
     ---
     
     Background synchronization using Merkle trees
     
-    [Learn more →](../../../pattern-library/data-management/read-repair.md)
+    [Learn more →](../pattern-library/data-management/read-repair.md)
 
 </div>
 
@@ -396,10 +396,10 @@ graph LR
 - [Law 5: Distributed Knowledge](../../../core-principles/laws/distributed-knowledge.md) - Gossip protocol for membership
 
 ### Related Patterns
-- [Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md) - Virtual nodes for data distribution
-- [Vector Clocks](../../../pattern-library/coordination/logical-clocks.md) - Conflict resolution mechanism
-- [Merkle Trees](../../../pattern-library/data-management/merkle-trees.md) - Anti-entropy synchronization
-- [Quorum Consensus](../../../pattern-library/coordination/consensus.md) - Tunable consistency levels
+- [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Virtual nodes for data distribution
+- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Conflict resolution mechanism
+- [Merkle Trees](../pattern-library/data-management/merkle-trees.md) - Anti-entropy synchronization
+- [Quorum Consensus](../pattern-library/coordination/consensus.md) - Tunable consistency levels
 
 ### Related Pillars
 - [Pillar 2: State](../../../core-principles/pillars/state-distribution.md) - Eventually consistent state management

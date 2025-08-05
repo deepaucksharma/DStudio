@@ -52,9 +52,9 @@ By completing this path, you will:
  
  Understanding ordering:
  
- - [Logical Clocks](../../../pattern-library/logical-clocks) - Lamport timestamps
- - [Vector Clocks](../../../pattern-library/vector-clocks) - Causality tracking
- - [Hybrid Logical Clocks](../../../pattern-library/hlc) - Best of both worlds
+ - [Logical Clocks](../pattern-library/logical-clocks) - Lamport timestamps
+ - [Vector Clocks](../pattern-library/vector-clocks) - Causality tracking
+ - [Hybrid Logical Clocks](../pattern-library/hlc) - Best of both worlds
 
 </div>
 
@@ -88,10 +88,10 @@ By completing this path, you will:
 
 #### Week 3: Coordination Patterns
 
-- [Leader Election](../../../pattern-library/leader-election) - Choosing coordinators
-- [Distributed Lock](../../../pattern-library/distributed-lock) - Mutual exclusion
-- [Consensus](../../../pattern-library/consensus) - Agreement protocols
-- [Two-Phase Commit](../../../pattern-library/two-phase-commit) - Atomic commits
+- [Leader Election](../pattern-library/leader-election) - Choosing coordinators
+- [Distributed Lock](../pattern-library/distributed-lock) - Mutual exclusion
+- [Consensus](../pattern-library/consensus) - Agreement protocols
+- [Two-Phase Commit](../pattern-library/two-phase-commit) - Atomic commits
 
 ### Phase 3: Consistency in Practice (2 weeks)
 
@@ -123,10 +123,10 @@ By completing this path, you will:
 
 #### Week 5: Advanced Patterns
 
-- [CRDT](../../../pattern-library/crdt) - Conflict-free replicated data types
-- [Saga Pattern](../../../pattern-library/saga) - Distributed transactions
-- [Event Sourcing](../../../pattern-library/event-sourcing) - Immutable event logs
-- [Outbox Pattern](../../../pattern-library/outbox) - Reliable messaging
+- [CRDT](../pattern-library/crdt) - Conflict-free replicated data types
+- [Saga Pattern](../pattern-library/saga) - Distributed transactions
+- [Event Sourcing](../pattern-library/event-sourcing) - Immutable event logs
+- [Outbox Pattern](../pattern-library/outbox) - Reliable messaging
 
 ### Phase 4: Production Challenges (1 week)
 
@@ -138,13 +138,13 @@ By completing this path, you will:
 <div class="grid cards" markdown>
 
 - **Split-Brain Scenarios**
- - [Split-Brain Pattern](../../../pattern-library/split-brain)
+ - [Split-Brain Pattern](../pattern-library/split-brain)
  - Quorum strategies
  - Fencing tokens
  - STONITH approaches
 
 - **Clock Synchronization**
- - [Clock Sync Pattern](../../../pattern-library/clock-sync)
+ - [Clock Sync Pattern](../pattern-library/clock-sync)
  - NTP configuration
  - Clock skew handling
  - Time-based ordering

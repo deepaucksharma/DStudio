@@ -41,7 +41,7 @@ patterns_used:
 # Excellence connections
 excellence_guides:
   - migration/memcached-to-redis
-  - patterns/modern-caching
+  - pattern-library/modern-caching
   - operational/cache-strategies
 
 # Deprecation notice
@@ -480,10 +480,10 @@ def get_with_fallback(key, fallback_func):
 ## Related Topics
 
 - [Redis Architecture](redis-architecture.md) - Modern alternative
-- [Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md) - Core distribution
-- [Caching Strategies](../../../pattern-library/caching-strategies) - Cache patterns
+- [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Core distribution
+- [Caching Strategies](../pattern-library/caching-strategies) - Cache patterns
 - [Facebook Infrastructure](facebook-memcached.md.md) - Largest deployment
-- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md) - Failure handling
+- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Failure handling
 
 ## References
 

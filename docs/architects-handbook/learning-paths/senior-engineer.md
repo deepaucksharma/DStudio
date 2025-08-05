@@ -66,43 +66,43 @@ By completing this path, you will:
 #### Week 3-4: Distributed Coordination
 
 === "Consensus & Agreement"
- - [Raft Consensus](../../../pattern-library/consensus) - Leader election
- - [Paxos Deep Dive](../../../pattern-library/consensus) - Multi-Paxos
- - [Byzantine Fault Tolerance](../../../pattern-library/consensus) - Blockchain consensus
+ - [Raft Consensus](../pattern-library/consensus) - Leader election
+ - [Paxos Deep Dive](../pattern-library/consensus) - Multi-Paxos
+ - [Byzantine Fault Tolerance](../pattern-library/consensus) - Blockchain consensus
 
 === "Distributed Transactions"
- - [Saga Pattern](../../../pattern-library/saga) - Long-running transactions
- - [Two-Phase Commit](../../../pattern-library/two-phase-commit) - ACID across systems
- - [Outbox Pattern](../../../pattern-library/outbox) - Reliable messaging
+ - [Saga Pattern](../pattern-library/saga) - Long-running transactions
+ - [Two-Phase Commit](../pattern-library/two-phase-commit) - ACID across systems
+ - [Outbox Pattern](../pattern-library/outbox) - Reliable messaging
 
 === "Time & Ordering"
- - [Vector Clocks](../../../pattern-library/vector-clocks) - Causality tracking
- - [Logical Clocks](../../../pattern-library/logical-clocks) - Lamport timestamps
- - [Hybrid Logical Clocks](../../../pattern-library/hlc) - Best of both worlds
+ - [Vector Clocks](../pattern-library/vector-clocks) - Causality tracking
+ - [Logical Clocks](../pattern-library/logical-clocks) - Lamport timestamps
+ - [Hybrid Logical Clocks](../pattern-library/hlc) - Best of both worlds
 
 #### Week 5-6: Data Management at Scale
 
 === "Storage Patterns"
- - [Sharding Strategies](../../../pattern-library/sharding) - Horizontal partitioning
- - [Geo-Replication](../../../pattern-library/geo-replication) - Global data distribution
- - [Event Sourcing](../../../pattern-library/event-sourcing) - Immutable event logs
+ - [Sharding Strategies](../pattern-library/sharding) - Horizontal partitioning
+ - [Geo-Replication](../pattern-library/geo-replication) - Global data distribution
+ - [Event Sourcing](../pattern-library/event-sourcing) - Immutable event logs
 
 === "Consistency Models"
- - [Tunable Consistency](../../../pattern-library/tunable-consistency) - Per-operation guarantees
- - [CRDT](../../../pattern-library/crdt) - Conflict-free replicated data types
- - [Eventual Consistency](../../../pattern-library/eventual-consistency) - BASE vs ACID
+ - [Tunable Consistency](../pattern-library/tunable-consistency) - Per-operation guarantees
+ - [CRDT](../pattern-library/crdt) - Conflict-free replicated data types
+ - [Eventual Consistency](../pattern-library/eventual-consistency) - BASE vs ACID
 
 === "Performance Optimization"
- - [Read-Through Cache](../../../pattern-library/read-through-cache) - Smart caching
- - [Write-Behind Cache](../../../pattern-library/write-behind-cache) - Async writes
- - [CDC](../../../pattern-library/cdc) - Change data capture
+ - [Read-Through Cache](../pattern-library/scaling/caching-strategies.md) - Smart caching
+ - [Write-Behind Cache](../pattern-library/scaling/caching-strategies.md) - Async writes
+ - [CDC](../pattern-library/cdc) - Change data capture
 
 #### Week 7: Advanced Architecture Patterns
 
-- [Service Mesh](../../../pattern-library/service-mesh) - Istio/Linkerd deep dive
-- [Cell-Based Architecture](../../../pattern-library/cell-based) - Failure isolation
-- [Lambda Architecture](../../../pattern-library/lambda-architecture) - Batch + streaming
-- [Data Mesh](../../../pattern-library/data-mesh) - Decentralized data architecture
+- [Service Mesh](../pattern-library/service-mesh) - Istio/Linkerd deep dive
+- [Cell-Based Architecture](../pattern-library/cell-based) - Failure isolation
+- [Lambda Architecture](../pattern-library/lambda-architecture) - Batch + streaming
+- [Data Mesh](../pattern-library/data-mesh) - Decentralized data architecture
 
 ### Phase 3: Large-Scale Case Studies (3-4 weeks)
 
@@ -153,7 +153,7 @@ By completing this path, you will:
 
 - [SRE Practices](human-factors/sre-practices.md) - Google's approach
 - [Chaos Engineering](human-factors/chaos-engineering.md) - Netflix's methods
-- [Observability](../../../pattern-library/observability) - Metrics, logs, traces
+- [Observability](../pattern-library/observability) - Metrics, logs, traces
 - [Incident Response](human-factors/incident-response) - On-call best practices
 
 ### Phase 5: System Design Mastery (2-3 weeks)

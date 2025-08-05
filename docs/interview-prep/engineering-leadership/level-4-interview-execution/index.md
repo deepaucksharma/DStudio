@@ -161,7 +161,7 @@ Successful interview execution requires seamlessly integrating:
 
 ### Resources
 - [Interactive Practice Tools](tools/interactive/)
-- [Company-Specific Guides](../company-specific/)
+- [Company-Specific Guides](../../company-specific/amazon/index.md)
 - [Practice Scenarios](../practice-scenarios/)
 - [Hard-Earned Wisdom](../hard-earned-wisdom/)
 
@@ -191,7 +191,7 @@ Impact: 10x scale capability, 50% cost reduction
 - [ ] Map 20+ stories to principles and concepts
 - [ ] Practice with [Interview Timer](tools/interactive/interview-timer.md)
 - [ ] Complete [Self-Assessment](tools/interactive/self-assessment.md)
-- [ ] Review [Company Values](../company-specific/)
+- [ ] Review [Company Values](../../company-specific/amazon/index.md)
 
 ### During the Interview
 - [ ] Ground answers in first principles

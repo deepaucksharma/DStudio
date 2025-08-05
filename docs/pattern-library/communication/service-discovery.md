@@ -143,11 +143,11 @@ graph TD
 
 ## Related Patterns
 
-- **[Service Mesh](service-mesh.md)** - Advanced service discovery with traffic management
+- **[Service Mesh](communication/service-mesh.md)** - Advanced service discovery with traffic management
 - **[Load Balancing](../scaling/load-balancing.md)** - Distribute discovered instances
 - **[Circuit Breaker](../resilience/circuit-breaker.md)** - Handle discovery failures
 - **[Health Check](../observability/health-check.md)** - Determine instance availability
-- **[API Gateway](api-gateway.md)** - Centralized service discovery
+- **[API Gateway](communication/api-gateway.md)** - Centralized service discovery
 - **[Configuration Management](../architecture/configuration-management.md)** - Dynamic configuration
 
 ## References
@@ -159,5 +159,5 @@ graph TD
 
 ---
 
-**Previous**: [Publish-Subscribe Pattern](publish-subscribe.md) | **Next**: [WebSocket Pattern](websocket.md)
+**Previous**: [Publish-Subscribe Pattern](communication/publish-subscribe.md) | **Next**: [WebSocket Pattern](communication/websocket.md)
 

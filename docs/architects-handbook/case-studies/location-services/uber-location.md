@@ -354,7 +354,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-hexagon-multiple:{ .lg .middle } **[Geospatial Indexing](../../patterns/spatial-indexing)** 🥇
+- :material-hexagon-multiple:{ .lg .middle } **[Geospatial Indexing](../pattern-library/spatial-indexing)** 🥇
     
     ---
     
@@ -366,7 +366,7 @@ graph LR
     
     **Open Source**: [H3 Library](https://h3geo.org)
 
-- :material-broadcast:{ .lg .middle } **[Event Streaming](../../patterns/event-streaming)** 🥇
+- :material-broadcast:{ .lg .middle } **[Event Streaming](../pattern-library/event-streaming)** 🥇
     
     ---
     
@@ -378,7 +378,7 @@ graph LR
     
     **Key Learning**: Partitioned by geohash for locality
 
-- :material-layers-triple:{ .lg .middle } **[Multi-Level Cache](../../patterns/caching-strategies)** 🥇
+- :material-layers-triple:{ .lg .middle } **[Multi-Level Cache](../pattern-library/caching-strategies)** 🥇
     
     ---
     
@@ -390,7 +390,7 @@ graph LR
     
     **Success Metric**: 95% L1/L2 hit rate
 
-- :material-cloud-outline:{ .lg .middle } **[Edge Computing](../../patterns/edge-computing)** 🥇
+- :material-cloud-outline:{ .lg .middle } **[Edge Computing](../pattern-library/edge-computing)** 🥇
     
     ---
     
@@ -406,7 +406,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-sine-wave:{ .lg .middle } **[Adaptive Sampling](../../patterns/adaptive-sampling)** 🥈
+- :material-sine-wave:{ .lg .middle } **[Adaptive Sampling](../pattern-library/adaptive-sampling)** 🥈
     
     ---
     
@@ -416,7 +416,7 @@ graph LR
     
     **Trade-off**: Slight accuracy loss when accelerating
 
-- :material-crystal-ball:{ .lg .middle } **[Predictive Caching](../../patterns/predictive-caching)** 🥈
+- :material-crystal-ball:{ .lg .middle } **[Predictive Caching](../pattern-library/predictive-caching)** 🥈
     
     ---
     
@@ -426,7 +426,7 @@ graph LR
     
     **Trade-off**: 20% more cache storage needed
 
-- :material-puzzle:{ .lg .middle } **[Data Partitioning](../../patterns/data-partitioning)** 🥈
+- :material-puzzle:{ .lg .middle } **[Data Partitioning](../pattern-library/data-partitioning)** 🥈
     
     ---
     
@@ -469,10 +469,10 @@ Uber's location system evolution (2009-2015):
 - [Law 4: Multidimensional Optimization](../../../core-principles/laws/multidimensional-optimization.md) - Battery vs accuracy trade-offs
 
 ### Related Patterns
-- [Geospatial Indexing](../patterns/spatial-indexing.md) - H3 hexagonal grid system
-- [Event Streaming](../patterns/event-streaming.md) - Kafka processing 100M events/day
-- [Edge Computing](../../../pattern-library/scaling/edge-computing.md) - 200+ edge locations globally
-- [Time-Series Storage](../patterns/time-series-ids.md) - Cassandra for location history
+- [Geospatial Indexing](../pattern-library/spatial-indexing.md) - H3 hexagonal grid system
+- [Event Streaming](../pattern-library/architecture/event-streaming.md) - Kafka processing 100M events/day
+- [Edge Computing](../pattern-library/scaling/edge-computing.md) - 200+ edge locations globally
+- [Time-Series Storage](../pattern-library/time-series-ids.md) - Cassandra for location history
 
 ### Related Pillars
 - [Pillar 1: Work](../part2-pillars/work/index.md) - Geospatial sharding across regions
@@ -509,9 +509,9 @@ Uber's location system evolution (2009-2015):
 - **[Intelligence Distribution](../part2-pillars/intelligence/index.md)** - ML-based prediction algorithms deployed at edge locations
 
 ### Related Patterns (Part III)
-- **[Geospatial Indexing](../patterns/spatial-indexing.md)** - H3 hexagonal grid system for efficient spatial queries
-- **[Event Streaming](../patterns/event-streaming)** - Kafka-based real-time location update pipeline
-- **[Multi-Level Caching](../patterns/caching-strategies)** - Hot/warm/cold storage architecture for location data
+- **[Geospatial Indexing](../pattern-library/spatial-indexing.md)** - H3 hexagonal grid system for efficient spatial queries
+- **[Event Streaming](../pattern-library/event-streaming)** - Kafka-based real-time location update pipeline
+- **[Multi-Level Caching](../pattern-library/caching-strategies)** - Hot/warm/cold storage architecture for location data
 
 ## Excellence Resources
 

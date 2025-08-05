@@ -7,8 +7,8 @@ reading_time: 35 min
 prerequisites: 
   - axiom3-emergence
   - axiom6-human-api
-  - patterns/queues-streaming
-  - patterns/bulkhead
+  - pattern-library/queues-streaming
+  - pattern-library/bulkhead
 status: complete
 last_updated: 2025-07-20
 excellence_tier: silver
@@ -2071,8 +2071,8 @@ Storage Node      32GB      8 cores  10TB
 **Prerequisite Understanding:**
 - [Law 3: Emergence](../../../core-principles/laws/emergent-chaos.md) - Massive parallelism patterns
 - [Law 6: Human-API](../../../core-principles/laws/cognitive-load.md) - Crawler ethics and robots.txt
-- [Queue Patterns](../patterns/queues-streaming.md) - Priority queue implementations
-- [Bulkhead Pattern](../../../pattern-library/resilience/bulkhead.md) - Domain isolation strategies
+- [Queue Patterns](../pattern-library/scaling/queues-streaming.md) - Priority queue implementations
+- [Bulkhead Pattern](../pattern-library/resilience/bulkhead.md) - Domain isolation strategies
 
 **Advanced Topics:**
 - JavaScript Crawling (Coming Soon) - Headless browser techniques
@@ -2086,10 +2086,10 @@ Storage Node      32GB      8 cores  10TB
 <!-- TODO: Add price monitor case study -->
 
 **Implementation Patterns:**
-- [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md) - Respectful crawling rate control
-- [URL Normalization](../patterns/url-normalization.md) - Canonical URLs
+- [Rate Limiting](../pattern-library/scaling/rate-limiting.md) - Respectful crawling rate control
+- [URL Normalization](../pattern-library/scaling/url-normalization.md) - Canonical URLs
 - Content Extraction (Coming Soon) - Parsing strategies
-- [Distributed Queue](../patterns/distributed-queue.md) - Scalable queue design
+- [Distributed Queue](../pattern-library/coordination/distributed-queue.md) - Scalable queue design
 
 ### 📚 References
 
@@ -2106,6 +2106,6 @@ Storage Node      32GB      8 cores  10TB
 
 **Related Patterns:**
 - URL Frontier Management (Coming Soon)
-- [Politeness Policy](../../../pattern-library/scaling/rate-limiting.md)
-- [Duplicate Detection](../patterns/bloom-filter.md)
-- [Distributed Coordination](../../../pattern-library/coordination/leader-election.md)
+- [Politeness Policy](../pattern-library/scaling/rate-limiting.md)
+- [Duplicate Detection](../pattern-library/bloom-filter.md)
+- [Distributed Coordination](../pattern-library/coordination/leader-election.md)

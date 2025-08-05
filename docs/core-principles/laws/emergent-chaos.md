@@ -494,4 +494,4 @@ def retry_with_jitter(func, max_retries=3):
 - **[Law 1: Correlated Failure](correlated-failure.md)** - Emergence often triggers correlated failures
 - **[Law 2: Asynchronous Reality](asynchronous-reality.md)** - Async interactions enable emergence
 - **[Law 4: Multidimensional Optimization](multidimensional-optimization.md)** - Emergence creates new trade-offs
-- **Patterns**: [Circuit Breaker](../../pattern-library/circuit-breaker.md), [Bulkhead](../../pattern-library/bulkhead.md), [Load Balancing](../../pattern-library/load-balancing.md)
+- **Patterns**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Bulkhead](../pattern-library/resilience/bulkhead.md), [Load Balancing](../pattern-library/scaling/load-balancing.md)

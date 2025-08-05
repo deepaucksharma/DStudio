@@ -134,8 +134,8 @@ graph TB
 - Pagecache usage
 
 **Patterns & Pillars Applied**:
-- Pattern: [Leader-Follower Replication](../patterns/leader-follower)
-- Pattern: [Partitioning](../patterns/sharding) - Topic partitions
+- Pattern: [Leader-Follower Replication](../pattern-library/leader-follower)
+- Pattern: [Partitioning](../pattern-library/sharding) - Topic partitions
 - 🏛 Pillar: [State Distribution](../../../core-principles/pillars/state-distribution.md) - Distributed logs
 - 🏛 Pillar: [Truth Distribution](../../../core-principles/pillars/truth-distribution.md) - Ordered delivery
 
@@ -1304,10 +1304,10 @@ graph LR
 - **[Law 7: Economics](../../../core-principles/laws/economic-reality.md)** - Cost-effective storage with compression
 
 ### Related Patterns
-- 📨 **[Event-Driven Architecture](../patterns/event-driven)** - Kafka as event backbone
-- **[Event Sourcing](../patterns/event-sourcing)** - Log as source of truth
-- **[Saga Pattern](../patterns/saga)** - Distributed transactions over messaging
-- **[CQRS](../patterns/cqrs)** - Separate read/write paths with Kafka
+- 📨 **[Event-Driven Architecture](../pattern-library/event-driven)** - Kafka as event backbone
+- **[Event Sourcing](../pattern-library/event-sourcing)** - Log as source of truth
+- **[Saga Pattern](../pattern-library/saga)** - Distributed transactions over messaging
+- **[CQRS](../pattern-library/cqrs)** - Separate read/write paths with Kafka
 
 ### Quantitative Models
 - **[Little's Law](../quantitative/littles-law)** - Queue depth and latency relationship
@@ -1315,7 +1315,7 @@ graph LR
 - **[Universal Scalability Law](../quantitative/universal-scalability)** - Coordination overhead in consumer groups
 
 ### Similar Case Studies
-- **[Event Sourcing System](../patterns/event-sourcing)** - Using Kafka for event store
+- **[Event Sourcing System](../pattern-library/event-sourcing)** - Using Kafka for event store
 - **Real-time Analytics (Coming Soon)** - Stream processing with Kafka Streams
 - **Multi-Region Replication (Coming Soon)** - Cross-DC messaging
 

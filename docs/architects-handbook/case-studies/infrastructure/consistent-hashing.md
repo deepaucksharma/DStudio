@@ -7,7 +7,7 @@ reading_time: 30 min
 prerequisites: 
   - law1-failure
   - law5-epistemology
-  - patterns/sharding
+  - pattern-library/sharding
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -1335,7 +1335,7 @@ class ConsistentHashRing:
 - [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages)
 
 **Related Patterns:**
-- [Virtual Nodes](../../../pattern-library/sharding)
+- [Virtual Nodes](../pattern-library/sharding)
 - Gossip Protocol
 - Vector Clocks
 - Replication (Coming Soon)
@@ -1352,13 +1352,13 @@ class ConsistentHashRing:
 - **[Law 7: Economic Reality ](../../../core-principles/laws/economic-reality.md)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Sharding & Partitioning](../../../pattern-library/sharding.md)** - Consistent hashing is the foundation for data sharding
-- **[Load Balancing](../../../pattern-library/load-balancing.md)** - Ring-based routing distributes requests evenly
-- **[Service Discovery](../../../pattern-library/service-discovery)** - Ring topology changes propagate via gossip
+- **[Sharding & Partitioning](../pattern-library/scaling/sharding.md)** - Consistent hashing is the foundation for data sharding
+- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Ring-based routing distributes requests evenly
+- **[Service Discovery](../pattern-library/service-discovery)** - Ring topology changes propagate via gossip
 - **Replication (Coming Soon.md)** - Successor lists define replica placement
-- **[Health Check](../../../pattern-library/health-check.md)** - Node failures trigger ring rebalancing
-- **[Caching Strategies](../../../pattern-library/caching-strategies.md)** - Client-side topology caching reduces lookups
-- **[Leader Election](../../../pattern-library/leader-election.md)** - Ring position can determine partition ownership
+- **[Health Check](../pattern-library/resilience/health-check.md)** - Node failures trigger ring rebalancing
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Client-side topology caching reduces lookups
+- **[Leader Election](../pattern-library/coordination/leader-election.md)** - Ring position can determine partition ownership
 
 ### Quantitative Models
 - **Ring Theory** - Mathematical foundation for hash rings

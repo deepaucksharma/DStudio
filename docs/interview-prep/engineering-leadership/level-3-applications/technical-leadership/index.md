@@ -26,7 +26,7 @@ Technical leadership transcends individual coding ability to encompass architect
 - **Trade-off Analysis**: Balance competing technical concerns
 - **Technical Debt Portfolio**: Manage debt as financial instruments with strategic intent
 
-[Architecture Patterns →](architecture-patterns.md)
+[Architecture Patterns →](#architecture-patterns)
 
 ### 2. Technology Strategy
 - **Technology Selection**: Evaluate and choose technologies
@@ -43,7 +43,7 @@ Technical leadership transcends individual coding ability to encompass architect
 - **Technical Reviews**: Conduct effective design reviews
 - **Best Practices**: Propagate engineering excellence
 
-[Engineering Standards →](engineering-excellence.md)
+[Engineering Standards →](#engineering-excellence)
 
 ### 4. Technical Mentorship & Knowledge Systems
 - **Knowledge Flywheel**: Create capture → synthesize → apply → feedback cycles
@@ -51,7 +51,7 @@ Technical leadership transcends individual coding ability to encompass architect
 - **Technical Coaching**: Guide architectural decisions
 - **Learning Culture**: Foster continuous learning and pattern recognition
 
-[Technical Mentorship →](technical-mentorship.md)
+[Technical Mentorship →](#technical-mentorship)
 
 ### 5. Cross-Functional Leadership
 - **Product Partnership**: Align technical and product vision
@@ -60,7 +60,7 @@ Technical leadership transcends individual coding ability to encompass architect
 - **Resource Planning**: Estimate and allocate technical resources
 - **Modern Toolchain Strategy**: Choose system-enabling tools for specific outcomes
 
-[Cross-Functional Excellence →](cross-functional.md)
+[Cross-Functional Excellence →](#cross-functional-leadership)
 
 ## Common Scenarios
 
@@ -381,6 +381,22 @@ graph TD
 - **[System Design](../../level-4-interview-execution/system-org-design/)**: Architectural thinking under pressure
 - **[Behavioral Stories](../../level-4-interview-execution/behavioral/)**: Technical leadership impact stories
 
+## Architecture Patterns
+
+*Section to be completed*
+
+## Cross-Functional Leadership
+
+*Section to be completed*
+
+## Engineering Excellence
+
+*Section to be completed*
+
+## Technical Mentorship
+
+*Section to be completed*
+
 ## Next Steps
 
 ### Immediate Actions
@@ -399,4 +415,4 @@ graph TD
 - Prepare 5-7 technical leadership stories
 - Practice system design with business context
 - Use [Decision Trees](../../level-4-interview-execution/tools/interactive/decision-trees.md) for architecture choices
-- Review [Company-Specific Technical Bars](../../company-specific/)
+- Review [Company-Specific Technical Bars](../../../company-specific/)

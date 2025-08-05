@@ -62,7 +62,7 @@ best_for:
 # Excellence connections
 excellence_guides:
   - scale/social-media
-  - patterns/timeline-architecture
+  - pattern-library/timeline-architecture
   - architecture/hybrid-systems
 
 # Implementation insights
@@ -472,9 +472,9 @@ graph TD
 
 ## Related Resources
 
-- [Fanout Pattern](../patterns/fanout.md)
-- [Cache-aside Pattern](../patterns/cache-aside.md)
-- [Sharding Pattern](../../../pattern-library/scaling/sharding.md)
+- [Fanout Pattern](../pattern-library/fanout.md)
+- [Cache-aside Pattern](../pattern-library/scaling/caching-strategies.md.md)
+- [Sharding Pattern](../pattern-library/scaling/sharding.md)
 - [Twitter Engineering Blog](https://blog.twitter.com/engineering/)
 
 ---

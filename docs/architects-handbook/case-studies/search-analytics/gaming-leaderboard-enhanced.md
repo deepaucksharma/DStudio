@@ -67,7 +67,7 @@ best_for:
 # Excellence connections
 excellence_guides:
   - scale/gaming-systems
-  - patterns/real-time-leaderboards
+  - pattern-library/real-time-leaderboards
   - operational/anti-cheat-systems
 
 # Implementation insights

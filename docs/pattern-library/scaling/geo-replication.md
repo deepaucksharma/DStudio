@@ -380,5 +380,5 @@ graph TD
 
 **Related Patterns**: [Multi-Region](multi-region.md) | [CDN](../performance/cdn.md) | [Event Sourcing](../data-management/event-sourcing.md)
 
-**Next**: [ID Generation at Scale →](id-generation-scale.md)
+**Next**: [ID Generation at Scale →](scaling/id-generation-scale.md)
 

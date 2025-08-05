@@ -421,11 +421,11 @@ db.orders.aggregate([
 
 ## Related Topics
 
-- [Sharding](../../../pattern-library/sharding.md) - Core MongoDB scaling pattern
-- [Eventual Consistency](../../../pattern-library/eventual-consistency.md) - Read preference implications
-- [CAP Theorem](../../../pattern-library/cap-theorem.md) - MongoDB's CP with tunable consistency
-- [Aggregation Pipeline](../../../pattern-library/map-reduce.md) - Distributed processing
-- [Change Data Capture](../../../pattern-library/cdc.md) - Change streams implementation
+- [Sharding](../pattern-library/scaling/sharding.md) - Core MongoDB scaling pattern
+- [Eventual Consistency](../pattern-library/data-management/eventual-consistency.md) - Read preference implications
+- [CAP Theorem](../pattern-library/architecture/cap-theorem.md) - MongoDB's CP with tunable consistency
+- [Aggregation Pipeline](../pattern-library/scaling/scatter-gather.md) - Distributed processing
+- [Change Data Capture](../pattern-library/data-management/cdc.md) - Change streams implementation
 
 ## References
 

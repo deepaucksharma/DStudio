@@ -249,7 +249,7 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Load Balancing](load-balancing.md) | Traffic distribution during scaling | Instance registration/deregistration |
+| [Load Balancing](scaling/load-balancing.md) | Traffic distribution during scaling | Instance registration/deregistration |
 | [Circuit Breaker](../resilience/circuit-breaker.md) | Graceful degradation during scale-up | Prevent cascade failures |
 | [Health Check](../resilience/health-check.md) | Instance readiness validation | Safe traffic routing |
 
@@ -295,7 +295,7 @@ graph LR
     
     ---
     
-    - [Load Balancing](load-balancing.md) - Traffic distribution foundation
+    - [Load Balancing](scaling/load-balancing.md) - Traffic distribution foundation
     - [Health Check](../resilience/health-check.md) - Instance readiness validation
     - [Circuit Breaker](../resilience/circuit-breaker.md) - Failure protection during scaling
 

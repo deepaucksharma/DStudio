@@ -529,7 +529,7 @@ kubectl scale deployments -l type=microservice --replicas=0
 
 ## Additional Resources
 
-- [Domain-Driven Design Patterns](/patterns/ddd.md)
-- [Microservices Data Patterns](/patterns/microservices-data.md)
-- [Event Sourcing Guide](/patterns/event-sourcing.md)
-- [Service Mesh Implementation](/patterns/service-mesh.md)
+- [Domain-Driven Design Patterns](/pattern-library/ddd.md)
+- [Microservices Data Patterns](/pattern-library/microservices-data.md)
+- [Event Sourcing Guide](/pattern-library/data-management/event-sourcing.md)
+- [Service Mesh Implementation](/pattern-library/communication/service-mesh.md)

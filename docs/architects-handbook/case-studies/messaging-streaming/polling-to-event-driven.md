@@ -58,7 +58,7 @@ deprecation_reason: "Polling wastes resources, introduces latency, and doesn't s
 # Excellence connections
 excellence_guides:
   - migration/event-driven
-  - patterns/anti-patterns
+  - pattern-library/anti-patterns
   - architecture/modernization
 
 # Implementation insights
@@ -491,8 +491,8 @@ total_event_cost = event_delivery_cost + streaming_infrastructure + reduced_serv
 
 ## Related Resources
 
-- [Event-Driven Architecture Pattern](../patterns/event-driven.md)
-- [Webhook Pattern](../patterns/webhook.md)
+- [Event-Driven Architecture Pattern](../pattern-library/architecture/event-driven.md)
+- [Webhook Pattern](../pattern-library/webhook.md)
 - [Migration Best Practices](../excellence/migration-guide.md)
 - [Anti-Patterns Guide](../reference/anti-patterns.md)
 

@@ -243,8 +243,7 @@ timeline
 ## 📈 Preparation Timeline
 
 ### 1 Week Before
-- **📚 Study**: Review [Core Principles](../core-principles/) and key [Pattern Library](../pattern-library/) patterns
-- **💪 Practice**: Complete 2-3 [Common Problems](ic-interviews/common-problems/) daily, focusing on different complexities
+- **📚 Study**: Review [Core Principles](../core-principles/) and key [Pattern Library](../interview-prep/ic-interviews/common-problems/) daily, focusing on different complexities
 - **🎯 Research**: Study company-specific systems using our [Case Studies](../architects-handbook/case-studies/)
 
 ### 3 Days Before  

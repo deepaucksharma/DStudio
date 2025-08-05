@@ -381,4 +381,4 @@ BEFORE READING                      AFTER READING
 - **[Law 1: Correlated Failure](correlated-failure.md)** - Time sync failures often cascade
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Async interactions create emergence
 - **[Law 5: Distributed Knowledge](distributed-knowledge.md)** - No global knowledge of time
-- **Patterns**: [Event Sourcing](../../pattern-library/event-sourcing.md), [Saga](../../pattern-library/saga.md), [CQRS](../../pattern-library/cqrs.md)
+- **Patterns**: [Event Sourcing](../pattern-library/data-management/event-sourcing.md), [Saga](../pattern-library/data-management/saga.md), [CQRS](../pattern-library/data-management/cqrs.md)

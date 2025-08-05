@@ -326,7 +326,7 @@ graph LR
     
     ---
     
-    - [Event-Driven Architecture](event-driven.md) - Foundation for streaming systems
+    - [Event-Driven Architecture](architecture/event-driven.md) - Foundation for streaming systems
     - [Event Sourcing](../data-management/event-sourcing.md) - Stream-based data storage
     - [CQRS](../data-management/cqrs.md) - Read/write separation with streams
 

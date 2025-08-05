@@ -20,7 +20,7 @@ Business acumen for engineering leaders means understanding how technical decisi
 - **ROI Analysis**: Quantify engineering investment returns
 - **Resource Allocation**: Optimize people and technology spend
 
-[Engineering Economics →](#financial-literacy)
+[Engineering Economics →](#business-understanding)
 
 ### 3. Stakeholder Management
 - **Executive Communication**: Present to C-suite effectively
@@ -28,7 +28,7 @@ Business acumen for engineering leaders means understanding how technical decisi
 - **Board Reporting**: Prepare technical updates for board meetings
 - **Customer Engagement**: Understand and address customer needs
 
-[Stakeholder Excellence →](stakeholder-management.md)
+[Stakeholder Excellence →](#stakeholder-management)
 
 ### 4. Strategic Planning
 - **Roadmap Development**: Create multi-quarter technical plans
@@ -36,7 +36,7 @@ Business acumen for engineering leaders means understanding how technical decisi
 - **Risk Management**: Identify and mitigate business risks
 - **Innovation Strategy**: Balance maintenance with innovation
 
-[Strategic Leadership →](strategic-planning.md)
+[Strategic Leadership →](#strategic-planning)
 
 ### 5. Product Partnership
 - **Product Strategy**: Align technical and product vision
@@ -153,14 +153,14 @@ graph TD
 ## Business Acumen Toolkit
 
 ### Analysis Tools
-- [ROI Calculator](tools/roi-calculator.md)
-- [Technical Debt Quantifier](tools/tech-debt-cost.md)
-- [Budget Planning Worksheet](tools/budget-planner.md)
+- ROI Calculator
+- Technical Debt Quantifier
+- Budget Planning Worksheet
 
 ### Communication Resources
-- [Executive Briefing Templates](templates/exec-briefing.md)
-- [Business Case Framework](templates/business-case.md)
-- [Metrics Dashboard Examples](templates/metrics-dashboard.md)
+- Executive Briefing Templates
+- Business Case Framework
+- Metrics Dashboard Examples
 
 ## Practice Exercises
 
@@ -177,9 +177,25 @@ graph TD
 - "The First 90 Days" by Michael Watkins
 
 ### Finance for Engineers
-- [Engineering Manager's Guide to Finance](resources/finance-guide.md)
-- [Understanding P&L Statements](resources/pl-basics.md)
-- [Budgeting Best Practices](resources/budgeting.md)
+- Engineering Manager's Guide to Finance
+- Understanding P&L Statements
+- Budgeting Best Practices
+
+## Business Understanding
+
+*Section to be completed*
+
+## Product Business Alignment
+
+*Section to be completed*
+
+## Stakeholder Management
+
+*Section to be completed*
+
+## Strategic Planning
+
+*Section to be completed*
 
 ## Next Steps
 

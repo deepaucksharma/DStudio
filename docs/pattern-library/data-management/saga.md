@@ -204,12 +204,12 @@ graph TD
 ## Related Patterns
 
 ### Core Dependencies
-- **[Two-Phase Commit](../patterns/archive/two-phase-commit.md)**: Strong consistency alternative
+- **[Two-Phase Commit](../pattern-library/data-management/saga.md)**: Strong consistency alternative
 - **[Event Sourcing](./event-sourcing.md)**: Natural event log for sagas
 - **[Outbox Pattern](../pattern-library/data-management/outbox.md)**: Reliable event publishing
 
 ### Supporting Patterns
-- **[Idempotent Receiver](../patterns/idempotent-receiver.md)**: Safe retries
+- **[Idempotent Receiver](../pattern-library/idempotent-receiver.md)**: Safe retries
 - **[Circuit Breaker](../resilience/circuit-breaker.md)**: Protect saga steps
 - **[CQRS](./cqrs.md)**: Separate saga execution from queries
 
@@ -231,7 +231,7 @@ graph TD
 ## Further Reading
 
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem
-- [Microservices.io Saga Pattern](https://microservices.io/patterns/data/saga.html) - Chris Richardson
+- [Microservices.io Saga Pattern](https://microservices.io/pattern-library/data/saga.html) - Chris Richardson
 - [AWS Step Functions Sagas](https://aws.amazon.com/step-functions/use-cases/#saga) - Serverless implementation
 
 ### Tools & Libraries

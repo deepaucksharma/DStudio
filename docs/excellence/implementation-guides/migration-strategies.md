@@ -576,8 +576,8 @@ class MigrationDashboard:
 
 ## Resources
 
-- [Strangler Fig Pattern](../../patterns/strangler-fig.md)
-- [Blue-Green Deployment](../../patterns/blue-green-deployment.md)
+- [Strangler Fig Pattern](../pattern-library/strangler-fig.md)
+- [Blue-Green Deployment](../pattern-library/blue-green-deployment.md)
 - [Migration Playbooks](../migrations/index.md)
 - [Case Studies](../architects-handbook/case-studies/index.md)
-- [Saga Pattern](../../patterns/saga.md) (Gold)
+- [Saga Pattern](../pattern-library/data-management/saga.md) (Gold)

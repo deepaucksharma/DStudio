@@ -68,7 +68,7 @@ type: pattern
 
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
-| Pure Event Ordering | Logical ordering sufficient | [Logical Clocks](logical-clocks.md) |
+| Pure Event Ordering | Logical ordering sufficient | [Logical Clocks](coordination/logical-clocks.md) |
 | High-Performance Local Systems | Synchronization overhead unnecessary | Local monotonic clocks |
 | Causality Tracking | Vector clocks more accurate | [Vector Clocks](../data-management/vector-clocks.md) |
 | Simple Request-Response | No coordination needed | Application-level timestamps |
@@ -279,9 +279,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Consensus](consensus.md) | Timestamp-ordered proposals | Leader election with time bounds |
+| [Consensus](coordination/consensus.md) | Timestamp-ordered proposals | Leader election with time bounds |
 | [Event Sourcing](../data-management/event-sourcing.md) | Consistent event timestamps | Global event ordering |
-| [Distributed Locking](distributed-lock.md) | Time-based lease expiration | Lease timeout coordination |
+| [Distributed Locking](coordination/distributed-lock.md) | Time-based lease expiration | Lease timeout coordination |
 
 ## Quick Reference
 
@@ -325,8 +325,8 @@ graph LR
     
     ---
     
-    - [Logical Clocks](logical-clocks.md) - Event ordering without time
-    - [HLC](hlc.md) - Hybrid physical-logical approach  
+    - [Logical Clocks](coordination/logical-clocks.md) - Event ordering without time
+    - [HLC](coordination/hlc.md) - Hybrid physical-logical approach  
     - [Generation Clock](generation-clock.md) - Epoch-based coordination
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**

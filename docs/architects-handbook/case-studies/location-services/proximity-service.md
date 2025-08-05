@@ -1403,11 +1403,11 @@ class SpatialCacheWarmer:
 ### 🏛 Related Patterns
 - **Spatial Indexing (Coming Soon)** - R-tree, QuadTree, KD-tree
 - **Geohashing (Coming Soon/index)** - Location encoding
-- **[Caching Strategies](../patterns/caching-strategies)** - Multi-level caches
-- **[Sharding](../patterns/sharding)** - Geographic partitioning
-- **[Load Balancing](../patterns/load-balancing)** - Query distribution
-- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
-- **[Edge Computing](../patterns/edge-computing)** - Regional processing
+- **[Caching Strategies](../pattern-library/caching-strategies)** - Multi-level caches
+- **[Sharding](../pattern-library/sharding)** - Geographic partitioning
+- **[Load Balancing](../pattern-library/load-balancing)** - Query distribution
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
+- **[Edge Computing](../pattern-library/edge-computing)** - Regional processing
 
 ### Quantitative Models
 - **[Haversine Distance](../quantitative/haversine)** - Accurate Earth distances

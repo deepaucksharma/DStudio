@@ -521,7 +521,7 @@ monitor-legacy-system.sh --duration=24h
 
 ## Additional Resources
 
-- [API Design Best Practices](/patterns/api-design.md)
-- [RESTful Architecture](/patterns/rest.md)
-- [GraphQL Patterns](/patterns/graphql-federation.md)
-- [Authentication Patterns](/patterns/auth-patterns.md)
+- [API Design Best Practices](/pattern-library/api-design.md)
+- [RESTful Architecture](/pattern-library/rest.md)
+- [GraphQL Patterns](/pattern-library/architecture/graphql-federation.md)
+- [Authentication Patterns](/pattern-library/auth-patterns.md)

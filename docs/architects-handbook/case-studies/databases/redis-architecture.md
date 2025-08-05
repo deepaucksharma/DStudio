@@ -100,25 +100,25 @@ Redis achieves extraordinary performance through radical architectural simplicit
 
 <div class="grid cards" markdown>
 
-- :material-memory:{ .lg .middle } **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** 🥇
+- :material-memory:{ .lg .middle } **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** 🥇
     
     ---
     
     In-memory caching with configurable eviction policies
 
-- :material-cached:{ .lg .middle } **[Cache-Aside Pattern](../../../pattern-library/scaling/caching-strategies.md)** 🥇
+- :material-cached:{ .lg .middle } **[Cache-Aside Pattern](../pattern-library/scaling/caching-strategies.md)** 🥇
     
     ---
     
     Application-managed cache population and invalidation
 
-- :material-content-copy:{ .lg .middle } **[Master-Replica](../../../pattern-library/coordination/leader-follower.md)** 🥇
+- :material-content-copy:{ .lg .middle } **[Master-Replica](../pattern-library/coordination/leader-follower.md)** 🥇
     
     ---
     
     Asynchronous replication for read scaling
 
-- :material-hash:{ .lg .middle } **[Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md)** 🥇
+- :material-hash:{ .lg .middle } **[Consistent Hashing](../pattern-library/data-management/consistent-hashing.md)** 🥇
     
     ---
     
@@ -273,7 +273,7 @@ graph TB
 
 ### Caching Strategy Implementation
 
-!!! info "Pattern Deep Dive: [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)"
+!!! info "Pattern Deep Dive: [Caching Strategies](../pattern-library/scaling/caching-strategies.md)"
     Redis implements multiple caching strategies through configurable eviction policies: LRU (Least Recently Used), LFU (Least Frequently Used), TTL-based, and random eviction.
 
 ```python
@@ -653,7 +653,7 @@ class CacheAsideRepository:
 
 ### Master-Replica Pattern
 
-!!! info "Pattern Deep Dive: [Master-Replica Pattern](../../../pattern-library/coordination/leader-follower.md)"
+!!! info "Pattern Deep Dive: [Master-Replica Pattern](../pattern-library/coordination/leader-follower.md)"
     Redis implements asynchronous replication where replicas continuously sync with the master. This enables read scaling and high availability with automatic failover via Redis Sentinel.
 
 ```mermaid
@@ -677,7 +677,7 @@ sequenceDiagram
 
 ### Consistent Hashing for Sharding
 
-!!! info "Pattern Deep Dive: [Consistent Hashing](../../../pattern-library/data-management/consistent-hashing.md)"
+!!! info "Pattern Deep Dive: [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md)"
     Redis Cluster uses 16,384 hash slots distributed across nodes. Keys are mapped to slots using CRC16(key) mod 16384, enabling automatic data distribution and resharding.
 
 ## Key Innovations
@@ -689,19 +689,19 @@ sequenceDiagram
 ## Applicable Patterns
 
 <div class="grid" markdown>
- <a href="../../patterns/caching/" class="pattern-card">
+ <a href="../pattern-library/caching/" class="pattern-card">
  <h3 class="pattern-card__title">Caching</h3>
  <p class="pattern-card__description">In-memory data storage for fast access patterns</p>
  </a>
- <a href="../../patterns/leader-follower/" class="pattern-card">
+ <a href="../pattern-library/leader-follower/" class="pattern-card">
  <h3 class="pattern-card__title">Master-Replica</h3>
  <p class="pattern-card__description">Asynchronous replication for high availability</p>
  </a>
- <a href="../../patterns/consistent-hashing/" class="pattern-card">
+ <a href="../pattern-library/consistent-hashing/" class="pattern-card">
  <h3 class="pattern-card__title">Hash Slots</h3>
  <p class="pattern-card__description">Consistent hashing for automatic data distribution</p>
  </a>
- <a href="../../patterns/event-loop/" class="pattern-card">
+ <a href="../pattern-library/event-loop/" class="pattern-card">
  <h3 class="pattern-card__title">Event Loop</h3>
  <p class="pattern-card__description">Single-threaded non-blocking I/O processing</p>
  </a>

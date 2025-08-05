@@ -14,18 +14,18 @@ Resilience patterns help systems survive and recover from failures. They address
 ## Available Patterns
 
 ### Core Resilience Patterns
-- **[Circuit Breaker](circuit-breaker.md)** - Prevent cascade failures by detecting service failures
-- **[Retry & Backoff](retry-backoff.md)** - Handle transient failures with intelligent retries
-- **[Timeout](timeout.md)** - Prevent indefinite waits and resource exhaustion
-- **[Bulkhead](bulkhead.md)** - Isolate resources to contain failures
+- **[Circuit Breaker](resilience/circuit-breaker.md)** - Prevent cascade failures by detecting service failures
+- **[Retry & Backoff](resilience/retry-backoff.md)** - Handle transient failures with intelligent retries
+- **[Timeout](resilience/timeout.md)** - Prevent indefinite waits and resource exhaustion
+- **[Bulkhead](resilience/bulkhead.md)** - Isolate resources to contain failures
 
 ### Health & Monitoring
-- **[Health Check](health-check.md)** - Monitor and report service health status
+- **[Health Check](resilience/health-check.md)** - Monitor and report service health status
 - **[Heartbeat](heartbeat.md)** - Detect service liveness through periodic signals
 
 ### Failure Handling
-- **[Failover](failover.md)** - Switch to backup systems when primary fails
-- **[Graceful Degradation](graceful-degradation.md)** - Maintain partial functionality during failures
+- **[Failover](resilience/failover.md)** - Switch to backup systems when primary fails
+- **[Graceful Degradation](resilience/graceful-degradation.md)** - Maintain partial functionality during failures
 - **[Load Shedding](load-shedding.md)** - Drop requests to prevent overload
 - **[Split Brain](split-brain.md)** - Handle network partitions in distributed systems
 
@@ -36,13 +36,13 @@ Resilience patterns help systems survive and recover from failures. They address
 
 | Failure Type | Pattern | When to Use |
 |--------------|---------|-------------|
-| Service unresponsive | [Circuit Breaker](circuit-breaker.md) | External service calls |
-| Temporary network issues | [Retry with Backoff](retry-backoff.md) | Transient failures expected |
-| Resource exhaustion | [Bulkhead](bulkhead.md) | Shared resource protection |
-| Slow dependency | [Timeout](timeout.md) | Any network operation |
-| Complete service failure | [Failover](failover.md) | Critical services |
+| Service unresponsive | [Circuit Breaker](resilience/circuit-breaker.md) | External service calls |
+| Temporary network issues | [Retry with Backoff](resilience/retry-backoff.md) | Transient failures expected |
+| Resource exhaustion | [Bulkhead](resilience/bulkhead.md) | Shared resource protection |
+| Slow dependency | [Timeout](resilience/timeout.md) | Any network operation |
+| Complete service failure | [Failover](resilience/failover.md) | Critical services |
 | Overload conditions | [Load Shedding](load-shedding.md) | High traffic scenarios |
-| Service health monitoring | [Health Check](health-check.md) | All services |
+| Service health monitoring | [Health Check](resilience/health-check.md) | All services |
 | Network partition | [Split Brain](split-brain.md) | Distributed consensus |
 
 ## Pattern Relationships
@@ -74,12 +74,12 @@ graph TD
 
 For new systems, implement patterns in this order:
 
-1. **[Timeout](timeout.md)** - Foundation for all network calls
-2. **[Health Check](health-check.md)** - Know when services are unhealthy
-3. **[Circuit Breaker](circuit-breaker.md)** - Prevent cascade failures
-4. **[Retry & Backoff](retry-backoff.md)** - Handle transient failures
-5. **[Bulkhead](bulkhead.md)** - Isolate critical resources
-6. **[Graceful Degradation](graceful-degradation.md)** - Maintain partial service
+1. **[Timeout](resilience/timeout.md)** - Foundation for all network calls
+2. **[Health Check](resilience/health-check.md)** - Know when services are unhealthy
+3. **[Circuit Breaker](resilience/circuit-breaker.md)** - Prevent cascade failures
+4. **[Retry & Backoff](resilience/retry-backoff.md)** - Handle transient failures
+5. **[Bulkhead](resilience/bulkhead.md)** - Isolate critical resources
+6. **[Graceful Degradation](resilience/graceful-degradation.md)** - Maintain partial service
 
 ---
 

@@ -10,7 +10,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
 
 <div class="grid cards" markdown>
 
-- :material-rocket-launch:{ .lg .middle } **[Scalability Cheatsheet](scalability-cheatsheet.md)**
+- :material-rocket-launch:{ .lg .middle } **[Scalability Cheatsheet](index.md)**
     
     ---
     
@@ -26,7 +26,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
     
     Never miss a critical component again
 
-- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](common-patterns-reference.md)**
+- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](index.md)**
     
     ---
     

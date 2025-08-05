@@ -258,7 +258,7 @@ System state where minor triggers cause cascading performance collapse.
 
 **Prevention**: Circuit breakers, admission control, jitter in retries
 
-**Related**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos.md), [Case Study: Facebook's Metastable Failures](../architects-handbook/case-studies/infrastructure/consistent-hashing.md)
+**Related**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos.md), [Case Study: Facebook's Metastable Failures](../architects-handbook/case-studies/index.md)
 
 ### Microservices
 Small, independently deployable services.

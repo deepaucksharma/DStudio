@@ -14,9 +14,9 @@ Communication patterns address the fundamental challenge of how services talk to
 ## Pattern Categories
 
 ### Messaging Patterns
-- **[Publish/Subscribe](publish-subscribe.md)** - One-to-many message distribution
+- **[Publish/Subscribe](communication/publish-subscribe.md)** - One-to-many message distribution
 - **[Request/Reply](request-reply.md)** - Asynchronous request-response
-- **[WebSocket](websocket.md)** - Real-time bidirectional communication
+- **[WebSocket](communication/websocket.md)** - Real-time bidirectional communication
 - **Message Queue** - Point-to-point asynchronous messaging
 - **Message Router** - Content-based message routing
 
@@ -27,12 +27,12 @@ Communication patterns address the fundamental challenge of how services talk to
 - **Streaming RPC** - Bidirectional streaming
 
 ### Service Discovery
-- **[Service Discovery](service-discovery.md)** - Dynamic service location
+- **[Service Discovery](communication/service-discovery.md)** - Dynamic service location
 - **[Service Registry](service-registry.md)** - Service metadata management
 
 ### Integration Patterns
-- **[API Gateway](api-gateway.md)** - Single entry point for clients
-- **[Service Mesh](service-mesh.md)** - Transparent service communication
+- **[API Gateway](communication/api-gateway.md)** - Single entry point for clients
+- **[Service Mesh](communication/service-mesh.md)** - Transparent service communication
 - **Backend for Frontend** - Client-specific APIs
 
 ## Quick Decision Guide
@@ -40,13 +40,13 @@ Communication patterns address the fundamental challenge of how services talk to
 | If you need... | Consider... |
 |----------------|-------------|
 | Simple async processing | Message Queue |
-| Fan-out to multiple consumers | [Pub/Sub](publish-subscribe.md) |
+| Fan-out to multiple consumers | [Pub/Sub](communication/publish-subscribe.md) |
 | Synchronous communication | [gRPC](grpc.md) |
-| Real-time bidirectional | [WebSocket](websocket.md) |
+| Real-time bidirectional | [WebSocket](communication/websocket.md) |
 | Async request-response | [Request/Reply](request-reply.md) |
-| API management | [API Gateway](api-gateway.md) |
-| Service-to-service mesh | [Service Mesh](service-mesh.md) |
-| Dynamic service location | [Service Discovery](service-discovery.md) |
+| API management | [API Gateway](communication/api-gateway.md) |
+| Service-to-service mesh | [Service Mesh](communication/service-mesh.md) |
+| Dynamic service location | [Service Discovery](communication/service-discovery.md) |
 
 ---
 

@@ -16,8 +16,8 @@ introduced: 2024-01
 last-updated: 2025-07-26
 pattern_status: recommended
 prerequisites:
-- patterns/leader-election.md
-- patterns/consensus.md
+- pattern-library/leader-election.md
+- pattern-library/consensus.md
 reading-time: 20 min
 status: complete
 tagline: Master generation clock for distributed systems success
@@ -69,7 +69,7 @@ when-to-use: Leader election, split-brain prevention, configuration management, 
 |----------|---------|-------------|
 | Eventually Consistent Systems | Unnecessary ordering overhead | [Vector Clocks](vector-clock.md) |
 | Single Node Systems | No leadership needed | Local counters |
-| Real-time Requirements | Logical ordering insufficient | [Physical Timestamps](clock-sync.md) |
+| Real-time Requirements | Logical ordering insufficient | [Physical Timestamps](coordination/clock-sync.md) |
 | Simple Request-Response | No coordination needed | Session tokens |
 
 ## Decision Matrix

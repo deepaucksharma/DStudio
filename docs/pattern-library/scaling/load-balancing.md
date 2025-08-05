@@ -318,7 +318,7 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Auto-scaling](auto-scaling.md) | Dynamic capacity management | LB triggers scaling events |
+| [Auto-scaling](scaling/auto-scaling.md) | Dynamic capacity management | LB triggers scaling events |
 | [Circuit Breaker](../resilience/circuit-breaker.md) | Cascade failure prevention | Circuit state affects routing |
 | [Health Check](../resilience/health-check.md) | Service monitoring | Health status drives routing decisions |
 
@@ -364,7 +364,7 @@ graph LR
     
     ---
     
-    - [Auto-scaling](auto-scaling.md) - Dynamic capacity management
+    - [Auto-scaling](scaling/auto-scaling.md) - Dynamic capacity management
     - [Health Check](../resilience/health-check.md) - Backend monitoring
     - [Circuit Breaker](../resilience/circuit-breaker.md) - Failure protection
 

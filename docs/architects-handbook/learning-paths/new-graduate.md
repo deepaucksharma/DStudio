@@ -178,22 +178,22 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 22-23**: [Timeout](../../../pattern-library/timeout)
+ **Day 22-23**: [Timeout](../pattern-library/timeout)
  - 🎯 Problem: Hanging requests
  - 🛠️ Build: Timeout wrapper function
  - 📊 Success: Handle 95% of network issues
  
- **Day 24-25**: [Retry & Backoff](../../../pattern-library/retry-backoff)
+ **Day 24-25**: [Retry & Backoff](../pattern-library/retry-backoff)
  - 🎯 Problem: Transient failures
  - 🛠️ Build: Exponential backoff library
  - 📊 Success: Recover from 80% of failures
  
- **Day 26-28**: [Circuit Breaker](../../../pattern-library/circuit-breaker)
+ **Day 26-28**: [Circuit Breaker](../pattern-library/circuit-breaker)
  - 🎯 Problem: Cascade failures
  - 🛠️ Build: Circuit breaker class
  - 📊 Success: Prevent system-wide outages
  
- **Day 29-30**: [Health Check](../../../pattern-library/health-check)
+ **Day 29-30**: [Health Check](../pattern-library/health-check)
  - 🎯 Problem: Silent failures
  - 🛠️ Build: Health monitoring endpoint
  - 📊 Success: Detect issues in < 30s
@@ -206,17 +206,17 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 31-32**: [Caching Strategies](../../../pattern-library/caching-strategies)
+ **Day 31-32**: [Caching Strategies](../pattern-library/caching-strategies)
  - 🎯 Problem: Slow repeated queries
  - 🛠️ Build: LRU cache with TTL
  - 📊 Success: 10x performance boost
  
- **Day 33-35**: [CQRS](../../../pattern-library/cqrs)
+ **Day 33-35**: [CQRS](../pattern-library/cqrs)
  - 🎯 Problem: Read/write conflicts
  - 🛠️ Build: Separate read/write models
  - 📊 Success: Scale reads independently
  
- **Day 36-37**: [Event Sourcing](../../../pattern-library/event-sourcing)
+ **Day 36-37**: [Event Sourcing](../pattern-library/event-sourcing)
  - 🎯 Problem: Lost state changes
  - 🛠️ Build: Event log system
  - 📊 Success: Complete audit trail
@@ -229,17 +229,17 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 38-39**: [Load Balancing](../../../pattern-library/load-balancing)
+ **Day 38-39**: [Load Balancing](../pattern-library/load-balancing)
  - 🎯 Problem: Uneven work distribution
  - 🛠️ Build: Round-robin balancer
  - 📊 Success: Even load across servers
  
- **Day 40-41**: [Service Discovery](../../../pattern-library/service-discovery)
+ **Day 40-41**: [Service Discovery](../pattern-library/service-discovery)
  - 🎯 Problem: Finding services
  - 🛠️ Build: Service registry
  - 📊 Success: Dynamic service location
  
- **Day 42**: [API Gateway](../../../pattern-library/api-gateway)
+ **Day 42**: [API Gateway](../pattern-library/api-gateway)
  - 🎯 Problem: Multiple entry points
  - 🛠️ Build: Simple gateway
  - 📊 Success: Single API surface

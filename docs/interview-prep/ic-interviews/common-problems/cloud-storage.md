@@ -5,9 +5,9 @@ type: system-design-problem
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: 
-  - patterns/sharding
-  - patterns/caching
-  - patterns/event-sourcing
+  - pattern-library/sharding
+  - pattern-library/caching
+  - pattern-library/event-sourcing
 status: complete
 last_updated: 2025-08-04
 ---
@@ -292,7 +292,7 @@ CREATE TABLE device_sync_state (
 ### Core Patterns
 
 #### 1. Content Addressable Storage
-**Pattern**: [Content Addressable Storage](../../../pattern-library/data-management/content-addressable-storage.md)
+**Pattern**: [Content Addressable Storage](../../../pattern-library/data-management/merkle-trees.md)
 - Store files by content hash (SHA-256)
 - Enables deduplication automatically
 - Immutable storage with versioning
@@ -341,7 +341,7 @@ graph TB
 - Optimize writes for file operations
 
 #### 4. Database Sharding
-**Pattern**: [Database Sharding](../../../pattern-library/scaling/database-sharding.md)
+**Pattern**: [Database Sharding](../../../pattern-library/scaling/sharding.md)
 - Shard by user_id for data locality
 - Ensures user data stays together
 - Scales metadata operations

@@ -16,8 +16,8 @@ introduced: 2024-01
 last-updated: 2025-07-26
 pattern_status: recommended
 prerequisites:
-- patterns/gossip.md
-- patterns/phi-accrual.md
+- pattern-library/gossip.md
+- pattern-library/phi-accrual.md
 reading-time: 25 min
 status: complete
 tagline: Master emergent leader pattern for distributed systems success
@@ -72,10 +72,10 @@ when-to-use: Decentralized systems, peer-to-peer networks, dynamic membership, e
 
 | Scenario | Why Not | Alternative |
 |----------|---------|-------------|
-| Strong Consistency Required | Slow convergence | [Consensus Algorithms](consensus.md) |
-| Small Static Clusters | Election overhead minimal | [Leader Election](leader-election.md) |
-| Byzantine Environment | Score manipulation possible | [PBFT Consensus](consensus.md) |
-| Immediate Leader Needed | Emergence takes time | [Bully Algorithm](leader-election.md) |
+| Strong Consistency Required | Slow convergence | [Consensus Algorithms](coordination/consensus.md) |
+| Small Static Clusters | Election overhead minimal | [Leader Election](coordination/leader-election.md) |
+| Byzantine Environment | Score manipulation possible | [PBFT Consensus](coordination/consensus.md) |
+| Immediate Leader Needed | Emergence takes time | [Bully Algorithm](coordination/leader-election.md) |
 
 ## Decision Matrix
 

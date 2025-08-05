@@ -57,7 +57,7 @@ when-to-use: When designing distributed systems architecture
     
     **For practical guidance, see:**
     - **[Tunable Consistency](tunable-consistency.md)** for flexible trade-offs
-    - **[Consensus Patterns](consensus.md)** for agreement protocols
+    - **[Consensus Patterns](coordination/consensus.md)** for agreement protocols
     - **[Multi-Region Architecture](multi-region.md)** for real-world CAP decisions
 
 **You can't have your cake and eat it too - The fundamental trade-off in distributed systems**

@@ -138,13 +138,13 @@ graph TD
 
 ### Foundation Patterns
 - **[Write-Ahead Log](./wal.md)**: Often implemented as segmented
-- **[Append-Only Store](../patterns/append-only.md)**: Base concept
+- **[Append-Only Store](../pattern-library/append-only.md)**: Base concept
 - **[Log Structured Storage](./lsm-tree.md)**: Uses segments internally
 
 ### Complementary Patterns
-- **[Snapshot](../patterns/snapshot.md)**: Reduce recovery time
-- **[Compaction](../patterns/compaction.md)**: Clean up segments
-- **[Replication Log](../patterns/replication-log.md)**: Segment-based replication
+- **[Snapshot](../pattern-library/snapshot.md)**: Reduce recovery time
+- **[Compaction](../pattern-library/compaction.md)**: Clean up segments
+- **[Replication Log](../pattern-library/replication-log.md)**: Segment-based replication
 
 ### Applications
 - **[Kafka](../case-studies/kafka.md)**: Canonical implementation

@@ -307,7 +307,7 @@ graph TD
 - **[Bulkhead Pattern](../resilience/bulkhead.md)** - Isolation within services
 - **[Sharding](../scaling/sharding.md)** - Data partitioning strategy
 - **[Multi-Region](../scaling/multi-region.md)** - Geographic distribution
-- **[Service Mesh](service-mesh.md)** - Network-level isolation
+- **[Service Mesh](communication/service-mesh.md)** - Network-level isolation
 - **[Circuit Breaker](../resilience/circuit-breaker.md)** - Failure handling
 
 ## References

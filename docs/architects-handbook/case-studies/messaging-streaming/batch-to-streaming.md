@@ -60,7 +60,7 @@ deprecation_reason: "Batch processing creates stale data and delays decision-mak
 # Excellence connections
 excellence_guides:
   - migration/stream-processing
-  - patterns/data-pipeline
+  - pattern-library/data-pipeline
   - architecture/event-driven
 
 # Implementation insights
@@ -601,9 +601,9 @@ def modern_data_architecture():
 
 ## Related Resources
 
-- [Stream Processing Pattern](../patterns/stream-processing.md)
-- [Lambda Architecture](../patterns/lambda-architecture.md)
-- [Event Sourcing Pattern](../../../pattern-library/data-management/event-sourcing.md)
+- [Stream Processing Pattern](../pattern-library/stream-processing.md)
+- [Lambda Architecture](../pattern-library/architecture/lambda-architecture.md)
+- [Event Sourcing Pattern](../pattern-library/data-management/event-sourcing.md)
 - [Streaming Systems Book](https://www.oreilly.com/library/view/streaming-systems/9781491983867/)
 
 ---

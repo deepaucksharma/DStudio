@@ -530,10 +530,10 @@ graph TB
 ## Related Patterns
 
 - [Work Distribution](../part2-pillars/1-work-distribution/index.md) - Batching as work distribution strategy
-- [Circuit Breaker](circuit-breaker.md) - Protecting batch processors
-- [Bulkhead](bulkhead.md) - Isolating batch processing
+- [Circuit Breaker](resilience/circuit-breaker.md) - Protecting batch processors
+- [Bulkhead](resilience/bulkhead.md) - Isolating batch processing
 - [Queue-Based Load Leveling](queue-load-leveling.md) - Buffering for batches
-- [Saga Pattern](saga.md) - Managing batch transactions
+- [Saga Pattern](data-management/saga.md) - Managing batch transactions
 
 ## References
 

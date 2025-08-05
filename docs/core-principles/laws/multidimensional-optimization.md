@@ -531,4 +531,4 @@ If you can't answer these, you're not ready for production.
 - **[Law 1: Correlated Failure](correlated-failure.md)** - Trade-offs can create correlation
 - **[Law 2: Asynchronous Reality](asynchronous-reality.md)** - Time is a dimension to trade
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Trade-offs interact unpredictably
-- **Patterns**: [CQRS](../../pattern-library/cqrs.md), [Sharding](../../pattern-library/sharding.md), [Service Mesh](../../pattern-library/service-mesh.md)
+- **Patterns**: [CQRS](../pattern-library/data-management/cqrs.md), [Sharding](../pattern-library/scaling/sharding.md), [Service Mesh](../pattern-library/communication/service-mesh.md)

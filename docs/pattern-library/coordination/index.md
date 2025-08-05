@@ -14,17 +14,17 @@ Coordination patterns solve the fundamental challenge of getting distributed nod
 ## Available Patterns
 
 ### Consensus & Agreement
-- **[Consensus](consensus.md)** - Achieving agreement among distributed nodes (Paxos, Raft, PBFT)
-- **[Leader Election](leader-election.md)** - Selecting a single node for coordination
+- **[Consensus](coordination/consensus.md)** - Achieving agreement among distributed nodes (Paxos, Raft, PBFT)
+- **[Leader Election](coordination/leader-election.md)** - Selecting a single node for coordination
 - **[Generation Clock](generation-clock.md)** - Monotonic counter for detecting stale leaders
 
 ### Time & Ordering
-- **[Logical Clocks](logical-clocks.md)** - Lamport clocks for causal ordering without physical time
-- **[Hybrid Logical Clocks (HLC)](hlc.md)** - Combining physical and logical time
-- **[Clock Synchronization](clock-sync.md)** - Synchronizing physical clocks across nodes
+- **[Logical Clocks](coordination/logical-clocks.md)** - Lamport clocks for causal ordering without physical time
+- **[Hybrid Logical Clocks (HLC)](coordination/hlc.md)** - Combining physical and logical time
+- **[Clock Synchronization](coordination/clock-sync.md)** - Synchronizing physical clocks across nodes
 
 ### Resource Management
-- **[Distributed Lock](distributed-lock.md)** - Mutual exclusion across distributed nodes
+- **[Distributed Lock](coordination/distributed-lock.md)** - Mutual exclusion across distributed nodes
 - **[Lease](lease.md)** - Time-bound resource ownership with automatic expiration
 
 ## Quick Decision Guide

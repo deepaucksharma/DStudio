@@ -1,46 +1,9 @@
 ---
-best_for:
-**Key Points:** Multiple configuration options and trade-offs available
-
-category: communication
-current_relevance: mainstream
-description: Asynchronous request-response communication pattern for distributed systems
-difficulty: intermediate
-essential_question: How do we achieve request-response semantics over asynchronous
-  messaging systems?
-excellence_tier: silver
-introduced: 1990-01
-pattern_status: use-with-expertise
-prerequisites:
-- message-queues
-- distributed-systems
-- asynchronous-programming
-reading_time: 25 min
-related_laws:
-- law2-asynchrony
-- law4-tradeoffs
-- law6-human-api
-related_pillars:
-- work
-- control
-tagline: Asynchronous request-response with correlation management
 title: Request-Reply Pattern
-trade_offs:
-  cons:
-  - More complex than synchronous calls
-  - Requires correlation ID management
-  - Potential for lost replies and timeouts
-  - State management overhead for pending requests
-  - Debugging complexity with async flows
-  pros:
-  - Decouples client from server temporally
-  - Enables asynchronous processing without blocking
-  - Better resource utilization for long operations
-  - Handles variable response times gracefully
-  - Supports multiple reply patterns (single, stream, scatter-gather)
-type: pattern
+category: communication
+excellence_tier: silver
+pattern_status: stable
 ---
-
 # Request-Reply Pattern
 
 !!! info "🥈 Silver Tier Pattern"
@@ -66,8 +29,8 @@ type: pattern
 | Scenario | Why | Alternative |
 |----------|-----|-------------|
 | Simple synchronous calls | Added complexity without benefit | [gRPC](grpc.md) or REST |
-| Real-time requirements | Messaging adds latency | [WebSocket](websocket.md) |
-| Stateless operations | No need for response correlation | [Publish-Subscribe](publish-subscribe.md) |
+| Real-time requirements | Messaging adds latency | [WebSocket](communication/websocket.md) |
+| Stateless operations | No need for response correlation | [Publish-Subscribe](communication/publish-subscribe.md) |
 | High-frequency trading | Every millisecond matters | Direct TCP connections |
 
 ### The Story

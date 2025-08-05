@@ -7,8 +7,8 @@ reading_time: 35 min
 prerequisites: 
   - law1-failure
   - law5-epistemology
-  - patterns/event-driven
-  - patterns/queues-streaming
+  - pattern-library/event-driven
+  - pattern-library/queues-streaming
 status: complete
 last_updated: 2025-07-20
 
@@ -68,7 +68,7 @@ best_for:
 # Excellence connections
 excellence_guides:
   - scale/internet-scale
-  - patterns/messaging-systems
+  - pattern-library/messaging-systems
   - operational/notification-best-practices
 
 # Implementation insights
@@ -2521,10 +2521,10 @@ Analytics Service    8 cores  32GB      10TB
 - **[Law 7: Economics ](../../../core-principles/laws/economic-reality.md)** - Cost optimization strategies
 
 #### Advanced Topics
-- **[Event-Driven Architecture](../patterns/event-driven.md)** - Asynchronous notification processing
-- **[Queue Systems](../patterns/queues-streaming.md)** - Message queue patterns
-- **[Circuit Breakers](../../../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
-- **[Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
+- **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - Asynchronous notification processing
+- **[Queue Systems](../pattern-library/scaling/queues-streaming.md)** - Message queue patterns
+- **[Circuit Breakers](../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
+- **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
 - **[Chat System](chat-system.md)** - Real-time messaging patterns
@@ -2551,7 +2551,7 @@ Analytics Service    8 cores  32GB      10TB
 - [OneSignal](https://onesignal.com/) - Push notification service
 
 **Related Patterns:**
-- [Message Queue](../patterns/queues-streaming.md)
-- [Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)
-- [Event-Driven Architecture](../patterns/event-driven.md)
-- [Rate Limiting](../../../pattern-library/scaling/rate-limiting.md)
+- [Message Queue](../pattern-library/scaling/queues-streaming.md)
+- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
+- [Event-Driven Architecture](../pattern-library/architecture/event-driven.md)
+- [Rate Limiting](../pattern-library/scaling/rate-limiting.md)

@@ -622,19 +622,19 @@ graph TB
 ## Applicable Patterns
 
 <div class="grid" markdown>
- <a href="../../patterns/consensus/" class="pattern-card">
+ <a href="../pattern-library/consensus/" class="pattern-card">
  <h3 class="pattern-card__title">Multi-Paxos</h3>
  <p class="pattern-card__description">Consensus across global replicas with leader election</p>
  </a>
- <a href="../../patterns/mvcc/" class="pattern-card">
+ <a href="../pattern-library/mvcc/" class="pattern-card">
  <h3 class="pattern-card__title">MVCC</h3>
  <p class="pattern-card__description">Multi-version concurrency control for lock-free reads</p>
  </a>
- <a href="../../patterns/two-phase-commit/" class="pattern-card">
+ <a href="../pattern-library/two-phase-commit/" class="pattern-card">
  <h3 class="pattern-card__title">Two-Phase Commit</h3>
  <p class="pattern-card__description">Global transaction coordination with Paxos groups</p>
  </a>
- <a href="../../patterns/leader-follower/" class="pattern-card">
+ <a href="../pattern-library/leader-follower/" class="pattern-card">
  <h3 class="pattern-card__title">Leader-Follower</h3>
  <p class="pattern-card__description">Paxos leaders handle writes, followers serve reads</p>
  </a>

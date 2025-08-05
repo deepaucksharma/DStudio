@@ -308,7 +308,7 @@ graph TD
 | **[Law 7: Economic Reality](part1-axioms/law7-economics/index)** | Axiom | Cost optimization driver |
 | **[Pillar 4: Control](part2-pillars/control/index)** | Pillar | Access control principles |
 | **[CDN Pattern](../pattern-library/scaling/edge-computing.md)** | Pattern | Combine for global scale |
-| **[Encryption at Rest](../patterns/distributed-storage.md#encryption)** | Pattern | Secure storage layer |
+| **[Encryption at Rest](../pattern-library/distributed-storage.md#encryption)** | Pattern | Secure storage layer |
 
 ## Summary
 

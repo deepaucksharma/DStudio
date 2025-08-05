@@ -471,8 +471,8 @@ graph LR
 
 ## Related Patterns
 
-- [Vector Clocks](vector-clocks.md) - Detect concurrent events
-- [Hybrid Logical Clocks](hlc.md) - Add wall-clock approximation
+- [Vector Clocks](coordination/logical-clocks.md) - Detect concurrent events
+- [Hybrid Logical Clocks](coordination/hlc.md) - Add wall-clock approximation
 - [Generation Clock](generation-clock.md) - Leadership epochs
 - [Event Sourcing](../data-management/event-sourcing.md) - Ordered event streams
 

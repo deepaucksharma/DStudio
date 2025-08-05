@@ -141,7 +141,7 @@ We're actively expanding this collection. Future problems will include:
 
 ### Before Practice
 - Review [System Design Frameworks](../frameworks/)
-- Study [Common Patterns](../../pattern-library/)
+- Study [Common Patterns](../../../pattern-library/)
 - Check [Scalability Numbers](../cheatsheets/)
 
 ### During Practice

@@ -1,49 +1,9 @@
 ---
-category: resilience
-current_relevance: mainstream
-description: Intelligent failure recovery with exponential backoff, jitter, and adaptive
-  retry policies
-difficulty: intermediate
-essential_question: How do we handle transient failures without overwhelming the system?
-excellence_tier: gold
-introduced: 1980-01
-last-updated: 2025-01-30
-modern-examples:
-- company: AWS
-  implementation: Built into every AWS SDK with exponential backoff and jitter
-  scale: Every API call across millions of customers
-- company: Google Cloud
-  implementation: Automatic retries with intelligent backoff in all client libraries
-  scale: Billions of API requests with transient failure handling
-- company: Netflix
-  implementation: Hystrix/Resilience4j with adaptive retry policies
-  scale: 150+ million subscribers, handling 5+ billion requests/day
-pattern_status: recommended
-prerequisites:
-- latency
-- failure
-- capacity
-production-checklist:
-**Key Points:** Multiple configuration options and trade-offs available
-
-reading-time: 25 min
-related-laws:
-- law1-failure
-- law2-asynchrony
-- law3-emergence
-- law7-economics
-related-pillars:
-- work
-- control
-- intelligence
-status: complete
-tagline: Turn temporary failures into eventual success through intelligent retries
 title: Retry with Exponential Backoff
-type: pattern
-when-not-to-use: Permanent failures, business logic errors, data validation failures
-when-to-use: Network calls, external APIs, distributed services, temporary failures
+category: resilience
+excellence_tier: silver
+pattern_status: stable
 ---
-
 # Retry with Exponential Backoff
 
 !!! success "🏆 Gold Standard Pattern"

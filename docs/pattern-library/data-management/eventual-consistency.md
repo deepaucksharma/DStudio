@@ -322,7 +322,7 @@ graph LR
     
     ---
     
-    - [CRDT](crdt.md) - Conflict-free replicated data types
+    - [CRDT](data-management/crdt.md) - Conflict-free replicated data types
     - [Vector Clocks](../coordination/vector-clocks.md) - Causality tracking
     - [Read Repair](read-repair.md) - Fixing inconsistencies during reads
 
@@ -352,7 +352,7 @@ graph LR
 
 ---
 
-*Next: [CRDT](crdt.md) - Conflict-free replicated data types for automatic conflict resolution*
+*Next: [CRDT](data-management/crdt.md) - Conflict-free replicated data types for automatic conflict resolution*
 
 ### Advanced Implementation Examples
 

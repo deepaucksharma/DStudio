@@ -593,8 +593,8 @@ graph TD
 
 ## Resources
 
-- [Caching Strategies](../../patterns/caching-strategies.md) (Gold)
-- [Load Balancing](../../patterns/load-balancing.md) (Gold)
-- [Auto-scaling](../../patterns/auto-scaling.md) (Silver)
-- [Edge Computing](../../patterns/edge-computing.md) (Gold)
+- [Caching Strategies](../pattern-library/scaling/caching-strategies.md) (Gold)
+- [Load Balancing](../pattern-library/scaling/load-balancing.md) (Gold)
+- [Auto-scaling](../pattern-library/scaling/auto-scaling.md) (Silver)
+- [Edge Computing](../pattern-library/scaling/edge-computing.md) (Gold)
 - [Performance Testing Tools](../../reference/performance-tools.md)

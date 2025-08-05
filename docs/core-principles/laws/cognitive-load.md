@@ -491,4 +491,4 @@ python3 cognitive_load_analyzer.py --team YOUR_TEAM
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Complexity emerges beyond human comprehension
 - **[Law 4: Multidimensional Optimization](multidimensional-optimization.md)** - Trading off simplicity for features
 - **[Law 5: Distributed Knowledge](distributed-knowledge.md)** - No single human knows everything
-- **Patterns**: [Circuit Breaker](../../pattern-library/circuit-breaker.md), [Bulkhead](../../pattern-library/bulkhead.md), [Service Mesh](../../pattern-library/service-mesh.md)
+- **Patterns**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Bulkhead](../pattern-library/resilience/bulkhead.md), [Service Mesh](../pattern-library/communication/service-mesh.md)

@@ -12,8 +12,8 @@ introduced: 2024-01
 last-updated: 2025-07-26
 pattern_status: recommended
 prerequisites:
-- patterns/replication.md
-- patterns/wal.md
+- pattern-library/replication.md
+- pattern-library/wal.md
 reading-time: 20 min
 status: complete
 tagline: Master low-water/high-water marks for distributed systems success
@@ -265,19 +265,19 @@ Water Marks implement:
 ## Related Patterns
 
 ### Core Dependencies
-- **[Backpressure](../patterns/backpressure.md)**: Water marks trigger backpressure
+- **[Backpressure](../pattern-library/scaling/backpressure.md)**: Water marks trigger backpressure
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)**: Similar state-based protection
 - **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)**: Enforcement mechanism
 
 ### Supporting Patterns
-- **[Queue](../patterns/distributed-queue.md)**: Often uses water marks
+- **[Queue](../pattern-library/coordination/distributed-queue.md)**: Often uses water marks
 - **[Timeout](../pattern-library/resilience/timeout.md)**: Drain timeout at high water
 - **[Bulkhead](../pattern-library/resilience/bulkhead.md)**: Isolate resources with marks
 
 ### Similar Concepts
-- **[Admission Control](../patterns/rate-limiting.md#admission-control)**: Entry-point flow control
-- **[Load Shedding](../pattern-library/resilience/load-shedding.md)**: Beyond high water mark
-- **[Throttling](../patterns/rate-limiting.md#throttling)**: Between water marks
+- **[Admission Control](../pattern-library/rate-limiting.md#admission-control)**: Entry-point flow control
+- **[Load Shedding](../pattern-library/load-shedding.md)**: Beyond high water mark
+- **[Throttling](../pattern-library/rate-limiting.md#throttling)**: Between water marks
 
 ---
 

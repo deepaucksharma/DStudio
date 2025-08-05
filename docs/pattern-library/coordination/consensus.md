@@ -347,14 +347,14 @@ Consensus implements:
 ## Related Patterns
 
 ### Core Dependencies
-- **[Leader Election](patterns/leader-election)**: Uses consensus for choosing leaders
-- **[Distributed Lock](patterns/distributed-lock)**: Built on consensus primitives
-- **[Two-Phase Commit](patterns/two-phase-commit)**: Alternative for distributed transactions
+- **[Leader Election](pattern-library/leader-election)**: Uses consensus for choosing leaders
+- **[Distributed Lock](pattern-library/distributed-lock)**: Built on consensus primitives
+- **[Two-Phase Commit](pattern-library/two-phase-commit)**: Alternative for distributed transactions
 
 ### Complementary Patterns
-- **[Circuit Breaker](patterns/circuit-breaker)**: Protects consensus operations
-- **[Saga Pattern](patterns/saga)**: Alternative to consensus for long-running transactions
-- **[Event Sourcing](patterns/event-sourcing)**: Can use consensus for ordering events
+- **[Circuit Breaker](pattern-library/circuit-breaker)**: Protects consensus operations
+- **[Saga Pattern](pattern-library/saga)**: Alternative to consensus for long-running transactions
+- **[Event Sourcing](pattern-library/event-sourcing)**: Can use consensus for ordering events
 
 ## Decision Matrix
 
@@ -368,10 +368,10 @@ Consensus implements:
 | **Recommendation** | ❌ Avoid | ⚠️ Consider | ✅ Implement |
 
 ## Implementation Patterns
-- **[Write-Ahead Log](patterns/wal)**: Critical for consensus durability
-- **[Gossip Protocol](patterns/gossip-protocol)**: Alternative for eventual consistency
-- **[Vector Clocks](patterns/vector-clocks)**: Track causality without consensus
+- **[Write-Ahead Log](pattern-library/wal)**: Critical for consensus durability
+- **[Gossip Protocol](pattern-library/gossip-protocol)**: Alternative for eventual consistency
+- **[Vector Clocks](pattern-library/vector-clocks)**: Track causality without consensus
 
 ---
 
-**Previous**: [← Circuit Breaker Pattern](circuit-breaker.md) | **Next**: [CQRS (Command Query Responsibility Segregation) →](cqrs.md)
+**Previous**: [← Circuit Breaker Pattern](resilience/circuit-breaker.md) | **Next**: [CQRS (Command Query Responsibility Segregation) →](data-management/cqrs.md)

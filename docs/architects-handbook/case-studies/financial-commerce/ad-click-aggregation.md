@@ -68,7 +68,7 @@ best_for:
 # Excellence connections
 excellence_guides:
   - scale/stream-processing
-  - patterns/lambda-architecture
+  - pattern-library/lambda-architecture
   - operational/fraud-detection
 
 # Implementation insights

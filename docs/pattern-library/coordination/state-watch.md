@@ -204,11 +204,11 @@ graph TD
 
 ## Related Patterns
 
-- [Distributed Lock](distributed-lock.md) - Often uses watches for efficiency
-- [Leader Election](leader-election.md) - Watches detect leader changes
-- [Service Discovery](service-discovery.md) - Real-time service updates
-- [Consensus](consensus.md) - Watch for consensus state changes
-- [Event Sourcing](event-sourcing.md) - Alternative to state watching
+- [Distributed Lock](coordination/distributed-lock.md) - Often uses watches for efficiency
+- [Leader Election](coordination/leader-election.md) - Watches detect leader changes
+- [Service Discovery](communication/service-discovery.md) - Real-time service updates
+- [Consensus](coordination/consensus.md) - Watch for consensus state changes
+- [Event Sourcing](data-management/event-sourcing.md) - Alternative to state watching
 
 ---
 

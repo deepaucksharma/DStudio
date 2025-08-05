@@ -483,4 +483,4 @@ The Law of Economic Reality reminds us that distributed systems exist to serve b
 - **[Law 4: Multidimensional Optimization](multidimensional-optimization.md)** - Cost is one dimension to optimize
 - **[Law 5: Distributed Knowledge](distributed-knowledge.md)** - Knowledge silos increase costs
 - **[Law 6: Cognitive Load](cognitive-load.md)** - Human costs often exceed technical costs
-- **Patterns**: [Cost Optimization](../../pattern-library/cost-optimization.md), [Multi-Cloud](../../pattern-library/multi-cloud.md), [Serverless](../../pattern-library/serverless.md)
+- **Patterns**: [Cost Optimization](../pattern-library/scaling/auto-scaling.md), [Multi-Cloud](../pattern-library/scaling/multi-region.md), [Serverless](../pattern-library/architecture/serverless-faas.md)

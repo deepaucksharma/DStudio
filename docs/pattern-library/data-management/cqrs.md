@@ -185,14 +185,14 @@ graph TD
 - **[Event-Driven Architecture](../communication/event-driven.md)**: Connect write to read
 
 ### Supporting Patterns
-- **[Materialized View](../patterns/materialized-view.md)**: Read model implementation
-- **[Cache-Aside](../patterns/cache-aside.md)**: Speed up queries
-- **[Database per Service](../patterns/database-per-service.md)**: Isolate models
+- **[Materialized View](../pattern-library/data-management/materialized-view.md)**: Read model implementation
+- **[Cache-Aside](../pattern-library/scaling/caching-strategies.md.md)**: Speed up queries
+- **[Database per Service](../pattern-library/database-per-service.md)**: Isolate models
 
 ### Alternatives
-- **[Read Replicas](../patterns/read-replicas.md)**: Simpler scaling
-- **[Caching](../patterns/caching.md)**: Less complexity
-- **[API Composition](../patterns/api-composition.md)**: Query federation
+- **[Read Replicas](../pattern-library/read-replicas.md)**: Simpler scaling
+- **[Caching](../pattern-library/scaling/caching-strategies.md)**: Less complexity
+- **[API Composition](../pattern-library/api-composition.md)**: Query federation
 
 ## Further Reading
 

@@ -1,42 +1,9 @@
 ---
-category: scaling
-current_relevance: mainstream
-description: Strategies for generating unique identifiers in distributed systems at
-  massive scale
-difficulty: intermediate
-essential_question: How do we handle increasing load without sacrificing performance
-  using id generation at scale?
-excellence_tier: gold
-introduced: 2010-10
-last-updated: 2025-07-24
-modern-examples:
-- company: Twitter
-  implementation: Snowflake algorithm generates billions of tweet IDs with time ordering
-  scale: 500M+ tweets/day, billions of IDs generated
-- company: Instagram
-  implementation: Modified Snowflake with PostgreSQL sharding for photo IDs
-  scale: 95M+ photos/day requiring unique IDs
-- company: Discord
-  implementation: Snowflake-based IDs for messages, users, and channels
-  scale: 15B+ messages/month with globally unique IDs
-pattern_status: recommended
-prerequisites:
-- distributed-systems-basics
-- sharding
-- time-synchronization
-production-checklist:
-**Key Points:** Multiple configuration options and trade-offs available
-
-reading-time: 30 min
-status: complete
-tagline: Master id generation at scale for distributed systems success
 title: ID Generation at Scale
-type: pattern
-when-not-to-use: Single-node applications, low-throughput systems, when UUIDs suffice
-when-to-use: URL shorteners, social media platforms, e-commerce systems requiring
-  billions of unique IDs
+category: scaling
+excellence_tier: silver
+pattern_status: stable
 ---
-
 ## Essential Question
 
 **How do we handle increasing load without sacrificing performance using id generation at scale?**

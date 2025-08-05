@@ -552,6 +552,7 @@ nav:
       - Shared Database to Microservices: excellence/migrations/shared-database-to-microservices.md
       - Thick Client to API First: excellence/migrations/thick-client-to-api-first.md
       - Vector Clocks to HLC: excellence/migrations/vector-clocks-to-hlc.md
+      - Migration Guides Complete: excellence/migrations/MIGRATION_GUIDES_COMPLETE.md
   - Quantitative Analysis:
     - Overview: architects-handbook/quantitative-analysis/index.md
     - Core Laws & Principles:
@@ -649,6 +650,8 @@ nav:
   # Engineering Leadership Interviews
   - Engineering Leadership:
     - Overview: interview-prep/engineering-leadership/index.md
+    - Interview Framework: interview-prep/ENGINEERING_LEADERSHIP_INTERVIEW_FRAMEWORK.md
+    - Framework Organization: interview-prep/engineering-leadership/FRAMEWORK_ORGANIZATION.md
     - 🧭 Navigation Guide: interview-prep/engineering-leadership/navigation-guide.md
     - Framework Overview: interview-prep/engineering-leadership/framework-index.md
     
@@ -711,6 +714,7 @@ nav:
         - Principle Hooks: interview-prep/engineering-leadership/level-4-interview-execution/tools/principle-hooks/index.md
         - Mock Interview Guide: interview-prep/engineering-leadership/level-4-interview-execution/tools/mock-interview-guide.md
         - Interactive Tools:
+          - Overview: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index.md
           - Interview Timer: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer.md
           - Self-Assessment: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md
           - Decision Trees: interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/decision-trees.md
@@ -767,6 +771,8 @@ nav:
   - Overview: reference/index.md
   - How to Contribute: reference/contributing.md
   - Glossary: reference/glossary.md
+  - Formatting Guide: reference/formatting-guide.md
+  - Validation Guide: reference/validation-guide.md
   - Pattern Health Dashboard: reference/pattern-health-dashboard.md
   - Pattern Meta-Analysis: reference/pattern-meta-analysis.md
   - Pattern Consistency Report: reference/pattern-consistency-report.md

@@ -2321,10 +2321,10 @@ Regional servers reduce latency; cross-region replication; compliance ready
 - **WebSocket (Coming Soon)** - Persistent connections
 - **Distributed Queue (Coming Soon)** - Reliable delivery
 - **Actor Model (Coming Soon)** - Concurrent message handling
-- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
-- **[Event Sourcing](../../../pattern-library/data-management/event-sourcing.md)** - Message history
-- **[CRDT](../patterns/crdt.md)** - Distributed state sync
-- **[Saga Pattern](../../../pattern-library/data-management/saga.md)** - Group operations
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
+- **[Event Sourcing](../pattern-library/data-management/event-sourcing.md)** - Message history
+- **[CRDT](../pattern-library/data-management/crdt.md)** - Distributed state sync
+- **[Saga Pattern](../pattern-library/data-management/saga.md)** - Group operations
 
 ### Quantitative Models
 - **[Little's Law](../../quantitative-analysis/littles-law.md.md)** - Connection pool sizing

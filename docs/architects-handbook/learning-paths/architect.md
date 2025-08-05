@@ -67,42 +67,42 @@ As a solution architect, you will:
 #### Week 3-4: Foundation Patterns
 
 === "Microservices Architecture"
- - [Service Mesh](../../../pattern-library/service-mesh) - Istio, Linkerd, Consul
- - [API Gateway](../../../pattern-library/api-gateway) - Kong, Apigee, AWS API Gateway
- - [Service Discovery](../../../pattern-library/service-discovery) - Consul, Eureka, etcd
- - [Sidecar Pattern](../../../pattern-library/sidecar) - Envoy, Dapr
+ - [Service Mesh](../pattern-library/service-mesh) - Istio, Linkerd, Consul
+ - [API Gateway](../pattern-library/api-gateway) - Kong, Apigee, AWS API Gateway
+ - [Service Discovery](../pattern-library/service-discovery) - Consul, Eureka, etcd
+ - [Sidecar Pattern](../pattern-library/sidecar) - Envoy, Dapr
 
 === "Event-Driven Architecture"
- - [Event Sourcing](../../../pattern-library/event-sourcing) - Event stores
- - [CQRS](../../../pattern-library/cqrs) - Read/write separation
- - [Saga Pattern](../../../pattern-library/saga) - Distributed transactions
- - [Event Streaming](../../../pattern-library/event-streaming) - Kafka, Pulsar
+ - [Event Sourcing](../pattern-library/event-sourcing) - Event stores
+ - [CQRS](../pattern-library/cqrs) - Read/write separation
+ - [Saga Pattern](../pattern-library/saga) - Distributed transactions
+ - [Event Streaming](../pattern-library/event-streaming) - Kafka, Pulsar
 
 === "Data Architecture"
- - [Data Mesh](../../../pattern-library/data-mesh) - Decentralized data
- - [Lambda Architecture](../../../pattern-library/lambda-architecture) - Batch + stream
- - [Kappa Architecture](../../../pattern-library/kappa-architecture) - Stream-only
- - [CDC](../../../pattern-library/cdc) - Change data capture
+ - [Data Mesh](../pattern-library/data-mesh) - Decentralized data
+ - [Lambda Architecture](../pattern-library/lambda-architecture) - Batch + stream
+ - [Kappa Architecture](../pattern-library/kappa-architecture) - Stream-only
+ - [CDC](../pattern-library/cdc) - Change data capture
 
 #### Week 5-6: Advanced Patterns
 
 === "Global Architecture"
- - [Multi-Region](../../../pattern-library/multi-region) - Active-active deployments
- - [Geo-Replication](../../../pattern-library/geo-replication) - Data sovereignty
- - [Edge Computing](../../../pattern-library/edge-computing) - CDN architectures
- - [Cell-Based](../../../pattern-library/cell-based) - Failure isolation
+ - [Multi-Region](../pattern-library/multi-region) - Active-active deployments
+ - [Geo-Replication](../pattern-library/geo-replication) - Data sovereignty
+ - [Edge Computing](../pattern-library/edge-computing) - CDN architectures
+ - [Cell-Based](../pattern-library/cell-based) - Failure isolation
 
 === "Resilience Architecture"
  - [Chaos Engineering](human-factors/chaos-engineering) - Proactive testing
- - [Bulkhead](../../../pattern-library/bulkhead) - Resource isolation
- - [Circuit Breaker](../../../pattern-library/circuit-breaker) - Cascade prevention
- - [Graceful Degradation](../../../pattern-library/graceful-degradation) - Feature flags
+ - [Bulkhead](../pattern-library/bulkhead) - Resource isolation
+ - [Circuit Breaker](../pattern-library/circuit-breaker) - Cascade prevention
+ - [Graceful Degradation](../pattern-library/graceful-degradation) - Feature flags
 
 === "Security Architecture"
- - [Zero Trust](../../../pattern-library/key-management) - Security model
- - [E2E Encryption](../../../pattern-library/e2e-encryption) - Data protection
- - [Key Management](../../../pattern-library/key-management) - HSM integration
- - [Consent Management](../../../pattern-library/consent-management) - GDPR compliance
+ - [Zero Trust](../pattern-library/key-management) - Security model
+ - [E2E Encryption](../pattern-library/e2e-encryption) - Data protection
+ - [Key Management](../pattern-library/key-management) - HSM integration
+ - [Consent Management](../pattern-library/consent-management) - GDPR compliance
 
 ### Phase 3: Reference Architectures (3-4 weeks)
 
@@ -194,10 +194,10 @@ Study complete architectures:
 
 #### Week 12: Cost Optimization
 
-- [FinOps Patterns](../../../pattern-library/finops) - Cloud cost management
-- [Resource Optimization](../../../pattern-library/auto-scaling) - Right-sizing
-- [Spot Instance Strategies](../../../pattern-library/finops) - Cost reduction
-- [Multi-Cloud Arbitrage](../../../pattern-library/multi-region) - Vendor optimization
+- [FinOps Patterns](../pattern-library/finops) - Cloud cost management
+- [Resource Optimization](../pattern-library/auto-scaling) - Right-sizing
+- [Spot Instance Strategies](../pattern-library/finops) - Cost reduction
+- [Multi-Cloud Arbitrage](../pattern-library/multi-region) - Vendor optimization
 
 ### Phase 5: Enterprise Architecture (2-3 weeks)
 

@@ -34,7 +34,7 @@ People management forms the foundation of engineering leadership, encompassing t
 - **Performance Reviews**: Conduct fair, comprehensive evaluations
 - **Improvement Plans**: Support struggling team members
 
-[Performance Management Reality →](performance-management.md)
+[Performance Management Reality →](#performance-management)
 
 ### 3. Psychological Safety & Intellectual Honesty
 - **Project Aristotle Insights**: Google's research on team effectiveness
@@ -62,7 +62,7 @@ People management forms the foundation of engineering leadership, encompassing t
 - **Skill Development**: Identify and address skill gaps
 - **Succession Planning**: Prepare future leaders
 
-[Career Development Strategies →](career-development.md)
+[Career Development Strategies →](#career-development)
 
 ### 7. Communication & Relationships
 - **1:1 Meetings**: Conduct effective individual conversations

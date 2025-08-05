@@ -307,7 +307,7 @@ graph LR
     ---
     
     - [CDN](../infrastructure/cdn.md) - Geographic edge caching
-    - [Sharding](sharding.md) - Cache per shard strategy
+    - [Sharding](scaling/sharding.md) - Cache per shard strategy
     - [CQRS](../architecture/cqrs.md) - Separate read model caching
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**

@@ -7,7 +7,7 @@ reading_time: 30 min
 prerequisites: 
   - law5-epistemology
   - law6-human-api
-  - patterns/leader-election
+  - pattern-library/leader-election
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -1346,24 +1346,24 @@ Database:
 **Prerequisite Understanding:**
 - [Law 5: Distributed Knowledge ](../../../core-principles/laws/distributed-knowledge.md) - Node ID assignment and consensus
 - [Law 6: Cognitive Load ](../../../core-principles/laws/cognitive-load.md) - Developer experience considerations
-- [Clock Synchronization](../patterns/clock-sync.md) - NTP and time coordination
-- [Logical Clocks](../patterns/logical-clocks.md) - Alternative to wall-clock time
+- [Clock Synchronization](../pattern-library/coordination/clock-sync.md) - NTP and time coordination
+- [Logical Clocks](../pattern-library/coordination/logical-clocks.md) - Alternative to wall-clock time
 
 **Advanced Topics:**
 - [Jepsen Analysis of ID Generators] (Jepsen Analysis Coming Soon) - Correctness testing
-- [ID Generation at Scale](../patterns/id-generation-scale.md) - Billion+ IDs/second
-- [Time-Series IDs](../patterns/time-series-ids.md) - Optimized for time-series data
+- [ID Generation at Scale](../pattern-library/scaling/id-generation-scale.md) - Billion+ IDs/second
+- [Time-Series IDs](../pattern-library/time-series-ids.md) - Optimized for time-series data
 - [Collision Probability Math](../quantitative/collision-probability.md) - Birthday paradox applied
 
 **Related Case Studies:**
 - [URL Shortener](url-shortener.md.md) - Uses ID generation for short codes
 <!-- TODO: Add distributed tracing case study -->
-- [Event Sourcing](../../../pattern-library/data-management/event-sourcing.md) - Event ID generation patterns
+- [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Event ID generation patterns
 
 **Implementation Patterns:**
 - Client Library Design (Coming Soon) - SDK best practices
-- [Service Discovery](../../../pattern-library/communication/service-discovery.md) - For ticket server architectures
-- [Graceful Degradation](../../../pattern-library/resilience/graceful-degradation.md) - Fallback strategies
+- [Service Discovery](../pattern-library/communication/service-discovery.md) - For ticket server architectures
+- [Graceful Degradation](../pattern-library/resilience/graceful-degradation.md) - Fallback strategies
 
 ### 📚 References
 
@@ -1380,7 +1380,7 @@ Database:
 - [Discord's Snowflake](https://discord.com/developers/docs/reference#snowflakes)
 
 **Related Patterns:**
-- [Lamport Timestamps](../patterns/logical-clocks.md)
-- [Vector Clocks](../../../pattern-library/coordination/logical-clocks.md)
+- [Lamport Timestamps](../pattern-library/coordination/logical-clocks.md)
+- [Vector Clocks](../pattern-library/coordination/logical-clocks.md)
 - [Consistent Hashing](consistent-hashing.md.md)
-- [Leader Election](../../../pattern-library/coordination/leader-election.md)
+- [Leader Election](../pattern-library/coordination/leader-election.md)

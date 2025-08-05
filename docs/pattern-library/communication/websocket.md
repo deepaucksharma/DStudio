@@ -1,33 +1,9 @@
 ---
-category: communication
-current_relevance: mainstream
-description: Full-duplex, bidirectional communication over a single TCP connection
-  for real-time applications
-difficulty: intermediate
-essential_question: How do we enable efficient communication between services using
-  websocket pattern?
-excellence_tier: gold
-introduced: 2011-12
-modern-examples:
-- company: Discord
-  implementation: WebSocket infrastructure handles voice/text for 150M+ active users
-  scale: 15M concurrent WebSocket connections
-- company: Slack
-  implementation: Real-time messaging across millions of workspaces
-  scale: 12M+ daily active users with instant message delivery
-- company: Binance
-  implementation: WebSocket streams for real-time crypto trading data
-  scale: 90M+ users, 1.2M messages/second peak
-pattern_status: recommended
-production-checklist:
-**Key Points:** Multiple configuration options and trade-offs available
-
-reading-time: 25 min
-tagline: Master websocket pattern for distributed systems success
 title: WebSocket Pattern
-type: pattern
+category: communication
+excellence_tier: silver
+pattern_status: stable
 ---
-
 # WebSocket Pattern
 
 !!! success "🏆 Gold Standard Pattern"
@@ -160,7 +136,7 @@ class ResilientWebSocket {
 
 ---
 
-**Previous**: [Service Discovery Pattern](service-discovery.md) | **Next**: [Communication Patterns Index](index.md)
+**Previous**: [Service Discovery Pattern](communication/service-discovery.md) | **Next**: [Communication Patterns Index](index.md)
 
 ## Decision Matrix
 

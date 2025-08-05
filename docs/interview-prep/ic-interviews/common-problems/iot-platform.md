@@ -5,9 +5,9 @@ type: system-design-problem
 difficulty: advanced
 reading_time: 60 min
 prerequisites: 
-  - patterns/stream-processing
-  - patterns/time-series-database
-  - patterns/device-management
+  - pattern-library/stream-processing
+  - pattern-library/time-series-database
+  - pattern-library/device-management
 status: complete
 last_updated: 2025-08-04
 ---
@@ -377,19 +377,19 @@ graph TB
 ```
 
 #### 2. Stream Processing
-**Pattern**: [Stream Processing](../../../pattern-library/data-management/stream-processing.md)
+**Pattern**: [Stream Processing](../../../pattern-library/architecture/event-streaming.md)
 - Real-time processing of sensor data
 - Windowing for aggregations
 - Complex event processing for alerts
 
 #### 3. Time Series Database
-**Pattern**: [Time Series Database](../../../pattern-library/data-management/time-series-database.md)
+**Pattern**: [Time Series Database](../../../pattern-library/data-management/lsm-tree.md)
 - Optimized for high-write, time-ordered data
 - Efficient compression and retention policies
 - Fast range queries for analytics
 
 #### 4. Message Queue
-**Pattern**: [Message Queue](../../../pattern-library/communication/message-queue.md)
+**Pattern**: [Message Queue](../../../pattern-library/coordination/distributed-queue.md)
 - Reliable message delivery
 - Handle burst traffic and backpressure
 - Support for different messaging patterns
@@ -409,7 +409,7 @@ graph TB
 - Fast failure detection
 
 #### 7. Database Sharding
-**Pattern**: [Database Sharding](../../../pattern-library/scaling/database-sharding.md)
+**Pattern**: [Database Sharding](../../../pattern-library/scaling/sharding.md)
 - Partition devices by tenant or geography
 - Scale metadata storage horizontally
 - Ensure data locality

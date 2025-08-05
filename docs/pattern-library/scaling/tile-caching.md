@@ -65,7 +65,7 @@ Tile caching optimizes the storage and delivery of map tiles by pre-rendering an
 - **Invalidation Strategy**: Updating tiles when data changes
 
 ## Related Patterns
-- [CDN Pattern](patterns/edge-computing)
+- [CDN Pattern](pattern-library/edge-computing)
 - [Cache-Aside](cache-aside.md)
 - Spatial Indexing (Coming Soon)
 - Vector Maps (Coming Soon)

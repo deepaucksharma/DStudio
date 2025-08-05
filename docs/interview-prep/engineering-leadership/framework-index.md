@@ -15,7 +15,7 @@ This framework integrates foundational principles from elite business schools an
 | **[I. First Principles](#level-i-first-principles-the-foundational-why)** | Immutable truths that justify every action | *Why is this the right thing to do?* |
 | **[II. Core Business Concepts](#level-ii-core-business-concepts-the-strategic-how)** | Disciplines that operationalize the principles | *How do we win and sustain advantage?* |
 | **[III. Engineering Leadership Applications](#level-iii-engineering-leadership-applications-the-practical-what)** | Day-to-day domains where leaders apply the "why" and "how" | *What must I do now?* |
-| **[IV. Interview Execution](#level-iv-interview-preparation--execution-the-proof)** | Proving mastery under scrutiny | *Can I demonstrate my capability?* |
+| **[IV. Interview Execution](level-4-interview-execution/)** | Proving mastery under scrutiny | *Can I demonstrate my capability?* |
 
 </div>
 

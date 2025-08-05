@@ -206,4 +206,4 @@ Create your own framework for:
 
 ---
 
-*Start with the [RADIO Framework](radio-framework/) for a comprehensive approach, or explore [4S Method](4s-method/) for a simpler alternative.*
+*Start with the [RADIO Framework](index.md) for a comprehensive approach, or explore [4S Method](index.md) for a simpler alternative.*

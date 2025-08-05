@@ -1256,13 +1256,13 @@ The hybrid architecture balances the trade-offs between different approaches, us
 - **[Law 7: Economics ](../part1-axioms/law7-economics/index)** - Ad placement and infrastructure costs drive architectural decisions
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Event-Driven Architecture](../patterns/event-driven)** - Post creation triggers fanout pipeline
-- **[CQRS](../patterns/cqrs)** - Separate write (fanout) and read (feed generation) paths
-- **[Caching Strategies](../patterns/caching-strategies)** - Multi-tier caching from edge to application layer
-- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Protects against celebrity storm cascading failures
-- **[Bulkhead](../patterns/bulkhead)** - Isolates celebrity fanout from normal users
-- **[Load Balancing](../patterns/load-balancing)** - Distributes feed generation across worker pools
-- **[Sharding](../patterns/sharding)** - User-based sharding for timeline storage
+- **[Event-Driven Architecture](../pattern-library/event-driven)** - Post creation triggers fanout pipeline
+- **[CQRS](../pattern-library/cqrs)** - Separate write (fanout) and read (feed generation) paths
+- **[Caching Strategies](../pattern-library/caching-strategies)** - Multi-tier caching from edge to application layer
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects against celebrity storm cascading failures
+- **[Bulkhead](../pattern-library/bulkhead)** - Isolates celebrity fanout from normal users
+- **[Load Balancing](../pattern-library/load-balancing)** - Distributes feed generation across worker pools
+- **[Sharding](../pattern-library/sharding)** - User-based sharding for timeline storage
 
 ### Quantitative Models
 - **[Little's Law](../quantitative/littles-law)** - Feed generation capacity: concurrent requests = arrival rate × processing time

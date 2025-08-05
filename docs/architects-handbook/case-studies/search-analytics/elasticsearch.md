@@ -65,7 +65,7 @@ best_for:
 # Excellence connections
 excellence_guides:
   - scale/search-systems
-  - patterns/distributed-search
+  - pattern-library/distributed-search
   - operational/elasticsearch-best-practices
 
 # Implementation insights

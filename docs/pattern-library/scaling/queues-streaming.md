@@ -359,7 +359,7 @@ graph TD
 ## Related Resources
 
 ### Patterns
-- [Event-Driven Architecture](../patterns/event-driven.md) - Built on queues/streams
+- [Event-Driven Architecture](../pattern-library/architecture/event-driven.md) - Built on queues/streams
 - [CQRS](../pattern-library/data-management/cqrs.md) - Commands via queues
 - [Saga Pattern](../pattern-library/data-management/saga.md) - Orchestration via queues
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Protect consumers
@@ -388,7 +388,7 @@ graph TD
 ---
 
 <div class="prev-link">
-<a href="/patterns/index.md">← Previous: Patterns Overview</a>
-<a href="/patterns/cqrs">Next: CQRS →</a>
+<a href="/pattern-library/index.md">← Previous: Patterns Overview</a>
+<a href="/pattern-library/cqrs">Next: CQRS →</a>
 </div>
 

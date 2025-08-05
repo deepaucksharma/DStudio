@@ -42,7 +42,7 @@ patterns_used:
 # Excellence connections
 excellence_guides:
   - migration/mapreduce-to-spark
-  - patterns/modern-data-processing
+  - pattern-library/modern-data-processing
   - historical/big-data-evolution
 
 # Deprecation notice
@@ -477,7 +477,7 @@ val wordCounts = textFile
 - [Apache Spark](apache-spark) - Next-generation replacement
 - [Apache Flink](flink) - Stream-first processing
 - [HDFS](hdfs.md) - Distributed file system
-- [Distributed Computing](../patterns/distributed-computing) - Core concepts
+- [Distributed Computing](../pattern-library/distributed-computing) - Core concepts
 - [Google File System](gfs.md) - Storage layer
 
 ## References

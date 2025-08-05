@@ -437,10 +437,10 @@ Based on access patterns, automatically move data to optimal stores:
 
 ## 📚 Related Patterns
 
-- [CQRS](cqrs.md) - Separate read and write models
-- [Event Sourcing](event-sourcing.md) - Event-driven polyglot sync
-- [Saga Pattern](saga.md) - Distributed transactions
-- [Database per Service](microservices.md) - Microservices data isolation
+- [CQRS](data-management/cqrs.md) - Separate read and write models
+- [Event Sourcing](data-management/event-sourcing.md) - Event-driven polyglot sync
+- [Saga Pattern](data-management/saga.md) - Distributed transactions
+- [Database per Service](architecture/backends-for-frontends.md) - Microservices data isolation
 
 ---
 
@@ -448,5 +448,5 @@ Based on access patterns, automatically move data to optimal stores:
 
 ---
 
-**Previous**: [← Outbox Pattern](outbox.md) | **Next**: Priority Queue → (Coming Soon)
+**Previous**: [← Outbox Pattern](data-management/outbox.md) | **Next**: Priority Queue → (Coming Soon)
 

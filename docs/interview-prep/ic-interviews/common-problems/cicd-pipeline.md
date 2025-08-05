@@ -5,9 +5,9 @@ type: system-design-problem
 difficulty: intermediate
 reading_time: 50 min
 prerequisites: 
-  - patterns/event-driven-architecture
-  - patterns/containerization
-  - patterns/distributed-queues
+  - pattern-library/event-driven-architecture
+  - pattern-library/containerization
+  - pattern-library/distributed-queues
 status: complete
 last_updated: 2025-08-04
 ---
@@ -416,7 +416,7 @@ graph TB
 ```
 
 #### 2. Job Queue Pattern
-**Pattern**: [Message Queue](../../../pattern-library/communication/message-queue.md)
+**Pattern**: [Message Queue](../../../pattern-library/coordination/distributed-queue.md)
 - Reliable job scheduling and execution
 - Priority-based job processing
 - Load balancing across build runners
@@ -436,19 +436,19 @@ graph TB
 ### Supporting Patterns
 
 #### 5. Saga Pattern
-**Pattern**: [Saga](../../../pattern-library/coordination/saga.md)
+**Pattern**: [Saga](../../../pattern-library/data-management/saga.md)
 - Multi-stage deployment workflows
 - Compensation for failed deployments
 - Distributed transaction management
 
 #### 6. Database Sharding
-**Pattern**: [Database Sharding](../../../pattern-library/scaling/database-sharding.md)
+**Pattern**: [Database Sharding](../../../pattern-library/scaling/sharding.md)
 - Partition pipeline data by repository or organization
 - Scale metadata storage horizontally
 - Improve query performance
 
 #### 7. Caching
-**Pattern**: [Caching](../../../pattern-library/performance/caching.md)
+**Pattern**: [Caching](../../../pattern-library/scaling/caching-strategies.md)
 - Cache build dependencies and artifacts
 - Reduce build times through intelligent caching
 - Cache pipeline configurations and metadata

@@ -33,7 +33,7 @@ nav:
       path: "/case-studies/cassandra/"
       type: "case-study"
     - title: "Two-Phase Commit"
-      path: "/patterns/two-phase-commit/"
+      path: "/pattern-library/two-phase-commit/"
       type: "pattern"
   
   next_steps:
@@ -445,7 +445,7 @@ def quorum_parameters(N=5):
  <span class="item-title">Zookeeper (CP)</span>
  <span class="item-type">case-study</span>
  </a>
- <a href="/patterns/two-phase-commit/" class="related-item">
+ <a href="/pattern-library/two-phase-commit/" class="related-item">
  <span class="item-icon">🤝</span>
  <span class="item-title">Two-Phase Commit</span>
  <span class="item-type">pattern</span>

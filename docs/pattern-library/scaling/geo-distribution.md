@@ -300,7 +300,7 @@ graph TD
 
 ## Related Patterns
 - [Multi-Region](../architecture/multi-region.md) - Architecture patterns for multi-region systems
-- [Edge Computing](edge-computing.md) - Computation at network edge
+- [Edge Computing](scaling/edge-computing.md) - Computation at network edge
 - [CDN Pattern](../performance/cdn.md) - Content delivery networks
 - [Database Replication](../data-management/replication.md) - Data replication strategies
 - [Global Load Balancing](../architecture/global-load-balancing.md) - Traffic distribution

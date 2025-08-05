@@ -334,7 +334,7 @@ For those ready to go deeper, explore our [Hard-Earned Wisdom](hard-earned-wisdo
 1. [Level IV: Interview Execution](level-4-interview-execution/) - Interview formats and expectations
 2. [STAR+ Framework](level-4-interview-execution/tools/star-framework/) - Structure your stories
 3. [Interactive Tools](level-4-interview-execution/tools/interactive/) - Practice with timers and assessments
-4. [Company Guides](company-specific/) - Tailor to your target
+4. [Company Guides](../../../company-specific/) - Tailor to your target
 
 ### "I want to deeply prepare"
 🏊 Comprehensive Path:

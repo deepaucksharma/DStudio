@@ -281,7 +281,7 @@ graph LR
 |---------|-------------------|------------------|
 | [Circuit Breaker](../resilience/circuit-breaker.md) | Prevent cascade failures | Backpressure triggers circuit opening |
 | [Bulkhead](../resilience/bulkhead.md) | Resource isolation | Independent backpressure per partition |
-| [Rate Limiting](rate-limiting.md) | Gateway traffic control | Coordinated upstream and downstream limits |
+| [Rate Limiting](scaling/rate-limiting.md) | Gateway traffic control | Coordinated upstream and downstream limits |
 
 ## Quick Reference
 
@@ -326,7 +326,7 @@ graph LR
     ---
     
     - [Circuit Breaker](../resilience/circuit-breaker.md) - Fail fast during overload
-    - [Rate Limiting](rate-limiting.md) - Request throttling at boundaries
+    - [Rate Limiting](scaling/rate-limiting.md) - Request throttling at boundaries
     - [Bulkhead](../resilience/bulkhead.md) - Resource isolation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**

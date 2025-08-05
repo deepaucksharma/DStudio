@@ -43,7 +43,7 @@ patterns_used:
 # Excellence connections
 excellence_guides:
   - scale/internet-scale
-  - patterns/data-processing
+  - pattern-library/data-processing
   - architecture/search-systems
 
 # Implementation insights
@@ -281,9 +281,9 @@ graph TD
 
 ## Related Resources
 
-- [MapReduce Pattern](../patterns/mapreduce.md)
-- [Distributed Cache Pattern](../patterns/distributed-cache.md)
-- [Sharding Pattern](../../../pattern-library/scaling/sharding.md)
+- [MapReduce Pattern](../pattern-library/mapreduce.md)
+- [Distributed Cache Pattern](../pattern-library/distributed-cache.md)
+- [Sharding Pattern](../pattern-library/scaling/sharding.md)
 - [Google Papers](https://research.google/pubs/)
 
 ---

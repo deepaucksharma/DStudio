@@ -241,8 +241,8 @@ If migration fails:
 After successful migration:
 1. Remove vector clock code
 2. Optimize HLC implementation
-3. Consider [TrueTime-style](/patterns/true-time) APIs for stricter guarantees
-4. Implement [Global Timestamps](/patterns/global-timestamps) if needed
+3. Consider [TrueTime-style](/pattern-library/true-time) APIs for stricter guarantees
+4. Implement [Global Timestamps](/pattern-library/global-timestamps) if needed
 
 ## References
 

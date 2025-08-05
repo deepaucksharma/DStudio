@@ -69,32 +69,32 @@ By completing this path, you will:
 
 === "Failure Isolation"
  Prevent cascade failures:
- - [Circuit Breaker](../../../pattern-library/circuit-breaker) - Stop cascades
- - [Bulkhead](../../../pattern-library/bulkhead) - Resource isolation
- - [Timeout](../../../pattern-library/timeout) - Bounded waiting
+ - [Circuit Breaker](../pattern-library/circuit-breaker) - Stop cascades
+ - [Bulkhead](../pattern-library/bulkhead) - Resource isolation
+ - [Timeout](../pattern-library/timeout) - Bounded waiting
  - **Project**: Implement circuit breaker library
 
 === "Recovery Patterns"
  Graceful failure handling:
- - [Retry & Backoff](../../../pattern-library/retry-backoff) - Transient failures
- - [Graceful Degradation](../../../pattern-library/graceful-degradation) - Feature flags
- - [Failover](../../../pattern-library/failover) - Automatic recovery
+ - [Retry & Backoff](../pattern-library/retry-backoff) - Transient failures
+ - [Graceful Degradation](../pattern-library/graceful-degradation) - Feature flags
+ - [Failover](../pattern-library/failover) - Automatic recovery
  - **Project**: Build retry with jitter
 
 === "Overload Protection"
  Handle traffic spikes:
- - [Rate Limiting](../../../pattern-library/rate-limiting) - Request caps
- - [Load Shedding](../../../pattern-library/load-shedding) - Selective drops
- - [Backpressure](../../../pattern-library/backpressure) - Flow control
+ - [Rate Limiting](../pattern-library/rate-limiting) - Request caps
+ - [Load Shedding](../pattern-library/load-shedding) - Selective drops
+ - [Backpressure](../pattern-library/backpressure) - Flow control
  - **Project**: Implement adaptive rate limiter
 
 #### Week 3: Advanced Patterns
 
 System-level resilience:
 
-- [Health Check](../../../pattern-library/health-check) - Liveness and readiness
-- [Idempotent Receiver](../../../pattern-library/idempotent-receiver) - Safe retries
-- [Split Brain](../../../pattern-library/split-brain) - Network partition handling
+- [Health Check](../pattern-library/health-check) - Liveness and readiness
+- [Idempotent Receiver](../pattern-library/idempotent-receiver) - Safe retries
+- [Split Brain](../pattern-library/split-brain) - Network partition handling
 - [Chaos Engineering](human-factors/chaos-engineering) - Proactive testing
 
 ### Phase 3: High Availability Architecture (2 weeks)
@@ -113,14 +113,14 @@ System-level resilience:
 
 === "Data Resilience"
  Protect your data:
- - [Multi-Region](../../../pattern-library/multi-region) - Global deployment
- - [Geo-Replication](../../../pattern-library/geo-replication) - Data distribution
+ - [Multi-Region](../pattern-library/multi-region) - Global deployment
+ - [Geo-Replication](../pattern-library/geo-replication) - Data distribution
  - Backup and restore strategies
  - **Case Study**: [Amazon S3 Durability](../s3-object-storage-enhanced)
 
 === "Service Mesh"
  Infrastructure-level resilience:
- - [Service Mesh](../../../pattern-library/service-mesh) - Istio/Linkerd
+ - [Service Mesh](../pattern-library/service-mesh) - Istio/Linkerd
  - Automatic retries and timeouts
  - Circuit breaking at mesh level
  - **Project**: Deploy Istio with resilience policies
@@ -144,7 +144,7 @@ Prepare for the worst:
 <div class="grid cards" markdown>
 
 - **Monitoring & Alerting**
- - [Observability](../../../pattern-library/observability)
+ - [Observability](../pattern-library/observability)
  - SLI/SLO/SLA definition
  - Alert fatigue reduction
  - Synthetic monitoring

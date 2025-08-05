@@ -516,8 +516,8 @@ graph TD
 
 ## Resources
 
-- [Service Mesh Pattern](../../patterns/service-mesh.md) (Gold)
-- [API Gateway Pattern](../../patterns/api-gateway.md) (Gold)
-- [Event-Driven Pattern](../../patterns/event-driven.md) (Gold)
-- [gRPC Best Practices](../../patterns/grpc.md)
-- [WebSocket Pattern](../../patterns/websocket.md) (Silver)
+- [Service Mesh Pattern](../pattern-library/communication/service-mesh.md) (Gold)
+- [API Gateway Pattern](../pattern-library/communication/api-gateway.md) (Gold)
+- [Event-Driven Pattern](../pattern-library/architecture/event-driven.md) (Gold)
+- [gRPC Best Practices](../pattern-library/grpc.md)
+- [WebSocket Pattern](../pattern-library/communication/websocket.md) (Silver)

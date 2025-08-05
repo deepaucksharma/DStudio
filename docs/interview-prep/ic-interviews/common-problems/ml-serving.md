@@ -5,9 +5,9 @@ type: system-design-problem
 difficulty: advanced
 reading_time: 60 min
 prerequisites: 
-  - patterns/model-versioning
-  - patterns/feature-store
-  - patterns/circuit-breaker
+  - pattern-library/model-versioning
+  - pattern-library/feature-store
+  - pattern-library/circuit-breaker
 status: complete
 last_updated: 2025-08-04
 ---
@@ -386,7 +386,7 @@ CREATE TABLE model_metrics (
 ### Core Patterns
 
 #### 1. Model Versioning & Registry
-**Pattern**: [Version Control](../../../pattern-library/data-management/version-control.md)
+**Pattern**: [Version Control](../../../pattern-library/data-management/event-sourcing.md)
 - Immutable model artifacts with semantic versioning
 - Model lineage tracking from training to deployment
 - Rollback capabilities and audit trails
@@ -407,7 +407,7 @@ graph TB
 ```
 
 #### 2. Feature Store
-**Pattern**: [Feature Store](../../../pattern-library/data-management/feature-store.md)
+**Pattern**: [Feature Store](../../../pattern-library/data-management/materialized-view.md)
 - Centralized feature management and serving
 - Consistent features between training and serving
 - Real-time and batch feature computation
@@ -433,7 +433,7 @@ graph TB
 - Request/response transformation
 
 #### 6. Caching
-**Pattern**: [Caching](../../../pattern-library/performance/caching.md)
+**Pattern**: [Caching](../../../pattern-library/scaling/caching-strategies.md)
 - Cache model artifacts and features
 - Reduce latency for repeated requests
 - Smart cache invalidation strategies

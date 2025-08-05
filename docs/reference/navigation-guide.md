@@ -93,7 +93,7 @@ nav:
  
  related:
  - title: "Related Pattern"
- path: "/patterns/related/"
+ path: "/pattern-library/related/"
  type: "pattern"
  
  next_steps:
@@ -152,7 +152,7 @@ nav:
  path: "/problems/specific-problem/"
  related:
  - title: "Alternative patterns"
- path: "/patterns/alternative/"
+ path: "/pattern-library/alternative/"
  type: "pattern"
  - title: "Real implementation"
  path: "/case-studies/implementation/"
@@ -170,13 +170,13 @@ nav:
  learning_path: "case-studies"
  prerequisites:
  - title: "Patterns used"
- path: "/patterns/used-pattern/"
+ path: "/pattern-library/used-pattern/"
  related:
  - title: "Similar systems"
  path: "/case-studies/similar/"
  type: "case-study"
  - title: "Key patterns"
- path: "/patterns/key-pattern/"
+ path: "/pattern-library/key-pattern/"
  type: "pattern"
  next_steps:
  - title: "Design your own"
@@ -341,18 +341,18 @@ nav:
  
  prerequisites:
  - title: "Circuit Breaker Basics"
- path: "/patterns/circuit-breaker"
+ path: "/pattern-library/circuit-breaker"
  - title: "State Machines"
  path: "/concepts/state-machines/"
  - title: "Failure Detection"
- path: "/patterns/failure-detection/"
+ path: "/pattern-library/failure-detection/"
  
  related:
  - title: "Retry Pattern"
- path: "/patterns/retry-backoff/"
+ path: "/pattern-library/retry-backoff/"
  type: "pattern"
  - title: "Bulkhead Pattern"
- path: "/patterns/bulkhead/"
+ path: "/pattern-library/bulkhead/"
  type: "pattern"
  - title: "Netflix Hystrix"
  path: "/case-studies/netflix-hystrix/"

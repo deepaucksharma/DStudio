@@ -67,7 +67,7 @@ when-to-use: When data exceeds single node capacity or requires high availabilit
     - ❌ Complex consistency guarantees
     - ❌ Network partition handling
 
-[Home](/) > [Patterns](../patterns/) > [Data Patterns](../patterns/index.md#data-patterns) > Distributed Storage
+[Home](/) > [Patterns](../pattern-library/) > [Data Patterns](../pattern-library/index.md#data-patterns) > Distributed Storage
 
 ## When to Use / When NOT to Use
 
@@ -255,13 +255,13 @@ graph LR
 
 ## Related Patterns
 
-- [Consistent Hashing](consistent-hashing.md) - Distribute data evenly
-- [Eventual Consistency](eventual-consistency.md) - Consistency models
-- [CRDT](crdt.md) - Conflict-free data types
+- [Consistent Hashing](data-management/consistent-hashing.md) - Distribute data evenly
+- [Eventual Consistency](data-management/eventual-consistency.md) - Consistency models
+- [CRDT](data-management/crdt.md) - Conflict-free data types
 - [Sharding](../scaling/sharding.md) - Partition strategies
 - [Leader-Follower](../coordination/leader-follower.md) - Replication patterns
 
 ---
 
-*Next: [Eventual Consistency](eventual-consistency.md) - Managing consistency in distributed systems*
+*Next: [Eventual Consistency](data-management/eventual-consistency.md) - Managing consistency in distributed systems*
 

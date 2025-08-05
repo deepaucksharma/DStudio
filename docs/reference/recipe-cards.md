@@ -78,7 +78,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 1 (Correlated Failure ⛓️), Law 3 (Emergent Chaos 🌪️)
 
-**Case Studies**: [Netflix's Resilience Patterns](case-studies/netflix-chaos), [Circuit Breaker Pattern](patterns/circuit-breaker)
+**Case Studies**: [Netflix's Resilience Patterns](case-studies/netflix-chaos), [Circuit Breaker Pattern](pattern-library/circuit-breaker)
 
 ---
 
@@ -255,7 +255,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 5 (Distributed Knowledge 🧠) for observability, Law 6 (Cognitive Load 🤯) for operator experience
 
-**Learn More**: [Observability Best Practices](patterns/observability), [Monitoring Patterns](patterns/observability)
+**Learn More**: [Observability Best Practices](pattern-library/observability), [Monitoring Patterns](pattern-library/observability)
 
 ---
 
@@ -692,8 +692,7 @@ last_updated: 2025-07-20
 4. **Share your recipes** - contribute back improvements
 
 For deeper understanding:
-- [Patterns](../pattern-library/index.md) - Detailed architectural patterns
-- [Case Studies](../architects-handbook/case-studies/index.md) - Real-world implementations
+- [Patterns](../pattern-library/architects-handbook/case-studies/index.md) - Real-world implementations
 - [Tools](../architects-handbook/tools/index.md) - Interactive calculators
 - [Cheat Sheets](cheat-sheets.md) - Quick reference
 

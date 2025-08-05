@@ -19,7 +19,7 @@ Architecture patterns define the high-level structure of distributed systems. Th
 - **[Serverless/FaaS](serverless-faas.md)** - Function-based architecture
 - **[Shared Nothing](shared-nothing.md)** - Isolated service architecture
 - **[Cell-Based Architecture](cell-based.md)** - Fault-isolated cells
-- **[Event-Driven Architecture](event-driven.md)** - Event-based communication
+- **[Event-Driven Architecture](architecture/event-driven.md)** - Event-based communication
 - **Modular Monolith** - Well-structured monolith
 
 ### Integration Patterns
@@ -30,7 +30,7 @@ Architecture patterns define the high-level structure of distributed systems. Th
 - **Enterprise Service Bus** - Message-based integration
 
 ### Deployment Patterns
-- **[Sidecar](sidecar.md)** - Auxiliary service container
+- **[Sidecar](architecture/sidecar.md)** - Auxiliary service container
 - **[Ambassador](ambassador.md)** - Proxy for external services
 - **Adapter** - Interface standardization
 

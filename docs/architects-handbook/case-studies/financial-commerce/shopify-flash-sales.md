@@ -62,7 +62,7 @@ best_for:
 # Excellence connections
 excellence_guides:
   - scale/traffic-spikes
-  - patterns/multi-tenant
+  - pattern-library/multi-tenant
   - operational/black-friday
 
 # Implementation insights
@@ -511,9 +511,9 @@ AND sale_end >= NOW();
 
 ## Related Resources
 
-- [Queue-based Load Leveling Pattern](../../../pattern-library/queue-based-load-leveling.md.md)
-- [Auto-scaling Pattern](../../../pattern-library/scaling/auto-scaling.md)
-- [Bulkhead Pattern](../../../pattern-library/resilience/bulkhead.md)
+- [Queue-based Load Leveling Pattern](../pattern-library/scaling/queues-streaming.md)
+- [Auto-scaling Pattern](../pattern-library/scaling/auto-scaling.md)
+- [Bulkhead Pattern](../pattern-library/resilience/bulkhead.md)
 - [Shopify Engineering Blog](https://shopify.engineering/)
 
 ---

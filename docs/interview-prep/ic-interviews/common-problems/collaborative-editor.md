@@ -5,9 +5,9 @@ type: system-design-problem
 difficulty: intermediate
 reading_time: 50 min
 prerequisites: 
-  - patterns/operational-transforms
-  - patterns/conflict-resolution
-  - patterns/websocket-scaling
+  - pattern-library/operational-transforms
+  - pattern-library/conflict-resolution
+  - pattern-library/websocket-scaling
 status: complete
 last_updated: 2025-08-04
 ---
@@ -362,7 +362,7 @@ CREATE TABLE operation_queue (
 ### Core Patterns
 
 #### 1. Operational Transforms (OT)
-**Pattern**: [Operational Transforms](../../../pattern-library/collaboration/operational-transforms.md)
+**Pattern**: [Operational Transforms](../../../pattern-library/data-management/crdt.md)
 - Transform conflicting operations to maintain consistency
 - Preserve user intent across concurrent edits
 - Handle complex document structures
@@ -383,13 +383,13 @@ graph TB
 ```
 
 #### 2. Conflict-Free Replicated Data Types (CRDTs)
-**Pattern**: [CRDTs](../../../pattern-library/data-management/crdts.md)
+**Pattern**: [CRDTs](../../../pattern-library/data-management/crdt.md)
 - Alternative to OT for simpler conflict resolution
 - Mathematically guaranteed convergence
 - Better for peer-to-peer scenarios
 
 #### 3. WebSocket Scaling
-**Pattern**: [WebSocket Scaling](../../../pattern-library/communication/websocket-scaling.md)
+**Pattern**: [WebSocket Scaling](../../../pattern-library/communication/websocket.md)
 - Scale real-time connections across servers
 - Sticky sessions and connection routing
 - Message broadcasting across server instances
@@ -409,7 +409,7 @@ graph TB
 - Comment and suggestion notifications
 
 #### 6. Caching
-**Pattern**: [Caching](../../../pattern-library/performance/caching.md)
+**Pattern**: [Caching](../../../pattern-library/scaling/caching-strategies.md)
 - Cache frequently accessed documents
 - Cache user permissions and sessions
 - Cache search results and metadata

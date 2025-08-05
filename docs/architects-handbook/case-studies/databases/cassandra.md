@@ -908,12 +908,12 @@ Understanding Cassandra's approach to distributed data management provides insig
 - [Law 5: Distributed Knowledge](../../../core-principles/laws/distributed-knowledge.md) - Gossip-based membership and failure detection
 
 ### Related Patterns
-- [Consistent Hashing](consistent-hashing.md) - Core data distribution mechanism
-- [Gossip Protocol](../../../pattern-library/communication/publish-subscribe.md) - Membership and failure detection
-- [Merkle Trees](../../../pattern-library/merkle-trees.md) - Anti-entropy repair mechanism
-- [Vector Clocks](../../../pattern-library/coordination/logical-clocks.md) - Conflict resolution in distributed writes
-- [LSM Trees](../../../pattern-library/data-management/lsm-tree.md) - Storage engine design
-- [Bloom Filters](../../../pattern-library/data-management/bloom-filter.md) - Read optimization
+- [Consistent Hashing](data-management/consistent-hashing.md) - Core data distribution mechanism
+- [Gossip Protocol](../pattern-library/communication/publish-subscribe.md) - Membership and failure detection
+- [Merkle Trees](../pattern-library/data-management/merkle-trees.md) - Anti-entropy repair mechanism
+- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Conflict resolution in distributed writes
+- [LSM Trees](../pattern-library/data-management/lsm-tree.md) - Storage engine design
+- [Bloom Filters](../pattern-library/data-management/bloom-filter.md) - Read optimization
 
 ### Related Pillars
 - [Pillar 2: State](../../../core-principles/pillars/state-distribution.md) - Distributed state management at scale
@@ -933,10 +933,10 @@ Understanding Cassandra's approach to distributed data management provides insig
 - [ScyllaDB](scylladb.md) - C++ reimplementation of Cassandra
 
 ### Further Reading
-- [NoSQL Database Patterns](../../../pattern-library/data-management/polyglot-persistence.md) - Broader NoSQL design patterns
-- [Time Series Databases](../../../pattern-library/coordination/generation-clock.md) - Cassandra for time series data
-- [Multi-Region Replication](../../../pattern-library/scaling/multi-region.md) - Global Cassandra deployments
-- [Database Internals](../../../pattern-library/data-management/lsm-tree.md) - Deep dive into storage engines
+- [NoSQL Database Patterns](../pattern-library/data-management/polyglot-persistence.md) - Broader NoSQL design patterns
+- [Time Series Databases](../pattern-library/coordination/generation-clock.md) - Cassandra for time series data
+- [Multi-Region Replication](../pattern-library/scaling/multi-region.md) - Global Cassandra deployments
+- [Database Internals](../pattern-library/data-management/lsm-tree.md) - Deep dive into storage engines
 
 ## External Resources
 - [Cassandra Architecture Documentation](https://cassandra.apache.org/doc/latest/architecture/)¹

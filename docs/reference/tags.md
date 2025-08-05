@@ -27,7 +27,6 @@ hide:
 For now, you can browse content through these sections:
 
 - [Case Studies](../architects-handbook/case-studies/index.md) - Real-world systems
-- [Patterns](../pattern-library/index.md) - Architectural patterns
-- [7 Laws](../core-principles/laws/index.md) - Fundamental constraints
+- [Patterns](../pattern-library/core-principles/laws/index.md) - Fundamental constraints
 - [5 Pillars](../core-principles/pillars/index.md) - Core concepts
 - [Quantitative](../architects-handbook/quantitative-analysis/index.md) - Mathematical models

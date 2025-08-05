@@ -120,11 +120,11 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
  
  <h4>Key Patterns</h4>
  <ul>
- <li><a href="../pattern-library/resilience/circuit-breaker.md">Circuit Breaker</a></li>
- <li><a href="../patterns/saga.md">Saga Pattern</a></li>
- <li><a href="../patterns/event-sourcing.md">Event Sourcing</a></li>
- <li><a href="../patterns/cqrs.md">CQRS</a></li>
- <li><a href="../patterns/consensus.md">Consensus Protocols</a></li>
+ <li><a href="../pattern-library/circuit-breaker.md">Circuit Breaker</a></li>
+ <li><a href="../pattern-library/saga.md">Saga Pattern</a></li>
+ <li><a href="../pattern-library/event-sourcing.md">Event Sourcing</a></li>
+ <li><a href="../pattern-library/cqrs.md">CQRS</a></li>
+ <li><a href="../pattern-library/consensus.md">Consensus Protocols</a></li>
  </ul>
 </div>
 

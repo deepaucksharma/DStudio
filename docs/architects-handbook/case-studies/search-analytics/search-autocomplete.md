@@ -1078,8 +1078,8 @@ graph TB
 - Personalized suggestions
 
 **Patterns & Pillars Applied**:
-- Pattern: [Sharding](../../../pattern-library/scaling/sharding.md) - Prefix-based partitioning
-- Pattern: [Cache-Aside](../../../pattern-library/scaling/caching-strategies.md) - Redis for hot queries
+- Pattern: [Sharding](../pattern-library/scaling/sharding.md) - Prefix-based partitioning
+- Pattern: [Cache-Aside](../pattern-library/scaling/caching-strategies.md) - Redis for hot queries
 - 🏛 Pillar: [Work Distribution](../../../core-principles/pillars/work-distribution.md) - Parallel prefix search
 - 🏛 Pillar: [Intelligence](../../../core-principles/pillars/intelligence-distribution.md) - ML ranking
 
@@ -1692,12 +1692,12 @@ class DistributedAutocomplete:
 
 ### 🏛 Related Patterns
 - **Trie Data Structure (Coming Soon)** - Core search structure
-- **[Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)** - Multi-level caching
-- **[Sharding](../../../pattern-library/scaling/sharding.md)** - Distribute by prefix
-- **[Circuit Breaker](../../../pattern-library/resilience/circuit-breaker.md)** - Service protection
-- **[Load Balancing](../../../pattern-library/scaling/load-balancing.md)** - Distribute queries
-- **[Event Streaming](../patterns/event-streaming.md)** - Real-time updates
-- **[Edge Computing](../../../pattern-library/scaling/edge-computing.md)** - Global latency optimization
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Multi-level caching
+- **[Sharding](../pattern-library/scaling/sharding.md)** - Distribute by prefix
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
+- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Distribute queries
+- **[Event Streaming](../pattern-library/architecture/event-streaming.md)** - Real-time updates
+- **[Edge Computing](../pattern-library/scaling/edge-computing.md)** - Global latency optimization
 
 ### Quantitative Models
 - **[Information Theory](../quantitative/information-theory.md)** - Entropy in prefix trees
