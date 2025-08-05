@@ -41,6 +41,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+    
     - name: Run structural analysis
       if: github.event_name == 'pull_request'
       run: |
@@ -105,8 +108,6 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: './site'
-        name: github-pages
-        retention-days: 1
 
   deploy:
     environment:
@@ -116,16 +117,9 @@ jobs:
     needs: validate
     if: github.ref == 'refs/heads/main'
     steps:
-    - name: Setup Pages
-      id: pages
-      uses: actions/configure-pages@v4
-      continue-on-error: true
-      
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v3
-      with:
-        artifact_name: github-pages
+      uses: actions/deploy-pages@v4
       continue-on-error: true
     
     - name: Check deployment status
