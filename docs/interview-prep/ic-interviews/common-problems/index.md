@@ -13,170 +13,161 @@ This collection includes the most common system design problems asked in technic
 - **Trade-offs** - Design decisions
 - **Follow-up Questions** - Advanced scenarios
 
-## 📚 Problems by Category
-
-### Fundamental Systems
-- **[URL Shortener](url-shortener/)** - Bitly, TinyURL clone
-- **[Pastebin](pastebin/)** - Text sharing service
-- **[Key-Value Store](key-value-store/)** - Distributed cache/storage
-- **[Rate Limiter](rate-limiter/)** - API throttling
-
-### Social Media Systems
-- **[Twitter Clone](twitter/)** - Timeline, following, tweets
-- **[Instagram](instagram/)** - Photo sharing, stories
-- **[Facebook News Feed](news-feed/)** - Feed generation
-- **[LinkedIn](linkedin/)** - Professional network
-
-### Messaging Systems
-- **[WhatsApp](whatsapp/)** - 1:1 and group chat
-- **[Slack](slack/)** - Team communication
-- **[Discord](discord/)** - Voice and text chat
-- **[Email Service](email/)** - Gmail-like system
-
-### Media Systems
-- **[YouTube](youtube/)** - Video upload and streaming
-- **[Netflix](netflix/)** - Video streaming service
-- **[Spotify](spotify/)** - Music streaming
-- **[Twitch](twitch/)** - Live streaming
-
-### E-commerce Systems
-- **[Amazon](amazon/)** - Product catalog, orders
-- **[Payment System](payment-system/)** - Stripe/PayPal clone
-- **[Inventory Management](inventory/)** - Stock tracking
-- **[Shopping Cart](shopping-cart/)** - Cart service
+## 📚 Available Problems
 
 ### Storage & Collaboration Systems
-- **[Cloud Storage](cloud-storage/)** - Dropbox/Google Drive clone
-- **[Collaborative Editor](collaborative-editor/)** - Google Docs real-time editing
+- **[Cloud Storage System](cloud-storage.md)** - Dropbox/Google Drive clone
+- **[Collaborative Document Editor](collaborative-editor.md)** - Google Docs real-time editing
 
 ### Development & Infrastructure
-- **[CI/CD Pipeline](cicd-pipeline/)** - Jenkins/GitHub Actions clone
-- **[IoT Platform](iot-platform/)** - Device management and data processing
-- **[ML Serving System](ml-serving/)** - Model deployment and inference
-
-### Transportation Systems
-- **[Uber/Lyft](ride-sharing/)** - Ride matching
-- **[Uber Eats](food-delivery/)** - Food delivery
-- **[Maps Service](maps/)** - Google Maps clone
-- **[Parking System](parking/)** - Smart parking
-
-### Booking Systems
-- **[Hotel Booking](hotel-booking/)** - Booking.com clone
-- **[Movie Booking](movie-booking/)** - Fandango clone
-- **[Calendar System](calendar/)** - Google Calendar
-- **[Airline Booking](airline-booking/)** - Flight reservations
+- **[CI/CD Pipeline System](cicd-pipeline.md)** - Jenkins/GitHub Actions clone
+- **[IoT Platform](iot-platform.md)** - Device management and data processing
+- **[ML Serving System](ml-serving.md)** - Model deployment and inference
 
 ## 🎯 Difficulty Levels
-
-### Beginner (30-45 min)
-| Problem | Key Concepts |
-|---------|--------------|
-| URL Shortener | Encoding, caching, analytics |
-| Pastebin | Storage, expiration |
-| Rate Limiter | Algorithms, distribution |
-| Key-Value Store | Partitioning, replication |
 
 ### Intermediate (45-60 min)
 | Problem | Key Concepts |
 |---------|--------------|
-| Chat Application | WebSockets, message delivery |
-| News Feed | Timeline generation, ranking |
-| Video Upload | Encoding, storage, CDN |
-| Payment System | Transactions, consistency |
-| **[Cloud Storage](cloud-storage/)** | File sync, deduplication, conflict resolution |
-| **[Collaborative Editor](collaborative-editor/)** | Real-time sync, operational transforms |
-| **[CI/CD Pipeline](cicd-pipeline/)** | Job orchestration, artifact management |
+| [Cloud Storage](cloud-storage.md) | File sync, deduplication, conflict resolution |
+| [Collaborative Editor](collaborative-editor.md) | Real-time sync, operational transforms |
+| [CI/CD Pipeline](cicd-pipeline.md) | Job orchestration, artifact management |
 
 ### Advanced (60+ min)
 | Problem | Key Concepts |
 |---------|--------------|
-| Uber System | Real-time matching, location |
-| Search Engine | Indexing, ranking, crawling |
-| Social Network | Graph algorithms, scaling |
-| Live Streaming | Low latency, distribution |
-| **[IoT Platform](iot-platform/)** | Device management, stream processing |
-| **[ML Serving System](ml-serving/)** | Model lifecycle, feature stores, A/B testing |
+| [IoT Platform](iot-platform.md) | Device management, stream processing, time series data |
+| [ML Serving System](ml-serving.md) | Model lifecycle, feature stores, A/B testing |
 
 ## 📊 Common Patterns Used
 
-### By Problem Type
+| Pattern | Used In | Purpose |
+|---------|---------|---------|
+| **Event Sourcing** | Cloud Storage, Collaborative Editor | Track all changes |
+| **CQRS** | ML Serving | Separate read/write paths |
+| **Message Queue** | IoT Platform, CI/CD | Async processing |
+| **Consistent Hashing** | All systems | Data distribution |
+| **Circuit Breaker** | ML Serving, IoT | Fault tolerance |
+| **Load Balancing** | All systems | Traffic distribution |
+| **Caching** | All systems | Performance |
 
-| Problem Type | Common Patterns |
-|--------------|-----------------|
-| Real-time | WebSockets, Pub/Sub, Push Notifications |
-| Feed Systems | Pull/Push/Hybrid, Timeline Generation |
-| Storage | Sharding, Replication, Caching |
-| Streaming | CDN, Encoding, Adaptive Bitrate |
-| Transactions | Saga, 2PC, Event Sourcing |
-| **Collaboration** | **Operational Transforms, CRDTs, WebSocket Scaling** |
-| **File Systems** | **Content Addressable Storage, Deduplication, Conflict Resolution** |
-| **DevOps** | **Event-Driven Architecture, Job Queues, Circuit Breaker** |
-| **IoT** | **Stream Processing, Time Series DB, Device Management** |
-| **ML Systems** | **Model Versioning, Feature Store, A/B Testing** |
+## 🚀 More Problems Coming Soon
 
-## 🏃 Practice Strategy
+We're actively expanding this collection. Future problems will include:
 
-### Week 1: Fundamentals
-- Day 1-2: URL Shortener, Pastebin
-- Day 3-4: Rate Limiter, KV Store
-- Day 5-7: Review and variations
+### Fundamental Systems
+- URL Shortener - Bitly, TinyURL clone
+- Pastebin - Text sharing service
+- Key-Value Store - Distributed cache/storage
+- Rate Limiter - API throttling
 
-### Week 2: Communication
-- Day 1-2: Chat systems
-- Day 3-4: Feed systems
-- Day 5-7: Notification systems
+### Social Media Systems
+- Twitter Clone - Timeline, following, tweets
+- Instagram - Photo sharing, stories
+- Facebook News Feed - Feed generation
+- LinkedIn - Professional network
 
-### Week 3: Media & Scale
-- Day 1-2: Video systems
-- Day 3-4: E-commerce
-- Day 5-7: Transportation
+### Messaging Systems
+- WhatsApp - 1:1 and group chat
+- Slack - Team communication
+- Discord - Voice and text chat
+- Email Service - Gmail-like system
 
-### Week 4: Advanced & Specialized
-- Day 1-2: IoT and ML serving systems
-- Day 3-4: Collaboration and real-time systems
-- Day 5-7: Mock interviews with new problems
+### Media Systems
+- YouTube - Video upload and streaming
+- Netflix - Video streaming service
+- Spotify - Music streaming
+- Twitch - Live streaming
 
-## 💡 Problem-Solving Framework
+### E-commerce Systems
+- Amazon - Product catalog, orders
+- Payment System - Stripe/PayPal clone
+- Inventory Management - Stock tracking
+- Shopping Cart - Cart service
 
-1. **Clarify Requirements**
+### Transportation Systems
+- Uber/Lyft - Ride matching
+- Uber Eats - Food delivery
+- Maps Service - Google Maps clone
+- Parking System - Smart parking
+
+### Booking Systems
+- Hotel Booking - Booking.com clone
+- Movie Booking - Fandango clone
+- Calendar System - Google Calendar
+- Airline Booking - Flight reservations
+
+## 💡 How to Use These Problems
+
+### 1. Choose Based on Interview Target
+- **FAANG**: Focus on scale (ML Serving, IoT Platform)
+- **Startups**: Focus on practical systems (CI/CD, Cloud Storage)
+- **Domain-specific**: Pick relevant problems
+
+### 2. Practice Approach
+1. **Understand Requirements** (5-10 min)
    - Functional requirements
    - Non-functional requirements
    - Scale estimates
-   - Constraints
 
-2. **Capacity Estimation**
-   - Users and traffic
-   - Storage needs
-   - Bandwidth requirements
-
-3. **System Design**
-   - High-level architecture
-   - Data model
-   - API design
-   - Algorithm choice
-
-4. **Deep Dive**
-   - Component details
+2. **High-Level Design** (10-15 min)
+   - Major components
    - Data flow
-   - Failure scenarios
+   - API design
 
-5. **Scale & Optimize**
-   - Bottleneck identification
+3. **Detailed Design** (20-30 min)
+   - Data models
+   - Algorithms
+   - System architecture
+
+4. **Scale & Optimize** (10-15 min)
+   - Bottleneck analysis
    - Caching strategy
-   - Database optimization
+   - Data partitioning
+
+5. **Trade-offs & Alternatives** (5-10 min)
+   - Design choices
+   - Technology selection
+   - Cost considerations
+
+### 3. Key Skills to Demonstrate
+- **Requirements gathering** - Ask clarifying questions
+- **Estimation** - Back-of-envelope calculations
+- **Trade-off analysis** - No perfect solutions
+- **Incremental design** - Start simple, then scale
+- **Best practices** - Security, monitoring, testing
+
+## 📖 Study Resources
+
+### Before Practice
+- Review [System Design Frameworks](../frameworks/)
+- Study [Common Patterns](../../pattern-library/)
+- Check [Scalability Numbers](../cheatsheets/)
+
+### During Practice
+- Use [System Design Checklist](../cheatsheets/system-design-checklist.md)
+- Follow consistent approach
+- Time yourself
+
+### After Practice
+- Compare with solutions
+- Identify knowledge gaps
+- Practice explaining out loud
+
+## 🎪 Problem Selection Strategy
+
+### Week 1-2: Fundamentals
+Start with storage and infrastructure problems to build foundation
+
+### Week 3-4: Intermediate Systems
+Practice real-time collaboration and development tools
+
+### Week 5-6: Advanced Systems
+Tackle ML serving and IoT for complex distributed systems
+
+### Week 7-8: Mock Interviews
+Random problem selection with time constraints
 
 ---
 
-## 🆕 Recently Added Problems
-
-The following advanced system design problems have been added to cover modern distributed systems challenges:
-
-- **[Cloud Storage System](cloud-storage/)** - File synchronization, deduplication, and conflict resolution
-- **[IoT Platform](iot-platform/)** - Device management and real-time data processing at scale  
-- **[ML Serving System](ml-serving/)** - Model lifecycle management and inference serving
-- **[Collaborative Editor](collaborative-editor/)** - Real-time collaborative editing with operational transforms
-- **[CI/CD Pipeline](cicd-pipeline/)** - Build orchestration and deployment automation
-
----
-
-*Start with [URL Shortener](url-shortener/) for a classic introductory problem, or explore the new specialized problems for modern system design challenges.*
+*Remember: The goal isn't to memorize solutions but to develop systematic thinking for approaching any system design problem.*

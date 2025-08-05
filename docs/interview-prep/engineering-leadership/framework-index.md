@@ -12,10 +12,10 @@ This framework integrates foundational principles from elite business schools an
 
 | Layer | Purpose | Key Question |
 |-------|---------|--------------|
-| **[I. First Principles](#level-i-first-principles)** | Immutable truths that justify every action | *Why is this the right thing to do?* |
-| **[II. Core Business Concepts](#level-ii-core-business-concepts)** | Disciplines that operationalize the principles | *How do we win and sustain advantage?* |
-| **[III. Engineering Leadership Applications](#level-iii-applications)** | Day-to-day domains where leaders apply the "why" and "how" | *What must I do now?* |
-| **[IV. Interview Execution](#level-iv-interview-execution)** | Proving mastery under scrutiny | *Can I demonstrate my capability?* |
+| **[I. First Principles](#level-i-first-principles-the-foundational-why)** | Immutable truths that justify every action | *Why is this the right thing to do?* |
+| **[II. Core Business Concepts](#level-ii-core-business-concepts-the-strategic-how)** | Disciplines that operationalize the principles | *How do we win and sustain advantage?* |
+| **[III. Engineering Leadership Applications](#level-iii-engineering-leadership-applications-the-practical-what)** | Day-to-day domains where leaders apply the "why" and "how" | *What must I do now?* |
+| **[IV. Interview Execution](#level-iv-interview-preparation--execution-the-proof)** | Proving mastery under scrutiny | *Can I demonstrate my capability?* |
 
 </div>
 
@@ -107,7 +107,7 @@ These are the four key domains where engineering leaders apply principles and co
 - Structured hiring loops and onboarding playbooks
 - GROW coaching framework and SBI feedback
 - DEI scorecards and inclusive team rituals
-- [Practice Scenarios](level-3-applications/people-management/scenarios/)
+- [Practice Scenarios](practice-scenarios/)
 
 ### 2. [Technical Leadership & Strategy](level-3-applications/technical-leadership/)
 
@@ -117,7 +117,7 @@ These are the four key domains where engineering leaders apply principles and co
 - Evolutionary design with Strangler Fig patterns
 - Technical debt management with Debt Quadrant
 - Innovation operating models (10-20% capacity)
-- [Architecture Decisions](level-3-applications/technical-leadership/architecture/)
+- [Technical Strategy](level-3-applications/technical-leadership/technical-strategy.md)
 
 ### 3. [Organizational Design & Scaling](level-3-applications/organizational-design/)
 
@@ -127,7 +127,7 @@ These are the four key domains where engineering leaders apply principles and co
 - Team Topologies (Stream-aligned, Platform, etc.)
 - API contracts between teams
 - Leadership pipeline development
-- [Scaling Playbooks](level-3-applications/organizational-design/scaling/)
+- [Team Topologies](level-3-applications/organizational-design/team-topologies.md)
 
 ### 4. [Business Acumen & Cross-Functional](level-3-applications/business-acumen/)
 
@@ -137,7 +137,7 @@ These are the four key domains where engineering leaders apply principles and co
 - Connect DORA metrics to business KPIs
 - Joint OKRs with Product/GTM teams
 - Executive narrative for QBRs
-- [Stakeholder Management](level-3-applications/business-acumen/stakeholders/)
+- [Business Metrics](level-3-applications/business-acumen/business-metrics.md)
 
 </div>
 
@@ -177,11 +177,11 @@ Embed framework language:
 
 #### [Interactive Practice Tools](level-4-interview-execution/tools/interactive/)
 
-- [Interview Timer](level-4-interview-execution/tools/interview-timer.md)
-- [Self-Assessment](level-4-interview-execution/tools/self-assessment.md)
-- [Decision Trees](level-4-interview-execution/tools/decision-trees.md)
-- [STAR Story Matcher](level-4-interview-execution/tools/star-matcher.md)
-- [Question Bank](level-4-interview-execution/tools/question-bank.md)
+- [Interview Timer](level-4-interview-execution/tools/interactive/interview-timer.md)
+- [Self-Assessment](level-4-interview-execution/tools/interactive/self-assessment.md)
+- [Decision Trees](level-4-interview-execution/tools/interactive/decision-trees.md)
+- [STAR Story Matcher](level-4-interview-execution/tools/interactive/star-matcher.md)
+- [Question Bank](level-4-interview-execution/tools/interactive/question-bank.md)
 
 </div>
 
