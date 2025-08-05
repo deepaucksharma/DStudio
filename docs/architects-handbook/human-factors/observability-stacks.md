@@ -1,10 +1,13 @@
 ---
 title: Observability Stacks
-description: "Making distributed knowledge visible while respecting cognitive limits - Laws 5 & 6 in practice"
+description: Making distributed knowledge visible while respecting cognitive limits
+  - Laws 5 & 6 in practice
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: ["part1-axioms/law5-epistemology", "part1-axioms/law6-human-api"]
+prerequisites:
+- core-principles/laws/distributed-knowledge
+- core-principles/laws/cognitive-load
 status: complete
 last_updated: 2025-07-23
 ---

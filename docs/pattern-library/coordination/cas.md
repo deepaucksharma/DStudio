@@ -15,9 +15,9 @@ prerequisites:
 - memory-models
 reading_time: 25 min
 related_laws:
-- law2-asynchrony
-- law4-optimization
-- law7-economics
+- asynchronous-reality
+- multidimensional-optimization
+- economic-reality
 related_pillars:
 - work
 - state
@@ -290,15 +290,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - Non-blocking nature
-    - [Law 4: Multidimensional Optimization](../../part1-axioms/law4-optimization/) - Performance tradeoffs
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Non-blocking nature
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Performance tradeoffs
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../part2-pillars/work/) - Lock-free task coordination
-    - [State Distribution](../../part2-pillars/state/) - Atomic state updates
+    - [Work Distribution](../../core-principles/pillars/work/) - Lock-free task coordination
+    - [State Distribution](../../core-principles/pillars/state/) - Atomic state updates
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

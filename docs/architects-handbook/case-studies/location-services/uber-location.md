@@ -1,5 +1,5 @@
 ---
-title: "Uber's Real-Time Location System: Scale and Architecture Deep Dive"
+title: 'Uber''s Real-Time Location System: Scale and Architecture Deep Dive'
 description: Track millions of drivers and riders globally with sub-second updates
 type: case-study
 difficulty: advanced
@@ -7,16 +7,12 @@ reading_time: 40 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: internet-scale
 domain: maps
 company: Uber
 year_implemented: 2015
 current_status: production
-
-# Key metrics
 metrics:
   users: 40M+
   requests_per_second: 1M+
@@ -24,45 +20,39 @@ metrics:
   availability: 99.99%
   latency_p99: 200ms
   regions: 65+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - geospatial-indexing: "H3 hexagonal grid system open-sourced by Uber"
-    - event-streaming: "Kafka processes 100M+ location events/day"
-    - multi-level-cache: "4-tier cache: device → Redis → Cassandra → S3"
-    - edge-computing: "200+ edge locations for low-latency updates"
-    - time-series-db: "Cassandra stores 90 days of location history"
+  - geospatial-indexing: H3 hexagonal grid system open-sourced by Uber
+  - event-streaming: Kafka processes 100M+ location events/day
+  - multi-level-cache: "4-tier cache: device \u2192 Redis \u2192 Cassandra \u2192\
+      \ S3"
+  - edge-computing: 200+ edge locations for low-latency updates
+  - time-series-db: Cassandra stores 90 days of location history
   silver:
-    - adaptive-sampling: "1Hz when moving, 0.1Hz when stationary"
-    - predictive-caching: "ML predicts next location with 85% accuracy"
-    - data-partitioning: "1024 shards by H3 level 4 for even distribution"
+  - adaptive-sampling: 1Hz when moving, 0.1Hz when stationary
+  - predictive-caching: ML predicts next location with 85% accuracy
+  - data-partitioning: 1024 shards by H3 level 4 for even distribution
   bronze:
-    - polling: "Migrated from 30-second MySQL polling to real-time streaming"
-
-# Excellence connections
+  - polling: Migrated from 30-second MySQL polling to real-time streaming
 excellence_guides:
-  - scale/real-time-systems
-  - migration/polling-to-streaming
-  - operational/mobile-optimization
-
-# Implementation insights
+- scale/real-time-systems
+- migration/polling-to-streaming
+- operational/mobile-optimization
 key_innovations:
-  - "H3 hexagonal hierarchical spatial index for planet-scale queries"
-  - "Adaptive location sampling reduces battery usage by 60%"
-  - "Edge computing reduces core infrastructure load by 70%"
-  - "Predictive ETA using real-time traffic and historical patterns"
-  - "Fault-tolerant matching algorithm handles city-wide outages"
-
+- H3 hexagonal hierarchical spatial index for planet-scale queries
+- Adaptive location sampling reduces battery usage by 60%
+- Edge computing reduces core infrastructure load by 70%
+- Predictive ETA using real-time traffic and historical patterns
+- Fault-tolerant matching algorithm handles city-wide outages
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Hexagonal grid system superior to lat/lng for spatial operations"
-  - category: "Operations"
-    lesson: "Edge servers critical for handling mobile network variability"
-  - category: "Performance"
-    lesson: "Adaptive sampling balances accuracy with battery life"
-  - category: "Scale"
-    lesson: "Geospatial sharding enables linear scaling to millions of drivers"
+- category: Architecture
+  lesson: Hexagonal grid system superior to lat/lng for spatial operations
+- category: Operations
+  lesson: Edge servers critical for handling mobile network variability
+- category: Performance
+  lesson: Adaptive sampling balances accuracy with battery life
+- category: Scale
+  lesson: Geospatial sharding enables linear scaling to millions of drivers
 ---
 
 # Uber's Real-Time Location System: Scale and Architecture Deep Dive
@@ -475,9 +465,9 @@ Uber's location system evolution (2009-2015):
 - [Time-Series Storage](../patterns/time-series-ids.md) - Cassandra for location history
 
 ### Related Pillars
-- [Pillar 1: Work](../part2-pillars/work/index.md) - Geospatial sharding across regions
-- [Pillar 2: State](../part2-pillars/state/index.md) - Multi-layer location caching
-- [Pillar 5: Intelligence](../part2-pillars/intelligence/index.md) - ML-based ETA prediction
+- [Pillar 1: Work](../core-principles/pillars/work/index.md) - Geospatial sharding across regions
+- [Pillar 2: State](../core-principles/pillars/state/index.md) - Multi-layer location caching
+- [Pillar 5: Intelligence](../core-principles/pillars/intelligence/index.md) - ML-based ETA prediction
 
 ### Case Studies
 - [Google Maps](/architects-handbook/case-studies/location-services/google-maps/) - Similar scale location challenges
@@ -504,9 +494,9 @@ Uber's location system evolution (2009-2015):
 - **[Law 7: Economic Reality](/core-principles/laws/economic-reality/)** - Edge computing and compression optimize mobile data costs
 
 ### Related Pillars (Part II)
-- **[Work Distribution](../part2-pillars/work/index.md)** - Geospatial sharding distributes location processing across regions
-- **[State Distribution](../part2-pillars/state/index.md)** - Multi-layered caching strategy for location data at different time scales
-- **[Intelligence Distribution](../part2-pillars/intelligence/index.md)** - ML-based prediction algorithms deployed at edge locations
+- **[Work Distribution](../core-principles/pillars/work/index.md)** - Geospatial sharding distributes location processing across regions
+- **[State Distribution](../core-principles/pillars/state/index.md)** - Multi-layered caching strategy for location data at different time scales
+- **[Intelligence Distribution](../core-principles/pillars/intelligence/index.md)** - ML-based prediction algorithms deployed at edge locations
 
 ### Related Patterns (Part III)
 - **[Geospatial Indexing](../patterns/spatial-indexing.md)** - H3 hexagonal grid system for efficient spatial queries

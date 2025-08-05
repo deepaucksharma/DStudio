@@ -17,9 +17,9 @@ prerequisites:
 - monitoring
 reading_time: 15 min
 related_laws:
-- law2-asynchrony
-- law4-tradeoffs
-- law7-economics
+- asynchronous-reality
+- multidimensional-optimization
+- economic-reality
 related_pillars:
 - work
 - control
@@ -303,15 +303,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2/) - Distributed scaling coordination
-    - [Law 7: Economic Reality](../../part1-axioms/law7/) - Cost optimization trade-offs
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Distributed scaling coordination
+    - [Law 7: Economic Reality](../../core-principles/laws/law7/) - Cost optimization trade-offs
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../part2-pillars/work/) - Distributing load across instances
-    - [Control Distribution](../../part2-pillars/control/) - Distributed scaling decisions
+    - [Work Distribution](../../core-principles/pillars/work/) - Distributing load across instances
+    - [Control Distribution](../../core-principles/pillars/control/) - Distributed scaling decisions
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

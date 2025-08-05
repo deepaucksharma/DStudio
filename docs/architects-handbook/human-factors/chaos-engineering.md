@@ -1,10 +1,13 @@
 ---
 title: Chaos Engineering
-description: "Scientific approach to discovering system weaknesses through controlled experiments while respecting cognitive limits"
+description: Scientific approach to discovering system weaknesses through controlled
+  experiments while respecting cognitive limits
 type: human-factors
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: ["part1-axioms/law6-human-api/index.md", "part1-axioms/law1-failure/index.md"]
+prerequisites:
+- core-principles/laws/cognitive-load/index.md
+- core-principles/laws/correlated-failure/index.md
 status: complete
 last_updated: 2025-07-23
 ---

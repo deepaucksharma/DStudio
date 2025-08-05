@@ -1,15 +1,25 @@
 ---
 title: Migrating from Anti-Entropy to CRDT
-description: Transition from manual anti-entropy processes to automatic conflict resolution with CRDTs
+description: Transition from manual anti-entropy processes to automatic conflict resolution
+  with CRDTs
 type: migration-guide
 difficulty: advanced
 reading_time: 20 min
-prerequisites: [anti-entropy, crdt, eventual-consistency, distributed-systems]
+prerequisites:
+- anti-entropy
+- crdt
+- eventual-consistency
+- distributed-systems
 migration_effort: medium
 risk_level: low
 status: complete
 last_updated: 2025-07-26
-tags: [migration, anti-entropy, crdt, conflict-resolution, distributed-data]
+tags:
+- migration
+- anti-entropy
+- crdt
+- conflict-resolution
+- distributed-data
 ---
 
 # Migrating from Anti-Entropy to CRDT

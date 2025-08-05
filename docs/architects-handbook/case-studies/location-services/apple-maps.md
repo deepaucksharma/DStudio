@@ -1,10 +1,13 @@
 ---
 title: Apple Maps Case Study
-description: "Analysis of Apple Maps' privacy-focused mapping architecture"
+description: Analysis of Apple Maps' privacy-focused mapping architecture
 excellence_tier: gold
 architecture_status: battle-tested
 current_scale: global
-key_patterns: ["privacy-first", "on-device-processing", "differential-privacy"]
+key_patterns:
+- privacy-first
+- on-device-processing
+- differential-privacy
 ---
 
 # Apple Maps Case Study

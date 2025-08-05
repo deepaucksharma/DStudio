@@ -1,26 +1,23 @@
 ---
 title: S3-like Object Storage System
-description: Design a highly durable, available, and scalable object storage service like Amazon S3
+description: Design a highly durable, available, and scalable object storage service
+  like Amazon S3
 type: case-study
 difficulty: advanced
 reading_time: 25 min
 prerequisites:
-  - Distributed Storage
-  - Consistency Models
-  - Erasure Coding
-  - Load Balancing
+- Distributed Storage
+- Consistency Models
+- Erasure Coding
+- Load Balancing
 status: complete
 last_updated: 2025-01-21
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: global-scale
 domain: storage
 company: Amazon
 year_implemented: 2006
 current_status: production
-
-# Key metrics
 metrics:
   users: 1M+
   requests_per_second: 100M+
@@ -28,41 +25,34 @@ metrics:
   availability: 99.999999999%
   latency_p99: 100ms
   regions: 30+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - erasure-coding: "11 nines durability with efficient storage"
-    - consistent-hashing: "Object placement across storage nodes"
-    - load-balancing: "Request distribution across regions"
-    - caching: "CDN integration for global access"
+  - erasure-coding: 11 nines durability with efficient storage
+  - consistent-hashing: Object placement across storage nodes
+  - load-balancing: Request distribution across regions
+  - caching: CDN integration for global access
   silver:
-    - versioning: "Object version management"
-    - lifecycle-management: "Automated data tiering"
-    - replication: "Cross-region replication"
+  - versioning: Object version management
+  - lifecycle-management: Automated data tiering
+  - replication: Cross-region replication
   bronze:
-    - eventual-consistency: "Trade-off for performance"
-
-# Excellence connections
+  - eventual-consistency: Trade-off for performance
 excellence_guides:
-  - scale/object-storage-infrastructure
-  - migration/s3-adoption
-  - operational/storage-excellence
-
-# Implementation insights
+- scale/object-storage-infrastructure
+- migration/s3-adoption
+- operational/storage-excellence
 key_innovations:
-  - "11 nines durability through erasure coding"
-  - "Infinite scalability with consistent hashing"
-  - "Multi-region replication for disaster recovery"
-  - "Tiered storage for cost optimization"
-
+- 11 nines durability through erasure coding
+- Infinite scalability with consistent hashing
+- Multi-region replication for disaster recovery
+- Tiered storage for cost optimization
 lessons_learned:
-  - category: "Durability"
-    lesson: "Erasure coding more efficient than replication at scale"
-  - category: "Performance"
-    lesson: "CDN integration critical for global access patterns"
-  - category: "Cost"
-    lesson: "Storage classes enable 80% cost reduction"
+- category: Durability
+  lesson: Erasure coding more efficient than replication at scale
+- category: Performance
+  lesson: CDN integration critical for global access patterns
+- category: Cost
+  lesson: Storage classes enable 80% cost reduction
 ---
 
 

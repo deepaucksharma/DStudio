@@ -1,6 +1,6 @@
 ---
 title: Computational Geometry
-description: "Quantitative models for geometric algorithms and spatial computing"
+description: Quantitative models for geometric algorithms and spatial computing
 ---
 
 # Computational Geometry

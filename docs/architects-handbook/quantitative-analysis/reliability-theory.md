@@ -1,11 +1,15 @@
 ---
 title: Reliability Theory for Distributed Systems
-description: Mathematical foundations for system reliability, availability, and fault tolerance
+description: Mathematical foundations for system reliability, availability, and fault
+  tolerance
 type: quantitative
 difficulty: advanced
 reading_time: 45 min
-prerequisites: [probability, failure-models, mtbf-mttr]
-pattern_type: "various"
+prerequisites:
+- probability
+- failure-models
+- mtbf-mttr
+pattern_type: various
 status: complete
 last_updated: 2025-01-23
 ---

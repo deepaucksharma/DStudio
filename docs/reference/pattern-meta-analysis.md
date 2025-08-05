@@ -1,12 +1,13 @@
 ---
 title: Pattern Meta-Analysis - Comprehensive Insights from 112 Patterns
-description: Deep analysis and synthesis of metadata across all distributed systems patterns
+description: Deep analysis and synthesis of metadata across all distributed systems
+  patterns
 icon: material/chart-box
 tags:
-  - analysis
-  - patterns
-  - insights
-  - meta-analysis
+- analysis
+- patterns
+- insights
+- meta-analysis
 ---
 
 # Pattern Meta-Analysis: Insights from 112 Patterns

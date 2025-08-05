@@ -1,22 +1,19 @@
 ---
 title: Social Graph Architecture
-description: "Case study of distributed social graph systems for friend recommendations and social connections"
+description: Case study of distributed social graph systems for friend recommendations
+  and social connections
 type: case-study
 difficulty: advanced
 reading_time: 40 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-23
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: global-scale
 domain: social-network
 company: Meta/LinkedIn
 year_implemented: 2010
 current_status: production
-
-# Key metrics
 metrics:
   users: 3B+
   requests_per_second: 100K+
@@ -24,41 +21,34 @@ metrics:
   availability: 99.99%
   latency_p99: 50ms
   regions: 20+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - graph-partitioning: "Distributed graph storage and processing"
-    - caching: "Multi-level caching for graph queries"
-    - sharding: "User-based and edge-based sharding"
-    - batch-processing: "Offline recommendation computation"
+  - graph-partitioning: Distributed graph storage and processing
+  - caching: Multi-level caching for graph queries
+  - sharding: User-based and edge-based sharding
+  - batch-processing: Offline recommendation computation
   silver:
-    - celebrity-handling: "Special handling for high-degree nodes"
-    - bloom-filters: "Efficient existence checks"
-    - denormalization: "Edge list duplication for performance"
+  - celebrity-handling: Special handling for high-degree nodes
+  - bloom-filters: Efficient existence checks
+  - denormalization: Edge list duplication for performance
   bronze:
-    - eventual-consistency: "Friend counts may lag"
-
-# Excellence connections
+  - eventual-consistency: Friend counts may lag
 excellence_guides:
-  - scale/social-graph-infrastructure
-  - migration/graph-database-adoption
-  - operational/graph-processing-excellence
-
-# Implementation insights
+- scale/social-graph-infrastructure
+- migration/graph-database-adoption
+- operational/graph-processing-excellence
 key_innovations:
-  - "Hybrid online/offline processing for recommendations"
-  - "Celebrity node handling prevents hot spots"
-  - "Multi-level caching reduces graph traversals"
-  - "Privacy-aware graph algorithms"
-
+- Hybrid online/offline processing for recommendations
+- Celebrity node handling prevents hot spots
+- Multi-level caching reduces graph traversals
+- Privacy-aware graph algorithms
 lessons_learned:
-  - category: "Scale"
-    lesson: "Graph partitioning critical for distributed processing"
-  - category: "Performance"
-    lesson: "Caching friend lists reduces 90% of graph queries"
-  - category: "Privacy"
-    lesson: "Privacy checks must be built into graph algorithms"
+- category: Scale
+  lesson: Graph partitioning critical for distributed processing
+- category: Performance
+  lesson: Caching friend lists reduces 90% of graph queries
+- category: Privacy
+  lesson: Privacy checks must be built into graph algorithms
 ---
 
 

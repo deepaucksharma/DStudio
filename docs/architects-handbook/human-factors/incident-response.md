@@ -1,10 +1,12 @@
 ---
 title: Incident Response
-description: "Managing system failures within cognitive limits - applying Law 6 when stress reduces capacity by 80%"
+description: Managing system failures within cognitive limits - applying Law 6 when
+  stress reduces capacity by 80%
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: ["part1-axioms/law6-human-api"]
+prerequisites:
+- core-principles/laws/cognitive-load
 status: complete
 last_updated: 2025-07-23
 ---

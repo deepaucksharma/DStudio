@@ -4,10 +4,10 @@ description: Build a real-time collaborative document editor like Google Docs or
 type: system-design-problem
 difficulty: intermediate
 reading_time: 50 min
-prerequisites: 
-  - pattern-library/operational-transforms
-  - pattern-library/conflict-resolution
-  - pattern-library/websocket-scaling
+prerequisites:
+- pattern-library/operational-transforms
+- pattern-library/conflict-resolution
+- pattern-library/websocket-scaling
 status: complete
 last_updated: 2025-08-04
 ---

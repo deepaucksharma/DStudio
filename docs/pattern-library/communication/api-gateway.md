@@ -36,9 +36,9 @@ production_checklist:
 - Implement gradual rollout for configuration changes
 reading_time: 20 min
 related_laws:
-- law4-tradeoffs
-- law6-human-api
-- law7-economics
+- multidimensional-optimization
+- cognitive-load
+- economic-reality
 related_pillars:
 - control
 - work

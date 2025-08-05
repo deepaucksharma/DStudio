@@ -27,9 +27,9 @@ prerequisites:
 - conflict-resolution
 reading_time: 15 min
 related_laws:
-- law2-asynchrony
-- law4-optimization
-- law5-knowledge
+- asynchronous-reality
+- multidimensional-optimization
+- distributed-knowledge
 related_pillars:
 - state
 - truth
@@ -356,15 +356,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - Handling async updates
-    - [Law 4: Multi-dimensional Optimization](../../part1-axioms/law4-optimization/) - Bandwidth vs complexity
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Handling async updates
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Bandwidth vs complexity
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Efficient state synchronization
-    - [Truth Distribution](../../part2-pillars/truth/) - Consistency across replicas
+    - [State Distribution](../../core-principles/pillars/state/) - Efficient state synchronization
+    - [Truth Distribution](../../core-principles/pillars/truth/) - Consistency across replicas
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

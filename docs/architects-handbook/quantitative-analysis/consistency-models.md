@@ -1,11 +1,15 @@
 ---
 title: Consistency Models Deep-Dive
-description: "Mathematical formulations and practical trade-offs of different consistency guarantees in distributed systems"
+description: Mathematical formulations and practical trade-offs of different consistency
+  guarantees in distributed systems
 type: quantitative
 difficulty: advanced
 reading_time: 60 min
-prerequisites: ["cap-theorem", "distributed-consensus", "vector-clocks"]
-pattern_type: "consistency-spectrum"
+prerequisites:
+- cap-theorem
+- distributed-consensus
+- vector-clocks
+pattern_type: consistency-spectrum
 status: complete
 last_updated: 2025-01-23
 ---

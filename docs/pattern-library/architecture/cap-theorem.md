@@ -269,15 +269,15 @@ graph TD
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2/) - Network delays
-    - [Law 3: Emergent Chaos](../../part1-axioms/law3/) - Partition inevitability
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Network delays
+    - [Law 3: Emergent Chaos](../../core-principles/laws/law3/) - Partition inevitability
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Data consistency models
-    - [Truth Distribution](../../part2-pillars/truth/) - Consensus mechanisms
+    - [State Distribution](../../core-principles/pillars/state/) - Data consistency models
+    - [Truth Distribution](../../core-principles/pillars/truth/) - Consensus mechanisms
 
 - :material-tools:{ .lg .middle } **Modern Alternatives**
     

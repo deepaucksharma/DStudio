@@ -34,9 +34,9 @@ production_checklist:
 - Implement session management strategy (stateless preferred)
 reading_time: 18 min
 related_laws:
-- law1-failure
-- law2-asynchrony
-- law4-tradeoffs
+- correlated-failure
+- asynchronous-reality
+- multidimensional-optimization
 related_pillars:
 - work
 - control
@@ -372,15 +372,15 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1/) - Preventing single points of failure
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2/) - Distributed request handling
+    - [Law 1: Correlated Failure](../../core-principles/laws/law1/) - Preventing single points of failure
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Distributed request handling
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../part2-pillars/work/) - Distributing requests across servers
-    - [Control Distribution](../../part2-pillars/control/) - Distributed routing decisions
+    - [Work Distribution](../../core-principles/pillars/work/) - Distributing requests across servers
+    - [Control Distribution](../../core-principles/pillars/control/) - Distributed routing decisions
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

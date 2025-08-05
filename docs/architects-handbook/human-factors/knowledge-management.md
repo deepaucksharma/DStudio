@@ -1,6 +1,7 @@
 ---
 title: Knowledge Management in Distributed Systems
-description: "Managing distributed knowledge across teams, systems, and documentation to prevent information silos and tribal knowledge"
+description: Managing distributed knowledge across teams, systems, and documentation
+  to prevent information silos and tribal knowledge
 type: human-factors
 difficulty: intermediate
 reading_time: 25 min

@@ -2,9 +2,9 @@
 title: Keyboard Shortcuts
 description: Master keyboard navigation for faster learning
 tags:
-  - reference
-  - navigation
-  - productivity
+- reference
+- navigation
+- productivity
 ---
 
 # Keyboard Shortcuts

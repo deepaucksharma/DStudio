@@ -472,3 +472,11 @@ Remember: **Your system already has multiple truths. The question is whether you
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Truth conflicts trigger emergence
 - **[Law 4: Multidimensional Optimization](multidimensional-optimization.md)** - Consistency vs availability trade-offs
 - **Patterns**: [Raft Consensus](../pattern-library/coordination/consensus.md), [Paxos](../pattern-library/coordination/consensus.md), [Event Sourcing](../pattern-library/data-management/event-sourcing.md)
+## Pattern Implementations
+
+Patterns that address this law:
+
+- [Consensus](../../pattern-library/coordination/consensus/)
+- [Leader Election](../../pattern-library/coordination/leader-election/)
+
+

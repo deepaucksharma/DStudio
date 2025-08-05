@@ -1,6 +1,7 @@
 ---
 title: Reference Materials
-description: Your comprehensive reference for distributed systems concepts, terms, and practical guides.
+description: Your comprehensive reference for distributed systems concepts, terms,
+  and practical guides.
 type: reference
 difficulty: intermediate
 reading_time: 5 min

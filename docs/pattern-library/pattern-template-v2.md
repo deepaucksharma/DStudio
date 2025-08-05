@@ -29,7 +29,7 @@ trade_offs:
 best_for: "[Primary use case scenarios]"
 modern_alternatives: "[List of alternatives for Bronze patterns]"
 deprecation_reason: "[Why this is now Bronze tier]"
-related_laws: [law1-failure, law2-asynchrony, etc.]
+related_laws: [correlated-failure, asynchronous-reality, etc.]
 related_pillars: [work, state, truth, control, intelligence]
 ---
 
@@ -385,15 +385,15 @@ graph TD
     
     ---
     
-    - [Law 1: Name](../../part1-axioms/law1/) - [Connection]
-    - [Law 2: Name](../../part1-axioms/law2/) - [Connection]
+    - [Law 1: Name](../../core-principles/laws/law1/) - [Connection]
+    - [Law 2: Name](../../core-principles/laws/law2/) - [Connection]
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 1: Name](../../part2-pillars/pillar1/) - [Implementation]
-    - [Pillar 2: Name](../../part2-pillars/pillar2/) - [Implementation]
+    - [Pillar 1: Name](../../core-principles/pillars/pillar1/) - [Implementation]
+    - [Pillar 2: Name](../../core-principles/pillars/pillar2/) - [Implementation]
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

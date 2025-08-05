@@ -6,16 +6,16 @@ pattern_status: recommended
 introduced: 2016-09
 current_relevance: mainstream
 modern_examples:
-  - Figma
-  - Miro
-  - Notion
-  - Linear
+- Figma
+- Miro
+- Notion
+- Linear
 production_checklist:
-  - CRDT implementation choice
-  - Multiplayer presence system
-  - Conflict resolution strategy
-  - WebRTC architecture
-  - Offline sync mechanism
+- CRDT implementation choice
+- Multiplayer presence system
+- Conflict resolution strategy
+- WebRTC architecture
+- Offline sync mechanism
 ---
 
 # Figma: CRDTs for Real-Time Design Collaboration

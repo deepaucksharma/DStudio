@@ -1,27 +1,36 @@
 ---
-title: "E-commerce Platform Architecture"
-description: "Case study of distributed e-commerce systems handling millions of transactions"
+title: E-commerce Platform Architecture
+description: Case study of distributed e-commerce systems handling millions of transactions
 type: case-study
 difficulty: advanced
 reading_time: 40 min
-prerequisites: ["distributed-transactions", "inventory-management", "payment-systems", "caching"]
-pattern_type: "e-commerce"
+prerequisites:
+- distributed-transactions
+- inventory-management
+- payment-systems
+- caching
+pattern_type: e-commerce
 status: planned
 last_updated: 2025-01-28
 excellence_tier: gold
 pattern_status: mainstream
 introduced: 1995-07
 current_relevance: mainstream
-modern_examples: ["Amazon", "Alibaba", "Shopify", "eBay", "Walmart.com"]
+modern_examples:
+- Amazon
+- Alibaba
+- Shopify
+- eBay
+- Walmart.com
 production_checklist:
-  - "Distributed inventory management"
-  - "Flash sale handling"
-  - "Payment processing integration"
-  - "Cart persistence strategies"
-  - "Product catalog at scale"
-  - "Order fulfillment pipeline"
-  - "Fraud detection systems"
-  - "Multi-region deployment"
+- Distributed inventory management
+- Flash sale handling
+- Payment processing integration
+- Cart persistence strategies
+- Product catalog at scale
+- Order fulfillment pipeline
+- Fraud detection systems
+- Multi-region deployment
 ---
 
 # E-commerce Platform Architecture

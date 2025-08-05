@@ -1,5 +1,5 @@
 ---
-title: "Migration: From Batch to Stream Processing"
+title: 'Migration: From Batch to Stream Processing'
 description: Lessons from modernizing batch ETL pipelines to real-time stream processing
 type: case-study
 difficulty: intermediate
@@ -7,78 +7,65 @@ reading_time: 25 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: bronze
 scale_category: large-scale
 domain: data-processing
 company: Generic Pattern
 year_implemented: 2017
 current_status: legacy-migration
-
-# Key metrics
 metrics:
   latency_improvement: 1000x
-  data_freshness: "hours to seconds"
+  data_freshness: hours to seconds
   operational_complexity: 5x increase
   infrastructure_cost: 2x increase
   developer_productivity: 0.5x initially
   error_recovery_time: 10x faster
-
-# Pattern usage tracking
 patterns_used:
   bronze:
-    - batch-processing: "Legacy ETL pattern"
-    - cron-jobs: "Scheduled batch runs"
-    - file-based-integration: "CSV/JSON dumps"
+  - batch-processing: Legacy ETL pattern
+  - cron-jobs: Scheduled batch runs
+  - file-based-integration: CSV/JSON dumps
   silver:
-    - stream-processing: "Apache Kafka + Flink"
-    - event-sourcing: "Immutable event log"
-    - cdc: "Change Data Capture from databases"
+  - stream-processing: Apache Kafka + Flink
+  - event-sourcing: Immutable event log
+  - cdc: Change Data Capture from databases
   gold:
-    - exactly-once-processing: "Guaranteed correctness"
-    - watermarking: "Handling late data"
-
-# Modern alternatives
+  - exactly-once-processing: Guaranteed correctness
+  - watermarking: Handling late data
 modern_alternatives:
-  - name: "Lambda Architecture"
-    description: "Combine batch and stream for accuracy + speed"
-    when_to_use: "Need both historical accuracy and real-time insights"
-  - name: "Kappa Architecture"
-    description: "Stream-only processing with replay"
-    when_to_use: "Simpler architecture, can replay from beginning"
-  - name: "Micro-batch Processing"
-    description: "Small frequent batches (Spark Streaming style)"
-    when_to_use: "Near real-time sufficient, simpler than true streaming"
-  - name: "Materialized Views"
-    description: "Incrementally updated aggregations"
-    when_to_use: "Analytics queries on changing data"
-
-# Deprecation reason
-deprecation_reason: "Batch processing creates stale data and delays decision-making. Modern businesses need real-time insights. However, batch still has its place for historical analysis and data quality checks."
-
-# Excellence connections
+- name: Lambda Architecture
+  description: Combine batch and stream for accuracy + speed
+  when_to_use: Need both historical accuracy and real-time insights
+- name: Kappa Architecture
+  description: Stream-only processing with replay
+  when_to_use: Simpler architecture, can replay from beginning
+- name: Micro-batch Processing
+  description: Small frequent batches (Spark Streaming style)
+  when_to_use: Near real-time sufficient, simpler than true streaming
+- name: Materialized Views
+  description: Incrementally updated aggregations
+  when_to_use: Analytics queries on changing data
+deprecation_reason: Batch processing creates stale data and delays decision-making.
+  Modern businesses need real-time insights. However, batch still has its place for
+  historical analysis and data quality checks.
 excellence_guides:
-  - migration/stream-processing
-  - pattern-library/data-pipeline
-  - architecture/event-driven
-
-# Implementation insights
+- migration/stream-processing
+- pattern-library/data-pipeline
+- architecture/event-driven
 key_innovations:
-  - "Parallel run for validation period"
-  - "Watermarks for late data handling"
-  - "Exactly-once semantics with Kafka transactions"
-  - "Schema evolution strategies"
-
+- Parallel run for validation period
+- Watermarks for late data handling
+- Exactly-once semantics with Kafka transactions
+- Schema evolution strategies
 lessons_learned:
-  - category: "Complexity"
-    lesson: "Streaming is 10x more complex than batch"
-  - category: "Costs"
-    lesson: "24/7 processing costs more than nightly batches"
-  - category: "Skills"
-    lesson: "Team needs significant retraining"
-  - category: "Benefits"
-    lesson: "Real-time insights transform the business"
+- category: Complexity
+  lesson: Streaming is 10x more complex than batch
+- category: Costs
+  lesson: 24/7 processing costs more than nightly batches
+- category: Skills
+  lesson: Team needs significant retraining
+- category: Benefits
+  lesson: Real-time insights transform the business
 ---
 
 # Migration: From Batch to Stream Processing

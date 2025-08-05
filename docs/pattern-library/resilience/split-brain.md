@@ -17,9 +17,9 @@ prerequisites:
 - distributed-state
 reading_time: 15 min
 related_laws:
-- law1-failure
-- law2-asynchrony
-- law5-epistemology
+- correlated-failure
+- asynchronous-reality
+- distributed-knowledge
 related_pillars:
 - truth
 - control
@@ -286,9 +286,9 @@ class GenerationBasedResolver:
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Network partitions happen
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - Can't detect true failure
-    - [Law 5: Distributed Knowledge](../../part1-axioms/law5-epistemology/) - Partial views differ
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Network partitions happen
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Can't detect true failure
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Partial views differ
 
 </div>
 

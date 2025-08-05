@@ -1,59 +1,54 @@
 ---
-title: "CAP Theorem: The Fundamental Trade-off"
-description: "Understanding the impossibility of simultaneously achieving Consistency, Availability, and Partition tolerance in distributed systems"
+title: 'CAP Theorem: The Fundamental Trade-off'
+description: Understanding the impossibility of simultaneously achieving Consistency,
+  Availability, and Partition tolerance in distributed systems
 type: theory
 category: fundamentals
 difficulty: intermediate
 reading_time: 25 min
 status: complete
 last_updated: 2025-07-22
-
 nav:
-  learning_path: "all"
-  
+  learning_path: all
   sequence:
     current: 1
     total: 15
-    collection: "quantitative-foundations"
-  
+    collection: quantitative-foundations
   prerequisites:
-    - title: "Introduction to Distributed Systems"
-      path: "/introduction/getting-started/"
-    - title: "Basic Networking Concepts"
-      path: "/introduction/networking-basics/"
-  
+  - title: Introduction to Distributed Systems
+    path: /introduction/getting-started/
+  - title: Basic Networking Concepts
+    path: /introduction/networking-basics/
   related:
-    - title: "PACELC Theorem"
-      path: "/quantitative/pacelc/"
-      type: "theory"
-    - title: "Consistency Models"
-      path: "/quantitative/consistency-models/"
-      type: "theory"
-    - title: "Cassandra Case Study"
-      path: "/case-studies/cassandra/"
-      type: "case-study"
-    - title: "Two-Phase Commit"
-      path: "/pattern-library/two-phase-commit/"
-      type: "pattern"
-  
+  - title: PACELC Theorem
+    path: /quantitative/pacelc/
+    type: theory
+  - title: Consistency Models
+    path: /quantitative/consistency-models/
+    type: theory
+  - title: Cassandra Case Study
+    path: /case-studies/cassandra/
+    type: case-study
+  - title: Two-Phase Commit
+    path: /pattern-library/two-phase-commit/
+    type: pattern
   next_steps:
-    - title: "CAP Theorem Calculator"
-      path: "/tools/cap-calculator/"
-      level: "beginner"
-    - title: "Building CP Systems"
-      path: "/tutorials/cp-system-design/"
-      level: "intermediate"
-    - title: "CAP in Production"
-      path: "/tutorials/cap-production/"
-      level: "advanced"
-  
+  - title: CAP Theorem Calculator
+    path: /tools/cap-calculator/
+    level: beginner
+  - title: Building CP Systems
+    path: /tutorials/cp-system-design/
+    level: intermediate
+  - title: CAP in Production
+    path: /tutorials/cap-production/
+    level: advanced
   tags:
-    - fundamental
-    - cap-theorem
-    - distributed-systems
-    - consistency
-    - availability
-    - partition-tolerance
+  - fundamental
+  - cap-theorem
+  - distributed-systems
+  - consistency
+  - availability
+  - partition-tolerance
 ---
 
 # CAP Theorem: The Fundamental Trade-off

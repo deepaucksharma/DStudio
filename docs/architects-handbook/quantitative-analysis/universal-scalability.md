@@ -1,6 +1,7 @@
 ---
 title: Universal Scalability Law
-description: "Mathematical model for system scalability - understanding contention and coherency limits in distributed systems"
+description: Mathematical model for system scalability - understanding contention
+  and coherency limits in distributed systems
 type: quantitative
 difficulty: intermediate
 reading_time: 50 min

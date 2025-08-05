@@ -38,9 +38,9 @@ production_checklist:
 - Document clear leader responsibilities and decision boundaries
 reading_time: 25 min
 related_laws:
-- law4-tradeoffs
-- law2-asynchrony
-- law3-emergence
+- multidimensional-optimization
+- asynchronous-reality
+- emergent-chaos
 related_pillars:
 - control
 - truth
@@ -342,15 +342,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/) - Safety vs availability trade-offs
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-async/) - Network delays affect elections
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Safety vs availability trade-offs
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays affect elections
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 4: Control Distribution](../../part2-pillars/control/) - Centralized decision making
-    - [Pillar 3: Truth Distribution](../../part2-pillars/truth/) - Single source of authority
+    - [Pillar 4: Control Distribution](../../core-principles/pillars/control/) - Centralized decision making
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth/) - Single source of authority
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

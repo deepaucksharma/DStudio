@@ -529,7 +529,7 @@ graph TB
 
 ## Related Patterns
 
-- [Work Distribution](../part2-pillars/1-work-distribution/index.md) - Batching as work distribution strategy
+- [Work Distribution](../core-principles/pillars/1-work-distribution/index.md) - Batching as work distribution strategy
 - [Circuit Breaker](/pattern-library/resilience/circuit-breaker/) - Protecting batch processors
 - [Bulkhead](/pattern-library/resilience/bulkhead/) - Isolating batch processing
 - [Queue-Based Load Leveling](queue-load-leveling.md) - Buffering for batches

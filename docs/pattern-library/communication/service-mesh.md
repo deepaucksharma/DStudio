@@ -195,4 +195,9 @@ class MeshLoadBalancer:
 - Process requests
 - Handle responses
 - Manage failures
+## Related Laws
+
+- [Law: Cognitive Load](../../core-principles/laws/cognitive-load/)
+
+
 

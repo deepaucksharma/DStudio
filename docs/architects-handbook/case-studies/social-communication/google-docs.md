@@ -10,16 +10,16 @@ pattern_status: recommended
 introduced: 2010-04
 current_relevance: mainstream
 modern_examples:
-  - Google Docs (1B+ users)
-  - Microsoft Office 365
-  - Notion
-  - Figma
+- Google Docs (1B+ users)
+- Microsoft Office 365
+- Notion
+- Figma
 production_checklist:
-  - Operational Transform or CRDT implementation
-  - WebSocket infrastructure at scale
-  - Conflict resolution testing
-  - Offline sync strategy
-  - Version history compression
+- Operational Transform or CRDT implementation
+- WebSocket infrastructure at scale
+- Conflict resolution testing
+- Offline sync strategy
+- Version history compression
 ---
 
 

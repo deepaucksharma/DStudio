@@ -224,6 +224,11 @@ After:  channel_id → bucket (1 of 4096) → shard (1 of 128)
 4. **Plan for resharding from day one** - You will need it
 5. **Avoid cross-shard operations** - They're expensive at scale
 
+
+## Related Laws
+
+- [Law: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/)
+
 ## Related Patterns
 
 ### Foundation

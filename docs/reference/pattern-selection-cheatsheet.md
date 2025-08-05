@@ -3,9 +3,9 @@ title: Pattern Selection Cheatsheet
 description: Quick reference guide for choosing the right distributed systems patterns
 icon: material/clipboard-check
 tags:
-  - cheatsheet
-  - patterns
-  - selection-guide
+- cheatsheet
+- patterns
+- selection-guide
 ---
 
 # Pattern Selection Cheatsheet

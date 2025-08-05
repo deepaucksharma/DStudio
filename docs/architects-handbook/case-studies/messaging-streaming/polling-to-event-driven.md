@@ -1,22 +1,19 @@
 ---
-title: "Migration: From Polling to Event-Driven Architecture"
-description: Lessons from migrating legacy polling systems to modern event-driven architectures
+title: 'Migration: From Polling to Event-Driven Architecture'
+description: Lessons from migrating legacy polling systems to modern event-driven
+  architectures
 type: case-study
 difficulty: intermediate
 reading_time: 25 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: bronze
 scale_category: medium-scale
 domain: architecture-migration
 company: Generic Pattern
 year_implemented: 2018
 current_status: legacy-migration
-
-# Key metrics
 metrics:
   latency_improvement: 100x
   resource_reduction: 80%
@@ -24,56 +21,46 @@ metrics:
   migration_duration: 6 months
   rollback_incidents: 3
   cost_reduction: 60%
-
-# Pattern usage tracking
 patterns_used:
   bronze:
-    - polling: "Legacy pattern being replaced"
-    - batch-processing: "Old batch job architecture"
+  - polling: Legacy pattern being replaced
+  - batch-processing: Old batch job architecture
   silver:
-    - event-streaming: "Modern replacement using Kafka"
-    - webhook: "REST-based event delivery"
-    - event-sourcing: "Complete audit trail"
+  - event-streaming: Modern replacement using Kafka
+  - webhook: REST-based event delivery
+  - event-sourcing: Complete audit trail
   gold:
-    - circuit-breaker: "Reliability during migration"
-
-# Modern alternatives
+  - circuit-breaker: Reliability during migration
 modern_alternatives:
-  - name: "Event Streaming (Kafka/Pulsar)"
-    description: "Real-time event processing with durability"
-    when_to_use: "High-volume, mission-critical events"
-  - name: "Webhooks"
-    description: "Simple HTTP-based event delivery"
-    when_to_use: "Lower volume, external integrations"
-  - name: "WebSockets"
-    description: "Bidirectional real-time communication"
-    when_to_use: "Browser-based real-time updates"
-  - name: "Server-Sent Events"
-    description: "Unidirectional push from server"
-    when_to_use: "Simple real-time updates to browsers"
-
-# Deprecation reason
-deprecation_reason: "Polling wastes resources, introduces latency, and doesn't scale. Modern event-driven patterns provide real-time updates with better resource efficiency."
-
-# Excellence connections
+- name: Event Streaming (Kafka/Pulsar)
+  description: Real-time event processing with durability
+  when_to_use: High-volume, mission-critical events
+- name: Webhooks
+  description: Simple HTTP-based event delivery
+  when_to_use: Lower volume, external integrations
+- name: WebSockets
+  description: Bidirectional real-time communication
+  when_to_use: Browser-based real-time updates
+- name: Server-Sent Events
+  description: Unidirectional push from server
+  when_to_use: Simple real-time updates to browsers
+deprecation_reason: Polling wastes resources, introduces latency, and doesn't scale.
+  Modern event-driven patterns provide real-time updates with better resource efficiency.
 excellence_guides:
-  - migration/event-driven
-  - pattern-library/anti-patterns
-  - architecture/modernization
-
-# Implementation insights
+- migration/event-driven
+- pattern-library/anti-patterns
+- architecture/modernization
 key_innovations:
-  - "Gradual migration with dual-write period"
-  - "Event replay for consistency verification"
-  - "Canary deployments for risk mitigation"
-
+- Gradual migration with dual-write period
+- Event replay for consistency verification
+- Canary deployments for risk mitigation
 lessons_learned:
-  - category: "Migration"
-    lesson: "Never do big-bang migrations - always gradual"
-  - category: "Testing"
-    lesson: "Event ordering issues only appear under load"
-  - category: "Operations"
-    lesson: "Keep polling as fallback during transition"
+- category: Migration
+  lesson: Never do big-bang migrations - always gradual
+- category: Testing
+  lesson: Event ordering issues only appear under load
+- category: Operations
+  lesson: Keep polling as fallback during transition
 ---
 
 # Migration: From Polling to Event-Driven Architecture

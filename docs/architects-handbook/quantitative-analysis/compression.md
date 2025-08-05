@@ -1,6 +1,6 @@
 ---
 title: Compression Algorithms
-description: "Quantitative models for data compression and storage optimization"
+description: Quantitative models for data compression and storage optimization
 ---
 
 # Compression Algorithms

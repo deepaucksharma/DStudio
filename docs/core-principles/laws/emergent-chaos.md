@@ -495,3 +495,12 @@ def retry_with_jitter(func, max_retries=3):
 - **[Law 2: Asynchronous Reality](asynchronous-reality.md)** - Async interactions enable emergence
 - **[Law 4: Multidimensional Optimization](multidimensional-optimization.md)** - Emergence creates new trade-offs
 - **Patterns**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Bulkhead](../pattern-library/resilience/bulkhead.md), [Load Balancing](../pattern-library/scaling/load-balancing.md)
+## Pattern Implementations
+
+Patterns that address this law:
+
+- [Backpressure](../../pattern-library/scaling/backpressure/)
+- [Circuit Breaker](../../pattern-library/resilience/circuit-breaker/)
+- [Rate Limiting](../../pattern-library/scaling/rate-limiting/)
+
+

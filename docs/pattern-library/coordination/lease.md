@@ -16,9 +16,9 @@ prerequisites:
 - heartbeat
 reading_time: 25 min
 related_laws:
-- law2-asynchrony
-- law1-failure
-- law5-epistemology
+- asynchronous-reality
+- correlated-failure
+- distributed-knowledge
 related_pillars:
 - truth
 - control

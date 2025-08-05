@@ -37,9 +37,9 @@ production_checklist:
 - Test with realistic network conditions
 reading_time: 25 min
 related_laws:
-- law2-asynchrony
-- law4-tradeoffs
-- law6-human-api
+- asynchronous-reality
+- multidimensional-optimization
+- cognitive-load
 related_pillars:
 - work
 - control

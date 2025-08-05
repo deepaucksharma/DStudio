@@ -1,5 +1,5 @@
 ---
-title: "Zoom's Scaling Journey: From Startup to 300M Daily Users"
+title: 'Zoom''s Scaling Journey: From Startup to 300M Daily Users'
 description: How Zoom scaled video infrastructure to handle explosive pandemic growth
 type: case-study
 difficulty: intermediate
@@ -7,16 +7,12 @@ reading_time: 30 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: silver
 scale_category: large-scale
 domain: video-conferencing
 company: Zoom
 year_implemented: 2020
 current_status: production
-
-# Key metrics
 metrics:
   daily_meeting_participants: 300M+
   peak_concurrent_users: 50M+
@@ -24,61 +20,50 @@ metrics:
   data_centers: 17
   uptime: 99.9%
   growth_rate: 30x in 3 months
-
-# Pattern usage tracking
 patterns_used:
   silver:
-    - auto-scaling: "Scaled from 10M to 300M users in 3 months"
-    - geo-distribution: "17 data centers for low latency globally"
-    - adaptive-bitrate: "Dynamic video quality based on network conditions"
-    - cascade-routing: "Intelligent routing through optimal paths"
-    - connection-pooling: "Efficient resource usage for millions of streams"
+  - auto-scaling: Scaled from 10M to 300M users in 3 months
+  - geo-distribution: 17 data centers for low latency globally
+  - adaptive-bitrate: Dynamic video quality based on network conditions
+  - cascade-routing: Intelligent routing through optimal paths
+  - connection-pooling: Efficient resource usage for millions of streams
   gold:
-    - circuit-breaker: "Prevents cascade failures during traffic spikes"
-    - load-balancer: "Distributes meetings across thousands of servers"
+  - circuit-breaker: Prevents cascade failures during traffic spikes
+  - load-balancer: Distributes meetings across thousands of servers
   bronze:
-    - monolith-first: "Original architecture before microservices migration"
-
-# Trade-offs
+  - monolith-first: Original architecture before microservices migration
 trade_offs:
   pros:
-    - "Exceptional video quality with low latency"
-    - "Scales elastically with demand"
-    - "Works on low-bandwidth connections"
-    - "Simple user experience despite complexity"
+  - Exceptional video quality with low latency
+  - Scales elastically with demand
+  - Works on low-bandwidth connections
+  - Simple user experience despite complexity
   cons:
-    - "High infrastructure costs for video processing"
-    - "Complex routing algorithms"
-    - "Security challenges with end-to-end encryption"
-    - "Bandwidth intensive at scale"
-
-# Best for
+  - High infrastructure costs for video processing
+  - Complex routing algorithms
+  - Security challenges with end-to-end encryption
+  - Bandwidth intensive at scale
 best_for:
-  - "Real-time video applications"
-  - "Applications with sudden traffic spikes"
-  - "Global user base requiring low latency"
-  - "Bandwidth-adaptive streaming needs"
-
-# Excellence connections
+- Real-time video applications
+- Applications with sudden traffic spikes
+- Global user base requiring low latency
+- Bandwidth-adaptive streaming needs
 excellence_guides:
-  - scale/traffic-spikes
-  - pattern-library/video-streaming
-  - operational/auto-scaling
-
-# Implementation insights
+- scale/traffic-spikes
+- pattern-library/video-streaming
+- operational/auto-scaling
 key_innovations:
-  - "Distributed video routing architecture"
-  - "Intelligent cascade routing for optimal paths"
-  - "Custom video codec optimizations"
-  - "Rapid infrastructure provisioning"
-
+- Distributed video routing architecture
+- Intelligent cascade routing for optimal paths
+- Custom video codec optimizations
+- Rapid infrastructure provisioning
 lessons_learned:
-  - category: "Scaling"
-    lesson: "Auto-scaling must be aggressive for viral growth"
-  - category: "Architecture"
-    lesson: "Distributed routing crucial for video quality"
-  - category: "Operations"
-    lesson: "Monitoring becomes critical at massive scale"
+- category: Scaling
+  lesson: Auto-scaling must be aggressive for viral growth
+- category: Architecture
+  lesson: Distributed routing crucial for video quality
+- category: Operations
+  lesson: Monitoring becomes critical at massive scale
 ---
 
 # Zoom's Scaling Journey: From Startup to 300M Daily Users

@@ -27,8 +27,8 @@ prerequisites:
 - fsync
 reading_time: 25 min
 related_laws:
-- law1-failure
-- law4-optimization
+- correlated-failure
+- multidimensional-optimization
 related_pillars:
 - state
 - truth
@@ -355,15 +355,15 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - System crash scenarios
-    - [Law 4: Multi-dimensional Optimization](../../part1-axioms/law4-optimization/) - Durability vs performance
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - System crash scenarios
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Durability vs performance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Durable state management
-    - [Truth Distribution](../../part2-pillars/truth/) - Consistent transaction ordering
+    - [State Distribution](../../core-principles/pillars/state/) - Durable state management
+    - [Truth Distribution](../../core-principles/pillars/truth/) - Consistent transaction ordering
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

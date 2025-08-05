@@ -34,8 +34,8 @@ production_checklist:
 - Test impact on write performance and storage
 reading_time: 20 min
 related_laws:
-- law4-tradeoffs
-- law7-economics
+- multidimensional-optimization
+- economic-reality
 related_pillars:
 - state
 - work
@@ -315,15 +315,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/) - Space vs time trade-offs
-    - [Law 7: Economic Reality](../../part1-axioms/law7-economics/) - Cost optimization
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Space vs time trade-offs
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost optimization
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Distributed view management
-    - [Work Distribution](../../part2-pillars/work/) - Query workload optimization
+    - [State Distribution](../../core-principles/pillars/state/) - Distributed view management
+    - [Work Distribution](../../core-principles/pillars/work/) - Query workload optimization
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

@@ -16,9 +16,9 @@ prerequisites:
 - distributed-timing
 reading_time: 15 min
 related_laws:
-- law1-failure
-- law2-asynchrony
-- law5-epistemology
+- correlated-failure
+- asynchronous-reality
+- distributed-knowledge
 related_pillars:
 - truth
 - control
@@ -301,9 +301,9 @@ class PhiAccrualDetector:
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Network affects all heartbeats
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - No synchronized clocks
-    - [Law 5: Distributed Knowledge](../../part1-axioms/law5-epistemology/) - Partial failure views
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Network affects all heartbeats
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - No synchronized clocks
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Partial failure views
 
 </div>
 

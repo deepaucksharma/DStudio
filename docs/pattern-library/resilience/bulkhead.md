@@ -17,9 +17,9 @@ prerequisites:
 - concurrency-control
 reading_time: 15 min
 related_laws:
-- law1-failure
-- law3-emergence
-- law7-economics
+- correlated-failure
+- emergent-chaos
+- economic-reality
 related_pillars:
 - work
 - control
@@ -246,9 +246,9 @@ type: pattern
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Bulkheads prevent correlation
-    - [Law 3: Emergent Chaos](../../part1-axioms/law3-emergence/) - Isolation reduces emergence
-    - [Law 7: Economic Reality](../../part1-axioms/law7-economics/) - Trade efficiency for safety
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Bulkheads prevent correlation
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Isolation reduces emergence
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Trade efficiency for safety
 
 </div>
 

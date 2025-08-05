@@ -1,5 +1,5 @@
 ---
-title: "Migration: From Monolith to Microservices"
+title: 'Migration: From Monolith to Microservices'
 description: Real-world lessons from decomposing monolithic applications into microservices
 type: case-study
 difficulty: advanced
@@ -7,16 +7,12 @@ reading_time: 30 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: bronze
 scale_category: large-scale
 domain: architecture-migration
 company: Generic Pattern
 year_implemented: 2015
 current_status: legacy-migration
-
-# Key metrics
 metrics:
   migration_duration: 2-5 years
   team_size_increase: 3x
@@ -24,60 +20,51 @@ metrics:
   deployment_frequency: 100x improvement
   failure_rate: 50% of attempts
   cost_increase: 2-3x initially
-
-# Pattern usage tracking
 patterns_used:
   bronze:
-    - monolith: "Legacy architecture being decomposed"
-    - distributed-monolith: "Common anti-pattern during migration"
+  - monolith: Legacy architecture being decomposed
+  - distributed-monolith: Common anti-pattern during migration
   silver:
-    - service-mesh: "Managing service communication"
-    - api-gateway: "Unified entry point"
-    - event-driven: "Decoupling services"
+  - service-mesh: Managing service communication
+  - api-gateway: Unified entry point
+  - event-driven: Decoupling services
   gold:
-    - circuit-breaker: "Handling distributed failures"
-    - distributed-tracing: "Debugging across services"
-
-# Modern alternatives
+  - circuit-breaker: Handling distributed failures
+  - distributed-tracing: Debugging across services
 modern_alternatives:
-  - name: "Modular Monolith"
-    description: "Well-structured monolith with clear boundaries"
-    when_to_use: "Teams < 20, single product, rapid iteration needed"
-  - name: "Service-Oriented Architecture"
-    description: "Coarse-grained services with shared databases"
-    when_to_use: "Medium teams, some scaling needs"
-  - name: "Serverless Functions"
-    description: "Event-driven compute without server management"
-    when_to_use: "Variable load, cost-sensitive, stateless workloads"
-  - name: "Domain-Driven Microservices"
-    description: "Services aligned with business domains"
-    when_to_use: "Large teams, complex domains, need autonomy"
-
-# Deprecation reason
-deprecation_reason: "Many organizations jumped to microservices without understanding the operational complexity. Modern approaches favor starting with modular monoliths and extracting services only when proven necessary."
-
-# Excellence connections
+- name: Modular Monolith
+  description: Well-structured monolith with clear boundaries
+  when_to_use: Teams < 20, single product, rapid iteration needed
+- name: Service-Oriented Architecture
+  description: Coarse-grained services with shared databases
+  when_to_use: Medium teams, some scaling needs
+- name: Serverless Functions
+  description: Event-driven compute without server management
+  when_to_use: Variable load, cost-sensitive, stateless workloads
+- name: Domain-Driven Microservices
+  description: Services aligned with business domains
+  when_to_use: Large teams, complex domains, need autonomy
+deprecation_reason: Many organizations jumped to microservices without understanding
+  the operational complexity. Modern approaches favor starting with modular monoliths
+  and extracting services only when proven necessary.
 excellence_guides:
-  - migration/microservices
-  - pattern-library/anti-patterns
-  - architecture/evolution
-
-# Implementation insights
+- migration/microservices
+- pattern-library/anti-patterns
+- architecture/evolution
 key_innovations:
-  - "Strangler fig pattern for gradual migration"
-  - "Event storming for boundary identification"
-  - "Database-per-service from day one"
-  - "Correlation IDs for distributed tracing"
-
+- Strangler fig pattern for gradual migration
+- Event storming for boundary identification
+- Database-per-service from day one
+- Correlation IDs for distributed tracing
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Start with a modular monolith, extract services when needed"
-  - category: "Team"
-    lesson: "Conway's Law is real - organize teams around services"
-  - category: "Operations"
-    lesson: "Operational complexity grows exponentially with services"
-  - category: "Data"
-    lesson: "Distributed transactions are the hardest problem"
+- category: Architecture
+  lesson: Start with a modular monolith, extract services when needed
+- category: Team
+  lesson: Conway's Law is real - organize teams around services
+- category: Operations
+  lesson: Operational complexity grows exponentially with services
+- category: Data
+  lesson: Distributed transactions are the hardest problem
 ---
 
 # Migration: From Monolith to Microservices

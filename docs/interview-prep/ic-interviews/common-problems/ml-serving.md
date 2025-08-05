@@ -4,10 +4,10 @@ description: Build a scalable ML model serving platform for real-time and batch 
 type: system-design-problem
 difficulty: advanced
 reading_time: 60 min
-prerequisites: 
-  - pattern-library/model-versioning
-  - pattern-library/feature-store
-  - pattern-library/circuit-breaker
+prerequisites:
+- pattern-library/model-versioning
+- pattern-library/feature-store
+- pattern-library/circuit-breaker
 status: complete
 last_updated: 2025-08-04
 ---

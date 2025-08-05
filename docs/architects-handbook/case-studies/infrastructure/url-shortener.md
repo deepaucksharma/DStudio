@@ -1,14 +1,15 @@
 ---
 title: URL Shortener Service
-description: Design a scalable service to shorten URLs with analytics, custom aliases, and abuse prevention
+description: Design a scalable service to shorten URLs with analytics, custom aliases,
+  and abuse prevention
 type: case-study
 difficulty: intermediate
 reading_time: 35 min
-prerequisites: 
-  - law2-asynchrony
-  - law7-economics
-  - pattern-library/caching-strategies
-  - pattern-library/rate-limiting
+prerequisites:
+- asynchronous-reality
+- economic-reality
+- pattern-library/caching-strategies
+- pattern-library/rate-limiting
 status: complete
 last_updated: 2025-07-20
 excellence_tier: silver
@@ -17,20 +18,20 @@ introduced: 2006-01
 current_relevance: mainstream
 trade_offs:
   pros:
-    - Well-understood design patterns
-    - Proven at scale (bit.ly, TinyURL)
-    - Clear performance optimization path
-    - Good learning case for distributed systems
+  - Well-understood design patterns
+  - Proven at scale (bit.ly, TinyURL)
+  - Clear performance optimization path
+  - Good learning case for distributed systems
   cons:
-    - Security concerns with open redirects
-    - Analytics storage can be expensive
-    - Cache invalidation complexity
-    - Custom URL collision handling
+  - Security concerns with open redirects
+  - Analytics storage can be expensive
+  - Cache invalidation complexity
+  - Custom URL collision handling
 best_for:
-  - Teaching distributed systems concepts
-  - Understanding caching strategies
-  - Learning ID generation techniques
-  - Performance optimization examples
+- Teaching distributed systems concepts
+- Understanding caching strategies
+- Learning ID generation techniques
+- Performance optimization examples
 ---
 
 # URL Shortener Service
@@ -1387,8 +1388,8 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality](/core-principles/laws/asynchronous-reality/) - CDN and caching strategies
-- [Law 7: Economic Reality](/core-principles/laws/economic-reality/) - Cost optimization techniques
+- [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - CDN and caching strategies
+- [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost optimization techniques
 - [Caching Strategies](../pattern-library/scaling/caching-strategies.md) - Multi-level cache design
 - [Rate Limiting](../pattern-library/scaling/rate-limiting.md) - Protecting against abuse
 

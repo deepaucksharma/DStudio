@@ -1,9 +1,10 @@
 ---
 title: The Compendium of Distributed Systems
-description: Master distributed systems through physics-derived principles and battle-tested patterns
+description: Master distributed systems through physics-derived principles and battle-tested
+  patterns
 hide:
-  - navigation
-  - toc
+- navigation
+- toc
 ---
 
 # The Compendium of Distributed Systems

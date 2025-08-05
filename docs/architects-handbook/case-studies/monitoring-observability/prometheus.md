@@ -1,23 +1,24 @@
 ---
-title: "Prometheus: Cloud-Native Monitoring at Scale"
-description: "Deep dive into Prometheus' pull-based architecture, time series database, and PromQL query language"
+title: 'Prometheus: Cloud-Native Monitoring at Scale'
+description: Deep dive into Prometheus' pull-based architecture, time series database,
+  and PromQL query language
 type: case-study
 difficulty: advanced
 reading_time: 45 min
-prerequisites: ["monitoring", "time-series", "service-discovery", "metrics"]
-pattern_type: "observability"
+prerequisites:
+- monitoring
+- time-series
+- service-discovery
+- metrics
+pattern_type: observability
 status: complete
 last_updated: 2025-01-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: large-scale
 domain: monitoring
 company: SoundCloud
 year_implemented: 2012
 current_status: production
-
-# Key metrics
 metrics:
   deployments: 1M+
   metrics_ingested: 10M+ per instance
@@ -25,26 +26,22 @@ metrics:
   retention: 15d-2y typical
   cardinality: 10M+ series
   scrape_interval: 15-60s
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - pull-model: "Targets expose metrics, Prometheus scrapes"
-    - service-discovery: "Dynamic target discovery"
-    - time-series-db: "Custom TSDB for metrics"
-    - alerting: "Rule-based alerting with Alertmanager"
+  - pull-model: Targets expose metrics, Prometheus scrapes
+  - service-discovery: Dynamic target discovery
+  - time-series-db: Custom TSDB for metrics
+  - alerting: Rule-based alerting with Alertmanager
   silver:
-    - federation: "Hierarchical Prometheus setups"
-    - remote-write: "Long-term storage integration"
-    - recording-rules: "Pre-computed queries"
+  - federation: Hierarchical Prometheus setups
+  - remote-write: Long-term storage integration
+  - recording-rules: Pre-computed queries
   bronze:
-    - push-gateway: "For batch jobs (anti-pattern)"
-
-# Excellence connections
+  - push-gateway: For batch jobs (anti-pattern)
 excellence_guides:
-  - scale/observability-platforms
-  - operational/prometheus-best-practices
-  - pattern-library/metrics-monitoring
+- scale/observability-platforms
+- operational/prometheus-best-practices
+- pattern-library/metrics-monitoring
 ---
 
 

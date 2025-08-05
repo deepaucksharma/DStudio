@@ -1,6 +1,7 @@
 ---
 title: Design YouTube - System Design Interview Guide
-description: Build a video platform handling 500hrs/min uploads and billions of daily views
+description: Build a video platform handling 500hrs/min uploads and billions of daily
+  views
 type: system-design-interview
 difficulty: advanced
 reading_time: 60 min
@@ -10,16 +11,16 @@ pattern_status: recommended
 introduced: 2005-02
 current_relevance: mainstream
 modern_examples:
-  - YouTube (2B+ users)
-  - Netflix
-  - Twitch
-  - TikTok
+- YouTube (2B+ users)
+- Netflix
+- Twitch
+- TikTok
 production_checklist:
-  - Video transcoding pipeline
-  - CDN distribution strategy
-  - Adaptive bitrate streaming
-  - Recommendation ML pipeline
-  - Copyright detection system
+- Video transcoding pipeline
+- CDN distribution strategy
+- Adaptive bitrate streaming
+- Recommendation ML pipeline
+- Copyright detection system
 ---
 
 

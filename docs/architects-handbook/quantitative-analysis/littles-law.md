@@ -1,6 +1,7 @@
 ---
 title: Little's Law Deep-Dive
-description: "Little's Law is the fundamental relationship between arrival rate, service time, and queue length in any stable system"
+description: Little's Law is the fundamental relationship between arrival rate, service
+  time, and queue length in any stable system
 type: quantitative
 difficulty: intermediate
 reading_time: 45 min

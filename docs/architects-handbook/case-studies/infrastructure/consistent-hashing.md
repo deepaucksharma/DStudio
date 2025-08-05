@@ -1,13 +1,14 @@
 ---
 title: Consistent Hashing
-description: Minimize data movement in distributed systems when nodes join or leave the cluster
+description: Minimize data movement in distributed systems when nodes join or leave
+  the cluster
 type: case-study
 difficulty: advanced
 reading_time: 30 min
-prerequisites: 
-  - law1-failure
-  - law5-epistemology
-  - pattern-library/sharding
+prerequisites:
+- correlated-failure
+- distributed-knowledge
+- pattern-library/sharding
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -15,20 +16,20 @@ pattern_status: recommended
 introduced: 1997-01
 current_relevance: mainstream
 modern_examples:
-  - company: Amazon
-    usage: "DynamoDB for partition distribution across nodes"
-  - company: Cassandra
-    usage: "Data distribution with virtual nodes for better balance"
-  - company: Discord
-    usage: "Channel and guild distribution across servers"
+- company: Amazon
+  usage: DynamoDB for partition distribution across nodes
+- company: Cassandra
+  usage: Data distribution with virtual nodes for better balance
+- company: Discord
+  usage: Channel and guild distribution across servers
 production_checklist:
-  - "Virtual nodes for better load distribution (150+ per physical node)"
-  - "Weighted nodes for heterogeneous hardware"
-  - "Efficient ring rebalancing during node changes"
-  - "Client-side caching of ring topology"
-  - "Monitoring for hot spots and uneven distribution"
-  - "Graceful handling of simultaneous node failures"
-  - "Ring synchronization protocol for topology changes"
+- Virtual nodes for better load distribution (150+ per physical node)
+- Weighted nodes for heterogeneous hardware
+- Efficient ring rebalancing during node changes
+- Client-side caching of ring topology
+- Monitoring for hot spots and uneven distribution
+- Graceful handling of simultaneous node failures
+- Ring synchronization protocol for topology changes
 ---
 
 # Consistent Hashing
@@ -1343,13 +1344,13 @@ class ConsistentHashRing:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I.md)
-- **[Law 1: Correlated Failure ](/core-principles/laws/correlated-failure/)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Law 2: Asynchronous Reality ](/core-principles/laws/asynchronous-reality/)** - O(log n/index) lookup time with client-side caching reduces routing latency
-- **[Law 3: Emergent Chaos ](/core-principles/laws/emergent-chaos/)** - Ring lookups are lock-free read operations
-- **[Law 4: Multidimensional Trade-offs ](/core-principles/laws/multidimensional-optimization/)** - Even distribution prevents capacity hot spots across nodes
-- **[Law 5: Distributed Knowledge ](/core-principles/laws/distributed-knowledge/)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
-- **[Law 6: Cognitive Load ](/core-principles/laws/cognitive-load/)** - Visual ring representation aids debugging and operations
-- **[Law 7: Economic Reality ](/core-principles/laws/economic-reality/)** - Efficient scaling without full data redistribution saves bandwidth
+- **[Law 1: Correlated Failure ](../../core-principles/laws/correlated-failure/)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws/asynchronous-reality/)** - O(log n/index) lookup time with client-side caching reduces routing latency
+- **[Law 3: Emergent Chaos ](../../core-principles/laws/emergent-chaos/)** - Ring lookups are lock-free read operations
+- **[Law 4: Multidimensional Trade-offs ](../../core-principles/laws/multidimensional-optimization/)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 5: Distributed Knowledge ](../../core-principles/laws/distributed-knowledge/)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Cognitive Load ](../../core-principles/laws/cognitive-load/)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economic Reality ](../../core-principles/laws/economic-reality/)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛 Related Patterns (Part III/index)
 - **[Sharding & Partitioning](../pattern-library/scaling/sharding.md)** - Consistent hashing is the foundation for data sharding

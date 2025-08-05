@@ -1,11 +1,15 @@
 ---
 title: Performance Modeling for Distributed Systems
-description: Mathematical models and practical techniques for predicting and optimizing system performance
+description: Mathematical models and practical techniques for predicting and optimizing
+  system performance
 type: quantitative
 difficulty: advanced
 reading_time: 45 min
-prerequisites: [littles-law, queueing-models, probability-basics]
-pattern_type: "various"
+prerequisites:
+- littles-law
+- queueing-models
+- probability-basics
+pattern_type: various
 status: complete
 last_updated: 2025-01-23
 ---

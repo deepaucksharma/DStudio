@@ -3,9 +3,9 @@ title: Pattern Documentation Template
 description: Standardized template for documenting distributed systems patterns
 icon: material/file-document-outline
 tags:
-  - template
-  - documentation
-  - patterns
+- template
+- documentation
+- patterns
 ---
 
 # Pattern Documentation Template
@@ -38,7 +38,7 @@ modern_examples:
 production_checklist:
   - "Checklist item 1"
   - "Checklist item 2"
-related_laws: [law1-failure, law2-asynchrony, etc.]
+related_laws: [correlated-failure, law2-asynchrony, etc.]
 related_pillars: [work, state, truth, control, intelligence]
 ---
 ```
@@ -180,11 +180,11 @@ graph TB
 
 ### Fundamental Laws
 This pattern directly addresses:
-- **[Law X: Name](../../part1-axioms/lawX/)**: How this pattern relates to the law
+- **[Law X: Name](../../core-principles/laws/lawX/)**: How this pattern relates to the law
 
 ### Foundational Pillars
 This pattern implements:
-- **[Pillar X: Name](../../part2-pillars/pillarX/)**: How this pattern implements the pillar
+- **[Pillar X: Name](../../core-principles/pillars/pillarX/)**: How this pattern implements the pillar
 ```
 
 ### 8. Excellence Framework Integration

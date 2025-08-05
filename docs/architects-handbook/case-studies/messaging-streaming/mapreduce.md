@@ -1,23 +1,23 @@
 ---
-title: "MapReduce: Google's Distributed Computing Framework"
-description: "Exploring MapReduce's simple programming model, fault tolerance, and lessons from processing web-scale data"
+title: 'MapReduce: Google''s Distributed Computing Framework'
+description: Exploring MapReduce's simple programming model, fault tolerance, and
+  lessons from processing web-scale data
 type: case-study
 difficulty: intermediate
 reading_time: 40 min
-prerequisites: ["distributed-computing", "functional-programming", "big-data"]
-pattern_type: "data-processing"
+prerequisites:
+- distributed-computing
+- functional-programming
+- big-data
+pattern_type: data-processing
 status: complete
 last_updated: 2025-01-28
-
-# Excellence metadata
 excellence_tier: bronze
 scale_category: large-scale
 domain: batch-processing
 company: Google
 year_implemented: 2004
 current_status: legacy
-
-# Key metrics
 metrics:
   data_processed: 20PB+ daily (2008)
   cluster_size: 10000+ nodes
@@ -25,38 +25,32 @@ metrics:
   fault_tolerance: Automatic
   programming_model: Map + Reduce
   iterations: Single pass
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - functional-programming: "Map and reduce primitives"
-    - fault-tolerance: "Automatic re-execution of failed tasks"
-    - data-locality: "Move computation to data"
+  - functional-programming: Map and reduce primitives
+  - fault-tolerance: Automatic re-execution of failed tasks
+  - data-locality: Move computation to data
   silver:
-    - master-worker: "JobTracker and TaskTrackers"
-    - batch-processing: "Offline large-scale processing"
+  - master-worker: JobTracker and TaskTrackers
+  - batch-processing: Offline large-scale processing
   bronze:
-    - disk-based: "All intermediate data to disk"
-    - single-pass: "No support for iterative algorithms"
-
-# Excellence connections
+  - disk-based: All intermediate data to disk
+  - single-pass: No support for iterative algorithms
 excellence_guides:
-  - migration/mapreduce-to-spark
-  - pattern-library/modern-data-processing
-  - historical/big-data-evolution
-
-# Deprecation notice
+- migration/mapreduce-to-spark
+- pattern-library/modern-data-processing
+- historical/big-data-evolution
 deprecation:
-  status: "Replaced by modern frameworks"
+  status: Replaced by modern frameworks
   reasons:
-    - "Disk I/O between steps (100x slower)"
-    - "No memory caching"
-    - "Limited to map-reduce paradigm"
-    - "Poor support for iterative algorithms"
+  - Disk I/O between steps (100x slower)
+  - No memory caching
+  - Limited to map-reduce paradigm
+  - Poor support for iterative algorithms
   alternatives:
-    - Apache Spark: "In-memory, 100x faster"
-    - Apache Flink: "True streaming"
-    - Apache Beam: "Unified batch/stream"
+  - Apache Spark: In-memory, 100x faster
+  - Apache Flink: True streaming
+  - Apache Beam: Unified batch/stream
 ---
 
 

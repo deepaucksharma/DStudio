@@ -1,13 +1,14 @@
 ---
 title: Design an IoT Platform
-description: Build a scalable Internet of Things platform for device management and data processing
+description: Build a scalable Internet of Things platform for device management and
+  data processing
 type: system-design-problem
 difficulty: advanced
 reading_time: 60 min
-prerequisites: 
-  - pattern-library/stream-processing
-  - pattern-library/time-series-database
-  - pattern-library/device-management
+prerequisites:
+- pattern-library/stream-processing
+- pattern-library/time-series-database
+- pattern-library/device-management
 status: complete
 last_updated: 2025-08-04
 ---

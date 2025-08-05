@@ -1,6 +1,6 @@
 ---
 title: Storage Economics
-description: "Quantitative models for storage cost optimization and economics"
+description: Quantitative models for storage cost optimization and economics
 ---
 
 # Storage Economics

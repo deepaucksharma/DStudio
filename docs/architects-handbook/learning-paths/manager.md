@@ -46,15 +46,15 @@ As an engineering manager, you will:
  Focus on high-impact knowledge:
  
  - [The 7 Laws Overview](axioms/) - Quick understanding
- - [Law 4: Trade-offs](../../core-principles/laws/law4-tradeoffs/index) - Decision making
- - [Law 7: Economic Reality](../../core-principles/laws/law7-economics/index) - Cost implications
+ - [Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization) - Decision making
+ - [Law 7: Economic Reality](../../core-principles/laws/economic-reality) - Cost implications
 
 - **Week 2: Practical Implications**
  
  Understand operational realities:
  
- - [Law 1: Correlated Failure](../../core-principles/laws/law1-failure/index) - Risk management
- - [Law 6: Cognitive Load](../../core-principles/laws/law6-human-api/index) - Team capacity
+ - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure) - Risk management
+ - [Law 6: Cognitive Load](../../core-principles/laws/cognitive-load/index) - Team capacity
  - [The 5 Pillars](/core-principles/pillars/index) - Architectural choices
 
 </div>

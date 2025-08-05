@@ -1,6 +1,6 @@
 ---
 title: Cache Economics Sheet
-description: "The fundamental equation for cache profitability:"
+description: 'The fundamental equation for cache profitability:'
 type: quantitative
 difficulty: beginner
 reading_time: 40 min

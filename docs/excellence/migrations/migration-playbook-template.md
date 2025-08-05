@@ -1,6 +1,7 @@
 ---
 title: Migration Playbook Template
-description: Standardized template for creating migration guides from legacy patterns to modern solutions
+description: Standardized template for creating migration guides from legacy patterns
+  to modern solutions
 ---
 
 # Migration Playbook Template

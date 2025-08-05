@@ -2,9 +2,9 @@
 title: Offline Mode
 description: You're viewing this page offline
 hide:
-  - navigation
-  - toc
-  - footer
+- navigation
+- toc
+- footer
 ---
 
 # 📡 You're Offline

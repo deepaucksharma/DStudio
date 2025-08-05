@@ -6,16 +6,16 @@ pattern_status: recommended
 introduced: 2011-09
 current_relevance: mainstream
 modern_examples:
-  - Stripe API
-  - Twilio API
-  - SendGrid API
-  - Plaid API
+- Stripe API
+- Twilio API
+- SendGrid API
+- Plaid API
 production_checklist:
-  - Idempotency key implementation
-  - API versioning strategy
-  - Webhook delivery system
-  - Rate limiting architecture
-  - Developer experience metrics
+- Idempotency key implementation
+- API versioning strategy
+- Webhook delivery system
+- Rate limiting architecture
+- Developer experience metrics
 ---
 
 # Stripe: Building the Gold Standard for APIs

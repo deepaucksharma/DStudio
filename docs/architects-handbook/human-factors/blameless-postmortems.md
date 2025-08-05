@@ -1,10 +1,14 @@
 ---
 title: Blameless Postmortems
-description: "A structured review of incidents focusing on systemic issues rather than individual blame, designed to prevent future failures while respecting cognitive limits"
+description: A structured review of incidents focusing on systemic issues rather than
+  individual blame, designed to prevent future failures while respecting cognitive
+  limits
 type: human-factors
 difficulty: beginner
 reading_time: 10 min
-prerequisites: ["part1-axioms/law6-human-api", "part1-axioms/law1-failure"]
+prerequisites:
+- core-principles/laws/cognitive-load
+- core-principles/laws/correlated-failure
 status: complete
 last_updated: 2025-07-23
 ---

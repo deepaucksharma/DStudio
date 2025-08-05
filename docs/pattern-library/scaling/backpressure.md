@@ -34,9 +34,9 @@ production_checklist:
 - Configure multi-tier drop policies to minimize data loss
 reading_time: 18 min
 related_laws:
-- law1-failure
-- law2-asynchrony
-- law4-tradeoffs
+- correlated-failure
+- asynchronous-reality
+- multidimensional-optimization
 related_pillars:
 - work
 - control
@@ -333,15 +333,15 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1/) - Preventing cascade failures
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2/) - Distributed flow control
+    - [Law 1: Correlated Failure](../../core-principles/laws/law1/) - Preventing cascade failures
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Distributed flow control
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../part2-pillars/work/) - Load balancing across consumers
-    - [Control Distribution](../../part2-pillars/control/) - Distributed flow decisions
+    - [Work Distribution](../../core-principles/pillars/work/) - Load balancing across consumers
+    - [Control Distribution](../../core-principles/pillars/control/) - Distributed flow decisions
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

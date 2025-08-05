@@ -5,19 +5,15 @@ type: case-studie
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
-pattern_type: "various"
+pattern_type: various
 status: stub
 last_updated: 2025-01-23
-
-# Excellence metadata
 excellence_tier: bronze
 scale_category: global-scale
 domain: distributed-ledger
 company: Bitcoin/Ethereum
 year_implemented: 2009
 current_status: production
-
-# Key metrics
 metrics:
   users: 100M+
   requests_per_second: 10K+
@@ -25,63 +21,54 @@ metrics:
   availability: 99.9%
   latency_p99: 10min
   regions: 100+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - consensus-algorithms: "Proof of Work/Stake for agreement"
-    - merkle-trees: "Efficient transaction verification"
-    - cryptographic-hashing: "Chain integrity and mining"
+  - consensus-algorithms: Proof of Work/Stake for agreement
+  - merkle-trees: Efficient transaction verification
+  - cryptographic-hashing: Chain integrity and mining
   silver:
-    - gossip-protocol: "Block propagation across network"
-    - eventual-consistency: "Network-wide state agreement"
+  - gossip-protocol: Block propagation across network
+  - eventual-consistency: Network-wide state agreement
   bronze:
-    - proof-of-work: "Energy-intensive consensus"
-    - blockchain-forks: "Network splits and reorganization"
-    - transaction-fees: "Economic incentive model"
-
-# Excellence connections
+  - proof-of-work: Energy-intensive consensus
+  - blockchain-forks: Network splits and reorganization
+  - transaction-fees: Economic incentive model
 excellence_guides:
-  - scale/blockchain-infrastructure
-  - migration/blockchain-considerations
-  - operational/decentralized-systems
-
-# Implementation insights
+- scale/blockchain-infrastructure
+- migration/blockchain-considerations
+- operational/decentralized-systems
 key_innovations:
-  - "Decentralized consensus without central authority"
-  - "Immutable ledger through cryptographic chaining"
-  - "Economic incentives align with security"
-
+- Decentralized consensus without central authority
+- Immutable ledger through cryptographic chaining
+- Economic incentives align with security
 lessons_learned:
-  - category: "Scalability"
-    lesson: "Consensus mechanisms limit transaction throughput"
-  - category: "Energy"
-    lesson: "Proof of Work consumes massive energy"
-  - category: "Adoption"
-    lesson: "Technical complexity limits mainstream use"
-
-# Bronze tier specific metadata
+- category: Scalability
+  lesson: Consensus mechanisms limit transaction throughput
+- category: Energy
+  lesson: Proof of Work consumes massive energy
+- category: Adoption
+  lesson: Technical complexity limits mainstream use
 modern_alternatives:
-  - name: "Distributed Databases"
-    description: "Traditional consensus with better performance"
-    when_to_use: "When trust exists between parties"
-  - name: "Event Sourcing"
-    description: "Immutable audit logs without blockchain"
-    when_to_use: "When centralized control is acceptable"
-  - name: "Consortium Blockchains"
-    description: "Permissioned networks with known validators"
-    when_to_use: "For enterprise use cases"
-
-deprecation_reason: "High energy consumption, limited throughput, and complexity make public blockchains unsuitable for most enterprise use cases. Private/consortium blockchains offer better trade-offs."
-
+- name: Distributed Databases
+  description: Traditional consensus with better performance
+  when_to_use: When trust exists between parties
+- name: Event Sourcing
+  description: Immutable audit logs without blockchain
+  when_to_use: When centralized control is acceptable
+- name: Consortium Blockchains
+  description: Permissioned networks with known validators
+  when_to_use: For enterprise use cases
+deprecation_reason: High energy consumption, limited throughput, and complexity make
+  public blockchains unsuitable for most enterprise use cases. Private/consortium
+  blockchains offer better trade-offs.
 migration_guide:
-  from: "Public blockchain"
-  to: "Event sourcing + distributed database"
+  from: Public blockchain
+  to: Event sourcing + distributed database
   steps:
-    - "Identify actual requirements (immutability, decentralization, etc.)"
-    - "Evaluate if traditional databases meet needs"
-    - "Consider consortium blockchains for multi-party scenarios"
-    - "Implement event sourcing for audit trails"
+  - Identify actual requirements (immutability, decentralization, etc.)
+  - Evaluate if traditional databases meet needs
+  - Consider consortium blockchains for multi-party scenarios
+  - Implement event sourcing for audit trails
 ---
 
 

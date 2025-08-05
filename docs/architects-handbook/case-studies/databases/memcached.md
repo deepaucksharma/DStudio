@@ -1,23 +1,23 @@
 ---
-title: "Memcached: Simple Distributed Memory Caching"
-description: "Exploring Memcached's minimalist design, consistent hashing, and lessons from Facebook's massive deployment"
+title: 'Memcached: Simple Distributed Memory Caching'
+description: Exploring Memcached's minimalist design, consistent hashing, and lessons
+  from Facebook's massive deployment
 type: case-study
 difficulty: intermediate
 reading_time: 35 min
-prerequisites: ["caching", "consistent-hashing", "distributed-systems"]
-pattern_type: "caching"
+prerequisites:
+- caching
+- consistent-hashing
+- distributed-systems
+pattern_type: caching
 status: complete
 last_updated: 2025-01-28
-
-# Excellence metadata
 excellence_tier: bronze
 scale_category: large-scale
 domain: distributed-cache
 company: Danga Interactive
 year_implemented: 2003
 current_status: legacy
-
-# Key metrics
 metrics:
   deployments: 100000+
   cache_size: 64GB+ per node
@@ -25,37 +25,31 @@ metrics:
   latency_p99: 1ms
   hit_ratio: 95%+
   protocol: ASCII/binary
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - consistent-hashing: "Minimal key redistribution on node changes"
-    - cache-aside: "Application manages cache population"
+  - consistent-hashing: Minimal key redistribution on node changes
+  - cache-aside: Application manages cache population
   silver:
-    - slab-allocation: "Memory efficient storage"
-    - lru-eviction: "Least recently used eviction"
+  - slab-allocation: Memory efficient storage
+  - lru-eviction: Least recently used eviction
   bronze:
-    - no-replication: "Single point of failure per key"
-    - no-persistence: "Memory-only, data loss on restart"
-
-# Excellence connections
+  - no-replication: Single point of failure per key
+  - no-persistence: Memory-only, data loss on restart
 excellence_guides:
-  - migration/memcached-to-redis
-  - pattern-library/modern-caching
-  - operational/cache-strategies
-
-# Deprecation notice
+- migration/memcached-to-redis
+- pattern-library/modern-caching
+- operational/cache-strategies
 deprecation:
-  status: "Superseded by Redis/KeyDB"
+  status: Superseded by Redis/KeyDB
   reasons:
-    - "No persistence options"
-    - "No replication support"
-    - "Limited data structures"
-    - "No built-in clustering"
+  - No persistence options
+  - No replication support
+  - Limited data structures
+  - No built-in clustering
   alternatives:
-    - Redis: "Persistence, replication, data structures"
-    - KeyDB: "Multi-threaded Redis fork"
-    - Hazelcast: "Java-based alternative"
+  - Redis: Persistence, replication, data structures
+  - KeyDB: Multi-threaded Redis fork
+  - Hazelcast: Java-based alternative
 ---
 
 

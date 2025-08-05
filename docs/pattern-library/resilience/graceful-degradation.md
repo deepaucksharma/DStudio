@@ -17,9 +17,9 @@ prerequisites:
 - monitoring-basics
 reading_time: 15 min
 related_laws:
-- law1-failure
-- law4-tradeoffs
-- law7-economics
+- correlated-failure
+- multidimensional-optimization
+- economic-reality
 related_pillars:
 - work
 - control
@@ -241,9 +241,9 @@ type: pattern
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Isolate feature failures
-    - [Law 4: Multi-Dimensional Trade-offs](../../part1-axioms/law4-tradeoffs/) - Balance functionality vs availability
-    - [Law 7: Economic Reality](../../part1-axioms/law7-economics/) - Cost of full redundancy
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Isolate feature failures
+    - [Law 4: Multi-Dimensional Trade-offs](../../core-principles/laws/multidimensional-optimization/) - Balance functionality vs availability
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost of full redundancy
 
 </div>
 

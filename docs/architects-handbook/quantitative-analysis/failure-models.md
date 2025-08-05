@@ -1,11 +1,14 @@
 ---
 title: Failure Models in Distributed Systems
-description: Understanding types of failures, their probabilities, and impact on system design
+description: Understanding types of failures, their probabilities, and impact on system
+  design
 type: quantitative
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: [availability-math, probability-basics]
-pattern_type: "various"
+prerequisites:
+- availability-math
+- probability-basics
+pattern_type: various
 status: complete
 last_updated: 2025-01-23
 ---

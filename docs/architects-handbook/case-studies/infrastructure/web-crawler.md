@@ -1,14 +1,15 @@
 ---
 title: Distributed Web Crawler
-description: Design a scalable system to discover, fetch, and index web content while respecting robots.txt and rate limits
+description: Design a scalable system to discover, fetch, and index web content while
+  respecting robots.txt and rate limits
 type: case-study
 difficulty: advanced
 reading_time: 35 min
-prerequisites: 
-  - axiom3-emergence
-  - axiom6-human-api
-  - pattern-library/queues-streaming
-  - pattern-library/bulkhead
+prerequisites:
+- axiom3-emergence
+- axiom6-human-api
+- pattern-library/queues-streaming
+- pattern-library/bulkhead
 status: complete
 last_updated: 2025-07-20
 excellence_tier: silver
@@ -17,20 +18,20 @@ introduced: 1993-01
 current_relevance: specialized
 trade_offs:
   pros:
-    - Scales to billions of pages
-    - Efficient resource utilization
-    - Respects server constraints
-    - Handles dynamic content
+  - Scales to billions of pages
+  - Efficient resource utilization
+  - Respects server constraints
+  - Handles dynamic content
   cons:
-    - Complex politeness management
-    - Resource intensive
-    - Requires careful rate limiting
-    - Legal and ethical considerations
+  - Complex politeness management
+  - Resource intensive
+  - Requires careful rate limiting
+  - Legal and ethical considerations
 best_for:
-  - Search engines
-  - Data aggregation services
-  - Price monitoring systems
-  - Research and archival projects
+- Search engines
+- Data aggregation services
+- Price monitoring systems
+- Research and archival projects
 ---
 
 # Distributed Web Crawler

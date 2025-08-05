@@ -4,12 +4,21 @@ description: Transition from custom gossip protocols to modern service mesh infr
 type: migration-guide
 difficulty: advanced
 reading_time: 25 min
-prerequisites: [gossip-protocol, service-mesh, microservices]
+prerequisites:
+- gossip-protocol
+- service-mesh
+- microservices
 migration_effort: high
 risk_level: medium
 status: complete
 last_updated: 2025-07-26
-tags: [migration, gossip-protocol, service-mesh, microservices, istio, linkerd]
+tags:
+- migration
+- gossip-protocol
+- service-mesh
+- microservices
+- istio
+- linkerd
 ---
 
 # Migrating from Gossip Protocol to Service Mesh

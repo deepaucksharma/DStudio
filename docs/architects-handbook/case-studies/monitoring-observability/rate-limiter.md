@@ -1,13 +1,14 @@
 ---
 title: Distributed Rate Limiter
-description: Control request rates across distributed services to prevent abuse and ensure fair resource allocation
+description: Control request rates across distributed services to prevent abuse and
+  ensure fair resource allocation
 type: case-study
 difficulty: intermediate
 reading_time: 25 min
-prerequisites: 
-  - law1-failure
-  - law4-tradeoffs
-  - pattern-library/rate-limiting
+prerequisites:
+- correlated-failure
+- multidimensional-optimization
+- pattern-library/rate-limiting
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -15,20 +16,20 @@ pattern_status: recommended
 introduced: 2005-01
 current_relevance: mainstream
 modern_examples:
-  - company: Cloudflare
-    usage: "Global rate limiting at edge with 10M+ req/sec"
-  - company: AWS
-    usage: "API Gateway throttling with token bucket algorithm"
-  - company: Stripe
-    usage: "Multi-tier rate limiting with customer-specific limits"
+- company: Cloudflare
+  usage: Global rate limiting at edge with 10M+ req/sec
+- company: AWS
+  usage: API Gateway throttling with token bucket algorithm
+- company: Stripe
+  usage: Multi-tier rate limiting with customer-specific limits
 production_checklist:
-  - "Local caching strategy to minimize distributed calls"
-  - "Graceful degradation when rate limit store unavailable"
-  - "Multiple algorithms (token bucket, sliding window, fixed window)"
-  - "Hot configuration updates without service restart"
-  - "Detailed metrics and alerting on limit breaches"
-  - "Fair queueing to prevent starvation"
-  - "Protection against thundering herd"
+- Local caching strategy to minimize distributed calls
+- Graceful degradation when rate limit store unavailable
+- Multiple algorithms (token bucket, sliding window, fixed window)
+- Hot configuration updates without service restart
+- Detailed metrics and alerting on limit breaches
+- Fair queueing to prevent starvation
+- Protection against thundering herd
 ---
 
 # Distributed Rate Limiter
@@ -1037,13 +1038,13 @@ graph TD
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I.md)
-- **[Law 1: Correlated Failure ](/core-principles/laws/correlated-failure/)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 2: Asynchronous Reality ](/core-principles/laws/asynchronous-reality/)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 3: Emergent Chaos ](/core-principles/laws/emergent-chaos/)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 4: Multidimensional Trade-offs ](/core-principles/laws/multidimensional-optimization/)** - Rate limiting protects backend capacity from overload
-- **[Law 5: Distributed Knowledge ](/core-principles/laws/distributed-knowledge/)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Cognitive Load ](/core-principles/laws/cognitive-load/)** - Clear error messages with retry-after headers and operational dashboards
-- **[Law 7: Economic Reality ](/core-principles/laws/economic-reality/)** - Local caching reduces infrastructure costs by 80%
+- **[Law 1: Correlated Failure ](../../core-principles/laws/correlated-failure/)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws/asynchronous-reality/)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 3: Emergent Chaos ](../../core-principles/laws/emergent-chaos/)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 4: Multidimensional Trade-offs ](../../core-principles/laws/multidimensional-optimization/)** - Rate limiting protects backend capacity from overload
+- **[Law 5: Distributed Knowledge ](../../core-principles/laws/distributed-knowledge/)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Cognitive Load ](../../core-principles/laws/cognitive-load/)** - Clear error messages with retry-after headers and operational dashboards
+- **[Law 7: Economic Reality ](../../core-principles/laws/economic-reality/)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛 Related Patterns (Part III/index)
 - **[Rate Limiting](../patterns/rate-limiting)** - Core pattern implemented with token bucket algorithm

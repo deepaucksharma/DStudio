@@ -27,9 +27,9 @@ prerequisites:
 - vector-clocks
 reading_time: 15 min
 related_laws:
-- law2-asynchrony
-- law4-tradeoffs
-- law6-cognitive-load
+- asynchronous-reality
+- multidimensional-optimization
+- cognitive-load
 related_pillars:
 - state
 - truth
@@ -303,15 +303,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-async/) - Network delays create inconsistency
-    - [Law 4: Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/) - Consistency vs performance
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays create inconsistency
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Consistency vs performance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 2: State Distribution](../../part2-pillars/state/) - Managing distributed state
-    - [Pillar 3: Truth Distribution](../../part2-pillars/truth/) - Determining authoritative data
+    - [Pillar 2: State Distribution](../../core-principles/pillars/state/) - Managing distributed state
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth/) - Determining authoritative data
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

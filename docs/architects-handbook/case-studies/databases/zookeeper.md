@@ -1,23 +1,23 @@
 ---
-title: "Apache ZooKeeper: Distributed Coordination Service"
-description: "Deep dive into ZooKeeper's architecture, consensus protocol, and lessons from coordinating distributed systems"
+title: 'Apache ZooKeeper: Distributed Coordination Service'
+description: Deep dive into ZooKeeper's architecture, consensus protocol, and lessons
+  from coordinating distributed systems
 type: case-study
 difficulty: advanced
 reading_time: 40 min
-prerequisites: ["consensus", "distributed-coordination", "leader-election"]
-pattern_type: "coordination"
+prerequisites:
+- consensus
+- distributed-coordination
+- leader-election
+pattern_type: coordination
 status: complete
 last_updated: 2025-01-28
-
-# Excellence metadata
 excellence_tier: bronze
 scale_category: medium-scale
 domain: coordination-service
 company: Apache (Yahoo)
 year_implemented: 2008
 current_status: legacy
-
-# Key metrics
 metrics:
   deployments: 10000+
   cluster_size: 3-7 nodes
@@ -25,34 +25,28 @@ metrics:
   latency_p99: 5ms
   availability: 99.99%
   data_size_limit: 1MB per znode
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - consensus: "ZAB (Zookeeper Atomic Broadcast) protocol"
-    - leader-election: "Sequential ephemeral nodes pattern"
-    - configuration-management: "Centralized dynamic config"
+  - consensus: ZAB (Zookeeper Atomic Broadcast) protocol
+  - leader-election: Sequential ephemeral nodes pattern
+  - configuration-management: Centralized dynamic config
   silver:
-    - distributed-lock: "Lock recipes using znodes"
-    - service-discovery: "Ephemeral nodes for service registry"
-    - watch-mechanism: "Event notifications on data changes"
+  - distributed-lock: Lock recipes using znodes
+  - service-discovery: Ephemeral nodes for service registry
+  - watch-mechanism: Event notifications on data changes
   bronze:
-    - master-slave: "Leader-follower architecture"
-
-# Excellence connections
+  - master-slave: Leader-follower architecture
 excellence_guides:
-  - migration/zookeeper-to-etcd
-  - operational/coordination-services
-  - pattern-library/modern-consensus
-
-# Deprecation notice
+- migration/zookeeper-to-etcd
+- operational/coordination-services
+- pattern-library/modern-consensus
 deprecation:
-  status: "Gradually being replaced"
+  status: Gradually being replaced
   alternatives:
-    - etcd: "Kubernetes native, better API"
-    - Consul: "Service mesh integration"
-    - Redis: "Simpler use cases"
-  migration_guide: "migration/zookeeper-to-etcd"
+  - etcd: Kubernetes native, better API
+  - Consul: Service mesh integration
+  - Redis: Simpler use cases
+  migration_guide: migration/zookeeper-to-etcd
 ---
 
 

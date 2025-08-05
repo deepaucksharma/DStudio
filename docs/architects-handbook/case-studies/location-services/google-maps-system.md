@@ -1,6 +1,7 @@
 ---
 title: Design Google Maps - System Design Interview Guide
-description: Build a global mapping service with real-time traffic and routing for 1B+ users
+description: Build a global mapping service with real-time traffic and routing for
+  1B+ users
 type: system-design-interview
 difficulty: advanced
 reading_time: 60 min
@@ -10,16 +11,16 @@ pattern_status: recommended
 introduced: 2005-02
 current_relevance: mainstream
 modern_examples:
-  - Google Maps (1B+ users)
-  - Apple Maps
-  - Mapbox
-  - HERE Maps
+- Google Maps (1B+ users)
+- Apple Maps
+- Mapbox
+- HERE Maps
 production_checklist:
-  - Spatial indexing (QuadTree/R-Tree)
-  - Route calculation algorithms
-  - Map tile caching strategy
-  - Real-time traffic aggregation
-  - Offline map compression
+- Spatial indexing (QuadTree/R-Tree)
+- Route calculation algorithms
+- Map tile caching strategy
+- Real-time traffic aggregation
+- Offline map compression
 ---
 
 

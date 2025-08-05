@@ -1,6 +1,7 @@
 ---
 title: Team Topologies for Distributed Systems
-description: Team Topologies provides four fundamental team types and three interaction modes to help organizations design their team structures for fast flow o...
+description: Team Topologies provides four fundamental team types and three interaction
+  modes to help organizations design their team structures for fast flow o...
 type: human-factors
 difficulty: beginner
 reading_time: 30 min

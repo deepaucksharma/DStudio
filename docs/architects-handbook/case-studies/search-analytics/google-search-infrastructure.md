@@ -1,22 +1,19 @@
 ---
-title: "Google Search Infrastructure: Indexing the World's Information"
-description: How Google built infrastructure to index billions of pages and serve results in milliseconds
+title: 'Google Search Infrastructure: Indexing the World''s Information'
+description: How Google built infrastructure to index billions of pages and serve
+  results in milliseconds
 type: case-study
 difficulty: advanced
 reading_time: 40 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: internet-scale
 domain: search
 company: Google
 year_implemented: 1998
 current_status: production
-
-# Key metrics
 metrics:
   queries_per_second: 100K+
   index_size: 100B+ pages
@@ -24,45 +21,38 @@ metrics:
   availability: 99.999%
   data_centers: 40+
   servers: 2.5M+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - mapreduce: "Processes 100PB+ daily for index updates and ranking"
-    - distributed-cache: "Serves 90%+ queries from memory with sub-ms latency"
-    - sharding: "Index split across 100K+ shards for parallel processing"
-    - load-balancer: "Anycast routing to nearest data center globally"
-    - eventual-consistency: "Index updates propagate within minutes worldwide"
+  - mapreduce: Processes 100PB+ daily for index updates and ranking
+  - distributed-cache: Serves 90%+ queries from memory with sub-ms latency
+  - sharding: Index split across 100K+ shards for parallel processing
+  - load-balancer: Anycast routing to nearest data center globally
+  - eventual-consistency: Index updates propagate within minutes worldwide
   silver:
-    - inverted-index: "Core data structure for full-text search"
-    - bloom-filter: "Reduces disk lookups by 99% for URL deduplication"
-    - consistent-hashing: "Distributes crawl load across thousands of servers"
+  - inverted-index: Core data structure for full-text search
+  - bloom-filter: Reduces disk lookups by 99% for URL deduplication
+  - consistent-hashing: Distributes crawl load across thousands of servers
   bronze:
-    - master-slave: "Legacy GFS architecture before Colossus"
-
-# Excellence connections
+  - master-slave: Legacy GFS architecture before Colossus
 excellence_guides:
-  - scale/internet-scale
-  - pattern-library/data-processing
-  - architecture/search-systems
-
-# Implementation insights
+- scale/internet-scale
+- pattern-library/data-processing
+- architecture/search-systems
 key_innovations:
-  - "PageRank algorithm for relevance ranking"
-  - "MapReduce paradigm for distributed computing"
-  - "Bigtable for structured storage at scale"
-  - "Caffeine indexing system for real-time updates"
-  - "Knowledge Graph with 500B+ facts"
-
+- PageRank algorithm for relevance ranking
+- MapReduce paradigm for distributed computing
+- Bigtable for structured storage at scale
+- Caffeine indexing system for real-time updates
+- Knowledge Graph with 500B+ facts
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Commodity hardware at scale beats expensive specialized systems"
-  - category: "Algorithms"
-    lesson: "Simple algorithms that scale beat complex ones that don't"
-  - category: "Operations"
-    lesson: "Automate everything - manual processes don't scale"
-  - category: "Innovation"
-    lesson: "Build abstractions (MapReduce, Bigtable) to enable rapid iteration"
+- category: Architecture
+  lesson: Commodity hardware at scale beats expensive specialized systems
+- category: Algorithms
+  lesson: Simple algorithms that scale beat complex ones that don't
+- category: Operations
+  lesson: Automate everything - manual processes don't scale
+- category: Innovation
+  lesson: Build abstractions (MapReduce, Bigtable) to enable rapid iteration
 ---
 
 # Google Search Infrastructure: Indexing the World's Information

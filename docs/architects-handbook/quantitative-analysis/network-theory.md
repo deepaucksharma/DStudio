@@ -1,11 +1,14 @@
 ---
 title: Network Theory for Distributed Systems
-description: Graph theory, network models, and communication patterns for understanding distributed system topologies
+description: Graph theory, network models, and communication patterns for understanding
+  distributed system topologies
 type: quantitative
 difficulty: intermediate
 reading_time: 40 min
-prerequisites: [graph-theory-basics, probability]
-pattern_type: "various"
+prerequisites:
+- graph-theory-basics
+- probability
+pattern_type: various
 status: complete
 last_updated: 2025-01-23
 ---

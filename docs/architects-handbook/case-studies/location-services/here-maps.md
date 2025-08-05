@@ -1,10 +1,13 @@
 ---
 title: HERE Maps Case Study
-description: "Analysis of HERE's automotive-focused mapping and location platform"
+description: Analysis of HERE's automotive-focused mapping and location platform
 excellence_tier: silver
 architecture_status: use-with-expertise
 current_scale: enterprise
-key_patterns: ["hd-maps", "sensor-fusion", "ota-updates"]
+key_patterns:
+- hd-maps
+- sensor-fusion
+- ota-updates
 ---
 
 # HERE Maps Case Study

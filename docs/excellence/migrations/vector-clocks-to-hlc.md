@@ -1,15 +1,24 @@
 ---
 title: Migrating from Vector Clocks to HLC
-description: Step-by-step guide for transitioning from Vector Clocks to Hybrid Logical Clocks
+description: Step-by-step guide for transitioning from Vector Clocks to Hybrid Logical
+  Clocks
 type: migration-guide
 difficulty: advanced
 reading_time: 20 min
-prerequisites: [vector-clocks, hlc, distributed-systems]
+prerequisites:
+- vector-clocks
+- hlc
+- distributed-systems
 migration_effort: medium
 risk_level: medium
 status: complete
 last_updated: 2025-07-26
-tags: [migration, vector-clocks, hlc, distributed-clocks, causality]
+tags:
+- migration
+- vector-clocks
+- hlc
+- distributed-clocks
+- causality
 ---
 
 # Migrating from Vector Clocks to HLC

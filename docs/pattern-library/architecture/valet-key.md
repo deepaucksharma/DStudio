@@ -305,8 +305,8 @@ graph TD
 | **[API Gateway Pattern](../pattern-library/communication/api-gateway.md)** | Pattern | Alternative for complex auth |
 | **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** | Pattern | Protect storage services |
 | **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** | Pattern | Control valet key generation |
-| **[Law 7: Economic Reality](part1-axioms/law7-economics/index)** | Axiom | Cost optimization driver |
-| **[Pillar 4: Control](part2-pillars/control/index)** | Pillar | Access control principles |
+| **[Law 7: Economic Reality](core-principles/laws/economic-reality/index)** | Axiom | Cost optimization driver |
+| **[Pillar 4: Control](core-principles/pillars/control/index)** | Pillar | Access control principles |
 | **[CDN Pattern](../pattern-library/scaling/edge-computing.md)** | Pattern | Combine for global scale |
 | **[Encryption at Rest](../pattern-library/distributed-storage.md#encryption)** | Pattern | Secure storage layer |
 

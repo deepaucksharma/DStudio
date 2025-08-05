@@ -24,9 +24,9 @@ prerequisites:
 - distributed-systems
 reading_time: 20 min
 related_laws:
-- law2-asynchrony
-- law3-emergence
-- law5-epistemology
+- asynchronous-reality
+- emergent-chaos
+- distributed-knowledge
 related_pillars:
 - control
 - intelligence
@@ -321,15 +321,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2/) - Event timing challenges
-    - [Law 3: Emergent Chaos](../../part1-axioms/law3/) - Unpredictable interactions
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Event timing challenges
+    - [Law 3: Emergent Chaos](../../core-principles/laws/law3/) - Unpredictable interactions
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Control Distribution](../../part2-pillars/control/) - Coordination mechanisms
-    - [Intelligence Distribution](../../part2-pillars/intelligence/) - Distributed decision making
+    - [Control Distribution](../../core-principles/pillars/control/) - Coordination mechanisms
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence/) - Distributed decision making
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     

@@ -1,22 +1,19 @@
 ---
-title: "Slack's Infrastructure: Real-time Messaging at Scale"
-description: How Slack built infrastructure to deliver millions of messages with sub-second latency
+title: 'Slack''s Infrastructure: Real-time Messaging at Scale'
+description: How Slack built infrastructure to deliver millions of messages with sub-second
+  latency
 type: case-study
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: silver
 scale_category: large-scale
 domain: messaging
 company: Slack
 year_implemented: 2013
 current_status: production
-
-# Key metrics
 metrics:
   daily_active_users: 20M+
   messages_per_day: 1B+
@@ -24,61 +21,50 @@ metrics:
   latency_p99: 100ms
   uptime: 99.99%
   teams: 750K+
-
-# Pattern usage tracking
 patterns_used:
   silver:
-    - websocket: "Maintains 10M+ persistent connections for real-time delivery"
-    - message-queue: "Kafka handles 1B+ messages/day with ordering guarantees"
-    - sharding: "Channel-based sharding for horizontal scaling"
-    - cache-aside: "Redis caches active channel data"
-    - event-sourcing: "Complete message history with search"
+  - websocket: Maintains 10M+ persistent connections for real-time delivery
+  - message-queue: Kafka handles 1B+ messages/day with ordering guarantees
+  - sharding: Channel-based sharding for horizontal scaling
+  - cache-aside: Redis caches active channel data
+  - event-sourcing: Complete message history with search
   gold:
-    - circuit-breaker: "Prevents cascade failures in service mesh"
-    - rate-limiting: "Protects against spam and abuse"
+  - circuit-breaker: Prevents cascade failures in service mesh
+  - rate-limiting: Protects against spam and abuse
   bronze:
-    - polling: "Fallback for websocket failures"
-
-# Trade-offs
+  - polling: Fallback for websocket failures
 trade_offs:
   pros:
-    - "Real-time message delivery with presence"
-    - "Scalable to millions of concurrent users"
-    - "Rich message history and search"
-    - "Reliable with multiple fallback mechanisms"
+  - Real-time message delivery with presence
+  - Scalable to millions of concurrent users
+  - Rich message history and search
+  - Reliable with multiple fallback mechanisms
   cons:
-    - "Complex infrastructure with many moving parts"
-    - "High operational overhead for real-time features"
-    - "Memory intensive for connection management"
-    - "Challenging data consistency across shards"
-
-# Best for
+  - Complex infrastructure with many moving parts
+  - High operational overhead for real-time features
+  - Memory intensive for connection management
+  - Challenging data consistency across shards
 best_for:
-  - "Real-time collaborative applications"
-  - "Team communication platforms"
-  - "Applications requiring persistent connections"
-  - "Rich messaging with history and search"
-
-# Excellence connections
+- Real-time collaborative applications
+- Team communication platforms
+- Applications requiring persistent connections
+- Rich messaging with history and search
 excellence_guides:
-  - scale/large-scale
-  - pattern-library/real-time-systems
-  - architecture/messaging
-
-# Implementation insights
+- scale/large-scale
+- pattern-library/real-time-systems
+- architecture/messaging
 key_innovations:
-  - "Flannel: Custom websocket gateway for connection management"
-  - "Channel-based sharding for team isolation"
-  - "Lazy loading of message history"
-  - "Graceful degradation during outages"
-
+- 'Flannel: Custom websocket gateway for connection management'
+- Channel-based sharding for team isolation
+- Lazy loading of message history
+- Graceful degradation during outages
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Websockets at scale require careful connection management"
-  - category: "Operations"
-    lesson: "Real-time systems need multiple fallback mechanisms"
-  - category: "Performance"
-    lesson: "Channel-based sharding provides natural boundaries"
+- category: Architecture
+  lesson: Websockets at scale require careful connection management
+- category: Operations
+  lesson: Real-time systems need multiple fallback mechanisms
+- category: Performance
+  lesson: Channel-based sharding provides natural boundaries
 ---
 
 # Slack's Infrastructure: Real-time Messaging at Scale

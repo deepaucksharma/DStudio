@@ -20,9 +20,9 @@ prerequisites:
 - distributed-systems
 reading_time: 25 min
 related_laws:
-- law2-asynchrony
-- law3-emergence
-- law6-human-api
+- asynchronous-reality
+- emergent-chaos
+- cognitive-load
 related_pillars:
 - work
 - control
@@ -321,15 +321,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - Message passing nature
-    - [Law 3: Emergent Chaos](../../part1-axioms/law3-emergence/) - Supervision hierarchies
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Message passing nature
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Supervision hierarchies
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../part2-pillars/work/) - Actor-based work distribution
-    - [Control Distribution](../../part2-pillars/control/) - Supervision patterns
+    - [Work Distribution](../../core-principles/pillars/work/) - Actor-based work distribution
+    - [Control Distribution](../../core-principles/pillars/control/) - Supervision patterns
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     

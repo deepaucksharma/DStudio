@@ -1,14 +1,20 @@
 ---
-title: "Truth Distribution: Consensus in Distributed Systems"
-description: "How to establish and maintain consensus across distributed systems when there's no single source of truth"
+title: 'Truth Distribution: Consensus in Distributed Systems'
+description: How to establish and maintain consensus across distributed systems when
+  there's no single source of truth
 type: pillar
 difficulty: intermediate
 reading_time: 45 min
-prerequisites: ["axiom3-emergence", "axiom5-epistemology"]
+prerequisites:
+- axiom3-emergence
+- axiom5-epistemology
 status: complete
 last_updated: 2025-07-29
-audio_widget: |
-  <iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/1Y5F0MhWQGF78FQZJBUdmS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+audio_widget: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/1Y5F0MhWQGF78FQZJBUdmS?utm_source=generator"
+  width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write;
+  encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+  '
 ---
 
 # Truth Distribution: Consensus in Distributed Systems

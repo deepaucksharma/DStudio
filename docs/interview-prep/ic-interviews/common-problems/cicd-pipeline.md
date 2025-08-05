@@ -4,10 +4,10 @@ description: Build a scalable continuous integration and deployment platform
 type: system-design-problem
 difficulty: intermediate
 reading_time: 50 min
-prerequisites: 
-  - pattern-library/event-driven-architecture
-  - pattern-library/containerization
-  - pattern-library/distributed-queues
+prerequisites:
+- pattern-library/event-driven-architecture
+- pattern-library/containerization
+- pattern-library/distributed-queues
 status: complete
 last_updated: 2025-08-04
 ---

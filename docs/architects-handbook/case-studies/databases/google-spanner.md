@@ -1,6 +1,7 @@
 ---
-title: "Google Spanner: Scale and Architecture Deep Dive"
-description: How Google built a globally distributed database with strong consistency and external consistency
+title: 'Google Spanner: Scale and Architecture Deep Dive'
+description: How Google built a globally distributed database with strong consistency
+  and external consistency
 type: case-study
 difficulty: advanced
 reading_time: 50 min
@@ -13,30 +14,30 @@ introduced: 2012-10
 current_relevance: mainstream
 scale_proven: exabyte
 companies_using:
-  - Google
-  - Snap
-  - Home Depot
-  - Square
-  - Spotify
+- Google
+- Snap
+- Home Depot
+- Square
+- Spotify
 production_checklist:
-  - "Design schema with interleaving for co-location"
-  - "Configure appropriate regional placement"
-  - "Monitor TrueTime uncertainty bounds"
-  - "Implement proper retry logic for transactions"
-  - "Use stale reads where appropriate"
-  - "Set up change streams for CDC"
-  - "Configure backup schedules"
-  - "Monitor cross-region latencies"
+- Design schema with interleaving for co-location
+- Configure appropriate regional placement
+- Monitor TrueTime uncertainty bounds
+- Implement proper retry logic for transactions
+- Use stale reads where appropriate
+- Set up change streams for CDC
+- Configure backup schedules
+- Monitor cross-region latencies
 modern_examples:
-  - company: Google
-    scale: "Millions of QPS globally, exabytes of data"
-    use_case: "AdWords, Play Store, Gmail metadata"
-  - company: Snap
-    scale: "Billions of transactions daily"
-    use_case: "User data, messaging infrastructure"
-  - company: Square
-    scale: "Financial transactions at global scale"
-    use_case: "Payment processing with ACID guarantees"
+- company: Google
+  scale: Millions of QPS globally, exabytes of data
+  use_case: AdWords, Play Store, Gmail metadata
+- company: Snap
+  scale: Billions of transactions daily
+  use_case: User data, messaging infrastructure
+- company: Square
+  scale: Financial transactions at global scale
+  use_case: Payment processing with ACID guarantees
 ---
 
 # Google Spanner: Scale and Architecture Deep Dive

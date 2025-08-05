@@ -1,6 +1,7 @@
 ---
 title: Solution Architect Learning Path
-description: Master distributed systems architecture for designing enterprise-scale solutions
+description: Master distributed systems architecture for designing enterprise-scale
+  solutions
 type: learning-path
 difficulty: expert
 reading_time: 20 min
@@ -45,9 +46,9 @@ As a solution architect, you will:
  
  Apply laws to architectural decisions:
  
- - [Law 1: Correlated Failure](../../core-principles/laws/law1-failure/index) - Blast radius design
- - [Law 2: Asynchronous Reality](../../core-principles/laws/law2-asynchrony/index) - Event-driven architectures
- - [Law 3: Emergent Chaos](../../core-principles/laws/law3-emergence/index) - Complexity management
+ - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure) - Blast radius design
+ - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality) - Event-driven architectures
+ - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index) - Complexity management
 
 - **Week 2: Pillars as Design Patterns**
  

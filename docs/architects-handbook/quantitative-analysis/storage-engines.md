@@ -1,6 +1,6 @@
 ---
 title: Storage Engines
-description: "Quantitative analysis of distributed storage engine architectures"
+description: Quantitative analysis of distributed storage engine architectures
 ---
 
 # Storage Engines

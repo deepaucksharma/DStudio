@@ -532,3 +532,12 @@ If you can't answer these, you're not ready for production.
 - **[Law 2: Asynchronous Reality](asynchronous-reality.md)** - Time is a dimension to trade
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Trade-offs interact unpredictably
 - **Patterns**: [CQRS](../pattern-library/data-management/cqrs.md), [Sharding](../pattern-library/scaling/sharding.md), [Service Mesh](../pattern-library/communication/service-mesh.md)
+## Pattern Implementations
+
+Patterns that address this law:
+
+- [Caching Strategies](../../pattern-library/scaling/caching-strategies/)
+- [Graceful Degradation](../../pattern-library/resilience/graceful-degradation/)
+- [Sharding](../../pattern-library/scaling/sharding/)
+
+

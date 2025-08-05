@@ -1,6 +1,7 @@
 ---
 title: Cost Optimization Learning Path
-description: Master cloud cost management and resource optimization for distributed systems
+description: Master cloud cost management and resource optimization for distributed
+  systems
 type: learning-path
 topic: cost
 difficulty: intermediate
@@ -46,7 +47,7 @@ By completing this path, you will:
  
  Understanding cloud costs:
  
- - [Law 7: Economic Reality](../../core-principles/laws/law7-economics) - Cost as a constraint
+ - [Law 7: Economic Reality](../../core-principles/laws/economic-reality) - Cost as a constraint
  - Compute pricing (on-demand, reserved, spot/index)
  - Storage tiers and data transfer costs
 

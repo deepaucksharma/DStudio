@@ -5,9 +5,9 @@ icon: material/account-multiple
 search:
   boost: 0.8
 tags:
-  - contributing
-  - community
-  - guidelines
+- contributing
+- community
+- guidelines
 ---
 
 # Contributing Guide

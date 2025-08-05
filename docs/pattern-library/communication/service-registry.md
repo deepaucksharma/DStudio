@@ -20,9 +20,9 @@ prerequisites:
 - microservices-architecture
 reading_time: 25 min
 related_laws:
-- law4-tradeoffs
-- law6-human-api
-- law7-economics
+- multidimensional-optimization
+- cognitive-load
+- economic-reality
 related_pillars:
 - control
 - truth

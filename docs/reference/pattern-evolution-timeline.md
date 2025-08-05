@@ -3,10 +3,10 @@ title: Pattern Evolution Timeline - 60 Years of Distributed Systems
 description: Historical evolution and future trends of distributed systems patterns
 icon: material/timeline
 tags:
-  - patterns
-  - evolution
-  - history
-  - trends
+- patterns
+- evolution
+- history
+- trends
 ---
 
 # Pattern Evolution Timeline: 60 Years of Innovation

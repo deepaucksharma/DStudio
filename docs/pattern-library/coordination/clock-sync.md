@@ -17,9 +17,9 @@ prerequisites:
 - time-complexity
 reading_time: 35 min
 related_laws:
-- law2-asynchrony
-- law1-failure
-- law7-economics
+- asynchronous-reality
+- correlated-failure
+- economic-reality
 related_pillars:
 - truth
 - control
@@ -333,15 +333,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - Network delays
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Time server failures
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Time server failures
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Truth Distribution](../../part2-pillars/truth/) - Consistent time truth
-    - [Control Distribution](../../part2-pillars/control/) - Coordinated control
+    - [Truth Distribution](../../core-principles/pillars/truth/) - Consistent time truth
+    - [Control Distribution](../../core-principles/pillars/control/) - Coordinated control
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

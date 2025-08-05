@@ -7,6 +7,21 @@ This module provides custom macros and variables for the MkDocs macros plugin.
 import datetime
 
 
+
+def get_law_slug(number, name):
+    """Get the correct slug for a law."""
+    law_slugs = {
+        1: "correlated-failure",
+        2: "asynchronous-reality",
+        3: "emergent-chaos",
+        4: "multidimensional-optimization",
+        5: "distributed-knowledge",
+        6: "cognitive-load",
+        7: "economic-reality"
+    }
+    return law_slugs.get(number, name.lower().replace(" ", "-"))
+
+
 def define_env(env):
     """
     This is the hook for defining variables, macros and filters
@@ -25,12 +40,12 @@ def define_env(env):
     @env.macro
     def law_ref(number, name):
         """Create a reference to a law"""
-        return f'[Law {number}: {name}](../part1-axioms/law{number}-{name.lower().replace(" ", "-")}/)'
+        return f'[Law {number}: {name}](../core-principles/laws/{get_law_slug(number, name)}/)'
     
     @env.macro
     def pillar_ref(number, name):
         """Create a reference to a pillar"""
-        return f'[Pillar {number}: {name}](../part2-pillars/{name.lower()}/)'
+        return f'[Pillar {number}: {name}](../core-principles/pillars/{name.lower().replace(" ", "-")}/)'
     
     @env.macro
     def pattern_ref(name):

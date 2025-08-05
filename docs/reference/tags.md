@@ -1,9 +1,9 @@
 ---
-title: "Tags"
-description: "Browse content by tags"
+title: Tags
+description: Browse content by tags
 hide:
-  - navigation
-  - toc
+- navigation
+- toc
 ---
 
 # Browse by Tags

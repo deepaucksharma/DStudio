@@ -1,22 +1,19 @@
 ---
-title: "Shopify Flash Sales: Handling Black Friday Traffic Spikes"
-description: How Shopify handles 100x traffic spikes during flash sales and Black Friday
+title: 'Shopify Flash Sales: Handling Black Friday Traffic Spikes'
+description: How Shopify handles 100x traffic spikes during flash sales and Black
+  Friday
 type: case-study
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: silver
 scale_category: large-scale
 domain: e-commerce
 company: Shopify
 year_implemented: 2019
 current_status: production
-
-# Key metrics
 metrics:
   peak_requests_per_minute: 10M+
   merchants: 1.7M+
@@ -24,61 +21,50 @@ metrics:
   traffic_spike: 100x normal
   uptime: 99.98%
   response_time_p99: 100ms
-
-# Pattern usage tracking
 patterns_used:
   silver:
-    - queue-based-load-leveling: "Absorbs traffic spikes with job queues"
-    - auto-scaling: "Scales from 1x to 100x automatically"
-    - rate-limiting: "Protects merchants from their own success"
-    - cache-warming: "Pre-loads hot data before sales"
-    - database-sharding: "Isolates merchant data for performance"
+  - queue-based-load-leveling: Absorbs traffic spikes with job queues
+  - auto-scaling: Scales from 1x to 100x automatically
+  - rate-limiting: Protects merchants from their own success
+  - cache-warming: Pre-loads hot data before sales
+  - database-sharding: Isolates merchant data for performance
   gold:
-    - circuit-breaker: "Prevents cascade failures"
-    - bulkhead: "Isolates merchant traffic"
+  - circuit-breaker: Prevents cascade failures
+  - bulkhead: Isolates merchant traffic
   bronze:
-    - synchronous-processing: "Legacy checkout flow"
-
-# Trade-offs
+  - synchronous-processing: Legacy checkout flow
 trade_offs:
   pros:
-    - "Handles massive traffic spikes gracefully"
-    - "Merchant isolation prevents noisy neighbors"
-    - "Cost-effective scaling with cloud resources"
-    - "Maintains performance during peak loads"
+  - Handles massive traffic spikes gracefully
+  - Merchant isolation prevents noisy neighbors
+  - Cost-effective scaling with cloud resources
+  - Maintains performance during peak loads
   cons:
-    - "Complex infrastructure to manage"
-    - "Higher costs during peak events"
-    - "Queue delays during extreme spikes"
-    - "Cache invalidation complexity"
-
-# Best for
+  - Complex infrastructure to manage
+  - Higher costs during peak events
+  - Queue delays during extreme spikes
+  - Cache invalidation complexity
 best_for:
-  - "E-commerce platforms with flash sales"
-  - "Multi-tenant SaaS applications"
-  - "Applications with predictable traffic spikes"
-  - "Systems requiring merchant/tenant isolation"
-
-# Excellence connections
+- E-commerce platforms with flash sales
+- Multi-tenant SaaS applications
+- Applications with predictable traffic spikes
+- Systems requiring merchant/tenant isolation
 excellence_guides:
-  - scale/traffic-spikes
-  - pattern-library/multi-tenant
-  - operational/black-friday
-
-# Implementation insights
+- scale/traffic-spikes
+- pattern-library/multi-tenant
+- operational/black-friday
 key_innovations:
-  - "Pod-based architecture for merchant isolation"
-  - "Predictive scaling based on merchant announcements"
-  - "Queue-based checkout processing"
-  - "Real-time traffic shaping"
-
+- Pod-based architecture for merchant isolation
+- Predictive scaling based on merchant announcements
+- Queue-based checkout processing
+- Real-time traffic shaping
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Isolation is key for multi-tenant stability"
-  - category: "Operations"
-    lesson: "Preparation and practice runs are essential"
-  - category: "Performance"
-    lesson: "Caching strategy can make or break flash sales"
+- category: Architecture
+  lesson: Isolation is key for multi-tenant stability
+- category: Operations
+  lesson: Preparation and practice runs are essential
+- category: Performance
+  lesson: Caching strategy can make or break flash sales
 ---
 
 # Shopify Flash Sales: Handling Black Friday Traffic Spikes

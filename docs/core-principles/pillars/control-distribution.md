@@ -1,10 +1,14 @@
 ---
-title: "Control Distribution: Orchestrating Distributed Systems"
-description: "The terrifying truth about automation: every system eventually escapes human control. Learn to build kill switches before you need them."
+title: 'Control Distribution: Orchestrating Distributed Systems'
+description: 'The terrifying truth about automation: every system eventually escapes
+  human control. Learn to build kill switches before you need them.'
 type: pillar
 difficulty: intermediate
 reading_time: 35 min
-prerequisites: ["axiom1-failure", "axiom5-epistemology", "axiom6-human-api"]
+prerequisites:
+- axiom1-failure
+- axiom5-epistemology
+- axiom6-human-api
 status: complete
 last_updated: 2025-07-29
 ---

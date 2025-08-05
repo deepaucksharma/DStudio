@@ -484,3 +484,11 @@ The Law of Economic Reality reminds us that distributed systems exist to serve b
 - **[Law 5: Distributed Knowledge](distributed-knowledge.md)** - Knowledge silos increase costs
 - **[Law 6: Cognitive Load](cognitive-load.md)** - Human costs often exceed technical costs
 - **Patterns**: [Cost Optimization](../pattern-library/scaling/auto-scaling.md), [Multi-Cloud](../pattern-library/scaling/multi-region.md), [Serverless](../pattern-library/architecture/serverless-faas.md)
+## Pattern Implementations
+
+Patterns that address this law:
+
+- [Auto Scaling](../../pattern-library/scaling/auto-scaling/)
+- [Rate Limiting](../../pattern-library/scaling/rate-limiting/)
+
+

@@ -35,8 +35,8 @@ production_checklist:
 - Implement secure tree serialization
 reading_time: 30 min
 related_laws:
-- law4-optimization
-- law5-knowledge
+- multidimensional-optimization
+- distributed-knowledge
 related_pillars:
 - state
 - truth
@@ -361,15 +361,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multi-dimensional Optimization](../../part1-axioms/law4-optimization/) - Verification efficiency trade-offs
-    - [Law 5: Distributed Knowledge](../../part1-axioms/law5-knowledge/) - Cryptographic certainty
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Verification efficiency trade-offs
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Cryptographic certainty
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Distributed data integrity
-    - [Truth Distribution](../../part2-pillars/truth/) - Consensus on data validity
+    - [State Distribution](../../core-principles/pillars/state/) - Distributed data integrity
+    - [Truth Distribution](../../core-principles/pillars/truth/) - Consensus on data validity
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

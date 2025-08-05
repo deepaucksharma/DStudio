@@ -1,14 +1,15 @@
 ---
 title: Distributed Key-Value Store
-description: Build a highly available, scalable storage system balancing consistency, performance, and operational complexity
+description: Build a highly available, scalable storage system balancing consistency,
+  performance, and operational complexity
 type: case-study
 difficulty: expert
 reading_time: 40 min
-prerequisites: 
-  - law5-epistemology
-  - pattern-library/consistent-hashing
-  - pattern-library/consensus
-  - pattern-library/cdc
+prerequisites:
+- distributed-knowledge
+- pattern-library/consistent-hashing
+- pattern-library/consensus
+- pattern-library/cdc
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -16,20 +17,20 @@ pattern_status: recommended
 introduced: 2007-01
 current_relevance: mainstream
 modern_examples:
-  - company: Amazon
-    usage: "DynamoDB serving trillions of requests per day"
-  - company: Facebook
-    usage: "RocksDB as storage engine for multiple services"
-  - company: Redis Labs
-    usage: "Redis Enterprise with active-active geo-distribution"
+- company: Amazon
+  usage: DynamoDB serving trillions of requests per day
+- company: Facebook
+  usage: RocksDB as storage engine for multiple services
+- company: Redis Labs
+  usage: Redis Enterprise with active-active geo-distribution
 production_checklist:
-  - "Multi-level caching strategy (memory, SSD, disk)"
-  - "Configurable consistency levels (eventual, quorum, strong)"
-  - "Automatic sharding and rebalancing"
-  - "Hot key detection and mitigation"
-  - "Compaction strategy for LSM trees"
-  - "Backup and point-in-time recovery"
-  - "Multi-tenant isolation and rate limiting"
+- Multi-level caching strategy (memory, SSD, disk)
+- Configurable consistency levels (eventual, quorum, strong)
+- Automatic sharding and rebalancing
+- Hot key detection and mitigation
+- Compaction strategy for LSM trees
+- Backup and point-in-time recovery
+- Multi-tenant isolation and rate limiting
 ---
 
 # Distributed Key-Value Store
@@ -1414,8 +1415,8 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Epistemology ](/core-principles/laws/distributed-knowledge/) - Consensus and distributed coordination
-- [Law 1: Failure ](/core-principles/laws/correlated-failure/) - Failure modes and recovery strategies
+- [Law 5: Epistemology ](../../core-principles/laws/distributed-knowledge/) - Consensus and distributed coordination
+- [Law 1: Failure ](../../core-principles/laws/correlated-failure/) - Failure modes and recovery strategies
 - [Consistent Hashing Pattern](../pattern-library/data-management/consistent-hashing.md) - Data distribution technique
 - [CAP Theorem](/architects-handbook/quantitative-analysis/cap-theorem/) - Fundamental trade-offs
 

@@ -139,7 +139,7 @@ Before starting any guide, ensure you have:
     Begin with the Quick Start Guide even if you're experienced. It introduces our framework and terminology.
 
 !!! warning "Don't Skip Fundamentals"
-    Review the [Axioms](../../part1-axioms/) and [Pillars](../../part2-pillars/) for deep understanding.
+    Review the [Axioms](../../core-principles/laws/) and [Pillars](../../core-principles/pillars/) for deep understanding.
 
 !!! success "Practice Makes Perfect"
     Each guide includes hands-on exercises. Complete them for maximum learning.

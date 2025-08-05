@@ -1,6 +1,7 @@
 ---
-title: "Law Framework Transition Guide"
-description: A comprehensive mapping guide for transitioning from the old 8-axiom structure to the new 7-law framework
+title: Law Framework Transition Guide
+description: A comprehensive mapping guide for transitioning from the old 8-axiom
+  structure to the new 7-law framework
 type: reference
 status: complete
 last_updated: 2025-07-23
@@ -201,7 +202,7 @@ The old laws were empirical observations. The new laws are grounded in formal th
 ## Archived Content
 
 The original 8-law content is preserved in the archive for reference:
-- [Archive: Old 8-Law Structure](../part1-axioms/archive-old-8-law-structure/index.md)
+- [Archive: Old 8-Law Structure](../core-principles/laws/archive-old-8-law-structure/index.md)
 
 ## Summary: What You Gain with the New Framework
 

@@ -473,7 +473,7 @@ graph LR
 
 ## Law Connections
 
-- **[Law 1: Correlated Failure](part1-axioms/law1-failure/index)**: Leader failure affects all writes
-- **[Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index)**: Consistency vs availability balance
-- **[Law 5: Distributed Knowledge](part1-axioms/law5-epistemology/index)**: Split-brain from partial knowledge
+- **[Law 1: Correlated Failure](core-principles/laws/correlated-failure/index)**: Leader failure affects all writes
+- **[Law 4: Trade-offs](core-principles/laws/multidimensional-optimization/index)**: Consistency vs availability balance
+- **[Law 5: Distributed Knowledge](core-principles/laws/distributed-knowledge/index)**: Split-brain from partial knowledge
 

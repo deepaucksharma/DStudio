@@ -250,17 +250,17 @@ graph TD
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](part1-axioms/law1-failure/index)**: Prevents cascade from overload
-- **[Law 2: Asynchronous Reality ⏱️](part1-axioms/law2-asynchrony/)**: Buffers handle timing variations
-- **[Law 3: Emergent Chaos 🌪️](part1-axioms/law3-emergence/)**: Simple rules create stable behavior
-- **[Law 7: Economic Reality 💰](part1-axioms/law7-economics/index)**: Balance resource usage vs rejection
+- **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/index)**: Prevents cascade from overload
+- **[Law 2: Asynchronous Reality ⏱️](../../core-principles/laws/asynchronous-reality/)**: Buffers handle timing variations
+- **[Law 3: Emergent Chaos 🌪️](core-principles/laws/emergent-chaos/)**: Simple rules create stable behavior
+- **[Law 7: Economic Reality 💰](core-principles/laws/economic-reality/index)**: Balance resource usage vs rejection
 
 ### Foundational Pillars
 Water Marks implement:
 
-- **[Pillar 1: Distribution of Work 🔨](part2-pillars/work/index)**: Control work distribution rate
-- **[Pillar 4: Distribution of Control 🎮](part2-pillars/control/index)**: Decentralized flow control
-- **[Pillar 2: Distribution of State 🗃️](part2-pillars/state/index)**: Buffer state management
+- **[Pillar 1: Distribution of Work 🔨](core-principles/pillars/work/index)**: Control work distribution rate
+- **[Pillar 4: Distribution of Control 🎮](core-principles/pillars/control/index)**: Decentralized flow control
+- **[Pillar 2: Distribution of State 🗃️](core-principles/pillars/state/index)**: Buffer state management
 
 ## Related Patterns
 

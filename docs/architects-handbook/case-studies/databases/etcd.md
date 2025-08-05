@@ -1,23 +1,24 @@
 ---
-title: "etcd: Distributed Key-Value Store for Kubernetes"
-description: "Deep dive into etcd's Raft consensus, watch mechanism, and role as Kubernetes' brain"
+title: 'etcd: Distributed Key-Value Store for Kubernetes'
+description: Deep dive into etcd's Raft consensus, watch mechanism, and role as Kubernetes'
+  brain
 type: case-study
 difficulty: advanced
 reading_time: 45 min
-prerequisites: ["consensus", "key-value-stores", "distributed-systems", "kubernetes"]
-pattern_type: "coordination"
+prerequisites:
+- consensus
+- key-value-stores
+- distributed-systems
+- kubernetes
+pattern_type: coordination
 status: complete
 last_updated: 2025-01-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: large-scale
 domain: distributed-kv-store
 company: CoreOS (Red Hat)
 year_implemented: 2013
 current_status: production
-
-# Key metrics
 metrics:
   deployments: 1M+
   cluster_size: 3-7 nodes
@@ -25,26 +26,22 @@ metrics:
   latency_p99: 2ms
   availability: 99.99%
   data_size: 8GB default
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - raft-consensus: "Strong consistency with leader election"
-    - mvcc: "Multi-version concurrency control"
-    - watch-streams: "Efficient change notifications"
-    - lease-mechanism: "Distributed leases and TTLs"
+  - raft-consensus: Strong consistency with leader election
+  - mvcc: Multi-version concurrency control
+  - watch-streams: Efficient change notifications
+  - lease-mechanism: Distributed leases and TTLs
   silver:
-    - grpc-api: "Modern RPC with streaming"
-    - snapshot-restore: "Point-in-time recovery"
-    - role-based-access: "Fine-grained security"
+  - grpc-api: Modern RPC with streaming
+  - snapshot-restore: Point-in-time recovery
+  - role-based-access: Fine-grained security
   bronze:
-    - none: "Modern design without legacy patterns"
-
-# Excellence connections
+  - none: Modern design without legacy patterns
 excellence_guides:
-  - scale/distributed-coordination
-  - migration/etcd-operations
-  - operational/kubernetes-storage
+- scale/distributed-coordination
+- migration/etcd-operations
+- operational/kubernetes-storage
 ---
 
 

@@ -1,6 +1,7 @@
 ---
 title: Performance & Scale Learning Path
-description: Master performance optimization and scaling strategies for distributed systems
+description: Master performance optimization and scaling strategies for distributed
+  systems
 type: learning-path
 topic: performance
 difficulty: advanced

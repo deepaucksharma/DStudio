@@ -1,6 +1,7 @@
 ---
 title: Design Gmail - System Design Interview Guide
-description: Build an email service for 1.5B users with spam filtering, search, and high reliability
+description: Build an email service for 1.5B users with spam filtering, search, and
+  high reliability
 type: system-design-interview
 difficulty: advanced
 reading_time: 60 min
@@ -10,16 +11,16 @@ pattern_status: recommended
 introduced: 2004-04
 current_relevance: mainstream
 modern_examples:
-  - Gmail (1.5B+ users)
-  - Outlook.com
-  - ProtonMail
-  - FastMail
+- Gmail (1.5B+ users)
+- Outlook.com
+- ProtonMail
+- FastMail
 production_checklist:
-  - Spam filtering ML pipeline
-  - Email delivery guarantees
-  - Search index optimization
-  - Attachment handling at scale
-  - SMTP/IMAP/POP3 support
+- Spam filtering ML pipeline
+- Email delivery guarantees
+- Search index optimization
+- Attachment handling at scale
+- SMTP/IMAP/POP3 support
 ---
 
 

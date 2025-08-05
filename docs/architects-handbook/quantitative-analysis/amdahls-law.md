@@ -1,6 +1,7 @@
 ---
 title: Amdahl & Gustafson Laws
-description: "Laws governing parallel computing speedup - understanding the limits of parallelization and scalability"
+description: Laws governing parallel computing speedup - understanding the limits
+  of parallelization and scalability
 type: quantitative
 difficulty: intermediate
 reading_time: 40 min

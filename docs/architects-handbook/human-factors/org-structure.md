@@ -1,6 +1,7 @@
 ---
 title: Org-Structure Physics
-description: "How Conway's Law shapes system architecture - understanding the relationship between organizational and technical structures"
+description: How Conway's Law shapes system architecture - understanding the relationship
+  between organizational and technical structures
 type: human-factors
 difficulty: beginner
 reading_time: 60 min

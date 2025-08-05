@@ -1,6 +1,6 @@
 ---
 title: On-Call Culture
-description: "Practices and systems for sustainable 24/7 service support"
+description: Practices and systems for sustainable 24/7 service support
 type: human-factors
 difficulty: beginner
 reading_time: 15 min

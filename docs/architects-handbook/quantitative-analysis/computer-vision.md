@@ -1,6 +1,6 @@
 ---
 title: Computer Vision
-description: "Quantitative models for image processing and visual computing"
+description: Quantitative models for image processing and visual computing
 ---
 
 # Computer Vision

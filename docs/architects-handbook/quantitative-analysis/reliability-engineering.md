@@ -4,8 +4,10 @@ description: Quantitative methods for measuring and improving distributed system
 type: quantitative
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: [probability, failure-models]
-pattern_type: "analysis"
+prerequisites:
+- probability
+- failure-models
+pattern_type: analysis
 status: complete
 last_updated: 2025-01-26
 ---

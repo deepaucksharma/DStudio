@@ -32,10 +32,10 @@ production-checklist:
 - Test failure scenarios and compensation flows
 reading-time: 35 min
 related-laws:
-- law2-asynchrony
-- law3-emergence
-- law4-tradeoffs
-- law5-epistemology
+- asynchronous-reality
+- emergent-chaos
+- multidimensional-optimization
+- distributed-knowledge
 related-pillars:
 - state
 - truth

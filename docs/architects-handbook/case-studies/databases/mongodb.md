@@ -1,23 +1,24 @@
 ---
-title: "MongoDB: Document Database at Scale"
-description: "Exploring MongoDB's architecture, replica sets, sharding strategy, and lessons from NoSQL adoption"
+title: 'MongoDB: Document Database at Scale'
+description: Exploring MongoDB's architecture, replica sets, sharding strategy, and
+  lessons from NoSQL adoption
 type: case-study
 difficulty: advanced
 reading_time: 45 min
-prerequisites: ["nosql", "sharding", "replication", "consistency-models"]
-pattern_type: "data-management"
+prerequisites:
+- nosql
+- sharding
+- replication
+- consistency-models
+pattern_type: data-management
 status: complete
 last_updated: 2025-01-28
-
-# Excellence metadata
 excellence_tier: silver
 scale_category: large-scale
 domain: document-database
 company: MongoDB Inc
 year_implemented: 2009
 current_status: production
-
-# Key metrics
 metrics:
   deployments: 100000+
   largest_cluster: 1000+ shards
@@ -25,25 +26,21 @@ metrics:
   ops_per_second: 1M+
   availability: 99.9%
   latency_p99: 20ms
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - sharding: "Range and hash-based sharding for horizontal scale"
-    - replica-sets: "Primary-secondary replication with automatic failover"
-    - aggregation-pipeline: "Distributed query processing"
+  - sharding: Range and hash-based sharding for horizontal scale
+  - replica-sets: Primary-secondary replication with automatic failover
+  - aggregation-pipeline: Distributed query processing
   silver:
-    - eventual-consistency: "Configurable read preferences"
-    - write-concern: "Tunable durability guarantees"
-    - change-streams: "Real-time data change notifications"
+  - eventual-consistency: Configurable read preferences
+  - write-concern: Tunable durability guarantees
+  - change-streams: Real-time data change notifications
   bronze:
-    - master-slave: "Legacy replication replaced by replica sets"
-
-# Excellence connections
+  - master-slave: Legacy replication replaced by replica sets
 excellence_guides:
-  - scale/nosql-databases
-  - migration/mongodb-best-practices
-  - operational/document-stores
+- scale/nosql-databases
+- migration/mongodb-best-practices
+- operational/document-stores
 ---
 
 

@@ -1,6 +1,7 @@
 ---
 title: Reliability & Resilience Learning Path
-description: Build systems that never fail - master fault tolerance, high availability, and disaster recovery
+description: Build systems that never fail - master fault tolerance, high availability,
+  and disaster recovery
 type: learning-path
 topic: reliability
 difficulty: advanced
@@ -46,7 +47,7 @@ By completing this path, you will:
  
  Core concepts:
  
- - [Law 1: Correlated Failure](../../core-principles/laws/law1-failure/index) - Why things fail together
+ - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure) - Why things fail together
  - [Failure Models](quantitative/failure-models) - Types of failures
  - [Availability Math](quantitative/availability-math) - Calculate uptime
 

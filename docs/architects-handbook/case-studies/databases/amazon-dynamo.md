@@ -1,5 +1,5 @@
 ---
-title: "Amazon DynamoDB: Scale and Architecture Deep Dive"
+title: 'Amazon DynamoDB: Scale and Architecture Deep Dive'
 description: How Amazon built a globally distributed database with 99.999% availability
 type: case-study
 difficulty: advanced
@@ -7,16 +7,12 @@ reading_time: 40 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-25
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: global-scale
 domain: database
 company: Amazon
 year_implemented: 2012
 current_status: production
-
-# Key metrics
 metrics:
   users: 100M+
   requests_per_second: 10M+
@@ -24,42 +20,35 @@ metrics:
   availability: 99.999%
   latency_p99: 10ms
   regions: 30+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - consistent-hashing: "Virtual nodes for data distribution"
-    - quorum-consensus: "Tunable consistency with R+W>N"
-    - coordination/logical-clocks.md: "Conflict resolution mechanism"
-    - merkle-trees: "Anti-entropy synchronization"
-    - circuit-breaker: "Prevents cascade failures"
-    - hinted-handoff: "Temporary storage for down nodes"
+  - consistent-hashing: Virtual nodes for data distribution
+  - quorum-consensus: Tunable consistency with R+W>N
+  - coordination/logical-clocks.md: Conflict resolution mechanism
+  - merkle-trees: Anti-entropy synchronization
+  - circuit-breaker: Prevents cascade failures
+  - hinted-handoff: Temporary storage for down nodes
   silver:
-    - communication/publish-subscribe.md: "Membership and failure detection"
-    - write-ahead-log: "Durability guarantees"
+  - communication/publish-subscribe.md: Membership and failure detection
+  - write-ahead-log: Durability guarantees
   bronze:
-    - masterless: "Eliminates single points of failure"
-
-# Excellence connections
+  - masterless: Eliminates single points of failure
 excellence_guides:
-  - scale/global-database-infrastructure
-  - migration/dynamodb-adoption
-  - operational/database-excellence
-
-# Implementation insights
+- scale/global-database-infrastructure
+- migration/dynamodb-adoption
+- operational/database-excellence
 key_innovations:
-  - "Masterless architecture eliminating single points of failure"
-  - "Tunable consistency levels per operation"
-  - "Virtual nodes for balanced data distribution"
-  - "Automatic partitioning and scaling"
-
+- Masterless architecture eliminating single points of failure
+- Tunable consistency levels per operation
+- Virtual nodes for balanced data distribution
+- Automatic partitioning and scaling
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Availability > Consistency for shopping cart use cases"
-  - category: "Operations"
-    lesson: "Circuit breakers prevent retry storms and cascade failures"
-  - category: "Scale"
-    lesson: "Virtual nodes essential for elastic scaling"
+- category: Architecture
+  lesson: Availability > Consistency for shopping cart use cases
+- category: Operations
+  lesson: Circuit breakers prevent retry storms and cascade failures
+- category: Scale
+  lesson: Virtual nodes essential for elastic scaling
 ---
 
 # Amazon DynamoDB: Scale and Architecture Deep Dive

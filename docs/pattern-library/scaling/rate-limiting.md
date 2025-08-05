@@ -34,9 +34,9 @@ production_checklist:
 - Consider cost-based quotas for expensive operations
 reading_time: 20 min
 related_laws:
-- law1-failure
-- law3-chaos
-- law7-economics
+- correlated-failure
+- emergent-chaos
+- economic-reality
 related_pillars:
 - control
 - work
@@ -314,15 +314,15 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1/) - Preventing cascade failures
-    - [Law 7: Economic Reality](../../part1-axioms/law7/) - Resource cost management
+    - [Law 1: Correlated Failure](../../core-principles/laws/law1/) - Preventing cascade failures
+    - [Law 7: Economic Reality](../../core-principles/laws/law7/) - Resource cost management
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Control Distribution](../../part2-pillars/control/) - Distributed rate limiting coordination
-    - [Work Distribution](../../part2-pillars/work/) - Fair resource allocation
+    - [Control Distribution](../../core-principles/pillars/control/) - Distributed rate limiting coordination
+    - [Work Distribution](../../core-principles/pillars/work/) - Fair resource allocation
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

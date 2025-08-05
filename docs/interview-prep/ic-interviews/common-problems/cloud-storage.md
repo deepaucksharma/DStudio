@@ -4,10 +4,10 @@ description: Build a scalable cloud storage service like Dropbox or Google Drive
 type: system-design-problem
 difficulty: intermediate
 reading_time: 45 min
-prerequisites: 
-  - pattern-library/sharding
-  - pattern-library/caching
-  - pattern-library/event-sourcing
+prerequisites:
+- pattern-library/sharding
+- pattern-library/caching
+- pattern-library/event-sourcing
 status: complete
 last_updated: 2025-08-04
 ---

@@ -1,6 +1,7 @@
 ---
 title: Security Considerations in Distributed Systems
-description: Security implications, vulnerabilities, and defensive strategies for distributed architectures.
+description: Security implications, vulnerabilities, and defensive strategies for
+  distributed architectures.
 type: reference
 difficulty: advanced
 reading_time: 30 min

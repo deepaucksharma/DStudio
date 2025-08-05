@@ -1,6 +1,6 @@
 ---
 title: Spatial Statistics
-description: "Quantitative models for geographic and spatial data analysis"
+description: Quantitative models for geographic and spatial data analysis
 ---
 
 # Spatial Statistics

@@ -1,6 +1,7 @@
 ---
 title: Capacity Planning Worksheet
-description: "Systematic approach to planning infrastructure capacity using mathematical models and real-world usage patterns"
+description: Systematic approach to planning infrastructure capacity using mathematical
+  models and real-world usage patterns
 type: quantitative
 difficulty: beginner
 reading_time: 45 min

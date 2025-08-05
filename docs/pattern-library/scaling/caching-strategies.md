@@ -34,9 +34,9 @@ production_checklist:
 - Plan cache invalidation strategy carefully
 reading_time: 25 min
 related_laws:
-- law1-failure
-- law4-tradeoffs
-- law7-economics
+- correlated-failure
+- multidimensional-optimization
+- economic-reality
 related_pillars:
 - state
 - work
@@ -314,15 +314,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../../part1-axioms/law4/) - Speed vs freshness vs cost
-    - [Law 7: Economic Reality](../../part1-axioms/law7/) - Cost-effective performance scaling
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/law4/) - Speed vs freshness vs cost
+    - [Law 7: Economic Reality](../../core-principles/laws/law7/) - Cost-effective performance scaling
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Distributed cache management
-    - [Work Distribution](../../part2-pillars/work/) - Cache computation distribution
+    - [State Distribution](../../core-principles/pillars/state/) - Distributed cache management
+    - [Work Distribution](../../core-principles/pillars/work/) - Cache computation distribution
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

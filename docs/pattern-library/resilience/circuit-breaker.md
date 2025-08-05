@@ -35,11 +35,11 @@ production-checklist:
 - Set up alerting for circuit state transitions
 reading-time: 20 min
 related-laws:
-- law1-failure
-- law2-asynchrony
-- law3-emergence
-- law4-tradeoffs
-- law6-human-api
+- correlated-failure
+- asynchronous-reality
+- emergent-chaos
+- multidimensional-optimization
+- cognitive-load
 related-pillars:
 - truth
 - control

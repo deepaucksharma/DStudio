@@ -1,23 +1,24 @@
 ---
-title: "Kubernetes: Container Orchestration at Scale"
-description: "Deep dive into Kubernetes' architecture, control plane design, and lessons from orchestrating millions of containers"
+title: 'Kubernetes: Container Orchestration at Scale'
+description: Deep dive into Kubernetes' architecture, control plane design, and lessons
+  from orchestrating millions of containers
 type: case-study
 difficulty: advanced
 reading_time: 50 min
-prerequisites: ["containers", "service-discovery", "load-balancing", "distributed-systems"]
-pattern_type: "orchestration"
+prerequisites:
+- containers
+- service-discovery
+- load-balancing
+- distributed-systems
+pattern_type: orchestration
 status: complete
 last_updated: 2025-01-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: internet-scale
 domain: container-orchestration
 company: Google
 year_implemented: 2014
 current_status: production
-
-# Key metrics
 metrics:
   clusters: 150000+
   nodes_per_cluster: 5000+
@@ -25,27 +26,23 @@ metrics:
   api_requests_per_second: 1M+
   availability: 99.95%
   deployment_frequency: 1000/hour
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - control-plane: "Declarative API with reconciliation loops"
-    - service-discovery: "DNS and service abstractions for pod discovery"
-    - leader-election: "High availability control plane components"
-    - health-check: "Liveness and readiness probes for containers"
-    - rolling-update: "Zero-downtime deployments with rollback"
+  - control-plane: Declarative API with reconciliation loops
+  - service-discovery: DNS and service abstractions for pod discovery
+  - leader-election: High availability control plane components
+  - health-check: Liveness and readiness probes for containers
+  - rolling-update: Zero-downtime deployments with rollback
   silver:
-    - scheduler: "Bin packing and constraint satisfaction"
-    - api-gateway: "API server as single entry point"
-    - sidecar: "Init containers and ambassador patterns"
+  - scheduler: Bin packing and constraint satisfaction
+  - api-gateway: API server as single entry point
+  - sidecar: Init containers and ambassador patterns
   bronze:
-    - master-slave: "Control plane / worker node separation"
-
-# Excellence connections
+  - master-slave: Control plane / worker node separation
 excellence_guides:
-  - scale/container-orchestration
-  - migration/kubernetes-adoption
-  - operational/kubernetes-excellence
+- scale/container-orchestration
+- migration/kubernetes-adoption
+- operational/kubernetes-excellence
 ---
 
 

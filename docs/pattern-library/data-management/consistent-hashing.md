@@ -208,9 +208,14 @@ class MultiRingConsistentHash:
 - Discord uses 150, Cassandra defaults to 256
 
 **Real-world Gotchas:**
-**Process Steps:**
-- Initialize system
-- Process requests
-- Handle responses
-- Manage failures
+- Hot spots still happen with poor key distribution
+- Ring rebalancing during node failure creates temporary load spikes
+- Virtual node count affects both performance and memory usage
+
+## Real-World Examples
+
+### Production Systems
+- **[Amazon DynamoDB](../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Uses consistent hashing with virtual nodes for global data distribution
+- **[Apache Cassandra](../../architects-handbook/case-studies/databases/cassandra.md)** - Ring-based architecture with 256 virtual nodes per physical node
+- **Discord** - Chat message routing using 150 virtual nodes per shard
 

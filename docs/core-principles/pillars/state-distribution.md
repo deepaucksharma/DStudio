@@ -1,6 +1,7 @@
 ---
-title: "Pillar 2: Distribution of State"
-description: "The art of splitting data without splitting your soul - where every byte has three homes and consistency is a carefully negotiated lie"
+title: 'Pillar 2: Distribution of State'
+description: The art of splitting data without splitting your soul - where every byte
+  has three homes and consistency is a carefully negotiated lie
 type: pillar
 difficulty: advanced
 reading_time: 45 min
@@ -991,10 +992,10 @@ You're leaving with the searing realization that distributed state is where phys
 
 ## Related Topics
 
-- [Law 1: Correlated Failure](/core-principles/axioms/law1-failure) - Why replicas die together
-- [Law 2: Asynchronous Reality](/core-principles/axioms/law2-asynchrony) - Why consistency is a lie
-- [Law 4: Multidimensional Optimization](/core-principles/axioms/law4-tradeoffs) - Why we distribute
-- [Law 5: Distributed Knowledge](/core-principles/axioms/law5-epistemology) - Why consensus is hard
+- [Law 1: Correlated Failure](../laws/correlated-failure.md) - Why replicas die together
+- [Law 2: Asynchronous Reality](../laws/asynchronous-reality.md) - Why consistency is a lie
+- [Law 4: Multidimensional Optimization](../laws/multidimensional-optimization) - Why we distribute
+- [Law 5: Distributed Knowledge](../laws/distributed-knowledge) - Why consensus is hard
 - [Pillar 3: Truth](/core-principles/pillars/truth-distribution) - Where we agree to disagree
 - [Pattern: Event Sourcing](/pattern-library/data-management/event-sourcing) - Time travel for databases
 - [Pattern: CQRS](/pattern-library/data-management/cqrs) - Split personality disorder (but useful)

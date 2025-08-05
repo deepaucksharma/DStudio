@@ -1,6 +1,6 @@
 ---
 title: Battery Models
-description: "Quantitative models for power consumption and battery optimization"
+description: Quantitative models for power consumption and battery optimization
 ---
 
 # Battery Models

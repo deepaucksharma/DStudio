@@ -382,3 +382,15 @@ BEFORE READING                      AFTER READING
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Async interactions create emergence
 - **[Law 5: Distributed Knowledge](distributed-knowledge.md)** - No global knowledge of time
 - **Patterns**: [Event Sourcing](../pattern-library/data-management/event-sourcing.md), [Saga](../pattern-library/data-management/saga.md), [CQRS](../pattern-library/data-management/cqrs.md)
+## Pattern Implementations
+
+Patterns that address this law:
+
+- [Consensus](../../pattern-library/coordination/consensus/)
+- [Cqrs](../../pattern-library/data-management/cqrs/)
+- [Event Sourcing](../../pattern-library/data-management/event-sourcing/)
+- [Eventual Consistency](../../pattern-library/data-management/eventual-consistency/)
+- [Failover](../../pattern-library/resilience/failover/)
+- [Saga](../../pattern-library/data-management/saga/)
+
+

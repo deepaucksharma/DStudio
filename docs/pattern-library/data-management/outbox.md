@@ -27,9 +27,9 @@ prerequisites:
 - cdc-basics
 reading_time: 18 min
 related_laws:
-- law1-failure
-- law2-asynchrony
-- law4-tradeoffs
+- correlated-failure
+- asynchronous-reality
+- multidimensional-optimization
 related_pillars:
 - state
 - truth
@@ -304,15 +304,15 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Dual-write failure scenarios
-    - [Law 4: Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/) - Consistency vs performance
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Dual-write failure scenarios
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Consistency vs performance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 2: State Distribution](../../part2-pillars/state/) - Consistent state management
-    - [Pillar 3: Truth Distribution](../../part2-pillars/truth/) - Single source of truth
+    - [Pillar 2: State Distribution](../../core-principles/pillars/state/) - Consistent state management
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth/) - Single source of truth
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

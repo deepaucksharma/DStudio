@@ -16,9 +16,9 @@ prerequisites:
 - network-routing
 reading_time: 15 min
 related_laws:
-- law1-failure
-- law2-asynchrony
-- law5-epistemology
+- correlated-failure
+- asynchronous-reality
+- distributed-knowledge
 related_pillars:
 - state
 - control
@@ -228,9 +228,9 @@ type: pattern
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Independent failure domains
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - Handle replication delays
-    - [Law 5: Distributed Knowledge](../../part1-axioms/law5-epistemology/) - Prevent split-brain
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Independent failure domains
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Handle replication delays
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Prevent split-brain
 
 </div>
 

@@ -16,9 +16,9 @@ prerequisites:
 - distributed-storage
 reading-time: 15 min
 related-laws:
-- law1-failure
-- law3-emergence
-- law4-tradeoffs
+- correlated-failure
+- emergent-chaos
+- multidimensional-optimization
 related-pillars:
 - work
 - state

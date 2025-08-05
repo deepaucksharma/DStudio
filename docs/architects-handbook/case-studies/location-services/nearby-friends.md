@@ -10,7 +10,10 @@ last_updated: 2025-07-21
 excellence_tier: gold
 architecture_status: battle-tested
 current_scale: global
-key_patterns: ["privacy-preserving-location", "pub-sub", "adaptive-updates"]
+key_patterns:
+- privacy-preserving-location
+- pub-sub
+- adaptive-updates
 ---
 
 
@@ -108,8 +111,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: [Location Privacy](../patterns/location-privacy) - K-anonymity
 - Pattern: [Consent Management](../patterns/consent-management) - Mutual opt-in
-- 🏛 Pillar: [Control Distribution](../part2-pillars/control/index) - Privacy UX
-- 🏛 Pillar: [Truth Distribution](../part2-pillars/truth) - Location accuracy
+- 🏛 Pillar: [Control Distribution](../core-principles/pillars/control/index) - Privacy UX
+- 🏛 Pillar: [Truth Distribution](../core-principles/pillars/truth) - Location accuracy
 
 ### Phase 4: Modern Distributed Architecture (2018-Present)
 
@@ -1692,13 +1695,13 @@ class PrivacyDashboard:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index)** - Real-time location updates
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index)** - Battery and bandwidth limits
-- **[Law 1: Failure](../part1-axioms/law1-failure/index)** - Privacy fail-safes
-- **[Law 3: Emergence](../part1-axioms/law3-emergence/index)** - Parallel proximity checks
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology/index)** - Consent synchronization and privacy analytics
-- **[Law 6: Human-API](../part1-axioms/law6-human-api/index)** - Privacy UX, battery life
-- **[Law 7: Economics](../part1-axioms/law7-economics/index)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality)** - Real-time location updates
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index)** - Battery and bandwidth limits
+- **[Law 1: Failure](../core-principles/laws/correlated-failure)** - Privacy fail-safes
+- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index)** - Parallel proximity checks
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index)** - Consent synchronization and privacy analytics
+- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index)** - Privacy UX, battery life
+- **[Law 7: Economics](../core-principles/laws/economic-reality/index)** - Infrastructure costs
 
 ### 🏛 Related Patterns
 - **[Location Privacy](../patterns/location-privacy)** - K-anonymity, fuzzing

@@ -1,6 +1,7 @@
 ---
 title: Learning Paths
-description: Structured journeys through distributed systems based on your experience level
+description: Structured journeys through distributed systems based on your experience
+  level
 type: learning-paths
 ---
 
@@ -361,7 +362,7 @@ graph TD
 
 !!! success "Your First Step"
     
-    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../../core-principles/laws/law1-failure/index).
+    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../../core-principles/laws/correlated-failure.md).
     It's the foundation everything else builds upon.
     
-    [:octicons-arrow-right-24: Begin Your Journey](../../core-principles/laws/law1-failure/index){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Begin Your Journey](../../core-principles/laws/correlated-failure.md){ .md-button .md-button--primary }

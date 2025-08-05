@@ -36,8 +36,8 @@ production_checklist:
 - Consider scalable bloom filters for growth
 reading_time: 25 min
 related_laws:
-- law4-optimization
-- law5-knowledge
+- multidimensional-optimization
+- distributed-knowledge
 related_pillars:
 - state
 - intelligence
@@ -362,15 +362,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multi-dimensional Optimization](../../part1-axioms/law4-optimization/) - Space-time trade-offs
-    - [Law 5: Distributed Knowledge](../../part1-axioms/law5-knowledge/) - Probabilistic information
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Space-time trade-offs
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/) - Probabilistic information
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Efficient state representation
-    - [Intelligence Distribution](../../part2-pillars/intelligence/) - Smart pre-filtering
+    - [State Distribution](../../core-principles/pillars/state/) - Efficient state representation
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence/) - Smart pre-filtering
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

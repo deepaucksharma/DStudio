@@ -1,6 +1,7 @@
 ---
-title: "Pillar 1: Distribution of Work"
-description: "The brutal truth about coordination costs that kills 90% of distributed systems before they scale"
+title: 'Pillar 1: Distribution of Work'
+description: The brutal truth about coordination costs that kills 90% of distributed
+  systems before they scale
 type: pillar
 difficulty: intermediate
 reading_time: 45 min
@@ -903,8 +904,8 @@ You're leaving with the searing realization that every distributed system is dro
 
 ## Related Topics
 
-- [Law 2: Asynchronous Reality](/core-principles/axioms/law2-asynchrony) - Time coordination kills performance
-- [Law 4: Multidimensional Optimization](/core-principles/axioms/law4-tradeoffs) - The brutal trade-offs
-- [Law 5: Distributed Knowledge](/core-principles/axioms/law5-epistemology) - Why coordination explodes
+- [Law 2: Asynchronous Reality](../laws/asynchronous-reality.md) - Time coordination kills performance
+- [Law 4: Multidimensional Optimization](../laws/multidimensional-optimization.md) - The brutal trade-offs
+- [Law 5: Distributed Knowledge](../laws/distributed-knowledge.md) - Why coordination explodes
 - [Pattern: Cell Architecture](/pattern-library/architecture/cell-based) - The escape from coordination hell
 - [Quantitative: Universal Scalability](/architects-handbook/quantitative-analysis/universal-scalability) - The math that predicts your doom

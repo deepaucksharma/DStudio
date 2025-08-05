@@ -16,9 +16,9 @@ prerequisites:
 - monitoring-basics
 reading_time: 15 min
 related_laws:
-- law1-failure
-- law3-emergence
-- law7-economics
+- correlated-failure
+- emergent-chaos
+- economic-reality
 related_pillars:
 - work
 - control
@@ -277,9 +277,9 @@ class AdaptiveLoadShedder:
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Overload cascades
-    - [Law 3: Emergent Chaos](../../part1-axioms/law3-emergence/) - Load patterns emerge
-    - [Law 7: Economic Reality](../../part1-axioms/law7-economics/) - Business priorities
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Overload cascades
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Load patterns emerge
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Business priorities
 
 </div>
 

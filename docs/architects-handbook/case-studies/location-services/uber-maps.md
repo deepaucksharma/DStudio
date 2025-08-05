@@ -1,10 +1,13 @@
 ---
 title: Uber Maps Case Study
-description: "Analysis of Uber's custom mapping infrastructure for ride-hailing"
+description: Analysis of Uber's custom mapping infrastructure for ride-hailing
 excellence_tier: gold
 architecture_status: battle-tested
 current_scale: global
-key_patterns: ["h3-spatial-indexing", "real-time-location", "map-matching"]
+key_patterns:
+- h3-spatial-indexing
+- real-time-location
+- map-matching
 ---
 
 # Uber Maps Case Study

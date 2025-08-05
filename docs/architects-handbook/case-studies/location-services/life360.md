@@ -1,10 +1,13 @@
 ---
 title: Life360 Case Study
-description: "Analysis of Life360's family location tracking and safety platform"
+description: Analysis of Life360's family location tracking and safety platform
 excellence_tier: silver
 architecture_status: recommended
 current_scale: global
-key_patterns: ["continuous-tracking", "geofencing", "battery-optimization"]
+key_patterns:
+- continuous-tracking
+- geofencing
+- battery-optimization
 ---
 
 # Life360 Case Study

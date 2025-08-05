@@ -4,10 +4,10 @@ description: Generate globally unique identifiers at scale without coordination 
 type: case-study
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: 
-  - law5-epistemology
-  - law6-human-api
-  - pattern-library/leader-election
+prerequisites:
+- distributed-knowledge
+- cognitive-load
+- pattern-library/leader-election
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -15,20 +15,20 @@ pattern_status: recommended
 introduced: 2010-01
 current_relevance: mainstream
 modern_examples:
-  - company: Twitter
-    usage: "Snowflake ID generator for 500M+ tweets/day"
-  - company: Discord
-    usage: "Modified Snowflake for message and user IDs"
-  - company: Instagram
-    usage: "Sharded ID generation with timestamp encoding"
+- company: Twitter
+  usage: Snowflake ID generator for 500M+ tweets/day
+- company: Discord
+  usage: Modified Snowflake for message and user IDs
+- company: Instagram
+  usage: Sharded ID generation with timestamp encoding
 production_checklist:
-  - "Clock skew detection and handling"
-  - "Graceful handling of time going backwards"
-  - "Machine ID assignment strategy (static vs dynamic)"
-  - "ID exhaustion monitoring and alerting"
-  - "Performance testing under high concurrency"
-  - "Backup ID generation strategy"
-  - "ID format documentation and versioning"
+- Clock skew detection and handling
+- Graceful handling of time going backwards
+- Machine ID assignment strategy (static vs dynamic)
+- ID exhaustion monitoring and alerting
+- Performance testing under high concurrency
+- Backup ID generation strategy
+- ID format documentation and versioning
 ---
 
 # Distributed Unique ID Generator
@@ -1344,8 +1344,8 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Distributed Knowledge ](/core-principles/laws/distributed-knowledge/) - Node ID assignment and consensus
-- [Law 6: Cognitive Load ](/core-principles/laws/cognitive-load/) - Developer experience considerations
+- [Law 5: Distributed Knowledge ](../../core-principles/laws/distributed-knowledge/) - Node ID assignment and consensus
+- [Law 6: Cognitive Load ](../../core-principles/laws/cognitive-load/) - Developer experience considerations
 - [Clock Synchronization](../pattern-library/coordination/clock-sync.md) - NTP and time coordination
 - [Logical Clocks](../pattern-library/coordination/logical-clocks.md) - Alternative to wall-clock time
 

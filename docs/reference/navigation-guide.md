@@ -1,10 +1,10 @@
 ---
-title: "Navigation Implementation Guide"
-description: "Comprehensive guide to implementing navigation on every page"
+title: Navigation Implementation Guide
+description: Comprehensive guide to implementing navigation on every page
 tags:
-  - navigation
-  - reference
-  - implementation
+- navigation
+- reference
+- implementation
 ---
 
 # Navigation Implementation Guide

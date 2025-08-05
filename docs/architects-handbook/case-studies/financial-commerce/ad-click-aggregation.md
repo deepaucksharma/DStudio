@@ -1,26 +1,23 @@
 ---
 title: Ad Click Event Aggregation System
-description: Design a high-throughput system for tracking, aggregating, and analyzing billions of ad click events
+description: Design a high-throughput system for tracking, aggregating, and analyzing
+  billions of ad click events
 type: case-study
 difficulty: advanced
 reading_time: 22 min
 prerequisites:
-  - Stream Processing
-  - Data Aggregation
-  - Lambda Architecture
-  - Distributed Computing
+- Stream Processing
+- Data Aggregation
+- Lambda Architecture
+- Distributed Computing
 status: complete
 last_updated: 2025-01-21
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: internet-scale
 domain: analytics
 company: Generic
 year_implemented: 2022
 current_status: production
-
-# Key metrics
 metrics:
   clicks_per_second: 1M+
   daily_events: 100B+
@@ -29,64 +26,53 @@ metrics:
   exactly_once_guarantee: true
   data_retention: 90_days
   dimensions: 20+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - lambda-architecture: "Real-time + batch processing for 100B+ events/day"
-    - stream-processing: "1M+ events/second with exactly-once semantics"
-    - event-sourcing: "Immutable event store with replay capability"
-    - probabilistic-counting: "HyperLogLog for unique user counting at scale"
+  - lambda-architecture: Real-time + batch processing for 100B+ events/day
+  - stream-processing: 1M+ events/second with exactly-once semantics
+  - event-sourcing: Immutable event store with replay capability
+  - probabilistic-counting: HyperLogLog for unique user counting at scale
   silver:
-    - deduplication: "Bloom filters for efficient duplicate detection"
-    - watermarking: "Handle late data up to 24 hours"
-    - checkpointing: "Fault tolerance with <1 minute recovery"
-    - pre-aggregation: "OLAP cubes for instant queries"
+  - deduplication: Bloom filters for efficient duplicate detection
+  - watermarking: Handle late data up to 24 hours
+  - checkpointing: Fault tolerance with <1 minute recovery
+  - pre-aggregation: OLAP cubes for instant queries
   bronze:
-    - batch-processing: "Hourly/daily aggregations for reports"
-
-# Trade-offs
+  - batch-processing: Hourly/daily aggregations for reports
 trade_offs:
   pros:
-    - "Real-time fraud detection saves millions in revenue"
-    - "Exactly-once processing for accurate billing"
-    - "Handles late data gracefully"
-    - "Scales horizontally to handle growth"
+  - Real-time fraud detection saves millions in revenue
+  - Exactly-once processing for accurate billing
+  - Handles late data gracefully
+  - Scales horizontally to handle growth
   cons:
-    - "Complex lambda architecture to maintain"
-    - "High infrastructure cost for speed + batch layers"
-    - "Storage intensive with 90-day retention"
-    - "Requires specialized stream processing expertise"
-
-# Best for
+  - Complex lambda architecture to maintain
+  - High infrastructure cost for speed + batch layers
+  - Storage intensive with 90-day retention
+  - Requires specialized stream processing expertise
 best_for:
-  - "Digital advertising platforms"
-  - "Real-time analytics systems"
-  - "Fraud detection pipelines"
-  - "High-volume event processing"
-
-# Excellence connections
+- Digital advertising platforms
+- Real-time analytics systems
+- Fraud detection pipelines
+- High-volume event processing
 excellence_guides:
-  - scale/stream-processing
-  - pattern-library/lambda-architecture
-  - operational/fraud-detection
-
-# Implementation insights
+- scale/stream-processing
+- pattern-library/lambda-architecture
+- operational/fraud-detection
 key_innovations:
-  - "Three-phase commit for exactly-once processing"
-  - "Hierarchical aggregation for multi-dimensional analytics"
-  - "Adaptive watermarking for late data handling"
-  - "ML-based fraud detection with <1s latency"
-
+- Three-phase commit for exactly-once processing
+- Hierarchical aggregation for multi-dimensional analytics
+- Adaptive watermarking for late data handling
+- ML-based fraud detection with <1s latency
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Lambda architecture provides best of both worlds"
-  - category: "Operations"
-    lesson: "Design for reprocessing from day one"
-  - category: "Performance"
-    lesson: "Pre-aggregation critical for query performance"
-  - category: "Business"
-    lesson: "Real-time fraud detection has massive ROI"
+- category: Architecture
+  lesson: Lambda architecture provides best of both worlds
+- category: Operations
+  lesson: Design for reprocessing from day one
+- category: Performance
+  lesson: Pre-aggregation critical for query performance
+- category: Business
+  lesson: Real-time fraud detection has massive ROI
 ---
 
 

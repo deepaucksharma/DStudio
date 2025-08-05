@@ -1,22 +1,19 @@
 ---
-title: "YouTube Video Upload and Streaming Platform: Scale and Architecture Deep Dive"
-description: Design a large-scale video streaming platform handling billions of hours of content
+title: 'YouTube Video Upload and Streaming Platform: Scale and Architecture Deep Dive'
+description: Design a large-scale video streaming platform handling billions of hours
+  of content
 type: case-study
 difficulty: advanced
 reading_time: 45 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: internet-scale
 domain: streaming
 company: Google
 year_implemented: 2005
 current_status: production
-
-# Key metrics
 metrics:
   users: 2B+
   requests_per_second: 10M+
@@ -24,45 +21,38 @@ metrics:
   availability: 99.95%
   latency_p99: 200ms
   regions: 100+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - event-streaming: "Processing 500+ hours uploaded per minute"
-    - multi-level-cache: "Global edge network with 99% cache hit rate"
-    - sharding: "Vitess manages billions of videos across thousands of shards"
-    - content-delivery: "Adaptive bitrate streaming to 2B+ users"
-    - geo-replication: "Multi-region active-active for global availability"
+  - event-streaming: Processing 500+ hours uploaded per minute
+  - multi-level-cache: Global edge network with 99% cache hit rate
+  - sharding: Vitess manages billions of videos across thousands of shards
+  - content-delivery: Adaptive bitrate streaming to 2B+ users
+  - geo-replication: Multi-region active-active for global availability
   silver:
-    - queue-based-load-leveling: "Transcoding queue handles traffic spikes"
-    - data-partitioning: "Videos partitioned by upload time and popularity"
-    - load-balancing: "Geographic and latency-based routing"
+  - queue-based-load-leveling: Transcoding queue handles traffic spikes
+  - data-partitioning: Videos partitioned by upload time and popularity
+  - load-balancing: Geographic and latency-based routing
   bronze:
-    - monolith-first: "Started as simple video sharing site in 2005"
-
-# Excellence connections
+  - monolith-first: Started as simple video sharing site in 2005
 excellence_guides:
-  - scale/internet-scale
-  - migration/sharding-strategies
-  - operational/cdn-optimization
-
-# Implementation insights
+- scale/internet-scale
+- migration/sharding-strategies
+- operational/cdn-optimization
 key_innovations:
-  - "Vitess for transparent MySQL sharding at massive scale"
-  - "Adaptive bitrate streaming with machine learning optimization"
-  - "Global edge caching network with ISP partnerships"
-  - "Efficient video compression with VP9 and AV1 codecs"
-  - "Real-time analytics processing billions of events per day"
-
+- Vitess for transparent MySQL sharding at massive scale
+- Adaptive bitrate streaming with machine learning optimization
+- Global edge caching network with ISP partnerships
+- Efficient video compression with VP9 and AV1 codecs
+- Real-time analytics processing billions of events per day
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Tiered storage (hot/warm/cold) essential for exabyte scale"
-  - category: "Operations"
-    lesson: "Edge caching reduces origin load by 95%+"
-  - category: "Performance"
-    lesson: "Client-side adaptive bitrate crucial for user experience"
-  - category: "Scale"
-    lesson: "Sharding by video ID enables linear scaling"
+- category: Architecture
+  lesson: Tiered storage (hot/warm/cold) essential for exabyte scale
+- category: Operations
+  lesson: Edge caching reduces origin load by 95%+
+- category: Performance
+  lesson: Client-side adaptive bitrate crucial for user experience
+- category: Scale
+  lesson: Sharding by video ID enables linear scaling
 ---
 
 
@@ -409,7 +399,7 @@ graph TB
 ```
 
 **Key Design Decision: CDN for Static Content**
-- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](../part2-pillars/work/index.md))
+- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](../core-principles/pillars/work/index.md))
 - **Choice**: Pay for CDN to achieve global scale
 - **Result**: 70% reduction in origin bandwidth
 - **Pattern Applied**: [Edge Computing](../pattern-library/scaling/edge-computing.md)

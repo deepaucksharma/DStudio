@@ -1,26 +1,36 @@
 ---
-title: "Deep Dive: Consistency in Chat Systems"
-description: "Advanced exploration of consistency models and trade-offs in real-time messaging systems"
+title: 'Deep Dive: Consistency in Chat Systems'
+description: Advanced exploration of consistency models and trade-offs in real-time
+  messaging systems
 type: case-study
 difficulty: expert
 reading_time: 35 min
-prerequisites: ["cap-theorem", "consistency-models", "message-ordering", "distributed-systems"]
-pattern_type: "consistency-analysis"
+prerequisites:
+- cap-theorem
+- consistency-models
+- message-ordering
+- distributed-systems
+pattern_type: consistency-analysis
 status: complete
 last_updated: 2025-01-28
 excellence_tier: gold
 pattern_status: recommended
 introduced: 2009-01
 current_relevance: mainstream
-modern_examples: ["WhatsApp", "Signal", "Telegram", "Discord", "Slack"]
+modern_examples:
+- WhatsApp
+- Signal
+- Telegram
+- Discord
+- Slack
 production_checklist:
-  - "Message ordering guarantees"
-  - "Multi-device synchronization"
-  - "Offline message delivery"
-  - "Read receipt consistency"
-  - "Group chat convergence"
-  - "Conflict resolution strategies"
-  - "End-to-end encryption compatibility"
+- Message ordering guarantees
+- Multi-device synchronization
+- Offline message delivery
+- Read receipt consistency
+- Group chat convergence
+- Conflict resolution strategies
+- End-to-end encryption compatibility
 ---
 
 # Deep Dive: Consistency in Chat Systems

@@ -1,10 +1,13 @@
 ---
 title: Runbooks & Playbooks
-description: "Think: Runbook = Recipe, Playbook = Cooking principles"
+description: 'Think: Runbook = Recipe, Playbook = Cooking principles'
 type: human-factors
 difficulty: intermediate
 reading_time: 55 min
-prerequisites: [laws/axiom4-tradeoffs, laws/axiom6-human-api, laws/axiom7-economics]
+prerequisites:
+- laws/axiom4-tradeoffs
+- laws/axiom6-human-api
+- laws/axiom7-economics
 status: complete
 last_updated: 2025-07-20
 ---

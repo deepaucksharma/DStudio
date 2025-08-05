@@ -1,22 +1,19 @@
 ---
-title: "Netflix Streaming: Scale and Architecture Deep Dive"
-description: How Netflix built a global video streaming platform serving 260+ million subscribers
+title: 'Netflix Streaming: Scale and Architecture Deep Dive'
+description: How Netflix built a global video streaming platform serving 260+ million
+  subscribers
 type: case-study
 difficulty: advanced
 reading_time: 45 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: internet-scale
 domain: streaming
 company: Netflix
 year_implemented: 2007
 current_status: production
-
-# Key metrics
 metrics:
   users: 260M+
   requests_per_second: 1M+
@@ -24,45 +21,38 @@ metrics:
   availability: 99.99%
   latency_p99: 50ms
   regions: 190+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - circuit-breaker: "Hystrix handles 100B+ requests/day with adaptive thresholds"
-    - event-sourcing: "Complete viewing history for personalization and debugging"
-    - cqrs: "Separate paths for 1M writes/sec and 10M reads/sec"
-    - multi-level-cache: "Open Connect CDN achieves 95%+ hit rate globally"
-    - chaos-engineering: "Pioneered with Chaos Monkey, now full Simian Army"
+  - circuit-breaker: Hystrix handles 100B+ requests/day with adaptive thresholds
+  - event-sourcing: Complete viewing history for personalization and debugging
+  - cqrs: Separate paths for 1M writes/sec and 10M reads/sec
+  - multi-level-cache: Open Connect CDN achieves 95%+ hit rate globally
+  - chaos-engineering: Pioneered with Chaos Monkey, now full Simian Army
   silver:
-    - service-mesh: "Zuul gateway processes 50B+ requests/day"
-    - bulkhead: "Thread pool isolation prevents cascading failures"
-    - async-messaging: "Kafka handles 8T messages/day for real-time analytics"
+  - service-mesh: Zuul gateway processes 50B+ requests/day
+  - bulkhead: Thread pool isolation prevents cascading failures
+  - async-messaging: Kafka handles 8T messages/day for real-time analytics
   bronze:
-    - monolith-first: "Evolved from DVD service monolith to 700+ microservices"
-
-# Excellence connections
+  - monolith-first: Evolved from DVD service monolith to 700+ microservices
 excellence_guides:
-  - scale/internet-scale
-  - migration/microservices
-  - operational/chaos-engineering
-
-# Implementation insights
+- scale/internet-scale
+- migration/microservices
+- operational/chaos-engineering
 key_innovations:
-  - "Hystrix circuit breaker framework for distributed resilience"
-  - "Open Connect CDN with ISP-embedded appliances"
-  - "Chaos engineering philosophy and tooling"
-  - "Adaptive streaming with per-title encoding"
-  - "Time-series data platform Atlas for 2.5B metrics/minute"
-
+- Hystrix circuit breaker framework for distributed resilience
+- Open Connect CDN with ISP-embedded appliances
+- Chaos engineering philosophy and tooling
+- Adaptive streaming with per-title encoding
+- Time-series data platform Atlas for 2.5B metrics/minute
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Start simple (monolith) and evolve based on actual needs"
-  - category: "Operations"
-    lesson: "Embrace failure - test it constantly with chaos engineering"
-  - category: "Performance"
-    lesson: "Edge caching is critical - 95% of traffic never hits origin"
-  - category: "Culture"
-    lesson: "Freedom and responsibility culture enables rapid innovation"
+- category: Architecture
+  lesson: Start simple (monolith) and evolve based on actual needs
+- category: Operations
+  lesson: Embrace failure - test it constantly with chaos engineering
+- category: Performance
+  lesson: Edge caching is critical - 95% of traffic never hits origin
+- category: Culture
+  lesson: Freedom and responsibility culture enables rapid innovation
 ---
 
 # Netflix Streaming: Scale and Architecture Deep Dive

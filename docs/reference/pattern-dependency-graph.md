@@ -3,10 +3,10 @@ title: Pattern Dependency Graph - Understanding Pattern Prerequisites
 description: Visual analysis of how patterns depend on and build upon each other
 icon: material/graph-outline
 tags:
-  - patterns
-  - dependencies
-  - relationships
-  - architecture
+- patterns
+- dependencies
+- relationships
+- architecture
 ---
 
 # Pattern Dependency Graph

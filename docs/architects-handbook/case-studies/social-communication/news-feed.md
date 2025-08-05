@@ -1,26 +1,34 @@
 ---
-title: "Design a News Feed System"
-description: "Building scalable social media feeds with real-time personalization at billions-scale"
+title: Design a News Feed System
+description: Building scalable social media feeds with real-time personalization at
+  billions-scale
 type: case-study
 difficulty: advanced
 reading_time: 40 min
-prerequisites: ["distributed-caching", "message-queues", "ml-systems"]
-pattern_type: "data-distribution"
+prerequisites:
+- distributed-caching
+- message-queues
+- ml-systems
+pattern_type: data-distribution
 status: complete
 last_updated: 2025-01-28
 excellence_tier: gold
 pattern_status: mainstream
 introduced: 2006-03
 current_relevance: mainstream
-modern_examples: ["Facebook News Feed", "Twitter Timeline", "LinkedIn Feed", "Instagram Explore"]
+modern_examples:
+- Facebook News Feed
+- Twitter Timeline
+- LinkedIn Feed
+- Instagram Explore
 production_checklist:
-  - "Multi-tier caching strategy"
-  - "Push/pull hybrid architecture"
-  - "ML ranking pipeline"
-  - "Real-time relevance scoring"
-  - "Content deduplication"
-  - "Privacy controls"
-  - "Abuse detection"
+- Multi-tier caching strategy
+- Push/pull hybrid architecture
+- ML ranking pipeline
+- Real-time relevance scoring
+- Content deduplication
+- Privacy controls
+- Abuse detection
 ---
 
 # Design a News Feed System
@@ -1247,13 +1255,13 @@ The hybrid architecture balances the trade-offs between different approaches, us
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ](../part1-axioms/law2-asynchrony/index)** - Pre-computed feeds and edge caching achieve <100ms load times
-- **[Law 4: Trade-offs ](../part1-axioms/law4-tradeoffs/index)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
-- **[Law 1: Failure ](../part1-axioms/law1-failure/index)** - Multiple fallback strategies ensure feed availability
-- **[Law 3: Emergence ](../part1-axioms/law3-emergence/index)** - Async fanout and parallel timeline merging handle scale
-- **[Law 5: Epistemology ](../part1-axioms/law5-epistemology/index)** - Eventually consistent timelines with causal ordering and engagement metrics
-- **[Law 6: Human-API ](../part1-axioms/law6-human-api/index)** - Personalization and pacing optimize for human attention
-- **[Law 7: Economics ](../part1-axioms/law7-economics/index)** - Ad placement and infrastructure costs drive architectural decisions
+- **[Law 2: Asynchronous Reality ](../core-principles/laws/asynchronous-reality)** - Pre-computed feeds and edge caching achieve <100ms load times
+- **[Law 4: Trade-offs ](../core-principles/laws/multidimensional-optimization/index)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
+- **[Law 1: Failure ](../core-principles/laws/correlated-failure)** - Multiple fallback strategies ensure feed availability
+- **[Law 3: Emergence ](../core-principles/laws/emergent-chaos/index)** - Async fanout and parallel timeline merging handle scale
+- **[Law 5: Epistemology ](../core-principles/laws/distributed-knowledge/index)** - Eventually consistent timelines with causal ordering and engagement metrics
+- **[Law 6: Human-API ](../core-principles/laws/cognitive-load/index)** - Personalization and pacing optimize for human attention
+- **[Law 7: Economics ](../core-principles/laws/economic-reality/index)** - Ad placement and infrastructure costs drive architectural decisions
 
 ### 🏛 Related Patterns (Part III/index)
 - **[Event-Driven Architecture](../patterns/event-driven)** - Post creation triggers fanout pipeline

@@ -1,6 +1,6 @@
 ---
 title: Privacy Metrics
-description: "Quantitative models for privacy preservation and anonymization"
+description: Quantitative models for privacy preservation and anonymization
 ---
 
 # Privacy Metrics

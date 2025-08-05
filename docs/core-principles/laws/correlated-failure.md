@@ -1,10 +1,12 @@
 ---
-title: "Law 1: The Law of Inevitable and Correlated Failure"
-description: Any component can fail, and failures are often correlated, not independent - with mathematical proofs, production examples, and battle-tested solutions
+title: 'Law 1: The Law of Inevitable and Correlated Failure'
+description: Any component can fail, and failures are often correlated, not independent
+  - with mathematical proofs, production examples, and battle-tested solutions
 type: law
 difficulty: expert
 reading_time: 45 min
-prerequisites: ["core-principles/index.md"]
+prerequisites:
+- core-principles/index.md
 status: unified
 last_updated: 2025-01-29
 ---
@@ -616,3 +618,13 @@ architecture:
 ---
 
 *Remember: Every system has hidden correlations. The question is whether you'll find them in testing or in production at 3 AM.*
+## Pattern Implementations
+
+Patterns that address this law:
+
+- [Bulkhead](../../pattern-library/resilience/bulkhead/)
+- [Circuit Breaker](../../pattern-library/resilience/circuit-breaker/)
+- [Failover](../../pattern-library/resilience/failover/)
+- [Graceful Degradation](../../pattern-library/resilience/graceful-degradation/)
+
+

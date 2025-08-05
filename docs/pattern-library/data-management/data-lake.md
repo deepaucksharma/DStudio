@@ -26,9 +26,9 @@ prerequisites:
 - etl-pipelines
 reading-time: 20 min
 related-laws:
-- law4-tradeoffs
-- law5-epistemology
-- law7-economics
+- multidimensional-optimization
+- distributed-knowledge
+- economic-reality
 related-pillars:
 - state
 - intelligence
@@ -319,15 +319,15 @@ graph LR
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/) - Flexibility vs governance trade-offs
-    - [Law 7: Economic Reality](../../part1-axioms/law7-economics/) - Cost of poor data governance
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/) - Flexibility vs governance trade-offs
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost of poor data governance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Distributed data management
-    - [Intelligence Distribution](../../part2-pillars/intelligence/) - Analytics and ML patterns
+    - [State Distribution](../../core-principles/pillars/state/) - Distributed data management
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence/) - Analytics and ML patterns
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     

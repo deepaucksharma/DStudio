@@ -298,7 +298,7 @@ P(available) = Σ(k=R to N) C(N,k) × p^k × (1-p)^(N-k)
 
 ## Related Resources
 
-- [CAP Theorem Deep Dive](../../core-principles/laws/law5-epistemology/index)
+- [CAP Theorem Deep Dive](../../core-principles/laws/distributed-knowledge)
 - [State Distribution Patterns](../../core-principles/pillars/state/index)
 - [Truth Distribution](../../core-principles/pillars/truth/index)
 - [PACELC Framework](quantitative/cap-theorem)

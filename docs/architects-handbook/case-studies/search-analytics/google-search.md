@@ -1,6 +1,7 @@
 ---
 title: Design Google Search - System Design Interview Guide
-description: Build a web-scale search engine handling 100B+ pages with sub-100ms query latency
+description: Build a web-scale search engine handling 100B+ pages with sub-100ms query
+  latency
 type: system-design-interview
 difficulty: advanced
 reading_time: 60 min
@@ -10,16 +11,16 @@ pattern_status: recommended
 introduced: 1998-09
 current_relevance: mainstream
 modern_examples:
-  - Google Search (100B+ pages)
-  - Bing
-  - DuckDuckGo
-  - Elasticsearch clusters
+- Google Search (100B+ pages)
+- Bing
+- DuckDuckGo
+- Elasticsearch clusters
 production_checklist:
-  - Inverted index architecture
-  - PageRank implementation
-  - Distributed crawling system
-  - Query processing pipeline
-  - Multi-level caching strategy
+- Inverted index architecture
+- PageRank implementation
+- Distributed crawling system
+- Query processing pipeline
+- Multi-level caching strategy
 ---
 
 

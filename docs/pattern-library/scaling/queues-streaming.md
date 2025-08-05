@@ -309,11 +309,11 @@ graph TD
 
  This pattern directly addresses:
 
- 1. **[Law 4 (Multidimensional Optimization ⚖️)](part1-axioms/law4-tradeoffs)**: Buffers handle capacity mismatches
- 2. **[Law 2 (Asynchronous Reality ⏳/index)](part1-axioms/law2-asynchrony)**: Decoupling reduces blocking
- 3. **[Law 1 (Correlated Failure ⛓️/index)](part1-axioms/law1-failure)**: Messages survive consumer failures
- 4. **[Law 4 (Multidimensional Optimization ⚖️/index)](part1-axioms/law4-tradeoffs)**: Async coordination via messages
- 5. **[Law 5 (Distributed Knowledge 🧠/index)](part1-axioms/law5-epistemology/index)**: Message flow visibility
+ 1. **[Law 4 (Multidimensional Optimization ⚖️)](../../core-principles/laws/multidimensional-optimization)**: Buffers handle capacity mismatches
+ 2. **[Law 2 (Asynchronous Reality ⏳/index)](../../core-principles/laws/asynchronous-reality)**: Decoupling reduces blocking
+ 3. **[Law 1 (Correlated Failure ⛓️/index)](../../core-principles/laws/correlated-failure)**: Messages survive consumer failures
+ 4. **[Law 4 (Multidimensional Optimization ⚖️/index)](../../core-principles/laws/multidimensional-optimization)**: Async coordination via messages
+ 5. **[Law 5 (Distributed Knowledge 🧠/index)](core-principles/laws/distributed-knowledge/index)**: Message flow visibility
 
 ### Future Directions
 
@@ -365,9 +365,9 @@ graph TD
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Protect consumers
 
 ### Laws
-- [Law 4 (Multidimensional Optimization )](part1-axioms/law4-tradeoffs) - Why buffering matters
-- [Law 2 (Asynchronous Reality /index)](part1-axioms/law2-asynchrony) - Async vs sync trade-offs
-- [Law 1 (Correlated Failure /index)](part1-axioms/law1-failure/index) - Message durability
+- [Law 4 (Multidimensional Optimization )](../../core-principles/laws/multidimensional-optimization) - Why buffering matters
+- [Law 2 (Asynchronous Reality /index)](../../core-principles/laws/asynchronous-reality) - Async vs sync trade-offs
+- [Law 1 (Correlated Failure /index)](core-principles/laws/correlated-failure/index) - Message durability
 
 ### Further Reading
 - [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly

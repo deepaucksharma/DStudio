@@ -15,7 +15,7 @@ search_boost:
 
 # Section metadata
 sections:
-  part1-axioms:
+  laws:
     title: "The 7 Fundamental Laws"
     icon: material/scale-balance
     tags:
@@ -23,7 +23,7 @@ sections:
       - laws
       - physics
       
-  part2-pillars:
+  pillars:
     title: "The 5 Core Pillars"
     icon: material/pillar
     tags:

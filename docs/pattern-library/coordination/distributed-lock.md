@@ -35,9 +35,9 @@ production_checklist:
 - Plan for lock service scaling and failover
 reading_time: 20 min
 related_laws:
-- law2-asynchrony
-- law3-emergence
-- law5-epistemology
+- asynchronous-reality
+- emergent-chaos
+- distributed-knowledge
 related_pillars:
 - truth
 - control
@@ -322,15 +322,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-async/) - Network delays affect timing
-    - [Law 3: Emergent Chaos](../../part1-axioms/law3-emergence/) - Lock contention creates complexity
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Network delays affect timing
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Lock contention creates complexity
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 3: Truth Distribution](../../part2-pillars/truth/) - Single source of lock truth
-    - [Pillar 4: Control Distribution](../../part2-pillars/control/) - Coordinated access control
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth/) - Single source of lock truth
+    - [Pillar 4: Control Distribution](../../core-principles/pillars/control/) - Coordinated access control
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

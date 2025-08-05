@@ -1,6 +1,7 @@
 ---
 title: New Graduate Learning Path
-description: A structured journey through distributed systems for recent graduates and early-career engineers
+description: A structured journey through distributed systems for recent graduates
+  and early-career engineers
 type: learning-path
 difficulty: beginner
 reading_time: 15 min

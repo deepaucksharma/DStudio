@@ -1,16 +1,12 @@
 ---
 title: Video Streaming Platform Architecture
-description: "Case study of distributed video streaming systems at global scale"
-
-# Excellence metadata
+description: Case study of distributed video streaming systems at global scale
 excellence_tier: silver
 scale_category: large-scale
 domain: entertainment
 company: Netflix
 year_implemented: 2018
 current_status: production
-
-# Key metrics
 metrics:
   subscribers: 238M+
   concurrent_streams: 100M+
@@ -19,47 +15,41 @@ metrics:
   cdn_nodes: 1000+
   countries: 190+
   uptime: 99.99%
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - cdn: "Open Connect CDN with 1000+ edge locations"
-    - adaptive-streaming: "Dynamic bitrate adjustment per client"
-    - chaos-engineering: "Chaos Monkey for resilience testing"
+  - cdn: Open Connect CDN with 1000+ edge locations
+  - adaptive-streaming: Dynamic bitrate adjustment per client
+  - chaos-engineering: Chaos Monkey for resilience testing
   silver:
-    - microservices: "500+ services for modular scaling"
-    - circuit-breaker: "Hystrix for fault tolerance"
-    - data-pipeline: "Personalization data processing"
-    - caching: "Multi-tier caching strategy"
+  - microservices: 500+ services for modular scaling
+  - circuit-breaker: Hystrix for fault tolerance
+  - data-pipeline: Personalization data processing
+  - caching: Multi-tier caching strategy
   bronze:
-    - datacenter-streaming: "Moving to edge-based delivery"
-
-# Trade-offs
+  - datacenter-streaming: Moving to edge-based delivery
 trade_offs:
   pros:
-    - "Global reach with local CDN presence"
-    - "Adaptive quality maintains viewing experience"
-    - "Highly resilient to failures"
-    - "Efficient bandwidth utilization"
+  - Global reach with local CDN presence
+  - Adaptive quality maintains viewing experience
+  - Highly resilient to failures
+  - Efficient bandwidth utilization
   cons:
-    - "High infrastructure costs for CDN"
-    - "Complex encoding pipeline"
-    - "Storage costs for multiple quality versions"
-    - "Regional content licensing complexity"
-
-# Evolution insights
+  - High infrastructure costs for CDN
+  - Complex encoding pipeline
+  - Storage costs for multiple quality versions
+  - Regional content licensing complexity
 evolution_insights:
-  initial_design: "DVD-by-mail service with simple streaming"
-  pain_points: "Datacenter bandwidth costs, ISP throttling, global scaling"
+  initial_design: DVD-by-mail service with simple streaming
+  pain_points: Datacenter bandwidth costs, ISP throttling, global scaling
   key_innovations:
-    - "Open Connect CDN appliances in ISPs"
-    - "Per-title encoding optimization"
-    - "Chaos engineering culture"
-    - "Microservices architecture"
+  - Open Connect CDN appliances in ISPs
+  - Per-title encoding optimization
+  - Chaos engineering culture
+  - Microservices architecture
   future_directions:
-    - "AV1 codec adoption for efficiency"
-    - "Interactive content delivery"
-    - "Gaming platform integration"
+  - AV1 codec adoption for efficiency
+  - Interactive content delivery
+  - Gaming platform integration
 ---
 
 # Video Streaming Platform Architecture

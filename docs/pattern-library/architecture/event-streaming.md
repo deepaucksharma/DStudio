@@ -38,9 +38,9 @@ production_checklist:
 - Create disaster recovery procedures for state and checkpoint restoration
 reading_time: 30 min
 related_laws:
-- law2-asynchrony
-- law3-emergence
-- law6-cognitive
+- asynchronous-reality
+- emergent-chaos
+- cognitive-load
 related_pillars:
 - work
 - state
@@ -334,15 +334,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2/) - Time and ordering challenges
-    - [Law 3: Emergent Chaos](../../part1-axioms/law3/) - Complex system behaviors
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Time and ordering challenges
+    - [Law 3: Emergent Chaos](../../core-principles/laws/law3/) - Complex system behaviors
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../part2-pillars/work/) - Parallel stream processing
-    - [State Distribution](../../part2-pillars/state/) - Distributed state management
+    - [Work Distribution](../../core-principles/pillars/work/) - Parallel stream processing
+    - [State Distribution](../../core-principles/pillars/state/) - Distributed state management
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

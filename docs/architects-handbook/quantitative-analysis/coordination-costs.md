@@ -1,6 +1,6 @@
 ---
 title: Coordination Cost Models
-description: "The hidden tax of distributed systems"
+description: The hidden tax of distributed systems
 type: quantitative
 difficulty: advanced
 reading_time: 50 min

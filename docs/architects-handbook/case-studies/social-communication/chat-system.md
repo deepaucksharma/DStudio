@@ -1,6 +1,7 @@
 ---
 title: Real-Time Chat System Architecture
-description: Design a messaging platform like WhatsApp handling billions of messages daily
+description: Design a messaging platform like WhatsApp handling billions of messages
+  daily
 type: case-study
 difficulty: advanced
 reading_time: 40 min
@@ -13,31 +14,31 @@ introduced: 2009-01
 current_relevance: mainstream
 scale_proven: billions
 companies_using:
-  - WhatsApp
-  - Facebook Messenger
-  - Discord
-  - Slack
-  - Telegram
+- WhatsApp
+- Facebook Messenger
+- Discord
+- Slack
+- Telegram
 production_checklist:
-  - "Implement proper WebSocket connection management"
-  - "Set up message queuing for reliability"
-  - "Configure end-to-end encryption"
-  - "Design efficient message routing"
-  - "Implement offline message delivery"
-  - "Set up push notifications"
-  - "Monitor connection health and latency"
-  - "Implement proper rate limiting"
-  - "Design for mobile battery efficiency"
+- Implement proper WebSocket connection management
+- Set up message queuing for reliability
+- Configure end-to-end encryption
+- Design efficient message routing
+- Implement offline message delivery
+- Set up push notifications
+- Monitor connection health and latency
+- Implement proper rate limiting
+- Design for mobile battery efficiency
 modern_examples:
-  - company: WhatsApp
-    scale: "100B+ messages/day, 2B+ users"
-    use_case: "Global messaging with E2E encryption"
-  - company: Discord
-    scale: "4B messages/day, 150M MAU"
-    use_case: "Gaming and community chat"
-  - company: Slack
-    scale: "1B+ messages/week"
-    use_case: "Enterprise team collaboration"
+- company: WhatsApp
+  scale: 100B+ messages/day, 2B+ users
+  use_case: Global messaging with E2E encryption
+- company: Discord
+  scale: 4B messages/day, 150M MAU
+  use_case: Gaming and community chat
+- company: Slack
+  scale: 1B+ messages/week
+  use_case: Enterprise team collaboration
 ---
 
 
@@ -153,8 +154,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: End-to-End Encryption (Coming Soon)
 - Pattern: Key Management (Coming Soon)
-- 🏛 Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Cryptographic guarantees
-- 🏛 Pillar: [Control Distribution](../part2-pillars/control/index.md) - Secure message routing
+- 🏛 Pillar: [Truth Distribution](../core-principles/pillars/truth/index.md) - Cryptographic guarantees
+- 🏛 Pillar: [Control Distribution](../core-principles/pillars/control/index.md) - Secure message routing
 
 ### Phase 4: Global Scale Architecture (2016-Present)
 

@@ -27,8 +27,8 @@ prerequisites:
 - sorting-algorithms
 reading_time: 30 min
 related_laws:
-- law4-optimization
-- law7-economics
+- multidimensional-optimization
+- economic-reality
 related_pillars:
 - state
 - work

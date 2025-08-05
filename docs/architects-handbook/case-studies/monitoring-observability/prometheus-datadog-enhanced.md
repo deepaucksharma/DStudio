@@ -1,22 +1,19 @@
 ---
-title: "Metrics Monitoring System - Real-time Analytics at Scale"
-description: Design a comprehensive metrics monitoring and alerting system processing millions of metrics per second
+title: Metrics Monitoring System - Real-time Analytics at Scale
+description: Design a comprehensive metrics monitoring and alerting system processing
+  millions of metrics per second
 type: case-study
 difficulty: advanced
 reading_time: 35 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: hyperscale
 domain: analytics
 company: Datadog
 year_implemented: 2010
 current_status: production
-
-# Key metrics
 metrics:
   metrics_per_second: 10M+
   data_points_daily: 1T+
@@ -25,48 +22,42 @@ metrics:
   alert_latency: 60s
   customers: 25K+
   uptime: 99.99%
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - time-series-database: "Custom TSDB with compression ratios of 10:1"
-    - stream-processing: "Real-time metric aggregation pipeline"
-    - sharding: "Metric-based sharding across thousands of nodes"
-    - columnar-storage: "Efficient time-series compression"
+  - time-series-database: Custom TSDB with compression ratios of 10:1
+  - stream-processing: Real-time metric aggregation pipeline
+  - sharding: Metric-based sharding across thousands of nodes
+  - columnar-storage: Efficient time-series compression
   silver:
-    - write-through-cache: "Hot metrics in Redis"
-    - data-tiering: "Multi-resolution storage (raw→5m→1h→1d)"
-    - federation: "Cross-region metric aggregation"
-    - circuit-breaker: "Protect against metric storms"
+  - write-through-cache: Hot metrics in Redis
+  - data-tiering: "Multi-resolution storage (raw\u21925m\u21921h\u21921d)"
+  - federation: Cross-region metric aggregation
+  - circuit-breaker: Protect against metric storms
   bronze:
-    - pull-based-monitoring: "Being supplemented with push model"
-
-# Trade-offs
+  - pull-based-monitoring: Being supplemented with push model
 trade_offs:
   pros:
-    - "Handles massive scale with 10M+ metrics/second"
-    - "Sub-second query performance on recent data"
-    - "Flexible tag-based data model"
-    - "Cost-effective with intelligent downsampling"
+  - Handles massive scale with 10M+ metrics/second
+  - Sub-second query performance on recent data
+  - Flexible tag-based data model
+  - Cost-effective with intelligent downsampling
   cons:
-    - "Complex distributed architecture"
-    - "High cardinality can explode costs"
-    - "Historical data queries can be slow"
-    - "Requires careful capacity planning"
-
-# Evolution insights
+  - Complex distributed architecture
+  - High cardinality can explode costs
+  - Historical data queries can be slow
+  - Requires careful capacity planning
 evolution_insights:
-  initial_design: "Simple StatsD aggregator with Graphite backend"
-  pain_points: "Graphite scaling limits, no tags, slow queries"
+  initial_design: Simple StatsD aggregator with Graphite backend
+  pain_points: Graphite scaling limits, no tags, slow queries
   key_innovations:
-    - "Custom time-series database from scratch"
-    - "Distributed tracing integration"
-    - "ML-powered anomaly detection"
-    - "Adaptive sampling for high-cardinality"
+  - Custom time-series database from scratch
+  - Distributed tracing integration
+  - ML-powered anomaly detection
+  - Adaptive sampling for high-cardinality
   future_directions:
-    - "eBPF-based collection for zero overhead"
-    - "Predictive alerting with ML"
-    - "Unified observability platform"
+  - eBPF-based collection for zero overhead
+  - Predictive alerting with ML
+  - Unified observability platform
 ---
 
 # Metrics Monitoring System - System Design Case Study

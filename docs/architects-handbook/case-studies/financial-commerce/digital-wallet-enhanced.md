@@ -1,26 +1,23 @@
 ---
 title: Digital Wallet System
-description: Design a comprehensive digital wallet platform handling millions of financial transactions
+description: Design a comprehensive digital wallet platform handling millions of financial
+  transactions
 type: case-study
 difficulty: advanced
 reading_time: 30 min
 prerequisites:
-  - Distributed Transactions
-  - Payment Processing
-  - Security Architecture
-  - Compliance Systems
+- Distributed Transactions
+- Payment Processing
+- Security Architecture
+- Compliance Systems
 status: complete
 last_updated: 2025-01-21
-
-# Excellence metadata
 excellence_tier: silver
 scale_category: enterprise-scale
 domain: payments
 company: PayPal
 year_implemented: 1998
 current_status: production
-
-# Key metrics
 metrics:
   users: 400M+
   requests_per_second: 500K+
@@ -28,57 +25,47 @@ metrics:
   availability: 99.99%
   latency_p99: 200ms
   regions: 200+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - event-sourcing: "Immutable transaction history for audit compliance"
-    - saga: "Multi-step payment workflows with compensation"
-    - distributed-locking: "Prevents double-spending and race conditions"
-    - circuit-breaker: "Protects against payment gateway failures"
+  - event-sourcing: Immutable transaction history for audit compliance
+  - saga: Multi-step payment workflows with compensation
+  - distributed-locking: Prevents double-spending and race conditions
+  - circuit-breaker: Protects against payment gateway failures
   silver:
-    - two-phase-commit: "Ensures consistency in financial transactions"
-    - rate-limiting: "Fraud prevention and API protection"
-    - encryption-at-rest: "PCI DSS compliance for payment data"
+  - two-phase-commit: Ensures consistency in financial transactions
+  - rate-limiting: Fraud prevention and API protection
+  - encryption-at-rest: PCI DSS compliance for payment data
   bronze:
-    - monolithic-gateway: "Legacy integration being decomposed"
-
-# Excellence connections
+  - monolithic-gateway: Legacy integration being decomposed
 excellence_guides:
-  - scale/fintech-scale
-  - migration/payment-systems
-  - operational/financial-platforms
-
-# Implementation insights
+- scale/fintech-scale
+- migration/payment-systems
+- operational/financial-platforms
 key_innovations:
-  - "Idempotent payment processing preventing duplicate charges"
-  - "Real-time fraud detection processing 100K+ rules/second"
-  - "Multi-currency ledger with microsecond precision"
-
+- Idempotent payment processing preventing duplicate charges
+- Real-time fraud detection processing 100K+ rules/second
+- Multi-currency ledger with microsecond precision
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Event sourcing essential for regulatory compliance"
-  - category: "Security"
-    lesson: "Zero-trust architecture required for payment systems"
-  - category: "Operations"
-    lesson: "Graceful degradation critical during payment gateway outages"
-
-# Trade-offs specific to Silver tier
+- category: Architecture
+  lesson: Event sourcing essential for regulatory compliance
+- category: Security
+  lesson: Zero-trust architecture required for payment systems
+- category: Operations
+  lesson: Graceful degradation critical during payment gateway outages
 trade_offs:
   pros:
-    - "Battle-tested with billions in transaction volume"
-    - "Strong consistency guarantees for financial accuracy"
-    - "Comprehensive fraud prevention capabilities"
+  - Battle-tested with billions in transaction volume
+  - Strong consistency guarantees for financial accuracy
+  - Comprehensive fraud prevention capabilities
   cons:
-    - "Complex regulatory compliance requirements"
-    - "Higher infrastructure costs for redundancy"
-    - "Integration complexity with banking systems"
-
+  - Complex regulatory compliance requirements
+  - Higher infrastructure costs for redundancy
+  - Integration complexity with banking systems
 best_for:
-  - "Financial institutions requiring regulatory compliance"
-  - "E-commerce platforms needing payment processing"
-  - "P2P payment applications at scale"
-  - "Multi-currency international payment systems"
+- Financial institutions requiring regulatory compliance
+- E-commerce platforms needing payment processing
+- P2P payment applications at scale
+- Multi-currency international payment systems
 ---
 
 # Digital Wallet - System Design Case Study

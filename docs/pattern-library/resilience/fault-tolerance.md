@@ -17,9 +17,9 @@ prerequisites:
 - error-handling
 reading_time: 15 min
 related_laws:
-- law1-failure
-- law3-emergence
-- law7-economics
+- correlated-failure
+- emergent-chaos
+- economic-reality
 related_pillars:
 - work
 - state
@@ -249,9 +249,9 @@ type: pattern
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Design independent failure domains
-    - [Law 3: Emergent Chaos](../../part1-axioms/law3-emergence/) - Complex failure modes
-    - [Law 7: Economic Reality](../../part1-axioms/law7-economics/) - Cost vs. availability trade-offs
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Design independent failure domains
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/) - Complex failure modes
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/) - Cost vs. availability trade-offs
 
 </div>
 

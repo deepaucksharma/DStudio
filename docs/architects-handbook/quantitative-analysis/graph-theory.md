@@ -1,6 +1,6 @@
 ---
 title: Graph Theory
-description: "Quantitative models for network topology and graph algorithms"
+description: Quantitative models for network topology and graph algorithms
 ---
 
 # Graph Theory

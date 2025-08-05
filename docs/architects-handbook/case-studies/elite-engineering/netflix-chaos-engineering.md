@@ -6,16 +6,16 @@ pattern_status: recommended
 introduced: 2011-07
 current_relevance: mainstream
 modern_examples:
-  - Netflix Chaos Engineering Platform
-  - Gremlin
-  - Litmus Chaos
-  - AWS Fault Injection Simulator
+- Netflix Chaos Engineering Platform
+- Gremlin
+- Litmus Chaos
+- AWS Fault Injection Simulator
 production_checklist:
-  - Chaos Monkey deployment
-  - Circuit breaker implementation
-  - Game day exercises
-  - Failure injection framework
-  - Observability pipeline
+- Chaos Monkey deployment
+- Circuit breaker implementation
+- Game day exercises
+- Failure injection framework
+- Observability pipeline
 ---
 
 # Netflix: Pioneering Chaos Engineering at Scale

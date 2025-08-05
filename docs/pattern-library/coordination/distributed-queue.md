@@ -35,9 +35,9 @@ production_checklist:
 - Implement poison message handling and DLQ strategies
 reading_time: 30 min
 related_laws:
-- law2-asynchrony
-- law1-failure
-- law7-economics
+- asynchronous-reality
+- correlated-failure
+- economic-reality
 related_pillars:
 - work
 - state
@@ -356,15 +356,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - Async messaging nature
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Cascade failure prevention
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - Async messaging nature
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Cascade failure prevention
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../part2-pillars/work/) - Queue-based work distribution
-    - [State Distribution](../../part2-pillars/state/) - Message state management
+    - [Work Distribution](../../core-principles/pillars/work/) - Queue-based work distribution
+    - [State Distribution](../../core-principles/pillars/state/) - Message state management
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

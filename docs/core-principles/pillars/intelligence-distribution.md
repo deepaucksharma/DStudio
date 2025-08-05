@@ -1,6 +1,7 @@
 ---
-title: "Intelligence Distribution"
-description: "How distributed systems learn, adapt, and fail spectacularly when intelligence goes wrong"
+title: Intelligence Distribution
+description: How distributed systems learn, adapt, and fail spectacularly when intelligence
+  goes wrong
 excellence_tier: gold
 pillar_type: core
 status: current

@@ -5,7 +5,7 @@ type: case-studie
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
-pattern_type: "various"
+pattern_type: various
 status: stub
 last_updated: 2025-01-23
 excellence_tier: gold
@@ -13,16 +13,16 @@ pattern_status: recommended
 introduced: 2011-07
 current_relevance: mainstream
 modern_examples:
-  - Netflix Chaos Engineering
-  - Gremlin
-  - Litmus
-  - ChaosBlade
+- Netflix Chaos Engineering
+- Gremlin
+- Litmus
+- ChaosBlade
 production_checklist:
-  - Chaos testing framework
-  - Failure injection tools
-  - Recovery automation
-  - Game day processes
-  - Incident analysis
+- Chaos testing framework
+- Failure injection tools
+- Recovery automation
+- Game day processes
+- Incident analysis
 ---
 
 

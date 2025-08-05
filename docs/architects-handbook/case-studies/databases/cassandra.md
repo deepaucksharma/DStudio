@@ -1,11 +1,14 @@
 ---
-title: "Apache Cassandra: Masterless Distributed Database"
-description: "Deep dive into Cassandra's ring-based architecture, tunable consistency, and partition-tolerant design"
+title: 'Apache Cassandra: Masterless Distributed Database'
+description: Deep dive into Cassandra's ring-based architecture, tunable consistency,
+  and partition-tolerant design
 type: case-study
 difficulty: advanced
 reading_time: 40 min
-prerequisites: ["consistent-hashing", "cap-theorem"]
-pattern_type: "data-management"
+prerequisites:
+- consistent-hashing
+- cap-theorem
+pattern_type: data-management
 status: complete
 last_updated: 2025-07-23
 excellence_tier: gold
@@ -14,30 +17,30 @@ introduced: 2008-07
 current_relevance: mainstream
 scale_proven: exabyte
 companies_using:
-  - Netflix
-  - Discord
-  - Apple
-  - Uber
-  - Instagram
+- Netflix
+- Discord
+- Apple
+- Uber
+- Instagram
 production_checklist:
-  - "Design tables for specific query patterns"
-  - "Configure appropriate compaction strategy"
-  - "Set up regular repair operations"
-  - "Monitor partition sizes (< 100MB)"
-  - "Implement proper retry policies"
-  - "Use prepared statements for performance"
-  - "Configure rack and datacenter awareness"
-  - "Set up monitoring for key metrics"
+- Design tables for specific query patterns
+- Configure appropriate compaction strategy
+- Set up regular repair operations
+- Monitor partition sizes (< 100MB)
+- Implement proper retry policies
+- Use prepared statements for performance
+- Configure rack and datacenter awareness
+- Set up monitoring for key metrics
 modern_examples:
-  - company: Netflix
-    scale: "2,500+ nodes, 420TB data, 4.5M reads/sec"
-    use_case: "User preferences, viewing history, recommendations"
-  - company: Discord
-    scale: "14B messages, 8ms p99 latency"
-    use_case: "Message storage and real-time chat"
-  - company: Apple
-    scale: "75,000+ nodes globally"
-    use_case: "Infrastructure services"
+- company: Netflix
+  scale: 2,500+ nodes, 420TB data, 4.5M reads/sec
+  use_case: User preferences, viewing history, recommendations
+- company: Discord
+  scale: 14B messages, 8ms p99 latency
+  use_case: Message storage and real-time chat
+- company: Apple
+  scale: 75,000+ nodes globally
+  use_case: Infrastructure services
 ---
 
 

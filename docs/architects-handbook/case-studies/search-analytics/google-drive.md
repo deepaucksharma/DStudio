@@ -1,6 +1,7 @@
 ---
 title: Google Drive Cloud Storage Architecture
-description: Design a cloud file storage service handling billions of files with real-time sync
+description: Design a cloud file storage service handling billions of files with real-time
+  sync
 type: case-study
 difficulty: advanced
 reading_time: 45 min
@@ -12,20 +13,20 @@ pattern_status: recommended
 introduced: 2012-01
 current_relevance: mainstream
 modern_examples:
-  - company: Google
-    usage: "Drive serving 1B+ users with exabytes of data"
-  - company: Dropbox
-    usage: "Block-level sync for efficient file transfer"
-  - company: Microsoft
-    usage: "OneDrive with real-time collaboration"
+- company: Google
+  usage: Drive serving 1B+ users with exabytes of data
+- company: Dropbox
+  usage: Block-level sync for efficient file transfer
+- company: Microsoft
+  usage: OneDrive with real-time collaboration
 production_checklist:
-  - "Efficient chunking and deduplication algorithms"
-  - "Conflict resolution for concurrent edits"
-  - "Progressive sync for large files"
-  - "End-to-end encryption options"
-  - "Bandwidth throttling and optimization"
-  - "Offline mode with eventual consistency"
-  - "Multi-device sync coordination"
+- Efficient chunking and deduplication algorithms
+- Conflict resolution for concurrent edits
+- Progressive sync for large files
+- End-to-end encryption options
+- Bandwidth throttling and optimization
+- Offline mode with eventual consistency
+- Multi-device sync coordination
 ---
 
 
@@ -906,7 +907,7 @@ graph TB
 ```
 
 **Key Design Decision: Metadata/Data Separation**
-- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](../part2-pillars/state))
+- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](../core-principles/pillars/state))
 - **Choice**: Store metadata in DB, files in object storage
 - **Result**: Independent scaling of metadata and storage
 - **Pattern Applied**: Metadata Service (Coming Soon)
@@ -966,8 +967,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: [Content-Addressed Storage](../patterns/cas) - Deduplication
 - Pattern: Chunking (Coming Soon) - Large file handling
-- 🏛 Pillar: [State Distribution](../part2-pillars/state) - Sharded metadata
-- 🏛 Pillar: [Work Distribution](../part2-pillars/work) - Parallel uploads
+- 🏛 Pillar: [State Distribution](../core-principles/pillars/state) - Sharded metadata
+- 🏛 Pillar: [Work Distribution](../core-principles/pillars/work) - Parallel uploads
 
 ### Phase 4: Modern Cloud-Native Architecture (2014-Present)
 
@@ -1542,14 +1543,14 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony)** - Sync speed, cache placement
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs)** - Storage tiering, deduplication
-- **[Law 1: Failure](../part1-axioms/law1-failure)** - Replication, conflict resolution
-- **[Law 3: Emergence](../part1-axioms/law3-emergence)** - Parallel uploads, collaborative editing
-- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs)** - Distributed sync, consistency
-- **[Law 5: Epistemology](../part1-axioms/law5-epistemology)** - Sync tracking, storage metrics
-- **[Law 6: Human-API](../part1-axioms/law6-human-api)** - Selective sync, offline mode
-- **[Law 7: Economics](../part1-axioms/law7-economics)** - Storage costs, tiering strategy
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality)** - Sync speed, cache placement
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization)** - Storage tiering, deduplication
+- **[Law 1: Failure](../core-principles/laws/correlated-failure)** - Replication, conflict resolution
+- **[Law 3: Emergence](../core-principles/laws/emergent-chaos)** - Parallel uploads, collaborative editing
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization)** - Distributed sync, consistency
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge)** - Sync tracking, storage metrics
+- **[Law 6: Human-API](../core-principles/laws/cognitive-load)** - Selective sync, offline mode
+- **[Law 7: Economics](../core-principles/laws/economic-reality)** - Storage costs, tiering strategy
 
 ### 🏛 Related Patterns
 - **[Content-Addressed Storage](../patterns/cas)** - Deduplication foundation

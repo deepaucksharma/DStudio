@@ -1,6 +1,6 @@
 ---
 title: Probabilistic Data Structures
-description: "Space-efficient structures with controlled error rates"
+description: Space-efficient structures with controlled error rates
 ---
 
 # Probabilistic Data Structures

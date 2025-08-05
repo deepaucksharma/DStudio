@@ -44,9 +44,9 @@ By completing this path, you will:
  
  Apply the 7 laws to real systems:
  
- - [Correlated Failure at Scale](../../core-principles/laws/law1-failure/index) - Netflix outage analysis
- - [Asynchronous Coordination](../../core-principles/laws/law2-asynchrony/index) - Clock synchronization
- - [Emergent Behavior](../../core-principles/laws/law3-emergence/index) - Cascade failure patterns
+ - [Correlated Failure at Scale](../../core-principles/laws/correlated-failure) - Netflix outage analysis
+ - [Asynchronous Coordination](../../core-principles/laws/asynchronous-reality) - Clock synchronization
+ - [Emergent Behavior](../../core-principles/laws/emergent-chaos/index) - Cascade failure patterns
 
 - **Week 2: Advanced Pillars**
  

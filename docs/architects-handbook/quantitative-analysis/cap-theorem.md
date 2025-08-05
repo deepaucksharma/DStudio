@@ -1,11 +1,15 @@
 ---
 title: CAP Theorem Deep-Dive
-description: "The fundamental trade-off in distributed systems: you can have at most two of Consistency, Availability, and Partition tolerance"
+description: 'The fundamental trade-off in distributed systems: you can have at most
+  two of Consistency, Availability, and Partition tolerance'
 type: quantitative
 difficulty: intermediate
 reading_time: 45 min
-prerequisites: ["consistency", "network-partitions", "distributed-consensus"]
-pattern_type: "fundamental-theorem"
+prerequisites:
+- consistency
+- network-partitions
+- distributed-consensus
+pattern_type: fundamental-theorem
 status: complete
 last_updated: 2025-01-23
 ---

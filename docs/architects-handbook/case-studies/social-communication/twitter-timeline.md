@@ -1,22 +1,19 @@
 ---
-title: "Twitter Timeline: Scaling the Home Timeline"
-description: How Twitter evolved from pull to push architecture to serve billions of timeline requests
+title: 'Twitter Timeline: Scaling the Home Timeline'
+description: How Twitter evolved from pull to push architecture to serve billions
+  of timeline requests
 type: case-study
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: silver
 scale_category: large-scale
 domain: social-media
 company: Twitter
 year_implemented: 2012
 current_status: production
-
-# Key metrics
 metrics:
   daily_active_users: 200M+
   tweets_per_second: 6K average, 140K peak
@@ -24,61 +21,50 @@ metrics:
   fanout_ratio: 1:1000+ for celebrities
   latency_p99: 100ms
   cache_hit_rate: 99%
-
-# Pattern usage tracking
 patterns_used:
   silver:
-    - fanout-on-write: "Pre-compute timelines for fast reads"
-    - hybrid-approach: "Mix of push/pull for different users"
-    - redis-cluster: "In-memory timeline storage"
-    - sharding: "User-based sharding for distribution"
-    - bounded-queues: "Limit timeline length to control memory"
+  - fanout-on-write: Pre-compute timelines for fast reads
+  - hybrid-approach: Mix of push/pull for different users
+  - redis-cluster: In-memory timeline storage
+  - sharding: User-based sharding for distribution
+  - bounded-queues: Limit timeline length to control memory
   gold:
-    - cache-aside: "Multiple cache layers for performance"
-    - async-processing: "Decouple write from fanout"
+  - cache-aside: Multiple cache layers for performance
+  - async-processing: Decouple write from fanout
   bronze:
-    - pull-model: "Original architecture, now only for celebrities"
-
-# Trade-offs
+  - pull-model: Original architecture, now only for celebrities
 trade_offs:
   pros:
-    - "Sub-100ms timeline loads"
-    - "Handles celebrity tweet storms"
-    - "Predictable performance for most users"
-    - "Efficient for read-heavy workload"
+  - Sub-100ms timeline loads
+  - Handles celebrity tweet storms
+  - Predictable performance for most users
+  - Efficient for read-heavy workload
   cons:
-    - "High write amplification"
-    - "Storage intensive (1000x duplication)"
-    - "Complex hybrid logic"
-    - "Delayed timeline updates possible"
-
-# Best for
+  - High write amplification
+  - Storage intensive (1000x duplication)
+  - Complex hybrid logic
+  - Delayed timeline updates possible
 best_for:
-  - "Read-heavy social applications"
-  - "Systems with follower/following relationships"
-  - "Applications needing fast timeline rendering"
-  - "Platforms with mixed user types (regular/celebrity)"
-
-# Excellence connections
+- Read-heavy social applications
+- Systems with follower/following relationships
+- Applications needing fast timeline rendering
+- Platforms with mixed user types (regular/celebrity)
 excellence_guides:
-  - scale/social-media
-  - pattern-library/timeline-architecture
-  - architecture/hybrid-systems
-
-# Implementation insights
+- scale/social-media
+- pattern-library/timeline-architecture
+- architecture/hybrid-systems
 key_innovations:
-  - "Fanout service for efficient timeline updates"
-  - "Hybrid push/pull based on follower count"
-  - "Bounded timeline with intelligent trimming"
-  - "Multi-tier caching strategy"
-
+- Fanout service for efficient timeline updates
+- Hybrid push/pull based on follower count
+- Bounded timeline with intelligent trimming
+- Multi-tier caching strategy
 lessons_learned:
-  - category: "Architecture"
-    lesson: "One size doesn't fit all - hybrid approaches work"
-  - category: "Performance"
-    lesson: "Pre-computation trades write cost for read speed"
-  - category: "Scale"
-    lesson: "Celebrity accounts need special handling"
+- category: Architecture
+  lesson: One size doesn't fit all - hybrid approaches work
+- category: Performance
+  lesson: Pre-computation trades write cost for read speed
+- category: Scale
+  lesson: Celebrity accounts need special handling
 ---
 
 # Twitter Timeline: Scaling the Home Timeline

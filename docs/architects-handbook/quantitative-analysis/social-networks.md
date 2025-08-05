@@ -1,6 +1,6 @@
 ---
 title: Social Networks
-description: "Quantitative models for social graph analysis and network effects"
+description: Quantitative models for social graph analysis and network effects
 ---
 
 # Social Networks

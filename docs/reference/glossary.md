@@ -1,6 +1,7 @@
 ---
 title: Distributed Systems Glossary
-description: Comprehensive definitions of terms used throughout The Compendium of Distributed Systems.
+description: Comprehensive definitions of terms used throughout The Compendium of
+  Distributed Systems.
 type: reference
 difficulty: advanced
 reading_time: 10 min
@@ -70,7 +71,7 @@ Distributed systems can provide at most two of: Consistency, Availability, Parti
 
 **Implication**: Must choose between consistency and availability during partitions
 
-**Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Multidimensional Optimization ⚖️](/core-principles/laws/multidimensional-optimization/)
+**Related**: [Truth Pillar](../core-principles/pillars/truth/index.md), [Multidimensional Optimization ⚖️](/core-principles/laws/multidimensional-optimization/)
 
 ### Circuit Breaker
 Prevents cascade failures by failing fast when error thresholds exceeded.

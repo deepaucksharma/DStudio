@@ -5,7 +5,7 @@ type: quantitative
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
-pattern_type: "various"
+pattern_type: various
 status: stub
 last_updated: 2025-01-23
 ---

@@ -1,23 +1,24 @@
 ---
-title: "Apache Spark: Unified Analytics Engine at Scale"
-description: "Deep dive into Spark's RDD abstraction, DAG execution, and lessons from processing petabytes"
+title: 'Apache Spark: Unified Analytics Engine at Scale'
+description: Deep dive into Spark's RDD abstraction, DAG execution, and lessons from
+  processing petabytes
 type: case-study
 difficulty: advanced
 reading_time: 50 min
-prerequisites: ["distributed-computing", "mapreduce", "data-processing", "scala"]
-pattern_type: "data-processing"
+prerequisites:
+- distributed-computing
+- mapreduce
+- data-processing
+- scala
+pattern_type: data-processing
 status: complete
 last_updated: 2025-01-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: internet-scale
 domain: big-data-processing
 company: UC Berkeley AMPLab
 year_implemented: 2014
 current_status: production
-
-# Key metrics
 metrics:
   deployments: 100000+
   cluster_size: 10000+ nodes
@@ -25,26 +26,22 @@ metrics:
   performance_gain: 100x vs MapReduce
   languages: Scala, Java, Python, R, SQL
   latency: Sub-second to hours
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - rdd-abstraction: "Resilient Distributed Datasets"
-    - dag-execution: "Directed Acyclic Graph optimization"
-    - lazy-evaluation: "Build execution plan before running"
-    - in-memory-computing: "Cache intermediate results"
+  - rdd-abstraction: Resilient Distributed Datasets
+  - dag-execution: Directed Acyclic Graph optimization
+  - lazy-evaluation: Build execution plan before running
+  - in-memory-computing: Cache intermediate results
   silver:
-    - catalyst-optimizer: "SQL query optimization"
-    - tungsten-execution: "Memory and CPU optimization"
-    - structured-streaming: "Unified batch and stream"
+  - catalyst-optimizer: SQL query optimization
+  - tungsten-execution: Memory and CPU optimization
+  - structured-streaming: Unified batch and stream
   bronze:
-    - none: "Modern architecture throughout"
-
-# Excellence connections
+  - none: Modern architecture throughout
 excellence_guides:
-  - scale/big-data-processing
-  - pattern-library/distributed-computing
-  - operational/spark-excellence
+- scale/big-data-processing
+- pattern-library/distributed-computing
+- operational/spark-excellence
 ---
 
 

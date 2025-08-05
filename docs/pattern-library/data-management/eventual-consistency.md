@@ -17,9 +17,9 @@ prerequisites:
 - distributed-systems-basics
 reading_time: 25 min
 related_laws:
-- law1-failure
-- law2-asynchrony
-- law4-tradeoffs
+- correlated-failure
+- asynchronous-reality
+- multidimensional-optimization
 related_pillars:
 - state
 - truth
@@ -330,15 +330,15 @@ graph LR
     
     ---
     
-    - [Law 1: Correlated Failure](../../part1-axioms/law1-failure/) - Network partitions are inevitable
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2-asynchrony/) - No global clock exists
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/) - Network partitions are inevitable
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/) - No global clock exists
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Managing distributed state
-    - [Truth Distribution](../../part2-pillars/truth/) - Consistency models
+    - [State Distribution](../../core-principles/pillars/state/) - Managing distributed state
+    - [Truth Distribution](../../core-principles/pillars/truth/) - Consistency models
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

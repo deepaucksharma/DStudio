@@ -33,9 +33,9 @@ production-checklist:
 - Plan for split-brain prevention
 reading-time: 30 min
 related-laws:
-- law2-asynchrony
-- law1-failure
-- law5-epistemology
+- asynchronous-reality
+- correlated-failure
+- distributed-knowledge
 related-pillars:
 - truth
 - control
@@ -331,18 +331,18 @@ No deterministic consensus algorithm can guarantee both safety and liveness in a
 ### Fundamental Laws
 This pattern directly addresses:
 
-- **[Law 1: Correlated Failure ⛓️](part1-axioms/law1-failure/index)**: Consensus handles node failures and network partitions
-- **[Law 2: Asynchronous Reality ⏱️](part1-axioms/law2-asynchrony/)**: FLP impossibility shows async consensus limits
-- **[Law 3: Emergent Chaos 🌪️](part1-axioms/law3-emergence/index)**: Multiple consensus attempts create emergent behaviors
-- **[Law 4: Multidimensional Optimization ⚖️](part1-axioms/law4-tradeoffs/index)**: CAP theorem trade-offs in consensus
-- **[Law 5: Distributed Knowledge 🧠](part1-axioms/law5-epistemology/index)**: No single node knows complete state
+- **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/index)**: Consensus handles node failures and network partitions
+- **[Law 2: Asynchronous Reality ⏱️](../../core-principles/laws/asynchronous-reality/)**: FLP impossibility shows async consensus limits
+- **[Law 3: Emergent Chaos 🌪️](core-principles/laws/emergent-chaos/index)**: Multiple consensus attempts create emergent behaviors
+- **[Law 4: Multidimensional Optimization ⚖️](core-principles/laws/multidimensional-optimization/index)**: CAP theorem trade-offs in consensus
+- **[Law 5: Distributed Knowledge 🧠](core-principles/laws/distributed-knowledge/index)**: No single node knows complete state
 
 ### Foundational Pillars
 Consensus implements:
 
-- **[Pillar 2: Distribution of State 🗃️](part2-pillars/state/index)**: Replicated state machines
-- **[Pillar 3: Distribution of Truth 🔍](part2-pillars/truth/index)**: Agreement on single truth
-- **[Pillar 4: Distribution of Control 🎮](part2-pillars/control/index)**: Leader election and coordination
+- **[Pillar 2: Distribution of State 🗃️](core-principles/pillars/state/index)**: Replicated state machines
+- **[Pillar 3: Distribution of Truth 🔍](core-principles/pillars/truth/index)**: Agreement on single truth
+- **[Pillar 4: Distribution of Control 🎮](core-principles/pillars/control/index)**: Leader election and coordination
 
 ## Related Patterns
 

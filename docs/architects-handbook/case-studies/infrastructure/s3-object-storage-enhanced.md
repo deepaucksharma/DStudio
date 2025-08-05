@@ -1,26 +1,23 @@
 ---
 title: S3-like Object Storage System
-description: Design a distributed object storage system handling trillions of objects at exabyte scale
+description: Design a distributed object storage system handling trillions of objects
+  at exabyte scale
 type: case-study
 difficulty: advanced
 reading_time: 40 min
 prerequisites:
-  - Distributed Storage
-  - Erasure Coding
-  - Consistent Hashing
-  - Object Storage
+- Distributed Storage
+- Erasure Coding
+- Consistent Hashing
+- Object Storage
 status: complete
 last_updated: 2025-01-21
-
-# Excellence metadata
 excellence_tier: silver
 scale_category: enterprise-scale
 domain: storage
 company: Amazon
 year_implemented: 2006
 current_status: production
-
-# Key metrics
 metrics:
   users: 1M+
   requests_per_second: 10M+
@@ -28,57 +25,47 @@ metrics:
   availability: 99.999999999%
   latency_p99: 50ms
   regions: 25+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - erasure-coding: "11 nines durability with efficient storage"
-    - consistent-hashing: "Object distribution across storage nodes"
-    - multi-region-replication: "Cross-region redundancy and compliance"
-    - versioning: "Immutable object versions for data protection"
+  - erasure-coding: 11 nines durability with efficient storage
+  - consistent-hashing: Object distribution across storage nodes
+  - multi-region-replication: Cross-region redundancy and compliance
+  - versioning: Immutable object versions for data protection
   silver:
-    - bloom-filters: "Efficient object existence checks"
-    - tiered-storage: "Lifecycle policies for cost optimization"
-    - rate-limiting: "Fair usage and DDoS protection"
+  - bloom-filters: Efficient object existence checks
+  - tiered-storage: Lifecycle policies for cost optimization
+  - rate-limiting: Fair usage and DDoS protection
   bronze:
-    - eventual-consistency: "Being replaced with strong consistency"
-
-# Excellence connections
+  - eventual-consistency: Being replaced with strong consistency
 excellence_guides:
-  - scale/object-storage
-  - migration/storage-systems
-  - operational/data-durability
-
-# Implementation insights
+- scale/object-storage
+- migration/storage-systems
+- operational/data-durability
 key_innovations:
-  - "Erasure coding achieving 11 nines durability with 1.5x overhead"
-  - "Intelligent tiering automatically moving data to optimal storage class"
-  - "S3 Select pushing computation to storage layer"
-
+- Erasure coding achieving 11 nines durability with 1.5x overhead
+- Intelligent tiering automatically moving data to optimal storage class
+- S3 Select pushing computation to storage layer
 lessons_learned:
-  - category: "Architecture"
-    lesson: "Durability requires multiple failure domain isolation"
-  - category: "Performance"
-    lesson: "Metadata caching critical for LIST operation performance"
-  - category: "Operations"
-    lesson: "Automated repair essential at exabyte scale"
-
-# Trade-offs specific to Silver tier
+- category: Architecture
+  lesson: Durability requires multiple failure domain isolation
+- category: Performance
+  lesson: Metadata caching critical for LIST operation performance
+- category: Operations
+  lesson: Automated repair essential at exabyte scale
 trade_offs:
   pros:
-    - "Industry-standard API adopted globally"
-    - "Extreme durability with cost efficiency"
-    - "Seamless scaling to exabytes"
+  - Industry-standard API adopted globally
+  - Extreme durability with cost efficiency
+  - Seamless scaling to exabytes
   cons:
-    - "Complex operational requirements"
-    - "Network costs for data transfer"
-    - "Learning curve for optimization"
-
+  - Complex operational requirements
+  - Network costs for data transfer
+  - Learning curve for optimization
 best_for:
-  - "Data lakes and analytics workloads"
-  - "Backup and archive solutions"
-  - "Content delivery networks"
-  - "Enterprise cloud storage needs"
+- Data lakes and analytics workloads
+- Backup and archive solutions
+- Content delivery networks
+- Enterprise cloud storage needs
 ---
 
 # S3-like Object Storage - System Design Case Study

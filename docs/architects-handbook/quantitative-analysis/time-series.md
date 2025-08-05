@@ -1,6 +1,6 @@
 ---
 title: Time-Series Analysis
-description: "Quantitative models for temporal data and forecasting"
+description: Quantitative models for temporal data and forecasting
 ---
 
 # Time-Series Analysis

@@ -17,9 +17,9 @@ prerequisites:
 - distributed-storage
 reading_time: 20 min
 related_laws:
-- law2-asynchrony
-- law4-tradeoffs
-- law7-economics
+- asynchronous-reality
+- multidimensional-optimization
+- economic-reality
 related_pillars:
 - state
 - work
@@ -303,15 +303,15 @@ graph LR
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../part1-axioms/law2/) - Distributed processing
-    - [Law 4: Multidimensional Optimization](../../part1-axioms/law4/) - Performance vs. cost trade-offs
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/law2/) - Distributed processing
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/law4/) - Performance vs. cost trade-offs
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../part2-pillars/state/) - Distributed data storage
-    - [Work Distribution](../../part2-pillars/work/) - Parallel query processing
+    - [State Distribution](../../core-principles/pillars/state/) - Distributed data storage
+    - [Work Distribution](../../core-principles/pillars/work/) - Parallel query processing
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     

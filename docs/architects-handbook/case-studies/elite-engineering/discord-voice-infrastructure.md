@@ -1,22 +1,19 @@
 ---
-title: "Discord: Engineering Voice at Massive Scale"
-description: How Discord built real-time voice infrastructure for millions of concurrent users
+title: 'Discord: Engineering Voice at Massive Scale'
+description: How Discord built real-time voice infrastructure for millions of concurrent
+  users
 type: case-study
 difficulty: advanced
 reading_time: 30 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-28
-
-# Excellence metadata
 excellence_tier: gold
 scale_category: hyperscale
 domain: messaging
 company: Discord
 year_implemented: 2015
 current_status: production
-
-# Key metrics
 metrics:
   monthly_active_users: 150M+
   concurrent_voice_users: 5M+
@@ -25,48 +22,42 @@ metrics:
   median_latency: 28ms
   p99_latency: 60ms
   global_pops: 50+
-
-# Pattern usage tracking
 patterns_used:
   gold:
-    - selective-forwarding: "SFU architecture eliminates N² complexity"
-    - edge-computing: "50+ PoPs for ultra-low latency"
-    - websocket-gateway: "Flannel handles millions of connections"
-    - chaos-engineering: "Regular disaster testing"
+  - selective-forwarding: "SFU architecture eliminates N\xB2 complexity"
+  - edge-computing: 50+ PoPs for ultra-low latency
+  - websocket-gateway: Flannel handles millions of connections
+  - chaos-engineering: Regular disaster testing
   silver:
-    - circuit-breaker: "Automatic failover in <100ms"
-    - rate-limiting: "Abuse prevention without latency impact"
-    - sharding: "Guild-based sharding for isolation"
-    - load-balancing: "Intelligent voice server selection"
+  - circuit-breaker: Automatic failover in <100ms
+  - rate-limiting: Abuse prevention without latency impact
+  - sharding: Guild-based sharding for isolation
+  - load-balancing: Intelligent voice server selection
   bronze:
-    - webrtc: "Standard protocol with custom optimizations"
-
-# Trade-offs
+  - webrtc: Standard protocol with custom optimizations
 trade_offs:
   pros:
-    - "Ultra-low latency voice globally (<60ms p99)"
-    - "Scales to millions of concurrent users"
-    - "No server setup required for users"
-    - "High quality audio with noise suppression"
+  - Ultra-low latency voice globally (<60ms p99)
+  - Scales to millions of concurrent users
+  - No server setup required for users
+  - High quality audio with noise suppression
   cons:
-    - "Complex infrastructure with many components"
-    - "High bandwidth costs for voice relay"
-    - "Requires global edge presence"
-    - "Challenging mobile battery optimization"
-
-# Evolution insights
+  - Complex infrastructure with many components
+  - High bandwidth costs for voice relay
+  - Requires global edge presence
+  - Challenging mobile battery optimization
 evolution_insights:
-  initial_design: "Simple WebRTC peer-to-peer for small groups"
-  pain_points: "P2P breaks at scale, NAT issues, mobile battery"
+  initial_design: Simple WebRTC peer-to-peer for small groups
+  pain_points: P2P breaks at scale, NAT issues, mobile battery
   key_innovations:
-    - "Custom SFU replacing P2P connections"
-    - "Elixir/Rust for massive concurrency"
-    - "Guild-based sharding architecture"
-    - "Intelligent region selection"
+  - Custom SFU replacing P2P connections
+  - Elixir/Rust for massive concurrency
+  - Guild-based sharding architecture
+  - Intelligent region selection
   future_directions:
-    - "AI-powered noise cancellation"
-    - "3D spatial audio for metaverse"
-    - "Video infrastructure scaling"
+  - AI-powered noise cancellation
+  - 3D spatial audio for metaverse
+  - Video infrastructure scaling
 ---
 
 # Discord: Engineering Voice at Massive Scale
