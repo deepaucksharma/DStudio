@@ -76,7 +76,7 @@ const patterns = [
     { name: "Content Delivery Network", category: "scaling", tier: "gold", status: "recommended", description: "Cache content at edge locations", url: "/DStudio/pattern-library/scaling/content-delivery-network/", tags: ["cdn", "edge", "caching"] },
     { name: "Multi-Region", category: "scaling", tier: "gold", status: "recommended", description: "Deploy across multiple geographic regions", url: "/DStudio/pattern-library/scaling/multi-region/", tags: ["geo", "availability", "disaster-recovery"] },
     
-    // From patterns directory (specialized/uncategorized)
+    // Additional patterns
     { name: "ID Generation at Scale", category: "scaling", tier: "gold", status: "recommended", description: "Generate unique IDs in distributed systems", url: "/DStudio/pattern-library/scaling/id-generation-scale/", tags: ["uuid", "snowflake", "uniqueness"] },
     { name: "URL Normalization", category: "scaling", tier: "silver", status: "stable", description: "Standardize URLs for consistency", url: "/DStudio/pattern-library/scaling/url-normalization/", tags: ["web", "standardization", "crawling"] },
     { name: "Deduplication", category: "data-management", tier: "silver", status: "stable", description: "Remove duplicate data efficiently", url: "/DStudio/pattern-library/data-management/deduplication/", tags: ["storage", "efficiency", "cleanup"] },
@@ -87,30 +87,30 @@ const patterns = [
     { name: "Tunable Consistency", category: "data-management", tier: "silver", status: "stable", description: "Adjust consistency levels dynamically", url: "/DStudio/pattern-library/data-management/tunable-consistency/", tags: ["consistency", "flexibility", "trade-offs"] },
     { name: "Tile Caching", category: "scaling", tier: "silver", status: "stable", description: "Cache map tiles for performance", url: "/DStudio/pattern-library/scaling/tile-caching/", tags: ["maps", "caching", "geo"] },
     { name: "CAP Theorem", category: "architecture", tier: "bronze", status: "legacy", description: "Consistency, Availability, Partition tolerance trade-offs", url: "/DStudio/pattern-library/architecture/cap-theorem/", tags: ["theory", "trade-offs", "distributed"] },
-    { name: "Bloom Filter", category: "specialized", tier: "gold", status: "recommended", description: "Probabilistic data structure for set membership", url: "/DStudio/patterns/bloom-filter/", tags: ["performance", "space-efficiency"] },
-    { name: "Merkle Trees", category: "specialized", tier: "gold", status: "recommended", description: "Verify data integrity efficiently", url: "/DStudio/patterns/merkle-trees/", tags: ["integrity", "verification", "sync"] },
-    { name: "CRDT", category: "specialized", tier: "gold", status: "recommended", description: "Conflict-free replicated data types", url: "/DStudio/patterns/crdt/", tags: ["consistency", "replication", "conflict-resolution"] },
-    { name: "Actor Model", category: "specialized", tier: "bronze", status: "legacy", description: "Concurrent computation with actors", url: "/DStudio/patterns/actor-model/", tags: ["concurrency", "messaging", "isolation"] },
-    { name: "Lambda Architecture", category: "specialized", tier: "bronze", status: "legacy", description: "Batch and stream processing architecture", url: "/DStudio/patterns/lambda-architecture/", tags: ["big-data", "batch", "stream"] },
-    { name: "Kappa Architecture", category: "specialized", tier: "silver", status: "stable", description: "Stream-only processing architecture", url: "/DStudio/patterns/kappa-architecture/", tags: ["streaming", "simplification", "real-time"] },
-    { name: "Data Lake", category: "specialized", tier: "bronze", status: "legacy", description: "Centralized repository for raw data", url: "/DStudio/patterns/data-lake/", tags: ["storage", "analytics", "big-data"] },
-    { name: "Polyglot Persistence", category: "specialized", tier: "silver", status: "stable", description: "Use different databases for different needs", url: "/DStudio/patterns/polyglot-persistence/", tags: ["database", "optimization", "flexibility"] },
-    { name: "Distributed Storage", category: "specialized", tier: "gold", status: "recommended", description: "Store data across multiple nodes", url: "/DStudio/patterns/distributed-storage/", tags: ["storage", "scalability", "redundancy"] },
-    { name: "LSM Tree", category: "specialized", tier: "gold", status: "recommended", description: "Log-structured merge tree for write optimization", url: "/DStudio/patterns/lsm-tree/", tags: ["storage", "write-optimization", "database"] },
-    { name: "Distributed Queue", category: "specialized", tier: "silver", status: "stable", description: "Scalable queue across multiple nodes", url: "/DStudio/patterns/distributed-queue/", tags: ["queue", "scalability"] },
-    { name: "GraphQL Federation", category: "specialized", tier: "silver", status: "stable", description: "Distributed GraphQL schema composition", url: "/DStudio/patterns/graphql-federation/", tags: ["api", "graphql", "federation"] },
-    { name: "CAS", category: "specialized", tier: "silver", status: "stable", description: "Compare and swap for atomic operations", url: "/DStudio/patterns/cas/", tags: ["atomicity", "concurrency", "lock-free"] },
-    { name: "Chunking", category: "specialized", tier: "silver", status: "stable", description: "Process large datasets in smaller chunks", url: "/DStudio/patterns/chunking/", tags: ["batch", "memory", "streaming"] },
-    { name: "Delta Sync", category: "specialized", tier: "silver", status: "stable", description: "Synchronize only changed data", url: "/DStudio/patterns/delta-sync/", tags: ["sync", "efficiency", "bandwidth"] },
-    { name: "Emergent Leader", category: "specialized", tier: "silver", status: "stable", description: "Leadership emerges without explicit election", url: "/DStudio/patterns/emergent-leader/", tags: ["self-organization", "leadership", "emergence"] },
-    { name: "Geo-Distribution", category: "specialized", tier: "silver", status: "stable", description: "Distribute system across geographic regions", url: "/DStudio/patterns/geo-distribution/", tags: ["geo", "distribution", "global"] },
-    { name: "Geo-Replication", category: "specialized", tier: "silver", status: "stable", description: "Replicate data across geographic regions", url: "/DStudio/patterns/geo-replication/", tags: ["replication", "geo", "availability"] },
-    { name: "Leader-Follower", category: "specialized", tier: "silver", status: "stable", description: "Master-slave replication pattern", url: "/DStudio/patterns/leader-follower/", tags: ["replication", "master-slave", "consistency"] },
-    { name: "Low-High Water Marks", category: "specialized", tier: "silver", status: "stable", description: "Track replication progress", url: "/DStudio/patterns/low-high-water-marks/", tags: ["replication", "progress", "tracking"] },
-    { name: "Read Repair", category: "specialized", tier: "silver", status: "stable", description: "Fix inconsistencies during read operations", url: "/DStudio/patterns/read-repair/", tags: ["consistency", "repair", "eventual-consistency"] },
-    { name: "Segmented Log", category: "specialized", tier: "silver", status: "stable", description: "Split logs into segments for efficiency", url: "/DStudio/patterns/segmented-log/", tags: ["logging", "storage", "performance"] },
-    { name: "Shared Database", category: "specialized", tier: "bronze", status: "legacy", description: "Multiple services share a database", url: "/DStudio/patterns/shared-database/", tags: ["anti-pattern", "coupling"] },
-    { name: "State Watch", category: "specialized", tier: "silver", status: "stable", description: "Monitor state changes in distributed systems", url: "/DStudio/patterns/state-watch/", tags: ["monitoring", "notifications", "state"] }];
+    { name: "Bloom Filter", category: "data-management", tier: "gold", status: "recommended", description: "Probabilistic data structure for set membership", url: "/DStudio/pattern-library/data-management/bloom-filter/", tags: ["performance", "space-efficiency"] },
+    { name: "Merkle Trees", category: "data-management", tier: "gold", status: "recommended", description: "Verify data integrity efficiently", url: "/DStudio/pattern-library/data-management/merkle-trees/", tags: ["integrity", "verification", "sync"] },
+    { name: "CRDT", category: "data-management", tier: "gold", status: "recommended", description: "Conflict-free replicated data types", url: "/DStudio/pattern-library/data-management/crdt/", tags: ["consistency", "replication", "conflict-resolution"] },
+    { name: "Actor Model", category: "coordination", tier: "bronze", status: "legacy", description: "Concurrent computation with actors", url: "/DStudio/pattern-library/coordination/actor-model/", tags: ["concurrency", "messaging", "isolation"] },
+    { name: "Lambda Architecture", category: "architecture", tier: "bronze", status: "legacy", description: "Batch and stream processing architecture", url: "/DStudio/pattern-library/architecture/lambda-architecture/", tags: ["big-data", "batch", "stream"] },
+    { name: "Kappa Architecture", category: "architecture", tier: "silver", status: "stable", description: "Stream-only processing architecture", url: "/DStudio/pattern-library/architecture/kappa-architecture/", tags: ["streaming", "simplification", "real-time"] },
+    { name: "Data Lake", category: "data-management", tier: "bronze", status: "legacy", description: "Centralized repository for raw data", url: "/DStudio/pattern-library/data-management/data-lake/", tags: ["storage", "analytics", "big-data"] },
+    { name: "Polyglot Persistence", category: "data-management", tier: "silver", status: "stable", description: "Use different databases for different needs", url: "/DStudio/pattern-library/data-management/polyglot-persistence/", tags: ["database", "optimization", "flexibility"] },
+    { name: "Distributed Storage", category: "data-management", tier: "gold", status: "recommended", description: "Store data across multiple nodes", url: "/DStudio/pattern-library/data-management/distributed-storage/", tags: ["storage", "scalability", "redundancy"] },
+    { name: "LSM Tree", category: "data-management", tier: "gold", status: "recommended", description: "Log-structured merge tree for write optimization", url: "/DStudio/pattern-library/data-management/lsm-tree/", tags: ["storage", "write-optimization", "database"] },
+    { name: "Distributed Queue", category: "coordination", tier: "silver", status: "stable", description: "Scalable queue across multiple nodes", url: "/DStudio/pattern-library/coordination/distributed-queue/", tags: ["queue", "scalability"] },
+    { name: "GraphQL Federation", category: "architecture", tier: "silver", status: "stable", description: "Distributed GraphQL schema composition", url: "/DStudio/pattern-library/architecture/graphql-federation/", tags: ["api", "graphql", "federation"] },
+    { name: "CAS", category: "coordination", tier: "silver", status: "stable", description: "Compare and swap for atomic operations", url: "/DStudio/pattern-library/coordination/cas/", tags: ["atomicity", "concurrency", "lock-free"] },
+    { name: "Chunking", category: "scaling", tier: "silver", status: "stable", description: "Process large datasets in smaller chunks", url: "/DStudio/pattern-library/scaling/chunking/", tags: ["batch", "memory", "streaming"] },
+    { name: "Delta Sync", category: "data-management", tier: "silver", status: "stable", description: "Synchronize only changed data", url: "/DStudio/pattern-library/data-management/delta-sync/", tags: ["sync", "efficiency", "bandwidth"] },
+    { name: "Emergent Leader", category: "coordination", tier: "silver", status: "stable", description: "Leadership emerges without explicit election", url: "/DStudio/pattern-library/coordination/emergent-leader/", tags: ["self-organization", "leadership", "emergence"] },
+    { name: "Geo-Distribution", category: "scaling", tier: "silver", status: "stable", description: "Distribute system across geographic regions", url: "/DStudio/pattern-library/scaling/geo-distribution/", tags: ["geo", "distribution", "global"] },
+    { name: "Geo-Replication", category: "scaling", tier: "silver", status: "stable", description: "Replicate data across geographic regions", url: "/DStudio/pattern-library/scaling/geo-replication/", tags: ["replication", "geo", "availability"] },
+    { name: "Leader-Follower", category: "coordination", tier: "silver", status: "stable", description: "Master-slave replication pattern", url: "/DStudio/pattern-library/coordination/leader-follower/", tags: ["replication", "master-slave", "consistency"] },
+    { name: "Low-High Water Marks", category: "coordination", tier: "silver", status: "stable", description: "Track replication progress", url: "/DStudio/pattern-library/coordination/low-high-water-marks/", tags: ["replication", "progress", "tracking"] },
+    { name: "Read Repair", category: "data-management", tier: "silver", status: "stable", description: "Fix inconsistencies during read operations", url: "/DStudio/pattern-library/data-management/read-repair/", tags: ["consistency", "repair", "eventual-consistency"] },
+    { name: "Segmented Log", category: "data-management", tier: "silver", status: "stable", description: "Split logs into segments for efficiency", url: "/DStudio/pattern-library/data-management/segmented-log/", tags: ["logging", "storage", "performance"] },
+    { name: "Shared Database", category: "data-management", tier: "bronze", status: "legacy", description: "Multiple services share a database", url: "/DStudio/pattern-library/data-management/shared-database/", tags: ["anti-pattern", "coupling"] },
+    { name: "State Watch", category: "coordination", tier: "silver", status: "stable", description: "Monitor state changes in distributed systems", url: "/DStudio/pattern-library/coordination/state-watch/", tags: ["monitoring", "notifications", "state"] }];
 
 // State management
 let currentFilters = {
@@ -307,9 +307,8 @@ function formatCategory(category) {
         'resilience': 'Resilience',
         'data-management': 'Data Management',
         'coordination': 'Coordination',
-        'architectural': 'Architecture',
-        'scaling': 'Scaling',
-        'specialized': 'Specialized'
+        'architecture': 'Architecture',
+        'scaling': 'Scaling'
     };
     return categoryMap[category] || category;
 }

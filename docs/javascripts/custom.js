@@ -35,47 +35,11 @@
     });
   }
 
-  // === Mermaid Initialization ===
-  
-  function initializeMermaid() {
-    if (typeof mermaid !== 'undefined') {
-      mermaid.initialize({
-        startOnLoad: true,
-        theme: 'default',
-        themeVariables: {
-          primaryColor: '#5448C8',
-          primaryTextColor: '#ffffff',
-          primaryBorderColor: '#5448C8',
-          lineColor: '#6366f1',
-          sectionBkgColor: '#f8fafc',
-          altSectionBkgColor: '#f1f5f9',
-          gridColor: '#e2e8f0',
-          secondaryColor: '#00BCD4',
-          tertiaryColor: '#f3f4f6'
-        }
-      });
-      // Render any mermaid diagrams
-      mermaid.contentLoaded();
-    }
-  }
-
   // === Initialize Everything ===
   
   function initialize() {
     enhanceSearch();
     enhanceExternalLinks();
-    
-    // Initialize mermaid if available
-    if (typeof mermaid !== 'undefined') {
-      initializeMermaid();
-    } else {
-      // Try again after a short delay
-      setTimeout(function() {
-        if (typeof mermaid !== 'undefined') {
-          initializeMermaid();
-        }
-      }, 1000);
-    }
   }
 
   // Wait for DOM to be ready

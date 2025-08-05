@@ -86,7 +86,7 @@ graph LR
 <div class="pattern-explorer-enhanced">
     <div class="explorer-header">
         <h3>🎯 Smart Pattern Discovery</h3>
-        <p>Find the right pattern based on our analysis of 91 patterns across 60 years of distributed systems</p>
+        <p>Find the right pattern based on our analysis of 96 patterns across 60 years of distributed systems</p>
     </div>
     
     <div class="pattern-filter-container">

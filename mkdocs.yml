@@ -139,7 +139,9 @@ plugins:
       patterns/chaos-engineering.md: architects-handbook/human-factors/chaos-engineering.md
 - mermaid2:
     version: 10.9.1
+    javascript: https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js
     arguments:
+      startOnLoad: true
       theme: default
       themeVariables:
         primaryColor: '#5448C8'
@@ -210,7 +212,6 @@ extra_css:
 extra_javascript:
 - javascripts/mathjax-config.js
 - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
-- https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js
 - javascripts/custom.js
 - javascripts/pattern-filtering.js
 - javascripts/progress-tracker.js
