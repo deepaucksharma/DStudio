@@ -284,6 +284,92 @@ class ProgressTracker {
         summary.innerHTML = this.getProgressSummaryHTML();
         
         header.appendChild(summary);
+        
+        // Add keyboard shortcut listener for progress reset
+        this.addKeyboardShortcuts();
+    }
+    
+    addKeyboardShortcuts() {
+        // Ctrl/Cmd + Shift + R to reset progress
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'R') {
+                e.preventDefault();
+                this.showResetDialog();
+            }
+        });
+    }
+    
+    showResetDialog() {
+        // Create modal overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'progress-reset-overlay';
+        
+        const dialog = document.createElement('div');
+        dialog.className = 'progress-reset-dialog';
+        dialog.innerHTML = `
+            <h3>Reset Progress?</h3>
+            <p>Are you sure you want to reset all your reading progress? This will clear:</p>
+            <ul>
+                <li>All completed pages (${this.progress.completedPages.length} pages)</li>
+                <li>Reading time (${Math.floor(this.progress.totalReadingTime / 60000)} minutes)</li>
+                <li>All achievements (${this.progress.achievements.length} earned)</li>
+            </ul>
+            <p class="progress-reset-warning">This action cannot be undone!</p>
+            <div class="progress-reset-actions">
+                <button class="progress-reset-cancel" onclick="this.closest('.progress-reset-overlay').remove()">
+                    Cancel
+                </button>
+                <button class="progress-reset-confirm" onclick="progressTracker.confirmReset()">
+                    Reset Progress
+                </button>
+            </div>
+            <p class="progress-reset-hint">Tip: Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> anytime to reset</p>
+        `;
+        
+        overlay.appendChild(dialog);
+        document.body.appendChild(overlay);
+        
+        // Close on overlay click
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.remove();
+        });
+        
+        // Close on Escape
+        const escHandler = (e) => {
+            if (e.key === 'Escape') {
+                overlay.remove();
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
+    }
+    
+    confirmReset() {
+        this.progress = this.getDefaultProgress();
+        this.saveProgress();
+        
+        // Remove dialog
+        document.querySelector('.progress-reset-overlay')?.remove();
+        
+        // Show confirmation
+        this.showResetConfirmation();
+        
+        // Refresh page after short delay
+        setTimeout(() => location.reload(), 1500);
+    }
+    
+    showResetConfirmation() {
+        const notification = document.createElement('div');
+        notification.className = 'progress-reset-notification';
+        notification.innerHTML = `
+            <div class="progress-reset-icon">✓</div>
+            <div class="progress-reset-message">Progress reset successfully!</div>
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => notification.classList.add('show'), 100);
     }
 
     getProgressSummaryHTML() {
@@ -311,6 +397,9 @@ class ProgressTracker {
                 <a href="/DStudio/progress/" class="progress-dashboard-link" title="View detailed progress">
                     <span class="twemoji">📊</span>
                 </a>
+                <button class="progress-summary-reset" onclick="progressTracker.resetProgress()" title="Reset progress (Ctrl+Shift+R)">
+                    ↻
+                </button>
             </div>
         `;
     }
@@ -328,11 +417,7 @@ class ProgressTracker {
     }
 
     resetProgress() {
-        if (confirm('Are you sure you want to reset all your progress? This cannot be undone.')) {
-            this.progress = this.getDefaultProgress();
-            this.saveProgress();
-            location.reload();
-        }
+        this.showResetDialog();
     }
 
     exportProgress() {

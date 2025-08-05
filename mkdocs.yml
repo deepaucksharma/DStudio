@@ -215,10 +215,6 @@ extra_javascript:
 - javascripts/progress-tracker.js
 extra:
   generator: false
-  alternate:
-  - name: English
-    link: /
-    lang: en
   tags:
     laws: part1-axioms
     pillars: part2-pillars

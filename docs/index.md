@@ -14,6 +14,9 @@ hide:
     
     **7 Fundamental Laws** • **5 Core Pillars** • **91 Design Patterns** • **150+ Real Examples**
 
+!!! tip "Track Your Progress"
+    Your reading progress is automatically saved as you explore the compendium. Look for the ✓ marks in the navigation and use **Ctrl+Shift+R** (or **Cmd+Shift+R** on Mac) to reset your progress anytime.
+
 Welcome to the definitive resource for understanding distributed systems from first principles. This compendium organizes complex concepts into a physics-based framework that reveals the immutable laws governing all distributed architectures. Whether you're a new graduate learning the fundamentals or a senior architect designing systems at scale, this guide provides maximum conceptual depth with minimum cognitive load.
 
 ## Start Your Journey

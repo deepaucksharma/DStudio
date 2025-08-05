@@ -336,6 +336,176 @@
     color: white;
 }
 
+/* Progress reset dialog */
+.progress-reset-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.progress-reset-dialog {
+    background: var(--md-default-bg-color);
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.progress-reset-dialog h3 {
+    margin: 0 0 16px 0;
+    font-size: 24px;
+    color: var(--md-primary-fg-color);
+}
+
+.progress-reset-dialog p {
+    margin: 16px 0;
+    line-height: 1.6;
+}
+
+.progress-reset-dialog ul {
+    margin: 16px 0;
+    padding-left: 24px;
+}
+
+.progress-reset-dialog li {
+    margin: 8px 0;
+    color: var(--md-default-fg-color--light);
+}
+
+.progress-reset-warning {
+    color: #f44336;
+    font-weight: 600;
+    text-align: center;
+    padding: 12px;
+    background: rgba(244, 67, 54, 0.1);
+    border-radius: 4px;
+}
+
+.progress-reset-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    justify-content: flex-end;
+}
+
+.progress-reset-cancel,
+.progress-reset-confirm {
+    padding: 10px 24px;
+    border-radius: 4px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.progress-reset-cancel {
+    background: var(--md-default-fg-color--lightest);
+    color: var(--md-default-fg-color);
+}
+
+.progress-reset-cancel:hover {
+    background: var(--md-default-fg-color--lighter);
+}
+
+.progress-reset-confirm {
+    background: #f44336;
+    color: white;
+}
+
+.progress-reset-confirm:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+}
+
+.progress-reset-hint {
+    margin-top: 24px;
+    font-size: 14px;
+    text-align: center;
+    color: var(--md-default-fg-color--light);
+}
+
+.progress-reset-hint kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    margin: 0 2px;
+    font-size: 12px;
+    font-family: monospace;
+    background: var(--md-code-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Reset confirmation notification */
+.progress-reset-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: var(--md-default-bg-color);
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    padding: 24px 32px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+
+.progress-reset-notification.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.progress-reset-icon {
+    font-size: 32px;
+    color: #4CAF50;
+}
+
+.progress-reset-message {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--md-default-fg-color);
+}
+
+/* Progress summary reset button */
+.progress-summary-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 8px;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--md-default-fg-color--light);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+}
+
+.progress-summary-reset:hover {
+    background: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    transform: scale(1.1);
+}
+
 /* Mobile responsive adjustments */
 @media screen and (max-width: 768px) {
     .progress-summary {
