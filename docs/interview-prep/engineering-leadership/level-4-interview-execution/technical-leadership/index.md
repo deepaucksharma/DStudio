@@ -307,4 +307,4 @@ Week 5-6: Integration
 
 ---
 
-**Next Steps**: Review [System & Org Design](../../../../interview-prep/engineering-leadership/level-4-interview-execution/system-org-design/index.md) for organizational aspects, and practice with the [Interactive Tools](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/index.md).
+**Next Steps**: Review [System & Org Design](../../../engineering-leadership/level-4-interview-execution/system-org-design/index.md) for organizational aspects, and practice with the [Interactive Tools](../../../engineering-leadership/level-4-interview-execution/tools/interactive/index.md).

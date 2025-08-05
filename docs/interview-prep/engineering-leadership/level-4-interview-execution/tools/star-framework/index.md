@@ -177,4 +177,4 @@ Highlight velocity and scale:
 
 ---
 
-**Next Steps**: Build your story portfolio using our [Story Portfolio Tool](../../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md) and practice with [Common Behavioral Questions](../../practice-scenarios/).
+**Next Steps**: Build your story portfolio using our [Story Portfolio Tool](../../../../engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md) and practice with [Common Behavioral Questions](../../practice-scenarios/).

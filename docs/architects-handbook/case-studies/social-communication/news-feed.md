@@ -1286,6 +1286,6 @@ The hybrid architecture balances the trade-offs between different approaches, us
 
 ### Similar Case Studies
 - **[Spotify Recommendations](../../../architects-handbook/case-studies/search-analytics/spotify-recommendations.md)** - Similar ML personalization challenges
-- **[YouTube's Video Platform](../../../architects-handbook/case-studies/social-communication/youtube.md)** - Content distribution and recommendation parallels
-- **[Rate Limiter Design](../../../architects-handbook/case-studies/monitoring-observability/rate-limiter.md)** - Protecting feed generation from abuse
+- **[YouTube's Video Platform](../youtube.md)** - Content distribution and recommendation parallels
+- **[Rate Limiter Design](../rate-limiter.md)** - Protecting feed generation from abuse
 - **[Uber's Location System](uber-location.md.md)** - Real-time data processing patterns

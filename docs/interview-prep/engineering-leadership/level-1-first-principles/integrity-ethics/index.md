@@ -578,26 +578,26 @@ Not "What did you build?" but "What foundation did you build on?"
 
 ## Connection to Other Principles
 
-- **[Value Creation](../../../../interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md)**: Sustainable value requires trust - shortcuts destroy long-term value
-- **[Decision-Making](../../../../interview-prep/engineering-leadership/level-1-first-principles/decision-making/index.md)**: Ethics guide tough choices - integrity makes decisions clearer
-- **[Human Behavior](../../../../interview-prep/engineering-leadership/level-1-first-principles/human-behavior/index.md)**: People follow integrity examples - culture flows from leadership ethics
-- **[Systems Thinking](../../../../interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Ethics must be systemic, not individual - build integrity into structures
+- **[Value Creation](../../../engineering-leadership/level-1-first-principles/value-creation/index.md)**: Sustainable value requires trust - shortcuts destroy long-term value
+- **[Decision-Making](../../../engineering-leadership/level-1-first-principles/decision-making/index.md)**: Ethics guide tough choices - integrity makes decisions clearer
+- **[Human Behavior](../../../engineering-leadership/level-1-first-principles/human-behavior/index.md)**: People follow integrity examples - culture flows from leadership ethics
+- **[Systems Thinking](../../../engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Ethics must be systemic, not individual - build integrity into structures
 
 ## Application in Other Levels
 
 ### Level II: Core Business Concepts
-- **[Leadership](../../../../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md)**: Ethical leadership creates followership
-- **[Risk & Governance](../../../../interview-prep/engineering-leadership/level-2-core-business/risk-governance/index.md)**: Integrity as risk mitigation
-- **[Finance](../../../../interview-prep/engineering-leadership/level-2-core-business/finance/index.md)**: Ethical financial practices
+- **[Leadership](../../../engineering-leadership/level-2-core-business/leadership/index.md)**: Ethical leadership creates followership
+- **[Risk & Governance](../../../engineering-leadership/level-2-core-business/risk-governance/index.md)**: Integrity as risk mitigation
+- **[Finance](../../../engineering-leadership/level-2-core-business/finance/index.md)**: Ethical financial practices
 
 ### Level III: Engineering Applications
-- **[People Management](../../../../interview-prep/engineering-leadership/level-3-applications/people-management/index.md)**: Building trust with teams
-- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md)**: Ethical technology decisions
-- **[Business Acumen](../../../../interview-prep/engineering-leadership/level-3-applications/business-acumen/index.md)**: Balancing profit with principles
+- **[People Management](../../../engineering-leadership/level-3-applications/people-management/index.md)**: Building trust with teams
+- **[Technical Leadership](../../../engineering-leadership/level-3-applications/technical-leadership/index.md)**: Ethical technology decisions
+- **[Business Acumen](../../../engineering-leadership/level-3-applications/business-acumen/index.md)**: Balancing profit with principles
 
 ### Level IV: Interview Execution
-- **[Culture Fit](../../../../interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Demonstrating value alignment
-- **[Behavioral Stories](../../../../interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Integrity under pressure
+- **[Culture Fit](../../../engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Demonstrating value alignment
+- **[Behavioral Stories](../../../engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Integrity under pressure
 
 ## Integrity & Ethics Interview Toolkit
 
@@ -675,4 +675,4 @@ For each story, demonstrate:
 
 ---
 
-*Congratulations on completing Level I: First Principles. Ready to see how these principles become actionable? Continue to [Level II: Core Business Concepts](../../../../interview-prep/engineering-leadership/level-2-core-business/index.md) to learn the disciplines that operationalize these principles.*
+*Congratulations on completing Level I: First Principles. Ready to see how these principles become actionable? Continue to [Level II: Core Business Concepts](../../../engineering-leadership/level-2-core-business/index.md) to learn the disciplines that operationalize these principles.*

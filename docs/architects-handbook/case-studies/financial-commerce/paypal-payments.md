@@ -718,15 +718,15 @@ graph TB
 - **[Two-Phase Commit](../../quantitative-analysis/consistency-models.md.md)** - Rejected due to availability and latency constraints
 
 ### 👥 Human Factors Considerations
-- **[Incident Response](../../../architects-handbook/human-factors/incident-response.md)** - Payment failures require immediate response procedures
-- **[On-Call Culture](../../../architects-handbook/human-factors/oncall-culture.md)** - 24/7 global payments need follow-the-sun support
-- **[Post-Mortem Culture](../../../architects-handbook/human-factors/blameless-postmortems.md)** - Every payment failure analyzed for systemic improvements
+- **[Incident Response](../../human-factors/incident-response.md)** - Payment failures require immediate response procedures
+- **[On-Call Culture](../../human-factors/oncall-culture.md)** - 24/7 global payments need follow-the-sun support
+- **[Post-Mortem Culture](../../human-factors/blameless-postmortems.md)** - Every payment failure analyzed for systemic improvements
 - **[Security Considerations](../reference/security.md)** - PCI compliance and fraud prevention are paramount
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Similar high-availability requirements for financial data
-- **[Uber's Location System](../../../architects-handbook/case-studies/location-services/uber-location.md)** - Real-time processing at similar scale
-- **[Rate Limiter Design](../../../architects-handbook/case-studies/monitoring-observability/rate-limiter.md)** - Prevents payment fraud through intelligent throttling
+- **[Amazon DynamoDB](../amazon-dynamo.md)** - Similar high-availability requirements for financial data
+- **[Uber's Location System](../uber-location.md)** - Real-time processing at similar scale
+- **[Rate Limiter Design](../rate-limiter.md)** - Prevents payment fraud through intelligent throttling
 - **[Consistent Hashing](../../../../pattern-library/data-management/consistent-hashing.md)** - Used for routing payments to processing cells
 
 ---

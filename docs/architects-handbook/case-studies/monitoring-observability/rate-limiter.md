@@ -1068,7 +1068,7 @@ graph TD
 - **[Capacity Planning](../quantitative-analysis/capacity-planning)** - Predicting rate limit needs based on growth
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Similar distributed counting challenges
+- **[Amazon DynamoDB](../amazon-dynamo.md)** - Similar distributed counting challenges
 - **[PayPal Payments](../../../architects-handbook/case-studies/financial-commerce/paypal-payments.md)** - Rate limiting prevents payment fraud
 - **[Consistent Hashing](../../../../pattern-library/data-management/consistent-hashing.md)** - Core technique for distributing rate limit state
 - **[News Feed System](news-feed.md.md)** - Rate limiting API calls for feed generation

@@ -1420,7 +1420,7 @@ class SpatialCacheWarmer:
 
 ### Similar Case Studies
 - **[Uber's H3 System] (Case Study Coming Soon)** - Hexagonal spatial indexing
-- **[Google Maps](../../../architects-handbook/case-studies/location-services/google-maps.md)** - Global mapping infrastructure
+- **[Google Maps](../google-maps.md)** - Global mapping infrastructure
 - **[Foursquare Venues] (Case Study Coming Soon)** - Location recommendations
 - **[Pokemon Go] (Case Study Coming Soon.md)** - Real-time AR locations
 

@@ -1369,12 +1369,12 @@ class ConsistentHashRing:
 
 ### 👥 Human Factors Considerations
 - **[Capacity Planning](quantitative/capacity-planning)** - Node weights must match actual capacity
-- **[Observability Tools](../../../architects-handbook/human-factors/observability-stacks.md)** - Ring visualizers essential for operations
-- **[Incident Response](../../../architects-handbook/human-factors/incident-response.md)** - Hot spot detection and mitigation procedures
-- **[On-Call Culture](../../../architects-handbook/human-factors/oncall-culture.md)** - Understanding ring rebalancing critical for operators
+- **[Observability Tools](../../human-factors/observability-stacks.md)** - Ring visualizers essential for operations
+- **[Incident Response](../../human-factors/incident-response.md)** - Hot spot detection and mitigation procedures
+- **[On-Call Culture](../../human-factors/oncall-culture.md)** - Understanding ring rebalancing critical for operators
 
 ### Similar Case Studies
-- **[Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Production implementation of consistent hashing at scale
-- **[Rate Limiter Design](../../../architects-handbook/case-studies/monitoring-observability/rate-limiter.md)** - Uses consistent hashing for distributed rate limit state
-- **[News Feed System](../../../architects-handbook/case-studies/social-communication/news-feed.md)** - Shards user timelines using consistent hashing
+- **[Amazon DynamoDB](../amazon-dynamo.md)** - Production implementation of consistent hashing at scale
+- **[Rate Limiter Design](../rate-limiter.md)** - Uses consistent hashing for distributed rate limit state
+- **[News Feed System](../news-feed.md)** - Shards user timelines using consistent hashing
 - **[PayPal Payments](paypal-payments.md.md)** - Routes payment processing using consistent hashing

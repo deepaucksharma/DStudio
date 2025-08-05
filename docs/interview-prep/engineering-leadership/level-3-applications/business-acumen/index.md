@@ -17,7 +17,7 @@ Business acumen for engineering leaders means understanding how technical decisi
 - **OKR Management**: Set and track objectives and key results
 - **Data-Driven Decisions**: Use metrics to guide choices
 
-[Metrics That Matter →](../../../../interview-prep/engineering-leadership/level-3-applications/business-acumen/business-metrics.md)
+[Metrics That Matter →](../../../engineering-leadership/level-3-applications/business-acumen/business-metrics.md)
 
 ### 2. Financial Management
 - **Budget Planning**: Create and manage engineering budgets
@@ -205,5 +205,5 @@ graph TD
 ## Next Steps
 
 - Complete [Business Acumen Assessment](../../interactive-tools/self-assessment/#business)
-- Review [Business Metrics Guide](../../../../interview-prep/engineering-leadership/level-3-applications/business-acumen/business-metrics.md)
-- Practice [Stakeholder Negotiation](../../../../interview-prep/engineering-leadership/practice-scenarios/stakeholder-negotiation-scenario.md)
+- Review [Business Metrics Guide](../../../engineering-leadership/level-3-applications/business-acumen/business-metrics.md)
+- Practice [Stakeholder Negotiation](../../../engineering-leadership/practice-scenarios/stakeholder-negotiation-scenario.md)

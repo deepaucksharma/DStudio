@@ -444,10 +444,10 @@ comfort or growth."
 
 ## Connection to Other Principles
 
-- **[Value Creation](../../../../interview-prep/engineering-leadership/level-1-first-principles/value-creation/index.md)**: Motivated humans create exponentially more value - align purpose with profit
-- **[Decision-Making](../../../../interview-prep/engineering-leadership/level-1-first-principles/decision-making/index.md)**: Emotions drive decisions, not just logic - account for human factors in every choice
-- **[Systems Thinking](../../../../interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Humans are part of the system - Conway's Law shows how org structure shapes architecture
-- **[Integrity & Ethics](../../../../interview-prep/engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Trust is the foundation of human cooperation - psychological safety requires ethical leadership
+- **[Value Creation](../../../engineering-leadership/level-1-first-principles/value-creation/index.md)**: Motivated humans create exponentially more value - align purpose with profit
+- **[Decision-Making](../../../engineering-leadership/level-1-first-principles/decision-making/index.md)**: Emotions drive decisions, not just logic - account for human factors in every choice
+- **[Systems Thinking](../../../engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Humans are part of the system - Conway's Law shows how org structure shapes architecture
+- **[Integrity & Ethics](../../../engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Trust is the foundation of human cooperation - psychological safety requires ethical leadership
 
 ## Human Behavior Interview Toolkit
 
@@ -516,18 +516,18 @@ For each story, be ready to explain:
 ## Application in Other Levels
 
 ### Level II: Core Business Concepts
-- **[Leadership](../../../../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md)**: Leading humans requires understanding behavior
-- **[Operations](../../../../interview-prep/engineering-leadership/level-2-core-business/operations/index.md)**: Human factors in operational excellence
-- **[Risk & Governance](../../../../interview-prep/engineering-leadership/level-2-core-business/risk-governance/index.md)**: Managing human risks and compliance
+- **[Leadership](../../../engineering-leadership/level-2-core-business/leadership/index.md)**: Leading humans requires understanding behavior
+- **[Operations](../../../engineering-leadership/level-2-core-business/operations/index.md)**: Human factors in operational excellence
+- **[Risk & Governance](../../../engineering-leadership/level-2-core-business/risk-governance/index.md)**: Managing human risks and compliance
 
 ### Level III: Engineering Applications
-- **[People Management](../../../../interview-prep/engineering-leadership/level-3-applications/people-management/index.md)**: Direct application of human behavior principles
-- **[Organizational Design](../../../../interview-prep/engineering-leadership/level-3-applications/organizational-design/index.md)**: Structures that enhance human performance
-- **[Technical Leadership](../../../../interview-prep/engineering-leadership/level-3-applications/technical-leadership/index.md)**: Leading technical humans effectively
+- **[People Management](../../../engineering-leadership/level-3-applications/people-management/index.md)**: Direct application of human behavior principles
+- **[Organizational Design](../../../engineering-leadership/level-3-applications/organizational-design/index.md)**: Structures that enhance human performance
+- **[Technical Leadership](../../../engineering-leadership/level-3-applications/technical-leadership/index.md)**: Leading technical humans effectively
 
 ### Level IV: Interview Execution
-- **[Behavioral Stories](../../../../interview-prep/engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Demonstrating people leadership
-- **[Culture Fit](../../../../interview-prep/engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Showing cultural awareness
+- **[Behavioral Stories](../../../engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Demonstrating people leadership
+- **[Culture Fit](../../../engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Showing cultural awareness
 
 ## Next Steps
 
@@ -538,4 +538,4 @@ For each story, be ready to explain:
 
 ---
 
-*Continue your journey: Discover how [Systems Thinking](../../../../interview-prep/engineering-leadership/level-1-first-principles/systems-thinking/index.md) reveals the hidden connections between human behavior and organizational outcomes, or explore [Leadership](../../../../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md) for frameworks to mobilize human potential.*
+*Continue your journey: Discover how [Systems Thinking](../../../engineering-leadership/level-1-first-principles/systems-thinking/index.md) reveals the hidden connections between human behavior and organizational outcomes, or explore [Leadership](../../../engineering-leadership/level-2-core-business/leadership/index.md) for frameworks to mobilize human potential.*

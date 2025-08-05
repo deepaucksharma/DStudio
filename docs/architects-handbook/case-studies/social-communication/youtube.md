@@ -1424,14 +1424,14 @@ graph TB
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices.md)** - Managing global video infrastructure at scale
 - **[Capacity Planning](../quantitative-analysis/capacity-planning.md)** - Predicting and provisioning for viral videos
-- **[Incident Response](../../../architects-handbook/human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
+- **[Incident Response](../../human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
 - **[Observability Tools](../human-factors/observability-stacks.md)** - Video quality metrics and viewer experience monitoring
 
 ### Similar Case Studies
 - **[Spotify Recommendations](../../../architects-handbook/case-studies/search-analytics/spotify-recommendations.md)** - Similar ML-driven content discovery challenges
-- **[News Feed System](../../../architects-handbook/case-studies/social-communication/news-feed.md)** - Personalized content distribution at scale
-- **[Uber's Location System](../../../architects-handbook/case-studies/location-services/uber-location.md)** - Real-time data processing for live streaming
-- **[Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md)** - Metadata storage for billions of videos requires similar scale
+- **[News Feed System](../news-feed.md)** - Personalized content distribution at scale
+- **[Uber's Location System](../uber-location.md)** - Real-time data processing for live streaming
+- **[Amazon DynamoDB](../amazon-dynamo.md)** - Metadata storage for billions of videos requires similar scale
 
 ---
 

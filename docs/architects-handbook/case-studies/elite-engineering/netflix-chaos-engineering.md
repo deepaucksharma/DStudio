@@ -44,7 +44,7 @@ This case study demonstrates the following distributed systems patterns in produ
 - **[Health Checks](../pattern-library/resilience/health-check.md)** - Continuous service health monitoring
 
 ### Operational Patterns
-- **[Chaos Engineering](../../../architects-handbook/human-factors/chaos-engineering.md)** - Continuous failure injection
+- **[Chaos Engineering](../../human-factors/chaos-engineering.md)** - Continuous failure injection
 - **[Observability](#observability-pattern.md)** - Deep monitoring and tracing
 - **[Graceful Degradation](../pattern-library/resilience/graceful-degradation.md)** - Multiple service levels
 - **[Auto-Scaling](../pattern-library/scaling/auto-scaling.md)** - Automatic capacity management

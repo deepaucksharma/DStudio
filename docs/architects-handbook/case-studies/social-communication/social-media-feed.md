@@ -1347,8 +1347,8 @@ Real-time adaptation capabilities separate great feed systems from good ones. Th
 Understanding feed architecture provides insights into broader distributed systems challenges: managing hot spots, balancing consistency with performance, designing for failure, and optimizing for both human and machine scale requirements.
 
 ## Related Case Studies
-- [Notification System](../../../architects-handbook/case-studies/social-communication/notification-system.md) - Real-time user engagement
-- [Redis Architecture](../../../architects-handbook/case-studies/databases/redis-architecture.md) - High-performance caching strategies
+- [Notification System](../notification-system.md) - Real-time user engagement
+- [Redis Architecture](../redis-architecture.md) - High-performance caching strategies
 - [Key-Value Store](key-value-store.md.md) - Foundational storage patterns
 
 ## External Resources

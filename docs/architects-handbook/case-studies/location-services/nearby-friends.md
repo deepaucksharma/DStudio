@@ -1720,8 +1720,8 @@ class PrivacyDashboard:
 
 ### Similar Case Studies
 - **[Find My Device](find-my-device.md.md)** - Apple/Google location
-- **[Snap Map](../../../architects-handbook/case-studies/location-services/snap-map.md)** - Social location sharing
-- **[Life360](../../../architects-handbook/case-studies/location-services/life360.md)** - Family location tracking
+- **[Snap Map](../snap-map.md)** - Social location sharing
+- **[Life360](../life360.md)** - Family location tracking
 - **[Strava Heatmaps](strava-heatmaps.md.md)** - Activity location privacy
 
 ## Implementation Best Practices

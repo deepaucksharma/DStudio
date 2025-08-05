@@ -1851,10 +1851,10 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 - **[Computer Vision](../quantitative-analysis/computer-vision)** - Image processing
 
 ### Similar Case Studies
-- **[Uber Maps](../../../architects-handbook/case-studies/location-services/uber-maps.md)** - Ride-hailing focused maps
-- **[Apple Maps](../../../architects-handbook/case-studies/location-services/apple-maps.md)** - Privacy-focused mapping
-- **[OpenStreetMap](../../../architects-handbook/case-studies/location-services/openstreetmap.md)** - Crowdsourced maps
-- **[HERE Maps](../../../architects-handbook/case-studies/location-services/here-maps.md)** - Automotive mapping
+- **[Uber Maps](../uber-maps.md)** - Ride-hailing focused maps
+- **[Apple Maps](../apple-maps.md)** - Privacy-focused mapping
+- **[OpenStreetMap](../openstreetmap.md)** - Crowdsourced maps
+- **[HERE Maps](../here-maps.md)** - Automotive mapping
 
 ---
 

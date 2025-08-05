@@ -649,7 +649,7 @@ graph TB
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices.md)** - ML model deployment requires specialized SRE workflows
 - **[Observability Tools](../human-factors/observability-stacks.md)** - Real-time dashboards track recommendation performance metrics
-- **[On-Call Culture](../../../architects-handbook/human-factors/oncall-culture.md)** - Data scientists on-call for model quality issues
+- **[On-Call Culture](../../human-factors/oncall-culture.md)** - Data scientists on-call for model quality issues
 - **[Post-Mortem Culture](../human-factors/blameless-postmortems.md)** - Learning from recommendation failures and filter bubbles
 
 ### Similar Case Studies

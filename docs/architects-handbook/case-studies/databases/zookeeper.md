@@ -393,7 +393,7 @@ for wresp := range rch {
 
 ## Related Topics
 
-- [etcd Case Study](../../../architects-handbook/case-studies/databases/etcd.md) - Modern alternative
+- [etcd Case Study](../etcd.md) - Modern alternative
 - [Consensus Patterns](../pattern-library/coordination/consensus.md) - Raft vs ZAB
 - [Leader Election](../pattern-library/coordination/leader-election.md) - Common ZK recipe
 - [Service Discovery](../pattern-library/communication/service-discovery.md) - ZK patterns

@@ -58,7 +58,7 @@ This case study would explore the architecture of large-scale e-commerce platfor
 - Personalized product recommendations
 
 ## Related Case Studies
-- [Amazon DynamoDB](../../../architects-handbook/case-studies/databases/amazon-dynamo.md) - Amazon's distributed database
+- [Amazon DynamoDB](../amazon-dynamo.md) - Amazon's distributed database
 - [Payment System](../../../architects-handbook/case-studies/financial-commerce/payment-system.md) - Payment processing architecture
 - [Hotel Reservation](../../../architects-handbook/case-studies/financial-commerce/hotel-reservation.md) - Similar booking system challenges
 - [Stock Exchange](stock-exchange.md.md) - High-frequency transaction processing

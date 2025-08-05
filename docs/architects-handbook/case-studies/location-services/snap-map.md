@@ -26,9 +26,9 @@ This case study would explore Snap Map's architecture for real-time location sha
 - Friend proximity notifications
 
 ## Related Case Studies
-- [Nearby Friends](../../../architects-handbook/case-studies/location-services/nearby-friends.md) - Similar location sharing
-- [Life360](../../../architects-handbook/case-studies/location-services/life360.md) - Family location tracking
-- [Social Media Feed](../../../architects-handbook/case-studies/social-communication/social-media-feed.md) - Social content distribution
+- [Nearby Friends](../nearby-friends.md) - Similar location sharing
+- [Life360](../life360.md) - Family location tracking
+- [Social Media Feed](../social-media-feed.md) - Social content distribution
 - Geohashing (Coming Soon.md) - Location clustering
 
 ## External Resources

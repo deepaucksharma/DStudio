@@ -924,10 +924,10 @@ Understanding Cassandra's approach to distributed data management provides insig
 - [Pillar 4: Control](../../../core-principles/pillars/control-distribution.md) - Masterless coordination
 
 ### Quantitative Analysis
-- [CAP Theorem](../../../architects-handbook/quantitative-analysis/cap-theorem.md) - Understanding Cassandra's AP choice
-- [Consistency Models](../../../architects-handbook/quantitative-analysis/consistency-models.md) - Tunable consistency mathematics
-- [Performance Modeling](../../../architects-handbook/quantitative-analysis/performance-modeling.md) - Linear scalability analysis
-- [Failure Models](../../../architects-handbook/quantitative-analysis/failure-models.md) - Understanding failure domains
+- [CAP Theorem](../../quantitative-analysis/cap-theorem.md) - Understanding Cassandra's AP choice
+- [Consistency Models](../../quantitative-analysis/consistency-models.md) - Tunable consistency mathematics
+- [Performance Modeling](../../quantitative-analysis/performance-modeling.md) - Linear scalability analysis
+- [Failure Models](../../quantitative-analysis/failure-models.md) - Understanding failure domains
 
 ### Case Studies
 - [Amazon DynamoDB](../../../amazon-dynamo.md) - Similar dynamo-style architecture

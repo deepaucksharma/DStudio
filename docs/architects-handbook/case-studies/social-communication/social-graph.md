@@ -1378,4 +1378,4 @@ Understanding social graph architecture provides valuable insights for any large
 
 ---
 
-*Continue your journey: [Social Media Feed Architecture](../../../architects-handbook/case-studies/social-communication/social-media-feed.md) | [Back to Case Studies](index.md.md)*
+*Continue your journey: [Social Media Feed Architecture](../social-media-feed.md) | [Back to Case Studies](index.md.md)*

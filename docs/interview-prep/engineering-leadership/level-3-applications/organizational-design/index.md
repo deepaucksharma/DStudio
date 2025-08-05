@@ -498,6 +498,6 @@ graph LR
 
 ## Next Steps
 
-- Complete [Self-Assessment](../../../../interview-prep/engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md)
+- Complete [Self-Assessment](../../../engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md)
 - Study [Team Topologies](../../../../architects-handbook/human-factors/team-topologies.md)
-- Practice [Reorg Scenarios](../../../../interview-prep/engineering-leadership/practice-scenarios/reorg-scenario.md)
+- Practice [Reorg Scenarios](../../../engineering-leadership/practice-scenarios/reorg-scenario.md)

@@ -470,9 +470,9 @@ Uber's location system evolution (2009-2015):
 - [Pillar 5: Intelligence](../core-principles/pillars/intelligence-distribution/index.md) - ML-based ETA prediction
 
 ### Case Studies
-- [Google Maps](../../../architects-handbook/case-studies/location-services/google-maps.md) - Similar scale location challenges
-- [Uber Maps](../../../architects-handbook/case-studies/location-services/uber-maps.md) - Mapping infrastructure for location services
-- [Nearby Friends](../../../architects-handbook/case-studies/location-services/nearby-friends.md) - Location-based proximity service
+- [Google Maps](../google-maps.md) - Similar scale location challenges
+- [Uber Maps](../uber-maps.md) - Mapping infrastructure for location services
+- [Nearby Friends](../nearby-friends.md) - Location-based proximity service
 
 ## Takeaways for Your System
 
@@ -511,9 +511,9 @@ Uber's location system evolution (2009-2015):
 - [Mobile Optimization Playbook](../../excellence/implementation-guides/mobile-optimization) - Battery and bandwidth optimization
 
 ### Related Case Studies
-- [Google Maps: Planet-Scale Mapping](../../../architects-handbook/case-studies/location-services/google-maps.md) - Compare geospatial approaches
-- [Lyft: Competitive Location Platform](../../../architects-handbook/case-studies/location-services/proximity-service.md) - Similar scale, different architecture
-- [Life360: Family Location Sharing](../../../architects-handbook/case-studies/location-services/life360.md) - Consumer-scale location tracking
+- [Google Maps: Planet-Scale Mapping](../google-maps.md) - Compare geospatial approaches
+- [Lyft: Competitive Location Platform](../proximity-service.md) - Similar scale, different architecture
+- [Life360: Family Location Sharing](../life360.md) - Consumer-scale location tracking
 - [Strava: Athletic Performance Tracking](strava-heatmaps.md.md) - High-frequency location updates
 
 ### Pattern Comparisons

@@ -474,7 +474,7 @@ Netflix started with a monolith and migrated to microservices over 3 years:
 - [Data Consistency at Scale](../../excellence/implementation-guides/data-consistency) - Managing eventual consistency
 
 ### Related Case Studies
-- [YouTube: Video at Scale](../../../architects-handbook/case-studies/social-communication/youtube.md) - Compare with YouTube's architecture
+- [YouTube: Video at Scale](../youtube.md) - Compare with YouTube's architecture
 - [Spotify: Music Streaming](../../../architects-handbook/case-studies/search-analytics/spotify-recommendations.md) - Similar challenges, different domain
 - [Disney+: Launch at Scale](video-streaming.md.md) - Learning from Netflix's playbook
 

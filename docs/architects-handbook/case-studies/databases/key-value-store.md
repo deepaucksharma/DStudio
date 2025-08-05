@@ -1418,13 +1418,13 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 - [Law 5: Epistemology ](../../core-principles/laws/distributed-knowledge/) - Consensus and distributed coordination
 - [Law 1: Failure ](../../core-principles/laws/correlated-failure/) - Failure modes and recovery strategies
 - [Consistent Hashing Pattern](../pattern-library/data-management/consistent-hashing.md) - Data distribution technique
-- [CAP Theorem](../../../architects-handbook/quantitative-analysis/cap-theorem.md) - Fundamental trade-offs
+- [CAP Theorem](../../quantitative-analysis/cap-theorem.md) - Fundamental trade-offs
 
 **Advanced Topics:**
 - Multi-Region Replication (Coming Soon) - Global distribution strategies
 - Hybrid Logical Clocks (Coming Soon) - Better than vector clocks for some use cases
 - [CRDT Integration](../pattern-library/data-management/crdt.md) - Conflict-free replicated data types
-- [Storage Engine Internals](../../../architects-handbook/quantitative-analysis/storage-engines.md) - LSM vs B-Tree deep dive
+- [Storage Engine Internals](../../quantitative-analysis/storage-engines.md) - LSM vs B-Tree deep dive
 
 **Related Case Studies:**
 - [Amazon DynamoDB](../../../amazon-dynamo.md) - Production implementation of these concepts
@@ -1433,7 +1433,7 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 
 **Performance Optimization:**
 - [Caching Strategies](../pattern-library/scaling/caching-strategies.md) - Multi-level cache design
-- [Compression Algorithms](../../../architects-handbook/quantitative-analysis/compression.md) - Storage optimization
+- [Compression Algorithms](../../quantitative-analysis/compression.md) - Storage optimization
 - Network Optimization (Coming Soon) - Reducing network overhead
 
 ### 📚 References
