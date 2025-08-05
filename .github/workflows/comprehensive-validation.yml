@@ -40,13 +40,7 @@ jobs:
         
         # Count total issues
         if [ -f "DEEP_STRUCTURE_ISSUES.json" ]; then
-          TOTAL=$(python -c "
-import json
-with open('DEEP_STRUCTURE_ISSUES.json') as f:
-    data = json.load(f)
-    total = sum(len(v) if isinstance(v, list) else 0 for v in data.values())
-    print(total)
-          " || echo "0")
+          TOTAL=$(python -c "import json; data = json.load(open('DEEP_STRUCTURE_ISSUES.json')); print(sum(len(v) if isinstance(v, list) else 0 for v in data.values()))" || echo "0")
           echo "total_issues=$TOTAL" >> $GITHUB_OUTPUT
           echo "📊 Total structural issues: $TOTAL"
         fi
