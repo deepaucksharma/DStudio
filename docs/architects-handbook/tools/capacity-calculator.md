@@ -174,11 +174,11 @@ Watch for these indicators that capacity planning is needed:
 
 ## Related Resources
 
-- [Little's Law](../architects-handbook/quantitative-analysis/littles-law.mdindex.md)
-- [Universal Scalability Law](../architects-handbook/quantitative-analysis/universal-scalability.mdindex.md)
-- [Capacity Planning Guide](../architects-handbook/quantitative-analysis/capacity-planning.mdindex.md)
-- [Auto-Scaling Pattern](../pattern-library/scaling/auto-scaling/index.md)
-- [Load Balancing Pattern](../pattern-library/scaling/load-balancing/index.md)
+- [Little's Law](../quantitative-analysis/littles-law.mdindex.md)
+- [Universal Scalability Law](../quantitative-analysis/universal-scalability.mdindex.md)
+- [Capacity Planning Guide](../quantitative-analysis/capacity-planning.mdindex.md)
+- [Auto-Scaling Pattern](../pattern-library/scaling/auto-scaling/)
+- [Load Balancing Pattern](../pattern-library/scaling/load-balancing/)
 
 <script>
 / Enhanced capacity calculator with input validation and real-time updates

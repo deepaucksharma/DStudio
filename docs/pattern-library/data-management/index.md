@@ -65,4 +65,4 @@ Each pattern makes different CAP trade-offs:
 
 ---
 
-*Browse individual patterns below or return to the [Pattern Library](../index.md).*
+*Browse individual patterns below or return to the [Pattern Library](../).*

@@ -379,10 +379,10 @@ graph LR
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Eventually consistent by design
-- [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - AP choice in CAP theorem
-- [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Gossip protocol for membership
+- [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Eventually consistent by design
+- [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md) - AP choice in CAP theorem
+- [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Gossip protocol for membership
 
 ### Related Patterns
 - [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Virtual nodes for data distribution
@@ -396,9 +396,9 @@ graph LR
 - [Pillar 4: Control](../core-principles/pillars/control-distribution.md) - Decentralized control plane
 
 ### Case Studies
-- [Apache Cassandra](../cassandra/index.md) - Similar eventual consistency model
-- [Redis Cluster](../redis/index.md) - Alternative distributed key-value store
-- [Spanner](../google-spanner/index.md) - Contrasting strongly consistent approach
+- [Apache Cassandra](../cassandra/) - Similar eventual consistency model
+- [Redis Cluster](../redis/) - Alternative distributed key-value store
+- [Spanner](../google-spanner/) - Contrasting strongly consistent approach
 
 ## Decision Guide
 
@@ -424,10 +424,10 @@ graph LR
 
 ## Further Reading
 
-- [Dynamo: Amazon's Highly Available Key-value Store (2007)](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/index.md)
-- [DynamoDB Paper: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service](https://aws.amazon.com/dynamodb/resources/index.md)
-- [Werner Vogels on Eventual Consistency](https://www.allthingsdistributed.com/2008/12/eventually_consistent.html/index.md)
-- [DynamoDB Best Practices Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html/index.md)
+- [Dynamo: Amazon's Highly Available Key-value Store (2007)](https:/www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/)
+- [DynamoDB Paper: A Scalable, Predictably Performant, and Fully Managed NoSQL Database Service](https:/aws.amazon.com/dynamodb/resources/)
+- [Werner Vogels on Eventual Consistency](https:/www.allthingsdistributed.com/2008/12/eventually_consistent.html/)
+- [DynamoDB Best Practices Guide](https:/docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html/)
 
 ## Discussion Questions
 

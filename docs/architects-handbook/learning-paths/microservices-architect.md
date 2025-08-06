@@ -117,7 +117,7 @@ outcomes:
 </div>
 
 !!! tip "Readiness Self-Assessment"
-    Complete our [Microservices Readiness Quiz](../tools/microservices-readiness-assessment/index.md) to identify knowledge gaps and customize your learning path.
+    Complete our [Microservices Readiness Quiz](../tools/microservices-readiness-assessment/) to identify knowledge gaps and customize your learning path.
 
 ## 🗺️ Detailed Curriculum
 
@@ -147,7 +147,7 @@ outcomes:
     - ⏱️ Time: 6-8 hours
     
     **Day 3-4**: Service Decomposition Strategies  
-    - 📖 Read: [Monolith to Microservices](../excellence/migrations/monolith-to-microservices.md)
+    - 📖 Read: [Monolith to Microservices](../architects-handbook/implementation-playbooks/migrations/monolith-to-microservices.md)
     - 🛠️ Lab: Decompose monolithic booking system
     - 📊 Pattern: [Strangler Fig Pattern](../../pattern-library/architecture/strangler-fig.md)
     - ⏱️ Time: 6-8 hours
@@ -416,7 +416,7 @@ outcomes:
     - ⏱️ Time: 6-8 hours
     
     **Day 61-63**: Chaos Engineering & Fault Injection
-    - 📖 Study: [Chaos Engineering](../excellence/implementation-guides/chaos-engineering.md)
+    - 📖 Study: [Chaos Engineering](../architects-handbook/implementation-playbooks/implementation-guides/chaos-engineering.md)
     - 🛠️ Lab: Implement chaos experiments with Chaos Monkey
     - 📊 Deliverable: Service resilience testing framework
     - ⏱️ Time: 8-10 hours

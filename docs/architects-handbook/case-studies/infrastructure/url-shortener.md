@@ -181,7 +181,7 @@ sequenceDiagram
     participant Cache
     participant CDN
     
-    User->>API: POST /shorten<br/>{url: "https://example.com/very/long/url"}
+    User->>API: POST /shorten<br/>{url: "https:/example.com/very/long/url"}
     API->>Val: Validate URL
     
     Val->>Val: Check format
@@ -211,7 +211,7 @@ sequenceDiagram
                 Cache->>CDN: Propagate to edge
                 
                 Gen-->>API: short_url: "abc123"
-                API-->>User: {"short_url": "https://short.ly/abc123"}
+                API-->>User: {"short_url": "https:/short.ly/abc123"}
             end
         end
     end
@@ -1923,8 +1923,8 @@ graph TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - CDN and caching strategies
-- [Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md) - Cost optimization techniques
+- [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - CDN and caching strategies
+- [Law 7: Economic Reality](../../core-principles/laws/economic-reality.md) - Cost optimization techniques
 - [Caching Strategies](../pattern-library/scaling/caching-strategies.md) - Multi-level cache design
 - [Rate Limiting](../pattern-library/scaling/rate-limiting.md) - Protecting against abuse
 
@@ -1948,14 +1948,14 @@ graph TB
 ### 📚 References
 
 **Industry Examples:**
-- [Bitly's Architecture](https://word.bitly.com/post/287921488/bitleaf-billions-served/index.md)
-- [Discord's Shortener](https://discord.com/blog/how-discord-stores-billions-of-messages/index.md)
-- [URL Shortening Strategies](https://blog.codinghorror.com/url-shortening-hashes-in-practice/index.md)
+- [Bitly's Architecture](https:/word.bitly.com/post/287921488/bitleaf-billions-served/)
+- [Discord's Shortener](https:/discord.com/blog/how-discord-stores-billions-of-messages/)
+- [URL Shortening Strategies](https:/blog.codinghorror.com/url-shortening-hashes-in-practice/)
 
 **Open Source:**
-- [YOURLS](https://yourls.org/index.md)
-- [Kutt.it](https://github.com/thedevs-network/kutt/index.md)
-- [Polr](https://github.com/cydrobolt/polr/index.md)
+- [YOURLS](https:/yourls.org/)
+- [Kutt.it](https:/github.com/thedevs-network/kutt/)
+- [Polr](https:/github.com/cydrobolt/polr/)
 
 **Related Patterns:**
 - [Caching Strategies](../pattern-library/scaling/caching-strategies.md)

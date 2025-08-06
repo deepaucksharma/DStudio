@@ -453,7 +453,7 @@ def quorum_parameters(N=5):
 
 ## Interactive Tool
 
-Try our [CAP Theorem Calculator](tools/cap-calculator/index.md) to explore trade-offs with different:
+Try our [CAP Theorem Calculator](tools/cap-calculator/) to explore trade-offs with different:
 - Network partition probabilities
 - Consistency requirements
 - Availability SLAs
@@ -486,10 +486,10 @@ Try our [CAP Theorem Calculator](tools/cap-calculator/index.md) to explore trade
 
 ## References
 
-- [Brewer's Original Conjecture (2000)](https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf/index.md)
-- [Gilbert & Lynch Proof (2002)](https://www.comp.nus.edu.sg/~gilbert/pubs/BrewersConjecture-SigAct.pdf/index.md)
-- [CAP Twelve Years Later](https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/index.md)
-- [Please Stop Calling Databases CP or AP](https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html/index.md)
+- [Brewer's Original Conjecture (2000)](https:/people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf/)
+- [Gilbert & Lynch Proof (2002)](https:/www.comp.nus.edu.sg/~gilbert/pubs/BrewersConjecture-SigAct.pdf/)
+- [CAP Twelve Years Later](https:/www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/)
+- [Please Stop Calling Databases CP or AP](https:/martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html/)
 
 ---
 

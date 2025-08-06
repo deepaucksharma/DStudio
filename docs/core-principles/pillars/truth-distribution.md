@@ -10,7 +10,7 @@ prerequisites:
 - axiom5-epistemology
 status: complete
 last_updated: 2025-07-29
-audio_widget: '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/1Y5F0MhWQGF78FQZJBUdmS?utm_source=generator"
+audio_widget: '<iframe style="border-radius:12px" src="https:/open.spotify.com/embed/episode/1Y5F0MhWQGF78FQZJBUdmS?utm_source=generator"
   width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write;
   encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
@@ -19,7 +19,7 @@ audio_widget: '<iframe style="border-radius:12px" src="https://open.spotify.com/
 
 # Truth Distribution: Consensus in Distributed Systems
 
-[Home](/) > [Core Principles](../core-principles/index.md) > [The 5 Pillars](../core-principles/pillars.md/index.md) > Truth Distribution
+[Home](/) > [Core Principles](../core-principles.md) > [The 5 Pillars](../core-principles/pillars.md) > Truth Distribution
 
 <div class="truth-box">
 <h2>⚡ The One-Inch Punch</h2>

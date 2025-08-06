@@ -269,7 +269,7 @@ class AdaptiveLoadShedder:
     
     ---
     
-    - [Rate Limiting](../pattern-library/scaling/rate-limiting.md) - Prevent overload
+    - [Rate Limiting](../scaling/rate-limiting.md) - Prevent overload
     - [Circuit Breaker](./circuit-breaker.md) - Fail fast
     - [Backpressure](../communication/backpressure.md) - Flow control
 
@@ -277,9 +277,9 @@ class AdaptiveLoadShedder:
     
     ---
     
-    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Overload cascades
-    - [Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md) - Load patterns emerge
-    - [Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md) - Business priorities
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md) - Overload cascades
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Load patterns emerge
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality.md) - Business priorities
 
 </div>
 

@@ -136,18 +136,18 @@ graph TD
 - **[Replication Log](../../pattern-library/replication-log.md)**: Segment-based replication
 
 ### Applications
-- **[Kafka](../architects-handbook/case-studies/kafka.md)**: Canonical implementation
-- **[RocksDB](../architects-handbook/case-studies/rocksdb.md)**: LSM with segments
-- **[Cassandra](../architects-handbook/case-studies/cassandra.md)**: SSTables as segments
+- **[Kafka](../../architects-handbook/case-studies/kafka.md)**: Canonical implementation
+- **[RocksDB](../../architects-handbook/case-studies/rocksdb.md)**: LSM with segments
+- **[Cassandra](../../architects-handbook/case-studies/cassandra.md)**: SSTables as segments
 
 ## Further Reading
 
-- [Kafka Log Implementation](https://kafka.apache.org/documentation/#log/index.md)
-- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/index.md)
-- [RocksDB Architecture](https://github.com/facebook/rocksdb/wiki/RocksDB-Overview/index.md)
+- [Kafka Log Implementation](https:/kafka.apache.org/documentation/#log/)
+- [The Log: What every software engineer should know](https:/engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/)
+- [RocksDB Architecture](https:/github.com/facebook/rocksdb/wiki/RocksDB-Overview/)
 
 ### Implementation Resources
-- [Building a Distributed Log](https://bravenewgeek.com/building-a-distributed-log-from-scratch-part-1-storage-mechanics/index.md)
-- [Segment Compaction Strategies](https://www.confluent.io/blog/log-compaction-highlights-in-the-apache-kafka-and-stream-processing-community/index.md)
-- [Storage Engine Design](https://www.databass.dev/index.md)
+- [Building a Distributed Log](https:/bravenewgeek.com/building-a-distributed-log-from-scratch-part-1-storage-mechanics/)
+- [Segment Compaction Strategies](https:/www.confluent.io/blog/log-compaction-highlights-in-the-apache-kafka-and-stream-processing-community/)
+- [Storage Engine Design](https:/www.databass.dev/)
 

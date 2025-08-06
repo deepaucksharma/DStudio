@@ -20,7 +20,7 @@ last_updated: 2025-07-20
 ### Law
 Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws.
 
-**Examples**: [Asynchronous Reality ⏳](../core-principles/laws/asynchronous-reality/index.md), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization/index.md)
+**Examples**: [Asynchronous Reality ⏳](../core-principles/laws/asynchronous-reality.md), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization.md)
 
 ### At-Least-Once Delivery
 Messages may be delivered multiple times but will not be lost. Requires idempotent processing.
@@ -55,14 +55,14 @@ Isolation pattern preventing failures from spreading between components.
 
 **Implementation**: Separate thread pools, connection pools, compute resources
 
-**Related**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Correlated Failure ⛓️](../core-principles/laws/correlated-failure/index.md)
+**Related**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Correlated Failure ⛓️](../core-principles/laws/correlated-failure.md)
 
 ### Byzantine Fault
 Components behave arbitrarily, sending conflicting information to different parts.
 
 **Examples**: Malicious actors, hardware corruption, inconsistent software behavior
 
-**Related**: [Correlated Failure ⛓️](../core-principles/laws/correlated-failure/index.md), consensus algorithms
+**Related**: [Correlated Failure ⛓️](../core-principles/laws/correlated-failure.md), consensus algorithms
 
 ## C
 
@@ -71,7 +71,7 @@ Distributed systems can provide at most two of: Consistency, Availability, Parti
 
 **Implication**: Must choose between consistency and availability during partitions
 
-**Related**: [Truth Pillar](../core-principles/pillars/truth-distribution/index.md), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization/index.md)
+**Related**: [Truth Pillar](../core-principles/pillars/truth-distribution.md), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization.md)
 
 ### Circuit Breaker
 Prevents cascade failures by failing fast when error thresholds exceeded.
@@ -87,7 +87,7 @@ Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **Trade-offs**: Strong consistency vs. availability and performance
 
-**Related**: [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization/index.md), [Leader Election](../pattern-library/coordination/leader-election.md)
+**Related**: [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization.md), [Leader Election](../pattern-library/coordination/leader-election.md)
 
 ### Consistent Hashing
 Distributes data across nodes with minimal disruption when adding/removing nodes.
@@ -177,7 +177,7 @@ Failures that are subtle, partial, or inconsistent across different observers.
 
 **Detection**: Multi-perspective monitoring, synthetic transactions
 
-**Related**: [Correlated Failure ⛓️](../core-principles/laws/correlated-failure/index.md), [Observability](../pattern-library/resilience/health-check.md)
+**Related**: [Correlated Failure ⛓️](../core-principles/laws/correlated-failure.md), [Observability](../pattern-library/resilience/health-check.md)
 
 ## H
 
@@ -259,7 +259,7 @@ System state where minor triggers cause cascading performance collapse.
 
 **Prevention**: Circuit breakers, admission control, jitter in retries
 
-**Related**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos/index.md), [Case Study: Facebook's Metastable Failures](../architects-handbook/case-studies/index.md)
+**Related**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos.md), [Case Study: Facebook's Metastable Failures](../architects-handbook/case-studies/)
 
 ### Microservices
 Small, independently deployable services.
@@ -301,7 +301,7 @@ Extension of CAP theorem including latency considerations.
 - PC/EC: MongoDB, HBase (consistent, higher latency)
 - PA/EC: Some configurations prioritize availability but consistency when stable
 
-**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization/index.md)
+**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](../core-principles/laws/multidimensional-optimization.md)
 
 ### Partition Tolerance
 Continues operating despite network partitions.
@@ -313,7 +313,7 @@ Continues operating despite network partitions.
 ### Pillar
 Five foundational concepts: Work, State, Truth, Control, Intelligence.
 
-**Reference**: [Part II: Pillars](../core-principles/pillars.md/index.md)
+**Reference**: [Part II: Pillars](../core-principles/pillars.md/)
 
 ## Q
 
@@ -384,7 +384,7 @@ Captures causality relationships between events.
 
 **Format**: Array of counters, one per node
 
-**Implementation**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos/index.md)
+**Implementation**: [Emergent Chaos 🌪️](../core-principles/laws/emergent-chaos.md)
 
 ## W
 

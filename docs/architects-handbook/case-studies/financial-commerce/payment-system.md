@@ -89,13 +89,13 @@ lessons_learned:
     
     Complete audit trail of every payment event
 
-- :material-fingerprint:{ .lg .middle } **[Idempotency](../pattern-library/#idempotency.md/index.md)** 🥇
+- :material-fingerprint:{ .lg .middle } **[Idempotency](../pattern-library/#idempotency.md/)** 🥇
     
     ---
     
     Preventing duplicate charges with idempotent operations
 
-- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../pattern-library/#double-entry-ledger.md/index.md)** 🥇
+- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../pattern-library/#double-entry-ledger.md/)** 🥇
     
     ---
     
@@ -415,7 +415,7 @@ public class PaymentSaga {
 
 ### 3. Idempotency and Exactly-Once Processing
 
-!!! info "Pattern Deep Dive: [Idempotency Pattern](../pattern-library/#idempotency-pattern.md/index.md)"
+!!! info "Pattern Deep Dive: [Idempotency Pattern](../pattern-library/#idempotency-pattern.md/)"
     Idempotency ensures operations can be safely retried without side effects. Critical for payments where network failures could lead to duplicate charges.
 
 ```python
@@ -471,7 +471,7 @@ class IdempotentPaymentProcessor:
 
 ### 4. Double-Entry Bookkeeping
 
-!!! info "Pattern Deep Dive: [Double-Entry Ledger Pattern](../pattern-library/#double-entry-ledger-pattern.md/index.md)"
+!!! info "Pattern Deep Dive: [Double-Entry Ledger Pattern](../pattern-library/#double-entry-ledger-pattern.md/)"
     Double-entry bookkeeping ensures every transaction is balanced with corresponding debits and credits. This pattern is fundamental for financial accuracy and regulatory compliance.
 
 ```sql
@@ -1239,7 +1239,7 @@ class DistributedPaymentConsistency:
 
 <div class="grid cards" markdown>
 
-- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../pattern-library/data-management/event-sourcing/index.md)** 🥇
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../pattern-library/data-management/event-sourcing/)** 🥇
     
     ---
     
@@ -1251,7 +1251,7 @@ class DistributedPaymentConsistency:
     
     **Compliance**: PCI-DSS, SOX compliant architecture
 
-- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../pattern-library/data-management/saga/index.md)** 🥇
+- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../pattern-library/data-management/saga/)** 🥇
     
     ---
     
@@ -1263,7 +1263,7 @@ class DistributedPaymentConsistency:
     
     **Key Learning**: Compensations must be idempotent too
 
-- :material-fingerprint:{ .lg .middle } **[Idempotency](../pattern-library/idempotency.md/index.md)** 🥇
+- :material-fingerprint:{ .lg .middle } **[Idempotency](../pattern-library/idempotency.md/)** 🥇
     
     ---
     
@@ -1275,7 +1275,7 @@ class DistributedPaymentConsistency:
     
     **Best Practice**: UUID + timestamp + amount as key
 
-- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../pattern-library/double-entry-ledger.md/index.md)** 🥇
+- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../pattern-library/double-entry-ledger.md/)** 🥇
     
     ---
     
@@ -1293,7 +1293,7 @@ class DistributedPaymentConsistency:
 
 <div class="grid cards" markdown>
 
-- :material-call-split:{ .lg .middle } **[CQRS](../pattern-library/data-management/cqrs/index.md)** 🥈
+- :material-call-split:{ .lg .middle } **[CQRS](../pattern-library/data-management/cqrs/)** 🥈
     
     ---
     
@@ -1303,7 +1303,7 @@ class DistributedPaymentConsistency:
     
     **Trade-off**: Eventual consistency for reporting
 
-- :material-grid:{ .lg .middle } **[Sharding](../pattern-library/scaling/sharding/index.md)** 🥈
+- :material-grid:{ .lg .middle } **[Sharding](../pattern-library/scaling/sharding/)** 🥈
     
     ---
     
@@ -1313,7 +1313,7 @@ class DistributedPaymentConsistency:
     
     **Trade-off**: Cross-shard queries are expensive
 
-- :material-earth:{ .lg .middle } **[Multi-Region](../pattern-library/scaling/multi-region/index.md)** 🥈
+- :material-earth:{ .lg .middle } **[Multi-Region](../pattern-library/scaling/multi-region/)** 🥈
     
     ---
     
@@ -1339,7 +1339,7 @@ We use 2PC sparingly, only for:
 
 **Alternative**: Saga pattern with compensation for 99% of flows.
 
-[Migration Guide: 2PC to Saga →](../excellence/migrations/2pc-to-saga/index.md)
+[Migration Guide: 2PC to Saga →](../architects-handbook/implementation-playbooks/migrations/2pc-to-saga/)
 </div>
 
 ## Trade-offs and Decisions
@@ -1418,9 +1418,9 @@ graph TB
 ## Excellence Resources
 
 ### Implementation Guides
-- [Financial Systems Excellence](../excellence/implementation-guides/financial-systems/index.md) - Building zero-data-loss payment systems
-- [Regulatory Compliance Guide](../excellence/implementation-guides/regulatory-compliance/index.md) - PCI-DSS, SOX, GDPR compliance
-- [Zero Data Loss Architecture](../excellence/implementation-guides/zero-data-loss/index.md) - Guaranteeing financial accuracy
+- [Financial Systems Excellence](../architects-handbook/implementation-playbooks/implementation-guides/financial-systems/) - Building zero-data-loss payment systems
+- [Regulatory Compliance Guide](../architects-handbook/implementation-playbooks/implementation-guides/regulatory-compliance/) - PCI-DSS, SOX, GDPR compliance
+- [Zero Data Loss Architecture](../architects-handbook/implementation-playbooks/implementation-guides/zero-data-loss/) - Guaranteeing financial accuracy
 
 ### Related Case Studies  
 - [Stripe: Modern Payment Infrastructure](../architects-handbook/case-studies/financial-commerce/paypal-payments.md) - API-first payment processing
@@ -1429,18 +1429,18 @@ graph TB
 - [Wise: Cross-Border Payments](payment-system.md) - Multi-currency optimization
 
 ### Pattern Deep Dives
-- [Event Sourcing for Payments](../pattern-library/data-management/event-sourcing#financial-systems/index.md) - Financial event sourcing
-- [Saga Pattern Examples](../pattern-library/data-management/saga#payment-processing/index.md) - Payment saga implementations
-- [Idempotency Best Practices](../pattern-library/idempotency#payment-systems.md/index.md) - Payment idempotency
+- [Event Sourcing for Payments](../pattern-library/data-management/event-sourcing#financial-systems/) - Financial event sourcing
+- [Saga Pattern Examples](../pattern-library/data-management/saga#payment-processing/) - Payment saga implementations
+- [Idempotency Best Practices](../pattern-library/idempotency#payment-systems.md/) - Payment idempotency
 
 ### Excellence Journeys
-- [Building a Payment System from Scratch](../excellence/journeys/payment-system-journey/index.md) - Step-by-step guide
-- [Migrating Legacy Payment Systems](../excellence/journeys/payment-modernization/index.md) - Modernization playbook
-- [Scaling to 100K TPS](../excellence/journeys/payment-scaling/index.md) - Scale-up strategies
+- [Building a Payment System from Scratch](../architects-handbook/implementation-playbooks/journeys/payment-system-journey/) - Step-by-step guide
+- [Migrating Legacy Payment Systems](../architects-handbook/implementation-playbooks/journeys/payment-modernization/) - Modernization playbook
+- [Scaling to 100K TPS](../architects-handbook/implementation-playbooks/journeys/payment-scaling/) - Scale-up strategies
 
 ## References
 
-- [The Architecture of Open Source Applications: Stripe](http://aosabook.org/en/stripe.html/index.md)
-- [Designing Data-Intensive Applications - Chapter 12: The Future of Data Systems](https://dataintensive.net/index.md)
-- [High Scalability: PayPal Architecture](http://highscalability.com/blog/2023/3/6/paypal-architecture.html/index.md)
-- [Uber's Payment Platform](https://eng.uber.com/payments-platform/index.md)
+- [The Architecture of Open Source Applications: Stripe](http:/aosabook.org/en/stripe.html/)
+- [Designing Data-Intensive Applications - Chapter 12: The Future of Data Systems](https:/dataintensive.net/)
+- [High Scalability: PayPal Architecture](http:/highscalability.com/blog/2023/3/6/paypal-architecture.html/)
+- [Uber's Payment Platform](https:/eng.uber.com/payments-platform/)

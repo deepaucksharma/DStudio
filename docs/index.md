@@ -8,7 +8,7 @@ description: Master distributed systems through fundamental laws and proven patt
 ## Welcome to Distributed Systems Studio
 
 Navigate to:
-- [Core Principles](core-principles/index.md)
-- [Pattern Library](pattern-library/index.md)
-- [Architect's Handbook](architects-handbook/index.md)
-- [Excellence Guides](../architects-handbook/implementation-playbooks/index.md)
+- [Core Principles](core-principles/)
+- [Pattern Library](pattern-library/)
+- [Architect's Handbook](architects-handbook/)
+- [Excellence Guides](../architects-handbook/implementation-playbooks/)

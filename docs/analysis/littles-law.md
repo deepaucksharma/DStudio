@@ -1,5 +1,5 @@
 ---
-title: Littles Law - Redirect
+title: Littles Law
 redirect_to: /architects-handbook/quantitative-analysis/littles-law/
 ---
 

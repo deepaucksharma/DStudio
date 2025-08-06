@@ -930,14 +930,14 @@ class HEREFleetOptimizer:
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Real-time sensor fusion across distributed vehicle fleet
-- **[Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md)** - Managing complexity of millions of vehicles contributing data
-- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - High cost of HD maps requires clear ROI justification
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md)** - Real-time sensor fusion across distributed vehicle fleet
+- **[Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos.md)** - Managing complexity of millions of vehicles contributing data
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality.md)** - High cost of HD maps requires clear ROI justification
 
 ### Related Patterns  
-- **[Sensor Fusion](../pattern-library/iot/sensor-fusion/index.md)** - Multi-modal data integration patterns
-- **[Edge Computing](../pattern-library/edge/edge-computing/index.md)** - On-vehicle processing requirements
-- **[Real-Time Streaming](../pattern-library/streaming/real-time-processing/index.md)** - Live map update distribution
+- **[Sensor Fusion](../pattern-library/iot/sensor-fusion/)** - Multi-modal data integration patterns
+- **[Edge Computing](../pattern-library/edge/edge-computing/)** - On-vehicle processing requirements
+- **[Real-Time Streaming](../pattern-library/streaming/real-time-processing/)** - Live map update distribution
 
 ### Related Case Studies
 - **[Google Maps System](../google-maps-system.md)** - Consumer vs automotive mapping approaches
@@ -946,8 +946,8 @@ class HEREFleetOptimizer:
 
 ## External Resources
 
-- **[HERE HD Live Map Documentation](https://developer.here.com/documentation/hd-live-map/index.md)** - Technical API documentation
-- **[HERE Automotive Solutions](https://www.here.com/solutions/automotive/index.md)** - Automotive industry solutions overview
-- **[ISO 26262 Automotive Safety](https://www.iso.org/standard/68383.html/index.md)** - Functional safety standards
-- **[HERE Fleet Telematics](https://developer.here.com/documentation/fleet-telematics/index.md)** - Fleet management APIs
-- **[Automotive Edge Computing](https://www.here.com/platform/automotive-edge-computing/index.md)** - Edge processing for vehicles
+- **[HERE HD Live Map Documentation](https:/developer.here.com/documentation/hd-live-map/)** - Technical API documentation
+- **[HERE Automotive Solutions](https:/www.here.com/solutions/automotive/)** - Automotive industry solutions overview
+- **[ISO 26262 Automotive Safety](https:/www.iso.org/standard/68383.html/)** - Functional safety standards
+- **[HERE Fleet Telematics](https:/developer.here.com/documentation/fleet-telematics/)** - Fleet management APIs
+- **[Automotive Edge Computing](https:/www.here.com/platform/automotive-edge-computing/)** - Edge processing for vehicles

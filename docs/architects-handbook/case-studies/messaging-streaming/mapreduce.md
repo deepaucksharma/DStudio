@@ -471,12 +471,12 @@ val wordCounts = textFile
 - [Apache Spark](../apache-spark.md) - Next-generation replacement
 - [Apache Flink](flink.md)) - Stream-first processing
 - [HDFS](hdfs.md) - Distributed file system
-- [Distributed Computing](../pattern-library/distributed-computing.md/index.md) - Core concepts
+- [Distributed Computing](../pattern-library/distributed-computing.md/) - Core concepts
 - [Google File System](gfs.md) - Storage layer
 
 ## References
 
-1. [MapReduce: Simplified Data Processing on Large Clusters](https://research.google/pubs/pub62/index.md)
-2. [Hadoop: The Definitive Guide](https://www.oreilly.com/library/view/hadoop-the-definitive/9781491901687/index.md)
-3. [The Google File System](https://research.google/pubs/pub51/index.md)
-4. [Resilient Distributed Datasets (Spark Paper)](https://www.usenix.org/system/files/conference/nsdi12/nsdi12-final138.pdf/index.md)
+1. [MapReduce: Simplified Data Processing on Large Clusters](https:/research.google/pubs/pub62/)
+2. [Hadoop: The Definitive Guide](https:/www.oreilly.com/library/view/hadoop-the-definitive/9781491901687/)
+3. [The Google File System](https:/research.google/pubs/pub51/)
+4. [Resilient Distributed Datasets (Spark Paper)](https:/www.usenix.org/system/files/conference/nsdi12/nsdi12-final138.pdf/)

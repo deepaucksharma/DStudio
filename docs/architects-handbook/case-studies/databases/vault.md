@@ -1124,8 +1124,8 @@ storage "raft" {
 }
 
 # Cluster configuration
-cluster_addr = "https://vault-node-1:8201"
-api_addr = "https://vault-node-1:8200"
+cluster_addr = "https:/vault-node-1:8201"
+api_addr = "https:/vault-node-1:8200"
 
 # Performance tuning
 default_lease_ttl = "1h"
@@ -1384,14 +1384,14 @@ spec:
           protocol: TCP
         env:
         - name: VAULT_ADDR
-          value: "http://127.0.0.1:8200"
+          value: "http:/127.0.0.1:8200"
         - name: VAULT_API_ADDR
-          value: "http://$(POD_IP):8200"
+          value: "http:/$(POD_IP):8200"
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
         - name: VAULT_CLUSTER_ADDR
-          value: "https://$(POD_IP):8201"
+          value: "https:/$(POD_IP):8201"
           valueFrom:
             fieldRef:
               fieldPath: status.podIP
@@ -1473,9 +1473,9 @@ spec:
         - --debug=false
         env:
         - name: CSI_ENDPOINT
-          value: unix://csi/csi.sock
+          value: unix:/csi/csi.sock
         - name: VAULT_ADDR
-          value: http://vault:8200
+          value: http:/vault:8200
         volumeMounts:
         - name: plugin-dir
           mountPath: /csi
@@ -1819,14 +1819,14 @@ analysis = analyzer.compare_solutions()
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)** - Balance security, usability, and performance in secrets management
-- **[Law 6: Cognitive Load](../core-principles/laws/cognitive-load/index.md)** - Vault reduces cognitive overhead of manual secret management
-- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - ROI analysis shows significant cost benefits
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md)** - Balance security, usability, and performance in secrets management
+- **[Law 6: Cognitive Load](../../core-principles/laws/cognitive-load.md)** - Vault reduces cognitive overhead of manual secret management
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality.md)** - ROI analysis shows significant cost benefits
 
 ### Related Patterns  
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)** - Protect against Vault service failures
-- **[Retry with Backoff](../pattern-library/resilience/retry-backoff/index.md)** - Handle transient Vault connectivity issues
-- **[Bulkhead](../pattern-library/resilience/bulkhead/index.md)** - Isolate different secret engines and authentication methods
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/)** - Protect against Vault service failures
+- **[Retry with Backoff](../pattern-library/resilience/retry-backoff/)** - Handle transient Vault connectivity issues
+- **[Bulkhead](../pattern-library/resilience/bulkhead/)** - Isolate different secret engines and authentication methods
 
 ### Related Case Studies
 - **[Netflix Chaos Engineering](../elite-engineering/netflix-chaos.md)** - Resilience testing for critical security infrastructure
@@ -1835,8 +1835,8 @@ analysis = analyzer.compare_solutions()
 
 ## External Resources
 
-- **[HashiCorp Vault Documentation](https://www.vaultproject.io/docs/index.md)** - Official Vault documentation
-- **[Vault Enterprise Features](https://www.hashicorp.com/products/vault/enterprise/index.md)** - Enterprise feature comparison
-- **[Vault Associate Certification](https://www.hashicorp.com/certification/vault-associate/index.md)** - Professional certification program
-- **[Learn Vault](https://learn.hashicorp.com/vault/index.md)** - Hands-on tutorials and guides
-- **[Vault GitHub Repository](https://github.com/hashicorp/vault/index.md)** - Open source code and community
+- **[HashiCorp Vault Documentation](https:/www.vaultproject.io/docs/)** - Official Vault documentation
+- **[Vault Enterprise Features](https:/www.hashicorp.com/products/vault/enterprise/)** - Enterprise feature comparison
+- **[Vault Associate Certification](https:/www.hashicorp.com/certification/vault-associate/)** - Professional certification program
+- **[Learn Vault](https:/learn.hashicorp.com/vault/)** - Hands-on tutorials and guides
+- **[Vault GitHub Repository](https:/github.com/hashicorp/vault/)** - Open source code and community

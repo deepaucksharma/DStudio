@@ -275,17 +275,17 @@ graph LR
 
 ## Related Patterns
 
-- [Logical Clocks](../pattern-library/coordination/logical-clocks.md) - Simpler causality tracking
-- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Full concurrency detection
-- [Clock Synchronization](../pattern-library/coordination/clock-sync.md) - Physical time coordination
-- [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Event streams with HLC
-- [Consensus](../pattern-library/coordination/consensus.md) - Often combined with HLC
+- [Logical Clocks](../coordination/logical-clocks.md) - Simpler causality tracking
+- [Vector Clocks](../coordination/logical-clocks.md) - Full concurrency detection
+- [Clock Synchronization](../coordination/clock-sync.md) - Physical time coordination
+- [Event Sourcing](../data-management/event-sourcing.md) - Event streams with HLC
+- [Consensus](../coordination/consensus.md) - Often combined with HLC
 
 ## References
 
-- [Logical Physical Clocks and Consistent Snapshots](https://cse.buffalo.edu/tech-reports/2014-04.pdf/index.md) - Original HLC paper
-- [CockroachDB Clock Synchronization](https://www.cockroachlabs.com/docs/stable/architecture/transaction-layer.html#time-and-hybrid-logical-clocks/index.md) 
-- [YugabyteDB Hybrid Time](https://docs.yugabyte.com/preview/architecture/transactions/transactions-overview/#hybrid-time-as-an-mvcc-timestamp/index.md)
-- [Time, Clocks, and the Ordering of Events](https://lamport.azurewebsites.net/pubs/time-clocks.pdf/index.md) - Lamport's foundational work
-- [Spanner: Google's Globally-Distributed Database](https://research.google/pubs/pub39966/index.md) - TrueTime comparison
+- [Logical Physical Clocks and Consistent Snapshots](https:/cse.buffalo.edu/tech-reports/2014-04.pdf/) - Original HLC paper
+- [CockroachDB Clock Synchronization](https:/www.cockroachlabs.com/docs/stable/architecture/transaction-layer.html#time-and-hybrid-logical-clocks/) 
+- [YugabyteDB Hybrid Time](https:/docs.yugabyte.com/preview/architecture/transactions/transactions-overview/#hybrid-time-as-an-mvcc-timestamp/)
+- [Time, Clocks, and the Ordering of Events](https:/lamport.azurewebsites.net/pubs/time-clocks.pdf/) - Lamport's foundational work
+- [Spanner: Google's Globally-Distributed Database](https:/research.google/pubs/pub39966/) - TrueTime comparison
 

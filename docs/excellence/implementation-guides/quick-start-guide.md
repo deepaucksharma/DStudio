@@ -57,7 +57,7 @@ db_breaker = CircuitBreaker(
 
 @db_breaker
 def get_user(user_id):
-    response = requests.get(f"http://user-service/users/{user_id}")
+    response = requests.get(f"http:/user-service/users/{user_id}")
     response.raise_for_status()
     return response.json()
 
@@ -199,7 +199,7 @@ def exponential_backoff_retry(
 @exponential_backoff_retry(max_retries=3)
 def call_payment_service(amount, user_id):
     response = requests.post(
-        "http://payment-service/charge",
+        "http:/payment-service/charge",
         json={"amount": amount, "user_id": user_id},
         timeout=5  # Always set timeouts!
     )
@@ -351,7 +351,7 @@ import pika
 from celery import Celery
 
 # Using Celery for simplicity
-app = Celery('tasks', broker='redis://localhost:6379')
+app = Celery('tasks', broker='redis:/localhost:6379')
 
 @app.task(bind=True, max_retries=3)
 def process_order(self, order_data):
@@ -486,7 +486,7 @@ tracer = trace.get_tracer(__name__)
 
 # Configure exporter
 otlp_exporter = OTLPSpanExporter(
-    endpoint="http://jaeger-collector:4317",
+    endpoint="http:/jaeger-collector:4317",
     insecure=True
 )
 
@@ -636,8 +636,8 @@ kubectl rollout undo deployment/api-deployment
 
 ## Resources
 
-- [Circuit Breaker Pattern](../../pattern-library/resilience/circuit-breaker/index.md)
-- [Retry Patterns](../../pattern-library/resilience/retry-backoff/index.md)
-- [Caching Strategies](../../pattern-library/scaling/caching-strategies/index.md)
-- [Auto-scaling Guide](../../pattern-library/scaling/auto-scaling/index.md)
+- [Circuit Breaker Pattern](../../pattern-library/resilience/circuit-breaker/)
+- [Retry Patterns](../../pattern-library/resilience/retry-backoff/)
+- [Caching Strategies](../../pattern-library/scaling/caching-strategies/)
+- [Auto-scaling Guide](../../pattern-library/scaling/auto-scaling/)
 - [Monitoring Best Practices](../architects-handbook/human-factors/observability-stacks.md)

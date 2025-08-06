@@ -786,23 +786,23 @@ timeline
     
     ---
     
-    - [Distributed Knowledge](../core-principles/laws/distributed-knowledge.md) - Feature sharing across teams
-    - [Economic Reality](../core-principles/laws/economic-reality.md) - Cost optimization through reuse
+    - [Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Feature sharing across teams
+    - [Economic Reality](../../core-principles/laws/economic-reality.md) - Cost optimization through reuse
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../core-principles/pillars/state-distribution.md) - Distributed feature storage
-    - [Intelligence Amplification](../core-principles/pillars/intelligence-amplification.md) - ML capability enhancement
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Distributed feature storage
+    - [Intelligence Amplification](../../core-principles/pillars/intelligence-amplification.md) - ML capability enhancement
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Feast Setup Guide](../excellence/guides/feast-setup.md)
-    - [Feature Engineering Best Practices](../excellence/guides/feature-engineering.md)  
-    - [ML Data Pipeline Design](../excellence/guides/ml-data-pipelines.md)
+    - [Feast Setup Guide](../../architects-handbook/implementation-playbooks/guides/feast-setup.md)
+    - [Feature Engineering Best Practices](../../architects-handbook/implementation-playbooks/guides/feature-engineering.md)  
+    - [ML Data Pipeline Design](../../architects-handbook/implementation-playbooks/guides/ml-data-pipelines.md)
 
 </div>
 

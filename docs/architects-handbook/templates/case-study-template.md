@@ -65,10 +65,10 @@ graph TB
 
 | Pattern | Purpose | Implementation | Results |
 |---------|---------|----------------|---------|
-| [Circuit Breaker](/../pattern-library/resilience/circuit-breaker/index.md) | Prevent cascade failures | Hystrix → Resilience4j | 99.9% service availability |
-| [CQRS](/../pattern-library/data-management/cqrs/index.md) | Read/write optimization | Separate read replicas | 10x read throughput |
-| [Event Streaming](/../pattern-library/architecture/event-streaming/index.md) | Real-time processing | Kafka with 1000+ partitions | <100ms event processing |
-| [Sharding](/../pattern-library/scaling/sharding/index.md) | Horizontal scaling | Hash-based on user_id | Linear scaling to 1B users |
+| [Circuit Breaker](/../pattern-library/resilience/circuit-breaker/) | Prevent cascade failures | Hystrix → Resilience4j | 99.9% service availability |
+| [CQRS](/../pattern-library/data-management/cqrs/) | Read/write optimization | Separate read replicas | 10x read throughput |
+| [Event Streaming](/../pattern-library/architecture/event-streaming/) | Real-time processing | Kafka with 1000+ partitions | <100ms event processing |
+| [Sharding](/../pattern-library/scaling/sharding/) | Horizontal scaling | Hash-based on user_id | Linear scaling to 1B users |
 
 ## Evolution Timeline
 
@@ -165,11 +165,11 @@ Build a simplified version focusing on one key pattern:
 
 ## Deep Dives
 
-- 📊 [Performance Analysis](/case-study-name/performance-deep-dive/index.md) - Detailed latency breakdown
-- 🔧 [Implementation Details](/case-study-name/implementation/index.md) - Code examples, configurations
-- 📈 [Scaling Journey](/case-study-name/scaling/index.md) - Step-by-step growth handling
-- 🛡️ [Security Architecture](/case-study-name/security/index.md) - Zero-trust implementation
-- 💰 [Cost Optimization](/case-study-name/cost/index.md) - 40% reduction strategies
+- 📊 [Performance Analysis](/case-study-name/performance-deep-dive/) - Detailed latency breakdown
+- 🔧 [Implementation Details](/case-study-name/implementation/) - Code examples, configurations
+- 📈 [Scaling Journey](/case-study-name/scaling/) - Step-by-step growth handling
+- 🛡️ [Security Architecture](/case-study-name/security/) - Zero-trust implementation
+- 💰 [Cost Optimization](/case-study-name/cost/) - 40% reduction strategies
 
 ## Related Content
 

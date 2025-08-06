@@ -1153,14 +1153,14 @@ def test_recommendation_cpu_exhaustion():
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md)** - Chaos engineering reveals and prevents correlated failures
-- **[Law 6: Cognitive Load](../core-principles/laws/cognitive-load/index.md)** - Game Day exercises reduce cognitive load during real incidents
-- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - ROI analysis shows chaos engineering economic benefits
+- **[Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md)** - Chaos engineering reveals and prevents correlated failures
+- **[Law 6: Cognitive Load](../../core-principles/laws/cognitive-load.md)** - Game Day exercises reduce cognitive load during real incidents
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality.md)** - ROI analysis shows chaos engineering economic benefits
 
 ### Related Patterns  
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)** - Essential pattern for chaos engineering blast radius control
-- **[Bulkhead](../pattern-library/resilience/bulkhead/index.md)** - Service isolation prevents chaos experiment cascade
-- **[Retry with Backoff](../pattern-library/resilience/retry-backoff/index.md)** - Handles transient failures during chaos experiments
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/)** - Essential pattern for chaos engineering blast radius control
+- **[Bulkhead](../pattern-library/resilience/bulkhead/)** - Service isolation prevents chaos experiment cascade
+- **[Retry with Backoff](../pattern-library/resilience/retry-backoff/)** - Handles transient failures during chaos experiments
 
 ### Related Case Studies
 - **[Amazon DynamoDB Evolution](../amazon-dynamodb-evolution.md)** - Database resilience through chaos testing
@@ -1169,8 +1169,8 @@ def test_recommendation_cpu_exhaustion():
 
 ## External Resources
 
-- **[Principles of Chaos Engineering](https://principlesofchaos.org/index.md)** - Official chaos engineering principles
-- **[Netflix Chaos Monkey](https://github.com/Netflix/chaosmonkey/index.md)** - Open source chaos engineering tool
-- **[Chaos Engineering: System Resiliency in Practice](https://learning.oreilly.com/library/view/chaos-engineering/9781492043850/index.md)** - Comprehensive book
-- **[Netflix Tech Blog](https://netflixtechblog.com/index.md)** - Latest chaos engineering innovations
-- **[Gremlin Chaos Engineering Platform](https://www.gremlin.com/index.md)** - Commercial chaos engineering platform
+- **[Principles of Chaos Engineering](https:/principlesofchaos.org/)** - Official chaos engineering principles
+- **[Netflix Chaos Monkey](https:/github.com/Netflix/chaosmonkey/)** - Open source chaos engineering tool
+- **[Chaos Engineering: System Resiliency in Practice](https:/learning.oreilly.com/library/view/chaos-engineering/9781492043850/)** - Comprehensive book
+- **[Netflix Tech Blog](https:/netflixtechblog.com/)** - Latest chaos engineering innovations
+- **[Gremlin Chaos Engineering Platform](https:/www.gremlin.com/)** - Commercial chaos engineering platform

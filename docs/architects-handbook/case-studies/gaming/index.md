@@ -229,9 +229,9 @@ Gaming systems frequently implement these distributed system patterns:
 ---
 
 **Explore Related Domains**:
-- **[Social & Communication](../social-communication/index.md)**: Player chat and social features
-- **[Search & Analytics](../search-analytics/index.md)**: Player data analytics and leaderboards
-- **[Infrastructure](../infrastructure/index.md)**: Distributed systems fundamentals
-- **[Monitoring & Observability](../monitoring-observability/index.md)**: Game system monitoring and performance
+- **[Social & Communication](../social-communication/)**: Player chat and social features
+- **[Search & Analytics](../search-analytics/)**: Player data analytics and leaderboards
+- **[Infrastructure](../infrastructure/)**: Distributed systems fundamentals
+- **[Monitoring & Observability](../monitoring-observability/)**: Game system monitoring and performance
 
 *Last Updated: August 2025 | 3 Case Studies*

@@ -381,7 +381,7 @@ type: documentation
 - [API Gateway Patterns](../../pattern-library/communication/api-gateway.md)
 - [Backpressure Strategies](../../pattern-library/scaling/backpressure.md)
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https:/cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 let algorithmChart = null;
 let performanceChart = null;

@@ -584,8 +584,8 @@ if __name__ == "__main__":
     
     ---
     
-    - [Emergent Chaos](../core-principles/laws/emergent-chaos.md) - Security in complex systems
-    - [Economic Reality](../core-principles/laws/economic-reality.md) - Security investment decisions
+    - [Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Security in complex systems
+    - [Economic Reality](../../core-principles/laws/economic-reality.md) - Security investment decisions
 
 </div>
 

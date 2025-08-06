@@ -56,9 +56,9 @@ when-to-use: When designing distributed systems architecture
     CAP theorem is important for understanding distributed systems theory but doesn't provide actionable guidance. Modern systems offer more nuanced approaches like tunable consistency and PACELC considerations.
     
     **For practical guidance, see:**
-    - **[Tunable Consistency](../pattern-library/data-management/tunable-consistency.md)** for flexible trade-offs
-    - **[Consensus Patterns](../pattern-library/coordination/consensus.md)** for agreement protocols
-    - **[Multi-Region Architecture](../pattern-library/scaling/multi-region.md)** for real-world CAP decisions
+    - **[Tunable Consistency](../data-management/tunable-consistency.md)** for flexible trade-offs
+    - **[Consensus Patterns](../coordination/consensus.md)** for agreement protocols
+    - **[Multi-Region Architecture](../scaling/multi-region.md)** for real-world CAP decisions
 
 **You can't have your cake and eat it too - The fundamental trade-off in distributed systems**
 
@@ -257,10 +257,10 @@ graph TD
 
 This pattern is deeply connected to fundamental distributed systems laws:
 
-- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)**: Network partitions are a direct consequence of asynchronous networks where message delays are unbounded, forcing the CAP trade-off
-- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)**: CAP theorem perfectly exemplifies the impossibility of optimizing all dimensions simultaneously - you must choose which two of CAP to prioritize
-- **[Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md)**: The challenge of maintaining consistent knowledge across distributed nodes when communication is unreliable is at the heart of CAP theorem
-- **[Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md)**: Network partitions can emerge unexpectedly from seemingly minor network issues, forcing systems into CAP decision modes
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md)**: Network partitions are a direct consequence of asynchronous networks where message delays are unbounded, forcing the CAP trade-off
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md)**: CAP theorem perfectly exemplifies the impossibility of optimizing all dimensions simultaneously - you must choose which two of CAP to prioritize
+- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md)**: The challenge of maintaining consistent knowledge across distributed nodes when communication is unreliable is at the heart of CAP theorem
+- **[Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos.md)**: Network partitions can emerge unexpectedly from seemingly minor network issues, forcing systems into CAP decision modes
 
 ### Related Resources
 
@@ -270,31 +270,31 @@ This pattern is deeply connected to fundamental distributed systems laws:
     
     ---
     
-    - [Eventual Consistency](../pattern-library/data-management/eventual-consistency.md) - AP system implementation
-    - [Consensus](../pattern-library/coordination/consensus.md) - CP system coordination
-    - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Partition handling
+    - [Eventual Consistency](../data-management/eventual-consistency.md) - AP system implementation
+    - [Consensus](../coordination/consensus.md) - CP system coordination
+    - [Circuit Breaker](../resilience/circuit-breaker.md) - Partition handling
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Network delays
-    - [Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md) - Partition inevitability
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Network delays
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Partition inevitability
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Data consistency models
-    - [Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Consensus mechanisms
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Data consistency models
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution.md) - Consensus mechanisms
 
 - :material-tools:{ .lg .middle } **Modern Alternatives**
     
     ---
     
-    - [PACELC Analysis Guide](../excellence/guides/pacelc-analysis.md)
-    - [Tunable Consistency Setup](../excellence/guides/tunable-consistency.md)
-    - [CRDT Implementation Guide](../excellence/guides/crdt-setup.md)
+    - [PACELC Analysis Guide](../../architects-handbook/implementation-playbooks/guides/pacelc-analysis.md)
+    - [Tunable Consistency Setup](../../architects-handbook/implementation-playbooks/guides/tunable-consistency.md)
+    - [CRDT Implementation Guide](../../architects-handbook/implementation-playbooks/guides/crdt-setup.md)
 
 </div>
 

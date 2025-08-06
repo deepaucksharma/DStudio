@@ -334,31 +334,31 @@ graph LR
     
     ---
     
-    - [Distributed Lock](../pattern-library/coordination/distributed-lock.md) - Uses election for coordination
-    - [Consensus](../pattern-library/coordination/consensus.md) - Foundation for safe elections
+    - [Distributed Lock](../coordination/distributed-lock.md) - Uses election for coordination
+    - [Consensus](../coordination/consensus.md) - Foundation for safe elections
     - [Heartbeat](../communication/heartbeat.md) - Failure detection mechanism
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - Safety vs availability trade-offs
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Network delays affect elections
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md) - Safety vs availability trade-offs
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Network delays affect elections
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 4: Control Distribution](../core-principles/pillars/control-distribution/index.md) - Centralized decision making
-    - [Pillar 3: Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Single source of authority
+    - [Pillar 4: Control Distribution](../../core-principles/pillars/control-distribution.md) - Centralized decision making
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution.md) - Single source of authority
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Election Setup Guide](../excellence/guides/election-setup.md)
-    - [Testing Guide](../excellence/guides/partition-testing.md)
-    - [Raft Implementation](../excellence/guides/raft-implementation.md)
+    - [Election Setup Guide](../../architects-handbook/implementation-playbooks/guides/election-setup.md)
+    - [Testing Guide](../../architects-handbook/implementation-playbooks/guides/partition-testing.md)
+    - [Raft Implementation](../../architects-handbook/implementation-playbooks/guides/raft-implementation.md)
 
 </div>
 

@@ -1,5 +1,5 @@
 ---
-title: Latency Calculator - Redirect
+title: Latency Calculator
 redirect_to: /architects-handbook/tools/latency-calculator/
 ---
 

@@ -322,37 +322,37 @@ graph LR
     
     ---
     
-    - [CRDT](../pattern-library/data-management/crdt.md) - Conflict-free replicated data types
+    - [CRDT](../data-management/crdt.md) - Conflict-free replicated data types
     - [Vector Clocks](../coordination/vector-clocks.md) - Causality tracking
-    - [Read Repair](../pattern-library/data-management/read-repair.md) - Fixing inconsistencies during reads
+    - [Read Repair](../data-management/read-repair.md) - Fixing inconsistencies during reads
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Network partitions are inevitable
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - No global clock exists
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md) - Network partitions are inevitable
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - No global clock exists
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Managing distributed state
-    - [Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Consistency models
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Managing distributed state
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution.md) - Consistency models
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Consistency Testing Guide](../excellence/guides/consistency-testing.md)
-    - [Conflict Resolution Patterns](../excellence/guides/conflict-resolution.md)
-    - [Migration from Strong Consistency](../excellence/migrations/strong-to-eventual.md)
+    - [Consistency Testing Guide](../../architects-handbook/implementation-playbooks/guides/consistency-testing.md)
+    - [Conflict Resolution Patterns](../../architects-handbook/implementation-playbooks/guides/conflict-resolution.md)
+    - [Migration from Strong Consistency](../../architects-handbook/implementation-playbooks/migrations/strong-to-eventual.md)
 
 </div>
 
 ---
 
-*Next: [CRDT](../pattern-library/data-management/crdt.md) - Conflict-free replicated data types for automatic conflict resolution*
+*Next: [CRDT](../data-management/crdt.md) - Conflict-free replicated data types for automatic conflict resolution*
 
 ### Advanced Implementation Examples
 

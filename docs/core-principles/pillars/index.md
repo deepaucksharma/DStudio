@@ -13,11 +13,11 @@ While the 7 Laws tell us what we cannot do, the 5 Pillars guide us in what we sh
 
 ## The Pillars
 
-1. **[Work Distribution](work-distribution/index.md)** - How to divide and coordinate computational tasks
-2. **[State Distribution](state-distribution/index.md)** - How to manage and replicate data across nodes
-3. **[Truth Distribution](truth-distribution/index.md)** - How to achieve consensus and consistency
-4. **[Control Distribution](control-distribution/index.md)** - How to coordinate actions and decisions
-5. **[Intelligence Distribution](intelligence-distribution/index.md)** - How to distribute logic and decision-making
+1. **[Work Distribution](work-distribution.md)** - How to divide and coordinate computational tasks
+2. **[State Distribution](state-distribution.md)** - How to manage and replicate data across nodes
+3. **[Truth Distribution](truth-distribution.md)** - How to achieve consensus and consistency
+4. **[Control Distribution](control-distribution.md)** - How to coordinate actions and decisions
+5. **[Intelligence Distribution](intelligence-distribution.md)** - How to distribute logic and decision-making
 
 ## Key Concepts
 
@@ -59,4 +59,4 @@ The pillars are interdependent:
 
 ---
 
-*Begin with [Work Distribution](work-distribution/index.md) to understand how to effectively divide computational tasks across your system.*
+*Begin with [Work Distribution](work-distribution.md) to understand how to effectively divide computational tasks across your system.*

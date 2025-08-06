@@ -2070,8 +2070,8 @@ Storage Node      32GB      8 cores  10TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md) - Massive parallelism patterns
-- [Law 6: Human-API](../core-principles/laws/cognitive-load/index.md) - Crawler ethics and robots.txt
+- [Law 3: Emergence](../../core-principles/laws/emergent-chaos.md) - Massive parallelism patterns
+- [Law 6: Human-API](../../core-principles/laws/cognitive-load.md) - Crawler ethics and robots.txt
 - [Queue Patterns](../pattern-library/scaling/queues-streaming.md) - Priority queue implementations
 - [Bulkhead Pattern](../pattern-library/resilience/bulkhead.md) - Domain isolation strategies
 
@@ -2095,15 +2095,15 @@ Storage Node      32GB      8 cores  10TB
 ### 📚 References
 
 **Papers:**
-- [The Evolution of Web Crawling](https://research.google/pubs/pub46428/index.md)
-- [IRLbot: Scaling to 6 Billion Pages](http://irl.cs.tamu.edu/people/hsin-tsang/papers/www2008.pdf/index.md)
-- [Mercator: A Scalable, Extensible Web Crawler](https://courses.cs.washington.edu/courses/cse454/15wi/papers/mercator.pdf/index.md)
+- [The Evolution of Web Crawling](https:/research.google/pubs/pub46428/)
+- [IRLbot: Scaling to 6 Billion Pages](http:/irl.cs.tamu.edu/people/hsin-tsang/papers/www2008.pdf/)
+- [Mercator: A Scalable, Extensible Web Crawler](https:/courses.cs.washington.edu/courses/cse454/15wi/papers/mercator.pdf/)
 
 **Open Source Crawlers:**
-- [Apache Nutch](https://nutch.apache.org/index.md)
-- [Scrapy](https://scrapy.org/index.md)
-- [Colly](https://github.com/gocolly/colly/index.md)
-- [Heritrix](https://github.com/internetarchive/heritrix3/index.md)
+- [Apache Nutch](https:/nutch.apache.org/)
+- [Scrapy](https:/scrapy.org/)
+- [Colly](https:/github.com/gocolly/colly/)
+- [Heritrix](https:/github.com/internetarchive/heritrix3/)
 
 **Related Patterns:**
 - URL Frontier Management (Coming Soon)

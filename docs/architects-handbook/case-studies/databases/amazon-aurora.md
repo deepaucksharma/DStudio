@@ -1727,14 +1727,14 @@ timeline
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md)** - Aurora's multi-AZ replication prevents correlated failures
-- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)** - Balance performance, durability, and cost
-- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - Aurora's pricing model reflects true cloud economics
+- **[Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md)** - Aurora's multi-AZ replication prevents correlated failures
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md)** - Balance performance, durability, and cost
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality.md)** - Aurora's pricing model reflects true cloud economics
 
 ### Related Patterns  
-- **[Database Sharding](../pattern-library/data/database-sharding/index.md)** - Compare with Aurora's storage layer distribution
-- **[Read Replicas](../pattern-library/data/read-replicas/index.md)** - Aurora's advanced read replica capabilities
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)** - Protect applications from database failures
+- **[Database Sharding](../pattern-library/data/database-sharding/)** - Compare with Aurora's storage layer distribution
+- **[Read Replicas](../pattern-library/data/read-replicas/)** - Aurora's advanced read replica capabilities
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/)** - Protect applications from database failures
 
 ### Related Case Studies
 - **[Google Spanner](../google-spanner.md)** - Global consistency vs Aurora's eventual consistency
@@ -1743,8 +1743,8 @@ timeline
 
 ## External Resources
 
-- **[Amazon Aurora Documentation](https://docs.aws.amazon.com/aurora/index.md)** - Official Aurora documentation
-- **[Aurora Design Paper](https://web.stanford.edu/~ouster/cgi-bin/papers/aurora.pdf/index.md)** - Academic paper on Aurora architecture
-- **[Aurora Best Practices](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.BestPractices.html/index.md)** - AWS best practices guide
-- **[Aurora Performance Insights](https://aws.amazon.com/rds/performance-insights/index.md)** - Database performance monitoring
-- **[Aurora Labs](https://awsauroralabsmy.com/index.md)** - Hands-on Aurora workshops
+- **[Amazon Aurora Documentation](https:/docs.aws.amazon.com/aurora/)** - Official Aurora documentation
+- **[Aurora Design Paper](https:/web.stanford.edu/~ouster/cgi-bin/papers/aurora.pdf/)** - Academic paper on Aurora architecture
+- **[Aurora Best Practices](https:/docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.BestPractices.html/)** - AWS best practices guide
+- **[Aurora Performance Insights](https:/aws.amazon.com/rds/performance-insights/)** - Database performance monitoring
+- **[Aurora Labs](https:/awsauroralabsmy.com/)** - Hands-on Aurora workshops

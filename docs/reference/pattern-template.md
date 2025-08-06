@@ -59,7 +59,7 @@ related_pillars: [work, state, truth, control, intelligence]
     - Company 2: Specific metric
     - Company 3: Specific metric
 
-[Home](/) > [Pattern Library](../index.md) > [Category Patterns](./index.md) > Pattern Name
+[Home](/) > [Pattern Library](../) > [Category Patterns](./) > Pattern Name
 ```
 
 ### 2. Pattern Summary Table
@@ -180,11 +180,11 @@ graph TB
 
 ### Fundamental Laws
 This pattern directly addresses:
-- **[Law X: Name](../core-principles/laws/lawX/index.md)**: How this pattern relates to the law
+- **[Law X: Name](../core-principles/laws/lawX.md)**: How this pattern relates to the law
 
 ### Foundational Pillars
 This pattern implements:
-- **[Pillar X: Name](../core-principles/pillars/pillarX/index.md)**: How this pattern implements the pillar
+- **[Pillar X: Name](../core-principles/pillars/pillarX.md)**: How this pattern implements the pillar
 ```
 
 ### 8. Excellence Framework Integration
@@ -192,8 +192,8 @@ This pattern implements:
 ## Excellence Framework Integration
 
 ### Implementation Guides
-- **[Pattern Implementation Guide](../excellence/implementation-guides/pattern-implementation.md)**: Step-by-step setup
-- **[Pattern Testing Guide](../excellence/guides/pattern-testing.md)**: Testing strategies
+- **[Pattern Implementation Guide](../architects-handbook/implementation-playbooks/implementation-guides/pattern-implementation.md)**: Step-by-step setup
+- **[Pattern Testing Guide](../architects-handbook/implementation-playbooks/guides/pattern-testing.md)**: Testing strategies
 
 ### Case Studies
 - **[Company Case Study](../architects-handbook/case-studies/company-pattern.md)**: Real-world implementation
@@ -208,7 +208,7 @@ This pattern implements:
     How they work together:
     - Benefit 1
     - Benefit 2
-    - [View Integration Guide](../excellence/combinations/pattern-combination.md)
+    - [View Integration Guide](../architects-handbook/implementation-playbooks/combinations/pattern-combination.md)
 
 </div>
 ```

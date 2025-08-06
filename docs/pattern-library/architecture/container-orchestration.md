@@ -645,16 +645,16 @@ async def main():
     
     ---
     
-    - [Emergent Chaos](../core-principles/laws/emergent-chaos.md) - Managing complex distributed systems
-    - [Cognitive Load](../core-principles/laws/cognitive-load.md) - Simplifying operational complexity
+    - [Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Managing complex distributed systems
+    - [Cognitive Load](../../core-principles/laws/cognitive-load.md) - Simplifying operational complexity
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Kubernetes Production Setup](../excellence/guides/k8s-production.md)
-    - [Container Security Best Practices](../excellence/guides/container-security.md)
-    - [Cluster Monitoring and Observability](../excellence/guides/k8s-monitoring.md)
+    - [Kubernetes Production Setup](../../architects-handbook/implementation-playbooks/guides/k8s-production.md)
+    - [Container Security Best Practices](../../architects-handbook/implementation-playbooks/guides/container-security.md)
+    - [Cluster Monitoring and Observability](../../architects-handbook/implementation-playbooks/guides/k8s-monitoring.md)
 
 </div>
 

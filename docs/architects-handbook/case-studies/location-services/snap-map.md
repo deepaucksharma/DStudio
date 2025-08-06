@@ -32,5 +32,5 @@ This case study would explore Snap Map's architecture for real-time location sha
 - Geohashing (Coming Soon.md) - Location clustering
 
 ## External Resources
-- [Snap Map Privacy](https://support.snapchat.com/en-US/article/snap-map-privacy-settings/index.md)
-- [Location Sharing Best Practices](https://support.snapchat.com/en-US/article/location-sharing/index.md)
+- [Snap Map Privacy](https:/support.snapchat.com/en-US/article/snap-map-privacy-settings/)
+- [Location Sharing Best Practices](https:/support.snapchat.com/en-US/article/location-sharing/)

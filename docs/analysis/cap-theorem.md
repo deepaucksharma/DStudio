@@ -1,5 +1,5 @@
 ---
-title: Cap Theorem - Redirect
+title: Cap Theorem
 redirect_to: /architects-handbook/quantitative-analysis/cap-theorem/
 ---
 

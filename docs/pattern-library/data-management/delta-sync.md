@@ -348,31 +348,31 @@ graph LR
     
     ---
     
-    - [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Natural delta representation
-    - [CRDT](../pattern-library/data-management/crdt.md) - Conflict-free synchronization  
-    - [Write-Ahead Log](../pattern-library/data-management/write-ahead-log.md) - Change tracking
+    - [Event Sourcing](../data-management/event-sourcing.md) - Natural delta representation
+    - [CRDT](../data-management/crdt.md) - Conflict-free synchronization  
+    - [Write-Ahead Log](../data-management/write-ahead-log.md) - Change tracking
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Handling async updates
-    - [Law 4: Multi-dimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - Bandwidth vs complexity
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Handling async updates
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization.md) - Bandwidth vs complexity
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Efficient state synchronization
-    - [Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Consistency across replicas
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Efficient state synchronization
+    - [Truth Distribution](../../core-principles/pillars/truth-distribution.md) - Consistency across replicas
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Delta Compression Guide](../excellence/guides/delta-compression.md)
-    - [Conflict Resolution Strategies](../excellence/guides/conflict-resolution.md)
-    - [Sync Performance Testing](../excellence/guides/sync-testing.md)
+    - [Delta Compression Guide](../../architects-handbook/implementation-playbooks/guides/delta-compression.md)
+    - [Conflict Resolution Strategies](../../architects-handbook/implementation-playbooks/guides/conflict-resolution.md)
+    - [Sync Performance Testing](../../architects-handbook/implementation-playbooks/guides/sync-testing.md)
 
 </div>
 

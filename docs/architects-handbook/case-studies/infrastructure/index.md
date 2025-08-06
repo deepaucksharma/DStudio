@@ -103,7 +103,7 @@ Distributed web crawler for search engines processing billions of pages.
 
 ### 🎥 Video Infrastructure
 
-#### **[Zoom Scaling](zoom-scaling.md)**
+#### **[Zoom Scaling](../architects-handbook/case-studies/infrastructure/zoom-scaling.md)**
 ⭐ **Difficulty: Advanced** | ⏱️ **55 min**
 
 Video conferencing platform that scaled from 10M to 300M+ users during COVID-19.
@@ -125,7 +125,7 @@ Distributed ledger technology with consensus mechanisms and smart contracts.
 
 ### 🔄 System Evolution
 
-#### **[Monolith to Microservices](monolith-to-microservices.md)**
+#### **[Monolith to Microservices](../architects-handbook/case-studies/infrastructure/monolith-to-microservices.md)**
 ⭐ **Difficulty: Advanced** | ⏱️ **65 min**
 
 Large-scale migration from monolithic to microservices architecture.
@@ -144,12 +144,12 @@ Large-scale migration from monolithic to microservices architecture.
 ### Intermediate Track
 1. [Object Storage](object-storage.md) - Distributed storage fundamentals
 2. [Web Crawler](web-crawler.md) - Complex distributed processing
-3. [Zoom Scaling](zoom-scaling.md) - Real-time systems at scale
+3. [Zoom Scaling](../architects-handbook/case-studies/infrastructure/zoom-scaling.md) - Real-time systems at scale
 
 ### Advanced Track  
 1. [S3 Object Storage Enhanced](s3-object-storage-enhanced.md) - Production-grade storage
 2. [Kubernetes](kubernetes.md) - Container orchestration mastery
-3. [Monolith to Microservices](monolith-to-microservices.md) - System evolution
+3. [Monolith to Microservices](../architects-handbook/case-studies/infrastructure/monolith-to-microservices.md) - System evolution
 
 ### Expert Track
 1. [Blockchain Systems](blockchain.md) - Cutting-edge distributed systems
@@ -202,9 +202,9 @@ Large-scale migration from monolithic to microservices architecture.
 - [Auto-scaling](../../pattern-library/scaling/auto-scaling.md) - Dynamic resource management
 
 ### Quantitative Analysis
-- [Capacity Planning](../architects-handbook/quantitative-analysis/capacity-planning.md) - Infrastructure sizing
-- [Availability Math](../architects-handbook/quantitative-analysis/availability-math.md) - SLA calculations
-- [Storage Economics](../architects-handbook/quantitative-analysis/storage-economics.md) - Cost optimization
+- [Capacity Planning](../quantitative-analysis/capacity-planning.md) - Infrastructure sizing
+- [Availability Math](../quantitative-analysis/availability-math.md) - SLA calculations
+- [Storage Economics](../quantitative-analysis/storage-economics.md) - Cost optimization
 
 ### Human Factors
 - [SRE Practices](../architects-handbook/human-factors/sre-practices.md) - Infrastructure reliability

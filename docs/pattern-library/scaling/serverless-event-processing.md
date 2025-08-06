@@ -680,8 +680,8 @@ class ColdStartOptimizer:
                 pool_connections=10,
                 pool_maxsize=20
             )
-            session.mount('http://', adapter)
-            session.mount('https://', adapter)
+            session.mount('http:/', adapter)
+            session.mount('https:/', adapter)
             
             _api_clients['http'] = session
             
@@ -1531,23 +1531,23 @@ timeline
     
     ---
     
-    - [Economic Reality](../core-principles/laws/economic-reality.md) - Cost optimization through pay-per-use
-    - [Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) - Event-driven processing patterns
+    - [Economic Reality](../../core-principles/laws/economic-reality.md) - Cost optimization through pay-per-use
+    - [Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Event-driven processing patterns
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../core-principles/pillars/work-distribution.md) - Distributed function execution
-    - [Economics](../core-principles/pillars/economics.md) - Cost-effective scaling models
+    - [Work Distribution](../../core-principles/pillars/work-distribution.md) - Distributed function execution
+    - [Economics](../../core-principles/pillars/economics.md) - Cost-effective scaling models
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [AWS Lambda Best Practices](../excellence/guides/lambda-best-practices.md)
-    - [Serverless Cost Optimization](../excellence/guides/serverless-cost-optimization.md)
-    - [Cold Start Optimization Guide](../excellence/guides/cold-start-optimization.md)
+    - [AWS Lambda Best Practices](../../architects-handbook/implementation-playbooks/guides/lambda-best-practices.md)
+    - [Serverless Cost Optimization](../../architects-handbook/implementation-playbooks/guides/serverless-cost-optimization.md)
+    - [Cold Start Optimization Guide](../../architects-handbook/implementation-playbooks/guides/cold-start-optimization.md)
 
 </div>
 

@@ -605,9 +605,9 @@ graph TB
 ## 🔗 References & Deep Dives
 
 ### Technical Papers
-- [Spotify's Discover Weekly: How machine learning finds your new music](https://engineering.atspotify.com/2015/11/discover-weekly/index.md)
-- [The Echo Nest: How Spotify Understands Music](http://static.echonest.com/enspex/index.md)
-- [Scaling ML at Spotify](https://engineering.atspotify.com/ml-at-spotify/index.md)
+- [Spotify's Discover Weekly: How machine learning finds your new music](https:/engineering.atspotify.com/2015/11/discover-weekly/)
+- [The Echo Nest: How Spotify Understands Music](http:/static.echonest.com/enspex/)
+- [Scaling ML at Spotify](https:/engineering.atspotify.com/ml-at-spotify/)
 
 ### Related Patterns
 - Feature Store Architecture (ML feature management)
@@ -616,20 +616,20 @@ graph TB
 - Recommendation Systems (collaborative filtering)
 
 ### Similar Systems
-- [Netflix Recommendations](https://research.netflix.com/research-area/recommendations/index.md)
-- [YouTube's Algorithm](https://research.google/pubs/pub45530/index.md)
-- [Amazon Personalization](https://aws.amazon.com/personalize/index.md)
+- [Netflix Recommendations](https:/research.netflix.com/research-area/recommendations/)
+- [YouTube's Algorithm](https:/research.google/pubs/pub45530/)
+- [Amazon Personalization](https:/aws.amazon.com/personalize/)
 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Fallback to popular playlists when recommendation service fails
-- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
-- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Millions of concurrent users require lock-free serving infrastructure
-- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
-- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - A/B testing framework measures recommendation quality in real-time
-- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - UI design balances algorithmic recommendations with user control
-- **[Law 7: Economics](../core-principles/laws/economic-reality/index.md)** - Recommendation quality directly impacts user retention and revenue
+- **[Law 1: Failure](../../core-principles/laws/correlated-failure.md)** - Fallback to popular playlists when recommendation service fails
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Law 3: Emergence](../../core-principles/laws/emergent-chaos.md)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
+- **[Law 5: Epistemology](../../core-principles/laws/distributed-knowledge.md)** - A/B testing framework measures recommendation quality in real-time
+- **[Law 6: Human-API](../../core-principles/laws/cognitive-load.md)** - UI design balances algorithmic recommendations with user control
+- **[Law 7: Economics](../../core-principles/laws/economic-reality.md)** - Recommendation quality directly impacts user retention and revenue
 
 ### 🏛 Related Patterns
 - **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
@@ -641,10 +641,10 @@ graph TB
 - **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Isolate experimental models from production traffic
 
 ### Quantitative Models
-- **[Little's Law](../architects-handbook/quantitative-analysis/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
-- **[Amdahl's Law](../architects-handbook/quantitative-analysis/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
-- **[Power Laws](../architects-handbook/quantitative-analysis/power-laws.md)** - Long-tail content distribution affects recommendation strategy
-- **[Information Theory](../architects-handbook/quantitative-analysis/information-theory.md)** - Entropy measures for recommendation diversity
+- **[Little's Law](../quantitative-analysis/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
+- **[Amdahl's Law](../quantitative-analysis/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
+- **[Power Laws](../quantitative-analysis/power-laws.md)** - Long-tail content distribution affects recommendation strategy
+- **[Information Theory](../quantitative-analysis/information-theory.md)** - Entropy measures for recommendation diversity
 
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../architects-handbook/human-factors/sre-practices.md)** - ML model deployment requires specialized SRE workflows

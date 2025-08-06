@@ -290,14 +290,14 @@ graph TD
 
 ## Related Patterns
 - [Multi-Region](../architecture/multi-region.md) - Architecture patterns for multi-region systems
-- [Edge Computing](../pattern-library/scaling/edge-computing.md) - Computation at network edge
+- [Edge Computing](../scaling/edge-computing.md) - Computation at network edge
 - [CDN Pattern](../performance/cdn.md) - Content delivery networks
 - [Database Replication](../data-management/replication.md) - Data replication strategies
 - [Global Load Balancing](../architecture/global-load-balancing.md) - Traffic distribution
 
 ## References
-- [Netflix Global Architecture](https://netflixtechblog.com/index.md)
-- [Stripe's Data Residency](https://stripe.com/guides/data-residency/index.md)
-- [Google Spanner Paper](https://research.google/pubs/pub39966/index.md)
-- [AWS Global Infrastructure](https://aws.amazon.com/about-aws/global-infrastructure/index.md)
+- [Netflix Global Architecture](https:/netflixtechblog.com/)
+- [Stripe's Data Residency](https:/stripe.com/guides/data-residency/)
+- [Google Spanner Paper](https:/research.google/pubs/pub39966/)
+- [AWS Global Infrastructure](https:/aws.amazon.com/about-aws/global-infrastructure/)
 

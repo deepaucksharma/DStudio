@@ -21,25 +21,25 @@ Communication patterns address the fundamental challenge of how services talk to
 ## Pattern Categories
 
 ### Messaging Patterns
-- **[Publish/Subscribe](../pattern-library/communication/publish-subscribe.md)** - One-to-many message distribution
-- **[Request/Reply](../pattern-library/communication/request-reply.md)** - Asynchronous request-response
-- **[WebSocket](../pattern-library/communication/websocket.md)** - Real-time bidirectional communication
+- **[Publish/Subscribe](../communication/publish-subscribe.md)** - One-to-many message distribution
+- **[Request/Reply](../communication/request-reply.md)** - Asynchronous request-response
+- **[WebSocket](../communication/websocket.md)** - Real-time bidirectional communication
 - **Message Queue** - Point-to-point asynchronous messaging
 - **Message Router** - Content-based message routing
 
 ### RPC Patterns
-- **[gRPC](../pattern-library/communication/grpc.md)** - High-performance RPC with Protocol Buffers
+- **[gRPC](../communication/grpc.md)** - High-performance RPC with Protocol Buffers
 - **Remote Procedure Call** - Synchronous method invocation
 - **Async RPC** - Non-blocking remote calls
 - **Streaming RPC** - Bidirectional streaming
 
 ### Service Discovery
-- **[Service Discovery](../pattern-library/communication/service-discovery.md)** - Dynamic service location
-- **[Service Registry](../pattern-library/communication/service-registry.md)** - Service metadata management
+- **[Service Discovery](../communication/service-discovery.md)** - Dynamic service location
+- **[Service Registry](../communication/service-registry.md)** - Service metadata management
 
 ### Integration Patterns
-- **[API Gateway](../pattern-library/communication/api-gateway.md)** - Single entry point for clients
-- **[Service Mesh](../pattern-library/communication/service-mesh.md)** - Transparent service communication
+- **[API Gateway](../communication/api-gateway.md)** - Single entry point for clients
+- **[Service Mesh](../communication/service-mesh.md)** - Transparent service communication
 - **Backend for Frontend** - Client-specific APIs
 
 ## Quick Decision Guide
@@ -47,14 +47,14 @@ Communication patterns address the fundamental challenge of how services talk to
 | If you need... | Consider... |
 |----------------|-------------|
 | Simple async processing | Message Queue |
-| Fan-out to multiple consumers | [Pub/Sub](../pattern-library/communication/publish-subscribe.md) |
-| Synchronous communication | [gRPC](../pattern-library/communication/grpc.md) |
-| Real-time bidirectional | [WebSocket](../pattern-library/communication/websocket.md) |
-| Async request-response | [Request/Reply](../pattern-library/communication/request-reply.md) |
-| API management | [API Gateway](../pattern-library/communication/api-gateway.md) |
-| Service-to-service mesh | [Service Mesh](../pattern-library/communication/service-mesh.md) |
-| Dynamic service location | [Service Discovery](../pattern-library/communication/service-discovery.md) |
+| Fan-out to multiple consumers | [Pub/Sub](../communication/publish-subscribe.md) |
+| Synchronous communication | [gRPC](../communication/grpc.md) |
+| Real-time bidirectional | [WebSocket](../communication/websocket.md) |
+| Async request-response | [Request/Reply](../communication/request-reply.md) |
+| API management | [API Gateway](../communication/api-gateway.md) |
+| Service-to-service mesh | [Service Mesh](../communication/service-mesh.md) |
+| Dynamic service location | [Service Discovery](../communication/service-discovery.md) |
 
 ---
 
-*Browse individual patterns below or return to the [Pattern Library](../index.md).*
+*Browse individual patterns below or return to the [Pattern Library](../).*

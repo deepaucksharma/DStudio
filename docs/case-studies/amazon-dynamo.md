@@ -1,5 +1,5 @@
 ---
-title: Amazon Dynamo - Redirect
+title: Amazon Dynamo
 redirect_to: /architects-handbook/case-studies/databases/amazon-dynamo/
 ---
 

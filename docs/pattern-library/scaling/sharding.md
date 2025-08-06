@@ -221,9 +221,9 @@ After:  channel_id → bucket (1 of 4096) → shard (1 of 128)
 
 This pattern directly addresses several fundamental distributed systems laws:
 
-- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)**: Sharding represents the classic trade-off between scalability and complexity - gaining horizontal scale at the cost of cross-shard operation difficulty
-- **[Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md)**: Data is partitioned across shards, meaning no single node has complete knowledge of the dataset
-- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)**: Enables cost-effective scaling by allowing horizontal scaling on commodity hardware rather than expensive vertical scaling
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md)**: Sharding represents the classic trade-off between scalability and complexity - gaining horizontal scale at the cost of cross-shard operation difficulty
+- **[Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md)**: Data is partitioned across shards, meaning no single node has complete knowledge of the dataset
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality.md)**: Enables cost-effective scaling by allowing horizontal scaling on commodity hardware rather than expensive vertical scaling
 
 ## Related Patterns
 
@@ -233,14 +233,14 @@ This pattern directly addresses several fundamental distributed systems laws:
 - [CQRS](../data/cqrs.md) - Separate read/write sharding strategies
 
 ### Operations  
-- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Handle shard failures
-- [Bulkhead](../pattern-library/resilience/bulkhead.md) - Isolate shard impacts
+- [Circuit Breaker](../resilience/circuit-breaker.md) - Handle shard failures
+- [Bulkhead](../resilience/bulkhead.md) - Isolate shard impacts
 - [Service Mesh](../infrastructure/service-mesh.md) - Shard-aware routing
 
 ### Case Studies
-- [Discord: Message Sharding](../architects-handbook/case-studies/discord-messages.md)
-- [Pinterest: MySQL Sharding](../architects-handbook/case-studies/pinterest-sharding.md)
-- [Uber: Schemaless](../architects-handbook/case-studies/uber-schemaless.md)
+- [Discord: Message Sharding](../../architects-handbook/case-studies/discord-messages.md)
+- [Pinterest: MySQL Sharding](../../architects-handbook/case-studies/pinterest-sharding.md)
+- [Uber: Schemaless](../../architects-handbook/case-studies/uber-schemaless.md)
 
 ---
 

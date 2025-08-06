@@ -79,7 +79,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 1 (Correlated Failure ⛓️), Law 3 (Emergent Chaos 🌪️)
 
-**Case Studies**: [Netflix's Resilience Patterns](../architects-handbook/case-studies/netflix-chaos/index.md), [Circuit Breaker Pattern](pattern-library/circuit-breaker/index.md)
+**Case Studies**: [Netflix's Resilience Patterns](../architects-handbook/case-studies/netflix-chaos/), [Circuit Breaker Pattern](pattern-library/circuit-breaker/)
 
 ---
 
@@ -121,14 +121,14 @@ last_updated: 2025-07-20
    @retry_with_backoff(max_attempts=5, exceptions=(ConnectionError,))
    def call_external_api():
 # API call that might fail
-       return requests.get("https://api.example.com/data")
+       return requests.get("https:/api.example.com/data")
    ```
 
 3. **Usage Example**
    ```python
    @retry_with_backoff(max_attempts=5, exceptions=(ConnectionError,))
    def call_external_api():
-       return requests.get("https://api.example.com/data")
+       return requests.get("https:/api.example.com/data")
    ```
 
 ---
@@ -147,7 +147,7 @@ last_updated: 2025-07-20
    services=("user-service" "order-service" "payment-service")
    for service in "${services[@]}"; do
        echo "Checking $service..."
-       curl -f "http://$service/health" || echo "$service is DOWN"
+       curl -f "http:/$service/health" || echo "$service is DOWN"
    done
    ```
 
@@ -171,7 +171,7 @@ last_updated: 2025-07-20
 
 **Consider**: Law 1 (Correlated Failure ⛓️) for cascade analysis, Law 2 (Asynchronous Reality ⏳) for timing issues
 
-**Case Studies**: [Amazon DynamoDB Outage](../architects-handbook/case-studies/amazon-dynamo/index.md), [Facebook's Metastable Failures](../architects-handbook/case-studies/consistent-hashing/index.md)
+**Case Studies**: [Amazon DynamoDB Outage](../architects-handbook/case-studies/amazon-dynamo/), [Facebook's Metastable Failures](../architects-handbook/case-studies/consistent-hashing/)
 
 ---
 
@@ -182,7 +182,7 @@ last_updated: 2025-07-20
 1. **Establish Baseline**
    ```bash
 # Capture current performance metrics
-   curl -s "http://metrics-server/api/v1/query?query=response_time_p95"
+   curl -s "http:/metrics-server/api/v1/query?query=response_time_p95"
    ```
 
 2. **Identify Bottlenecks**: CPU per service, DB queries, Network latency, GC metrics
@@ -190,7 +190,7 @@ last_updated: 2025-07-20
 3. **Load Test Current State**
    ```bash
 # Simple load test
-   hey -n 1000 -c 10 http://your-service/api/endpoint
+   hey -n 1000 -c 10 http:/your-service/api/endpoint
    ```
 
 4. **Profile Application**: CPU profiling, Memory allocation, Query plans, Algorithm complexity
@@ -256,7 +256,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 5 (Distributed Knowledge 🧠) for observability, Law 6 (Cognitive Load 🤯) for operator experience
 
-**Learn More**: [Observability Best Practices](pattern-library/observability/index.md), [Monitoring Patterns](pattern-library/observability/index.md)
+**Learn More**: [Observability Best Practices](pattern-library/observability/), [Monitoring Patterns](pattern-library/observability/)
 
 ---
 
@@ -285,7 +285,7 @@ last_updated: 2025-07-20
 3. **Optimize Connection Pooling**
    ```python
 # Configure connection pool
-   DATABASE_URL = "postgresql://user:pass@host:5432/db?max_connections=20&min_connections=5"
+   DATABASE_URL = "postgresql:/user:pass@host:5432/db?max_connections=20&min_connections=5"
    ```
 
 4. **Implement Query Caching**
@@ -410,7 +410,7 @@ last_updated: 2025-07-20
 1. **Gather Current Metrics**
    ```bash
 # Extract usage patterns
-   curl "http://prometheus:9090/api/v1/query_range?query=rate(requests_total[5m])&start=$(date -d '7 days ago' +%s)&end=$(date +%s)&step=3600"
+   curl "http:/prometheus:9090/api/v1/query_range?query=rate(requests_total[5m])&start=$(date -d '7 days ago' +%s)&end=$(date +%s)&step=3600"
    ```
 
 2. **Identify Patterns**: Daily peaks, Weekly patterns, Seasonal variations, Growth trends
@@ -443,7 +443,7 @@ last_updated: 2025-07-20
 1. **Install Tracing Infrastructure**
    ```bash
    # Deploy Jaeger using Helm
-   helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+   helm repo add jaegertracing https:/jaegertracing.github.io/helm-charts
    helm install jaeger jaegertracing/jaeger \
      --set cassandra.config.max_heap_size=1024M \
      --set cassandra.config.heap_new_size=256M
@@ -693,8 +693,8 @@ last_updated: 2025-07-20
 4. **Share your recipes** - contribute back improvements
 
 For deeper understanding:
-- [Patterns](../pattern-library../architects-handbook/case-studies/index.md) - Real-world implementations
-- [Tools](../../architects-handbook/tools/index.md) - Interactive calculators
+- [Patterns](../pattern-library../architects-handbook/case-studies/) - Real-world implementations
+- [Tools](../../architects-handbook/tools/) - Interactive calculators
 - [Cheat Sheets](cheat-sheets.md) - Quick reference
 
 ---

@@ -236,9 +236,9 @@ Aggregating billions of GPS points into global activity heatmaps and insights.
 - [Stream Processing](../../pattern-library/architecture/event-streaming.md) - Real-time location updates
 
 ### Quantitative Analysis
-- [Computational Geometry](../architects-handbook/quantitative-analysis/comp-geometry.md) - Spatial algorithms
-- [Haversine Formula](../architects-handbook/quantitative-analysis/haversine.md) - Distance calculations
-- [Spatial Statistics](../architects-handbook/quantitative-analysis/spatial-stats.md) - Location data analysis
+- [Computational Geometry](../quantitative-analysis/comp-geometry.md) - Spatial algorithms
+- [Haversine Formula](../quantitative-analysis/haversine.md) - Distance calculations
+- [Spatial Statistics](../quantitative-analysis/spatial-stats.md) - Location data analysis
 
 ### Human Factors
 - [Privacy Engineering](../architects-handbook/human-factors/privacy-engineering.md) - Location privacy practices

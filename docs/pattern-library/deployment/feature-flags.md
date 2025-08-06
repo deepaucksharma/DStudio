@@ -1024,15 +1024,15 @@ Best Practices:
 
 ## Related Patterns
 
-- **Complementary**: [Canary Release](canary-release/index.md) - Gradual rollout with monitoring
-- **Complementary**: [Blue-Green Deployment](blue-green-deployment/index.md) - Safe deployment switches
+- **Complementary**: [Canary Release](canary-release/) - Gradual rollout with monitoring
+- **Complementary**: [Blue-Green Deployment](blue-green-deployment/) - Safe deployment switches
 - **Building Block**: A/B testing framework
 - **Extension**: Progressive rollout automation
 - **Alternative**: Configuration-based toggles (simpler but less flexible)
 
 ## Further Reading
 
-- [Martin Fowler - Feature Toggles](https://martinfowler.com/articles/feature-toggles.html/index.md)
-- [LaunchDarkly - Feature Flag Guide](https://launchdarkly.com/blog/what-are-feature-flags/index.md)
-- [Split.io - Feature Flags Best Practices](https://www.split.io/blog/feature-flag-best-practices/index.md)
-- [Optimizely - Feature Experimentation](https://www.optimizely.com/optimization-glossary/feature-flags/index.md)
+- [Martin Fowler - Feature Toggles](https:/martinfowler.com/articles/feature-toggles.html/)
+- [LaunchDarkly - Feature Flag Guide](https:/launchdarkly.com/blog/what-are-feature-flags/)
+- [Split.io - Feature Flags Best Practices](https:/www.split.io/blog/feature-flag-best-practices/)
+- [Optimizely - Feature Experimentation](https:/www.optimizely.com/optimization-glossary/feature-flags/)

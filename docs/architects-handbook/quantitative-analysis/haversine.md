@@ -442,7 +442,7 @@ def adaptive_distance(lat1, lon1, lat2, lon2, max_error_km=0.1):
 
 ## Related Topics
 
-- [Computational Geometry](../architects-handbook/quantitative-analysis/comp-geometry.md)
+- [Computational Geometry](../quantitative-analysis/comp-geometry.md)
 - Spatial Indexing (Coming Soon)
 - [Location Services](../architects-handbook/case-studies/proximity-service.md)
-- [Performance Optimization](../architects-handbook/quantitative-analysis/performance-modeling.md)
+- [Performance Optimization](../quantitative-analysis/performance-modeling.md)

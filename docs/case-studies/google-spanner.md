@@ -1,5 +1,5 @@
 ---
-title: Google Spanner - Redirect
+title: Google Spanner
 redirect_to: /architects-handbook/case-studies/databases/google-spanner/
 ---
 

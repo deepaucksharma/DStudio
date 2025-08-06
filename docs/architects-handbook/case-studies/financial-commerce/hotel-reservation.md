@@ -1299,7 +1299,7 @@ Airbnb faced challenges syncing calendars across multiple booking channels, lead
 
 ## References
 
-- [Booking.com Technology Blog](https://blog.booking.com/index.md)
-- [Expedia Group Technology](https://medium.com/expedia-group-tech/index.md)
-- [Building Scalable Reservation Systems](https://www.infoq.com/articles/scalable-reservation-systems/index.md)
-- [Hotel Distribution Technology](https://www.hospitalitynet.org/news/4094950.html/index.md)
+- [Booking.com Technology Blog](https://blog.booking.com/)
+- [Expedia Group Technology](https://medium.com/expedia-group-tech/)
+- [Building Scalable Reservation Systems](https://www.infoq.com/articles/scalable-reservation-systems/)
+- [Hotel Distribution Technology](https://www.hospitalitynet.org/news/4094950.html/)

@@ -682,25 +682,25 @@ graph TB
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
 
 ### Technical Resources
-- [Distributed Transactions at Scale](https://www.paypal-engineering.com/distributed-transactions/index.md)
-- [Building Financial Systems](https://martinfowler.com/articles/patterns-of-distributed-systems/index.md)
-- [Payment Processing Best Practices](https://stripe.com/docs/payments/payment-intents/index.md)
+- [Distributed Transactions at Scale](https:/www.paypal-engineering.com/distributed-transactions/)
+- [Building Financial Systems](https:/martinfowler.com/articles/patterns-of-distributed-systems/)
+- [Payment Processing Best Practices](https:/stripe.com/docs/payments/payment-intents/)
 
 ### Similar Systems
-- [Stripe's Payment Infrastructure](https://stripe.com/blog/payment-api-design/index.md)
-- [Square's Transaction Processing](https://developer.squareup.com/blog/payment-reliability/index.md)
-- [Adyen's Global Payment Platform](https://www.adyen.com/knowledge-hub/platform-architecture/index.md)
+- [Stripe's Payment Infrastructure](https:/stripe.com/blog/payment-api-design/)
+- [Square's Transaction Processing](https:/developer.squareup.com/blog/payment-reliability/)
+- [Adyen's Global Payment Platform](https:/www.adyen.com/knowledge-hub/platform-architecture/)
 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ](../core-principles/laws/correlated-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
-- **[Law 2: Asynchronous Reality ](../core-principles/laws/asynchronous-reality/index.md)** - 234ms average latency balances fraud checks with user experience
-- **[Law 3: Emergence ](../core-principles/laws/emergent-chaos/index.md)** - Optimistic locking prevents double-spending without blocking
-- **[Law 4: Trade-offs ](../core-principles/laws/multidimensional-optimization/index.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
-- **[Law 5: Epistemology ](../core-principles/laws/distributed-knowledge/index.md)** - Distributed tracing tracks payments across 20+ services
-- **[Law 6: Human-API ](../core-principles/laws/cognitive-load/index.md)** - Clear error messages and status updates reduce support calls
-- **[Law 7: Economics ](../core-principles/laws/economic-reality/index.md)** - Processing costs optimized through batching and routing
+- **[Law 1: Failure ](../../core-principles/laws/correlated-failure.md)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws/asynchronous-reality.md)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergence ](../../core-principles/laws/emergent-chaos.md)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Trade-offs ](../../core-principles/laws/multidimensional-optimization.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Epistemology ](../../core-principles/laws/distributed-knowledge.md)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Human-API ](../../core-principles/laws/cognitive-load.md)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economics ](../../core-principles/laws/economic-reality.md)** - Processing costs optimized through batching and routing
 
 ### 🏛 Related Patterns
 - **[SAGA Pattern](../pattern-library/data-management/saga.md)** - Orchestrates distributed transactions with compensation logic
@@ -713,9 +713,9 @@ graph TB
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Chooses AP with eventual consistency through compensations
-- **[Little's Law](../architects-handbook/quantitative-analysis/littles-law.md)** - Queue depth = arrival rate × processing time for fraud checks
-- **[Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md)** - M/M/c model for payment processor pool sizing
-- **[Two-Phase Commit](../architects-handbook/quantitative-analysis/consistency-models.md)** - Rejected due to availability and latency constraints
+- **[Little's Law](../quantitative-analysis/littles-law.md)** - Queue depth = arrival rate × processing time for fraud checks
+- **[Queueing Theory](../quantitative-analysis/queueing-models.md)** - M/M/c model for payment processor pool sizing
+- **[Two-Phase Commit](../quantitative-analysis/consistency-models.md)** - Rejected due to availability and latency constraints
 
 ### 👥 Human Factors Considerations
 - **[Incident Response](../architects-handbook/human-factors/incident-response.md)** - Payment failures require immediate response procedures

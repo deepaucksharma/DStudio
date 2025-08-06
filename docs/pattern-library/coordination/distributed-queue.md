@@ -302,9 +302,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Event Sourcing](../pattern-library/data-management/event-sourcing.md) | Events flow through queues | Queue as event transport |
+| [Event Sourcing](../data-management/event-sourcing.md) | Events flow through queues | Queue as event transport |
 | [Saga Pattern](../coordination/saga.md) | Coordinate distributed transactions | Queue for saga orchestration |
-| [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) | Protect downstream services | Circuit breaker in consumers |
+| [Circuit Breaker](../resilience/circuit-breaker.md) | Protect downstream services | Circuit breaker in consumers |
 
 ## Quick Reference
 
@@ -348,31 +348,31 @@ graph LR
     
     ---
     
-    - [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Events through queues
+    - [Event Sourcing](../data-management/event-sourcing.md) - Events through queues
     - [Saga Pattern](../coordination/saga.md) - Distributed transactions
-    - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Consumer protection
+    - [Circuit Breaker](../resilience/circuit-breaker.md) - Consumer protection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Async messaging nature
-    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Cascade failure prevention
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Async messaging nature
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md) - Cascade failure prevention
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../core-principles/pillars/work-distribution/index.md) - Queue-based work distribution
-    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Message state management
+    - [Work Distribution](../../core-principles/pillars/work-distribution.md) - Queue-based work distribution
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Message state management
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Kafka Setup Guide](../excellence/guides/kafka-setup.md)
-    - [Queue Monitoring Guide](../excellence/guides/queue-monitoring.md)
-    - [DLQ Strategies](../excellence/guides/dlq-patterns.md)
+    - [Kafka Setup Guide](../../architects-handbook/implementation-playbooks/guides/kafka-setup.md)
+    - [Queue Monitoring Guide](../../architects-handbook/implementation-playbooks/guides/queue-monitoring.md)
+    - [DLQ Strategies](../../architects-handbook/implementation-playbooks/guides/dlq-patterns.md)
 
 </div>
 

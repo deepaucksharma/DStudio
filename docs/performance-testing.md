@@ -1,11 +1,11 @@
 ---
-title: Performance Testing Guide
+title: Performance Testing
 redirect_to: /architects-handbook/quantitative-analysis/performance-testing/
 ---
 
-# Performance Testing Guide
+# Performance Testing
 
-!!! info "This page has moved"
-    Please visit [architects-handbook/quantitative-analysis/performance-testing](/architects-handbook/quantitative-analysis/performance-testing/index.md)
+\!\!\! info "This page has moved"
+    Please visit [architects-handbook/quantitative-analysis/performance-testing](/architects-handbook/quantitative-analysis/performance-testing/)
 
-<meta http-equiv="refresh" content="0; url=/{metadata["redirect"]}/">
+<meta http-equiv="refresh" content="0; url=/architects-handbook/quantitative-analysis/performance-testing/">

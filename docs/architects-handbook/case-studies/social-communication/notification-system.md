@@ -3433,10 +3433,10 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ](../core-principles/laws/correlated-failure/index.md)** - Foundation for reliable delivery
-- **[Law 5: Epistemology ](../core-principles/laws/distributed-knowledge/index.md)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ](../core-principles/laws/asynchronous-reality/index.md)** - Real-time delivery constraints
-- **[Law 7: Economics ](../core-principles/laws/economic-reality/index.md)** - Cost optimization strategies
+- **[Law 1: Failure ](../../core-principles/laws/correlated-failure.md)** - Foundation for reliable delivery
+- **[Law 5: Epistemology ](../../core-principles/laws/distributed-knowledge.md)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws/asynchronous-reality.md)** - Real-time delivery constraints
+- **[Law 7: Economics ](../../core-principles/laws/economic-reality.md)** - Cost optimization strategies
 
 #### Advanced Topics
 - **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - Asynchronous notification processing
@@ -3528,14 +3528,14 @@ graph TB
 ### 📚 References
 
 **Industry Examples:**
-- [Uber's Notification System](https://eng.uber.com/uber-notification-platform/index.md)
-- [Pinterest's Notification System](https://medium.com/pinterest-engineering/building-a-notification-system-86854982c38e/index.md)
-- [LinkedIn's Air Traffic Controller](https://engineering.linkedin.com/blog/2019/05/air-traffic-controller--how-we-developed-a-notification-system-f/index.md)
+- [Uber's Notification System](https:/eng.uber.com/uber-notification-platform/)
+- [Pinterest's Notification System](https:/medium.com/pinterest-engineering/building-a-notification-system-86854982c38e/)
+- [LinkedIn's Air Traffic Controller](https:/engineering.linkedin.com/blog/2019/05/air-traffic-controller--how-we-developed-a-notification-system-f/)
 
 **Open Source:**
-- [Novu](https://github.com/novuhq/novu/index.md) - Open-source notification infrastructure
-- [Courier](https://www.courier.com/index.md) - Notification orchestration
-- [OneSignal](https://onesignal.com/index.md) - Push notification service
+- [Novu](https:/github.com/novuhq/novu/) - Open-source notification infrastructure
+- [Courier](https:/www.courier.com/) - Notification orchestration
+- [OneSignal](https:/onesignal.com/) - Push notification service
 
 **Related Patterns:**
 - [Message Queue](../pattern-library/scaling/queues-streaming.md)

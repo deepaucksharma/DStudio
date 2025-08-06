@@ -426,7 +426,7 @@ db.orders.aggregate([
 
 ## References
 
-1. [MongoDB Applied Design Patterns](https://www.oreilly.com/library/view/mongodb-applied-design/9781449340056/index.md)
-2. [Scaling MongoDB](https://www.oreilly.com/library/view/scaling-mongodb/9781449303211/index.md)
-3. [MongoDB Architecture Guide](https://www.mongodb.com/collateral/mongodb-architecture-guide/index.md)
-4. [Production Notes](https://docs.mongodb.com/manual/administration/production-notes/index.md)
+1. [MongoDB Applied Design Patterns](https:/www.oreilly.com/library/view/mongodb-applied-design/9781449340056/)
+2. [Scaling MongoDB](https:/www.oreilly.com/library/view/scaling-mongodb/9781449303211/)
+3. [MongoDB Architecture Guide](https:/www.mongodb.com/collateral/mongodb-architecture-guide/)
+4. [Production Notes](https:/docs.mongodb.com/manual/administration/production-notes/)

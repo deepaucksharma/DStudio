@@ -168,9 +168,9 @@ Transitioning from request-response polling to event-driven reactive systems.
 - [Saga Pattern](../../pattern-library/data-management/saga.md) - Distributed transactions
 
 ### Quantitative Analysis  
-- [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-theory.md) - Message queue performance
-- [Little's Law](../architects-handbook/quantitative-analysis/littles-law.md) - Stream processing throughput
-- [Information Theory](../architects-handbook/quantitative-analysis/information-theory.md) - Message encoding
+- [Queueing Theory](../quantitative-analysis/queueing-theory.md) - Message queue performance
+- [Little's Law](../quantitative-analysis/littles-law.md) - Stream processing throughput
+- [Information Theory](../quantitative-analysis/information-theory.md) - Message encoding
 
 ### Human Factors
 - [Operational Excellence](../architects-handbook/human-factors/operational-excellence.md) - Running streaming systems

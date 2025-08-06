@@ -23,7 +23,7 @@ description: Implementation Guides overview and navigation
     
     45 min • 12 patterns • Netflix, Amazon
     
-    [:octicons-arrow-right-24: Learn Resilience](../excellence/implementation-guides/resilience-first.md)
+    [:octicons-arrow-right-24: Learn Resilience](../architects-handbook/implementation-playbooks/implementation-guides/resilience-first.md)
 
 -   **Data Consistency**
 
@@ -33,7 +33,7 @@ description: Implementation Guides overview and navigation
     
     60 min • 15 patterns • Uber, PayPal
     
-    [:octicons-arrow-right-24: Master Data](../excellence/implementation-guides/data-consistency.md)
+    [:octicons-arrow-right-24: Master Data](../architects-handbook/implementation-playbooks/implementation-guides/data-consistency.md)
 
 -   **Performance Optimization**
 
@@ -43,7 +43,7 @@ description: Implementation Guides overview and navigation
     
     50 min • 10 patterns • Facebook, LinkedIn
     
-    [:octicons-arrow-right-24: Optimize Performance](../excellence/implementation-guides/performance-optimization.md)
+    [:octicons-arrow-right-24: Optimize Performance](../architects-handbook/implementation-playbooks/implementation-guides/performance-optimization.md)
 
 -   **Operational Excellence**
 
@@ -53,7 +53,7 @@ description: Implementation Guides overview and navigation
     
     40 min • 8 patterns • Google, Microsoft
     
-    [:octicons-arrow-right-24: Excel at Ops](../excellence/implementation-guides/operational-excellence.md)
+    [:octicons-arrow-right-24: Excel at Ops](../architects-handbook/implementation-playbooks/implementation-guides/operational-excellence.md)
 
 -   **Service Communication**
 
@@ -63,7 +63,7 @@ description: Implementation Guides overview and navigation
     
     55 min • 14 patterns • Netflix, Uber
     
-    [:octicons-arrow-right-24: Connect Services](../excellence/implementation-guides/service-communication.md)
+    [:octicons-arrow-right-24: Connect Services](../architects-handbook/implementation-playbooks/implementation-guides/service-communication.md)
 
 -   **Platform Engineering Playbook**
 
@@ -73,7 +73,7 @@ description: Implementation Guides overview and navigation
     
     35 min • 7 patterns • Spotify, Zalando
     
-    [:octicons-arrow-right-24: Build Platforms](../excellence/implementation-guides/platform-engineering-playbook.md)
+    [:octicons-arrow-right-24: Build Platforms](../architects-handbook/implementation-playbooks/implementation-guides/platform-engineering-playbook.md)
 
 -   **Security Patterns**
 
@@ -83,7 +83,7 @@ description: Implementation Guides overview and navigation
     
     40 min • 9 patterns • Banks, Healthcare
     
-    [:octicons-arrow-right-24: Secure Systems](../excellence/implementation-guides/security-patterns.md)
+    [:octicons-arrow-right-24: Secure Systems](../architects-handbook/implementation-playbooks/implementation-guides/security-patterns.md)
 
 -   **Modern Distributed Systems 2025**
 
@@ -93,7 +93,7 @@ description: Implementation Guides overview and navigation
     
     30 min • 6 patterns • Trending ↗️ 45%
     
-    [:octicons-arrow-right-24: Future Ready](../excellence/implementation-guides/modern-distributed-systems-2025.md)
+    [:octicons-arrow-right-24: Future Ready](../architects-handbook/implementation-playbooks/implementation-guides/modern-distributed-systems-2025.md)
 
 -   **Quick Start Guide**
 
@@ -103,7 +103,7 @@ description: Implementation Guides overview and navigation
     
     30 min • 5 patterns • Perfect for beginners
     
-    [:octicons-arrow-right-24: Start Now](../excellence/implementation-guides/quick-start-guide.md)
+    [:octicons-arrow-right-24: Start Now](../architects-handbook/implementation-playbooks/implementation-guides/quick-start-guide.md)
 
 </div>
 
@@ -144,7 +144,7 @@ Before starting any guide, ensure you have:
     Begin with the Quick Start Guide even if you're experienced. It introduces our framework and terminology.
 
 !!! warning "Don't Skip Fundamentals"
-    Review the [Axioms](../core-principles/laws.md/index.md) and [Pillars](../core-principles/pillars.md/index.md) for deep understanding.
+    Review the [Axioms](../core-principles/laws.md/) and [Pillars](../core-principles/pillars.md/) for deep understanding.
 
 !!! success "Practice Makes Perfect"
     Each guide includes hands-on exercises. Complete them for maximum learning.
@@ -177,4 +177,4 @@ graph TB
 
 ---
 
-[:octicons-arrow-left-24: Back to Excellence](../index.md) | [:octicons-arrow-right-24: Start with Quick Start Guide](../excellence/implementation-guides/quick-start-guide.md)
+[:octicons-arrow-left-24: Back to Excellence](../) | [:octicons-arrow-right-24: Start with Quick Start Guide](../architects-handbook/implementation-playbooks/implementation-guides/quick-start-guide.md)

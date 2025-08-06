@@ -109,7 +109,7 @@ outcomes:
 </div>
 
 !!! tip "Real-Time Readiness Check"
-    Complete our [Real-Time Systems Assessment](../tools/realtime-readiness-quiz/index.md) to validate your preparation level.
+    Complete our [Real-Time Systems Assessment](../tools/realtime-readiness-quiz/) to validate your preparation level.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -131,7 +131,7 @@ outcomes:
     - [ ] Optimize system calls and context switching
     
     **Day 1-2**: CPU & Memory Optimization
-    - 📖 Read: [CPU cache mechanics](../architects-handbook/quantitative-analysis/latency-numbers/index.md), cache-friendly data structures
+    - 📖 Read: [CPU cache mechanics](../quantitative-analysis/latency-numbers/), cache-friendly data structures
     - 🛠️ Lab: Optimize hot path with cache alignment and prefetching
     - 📊 Success: Reduce critical path latency by 80%+
     - ⏱️ Time: 8-10 hours
@@ -668,19 +668,19 @@ outcomes:
 ### Domain-Specific Resources
 
 **Gaming Development**:
-- [Unreal Engine Documentation](https://docs.unrealengine.com/index.md)
-- [Unity Multiplayer Networking](https://docs.unity3d.com/Manual/UNet.html/index.md)
-- [Game Programming Patterns](http://gameprogrammingpatterns.com/index.md)
+- [Unreal Engine Documentation](https:/docs.unrealengine.com/)
+- [Unity Multiplayer Networking](https:/docs.unity3d.com/Manual/UNet.html/)
+- [Game Programming Patterns](http:/gameprogrammingpatterns.com/)
 
 **High-Frequency Trading**:
-- [QuickFIX Engine](https://www.quickfixengine.org/index.md)
-- [Chronicle Map](https://github.com/OpenHFT/Chronicle-Map/index.md)
-- [FIX Protocol Specifications](https://www.fixtrading.org/index.md)
+- [QuickFIX Engine](https:/www.quickfixengine.org/)
+- [Chronicle Map](https:/github.com/OpenHFT/Chronicle-Map/)
+- [FIX Protocol Specifications](https:/www.fixtrading.org/)
 
 **IoT & Edge Computing**:
-- [FreeRTOS Documentation](https://www.freertos.org/Documentation/index.md)
-- [Time-Sensitive Networking](https://1.ieee802.org/tsn/index.md)
-- [Industrial Internet Consortium](https://www.iiconsortium.org/index.md)
+- [FreeRTOS Documentation](https:/www.freertos.org/Documentation/)
+- [Time-Sensitive Networking](https:/1.ieee802.org/tsn/)
+- [Industrial Internet Consortium](https:/www.iiconsortium.org/)
 
 ## 🏁 Final Assessment: Multi-Domain Real-Time Platform
 

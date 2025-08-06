@@ -266,8 +266,8 @@ GROUP BY h3_cell, service_type;
 - Cell-Based Architecture (Coming Soon) - Regional service isolation
 
 ## References
-- [Uber Engineering: H3 Hexagonal Hierarchical Spatial Index](https://eng.uber.com/h3/index.md)
-- [Engineering Real-time Routing with Millions of Drivers](https://eng.uber.com/engineering-routing/index.md)
-- [Improving ETA Prediction Accuracy](https://eng.uber.com/eta-prediction/index.md)
+- [Uber Engineering: H3 Hexagonal Hierarchical Spatial Index](https://eng.uber.com/h3/)
+- [Engineering Real-time Routing with Millions of Drivers](https://eng.uber.com/engineering-routing/)
+- [Improving ETA Prediction Accuracy](https://eng.uber.com/eta-prediction/)
 
 > **Note**: This case study is based on publicly available information and represents a simplified view of Uber's mapping infrastructure. Actual implementation details may vary.

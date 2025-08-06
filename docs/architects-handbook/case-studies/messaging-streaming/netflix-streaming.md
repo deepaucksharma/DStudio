@@ -369,7 +369,7 @@ graph TB
 
 <div class="grid cards" markdown>
 
-- :material-shield-check:{ .lg .middle } **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)** 🥇
+- :material-shield-check:{ .lg .middle } **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/)** 🥇
     
     ---
     
@@ -379,7 +379,7 @@ graph TB
     
     **Success Metric**: 99.99% availability despite frequent AWS issues
 
-- :material-database-arrow-right:{ .lg .middle } **[Event Sourcing](../pattern-library/data-management/event-sourcing/index.md)** 🥇
+- :material-database-arrow-right:{ .lg .middle } **[Event Sourcing](../pattern-library/data-management/event-sourcing/)** 🥇
     
     ---
     
@@ -389,7 +389,7 @@ graph TB
     
     **Success Metric**: Enable time-travel debugging and ML training
 
-- :material-call-split:{ .lg .middle } **[CQRS](../pattern-library/data-management/cqrs/index.md)** 🥇
+- :material-call-split:{ .lg .middle } **[CQRS](../pattern-library/data-management/cqrs/)** 🥇
     
     ---
     
@@ -399,7 +399,7 @@ graph TB
     
     **Success Metric**: 50ms p99 read latency at scale
 
-- :material-layers-triple:{ .lg .middle } **[Multi-Level Cache](../pattern-library/scaling/caching-strategies/index.md)** 🥇
+- :material-layers-triple:{ .lg .middle } **[Multi-Level Cache](../pattern-library/scaling/caching-strategies/)** 🥇
     
     ---
     
@@ -415,7 +415,7 @@ graph TB
 
 <div class="grid cards" markdown>
 
-- :material-lan:{ .lg .middle } **[Service Mesh](../pattern-library/communication/service-mesh/index.md)** 🥈
+- :material-lan:{ .lg .middle } **[Service Mesh](../pattern-library/communication/service-mesh/)** 🥈
     
     ---
     
@@ -423,7 +423,7 @@ graph TB
     
     **Trade-off**: Added complexity for better observability
 
-- :material-ferry:{ .lg .middle } **[Bulkhead](../pattern-library/resilience/bulkhead/index.md)** 🥈
+- :material-ferry:{ .lg .middle } **[Bulkhead](../pattern-library/resilience/bulkhead/)** 🥈
     
     ---
     
@@ -431,7 +431,7 @@ graph TB
     
     **Trade-off**: Higher memory usage for isolation
 
-- :material-message-arrow-right:{ .lg .middle } **[Async Messaging](../pattern-library/async-messaging.md/index.md)** 🥈
+- :material-message-arrow-right:{ .lg .middle } **[Async Messaging](../pattern-library/async-messaging.md/)** 🥈
     
     ---
     
@@ -455,7 +455,7 @@ Netflix started with a monolith and migrated to microservices over 3 years:
 
 **Key Learning**: Start simple, evolve when needed. The monolith served them well until scale demanded change.
 
-[View Migration Playbook →](../excellence/migrations/monolith-to-microservices/index.md)
+[View Migration Playbook →](../architects-handbook/implementation-playbooks/migrations/monolith-to-microservices/)
 </div>
 
 ## Takeaways for Your System
@@ -469,9 +469,9 @@ Netflix started with a monolith and migrated to microservices over 3 years:
 ## Excellence Resources
 
 ### Implementation Guides
-- [Resilience First Architecture](../excellence/implementation-guides/resilience-first/index.md) - Netflix's approach to building resilient systems
-- [Platform Engineering Playbook](../excellence/implementation-guides/platform-engineering-playbook/index.md) - How Netflix built their platform
-- [Data Consistency at Scale](../excellence/implementation-guides/data-consistency/index.md) - Managing eventual consistency
+- [Resilience First Architecture](../architects-handbook/implementation-playbooks/implementation-guides/resilience-first/) - Netflix's approach to building resilient systems
+- [Platform Engineering Playbook](../architects-handbook/implementation-playbooks/implementation-guides/platform-engineering-playbook/) - How Netflix built their platform
+- [Data Consistency at Scale](../architects-handbook/implementation-playbooks/implementation-guides/data-consistency/) - Managing eventual consistency
 
 ### Related Case Studies
 - [YouTube: Video at Scale](../youtube.md) - Compare with YouTube's architecture
@@ -479,16 +479,16 @@ Netflix started with a monolith and migrated to microservices over 3 years:
 - [Disney+: Launch at Scale](video-streaming.md) - Learning from Netflix's playbook
 
 ### Pattern Deep Dives
-- [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker/index.md) - Detailed implementation guide
-- [Chaos Engineering Pattern](../pattern-library/chaos-engineering.md/index.md) - How to implement chaos testing
-- [Event Sourcing Pattern](../pattern-library/data-management/event-sourcing/index.md) - Building event-driven systems
+- [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker/) - Detailed implementation guide
+- [Chaos Engineering Pattern](../pattern-library/chaos-engineering.md/) - How to implement chaos testing
+- [Event Sourcing Pattern](../pattern-library/data-management/event-sourcing/) - Building event-driven systems
 
 ## Further Reading
 
-- [Netflix Technology Blog](https://netflixtechblog.com/index.md)
-- [Chaos Engineering: Building Confidence in System Behavior](https://www.oreilly.com/library/view/chaos-engineering/9781491988459/index.md)
-- [Microservices at Netflix Scale](https://www.infoq.com/presentations/netflix-microservices-architecture/index.md)
-- [Open Connect: Netflix's Content Delivery Network](https://openconnect.netflix.com/en/index.md)
+- [Netflix Technology Blog](https:/netflixtechblog.com/)
+- [Chaos Engineering: Building Confidence in System Behavior](https:/www.oreilly.com/library/view/chaos-engineering/9781491988459/)
+- [Microservices at Netflix Scale](https:/www.infoq.com/presentations/netflix-microservices-architecture/)
+- [Open Connect: Netflix's Content Delivery Network](https:/openconnect.netflix.com/en/)
 
 ## Discussion Questions
 

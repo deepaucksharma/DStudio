@@ -552,8 +552,8 @@ def evolutionary_architecture():
 
 - [Modular Monolith Pattern](../pattern-library/modular-monolith.md)
 - [Service Boundaries Guide](../architecture/boundaries.md)
-- [Anti-Patterns: Distributed Monolith](../reference/anti-patterns/#distributed-monolith/index.md)
-- [Team Topologies](https://teamtopologies.com/index.md)
+- [Anti-Patterns: Distributed Monolith](../reference/anti-patterns/#distributed-monolith/)
+- [Team Topologies](https:/teamtopologies.com/)
 
 ---
 

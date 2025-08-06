@@ -1,5 +1,5 @@
 ---
-title: Netflix Chaos - Redirect
+title: Netflix Chaos
 redirect_to: /architects-handbook/case-studies/elite-engineering/netflix-chaos/
 ---
 

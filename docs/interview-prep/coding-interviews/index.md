@@ -35,10 +35,10 @@ While this site focuses on **distributed systems** and **engineering leadership*
 ## External Resources
 
 ### Primary Platforms
-- **[LeetCode](https://leetcode.com/index.md)** - Industry standard with company-specific questions
-- **[NeetCode](https://neetcode.io/index.md)** - Curated problem lists with video explanations
-- **[AlgoExpert](https://www.algoexpert.io/index.md)** - Structured curriculum with detailed explanations
-- **[Educative](https://www.educative.io/courses/grokking-the-coding-interview/index.md)** - Pattern-based learning approach
+- **[LeetCode](https:/leetcode.com/)** - Industry standard with company-specific questions
+- **[NeetCode](https:/neetcode.io/)** - Curated problem lists with video explanations
+- **[AlgoExpert](https:/www.algoexpert.io/)** - Structured curriculum with detailed explanations
+- **[Educative](https:/www.educative.io/courses/grokking-the-coding-interview/)** - Pattern-based learning approach
 
 ### Books & References
 - **Cracking the Coding Interview** by Gayle McDowell
@@ -46,8 +46,8 @@ While this site focuses on **distributed systems** and **engineering leadership*
 - **Algorithm Design Manual** by Steven Skiena
 
 ### Company-Specific Prep
-- **[Blind 75](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-wR0fSmqQ/index.md)** - Essential problems for FAANG interviews
-- **[Grind 75](https://www.techinterviewhandbook.org/grind75/index.md)** - Structured 75-problem curriculum
+- **[Blind 75](https:/www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-wR0fSmqQ/)** - Essential problems for FAANG interviews
+- **[Grind 75](https:/www.techinterviewhandbook.org/grind75/)** - Structured 75-problem curriculum
 
 ## Core Competencies
 

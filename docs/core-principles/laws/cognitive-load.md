@@ -668,12 +668,12 @@ graph TB
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Complexity emerges beyond human comprehension
 - **[Law 4: Multidimensional Optimization](multidimensional-optimization.md)** - Trading off simplicity for features
 - **[Law 5: Distributed Knowledge](distributed-knowledge.md)** - No single human knows everything
-- **Patterns**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Bulkhead](../pattern-library/resilience/bulkhead.md), [Service Mesh](../pattern-library/communication/service-mesh.md)
+- **Patterns**: [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md), [Bulkhead](../../pattern-library/resilience/bulkhead.md), [Service Mesh](../../pattern-library/communication/service-mesh.md)
 ## Pattern Implementations
 
 Patterns that address this law:
 
-- [Api Gateway](../pattern-library/communication/api-gateway/index.md)
-- [Service Mesh](../pattern-library/communication/service-mesh/index.md)
+- [Api Gateway](../../pattern-library/communication/api-gateway.md)
+- [Service Mesh](../../pattern-library/communication/service-mesh.md)
 
 

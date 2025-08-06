@@ -21,18 +21,18 @@ Coordination patterns solve the fundamental challenge of getting distributed nod
 ## Available Patterns
 
 ### Consensus & Agreement
-- **[Consensus](../pattern-library/coordination/consensus.md)** - Achieving agreement among distributed nodes (Paxos, Raft, PBFT)
-- **[Leader Election](../pattern-library/coordination/leader-election.md)** - Selecting a single node for coordination
-- **[Generation Clock](../pattern-library/coordination/generation-clock.md)** - Monotonic counter for detecting stale leaders
+- **[Consensus](../coordination/consensus.md)** - Achieving agreement among distributed nodes (Paxos, Raft, PBFT)
+- **[Leader Election](../coordination/leader-election.md)** - Selecting a single node for coordination
+- **[Generation Clock](../coordination/generation-clock.md)** - Monotonic counter for detecting stale leaders
 
 ### Time & Ordering
-- **[Logical Clocks](../pattern-library/coordination/logical-clocks.md)** - Lamport clocks for causal ordering without physical time
-- **[Hybrid Logical Clocks (HLC)](../pattern-library/coordination/hlc.md)** - Combining physical and logical time
-- **[Clock Synchronization](../pattern-library/coordination/clock-sync.md)** - Synchronizing physical clocks across nodes
+- **[Logical Clocks](../coordination/logical-clocks.md)** - Lamport clocks for causal ordering without physical time
+- **[Hybrid Logical Clocks (HLC)](../coordination/hlc.md)** - Combining physical and logical time
+- **[Clock Synchronization](../coordination/clock-sync.md)** - Synchronizing physical clocks across nodes
 
 ### Resource Management
-- **[Distributed Lock](../pattern-library/coordination/distributed-lock.md)** - Mutual exclusion across distributed nodes
-- **[Lease](../pattern-library/coordination/lease.md)** - Time-bound resource ownership with automatic expiration
+- **[Distributed Lock](../coordination/distributed-lock.md)** - Mutual exclusion across distributed nodes
+- **[Lease](../coordination/lease.md)** - Time-bound resource ownership with automatic expiration
 
 ## Quick Decision Guide
 
@@ -55,4 +55,4 @@ Coordination patterns make different trade-offs:
 
 ---
 
-*Explore individual patterns below or return to the [Pattern Library](../index.md).*
+*Explore individual patterns below or return to the [Pattern Library](../).*

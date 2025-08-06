@@ -166,10 +166,10 @@ Throughput = Concurrency / Response Time
 
 ## Related Resources
 
-- [Universal Scalability Law](../architects-handbook/quantitative-analysis/universal-scalability.mdindex.md)
-- [Little's Law](../architects-handbook/quantitative-analysis/littles-law.mdindex.md)
-- [Performance Modeling](quantitative/performance-modeling/index.md)
-- [Load Balancing Pattern](../pattern-library/scaling/load-balancing/index.md)
+- [Universal Scalability Law](../quantitative-analysis/universal-scalability.mdindex.md)
+- [Little's Law](../quantitative-analysis/littles-law.mdindex.md)
+- [Performance Modeling](quantitative/performance-modeling/)
+- [Load Balancing Pattern](../pattern-library/scaling/load-balancing/)
 - Queue Performance (Coming Soon)
 
 <script>

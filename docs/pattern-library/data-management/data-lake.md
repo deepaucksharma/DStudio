@@ -303,35 +303,35 @@ graph LR
     
     ---
     
-    - [Data Mesh Architecture](../excellence/guides/data-mesh-patterns.md) - Domain-oriented data ownership
-    - [Lakehouse Pattern](../excellence/guides/lakehouse-architecture.md) - Best of lakes and warehouses
-    - [Feature Store](../excellence/guides/feature-store-design.md) - ML-focused data management
+    - [Data Mesh Architecture](../../architects-handbook/implementation-playbooks/guides/data-mesh-patterns.md) - Domain-oriented data ownership
+    - [Lakehouse Pattern](../../architects-handbook/implementation-playbooks/guides/lakehouse-architecture.md) - Best of lakes and warehouses
+    - [Feature Store](../../architects-handbook/implementation-playbooks/guides/feature-store-design.md) - ML-focused data management
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - Flexibility vs governance trade-offs
-    - [Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md) - Cost of poor data governance
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md) - Flexibility vs governance trade-offs
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality.md) - Cost of poor data governance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Distributed data management
-    - [Intelligence Distribution](../core-principles/pillars/intelligence-distribution/index.md) - Analytics and ML patterns
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Distributed data management
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution.md) - Analytics and ML patterns
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     
     ---
     
-    - [Data Lake to Mesh Migration](../excellence/migrations/data-lake-to-mesh.md)
-    - [Lakehouse Implementation](../excellence/migrations/lake-to-lakehouse.md)
-    - [Governance Framework Setup](../excellence/guides/data-governance.md)
+    - [Data Lake to Mesh Migration](../../architects-handbook/implementation-playbooks/migrations/data-lake-to-mesh.md)
+    - [Lakehouse Implementation](../../architects-handbook/implementation-playbooks/migrations/lake-to-lakehouse.md)
+    - [Governance Framework Setup](../../architects-handbook/implementation-playbooks/guides/data-governance.md)
 
 </div>
 
 ---
 
-*Next: [Data Mesh](../excellence/guides/data-mesh-patterns.md) - Modern domain-oriented data architecture*
+*Next: [Data Mesh](../../architects-handbook/implementation-playbooks/guides/data-mesh-patterns.md) - Modern domain-oriented data architecture*
 

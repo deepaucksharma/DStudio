@@ -1,5 +1,5 @@
 ---
-title: Availability Calculator - Redirect
+title: Availability Calculator
 redirect_to: /architects-handbook/tools/availability-calculator/
 ---
 

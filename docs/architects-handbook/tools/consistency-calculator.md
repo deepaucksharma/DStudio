@@ -304,10 +304,10 @@ P(available) = Σ(k=R to N) C(N,k) × p^k × (1-p)^(N-k)
 
 ## Related Resources
 
-- [CAP Theorem Deep Dive](../core-principles/laws/distributed-knowledge/index.md)
-- [State Distribution Patterns](../core-principles/pillars/state-distribution/index.md)
-- [Truth Distribution](../core-principles/pillars/truth-distribution/index.md)
-- [PACELC Framework](quantitative/cap-theorem/index.md)
+- [CAP Theorem Deep Dive](../../core-principles/laws/distributed-knowledge.md)
+- [State Distribution Patterns](../../core-principles/pillars/state-distribution.md)
+- [Truth Distribution](../../core-principles/pillars/truth-distribution.md)
+- [PACELC Framework](quantitative/cap-theorem/)
 
 <script>
 / Initialize CAP triangle on page load
@@ -366,7 +366,7 @@ function drawCAPTriangle() {
  ];
  
  / Draw triangle
- const triangle = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+ const triangle = document.createElementNS('http:/www.w3.org/2000/svg', 'path');
  triangle.setAttribute('d', `M ${vertices[0].x} ${vertices[0].y} L ${vertices[1].x} ${vertices[1].y} L ${vertices[2].x} ${vertices[2].y} Z`);
  triangle.setAttribute('fill', 'none');
  triangle.setAttribute('stroke', '#333');
@@ -376,7 +376,7 @@ function drawCAPTriangle() {
  / Draw vertices and labels
  vertices.forEach((vertex, index) => {
  / Vertex circle
- const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+ const circle = document.createElementNS('http:/www.w3.org/2000/svg', 'circle');
  circle.setAttribute('cx', vertex.x);
  circle.setAttribute('cy', vertex.y);
  circle.setAttribute('r', '8');
@@ -384,7 +384,7 @@ function drawCAPTriangle() {
  svg.appendChild(circle);
  
  / Label
- const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+ const text = document.createElementNS('http:/www.w3.org/2000/svg', 'text');
  text.setAttribute('x', vertex.x);
  text.setAttribute('y', vertex.y + (index === 0 ? -20 : 30));
  text.setAttribute('text-anchor', 'middle');
@@ -395,7 +395,7 @@ function drawCAPTriangle() {
  / Handle multi-line text
  const lines = vertex.label.split('\n');
  lines.forEach((line, i) => {
- const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+ const tspan = document.createElementNS('http:/www.w3.org/2000/svg', 'tspan');
  tspan.textContent = line;
  tspan.setAttribute('x', vertex.x);
  tspan.setAttribute('dy', i === 0 ? 0 : '1.2em');
@@ -406,7 +406,7 @@ function drawCAPTriangle() {
  });
  
  / Draw center point
- const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+ const center = document.createElementNS('http:/www.w3.org/2000/svg', 'circle');
  center.setAttribute('cx', centerX);
  center.setAttribute('cy', centerY);
  center.setAttribute('r', '5');
@@ -414,7 +414,7 @@ function drawCAPTriangle() {
  svg.appendChild(center);
  
  / Add "Pick 2" text
- const pickText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+ const pickText = document.createElementNS('http:/www.w3.org/2000/svg', 'text');
  pickText.setAttribute('x', centerX);
  pickText.setAttribute('y', centerY + 5);
  pickText.setAttribute('text-anchor', 'middle');
@@ -804,7 +804,7 @@ function updateCAPVisualization(model, inputs) {
  }
  
  / Add new highlight based on model
- const highlight = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+ const highlight = document.createElementNS('http:/www.w3.org/2000/svg', 'circle');
  highlight.setAttribute('class', 'model-highlight');
  highlight.setAttribute('r', '12');
  highlight.setAttribute('fill', 'rgba(84, 72, 200, 0.3)');

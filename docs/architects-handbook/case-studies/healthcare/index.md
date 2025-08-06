@@ -177,8 +177,8 @@ Healthcare systems frequently implement these distributed system patterns:
 ---
 
 **Explore Related Domains**:
-- **[Financial & Commerce](../financial-commerce/index.md)**: Similar compliance and security requirements
-- **[Social & Communication](../social-communication/index.md)**: Patient engagement and messaging systems
-- **[Monitoring & Observability](../monitoring-observability/index.md)**: Essential for healthcare system reliability
+- **[Financial & Commerce](../financial-commerce/)**: Similar compliance and security requirements
+- **[Social & Communication](../social-communication/)**: Patient engagement and messaging systems
+- **[Monitoring & Observability](../monitoring-observability/)**: Essential for healthcare system reliability
 
 *Last Updated: August 2025 | 3 Case Studies*

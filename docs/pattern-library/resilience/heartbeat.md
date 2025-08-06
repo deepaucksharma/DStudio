@@ -295,15 +295,15 @@ class PhiAccrualDetector:
     
     - [Health Check](./health-check.md) - Application-level health
     - [Circuit Breaker](./circuit-breaker.md) - Failure handling
-    - [Leader Election](../pattern-library/coordination/leader-election.md) - Uses heartbeats
+    - [Leader Election](../coordination/leader-election.md) - Uses heartbeats
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Network affects all heartbeats
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - No synchronized clocks
-    - [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Partial failure views
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md) - Network affects all heartbeats
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - No synchronized clocks
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Partial failure views
 
 </div>
 

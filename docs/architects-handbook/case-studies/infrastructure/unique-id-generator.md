@@ -1344,8 +1344,8 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Distributed Knowledge ](../core-principles/laws/distributed-knowledge/index.md) - Node ID assignment and consensus
-- [Law 6: Cognitive Load ](../core-principles/laws/cognitive-load/index.md) - Developer experience considerations
+- [Law 5: Distributed Knowledge ](../../core-principles/laws/distributed-knowledge.md) - Node ID assignment and consensus
+- [Law 6: Cognitive Load ](../../core-principles/laws/cognitive-load.md) - Developer experience considerations
 - [Clock Synchronization](../pattern-library/coordination/clock-sync.md) - NTP and time coordination
 - [Logical Clocks](../pattern-library/coordination/logical-clocks.md) - Alternative to wall-clock time
 
@@ -1353,7 +1353,7 @@ Database:
 - [Jepsen Analysis of ID Generators] (Jepsen Analysis Coming Soon) - Correctness testing
 - [ID Generation at Scale](../pattern-library/scaling/id-generation-scale.md) - Billion+ IDs/second
 - [Time-Series IDs](../pattern-library/time-series-ids.md) - Optimized for time-series data
-- [Collision Probability Math](../architects-handbook/quantitative-analysis/collision-probability.md) - Birthday paradox applied
+- [Collision Probability Math](../quantitative-analysis/collision-probability.md) - Birthday paradox applied
 
 **Related Case Studies:**
 - [URL Shortener](url-shortener.md) - Uses ID generation for short codes
@@ -1368,16 +1368,16 @@ Database:
 ### 📚 References
 
 **Original Systems:**
-- [Snowflake: Twitter's ID generation](https://github.com/twitter-archive/snowflake/index.md)
-- [Instagram's ID architecture](https://instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c/index.md)
-- [Flickr's Ticket Servers](https://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/index.md)
-- [UUID Specification (RFC 4122)](https://tools.ietf.org/html/rfc4122/index.md)
+- [Snowflake: Twitter's ID generation](https:/github.com/twitter-archive/snowflake/)
+- [Instagram's ID architecture](https:/instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c/)
+- [Flickr's Ticket Servers](https:/code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/)
+- [UUID Specification (RFC 4122)](https:/tools.ietf.org/html/rfc4122/)
 
 **Modern Implementations:**
-- [Sony's Sonyflake](https://github.com/sony/sonyflake/index.md)
-- [Baidu's UidGenerator](https://github.com/baidu/uid-generator/index.md)
-- [Leaf: Meituan's ID Generator](https://github.com/Meituan-Dianping/Leaf/index.md)
-- [Discord's Snowflake](https://discord.com/developers/docs/reference#snowflakes/index.md)
+- [Sony's Sonyflake](https:/github.com/sony/sonyflake/)
+- [Baidu's UidGenerator](https:/github.com/baidu/uid-generator/)
+- [Leaf: Meituan's ID Generator](https:/github.com/Meituan-Dianping/Leaf/)
+- [Discord's Snowflake](https:/discord.com/developers/docs/reference#snowflakes/)
 
 **Related Patterns:**
 - [Lamport Timestamps](../pattern-library/coordination/logical-clocks.md)

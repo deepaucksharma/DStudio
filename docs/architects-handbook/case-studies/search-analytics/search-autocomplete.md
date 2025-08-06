@@ -1682,14 +1682,14 @@ class DistributedAutocomplete:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Sub-100ms response critical for UX
-- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Memory limits drive sharding
-- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Graceful degradation strategies
-- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Lock-free trie operations
-- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Distributed trie updates
-- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Query performance tracking
-- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - Typo tolerance, personalization
-- **[Law 7: Economics](../core-principles/laws/economic-reality/index.md)** - Memory cost vs latency
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md)** - Sub-100ms response critical for UX
+- **[Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization.md)** - Memory limits drive sharding
+- **[Law 1: Failure](../../core-principles/laws/correlated-failure.md)** - Graceful degradation strategies
+- **[Law 3: Emergence](../../core-principles/laws/emergent-chaos.md)** - Lock-free trie operations
+- **[Law 5: Epistemology](../../core-principles/laws/distributed-knowledge.md)** - Distributed trie updates
+- **[Law 5: Epistemology](../../core-principles/laws/distributed-knowledge.md)** - Query performance tracking
+- **[Law 6: Human-API](../../core-principles/laws/cognitive-load.md)** - Typo tolerance, personalization
+- **[Law 7: Economics](../../core-principles/laws/economic-reality.md)** - Memory cost vs latency
 
 ### 🏛 Related Patterns
 - **Trie Data Structure (Coming Soon)** - Core search structure
@@ -1701,8 +1701,8 @@ class DistributedAutocomplete:
 - **[Edge Computing](../pattern-library/scaling/edge-computing.md)** - Global latency optimization
 
 ### Quantitative Models
-- **[Information Theory](../architects-handbook/quantitative-analysis/information-theory.md)** - Entropy in prefix trees
-- **[Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md)** - Server capacity planning
+- **[Information Theory](../quantitative-analysis/information-theory.md)** - Entropy in prefix trees
+- **[Queueing Theory](../quantitative-analysis/queueing-models.md)** - Server capacity planning
 - **Probability Theory (Coming Soon)** - Bloom filter false positives
 - **Machine Learning (ML Ranking Coming Soon)** - Learning to rank
 

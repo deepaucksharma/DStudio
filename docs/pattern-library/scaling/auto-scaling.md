@@ -799,9 +799,9 @@ xychart-beta
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Load Balancing](../pattern-library/scaling/load-balancing.md) | Traffic distribution during scaling | Instance registration/deregistration |
-| [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) | Graceful degradation during scale-up | Prevent cascade failures |
-| [Health Check](../pattern-library/resilience/health-check.md) | Instance readiness validation | Safe traffic routing |
+| [Load Balancing](../scaling/load-balancing.md) | Traffic distribution during scaling | Instance registration/deregistration |
+| [Circuit Breaker](../resilience/circuit-breaker.md) | Graceful degradation during scale-up | Prevent cascade failures |
+| [Health Check](../resilience/health-check.md) | Instance readiness validation | Safe traffic routing |
 
 ## Quick Reference
 
@@ -882,31 +882,31 @@ flowchart TD
     
     ---
     
-    - [Load Balancing](../pattern-library/scaling/load-balancing.md) - Traffic distribution foundation
-    - [Health Check](../pattern-library/resilience/health-check.md) - Instance readiness validation
-    - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Failure protection during scaling
+    - [Load Balancing](../scaling/load-balancing.md) - Traffic distribution foundation
+    - [Health Check](../resilience/health-check.md) - Instance readiness validation
+    - [Circuit Breaker](../resilience/circuit-breaker.md) - Failure protection during scaling
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Distributed scaling coordination
-    - [Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md) - Cost optimization trade-offs
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Distributed scaling coordination
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality.md) - Cost optimization trade-offs
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../core-principles/pillars/work-distribution/index.md) - Distributing load across instances
-    - [Control Distribution](../core-principles/pillars/control-distribution/index.md) - Distributed scaling decisions
+    - [Work Distribution](../../core-principles/pillars/work-distribution.md) - Distributing load across instances
+    - [Control Distribution](../../core-principles/pillars/control-distribution.md) - Distributed scaling decisions
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Auto-scaling Setup Guide](../excellence/guides/autoscaling-setup.md)
-    - [Metrics Selection Guide](../excellence/guides/scaling-metrics.md)
-    - [Cost Optimization Guide](../excellence/guides/scaling-cost-optimization.md)
+    - [Auto-scaling Setup Guide](../../architects-handbook/implementation-playbooks/guides/autoscaling-setup.md)
+    - [Metrics Selection Guide](../../architects-handbook/implementation-playbooks/guides/scaling-metrics.md)
+    - [Cost Optimization Guide](../../architects-handbook/implementation-playbooks/guides/scaling-cost-optimization.md)
 
 </div>
 

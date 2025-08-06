@@ -27,21 +27,21 @@ Leadership transforms individual capability into collective achievement. It's ab
 
 **Key Frameworks**: Situational Leadership, Servant Leadership, Kotter's Change Model, Multipliers
 
-### 3. [Operations](operations/index.md)
+### 3. [Operations](operations/)
 **Building the Engine of Execution**
 
 Operations is the science of delivering value efficiently and reliably. For engineering, this encompasses everything from system architecture to deployment pipelines to incident response.
 
 **Key Frameworks**: Lean, Theory of Constraints, Six Sigma, DevOps, SRE Principles
 
-### 4. [Finance](finance/index.md)
+### 4. [Finance](finance/)
 **Understanding and Creating Economic Value**
 
 Finance provides the language of business and tools for investment decisions. Engineering leaders must speak this language to secure resources and demonstrate impact.
 
 **Key Frameworks**: NPV/ROI, Unit Economics, Cost of Capital, Real Options, Budget Management
 
-### 5. [Risk & Governance](risk-governance/index.md)
+### 5. [Risk & Governance](risk-governance/)
 **Managing Uncertainty and Ensuring Accountability**
 
 Risk management and governance create the guardrails for sustainable growth. This includes technical risk, security, compliance, and organizational controls.
@@ -234,23 +234,23 @@ Remember: You don't need an MBA, but you do need MBA-level thinking. These conce
 
 Each business concept operationalizes multiple first principles:
 
-- **[Strategy](../level-3-applications/technical-leadership/technical-strategy.md)** applies **[Value Creation](../level-1-first-principles/value-creation/index.md)** and **[Systems Thinking](../level-1-first-principles/systems-thinking/index.md)**
-- **[Leadership](../hard-earned-wisdom/human-cost-leadership.md)** centers on **[Human Behavior](../level-1-first-principles/human-behavior/index.md)** and **[Integrity](../level-1-first-principles/integrity-ethics/index.md)**
-- **[Operations](operations/index.md)** delivers **[Value Creation](../level-1-first-principles/value-creation/index.md)** through **[Systems Thinking](../level-1-first-principles/systems-thinking/index.md)**
-- **[Finance](finance/index.md)** quantifies **[Value Creation](../level-1-first-principles/value-creation/index.md)** and guides **[Decision-Making](../level-1-first-principles/decision-making/index.md)**
-- **[Risk & Governance](risk-governance/index.md)** protects through **[Systems Thinking](../level-1-first-principles/systems-thinking/index.md)** and **[Integrity](../level-1-first-principles/integrity-ethics/index.md)**
+- **[Strategy](../level-3-applications/technical-leadership/technical-strategy.md)** applies **[Value Creation](../level-1-first-principles/value-creation/)** and **[Systems Thinking](../level-1-first-principles/systems-thinking/)**
+- **[Leadership](../hard-earned-wisdom/human-cost-leadership.md)** centers on **[Human Behavior](../level-1-first-principles/human-behavior/)** and **[Integrity](../level-1-first-principles/integrity-ethics/)**
+- **[Operations](operations/)** delivers **[Value Creation](../level-1-first-principles/value-creation/)** through **[Systems Thinking](../level-1-first-principles/systems-thinking/)**
+- **[Finance](finance/)** quantifies **[Value Creation](../level-1-first-principles/value-creation/)** and guides **[Decision-Making](../level-1-first-principles/decision-making/)**
+- **[Risk & Governance](risk-governance/)** protects through **[Systems Thinking](../level-1-first-principles/systems-thinking/)** and **[Integrity](../level-1-first-principles/integrity-ethics/)**
 
 ## Next Steps
 
 ### For Engineering Managers
-1. Start with **[Finance](finance/index.md)** - Learn to speak the language of business
+1. Start with **[Finance](finance/)** - Learn to speak the language of business
 2. Add **[Strategy](../level-3-applications/technical-leadership/technical-strategy.md)** - Think beyond your immediate team
 3. Deepen **[Leadership](../hard-earned-wisdom/human-cost-leadership.md)** - Scale your impact through others
 
 ### For Senior Managers & Directors
 1. Master **[Strategy](../level-3-applications/technical-leadership/technical-strategy.md)** - Shape technical direction
-2. Excel at **[Operations](operations/index.md)** - Build scalable systems
-3. Understand **[Risk & Governance](risk-governance/index.md)** - Protect value creation
+2. Excel at **[Operations](operations/)** - Build scalable systems
+3. Understand **[Risk & Governance](risk-governance/)** - Protect value creation
 
 ### Interview Preparation
 1. **Week 1-2**: Study each concept deeply
@@ -259,4 +259,4 @@ Each business concept operationalizes multiple first principles:
 
 ---
 
-*Ready to dive deeper? Choose a discipline to explore, or continue to [Level III: Engineering Leadership Applications](../level-3-applications/index.md) to see these concepts in action. For foundational understanding, revisit [Level I: First Principles](../level-1-first-principles/index.md).*
+*Ready to dive deeper? Choose a discipline to explore, or continue to [Level III: Engineering Leadership Applications](../level-3-applications/) to see these concepts in action. For foundational understanding, revisit [Level I: First Principles](../level-1-first-principles/).*

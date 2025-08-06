@@ -133,22 +133,22 @@ stateDiagram-v2
 <div class="grid cards">
 <div class="card">
 <strong>📊 Configuration Deep Dive</strong>
-[Tuning thresholds, timeouts, and monitoring](/../pattern-library/resilience/circuit-breaker/configuration/index.md)
+[Tuning thresholds, timeouts, and monitoring](/../pattern-library/resilience/circuit-breaker/configuration/)
 </div>
 
 <div class="card">
 <strong>🔬 Mathematical Foundation</strong>
-[Failure probability models and calculations](/../pattern-library/resilience/circuit-breaker/mathematics/index.md)
+[Failure probability models and calculations](/../pattern-library/resilience/circuit-breaker/mathematics/)
 </div>
 
 <div class="card">
 <strong>🧪 Testing Strategies</strong>
-[Chaos engineering and failure injection](/../pattern-library/resilience/circuit-breaker/testing/index.md)
+[Chaos engineering and failure injection](/../pattern-library/resilience/circuit-breaker/testing/)
 </div>
 
 <div class="card">
 <strong>🏗️ Advanced Patterns</strong>
-[Bulkhead + Circuit Breaker combinations](/../pattern-library/resilience/circuit-breaker/advanced/index.md)
+[Bulkhead + Circuit Breaker combinations](/../pattern-library/resilience/circuit-breaker/advanced/)
 </div>
 </div>
 

@@ -35,7 +35,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-book-open-variant:{ .lg } **[Case Studies](../architects-handbook/case-studies/index.md)** (80+ real systems)
+- :material-book-open-variant:{ .lg } **[Case Studies](../architects-handbook/case-studies/)** (80+ real systems)
     
     ---
     
@@ -47,15 +47,15 @@ graph LR
     | Uber | [Location Services](../../architects-handbook/case-studies/location-services/uber-location.md) | Real-time tracking, geo-distributed |
     | Stripe | [Payment Processing](../../architects-handbook/case-studies/financial-commerce/payment-system.md) | Financial accuracy, regulatory compliance |
 
-- :material-hammer-wrench:{ .lg } **[Implementation Playbooks](../../architects-handbook/implementation-playbooks.md/index.md)** (15+ guides)
+- :material-hammer-wrench:{ .lg } **[Implementation Playbooks](../../architects-handbook/implementation-playbooks.md/)** (15+ guides)
     
     ---
     
     Step-by-step guides for implementing patterns safely in production
     
-    **🚀 Popular**: [Monolith to Microservices](implementation-playbooks/index.mdindex.mdmonolith-decomposition/index.md), [Zero-Downtime Migrations](implementation-playbooks/index.mdindex.mdzero-downtime/index.md), [Multi-Region Deployment](implementation-playbooks/index.mdindex.mdglobal-expansion/index.md)
+    **🚀 Popular**: [Monolith to Microservices](implementation-playbooks/index.mdindex.mdmonolith-decomposition/), [Zero-Downtime Migrations](implementation-playbooks/index.mdindex.mdzero-downtime/), [Multi-Region Deployment](implementation-playbooks/index.mdindex.mdglobal-expansion/)
 
-- :material-calculator:{ .lg } **[Quantitative Analysis](../../architects-handbook/quantitative-analysis.md/index.md)** (25+ tools)
+- :material-calculator:{ .lg } **[Quantitative Analysis](../../architects-handbook/quantitative-analysis.md/)** (25+ tools)
     
     ---
     
@@ -63,7 +63,7 @@ graph LR
     
     **🔢 Live Tools**: [Capacity Planner](../../architects-handbook/quantitative-analysis/capacity-planning.md), [Latency Calculator](../tools/latency-calculator.md), [Cost Estimator](../../architects-handbook/quantitative-analysis/storage-economics.md)
 
-- :material-account-hard-hat:{ .lg } **[Human Factors](../../architects-handbook/human-factors/index.md)** (12+ practices)
+- :material-account-hard-hat:{ .lg } **[Human Factors](../../architects-handbook/human-factors/)** (12+ practices)
     
     ---
     
@@ -112,8 +112,8 @@ graph TB
 | Tool | Purpose |
 |------|---------|
 | [Capacity Planner](../../architects-handbook/quantitative-analysis/capacity-planning.md) | Size your infrastructure |
-| [Pattern Selector](implementation-playbooks/index.mdindex.mdpattern-selection-wizard/index.md) | Choose the right patterns |
-| [Migration Checklist](implementation-playbooks/index.mdindex.mdmigration-checklist/index.md) | Plan safe transitions |
+| [Pattern Selector](implementation-playbooks/index.mdindex.mdpattern-selection-wizard/) | Choose the right patterns |
+| [Migration Checklist](implementation-playbooks/index.mdindex.mdmigration-checklist/) | Plan safe transitions |
 | [Cost Calculator](../../architects-handbook/quantitative-analysis/storage-economics.md) | Estimate operational costs |
 
 ## 📖 Featured Resources
@@ -124,10 +124,10 @@ graph TB
 - **[Stripe: Payment Processing](../../architects-handbook/case-studies/financial-commerce/payment-system.md)** - Financial system reliability
 
 ### Popular Playbooks
-- **[Monolith to Microservices](implementation-playbooks/index.mdindex.mdmonolith-to-microservices/index.md)** - Safe decomposition strategies
-- **[Global Expansion](implementation-playbooks/index.mdindex.mdglobal-expansion/index.md)** - Multi-region deployment
-- **[Zero-Downtime Migrations](implementation-playbooks/index.mdindex.mdzero-downtime/index.md)** - Change without disruption
+- **[Monolith to Microservices](implementation-playbooks/index.mdindex.mdmonolith-to-microservices/)** - Safe decomposition strategies
+- **[Global Expansion](implementation-playbooks/index.mdindex.mdglobal-expansion/)** - Multi-region deployment
+- **[Zero-Downtime Migrations](implementation-playbooks/index.mdindex.mdzero-downtime/)** - Change without disruption
 
 ---
 
-*Start with [Case Studies](../index.md) to see how industry leaders solve distributed systems challenges.*
+*Start with [Case Studies](../) to see how industry leaders solve distributed systems challenges.*

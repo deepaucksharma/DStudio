@@ -1,5 +1,5 @@
 ---
-title: Queueing Models - Redirect
+title: Queueing Models
 redirect_to: /architects-handbook/quantitative-analysis/queueing-models/
 ---
 

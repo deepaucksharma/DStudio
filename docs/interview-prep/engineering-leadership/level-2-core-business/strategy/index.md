@@ -372,31 +372,31 @@ Learning: Strategic insights gained
 
 ## Connection to First Principles
 
-- **[Value Creation](../../engineering-leadership/level-1-first-principles/value-creation/index.md)**: Strategy determines how we create unique value
-- **[Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/index.md)**: Strategic choices are the highest-impact decisions
-- **[Systems Thinking](../../engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Strategy requires understanding competitive systems
-- **[Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Strategy must account for organizational capability
-- **[Integrity & Ethics](../../engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Sustainable strategy requires ethical foundation
+- **[Value Creation](../../engineering-leadership/level-1-first-principles/value-creation/)**: Strategy determines how we create unique value
+- **[Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/)**: Strategic choices are the highest-impact decisions
+- **[Systems Thinking](../../engineering-leadership/level-1-first-principles/systems-thinking/)**: Strategy requires understanding competitive systems
+- **[Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/)**: Strategy must account for organizational capability
+- **[Integrity & Ethics](../../engineering-leadership/level-1-first-principles/integrity-ethics/)**: Sustainable strategy requires ethical foundation
 
 ## Connection to Other Business Concepts
 
-- **[Leadership](../../engineering-leadership/level-2-core-business/leadership/index.md)**: Strategy without execution is hallucination
-- **[Operations](../../engineering-leadership/level-2-core-business/operations/index.md)**: Strategy guides operational choices
-- **[Finance](../../engineering-leadership/level-2-core-business/finance/index.md)**: Strategy must be economically viable
-- **[Risk & Governance](../../engineering-leadership/level-2-core-business/risk-governance/index.md)**: Strategic choices create new risks
+- **[Leadership](../../engineering-leadership/level-2-core-business/leadership/)**: Strategy without execution is hallucination
+- **[Operations](../../engineering-leadership/level-2-core-business/operations/)**: Strategy guides operational choices
+- **[Finance](../../engineering-leadership/level-2-core-business/finance/)**: Strategy must be economically viable
+- **[Risk & Governance](../../engineering-leadership/level-2-core-business/risk-governance/)**: Strategic choices create new risks
 
 ## Application in Level III
 
-- **[Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/index.md)**: Translating business strategy to technical strategy
-- **[Organizational Design](../../engineering-leadership/level-3-applications/organizational-design/index.md)**: Aligning structure with strategy (Conway's Law)
-- **[Business Acumen](../../engineering-leadership/level-3-applications/business-acumen/index.md)**: Connecting engineering to strategic outcomes
-- **[People Management](../../engineering-leadership/level-3-applications/people-management/index.md)**: Building teams for strategic capabilities
+- **[Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/)**: Translating business strategy to technical strategy
+- **[Organizational Design](../../engineering-leadership/level-3-applications/organizational-design/)**: Aligning structure with strategy (Conway's Law)
+- **[Business Acumen](../../engineering-leadership/level-3-applications/business-acumen/)**: Connecting engineering to strategic outcomes
+- **[People Management](../../engineering-leadership/level-3-applications/people-management/)**: Building teams for strategic capabilities
 
 ## Interview Application (Level IV)
 
-- **[Technical Leadership Interviews](../../engineering-leadership/level-4-interview-execution/technical-leadership/index.md)**: Demonstrating strategic technical thinking
-- **[System Design](../../engineering-leadership/level-4-interview-execution/system-org-design/index.md)**: Strategic approach to architecture
-- **[Behavioral Stories](../../engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Showing strategic impact
+- **[Technical Leadership Interviews](../../engineering-leadership/level-4-interview-execution/technical-leadership/)**: Demonstrating strategic technical thinking
+- **[System Design](../../engineering-leadership/level-4-interview-execution/system-org-design/)**: Strategic approach to architecture
+- **[Behavioral Stories](../../engineering-leadership/level-4-interview-execution/behavioral/)**: Showing strategic impact
 
 ## Next Steps
 
@@ -407,4 +407,4 @@ Learning: Strategic insights gained
 
 ---
 
-*Continue your journey: Explore how [Leadership](../../engineering-leadership/level-2-core-business/leadership/index.md) transforms strategic vision into organizational reality, or see how [Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/index.md) applies strategic thinking in practice.*
+*Continue your journey: Explore how [Leadership](../../engineering-leadership/level-2-core-business/leadership/) transforms strategic vision into organizational reality, or see how [Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/) applies strategic thinking in practice.*

@@ -154,8 +154,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: End-to-End Encryption (Coming Soon)
 - Pattern: Key Management (Coming Soon)
-- 🏛 Pillar: [Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Cryptographic guarantees
-- 🏛 Pillar: [Control Distribution](../core-principles/pillars/control-distribution/index.md) - Secure message routing
+- 🏛 Pillar: [Truth Distribution](../../core-principles/pillars/truth-distribution.md) - Cryptographic guarantees
+- 🏛 Pillar: [Control Distribution](../../core-principles/pillars/control-distribution.md) - Secure message routing
 
 ### Phase 4: Global Scale Architecture (2016-Present)
 
@@ -2062,7 +2062,7 @@ graph TB
 ```python
 class BlockchainChatArchitecture:
     def __init__(self):
-        self.web3 = Web3(Web3.HTTPProvider('http://localhost:8545'))
+        self.web3 = Web3(Web3.HTTPProvider('http:/localhost:8545'))
         self.message_contract = self.load_contract('MessageStorage')
         self.ipfs_client = ipfshttpclient.connect()
         
@@ -2678,12 +2678,12 @@ Regional servers reduce latency; cross-region replication; compliance ready
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - WebSocket for real-time, regional servers
-- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Connection pooling, message queuing
-- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Offline queue, retry mechanisms
-- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Actor model, parallel delivery
-- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Group state sync, message ordering, and monitoring
-- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization.md)** - Connection pooling, message queuing
+- **[Law 1: Failure](../../core-principles/laws/correlated-failure.md)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence](../../core-principles/laws/emergent-chaos.md)** - Actor model, parallel delivery
+- **[Law 5: Epistemology](../../core-principles/laws/distributed-knowledge.md)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API](../../core-principles/laws/cognitive-load.md)** - Typing indicators, read receipts
 
 ### 🏛 Related Patterns
 - **WebSocket (Coming Soon)** - Persistent connections
@@ -2695,10 +2695,10 @@ Regional servers reduce latency; cross-region replication; compliance ready
 - **[Saga Pattern](../pattern-library/data-management/saga.md)** - Group operations
 
 ### Quantitative Models
-- **[Little's Law](../architects-handbook/quantitative-analysis/littles-law.md)** - Connection pool sizing
-- **[Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md)** - Message queue capacity
+- **[Little's Law](../quantitative-analysis/littles-law.md)** - Connection pool sizing
+- **[Queueing Theory](../quantitative-analysis/queueing-models.md)** - Message queue capacity
 - **CAP Theorem (Coming Soon)** - Consistency vs availability
-- **[Network Theory](../architects-handbook/quantitative-analysis/network-theory.md)** - Optimal server placement
+- **[Network Theory](../quantitative-analysis/network-theory.md)** - Optimal server placement
 
 ### Similar Case Studies
 <!-- TODO: Add when available

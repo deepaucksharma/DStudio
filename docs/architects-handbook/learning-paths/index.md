@@ -471,7 +471,7 @@ flowchart TD
 
     !!! tip "Start with visuals and work toward concepts"
         
-        1. **Architecture Diagrams** in [Case Studies](../architects-handbook/case-studies/index.md)
+        1. **Architecture Diagrams** in [Case Studies](../architects-handbook/case-studies/)
         2. **Trade-off Matrices** in each pattern
         3. **Visual Decision Trees** throughout
         4. **Mermaid Diagrams** explaining concepts
@@ -534,7 +534,7 @@ flowchart TD
         - **1 hour/day** → Pick a topic path
         - **2+ hours/day** → Choose a role path
         - **Full time** → Complete foundation path
-        - **Just browsing** → Start with [Case Studies](../architects-handbook/case-studies/index.md)
+        - **Just browsing** → Start with [Case Studies](../architects-handbook/case-studies/)
 
 ## 🗺️ Visual Learning Journey
 
@@ -713,7 +713,7 @@ All learning paths use a consistent difficulty progression system:
 
 !!! success "Your First Step"
     
-    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../core-principles/laws/correlated-failure/index.md).
+    No matter which path you choose, start with [Law 1: The Inevitability of Failure](../../core-principles/laws/correlated-failure.md).
     It's the foundation everything else builds upon.
     
-    [:octicons-arrow-right-24: Begin Your Journey](../core-principles/laws/correlated-failure/index.md){ .md-button .md-button--primary }
+    [:octicons-arrow-right-24: Begin Your Journey](../../core-principles/laws/correlated-failure.md){ .md-button .md-button--primary }

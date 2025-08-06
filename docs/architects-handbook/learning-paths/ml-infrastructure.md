@@ -106,7 +106,7 @@ outcomes:
 </div>
 
 !!! tip "ML Readiness Assessment"
-    Take our [ML Infrastructure Skills Assessment](../tools/ml-infrastructure-quiz/index.md) to identify preparation gaps.
+    Take our [ML Infrastructure Skills Assessment](../tools/ml-infrastructure-quiz/) to identify preparation gaps.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -128,7 +128,7 @@ outcomes:
     - [ ] Implement model versioning and lineage
     
     **Day 1-2**: ML Systems Architecture
-    - 📖 Read: [ML System Design Patterns](../../pattern-library/ml-systems/ml-architecture/index.md)
+    - 📖 Read: [ML System Design Patterns](../../pattern-library/ml-systems/ml-architecture/)
     - 🛠️ Lab: Design end-to-end ML system architecture
     - 📊 Success: Architecture supporting training to inference
     - ⏱️ Time: 6-8 hours
@@ -564,7 +564,7 @@ Build these impressive projects to showcase your skills:
 
 ### Community Resources & Conferences
 
-- **MLOps Discord**: [#ml-infrastructure-engineers](https://discord.gg/mlops/index.md)
+- **MLOps Discord**: [#ml-infrastructure-engineers](https:/discord.gg/mlops/)
 - **MLSys Conference**: Academic + industry ML systems research
 - **MLOps World**: Practical ML operations conference
 - **NeurIPS**: Premier AI/ML research conference
@@ -659,22 +659,22 @@ Post-program achievements:
 ### Technical Resources & Documentation
 
 **ML Infrastructure Frameworks**:
-- [Kubeflow Documentation](https://www.kubeflow.org/docs/index.md)
-- [MLflow Documentation](https://mlflow.org/docs/latest/index.html/index.md)
-- [TensorFlow Serving Guide](https://www.tensorflow.org/tfx/guide/serving/index.md)
-- [Feast Feature Store](https://docs.feast.dev/index.md)
+- [Kubeflow Documentation](https:/www.kubeflow.org/docs/)
+- [MLflow Documentation](https:/mlflow.org/docs/latest/index.html/)
+- [TensorFlow Serving Guide](https:/www.tensorflow.org/tfx/guide/serving/)
+- [Feast Feature Store](https:/docs.feast.dev/)
 
 **LLM & Advanced AI**:
-- [Hugging Face Transformers](https://huggingface.co/docs/transformers/index.md)
-- [vLLM Documentation](https://docs.vllm.ai/index.md)
-- [LangChain Documentation](https://docs.langchain.com/index.md)
-- [Pinecone Vector Database](https://docs.pinecone.io/index.md)
+- [Hugging Face Transformers](https:/huggingface.co/docs/transformers/)
+- [vLLM Documentation](https:/docs.vllm.ai/)
+- [LangChain Documentation](https:/docs.langchain.com/)
+- [Pinecone Vector Database](https:/docs.pinecone.io/)
 
 **Industry Blogs & Research**:
-- [Netflix Technology Blog - ML](https://netflixtechblog.com/index.md)
-- [Uber Engineering - AI/ML](https://eng.uber.com/category/articles/ai/index.md)
-- [OpenAI Research](https://openai.com/research/index.md)
-- [Google AI Blog](https://ai.googleblog.com/index.md)
+- [Netflix Technology Blog - ML](https:/netflixtechblog.com/)
+- [Uber Engineering - AI/ML](https:/eng.uber.com/category/articles/ai/)
+- [OpenAI Research](https:/openai.com/research/)
+- [Google AI Blog](https:/ai.googleblog.com/)
 
 ## 🏁 Capstone Project: Enterprise AI/ML Platform
 

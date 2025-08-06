@@ -390,10 +390,10 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 ## Related Topics
 
 ### Related Laws
-- [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Network partitions and failure modes
-- [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Time and consistency challenges
-- [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - CAP trade-offs in practice
-- [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md) - Knowledge consistency across nodes
+- [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md) - Network partitions and failure modes
+- [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Time and consistency challenges
+- [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md) - CAP trade-offs in practice
+- [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Knowledge consistency across nodes
 
 ### Related Patterns
 - [Consensus Algorithms](../pattern-library/coordination/consensus.md) - Achieving agreement despite CAP
@@ -404,10 +404,10 @@ $= 1 - 0.99^{100} \approx 1\%$ per hour<br>
 - [Conflict Resolution](../pattern-library/conflict-resolution.md) - Handling divergence in AP systems
 
 ### Quantitative Analysis
-- [Consistency Models](../architects-handbook/quantitative-analysis/consistency-models.md) - Deep dive into consistency levels
+- [Consistency Models](../quantitative-analysis/consistency-models.md) - Deep dive into consistency levels
 - [PACELC Analysis](pacelc-analysis.md) - Extended CAP theorem implications
-- [Network Theory](../architects-handbook/quantitative-analysis/network-theory.md) - Understanding partition probabilities
-- [Availability Math](../architects-handbook/quantitative-analysis/availability-math.md) - Calculating system availability
+- [Network Theory](../quantitative-analysis/network-theory.md) - Understanding partition probabilities
+- [Availability Math](../quantitative-analysis/availability-math.md) - Calculating system availability
 - [Latency Models](latency-models.md) - Consistency vs latency trade-offs
 
 ### Case Studies

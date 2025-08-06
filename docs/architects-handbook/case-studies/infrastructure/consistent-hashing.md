@@ -1324,19 +1324,19 @@ class ConsistentHashRing:
 ### 📚 References
 
 **Seminal Papers:**
-- [Consistent Hashing and Random Trees](https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf/index.md) - Original Karger et al.
-- [Dynamo: Amazon's Highly Available Key-value Store](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/index.md)
-- [Jump Consistent Hash](https://arxiv.org/pdf/1406.2294.pdf/index.md) - Google's approach
-- [Maglev: A Fast and Reliable Software Network Load Balancer](https://static.googleusercontent.com/media/research.google.com/en/pubs/archive/44824.pdf/index.md)
+- [Consistent Hashing and Random Trees](https:/www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf/) - Original Karger et al.
+- [Dynamo: Amazon's Highly Available Key-value Store](https:/www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf/)
+- [Jump Consistent Hash](https:/arxiv.org/pdf/1406.2294.pdf/) - Google's approach
+- [Maglev: A Fast and Reliable Software Network Load Balancer](https:/static.googleusercontent.com/media/research.google.com/en/pubs/archive/44824.pdf/)
 
 **Production Implementations:**
-- [Cassandra's Token Ring](https://cassandra.apache.org/doc/latest/architecture/dynamo.html/index.md)
-- [Riak's Consistent Hashing](https://docs.riak.com/riak/kv/latest/learn/concepts/replication/index.html/index.md)
-- [Memcached Ketama](https://github.com/RJ/ketama/index.md)
-- [Discord's Consistent Hashing](https://discord.com/blog/how-discord-stores-billions-of-messages/index.md)
+- [Cassandra's Token Ring](https:/cassandra.apache.org/doc/latest/architecture/dynamo.html/)
+- [Riak's Consistent Hashing](https:/docs.riak.com/riak/kv/latest/learn/concepts/replication/index.html/)
+- [Memcached Ketama](https:/github.com/RJ/ketama/)
+- [Discord's Consistent Hashing](https:/discord.com/blog/how-discord-stores-billions-of-messages/)
 
 **Related Patterns:**
-- [Virtual Nodes](../pattern-library/scaling/sharding/index.md)
+- [Virtual Nodes](../pattern-library/scaling/sharding/)
 - Gossip Protocol
 - Vector Clocks
 - Replication (Coming Soon)
@@ -1344,18 +1344,18 @@ class ConsistentHashRing:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I.md)
-- **[Law 1: Correlated Failure ](../core-principles/laws/correlated-failure/index.md)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Law 2: Asynchronous Reality ](../core-principles/laws/asynchronous-reality/index.md)** - O(log n/index) lookup time with client-side caching reduces routing latency
-- **[Law 3: Emergent Chaos ](../core-principles/laws/emergent-chaos/index.md)** - Ring lookups are lock-free read operations
-- **[Law 4: Multidimensional Trade-offs ](../core-principles/laws/multidimensional-optimization/index.md)** - Even distribution prevents capacity hot spots across nodes
-- **[Law 5: Distributed Knowledge ](../core-principles/laws/distributed-knowledge/index.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
-- **[Law 6: Cognitive Load ](../core-principles/laws/cognitive-load/index.md)** - Visual ring representation aids debugging and operations
-- **[Law 7: Economic Reality ](../core-principles/laws/economic-reality/index.md)** - Efficient scaling without full data redistribution saves bandwidth
+- **[Law 1: Correlated Failure ](../../core-principles/laws/correlated-failure.md)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws/asynchronous-reality.md)** - O(log n/index) lookup time with client-side caching reduces routing latency
+- **[Law 3: Emergent Chaos ](../../core-principles/laws/emergent-chaos.md)** - Ring lookups are lock-free read operations
+- **[Law 4: Multidimensional Trade-offs ](../../core-principles/laws/multidimensional-optimization.md)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 5: Distributed Knowledge ](../../core-principles/laws/distributed-knowledge.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Cognitive Load ](../../core-principles/laws/cognitive-load.md)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economic Reality ](../../core-principles/laws/economic-reality.md)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛 Related Patterns (Part III/index)
 - **[Sharding & Partitioning](../pattern-library/scaling/sharding.md)** - Consistent hashing is the foundation for data sharding
 - **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Ring-based routing distributes requests evenly
-- **[Service Discovery](../pattern-library/communication/service-discovery/index.md)** - Ring topology changes propagate via gossip
+- **[Service Discovery](../pattern-library/communication/service-discovery/)** - Ring topology changes propagate via gossip
 - **Replication (Coming Soon.md)** - Successor lists define replica placement
 - **[Health Check](../pattern-library/resilience/health-check.md)** - Node failures trigger ring rebalancing
 - **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Client-side topology caching reduces lookups
@@ -1364,11 +1364,11 @@ class ConsistentHashRing:
 ### Quantitative Models
 - **Ring Theory** - Mathematical foundation for hash rings
 - **Load Distribution** - Standard deviation measures balance quality
-- **[Little's Law](../architects-handbook/quantitative-analysis/littles-law.mdindex.md)** - Rebalancing rate impacts system capacity
+- **[Little's Law](../quantitative-analysis/littles-law.mdindex.md)** - Rebalancing rate impacts system capacity
 - **Probability Theory** - Virtual node count affects distribution variance
 
 ### 👥 Human Factors Considerations
-- **[Capacity Planning](../architects-handbook/quantitative-analysis/capacity-planning.mdindex.md)** - Node weights must match actual capacity
+- **[Capacity Planning](../quantitative-analysis/capacity-planning.mdindex.md)** - Node weights must match actual capacity
 - **[Observability Tools](../architects-handbook/human-factors/observability-stacks.md)** - Ring visualizers essential for operations
 - **[Incident Response](../architects-handbook/human-factors/incident-response.md)** - Hot spot detection and mitigation procedures
 - **[On-Call Culture](../architects-handbook/human-factors/oncall-culture.md)** - Understanding ring rebalancing critical for operators

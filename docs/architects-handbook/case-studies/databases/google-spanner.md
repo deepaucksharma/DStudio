@@ -651,10 +651,10 @@ graph TB
 
 ## Further Reading
 
-- [Spanner: Google's Globally-Distributed Database (OSDI 2012)](https://research.google/pubs/pub39966/index.md)
-- [Spanner: Becoming a SQL System (SIGMOD 2017)](https://research.google/pubs/pub46103/index.md)
-- [TrueTime and the CAP Theorem](https://cloud.google.com/spanner/docs/true-time-external-consistency/index.md)
-- [Cloud Spanner Documentation](https://cloud.google.com/spanner/docs/index.md)
+- [Spanner: Google's Globally-Distributed Database (OSDI 2012)](https://research.google/pubs/pub39966/)
+- [Spanner: Becoming a SQL System (SIGMOD 2017)](https://research.google/pubs/pub46103/)
+- [TrueTime and the CAP Theorem](https://cloud.google.com/spanner/docs/true-time-external-consistency/)
+- [Cloud Spanner Documentation](https://cloud.google.com/spanner/docs/)
 
 ## Discussion Questions
 

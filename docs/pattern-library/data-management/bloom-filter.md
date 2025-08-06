@@ -355,30 +355,30 @@ graph LR
     ---
     
     - [Cuckoo Hashing](../data-management/cuckoo-hashing.md) - Complementary probabilistic structure
-    - [LSM Trees](../pattern-library/data-management/lsm-tree.md) - Common usage pattern
-    - [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Distribution strategy
+    - [LSM Trees](../data-management/lsm-tree.md) - Common usage pattern
+    - [Consistent Hashing](../data-management/consistent-hashing.md) - Distribution strategy
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 4: Multi-dimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - Space-time trade-offs
-    - [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Probabilistic information
+    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization.md) - Space-time trade-offs
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Probabilistic information
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Efficient state representation
-    - [Intelligence Distribution](../core-principles/pillars/intelligence-distribution/index.md) - Smart pre-filtering
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Efficient state representation
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution.md) - Smart pre-filtering
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Bloom Filter Calculator](../architects-handbook/quantitative-analysis/bloom-calculator.md)
-    - [Hash Function Selection](../excellence/guides/hash-functions.md)
-    - [Performance Testing](../excellence/guides/bloom-testing.md)
+    - [Bloom Filter Calculator](../../architects-handbook/quantitative-analysis/bloom-calculator.md)
+    - [Hash Function Selection](../../architects-handbook/implementation-playbooks/guides/hash-functions.md)
+    - [Performance Testing](../../architects-handbook/implementation-playbooks/guides/bloom-testing.md)
 
 </div>
 

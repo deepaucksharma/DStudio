@@ -314,31 +314,31 @@ graph LR
     
     ---
     
-    - [Leader Election](../pattern-library/coordination/leader-election.md) - Uses locks for coordination
-    - [Consensus](../pattern-library/coordination/consensus.md) - Foundation for safe locks
-    - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Protect against lock failures
+    - [Leader Election](../coordination/leader-election.md) - Uses locks for coordination
+    - [Consensus](../coordination/consensus.md) - Foundation for safe locks
+    - [Circuit Breaker](../resilience/circuit-breaker.md) - Protect against lock failures
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Network delays affect timing
-    - [Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md) - Lock contention creates complexity
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Network delays affect timing
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Lock contention creates complexity
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 3: Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Single source of lock truth
-    - [Pillar 4: Control Distribution](../core-principles/pillars/control-distribution/index.md) - Coordinated access control
+    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution.md) - Single source of lock truth
+    - [Pillar 4: Control Distribution](../../core-principles/pillars/control-distribution.md) - Coordinated access control
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Lock Setup Guide](../excellence/guides/lock-setup.md)
-    - [Testing Guide](../excellence/guides/distributed-testing.md)
-    - [Redis to etcd Migration](../excellence/migrations/redis-to-etcd.md)
+    - [Lock Setup Guide](../../architects-handbook/implementation-playbooks/guides/lock-setup.md)
+    - [Testing Guide](../../architects-handbook/implementation-playbooks/guides/distributed-testing.md)
+    - [Redis to etcd Migration](../../architects-handbook/implementation-playbooks/migrations/redis-to-etcd.md)
 
 </div>
 

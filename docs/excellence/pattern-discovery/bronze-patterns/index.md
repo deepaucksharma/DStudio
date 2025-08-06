@@ -35,28 +35,28 @@ description: Patterns to migrate away from, with clear paths to modern alternati
 
 <div class="pattern-category bronze-arch">
 
-#### [CAP Theorem](../pattern-library/architecture/cap-theorem/index.md)
+#### [CAP Theorem](../pattern-library/architecture/cap-theorem/)
 **Choose 2 of 3: Consistency, Availability, Partition Tolerance**
 - ⚠️ **Issues**: Oversimplified model, misleading trade-offs
 - ✅ **Migrate to**: PACELC theorem for nuanced understanding
 - 📊 **Migration Effort**: Low (conceptual shift)
 - 💡 **Still Valid For**: Initial system design discussions
 
-#### [Choreography](../pattern-library/architecture/choreography/index.md)
+#### [Choreography](../pattern-library/architecture/choreography/)
 **Services coordinate through events without central control**
 - ⚠️ **Issues**: Hard to debug, no clear flow visibility
-- ✅ **Migrate to**: [Saga](../pattern-library/data-management/saga/index.md) orchestration or hybrid approach
+- ✅ **Migrate to**: [Saga](../pattern-library/data-management/saga/) orchestration or hybrid approach
 - 📊 **Migration Effort**: Medium-High
 - 💡 **Still Valid For**: Simple, linear workflows
 
-#### [Lambda Architecture](../pattern-library/architecture/lambda-architecture/index.md)
+#### [Lambda Architecture](../pattern-library/architecture/lambda-architecture/)
 **Batch + streaming layers for data processing**
 - ⚠️ **Issues**: Complexity, duplicate logic, maintenance overhead
-- ✅ **Migrate to**: [Kappa Architecture](../pattern-library/architecture/kappa-architecture/index.md) or unified streaming
+- ✅ **Migrate to**: [Kappa Architecture](../pattern-library/architecture/kappa-architecture/) or unified streaming
 - 📊 **Migration Effort**: High
 - 💡 **Still Valid For**: Specific batch/stream hybrid needs
 
-#### [Kappa Architecture](../pattern-library/architecture/kappa-architecture/index.md)
+#### [Kappa Architecture](../pattern-library/architecture/kappa-architecture/)
 **Everything is a stream**
 - ⚠️ **Issues**: Not suitable for all use cases, reprocessing challenges
 - ✅ **Migrate to**: Modern stream processing with proper batch support
@@ -69,14 +69,14 @@ description: Patterns to migrate away from, with clear paths to modern alternati
 
 <div class="pattern-category bronze-data">
 
-#### [Shared Database](../pattern-library/data-management/shared-database/index.md)
+#### [Shared Database](../pattern-library/data-management/shared-database/)
 **Multiple services share one database**
 - ⚠️ **Issues**: Tight coupling, no isolation, scaling limits
-- ✅ **Migrate to**: [CQRS](../pattern-library/data-management/cqrs/index.md) + Service Isolation
+- ✅ **Migrate to**: [CQRS](../pattern-library/data-management/cqrs/) + Service Isolation
 - 📊 **Migration Effort**: Very High
 - 💡 **Still Valid For**: Small, simple systems
 
-#### [Data Lake](../pattern-library/data-management/data-lake/index.md)
+#### [Data Lake](../pattern-library/data-management/data-lake/)
 **Store everything, figure it out later**
 - ⚠️ **Issues**: Data swamp risk, governance challenges
 - ✅ **Migrate to**: Data Mesh or structured lakehouse architecture
@@ -89,7 +89,7 @@ description: Patterns to migrate away from, with clear paths to modern alternati
 
 <div class="pattern-category bronze-coord">
 
-#### [Actor Model](../pattern-library/coordination/actor-model/index.md)
+#### [Actor Model](../pattern-library/coordination/actor-model/)
 **Isolated actors communicate via messages**
 - ⚠️ **Issues**: Debugging complexity, state management
 - ✅ **Migrate to**: Event-driven microservices with clear boundaries
@@ -136,13 +136,13 @@ description: Patterns to migrate away from, with clear paths to modern alternati
 
 **Ready to migrate?** Check out our detailed migration guides:
 
-- [Monolith to Microservices](../migrations/monolith-to-microservices/index.md)
-- [Shared Database to Service Isolation](../migrations/shared-database-to-microservices/index.md)
-- [Batch to Streaming](../migrations/batch-to-streaming/index.md)
+- [Monolith to Microservices](../migrations/monolith-to-microservices/)
+- [Shared Database to Service Isolation](../migrations/shared-database-to-microservices/)
+- [Batch to Streaming](../migrations/batch-to-streaming/)
 
 **Need the modern alternatives?** Explore our Gold and Silver patterns:
 
-- [View Gold Patterns](../gold-patterns/index.md) - Battle-tested solutions
-- [View Silver Patterns](../silver-patterns/index.md) - Specialized patterns
+- [View Gold Patterns](../gold-patterns/) - Battle-tested solutions
+- [View Silver Patterns](../silver-patterns/) - Specialized patterns
 
 </div>

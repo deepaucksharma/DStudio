@@ -417,8 +417,8 @@ graph LR
 
 ## References
 
-- [Istio Architecture](https://istio.io/latest/docs/ops/deployment/architecture/index.md)
-- [Linkerd Architecture](https://linkerd.io/2/reference/architecture/index.md)
-- [Consul Connect](https://www.consul.io/docs/connect/index.md)
-- [CNCF Service Mesh Landscape](https://landscape.cncf.io/card-mode?category=service-mesh/index.md)
-- [Service Mesh Comparison](https://servicemesh.es/index.md)
+- [Istio Architecture](https://istio.io/latest/docs/ops/deployment/architecture/)
+- [Linkerd Architecture](https://linkerd.io/2/reference/architecture/)
+- [Consul Connect](https://www.consul.io/docs/connect/)
+- [CNCF Service Mesh Landscape](https://landscape.cncf.io/card-mode?category=service-mesh/)
+- [Service Mesh Comparison](https://servicemesh.es/)

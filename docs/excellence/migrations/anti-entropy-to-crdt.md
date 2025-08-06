@@ -463,8 +463,8 @@ crdt_convergence_time_seconds
 
 ## References
 
-- [CRDTs: Consistency without Concurrency Control](https://hal.inria.fr/inria-00397981/index.md)
-- [A Comprehensive Study of CRDTs](https://hal.inria.fr/inria-00555588/index.md)
-- [Automerge: A JSON-like CRDT](https://github.com/automerge/automerge/index.md)
-- [Redis CRDT](https://redis.com/redis-enterprise/technology/active-active-geo-distribution/index.md)
-- [Riak Data Types](https://riak.com/posts/technical/crdts-in-riak-2-0/index.md)
+- [CRDTs: Consistency without Concurrency Control](https://hal.inria.fr/inria-00397981/)
+- [A Comprehensive Study of CRDTs](https://hal.inria.fr/inria-00555588/)
+- [Automerge: A JSON-like CRDT](https://github.com/automerge/automerge/)
+- [Redis CRDT](https://redis.com/redis-enterprise/technology/active-active-geo-distribution/)
+- [Riak Data Types](https://riak.com/posts/technical/crdts-in-riak-2-0/)

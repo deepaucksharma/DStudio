@@ -25,9 +25,9 @@ Computational geometry provides algorithms and data structures for solving geome
 - Spatial join operations
 
 ## Related Models
-- [Spatial Statistics](../architects-handbook/quantitative-analysis/spatial-stats.md)
-- [Graph Theory](../architects-handbook/quantitative-analysis/graph-theory.md)
-- [Time Complexity](../architects-handbook/quantitative-analysis/time-complexity.md)
+- [Spatial Statistics](../quantitative-analysis/spatial-stats.md)
+- [Graph Theory](../quantitative-analysis/graph-theory.md)
+- [Time Complexity](../quantitative-analysis/time-complexity.md)
 
 ## References
 - "Computational Geometry: Algorithms and Applications" - de Berg et al. (2008)

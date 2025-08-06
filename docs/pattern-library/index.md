@@ -300,7 +300,7 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-lan:{ .lg } **[Communication Patterns](communication/index.md)** (9 patterns)
+- :material-lan:{ .lg } **[Communication Patterns](communication/)** (9 patterns)
     
     ---
     
@@ -310,7 +310,7 @@ graph LR
     
     💡 **Best For**: Microservices, real-time systems, event-driven architectures
 
-- :material-shield-check:{ .lg } **[Resilience Patterns](resilience/index.md)** (12 patterns)
+- :material-shield-check:{ .lg } **[Resilience Patterns](resilience/)** (12 patterns)
     
     ---
     
@@ -360,7 +360,7 @@ graph LR
     
     💡 **Best For**: Coordination, distributed state management, consistency guarantees
 
-- :material-security:{ .lg } **[Security Patterns](security/index.md)** (5 patterns)
+- :material-security:{ .lg } **[Security Patterns](security/)** (5 patterns)
     
     ---
     
@@ -370,7 +370,7 @@ graph LR
     
     💡 **Best For**: Security-critical systems, compliance requirements, threat mitigation
 
-- :material-rocket-launch:{ .lg } **[Deployment Patterns](deployment/index.md)** (5 patterns)
+- :material-rocket-launch:{ .lg } **[Deployment Patterns](deployment/)** (5 patterns)
     
     ---
     
@@ -380,7 +380,7 @@ graph LR
     
     💡 **Best For**: Continuous delivery, risk mitigation, feature management
 
-- :material-currency-usd:{ .lg } **[Cost Optimization Patterns](cost-optimization/index.md)** (2 patterns)
+- :material-currency-usd:{ .lg } **[Cost Optimization Patterns](cost-optimization/)** (2 patterns)
     
     ---
     

@@ -46,17 +46,17 @@ By completing this path, you will:
  
  Essential concepts:
  
- - [Latency Ladder](quantitative/latency-ladder/index.md) - Know your numbers
- - [Little's Law](../architects-handbook/quantitative-analysis/littles-law.mdindex.md) - Queue theory basics
- - [Universal Scalability Law](../architects-handbook/quantitative-analysis/universal-scalability.mdindex.md) - Scaling limits
+ - [Latency Ladder](quantitative/latency-ladder/) - Know your numbers
+ - [Little's Law](../quantitative-analysis/littles-law.mdindex.md) - Queue theory basics
+ - [Universal Scalability Law](../quantitative-analysis/universal-scalability.mdindex.md) - Scaling limits
 
 - **Measurement & Analysis**
  
  Quantify performance:
  
- - [Performance Modeling](quantitative/performance-modeling/index.md) - Predict behavior
- - [Queueing Models](quantitative/queueing-models/index.md) - Analyze bottlenecks
- - [Capacity Planning](../architects-handbook/quantitative-analysis/capacity-planning.mdindex.md) - Resource estimation
+ - [Performance Modeling](quantitative/performance-modeling/) - Predict behavior
+ - [Queueing Models](quantitative/queueing-models/) - Analyze bottlenecks
+ - [Capacity Planning](../quantitative-analysis/capacity-planning.mdindex.md) - Resource estimation
 
 </div>
 
@@ -90,10 +90,10 @@ By completing this path, you will:
 
 #### Week 3: Load Distribution
 
-- [Load Balancing](../pattern-library/scaling/load-balancing/index.md) - Traffic distribution
-- [Sharding](../pattern-library/scaling/sharding/index.md) - Data partitioning
-- [Request Routing](../pattern-library/request-routing.md/index.md) - Smart routing
-- [Scatter Gather](../pattern-library/scaling/scatter-gather/index.md) - Parallel processing
+- [Load Balancing](../pattern-library/scaling/load-balancing/) - Traffic distribution
+- [Sharding](../pattern-library/scaling/sharding/) - Data partitioning
+- [Request Routing](../pattern-library/request-routing.md/) - Smart routing
+- [Scatter Gather](../pattern-library/scaling/scatter-gather/) - Parallel processing
 
 ### Phase 3: Scaling Strategies (2 weeks)
 
@@ -104,33 +104,33 @@ By completing this path, you will:
 
 === "Service Scaling"
  Scale your application tier:
- - [Auto-Scaling](../pattern-library/scaling/auto-scaling/index.md) - Dynamic capacity
- - [Service Mesh](../pattern-library/communication/service-mesh/index.md) - Service management
- - [Bulkhead](../pattern-library/resilience/bulkhead/index.md) - Resource isolation
- - **Case Study**: [Netflix Architecture](../netflix-streaming/index.md)
+ - [Auto-Scaling](../pattern-library/scaling/auto-scaling/) - Dynamic capacity
+ - [Service Mesh](../pattern-library/communication/service-mesh/) - Service management
+ - [Bulkhead](../pattern-library/resilience/bulkhead/) - Resource isolation
+ - **Case Study**: [Netflix Architecture](../netflix-streaming/)
 
 === "Data Scaling"
  Scale your data tier:
- - [Geo-Replication](../pattern-library/scaling/geo-replication/index.md) - Global distribution
- - [Multi-Region](../pattern-library/scaling/multi-region/index.md) - Active-active
+ - [Geo-Replication](../pattern-library/scaling/geo-replication/) - Global distribution
+ - [Multi-Region](../pattern-library/scaling/multi-region/) - Active-active
  - Database sharding strategies
- - **Case Study**: [Cassandra at Scale](../cassandra/index.md)
+ - **Case Study**: [Cassandra at Scale](../cassandra/)
 
 === "Message Scaling"
  Scale your messaging layer:
- - [Event Streaming](../pattern-library/architecture/event-streaming/index.md) - High throughput
- - [Distributed Queue](../pattern-library/coordination/distributed-queue/index.md) - Work distribution
+ - [Event Streaming](../pattern-library/architecture/event-streaming/) - High throughput
+ - [Distributed Queue](../pattern-library/coordination/distributed-queue/) - Work distribution
  - Partitioned topics (Kafka)
- - **Case Study**: [LinkedIn Kafka](../kafka/index.md)
+ - **Case Study**: [LinkedIn Kafka](../kafka/)
 
 #### Week 5: Performance Patterns
 
 Advanced optimization patterns:
 
-- [CQRS](../pattern-library/data-management/cqrs/index.md) - Optimize reads and writes separately
-- [Event Sourcing](../pattern-library/data-management/event-sourcing/index.md) - Async processing
-- [Lambda Architecture](../pattern-library/architecture/lambda-architecture/index.md) - Batch + real-time
-- [Edge Computing](../pattern-library/scaling/edge-computing/index.md) - Move compute closer
+- [CQRS](../pattern-library/data-management/cqrs/) - Optimize reads and writes separately
+- [Event Sourcing](../pattern-library/data-management/event-sourcing/) - Async processing
+- [Lambda Architecture](../pattern-library/architecture/lambda-architecture/) - Batch + real-time
+- [Edge Computing](../pattern-library/scaling/edge-computing/) - Move compute closer
 
 ### Phase 4: Production Performance (1 week)
 
@@ -142,7 +142,7 @@ Advanced optimization patterns:
 <div class="grid cards" markdown>
 
 - **Performance Monitoring**
- - [Observability](../pattern-library/observability.md/index.md)
+ - [Observability](../pattern-library/observability.md/)
  - Distributed tracing
  - Performance profiling
  - Anomaly detection
@@ -217,7 +217,7 @@ architecture:
 ### Lab 1: Latency Optimization
 ```bash
 # Measure baseline latency
-wrk -t12 -c400 -d30s http://api.example.com/endpoint
+wrk -t12 -c400 -d30s http:/api.example.com/endpoint
 
 # Implement optimizations:
 1. Add caching layer

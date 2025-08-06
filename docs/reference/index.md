@@ -269,7 +269,7 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 <div class="navigation-footer">
     <div class="navigation-prev">
-        ← [Human Factors](../architects-handbook/human-factors/index.md)
+        ← [Human Factors](../architects-handbook/human-factors/)
     </div>
     <div class="navigation-next">
         [Glossary](glossary.md) →

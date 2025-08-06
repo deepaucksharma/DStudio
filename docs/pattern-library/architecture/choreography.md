@@ -313,31 +313,31 @@ graph LR
     
     ---
     
-    - [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Audit trail for choreography
+    - [Event Sourcing](../data-management/event-sourcing.md) - Audit trail for choreography
     - [Saga Pattern](../coordination/saga.md) - Orchestrated alternative
-    - [CQRS](../pattern-library/data-management/cqrs.md) - Event-driven read/write separation
+    - [CQRS](../data-management/cqrs.md) - Event-driven read/write separation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Event timing challenges
-    - [Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md) - Unpredictable interactions
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Event timing challenges
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Unpredictable interactions
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Control Distribution](../core-principles/pillars/control-distribution/index.md) - Coordination mechanisms
-    - [Intelligence Distribution](../core-principles/pillars/intelligence-distribution/index.md) - Distributed decision making
+    - [Control Distribution](../../core-principles/pillars/control-distribution.md) - Coordination mechanisms
+    - [Intelligence Distribution](../../core-principles/pillars/intelligence-distribution.md) - Distributed decision making
 
 - :material-tools:{ .lg .middle } **Migration Guides**
     
     ---
     
-    - [Choreography to Event Streaming](../excellence/migrations/choreography-to-streaming.md)
-    - [Choreography to Saga Orchestration](../excellence/migrations/choreography-to-saga.md)
-    - [Event Bus Setup Guide](../excellence/guides/event-bus-setup.md)
+    - [Choreography to Event Streaming](../../architects-handbook/implementation-playbooks/migrations/choreography-to-streaming.md)
+    - [Choreography to Saga Orchestration](../../architects-handbook/implementation-playbooks/migrations/choreography-to-saga.md)
+    - [Event Bus Setup Guide](../../architects-handbook/implementation-playbooks/guides/event-bus-setup.md)
 
 </div>
 

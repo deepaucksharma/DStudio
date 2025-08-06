@@ -168,9 +168,9 @@ Real-time ranking system for gaming with millions of players and frequent score 
 - [Rate Limiting](../../pattern-library/scaling/rate-limiting.md) - API protection
 
 ### Quantitative Analysis
-- [Information Theory](../architects-handbook/quantitative-analysis/information-theory.md) - Search relevance metrics
-- [Graph Theory](../architects-handbook/quantitative-analysis/graph-theory.md) - PageRank and link analysis
-- [Machine Learning](../architects-handbook/quantitative-analysis/ml-systems.md) - Recommendation algorithms
+- [Information Theory](../quantitative-analysis/information-theory.md) - Search relevance metrics
+- [Graph Theory](../quantitative-analysis/graph-theory.md) - PageRank and link analysis
+- [Machine Learning](../quantitative-analysis/ml-systems.md) - Recommendation algorithms
 
 ### Human Factors
 - [A/B Testing](../architects-handbook/human-factors/ab-testing.md) - Search relevance optimization

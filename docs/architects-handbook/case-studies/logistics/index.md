@@ -234,9 +234,9 @@ Logistics systems frequently implement these distributed system patterns:
 ---
 
 **Explore Related Domains**:
-- **[Location Services](../location-services/index.md)**: GPS tracking and mapping systems
-- **[Infrastructure](../infrastructure/index.md)**: Distributed systems and scaling patterns
-- **[Monitoring & Observability](../monitoring-observability/index.md)**: System monitoring and analytics
-- **[Search & Analytics](../search-analytics/index.md)**: Data analytics and business intelligence
+- **[Location Services](../location-services/)**: GPS tracking and mapping systems
+- **[Infrastructure](../infrastructure/)**: Distributed systems and scaling patterns
+- **[Monitoring & Observability](../monitoring-observability/)**: System monitoring and analytics
+- **[Search & Analytics](../search-analytics/)**: Data analytics and business intelligence
 
 *Last Updated: August 2025 | 3 Case Studies*

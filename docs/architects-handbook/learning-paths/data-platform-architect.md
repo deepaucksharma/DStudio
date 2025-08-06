@@ -121,7 +121,7 @@ outcomes:
 </div>
 
 !!! tip "Data Platform Readiness Assessment"
-    Take our comprehensive [Data Platform Skills Assessment](../tools/data-platform-readiness/index.md) to identify your strengths and customize your learning journey.
+    Take our comprehensive [Data Platform Skills Assessment](../tools/data-platform-readiness/) to identify your strengths and customize your learning journey.
 
 ## 🗺️ Detailed Curriculum
 

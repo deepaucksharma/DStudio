@@ -90,4 +90,4 @@ For new systems, implement patterns in this order:
 
 ---
 
-*Return to the [Pattern Library](../index.md) or explore [Communication Patterns](../../pattern-library/communication.md/index.md).*
+*Return to the [Pattern Library](../) or explore [Communication Patterns](../../pattern-library/communication.md/).*

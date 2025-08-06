@@ -201,8 +201,8 @@ api_gateway_config:
   authentication:
     providers:
       - jwt:
-          issuer: https://auth.company.com
-          jwks_uri: https://auth.company.com/.well-known/jwks.json
+          issuer: https:/auth.company.com
+          jwks_uri: https:/auth.company.com/.well-known/jwks.json
       - api_key:
           header: X-API-Key
           query_param: api_key
@@ -506,7 +506,7 @@ class SecurityMonitor:
 ## Resources
 
 - [Zero Trust Architecture](../pattern-library/zero-trust.md)
-- [API Gateway Pattern](../../pattern-library/communication/api-gateway/index.md) (Gold)
-- [Service Mesh Pattern](../../pattern-library/communication/service-mesh/index.md) (Gold)
-- [Valet Key Pattern](../../pattern-library/architecture/valet-key/index.md)
+- [API Gateway Pattern](../../pattern-library/communication/api-gateway/) (Gold)
+- [Service Mesh Pattern](../../pattern-library/communication/service-mesh/) (Gold)
+- [Valet Key Pattern](../../pattern-library/architecture/valet-key/)
 - [Security Best Practices](../reference/security.md)

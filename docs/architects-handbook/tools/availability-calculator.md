@@ -206,9 +206,9 @@ A_total = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
 
 ## Related Resources
 
-- [Availability Math Deep Dive](quantitative/availability-math/index.md)
-- [MTBF and MTTR Explained](quantitative/mtbf-mttr/index.md)
-- [Failover Pattern](../pattern-library/resilience/failover/index.md)
+- [Availability Math Deep Dive](quantitative/availability-math/)
+- [MTBF and MTTR Explained](quantitative/mtbf-mttr/)
+- [Failover Pattern](../pattern-library/resilience/failover/)
 - Multi-Region Architecture (Coming Soon)
 - [Chaos Engineering](../architects-handbook/human-factors/chaos-engineering.md)
 

@@ -1,5 +1,5 @@
 ---
-title: Capacity Calculator - Redirect
+title: Capacity Calculator
 redirect_to: /architects-handbook/tools/capacity-calculator/
 ---
 

@@ -232,5 +232,5 @@ This maps to category theory where services are categories and federation is a f
 
 ---
 
-**Previous**: [← API Gateway](../architecture/api-gateway.md) | **Next**: [Event Streaming →](../pattern-library/architecture/event-streaming.md)
+**Previous**: [← API Gateway](../architecture/api-gateway.md) | **Next**: [Event Streaming →](../architecture/event-streaming.md)
 

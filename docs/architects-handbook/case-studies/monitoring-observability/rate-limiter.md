@@ -1523,17 +1523,17 @@ graph TB
 ### 📚 References
 
 **Papers & Articles:**
-- [Rate Limiting at Stripe](https://stripe.com/blog/rate-limiters/index.md)
-- [How we built rate limiting capable of scaling to millions](https://blog.figma.com/rate-limiting-at-figma-8c5a5d376dc8/index.md)
-- [Distributed Rate Limiting at Netflix](https://netflixtechblog.com/distributed-rate-limiting-5348c0cfb19a/index.md)
+- [Rate Limiting at Stripe](https:/stripe.com/blog/rate-limiters/)
+- [How we built rate limiting capable of scaling to millions](https:/blog.figma.com/rate-limiting-at-figma-8c5a5d376dc8/)
+- [Distributed Rate Limiting at Netflix](https:/netflixtechblog.com/distributed-rate-limiting-5348c0cfb19a/)
 
 **Open Source Implementations:**
-- [Ratelimit](https://github.com/envoyproxy/ratelimit/index.md) - Go/gRPC rate limiting service
-- [Redis Cell](https://github.com/brandur/redis-cell/index.md) - Redis module for rate limiting
-- [Gubernator](https://github.com/mailgun/gubernator/index.md) - High-performance distributed rate limiting
+- [Ratelimit](https:/github.com/envoyproxy/ratelimit/) - Go/gRPC rate limiting service
+- [Redis Cell](https:/github.com/brandur/redis-cell/) - Redis module for rate limiting
+- [Gubernator](https:/github.com/mailgun/gubernator/) - High-performance distributed rate limiting
 
 **Related Patterns:**
-- [Token Bucket Algorithm](../pattern-library/scaling/rate-limiting/index.md)
+- [Token Bucket Algorithm](../pattern-library/scaling/rate-limiting/)
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
 - [Consistent Hashing](../consistent-hashing.md)
 - Gossip Protocol (Coming Soon)
@@ -1541,34 +1541,34 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I.md)
-- **[Law 1: Correlated Failure ](../core-principles/laws/correlated-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 2: Asynchronous Reality ](../core-principles/laws/asynchronous-reality/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 3: Emergent Chaos ](../core-principles/laws/emergent-chaos/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 4: Multidimensional Trade-offs ](../core-principles/laws/multidimensional-optimization/index.md)** - Rate limiting protects backend capacity from overload
-- **[Law 5: Distributed Knowledge ](../core-principles/laws/distributed-knowledge/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Cognitive Load ](../core-principles/laws/cognitive-load/index.md)** - Clear error messages with retry-after headers and operational dashboards
-- **[Law 7: Economic Reality ](../core-principles/laws/economic-reality/index.md)** - Local caching reduces infrastructure costs by 80%
+- **[Law 1: Correlated Failure ](../../core-principles/laws/correlated-failure.md)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 2: Asynchronous Reality ](../../core-principles/laws/asynchronous-reality.md)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 3: Emergent Chaos ](../../core-principles/laws/emergent-chaos.md)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 4: Multidimensional Trade-offs ](../../core-principles/laws/multidimensional-optimization.md)** - Rate limiting protects backend capacity from overload
+- **[Law 5: Distributed Knowledge ](../../core-principles/laws/distributed-knowledge.md)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Cognitive Load ](../../core-principles/laws/cognitive-load.md)** - Clear error messages with retry-after headers and operational dashboards
+- **[Law 7: Economic Reality ](../../core-principles/laws/economic-reality.md)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛 Related Patterns (Part III/index)
-- **[Rate Limiting](../pattern-library/scaling/rate-limiting/index.md)** - Core pattern implemented with token bucket algorithm
+- **[Rate Limiting](../pattern-library/scaling/rate-limiting/)** - Core pattern implemented with token bucket algorithm
 - **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Protects rate limiter from Redis failures
-- **[Bulkhead](../pattern-library/resilience/bulkhead/index.md)** - Isolates rate limit pools per tenant/API
-- **[Consistent Hashing](../pattern-library/scaling/sharding/index.md)** - Distributes users across rate limiter nodes
-- **[Caching Strategies](../pattern-library/scaling/caching-strategies/index.md)** - Local cache with TTL for performance
-- **[Health Check](../pattern-library/resilience/health-check/index.md)** - Monitors Redis connectivity and accuracy
-- **[Load Shedding](../pattern-library/resilience/load-shedding/index.md)** - Drops low-priority requests under extreme load
+- **[Bulkhead](../pattern-library/resilience/bulkhead/)** - Isolates rate limit pools per tenant/API
+- **[Consistent Hashing](../pattern-library/scaling/sharding/)** - Distributes users across rate limiter nodes
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies/)** - Local cache with TTL for performance
+- **[Health Check](../pattern-library/resilience/health-check/)** - Monitors Redis connectivity and accuracy
+- **[Load Shedding](../pattern-library/resilience/load-shedding/)** - Drops low-priority requests under extreme load
 
 ### Quantitative Models
-- **[Little's Law](../architects-handbook/quantitative-analysis/littles-law/index.md)** - Queue depth = arrival rate × processing time for pending checks
-- **[Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models/index.md)** - M/M/c model for rate limiter node sizing
+- **[Little's Law](../quantitative-analysis/littles-law/)** - Queue depth = arrival rate × processing time for pending checks
+- **[Queueing Theory](../quantitative-analysis/queueing-models/)** - M/M/c model for rate limiter node sizing
 - **CAP Theorem (Coming Soon)** - AP choice: available during partitions with approximate counts
-- **[Bloom Filters](../architects-handbook/quantitative-analysis/probabilistic-structures/index.md)** - Space-efficient first-time user detection
+- **[Bloom Filters](../quantitative-analysis/probabilistic-structures/)** - Space-efficient first-time user detection
 
 ### 👥 Human Factors Considerations
-- **[On-Call Culture](../architects-handbook/human-factors/oncall-culture/index.md)** - Rate limiter failures directly impact users
-- **[Incident Response](../architects-handbook/human-factors/incident-response/index.md)** - Runbooks for common scenarios (Redis failure, DDoS)
-- **[Observability Tools](../architects-handbook/human-factors/observability-stacks/index.md)** - Dashboards show rate limit utilization per API/user
-- **[Capacity Planning](../architects-handbook/quantitative-analysis/capacity-planning/index.md)** - Predicting rate limit needs based on growth
+- **[On-Call Culture](../architects-handbook/human-factors/oncall-culture/)** - Rate limiter failures directly impact users
+- **[Incident Response](../architects-handbook/human-factors/incident-response/)** - Runbooks for common scenarios (Redis failure, DDoS)
+- **[Observability Tools](../architects-handbook/human-factors/observability-stacks/)** - Dashboards show rate limit utilization per API/user
+- **[Capacity Planning](../quantitative-analysis/capacity-planning/)** - Predicting rate limit needs based on growth
 
 ### Similar Case Studies
 - **[Amazon DynamoDB](../amazon-dynamo.md)** - Similar distributed counting challenges

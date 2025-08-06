@@ -449,4 +449,4 @@ Learning: Operational insights
 
 ---
 
-*Next: Explore how [Finance](../../engineering-leadership/level-2-core-business/finance/index.md) provides the language and tools to quantify operational value.*
+*Next: Explore how [Finance](../../engineering-leadership/level-2-core-business/finance/) provides the language and tools to quantify operational value.*

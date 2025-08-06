@@ -105,7 +105,7 @@ outcomes:
 </div>
 
 !!! tip "Blockchain Readiness Check"
-    Complete our [Blockchain Development Assessment](../tools/blockchain-readiness-quiz/index.md) to gauge your preparation.
+    Complete our [Blockchain Development Assessment](../tools/blockchain-readiness-quiz/) to gauge your preparation.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -127,7 +127,7 @@ outcomes:
     - [ ] Learn transaction validation and block creation
     
     **Day 1-2**: Blockchain Data Structures
-    - 📖 Read: [Blockchain fundamentals](../../pattern-library/blockchain/blockchain-basics/index.md), hash pointers, Merkle trees
+    - 📖 Read: [Blockchain fundamentals](../../pattern-library/blockchain/blockchain-basics/), hash pointers, Merkle trees
     - 🛠️ Lab: Implement basic blockchain with Python/JavaScript
     - 📊 Success: Working blockchain with block validation
     - ⏱️ Time: 8-10 hours
@@ -632,16 +632,16 @@ outcomes:
 ### Development Resources
 
 **Blockchain Frameworks**:
-- [Hardhat Development Environment](https://hardhat.org/docs/index.md)
-- [Foundry Toolkit](https://book.getfoundry.sh/index.md)
-- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts/index.md)
-- [Ethereum Developer Portal](https://ethereum.org/en/developers/index.md)
+- [Hardhat Development Environment](https:/hardhat.org/docs/)
+- [Foundry Toolkit](https:/book.getfoundry.sh/)
+- [OpenZeppelin Contracts](https:/docs.openzeppelin.com/contracts/)
+- [Ethereum Developer Portal](https:/ethereum.org/en/developers/)
 
 **DeFi & Web3 Libraries**:
-- [Web3.js Documentation](https://web3js.readthedocs.io/index.md)
-- [Ethers.js Documentation](https://docs.ethers.io/index.md)
-- [Uniswap SDK](https://docs.uniswap.org/sdk/introduction/index.md)
-- [IPFS Documentation](https://docs.ipfs.io/index.md)
+- [Web3.js Documentation](https:/web3js.readthedocs.io/)
+- [Ethers.js Documentation](https:/docs.ethers.io/)
+- [Uniswap SDK](https:/docs.uniswap.org/sdk/introduction/)
+- [IPFS Documentation](https:/docs.ipfs.io/)
 
 ## 🏁 Capstone: Complete Blockchain Ecosystem
 

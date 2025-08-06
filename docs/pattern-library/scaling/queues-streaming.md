@@ -301,11 +301,11 @@ graph TD
 
  This pattern directly addresses:
 
- 1. **[Law 4 (Multidimensional Optimization ⚖️)](../core-principles/laws/multidimensional-optimization/index.md)**: Buffers handle capacity mismatches
- 2. **[Law 2 (Asynchronous Reality ⏳/index)](../core-principles/laws/asynchronous-reality/index.md)**: Decoupling reduces blocking
- 3. **[Law 1 (Correlated Failure ⛓️/index)](../core-principles/laws/correlated-failure/index.md)**: Messages survive consumer failures
- 4. **[Law 4 (Multidimensional Optimization ⚖️/index)](../core-principles/laws/multidimensional-optimization/index.md)**: Async coordination via messages
- 5. **[Law 5 (Distributed Knowledge 🧠/index)](core-principles/laws/distributed-knowledge/index.md)**: Message flow visibility
+ 1. **[Law 4 (Multidimensional Optimization ⚖️)](../../core-principles/laws/multidimensional-optimization.md)**: Buffers handle capacity mismatches
+ 2. **[Law 2 (Asynchronous Reality ⏳/index)](../../core-principles/laws/asynchronous-reality.md)**: Decoupling reduces blocking
+ 3. **[Law 1 (Correlated Failure ⛓️/index)](../../core-principles/laws/correlated-failure.md)**: Messages survive consumer failures
+ 4. **[Law 4 (Multidimensional Optimization ⚖️/index)](../../core-principles/laws/multidimensional-optimization.md)**: Async coordination via messages
+ 5. **[Law 5 (Distributed Knowledge 🧠/index)](core-principles/laws/distributed-knowledge.md)**: Message flow visibility
 
 ### Future Directions
 
@@ -357,15 +357,15 @@ graph TD
 - [Circuit Breaker](../resilience/circuit-breaker.md) - Protect consumers
 
 ### Laws
-- [Law 4 (Multidimensional Optimization )](../core-principles/laws/multidimensional-optimization/index.md) - Why buffering matters
-- [Law 2 (Asynchronous Reality /index)](../core-principles/laws/asynchronous-reality/index.md) - Async vs sync trade-offs
-- [Law 1 (Correlated Failure /index)](core-principles/laws/correlated-failure/index.md) - Message durability
+- [Law 4 (Multidimensional Optimization )](../../core-principles/laws/multidimensional-optimization.md) - Why buffering matters
+- [Law 2 (Asynchronous Reality /index)](../../core-principles/laws/asynchronous-reality.md) - Async vs sync trade-offs
+- [Law 1 (Correlated Failure /index)](core-principles/laws/correlated-failure.md) - Message durability
 
 ### Further Reading
-- [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/index.md) - O'Reilly
-- [Designing Data-Intensive Applications](https://dataintensive.net/index.md) - Chapter 11 on streams
-- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/index.md) - Messaging patterns
-- [AWS SQS Best Practices](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html/index.md)
+- [Kafka: The Definitive Guide](https:/www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly
+- [Designing Data-Intensive Applications](https:/dataintensive.net/) - Chapter 11 on streams
+- [Enterprise Integration Patterns](https:/www.enterpriseintegrationpatterns.com/) - Messaging patterns
+- [AWS SQS Best Practices](https:/docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html/)
 
 ### Tools & Libraries
 - **Message Queues**: RabbitMQ, AWS SQS, Azure Service Bus, Redis

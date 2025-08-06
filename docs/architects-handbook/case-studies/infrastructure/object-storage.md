@@ -910,7 +910,7 @@ watch -n 60 's3-admin rebalance status --cluster $CLUSTER_ID'
 
 ## References
 
-- [Amazon S3: Building a Storage Service](https://www.allthingsdistributed.com/2023/07/building-and-operating-a-pretty-big-storage-system.html/index.md)
-- [Facebook's f4: Warm BLOB Storage](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-muralidhar.pdf/index.md)
-- [Windows Azure Storage: A Highly Available Cloud Storage Service](https://www.microsoft.com/en-us/research/publication/windows-azure-storage-a-highly-available-cloud-storage-service-with-strong-consistency/index.md)
-- [Backblaze Hard Drive Stats](https://www.backblaze.com/blog/backblaze-drive-stats-for-2023/index.md)
+- [Amazon S3: Building a Storage Service](https://www.allthingsdistributed.com/2023/07/building-and-operating-a-pretty-big-storage-system.html/)
+- [Facebook's f4: Warm BLOB Storage](https://www.usenix.org/system/files/conference/osdi14/osdi14-paper-muralidhar.pdf/)
+- [Windows Azure Storage: A Highly Available Cloud Storage Service](https://www.microsoft.com/en-us/research/publication/windows-azure-storage-a-highly-available-cloud-storage-service-with-strong-consistency/)
+- [Backblaze Hard Drive Stats](https://www.backblaze.com/blog/backblaze-drive-stats-for-2023/)

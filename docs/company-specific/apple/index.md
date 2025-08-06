@@ -22,6 +22,6 @@ This guide will provide detailed insights into Apple's engineering leadership in
 ---
 
 **Related Resources:**
-- [Engineering Leadership Framework](../interview-prep/engineering-leadership/index.md)
-- [Interview Execution Guide](../interview-prep/engineering-leadership/level-4-interview-execution/index.md)
-- [Practice Scenarios](../interview-prep/engineering-leadership/practice-scenarios/index.md)
+- [Engineering Leadership Framework](../interview-prep/engineering-leadership/)
+- [Interview Execution Guide](../interview-prep/engineering-leadership/level-4-interview-execution/)
+- [Practice Scenarios](../interview-prep/engineering-leadership/practice-scenarios/)

@@ -85,17 +85,17 @@ By completing this path, you will:
  
  ---
  
- **Day 1-2**: [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md)
+ **Day 1-2**: [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md)
  - 🎯 Learn: Why redundancy isn't enough
  - 🛠️ Practice: Identify correlated failures in AWS outages
  - ⏱️ Time: 3-4 hours
  
- **Day 3-4**: [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md)
+ **Day 3-4**: [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md)
  - 🎯 Learn: Network delays and timeouts
  - 🛠️ Practice: Build a timeout simulator
  - ⏱️ Time: 3-4 hours
  
- **Day 5-7**: [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos/index.md)
+ **Day 5-7**: [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos.md)
  - 🎯 Learn: Complex behaviors from simple rules
  - 🛠️ Practice: Trace a cascade failure
  - ⏱️ Time: 4-5 hours
@@ -104,17 +104,17 @@ By completing this path, you will:
  
  ---
  
- **Day 8-9**: [Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization/index.md)
+ **Day 8-9**: [Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization.md)
  - 🎯 Learn: CAP theorem in depth
  - 🛠️ Practice: Design trade-off matrices
  - ⏱️ Time: 3-4 hours
  
- **Day 10-11**: [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md)
+ **Day 10-11**: [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md)
  - 🎯 Learn: Consensus and coordination
  - 🛠️ Practice: Implement vector clocks
  - ⏱️ Time: 4-5 hours
  
- **Day 12-14**: [Law 6: Cognitive Load](../../core-principles/laws/cognitive-load/index.md)
+ **Day 12-14**: [Law 6: Cognitive Load](../../core-principles/laws/cognitive-load.md)
  - 🎯 Learn: Why simple systems win
  - 🛠️ Practice: Simplify a complex design
  - ⏱️ Time: 3-4 hours
@@ -123,12 +123,12 @@ By completing this path, you will:
  
  ---
  
- **Day 15-16**: [Law 7: Economic Reality](../../core-principles/laws/economic-reality/index.md)
+ **Day 15-16**: [Law 7: Economic Reality](../../core-principles/laws/economic-reality.md)
  - 🎯 Learn: Cost-driven architecture
  - 🛠️ Practice: Calculate system costs
  - ⏱️ Time: 3-4 hours
  
- **Day 17-21**: [The 5 Pillars Overview](../../core-principles/pillars.md/index.md)
+ **Day 17-21**: [The 5 Pillars Overview](../../core-principles/pillars.md/)
  - 🎯 Learn: Distribution strategies
  - 🛠️ Practice: Map pillars to real systems
  - ⏱️ Time: 8-10 hours
@@ -242,22 +242,22 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 22-23**: [Timeout](../pattern-library/resilience/timeout/index.md)
+ **Day 22-23**: [Timeout](../pattern-library/resilience/timeout/)
  - 🎯 Problem: Hanging requests
  - 🛠️ Build: Timeout wrapper function
  - 📊 Success: Handle 95% of network issues
  
- **Day 24-25**: [Retry & Backoff](../pattern-library/resilience/retry-backoff/index.md)
+ **Day 24-25**: [Retry & Backoff](../pattern-library/resilience/retry-backoff/)
  - 🎯 Problem: Transient failures
  - 🛠️ Build: Exponential backoff library
  - 📊 Success: Recover from 80% of failures
  
- **Day 26-28**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)
+ **Day 26-28**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker/)
  - 🎯 Problem: Cascade failures
  - 🛠️ Build: Circuit breaker class
  - 📊 Success: Prevent system-wide outages
  
- **Day 29-30**: [Health Check](../pattern-library/resilience/health-check/index.md)
+ **Day 29-30**: [Health Check](../pattern-library/resilience/health-check/)
  - 🎯 Problem: Silent failures
  - 🛠️ Build: Health monitoring endpoint
  - 📊 Success: Detect issues in < 30s
@@ -270,17 +270,17 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 31-32**: [Caching Strategies](../pattern-library/scaling/caching-strategies/index.md)
+ **Day 31-32**: [Caching Strategies](../pattern-library/scaling/caching-strategies/)
  - 🎯 Problem: Slow repeated queries
  - 🛠️ Build: LRU cache with TTL
  - 📊 Success: 10x performance boost
  
- **Day 33-35**: [CQRS](../pattern-library/data-management/cqrs/index.md)
+ **Day 33-35**: [CQRS](../pattern-library/data-management/cqrs/)
  - 🎯 Problem: Read/write conflicts
  - 🛠️ Build: Separate read/write models
  - 📊 Success: Scale reads independently
  
- **Day 36-37**: [Event Sourcing](../pattern-library/data-management/event-sourcing/index.md)
+ **Day 36-37**: [Event Sourcing](../pattern-library/data-management/event-sourcing/)
  - 🎯 Problem: Lost state changes
  - 🛠️ Build: Event log system
  - 📊 Success: Complete audit trail
@@ -293,17 +293,17 @@ gantt
  
  **Pattern Schedule**:
  
- **Day 38-39**: [Load Balancing](../pattern-library/scaling/load-balancing/index.md)
+ **Day 38-39**: [Load Balancing](../pattern-library/scaling/load-balancing/)
  - 🎯 Problem: Uneven work distribution
  - 🛠️ Build: Round-robin balancer
  - 📊 Success: Even load across servers
  
- **Day 40-41**: [Service Discovery](../pattern-library/communication/service-discovery/index.md)
+ **Day 40-41**: [Service Discovery](../pattern-library/communication/service-discovery/)
  - 🎯 Problem: Finding services
  - 🛠️ Build: Service registry
  - 📊 Success: Dynamic service location
  
- **Day 42**: [API Gateway](../pattern-library/communication/api-gateway/index.md)
+ **Day 42**: [API Gateway](../pattern-library/communication/api-gateway/)
  - 🎯 Problem: Multiple entry points
  - 🛠️ Build: Simple gateway
  - 📊 Success: Single API surface
@@ -342,19 +342,19 @@ gantt
  **Learn from the Best**:
  
  **Days 43-46**: System Analysis
- - 📖 Study: [WhatsApp Architecture](../chat-system/index.md)
+ - 📖 Study: [WhatsApp Architecture](../chat-system/)
    - 2B users, 100B messages/day
    - Identify: Which patterns do they use?
    - Design: Your own chat system
  
  **Days 47-50**: Build Something
- - 🛠️ Project: [URL Shortener](../url-shortener/index.md)
+ - 🛠️ Project: [URL Shortener](../url-shortener/)
    - Requirements: 100M URLs, < 50ms latency
    - Implement: Sharding, caching, analytics
    - Deploy: Actually run it!
  
  **Days 51-53**: Advanced Design
- - 🧩 Challenge: [Distributed KV Store](../key-value-store/index.md)
+ - 🧩 Challenge: [Distributed KV Store](../key-value-store/)
    - Like Redis but distributed
    - Consistent hashing, replication
    - Compare with DynamoDB
@@ -365,17 +365,17 @@ gantt
  
  **Engineering is Numbers**:
  
- **Day 54**: [Latency Ladder](quantitative/latency-ladder/index.md)
+ **Day 54**: [Latency Ladder](quantitative/latency-ladder/)
  - 📊 Memorize: L1 cache = 1ns, Network = 150ms
  - 🛠️ Calculate: Your system's latency budget
  - 🎯 Goal: Estimate any operation's time
  
- **Day 55**: [Little's Law](../architects-handbook/quantitative-analysis/littles-law.mdindex.md)
+ **Day 55**: [Little's Law](../quantitative-analysis/littles-law.mdindex.md)
  - 📊 Formula: L = λW
  - 🛠️ Apply: Size your thread pools
  - 🎯 Goal: Predict queue behavior
  
- **Day 56-57**: [CAP Theorem](quantitative/cap-theorem/index.md)
+ **Day 56-57**: [CAP Theorem](quantitative/cap-theorem/)
  - 📊 Understand: The triangle of trade-offs
  - 🛠️ Design: CP vs AP systems
  - 🎯 Goal: Make informed choices
@@ -506,13 +506,13 @@ Use this checklist to track your progress:
        - Blog about your learning
     
     2. **Join Communities**
-       - [r/DistributedSystems](https://reddit.com/r/distributedsystems/index.md)
+       - [r/DistributedSystems](https:/reddit.com/r/distributedsystems/)
        - [System Design Discord](#)
        - Local meetups
     
     3. **Keep Learning**
        - Read one paper/week
-       - Follow [Morning Paper](https://blog.acolyer.org/index.md)
+       - Follow [Morning Paper](https:/blog.acolyer.org/)
        - Watch conference talks
 
 - :material-trending-up:{ .lg .middle } **Your Next Path**
@@ -526,7 +526,7 @@ Use this checklist to track your progress:
     - Performance optimization  
     - Leading design reviews
     
-    ➡️ [Specialization Tracks](../architects-handbook/learning-paths/specializations/index.md)
+    ➡️ [Specialization Tracks](../architects-handbook/learning-paths/specializations/)
     - Cloud-native systems
     - Real-time architectures
     - Data infrastructure
@@ -561,14 +561,14 @@ Use this checklist to track your progress:
     - 📙 "The Little Book of Semaphores" - Concurrency basics
 
 - **Free Resources**  
-    - 🎓 [MIT 6.824 Lectures](https://www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB/index.md)
-    - 📝 [High Scalability](http://highscalability.com/index.md)
-    - 📡 [The Morning Paper](https://blog.acolyer.org/index.md)
+    - 🎓 [MIT 6.824 Lectures](https:/www.youtube.com/playlist?list=PLrw6a1wE39_tb2fErI4-WkMbsvGQk9_UB/)
+    - 📝 [High Scalability](http:/highscalability.com/)
+    - 📡 [The Morning Paper](https:/blog.acolyer.org/)
 
 - **Hands-On Labs**
-    - 🛠️ [Distributed Systems Challenges](https://github.com/pingcap/talent-plan/index.md)
-    - 🧪 [Build Your Own X](https://github.com/codecrafters-io/build-your-own-x/index.md)
-    - 🎮 [Distributed Systems Course](https://pdos.csail.mit.edu/6.824/index.md)
+    - 🛠️ [Distributed Systems Challenges](https:/github.com/pingcap/talent-plan/)
+    - 🧪 [Build Your Own X](https:/github.com/codecrafters-io/build-your-own-x/)
+    - 🎮 [Distributed Systems Course](https:/pdos.csail.mit.edu/6.824/)
 
 </div>
 

@@ -13,10 +13,10 @@ last_updated: 2025-01-29
 
 # Law 1: The Law of Inevitable and Correlated Failure ⚡
 
-[Home](/) > [Core Principles](core-principles.md)) > [Laws](core-principles/laws/index.md) > Law 1: Correlated Failure
+[Home](/) > [Core Principles](core-principles.md)) > [Laws](core-principles/laws.md) > Law 1: Correlated Failure
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/faliure&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+    src="https:/w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/faliure&color=%235448C8&inverse=false&auto_play=false&show_user=true">
 </iframe>
 
 !!! danger "🚨 DURING AN INCIDENT? Your 30-Second Action Plan:"
@@ -1265,24 +1265,24 @@ the system's ability to distinguish real failures
 Patterns that directly address correlated failure risks:
 
 **🛡️ Isolation Patterns:**
-- **[Bulkhead](../pattern-library/resilience/bulkhead/index.md)**: Creates isolation boundaries to prevent failures from propagating between system components
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)**: Breaks the cascading failure loops that create correlation by failing fast when dependencies are unhealthy
-- **[Cell-based Architecture](../pattern-library/architecture/cell-based/index.md)**: Partitions systems into independent cells to limit blast radius and prevent correlated failures
+- **[Bulkhead](../../pattern-library/resilience/bulkhead.md)**: Creates isolation boundaries to prevent failures from propagating between system components
+- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)**: Breaks the cascading failure loops that create correlation by failing fast when dependencies are unhealthy
+- **[Cell-based Architecture](../../pattern-library/architecture/cell-based.md)**: Partitions systems into independent cells to limit blast radius and prevent correlated failures
 
 **🔧 Distribution Patterns:**
-- **[Load Balancing](../pattern-library/scaling/load-balancing/index.md)**: Distributes traffic across multiple backends to prevent single points of failure
-- **[Sharding](../pattern-library/scaling/sharding/index.md)**: Partitions data to reduce correlations between different data slices
-- **[Multi-region](../pattern-library/scaling/multi-region/index.md)**: Geographic distribution to avoid regional correlations
-- **[Shuffle Sharding](../pattern-library/scaling/shuffle-sharding/index.md)**: Personalizes failure impact by giving each client a random subset of servers
+- **[Load Balancing](../../pattern-library/scaling/load-balancing.md)**: Distributes traffic across multiple backends to prevent single points of failure
+- **[Sharding](../../pattern-library/scaling/sharding.md)**: Partitions data to reduce correlations between different data slices
+- **[Multi-region](../../pattern-library/scaling/multi-region.md)**: Geographic distribution to avoid regional correlations
+- **[Shuffle Sharding](../../pattern-library/scaling/shuffle-sharding.md)**: Personalizes failure impact by giving each client a random subset of servers
 
 **⚡ Failure Management:**
-- **[Graceful Degradation](../pattern-library/resilience/graceful-degradation/index.md)**: Maintains partial functionality when correlated failures occur
-- **[Failover](../pattern-library/resilience/failover/index.md)**: Switches to backup systems that are intentionally de-correlated from primaries
-- **[Health Check](../pattern-library/resilience/health-check/index.md)**: Detects failures before they propagate and create correlations
-- **[Timeout](../pattern-library/resilience/timeout/index.md)**: Prevents hanging operations from creating retry storms that amplify correlations
+- **[Graceful Degradation](../../pattern-library/resilience/graceful-degradation.md)**: Maintains partial functionality when correlated failures occur
+- **[Failover](../../pattern-library/resilience/failover.md)**: Switches to backup systems that are intentionally de-correlated from primaries
+- **[Health Check](../../pattern-library/resilience/health-check.md)**: Detects failures before they propagate and create correlations
+- **[Timeout](../../pattern-library/resilience/timeout.md)**: Prevents hanging operations from creating retry storms that amplify correlations
 
 **📊 Monitoring & Detection:**
-- **[Canary Deployment](../pattern-library/deployment/canary/index.md)**: Reduces deployment correlation by rolling out changes gradually
-- **[Blue-Green Deployment](../pattern-library/deployment/blue-green/index.md)**: Provides uncorrelated deployment environments
+- **[Canary Deployment](../../pattern-library/deployment/canary.md)**: Reduces deployment correlation by rolling out changes gradually
+- **[Blue-Green Deployment](../../pattern-library/deployment/blue-green.md)**: Provides uncorrelated deployment environments
 
 

@@ -776,7 +776,7 @@ SNAPSHOT_DIR=$(find /var/lib/cassandra/data/$KEYSPACE -name $DATE)
 
 # Compress and upload to S3
 tar -czf $BAKUP_DIR/snapshot_$DATE.tar.gz $SNAPSHOT_DIR
-aws s3 cp $BAKUP_DIR/snapshot_$DATE.tar.gz s3://$S3_BUCKET/snapshots/
+aws s3 cp $BAKUP_DIR/snapshot_$DATE.tar.gz s3:/$S3_BUCKET/snapshots/
 
 # Clean up local snapshot
 nodetool clearsnapshot -t $DATE $KEYSPACE
@@ -905,10 +905,10 @@ Understanding Cassandra's approach to distributed data management provides insig
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Gossip protocol and eventual consistency
-- [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - CAP theorem trade-offs in Cassandra
-- [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Gossip-based membership and failure detection
+- [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Gossip protocol and eventual consistency
+- [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md) - CAP theorem trade-offs in Cassandra
+- [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Gossip-based membership and failure detection
 
 ### Related Patterns
 - [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Core data distribution mechanism
@@ -924,10 +924,10 @@ Understanding Cassandra's approach to distributed data management provides insig
 - [Pillar 4: Control](../core-principles/pillars/control-distribution.md) - Masterless coordination
 
 ### Quantitative Analysis
-- [CAP Theorem](../architects-handbook/quantitative-analysis/cap-theorem.md) - Understanding Cassandra's AP choice
-- [Consistency Models](../architects-handbook/quantitative-analysis/consistency-models.md) - Tunable consistency mathematics
-- [Performance Modeling](../architects-handbook/quantitative-analysis/performance-modeling.md) - Linear scalability analysis
-- [Failure Models](../architects-handbook/quantitative-analysis/failure-models.md) - Understanding failure domains
+- [CAP Theorem](../quantitative-analysis/cap-theorem.md) - Understanding Cassandra's AP choice
+- [Consistency Models](../quantitative-analysis/consistency-models.md) - Tunable consistency mathematics
+- [Performance Modeling](../quantitative-analysis/performance-modeling.md) - Linear scalability analysis
+- [Failure Models](../quantitative-analysis/failure-models.md) - Understanding failure domains
 
 ### Case Studies
 - [Amazon DynamoDB](../amazon-dynamo.md) - Similar dynamo-style architecture
@@ -942,7 +942,7 @@ Understanding Cassandra's approach to distributed data management provides insig
 - [Database Internals](../pattern-library/data-management/lsm-tree.md) - Deep dive into storage engines
 
 ## External Resources
-- [Cassandra Architecture Documentation](https://cassandra.apache.org/doc/latest/architecture/index.md)¹
-- [DataStax Best Practices](https://docs.datastax.com/en/cassandra-oss/3.x/cassandra/dml/dmlBestPractices.html/index.md)²
-- [Netflix Tech Blog - Cassandra](https://netflixtechblog.com/tagged/cassandra/index.md)³
-- [Discord Engineering - Cassandra](https://discord.com/blog/how-discord-stores-billions-of-messages/index.md)⁴
+- [Cassandra Architecture Documentation](https:/cassandra.apache.org/doc/latest/architecture/)¹
+- [DataStax Best Practices](https:/docs.datastax.com/en/cassandra-oss/3.x/cassandra/dml/dmlBestPractices.html/)²
+- [Netflix Tech Blog - Cassandra](https:/netflixtechblog.com/tagged/cassandra/)³
+- [Discord Engineering - Cassandra](https:/discord.com/blog/how-discord-stores-billions-of-messages/)⁴

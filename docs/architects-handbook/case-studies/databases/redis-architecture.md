@@ -703,10 +703,10 @@ sequenceDiagram
 
 ## Further Reading
 
-- [Redis Design and Implementation](https://redisbook.readthedocs.io/en/latest/index.md)
-- [Redis in Action](https://www.manning.com/books/redis-in-action/index.md)
-- [Scaling Redis at Twitter](https://blog.twitter.com/engineering/en_us/topics/infrastructure/2014/scaling-redis-at-twitter/index.md)
-- [Redis Official Documentation](https://redis.io/documentation/index.md)
+- [Redis Design and Implementation](https:/redisbook.readthedocs.io/en/latest/)
+- [Redis in Action](https:/www.manning.com/books/redis-in-action/)
+- [Scaling Redis at Twitter](https:/blog.twitter.com/engineering/en_us/topics/infrastructure/2014/scaling-redis-at-twitter/)
+- [Redis Official Documentation](https:/redis.io/documentation/)
 
 ## Discussion Questions
 

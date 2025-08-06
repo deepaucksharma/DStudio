@@ -8,7 +8,7 @@ reading_time: 9 min
 
 # Law 3: The Law of Emergent Chaos
 
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4k0EdaQuB2KKe98VOuWpio?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe style="border-radius:12px" src="https:/open.spotify.com/embed/episode/4k0EdaQuB2KKe98VOuWpio?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 !!! danger "YOUR SYSTEM IS ALIVE... AND IT WANTS TO KILL YOU"
     **$1 TRILLION vanished in 36 minutes** when trading algorithms created the 2010 Flash Crash. No code was wrong. No component failed. The system underwent a **phase transition**—like water suddenly becoming steam, your distributed system can spontaneously reorganize into a new, often catastrophic state.
@@ -604,23 +604,23 @@ graph LR
 Patterns that directly address and mitigate emergent chaos:
 
 **🛡️ Chaos Prevention Patterns:**
-- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)**: Prevents cascade failures by breaking the feedback loops that create emergent chaos
-- **[Backpressure](../pattern-library/scaling/backpressure/index.md)**: Controls system load to prevent the phase transitions that trigger chaotic behavior
-- **[Rate Limiting](../pattern-library/scaling/rate-limiting/index.md)**: Maintains system operation within stable parameters to avoid critical points
-- **[Load Shedding](../pattern-library/resilience/load-shedding/index.md)**: Gracefully degrades under load rather than allowing chaotic system collapse
+- **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)**: Prevents cascade failures by breaking the feedback loops that create emergent chaos
+- **[Backpressure](../../pattern-library/scaling/backpressure.md)**: Controls system load to prevent the phase transitions that trigger chaotic behavior
+- **[Rate Limiting](../../pattern-library/scaling/rate-limiting.md)**: Maintains system operation within stable parameters to avoid critical points
+- **[Load Shedding](../../pattern-library/resilience/load-shedding.md)**: Gracefully degrades under load rather than allowing chaotic system collapse
 
 **⚖️ Load Distribution Patterns:**
-- **[Load Balancing](../pattern-library/scaling/load-balancing/index.md)**: Distributes work to prevent individual components from reaching critical points
-- **[Bulkhead](../pattern-library/resilience/bulkhead/index.md)**: Isolates components to prevent emergence from spreading system-wide
-- **[Sharding](../pattern-library/scaling/sharding/index.md)**: Partitions system state to prevent global synchronization that leads to phase transitions
+- **[Load Balancing](../../pattern-library/scaling/load-balancing.md)**: Distributes work to prevent individual components from reaching critical points
+- **[Bulkhead](../../pattern-library/resilience/bulkhead.md)**: Isolates components to prevent emergence from spreading system-wide
+- **[Sharding](../../pattern-library/scaling/sharding.md)**: Partitions system state to prevent global synchronization that leads to phase transitions
 
 **🔄 Retry & Recovery Patterns:**
-- **[Retry with Backoff](../pattern-library/resilience/retry-backoff/index.md)**: Uses jitter and exponential backoff to prevent synchronized retries that create thundering herds
-- **[Timeout](../pattern-library/resilience/timeout/index.md)**: Bounds operations to prevent systems from getting stuck in metastable states
+- **[Retry with Backoff](../../pattern-library/resilience/retry-backoff.md)**: Uses jitter and exponential backoff to prevent synchronized retries that create thundering herds
+- **[Timeout](../../pattern-library/resilience/timeout.md)**: Bounds operations to prevent systems from getting stuck in metastable states
 
 **📊 Monitoring & Detection Patterns:**
-- **[Health Check](../pattern-library/resilience/health-check/index.md)**: Monitors system coherence to detect approaching critical points
-- **[Auto-scaling](../pattern-library/scaling/auto-scaling/index.md)**: Responds to load patterns to maintain system operation away from chaotic regimes
+- **[Health Check](../../pattern-library/resilience/health-check.md)**: Monitors system coherence to detect approaching critical points
+- **[Auto-scaling](../../pattern-library/scaling/auto-scaling.md)**: Responds to load patterns to maintain system operation away from chaotic regimes
 
 ## Related Concepts
 

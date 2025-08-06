@@ -105,7 +105,7 @@ outcomes:
 </div>
 
 !!! tip "Edge Readiness Assessment"
-    Complete our [Edge Computing Skills Assessment](../tools/edge-computing-quiz/index.md) to identify preparation areas.
+    Complete our [Edge Computing Skills Assessment](../tools/edge-computing-quiz/) to identify preparation areas.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -127,7 +127,7 @@ outcomes:
     - [ ] Implement content delivery optimization
     
     **Day 1-2**: Edge Computing Fundamentals
-    - 📖 Read: [Edge computing principles](../../pattern-library/scaling/edge-computing/edge-fundamentals/index.md)
+    - 📖 Read: [Edge computing principles](../../pattern-library/scaling/edge-computing/edge-fundamentals/)
     - 🛠️ Lab: Analyze latency improvements with edge deployment
     - 📊 Success: Demonstrate 10x latency reduction with edge
     - ⏱️ Time: 6-8 hours
@@ -612,15 +612,15 @@ outcomes:
 ### Technical Resources
 
 **Edge Computing Platforms**:
-- [AWS Wavelength Documentation](https://docs.aws.amazon.com/wavelength/index.md)
-- [Azure Edge Zones](https://azure.microsoft.com/en-us/products/edge-zones/index.md)
-- [Google Cloud Edge](https://cloud.google.com/solutions/edge-computing/index.md)
-- [KubeEdge Project](https://kubeedge.io/en/docs/index.md)
+- [AWS Wavelength Documentation](https:/docs.aws.amazon.com/wavelength/)
+- [Azure Edge Zones](https:/azure.microsoft.com/en-us/products/edge-zones/)
+- [Google Cloud Edge](https:/cloud.google.com/solutions/edge-computing/)
+- [KubeEdge Project](https:/kubeedge.io/en/docs/)
 
 **5G & MEC Standards**:
-- [ETSI MEC Specifications](https://www.etsi.org/technologies/multi-access-edge-computing/index.md)
-- [3GPP 5G Standards](https://www.3gpp.org/release-16/index.md)
-- [Open Edge Computing](https://www.openedgecomputing.org/index.md)
+- [ETSI MEC Specifications](https:/www.etsi.org/technologies/multi-access-edge-computing/)
+- [3GPP 5G Standards](https:/www.3gpp.org/release-16/)
+- [Open Edge Computing](https:/www.openedgecomputing.org/)
 
 ## 🏁 Capstone: Global Edge Computing Platform
 

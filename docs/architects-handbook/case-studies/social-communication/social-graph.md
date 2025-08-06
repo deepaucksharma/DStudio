@@ -676,7 +676,7 @@ class AsyncGraphUpdater:
  await conn.commit()
  
 # Batch invalidate caches
- redis = await aioredis.from_url("redis://localhost")
+ redis = await aioredis.from_url("redis:/localhost")
  if cache_invalidations:
  await redis.delete(*cache_invalidations)
 ```
@@ -1367,7 +1367,7 @@ Understanding social graph architecture provides valuable insights for any large
 - [Sharding](../../pattern-library/scaling/sharding.md): Graph partitioning strategies
 - [Caching](../../pattern-library/scaling/caching-strategies.md): Multi-level caching for hot nodes
 - [Event Streaming](../../pattern-library/architecture/event-streaming.md): Real-time graph updates
-- [Privacy Patterns](../../pattern-library/location-privacy/index.md): Access control and anonymization
+- [Privacy Patterns](../../pattern-library/location-privacy/): Access control and anonymization
 
 ## Next Steps
 

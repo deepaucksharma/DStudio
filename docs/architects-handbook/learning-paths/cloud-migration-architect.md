@@ -149,7 +149,7 @@ outcomes:
     - ⏱️ Time: 6-8 hours
     
     **Day 5-7**: Cloud Security & Compliance
-    - 📖 Study: [Security Patterns](../excellence/implementation-guides/security-patterns.md)
+    - 📖 Study: [Security Patterns](../architects-handbook/implementation-playbooks/implementation-guides/security-patterns.md)
     - 🛠️ Lab: Implement zero-trust architecture
     - 📊 Deliverable: Security compliance checklist
     - ⏱️ Time: 8-10 hours
@@ -214,13 +214,13 @@ outcomes:
     - [ ] Build automated migration toolchains
     
     **Day 15-16**: Rehost & Replatform Patterns
-    - 📖 Study: [Migration Strategies](../excellence/migrations/index.md)
+    - 📖 Study: [Migration Strategies](../architects-handbook/implementation-playbooks/migrations/)
     - 🛠️ Lab: Lift-and-shift migration with AWS MGN/Azure Migrate
     - 📊 Case Study: [Netflix Cloud Migration](../architects-handbook/case-studies/infrastructure/netflix-cloud-migration.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 17-18**: Refactor & Rearchitect Patterns
-    - 📖 Read: [Monolith to Microservices](../excellence/migrations/monolith-to-microservices.md)
+    - 📖 Read: [Monolith to Microservices](../architects-handbook/implementation-playbooks/migrations/monolith-to-microservices.md)
     - 🛠️ Lab: Decompose monolith using strangler fig pattern
     - 📊 Case Study: [Capital One's Cloud Journey](../architects-handbook/case-studies/infrastructure/capital-one-migration.md)
     - ⏱️ Time: 6-8 hours
@@ -325,7 +325,7 @@ outcomes:
     - ⏱️ Time: 8-10 hours
     
     **Day 39-42**: Migration Monitoring & Observability
-    - 📖 Read: [Migration-specific monitoring](../architects-handbook/tools/migration-dashboard.md)
+    - 📖 Read: [Migration-specific monitoring](../tools/migration-dashboard.md)
     - 🛠️ Lab: Build real-time migration dashboards
     - 📊 Success: Detect and resolve migration issues in <5 minutes
     - ⏱️ Time: 10-12 hours
@@ -371,7 +371,7 @@ outcomes:
     - ⏱️ Time: 10-12 hours
     
     **Day 61-63**: Performance Optimization
-    - 📖 Study: [Performance optimization](../excellence/implementation-guides/performance-optimization.md)
+    - 📖 Study: [Performance optimization](../architects-handbook/implementation-playbooks/implementation-guides/performance-optimization.md)
     - 🛠️ Lab: Optimize migrated applications for cloud performance
     - 📊 Success: Achieve 50% performance improvement post-migration
     - ⏱️ Time: 8-10 hours
@@ -692,11 +692,11 @@ This path prepares you for:
 
 ### Industry Resources
 
-- [AWS Architecture Center](https://aws.amazon.com/architecture/index.md)
-- [Azure Architecture Center](https://docs.microsoft.com/en-us/azure/architecture/index.md)
-- [Google Cloud Architecture Framework](https://cloud.google.com/architecture/framework/index.md)
-- [Cloud Native Computing Foundation](https://www.cncf.io/index.md)
-- [FinOps Foundation](https://www.finops.org/index.md)
+- [AWS Architecture Center](https:/aws.amazon.com/architecture/)
+- [Azure Architecture Center](https:/docs.microsoft.com/en-us/azure/architecture/)
+- [Google Cloud Architecture Framework](https:/cloud.google.com/architecture/framework/)
+- [Cloud Native Computing Foundation](https:/www.cncf.io/)
+- [FinOps Foundation](https:/www.finops.org/)
 
 ### Thought Leadership
 

@@ -1827,28 +1827,28 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Tile serving, routing speed
-- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Petabyte-scale storage
-- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Multi-region redundancy
-- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Parallel tile generation
-- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Global data consistency and traffic accuracy metrics
-- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - Intuitive navigation
-- **[Law 7: Economics](../core-principles/laws/economic-reality/index.md)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md)** - Tile serving, routing speed
+- **[Law 4: Trade-offs](../../core-principles/laws/multidimensional-optimization.md)** - Petabyte-scale storage
+- **[Law 1: Failure](../../core-principles/laws/correlated-failure.md)** - Multi-region redundancy
+- **[Law 3: Emergence](../../core-principles/laws/emergent-chaos.md)** - Parallel tile generation
+- **[Law 5: Epistemology](../../core-principles/laws/distributed-knowledge.md)** - Global data consistency and traffic accuracy metrics
+- **[Law 6: Human-API](../../core-principles/laws/cognitive-load.md)** - Intuitive navigation
+- **[Law 7: Economics](../../core-principles/laws/economic-reality.md)** - Infrastructure costs
 
 ### 🏛 Related Patterns
 - **Tile Pyramid** - Multi-zoom tiles
 - **Vector Tiles** - Efficient map data
 - **Spatial Indexing** - R-tree, QuadTree
 - **Graph Algorithms** - Routing algorithms
-- **[Stream Processing](../pattern-library/scaling/queues-streaming/index.md)** - Traffic updates
-- **[Edge Computing](../pattern-library/scaling/edge-computing/index.md)** - Global CDN
+- **[Stream Processing](../pattern-library/scaling/queues-streaming/)** - Traffic updates
+- **[Edge Computing](../pattern-library/scaling/edge-computing/)** - Global CDN
 - **ML Pipeline** - Map generation
 
 ### Quantitative Models
-- **[Graph Theory](../architects-handbook/quantitative-analysis/graph-theory/index.md)** - Road networks
-- **[Computational Geometry](../architects-handbook/quantitative-analysis/computational-geometry/index.md)** - Map projections
-- **[Time-Series Analysis](../architects-handbook/quantitative-analysis/time-series/index.md)** - Traffic patterns
-- **[Computer Vision](../architects-handbook/quantitative-analysis/computer-vision/index.md)** - Image processing
+- **[Graph Theory](../quantitative-analysis/graph-theory/)** - Road networks
+- **[Computational Geometry](../quantitative-analysis/computational-geometry/)** - Map projections
+- **[Time-Series Analysis](../quantitative-analysis/time-series/)** - Traffic patterns
+- **[Computer Vision](../quantitative-analysis/computer-vision/)** - Image processing
 
 ### Similar Case Studies
 - **[Uber Maps](../uber-maps.md)** - Ride-hailing focused maps

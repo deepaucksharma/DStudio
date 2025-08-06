@@ -17,7 +17,7 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
     
     Modernize distributed transactions for better scalability and resilience
     
-    [:octicons-arrow-right-24: View Guide](../excellence/migrations/2pc-to-saga.md)
+    [:octicons-arrow-right-24: View Guide](../architects-handbook/implementation-playbooks/migrations/2pc-to-saga.md)
 
 -   **🌐 Polling to WebSocket**
 
@@ -25,7 +25,7 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
     
     Transform to real-time communication with reduced latency
     
-    [:octicons-arrow-right-24: View Guide](../excellence/migrations/polling-to-websocket.md)
+    [:octicons-arrow-right-24: View Guide](../architects-handbook/implementation-playbooks/migrations/polling-to-websocket.md)
 
 -   **🏗️ Monolith to Microservices**
 
@@ -33,7 +33,7 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
     
     Decompose monolithic applications into scalable services
     
-    [:octicons-arrow-right-24: View Guide](../excellence/migrations/monolith-to-microservices.md)
+    [:octicons-arrow-right-24: View Guide](../architects-handbook/implementation-playbooks/migrations/monolith-to-microservices.md)
 
 -   **⚡ Batch to Streaming**
 
@@ -41,7 +41,7 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
     
     Evolve from batch processing to real-time data streams
     
-    [:octicons-arrow-right-24: View Guide](../excellence/migrations/batch-to-streaming.md)
+    [:octicons-arrow-right-24: View Guide](../architects-handbook/implementation-playbooks/migrations/batch-to-streaming.md)
 
 -   **🕐 Vector Clocks to HLC**
 
@@ -49,7 +49,7 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
     
     Modernize distributed timestamps with compact hybrid logical clocks
     
-    [:octicons-arrow-right-24: View Guide](../excellence/migrations/vector-clocks-to-hlc.md)
+    [:octicons-arrow-right-24: View Guide](../architects-handbook/implementation-playbooks/migrations/vector-clocks-to-hlc.md)
 
 -   **🌐 Gossip to Service Mesh**
 
@@ -57,7 +57,7 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
     
     Replace custom gossip protocols with industry-standard service mesh
     
-    [:octicons-arrow-right-24: View Guide](../excellence/migrations/gossip-to-service-mesh.md)
+    [:octicons-arrow-right-24: View Guide](../architects-handbook/implementation-playbooks/migrations/gossip-to-service-mesh.md)
 
 -   **🔄 Anti-Entropy to CRDT**
 
@@ -65,7 +65,7 @@ Step-by-step guides for migrating from legacy patterns to modern distributed sys
     
     Automatic conflict resolution with mathematically proven data types
     
-    [:octicons-arrow-right-24: View Guide](../excellence/migrations/anti-entropy-to-crdt.md)
+    [:octicons-arrow-right-24: View Guide](../architects-handbook/implementation-playbooks/migrations/anti-entropy-to-crdt.md)
 
 </div>
 
@@ -205,10 +205,10 @@ Before starting any migration:
 
 ## 📚 Additional Resources
 
-- [Migration Patterns](../../pattern-library/index.md)
-- [Quantitative Analysis Tools](../architects-handbook/quantitative-analysis/index.md)
+- [Migration Patterns](../../pattern-library/)
+- [Quantitative Analysis Tools](../architects-handbook/quantitative-analysis/)
 - [Human Factors in Migration](../human-factors.md)
-- [Case Studies](../architects-handbook/case-studies/index.md)
+- [Case Studies](../architects-handbook/case-studies/)
 
 !!! warning "Critical Success Factor"
     The #1 reason migrations fail is rushing. Take time to plan, test, and validate each phase.
@@ -218,4 +218,4 @@ Before starting any migration:
 
 ---
 
-[:octicons-arrow-left-24: Back to Excellence](../index.md) | [:octicons-arrow-right-24: Choose Your Migration](../excellence/migrations/2pc-to-saga.md)
+[:octicons-arrow-left-24: Back to Excellence](../) | [:octicons-arrow-right-24: Choose Your Migration](../architects-handbook/implementation-playbooks/migrations/2pc-to-saga.md)

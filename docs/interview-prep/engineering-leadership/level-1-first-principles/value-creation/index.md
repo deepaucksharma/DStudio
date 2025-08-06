@@ -425,10 +425,10 @@ Learning: [How this informed future decisions]
 
 Value Creation doesn't exist in isolation:
 
-- **[Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/index.md)**: Value guides what to decide - every decision should optimize for value creation
-- **[Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/index.md)**: People are motivated by creating meaningful value - align individual purpose with organizational value
-- **[Systems Thinking](../../engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Value flows through systems - optimize the whole value stream, not just parts
-- **[Integrity & Ethics](../../engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Sustainable value requires trust - ethical practices create long-term value
+- **[Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/)**: Value guides what to decide - every decision should optimize for value creation
+- **[Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/)**: People are motivated by creating meaningful value - align individual purpose with organizational value
+- **[Systems Thinking](../../engineering-leadership/level-1-first-principles/systems-thinking/)**: Value flows through systems - optimize the whole value stream, not just parts
+- **[Integrity & Ethics](../../engineering-leadership/level-1-first-principles/integrity-ethics/)**: Sustainable value requires trust - ethical practices create long-term value
 
 ## Value Creation Anti-Story: The $50M Feature Nobody Used
 
@@ -527,18 +527,18 @@ If you can't answer all three clearly, stop and reconsider.
 ## Application in Other Levels
 
 ### Level II: Core Business Concepts
-- **[Strategy](../../engineering-leadership/level-2-core-business/strategy/index.md)**: Value creation drives strategic choices
-- **[Finance](../../engineering-leadership/level-2-core-business/finance/index.md)**: Quantifying and measuring value
-- **[Operations](../../engineering-leadership/level-2-core-business/operations/index.md)**: Delivering value efficiently
+- **[Strategy](../../engineering-leadership/level-2-core-business/strategy/)**: Value creation drives strategic choices
+- **[Finance](../../engineering-leadership/level-2-core-business/finance/)**: Quantifying and measuring value
+- **[Operations](../../engineering-leadership/level-2-core-business/operations/)**: Delivering value efficiently
 
 ### Level III: Engineering Applications
-- **[Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/index.md)**: Technical decisions that maximize value
-- **[Business Acumen](../../engineering-leadership/level-3-applications/business-acumen/index.md)**: Connecting engineering to business value
-- **[People Management](../../engineering-leadership/level-3-applications/people-management/index.md)**: Building teams that create value
+- **[Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/)**: Technical decisions that maximize value
+- **[Business Acumen](../../engineering-leadership/level-3-applications/business-acumen/)**: Connecting engineering to business value
+- **[People Management](../../engineering-leadership/level-3-applications/people-management/)**: Building teams that create value
 
 ### Level IV: Interview Execution
-- **[Behavioral Stories](../../engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Demonstrating value creation impact
-- **[Technical Leadership](../../engineering-leadership/level-4-interview-execution/technical-leadership/index.md)**: Articulating technical value
+- **[Behavioral Stories](../../engineering-leadership/level-4-interview-execution/behavioral/)**: Demonstrating value creation impact
+- **[Technical Leadership](../../engineering-leadership/level-4-interview-execution/technical-leadership/)**: Articulating technical value
 
 ## Next Steps
 
@@ -549,4 +549,4 @@ If you can't answer all three clearly, stop and reconsider.
 
 ---
 
-*Continue your journey: Explore how [Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/index.md) operationalizes value creation through structured choices, or see how [Strategy](../../engineering-leadership/level-2-core-business/strategy/index.md) builds on value creation principles.*
+*Continue your journey: Explore how [Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/) operationalizes value creation through structured choices, or see how [Strategy](../../engineering-leadership/level-2-core-business/strategy/) builds on value creation principles.*

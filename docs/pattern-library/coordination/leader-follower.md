@@ -462,15 +462,15 @@ graph LR
 
 ## Related Patterns
 
-- [Leader Election](../pattern-library/coordination/leader-election.md) - Choosing the leader
-- [Consensus](../pattern-library/coordination/consensus.md) - Agreement protocols
+- [Leader Election](../coordination/leader-election.md) - Choosing the leader
+- [Consensus](../coordination/consensus.md) - Agreement protocols
 - [Primary-Backup](primary-backup.md) - Similar but simpler
 - [Multi-Master](multi-master.md) - Alternative approach
 - [Chain Replication](chain-replication.md) - Variation
 
 ## Law Connections
 
-- **[Law 1: Correlated Failure](core-principles/laws/correlated-failure/index.md)**: Leader failure affects all writes
-- **[Law 4: Trade-offs](core-principles/laws/multidimensional-optimization/index.md)**: Consistency vs availability balance
-- **[Law 5: Distributed Knowledge](core-principles/laws/distributed-knowledge/index.md)**: Split-brain from partial knowledge
+- **[Law 1: Correlated Failure](core-principles/laws/correlated-failure.md)**: Leader failure affects all writes
+- **[Law 4: Trade-offs](core-principles/laws/multidimensional-optimization.md)**: Consistency vs availability balance
+- **[Law 5: Distributed Knowledge](core-principles/laws/distributed-knowledge.md)**: Split-brain from partial knowledge
 

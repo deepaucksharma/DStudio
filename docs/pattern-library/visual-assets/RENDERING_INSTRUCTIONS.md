@@ -141,7 +141,7 @@ Create `mermaid-config.json`:
 ### Embedding in Markdown
 ```markdown
 <!-- Direct SVG embed -->
-![Circuit Breaker State Machine](./visual-assets/circuit-breaker/state-machine.svg/index.md)
+![Circuit Breaker State Machine](./visual-assets/circuit-breaker/state-machine.svg/)
 
 <!-- With fallback to PNG -->
 <picture>

@@ -627,10 +627,10 @@ public class UserPartitioner implements Partitioner {
 
 ## Further Reading
 
-- [Kafka: a Distributed Messaging System for Log Processing](https://www.microsoft.com/en-us/research/wp-content/uploads/2017/09/Kafka.pdf/index.md)
-- [The Log: What every software engineer should know](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/index.md)
-- [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/index.md)
-- [Building Data Streaming Applications with Apache Kafka](https://kafka.apache.org/documentation/streams/index.md)
+- [Kafka: a Distributed Messaging System for Log Processing](https:/www.microsoft.com/en-us/research/wp-content/uploads/2017/09/Kafka.pdf/)
+- [The Log: What every software engineer should know](https:/engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying/)
+- [Kafka: The Definitive Guide](https:/www.confluent.io/resources/kafka-the-definitive-guide/)
+- [Building Data Streaming Applications with Apache Kafka](https:/kafka.apache.org/documentation/streams/)
 
 ## Discussion Questions
 

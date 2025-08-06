@@ -12,16 +12,16 @@ People management forms the foundation of engineering leadership, encompassing t
 ## Connection to Framework Levels
 
 ### First Principles Foundation
-- **[Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Understanding what motivates and engages people
-- **[Value Creation](../../engineering-leadership/level-1-first-principles/value-creation/index.md)**: Aligning human potential with business value
-- **[Integrity & Ethics](../../engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Building trust through fair and ethical practices
-- **[Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/index.md)**: Empowering teams to make quality decisions
-- **[Systems Thinking](../../engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Seeing teams as complex adaptive systems
+- **[Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/)**: Understanding what motivates and engages people
+- **[Value Creation](../../engineering-leadership/level-1-first-principles/value-creation/)**: Aligning human potential with business value
+- **[Integrity & Ethics](../../engineering-leadership/level-1-first-principles/integrity-ethics/)**: Building trust through fair and ethical practices
+- **[Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/)**: Empowering teams to make quality decisions
+- **[Systems Thinking](../../engineering-leadership/level-1-first-principles/systems-thinking/)**: Seeing teams as complex adaptive systems
 
 ### Business Concepts Applied
-- **[Leadership](../../engineering-leadership/level-2-core-business/leadership/index.md)**: Applying leadership frameworks to team management
-- **[Operations](../../engineering-leadership/level-2-core-business/operations/index.md)**: Building operational excellence through people
-- **[Strategy](../../engineering-leadership/level-2-core-business/strategy/index.md)**: Developing team capabilities for strategic advantage
+- **[Leadership](../../engineering-leadership/level-2-core-business/leadership/)**: Applying leadership frameworks to team management
+- **[Operations](../../engineering-leadership/level-2-core-business/operations/)**: Building operational excellence through people
+- **[Strategy](../../engineering-leadership/level-2-core-business/strategy/)**: Developing team capabilities for strategic advantage
 
 ## Core Competencies
 
@@ -397,22 +397,22 @@ Approach: Systematic hiring process with team involvement
 
 ## Links to Other Applications
 
-- **[Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/index.md)**: Balancing people leadership with technical excellence
-- **[Organizational Design](../../engineering-leadership/level-3-applications/organizational-design/index.md)**: Structuring teams for optimal performance
-- **[Business Acumen](../../engineering-leadership/level-3-applications/business-acumen/index.md)**: Connecting people decisions to business outcomes
+- **[Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/)**: Balancing people leadership with technical excellence
+- **[Organizational Design](../../engineering-leadership/level-3-applications/organizational-design/)**: Structuring teams for optimal performance
+- **[Business Acumen](../../engineering-leadership/level-3-applications/business-acumen/)**: Connecting people decisions to business outcomes
 
 ## Interview Execution (Level IV)
 
-- **[Behavioral Interviews](../../engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Demonstrating people leadership through stories
-- **[Culture Fit](../../engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Showing alignment with company values
-- **[STAR Framework](../../engineering-leadership/level-4-interview-execution/tools/star-framework/index.md)**: Structuring people management stories
+- **[Behavioral Interviews](../../engineering-leadership/level-4-interview-execution/behavioral/)**: Demonstrating people leadership through stories
+- **[Culture Fit](../../engineering-leadership/level-4-interview-execution/culture-values/)**: Showing alignment with company values
+- **[STAR Framework](../../engineering-leadership/level-4-interview-execution/tools/star-framework/)**: Structuring people management stories
 
 ## Next Steps
 
 ### Immediate Actions
 1. Audit your current people management practices against first principles
-2. Identify one area where you can better apply [Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/index.md) insights
-3. Practice explaining a people decision using [Value Creation](../../engineering-leadership/level-1-first-principles/value-creation/index.md) language
+2. Identify one area where you can better apply [Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/) insights
+3. Practice explaining a people decision using [Value Creation](../../engineering-leadership/level-1-first-principles/value-creation/) language
 4. Assess your team's psychological safety level using Google's Project Aristotle framework
 5. Identify 2-3 rituals that could better reinforce your team's desired culture
 6. Evaluate your current performance metrics against the SPACE framework dimensions

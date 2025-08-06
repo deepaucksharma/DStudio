@@ -387,4 +387,4 @@ Result:
 
 ---
 
-*Next: [Level-Specific Preparation](by-level.md) | [Behavioral Framework](index.md) | [System Design](../index.md)*
+*Next: [Level-Specific Preparation](by-level.md) | [Behavioral Framework](index.md) | [System Design](../)*

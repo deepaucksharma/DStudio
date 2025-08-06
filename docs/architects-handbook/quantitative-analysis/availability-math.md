@@ -296,7 +296,7 @@ graph TD
  style F fill:#ffd700
 ```
 
-**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](../core-principles/laws/correlated-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
+**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](../../core-principles/laws/correlated-failure.md) - we can't prevent failures, but we can design systems that survive them.
 
 ### Law 4: Trade-offs
 - Redundancy requires 2x resources for high availability
@@ -520,5 +520,5 @@ Perfect availability is impossible. Design for graceful degradation.
 
 ## Related Concepts
 
-- **Quantitative**: [Little's Law](../architects-handbook/quantitative-analysis/littles-law.md) | [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md) | [Latency Ladder](../architects-handbook/quantitative-analysis/latency-ladder.md)
+- **Quantitative**: [Little's Law](../quantitative-analysis/littles-law.md) | [Queueing Theory](../quantitative-analysis/queueing-models.md) | [Latency Ladder](../quantitative-analysis/latency-ladder.md)
 - **Patterns**: [Bulkhead](../pattern-library/resilience/bulkhead.md) | [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) | [Failover](../pattern-library/resilience/failover.md)

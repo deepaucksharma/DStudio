@@ -23,27 +23,27 @@ Architecture patterns define the high-level structure of distributed systems. Th
 ### Service Architecture
 - **Microservices** - Fine-grained services
 - **Service-Oriented Architecture** - Coarse-grained services
-- **[Serverless/FaaS](../pattern-library/architecture/serverless-faas.md)** - Function-based architecture
-- **[Shared Nothing](../pattern-library/architecture/shared-nothing.md)** - Isolated service architecture
-- **[Cell-Based Architecture](../pattern-library/architecture/cell-based.md)** - Fault-isolated cells
-- **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - Event-based communication
+- **[Serverless/FaaS](../architecture/serverless-faas.md)** - Function-based architecture
+- **[Shared Nothing](../architecture/shared-nothing.md)** - Isolated service architecture
+- **[Cell-Based Architecture](../architecture/cell-based.md)** - Fault-isolated cells
+- **[Event-Driven Architecture](../architecture/event-driven.md)** - Event-based communication
 - **Modular Monolith** - Well-structured monolith
 
 ### Integration Patterns
 - **API Gateway** - Unified entry point
-- **[Backends for Frontends](../pattern-library/architecture/backends-for-frontends.md)** - Client-specific APIs
+- **[Backends for Frontends](../architecture/backends-for-frontends.md)** - Client-specific APIs
 - **Service Mesh** - Service communication layer
-- **[Anti-Corruption Layer](../pattern-library/architecture/anti-corruption-layer.md)** - Legacy integration
+- **[Anti-Corruption Layer](../architecture/anti-corruption-layer.md)** - Legacy integration
 - **Enterprise Service Bus** - Message-based integration
 
 ### Deployment Patterns
-- **[Sidecar](../pattern-library/architecture/sidecar.md)** - Auxiliary service container
-- **[Ambassador](../pattern-library/architecture/ambassador.md)** - Proxy for external services
+- **[Sidecar](../architecture/sidecar.md)** - Auxiliary service container
+- **[Ambassador](../architecture/ambassador.md)** - Proxy for external services
 - **Adapter** - Interface standardization
 
 ### Evolutionary Patterns
-- **[Strangler Fig](../pattern-library/architecture/strangler-fig.md)** - Gradual replacement
-- **[Choreography](../pattern-library/architecture/choreography.md)** - Decentralized coordination
+- **[Strangler Fig](../architecture/strangler-fig.md)** - Gradual replacement
+- **[Choreography](../architecture/choreography.md)** - Decentralized coordination
 - **Branch by Abstraction** - Parallel development
 - **Feature Toggles** - Runtime configuration
 - **Blue-Green Deployment** - Zero-downtime updates
@@ -69,4 +69,4 @@ Architecture patterns define the high-level structure of distributed systems. Th
 
 ---
 
-*Browse individual patterns below or return to the [Pattern Library](../index.md).*
+*Browse individual patterns below or return to the [Pattern Library](../).*

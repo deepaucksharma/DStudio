@@ -245,9 +245,9 @@ Real-time collaborative document editing with conflict resolution and history.
 - [CDN](../../pattern-library/scaling/cdn.md) - Content delivery
 
 ### Quantitative Analysis
-- [Social Networks](../architects-handbook/quantitative-analysis/social-networks.md) - Graph metrics and analysis
-- [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-theory.md) - Message processing
-- [Information Theory](../architects-handbook/quantitative-analysis/information-theory.md) - Content compression
+- [Social Networks](../quantitative-analysis/social-networks.md) - Graph metrics and analysis
+- [Queueing Theory](../quantitative-analysis/queueing-theory.md) - Message processing
+- [Information Theory](../quantitative-analysis/information-theory.md) - Content compression
 
 ### Human Factors  
 - [Community Management](../architects-handbook/human-factors/community-management.md) - Social platform operations

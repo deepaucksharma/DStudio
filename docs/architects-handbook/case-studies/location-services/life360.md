@@ -533,14 +533,14 @@ class Life360CrashDetection:
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Real-time family location updates across distributed mobile devices
-- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)** - Balance battery life, accuracy, privacy, and safety features
-- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - Freemium model balances free family safety with premium features
+- **[Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md)** - Real-time family location updates across distributed mobile devices
+- **[Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md)** - Balance battery life, accuracy, privacy, and safety features
+- **[Law 7: Economic Reality](../../core-principles/laws/economic-reality.md)** - Freemium model balances free family safety with premium features
 
 ### Related Patterns  
-- **[Geofencing](../pattern-library/location/geofencing/index.md)** - Large-scale location-based notification patterns
-- **[Battery Optimization](../pattern-library/mobile/battery-optimization/index.md)** - Power-efficient continuous location tracking
-- **[Real-Time Notifications](../pattern-library/notifications/real-time/index.md)** - Family communication and emergency alert systems
+- **[Geofencing](../pattern-library/location/geofencing/)** - Large-scale location-based notification patterns
+- **[Battery Optimization](../pattern-library/mobile/battery-optimization/)** - Power-efficient continuous location tracking
+- **[Real-Time Notifications](../pattern-library/notifications/real-time/)** - Family communication and emergency alert systems
 
 ### Related Case Studies
 - **[Apple Find My](../find-my-device.md)** - Privacy-focused device and family tracking
@@ -549,8 +549,8 @@ class Life360CrashDetection:
 
 ## External Resources
 
-- **[Life360 Engineering Blog](https://life360.engineering/index.md)** - Technical insights from the Life360 engineering team
-- **[Core Location Best Practices](https://developer.apple.com/documentation/corelocation/getting_the_user_s_location/index.md)** - Apple's location tracking guidelines
-- **[Android Location Services](https://developer.android.com/training/location/index.md)** - Google's location API documentation
-- **[Geofencing Implementation Guide](https://developer.android.com/training/location/geofencing/index.md)** - Android geofencing best practices
-- **[Battery Optimization Techniques](https://developer.android.com/topic/performance/power/index.md)** - Power management for continuous services
+- **[Life360 Engineering Blog](https:/life360.engineering/)** - Technical insights from the Life360 engineering team
+- **[Core Location Best Practices](https:/developer.apple.com/documentation/corelocation/getting_the_user_s_location/)** - Apple's location tracking guidelines
+- **[Android Location Services](https:/developer.android.com/training/location/)** - Google's location API documentation
+- **[Geofencing Implementation Guide](https:/developer.android.com/training/location/geofencing/)** - Android geofencing best practices
+- **[Battery Optimization Techniques](https:/developer.android.com/topic/performance/power/)** - Power management for continuous services

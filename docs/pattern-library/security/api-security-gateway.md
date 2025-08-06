@@ -125,7 +125,7 @@ Threat Intelligence:
 ```bash
 # Install Kong on Kubernetes
 kubectl create namespace kong
-kubectl apply -f https://bit.ly/kong-ingress-dbless
+kubectl apply -f https:/bit.ly/kong-ingress-dbless
 
 # Configure basic gateway
 kubectl apply -f - <<EOF
@@ -585,15 +585,15 @@ Phase 3 (Full Migration):
 
 ## Related Patterns
 
-- **Complementary**: [Zero-Trust Architecture](zero-trust-architecture/index.md) - Identity verification
-- **Complementary**: [Secrets Management](secrets-management/index.md) - API key management
+- **Complementary**: [Zero-Trust Architecture](zero-trust-architecture/) - Identity verification
+- **Complementary**: [Secrets Management](secrets-management/) - API key management
 - **Building Block**: Load balancer for high availability
 - **Alternative**: Service mesh (for service-to-service communication)
 - **Extension**: Web Application Firewall (WAF) for additional protection
 
 ## Further Reading
 
-- [OWASP API Security Top 10](https://owasp.org/www-project-api-security/index.md)
-- [Kong Gateway Documentation](https://docs.konghq.com/gateway/index.md)
-- [AWS API Gateway Security Best Practices](https://docs.aws.amazon.com/apigateway/latest/developerguide/security.html/index.md)
-- [Google Cloud API Gateway](https://cloud.google.com/api-gateway/docs/best-practices/index.md)
+- [OWASP API Security Top 10](https:/owasp.org/www-project-api-security/)
+- [Kong Gateway Documentation](https:/docs.konghq.com/gateway/)
+- [AWS API Gateway Security Best Practices](https:/docs.aws.amazon.com/apigateway/latest/developerguide/security.html/)
+- [Google Cloud API Gateway](https:/cloud.google.com/api-gateway/docs/best-practices/)

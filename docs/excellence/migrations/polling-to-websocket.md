@@ -98,7 +98,7 @@ websocket_infrastructure:
 ```nginx
 # Nginx configuration for SSE
 location /events {
-    proxy_pass http://sse_backend;
+    proxy_pass http:/sse_backend;
     proxy_http_version 1.1;
     proxy_set_header Connection "";
     proxy_buffering off;
@@ -317,7 +317,7 @@ setInterval(async () => {
 }, 1000);
 
 / After: WebSocket implementation
-const ws = new WebSocket('wss://api.trading.com/prices');
+const ws = new WebSocket('wss:/api.trading.com/prices');
 ws.on('message', (data) => {
     const prices = JSON.parse(data);
     updateUI(prices);  / Instant updates
@@ -497,7 +497,7 @@ class WebSocketUser(User):
     
     def on_start(self):
         self.ws = websocket.WebSocket()
-        self.ws.connect(f"wss://api.example.com/ws/{self.user_id}")
+        self.ws.connect(f"wss:/api.example.com/ws/{self.user_id}")
         self.last_message_time = time.time()
     
     @task
@@ -534,8 +534,8 @@ class WebSocketUser(User):
 
 # Test 1: Verify dual support
 echo "Testing dual support..."
-curl -X GET https://api.example.com/data  # Polling endpoint
-wscat -c wss://api.example.com/ws  # WebSocket endpoint
+curl -X GET https:/api.example.com/data  # Polling endpoint
+wscat -c wss:/api.example.com/ws  # WebSocket endpoint
 
 # Test 2: Fallback mechanism
 echo "Testing fallback..."

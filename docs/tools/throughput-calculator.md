@@ -1,5 +1,5 @@
 ---
-title: Throughput Calculator - Redirect
+title: Throughput Calculator
 redirect_to: /architects-handbook/tools/throughput-calculator/
 ---
 

@@ -118,7 +118,7 @@ outcomes:
 </div>
 
 !!! tip "Performance Engineering Readiness"
-    Complete our [Performance Engineering Assessment](../tools/performance-readiness-quiz/index.md) to identify your current level and customize the learning path.
+    Complete our [Performance Engineering Assessment](../tools/performance-readiness-quiz/) to identify your current level and customize the learning path.
 
 ## 🗺️ Intensive Curriculum
 
@@ -144,7 +144,7 @@ outcomes:
     **Day 1-2**: Performance Measurement & Statistics
     - 📖 Study: Performance measurement principles, statistical significance
     - 🛠️ Lab: Build benchmarking framework with proper statistics
-    - 📊 Apply: [Little's Law](../architects-handbook/quantitative-analysis/littles-law.md) to system analysis
+    - 📊 Apply: [Little's Law](../quantitative-analysis/littles-law.md) to system analysis
     - ⏱️ Time: 6-8 hours
     
     **Day 3-4**: Profiling & System Analysis
@@ -154,7 +154,7 @@ outcomes:
     - ⏱️ Time: 6-8 hours
     
     **Day 5-7**: Queueing Theory & Performance Modeling
-    - 📖 Study: [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md), M/M/1, G/G/1 models
+    - 📖 Study: [Queueing Theory](../quantitative-analysis/queueing-models.md), M/M/1, G/G/1 models
     - 🛠️ Lab: Model system performance with queueing theory
     - 📊 Deliverable: Performance model predicting system behavior
     - ⏱️ Time: 8-10 hours

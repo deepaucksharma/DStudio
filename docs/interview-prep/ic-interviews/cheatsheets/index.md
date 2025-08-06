@@ -31,7 +31,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
     
     Never miss a critical component again
 
-- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](../../pattern-library/index.md)**
+- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](../../pattern-library/)**
     
     ---
     

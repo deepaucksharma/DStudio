@@ -222,15 +222,15 @@ type: pattern
     
     - [Health Check](./health-check.md) - Detect when failover needed
     - [Circuit Breaker](./circuit-breaker.md) - Prevent cascading failures
-    - [Load Balancing](../pattern-library/scaling/load-balancing.md) - Distribute during normal operation
+    - [Load Balancing](../scaling/load-balancing.md) - Distribute during normal operation
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Independent failure domains
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Handle replication delays
-    - [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Prevent split-brain
+    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure.md) - Independent failure domains
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Handle replication delays
+    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Prevent split-brain
 
 </div>
 

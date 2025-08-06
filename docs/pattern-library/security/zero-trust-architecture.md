@@ -356,15 +356,15 @@ Phase 3 (Full Migration):
 
 ## Related Patterns
 
-- **Complementary**: [API Security Gateway](api-security-gateway/index.md) - Centralized enforcement
-- **Complementary**: [Secrets Management](secrets-management/index.md) - Secure credential handling
-- **Complementary**: [Security Scanning Pipeline](security-scanning-pipeline/index.md) - Continuous validation
+- **Complementary**: [API Security Gateway](api-security-gateway/) - Centralized enforcement
+- **Complementary**: [Secrets Management](secrets-management/) - Secure credential handling
+- **Complementary**: [Security Scanning Pipeline](security-scanning-pipeline/) - Continuous validation
 - **Alternative**: Traditional perimeter security (not recommended for distributed systems)
 - **Building Block**: Service mesh for mTLS and policy enforcement
 
 ## Further Reading
 
-- [NIST Zero Trust Architecture (SP 800-207)](https://csrc.nist.gov/publications/detail/sp/800-207/final/index.md)
-- [Google BeyondCorp Papers](https://cloud.google.com/beyondcorp/index.md)
-- [Netflix Zero Trust Journey](https://netflixtechblog.com/tagged/security/index.md)
-- [Okta Zero Trust Implementation Guide](https://www.okta.com/zero-trust/index.md)
+- [NIST Zero Trust Architecture (SP 800-207)](https:/csrc.nist.gov/publications/detail/sp/800-207/final/)
+- [Google BeyondCorp Papers](https:/cloud.google.com/beyondcorp/)
+- [Netflix Zero Trust Journey](https:/netflixtechblog.com/tagged/security/)
+- [Okta Zero Trust Implementation Guide](https:/www.okta.com/zero-trust/)

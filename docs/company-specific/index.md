@@ -26,5 +26,5 @@ Check back soon for detailed content on this topic.
 ---
 
 **Related Resources:**
-- [Engineering Leadership Home](../interview-prep/engineering-leadership/index.md)
+- [Engineering Leadership Home](../interview-prep/engineering-leadership/)
 - [Framework Overview](../interview-prep/engineering-leadership/framework-index.md)

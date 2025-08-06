@@ -236,7 +236,7 @@ public class WordCountStream {
 ```python
 # Batch: Daily user activity summary
 def batch_user_summary():
-    df = spark.read.parquet("s3://data/user_events/")
+    df = spark.read.parquet("s3:/data/user_events/")
     
     summary = df.groupBy("user_id", "date") \
         .agg(
@@ -245,7 +245,7 @@ def batch_user_summary():
             collect_set("product_id").alias("unique_products")
         )
     
-    summary.write.parquet("s3://data/user_summaries/")
+    summary.write.parquet("s3:/data/user_summaries/")
 
 # Streaming: Real-time user activity summary
 from pyspark.sql import functions as F
@@ -305,7 +305,7 @@ def streaming_user_summary():
     query2 = windowed_summary \
         .writeStream \
         .format("parquet") \
-        .option("path", "s3://data/user-summaries-streaming/") \
+        .option("path", "s3:/data/user-summaries-streaming/") \
         .option("checkpointLocation", "/tmp/checkpoint2") \
         .partitionBy("window") \
         .outputMode("append") \
@@ -332,7 +332,7 @@ def streaming_user_summary():
 / Batch: Session analysis with full history
 public class BatchSessionAnalysis {
     public void analyze() {
-        Dataset<Row> events = spark.read().parquet("s3://events/");
+        Dataset<Row> events = spark.read().parquet("s3:/events/");
         
         Dataset<Row> sessions = events
             .groupBy("user_id", "session_id")
@@ -343,7 +343,7 @@ public class BatchSessionAnalysis {
             )
             .filter(col("event_count").gt(5));
         
-        sessions.write().parquet("s3://sessions/");
+        sessions.write().parquet("s3:/sessions/");
     }
 }
 
@@ -440,7 +440,7 @@ class ExactlyOnceProcessor:
         # Flink example with exactly-once
         env = StreamExecutionEnvironment.get_execution_environment()
         env.enable_checkpointing(60000)  # Checkpoint every minute
-        env.get_checkpoint_config().set_checkpoint_storage_dir("s3://checkpoints/")
+        env.get_checkpoint_config().set_checkpoint_storage_dir("s3:/checkpoints/")
         
         # Kafka source with exactly-once
         kafka_source = FlinkKafkaConsumer(
@@ -705,8 +705,8 @@ migration_timeline:
 # Before: Batch risk calculation
 def batch_risk_calculation():
     # Load entire portfolio
-    positions = spark.read.parquet("s3://data/positions/")
-    market_data = spark.read.parquet("s3://data/market_data/")
+    positions = spark.read.parquet("s3:/data/positions/")
+    market_data = spark.read.parquet("s3:/data/market_data/")
     
     # Calculate risk metrics
     risk_metrics = positions.join(market_data, "instrument_id") \
@@ -716,7 +716,7 @@ def batch_risk_calculation():
             sum("position_value").alias("total_value")
         )
     
-    risk_metrics.write.mode("overwrite").parquet("s3://data/risk_metrics/")
+    risk_metrics.write.mode("overwrite").parquet("s3:/data/risk_metrics/")
 
 # After: Streaming risk calculation
 class StreamingRiskCalculator:
@@ -945,7 +945,7 @@ class StreamingDebugger:
         
         # Debug UI sink
         if self.debug_mode:
-            stream.add_sink(DebugUISink("http://localhost:8080"))
+            stream.add_sink(DebugUISink("http:/localhost:8080"))
     
     def replay_from_checkpoint(self, checkpoint_path, start_time, end_time):
         """Replay events for debugging"""

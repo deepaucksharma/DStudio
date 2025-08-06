@@ -10,7 +10,7 @@ essential_question: How do we ensure data consistency and reliability with share
 excellence_tier: bronze
 introduced: 1990-01
 last-updated: 2025-01-27
-migration-guide: '[Migrate to Database per Service](../excellence/migrations/shared-database-to-microservices.md)'
+migration-guide: '[Migrate to Database per Service](../../architects-handbook/implementation-playbooks/migrations/shared-database-to-microservices.md)'
 modern-alternatives:
 - Database per Service pattern
 - Event-driven data sharing
@@ -170,7 +170,7 @@ graph TD
     - Identify service boundaries
     - Extract service APIs
     - Gradually separate data
-    - [Full Migration Guide](../excellence/migrations/shared-db-to-database-per-service.md)
+    - [Full Migration Guide](../../architects-handbook/implementation-playbooks/migrations/shared-db-to-database-per-service.md)
 
 - :material-file-document:{ .lg .middle } **To Event-Driven**
     
@@ -180,7 +180,7 @@ graph TD
     - Implement event sourcing
     - Use CDC for transition
     - Eventual consistency
-    - [Migration Guide](../excellence/migrations/shared-db-to-event-driven.md)
+    - [Migration Guide](../../architects-handbook/implementation-playbooks/migrations/shared-db-to-event-driven.md)
 
 - :material-file-document:{ .lg .middle } **To CQRS**
     
@@ -190,7 +190,7 @@ graph TD
     - Separate read models
     - Optimize independently
     - Scale separately
-    - [Migration Guide](../excellence/migrations/shared-db-to-cqrs.md)
+    - [Migration Guide](../../architects-handbook/implementation-playbooks/migrations/shared-db-to-cqrs.md)
 
 - :material-file-document:{ .lg .middle } **To API-Based**
     
@@ -200,7 +200,7 @@ graph TD
     - Define service contracts
     - Replace DB joins with API calls
     - Add caching layer
-    - [Migration Guide](../excellence/migrations/shared-db-to-apis.md)
+    - [Migration Guide](../../architects-handbook/implementation-playbooks/migrations/shared-db-to-apis.md)
 
 </div>
 
@@ -257,15 +257,15 @@ graph TD
 
 ### Case Studies: Successful Migrations
 
-- **[Amazon: Monolith to Services](../excellence/case-studies/amazon-service-migration.md)**: From shared Oracle to 100s of services
-- **[Netflix: Microservices Journey](../excellence/case-studies/netflix-db-migration.md)**: Cassandra per service
-- **[Uber: Domain Separation](../excellence/case-studies/uber-domain-services.md)**: From shared Postgres to Schemaless
+- **[Amazon: Monolith to Services](../../architects-handbook/implementation-playbooks/case-studies/amazon-service-migration.md)**: From shared Oracle to 100s of services
+- **[Netflix: Microservices Journey](../../architects-handbook/implementation-playbooks/case-studies/netflix-db-migration.md)**: Cassandra per service
+- **[Uber: Domain Separation](../../architects-handbook/implementation-playbooks/case-studies/uber-domain-services.md)**: From shared Postgres to Schemaless
 
 ### Tools for Migration
 
-- **[Database Migration Toolkit](../excellence/tools/db-migration-toolkit.md)**: Scripts and utilities
+- **[Database Migration Toolkit](../../architects-handbook/implementation-playbooks/tools/db-migration-toolkit.md)**: Scripts and utilities
 - **[Service Extraction Patterns](excellence../pattern-library/service-extraction.md)**: Step-by-step process
-- **[Data Synchronization Strategies](../excellence/guides/data-sync-strategies.md)**: During transition
+- **[Data Synchronization Strategies](../../architects-handbook/implementation-playbooks/guides/data-sync-strategies.md)**: During transition
 
 ## Related Patterns
 
@@ -278,14 +278,14 @@ graph TD
 ## Further Reading
 
 ### Migration Resources
-- ["Building Microservices" by Sam Newman](https://www.oreilly.com/library/view/building-microservices-2nd/9781492034018/index.md) - Chapter on data
-- ["Monolith to Microservices" by Sam Newman](https://www.oreilly.com/library/view/monolith-to-microservices/9781492047834/index.md) - Migration patterns
-- ["Microservices Patterns" by Chris Richardson](https://microservices.io/book/index.md) - Data patterns
+- ["Building Microservices" by Sam Newman](https:/www.oreilly.com/library/view/building-microservices-2nd/9781492034018/) - Chapter on data
+- ["Monolith to Microservices" by Sam Newman](https:/www.oreilly.com/library/view/monolith-to-microservices/9781492047834/) - Migration patterns
+- ["Microservices Patterns" by Chris Richardson](https:/microservices.io/book/) - Data patterns
 
 ### Online Resources
-- [Martin Fowler: Database Styles](https://martinfowler.com/articles/microservices.html#DecentralizedDataManagement/index.md)
-- [Chris Richardson: Database Architecture](https://microservices.io../pattern-library/data/database-per-service.html/index.md)
-- [ThoughtWorks: Breaking the Monolith](https://www.thoughtworks.com/insights/blog/breaking-monolith/index.md)
+- [Martin Fowler: Database Styles](https:/martinfowler.com/articles/microservices.html#DecentralizedDataManagement/)
+- [Chris Richardson: Database Architecture](https:/microservices.io../pattern-library/data/database-per-service.html/)
+- [ThoughtWorks: Breaking the Monolith](https:/www.thoughtworks.com/insights/blog/breaking-monolith/)
 
 ## Level 1: Intuition (5 minutes)
 

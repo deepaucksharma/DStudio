@@ -326,31 +326,31 @@ graph LR
     
     ---
     
-    - [Event-Driven Architecture](../pattern-library/architecture/event-driven.md) - Foundation for streaming systems
-    - [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Stream-based data storage
-    - [CQRS](../pattern-library/data-management/cqrs.md) - Read/write separation with streams
+    - [Event-Driven Architecture](../architecture/event-driven.md) - Foundation for streaming systems
+    - [Event Sourcing](../data-management/event-sourcing.md) - Stream-based data storage
+    - [CQRS](../data-management/cqrs.md) - Read/write separation with streams
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Time and ordering challenges
-    - [Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md) - Complex system behaviors
+    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Time and ordering challenges
+    - [Law 3: Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Complex system behaviors
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../core-principles/pillars/work-distribution/index.md) - Parallel stream processing
-    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Distributed state management
+    - [Work Distribution](../../core-principles/pillars/work-distribution.md) - Parallel stream processing
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Distributed state management
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Kafka Setup Guide](../excellence/guides/kafka-setup.md)
-    - [Flink Best Practices](../excellence/guides/flink-best-practices.md)
-    - [Stream Processing Testing](../excellence/guides/stream-testing.md)
+    - [Kafka Setup Guide](../../architects-handbook/implementation-playbooks/guides/kafka-setup.md)
+    - [Flink Best Practices](../../architects-handbook/implementation-playbooks/guides/flink-best-practices.md)
+    - [Stream Processing Testing](../../architects-handbook/implementation-playbooks/guides/stream-testing.md)
 
 </div>
 

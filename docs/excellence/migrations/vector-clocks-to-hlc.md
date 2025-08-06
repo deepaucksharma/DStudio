@@ -255,6 +255,6 @@ After successful migration:
 
 ## References
 
-- [Logical Physical Clocks paper](https://cse.buffalo.edu/tech-reports/2014-04.pdf/index.md)
-- [CockroachDB's HLC implementation](https://github.com/cockroachdb/cockroach/blob/master/pkg/util/hlc/hlc.go/index.md)
-- [Vector Clocks vs HLC comparison](https://www.cockroachlabs.com/blog/living-without-atomic-clocks/index.md)
+- [Logical Physical Clocks paper](https://cse.buffalo.edu/tech-reports/2014-04.pdf/)
+- [CockroachDB's HLC implementation](https://github.com/cockroachdb/cockroach/blob/master/pkg/util/hlc/hlc.go/)
+- [Vector Clocks vs HLC comparison](https://www.cockroachlabs.com/blog/living-without-atomic-clocks/)

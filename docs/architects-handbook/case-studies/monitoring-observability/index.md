@@ -135,9 +135,9 @@ Distributed rate limiting system protecting APIs from abuse and ensuring fair us
 - [Bulkhead](../../pattern-library/resilience/bulkhead.md) - Isolation and monitoring
 
 ### Quantitative Analysis
-- [Availability Math](../architects-handbook/quantitative-analysis/availability-math.md) - SLA calculations from metrics
-- [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-theory.md) - Performance analysis
-- [Reliability Engineering](../architects-handbook/quantitative-analysis/reliability-engineering.md) - MTBF/MTTR calculations
+- [Availability Math](../quantitative-analysis/availability-math.md) - SLA calculations from metrics
+- [Queueing Theory](../quantitative-analysis/queueing-theory.md) - Performance analysis
+- [Reliability Engineering](../quantitative-analysis/reliability-engineering.md) - MTBF/MTTR calculations
 
 ### Human Factors  
 - [On-call Practices](../architects-handbook/human-factors/oncall-culture.md) - Alert management and response

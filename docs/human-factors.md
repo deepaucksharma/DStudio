@@ -1,11 +1,11 @@
 ---
-title: Human Factors in Distributed Systems
-redirect_to: /architects-handbook/human-factors//
+title: Human Factors
+redirect_to: /architects-handbook/human-factors/
 ---
 
-# Human Factors in Distributed Systems
+# Human Factors
 
-!!! info "This page has moved"
-    Please visit [architects-handbook/human-factors/](/architects-handbook/human-factors//index.md)
+\!\!\! info "This page has moved"
+    Please visit [architects-handbook/human-factors](/architects-handbook/human-factors/)
 
-<meta http-equiv="refresh" content="0; url=/{metadata["redirect"]}/">
+<meta http-equiv="refresh" content="0; url=/architects-handbook/human-factors/">

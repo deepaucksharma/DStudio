@@ -52,7 +52,7 @@ when_to_use: Direct client access to resources, temporary permissions, reducing 
 
 | Component | Purpose | Example |
 |-----------|---------|---------|
-| **Resource URI** | What to access | `https://storage.example.com/bucket/file.pdf` |
+| **Resource URI** | What to access | `https:/storage.example.com/bucket/file.pdf` |
 | **Permissions** | What actions allowed | `READ`, `WRITE`, `DELETE` |
 | **Expiration** | Time limit | `2024-01-26T15:30:00Z` |
 | **Signature** | Tamper-proof validation | `HMAC-SHA256(data, secret)` |
@@ -299,13 +299,13 @@ graph TD
 
 | Resource | Type | Relevance |
 |----------|------|-----------|
-| **[API Gateway Pattern](../pattern-library/communication/api-gateway.md)** | Pattern | Alternative for complex auth |
-| **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** | Pattern | Protect storage services |
-| **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** | Pattern | Control valet key generation |
-| **[Law 7: Economic Reality](core-principles/laws/economic-reality/index.md)** | Axiom | Cost optimization driver |
-| **[Pillar 4: Control](core-principles../core-principles/pillars/control-distribution/index.md)** | Pillar | Access control principles |
-| **[CDN Pattern](../pattern-library/scaling/edge-computing.md)** | Pattern | Combine for global scale |
-| **[Encryption at Rest](../pattern-library/data-management/distributed-storage/#encryption/index.md)** | Pattern | Secure storage layer |
+| **[API Gateway Pattern](../communication/api-gateway.md)** | Pattern | Alternative for complex auth |
+| **[Circuit Breaker](../resilience/circuit-breaker.md)** | Pattern | Protect storage services |
+| **[Rate Limiting](../scaling/rate-limiting.md)** | Pattern | Control valet key generation |
+| **[Law 7: Economic Reality](core-principles/laws/economic-reality.md)** | Axiom | Cost optimization driver |
+| **[Pillar 4: Control](core-principles../core-principles/pillars/control-distribution.md)** | Pillar | Access control principles |
+| **[CDN Pattern](../scaling/edge-computing.md)** | Pattern | Combine for global scale |
+| **[Encryption at Rest](../data-management/distributed-storage/#encryption/)** | Pattern | Secure storage layer |
 
 ## Summary
 

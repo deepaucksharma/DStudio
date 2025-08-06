@@ -307,37 +307,37 @@ graph LR
     
     ---
     
-    - [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Natural source for incremental refresh
-    - [CQRS](../pattern-library/data-management/cqrs.md) - MVs as optimized read models
-    - [Data Lake](../pattern-library/data-management/data-lake.md) - Raw data to structured views
+    - [Event Sourcing](../data-management/event-sourcing.md) - Natural source for incremental refresh
+    - [CQRS](../data-management/cqrs.md) - MVs as optimized read models
+    - [Data Lake](../data-management/data-lake.md) - Raw data to structured views
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - Space vs time trade-offs
-    - [Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md) - Cost optimization
+    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization.md) - Space vs time trade-offs
+    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality.md) - Cost optimization
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Distributed view management
-    - [Work Distribution](../core-principles/pillars/work-distribution/index.md) - Query workload optimization
+    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Distributed view management
+    - [Work Distribution](../../core-principles/pillars/work-distribution.md) - Query workload optimization
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [View Design Guide](../excellence/guides/materialized-view-design.md)
-    - [Refresh Strategy Guide](../excellence/guides/mv-refresh-strategies.md)
-    - [Performance Tuning](../excellence/guides/mv-performance-tuning.md)
+    - [View Design Guide](../../architects-handbook/implementation-playbooks/guides/materialized-view-design.md)
+    - [Refresh Strategy Guide](../../architects-handbook/implementation-playbooks/guides/mv-refresh-strategies.md)
+    - [Performance Tuning](../../architects-handbook/implementation-playbooks/guides/mv-performance-tuning.md)
 
 </div>
 
 ---
 
-*Next: [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Storing state as a sequence of events*
+*Next: [Event Sourcing](../data-management/event-sourcing.md) - Storing state as a sequence of events*
 <details>
 <summary>📄 View sql code (10 lines)</summary>
 

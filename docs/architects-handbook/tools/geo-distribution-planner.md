@@ -242,7 +242,7 @@ Total Latency = Propagation + Transmission + Processing + Queueing
 - [Availability Calculator](availability-calculator.md)
 - [CDN Architecture Patterns](../../pattern-library/scaling/caching-strategies.md)
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https:/cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 let distributionChart = null;
 let latencyChart = null;

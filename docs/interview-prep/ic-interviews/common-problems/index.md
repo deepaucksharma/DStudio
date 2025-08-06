@@ -145,9 +145,9 @@ We're actively expanding this collection. Future problems will include:
 ## 📖 Study Resources
 
 ### Before Practice
-- Review [System Design Frameworks](../ic-interviews/frameworks/index.md)
-- Study [Common Patterns](../pattern-library/index.md)
-- Check [Scalability Numbers](../ic-interviews/cheatsheets/index.md)
+- Review [System Design Frameworks](../ic-interviews/frameworks/)
+- Study [Common Patterns](../pattern-library/)
+- Check [Scalability Numbers](../ic-interviews/cheatsheets/)
 
 ### During Practice
 - Use [System Design Checklist](../ic-interviews/cheatsheets/system-design-checklist.md)

@@ -299,4 +299,4 @@ graph TD
     This visual framework guides you from foundation to excellence. Each step builds on the previous, creating a sustainable path to world-class distributed systems.
 
 !!! tip "Interactive Version"
-    Visit our [Interactive Excellence Dashboard](../tools/index.md) for real-time metrics and personalized recommendations.
+    Visit our [Interactive Excellence Dashboard](../tools/) for real-time metrics and personalized recommendations.

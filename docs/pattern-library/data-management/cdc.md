@@ -240,13 +240,13 @@ graph TD
 
 ## Further Reading
 
-- [Debezium Documentation](https://debezium.io/documentation/index.md)
-- [Kafka Connect CDC](https://docs.confluent.io/kafka-connect/current/index.md)
-- [AWS DMS CDC](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_CDC.html/index.md)
-- [Change Data Capture Patterns](https://www.confluent.io/blog/cdc-and-streaming-analytics/index.md)
+- [Debezium Documentation](https:/debezium.io/documentation/)
+- [Kafka Connect CDC](https:/docs.confluent.io/kafka-connect/current/)
+- [AWS DMS CDC](https:/docs.aws.amazon.com/dms/latest/userguide/CHAP_CDC.html/)
+- [Change Data Capture Patterns](https:/www.confluent.io/blog/cdc-and-streaming-analytics/)
 
 ### Case Studies
-- [Netflix: DBLog Framework](https://netflixtechblog.com/dblog-a-generic-change-data-capture-framework-69351fb9099b/index.md)
-- [Airbnb: SpinalTap](https://medium.com/airbnb-engineering/capturing-data-evolution-in-a-service-oriented-architecture-72f7c643ee6f/index.md)
-- [Uber: Schemaless CDC](https://eng.uber.com/schemaless-rewrite/index.md)
+- [Netflix: DBLog Framework](https:/netflixtechblog.com/dblog-a-generic-change-data-capture-framework-69351fb9099b/)
+- [Airbnb: SpinalTap](https:/medium.com/airbnb-engineering/capturing-data-evolution-in-a-service-oriented-architecture-72f7c643ee6f/)
+- [Uber: Schemaless CDC](https:/eng.uber.com/schemaless-rewrite/)
 

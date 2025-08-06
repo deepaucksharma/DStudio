@@ -372,9 +372,9 @@ We found: "Config validation was manual, no automated checks for common errors"
 
 ## References and Further Reading
 
-- [Etsy's Debriefing Facilitation Guide](https://extfiles.etsy.com/DebriefingFacilitationGuide.pdf/index.md)
+- [Etsy's Debriefing Facilitation Guide](https://extfiles.etsy.com/DebriefingFacilitationGuide.pdf/)
 - [Google SRE Book: Postmortem Culture](https://sre.google/sre-book/blameless-postmortems.mdindex)
-- [Jeli.io: Howie Guide to Post-Incident Analysis](https://www.jeli.io/howie/welcome/index.md)
+- [Jeli.io: Howie Guide to Post-Incident Analysis](https://www.jeli.io/howie/welcome/)
 
 ---
 

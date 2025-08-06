@@ -406,7 +406,7 @@ class EnhancedResourceMonitor:
                     ContentType='application/json'
                 )
                 
-                print(f"Exported {len(date_metrics)} metrics for {date_key} to s3://{bucket}/{s3_key}")
+                print(f"Exported {len(date_metrics)} metrics for {date_key} to s3:/{bucket}/{s3_key}")
                 
             except Exception as e:
                 print(f"Error exporting metrics for {date_key}: {e}")
@@ -1095,15 +1095,15 @@ Safety Measures:
 
 ## Related Patterns
 
-- **Complementary**: [Spot Instance Management](spot-instance-management/index.md) - Cost optimization through pricing
-- **Complementary**: [Reserved Capacity Planning](reserved-capacity-planning/index.md) - Long-term optimization
+- **Complementary**: [Spot Instance Management](spot-instance-management/) - Cost optimization through pricing
+- **Complementary**: [Reserved Capacity Planning](reserved-capacity-planning/) - Long-term optimization
 - **Building Block**: Auto Scaling for dynamic resource adjustment
 - **Extension**: Multi-cloud resource optimization
 - **Alternative**: Manual capacity planning (not scalable)
 
 ## Further Reading
 
-- [AWS Well-Architected Cost Optimization](https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html/index.md)
-- [Google Cloud Rightsizing Recommendations](https://cloud.google.com/compute/docs/instances/apply-sizing-recommendations/index.md)
-- [Azure Advisor Cost Recommendations](https://docs.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations/index.md)
-- [FinOps Foundation - Cloud Cost Optimization](https://www.finops.org/introduction/what-is-finops/index.md)
+- [AWS Well-Architected Cost Optimization](https:/docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html/)
+- [Google Cloud Rightsizing Recommendations](https:/cloud.google.com/compute/docs/instances/apply-sizing-recommendations/)
+- [Azure Advisor Cost Recommendations](https:/docs.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations/)
+- [FinOps Foundation - Cloud Cost Optimization](https:/www.finops.org/introduction/what-is-finops/)

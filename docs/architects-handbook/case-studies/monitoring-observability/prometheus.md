@@ -516,15 +516,15 @@ http_request_duration_seconds{quantile="0.99"} # Link to Jaeger
 
 ## Related Topics
 
-- [Time Series Databases](../pattern-library/time-series-db.md/index.md) - TSDB design
-- [Service Discovery](../pattern-library/communication/service-discovery/index.md) - Dynamic targets
-- [Observability](../pattern-library/observability.md/index.md) - Metrics pillar
+- [Time Series Databases](../pattern-library/time-series-db.md/) - TSDB design
+- [Service Discovery](../pattern-library/communication/service-discovery/) - Dynamic targets
+- [Observability](../pattern-library/observability.md/) - Metrics pillar
 - [Grafana](grafana.md)) - Visualization layer
 - [OpenTelemetry](opentelemetry.md) - Unified observability
 
 ## References
 
-1. [Prometheus: Up & Running](https://www.oreilly.com/library/view/prometheus-up/9781492034131/index.md)
-2. [Robust Perception Blog](https://www.robustperception.io/blog/index.md)
-3. [PromCon Talks](https://promcon.io/index.md)
-4. [Prometheus Documentation](https://prometheus.io/docs/index.md)
+1. [Prometheus: Up & Running](https:/www.oreilly.com/library/view/prometheus-up/9781492034131/)
+2. [Robust Perception Blog](https:/www.robustperception.io/blog/)
+3. [PromCon Talks](https:/promcon.io/)
+4. [Prometheus Documentation](https:/prometheus.io/docs/)

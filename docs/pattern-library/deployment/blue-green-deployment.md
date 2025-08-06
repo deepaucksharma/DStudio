@@ -451,9 +451,9 @@ if [ -z "$TARGET_SERVICE_IP" ]; then
     kubectl port-forward service/$APP_NAME-$TARGET_ENV-service 8080:80 -n $NAMESPACE &
     PORT_FORWARD_PID=$!
     sleep 5
-    TARGET_URL="http://localhost:8080"
+    TARGET_URL="http:/localhost:8080"
 else
-    TARGET_URL="http://$TARGET_SERVICE_IP"
+    TARGET_URL="http:/$TARGET_SERVICE_IP"
 fi
 
 # Smoke tests
@@ -878,7 +878,7 @@ class BlueGreenRollback:
                 return False
             
             # Health check
-            health_url = f"http://{service_ip}/health"
+            health_url = f"http:/{service_ip}/health"
             response = requests.get(health_url, timeout=10)
             
             return response.status_code == 200
@@ -906,7 +906,7 @@ class BlueGreenRollback:
                 return False
             
             # Perform health check
-            health_url = f"http://{service_ip}/health"
+            health_url = f"http:/{service_ip}/health"
             response = requests.get(health_url, timeout=10)
             
             if response.status_code != 200:
@@ -1098,15 +1098,15 @@ Resource Management:
 
 ## Related Patterns
 
-- **Complementary**: [Canary Release](canary-release/index.md) - Risk mitigation through gradual rollout
-- **Complementary**: [Feature Flags](feature-flags/index.md) - Runtime feature control
+- **Complementary**: [Canary Release](canary-release/) - Risk mitigation through gradual rollout
+- **Complementary**: [Feature Flags](feature-flags/) - Runtime feature control
 - **Alternative**: Rolling deployment (less safe but lower resource cost)
 - **Building Block**: Health checks and monitoring
-- **Extension**: [Immutable Infrastructure](immutable-infrastructure/index.md) for consistency
+- **Extension**: [Immutable Infrastructure](immutable-infrastructure/) for consistency
 
 ## Further Reading
 
-- [Martin Fowler - BlueGreenDeployment](https://martinfowler.com/bliki/BlueGreenDeployment.html/index.md)
-- [AWS Blue/Green Deployment Guide](https://docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/welcome.html/index.md)
-- [Kubernetes Blue-Green Deployments](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#blue-green-deployments/index.md)
-- [Netflix Spinnaker](https://spinnaker.io/index.md)
+- [Martin Fowler - BlueGreenDeployment](https:/martinfowler.com/bliki/BlueGreenDeployment.html/)
+- [AWS Blue/Green Deployment Guide](https:/docs.aws.amazon.com/whitepapers/latest/blue-green-deployments/welcome.html/)
+- [Kubernetes Blue-Green Deployments](https:/kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#blue-green-deployments/)
+- [Netflix Spinnaker](https:/spinnaker.io/)

@@ -12,13 +12,13 @@ Security in distributed systems requires layered defense with multiple complemen
 ## Pattern Categories
 
 ### Access Control
-- [Zero-Trust Architecture](zero-trust-architecture/index.md) - Never trust, always verify
-- [API Security Gateway](api-security-gateway/index.md) - Centralized security enforcement
-- [Secrets Management](secrets-management/index.md) - Secure credential handling
+- [Zero-Trust Architecture](zero-trust-architecture/) - Never trust, always verify
+- [API Security Gateway](api-security-gateway/) - Centralized security enforcement
+- [Secrets Management](secrets-management/) - Secure credential handling
 
 ### Development Security
-- [Security Scanning Pipeline](security-scanning-pipeline/index.md) - Automated security validation
-- [Threat Modeling](threat-modeling/index.md) - Systematic risk assessment
+- [Security Scanning Pipeline](security-scanning-pipeline/) - Automated security validation
+- [Threat Modeling](threat-modeling/) - Systematic risk assessment
 
 ## Quick Selection Guide
 

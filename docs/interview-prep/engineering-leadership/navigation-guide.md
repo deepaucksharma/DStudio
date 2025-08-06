@@ -50,9 +50,9 @@ graph TD
 | **Interview Prep** | 10-12 | • Level 4: STAR story development<br>• Level 4: Behavioral practice | • Company-specific preparation<br>• Mock interviews |
 
 **Essential Resources**:
-- [People Management Fundamentals](../interview-prep/engineering-leadership/level-3-applications/people-management/index.md)
+- [People Management Fundamentals](../interview-prep/engineering-leadership/level-3-applications/people-management/)
 - [New Manager Transition Guide](../interview-prep/engineering-leadership/level-3-applications/people-management/team-building-culture.md)
-- [First 90 Days Playbook](../interview-prep/engineering-leadership/hard-earned-wisdom/index.md)
+- [First 90 Days Playbook](../interview-prep/engineering-leadership/hard-earned-wisdom/)
 
 ### Senior Manager (L6 → L7/M2)
 **Your Challenge**: Scaling from team to organization leadership
@@ -67,8 +67,8 @@ graph TD
 | **Interview Excellence** | 7-8 | • Level 4: System design (org focus)<br>• Level 4: Advanced behavioral | • Mock interviews with L8+ leaders<br>• Board-level presentations |
 
 **Essential Resources**:
-- [Organizational Design](../interview-prep/engineering-leadership/level-3-applications/organizational-design/index.md)
-- [Managing Managers](../interview-prep/engineering-leadership/level-2-core-business/leadership/index.md)
+- [Organizational Design](../interview-prep/engineering-leadership/level-3-applications/organizational-design/)
+- [Managing Managers](../interview-prep/engineering-leadership/level-2-core-business/leadership/)
 - [Political Navigation](../interview-prep/engineering-leadership/hard-earned-wisdom/organizational-politics-mastery.md)
 
 ### Director (L7 → L8+)
@@ -83,8 +83,8 @@ graph TD
 | **Interview Mastery** | 5-6 | • Executive presence coaching<br>• Vision & strategy presentations | • C-suite mock interviews<br>• Executive storytelling |
 
 **Essential Resources**:
-- [Executive Decision Making](../interview-prep/engineering-leadership/level-1-first-principles/decision-making/index.md)
-- [Business Strategy](../interview-prep/engineering-leadership/level-2-core-business/strategy/index.md)
+- [Executive Decision Making](../interview-prep/engineering-leadership/level-1-first-principles/decision-making/)
+- [Business Strategy](../interview-prep/engineering-leadership/level-2-core-business/strategy/)
 - [Crisis Leadership](../interview-prep/engineering-leadership/hard-earned-wisdom/crisis-leadership-reality.md)
 
 ## ⏱️ Time-Based Preparation Plans
@@ -208,18 +208,18 @@ Level 4: Interview Execution/
 
 | Company | Focus Areas | Key Resources |
 |---------|-------------|---------------|
-| **Amazon** | Leadership Principles | • [14 LPs mapping](../interview-prep/engineering-leadership/company-specific/amazon/index.md)<br>• Bar raiser prep<br>• STAR examples |
-| **Google** | Technical excellence | • [Googleyness guide](../interview-prep/engineering-leadership/company-specific/google/index.md)<br>• System design<br>• Leadership craft |
-| **Meta** | Impact & speed | • [Move fast culture](../interview-prep/engineering-leadership/company-specific/meta/index.md)<br>• Data-driven stories<br>• Scale examples |
-| **Apple** | Quality & craft | • [Functional excellence](../interview-prep/engineering-leadership/company-specific/apple/index.md)<br>• Attention to detail<br>• Cross-functional |
-| **Microsoft** | Growth mindset | • [Transformation stories](../interview-prep/engineering-leadership/company-specific/microsoft/index.md)<br>• Learn-it-all<br>• Customer obsession |
-| **Netflix** | Freedom & responsibility | • [Culture deck](../interview-prep/engineering-leadership/company-specific/netflix/index.md)<br>• Context not control<br>• Stunning colleague |
+| **Amazon** | Leadership Principles | • [14 LPs mapping](../interview-prep/engineering-leadership/company-specific/amazon/)<br>• Bar raiser prep<br>• STAR examples |
+| **Google** | Technical excellence | • [Googleyness guide](../interview-prep/engineering-leadership/company-specific/google/)<br>• System design<br>• Leadership craft |
+| **Meta** | Impact & speed | • [Move fast culture](../interview-prep/engineering-leadership/company-specific/meta/)<br>• Data-driven stories<br>• Scale examples |
+| **Apple** | Quality & craft | • [Functional excellence](../interview-prep/engineering-leadership/company-specific/apple/)<br>• Attention to detail<br>• Cross-functional |
+| **Microsoft** | Growth mindset | • [Transformation stories](../interview-prep/engineering-leadership/company-specific/microsoft/)<br>• Learn-it-all<br>• Customer obsession |
+| **Netflix** | Freedom & responsibility | • [Culture deck](../interview-prep/engineering-leadership/company-specific/netflix/)<br>• Context not control<br>• Stunning colleague |
 
 ## 💡 Hard-Earned Wisdom Integration
 
 ### When to Deep Dive
 
-The [Hard-Earned Wisdom](../interview-prep/engineering-leadership/hard-earned-wisdom/index.md) section provides unvarnished truth about leadership challenges. Use it when:
+The [Hard-Earned Wisdom](../interview-prep/engineering-leadership/hard-earned-wisdom/) section provides unvarnished truth about leadership challenges. Use it when:
 
 - **Before L7+ interviews**: Understanding organizational politics
 - **Struggling with specific scenarios**: Real-world navigation
@@ -321,14 +321,14 @@ Track your readiness:
 
 ### Must Read (All Levels)
 1. [Framework Overview](../interview-prep/engineering-leadership/framework-index.md)
-2. [First Principles](../interview-prep/engineering-leadership/level-1-first-principles/index.md)
-3. [STAR Framework](../interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/index.md)
+2. [First Principles](../interview-prep/engineering-leadership/level-1-first-principles/)
+3. [STAR Framework](../interview-prep/engineering-leadership/level-4-interview-execution/tools/star-framework/)
 4. Your level-specific guide
 
 ### Should Read (Time Permitting)
-1. [Business Concepts](../interview-prep/engineering-leadership/level-2-core-business/index.md)
-2. [Practice Scenarios](../interview-prep/engineering-leadership/practice-scenarios/index.md)
-3. [Hard-Earned Wisdom](../interview-prep/engineering-leadership/hard-earned-wisdom/index.md)
+1. [Business Concepts](../interview-prep/engineering-leadership/level-2-core-business/)
+2. [Practice Scenarios](../interview-prep/engineering-leadership/practice-scenarios/)
+3. [Hard-Earned Wisdom](../interview-prep/engineering-leadership/hard-earned-wisdom/)
 4. Company-specific guides
 
 ### Nice to Have (Deep Dive)

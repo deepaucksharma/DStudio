@@ -398,6 +398,6 @@ monitor-health.sh --duration=30m --alert-on-error
 ## Additional Resources
 
 - Multi-Primary Replication Patterns
-- [Conflict-Free Replicated Data Types](../../pattern-library/data-management/crdt/index.md)
-- [Geographic Distribution Strategies](../../pattern-library/scaling/geo-replication/index.md)
+- [Conflict-Free Replicated Data Types](../../pattern-library/data-management/crdt/)
+- [Geographic Distribution Strategies](../../pattern-library/scaling/geo-replication/)
 - [Database Monitoring Best Practices](../architects-handbook/human-factors/observability.md)

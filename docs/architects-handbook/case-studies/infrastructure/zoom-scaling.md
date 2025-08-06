@@ -458,7 +458,7 @@ def calculate_required_capacity(historical_data, growth_rate, peak_factor):
 - [Auto-scaling Pattern](../pattern-library/scaling/auto-scaling.md)
 - [Geo-distribution Pattern](../pattern-library/scaling/geo-distribution.md)
 - [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md)
-- [Zoom Engineering Blog](https://medium.com/zoom-developer-blog/index.md)
+- [Zoom Engineering Blog](https:/medium.com/zoom-developer-blog/)
 
 ---
 

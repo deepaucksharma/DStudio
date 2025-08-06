@@ -8,7 +8,7 @@ reading_time: 9 min
 
 # Law 5: The Law of Distributed Knowledge
 
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/3OBxGB8NjiiTuOCY8OjPun?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe style="border-radius:12px" src="https:/open.spotify.com/embed/episode/3OBxGB8NjiiTuOCY8OjPun?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 
 <div class="axiom-box" style="background: #1a1a1a; border: 3px solid #ff5555;">
 <h2>🚨 Your Database Doesn't Know What Your Database Knows</h2>
@@ -669,12 +669,12 @@ graph LR
 - **[Law 2: Asynchronous Reality](asynchronous-reality.md)** - Time uncertainty creates truth uncertainty
 - **[Law 3: Emergent Chaos](emergent-chaos.md)** - Truth conflicts trigger emergence
 - **[Law 4: Multidimensional Optimization](multidimensional-optimization.md)** - Consistency vs availability trade-offs
-- **Patterns**: [Raft Consensus](../pattern-library/coordination/consensus.md), [Paxos](../pattern-library/coordination/consensus.md), [Event Sourcing](../pattern-library/data-management/event-sourcing.md)
+- **Patterns**: [Raft Consensus](../../pattern-library/coordination/consensus.md), [Paxos](../../pattern-library/coordination/consensus.md), [Event Sourcing](../../pattern-library/data-management/event-sourcing.md)
 ## Pattern Implementations
 
 Patterns that address this law:
 
-- [Consensus](../pattern-library/coordination/consensus/index.md)
-- [Leader Election](../pattern-library/coordination/leader-election/index.md)
+- [Consensus](../../pattern-library/coordination/consensus.md)
+- [Leader Election](../../pattern-library/coordination/leader-election.md)
 
 

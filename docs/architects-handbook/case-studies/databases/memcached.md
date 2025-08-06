@@ -475,13 +475,13 @@ def get_with_fallback(key, fallback_func):
 
 - [Redis Architecture](../redis-architecture.md) - Modern alternative
 - [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Core distribution
-- [Caching Strategies](../pattern-library/scaling/caching-strategies/index.md) - Cache patterns
+- [Caching Strategies](../pattern-library/scaling/caching-strategies/) - Cache patterns
 - [Facebook Infrastructure](facebook-memcached.md) - Largest deployment
 - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Failure handling
 
 ## References
 
-1. [Scaling Memcache at Facebook](https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf/index.md)
-2. [Memcached Protocol Specification](https://github.com/memcached/memcached/blob/master/doc/protocol.txt/index.md)
-3. [mcrouter: Memcached protocol router](https://github.com/facebook/mcrouter/index.md)
-4. [Memcached Internals](https://memcached.org/blog/modern-lru/index.md)
+1. [Scaling Memcache at Facebook](https:/www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf/)
+2. [Memcached Protocol Specification](https:/github.com/memcached/memcached/blob/master/doc/protocol.txt/)
+3. [mcrouter: Memcached protocol router](https:/github.com/facebook/mcrouter/)
+4. [Memcached Internals](https:/memcached.org/blog/modern-lru/)

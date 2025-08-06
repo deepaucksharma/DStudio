@@ -160,15 +160,15 @@ class StranglerProxy:
     def __init__(self):
         self.routes = {
             '/api/orders': {
-                'legacy_url': 'http://monolith:8080',
-                'new_url': 'http://order-service:8080',
+                'legacy_url': 'http:/monolith:8080',
+                'new_url': 'http:/order-service:8080',
                 'migration_percentage': 0,  # Start with 0%
                 'shadow_mode': True,
                 'compare_responses': True
             },
             '/api/inventory': {
-                'legacy_url': 'http://monolith:8080',
-                'new_url': 'http://inventory-service:8080',
+                'legacy_url': 'http:/monolith:8080',
+                'new_url': 'http:/inventory-service:8080',
                 'migration_percentage': 25,  # 25% to new service
                 'shadow_mode': False,
                 'compare_responses': False
@@ -726,6 +726,6 @@ success_metrics:
 ## Additional Resources
 
 - Domain-Driven Design
-- [Service Mesh Patterns](../../pattern-library/communication/service-mesh/index.md)
-- [Event-Driven Architecture](../../pattern-library/architecture/event-driven/index.md)
+- [Service Mesh Patterns](../../pattern-library/communication/service-mesh/)
+- [Event-Driven Architecture](../../pattern-library/architecture/event-driven/)
 - [Microservices Security](../security/microservices-security.md)

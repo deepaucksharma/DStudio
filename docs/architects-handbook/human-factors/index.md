@@ -40,22 +40,22 @@ Building successful distributed systems isn't just about technology—it's about
 ## 🏢 Organizational Patterns
 
 ### Team Structures
-- **[Platform Teams](platform-teams/index.md)** - Internal infrastructure
-- **[Service Teams](service-teams/index.md)** - Feature delivery
-- **[SRE Teams](sre-teams/index.md)** - Reliability focus
-- **[DevOps Culture](devops-culture/index.md)** - Breaking down silos
+- **[Platform Teams](platform-teams/)** - Internal infrastructure
+- **[Service Teams](service-teams/)** - Feature delivery
+- **[SRE Teams](sre-teams/)** - Reliability focus
+- **[DevOps Culture](devops-culture/)** - Breaking down silos
 
 ### Communication Patterns
-- **[Technical Documentation](technical-documentation/index.md)** - Knowledge sharing
-- **[Design Reviews](design-reviews/index.md)** - Collaborative architecture
-- **[Operational Reviews](operational-reviews/index.md)** - Continuous improvement
-- **[Blameless Culture](blameless-culture/index.md)** - Psychological safety
+- **[Technical Documentation](technical-documentation/)** - Knowledge sharing
+- **[Design Reviews](design-reviews/)** - Collaborative architecture
+- **[Operational Reviews](operational-reviews/)** - Continuous improvement
+- **[Blameless Culture](blameless-culture/)** - Psychological safety
 
 ### Skills Development
-- **[Learning Paths](../architects-handbook/learning-paths/index.md)** - Career progression
-- **[Mentorship Programs](mentorship/index.md)** - Knowledge transfer
+- **[Learning Paths](../architects-handbook/learning-paths/)** - Career progression
+- **[Mentorship Programs](mentorship/)** - Knowledge transfer
 - **[Chaos Engineering](chaos-engineering.md)** - Building confidence
-- **[Game Days](game-days/index.md)** - Practice scenarios
+- **[Game Days](game-days/)** - Practice scenarios
 
 ## 📊 Metrics & KPIs
 

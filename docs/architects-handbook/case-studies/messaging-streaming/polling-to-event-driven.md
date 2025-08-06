@@ -201,7 +201,7 @@ class StranglerFigMigration:
     # Client code - runs every 30 seconds
     def poll_for_orders():
         response = requests.get(
-            "https://api.example.com/orders",
+            "https:/api.example.com/orders",
             params={"since": last_poll_time}
         )
         
@@ -480,7 +480,7 @@ total_event_cost = event_delivery_cost + streaming_infrastructure + reduced_serv
 
 - [Event-Driven Architecture Pattern](../../pattern-library/architecture/event-driven.md)
 - [Webhook Pattern](../../pattern-library/webhook.md)
-- [Migration Best Practices](../excellence/migration-guide.md)
+- [Migration Best Practices](../architects-handbook/implementation-playbooks/migration-guide.md)
 - [Anti-Patterns Guide](../reference/anti-patterns.md)
 
 ---

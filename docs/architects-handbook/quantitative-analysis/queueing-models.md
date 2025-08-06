@@ -380,7 +380,7 @@ Servers @ 80% util: 1→80%, 2→44%, 4→23%, 8→11%, 16→5% queue probabilit
  🎯 <strong>Recommendation:</strong> Deploy 70 servers to maintain 71% utilization, ensuring 95th percentile response time stays under 200ms with safety margin.
 </div>
 
-This sizing directly impacts [Availability](../architects-handbook/quantitative-analysis/availability-math.md) - overloaded servers fail, reducing system availability.
+This sizing directly impacts [Availability](../quantitative-analysis/availability-math.md) - overloaded servers fail, reducing system availability.
 
 ### Database Connection Pool
 !!! abstract "🔗 Connection Pool Calculator"
@@ -556,7 +556,7 @@ graph LR
  style F fill:#ff0000
 ```
 
-**Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](../core-principles/laws/multidimensional-optimization/index.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
+**Key Insight**: M/M/1 models directly demonstrate [Law 4: Trade-offs ⚖️](../../core-principles/laws/multidimensional-optimization.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
 
 ### Law 1: Failure
 - At high utilization (>90%), small disruptions cause catastrophic queue growth
@@ -722,5 +722,5 @@ Queues are everywhere. Understand them before they break.
 
 ## Related Concepts
 
-- **Quantitative**: [Little's Law](../architects-handbook/quantitative-analysis/littles-law.md) | [Latency Ladder](../architects-handbook/quantitative-analysis/latency-ladder.md) | [Availability Math](../architects-handbook/quantitative-analysis/availability-math.md)
+- **Quantitative**: [Little's Law](../quantitative-analysis/littles-law.md) | [Latency Ladder](../quantitative-analysis/latency-ladder.md) | [Availability Math](../quantitative-analysis/availability-math.md)
 - **Patterns**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) | [Backpressure](../pattern-library/scaling/backpressure.md) | [Rate Limiting](../pattern-library/scaling/rate-limiting.md)

@@ -175,11 +175,11 @@ type: documentation
 
 ## Related Resources
 
-- [Economic Reality Law](../core-principles/laws/economic-reality/index.md)
+- [Economic Reality Law](../../core-principles/laws/economic-reality.md)
 - FinOps Best Practices (Coming Soon)
 - Multi-Region Architecture (Coming Soon/index)
-- [Storage Economics](quantitative/storage-economics/index.md)
-- [Cache Economics](quantitative/cache-economics/index.md)
+- [Storage Economics](quantitative/storage-economics/)
+- [Cache Economics](quantitative/cache-economics/)
 
 <script>
 / Simplified cloud pricing model (real pricing is more complex)

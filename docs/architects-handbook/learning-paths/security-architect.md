@@ -106,7 +106,7 @@ outcomes:
 </div>
 
 !!! tip "Security Readiness Check"
-    Complete our [Security IQ Assessment](../tools/security-readiness-quiz/index.md) to identify any knowledge gaps before starting.
+    Complete our [Security IQ Assessment](../tools/security-readiness-quiz/) to identify any knowledge gaps before starting.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -128,7 +128,7 @@ outcomes:
     - [ ] Design authorization systems
     
     **Day 1-2**: Security Fundamentals
-    - 📖 Read: [Security First Principles](../core-principles/security-first.md/index.md)
+    - 📖 Read: [Security First Principles](../core-principles/security-first.md/)
     - 🛠️ Lab: Analyze famous security breaches (Equifax, SolarWinds)
     - 📊 Success: Identify root causes and prevention strategies
     - ⏱️ Time: 6-8 hours
@@ -162,7 +162,7 @@ outcomes:
     - ⏱️ Time: 6-8 hours
     
     **Day 10-11**: Secure API Design
-    - 📖 Read: [API security patterns](../../pattern-library/security/api-security/index.md)
+    - 📖 Read: [API security patterns](../../pattern-library/security/api-security/)
     - 🛠️ Lab: Build secure REST API with rate limiting
     - 📊 Success: Pass security penetration test
     - ⏱️ Time: 6-8 hours
@@ -286,7 +286,7 @@ gantt
     - ⏱️ Time: 6-8 hours
     
     **Day 31-32**: Identity & Access Management
-    - 📖 Read: [IAM patterns](../../pattern-library/security/identity-access/index.md)
+    - 📖 Read: [IAM patterns](../../pattern-library/security/identity-access/)
     - 🛠️ Lab: Implement RBAC with attribute-based controls
     - 📊 Success: Dynamic access control system
     - ⏱️ Time: 6-8 hours
@@ -584,7 +584,7 @@ Join specialized security-focused study groups:
 
 ### Security Community Resources
 
-- **Security Discord**: [#security-architects](https://discord.gg/security-architects/index.md)
+- **Security Discord**: [#security-architects](https:/discord.gg/security-architects/)
 - **Red Team Village**: Hands-on attack simulation
 - **Bug Bounty Programs**: Practice ethical hacking
 - **Security Conferences**: DEF CON, Black Hat, RSA discounts
@@ -703,19 +703,19 @@ After completing this path, consider these specializations:
 ### Critical Security Resources
 
 **Vulnerability Research**:
-- [CVE Details](https://www.cvedetails.com/index.md)
-- [NVD - National Vulnerability Database](https://nvd.nist.gov/index.md)
-- [OWASP](https://owasp.org/index.md)
+- [CVE Details](https:/www.cvedetails.com/)
+- [NVD - National Vulnerability Database](https:/nvd.nist.gov/)
+- [OWASP](https:/owasp.org/)
 
 **Threat Intelligence**:
-- [MITRE ATT&CK Framework](https://attack.mitre.org/index.md)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework/index.md)
-- [SANS Reading Room](https://www.sans.org/reading-room/index.md)
+- [MITRE ATT&CK Framework](https:/attack.mitre.org/)
+- [NIST Cybersecurity Framework](https:/www.nist.gov/cyberframework/)
+- [SANS Reading Room](https:/www.sans.org/reading-room/)
 
 **Security News & Research**:
-- [Krebs on Security](https://krebsonsecurity.com/index.md)
-- [Dark Reading](https://www.darkreading.com/index.md)
-- [Security Week](https://www.securityweek.com/index.md)
+- [Krebs on Security](https:/krebsonsecurity.com/)
+- [Dark Reading](https:/www.darkreading.com/)
+- [Security Week](https:/www.securityweek.com/)
 
 ### Podcasts & Video Resources
 
