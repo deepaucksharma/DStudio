@@ -458,7 +458,7 @@ class ErasureCodingEngine:
 # Pad data to multiple of data_shards
  padded_data = self._pad_data(data)
  data_size = len(padded_data)
- shard_size = data_size // self.data_shards
+ shard_size = data_size / self.data_shards
  
 # Split into data shards
  data_shards = []
@@ -1339,17 +1339,17 @@ class S3PerformanceOptimizer:
  
 # For larger objects, calculate optimal part size
 # Target 10,000 parts max, 100 parts optimal
- optimal_part_count = min(100, max(10, object_size // (100 * 1024 * 1024)))
- part_size = object_size // optimal_part_count
+ optimal_part_count = min(100, max(10, object_size / (100 * 1024 * 1024)))
+ part_size = object_size / optimal_part_count
  
 # Align to 1MB boundary
- part_size = (part_size // (1024 * 1024)) * (1024 * 1024)
+ part_size = (part_size / (1024 * 1024)) * (1024 * 1024)
  part_size = max(5 * 1024 * 1024, part_size) # Min 5MB
  
 # Calculate parallelism based on bandwidth
  parallel_uploads = min(
  10, # Max 10 parallel
- network_bandwidth // (part_size // 1024 // 1024) # MB/s
+ network_bandwidth / (part_size / 1024 / 1024) # MB/s
  )
  
  return MultipartStrategy(

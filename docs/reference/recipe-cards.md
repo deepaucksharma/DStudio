@@ -79,7 +79,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 1 (Correlated Failure ⛓️), Law 3 (Emergent Chaos 🌪️)
 
-**Case Studies**: [Netflix's Resilience Patterns](case-studies/netflix-chaos/index.md), [Circuit Breaker Pattern](pattern-library/circuit-breaker/index.md)
+**Case Studies**: [Netflix's Resilience Patterns](../architects-handbook/case-studies/netflix-chaos/index.md), [Circuit Breaker Pattern](pattern-library/circuit-breaker/index.md)
 
 ---
 
@@ -171,7 +171,7 @@ last_updated: 2025-07-20
 
 **Consider**: Law 1 (Correlated Failure ⛓️) for cascade analysis, Law 2 (Asynchronous Reality ⏳) for timing issues
 
-**Case Studies**: [Amazon DynamoDB Outage](case-studies/amazon-dynamo/index.md), [Facebook's Metastable Failures](case-studies/consistent-hashing/index.md)
+**Case Studies**: [Amazon DynamoDB Outage](../architects-handbook/case-studies/amazon-dynamo/index.md), [Facebook's Metastable Failures](../architects-handbook/case-studies/consistent-hashing/index.md)
 
 ---
 
@@ -432,7 +432,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 4 (Multidimensional Optimization ⚖️) for trade-offs, Law 7 (Economic Reality 💰) for cost planning
 
-**Tools**: [Capacity Planning Calculator](....../architects-handbook/tools.md/capacity-calculator.md), [Little's Law Calculator](....../architects-handbook/tools.md/latency-calculator.md)
+**Tools**: [Capacity Planning Calculator](../../architects-handbook/tools/capacity-calculator.md), [Little's Law Calculator](../../architects-handbook/tools/latency-calculator.md)
 
 ---
 
@@ -487,7 +487,7 @@ last_updated: 2025-07-20
 
 5. **Monitor and Alert**: Trace duration P99, Error traces, Missing spans
 
-**Related Patterns**: [Observability](....../pattern-library/resilience.md/health-check.md), [Service Mesh](....../pattern-library/communication.md/service-mesh.md)
+**Related Patterns**: [Observability](../../pattern-library/resilience/health-check.md), [Service Mesh](../../pattern-library/communication/service-mesh.md)
 
 ---
 
@@ -619,7 +619,7 @@ last_updated: 2025-07-20
 
 5. **Test the Breaker**: Inject failures, Verify opens at threshold, Confirm recovery behavior
 
-**Related Patterns**: [Bulkhead](....../pattern-library/resilience.md/bulkhead.md), [Retry with Backoff](....../pattern-library/resilience.md/retry-backoff.md)
+**Related Patterns**: [Bulkhead](../../pattern-library/resilience/bulkhead.md), [Retry with Backoff](../../pattern-library/resilience/retry-backoff.md)
 
 ---
 
@@ -693,9 +693,9 @@ last_updated: 2025-07-20
 4. **Share your recipes** - contribute back improvements
 
 For deeper understanding:
-- [Patterns](../pattern-library..../architects-handbook/case-studies.md/index.md) - Real-world implementations
-- [Tools](....../architects-handbook/tools.md/index.md) - Interactive calculators
-- [Cheat Sheets](../reference/cheat-sheets.md) - Quick reference
+- [Patterns](../pattern-library../architects-handbook/case-studies/index.md) - Real-world implementations
+- [Tools](../../architects-handbook/tools/index.md) - Interactive calculators
+- [Cheat Sheets](cheat-sheets.md) - Quick reference
 
 ---
 

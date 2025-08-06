@@ -28,9 +28,9 @@ While this site focuses on **distributed systems** and **engineering leadership*
 
 | Phase | Focus | Resources |
 |-------|-------|-----------|
-| **Foundation** | Data structures & core algorithms | [Algorithm Patterns](../../interview-prep/coding-interviews/algorithm-patterns.md) |
+| **Foundation** | Data structures & core algorithms | [Algorithm Patterns](../interview-prep/coding-interviews/algorithm-patterns.md) |
 | **Practice** | Pattern recognition & implementation | External platforms |
-| **Strategy** | Interview communication & debugging | [Interview Tips](../../interview-prep/coding-interviews/interview-tips.md) |
+| **Strategy** | Interview communication & debugging | [Interview Tips](../interview-prep/coding-interviews/interview-tips.md) |
 
 ## External Resources
 
@@ -129,9 +129,9 @@ O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2ⁿ) < O(n!)
 
 ## Next Steps
 
-1. **Start with patterns**: Review [Algorithm Patterns](../../interview-prep/coding-interviews/algorithm-patterns.md)
+1. **Start with patterns**: Review [Algorithm Patterns](../interview-prep/coding-interviews/algorithm-patterns.md)
 2. **Practice regularly**: 30-60 minutes daily on external platforms
-3. **Focus on communication**: Practice [Interview Tips](../../interview-prep/coding-interviews/interview-tips.md)
+3. **Focus on communication**: Practice [Interview Tips](../interview-prep/coding-interviews/interview-tips.md)
 4. **System design integration**: Connect coding skills to architecture decisions
 
 ---

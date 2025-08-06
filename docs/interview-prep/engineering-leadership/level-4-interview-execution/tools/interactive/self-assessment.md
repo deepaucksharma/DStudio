@@ -550,7 +550,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // Level selector
+    / Level selector
     document.querySelectorAll('.level-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
@@ -560,7 +560,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Rating change handlers
+    / Rating change handlers
     document.querySelectorAll('.rating-select').forEach(select => {
         select.addEventListener('change', function() {
             calculateScores();
@@ -593,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 categoryScore += rating * weight;
                 totalWeight += weight;
                 
-                // Track gaps
+                / Track gaps
                 const competency = select.closest('tr').querySelector('td').textContent;
                 const expected = levelExpectations[targetLevel][category].expected;
                 if (rating < expected) {
@@ -613,11 +613,11 @@ document.addEventListener('DOMContentLoaded', function() {
             totalScore += normalizedScore * categoryWeights[category];
         });
         
-        // Update total score
+        / Update total score
         document.getElementById('total-score').textContent = Math.round(totalScore) + '%';
         document.getElementById('score-fill').style.width = totalScore + '%';
         
-        // Update color based on score
+        / Update color based on score
         const scoreFill = document.getElementById('score-fill');
         if (totalScore >= 80) {
             scoreFill.style.background = '#4CAF50';
@@ -627,10 +627,10 @@ document.addEventListener('DOMContentLoaded', function() {
             scoreFill.style.background = '#F44336';
         }
         
-        // Level analysis
+        / Level analysis
         updateLevelAnalysis(totalScore);
         
-        // Gap analysis
+        / Gap analysis
         updateGapAnalysis(gaps);
     }
     
@@ -674,7 +674,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `<li><strong>${gap.competency}</strong> (${gap.category}): Current ${gap.current}/5, Need ${gap.expected}/5</li>`
         ).join('');
         
-        // Generate action plan
+        / Generate action plan
         const actionItems = document.getElementById('action-items');
         actionItems.innerHTML = `
             <div class="action-week">
@@ -702,7 +702,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
     
-    // Export functionality
+    / Export functionality
     window.exportAssessment = function() {
         const data = gatherAssessmentData();
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -720,7 +720,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     window.compareWithTarget = function() {
-        // This would show a detailed comparison view
+        / This would show a detailed comparison view
         alert('Detailed comparison view coming soon!');
     };
     
@@ -738,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function() {
             data.evidence[category] = {};
             
             section.querySelectorAll('tr').forEach((row, index) => {
-                if (index === 0) return; // Skip header
+                if (index === 0) return; / Skip header
                 
                 const competency = row.querySelector('td').textContent;
                 const rating = row.querySelector('.rating-select').value;
@@ -752,12 +752,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return data;
     }
     
-    // Load saved assessment
+    / Load saved assessment
     const savedAssessment = localStorage.getItem('leadership-assessment');
     if (savedAssessment) {
         const data = JSON.parse(savedAssessment);
-        // Restore saved values
-        // Implementation left as exercise
+        / Restore saved values
+        / Implementation left as exercise
     }
 });
 </script>

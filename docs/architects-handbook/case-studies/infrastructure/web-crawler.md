@@ -8,8 +8,8 @@ reading_time: 35 min
 prerequisites:
 - axiom3-emergence
 - axiom6-human-api
-- ../../../pattern-library/queues-streaming
-- ../../../pattern-library/resilience/bulkhead.md
+- ../../pattern-library/queues-streaming
+- ../../pattern-library/resilience/bulkhead.md
 status: complete
 last_updated: 2025-07-20
 excellence_tier: silver
@@ -2070,10 +2070,10 @@ Storage Node      32GB      8 cores  10TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 3: Emergence](../../core-principles/laws.md/emergent-chaos/index.md) - Massive parallelism patterns
-- [Law 6: Human-API](../../core-principles/laws.md/cognitive-load/index.md) - Crawler ethics and robots.txt
-- [Queue Patterns](../../pattern-library/scaling.md/queues-streaming.md) - Priority queue implementations
-- [Bulkhead Pattern](../../pattern-library/resilience.md/bulkhead.md) - Domain isolation strategies
+- [Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md) - Massive parallelism patterns
+- [Law 6: Human-API](../core-principles/laws/cognitive-load/index.md) - Crawler ethics and robots.txt
+- [Queue Patterns](../pattern-library/scaling/queues-streaming.md) - Priority queue implementations
+- [Bulkhead Pattern](../pattern-library/resilience/bulkhead.md) - Domain isolation strategies
 
 **Advanced Topics:**
 - JavaScript Crawling (Coming Soon) - Headless browser techniques
@@ -2087,10 +2087,10 @@ Storage Node      32GB      8 cores  10TB
 <!-- TODO: Add price monitor case study -->
 
 **Implementation Patterns:**
-- [Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md) - Respectful crawling rate control
-- [URL Normalization](../../pattern-library/scaling.md/url-normalization.md) - Canonical URLs
+- [Rate Limiting](../pattern-library/scaling/rate-limiting.md) - Respectful crawling rate control
+- [URL Normalization](../pattern-library/scaling/url-normalization.md) - Canonical URLs
 - Content Extraction (Coming Soon) - Parsing strategies
-- [Distributed Queue](../../pattern-library/coordination.md/distributed-queue.md) - Scalable queue design
+- [Distributed Queue](../pattern-library/coordination/distributed-queue.md) - Scalable queue design
 
 ### 📚 References
 
@@ -2107,6 +2107,6 @@ Storage Node      32GB      8 cores  10TB
 
 **Related Patterns:**
 - URL Frontier Management (Coming Soon)
-- [Politeness Policy](../../pattern-library/scaling.md/rate-limiting.md)
-- [Duplicate Detection](../../pattern-library/data-management.md/bloom-filter.md)
-- [Distributed Coordination](../../pattern-library/coordination.md/leader-election.md)
+- [Politeness Policy](../pattern-library/scaling/rate-limiting.md)
+- [Duplicate Detection](../pattern-library/data-management/bloom-filter.md)
+- [Distributed Coordination](../pattern-library/coordination/leader-election.md)

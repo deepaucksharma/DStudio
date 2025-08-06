@@ -22,23 +22,23 @@ These case studies examine how leading technology companies have built and evolv
 > **New!** Each domain now has a dedicated index page with learning paths, difficulty ratings, and cross-references.
 
 ### 🗂️ Domain Navigation
-- **[🗄️ Databases & Storage](databas../../index.md)** - 11 studies on distributed data systems
-- **[📨 Messaging & Streaming](messaging-streami../../index.md)** - 7 studies on event-driven architectures
-- **[📍 Location Services](location-servic../../index.md)** - 13 studies on geospatial systems
-- **[🏗️ Infrastructure & Platform](infrastructu../../index.md)** - 10 studies on core distributed systems
-- **[💬 Social & Communication](social-communicati../../index.md)** - 14 studies on real-time systems
-- **[💰 Financial & Commerce](financial-commer../../index.md)** - 8 studies on payment & e-commerce
-- **[🔍 Search & Analytics](search-analyti../../index.md)** - 7 studies on information retrieval
-- **[📊 Monitoring & Observability](monitoring-observabili../../index.md)** - 4 studies on system monitoring
-- **[🏥 Healthcare Systems](healthca../../index.md)** - 3 studies on medical technology architecture
-- **[🎮 Gaming Systems](gami../../index.md)** - 3 studies on real-time multiplayer architecture
-- **[📦 Logistics & Supply Chain](logisti../../index.md)** - 3 studies on intelligent logistics systems
-- **[🏆 Elite Engineering](elite-engineeri../../index.md)** - 5 studies from industry leaders
+- **[🗄️ Databases & Storage](databas../index.md)** - 11 studies on distributed data systems
+- **[📨 Messaging & Streaming](messaging-streami../index.md)** - 7 studies on event-driven architectures
+- **[📍 Location Services](location-servic../index.md)** - 13 studies on geospatial systems
+- **[🏗️ Infrastructure & Platform](infrastructu../index.md)** - 10 studies on core distributed systems
+- **[💬 Social & Communication](social-communicati../index.md)** - 14 studies on real-time systems
+- **[💰 Financial & Commerce](financial-commer../index.md)** - 8 studies on payment & e-commerce
+- **[🔍 Search & Analytics](search-analyti../index.md)** - 7 studies on information retrieval
+- **[📊 Monitoring & Observability](monitoring-observabili../index.md)** - 4 studies on system monitoring
+- **[🏥 Healthcare Systems](healthca../index.md)** - 3 studies on medical technology architecture
+- **[🎮 Gaming Systems](gami../index.md)** - 3 studies on real-time multiplayer architecture
+- **[📦 Logistics & Supply Chain](logisti../index.md)** - 3 studies on intelligent logistics systems
+- **[🏆 Elite Engineering](elite-engineeri../index.md)** - 5 studies from industry leaders
 
 ---
 
 ### 🗄️ Databases & Storage
-> **[Browse All Database Studies →](databas../../index.md)**
+> **[Browse All Database Studies →](databas../index.md)**
 
 - **[Amazon Aurora](databases/amazon-aurora.md)** - MySQL/PostgreSQL-compatible relational database
 - **[Amazon DynamoDB](databases/amazon-dynamo.md)** - Distributed NoSQL database handling 10T+ requests/day, evolved from Dynamo paper
@@ -53,7 +53,7 @@ These case studies examine how leading technology companies have built and evolv
 - **[Apache ZooKeeper](databases/zookeeper.md)** - Distributed coordination service
 
 ### 📨 Messaging & Streaming
-> **[Browse All Messaging Studies →](messaging-streami../../index.md)**
+> **[Browse All Messaging Studies →](messaging-streami../index.md)**
 
 - **[Apache Kafka](messaging-streaming/kafka.md)** - Distributed streaming platform processing trillions of events/day
 - **[Apache Spark](messaging-streaming/apache-spark.md)** - Unified analytics engine for big data
@@ -64,7 +64,7 @@ These case studies examine how leading technology companies have built and evolv
 - **[Event-Driven Architecture](messaging-streaming/polling-to-event-driven.md)** - Moving from polling to events
 
 ### 📍 Location Services
-> **[Browse All Location Studies →](location-servic../../index.md)**
+> **[Browse All Location Studies →](location-servic../index.md)**
 
 - **[Apple Maps](location-services/apple-maps.md)** - Mapping platform serving billions of queries
 - **[Find My Device](location-services/find-my-device.md)** - Global device tracking at scale
@@ -81,7 +81,7 @@ These case studies examine how leading technology companies have built and evolv
 - **[Uber Maps](location-services/uber-maps.md)** - Custom mapping for ride-sharing
 
 ### 🏗️ Infrastructure & Platform  
-> **[Browse All Infrastructure Studies →](infrastructu../../index.md)**
+> **[Browse All Infrastructure Studies →](infrastructu../index.md)**
 
 - **[Blockchain Systems](infrastructure/blockchain.md)** - Distributed ledger technology
 - **[Consistent Hashing](infrastructure/consistent-hashing.md)** - Scalable data distribution
@@ -95,7 +95,7 @@ These case studies examine how leading technology companies have built and evolv
 - **[Zoom Scaling](infrastructure/zoom-scaling.md)** - Video conferencing at massive scale
 
 ### 💬 Social & Communication
-> **[Browse All Social & Communication Studies →](social-communicati../../index.md)**
+> **[Browse All Social & Communication Studies →](social-communicati../index.md)**
 
 - **[Chat System Architecture](social-communication/chat-system.md)** - Building real-time messaging
 - **[Chat Consistency Deep Dive](social-communication/consistency-deep-dive-chat.md)** - Message ordering guarantees
@@ -113,7 +113,7 @@ These case studies examine how leading technology companies have built and evolv
 - **[YouTube Architecture](social-communication/youtube.md)** - Video platform deep dive
 
 ### 💰 Financial & Commerce
-> **[Browse All Financial & Commerce Studies →](financial-commer../../index.md)**
+> **[Browse All Financial & Commerce Studies →](financial-commer../index.md)**
 
 - **[Ad Click Aggregation](financial-commerce/ad-click-aggregation.md)** - Real-time ad analytics
 - **[Digital Wallet](financial-commerce/digital-wallet-enhanced.md)** - Payment infrastructure design
@@ -125,7 +125,7 @@ These case studies examine how leading technology companies have built and evolv
 - **[Stock Exchange](financial-commerce/stock-exchange.md)** - High-frequency trading systems
 
 ### 🔍 Search & Analytics
-> **[Browse All Search & Analytics Studies →](search-analyti../../index.md)**
+> **[Browse All Search & Analytics Studies →](search-analyti../index.md)**
 
 - **[Elasticsearch](search-analytics/elasticsearch.md)** - Distributed search and analytics
 - **[Gaming Leaderboard](search-analytics/gaming-leaderboard-enhanced.md)** - Real-time ranking systems
@@ -136,7 +136,7 @@ These case studies examine how leading technology companies have built and evolv
 - **[Spotify Recommendations](search-analytics/spotify-recommendations.md)** - ML-powered music discovery
 
 ### 📊 Monitoring & Observability
-> **[Browse All Monitoring Studies →](monitoring-observabili../../index.md)**
+> **[Browse All Monitoring Studies →](monitoring-observabili../index.md)**
 
 - **[Metrics Monitoring](monitoring-observability/metrics-monitoring.md)** - Time-series data at scale
 - **[Prometheus Architecture](monitoring-observability/prometheus.md)** - Open-source monitoring
@@ -144,28 +144,28 @@ These case studies examine how leading technology companies have built and evolv
 - **[Rate Limiter](monitoring-observability/rate-limiter.md)** - API rate limiting strategies
 
 ### 🏥 Healthcare Systems
-> **[Browse All Healthcare Studies →](healthca../../index.md)**
+> **[Browse All Healthcare Studies →](healthca../index.md)**
 
 - **[Electronic Health Records (EHR) System](healthcare/ehr-system.md)** - Epic and Cerner implementations serving 250M+ patient records
 - **[Medical Imaging Pipeline](healthcare/medical-imaging-pipeline.md)** - DICOM processing, AI analysis, and global image distribution
 - **[Patient Privacy & HIPAA Compliance](healthcare/patient-privacy-hipaa.md)** - Zero-trust security, data governance, and compliance automation
 
 ### 🎮 Gaming Systems
-> **[Browse All Gaming Studies →](gami../../index.md)**
+> **[Browse All Gaming Studies →](gami../index.md)**
 
 - **[MMO Game Architecture](gaming/mmo-game-architecture.md)** - World of Warcraft, Final Fantasy XIV, and Guild Wars 2 architectures
 - **[Real-time Game State Synchronization](gaming/real-time-game-sync.md)** - Counter-Strike, Valorant, and Fortnite networking architectures
 - **[Global Matchmaking Platform](gaming/global-matchmaking.md)** - League of Legends, Dota 2, and Overwatch matchmaking systems
 
 ### 📦 Logistics & Supply Chain
-> **[Browse All Logistics Studies →](logisti../../index.md)**
+> **[Browse All Logistics Studies →](logisti../index.md)**
 
 - **[Real-time Package Tracking](logistics/real-time-package-tracking.md)** - FedEx, UPS, and Amazon tracking architectures serving billions of packages
 - **[Route Optimization Algorithms](logistics/route-optimization.md)** - UPS ORION, Amazon logistics, and DHL route planning systems
 - **[Warehouse Automation Systems](logistics/warehouse-automation.md)** - Amazon fulfillment centers, Alibaba smart warehouses, and Ocado robotics
 
 ### 🏆 Elite Engineering
-> **[Browse All Elite Engineering Studies →](elite-engineeri../../index.md)**
+> **[Browse All Elite Engineering Studies →](elite-engineeri../index.md)**
 
 - **[Amazon DynamoDB Evolution](elite-engineering/amazon-dynamodb-evolution.md)** - 15+ years of scaling
 - **[Discord Voice Infrastructure](elite-engineering/discord-voice-infrastructure.md)** - Low-latency voice chat
@@ -275,14 +275,14 @@ These case studies examine how leading technology companies have built and evolv
 
 ### 🏃‍♀️ Advanced Practitioners
 
-**Infrastructure Specialists**: Start with [Infrastructure Index](infrastructu../../index.md)  
-**ML Engineers**: Focus on [Search & Analytics](search-analyti../../index.md) systems  
-**Platform Engineers**: Explore [Messaging & Streaming](messaging-streami../../index.md)  
-**SREs**: Begin with [Monitoring & Observability](monitoring-observabili../../index.md)
+**Infrastructure Specialists**: Start with [Infrastructure Index](infrastructu../index.md)  
+**ML Engineers**: Focus on [Search & Analytics](search-analyti../index.md) systems  
+**Platform Engineers**: Explore [Messaging & Streaming](messaging-streami../index.md)  
+**SREs**: Begin with [Monitoring & Observability](monitoring-observabili../index.md)
 
 ### 🏆 Industry Deep Dives
 
-Learn from the best with our [Elite Engineering](elite-engineeri../../index.md) case studies:
+Learn from the best with our [Elite Engineering](elite-engineeri../index.md) case studies:
 - **Netflix**: Chaos engineering and microservices mastery
 - **Amazon**: DynamoDB evolution and operational excellence  
 - **Discord**: Real-time voice infrastructure at scale

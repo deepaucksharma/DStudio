@@ -1,6 +1,6 @@
 ---
 title: Law 4: The Law of Multidimensional Optimization
-description: src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/law-4-multidimensional-optimization&color=%235448C8&inverse=false&
+description: src="https://w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/law-4-multidimensional-optimization&color=%235448C8&inverse=false&
 type: law
 difficulty: intermediate
 reading_time: 8 min
@@ -9,7 +9,7 @@ reading_time: 8 min
 # Law 4: The Law of Multidimensional Optimization
 
 <iframe width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/law-4-multidimensional-optimization&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+    src="https://w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/law-4-multidimensional-optimization&color=%235448C8&inverse=false&auto_play=false&show_user=true">
 </iframe>
 
 > "You cannot optimize all dimensions simultaneously; trade-offs are mandatory."
@@ -701,26 +701,26 @@ If you can't answer these, you're not ready for production.
 Patterns that explicitly manage multidimensional trade-offs:
 
 **⚖️ Core Trade-off Management:**
-- **[CAP Theorem](../..../pattern-library/architecture.md/cap-theorem/index.md)**: The foundational example of impossible optimization - choose 2 of Consistency, Availability, Partition tolerance
-- **[CQRS](../..../pattern-library/data-management.md/cqrs/index.md)**: Trades complexity for performance by separating read and write optimization
-- **[Caching Strategies](../..../pattern-library/scaling.md/caching-strategies/index.md)**: Balances speed vs freshness vs memory cost
-- **[Load Balancing](../..../pattern-library/scaling.md/load-balancing/index.md)**: Optimizes throughput while managing latency and resource utilization
+- **[CAP Theorem](../pattern-library/architecture/cap-theorem/index.md)**: The foundational example of impossible optimization - choose 2 of Consistency, Availability, Partition tolerance
+- **[CQRS](../pattern-library/data-management/cqrs/index.md)**: Trades complexity for performance by separating read and write optimization
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies/index.md)**: Balances speed vs freshness vs memory cost
+- **[Load Balancing](../pattern-library/scaling/load-balancing/index.md)**: Optimizes throughput while managing latency and resource utilization
 
 **📊 Data Consistency Trade-offs:**
-- **[Saga Pattern](../..../pattern-library/data-management.md/saga/index.md)**: Chooses availability over consistency in distributed transactions
-- **[Event Sourcing](../..../pattern-library/data-management.md/event-sourcing/index.md)**: Trades storage costs for auditability and temporal queries
-- **[Sharding](../..../pattern-library/scaling.md/sharding/index.md)**: Scales performance at the cost of cross-shard operation complexity
-- **[Eventual Consistency](../..../pattern-library/data-management.md/eventual-consistency/index.md)**: Optimizes availability and partition tolerance while relaxing consistency
+- **[Saga Pattern](../pattern-library/data-management/saga/index.md)**: Chooses availability over consistency in distributed transactions
+- **[Event Sourcing](../pattern-library/data-management/event-sourcing/index.md)**: Trades storage costs for auditability and temporal queries
+- **[Sharding](../pattern-library/scaling/sharding/index.md)**: Scales performance at the cost of cross-shard operation complexity
+- **[Eventual Consistency](../pattern-library/data-management/eventual-consistency/index.md)**: Optimizes availability and partition tolerance while relaxing consistency
 
 **🛡️ Resilience vs Performance:**
-- **[Circuit Breaker](../..../pattern-library/resilience.md/circuit-breaker/index.md)**: Trades immediate availability for long-term stability
-- **[Graceful Degradation](../..../pattern-library/resilience.md/graceful-degradation/index.md)**: Maintains availability by accepting reduced functionality
-- **[Timeout](../..../pattern-library/resilience.md/timeout/index.md)**: Balances response time reliability against occasional false failures
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)**: Trades immediate availability for long-term stability
+- **[Graceful Degradation](../pattern-library/resilience/graceful-degradation/index.md)**: Maintains availability by accepting reduced functionality
+- **[Timeout](../pattern-library/resilience/timeout/index.md)**: Balances response time reliability against occasional false failures
 
 **💰 Cost vs Quality Trade-offs:**
-- **[Auto-scaling](../..../pattern-library/scaling.md/auto-scaling/index.md)**: Optimizes cost by trading some response latency during scaling events
-- **[CDN/Edge Computing](../..../pattern-library/scaling.md/edge-computing/index.md)**: Reduces latency at increased infrastructure cost
-- **[Multi-region](../..../pattern-library/scaling.md/multi-region/index.md)**: Improves availability and performance at significant complexity cost
+- **[Auto-scaling](../pattern-library/scaling/auto-scaling/index.md)**: Optimizes cost by trading some response latency during scaling events
+- **[CDN/Edge Computing](../pattern-library/scaling/edge-computing/index.md)**: Reduces latency at increased infrastructure cost
+- **[Multi-region](../pattern-library/scaling/multi-region/index.md)**: Improves availability and performance at significant complexity cost
 
 ## Related Concepts
 

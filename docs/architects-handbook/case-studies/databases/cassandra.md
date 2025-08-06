@@ -905,41 +905,41 @@ Understanding Cassandra's approach to distributed data management provides insig
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](../../core-principles/laws.md/correlated-failure/index.md) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md) - Gossip protocol and eventual consistency
-- [Law 4: Multidimensional Optimization](../../core-principles/laws.md/multidimensional-optimization/index.md) - CAP theorem trade-offs in Cassandra
-- [Law 5: Distributed Knowledge](../../core-principles/laws.md/distributed-knowledge/index.md) - Gossip-based membership and failure detection
+- [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Gossip protocol and eventual consistency
+- [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - CAP theorem trade-offs in Cassandra
+- [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Gossip-based membership and failure detection
 
 ### Related Patterns
-- [Consistent Hashing](../../pattern-library/data-management.md/consistent-hashing.md) - Core data distribution mechanism
-- [Gossip Protocol](../../pattern-library/communication.md/publish-subscribe.md) - Membership and failure detection
-- [Merkle Trees](../../pattern-library/data-management.md/merkle-trees.md) - Anti-entropy repair mechanism
-- [Vector Clocks](../../pattern-library/coordination.md/logical-clocks.md) - Conflict resolution in distributed writes
-- [LSM Trees](../../pattern-library/data-management.md/lsm-tree.md) - Storage engine design
-- [Bloom Filters](../../pattern-library/data-management.md/bloom-filter.md) - Read optimization
+- [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Core data distribution mechanism
+- [Gossip Protocol](../pattern-library/communication/publish-subscribe.md) - Membership and failure detection
+- [Merkle Trees](../pattern-library/data-management/merkle-trees.md) - Anti-entropy repair mechanism
+- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Conflict resolution in distributed writes
+- [LSM Trees](../pattern-library/data-management/lsm-tree.md) - Storage engine design
+- [Bloom Filters](../pattern-library/data-management/bloom-filter.md) - Read optimization
 
 ### Related Pillars
-- [Pillar 2: State](../../core-principles/pillars.md/state-distribution.md) - Distributed state management at scale
-- [Pillar 3: Truth](../../core-principles/pillars.md/truth-distribution.md) - Tunable consistency levels
-- [Pillar 4: Control](../../core-principles/pillars.md/control-distribution.md) - Masterless coordination
+- [Pillar 2: State](../core-principles/pillars/state-distribution.md) - Distributed state management at scale
+- [Pillar 3: Truth](../core-principles/pillars/truth-distribution.md) - Tunable consistency levels
+- [Pillar 4: Control](../core-principles/pillars/control-distribution.md) - Masterless coordination
 
 ### Quantitative Analysis
-- [CAP Theorem](../../quantitative-analysis/cap-theorem.md) - Understanding Cassandra's AP choice
-- [Consistency Models](../../quantitative-analysis/consistency-models.md) - Tunable consistency mathematics
-- [Performance Modeling](../../quantitative-analysis/performance-modeling.md) - Linear scalability analysis
-- [Failure Models](../../quantitative-analysis/failure-models.md) - Understanding failure domains
+- [CAP Theorem](../architects-handbook/quantitative-analysis/cap-theorem.md) - Understanding Cassandra's AP choice
+- [Consistency Models](../architects-handbook/quantitative-analysis/consistency-models.md) - Tunable consistency mathematics
+- [Performance Modeling](../architects-handbook/quantitative-analysis/performance-modeling.md) - Linear scalability analysis
+- [Failure Models](../architects-handbook/quantitative-analysis/failure-models.md) - Understanding failure domains
 
 ### Case Studies
-- [Amazon DynamoDB](../../amazon-dynamo.md) - Similar dynamo-style architecture
-- [Netflix at Scale](../../netflix-chaos.md) - Using Cassandra for global streaming
-- [Discord Messages](../../chat-system.md) - Storing billions of messages
+- [Amazon DynamoDB](../amazon-dynamo.md) - Similar dynamo-style architecture
+- [Netflix at Scale](../netflix-chaos.md) - Using Cassandra for global streaming
+- [Discord Messages](../chat-system.md) - Storing billions of messages
 - [ScyllaDB](scylladb.md) - C++ reimplementation of Cassandra
 
 ### Further Reading
-- [NoSQL Database Patterns](../../pattern-library/data-management.md/polyglot-persistence.md) - Broader NoSQL design patterns
-- [Time Series Databases](../../pattern-library/coordination.md/generation-clock.md) - Cassandra for time series data
-- [Multi-Region Replication](../../pattern-library/scaling.md/multi-region.md) - Global Cassandra deployments
-- [Database Internals](../../pattern-library/data-management.md/lsm-tree.md) - Deep dive into storage engines
+- [NoSQL Database Patterns](../pattern-library/data-management/polyglot-persistence.md) - Broader NoSQL design patterns
+- [Time Series Databases](../pattern-library/coordination/generation-clock.md) - Cassandra for time series data
+- [Multi-Region Replication](../pattern-library/scaling/multi-region.md) - Global Cassandra deployments
+- [Database Internals](../pattern-library/data-management/lsm-tree.md) - Deep dive into storage engines
 
 ## External Resources
 - [Cassandra Architecture Documentation](https://cassandra.apache.org/doc/latest/architecture/index.md)¹

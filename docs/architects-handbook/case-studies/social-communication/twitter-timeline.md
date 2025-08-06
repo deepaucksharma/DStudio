@@ -51,7 +51,7 @@ best_for:
 - Platforms with mixed user types (regular/celebrity)
 excellence_guides:
 - scale/social-media
-- ../../../pattern-library/timeline-architecture
+- ../../pattern-library/timeline-architecture
 - architecture/hybrid-systems
 key_innovations:
 - Fanout service for efficient timeline updates
@@ -458,9 +458,9 @@ graph TD
 
 ## Related Resources
 
-- [Fanout Pattern](../../pattern-library/fanout.md)
-- [Cache-aside Pattern](../../pattern-library/scaling.md/caching-strategies.md)
-- [Sharding Pattern](../../pattern-library/scaling.md/sharding.md)
+- [Fanout Pattern](../pattern-library/fanout.md)
+- [Cache-aside Pattern](../scaling/caching-strategies.md)
+- [Sharding Pattern](../pattern-library/scaling/sharding.md)
 - [Twitter Engineering Blog](https://blog.twitter.com/engineering/index.md)
 
 ---

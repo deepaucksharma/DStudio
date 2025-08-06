@@ -181,7 +181,7 @@ with open('validation_report.json', 'r') as f:
 # Group by score ranges
 score_analysis = defaultdict(list)
 for doc in data['detailed_results']:
-    score_range = f"{(doc['score']//10)*10}-{(doc['score']//10)*10+9}"
+    score_range = f"{(doc['score']/10)*10}-{(doc['score']/10)*10+9}"
     score_analysis[score_range].append({
         'file': doc['file'],
         'lines': doc['metrics'].get('total_lines', 0),

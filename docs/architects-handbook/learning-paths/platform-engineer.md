@@ -106,7 +106,7 @@ outcomes:
 </div>
 
 !!! tip "Platform Readiness Check"
-    Complete our [Platform Engineering Assessment](../../tools/platform-readiness-quiz/index.md) to gauge your preparation level.
+    Complete our [Platform Engineering Assessment](../tools/platform-readiness-quiz/index.md) to gauge your preparation level.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -128,7 +128,7 @@ outcomes:
     - [ ] Implement feedback loops and metrics
     
     **Day 1-2**: DX Fundamentals & Psychology
-    - 📖 Read: [Developer Experience Principles](../../human-factors/developer-experience/index.md)
+    - 📖 Read: [Developer Experience Principles](../architects-handbook/human-factors/developer-experience/index.md)
     - 🛠️ Lab: Audit your current development workflow
     - 📊 Success: Identify 10+ friction points in developer journey
     - ⏱️ Time: 6-8 hours

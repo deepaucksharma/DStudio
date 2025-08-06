@@ -32,7 +32,7 @@ last_updated: 2025-07-20
     
     400+ terms defined with comprehensive definitions
     
-    [Learn more →](../reference/glossary.md)
+    [Learn more →](glossary.md)
 
 - :material-clipboard-text:{ .lg .middle } **Cheat Sheets**
     
@@ -40,7 +40,7 @@ last_updated: 2025-07-20
     
     Quick reference guides for formulas & decisions
     
-    [Learn more →](../reference/cheat-sheets.md)
+    [Learn more →](cheat-sheets.md)
 
 - :material-chef-hat:{ .lg .middle } **Recipe Cards**
     
@@ -48,7 +48,7 @@ last_updated: 2025-07-20
     
     Step-by-step guides for implementation patterns
     
-    [Learn more →](../reference/recipe-cards.md)
+    [Learn more →](recipe-cards.md)
 
 - :material-lock:{ .lg .middle } **Security Guide**
     
@@ -56,7 +56,7 @@ last_updated: 2025-07-20
     
     Security patterns, vulnerabilities & defenses
     
-    [Learn more →](../reference/security.md)
+    [Learn more →](security.md)
 
 - :material-map:{ .lg .middle } **Law Mapping**
     
@@ -64,25 +64,25 @@ last_updated: 2025-07-20
     
     Framework evolution and 7-law structure guide
     
-    [Learn more →](../reference/law-mapping-guide.md)
+    [Learn more →](law-mapping-guide.md)
 
 </div>
 
 ## Reference by Category
 
-### [Glossary](../reference/glossary.md)
+### [Glossary](glossary.md)
 Definitions of all distributed systems terms. From "Law" to "Vector Clock". Updated for the 7-law framework.
 
-### [Cheat Sheets](../reference/cheat-sheets.md)
+### [Cheat Sheets](cheat-sheets.md)
 Quick reference for calculations, decisions, and pattern selection. Aligned with the 7 fundamental laws.
 
-### [Recipe Cards](../reference/recipe-cards.md)
+### [Recipe Cards](recipe-cards.md)
 Step-by-step procedures for implementing patterns and debugging. Cross-referenced with relevant laws.
 
-### [Security Considerations](../reference/security.md)
+### [Security Considerations](security.md)
 Security implications, vulnerabilities, and defensive strategies. Mapped to the fundamental laws.
 
-### [Law Mapping Guide](../reference/law-mapping-guide.md)
+### [Law Mapping Guide](law-mapping-guide.md)
 Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 ---
@@ -269,10 +269,10 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 <div class="navigation-footer">
     <div class="navigation-prev">
-        ← [Human Factors](../human-factors/index.md)
+        ← [Human Factors](../architects-handbook/human-factors/index.md)
     </div>
     <div class="navigation-next">
-        [Glossary](../reference/glossary.md) →
+        [Glossary](glossary.md) →
     </div>
 </div>
 

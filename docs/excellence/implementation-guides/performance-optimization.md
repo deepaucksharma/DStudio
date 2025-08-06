@@ -254,7 +254,7 @@ class CompressionMiddleware:
             if encoding in accept_encoding:
                 # Compress response
                 body = b''.join([chunk async for chunk in response.body_iterator])
-                compressed = self.algorithms[encoding](body)
+                compressed = self.algorithms[encoding](body.md))
                 
                 # Update headers
                 response.headers['content-encoding'] = encoding
@@ -284,7 +284,7 @@ class ParallelProcessor:
         
     async def process_parallel(self, items, processor_func):
         # Chunk items for parallel processing
-        chunk_size = max(1, len(items) // self.worker_count)
+        chunk_size = max(1, len(items) / self.worker_count)
         chunks = [
             items[i:i + chunk_size]
             for i in range(0, len(items), chunk_size)
@@ -337,7 +337,7 @@ class MemoryOptimizedProcessor:
     def _calculate_chunk_size(self, file_path):
         file_size = os.path.getsize(file_path)
         # Use 1% of file size or 10MB, whichever is smaller
-        return min(file_size // 100, 10 * 1024 * 1024)
+        return min(file_size / 100, 10 * 1024 * 1024)
 ```
 
 ## Performance Patterns by Scale
@@ -599,8 +599,8 @@ graph TD
 
 ## Resources
 
-- [Caching Strategies](../../..../pattern-library/scaling.md/caching-strategies/index.md) (Gold)
-- [Load Balancing](../../..../pattern-library/scaling.md/load-balancing/index.md) (Gold)
-- [Auto-scaling](../../..../pattern-library/scaling.md/auto-scaling/index.md) (Silver)
-- [Edge Computing](../../..../pattern-library/scaling.md/edge-computing/index.md) (Gold)
-- [Performance Testing Tools](../../reference/performance-tools.md)
+- [Caching Strategies](../../pattern-library/scaling/caching-strategies/index.md) (Gold)
+- [Load Balancing](../../pattern-library/scaling/load-balancing/index.md) (Gold)
+- [Auto-scaling](../../pattern-library/scaling/auto-scaling/index.md) (Silver)
+- [Edge Computing](../../pattern-library/scaling/edge-computing/index.md) (Gold)
+- [Performance Testing Tools](../reference/performance-tools.md)

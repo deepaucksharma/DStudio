@@ -205,7 +205,7 @@ class OnCallAutomation:
 
         if alert.type in safe_remediations:
             try:
-                result = safe_remediations[alert.type](alert.service)
+                result = safe_remediations[alert.type](alert.service.md))
                 self.log_remediation(alert, result)
                 return result
             except Exception as e:

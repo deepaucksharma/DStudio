@@ -255,7 +255,7 @@ Historical Data (Cold Storage):
 
 **Compression Techniques**:
 ```go
-// Delta-of-delta encoding for timestamps
+/ Delta-of-delta encoding for timestamps
 func compressTimestamps(timestamps []int64) []byte {
     if len(timestamps) == 0 {
         return nil
@@ -265,7 +265,7 @@ func compressTimestamps(timestamps []int64) []byte {
     prev := timestamps[0]
     prevDelta := int64(0)
     
-    writeVarInt(buffer, prev) // First timestamp
+    writeVarInt(buffer, prev) / First timestamp
     
     for i := 1; i < len(timestamps); i++ {
         delta := timestamps[i] - prev
@@ -280,10 +280,10 @@ func compressTimestamps(timestamps []int64) []byte {
     return buffer.Bytes()
 }
 
-// XOR encoding for float values
+/ XOR encoding for float values
 func compressValues(values []float64) []byte {
-    // Similar approach with XOR compression
-    // Achieves 1.37 bytes/sample average
+    / Similar approach with XOR compression
+    / Achieves 1.37 bytes/sample average
 }
 ```
 
@@ -461,22 +461,22 @@ type IngestionPipeline struct {
 }
 
 func (p *IngestionPipeline) Process() {
-    // Stage 1: Batching
+    / Stage 1: Batching
     batcher := NewBatcher(batchSize=10000, timeout=100ms)
     
-    // Stage 2: Validation
+    / Stage 2: Validation
     validator := NewValidator()
     
-    // Stage 3: Deduplication
+    / Stage 3: Deduplication
     deduper := NewDeduper(window=30s)
     
-    // Stage 4: Compression
+    / Stage 4: Compression
     compressor := NewCompressor()
     
-    // Stage 5: Sharding
+    / Stage 5: Sharding
     sharder := NewSharder(shards=64)
     
-    // Pipeline execution
+    / Pipeline execution
     for batch := range p.batches {
         batch = batcher.Process(batch)
         batch = validator.Process(batch)
@@ -498,7 +498,7 @@ Inverted Index:
   "service=api" -> [series2, series4, series5, ...]
   
 Posting Lists with Bitmaps:
-  series1: bitmap[1,0,1,1,0,0,1,...]  // 1 = has data in chunk
+  series1: bitmap[1,0,1,1,0,0,1,...]  / 1 = has data in chunk
   
 Time-based Partitioning:
   /data/2024/01/15/chunk_0001.tsm

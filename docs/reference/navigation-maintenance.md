@@ -42,7 +42,7 @@ This generates a detailed report showing:
 Install the pre-commit hook to catch issues before committing:
 
 ```bash
-ln -s ../../scripts/pre-commit-navigation-check.sh .git/hooks/pre-commit
+ln -s ../scripts/pre-commit-navigation-check.sh .git/hooks/pre-commit
 ```
 
 ## Adding New Content

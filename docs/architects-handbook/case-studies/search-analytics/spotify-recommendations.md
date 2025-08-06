@@ -623,34 +623,34 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure](../../core-principles/laws.md/correlated-failure/index.md)** - Fallback to popular playlists when recommendation service fails
-- **[Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
-- **[Law 3: Emergence](../../core-principles/laws.md/emergent-chaos/index.md)** - Millions of concurrent users require lock-free serving infrastructure
-- **[Law 4: Trade-offs](../../core-principles/laws.md/multidimensional-optimization/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
-- **[Law 5: Epistemology](../../core-principles/laws.md/distributed-knowledge/index.md)** - A/B testing framework measures recommendation quality in real-time
-- **[Law 6: Human-API](../../core-principles/laws.md/cognitive-load/index.md)** - UI design balances algorithmic recommendations with user control
-- **[Law 7: Economics](../../core-principles/laws.md/economic-reality/index.md)** - Recommendation quality directly impacts user retention and revenue
+- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Fallback to popular playlists when recommendation service fails
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - A/B testing framework measures recommendation quality in real-time
+- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - UI design balances algorithmic recommendations with user control
+- **[Law 7: Economics](../core-principles/laws/economic-reality/index.md)** - Recommendation quality directly impacts user retention and revenue
 
 ### 🏛 Related Patterns
-- **[Event-Driven Architecture](../../pattern-library/architecture.md/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
-- **[CQRS](../../pattern-library/data-management.md/cqrs.md)** - Separate paths for collecting user signals vs serving recommendations
-- **[Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)** - Multi-level caches for popular recommendations and user preferences
-- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)** - Graceful degradation when ML models fail
+- **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
+- **[CQRS](../pattern-library/data-management/cqrs.md)** - Separate paths for collecting user signals vs serving recommendations
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Multi-level caches for popular recommendations and user preferences
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Graceful degradation when ML models fail
 - **Service Mesh (Coming Soon)** - Microservices architecture for different recommendation algorithms
-- **[Load Balancing](../../pattern-library/scaling.md/load-balancing.md)** - GPU load distribution for model inference
-- **[Bulkhead](../../pattern-library/resilience.md/bulkhead.md)** - Isolate experimental models from production traffic
+- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - GPU load distribution for model inference
+- **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Isolate experimental models from production traffic
 
 ### Quantitative Models
-- **[Little's Law](../../quantitative-analysis/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
-- **[Amdahl's Law](../../quantitative-analysis/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
-- **[Power Laws](../../quantitative-analysis/power-laws.md)** - Long-tail content distribution affects recommendation strategy
-- **[Information Theory](../../quantitative-analysis/information-theory.md)** - Entropy measures for recommendation diversity
+- **[Little's Law](../architects-handbook/quantitative-analysis/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
+- **[Amdahl's Law](../architects-handbook/quantitative-analysis/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
+- **[Power Laws](../architects-handbook/quantitative-analysis/power-laws.md)** - Long-tail content distribution affects recommendation strategy
+- **[Information Theory](../architects-handbook/quantitative-analysis/information-theory.md)** - Entropy measures for recommendation diversity
 
 ### 👥 Human Factors Considerations
-- **[SRE Practices](../../human-factors/sre-practices.md)** - ML model deployment requires specialized SRE workflows
-- **[Observability Tools](../../human-factors/observability-stacks.md)** - Real-time dashboards track recommendation performance metrics
-- **[On-Call Culture](../../human-factors/oncall-culture.md)** - Data scientists on-call for model quality issues
-- **[Post-Mortem Culture](../../human-factors/blameless-postmortems.md)** - Learning from recommendation failures and filter bubbles
+- **[SRE Practices](../architects-handbook/human-factors/sre-practices.md)** - ML model deployment requires specialized SRE workflows
+- **[Observability Tools](../architects-handbook/human-factors/observability-stacks.md)** - Real-time dashboards track recommendation performance metrics
+- **[On-Call Culture](../architects-handbook/human-factors/oncall-culture.md)** - Data scientists on-call for model quality issues
+- **[Post-Mortem Culture](../architects-handbook/human-factors/blameless-postmortems.md)** - Learning from recommendation failures and filter bubbles
 
 ### Similar Case Studies
 - **[News Feed System](./news-feed.md)** - Similar personalization challenges at scale

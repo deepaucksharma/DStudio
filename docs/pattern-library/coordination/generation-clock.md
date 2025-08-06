@@ -58,7 +58,7 @@ when_to_use: Leader election, split-brain prevention, configuration management, 
 |----------|---------|-------------|
 | Eventually Consistent Systems | Unnecessary ordering overhead | [Vector Clocks](vector-clock.md) |
 | Single Node Systems | No leadership needed | Local counters |
-| Real-time Requirements | Logical ordering insufficient | [Physical Timestamps](..../pattern-library/coordination.md/clock-sync.md) |
+| Real-time Requirements | Logical ordering insufficient | [Physical Timestamps](../pattern-library/coordination/clock-sync.md) |
 | Simple Request-Response | No coordination needed | Session tokens |
 
 ## Decision Matrix

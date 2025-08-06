@@ -15,7 +15,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
 
 <div class="grid cards" markdown>
 
-- :material-rocket-launch:{ .lg .middle } **[Scalability Cheatsheet](../../../architects-handbook/quantitative-analysis/latency-numbers.md)**
+- :material-rocket-launch:{ .lg .middle } **[Scalability Cheatsheet](../../architects-handbook/quantitative-analysis/latency-numbers.md)**
     
     ---
     
@@ -31,7 +31,7 @@ These cheatsheets provide rapid access to key information during interviews. Pri
     
     Never miss a critical component again
 
-- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](../../../../pattern-library/index.md)**
+- :material-vector-arrange:{ .lg .middle } **[Common Patterns Reference](../../pattern-library/index.md)**
     
     ---
     

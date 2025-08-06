@@ -109,7 +109,7 @@ outcomes:
 </div>
 
 !!! tip "Data Readiness Assessment"
-    Take our [Data Engineering Skills Assessment](../../tools/data-engineering-quiz/index.md) to identify areas for preparation.
+    Take our [Data Engineering Skills Assessment](../tools/data-engineering-quiz/index.md) to identify areas for preparation.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -131,7 +131,7 @@ outcomes:
     - [ ] Implement data versioning strategies
     
     **Day 1-2**: Data Modeling Fundamentals
-    - 📖 Read: [Data modeling principles](../../....../pattern-library/data-management.md/data-modeling/index.md)
+    - 📖 Read: [Data modeling principles](../../pattern-library/data-management/data-modeling/index.md)
     - 🛠️ Lab: Design star and snowflake schemas
     - 📊 Success: Model e-commerce analytics warehouse
     - ⏱️ Time: 6-8 hours
@@ -159,7 +159,7 @@ outcomes:
     - [ ] Build idempotent and fault-tolerant systems
     
     **Day 8-9**: Pipeline Design Patterns
-    - 📖 Read: [Data pipeline patterns](../../....../pattern-library/data-management.md/data-pipelines/index.md)
+    - 📖 Read: [Data pipeline patterns](../../pattern-library/data-management/data-pipelines/index.md)
     - 🛠️ Lab: Build fault-tolerant ETL with Apache Airflow
     - 📊 Success: Handle failures gracefully with retries
     - ⏱️ Time: 6-8 hours

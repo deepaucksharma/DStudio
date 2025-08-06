@@ -297,29 +297,29 @@ graph LR
     
     - [Anti-Entropy](../data-management/anti-entropy.md) - Comprehensive consistency repair
     - [Vector Clocks](../data-management/vector-clocks.md) - Version comparison
-    - [Merkle Trees](../../pattern-library/data-management/merkle-trees.md) - Efficient difference detection
+    - [Merkle Trees](../pattern-library/data-management/merkle-trees.md) - Efficient difference detection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Network delays create inconsistency
-    - [Law 4: Multidimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Consistency vs performance
+    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Network delays create inconsistency
+    - [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - Consistency vs performance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 2: State Distribution](../../core-principles/pillars/state-distribution/index.md) - Managing distributed state
-    - [Pillar 3: Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Determining authoritative data
+    - [Pillar 2: State Distribution](../core-principles/pillars/state-distribution/index.md) - Managing distributed state
+    - [Pillar 3: Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Determining authoritative data
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Read Repair Setup](../../excellence/guides/read-repair-setup.md)
-    - [Consistency Tuning](../../excellence/guides/consistency-tuning.md)
-    - [Performance Optimization](../../excellence/guides/repair-optimization.md)
+    - [Read Repair Setup](../excellence/guides/read-repair-setup.md)
+    - [Consistency Tuning](../excellence/guides/consistency-tuning.md)
+    - [Performance Optimization](../excellence/guides/repair-optimization.md)
 
 </div>
 

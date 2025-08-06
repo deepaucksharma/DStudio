@@ -212,7 +212,7 @@ def two_sum(nums, target):
 def binary_search(arr, target):
     left, right = 0, len(arr) - 1
     while left <= right:
-        mid = (left + right) // 2  # Integer overflow risk!
+        mid = (left + right) / 2  # Integer overflow risk!
         # ... rest of logic
 
 # ✅ Handle edge cases
@@ -222,7 +222,7 @@ def binary_search(arr, target):
     
     left, right = 0, len(arr) - 1
     while left <= right:
-        mid = left + (right - left) // 2  # Avoid overflow
+        mid = left + (right - left) / 2  # Avoid overflow
         # ... rest of logic
 ```
 

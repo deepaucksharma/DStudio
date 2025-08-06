@@ -673,7 +673,7 @@ graph TB
 
 Patterns that address this law:
 
-- [Api Gateway](../../pattern-library/communication/api-gateway/index.md)
-- [Service Mesh](../../pattern-library/communication/service-mesh/index.md)
+- [Api Gateway](../pattern-library/communication/api-gateway/index.md)
+- [Service Mesh](../pattern-library/communication/service-mesh/index.md)
 
 

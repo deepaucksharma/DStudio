@@ -280,7 +280,7 @@ class WindowedStreamBuilder:
         def window_processor(event: Dict) -> Optional[Dict]:
             key = self.key_extractor(event)
             current_time = time.time() * 1000  # milliseconds
-            window_start = int(current_time // self.window_size_ms) * self.window_size_ms
+            window_start = int(current_time / self.window_size_ms) * self.window_size_ms
             
             # Add event to current window
             self.windows[(key, window_start)].append(event)
@@ -577,16 +577,16 @@ if __name__ == "__main__":
     
     ---
     
-    - [Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Time and ordering in streams
-    - [Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Complex behaviors in stream processing
+    - [Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) - Time and ordering in streams
+    - [Emergent Chaos](../core-principles/laws/emergent-chaos.md) - Complex behaviors in stream processing
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Apache Kafka Streams Guide](../../excellence/guides/kafka-streams.md)
-    - [Apache Flink Best Practices](../../excellence/guides/flink-best-practices.md)
-    - [Stream Processing Monitoring](../../excellence/guides/stream-monitoring.md)
+    - [Apache Kafka Streams Guide](../excellence/guides/kafka-streams.md)
+    - [Apache Flink Best Practices](../excellence/guides/flink-best-practices.md)
+    - [Stream Processing Monitoring](../excellence/guides/stream-monitoring.md)
 
 </div>
 

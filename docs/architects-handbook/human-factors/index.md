@@ -52,7 +52,7 @@ Building successful distributed systems isn't just about technology—it's about
 - **[Blameless Culture](blameless-culture/index.md)** - Psychological safety
 
 ### Skills Development
-- **[Learning Paths](../....../architects-handbook/learning-paths.md/index.md)** - Career progression
+- **[Learning Paths](../architects-handbook/learning-paths/index.md)** - Career progression
 - **[Mentorship Programs](mentorship/index.md)** - Knowledge transfer
 - **[Chaos Engineering](chaos-engineering.md)** - Building confidence
 - **[Game Days](game-days/index.md)** - Practice scenarios

@@ -385,23 +385,23 @@ graph TD
     
     ---
     
-    - [Law 1: Name](../../core-principles/laws/law1/index.md) - [Connection]
-    - [Law 2: Name](../../core-principles/laws/law2/index.md) - [Connection]
+    - [Law 1: Name](../core-principles/laws/law1/index.md) - [Connection]
+    - [Law 2: Name](../core-principles/laws/law2/index.md) - [Connection]
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Pillar 1: Name](../../core-principles/pillars/pillar1/index.md) - [Implementation]
-    - [Pillar 2: Name](../../core-principles/pillars/pillar2/index.md) - [Implementation]
+    - [Pillar 1: Name](../core-principles/pillars/pillar1/index.md) - [Implementation]
+    - [Pillar 2: Name](../core-principles/pillars/pillar2/index.md) - [Implementation]
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Setup Guide](../../excellence/guides/pattern-setup.md)
-    - [Testing Guide](../../excellence/guides/pattern-testing.md)
-    - [Migration Guide](../../excellence/migrations/to-pattern.md)
+    - [Setup Guide](../excellence/guides/pattern-setup.md)
+    - [Testing Guide](../excellence/guides/pattern-testing.md)
+    - [Migration Guide](../excellence/migrations/to-pattern.md)
 
 </div>
 

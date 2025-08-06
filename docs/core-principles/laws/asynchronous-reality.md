@@ -1,6 +1,6 @@
 ---
 title: Law 2: The Law of Asynchronous Reality
-description: src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/time-in-distributed-systems&color=%235448C8&inverse=false&auto_pla
+description: src="https://w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/time-in-distributed-systems&color=%235448C8&inverse=false&auto_pla
 type: law
 difficulty: intermediate
 reading_time: 7 min
@@ -9,7 +9,7 @@ reading_time: 7 min
 # Law 2: The Law of Asynchronous Reality
 
 <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/deepak-sharma-21/time-in-distributed-systems&color=%235448C8&inverse=false&auto_play=false&show_user=true">
+    src="https://w.soundcloud.com/player/?url=https%3A/soundcloud.com/deepak-sharma-21/time-in-distributed-systems&color=%235448C8&inverse=false&auto_play=false&show_user=true">
 </iframe>
 
 <div class="truth-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
@@ -392,7 +392,7 @@ Total Budget: 30s (user patience)
 - Buffer:        5s
 
 if (timeRemaining < expectedDuration) {
-    return cached_response;  // Don't even try
+    return cached_response;  / Don't even try
 }
 ```
 </div>
@@ -832,26 +832,26 @@ CLASSICAL DISTRIBUTED SYSTEMS      RELATIVISTIC DISTRIBUTED SYSTEMS
 Patterns that directly address the asynchronous reality of distributed systems:
 
 **⏱️ Time & Coordination Patterns:**
-- **[Consensus](../..../pattern-library/coordination.md/consensus/index.md)**: Handles the reality that there's no global clock and agreement must be reached despite message delays
-- **[Vector Clocks](../..../pattern-library/coordination.md/logical-clocks/index.md)**: Captures causal ordering when physical time can't be synchronized
-- **[Hybrid Logical Clocks](../..../pattern-library/coordination.md/hlc/index.md)**: Combines physical and logical time for better ordering in distributed systems
-- **[Leader Election](../..../pattern-library/coordination.md/leader-election/index.md)**: Manages coordination despite unreliable timing and message delivery
+- **[Consensus](../pattern-library/coordination/consensus/index.md)**: Handles the reality that there's no global clock and agreement must be reached despite message delays
+- **[Vector Clocks](../pattern-library/coordination/logical-clocks/index.md)**: Captures causal ordering when physical time can't be synchronized
+- **[Hybrid Logical Clocks](../pattern-library/coordination/hlc/index.md)**: Combines physical and logical time for better ordering in distributed systems
+- **[Leader Election](../pattern-library/coordination/leader-election/index.md)**: Manages coordination despite unreliable timing and message delivery
 
 **📡 Asynchronous Communication:**
-- **[Event Sourcing](../..../pattern-library/data-management.md/event-sourcing/index.md)**: Embraces asynchronous event processing rather than synchronous state updates
-- **[Saga Pattern](../..../pattern-library/data-management.md/saga/index.md)**: Coordinates long-running distributed transactions asynchronously with compensations
-- **[CQRS](../..../pattern-library/data-management.md/cqrs/index.md)**: Separates read and write operations to handle asynchronous update propagation
-- **[Publish-Subscribe](../..../pattern-library/communication.md/publish-subscribe/index.md)**: Enables asynchronous messaging between loosely coupled components
+- **[Event Sourcing](../pattern-library/data-management/event-sourcing/index.md)**: Embraces asynchronous event processing rather than synchronous state updates
+- **[Saga Pattern](../pattern-library/data-management/saga/index.md)**: Coordinates long-running distributed transactions asynchronously with compensations
+- **[CQRS](../pattern-library/data-management/cqrs/index.md)**: Separates read and write operations to handle asynchronous update propagation
+- **[Publish-Subscribe](../pattern-library/communication/publish-subscribe/index.md)**: Enables asynchronous messaging between loosely coupled components
 
 **🔄 Eventual Consistency:**
-- **[Eventual Consistency](../..../pattern-library/data-management.md/eventual-consistency/index.md)**: Accepts that consistency will be achieved eventually rather than immediately
-- **[CDC (Change Data Capture)](../..../pattern-library/data-management.md/cdc/index.md)**: Propagates data changes asynchronously across systems
-- **[Event-Driven Architecture](../..../pattern-library/architecture.md/event-driven/index.md)**: Builds systems around asynchronous event flows
+- **[Eventual Consistency](../pattern-library/data-management/eventual-consistency/index.md)**: Accepts that consistency will be achieved eventually rather than immediately
+- **[CDC (Change Data Capture)](../pattern-library/data-management/cdc/index.md)**: Propagates data changes asynchronously across systems
+- **[Event-Driven Architecture](../pattern-library/architecture/event-driven/index.md)**: Builds systems around asynchronous event flows
 
 **🛡️ Failure Handling:**
-- **[Timeout](../..../pattern-library/resilience.md/timeout/index.md)**: Bounds operations in time to handle unpredictable network delays
-- **[Retry with Backoff](../..../pattern-library/resilience.md/retry-backoff/index.md)**: Handles transient failures in asynchronous systems
-- **[Circuit Breaker](../..../pattern-library/resilience.md/circuit-breaker/index.md)**: Manages service failures in asynchronous communication
+- **[Timeout](../pattern-library/resilience/timeout/index.md)**: Bounds operations in time to handle unpredictable network delays
+- **[Retry with Backoff](../pattern-library/resilience/retry-backoff/index.md)**: Handles transient failures in asynchronous systems
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)**: Manages service failures in asynchronous communication
 
 ## Related Concepts
 

@@ -324,9 +324,9 @@ Cost = (Trace Volume × Sample Rate × Retention) × Processing Rate
 
 ## Related Resources
 
-- [Performance Optimization](../../excellence/implementation-guides/performance-optimization.md)
-- [Operational Excellence](../../excellence/implementation-guides/operational-excellence.md)
-- [Monitoring Patterns](../../../pattern-library/resilience/monitoring.md)
+- [Performance Optimization](../excellence/implementation-guides/performance-optimization.md)
+- [Operational Excellence](../excellence/implementation-guides/operational-excellence.md)
+- [Monitoring Patterns](../../pattern-library/resilience/monitoring.md)
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -334,48 +334,48 @@ let costBreakdownChart = null;
 let volumeChart = null;
 let optimizationChart = null;
 
-// Platform pricing data (simplified)
+/ Platform pricing data (simplified)
 const platformPricing = {
     datadog: {
-        metrics: 15, // per host per month
-        logs: 1.70, // per GB ingested
-        traces: 1.35, // per million spans
-        alerts: 5 // per rule per month
+        metrics: 15, / per host per month
+        logs: 1.70, / per GB ingested
+        traces: 1.35, / per million spans
+        alerts: 5 / per rule per month
     },
     newrelic: {
-        metrics: 0.0025, // per data point
+        metrics: 0.0025, / per data point
         logs: 0.25,
         traces: 0.25,
         alerts: 0
     },
     dynatrace: {
-        metrics: 21, // per host
+        metrics: 21, / per host
         logs: 2.50,
-        traces: 11, // per million PurePaths
+        traces: 11, / per million PurePaths
         alerts: 0
     },
     splunk: {
-        metrics: 150, // per GB/day
-        logs: 2000, // per GB/day
+        metrics: 150, / per GB/day
+        logs: 2000, / per GB/day
         traces: 1.50,
         alerts: 0
     },
     elastic: {
-        metrics: 95, // per deployment
-        logs: 0.109, // per GB
+        metrics: 95, / per deployment
+        logs: 0.109, / per GB
         traces: 0.109,
         alerts: 0
     },
     grafana: {
-        metrics: 8, // base + usage
+        metrics: 8, / base + usage
         logs: 0.50,
         traces: 0.50,
         alerts: 0
     },
     prometheus: {
-        metrics: 50, // infrastructure cost per month
-        logs: 20, // ELK infrastructure
-        traces: 15, // Jaeger infrastructure
+        metrics: 50, / infrastructure cost per month
+        logs: 20, / ELK infrastructure
+        traces: 15, / Jaeger infrastructure
         alerts: 0
     },
     jaeger: {
@@ -429,20 +429,20 @@ function calculateObservabilityCost() {
     const platform = document.getElementById('platform').value;
     const pricing = platformPricing[platform];
     
-    // Environment multiplier
+    / Environment multiplier
     const envMultipliers = { development: 1, staging: 2, production: 5, enterprise: 10 };
     const envMultiplier = envMultipliers[document.getElementById('environment').value];
     
-    // Calculate metrics costs
+    / Calculate metrics costs
     const metricsConfig = calculateMetricsCosts(inputs, pricing, envMultiplier);
     
-    // Calculate logs costs
+    / Calculate logs costs
     const logsConfig = calculateLogsCosts(inputs, pricing, envMultiplier);
     
-    // Calculate traces costs
+    / Calculate traces costs
     const tracesConfig = calculateTracesCosts(inputs, pricing, envMultiplier);
     
-    // Calculate alerting costs
+    / Calculate alerting costs
     const alertingConfig = calculateAlertingCosts(inputs, pricing, envMultiplier);
     
     const totalCosts = {
@@ -464,19 +464,19 @@ function calculateObservabilityCost() {
     const redundancy = document.getElementById('redundancy').value;
     const redundancyMultiplier = redundancy === 'backup' ? 1.2 : redundancy === 'active' ? 2.0 : 1.0;
     
-    // Apply redundancy costs
+    / Apply redundancy costs
     Object.keys(totalCosts).forEach(key => {
         if (key !== 'total') totalCosts[key] *= redundancyMultiplier;
     });
     totalCosts.total = Object.values(totalCosts).slice(0, -1).reduce((sum, cost) => sum + cost, 0);
     
-    // Generate optimization recommendations
+    / Generate optimization recommendations
     const optimizations = generateOptimizationRecommendations(volumes, totalCosts, platform);
     
     let resultsHTML = generateObservabilityResults(totalCosts, volumes, optimizations, platform, envMultiplier);
     document.getElementById('results').innerHTML = resultsHTML;
     
-    // Draw charts
+    / Draw charts
     setTimeout(() => {
         drawCostBreakdownChart(totalCosts);
         drawVolumeChart(volumes);
@@ -489,7 +489,7 @@ function calculateMetricsCosts(inputs, pricing, envMultiplier) {
     const retention = parseInt(document.getElementById('metricsRetention').value);
     const resolution = parseInt(document.getElementById('metricsResolution').value);
     
-    // Base metrics per host
+    / Base metrics per host
     const baseMetricsMultipliers = { basic: 50, standard: 150, detailed: 300, comprehensive: 800 };
     const baseMetrics = baseMetricsMultipliers[metricsEnabled];
     
@@ -497,25 +497,25 @@ function calculateMetricsCosts(inputs, pricing, envMultiplier) {
     const customMetrics = inputs.customMetrics.value * inputs.numServices.value;
     const totalMetrics = (baseMetrics * totalHosts + customMetrics) * envMultiplier;
     
-    // Calculate data points per month
+    / Calculate data points per month
     const pointsPerSecond = totalMetrics / resolution;
     const pointsPerMonth = pointsPerSecond * 60 * 60 * 24 * 30;
     
-    // Storage requirements
-    const retentionMultiplier = Math.log(retention + 1) / Math.log(31); // Logarithmic cost scaling
+    / Storage requirements
+    const retentionMultiplier = Math.log(retention + 1) / Math.log(31); / Logarithmic cost scaling
     const storagePoints = pointsPerMonth * retentionMultiplier;
     
-    // Platform-specific cost calculation
+    / Platform-specific cost calculation
     let monthlyCost;
     if (pricing.metrics < 1) {
-        // Per-datapoint pricing
+        / Per-datapoint pricing
         monthlyCost = storagePoints * pricing.metrics;
     } else if (pricing.metrics < 100) {
-        // Per-host pricing
+        / Per-host pricing
         monthlyCost = totalHosts * pricing.metrics;
     } else {
-        // Per-GB pricing
-        const sizeGB = storagePoints * 8 / (1024 * 1024 * 1024); // 8 bytes per point
+        / Per-GB pricing
+        const sizeGB = storagePoints * 8 / (1024 * 1024 * 1024); / 8 bytes per point
         monthlyCost = sizeGB * pricing.metrics;
     }
     
@@ -533,15 +533,15 @@ function calculateLogsCosts(inputs, pricing, envMultiplier) {
     const structuredLogging = document.getElementById('structuredLogging').value;
     const sampling = parseFloat(document.getElementById('logSampling').value);
     
-    // Log volume multipliers by level
+    / Log volume multipliers by level
     const logLevelMultipliers = { error: 0.1, warn: 0.3, info: 1.0, debug: 3.0 };
     const levelMultiplier = logLevelMultipliers[logLevel];
     
-    // Structured logging overhead
+    / Structured logging overhead
     const structuredMultipliers = { none: 1.0, json: 1.3, optimized: 1.1 };
     const structuredMultiplier = structuredMultipliers[structuredLogging];
     
-    const dailyRequests = inputs.requestRate.value * 86400; // requests per day
+    const dailyRequests = inputs.requestRate.value * 86400; / requests per day
     const logsPerDay = dailyRequests * inputs.logsPerRequest.value * levelMultiplier * envMultiplier;
     const sampledLogsPerDay = logsPerDay * sampling;
     
@@ -549,8 +549,8 @@ function calculateLogsCosts(inputs, pricing, envMultiplier) {
     const gbPerDay = bytesPerDay / (1024 * 1024 * 1024);
     const volumeGBPerMonth = gbPerDay * 30;
     
-    // Storage cost with retention
-    const retentionCostMultiplier = Math.min(retention / 30, 10); // Cap at 10x for very long retention
+    / Storage cost with retention
+    const retentionCostMultiplier = Math.min(retention / 30, 10); / Cap at 10x for very long retention
     const monthlyCost = volumeGBPerMonth * pricing.logs * retentionCostMultiplier;
     
     return {
@@ -576,8 +576,8 @@ function calculateTracesCosts(inputs, pricing, envMultiplier) {
     const spansPerDay = tracesPerDay * inputs.avgSpansPerTrace.value;
     const spansPerMonth = spansPerDay * 30;
     
-    // Retention impact on cost
-    const retentionMultiplier = Math.log(retention + 1) / Math.log(8); // Log scale for retention
+    / Retention impact on cost
+    const retentionMultiplier = Math.log(retention + 1) / Math.log(8); / Log scale for retention
     const monthlyCost = (spansPerMonth / 1000000) * pricing.traces * retentionMultiplier;
     
     return {
@@ -604,7 +604,7 @@ function calculateAlertingCosts(inputs, pricing, envMultiplier) {
 function generateOptimizationRecommendations(volumes, costs, platform) {
     const optimizations = [];
     
-    // Metrics optimizations
+    / Metrics optimizations
     if (costs.metrics > costs.total * 0.4) {
         optimizations.push({
             type: 'metrics',
@@ -615,7 +615,7 @@ function generateOptimizationRecommendations(volumes, costs, platform) {
         });
     }
     
-    // Logs optimizations  
+    / Logs optimizations  
     if (costs.logs > costs.total * 0.5) {
         optimizations.push({
             type: 'logs',
@@ -626,7 +626,7 @@ function generateOptimizationRecommendations(volumes, costs, platform) {
         });
     }
     
-    // Traces optimizations
+    / Traces optimizations
     if (volumes.traceSpans > 1000000 && costs.traces > 1000) {
         optimizations.push({
             type: 'traces',
@@ -637,7 +637,7 @@ function generateOptimizationRecommendations(volumes, costs, platform) {
         });
     }
     
-    // Platform-specific optimizations
+    / Platform-specific optimizations
     if (['datadog', 'dynatrace', 'splunk'].includes(platform) && costs.total > 5000) {
         optimizations.push({
             type: 'platform',
@@ -879,7 +879,7 @@ function drawVolumeChart(volumes) {
         volumeChart.destroy();
     }
     
-    // Normalize volumes for comparison
+    / Normalize volumes for comparison
     const maxVolume = Math.max(volumes.metricsPoints, volumes.logVolumeGB * 1000, volumes.traceSpans);
     
     volumeChart = new Chart(ctx, {

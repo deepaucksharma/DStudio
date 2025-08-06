@@ -82,25 +82,25 @@ Apache Kafka transformed distributed data movement by treating data as an immuta
 
 <div class="grid cards" markdown>
 
-- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)** 🥇
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../pattern-library/data-management/event-sourcing.md)** 🥇
     
     ---
     
     Immutable append-only log as the source of truth
 
-- :material-publish:{ .lg .middle } **[Pub-Sub Messaging](../../pattern-library/communication.md/pub-sub.md)** 🥇
+- :material-publish:{ .lg .middle } **[Pub-Sub Messaging](../pattern-library/communication/pub-sub.md)** 🥇
     
     ---
     
     Decoupled producers and consumers with topic-based routing
 
-- :material-file-tree:{ .lg .middle } **[Partitioning](../../pattern-library/partitioning.md)** 🥇
+- :material-file-tree:{ .lg .middle } **[Partitioning](../pattern-library/partitioning.md)** 🥇
     
     ---
     
     Horizontal scaling through partition distribution
 
-- :material-sync:{ .lg .middle } **[Leader-Follower](../../pattern-library/coordination.md/leader-follower.md)** 🥇
+- :material-sync:{ .lg .middle } **[Leader-Follower](../coordination/leader-follower.md)** 🥇
     
     ---
     
@@ -251,18 +251,18 @@ graph TB
 
 ### Event Sourcing Implementation
 
-!!! info "Pattern Deep Dive: [Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)"
+!!! info "Pattern Deep Dive: [Event Sourcing](../pattern-library/data-management/event-sourcing.md)"
     Kafka's append-only log serves as a perfect implementation of event sourcing, where every state change is captured as an immutable event. This enables event replay, temporal queries, and audit trails.
 
 ```java
-// Kafka as Event Store
+/ Kafka as Event Store
 public class PaymentEventStore {
     private final KafkaProducer<String, PaymentEvent> producer;
     
     public void saveEvent(PaymentEvent event) {
         ProducerRecord<String, PaymentEvent> record = new ProducerRecord<>(
             "payment-events",
-            event.getPaymentId(),  // Key for ordering
+            event.getPaymentId(),  / Key for ordering
             event
         );
         
@@ -567,16 +567,16 @@ public class PaymentEventStore {
 
 ### Pub-Sub Pattern at Scale
 
-!!! info "Pattern Deep Dive: [Pub-Sub Messaging](../../pattern-library/communication.md/pub-sub.md)"
+!!! info "Pattern Deep Dive: [Pub-Sub Messaging](../pattern-library/communication/pub-sub.md)"
     Kafka implements pub-sub with persistent storage, allowing consumers to read at their own pace and replay messages. Topics provide logical separation while partitions enable parallel processing.
 
 ### Partitioning Strategy
 
-!!! info "Pattern Deep Dive: [Partitioning](../../pattern-library/partitioning.md)"
+!!! info "Pattern Deep Dive: [Partitioning](../pattern-library/partitioning.md)"
     Kafka partitions topics for horizontal scalability. Each partition maintains order, while parallel partitions increase throughput. Custom partitioners can implement domain-specific routing.
 
 ```java
-// Custom Partitioner Example
+/ Custom Partitioner Example
 public class UserPartitioner implements Partitioner {
     @Override
     public int partition(String topic, Object key, byte[] keyBytes, 
@@ -584,7 +584,7 @@ public class UserPartitioner implements Partitioner {
         String userId = (String) key;
         int numPartitions = cluster.partitionCountForTopic(topic);
         
-        // Consistent hashing for user affinity
+        / Consistent hashing for user affinity
         return Math.abs(userId.hashCode()) % numPartitions;
     }
 }
@@ -599,19 +599,19 @@ public class UserPartitioner implements Partitioner {
 ## Applicable Patterns
 
 <div class="grid" markdown>
- <a href="../../../pattern-library/leader-follower/" class="pattern-card">
+ <a href="../../pattern-library/leader-follower/" class="pattern-card">
  <h3 class="pattern-card__title">Leader-Follower</h3>
  <p class="pattern-card__description">ISR protocol for partition replication and failover</p>
  </a>
- <a href="../../../pattern-library/architecture/event-streaming" class="pattern-card">
+ <a href="../../pattern-library/architecture/event-streaming" class="pattern-card">
  <h3 class="pattern-card__title">Event Streaming</h3>
  <p class="pattern-card__description">Append-only log as foundation for event-driven systems</p>
  </a>
- <a href="../../../pattern-library/partitioning/" class="pattern-card">
+ <a href="../../pattern-library/partitioning/" class="pattern-card">
  <h3 class="pattern-card__title">Partitioning</h3>
  <p class="pattern-card__description">Horizontal scaling through message partitioning</p>
  </a>
- <a href="../../../pattern-library/exactly-once/" class="pattern-card">
+ <a href="../../pattern-library/exactly-once/" class="pattern-card">
  <h3 class="pattern-card__title">Exactly-Once</h3>
  <p class="pattern-card__description">Idempotent producers and transactional consumers</p>
  </a>

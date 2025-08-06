@@ -32,22 +32,22 @@ Netflix transformed from a DVD rental service to the world's largest streaming p
 This case study demonstrates the following distributed systems patterns in production:
 
 ### Core Resilience Patterns
-- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)** - Hystrix prevents cascade failures across 1000+ microservices
-- **[Bulkhead](../../pattern-library/resilience.md/bulkhead.md)** - Thread pool isolation prevents resource exhaustion
-- **[Timeout](../../pattern-library/resilience.md/timeout.md)** - Aggressive timeouts prevent resource blocking
-- **[Retry with Backoff](../../pattern-library/resilience.md/retry-backoff.md)** - Intelligent retry logic for transient failures
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Hystrix prevents cascade failures across 1000+ microservices
+- **[Bulkhead](../pattern-library/resilience/bulkhead.md)** - Thread pool isolation prevents resource exhaustion
+- **[Timeout](../pattern-library/resilience/timeout.md)** - Aggressive timeouts prevent resource blocking
+- **[Retry with Backoff](../pattern-library/resilience/retry-backoff.md)** - Intelligent retry logic for transient failures
 
 ### Architecture Patterns
-- **[Service Mesh](../../pattern-library/communication.md/service-mesh.md)** - Modern implementation of Hystrix patterns
-- **[API Gateway](../../pattern-library/communication.md/api-gateway.md)** - Zuul provides edge resilience
-- **[Load Balancing](../../pattern-library/scaling.md/load-balancing.md)** - Ribbon client-side load balancing
-- **[Health Checks](../../pattern-library/resilience.md/health-check.md)** - Continuous service health monitoring
+- **[Service Mesh](../pattern-library/communication/service-mesh.md)** - Modern implementation of Hystrix patterns
+- **[API Gateway](../pattern-library/communication/api-gateway.md)** - Zuul provides edge resilience
+- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Ribbon client-side load balancing
+- **[Health Checks](../pattern-library/resilience/health-check.md)** - Continuous service health monitoring
 
 ### Operational Patterns
-- **[Chaos Engineering](../../human-factors/chaos-engineering.md)** - Continuous failure injection
+- **[Chaos Engineering](../architects-handbook/human-factors/chaos-engineering.md)** - Continuous failure injection
 - **[Observability](#observability-pattern.md)** - Deep monitoring and tracing
-- **[Graceful Degradation](../../pattern-library/resilience.md/graceful-degradation.md)** - Multiple service levels
-- **[Auto-Scaling](../../pattern-library/scaling.md/auto-scaling.md)** - Automatic capacity management
+- **[Graceful Degradation](../pattern-library/resilience/graceful-degradation.md)** - Multiple service levels
+- **[Auto-Scaling](../pattern-library/scaling/auto-scaling.md)** - Automatic capacity management
 
 ## The Challenge
 
@@ -260,10 +260,10 @@ graph TB
 ### Hystrix: Circuit Breaker Implementation {#circuit-breakers}
 
 !!! info "Pattern Deep Dive"
-    This implementation demonstrates the **[Circuit Breaker Pattern](../../pattern-library/resilience.md/circuit-breaker.md)** at massive scale, handling 100B+ requests daily across Netflix's microservices.
+    This implementation demonstrates the **[Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md)** at massive scale, handling 100B+ requests daily across Netflix's microservices.
 
 ```java
-// Simplified Hystrix command pattern
+/ Simplified Hystrix command pattern
 public class VideoMetadataCommand extends HystrixCommand<VideoMetadata> {
     private final String videoId;
     
@@ -274,18 +274,18 @@ public class VideoMetadataCommand extends HystrixCommand<VideoMetadata> {
     
     @Override
     protected VideoMetadata run() {
-        // Primary execution logic
+        / Primary execution logic
         return videoMetadataService.getMetadata(videoId);
     }
     
     @Override
     protected VideoMetadata getFallback() {
-        // Fallback when circuit is open
+        / Fallback when circuit is open
         return VideoMetadata.getBasicMetadata(videoId);
     }
 }
 
-// Configuration
+/ Configuration
 HystrixCommandProperties.Setter()
     .withCircuitBreakerRequestVolumeThreshold(20)
     .withCircuitBreakerSleepWindowInMilliseconds(5000)

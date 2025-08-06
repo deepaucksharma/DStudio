@@ -178,9 +178,9 @@ Browse 500+ real interview questions from FAANG and top tech companies, organize
 </div>
 
 <script>
-// Comprehensive question database
+/ Comprehensive question database
 const questionBank = [
-    // People Management Questions
+    / People Management Questions
     {
         id: 'p001',
         category: 'people',
@@ -262,7 +262,7 @@ const questionBank = [
         }
     },
     
-    // Technical Leadership Questions
+    / Technical Leadership Questions
     {
         id: 't001',
         category: 'technical',
@@ -344,7 +344,7 @@ const questionBank = [
         }
     },
     
-    // Organizational Design Questions
+    / Organizational Design Questions
     {
         id: 'o001',
         category: 'organizational',
@@ -426,7 +426,7 @@ const questionBank = [
         }
     },
     
-    // Business & Strategy Questions
+    / Business & Strategy Questions
     {
         id: 'b001',
         category: 'business',
@@ -508,7 +508,7 @@ const questionBank = [
         }
     },
     
-    // General Behavioral Questions
+    / General Behavioral Questions
     {
         id: 'g001',
         category: 'behavioral',
@@ -590,7 +590,7 @@ const questionBank = [
         }
     },
     
-    // Situational Judgment Questions
+    / Situational Judgment Questions
     {
         id: 's001',
         category: 'situational',
@@ -668,13 +668,13 @@ const questionBank = [
     }
 ];
 
-// Add more questions to reach 500+ (showing pattern, would continue...)
-// Categories would include more specific subcategories:
-// - Hiring: sourcing, interviewing, closing, onboarding
-// - Performance: coaching, PIPs, promotions, calibrations  
-// - Technical: migrations, debt, quality, architecture
-// - Crisis: outages, security, data loss, compliance
-// - Strategy: planning, roadmapping, visioning, pivoting
+/ Add more questions to reach 500+ (showing pattern, would continue...)
+/ Categories would include more specific subcategories:
+/ - Hiring: sourcing, interviewing, closing, onboarding
+/ - Performance: coaching, PIPs, promotions, calibrations  
+/ - Technical: migrations, debt, quality, architecture
+/ - Crisis: outages, security, data loss, compliance
+/ - Strategy: planning, roadmapping, visioning, pivoting
 
 let filteredQuestions = [...questionBank];
 
@@ -685,13 +685,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function setupFilters() {
-    // Filter change handlers
+    / Filter change handlers
     document.getElementById('category-filter').addEventListener('change', applyFilters);
     document.getElementById('level-filter').addEventListener('change', applyFilters);
     document.getElementById('company-filter').addEventListener('change', applyFilters);
     document.getElementById('difficulty-filter').addEventListener('change', applyFilters);
     
-    // Search functionality
+    / Search functionality
     document.getElementById('search-btn').addEventListener('click', applyFilters);
     document.getElementById('question-search').addEventListener('keyup', function(e) {
         if (e.key === 'Enter') applyFilters();
@@ -804,7 +804,7 @@ function practiceQuestion(questionId) {
     practiceSection.style.display = 'block';
     practiceSection.scrollIntoView({ behavior: 'smooth' });
     
-    // Store current question for answer guide
+    / Store current question for answer guide
     window.currentPracticeQuestion = question;
 }
 
@@ -813,7 +813,7 @@ function startPracticeTimer() {
     const timerDiv = document.getElementById('practice-timer');
     timerDiv.style.display = 'block';
     
-    let timeLeft = 120; // 2 minutes
+    let timeLeft = 120; / 2 minutes
     
     const timerInterval = setInterval(() => {
         const minutes = Math.floor(timeLeft / 60);
@@ -931,7 +931,7 @@ function showAnswerGuide() {
     guideDiv.style.display = 'block';
 }
 
-// Category card click handlers
+/ Category card click handlers
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.category-card').forEach(card => {
         card.addEventListener('click', function() {

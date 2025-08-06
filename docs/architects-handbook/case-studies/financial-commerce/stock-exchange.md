@@ -255,7 +255,7 @@ graph TD
 
 **Hardware Acceleration**:
 ```c
-// FPGA-based order validation
+/ FPGA-based order validation
 module order_validator (
     input wire clk,
     input wire [511:0] order_data,
@@ -264,7 +264,7 @@ module order_validator (
 );
 
 always @(posedge clk) begin
-    // Parallel validation checks
+    / Parallel validation checks
     wire price_valid = (order_data[63:0] > 0) && 
                       (order_data[63:0] < MAX_PRICE);
     wire qty_valid = (order_data[127:64] > 0) && 
@@ -289,30 +289,30 @@ public:
         struct rte_mbuf* pkts_burst[BURST_SIZE];
         
         while (true) {
-            // Poll NIC directly (no kernel involvement)
+            / Poll NIC directly (no kernel involvement)
             const uint16_t nb_rx = rte_eth_rx_burst(
                 port_id, 0, pkts_burst, BURST_SIZE);
             
             for (int i = 0; i < nb_rx; i++) {
-                // Process in userspace
+                / Process in userspace
                 process_order_packet(pkts_burst[i]);
             }
             
-            // Batch transmit responses
+            / Batch transmit responses
             transmit_responses();
         }
     }
     
     void process_order_packet(struct rte_mbuf* pkt) {
-        // Zero-copy packet processing
+        / Zero-copy packet processing
         struct order_msg* order = rte_pktmbuf_mtod(
             pkt, struct order_msg*);
         
-        // Validate and forward to matching engine
+        / Validate and forward to matching engine
         if (validate_order(order)) {
-            // Use lock-free queue
+            / Use lock-free queue
             while (!order_queue.push(order)) {
-                _mm_pause();  // CPU pause instruction
+                _mm_pause();  / CPU pause instruction
             }
         }
     }
@@ -334,7 +334,7 @@ private:
         bool is_buy;
     };
     
-    // Price levels use atomic pointers
+    / Price levels use atomic pointers
     std::atomic<Order*> buy_levels[MAX_PRICE_LEVELS];
     std::atomic<Order*> sell_levels[MAX_PRICE_LEVELS];
     
@@ -343,23 +343,23 @@ public:
         size_t price_level = price_to_level(order->price);
         
         if (order->is_buy) {
-            // Atomic insertion at price level
+            / Atomic insertion at price level
             Order* head = buy_levels[price_level].load();
             do {
                 order->next = head;
             } while (!buy_levels[price_level].compare_exchange_weak(
                 head, order));
         } else {
-            // Similar for sell orders
+            / Similar for sell orders
         }
         
-        // Try to match immediately
+        / Try to match immediately
         try_match(order);
     }
     
     void try_match(Order* new_order) {
         if (new_order->is_buy) {
-            // Find best ask
+            / Find best ask
             for (size_t i = 0; i < MAX_PRICE_LEVELS; i++) {
                 Order* ask = sell_levels[i].load();
                 if (ask && ask->price <= new_order->price) {
@@ -473,7 +473,7 @@ private:
     
 public:
     void publish_trade(const Trade& trade) {
-        // Create market data message
+        / Create market data message
         MarketDataMessage msg;
         msg.type = MSG_TRADE;
         msg.sequence = sequence_number.fetch_add(1);
@@ -483,12 +483,12 @@ public:
         msg.quantity = trade.quantity;
         msg.trade_id = trade.id;
         
-        // Multicast to all subscribers
+        / Multicast to all subscribers
         sendto(multicast_socket, &msg, sizeof(msg), 0,
                (struct sockaddr*)&multicast_addr, 
                sizeof(multicast_addr));
         
-        // Also send to compliance feed
+        / Also send to compliance feed
         compliance_recorder.record_trade(trade);
     }
     
@@ -498,13 +498,13 @@ public:
         msg.sequence = sequence_number.fetch_add(1);
         msg.timestamp = get_exchange_timestamp();
         
-        // Include top 10 levels
+        / Include top 10 levels
         for (int i = 0; i < 10; i++) {
             msg.bids[i] = delta.bids[i];
             msg.asks[i] = delta.asks[i];
         }
         
-        // Conflate updates if necessary
+        / Conflate updates if necessary
         if (should_conflate()) {
             conflation_buffer.add(msg);
         } else {
@@ -526,11 +526,11 @@ private:
     
 public:
     void sync_with_grandmaster() {
-        // Hardware timestamping for nanosecond precision
+        / Hardware timestamping for nanosecond precision
         struct ptp_clock_time pct;
         ioctl(ptp_fd, PTP_SYS_OFFSET_PRECISE, &pct);
         
-        // Calculate offset from grandmaster
+        / Calculate offset from grandmaster
         int64_t system_time = pct.sys_realtime.tv_sec * 1e9 + 
                              pct.sys_realtime.tv_nsec;
         int64_t ptp_time = pct.device.tv_sec * 1e9 + 
@@ -538,10 +538,10 @@ public:
         
         clock_offset_ns = ptp_time - system_time;
         
-        // Adjust system clock gradually
+        / Adjust system clock gradually
         struct timex tx;
         tx.modes = ADJ_OFFSET | ADJ_FREQUENCY;
-        tx.offset = clock_offset_ns / 1000;  // Convert to microseconds
+        tx.offset = clock_offset_ns / 1000;  / Convert to microseconds
         adjtimex(&tx);
     }
     
@@ -549,7 +549,7 @@ public:
         struct timespec ts;
         clock_gettime(CLOCK_REALTIME, &ts);
         
-        // Apply offset for exchange-wide consistency
+        / Apply offset for exchange-wide consistency
         return (ts.tv_sec * 1e9 + ts.tv_nsec + clock_offset_ns);
     }
 };
@@ -673,7 +673,7 @@ class MarketProtectionSystem:
 ```cpp
 class AdvancedOrderTypes {
 public:
-    // Iceberg order - only shows partial quantity
+    / Iceberg order - only shows partial quantity
     struct IcebergOrder : public Order {
         Quantity display_quantity;
         Quantity total_quantity;
@@ -682,18 +682,18 @@ public:
         void on_partial_fill(Quantity filled) override {
             hidden_quantity -= filled;
             if (display_quantity == 0 && hidden_quantity > 0) {
-                // Refresh display quantity
+                / Refresh display quantity
                 display_quantity = std::min(
                     original_display_qty, 
                     hidden_quantity
                 );
-                // Get new timestamp for queue position
+                / Get new timestamp for queue position
                 timestamp = get_current_timestamp();
             }
         }
     };
     
-    // Pegged order - tracks best bid/ask
+    / Pegged order - tracks best bid/ask
     struct PeggedOrder : public Order {
         enum PegType { MIDPOINT, PRIMARY, MARKET };
         PegType peg_type;
@@ -715,7 +715,7 @@ public:
         }
     };
     
-    // Stop order - triggers at price threshold
+    / Stop order - triggers at price threshold
     struct StopOrder : public Order {
         Price stop_price;
         bool is_stop_limit;
@@ -737,18 +737,18 @@ public:
 ### Memory Layout Optimization
 
 ```cpp
-// Cache-line aligned structures
+/ Cache-line aligned structures
 struct alignas(64) OrderBookLevel {
     std::atomic<Order*> head;
     std::atomic<uint32_t> order_count;
     std::atomic<Quantity> total_quantity;
     Price price;
-    char padding[16];  // Avoid false sharing
+    char padding[16];  / Avoid false sharing
 };
 
-// Hot/cold data separation
+/ Hot/cold data separation
 struct Order {
-    // Hot data (frequently accessed)
+    / Hot data (frequently accessed)
     struct alignas(64) {
         uint64_t id;
         Price price;
@@ -756,7 +756,7 @@ struct Order {
         std::atomic<Order*> next;
     } hot;
     
-    // Cold data (rarely accessed)
+    / Cold data (rarely accessed)
     struct {
         char trader_id[16];
         uint64_t entry_time;
@@ -771,8 +771,8 @@ struct Order {
 ```cpp
 class ZeroCopyProcessor {
 private:
-    // Pre-allocated ring buffer
-    static constexpr size_t RING_SIZE = 1 << 20;  // 1M entries
+    / Pre-allocated ring buffer
+    static constexpr size_t RING_SIZE = 1 << 20;  / 1M entries
     alignas(64) Order ring_buffer[RING_SIZE];
     alignas(64) std::atomic<uint64_t> write_pos{0};
     alignas(64) std::atomic<uint64_t> read_pos{0};
@@ -783,10 +783,10 @@ public:
         uint64_t next_write = (write + 1) & (RING_SIZE - 1);
         
         if (next_write == read_pos.load(std::memory_order_acquire)) {
-            return false;  // Ring full
+            return false;  / Ring full
         }
         
-        // Copy directly into ring buffer (no allocation)
+        / Copy directly into ring buffer (no allocation)
         Order& order = ring_buffer[write];
         order.hot.id = msg->id;
         order.hot.price = msg->price;

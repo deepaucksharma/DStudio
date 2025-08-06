@@ -342,63 +342,63 @@ graph LR
 
 <div class="grid cards" markdown>
 
-- :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)**
+- :material-electric-switch:{ .lg .middle } **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)**
     
     ---
     
     Prevents cascade failures in distributed request routing
     
-    [Learn more →](../../pattern-library/resilience.md/circuit-breaker.md)
+    [Learn more →](../pattern-library/resilience/circuit-breaker.md)
 
-- :material-rotate-3d:{ .lg .middle } **[Consistent Hashing](../../pattern-library/data-management.md/consistent-hashing.md)**
+- :material-rotate-3d:{ .lg .middle } **[Consistent Hashing](../pattern-library/data-management/consistent-hashing.md)**
     
     ---
     
     Enables elastic scaling with minimal data movement
     
-    [Learn more →](../../pattern-library/data-management.md/consistent-hashing.md)
+    [Learn more →](../pattern-library/data-management/consistent-hashing.md)
 
-- :material-vote:{ .lg .middle } **[Quorum Consensus](../../pattern-library/coordination.md/consensus.md)**
+- :material-vote:{ .lg .middle } **[Quorum Consensus](../pattern-library/coordination/consensus.md)**
     
     ---
     
     Balances consistency and availability trade-offs
     
-    [Learn more →](../../pattern-library/coordination.md/consensus.md)
+    [Learn more →](../pattern-library/coordination/consensus.md)
 
-- :material-sync:{ .lg .middle } **[Anti-Entropy](../../pattern-library/data-management.md/read-repair.md)**
+- :material-sync:{ .lg .middle } **[Anti-Entropy](../pattern-library/data-management/read-repair.md)**
     
     ---
     
     Background synchronization using Merkle trees
     
-    [Learn more →](../../pattern-library/data-management.md/read-repair.md)
+    [Learn more →](../pattern-library/data-management/read-repair.md)
 
 </div>
 
 ## Related Topics
 
 ### Related Laws & Axioms
-- [Law 1: Correlated Failure](../../core-principles/laws.md/correlated-failure/index.md) - Masterless architecture eliminates single points of failure
-- [Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md) - Eventually consistent by design
-- [Law 4: Multidimensional Optimization](../../core-principles/laws.md/multidimensional-optimization/index.md) - AP choice in CAP theorem
-- [Law 5: Distributed Knowledge](../../core-principles/laws.md/distributed-knowledge/index.md) - Gossip protocol for membership
+- [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Masterless architecture eliminates single points of failure
+- [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Eventually consistent by design
+- [Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - AP choice in CAP theorem
+- [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Gossip protocol for membership
 
 ### Related Patterns
-- [Consistent Hashing](../../pattern-library/data-management.md/consistent-hashing.md) - Virtual nodes for data distribution
-- [Vector Clocks](../../pattern-library/coordination.md/logical-clocks.md) - Conflict resolution mechanism
-- [Merkle Trees](../../pattern-library/data-management.md/merkle-trees.md) - Anti-entropy synchronization
-- [Quorum Consensus](../../pattern-library/coordination.md/consensus.md) - Tunable consistency levels
+- [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Virtual nodes for data distribution
+- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Conflict resolution mechanism
+- [Merkle Trees](../pattern-library/data-management/merkle-trees.md) - Anti-entropy synchronization
+- [Quorum Consensus](../pattern-library/coordination/consensus.md) - Tunable consistency levels
 
 ### Related Pillars
-- [Pillar 2: State](../../core-principles/pillars.md/state-distribution.md) - Eventually consistent state management
-- [Pillar 3: Truth](../../core-principles/pillars.md/truth-distribution.md) - Multiple versions of truth
-- [Pillar 4: Control](../../core-principles/pillars.md/control-distribution.md) - Decentralized control plane
+- [Pillar 2: State](../core-principles/pillars/state-distribution.md) - Eventually consistent state management
+- [Pillar 3: Truth](../core-principles/pillars/truth-distribution.md) - Multiple versions of truth
+- [Pillar 4: Control](../core-principles/pillars/control-distribution.md) - Decentralized control plane
 
 ### Case Studies
-- [Apache Cassandra](../../cassandra/index.md) - Similar eventual consistency model
-- [Redis Cluster](../../redis/index.md) - Alternative distributed key-value store
-- [Spanner](../../google-spanner/index.md) - Contrasting strongly consistent approach
+- [Apache Cassandra](../cassandra/index.md) - Similar eventual consistency model
+- [Redis Cluster](../redis/index.md) - Alternative distributed key-value store
+- [Spanner](../google-spanner/index.md) - Contrasting strongly consistent approach
 
 ## Decision Guide
 

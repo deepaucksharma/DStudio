@@ -224,7 +224,7 @@ class ReedSolomon:
     def __init__(self, n, k):
         self.n = n  # codeword length
         self.k = k  # message length
-        self.t = (n - k) // 2  # error correction capability
+        self.t = (n - k) / 2  # error correction capability
         
     def gf_mult(self, a, b, prim=0x11d, field_bits=8):
         """Galois field multiplication"""
@@ -377,7 +377,7 @@ function calculateEntropy(probabilities) {
 }
 
 function calculateMutualInformation(joint_prob) {
-    // joint_prob is 2D array of P(X=i, Y=j)
+    / joint_prob is 2D array of P(X=i, Y=j)
     let marginal_x = joint_prob.map(row => row.reduce((a, b) => a + b));
     let marginal_y = joint_prob[0].map((_, j) => 
         joint_prob.reduce((sum, row) => sum + row[j], 0));
@@ -395,11 +395,11 @@ function calculateMutualInformation(joint_prob) {
     return mi;
 }
 
-// Example usage
-const probs = [0.25, 0.25, 0.25, 0.25];  // Uniform distribution
+/ Example usage
+const probs = [0.25, 0.25, 0.25, 0.25];  / Uniform distribution
 console.log(`Entropy: ${calculateEntropy(probs)} bits`);
 
-const joint = [[0.25, 0.25], [0.25, 0.25]];  // Independent variables
+const joint = [[0.25, 0.25], [0.25, 0.25]];  / Independent variables
 console.log(`Mutual Information: ${calculateMutualInformation(joint)} bits`);
 ```
 
@@ -407,17 +407,17 @@ console.log(`Mutual Information: ${calculateMutualInformation(joint)} bits`);
 
 ```javascript
 function bscCapacity(p) {
-    // Binary Symmetric Channel capacity
+    / Binary Symmetric Channel capacity
     if (p === 0 || p === 1) return 0;
     return 1 + p * Math.log2(p) + (1 - p) * Math.log2(1 - p);
 }
 
 function awgnCapacity(snr) {
-    // AWGN channel capacity (SNR in linear scale)
+    / AWGN channel capacity (SNR in linear scale)
     return 0.5 * Math.log2(1 + snr);
 }
 
-// Example calculations
+/ Example calculations
 console.log(`BSC capacity (p=0.1): ${bscCapacity(0.1).toFixed(4)} bits`);
 console.log(`AWGN capacity (SNR=10dB): ${awgnCapacity(10).toFixed(4)} bits per channel use`);
 ```

@@ -98,20 +98,20 @@ graph TB
 ### 1. Simple Key-Value Model
 
 ```go
-// Basic operations
+/ Basic operations
 ctx := context.Background()
 
-// Put
+/ Put
 _, err := client.Put(ctx, "/config/database/host", "db.example.com")
 
-// Get
+/ Get
 resp, err := client.Get(ctx, "/config/database/host")
 value := string(resp.Kvs[0].Value)
 
-// Delete
+/ Delete
 _, err = client.Delete(ctx, "/config/database/host")
 
-// Atomic operations
+/ Atomic operations
 txn := client.Txn(ctx)
 resp, err := txn.
     If(clientv3.Compare(clientv3.Value("/lock"), "=", "unlocked")).
@@ -123,7 +123,7 @@ resp, err := txn.
 ### 2. Powerful Watch Mechanism
 
 ```go
-// Watch for changes
+/ Watch for changes
 rch := client.Watch(ctx, "/config/", clientv3.WithPrefix())
 
 for wresp := range rch {
@@ -138,11 +138,11 @@ for wresp := range rch {
     }
 }
 
-// Watch with revision for reliability
+/ Watch with revision for reliability
 resp, _ := client.Get(ctx, "/config/", clientv3.WithPrefix())
 watchRev := resp.Header.Revision + 1
 
-// Never miss an update
+/ Never miss an update
 rch = client.Watch(ctx, "/config/", 
     clientv3.WithPrefix(),
     clientv3.WithRev(watchRev))
@@ -392,15 +392,15 @@ graph LR
 ### Challenge 3: Watch Event Storms
 
 ```go
-// Problem: Watching all keys
+/ Problem: Watching all keys
 rch := client.Watch(ctx, "", clientv3.WithPrefix())
 
-// Solution: Specific prefixes with rate limiting
+/ Solution: Specific prefixes with rate limiting
 rch := client.Watch(ctx, "/config/app/", 
     clientv3.WithPrefix(),
     clientv3.WithProgressNotify())
 
-// Implement backpressure
+/ Implement backpressure
 limiter := rate.NewLimiter(rate.Every(time.Millisecond*100), 10)
 
 for wresp := range rch {
@@ -441,7 +441,7 @@ auth-token: jwt,pub-key=/etc/etcd/jwt-key.pub,sign-method=RS256
 ### 3. Performance Optimization
 
 ```go
-// Connection pooling
+/ Connection pooling
 cfg := clientv3.Config{
     Endpoints:   []string{"localhost:2379"},
     DialTimeout: 5 * time.Second,
@@ -455,7 +455,7 @@ cfg := clientv3.Config{
     },
 }
 
-// Batch operations
+/ Batch operations
 ops := []clientv3.Op{}
 for k, v := range updates {
     ops = append(ops, clientv3.OpPut(k, v))
@@ -502,7 +502,7 @@ etcdctl member promote <member-id>
 ### Downgrade Protection
 
 ```go
-// Prevent incompatible downgrades
+/ Prevent incompatible downgrades
 client.Cluster.MemberUpdate(ctx, memberID, 
     []string{peerURL},
     clientv3.WithDowngradeCheck())
@@ -519,10 +519,10 @@ client.Cluster.MemberUpdate(ctx, memberID,
 
 ## Related Topics
 
-- [Raft Consensus](../../pattern-library/coordination.md/consensus.md) - Core algorithm
-- [Leader Election](../../pattern-library/coordination.md/leader-election.md) - Common pattern
-- [Distributed Locks](../../pattern-library/coordination.md/distributed-lock.md) - Using etcd
-- [Service Discovery](../../pattern-library/communication.md/service-discovery/index.md) - Watch-based discovery
+- [Raft Consensus](../pattern-library/coordination/consensus.md) - Core algorithm
+- [Leader Election](../pattern-library/coordination/leader-election.md) - Common pattern
+- [Distributed Locks](../pattern-library/coordination/distributed-lock.md) - Using etcd
+- [Service Discovery](../pattern-library/communication/service-discovery/index.md) - Watch-based discovery
 - [ZooKeeper](zookeeper.md) - Predecessor comparison
 
 ## References

@@ -28,7 +28,7 @@ This case study would examine Strava's architecture for aggregating billions of 
 
 ## Related Case Studies
 - [Google Maps](google-maps.md) - Traffic data aggregation
-- [Location Privacy](../../pattern-library/location-privacy.md/index.md) - Privacy patterns
+- [Location Privacy](../pattern-library/location-privacy.md/index.md) - Privacy patterns
 - ML Pipeline (Coming Soon.md) - Activity pattern analysis
 
 ## External Resources

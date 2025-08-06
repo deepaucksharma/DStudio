@@ -253,7 +253,7 @@ type InventoryEvent struct {
     EventID       string    `json:"event_id"`
     ItemID        string    `json:"item_id"`
     Location      Location  `json:"location"`
-    EventType     string    `json:"event_type"` // PICKED, MOVED, STORED, SCANNED
+    EventType     string    `json:"event_type"` / PICKED, MOVED, STORED, SCANNED
     Quantity      int       `json:"quantity"`
     RobotID       string    `json:"robot_id,omitempty"`
     Timestamp     time.Time `json:"timestamp"`
@@ -262,12 +262,12 @@ type InventoryEvent struct {
 }
 
 func (its *InventoryTrackingSystem) ProcessInventoryEvent(event *InventoryEvent) error {
-    // Validate event data
+    / Validate event data
     if err := its.validateEvent(event); err != nil {
         return fmt.Errorf("invalid event: %w", err)
     }
     
-    // Process based on event type
+    / Process based on event type
     switch event.EventType {
     case "PICKED":
         return its.handlePickEvent(event)
@@ -283,14 +283,14 @@ func (its *InventoryTrackingSystem) ProcessInventoryEvent(event *InventoryEvent)
 }
 
 func (its *InventoryTrackingSystem) handlePickEvent(event *InventoryEvent) error {
-    // Update inventory quantity
+    / Update inventory quantity
     currentInventory, err := its.inventoryDB.GetItemInventory(event.ItemID, event.Location)
     if err != nil {
         return fmt.Errorf("failed to get current inventory: %w", err)
     }
     
     if currentInventory.Quantity < event.Quantity {
-        // Potential discrepancy detected
+        / Potential discrepancy detected
         discrepancy := &InventoryDiscrepancy{
             ItemID:          event.ItemID,
             Location:        event.Location,
@@ -305,7 +305,7 @@ func (its *InventoryTrackingSystem) handlePickEvent(event *InventoryEvent) error
         }
     }
     
-    // Update inventory
+    / Update inventory
     newQuantity := currentInventory.Quantity - event.Quantity
     return its.inventoryDB.UpdateItemQuantity(
         event.ItemID, 
@@ -316,7 +316,7 @@ func (its *InventoryTrackingSystem) handlePickEvent(event *InventoryEvent) error
 }
 
 func (its *InventoryTrackingSystem) RunContinuousReconciliation() {
-    ticker := time.NewTicker(5 * time.Minute) // Reconcile every 5 minutes
+    ticker := time.NewTicker(5 * time.Minute) / Reconcile every 5 minutes
     defer ticker.Stop()
     
     for {
@@ -330,7 +330,7 @@ func (its *InventoryTrackingSystem) RunContinuousReconciliation() {
 }
 
 func (its *InventoryTrackingSystem) performReconciliation() error {
-    // Get all inventory locations
+    / Get all inventory locations
     locations, err := its.inventoryDB.GetAllLocations()
     if err != nil {
         return err
@@ -339,7 +339,7 @@ func (its *InventoryTrackingSystem) performReconciliation() error {
     discrepancies := []InventoryDiscrepancy{}
     
     for _, location := range locations {
-        // Compare system inventory with sensor data
+        / Compare system inventory with sensor data
         systemInventory := its.inventoryDB.GetLocationInventory(location)
         sensorInventory := its.getSensorBasedInventory(location)
         
@@ -351,17 +351,17 @@ func (its *InventoryTrackingSystem) performReconciliation() error {
         discrepancies = append(discrepancies, locationDiscrepancies...)
     }
     
-    // Process discrepancies
+    / Process discrepancies
     for _, discrepancy := range discrepancies {
-        // Use ML to predict if discrepancy is real or sensor error
+        / Use ML to predict if discrepancy is real or sensor error
         prediction := its.discrepancyML.PredictDiscrepancyType(discrepancy)
         
         if prediction.Confidence > 0.8 {
             if prediction.IsRealDiscrepancy {
-                // Real inventory issue - trigger physical count
+                / Real inventory issue - trigger physical count
                 its.alertSystem.TriggerPhysicalCount(discrepancy.Location)
             } else {
-                // Likely sensor error - recalibrate sensors
+                / Likely sensor error - recalibrate sensors
                 its.alertSystem.TriggerSensorCalibration(discrepancy.Location)
             }
         }

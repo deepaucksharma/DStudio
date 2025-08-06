@@ -347,31 +347,31 @@ graph LR
     
     ---
     
-    - [LSM Trees](../../pattern-library/data-management/lsm-tree.md) - Complementary storage structure
-    - [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Similar append-only approach
+    - [LSM Trees](../pattern-library/data-management/lsm-tree.md) - Complementary storage structure
+    - [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Similar append-only approach
     - [Two-Phase Commit](../coordination/two-phase-commit.md) - Distributed durability
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - System crash scenarios
-    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Durability vs performance
+    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - System crash scenarios
+    - [Law 4: Multi-dimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - Durability vs performance
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/index.md) - Durable state management
-    - [Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Consistent transaction ordering
+    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Durable state management
+    - [Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Consistent transaction ordering
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [WAL Implementation Guide](../../excellence/guides/wal-implementation.md)
-    - [Recovery Testing](../../excellence/guides/recovery-testing.md)
-    - [Storage Optimization](../../excellence/guides/storage-optimization.md)
+    - [WAL Implementation Guide](../excellence/guides/wal-implementation.md)
+    - [Recovery Testing](../excellence/guides/recovery-testing.md)
+    - [Storage Optimization](../excellence/guides/storage-optimization.md)
 
 </div>
 

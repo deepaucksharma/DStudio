@@ -109,7 +109,7 @@ outcomes:
 </div>
 
 !!! tip "Real-Time Readiness Check"
-    Complete our [Real-Time Systems Assessment](../../tools/realtime-readiness-quiz/index.md) to validate your preparation level.
+    Complete our [Real-Time Systems Assessment](../tools/realtime-readiness-quiz/index.md) to validate your preparation level.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -131,7 +131,7 @@ outcomes:
     - [ ] Optimize system calls and context switching
     
     **Day 1-2**: CPU & Memory Optimization
-    - 📖 Read: [CPU cache mechanics](../../quantitative-analysis/latency-numbers/index.md), cache-friendly data structures
+    - 📖 Read: [CPU cache mechanics](../architects-handbook/quantitative-analysis/latency-numbers/index.md), cache-friendly data structures
     - 🛠️ Lab: Optimize hot path with cache alignment and prefetching
     - 📊 Success: Reduce critical path latency by 80%+
     - ⏱️ Time: 8-10 hours

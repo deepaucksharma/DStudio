@@ -169,19 +169,19 @@ function calculateGrowth() {
  return;
  }
  
- // Linear growth
+ / Linear growth
  const linear = current * (1 + rate * months);
  
- // Exponential growth
+ / Exponential growth
  const exponential = current * Math.pow(1 + rate, months);
  
- // S-Curve (simplified)
- const cap = current * 10; // Assume 10x max capacity
- const k = 0.5; // Growth rate constant
- const t0 = months / 2; // Midpoint
+ / S-Curve (simplified)
+ const cap = current * 10; / Assume 10x max capacity
+ const k = 0.5; / Growth rate constant
+ const t0 = months / 2; / Midpoint
  const scurve = cap / (1 + Math.exp(-k * (months - t0)));
  
- // Display results
+ / Display results
  document.getElementById('linearResult').textContent = linear.toFixed(0);
  document.getElementById('exponentialResult').textContent = exponential.toFixed(0);
  document.getElementById('scurveResult').textContent = scurve.toFixed(0);

@@ -271,27 +271,27 @@ type PackageEvent struct {
 }
 
 func (psm *PackageStateManager) ProcessEvent(event *PackageEvent) error {
-    // Validate event
+    / Validate event
     if err := psm.validateEvent(event); err != nil {
         return fmt.Errorf("invalid event: %w", err)
     }
     
-    // Check for duplicates
+    / Check for duplicates
     if exists, _ := psm.eventStore.EventExists(event.EventID); exists {
-        return nil // Idempotent - ignore duplicate
+        return nil / Idempotent - ignore duplicate
     }
     
-    // Get current package state
+    / Get current package state
     currentState, err := psm.getCurrentState(event.PackageID)
     if err != nil {
         return fmt.Errorf("failed to get current state: %w", err)
     }
     
-    // Detect conflicts
+    / Detect conflicts
     conflicts := psm.conflictResolver.DetectConflicts(currentState, event)
     
     if len(conflicts) > 0 {
-        // Resolve conflicts
+        / Resolve conflicts
         resolvedState, err := psm.conflictResolver.ResolveConflicts(
             currentState, event, conflicts
         )
@@ -301,10 +301,10 @@ func (psm *PackageStateManager) ProcessEvent(event *PackageEvent) error {
         currentState = resolvedState
     }
     
-    // Apply event to state
+    / Apply event to state
     newState := psm.applyEventToState(currentState, event)
     
-    // Persist event and state
+    / Persist event and state
     if err := psm.eventStore.StoreEvent(event); err != nil {
         return fmt.Errorf("failed to store event: %w", err)
     }
@@ -313,7 +313,7 @@ func (psm *PackageStateManager) ProcessEvent(event *PackageEvent) error {
         return fmt.Errorf("failed to cache state: %w", err)
     }
     
-    // Publish state change
+    / Publish state change
     stateChangeEvent := &PackageStateChangeEvent{
         PackageID:    event.PackageID,
         PreviousState: currentState,
@@ -326,12 +326,12 @@ func (psm *PackageStateManager) ProcessEvent(event *PackageEvent) error {
 }
 
 func (psm *PackageStateManager) GetPackageStatus(packageID string) (*PackageStatus, error) {
-    // Try cache first
+    / Try cache first
     if state, err := psm.stateCache.GetPackageState(packageID); err == nil {
         return psm.stateToStatus(state), nil
     }
     
-    // Rebuild from events
+    / Rebuild from events
     events, err := psm.eventStore.GetEventsForPackage(packageID)
     if err != nil {
         return nil, err
@@ -339,7 +339,7 @@ func (psm *PackageStateManager) GetPackageStatus(packageID string) (*PackageStat
     
     state := psm.rebuildStateFromEvents(events)
     
-    // Cache the rebuilt state
+    / Cache the rebuilt state
     psm.stateCache.SetPackageState(packageID, state)
     
     return psm.stateToStatus(state), nil

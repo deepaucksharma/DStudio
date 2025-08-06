@@ -715,7 +715,7 @@ graph LR
 
 #### Recommended Settings
 ```javascript
-// MkDocs mermaid2 plugin configuration
+/ MkDocs mermaid2 plugin configuration
 mermaid: {
   theme: 'base',
   themeVariables: {

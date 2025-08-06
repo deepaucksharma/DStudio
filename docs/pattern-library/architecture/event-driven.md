@@ -550,5 +550,5 @@ graph TB
 
 ---
 
-**Previous**: [← Edge Computing/IoT Patterns](../../pattern-library/scaling/edge-computing.md) | **Next**: [Event Sourcing Pattern →](../../pattern-library/data-management/event-sourcing.md)
+**Previous**: [← Edge Computing/IoT Patterns](../pattern-library/scaling/edge-computing.md) | **Next**: [Event Sourcing Pattern →](../pattern-library/data-management/event-sourcing.md)
 

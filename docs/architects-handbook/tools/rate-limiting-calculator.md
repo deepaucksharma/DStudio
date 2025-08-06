@@ -378,8 +378,8 @@ type: documentation
 
 - [Load Balancer Simulator](load-balancer-simulator.md)
 - [Throughput Calculator](throughput-calculator.md)
-- [API Gateway Patterns](../../../pattern-library/communication/api-gateway.md)
-- [Backpressure Strategies](../../../pattern-library/scaling/backpressure.md)
+- [API Gateway Patterns](../../pattern-library/communication/api-gateway.md)
+- [Backpressure Strategies](../../pattern-library/scaling/backpressure.md)
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -388,7 +388,7 @@ let performanceChart = null;
 let simulationChart = null;
 let comparisonChart = null;
 
-// Algorithm configurations and characteristics
+/ Algorithm configurations and characteristics
 const algorithmSpecs = {
     'token-bucket': {
         name: 'Token Bucket',
@@ -448,7 +448,7 @@ const algorithmSpecs = {
     }
 };
 
-// Show/hide queue configuration based on exceed action
+/ Show/hide queue configuration based on exceed action
 document.getElementById('exceedAction').addEventListener('change', function() {
     const queueElements = [
         document.getElementById('queueConfigLabel'),
@@ -463,13 +463,13 @@ document.getElementById('exceedAction').addEventListener('change', function() {
 });
 
 function toggleAlgorithmConfig() {
-    // Hide all algorithm configs
+    / Hide all algorithm configs
     const configs = document.querySelectorAll('.algorithm-config');
     configs.forEach(config => config.style.display = 'none');
     
     const selectedAlgorithm = document.getElementById('rateLimitAlgorithm').value;
     
-    // Show relevant config
+    / Show relevant config
     switch (selectedAlgorithm) {
         case 'token-bucket':
             document.getElementById('tokenBucketConfig').style.display = 'block';
@@ -493,7 +493,7 @@ function validateRateLimitingInputs() {
         distributedNodes: { value: parseInt(document.getElementById('distributedNodes').value), min: 1, max: 100, name: 'Number of nodes' }
     };
     
-    // Algorithm-specific validations
+    / Algorithm-specific validations
     const algorithm = document.getElementById('rateLimitAlgorithm').value;
     
     if (algorithm === 'token-bucket') {
@@ -549,7 +549,7 @@ function analyzeRateLimiting() {
     let resultsHTML = generateRateLimitingResults(results);
     document.getElementById('results').innerHTML = resultsHTML;
     
-    // Draw charts
+    / Draw charts
     setTimeout(() => {
         drawAlgorithmChart(algorithmAnalysis);
         drawPerformanceChart(trafficAnalysis, algorithmAnalysis);
@@ -571,7 +571,7 @@ function getRateLimitingConfiguration() {
         targetLatency: parseFloat(document.getElementById('targetLatency').value),
         consistencyRequirement: document.getElementById('consistencyRequirement').value,
         storageBackend: document.getElementById('storageBackend').value,
-        // Algorithm-specific parameters
+        / Algorithm-specific parameters
         bucketCapacity: parseInt(document.getElementById('bucketCapacity').value) || 1000,
         refillRate: parseFloat(document.getElementById('refillRate').value) || 100,
         tokensPerRequest: parseInt(document.getElementById('tokensPerRequest').value) || 1,
@@ -586,36 +586,36 @@ function analyzeTrafficPatterns(config) {
     const peakRate = baseRate * config.peakMultiplier;
     const burstDuration = config.burstDuration;
     
-    // Generate traffic pattern simulation
+    / Generate traffic pattern simulation
     const timePoints = [];
     const requestRates = [];
-    const duration = 3600; // 1 hour simulation
+    const duration = 3600; / 1 hour simulation
     
-    for (let t = 0; t < duration; t += 60) { // 1-minute intervals
-        timePoints.push(t / 60); // Convert to minutes
+    for (let t = 0; t < duration; t += 60) { / 1-minute intervals
+        timePoints.push(t / 60); / Convert to minutes
         
         let rate = baseRate;
         
         switch (config.trafficPattern) {
             case 'steady':
-                rate = baseRate + (Math.random() - 0.5) * baseRate * 0.1; // ±5% noise
+                rate = baseRate + (Math.random() - 0.5) * baseRate * 0.1; / ±5% noise
                 break;
             case 'daily-peaks':
-                // Simulate business hours peak
+                / Simulate business hours peak
                 const hour = (t / 3600) % 24;
                 const businessHoursFactor = (hour >= 9 && hour <= 17) ? 1.5 : 0.7;
                 rate = baseRate * businessHoursFactor;
                 break;
             case 'event-driven':
-                // Random spikes
-                if (Math.random() < 0.1) { // 10% chance of spike
+                / Random spikes
+                if (Math.random() < 0.1) { / 10% chance of spike
                     rate = peakRate;
                 } else {
                     rate = baseRate;
                 }
                 break;
             case 'bursty':
-                // Bursty pattern with varying intensities
+                / Bursty pattern with varying intensities
                 const burstFactor = 1 + Math.sin(t / 300) * 0.5 + Math.random() * 0.3;
                 rate = baseRate * burstFactor;
                 break;
@@ -644,11 +644,11 @@ function analyzeAlgorithmPerformance(config, trafficAnalysis) {
     const algorithm = config.rateLimitAlgorithm;
     const spec = algorithmSpecs[algorithm];
     
-    // Simulate algorithm behavior
+    / Simulate algorithm behavior
     const simulation = simulateAlgorithm(config, trafficAnalysis);
     
-    // Calculate effectiveness metrics
-    const totalRequests = trafficAnalysis.requestRates.reduce((sum, rate) => sum + rate * 60, 0); // Convert rate to total requests
+    / Calculate effectiveness metrics
+    const totalRequests = trafficAnalysis.requestRates.reduce((sum, rate) => sum + rate * 60, 0); / Convert rate to total requests
     const acceptedRequests = simulation.acceptedRequests;
     const rejectedRequests = totalRequests - acceptedRequests;
     
@@ -677,14 +677,14 @@ function simulateAlgorithm(config, trafficAnalysis) {
     const bucketStates = [];
     const acceptanceRates = [];
     
-    // Initialize algorithm state
+    / Initialize algorithm state
     let state = initializeAlgorithmState(algorithm, config);
     
     trafficAnalysis.requestRates.forEach((requestRate, index) => {
-        const requestsThisMinute = requestRate * 60; // Convert rate to actual requests
+        const requestsThisMinute = requestRate * 60; / Convert rate to actual requests
         let acceptedThisMinute = 0;
         
-        // Simulate each request in this minute
+        / Simulate each request in this minute
         for (let i = 0; i < requestsThisMinute; i++) {
             if (shouldAcceptRequest(algorithm, state, config)) {
                 acceptedThisMinute++;
@@ -713,7 +713,7 @@ function initializeAlgorithmState(algorithm, config) {
             };
         case 'sliding-window-log':
             return {
-                requests: [] // Array of timestamps
+                requests: [] / Array of timestamps
             };
         case 'sliding-window-counter':
             return {
@@ -754,13 +754,13 @@ function updateAlgorithmState(algorithm, state, config) {
     
     switch (algorithm) {
         case 'token-bucket':
-            // Refill tokens
+            / Refill tokens
             const timePassed = (now - state.lastRefill) / 1000;
             const tokensToAdd = timePassed * config.refillRate;
             state.tokens = Math.min(config.bucketCapacity, state.tokens + tokensToAdd);
             state.lastRefill = now;
             
-            // Consume token if request was accepted
+            / Consume token if request was accepted
             if (state.tokens >= config.tokensPerRequest) {
                 state.tokens -= config.tokensPerRequest;
             }
@@ -768,15 +768,15 @@ function updateAlgorithmState(algorithm, state, config) {
             
         case 'sliding-window-log':
             state.requests.push(now);
-            // Clean old requests
+            / Clean old requests
             const windowStart = now - (config.windowSize * 1000);
             state.requests = state.requests.filter(timestamp => timestamp > windowStart);
             break;
             
         case 'sliding-window-counter':
             state.windows[state.currentWindow]++;
-            // Advance window periodically (simplified)
-            if (Math.random() < 0.01) { // 1% chance to advance window
+            / Advance window periodically (simplified)
+            if (Math.random() < 0.01) { / 1% chance to advance window
                 state.currentWindow = (state.currentWindow + 1) % config.subWindowCount;
                 state.windows[state.currentWindow] = 0;
             }
@@ -784,7 +784,7 @@ function updateAlgorithmState(algorithm, state, config) {
             
         case 'fixed-window':
             state.count++;
-            // Reset window periodically (simplified)
+            / Reset window periodically (simplified)
             const currentWindowStart = Math.floor(now / 1000);
             if (currentWindowStart > state.windowStart) {
                 state.windowStart = currentWindowStart;
@@ -795,7 +795,7 @@ function updateAlgorithmState(algorithm, state, config) {
 }
 
 function calculateFairnessScore(bucketStates) {
-    // Simplified fairness calculation based on bucket state consistency
+    / Simplified fairness calculation based on bucket state consistency
     if (bucketStates.length < 2) return 100;
     
     const variations = [];
@@ -808,7 +808,7 @@ function calculateFairnessScore(bucketStates) {
     if (variations.length === 0) return 100;
     
     const avgVariation = variations.reduce((sum, v) => sum + v, 0) / variations.length;
-    return Math.max(0, 100 - avgVariation); // Simplified scoring
+    return Math.max(0, 100 - avgVariation); / Simplified scoring
 }
 
 function calculateBurstHandling(config, trafficAnalysis, simulation) {
@@ -831,15 +831,15 @@ function calculateMemoryUsage(algorithm, config) {
         case 'token-bucket':
         case 'fixed-window':
         case 'leaky-bucket':
-            return '8 bytes'; // Simple counter/state
+            return '8 bytes'; / Simple counter/state
         case 'sliding-window-counter':
-            return `${config.subWindowCount * 4} bytes`; // Array of counters
+            return `${config.subWindowCount * 4} bytes`; / Array of counters
         case 'sliding-window-log':
-            return `${config.requestLimit * 8} bytes (worst case)`; // Timestamps
+            return `${config.requestLimit * 8} bytes (worst case)`; / Timestamps
         case 'adaptive':
-            return '32 bytes'; // Multiple state variables
+            return '32 bytes'; / Multiple state variables
         case 'distributed-consistent':
-            return '64 bytes'; // Additional metadata
+            return '64 bytes'; / Additional metadata
         default:
             return 'Unknown';
     }
@@ -857,20 +857,20 @@ function analyzeDistributedChallenges(config) {
     const challenges = [];
     const recommendations = [];
     
-    // Synchronization overhead
+    / Synchronization overhead
     const syncOverhead = calculateSyncOverhead(config.syncStrategy, config.distributedNodes);
     if (syncOverhead > 10) {
         challenges.push('High synchronization overhead');
         recommendations.push('Consider local quotas with periodic reconciliation');
     }
     
-    // Consistency concerns
+    / Consistency concerns
     if (config.consistencyRequirement === 'strong' && config.distributedNodes > 3) {
         challenges.push('Strong consistency with many nodes affects performance');
         recommendations.push('Evaluate if eventual consistency is acceptable');
     }
     
-    // Hot key problems
+    / Hot key problems
     if (config.rateLimitScope === 'global') {
         challenges.push('Global rate limiting creates hot keys');
         recommendations.push('Implement consistent hashing or sharding');
@@ -908,7 +908,7 @@ function calculateDistributedLatency(config) {
 function generateRateLimitingRecommendations(config, algorithmAnalysis, distributedAnalysis) {
     const recommendations = [];
     
-    // Algorithm-specific recommendations
+    / Algorithm-specific recommendations
     if (algorithmAnalysis.acceptanceRate < 80) {
         recommendations.push({
             type: 'algorithm',
@@ -929,7 +929,7 @@ function generateRateLimitingRecommendations(config, algorithmAnalysis, distribu
         });
     }
     
-    // Distributed recommendations
+    / Distributed recommendations
     if (distributedAnalysis.applicable && distributedAnalysis.estimatedLatency > config.targetLatency * 2) {
         recommendations.push({
             type: 'distributed',
@@ -940,7 +940,7 @@ function generateRateLimitingRecommendations(config, algorithmAnalysis, distribu
         });
     }
     
-    // Storage recommendations
+    / Storage recommendations
     if (config.storageBackend === 'database' && config.avgRequestRate > 1000) {
         recommendations.push({
             type: 'storage',
@@ -1096,7 +1096,7 @@ function generateImplementationChecklist(config, algorithm) {
         'Set up log analysis for rate limit effectiveness'
     ];
     
-    // Add algorithm-specific items
+    / Add algorithm-specific items
     switch (config.rateLimitAlgorithm) {
         case 'token-bucket':
             checklist.push('Configure bucket refill rates carefully');
@@ -1138,7 +1138,7 @@ function drawAlgorithmChart(algorithmAnalysis) {
         algorithmChart.destroy();
     }
     
-    // Compare current algorithm with others
+    / Compare current algorithm with others
     const algorithms = Object.keys(algorithmSpecs);
     const accuracyData = algorithms.map(alg => algorithmSpecs[alg].accuracy);
     const burstToleranceData = algorithms.map(alg => algorithmSpecs[alg].burstTolerance);
@@ -1261,7 +1261,7 @@ function simulateTraffic() {
 }
 
 function compareAlgorithms() {
-    // Generate comparison data
+    / Generate comparison data
     const config = getRateLimitingConfiguration();
     const trafficAnalysis = analyzeTrafficPatterns(config);
     
@@ -1278,7 +1278,7 @@ function compareAlgorithms() {
         };
     });
     
-    // Display comparison results
+    / Display comparison results
     let comparisonHTML = `
         <div class="comparison-results">
             <h3>🔄 Algorithm Comparison</h3>
@@ -1329,7 +1329,7 @@ function exportRateLimitingResults() {
     URL.revokeObjectURL(url);
 }
 
-// Initialize algorithm config visibility
+/ Initialize algorithm config visibility
 document.addEventListener('DOMContentLoaded', function() {
     toggleAlgorithmConfig();
 });

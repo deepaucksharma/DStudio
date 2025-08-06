@@ -174,14 +174,14 @@ Watch for these indicators that capacity planning is needed:
 
 ## Related Resources
 
-- [Little's Law](quantitative-analysis/littles-law.mdindex.md)
-- [Universal Scalability Law](quantitative-analysis/universal-scalability.mdindex.md)
-- [Capacity Planning Guide](quantitative-analysis/capacity-planning.mdindex.md)
-- [Auto-Scaling Pattern](../..../pattern-library/scaling.md/auto-scaling/index.md)
-- [Load Balancing Pattern](../..../pattern-library/scaling.md/load-balancing/index.md)
+- [Little's Law](../architects-handbook/quantitative-analysis/littles-law.mdindex.md)
+- [Universal Scalability Law](../architects-handbook/quantitative-analysis/universal-scalability.mdindex.md)
+- [Capacity Planning Guide](../architects-handbook/quantitative-analysis/capacity-planning.mdindex.md)
+- [Auto-Scaling Pattern](../pattern-library/scaling/auto-scaling/index.md)
+- [Load Balancing Pattern](../pattern-library/scaling/load-balancing/index.md)
 
 <script>
-// Enhanced capacity calculator with input validation and real-time updates
+/ Enhanced capacity calculator with input validation and real-time updates
 let capacityChart = null;
 
 function validateCapacityInputs() {
@@ -213,7 +213,7 @@ function validateCapacityInputs() {
 }
 
 function calculateCapacity() {
- // Validate inputs
+ / Validate inputs
  const validation = validateCapacityInputs();
  if (!validation.valid) {
  displayCapacityErrors(validation.errors);
@@ -223,15 +223,15 @@ function calculateCapacity() {
  const inputs = validation.inputs;
  const growthRate = inputs.growthRate.value / 100;
  
- // Calculate current metrics
+ / Calculate current metrics
  const currentCapacityRPS = inputs.currentRPS.value / (inputs.cpuUtilization.value / 100);
  const rpsPerServer = currentCapacityRPS / inputs.currentServers.value;
  
- // Calculate memory constraints
+ / Calculate memory constraints
  const totalMemoryGB = inputs.memoryUsageGB.value * inputs.currentServers.value;
  const memoryPerRPS = totalMemoryGB / inputs.currentRPS.value;
  
- // Project growth with advanced modeling
+ / Project growth with advanced modeling
  let projections = [];
  let cumulativeCost = 0;
  
@@ -240,16 +240,16 @@ function calculateCapacity() {
  const projectedRPS = inputs.currentRPS.value * growthFactor;
  const peakRPS = projectedRPS * inputs.peakMultiplier.value;
  
- // Calculate required servers (considering both CPU and memory)
+ / Calculate required servers (considering both CPU and memory)
  const cpuBasedServers = Math.ceil((peakRPS / rpsPerServer) / (inputs.maxCPU.value / 100));
  const memoryBasedServers = Math.ceil((peakRPS * memoryPerRPS) / inputs.memoryUsageGB.value);
  const requiredServers = Math.max(cpuBasedServers, memoryBasedServers);
  
- // Calculate costs
+ / Calculate costs
  const monthlyCost = requiredServers * inputs.serverCost.value;
  cumulativeCost += monthlyCost;
  
- // Calculate actual utilization
+ / Calculate actual utilization
  const cpuUtilization = (peakRPS / (requiredServers * rpsPerServer)) * 100;
  const memoryUtilization = (peakRPS * memoryPerRPS) / (requiredServers * inputs.memoryUsageGB.value) * 100;
  const actualUtilization = Math.max(cpuUtilization, memoryUtilization);
@@ -270,12 +270,12 @@ function calculateCapacity() {
  });
  }
  
- // Calculate availability based on redundancy
+ / Calculate availability based on redundancy
  const n = projections[inputs.planningHorizon.value].servers;
- const redundancy = Math.max(1, Math.floor(n * 0.1)); // 10% redundancy
+ const redundancy = Math.max(1, Math.floor(n * 0.1)); / 10% redundancy
  const availability = calculateAvailability(n, redundancy);
  
- // Prepare data for visualization
+ / Prepare data for visualization
  const capacityData = {
  projections: projections,
  currentState: {
@@ -290,10 +290,10 @@ function calculateCapacity() {
  redundancy: redundancy
  };
  
- // Display results
+ / Display results
  displayCapacityResults(capacityData, inputs);
  
- // Show results panel with animation
+ / Show results panel with animation
  const resultsPanel = document.getElementById('results');
  resultsPanel.style.display = 'block';
  resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -302,7 +302,7 @@ function calculateCapacity() {
 function generateCapacityRecommendations(projections, inputs, availability) {
  const recommendations = [];
  
- // Growth rate analysis
+ / Growth rate analysis
  if (inputs.growthRate.value > 15) {
  recommendations.push({
  type: 'warning',
@@ -310,7 +310,7 @@ function generateCapacityRecommendations(projections, inputs, availability) {
  });
  }
  
- // Short-term capacity needs
+ / Short-term capacity needs
  const sixMonthProjection = projections[Math.min(6, projections.length - 1)];
  if (sixMonthProjection.servers > inputs.currentServers.value * 1.5) {
  recommendations.push({
@@ -319,7 +319,7 @@ function generateCapacityRecommendations(projections, inputs, availability) {
  });
  }
  
- // Utilization analysis
+ / Utilization analysis
  if (inputs.cpuUtilization.value > 70) {
  recommendations.push({
  type: 'important',
@@ -332,7 +332,7 @@ function generateCapacityRecommendations(projections, inputs, availability) {
  });
  }
  
- // Availability vs SLA
+ / Availability vs SLA
  if (availability < inputs.slaTarget.value / 100) {
  const additionalServers = Math.ceil(projections[projections.length - 1].servers * 0.15);
  recommendations.push({
@@ -341,7 +341,7 @@ function generateCapacityRecommendations(projections, inputs, availability) {
  });
  }
  
- // Cost optimization
+ / Cost optimization
  const totalCost = projections[projections.length - 1].cumulativeCost;
  const avgMonthlyCost = totalCost / projections.length;
  if (avgMonthlyCost > inputs.serverCost.value * inputs.currentServers.value * 2) {
@@ -422,7 +422,7 @@ function displayCapacityResults(data, inputs) {
  <div class="recommendations-grid">
  `;
  
- // Add intelligent recommendations
+ / Add intelligent recommendations
  data.recommendations.forEach(rec => {
  resultsHTML += `
  <div class="recommendation-card ${rec.type}">
@@ -500,7 +500,7 @@ function displayCapacityResults(data, inputs) {
  <tbody>
  `;
  
- // Show key milestone months
+ / Show key milestone months
  const milestones = [0, 3, 6, 12, 18, 24, data.projections.length - 1];
  milestones.forEach(month => {
  if (month < data.projections.length) {
@@ -528,7 +528,7 @@ function displayCapacityResults(data, inputs) {
  
  document.getElementById('results').innerHTML = resultsHTML;
  
- // Draw interactive charts
+ / Draw interactive charts
  drawCapacityChart(data.projections);
  drawCostChart(data.projections);
 }
@@ -547,11 +547,11 @@ function displayCapacityErrors(errors) {
 }
 
 function calculateAvailability(servers, redundancy) {
- // Simplified availability calculation
- const serverAvailability = 0.99; // 99% per server
+ / Simplified availability calculation
+ const serverAvailability = 0.99; / 99% per server
  const requiredServers = servers - redundancy;
  
- // Probability that at least requiredServers are available
+ / Probability that at least requiredServers are available
  let availability = 0;
  for (let k = requiredServers; k <= servers; k++) {
  availability += binomial(servers, k) * 
@@ -580,15 +580,15 @@ function drawCapacityChart(projections) {
  const height = canvas.height;
  const padding = 60;
  
- // Clear canvas
+ / Clear canvas
  ctx.clearRect(0, 0, width, height);
  
- // Find max values for scaling
+ / Find max values for scaling
  const maxServers = Math.max(...projections.map(p => p.servers));
  const maxRPS = Math.max(...projections.map(p => p.peakRPS));
  const maxUtil = 100;
  
- // Draw grid lines
+ / Draw grid lines
  ctx.strokeStyle = '#e0e0e0';
  ctx.lineWidth = 1;
  for (let i = 0; i <= 10; i++) {
@@ -599,7 +599,7 @@ function drawCapacityChart(projections) {
  ctx.stroke();
  }
  
- // Draw axes
+ / Draw axes
  ctx.strokeStyle = '#666';
  ctx.lineWidth = 2;
  ctx.beginPath();
@@ -608,7 +608,7 @@ function drawCapacityChart(projections) {
  ctx.lineTo(width - padding, height - padding);
  ctx.stroke();
  
- // Draw server count line
+ / Draw server count line
  ctx.strokeStyle = '#5448C8';
  ctx.lineWidth = 3;
  ctx.beginPath();
@@ -618,7 +618,7 @@ function drawCapacityChart(projections) {
  if (i === 0) ctx.moveTo(x, y);
  else ctx.lineTo(x, y);
  
- // Draw data points
+ / Draw data points
  ctx.fillStyle = '#5448C8';
  ctx.beginPath();
  ctx.arc(x, y, 4, 0, 2 * Math.PI);
@@ -626,7 +626,7 @@ function drawCapacityChart(projections) {
  });
  ctx.stroke();
  
- // Draw RPS line
+ / Draw RPS line
  ctx.strokeStyle = '#00BCD4';
  ctx.lineWidth = 3;
  ctx.beginPath();
@@ -638,7 +638,7 @@ function drawCapacityChart(projections) {
  });
  ctx.stroke();
  
- // Draw utilization line
+ / Draw utilization line
  ctx.strokeStyle = '#FF9800';
  ctx.lineWidth = 2;
  ctx.setLineDash([5, 5]);
@@ -652,13 +652,13 @@ function drawCapacityChart(projections) {
  ctx.stroke();
  ctx.setLineDash([]);
  
- // Draw labels
+ / Draw labels
  ctx.fillStyle = '#333';
  ctx.font = '14px sans-serif';
  ctx.textAlign = 'center';
  ctx.fillText('Months', width / 2, height - 20);
  
- // Y-axis labels
+ / Y-axis labels
  ctx.textAlign = 'right';
  ctx.font = '12px sans-serif';
  for (let i = 0; i <= 5; i++) {
@@ -666,7 +666,7 @@ function drawCapacityChart(projections) {
  ctx.fillText(`${Math.round(maxServers * i / 5)}`, padding - 10, y + 4);
  }
  
- // Legend
+ / Legend
  const legendX = width - 200;
  const legendY = padding;
  
@@ -691,7 +691,7 @@ function drawCapacityChart(projections) {
  ctx.fillStyle = '#333';
  ctx.fillText('Utilization %', legendX + 30, legendY + 45);
  
- // Title
+ / Title
  ctx.font = 'bold 16px sans-serif';
  ctx.fillStyle = '#333';
  ctx.textAlign = 'center';
@@ -707,13 +707,13 @@ function drawCostChart(projections) {
  const height = canvas.height;
  const padding = 60;
  
- // Clear canvas
+ / Clear canvas
  ctx.clearRect(0, 0, width, height);
  
  const maxCost = Math.max(...projections.map(p => p.cost));
  const maxCumulative = projections[projections.length - 1].cumulativeCost;
  
- // Draw axes
+ / Draw axes
  ctx.strokeStyle = '#666';
  ctx.lineWidth = 2;
  ctx.beginPath();
@@ -722,21 +722,21 @@ function drawCostChart(projections) {
  ctx.lineTo(width - padding, height - padding);
  ctx.stroke();
  
- // Draw monthly cost bars
+ / Draw monthly cost bars
  const barWidth = (width - 2 * padding) / projections.length - 5;
  projections.forEach((p, i) => {
  const x = padding + i * ((width - 2 * padding) / projections.length) + 2.5;
  const barHeight = (p.cost / maxCost) * (height - 2 * padding);
  const y = height - padding - barHeight;
  
- // Draw bar
+ / Draw bar
  const gradient = ctx.createLinearGradient(0, y, 0, height - padding);
  gradient.addColorStop(0, '#4CAF50');
  gradient.addColorStop(1, '#2E7D32');
  ctx.fillStyle = gradient;
  ctx.fillRect(x, y, barWidth, barHeight);
  
- // Add cost label on significant months
+ / Add cost label on significant months
  if (i % Math.ceil(projections.length / 6) === 0) {
  ctx.fillStyle = '#333';
  ctx.font = '10px sans-serif';
@@ -745,7 +745,7 @@ function drawCostChart(projections) {
  }
  });
  
- // Draw cumulative cost line
+ / Draw cumulative cost line
  ctx.strokeStyle = '#F44336';
  ctx.lineWidth = 3;
  ctx.beginPath();
@@ -757,19 +757,19 @@ function drawCostChart(projections) {
  });
  ctx.stroke();
  
- // Labels
+ / Labels
  ctx.fillStyle = '#333';
  ctx.font = '12px sans-serif';
  ctx.textAlign = 'center';
  ctx.fillText('Months', width / 2, height - 20);
  
- // Title
+ / Title
  ctx.font = 'bold 16px sans-serif';
  ctx.textAlign = 'center';
  ctx.fillText('Cost Projection Analysis', width / 2, 30);
 }
 
-// Add real-time input validation
+/ Add real-time input validation
 document.addEventListener('DOMContentLoaded', function() {
  const inputs = document.querySelectorAll('input[type="number"]');
  inputs.forEach(input => {

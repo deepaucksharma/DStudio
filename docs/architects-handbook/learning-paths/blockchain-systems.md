@@ -105,7 +105,7 @@ outcomes:
 </div>
 
 !!! tip "Blockchain Readiness Check"
-    Complete our [Blockchain Development Assessment](../../tools/blockchain-readiness-quiz/index.md) to gauge your preparation.
+    Complete our [Blockchain Development Assessment](../tools/blockchain-readiness-quiz/index.md) to gauge your preparation.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -127,7 +127,7 @@ outcomes:
     - [ ] Learn transaction validation and block creation
     
     **Day 1-2**: Blockchain Data Structures
-    - 📖 Read: [Blockchain fundamentals](../../....../pattern-library/blockchain.md/blockchain-basics/index.md), hash pointers, Merkle trees
+    - 📖 Read: [Blockchain fundamentals](../../pattern-library/blockchain/blockchain-basics/index.md), hash pointers, Merkle trees
     - 🛠️ Lab: Implement basic blockchain with Python/JavaScript
     - 📊 Success: Working blockchain with block validation
     - ⏱️ Time: 8-10 hours

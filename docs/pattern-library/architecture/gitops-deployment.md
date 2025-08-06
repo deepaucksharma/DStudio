@@ -525,21 +525,21 @@ if __name__ == "__main__":
     ---
     
     - [Container Orchestration](container-orchestration.md) - Kubernetes deployment target
-    - [CI/CD Pipeline](../../excellence/implementation-guides/modern-distributed-systems-2025.md) - Integration with GitOps
+    - [CI/CD Pipeline](../excellence/implementation-guides/modern-distributed-systems-2025.md) - Integration with GitOps
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Git as single source of truth
-    - [Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Eventual consistency in deployments
+    - [Distributed Knowledge](../core-principles/laws/distributed-knowledge.md) - Git as single source of truth
+    - [Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) - Eventual consistency in deployments
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [ArgoCD Setup Guide](../../excellence/guides/argocd-setup.md)
-    - [GitOps Security Best Practices](../../excellence/guides/gitops-security.md)
+    - [ArgoCD Setup Guide](../excellence/guides/argocd-setup.md)
+    - [GitOps Security Best Practices](../excellence/guides/gitops-security.md)
 
 </div>
 

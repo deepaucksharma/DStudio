@@ -82,10 +82,10 @@ Choose a structured curriculum tailored to your role and experience level:
 
 | Path | Duration | Focus | Week-by-Week Coverage |
 |------|----------|-------|----------------------|
-| **[New Graduate](....../architects-handbook/learning-paths.md/new-graduate/index.md)** | 12 weeks | Foundation-building | Laws → Pillars → Basic Patterns → Simple Systems |
-| **[Senior Engineer](....../architects-handbook/learning-paths.md/senior-engineer/index.md)** | 8 weeks | Architecture mastery | Advanced Patterns → Trade-offs → Complex Systems |
-| **[Architect](....../architects-handbook/learning-paths.md/architect/index.md)** | 6 weeks | System design leadership | High-level design → Cost optimization → Team decisions |
-| **[Manager](....../architects-handbook/learning-paths.md/manager/index.md)** | 4 weeks | Strategic understanding | Business implications → Team structure → Risk assessment |
+| **[New Graduate](../../architects-handbook/learning-paths/new-graduate/index.md)** | 12 weeks | Foundation-building | Laws → Pillars → Basic Patterns → Simple Systems |
+| **[Senior Engineer](../../architects-handbook/learning-paths/senior-engineer/index.md)** | 8 weeks | Architecture mastery | Advanced Patterns → Trade-offs → Complex Systems |
+| **[Architect](../../architects-handbook/learning-paths/architect/index.md)** | 6 weeks | System design leadership | High-level design → Cost optimization → Team decisions |
+| **[Manager](../../architects-handbook/learning-paths/manager/index.md)** | 4 weeks | Strategic understanding | Business implications → Team structure → Risk assessment |
 
 ## 📖 How to Use This Section
 

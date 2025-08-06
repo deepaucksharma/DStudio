@@ -107,7 +107,7 @@ graph TB
 ### 1. Document Model
 
 ```javascript
-// Natural data representation
+/ Natural data representation
 {
   _id: ObjectId("507f1f77bcf86cd799439011"),
   user: "john.doe",
@@ -185,14 +185,14 @@ graph LR
 **Shard Key Selection Framework**:
 
 ```javascript
-// Good shard key: high cardinality, even distribution
+/ Good shard key: high cardinality, even distribution
 db.users.createIndex({ "userId": "hashed" })
 sh.shardCollection("mydb.users", { "userId": "hashed" })
 
-// Poor shard key: low cardinality, hotspots
-// DON'T: sh.shardCollection("mydb.logs", { "level": 1 })
+/ Poor shard key: low cardinality, hotspots
+/ DON'T: sh.shardCollection("mydb.logs", { "level": 1 })
 
-// Compound shard key for multi-tenant
+/ Compound shard key for multi-tenant
 sh.shardCollection("mydb.events", { 
   "tenantId": 1, 
   "timestamp": 1 
@@ -232,23 +232,23 @@ graph TB
 ### Challenge 2: Unbounded Array Growth
 
 ```javascript
-// Anti-pattern: Unbounded arrays
+/ Anti-pattern: Unbounded arrays
 {
   userId: "123",
   activities: [
-    // Grows infinitely!
+    / Grows infinitely!
     { timestamp: "...", action: "..." },
     { timestamp: "...", action: "..." },
-    // Document size limit: 16MB
+    / Document size limit: 16MB
   ]
 }
 
-// Solution: Bucket pattern
+/ Solution: Bucket pattern
 {
   userId: "123",
   bucket: "2024-01-15",
   activities: [
-    // Limited to one day
+    / Limited to one day
   ],
   count: 150
 }
@@ -257,7 +257,7 @@ graph TB
 ### Challenge 3: Multi-Document Transactions
 
 ```javascript
-// MongoDB 4.0+ supports transactions
+/ MongoDB 4.0+ supports transactions
 const session = client.startSession();
 
 try {
@@ -267,7 +267,7 @@ try {
     await accounts.updateOne({ ... }, { session });
   });
 } catch (error) {
-  // Automatic rollback
+  / Automatic rollback
 }
 ```
 
@@ -320,33 +320,33 @@ key_metrics:
 
 1. **Embedding vs References**:
    ```javascript
-   // Embed for 1:1 or 1:few
+   / Embed for 1:1 or 1:few
    { user: "john", address: { street: "..." } }
    
-   // Reference for 1:many or many:many
+   / Reference for 1:many or many:many
    { user: "john", orderIds: ["order1", "order2"] }
    ```
 
 2. **Denormalization for Performance**:
    ```javascript
-   // Denormalize frequently accessed data
+   / Denormalize frequently accessed data
    {
      orderId: "123",
      userId: "456",
-     userName: "John Doe",  // Denormalized
-     userEmail: "john@example.com"  // Denormalized
+     userName: "John Doe",  / Denormalized
+     userEmail: "john@example.com"  / Denormalized
    }
    ```
 
 3. **Index Strategy**:
    ```javascript
-   // Compound indexes for query patterns
+   / Compound indexes for query patterns
    db.products.createIndex({ category: 1, price: -1 })
    
-   // Text indexes for search
+   / Text indexes for search
    db.products.createIndex({ name: "text", description: "text" })
    
-   // Partial indexes for efficiency
+   / Partial indexes for efficiency
    db.orders.createIndex(
      { status: 1 },
      { partialFilterExpression: { status: "active" } }
@@ -358,13 +358,13 @@ key_metrics:
 ### Change Streams
 
 ```javascript
-// Real-time change notifications
+/ Real-time change notifications
 const changeStream = db.collection('orders').watch([
   { $match: { operationType: 'insert' } }
 ]);
 
 changeStream.on('change', (change) => {
-  // React to new orders
+  / React to new orders
   console.log('New order:', change.fullDocument);
 });
 ```
@@ -372,7 +372,7 @@ changeStream.on('change', (change) => {
 ### Aggregation Pipeline
 
 ```javascript
-// Complex analytics in-database
+/ Complex analytics in-database
 db.orders.aggregate([
   { $match: { status: "completed" } },
   { $group: {
@@ -418,11 +418,11 @@ db.orders.aggregate([
 
 ## Related Topics
 
-- [Sharding](../../pattern-library/scaling.md/sharding.md) - Core MongoDB scaling pattern
-- [Eventual Consistency](../../pattern-library/data-management.md/eventual-consistency.md) - Read preference implications
-- [CAP Theorem](../../pattern-library/architecture.md/cap-theorem.md) - MongoDB's CP with tunable consistency
-- [Aggregation Pipeline](../../pattern-library/scaling.md/scatter-gather.md) - Distributed processing
-- [Change Data Capture](../../pattern-library/data-management.md/cdc.md) - Change streams implementation
+- [Sharding](../pattern-library/scaling/sharding.md) - Core MongoDB scaling pattern
+- [Eventual Consistency](../pattern-library/data-management/eventual-consistency.md) - Read preference implications
+- [CAP Theorem](../pattern-library/architecture/cap-theorem.md) - MongoDB's CP with tunable consistency
+- [Aggregation Pipeline](../pattern-library/scaling/scatter-gather.md) - Distributed processing
+- [Change Data Capture](../pattern-library/data-management/cdc.md) - Change streams implementation
 
 ## References
 

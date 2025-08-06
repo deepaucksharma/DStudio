@@ -318,9 +318,9 @@ graph LR
 
 | Pattern | Combination Benefit | Integration Point |
 |---------|-------------------|------------------|
-| [Auto-scaling](..../pattern-library/scaling.md/auto-scaling.md) | Dynamic capacity management | LB triggers scaling events |
-| [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) | Cascade failure prevention | Circuit state affects routing |
-| [Health Check](..../pattern-library/resilience.md/health-check.md) | Service monitoring | Health status drives routing decisions |
+| [Auto-scaling](../pattern-library/scaling/auto-scaling.md) | Dynamic capacity management | LB triggers scaling events |
+| [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) | Cascade failure prevention | Circuit state affects routing |
+| [Health Check](../pattern-library/resilience/health-check.md) | Service monitoring | Health status drives routing decisions |
 
 ## Quick Reference
 
@@ -360,10 +360,10 @@ graph LR
 
 This pattern directly addresses several fundamental laws:
 
-- **[Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md)**: Load balancing prevents single server failures from bringing down entire systems by distributing traffic across multiple backends
-- **[Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md)**: Handles the reality that requests arrive at unpredictable times by managing request distribution and backend response coordination
-- **[Law 4: Multidimensional Optimization](../..../core-principles/laws.md/multidimensional-optimization/index.md)**: Embodies the trade-offs between latency, throughput, availability, and cost in traffic distribution decisions
-- **[Law 6: Cognitive Load](../..../core-principles/laws.md/cognitive-load/index.md)**: Simplifies system architecture by providing a single entry point that hides backend complexity from clients
+- **[Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md)**: Load balancing prevents single server failures from bringing down entire systems by distributing traffic across multiple backends
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)**: Handles the reality that requests arrive at unpredictable times by managing request distribution and backend response coordination
+- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)**: Embodies the trade-offs between latency, throughput, availability, and cost in traffic distribution decisions
+- **[Law 6: Cognitive Load](../core-principles/laws/cognitive-load/index.md)**: Simplifies system architecture by providing a single entry point that hides backend complexity from clients
 
 ### Related Resources
 
@@ -373,31 +373,31 @@ This pattern directly addresses several fundamental laws:
     
     ---
     
-    - [Auto-scaling](..../pattern-library/scaling.md/auto-scaling.md) - Dynamic capacity management
-    - [Health Check](..../pattern-library/resilience.md/health-check.md) - Backend monitoring
-    - [Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md) - Failure protection
+    - [Auto-scaling](../pattern-library/scaling/auto-scaling.md) - Dynamic capacity management
+    - [Health Check](../pattern-library/resilience/health-check.md) - Backend monitoring
+    - [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md) - Failure protection
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md) - Preventing single points of failure
-    - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - Distributed request handling
+    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Preventing single points of failure
+    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Distributed request handling
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../..../core-principles/pillars.md/work-distribution/index.md) - Distributing requests across servers
-    - [Control Distribution](../..../core-principles/pillars.md/control-distribution/index.md) - Distributed routing decisions
+    - [Work Distribution](../core-principles/pillars/work-distribution/index.md) - Distributing requests across servers
+    - [Control Distribution](../core-principles/pillars/control-distribution/index.md) - Distributed routing decisions
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Load Balancer Setup](../../excellence/guides/load-balancer-setup.md)
-    - [Health Check Configuration](../../excellence/guides/health-check-config.md)
-    - [SSL Termination Guide](../../excellence/guides/ssl-termination.md)
+    - [Load Balancer Setup](../excellence/guides/load-balancer-setup.md)
+    - [Health Check Configuration](../excellence/guides/health-check-config.md)
+    - [SSL Termination Guide](../excellence/guides/ssl-termination.md)
 
 </div>
 

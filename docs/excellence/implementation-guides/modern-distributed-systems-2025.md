@@ -57,10 +57,10 @@ Consistent Hashing → Sharding → WebSockets → Edge Computing
 
 | Pattern | When to Use | Code Example |
 |---------|-------------|--------------|
-| **[Circuit Breaker](../../..../pattern-library/resilience.md/circuit-breaker/index.md)** | Any external service call | See implementation below |
-| **[Retry with Backoff](../../..../pattern-library/resilience.md/retry-backoff/index.md)** | Transient failures expected | Exponential backoff required |
-| **[Rate Limiting](../../..../pattern-library/scaling.md/rate-limiting/index.md)** | Public APIs, resource protection | Token bucket recommended |
-| **[Caching](../../..../pattern-library/scaling.md/caching-strategies/index.md)** | Read-heavy workloads | Cache-aside pattern |
+| **[Circuit Breaker](../../pattern-library/resilience/circuit-breaker/index.md)** | Any external service call | See implementation below |
+| **[Retry with Backoff](../../pattern-library/resilience/retry-backoff/index.md)** | Transient failures expected | Exponential backoff required |
+| **[Rate Limiting](../../pattern-library/scaling/rate-limiting/index.md)** | Public APIs, resource protection | Token bucket recommended |
+| **[Caching](../../pattern-library/scaling/caching-strategies/index.md)** | Read-heavy workloads | Cache-aside pattern |
 
 #### Circuit Breaker Quick Implementation
 ```python
@@ -97,10 +97,10 @@ class CircuitBreaker:
 
 | Pattern | When to Use | Real World Example |
 |---------|-------------|-------------------|
-| **[Sharding](../../..../pattern-library/scaling.md/sharding/index.md)** | Database > 1TB | Discord: User sharding |
-| **[Load Balancing](../../..../pattern-library/scaling.md/load-balancing/index.md)** | Multiple service instances | Google Maglev: 1M+ RPS |
-| **[Auto-scaling](../../..../pattern-library/scaling.md/auto-scaling/index.md)** | Variable traffic | Netflix: 2x daily swings |
-| **[Message Queue](../../..../pattern-library/coordination.md/distributed-queue/index.md)** | Async processing | AWS SQS: Trillions of messages |
+| **[Sharding](../../pattern-library/scaling/sharding/index.md)** | Database > 1TB | Discord: User sharding |
+| **[Load Balancing](../../pattern-library/scaling/load-balancing/index.md)** | Multiple service instances | Google Maglev: 1M+ RPS |
+| **[Auto-scaling](../../pattern-library/scaling/auto-scaling/index.md)** | Variable traffic | Netflix: 2x daily swings |
+| **[Message Queue](../../pattern-library/coordination/distributed-queue/index.md)** | Async processing | AWS SQS: Trillions of messages |
 
 #### Sharding Decision Tree
 ```mermaid
@@ -121,10 +121,10 @@ graph TD
 
 | Pattern | When to Use | Implementation Complexity |
 |---------|-------------|--------------------------|
-| **[Saga](../../..../pattern-library/data-management.md/saga/index.md)** | Distributed transactions | High - needs coordinator |
-| **[Multi-region](../../..../pattern-library/scaling.md/multi-region/index.md)** | Global users, DR | Very High - data sync |
-| **[CDC](../../..../pattern-library/data-management.md/cdc/index.md)** | Real-time sync | Medium - Debezium |
-| **[Event Sourcing](../../..../pattern-library/data-management.md/event-sourcing/index.md)** | Audit requirements | High - event store |
+| **[Saga](../../pattern-library/data-management/saga/index.md)** | Distributed transactions | High - needs coordinator |
+| **[Multi-region](../../pattern-library/scaling/multi-region/index.md)** | Global users, DR | Very High - data sync |
+| **[CDC](../../pattern-library/data-management/cdc/index.md)** | Real-time sync | Medium - Debezium |
+| **[Event Sourcing](../../pattern-library/data-management/event-sourcing/index.md)** | Audit requirements | High - event store |
 
 #### Saga Pattern Implementation
 ```python
@@ -166,10 +166,10 @@ await saga.execute()
 
 | Pattern | When to Use | Trade-offs |
 |---------|-------------|------------|
-| **[CQRS](../../..../pattern-library/data-management.md/cqrs/index.md)** | Read/write ratio > 10:1 | Eventual consistency |
-| **[Event Streaming](../../..../pattern-library/architecture.md/event-streaming/index.md)** | Real-time processing | Complexity |
-| **[Materialized Views](../../..../pattern-library/data-management.md/materialized-view/index.md)** | Complex queries | Storage cost |
-| **[Consistent Hashing](../../..../pattern-library/data-management.md/consistent-hashing/index.md)** | Dynamic clusters | Virtual nodes overhead |
+| **[CQRS](../../pattern-library/data-management/cqrs/index.md)** | Read/write ratio > 10:1 | Eventual consistency |
+| **[Event Streaming](../../pattern-library/architecture/event-streaming/index.md)** | Real-time processing | Complexity |
+| **[Materialized Views](../../pattern-library/data-management/materialized-view/index.md)** | Complex queries | Storage cost |
+| **[Consistent Hashing](../../pattern-library/data-management/consistent-hashing/index.md)** | Dynamic clusters | Virtual nodes overhead |
 
 ## Decision Trees for Pattern Selection
 
@@ -344,6 +344,6 @@ Kafka (Event Streaming) + CQRS + CDC + Materialized Views
 
 ## Resources
 
-- [Pattern Deep Dives](../pattern-library../architects-handbook/case-studies.md/index.md)
-- [Quantitative Models](..../architects-handbook/quantitative-analysis.md/index.md)
-- [Human Factors](../human-factors/index.md)
+- [Pattern Deep Dives](../pattern-library../architects-handbook/case-studies/index.md)
+- [Quantitative Models](../architects-handbook/quantitative-analysis.md/index.md)
+- [Human Factors](../architects-handbook/human-factors/index.md)

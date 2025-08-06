@@ -13,17 +13,17 @@ The Level 4 Interview Execution Framework provides tactical guidance for executi
 
 Successful interview execution requires seamlessly integrating:
 
-### [Level I: First Principles](../../engineering-leadership/level-1-first-principles/index.md)
+### [Level I: First Principles](../engineering-leadership/level-1-first-principles/index.md)
 - Ground your answers in fundamental truths
 - Use principle-based language naturally
 - Show depth of understanding
 
-### [Level II: Business Concepts](../../engineering-leadership/level-2-core-business/index.md)
+### [Level II: Business Concepts](../engineering-leadership/level-2-core-business/index.md)
 - Apply MBA-level frameworks
 - Speak the language of business
 - Connect technical to strategic
 
-### [Level III: Applications](../../engineering-leadership/level-3-applications/index.md)
+### [Level III: Applications](../engineering-leadership/level-3-applications/index.md)
 - Demonstrate real-world experience
 - Show domain expertise
 - Prove execution capability
@@ -37,7 +37,7 @@ Successful interview execution requires seamlessly integrating:
 - **Evaluators**: Hiring managers, cross-functional partners, skip-level leaders
 - **Success Metrics**: Clarity, impact quantification, learning demonstration
 
-[→ Behavioral Interview Guide](../../ic-interviews/behavioral/index.md)
+[→ Behavioral Interview Guide](../ic-interviews/behavioral/index.md)
 
 ### 2. Technical Leadership Interviews
 **Focus**: Technical depth + strategic thinking
@@ -46,7 +46,7 @@ Successful interview execution requires seamlessly integrating:
 - **Evaluators**: Senior/Staff engineers, Technical directors
 - **Success Metrics**: Technical judgment, system thinking, innovation mindset
 
-[→ Technical Leadership Guide](../../engineering-leadership/level-3-applications/technical-leadership/index.md)
+[→ Technical Leadership Guide](../engineering-leadership/level-3-applications/technical-leadership/index.md)
 
 ### 3. System & Organizational Design
 **Focus**: Designing scalable systems and organizations
@@ -55,7 +55,7 @@ Successful interview execution requires seamlessly integrating:
 - **Evaluators**: Directors, VPs, Principal engineers
 - **Success Metrics**: Strategic thinking, trade-off analysis, execution planning
 
-[→ System & Org Design Guide](../../engineering-leadership/level-4-interview-execution/system-org-design/index.md)
+[→ System & Org Design Guide](../engineering-leadership/level-4-interview-execution/system-org-design/index.md)
 
 ### 4. Culture & Values Assessment
 **Focus**: Alignment with company culture and values
@@ -64,15 +64,15 @@ Successful interview execution requires seamlessly integrating:
 - **Evaluators**: HR partners, Culture champions, Senior leadership
 - **Success Metrics**: Authentic alignment, growth mindset, cultural add
 
-[→ Culture & Values Guide](../../engineering-leadership/level-4-interview-execution/culture-values/index.md)
+[→ Culture & Values Guide](../engineering-leadership/level-4-interview-execution/culture-values/index.md)
 
 ## Execution Tools & Frameworks
 
 ### Core Tools
-1. **[STAR+ Framework](../../engineering-leadership/level-4-interview-execution/tools/star-framework/index.md)** - Advanced behavioral response structure
-2. **[Story Portfolio](../../engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md)** - 20-30 curated leadership stories
-3. **[Principle Hooks](../../engineering-leadership/level-4-interview-execution/tools/principle-hooks/index.md)** - Company value alignment techniques
-4. **[Interactive Tools](../../engineering-leadership/level-4-interview-execution/tools/interactive/index.md)** - Practice and preparation utilities
+1. **[STAR+ Framework](../engineering-leadership/level-4-interview-execution/tools/star-framework/index.md)** - Advanced behavioral response structure
+2. **[Story Portfolio](../engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md)** - 20-30 curated leadership stories
+3. **[Principle Hooks](../engineering-leadership/level-4-interview-execution/tools/principle-hooks/index.md)** - Company value alignment techniques
+4. **[Interactive Tools](../engineering-leadership/level-4-interview-execution/tools/interactive/index.md)** - Practice and preparation utilities
 
 ## Interview Day Execution
 
@@ -165,10 +165,10 @@ Successful interview execution requires seamlessly integrating:
 - Research industry trends and challenges
 
 ### Resources
-- [Interactive Practice Tools](../../engineering-leadership/level-4-interview-execution/tools/interactive/index.md)
-- [Company-Specific Guides](../../company-specific/amazon/index.md)
-- [Practice Scenarios](../../engineering-leadership/practice-scenarios/index.md)
-- [Hard-Earned Wisdom](../../engineering-leadership/hard-earned-wisdom/index.md)
+- [Interactive Practice Tools](../engineering-leadership/level-4-interview-execution/tools/interactive/index.md)
+- [Company-Specific Guides](../company-specific/amazon/index.md)
+- [Practice Scenarios](../engineering-leadership/practice-scenarios/index.md)
+- [Hard-Earned Wisdom](../engineering-leadership/hard-earned-wisdom/index.md)
 
 ## Connecting Your Stories Across Levels
 
@@ -194,9 +194,9 @@ Impact: 10x scale capability, 50% cost reduction
 
 ### Before the Interview
 - [ ] Map 20+ stories to principles and concepts
-- [ ] Practice with [Interview Timer](../../engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer.md)
-- [ ] Complete [Self-Assessment](../../engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md)
-- [ ] Review [Company Values](../../company-specific/amazon/index.md)
+- [ ] Practice with [Interview Timer](../engineering-leadership/level-4-interview-execution/tools/interactive/interview-timer.md)
+- [ ] Complete [Self-Assessment](../engineering-leadership/level-4-interview-execution/tools/interactive/self-assessment.md)
+- [ ] Review [Company Values](../company-specific/amazon/index.md)
 
 ### During the Interview
 - [ ] Ground answers in first principles
@@ -213,7 +213,7 @@ Impact: 10x scale capability, 50% cost reduction
 ---
 
 **Next Steps**: 
-1. Start with the [STAR+ Framework](../../engineering-leadership/level-4-interview-execution/tools/star-framework/index.md) to structure your stories
-2. Build your [Story Portfolio](../../engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md) mapping experiences to principles
-3. Use [Principle Hooks](../../engineering-leadership/level-4-interview-execution/tools/principle-hooks/index.md) to demonstrate depth
-4. Practice with [Interactive Tools](../../engineering-leadership/level-4-interview-execution/tools/interactive/index.md) to build confidence
+1. Start with the [STAR+ Framework](../engineering-leadership/level-4-interview-execution/tools/star-framework/index.md) to structure your stories
+2. Build your [Story Portfolio](../engineering-leadership/level-4-interview-execution/tools/story-portfolio/index.md) mapping experiences to principles
+3. Use [Principle Hooks](../engineering-leadership/level-4-interview-execution/tools/principle-hooks/index.md) to demonstrate depth
+4. Practice with [Interactive Tools](../engineering-leadership/level-4-interview-execution/tools/interactive/index.md) to build confidence

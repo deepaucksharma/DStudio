@@ -136,9 +136,9 @@ Network Delay = (Distance / Speed of Light) + (Hops × Hop Delay)
 
 ### Queueing Delay (M/M/c model)
 ```
-ρ = λ / (c × μ) // Utilization
+ρ = λ / (c × μ) / Utilization
 Lq = Queue Length (complex formula based on ρ)
-Wq = Lq / λ // Little's Law
+Wq = Lq / λ / Little's Law
 ```
 
 Where:
@@ -171,13 +171,13 @@ Total = Network + Queueing + Processing + Serialization + I/O
 
 ## Related Resources
 
-- [Little's Law in Practice](quantitative-analysis/littles-law.mdindex.md)
+- [Little's Law in Practice](../architects-handbook/quantitative-analysis/littles-law.mdindex.md)
 - [Latency Numbers Every Programmer Should Know](quantitative/latency-ladder/index.md)
-- [Performance Patterns](../..../pattern-library/#performance.md/index.md)
+- [Performance Patterns](../pattern-library/#performance.md/index.md)
 - Network Optimization Pattern (Coming Soon)
 
 <script>
-// Global variables for chart
+/ Global variables for chart
 let latencyChart = null;
 
 function validateLatencyInputs() {
@@ -206,11 +206,11 @@ function validateLatencyInputs() {
 }
 
 function calculateLatency() {
- // Clear any previous error messages
+ / Clear any previous error messages
  const errorDiv = document.getElementById('error-messages');
  if (errorDiv) errorDiv.innerHTML = '';
  
- // Validate inputs
+ / Validate inputs
  const validation = validateLatencyInputs();
  if (!validation.valid) {
  displayErrors(validation.errors);
@@ -219,19 +219,19 @@ function calculateLatency() {
  
  const inputs = validation.inputs;
  
- // Calculate network delay
- const speedOfLight = 200000; // km/s in fiber
- const propagationDelay = (inputs.distance.value / speedOfLight) * 1000; // convert to ms
+ / Calculate network delay
+ const speedOfLight = 200000; / km/s in fiber
+ const propagationDelay = (inputs.distance.value / speedOfLight) * 1000; / convert to ms
  const routingDelay = inputs.hops.value * inputs.hopDelay.value;
  const networkDelay = propagationDelay + routingDelay;
  
- // Calculate queueing delay using M/M/c approximation
- const serviceRate = 1000 / inputs.serviceTime.value; // requests per second
+ / Calculate queueing delay using M/M/c approximation
+ const serviceRate = 1000 / inputs.serviceTime.value; / requests per second
  const utilization = inputs.throughput.value / (inputs.servers.value * serviceRate);
  
  let queueingDelay = 0;
  if (utilization < 1 && utilization > 0) {
- // More accurate M/M/c waiting time calculation
+ / More accurate M/M/c waiting time calculation
  queueingDelay = calculateMMcQueueingDelay(
  inputs.throughput.value,
  serviceRate,
@@ -242,11 +242,11 @@ function calculateLatency() {
  queueingDelay = Infinity;
  }
  
- // Total latency
+ / Total latency
  const totalLatency = networkDelay + inputs.serviceTime.value + queueingDelay + 
  inputs.serialization.value + inputs.diskIO.value;
  
- // Prepare data for visualization
+ / Prepare data for visualization
  const latencyComponents = [
  { name: 'Network Propagation', value: propagationDelay, color: '#5448C8' },
  { name: 'Routing Delays', value: routingDelay, color: '#7B68EE' },
@@ -256,25 +256,25 @@ function calculateLatency() {
  { name: 'Disk I/O', value: inputs.diskIO.value, color: '#F44336' }
  ];
  
- // Display results
+ / Display results
  displayLatencyResults(latencyComponents, totalLatency, utilization, inputs);
  
- // Draw interactive chart
+ / Draw interactive chart
  drawLatencyChart(latencyComponents, totalLatency);
  
- // Show results panel with animation
+ / Show results panel with animation
  const resultsPanel = document.getElementById('results');
  resultsPanel.style.display = 'block';
  resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function calculateMMcQueueingDelay(arrivalRate, serviceRate, servers, utilization) {
- // Erlang C formula for M/M/c queue
+ / Erlang C formula for M/M/c queue
  const rho = utilization;
  const c = servers;
  const a = arrivalRate / serviceRate;
  
- // Calculate P0 (probability of empty system)
+ / Calculate P0 (probability of empty system)
  let sum = 0;
  for (let k = 0; k < c; k++) {
  sum += Math.pow(a, k) / factorial(k);
@@ -282,11 +282,11 @@ function calculateMMcQueueingDelay(arrivalRate, serviceRate, servers, utilizatio
  sum += (Math.pow(a, c) / factorial(c)) * (1 / (1 - rho));
  const p0 = 1 / sum;
  
- // Calculate Pq (probability of queueing)
+ / Calculate Pq (probability of queueing)
  const pq = (Math.pow(a, c) / (factorial(c) * (1 - rho))) * p0;
  
- // Calculate average waiting time in queue
- const wq = (pq / (c * serviceRate * (1 - rho))) * 1000; // Convert to ms
+ / Calculate average waiting time in queue
+ const wq = (pq / (c * serviceRate * (1 - rho))) * 1000; / Convert to ms
  
  return wq;
 }
@@ -306,7 +306,7 @@ function displayLatencyResults(components, totalLatency, utilization, inputs) {
  
  `;
  
- // Add detailed breakdown with animated bars
+ / Add detailed breakdown with animated bars
  components.forEach((component, index) => {
  const percentage = utilization < 1 ? (component.value / totalLatency * 100) : 
  component.name === 'Queueing Delay' ? 100 : 0;
@@ -331,7 +331,7 @@ function displayLatencyResults(components, totalLatency, utilization, inputs) {
  <ul>
  `;
  
- // Generate intelligent insights
+ / Generate intelligent insights
  const insights = generateLatencyInsights(components, totalLatency, utilization, inputs);
  insights.forEach(insight => {
  resultsHTML += `<li class="${insight.type}">${insight.message}</li>`;
@@ -358,7 +358,7 @@ function displayLatencyResults(components, totalLatency, utilization, inputs) {
  
  document.getElementById('results').innerHTML = resultsHTML;
  
- // Animate progress bars after a short delay
+ / Animate progress bars after a short delay
  setTimeout(() => {
  document.querySelectorAll('.bar').forEach(bar => {
  bar.style.width = bar.getAttribute('data-width');
@@ -369,7 +369,7 @@ function displayLatencyResults(components, totalLatency, utilization, inputs) {
 function generateLatencyInsights(components, totalLatency, utilization, inputs) {
  const insights = [];
  
- // Utilization insights
+ / Utilization insights
  if (utilization >= 1) {
  insights.push({
  type: 'error',
@@ -387,7 +387,7 @@ function generateLatencyInsights(components, totalLatency, utilization, inputs) 
  });
  }
  
- // Component-specific insights
+ / Component-specific insights
  const dominantComponent = components.reduce((prev, current) => 
  prev.value > current.value ? prev : current
  );
@@ -399,7 +399,7 @@ function generateLatencyInsights(components, totalLatency, utilization, inputs) 
  });
  }
  
- if (components[3].value > totalLatency * 0.3 && utilization < 1) { // Queueing delay
+ if (components[3].value > totalLatency * 0.3 && utilization < 1) { / Queueing delay
  insights.push({
  type: 'warning',
  message: 'Significant queueing delays detected. Add servers or optimize processing time.'
@@ -413,7 +413,7 @@ function generateLatencyInsights(components, totalLatency, utilization, inputs) 
  });
  }
  
- // Network optimization
+ / Network optimization
  if (inputs.hops.value > 10) {
  insights.push({
  type: 'info',
@@ -421,7 +421,7 @@ function generateLatencyInsights(components, totalLatency, utilization, inputs) 
  });
  }
  
- // Best practices
+ / Best practices
  if (totalLatency < 100 && utilization < 0.7) {
  insights.push({
  type: 'success',
@@ -438,17 +438,17 @@ function drawLatencyChart(components, totalLatency) {
  
  const ctx = canvas.getContext('2d');
  
- // Clear previous chart
+ / Clear previous chart
  ctx.clearRect(0, 0, canvas.width, canvas.height);
  
- // Configuration
+ / Configuration
  const padding = 60;
  const width = canvas.width;
  const height = canvas.height;
  const chartWidth = width - 2 * padding;
  const chartHeight = height - 2 * padding;
  
- // Draw axes
+ / Draw axes
  ctx.strokeStyle = '#666';
  ctx.lineWidth = 2;
  ctx.beginPath();
@@ -457,7 +457,7 @@ function drawLatencyChart(components, totalLatency) {
  ctx.lineTo(width - padding, height - padding);
  ctx.stroke();
  
- // Draw pie chart for component breakdown
+ / Draw pie chart for component breakdown
  const centerX = width * 0.3;
  const centerY = height * 0.5;
  const radius = Math.min(chartWidth, chartHeight) * 0.3;
@@ -468,7 +468,7 @@ function drawLatencyChart(components, totalLatency) {
  const percentage = component.value / totalLatency;
  const angle = percentage * 2 * Math.PI;
  
- // Draw slice
+ / Draw slice
  ctx.beginPath();
  ctx.moveTo(centerX, centerY);
  ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + angle);
@@ -476,7 +476,7 @@ function drawLatencyChart(components, totalLatency) {
  ctx.fillStyle = component.color;
  ctx.fill();
  
- // Draw label if slice is large enough
+ / Draw label if slice is large enough
  if (percentage > 0.05) {
  const labelAngle = currentAngle + angle / 2;
  const labelX = centerX + Math.cos(labelAngle) * (radius * 0.7);
@@ -491,17 +491,17 @@ function drawLatencyChart(components, totalLatency) {
  currentAngle += angle;
  });
  
- // Draw legend
+ / Draw legend
  const legendX = width * 0.6;
  let legendY = padding;
  
  ctx.font = '14px sans-serif';
  components.forEach((component, index) => {
- // Color box
+ / Color box
  ctx.fillStyle = component.color;
  ctx.fillRect(legendX, legendY, 20, 15);
  
- // Label
+ / Label
  ctx.fillStyle = '#333';
  ctx.textAlign = 'left';
  ctx.fillText(`${component.name}: ${component.value.toFixed(1)} ms`, legendX + 30, legendY + 12);
@@ -509,7 +509,7 @@ function drawLatencyChart(components, totalLatency) {
  legendY += 25;
  });
  
- // Title
+ / Title
  ctx.font = 'bold 16px sans-serif';
  ctx.fillStyle = '#333';
  ctx.textAlign = 'center';
@@ -531,11 +531,11 @@ function displayErrors(errors) {
 
 function factorial(n) {
  if (n <= 1) return 1;
- if (n > 170) return Infinity; // Prevent overflow
+ if (n > 170) return Infinity; / Prevent overflow
  return n * factorial(n - 1);
 }
 
-// Add real-time input validation
+/ Add real-time input validation
 document.addEventListener('DOMContentLoaded', function() {
  const inputs = document.querySelectorAll('input[type="number"]');
  inputs.forEach(input => {
@@ -553,7 +553,7 @@ document.addEventListener('DOMContentLoaded', function() {
  });
 });
 
-// Enhanced functionality with persistence and export
+/ Enhanced functionality with persistence and export
 let latencyHistory = [];
 let calculationResults = null;
 

@@ -161,18 +161,18 @@ Real-time advertising analytics system processing billions of clicks with fraud 
 ## 🔗 Cross-References
 
 ### Related Patterns
-- [Saga Pattern](../../../../pattern-library/data-management/saga.md) - Distributed transactions
-- [API Gateway](../../../../pattern-library/communication/api-gateway.md) - Payment API management
-- [Event Streaming](../../../../pattern-library/architecture/event-streaming.md) - Real-time processing
+- [Saga Pattern](../../pattern-library/data-management/saga.md) - Distributed transactions
+- [API Gateway](../../pattern-library/communication/api-gateway.md) - Payment API management
+- [Event Streaming](../../pattern-library/architecture/event-streaming.md) - Real-time processing
 
 ### Quantitative Analysis
-- [Availability Math](../../quantitative-analysis/availability-math.md) - Calculate system uptime
-- [Queueing Theory](../../quantitative-analysis/queueing-theory.md) - Model payment processing latency
-- [Capacity Planning](../../quantitative-analysis/capacity-planning.md) - Scale for peak loads
+- [Availability Math](../architects-handbook/quantitative-analysis/availability-math.md) - Calculate system uptime
+- [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-theory.md) - Model payment processing latency
+- [Capacity Planning](../architects-handbook/quantitative-analysis/capacity-planning.md) - Scale for peak loads
 
 ### Human Factors
-- [Incident Response](../../human-factors/incident-response.md) - Financial system incidents
-- [SRE Practices](../../human-factors/sre-practices.md) - Reliability for critical systems
+- [Incident Response](../architects-handbook/human-factors/incident-response.md) - Financial system incidents
+- [SRE Practices](../architects-handbook/human-factors/sre-practices.md) - Reliability for critical systems
 
 ## 🎯 Key Success Metrics
 

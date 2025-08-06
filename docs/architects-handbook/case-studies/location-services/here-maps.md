@@ -422,7 +422,7 @@ class RealTimeUpdateEngine:
 ### Vehicle Sensor Data Integration
 
 ```cpp
-// On-vehicle sensor data collection and transmission
+/ On-vehicle sensor data collection and transmission
 namespace here_automotive {
 
 class VehicleSensorCollector {
@@ -434,10 +434,10 @@ public:
         bool enable_imu_data = true;
         bool enable_wheel_sensors = true;
         
-        // Privacy settings
+        / Privacy settings
         bool anonymize_location = true;
         bool encrypt_transmission = true;
-        double location_precision_limit = 1.0; // meters
+        double location_precision_limit = 1.0; / meters
     };
     
     class HDMapContribution {
@@ -455,21 +455,21 @@ public:
               cloud_connector_(std::make_unique<HERECloudConnector>()) {}
         
         void ProcessSensorFrame(const MultiModalSensorFrame& frame) {
-            // Quality assessment - only contribute high-quality data
+            / Quality assessment - only contribute high-quality data
             auto quality_score = quality_checker_->AssessFrameQuality(frame);
             if (quality_score < 0.8) {
-                return; // Skip low-quality data
+                return; / Skip low-quality data
             }
             
-            // Extract HD map relevant features
+            / Extract HD map relevant features
             auto map_features = ExtractHDMapFeatures(frame);
             
-            // Apply privacy protection
+            / Apply privacy protection
             auto anonymized_features = anonymizer_->AnonymizeFeatures(
                 map_features, config_.location_precision_limit
             );
             
-            // Create contribution package
+            / Create contribution package
             HDMapContributionPackage contribution{
                 .vehicle_id = anonymizer_->GetAnonymousVehicleID(),
                 .timestamp = frame.timestamp,
@@ -478,7 +478,7 @@ public:
                 .quality_metrics = quality_score
             };
             
-            // Transmit to HERE Cloud (with retry logic)
+            / Transmit to HERE Cloud (with retry logic)
             cloud_connector_->SubmitContribution(contribution);
         }
         
@@ -486,13 +486,13 @@ public:
         HDMapFeatures ExtractHDMapFeatures(const MultiModalSensorFrame& frame) {
             HDMapFeatures features;
             
-            // Process camera data for lane markings and signs
+            / Process camera data for lane markings and signs
             if (config_.enable_camera_data && frame.camera_data.has_value()) {
                 auto camera_features = ProcessCameraForHDMap(frame.camera_data.value());
                 features.camera_features = camera_features;
             }
             
-            // Process LiDAR for precise geometry
+            / Process LiDAR for precise geometry
             if (config_.enable_lidar_data && frame.lidar_data.has_value()) {
                 auto lidar_features = ProcessLiDARForHDMap(
                     frame.lidar_data.value(),
@@ -502,7 +502,7 @@ public:
                 features.lidar_features = lidar_features;
             }
             
-            // Process radar for dynamic objects
+            / Process radar for dynamic objects
             if (config_.enable_radar_data && frame.radar_data.has_value()) {
                 auto radar_features = ProcessRadarForHDMap(frame.radar_data.value());
                 features.radar_features = radar_features;
@@ -514,19 +514,19 @@ public:
         CameraHDFeatures ProcessCameraForHDMap(const CameraData& camera_data) {
             CameraHDFeatures features;
             
-            // Lane marking detection using deep learning
+            / Lane marking detection using deep learning
             auto lane_detector = CreateLaneMarkingDetector();
             features.lane_markings = lane_detector->DetectLaneMarkings(
                 camera_data.front_camera_image
             );
             
-            // Traffic sign detection and recognition
+            / Traffic sign detection and recognition
             auto sign_detector = CreateTrafficSignDetector();
             features.traffic_signs = sign_detector->DetectAndClassifySigns(
                 camera_data.front_camera_image
             );
             
-            // Road furniture detection
+            / Road furniture detection
             auto furniture_detector = CreateRoadFurnitureDetector();
             features.road_furniture = furniture_detector->DetectFurniture(
                 camera_data.front_camera_image
@@ -540,7 +540,7 @@ public:
                                            const IMUData& imu_data) {
             LiDARHDFeatures features;
             
-            // Precise lane boundary extraction
+            / Precise lane boundary extraction
             auto boundary_extractor = CreateLaneBoundaryExtractor();
             features.lane_boundaries = boundary_extractor->ExtractBoundaries(
                 lidar_data.point_cloud,
@@ -548,13 +548,13 @@ public:
                 imu_data.orientation
             );
             
-            // Road surface topology
+            / Road surface topology
             auto topology_analyzer = CreateTopologyAnalyzer();
             features.road_topology = topology_analyzer->AnalyzeRoadSurface(
                 lidar_data.point_cloud
             );
             
-            // 3D object detection for static infrastructure
+            / 3D object detection for static infrastructure
             auto object_detector = CreateStaticObjectDetector();
             features.static_objects = object_detector->DetectInfrastructure(
                 lidar_data.point_cloud
@@ -565,15 +565,15 @@ public:
     };
 };
 
-// HD Map consumption for autonomous driving
+/ HD Map consumption for autonomous driving
 class HDMapConsumer {
 private:
     std::unique_ptr<HEREMapService> map_service_;
     std::unique_ptr<LocalizationEngine> localization_;
     std::unique_ptr<PathPlanner> path_planner_;
     
-    // Cache for frequently accessed map data
-    LRUCache<TileID, HDMapTile> map_cache_{100}; // 100 tiles
+    / Cache for frequently accessed map data
+    LRUCache<TileID, HDMapTile> map_cache_{100}; / 100 tiles
     
 public:
     struct AutonomousDrivingContext {
@@ -586,14 +586,14 @@ public:
     NavigationGuidance GetNavigationGuidance(
         const AutonomousDrivingContext& context
     ) {
-        // Get relevant HD map tiles for current position and route
+        / Get relevant HD map tiles for current position and route
         auto required_tiles = CalculateRequiredMapTiles(
             context.current_position,
             context.planned_route,
             look_ahead_distance_m: 1000
         );
         
-        // Load tiles from cache or fetch from service
+        / Load tiles from cache or fetch from service
         std::vector<HDMapTile> map_tiles;
         for (const auto& tile_id : required_tiles) {
             if (auto cached_tile = map_cache_.Get(tile_id)) {
@@ -605,14 +605,14 @@ public:
             }
         }
         
-        // Precise vehicle localization using HD map
+        / Precise vehicle localization using HD map
         auto precise_position = localization_->LocalizeVehicle(
             context.current_position,
             map_tiles,
             context.vehicle_state.sensor_data
         );
         
-        // Generate lane-level path planning
+        / Generate lane-level path planning
         auto lane_level_path = path_planner_->PlanLaneLevelPath(
             precise_position,
             context.planned_route,
@@ -620,7 +620,7 @@ public:
             context.autonomy_level
         );
         
-        // Extract navigation guidance
+        / Extract navigation guidance
         return NavigationGuidance{
             .precise_position = precise_position,
             .lane_level_path = lane_level_path,
@@ -638,16 +638,16 @@ public:
     ) {
         std::vector<TileID> required_tiles;
         
-        // Current position tile
+        / Current position tile
         auto current_tile = GetTileIDForPosition(position);
         required_tiles.push_back(current_tile);
         
-        // Adjacent tiles for lane changes
+        / Adjacent tiles for lane changes
         auto adjacent_tiles = GetAdjacentTiles(current_tile);
         required_tiles.insert(required_tiles.end(), 
                            adjacent_tiles.begin(), adjacent_tiles.end());
         
-        // Route ahead tiles
+        / Route ahead tiles
         auto route_tiles = GetTilesAlongRoute(
             route, 
             position, 
@@ -656,7 +656,7 @@ public:
         required_tiles.insert(required_tiles.end(),
                            route_tiles.begin(), route_tiles.end());
         
-        // Remove duplicates
+        / Remove duplicates
         std::sort(required_tiles.begin(), required_tiles.end());
         required_tiles.erase(
             std::unique(required_tiles.begin(), required_tiles.end()),
@@ -667,7 +667,7 @@ public:
     }
 };
 
-} // namespace here_automotive
+} / namespace here_automotive
 ```
 
 ## Enterprise Fleet Management Integration
@@ -930,19 +930,19 @@ class HEREFleetOptimizer:
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md)** - Real-time sensor fusion across distributed vehicle fleet
-- **[Law 3: Emergent Chaos](../../core-principles/laws.md/emergent-chaos/index.md)** - Managing complexity of millions of vehicles contributing data
-- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - High cost of HD maps requires clear ROI justification
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Real-time sensor fusion across distributed vehicle fleet
+- **[Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md)** - Managing complexity of millions of vehicles contributing data
+- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - High cost of HD maps requires clear ROI justification
 
 ### Related Patterns  
-- **[Sensor Fusion](../../pattern-library/iot.md/sensor-fusion/index.md)** - Multi-modal data integration patterns
-- **[Edge Computing](../../pattern-library/edge.md/edge-computing/index.md)** - On-vehicle processing requirements
-- **[Real-Time Streaming](../../pattern-library/streaming.md/real-time-processing/index.md)** - Live map update distribution
+- **[Sensor Fusion](../pattern-library/iot/sensor-fusion/index.md)** - Multi-modal data integration patterns
+- **[Edge Computing](../pattern-library/edge/edge-computing/index.md)** - On-vehicle processing requirements
+- **[Real-Time Streaming](../pattern-library/streaming/real-time-processing/index.md)** - Live map update distribution
 
 ### Related Case Studies
-- **[Google Maps System](../../google-maps-system.md)** - Consumer vs automotive mapping approaches
-- **[Uber Location System](../../uber-location.md)** - Commercial location services comparison
-- **[Tesla Autopilot](../../elite-engineering/tesla-autopilot.md)** - Autonomous driving systems integration
+- **[Google Maps System](../google-maps-system.md)** - Consumer vs automotive mapping approaches
+- **[Uber Location System](../uber-location.md)** - Commercial location services comparison
+- **[Tesla Autopilot](../elite-engineering/tesla-autopilot.md)** - Autonomous driving systems integration
 
 ## External Resources
 

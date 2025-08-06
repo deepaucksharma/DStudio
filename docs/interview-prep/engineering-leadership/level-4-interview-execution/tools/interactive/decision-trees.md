@@ -970,7 +970,7 @@ let decisionPath = [];
 let totalScore = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Scenario button handlers
+    / Scenario button handlers
     document.querySelectorAll('.scenario-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const scenarioKey = this.dataset.scenario;
@@ -1036,10 +1036,10 @@ function makeDecision(next, score, choice, feedback) {
     totalScore += score;
     currentNode = next;
     
-    // Show immediate feedback
+    / Show immediate feedback
     showImmediateFeedback(feedback, score);
     
-    // Continue or end
+    / Continue or end
     if (next === 'final') {
         showFinalAnalysis();
     } else {
@@ -1065,7 +1065,7 @@ function showFinalAnalysis() {
     const outcomeDiv = document.getElementById('outcome-analysis');
     const altDiv = document.getElementById('alternatives');
     
-    // Show decision path
+    / Show decision path
     let pathHtml = '<ol>';
     decisionPath.forEach(decision => {
         pathHtml += `
@@ -1078,7 +1078,7 @@ function showFinalAnalysis() {
     pathHtml += '</ol>';
     pathDiv.innerHTML = pathHtml;
     
-    // Calculate average score
+    / Calculate average score
     const avgScore = totalScore / decisionPath.length;
     let outcome = '';
     
@@ -1093,7 +1093,7 @@ function showFinalAnalysis() {
     outcome += `<div class="final-score">Average Score: ${avgScore.toFixed(1)}/10</div>`;
     outcomeDiv.innerHTML = outcome;
     
-    // Show alternatives
+    / Show alternatives
     altDiv.innerHTML = `
         <ul>
             <li><strong>Key Learning</strong>: ${getKeyLearning(currentScenario.title, avgScore)}</li>
@@ -1162,13 +1162,13 @@ function restartScenario() {
     }
 }
 
-// Track progress
+/ Track progress
 function saveProgress() {
     const progress = {
         scenarios: {}
     };
     
-    // Save completion status for each scenario
+    / Save completion status for each scenario
     Object.keys(scenarios).forEach(key => {
         progress.scenarios[key] = {
             attempted: false,

@@ -160,7 +160,7 @@ System A  →  Queue  →  System B
 - **Bold** (`**text**`): Key terms, important points
 - *Italic* (`*text*`): Definitions, emphasis
 - `Code` (`` `code` ``): Technical terms, file names
-- [Links](url): All external links, cross-references
+- [Links](url.md)): All external links, cross-references
 
 ### Punctuation Consistency
 - Use em dashes (`—`) for breaks in thought: `Design — not development — drives success`

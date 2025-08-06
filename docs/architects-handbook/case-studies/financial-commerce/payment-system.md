@@ -77,25 +77,25 @@ lessons_learned:
 
 <div class="grid cards" markdown>
 
-- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../../pattern-library/data-management.md/saga.md)** 🥇
+- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../pattern-library/data-management/saga.md)** 🥇
     
     ---
     
     Distributed transaction management across payment services
 
-- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)** 🥇
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../pattern-library/data-management/event-sourcing.md)** 🥇
     
     ---
     
     Complete audit trail of every payment event
 
-- :material-fingerprint:{ .lg .middle } **[Idempotency](../../pattern-library/#idempotency.md/index.md)** 🥇
+- :material-fingerprint:{ .lg .middle } **[Idempotency](../pattern-library/#idempotency.md/index.md)** 🥇
     
     ---
     
     Preventing duplicate charges with idempotent operations
 
-- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../../pattern-library/#double-entry-ledger.md/index.md)** 🥇
+- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../pattern-library/#double-entry-ledger.md/index.md)** 🥇
     
     ---
     
@@ -353,7 +353,7 @@ class PaymentAggregate:
 
 ### 2. Distributed Transaction Management
 
-!!! info "Pattern Deep Dive: [Saga Pattern](../../pattern-library/data-management.md/saga.md)"
+!!! info "Pattern Deep Dive: [Saga Pattern](../pattern-library/data-management/saga.md)"
     The Saga pattern enables distributed transactions without two-phase commit, using compensating transactions for rollback. Essential for payment systems where atomic cross-service operations are required.
 
 **Saga Pattern Implementation**:
@@ -382,12 +382,12 @@ public class PaymentSaga {
                 StepResult result = step.execute(context);
                 
                 if (!result.isSuccess()) {
-                    // Compensate all previous steps
+                    / Compensate all previous steps
                     compensate(compensations);
                     return SagaResult.failed(result.getError());
                 }
                 
-                // Record compensation action
+                / Record compensation action
                 compensations.add(0, result.getCompensation());
                 context.addStepResult(step.getName(), result);
                 
@@ -405,7 +405,7 @@ public class PaymentSaga {
             try {
                 action.compensate();
             } catch (Exception e) {
-                // Log but continue compensation
+                / Log but continue compensation
                 log.error("Compensation failed", e);
             }
         }
@@ -415,7 +415,7 @@ public class PaymentSaga {
 
 ### 3. Idempotency and Exactly-Once Processing
 
-!!! info "Pattern Deep Dive: [Idempotency Pattern](../../pattern-library/#idempotency-pattern.md/index.md)"
+!!! info "Pattern Deep Dive: [Idempotency Pattern](../pattern-library/#idempotency-pattern.md/index.md)"
     Idempotency ensures operations can be safely retried without side effects. Critical for payments where network failures could lead to duplicate charges.
 
 ```python
@@ -471,7 +471,7 @@ class IdempotentPaymentProcessor:
 
 ### 4. Double-Entry Bookkeeping
 
-!!! info "Pattern Deep Dive: [Double-Entry Ledger Pattern](../../pattern-library/#double-entry-ledger-pattern.md/index.md)"
+!!! info "Pattern Deep Dive: [Double-Entry Ledger Pattern](../pattern-library/#double-entry-ledger-pattern.md/index.md)"
     Double-entry bookkeeping ensures every transaction is balanced with corresponding debits and credits. This pattern is fundamental for financial accuracy and regulatory compliance.
 
 ```sql
@@ -614,7 +614,7 @@ public class CurrencyExchangeService {
         CurrencyPair pair = new CurrencyPair(amount.getCurrency(), targetCurrency);
         BigDecimal rate = getExchangeRate(pair.md);
         
-        // Use banker's rounding for financial calculations
+        / Use banker's rounding for financial calculations
         BigDecimal converted = amount.getValue()
             .multiply(rate)
             .setScale(targetCurrency.getDefaultFractionDigits(), RoundingMode.HALF_EVEN);
@@ -623,22 +623,22 @@ public class CurrencyExchangeService {
     }
     
     private BigDecimal getExchangeRate(CurrencyPair pair) {
-        // Check cache first
+        / Check cache first
         BigDecimal cachedRate = rateCache.get(pair);
         if (cachedRate != null) {
             return cachedRate;
         }
         
-        // Get rates from multiple providers
+        / Get rates from multiple providers
         List<BigDecimal> rates = providers.values().parallelStream()
             .map(provider -> provider.getRate(pair))
             .filter(Objects::nonNull)
             .collect(Collectors.toList());
         
-        // Use median rate for stability
+        / Use median rate for stability
         BigDecimal rate = calculateMedian(rates);
         
-        // Cache for 1 minute
+        / Cache for 1 minute
         rateCache.put(pair, rate, 60, TimeUnit.SECONDS);
         
         return rate;
@@ -1239,7 +1239,7 @@ class DistributedPaymentConsistency:
 
 <div class="grid cards" markdown>
 
-- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing/index.md)** 🥇
+- :material-timeline-text:{ .lg .middle } **[Event Sourcing](../pattern-library/data-management/event-sourcing/index.md)** 🥇
     
     ---
     
@@ -1251,7 +1251,7 @@ class DistributedPaymentConsistency:
     
     **Compliance**: PCI-DSS, SOX compliant architecture
 
-- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../../pattern-library/data-management.md/saga/index.md)** 🥇
+- :material-graph-outline:{ .lg .middle } **[Saga Pattern](../pattern-library/data-management/saga/index.md)** 🥇
     
     ---
     
@@ -1263,7 +1263,7 @@ class DistributedPaymentConsistency:
     
     **Key Learning**: Compensations must be idempotent too
 
-- :material-fingerprint:{ .lg .middle } **[Idempotency](../../pattern-library/idempotency.md/index.md)** 🥇
+- :material-fingerprint:{ .lg .middle } **[Idempotency](../pattern-library/idempotency.md/index.md)** 🥇
     
     ---
     
@@ -1275,7 +1275,7 @@ class DistributedPaymentConsistency:
     
     **Best Practice**: UUID + timestamp + amount as key
 
-- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../../pattern-library/double-entry-ledger.md/index.md)** 🥇
+- :material-book-open-variant:{ .lg .middle } **[Double-Entry Ledger](../pattern-library/double-entry-ledger.md/index.md)** 🥇
     
     ---
     
@@ -1293,7 +1293,7 @@ class DistributedPaymentConsistency:
 
 <div class="grid cards" markdown>
 
-- :material-call-split:{ .lg .middle } **[CQRS](../../pattern-library/data-management.md/cqrs/index.md)** 🥈
+- :material-call-split:{ .lg .middle } **[CQRS](../pattern-library/data-management/cqrs/index.md)** 🥈
     
     ---
     
@@ -1303,7 +1303,7 @@ class DistributedPaymentConsistency:
     
     **Trade-off**: Eventual consistency for reporting
 
-- :material-grid:{ .lg .middle } **[Sharding](../../pattern-library/scaling.md/sharding/index.md)** 🥈
+- :material-grid:{ .lg .middle } **[Sharding](../pattern-library/scaling/sharding/index.md)** 🥈
     
     ---
     
@@ -1313,7 +1313,7 @@ class DistributedPaymentConsistency:
     
     **Trade-off**: Cross-shard queries are expensive
 
-- :material-earth:{ .lg .middle } **[Multi-Region](../../pattern-library/scaling.md/multi-region/index.md)** 🥈
+- :material-earth:{ .lg .middle } **[Multi-Region](../pattern-library/scaling/multi-region/index.md)** 🥈
     
     ---
     
@@ -1339,7 +1339,7 @@ We use 2PC sparingly, only for:
 
 **Alternative**: Saga pattern with compensation for 99% of flows.
 
-[Migration Guide: 2PC to Saga →](../../excellence/migrations/2pc-to-saga/index.md)
+[Migration Guide: 2PC to Saga →](../excellence/migrations/2pc-to-saga/index.md)
 </div>
 
 ## Trade-offs and Decisions
@@ -1418,25 +1418,25 @@ graph TB
 ## Excellence Resources
 
 ### Implementation Guides
-- [Financial Systems Excellence](../../excellence/implementation-guides/financial-systems/index.md) - Building zero-data-loss payment systems
-- [Regulatory Compliance Guide](../../excellence/implementation-guides/regulatory-compliance/index.md) - PCI-DSS, SOX, GDPR compliance
-- [Zero Data Loss Architecture](../../excellence/implementation-guides/zero-data-loss/index.md) - Guaranteeing financial accuracy
+- [Financial Systems Excellence](../excellence/implementation-guides/financial-systems/index.md) - Building zero-data-loss payment systems
+- [Regulatory Compliance Guide](../excellence/implementation-guides/regulatory-compliance/index.md) - PCI-DSS, SOX, GDPR compliance
+- [Zero Data Loss Architecture](../excellence/implementation-guides/zero-data-loss/index.md) - Guaranteeing financial accuracy
 
 ### Related Case Studies  
-- [Stripe: Modern Payment Infrastructure](../../architects-handbook/case-studies.md/financial-commerce/paypal-payments.md) - API-first payment processing
-- [Square: Omnichannel Payments](../../architects-handbook/case-studies.md/financial-commerce/ecommerce-platform.md) - Physical and digital payments
-- [Coinbase: Crypto Payment Rails](../../architects-handbook/case-studies.md/infrastructure/blockchain.md) - Blockchain-based payments
+- [Stripe: Modern Payment Infrastructure](../architects-handbook/case-studies/financial-commerce/paypal-payments.md) - API-first payment processing
+- [Square: Omnichannel Payments](../architects-handbook/case-studies/financial-commerce/ecommerce-platform.md) - Physical and digital payments
+- [Coinbase: Crypto Payment Rails](../architects-handbook/case-studies/infrastructure/blockchain.md) - Blockchain-based payments
 - [Wise: Cross-Border Payments](payment-system.md) - Multi-currency optimization
 
 ### Pattern Deep Dives
-- [Event Sourcing for Payments](../../pattern-library/data-management.md/event-sourcing#financial-systems/index.md) - Financial event sourcing
-- [Saga Pattern Examples](../../pattern-library/data-management.md/saga#payment-processing/index.md) - Payment saga implementations
-- [Idempotency Best Practices](../../pattern-library/idempotency#payment-systems.md/index.md) - Payment idempotency
+- [Event Sourcing for Payments](../pattern-library/data-management/event-sourcing#financial-systems/index.md) - Financial event sourcing
+- [Saga Pattern Examples](../pattern-library/data-management/saga#payment-processing/index.md) - Payment saga implementations
+- [Idempotency Best Practices](../pattern-library/idempotency#payment-systems.md/index.md) - Payment idempotency
 
 ### Excellence Journeys
-- [Building a Payment System from Scratch](../../excellence/journeys/payment-system-journey/index.md) - Step-by-step guide
-- [Migrating Legacy Payment Systems](../../excellence/journeys/payment-modernization/index.md) - Modernization playbook
-- [Scaling to 100K TPS](../../excellence/journeys/payment-scaling/index.md) - Scale-up strategies
+- [Building a Payment System from Scratch](../excellence/journeys/payment-system-journey/index.md) - Step-by-step guide
+- [Migrating Legacy Payment Systems](../excellence/journeys/payment-modernization/index.md) - Modernization playbook
+- [Scaling to 100K TPS](../excellence/journeys/payment-scaling/index.md) - Scale-up strategies
 
 ## References
 

@@ -69,7 +69,7 @@ Tile caching optimizes the storage and delivery of map tiles by pre-rendering an
 - Vector Maps (Coming Soon)
 
 ## References
-- [Google Maps Case Study](case-studies/google-maps/index.md) - Implements multi-level tile caching
+- [Google Maps Case Study](../architects-handbook/case-studies/google-maps/index.md) - Implements multi-level tile caching
 
 ## Level 1: Intuition (5 minutes)
 

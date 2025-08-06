@@ -67,7 +67,7 @@ This framework establishes comprehensive standards for code examples in all 91 d
 
 #### Error Handling
 ```java
-// ✅ GOOD - Comprehensive error handling
+/ ✅ GOOD - Comprehensive error handling
 @Service
 public class CircuitBreakerService {
     private final CircuitBreaker circuitBreaker;
@@ -88,7 +88,7 @@ public class CircuitBreakerService {
                 throw new ServiceException("External service error", e);
             }
         }).recover(throwable -> {
-            // Fallback logic
+            / Fallback logic
             return getCachedResponse(request)
                 .orElse(getDefaultResponse());
         });
@@ -118,7 +118,7 @@ class CircuitBreakerConfig:
 
 #### Logging Standards
 ```go
-// ✅ GOOD - Structured logging with context
+/ ✅ GOOD - Structured logging with context
 func (cb *CircuitBreaker) Execute(ctx context.Context, operation func() (interface{}, error)) (interface{}, error) {
     logger := cb.logger.With(
         "component", "circuit_breaker",
@@ -150,7 +150,7 @@ func (cb *CircuitBreaker) Execute(ctx context.Context, operation func() (interfa
 
 #### Memory Management
 ```rust
-// ✅ GOOD - Efficient memory usage
+/ ✅ GOOD - Efficient memory usage
 use std::sync::Arc;
 use tokio::sync::RwLock;
 
@@ -167,15 +167,15 @@ impl CircuitBreaker {
         T: Send + 'static,
         E: Send + 'static,
     {
-        // Avoid unnecessary clones, use references where possible
+        / Avoid unnecessary clones, use references where possible
         let state_guard = self.state.read().await;
         if matches!(*state_guard, CircuitBreakerState::Open { .. }) {
-            drop(state_guard); // Release read lock early
+            drop(state_guard); / Release read lock early
             return Err(CircuitBreakerError::Open);
         }
         drop(state_guard);
         
-        // Execute with proper error handling and metrics
+        / Execute with proper error handling and metrics
         let start = Instant::now();
         let result = operation();
         let duration = start.elapsed();
@@ -191,7 +191,7 @@ impl CircuitBreaker {
 
 #### Thread/Async Safety
 ```typescript
-// ✅ GOOD - Proper async/await with cancellation
+/ ✅ GOOD - Proper async/await with cancellation
 export class CircuitBreaker {
     private readonly config: CircuitBreakerConfig;
     private state: CircuitBreakerState = CircuitBreakerState.Closed;
@@ -202,7 +202,7 @@ export class CircuitBreaker {
         operation: () => Promise<T>,
         signal?: AbortSignal
     ): Promise<T> {
-        // Check cancellation early
+        / Check cancellation early
         signal?.throwIfAborted();
         
         const currentState = await this.getCurrentState();
@@ -212,7 +212,7 @@ export class CircuitBreaker {
         }
         
         try {
-            // Create timeout promise that respects cancellation
+            / Create timeout promise that respects cancellation
             const timeoutPromise = new Promise<never>((_, reject) => {
                 const timeout = setTimeout(() => {
                     reject(new TimeoutError('Operation timed out'));
@@ -245,30 +245,30 @@ export class CircuitBreaker {
 
 #### Input Validation
 ```java
-// ✅ GOOD - Comprehensive input validation
+/ ✅ GOOD - Comprehensive input validation
 @Component
 public class ApiGatewayValidator {
     
     public void validateRequest(HttpServletRequest request) throws ValidationException {
-        // Validate headers
+        / Validate headers
         String contentType = request.getHeader("Content-Type");
         if (!isValidContentType(contentType)) {
             throw new ValidationException("Invalid content type: " + contentType);
         }
         
-        // Validate request size
+        / Validate request size
         int contentLength = request.getContentLength();
         if (contentLength > MAX_REQUEST_SIZE) {
             throw new ValidationException("Request too large: " + contentLength);
         }
         
-        // Validate path traversal
+        / Validate path traversal
         String path = request.getRequestURI();
         if (path.contains("../") || path.contains("..\\")) {
             throw new SecurityException("Path traversal attempt detected");
         }
         
-        // Rate limiting validation
+        / Rate limiting validation
         String clientId = extractClientId(request);
         if (!rateLimiter.tryAcquire(clientId)) {
             throw new RateLimitException("Rate limit exceeded for client: " + clientId);
@@ -425,24 +425,24 @@ public class PatternImplementation implements PatternInterface {
     
     @Override
     public CompletableFuture<Result> execute(Request request) {
-        // Input validation
+        / Input validation
         validateRequest(request);
         
-        // Metrics recording
+        / Metrics recording
         Timer.Sample sample = Timer.start();
         
         try {
-            // Core logic implementation
+            / Core logic implementation
             Result result = doExecute(request);
             
-            // Success metrics
+            / Success metrics
             metrics.incrementSuccess();
             sample.stop(metrics.getExecutionTimer());
             
             return CompletableFuture.completedFuture(result);
             
         } catch (Exception e) {
-            // Error handling and metrics
+            / Error handling and metrics
             metrics.incrementFailure(e.getClass().getSimpleName());
             sample.stop(metrics.getExecutionTimer());
             
@@ -454,7 +454,7 @@ public class PatternImplementation implements PatternInterface {
     }
     
     private Result doExecute(Request request) {
-        // Implementation details
+        / Implementation details
         return new Result();
     }
     
@@ -462,7 +462,7 @@ public class PatternImplementation implements PatternInterface {
         if (request == null) {
             throw new IllegalArgumentException("Request cannot be null");
         }
-        // Additional validation
+        / Additional validation
     }
     
     private PatternConfig validateConfig(PatternConfig config) {
@@ -515,7 +515,7 @@ def handle_pattern_errors(func):
 ### Monitoring/Metrics Template
 
 ```go
-// Standard metrics structure
+/ Standard metrics structure
 type PatternMetrics struct {
     ExecutionCount    prometheus.Counter
     ExecutionDuration prometheus.Histogram
@@ -568,7 +568,7 @@ func (m *PatternMetrics) RecordExecution(duration time.Duration, err error) {
         m.HealthStatus.Set(1)
     }
     
-    // Update success rate (rolling average)
+    / Update success rate (rolling average)
     m.updateSuccessRate()
 }
 ```
@@ -576,7 +576,7 @@ func (m *PatternMetrics) RecordExecution(duration time.Duration, err error) {
 ### Test Examples Template
 
 ```typescript
-// Standard test structure
+/ Standard test structure
 describe('PatternImplementation', () => {
     let pattern: PatternImplementation;
     let mockConfig: PatternConfig;
@@ -646,7 +646,7 @@ describe('PatternImplementation', () => {
         it('should maintain performance under stress', async () => {
             const startTime = performance.now();
             
-            // Execute many operations
+            / Execute many operations
             for (let i = 0; i < 10000; i++) {
                 await pattern.execute(createValidRequest());
             }
@@ -654,7 +654,7 @@ describe('PatternImplementation', () => {
             const duration = performance.now() - startTime;
             const avgDuration = duration / 10000;
             
-            expect(avgDuration).toBeLessThan(10); // < 10ms average
+            expect(avgDuration).toBeLessThan(10); / < 10ms average
         });
     });
 });
@@ -665,7 +665,7 @@ describe('PatternImplementation', () => {
 ### AWS Integration
 
 ```java
-// AWS-specific implementation
+/ AWS-specific implementation
 @Configuration
 @ConditionalOnProperty(name = "pattern.cloud.provider", havingValue = "aws")
 public class AwsPatternConfiguration {
@@ -700,7 +700,7 @@ public class AwsPatternImplementation implements PatternInterface {
     
     @Override
     public CompletableFuture<Result> execute(Request request) {
-        // Publish custom metrics to CloudWatch
+        / Publish custom metrics to CloudWatch
         cloudWatchClient.putMetricData(PutMetricDataRequest.builder()
             .namespace("CustomApp/Pattern")
             .metricData(MetricDatum.builder()
@@ -710,7 +710,7 @@ public class AwsPatternImplementation implements PatternInterface {
                 .build())
             .build());
             
-        // Store state in DynamoDB
+        / Store state in DynamoDB
         dynamoClient.putItem(PutItemRequest.builder()
             .tableName("pattern-state")
             .item(Map.of(
@@ -720,7 +720,7 @@ public class AwsPatternImplementation implements PatternInterface {
             ))
             .build());
             
-        // Execute business logic via Lambda
+        / Execute business logic via Lambda
         InvokeRequest invokeRequest = new InvokeRequest()
             .withFunctionName("pattern-processor")
             .withPayload(objectMapper.writeValueAsString(request));
@@ -795,7 +795,7 @@ class GcpPatternImplementation:
 ### Azure Integration
 
 ```csharp
-// Azure-specific implementation
+/ Azure-specific implementation
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Azure.Cosmos;
 using Microsoft.ApplicationInsights;
@@ -826,7 +826,7 @@ public class AzurePatternImplementation
     {
         var request = await JsonSerializer.DeserializeAsync<Request>(req.Body);
         
-        // Track custom event in Application Insights
+        / Track custom event in Application Insights
         telemetryClient.TrackEvent("PatternExecution", new Dictionary<string, string>
         {
             ["RequestId"] = request.Id,
@@ -834,7 +834,7 @@ public class AzurePatternImplementation
             ["Source"] = "AzureFunction"
         });
         
-        // Send message to Service Bus for processing
+        / Send message to Service Bus for processing
         var sender = serviceBusClient.CreateSender("pattern-queue");
         var message = new ServiceBusMessage(JsonSerializer.Serialize(request))
         {
@@ -845,7 +845,7 @@ public class AzurePatternImplementation
         
         await sender.SendMessageAsync(message);
         
-        // Store in Cosmos DB
+        / Store in Cosmos DB
         var container = cosmosClient.GetContainer("PatternDB", "Executions");
         await container.CreateItemAsync(new
         {
@@ -913,10 +913,10 @@ code_standards:
 @Component
 public class ProductionCircuitBreaker {
     
-    // Configuration with sensible defaults
+    / Configuration with sensible defaults
     private final CircuitBreakerConfig config;
     
-    // Thread-safe state management
+    / Thread-safe state management
     private final AtomicReference<State> state = new AtomicReference<>(State.CLOSED);
     
     /**
@@ -927,7 +927,7 @@ public class ProductionCircuitBreaker {
      * @throws CircuitBreakerOpenException when circuit is open
      */
     public <T> CompletableFuture<T> execute(Supplier<CompletableFuture<T>> operation) {
-        // Implementation details...
+        / Implementation details...
     }
 }
 ```
@@ -1505,7 +1505,7 @@ export class CircuitBreaker {
     return this.failureCount;
   }
   
-  // Health check endpoint
+  / Health check endpoint
   getHealthStatus() {
     return {
       state: this.state,
@@ -1516,7 +1516,7 @@ export class CircuitBreaker {
   }
 }
 
-// Utility Mutex class for TypeScript
+/ Utility Mutex class for TypeScript
 class Mutex {
   private locked = false;
   private readonly waiting: Array<() => void> = [];
@@ -1581,29 +1581,29 @@ public class ApiGatewayController {
         String path = extractPath(request);
         String method = request.getMethod();
         
-        // Authentication
+        / Authentication
         AuthContext authContext = authService.authenticate(headers);
         
-        // Rate limiting
+        / Rate limiting
         if (!rateLimitService.allow(authContext.getClientId())) {
             return ResponseEntity.status(429).body("Rate limit exceeded");
         }
         
-        // Route resolution
+        / Route resolution
         Route route = routeRegistry.findRoute(path, method);
         if (route == null) {
             return ResponseEntity.notFound().build();
         }
         
-        // Circuit breaker protection
+        / Circuit breaker protection
         CircuitBreaker circuitBreaker = circuitBreakerFactory.create(route.getServiceName());
         
         return circuitBreaker.executeSupplier(() -> {
-            // Request transformation
+            / Request transformation
             String transformedBody = transformRequest(body, route);
             HttpHeaders transformedHeaders = transformHeaders(headers, route, authContext);
             
-            // Downstream service call
+            / Downstream service call
             ResponseEntity<String> response = restTemplate.exchange(
                 route.getTargetUrl() + path,
                 HttpMethod.valueOf(method),
@@ -1611,10 +1611,10 @@ public class ApiGatewayController {
                 String.class
             );
             
-            // Response transformation
+            / Response transformation
             Object transformedResponse = transformResponse(response.getBody(), route);
             
-            // Metrics recording
+            / Metrics recording
             metricsService.recordRequest(route.getServiceName(), response.getStatusCodeValue());
             
             return ResponseEntity.status(response.getStatusCode())
@@ -1625,7 +1625,7 @@ public class ApiGatewayController {
             log.error("Service call failed for route: " + route.getServiceName(), throwable);
             metricsService.recordFailure(route.getServiceName(), throwable.getClass().getSimpleName());
             
-            // Fallback response
+            / Fallback response
             return ResponseEntity.status(503)
                 .body(Map.of("error", "Service temporarily unavailable"));
         });
@@ -1638,7 +1638,7 @@ public class RouteRegistry {
     
     @PostConstruct
     public void loadRoutes() {
-        // Load routes from configuration
+        / Load routes from configuration
         routes.put("/users/**", Route.builder()
             .serviceName("user-service")
             .targetUrl("http://user-service:8080")
@@ -1680,12 +1680,12 @@ import { requestLogger } from './middleware/logging';
 
 const app = express();
 
-// Global middleware
+/ Global middleware
 app.use(express.json({ limit: '1mb' }));
 app.use(requestLogger());
 app.use(metrics());
 
-// Rate limiting
+/ Rate limiting
 const createRateLimit = (windowMs: number, max: number) => rateLimit({
   windowMs,
   max,
@@ -1694,13 +1694,13 @@ const createRateLimit = (windowMs: number, max: number) => rateLimit({
   legacyHeaders: false,
 });
 
-// Routes configuration
+/ Routes configuration
 const routes = [
   {
     path: '/api/users',
     target: 'http://user-service:3000',
     auth: true,
-    rateLimit: createRateLimit(15 * 60 * 1000, 100), // 100 requests per 15 minutes
+    rateLimit: createRateLimit(15 * 60 * 1000, 100), / 100 requests per 15 minutes
   },
   {
     path: '/api/orders', 
@@ -1716,24 +1716,24 @@ const routes = [
   }
 ];
 
-// Setup routes
+/ Setup routes
 routes.forEach(route => {
   const middlewares = [];
   
-  // Add rate limiting
+  / Add rate limiting
   if (route.rateLimit) {
     middlewares.push(route.rateLimit);
   }
   
-  // Add authentication
+  / Add authentication
   if (route.auth) {
     middlewares.push(authenticate);
   }
   
-  // Add circuit breaker
+  / Add circuit breaker
   middlewares.push(circuitBreaker(route.target));
   
-  // Create proxy middleware
+  / Create proxy middleware
   const proxyMiddleware = httpProxy({
     target: route.target,
     changeOrigin: true,
@@ -1741,34 +1741,34 @@ routes.forEach(route => {
       [`^${route.path}`]: '',
     },
     
-    // Request transformation
+    / Request transformation
     onProxyReq: (proxyReq, req, res) => {
-      // Add correlation ID
+      / Add correlation ID
       proxyReq.setHeader('X-Correlation-ID', req.headers['x-correlation-id'] || generateId());
       
-      // Add user context
+      / Add user context
       if (req.user) {
         proxyReq.setHeader('X-User-ID', req.user.id);
         proxyReq.setHeader('X-User-Roles', req.user.roles.join(','));
       }
       
-      // Request logging
+      / Request logging
       console.log(`Proxying ${req.method} ${req.url} to ${route.target}`);
     },
     
-    // Response transformation
+    / Response transformation
     onProxyRes: (proxyRes, req, res) => {
-      // Add CORS headers
+      / Add CORS headers
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
       res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
       
-      // Security headers
+      / Security headers
       res.header('X-Content-Type-Options', 'nosniff');
       res.header('X-Frame-Options', 'DENY');
     },
     
-    // Error handling
+    / Error handling
     onError: (err, req, res) => {
       console.error('Proxy error:', err);
       res.status(502).json({
@@ -1778,11 +1778,11 @@ routes.forEach(route => {
     }
   });
   
-  // Register route with all middleware
+  / Register route with all middleware
   app.use(route.path, ...middlewares, proxyMiddleware);
 });
 
-// Health check endpoint
+/ Health check endpoint
 app.get('/health', (req, res) => {
   res.json({
     status: 'healthy',
@@ -1791,7 +1791,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Global error handler
+/ Global error handler
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error('Unhandled error:', err);
   res.status(500).json({

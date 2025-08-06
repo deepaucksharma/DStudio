@@ -387,18 +387,18 @@ graph TD
 <details>
 <summary>📄 View async implementation</summary>
 
-// Wrap existing REST APIs
+/ Wrap existing REST APIs
 const resolvers = {
   Query: {
     user: async (_, { id }) => {
-      // Call existing REST API
+      / Call existing REST API
       const user = await fetch(`/api/user/${id}`)
       return user
     }
   },
   User: {
     orders: async (user) => {
-      // Lazy load related data
+      / Lazy load related data
       const orders = await fetch(`/api/user/${user.id}/orders`)
       return orders
     }
@@ -844,7 +844,7 @@ class MigrationRouter:
 <summary>📄 View REST to GraphQL transition</summary>
 
 ```javascript
-// GraphQL resolvers wrapping existing REST APIs
+/ GraphQL resolvers wrapping existing REST APIs
 const resolvers = {
   Query: {
     user: async (_, { id }) => {
@@ -858,7 +858,7 @@ const resolvers = {
   },
   User: {
     orders: async (user) => {
-      // Resolve related data lazily
+      / Resolve related data lazily
       const response = await fetch(`/api/users/${user.id}/orders`);
       return response.json();
     }

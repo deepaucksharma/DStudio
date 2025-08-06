@@ -363,8 +363,8 @@ type: documentation
 
 - [Throughput Calculator](throughput-calculator.md)
 - [Latency Calculator](latency-calculator.md)
-- [Caching Strategies](../../../pattern-library/scaling/caching-strategies.md)
-- [Performance Optimization](../../excellence/implementation-guides/performance-optimization.md)
+- [Caching Strategies](../../pattern-library/scaling/caching-strategies.md)
+- [Performance Optimization](../excellence/implementation-guides/performance-optimization.md)
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -373,7 +373,7 @@ let hitRatioChart = null;
 let latencyChart = null;
 let costChart = null;
 
-// Cache technology specifications
+/ Cache technology specifications
 const cacheTechnologies = {
     'cpu-cache': { costPerGB: 10000, latency: 0.001, bandwidth: 1000000 },
     'memory': { costPerGB: 30, latency: 0.1, bandwidth: 100000 },
@@ -383,7 +383,7 @@ const cacheTechnologies = {
     'network-cache': { costPerGB: 50, latency: 2, bandwidth: 10000 }
 };
 
-// Eviction policy characteristics
+/ Eviction policy characteristics
 const evictionPolicies = {
     'lru': { 
         name: 'LRU',
@@ -429,7 +429,7 @@ const evictionPolicies = {
     }
 };
 
-// Application pattern characteristics
+/ Application pattern characteristics
 const applicationPatterns = {
     'web-app': { temporalWeight: 0.8, spatialWeight: 0.3, zipfAlpha: 0.8 },
     'api-service': { temporalWeight: 0.6, spatialWeight: 0.4, zipfAlpha: 1.0 },
@@ -504,7 +504,7 @@ function validateCacheInputs() {
     
     const errors = [];
     
-    // Validate numeric inputs
+    / Validate numeric inputs
     for (const [key, input] of Object.entries(inputs)) {
         if (isNaN(input.value)) {
             errors.push(`${input.name} must be a number`);
@@ -516,12 +516,12 @@ function validateCacheInputs() {
         }
     }
     
-    // Validate working set vs dataset size
+    / Validate working set vs dataset size
     if (inputs.workingSetSize.value > inputs.dataSetSize.value) {
         errors.push('Working set size cannot exceed dataset size');
     }
     
-    // Validate cache tier configurations
+    / Validate cache tier configurations
     const cacheTiers = document.querySelectorAll('.cache-tier');
     cacheTiers.forEach((tier, index) => {
         const size = parseFloat(tier.querySelector('.cache-size').value);
@@ -565,7 +565,7 @@ function optimizeCacheHierarchy() {
     let resultsHTML = generateCacheResults(results);
     document.getElementById('results').innerHTML = resultsHTML;
     
-    // Draw charts
+    / Draw charts
     setTimeout(() => {
         drawHierarchyChart(hierarchyAnalysis);
         drawHitRatioChart(hierarchyAnalysis);
@@ -581,7 +581,7 @@ function getCacheConfiguration() {
         const latencyInput = tier.querySelector('.cache-latency');
         const size = parseFloat(sizeInput.value);
         
-        // Convert size based on tier level (L1 in MB, others in GB)
+        / Convert size based on tier level (L1 in MB, others in GB)
         const sizeInGB = index === 0 ? size / 1024 : size;
         
         cacheTiers.push({
@@ -616,14 +616,14 @@ function getCacheConfiguration() {
 function analyzeAccessPattern(config) {
     const pattern = applicationPatterns[config.applicationPattern] || applicationPatterns['api-service'];
     
-    // Calculate locality characteristics
+    / Calculate locality characteristics
     const temporalLocality = pattern.temporalWeight * 100;
     const spatialLocality = pattern.spatialWeight * 100;
     const zipfianParameter = pattern.zipfAlpha;
     
-    // Estimate working set characteristics
+    / Estimate working set characteristics
     const workingSetRatio = config.workingSetSize / config.dataSetSize;
-    const estimatedUniqueObjects = config.workingSetSize * 1024 * 1024 / (config.averageObjectSize * 1024); // Convert to objects
+    const estimatedUniqueObjects = config.workingSetSize * 1024 * 1024 / (config.averageObjectSize * 1024); / Convert to objects
     
     return {
         temporalLocality,
@@ -642,24 +642,24 @@ function analyzeCurrentHierarchy(config, accessPattern) {
     let cumulativeMissRatio = 1;
     
     tiers.forEach((tier, index) => {
-        // Calculate individual tier hit ratio
+        / Calculate individual tier hit ratio
         const tierCapacityRatio = tier.size / config.workingSetSize;
         const evictionPolicy = evictionPolicies[tier.evictionPolicy];
         
-        // Base hit ratio calculation using cache size and access pattern
+        / Base hit ratio calculation using cache size and access pattern
         let baseHitRatio = calculateTierHitRatio(tierCapacityRatio, accessPattern, config.keyDistribution);
         
-        // Apply eviction policy effectiveness
+        / Apply eviction policy effectiveness
         const policyMultiplier = calculatePolicyEffectiveness(evictionPolicy, accessPattern);
         baseHitRatio *= policyMultiplier;
         
-        // Consider remaining miss ratio from previous tiers
+        / Consider remaining miss ratio from previous tiers
         const effectiveHitRatio = Math.min(baseHitRatio * cumulativeMissRatio, cumulativeMissRatio);
         
         cumulativeHitRatio += effectiveHitRatio;
         cumulativeMissRatio -= effectiveHitRatio;
         
-        // Calculate performance metrics
+        / Calculate performance metrics
         const avgLatency = calculateAverageLatency(tier, cacheTechnologies[tier.technology]);
         const throughput = calculateTierThroughput(tier, cacheTechnologies[tier.technology], config.requestRate);
         
@@ -676,7 +676,7 @@ function analyzeCurrentHierarchy(config, accessPattern) {
         });
     });
     
-    // Calculate overall metrics
+    / Calculate overall metrics
     const overallHitRatio = cumulativeHitRatio * 100;
     const overallLatency = calculateOverallLatency(analysis, config.requestRate);
     const performanceScore = calculatePerformanceScore(overallHitRatio, overallLatency, config);
@@ -694,7 +694,7 @@ function analyzeCurrentHierarchy(config, accessPattern) {
 }
 
 function calculateTierHitRatio(capacityRatio, accessPattern, keyDistribution) {
-    // Base hit ratio calculation based on cache size and access pattern
+    / Base hit ratio calculation based on cache size and access pattern
     let baseHitRatio = 0;
     
     switch (keyDistribution) {
@@ -702,24 +702,24 @@ function calculateTierHitRatio(capacityRatio, accessPattern, keyDistribution) {
             baseHitRatio = Math.min(capacityRatio, 1.0);
             break;
         case 'zipfian':
-            // Zipfian distribution - few keys accessed frequently
+            / Zipfian distribution - few keys accessed frequently
             const alpha = accessPattern.zipfianParameter;
             baseHitRatio = Math.min(Math.pow(capacityRatio, 1/alpha), 1.0);
             break;
         case 'normal':
-            // Normal distribution around mean
+            / Normal distribution around mean
             baseHitRatio = Math.min(capacityRatio * 1.2, 1.0);
             break;
         case 'bimodal':
-            // Hot and cold data
+            / Hot and cold data
             if (capacityRatio < 0.2) {
-                baseHitRatio = capacityRatio * 4; // Hot data
+                baseHitRatio = capacityRatio * 4; / Hot data
             } else {
-                baseHitRatio = 0.8 + (capacityRatio - 0.2) * 0.25; // + Cold data
+                baseHitRatio = 0.8 + (capacityRatio - 0.2) * 0.25; / + Cold data
             }
             break;
         case 'temporal':
-            // Time-based clustering
+            / Time-based clustering
             baseHitRatio = Math.min(capacityRatio * (1 + accessPattern.temporalLocality / 100), 1.0);
             break;
         default:
@@ -730,7 +730,7 @@ function calculateTierHitRatio(capacityRatio, accessPattern, keyDistribution) {
 }
 
 function calculatePolicyEffectiveness(evictionPolicy, accessPattern) {
-    // Calculate how well the eviction policy matches the access pattern
+    / Calculate how well the eviction policy matches the access pattern
     const temporalWeight = accessPattern.temporalLocality / 100;
     const spatialWeight = accessPattern.spatialLocality / 100;
     
@@ -753,7 +753,7 @@ function calculatePolicyEffectiveness(evictionPolicy, accessPattern) {
             effectiveness = 0.6 + spatialWeight * 0.3;
             break;
         case 'Random':
-            effectiveness = 0.7; // Consistent regardless of pattern
+            effectiveness = 0.7; / Consistent regardless of pattern
             break;
     }
     
@@ -761,12 +761,12 @@ function calculatePolicyEffectiveness(evictionPolicy, accessPattern) {
 }
 
 function calculateAverageLatency(tier, technology) {
-    // Base latency from technology + tier configuration overhead
+    / Base latency from technology + tier configuration overhead
     return tier.latency + technology.latency;
 }
 
 function calculateTierThroughput(tier, technology, requestRate) {
-    // Estimate tier throughput based on technology bandwidth and request rate
+    / Estimate tier throughput based on technology bandwidth and request rate
     const maxThroughput = technology.bandwidth;
     const actualThroughput = Math.min(maxThroughput, requestRate);
     return actualThroughput;
@@ -782,16 +782,16 @@ function calculateOverallLatency(tierAnalysis, requestRate) {
         totalWeight += weight;
     });
     
-    // Add database latency for cache misses
+    / Add database latency for cache misses
     const missRatio = 1 - totalWeight;
-    const databaseLatency = 50; // Assumed database latency in ms
+    const databaseLatency = 50; / Assumed database latency in ms
     weightedLatency += databaseLatency * missRatio;
     
     return weightedLatency;
 }
 
 function calculatePerformanceScore(hitRatio, latency, config) {
-    // Composite score based on hit ratio and latency targets
+    / Composite score based on hit ratio and latency targets
     const hitRatioScore = Math.min(hitRatio / config.targetHitRatio, 1.0) * 50;
     const latencyScore = Math.max(0, (1 - latency / (config.targetLatency * 2)) * 50);
     
@@ -801,7 +801,7 @@ function calculatePerformanceScore(hitRatio, latency, config) {
 function generateOptimizations(config, hierarchyAnalysis) {
     const optimizations = [];
     
-    // Check if targets are met
+    / Check if targets are met
     if (!hierarchyAnalysis.meetsTargets.hitRatio) {
         optimizations.push({
             type: 'capacity',
@@ -824,7 +824,7 @@ function generateOptimizations(config, hierarchyAnalysis) {
         });
     }
     
-    // Analyze eviction policy effectiveness
+    / Analyze eviction policy effectiveness
     const inefficientTiers = hierarchyAnalysis.tiers.filter(tier => tier.hitRatio < 60);
     if (inefficientTiers.length > 0) {
         optimizations.push({
@@ -848,7 +848,7 @@ function analyzeCacheCosts(config, hierarchyAnalysis) {
         operational: 0
     };
     
-    // Calculate costs for each tier
+    / Calculate costs for each tier
     hierarchyAnalysis.tiers.forEach(tier => {
         const technology = cacheTechnologies[tier.technology];
         const tierCost = tier.size * technology.costPerGB;
@@ -860,25 +860,25 @@ function analyzeCacheCosts(config, hierarchyAnalysis) {
         }
     });
     
-    // Network costs for cache coherence
-    const coherenceTraffic = config.requestRate * 0.1 * 0.001; // 10% coherence traffic, $0.001 per 1000 requests
+    / Network costs for cache coherence
+    const coherenceTraffic = config.requestRate * 0.1 * 0.001; / 10% coherence traffic, $0.001 per 1000 requests
     monthlyCosts.network = coherenceTraffic * 24 * 30;
     
-    // Operational overhead (10% of hardware costs)
+    / Operational overhead (10% of hardware costs)
     monthlyCosts.operational = (monthlyCosts.memory + monthlyCosts.storage) * 0.1;
     
     const totalCost = Object.values(monthlyCosts).reduce((sum, cost) => sum + cost, 0);
     
-    // Calculate cost efficiency metrics
+    / Calculate cost efficiency metrics
     const costPerHitRatio = totalCost / hierarchyAnalysis.overallHitRatio;
-    const costPerRequest = totalCost / (config.requestRate * 24 * 30 * 3600); // Per request per month
+    const costPerRequest = totalCost / (config.requestRate * 24 * 30 * 3600); / Per request per month
     
     return {
         monthly: monthlyCosts,
         total: totalCost,
         efficiency: {
             costPerHitRatio,
-            costPerRequest: costPerRequest * 1000000 // Per million requests
+            costPerRequest: costPerRequest * 1000000 / Per million requests
         },
         withinBudget: {
             memory: monthlyCosts.memory <= config.memoryBudget,
@@ -891,7 +891,7 @@ function analyzeCacheCosts(config, hierarchyAnalysis) {
 function generateCacheRecommendations(config, hierarchyAnalysis, costAnalysis) {
     const recommendations = [];
     
-    // Performance recommendations
+    / Performance recommendations
     if (hierarchyAnalysis.performanceScore < 70) {
         recommendations.push({
             category: 'Performance',
@@ -906,7 +906,7 @@ function generateCacheRecommendations(config, hierarchyAnalysis, costAnalysis) {
         });
     }
     
-    // Cost optimization recommendations
+    / Cost optimization recommendations
     if (!costAnalysis.withinBudget.memory || !costAnalysis.withinBudget.storage) {
         recommendations.push({
             category: 'Cost',
@@ -921,7 +921,7 @@ function generateCacheRecommendations(config, hierarchyAnalysis, costAnalysis) {
         });
     }
     
-    // Architecture recommendations
+    / Architecture recommendations
     const tierCount = hierarchyAnalysis.tiers.length;
     if (tierCount < 2 && config.workingSetSize > 10) {
         recommendations.push({
@@ -1312,10 +1312,10 @@ function compareEvictionPolicies() {
     const config = getCacheConfiguration();
     const policies = ['lru', 'lfu', 'arc', 'lirs'];
     
-    // Generate comparison data (simplified)
+    / Generate comparison data (simplified)
     const comparisonData = policies.map(policy => {
         const policySpec = evictionPolicies[policy];
-        const baseHitRatio = 75; // Simplified base calculation
+        const baseHitRatio = 75; / Simplified base calculation
         const hitRatio = baseHitRatio * (policySpec.temporalScore / 90);
         
         return {

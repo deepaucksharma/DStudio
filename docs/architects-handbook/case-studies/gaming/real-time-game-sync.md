@@ -97,78 +97,78 @@ graph TB
 
 **Implementation**:
 ```cpp
-// Server-Authoritative Game State Manager
+/ Server-Authoritative Game State Manager
 class AuthoritativeGameServer {
 private:
     GameState server_state;
     std::unordered_map<PlayerId, ClientState> client_states;
     std::queue<GameSnapshot> snapshot_history;
-    static constexpr int TICK_RATE = 64;  // 64 FPS server
+    static constexpr int TICK_RATE = 64;  / 64 FPS server
     static constexpr int SNAPSHOT_BUFFER_SIZE = 256;
 
 public:
     void ProcessClientInput(PlayerId player_id, const PlayerInput& input, uint32_t client_tick) {
-        // Validate input against server state
+        / Validate input against server state
         if (!ValidateInput(input, client_tick, player_id)) {
-            // Send correction to client
+            / Send correction to client
             SendStateCorrection(player_id, server_state);
             return;
         }
         
-        // Apply input to server simulation
+        / Apply input to server simulation
         ApplyInputToSimulation(player_id, input, client_tick);
         
-        // Update player state
+        / Update player state
         UpdatePlayerState(player_id, input.timestamp);
         
-        // Check for conflicts with other players
+        / Check for conflicts with other players
         ResolveStateConflicts(player_id);
     }
     
     void ServerTick() {
         auto tick_start = std::chrono::high_resolution_clock::now();
         
-        // Run physics simulation
+        / Run physics simulation
         physics_engine.Step(1.0f / TICK_RATE);
         
-        // Update game logic
+        / Update game logic
         game_logic.Update(1.0f / TICK_RATE);
         
-        // Create snapshot of current state
+        / Create snapshot of current state
         GameSnapshot snapshot = CreateSnapshot();
         snapshot_history.push(snapshot);
         
-        // Maintain snapshot buffer size
+        / Maintain snapshot buffer size
         if (snapshot_history.size() > SNAPSHOT_BUFFER_SIZE) {
             snapshot_history.pop();
         }
         
-        // Send state updates to clients
+        / Send state updates to clients
         BroadcastStateUpdate(snapshot);
         
-        // Performance monitoring
+        / Performance monitoring
         auto tick_duration = std::chrono::high_resolution_clock::now() - tick_start;
         UpdateTickMetrics(tick_duration);
     }
     
 private:
     bool ValidateInput(const PlayerInput& input, uint32_t client_tick, PlayerId player_id) {
-        // Anti-cheat validation
+        / Anti-cheat validation
         auto& player_state = GetPlayerState(player_id);
         
-        // Movement validation
+        / Movement validation
         if (!ValidateMovement(input.movement, player_state.position, player_state.velocity)) {
             LogSuspiciousActivity(player_id, "Invalid movement");
             return false;
         }
         
-        // Action validation (shooting, abilities, etc.)
+        / Action validation (shooting, abilities, etc.)
         if (!ValidateAction(input.action, player_state, client_tick)) {
             LogSuspiciousActivity(player_id, "Invalid action");
             return false;
         }
         
-        // Timing validation
+        / Timing validation
         if (!ValidateInputTiming(input.timestamp, client_tick, player_id)) {
             LogSuspiciousActivity(player_id, "Invalid timing");
             return false;
@@ -222,24 +222,24 @@ private:
 
 public:
     bool ProcessHitscanShot(PlayerId shooter_id, const ShotInfo& shot, uint32_t client_tick) {
-        // Calculate when the shot was fired on the client
+        / Calculate when the shot was fired on the client
         auto shooter_latency = GetPlayerLatency(shooter_id);
         uint32_t compensation_tick = client_tick - (shooter_latency * TICK_RATE / 1000);
         
-        // Limit compensation to reasonable bounds
+        / Limit compensation to reasonable bounds
         uint32_t max_compensation = MAX_COMPENSATION_MS * TICK_RATE / 1000;
         uint32_t current_tick = GetCurrentTick();
         uint32_t min_tick = std::max(current_tick - max_compensation, 0u);
         compensation_tick = std::max(compensation_tick, min_tick);
         
-        // Find the historical state
+        / Find the historical state
         HistoricalState* historical_state = FindHistoricalState(compensation_tick);
         if (!historical_state) {
-            // State too old or not found
+            / State too old or not found
             return false;
         }
         
-        // Perform hit detection in historical context
+        / Perform hit detection in historical context
         auto hit_result = PerformHitDetection(
             shot, 
             historical_state->player_states,
@@ -247,10 +247,10 @@ public:
         );
         
         if (hit_result.hit) {
-            // Apply damage in current state
+            / Apply damage in current state
             ApplyDamage(hit_result.target_id, hit_result.damage, shooter_id);
             
-            // Log for anti-cheat analysis
+            / Log for anti-cheat analysis
             LogHitRegistration(shooter_id, hit_result, compensation_tick, current_tick);
             
             return true;
@@ -267,7 +267,7 @@ public:
         
         state_history.push_back(state);
         
-        // Maintain buffer size
+        / Maintain buffer size
         uint32_t max_history_ticks = MAX_COMPENSATION_MS * TICK_RATE / 1000;
         while (state_history.size() > max_history_ticks) {
             state_history.pop_front();
@@ -373,7 +373,7 @@ class NetworkPerformanceMonitor:
 ### 2. Anti-Cheat Integration
 
 ```cpp
-// Real-time Anti-Cheat System
+/ Real-time Anti-Cheat System
 class RealtimeAntiCheat {
 private:
     struct PlayerAnalytics {
@@ -393,21 +393,21 @@ public:
     void AnalyzePlayerInput(PlayerId player_id, const PlayerInput& input) {
         auto& analytics = player_analytics[player_id];
         
-        // Movement analysis
+        / Movement analysis
         AnalyzeMovement(player_id, input.movement, analytics);
         
-        // Aim analysis
+        / Aim analysis
         if (input.action.type == ActionType::SHOOT) {
             AnalyzeAiming(player_id, input.action, analytics);
         }
         
-        // Input timing analysis
+        / Input timing analysis
         AnalyzeInputTiming(player_id, input, analytics);
         
-        // Update suspicion score
+        / Update suspicion score
         UpdateSuspicionScore(player_id, analytics);
         
-        // Take action if threshold exceeded
+        / Take action if threshold exceeded
         if (analytics.suspicion_score > SUSPICION_THRESHOLD) {
             HandleSuspiciousPlayer(player_id, analytics);
         }
@@ -415,30 +415,30 @@ public:
     
 private:
     void AnalyzeAiming(PlayerId player_id, const Action& shoot_action, PlayerAnalytics& analytics) {
-        // Calculate aim smoothness
+        / Calculate aim smoothness
         float aim_smoothness = CalculateAimSmoothness(shoot_action.target_direction);
         
-        // Check for inhuman reaction times
+        / Check for inhuman reaction times
         float reaction_time = CalculateReactionTime(player_id, shoot_action);
         analytics.reaction_times.push_back(reaction_time);
         
-        // Statistical analysis
+        / Statistical analysis
         if (analytics.reaction_times.size() > 50) {
             auto stats = CalculateReactionStats(analytics.reaction_times);
             
-            // Flag impossibly fast reactions
-            if (stats.average < 0.05f) {  // Less than 50ms average
+            / Flag impossibly fast reactions
+            if (stats.average < 0.05f) {  / Less than 50ms average
                 analytics.suspicion_score += 0.3f;
             }
             
-            // Flag perfect accuracy patterns
+            / Flag perfect accuracy patterns
             auto accuracy = analytics.weapon_accuracy[shoot_action.weapon_id];
             if (accuracy.headshot_percentage > 0.8f && analytics.reaction_times.size() > 100) {
                 analytics.suspicion_score += 0.4f;
             }
         }
         
-        // ML-based detection
+        / ML-based detection
         auto aim_features = ExtractAimFeatures(shoot_action, analytics);
         float aimbot_probability = aim_bot_detector.Predict(aim_features);
         
@@ -448,17 +448,17 @@ private:
     }
     
     void HandleSuspiciousPlayer(PlayerId player_id, const PlayerAnalytics& analytics) {
-        // Log detailed analytics
+        / Log detailed analytics
         LogSuspiciousActivity(player_id, analytics);
         
-        // Increase monitoring frequency
+        / Increase monitoring frequency
         SetHighPriorityMonitoring(player_id);
         
-        // If very high suspicion, take immediate action
+        / If very high suspicion, take immediate action
         if (analytics.suspicion_score > KICK_THRESHOLD) {
             KickPlayer(player_id, "Suspicious activity detected");
             
-            // Flag account for further investigation
+            / Flag account for further investigation
             FlagAccount(player_id, "Automated anti-cheat detection");
         }
     }
@@ -543,7 +543,7 @@ Optimization:
 ### 1. Rollback Netcode
 
 ```cpp
-// Fighting Game Rollback Netcode Implementation
+/ Fighting Game Rollback Netcode Implementation
 class RollbackNetcode {
 private:
     struct GameFrame {
@@ -555,45 +555,45 @@ private:
     
     std::deque<GameFrame> frame_history;
     static constexpr int MAX_ROLLBACK_FRAMES = 8;
-    static constexpr int INPUT_DELAY = 2;  // 2 frames of input delay
+    static constexpr int INPUT_DELAY = 2;  / 2 frames of input delay
 
 public:
     void AdvanceFrame() {
         uint32_t current_frame = GetCurrentFrame();
         
-        // Collect local and remote inputs
+        / Collect local and remote inputs
         auto inputs = CollectInputsForFrame(current_frame);
         
-        // Check if we need to rollback
+        / Check if we need to rollback
         int rollback_frame = CheckForRollback(inputs);
         
         if (rollback_frame >= 0) {
-            // Rollback to the frame and simulate forward
+            / Rollback to the frame and simulate forward
             RollbackAndResimulate(rollback_frame, inputs);
         } else {
-            // Normal simulation
+            / Normal simulation
             SimulateFrame(inputs);
         }
         
-        // Store frame in history
+        / Store frame in history
         StoreFrame(current_frame, GetCurrentState(), inputs);
         
-        // Clean up old frames
+        / Clean up old frames
         MaintainFrameHistory();
     }
     
 private:
     void RollbackAndResimulate(int rollback_frame, const std::vector<PlayerInput>& new_inputs) {
-        // Restore state to rollback frame
+        / Restore state to rollback frame
         auto frame_it = std::find_if(frame_history.begin(), frame_history.end(),
-            [rollback_frame](const GameFrame& frame) {
+            [rollback_frame](const GameFrame& frame.md)) {
                 return frame.frame_number == rollback_frame;
             });
         
         if (frame_it != frame_history.end()) {
             RestoreGameState(frame_it->state);
             
-            // Resimulate frames from rollback point to current
+            / Resimulate frames from rollback point to current
             for (int frame = rollback_frame; frame <= GetCurrentFrame(); ++frame) {
                 auto frame_inputs = GetInputsForFrame(frame, new_inputs);
                 SimulateFrame(frame_inputs);

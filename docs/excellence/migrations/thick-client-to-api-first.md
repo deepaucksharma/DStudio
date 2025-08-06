@@ -236,31 +236,31 @@ class HybridClient:
 
 **Modern Client Architecture:**
 ```typescript
-// React/Angular/Vue client consuming APIs
+/ React/Angular/Vue client consuming APIs
 class OrderService {
     private apiClient: APIClient;
     private cache: CacheService;
     
     async getOrders(filters?: OrderFilters): Promise<Order[]> {
-        // Check cache first
+        / Check cache first
         const cacheKey = `orders_${JSON.stringify(filters)}`;
         const cached = await this.cache.get(cacheKey);
         if (cached) return cached;
         
-        // API call with retry logic
+        / API call with retry logic
         const response = await this.apiClient
             .get('/api/v1/orders', { params: filters })
             .retry(3)
             .timeout(5000);
         
-        // Cache response
+        / Cache response
         await this.cache.set(cacheKey, response.data, 300);
         
         return response.data;
     }
     
     async createOrder(orderData: CreateOrderDTO): Promise<Order> {
-        // Optimistic UI update
+        / Optimistic UI update
         const tempOrder = { ...orderData, id: 'temp_' + Date.now() };
         this.store.addOrder(tempOrder);
         
@@ -268,11 +268,11 @@ class OrderService {
             const response = await this.apiClient
                 .post('/api/v1/orders', orderData);
             
-            // Replace temp with real order
+            / Replace temp with real order
             this.store.replaceOrder(tempOrder.id, response.data);
             return response.data;
         } catch (error) {
-            // Rollback optimistic update
+            / Rollback optimistic update
             this.store.removeOrder(tempOrder.id);
             throw error;
         }
@@ -529,5 +529,5 @@ monitor-legacy-system.sh --duration=24h
 
 - API Design Best Practices
 - RESTful Architecture
-- [GraphQL Patterns](../../../pattern-library/architecture/graphql-federation/index.md)
+- [GraphQL Patterns](../../pattern-library/architecture/graphql-federation/index.md)
 - Authentication Patterns

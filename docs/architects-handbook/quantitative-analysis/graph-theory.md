@@ -1055,7 +1055,7 @@ class GraphVisualizer {
     }
     
     initializePositions() {
-        // Simple circular layout
+        / Simple circular layout
         const vertices = Object.keys(this.graph);
         const n = vertices.length;
         const radius = Math.min(this.canvas.width, this.canvas.height) / 3;
@@ -1074,7 +1074,7 @@ class GraphVisualizer {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        // Draw edges
+        / Draw edges
         this.ctx.strokeStyle = '#ccc';
         this.ctx.lineWidth = 2;
         
@@ -1091,7 +1091,7 @@ class GraphVisualizer {
             }
         }
         
-        // Draw vertices
+        / Draw vertices
         for (const [vertex, pos] of Object.entries(this.positions)) {
             this.ctx.beginPath();
             this.ctx.arc(pos.x, pos.y, 20, 0, 2 * Math.PI);
@@ -1101,7 +1101,7 @@ class GraphVisualizer {
             this.ctx.lineWidth = 2;
             this.ctx.stroke();
             
-            // Draw label
+            / Draw label
             this.ctx.fillStyle = '#333';
             this.ctx.font = '14px Arial';
             this.ctx.textAlign = 'center';
@@ -1115,7 +1115,7 @@ class GraphVisualizer {
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            // Find clicked vertex
+            / Find clicked vertex
             for (const [vertex, pos] of Object.entries(this.positions)) {
                 const distance = Math.sqrt((x - pos.x) ** 2 + (y - pos.y) ** 2);
                 if (distance <= 20) {
@@ -1133,12 +1133,12 @@ class GraphVisualizer {
             return;
         }
         
-        // Simple BFS for shortest paths visualization
+        / Simple BFS for shortest paths visualization
         const distances = this.bfs(this.selectedVertex);
         
         this.draw();
         
-        // Draw distance labels
+        / Draw distance labels
         this.ctx.fillStyle = '#ff6b6b';
         this.ctx.font = '12px Arial';
         
@@ -1174,7 +1174,7 @@ class GraphVisualizer {
     }
 }
 
-// Example usage
+/ Example usage
 const exampleGraph = {
     'A': ['B', 'C'],
     'B': ['A', 'C', 'D'],
@@ -1183,7 +1183,7 @@ const exampleGraph = {
     'E': ['C', 'D']
 };
 
-// Initialize visualizer when DOM is ready
+/ Initialize visualizer when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('graphCanvas');
     if (canvas) {

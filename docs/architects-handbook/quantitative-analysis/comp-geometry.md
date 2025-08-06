@@ -77,7 +77,7 @@ Minimum fill: m = M/2
 def build_kdtree(points, depth=0):
     axis = depth % k  # k dimensions
     points.sort(key=lambda p: p[axis])
-    median = len(points) // 2
+    median = len(points) / 2
     
     return Node(
         point=points[median],
@@ -280,7 +280,7 @@ polygon_hexes = h3.polyfill(polygon, resolution=9)
 ```javascript
 db.places.createIndex({ location: "2dsphere" })
 
-// Find nearby
+/ Find nearby
 db.places.find({
   location: {
     $near: {
@@ -381,7 +381,7 @@ P(point in region) = ∫∫ p(x,y) dx dy
 
 ## Related Topics
 
-- [Spatial Databases](../../architects-handbook/quantitative-analysis/storage-engines.md)
-- [Consistent Hashing](../case-studies/consistent-hashing.md)
-- [Location Services](../case-studies/proximity-service.md)
-- [Load Balancing](../../pattern-library/scaling/load-balancing.md)
+- [Spatial Databases](../architects-handbook/quantitative-analysis/storage-engines.md)
+- [Consistent Hashing](../architects-handbook/case-studies/consistent-hashing.md)
+- [Location Services](../architects-handbook/case-studies/proximity-service.md)
+- [Load Balancing](../pattern-library/scaling/load-balancing.md)

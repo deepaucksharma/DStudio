@@ -114,7 +114,7 @@ graph TB
 ### On-Device Route Calculation Engine
 
 ```swift
-// Simplified on-device routing implementation
+/ Simplified on-device routing implementation
 import MapKit
 import CoreLocation
 
@@ -129,12 +129,12 @@ class PrivacyPreservingRouter {
         transportType: MKDirectionsTransportType
     ) async throws -> MKRoute {
         
-        // All routing happens on-device
+        / All routing happens on-device
         let localMapData = await mapDataStore.getMapData(
             boundingBox: createBoundingBox(source: source, destination: destination)
         )
         
-        // Use on-device machine learning models
+        / Use on-device machine learning models
         let routingOptions = RouteCalculationOptions(
             avoidTolls: UserDefaults.standard.bool(forKey: "avoidTolls"),
             avoidHighways: UserDefaults.standard.bool(forKey: "avoidHighways"),
@@ -148,7 +148,7 @@ class PrivacyPreservingRouter {
             options: routingOptions
         )
         
-        // Contribute anonymous traffic data with differential privacy
+        / Contribute anonymous traffic data with differential privacy
         await privacyManager.contributeDifferentiallyPrivateTrafficData(
             route: route
         )
@@ -168,19 +168,19 @@ class OnDeviceRoutingEngine {
         options: RouteCalculationOptions
     ) async throws -> MKRoute {
         
-        // Create weighted graph from local map data
+        / Create weighted graph from local map data
         let roadNetwork = createRoadNetwork(from: mapData)
         
-        // Apply real-time traffic predictions using on-device ML
+        / Apply real-time traffic predictions using on-device ML
         let trafficPredictions = await mlModel.predictTrafficConditions(
             for: roadNetwork,
             at: Date()
         )
         
-        // Weight edges based on predicted travel times
+        / Weight edges based on predicted travel times
         roadNetwork.applyTrafficWeights(trafficPredictions)
         
-        // Apply user preferences
+        / Apply user preferences
         if options.avoidTolls {
             roadNetwork.penalizeTollRoads(penalty: 0.3)
         }
@@ -189,14 +189,14 @@ class OnDeviceRoutingEngine {
             roadNetwork.penalizeHighways(penalty: 0.2)
         }
         
-        // Find optimal path using A* algorithm
+        / Find optimal path using A* algorithm
         let optimalPath = try await pathfindingAlgorithm.findPath(
             from: source,
             to: destination,
             in: roadNetwork
         )
         
-        // Create MKRoute from path
+        / Create MKRoute from path
         return createMKRoute(from: optimalPath, mapData: mapData)
     }
 }
@@ -213,13 +213,13 @@ class OnDeviceTrafficPredictor {
         var predictions = TrafficPredictions()
         
         for segment in network.segments {
-            // Use on-device historical patterns
+            / Use on-device historical patterns
             let historicalSpeed = historicalPatterns.getAverageSpeed(
                 for: segment,
                 at: time
             )
             
-            // Apply machine learning model for current conditions
+            / Apply machine learning model for current conditions
             let features = TrafficFeatures(
                 timeOfDay: Calendar.current.component(.hour, from: time),
                 dayOfWeek: Calendar.current.component(.weekday, from: time),
@@ -241,37 +241,37 @@ class OnDeviceTrafficPredictor {
 
 ```swift
 class DifferentialPrivacyManager {
-    private let epsilon: Double = 1.0  // Privacy budget
-    private let delta: Double = 1e-5   // Failure probability
+    private let epsilon: Double = 1.0  / Privacy budget
+    private let delta: Double = 1e-5   / Failure probability
     private let sessionManager: AnonymousSessionManager
     
     func contributeDifferentiallyPrivateTrafficData(route: MKRoute) async {
-        // Only contribute data if user has opted in
+        / Only contribute data if user has opted in
         guard UserDefaults.standard.bool(forKey: "contributeTrafficData") else {
             return
         }
         
-        // Extract privacy-safe traffic observations
+        / Extract privacy-safe traffic observations
         let trafficObservations = extractTrafficObservations(from: route)
         
-        // Apply differential privacy noise
+        / Apply differential privacy noise
         let noisyObservations = trafficObservations.map { observation in
             return applyLaplaceNoise(to: observation)
         }
         
-        // Create anonymous contribution
+        / Create anonymous contribution
         let contribution = AnonymousTrafficContribution(
             observations: noisyObservations,
             sessionToken: await sessionManager.getAnonymousToken(),
             timestamp: Date()
         )
         
-        // Submit with rotating anonymous identifiers
+        / Submit with rotating anonymous identifiers
         await submitAnonymousContribution(contribution)
     }
     
     private func applyLaplaceNoise(to observation: TrafficObservation) -> TrafficObservation {
-        // Laplace mechanism for differential privacy
+        / Laplace mechanism for differential privacy
         let sensitivity = calculateSensitivity(for: observation)
         let scale = sensitivity / epsilon
         
@@ -280,14 +280,14 @@ class DifferentialPrivacyManager {
         
         return TrafficObservation(
             segmentID: observation.segmentID,
-            averageSpeed: max(0, noisySpeed), // Ensure non-negative
+            averageSpeed: max(0, noisySpeed), / Ensure non-negative
             travelTime: max(0, noisyDuration),
             timestamp: observation.timestamp
         )
     }
     
     private func generateLaplaceNoise(scale: Double) -> Double {
-        // Generate Laplace distributed noise
+        / Generate Laplace distributed noise
         let u = Double.random(in: -0.5...0.5)
         return -scale * (u >= 0 ? 1 : -1) * log(1 - 2 * abs(u))
     }
@@ -296,10 +296,10 @@ class DifferentialPrivacyManager {
 class AnonymousSessionManager {
     private var currentToken: String?
     private var tokenExpiration: Date?
-    private let tokenRotationInterval: TimeInterval = 15 * 60  // 15 minutes
+    private let tokenRotationInterval: TimeInterval = 15 * 60  / 15 minutes
     
     func getAnonymousToken() async -> String {
-        // Rotate tokens frequently to prevent correlation
+        / Rotate tokens frequently to prevent correlation
         if currentToken == nil || 
            tokenExpiration == nil || 
            Date() > tokenExpiration! {
@@ -311,12 +311,12 @@ class AnonymousSessionManager {
     }
     
     private func rotateToken() async {
-        // Generate cryptographically secure random token
+        / Generate cryptographically secure random token
         let tokenData = Data(randomBytes: 32)
         currentToken = tokenData.base64EncodedString()
         tokenExpiration = Date().addingTimeInterval(tokenRotationInterval)
         
-        // Clear any cached data associated with previous token
+        / Clear any cached data associated with previous token
         clearTokenAssociatedData()
     }
 }
@@ -340,13 +340,13 @@ class LookAroundPrivacyEngine {
         
         return ProcessedImagery(
             images: processedImages,
-            location: imagery.location.generalizedLocation(), // Reduce precision
-            captureDate: imagery.captureDate.generalizedToWeek() // Reduce temporal precision
+            location: imagery.location.generalizedLocation(), / Reduce precision
+            captureDate: imagery.captureDate.generalizedToWeek() / Reduce temporal precision
         )
     }
     
     private func processImageForPrivacy(_ image: StreetViewImage) async -> ProcessedImage {
-        // Detect and blur faces automatically
+        / Detect and blur faces automatically
         let faceRegions = await faceDetection.detectFaces(in: image)
         var blurredImage = image
         
@@ -358,7 +358,7 @@ class LookAroundPrivacyEngine {
             )
         }
         
-        // Detect and blur license plates
+        / Detect and blur license plates
         let licensePlateRegions = await licensePlateDetection.detectPlates(in: blurredImage)
         
         for plateRegion in licensePlateRegions {
@@ -369,7 +369,7 @@ class LookAroundPrivacyEngine {
             )
         }
         
-        // Apply differential privacy blurring to reduce identifiability
+        / Apply differential privacy blurring to reduce identifiability
         let finalImage = await differentialPrivacyBlurring.applyPrivacyBlur(
             to: blurredImage
         )
@@ -522,46 +522,46 @@ class DifferentialPrivacyNoise:
 ### MapKit Privacy Framework Integration
 
 ```swift
-// Enhanced MapKit with privacy-first design
+/ Enhanced MapKit with privacy-first design
 class PrivacyAwareMKMapView: MKMapView {
     private let privacyManager = LocationPrivacyManager()
     private let localGeocodingEngine = OnDeviceGeocodingEngine()
     
     override func setRegion(_ region: MKCoordinateRegion, animated: Bool) {
-        // Generalize region to protect precise location
+        / Generalize region to protect precise location
         let generalizedRegion = privacyManager.generalizeRegion(region)
         super.setRegion(generalizedRegion, animated: animated)
         
-        // Preload map data for offline privacy
+        / Preload map data for offline privacy
         Task {
             await preloadMapDataForPrivacy(region: generalizedRegion)
         }
     }
     
     private func preloadMapDataForPrivacy(region: MKCoordinateRegion) async {
-        // Download map tiles for offline use
+        / Download map tiles for offline use
         let tileRequests = generateTileRequests(for: region)
         
-        // Batch requests with noise to prevent tracking
+        / Batch requests with noise to prevent tracking
         let noisyRequests = privacyManager.addNoisyTileRequests(tileRequests)
         
-        // Download with rotating anonymous sessions
+        / Download with rotating anonymous sessions
         await downloadMapTiles(noisyRequests, useAnonymousSession: true)
     }
 }
 
 class LocationPrivacyManager {
-    private let minRegionSpan: CLLocationDistance = 1000  // 1km minimum
-    private let locationGeneralization: CLLocationDistance = 100  // 100m grid
+    private let minRegionSpan: CLLocationDistance = 1000  / 1km minimum
+    private let locationGeneralization: CLLocationDistance = 100  / 100m grid
     
     func generalizeRegion(_ region: MKCoordinateRegion) -> MKCoordinateRegion {
-        // Ensure minimum region size to prevent precise location inference
+        / Ensure minimum region size to prevent precise location inference
         let generalizedSpan = MKCoordinateSpan(
-            latitudeDelta: max(region.span.latitudeDelta, minRegionSpan / 111000), // ~111km per degree
+            latitudeDelta: max(region.span.latitudeDelta, minRegionSpan / 111000), / ~111km per degree
             longitudeDelta: max(region.span.longitudeDelta, minRegionSpan / (111000 * cos(region.center.latitude * .pi / 180)))
         )
         
-        // Snap center to privacy grid
+        / Snap center to privacy grid
         let generalizedCenter = generalizeCoordinate(region.center)
         
         return MKCoordinateRegion(
@@ -571,8 +571,8 @@ class LocationPrivacyManager {
     }
     
     func generalizeCoordinate(_ coordinate: CLLocationCoordinate2D) -> CLLocationCoordinate2D {
-        // Snap to privacy grid to prevent precise tracking
-        let gridSize = locationGeneralization / 111000  // Convert meters to degrees
+        / Snap to privacy grid to prevent precise tracking
+        let gridSize = locationGeneralization / 111000  / Convert meters to degrees
         
         let generalizedLat = floor(coordinate.latitude / gridSize) * gridSize
         let generalizedLon = floor(coordinate.longitude / gridSize) * gridSize
@@ -584,10 +584,10 @@ class LocationPrivacyManager {
     }
     
     func addNoisyTileRequests(_ requests: [TileRequest]) -> [TileRequest] {
-        // Add dummy tile requests to obscure actual usage
+        / Add dummy tile requests to obscure actual usage
         var noisyRequests = requests
         
-        // Add 20-50% noise requests
+        / Add 20-50% noise requests
         let noiseCount = Int.random(in: requests.count / 5...requests.count / 2)
         
         for _ in 0..<noiseCount {
@@ -748,19 +748,19 @@ class LocationPrivacyManager {
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Balance privacy, performance, and functionality
-- **[Law 6: Cognitive Load](../../core-principles/laws.md/cognitive-load/index.md)** - Privacy controls must be simple for users to understand
-- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - Privacy-first architecture requires different business models
+- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)** - Balance privacy, performance, and functionality
+- **[Law 6: Cognitive Load](../core-principles/laws/cognitive-load/index.md)** - Privacy controls must be simple for users to understand
+- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - Privacy-first architecture requires different business models
 
 ### Related Patterns  
-- **[Differential Privacy](../../pattern-library/privacy.md/differential-privacy/index.md)** - Mathematical framework for privacy protection
-- **[Edge Computing](../../pattern-library/edge.md/edge-computing/index.md)** - On-device processing patterns
-- **[Anonymous Authentication](../../pattern-library/security.md/anonymous-auth/index.md)** - Identity protection techniques
+- **[Differential Privacy](../pattern-library/privacy/differential-privacy/index.md)** - Mathematical framework for privacy protection
+- **[Edge Computing](../pattern-library/edge/edge-computing/index.md)** - On-device processing patterns
+- **[Anonymous Authentication](../pattern-library/security/anonymous-auth/index.md)** - Identity protection techniques
 
 ### Related Case Studies
-- **[Google Maps System](../../google-maps-system.md)** - Contrast with data collection approach
-- **[Uber Location System](../../uber-location.md)** - Different privacy-utility trade-offs
-- **[Find My Device](../../find-my-device.md)** - Apple's other privacy-preserving location service
+- **[Google Maps System](../google-maps-system.md)** - Contrast with data collection approach
+- **[Uber Location System](../uber-location.md)** - Different privacy-utility trade-offs
+- **[Find My Device](../find-my-device.md)** - Apple's other privacy-preserving location service
 
 ## External Resources
 

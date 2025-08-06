@@ -227,7 +227,7 @@ Match your experiences to common interview questions. This tool helps you identi
 - Prepare deep-dive details
 
 <script>
-// Question database
+/ Question database
 const questionDatabase = {
     people: [
         { id: 'p1', question: 'Tell me about a time you had to let someone go', tags: ['performance', 'conflict'] },
@@ -271,7 +271,7 @@ const questionDatabase = {
     ]
 };
 
-// Story bank storage
+/ Story bank storage
 let storyBank = JSON.parse(localStorage.getItem('star-story-bank') || '[]');
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -279,18 +279,18 @@ document.addEventListener('DOMContentLoaded', function() {
     renderCoverageAnalysis();
     setupEventHandlers();
     
-    // Load initial questions
+    / Load initial questions
     showQuestions('people');
 });
 
 function setupEventHandlers() {
-    // Story form submission
+    / Story form submission
     document.getElementById('story-form').addEventListener('submit', function(e) {
         e.preventDefault();
         addStory();
     });
     
-    // Category tabs
+    / Category tabs
     document.querySelectorAll('.category-tab').forEach(tab => {
         tab.addEventListener('click', function() {
             document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
@@ -327,14 +327,14 @@ function addStory() {
     storyBank.push(story);
     localStorage.setItem('star-story-bank', JSON.stringify(storyBank));
     
-    // Reset form
+    / Reset form
     document.getElementById('story-form').reset();
     
-    // Update displays
+    / Update displays
     renderStoryBank();
     renderCoverageAnalysis();
     
-    // Show success message
+    / Show success message
     showToast('Story added successfully!');
 }
 
@@ -388,7 +388,7 @@ function expandStory(id) {
     const story = storyBank.find(s => s.id === id);
     if (!story) return;
     
-    // In real implementation, show modal with full story
+    / In real implementation, show modal with full story
     alert(`Full Story:\n\nSituation:\n${story.situation}\n\nTask:\n${story.task}\n\nAction:\n${story.action}\n\nResult:\n${story.result}`);
 }
 
@@ -416,25 +416,25 @@ function matchStories(questionId, category) {
     const question = questionDatabase[category].find(q => q.id === questionId);
     if (!question) return;
     
-    // Highlight selected question
+    / Highlight selected question
     document.querySelectorAll('.question-item').forEach(item => {
         item.classList.remove('selected');
     });
     event.currentTarget.classList.add('selected');
     
-    // Find matching stories
+    / Find matching stories
     const matches = storyBank.filter(story => {
         return question.tags.some(tag => story.competencies.includes(tag));
     });
     
-    // Sort by relevance (number of matching tags)
+    / Sort by relevance (number of matching tags)
     matches.sort((a, b) => {
         const aMatches = a.competencies.filter(c => question.tags.includes(c)).length;
         const bMatches = b.competencies.filter(c => question.tags.includes(c)).length;
         return bMatches - aMatches;
     });
     
-    // Display matches
+    / Display matches
     const container = document.querySelector('.matches-container');
     
     if (matches.length === 0) {
@@ -506,7 +506,7 @@ function renderCoverageAnalysis() {
         coverage[comp] = storyBank.filter(s => s.competencies.includes(comp)).length;
     });
     
-    // Render coverage grid
+    / Render coverage grid
     const gridContainer = document.getElementById('coverage-grid');
     let gridHtml = '<div class="coverage-items">';
     
@@ -525,7 +525,7 @@ function renderCoverageAnalysis() {
     gridHtml += '</div>';
     gridContainer.innerHTML = gridHtml;
     
-    // Identify gaps
+    / Identify gaps
     const gaps = allCompetencies.filter(comp => coverage[comp] === 0);
     const weak = allCompetencies.filter(comp => coverage[comp] === 1);
     

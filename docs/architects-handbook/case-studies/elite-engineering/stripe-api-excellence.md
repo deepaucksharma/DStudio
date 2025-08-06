@@ -215,7 +215,7 @@ graph LR
 ### 3. Real-Time Event System
 
 ```typescript
-// Stripe's webhook system for real-time updates
+/ Stripe's webhook system for real-time updates
 interface WebhookEvent {
   id: string;
   type: EventType;
@@ -240,12 +240,12 @@ class WebhookDeliverySystem {
         'Content-Type': 'application/json'
       },
       body: payload,
-      timeout: 20_000, // 20 seconds
+      timeout: 20_000, / 20 seconds
       retries: 3,
       backoff: 'exponential'
     });
     
-    // Record delivery attempt
+    / Record delivery attempt
     await this.recordDelivery({
       event_id: event.id,
       endpoint_id: endpoint.id,
@@ -255,14 +255,14 @@ class WebhookDeliverySystem {
       attempt_number: delivery.attempts
     });
     
-    // Automatic retry with exponential backoff
+    / Automatic retry with exponential backoff
     if (!delivery.success) {
       await this.scheduleRetry(event, endpoint, delivery.attempts);
     }
   }
   
   private async scheduleRetry(event: WebhookEvent, endpoint: WebhookEndpoint, attempts: number) {
-    const delays = [5, 30, 300, 1800, 7200, 18000, 36000]; // seconds
+    const delays = [5, 30, 300, 1800, 7200, 18000, 36000]; / seconds
     const delay = delays[Math.min(attempts, delays.length - 1)];
     
     await MessageQueue.enqueue({
@@ -320,7 +320,7 @@ graph TD
 ### Distributed Rate Limiting
 
 ```go
-// Stripe's distributed rate limiting implementation
+/ Stripe's distributed rate limiting implementation
 type RateLimiter struct {
     redis    *redis.Client
     window   time.Duration
@@ -332,19 +332,19 @@ func (rl *RateLimiter) AllowRequest(apiKey string, cost int) (bool, RateLimitInf
     windowStart := now.Truncate(rl.window)
     key := fmt.Sprintf("rate_limit:%s:%d", apiKey, windowStart.Unix())
     
-    // Use Redis pipeline for atomic operations
+    / Use Redis pipeline for atomic operations
     pipe := rl.redis.Pipeline()
     
-    // Increment counter
+    / Increment counter
     incrCmd := pipe.IncrBy(context.Background(), key, int64(cost))
     
-    // Set expiry on first write
+    / Set expiry on first write
     pipe.Expire(context.Background(), key, rl.window*2)
     
-    // Execute pipeline
+    / Execute pipeline
     _, err := pipe.Exec(context.Background())
     if err != nil {
-        // Fail open - allow request on Redis failure
+        / Fail open - allow request on Redis failure
         return true, RateLimitInfo{Allowed: true}
     }
     
@@ -358,7 +358,7 @@ func (rl *RateLimiter) AllowRequest(apiKey string, cost int) (bool, RateLimitInf
         Allowed:   count <= int64(rl.maxReqs),
     }
     
-    // Implement token bucket for burst handling
+    / Implement token bucket for burst handling
     if !info.Allowed {
         info = rl.checkTokenBucket(apiKey, cost)
     }
@@ -367,10 +367,10 @@ func (rl *RateLimiter) AllowRequest(apiKey string, cost int) (bool, RateLimitInf
 }
 
 func (rl *RateLimiter) checkTokenBucket(apiKey string, cost int) RateLimitInfo {
-    // Secondary algorithm for handling bursts
+    / Secondary algorithm for handling bursts
     bucketKey := fmt.Sprintf("token_bucket:%s", apiKey)
     
-    // Lua script for atomic token bucket
+    / Lua script for atomic token bucket
     script := `
         local key = KEYS[1]
         local capacity = tonumber(ARGV[1])
@@ -405,8 +405,8 @@ func (rl *RateLimiter) checkTokenBucket(apiKey string, cost int) RateLimitInfo {
     result, _ := rl.redis.Eval(context.Background(), script, []string{bucketKey},
         100, 100, 10, cost, now.Unix()).Result()
     
-    // Parse result and return info
-    // ...
+    / Parse result and return info
+    / ...
 }
 ```
 
@@ -617,7 +617,7 @@ graph LR
 
 2. **Consistent Patterns**
    ```json
-   // Every object has consistent structure
+   / Every object has consistent structure
    {
      "id": "ch_1234567890",
      "object": "charge",
@@ -630,7 +630,7 @@ graph LR
      }
    }
    
-   // Lists follow same pattern
+   / Lists follow same pattern
    {
      "object": "list",
      "data": [...],

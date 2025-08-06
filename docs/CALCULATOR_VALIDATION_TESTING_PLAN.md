@@ -42,7 +42,7 @@ This document provides a comprehensive testing and validation plan for the 12 in
 
 **Testing Approach**:
 ```javascript
-// Example validation script structure
+/ Example validation script structure
 function validateCalculatorJS(calculatorFile) {
     const issues = {
         syntaxErrors: [],
@@ -51,10 +51,10 @@ function validateCalculatorJS(calculatorFile) {
         performanceWarnings: []
     };
     
-    // Extract JavaScript from markdown
+    / Extract JavaScript from markdown
     const jsCode = extractJavaScript(calculatorFile);
     
-    // Run static analysis
+    / Run static analysis
     issues.syntaxErrors = checkSyntax(jsCode);
     issues.undefinedVars = checkVariables(jsCode);
     issues.logicIssues = checkLogic(jsCode);
@@ -92,7 +92,7 @@ function validateCalculatorJS(calculatorFile) {
 
 **Testing Script Example**:
 ```javascript
-// Automated testing framework
+/ Automated testing framework
 class CalculatorTester {
     constructor(calculatorId) {
         this.calculatorId = calculatorId;
@@ -116,7 +116,7 @@ class CalculatorTester {
         });
     }
     
-    // Additional test methods...
+    / Additional test methods...
 }
 ```
 
@@ -210,7 +210,7 @@ def test_availability_accuracy():
 
 **User Journey Tests**:
 ```javascript
-// Example user journey test
+/ Example user journey test
 const userJourneyTests = [
     {
         name: "First-time user completing availability calculation",
@@ -381,10 +381,10 @@ Create comprehensive test suites for mathematical edge cases.
 
 #### Task 3.2: Enhanced Error Handling
 ```javascript
-// Improved error handling pattern
+/ Improved error handling pattern
 function enhancedErrorHandling() {
     try {
-        // Calculation logic
+        / Calculation logic
     } catch (error) {
         console.error('Calculator error:', error);
         displayUserFriendlyError(error);
@@ -397,7 +397,7 @@ function enhancedErrorHandling() {
 
 #### Task 4.1: Automated Test Suite
 ```javascript
-// Comprehensive test runner
+/ Comprehensive test runner
 class CalculatorTestRunner {
     constructor() {
         this.tests = [
@@ -429,12 +429,12 @@ Create comprehensive documentation including:
 
 #### Task 5.2: Monitoring Setup
 ```javascript
-// Add performance monitoring
+/ Add performance monitoring
 function trackCalculatorPerformance(calculatorName, startTime) {
     const endTime = performance.now();
     const duration = endTime - startTime;
     
-    // Send to analytics
+    / Send to analytics
     gtag('event', 'calculator_performance', {
         calculator_name: calculatorName,
         duration: duration,
@@ -475,7 +475,7 @@ function trackCalculatorPerformance(calculatorName, startTime) {
 
 #### Fallback Strategies
 ```javascript
-// Graceful degradation example
+/ Graceful degradation example
 function calculateWithFallback(inputs) {
     try {
         return advancedCalculation(inputs);

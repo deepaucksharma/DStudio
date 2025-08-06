@@ -180,7 +180,7 @@ Track your improvement:
 - Maintain quality under pressure
 
 <script>
-// Interview Timer JavaScript
+/ Interview Timer JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     let timerInterval;
     let timeRemaining = 0;
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetBtn = document.getElementById('reset-timer');
     const timeGuide = document.getElementById('time-guide');
     
-    // Timer button click handlers
+    / Timer button click handlers
     document.querySelectorAll('.timer-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const minutes = parseInt(this.dataset.time);
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         minutesDisplay.textContent = minutes.toString().padStart(2, '0');
         secondsDisplay.textContent = seconds.toString().padStart(2, '0');
         
-        // Update color based on time remaining
+        / Update color based on time remaining
         const timeDisplay = document.querySelector('.time-remaining');
         const totalTime = getCurrentTotalTime();
         const percentRemaining = (timeRemaining / totalTime) * 100;
@@ -340,15 +340,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateDisplay();
                 updatePhaseHighlight();
                 
-                // Audio alerts at phase transitions
+                / Audio alerts at phase transitions
                 checkPhaseTransition();
                 
-                // Final minute warning
+                / Final minute warning
                 if (timeRemaining === 60) {
                     playAlert('warning');
                 }
                 
-                // Time's up
+                / Time's up
                 if (timeRemaining === 0) {
                     playAlert('complete');
                     clearInterval(timerInterval);
@@ -378,7 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function checkPhaseTransition() {
-        // Implement phase transition alerts
+        / Implement phase transition alerts
         const totalTime = getCurrentTotalTime();
         const elapsedTime = totalTime - timeRemaining;
         
@@ -391,10 +391,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function playAlert(type) {
-        // In real implementation, this would play audio alerts
+        / In real implementation, this would play audio alerts
         console.log(`Alert: ${type}`);
         
-        // Visual alert
+        / Visual alert
         const display = document.querySelector('.timer-display');
         display.classList.add('alert-flash');
         setTimeout(() => display.classList.remove('alert-flash'), 500);

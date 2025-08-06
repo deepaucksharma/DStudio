@@ -21,20 +21,20 @@ Resilience patterns help systems survive and recover from failures. They address
 ## Available Patterns
 
 ### Core Resilience Patterns
-- **[Circuit Breaker](....../pattern-library/resilience.md/circuit-breaker.md)** - Prevent cascade failures by detecting service failures
-- **[Retry & Backoff](....../pattern-library/resilience.md/retry-backoff.md)** - Handle transient failures with intelligent retries
-- **[Timeout](....../pattern-library/resilience.md/timeout.md)** - Prevent indefinite waits and resource exhaustion
-- **[Bulkhead](....../pattern-library/resilience.md/bulkhead.md)** - Isolate resources to contain failures
+- **[Circuit Breaker](circuit-breaker.md)** - Prevent cascade failures by detecting service failures
+- **[Retry & Backoff](retry-backoff.md)** - Handle transient failures with intelligent retries
+- **[Timeout](timeout.md)** - Prevent indefinite waits and resource exhaustion
+- **[Bulkhead](bulkhead.md)** - Isolate resources to contain failures
 
 ### Health & Monitoring
-- **[Health Check](....../pattern-library/resilience.md/health-check.md)** - Monitor and report service health status
-- **[Heartbeat](....../pattern-library/resilience.md/heartbeat.md)** - Detect service liveness through periodic signals
+- **[Health Check](health-check.md)** - Monitor and report service health status
+- **[Heartbeat](heartbeat.md)** - Detect service liveness through periodic signals
 
 ### Failure Handling
-- **[Failover](....../pattern-library/resilience.md/failover.md)** - Switch to backup systems when primary fails
-- **[Graceful Degradation](....../pattern-library/resilience.md/graceful-degradation.md)** - Maintain partial functionality during failures
-- **[Load Shedding](....../pattern-library/resilience.md/load-shedding.md)** - Drop requests to prevent overload
-- **[Split Brain](....../pattern-library/resilience.md/split-brain.md)** - Handle network partitions in distributed systems
+- **[Failover](failover.md)** - Switch to backup systems when primary fails
+- **[Graceful Degradation](graceful-degradation.md)** - Maintain partial functionality during failures
+- **[Load Shedding](load-shedding.md)** - Drop requests to prevent overload
+- **[Split Brain](split-brain.md)** - Handle network partitions in distributed systems
 
 ### Advanced Topics
 - **[Timeout Advanced](timeout-advanced.md)** - Production-grade timeout strategies
@@ -43,14 +43,14 @@ Resilience patterns help systems survive and recover from failures. They address
 
 | Failure Type | Pattern | When to Use |
 |--------------|---------|-------------|
-| Service unresponsive | [Circuit Breaker](....../pattern-library/resilience.md/circuit-breaker.md) | External service calls |
-| Temporary network issues | [Retry with Backoff](....../pattern-library/resilience.md/retry-backoff.md) | Transient failures expected |
-| Resource exhaustion | [Bulkhead](....../pattern-library/resilience.md/bulkhead.md) | Shared resource protection |
-| Slow dependency | [Timeout](....../pattern-library/resilience.md/timeout.md) | Any network operation |
-| Complete service failure | [Failover](....../pattern-library/resilience.md/failover.md) | Critical services |
-| Overload conditions | [Load Shedding](....../pattern-library/resilience.md/load-shedding.md) | High traffic scenarios |
-| Service health monitoring | [Health Check](....../pattern-library/resilience.md/health-check.md) | All services |
-| Network partition | [Split Brain](....../pattern-library/resilience.md/split-brain.md) | Distributed consensus |
+| Service unresponsive | [Circuit Breaker](circuit-breaker.md) | External service calls |
+| Temporary network issues | [Retry with Backoff](retry-backoff.md) | Transient failures expected |
+| Resource exhaustion | [Bulkhead](bulkhead.md) | Shared resource protection |
+| Slow dependency | [Timeout](timeout.md) | Any network operation |
+| Complete service failure | [Failover](failover.md) | Critical services |
+| Overload conditions | [Load Shedding](load-shedding.md) | High traffic scenarios |
+| Service health monitoring | [Health Check](health-check.md) | All services |
+| Network partition | [Split Brain](split-brain.md) | Distributed consensus |
 
 ## Pattern Relationships
 
@@ -81,13 +81,13 @@ graph TD
 
 For new systems, implement patterns in this order:
 
-1. **[Timeout](....../pattern-library/resilience.md/timeout.md)** - Foundation for all network calls
-2. **[Health Check](....../pattern-library/resilience.md/health-check.md)** - Know when services are unhealthy
-3. **[Circuit Breaker](....../pattern-library/resilience.md/circuit-breaker.md)** - Prevent cascade failures
-4. **[Retry & Backoff](....../pattern-library/resilience.md/retry-backoff.md)** - Handle transient failures
-5. **[Bulkhead](....../pattern-library/resilience.md/bulkhead.md)** - Isolate critical resources
-6. **[Graceful Degradation](....../pattern-library/resilience.md/graceful-degradation.md)** - Maintain partial service
+1. **[Timeout](timeout.md)** - Foundation for all network calls
+2. **[Health Check](health-check.md)** - Know when services are unhealthy
+3. **[Circuit Breaker](circuit-breaker.md)** - Prevent cascade failures
+4. **[Retry & Backoff](retry-backoff.md)** - Handle transient failures
+5. **[Bulkhead](bulkhead.md)** - Isolate critical resources
+6. **[Graceful Degradation](graceful-degradation.md)** - Maintain partial service
 
 ---
 
-*Return to the [Pattern Library](../index.md) or explore [Communication Patterns](....../pattern-library/communication.md/index.md).*
+*Return to the [Pattern Library](../index.md) or explore [Communication Patterns](../../pattern-library/communication.md/index.md).*

@@ -427,31 +427,31 @@ Each level requires letting go of the previous level's strengths.
 
 ## Connection to First Principles
 
-- **[Human Behavior](../../../engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Leadership is fundamentally about understanding and motivating humans
-- **[Value Creation](../../../engineering-leadership/level-1-first-principles/value-creation/index.md)**: Leaders align human effort toward value
-- **[Decision-Making](../../../engineering-leadership/level-1-first-principles/decision-making/index.md)**: Leaders create decision-making systems
-- **[Systems Thinking](../../../engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Leaders shape organizational systems
-- **[Integrity & Ethics](../../../engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Leadership requires moral authority
+- **[Human Behavior](../../engineering-leadership/level-1-first-principles/human-behavior/index.md)**: Leadership is fundamentally about understanding and motivating humans
+- **[Value Creation](../../engineering-leadership/level-1-first-principles/value-creation/index.md)**: Leaders align human effort toward value
+- **[Decision-Making](../../engineering-leadership/level-1-first-principles/decision-making/index.md)**: Leaders create decision-making systems
+- **[Systems Thinking](../../engineering-leadership/level-1-first-principles/systems-thinking/index.md)**: Leaders shape organizational systems
+- **[Integrity & Ethics](../../engineering-leadership/level-1-first-principles/integrity-ethics/index.md)**: Leadership requires moral authority
 
 ## Connection to Other Business Concepts
 
-- **[Strategy](../../../engineering-leadership/level-2-core-business/strategy/index.md)**: Leadership executes strategy through people
-- **[Operations](../../../engineering-leadership/level-2-core-business/operations/index.md)**: Leaders build operational excellence
-- **[Finance](../../../engineering-leadership/level-2-core-business/finance/index.md)**: Leaders manage resources efficiently
-- **[Risk & Governance](../../../engineering-leadership/level-2-core-business/risk-governance/index.md)**: Leaders navigate uncertainty
+- **[Strategy](../../engineering-leadership/level-2-core-business/strategy/index.md)**: Leadership executes strategy through people
+- **[Operations](../../engineering-leadership/level-2-core-business/operations/index.md)**: Leaders build operational excellence
+- **[Finance](../../engineering-leadership/level-2-core-business/finance/index.md)**: Leaders manage resources efficiently
+- **[Risk & Governance](../../engineering-leadership/level-2-core-business/risk-governance/index.md)**: Leaders navigate uncertainty
 
 ## Application in Level III
 
-- **[People Management](../../../engineering-leadership/level-3-applications/people-management/index.md)**: Direct application of leadership principles
-- **[Technical Leadership](../../../engineering-leadership/level-3-applications/technical-leadership/index.md)**: Leading through technical excellence
-- **[Organizational Design](../../../engineering-leadership/level-3-applications/organizational-design/index.md)**: Designing systems for leadership
-- **[Business Acumen](../../../engineering-leadership/level-3-applications/business-acumen/index.md)**: Leading across functions
+- **[People Management](../../engineering-leadership/level-3-applications/people-management/index.md)**: Direct application of leadership principles
+- **[Technical Leadership](../../engineering-leadership/level-3-applications/technical-leadership/index.md)**: Leading through technical excellence
+- **[Organizational Design](../../engineering-leadership/level-3-applications/organizational-design/index.md)**: Designing systems for leadership
+- **[Business Acumen](../../engineering-leadership/level-3-applications/business-acumen/index.md)**: Leading across functions
 
 ## Interview Application (Level IV)
 
-- **[Behavioral Interviews](../../../engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Demonstrating leadership impact
-- **[Culture Fit](../../../engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Showing leadership alignment
-- **[Technical Leadership](../../../engineering-leadership/level-4-interview-execution/technical-leadership/index.md)**: Leading technical initiatives
+- **[Behavioral Interviews](../../engineering-leadership/level-4-interview-execution/behavioral/index.md)**: Demonstrating leadership impact
+- **[Culture Fit](../../engineering-leadership/level-4-interview-execution/culture-values/index.md)**: Showing leadership alignment
+- **[Technical Leadership](../../engineering-leadership/level-4-interview-execution/technical-leadership/index.md)**: Leading technical initiatives
 
 ## Next Steps
 
@@ -462,4 +462,4 @@ Each level requires letting go of the previous level's strengths.
 
 ---
 
-*Continue your journey: Explore how [Operations](../../../engineering-leadership/level-2-core-business/operations/index.md) transforms leadership vision into reliable execution at scale, or dive into [People Management](../../../engineering-leadership/level-3-applications/people-management/index.md) for practical leadership application.*
+*Continue your journey: Explore how [Operations](../../engineering-leadership/level-2-core-business/operations/index.md) transforms leadership vision into reliable execution at scale, or dive into [People Management](../../engineering-leadership/level-3-applications/people-management/index.md) for practical leadership application.*

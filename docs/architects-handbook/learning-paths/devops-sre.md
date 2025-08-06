@@ -112,7 +112,7 @@ Before starting, ensure you have:
 </div>
 
 !!! tip "Self-Assessment Quiz"
-    Take our [5-minute assessment](../../tools/sre-readiness-quiz/index.md) to determine if you're ready or need additional preparation.
+    Take our [5-minute assessment](../tools/sre-readiness-quiz/index.md) to determine if you're ready or need additional preparation.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -136,7 +136,7 @@ Before starting, ensure you have:
     **Day-by-Day Schedule**:
     
     **Day 1-2**: Terraform Basics
-    - 📖 Read: [Infrastructure as Code Principles](../....../core-principles/infrastructure-as-code.md/index.md)
+    - 📖 Read: [Infrastructure as Code Principles](../core-principles/infrastructure-as-code.md/index.md)
     - 🛠️ Lab: Deploy first AWS resources with Terraform
     - 📊 Success: 3-tier app infrastructure in code
     - ⏱️ Time: 6-8 hours
@@ -166,7 +166,7 @@ Before starting, ensure you have:
     **Day-by-Day Schedule**:
     
     **Day 8-9**: Kubernetes Deep Dive
-    - 📖 Read: [Container Orchestration Patterns](../../....../pattern-library/scaling.md/container-orchestration/index.md)
+    - 📖 Read: [Container Orchestration Patterns](../../pattern-library/scaling/container-orchestration/index.md)
     - 🛠️ Lab: Deploy microservices to K8s
     - 📊 Success: Rolling updates without downtime
     - ⏱️ Time: 6-8 hours
@@ -178,7 +178,7 @@ Before starting, ensure you have:
     - ⏱️ Time: 6-8 hours
     
     **Day 12-14**: Service Mesh (Istio)
-    - 📖 Study: [Service mesh patterns](../../....../pattern-library/communication.md/service-mesh/index.md)
+    - 📖 Study: [Service mesh patterns](../../pattern-library/communication/service-mesh/index.md)
     - 🛠️ Lab: Deploy Istio, traffic management
     - 📊 Success: Blue-green deployments with Istio
     - ⏱️ Time: 8-10 hours
@@ -226,7 +226,7 @@ gantt
     - [ ] Integrate security scanning
     
     **Day 15-17**: Pipeline Security & Performance
-    - 📖 Study: [Secure CI/CD patterns](../../....../pattern-library/security.md/secure-pipelines/index.md)
+    - 📖 Study: [Secure CI/CD patterns](../../pattern-library/security/secure-pipelines/index.md)
     - 🛠️ Lab: Multi-stage pipeline with security gates
     - 📊 Success: Sub-10-minute builds with security
     - ⏱️ Time: 8-10 hours
@@ -291,7 +291,7 @@ gantt
     - [ ] Create operational dashboards
     
     **Day 29-30**: Metrics & Time Series
-    - 📖 Study: [Prometheus architecture](../../....../pattern-library/monitoring.md/prometheus/index.md)
+    - 📖 Study: [Prometheus architecture](../../pattern-library/monitoring/prometheus/index.md)
     - 🛠️ Lab: Deploy Prometheus + Grafana stack
     - 📊 Success: Business and technical metrics
     - ⏱️ Time: 6-8 hours
@@ -319,7 +319,7 @@ gantt
     - [ ] Master performance profiling
     
     **Day 36-37**: SLI/SLO Implementation
-    - 📖 Study: [SRE principles](../../excellence/sre-practices/index.md)
+    - 📖 Study: [SRE principles](../excellence/sre-practices/index.md)
     - 🛠️ Lab: Define SLIs/SLOs for your services
     - 📊 Success: Error budgets and burn rates
     - ⏱️ Time: 6-8 hours
@@ -356,13 +356,13 @@ gantt
     - [ ] Implement chaos engineering
     
     **Day 43-44**: Incident Response Leadership
-    - 📖 Study: [Incident command system](../../human-factors/incident-response/index.md)
+    - 📖 Study: [Incident command system](../architects-handbook/human-factors/incident-response/index.md)
     - 🛠️ Practice: Incident response simulations
     - 📊 Success: Lead 3 mock incidents
     - ⏱️ Time: 6-8 hours
     
     **Day 45-46**: Blameless Postmortems
-    - 📖 Read: [Postmortem culture](../../human-factors/blameless-postmortems/index.md)
+    - 📖 Read: [Postmortem culture](../architects-handbook/human-factors/blameless-postmortems/index.md)
     - 🛠️ Lab: Write comprehensive postmortem
     - 📊 Success: 5 why analysis + action items
     - ⏱️ Time: 6-8 hours
@@ -384,13 +384,13 @@ gantt
     - [ ] Plan for traffic spikes
     
     **Day 50-51**: Capacity Modeling
-    - 📖 Study: [Little's Law](../../quantitative-analysis/littles-law/index.md), queueing theory
+    - 📖 Study: [Little's Law](../architects-handbook/quantitative-analysis/littles-law/index.md), queueing theory
     - 🛠️ Lab: Build capacity model in spreadsheet
     - 📊 Success: Predict Black Friday traffic needs
     - ⏱️ Time: 6-8 hours
     
     **Day 52-53**: Auto-scaling Implementation
-    - 📖 Read: [Auto-scaling patterns](../../....../pattern-library/scaling.md/auto-scaling/index.md)
+    - 📖 Read: [Auto-scaling patterns](../../pattern-library/scaling/auto-scaling/index.md)
     - 🛠️ Lab: Implement HPA and VPA in K8s
     - 📊 Success: Handle 10x traffic automatically
     - ⏱️ Time: 6-8 hours

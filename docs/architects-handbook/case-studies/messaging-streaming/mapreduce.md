@@ -38,7 +38,7 @@ patterns_used:
   - single-pass: No support for iterative algorithms
 excellence_guides:
 - migration/mapreduce-to-spark
-- ../../../pattern-library/modern-data-processing
+- ../../pattern-library/modern-data-processing
 - historical/big-data-evolution
 deprecation:
   status: Replaced by modern frameworks
@@ -122,7 +122,7 @@ graph TB
 ### Classic Word Count Example
 
 ```java
-// Mapper: Process input records
+/ Mapper: Process input records
 public class WordCountMapper 
     extends Mapper<LongWritable, Text, Text, IntWritable> {
     
@@ -135,12 +135,12 @@ public class WordCountMapper
         
         while (tokenizer.hasMoreTokens()) {
             word.set(tokenizer.nextToken());
-            context.write(word, one);  // Emit (word, 1)
+            context.write(word, one);  / Emit (word, 1)
         }
     }
 }
 
-// Reducer: Aggregate values by key
+/ Reducer: Aggregate values by key
 public class WordCountReducer 
     extends Reducer<Text, IntWritable, Text, IntWritable> {
     
@@ -264,10 +264,10 @@ graph TB
 ### 1. Web Index Building
 
 ```java
-// Simplified PageRank in MapReduce
-// Mapper: Distribute rank to neighbors
+/ Simplified PageRank in MapReduce
+/ Mapper: Distribute rank to neighbors
 map(String pageId, PageData page) {
-    emit(pageId, 0.0);  // For existence
+    emit(pageId, 0.0);  / For existence
     
     int numLinks = page.outlinks.size();
     double rankContribution = page.rank / numLinks;
@@ -277,9 +277,9 @@ map(String pageId, PageData page) {
     }
 }
 
-// Reducer: Sum contributions
+/ Reducer: Sum contributions
 reduce(String pageId, Iterator<Double> contributions) {
-    double newRank = 0.15;  // Damping factor
+    double newRank = 0.15;  / Damping factor
     
     for (Double contrib : contributions) {
         newRank += 0.85 * contrib;
@@ -288,7 +288,7 @@ reduce(String pageId, Iterator<Double> contributions) {
     emit(pageId, newRank);
 }
 
-// Note: Requires multiple iterations (MapReduce weakness)
+/ Note: Requires multiple iterations (MapReduce weakness)
 ```
 
 ### 2. Log Analysis
@@ -427,12 +427,12 @@ graph TB
 ### MapReduce to Spark Translation
 
 ```scala
-// MapReduce style (multiple jobs)
-val job1 = new Job()  // Word count
-val job2 = new Job()  // Filter common words
-val job3 = new Job()  // Sort by frequency
+/ MapReduce style (multiple jobs)
+val job1 = new Job()  / Word count
+val job2 = new Job()  / Filter common words
+val job3 = new Job()  / Sort by frequency
 
-// Spark style (single job)
+/ Spark style (single job)
 val wordCounts = textFile
   .flatMap(_.split(" "))
   .map((_, 1))
@@ -468,10 +468,10 @@ val wordCounts = textFile
 
 ## Related Topics
 
-- [Apache Spark](../../apache-spark.md) - Next-generation replacement
-- [Apache Flink](flink) - Stream-first processing
+- [Apache Spark](../apache-spark.md) - Next-generation replacement
+- [Apache Flink](flink.md)) - Stream-first processing
 - [HDFS](hdfs.md) - Distributed file system
-- [Distributed Computing](../../pattern-library/distributed-computing.md/index.md) - Core concepts
+- [Distributed Computing](../pattern-library/distributed-computing.md/index.md) - Core concepts
 - [Google File System](gfs.md) - Storage layer
 
 ## References

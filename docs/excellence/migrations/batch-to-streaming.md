@@ -184,7 +184,7 @@ class IncrementalMigration:
 ### MapReduce Pattern Translation
 
 ```java
-// Original MapReduce Job
+/ Original MapReduce Job
 public class WordCountMR {
     public static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
         public void map(LongWritable key, Text value, Context context) {
@@ -206,25 +206,25 @@ public class WordCountMR {
     }
 }
 
-// Equivalent Kafka Streams
+/ Equivalent Kafka Streams
 public class WordCountStream {
     public static void main(String[] args) {
         StreamsBuilder builder = new StreamsBuilder();
         
-        // Input stream
+        / Input stream
         KStream<String, String> textLines = builder.stream("text-input");
         
-        // Processing - equivalent to Map phase
+        / Processing - equivalent to Map phase
         KTable<String, Long> wordCounts = textLines
             .flatMapValues(line -> Arrays.asList(line.split(" ")))
             .groupBy((key, word) -> word)
-            // Equivalent to Reduce phase
+            / Equivalent to Reduce phase
             .count(Materialized.as("word-counts-store"));
         
-        // Output
+        / Output
         wordCounts.toStream().to("word-count-output");
         
-        // Start streaming
+        / Start streaming
         KafkaStreams streams = new KafkaStreams(builder.build(), config);
         streams.start();
     }
@@ -329,7 +329,7 @@ def streaming_user_summary():
 ### State Management Implementation
 
 ```java
-// Batch: Session analysis with full history
+/ Batch: Session analysis with full history
 public class BatchSessionAnalysis {
     public void analyze() {
         Dataset<Row> events = spark.read().parquet("s3://events/");
@@ -347,18 +347,18 @@ public class BatchSessionAnalysis {
     }
 }
 
-// Streaming: Real-time session analysis
+/ Streaming: Real-time session analysis
 public class StreamingSessionAnalysis {
     public void buildTopology() {
         StreamsBuilder builder = new StreamsBuilder();
         
-        // Session store configuration
+        / Session store configuration
         SessionWindowedKStream<String, Event> sessionized = builder
             .stream("events", Consumed.with(Serdes.String(), eventSerde))
             .groupByKey()
             .windowedBy(SessionWindows.with(Duration.ofMinutes(30)));
         
-        // Aggregate session data
+        / Aggregate session data
         KTable<Windowed<String>, SessionInfo> sessions = sessionized
             .aggregate(
                 SessionInfo::new,
@@ -370,7 +370,7 @@ public class StreamingSessionAnalysis {
                     .withRetention(Duration.ofDays(7))
             );
         
-        // Filter and output active sessions
+        / Filter and output active sessions
         sessions.toStream()
             .filter((window, session) -> session.getEventCount() > 5)
             .map((window, session) -> {
@@ -381,7 +381,7 @@ public class StreamingSessionAnalysis {
     }
 }
 
-// Custom session info with state
+/ Custom session info with state
 public class SessionInfo {
     private String userId;
     private long sessionStart;
@@ -619,17 +619,17 @@ public class StreamingPerformanceTuning {
     public KafkaStreamsConfig optimizeForThroughput() {
         Properties props = new Properties();
         
-        // Buffer and batch settings
-        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 64 * 1024 * 1024); // 64MB
-        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 64 * 1024); // 64KB
-        props.put(ProducerConfig.LINGER_MS_CONFIG, 100); // Wait up to 100ms
+        / Buffer and batch settings
+        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 64 * 1024 * 1024); / 64MB
+        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 64 * 1024); / 64KB
+        props.put(ProducerConfig.LINGER_MS_CONFIG, 100); / Wait up to 100ms
         props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "lz4");
         
-        // Parallelism
+        / Parallelism
         props.put(StreamsConfig.NUM_STREAM_THREADS_CONFIG, 8);
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1000);
         
-        // State store optimization
+        / State store optimization
         props.put(StreamsConfig.ROCKSDB_CONFIG_SETTER_CLASS_CONFIG, 
                   RocksDBConfigSetter.class);
         
@@ -639,23 +639,23 @@ public class StreamingPerformanceTuning {
     public static class RocksDBConfigSetter implements RocksDBConfigSetter {
         @Override
         public void setConfig(String storeName, Options options, Map<String, Object> configs) {
-            // Optimize for SSD
+            / Optimize for SSD
             options.setCompactionStyle(CompactionStyle.LEVEL);
             options.setCompressionType(CompressionType.LZ4_COMPRESSION);
             
-            // Increase parallelism
+            / Increase parallelism
             options.setIncreaseParallelism(16);
             options.setMaxBackgroundCompactions(8);
             
-            // Memory settings
+            / Memory settings
             BlockBasedTableConfig tableConfig = new BlockBasedTableConfig();
-            tableConfig.setBlockCacheSize(512 * 1024 * 1024); // 512MB
+            tableConfig.setBlockCacheSize(512 * 1024 * 1024); / 512MB
             tableConfig.setCacheIndexAndFilterBlocks(true);
             options.setTableFormatConfig(tableConfig);
             
-            // Write optimization
+            / Write optimization
             options.setMaxWriteBufferNumber(4);
-            options.setWriteBufferSize(64 * 1024 * 1024); // 64MB
+            options.setWriteBufferSize(64 * 1024 * 1024); / 64MB
         }
     }
 }
@@ -860,7 +860,7 @@ performance_benchmarks:
 ### Challenge 1: Handling Late Data
 
 ```java
-// Solution: Watermarks and allowed lateness
+/ Solution: Watermarks and allowed lateness
 DataStream<Event> events = source
     .assignTimestampsAndWatermarks(
         WatermarkStrategy.<Event>forBoundedOutOfOrderness(Duration.ofMinutes(5))
@@ -873,11 +873,11 @@ WindowedStream<Event, String, TimeWindow> windowed = events
     .allowedLateness(Time.minutes(30))
     .sideOutputLateData(lateDataTag);
 
-// Process main window
+/ Process main window
 SingleOutputStreamOperator<Result> results = windowed
     .aggregate(new EventAggregator());
 
-// Handle late data separately
+/ Handle late data separately
 DataStream<Event> lateEvents = results.getSideOutput(lateDataTag);
 lateEvents.addSink(new LateDataHandler());
 ```
@@ -1021,5 +1021,5 @@ ORDER BY hour DESC;
 
 - Stream Processing Patterns
 - State Management in Streaming
-- [Kafka Best Practices](../../infrastructure/kafka-operations.md)
-- [Flink Production Guide](../../infrastructure/flink-production.md)
+- [Kafka Best Practices](../infrastructure/kafka-operations.md)
+- [Flink Production Guide](../infrastructure/flink-production.md)

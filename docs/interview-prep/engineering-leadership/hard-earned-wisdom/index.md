@@ -50,7 +50,7 @@ This wisdom builds upon and challenges the foundational principles:
 
 <div class="grid cards" markdown>
 
-- :material-fire:{ .lg } **[Managing Up: The Dark Art](../../engineering-leadership/hard-earned-wisdom/managing-up-dark-art.md)**
+- :material-fire:{ .lg } **[Managing Up: The Dark Art](../engineering-leadership/hard-earned-wisdom/managing-up-dark-art.md)**
     
     ---
     
@@ -59,7 +59,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: Decision-Making, Systems Thinking, Integrity
     **Reality Level**: Brutal
 
-- :material-skull:{ .lg } **[Performance Management: Beyond the Textbook](../../engineering-leadership/hard-earned-wisdom/performance-management-reality.md)**
+- :material-skull:{ .lg } **[Performance Management: Beyond the Textbook](../engineering-leadership/hard-earned-wisdom/performance-management-reality.md)**
     
     ---
     
@@ -68,7 +68,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: Human Behavior, Value Creation, Ethics
     **Reality Level**: Harsh
 
-- :material-bomb:{ .lg } **[Crisis Leadership: When Everything Burns](../../engineering-leadership/hard-earned-wisdom/crisis-leadership-reality.md)**
+- :material-bomb:{ .lg } **[Crisis Leadership: When Everything Burns](../engineering-leadership/hard-earned-wisdom/crisis-leadership-reality.md)**
     
     ---
     
@@ -77,7 +77,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: All Five Principles Under Fire
     **Reality Level**: Critical
 
-- :material-chess:{ .lg } **[Organizational Politics: Playing the Game](../../engineering-leadership/hard-earned-wisdom/organizational-politics-mastery.md)**
+- :material-chess:{ .lg } **[Organizational Politics: Playing the Game](../engineering-leadership/hard-earned-wisdom/organizational-politics-mastery.md)**
     
     ---
     
@@ -86,7 +86,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: Systems Thinking, Human Behavior, Strategy
     **Reality Level**: Essential
 
-- :material-scale-balance:{ .lg } **[Impossible Decisions: No-Win Scenarios](../../engineering-leadership/hard-earned-wisdom/impossible-decisions.md)**
+- :material-scale-balance:{ .lg } **[Impossible Decisions: No-Win Scenarios](../engineering-leadership/hard-earned-wisdom/impossible-decisions.md)**
     
     ---
     
@@ -95,7 +95,7 @@ This wisdom builds upon and challenges the foundational principles:
     **Challenges**: Decision-Making, Integrity, Value Creation
     **Reality Level**: Soul-crushing
 
-- :material-heart-broken:{ .lg } **[The Human Cost: Mental Health & Burnout](../../engineering-leadership/hard-earned-wisdom/human-cost-leadership.md)**
+- :material-heart-broken:{ .lg } **[The Human Cost: Mental Health & Burnout](../engineering-leadership/hard-earned-wisdom/human-cost-leadership.md)**
     
     ---
     
@@ -186,12 +186,12 @@ No matter how hard you try, you will let someone down. The question is whether y
 4. **Maintain Perspective**: Remember why you lead
 
 ### Navigation by Situation
-- **Facing a Crisis?** → Start with [Crisis Leadership](../../engineering-leadership/hard-earned-wisdom/crisis-leadership-reality.md)
-- **Political Warfare?** → See [Organizational Politics](../../engineering-leadership/hard-earned-wisdom/organizational-politics-mastery.md)
-- **Impossible Choice?** → Read [Impossible Decisions](../../engineering-leadership/hard-earned-wisdom/impossible-decisions.md)
-- **Team Issues?** → Check [Performance Management](../../engineering-leadership/hard-earned-wisdom/performance-management-reality.md)
-- **Executive Problems?** → Study [Managing Up](../../engineering-leadership/hard-earned-wisdom/managing-up-dark-art.md)
-- **Personal Cost?** → Visit [Human Cost](../../engineering-leadership/hard-earned-wisdom/human-cost-leadership.md)
+- **Facing a Crisis?** → Start with [Crisis Leadership](../engineering-leadership/hard-earned-wisdom/crisis-leadership-reality.md)
+- **Political Warfare?** → See [Organizational Politics](../engineering-leadership/hard-earned-wisdom/organizational-politics-mastery.md)
+- **Impossible Choice?** → Read [Impossible Decisions](../engineering-leadership/hard-earned-wisdom/impossible-decisions.md)
+- **Team Issues?** → Check [Performance Management](../engineering-leadership/hard-earned-wisdom/performance-management-reality.md)
+- **Executive Problems?** → Study [Managing Up](../engineering-leadership/hard-earned-wisdom/managing-up-dark-art.md)
+- **Personal Cost?** → Visit [Human Cost](../engineering-leadership/hard-earned-wisdom/human-cost-leadership.md)
 
 ## ⚠️ Warning
 

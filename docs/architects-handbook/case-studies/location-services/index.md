@@ -231,18 +231,18 @@ Aggregating billions of GPS points into global activity heatmaps and insights.
 ## 🔗 Cross-References
 
 ### Related Patterns  
-- [Consistent Hashing](../../../../pattern-library/architecture/consistent-hashing.md) - Spatial data distribution
-- [Edge Computing](../../../../pattern-library/scaling/edge-computing.md) - Low-latency location services
-- [Stream Processing](../../../../pattern-library/architecture/event-streaming.md) - Real-time location updates
+- [Consistent Hashing](../../pattern-library/architecture/consistent-hashing.md) - Spatial data distribution
+- [Edge Computing](../../pattern-library/scaling/edge-computing.md) - Low-latency location services
+- [Stream Processing](../../pattern-library/architecture/event-streaming.md) - Real-time location updates
 
 ### Quantitative Analysis
-- [Computational Geometry](../../quantitative-analysis/comp-geometry.md) - Spatial algorithms
-- [Haversine Formula](../../quantitative-analysis/haversine.md) - Distance calculations
-- [Spatial Statistics](../../quantitative-analysis/spatial-stats.md) - Location data analysis
+- [Computational Geometry](../architects-handbook/quantitative-analysis/comp-geometry.md) - Spatial algorithms
+- [Haversine Formula](../architects-handbook/quantitative-analysis/haversine.md) - Distance calculations
+- [Spatial Statistics](../architects-handbook/quantitative-analysis/spatial-stats.md) - Location data analysis
 
 ### Human Factors
-- [Privacy Engineering](../../human-factors/privacy-engineering.md) - Location privacy practices
-- [Mobile UX](../../human-factors/mobile-ux.md) - Location-aware mobile interfaces
+- [Privacy Engineering](../architects-handbook/human-factors/privacy-engineering.md) - Location privacy practices
+- [Mobile UX](../architects-handbook/human-factors/mobile-ux.md) - Location-aware mobile interfaces
 
 ## 🎯 Location Services Success Metrics
 

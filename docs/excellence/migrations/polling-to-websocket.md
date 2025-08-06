@@ -124,7 +124,7 @@ class RealtimeClient {
     }
     
     detectBestStrategy() {
-        // Priority order: WebSocket > SSE > Long Polling > Short Polling
+        / Priority order: WebSocket > SSE > Long Polling > Short Polling
         if ('WebSocket' in window && this.config.websocketEnabled) {
             return new WebSocketStrategy(this.config);
         } else if ('EventSource' in window && this.config.sseEnabled) {
@@ -213,7 +213,7 @@ class ConnectionManager {
             this.reconnectWithBackoff();
         });
         
-        // Heartbeat monitoring
+        / Heartbeat monitoring
         setInterval(() => {
             if (!this.currentStrategy.isHealthy()) {
                 this.fallbackToNext();
@@ -310,17 +310,17 @@ improvements:
 
 **Solution:**
 ```javascript
-// Before: Polling implementation
+/ Before: Polling implementation
 setInterval(async () => {
     const prices = await fetch('/api/prices');
     updateUI(prices);
 }, 1000);
 
-// After: WebSocket implementation
+/ After: WebSocket implementation
 const ws = new WebSocket('wss://api.trading.com/prices');
 ws.on('message', (data) => {
     const prices = JSON.parse(data);
-    updateUI(prices);  // Instant updates
+    updateUI(prices);  / Instant updates
 });
 ```
 
@@ -557,7 +557,7 @@ compare-results.py polling-results.json websocket-results.json
 
 **Solution:**
 ```javascript
-// Implement aggressive reconnection with exponential backoff
+/ Implement aggressive reconnection with exponential backoff
 class RobustWebSocket {
     constructor(url, options = {}) {
         this.url = url;
@@ -705,7 +705,7 @@ ORDER BY 1 DESC;
 
 ## Additional Resources
 
-- [WebSocket Protocol Deep Dive](../../protocols/websocket.md)
-- [Server-Sent Events Guide](../../protocols/sse.md)
+- [WebSocket Protocol Deep Dive](../protocols/websocket.md)
+- [Server-Sent Events Guide](../protocols/sse.md)
 - Real-time Architecture Patterns
-- [Load Balancing WebSockets](../../infrastructure/websocket-load-balancing.md)
+- [Load Balancing WebSockets](../infrastructure/websocket-load-balancing.md)

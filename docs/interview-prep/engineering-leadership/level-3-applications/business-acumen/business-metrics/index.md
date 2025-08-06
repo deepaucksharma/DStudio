@@ -25,5 +25,5 @@ Check back soon for detailed content on this topic.
 ---
 
 **Related Resources:**
-- [Engineering Leadership Home](../../../../engineering-leadership/index.md)
-- [Framework Overview](../../../../engineering-leadership/framework-index.md)
+- [Engineering Leadership Home](../../engineering-leadership/index.md)
+- [Framework Overview](../../engineering-leadership/framework-index.md)

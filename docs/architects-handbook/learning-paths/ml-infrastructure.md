@@ -106,7 +106,7 @@ outcomes:
 </div>
 
 !!! tip "ML Readiness Assessment"
-    Take our [ML Infrastructure Skills Assessment](../../tools/ml-infrastructure-quiz/index.md) to identify preparation gaps.
+    Take our [ML Infrastructure Skills Assessment](../tools/ml-infrastructure-quiz/index.md) to identify preparation gaps.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -128,7 +128,7 @@ outcomes:
     - [ ] Implement model versioning and lineage
     
     **Day 1-2**: ML Systems Architecture
-    - 📖 Read: [ML System Design Patterns](../../....../pattern-library/ml-systems.md/ml-architecture/index.md)
+    - 📖 Read: [ML System Design Patterns](../../pattern-library/ml-systems/ml-architecture/index.md)
     - 🛠️ Lab: Design end-to-end ML system architecture
     - 📊 Success: Architecture supporting training to inference
     - ⏱️ Time: 6-8 hours

@@ -512,8 +512,8 @@ if __name__ == "__main__":
     
     ---
     
-    - [Distributed Knowledge](../../core-principles/laws/distributed-knowledge.md) - Unified data access
-    - [Economic Reality](../../core-principles/laws/economic-reality.md) - Cost optimization strategies
+    - [Distributed Knowledge](../core-principles/laws/distributed-knowledge.md) - Unified data access
+    - [Economic Reality](../core-principles/laws/economic-reality.md) - Cost optimization strategies
 
 </div>
 

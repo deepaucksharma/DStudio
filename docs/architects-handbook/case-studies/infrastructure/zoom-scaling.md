@@ -50,7 +50,7 @@ best_for:
 - Bandwidth-adaptive streaming needs
 excellence_guides:
 - scale/traffic-spikes
-- ../../../pattern-library/video-streaming
+- ../../pattern-library/video-streaming
 - operational/auto-scaling
 key_innovations:
 - Distributed video routing architecture
@@ -336,7 +336,7 @@ class ResourceAllocator:
                 'cpu_cores': 16,
                 'memory_gb': 32,
                 'bandwidth_mbps': 1000,
-                'cascade_servers': meeting_size // 100
+                'cascade_servers': meeting_size / 100
             }
 ```
 
@@ -455,9 +455,9 @@ def calculate_required_capacity(historical_data, growth_rate, peak_factor):
 
 ## Related Resources
 
-- [Auto-scaling Pattern](../../pattern-library/scaling.md/auto-scaling.md)
-- [Geo-distribution Pattern](../../pattern-library/scaling.md/geo-distribution.md)
-- [Circuit Breaker Pattern](../../pattern-library/resilience.md/circuit-breaker.md)
+- [Auto-scaling Pattern](../pattern-library/scaling/auto-scaling.md)
+- [Geo-distribution Pattern](../pattern-library/scaling/geo-distribution.md)
+- [Circuit Breaker Pattern](../pattern-library/resilience/circuit-breaker.md)
 - [Zoom Engineering Blog](https://medium.com/zoom-developer-blog/index.md)
 
 ---

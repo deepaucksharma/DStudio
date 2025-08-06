@@ -10,7 +10,7 @@
 
 ### After: Progressive Disclosure Structure
 
-#### Main Page: `/../../pattern-library/resilience/circuit-breaker/index.md`
+#### Main Page: `/../pattern-library/resilience/circuit-breaker/index.md`
 
 # Circuit Breaker Pattern
 
@@ -133,28 +133,28 @@ stateDiagram-v2
 <div class="grid cards">
 <div class="card">
 <strong>📊 Configuration Deep Dive</strong>
-[Tuning thresholds, timeouts, and monitoring](/../..../pattern-library/resilience.md/circuit-breaker/configuration/index.md)
+[Tuning thresholds, timeouts, and monitoring](/../pattern-library/resilience/circuit-breaker/configuration/index.md)
 </div>
 
 <div class="card">
 <strong>🔬 Mathematical Foundation</strong>
-[Failure probability models and calculations](/../..../pattern-library/resilience.md/circuit-breaker/mathematics/index.md)
+[Failure probability models and calculations](/../pattern-library/resilience/circuit-breaker/mathematics/index.md)
 </div>
 
 <div class="card">
 <strong>🧪 Testing Strategies</strong>
-[Chaos engineering and failure injection](/../..../pattern-library/resilience.md/circuit-breaker/testing/index.md)
+[Chaos engineering and failure injection](/../pattern-library/resilience/circuit-breaker/testing/index.md)
 </div>
 
 <div class="card">
 <strong>🏗️ Advanced Patterns</strong>
-[Bulkhead + Circuit Breaker combinations](/../..../pattern-library/resilience.md/circuit-breaker/advanced/index.md)
+[Bulkhead + Circuit Breaker combinations](/../pattern-library/resilience/circuit-breaker/advanced/index.md)
 </div>
 </div>
 
 ---
 
-#### Subpage 1: `/../../pattern-library/resilience/circuit-breaker/configuration.md`
+#### Subpage 1: `/../pattern-library/resilience/circuit-breaker/configuration.md`
 
 # Circuit Breaker Configuration Guide
 
@@ -193,7 +193,7 @@ circuit_breaker:
 
 ---
 
-#### Subpage 2: `/../../pattern-library/resilience/circuit-breaker/mathematics.md`
+#### Subpage 2: `/../pattern-library/resilience/circuit-breaker/mathematics.md`
 
 # Circuit Breaker Mathematics
 

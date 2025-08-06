@@ -275,11 +275,11 @@ graph LR
 
 ## Related Patterns
 
-- [Logical Clocks](..../pattern-library/coordination.md/logical-clocks.md) - Simpler causality tracking
-- [Vector Clocks](..../pattern-library/coordination.md/logical-clocks.md) - Full concurrency detection
-- [Clock Synchronization](..../pattern-library/coordination.md/clock-sync.md) - Physical time coordination
-- [Event Sourcing](..../pattern-library/data-management.md/event-sourcing.md) - Event streams with HLC
-- [Consensus](..../pattern-library/coordination.md/consensus.md) - Often combined with HLC
+- [Logical Clocks](../pattern-library/coordination/logical-clocks.md) - Simpler causality tracking
+- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Full concurrency detection
+- [Clock Synchronization](../pattern-library/coordination/clock-sync.md) - Physical time coordination
+- [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Event streams with HLC
+- [Consensus](../pattern-library/coordination/consensus.md) - Often combined with HLC
 
 ## References
 

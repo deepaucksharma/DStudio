@@ -105,7 +105,7 @@ outcomes:
 </div>
 
 !!! tip "Quantum Readiness Check"
-    Complete our [Quantum Security Assessment](../../tools/quantum-readiness-quiz/index.md) to evaluate your preparation level.
+    Complete our [Quantum Security Assessment](../tools/quantum-readiness-quiz/index.md) to evaluate your preparation level.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -127,7 +127,7 @@ outcomes:
     - [ ] Assess timeline for cryptographically relevant quantum computers
     
     **Day 1-2**: Quantum Mechanics for Computing
-    - 📖 Read: [Quantum computing principles](../../quantitative-analysis/quantum-computing/index.md), qubits, superposition, entanglement
+    - 📖 Read: [Quantum computing principles](../architects-handbook/quantitative-analysis/quantum-computing/index.md), qubits, superposition, entanglement
     - 🛠️ Lab: Simulate quantum circuits with Qiskit
     - 📊 Success: Implement basic quantum algorithms
     - ⏱️ Time: 6-8 hours

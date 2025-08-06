@@ -99,7 +99,7 @@ class ContentValidator:
 
 #### 1.3 Interactive Tools Testing
 ```javascript
-// Calculator Validation Framework
+/ Calculator Validation Framework
 const calculatorTests = {
     capacity_planner: {
         inputs: {valid: [...], invalid: [...], edge_cases: [...]},
@@ -162,7 +162,7 @@ Performance Benchmarks:
 
 #### 3.2 Mobile & Accessibility Testing
 ```javascript
-// Automated accessibility testing
+/ Automated accessibility testing
 const accessibilityTests = {
     color_contrast: "WCAG AA compliance",
     keyboard_navigation: "All interactive elements accessible",

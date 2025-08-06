@@ -49,7 +49,7 @@ deprecation_reason: Many organizations jumped to microservices without understan
   and extracting services only when proven necessary.
 excellence_guides:
 - migration/microservices
-- ../../../pattern-library/anti-patterns
+- ../../pattern-library/anti-patterns
 - architecture/evolution
 key_innovations:
 - Strangler fig pattern for gradual migration
@@ -550,9 +550,9 @@ def evolutionary_architecture():
 
 ## Related Resources
 
-- [Modular Monolith Pattern](../../pattern-library/modular-monolith.md)
-- [Service Boundaries Guide](../../architecture/boundaries.md)
-- [Anti-Patterns: Distributed Monolith](../../reference/anti-patterns/#distributed-monolith/index.md)
+- [Modular Monolith Pattern](../pattern-library/modular-monolith.md)
+- [Service Boundaries Guide](../architecture/boundaries.md)
+- [Anti-Patterns: Distributed Monolith](../reference/anti-patterns/#distributed-monolith/index.md)
 - [Team Topologies](https://teamtopologies.com/index.md)
 
 ---

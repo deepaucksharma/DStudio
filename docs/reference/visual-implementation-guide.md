@@ -406,7 +406,7 @@ graph TD
 
 #### Progressive Disclosure
 ```javascript
-// JavaScript for progressive disclosure
+/ JavaScript for progressive disclosure
 function showLevel(level) {
     const diagrams = {
         1: 'graph TD\n    A[Simple Overview] --> B[Key Concept]',
@@ -485,7 +485,7 @@ stateDiagram-v2
 ```java
 public class CircuitBreaker {
     private State state = State.CLOSED;
-    // Implementation details...
+    / Implementation details...
 }
 ```
 

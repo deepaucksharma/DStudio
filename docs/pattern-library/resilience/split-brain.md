@@ -278,17 +278,17 @@ class GenerationBasedResolver:
     
     ---
     
-    - [Leader Election](../../pattern-library/coordination/leader-election.md) - Choose single leader
-    - [Consensus](../../pattern-library/coordination/consensus.md) - Agreement protocols
+    - [Leader Election](../pattern-library/coordination/leader-election.md) - Choose single leader
+    - [Consensus](../pattern-library/coordination/consensus.md) - Agreement protocols
     - [Fencing Tokens](../coordination/fencing.md) - Prevent old leaders
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Network partitions happen
-    - [Law 2: Asynchronous Reality](../../core-principles/laws/asynchronous-reality/index.md) - Can't detect true failure
-    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md) - Partial views differ
+    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Network partitions happen
+    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - Can't detect true failure
+    - [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Partial views differ
 
 </div>
 

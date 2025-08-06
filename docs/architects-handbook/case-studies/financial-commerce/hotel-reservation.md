@@ -455,18 +455,18 @@ public class BookingSaga {
                 StepResult result = step.execute(context);
                 
                 if (!result.isSuccess()) {
-                    // Compensate previous steps
+                    / Compensate previous steps
                     compensate(compensations, context);
                     return BookingResult.failed(result.getError());
                 }
                 
-                // Record compensation action
+                / Record compensation action
                 compensations.add(0, result.getCompensation());
                 
-                // Update context
+                / Update context
                 context.addStepResult(step.getName(), result);
                 
-                // Persist saga state
+                / Persist saga state
                 persistSagaState(context);
                 
             } catch (Exception e) {
@@ -483,9 +483,9 @@ public class BookingSaga {
             try {
                 action.compensate(context);
             } catch (Exception e) {
-                // Log but continue compensation
+                / Log but continue compensation
                 log.error("Compensation failed for saga: " + context.getSagaId(), e);
-                // Queue for manual intervention
+                / Queue for manual intervention
                 queueForManualRecovery(context, action, e);
             }
         }
@@ -793,7 +793,7 @@ public class RealTimeAvailabilityService {
     private final Map<String, AvailabilitySubscriber> subscribers;
     
     public void publishAvailabilityChange(AvailabilityUpdate update) {
-        // Create Kafka record
+        / Create Kafka record
         ProducerRecord<String, AvailabilityUpdate> record = 
             new ProducerRecord<>(
                 "hotel-availability",
@@ -801,11 +801,11 @@ public class RealTimeAvailabilityService {
                 update
             );
         
-        // Send asynchronously
+        / Send asynchronously
         producer.send(record, (metadata, exception) -> {
             if (exception != null) {
                 log.error("Failed to publish availability update", exception);
-                // Retry logic
+                / Retry logic
                 retryQueue.add(update);
             } else {
                 log.debug("Published update to partition {} offset {}", 
@@ -813,7 +813,7 @@ public class RealTimeAvailabilityService {
             }
         });
         
-        // Also push to WebSocket subscribers
+        / Also push to WebSocket subscribers
         String channelKey = update.getHotelId() + ":" + update.getDateRange();
         AvailabilitySubscriber subscriber = subscribers.get(channelKey);
         
@@ -824,7 +824,7 @@ public class RealTimeAvailabilityService {
     
     @KafkaListener(topics = "hotel-availability")
     public void consumeAvailabilityUpdate(AvailabilityUpdate update) {
-        // Update local cache
+        / Update local cache
         availabilityCache.update(
             update.getHotelId(),
             update.getRoomType(),
@@ -832,10 +832,10 @@ public class RealTimeAvailabilityService {
             update.getAvailableRooms()
         );
         
-        // Update search index
+        / Update search index
         searchIndexUpdater.updateAvailability(update);
         
-        // Notify connected clients
+        / Notify connected clients
         webSocketManager.broadcast(
             "/topic/availability/" + update.getHotelId(),
             update

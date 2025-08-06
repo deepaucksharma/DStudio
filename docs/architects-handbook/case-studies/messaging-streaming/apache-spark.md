@@ -40,7 +40,7 @@ patterns_used:
   - none: Modern architecture throughout
 excellence_guides:
 - scale/big-data-processing
-- ../../../pattern-library/distributed-computing
+- ../../pattern-library/distributed-computing
 - operational/spark-excellence
 ---
 
@@ -106,19 +106,19 @@ graph TB
 ### Resilient Distributed Datasets
 
 ```scala
-// RDD: Immutable, partitioned collection
+/ RDD: Immutable, partitioned collection
 val textFile = spark.textFile("hdfs://...")
 
-// Transformations (lazy)
+/ Transformations (lazy)
 val words = textFile
   .flatMap(line => line.split(" "))
   .filter(word => word.length > 3)
 
-// Actions (trigger execution)
-val count = words.count()  // Executes entire DAG
+/ Actions (trigger execution)
+val count = words.count()  / Executes entire DAG
 
-// Persistence
-words.cache()  // Keep in memory for reuse
+/ Persistence
+words.cache()  / Keep in memory for reuse
 ```
 
 ### RDD Lineage (Fault Tolerance)
@@ -146,7 +146,7 @@ graph LR
 ### DAG Construction and Optimization
 
 ```scala
-// User code
+/ User code
 val result = input
   .filter(_.age > 18)
   .map(u => (u.city, 1))
@@ -223,19 +223,19 @@ sequenceDiagram
 ### API Evolution
 
 ```scala
-// 1. RDD API (2014) - Low level
+/ 1. RDD API (2014) - Low level
 val wordCounts = textFile
   .flatMap(_.split(" "))
   .map(word => (word, 1))
   .reduceByKey(_ + _)
 
-// 2. DataFrame API (2015) - SQL-like
+/ 2. DataFrame API (2015) - SQL-like
 val wordCounts = textFile
   .select(explode(split($"value", " ")).as("word"))
   .groupBy("word")
   .count()
 
-// 3. Dataset API (2016) - Type safe + optimization
+/ 3. Dataset API (2016) - Type safe + optimization
 case class Word(word: String, count: Long)
 val wordCounts = textFile
   .flatMap(_.split(" "))
@@ -283,9 +283,9 @@ graph TB
 ### Structured Streaming
 
 ```scala
-// Same API for batch and streaming!
+/ Same API for batch and streaming!
 val df = spark
-  .readStream  // Change: read → readStream
+  .readStream  / Change: read → readStream
   .format("kafka")
   .option("subscribe", "events")
   .load()
@@ -296,7 +296,7 @@ val counts = df
   .groupBy("word")
   .count()
 
-counts.writeStream  // Change: write → writeStream
+counts.writeStream  / Change: write → writeStream
   .outputMode("complete")
   .format("console")
   .start()
@@ -316,16 +316,16 @@ counts.writeStream  // Change: write → writeStream
 ### Dynamic Resource Allocation
 
 ```scala
-// Spark configuration
+/ Spark configuration
 spark.conf.set("spark.dynamicAllocation.enabled", "true")
 spark.conf.set("spark.dynamicAllocation.minExecutors", "10")
 spark.conf.set("spark.dynamicAllocation.maxExecutors", "1000")
 spark.conf.set("spark.dynamicAllocation.executorIdleTimeout", "60s")
 
-// Scales based on workload
-// - Idle executors released after 60s
-// - New executors requested for pending tasks
-// - Maintains 10-1000 executor range
+/ Scales based on workload
+/ - Idle executors released after 60s
+/ - New executors requested for pending tasks
+/ - Maintains 10-1000 executor range
 ```
 
 ### Memory Management
@@ -352,23 +352,23 @@ graph TB
 ### Optimization Techniques
 
 ```scala
-// 1. Partition optimization
-val optimalPartitions = inputSize / 128MB  // Target partition size
+/ 1. Partition optimization
+val optimalPartitions = inputSize / 128MB  / Target partition size
 df.repartition(optimalPartitions)
 
-// 2. Broadcast joins for small tables
+/ 2. Broadcast joins for small tables
 val smallTable = spark.table("users").cache()
 val largeTable = spark.table("events")
 
 largeTable.join(broadcast(smallTable), "user_id")
 
-// 3. Avoid shuffles
-df.groupBy("key").agg(sum("value"))  // Shuffle required
-df.reduceByKey(_ + _)  // More efficient for RDD
+/ 3. Avoid shuffles
+df.groupBy("key").agg(sum("value"))  / Shuffle required
+df.reduceByKey(_ + _)  / More efficient for RDD
 
-// 4. Cache strategically
+/ 4. Cache strategically
 val frequentlyUsed = df.filter(...).cache()
-frequentlyUsed.count()  // Trigger cache
+frequentlyUsed.count()  / Trigger cache
 ```
 
 ## Real-World Use Cases
@@ -376,11 +376,11 @@ frequentlyUsed.count()  // Trigger cache
 ### Netflix: Content Recommendations
 
 ```scala
-// Collaborative filtering at scale
+/ Collaborative filtering at scale
 val userFactors = als.fit(ratings).userFactors
 val itemFactors = als.fit(ratings).itemFactors
 
-// Generate recommendations for all users
+/ Generate recommendations for all users
 val recommendations = userFactors
   .crossJoin(itemFactors)
   .selectExpr("user_id", "item_id", 
@@ -389,7 +389,7 @@ val recommendations = userFactors
   .groupBy("user_id")
   .agg(collect_list(struct("item_id", "score")).as("recommendations"))
 
-// Process 100M+ users x 100K+ items
+/ Process 100M+ users x 100K+ items
 ```
 
 ### Uber: Real-time Analytics
@@ -443,11 +443,11 @@ graph LR
 ### Shuffle Optimization
 
 ```scala
-// Problem: Skewed join
+/ Problem: Skewed join
 val skewedJoin = orders.join(users, "user_id")
-// User 'power_user' has 1M orders, others have 100
+/ User 'power_user' has 1M orders, others have 100
 
-// Solution: Salting
+/ Solution: Salting
 val saltedOrders = orders
   .withColumn("salt", when($"user_id" === "power_user", 
     rand() * 100).otherwise(0))
@@ -498,15 +498,15 @@ graph TB
 ### GPU Acceleration
 
 ```scala
-// RAPIDS integration
+/ RAPIDS integration
 spark.conf.set("spark.rapids.sql.enabled", "true")
 spark.conf.set("spark.task.resource.gpu.amount", "0.25")
 
-// Automatically uses GPU for:
-// - Joins, aggregations
-// - Sorting, filtering  
-// - Parquet reading
-// - ML operations
+/ Automatically uses GPU for:
+/ - Joins, aggregations
+/ - Sorting, filtering  
+/ - Parquet reading
+/ - ML operations
 ```
 
 ## Lessons Learned
@@ -524,22 +524,22 @@ spark.conf.set("spark.task.resource.gpu.amount", "0.25")
 1. **Not Understanding Lazy Evaluation**:
    ```scala
    val df = spark.read.parquet("huge_file")
-   df.filter(condition)  // Nothing happens yet!
-   df.count()  // NOW it executes
+   df.filter(condition)  / Nothing happens yet!
+   df.count()  / NOW it executes
    ```
 
 2. **Collecting Large Data**:
    ```scala
-   // DON'T: OOM on driver
+   / DON'T: OOM on driver
    val allData = hugeRDD.collect()
    
-   // DO: Process distributed
+   / DO: Process distributed
    hugeRDD.foreach(processRecord)
    ```
 
 3. **Ignoring Data Skew**:
    ```scala
-   // Monitor partition sizes
+   / Monitor partition sizes
    df.rdd.mapPartitions(iter => 
      Iterator(iter.size)).collect()
    ```
@@ -578,10 +578,10 @@ spark.conf.set("spark.task.resource.gpu.amount", "0.25")
 
 ## Related Topics
 
-- [MapReduce](../../architects-handbook/case-studies.md/messaging-streaming/mapreduce.md) - Predecessor comparison
-- [Distributed Computing](../../pattern-library/distributed-computing.md/index.md) - Core concepts
-- [Stream Processing](../../pattern-library/stream-processing.md/index.md) - Streaming patterns
-- [Apache Flink](flink) - Alternative engine
+- [MapReduce](../architects-handbook/case-studies/messaging-streaming/mapreduce.md) - Predecessor comparison
+- [Distributed Computing](../pattern-library/distributed-computing.md/index.md) - Core concepts
+- [Stream Processing](../pattern-library/stream-processing.md/index.md) - Streaming patterns
+- [Apache Flink](flink.md)) - Alternative engine
 - [Databricks](databricks.md) - Commercial Spark platform
 
 ## References

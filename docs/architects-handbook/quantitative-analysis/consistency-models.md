@@ -324,7 +324,7 @@ $= 5\text{ms}$ (local write only)
  On read request:
  ```
  if (replica.version < session.highestRead) {
-   // Forward to newer replica or wait
+   / Forward to newer replica or wait
  }
  ```
  On write request:
@@ -550,7 +550,7 @@ GROUP BY datacenter
 ## Related Topics
 
 - CAP Theorem (Coming Soon) - The fundamental trade-off
-- [Vector Clocks](../../pattern-library/coordination/logical-clocks.md) - Implementing causal consistency
-- [Consensus Algorithms](../../pattern-library/coordination/consensus.md) - Achieving strong consistency
-- [Eventual Consistency](../../pattern-library/data-management/eventual-consistency.md) - Design patterns
-- [CRDT](../../pattern-library/data-management/crdt.md) - Conflict-free replicated data types
+- [Vector Clocks](../pattern-library/coordination/logical-clocks.md) - Implementing causal consistency
+- [Consensus Algorithms](../pattern-library/coordination/consensus.md) - Achieving strong consistency
+- [Eventual Consistency](../pattern-library/data-management/eventual-consistency.md) - Design patterns
+- [CRDT](../pattern-library/data-management/crdt.md) - Conflict-free replicated data types

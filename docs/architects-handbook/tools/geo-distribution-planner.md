@@ -240,7 +240,7 @@ Total Latency = Propagation + Transmission + Processing + Queueing
 - [Latency Calculator](latency-calculator.md)
 - [Cost Optimizer](cost-optimizer.md)
 - [Availability Calculator](availability-calculator.md)
-- [CDN Architecture Patterns](../../../pattern-library/scaling/caching-strategies.md)
+- [CDN Architecture Patterns](../../pattern-library/scaling/caching-strategies.md)
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -248,7 +248,7 @@ let distributionChart = null;
 let latencyChart = null;
 let costChart = null;
 
-// Region data with latency information
+/ Region data with latency information
 const regionData = {
     'us-east-1': { name: 'US East (N. Virginia)', lat: 39.0458, lng: -77.5077, cost: 1.0, availability: 99.99 },
     'us-west-2': { name: 'US West (Oregon)', lat: 45.5152, lng: -122.6784, cost: 1.0, availability: 99.99 },
@@ -306,7 +306,7 @@ function validateGeoInputs() {
     
     const errors = [];
     
-    // Validate numeric inputs
+    / Validate numeric inputs
     for (const [key, input] of Object.entries(inputs)) {
         if (isNaN(input.value)) {
             errors.push(`${input.name} must be a number`);
@@ -318,7 +318,7 @@ function validateGeoInputs() {
         }
     }
     
-    // Validate traffic percentages
+    / Validate traffic percentages
     const trafficPercentages = Array.from(document.querySelectorAll('.traffic-percentage'));
     const totalTraffic = trafficPercentages.reduce((sum, input) => {
         const value = parseFloat(input.value) || 0;
@@ -329,7 +329,7 @@ function validateGeoInputs() {
         errors.push(`Traffic percentages must sum to 100% (currently ${totalTraffic}%)`);
     }
     
-    // Check for duplicate regions
+    / Check for duplicate regions
     const selectedRegions = Array.from(document.querySelectorAll('.region-select')).map(select => select.value);
     const uniqueRegions = new Set(selectedRegions);
     if (selectedRegions.length !== uniqueRegions.size) {
@@ -345,9 +345,9 @@ function calculateLatencyBetweenRegions(region1, region2) {
     
     if (!r1 || !r2) return 0;
     
-    // Calculate great circle distance
+    / Calculate great circle distance
     const toRad = (deg) => deg * (Math.PI / 180);
-    const R = 6371; // Earth's radius in km
+    const R = 6371; / Earth's radius in km
     
     const dLat = toRad(r2.lat - r1.lat);
     const dLng = toRad(r2.lng - r1.lng);
@@ -358,10 +358,10 @@ function calculateLatencyBetweenRegions(region1, region2) {
     
     const distance = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     
-    // Base latency calculation (speed of light in fiber ~200,000 km/s)
-    const baseLatency = (distance / 200000) * 1000 * 2; // Round trip in ms
+    / Base latency calculation (speed of light in fiber ~200,000 km/s)
+    const baseLatency = (distance / 200000) * 1000 * 2; / Round trip in ms
     
-    // Add processing overhead (10-50ms per hop)
+    / Add processing overhead (10-50ms per hop)
     const processingOverhead = 25 + Math.random() * 25;
     
     return Math.round(baseLatency + processingOverhead);
@@ -376,7 +376,7 @@ function calculateGeoDistribution() {
     
     const inputs = validation.inputs;
     
-    // Collect region configuration
+    / Collect region configuration
     const regionRows = document.querySelectorAll('.region-row');
     const regionConfig = [];
     
@@ -391,35 +391,35 @@ function calculateGeoDistribution() {
     const budgetConstraint = inputs.budgetConstraint.value;
     const globalTraffic = inputs.globalTraffic.value;
     
-    // Calculate CDN impact
+    / Calculate CDN impact
     let cdnLatencyReduction = 0;
     let cdnCostMultiplier = 1.0;
     
     switch(cdnEnabled) {
         case 'basic':
-            cdnLatencyReduction = 30; // 30% reduction for static assets
+            cdnLatencyReduction = 30; / 30% reduction for static assets
             cdnCostMultiplier = 1.1;
             break;
         case 'dynamic':
-            cdnLatencyReduction = 50; // 50% reduction with dynamic acceleration
+            cdnLatencyReduction = 50; / 50% reduction with dynamic acceleration
             cdnCostMultiplier = 1.2;
             break;
         case 'edge-compute':
-            cdnLatencyReduction = 70; // 70% reduction with edge computing
+            cdnLatencyReduction = 70; / 70% reduction with edge computing
             cdnCostMultiplier = 1.4;
             break;
     }
     
-    // Calculate costs and latencies for each region
+    / Calculate costs and latencies for each region
     const analysis = regionConfig.map((config, index) => {
-        const baseInstanceCost = 100; // Base cost per month
-        const trafficCost = (globalTraffic * config.traffic / 100) * 0.01; // $0.01 per million requests
+        const baseInstanceCost = 100; / Base cost per month
+        const trafficCost = (globalTraffic * config.traffic / 100) * 0.01; / $0.01 per million requests
         
         const monthlyCost = (baseInstanceCost * config.data.cost + trafficCost) * cdnCostMultiplier;
         
-        // Calculate average latency to other regions
+        / Calculate average latency to other regions
         const interRegionLatencies = regionConfig.map((otherConfig, otherIndex) => {
-            if (index === otherIndex) return 5; // Internal latency
+            if (index === otherIndex) return 5; / Internal latency
             return calculateLatencyBetweenRegions(config.region, otherConfig.region);
         });
         
@@ -441,7 +441,7 @@ function calculateGeoDistribution() {
     const totalCost = analysis.reduce((sum, region) => sum + region.monthlyCost, 0);
     const withinBudget = totalCost <= budgetConstraint;
     
-    // Generate compliance analysis
+    / Generate compliance analysis
     const complianceChecks = {
         gdpr: document.getElementById('gdprCompliance').checked,
         ccpa: document.getElementById('ccpaCompliance').checked,
@@ -453,7 +453,7 @@ function calculateGeoDistribution() {
     let resultsHTML = generateGeoResults(analysis, totalCost, withinBudget, complianceChecks, targetLatency);
     document.getElementById('results').innerHTML = resultsHTML;
     
-    // Draw charts
+    / Draw charts
     setTimeout(() => {
         drawDistributionChart(analysis);
         drawLatencyChart(analysis);
@@ -716,9 +716,9 @@ function drawCostChart(analysis) {
 }
 
 function runScenario(scenarioType) {
-    // Implementation for what-if scenarios
+    / Implementation for what-if scenarios
     console.log('Running scenario:', scenarioType);
-    // This would modify the inputs and recalculate
+    / This would modify the inputs and recalculate
 }
 
 function exportResults() {
@@ -747,7 +747,7 @@ function exportResults() {
     URL.revokeObjectURL(url);
 }
 
-// Initialize with default regions
+/ Initialize with default regions
 document.addEventListener('DOMContentLoaded', function() {
     const defaultRegions = [
         { region: 'us-east-1', traffic: 30 },
@@ -758,11 +758,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('regionTraffic');
     const firstRow = container.querySelector('.region-row');
     
-    // Update first row
+    / Update first row
     firstRow.querySelector('.region-select').value = defaultRegions[0].region;
     firstRow.querySelector('.traffic-percentage').value = defaultRegions[0].traffic;
     
-    // Add additional rows
+    / Add additional rows
     for (let i = 1; i < defaultRegions.length; i++) {
         addRegion();
         const newRow = container.lastElementChild;

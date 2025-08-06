@@ -208,12 +208,12 @@ A_total = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
 
 - [Availability Math Deep Dive](quantitative/availability-math/index.md)
 - [MTBF and MTTR Explained](quantitative/mtbf-mttr/index.md)
-- [Failover Pattern](../..../pattern-library/resilience.md/failover/index.md)
+- [Failover Pattern](../pattern-library/resilience/failover/index.md)
 - Multi-Region Architecture (Coming Soon)
-- [Chaos Engineering](../..../architects-handbook/human-factors.md/chaos-engineering.md)
+- [Chaos Engineering](../architects-handbook/human-factors/chaos-engineering.md)
 
 <script>
-// Enhanced availability calculator with validation and visualizations
+/ Enhanced availability calculator with validation and visualizations
 let availChart = null;
 
 function validateAvailabilityInputs() {
@@ -230,7 +230,7 @@ function validateAvailabilityInputs() {
  
  const errors = [];
  
- // Validate numeric inputs
+ / Validate numeric inputs
  for (const [key, input] of Object.entries(inputs)) {
  if (key === 'redundancyType') continue;
  
@@ -242,7 +242,7 @@ function validateAvailabilityInputs() {
  }
  }
  
- // Validate MTBF > MTTR
+ / Validate MTBF > MTTR
  if (inputs.mtbf.value <= inputs.mttr.value) {
  errors.push('MTBF must be greater than MTTR');
  }
@@ -251,7 +251,7 @@ function validateAvailabilityInputs() {
 }
 
 function calculateAvailability() {
- // Validate inputs
+ / Validate inputs
  const validation = validateAvailabilityInputs();
  if (!validation.valid) {
  displayAvailabilityErrors(validation.errors);
@@ -259,9 +259,9 @@ function calculateAvailability() {
  }
  
  const inputs = validation.inputs;
- const failoverTimeHours = inputs.failoverTime.value / 60; // Convert to hours
+ const failoverTimeHours = inputs.failoverTime.value / 60; / Convert to hours
  
- // Calculate base component availability
+ / Calculate base component availability
  const mtbf = inputs.mtbf.value;
  const mttr = inputs.mttr.value;
  const numComponents = inputs.numComponents.value;
@@ -273,16 +273,16 @@ function calculateAvailability() {
  
  const componentAvailability = mtbf / (mtbf + mttr);
  
- // Calculate serial system availability
+ / Calculate serial system availability
  const serialAvailability = Math.pow(componentAvailability, numComponents);
  
- // Apply redundancy
+ / Apply redundancy
  let systemAvailability = serialAvailability;
  let redundancyFactor = 1;
  
  switch(redundancyType) {
  case 'active-standby':
- // 1+1 redundancy with failover time
+ / 1+1 redundancy with failover time
  const effectiveMTTR = failoverTime;
  const redundantAvailability = 1 - Math.pow(1 - (mtbf / (mtbf + effectiveMTTR)), 2);
  systemAvailability = Math.pow(redundantAvailability, numComponents);
@@ -290,40 +290,40 @@ function calculateAvailability() {
  break;
  
  case 'n-plus-1':
- // N+1 redundancy
+ / N+1 redundancy
  systemAvailability = 1 - Math.pow(1 - serialAvailability, 2);
  redundancyFactor = 1.1;
  break;
  
  case 'n-plus-2':
- // N+2 redundancy
+ / N+2 redundancy
  systemAvailability = 1 - Math.pow(1 - serialAvailability, 3);
  redundancyFactor = 1.2;
  break;
  
  case 'active-active':
- // 2N redundancy
+ / 2N redundancy
  systemAvailability = 1 - Math.pow(1 - serialAvailability, 2);
  redundancyFactor = 2;
  break;
  }
  
- // Apply multi-region configuration
+ / Apply multi-region configuration
  if (numRegions > 1) {
  const regionAvailability = 1 - regionFailureRate;
  const multiRegionAvailability = 1 - Math.pow(1 - (systemAvailability * regionAvailability), numRegions);
  systemAvailability = multiRegionAvailability;
  }
  
- // Calculate downtime
+ / Calculate downtime
  const yearlyHours = 8760;
  const downtimeHours = (1 - systemAvailability) * yearlyHours;
  const downtimeMinutes = downtimeHours * 60;
  
- // Calculate nines
+ / Calculate nines
  const nines = -Math.log10(1 - systemAvailability);
  
- // Generate results
+ / Generate results
  let resultsHTML = `
  <h3>📊 Availability Analysis</h3>
  
@@ -427,7 +427,7 @@ function calculateAvailability() {
  <ul>
  `;
  
- // Add specific recommendations
+ / Add specific recommendations
  if (systemAvailability < targetSLA / 100) {
  resultsHTML += '<li class="urgent">⚠️ Immediate action needed to meet SLA target</li>';
  
@@ -461,7 +461,7 @@ function calculateAvailability() {
  
  document.getElementById('results').innerHTML = resultsHTML;
  
- // Draw availability chart
+ / Draw availability chart
  drawAvailabilityChart(systemAvailability);
 }
 
@@ -499,26 +499,26 @@ function drawAvailabilityChart(availability) {
  const width = canvas.width;
  const height = canvas.height;
  
- // Clear canvas
+ / Clear canvas
  ctx.clearRect(0, 0, width, height);
  
- // Draw availability bar
+ / Draw availability bar
  const barHeight = 40;
  const barY = height / 2 - barHeight / 2;
  
- // Background (downtime)
+ / Background (downtime)
  ctx.fillStyle = '#ff6b6b';
  ctx.fillRect(0, barY, width, barHeight);
  
- // Availability portion
+ / Availability portion
  ctx.fillStyle = '#51cf66';
  ctx.fillRect(0, barY, width * availability, barHeight);
  
- // Draw scale
+ / Draw scale
  ctx.fillStyle = '#333';
  ctx.font = '12px sans-serif';
  
- // SLA markers
+ / SLA markers
  const slaMarkers = [0.99, 0.999, 0.9999, 0.99999];
  slaMarkers.forEach(sla => {
  const x = width * sla;
@@ -531,7 +531,7 @@ function drawAvailabilityChart(availability) {
  ctx.fillText(`${(sla * 100)}%`, x - 20, barY - 15);
  });
  
- // Current position
+ / Current position
  const currentX = width * availability;
  ctx.strokeStyle = '#000';
  ctx.lineWidth = 2;
@@ -540,7 +540,7 @@ function drawAvailabilityChart(availability) {
  ctx.lineTo(currentX, barY + barHeight + 5);
  ctx.stroke();
  
- // Label
+ / Label
  ctx.fillStyle = '#000';
  ctx.font = 'bold 14px sans-serif';
  ctx.fillText('Current', currentX - 25, barY + barHeight + 25);

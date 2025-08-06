@@ -166,60 +166,60 @@ Throughput = Concurrency / Response Time
 
 ## Related Resources
 
-- [Universal Scalability Law](quantitative-analysis/universal-scalability.mdindex.md)
-- [Little's Law](quantitative-analysis/littles-law.mdindex.md)
+- [Universal Scalability Law](../architects-handbook/quantitative-analysis/universal-scalability.mdindex.md)
+- [Little's Law](../architects-handbook/quantitative-analysis/littles-law.mdindex.md)
 - [Performance Modeling](quantitative/performance-modeling/index.md)
-- [Load Balancing Pattern](../..../pattern-library/scaling.md/load-balancing/index.md)
+- [Load Balancing Pattern](../pattern-library/scaling/load-balancing/index.md)
 - Queue Performance (Coming Soon)
 
 <script>
 function calculateThroughput() {
- // Get inputs
+ / Get inputs
  const taskTime = parseFloat(document.getElementById('taskTime').value);
  const setupTime = parseFloat(document.getElementById('setupTime').value);
  const maxConcurrency = parseInt(document.getElementById('maxConcurrency').value);
  const coordinationOverhead = parseFloat(document.getElementById('coordinationOverhead').value) / 100;
  const memoryPerTask = parseFloat(document.getElementById('memoryPerTask').value);
- const totalMemory = parseFloat(document.getElementById('totalMemory').value) * 1024; // Convert to MB
+ const totalMemory = parseFloat(document.getElementById('totalMemory').value) * 1024; / Convert to MB
  const networkBandwidth = parseFloat(document.getElementById('networkBandwidth').value);
  const payloadSize = parseFloat(document.getElementById('payloadSize').value);
  const optimizeFor = document.getElementById('optimizeFor').value;
  
- // Calculate constraints
+ / Calculate constraints
  const memoryConstrainedConcurrency = Math.floor(totalMemory / memoryPerTask);
  const effectiveConcurrency = Math.min(maxConcurrency, memoryConstrainedConcurrency);
  
- // Calculate optimal batch sizes for different scenarios
+ / Calculate optimal batch sizes for different scenarios
  let optimalConfigs = [];
  
  for (let batchSize = 1; batchSize <= 1000; batchSize *= 2) {
  for (let concurrency = 1; concurrency <= effectiveConcurrency; concurrency++) {
- // Apply Universal Scalability Law
+ / Apply Universal Scalability Law
  const alpha = coordinationOverhead;
- const beta = coordinationOverhead / 10; // Coherence is typically smaller
+ const beta = coordinationOverhead / 10; / Coherence is typically smaller
  const scalability = concurrency / (1 + alpha * (concurrency - 1) + beta * concurrency * (concurrency - 1));
  
- // Calculate effective processing time
+ / Calculate effective processing time
  const batchProcessingTime = batchSize * taskTime + setupTime;
  const effectiveTaskTime = batchProcessingTime / batchSize;
  
- // Calculate throughput
- const singleThreadThroughput = 1000 / effectiveTaskTime; // tasks per second
+ / Calculate throughput
+ const singleThreadThroughput = 1000 / effectiveTaskTime; / tasks per second
  const totalThroughput = singleThreadThroughput * scalability;
  
- // Calculate latency
- const queueTime = batchSize * taskTime / (2 * concurrency); // Average queue time
+ / Calculate latency
+ const queueTime = batchSize * taskTime / (2 * concurrency); / Average queue time
  const totalLatency = effectiveTaskTime + queueTime;
  
- // Calculate network usage
- const networkUsage = (totalThroughput * payloadSize * 8) / 1000; // Mbps
+ / Calculate network usage
+ const networkUsage = (totalThroughput * payloadSize * 8) / 1000; / Mbps
  const networkUtilization = networkUsage / networkBandwidth;
  
- // Calculate efficiency
+ / Calculate efficiency
  const efficiency = scalability / concurrency;
- const costEfficiency = totalThroughput / concurrency; // Throughput per worker
+ const costEfficiency = totalThroughput / concurrency; / Throughput per worker
  
- // Score based on optimization goal
+ / Score based on optimization goal
  let score;
  switch(optimizeFor) {
  case 'throughput':
@@ -236,7 +236,7 @@ function calculateThroughput() {
  break;
  }
  
- if (networkUtilization <= 0.8) { // Don't saturate network
+ if (networkUtilization <= 0.8) { / Don't saturate network
  optimalConfigs.push({
  batchSize: batchSize,
  concurrency: concurrency,
@@ -250,11 +250,11 @@ function calculateThroughput() {
  }
  }
  
- // Sort by score
+ / Sort by score
  optimalConfigs.sort((a, b) => b.score - a.score);
  const optimal = optimalConfigs[0];
  
- // Generate results
+ / Generate results
  let resultsHTML = `
  <h3>📊 Throughput Optimization Results</h3>
  
@@ -315,7 +315,7 @@ function calculateThroughput() {
  <ul>
  `;
  
- // Add specific recommendations
+ / Add specific recommendations
  if (optimal.batchSize > 1) {
  resultsHTML += `<li>Batching ${optimal.batchSize} tasks reduces overhead by ${((1 - taskTime/((optimal.batchSize * taskTime + setupTime)/optimal.batchSize)) * 100).toFixed(0)}%</li>`;
  }
@@ -336,7 +336,7 @@ function calculateThroughput() {
  resultsHTML += '<li>High network utilization. Consider compression or larger batches.</li>';
  }
  
- // Alternative configurations
+ / Alternative configurations
  resultsHTML += `
  </ul>
  
@@ -365,7 +365,7 @@ function calculateThroughput() {
  
  document.getElementById('results').innerHTML = resultsHTML;
  
- // Draw performance chart
+ / Draw performance chart
  drawPerformanceChart(optimalConfigs, optimal);
 }
 
@@ -378,10 +378,10 @@ function drawPerformanceChart(configs, optimal) {
  const height = canvas.height;
  const padding = 40;
  
- // Clear canvas
+ / Clear canvas
  ctx.clearRect(0, 0, width, height);
  
- // Group by concurrency
+ / Group by concurrency
  const concurrencyMap = {};
  configs.forEach(config => {
  if (!concurrencyMap[config.concurrency]) {
@@ -390,7 +390,7 @@ function drawPerformanceChart(configs, optimal) {
  concurrencyMap[config.concurrency].push(config);
  });
  
- // Get best throughput for each concurrency level
+ / Get best throughput for each concurrency level
  const dataPoints = Object.keys(concurrencyMap).map(c => {
  const best = concurrencyMap[c].reduce((a, b) => a.throughput > b.throughput ? a : b);
  return { concurrency: parseInt(c), throughput: best.throughput };
@@ -398,11 +398,11 @@ function drawPerformanceChart(configs, optimal) {
  
  if (dataPoints.length === 0) return;
  
- // Find scales
+ / Find scales
  const maxConcurrency = Math.max(...dataPoints.map(d => d.concurrency));
  const maxThroughput = Math.max(...dataPoints.map(d => d.throughput));
  
- // Draw axes
+ / Draw axes
  ctx.strokeStyle = '#666';
  ctx.beginPath();
  ctx.moveTo(padding, padding);
@@ -410,7 +410,7 @@ function drawPerformanceChart(configs, optimal) {
  ctx.lineTo(width - padding, height - padding);
  ctx.stroke();
  
- // Draw throughput curve
+ / Draw throughput curve
  ctx.strokeStyle = '#5448C8';
  ctx.lineWidth = 2;
  ctx.beginPath();
@@ -422,7 +422,7 @@ function drawPerformanceChart(configs, optimal) {
  });
  ctx.stroke();
  
- // Mark optimal point
+ / Mark optimal point
  const optimalX = padding + (optimal.concurrency / maxConcurrency) * (width - 2 * padding);
  const optimalY = height - padding - (optimal.throughput / maxThroughput) * (height - 2 * padding);
  
@@ -431,7 +431,7 @@ function drawPerformanceChart(configs, optimal) {
  ctx.arc(optimalX, optimalY, 5, 0, 2 * Math.PI);
  ctx.fill();
  
- // Labels
+ / Labels
  ctx.fillStyle = '#333';
  ctx.font = '12px sans-serif';
  ctx.fillText('Concurrency', width / 2 - 30, height - 10);
@@ -442,7 +442,7 @@ function drawPerformanceChart(configs, optimal) {
  ctx.fillText('Throughput (tasks/sec)', 0, 0);
  ctx.restore();
  
- // Optimal label
+ / Optimal label
  ctx.fillStyle = '#ff6b6b';
  ctx.fillText('Optimal', optimalX - 20, optimalY - 10);
 }

@@ -228,38 +228,38 @@ graph TB
 ### Detailed Block Structure
 
 ```go
-// Modern blockchain block structure
+/ Modern blockchain block structure
 type Block struct {
     Header BlockHeader `json:"header"`
     Body   BlockBody   `json:"body"`
 }
 
 type BlockHeader struct {
-    // Consensus fields
+    / Consensus fields
     ParentHash   common.Hash    `json:"parentHash"`
     Number       *big.Int       `json:"number"`
     GasLimit     uint64         `json:"gasLimit"`
     GasUsed      uint64         `json:"gasUsed"`
     Timestamp    uint64         `json:"timestamp"`
     
-    // Merkle tree roots for verification
+    / Merkle tree roots for verification
     TxRoot       common.Hash    `json:"transactionsRoot"`
     ReceiptRoot  common.Hash    `json:"receiptsRoot"`
     StateRoot    common.Hash    `json:"stateRoot"`
     
-    // Mining/validation proof
+    / Mining/validation proof
     Nonce        uint64         `json:"nonce"`
     MixHash      common.Hash    `json:"mixHash"`
     Difficulty   *big.Int       `json:"difficulty"`
     
-    // Metadata
+    / Metadata
     Coinbase     common.Address `json:"miner"`
     Extra        []byte         `json:"extraData"`
 }
 
 type BlockBody struct {
     Transactions []*Transaction `json:"transactions"`
-    Uncles       []*Header      `json:"uncles"` // For chain reorganization
+    Uncles       []*Header      `json:"uncles"` / For chain reorganization
 }
 ```
 
@@ -424,7 +424,7 @@ class ProofOfStake:
             return False, "Inactive proposer"
         
         # Verify attestations (simplified)
-        required_attestations = len(self.validators) * 2 // 3  # 2/3 majority
+        required_attestations = len(self.validators) * 2 / 3  # 2/3 majority
         
         if len(attestations) < required_attestations:
             return False, "Insufficient attestations"
@@ -487,7 +487,7 @@ class ProofOfStake:
 
 #### Enterprise Consensus Implementation
 ```go
-// pBFT consensus for permissioned networks
+/ pBFT consensus for permissioned networks
 type PBFTConsensus struct {
     nodeID        int
     nodes         []Node
@@ -513,12 +513,12 @@ func (p *PBFTConsensus) ProposeBlock(block *Block) error {
     p.mutex.Lock()
     defer p.mutex.Unlock()
     
-    // Only primary can propose
+    / Only primary can propose
     if p.nodeID != p.primaryID {
         return errors.New("only primary can propose blocks")
     }
     
-    // Create pre-prepare message
+    / Create pre-prepare message
     message := &ConsensusMessage{
         Type:      PrePrepare,
         View:      p.currentView,
@@ -528,17 +528,17 @@ func (p *PBFTConsensus) ProposeBlock(block *Block) error {
         Timestamp: time.Now(),
     }
     
-    // Sign message
+    / Sign message
     signature, err := p.signMessage(message)
     if err != nil {
         return fmt.Errorf("failed to sign message: %w", err)
     }
     message.Signature = signature
     
-    // Broadcast to all nodes
+    / Broadcast to all nodes
     p.broadcast(message)
     
-    // Store in message log
+    / Store in message log
     p.messageLog[message.key()] = message
     
     p.currentSeq++
@@ -549,12 +549,12 @@ func (p *PBFTConsensus) HandleMessage(msg *ConsensusMessage) error {
     p.mutex.Lock()
     defer p.mutex.Unlock()
     
-    // Verify message signature
+    / Verify message signature
     if !p.verifySignature(msg) {
         return errors.New("invalid message signature")
     }
     
-    // Handle based on message type
+    / Handle based on message type
     switch msg.Type {
     case PrePrepare:
         return p.handlePrePrepare(msg)
@@ -568,7 +568,7 @@ func (p *PBFTConsensus) HandleMessage(msg *ConsensusMessage) error {
 }
 
 func (p *PBFTConsensus) handlePrePrepare(msg *ConsensusMessage) error {
-    // Validate pre-prepare conditions
+    / Validate pre-prepare conditions
     if msg.View != p.currentView {
         return errors.New("view mismatch")
     }
@@ -577,7 +577,7 @@ func (p *PBFTConsensus) handlePrePrepare(msg *ConsensusMessage) error {
         return errors.New("pre-prepare from non-primary")
     }
     
-    // Send prepare message
+    / Send prepare message
     prepareMsg := &ConsensusMessage{
         Type:      Prepare,
         View:      p.currentView,
@@ -600,7 +600,7 @@ func (p *PBFTConsensus) handlePrePrepare(msg *ConsensusMessage) error {
 }
 
 func (p *PBFTConsensus) checkCommitCondition(blockHash string, sequence int) bool {
-    // Count prepare messages for this block
+    / Count prepare messages for this block
     prepareCount := 0
     for _, msg := range p.messageLog {
         if msg.Type == Prepare && 
@@ -611,7 +611,7 @@ func (p *PBFTConsensus) checkCommitCondition(blockHash string, sequence int) boo
         }
     }
     
-    // Need 2f+1 prepare messages (where f is max faulty nodes)
+    / Need 2f+1 prepare messages (where f is max faulty nodes)
     requiredPrepares := 2*(len(p.nodes)-1)/3 + 1
     
     return prepareCount >= requiredPrepares
@@ -700,8 +700,8 @@ class MerkleTree:
                 })
             
             # Move to parent level
-            current_index = current_index // 2
-            level_size = (level_size + 1) // 2
+            current_index = current_index / 2
+            level_size = (level_size + 1) / 2
             level_offset -= level_size
         
         return proof
@@ -750,7 +750,7 @@ class MerkleTree:
         
         # Recalculate parent hashes
         while level_size > 1:
-            parent_index = current_index // 2
+            parent_index = current_index / 2
             sibling_index = current_index - 1 if current_index % 2 == 1 else current_index + 1
             
             # Get sibling hash
@@ -764,7 +764,7 @@ class MerkleTree:
                 combined = current_hash + current_hash
             
             # Update parent
-            level_size = (level_size + 1) // 2
+            level_size = (level_size + 1) / 2
             level_offset -= level_size
             parent_hash = hashlib.sha256(combined.encode()).hexdigest()
             self.tree[level_offset + parent_index] = parent_hash
@@ -1028,7 +1028,7 @@ class StateChannel:
 ### 2. Rollup Technologies
 
 ```solidity
-// Optimistic Rollup smart contract (Ethereum)
+/ Optimistic Rollup smart contract (Ethereum)
 pragma solidity ^0.8.0;
 
 contract OptimisticRollup {
@@ -1085,26 +1085,26 @@ contract OptimisticRollup {
         );
         require(!challengedRoots[stateRoot.root], "Already challenged");
         
-        // Verify fraud proof
+        / Verify fraud proof
         require(verifyFraudProof(_proof), "Invalid fraud proof");
         
-        // Mark as challenged
+        / Mark as challenged
         challengedRoots[stateRoot.root] = true;
         
-        // Slash proposer and reward challenger
+        / Slash proposer and reward challenger
         payable(msg.sender).transfer(BOND_AMOUNT);
         
         emit FraudProofSubmitted(stateRoot.root, msg.sender);
     }
     
     function verifyFraudProof(FraudProof memory _proof) internal pure returns (bool) {
-        // Simplified fraud proof verification
-        // In practice, this would involve:
-        // 1. Verifying Merkle proof for transaction inclusion
-        // 2. Re-executing the transaction
-        // 3. Comparing computed state root with proposed root
+        / Simplified fraud proof verification
+        / In practice, this would involve:
+        / 1. Verifying Merkle proof for transaction inclusion
+        / 2. Re-executing the transaction
+        / 3. Comparing computed state root with proposed root
         
-        // For demonstration, assume verification logic exists
+        / For demonstration, assume verification logic exists
         return _proof.prevStateRoot != _proof.postStateRoot;
     }
     
@@ -1117,7 +1117,7 @@ contract OptimisticRollup {
         );
         require(!challengedRoots[stateRoot.root], "State root was challenged");
         
-        // Return bond to proposer
+        / Return bond to proposer
         payable(stateRoot.proposer).transfer(BOND_AMOUNT);
         
         emit StateRootFinalized(stateRoot.root, _blockNumber);
@@ -1339,11 +1339,11 @@ tco_analysis = calculator.compare_alternatives([
     
     **Technical Details**:
     ```solidity
-    // Vulnerable code pattern
+    / Vulnerable code pattern
     function withdraw(uint amount) {
         if (balances[msg.sender] >= amount) {
-            msg.sender.call.value(amount)(); // External call first
-            balances[msg.sender] -= amount;   // State update after
+            msg.sender.call.value(amount)(); / External call first
+            balances[msg.sender] -= amount;   / State update after
         }
     }
     ```
@@ -1536,19 +1536,19 @@ tco_analysis = calculator.compare_alternatives([
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 3: Emergent Chaos](../../core-principles/laws.md/emergent-chaos/index.md)** - Blockchain consensus emerges from distributed node interactions
-- **[Law 6: Cognitive Load](../../core-principles/laws.md/cognitive-load/index.md)** - Blockchain complexity creates significant cognitive overhead
-- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - Energy and transaction costs drive blockchain adoption decisions
+- **[Law 3: Emergent Chaos](../core-principles/laws/emergent-chaos/index.md)** - Blockchain consensus emerges from distributed node interactions
+- **[Law 6: Cognitive Load](../core-principles/laws/cognitive-load/index.md)** - Blockchain complexity creates significant cognitive overhead
+- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - Energy and transaction costs drive blockchain adoption decisions
 
 ### Related Patterns  
-- **[Consensus Algorithms](../../pattern-library/distributed.md/consensus/index.md)** - Core patterns for distributed agreement
-- **[Event Sourcing](../../pattern-library/data.md/event-sourcing/index.md)** - Alternative to blockchain for immutable audit trails
-- **[Merkle Trees](../../pattern-library/cryptographic.md/merkle-trees/index.md)** - Essential data structure for blockchain verification
+- **[Consensus Algorithms](../pattern-library/distributed/consensus/index.md)** - Core patterns for distributed agreement
+- **[Event Sourcing](../pattern-library/data/event-sourcing/index.md)** - Alternative to blockchain for immutable audit trails
+- **[Merkle Trees](../pattern-library/cryptographic/merkle-trees/index.md)** - Essential data structure for blockchain verification
 
 ### Related Case Studies
-- **[Amazon DynamoDB Evolution](../../databases/amazon-dynamo.md)** - Alternative distributed database approach
-- **[Google Spanner](../../databases/google-spanner.md)** - Global consistency without blockchain
-- **[Apache Kafka](../../messaging-streaming/kafka.md)** - Distributed log system for event streaming
+- **[Amazon DynamoDB Evolution](../databases/amazon-dynamo.md)** - Alternative distributed database approach
+- **[Google Spanner](../databases/google-spanner.md)** - Global consistency without blockchain
+- **[Apache Kafka](../messaging-streaming/kafka.md)** - Distributed log system for event streaming
 
 ## External Resources
 

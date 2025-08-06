@@ -299,13 +299,13 @@ graph TD
 
 | Resource | Type | Relevance |
 |----------|------|-----------|
-| **[API Gateway Pattern](..../pattern-library/communication.md/api-gateway.md)** | Pattern | Alternative for complex auth |
-| **[Circuit Breaker](..../pattern-library/resilience.md/circuit-breaker.md)** | Pattern | Protect storage services |
-| **[Rate Limiting](..../pattern-library/scaling.md/rate-limiting.md)** | Pattern | Control valet key generation |
+| **[API Gateway Pattern](../pattern-library/communication/api-gateway.md)** | Pattern | Alternative for complex auth |
+| **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** | Pattern | Protect storage services |
+| **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** | Pattern | Control valet key generation |
 | **[Law 7: Economic Reality](core-principles/laws/economic-reality/index.md)** | Axiom | Cost optimization driver |
-| **[Pillar 4: Control](core-principles../core-principles/pillars.md/control-distribution/index.md)** | Pillar | Access control principles |
-| **[CDN Pattern](..../pattern-library/scaling.md/edge-computing.md)** | Pattern | Combine for global scale |
-| **[Encryption at Rest](..../pattern-library/data-management.md/distributed-storage/#encryption/index.md)** | Pattern | Secure storage layer |
+| **[Pillar 4: Control](core-principles../core-principles/pillars/control-distribution/index.md)** | Pillar | Access control principles |
+| **[CDN Pattern](../pattern-library/scaling/edge-computing.md)** | Pattern | Combine for global scale |
+| **[Encryption at Rest](../pattern-library/data-management/distributed-storage/#encryption/index.md)** | Pattern | Secure storage layer |
 
 ## Summary
 

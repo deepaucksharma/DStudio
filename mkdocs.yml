@@ -225,6 +225,33 @@ plugins:
       patterns/scatter-gather.md: pattern-library/scaling/scatter-gather.md
       patterns/tile-caching.md: pattern-library/scaling/tile-caching.md
       patterns/url-normalization.md: pattern-library/scaling/url-normalization.md
+      index.html: index.md
+      pattern-library/ml-infrastructure/: pattern-library/ml-infrastructure/index.md
+      architects-handbook/implementation-playbooks/monolith-decomposition: architects-handbook/implementation-playbooks/monolith-decomposition/index.md
+      architects-handbook/implementation-playbooks/zero-downtime: architects-handbook/implementation-playbooks/zero-downtime/index.md
+      architects-handbook/implementation-playbooks/global-expansion: architects-handbook/implementation-playbooks/global-expansion/index.md
+      architects-handbook/implementation-playbooks/pattern-selection-wizard: architects-handbook/implementation-playbooks/pattern-selection-wizard/index.md
+      architects-handbook/implementation-playbooks/migration-checklist: architects-handbook/implementation-playbooks/migration-checklist/index.md
+      architects-handbook/implementation-playbooks/monolith-to-microservices: architects-handbook/implementation-playbooks/monolith-to-microservices/index.md
+      coordination-costs.md: architects-handbook/quantitative-analysis/coordination-costs.md
+      zoom-scaling.md: architects-handbook/case-studies/infrastructure/zoom-scaling.md
+      monolith-to-microservices.md: architects-handbook/case-studies/infrastructure/monolith-to-microservices.md
+      progress.md: start-here/index.md
+      pattern-library/resilience/circuit-breaker.md: pattern-library/resilience/circuit-breaker-transformed.md
+      core-principles/pattern-library/: pattern-library/
+      pattern-library/core-principles/: core-principles/
+      architects-handbook/pattern-library/: pattern-library/
+      quantitative-analysis/: architects-handbook/quantitative-analysis/
+      quantitative-analysis/queueing-models.md: architects-handbook/quantitative-analysis/queueing-models.md
+      quantitative-analysis/littles-law.md: architects-handbook/quantitative-analysis/littles-law.md
+      quantitative-analysis/cap-theorem.md: architects-handbook/quantitative-analysis/cap-theorem.md
+      human-factors.md: architects-handbook/human-factors/index.md
+      performance-testing.md: architects-handbook/quantitative-analysis/performance-testing.md
+      latency-calculator.md: architects-handbook/tools/latency-calculator.md
+      excellence/: architects-handbook/implementation-playbooks/
+      excellence/tools/: architects-handbook/tools/
+      excellence/case-studies/: architects-handbook/case-studies/
+      excellence/migrations/MIGRATION_GUIDES_COMPLETE.md: excellence/migrations/index.md
 - mermaid2:
     version: '10.4.0'
 - minify:

@@ -41,7 +41,7 @@ patterns_used:
 excellence_guides:
 - scale/observability-platforms
 - operational/prometheus-best-practices
-- ../../../pattern-library/metrics-monitoring
+- ../../pattern-library/metrics-monitoring
 ---
 
 
@@ -205,20 +205,20 @@ graph TB
 ### Compression & Efficiency
 
 ```go
-// Sample storage format
+/ Sample storage format
 type Sample struct {
-    Timestamp int64   // 8 bytes
-    Value     float64 // 8 bytes
+    Timestamp int64   / 8 bytes
+    Value     float64 / 8 bytes
 }
 
-// Compression techniques:
-// 1. Delta encoding for timestamps
-// 2. XOR compression for values
-// 3. Chunk encoding
+/ Compression techniques:
+/ 1. Delta encoding for timestamps
+/ 2. XOR compression for values
+/ 3. Chunk encoding
 
-// Result: ~1.3 bytes per sample average
-// 1M series * 4 samples/min * 60min * 24h = 5.76B samples/day
-// Storage: ~7.5GB/day (highly compressed)
+/ Result: ~1.3 bytes per sample average
+/ 1M series * 4 samples/min * 60min * 24h = 5.76B samples/day
+/ Storage: ~7.5GB/day (highly compressed)
 ```
 
 ## Production Patterns
@@ -460,15 +460,15 @@ http_request_duration_seconds_bucket{le="+Inf"}  # Total
 ### Remote Write 2.0
 
 ```go
-// Improved remote write protocol
+/ Improved remote write protocol
 type WriteRequest struct {
     Timeseries []TimeSeries
     Metadata   []MetricMetadata
     
-    // New in 2.0
-    SymbolTable     []string  // String interning
-    ExemplarData    []Exemplar // Trace correlation
-    CompressedData  []byte     // Snappy compression
+    / New in 2.0
+    SymbolTable     []string  / String interning
+    ExemplarData    []Exemplar / Trace correlation
+    CompressedData  []byte     / Snappy compression
 }
 ```
 
@@ -516,10 +516,10 @@ http_request_duration_seconds{quantile="0.99"} # Link to Jaeger
 
 ## Related Topics
 
-- [Time Series Databases](../../pattern-library/time-series-db.md/index.md) - TSDB design
-- [Service Discovery](../../pattern-library/communication.md/service-discovery/index.md) - Dynamic targets
-- [Observability](../../pattern-library/observability.md/index.md) - Metrics pillar
-- [Grafana](grafana) - Visualization layer
+- [Time Series Databases](../pattern-library/time-series-db.md/index.md) - TSDB design
+- [Service Discovery](../pattern-library/communication/service-discovery/index.md) - Dynamic targets
+- [Observability](../pattern-library/observability.md/index.md) - Metrics pillar
+- [Grafana](grafana.md)) - Visualization layer
 - [OpenTelemetry](opentelemetry.md) - Unified observability
 
 ## References

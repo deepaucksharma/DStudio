@@ -59,7 +59,7 @@ related_pillars: [work, state, truth, control, intelligence]
     - Company 2: Specific metric
     - Company 3: Specific metric
 
-[Home](/index.md) > [Pattern Library](../index.md) > [Category Patterns](./index.md) > Pattern Name
+[Home](/) > [Pattern Library](../index.md) > [Category Patterns](./index.md) > Pattern Name
 ```
 
 ### 2. Pattern Summary Table
@@ -180,11 +180,11 @@ graph TB
 
 ### Fundamental Laws
 This pattern directly addresses:
-- **[Law X: Name](../....../core-principles/laws.md/lawX/index.md)**: How this pattern relates to the law
+- **[Law X: Name](../core-principles/laws/lawX/index.md)**: How this pattern relates to the law
 
 ### Foundational Pillars
 This pattern implements:
-- **[Pillar X: Name](../....../core-principles/pillars.md/pillarX/index.md)**: How this pattern implements the pillar
+- **[Pillar X: Name](../core-principles/pillars/pillarX/index.md)**: How this pattern implements the pillar
 ```
 
 ### 8. Excellence Framework Integration
@@ -196,7 +196,7 @@ This pattern implements:
 - **[Pattern Testing Guide](../excellence/guides/pattern-testing.md)**: Testing strategies
 
 ### Case Studies
-- **[Company Case Study](../case-studies/company-pattern.md)**: Real-world implementation
+- **[Company Case Study](../architects-handbook/case-studies/company-pattern.md)**: Real-world implementation
 
 ### Pattern Combinations
 <div class="grid cards" markdown>

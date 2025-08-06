@@ -39,7 +39,7 @@ patterns_used:
 excellence_guides:
 - migration/zookeeper-to-etcd
 - operational/coordination-services
-- ../../../pattern-library/modern-consensus
+- ../../pattern-library/modern-consensus
 deprecation:
   status: Gradually being replaced
   alternatives:
@@ -219,7 +219,7 @@ sequenceDiagram
 ### Configuration Management
 
 ```java
-// Dynamic configuration with watches
+/ Dynamic configuration with watches
 public class ConfigManager {
     private ZooKeeper zk;
     private String configPath = "/config/app";
@@ -228,7 +228,7 @@ public class ConfigManager {
         zk.getData(configPath, new Watcher() {
             public void process(WatchedEvent event) {
                 if (event.getType() == EventType.NodeDataChanged) {
-                    // Reload configuration
+                    / Reload configuration
                     String newConfig = zk.getData(configPath, this, null);
                     applyConfig(newConfig);
                 }
@@ -346,21 +346,21 @@ zk.create("/data/large_file_ref", json.dumps(data_ref))
 ### Moving to etcd
 
 ```go
-// ZooKeeper pattern
+/ ZooKeeper pattern
 zkConn.Create("/config/feature", data, 0, acl)
 
-// etcd equivalent
+/ etcd equivalent
 ctx := context.Background()
 client.Put(ctx, "/config/feature", string(data))
 
-// ZooKeeper watch
+/ ZooKeeper watch
 zkConn.GetW("/config/feature")
 
-// etcd watch (better!)
+/ etcd watch (better!)
 rch := client.Watch(ctx, "/config/feature")
 for wresp := range rch {
     for _, ev := range wresp.Events {
-        // Handle changes
+        / Handle changes
     }
 }
 ```
@@ -393,11 +393,11 @@ for wresp := range rch {
 
 ## Related Topics
 
-- [etcd Case Study](../../etcd.md) - Modern alternative
-- [Consensus Patterns](../../pattern-library/coordination.md/consensus.md) - Raft vs ZAB
-- [Leader Election](../../pattern-library/coordination.md/leader-election.md) - Common ZK recipe
-- [Service Discovery](../../pattern-library/communication.md/service-discovery.md) - ZK patterns
-- [Distributed Locks](../../pattern-library/coordination.md/distributed-lock.md) - Lock recipes
+- [etcd Case Study](../etcd.md) - Modern alternative
+- [Consensus Patterns](../pattern-library/coordination/consensus.md) - Raft vs ZAB
+- [Leader Election](../pattern-library/coordination/leader-election.md) - Common ZK recipe
+- [Service Discovery](../pattern-library/communication/service-discovery.md) - ZK patterns
+- [Distributed Locks](../pattern-library/coordination/distributed-lock.md) - Lock recipes
 
 ## References
 

@@ -13,14 +13,14 @@ Core Business Concepts are the essential disciplines taught in elite MBA program
 
 ## The Five Essential Disciplines
 
-<div class=\"disciplines-grid\">\n\n### 1. [Strategy](../../level-3-applications/technical-leadership/technical-strategy.md)
+<div class=\"disciplines-grid\">\n\n### 1. [Strategy](../level-3-applications/technical-leadership/technical-strategy.md)
 **Creating and Capturing Sustainable Value**
 
 Strategy is the art of making integrated choices about where to play and how to win. For engineering leaders, this means building technical capabilities that create lasting competitive advantage.
 
 **Key Frameworks**: Porter's Five Forces, Blue Ocean, Disruption Theory, Platform Strategy
 
-### 2. [Leadership](../../hard-earned-wisdom/human-cost-leadership.md)  
+### 2. [Leadership](../hard-earned-wisdom/human-cost-leadership.md)  
 **Mobilizing Humans Toward Shared Goals**
 
 Leadership transforms individual capability into collective achievement. It's about vision, influence, and creating environments where talented people do their best work.
@@ -234,21 +234,21 @@ Remember: You don't need an MBA, but you do need MBA-level thinking. These conce
 
 Each business concept operationalizes multiple first principles:
 
-- **[Strategy](../../level-3-applications/technical-leadership/technical-strategy.md)** applies **[Value Creation](../../level-1-first-principles/value-creation/index.md)** and **[Systems Thinking](../../level-1-first-principles/systems-thinking/index.md)**
-- **[Leadership](../../hard-earned-wisdom/human-cost-leadership.md)** centers on **[Human Behavior](../../level-1-first-principles/human-behavior/index.md)** and **[Integrity](../../level-1-first-principles/integrity-ethics/index.md)**
-- **[Operations](operations/index.md)** delivers **[Value Creation](../../level-1-first-principles/value-creation/index.md)** through **[Systems Thinking](../../level-1-first-principles/systems-thinking/index.md)**
-- **[Finance](finance/index.md)** quantifies **[Value Creation](../../level-1-first-principles/value-creation/index.md)** and guides **[Decision-Making](../../level-1-first-principles/decision-making/index.md)**
-- **[Risk & Governance](risk-governance/index.md)** protects through **[Systems Thinking](../../level-1-first-principles/systems-thinking/index.md)** and **[Integrity](../../level-1-first-principles/integrity-ethics/index.md)**
+- **[Strategy](../level-3-applications/technical-leadership/technical-strategy.md)** applies **[Value Creation](../level-1-first-principles/value-creation/index.md)** and **[Systems Thinking](../level-1-first-principles/systems-thinking/index.md)**
+- **[Leadership](../hard-earned-wisdom/human-cost-leadership.md)** centers on **[Human Behavior](../level-1-first-principles/human-behavior/index.md)** and **[Integrity](../level-1-first-principles/integrity-ethics/index.md)**
+- **[Operations](operations/index.md)** delivers **[Value Creation](../level-1-first-principles/value-creation/index.md)** through **[Systems Thinking](../level-1-first-principles/systems-thinking/index.md)**
+- **[Finance](finance/index.md)** quantifies **[Value Creation](../level-1-first-principles/value-creation/index.md)** and guides **[Decision-Making](../level-1-first-principles/decision-making/index.md)**
+- **[Risk & Governance](risk-governance/index.md)** protects through **[Systems Thinking](../level-1-first-principles/systems-thinking/index.md)** and **[Integrity](../level-1-first-principles/integrity-ethics/index.md)**
 
 ## Next Steps
 
 ### For Engineering Managers
 1. Start with **[Finance](finance/index.md)** - Learn to speak the language of business
-2. Add **[Strategy](../../level-3-applications/technical-leadership/technical-strategy.md)** - Think beyond your immediate team
-3. Deepen **[Leadership](../../hard-earned-wisdom/human-cost-leadership.md)** - Scale your impact through others
+2. Add **[Strategy](../level-3-applications/technical-leadership/technical-strategy.md)** - Think beyond your immediate team
+3. Deepen **[Leadership](../hard-earned-wisdom/human-cost-leadership.md)** - Scale your impact through others
 
 ### For Senior Managers & Directors
-1. Master **[Strategy](../../level-3-applications/technical-leadership/technical-strategy.md)** - Shape technical direction
+1. Master **[Strategy](../level-3-applications/technical-leadership/technical-strategy.md)** - Shape technical direction
 2. Excel at **[Operations](operations/index.md)** - Build scalable systems
 3. Understand **[Risk & Governance](risk-governance/index.md)** - Protect value creation
 
@@ -259,4 +259,4 @@ Each business concept operationalizes multiple first principles:
 
 ---
 
-*Ready to dive deeper? Choose a discipline to explore, or continue to [Level III: Engineering Leadership Applications](../../level-3-applications/index.md) to see these concepts in action. For foundational understanding, revisit [Level I: First Principles](../../level-1-first-principles/index.md).*
+*Ready to dive deeper? Choose a discipline to explore, or continue to [Level III: Engineering Leadership Applications](../level-3-applications/index.md) to see these concepts in action. For foundational understanding, revisit [Level I: First Principles](../level-1-first-principles/index.md).*

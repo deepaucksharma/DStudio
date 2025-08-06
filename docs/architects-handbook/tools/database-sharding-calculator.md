@@ -290,8 +290,8 @@ shard = lookup_service.get_shard(shard_key)
 
 - [Consistency Calculator](consistency-calculator.md)
 - [Throughput Calculator](throughput-calculator.md)
-- [CAP Theorem](../../../pattern-library/architecture/cap-theorem.md)
-- [Data Distribution Patterns](../../../pattern-library/data-management/sharding.md)
+- [CAP Theorem](../../pattern-library/architecture/cap-theorem.md)
+- [Data Distribution Patterns](../../pattern-library/data-management/sharding.md)
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -323,7 +323,7 @@ const storageCosts = {
     hdd: { costPerGB: 0.05, iopsPerGB: 10, latencyMs: 20 }
 };
 
-// Show/hide composite key config
+/ Show/hide composite key config
 document.getElementById('primaryShardKey').addEventListener('change', function() {
     const compositeConfig = document.getElementById('compositeKeyConfig');
     if (this.value === 'composite') {
@@ -395,22 +395,22 @@ function analyzeSharding() {
     const inputs = validation.inputs;
     const config = getShardingConfiguration();
     
-    // Calculate shard distribution
+    / Calculate shard distribution
     const distribution = calculateShardDistribution(inputs, config);
     
-    // Analyze hotspots
+    / Analyze hotspots
     const hotspotAnalysis = analyzeHotspots(distribution, config);
     
-    // Calculate costs
+    / Calculate costs
     const costAnalysis = calculateShardingCosts(inputs, config);
     
-    // Performance analysis
+    / Performance analysis
     const performanceAnalysis = analyzePerformance(inputs, config, distribution);
     
-    // Rebalancing analysis
+    / Rebalancing analysis
     const rebalancingAnalysis = analyzeRebalancing(distribution, inputs, config);
     
-    // Generate results
+    / Generate results
     const results = {
         distribution,
         hotspots: hotspotAnalysis,
@@ -422,7 +422,7 @@ function analyzeSharding() {
     let resultsHTML = generateShardingResults(results, config);
     document.getElementById('results').innerHTML = resultsHTML;
     
-    // Draw charts
+    / Draw charts
     setTimeout(() => {
         drawDistributionChart(distribution);
         drawHotspotChart(hotspotAnalysis);
@@ -456,12 +456,12 @@ function calculateShardDistribution(inputs, config) {
     
     switch (distributionPattern) {
         case 'uniform':
-            // Even distribution
+            / Even distribution
             const evenSize = totalData / numShards;
             for (let i = 0; i < numShards; i++) {
                 distribution.push({
                     shardId: i,
-                    dataSize: evenSize * (0.9 + Math.random() * 0.2), // ±10% variance
+                    dataSize: evenSize * (0.9 + Math.random() * 0.2), / ±10% variance
                     requestRate: inputs.targetThroughput.value / numShards,
                     hotspotRisk: 'low'
                 });
@@ -469,7 +469,7 @@ function calculateShardDistribution(inputs, config) {
             break;
             
         case 'normal':
-            // Normal distribution with center bias
+            / Normal distribution with center bias
             for (let i = 0; i < numShards; i++) {
                 const position = (i + 0.5) / numShards;
                 const normalFactor = Math.exp(-Math.pow((position - 0.5) * 3, 2)) + 0.3;
@@ -483,10 +483,10 @@ function calculateShardDistribution(inputs, config) {
             break;
             
         case 'skewed':
-            // 80/20 distribution (Pareto)
+            / 80/20 distribution (Pareto)
             const sizes = [];
             for (let i = 0; i < numShards; i++) {
-                sizes.push(Math.pow(Math.random(), 3)); // Skewed random
+                sizes.push(Math.pow(Math.random(), 3)); / Skewed random
             }
             const totalWeight = sizes.reduce((sum, size) => sum + size, 0);
             
@@ -502,9 +502,9 @@ function calculateShardDistribution(inputs, config) {
             break;
             
         case 'temporal':
-            // Recent data gets more traffic
+            / Recent data gets more traffic
             for (let i = 0; i < numShards; i++) {
-                const recency = Math.max(0, 1 - (i / numShards)); // Newer shards get more
+                const recency = Math.max(0, 1 - (i / numShards)); / Newer shards get more
                 const temporalFactor = 0.3 + recency * 2;
                 distribution.push({
                     shardId: i,
@@ -516,9 +516,9 @@ function calculateShardDistribution(inputs, config) {
             break;
             
         case 'hotspot':
-            // Known hotspots (first few shards)
+            / Known hotspots (first few shards)
             for (let i = 0; i < numShards; i++) {
-                const hotspotFactor = i < 3 ? 3 : 0.5; // First 3 shards are hotspots
+                const hotspotFactor = i < 3 ? 3 : 0.5; / First 3 shards are hotspots
                 distribution.push({
                     shardId: i,
                     dataSize: (totalData / numShards) * (0.5 + hotspotFactor * 0.5),
@@ -534,7 +534,7 @@ function calculateShardDistribution(inputs, config) {
 
 function analyzeHotspots(distribution, config) {
     const avgRequestRate = distribution.reduce((sum, shard) => sum + shard.requestRate, 0) / distribution.length;
-    const threshold = avgRequestRate * 1.5; // 50% above average
+    const threshold = avgRequestRate * 1.5; / 50% above average
     
     const hotspots = distribution.filter(shard => shard.requestRate > threshold);
     const severityLevels = { critical: 0, high: 0, medium: 0, low: 0 };
@@ -569,21 +569,21 @@ function calculateShardingCosts(inputs, config) {
     const numShards = config.numShards;
     const replicationFactor = config.replicationFactor;
     
-    // Instance costs
+    / Instance costs
     const instanceCostPerShard = instance.cost;
     const totalInstanceCosts = instanceCostPerShard * numShards * replicationFactor;
     
-    // Storage costs
+    / Storage costs
     const dataPerShard = inputs.totalDataSize.value / numShards;
     const storageCostPerShard = dataPerShard * storage.costPerGB;
     const totalStorageCosts = storageCostPerShard * numShards * replicationFactor;
     
-    // Network costs (cross-shard communication)
-    const crossShardTraffic = inputs.targetThroughput.value * 0.2; // 20% cross-shard
-    const networkCosts = crossShardTraffic * 0.001 * 24 * 30; // $0.001 per 1000 requests
+    / Network costs (cross-shard communication)
+    const crossShardTraffic = inputs.targetThroughput.value * 0.2; / 20% cross-shard
+    const networkCosts = crossShardTraffic * 0.001 * 24 * 30; / $0.001 per 1000 requests
     
-    // Operational costs
-    const operationalCosts = (totalInstanceCosts + totalStorageCosts) * 0.15; // 15% overhead
+    / Operational costs
+    const operationalCosts = (totalInstanceCosts + totalStorageCosts) * 0.15; / 15% overhead
     
     const monthlyCosts = {
         instances: totalInstanceCosts,
@@ -593,7 +593,7 @@ function calculateShardingCosts(inputs, config) {
         total: totalInstanceCosts + totalStorageCosts + networkCosts + operationalCosts
     };
     
-    // Growth projections
+    / Growth projections
     const growthProjections = calculateGrowthCosts(inputs, config, monthlyCosts);
     
     return {
@@ -610,15 +610,15 @@ function calculateGrowthCosts(inputs, config, baseCosts) {
     const yearlyGrowth = monthlyGrowth * 12;
     
     const projections = [];
-    const timeframes = [6, 12, 24]; // months
+    const timeframes = [6, 12, 24]; / months
     
     timeframes.forEach(months => {
         const totalGrowth = monthlyGrowth * months;
         const newTotalSize = inputs.totalDataSize.value + totalGrowth;
         const growthRatio = newTotalSize / inputs.totalDataSize.value;
         
-        // Assume linear scaling for storage, some efficiency for instances
-        const instanceScaling = Math.pow(growthRatio, 0.8); // Economies of scale
+        / Assume linear scaling for storage, some efficiency for instances
+        const instanceScaling = Math.pow(growthRatio, 0.8); / Economies of scale
         const storageScaling = growthRatio;
         
         const projectedCosts = {
@@ -647,11 +647,11 @@ function analyzePerformance(inputs, config, distribution) {
     const instance = instanceCosts[config.instanceType];
     const storage = storageCosts[config.storageType];
     
-    // Calculate per-shard throughput capacity
-    const baseCapacity = Math.min(instance.throughput, storage.iopsPerGB * 100); // Assume 100GB avg per shard
+    / Calculate per-shard throughput capacity
+    const baseCapacity = Math.min(instance.throughput, storage.iopsPerGB * 100); / Assume 100GB avg per shard
     const actualCapacity = baseCapacity * dbSpec.baseThroughput / 1000;
     
-    // Latency analysis
+    / Latency analysis
     const baseLatency = storage.latencyMs * dbSpec.latencyMultiplier;
     const consistencyOverhead = config.consistencyModel === 'strong' ? 10 : 
                                config.consistencyModel === 'causal' ? 5 : 0;
@@ -660,7 +660,7 @@ function analyzePerformance(inputs, config, distribution) {
     
     const totalLatency = baseLatency + consistencyOverhead + replicationLatency;
     
-    // Identify performance bottlenecks
+    / Identify performance bottlenecks
     const bottlenecks = [];
     const maxRequestRate = Math.max(...distribution.map(s => s.requestRate));
     
@@ -698,15 +698,15 @@ function getLatencyTarget(requirement) {
 }
 
 function calculateCrossShardQueries(config) {
-    // Simplified estimation based on shard key choice
+    / Simplified estimation based on shard key choice
     const crossShardRates = {
-        user_id: 5,      // Most queries by user
-        tenant_id: 10,   // Some cross-tenant queries
-        timestamp: 30,   // Many range queries
-        geographic: 15,  // Some region-spanning queries
-        category: 25,    // Cross-category queries common
-        composite: 8,    // Well-designed composite keys
-        custom: 15       // Unknown, assume moderate
+        user_id: 5,      / Most queries by user
+        tenant_id: 10,   / Some cross-tenant queries
+        timestamp: 30,   / Many range queries
+        geographic: 15,  / Some region-spanning queries
+        category: 25,    / Cross-category queries common
+        composite: 8,    / Well-designed composite keys
+        custom: 15       / Unknown, assume moderate
     };
     
     return crossShardRates[config.primaryShardKey] || 15;
@@ -729,12 +729,12 @@ function analyzeRebalancing(distribution, inputs, config) {
         };
     }
     
-    // Determine best rebalancing strategy
+    / Determine best rebalancing strategy
     const strategies = [
         {
             name: 'Split Hotspots',
             cost: 5000,
-            downtime: 30, // minutes
+            downtime: 30, / minutes
             dataMovement: distribution.reduce((sum, s) => sum + s.dataSize, 0) * 0.1,
             complexity: 'medium'
         },
@@ -754,7 +754,7 @@ function analyzeRebalancing(distribution, inputs, config) {
         }
     ];
     
-    const recommendedStrategy = strategies[0]; // Simplified selection
+    const recommendedStrategy = strategies[0]; / Simplified selection
     
     return {
         needed: true,
@@ -766,7 +766,7 @@ function analyzeRebalancing(distribution, inputs, config) {
 }
 
 function calculateRebalancingTimeline(strategy, totalDataSize) {
-    const migrationRate = 100; // GB per hour
+    const migrationRate = 100; / GB per hour
     const migrationHours = strategy.dataMovement / migrationRate;
     
     return {
@@ -1176,7 +1176,7 @@ function drawCostChart(costAnalysis) {
 }
 
 function runDistributionSimulation() {
-    // Placeholder for advanced simulation
+    / Placeholder for advanced simulation
     alert('Distribution simulation will analyze various shard key strategies and their impact on data distribution patterns.');
 }
 

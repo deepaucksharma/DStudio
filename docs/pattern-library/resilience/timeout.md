@@ -226,7 +226,7 @@ request_budget:
     fallbackMethod = "getCachedRecommendations"
 )
 public List<Movie> getRecommendations(String userId) {
-    // Service call with 3s timeout
+    / Service call with 3s timeout
 }
 ```
 
@@ -237,7 +237,7 @@ public List<Movie> getRecommendations(String userId) {
 ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 defer cancel()
 
-// Deadline propagates through all service calls
+/ Deadline propagates through all service calls
 response, err := client.GetUser(ctx, request)
 ```
 

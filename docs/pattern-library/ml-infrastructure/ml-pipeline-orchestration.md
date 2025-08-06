@@ -1103,23 +1103,23 @@ timeline
     
     ---
     
-    - [Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Complex system behavior management
-    - [Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Distributed workflow coordination
+    - [Emergent Chaos](../core-principles/laws/emergent-chaos.md) - Complex system behavior management
+    - [Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) - Distributed workflow coordination
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work-distribution.md) - Distributed pipeline execution
-    - [Coordination](../../core-principles/pillars/coordination.md) - Workflow orchestration and synchronization
+    - [Work Distribution](../core-principles/pillars/work-distribution.md) - Distributed pipeline execution
+    - [Coordination](../core-principles/pillars/coordination.md) - Workflow orchestration and synchronization
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Kubeflow Setup Guide](../../excellence/guides/kubeflow-setup.md)
-    - [ML Pipeline Testing](../../excellence/guides/ml-pipeline-testing.md)
-    - [Pipeline Monitoring Best Practices](../../excellence/guides/pipeline-monitoring.md)
+    - [Kubeflow Setup Guide](../excellence/guides/kubeflow-setup.md)
+    - [ML Pipeline Testing](../excellence/guides/ml-pipeline-testing.md)
+    - [Pipeline Monitoring Best Practices](../excellence/guides/pipeline-monitoring.md)
 
 </div>
 

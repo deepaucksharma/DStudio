@@ -249,33 +249,33 @@ graph TD
 This pattern directly addresses:
 
 - **[Law 1: Correlated Failure ⛓️](core-principles/laws/correlated-failure/index.md)**: Prevents cascade from overload
-- **[Law 2: Asynchronous Reality ⏱️](../....../core-principles/laws.md/asynchronous-reality/index.md)**: Buffers handle timing variations
+- **[Law 2: Asynchronous Reality ⏱️](../core-principles/laws/asynchronous-reality/index.md)**: Buffers handle timing variations
 - **[Law 3: Emergent Chaos 🌪️](core-principles/laws/emergent-chaos/index.md)**: Simple rules create stable behavior
 - **[Law 7: Economic Reality 💰](core-principles/laws/economic-reality/index.md)**: Balance resource usage vs rejection
 
 ### Foundational Pillars
 Water Marks implement:
 
-- **[Pillar 1: Distribution of Work 🔨](core-principles..../core-principles/pillars.md/work-distribution/index.md)**: Control work distribution rate
-- **[Pillar 4: Distribution of Control 🎮](core-principles..../core-principles/pillars.md/control-distribution/index.md)**: Decentralized flow control
-- **[Pillar 2: Distribution of State 🗃️](core-principles..../core-principles/pillars.md/state-distribution/index.md)**: Buffer state management
+- **[Pillar 1: Distribution of Work 🔨](core-principles../core-principles/pillars/work-distribution/index.md)**: Control work distribution rate
+- **[Pillar 4: Distribution of Control 🎮](core-principles../core-principles/pillars/control-distribution/index.md)**: Decentralized flow control
+- **[Pillar 2: Distribution of State 🗃️](core-principles../core-principles/pillars/state-distribution/index.md)**: Buffer state management
 
 ## Related Patterns
 
 ### Core Dependencies
-- **[Backpressure](....../pattern-library/scaling.md/backpressure.md)**: Water marks trigger backpressure
-- **[Circuit Breaker](....../pattern-library/resilience.md/circuit-breaker.md)**: Similar state-based protection
-- **[Rate Limiting](....../pattern-library/scaling.md/rate-limiting.md)**: Enforcement mechanism
+- **[Backpressure](../scaling/backpressure.md)**: Water marks trigger backpressure
+- **[Circuit Breaker](../resilience/circuit-breaker.md)**: Similar state-based protection
+- **[Rate Limiting](../scaling/rate-limiting.md)**: Enforcement mechanism
 
 ### Supporting Patterns
-- **[Queue](....../pattern-library/coordination.md/distributed-queue.md)**: Often uses water marks
-- **[Timeout](....../pattern-library/resilience.md/timeout.md)**: Drain timeout at high water
-- **[Bulkhead](....../pattern-library/resilience.md/bulkhead.md)**: Isolate resources with marks
+- **[Queue](distributed-queue.md)**: Often uses water marks
+- **[Timeout](../resilience/timeout.md)**: Drain timeout at high water
+- **[Bulkhead](../resilience/bulkhead.md)**: Isolate resources with marks
 
 ### Similar Concepts
-- **[Admission Control](....../pattern-library/scaling.md/rate-limiting/#admission-control/index.md)**: Entry-point flow control
-- **[Load Shedding](....../pattern-library/resilience.md/load-shedding.md)**: Beyond high water mark
-- **[Throttling](....../pattern-library/scaling.md/rate-limiting/#throttling/index.md)**: Between water marks
+- **[Admission Control](../../pattern-library/scaling/rate-limiting/#admission-control/index.md)**: Entry-point flow control
+- **[Load Shedding](../resilience/load-shedding.md)**: Beyond high water mark
+- **[Throttling](../../pattern-library/scaling/rate-limiting/#throttling/index.md)**: Between water marks
 
 ---
 

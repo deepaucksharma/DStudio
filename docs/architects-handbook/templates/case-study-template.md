@@ -65,10 +65,10 @@ graph TB
 
 | Pattern | Purpose | Implementation | Results |
 |---------|---------|----------------|---------|
-| [Circuit Breaker](/../..../pattern-library/resilience.md/circuit-breaker/index.md) | Prevent cascade failures | Hystrix → Resilience4j | 99.9% service availability |
-| [CQRS](/../..../pattern-library/data-management.md/cqrs/index.md) | Read/write optimization | Separate read replicas | 10x read throughput |
-| [Event Streaming](/../..../pattern-library/architecture.md/event-streaming/index.md) | Real-time processing | Kafka with 1000+ partitions | <100ms event processing |
-| [Sharding](/../..../pattern-library/scaling.md/sharding/index.md) | Horizontal scaling | Hash-based on user_id | Linear scaling to 1B users |
+| [Circuit Breaker](/../pattern-library/resilience/circuit-breaker/index.md) | Prevent cascade failures | Hystrix → Resilience4j | 99.9% service availability |
+| [CQRS](/../pattern-library/data-management/cqrs/index.md) | Read/write optimization | Separate read replicas | 10x read throughput |
+| [Event Streaming](/../pattern-library/architecture/event-streaming/index.md) | Real-time processing | Kafka with 1000+ partitions | <100ms event processing |
+| [Sharding](/../pattern-library/scaling/sharding/index.md) | Horizontal scaling | Hash-based on user_id | Linear scaling to 1B users |
 
 ## Evolution Timeline
 

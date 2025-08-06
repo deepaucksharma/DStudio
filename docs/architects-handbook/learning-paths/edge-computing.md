@@ -105,7 +105,7 @@ outcomes:
 </div>
 
 !!! tip "Edge Readiness Assessment"
-    Complete our [Edge Computing Skills Assessment](../../tools/edge-computing-quiz/index.md) to identify preparation areas.
+    Complete our [Edge Computing Skills Assessment](../tools/edge-computing-quiz/index.md) to identify preparation areas.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -127,7 +127,7 @@ outcomes:
     - [ ] Implement content delivery optimization
     
     **Day 1-2**: Edge Computing Fundamentals
-    - 📖 Read: [Edge computing principles](../../../....../pattern-library/scaling.md/edge-computing.md/edge-fundamentals/index.md)
+    - 📖 Read: [Edge computing principles](../../pattern-library/scaling/edge-computing/edge-fundamentals/index.md)
     - 🛠️ Lab: Analyze latency improvements with edge deployment
     - 📊 Success: Demonstrate 10x latency reduction with edge
     - ⏱️ Time: 6-8 hours

@@ -21,7 +21,7 @@ These playbooks provide detailed, actionable guidance for implementing distribut
 ## 📚 Migration Playbooks
 
 ### System Transformations
-- **[Monolith to Microservices](../../monolith-to-microservices.md)** - Decompose safely without disruption
+- **[Monolith to Microservices](../monolith-to-microservices.md)** - Decompose safely without disruption
 - **[On-Premise to Cloud](on-premise-to-cloud/index.md)** - Cloud migration strategies
 - **[Single to Multi-Region](single-to-multi-region/index.md)** - Global expansion guide
 - **[Synchronous to Asynchronous](sync-to-async/index.md)** - Event-driven transformation
@@ -51,14 +51,14 @@ These playbooks provide detailed, actionable guidance for implementing distribut
 ### Pre-Production Checklists
 - **[Launch Readiness](launch-readiness/index.md)** - Before going live
 - **[Security Review](security-checklist/index.md)** - Security considerations
-- **[Performance Testing](../../performance-testing.md)** - Load and stress testing
+- **[Performance Testing](../performance-testing.md)** - Load and stress testing
 - **[Disaster Recovery](disaster-recovery/index.md)** - Backup and recovery plans
 
 ### Production Operations
 - **[Monitoring Setup](monitoring-setup/index.md)** - Observability implementation
 - **[Alerting Strategy](alerting-strategy/index.md)** - Effective notifications
 - **[Runbook Templates](runbook-templates/index.md)** - Operational procedures
-- **[Incident Response](../../incident-response.md)** - Handling outages
+- **[Incident Response](../incident-response.md)** - Handling outages
 
 ## 🎯 Quick Start Guides
 
@@ -83,4 +83,4 @@ These playbooks provide detailed, actionable guidance for implementing distribut
 
 ---
 
-*Start with [Monolith to Microservices](../../monolith-to-microservices.md) if you're beginning a transformation journey.*
+*Start with [Monolith to Microservices](../monolith-to-microservices.md) if you're beginning a transformation journey.*

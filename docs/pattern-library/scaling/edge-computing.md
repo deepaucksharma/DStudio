@@ -541,6 +541,6 @@ graph TD
 
 ---
 
-**Previous**: [← Sharding Pattern](../../pattern-library/scaling/sharding.md) | **Next**: [Gateway Pattern →](../architecture/gateway.md)
+**Previous**: [← Sharding Pattern](../pattern-library/scaling/sharding.md) | **Next**: [Gateway Pattern →](../architecture/gateway.md)
 
 

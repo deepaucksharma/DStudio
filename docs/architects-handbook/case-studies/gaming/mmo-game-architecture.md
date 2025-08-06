@@ -169,7 +169,7 @@ graph TD
 
 **Synchronization Implementation**:
 ```cpp
-// Spatial Interest Management System
+/ Spatial Interest Management System
 class SpatialInterestManager {
 private:
     struct GridCell {
@@ -179,8 +179,8 @@ private:
     };
     
     std::unordered_map<GridCoord, GridCell> world_grid;
-    static constexpr float CELL_SIZE = 100.0f;  // 100 units per cell
-    static constexpr int INTEREST_RADIUS = 3;   // 3 cells radius
+    static constexpr float CELL_SIZE = 100.0f;  / 100 units per cell
+    static constexpr int INTEREST_RADIUS = 3;   / 3 cells radius
 
 public:
     void UpdatePlayerPosition(PlayerId player_id, const Vector3& position) {
@@ -188,13 +188,13 @@ public:
         GridCoord old_coord = player_positions[player_id];
         
         if (new_coord != old_coord) {
-            // Remove from old cell
+            / Remove from old cell
             RemovePlayerFromCell(player_id, old_coord);
             
-            // Add to new cell
+            / Add to new cell
             AddPlayerToCell(player_id, new_coord);
             
-            // Update interest set
+            / Update interest set
             UpdatePlayerInterestSet(player_id, new_coord);
             
             player_positions[player_id] = new_coord;

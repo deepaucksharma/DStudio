@@ -56,7 +56,7 @@ best_for:
 - Social gaming with rankings
 excellence_guides:
 - scale/gaming-systems
-- ../../../pattern-library/real-time-leaderboards
+- ../../pattern-library/real-time-leaderboards
 - operational/anti-cheat-systems
 key_innovations:
 - Hierarchical Redis clustering for scale

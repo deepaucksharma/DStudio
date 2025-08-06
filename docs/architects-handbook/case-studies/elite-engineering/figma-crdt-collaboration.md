@@ -148,7 +148,7 @@ graph TB
 Figma's CRDT is optimized for design operations:
 
 ```typescript
-// Simplified Figma CRDT structure
+/ Simplified Figma CRDT structure
 interface FigmaObject {
   id: string;
   type: 'FRAME' | 'TEXT' | 'VECTOR' | 'COMPONENT';
@@ -166,7 +166,7 @@ class CRDTMap<K, V> {
     if (!existing || clock.happenedAfter(existing.clock)) {
       this.entries.set(key, { value, clock });
     } else if (clock.concurrent(existing.clock)) {
-      // Deterministic conflict resolution
+      / Deterministic conflict resolution
       const winner = this.resolveConflict(
         { value, clock, actor },
         { value: existing.value, clock: existing.clock }
@@ -176,7 +176,7 @@ class CRDTMap<K, V> {
   }
   
   private resolveConflict(a: Entry, b: Entry): Entry {
-    // Last-write-wins with actor ID as tiebreaker
+    / Last-write-wins with actor ID as tiebreaker
     if (a.clock.timestamp > b.clock.timestamp) return a;
     if (b.clock.timestamp > a.clock.timestamp) return b;
     return a.actor > b.actor ? a : b;
@@ -206,7 +206,7 @@ class CRDTArray<T> {
   }
   
   private generatePosition(index: number): FractionalIndex {
-    // Generate position between neighboring elements
+    / Generate position between neighboring elements
     const before = index > 0 ? this.elements[index - 1].position : MIN_POSITION;
     const after = index < this.elements.length ? this.elements[index].position : MAX_POSITION;
     return FractionalIndex.between(before, after);
@@ -254,13 +254,13 @@ graph LR
 ### 3. Multiplayer Presence System
 
 ```typescript
-// Real-time cursor and selection sharing
+/ Real-time cursor and selection sharing
 class PresenceManager {
   private peers: Map<PeerID, PeerState>;
   private rtcConnections: Map<PeerID, RTCPeerConnection>;
   
   async sharePresence(state: LocalPresence) {
-    // Batch updates for efficiency
+    / Batch updates for efficiency
     const update = {
       cursor: state.cursor,
       selection: state.selection,
@@ -269,7 +269,7 @@ class PresenceManager {
       timestamp: Date.now()
     };
     
-    // Use WebRTC for ultra-low latency
+    / Use WebRTC for ultra-low latency
     for (const [peerId, connection] of this.rtcConnections) {
       if (connection.connectionState === 'connected') {
         const channel = connection.dataChannel;
@@ -280,7 +280,7 @@ class PresenceManager {
       }
     }
     
-    // Fallback to WebSocket for reliability
+    / Fallback to WebSocket for reliability
     this.websocket.send({
       type: 'presence',
       data: update,
@@ -290,7 +290,7 @@ class PresenceManager {
   
   renderPeerCursors() {
     for (const [peerId, state] of this.peers) {
-      // Interpolate cursor positions for smoothness
+      / Interpolate cursor positions for smoothness
       const interpolated = this.interpolateCursor(
         state.cursor,
         state.timestamp,
@@ -348,7 +348,7 @@ graph TD
 ### Vector Clock Implementation
 
 ```rust
-// Figma's vector clock for causality tracking
+/ Figma's vector clock for causality tracking
 #[derive(Clone, Debug)]
 struct VectorClock {
     entries: HashMap<ActorID, u64>,
@@ -381,7 +381,7 @@ impl VectorClock {
 ### Fractional Indexing for Lists
 
 ```typescript
-// Maintain order without reindexing
+/ Maintain order without reindexing
 class FractionalIndex {
   private digits: number[];
   
@@ -394,11 +394,11 @@ class FractionalIndex {
       const digitB = b.digits[i] || BASE;
       
       if (digitA + 1 < digitB) {
-        // Found a gap
+        / Found a gap
         result.push(Math.floor((digitA + digitB) / 2));
         break;
       } else {
-        // Need to go deeper
+        / Need to go deeper
         result.push(digitA);
       }
     }
@@ -420,7 +420,7 @@ class FractionalIndex {
 ### WebAssembly Rendering Engine
 
 ```cpp
-// High-performance rendering in WASM
+/ High-performance rendering in WASM
 class FigmaRenderer {
 private:
     std::vector<RenderObject> objects;
@@ -428,19 +428,19 @@ private:
     
 public:
     void render_frame(Canvas* canvas) {
-        // Sort by z-index and layer hierarchy
+        / Sort by z-index and layer hierarchy
         std::sort(objects.begin(), objects.end(), 
             [](const auto& a, const auto& b) {
                 return a.z_order < b.z_order;
             }.md);
         
-        // Batch by material to minimize state changes
+        / Batch by material to minimize state changes
         auto batches = group_by_material(objects);
         
         for (const auto& batch : batches) {
             setup_material(batch.material);
             
-            // Use instanced rendering for repeated elements
+            / Use instanced rendering for repeated elements
             if (batch.objects.size() > INSTANCE_THRESHOLD) {
                 render_instanced(batch.objects);
             } else {
@@ -450,7 +450,7 @@ public:
             }
         }
         
-        // Apply post-processing effects
+        / Apply post-processing effects
         apply_blur_effects();
         apply_shadow_effects();
     }
@@ -556,12 +556,12 @@ graph TD
 
 1. **Choose the Right Consistency Model**
    ```typescript
-   // Decision framework
+   / Decision framework
    interface ConsistencyDecision {
-     isOrderImportant: boolean;      // Use OT or CRDT
-     canTolerateConflicts: boolean;   // Use CRDT
-     needsImmediateFeedback: boolean; // Use optimistic updates
-     hasComplexMerge: boolean;        // Consider centralized
+     isOrderImportant: boolean;      / Use OT or CRDT
+     canTolerateConflicts: boolean;   / Use CRDT
+     needsImmediateFeedback: boolean; / Use optimistic updates
+     hasComplexMerge: boolean;        / Consider centralized
    }
    
    function selectConsistencyModel(requirements: ConsistencyDecision) {
@@ -609,13 +609,13 @@ graph TD
      private syncInProgress = false;
      
      async applyOperation(op: Operation) {
-       // Always apply locally first
+       / Always apply locally first
        this.applyLocal(op);
        
-       // Queue for sync
+       / Queue for sync
        this.operationQueue.push(op);
        
-       // Try to sync if online
+       / Try to sync if online
        if (navigator.onLine && !this.syncInProgress) {
          await this.syncOperations();
        }
@@ -630,7 +630,7 @@ graph TD
          try {
            await this.sendBatch(batch);
          } catch (error) {
-           // Re-queue failed operations
+           / Re-queue failed operations
            this.operationQueue.unshift(...batch);
            break;
          }

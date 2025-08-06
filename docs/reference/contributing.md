@@ -12,7 +12,7 @@ tags:
 
 # Contributing Guide
 
-[Home](/index.md) > [Reference](reference/index.md) > Contributing
+[Home](/) > [Reference](reference/index.md) > Contributing
 
 !!! abstract "Join Our Community"
     The Compendium is a community-driven resource. We welcome contributions that help others learn distributed systems from first principles.
@@ -240,5 +240,5 @@ Thank you for helping make distributed systems knowledge accessible to everyone!
 <div class="page-nav" markdown>
 [:material-arrow-left: Recipe Cards](reference/recipe-cards/index.md) | 
 [:material-arrow-up: Reference](reference/index.md) | 
-[:material-arrow-right: Home](/index.md)
+[:material-arrow-right: Home](/)
 </div>

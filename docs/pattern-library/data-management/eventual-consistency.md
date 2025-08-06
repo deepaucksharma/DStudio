@@ -322,37 +322,37 @@ graph LR
     
     ---
     
-    - [CRDT](..../pattern-library/data-management.md/crdt.md) - Conflict-free replicated data types
+    - [CRDT](../pattern-library/data-management/crdt.md) - Conflict-free replicated data types
     - [Vector Clocks](../coordination/vector-clocks.md) - Causality tracking
-    - [Read Repair](..../pattern-library/data-management.md/read-repair.md) - Fixing inconsistencies during reads
+    - [Read Repair](../pattern-library/data-management/read-repair.md) - Fixing inconsistencies during reads
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 1: Correlated Failure](../..../core-principles/laws.md/correlated-failure/index.md) - Network partitions are inevitable
-    - [Law 2: Asynchronous Reality](../..../core-principles/laws.md/asynchronous-reality/index.md) - No global clock exists
+    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Network partitions are inevitable
+    - [Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md) - No global clock exists
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../..../core-principles/pillars.md/state-distribution/index.md) - Managing distributed state
-    - [Truth Distribution](../..../core-principles/pillars.md/truth-distribution/index.md) - Consistency models
+    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Managing distributed state
+    - [Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Consistency models
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Consistency Testing Guide](../../excellence/guides/consistency-testing.md)
-    - [Conflict Resolution Patterns](../../excellence/guides/conflict-resolution.md)
-    - [Migration from Strong Consistency](../../excellence/migrations/strong-to-eventual.md)
+    - [Consistency Testing Guide](../excellence/guides/consistency-testing.md)
+    - [Conflict Resolution Patterns](../excellence/guides/conflict-resolution.md)
+    - [Migration from Strong Consistency](../excellence/migrations/strong-to-eventual.md)
 
 </div>
 
 ---
 
-*Next: [CRDT](..../pattern-library/data-management.md/crdt.md) - Conflict-free replicated data types for automatic conflict resolution*
+*Next: [CRDT](../pattern-library/data-management/crdt.md) - Conflict-free replicated data types for automatic conflict resolution*
 
 ### Advanced Implementation Examples
 
@@ -499,7 +499,7 @@ class CassandraStyle:
  return await write_func(replicas, query)
  
  async def _write_to_quorum(self, replicas: List[str], query: str):
- quorum_size = len(replicas) // 2 + 1
+ quorum_size = len(replicas) / 2 + 1
  tasks = [self._send_write(replica, query) for replica in replicas]
  results = await asyncio.gather(*tasks, return_exceptions=True)
  return sum(1 for r in results if r is True) >= quorum_size

@@ -130,7 +130,7 @@ graph TB
 ### Battery-Optimized Location Tracking
 
 ```swift
-// Life360's advanced battery optimization for continuous location tracking
+/ Life360's advanced battery optimization for continuous location tracking
 import CoreLocation
 import CoreMotion
 import UserNotifications
@@ -144,14 +144,14 @@ class Life360LocationManager: NSObject {
     private var batteryOptimizer: BatteryOptimizer
     private var contextAnalyzer: LocationContextAnalyzer
     
-    // Adaptive location tracking configuration
+    / Adaptive location tracking configuration
     private struct TrackingConfig {
-        var highAccuracyInterval: TimeInterval = 10 // seconds
+        var highAccuracyInterval: TimeInterval = 10 / seconds
         var normalAccuracyInterval: TimeInterval = 30
-        var lowAccuracyInterval: TimeInterval = 300 // 5 minutes
-        var stationaryInterval: TimeInterval = 600 // 10 minutes
+        var lowAccuracyInterval: TimeInterval = 300 / 5 minutes
+        var stationaryInterval: TimeInterval = 600 / 10 minutes
         
-        var highAccuracyRadius: CLLocationDistance = 5 // meters
+        var highAccuracyRadius: CLLocationDistance = 5 / meters
         var normalAccuracyRadius: CLLocationDistance = 20
         var lowAccuracyRadius: CLLocationDistance = 100
     }
@@ -171,12 +171,12 @@ class Life360LocationManager: NSObject {
     private func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 10 // meters
+        locationManager.distanceFilter = 10 / meters
         
-        // Request always authorization for background tracking
+        / Request always authorization for background tracking
         locationManager.requestAlwaysAuthorization()
         
-        // Enable background location updates
+        / Enable background location updates
         if CLLocationManager.backgroundLocationEnabled {
             locationManager.allowsBackgroundLocationUpdates = true
             locationManager.pausesLocationUpdatesAutomatically = false
@@ -184,17 +184,17 @@ class Life360LocationManager: NSObject {
     }
     
     private func startAdaptiveTracking() {
-        // Start with motion-based location updates
+        / Start with motion-based location updates
         locationManager.startMonitoringSignificantLocationChanges()
         
-        // Start motion activity monitoring
+        / Start motion activity monitoring
         if CMMotionActivityManager.isActivityAvailable() {
             motionManager.startActivityUpdates(to: .main) { [weak self] activity in
                 self?.handleMotionActivity(activity)
             }
         }
         
-        // Start step counting for context
+        / Start step counting for context
         if CMPedometer.isStepCountingAvailable() {
             pedometer.startUpdates(from: Date()) { [weak self] data, error in
                 if let data = data {
@@ -215,7 +215,7 @@ class Life360LocationManager: NSObject {
             confidence: activity.confidence
         )
         
-        // Adapt location tracking based on motion context
+        / Adapt location tracking based on motion context
         adaptLocationTracking(for: context)
     }
     
@@ -223,30 +223,30 @@ class Life360LocationManager: NSObject {
         let trackingMode = adaptiveTrackingEngine.determineTrackingMode(context)
         
         switch trackingMode {
-        case .highFrequency: // Driving or active movement
+        case .highFrequency: / Driving or active movement
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.distanceFilter = 5
-            startStandardLocationUpdates(interval: 5) // 5 second updates
+            startStandardLocationUpdates(interval: 5) / 5 second updates
             
-        case .normalFrequency: // Walking or general movement
+        case .normalFrequency: / Walking or general movement
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.distanceFilter = 10
-            startStandardLocationUpdates(interval: 15) // 15 second updates
+            startStandardLocationUpdates(interval: 15) / 15 second updates
             
-        case .lowFrequency: // Stationary but not at known location
+        case .lowFrequency: / Stationary but not at known location
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.distanceFilter = 50
-            startStandardLocationUpdates(interval: 60) // 1 minute updates
+            startStandardLocationUpdates(interval: 60) / 1 minute updates
             
-        case .significantChanges: // Stationary at known location
+        case .significantChanges: / Stationary at known location
             stopStandardLocationUpdates()
-            // Rely on significant location changes only
+            / Rely on significant location changes only
             
-        case .suspended: // Battery critical or user preference
+        case .suspended: / Battery critical or user preference
             suspendLocationTracking()
         }
         
-        // Update battery optimization strategy
+        / Update battery optimization strategy
         batteryOptimizer.updateStrategy(for: trackingMode)
     }
 }
@@ -533,19 +533,19 @@ class Life360CrashDetection:
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md)** - Real-time family location updates across distributed mobile devices
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Balance battery life, accuracy, privacy, and safety features
-- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - Freemium model balances free family safety with premium features
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Real-time family location updates across distributed mobile devices
+- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)** - Balance battery life, accuracy, privacy, and safety features
+- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - Freemium model balances free family safety with premium features
 
 ### Related Patterns  
-- **[Geofencing](../../pattern-library/location.md/geofencing/index.md)** - Large-scale location-based notification patterns
-- **[Battery Optimization](../../pattern-library/mobile.md/battery-optimization/index.md)** - Power-efficient continuous location tracking
-- **[Real-Time Notifications](../../pattern-library/notifications.md/real-time/index.md)** - Family communication and emergency alert systems
+- **[Geofencing](../pattern-library/location/geofencing/index.md)** - Large-scale location-based notification patterns
+- **[Battery Optimization](../pattern-library/mobile/battery-optimization/index.md)** - Power-efficient continuous location tracking
+- **[Real-Time Notifications](../pattern-library/notifications/real-time/index.md)** - Family communication and emergency alert systems
 
 ### Related Case Studies
-- **[Apple Find My](../../find-my-device.md)** - Privacy-focused device and family tracking
-- **[Uber Location System](../../uber-location.md)** - Commercial real-time location tracking
-- **[Snap Map](../../snap-map.md)** - Social location sharing with different privacy model
+- **[Apple Find My](../find-my-device.md)** - Privacy-focused device and family tracking
+- **[Uber Location System](../uber-location.md)** - Commercial real-time location tracking
+- **[Snap Map](../snap-map.md)** - Social location sharing with different privacy model
 
 ## External Resources
 

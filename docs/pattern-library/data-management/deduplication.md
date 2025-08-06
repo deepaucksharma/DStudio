@@ -317,5 +317,5 @@ graph LR
 - [Caching Strategies](pattern-library/caching-strategies/index.md)
 
 ## References
-- [Google Drive Case Study](case-studies/google-drive/index.md)
+- [Google Drive Case Study](../architects-handbook/case-studies/google-drive/index.md)
 

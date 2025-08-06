@@ -346,31 +346,31 @@ Optimization Techniques:
 ### 2. Viewer Performance
 
 ```javascript
-// Progressive Image Loading Strategy
+/ Progressive Image Loading Strategy
 class MedicalImageViewer {
   async loadImage(studyId, seriesId, imageId) {
-    // 1. Load thumbnail immediately
+    / 1. Load thumbnail immediately
     const thumbnail = await this.loadThumbnail(imageId);
     this.displayImage(thumbnail);
     
-    // 2. Load compressed preview
+    / 2. Load compressed preview
     const preview = await this.loadPreview(imageId);
     this.displayImage(preview);
     
-    // 3. Load full resolution for diagnostic viewing
+    / 3. Load full resolution for diagnostic viewing
     const fullRes = await this.loadFullResolution(imageId);
     this.displayImage(fullRes);
     
-    // 4. Preload adjacent images
+    / 4. Preload adjacent images
     this.preloadAdjacentImages(seriesId, imageId);
   }
   
-  // WebAssembly-based DICOM decompression
+  / WebAssembly-based DICOM decompression
   async decompressDicom(compressedData) {
     return await this.wasmDecoder.decompress(compressedData);
   }
   
-  // Multi-planar reconstruction
+  / Multi-planar reconstruction
   async generateMPR(volumeData, plane) {
     return await this.gpuRenderer.reconstructPlane(volumeData, plane);
   }

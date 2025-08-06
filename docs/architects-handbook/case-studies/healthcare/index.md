@@ -25,7 +25,7 @@ Healthcare systems present unique challenges in distributed architecture: strict
 - **[EHR System Architecture](ehr-system.md)** ⭐⭐  
   *Epic and Cerner implementations serving 250M+ patient records*
   - **Focus**: HIPAA compliance, data synchronization, clinical workflows
-  - **Patterns**: [Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md), [API Gateway](../../pattern-library/communication.md/api-gateway.md), [CQRS](../../pattern-library/data-management.md/cqrs.md)
+  - **Patterns**: [Event Sourcing](../pattern-library/data-management/event-sourcing.md), [API Gateway](../pattern-library/communication/api-gateway.md), [CQRS](../pattern-library/data-management/cqrs.md)
   - **Scale**: 100M+ patients, 50M+ daily transactions, 99.99% uptime
   - **Time Investment**: 60-90 minutes
 
@@ -33,7 +33,7 @@ Healthcare systems present unique challenges in distributed architecture: strict
 - **[Medical Imaging Pipeline](medical-imaging-pipeline.md)** ⭐⭐⭐  
   *DICOM processing, AI analysis, and global image distribution*
   - **Focus**: Image processing at scale, AI integration, storage optimization
-  - **Patterns**: [Event Streaming](../../pattern-library/architecture.md/event-streaming.md), [Auto Scaling](../../pattern-library/scaling.md/auto-scaling.md), [CDN](../../pattern-library/scaling.md/caching-strategies.md)
+  - **Patterns**: [Event Streaming](../pattern-library/architecture/event-streaming.md), [Auto Scaling](../pattern-library/scaling/auto-scaling.md), [CDN](../pattern-library/scaling/caching-strategies.md)
   - **Scale**: 10M+ images/day, petabyte storage, sub-second retrieval
   - **Time Investment**: 90-120 minutes
 
@@ -41,7 +41,7 @@ Healthcare systems present unique challenges in distributed architecture: strict
 - **[HIPAA Compliance Architecture](patient-privacy-hipaa.md)** ⭐⭐⭐  
   *Zero-trust security, data governance, and compliance automation*
   - **Focus**: Privacy by design, audit systems, breach prevention
-  - **Patterns**: [Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md), [Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md), [Saga](../../pattern-library/data-management.md/saga.md)
+  - **Patterns**: [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md), [Rate Limiting](../pattern-library/scaling/rate-limiting.md), [Saga](../pattern-library/data-management/saga.md)
   - **Scale**: 500K+ healthcare providers, comprehensive audit trails
   - **Time Investment**: 75-100 minutes
 
@@ -117,21 +117,21 @@ Learn to handle healthcare data volumes:
 Healthcare systems frequently implement these distributed system patterns:
 
 ### **Core Patterns**
-- **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing.md)**: Regulatory audit requirements
-- **[CQRS](../../pattern-library/data-management.md/cqrs.md)**: Separate read/write models for complex workflows
-- **[API Gateway](../../pattern-library/communication.md/api-gateway.md)**: Secure third-party integrations
-- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)**: Fault tolerance for critical systems
+- **[Event Sourcing](../pattern-library/data-management/event-sourcing.md)**: Regulatory audit requirements
+- **[CQRS](../pattern-library/data-management/cqrs.md)**: Separate read/write models for complex workflows
+- **[API Gateway](../pattern-library/communication/api-gateway.md)**: Secure third-party integrations
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)**: Fault tolerance for critical systems
 
 ### **Security Patterns**
-- **[Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md)**: API protection and abuse prevention
+- **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)**: API protection and abuse prevention
 - **Zero Trust Security**: Never trust, always verify
 - **Data Loss Prevention (DLP)**: Prevent unauthorized data access
 - **Multi-Factor Authentication**: Strong identity verification
 
 ### **Scale Patterns**
-- **[Auto Scaling](../../pattern-library/scaling.md/auto-scaling.md)**: Handle varying workloads
-- **[Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)**: Improve performance while maintaining security
-- **[Load Balancing](../../pattern-library/scaling.md/load-balancing.md)**: Distribute traffic across healthy instances
+- **[Auto Scaling](../pattern-library/scaling/auto-scaling.md)**: Handle varying workloads
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)**: Improve performance while maintaining security
+- **[Load Balancing](../pattern-library/scaling/load-balancing.md)**: Distribute traffic across healthy instances
 
 ---
 
@@ -177,8 +177,8 @@ Healthcare systems frequently implement these distributed system patterns:
 ---
 
 **Explore Related Domains**:
-- **[Financial & Commerce](../../financial-commerce/index.md)**: Similar compliance and security requirements
-- **[Social & Communication](../../social-communication/index.md)**: Patient engagement and messaging systems
-- **[Monitoring & Observability](../../monitoring-observability/index.md)**: Essential for healthcare system reliability
+- **[Financial & Commerce](../financial-commerce/index.md)**: Similar compliance and security requirements
+- **[Social & Communication](../social-communication/index.md)**: Patient engagement and messaging systems
+- **[Monitoring & Observability](../monitoring-observability/index.md)**: Essential for healthcare system reliability
 
 *Last Updated: August 2025 | 3 Case Studies*

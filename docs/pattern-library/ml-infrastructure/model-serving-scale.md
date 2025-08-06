@@ -666,23 +666,23 @@ timeline
     
     ---
     
-    - [Economic Reality](../../core-principles/laws/economic-reality.md) - Cost optimization strategies
-    - [Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Latency management
+    - [Economic Reality](../core-principles/laws/economic-reality.md) - Cost optimization strategies
+    - [Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) - Latency management
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work-distribution.md) - Inference workload management
-    - [Intelligence Amplification](../../core-principles/pillars/intelligence-amplification.md) - ML system optimization
+    - [Work Distribution](../core-principles/pillars/work-distribution.md) - Inference workload management
+    - [Intelligence Amplification](../core-principles/pillars/intelligence-amplification.md) - ML system optimization
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Kubernetes ML Deployment](../../excellence/guides/k8s-ml-deployment.md)
-    - [Model Optimization Guide](../../excellence/guides/model-optimization.md)
-    - [ML Monitoring Best Practices](../../excellence/guides/ml-monitoring.md)
+    - [Kubernetes ML Deployment](../excellence/guides/k8s-ml-deployment.md)
+    - [Model Optimization Guide](../excellence/guides/model-optimization.md)
+    - [ML Monitoring Best Practices](../excellence/guides/ml-monitoring.md)
 
 </div>
 

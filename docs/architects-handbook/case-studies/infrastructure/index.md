@@ -197,18 +197,18 @@ Large-scale migration from monolithic to microservices architecture.
 ## 🔗 Cross-References
 
 ### Related Patterns
-- [Load Balancing](../../../../pattern-library/scaling/load-balancing.md) - Traffic distribution
-- [Caching Strategies](../../../../pattern-library/scaling/caching-strategies.md) - Performance optimization  
-- [Auto-scaling](../../../../pattern-library/scaling/auto-scaling.md) - Dynamic resource management
+- [Load Balancing](../../pattern-library/scaling/load-balancing.md) - Traffic distribution
+- [Caching Strategies](../../pattern-library/scaling/caching-strategies.md) - Performance optimization  
+- [Auto-scaling](../../pattern-library/scaling/auto-scaling.md) - Dynamic resource management
 
 ### Quantitative Analysis
-- [Capacity Planning](../../quantitative-analysis/capacity-planning.md) - Infrastructure sizing
-- [Availability Math](../../quantitative-analysis/availability-math.md) - SLA calculations
-- [Storage Economics](../../quantitative-analysis/storage-economics.md) - Cost optimization
+- [Capacity Planning](../architects-handbook/quantitative-analysis/capacity-planning.md) - Infrastructure sizing
+- [Availability Math](../architects-handbook/quantitative-analysis/availability-math.md) - SLA calculations
+- [Storage Economics](../architects-handbook/quantitative-analysis/storage-economics.md) - Cost optimization
 
 ### Human Factors
-- [SRE Practices](../../human-factors/sre-practices.md) - Infrastructure reliability
-- [Incident Response](../../human-factors/incident-response.md) - Infrastructure incidents
+- [SRE Practices](../architects-handbook/human-factors/sre-practices.md) - Infrastructure reliability
+- [Incident Response](../architects-handbook/human-factors/incident-response.md) - Infrastructure incidents
 
 ## 🎯 Infrastructure Success Metrics
 

@@ -215,7 +215,7 @@ class SynchronousLeader:
  acks += 1
  
 # Wait for majority
- if acks >= len(self.followers) // 2:
+ if acks >= len(self.followers) / 2:
  self.commit(key, value)
  return True
  else:
@@ -462,8 +462,8 @@ graph LR
 
 ## Related Patterns
 
-- [Leader Election](..../pattern-library/coordination.md/leader-election.md) - Choosing the leader
-- [Consensus](..../pattern-library/coordination.md/consensus.md) - Agreement protocols
+- [Leader Election](../pattern-library/coordination/leader-election.md) - Choosing the leader
+- [Consensus](../pattern-library/coordination/consensus.md) - Agreement protocols
 - [Primary-Backup](primary-backup.md) - Similar but simpler
 - [Multi-Master](multi-master.md) - Alternative approach
 - [Chain Replication](chain-replication.md) - Variation

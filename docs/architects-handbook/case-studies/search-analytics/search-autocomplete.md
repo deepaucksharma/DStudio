@@ -731,7 +731,7 @@ class SearchAnalytics:
         sorted_latencies = sorted(self.latency_percentiles)
         
         return {
-            'p50': sorted_latencies[len(sorted_latencies) // 2],
+            'p50': sorted_latencies[len(sorted_latencies) / 2],
             'p95': sorted_latencies[int(len(sorted_latencies) * 0.95)],
             'p99': sorted_latencies[int(len(sorted_latencies) * 0.99)]
         }
@@ -1079,10 +1079,10 @@ graph TB
 - Personalized suggestions
 
 **Patterns & Pillars Applied**:
-- Pattern: [Sharding](../../pattern-library/scaling.md/sharding.md) - Prefix-based partitioning
-- Pattern: [Cache-Aside](../../pattern-library/scaling.md/caching-strategies.md) - Redis for hot queries
-- 🏛 Pillar: [Work Distribution](../../core-principles/pillars.md/work-distribution.md) - Parallel prefix search
-- 🏛 Pillar: [Intelligence](../../core-principles/pillars.md/intelligence-distribution.md) - ML ranking
+- Pattern: [Sharding](../pattern-library/scaling/sharding.md) - Prefix-based partitioning
+- Pattern: [Cache-Aside](../pattern-library/scaling/caching-strategies.md) - Redis for hot queries
+- 🏛 Pillar: [Work Distribution](../core-principles/pillars/work-distribution.md) - Parallel prefix search
+- 🏛 Pillar: [Intelligence](../core-principles/pillars/intelligence-distribution.md) - ML ranking
 
 ### Phase 4: Modern Multi-Model Architecture (2015-Present)
 
@@ -1682,27 +1682,27 @@ class DistributedAutocomplete:
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md)** - Sub-100ms response critical for UX
-- **[Law 4: Trade-offs](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Memory limits drive sharding
-- **[Law 1: Failure](../../core-principles/laws.md/correlated-failure/index.md)** - Graceful degradation strategies
-- **[Law 3: Emergence](../../core-principles/laws.md/emergent-chaos/index.md)** - Lock-free trie operations
-- **[Law 5: Epistemology](../../core-principles/laws.md/distributed-knowledge/index.md)** - Distributed trie updates
-- **[Law 5: Epistemology](../../core-principles/laws.md/distributed-knowledge/index.md)** - Query performance tracking
-- **[Law 6: Human-API](../../core-principles/laws.md/cognitive-load/index.md)** - Typo tolerance, personalization
-- **[Law 7: Economics](../../core-principles/laws.md/economic-reality/index.md)** - Memory cost vs latency
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Sub-100ms response critical for UX
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Memory limits drive sharding
+- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Graceful degradation strategies
+- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Lock-free trie operations
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Distributed trie updates
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Query performance tracking
+- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - Typo tolerance, personalization
+- **[Law 7: Economics](../core-principles/laws/economic-reality/index.md)** - Memory cost vs latency
 
 ### 🏛 Related Patterns
 - **Trie Data Structure (Coming Soon)** - Core search structure
-- **[Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)** - Multi-level caching
-- **[Sharding](../../pattern-library/scaling.md/sharding.md)** - Distribute by prefix
-- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)** - Service protection
-- **[Load Balancing](../../pattern-library/scaling.md/load-balancing.md)** - Distribute queries
-- **[Event Streaming](../../pattern-library/architecture.md/event-streaming.md)** - Real-time updates
-- **[Edge Computing](../../pattern-library/scaling.md/edge-computing.md)** - Global latency optimization
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Multi-level caching
+- **[Sharding](../pattern-library/scaling/sharding.md)** - Distribute by prefix
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service protection
+- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Distribute queries
+- **[Event Streaming](../pattern-library/architecture/event-streaming.md)** - Real-time updates
+- **[Edge Computing](../pattern-library/scaling/edge-computing.md)** - Global latency optimization
 
 ### Quantitative Models
-- **[Information Theory](../../quantitative-analysis/information-theory.md)** - Entropy in prefix trees
-- **[Queueing Theory](../../quantitative-analysis/queueing-models.md)** - Server capacity planning
+- **[Information Theory](../architects-handbook/quantitative-analysis/information-theory.md)** - Entropy in prefix trees
+- **[Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md)** - Server capacity planning
 - **Probability Theory (Coming Soon)** - Bloom filter false positives
 - **Machine Learning (ML Ranking Coming Soon)** - Learning to rank
 

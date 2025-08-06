@@ -186,14 +186,14 @@ graph TB
 
 **Solution**: API Priority and Fairness
 ```go
-// Priority levels for API requests
+/ Priority levels for API requests
 type PriorityLevel struct {
     Name string
     NominalConcurrencyShares int32
     QueueLengthLimit int32
 }
 
-// Example configuration
+/ Example configuration
 workloadPriority := PriorityLevel{
     Name: "workload-low",
     NominalConcurrencyShares: 100,
@@ -365,11 +365,11 @@ graph LR
 
 ## Related Topics
 
-- [Service Discovery](../../pattern-library/communication.md/service-discovery/index.md) - Core Kubernetes pattern
-- [Health Checks](../../pattern-library/resilience.md/health-check/index.md) - Liveness and readiness probes
-- [Leader Election](../../pattern-library/coordination.md/leader-election/index.md) - Used by control plane
-- [Sidecar Pattern](../../pattern-library/architecture.md/sidecar/index.md) - Common in Kubernetes
-- [Blue-Green Deployment](../../pattern-library/blue-green-deployment.md/index.md) - Kubernetes native
+- [Service Discovery](../pattern-library/communication/service-discovery/index.md) - Core Kubernetes pattern
+- [Health Checks](../pattern-library/resilience/health-check/index.md) - Liveness and readiness probes
+- [Leader Election](../pattern-library/coordination/leader-election/index.md) - Used by control plane
+- [Sidecar Pattern](../pattern-library/architecture/sidecar/index.md) - Common in Kubernetes
+- [Blue-Green Deployment](../pattern-library/blue-green-deployment.md/index.md) - Kubernetes native
 
 ## References
 

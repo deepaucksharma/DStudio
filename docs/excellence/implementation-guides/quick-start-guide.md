@@ -596,12 +596,12 @@ structlog==23.1.0     # Structured logging
 **Node.js**:
 ```json
 {
-  "opossum": "^7.0.0",      // Circuit breaker
-  "p-retry": "^5.1.2",      // Retry logic
-  "bull": "^4.10.4",        // Task queues
-  "prom-client": "^14.2.0", // Metrics
-  "@opentelemetry/api": "^1.4.1", // Tracing
-  "pino": "^8.11.0"         // Structured logging
+  "opossum": "^7.0.0",      / Circuit breaker
+  "p-retry": "^5.1.2",      / Retry logic
+  "bull": "^4.10.4",        / Task queues
+  "prom-client": "^14.2.0", / Metrics
+  "@opentelemetry/api": "^1.4.1", / Tracing
+  "pino": "^8.11.0"         / Structured logging
 }
 ```
 
@@ -636,8 +636,8 @@ kubectl rollout undo deployment/api-deployment
 
 ## Resources
 
-- [Circuit Breaker Pattern](../../../pattern-library/resilience/circuit-breaker/index.md)
-- [Retry Patterns](../../../pattern-library/resilience/retry-backoff/index.md)
-- [Caching Strategies](../../../pattern-library/scaling/caching-strategies/index.md)
-- [Auto-scaling Guide](../../../pattern-library/scaling/auto-scaling/index.md)
-- [Monitoring Best Practices](../human-factors/observability-stacks.md)
+- [Circuit Breaker Pattern](../../pattern-library/resilience/circuit-breaker/index.md)
+- [Retry Patterns](../../pattern-library/resilience/retry-backoff/index.md)
+- [Caching Strategies](../../pattern-library/scaling/caching-strategies/index.md)
+- [Auto-scaling Guide](../../pattern-library/scaling/auto-scaling/index.md)
+- [Monitoring Best Practices](../architects-handbook/human-factors/observability-stacks.md)

@@ -75,7 +75,7 @@ last_updated: 2025-07-20
 
 **Scaling**: Linear O(n), Database O(n log n), Coordination O(n²)
 
-**Learn More**: [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md), [Scaling Laws](../quantitative-analysis/universal-scalability.md)
+**Learn More**: [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md), [Scaling Laws](../architects-handbook/quantitative-analysis/universal-scalability.md)
 
 ---
 

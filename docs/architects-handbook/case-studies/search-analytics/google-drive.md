@@ -875,7 +875,7 @@ Web Browser → Web Server → File System → Database
 **Patterns Violated**: 
 - No Deduplication (Coming Soon)
 - No Delta Sync (Coming Soon)
-- No [Distributed Storage](../../pattern-library/data-management.md/distributed-storage/index.md)
+- No [Distributed Storage](../pattern-library/data-management/distributed-storage/index.md)
 
 ### Phase 2: Basic Sync Architecture (2008-2010)
 
@@ -907,7 +907,7 @@ graph TB
 ```
 
 **Key Design Decision: Metadata/Data Separation**
-- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](..../core-principles/pillars.md/state/index.md))
+- **Trade-off**: Complexity vs Scalability (Pillar: [State Distribution](../core-principles/pillars/state/index.md))
 - **Choice**: Store metadata in DB, files in object storage
 - **Result**: Independent scaling of metadata and storage
 - **Pattern Applied**: Metadata Service (Coming Soon)
@@ -965,10 +965,10 @@ graph TB
 - Immutable storage simplifies replication
 
 **Patterns & Pillars Applied**:
-- Pattern: [Content-Addressed Storage](../../pattern-library/coordination.md/cas/index.md) - Deduplication
+- Pattern: [Content-Addressed Storage](../pattern-library/coordination/cas/index.md) - Deduplication
 - Pattern: Chunking (Coming Soon) - Large file handling
-- 🏛 Pillar: [State Distribution](..../core-principles/pillars.md/state/index.md) - Sharded metadata
-- 🏛 Pillar: [Work Distribution](..../core-principles/pillars.md/work/index.md) - Parallel uploads
+- 🏛 Pillar: [State Distribution](../core-principles/pillars/state/index.md) - Sharded metadata
+- 🏛 Pillar: [Work Distribution](../core-principles/pillars/work/index.md) - Parallel uploads
 
 ### Phase 4: Modern Cloud-Native Architecture (2014-Present)
 
@@ -1543,29 +1543,29 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](..../core-principles/laws.md/asynchronous-reality/index.md)** - Sync speed, cache placement
-- **[Law 4: Trade-offs](..../core-principles/laws.md/multidimensional-optimization/index.md)** - Storage tiering, deduplication
-- **[Law 1: Failure](..../core-principles/laws.md/correlated-failure/index.md)** - Replication, conflict resolution
-- **[Law 3: Emergence](..../core-principles/laws.md/emergent-chaos/index.md)** - Parallel uploads, collaborative editing
-- **[Law 4: Trade-offs](..../core-principles/laws.md/multidimensional-optimization/index.md)** - Distributed sync, consistency
-- **[Law 5: Epistemology](..../core-principles/laws.md/distributed-knowledge/index.md)** - Sync tracking, storage metrics
-- **[Law 6: Human-API](..../core-principles/laws.md/cognitive-load/index.md)** - Selective sync, offline mode
-- **[Law 7: Economics](..../core-principles/laws.md/economic-reality/index.md)** - Storage costs, tiering strategy
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Sync speed, cache placement
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Storage tiering, deduplication
+- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Replication, conflict resolution
+- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Parallel uploads, collaborative editing
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Distributed sync, consistency
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Sync tracking, storage metrics
+- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - Selective sync, offline mode
+- **[Law 7: Economics](../core-principles/laws/economic-reality/index.md)** - Storage costs, tiering strategy
 
 ### 🏛 Related Patterns
-- **[Content-Addressed Storage](../../pattern-library/coordination.md/cas/index.md)** - Deduplication foundation
+- **[Content-Addressed Storage](../pattern-library/coordination/cas/index.md)** - Deduplication foundation
 - **Delta Sync (Coming Soon)** - Efficient synchronization
 - **Merkle Trees (Coming Soon)** - File verification
-- **[CRDT](../../pattern-library/data-management.md/crdt/index.md)** - Conflict-free collaboration
-- **[Event Sourcing](../../pattern-library/data-management.md/event-sourcing/index.md)** - File history
-- **[Saga Pattern](../../pattern-library/data-management.md/saga/index.md)** - Multi-step operations
-- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)** - Service resilience
+- **[CRDT](../pattern-library/data-management/crdt/index.md)** - Conflict-free collaboration
+- **[Event Sourcing](../pattern-library/data-management/event-sourcing/index.md)** - File history
+- **[Saga Pattern](../pattern-library/data-management/saga/index.md)** - Multi-step operations
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)** - Service resilience
 
 ### Quantitative Models
 - **CAP Theorem (Coming Soon)** - Sync consistency trade-offs
-- **[Information Theory](../../quantitative-analysis/information-theory/index.md)** - Compression limits
-- **[Queueing Theory](../../quantitative-analysis/queueing-models/index.md)** - Upload/download capacity
-- **[Storage Economics](../../quantitative-analysis/storage-economics/index.md)** - Cost optimization
+- **[Information Theory](../architects-handbook/quantitative-analysis/information-theory/index.md)** - Compression limits
+- **[Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models/index.md)** - Upload/download capacity
+- **[Storage Economics](../architects-handbook/quantitative-analysis/storage-economics/index.md)** - Cost optimization
 
 ### Similar Case Studies
 <!-- TODO: Add when available

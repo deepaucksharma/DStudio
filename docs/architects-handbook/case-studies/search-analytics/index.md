@@ -163,19 +163,19 @@ Real-time ranking system for gaming with millions of players and frequent score 
 ## 🔗 Cross-References
 
 ### Related Patterns
-- [Caching Strategies](../../../../pattern-library/scaling/caching-strategies.md) - Search result caching
-- [Load Balancing](../../../../pattern-library/scaling/load-balancing.md) - Query distribution  
-- [Rate Limiting](../../../../pattern-library/scaling/rate-limiting.md) - API protection
+- [Caching Strategies](../../pattern-library/scaling/caching-strategies.md) - Search result caching
+- [Load Balancing](../../pattern-library/scaling/load-balancing.md) - Query distribution  
+- [Rate Limiting](../../pattern-library/scaling/rate-limiting.md) - API protection
 
 ### Quantitative Analysis
-- [Information Theory](../../quantitative-analysis/information-theory.md) - Search relevance metrics
-- [Graph Theory](../../quantitative-analysis/graph-theory.md) - PageRank and link analysis
-- [Machine Learning](../../quantitative-analysis/ml-systems.md) - Recommendation algorithms
+- [Information Theory](../architects-handbook/quantitative-analysis/information-theory.md) - Search relevance metrics
+- [Graph Theory](../architects-handbook/quantitative-analysis/graph-theory.md) - PageRank and link analysis
+- [Machine Learning](../architects-handbook/quantitative-analysis/ml-systems.md) - Recommendation algorithms
 
 ### Human Factors
-- [A/B Testing](../../human-factors/ab-testing.md) - Search relevance optimization
-- [User Experience](../../human-factors/search-ux.md) - Search interface design
-- [Analytics](../../human-factors/search-analytics.md) - Search behavior analysis
+- [A/B Testing](../architects-handbook/human-factors/ab-testing.md) - Search relevance optimization
+- [User Experience](../architects-handbook/human-factors/search-ux.md) - Search interface design
+- [Analytics](../architects-handbook/human-factors/search-analytics.md) - Search behavior analysis
 
 ## 🎯 Search & Analytics Success Metrics
 

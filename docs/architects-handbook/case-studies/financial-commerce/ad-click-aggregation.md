@@ -57,7 +57,7 @@ best_for:
 - High-volume event processing
 excellence_guides:
 - scale/stream-processing
-- ../../../pattern-library/lambda-architecture
+- ../../pattern-library/lambda-architecture
 - operational/fraud-detection
 key_innovations:
 - Three-phase commit for exactly-once processing
@@ -336,12 +336,12 @@ public class ExactlyOnceProcessor {
     public void processBatch(List<ClickEvent> events) {
         String batchId = generateBatchId();
         
-        // Phase 1: Check if batch already processed
+        / Phase 1: Check if batch already processed
         if (stateStore.isBatchProcessed(batchId)) {
-            return;  // Idempotent - skip reprocessing
+            return;  / Idempotent - skip reprocessing
         }
         
-        // Phase 2: Process and prepare output
+        / Phase 2: Process and prepare output
         ProcessingResult result = new ProcessingResult();
         try {
             stateStore.beginTransaction(batchId);
@@ -353,7 +353,7 @@ public class ExactlyOnceProcessor {
                 }
             }
             
-            // Phase 3: Commit atomically
+            / Phase 3: Commit atomically
             outputStore.write(result);
             stateStore.markBatchProcessed(batchId);
             stateStore.commitTransaction();
@@ -376,12 +376,12 @@ public class ClickAggregationJob {
         StreamExecutionEnvironment env = StreamExecutionEnvironment
             .getExecutionEnvironment();
         
-        // Enable exactly-once semantics
+        / Enable exactly-once semantics
         env.getCheckpointConfig().setCheckpointingMode(
             CheckpointingMode.EXACTLY_ONCE);
-        env.enableCheckpointing(60000); // 1-minute checkpoints
+        env.enableCheckpointing(60000); / 1-minute checkpoints
         
-        // Read from Kafka
+        / Read from Kafka
         DataStream<ClickEvent> clicks = env
             .addSource(new FlinkKafkaConsumer<>(
                 "ad-clicks",
@@ -389,28 +389,28 @@ public class ClickAggregationJob {
                 kafkaProps))
             .assignTimestampsAndWatermarks(
                 new BoundedOutOfOrdernessTimestampExtractor<ClickEvent>(
-                    Time.minutes(5)) {  // 5-minute late events
+                    Time.minutes(5)) {  / 5-minute late events
                     @Override
                     public long extractTimestamp(ClickEvent click) {
                         return click.getTimestamp();
                     }
                 });
         
-        // Deduplicate
+        / Deduplicate
         DataStream<ClickEvent> deduped = clicks
             .keyBy(click -> click.getUserId() + ":" + click.getAdId())
             .window(TumblingEventTimeWindows.of(Time.minutes(10)))
             .process(new DeduplicationFunction());
         
-        // Fraud detection
+        / Fraud detection
         DataStream<ClickEvent> validated = deduped
             .keyBy(click -> click.getUserId())
             .window(SlidingEventTimeWindows.of(
-                Time.minutes(5),     // Window size
-                Time.minutes(1)))    // Slide interval
+                Time.minutes(5),     / Window size
+                Time.minutes(1)))    / Slide interval
             .process(new FraudDetectionFunction());
         
-        // Multi-dimensional aggregation
+        / Multi-dimensional aggregation
         DataStream<ClickAggregation> aggregated = validated
             .keyBy(click -> 
                 click.getAdvertiserId() + ":" + 
@@ -419,10 +419,10 @@ public class ClickAggregationJob {
             .window(TumblingEventTimeWindows.of(Time.minutes(1)))
             .aggregate(new ClickAggregateFunction());
         
-        // Write to multiple sinks
-        aggregated.addSink(new CassandraSink());  // Real-time store
-        aggregated.addSink(new S3Sink());         // Data lake
-        aggregated.addSink(new KafkaSink());       // Downstream
+        / Write to multiple sinks
+        aggregated.addSink(new CassandraSink());  / Real-time store
+        aggregated.addSink(new S3Sink());         / Data lake
+        aggregated.addSink(new KafkaSink());       / Downstream
         
         env.execute("Click Aggregation Pipeline");
     }
@@ -435,7 +435,7 @@ public class ClickAggregationJob {
 ```java
 public class AdaptiveWatermarkGenerator implements WatermarkGenerator<ClickEvent> {
     private long maxTimestamp = Long.MIN_VALUE;
-    private final long maxOutOfOrderness = 300000; // 5 minutes
+    private final long maxOutOfOrderness = 300000; / 5 minutes
     
     @Override
     public void onEvent(ClickEvent event, long eventTimestamp, 
@@ -445,7 +445,7 @@ public class AdaptiveWatermarkGenerator implements WatermarkGenerator<ClickEvent
     
     @Override
     public void onPeriodicEmit(WatermarkOutput output) {
-        // Emit watermark with bounded out-of-orderness
+        / Emit watermark with bounded out-of-orderness
         output.emitWatermark(new Watermark(maxTimestamp - maxOutOfOrderness));
     }
 }
@@ -461,7 +461,7 @@ SingleOutputStreamOperator<ClickAggregation> result = clicks
     .sideOutputLateData(lateTag)
     .aggregate(new ClickAggregateFunction());
 
-// Process late events separately
+/ Process late events separately
 DataStream<ClickEvent> lateEvents = result.getSideOutput(lateTag);
 lateEvents.addSink(new LateEventReprocessor());
 ```

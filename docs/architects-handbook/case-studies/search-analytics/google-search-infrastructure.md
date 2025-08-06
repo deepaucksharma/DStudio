@@ -36,7 +36,7 @@ patterns_used:
   - master-slave: Legacy GFS architecture before Colossus
 excellence_guides:
 - scale/internet-scale
-- ../../../pattern-library/data-processing
+- ../../pattern-library/data-processing
 - architecture/search-systems
 key_innovations:
 - PageRank algorithm for relevance ranking
@@ -271,9 +271,9 @@ graph TD
 
 ## Related Resources
 
-- [MapReduce Pattern](../../pattern-library/mapreduce.md)
-- [Distributed Cache Pattern](../../pattern-library/distributed-cache.md)
-- [Sharding Pattern](../../pattern-library/scaling.md/sharding.md)
+- [MapReduce Pattern](../pattern-library/mapreduce.md)
+- [Distributed Cache Pattern](../distributed-cache.md)
+- [Sharding Pattern](../pattern-library/scaling/sharding.md)
 - [Google Papers](https://research.google/pubs/index.md)
 
 ---

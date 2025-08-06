@@ -310,5 +310,5 @@ kubectl patch configmap app-config --patch '{"data":{"transaction.mode":"2pc"}}'
 
 - Saga Pattern Deep Dive
 - Distributed Transaction Patterns
-- [Message Broker Selection Guide](../../infrastructure/message-brokers.md)
-- [Monitoring Distributed Systems](../../human-factors/observability.md)
+- [Message Broker Selection Guide](../infrastructure/message-brokers.md)
+- [Monitoring Distributed Systems](../architects-handbook/human-factors/observability.md)

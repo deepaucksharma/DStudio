@@ -106,7 +106,7 @@ outcomes:
 </div>
 
 !!! tip "Security Readiness Check"
-    Complete our [Security IQ Assessment](../../tools/security-readiness-quiz/index.md) to identify any knowledge gaps before starting.
+    Complete our [Security IQ Assessment](../tools/security-readiness-quiz/index.md) to identify any knowledge gaps before starting.
 
 ## 🗺️ Week-by-Week Curriculum
 
@@ -128,7 +128,7 @@ outcomes:
     - [ ] Design authorization systems
     
     **Day 1-2**: Security Fundamentals
-    - 📖 Read: [Security First Principles](../....../core-principles/security-first.md/index.md)
+    - 📖 Read: [Security First Principles](../core-principles/security-first.md/index.md)
     - 🛠️ Lab: Analyze famous security breaches (Equifax, SolarWinds)
     - 📊 Success: Identify root causes and prevention strategies
     - ⏱️ Time: 6-8 hours
@@ -162,7 +162,7 @@ outcomes:
     - ⏱️ Time: 6-8 hours
     
     **Day 10-11**: Secure API Design
-    - 📖 Read: [API security patterns](../../....../pattern-library/security.md/api-security/index.md)
+    - 📖 Read: [API security patterns](../../pattern-library/security/api-security/index.md)
     - 🛠️ Lab: Build secure REST API with rate limiting
     - 📊 Success: Pass security penetration test
     - ⏱️ Time: 6-8 hours
@@ -286,7 +286,7 @@ gantt
     - ⏱️ Time: 6-8 hours
     
     **Day 31-32**: Identity & Access Management
-    - 📖 Read: [IAM patterns](../../....../pattern-library/security.md/identity-access/index.md)
+    - 📖 Read: [IAM patterns](../../pattern-library/security/identity-access/index.md)
     - 🛠️ Lab: Implement RBAC with attribute-based controls
     - 📊 Success: Dynamic access control system
     - ⏱️ Time: 6-8 hours

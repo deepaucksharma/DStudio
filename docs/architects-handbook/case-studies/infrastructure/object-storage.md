@@ -201,7 +201,7 @@ class ErasureCoding:
         
     def encode(self, data):
 # Split data into k chunks
-        chunk_size = len(data) // self.k
+        chunk_size = len(data) / self.k
         data_chunks = [data[i:i+chunk_size] for i in range(0, len(data), chunk_size)]
         
 # Generate m parity chunks
@@ -307,19 +307,19 @@ public class ConsistentObjectStore {
         String lockKey = getLockKey(request.getBucket(), request.getKey());
         
         try (DistributedLock lock = lockService.acquire(lockKey, 30, TimeUnit.SECONDS)) {
-            // 1. Check for conflicts
+            / 1. Check for conflicts
             ObjectMetadata existing = metadata.get(request.getBucket(), request.getKey());
             if (existing != null && request.getIfNoneMatch() != null) {
                 throw new PreconditionFailedException();
             }
             
-            // 2. Store data chunks first
+            / 2. Store data chunks first
             List<ChunkLocation> chunks = storage.store(
                 request.getData(),
                 request.getStorageClass()
             );
             
-            // 3. Update metadata atomically
+            / 3. Update metadata atomically
             ObjectMetadata newMetadata = ObjectMetadata.builder()
                 .bucket(request.getBucket())
                 .key(request.getKey())
@@ -331,7 +331,7 @@ public class ConsistentObjectStore {
             
             metadata.put(newMetadata);
             
-            // 4. Invalidate caches
+            / 4. Invalidate caches
             cache.invalidate(request.getBucket(), request.getKey());
             
             return new PutObjectResult(newMetadata);
@@ -551,10 +551,10 @@ public class S3RequestRouter {
     public StorageNode routeRequest(Request request) {
         String key = request.getBucket() + "/" + request.getKey();
         
-        // Get primary nodes using consistent hashing
+        / Get primary nodes using consistent hashing
         List<StorageNode> candidates = ring.getNodes(key, 3);
         
-        // Filter healthy nodes
+        / Filter healthy nodes
         List<StorageNode> healthyNodes = candidates.stream()
             .filter(node -> healthChecker.isHealthy(node))
             .collect(Collectors.toList());
@@ -563,24 +563,24 @@ public class S3RequestRouter {
             throw new NoHealthyNodesException();
         }
         
-        // Route based on operation type
+        / Route based on operation type
         if (request.getOperation() == Operation.GET) {
-            // Route reads to least loaded node
+            / Route reads to least loaded node
             return loadBalancer.selectLeastLoaded(healthyNodes);
         } else {
-            // Route writes to primary node
+            / Route writes to primary node
             return healthyNodes.get(0);
         }
     }
     
     public List<StorageNode> routeMultipartUpload(String bucket, String key) {
-        // Distribute parts across different nodes for parallelism
+        / Distribute parts across different nodes for parallelism
         List<StorageNode> allNodes = ring.getAllHealthyNodes();
         
-        // Shuffle for load distribution
+        / Shuffle for load distribution
         Collections.shuffle(allNodes);
         
-        // Return subset for parallel uploads
+        / Return subset for parallel uploads
         return allNodes.subList(0, Math.min(10, allNodes.size()));
     }
 }

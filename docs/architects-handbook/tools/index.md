@@ -86,11 +86,11 @@ Explore CAP theorem trade-offs, calculate consistency guarantees, and compare co
 
 Each calculator is based on solid mathematical foundations:
 
-- **[Little's Law](../../quantitative-analysis/littles-law.md)** - Foundation for latency and throughput calculations
-- **[Queueing Theory](../quantitative-analysis/queueing-theory.md)** - Models for performance analysis
-- **[Availability Math](../quantitative-analysis/reliability-theory.md)** - Reliability calculations
-- **[CAP Theorem](../../quantitative-analysis/cap-theorem.md)** - Consistency trade-offs
-- **[Universal Scalability Law](../quantitative-analysis/universal-scalability.md)** - Scaling predictions
+- **[Little's Law](../architects-handbook/quantitative-analysis/littles-law.md)** - Foundation for latency and throughput calculations
+- **[Queueing Theory](../architects-handbook/quantitative-analysis/queueing-theory.md)** - Models for performance analysis
+- **[Availability Math](../architects-handbook/quantitative-analysis/reliability-theory.md)** - Reliability calculations
+- **[CAP Theorem](../architects-handbook/quantitative-analysis/cap-theorem.md)** - Consistency trade-offs
+- **[Universal Scalability Law](../architects-handbook/quantitative-analysis/universal-scalability.md)** - Scaling predictions
 
 ## How to Use These Tools
 
@@ -120,4 +120,4 @@ These tools are open-source! Found a bug or want to add a feature?
 
 - [View source on GitHub](https://github.com/deepaucksharma/DStudio/index.md)
 - [Report issues](https://github.com/deepaucksharma/DStudio/issues/index.md)
-- [Contribute a new calculator](https://github.com/deepaucksharma/DStudio/blob/main/CONTRIBUTING.md)
+- [Contribute a new calculator](https://github.com/deepaucksharma/DStudio/blob/main/CONTRIBUTING)

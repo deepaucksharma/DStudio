@@ -356,7 +356,7 @@ class QuorumConsensus:
     
     def __init__(self, nodes):
         self.nodes = nodes
-        self.quorum_size = (len(nodes) // 2) + 1
+        self.quorum_size = (len(nodes) / 2) + 1
         
     def can_accept_writes(self, node_id):
         """Only accept writes with majority agreement"""
@@ -674,7 +674,7 @@ graph LR
 
 Patterns that address this law:
 
-- [Consensus](../../pattern-library/coordination/consensus/index.md)
-- [Leader Election](../../pattern-library/coordination/leader-election/index.md)
+- [Consensus](../pattern-library/coordination/consensus/index.md)
+- [Leader Election](../pattern-library/coordination/leader-election/index.md)
 
 

@@ -24,9 +24,9 @@ Analysis of storage engine architectures including LSM trees, B-trees, and hybri
 - Log-structured storage systems
 
 ## Related Models
-- [Cache Economics](../../architects-handbook/quantitative-analysis/cache-economics.md)
-- [Capacity Planning](../../architects-handbook/quantitative-analysis/capacity-planning.md)
-- [Performance Modeling](../../architects-handbook/quantitative-analysis/performance-modeling.md)
+- [Cache Economics](../architects-handbook/quantitative-analysis/cache-economics.md)
+- [Capacity Planning](../architects-handbook/quantitative-analysis/capacity-planning.md)
+- [Performance Modeling](../architects-handbook/quantitative-analysis/performance-modeling.md)
 
 ## References
 - LSM-tree original paper (O'Neil et al.)

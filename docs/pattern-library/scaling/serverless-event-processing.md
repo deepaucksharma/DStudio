@@ -1152,7 +1152,7 @@ class ServerlessOrchestrator:
                               input_data: Dict[str, Any]) -> Dict[str, Any]:
         """Execute function in parallel for large datasets"""
         data_items = input_data.get('data', [])
-        chunk_size = max(1, len(data_items) // 10)  # Create ~10 parallel executions
+        chunk_size = max(1, len(data_items) / 10)  # Create ~10 parallel executions
         
         # Split data into chunks
         chunks = [data_items[i:i + chunk_size] 
@@ -1531,23 +1531,23 @@ timeline
     
     ---
     
-    - [Economic Reality](../../core-principles/laws/economic-reality.md) - Cost optimization through pay-per-use
-    - [Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Event-driven processing patterns
+    - [Economic Reality](../core-principles/laws/economic-reality.md) - Cost optimization through pay-per-use
+    - [Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) - Event-driven processing patterns
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../../core-principles/pillars/work-distribution.md) - Distributed function execution
-    - [Economics](../../core-principles/pillars/economics.md) - Cost-effective scaling models
+    - [Work Distribution](../core-principles/pillars/work-distribution.md) - Distributed function execution
+    - [Economics](../core-principles/pillars/economics.md) - Cost-effective scaling models
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [AWS Lambda Best Practices](../../excellence/guides/lambda-best-practices.md)
-    - [Serverless Cost Optimization](../../excellence/guides/serverless-cost-optimization.md)
-    - [Cold Start Optimization Guide](../../excellence/guides/cold-start-optimization.md)
+    - [AWS Lambda Best Practices](../excellence/guides/lambda-best-practices.md)
+    - [Serverless Cost Optimization](../excellence/guides/serverless-cost-optimization.md)
+    - [Cold Start Optimization Guide](../excellence/guides/cold-start-optimization.md)
 
 </div>
 

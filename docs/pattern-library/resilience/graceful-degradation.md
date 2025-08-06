@@ -241,9 +241,9 @@ type: pattern
     
     ---
     
-    - [Law 1: Correlated Failure](../../core-principles/laws/correlated-failure/index.md) - Isolate feature failures
-    - [Law 4: Multi-Dimensional Trade-offs](../../core-principles/laws/multidimensional-optimization/index.md) - Balance functionality vs availability
-    - [Law 7: Economic Reality](../../core-principles/laws/economic-reality/index.md) - Cost of full redundancy
+    - [Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md) - Isolate feature failures
+    - [Law 4: Multi-Dimensional Trade-offs](../core-principles/laws/multidimensional-optimization/index.md) - Balance functionality vs availability
+    - [Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md) - Cost of full redundancy
 
 </div>
 

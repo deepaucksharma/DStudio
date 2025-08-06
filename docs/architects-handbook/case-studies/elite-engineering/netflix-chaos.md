@@ -786,7 +786,7 @@ class ChaosInfrastructureOptimizer:
 
 ### Chaos Monkey 2025 Implementation
 ```go
-// Modern Chaos Monkey implementation in Go
+/ Modern Chaos Monkey implementation in Go
 package chaosmonkey
 
 import (
@@ -809,18 +809,18 @@ type ChaosMonkey struct {
 }
 
 func (m *ChaosMonkey) TerminateRandomInstance(ctx context.Context) error {
-    // Select eligible instance for termination
+    / Select eligible instance for termination
     instance, err := m.selectVictim(ctx)
     if err != nil {
         return fmt.Errorf("victim selection failed: %w", err)
     }
     
-    // Pre-termination safety checks
+    / Pre-termination safety checks
     if err := m.performSafetyChecks(ctx, instance); err != nil {
         return fmt.Errorf("safety check failed: %w", err)
     }
     
-    // Record chaos event for observability
+    / Record chaos event for observability
     event := &ChaosEvent{
         Type:        "instance-termination",
         Target:      instance.ID,
@@ -829,7 +829,7 @@ func (m *ChaosMonkey) TerminateRandomInstance(ctx context.Context) error {
     }
     m.recorder.Record(ctx, event)
     
-    // Execute termination
+    / Execute termination
     terminationStart := time.Now()
     err = m.deploy.TerminateInstance(ctx, instance)
     if err != nil {
@@ -839,7 +839,7 @@ func (m *ChaosMonkey) TerminateRandomInstance(ctx context.Context) error {
         return fmt.Errorf("termination failed: %w", err)
     }
     
-    // Monitor recovery
+    / Monitor recovery
     go m.monitorRecovery(ctx, instance, event, terminationStart)
     
     event.Status = "completed"
@@ -849,20 +849,20 @@ func (m *ChaosMonkey) TerminateRandomInstance(ctx context.Context) error {
 }
 
 func (m *ChaosMonkey) selectVictim(ctx context.Context) (*Instance, error) {
-    // Get all eligible instances
+    / Get all eligible instances
     eligible, err := m.appgroups.GetEligibleInstances(ctx)
     if err != nil {
         return nil, err
     }
     
-    // Filter based on configuration
+    / Filter based on configuration
     filtered := m.applyFilters(eligible)
     
     if len(filtered) == 0 {
         return nil, ErrNoEligibleInstances
     }
     
-    // Random selection with weighted probability
+    / Random selection with weighted probability
     return m.weightedRandomSelection(filtered), nil
 }
 
@@ -1153,19 +1153,19 @@ def test_recommendation_cpu_exhaustion():
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 1: Correlated Failure](../../core-principles/laws.md/correlated-failure/index.md)** - Chaos engineering reveals and prevents correlated failures
-- **[Law 6: Cognitive Load](../../core-principles/laws.md/cognitive-load/index.md)** - Game Day exercises reduce cognitive load during real incidents
-- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - ROI analysis shows chaos engineering economic benefits
+- **[Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md)** - Chaos engineering reveals and prevents correlated failures
+- **[Law 6: Cognitive Load](../core-principles/laws/cognitive-load/index.md)** - Game Day exercises reduce cognitive load during real incidents
+- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - ROI analysis shows chaos engineering economic benefits
 
 ### Related Patterns  
-- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker/index.md)** - Essential pattern for chaos engineering blast radius control
-- **[Bulkhead](../../pattern-library/resilience.md/bulkhead/index.md)** - Service isolation prevents chaos experiment cascade
-- **[Retry with Backoff](../../pattern-library/resilience.md/retry-backoff/index.md)** - Handles transient failures during chaos experiments
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)** - Essential pattern for chaos engineering blast radius control
+- **[Bulkhead](../pattern-library/resilience/bulkhead/index.md)** - Service isolation prevents chaos experiment cascade
+- **[Retry with Backoff](../pattern-library/resilience/retry-backoff/index.md)** - Handles transient failures during chaos experiments
 
 ### Related Case Studies
-- **[Amazon DynamoDB Evolution](../../amazon-dynamodb-evolution.md)** - Database resilience through chaos testing
-- **[Discord Voice Infrastructure](../../discord-voice-infrastructure.md)** - Real-time system chaos engineering
-- **[Stripe API Excellence](../../stripe-api-excellence.md)** - API resilience through systematic failure testing
+- **[Amazon DynamoDB Evolution](../amazon-dynamodb-evolution.md)** - Database resilience through chaos testing
+- **[Discord Voice Infrastructure](../discord-voice-infrastructure.md)** - Real-time system chaos engineering
+- **[Stripe API Excellence](../stripe-api-excellence.md)** - API resilience through systematic failure testing
 
 ## External Resources
 

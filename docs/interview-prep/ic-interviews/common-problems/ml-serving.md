@@ -386,7 +386,7 @@ CREATE TABLE model_metrics (
 ### Core Patterns
 
 #### 1. Model Versioning & Registry
-**Pattern**: [Version Control](../../../../pattern-library/data-management/event-sourcing.md)
+**Pattern**: [Version Control](../../pattern-library/data-management/event-sourcing.md)
 - Immutable model artifacts with semantic versioning
 - Model lineage tracking from training to deployment
 - Rollback capabilities and audit trails
@@ -407,19 +407,19 @@ graph TB
 ```
 
 #### 2. Feature Store
-**Pattern**: [Feature Store](../../../../pattern-library/data-management/materialized-view.md)
+**Pattern**: [Feature Store](../../pattern-library/data-management/materialized-view.md)
 - Centralized feature management and serving
 - Consistent features between training and serving
 - Real-time and batch feature computation
 
 #### 3. Circuit Breaker
-**Pattern**: [Circuit Breaker](../../../../pattern-library/resilience/circuit-breaker.md)
+**Pattern**: [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md)
 - Protect against model serving failures
 - Graceful degradation with fallback models
 - Fast failure detection and recovery
 
 #### 4. Load Balancing
-**Pattern**: [Load Balancing](../../../../pattern-library/scaling/load-balancing.md)
+**Pattern**: [Load Balancing](../../pattern-library/scaling/load-balancing.md)
 - Distribute inference requests across replicas
 - Support for different routing strategies
 - Health check integration
@@ -427,25 +427,25 @@ graph TB
 ### Supporting Patterns
 
 #### 5. API Gateway
-**Pattern**: [API Gateway](../../../../pattern-library/communication/api-gateway.md)
+**Pattern**: [API Gateway](../../pattern-library/communication/api-gateway.md)
 - Single entry point for all ML APIs
 - Authentication, authorization, and rate limiting
 - Request/response transformation
 
 #### 6. Caching
-**Pattern**: [Caching](../../../../pattern-library/scaling/caching-strategies.md)
+**Pattern**: [Caching](../../pattern-library/scaling/caching-strategies.md)
 - Cache model artifacts and features
 - Reduce latency for repeated requests
 - Smart cache invalidation strategies
 
 #### 7. Event Sourcing
-**Pattern**: [Event Sourcing](../../../../pattern-library/data-management/event-sourcing.md)
+**Pattern**: [Event Sourcing](../../pattern-library/data-management/event-sourcing.md)
 - Track all model lifecycle events
 - Audit trails for compliance
 - Enable replay and debugging
 
 #### 8. Bulkhead Pattern
-**Pattern**: [Bulkhead](../../../../pattern-library/resilience/bulkhead.md)
+**Pattern**: [Bulkhead](../../pattern-library/resilience/bulkhead.md)
 - Isolate different models and tenants
 - Prevent cascade failures
 - Resource quota management

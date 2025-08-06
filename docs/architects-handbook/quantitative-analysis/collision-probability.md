@@ -311,7 +311,7 @@ Gap: p₁/p₂ > threshold
 
 ## Related Topics
 
-- [Hash Functions](../case-studies/consistent-hashing.md)
-- [Probabilistic Data Structures](../../architects-handbook/quantitative-analysis/probabilistic-structures.md)
-- [Information Theory](../../architects-handbook/quantitative-analysis/information-theory.md)
+- [Hash Functions](../architects-handbook/case-studies/consistent-hashing.md)
+- [Probabilistic Data Structures](../architects-handbook/quantitative-analysis/probabilistic-structures.md)
+- [Information Theory](../architects-handbook/quantitative-analysis/information-theory.md)
 - [Cryptographic Primitives](../reference/security.md)

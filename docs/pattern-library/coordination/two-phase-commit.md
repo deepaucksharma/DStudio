@@ -61,4 +61,4 @@ class TwoPhaseCommitCoordinator:
 
 - [External Resource 1](#)
 - [External Resource 2](#)
-- [Case Study Example](../../case-studies/example.md)
+- [Case Study Example](../architects-handbook/case-studies/example.md)

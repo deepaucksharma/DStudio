@@ -215,39 +215,39 @@ timeline
 ### Storage-Compute Separation Implementation
 
 ```cpp
-// Simplified Aurora storage layer implementation concepts
+/ Simplified Aurora storage layer implementation concepts
 namespace aurora {
 
 class StorageNode {
 public:
-    // Core storage operations
+    / Core storage operations
     class LogRecord {
     public:
-        uint64_t lsn;           // Log Sequence Number
+        uint64_t lsn;           / Log Sequence Number
         uint64_t page_id;
         uint32_t record_type;
         uint32_t record_size;
         std::vector<uint8_t> data;
         uint64_t timestamp;
         
-        // Quorum consensus fields
+        / Quorum consensus fields
         uint32_t epoch;
         uint32_t view_id;
         std::array<bool, 6> replica_acks;
     };
     
-    // Quorum-based write implementation
+    / Quorum-based write implementation
     class QuorumWrite {
     private:
-        static constexpr size_t WRITE_QUORUM = 4;  // 4 out of 6
-        static constexpr size_t READ_QUORUM = 3;   // 3 out of 6
+        static constexpr size_t WRITE_QUORUM = 4;  / 4 out of 6
+        static constexpr size_t READ_QUORUM = 3;   / 3 out of 6
         
         std::array<StorageReplica, 6> replicas;
         uint64_t current_epoch;
         
     public:
         WriteResult write_log_record(const LogRecord& record) {
-            // Parallel write to all replicas
+            / Parallel write to all replicas
             std::vector<std::future<bool>> write_futures;
             
             for (auto& replica : replicas) {
@@ -258,7 +258,7 @@ public:
                 );
             }
             
-            // Wait for write quorum
+            / Wait for write quorum
             size_t successful_writes = 0;
             std::bitset<6> success_mask;
             
@@ -269,7 +269,7 @@ public:
                         success_mask.set(i);
                     }
                 } catch (const std::exception& e) {
-                    // Log replica failure
+                    / Log replica failure
                     log_replica_failure(i, e.what());
                 }
             }
@@ -290,7 +290,7 @@ public:
         }
         
         ReadResult read_with_quorum(uint64_t page_id, uint64_t target_lsn) {
-            // Read from multiple replicas for consistency
+            / Read from multiple replicas for consistency
             std::vector<std::future<PageData>> read_futures;
             
             for (size_t i = 0; i < READ_QUORUM + 1; ++i) {
@@ -303,7 +303,7 @@ public:
                 }
             }
             
-            // Wait for read quorum and validate consistency
+            / Wait for read quorum and validate consistency
             std::vector<PageData> results;
             for (auto& future : read_futures) {
                 try {
@@ -312,20 +312,20 @@ public:
                         break;
                     }
                 } catch (const std::exception& e) {
-                    // Continue with other replicas
+                    / Continue with other replicas
                 }
             }
             
             if (results.size() >= READ_QUORUM) {
-                // Validate consistency across replicas
+                / Validate consistency across replicas
                 if (validate_read_consistency(results)) {
                     return ReadResult{
                         .success = true,
-                        .data = results[0],  // All consistent, use first
+                        .data = results[0],  / All consistent, use first
                         .lsn = target_lsn
                     };
                 } else {
-                    // Trigger repair process
+                    / Trigger repair process
                     trigger_replica_repair(page_id);
                     return ReadResult{
                         .success = false,
@@ -341,7 +341,7 @@ public:
         }
     };
     
-    // Redo log processing at storage layer
+    / Redo log processing at storage layer
     class RedoLogProcessor {
     private:
         std::unordered_map<uint64_t, PageState> page_states;
@@ -349,7 +349,7 @@ public:
         
     public:
         void apply_log_record(const LogRecord& record) {
-            // Apply redo log directly at storage layer
+            / Apply redo log directly at storage layer
             switch (record.record_type) {
                 case INSERT_RECORD:
                     apply_insert(record);
@@ -369,21 +369,21 @@ public:
             
             last_applied_lsn = record.lsn;
             
-            // Trigger background page materialization if needed
+            / Trigger background page materialization if needed
             if (should_materialize_page(record.page_id)) {
                 schedule_page_materialization(record.page_id);
             }
         }
         
         PageData materialize_page(uint64_t page_id, uint64_t target_lsn) {
-            // Materialize page by applying all relevant log records
+            / Materialize page by applying all relevant log records
             PageData base_page = get_base_page(page_id);
             
             auto relevant_records = get_log_records_for_page(
                 page_id, base_page.base_lsn, target_lsn
             );
             
-            // Apply records in LSN order
+            / Apply records in LSN order
             std::sort(relevant_records.begin(), relevant_records.end(),
                      [](const LogRecord& a, const LogRecord& b) {
                          return a.lsn < b.lsn;
@@ -400,7 +400,7 @@ public:
     };
 };
 
-// Aurora compute layer
+/ Aurora compute layer
 class AuroraComputeNode {
 private:
     std::unique_ptr<StorageClient> storage_client;
@@ -408,22 +408,22 @@ private:
     uint64_t current_lsn;
     
 public:
-    // Optimized write path - only send redo logs
+    / Optimized write path - only send redo logs
     TransactionResult commit_transaction(const Transaction& txn) {
         std::vector<LogRecord> log_records;
         
-        // Generate minimal redo log records
+        / Generate minimal redo log records
         for (const auto& operation : txn.operations) {
             LogRecord record = generate_redo_record(operation);
             record.lsn = ++current_lsn;
             log_records.push_back(record);
         }
         
-        // Send only log records to storage (not full pages)
+        / Send only log records to storage (not full pages)
         auto write_result = storage_client->write_log_records(log_records);
         
         if (write_result.success) {
-            // Commit successful - storage layer handles durability
+            / Commit successful - storage layer handles durability
             return TransactionResult{
                 .success = true,
                 .commit_lsn = write_result.max_lsn,
@@ -437,23 +437,23 @@ public:
         };
     }
     
-    // Fast recovery - no log replay needed
+    / Fast recovery - no log replay needed
     void recover_after_crash() {
-        // Simply reconnect to storage layer
-        // Storage layer maintains all durable state
+        / Simply reconnect to storage layer
+        / Storage layer maintains all durable state
         storage_client->reconnect();
         
-        // Recover current LSN from storage
+        / Recover current LSN from storage
         current_lsn = storage_client->get_latest_lsn();
         
-        // Clear buffer pool - will be repopulated on demand
+        / Clear buffer pool - will be repopulated on demand
         buffer_pool->clear();
         
-        // Recovery complete in seconds, not hours
+        / Recovery complete in seconds, not hours
     }
 };
 
-}  // namespace aurora
+}  / namespace aurora
 ```
 
 ### Fast Cloning Implementation
@@ -605,7 +605,7 @@ class AuroraCloneEngine:
 ### Backtracking Implementation
 
 ```go
-// Aurora Backtrack implementation in Go
+/ Aurora Backtrack implementation in Go
 package aurora
 
 import (
@@ -617,7 +617,7 @@ import (
 type BacktrackManager struct {
     storageClient StorageClient
     logStore      LogStore
-    backtrackWindow time.Duration // How far back we can backtrack
+    backtrackWindow time.Duration / How far back we can backtrack
 }
 
 type BacktrackRequest struct {
@@ -639,19 +639,19 @@ func NewBacktrackManager(client StorageClient, logStore LogStore) *BacktrackMana
     return &BacktrackManager{
         storageClient:   client,
         logStore:        logStore,
-        backtrackWindow: 72 * time.Hour, // 72 hour backtrack window
+        backtrackWindow: 72 * time.Hour, / 72 hour backtrack window
     }
 }
 
 func (b *BacktrackManager) PerformBacktrack(ctx context.Context, req BacktrackRequest) (*BacktrackResult, error) {
     startTime := time.Now()
     
-    // Validate backtrack request
+    / Validate backtrack request
     if err := b.validateBacktrackRequest(req); err != nil {
         return nil, fmt.Errorf("invalid backtrack request: %w", err)
     }
     
-    // Find the LSN corresponding to target time
+    / Find the LSN corresponding to target time
     targetLSN, actualTime, err := b.findLSNForTime(ctx, req.ClusterID, req.TargetTime)
     if err != nil {
         return nil, fmt.Errorf("failed to find LSN for target time: %w", err)
@@ -667,7 +667,7 @@ func (b *BacktrackManager) PerformBacktrack(ctx context.Context, req BacktrackRe
         }, nil
     }
     
-    // Perform the actual backtrack
+    / Perform the actual backtrack
     result, err := b.executeBacktrack(ctx, req.ClusterID, targetLSN, actualTime)
     if err != nil {
         return nil, fmt.Errorf("failed to execute backtrack: %w", err)
@@ -678,7 +678,7 @@ func (b *BacktrackManager) PerformBacktrack(ctx context.Context, req BacktrackRe
 }
 
 func (b *BacktrackManager) executeBacktrack(ctx context.Context, clusterID string, targetLSN uint64, targetTime time.Time) (*BacktrackResult, error) {
-    // Get current cluster state
+    / Get current cluster state
     currentLSN, err := b.storageClient.GetCurrentLSN(ctx, clusterID)
     if err != nil {
         return nil, err
@@ -688,13 +688,13 @@ func (b *BacktrackManager) executeBacktrack(ctx context.Context, clusterID strin
         return nil, fmt.Errorf("target LSN %d is not in the past (current LSN: %d)", targetLSN, currentLSN)
     }
     
-    // Create backtrack plan
+    / Create backtrack plan
     plan, err := b.createBacktrackPlan(ctx, clusterID, targetLSN, currentLSN)
     if err != nil {
         return nil, fmt.Errorf("failed to create backtrack plan: %w", err)
     }
     
-    // Execute backtrack in phases to minimize impact
+    / Execute backtrack in phases to minimize impact
     result, err := b.executeBacktrackPlan(ctx, clusterID, plan)
     if err != nil {
         return nil, fmt.Errorf("failed to execute backtrack plan: %w", err)
@@ -731,13 +731,13 @@ type BacktrackPhase struct {
 }
 
 func (b *BacktrackManager) createBacktrackPlan(ctx context.Context, clusterID string, targetLSN, currentLSN uint64) (*BacktrackPlan, error) {
-    // Analyze log records between target and current LSN
+    / Analyze log records between target and current LSN
     logRecords, err := b.logStore.GetLogRecords(ctx, clusterID, targetLSN, currentLSN)
     if err != nil {
         return nil, err
     }
     
-    // Group records by page and create undo operations
+    / Group records by page and create undo operations
     affectedPages := make(map[uint64]PageBacktrackInfo)
     
     for _, record := range logRecords {
@@ -754,7 +754,7 @@ func (b *BacktrackManager) createBacktrackPlan(ctx context.Context, clusterID st
         pageInfo := affectedPages[pageID]
         pageInfo.LogRecords = append(pageInfo.LogRecords, record)
         
-        // Generate undo record for this log record
+        / Generate undo record for this log record
         undoRecord, err := b.generateUndoRecord(record)
         if err != nil {
             return nil, fmt.Errorf("failed to generate undo record for LSN %d: %w", record.LSN, err)
@@ -764,7 +764,7 @@ func (b *BacktrackManager) createBacktrackPlan(ctx context.Context, clusterID st
         affectedPages[pageID] = pageInfo
     }
     
-    // Create execution phases for optimal performance
+    / Create execution phases for optimal performance
     phases := b.createExecutionPhases(affectedPages)
     
     return &BacktrackPlan{
@@ -779,21 +779,21 @@ func (b *BacktrackManager) createBacktrackPlan(ctx context.Context, clusterID st
 func (b *BacktrackManager) executeBacktrackPlan(ctx context.Context, clusterID string, plan *BacktrackPlan) (*BacktrackResult, error) {
     totalAffectedPages := int64(len(plan.AffectedPages))
     
-    // Execute backtrack phases
+    / Execute backtrack phases
     for _, phase := range plan.Phases {
         if err := b.executeBacktrackPhase(ctx, clusterID, phase, plan.AffectedPages); err != nil {
             return nil, fmt.Errorf("failed to execute phase %d: %w", phase.PhaseID, err)
         }
     }
     
-    // Update cluster metadata
+    / Update cluster metadata
     if err := b.updateClusterLSN(ctx, clusterID, plan.TargetLSN); err != nil {
         return nil, fmt.Errorf("failed to update cluster LSN: %w", err)
     }
     
-    // Invalidate buffer pools and caches
+    / Invalidate buffer pools and caches
     if err := b.invalidateClusterCaches(ctx, clusterID); err != nil {
-        // Log warning but don't fail backtrack
+        / Log warning but don't fail backtrack
         fmt.Printf("Warning: failed to invalidate cluster caches: %v\n", err)
     }
     
@@ -804,10 +804,10 @@ func (b *BacktrackManager) executeBacktrackPlan(ctx context.Context, clusterID s
 
 func (b *BacktrackManager) executeBacktrackPhase(ctx context.Context, clusterID string, phase BacktrackPhase, affectedPages map[uint64]PageBacktrackInfo) error {
     if phase.Parallel {
-        // Execute pages in parallel for better performance
+        / Execute pages in parallel for better performance
         return b.executePhaseParallel(ctx, clusterID, phase, affectedPages)
     } else {
-        // Execute pages sequentially for consistency
+        / Execute pages sequentially for consistency
         return b.executePhaseSequential(ctx, clusterID, phase, affectedPages)
     }
 }
@@ -819,8 +819,8 @@ func (b *BacktrackManager) executePhaseParallel(ctx context.Context, clusterID s
     
     for _, pageID := range phase.Pages {
         go func(pid uint64) {
-            semaphore <- struct{}{} // Acquire
-            defer func() { <-semaphore }() // Release
+            semaphore <- struct{}{} / Acquire
+            defer func() { <-semaphore }() / Release
             
             if err := b.backtrackPage(ctx, clusterID, affectedPages[pid]); err != nil {
                 errorChan <- fmt.Errorf("failed to backtrack page %d: %w", pid, err)
@@ -830,7 +830,7 @@ func (b *BacktrackManager) executePhaseParallel(ctx context.Context, clusterID s
         }(pageID)
     }
     
-    // Wait for all pages to complete
+    / Wait for all pages to complete
     for i := 0; i < len(phase.Pages); i++ {
         if err := <-errorChan; err != nil {
             return err
@@ -841,7 +841,7 @@ func (b *BacktrackManager) executePhaseParallel(ctx context.Context, clusterID s
 }
 
 func (b *BacktrackManager) backtrackPage(ctx context.Context, clusterID string, pageInfo PageBacktrackInfo) error {
-    // Apply undo records in reverse chronological order
+    / Apply undo records in reverse chronological order
     for i := len(pageInfo.UndoRecords) - 1; i >= 0; i-- {
         undoRecord := pageInfo.UndoRecords[i]
         
@@ -854,22 +854,22 @@ func (b *BacktrackManager) backtrackPage(ctx context.Context, clusterID string, 
 }
 
 func (b *BacktrackManager) findLSNForTime(ctx context.Context, clusterID string, targetTime time.Time) (uint64, time.Time, error) {
-    // Use binary search on log records to find LSN closest to target time
-    // This is efficient because log records are ordered by LSN and have timestamps
+    / Use binary search on log records to find LSN closest to target time
+    / This is efficient because log records are ordered by LSN and have timestamps
     
     currentLSN, err := b.storageClient.GetCurrentLSN(ctx, clusterID)
     if err != nil {
         return 0, time.Time{}, err
     }
     
-    // Get earliest available LSN (based on backtrack window)
+    / Get earliest available LSN (based on backtrack window)
     earliestTime := time.Now().Add(-b.backtrackWindow)
     earliestLSN, err := b.logStore.FindLSNByTime(ctx, clusterID, earliestTime)
     if err != nil {
         return 0, time.Time{}, err
     }
     
-    // Binary search for target time
+    / Binary search for target time
     left, right := earliestLSN, currentLSN
     var resultLSN uint64
     var resultTime time.Time
@@ -1727,19 +1727,19 @@ timeline
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 1: Correlated Failure](../../core-principles/laws.md/correlated-failure/index.md)** - Aurora's multi-AZ replication prevents correlated failures
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Balance performance, durability, and cost
-- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - Aurora's pricing model reflects true cloud economics
+- **[Law 1: Correlated Failure](../core-principles/laws/correlated-failure/index.md)** - Aurora's multi-AZ replication prevents correlated failures
+- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)** - Balance performance, durability, and cost
+- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - Aurora's pricing model reflects true cloud economics
 
 ### Related Patterns  
-- **[Database Sharding](../../pattern-library/data.md/database-sharding/index.md)** - Compare with Aurora's storage layer distribution
-- **[Read Replicas](../../pattern-library/data.md/read-replicas/index.md)** - Aurora's advanced read replica capabilities
-- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker/index.md)** - Protect applications from database failures
+- **[Database Sharding](../pattern-library/data/database-sharding/index.md)** - Compare with Aurora's storage layer distribution
+- **[Read Replicas](../pattern-library/data/read-replicas/index.md)** - Aurora's advanced read replica capabilities
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)** - Protect applications from database failures
 
 ### Related Case Studies
-- **[Google Spanner](../../google-spanner.md)** - Global consistency vs Aurora's eventual consistency
-- **[Amazon DynamoDB](../../amazon-dynamo.md)** - NoSQL vs Aurora's SQL approach
-- **[MongoDB](../../mongodb.md)** - Document database vs relational Aurora
+- **[Google Spanner](../google-spanner.md)** - Global consistency vs Aurora's eventual consistency
+- **[Amazon DynamoDB](../amazon-dynamo.md)** - NoSQL vs Aurora's SQL approach
+- **[MongoDB](../mongodb.md)** - Document database vs relational Aurora
 
 ## External Resources
 

@@ -271,7 +271,7 @@ graph TB
 
 #### Core Storage Engine
 ```go
-// Vault storage interface and implementation
+/ Vault storage interface and implementation
 package vault
 
 import (
@@ -298,7 +298,7 @@ type Storage interface {
     Delete(ctx context.Context, key string) error
 }
 
-// Encrypted storage wrapper
+/ Encrypted storage wrapper
 type EncryptedStorage struct {
     backend Storage
     cipher  cipher.AEAD
@@ -313,7 +313,7 @@ func NewEncryptedStorage(backend Storage, keyring *Keyring) *EncryptedStorage {
 }
 
 func (e *EncryptedStorage) Put(ctx context.Context, entry *StorageEntry) error {
-    // Encrypt the value using AES-256-GCM
+    / Encrypt the value using AES-256-GCM
     key := e.keyring.ActiveKey()
     
     block, err := aes.NewCipher(key.Key)
@@ -326,16 +326,16 @@ func (e *EncryptedStorage) Put(ctx context.Context, entry *StorageEntry) error {
         return fmt.Errorf("failed to create GCM: %w", err)
     }
     
-    // Generate random nonce
+    / Generate random nonce
     nonce := make([]byte, gcm.NonceSize())
     if _, err := rand.Read(nonce); err != nil {
         return fmt.Errorf("failed to generate nonce: %w", err)
     }
     
-    // Encrypt data
+    / Encrypt data
     encryptedData := gcm.Seal(nonce, nonce, entry.Value, []byte(entry.Key))
     
-    // Create encrypted entry
+    / Create encrypted entry
     encryptedEntry := &StorageEntry{
         Key:   entry.Key,
         Value: encryptedData,
@@ -355,19 +355,19 @@ func (e *EncryptedStorage) Get(ctx context.Context, key string) (*StorageEntry, 
         return entry, err
     }
     
-    // Check if entry is encrypted
+    / Check if entry is encrypted
     if entry.Metadata["encrypted"] != "true" {
-        return entry, nil // Return unencrypted data as-is
+        return entry, nil / Return unencrypted data as-is
     }
     
-    // Get decryption key
+    / Get decryption key
     keyID := entry.Metadata["key_id"]
     key := e.keyring.GetKey(keyID)
     if key == nil {
         return nil, fmt.Errorf("decryption key not found: %s", keyID)
     }
     
-    // Decrypt data
+    / Decrypt data
     block, err := aes.NewCipher(key.Key)
     if err != nil {
         return nil, fmt.Errorf("failed to create cipher: %w", err)
@@ -378,7 +378,7 @@ func (e *EncryptedStorage) Get(ctx context.Context, key string) (*StorageEntry, 
         return nil, fmt.Errorf("failed to create GCM: %w", err)
     }
     
-    // Extract nonce and ciphertext
+    / Extract nonce and ciphertext
     if len(entry.Value) < gcm.NonceSize() {
         return nil, fmt.Errorf("invalid encrypted data")
     }
@@ -386,7 +386,7 @@ func (e *EncryptedStorage) Get(ctx context.Context, key string) (*StorageEntry, 
     nonce := entry.Value[:gcm.NonceSize()]
     ciphertext := entry.Value[gcm.NonceSize():]
     
-    // Decrypt
+    / Decrypt
     plaintext, err := gcm.Open(nil, nonce, ciphertext, []byte(entry.Key))
     if err != nil {
         return nil, fmt.Errorf("failed to decrypt: %w", err)
@@ -402,7 +402,7 @@ func (e *EncryptedStorage) Get(ctx context.Context, key string) (*StorageEntry, 
 
 #### Dynamic Secret Engine Implementation
 ```go
-// Dynamic database secrets engine
+/ Dynamic database secrets engine
 type DatabaseSecretEngine struct {
     db             *sql.DB
     config         *DatabaseConfig
@@ -426,25 +426,25 @@ func (d *DatabaseSecretEngine) GenerateCredential(ctx context.Context, role stri
     d.mutex.Lock()
     defer d.mutex.Unlock()
     
-    // Check rate limiting
+    / Check rate limiting
     if len(d.activeCredentials) >= d.maxCredentials {
         return nil, fmt.Errorf("maximum credentials limit reached")
     }
     
-    // Generate unique username and secure password
+    / Generate unique username and secure password
     username := fmt.Sprintf("vault_%s_%d", role, time.Now().Unix())
     password, err := d.generateSecurePassword(32)
     if err != nil {
         return nil, fmt.Errorf("failed to generate password: %w", err)
     }
     
-    // Create database user
+    / Create database user
     roleConfig := d.config.Roles[role]
     if roleConfig == nil {
         return nil, fmt.Errorf("role not found: %s", role)
     }
     
-    // Execute user creation SQL
+    / Execute user creation SQL
     createUserSQL := fmt.Sprintf(
         "CREATE USER '%s'@'%%' IDENTIFIED BY '%s';",
         username, password,
@@ -455,7 +455,7 @@ func (d *DatabaseSecretEngine) GenerateCredential(ctx context.Context, role stri
         return nil, fmt.Errorf("failed to create user: %w", err)
     }
     
-    // Grant permissions
+    / Grant permissions
     for _, permission := range roleConfig.Permissions {
         grantSQL := fmt.Sprintf(
             "GRANT %s TO '%s'@'%%';",
@@ -463,13 +463,13 @@ func (d *DatabaseSecretEngine) GenerateCredential(ctx context.Context, role stri
         )
         _, err = d.db.ExecContext(ctx, grantSQL)
         if err != nil {
-            // Cleanup user on permission grant failure
+            / Cleanup user on permission grant failure
             d.revokeCredential(ctx, username)
             return nil, fmt.Errorf("failed to grant permission: %w", err)
         }
     }
     
-    // Create credential record
+    / Create credential record
     credential := &DatabaseCredential{
         Username:    username,
         Password:    password,
@@ -480,10 +480,10 @@ func (d *DatabaseSecretEngine) GenerateCredential(ctx context.Context, role stri
         LeaseID:     d.generateLeaseID(),
     }
     
-    // Store active credential
+    / Store active credential
     d.activeCredentials[credential.LeaseID] = credential
     
-    // Schedule automatic revocation
+    / Schedule automatic revocation
     go d.scheduleRevocation(ctx, credential)
     
     return credential, nil
@@ -538,9 +538,9 @@ func (d *DatabaseSecretEngine) scheduleRevocation(ctx context.Context, credentia
     
     select {
     case <-timer.C:
-        // Automatic revocation on expiration
+        / Automatic revocation on expiration
         if err := d.RevokeCredential(ctx, credential.LeaseID); err != nil {
-            // Log error but continue - credential will be cleaned up by periodic cleanup
+            / Log error but continue - credential will be cleaned up by periodic cleanup
             fmt.Printf("Failed to auto-revoke credential %s: %v\n", credential.LeaseID, err)
         }
     case <-ctx.Done():
@@ -561,24 +561,24 @@ import (
     "math/big"
 )
 
-// ShamirSecretSharing implements Shamir's Secret Sharing algorithm
+/ ShamirSecretSharing implements Shamir's Secret Sharing algorithm
 type ShamirSecretSharing struct {
-    prime *big.Int // Large prime for finite field arithmetic
+    prime *big.Int / Large prime for finite field arithmetic
 }
 
 func NewShamirSecretSharing() *ShamirSecretSharing {
-    // Use a large prime (2^127 - 1)
+    / Use a large prime (2^127 - 1)
     prime, _ := new(big.Int).SetString("170141183460469231731687303715884105727", 10)
     return &ShamirSecretSharing{prime: prime}
 }
 
-// Share represents a single share of the secret
+/ Share represents a single share of the secret
 type Share struct {
     X *big.Int `json:"x"`
     Y *big.Int `json:"y"`
 }
 
-// SplitSecret splits a secret into n shares where k are needed to reconstruct
+/ SplitSecret splits a secret into n shares where k are needed to reconstruct
 func (s *ShamirSecretSharing) SplitSecret(secret []byte, k, n int) ([]*Share, error) {
     if k > n {
         return nil, fmt.Errorf("threshold k cannot be greater than n")
@@ -587,15 +587,15 @@ func (s *ShamirSecretSharing) SplitSecret(secret []byte, k, n int) ([]*Share, er
         return nil, fmt.Errorf("threshold k must be at least 2")
     }
     
-    // Convert secret to big integer
+    / Convert secret to big integer
     secretInt := new(big.Int).SetBytes(secret)
     if secretInt.Cmp(s.prime) >= 0 {
         return nil, fmt.Errorf("secret too large for prime field")
     }
     
-    // Generate k-1 random coefficients for polynomial
+    / Generate k-1 random coefficients for polynomial
     coefficients := make([]*big.Int, k)
-    coefficients[0] = secretInt // a0 = secret
+    coefficients[0] = secretInt / a0 = secret
     
     for i := 1; i < k; i++ {
         coeff, err := rand.Int(rand.Reader, s.prime)
@@ -605,10 +605,10 @@ func (s *ShamirSecretSharing) SplitSecret(secret []byte, k, n int) ([]*Share, er
         coefficients[i] = coeff
     }
     
-    // Generate n shares by evaluating polynomial at different points
+    / Generate n shares by evaluating polynomial at different points
     shares := make([]*Share, n)
     for i := 0; i < n; i++ {
-        x := big.NewInt(int64(i + 1)) // x values start from 1
+        x := big.NewInt(int64(i + 1)) / x values start from 1
         y := s.evaluatePolynomial(coefficients, x)
         shares[i] = &Share{X: x, Y: y}
     }
@@ -616,44 +616,44 @@ func (s *ShamirSecretSharing) SplitSecret(secret []byte, k, n int) ([]*Share, er
     return shares, nil
 }
 
-// CombineShares reconstructs the secret from k shares using Lagrange interpolation
+/ CombineShares reconstructs the secret from k shares using Lagrange interpolation
 func (s *ShamirSecretSharing) CombineShares(shares []*Share) ([]byte, error) {
     if len(shares) < 2 {
         return nil, fmt.Errorf("need at least 2 shares to reconstruct")
     }
     
-    // Use Lagrange interpolation to find polynomial value at x=0
+    / Use Lagrange interpolation to find polynomial value at x=0
     secret := big.NewInt(0)
     
     for i, shareI := range shares {
-        // Calculate Lagrange basis polynomial li(0)
+        / Calculate Lagrange basis polynomial li(0)
         numerator := big.NewInt(1)
         denominator := big.NewInt(1)
         
         for j, shareJ := range shares {
             if i != j {
-                // numerator *= (0 - xj) = -xj
+                / numerator *= (0 - xj) = -xj
                 numerator.Mul(numerator, new(big.Int).Neg(shareJ.X))
                 numerator.Mod(numerator, s.prime)
                 
-                // denominator *= (xi - xj)
+                / denominator *= (xi - xj)
                 diff := new(big.Int).Sub(shareI.X, shareJ.X)
                 denominator.Mul(denominator, diff)
                 denominator.Mod(denominator, s.prime)
             }
         }
         
-        // Calculate modular multiplicative inverse of denominator
+        / Calculate modular multiplicative inverse of denominator
         invDenominator := new(big.Int).ModInverse(denominator, s.prime)
         if invDenominator == nil {
             return nil, fmt.Errorf("failed to calculate modular inverse")
         }
         
-        // li(0) = numerator / denominator = numerator * inv(denominator)
+        / li(0) = numerator / denominator = numerator * inv(denominator)
         lagrangeBasis := new(big.Int).Mul(numerator, invDenominator)
         lagrangeBasis.Mod(lagrangeBasis, s.prime)
         
-        // Add yi * li(0) to the result
+        / Add yi * li(0) to the result
         term := new(big.Int).Mul(shareI.Y, lagrangeBasis)
         term.Mod(term, s.prime)
         secret.Add(secret, term)
@@ -663,7 +663,7 @@ func (s *ShamirSecretSharing) CombineShares(shares []*Share) ([]byte, error) {
     return secret.Bytes(), nil
 }
 
-// evaluatePolynomial evaluates polynomial at given x using Horner's method
+/ evaluatePolynomial evaluates polynomial at given x using Horner's method
 func (s *ShamirSecretSharing) evaluatePolynomial(coefficients []*big.Int, x *big.Int) *big.Int {
     result := new(big.Int).Set(coefficients[len(coefficients)-1])
     
@@ -676,7 +676,7 @@ func (s *ShamirSecretSharing) evaluatePolynomial(coefficients []*big.Int, x *big
     return result
 }
 
-// Vault unsealing implementation
+/ Vault unsealing implementation
 type UnsealManager struct {
     shamirShares    []*Share
     threshold       int
@@ -705,18 +705,18 @@ func (u *UnsealManager) SubmitUnsealKey(share *Share) (*UnsealStatus, error) {
         }, nil
     }
     
-    // Check if share already provided
+    / Check if share already provided
     for _, existingShare := range u.shamirShares {
         if existingShare.X.Cmp(share.X) == 0 {
             return nil, fmt.Errorf("share already provided")
         }
     }
     
-    // Add share to collection
+    / Add share to collection
     u.shamirShares = append(u.shamirShares, share)
     u.unsealProgress = len(u.shamirShares)
     
-    // Check if we have enough shares to unseal
+    / Check if we have enough shares to unseal
     if u.unsealProgress >= u.threshold {
         shamirSSS := NewShamirSecretSharing()
         masterKey, err := shamirSSS.CombineShares(u.shamirShares[:u.threshold])
@@ -1473,7 +1473,7 @@ spec:
         - --debug=false
         env:
         - name: CSI_ENDPOINT
-          value: unix:///csi/csi.sock
+          value: unix://csi/csi.sock
         - name: VAULT_ADDR
           value: http://vault:8200
         volumeMounts:
@@ -1819,19 +1819,19 @@ analysis = analyzer.compare_solutions()
 ## Cross-References & Related Topics
 
 ### Related Laws
-- **[Law 4: Multidimensional Optimization](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Balance security, usability, and performance in secrets management
-- **[Law 6: Cognitive Load](../../core-principles/laws.md/cognitive-load/index.md)** - Vault reduces cognitive overhead of manual secret management
-- **[Law 7: Economic Reality](../../core-principles/laws.md/economic-reality/index.md)** - ROI analysis shows significant cost benefits
+- **[Law 4: Multidimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md)** - Balance security, usability, and performance in secrets management
+- **[Law 6: Cognitive Load](../core-principles/laws/cognitive-load/index.md)** - Vault reduces cognitive overhead of manual secret management
+- **[Law 7: Economic Reality](../core-principles/laws/economic-reality/index.md)** - ROI analysis shows significant cost benefits
 
 ### Related Patterns  
-- **[Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker/index.md)** - Protect against Vault service failures
-- **[Retry with Backoff](../../pattern-library/resilience.md/retry-backoff/index.md)** - Handle transient Vault connectivity issues
-- **[Bulkhead](../../pattern-library/resilience.md/bulkhead/index.md)** - Isolate different secret engines and authentication methods
+- **[Circuit Breaker](../pattern-library/resilience/circuit-breaker/index.md)** - Protect against Vault service failures
+- **[Retry with Backoff](../pattern-library/resilience/retry-backoff/index.md)** - Handle transient Vault connectivity issues
+- **[Bulkhead](../pattern-library/resilience/bulkhead/index.md)** - Isolate different secret engines and authentication methods
 
 ### Related Case Studies
-- **[Netflix Chaos Engineering](../../elite-engineering/netflix-chaos.md)** - Resilience testing for critical security infrastructure
-- **[Amazon Aurora](../../amazon-aurora.md)** - Database security and encryption patterns
-- **[Google Spanner](../../google-spanner.md)** - Global encryption and access control strategies
+- **[Netflix Chaos Engineering](../elite-engineering/netflix-chaos.md)** - Resilience testing for critical security infrastructure
+- **[Amazon Aurora](../amazon-aurora.md)** - Database security and encryption patterns
+- **[Google Spanner](../google-spanner.md)** - Global encryption and access control strategies
 
 ## External Resources
 

@@ -245,7 +245,7 @@ type RouteUpdate struct {
 }
 
 func (rto *RealTimeOptimizer) StartRealTimeOptimization() {
-    // Start monitoring goroutines
+    / Start monitoring goroutines
     go rto.monitorTrafficChanges()
     go rto.monitorNewOrders()
     go rto.monitorDriverProgress()
@@ -270,7 +270,7 @@ func (rto *RealTimeOptimizer) processRouteUpdates() {
 func (rto *RealTimeOptimizer) handleNewOrderInsertion(update RouteUpdate) {
     newOrder := update.UpdateData.(Order)
     
-    // Find candidate routes within delivery area
+    / Find candidate routes within delivery area
     candidateRoutes := rto.findCandidateRoutes(newOrder.DeliveryAddress)
     
     bestInsertion := &RouteInsertion{}
@@ -279,7 +279,7 @@ func (rto *RealTimeOptimizer) handleNewOrderInsertion(update RouteUpdate) {
     for _, routeID := range candidateRoutes {
         currentRoute := rto.getCurrentRoute(routeID)
         
-        // Try inserting at different positions
+        / Try inserting at different positions
         for position := 1; position < len(currentRoute.Stops); position++ {
             insertion := RouteInsertion{
                 RouteID:   routeID,
@@ -287,10 +287,10 @@ func (rto *RealTimeOptimizer) handleNewOrderInsertion(update RouteUpdate) {
                 Position:  position,
             }
             
-            // Calculate cost increase
+            / Calculate cost increase
             costIncrease := rto.calculateInsertionCost(insertion, currentRoute)
             
-            // Check feasibility constraints
+            / Check feasibility constraints
             if rto.isInsertionFeasible(insertion, currentRoute) && 
                costIncrease < minCostIncrease {
                 bestInsertion = &insertion
@@ -300,37 +300,37 @@ func (rto *RealTimeOptimizer) handleNewOrderInsertion(update RouteUpdate) {
     }
     
     if bestInsertion.RouteID != "" {
-        // Apply the best insertion
+        / Apply the best insertion
         rto.applyRouteInsertion(*bestInsertion)
         
-        // Notify driver of route change
+        / Notify driver of route change
         rto.notifyDriverOfRouteChange(bestInsertion.RouteID)
     } else {
-        // No feasible insertion found, trigger full reoptimization
+        / No feasible insertion found, trigger full reoptimization
         rto.triggerEmergencyReoptimization(newOrder)
     }
 }
 
 func (rto *RealTimeOptimizer) calculateInsertionCost(insertion RouteInsertion, currentRoute *Route) float64 {
-    // Calculate additional travel distance
+    / Calculate additional travel distance
     insertPos := insertion.Position
     prevStop := currentRoute.Stops[insertPos-1]
     nextStop := currentRoute.Stops[insertPos]
     newStop := insertion.Order.DeliveryAddress
     
-    // Original distance between prev and next
+    / Original distance between prev and next
     originalDistance := rto.getDistance(prevStop.Location, nextStop.Location)
     
-    // New distances: prev -> new -> next
+    / New distances: prev -> new -> next
     newDistance := rto.getDistance(prevStop.Location, newStop) + 
                   rto.getDistance(newStop, nextStop.Location)
     
     distanceIncrease := newDistance - originalDistance
     
-    // Calculate time impact
+    / Calculate time impact
     timeIncrease := rto.calculateTimeIncrease(insertion, currentRoute)
     
-    // Combined cost (distance + time penalty)
+    / Combined cost (distance + time penalty)
     return distanceIncrease*0.6 + timeIncrease*0.4
 }
 ```
@@ -369,7 +369,7 @@ Optimization Objectives:
 ```python
 class HybridGeneticAlgorithm:
     def __init__(self, problem_size):
-        self.population_size = min(100, max(20, problem_size // 10))
+        self.population_size = min(100, max(20, problem_size / 10))
         self.mutation_rate = 0.1
         self.crossover_rate = 0.8
         self.local_search_probability = 0.3
@@ -392,7 +392,7 @@ class HybridGeneticAlgorithm:
             new_population = []
             
             # Elitism - keep best individuals
-            elite_size = max(1, self.population_size // 10)
+            elite_size = max(1, self.population_size / 10)
             elite = sorted(population, key=lambda x: x.fitness, reverse=True)[:elite_size]
             new_population.extend(elite)
             

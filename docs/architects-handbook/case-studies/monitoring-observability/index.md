@@ -130,19 +130,19 @@ Distributed rate limiting system protecting APIs from abuse and ensuring fair us
 ## 🔗 Cross-References
 
 ### Related Patterns
-- [Circuit Breaker](../../../../pattern-library/resilience/circuit-breaker.md) - Observability for failure detection
-- [Health Check](../../../../pattern-library/resilience/health-check.md) - Service health monitoring
-- [Bulkhead](../../../../pattern-library/resilience/bulkhead.md) - Isolation and monitoring
+- [Circuit Breaker](../../pattern-library/resilience/circuit-breaker.md) - Observability for failure detection
+- [Health Check](../../pattern-library/resilience/health-check.md) - Service health monitoring
+- [Bulkhead](../../pattern-library/resilience/bulkhead.md) - Isolation and monitoring
 
 ### Quantitative Analysis
-- [Availability Math](../../quantitative-analysis/availability-math.md) - SLA calculations from metrics
-- [Queueing Theory](../../quantitative-analysis/queueing-theory.md) - Performance analysis
-- [Reliability Engineering](../../quantitative-analysis/reliability-engineering.md) - MTBF/MTTR calculations
+- [Availability Math](../architects-handbook/quantitative-analysis/availability-math.md) - SLA calculations from metrics
+- [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-theory.md) - Performance analysis
+- [Reliability Engineering](../architects-handbook/quantitative-analysis/reliability-engineering.md) - MTBF/MTTR calculations
 
 ### Human Factors  
-- [On-call Practices](../../human-factors/oncall-culture.md) - Alert management and response
-- [Incident Response](../../human-factors/incident-response.md) - Using observability during incidents
-- [Runbooks](../../human-factors/runbooks-playbooks.md) - Operational procedures
+- [On-call Practices](../architects-handbook/human-factors/oncall-culture.md) - Alert management and response
+- [Incident Response](../architects-handbook/human-factors/incident-response.md) - Using observability during incidents
+- [Runbooks](../architects-handbook/human-factors/runbooks-playbooks.md) - Operational procedures
 
 ## 🎯 Observability Success Metrics
 

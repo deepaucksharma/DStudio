@@ -175,20 +175,20 @@ type: documentation
 
 ## Related Resources
 
-- [Economic Reality Law](../..../core-principles/laws.md/economic-reality/index.md)
+- [Economic Reality Law](../core-principles/laws/economic-reality/index.md)
 - FinOps Best Practices (Coming Soon)
 - Multi-Region Architecture (Coming Soon/index)
 - [Storage Economics](quantitative/storage-economics/index.md)
 - [Cache Economics](quantitative/cache-economics/index.md)
 
 <script>
-// Simplified cloud pricing model (real pricing is more complex)
+/ Simplified cloud pricing model (real pricing is more complex)
 const cloudPricing = {
  aws: {
- compute: { vcpu: 0.05, memory: 0.005 }, // per hour
- storage: { ssd: 0.10, hdd: 0.025 }, // per GB per month
- transfer: { egress: 0.09, ingress: 0 }, // per GB
- loadBalancer: 25, // per month
+ compute: { vcpu: 0.05, memory: 0.005 }, / per hour
+ storage: { ssd: 0.10, hdd: 0.025 }, / per GB per month
+ transfer: { egress: 0.09, ingress: 0 }, / per GB
+ loadBalancer: 25, / per month
  multiRegionPremium: 1.2
  },
  gcp: {
@@ -206,16 +206,16 @@ const cloudPricing = {
  multiRegionPremium: 1.18
  },
  onprem: {
- serverCost: 5000, // per server
- serverLifespan: 3, // years
- powerCooling: 200, // per server per month
- networkHardware: 50000, // one-time
- staffMultiplier: 1.5 // vs cloud
+ serverCost: 5000, / per server
+ serverLifespan: 3, / years
+ powerCooling: 200, / per server per month
+ networkHardware: 50000, / one-time
+ staffMultiplier: 1.5 / vs cloud
  }
 };
 
 function calculateCosts() {
- // Get inputs
+ / Get inputs
  const avgRPS = parseFloat(document.getElementById('avgRequestsPerSec').value);
  const peakMultiplier = parseFloat(document.getElementById('peakMultiplier').value);
  const storageGB = parseFloat(document.getElementById('dataStorageGB').value);
@@ -228,34 +228,34 @@ function calculateCosts() {
  const region = document.getElementById('region').value;
  const planYears = parseInt(document.getElementById('planningHorizon').value);
  
- // Calculate resource requirements
+ / Calculate resource requirements
  const peakRPS = avgRPS * peakMultiplier;
- const avgConcurrentRequests = avgRPS * (cpuPerRequest / 1000); // Little's Law
+ const avgConcurrentRequests = avgRPS * (cpuPerRequest / 1000); / Little's Law
  const peakConcurrentRequests = peakRPS * (cpuPerRequest / 1000);
  
- // CPU requirements (with 70% target utilization)
+ / CPU requirements (with 70% target utilization)
  const vcpusNeeded = Math.ceil((peakRPS * cpuPerRequest / 1000) / 0.7);
  
- // Memory requirements
+ / Memory requirements
  const memoryGB = Math.ceil((peakConcurrentRequests * memoryPerRequest) / 1024);
  
- // Redundancy for availability
+ / Redundancy for availability
  let redundancyFactor = 1;
  if (availabilityTarget >= 99.99) redundancyFactor = 2;
  if (availabilityTarget >= 99.999) redundancyFactor = 3;
  
- // Regional multiplier
+ / Regional multiplier
  let regionMultiplier = 1;
  if (region === 'multi-2') regionMultiplier = 2;
  if (region === 'multi-3') regionMultiplier = 3;
  if (region === 'global') regionMultiplier = 5;
  
- // Calculate costs for each option
+ / Calculate costs for each option
  const costBreakdown = {};
  
  if (provider === 'onprem') {
- // On-premise calculation
- const serversNeeded = Math.ceil((vcpusNeeded * redundancyFactor) / 16); // 16 vCPUs per server
+ / On-premise calculation
+ const serversNeeded = Math.ceil((vcpusNeeded * redundancyFactor) / 16); / 16 vCPUs per server
  const totalServers = serversNeeded * regionMultiplier;
  
  costBreakdown.onprem = calculateOnPremCosts(
@@ -266,7 +266,7 @@ function calculateCosts() {
  monthlyGrowth
  );
  } else {
- // Cloud calculation
+ / Cloud calculation
  costBreakdown.cloud = calculateCloudCosts(
  provider,
  vcpusNeeded * redundancyFactor * regionMultiplier,
@@ -278,7 +278,7 @@ function calculateCosts() {
  monthlyGrowth
  );
  
- // Also calculate comparison with other providers
+ / Also calculate comparison with other providers
  ['aws', 'gcp', 'azure'].forEach(p => {
  if (p !== provider) {
  costBreakdown[p] = calculateCloudCosts(
@@ -295,7 +295,7 @@ function calculateCosts() {
  });
  }
  
- // Generate results
+ / Generate results
  displayCostResults(costBreakdown, {
  avgRPS,
  peakRPS,
@@ -312,22 +312,22 @@ function calculateCloudCosts(provider, vcpus, memoryGB, storageGB, transferGB, r
  const pricing = cloudPricing[provider];
  const monthlyHours = 730;
  
- // Compute costs
+ / Compute costs
  const computeMonthly = (vcpus * pricing.compute.vcpu + memoryGB * pricing.compute.memory) * monthlyHours;
  
- // Storage costs (assuming 80% SSD, 20% HDD)
+ / Storage costs (assuming 80% SSD, 20% HDD)
  const storageMonthly = storageGB * (0.8 * pricing.storage.ssd + 0.2 * pricing.storage.hdd);
  
- // Transfer costs
+ / Transfer costs
  const transferMonthly = transferGB * pricing.transfer.egress;
  
- // Additional services
+ / Additional services
  const servicesMonthly = pricing.loadBalancer * (region === 'single' ? 1 : parseInt(region.split('-')[1] || 5));
  
- // Apply regional premium
+ / Apply regional premium
  const regionPremium = region !== 'single' ? pricing.multiRegionPremium : 1;
  
- // Calculate total over time with growth
+ / Calculate total over time with growth
  let totalCost = 0;
  let monthlyBreakdown = [];
  
@@ -359,29 +359,29 @@ function calculateCloudCosts(provider, vcpus, memoryGB, storageGB, transferGB, r
 function calculateOnPremCosts(servers, storageGB, transferGB, years, growthRate) {
  const pricing = cloudPricing.onprem;
  
- // Capital expenses
+ / Capital expenses
  const serverCapex = servers * pricing.serverCost;
  const networkCapex = pricing.networkHardware;
- const storageCapex = (storageGB / 1000) * 2000; // $2/GB for enterprise storage
+ const storageCapex = (storageGB / 1000) * 2000; / $2/GB for enterprise storage
  
- // Operating expenses per month
+ / Operating expenses per month
  const powerCoolingMonthly = servers * pricing.powerCooling;
- const bandwidthMonthly = transferGB * 0.02; // Assuming $0.02/GB
- const staffingMonthly = 15000 * pricing.staffMultiplier; // Assuming base cloud staffing of $15k/month
+ const bandwidthMonthly = transferGB * 0.02; / Assuming $0.02/GB
+ const staffingMonthly = 15000 * pricing.staffMultiplier; / Assuming base cloud staffing of $15k/month
  
- // Calculate total over time
+ / Calculate total over time
  let totalCost = serverCapex + networkCapex + storageCapex;
  let monthlyBreakdown = [];
  
  for (let month = 0; month < years * 12; month++) {
  const growthFactor = Math.pow(1 + growthRate, month);
  
- // Additional storage capex every year for growth
+ / Additional storage capex every year for growth
  if (month > 0 && month % 12 === 0) {
  totalCost += (storageGB * (Math.pow(1 + growthRate, 12) - 1) / 1000) * 2000;
  }
  
- // Monthly opex
+ / Monthly opex
  const monthCost = powerCoolingMonthly + bandwidthMonthly + staffingMonthly;
  totalCost += monthCost;
  
@@ -432,7 +432,7 @@ function displayCostResults(costBreakdown, params) {
  <div class="comparison-cards">
  `;
  
- // Sort providers by total cost
+ / Sort providers by total cost
  const sortedProviders = Object.entries(costBreakdown)
  .sort((a, b) => a[1].total - b[1].total);
  
@@ -459,7 +459,7 @@ function displayCostResults(costBreakdown, params) {
  <ul>
  `;
  
- // Generate recommendations based on analysis
+ / Generate recommendations based on analysis
  const lowestCost = sortedProviders[0][1].total;
  const currentProvider = costBreakdown[params.provider] || costBreakdown.cloud;
  
@@ -536,7 +536,7 @@ function displayCostResults(costBreakdown, params) {
  
  document.getElementById('results').innerHTML = resultsHTML;
  
- // Draw cost breakdown chart
+ / Draw cost breakdown chart
  if (sortedProviders.length > 0) {
  drawCostChart(sortedProviders[0][1]);
  }
@@ -551,10 +551,10 @@ function drawCostChart(providerCosts) {
  const height = canvas.height;
  const padding = 40;
  
- // Clear canvas
+ / Clear canvas
  ctx.clearRect(0, 0, width, height);
  
- // Prepare data
+ / Prepare data
  const categories = providerCosts.breakdown[0].compute !== undefined 
  ? ['compute', 'storage', 'transfer', 'services']
  : ['capex', 'opex'];
@@ -568,7 +568,7 @@ function drawCostChart(providerCosts) {
  opex: '#9C27B0'
  };
  
- // Draw bars for first year costs
+ / Draw bars for first year costs
  const firstYear = providerCosts.breakdown[0];
  const values = categories.map(cat => firstYear[cat] || 0);
  const maxValue = Math.max(...values);
@@ -582,21 +582,21 @@ function drawCostChart(providerCosts) {
  const x = padding + i * (barWidth + barSpacing);
  const y = height - padding - barHeight;
  
- // Draw bar
+ / Draw bar
  ctx.fillStyle = colors[category];
  ctx.fillRect(x, y, barWidth, barHeight);
  
- // Draw label
+ / Draw label
  ctx.fillStyle = '#333';
  ctx.font = '12px sans-serif';
  ctx.textAlign = 'center';
  ctx.fillText(category.charAt(0).toUpperCase() + category.slice(1), x + barWidth / 2, height - padding + 20);
  
- // Draw value
+ / Draw value
  ctx.fillText(`$${(value / 1000).toFixed(0)}k`, x + barWidth / 2, y - 5);
  });
  
- // Title
+ / Title
  ctx.font = '14px sans-serif';
  ctx.fillText('Monthly Cost Breakdown (Year 1)', width / 2, padding / 2);
 }

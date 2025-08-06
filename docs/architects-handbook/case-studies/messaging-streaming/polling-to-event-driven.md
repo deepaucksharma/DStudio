@@ -48,7 +48,7 @@ deprecation_reason: Polling wastes resources, introduces latency, and doesn't sc
   Modern event-driven patterns provide real-time updates with better resource efficiency.
 excellence_guides:
 - migration/event-driven
-- ../../../pattern-library/anti-patterns
+- ../../pattern-library/anti-patterns
 - architecture/modernization
 key_innovations:
 - Gradual migration with dual-write period
@@ -183,7 +183,7 @@ class StranglerFigMigration:
     
     def migrate_next_batch(self):
         # Migrate 10% of remaining polling clients
-        batch_size = max(1, len(self.polling_clients) // 10)
+        batch_size = max(1, len(self.polling_clients) / 10)
         batch = random.sample(self.polling_clients, batch_size)
         
         for client in batch:
@@ -478,8 +478,8 @@ total_event_cost = event_delivery_cost + streaming_infrastructure + reduced_serv
 
 ## Related Resources
 
-- [Event-Driven Architecture Pattern](../../../pattern-library/architecture/event-driven.md)
-- [Webhook Pattern](../../../pattern-library/webhook.md)
+- [Event-Driven Architecture Pattern](../../pattern-library/architecture/event-driven.md)
+- [Webhook Pattern](../../pattern-library/webhook.md)
 - [Migration Best Practices](../excellence/migration-guide.md)
 - [Anti-Patterns Guide](../reference/anti-patterns.md)
 

@@ -165,14 +165,14 @@ function calculateLittlesLaw() {
  let explanation = '';
  let insights = '';
  
- // Count how many values were provided
+ / Count how many values were provided
  const providedCount = [lambda, L, W].filter(v => !isNaN(v) && v >= 0).length;
  
  if (providedCount < 2) {
  alert('Please provide at least 2 values to calculate the third');
  return;
  } else if (providedCount === 3) {
- // Verify the relationship
+ / Verify the relationship
  const calculated_L = lambda * W;
  const error = Math.abs(calculated_L - L) / L * 100;
  if (error < 1) {
@@ -182,36 +182,36 @@ function calculateLittlesLaw() {
  }
  formula = `${L} = ${lambda} × ${W}`;
  } else {
- // Calculate the missing value
+ / Calculate the missing value
  if (isNaN(lambda) || lambda < 0) {
- // Calculate arrival rate
+ / Calculate arrival rate
  const calculated_lambda = L / W;
  formula = `λ = L / W = ${L} / ${W} = ${calculated_lambda.toFixed(2)}`;
  explanation = `Arrival rate: ${calculated_lambda.toFixed(2)} items/second`;
  
- // Insights
+ / Insights
  if (calculated_lambda > 1000) {
  insights = '💡 High arrival rate detected. Consider load balancing or horizontal scaling.';
  }
  } else if (isNaN(L) || L < 0) {
- // Calculate average items
+ / Calculate average items
  const calculated_L = lambda * W;
  formula = `L = λ × W = ${lambda} × ${W} = ${calculated_L.toFixed(2)}`;
  explanation = `Average items in system: ${calculated_L.toFixed(2)}`;
  
- // Insights
+ / Insights
  if (calculated_L > 1000) {
  insights = '💡 Large queue size. System may be overloaded. Consider adding capacity.';
  } else if (calculated_L < 1) {
  insights = '💡 Very low queue size. System is underutilized.';
  }
  } else if (isNaN(W) || W < 0) {
- // Calculate average time
+ / Calculate average time
  const calculated_W = L / lambda;
  formula = `W = L / λ = ${L} / ${lambda} = ${calculated_W.toFixed(3)}`;
  explanation = `Average time in system: ${calculated_W.toFixed(3)} seconds`;
  
- // Insights
+ / Insights
  if (calculated_W > 10) {
  insights = '💡 High latency detected. Consider optimizing processing time or adding servers.';
  } else if (calculated_W < 0.1) {
@@ -220,7 +220,7 @@ function calculateLittlesLaw() {
  }
  }
  
- // Display results
+ / Display results
  document.getElementById('resultFormula').innerHTML = formula;
  document.getElementById('resultExplanation').innerHTML = explanation;
  document.getElementById('resultInsights').innerHTML = insights;
@@ -1510,7 +1510,7 @@ graph LR
  style C fill:#ff6b6b
 ```
 
-**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](..../core-principles/laws.md/asynchronous-reality/index.md).
+**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../core-principles/laws/asynchronous-reality/index.md).
 
 ### Law 4: Trade-offs
 !!! danger "⚠️ Capacity Overflow Scenario"
@@ -1906,9 +1906,9 @@ SLA Compliance:
 
 ## Connections to Other Concepts
 
-- **[Queueing Models](../..../architects-handbook/quantitative-analysis.md/queueing-models.md)**: $L = L_q + L_s$, utilization $\rho = \lambda/\mu$ affects $W$
-- **[Latency Ladder](../..../architects-handbook/quantitative-analysis.md/latency-ladder.md)**: $W$ includes all ladder latencies
-- **[Availability Math](../..../architects-handbook/quantitative-analysis.md/availability-math.md)**: Failures spike $\lambda$ (retries), predict cascades
+- **[Queueing Models](../architects-handbook/quantitative-analysis/queueing-models.md)**: $L = L_q + L_s$, utilization $\rho = \lambda/\mu$ affects $W$
+- **[Latency Ladder](../architects-handbook/quantitative-analysis/latency-ladder.md)**: $W$ includes all ladder latencies
+- **[Availability Math](../architects-handbook/quantitative-analysis/availability-math.md)**: Failures spike $\lambda$ (retries), predict cascades
 - **Patterns**: Rate limiting controls λ, circuit breakers prevent retry storms
 
 ## Key Insights & Pitfalls
@@ -1921,6 +1921,6 @@ Remember: Little's Law is like gravity - always there!
 
 ## Related Concepts
 
-- **Quantitative**: [Queueing Theory](../..../architects-handbook/quantitative-analysis.md/queueing-models.md) | [Latency Ladder](../..../architects-handbook/quantitative-analysis.md/latency-ladder.md) | [Availability Math](../..../architects-handbook/quantitative-analysis.md/availability-math.md)
-- **Patterns**: [Rate Limiting](../..../pattern-library/scaling.md/rate-limiting.md) | [Bulkhead](../..../pattern-library/resilience.md/bulkhead.md) | [Backpressure](../..../pattern-library/scaling.md/backpressure.md)
-- **Operations**: [SRE Practices](../..../architects-handbook/human-factors.md/sre-practices.md) | [Performance Monitoring](../..../architects-handbook/human-factors.md/observability-stacks.md)
+- **Quantitative**: [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md) | [Latency Ladder](../architects-handbook/quantitative-analysis/latency-ladder.md) | [Availability Math](../architects-handbook/quantitative-analysis/availability-math.md)
+- **Patterns**: [Rate Limiting](../pattern-library/scaling/rate-limiting.md) | [Bulkhead](../pattern-library/resilience/bulkhead.md) | [Backpressure](../pattern-library/scaling/backpressure.md)
+- **Operations**: [SRE Practices](../architects-handbook/human-factors/sre-practices.md) | [Performance Monitoring](../architects-handbook/human-factors/observability-stacks.md)

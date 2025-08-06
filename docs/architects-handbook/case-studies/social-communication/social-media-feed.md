@@ -747,7 +747,7 @@ class FeedRealTimeUpdater {
  };
  
  this.websocket.onopen = () => {
- // Subscribe to user's feed updates
+ / Subscribe to user's feed updates
  this.websocket.send(JSON.stringify({
  type: 'subscribe',
  channel: `feed:${this.userId}`
@@ -773,10 +773,10 @@ class FeedRealTimeUpdater {
  }
  
  insertNewPost(post) {
- // Create new post element
+ / Create new post element
  const postElement = this.createPostElement(post);
  
- // Insert at appropriate position based on ranking
+ / Insert at appropriate position based on ranking
  const feedItems = this.feedContainer.children;
  let insertPosition = 0;
  
@@ -790,7 +790,7 @@ class FeedRealTimeUpdater {
  
  this.feedContainer.insertBefore(postElement, feedItems[insertPosition]);
  
- // Animate new post appearance
+ / Animate new post appearance
  postElement.classList.add('fade-in');
  }
 }
@@ -1347,8 +1347,8 @@ Real-time adaptation capabilities separate great feed systems from good ones. Th
 Understanding feed architecture provides insights into broader distributed systems challenges: managing hot spots, balancing consistency with performance, designing for failure, and optimizing for both human and machine scale requirements.
 
 ## Related Case Studies
-- [Notification System](../../notification-system.md) - Real-time user engagement
-- [Redis Architecture](../../redis-architecture.md) - High-performance caching strategies
+- [Notification System](../notification-system.md) - Real-time user engagement
+- [Redis Architecture](../redis-architecture.md) - High-performance caching strategies
 - [Key-Value Store](key-value-store.md) - Foundational storage patterns
 
 ## External Resources

@@ -647,7 +647,7 @@ class MarkovChainSimulator {
     }
     
     computeStationaryDistribution() {
-        // Simple power iteration method
+        / Simple power iteration method
         let pi = new Array(this.P.length).fill(1 / this.P.length);
         
         for (let iter = 0; iter < 1000; iter++) {
@@ -659,7 +659,7 @@ class MarkovChainSimulator {
                 }
             }
             
-            // Check convergence
+            / Check convergence
             let diff = 0;
             for (let i = 0; i < pi.length; i++) {
                 diff += Math.abs(newPi[i] - pi[i]);
@@ -674,7 +674,7 @@ class MarkovChainSimulator {
     }
 }
 
-// Example usage
+/ Example usage
 const P = [[0.7, 0.2, 0.1],
            [0.3, 0.4, 0.3],
            [0.2, 0.3, 0.5]];
@@ -682,7 +682,7 @@ const P = [[0.7, 0.2, 0.1],
 const states = ['State A', 'State B', 'State C'];
 const simulator = new MarkovChainSimulator(P, states);
 
-// Run simulation
+/ Run simulation
 simulator.simulate(10000);
 
 console.log('Empirical distribution:', simulator.getStateCounts());

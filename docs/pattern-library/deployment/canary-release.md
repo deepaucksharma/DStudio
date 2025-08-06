@@ -455,7 +455,7 @@ class CanaryController:
         self.stage_start_time = datetime.now()
         self.current_stage += 1
         
-        print(f"⏰ Stage will run for {duration // 60} minutes")
+        print(f"⏰ Stage will run for {duration / 60} minutes")
         return True
     
     def _update_traffic_split(self, canary_percentage: int) -> bool:
@@ -563,7 +563,7 @@ spec:
         
         # Continue monitoring
         remaining_time = stage_duration - elapsed_time
-        print(f"⏰ Stage {self.current_stage} continues - {remaining_time // 60:.0f} minutes remaining")
+        print(f"⏰ Stage {self.current_stage} continues - {remaining_time / 60:.0f} minutes remaining")
         return True
     
     def _should_rollback(self, canary_metrics: MetricData) -> bool:
@@ -1139,5 +1139,5 @@ Alert Tuning:
 
 - [Martin Fowler - CanaryRelease](https://martinfowler.com/bliki/CanaryRelease.html/index.md)
 - [Netflix - Automated Canary Analysis](https://netflixtechblog.com/automated-canary-analysis-at-netflix-with-kayenta-3260bc7acc69/index.md)
-- [Google - Site Reliability Engineering](https://sre.google/sre-book/incident-response.mdindex.md)
+- [Google - Site Reliability Engineering](https://sre.google/sre-book/incident-response.mdindex)
 - [Flagger - Progressive Delivery Operator](https://flagger.app/index.md)

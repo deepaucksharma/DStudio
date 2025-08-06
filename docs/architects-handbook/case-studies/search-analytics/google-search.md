@@ -459,7 +459,7 @@ class DistributedIndexRetriever:
 # 2. Parallel shard queries
         shard_tasks = []
         for shard_id in relevant_shards:
-            task = self._query_shard(shard_id, query, num_results // len(relevant_shards))
+            task = self._query_shard(shard_id, query, num_results / len(relevant_shards))
             shard_tasks.append(task)
             
         shard_results = await asyncio.gather(*shard_tasks)

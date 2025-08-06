@@ -264,16 +264,16 @@ graph TD
 ### Tools for Migration
 
 - **[Database Migration Toolkit](../excellence/tools/db-migration-toolkit.md)**: Scripts and utilities
-- **[Service Extraction Patterns](excellence..../pattern-library/service-extraction.md)**: Step-by-step process
+- **[Service Extraction Patterns](excellence../pattern-library/service-extraction.md)**: Step-by-step process
 - **[Data Synchronization Strategies](../excellence/guides/data-sync-strategies.md)**: During transition
 
 ## Related Patterns
 
 - [Database per Service](database-per-service.md) - The correct approach
-- [Event-Driven](....../pattern-library/architecture.md/event-driven.md) - For data synchronization
-- [API Gateway](....../pattern-library/communication.md/api-gateway.md) - For data aggregation
-- [CQRS](....../pattern-library/data-management.md/cqrs.md) - For query separation
-- [Saga](....../pattern-library/data-management.md/saga.md) - For distributed transactions
+- [Event-Driven](../architecture/event-driven.md) - For data synchronization
+- [API Gateway](../communication/api-gateway.md) - For data aggregation
+- [CQRS](cqrs.md) - For query separation
+- [Saga](saga.md) - For distributed transactions
 
 ## Further Reading
 
@@ -284,7 +284,7 @@ graph TD
 
 ### Online Resources
 - [Martin Fowler: Database Styles](https://martinfowler.com/articles/microservices.html#DecentralizedDataManagement/index.md)
-- [Chris Richardson: Database Architecture](https://microservices.io../pattern-library/data.md/database-per-service.html/index.md)
+- [Chris Richardson: Database Architecture](https://microservices.io../pattern-library/data/database-per-service.html/index.md)
 - [ThoughtWorks: Breaking the Monolith](https://www.thoughtworks.com/insights/blog/breaking-monolith/index.md)
 
 ## Level 1: Intuition (5 minutes)

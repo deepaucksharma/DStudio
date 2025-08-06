@@ -241,32 +241,32 @@ func (q *MatchmakingQueue) AddPlayer(player *PlayerEntry) error {
     q.mutex.Lock()
     defer q.mutex.Unlock()
     
-    // Determine skill bracket
+    / Determine skill bracket
     bracket := q.getSkillBracket(player.Skill)
     
-    // Add to appropriate skill queue
+    / Add to appropriate skill queue
     q.skillBrackets[bracket].AddPlayer(player)
     q.players[player.PlayerID] = player
     
-    // Update wait time predictions
+    / Update wait time predictions
     q.waitTimeTracker.UpdatePredictions(bracket, len(q.skillBrackets[bracket].Players))
     
-    // Trigger match formation check
+    / Trigger match formation check
     go q.checkForMatches(bracket)
     
     return nil
 }
 
 func (q *MatchmakingQueue) FindBestMatch(bracket SkillRange) *PotentialMatch {
-    // Get candidates from skill bracket
-    candidates := q.skillBrackets[bracket].GetCandidates(10) // Top 10 players
+    / Get candidates from skill bracket
+    candidates := q.skillBrackets[bracket].GetCandidates(10) / Top 10 players
     
-    if len(candidates) < 10 { // Not enough for 5v5
-        // Expand search to adjacent brackets
+    if len(candidates) < 10 { / Not enough for 5v5
+        / Expand search to adjacent brackets
         candidates = append(candidates, q.getAdjacentBracketCandidates(bracket)...)
     }
     
-    // Try different team compositions
+    / Try different team compositions
     bestMatch := &PotentialMatch{Quality: 0}
     
     for _, composition := range q.generateCompositions(candidates) {
@@ -287,15 +287,15 @@ func (q *MatchmakingQueue) FindBestMatch(bracket SkillRange) *PotentialMatch {
 
 func (q *MatchmakingQueue) ProcessQueueCycle() {
     for bracket, skillQueue := range q.skillBrackets {
-        // Age-based priority boost
+        / Age-based priority boost
         q.boostOldPlayers(skillQueue)
         
-        // Attempt match formation
+        / Attempt match formation
         if match := q.FindBestMatch(bracket); match != nil && match.Quality > 0.7 {
             q.finalizeMatch(match)
         }
         
-        // Fallback for long-waiting players
+        / Fallback for long-waiting players
         q.handleLongWaitPlayers(skillQueue)
     }
 }
@@ -372,8 +372,8 @@ class MatchQualityML:
         if isinstance(match_or_players, list):
             # Potential match
             players = match_or_players
-            team_a = players[:len(players)//2]
-            team_b = players[len(players)//2:]
+            team_a = players[:len(players)/2]
+            team_b = players[len(players)/2:]
         else:
             # Historical match
             team_a = match_or_players.team_a_players

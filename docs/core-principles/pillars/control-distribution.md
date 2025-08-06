@@ -15,7 +15,7 @@ last_updated: 2025-07-29
 
 # Control Distribution: Orchestrating Distributed Systems
 
-[Home](/index.md) > [Core Principles](../..../core-principles/index.md) > [The 5 Pillars](../..../core-principles/pillars.md/index.md) > Control Distribution
+[Home](/) > [Core Principles](../core-principles/index.md) > [The 5 Pillars](../core-principles/pillars.md/index.md) > Control Distribution
 
 ## The One-Inch Punch 👊
 
@@ -480,8 +480,8 @@ Automation Rebels      human_interventions[1h]              > 5
 │  ══════════════════════════════════════                            │
 │                                                                     │
 │  while (true) {                                                     │
-│      desired = getDesiredState()    // From etcd                   │
-│      actual = getActualState()      // From cluster                │
+│      desired = getDesiredState()    / From etcd                   │
+│      actual = getActualState()      / From cluster                │
 │      diff = compare(desired, actual)                               │
 │                                                                     │
 │      if (diff.exists()) {                                           │
@@ -489,7 +489,7 @@ Automation Rebels      human_interventions[1h]              > 5
 │          execute(actions)                                           │
 │      }                                                              │
 │                                                                     │
-│      sleep(1_second)  // Yes, really!                              │
+│      sleep(1_second)  / Yes, really!                              │
 │  }                                                                  │
 │                                                                     │
 │  CONTROLLER HIERARCHY                                               │

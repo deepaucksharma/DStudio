@@ -146,7 +146,7 @@ Targeting Capabilities:
 
 1. **LaunchDarkly Setup**
 ```javascript
-// Client-side JavaScript SDK initialization
+/ Client-side JavaScript SDK initialization
 import { LDClient } from 'launchdarkly-js-client-sdk';
 
 class FeatureFlagService {
@@ -188,7 +188,7 @@ class FeatureFlagService {
     }
     
     handleFlagChanges(settings) {
-        // React to real-time flag changes
+        / React to real-time flag changes
         Object.keys(settings).forEach(flagKey => {
             const newValue = settings[flagKey].current;
             const oldValue = settings[flagKey].previous;
@@ -201,14 +201,14 @@ class FeatureFlagService {
     }
     
     notifyComponents(flagKey, newValue) {
-        // Notify application components of flag changes
+        / Notify application components of flag changes
         window.dispatchEvent(new CustomEvent('featureFlagChange', {
             detail: { flagKey, newValue }
         }));
     }
 }
 
-// Usage example
+/ Usage example
 const userContext = {
     key: 'user-123',
     name: 'John Doe',
@@ -222,7 +222,7 @@ const userContext = {
 
 const featureFlags = new FeatureFlagService('your-client-side-id', userContext);
 
-// Check feature flags
+/ Check feature flags
 async function initializeApp() {
     const newUIEnabled = await featureFlags.isFeatureEnabled('new-ui-redesign');
     const paymentProvider = await featureFlags.getFeatureVariation('payment-provider', 'stripe');
@@ -412,7 +412,7 @@ def get_user_flags():
 
 1. **React Integration with Hooks**
 ```typescript
-// React hooks for feature flags
+/ React hooks for feature flags
 import { useState, useEffect, useContext, createContext } from 'react';
 import { FeatureFlagService } from './FeatureFlagService';
 
@@ -426,7 +426,7 @@ const FeatureFlagContext = createContext<FeatureFlagContextType>({
     isReady: false
 });
 
-// Provider component
+/ Provider component
 export const FeatureFlagProvider: React.FC<{ 
     children: React.ReactNode;
     clientSideId: string;
@@ -456,7 +456,7 @@ export const FeatureFlagProvider: React.FC<{
     );
 };
 
-// Hook for checking feature flags
+/ Hook for checking feature flags
 export const useFeatureFlag = (flagKey: string, defaultValue: boolean = false) => {
     const { featureFlags, isReady } = useContext(FeatureFlagContext);
     const [isEnabled, setIsEnabled] = useState(defaultValue);
@@ -479,7 +479,7 @@ export const useFeatureFlag = (flagKey: string, defaultValue: boolean = false) =
         
         checkFlag();
         
-        // Listen for flag changes
+        / Listen for flag changes
         const handleFlagChange = (event: CustomEvent) => {
             if (event.detail.flagKey === flagKey) {
                 setIsEnabled(event.detail.newValue);
@@ -496,7 +496,7 @@ export const useFeatureFlag = (flagKey: string, defaultValue: boolean = false) =
     return { isEnabled, loading };
 };
 
-// Hook for feature variations
+/ Hook for feature variations
 export const useFeatureVariation = <T>(flagKey: string, defaultValue: T) => {
     const { featureFlags, isReady } = useContext(FeatureFlagContext);
     const [variation, setVariation] = useState<T>(defaultValue);
@@ -519,7 +519,7 @@ export const useFeatureVariation = <T>(flagKey: string, defaultValue: T) => {
         
         getVariation();
         
-        // Listen for flag changes
+        / Listen for flag changes
         const handleFlagChange = (event: CustomEvent) => {
             if (event.detail.flagKey === flagKey) {
                 setVariation(event.detail.newValue);
@@ -536,7 +536,7 @@ export const useFeatureVariation = <T>(flagKey: string, defaultValue: T) => {
     return { variation, loading };
 };
 
-// Feature flag component
+/ Feature flag component
 export const FeatureFlag: React.FC<{
     flagKey: string;
     defaultValue?: boolean;
@@ -552,7 +552,7 @@ export const FeatureFlag: React.FC<{
     return isEnabled ? <>{children}</> : <>{fallback}</>;
 };
 
-// Usage examples
+/ Usage examples
 const MyComponent: React.FC = () => {
     const { isEnabled: newUIEnabled } = useFeatureFlag('new-ui-redesign');
     const { variation: theme } = useFeatureVariation('ui-theme', 'light');

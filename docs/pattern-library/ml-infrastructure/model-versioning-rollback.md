@@ -1144,23 +1144,23 @@ timeline
     
     ---
     
-    - [Economic Reality](../../core-principles/laws/economic-reality.md) - Cost of model failures vs rollback complexity
-    - [Asynchronous Reality](../../core-principles/laws/asynchronous-reality.md) - Distributed rollback coordination
+    - [Economic Reality](../core-principles/laws/economic-reality.md) - Cost of model failures vs rollback complexity
+    - [Asynchronous Reality](../core-principles/laws/asynchronous-reality.md) - Distributed rollback coordination
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution.md) - Distributed model version management
-    - [Coordination](../../core-principles/pillars/coordination.md) - Rollback orchestration across systems
+    - [State Distribution](../core-principles/pillars/state-distribution.md) - Distributed model version management
+    - [Coordination](../core-principles/pillars/coordination.md) - Rollback orchestration across systems
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Model Registry Setup](../../excellence/guides/model-registry.md)
-    - [Rollback Testing Procedures](../../excellence/guides/rollback-testing.md)
-    - [ML Monitoring Best Practices](../../excellence/guides/ml-monitoring.md)
+    - [Model Registry Setup](../excellence/guides/model-registry.md)
+    - [Rollback Testing Procedures](../excellence/guides/rollback-testing.md)
+    - [ML Monitoring Best Practices](../excellence/guides/ml-monitoring.md)
 
 </div>
 

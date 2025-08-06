@@ -128,17 +128,17 @@ graph TD
 
 ### Foundation Patterns
 - **[Write-Ahead Log](./wal.md)**: Often implemented as segmented
-- **[Append-Only Store](....../pattern-library/append-only.md)**: Base concept
+- **[Append-Only Store](../../pattern-library/append-only.md)**: Base concept
 - **[Log Structured Storage](./lsm-tree.md)**: Uses segments internally
 
 ### Complementary Patterns
-- **[Snapshot](....../pattern-library/compaction.md)**: Clean up segments
-- **[Replication Log](....../pattern-library/replication-log.md)**: Segment-based replication
+- **[Snapshot](../../pattern-library/compaction.md)**: Clean up segments
+- **[Replication Log](../../pattern-library/replication-log.md)**: Segment-based replication
 
 ### Applications
-- **[Kafka](../case-studies/kafka.md)**: Canonical implementation
-- **[RocksDB](../case-studies/rocksdb.md)**: LSM with segments
-- **[Cassandra](../case-studies/cassandra.md)**: SSTables as segments
+- **[Kafka](../architects-handbook/case-studies/kafka.md)**: Canonical implementation
+- **[RocksDB](../architects-handbook/case-studies/rocksdb.md)**: LSM with segments
+- **[Cassandra](../architects-handbook/case-studies/cassandra.md)**: SSTables as segments
 
 ## Further Reading
 

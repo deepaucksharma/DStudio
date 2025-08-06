@@ -527,10 +527,10 @@ class TunableConsistencyManager:
         elif level == 'ALL':
             return num_replicas
         elif level == 'QUORUM':
-            return (num_replicas // 2) + 1
+            return (num_replicas / 2) + 1
         elif level == 'LOCAL_QUORUM':
             local_replicas = self._count_local_replicas()
-            return (local_replicas // 2) + 1
+            return (local_replicas / 2) + 1
         else:
             raise ValueError(f"Unknown consistency level: {level}")
 ```

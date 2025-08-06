@@ -345,20 +345,20 @@ type: reference
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-// Pattern Health Dashboard JavaScript
+/ Pattern Health Dashboard JavaScript
 (function() {
   let healthData = null;
   let trendsChart = null;
   let currentFilter = 'all';
 
-  // Initialize dashboard
+  / Initialize dashboard
   document.addEventListener('DOMContentLoaded', function() {
     loadHealthData();
     setupFilters();
     setupAutoRefresh();
   });
 
-  // Load health data from JSON
+  / Load health data from JSON
   async function loadHealthData() {
     try {
       const response = await fetch('/DStudio/data/health-data/pattern-health-metrics.json');
@@ -372,7 +372,7 @@ type: reference
     }
   }
 
-  // Update entire dashboard
+  / Update entire dashboard
   function updateDashboard() {
     if (!healthData) return;
     
@@ -382,14 +382,14 @@ type: reference
     updatePatternsGrid();
   }
 
-  // Update last updated time
+  / Update last updated time
   function updateLastUpdated() {
     const element = document.getElementById('last-updated-time');
     const date = new Date(healthData.lastUpdated);
     element.textContent = date.toLocaleString();
   }
 
-  // Update summary cards
+  / Update summary cards
   function updateSummaryCards() {
     const tiers = ['gold', 'silver', 'bronze'];
     
@@ -402,7 +402,7 @@ type: reference
     });
   }
 
-  // Update trends chart
+  / Update trends chart
   function updateTrendsChart() {
     const ctx = document.getElementById('health-trends-chart').getContext('2d');
     
@@ -455,7 +455,7 @@ type: reference
     });
   }
 
-  // Update patterns grid
+  / Update patterns grid
   function updatePatternsGrid() {
     const grid = document.getElementById('patterns-grid');
     const filteredPatterns = filterPatterns(healthData.patterns);
@@ -464,7 +464,7 @@ type: reference
     grid.innerHTML = sortedPatterns.map(pattern => createPatternCard(pattern)).join('');
   }
 
-  // Create pattern card HTML
+  / Create pattern card HTML
   function createPatternCard(pattern) {
     const trendClass = pattern.trend === 'up' ? 'trend-up' : 
                        pattern.trend === 'down' ? 'trend-down' : 'trend-stable';
@@ -524,13 +524,13 @@ type: reference
     `;
   }
 
-  // Filter patterns based on current filter
+  / Filter patterns based on current filter
   function filterPatterns(patterns) {
     if (currentFilter === 'all') return patterns;
     return patterns.filter(p => p.tier === currentFilter);
   }
 
-  // Setup filter buttons
+  / Setup filter buttons
   function setupFilters() {
     const buttons = document.querySelectorAll('.tier-filter');
     buttons.forEach(button => {
@@ -543,12 +543,12 @@ type: reference
     });
   }
 
-  // Setup auto-refresh (every 5 minutes)
+  / Setup auto-refresh (every 5 minutes)
   function setupAutoRefresh() {
     setInterval(loadHealthData, 5 * 60 * 1000);
   }
 
-  // Helper functions
+  / Helper functions
   function formatNumber(num) {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
@@ -567,7 +567,7 @@ type: reference
     const color = colors[index % colors.length];
     if (alpha === 1) return color;
     
-    // Convert hex to rgba
+    / Convert hex to rgba
     const r = parseInt(color.slice(1, 3), 16);
     const g = parseInt(color.slice(3, 5), 16);
     const b = parseInt(color.slice(5, 7), 16);

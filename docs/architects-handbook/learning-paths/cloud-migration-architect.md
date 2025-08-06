@@ -137,7 +137,7 @@ outcomes:
     **Day-by-Day Schedule**:
     
     **Day 1-2**: Multi-Cloud Architecture Patterns
-    - 📖 Read: [Multi-Cloud Strategies](../../....../pattern-library/scaling.md/multi-region.md)
+    - 📖 Read: [Multi-Cloud Strategies](../../pattern-library/scaling/multi-region.md)
     - 🛠️ Lab: Deploy identical workload to AWS, Azure, GCP
     - 📊 Deliverable: Multi-cloud comparison matrix
     - ⏱️ Time: 6-8 hours
@@ -149,7 +149,7 @@ outcomes:
     - ⏱️ Time: 6-8 hours
     
     **Day 5-7**: Cloud Security & Compliance
-    - 📖 Study: [Security Patterns](../../excellence/implementation-guides/security-patterns.md)
+    - 📖 Study: [Security Patterns](../excellence/implementation-guides/security-patterns.md)
     - 🛠️ Lab: Implement zero-trust architecture
     - 📊 Deliverable: Security compliance checklist
     - ⏱️ Time: 8-10 hours
@@ -214,15 +214,15 @@ outcomes:
     - [ ] Build automated migration toolchains
     
     **Day 15-16**: Rehost & Replatform Patterns
-    - 📖 Study: [Migration Strategies](../../excellence/migrations/index.md)
+    - 📖 Study: [Migration Strategies](../excellence/migrations/index.md)
     - 🛠️ Lab: Lift-and-shift migration with AWS MGN/Azure Migrate
-    - 📊 Case Study: [Netflix Cloud Migration](../....../architects-handbook/case-studies.md/infrastructure/netflix-cloud-migration.md)
+    - 📊 Case Study: [Netflix Cloud Migration](../architects-handbook/case-studies/infrastructure/netflix-cloud-migration.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 17-18**: Refactor & Rearchitect Patterns
-    - 📖 Read: [Monolith to Microservices](../../excellence/migrations/monolith-to-microservices.md)
+    - 📖 Read: [Monolith to Microservices](../excellence/migrations/monolith-to-microservices.md)
     - 🛠️ Lab: Decompose monolith using strangler fig pattern
-    - 📊 Case Study: [Capital One's Cloud Journey](../....../architects-handbook/case-studies.md/infrastructure/capital-one-migration.md)
+    - 📊 Case Study: [Capital One's Cloud Journey](../architects-handbook/case-studies/infrastructure/capital-one-migration.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 19-21**: Migration Automation & Orchestration
@@ -242,13 +242,13 @@ outcomes:
     - [ ] Optimize for cloud-native data architectures
     
     **Day 22-23**: Database Migration Patterns
-    - 📖 Study: [Database Migration Strategies](../../....../pattern-library/data-management.md/cdc.md)
+    - 📖 Study: [Database Migration Strategies](../../pattern-library/data-management/cdc.md)
     - 🛠️ Lab: Migrate relational database with AWS DMS/Azure DMS
-    - 📊 Case Study: [Airbnb's Database Migration](../....../architects-handbook/case-studies.md/databases/airbnb-migration.md)
+    - 📊 Case Study: [Airbnb's Database Migration](../architects-handbook/case-studies/databases/airbnb-migration.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 24-25**: Event-Driven Data Architecture
-    - 📖 Read: [Event Streaming](../../....../pattern-library/architecture.md/event-streaming.md)
+    - 📖 Read: [Event Streaming](../../pattern-library/architecture/event-streaming.md)
     - 🛠️ Lab: Implement CDC with Kafka for real-time synchronization
     - 📊 Success: Zero-downtime database cutover
     - ⏱️ Time: 6-8 hours
@@ -272,11 +272,11 @@ outcomes:
     **Day 29-30**: Containerization & Orchestration
     - 📖 Study: Container migration strategies
     - 🛠️ Lab: Containerize legacy applications for Kubernetes
-    - 📊 Case Study: [Spotify's Kubernetes Migration](../....../architects-handbook/case-studies.md/infrastructure/spotify-k8s.md)
+    - 📊 Case Study: [Spotify's Kubernetes Migration](../architects-handbook/case-studies/infrastructure/spotify-k8s.md)
     - ⏱️ Time: 6-8 hours
     
     **Day 31-32**: Serverless Migration Patterns
-    - 📖 Read: [Serverless FaaS](../../....../pattern-library/architecture.md/serverless-faas.md)
+    - 📖 Read: [Serverless FaaS](../../pattern-library/architecture/serverless-faas.md)
     - 🛠️ Lab: Migrate batch workloads to serverless
     - 📊 Success: 70% cost reduction through serverless
     - ⏱️ Time: 6-8 hours
@@ -321,11 +321,11 @@ outcomes:
     **Day 36-38**: Wave-Based Migration Strategy
     - 📖 Study: Migration orchestration and dependencies
     - 🛠️ Lab: Execute 3-wave migration of microservices ecosystem
-    - 📊 Case Study: [DBS Bank's Cloud Migration](../....../architects-handbook/case-studies.md/financial-commerce/dbs-migration.md)
+    - 📊 Case Study: [DBS Bank's Cloud Migration](../architects-handbook/case-studies/financial-commerce/dbs-migration.md)
     - ⏱️ Time: 8-10 hours
     
     **Day 39-42**: Migration Monitoring & Observability
-    - 📖 Read: [Migration-specific monitoring](../....../architects-handbook/tools.md/migration-dashboard.md)
+    - 📖 Read: [Migration-specific monitoring](../architects-handbook/tools/migration-dashboard.md)
     - 🛠️ Lab: Build real-time migration dashboards
     - 📊 Success: Detect and resolve migration issues in <5 minutes
     - ⏱️ Time: 10-12 hours
@@ -337,7 +337,7 @@ outcomes:
     - ⏱️ Time: 8-10 hours
     
     **Day 46-49**: Team Coordination & Communication
-    - 📖 Study: [Cross-functional team management](../....../architects-handbook/human-factors.md/migration-leadership.md)
+    - 📖 Study: [Cross-functional team management](../architects-handbook/human-factors/migration-leadership.md)
     - 🛠️ Practice: Lead migration war room exercises
     - 📊 Deliverable: Migration communication playbook
     - ⏱️ Time: 10-12 hours
@@ -355,11 +355,11 @@ outcomes:
     **Day 50-52**: Legacy Mainframe Modernization
     - 📖 Study: Mainframe-to-cloud migration strategies
     - 🛠️ Lab: Modernize COBOL application to cloud-native
-    - 📊 Case Study: [Commonwealth Bank Mainframe Migration](../....../architects-handbook/case-studies.md/financial-commerce/commbank-modernization.md)
+    - 📊 Case Study: [Commonwealth Bank Mainframe Migration](../architects-handbook/case-studies/financial-commerce/commbank-modernization.md)
     - ⏱️ Time: 8-10 hours
     
     **Day 53-56**: Hybrid Cloud Architecture
-    - 📖 Read: [Hybrid cloud patterns](../../....../pattern-library/architecture.md/hybrid-cloud.md)
+    - 📖 Read: [Hybrid cloud patterns](../../pattern-library/architecture/hybrid-cloud.md)
     - 🛠️ Lab: Design hybrid connectivity with VPN/Direct Connect
     - 📊 Success: Seamless hybrid workload orchestration
     - ⏱️ Time: 10-12 hours
@@ -371,7 +371,7 @@ outcomes:
     - ⏱️ Time: 10-12 hours
     
     **Day 61-63**: Performance Optimization
-    - 📖 Study: [Performance optimization](../../excellence/implementation-guides/performance-optimization.md)
+    - 📖 Study: [Performance optimization](../excellence/implementation-guides/performance-optimization.md)
     - 🛠️ Lab: Optimize migrated applications for cloud performance
     - 📊 Success: Achieve 50% performance improvement post-migration
     - ⏱️ Time: 8-10 hours
@@ -396,13 +396,13 @@ outcomes:
     - [ ] Build cloud governance frameworks
     
     **Day 64-66**: Multi-Cloud Resilience Patterns
-    - 📖 Study: [Geographic distribution](../../....../pattern-library/scaling.md/geo-distribution.md)
+    - 📖 Study: [Geographic distribution](../../pattern-library/scaling/geo-distribution.md)
     - 🛠️ Lab: Build multi-cloud disaster recovery
-    - 📊 Case Study: [Atlassian's Multi-Cloud Strategy](../....../architects-handbook/case-studies.md/infrastructure/atlassian-multicloud.md)
+    - 📊 Case Study: [Atlassian's Multi-Cloud Strategy](../architects-handbook/case-studies/infrastructure/atlassian-multicloud.md)
     - ⏱️ Time: 8-10 hours
     
     **Day 67-69**: Edge Computing Integration
-    - 📖 Read: [Edge computing patterns](../../....../pattern-library/scaling.md/edge-computing.md)
+    - 📖 Read: [Edge computing patterns](../../pattern-library/scaling/edge-computing.md)
     - 🛠️ Lab: Deploy edge CDN with global load balancing
     - 📊 Success: Sub-50ms global latency
     - ⏱️ Time: 8-10 hours
@@ -519,26 +519,26 @@ outcomes:
 <div class="grid cards" markdown>
 
 - **Financial Services**
-    - [ ] [JPMorgan Chase Cloud Journey](../....../architects-handbook/case-studies.md/financial-commerce/jpmorgan-cloud.md)
-    - [ ] [Capital One All-In Cloud](../....../architects-handbook/case-studies.md/financial-commerce/capital-one-migration.md)
+    - [ ] [JPMorgan Chase Cloud Journey](../architects-handbook/case-studies/financial-commerce/jpmorgan-cloud.md)
+    - [ ] [Capital One All-In Cloud](../architects-handbook/case-studies/financial-commerce/capital-one-migration.md)
     - Regulatory compliance (SOX, PCI DSS)
     - Zero-downtime trading systems
 
 - **Healthcare**
-    - [ ] [Philips HealthSuite Migration](../....../architects-handbook/case-studies.md/healthcare/philips-migration.md)
-    - [ ] [Kaiser Permanente Cloud Adoption](../....../architects-handbook/case-studies.md/healthcare/kaiser-cloud.md)
+    - [ ] [Philips HealthSuite Migration](../architects-handbook/case-studies/healthcare/philips-migration.md)
+    - [ ] [Kaiser Permanente Cloud Adoption](../architects-handbook/case-studies/healthcare/kaiser-cloud.md)
     - HIPAA compliance requirements
     - Patient data privacy
 
 - **Retail & E-commerce**
-    - [ ] [Target's Cloud Transformation](../....../architects-handbook/case-studies.md/financial-commerce/target-migration.md)
-    - [ ] [Walmart's Hybrid Strategy](../....../architects-handbook/case-studies.md/financial-commerce/walmart-hybrid.md)
+    - [ ] [Target's Cloud Transformation](../architects-handbook/case-studies/financial-commerce/target-migration.md)
+    - [ ] [Walmart's Hybrid Strategy](../architects-handbook/case-studies/financial-commerce/walmart-hybrid.md)
     - Peak traffic handling (Black Friday)
     - Global content delivery
 
 - **Manufacturing**
-    - [ ] [GE Digital Transformation](../....../architects-handbook/case-studies.md/infrastructure/ge-digital.md)
-    - [ ] [Siemens IoT Platform](../....../architects-handbook/case-studies.md/infrastructure/siemens-iot.md)
+    - [ ] [GE Digital Transformation](../architects-handbook/case-studies/infrastructure/ge-digital.md)
+    - [ ] [Siemens IoT Platform](../architects-handbook/case-studies/infrastructure/siemens-iot.md)
     - Edge computing integration
     - IoT data processing at scale
 

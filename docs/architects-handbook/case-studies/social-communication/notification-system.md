@@ -8,8 +8,8 @@ reading_time: 35 min
 prerequisites:
 - correlated-failure
 - distributed-knowledge
-- ../../../pattern-library/event-driven
-- ../../../pattern-library/queues-streaming
+- ../../pattern-library/event-driven
+- ../../pattern-library/queues-streaming
 status: complete
 last_updated: 2025-07-20
 excellence_tier: gold
@@ -57,7 +57,7 @@ best_for:
 - Event-driven architectures
 excellence_guides:
 - scale/internet-scale
-- ../../../pattern-library/messaging-systems
+- ../../pattern-library/messaging-systems
 - operational/notification-best-practices
 key_innovations:
 - Multi-level priority queues with overflow handling
@@ -3433,20 +3433,20 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ](../../core-principles/laws.md/correlated-failure/index.md)** - Foundation for reliable delivery
-- **[Law 5: Epistemology ](../../core-principles/laws.md/distributed-knowledge/index.md)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ](../../core-principles/laws.md/asynchronous-reality/index.md)** - Real-time delivery constraints
-- **[Law 7: Economics ](../../core-principles/laws.md/economic-reality/index.md)** - Cost optimization strategies
+- **[Law 1: Failure ](../core-principles/laws/correlated-failure/index.md)** - Foundation for reliable delivery
+- **[Law 5: Epistemology ](../core-principles/laws/distributed-knowledge/index.md)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ](../core-principles/laws/asynchronous-reality/index.md)** - Real-time delivery constraints
+- **[Law 7: Economics ](../core-principles/laws/economic-reality/index.md)** - Cost optimization strategies
 
 #### Advanced Topics
-- **[Event-Driven Architecture](../../pattern-library/architecture.md/event-driven.md)** - Asynchronous notification processing
-- **[Queue Systems](../../pattern-library/scaling.md/queues-streaming.md)** - Message queue patterns
-- **[Circuit Breakers](../../pattern-library/resilience.md/circuit-breaker.md)** - Provider failure handling
-- **[Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md)** - Preventing notification storms
+- **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - Asynchronous notification processing
+- **[Queue Systems](../pattern-library/scaling/queues-streaming.md)** - Message queue patterns
+- **[Circuit Breakers](../pattern-library/resilience/circuit-breaker.md)** - Provider failure handling
+- **[Rate Limiting](../pattern-library/scaling/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
-- **[Chat System](../../chat-system.md)** - Real-time messaging patterns
-- **[Search Autocomplete](../../architects-handbook/case-studies.md/search-analytics/search-autocomplete.md)** - Low-latency requirements
+- **[Chat System](../chat-system.md)** - Real-time messaging patterns
+- **[Search Autocomplete](../architects-handbook/case-studies/search-analytics/search-autocomplete.md)** - Low-latency requirements
 - **[Spotify Recommendations](spotify-recommendations.md)** - Personalization at scale
 <!-- TODO: Add workflow engine case study -->
 
@@ -3538,7 +3538,7 @@ graph TB
 - [OneSignal](https://onesignal.com/index.md) - Push notification service
 
 **Related Patterns:**
-- [Message Queue](../../pattern-library/scaling.md/queues-streaming.md)
-- [Circuit Breaker](../../pattern-library/resilience.md/circuit-breaker.md)
-- [Event-Driven Architecture](../../pattern-library/architecture.md/event-driven.md)
-- [Rate Limiting](../../pattern-library/scaling.md/rate-limiting.md)
+- [Message Queue](../pattern-library/scaling/queues-streaming.md)
+- [Circuit Breaker](../pattern-library/resilience/circuit-breaker.md)
+- [Event-Driven Architecture](../pattern-library/architecture/event-driven.md)
+- [Rate Limiting](../pattern-library/scaling/rate-limiting.md)

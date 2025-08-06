@@ -56,7 +56,7 @@ best_for:
 - Security monitoring (SIEM)
 excellence_guides:
 - scale/search-systems
-- ../../../pattern-library/distributed-search
+- ../../pattern-library/distributed-search
 - operational/elasticsearch-best-practices
 key_innovations:
 - Inverted index on Apache Lucene foundation
@@ -1183,8 +1183,8 @@ The near real-time architecture, combined with sophisticated scoring algorithms 
 The operational patterns pioneered by Netflix, GitHub, and other large-scale users demonstrate how Elasticsearch can evolve from simple search to comprehensive data platforms powering business-critical applications.
 
 ## Related Case Studies
-- [Key-Value Store](../../key-value-store.md) - Foundation for document storage
-- [Cassandra](../../cassandra.md) - Alternative distributed database architecture
+- [Key-Value Store](../key-value-store.md) - Foundation for document storage
+- [Cassandra](../cassandra.md) - Alternative distributed database architecture
 - [Apache Kafka](kafka.md) - Stream processing for real-time indexing
 
 ## External Resources

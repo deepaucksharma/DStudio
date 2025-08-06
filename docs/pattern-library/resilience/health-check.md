@@ -106,7 +106,7 @@ Like a hospital emergency room: First check if the patient is alive (pulse/breat
 
 #### 1. Basic (Binary)
 ```json
-// Simple alive check
+/ Simple alive check
 GET /health
 200 OK
 ```
@@ -337,7 +337,7 @@ def readiness():
 ## Related Patterns
 - **[Circuit Breaker](./circuit-breaker.md)**: Uses health status for state decisions
 - **[Service Discovery](../coordination/service-discovery.md)**: Registers healthy instances
-- **[Load Balancing](..../pattern-library/scaling.md/load-balancing.md)**: Routes based on health
+- **[Load Balancing](../pattern-library/scaling/load-balancing.md)**: Routes based on health
 - **[Graceful Shutdown](./graceful-shutdown.md)**: Coordinates with health checks
 - **[Monitoring](../observability/monitoring.md)**: Tracks health metrics
 

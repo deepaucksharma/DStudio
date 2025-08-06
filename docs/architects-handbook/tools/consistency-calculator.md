@@ -304,13 +304,13 @@ P(available) = Σ(k=R to N) C(N,k) × p^k × (1-p)^(N-k)
 
 ## Related Resources
 
-- [CAP Theorem Deep Dive](../..../core-principles/laws.md/distributed-knowledge/index.md)
-- [State Distribution Patterns](../..../core-principles/pillars.md/state-distribution/index.md)
-- [Truth Distribution](../..../core-principles/pillars.md/truth-distribution/index.md)
+- [CAP Theorem Deep Dive](../core-principles/laws/distributed-knowledge/index.md)
+- [State Distribution Patterns](../core-principles/pillars/state-distribution/index.md)
+- [Truth Distribution](../core-principles/pillars/truth-distribution/index.md)
 - [PACELC Framework](quantitative/cap-theorem/index.md)
 
 <script>
-// Initialize CAP triangle on page load
+/ Initialize CAP triangle on page load
 document.addEventListener('DOMContentLoaded', function() {
  drawCAPTriangle();
  setupModelListeners();
@@ -328,7 +328,7 @@ function setupModelListeners() {
  stalenessConfig.style.display = 'none';
  }
  
- // Auto-adjust quorum settings based on model
+ / Auto-adjust quorum settings based on model
  const repFactor = parseInt(document.getElementById('replicationFactor').value);
  switch(this.value) {
  case 'strong':
@@ -355,17 +355,17 @@ function drawCAPTriangle() {
  const centerY = height / 2;
  const radius = 150;
  
- // Clear existing content
+ / Clear existing content
  svg.innerHTML = '';
  
- // Calculate triangle vertices
+ / Calculate triangle vertices
  const vertices = [
  { x: centerX, y: centerY - radius, label: 'Consistency', color: '#5448C8' },
  { x: centerX - radius * Math.cos(Math.PI / 6), y: centerY + radius * Math.sin(Math.PI / 6), label: 'Availability', color: '#00BCD4' },
  { x: centerX + radius * Math.cos(Math.PI / 6), y: centerY + radius * Math.sin(Math.PI / 6), label: 'Partition\nTolerance', color: '#FF9800' }
  ];
  
- // Draw triangle
+ / Draw triangle
  const triangle = document.createElementNS('http://www.w3.org/2000/svg', 'path');
  triangle.setAttribute('d', `M ${vertices[0].x} ${vertices[0].y} L ${vertices[1].x} ${vertices[1].y} L ${vertices[2].x} ${vertices[2].y} Z`);
  triangle.setAttribute('fill', 'none');
@@ -373,9 +373,9 @@ function drawCAPTriangle() {
  triangle.setAttribute('stroke-width', '2');
  svg.appendChild(triangle);
  
- // Draw vertices and labels
+ / Draw vertices and labels
  vertices.forEach((vertex, index) => {
- // Vertex circle
+ / Vertex circle
  const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
  circle.setAttribute('cx', vertex.x);
  circle.setAttribute('cy', vertex.y);
@@ -383,7 +383,7 @@ function drawCAPTriangle() {
  circle.setAttribute('fill', vertex.color);
  svg.appendChild(circle);
  
- // Label
+ / Label
  const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
  text.setAttribute('x', vertex.x);
  text.setAttribute('y', vertex.y + (index === 0 ? -20 : 30));
@@ -392,7 +392,7 @@ function drawCAPTriangle() {
  text.setAttribute('font-weight', 'bold');
  text.setAttribute('fill', vertex.color);
  
- // Handle multi-line text
+ / Handle multi-line text
  const lines = vertex.label.split('\n');
  lines.forEach((line, i) => {
  const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
@@ -405,7 +405,7 @@ function drawCAPTriangle() {
  svg.appendChild(text);
  });
  
- // Draw center point
+ / Draw center point
  const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
  center.setAttribute('cx', centerX);
  center.setAttribute('cy', centerY);
@@ -413,7 +413,7 @@ function drawCAPTriangle() {
  center.setAttribute('fill', '#666');
  svg.appendChild(center);
  
- // Add "Pick 2" text
+ / Add "Pick 2" text
  const pickText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
  pickText.setAttribute('x', centerX);
  pickText.setAttribute('y', centerY + 5);
@@ -465,24 +465,24 @@ function calculateConsistency() {
  const model = document.getElementById('consistencyModel').value;
  const readWriteRatio = document.getElementById('readWriteRatio').value;
  
- // Calculate consistency guarantees
+ / Calculate consistency guarantees
  const isStronglyConsistent = inputs.writeQuorum + inputs.readQuorum > inputs.replicationFactor;
  
- // Calculate latencies
+ / Calculate latencies
  const writeLatency = calculateQuorumLatency(inputs.writeQuorum, inputs.networkLatency, inputs.dataSize);
  const readLatency = calculateQuorumLatency(inputs.readQuorum, inputs.networkLatency, inputs.dataSize);
  
- // Calculate availability
+ / Calculate availability
  const writeAvailability = calculateQuorumAvailability(inputs.writeQuorum, inputs.replicationFactor, inputs.nodeFailureRate);
  const readAvailability = calculateQuorumAvailability(inputs.readQuorum, inputs.replicationFactor, inputs.nodeFailureRate);
  
- // Calculate costs
+ / Calculate costs
  const costs = calculateConsistencyCosts(inputs, readWriteRatio);
  
- // Calculate staleness for eventual consistency
+ / Calculate staleness for eventual consistency
  const staleness = calculateStaleness(model, inputs);
  
- // Display results
+ / Display results
  displayConsistencyResults({
  model,
  isStronglyConsistent,
@@ -495,30 +495,30 @@ function calculateConsistency() {
  inputs
  });
  
- // Update CAP visualization
+ / Update CAP visualization
  updateCAPVisualization(model, inputs);
  
- // Show results
+ / Show results
  const resultsPanel = document.getElementById('results');
  resultsPanel.style.display = 'block';
  resultsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function calculateQuorumLatency(quorum, networkLatency, dataSize) {
- // Base network latency for quorum nodes
+ / Base network latency for quorum nodes
  const baseLatency = networkLatency * Math.log2(quorum);
  
- // Add serialization overhead
- const serializationOverhead = dataSize * 0.01; // 0.01ms per KB
+ / Add serialization overhead
+ const serializationOverhead = dataSize * 0.01; / 0.01ms per KB
  
- // Add coordination overhead
- const coordinationOverhead = quorum * 0.5; // 0.5ms per node
+ / Add coordination overhead
+ const coordinationOverhead = quorum * 0.5; / 0.5ms per node
  
  return baseLatency + serializationOverhead + coordinationOverhead;
 }
 
 function calculateQuorumAvailability(quorum, replicationFactor, nodeFailureRate) {
- // Calculate using binomial distribution
+ / Calculate using binomial distribution
  let availability = 0;
  const nodeAvailability = 1 - nodeFailureRate;
  
@@ -541,14 +541,14 @@ function calculateConsistencyCosts(inputs, readWriteRatio) {
  
  const ratio = ratios[readWriteRatio];
  
- // Storage cost (all replicas)
- const storageCost = inputs.replicationFactor * inputs.dataSize * 0.001; // Cost per KB
+ / Storage cost (all replicas)
+ const storageCost = inputs.replicationFactor * inputs.dataSize * 0.001; / Cost per KB
  
- // Network cost (quorum operations)
+ / Network cost (quorum operations)
  const networkCost = (inputs.writeQuorum * ratio.write + inputs.readQuorum * ratio.read) * 
  inputs.dataSize * 0.0001;
  
- // Compute cost (coordination)
+ / Compute cost (coordination)
  const computeCost = (inputs.writeQuorum + inputs.readQuorum) * 0.01;
  
  return {
@@ -646,14 +646,14 @@ function displayConsistencyResults(results) {
  
  document.getElementById('results').innerHTML = html;
  
- // Draw cost chart
+ / Draw cost chart
  drawCostChart(results.costs);
 }
 
 function generateRecommendations(results) {
  const recommendations = [];
  
- // Consistency recommendations
+ / Consistency recommendations
  if (!results.isStronglyConsistent && results.model === 'strong') {
  recommendations.push({
  type: 'error',
@@ -661,7 +661,7 @@ function generateRecommendations(results) {
  });
  }
  
- // Latency recommendations
+ / Latency recommendations
  if (results.writeLatency > 50) {
  recommendations.push({
  type: 'warning',
@@ -676,7 +676,7 @@ function generateRecommendations(results) {
  });
  }
  
- // Availability recommendations
+ / Availability recommendations
  if (results.writeAvailability < 0.999) {
  recommendations.push({
  type: 'warning',
@@ -684,7 +684,7 @@ function generateRecommendations(results) {
  });
  }
  
- // Model-specific recommendations
+ / Model-specific recommendations
  switch(results.model) {
  case 'eventual':
  recommendations.push({
@@ -702,7 +702,7 @@ function generateRecommendations(results) {
  break;
  }
  
- // Cost optimization
+ / Cost optimization
  if (results.inputs.replicationFactor > 3 && results.model === 'eventual') {
  recommendations.push({
  type: 'info',
@@ -758,38 +758,38 @@ function drawCostChart(costs) {
  const width = canvas.width;
  const height = canvas.height;
  
- // Clear canvas
+ / Clear canvas
  ctx.clearRect(0, 0, width, height);
  
- // Data
+ / Data
  const data = [
  { label: 'Storage', value: costs.storage, color: '#5448C8' },
  { label: 'Network', value: costs.network, color: '#00BCD4' },
  { label: 'Compute', value: costs.compute, color: '#FF9800' }
  ];
  
- // Calculate bar dimensions
+ / Calculate bar dimensions
  const barWidth = width / (data.length * 2);
  const maxValue = Math.max(...data.map(d => d.value));
  const scale = (height - 40) / maxValue;
  
- // Draw bars
+ / Draw bars
  data.forEach((item, index) => {
  const x = (index * 2 + 0.5) * barWidth;
  const barHeight = item.value * scale;
  const y = height - 20 - barHeight;
  
- // Draw bar
+ / Draw bar
  ctx.fillStyle = item.color;
  ctx.fillRect(x, y, barWidth, barHeight);
  
- // Draw label
+ / Draw label
  ctx.fillStyle = '#333';
  ctx.font = '12px sans-serif';
  ctx.textAlign = 'center';
  ctx.fillText(item.label, x + barWidth / 2, height - 5);
  
- // Draw value
+ / Draw value
  ctx.fillText(item.value.toFixed(2), x + barWidth / 2, y - 5);
  });
 }
@@ -797,13 +797,13 @@ function drawCostChart(costs) {
 function updateCAPVisualization(model, inputs) {
  const svg = document.getElementById('capTriangle');
  
- // Remove existing highlight
+ / Remove existing highlight
  const existingHighlight = svg.querySelector('.model-highlight');
  if (existingHighlight) {
  existingHighlight.remove();
  }
  
- // Add new highlight based on model
+ / Add new highlight based on model
  const highlight = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
  highlight.setAttribute('class', 'model-highlight');
  highlight.setAttribute('r', '12');
@@ -811,7 +811,7 @@ function updateCAPVisualization(model, inputs) {
  highlight.setAttribute('stroke', '#5448C8');
  highlight.setAttribute('stroke-width', '2');
  
- // Position based on consistency model
+ / Position based on consistency model
  const centerX = 200;
  const centerY = 175;
  let x, y;
@@ -819,15 +819,15 @@ function updateCAPVisualization(model, inputs) {
  switch(model) {
  case 'strong':
  x = centerX;
- y = centerY - 100; // Near Consistency vertex
+ y = centerY - 100; / Near Consistency vertex
  break;
  case 'eventual':
  x = centerX - 50;
- y = centerY + 50; // Between Availability and Partition Tolerance
+ y = centerY + 50; / Between Availability and Partition Tolerance
  break;
  default:
  x = centerX;
- y = centerY; // Center
+ y = centerY; / Center
  }
  
  highlight.setAttribute('cx', x);
@@ -858,7 +858,7 @@ function displayErrors(errors) {
  document.getElementById('results').style.display = 'block';
 }
 
-// Real-time validation
+/ Real-time validation
 document.addEventListener('DOMContentLoaded', function() {
  const replicationInput = document.getElementById('replicationFactor');
  const writeQuorumInput = document.getElementById('writeQuorum');

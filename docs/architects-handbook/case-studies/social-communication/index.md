@@ -240,19 +240,19 @@ Real-time collaborative document editing with conflict resolution and history.
 ## 🔗 Cross-References
 
 ### Related Patterns
-- [Event Streaming](../../../../pattern-library/architecture/event-streaming.md) - Real-time communication
-- [WebSocket](../../../../pattern-library/communication/websocket.md) - Real-time protocols
-- [CDN](../../../../pattern-library/scaling/cdn.md) - Content delivery
+- [Event Streaming](../../pattern-library/architecture/event-streaming.md) - Real-time communication
+- [WebSocket](../../pattern-library/communication/websocket.md) - Real-time protocols
+- [CDN](../../pattern-library/scaling/cdn.md) - Content delivery
 
 ### Quantitative Analysis
-- [Social Networks](../../quantitative-analysis/social-networks.md) - Graph metrics and analysis
-- [Queueing Theory](../../quantitative-analysis/queueing-theory.md) - Message processing
-- [Information Theory](../../quantitative-analysis/information-theory.md) - Content compression
+- [Social Networks](../architects-handbook/quantitative-analysis/social-networks.md) - Graph metrics and analysis
+- [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-theory.md) - Message processing
+- [Information Theory](../architects-handbook/quantitative-analysis/information-theory.md) - Content compression
 
 ### Human Factors  
-- [Community Management](../../human-factors/community-management.md) - Social platform operations
-- [Content Moderation](../../human-factors/content-moderation.md) - Safety and trust
-- [Privacy Engineering](../../human-factors/privacy-engineering.md) - User data protection
+- [Community Management](../architects-handbook/human-factors/community-management.md) - Social platform operations
+- [Content Moderation](../architects-handbook/human-factors/content-moderation.md) - Safety and trust
+- [Privacy Engineering](../architects-handbook/human-factors/privacy-engineering.md) - User data protection
 
 ## 🎯 Social Platform Success Metrics
 

@@ -364,9 +364,9 @@ Browser → Apache Server → Local Files → Flash Player
 - Flash dependency
 
 **Patterns Violated**: 
-- No [Load Balancing](../../pattern-library/scaling.md/load-balancing.md)
-- No [Caching Strategy](../../pattern-library/scaling.md/caching-strategies.md)
-- No [Fault Tolerance](../../pattern-library/resilience.md/fault-tolerance.md)
+- No [Load Balancing](../pattern-library/scaling/load-balancing.md)
+- No [Caching Strategy](../pattern-library/scaling/caching-strategies.md)
+- No [Fault Tolerance](../pattern-library/resilience/fault-tolerance.md)
 
 ### Phase 2: Basic CDN Integration (2006-2008)
 
@@ -399,10 +399,10 @@ graph TB
 ```
 
 **Key Design Decision: CDN for Static Content**
-- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](..../core-principles/pillars.md/work-distribution/index.md))
+- **Trade-off**: Cost vs Performance (Pillar: [Work Distribution](../core-principles/pillars/work-distribution/index.md))
 - **Choice**: Pay for CDN to achieve global scale
 - **Result**: 70% reduction in origin bandwidth
-- **Pattern Applied**: [Edge Computing](../../pattern-library/scaling.md/edge-computing.md)
+- **Pattern Applied**: [Edge Computing](../pattern-library/scaling/edge-computing.md)
 
 According to Google's reports¹, this reduced average latency from 800ms to 200ms globally.
 
@@ -1397,41 +1397,41 @@ graph TB
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
-- **[Law 4: Trade-offs](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
-- **[Law 1: Failure](../../core-principles/laws.md/correlated-failure/index.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
-- **[Law 3: Emergence](../../core-principles/laws.md/emergent-chaos/index.md)** - Millions of concurrent uploads/views require distributed processing pipelines
-- **[Law 4: Trade-offs](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Global CDN cache invalidation and content synchronization challenges
-- **[Law 5: Epistemology](../../core-principles/laws.md/distributed-knowledge/index.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
-- **[Law 6: Human-API](../../core-principles/laws.md/cognitive-load/index.md)** - Adaptive UI for different devices and network conditions
-- **[Law 7: Economics](../../core-principles/laws.md/economic-reality/index.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
+- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
+- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Millions of concurrent uploads/views require distributed processing pipelines
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Global CDN cache invalidation and content synchronization challenges
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
+- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - Adaptive UI for different devices and network conditions
+- **[Law 7: Economics](../core-principles/laws/economic-reality/index.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
 
 ### 🏛 Related Patterns (Part III)
-- **[Edge Computing](../../pattern-library/scaling.md/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs
+- **[Edge Computing](../pattern-library/scaling/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs
 - **CDN Strategy (Coming Soon)** - Multi-CDN architecture with intelligent routing
-- **[Load Balancing](../../pattern-library/scaling.md/load-balancing.md)** - Anycast routing and geo-aware traffic distribution
-- **[Caching Strategies](../../pattern-library/scaling.md/caching-strategies.md)** - Multi-tier caching from edge to origin
-- **[Event-Driven Architecture](../../pattern-library/architecture.md/event-driven.md)** - Video processing pipeline triggered by upload events
-- **[Auto-Scaling](../../pattern-library/scaling.md/auto-scaling.md)** - Dynamic compute allocation for transcoding workloads
-- **[Graceful Degradation](../../pattern-library/resilience.md/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
+- **[Load Balancing](../pattern-library/scaling/load-balancing.md)** - Anycast routing and geo-aware traffic distribution
+- **[Caching Strategies](../pattern-library/scaling/caching-strategies.md)** - Multi-tier caching from edge to origin
+- **[Event-Driven Architecture](../pattern-library/architecture/event-driven.md)** - Video processing pipeline triggered by upload events
+- **[Auto-Scaling](../pattern-library/scaling/auto-scaling.md)** - Dynamic compute allocation for transcoding workloads
+- **[Graceful Degradation](../pattern-library/resilience/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
 
 ### Quantitative Models
-- **[Power Laws](../../quantitative-analysis/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers
-- **[Little's Law](../../quantitative-analysis/littles-law.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
-- **[Queueing Theory](../../quantitative-analysis/queueing-models.md)** - Transcoding queue optimization for different video priorities
-- **[Information Theory](../../quantitative-analysis/information-theory.md)** - Video compression algorithms and bandwidth optimization
+- **[Power Laws](../architects-handbook/quantitative-analysis/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers
+- **[Little's Law](../architects-handbook/quantitative-analysis/littles-law.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
+- **[Queueing Theory](../architects-handbook/quantitative-analysis/queueing-models.md)** - Transcoding queue optimization for different video priorities
+- **[Information Theory](../architects-handbook/quantitative-analysis/information-theory.md)** - Video compression algorithms and bandwidth optimization
 
 ### 👥 Human Factors Considerations
-- **[SRE Practices](../../human-factors/sre-practices.md)** - Managing global video infrastructure at scale
-- **[Capacity Planning](../../quantitative-analysis/capacity-planning.md)** - Predicting and provisioning for viral videos
-- **[Incident Response](../../human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
-- **[Observability Tools](../../human-factors/observability-stacks.md)** - Video quality metrics and viewer experience monitoring
+- **[SRE Practices](../architects-handbook/human-factors/sre-practices.md)** - Managing global video infrastructure at scale
+- **[Capacity Planning](../architects-handbook/quantitative-analysis/capacity-planning.md)** - Predicting and provisioning for viral videos
+- **[Incident Response](../architects-handbook/human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
+- **[Observability Tools](../architects-handbook/human-factors/observability-stacks.md)** - Video quality metrics and viewer experience monitoring
 
 ### Similar Case Studies
-- **[Spotify Recommendations](../../architects-handbook/case-studies.md/search-analytics/spotify-recommendations.md)** - Similar ML-driven content discovery challenges
-- **[News Feed System](../../news-feed.md)** - Personalized content distribution at scale
-- **[Uber's Location System](../../uber-location.md)** - Real-time data processing for live streaming
-- **[Amazon DynamoDB](../../amazon-dynamo.md)** - Metadata storage for billions of videos requires similar scale
+- **[Spotify Recommendations](../architects-handbook/case-studies/search-analytics/spotify-recommendations.md)** - Similar ML-driven content discovery challenges
+- **[News Feed System](../news-feed.md)** - Personalized content distribution at scale
+- **[Uber's Location System](../uber-location.md)** - Real-time data processing for live streaming
+- **[Amazon DynamoDB](../amazon-dynamo.md)** - Metadata storage for billions of videos requires similar scale
 
 ---
 

@@ -1246,23 +1246,23 @@ timeline
     
     ---
     
-    - [Economic Reality](../..../core-principles/laws.md/economic-reality.md) - Cost optimization for expensive training
-    - [Emergent Chaos](../..../core-principles/laws.md/emergent-chaos.md) - Managing complex distributed systems
+    - [Economic Reality](../core-principles/laws/economic-reality.md) - Cost optimization for expensive training
+    - [Emergent Chaos](../core-principles/laws/emergent-chaos.md) - Managing complex distributed systems
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [Work Distribution](../..../core-principles/pillars.md/work-distribution.md) - Parallel computation strategies
-    - [Coordination](../..../core-principles/pillars.md/coordination.md) - Distributed system synchronization
+    - [Work Distribution](../core-principles/pillars/work-distribution.md) - Parallel computation strategies
+    - [Coordination](../core-principles/pillars/coordination.md) - Distributed system synchronization
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [PyTorch Distributed Setup](../../excellence/guides/pytorch-distributed.md)
-    - [GPU Cluster Configuration](../../excellence/guides/gpu-cluster-setup.md)
-    - [Distributed Training Best Practices](../../excellence/guides/distributed-training-best-practices.md)
+    - [PyTorch Distributed Setup](../excellence/guides/pytorch-distributed.md)
+    - [GPU Cluster Configuration](../excellence/guides/gpu-cluster-setup.md)
+    - [Distributed Training Best Practices](../excellence/guides/distributed-training-best-practices.md)
 
 </div>
 

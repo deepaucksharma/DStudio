@@ -229,14 +229,14 @@ graph TD
 
 ### Core Combinations
 - **[Event Sourcing](./event-sourcing.md)**: CDC provides the events
-- **[Outbox Pattern](....../pattern-library/data-management.md/outbox.md)**: Transactional CDC
+- **[Outbox Pattern](outbox.md)**: Transactional CDC
 - **[Saga Pattern](./saga.md)**: CDC triggers distributed transactions
 
 ### Supporting Patterns
-- **[Stream Processing](....../pattern-library/stream-processing.md)**: Process CDC events
+- **[Stream Processing](../../pattern-library/stream-processing.md)**: Process CDC events
 - **[CQRS](./cqrs.md)**: CDC updates read models
-- **[Cache Invalidation](....../pattern-library/etl.md)**: When real-time not needed
-- **[Database Replication](....../pattern-library/polling.md)**: Simple but less efficient
+- **[Cache Invalidation](../../pattern-library/etl.md)**: When real-time not needed
+- **[Database Replication](../../pattern-library/polling.md)**: Simple but less efficient
 
 ## Further Reading
 

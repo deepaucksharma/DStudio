@@ -163,18 +163,18 @@ Transitioning from request-response polling to event-driven reactive systems.
 ## 🔗 Cross-References
 
 ### Related Patterns
-- [Event Sourcing](../../../../pattern-library/data-management/event-sourcing.md) - Event-driven persistence
-- [CQRS](../../../../pattern-library/data-management/cqrs.md) - Command query separation
-- [Saga Pattern](../../../../pattern-library/data-management/saga.md) - Distributed transactions
+- [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Event-driven persistence
+- [CQRS](../../pattern-library/data-management/cqrs.md) - Command query separation
+- [Saga Pattern](../../pattern-library/data-management/saga.md) - Distributed transactions
 
 ### Quantitative Analysis  
-- [Queueing Theory](../../quantitative-analysis/queueing-theory.md) - Message queue performance
-- [Little's Law](../../quantitative-analysis/littles-law.md) - Stream processing throughput
-- [Information Theory](../../quantitative-analysis/information-theory.md) - Message encoding
+- [Queueing Theory](../architects-handbook/quantitative-analysis/queueing-theory.md) - Message queue performance
+- [Little's Law](../architects-handbook/quantitative-analysis/littles-law.md) - Stream processing throughput
+- [Information Theory](../architects-handbook/quantitative-analysis/information-theory.md) - Message encoding
 
 ### Human Factors
-- [Operational Excellence](../../human-factors/operational-excellence.md) - Running streaming systems
-- [Observability](../../human-factors/observability-stacks.md) - Monitoring event streams
+- [Operational Excellence](../architects-handbook/human-factors/operational-excellence.md) - Running streaming systems
+- [Observability](../architects-handbook/human-factors/observability-stacks.md) - Monitoring event streams
 
 ## 🎯 Streaming Success Metrics
 

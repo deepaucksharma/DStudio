@@ -353,31 +353,31 @@ graph LR
     
     ---
     
-    - [Bloom Filter](../../pattern-library/data-management/bloom-filter.md) - Complementary verification structure
-    - [Consistent Hashing](../../pattern-library/data-management/consistent-hashing.md) - Hash-based distribution
-    - [Event Sourcing](../../pattern-library/data-management/event-sourcing.md) - Verifiable event logs
+    - [Bloom Filter](../pattern-library/data-management/bloom-filter.md) - Complementary verification structure
+    - [Consistent Hashing](../pattern-library/data-management/consistent-hashing.md) - Hash-based distribution
+    - [Event Sourcing](../pattern-library/data-management/event-sourcing.md) - Verifiable event logs
 
 - :material-flask:{ .lg .middle } **Fundamental Laws**
     
     ---
     
-    - [Law 4: Multi-dimensional Optimization](../../core-principles/laws/multidimensional-optimization/index.md) - Verification efficiency trade-offs
-    - [Law 5: Distributed Knowledge](../../core-principles/laws/distributed-knowledge/index.md) - Cryptographic certainty
+    - [Law 4: Multi-dimensional Optimization](../core-principles/laws/multidimensional-optimization/index.md) - Verification efficiency trade-offs
+    - [Law 5: Distributed Knowledge](../core-principles/laws/distributed-knowledge/index.md) - Cryptographic certainty
 
 - :material-pillar:{ .lg .middle } **Foundational Pillars**
     
     ---
     
-    - [State Distribution](../../core-principles/pillars/state-distribution/index.md) - Distributed data integrity
-    - [Truth Distribution](../../core-principles/pillars/truth-distribution/index.md) - Consensus on data validity
+    - [State Distribution](../core-principles/pillars/state-distribution/index.md) - Distributed data integrity
+    - [Truth Distribution](../core-principles/pillars/truth-distribution/index.md) - Consensus on data validity
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Cryptographic Best Practices](../../excellence/guides/crypto-practices.md)
-    - [Tree Structure Optimization](../../excellence/guides/tree-optimization.md)
-    - [Proof System Design](../../excellence/guides/proof-systems.md)
+    - [Cryptographic Best Practices](../excellence/guides/crypto-practices.md)
+    - [Tree Structure Optimization](../excellence/guides/tree-optimization.md)
+    - [Proof System Design](../excellence/guides/proof-systems.md)
 
 </div>
 

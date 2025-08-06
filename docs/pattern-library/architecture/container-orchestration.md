@@ -474,7 +474,7 @@ class AdvancedOrchestrator:
             strongest_signal = max(scale_down_signals, key=lambda x: x[1])
             decision['action'] = 'scale_down'
             decision['target_replicas'] = max(
-                current_metrics['pod_count'] // 2,  # Halve at most
+                current_metrics['pod_count'] / 2,  # Halve at most
                 2  # Min replicas
             )
             decision['reason'] = f"Scale down due to {strongest_signal[0]}"
@@ -645,16 +645,16 @@ async def main():
     
     ---
     
-    - [Emergent Chaos](../../core-principles/laws/emergent-chaos.md) - Managing complex distributed systems
-    - [Cognitive Load](../../core-principles/laws/cognitive-load.md) - Simplifying operational complexity
+    - [Emergent Chaos](../core-principles/laws/emergent-chaos.md) - Managing complex distributed systems
+    - [Cognitive Load](../core-principles/laws/cognitive-load.md) - Simplifying operational complexity
 
 - :material-tools:{ .lg .middle } **Implementation Guides**
     
     ---
     
-    - [Kubernetes Production Setup](../../excellence/guides/k8s-production.md)
-    - [Container Security Best Practices](../../excellence/guides/container-security.md)
-    - [Cluster Monitoring and Observability](../../excellence/guides/k8s-monitoring.md)
+    - [Kubernetes Production Setup](../excellence/guides/k8s-production.md)
+    - [Container Security Best Practices](../excellence/guides/container-security.md)
+    - [Cluster Monitoring and Observability](../excellence/guides/k8s-monitoring.md)
 
 </div>
 

@@ -377,7 +377,7 @@ type: documentation
 - [Availability Calculator](availability-calculator.md)
 - [Throughput Calculator](throughput-calculator.md)
 - [Rate Limiting Calculator](rate-limiting-calculator.md)
-- [Load Balancing Patterns](../../../pattern-library/scaling/load-balancing.md)
+- [Load Balancing Patterns](../../pattern-library/scaling/load-balancing.md)
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -386,7 +386,7 @@ let performanceChart = null;
 let latencyChart = null;
 let comparisonChart = null;
 
-// Algorithm implementations and characteristics
+/ Algorithm implementations and characteristics
 const algorithms = {
     'round-robin': {
         name: 'Round Robin',
@@ -401,7 +401,7 @@ const algorithms = {
         complexity: 'O(1)',
         sessionAffinity: 'limited',
         implementation: (servers, state) => {
-            // Simplified weighted implementation
+            / Simplified weighted implementation
             state.weightedIndex = (state.weightedIndex || 0) + 1;
             let totalWeight = servers.reduce((sum, server) => sum + server.weight, 0);
             let currentWeight = state.weightedIndex % totalWeight;
@@ -463,7 +463,7 @@ const algorithms = {
         sessionAffinity: 'good',
         implementation: (servers, clientIP, virtualNodes = 150) => {
             const hash = simpleHash(clientIP);
-            // Simplified consistent hashing
+            / Simplified consistent hashing
             const ring = [];
             servers.forEach((server, index) => {
                 for (let i = 0; i < virtualNodes; i++) {
@@ -508,7 +508,7 @@ const algorithms = {
         complexity: 'O(n)',
         sessionAffinity: 'poor',
         implementation: (servers, metric = 'response-time') => {
-            // Calculate composite score based on multiple metrics
+            / Calculate composite score based on multiple metrics
             const scores = servers.map((server, index) => {
                 let score = 0;
                 switch (metric) {
@@ -536,16 +536,16 @@ const algorithms = {
     }
 };
 
-// Show/hide algorithm-specific configurations
+/ Show/hide algorithm-specific configurations
 document.getElementById('primaryAlgorithm').addEventListener('change', function() {
     const algorithm = this.value;
     
-    // Hide all configs
+    / Hide all configs
     document.querySelectorAll('.algorithm-config').forEach(config => {
         config.style.display = 'none';
     });
     
-    // Show relevant config
+    / Show relevant config
     if (algorithm.includes('weighted')) {
         document.getElementById('weightedConfig').style.display = 'block';
         updateServerWeights();
@@ -556,7 +556,7 @@ document.getElementById('primaryAlgorithm').addEventListener('change', function(
     }
 });
 
-// Update server weight inputs when server count changes
+/ Update server weight inputs when server count changes
 document.getElementById('numServers').addEventListener('change', function() {
     if (document.getElementById('primaryAlgorithm').value.includes('weighted')) {
         updateServerWeights();
@@ -584,7 +584,7 @@ function simpleHash(str) {
     for (let i = 0; i < str.length; i++) {
         const char = str.charCodeAt(i);
         hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32-bit integer
+        hash = hash & hash; / Convert to 32-bit integer
     }
     return Math.abs(hash);
 }
@@ -611,7 +611,7 @@ function validateLoadBalancerInputs() {
         }
     }
     
-    // Check if total server capacity can handle request rate
+    / Check if total server capacity can handle request rate
     const totalCapacity = inputs.numServers.value * inputs.serverCapacity.value;
     if (inputs.requestRate.value > totalCapacity * 0.8) {
         errors.push('Request rate exceeds 80% of total server capacity');
@@ -646,7 +646,7 @@ function simulateLoadBalancer() {
     let resultsHTML = generateLoadBalancerResults(results);
     document.getElementById('results').innerHTML = resultsHTML;
     
-    // Draw charts
+    / Draw charts
     setTimeout(() => {
         drawDistributionChart(simulationResults);
         drawPerformanceChart(trafficPattern, simulationResults);
@@ -676,7 +676,7 @@ function getLoadBalancerConfiguration() {
         connectionTimeout: parseInt(document.getElementById('connectionTimeout').value)
     };
     
-    // Add algorithm-specific configuration
+    / Add algorithm-specific configuration
     if (config.primaryAlgorithm.includes('weighted')) {
         config.serverWeights = [];
         for (let i = 1; i <= config.numServers; i++) {
@@ -704,33 +704,33 @@ function initializeServers(config) {
     for (let i = 0; i < config.numServers; i++) {
         let capacity = config.serverCapacity;
         
-        // Apply capacity variation
+        / Apply capacity variation
         switch (config.serverVariation) {
             case 'slight':
-                capacity *= (0.9 + Math.random() * 0.2); // ±10%
+                capacity *= (0.9 + Math.random() * 0.2); / ±10%
                 break;
             case 'moderate':
-                capacity *= (0.75 + Math.random() * 0.5); // ±25%
+                capacity *= (0.75 + Math.random() * 0.5); / ±25%
                 break;
             case 'high':
-                capacity *= (0.5 + Math.random() * 1.0); // ±50%
+                capacity *= (0.5 + Math.random() * 1.0); / ±50%
                 break;
             case 'mixed':
-                capacity *= i < config.numServers / 2 ? 0.5 : 1.5; // Small and large instances
+                capacity *= i < config.numServers / 2 ? 0.5 : 1.5; / Small and large instances
                 break;
         }
         
-        // Add location-based latency
-        let baseLatency = 5; // 5ms base latency
+        / Add location-based latency
+        let baseLatency = 5; / 5ms base latency
         switch (config.serverLocations) {
             case 'multi-az':
-                baseLatency += Math.random() * 10; // +0-10ms
+                baseLatency += Math.random() * 10; / +0-10ms
                 break;
             case 'multi-region':
-                baseLatency += Math.random() * 50; // +0-50ms
+                baseLatency += Math.random() * 50; / +0-50ms
                 break;
             case 'edge-locations':
-                baseLatency += Math.random() * 20; // +0-20ms
+                baseLatency += Math.random() * 20; / +0-20ms
                 break;
         }
         
@@ -754,12 +754,12 @@ function initializeServers(config) {
 }
 
 function generateTrafficPattern(config) {
-    const duration = 300; // 5-minute simulation
+    const duration = 300; / 5-minute simulation
     const timePoints = [];
     const requestRates = [];
     const clientIPs = [];
     
-    // Generate unique client IPs for session affinity testing
+    / Generate unique client IPs for session affinity testing
     const numClients = Math.min(1000, config.requestRate);
     const uniqueIPs = [];
     for (let i = 0; i < numClients; i++) {
@@ -771,41 +771,41 @@ function generateTrafficPattern(config) {
         
         let rate = config.requestRate;
         
-        // Apply traffic pattern
+        / Apply traffic pattern
         switch (config.trafficPattern) {
             case 'bursty':
-                // Random bursts
+                / Random bursts
                 if (Math.random() < 0.1) {
-                    rate *= (2 + Math.random() * 3); // 2x to 5x burst
+                    rate *= (2 + Math.random() * 3); / 2x to 5x burst
                 }
                 break;
                 
             case 'periodic':
-                // Sine wave pattern
+                / Sine wave pattern
                 rate *= (1 + 0.5 * Math.sin(t / 30));
                 break;
                 
             case 'gradual-increase':
-                // Linear increase
+                / Linear increase
                 rate *= (1 + t / duration);
                 break;
                 
             case 'flash-crowd':
-                // Single large spike
+                / Single large spike
                 if (t >= 150 && t <= 180) {
                     rate *= 5;
                 }
                 break;
                 
             case 'mixed':
-                // Combination of patterns
+                / Combination of patterns
                 rate *= (1 + 0.3 * Math.sin(t / 20) + (Math.random() < 0.05 ? 2 : 0));
                 break;
         }
         
         requestRates.push(Math.round(rate));
         
-        // Generate client IPs for this time period
+        / Generate client IPs for this time period
         const timeClientIPs = [];
         for (let i = 0; i < Math.min(rate / 10, uniqueIPs.length); i++) {
             timeClientIPs.push(uniqueIPs[Math.floor(Math.random() * uniqueIPs.length)]);
@@ -831,7 +831,7 @@ function runSimulation(config, servers, trafficPattern) {
         distributionHistory: []
     };
     
-    let state = {}; // For stateful algorithms
+    let state = {}; / For stateful algorithms
     
     trafficPattern.timePoints.forEach((t, timeIndex) => {
         const requestsThisSecond = trafficPattern.requestRates[timeIndex];
@@ -840,11 +840,11 @@ function runSimulation(config, servers, trafficPattern) {
         let secondRequests = [];
         let secondLatencies = [];
         
-        // Process requests for this time period
+        / Process requests for this time period
         for (let reqIndex = 0; reqIndex < requestsThisSecond; reqIndex++) {
             const clientIP = clientIPs[reqIndex % clientIPs.length] || '192.168.1.1';
             
-            // Select server using the algorithm
+            / Select server using the algorithm
             let serverIndex;
             try {
                 if (algorithm.implementation) {
@@ -866,20 +866,20 @@ function runSimulation(config, servers, trafficPattern) {
                         );
                     }
                 } else {
-                    serverIndex = 0; // Fallback
+                    serverIndex = 0; / Fallback
                 }
             } catch (e) {
-                serverIndex = 0; // Fallback on error
+                serverIndex = 0; / Fallback on error
             }
             
-            // Ensure serverIndex is valid
+            / Ensure serverIndex is valid
             serverIndex = Math.max(0, Math.min(serverIndex, results.serverMetrics.length - 1));
             
             const server = results.serverMetrics[serverIndex];
             
-            // Check if server can handle request
+            / Check if server can handle request
             if (server.healthy && server.activeConnections < server.capacity) {
-                // Process request
+                / Process request
                 const latency = calculateRequestLatency(server, config);
                 
                 server.activeConnections++;
@@ -887,16 +887,16 @@ function runSimulation(config, servers, trafficPattern) {
                 secondRequests.push(serverIndex);
                 secondLatencies.push(latency);
                 
-                // Update server metrics
+                / Update server metrics
                 server.requestCounts[timeIndex] = (server.requestCounts[timeIndex] || 0) + 1;
                 server.latencies.push(latency);
                 server.avgResponseTime = server.latencies.reduce((sum, l) => sum + l, 0) / server.latencies.length;
                 
-                // Update utilization
+                / Update utilization
                 server.cpuUsage = Math.min(100, (server.activeConnections / server.capacity) * 100);
                 server.utilizationHistory[timeIndex] = server.cpuUsage;
                 
-                // Connection cleanup (simplified)
+                / Connection cleanup (simplified)
                 setTimeout(() => {
                     if (server.activeConnections > 0) {
                         server.activeConnections--;
@@ -904,29 +904,29 @@ function runSimulation(config, servers, trafficPattern) {
                 }, latency);
                 
             } else {
-                // Request failed - server overloaded or unhealthy
+                / Request failed - server overloaded or unhealthy
                 results.overallMetrics.errorRate++;
             }
         }
         
-        // Update overall metrics
+        / Update overall metrics
         results.overallMetrics.totalRequests += requestsThisSecond;
         results.overallMetrics.throughput.push(secondRequests.length);
         
-        // Calculate distribution for this time period
+        / Calculate distribution for this time period
         const distribution = Array(config.numServers).fill(0);
         secondRequests.forEach(serverIndex => {
             distribution[serverIndex]++;
         });
         results.distributionHistory.push(distribution);
         
-        // Simulate health checks
+        / Simulate health checks
         if (config.healthCheckEnabled && t % config.healthCheckInterval === 0) {
             simulateHealthChecks(results.serverMetrics, config);
         }
     });
     
-    // Calculate final metrics
+    / Calculate final metrics
     const allLatencies = results.serverMetrics.flatMap(s => s.latencies);
     if (allLatencies.length > 0) {
         allLatencies.sort((a, b) => a - b);
@@ -941,30 +941,30 @@ function runSimulation(config, servers, trafficPattern) {
 }
 
 function calculateRequestLatency(server, config) {
-    // Base latency from server location
+    / Base latency from server location
     let latency = server.baseLatency;
     
-    // Add processing time based on current load
+    / Add processing time based on current load
     const loadFactor = server.activeConnections / server.capacity;
-    latency += loadFactor * 20; // Up to 20ms additional latency under full load
+    latency += loadFactor * 20; / Up to 20ms additional latency under full load
     
-    // Add network jitter
+    / Add network jitter
     latency += Math.random() * 5;
     
-    // Connection pooling benefits
+    / Connection pooling benefits
     if (config.keepAlive !== 'disabled') {
         const keepAliveReduction = config.keepAlive === 'short' ? 0.1 : 
                                   config.keepAlive === 'medium' ? 0.2 : 0.3;
         latency *= (1 - keepAliveReduction);
     }
     
-    return Math.max(1, latency); // Minimum 1ms latency
+    return Math.max(1, latency); / Minimum 1ms latency
 }
 
 function simulateHealthChecks(servers, config) {
     servers.forEach(server => {
-        // Simulate health check failure based on server utilization
-        const failureProb = Math.max(0, (server.cpuUsage - 80) / 20 * 0.1); // Higher failure chance at high utilization
+        / Simulate health check failure based on server utilization
+        const failureProb = Math.max(0, (server.cpuUsage - 80) / 20 * 0.1); / Higher failure chance at high utilization
         
         if (Math.random() < failureProb) {
             server.failureCount++;
@@ -974,7 +974,7 @@ function simulateHealthChecks(servers, config) {
         } else {
             server.failureCount = Math.max(0, server.failureCount - 1);
             if (server.failureCount === 0 && !server.healthy) {
-                server.healthy = true; // Recovery
+                server.healthy = true; / Recovery
             }
         }
     });
@@ -984,20 +984,20 @@ function analyzePerformance(simulationResults, config) {
     const metrics = simulationResults.overallMetrics;
     const serverMetrics = simulationResults.serverMetrics;
     
-    // Calculate distribution balance
+    / Calculate distribution balance
     const requestCounts = serverMetrics.map(s => s.totalRequests);
     const maxRequests = Math.max(...requestCounts);
     const minRequests = Math.min(...requestCounts);
     const balance = minRequests / maxRequests;
     
-    // Calculate server utilization stats
+    / Calculate server utilization stats
     const avgUtilizations = serverMetrics.map(s => 
         s.utilizationHistory.reduce((sum, u) => sum + (u || 0), 0) / s.utilizationHistory.length
     );
     const maxUtilization = Math.max(...avgUtilizations);
     const avgUtilization = avgUtilizations.reduce((sum, u) => sum + u, 0) / avgUtilizations.length;
     
-    // Performance scoring
+    / Performance scoring
     const latencyScore = metrics.p95Latency <= config.targetLatency ? 100 : 
                         Math.max(0, 100 - (metrics.p95Latency - config.targetLatency) / config.targetLatency * 100);
     
@@ -1023,7 +1023,7 @@ function analyzePerformance(simulationResults, config) {
 function identifyBottlenecks(serverMetrics, config) {
     const bottlenecks = [];
     
-    // High utilization servers
+    / High utilization servers
     const highUtilServers = serverMetrics.filter(s => 
         s.utilizationHistory.some(u => u > 90)
     );
@@ -1031,13 +1031,13 @@ function identifyBottlenecks(serverMetrics, config) {
         bottlenecks.push(`${highUtilServers.length} servers experiencing high utilization (>90%)`);
     }
     
-    // Unhealthy servers
+    / Unhealthy servers
     const unhealthyServers = serverMetrics.filter(s => !s.healthy);
     if (unhealthyServers.length > 0) {
         bottlenecks.push(`${unhealthyServers.length} servers are currently unhealthy`);
     }
     
-    // Load imbalance
+    / Load imbalance
     const requestCounts = serverMetrics.map(s => s.totalRequests);
     const maxRequests = Math.max(...requestCounts);
     const minRequests = Math.min(...requestCounts);
@@ -1051,7 +1051,7 @@ function identifyBottlenecks(serverMetrics, config) {
 function generateLoadBalancerRecommendations(config, performance) {
     const recommendations = [];
     
-    // Performance recommendations
+    / Performance recommendations
     if (performance.latencyScore < 70) {
         recommendations.push({
             category: 'Latency',
@@ -1097,7 +1097,7 @@ function generateLoadBalancerRecommendations(config, performance) {
         });
     }
     
-    // Health check recommendations
+    / Health check recommendations
     if (performance.healthyServers < config.numServers) {
         recommendations.push({
             category: 'Reliability',
@@ -1413,7 +1413,7 @@ function drawLatencyChart(simulationResults) {
         latencyChart.destroy();
     }
     
-    // Collect all latencies and create histogram
+    / Collect all latencies and create histogram
     const allLatencies = simulationResults.serverMetrics.flatMap(s => s.latencies);
     const latencyBins = createLatencyHistogram(allLatencies);
     
@@ -1465,7 +1465,7 @@ function createLatencyHistogram(latencies) {
     }
     
     const max = Math.max(...latencies);
-    const binSize = Math.ceil(max / 10); // Create 10 bins
+    const binSize = Math.ceil(max / 10); / Create 10 bins
     const bins = [];
     const labels = [];
     
@@ -1556,12 +1556,12 @@ function exportLoadBalancerResults() {
     URL.revokeObjectURL(url);
 }
 
-// Initialize configuration
+/ Initialize configuration
 document.addEventListener('DOMContentLoaded', function() {
-    // Set up initial algorithm configuration
+    / Set up initial algorithm configuration
     document.getElementById('primaryAlgorithm').dispatchEvent(new Event('change'));
     
-    // Set up health check toggle
+    / Set up health check toggle
     document.getElementById('healthCheckEnabled').addEventListener('change', function() {
         const healthCheckDetails = document.getElementById('healthCheckDetails');
         if (this.value === 'enabled') {

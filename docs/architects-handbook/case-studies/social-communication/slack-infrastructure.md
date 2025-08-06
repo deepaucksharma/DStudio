@@ -51,7 +51,7 @@ best_for:
 - Rich messaging with history and search
 excellence_guides:
 - scale/large-scale
-- ../../../pattern-library/real-time-systems
+- ../../pattern-library/real-time-systems
 - architecture/messaging
 key_innovations:
 - 'Flannel: Custom websocket gateway for connection management'
@@ -133,7 +133,7 @@ graph TB
 
 === "Connection Handling"
     ```go
-    // Flannel gateway connection manager
+    / Flannel gateway connection manager
     type ConnectionManager struct {
         connections map[string]*WSConnection
         mu sync.RWMutex
@@ -151,7 +151,7 @@ graph TB
         cm.connections[userID] = conn
         cm.mu.Unlock()
         
-        // Start goroutines for read/write
+        / Start goroutines for read/write
         go conn.readPump()
         go conn.writePump()
     }
@@ -441,9 +441,9 @@ graph LR
 
 ## Related Resources
 
-- [WebSocket Pattern](../../pattern-library/communication.md/websocket.md)
-- [Message Queue Pattern](../../pattern-library/message-queue.md)
-- [Sharding Pattern](../../pattern-library/scaling.md/sharding.md)
+- [WebSocket Pattern](../pattern-library/communication/websocket.md)
+- [Message Queue Pattern](../pattern-library/message-queue.md)
+- [Sharding Pattern](../scaling/sharding.md)
 - [Building Slack's Architecture](https://slack.engineering/index.md)
 
 ---

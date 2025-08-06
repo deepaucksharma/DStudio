@@ -48,7 +48,7 @@ stateDiagram-v2
 ## Implementation
 
 ```java
-// Production-ready Java implementation
+/ Production-ready Java implementation
 @Component
 public class CircuitBreaker {
     private final AtomicInteger failureCount = new AtomicInteger(0);
@@ -56,7 +56,7 @@ public class CircuitBreaker {
     private final AtomicLong lastFailureTime = new AtomicLong(0);
     private volatile State state = State.CLOSED;
     
-    // Configurable parameters
+    / Configurable parameters
     private final int failureThreshold = 5;
     private final int successThreshold = 3;
     private final long timeoutMs = 30_000;
@@ -180,7 +180,7 @@ class CircuitBreaker:
 ```
 
 ```go
-// Go implementation with context support
+/ Go implementation with context support
 package circuit
 
 import (

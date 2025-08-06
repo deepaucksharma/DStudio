@@ -213,7 +213,7 @@ db.places.aggregate([
       near: { type: "Point", coordinates: [-73.9857, 40.7484] },
       distanceField: "distance",
       spherical: true,
-      distanceMultiplier: 0.001  // Convert to km
+      distanceMultiplier: 0.001  / Convert to km
     }
   }
 ]);
@@ -343,7 +343,7 @@ def reduce_nearest(distances, k):
 from multiprocessing import Pool
 
 def parallel_haversine(center, locations, num_workers=4):
-    chunk_size = len(locations) // num_workers
+    chunk_size = len(locations) / num_workers
     chunks = [locations[i:i+chunk_size] 
               for i in range(0, len(locations), chunk_size)]
     
@@ -442,7 +442,7 @@ def adaptive_distance(lat1, lon1, lat2, lon2, max_error_km=0.1):
 
 ## Related Topics
 
-- [Computational Geometry](../../architects-handbook/quantitative-analysis/comp-geometry.md)
+- [Computational Geometry](../architects-handbook/quantitative-analysis/comp-geometry.md)
 - Spatial Indexing (Coming Soon)
-- [Location Services](../case-studies/proximity-service.md)
-- [Performance Optimization](../../architects-handbook/quantitative-analysis/performance-modeling.md)
+- [Location Services](../architects-handbook/case-studies/proximity-service.md)
+- [Performance Optimization](../architects-handbook/quantitative-analysis/performance-modeling.md)

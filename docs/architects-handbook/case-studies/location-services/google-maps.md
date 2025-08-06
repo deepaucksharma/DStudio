@@ -820,7 +820,7 @@ Browser → Web Server → Map Tiles → Static Images
 - Limited coverage
 
 **Patterns Violated**: 
-- No [Tile Caching](../../pattern-library/scaling.md/tile-caching.md)
+- No [Tile Caching](../pattern-library/scaling/tile-caching.md)
 - No Vector Maps
 - No Real-time Updates
 
@@ -854,7 +854,7 @@ graph TB
 ```
 
 **Key Design Decision: Tile Pyramid System**
-- **Trade-off**: Storage vs Computation (Pillar: [State Distribution](../../core-principles/pillars.md/state-distribution.md))
+- **Trade-off**: Storage vs Computation (Pillar: [State Distribution](../core-principles/pillars/state-distribution.md))
 - **Choice**: Pre-render popular zoom levels
 - **Result**: 100x faster map loads
 - **Pattern Applied**: Tile Pyramid
@@ -908,8 +908,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - Pattern: Vector Tiles - Resolution independence
 - Pattern: Client Rendering - GPU acceleration
-- 🏛 Pillar: [Work Distribution](../../core-principles/pillars.md/work-distribution.md) - Client computation
-- 🏛 Pillar: [Intelligence](../../core-principles/pillars.md/intelligence-distribution.md) - ML map generation
+- 🏛 Pillar: [Work Distribution](../core-principles/pillars/work-distribution.md) - Client computation
+- 🏛 Pillar: [Intelligence](../core-principles/pillars/intelligence-distribution.md) - ML map generation
 
 ### Phase 4: Modern Real-time Platform (2015-Present)
 
@@ -1827,34 +1827,34 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 ## Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../../core-principles/laws.md/asynchronous-reality/index.md)** - Tile serving, routing speed
-- **[Law 4: Trade-offs](../../core-principles/laws.md/multidimensional-optimization/index.md)** - Petabyte-scale storage
-- **[Law 1: Failure](../../core-principles/laws.md/correlated-failure/index.md)** - Multi-region redundancy
-- **[Law 3: Emergence](../../core-principles/laws.md/emergent-chaos/index.md)** - Parallel tile generation
-- **[Law 5: Epistemology](../../core-principles/laws.md/distributed-knowledge/index.md)** - Global data consistency and traffic accuracy metrics
-- **[Law 6: Human-API](../../core-principles/laws.md/cognitive-load/index.md)** - Intuitive navigation
-- **[Law 7: Economics](../../core-principles/laws.md/economic-reality/index.md)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality](../core-principles/laws/asynchronous-reality/index.md)** - Tile serving, routing speed
+- **[Law 4: Trade-offs](../core-principles/laws/multidimensional-optimization/index.md)** - Petabyte-scale storage
+- **[Law 1: Failure](../core-principles/laws/correlated-failure/index.md)** - Multi-region redundancy
+- **[Law 3: Emergence](../core-principles/laws/emergent-chaos/index.md)** - Parallel tile generation
+- **[Law 5: Epistemology](../core-principles/laws/distributed-knowledge/index.md)** - Global data consistency and traffic accuracy metrics
+- **[Law 6: Human-API](../core-principles/laws/cognitive-load/index.md)** - Intuitive navigation
+- **[Law 7: Economics](../core-principles/laws/economic-reality/index.md)** - Infrastructure costs
 
 ### 🏛 Related Patterns
 - **Tile Pyramid** - Multi-zoom tiles
 - **Vector Tiles** - Efficient map data
 - **Spatial Indexing** - R-tree, QuadTree
 - **Graph Algorithms** - Routing algorithms
-- **[Stream Processing](../../pattern-library/scaling.md/queues-streaming/index.md)** - Traffic updates
-- **[Edge Computing](../../pattern-library/scaling.md/edge-computing/index.md)** - Global CDN
+- **[Stream Processing](../pattern-library/scaling/queues-streaming/index.md)** - Traffic updates
+- **[Edge Computing](../pattern-library/scaling/edge-computing/index.md)** - Global CDN
 - **ML Pipeline** - Map generation
 
 ### Quantitative Models
-- **[Graph Theory](../../quantitative-analysis/graph-theory/index.md)** - Road networks
-- **[Computational Geometry](../../quantitative-analysis/computational-geometry/index.md)** - Map projections
-- **[Time-Series Analysis](../../quantitative-analysis/time-series/index.md)** - Traffic patterns
-- **[Computer Vision](../../quantitative-analysis/computer-vision/index.md)** - Image processing
+- **[Graph Theory](../architects-handbook/quantitative-analysis/graph-theory/index.md)** - Road networks
+- **[Computational Geometry](../architects-handbook/quantitative-analysis/computational-geometry/index.md)** - Map projections
+- **[Time-Series Analysis](../architects-handbook/quantitative-analysis/time-series/index.md)** - Traffic patterns
+- **[Computer Vision](../architects-handbook/quantitative-analysis/computer-vision/index.md)** - Image processing
 
 ### Similar Case Studies
-- **[Uber Maps](../../uber-maps.md)** - Ride-hailing focused maps
-- **[Apple Maps](../../apple-maps.md)** - Privacy-focused mapping
-- **[OpenStreetMap](../../openstreetmap.md)** - Crowdsourced maps
-- **[HERE Maps](../../here-maps.md)** - Automotive mapping
+- **[Uber Maps](../uber-maps.md)** - Ride-hailing focused maps
+- **[Apple Maps](../apple-maps.md)** - Privacy-focused mapping
+- **[OpenStreetMap](../openstreetmap.md)** - Crowdsourced maps
+- **[HERE Maps](../here-maps.md)** - Automotive mapping
 
 ---
 

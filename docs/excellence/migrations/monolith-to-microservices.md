@@ -726,6 +726,6 @@ success_metrics:
 ## Additional Resources
 
 - Domain-Driven Design
-- [Service Mesh Patterns](../../../pattern-library/communication/service-mesh/index.md)
-- [Event-Driven Architecture](../../../pattern-library/architecture/event-driven/index.md)
-- [Microservices Security](../../security/microservices-security.md)
+- [Service Mesh Patterns](../../pattern-library/communication/service-mesh/index.md)
+- [Event-Driven Architecture](../../pattern-library/architecture/event-driven/index.md)
+- [Microservices Security](../security/microservices-security.md)

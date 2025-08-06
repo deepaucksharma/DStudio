@@ -320,7 +320,7 @@ graph LR
     
     💡 **Best For**: High-availability systems, failure recovery, system stability
 
-- :material-database:{ .lg } **[Data Management Patterns](../pattern-library/data-management/cdc.md)** (22 patterns)
+- :material-database:{ .lg } **[Data Management Patterns](data-management/cdc.md)** (22 patterns)
     
     ---
     
@@ -509,9 +509,9 @@ Compliance: Immutable Logs + Two-Person Rule
 </div>
 
 <script>
-// Pattern filtering for the pattern library page
+/ Pattern filtering for the pattern library page
 document.addEventListener('DOMContentLoaded', function() {
-    // Wait for patterns to be loaded from pattern-filtering.js
+    / Wait for patterns to be loaded from pattern-filtering.js
     if (typeof patterns === 'undefined') {
         console.error('Patterns not loaded. Make sure pattern-filtering.js is included.');
         return;
@@ -527,7 +527,7 @@ document.addEventListener('DOMContentLoaded', function() {
         company: ''
     };
 
-    // Load saved filters
+    / Load saved filters
     const savedFilters = localStorage.getItem('patternFilters');
     if (savedFilters) {
         try {
@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Initialize pattern grid
+    / Initialize pattern grid
     initializePatternGrid();
     setupEventListeners();
     applyCurrentFilters();
@@ -545,12 +545,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function initializePatternGrid() {
         const grid = document.getElementById('pattern-grid');
         if (grid) {
-            grid.innerHTML = ''; // Clear loading message
+            grid.innerHTML = ''; / Clear loading message
         }
     }
 
     function setupEventListeners() {
-        // Search input
+        / Search input
         const searchBox = document.getElementById('pattern-search');
         if (searchBox) {
             searchBox.value = currentFilters.search;
@@ -560,13 +560,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Filter buttons
+        / Filter buttons
         document.querySelectorAll('.filter-btn').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 const filterType = this.getAttribute('data-filter');
                 const filterValue = this.getAttribute('data-value');
                 
-                // Update active state
+                / Update active state
                 const parent = this.parentElement;
                 parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
@@ -576,9 +576,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Quick filters
+        / Quick filters
         window.applyQuickFilter = function(type) {
-            // Reset filters first
+            / Reset filters first
             Object.keys(currentFilters).forEach(key => {
                 currentFilters[key] = key === 'tier' || key === 'category' || key === 'status' ? 'all' : '';
             });
@@ -603,7 +603,7 @@ document.addEventListener('DOMContentLoaded', function() {
             applyCurrentFilters();
         };
 
-        // Reset filters
+        / Reset filters
         window.resetFilters = function() {
             Object.keys(currentFilters).forEach(key => {
                 currentFilters[key] = key === 'tier' || key === 'category' || key === 'status' ? 'all' : '';
@@ -617,7 +617,7 @@ document.addEventListener('DOMContentLoaded', function() {
             localStorage.removeItem('patternFilters');
         };
 
-        // Sort functionality
+        / Sort functionality
         window.sortPatterns = function() {
             const sortSelect = document.getElementById('pattern-sort');
             if (!sortSelect) return;
@@ -644,7 +644,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateFilterUI() {
-        // Update filter buttons
+        / Update filter buttons
         document.querySelectorAll('.filter-btn').forEach(function(btn) {
             const filterType = btn.getAttribute('data-filter');
             const filterValue = btn.getAttribute('data-value');
@@ -660,7 +660,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterPatterns(patternList) {
         let filtered = patternList || patterns;
 
-        // Search filter
+        / Search filter
         if (currentFilters.search) {
             filtered = filtered.filter(p => 
                 p.name.toLowerCase().includes(currentFilters.search) ||
@@ -669,22 +669,22 @@ document.addEventListener('DOMContentLoaded', function() {
             );
         }
 
-        // Tier filter
+        / Tier filter
         if (currentFilters.tier !== 'all') {
             filtered = filtered.filter(p => p.tier === currentFilters.tier);
         }
 
-        // Category filter
+        / Category filter
         if (currentFilters.category !== 'all') {
             filtered = filtered.filter(p => p.category === currentFilters.category);
         }
 
-        // Status filter
+        / Status filter
         if (currentFilters.status !== 'all') {
             filtered = filtered.filter(p => p.status === currentFilters.status);
         }
 
-        // Problem domain filter
+        / Problem domain filter
         if (currentFilters.problem) {
             const problemKeywords = {
                 'failure': ['resilience', 'circuit', 'retry', 'fault', 'failure'],
@@ -710,13 +710,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const filtered = filterPatterns();
         displayFilteredPatterns(filtered);
         
-        // Update count
+        / Update count
         const countEl = document.getElementById('pattern-count');
         if (countEl) {
             countEl.textContent = `Showing ${filtered.length} of ${patterns.length} patterns`;
         }
         
-        // Save filters
+        / Save filters
         localStorage.setItem('patternFilters', JSON.stringify(currentFilters));
     }
 
