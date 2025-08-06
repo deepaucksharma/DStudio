@@ -137,6 +137,15 @@ plugins:
       patterns/cell-architecture.md: pattern-library/architecture/cell-based.md
       patterns/observability.md: architects-handbook/human-factors/observability-stacks.md
       patterns/chaos-engineering.md: architects-handbook/human-factors/chaos-engineering.md
+      patterns/retry-with-backoff.md: pattern-library/resilience/retry-backoff.md
+      patterns/change-data-capture.md: pattern-library/data-management/cdc.md
+      patterns/outbox-pattern.md: pattern-library/data-management/outbox.md
+      patterns/hybrid-logical-clocks.md: pattern-library/coordination/hlc.md
+      patterns/cell-based-architecture.md: pattern-library/architecture/cell-based.md
+      patterns/event-driven-architecture.md: pattern-library/architecture/event-driven.md
+      patterns/id-generation-at-scale.md: pattern-library/scaling/id-generation-scale.md
+      patterns/analytics-at-scale.md: pattern-library/scaling/analytics-scale.md
+      patterns/queues-and-streaming.md: pattern-library/scaling/queues-streaming.md
 
       patterns/ambassador.md: pattern-library/architecture/ambassador.md
       patterns/anti-corruption-layer.md: pattern-library/architecture/anti-corruption-layer.md
@@ -214,22 +223,9 @@ plugins:
       patterns/request-batching.md: pattern-library/scaling/request-batching.md
       patterns/scatter-gather.md: pattern-library/scaling/scatter-gather.md
       patterns/tile-caching.md: pattern-library/scaling/tile-caching.md
-      patterns/url-normalization.md: pattern-library/scaling/url-normalization.md- mermaid2:
-    javascript: https://unpkg.com/mermaid@10.9.1/dist/mermaid.esm.min.mjs
-    arguments:
-      securityLevel: 'loose'
-      startOnLoad: true
-      theme: default
-      themeVariables:
-        primaryColor: '#5448C8'
-        primaryTextColor: '#ffffff'
-        primaryBorderColor: '#5448C8'
-        lineColor: '#6366f1'
-        sectionBkgColor: '#f8fafc'
-        altSectionBkgColor: '#f1f5f9'
-        gridColor: '#e2e8f0'
-        secondaryColor: '#00BCD4'
-        tertiaryColor: '#f3f4f6'
+      patterns/url-normalization.md: pattern-library/scaling/url-normalization.md
+- mermaid2:
+    version: '10.4.0'
 - minify:
     minify_html: true
     minify_js: true
